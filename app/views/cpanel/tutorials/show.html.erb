@@ -1,0 +1,17 @@
+<div class="tutorial" style="background: #f5f5f5;border:1px solid #ccc">
+  <div style="margin:20px 20px 0px 20px;border-bottom: 1px solid #e2e2e2">
+    <strong>专题 > </strong><%= @tutorial.node.name%>
+  </div>
+  <div style="padding:20px;border-bottom:1px solid #e2e2e2">
+    <%= video_player width: 640,
+                 height:360,
+                 poster: @tutorial.cover.name.big.url,
+                 src:{ mp4: @tutorial.video.name.url},
+                 controls: true,
+                 'data-setup'=> {} %>
+  </div>
+  <div style="padding:20px">
+    <h4><%=@tutorial.title %></h4>
+    <p><%=@tutorial.summary%></p>
+  </div>
+</div>

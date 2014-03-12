@@ -1,0 +1,10 @@
+<%=link_to 'edit',edit_topic_path(@topic) %>
+<p>
+  <%= @topic.title %>
+</p>
+
+<div>
+  <p>
+    <%= @topic.body.html_safe %>
+  </p>
+</div>

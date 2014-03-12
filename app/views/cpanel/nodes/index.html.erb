@@ -1,0 +1,14 @@
+<table class="table table-bordered table-striped table-condensed">
+<% @nodes.each do |node| %>
+  <tr>
+    <td><%= link_to node.name , edit_cpanel_node_path(node) %></td>
+    <td><%= node.section.name %></td>
+    <td><%= node.summary %></td>
+    <td><%= node.topics_count %></td>
+    <td><%= link_to 'destroy', cpanel_node_path(node),
+                               :method => :delete,
+                               'data-confirm' => 'Are you sure?',
+                               :class => "icon small_delete" %></td>
+  </tr>
+<% end %>
+</table>

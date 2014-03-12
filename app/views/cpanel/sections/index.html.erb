@@ -1,0 +1,12 @@
+<%= @sections.length %>
+<table>
+<% @sections.each do |section| %>
+    <tr>
+      <td><%= section.name %> </td>
+      <td><%=link_to 'edit',edit_cpanel_section_path(section) ,  :class => "icon small_edit" %></td>
+      <td><%=link_to 'destroy',cpanel_section_path(section),
+                        'data-confirm' => 'Are you sure?',
+                        :method => :delete, :class => "icon small_delete" %></td>
+    </tr>
+<% end %>
+</table>

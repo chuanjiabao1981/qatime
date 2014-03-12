@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Qatime</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => false %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
+  <link href="http://vjs.zencdn.net/4.4/video-js.css" rel="stylesheet">
+  <script src="http://vjs.zencdn.net/4.4/video.js"></script>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<% if user_signed_in? %>
+  <li>
+    <%= link_to 'Logout', destroy_user_session_path, :method=>'delete' %>
+  </li>
+<% else %>
+  <li>
+    <%= link_to 'Login', new_user_session_path %>
+  </li>
+<% end %>
+<% if user_signed_in? %>
+  <li>
+    <%= link_to 'Edit account', edit_user_registration_path %>
+  </li>
+<% else %>
+   <li>
+     <%= link_to 'Sign up', new_user_registration_path %>
+   </li>
+<% end %>
+<p class="notice"><%= notice %></p>
+<p class="alert"><%= alert %></p>
+<div class="container">
+  <div class='row'>
+    <div class='col-md-9'>
+      <%= yield %>
+    </div>
+    <div class='col-md-3'>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+<%=link_to "new topic",new_topic_path(node_id:@node.id) unless @node.blank?%>
+<br/>
+<table>
+  <% @topics.each do |topic| %>
+    <%= link_to topic.title, topic_path(topic) %><br/>
+  <% end %>
+</table>

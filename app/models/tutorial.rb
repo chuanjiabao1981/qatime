@@ -3,6 +3,8 @@ class Tutorial < ActiveRecord::Base
   has_one       :cover,:dependent => :destroy
   belongs_to    :node,:counter_cache => true
   belongs_to    :author,:class_name => "User"
+
+  has_many      :comments,as: :commentable,dependent: :destroy
   validates_presence_of :title,:summary,:node
 
   def generate_token

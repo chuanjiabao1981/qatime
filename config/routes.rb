@@ -8,6 +8,9 @@ Qatime::Application.routes.draw do
     resources :tutorials
   end
 
+  resources :tutorials do
+    resources :comments
+  end
 
   get "topics/node:id" => "topics#node", as: 'node_topics'
   resources :topics

@@ -16,6 +16,7 @@ class Cpanel::TutorialsController <  Cpanel::ApplicationController
   end
   def show
     @tutorial = Tutorial.find(params[:id])
+    @comment  = @tutorial.comments.build
   end
 
   def edit

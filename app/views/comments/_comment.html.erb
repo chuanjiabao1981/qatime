@@ -1,0 +1,15 @@
+<div style="border-bottom:1px solid #ccc">
+  <div class="pull-left" style="padding: 8px">
+    <%= image_tag comment.author.avatar.normal.url if comment.author %>
+  </div>
+  <div style="padding:8px;margin-left: 58px">
+    <span style="color:gray">
+        <small><%= comment.author.email if comment.author%></small>
+        <small><%= comment.created_at %></small>
+    </span>
+    <div style="line-height: 180%;">
+      <%= comment.body %>
+    </div>
+  </div>
+  <div style="clear: both"></div>
+</div>

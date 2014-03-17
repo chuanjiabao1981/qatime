@@ -12,11 +12,13 @@ Qatime::Application.routes.draw do
     resources :comments
   end
 
-  get "topics/node:id" => "topics#node", as: 'node_topics'
+  get "topics/node:id"      => "topics#node",       as: 'node_topics'
+  get "tutorials/node:id"   => "tutorials#node",    as: 'node_tutorials'
   resources :topics
   resources :pictures
   resources :covers
   resources :videos
+  resources :tutorials
 
 
 end

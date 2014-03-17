@@ -1,0 +1,32 @@
+<div class="qa_tutorial_item">
+    <div class="qa_box qa_tutorial">
+        <div class="video_thumbnail">
+            <%= link_to tutorial_path(tutorial) do %>
+                <%=image_tag tutorial.cover.name.big.url ,class: "img-responsive" %>
+             <% end %>
+        </div>
+        <div style="margin-right:10px">
+          <!--div class="pull-right">
+          </div-->
+          <div style="margin-left:10px;">
+            <strong><%= tutorial.title%></strong><br/>
+            <small></small>
+            <p style="line-height:1.6em;">
+                <%= tutorial.summary %>
+            </p>
+          </div>
+        </div>
+        <div class="tutorial_status">
+            <div class="pull-right">
+                <li class="glyphicon glyphicon-comment">123</li>
+                <li class="glyphicon glyphicon-heart">12</li>
+                <li class="glyphicon glyphicon-eye-open">11</li>
+            </div>
+        </div>
+    <div style="clear: both"></div>
+</div>
+  <div style="margin-left:10px;margin-top:10px">
+    <%=image_tag tutorial.author.avatar.tiny.url ,class: 'img-circle'%>
+    <small style="color: gray">maguowei • <%= tutorial.created_at %></small>
+  </div>
+</div>

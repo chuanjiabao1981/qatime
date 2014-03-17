@@ -17,8 +17,17 @@ class AvatarUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
+
   version :normal do
     process :resize_to_fill => [48, 48]
+  end
+
+  version :small do
+    process :resize_to_fill => [32,32]
+  end
+
+  version :tiny do
+    process :resize_to_fill => [16,16]
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:

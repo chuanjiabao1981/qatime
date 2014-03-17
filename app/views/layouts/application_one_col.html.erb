@@ -4,8 +4,6 @@
   <title>Qatime</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => false %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
-  <link href="http://vjs.zencdn.net/4.4/video-js.css" rel="stylesheet">
-  <script src="http://vjs.zencdn.net/4.4/video.js"></script>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -13,12 +11,7 @@
 
 <div class="container">
   <div class='row'>
-    <div class='col-md-9'>
       <%= yield %>
-    </div>
-    <div class='col-md-3'>
-      <%= yield :side_bar%>
-    </div>
   </div>
 </div>
 

@@ -17,3 +17,43 @@
 body{
   background-image:asset-url("sys-bg-main.png",image)
 }
+
+.qa_box{
+  //padding-left、padding-right添加的目的是为了覆盖bootstrap的默认值。
+//  padding-left:0px !important;
+//  padding-right:0px !important;
+  background: #f5f5f5;
+  border:1px solid #ccc;
+}
+.qa_tutorial_item
+{
+  width:31%;
+  margin-right:2%;
+  margin-bottom: 20px;
+  float:left;
+}
+.qa_tutorial .video_thumbnail {
+  margin:10px;
+}
+
+
+
+
+.qa_tutorial .tutorial_status {
+  margin-right:10px;
+}
+.tutorial_status {
+  margin-left:10px;
+  font-size: 11px;
+  color: #aaa;
+
+}
+.tutorial_status  li {
+  list-style: none;
+  float:right;
+  text-align: left;
+  line-height:1;
+  margin-bottom:  4px;
+  margin-left:10px;
+
+}

@@ -23,6 +23,10 @@ class Cpanel::TutorialsController <  Cpanel::ApplicationController
     @tutorial = Tutorial.find(params[:id])
   end
 
+  def index
+    @tutorials = Tutorial.all
+  end
+
   def update
     @tutorial = Tutorial.find(params[:id])
     #这里没有考虑更新cover 原因是
@@ -30,5 +34,10 @@ class Cpanel::TutorialsController <  Cpanel::ApplicationController
     #video的原因是类似的。但是对于一对多的情况就不适用了。
     @tutorial.update_attributes(params[:tutorial].permit!)
     respond_with :cpanel,@tutorial
+  end
+  def destroy
+    @tutorial = Tutorial.find(params[:id])
+    @tutorial.destroy
+    redirect_to cpanel_tutorials_path
   end
 end

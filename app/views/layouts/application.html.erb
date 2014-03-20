@@ -17,6 +17,9 @@
       <%= yield %>
     </div>
     <div class='col-md-3'>
+      <% if user_signed_in? %>
+        <%= render 'layouts/user_info' %>
+      <% end %>
       <%= yield :side_bar%>
     </div>
   </div>

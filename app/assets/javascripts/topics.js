@@ -11,8 +11,9 @@ $(function() {
             console.log(typeof welEditable);
             var fd = new FormData();
             fd.append("picture[name]", files[0]);
-
-            var uploadImageForm = $('<form action="/pictures" enctype="multipart/form-data" method="post"></form>');
+            fd.append("picture[token]",$('input#picture_token').val());
+            //var uploadImageForm = $('<form action="/pictures" enctype="multipart/form-data" method="post"></form>');
+            var uploadImageForm = $("form#pictures_upload");
             progress.show();
             $(uploadImageForm).ajaxSubmit(
                 {

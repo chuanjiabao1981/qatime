@@ -4,13 +4,13 @@ class TopicsController < ApplicationController
     @topics = Topic.all
   end
   def new
-    @topic = Topic.new
+    @topic = Topic.new_with_token
     @node  = Node.find_by_id(params[:node_id])
     #TODO:: 404页面处理
   end
 
   def create
-    @topic          = Topic.new(params[:topic].permit!)
+    @topic          = Topic.new_with_token(params[:topic].permit!)
     @topic.user_id  = current_user.id
     # @topic.node_id  = params[:node_id]
     if @topic.save
@@ -32,6 +32,11 @@ class TopicsController < ApplicationController
     else
       render :edit
     end
+  end
+  def destroy
+    @topic = Topic.find(params[:id])
+    @topic.destroy
+    redirect_to topics_path
   end
   def node
     @node   = Node.find(params[:id])

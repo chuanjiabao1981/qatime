@@ -1,6 +1,7 @@
 #code:utf-8
 class Cpanel::TutorialsController <  Cpanel::ApplicationController
   respond_to :html
+
   def index
     @tutorials = Tutorial.all
   end

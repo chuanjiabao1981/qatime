@@ -1,4 +1,6 @@
-<%=link_to 'edit',edit_topic_path(@topic) %>
+
+<%=link_to 'edit'       ,edit_topic_path(@topic) %>
+<%=link_to 'destroy'    ,topic_path(@topic),method: 'delete','data-confirm' => 'Are you sure?' %>
 <p>
   <%= @topic.title %>
 </p>

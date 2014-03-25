@@ -1,0 +1,19 @@
+<div class="qa_cell">
+    <div class="pull-left">
+      <%=image_tag topic.user.avatar.normal.url %>
+    </div>
+
+    <div class="qa_topic">
+        <div class="pull-right text-center reply_count">
+          <span class="badge"><%= topic.replies_count + 101 %></span>
+        </div>
+        <div class="title">
+            <%= link_to topic.title, topic_path(topic) %>
+        </div>
+        <div class="info">
+            <span class="node"> <%= topic.node.name %> </span>   • <%= topic.user.name %> • <%= time_ago_in_words(topic.created_at) %>
+        </div>
+    </div>
+
+    <div style="clear:both"></div>
+</div>

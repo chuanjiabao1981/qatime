@@ -13,7 +13,9 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">首页</a></li>
         <li><%= link_to '视频' , tutorials_path %></li>
-        <li><a href="#forum">论坛</a></li>
+        <li>
+            <%=link_to '论坛', topics_path %>
+        </li>
         <li><a href="#contact">投票</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

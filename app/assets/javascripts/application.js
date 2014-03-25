@@ -16,6 +16,7 @@
 //= require summernote
 //= require summernote-zh-CN
 //= require jquery.form
+//= require videojs/video
 //= require_tree .
 // require turbolinks
 

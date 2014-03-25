@@ -9,6 +9,6 @@ class User < ActiveRecord::Base
 
   mount_uploader :avatar, AvatarUploader
 
-  validates_presence_of :avatar
+  validates_presence_of :avatar,:name
   has_many :topics, :dependent => :destroy
 end

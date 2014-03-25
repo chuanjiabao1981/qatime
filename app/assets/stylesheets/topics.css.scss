@@ -1,3 +1,37 @@
 // Place all the styles related to the topics controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.qa_topics
+{
+  line-height: 140%;
+}
+.qa_topics .qa_topic
+{
+  margin-left: 58px
+}
+.qa_topics .qa_topic .title
+{
+  margin-right:58px;
+  margin-bottom: 10px
+}
+.qa_topic .info
+{
+  font-size: 12px;
+  color:gray;
+}
+.qa_topics .qa_topic .reply_count
+{
+  width:50px
+}
+.qa_topics .qa_topic .info .node
+{
+  background-color:#e7e7e7;
+  padding: 2px 5px;
+  font-size: 10px;
+  margin-right:2px
+}
+
+.qa_topic .header .title
+{
+  margin-right: 60px;
+}

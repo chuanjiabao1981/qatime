@@ -13,7 +13,14 @@
 
 <div class="container">
   <div class='row'>
+
     <div class='col-md-9'>
+      <% if notice %>
+          <div class="alert alert-info"><%= notice %></div>
+      <% end %>
+      <% if alert %>
+          <p class="alert alert-danger"><%= alert %></div>
+      <% end %>
       <%= yield %>
     </div>
     <div class='col-md-3'>

@@ -7,8 +7,8 @@ $(function() {
         height: 300,
         lang: 'zh-CN',
         onImageUpload: function(files, editor, welEditable) {
-            console.log('image upload:', files, editor, welEditable);
-            console.log(typeof welEditable);
+            //console.log('image upload:', files, editor, welEditable);
+            //console.log(typeof welEditable);
             var fd = new FormData();
             fd.append("picture[name]", files[0]);
             fd.append("picture[token]",$('input#picture_token').val());

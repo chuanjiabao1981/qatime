@@ -1,4 +1,4 @@
-<div class="navbar navbar-default" role="navigation">
+<div class="navbar navbar-inverse" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -9,13 +9,12 @@
       </button>
       <a class="navbar-brand" href="#">答疑时间</a>
     </div>
+
     <div class="navbar-collapse collapse" style="height: 1px;">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">首页</a></li>
-        <li><%= link_to '视频' , tutorials_path %></li>
-        <li>
-            <%=link_to '论坛', topics_path %>
-        </li>
+        <li class="<%= "active" if controller_name == 'home' %>"><%=link_to '首页',root_path %></li>
+        <li class="<%= "active" if controller_name == 'tutorials'%>"><%= link_to '视频' , tutorials_path %></li>
+        <li class="<%= "active" if controller_name == 'topics' %>"><%= link_to '论坛',topics_path %> </li>
         <li><a href="#contact">投票</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -41,9 +40,3 @@
     </div>
   </div>
 </div>
-<% if notice %>
-    <p class="notice"><%= notice %></p>
-<% end %>
-<% if alert %>
-    <p class="alert"><%= alert %></p>
-<% end %>

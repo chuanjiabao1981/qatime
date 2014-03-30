@@ -1,5 +1,24 @@
 <%=link_to "new topic",new_topic_path(node_id:@node.id) unless @node.blank?%>
+<div class="qa_box" style="background-color: ghostwhite">
+  <div class="qa_cell qa_topics_header_nav">
+    <ol>
+      <li>
+        <a href="#">全部</a>
+      </li>
+      <li class="selected">
+        <a href="#">高中科目</a>
+      </li>
+      <li>
+        <a href="#">初中科目</a>
+      </li>
+      <li>
+        <a href="#">学习方法</a>
+      </li>
+      <div style="clear: both"></div>
+    </ol>
+  </div>
 
+</div>
 <div class="qa_box qa_topics">
   <%= render @topics %>
 </div>

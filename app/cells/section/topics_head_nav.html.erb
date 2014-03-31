@@ -1,0 +1,12 @@
+<div class="qa_box">
+  <div class="qa_cell qa_topics_header_nav box_header">
+    <ol>
+      <% @sections.each do |section| %>
+             <li class=" <%=(section.id == @selected_section_id) ? "selected" : "" %>" >
+                <%=link_to section.name,"#" %>
+             </li>
+      <% end %>
+      <div style="clear: both"></div>
+    </ol>
+  </div>
+</div>

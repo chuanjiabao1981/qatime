@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140320015920) do
+ActiveRecord::Schema.define(version: 20140401052008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20140320015920) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "token"
+    t.integer  "section_id"
   end
 
   create_table "tutorials", force: true do |t|
@@ -91,6 +92,7 @@ ActiveRecord::Schema.define(version: 20140320015920) do
     t.string   "token"
     t.integer  "node_id"
     t.integer  "comments_count", default: 0
+    t.integer  "section_id"
   end
 
   add_index "tutorials", ["token"], name: "index_tutorials_on_token", using: :btree

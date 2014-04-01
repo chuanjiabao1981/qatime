@@ -2,6 +2,7 @@ class Topic < ActiveRecord::Base
 
   belongs_to :user ,:counter_cache => true,:inverse_of => :topics
   belongs_to :node ,:counter_cache => true,:inverse_of => :topics
+  belongs_to :section
 
   has_many :replies,:dependent => :destroy
   has_many :pictures,as: :imageable,:dependent => :destroy
@@ -17,7 +18,8 @@ class Topic < ActiveRecord::Base
   def self.new_with_token(params=nil)
     a = Topic.new(params)
     a.generate_token if a.token.nil?
-    pictures = Picture.where(token: a.token)
+    pictures      = Picture.where(token: a.token)
+    a.section_id  = a.node.section_id if a.node
     a.pictures << pictures unless pictures.empty?
     a
   end

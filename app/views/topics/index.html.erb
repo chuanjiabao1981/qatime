@@ -1,8 +1,21 @@
-<%=link_to "new topic",new_topic_path(node_id:@node.id) unless @node.blank?%>
-<%=render_cell :section,:topics_head_nav ,:selected_section_id=>nil%>
+<% if not @node.blank? %>
+    <div class="qa_box">
+      <div class="qa_cell">
+        <div style="margin-bottom: 10px">
+          <span style="font-size: 18px"><%=link_to @node.section.name ,topics_path(section_id:@node.section_id) %></span> •
+          <span style="font-size: 18px;color: #3b4249"><%=@node.name%></span>
+          <span style="color: #999999;font-size: 0.5em">主题数   <%= @node.topics_count%></span>
+        </div>
+        <%=link_to "new topic",new_topic_path(node_id:@node.id),class:"btn btn-success btn-xs"%>
+      </div>
+    </div>
+<% else %>
+    <%=render_cell :section,:topics_head_nav ,:selected_section_id=>@section_id.to_i%>
+<% end %>
 <div class="qa_box qa_topics">
   <%= render @topics %>
 </div>
-<%=render_cell :section,:topics_bottom_nav %>
-
+<% if @node.blank? %>
+    <%=render_cell :section,:topics_bottom_nav %>
+<% end %>
 

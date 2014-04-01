@@ -3,7 +3,7 @@
     <ol>
       <% @sections.each do |section| %>
              <li class=" <%=(section.id == @selected_section_id) ? "selected" : "" %>" >
-                <%=link_to section.name,"#" %>
+                <%=link_to section.name,topics_path(:section_id=>section.id) %>
              </li>
       <% end %>
       <div style="clear: both"></div>

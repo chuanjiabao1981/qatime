@@ -1,7 +1,9 @@
 #code:utf-8
 class TopicsController < ApplicationController
   def index
-    @topics = Topic.all
+    @section_id   = params[:section_id]
+    @section_id ||= Section.first!.id
+    @topics = Topic.where(section_id:@section_id)
   end
   def new
     @topic = Topic.new_with_token
@@ -12,7 +14,6 @@ class TopicsController < ApplicationController
   def create
     @topic          = Topic.new_with_token(params[:topic].permit!)
     @topic.user_id  = current_user.id
-    # @topic.node_id  = params[:node_id]
     if @topic.save
       redirect_to node_topics_url(id:@topic.node_id),notice: "success create topic"
     else

@@ -8,7 +8,9 @@
             <%= link_to topic.title, topic_path(topic) %>
         </div>
         <div class="info">
-            <span class="node"> <%= topic.node.name %> </span>   • <%= topic.user.name %> • <%= time_ago_in_words(topic.created_at) %>
+            <span class="node"><%= link_to topic.node.name,node_topics_path(topic.node) %></span>   •
+            <%= topic.user.name %> •
+            <%= time_ago_in_words(topic.created_at) %>
         </div>
     </div>
     <div class="reply_count">

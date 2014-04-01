@@ -14,7 +14,7 @@
       <ul class="nav navbar-nav">
         <li class="<%= "active" if controller_name == 'home' %>"><%=link_to '首页',root_path %></li>
         <li class="<%= "active" if controller_name == 'tutorials'%>"><%= link_to '视频' , tutorials_path %></li>
-        <li class="<%= "active" if controller_name == 'topics' %>"><%= link_to '论坛',topics_path %> </li>
+        <li class="<%= "active" if controller_name == 'topics' and action_name == 'index' %>"><%= link_to '社区',topics_path %> </li>
         <li><a href="#contact">投票</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">

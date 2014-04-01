@@ -32,12 +32,17 @@
   right: 10px;
   width:50px
 }
-.qa_topics .main .info .node
+.qa_topics .info .node a
 {
-  background-color:#e7e7e7;
-  padding: 2px 5px;
+  //background-color: #f1f1f1;
+  color: gray;
+//  padding: 0px 5px;
   font-size: 10px;
   margin-right:2px
+}
+.qa_topics .info .node a:hover
+{
+  text-decoration: none;
 }
 
 .topic .header .title

@@ -1,7 +1,17 @@
-<h1>
-  Section#topics_bottom_nav
-</h1>
-
-<p>
-  Find me in app/cells/section/topics_bottom_nav.html.erb
-</p>
+<div class="qa_box">
+  <div class="qa_cell box_header">
+    <div style="text-align: center;color:gray">导航分类</div>
+  </div>
+  <div class="qa_section_nav">
+    <% @sections.each do |section| %>
+        <div class="qa_cell">
+            <li>
+                <label><%= section.name %></label>
+                <% section.nodes.each do |node| %>
+                    <%= link_to node.name,node_topics_path(node) %>
+                <% end %>
+            </li>
+        </div>
+  <% end %>
+  </div>
+</div>

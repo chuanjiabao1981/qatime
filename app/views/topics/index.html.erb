@@ -3,44 +3,6 @@
 <div class="qa_box qa_topics">
   <%= render @topics %>
 </div>
-
-<div class="qa_box">
-    <div class="qa_cell box_header">
-        <div style="text-align: center;color:gray">导航分类</div>
-    </div>
-    <div class="qa_section_nav">
-      <div class="qa_cell">
-        <li>
-          <label>高中科目</label>
-          <a href="#">高中物理</a>
-          <a href="#">高中数学</a>
-          <a href="#">高中生物</a>
-          <a href="#">高中奥数</a>
-        </li>
-      </div>
-      <div class="qa_cell">
-        <li>
-          <label>初中科目</label>
-          <a href="#">初中物理</a>
-          <a href="#">初中数学</a>
-          <a href="#">初中生物</a>
-          <a href="#">初中奥数</a>
-        </li>
-      </div>
-      <div class="qa_cell">
-        <li>
-          <label>学习方法</label>
-          <a href="#">高中</a>
-          <a href="#">初中</a>
-        </li>
-      </div>
-      <div class="qa_cell">
-        <li>
-        <label>问与答</label>
-         <a href="#">投诉建议</a>
-        </li>
-      </div>
-    </div>
-</div>
+<%=render_cell :section,:topics_bottom_nav %>
 
 

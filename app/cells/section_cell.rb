@@ -8,6 +8,7 @@ class SectionCell < Cell::Rails
   end
 
   def topics_bottom_nav
+    @sections                 = Section.all.order(:id)
     render
   end
 

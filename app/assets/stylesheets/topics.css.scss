@@ -102,3 +102,29 @@
 {
   padding: 0em 0.6em 0 0.6em;
 }
+
+.node_header
+{
+  margin-bottom: 10px;
+}
+
+.node_header .nav
+{
+  font-size: 18px;
+  color:gray;
+}
+.node_header .nav a
+{
+  color:gray;
+}
+
+.node_header .nav a:hover
+{
+  text-decoration: none;
+}
+
+.node_topics_num
+{
+  color: #999999;
+  font-size: 0.5em;
+}

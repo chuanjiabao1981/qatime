@@ -1,12 +1,15 @@
 <% if not @node.blank? %>
     <div class="qa_box">
       <div class="qa_cell">
-        <div style="margin-bottom: 10px">
-          <span style="font-size: 18px"><%=link_to @node.section.name ,topics_path(section_id:@node.section_id) %></span> •
-          <span style="font-size: 18px;color: #3b4249"><%=@node.name%></span>
-          <span style="color: #999999;font-size: 0.5em">主题数   <%= @node.topics_count%></span>
+        <div class="node_header">
+          <span class="nav">
+            <%=link_to @node.section.name ,topics_path(section_id:@node.section_id) %>
+            »
+            <%=@node.name%>
+          </span>
         </div>
         <%=link_to "new topic",new_topic_path(node_id:@node.id),class:"btn btn-success btn-xs"%>
+        <span class="node_topics_num pull-right">主题数   <%= @node.topics_count%> 个</span>
       </div>
     </div>
 <% else %>

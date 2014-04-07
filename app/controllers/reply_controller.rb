@@ -7,7 +7,13 @@ class ReplyController < ApplicationController
   def create
     @reply = Reply.new(params)
     @reply.user_id = current_user.id
-    @reply.save
+    if @reply.save
+      @topic = Topic.find_by_id(params[:topic_id])
+      redirect_to node_topics_url(id:@topic.node_id),notice: "success create reply"
+    else
+      render :new
+    end
+
   end
 
   def destroy

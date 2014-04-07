@@ -74,4 +74,5 @@ gem 'cells','3.10.0'
 group :development,:test do
   gem 'rspec-rails', '~> 2.13.2'
   gem 'factory_girl_rails'
+  gem 'capybara'
 end

@@ -19,7 +19,4 @@ Qatime::Application.routes.draw do
   resources :covers
   resources :videos
   resources :tutorials
-
-  #Add by chensong.zjd
-
 end

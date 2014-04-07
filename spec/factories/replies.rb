@@ -2,8 +2,5 @@
 
 FactoryGirl.define do
   factory :reply do
-    sequence(:body)  {|n| "body_#{n}" }
-    user
-    topic
   end
 end

@@ -1,4 +1,10 @@
-<%= simple_form_for [@topic,@reply] do |f| %>
-    <%= f.input :body,:label => false %>
-    <%= f.submit "Post_Reply", class: "btn btn-default" %>
-<% end %>
+<div class="qa_box">
+  <div class="qa_cell">
+    <%= simple_form_for [@topic,@reply] do |f| %>
+        <div class="form-group">
+          <%= f.input :body,:label => false %>
+        </div>
+        <%= f.button :submit, class: "btn btn-default" %>
+    <% end %>
+    </div>
+</div>

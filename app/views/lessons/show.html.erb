@@ -1,0 +1,37 @@
+<div class="qa_box">
+  <div class="qa_cell">
+    <%= link_to @lesson.course.name,course_path(@lesson.course) ,style: "color:black" %>
+  </div>
+  <div class="qa_cell">
+    <%= video_player width: 640,
+                     height:360,
+                     src:{ mp4: @lesson.video.name.url},
+                     controls: true,
+                     'data-setup'=> {} %>
+  </div>
+  <div class="qa_cell">
+    <h4><%=@lesson.name %></h4>
+    <p><%=@lesson.desc %></p>
+    <div class="pull-right">
+      <%= link_to "",edit_lesson_path(@lesson), class: "glyphicon glyphicon-edit"%>
+    </div>
+    <div style="clear:both"></div>
+  </div>
+</div>
+
+<%= content_for :side_bar do %>
+    <div class="qa_box">
+      <div class="qa_cell box_header">
+            课程
+      </div>
+      <% @lesson.course.lessons.each_with_index do |lesson,i|%>
+        <div class="qa_cell <%= "selected" if lesson.id == @lesson.id %>">
+          <% if (lesson.id == @lesson.id) %>
+            <%= "第#{i+1}课 #{lesson.name}" %>
+          <% else %>
+            <%= link_to "第#{i+1}课 #{lesson.name}", lesson_path(lesson) %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+<% end %>

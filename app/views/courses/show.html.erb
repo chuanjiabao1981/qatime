@@ -1,0 +1,78 @@
+<div class="qa_box">
+  <div class="qa_cell rel">
+    <div style="float: left">
+        <%= image_tag @course.cover.name.normal.url %>
+    </div>
+    <div style="margin-left: 340px;">
+      <div style="font-size: 16px;"><%= @course.name%></div>
+      <div style="font-size: 12px;margin-top: 10px;color: #3b4249">
+        讲师: <%= @course.author.name %> •
+        课程: 共 <%=@course.lessons_count%> 集
+      </div>
+
+      <div style="font-size: 12px;margin-top: 10px">
+        <div style="font-size: 10px">课程介绍</div>
+        <div class="text-primary">
+          <%=@course.desc%>
+        </div>
+      </div>
+      <div class="abs" style="bottom: 10px;right:10px">
+      <%= link_to "", edit_course_path(@course), class: "glyphicon glyphicon-edit"%>
+      </div>
+    </div>
+    <div style="clear: both"></div>
+  </div>
+</div>
+
+<div style="height: 20px"></div>
+<div class="qa_box">
+  <div class="qa_cell box_header">
+    <div style="text-align: center;color:gray">课程安排</div>
+  </div>
+  <% @course.lessons.each_with_index do |lesson,i|%>
+    <div class="qa_cell rel">
+      <div class="abs" style="top:35%;left:2%">第 <%= i + 1 %> 课 </div>
+      <div class="abs" style="top:35%;right:2%">10</div>
+      <div style="margin-left: 80px">
+        <div class="lesson_item">
+          <%=link_to lesson.name,lesson_path(lesson),
+                               data:{:toggle=> "tooltip",
+                                     "original-title"=> lesson.desc,
+                                     :placement => "right"} %></div>
+        <div style="font-size: 12px;color: lightgray;margin-top: 5px">
+          <span>时长4分钟</span> • <span> 最后的提问来自 李刚</span> • <span>5分钟前</span>
+        </div>
+      </div>
+      <div style="clear: both"></div>
+    </div>
+  <% end %>
+</div>
+
+<%= content_for :side_bar do%>
+    <div class="qa_box">
+      <div class="qa_cell">
+        <%= image_tag @course.author.avatar.normal.url,class:"pull-left"%>
+        <div class="pull-left" style="margin-left: 10px">
+           <div>
+            <%= @course.author.name %>
+           </div>
+           <div>
+             特级老师
+           </div>
+        </div>
+        <div class="pull-left" style="margin-left: 10px"> </div>
+        <div style="clear: both"></div>
+      </div>
+    </div>
+    <div class="qa_box">
+      <div class="qa_cell">
+        阳泉市第十一中学
+      </div>
+    </div>
+    <div style="margin-top: 10px">
+      <%=link_to new_course_lesson_path(@course) do%>
+        <button class="btn btn-primary btn-block">添加课程</button>
+      <% end %>
+    </div>
+
+<% end %>

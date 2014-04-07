@@ -19,6 +19,10 @@ Qatime::Application.routes.draw do
   resources :covers
   resources :videos
   resources :tutorials
+  resources :courses
+  resources :courses,shallow:true do
+    resources :lessons
+  end
 
 
 end

@@ -1,0 +1,29 @@
+<div class="qa_box">
+  <div class="qa_cell">
+    <%= debug @lesson.video %>
+    <%=simple_form_for @lesson.video do |f|%>
+        <%=f.input :name %>
+        <%=f.input :token,as: :hidden %>
+        <div id="video_show" class="rel" style="width:650px;height:370px;border:4px gray dotted">
+          <%= render partial: 'videos/video',object: @lesson.video unless @lesson.video.name.url.nil?%>
+        </div>
+    <% end %>
+    <%=simple_form_for @lesson,url: post_url do |f|%>
+        <%=f.input :name %>
+        <%=f.input :desc %>
+        <%=f.input :token,as: :hidden %>
+        <%= f.button :submit, class: "btn btn-default" %>
+  <% end %>
+
+  </div>
+</div>
+
+<div style="display: none">
+  <div id="template-progress">
+    <div class="progress">
+      <p class="abs" style="top:40%;left:45%;font-size: 24px;color:gray">视频</p>
+      <div class="progress-bar" role="progressbar" >
+      </div>
+    </div>
+  </div>
+</div>

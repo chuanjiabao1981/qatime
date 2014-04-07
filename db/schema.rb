@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140401052008) do
+ActiveRecord::Schema.define(version: 20140404014034) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,15 +25,40 @@ ActiveRecord::Schema.define(version: 20140401052008) do
     t.datetime "updated_at"
   end
 
+  create_table "courses", force: true do |t|
+    t.string   "name"
+    t.text     "desc"
+    t.integer  "section_id"
+    t.integer  "node_id"
+    t.integer  "lessons_count", default: 0
+    t.integer  "author_id"
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "covers", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "tutorial_id"
     t.string   "token"
+    t.integer  "course_id"
   end
 
   add_index "covers", ["token"], name: "index_covers_on_token", using: :btree
+
+  create_table "lessons", force: true do |t|
+    t.string   "name"
+    t.text     "desc"
+    t.integer  "node_id"
+    t.integer  "section_id"
+    t.integer  "author_id"
+    t.integer  "course_id"
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "nodes", force: true do |t|
     t.string   "name"
@@ -43,6 +68,7 @@ ActiveRecord::Schema.define(version: 20140401052008) do
     t.datetime "updated_at"
     t.integer  "section_id"
     t.integer  "tutorials_count", default: 0
+    t.integer  "courses_count",   default: 0
   end
 
   create_table "pictures", force: true do |t|
@@ -125,6 +151,7 @@ ActiveRecord::Schema.define(version: 20140401052008) do
     t.datetime "updated_at"
     t.integer  "tutorial_id"
     t.string   "token"
+    t.integer  "lesson_id"
   end
 
   add_index "videos", ["token"], name: "index_videos_on_token", using: :btree

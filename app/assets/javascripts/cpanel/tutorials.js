@@ -5,8 +5,8 @@ $(
         var tutorial_cover_progress_bar     = $("#progress-tutorial-cover-progress-bar");
         var tutorial_video_progress         = $("#progress-tutorial-video-progress");
         var tutorial_video_progress_bar     = $("#progress-tutorial-video-progress-bar");
-        var tutorial_cover_input            = $("input#cover_name");
-        var tutorial_video_input            = $("input#video_name");
+        var tutorial_cover_input            = $("input#cover_name1");
+        var tutorial_video_input            = $("input#video_name1");
         var tutorial_show                   = $("div#tutorial-cover");
         tutorial_cover_progress.hide();
         tutorial_video_progress.hide();

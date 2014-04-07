@@ -8,6 +8,8 @@ class CoversController < ApplicationController
   def update
     @cover = Cover.find(params[:id])
     @cover.update_attributes(params[:cover].permit!)
-    respond_with @cover
+    #Rails.logger.info(@cover)
+    #respond_with @cover,status: :ok
+    render json:@cover
   end
 end

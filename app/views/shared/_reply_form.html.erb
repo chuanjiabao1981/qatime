@@ -1,0 +1,4 @@
+<%= simple_form_for [@topic,@reply] do |f| %>
+    <%= f.input :body,:label => false %>
+    <%= f.submit "Post_Reply", class: "btn btn-default" %>
+<% end %>

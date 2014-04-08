@@ -4,10 +4,10 @@ class RepliesController < ApplicationController
       @reply = @topic.replies.build(params[:reply].permit!)
       @reply.user_id = current_user.id
 
-      if @reply.save
-        redirect_to topic_url(id:@topic.id),notice: "success create reply"
-      else
-        #render :new
+      respond_to do |format|
+        @topic = Topic.find_by_id(params[:topic_id])
+        format.html { redirect_to node_topics_url(id:@topic.node_id),notice: "success create reply" }
+        format.js
       end
     end
 

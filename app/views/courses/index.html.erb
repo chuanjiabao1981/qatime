@@ -1,21 +1,21 @@
-<div class="row" style="margin-bottom: 20px">
-<div style="width:23%;float:left;margin-right:2%;margin-bottom: 20px;background-color:green">
-    <div style="position: relative;">
+<div class="row">
+<div class="course_card green_background">
+    <div class="rel">
       <%= image_tag '/assets/background.png',class: "img-responsive" %>
-      <div style="position: absolute;top:6%;left:6%;">
-        <div style="color: #f5f5f5;font-size: 2em">
+      <div class="card_title abs">
+        <div>
             <div>物理</div>
             <div>Physics</div>
         </div>
       </div>
     </div>
-  <div style="background-color: green">
+  <div class="green_background">
     <div class="qa_cell">
-      <div style="height: 3.2em;overflow: hidden;color:gainsboro;font-size: 12px;padding-top: 20px">
-            <span>高一</span> •
+      <div style="height: 36px;overflow: hidden;color:gainsboro;font-size: 12px;padding-top: 20px">
+            <!--span>高一</span> •
             <span>高二</span> •
             <span>高三</span> •
-            <span>竞赛</span>
+            <span>竞赛</span-->
       </div>
     </div>
   </div>
@@ -23,11 +23,11 @@
 <% @courses.each do |course| %>
         <%= render course %>
 <% end %>
-  <div style="width:23%;float:left;margin-right:2%;margin-bottom: 20px;background-color:green">
-    <div style="position: relative;">
+  <div class="course_card green_background">
+    <div class="rel">
       <%= image_tag '/assets/background.png',class: "img-responsive" %>
-      <div style="position: absolute;top:6%;left:6%;">
-        <div style="color: #f5f5f5;font-size: 2em">
+      <div class="card_title abs">
+        <div>
           <div>更多</div>
           <div>More</div>
         </div>

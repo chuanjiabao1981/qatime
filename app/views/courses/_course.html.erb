@@ -1,13 +1,15 @@
-<div style="width:23%;float:left;margin-right:2%;margin-bottom: 20px">
-  <div style="position: relative">
+<div class="course_card">
+  <div class="rel">
     <%=link_to course_path(course) do %>
         <%=image_tag course.cover.name.normal.url,class: "img-responsive"%>
-        <div style="padding:0px 5px 0px 5px;position: absolute;line-height:20px;left:0;bottom:0;height: 20px;background: rgba(0,0,0,0.6);z-index: 20;color:#ffffff;font-size: 0.6em">共4课</div>
+        <div class="lesson_num">共4课</div>
     <% end %>
   </div>
   <div class="qa_box">
     <div class="qa_cell">
-        <div style="height: 3.2em;overflow: hidden;font-size: 12px"><strong><%=course.name%></strong></div>
+        <div style="color:dimgray;height: 36px;overflow: hidden;font-size: 12px;line-height:18px;text-overflow: ellipsis;">
+          <%=course.name%>
+        </div>
     </div>
   </div>
 </div>

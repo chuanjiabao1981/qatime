@@ -18,7 +18,6 @@ Qatime::Application.routes.draw do
   resources :topics do
     resources :replies
   end
-
   resources :pictures
   resources :covers
   resources :videos

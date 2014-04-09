@@ -12,4 +12,5 @@ class User < ActiveRecord::Base
   validates_presence_of :avatar,:name
   has_many :topics, :dependent => :destroy
   has_many :replies, :dependent => :destroy
+
 end

@@ -29,6 +29,6 @@ $(
 
 $(
     function(){
-        $("div.lesson_item a").tooltip();
+        $("div.lesson .name a").tooltip();
     }
 )

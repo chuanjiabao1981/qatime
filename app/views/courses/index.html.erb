@@ -1,43 +1,6 @@
 <div class="row">
-<div class="course_card green_background">
-    <div class="rel">
-      <%= image_tag '/assets/background.png',class: "img-responsive" %>
-      <div class="card_title abs">
-        <div>
-            <div>物理</div>
-            <div>Physics</div>
-        </div>
-      </div>
-    </div>
-  <div class="green_background">
-    <div class="qa_cell">
-      <div style="height: 36px;overflow: hidden;color:gainsboro;font-size: 12px;padding-top: 20px">
-            <!--span>高一</span> •
-            <span>高二</span> •
-            <span>高三</span> •
-            <span>竞赛</span-->
-      </div>
-    </div>
-  </div>
-</div>
-<% @courses.each do |course| %>
-        <%= render course %>
-<% end %>
-  <div class="course_card green_background">
-    <div class="rel">
-      <%= image_tag '/assets/background.png',class: "img-responsive" %>
-      <div class="card_title abs">
-        <div>
-          <div>更多</div>
-          <div>More</div>
-        </div>
-      </div>
-    </div>
-    <div style="background-color: green">
-      <div class="qa_cell">
-        <div style="height: 3.2em;overflow: hidden;color:gainsboro;font-size: 12px">
-        </div>
-      </div>
-    </div>
-  </div>
+    <%= render_cell :node,:course_card ,:name=>"物理"%>
+    <% @courses.each do |course| %>
+            <%= render course %>
+    <% end %>
 </div>

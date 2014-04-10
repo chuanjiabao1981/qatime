@@ -2,12 +2,12 @@
   <div class="rel">
     <%=link_to course_path(course) do %>
         <%=image_tag course.cover.name.normal.url,class: "img-responsive"%>
-        <div class="lesson_num">共4课</div>
+        <div class="lesson_num">共<%= course.lessons_count%>课</div>
     <% end %>
   </div>
   <div class="qa_box">
     <div class="qa_cell">
-        <div style="color:dimgray;height: 36px;overflow: hidden;font-size: 12px;line-height:18px;text-overflow: ellipsis;">
+        <div class="course_name">
           <%=course.name%>
         </div>
     </div>

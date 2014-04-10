@@ -1,0 +1,28 @@
+<% @courses.each do |course|%>
+        <div class="qa_box row course_index" style="margin-bottom: 10px">
+
+          <div class="item" >
+            <div style="width:25%;float: left">
+                <%= image_tag course.cover.name.normal.url ,class:"img-responsive"%>
+            </div>
+            <div style="width:70% ;max-height: 140px;padding-left:10px;float: left">
+                <%=link_to course_path(course),style:"text" do %>
+                    <div style="font-size: 16px;margin-bottom: 5px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;"><%=course.name %></div>
+                <% end %>
+                <div style="font-size: 12px">
+                  <div class="pull-left" style="width: 180px;">
+                    <div style="color: #a5a5a5">学校: 第十一中学</div>
+                    <div style="color:#a5a5a5">集数: 5</div>
+                  </div>
+                  <div class="pull-left" style="width: 180px;">
+                    <div style="color: #a5a5a5">讲师: 传家宝</div>
+                    <div style="color: #a5a5a5">地区: 阳泉</div>
+                  </div>
+                  <div style="clear:both">
+                    <%=course.desc %>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+<% end %>

@@ -22,4 +22,9 @@ class CoursesController < ApplicationController
     @course.update_attributes(params[:course].permit!)
     respond_with @course
   end
+
+  def node
+    @node = Node.find(params[:id])
+    @courses = Course.where(node_id: @node.id)
+  end
 end

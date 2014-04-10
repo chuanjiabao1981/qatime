@@ -1,3 +1,35 @@
-// Place all the styles related to the lessons controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.lesson .no
+{
+  top:35%;
+  left:2%
+}
+.lesson .comment_num
+{
+  top:35%;
+  right:2%
+}
+.lesson .main
+{
+  margin-left: 80px;
+}
+.lesson .meta
+{
+  font-size: 12px;
+  color: lightgray;
+  margin-top: 5px
+}
+
+.teacher .info
+{
+  margin-left:10px;
+  font-size:12px;
+  color:dimgray;
+}
+
+.teacher .info .name
+{
+}
+.teacher .info .title
+{
+  margin-top: 10px;
+}

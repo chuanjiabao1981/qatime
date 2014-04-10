@@ -2,10 +2,9 @@
   <div class="qa_cell">
     <%= simple_form_for(@course.cover ,:html => {:multipart => true}) do |f|%>
         <%= f.input :token,as: :hidden %>
-
         <%= f.input :name %>
-        <div style="width: 670px;height:390px;border: 4px gray dotted;position: relative;padding:10px" id="cover_show">
-            <%= image_tag(@course.cover.name.big) unless @course.cover.name.nil? %>
+        <div class="course_cover" id="cover_show">
+            <%= image_tag(@course.cover.name.big) unless @course.cover.name.blank? %>
         </div>
     <% end %>
     <%= simple_form_for(@course) do |f|%>
@@ -22,7 +21,7 @@
 <div style="display: none">
   <div id="template-progress">
       <div class="progress">
-        <p style="position: absolute;top:45%;left:45%;font-size: 24px;color:gray">封面</p>
+        <p>封面</p>
         <div class="progress-bar" role="progressbar" >
         </div>
       </div>

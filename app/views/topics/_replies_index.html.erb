@@ -18,7 +18,7 @@
                         <small><%= time_ago_in_words(@topic.created_at) %>前</small>
                     </span>
                     <div style="line-height: 180%;">
-                        <%= reply.body %>
+                        <%= reply.body.html_safe %>
                     </div>
                 </div>
             <div style="clear: both"></div>

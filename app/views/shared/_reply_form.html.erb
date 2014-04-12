@@ -1,10 +1,18 @@
+<form id="pictures_upload" action="/pictures" enctype="multipart/form-data" method="post">
+  <input id="picture_token" name="picture[token]" type="hidden" value="<%= @topic.token%>">
+</form>
+
 <div class="qa_box">
   <div class="qa_cell">
-    <%= simple_form_for [@topic, @topic.replies.build], remote: true  do |f| %>
+    <div class="progress" id="progress">
+      <div class="progress-bar" id="progress-bar" role="progressbar" >
+      </div>
+    </div>
+      <%= simple_form_for [@topic, @topic.replies.build], remote: true  do |f| %>
         <div class="form-group">
-          <%= f.input :body,:label => false %>
+          <%= f.input :body, class:'summernote'%>
         </div>
         <%= f.button :submit, class: "btn btn-default" %>
     <% end %>
-  </div>
+    </div>
 </div>

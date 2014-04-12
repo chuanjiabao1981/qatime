@@ -5,7 +5,26 @@
         <div style="border-bottom:1px solid #ccc;padding: 8px;font-size:12px;color:gray" id = "replies_count">
           共收到 <b><%= @topic.replies_count %></b> 条回复
         </div>
-        <%= render @topic.replies %>
+        <% i = 0 %>
+        <% for reply in @topic.replies %>
+            <div style="border-bottom:1px solid #ccc">
+                <div class="pull-left" style="padding: 8px">
+                    <%= image_tag reply.user.avatar.normal.url if reply.user%>
+                </div>
+                <div style="padding:8px;margin-left: 58px">
+                    <span style="color:gray">
+                        <small><%= reply.user.name if reply.user%></small>
+                        <small>#<%= i+1 %>楼</small>
+                        <small><%= time_ago_in_words(@topic.created_at) %>前</small>
+                    </span>
+                    <div style="line-height: 180%;">
+                        <%= reply.body %>
+                    </div>
+                </div>
+            <div style="clear: both"></div>
+            </div>
+            <% i = i + 1 %>
+            <% end %>
       </div>
     </div>
 <% end %>

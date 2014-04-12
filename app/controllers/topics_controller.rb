@@ -23,7 +23,6 @@ class TopicsController < ApplicationController
   def show
     @topic        = Topic.find(params[:id])
     @replies = @topic.replies
-    @reply = @topic.replies.build
   end
 
   def edit

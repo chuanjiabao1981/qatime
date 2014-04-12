@@ -1,8 +1,13 @@
 class RepliesController < ApplicationController
+
+    def new
+      @reply = Reply.new_with_token
+    end
+
     def create
       @topic = Topic.find_by_id(params[:topic_id])
-
-      @reply = @topic.replies.build(params[:reply].permit!)
+      @reply = Reply.new_with_token(params[:reply].permit!)
+      @reply.topic = @topic
       @reply.user_id = current_user.id
 
       @reply.save

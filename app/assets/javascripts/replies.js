@@ -25,7 +25,7 @@ $(function() {
                         progress_bar.text(percentVal);
                         progress_bar.css({width:percentVal});
                         if (percentVal == '100%'){
-                            progress.hide("slow");
+                            progress.hide();
                         }
                     },
                     success: function(responseText, statusText, xhr, $form){
@@ -39,6 +39,7 @@ $(function() {
     summer_note.code(summer_note.val());
     return summer_note.closest('form').submit(function() {
         summer_note.val(summer_note.code());
+        progress.hide(true);
         return true;
     });
 });

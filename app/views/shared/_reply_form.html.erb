@@ -12,7 +12,7 @@
     </div>
       <%= simple_form_for [@topic, @reply], remote: true  do |f| %>
         <div class="form-group">
-          <%= f.input :body, class:'summernote'%>
+          <%= f.input :body, class:'summernote' %>
         </div>
         <%= f.button :submit, class: "btn btn-default" %>
     <% end %>

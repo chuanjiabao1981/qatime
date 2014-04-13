@@ -22,7 +22,7 @@ class TopicsController < ApplicationController
   end
   def show
     @topic        = Topic.find(params[:id])
-    @replies = @topic.replies
+    @replies = @topic.replies.paginate(page: params[:page])
   end
 
   def edit

@@ -70,3 +70,20 @@ body{
 {
   background-color: ghostwhite;
 }
+
+.pagination {
+  li {
+    list-style:none; /* 将默认的列表符号去掉 */
+    padding:0; /* 将默认的内边距去掉 */
+    margin-top: 20px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    float:left; /* 往左浮动 */
+  }
+  div {
+    display: block;
+  }
+  element.style {
+  }
+}

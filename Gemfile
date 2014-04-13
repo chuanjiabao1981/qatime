@@ -55,6 +55,7 @@ gem 'simple_form'
 
 # 分页
 gem 'will_paginate', '3.0.5'
+gem 'bootstrap-will_paginate', '0.0.9'
 
 #Bootstrap
 gem 'bootstrap-sass','3.0.2.0'

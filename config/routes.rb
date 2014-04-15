@@ -15,6 +15,9 @@ Qatime::Application.routes.draw do
   get "topics/node:id"      => "topics#node",       as: 'node_topics'
   get "tutorials/node:id"   => "tutorials#node",    as: 'node_tutorials'
   get "courses/node:id"     => "courses#node",      as: 'node_courses'
+  resources :schools
+  resources :cities
+  resources :groups
   resources :topics
   resources :pictures
   resources :covers

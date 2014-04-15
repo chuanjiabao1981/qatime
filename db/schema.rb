@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140409132122) do
+ActiveRecord::Schema.define(version: 20140414224705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cities", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "comments", force: true do |t|
     t.text     "body"
@@ -47,6 +53,18 @@ ActiveRecord::Schema.define(version: 20140409132122) do
   end
 
   add_index "covers", ["token"], name: "index_covers_on_token", using: :btree
+
+  create_table "groups", force: true do |t|
+    t.string   "name"
+    t.string   "city_name"
+    t.string   "school_name"
+    t.string   "teacher_name"
+    t.integer  "city_id"
+    t.integer  "school_id"
+    t.integer  "teacher_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "lessons", force: true do |t|
     t.string   "name"
@@ -87,6 +105,13 @@ ActiveRecord::Schema.define(version: 20140409132122) do
     t.text     "body"
     t.integer  "user_id"
     t.integer  "topic_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "schools", force: true do |t|
+    t.string   "name"
+    t.integer  "city_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -143,6 +168,7 @@ ActiveRecord::Schema.define(version: 20140409132122) do
     t.integer  "replies_count",          default: 0
     t.string   "name"
     t.string   "avatar"
+    t.integer  "school_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

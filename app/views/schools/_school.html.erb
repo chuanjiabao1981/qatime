@@ -1,0 +1,6 @@
+<tr>
+  <td><%=school.city.name %></td>
+  <td><%=school.name%></td>
+  <td><%=link_to 'edit',edit_school_path(school)%></td>
+  <td><%=link_to 'destroy',school_path(school),method: :delete,'data-confirm' => 'Are you sure?'%><td>
+</tr>

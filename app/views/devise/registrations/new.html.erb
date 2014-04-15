@@ -6,6 +6,7 @@
     <%= f.input :email, :required => true, :autofocus => true %>
     <%= f.input :name, :required => true %>
     <%= f.input :avatar %>
+    <%= f.association :school,  :collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]} %>
 
     <%= f.input :password, :required => true %>
     <%= f.input :password_confirmation, :required => true %>

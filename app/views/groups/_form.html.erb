@@ -1,6 +1,5 @@
 <%=simple_form_for @group do |f| %>
     <%= f.input :name %>
     <%= f.association :teacher, :collection => User.all.collect { |u| ["#{u.school.try(:name)}-#{u.name}",u.id] } %>
-
     <%= f.button :submit, class: "btn btn-default" %>
 <% end %>

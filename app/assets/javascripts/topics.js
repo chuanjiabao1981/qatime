@@ -1,3 +1,11 @@
+$(function(){
+    $('input1').iCheck({
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'icheckbox_square-blue',
+        increaseArea: '-10%'
+    });
+});
+
 $(function() {
     summer_note = $('#topic_body');
     progress     = $('#progress');

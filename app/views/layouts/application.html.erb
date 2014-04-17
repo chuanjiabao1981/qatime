@@ -13,8 +13,13 @@
 
 <div class="container">
   <div class='row'>
-
-    <div class='col-md-9'>
+    <div class='col-md-2'>
+      <% if user_signed_in? %>
+          <%= render 'layouts/user_info' %>
+      <% end %>
+      <%= yield :side_bar%>
+    </div>
+    <div class='col-md-10'>
       <% if notice %>
           <div class="alert alert-info"><%= notice %></div>
       <% end %>
@@ -23,12 +28,7 @@
       <% end %>
       <%= yield %>
     </div>
-    <div class='col-md-3'>
-      <% if user_signed_in? %>
-        <%= render 'layouts/user_info' %>
-      <% end %>
-      <%= yield :side_bar%>
-    </div>
+
   </div>
 </div>
 

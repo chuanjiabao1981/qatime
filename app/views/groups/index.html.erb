@@ -1,1 +1,74 @@
+<%= content_for :side_bar do%>
+<ul id="menu" class="menu" style="position: relative">
+  <li data-submenu-id="submenu-sss1">
+    <a href="#"><span class="glyphicon glyphicon-search"></span><span style="font-size: 18px"> 数学</span><span style="font-size: 12px">  Math</span></a>
+    <div id="submenu-sss1" class="submenu_popover">
+       <div style="padding: 10px" >
+        <div style="color: #cbcbcb;font-size: 12px;border-bottom: 1px dotted gainsboro;padding-bottom: 2px">
+              阳泉
+        </div>
+        <div class="school item">
+              <ol style="font-size: 12px;">阳泉市第一中学</ol>
+              <ol style="font-size: 12px;">阳泉市第十一中学</ol>
+              <ol style="font-size: 12px;">郊区一中</ol>
+              <ol style="font-size: 12px;">阳泉市第二中学</ol>
+              <ol style="font-size: 12px;">阳泉市第二中学</ol>
+              <div style="clear:both"></div>
+
+        </div>
+        <div style="height: 10px"></div>
+        <div style="color: #cbcbcb;font-size: 12px;border-bottom: 1px dotted gainsboro;padding-bottom: 2px">
+           大同
+         </div>
+         <div class="school item">
+           <ol style="font-size: 12px;">大同一中学</ol>
+           <ol style="font-size: 12px;">大同十一中学</ol>
+           <ol style="font-size: 12px;">大同二中学</ol>
+           <ol style="font-size: 12px;">盂县中学</ol>
+           <div style="clear:both"></div>
+         </div>
+       </div>
+    </div>
+  </li>
+  <li data-submenu-id="submenu-sss2">
+    <a href="#"><span class="glyphicon glyphicon-search"></span><span style="font-size: 18px"> 生物</span><span style="font-size: 12px">   Biology</span></a>
+    <div id="submenu-sss2" class="submenu_popover">
+      <div style="padding: 10px" >
+        <div style="color: #cbcbcb;font-size: 12px;border-bottom: 1px dotted gainsboro;padding-bottom: 2px">阳泉</div>
+        <div style="padding-top: 2px">
+          <span style="font-size: 12px;padding-right: 10px">阳泉市第一中学</span>
+          <span style="font-size: 12px;padding-right: 10px">阳泉市第十一中学</span>
+          <span style="font-size: 12px;padding-right: 10px">阳泉市第二中学</span>
+          <span style="font-size: 12px;padding-right: 10px">阳泉市第二中学</span>
+          <span style="font-size: 12px;padding-right: 10px">阳泉市第二中学</span>
+
+        </div>
+        <div style="height: 10px"></div>
+        <div style="color: #cbcbcb;font-size: 12px;border-bottom: 1px dotted gainsboro;padding-bottom: 2px">大同</div>
+        <div style="padding-top: 2px">
+          <span style="font-size: 12px;padding-right: 10px">阳泉市第一中学</span>
+          <span style="font-size: 12px;padding-right: 10px">阳泉市第十一中学</span>
+          <span style="font-size: 12px;padding-right: 10px">阳泉市第二中学</span>
+          <span style="font-size: 12px;padding-right: 10px">阳泉市第二中学</span>
+          <span style="font-size: 12px;padding-right: 10px">阳泉市第二中学</span>
+
+        </div>
+      </div>
+    </div>
+  </li>
+  <li data-submenu-id="submenu-sss3">
+    <a href="#"><span class="glyphicon glyphicon-search"></span><span style="font-size: 18px"> 物理</span><span style="font-size: 12px">   Physics</span></a>
+     <div id="submenu-sss3" class="submenu_popover">
+        ss1
+     </div>
+  </li>
+
+  <li data-submenu-id="submenu-sss4">
+    <a href="#"><span class="glyphicon glyphicon-search"></span><span style="font-size: 18px"> 化学</span><span style="font-size: 12px">  Chemistry</span></a>
+    <div id="submenu-sss4" class="submenu_popover">
+      ss2
+    </div>
+  </li>
+</ul>
+<% end %>
 <%= render @groups %>

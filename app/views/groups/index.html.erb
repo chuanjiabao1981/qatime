@@ -1,4 +1,4 @@
-<%= content_for :side_bar do%>
+<div class='col-md-2'>
 <ul id="menu" class="menu" style="position: relative">
   <li data-submenu-id="submenu-sss1">
     <a href="#"><span class="glyphicon glyphicon-search"></span><span style="font-size: 18px"> 数学</span><span style="font-size: 12px">  Math</span></a>
@@ -70,5 +70,8 @@
     </div>
   </li>
 </ul>
-<% end %>
+</div>
+<div class='col-md-10'>
+
 <%= render @groups %>
+</div>

@@ -2,13 +2,11 @@ class LessonsController < ApplicationController
   respond_to :html
   def new
     @course = Course.find(params[:course_id])
-    @lesson = @course.lessons.build()
-    @lesson.init
+    @lesson = @course.build_lesson
   end
   def create
     @course = Course.find(params[:course_id])
-    @lesson =@course.lessons.build(params[:lesson].permit!)
-    @lesson.init
+    @lesson =@course.build_lesson(params[:lesson].permit!)
     if @lesson.save
       redirect_to course_path(@course)
     else

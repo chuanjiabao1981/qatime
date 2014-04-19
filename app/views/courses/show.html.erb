@@ -1,12 +1,47 @@
-<div class="qa_box">
+<div class="col-md-9">
+  <div class="qa_box">
+    <div class="qa_cell">
+        <%= @course.group.name %> » <%= @course.name %>
+    </div>
+    <div class="qa_cell" style="height: 400px">
+
+    </div>
+    <div class="qa_cell qa_f12 rel" >
+      <div>
+        <%= @lesson.desc %>
+      </div>
+      <div class="pull-right">
+
+        <span class="label label-success">编辑知识点</span>
+      </div>
+      <div style="clear: both"></div>
+    </div>
+  </div>
+</div>
+<div class="col-md-3">
+    <div class="qa_box">
+      <div class="qa_cell">
+        <%= @course.name %>
+      </div>
+      <% @course.lessons.each do |lesson| %>
+          <div class="qa_cell">
+            <%=  lesson.name %>
+          </div>
+      <% end %>
+    </div>
+    <%=link_to new_course_lesson_path(@course) do%>
+     <button type="button" class="btn btn-primary btn-block">新增加知识点</button>
+    <% end %>
+
+</div>
+<!--div class="qa_box">
   <div class="qa_cell rel course">
     <div class="pull-left">
-        <%= image_tag @course.cover.name.normal.url %>
     </div>
     <div class="main">
       <div class="name"><%= @course.name%></div>
       <div class="meta">
-        讲师: <%= @course.author.name %> •
+        讲师: <%= @course.teacher.name %> •
         课程: 共 <%=@course.lessons_count%> 集
       </div>
 
@@ -24,10 +59,10 @@
     </div>
     <div style="clear: both"></div>
   </div>
-</div>
+</div-->
 
 <div style="height: 20px"></div>
-<div class="qa_box">
+<!--div class="qa_box">
   <div class="qa_cell box_header">
     <div style="text-align: center;color:gray">课程安排</div>
   </div>
@@ -49,7 +84,7 @@
       <div style="clear: both"></div>
     </div>
   <% end %>
-</div>
+</div-->
 
 <%= content_for :side_bar do%>
     <div class="qa_box teacher">
@@ -57,10 +92,10 @@
         <strong> 老师基本信息</strong>
       </div>
       <div class="qa_cell ">
-        <%= image_tag @course.author.avatar.normal.url,class:"pull-left"%>
+        <%= image_tag @course.teacher.avatar.normal.url,class:"pull-left"%>
         <div class="pull-left info" >
            <div class="name">
-            <%= @course.author.name %>
+            <%= @course.teacher.name %>
            </div>
            <div class="title">
              特级老师•阳泉市•第十一中学

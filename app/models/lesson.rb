@@ -1,26 +1,16 @@
 class Lesson < ActiveRecord::Base
-  belongs_to :author,:class_name => "User"
-  belongs_to :node
-  belongs_to :section
+  belongs_to :teacher,:class_name => "User"
   belongs_to :course,:counter_cache => true,:inverse_of =>:lessons
   has_one    :video,:dependent => :destroy
-  validates_presence_of :name,:desc,:node,:section
+  validates_presence_of :name,:desc
 
-
-  def init
-    self.generate_token if self.token.nil?
-    self.node    = self.course.node
-    self.section = self.course.section
-    self.author  = self.course.author
-    self.video   = Video.where(token: self.token).order(created_at: :desc).first
-    self.init_video
-  end
-
-  def init_video
+  def build_a_video
+    self.video =   Video.where(token: self.token).order(created_at: :desc).first
     if self.video.nil?
       self.build_video
       self.video.token = self.token
     end
+    self.video
   end
   def generate_token
     self.token = loop do

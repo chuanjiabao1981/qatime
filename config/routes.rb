@@ -23,7 +23,9 @@ Qatime::Application.routes.draw do
   resources :covers
   resources :videos
   resources :tutorials
-  resources :courses
+  resources :groups do
+    resources :courses
+  end
   resources :courses,shallow:true do
     resources :lessons
   end

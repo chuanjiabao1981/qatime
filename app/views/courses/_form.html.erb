@@ -1,29 +1,11 @@
 <div class="qa_box">
   <div class="qa_cell">
-    <%= simple_form_for(@course.cover ,:html => {:multipart => true}) do |f|%>
-        <%= f.input :token,as: :hidden %>
+    <%= simple_form_for([@group,@course]) do |f|%>
         <%= f.input :name %>
-        <div class="course_cover" id="cover_show">
-            <%= image_tag(@course.cover.name.big) unless @course.cover.name.blank? %>
-        </div>
-    <% end %>
-    <%= simple_form_for(@course) do |f|%>
-        <%= f.input :name %>
+        <%= f.input :price %>
         <%= f.input :desc %>
-        <%= f.input :token,as: :hidden%>
-        <%= f.association :node,    :collection => Node.all.collect { |n| ["#{n.section.name}-#{n.name}",n.id] } %>
-        <%= f.association :author,  :collection => User.all.collect { |u| [u.name,u.id]} %>
+        <%= f.association :teacher, as: :hidden %>
         <%= f.button :submit, class: "btn btn-default" %>
     <% end %>
-  </div>
-</div>
-
-<div style="display: none">
-  <div id="template-progress">
-      <div class="progress">
-        <p>封面</p>
-        <div class="progress-bar" role="progressbar" >
-        </div>
-      </div>
   </div>
 </div>

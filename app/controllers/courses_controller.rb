@@ -4,15 +4,21 @@ class CoursesController < ApplicationController
     @courses = Course.all.order(updated_at: :desc)
   end
   def new
-    @course = Course.init
+    @group            = Group.find(params[:group_id])
+    @course           = @group.build_course
   end
   def create
-    @course = Course.init(params[:course].permit!)
+    @group            = Group.find(params[:group_id])
+    @course           = @group.build_course(params[:course].permit!)
     @course.save
     respond_with @course
   end
   def show
-    @course = Course.find(params[:id])
+    @course     = Course.find(params[:id])
+    @lesson     = Lesson.find(params[:lesson_id]) if params[:lesson_id]
+    unless @lesson
+      @lesson   = @course.lessons.order(created_at: :asc).first
+    end
   end
   def edit
     @course = Course.find(params[:id])

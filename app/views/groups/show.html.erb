@@ -1,4 +1,4 @@
-<div style="width: 70%;float: left" class="courses">
+<div class="col-md-9 courses">
 
   <div style="width: 32%;background-color: #2b5797;padding: 20px;float: left;height: 96px">
     <div><span style="font-size: 35px;color: white;font-weight: 300">物理</span><span style="font-size: 18px;color: #ffc40d"> Physics</span></div>
@@ -8,7 +8,7 @@
       <span class="label label-primary">已购课程 10</span><br/>
     </div>
     <div class="abs" style="right: 10px;bottom: 20px;">
-      <%=link_to new_course_path do %>
+      <%=link_to new_group_course_path(@group) do %>
           <span class="label label-success">新建课程</span>
       <% end %>
     </div>
@@ -104,11 +104,8 @@
     <div style="clear: both"></div>
   </div>
 </div>
-<div  style="width:22%;margin-left: 10px" class="qa_box pull-left">
+<div   class="qa_box col-md-3">
   <div class="qa_cell">
     讲师简介
   </div>
-</div>
-<div>
-    <div></div>
 </div>

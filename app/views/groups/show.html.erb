@@ -1,46 +1,104 @@
-<div style="width: 70%;float: left" class="course">
-  <div style="width: 32%;background-color: #2b5797;padding: 25px;float: left;height: 128px">
+<div style="width: 70%;float: left" class="courses">
+
+  <div style="width: 32%;background-color: #2b5797;padding: 20px;float: left;height: 96px">
     <div><span style="font-size: 35px;color: white;font-weight: 300">物理</span><span style="font-size: 18px;color: #ffc40d"> Physics</span></div>
   </div>
-  <div style="width: 68%;background-color: #eeeeee ;float: left;height: 128px">
+  <div style="width: 68%;background-color: #eeeeee ;float: left;height: 96px" class="rel">
+    <div class="abs" style="right: 10px;top:20px;">
+      <span class="label label-primary">已购课程 10</span><br/>
+    </div>
+    <div class="abs" style="right: 10px;bottom: 20px;">
+      <%=link_to new_course_path do %>
+          <span class="label label-success">新建课程</span>
+      <% end %>
+    </div>
     <div style="padding: 10px 0 10px 20px">
-      <h4>物理同步辅导</h4>
-      <div>
-        <span style="margin-right: 40px">讲师: <%=@group.teacher.name%></span> <span style="margin-right: 40px">学校: <%=@group.teacher.school.name%></span>
+      <h5>物理同步辅导</h5>
+      <div style="margin-top: 5px;font-size: 12px">
+        <div style="width: 30%;float: left">
+          <span class="glyphicon glyphicon-user"></span>
+          <span> <%=@group.teacher.name %></span>
+        </div>
+        <div style="width: 40%;float: left">
+          <span class="glyphicon glyphicon-th-list"></span>
+          <span> 100集</span>
+        </div>
+        <div style="clear: both"></div>
       </div>
-      <div>
-        <span style="margin-right: 40px">集数: 100000</span> <span style="margin-right: 40px">学校: <%=@group.teacher.school.name%></span>
+      <div style="margin-top: 5px;font-size: 12px">
+        <div style="width: 30%;float: left">
+          <span class="glyphicon glyphicon-map-marker"></span>
+          <span> <%=@group.teacher.school.city.name %></span>
+        </div>
+        <div style="width: 40%;float: left">
+          <span class="glyphicon glyphicon-home"></span>
+          <span><%= @group.teacher.school.name %></span>
+        </div>
       </div>
+
     </div>
   </div>
   <div class="lessons">
     <% [0,1,2,3].each do |i| %>
     <div class="card rel">
-      <div class="abs" style="right:12px;top:10px;color:#ffffff;font-size: 12px">
+      <div class="abs" style="right:12px;top:10px;color:#3b4249;font-size: 12px">
         <span class="glyphicon glyphicon-ok-circle"></span> 已购
       </div>
-      <div style="color: #ffffff;font-size: 12px;margin-right: 50px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+      <div style="color:#444;;font-size: 12px;margin-right: 50px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
         <span class="glyphicon glyphicon-list-alt"></span> 牛顿第二定律习题课高斯定律好的啊我
       </div>
-      <div style="color: #ffffff;font-size: 12px;line-height: 22px">
-        有10人参与讨论
+      <div style="color: rgba(182, 191, 191, 0.84);font-size: 12px;line-height: 22px">
+        <span class="glyphicon glyphicon-bookmark"></span> 12.0 RMB
+
       </div>
-      <div class="abs" style="left:12px;bottom:10px;color: #ffffff;font-size: 12px">
+      <div class="abs" style="left:12px;bottom:10px;color: #3b4249;font-size: 12px">
         <span class="glyphicon glyphicon-film"></span><span> 30分钟</span>
       </div>
-      <div style="right: 12px;bottom:10px;font-size: 12px" class="abs">
-        <span class="glyphicon glyphicon-shopping-cart"></span>12.0 RMB
+      <div style="right: 12px;bottom:10px;font-size: 12px;color: #3b4249" class="abs">
+
+        <span class="glyphicon glyphicon-comment"></span><span> 有10人参与讨论</span>
+
       </div>
     </div>
     <div class="card middle rel">
-      <div class="pull-right" style="right:12px;top:10px;background-color:#15767b;color: #f5f5f5;font-size: 12px">
+      <div class="pull-right" style="right:12px;top:10px;color: #3b4249;font-size: 12px">
         <span class="glyphicon glyphicon-circle-arrow-right"></span> 试听
       </div>
+      <div style="color:#444;;font-size: 12px;margin-right: 50px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+        <span class="glyphicon glyphicon-list-alt"></span> 牛顿第二定律习题课高斯定律好的啊我
+      </div>
+      <div style="color: rgba(182, 191, 191, 0.84);font-size: 12px;line-height: 22px">
+        <span class="glyphicon glyphicon-bookmark"></span> 12.0 RMB
 
-      ssss
+      </div>
+      <div class="abs" style="left:12px;bottom:10px;color: #3b4249;font-size: 12px">
+        <span class="glyphicon glyphicon-film"></span><span> 30分钟</span>
+      </div>
+      <div style="right: 12px;bottom:10px;font-size: 12px;color: #3b4249" class="abs">
+
+        <span class="glyphicon glyphicon-comment"></span><span> 有10人参与讨论</span>
+
+      </div>
     </div>
-    <div class="card">
-      ssss
+    <div class="card rel">
+      <div class="pull-right" style="right:12px;top:10px;color: #3b4249;font-size: 12px">
+        <span class="glyphicon glyphicon-ok-circle"></span> 免费
+      </div>
+      <div style="color:#444;;font-size: 12px;margin-right: 50px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+        <span class="glyphicon glyphicon-list-alt"></span> 牛顿第二定律习题课高斯定律好的啊我
+      </div>
+      <div style="color: rgba(182, 191, 191, 0.84);font-size: 12px;line-height: 22px">
+        <span class="glyphicon glyphicon-bookmark"></span> 0.0 RMB
+
+      </div>
+      <div class="abs" style="left:12px;bottom:10px;color: #3b4249;font-size: 12px">
+        <span class="glyphicon glyphicon-film"></span><span> 30分钟</span>
+      </div>
+      <div style="right: 12px;bottom:10px;font-size: 12px;color: #3b4249" class="abs">
+
+        <span class="glyphicon glyphicon-comment"></span><span> 有10人参与讨论</span>
+
+      </div>
     </div>
     <% end %>
     <div style="clear: both"></div>

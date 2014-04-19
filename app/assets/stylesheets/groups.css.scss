@@ -48,16 +48,18 @@ ul.menu li.maintainHover
   float: left;
 }
 
-.course .lessons .card
+.courses  .card
 {
   width: 32%;
   float: left;
-  background-color: #15767b;
+//  background-color: #eeeeee;
+    background-color: #f6f6f6;
+
   margin-top:20px;
   height: 84px;
   padding: 10px;
 }
-.course .lessons .middle
+.courses  .middle
 {
   margin-left: 2%;
   margin-right: 2%;

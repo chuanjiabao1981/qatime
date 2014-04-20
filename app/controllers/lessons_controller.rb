@@ -19,7 +19,15 @@ class LessonsController < ApplicationController
 
   def edit
     @lesson = Lesson.find(params[:id])
-    @lesson.init_video
-    @course = @lesson.course
+    @lesson.build_a_video
+  end
+
+  def update
+    @lesson = Lesson.find(params[:id])
+    if @lesson.update_attributes(params[:lesson].permit!)
+      redirect_to course_path(@lesson.course)
+    else
+      render 'edit'
+    end
   end
 end

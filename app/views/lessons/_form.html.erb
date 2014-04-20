@@ -1,6 +1,5 @@
 <div class="qa_box">
   <div class="qa_cell">
-    <%= debug @lesson.video %>
     <%=simple_form_for @lesson.video do |f|%>
         <%=f.input :name %>
         <%=f.input :token,as: :hidden %>

@@ -26,6 +26,9 @@ Qatime::Application.routes.draw do
   resources :groups do
     resources :courses
   end
+  resources :courses do
+    resource :topics
+  end
   resources :courses,shallow:true do
     resources :lessons
   end

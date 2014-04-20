@@ -7,6 +7,7 @@ class Group < ActiveRecord::Base
   belongs_to :city
 
   has_many :courses
+  has_many :lessons
 
   def build_course(attributes={})
     a = self.courses.build(attributes)

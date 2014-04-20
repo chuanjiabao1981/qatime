@@ -16,6 +16,7 @@ class CoursesController < ApplicationController
   def show
     @course     = Course.find(params[:id])
     @lesson     = Lesson.find(params[:lesson_id]) if params[:lesson_id]
+    @topics     = Topic.where(course_id: @course.id)
     unless @lesson
       @lesson   = @course.lessons.order(created_at: :asc).first
     end

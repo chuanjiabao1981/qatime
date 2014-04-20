@@ -1,123 +1,12 @@
-<div class="col-md-9 course">
+<div class="col-md-9 group">
+  <%= render partial: 'group_header' %>
   <div class="row">
+  <div class="qa_f12">
+    <% @group.courses.each do |course| %>
     <div class="col-md-4">
-        <div class="card card-big card-blue">
-            <div style="padding: 10px;">
-              <span style="font-size: 35px;color: white;font-weight: 300">物理</span>
-              <span style="font-size: 18px;color: #ffc40d"> Physics</span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-8">
-    <div class="card card-big card-gray rel">
-        <div class="abs right-top">
-            <span class="label label-primary">已购课程 10</span><br/>
-        </div>
-        <div class="abs right-bottom">
-            <%=link_to new_group_course_path(@group) do %>
-                <span class="label label-success">新建课程</span>
-            <% end %>
-        </div>
-    <div class="info">
-      <div class="row">
-          <div class="col-md-12">
-            <h5><%=@group.name %></h5>
-          </div>
-      </div>
-      <div class="row qa_f12">
-            <div class="col-md-4">
-                <span class="glyphicon glyphicon-user"></span>
-                <span> <%=@group.teacher.name %></span>
-            </div>
-            <div class="col-md-8">
-                <span class="glyphicon glyphicon-th-list"></span>
-                <span> 100集</span>
-            </div>
-      </div>
-      <div class="qa_sep_5"></div>
-      <div class="row qa_f12">
-        <div class="col-md-4">
-          <span class="glyphicon glyphicon-map-marker"></span>
-          <span> <%=@group.teacher.school.city.name %></span>
-        </div>
-        <div class="col-md-8">
-          <span class="glyphicon glyphicon-home"></span>
-          <span><%= @group.teacher.school.name %></span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-    </div>
-    </div>
-  <div class="row">
-  <div class="lessons qa_f12">
-    <% [0,1,2,3].each do |i| %>
-    <div class="col-md-4">
-      <div class="card lesson rel">
-        <div class="abs right_top">
-            <span class="glyphicon glyphicon-ok-circle"></span> 已购
-        </div>
-        <div class="qa_text_wrap title" >
-            <span class="glyphicon glyphicon-list-alt"></span> 牛顿第二定律习题课高斯定律好的啊我
-        </div>
-        <div class="price">
-            <span class="glyphicon glyphicon-bookmark"></span> 12.0 RMB
-        </div>
-        <div class="abs left-bottom time" style="color: #3b4249;">
-        <span class="glyphicon glyphicon-film"></span><span> 30分钟</span>
-      </div>
-      <div class="abs left-bottom">
-        <span class="glyphicon glyphicon-comment"></span><span> 有10人参与讨论</span>
-      </div>
-    </div>
-    </div>
-    <div class="col-md-4">
-    <div class="card  rel">
-      <div class="pull-right" style="right:12px;top:10px;color: #3b4249;font-size: 12px">
-        <span class="glyphicon glyphicon-circle-arrow-right"></span> 试听
-      </div>
-      <div style="color:#444;;font-size: 12px;margin-right: 50px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
-        <span class="glyphicon glyphicon-list-alt"></span> 牛顿第二定律习题课高斯定律好的啊我
-      </div>
-      <div style="color: rgba(182, 191, 191, 0.84);font-size: 12px;line-height: 22px">
-        <span class="glyphicon glyphicon-bookmark"></span> 12.0 RMB
-
-      </div>
-      <div class="abs" style="left:12px;bottom:10px;color: #3b4249;font-size: 12px">
-        <span class="glyphicon glyphicon-film"></span><span> 30分钟</span>
-      </div>
-      <div style="right: 12px;bottom:10px;font-size: 12px;color: #3b4249" class="abs">
-
-        <span class="glyphicon glyphicon-comment"></span><span> 有10人参与讨论</span>
-
-      </div>
-    </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card rel">
-      <div class="pull-right" style="right:12px;top:10px;color: #3b4249;font-size: 12px">
-        <span class="glyphicon glyphicon-ok-circle"></span> 免费
-      </div>
-      <div style="color:#444;;font-size: 12px;margin-right: 50px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
-        <span class="glyphicon glyphicon-list-alt"></span> 牛顿第二定律习题课高斯定律好的啊我
-      </div>
-      <div style="color: rgba(182, 191, 191, 0.84);font-size: 12px;line-height: 22px">
-        <span class="glyphicon glyphicon-bookmark"></span> 0.0 RMB
-
-      </div>
-      <div class="abs" style="left:12px;bottom:10px;color: #3b4249;font-size: 12px">
-        <span class="glyphicon glyphicon-film"></span><span> 30分钟</span>
-      </div>
-      <div style="right: 12px;bottom:10px;font-size: 12px;color: #3b4249" class="abs">
-
-        <span class="glyphicon glyphicon-comment"></span><span> 有10人参与讨论</span>
-
-      </div>
-    </div>
+        <%= render partial: 'course',locals: {course: course} %>
     </div>
     <% end %>
-
   </div>
   </div>
 </div>

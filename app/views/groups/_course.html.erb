@@ -1,0 +1,20 @@
+<div class="qa_sep_15"></div>
+<%=link_to course_path(course) do %>
+    <div class="card course rel">
+      <div class="abs right-top">
+        <span class="glyphicon glyphicon-ok-circle"></span> 已购
+      </div>
+      <div class="qa_text_wrap title" >
+        <span class="glyphicon glyphicon-list-alt"></span> <%=course.name%>
+      </div>
+      <div class="price">
+        <span class="glyphicon glyphicon-bookmark"></span> 12.0 RMB
+      </div>
+      <div class="abs left-bottom time">
+        <span class="glyphicon glyphicon-film"></span><span> 30分钟</span>
+      </div>
+      <div class="abs right-bottom">
+        <span class="glyphicon glyphicon-comment"></span><span> 有10人参与讨论</span>
+      </div>
+    </div>
+<% end %>

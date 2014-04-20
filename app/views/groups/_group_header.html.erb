@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-md-4">
+    <div class="card card-big card-blue">
+      <div style="padding: 10px;">
+        <span style="font-size: 35px;color: white;font-weight: 300">物理</span>
+        <span style="font-size: 18px;color: #ffc40d"> Physics</span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card card-big card-gray rel">
+      <div class="abs right-top">
+        <span class="label label-primary">已购课程 10</span><br/>
+      </div>
+      <div class="abs right-bottom">
+        <%=link_to new_group_course_path(@group) do %>
+            <span class="label label-success">新建课程</span>
+        <% end %>
+      </div>
+      <div class="info">
+        <div class="row">
+          <div class="col-md-12">
+            <h5><%=@group.name %></h5>
+          </div>
+        </div>
+        <div class="row qa_f12">
+          <div class="col-md-4">
+            <span class="glyphicon glyphicon-user"></span>
+            <span> <%=@group.teacher.name %></span>
+          </div>
+          <div class="col-md-8">
+            <span class="glyphicon glyphicon-th-list"></span>
+            <span> 100集</span>
+          </div>
+        </div>
+        <div class="qa_sep_5"></div>
+        <div class="row qa_f12">
+          <div class="col-md-4">
+            <span class="glyphicon glyphicon-map-marker"></span>
+            <span> <%=@group.teacher.school.city.name %></span>
+          </div>
+          <div class="col-md-8">
+            <span class="glyphicon glyphicon-home"></span>
+            <span><%= @group.teacher.school.name %></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

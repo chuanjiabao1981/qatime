@@ -1,14 +1,17 @@
 <div class="col-md-9">
   <div class="qa_box">
     <div class="qa_cell">
-        <%= @course.group.name %> » <%= @course.name %>
+        <%= link_to group_path (@course.group) do%>
+            <%= @course.group.name %>
+        <% end %>
+        / <%= @course.name %>
     </div>
     <div class="qa_cell" style="height: 400px">
 
     </div>
     <div class="qa_cell qa_f12 rel" >
       <div>
-        <%= @lesson.desc %>
+        <%= @lesson.desc if @lesson %>
       </div>
       <div class="pull-right">
         <% if @lesson  %>

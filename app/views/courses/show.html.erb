@@ -1,115 +1,55 @@
 <div class="col-md-9">
   <div class="qa_box">
-    <div class="qa_cell">
+    <div class="qa_cell box_header">
         <%= link_to group_path (@course.group) do%>
             <%= @course.group.name %>
         <% end %>
         / <%= @course.name %>
     </div>
-    <div class="qa_cell" style="height: 400px">
-
-    </div>
-    <div class="qa_cell qa_f12 rel" >
-      <div>
-        <%= @lesson.desc if @lesson %>
-      </div>
-      <div class="pull-right">
-        <% if @lesson  %>
-            <%= link_to edit_lesson_path(@lesson) do%>
-                <span class="label label-success">编辑知识点</span>
-            <% end %>
-        <% end %>
-      </div>
-      <div style="clear: both"></div>
-    </div>
   </div>
-  <div style="height: 20px">
-  </div>
-  <div class="qa_box qa_topics">
-    <div class="qa_cell box_header">
-      <div class="pull-right">
-        <%=link_to new_course_topics_path(@course) do%>
-            <span class="label label-success">我要提问</span>
-        <% end %>
-      </div>
-      <div class="pull-left">
-        <span class="label label-primary">共有10个讨论</span>
-      </div>
-
-      <div style="clear: both"></div>
-    </div>
-    <%= render @topics %>
-  </div>
+  <%=render 'lesson' %>
+  <div class="qa_sep_15"></div>
+  <div class="qa_sep_5"></div>
+  <%=render 'course_topics' %>
 </div>
 <div class="col-md-3">
     <div class="qa_box">
       <div class="qa_cell box_header">
-        <strong><%= @course.name %></strong>
+        <div style="width: 90%" class="pull-left">
+          <strong><%= @course.name %></strong>
+        </div>
+        <div class="pull-right">
+            <%= link_to  edit_course_path(@course) do%>
+                <span class="glyphicon glyphicon-edit"></span>
+            <% end %>
+        </div>
+        <div style="clear: both"></div>
       </div>
       <% @course.lessons.each do |lesson| %>
           <div class="qa_cell">
-            <%=  lesson.name %>
+            <div style="width: 90%" class="pull-left">
+            <%=link_to  lesson.name ,course_path(@course,lesson_id:lesson.id)%>
+            </div>
+            <div class="pull-right">
+              <%= link_to  edit_lesson_path(lesson) do%>
+                    <span class="glyphicon glyphicon-edit"></span>
+              <% end %>
+            </div>
+            <div style="clear: both"></div>
           </div>
       <% end %>
     </div>
-    <%=link_to new_course_lesson_path(@course) do%>
-     <button type="button" class="btn btn-primary btn-block">新增加知识点</button>
+  <div class="qa_sep_5"></div>
+  <div class="qa_sep_5"></div>
+  <div class="qa_sep_5"></div>
+
+  <%=link_to new_course_lesson_path(@course) do%>
+     <button type="button" class="btn btn-primary btn-block">添加内容</button>
     <% end %>
 
 </div>
 
-
-<!--div class="qa_box">
-  <div class="qa_cell rel course">
-    <div class="pull-left">
-    </div>
-    <div class="main">
-      <div class="name"><%= @course.name%></div>
-      <div class="meta">
-        讲师: <%= @course.teacher.name %> •
-        课程: 共 <%=@course.lessons_count%> 集
-      </div>
-
-      <div style="font-size: 12px;margin-top: 10px">
-        <h5>课程介绍</h5>
-        <div class="text-primary">
-          <%=@course.desc%>
-        </div>
-      </div>
-      <div class="abs" style="bottom: 10px;right:10px">
-         <%= link_to  edit_course_path(@course) do%>
-            <span class="glyphicon glyphicon-edit"></span>
-         <% end %>
-      </div>
-    </div>
-    <div style="clear: both"></div>
-  </div>
-</div-->
-
-<div style="height: 20px"></div>
-<!--div class="qa_box">
-  <div class="qa_cell box_header">
-    <div style="text-align: center;color:gray">课程安排</div>
-  </div>
-  <% @course.lessons.each_with_index do |lesson,i|%>
-    <div class="qa_cell rel lesson">
-      <div class="abs no">第 <%= i + 1 %> 课 </div>
-      <div class="abs comment_num badge">10</div>
-      <div class="main">
-        <div class="name">
-          <%=link_to lesson.name,lesson_path(lesson),
-                               data:{:toggle=> "tooltip",
-                                     "original-title"=> lesson.desc,
-                                     :placement => "right"} %>
-        </div>
-        <div class="meta" style="">
-          <span>时长4分钟</span> • <span> 最后的提问来自 李刚</span> • <span>5分钟前</span>
-        </div>
-      </div>
-      <div style="clear: both"></div>
-    </div>
-  <% end %>
-</div-->
+<!-----下边的内容应该删除------->
 
 <%= content_for :side_bar do%>
     <div class="qa_box teacher">

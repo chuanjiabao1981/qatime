@@ -1,23 +1,46 @@
 <%=link_to group_path(group) do %>
-<div style="width: 46%;height: 128px;margin-right:3%;margin-bottom:30px;color:white;background-color: #66a8cc" class="pull-left">
-  <div style="padding:20px 0 0 20px;width: 75%" class="pull-left">
-    <div><span style="font-weight: 400;font-size:22px;">物理</span> <span>同步辅导</span></div>
-    <div style="margin-top: 15px" >
-      <div style="font-size: 12px;width:30%" class="pull-left">讲师: <%= group.teacher.name %> </div>
-      <div style="font-size: 12px;width:70%" class="pull-left">课程: 100</div>
-      <div style="clear: both"></div>
-    </div>
-    <div style="margin-top:8px;">
-      <div style="font-size: 12px;width:30%" class="pull-left">年级: 高三</div>
-      <div style="font-size: 12px;width:70%" class="pull-left">学校: <%= group.teacher.school.name %></div>
-      <div style="clear: both"></div>
+<!--div style="width: 46%;height: 128px;margin-right:3%;margin-bottom:30px;color:white;background-color: #66a8cc" class="pull-left"-->
+<div class="col-md-6">
+<div class="card-ex-big card-white group" style="color:#666 ;">
+  <div class="info">
+    <div class="left">
+      <div><span style="font-weight: 400;font-size:22px;">物理</span> <span>同步辅导</span></div>
+      <div style="margin-top: 15px" class="qa_f12 row">
+        <div class="col-md-3">
+          <span class="glyphicon glyphicon-user"></span>
+          <span> <%=group.teacher.name%></span>
+        </div>
+        <div class="col-md-9">
+          <span class="glyphicon glyphicon-th-list"></span>
+          100
+        </div>
       </div>
+      <div style="margin-top:8px;" class="qa_f12 row">
+        <div class="col-md-3">
+          <span class="glyphicon glyphicon-book"></span>
+          <span>高三</span>
+        </div>
+        <div class="col-md-9">
+          <span class="glyphicon glyphicon-home"></span>
+          <span> <%= group.teacher.school.name %></span>
+        </div>
+        <div style="clear: both"></div>
+      </div>
+    </div>
+
+    <div class="right">
+      <%= image_tag group.teacher.avatar.small ,class:"img-circle",style: "margin-left:auto;margin-right:auto;display: block;"%>
+      <div style="text-align: center">
+        <span style="font-size: 30px">33</span>
+        <div style="color:gainsboro;font-size: 12px;font-weight: lighter">人参与学习</div></div>
+    </div>
   </div>
-  <div style="padding:20px 10px 0 0;width:25%" class="pull-right">
-    <%= image_tag group.teacher.avatar.small ,class:"img-circle",style: "margin-left:auto;margin-right:auto;display: block;"%>
-    <div style="text-align: center">
-      <span style="font-size: 30px">33</span>
-      <div style="color:gainsboro;font-size: 12px;font-weight: lighter">人参与学习</div></div>
-  </div>
+
+
+
 </div>
+ <div class="qa_sep_15"></div>
+
+</div>
+
 <% end %>

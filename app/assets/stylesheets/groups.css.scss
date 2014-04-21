@@ -48,57 +48,7 @@ ul.menu li.maintainHover
   float: left;
 }
 
-.card
-{
-  width:100%;
-  float: left;
-  background-color: #f6f6f6;
-  color:#3b4249;
-  height: 84px;
-  padding: 10px;
-}
-.card-big
-{
-  height: 96px;
-}
-.card-blue
-{
-  background-color: #2b5797;
-}
-.card-gray
-{
-  background-color: #eeeeee;
-}
-.card-big .right-top
-{
-  right:20px;
-  top:20px;
-}
 
-.card-big .right-bottom
-{
-  right: 20px;
-  bottom:20px;
-  z-index: 1000;
-}
-
-.card .right-top
-{
-  right:12px;
-  top:10px;
-}
-.card .right-bottom
-{
-  right: 12px;
-  bottom: 10px;
-  z-index: 1000;
-}
-
-.card .left-bottom
-{
-  left:12px;
-  bottom:10px;
-}
 .group .info
 {
   padding: 0 0 0 10px;
@@ -115,3 +65,15 @@ ul.menu li.maintainHover
 }
 
 
+.groups .group .info .left
+{
+  padding:15px 0 0 20px;
+  width: 75%;
+  float: left;
+}
+.groups .group .info .right
+{
+  padding:15px 10px 0 0;
+  width:25%;
+  float: right;
+}

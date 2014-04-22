@@ -1,13 +1,15 @@
 class GroupsController < ApplicationController
   respond_to :html
   def index
-    @groups = Group.all
+    @groups = Group.all.order(created_at: :asc)
   end
   def new
     @group = Group.new
   end
   def create
     @group = Group.new(params[:group].permit!)
+    @group.city   = @group.teacher.school.city
+    @group.school = @group.teacher.school
     @group.save
     respond_with @group
   end

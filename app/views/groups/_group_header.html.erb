@@ -20,7 +20,12 @@
       <div class="info">
         <div class="row">
           <div class="col-md-12">
-            <h5><%=@group.name %></h5>
+
+            <span class="qa_f14" style="line-height: 30px"><strong><%=@group.name %></strong></span>
+            <%=link_to edit_group_path(@group) ,style:"color:black" do %>
+                <span style="font-size: 10px;margin-left: 10px" class="glyphicon glyphicon-edit"></span>
+            <% end %>
+
           </div>
         </div>
         <div class="row qa_f12">
@@ -30,7 +35,7 @@
           </div>
           <div class="col-md-8">
             <span class="glyphicon glyphicon-th-list"></span>
-            <span> 100集</span>
+            <span> <%= @group.courses_count %> 课</span>
           </div>
         </div>
         <div class="qa_sep_5"></div>

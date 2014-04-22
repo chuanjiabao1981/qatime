@@ -1,6 +1,6 @@
 class Course < ActiveRecord::Base
   belongs_to :teacher    ,:class_name => "User"
-  belongs_to :group
+  belongs_to :group      ,:counter_cache => true,:inverse_of => :courses
   has_many   :lessons   ,:dependent => :destroy
   has_one    :cover     ,:dependent => :destroy
   has_many   :topics

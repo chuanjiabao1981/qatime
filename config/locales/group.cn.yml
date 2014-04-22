@@ -1,0 +1,10 @@
+cn:
+  activerecord:
+    models:
+      group: 班级
+    attributes:
+      group:
+        subject: 科目
+        grade: 年级
+        teacher: 教师
+        name: 班级名称

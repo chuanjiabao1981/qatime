@@ -5,6 +5,7 @@ require 'rails/all'
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
+APP_CONFIG = YAML.load(File.read(File.expand_path('../application.yml', __FILE__)))
 
 module Qatime
   class Application < Rails::Application

@@ -1,0 +1,15 @@
+cn:
+  activerecord:
+    models:
+      group: 班级
+      course: 课程
+    attributes:
+      group:
+        subject: 科目
+        grade: 年级
+        teacher: 教师
+        name: 班级名称
+      course:
+        name: 课程名
+        price: 课程价格
+        desc: 课程描述

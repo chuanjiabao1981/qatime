@@ -1,6 +1,6 @@
 <div class="qa_sep_15"></div>
-<%=link_to course_path(course) do %>
-    <div class="card course rel">
+<%=link_to course_path(course)  do %>
+    <div class="card course rel" data-toggle="tooltip" data-placement="bottom" data-original-title="<%= course.desc%>">
       <div class="abs right-top">
         <span class="glyphicon glyphicon-ok-circle"></span> 已购
       </div>

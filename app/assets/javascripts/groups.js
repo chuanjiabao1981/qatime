@@ -1,4 +1,7 @@
 $(function(){
+    $('div.card.course').tooltip()
+})
+$(function(){
         var $menu = $("ul#menu");
 
         $menu.menuAim({

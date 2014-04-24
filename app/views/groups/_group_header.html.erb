@@ -1,9 +1,10 @@
+<!--%=debug APP_CONFIG %-->
 <div class="row">
   <div class="col-md-4">
     <div class="card card-big card-blue">
       <div style="padding: 10px;">
-        <span style="font-size: 35px;color: white;font-weight: 300">物理</span>
-        <span style="font-size: 18px;color: #ffc40d"> Physics</span>
+        <span style="font-size: 35px;color: white;font-weight: 300"><%=@group.subject %></span>
+        <span style="font-size: 18px;color: #ffc40d"> <%=APP_CONFIG[@group.subject] %></span>
       </div>
     </div>
   </div>
@@ -21,7 +22,7 @@
         <div class="row">
           <div class="col-md-12">
 
-            <span class="qa_f14" style="line-height: 30px"><strong><%=@group.name %></strong></span>
+            <span class="qa_f14" style="line-height: 30px"><strong><%=@group.subject %> • <%=@group.name %></strong></span>
             <%=link_to edit_group_path(@group) ,style:"color:black" do %>
                 <span style="font-size: 10px;margin-left: 10px" class="glyphicon glyphicon-edit"></span>
             <% end %>

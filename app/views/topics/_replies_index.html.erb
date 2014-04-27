@@ -1,5 +1,5 @@
 <% if @topic.replies.any? %>
-    <div style="margin-top: 10px">
+    <div style="margin-top: 10px;list-style: none">
       <div class="qa_box" id = "reply_detail_index">
         <div style="border-bottom:1px solid #ccc;padding: 8px;font-size:12px;color:gray" id = "replies_count">
           共收到 <b><%= @topic.replies_count %></b> 条回复
@@ -26,5 +26,8 @@
             <% i = i + 1 %>
         <% end %>
     </div>
-    <%= will_paginate @replies %></div>
+      <div class="digg_pagination" align = “right”>
+        <%= will_paginate @replies, :container => false%>
+      </div>
+    </div>
 <% end %>

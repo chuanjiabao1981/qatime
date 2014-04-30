@@ -1,6 +1,5 @@
 Qatime::Application.routes.draw do
   root :to => "home#index"
-  devise_for :users
 
   namespace :cpanel do
     resources :nodes
@@ -29,9 +28,8 @@ Qatime::Application.routes.draw do
   resources :courses do
     resource :topics
   end
-  resources :courses,shallow:true do
-    resources :lessons
-  end
 
+  devise_for :users
+  devise_for :teachers, controllers: { registrations: "teachers/registrations" }
 
 end

@@ -4,7 +4,7 @@ class Course < ActiveRecord::Base
   has_many   :lessons   ,:dependent => :destroy
   has_one    :cover     ,:dependent => :destroy
   has_many   :topics
-  validates_presence_of :name,:desc,:group
+  validates_presence_of :name,:desc,:group,:state
 
 
   def generate_token

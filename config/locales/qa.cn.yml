@@ -8,3 +8,6 @@ cn:
     - 生物
     - 数学
     - 化学
+  course:
+    published:   发布
+    unpublished: 未发布

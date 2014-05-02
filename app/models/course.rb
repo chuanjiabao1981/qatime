@@ -32,4 +32,8 @@ class Course < ActiveRecord::Base
     a.pictures << pictures unless pictures.empty?
     a
   end
+
+  def human_state_name
+    I18n.t("app.course.state.#{self.state}")
+  end
 end

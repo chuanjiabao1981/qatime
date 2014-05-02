@@ -25,9 +25,12 @@ Qatime::Application.routes.draw do
   resources :groups do
     resources :courses
   end
+  resources :lessons
   resources :courses do
     resource :topics
+    resource :lessons
   end
+
 
   devise_for :users
   devise_for :teachers, controllers: { registrations: "teachers/registrations" }

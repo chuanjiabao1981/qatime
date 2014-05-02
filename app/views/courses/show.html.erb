@@ -43,37 +43,8 @@
   <div class="qa_sep_5"></div>
   <div class="qa_sep_5"></div>
 
-  <%=link_to new_course_lesson_path(@course) do%>
+  <%=link_to new_course_lessons_path(@course) do%>
      <button type="button" class="btn btn-primary btn-block">添加内容</button>
     <% end %>
 
 </div>
-
-<!-----下边的内容应该删除------->
-
-<%= content_for :side_bar do%>
-    <div class="qa_box teacher">
-      <div class="qa_cell">
-        <strong> 老师基本信息</strong>
-      </div>
-      <div class="qa_cell ">
-        <%= image_tag @course.teacher.avatar.normal.url,class:"pull-left"%>
-        <div class="pull-left info" >
-           <div class="name">
-            <%= @course.teacher.name %>
-           </div>
-           <div class="title">
-             特级老师•阳泉市•第十一中学
-           </div>
-        </div>
-        <div class="pull-left" style="margin-left: 10px"> </div>
-        <div style="clear: both"></div>
-      </div>
-    </div>
-    <div style="margin-top: 10px">
-      <%=link_to new_course_lesson_path(@course) do%>
-        <button class="btn btn-primary btn-block">添加课程</button>
-      <% end %>
-    </div>
-
-<% end %>

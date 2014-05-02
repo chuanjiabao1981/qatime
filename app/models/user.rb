@@ -13,4 +13,12 @@ class User < ActiveRecord::Base
   has_many :topics, :dependent => :destroy
 
   belongs_to :school
+
+  def is_teacher?
+    if self.role == "teacher"
+       true
+    else
+      false
+    end
+  end
 end

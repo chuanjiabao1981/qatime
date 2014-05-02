@@ -29,6 +29,11 @@ body{
   padding: 10px;
   border-bottom: 1px solid #e2e2e2;
 }
+.qa_big_cell {
+  padding: 36px;
+  border-bottom: 1px solid #e2e2e2;
+
+}
 .qa_tutorial_item
 {
   width:30%;
@@ -87,6 +92,10 @@ body{
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.qa_f18
+{
+  font-size: 18px;
 }
 
 .qa_f16

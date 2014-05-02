@@ -11,9 +11,11 @@ Qatime::Application.routes.draw do
     resources :comments
   end
 
-  get "topics/node:id"      => "topics#node",       as: 'node_topics'
-  get "tutorials/node:id"   => "tutorials#node",    as: 'node_tutorials'
-  get "courses/node:id"     => "courses#node",      as: 'node_courses'
+  get "topics/node:id"      => "topics#node",           as: 'node_topics'
+  get "tutorials/node:id"   => "tutorials#node",        as: 'node_tutorials'
+  get "courses/node:id"     => "courses#node",          as: 'node_courses'
+  get "teachers/home"       => "teachers/home#main",    as: 'teachers_home'
+  get "admins/home"         => "admins/home#main",      as: 'admins_home'
   resources :schools
   resources :cities
   resources :groups
@@ -32,7 +34,7 @@ Qatime::Application.routes.draw do
   end
 
 
-  devise_for :users
-  devise_for :teachers, controllers: { registrations: "teachers/registrations" }
-
+  devise_for :users,    :controllers => { :sessions => 'users/sessions' }
+  devise_for :teachers, :controllers => { :registrations =>  'teachers/registrations'},:skip=>:sessions
+  devise_for :admins,   :skip=>:sessions
 end

@@ -3,6 +3,7 @@ cn:
     models:
       group: 班级
       course: 课程
+      teacher: 讲师
     attributes:
       group:
         subject: 科目
@@ -14,3 +15,11 @@ cn:
         price: 课程价格
         desc: 课程描述
         state: 课程状态
+      teacher:
+        email: 电子邮件
+        name: 姓名
+        avatar: 头像
+        school: 任课学校
+        password: 密码
+        password_confirmation: 密码确认
+        current_password: 当前密码

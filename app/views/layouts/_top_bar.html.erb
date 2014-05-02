@@ -18,6 +18,16 @@
         <li><a href="#contact">投票</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
+
+        <% if user_signed_in? %>
+            <li>
+                <%= link_to current_user.name,user_home_path %>
+            </li>
+        <% else %>
+            <li>
+              <%= link_to '注册', new_user_registration_path %>
+            </li>
+        <% end %>
         <% if user_signed_in? %>
             <li>
               <%= link_to '登出', destroy_user_session_path, :method=>'delete' %>
@@ -25,15 +35,6 @@
         <% else %>
             <li>
               <%= link_to '登录', new_user_session_path %>
-            </li>
-        <% end %>
-        <% if user_signed_in? %>
-            <li>
-              <%= link_to '编辑', edit_user_registration_path %>
-            </li>
-        <% else %>
-            <li>
-              <%= link_to '注册', new_user_registration_path %>
             </li>
         <% end %>
       </ul>

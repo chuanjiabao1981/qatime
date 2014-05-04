@@ -19,7 +19,7 @@
           <% end %>
         </li>
         <li>
-          <%= link_to edit_teacher_registration_path do %>
+          <%= link_to edit_teachers_registration_path(current_user) do %>
             <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 信息</span> Info
           <% end %>
         </li>
@@ -28,7 +28,7 @@
         </li>
 
         <li>
-          <%= link_to destroy_user_session_path, :method=>'delete'  do %>
+          <%= link_to signout_path, :method=>'delete'  do %>
               <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18"> 退出</span> Exit
           <% end %>
         </li>

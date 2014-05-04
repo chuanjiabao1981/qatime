@@ -35,6 +35,10 @@ Qatime::Application.routes.draw do
   namespace :admins do
     resources :teachers
   end
+  namespace :teachers do
+    resources :registrations
+  end
+
   resources :sessions
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'

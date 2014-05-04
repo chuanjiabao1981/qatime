@@ -1,31 +1,25 @@
 <div class="qa_box">
   <div class="qa_big_cell">
-    <h2>编辑 <%= resource.class.model_name.human %></h2>
+    <h2>编辑讲师</h2>
   </div>
 </div>
 
 <div class="qa_box">
    <div class="qa_big_cell">
-    <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put }) do |f| %>
-      <%= f.error_notification %>
-
+    <%= simple_form_for(@teacher,  :url => teachers_registration_path(@teacher), :html => { :method => :put }) do |f| %>
       <div class="form-inputs">
         <%= f.input :name, disabled: true,:required => true %>
         <%= f.association :school,  disabled: true,:collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]} %>
 
         <%= f.input :email, :required => true, :autofocus => true %>
-        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-          <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-        <% end %>
         <%= f.input :avatar %>
 
         <%= f.input :password, :autocomplete => "off", :hint => "如果不想修改密码，则别填写此项!", :required => false %>
         <%= f.input :password_confirmation, :required => false %>
-        <%= f.input :current_password, :hint => "修改基本信息需要提供当前密码！", :required => true %>
       </div>
 
       <div class="form-actions">
-        <%= f.button :submit, class: "btn btn-default" %>
+        <%= f.submit "更新信息", class: "btn btn-default" %>
       </div>
     <% end %>
     </div>

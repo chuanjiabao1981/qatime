@@ -1,6 +1,6 @@
 module ApplicationHelper
   def user_home_path
-    return new_user_session_path unless user_signed_in?
+    return signin_path unless signed_in?
 
     case current_user.role
       when "teacher"

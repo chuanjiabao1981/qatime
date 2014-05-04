@@ -32,9 +32,15 @@ Qatime::Application.routes.draw do
     resource :topics
     resource :lessons
   end
+  namespace :admins do
+    resources :teachers
+  end
+  resources :sessions
+  get    '/signin',  to: 'sessions#new'
+  delete '/signout', to: 'sessions#destroy'
 
+  #devise_for :users,    :controllers => { :sessions => 'users/sessions' }
+  #devise_for :teachers, :controllers => { :registrations =>  'teachers/registrations'},:skip=>:sessions
+  #devise_for :admins,   :skip=>:sessions
 
-  devise_for :users,    :controllers => { :sessions => 'users/sessions' }
-  devise_for :teachers, :controllers => { :registrations =>  'teachers/registrations'},:skip=>:sessions
-  devise_for :admins,   :skip=>:sessions
 end

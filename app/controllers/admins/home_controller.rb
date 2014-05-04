@@ -1,5 +1,6 @@
 class Admins::HomeController < ApplicationController
-  def home
-
+  layout "admin_home"
+  def main
+    @teachers = User.where(role: :teacher)
   end
 end

@@ -19,22 +19,22 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
 
-        <% if user_signed_in? %>
+        <% if signed_in? %>
             <li>
                 <%= link_to current_user.name,user_home_path %>
             </li>
         <% else %>
             <li>
-              <%= link_to '注册', new_user_registration_path %>
+              <%= link_to '注册', "#" %>
             </li>
         <% end %>
-        <% if user_signed_in? %>
+        <% if signed_in? %>
             <li>
-              <%= link_to '登出', destroy_user_session_path, :method=>'delete' %>
+              <%= link_to '登出', signout_path, :method=>'delete' %>
             </li>
         <% else %>
             <li>
-              <%= link_to '登录', new_user_session_path %>
+              <%= link_to '登录', signin_path %>
             </li>
         <% end %>
       </ul>

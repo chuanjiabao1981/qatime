@@ -49,7 +49,9 @@ end
 # gem 'debugger', group: [:development, :test]
 
 # 权限相关
-gem 'devise', '3.0.1'
+#gem 'devise', '3.0.1'
+
+gem 'bcrypt-ruby', '3.1.5'
 
 #表单
 gem 'simple_form'

@@ -1,0 +1,28 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2>新增 <%= Teacher.model_name.human %></h2>
+  </div>
+</div>
+
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <%= simple_form_for [:admins,@teacher] do |f| %>
+
+        <div class="form-inputs">
+          <%= f.input :name, :required => true %>
+          <%= f.association :school, :required => true ,:collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]} %>
+
+          <%= f.input :email, :required => true, :autofocus => true %>
+
+          <%= f.input :avatar %>
+
+          <%= f.input :password, :autocomplete => "off"%>
+          <%= f.input :password_confirmation %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, class: "btn btn-default" %>
+        </div>
+    <% end %>
+  </div>
+</div>

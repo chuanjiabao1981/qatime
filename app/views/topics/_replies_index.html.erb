@@ -1,9 +1,6 @@
 <% if @topic.replies.any? %>
     <div style="margin-top: 10px;list-style: none">
-      <div class="qa_box" id = "reply_detail_index">
-        <div style="border-bottom:1px solid #ccc;padding: 8px;font-size:12px;color:gray" id = "replies_count">
-          共收到 <b><%= @topic.replies_count %></b> 条回复
-        </div>
+      <div class="qa_box">
         <% current_page = params[:page].to_i > 1 ? params[:page].to_i : 1 %>
         <% i =  (current_page - 1) * 10%>
         <% for reply in @replies %>
@@ -25,9 +22,6 @@
             </div>
             <% i = i + 1 %>
         <% end %>
-    </div>
-      <div class="digg_pagination" align = “right”>
-        <%= will_paginate @replies, :container => false%>
-      </div>
+        </div>
     </div>
 <% end %>

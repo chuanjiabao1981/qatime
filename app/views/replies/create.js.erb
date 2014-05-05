@@ -1,6 +1,6 @@
 <% if @reply.errors.empty? %>
-    $("#replies_count").html('共收到 <b><%= @topic.replies_count %></b> 条回复')
-    $('<%= j(render :partial => 'shared/reply', :object => @reply) %>').appendTo($('#reply_detail_index'));
-    $("#reply_body").html('')
-    $(".note-editable").html('')
+    $('#replies_count').html("<%= escape_javascript(render('topics/replies_count')) %>");
+    $('<%= j(render :partial => 'shared/reply', :object => @reply) %>').appendTo($('#reply_items'));
+    $("#reply_body").html('');
+    $(".note-editable").html('');
 <% end %>

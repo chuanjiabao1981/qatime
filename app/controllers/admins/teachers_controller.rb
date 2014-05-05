@@ -19,4 +19,18 @@ class Admins::TeachersController < ApplicationController
   def show
     @teacher = Teacher.find(params[:id])
   end
+
+  def edit
+    @teacher = Teacher.find(params[:id])
+  end
+
+  def update
+    @teacher = Teacher.find(params[:id])
+
+    @teacher.update_attributes(params[:teacher].permit!)
+
+    respond_with :admins,@teacher
+
+
+  end
 end

@@ -8,7 +8,7 @@
             <div class="qa_f12 row">
               <div class="col-md-3">
                 <span class="glyphicon glyphicon-user"></span>
-                <span> <%=group.teacher.name%></span>
+                <span> <%=group.teacher.name if group.teacher %></span>
               </div>
               <div class="col-md-9">
                 <span class="glyphicon glyphicon-th-list"></span>
@@ -25,14 +25,16 @@
               </div>
               <div class="col-md-9">
                 <span class="glyphicon glyphicon-home"></span>
-                <span> <%= group.teacher.school.name %></span>
+                <span> <%= group.teacher.school.name if group.teacher %></span>
               </div>
             </div>
           </div>
 
           <div class="right">
             <div class="teacher">
-              <%= image_tag group.teacher.avatar.small ,class:"img-circle"%>
+              <% if group.teacher %>
+                <%= image_tag group.teacher.avatar.small ,class:"img-circle"%>
+              <% end %>
             </div>
             <div class="student">
               <span class="qa_f30">33</span>

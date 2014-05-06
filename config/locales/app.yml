@@ -1,0 +1,6 @@
+cn:
+  app:
+    course:
+      state:
+        published: 发布
+        unpublished: 未发布

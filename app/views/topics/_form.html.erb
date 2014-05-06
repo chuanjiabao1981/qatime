@@ -7,10 +7,10 @@
       <div class="progress" id="progress">
         <div class="progress-bar" id="progress-bar" role="progressbar" >
         </div>
-      </div>
-      <%=simple_form_for @topic do |f| %>
+    </div>
+
+      <%=simple_form_for([@course,@topic]) do |f| %>
           <%= render "shared/error_messages", :target => @topic %>
-          <%= f.input :node_id,as: :hidden,input_html: {value: f.object.node_id || @node.id} %>
           <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
           <div class="form-group">
             <%= f.input :title ,input_html:{class:'form-control'}  %>

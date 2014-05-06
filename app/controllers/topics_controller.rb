@@ -6,16 +6,17 @@ class TopicsController < ApplicationController
     @topics = Topic.where(section_id:@section_id)
   end
   def new
-    @topic = Topic.new_with_token
-    @node  = Node.find_by_id(params[:node_id])
-    #TODO:: 404页面处理
+    @course         = Course.find(params[:course_id])
+    @topic          = @course.build_topic
+    @topic.author   = current_user
   end
 
   def create
-    @topic          = Topic.new_with_token(params[:topic].permit!)
-    @topic.user_id  = current_user.id
+    @course         = Course.find(params[:course_id])
+    @topic          = @course.build_topic(params[:topic].permit!)
+    @topic.author   = current_user
     if @topic.save
-      redirect_to node_topics_url(id:@topic.node_id),notice: "success create topic"
+      redirect_to course_path(@course),notice: "success create topic"
     else
       render :new
     end

@@ -18,6 +18,7 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 
+
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -48,7 +49,9 @@ end
 # gem 'debugger', group: [:development, :test]
 
 # 权限相关
-gem 'devise', '3.0.1'
+#gem 'devise', '3.0.1'
+
+gem 'bcrypt-ruby', '3.1.5'
 
 #表单
 gem 'simple_form'
@@ -71,6 +74,8 @@ gem 'font-awesome-sass'
 
 gem 'cells','3.10.0'
 
+
+gem 'state_machine'
 
 group :development,:test do
   gem 'rspec-rails', '~> 2.13.2'

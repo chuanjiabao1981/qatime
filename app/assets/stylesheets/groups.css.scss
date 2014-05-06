@@ -1,0 +1,96 @@
+// Place all the styles related to the groups controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+ul.menu
+{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+ul.menu li
+{
+  padding: 10px;
+  background-color: #66A8CC;
+  border-bottom: 1px solid #ffffff;
+}
+ul.menu  li:last-child
+{
+  border: 0;
+}
+ul.menu li a
+{
+  display: block;
+  color: #ffffff;
+}
+ul.menu li.maintainHover
+{
+  background-color: #55a2c6;
+}
+.submenu_popover{
+  width: 450px;
+  position: absolute;
+  background-color: #f5f5f5;
+
+  display: none;
+  z-index: 10000;
+
+}
+.menu .school .item
+{
+  padding-top: 2px;
+}
+.menu .school  ol{
+  list-style: none;
+  margin: 4px 0 0 0;
+  padding: 2px 10px 0 0;
+  float: left;
+}
+
+
+.group .info
+{
+  padding: 0 0 0 10px;
+}
+
+.group .course .title
+{
+  margin-right: 50px;
+}
+.group .course .price
+{
+  color: rgba(182, 191, 191, 0.84);
+  line-height: 22px
+}
+
+
+.groups .group .info .left
+{
+  padding:15px 0 0 20px;
+  width: 75%;
+  float: left;
+}
+.groups .group .info .right
+{
+  padding:15px 10px 0 0;
+  width:25%;
+  float: right;
+}
+
+.groups .group .info .subject
+{
+  font-weight: 400;
+  font-size:22px;
+}
+
+.groups .group .info .teacher img
+{
+  margin-left:auto;
+  margin-right:auto;
+  display: block;
+}
+.groups .group .info .student
+{
+  text-align: center;
+}

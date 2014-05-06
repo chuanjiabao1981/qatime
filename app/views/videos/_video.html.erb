@@ -1,11 +1,8 @@
-<div style="margin-left:60px;margin-right:60px">
 <video id="<%= video.id%>" class="video-js vjs-default-skin vjs-big-play-centered" controls preload="auto"
-        width="320" height="180"
+        width="640" height="360"
         <% unless defined? use_js and use_js %>
            data-setup=''
         <% end %>
         >
-
-  <source src="<%= video.name.url %>" type="video/mp4"/>
+    <source src="<%= video.name.url %>" type="video/mp4"/>
 </video>
-</div>

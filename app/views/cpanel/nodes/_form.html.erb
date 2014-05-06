@@ -2,6 +2,7 @@
     <%= render 'shared/error_messages', :target => @node %>
 
     <%= f.input :name %>
+    <%= f.input :en_name %>
     <%= f.association :section, :collection => Section.all.collect { |s| [s.name,s.id] } %>
     <%= f.input :summary, :input_html => {:class => "xxlarge"} %>
     <div class="form-actions">

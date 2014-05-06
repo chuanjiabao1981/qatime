@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140412103208) do
+ActiveRecord::Schema.define(version: 20140505214250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cities", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "comments", force: true do |t|
     t.text     "body"
@@ -25,15 +31,56 @@ ActiveRecord::Schema.define(version: 20140412103208) do
     t.datetime "updated_at"
   end
 
+  create_table "courses", force: true do |t|
+    t.string   "name"
+    t.text     "desc"
+    t.integer  "lessons_count", default: 0
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.float    "price",         default: 0.0
+    t.integer  "group_id"
+    t.integer  "teacher_id"
+    t.string   "state",         default: "unpublished"
+  end
+
   create_table "covers", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "tutorial_id"
     t.string   "token"
+    t.integer  "course_id"
   end
 
   add_index "covers", ["token"], name: "index_covers_on_token", using: :btree
+
+  create_table "groups", force: true do |t|
+    t.string   "name"
+    t.integer  "city_id"
+    t.integer  "school_id"
+    t.integer  "teacher_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "grade"
+    t.string   "subject"
+    t.integer  "courses_count", default: 0
+  end
+
+  add_index "groups", ["grade"], name: "index_groups_on_grade", using: :btree
+  add_index "groups", ["subject", "grade"], name: "index_groups_on_subject_and_grade", using: :btree
+  add_index "groups", ["subject"], name: "index_groups_on_subject", using: :btree
+
+  create_table "lessons", force: true do |t|
+    t.string   "name"
+    t.text     "desc"
+    t.integer  "course_id"
+    t.string   "token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "group_id"
+    t.integer  "teacher_id"
+  end
 
   create_table "nodes", force: true do |t|
     t.string   "name"
@@ -43,7 +90,11 @@ ActiveRecord::Schema.define(version: 20140412103208) do
     t.datetime "updated_at"
     t.integer  "section_id"
     t.integer  "tutorials_count", default: 0
+    t.integer  "courses_count",   default: 0
+    t.string   "en_name"
   end
+
+  add_index "nodes", ["name"], name: "index_nodes_on_name", using: :btree
 
   create_table "pictures", force: true do |t|
     t.string   "name"
@@ -63,6 +114,13 @@ ActiveRecord::Schema.define(version: 20140412103208) do
     t.string   "token"
   end
 
+  create_table "schools", force: true do |t|
+    t.string   "name"
+    t.integer  "city_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "sections", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -75,11 +133,13 @@ ActiveRecord::Schema.define(version: 20140412103208) do
     t.integer  "replies_count", default: 0
     t.integer  "node_id"
     t.string   "node_name"
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "token"
     t.integer  "section_id"
+    t.integer  "course_id"
+    t.integer  "group_id"
+    t.integer  "author_id"
   end
 
   create_table "tutorials", force: true do |t|
@@ -115,9 +175,15 @@ ActiveRecord::Schema.define(version: 20140412103208) do
     t.integer  "replies_count",          default: 0
     t.string   "name"
     t.string   "avatar"
+    t.integer  "school_id"
+    t.string   "role"
+    t.string   "password_digest"
+    t.string   "remember_token"
+    t.text     "desc"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "videos", force: true do |t|
@@ -126,6 +192,7 @@ ActiveRecord::Schema.define(version: 20140412103208) do
     t.datetime "updated_at"
     t.integer  "tutorial_id"
     t.string   "token"
+    t.integer  "lesson_id"
   end
 
   add_index "videos", ["token"], name: "index_videos_on_token", using: :btree

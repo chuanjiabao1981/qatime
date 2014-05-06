@@ -1,0 +1,6 @@
+<div class="row">
+    <%= render_cell :node,:course_card ,:name=>"物理"%>
+    <% @courses.each do |course| %>
+            <%= render course %>
+    <% end %>
+</div>

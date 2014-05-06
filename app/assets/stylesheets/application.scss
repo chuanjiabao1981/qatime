@@ -29,6 +29,12 @@ body{
   padding: 10px;
   border-bottom: 1px solid #e2e2e2;
 }
+.qa_big_cell {
+//  padding: 36px;
+  padding: 10px 36px 10px 36px;
+  border-bottom: 1px solid #e2e2e2;
+
+}
 .qa_tutorial_item
 {
   width:30%;
@@ -70,3 +76,129 @@ body{
 {
   background-color: ghostwhite;
 }
+
+.rel{
+  position: relative;
+}
+.abs {
+  position: absolute;
+}
+.qa_cell.selected {
+  background-color: #008c00;
+  color: white;
+}
+
+.qa_text_wrap
+{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.qa_f18
+{
+  font-size: 18px;
+}
+
+.qa_f16
+{
+  font-size:16px;
+}
+
+.qa_f12
+{
+  font-size: 12px;
+}
+.qa_f14
+{
+  font-size: 14px;
+}
+
+.qa_f30
+{
+  font-size: 30px;
+}
+
+.qa_cell .right_bottom
+{
+  right: 20px;
+  bottom: 20px;
+}
+
+.qa_sep_5
+{
+  height: 5px;
+}
+.qa_sep_15
+{
+  height: 15px;
+}
+.qa_margin_top_15
+{
+  margin-top: 15px;
+}
+
+.card
+{
+  width:100%;
+  float: left;
+  background-color: #f6f6f6;
+  color:#3b4249;
+  height: 84px;
+  padding: 10px;
+}
+.card-big
+{
+  height: 96px;
+}
+
+.card-ex-big
+{
+  height: 128px;
+}
+.card-blue
+{
+  background-color: #2b5797;
+}
+.card-light-blue
+{
+  background-color: #66a8cc;
+}
+.card-gray
+{
+  background-color: #eeeeee;
+}
+.card-white
+{
+  background-color: #ffffff;
+}
+.card-big .right-top
+{
+  right:20px;
+  top:20px;
+}
+
+.card-big .right-bottom
+{
+  right: 20px;
+  bottom:20px;
+  z-index: 1000;
+}
+
+.card .right-top
+{
+  right:12px;
+  top:10px;
+}
+.card .right-bottom
+{
+  right: 12px;
+  bottom: 10px;
+  z-index: 1000;
+}
+
+.card .left-bottom
+{
+  left:12px;
+  bottom:10px;
+}
+

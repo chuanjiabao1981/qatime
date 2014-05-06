@@ -1,13 +1,17 @@
 class Topic < ActiveRecord::Base
 
-  belongs_to :user ,:counter_cache => true,:inverse_of => :topics
+
+  belongs_to :author ,:class_name => "User",:counter_cache => true,:inverse_of => :topics
+  ##删除node和section
   belongs_to :node ,:counter_cache => true,:inverse_of => :topics
   belongs_to :section
+  belongs_to :course
+  belongs_to :group
 
   has_many :replies,:dependent => :destroy
   has_many :pictures,as: :imageable,:dependent => :destroy
 
-  validates_presence_of :user,:node,:title,:body
+  validates_presence_of :author,:title,:body
 
   def generate_token
     self.token = loop do

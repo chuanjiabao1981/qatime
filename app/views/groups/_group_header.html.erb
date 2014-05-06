@@ -1,0 +1,57 @@
+<!--%=debug APP_CONFIG %-->
+<div class="row">
+  <div class="col-md-4">
+    <div class="card card-big card-blue">
+      <div style="padding: 10px;">
+        <span style="font-size: 35px;color: white;font-weight: 300"><%=@group.subject %></span>
+        <span style="font-size: 18px;color: #ffc40d"> <%=APP_CONFIG[@group.subject] %></span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card card-big card-gray rel">
+      <div class="abs right-top">
+        <span class="label label-primary">已购课程 10</span><br/>
+      </div>
+      <div class="abs right-bottom">
+        <%=link_to new_group_course_path(@group) do %>
+            <button type="button" class="btn btn-xs btn-success">新建课程</button>
+      <% end %>
+      </div>
+      <div class="info">
+        <div class="row">
+          <div class="col-md-12">
+
+            <span class="qa_f14" style="line-height: 30px"><strong><%=@group.subject %> • <%=@group.name %></strong></span>
+            <%=link_to edit_group_path(@group) ,style:"color:black" do %>
+                <span style="font-size: 10px;margin-left: 10px" class="glyphicon glyphicon-edit"></span>
+            <% end %>
+
+          </div>
+        </div>
+        <div class="row qa_f12">
+          <div class="col-md-4">
+            <span class="glyphicon glyphicon-user"></span>
+            <span> <%=@group.teacher.name %></span>
+          </div>
+          <div class="col-md-8">
+            <span class="glyphicon glyphicon-th-list"></span>
+            <span> <%= @group.courses_count %> 课</span>
+          </div>
+        </div>
+        <div class="qa_sep_5"></div>
+        <div class="row qa_f12">
+          <div class="col-md-4">
+            <span class="glyphicon glyphicon-map-marker"></span>
+            <span> <%=@group.teacher.school.city.name %></span>
+          </div>
+          <div class="col-md-8">
+            <span class="glyphicon glyphicon-home"></span>
+            <span><%= @group.teacher.school.name %></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

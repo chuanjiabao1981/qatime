@@ -1,2 +1,14 @@
 module ApplicationHelper
+  def user_home_path
+    return signin_path unless signed_in?
+
+    case current_user.role
+      when "teacher"
+        teachers_home_path
+      when "admin"
+        admins_home_path
+      else
+        root_path
+    end
+  end
 end

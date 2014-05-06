@@ -1,4 +1,4 @@
-$("div#tutorial-video").html('<%= j render partial:'video',locals:{video:@video,use_js:true} %>');
+$("div#video_show").html('<%= j render partial:'video',locals:{video:@video,use_js:true} %>');
 $(function(){
     videojs("<%=@video.id%>", {},function(){});
 });

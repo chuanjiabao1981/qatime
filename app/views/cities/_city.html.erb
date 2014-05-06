@@ -1,0 +1,11 @@
+<tr>
+  <td>
+    <%= city.name %>
+  </td>
+  <td>
+    <%= link_to 'edit',edit_city_path(city) %>
+  </td>
+  <td>
+    <%= link_to 'destroy',city_path(city),method: :delete,'data-confirm' => 'Are you sure?' %>
+  </td>
+</tr>

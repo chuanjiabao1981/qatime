@@ -1,19 +1,16 @@
 <div class="qa_box">
   <div class="qa_big_cell">
-    <h2>讲师列表</h2>
-        <%=link_to "#" do %>
-            <button type="button" class="btn btn-xs btn-success">增加讲师</button>
-        <% end %>
+    <div>
+        <h2>讲师列表
+          <%=link_to new_admins_teacher_path do %>
+              <button type="button" class="btn btn-xs btn-success">增加讲师</button>
+          <% end %>
+        </h2>
+    </div>
+
   </div>
   <div class="">
-   <!--table class="table">
-     <thead>
-        <th>#</th>
-        <th>姓名</th>
-        <th>学校</th>
-        <th>城市</th>
-     </thead>
-   </table-->
+
     <%= render @teachers %>
 
   </div>

@@ -10,14 +10,12 @@ class User < ActiveRecord::Base
   validates_presence_of :avatar,:name,:school
   validates :password, length: { minimum: 6 },:on => :create
 
-
   has_secure_password
 
   before_create :create_remember_token
 
 
   has_many :topics, :dependent => :destroy
-
   belongs_to :school
 
   def self.new_remember_token

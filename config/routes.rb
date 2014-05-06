@@ -34,6 +34,7 @@ Qatime::Application.routes.draw do
   end
   namespace :admins do
     resources :teachers
+    resources :groups
   end
   namespace :teachers do
     resources :registrations

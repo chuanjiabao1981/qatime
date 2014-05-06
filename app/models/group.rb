@@ -3,7 +3,7 @@ class Group < ActiveRecord::Base
   validates_length_of   :name,maximum: 12
   validates_presence_of :grade,:subject
 
-  belongs_to :teacher,class_name: "User"
+  belongs_to :teacher ,class_name: "User"
   belongs_to :school
   belongs_to :city
 

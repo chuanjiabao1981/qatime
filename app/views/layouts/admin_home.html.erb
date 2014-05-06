@@ -20,10 +20,16 @@
           <% end %>
         </li>
         <li>
+          <%= link_to admins_cities_path do %>
+              <span class="glyphicon glyphicon-map-marker"></span> <span class="qa_f18"> 城市</span> City
+          <% end %>
+        </li>
+        <li>
           <%= link_to admins_schools_path do %>
               <span class="glyphicon glyphicon-home"></span> <span class="qa_f18"> 学校</span> School
           <% end %>
         </li>
+
         <li>
           <span class="glyphicon glyphicon-info-sign"></span><span class="qa_f18"> 消息</span> Message
         </li>

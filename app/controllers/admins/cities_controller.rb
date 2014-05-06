@@ -1,5 +1,6 @@
-class CitiesController < ApplicationController
+class Admins::CitiesController < ApplicationController
   respond_to :html
+  layout "admin_home"
 
   def index
     @cities = City.all
@@ -11,7 +12,7 @@ class CitiesController < ApplicationController
   def create
     @city = City.new(params[:city].permit!)
     @city.save
-    respond_with @city
+    respond_with :admins,@city
   end
 
   def show
@@ -24,7 +25,7 @@ class CitiesController < ApplicationController
   def update
     @city = City.find(params[:id])
     @city.update_attributes(params[:city].permit!)
-    respond_with @city
+    respond_with :admins,@city
   end
   def destroy
     @city = City.find(params[:id])

@@ -1,4 +1,6 @@
-class SchoolsController < ApplicationController
+class Admins::SchoolsController < ApplicationController
+  layout "admin_home"
+
   respond_to :html
   def index
     @schools = School.all
@@ -11,7 +13,7 @@ class SchoolsController < ApplicationController
   def create
     @school = School.new(params[:school].permit!)
     @school.save
-    respond_with @school
+    respond_with :admins,@school
   end
 
   def show
@@ -25,7 +27,7 @@ class SchoolsController < ApplicationController
   def update
     @school = School.find(params[:id])
     @school.update_attributes(params[:school].permit!)
-    respond_with @school
+    respond_with :admins,@school
   end
 
   def destroy

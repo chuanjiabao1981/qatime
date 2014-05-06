@@ -16,7 +16,6 @@ Qatime::Application.routes.draw do
   get "courses/node:id"     => "courses#node",          as: 'node_courses'
   get "teachers/home"       => "teachers/home#main",    as: 'teachers_home'
   get "admins/home"         => "admins/home#main",      as: 'admins_home'
-  resources :schools
   resources :cities
   resources :groups
   resources :topics
@@ -35,6 +34,7 @@ Qatime::Application.routes.draw do
   namespace :admins do
     resources :teachers
     resources :groups
+    resources :schools
   end
   namespace :teachers do
     resources :registrations

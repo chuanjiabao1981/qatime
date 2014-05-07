@@ -1,0 +1,5 @@
+<ul id="menu" class="menu rel">
+  <% [["Math","数学"],['Biology','生物'],['Physics','物理'],['Chemistry','化学']].each do |subject| %>
+      <%= render partial: 'sub_menu' ,:locals => { :sub => subject[0], :sub_cn => subject[1]} %>
+  <% end %>
+</ul>

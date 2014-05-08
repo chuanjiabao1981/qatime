@@ -7,14 +7,18 @@ class VideoUploader < CarrierWave::Uploader::Base
   # include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
+  storage :qiniu
+  self.qiniu_access_key    = 'ZG5m3UceYSqdxNU4JsMcgTSBZfiI_G9UgHWz2AGv'
+  self.qiniu_secret_key    = 'Bh8V5ftV1QgSyRzUElQ6gzssKDm_hrexTBG1YWyC'
+  self.qiniu_bucket        = "qatime"
+  self.qiniu_bucket_domain = "qatime.qiniudn.com"
   # storage :fog
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
-  def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
-  end
+  #def store_dir
+  #  "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  #end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
   # def default_url
@@ -44,8 +48,16 @@ class VideoUploader < CarrierWave::Uploader::Base
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def filename
+    if original_filename
+      # current_path 是 Carrierwave 上传过程临时创建的一个文件，有时间标记，所以它将是唯一的
+      @name ||= Digest::MD5.hexdigest(File.dirname(current_path))
+      if not file.extension.empty?
+        "#{@name}.#{file.extension}"
+      else
+        "#{@name}.mp4"
+      end
+    end
+  end
 
 end

@@ -65,6 +65,7 @@ gem 'bootstrap-sass','3.0.2.0'
 
 #文件上传
 gem 'carrierwave'
+gem 'carrierwave-qiniu'
 gem 'mini_magick','3.3'
 
 gem 'font-awesome-sass'

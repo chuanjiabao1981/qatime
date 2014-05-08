@@ -1,5 +1,0 @@
-<%=simple_form_for @school do |f|%>
-    <%=f.input :name %>
-    <%= f.association :city, :collection => City.all.collect { |c| [c.name,c.id] } %>
-    <%= f.button :submit, class: "btn btn-default" %>
-<% end %>

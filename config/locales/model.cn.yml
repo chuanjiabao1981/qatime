@@ -4,6 +4,7 @@ cn:
       group: 班级
       course: 课程
       teacher: 讲师
+      school: 学校
     attributes:
       group:
         subject: 科目
@@ -23,3 +24,6 @@ cn:
         password: 密码
         password_confirmation: 密码确认
         current_password: 当前密码
+      school:
+        name: 名称
+        city: 城市

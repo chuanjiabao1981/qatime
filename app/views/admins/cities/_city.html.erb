@@ -1,0 +1,14 @@
+<div class="row qa_big_cell">
+  <div class="col-md-1">
+    <%= city_counter + 1 %>
+  </div>
+  <div class="col-md-3">
+    <%= city.name %>
+  </div>
+  <div class="col-md-3">
+    <%= link_to 'edit',edit_admins_city_path(city) %>
+  </div>
+  <div class="col-md-3">
+    <%= link_to 'destroy',admins_city_path(city),method: :delete,'data-confirm' => 'Are you sure?' %>
+  </div>
+</div>

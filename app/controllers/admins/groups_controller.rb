@@ -17,4 +17,16 @@ class Admins::GroupsController < ApplicationController
       render 'new'
     end
   end
+  def edit
+    @group = Group.find(params[:id])
+  end
+
+  def update
+    @group = Group.find(params[:id])
+    if @group.update_attributes(params[:group].permit!)
+      redirect_to admins_teacher_path(@group.teacher)
+    else
+      render 'edit'
+    end
+  end
 end

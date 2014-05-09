@@ -1,7 +1,7 @@
 <div class="qa_sep_15"></div>
 <%=link_to course_path(course)  do %>
     <div class="card course rel" data-toggle="tooltip" data-placement="bottom" data-original-title="<%= course.desc%>">
-      <% if signed_in? and current_user.is_teacher? %>
+      <% if  current_user.teacher? %>
           <div class="abs right-top">
             <span class="glyphicon glyphicon-ok-circle"></span>  <%= course.human_state_name %>
           </div>

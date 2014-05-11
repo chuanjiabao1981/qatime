@@ -1,18 +1,22 @@
 <div class="qa_box">
-  <div class="qa_cell">
-    <%= simple_form_for([@group,@course]) do |f|%>
+  <div class="qa_big_cell">
+    <%= link_to @group.name,group_path(@group) %> / 新建课程
+  </div>
+  <div class="qa_big_cell">
+    <%= simple_form_for([:teachers,@group,@course]) do |f|%>
         <%= f.input :name %>
         <%= f.input :state ,as: :radio_buttons,collection:[["发布","published"],["未发布","unpublished"]]%>
         <%= f.input :price %>
         <%= f.input :desc %>
         <%= f.association :teacher, as: :hidden %>
         <%= f.button :submit, class: "btn btn-default" %>
+        <%= link_to '返回', group_path(@group),class: "btn btn-default" %>
     <% end %>
   </div>
 </div>
 
 <div class="qa_box">
-  <div class="qa_cell">
+  <div class="qa_big_cell">
     <div>
       <ul>
         <li>

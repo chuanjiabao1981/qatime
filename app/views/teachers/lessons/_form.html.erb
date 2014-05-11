@@ -7,7 +7,7 @@
           <%= render partial: 'videos/video',object: @lesson.video unless @lesson.video.name.url.nil?%>
         </div>
     <% end %>
-    <%=simple_form_for @lesson,url: post_url do |f|%>
+    <%=simple_form_for ([:teachers,@course,@lesson]) do |f|%>
         <%=f.input :name %>
         <%=f.input :desc %>
         <%=f.input :token,as: :hidden %>

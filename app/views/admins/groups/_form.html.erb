@@ -4,8 +4,8 @@
   </div>
   <div class="qa_big_cell">
     <%=simple_form_for [:admins,@group] do |f| %>
-        <%= f.input :grade,collection: t(:grades),:include_blank => false %>
-        <%= f.input :subject,collection: t(:subjects),:include_blank => false %>
+        <%= f.input :grade,collection: APP_CONFIG[:grades],:include_blank => false %>
+        <%= f.input :subject,collection: APP_CONFIG[:subjects],:include_blank => false %>
         <%= f.input :name %>
 
       <%= f.association :teacher, :collection => User.all.collect { |u| ["#{u.school.try(:name)}-#{u.name}",u.id] },:include_blank => false  %>

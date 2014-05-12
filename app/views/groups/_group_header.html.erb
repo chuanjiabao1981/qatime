@@ -4,7 +4,7 @@
     <div class="card card-big card-blue">
       <div style="padding: 10px;">
         <span style="font-size: 35px;color: white;font-weight: 300"><%=@group.subject %></span>
-        <span style="font-size: 18px;color: #ffc40d"> <%=APP_CONFIG[@group.subject] %></span>
+        <span style="font-size: 18px;color: #ffc40d"> <%=APP_CONFIG[@group.subject.to_sym] %></span>
       </div>
     </div>
   </div>

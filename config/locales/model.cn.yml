@@ -26,6 +26,7 @@ cn:
         password: 密码
         password_confirmation: 密码确认
         current_password: 当前密码
+        desc: 讲师简介
       school:
         name: 名称
         city: 城市

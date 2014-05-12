@@ -1,6 +1,11 @@
 <% if @lesson %>
     <div class="qa_box">
       <div class="qa_cell" style="height: 400px">
+        <%= video_player width: 640,
+                         height:360,
+                         src:{ mp4: @lesson.video.name.url},
+                         controls: true,
+                         'data-setup'=> {} %>
       </div>
       <div class="qa_cell qa_f12 rel" >
         <div>

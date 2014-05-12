@@ -5,6 +5,7 @@ cn:
       course: 课程
       teacher: 讲师
       school: 学校
+      lesson: 内容
     attributes:
       group:
         subject: 科目
@@ -27,3 +28,6 @@ cn:
       school:
         name: 名称
         city: 城市
+      lesson:
+        name: 内容名称
+        desc: 内容简介

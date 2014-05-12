@@ -20,7 +20,6 @@ Qatime::Application.routes.draw do
   resources :topics
   resources :pictures
   resources :covers
-  resources :videos
   resources :tutorials
 
   resources :lessons
@@ -42,6 +41,8 @@ Qatime::Application.routes.draw do
     resources :courses do
       resources :lessons
     end
+    resources :videos
+
   end
 
   resources :sessions

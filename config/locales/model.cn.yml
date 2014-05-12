@@ -6,6 +6,7 @@ cn:
       teacher: 讲师
       school: 学校
       lesson: 内容
+      user: 用户
     attributes:
       group:
         subject: 科目
@@ -31,3 +32,6 @@ cn:
       lesson:
         name: 内容名称
         desc: 内容简介
+      user:
+        email: 邮箱
+        password: 密码

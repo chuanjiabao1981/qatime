@@ -23,9 +23,12 @@ module Permissions
         video and video.lesson.teacher_id == user.id
       end
 
+      allow "teachers/home",[:main]
 
+      allow "teachers/registrations",[:edit,:update,:show]
 
       allow :courses,[:show]
+      allow :sessions,[:destroy]
 
     end
   end

@@ -1,17 +1,22 @@
 <div class="qa_box">
-  <div class="qa_cell">
-    <%=simple_form_for @lesson.video do |f|%>
+  <div class="qa_big_cell">
+    <%= link_to @course.name ,course_path(@course) %> / 新增内容
+  </div>
+  <div class="qa_big_cell">
+    <%=simple_form_for ([:teachers,@lesson.video]) do |f|%>
         <%=f.input :name %>
         <%=f.input :token,as: :hidden %>
         <div id="video_show" class="rel" style="width:650px;height:370px;border:4px gray dotted">
           <%= render partial: 'videos/video',object: @lesson.video unless @lesson.video.name.url.nil?%>
         </div>
     <% end %>
-    <%=simple_form_for @lesson,url: post_url do |f|%>
+    <%=simple_form_for ([:teachers,@course,@lesson]) do |f|%>
         <%=f.input :name %>
         <%=f.input :desc %>
         <%=f.input :token,as: :hidden %>
         <%= f.button :submit, class: "btn btn-default" %>
+        <%= link_to '返回', course_path(@course),class: "btn btn-default" %>
+
   <% end %>
 
   </div>

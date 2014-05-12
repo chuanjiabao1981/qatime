@@ -19,8 +19,10 @@
           <strong><%= @course.name %></strong>
         </div>
         <div class="pull-right">
-            <%= link_to  edit_course_path(@course) do%>
-                <span class="glyphicon glyphicon-edit"></span>
+            <% if allow? "teachers/courses",:edit,@course %>
+                <%= link_to  edit_teachers_group_course_path(@course.group,@course) do%>
+                    <span class="glyphicon glyphicon-edit"></span>
+                <% end %>
             <% end %>
         </div>
         <div style="clear: both"></div>
@@ -31,20 +33,21 @@
             <%=link_to  lesson.name ,course_path(@course,lesson_id:lesson.id)%>
             </div>
             <div class="pull-right">
-              <%= link_to  edit_lesson_path(lesson) do%>
-                    <span class="glyphicon glyphicon-edit"></span>
+              <% if allow? "teachers/lessons",:edit,lesson %>
+                  <%= link_to  edit_teachers_course_lesson_path(@course,lesson) do%>
+                        <span class="glyphicon glyphicon-edit"></span>
+                  <% end %>
               <% end %>
             </div>
             <div style="clear: both"></div>
           </div>
       <% end %>
     </div>
-  <div class="qa_sep_5"></div>
-  <div class="qa_sep_5"></div>
-  <div class="qa_sep_5"></div>
-
-  <%=link_to new_course_lessons_path(@course) do%>
-     <button type="button" class="btn btn-primary btn-block">添加内容</button>
+  <div class="qa_sep_15"></div>
+  <% if allow? "teachers/lessons",:new,@course %>
+    <%=link_to new_teachers_course_lesson_path(@course) do%>
+        <button type="button" class="btn btn-primary btn-block">添加内容</button>
     <% end %>
+  <% end %>
 
 </div>

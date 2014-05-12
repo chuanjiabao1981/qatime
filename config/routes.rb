@@ -18,21 +18,16 @@ Qatime::Application.routes.draw do
   get "admins/home"         => "admins/home#main",      as: 'admins_home'
   resources :groups
   resources :topics do
-    resources :replies
+    resource :replies
   end
-
   resources :pictures
   resources :covers
-  resources :videos
   resources :tutorials
 
-  resources :groups do
-    resources :courses
-  end
   resources :lessons
   resources :courses do
     resource :topics
-    resource :lessons
+    #resource :lessons
   end
   namespace :admins do
     resources :teachers
@@ -42,14 +37,18 @@ Qatime::Application.routes.draw do
   end
   namespace :teachers do
     resources :registrations
+    resources :groups do
+      resources :courses
+    end
+    resources :courses do
+      resources :lessons
+    end
+    resources :videos
+
   end
 
   resources :sessions
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'
-
-  #devise_for :users,    :controllers => { :sessions => 'users/sessions' }
-  #devise_for :teachers, :controllers => { :registrations =>  'teachers/registrations'},:skip=>:sessions
-  #devise_for :admins,   :skip=>:sessions
 
 end

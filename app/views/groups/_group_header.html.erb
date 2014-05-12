@@ -11,12 +11,16 @@
   <div class="col-md-8">
     <div class="card card-big card-gray rel">
       <div class="abs right-top">
-        <span class="label label-primary">已购课程 10</span><br/>
+        <% if current_user.student? %>
+            <span class="label label-primary">已购课程 10</span><br/>
+        <% end %>
       </div>
       <div class="abs right-bottom">
-        <%=link_to new_group_course_path(@group) do %>
-            <button type="button" class="btn btn-xs btn-success">新建课程</button>
-      <% end %>
+        <% if allow? "teachers/courses",:new,@group %>
+            <%=link_to new_teachers_group_course_path(@group) do %>
+                <button type="button" class="btn btn-xs btn-success">新建课程</button>
+            <% end %>
+        <% end %>
       </div>
       <div class="info">
         <div class="row">

@@ -27,8 +27,10 @@
           <div class="col-md-12">
 
             <span class="qa_f14" style="line-height: 30px"><strong><%=t(@group.subject) %> • <%=@group.name %></strong></span>
-            <%=link_to edit_group_path(@group) ,style:"color:black" do %>
-                <span style="font-size: 10px;margin-left: 10px" class="glyphicon glyphicon-edit"></span>
+            <% if allow? "admins/groups",:edit,@group %>
+                <%=link_to edit_admins_group_path(@group) ,style:"color:black" do %>
+                    <span style="font-size: 10px;margin-left: 10px" class="glyphicon glyphicon-edit"></span>
+                <% end %>
             <% end %>
 
           </div>

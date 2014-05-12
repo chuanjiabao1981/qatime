@@ -8,6 +8,13 @@ cn:
     - 生物
     - 数学
     - 化学
+  physics: 物理
+  biology: 生物
+  math: 数学
+  chemistry: 化学
+  s1: 高一
+  s2: 高二
+  s3: 高三
   course:
     published:   发布
     unpublished: 未发布

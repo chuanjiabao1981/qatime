@@ -1,4 +1,4 @@
-物理: Pyhsics
+物理: Physics
 生物: Biology
 数学: Math
 化学: Chemistry
@@ -7,7 +7,7 @@
 高三: s3
 
 subjects:
-  - [物理,pyhsics]
+  - [物理,physics]
   - [生物,biology]
   - [数学,math]
   - [化学,chemistry]

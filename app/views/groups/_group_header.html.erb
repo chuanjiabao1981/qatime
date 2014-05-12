@@ -3,8 +3,8 @@
   <div class="col-md-4">
     <div class="card card-big card-blue">
       <div style="padding: 10px;">
-        <span style="font-size: 35px;color: white;font-weight: 300"><%=@group.subject %></span>
-        <span style="font-size: 18px;color: #ffc40d"> <%=APP_CONFIG[@group.subject.to_sym] %></span>
+        <span style="font-size: 35px;color: white;font-weight: 300"><%=t(@group.subject) %></span>
+        <span style="font-size: 18px;color: #ffc40d"> <%=@group.subject.capitalize %></span>
       </div>
     </div>
   </div>

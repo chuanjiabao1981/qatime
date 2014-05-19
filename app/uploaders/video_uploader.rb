@@ -12,8 +12,6 @@ class VideoUploader < CarrierWave::Uploader::Base
   self.qiniu_secret_key    = 'Bh8V5ftV1QgSyRzUElQ6gzssKDm_hrexTBG1YWyC'
   self.qiniu_bucket        = "qatime"
   self.qiniu_bucket_domain = "qatime.qiniudn.com"
-  self.persistentOps = "avthumb/mp4;avthumb/m3u8/segtime/15/preset/video_440k"
-  self.persistentNotifyUrl = "http://fake.com/qiniu/notify"
   # storage :fog
 
   # Override the directory where uploaded files will be stored.

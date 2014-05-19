@@ -10,6 +10,12 @@ class Group < ActiveRecord::Base
   has_many :courses
   has_many :lessons
 
+
+  scope :by_subject,lambda {|s| where(subject: s) if s}
+  scope :by_school,lambda {|s| where(school_id: s) if s}
+
+
+  
   def build_course(attributes={})
     a = self.courses.build(attributes)
     a.teacher = self.teacher

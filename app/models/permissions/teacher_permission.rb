@@ -3,6 +3,7 @@ module Permissions
     def initialize(user)
       allow :groups,[:index,:show]
       allow :home,[:index]
+
       allow "teachers/courses",[:new,:create] do |group|
         group and group.teacher_id == user.id
       end
@@ -23,9 +24,12 @@ module Permissions
         video and video.lesson.teacher_id == user.id
       end
 
+      allow "teachers/home",[:main]
 
+      allow "teachers/registrations",[:edit,:update,:show]
 
       allow :courses,[:show]
+      allow :sessions,[:destroy]
 
     end
   end

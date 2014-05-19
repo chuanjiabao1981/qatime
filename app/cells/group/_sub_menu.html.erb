@@ -13,8 +13,8 @@
               </div>
               <div class="school item qa_f12">
                 <% city.schools.each do |school| %>
-                    <ol><%= school.name %></ol>
-                <% end %>
+                    <ol><%=link_to school.name ,groups_path(subject:sub.downcase,school_id:school.id),{style: 'color:black'}%></ol>
+              <% end %>
                 <div style="clear:both"></div>
               </div>
               <div  class="qa_sep_5"></div>

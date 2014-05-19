@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
   respond_to :html
   def index
-    @groups = Group.all.order(created_at: :asc)
+    @groups = Group.all.by_subject(params[:subject]).by_school(params[:school_id]).order(created_at: :asc)
   end
 
 

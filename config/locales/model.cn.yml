@@ -6,6 +6,7 @@ cn:
       teacher: 讲师
       school: 学校
       lesson: 内容
+      user: 用户
     attributes:
       group:
         subject: 科目
@@ -25,9 +26,13 @@ cn:
         password: 密码
         password_confirmation: 密码确认
         current_password: 当前密码
+        desc: 讲师简介
       school:
         name: 名称
         city: 城市
       lesson:
         name: 内容名称
         desc: 内容简介
+      user:
+        email: 邮箱
+        password: 密码

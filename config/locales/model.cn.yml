@@ -7,6 +7,7 @@ cn:
       school: 学校
       lesson: 内容
       user: 用户
+      student: 学生
     attributes:
       group:
         subject: 科目
@@ -36,3 +37,9 @@ cn:
       user:
         email: 邮箱
         password: 密码
+      student:
+        email: 邮箱
+        name: 姓名
+        password: 密码
+        password_confirmation: 密码确认
+        avatar: 头像

@@ -4,6 +4,7 @@ module Permissions
       allow :home,[:index]
       allow :groups,[:index,:show]
       allow :courses,[:show]
+      allow :sessions,[:destroy]
     end
   end
 end

@@ -7,6 +7,7 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(params[:student].permit!)
     if @student.save
+      sign_in(@student)
       redirect_to groups_path
     else
       render 'new'

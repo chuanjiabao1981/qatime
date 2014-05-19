@@ -15,7 +15,7 @@
               <%= f.hidden_field "crop_#{attribute}"%>
           <% end %>
           <%= f.input :avatar,input_html:{onchange:"showimagepreview(this)"} %>
-          <img id="user_avatar_preview" width="240" height="135">
+          <img id="user_avatar_preview" style="width: 240px;height: 240px">
 
           </img>
           <%= f.input :password, :autocomplete => "off"%>

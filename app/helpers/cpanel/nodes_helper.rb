@@ -1,2 +1,0 @@
-module Cpanel::NodesHelper
-end

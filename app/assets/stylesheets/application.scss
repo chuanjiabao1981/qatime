@@ -11,13 +11,16 @@
  *= require_self
  *= require_tree .
  *= require font-awesome
+ *= require jquery.Jcrop
  *= require summernote
  *= require videojs/video-js
  */
 
 
 body{
-  background-color: #e2e2e2 !important;
+  #background-color: #e2e2e2 !important;
+  background-image: url("home-head-bg.png");
+  background-repeat: repeat-x, repeat;
 }
 
 .qa_box{

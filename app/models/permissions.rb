@@ -6,6 +6,8 @@ module Permissions
       AdminPermission.new(user)
     elsif user.teacher?
       TeacherPermission.new(user)
+    elsif user.student?
+      StudentPermission.new(user)
     else
       GuestPermission.new
     end

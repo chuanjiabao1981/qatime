@@ -11,6 +11,6 @@ class Teachers::VideosController < ApplicationController
   end
   protected
   def current_resource
-    @video = Video.find(params[:id])
+    @video = Video.find(params[:id]) if params[:id]
   end
 end

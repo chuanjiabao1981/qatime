@@ -1,0 +1,30 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2>注册</h2>
+  </div>
+</div>
+
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <%= simple_form_for @student do |f| %>
+
+        <div class="form-inputs">
+          <%= f.input :name, :required => true %>
+          <%= f.input :email, :required => true, :autofocus => true %>
+          <% %w[x y w h].each do |attribute| %>
+              <%= f.hidden_field "crop_#{attribute}"%>
+          <% end %>
+          <%= f.input :avatar,input_html:{onchange:"showimagepreview(this)"} %>
+          <img id="user_avatar_preview" width="240" height="135">
+
+          </img>
+          <%= f.input :password, :autocomplete => "off"%>
+          <%= f.input :password_confirmation %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.submit '注 册', class: "btn btn-default" %>
+        </div>
+    <% end %>
+  </div>
+</div>

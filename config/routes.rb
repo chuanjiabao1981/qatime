@@ -44,9 +44,10 @@ Qatime::Application.routes.draw do
       resources :lessons
     end
     resources :videos
-
   end
 
+
+  resources :students
   resources :sessions
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'

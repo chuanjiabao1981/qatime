@@ -77,6 +77,8 @@ gem 'cells','3.10.0'
 
 gem 'state_machine'
 
+gem 'jcrop-rails-v2','0.9.12.3'
+
 group :development,:test do
   gem 'rspec-rails', '~> 2.13.2'
   gem 'factory_girl_rails'

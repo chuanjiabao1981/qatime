@@ -12,24 +12,24 @@
 <div class="container">
   <div class='row'>
     <div class="col-md-12">
-      <% flash.each do |key, value| %>
-          <div class="alert alert-<%= key %>"><%= value %></div>
-      <% end %>
+        <% flash.each do |key, value| %>
+            <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
     </div>
     <div class='col-md-2'>
       <ul class="menu" style="color: white">
         <li>
           <%= link_to teachers_home_path do %>
-            <span class="glyphicon glyphicon-home"></span> <span class="qa_f18">班级</span> Class
+              <span class="glyphicon glyphicon-home"></span> <span class="qa_f18">班级</span> Class
           <% end %>
         </li>
         <li>
-          <%= link_to teachers_registration_path(current_user) do %>
-            <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 信息</span> Info
+          <%= link_to students_info_path(current_user) do %>
+              <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 信息</span> Info
           <% end %>
         </li>
         <li>
-           <span class="glyphicon glyphicon-info-sign"></span><span class="qa_f18"> 消息</span> Message
+          <span class="glyphicon glyphicon-info-sign"></span><span class="qa_f18"> 消息</span> Message
         </li>
 
         <li>

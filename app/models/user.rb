@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   require 'carrierwave/orm/activerecord'
   mount_uploader :avatar, AvatarUploader
 
+  attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
 
 
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: true

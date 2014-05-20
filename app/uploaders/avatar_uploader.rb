@@ -16,7 +16,8 @@ class AvatarUploader < CarrierWave::Uploader::Base
   def store_dir
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
-
+  #这个大小和预览值保持一致，否则坐标会是错误的
+  process :resize_to_fill => [240,240]
   process :crop
 
   version :ex_big do
@@ -39,13 +40,14 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
 
   def crop
+    Rails.logger.info("xxxxxxxx");
     if model.crop_x.present?
-
       manipulate! do |img|
         x = model.crop_x.to_i
         y = model.crop_y.to_i
         w = model.crop_w.to_i
         h = model.crop_h.to_i
+        Rails.logger.info("#{w}x#{h}+#{x}+#{y}")
         img.crop("#{w}x#{h}+#{x}+#{y}")
         img
       end

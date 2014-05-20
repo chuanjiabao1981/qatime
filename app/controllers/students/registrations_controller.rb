@@ -2,6 +2,8 @@ class Students::RegistrationsController < ApplicationController
   layout 'student_home'
   before_filter 'already_signin' ,only: [:new]
 
+  def show
+  end
   def new
     @student = Student.new
     render layout: 'application'

@@ -3,6 +3,7 @@ class Students::RegistrationsController < ApplicationController
   before_filter 'already_signin' ,only: [:new]
 
   def show
+    @groups = Group.all
   end
   def new
     @student = Student.new

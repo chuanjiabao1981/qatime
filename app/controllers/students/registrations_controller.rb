@@ -22,7 +22,7 @@ class Students::RegistrationsController < ApplicationController
   end
   def update
     if @student.update_attributes(params[:student].permit!)
-      redirect_to students_info_path(@student)
+      redirect_to students_registration_path(@student)
     else
       render 'edit'
     end

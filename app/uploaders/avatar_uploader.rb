@@ -14,7 +14,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    "uploads/#{mounted_as}/#{model.id}"
   end
   #这个大小和预览值保持一致，否则坐标会是错误的
   process :resize_to_fill => [240,240]

@@ -3,6 +3,7 @@ module Permissions
     def initialize(user)
       allow :groups,[:index,:show]
       allow :home,[:index]
+      allow :pictures,[:new,:create]
 
       allow "teachers/courses",[:new,:create] do |group|
         group and group.teacher_id == user.id

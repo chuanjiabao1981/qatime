@@ -1,35 +1,44 @@
-<div class="qa_box">
-  <div class="qa_topic">
-      <div class="header">
-        <div class="qa_cell" style="background-color: #f5f5f5">
-          <!--div style="color: gray;margin-bottom: 10px">
-          </div-->
-          <div class="pull-right">
-            <%=image_tag @topic.author.avatar.normal.url %>
-          </div>
+<div class="col-md-9">
+    <div class="qa_box">
+      <div class="qa_topic">
+          <div class="header">
+            <div class="qa_cell" style="background-color: #f5f5f5">
+              <div class="pull-right">
+                <%=image_tag @topic.author.avatar.normal.url %>
+              </div>
 
-          <div class="title">
-            <h4><%= @topic.title %></h4>
+              <div class="title">
+                <h4><%= @topic.title %></h4>
+              </div>
+              <div style="color:gray;font-size: 10px;">
+                <%= @topic.author.name %> •  <%= time_ago_in_words(@topic.created_at) %>前 •
+                <%= link_to @course.name ,course_path(@course) %>
+              </div>
+            </div>
           </div>
-          <div style="color:gray;font-size: 10px;">
-            <%= @topic.author.name %> •  <%= time_ago_in_words(@topic.created_at) %>
+          <div class="content">
+            <div class="qa_cell">
+              <div>
+                <%= @topic.body.html_safe %>
+              </div>
+              <div class="pull-right">
+                <%= link_to "", edit_topic_path(@topic), class: "glyphicon glyphicon-edit"%>
+                <%= link_to "", topic_path(@topic),
+                            :method => :delete,
+                            'data-confirm' => 'Are you sure?',
+                            class: "glyphicon glyphicon-remove"%>
+              </div>
+              <div style="clear: both"></div>
+            </div>
           </div>
-        </div>
       </div>
-      <div class="content">
-        <div class="qa_cell">
-          <div>
-            <%= @topic.body.html_safe %>
-          </div>
-          <div class="pull-right">
-            <%= link_to "", edit_topic_path(@topic), class: "glyphicon glyphicon-edit"%>
-            <%= link_to "", topic_path(@topic),
-                        :method => :delete,
-                        'data-confirm' => 'Are you sure?',
-                        class: "glyphicon glyphicon-remove"%>
-          </div>
-          <div style="clear: both"></div>
-        </div>
-      </div>
-  </div>
+    </div>
+    <div class="qa_sep_15"></div>
+    <div class="qa_sep_15"></div>
+    <div class="qa_sep_15"></div>
+
+  <%= render partial:'replies/form' %>
+</div>
+<div class="col-md-3">
+  <%= render 'courses/course_lessons' %>
 </div>

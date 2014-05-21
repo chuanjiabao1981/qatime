@@ -8,6 +8,8 @@ cn:
       lesson: 内容
       user: 用户
       student: 学生
+      topic: 讨论
+      reply: 回复
     attributes:
       group:
         subject: 科目
@@ -43,3 +45,8 @@ cn:
         password: 密码
         password_confirmation: 密码确认
         avatar: 头像
+      topic:
+        title: 标题
+        body: 内容
+      reply:
+        body: 回复

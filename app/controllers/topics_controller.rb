@@ -23,6 +23,8 @@ class TopicsController < ApplicationController
   end
   def show
     @topic        = Topic.find(params[:id])
+    @course       = @topic.course
+    @reply        = Reply.new
   end
   def edit
     @topic        = Topic.find(params[:id])

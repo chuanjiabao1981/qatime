@@ -12,7 +12,9 @@
           <%= f.association :school,:collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]} %>
 
           <%= f.input :email, :required => true, :autofocus => true %>
-          <%= f.input :avatar %>
+          <%= f.input :avatar,input_html:{onchange:"showimagepreview(this)"},:hint => "用户头像不可为空。" %>
+          <img id="user_avatar_preview" style="width: 240px;height: 240px">
+
           <%= f.input :desc %>
 
           <%= f.input :password, :autocomplete => "off", :hint => "如果不想修改密码，则别填写此项!", :required => false %>

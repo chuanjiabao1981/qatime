@@ -3,4 +3,5 @@ class Video < ActiveRecord::Base
   mount_uploader :name, VideoUploader
   belongs_to :tutorial
   belongs_to :lesson
+
 end

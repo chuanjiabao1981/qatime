@@ -1,12 +1,6 @@
 Qatime::Application.routes.draw do
   root :to => "home#index"
 
-  namespace :cpanel do
-    resources :nodes
-    resources :sections
-    resources :tutorials
-  end
-
   resources :tutorials do
     resources :comments
   end
@@ -16,6 +10,8 @@ Qatime::Application.routes.draw do
   get "courses/node:id"     => "courses#node",          as: 'node_courses'
   get "teachers/home"       => "teachers/home#main",    as: 'teachers_home'
   get "admins/home"         => "admins/home#main",      as: 'admins_home'
+  get "students/home"       => "students/home#main",    as: 'students_home'
+
   resources :groups
   resources :topics do
     resource :replies
@@ -46,8 +42,11 @@ Qatime::Application.routes.draw do
     resources :videos
   end
 
+  namespace :students do
+    resources :registrations
+  end
 
-  resources :students
+
   resources :sessions
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'

@@ -12,31 +12,31 @@
 <div class="container">
   <div class='row'>
     <div class="col-md-12">
-      <% flash.each do |key, value| %>
-          <div class="alert alert-<%= key %>"><%= value %></div>
-      <% end %>
+        <% flash.each do |key, value| %>
+            <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
     </div>
     <div class='col-md-2'>
       <ul class="menu" style="color: white">
         <li>
-          <%= link_to teachers_home_path do %>
-            <span class="glyphicon glyphicon-home"></span> <span class="qa_f18">班级</span> Class
+          <%= link_to students_registration_path(current_user) do %>
+              <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 信息</span> Info
           <% end %>
         </li>
         <li>
-          <%= link_to teachers_registration_path(current_user) do %>
-            <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 信息</span> Info
-          <% end %>
+          <span class="glyphicon glyphicon-info-sign"></span><span class="qa_f18"> 消息</span> Message
         </li>
         <li>
-           <span class="glyphicon glyphicon-info-sign"></span><span class="qa_f18"> 消息</span> Message
+          <%= link_to students_registration_path(current_user) do %>
+              <span class="glyphicon glyphicon-credit-card"></span> <span class="qa_f18"> 充值</span> Recharge
+          <% end %>
         </li>
-
         <li>
           <%= link_to signout_path, :method=>'delete'  do %>
               <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18"> 退出</span> Exit
           <% end %>
         </li>
+
       </ul>
     </div>
     <div class='col-md-10'>

@@ -1,10 +1,4 @@
 <div style="padding:128px;height: 360px" class="home_head">
-  <% flash.each do |key, value| %>
-      <div class="alert alert-<%= key %>"><%= value %></div>
-  <% end %>
-  <%=image_tag current_user.avatar.big if current_user%>
-  <%=image_tag current_user.avatar.ex_big if current_user%>
-  <%=image_tag current_user.avatar.normal if current_user%>
 
   <div class="container">
     <div>
@@ -12,7 +6,7 @@
         <p style="color: #07141e">“答疑时间” 致力于把优质的本地教育资源提供给学生。</p>
         <div class="qa_sep_15"></div>
       <div class="pull-left" style="margin-right: 40px">
-        <%= link_to '注 册',new_student_path,class:"btn btn-primary " %>
+        <%= link_to '注 册',new_students_registration_path,class:"btn btn-primary " %>
       </div>
       <div class="pull-left" style="margin-right: 20px ">
         <%=link_to '登 录',signin_path ,class:'btn btn-primary' %>
@@ -94,16 +88,4 @@
   <div class="qa_sep_15"></div>
   <div class="qa_sep_15"></div>
 
-</div>
-<div class="container">
-  <div class="qa_sep_5"></div>
-  <div class="qa_sep_15"></div>
-  <div class="row">
-    <div class="col-md-4">
-      <p>联系我们: 15910676326 </p>
-    </div>
-    <div class="col-md-4">
-        <p>京ICP备11008151号</p>
-    </div>
-  </div>
 </div>

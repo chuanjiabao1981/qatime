@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   include SessionsHelper
+  include ApplicationHelper
 
   before_filter :authorize
 
@@ -27,7 +28,8 @@ class ApplicationController < ActionController::Base
     if current_permission.allow?(params[:controller], params[:action], current_resource)
       current_permission.permit_params! params
     else
-      redirect_to root_url, alert: "Not authorized."
+      flash[:warning] = "未授权的访问!"
+      redirect_to user_home_path
     end
   end
 

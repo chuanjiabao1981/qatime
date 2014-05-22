@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 20140521231449) do
   end
 
   create_table "recharge_codes", force: true do |t|
-    t.integer  "value"
+    t.integer  "money",      default: 500
     t.string   "code"
     t.integer  "admin_id"
     t.string   "desc"

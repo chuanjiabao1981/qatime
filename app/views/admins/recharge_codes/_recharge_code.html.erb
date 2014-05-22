@@ -1,5 +1,17 @@
 <tr>
+  <td> <%= recharge_code_counter +1 %></td>
   <td>
-    <%= recharge_code.value %>
+    <%= link_to recharge_code.code,admins_recharge_code_path(recharge_code)  if recharge_code.code %>
   </td>
+  <td>
+    <%= recharge_code.money %>
+  </td>
+
+  <td>
+    <%= recharge_code.is_used ? '已使用' : '未使用' %>
+  </td>
+  <td>
+    <%= recharge_code.created_at %>
+  </td>
+
 </tr>

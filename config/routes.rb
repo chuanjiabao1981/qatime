@@ -31,6 +31,7 @@ Qatime::Application.routes.draw do
     resources :groups
     resources :schools
     resources :cities
+    resources :recharge_codes
   end
   namespace :teachers do
     resources :registrations

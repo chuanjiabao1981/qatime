@@ -6,6 +6,7 @@ module Permissions
       allow :courses,[:show]
       allow :sessions,[:destroy]
       allow :topics,[:new,:create,:show]
+      allow :pictures,[:new,:create]
       allow 'students/home',[:main]
       allow 'students/registrations',[:edit,:update,:show]
     end

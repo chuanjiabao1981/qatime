@@ -19,12 +19,15 @@ Qatime::Application.routes.draw do
   resources :pictures
   resources :covers
   resources :tutorials
+  resources :topics do
+    resources :replies
+  end
 
   resources :lessons
   resources :courses do
     resource :topics
-    #resource :lessons
   end
+
   namespace :admins do
     resources :teachers
     resources :groups

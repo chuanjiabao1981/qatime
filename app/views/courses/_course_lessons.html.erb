@@ -1,0 +1,38 @@
+
+<div class="qa_box">
+  <div class="qa_cell box_header">
+    <div style="width: 90%" class="pull-left">
+      <strong><%= @course.name %></strong>
+    </div>
+    <div class="pull-right">
+      <% if allow? "teachers/courses",:edit,@course %>
+          <%= link_to  edit_teachers_group_course_path(@course.group,@course) do%>
+              <span class="glyphicon glyphicon-edit"></span>
+          <% end %>
+      <% end %>
+    </div>
+    <div style="clear: both"></div>
+  </div>
+  <% @course.lessons.each do |lesson| %>
+      <div class="qa_cell">
+        <div style="width: 90%" class="pull-left">
+          <%=link_to  lesson.name ,course_path(@course,lesson_id:lesson.id)%>
+        </div>
+        <div class="pull-right">
+          <% if allow? "teachers/lessons",:edit,lesson %>
+              <%= link_to  edit_teachers_course_lesson_path(@course,lesson) do%>
+                  <span class="glyphicon glyphicon-edit"></span>
+              <% end %>
+          <% end %>
+        </div>
+        <div style="clear: both"></div>
+      </div>
+  <% end %>
+</div>
+<div class="qa_sep_15"></div>
+<% if allow? "teachers/lessons",:new,@course %>
+    <%=link_to new_teachers_course_lesson_path(@course) do%>
+        <button type="button" class="btn btn-primary btn-block">添加内容</button>
+    <% end %>
+<% end %>
+

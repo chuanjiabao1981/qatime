@@ -12,14 +12,13 @@ class Students::RechargeRecordsController < ApplicationController
   end
   def create
     begin
-      current_user.recharge(10)
+      current_user.recharge(params)
     rescue => err
-      Rails.logger.info("==============|"+err+"-====================")
+      @recharge_record = RechargeRecord.new
+      flash[:warning] = err.to_s
+      render 'new'
     end
-    @recharge_record = RechargeRecord.new
-    flash[:warning] = "ssss"
 
-    render 'new'
 
   end
 end

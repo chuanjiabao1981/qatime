@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(version: 20140521231449) do
 
   create_table "recharge_codes", force: true do |t|
     t.integer  "value"
+    t.string   "code"
     t.integer  "admin_id"
     t.string   "desc"
     t.boolean  "is_used",    default: false

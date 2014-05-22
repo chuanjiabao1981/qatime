@@ -9,6 +9,7 @@ module Permissions
       allow :pictures,[:new,:create]
       allow 'students/home',[:main]
       allow 'students/registrations',[:edit,:update,:show]
+      allow 'students/recharge_records',[:index,:new,:create]
     end
   end
 end

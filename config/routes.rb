@@ -46,6 +46,7 @@ Qatime::Application.routes.draw do
 
   namespace :students do
     resources :registrations
+    resources :recharge_records
   end
 
 

@@ -1,0 +1,7 @@
+<%= @err %>
+<div class="qa_box">
+    <div class="qa_big_cell">
+      <h2><%= RechargeRecord.model_name.human%></h2><span class="label label-info"> 账户余额：<%=current_user.money %></span>
+    </div>
+    <%= render 'form' %>
+</div>

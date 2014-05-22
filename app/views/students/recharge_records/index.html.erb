@@ -1,0 +1,9 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2>充值</h2>
+    <%= link_to RechargeRecord.model_name.human ,new_students_recharge_record_path ,class: 'btn btn-default btn-xs'%>
+  </div>
+  <div class="qa_big_cell">
+    <%= render @recharge_records %>
+  </div>
+</div>

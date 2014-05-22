@@ -2,6 +2,7 @@ class RechargeCode < ActiveRecord::Base
   validates :money, numericality: { only_integer: true,greater_than: 0 }
   validates_presence_of :admin
   belongs_to :admin
+  belongs_to :recharge_record
 
   def self.get_code(money)
     money = "#{RechargeCode.get_random_letter}#{money.to_s}#{RechargeCode.get_random_letter}"

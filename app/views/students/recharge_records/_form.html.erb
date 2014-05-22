@@ -1,0 +1,6 @@
+<div class="qa_big_cell">
+    <%= simple_form_for([:students,@recharge_record]) do |f| %>
+        <%= f.input :code %>
+        <%= f.submit RechargeRecord.model_name.human , class: 'btn btn-default' %>
+    <% end %>
+</div>

@@ -14,6 +14,7 @@
     <div class='col-md-2'>
       <ul class="menu" style="color: white">
 
+
         <li>
           <%= link_to admins_teachers_path do %>
               <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 教师</span> Info
@@ -29,7 +30,11 @@
               <span class="glyphicon glyphicon-home"></span> <span class="qa_f18"> 学校</span> School
           <% end %>
         </li>
-
+        <li>
+          <%= link_to admins_recharge_codes_path do %>
+              <span class="glyphicon glyphicon-credit-card"></span> <span class="qa_f18"> 充值</span> Recharge
+          <% end %>
+        </li>
         <li>
           <span class="glyphicon glyphicon-info-sign"></span><span class="qa_f18"> 消息</span> Message
         </li>

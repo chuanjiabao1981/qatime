@@ -1,0 +1,53 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%= RechargeCode.model_name.human%></h2>
+  </div>
+  <div class="qa_big_cell row">
+    <div class="col-md-2">
+      <%= RechargeCode.human_attribute_name(:money) %>
+    </div>
+    <div class="col-md-10">
+      <%= @recharge_code.money %>
+    </div>
+  </div>
+  <div class="qa_big_cell row">
+    <div class="col-md-2">
+      <%= RechargeCode.human_attribute_name(:code) %>
+    </div>
+    <div class="col-md-10">
+      <%= @recharge_code.code %>
+    </div>
+  </div>
+
+  <div class="qa_big_cell row">
+    <div class="col-md-2">
+      <%= RechargeCode.human_attribute_name(:desc) %>
+    </div>
+    <div class="col-md-10">
+      <%= @recharge_code.desc %>
+    </div>
+  </div>
+  <div class="qa_big_cell row">
+    <div class="col-md-2">
+      状态
+    </div>
+    <div class="col-md-10">
+      <%= @recharge_code.is_used ? '已使用' : '未使用' %>
+    </div>
+  </div>
+  <div class="qa_big_cell row">
+    <div class="col-md-2">
+      <%= RechargeCode.human_attribute_name(:admin_id) %>
+    </div>
+    <div class="col-md-10">
+      <%= @recharge_code.admin.name %>
+    </div>
+  </div>
+  <div class="qa_big_cell row">
+    <div class="col-md-2">
+      使用者
+    </div>
+    <div class="col-md-10">
+    </div>
+  </div>
+</div>

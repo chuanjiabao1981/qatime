@@ -10,6 +10,7 @@ cn:
       student: 学生
       topic: 讨论
       reply: 回复
+      recharge_code: 充值码
     attributes:
       group:
         subject: 科目
@@ -50,3 +51,8 @@ cn:
         body: 内容
       reply:
         body: 回复
+      recharge_code:
+        money: 金额
+        desc: 备注
+        code: 卡号
+        admin_id: 生成人员

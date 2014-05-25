@@ -32,7 +32,7 @@
       状态
     </div>
     <div class="col-md-10">
-      <%= @recharge_code.is_used ? '已使用' : '未使用' %>
+      <%= @recharge_code.student ? '已使用' : '未使用' %>
     </div>
   </div>
   <div class="qa_big_cell row">
@@ -48,6 +48,7 @@
       使用者
     </div>
     <div class="col-md-10">
+      <%= @recharge_code.student.name if @recharge_code.student %>
     </div>
   </div>
 </div>

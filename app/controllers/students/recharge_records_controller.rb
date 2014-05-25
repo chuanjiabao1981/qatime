@@ -12,13 +12,16 @@ class Students::RechargeRecordsController < ApplicationController
   end
   def create
     begin
-      current_user.recharge(params)
+      val = current_user.recharge(params[:recharge_record][:code])
     rescue => err
+      Rails.logger.info(err.to_s)
       @recharge_record = RechargeRecord.new
-      flash[:warning] = err.to_s
+      flash.now[:warning] = err.to_s
       render 'new'
+    else
+      flash[:info] = "您成功充值#{val}元 !"
+      redirect_to students_registration_path(current_user)
     end
-
 
   end
 end

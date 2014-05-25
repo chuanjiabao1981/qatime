@@ -9,4 +9,5 @@ module VideosHelper
       raw src.map { |type, url| raw tag(:source, src: url, type: "video/#{type}") }.join('')
     end
   end
+
 end

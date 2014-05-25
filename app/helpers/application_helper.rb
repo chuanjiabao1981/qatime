@@ -13,4 +13,11 @@ module ApplicationHelper
         root_path
     end
   end
+
+  def generate_video_download_token
+    @download_token = Qiniu::RS.generate_download_token :expires_in => 300,
+                                                        :pattern => "qatime.qiniudn.com/uploads/*"
+    @download_token
+  end
+
 end

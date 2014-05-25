@@ -4,5 +4,5 @@
            data-setup=''
         <% end %>
         >
-    <source src="<%= video.name.url %>" type="video/mp4"/>
+    <source src="<%= video.name.url + "?token=" + @download_token%>" type="video/mp4"/>
 </video>

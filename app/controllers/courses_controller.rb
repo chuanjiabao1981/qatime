@@ -12,7 +12,7 @@ class CoursesController < ApplicationController
       @lesson   = @course.lessons.order(created_at: :asc).first
     end
 
-    generate_download_token
+    @download_token = generate_video_download_token
   end
 
   def node
@@ -20,9 +20,4 @@ class CoursesController < ApplicationController
     @courses = Course.where(node_id: @node.id)
   end
 
-  def generate_download_token
-    @download_token = Qiniu::RS.generate_download_token :expires_in => 300,
-                                                        :pattern => "qatime.qiniudn.com/uploads/*"
-    @download_token
-  end
 end

@@ -2,10 +2,20 @@ class Student < User
   default_scope {where(role: 'student')}
   has_many :groups
   has_many :recharge_records
+  has_many :courses,:through => :course_purchase_records
 
   def initialize(attributes = {})
     super(attributes)
     self.role = "student"
+  end
+
+  def purchase_course(course_id)
+    @course = Course.find(id)
+    raise '课程不存在!' unless @course
+    raise '课程不可购买!' unless @course.can_be_purchased
+    #重复购买
+    #课程变动
+
   end
 
   def recharge(code)

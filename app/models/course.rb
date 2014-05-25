@@ -1,12 +1,16 @@
 class Course < ActiveRecord::Base
   belongs_to :teacher    ,:class_name => "User"
   belongs_to :group      ,:counter_cache => true,:inverse_of => :courses
-  has_many   :lessons   ,:dependent => :destroy
-  has_one    :cover     ,:dependent => :destroy
+  has_many   :lessons    ,:dependent => :destroy
   has_many   :topics
+  has_many   :students   ,:through => :course_purchase_records
+  has_one    :cover     ,:dependent => :destroy
   validates_presence_of :name,:desc,:group,:state
 
 
+  def can_be_purchased
+    false
+  end
   def generate_token
     self.token = loop do
       random_token = SecureRandom.urlsafe_base64

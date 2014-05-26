@@ -12,11 +12,12 @@ class VideoUploader < CarrierWave::Uploader::Base
   self.qiniu_secret_key    = 'Bh8V5ftV1QgSyRzUElQ6gzssKDm_hrexTBG1YWyC'
   self.qiniu_bucket        = "qatime"
   self.qiniu_bucket_domain = "qatime.qiniudn.com"
+  #self.qiniu_async_ops = "avthumb/m3u8/preset/video_16x9_150k"
 
   def qiniu_async_ops
     commands = []
-    %W(hls).each do |style|
-      commands << "http://#{self.qiniu_bucket_domain}/#{self.store_dir}/#{self.filename}/#{style}"
+    %W(m3u8_video).each do |style|
+      commands << "http://#{self.qiniu_bucket_domain}/#{self.store_dir}/#{self.filename}.#{style}"
     end
     commands
   end

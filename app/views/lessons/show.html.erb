@@ -5,7 +5,7 @@
   <div class="qa_cell">
     <%= video_player width: 640,
                      height:360,
-                     src:{ mp4: "http://qatime.qiniudn.com/qatime/" + @lesson.video.name + "?token=" + @download_token},
+                     src:{ mp4: "http://qatime.qiniudn.com/qatime/" + @lesson.video.name + ".m3u8_video"},
                      controls: true,
                      'data-setup'=> {} %>
   </div>

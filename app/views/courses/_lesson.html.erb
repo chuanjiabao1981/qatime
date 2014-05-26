@@ -3,7 +3,7 @@
       <div class="qa_cell" style="height: 400px">
 	<%= video_player width: 640,
                          height:360,
-                         src:{ mp4: @lesson.video.name.url + "?token=" + @download_token},
+                         src:{ mp4: @lesson.video.name.url + ".m3u8_video?token=" + @download_token},
                          controls: true,
                          'data-setup'=> {} %>
       </div>

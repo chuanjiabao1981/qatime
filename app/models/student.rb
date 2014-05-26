@@ -1,5 +1,6 @@
 class Student < User
   default_scope {where(role: 'student')}
+  has_one  :account
   has_many :groups
   has_many :recharge_records
   has_many :courses,:through => :course_purchase_records
@@ -12,20 +13,33 @@ class Student < User
 
   def purchase_course(course_id)
     @course = Course.find(course_id)
-    raise '课程不存在!' unless @course
+    raise '课程不存在!'   unless @course
     raise '课程不可购买!' unless @course.can_be_purchased
-
     begin
-      raise '账户余额不够!' unless self.money > @course.price
-      self.money -= @course.price
-      self.courses << @course
-      self.save
+      raise '账户余额不够!' unless self.account.money > @course.price
+      Student.transaction do
+        self.courses << @course
+        self.account.money -= @course.price
+        self.account.save!
+      end
+    rescue ActiveRecord::RecordNotUnique
+      raise '此课程已经购买'
     rescue ActiveRecord::StaleObjectError
       self.reload
       retry
-    rescue  ActiveRecord::RecordNotUnique
-      raise '次课程已经购买'
     end
+    #
+    #begin
+    #  raise '账户余额不够!' unless self.money > @course.price
+    #  self.money -= @course.price
+    #  self.courses << @course
+    #  self.save
+    #rescue ActiveRecord::StaleObjectError
+    #  self.reload
+    #  retry
+    #rescue  ActiveRecord::RecordNotUnique
+    #  raise '次课程已经购买'
+    #end
 
   end
 
@@ -47,7 +61,7 @@ class Student < User
     recharge_record.save
 
     # 3. 把钱写入
-    Student.update_counters self.id,:money => recharge_code.money
+    Account.update_counters self.account.id,:money => recharge_code.money
 
     recharge_code.money
   end

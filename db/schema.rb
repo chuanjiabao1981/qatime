@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140526135410) do
+ActiveRecord::Schema.define(version: 20140526221214) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "money",        default: 0
+    t.integer  "lock_version", default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "cities", force: true do |t|
     t.string   "name"
@@ -212,9 +220,7 @@ ActiveRecord::Schema.define(version: 20140526135410) do
     t.string   "password_digest"
     t.string   "remember_token"
     t.text     "desc"
-    t.integer  "money",                         default: 0
     t.integer  "course_purchase_records_count"
-    t.integer  "lock_version",                  default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

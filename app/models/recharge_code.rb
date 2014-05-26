@@ -2,7 +2,8 @@ class RechargeCode < ActiveRecord::Base
   validates :money, numericality: { only_integer: true,greater_than: 0 }
   validates_presence_of :admin
   belongs_to :admin
-  belongs_to :recharge_record
+  belongs_to :student
+  has_one    :recharge_record
 
   def self.get_code(money)
     money = "#{RechargeCode.get_random_letter}#{money.to_s}#{RechargeCode.get_random_letter}"
@@ -13,7 +14,7 @@ class RechargeCode < ActiveRecord::Base
     data = des.update(money) + des.final
     data = iv + data
     data = Base64.strict_encode64(data)
-    data = URI.escape(data, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
+    #data = URI.escape(data, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))
 
     data
   end
@@ -22,7 +23,7 @@ class RechargeCode < ActiveRecord::Base
     des = OpenSSL::Cipher::Cipher.new("des-ede3-cbc")
     des.decrypt
     des.key =  APP_CONFIG[:recharge_key]
-    encrypted_data = URI.unescape(code)
+    #encrypted_data = URI.unescape(code)
     encrypted_data = Base64.decode64(encrypted_data)
     des.iv =  encrypted_data.slice!(0,8)
     decrypted = des.update(encrypted_data) + des.final

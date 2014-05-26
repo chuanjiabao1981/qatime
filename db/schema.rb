@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140522222959) do
+ActiveRecord::Schema.define(version: 20140525223014) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,17 +31,25 @@ ActiveRecord::Schema.define(version: 20140522222959) do
     t.datetime "updated_at"
   end
 
+  create_table "course_purchase_records", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "course_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "courses", force: true do |t|
     t.string   "name"
     t.text     "desc"
-    t.integer  "lessons_count", default: 0
+    t.integer  "lessons_count",                 default: 0
     t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "price",         default: 0.0
+    t.float    "price",                         default: 0.0
     t.integer  "group_id"
     t.integer  "teacher_id"
-    t.string   "state",         default: "unpublished"
+    t.string   "state",                         default: "unpublished"
+    t.integer  "course_purchase_records_count"
   end
 
   create_table "covers", force: true do |t|
@@ -106,14 +114,14 @@ ActiveRecord::Schema.define(version: 20140522222959) do
   end
 
   create_table "recharge_codes", force: true do |t|
-    t.integer  "money",              default: 500
+    t.integer  "money",        default: 500
     t.string   "code"
     t.integer  "admin_id"
     t.string   "desc"
-    t.boolean  "is_used",            default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "recharge_record_id"
+    t.integer  "student_id"
+    t.integer  "lock_version", default: 0
   end
 
   add_index "recharge_codes", ["code"], name: "index_recharge_codes_on_code", using: :btree
@@ -123,6 +131,7 @@ ActiveRecord::Schema.define(version: 20140522222959) do
     t.string   "code"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "recharge_code_id"
   end
 
   create_table "replies", force: true do |t|
@@ -179,20 +188,20 @@ ActiveRecord::Schema.define(version: 20140522222959) do
   add_index "tutorials", ["token"], name: "index_tutorials_on_token", using: :btree
 
   create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                         default: "", null: false
+    t.string   "encrypted_password",            default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0
+    t.integer  "sign_in_count",                 default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "topics_count",           default: 0
-    t.integer  "replies_count",          default: 0
+    t.integer  "topics_count",                  default: 0
+    t.integer  "replies_count",                 default: 0
     t.string   "name"
     t.string   "avatar"
     t.integer  "school_id"
@@ -200,7 +209,8 @@ ActiveRecord::Schema.define(version: 20140522222959) do
     t.string   "password_digest"
     t.string   "remember_token"
     t.text     "desc"
-    t.integer  "money",                  default: 0
+    t.integer  "money",                         default: 0
+    t.integer  "course_purchase_records_count"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

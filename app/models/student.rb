@@ -3,6 +3,7 @@ class Student < User
   has_many :groups
   has_many :recharge_records
   has_many :courses,:through => :course_purchase_records
+  has_many :course_purchase_records
 
   def initialize(attributes = {})
     super(attributes)
@@ -10,11 +11,21 @@ class Student < User
   end
 
   def purchase_course(course_id)
-    @course = Course.find(id)
+    @course = Course.find(course_id)
     raise '课程不存在!' unless @course
     raise '课程不可购买!' unless @course.can_be_purchased
-    #重复购买
-    #课程变动
+
+    begin
+      raise '账户余额不够!' unless self.money > @course.price
+      self.money -= @course.price
+      self.courses << @course
+      self.save
+    rescue ActiveRecord::StaleObjectError
+      self.reload
+      retry
+    rescue  ActiveRecord::RecordNotUnique
+      raise '次课程已经购买'
+    end
 
   end
 

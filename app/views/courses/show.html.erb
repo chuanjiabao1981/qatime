@@ -8,6 +8,8 @@
     </div>
   </div>
   <%=render 'lesson' %>
+  <%= button_to '购买',students_course_purchase_path(@course) ,remote: true,data: { confirm: "确定要购买此课程么!" }%>
+
   <div class="qa_sep_15"></div>
   <div class="qa_sep_5"></div>
   <%=render 'course_topics' %>

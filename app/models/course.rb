@@ -4,12 +4,13 @@ class Course < ActiveRecord::Base
   has_many   :lessons    ,:dependent => :destroy
   has_many   :topics
   has_many   :students   ,:through => :course_purchase_records
+  has_many   :course_purchase_records
   has_one    :cover     ,:dependent => :destroy
   validates_presence_of :name,:desc,:group,:state
 
 
   def can_be_purchased
-    false
+    self.state == "published"
   end
   def generate_token
     self.token = loop do

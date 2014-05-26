@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140525223014) do
+ActiveRecord::Schema.define(version: 20140526135410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,10 @@ ActiveRecord::Schema.define(version: 20140525223014) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "course_purchase_records", ["course_id"], name: "index_course_purchase_records_on_course_id", using: :btree
+  add_index "course_purchase_records", ["student_id", "course_id"], name: "student_id_course_id", unique: true, using: :btree
+  add_index "course_purchase_records", ["student_id"], name: "index_course_purchase_records_on_student_id", using: :btree
 
   create_table "courses", force: true do |t|
     t.string   "name"
@@ -210,6 +214,7 @@ ActiveRecord::Schema.define(version: 20140525223014) do
     t.text     "desc"
     t.integer  "money",                         default: 0
     t.integer  "course_purchase_records_count"
+    t.integer  "lock_version",                  default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -10,6 +10,7 @@ module Permissions
       allow 'students/home',[:main]
       allow 'students/registrations',[:edit,:update,:show]
       allow 'students/recharge_records',[:index,:new,:create]
+      allow 'students/courses',[:purchase]
     end
   end
 end

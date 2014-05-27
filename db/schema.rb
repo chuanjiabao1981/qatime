@@ -84,7 +84,8 @@ ActiveRecord::Schema.define(version: 20140527142914) do
     t.datetime "updated_at"
     t.string   "grade"
     t.string   "subject"
-    t.integer  "courses_count", default: 0
+    t.integer  "courses_count",         default: 0
+    t.integer  "joined_students_count", default: 0
   end
 
   add_index "groups", ["grade"], name: "index_groups_on_grade", using: :btree
@@ -232,6 +233,7 @@ ActiveRecord::Schema.define(version: 20140527142914) do
     t.string   "remember_token"
     t.text     "desc"
     t.integer  "course_purchase_records_count"
+    t.integer  "joined_groups_count",           default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

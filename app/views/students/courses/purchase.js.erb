@@ -1,5 +1,6 @@
 <% if @err_message %>
-alert("<%= @err_message%>")
+alert("<%= @err_message%>");
 <% else %>
-alert("购买成功!")
+alert("购买成功!");
+$('div#course_purchase').html('<span class="label label-info">已购买</span>');
 <% end %>

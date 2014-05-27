@@ -22,14 +22,17 @@ class Student < User
         self.courses << @course
         self.account.money -= @course.price
         self.account.save!
-        self.groups << @course.group
       end
-
     rescue ActiveRecord::RecordNotUnique
-      raise '此课程已经购买'
+      raise '此课程已经购买!'
     rescue ActiveRecord::StaleObjectError
       self.reload
       retry
+    end
+    begin
+      self.groups << @course.group
+    rescue ActiveRecord::RecordNotUnique
+      
     end
   end
 

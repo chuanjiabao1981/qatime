@@ -51,6 +51,8 @@ Qatime::Application.routes.draw do
     resources :recharge_records
   end
 
+  post 'students/courses/:id' => "students/courses#purchase", as: 'students_course_purchase'
+
 
   resources :sessions
   get    '/signin',  to: 'sessions#new'

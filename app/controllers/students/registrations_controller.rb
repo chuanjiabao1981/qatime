@@ -11,6 +11,7 @@ class Students::RegistrationsController < ApplicationController
   end
   def create
     @student = Student.new(params[:student].permit!)
+    @student.build_account
     if @student.save
       sign_in(@student)
       redirect_to groups_path

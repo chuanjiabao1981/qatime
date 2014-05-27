@@ -5,9 +5,18 @@
             <%= @course.group.name %>
         <% end %>
         / <%= @course.name %>
+        <div div class="pull-right">
+          <% if current_user.student? and not current_user.courses.include?(@course) %>
+            <%= button_to '购买',students_course_purchase_path(@course) ,class:"btn btn-success btn-xs",
+                              remote: true,data: { confirm: "确定要购买此课程么!" }%>
+          <% else %>
+            <span class="label label-info">已购买</span>
+          <% end %>
+        </div>
     </div>
   </div>
   <%=render 'lesson' %>
+
   <div class="qa_sep_15"></div>
   <div class="qa_sep_5"></div>
   <%=render 'course_topics' %>

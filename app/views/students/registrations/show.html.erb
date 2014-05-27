@@ -25,10 +25,11 @@
   <div class="qa_cell">
     <div class="row">
       <div class="col-md-2" style="padding-left:40px">金币</div>
-      <div class="col-md-2"><%= 1000 %> ¥</div>
+      <div class="col-md-2"><%= current_user.account.money %> ¥</div>
       <div class="col-md-1">
         <%=link_to "#" do %>
-            <button type="button" class="btn btn-xs btn-success">充值</button>
+            <!--button type="button" class="btn btn-xs btn-success">充值</button-->
+            <%=link_to '充值',new_students_recharge_record_path ,class:"btn btn-xs btn-success"%>
         <% end %>
       </div>
     </div>

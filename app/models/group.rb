@@ -9,7 +9,8 @@ class Group < ActiveRecord::Base
 
   has_many :courses
   has_many :lessons
-
+  has_many :students ,->{distinct}, :through => :student_join_group_records
+  has_many :student_join_group_records
 
   scope :by_subject,lambda {|s| where(subject: s) if s}
   scope :by_school,lambda {|s| where(school_id: s) if s}

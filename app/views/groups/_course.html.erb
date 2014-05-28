@@ -7,7 +7,14 @@
           </div>
       <% else %>
           <div class="abs right-top">
-            <span class="glyphicon glyphicon-ok-circle"></span> 已购
+            <span class="glyphicon glyphicon-ok-circle"></span>
+            <% if current_user.student? %>
+                <% if current_user.courses.include?(course) %>
+                    已购
+                <% else %>
+                    未购
+                <% end %>
+            <% end %>
           </div>
       <% end %>
       <div class="qa_text_wrap title" >
@@ -20,7 +27,14 @@
         <span class="glyphicon glyphicon-film"></span><span> 30分钟</span>
       </div>
       <div class="abs right-bottom">
-        <span class="glyphicon glyphicon-comment"></span><span> 有10人参与讨论</span>
+        <span class="glyphicon glyphicon-comment"></span><span>
+        有
+        <% if course.course_purchase_records_count %>
+            <%= course.course_purchase_records_count %>
+        <% else %>
+            0
+        <% end %>
+        人参与讨论</span>
       </div>
     </div>
 <% end %>

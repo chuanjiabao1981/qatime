@@ -2,7 +2,7 @@
   <%= render partial: 'group_header' %>
   <div class="row">
   <div class="qa_f12">
-    <% @group.courses.each do |course| %>
+    <% @group.courses.order(created_at: :asc).each do |course| %>
     <div class="col-md-4">
         <%= render partial: 'course',locals: {course: course} %>
     </div>

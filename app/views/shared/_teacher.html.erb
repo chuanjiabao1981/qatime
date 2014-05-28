@@ -45,25 +45,9 @@
     </div>
   </div>
 </div>
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
 
-<div class="row">
-  <% @teacher.groups.each do |group| %>
-      <div class="col-md-4">
-        <div class="qa_sep_15"></div>
-        <div class="card rel">
-          <div class="abs right-top"><%= group.grade %> • <%= group.subject %> </div>
-          <%=link_to group.name,group_path(group) %>
-
-          <div class="abs left-bottom">
-            <% if allow? "admins/groups","edit",group %>
-                <%= link_to edit_admins_group_path(group) do%>
-                    <button type="button" class="btn btn-xs btn-success qa_f12">编辑班级</button>
-                <% end %>
-            <% else %>
-                已有 10 人报名
-            <% end %>
-          </div>
-        </div>
-      </div>
-  <% end %>
+<div class="row groups">
+  <%= render partial:'groups/group',collection:@teacher.groups %>
 </div>

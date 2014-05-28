@@ -20,6 +20,12 @@
     <div>
       <ul>
         <li>
+          <strong><%= Course.model_name.human %> </strong> 包含若干知识点，每个知识点都是一段视频。
+          一个<%=  Course.model_name.human  %>所有知识点的总长度约40分钟左右。所谓知识点可以是对于概念的讲解、易错点的分析、
+          习题课、试卷讲解、等等。知识点的创建是在<strong><%= Course.model_name.human %></strong>创建之后进行的。
+
+        </li>
+        <li>
             <strong><%= Course.human_attribute_name(:state) %> </strong> 这个选项是控制是否把课程开放给学生。
             课程一开始创建的时候是没有知识点的（但是已经有价格了），如果直接开放给学生学生看不到任何知识点，会引起误解，
             所以这个时候建议把<%= Course.human_attribute_name(:state) %>选择为"未发布";

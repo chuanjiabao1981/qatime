@@ -1,4 +1,11 @@
 <ul id="menu" class="menu rel">
+  <li>
+    <%= link_to groups_path do %>
+        <span class="glyphicon glyphicon-tasks"></span>
+        <span class="qa_f18">科目</span>
+        <span class="qa_f12">All</span>
+  <% end %>
+  </li>
   <% [["Math","数学"],['Biology','生物'],['Physics','物理'],['Chemistry','化学']].each do |subject| %>
       <%= render partial: 'sub_menu' ,:locals => { :sub => subject[0], :sub_cn => subject[1]} %>
   <% end %>

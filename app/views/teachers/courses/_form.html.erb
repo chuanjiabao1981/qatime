@@ -1,11 +1,20 @@
 <div class="qa_box">
   <div class="qa_big_cell">
-    <%= link_to @group.name,group_path(@group) %> / 新建课程
+    <%= link_to @group.name,group_path(@group) %> /
+    <% if @course.new_record? %>
+        新建课程
+    <% else %>
+        编辑课程
+    <% end %>
   </div>
   <div class="qa_big_cell">
     <%= simple_form_for([:teachers,@group,@course]) do |f|%>
         <%= f.input :name %>
-        <%= f.input :state ,as: :radio_buttons,collection:[["发布","published"],["未发布","unpublished"]]%>
+        <%= f.input :state ,as: :radio_buttons,
+                            collection:[["发布","published"],["未发布","unpublished"]],
+                            disabled: @course.published?,
+                            :hint => "注意: 课程一旦发布就不可撤销。"
+        %>
         <%= f.input :price %>
         <%= f.input :desc %>
         <%= f.association :teacher, as: :hidden %>

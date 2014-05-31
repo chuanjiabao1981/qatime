@@ -12,6 +12,9 @@ class Course < ActiveRecord::Base
   def can_be_purchased
     self.state == "published"
   end
+  def published?
+    self.state == "published"
+  end
   def generate_token
     self.token = loop do
       random_token = SecureRandom.urlsafe_base64

@@ -28,7 +28,7 @@
     <div class="qa_cell box_header qa_f12">
       <strong>最新加入的同学</strong>
     </div>
-        <% @group.student_join_group_records.each do |record| %>
+        <% @group.student_join_group_records.order(created_at: :desc).limit(10).each do |record| %>
             <div class="qa_cell qa_f12">
               <div class="pull-left">
                 <%=image_tag record.student.avatar.small %>

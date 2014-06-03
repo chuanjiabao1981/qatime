@@ -3,11 +3,10 @@
     <%= link_to @lesson.course.name,course_path(@lesson.course) ,style: "color:black" %>
   </div>
   <div class="qa_cell">
-    <%= video_player width: 640,
-                     height:360,
-                     src:{ mp4: "http://qatime.qiniudn.com/qatime/" + @lesson.video.name + ".m3u8_video"},
-                     controls: true,
-                     'data-setup'=> {} %>
+    <video id = "player">
+      <source src="<%= video.name.url %>" type="video/mp4"/>
+    </video>
+
   </div>
   <div class="qa_cell">
     <h4><%=@lesson.name %></h4>
@@ -20,7 +19,7 @@
 </div>
 
 <%= content_for :side_bar do %>
-    <div class="qa_box">
+    <div class="qa_box">s
       <div class="qa_cell box_header">
             课程
       </div>

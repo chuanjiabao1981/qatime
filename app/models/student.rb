@@ -1,8 +1,9 @@
 class Student < User
   default_scope {where(role: 'student')}
   has_one  :account
-  has_many :groups
   has_many :recharge_records
+  has_many :groups,->{distinct},:through => :student_join_group_records
+  has_many :student_join_group_records
   has_many :courses,:through => :course_purchase_records
   has_many :course_purchase_records
 
@@ -23,24 +24,16 @@ class Student < User
         self.account.save!
       end
     rescue ActiveRecord::RecordNotUnique
-      raise '此课程已经购买'
+      raise '此课程已经购买!'
     rescue ActiveRecord::StaleObjectError
       self.reload
       retry
     end
-    #
-    #begin
-    #  raise '账户余额不够!' unless self.money > @course.price
-    #  self.money -= @course.price
-    #  self.courses << @course
-    #  self.save
-    #rescue ActiveRecord::StaleObjectError
-    #  self.reload
-    #  retry
-    #rescue  ActiveRecord::RecordNotUnique
-    #  raise '次课程已经购买'
-    #end
-
+    begin
+      self.groups << @course.group
+    rescue ActiveRecord::RecordNotUnique
+      
+    end
   end
 
   def recharge(code)

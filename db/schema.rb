@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140526221214) do
+ActiveRecord::Schema.define(version: 20140527142914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,7 +84,8 @@ ActiveRecord::Schema.define(version: 20140526221214) do
     t.datetime "updated_at"
     t.string   "grade"
     t.string   "subject"
-    t.integer  "courses_count", default: 0
+    t.integer  "courses_count",         default: 0
+    t.integer  "joined_students_count", default: 0
   end
 
   add_index "groups", ["grade"], name: "index_groups_on_grade", using: :btree
@@ -168,6 +169,17 @@ ActiveRecord::Schema.define(version: 20140526221214) do
     t.datetime "updated_at"
   end
 
+  create_table "student_join_group_records", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "student_join_group_records", ["group_id"], name: "index_student_join_group_records_on_group_id", using: :btree
+  add_index "student_join_group_records", ["student_id", "group_id"], name: "index_student_join_group_records_on_student_id_and_group_id", unique: true, using: :btree
+  add_index "student_join_group_records", ["student_id"], name: "index_student_join_group_records_on_student_id", using: :btree
+
   create_table "topics", force: true do |t|
     t.string   "title"
     t.text     "body"
@@ -222,6 +234,7 @@ ActiveRecord::Schema.define(version: 20140526221214) do
     t.string   "remember_token"
     t.text     "desc"
     t.integer  "course_purchase_records_count"
+    t.integer  "joined_groups_count",           default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

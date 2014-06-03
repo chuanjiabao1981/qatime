@@ -11,8 +11,11 @@
         <%= f.input :name, disabled: true,:required => true %>
         <%= f.association :school,  disabled: true,:collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]} %>
         <%= f.input :desc,:input_html => {:rows => 5, :placeholder => "讲师自我介绍。"} %>
-        <%= f.input :email, :required => true, :autofocus => true %>
-        <%= f.input :avatar %>
+        <%= f.input :email  , :required => true, :autofocus => true %>
+        <%= f.input :avatar , input_html:{onchange:"showimagepreview(this)"}%>
+        <img id="user_avatar_preview" style="width: 240px;height: 240px">
+
+        </img>
 
         <%= f.input :password, :autocomplete => "off", :hint => "如果不想修改密码，则别填写此项!", :required => false %>
         <%= f.input :password_confirmation, :required => false %>

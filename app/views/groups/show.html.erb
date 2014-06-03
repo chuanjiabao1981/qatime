@@ -2,7 +2,7 @@
   <%= render partial: 'group_header' %>
   <div class="row">
   <div class="qa_f12">
-    <% @group.courses.each do |course| %>
+    <% @group.courses.order(created_at: :asc).each do |course| %>
     <div class="col-md-4">
         <%= render partial: 'course',locals: {course: course} %>
     </div>
@@ -17,8 +17,34 @@
       </div>
       <div class="qa_cell qa_f12">
         <div style="overflow-wrap: break-word">
-          高级讲师，阳泉市优秀模范教师，有多年带毕业班的经验。省物理协会会员，多次参与中考、高考阅卷。曾带出2000年阳泉市高考状元，2010阳泉市高考第三名。
+          <%= @group.teacher.desc %>
         </div>
       </div>
   </div>
+  <div class="qa_sep_15"></div>
+  <div class="qa_sep_15"></div>
+
+  <div class="qa_box">
+    <div class="qa_cell box_header qa_f12">
+      <strong>最新加入的同学</strong>
+    </div>
+        <% @group.student_join_group_records.order(created_at: :desc).limit(10).each do |record| %>
+            <div class="qa_cell qa_f12">
+              <div class="pull-left">
+                <%=image_tag record.student.avatar.small %>
+              </div>
+              <div class="pull-left" style="padding-left: 10px ">
+                 <div>
+                   <strong><%= record.student.name %></strong>
+                 </div>
+                 <div>
+                   <strong>
+                     <%= record.created_at.strftime("%Y-%m-%d") %> 加入
+                   </strong>
+                 </div>
+              </div>
+              <div style="clear: both"></div>
+            </div>
+        <% end %>
+    </div>
 </div>

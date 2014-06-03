@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140527142914) do
+ActiveRecord::Schema.define(version: 20140603123117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -248,6 +248,7 @@ ActiveRecord::Schema.define(version: 20140527142914) do
     t.integer  "tutorial_id"
     t.string   "token"
     t.integer  "lesson_id"
+    t.string   "video_type",  default: "mp4"
   end
 
   add_index "videos", ["token"], name: "index_videos_on_token", using: :btree

@@ -6,10 +6,10 @@
     <%=simple_form_for ([:teachers,@lesson.video]) do |f|%>
         <%=f.input :name %>
         <%=f.input :token,as: :hidden %>
-        <div id="video_show" class="rel" style="width:650px;height:370px;border:4px gray dotted">
-          %script{:src => '/jwplayer/jwplayer.js'}
-          <%= render partial: 'teachers/videos/video_jwplayer',object: @lesson.video unless @lesson.video.name.url.nil?%>
-        </div>
+        <source src="<%= @lesson.video.name.url %>" id = "video_source" type="<%= @lesson.video.video_type %>" />
+
+        <video id="player" class="rel" style="width:650px;height:370px;border:4px gray dotted">
+        </video>
     <% end %>
     <%=simple_form_for ([:teachers,@course,@lesson]) do |f|%>
         <%=f.input :name %>

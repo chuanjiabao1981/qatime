@@ -1,3 +1,12 @@
+class CourseStateValidate < ActiveModel::Validator
+  def validate(record)
+    if record.published?
+      if record.lessons_count <=0
+        record.errors[:state] = '课程下没有知识点，不可以发布!'
+      end
+    end
+  end
+end
 class Course < ActiveRecord::Base
   belongs_to :teacher    ,:class_name => "User"
   belongs_to :group      ,:counter_cache => true,:inverse_of => :courses
@@ -6,7 +15,9 @@ class Course < ActiveRecord::Base
   has_many   :students   ,:through => :course_purchase_records
   has_many   :course_purchase_records
   has_one    :cover     ,:dependent => :destroy
+  #validates  :price     ,:include => [15,30]
   validates_presence_of :name,:desc,:group,:state
+  validates_with CourseStateValidate
 
 
   def can_be_purchased
@@ -45,3 +56,4 @@ class Course < ActiveRecord::Base
     I18n.t("app.course.state.#{self.state}")
   end
 end
+

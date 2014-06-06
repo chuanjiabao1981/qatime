@@ -15,7 +15,7 @@
                             disabled: @course.published?,
                             :hint => "注意: 课程一旦发布就不可撤销。"
         %>
-        <%= f.input :price %>
+        <%= f.input :price,collection: [ 15.0, 30.0] ,include_blank: false,disabled: @course.published?%>
         <%= f.input :desc %>
         <%= f.association :teacher, as: :hidden %>
         <%= f.button :submit, class: "btn btn-default" %>

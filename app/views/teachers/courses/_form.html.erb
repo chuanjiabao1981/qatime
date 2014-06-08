@@ -15,7 +15,7 @@
                             disabled: @course.published?,
                             :hint => "注意: 课程一旦发布就不可撤销。"
         %>
-        <%= f.input :price %>
+        <%= f.input :price,collection: [ 15.0, 30.0] ,include_blank: false,disabled: @course.published?%>
         <%= f.input :desc %>
         <%= f.association :teacher, as: :hidden %>
         <%= f.button :submit, class: "btn btn-default" %>
@@ -29,10 +29,9 @@
     <div>
       <ul>
         <li>
-          <strong><%= Course.model_name.human %> </strong> 包含若干知识点，每个知识点都是一段视频。
-          一个<%=  Course.model_name.human  %>所有知识点的总长度约40分钟左右。所谓知识点可以是对于概念的讲解、易错点的分析、
-          习题课、试卷讲解、等等。知识点的创建是在<strong><%= Course.model_name.human %></strong>创建之后进行的。
-
+          <strong><%= Course.model_name.human %> </strong> 包含若干知识点，每个知识点都是一段视频。每段视频不要超过5分钟。
+          一个<%=  Course.model_name.human  %> 所谓知识点要以"干"货为主，解决学生在解题考试中最容易遇到的问题，
+          易错点的分析、习题课、试卷讲解、等等。知识点的创建是在<strong><%= Course.model_name.human %></strong>创建之后进行的。
         </li>
         <li>
             <strong><%= Course.human_attribute_name(:state) %> </strong> 这个选项是控制是否把课程开放给学生。
@@ -40,6 +39,11 @@
             所以这个时候建议把<%= Course.human_attribute_name(:state) %>选择为"未发布";
             当课程下的知识点都已经上传完毕，这个时候再把<%= Course.human_attribute_name(:state) %>选择为"发布"，
             就可以把课程以及课程下属的知识点开放给学生。
+        </li>
+        <li>
+          <strong><%= Course.human_attribute_name(:price) %> </strong>  课程目前有两个价位：15元和30元。
+          选取哪个价位和课程下属的视频个数有关。一般来讲，15元的课程至少包含3个视频；30元的课程至少包含6个以上视频。
+          每个视频时长在4分钟以上5分钟以下。
         </li>
       </ul>
     </div>

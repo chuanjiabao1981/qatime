@@ -1,4 +1,5 @@
 $("div#video_show").html('<%= j render partial:'video',locals:{video:@video,use_js:true} %>');
+
 $(function(){
-    videojs("<%=@video.id%>", {},function(){});
+    video_load();
 });

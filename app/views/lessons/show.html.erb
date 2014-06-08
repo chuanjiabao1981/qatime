@@ -3,9 +3,8 @@
     <%= link_to @lesson.course.name,course_path(@lesson.course) ,style: "color:black" %>
   </div>
   <div class="qa_cell">
-    <video id = "player">
-      <source src="<%= video.name.url %>" type="video/mp4"/>
-    </video>
+    <source src="<%= @lesson.video.name.url %>" id = "video_source" type="<%= @lesson.video.video_type %>" />
+    <video id="player"/>
 
   </div>
   <div class="qa_cell">

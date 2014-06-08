@@ -38,6 +38,9 @@ GEM
       activesupport (>= 3.2.0)
       json (>= 1.7)
       mime-types (>= 1.16)
+    carrierwave-aliyun (0.3.0)
+      carrierwave (>= 0.5.7)
+      rest-client (>= 1.6.7)
     carrierwave-qiniu (0.1.0)
       carrierwave
       qiniu-rs (~> 3.4.2)
@@ -167,6 +170,7 @@ DEPENDENCIES
   bcrypt-ruby (= 3.1.5)
   bootstrap-sass (= 3.0.2.0)
   carrierwave
+  carrierwave-aliyun
   carrierwave-qiniu
   cells (= 3.10.0)
   coffee-rails (~> 4.0.0)
@@ -178,6 +182,7 @@ DEPENDENCIES
   mini_magick (= 3.3)
   pg
   rails (= 4.0.3)
+  rest-client
   rspec-rails (~> 2.13.2)
   sass-rails (~> 4.0.0)
   sdoc

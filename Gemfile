@@ -83,3 +83,5 @@ group :development,:test do
   gem 'rspec-rails', '~> 2.13.2'
   gem 'factory_girl_rails'
 end
+gem 'rest-client'
+gem 'carrierwave-aliyun'

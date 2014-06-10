@@ -33,3 +33,179 @@
 {
   margin-top: 10px;
 }
+
+.v_left_content {
+  background: url("T1Gq2DFTRaXXXDU4kH-1190-558.jpg") no-repeat scroll 0 center rgba(0, 0, 0, 0);
+  left: 0;
+  position: relative;
+  height: 100%;
+  top: 0;
+  width: 100%;
+}
+
+.v_left_content .page-status {
+  display: none;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.v_left_content .v_buy h4 {
+  color: #FFFFFF;
+  font-family: 'Microsoft Yahei';
+  font-size: 18px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+}
+.v_left_content .v_buy .p1 {
+  color: #D6D6D6;
+  line-height: 24px;
+  min-height: 14px;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.v_left_content .v_buy {
+  color: #999999;
+  margin: 0 auto;
+  opacity: 0;
+  width: 364px;
+}
+
+.v_left_content .v_buy h4 {
+  color: #FFFFFF;
+  font-family: 'Microsoft Yahei';
+  font-size: 18px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+}
+
+.v_left_content .v_buy .p1 {
+  color: #D6D6D6;
+  line-height: 24px;
+  min-height: 14px;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.v_left_content .v_buy .p1 a {
+  color: #D6D6D6;
+  float: right;
+  text-decoration: underline;
+}
+
+.v_left_content .v_buy .p1 a:hover {
+  color: #FF7300;
+}
+
+.v_left_content .v_buy .p2 {
+  height: 26px;
+  line-height: 26px;
+  text-align: center;
+}
+
+.v_left_content .v_buy .p2 strong {
+  padding-left: 2px;
+}
+
+.v_left_content .v_buy .p2 strong a {
+  color: #0094DC;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.v_left_content .v_buy .p3 {
+  text-align: center;
+}
+
+.v_left_content .v_buy .p10 {
+  color: #D6D6D6;
+  text-align: center;
+}
+
+.v_left_content .v_buy .p3 .money {
+  color: #FF7E00;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.v_left_content .v_buy .p3 .yuan {
+  color: #FF7E00;
+}
+.v_left_content .v_buy .p4 {
+  text-align: center;
+}
+
+.v_left_content .v_buy .p4 .free5, .v_left_content .v_buy .p4 .toBuy {
+  background: none repeat scroll 0 0 #FF7300;
+  border-radius: 1px;
+  color: #FFFFFF;
+  display: inline-block;
+  font-family: 'Microsoft Yahei';
+  font-size: 20px;
+  font-weight: 700;
+  height: 42px;
+  line-height: 42px;
+  margin: 16px 10px;
+  padding: 0 20px;
+  text-align: center;
+  border:0 none;
+}
+.v_left_content .v_buy .p4 .free5:hover, .v_left .v_left_content .v_buy .p4 .toBuy:hover {
+  background: none repeat scroll 0 0 #FF6600;
+  text-decoration: none;
+}
+
+.toBuy {
+  background: none repeat scroll 0 0 #FF7300;
+  border-radius: 1px;
+  color: #FFFFFF;
+  display: inline-block;
+  font-family: 'Microsoft Yahei';
+  font-size: 20px;
+  font-weight: 700;
+  height: 42px;
+  line-height: 42px;
+  margin: 16px 10px;
+  padding: 0 20px;
+  border:0 none;
+  text-align: center;
+}
+
+.v_left_content .v_buy .p5 {
+  text-align: center;
+}
+
+.v_left_content .v_buy .p5 a {
+  color: #0094DC;
+  display: inline-block;
+  margin-top: -5px;
+  max-width: 240px;
+  overflow: hidden;
+  text-decoration: underline;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.v_left_content .v_buy .p5 span {
+  color: #999999;
+}
+
+.v_left_content .v_buy .p5 .tip {
+  display: none;
+  height: 4px;
+  margin-top: -4px;
+  vertical-align: middle;
+  width: 7px;
+}
+
+.v_left_content .v_buy .p6 {
+  color: #FF7300;
+  font-size: 24px;
+  font-weight: 700;
+  padding: 10px 0 50px;
+  text-align: center;
+}

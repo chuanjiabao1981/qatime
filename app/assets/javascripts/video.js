@@ -1,13 +1,31 @@
+function video_preview_load() {
+    source_node = $('source#video_preview_source')
+    if(source_node == null || source_node.length == 0) {
+        return
+    }
+    var video_url = source_node.attr("src")
+
+    $("div#course_lesson_detail").html()
+    $("div#course_lesson_detail").html('<source src=\"' + video_url + '\" id = \"video_source\" type=\"mp4\" /><source src=\"false\" id = \"buy_status\" /><video id=\"player\"/>')
+    video_load()
+}
+
 function video_load() {
     source_node = $('source#video_source')
+    buy_status_source = $('source#buy_status')
+
     if(source_node == null || source_node.length == 0) {
         return
     }
     var video_url = source_node.attr("src")
     var video_type = source_node[0].type
 
-    console.log(video_type)
+    if(buy_status_source != null && buy_status_source.length > 0) {
+        buy_status = buy_status_source.attr("src")
+    }
+
     console.log("-----------" + video_url + "---------------")
+    console.log(buy_status)
 
     if("mp4" == video_type) {
         jwplayer("player").setup({
@@ -15,8 +33,8 @@ function video_load() {
                 file:video_url
 
             }],
-            width: 640,
-            height: 360,
+            width: 800,
+            height: 380,
             primary: "flash"
         });
     } else {
@@ -39,15 +57,16 @@ function video_load() {
             hls_fragmentloadmaxretry : -1,
             hls_manifestloadmaxretry : -1,
             hls_capleveltostage : false,
-            width: 640,
-            height: 360,
+            width: 800,
+            height: 380,
             primary: "flash"
         });
     }
     jwplayer("player").onTime(function(evt){
         currentTime = evt.position.toFixed(1);
-        if(currentTime >= 10) {
-            alert("need buy first")
+        console.log(currentTime);
+        if(currentTime >= 10.1 && buy_status == "false") {
+            $('div#course_lesson_detail').html($("div#template-v_content div.v_content").clone());
         }
     });
 }

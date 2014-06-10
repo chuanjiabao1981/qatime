@@ -17,12 +17,13 @@
         </div>
     </div>
   </div>
+  <div id = "lesson">
     <% if current_user.student? %>
       <%=render 'student_lesson' %>
     <% else %>
       <%=render 'lesson' %>
     <% end %>
-
+  </div>
   <div class="qa_sep_15"></div>
   <div class="qa_sep_5"></div>
   <%=render 'course_topics' %>

@@ -1,0 +1,29 @@
+<div style="display: none">
+  <div id="template-v_content" >
+    <div class="v_content">
+      <div class="v_left_content">
+        <div class="v_buy" style="margin-top: 0px; opacity: 1;">
+          <p class="p6">【试看结束】</p>
+          <h4>课程详情</h4>
+          <p class="p2">本课程共计<%= @lesson.course.lessons.count %>个课时 。  您未购买该课程，请购买后观看   </p>
+          <p class="p3">学费:<span class="money"><%= @lesson.course.price %></span><span class="yuan">元</span></p>
+
+          <div>
+            <div class="text-center">
+              <%= button_to '立即购买',students_course_purchase_path(@lesson.course) ,class:"toBuy",
+                            remote: true,data: { confirm: "确定要购买此课程么!" }%>
+            </div>
+            <div style="clear: both"></div>
+          </div>
+          <p class="p5">
+            <span>发布时间：</span>
+            <span><%= @lesson.course.created_at%></span></p>
+          <div class="qa_sep_15"></div>
+          <div class="qa_sep_15"></div>
+          <div class="qa_sep_15"></div>
+          <div class="qa_sep_15"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

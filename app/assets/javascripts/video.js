@@ -10,7 +10,10 @@ function video_preview_load() {
     video_load()
 }
 
-function video_load() {
+function video_load(video_width, video_height) {
+    video_width = arguments[0] ? arguments[0] : 820;
+    video_height = arguments[1] ? arguments[1] : 385;
+
     source_node = $('source#video_source')
     buy_status_source = $('source#buy_status')
 
@@ -19,6 +22,8 @@ function video_load() {
     }
     var video_url = source_node.attr("src")
     var video_type = source_node[0].type
+
+    buy_status = "true";
 
     if(buy_status_source != null && buy_status_source.length > 0) {
         buy_status = buy_status_source.attr("src")
@@ -33,8 +38,8 @@ function video_load() {
                 file:video_url
 
             }],
-            width: 800,
-            height: 380,
+            width: video_width,
+            height: video_height,
             primary: "flash"
         });
     } else {
@@ -57,8 +62,8 @@ function video_load() {
             hls_fragmentloadmaxretry : -1,
             hls_manifestloadmaxretry : -1,
             hls_capleveltostage : false,
-            width: 800,
-            height: 380,
+            width: video_width,
+            height: video_height,
             primary: "flash"
         });
     }

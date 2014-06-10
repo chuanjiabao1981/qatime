@@ -1,6 +1,10 @@
 <% if @err_message %>
-alert("<%= @err_message%>");
+    alert("<%= @err_message%>");
 <% else %>
-alert("购买成功!");
-$('div#course_purchase').html('<span class="label label-info">已购买</span>');
+    alert("购买成功!");
+    $('div#course_purchase').html('<span class="label label-info">已购买</span>');
+    $('div#lesson').html('<%= j render 'courses/student_lesson', locals:{lesson:@lesson,use_js:true}%>')
+    $(function(){
+        video_load();
+    });
 <% end %>

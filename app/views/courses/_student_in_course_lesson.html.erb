@@ -1,0 +1,14 @@
+<div class="qa_box">
+  <div class="qa_cell" style="height: 400px">
+    <source src="<%= @lesson.video.name.url %>" id = "video_source" type="<%= @lesson.video.video_type %>" />
+    <source src="<%= true %>" id = "buy_status" />
+
+    <video id="player"/>
+  </div>
+  <div class="qa_cell qa_f12 rel" >
+    <div>
+      <%= @lesson.desc if @lesson %>
+    </div>
+    <div style="clear: both"></div>
+  </div>
+</div>

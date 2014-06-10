@@ -1,0 +1,37 @@
+<div class="qa_box">
+  <div class="qa_cell" style="height: 400px" id = "course_lesson_detail">
+    <div class="v_content">
+      <div class="v_left_content">
+        <div class="qa_sep_15"></div>
+
+        <div class="v_buy" style="margin-top: 0px; opacity: 1;">
+          <h4>课程介绍</h4>
+          <p class="p1">
+            <span><%= @lesson.course.desc %></span>
+          </p>
+          <h4>课程详情</h4>
+          <p class="p2">本课程共计<%= @lesson.course.lessons.count %>个课时 。  您未购买该课程，请购买后观看   </p>
+          <p class="p3">学费:<span class="money"><%= @lesson.course.price %></span><span class="yuan">元</span></p>
+          <div>
+            <div class="pull-right">
+              <%= button_to '立即购买',students_course_purchase_path(@lesson.course) ,class:"toBuy",
+                            remote: true,data: { confirm: "确定要购买此课程么!" }%>
+            </div>
+            <div class="pull-left">
+              <source src="<%= @lesson.video.name.url %>" id = "video_preview_source" type="<%= @lesson.video.video_type %>" />
+
+              <button class="toBuy" onclick="video_preview_load()">试看1分</button>
+
+            </div>
+            <div style="clear: both"></div>
+          </div>
+          <p class="p5">
+            <span>发布时间：</span>
+            <span><%= @lesson.course.created_at%></span>
+          </p>
+          <div class="qa_sep_15"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

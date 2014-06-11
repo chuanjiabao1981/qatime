@@ -20,6 +20,10 @@ class VideoUploader < CarrierWave::Uploader::Base
     end
   end
 
+  def store_dir
+    "videos/"
+  end
+
 
   process :translate
 
@@ -27,7 +31,6 @@ class VideoUploader < CarrierWave::Uploader::Base
     Rails.logger.info("--------" + self.current_path + "--------")
     result = %x(/usr/local/bin/qtfaststart #{self.current_path})
     Rails.logger.info("--------" + result + "--------")
-
   end
 
 end

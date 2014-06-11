@@ -11,8 +11,8 @@ function video_preview_load() {
 }
 
 function video_load(video_width, video_height) {
-    video_width = arguments[0] ? arguments[0] : 820;
-    video_height = arguments[1] ? arguments[1] : 385;
+    video_width = arguments[0] ? arguments[0] : 810;
+    video_height = arguments[1] ? arguments[1] : 375;
 
     source_node = $('source#video_source')
     buy_status_source = $('source#buy_status')

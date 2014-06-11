@@ -7,10 +7,7 @@
         / <%= @course.name %>
         <div id="course_purchase" class="pull-right">
           <% if current_user.student? %>
-              <% if not current_user.courses.include?(@course) %>
-                  <%= button_to '购买',students_course_purchase_path(@course) ,class:"btn btn-success btn-xs",
-                              remote: true,data: { confirm: "确定要购买此课程么!" }%>
-              <% else %>
+              <% if current_user.courses.include?(@course) %>
                 <span class="label label-info">已购买</span>
               <% end %>
           <% end %>

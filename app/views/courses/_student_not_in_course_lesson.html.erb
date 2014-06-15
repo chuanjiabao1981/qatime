@@ -7,7 +7,11 @@
         <div class="v_buy" style="margin-top: 0px; opacity: 1;">
           <h4>课程介绍</h4>
           <p class="p1">
-            <span><%= @lesson.course.desc %></span>
+            <% desc = @lesson.course.desc %>
+            <% if desc.length >= 60 %>
+                <% desc = @lesson.course.desc[0,60] + "......." %>
+            <% end %>
+            <span><%= desc %></span>
           </p>
           <h4>课程详情</h4>
           <p class="p2">本课程共计<%= @lesson.course.lessons.count %>个课时 。  您未购买该课程，请购买后观看   </p>
@@ -27,7 +31,7 @@
           </div>
           <p class="p5">
             <span>发布时间：</span>
-            <span><%= @lesson.course.created_at%></span>
+            <span><%= DateTime.parse(@lesson.course.created_at.to_s).strftime('%Y-%m-%d %H:%M:%S').to_s %></span>
           </p>
           <div class="qa_sep_15"></div>
         </div>

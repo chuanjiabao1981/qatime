@@ -17,3 +17,7 @@ grades:
   - [高三,s3]
 
 recharge_key: qwertyuiop0987654321qscf
+aliyun_ac: uwTxHd9b4GNSQUWn
+aliyun_ak: v0BvM2K2ClP6kqr10xWqUPZswCKH4L
+bucket_online: qatime
+bucket_test: qatime-test

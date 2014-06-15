@@ -85,3 +85,4 @@ group :development,:test do
 end
 gem 'rest-client'
 gem 'carrierwave-aliyun'
+gem 'unicorn'

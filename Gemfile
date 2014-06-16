@@ -68,7 +68,8 @@ gem 'carrierwave'
 gem 'carrierwave-qiniu'
 gem 'mini_magick','3.3'
 
-gem 'font-awesome-sass'
+#gem 'font-awesome-sass'
+gem "font-awesome-rails"
 
 #gem 'summernote-rails'
 

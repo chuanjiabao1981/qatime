@@ -83,7 +83,10 @@ gem 'jcrop-rails-v2','0.9.12.3'
 group :development,:test do
   gem 'rspec-rails', '~> 2.13.2'
   gem 'factory_girl_rails'
+  gem 'capistrano'
+  gem 'capistrano-rails'
 end
+
 gem 'rest-client'
 gem 'carrierwave-aliyun'
 gem 'unicorn'

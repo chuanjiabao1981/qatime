@@ -1,5 +1,5 @@
 # 设定 GEM_HOME
-#GEM_HOME = "/home/chensong.zjd/.rvm/gems/ruby-2.0.0-p451"
+GEM_HOME = "/home/qatime/.rvm/gems/ruby-2.0.0-p481"
 
 # 获取当前项目路径
 require 'pathname'
@@ -20,7 +20,7 @@ working_directory APP_PATH
 # 可同时监听 Unix 本地 socket 或 TCP 端口
 listen "/tmp/qatime.sock", :backlog => 64
 # 开启tcp 端口，可不使用 apache 或 nginx 做代理，直接本地：http://localhost:port
-listen 3000, :tcp_nopush => true
+listen 8082, :tcp_nopush => true
 
 # 如果为 REE，则添加 copy_on_wirte_friendly
 # http://www.rubyenterpriseedition.com/faq.html#adapt_apps_for_cow

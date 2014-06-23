@@ -9,12 +9,4 @@ namespace :nginx do
       end
     end
   end
-  desc "just for test"
-  task :test do
-    on roles(:web) do |host|
-      execute  'sudo add-apt-repository ppa:nginx/stable' do |ch, stream, data|
-        puts "data"
-      end
-    end
-  end
 end

@@ -65,7 +65,6 @@ gem 'bootstrap-sass','3.0.2.0'
 
 #文件上传
 gem 'carrierwave'
-gem 'carrierwave-qiniu'
 gem 'mini_magick','3.3'
 
 #gem 'font-awesome-sass'
@@ -85,6 +84,8 @@ group :development,:test do
   gem 'factory_girl_rails'
   gem 'capistrano'
   gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rvm'
 end
 
 gem 'rest-client'

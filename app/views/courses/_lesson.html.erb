@@ -1,11 +1,11 @@
 <% if @lesson %>
+    <% debug @lesson.video.name.url %>
     <div class="qa_box">
       <div class="qa_cell" style="height: 400px">
-        <%= video_player width: 640,
-                         height:360,
-                         src:{ mp4: @lesson.video.name.url},
-                         controls: true,
-                         'data-setup'=> {} %>
+        <source src="<%= @lesson.video.name.url %>" id = "video_source" type="<%= @lesson.video.video_type %>" />
+        <source src="<%= true %>" id = "buy_status" />
+
+        <video id="player"/>
       </div>
       <div class="qa_cell qa_f12 rel" >
         <div>

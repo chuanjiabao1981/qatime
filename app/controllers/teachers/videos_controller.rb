@@ -3,11 +3,13 @@ class Teachers::VideosController < ApplicationController
   def create
     @video = Video.new(params[:video].permit!)
     @video.save
-    respond_with @video
+    @download_token = generate_video_download_token
+    respond_with @video, @download_token
   end
   def update
     @video.update_attributes(params[:video].permit!)
-    respond_with @videos
+    @download_token = generate_video_download_token
+    respond_with @video
   end
   protected
   def current_resource

@@ -1,3 +1,8 @@
+function hind_process_bar() {
+    var video_progress_bar      = $("div#video_show div.progress-bar");
+
+}
+
 $(
     function(){
         var video_input = $("input#video_name");
@@ -19,7 +24,8 @@ $(
                     video_progress_bar.text(percentVal);
                     video_progress_bar.css({width:percentVal});
                     if (percentVal == '100%'){
-//                    cover_progress_bar.hide("slow");
+                        video_progress_bar.text("保存中，请稍后")
+//                      cover_progress_bar.hide("slow");
                     }
                 }
             });

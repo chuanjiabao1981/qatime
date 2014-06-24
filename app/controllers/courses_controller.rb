@@ -11,10 +11,13 @@ class CoursesController < ApplicationController
     unless @lesson
       @lesson   = @course.lessons.order(created_at: :asc).first
     end
+
+    @download_token = generate_video_download_token
   end
 
   def node
     @node = Node.find(params[:id])
     @courses = Course.where(node_id: @node.id)
   end
+
 end

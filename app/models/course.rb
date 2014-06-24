@@ -17,6 +17,9 @@ class Course < ActiveRecord::Base
   has_one    :cover     ,:dependent => :destroy
   validates_inclusion_of :price,:in => [15.0,30.0] ,:message =>"价格仅可以是15和30!"
   validates_presence_of :name,:desc,:group,:state
+
+  validates :desc, length: { minimum: 30 }
+
   validates_with CourseStateValidate
 
 

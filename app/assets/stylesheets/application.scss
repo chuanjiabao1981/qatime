@@ -13,13 +13,13 @@
  *= require font-awesome
  *= require jquery.Jcrop
  *= require summernote
- *= require videojs/video-js
  */
 
+@import 'bootstrap';
 
 body{
   #background-color: #e2e2e2 !important;
-  background-image: url("home-head-bg.png");
+  background-image: image-url("home-head-bg.png");
   background-repeat: repeat-x, repeat;
 }
 

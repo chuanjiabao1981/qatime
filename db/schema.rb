@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 20140606024110) do
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "token"
   end
 
   create_table "schools", force: true do |t|
@@ -247,6 +248,7 @@ ActiveRecord::Schema.define(version: 20140606024110) do
     t.integer  "tutorial_id"
     t.string   "token"
     t.integer  "lesson_id"
+    t.string   "video_type",  default: "mp4"
   end
 
   add_index "videos", ["token"], name: "index_videos_on_token", using: :btree

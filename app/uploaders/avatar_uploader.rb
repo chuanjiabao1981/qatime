@@ -8,14 +8,16 @@ class AvatarUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
+  # storage :file
   # storage :fog
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
+
   def store_dir
-    "uploads/#{mounted_as}/#{model.id}"
+    "avatars/"
   end
+
   #这个大小和预览值保持一致，否则坐标会是错误的
   process :resize_to_fill => [240,240]
   process :crop
@@ -40,7 +42,6 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
 
   def crop
-    Rails.logger.info("xxxxxxxx");
     if model.crop_x.present?
       manipulate! do |img|
         x = model.crop_x.to_i
@@ -88,8 +89,11 @@ class AvatarUploader < CarrierWave::Uploader::Base
     if original_filename
       # current_path 是 Carrierwave 上传过程临时创建的一个文件，有时间标记，所以它将是唯一的
       @name ||= Digest::MD5.hexdigest(File.dirname(current_path))
-      if not file.extension.empty?
-        "#{@name}.#{file.extension}"
+      path_elements = original_filename.split('.')
+      extension = path_elements.last if path_elements.size > 1
+
+      if not extension.empty?
+        "#{@name}.#{extension}"
       else
         "#{@name}.jpg"
       end

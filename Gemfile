@@ -79,8 +79,6 @@ gem 'state_machine'
 
 gem 'jcrop-rails-v2','0.9.12.3'
 
-gem 'capistrano', '3.2.1'
-
 gem 'net-ssh', '~> 2.9.1'
 
 group :development,:test do

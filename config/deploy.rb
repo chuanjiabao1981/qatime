@@ -1,12 +1,12 @@
 #load File.join(File.dirname(__FILE__),"recipes/nginx.rb")
 load "config/recipes/nginx.rb"
+load "config/recipes/qtfaststart.rb"
 # config valid only for Capistrano 3.1
 lock '3.2.1'
 
 set :application, 'qatime'
 set :repo_url, 'git@example.com:me/my_repo.git'
 
-puts "ssssss"
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call

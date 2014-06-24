@@ -1,5 +1,5 @@
 #load File.join(File.dirname(__FILE__),"recipes/nginx.rb")
-#load "config/recipes/nginx.rb"
+load "config/recipes/nginx.rb"
 # config valid only for Capistrano 3.1
 lock '3.2.1'
 

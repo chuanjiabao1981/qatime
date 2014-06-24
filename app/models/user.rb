@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
 
 
   has_many :topics, :dependent => :destroy
+  has_many :replies, :dependent => :destroy
+
   belongs_to :school
 
   def self.new_remember_token

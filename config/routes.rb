@@ -13,7 +13,9 @@ Qatime::Application.routes.draw do
   get "students/home"       => "students/home#main",    as: 'students_home'
 
   resources :groups
-  resources :topics
+  resources :topics do
+    resource :replies
+  end
   resources :pictures
   resources :covers
   resources :tutorials

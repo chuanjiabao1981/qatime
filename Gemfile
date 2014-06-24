@@ -67,7 +67,8 @@ gem 'bootstrap-sass','3.0.2.0'
 gem 'carrierwave'
 gem 'mini_magick','3.3'
 
-gem 'font-awesome-sass'
+#gem 'font-awesome-sass'
+gem "font-awesome-rails"
 
 #gem 'summernote-rails'
 
@@ -78,11 +79,18 @@ gem 'state_machine'
 
 gem 'jcrop-rails-v2','0.9.12.3'
 
-gem 'capistrano', '3.2.1'
-
 gem 'net-ssh', '~> 2.9.1'
 
 group :development,:test do
   gem 'rspec-rails', '~> 2.13.2'
   gem 'factory_girl_rails'
+  gem 'capistrano'
+  gem 'capistrano-rails'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rvm'
+  gem 'capistrano3-unicorn'
 end
+
+gem 'rest-client'
+gem 'carrierwave-aliyun'
+gem 'unicorn'

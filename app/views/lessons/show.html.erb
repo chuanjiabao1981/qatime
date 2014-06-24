@@ -3,11 +3,9 @@
     <%= link_to @lesson.course.name,course_path(@lesson.course) ,style: "color:black" %>
   </div>
   <div class="qa_cell">
-    <%= video_player width: 640,
-                     height:360,
-                     src:{ mp4: @lesson.video.name.url},
-                     controls: true,
-                     'data-setup'=> {} %>
+    <source src="<%= @lesson.video.name.url %>" id = "video_source" type="<%= @lesson.video.video_type %>" />
+    <video id="player"/>
+
   </div>
   <div class="qa_cell">
     <h4><%=@lesson.name %></h4>
@@ -20,7 +18,7 @@
 </div>
 
 <%= content_for :side_bar do %>
-    <div class="qa_box">
+    <div class="qa_box">s
       <div class="qa_cell box_header">
             课程
       </div>

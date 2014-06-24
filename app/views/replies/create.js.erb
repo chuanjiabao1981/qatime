@@ -1,0 +1,6 @@
+<% if @reply.errors.empty? %>
+    $('#replies_count').html("<%= escape_javascript(render('topics/replies_count')) %>");
+    $('<%= j(render :partial => 'shared/reply', :object => @reply) %>').appendTo($('#reply_items'));
+    $("#reply_body").html('');
+    $(".note-editable").html('');
+<% end %>

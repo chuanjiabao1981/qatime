@@ -18,3 +18,4 @@
 /public/uploads/*
 /.idea
 /config/application.yml
+/config/database.yml

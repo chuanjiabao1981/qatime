@@ -30,4 +30,6 @@ Qatime::Application.configure do
 
   # devise添加的配置项
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+
+  config.log_level = :debug
 end

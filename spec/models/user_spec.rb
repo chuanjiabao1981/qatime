@@ -28,6 +28,5 @@ describe User do
       expect(user.topics_count).to eq(0)
     end
 
-
   end
 end

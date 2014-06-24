@@ -18,7 +18,7 @@
 //= require summernote-zh-CN
 //= require jquery.form
 //= require videojs/video
+//= require jwplayer/jwplayer
 //= require jquery.menu-aim
 //= require_tree .
 // require turbolinks
-

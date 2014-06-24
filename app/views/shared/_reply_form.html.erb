@@ -1,0 +1,20 @@
+<% @reply = @topic.replies.build %>
+
+<form id="pictures_upload" action="/pictures" enctype="multipart/form-data" method="post">
+  <input id="picture_token" name="picture[token]" type="hidden" value="<%= @reply.token%>">
+</form>
+
+<div class="qa_box">
+  <div class="qa_cell">
+    <div class="progress" id="progress" hidden="true">
+      <div class="progress-bar" id="progress-bar" role="progressbar" >
+      </div>
+    </div>
+      <%= simple_form_for [@topic, @reply], remote: true  do |f| %>
+        <div class="form-group">
+          <%= f.input :body, class:'summernote' %>
+        </div>
+        <%= f.button :submit, class: "btn btn-default" %>
+    <% end %>
+    </div>
+</div>

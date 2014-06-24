@@ -4,7 +4,7 @@ source 'http://ruby.taobao.org/'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+gem 'rails', '4.1'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -67,7 +67,6 @@ gem 'bootstrap-sass','3.0.2.0'
 gem 'carrierwave'
 gem 'mini_magick','3.3'
 
-#gem 'font-awesome-sass'
 gem "font-awesome-rails"
 
 #gem 'summernote-rails'

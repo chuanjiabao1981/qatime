@@ -1,3 +1,5 @@
+#load File.join(File.dirname(__FILE__),"recipes/nginx.rb")
+load "config/recipes/nginx.rb"
 # config valid only for Capistrano 3.1
 lock '3.2.1'
 
@@ -6,6 +8,7 @@ set :deploy_user, 'qatime'
 
 set :scm, :git
 set :repo_url, 'git@github.com:jesical516/qatime.git'
+
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
@@ -38,12 +41,10 @@ set :default_env, { rvm_bin_path: '~/.rvm/bin' }
 set :unicorn_config_path, "/home/#{fetch(:deploy_user)}/apps/qatime/current/config/unicorn.rb"
 
 SSHKit.config.command_map[:rake]  = "#{fetch(:default_env)[:rvm_bin_path]}/rvm ruby-#{fetch(:rvm_ruby_version)} do bundle exec rake"
+set :pty, true
 
 # Default value for keep_releases is 5
 set :keep_releases, 5
-
-after 'deploy:publishing', 'deploy:restart'
-
 
 namespace :deploy do
   task :restart do

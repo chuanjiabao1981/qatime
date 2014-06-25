@@ -5,10 +5,10 @@ load "config/recipes/qtfaststart.rb"
 lock '3.2.1'
 
 set :application, 'qatime'
-set :deploy_user, 'qatime'
+set :deploy_user, 'deploy'
 
 set :scm, :git
-set :repo_url, 'git@github.com:jesical516/qatime.git'
+set :repo_url, 'git@github.com:chuanjiabao1981/qatime.git'
 
 
 # Default branch is :master
@@ -36,7 +36,7 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
-set :rvm_ruby_version, '2.0.0-p481'
+set :rvm_ruby_version, 'ruby-2.1.2@qatime'
 set :default_env, { rvm_bin_path: '~/.rvm/bin' }
 
 set :unicorn_config_path, "/home/#{fetch(:deploy_user)}/apps/qatime/current/config/unicorn.rb"
@@ -58,6 +58,13 @@ namespace :deploy do
       ["public/assets/HLSProvider6.swf", "public/assets/jwplayer.flash.swf"].each do |path|
         execute "ln -fs #{shared_path}/#{path} #{release_path}/#{path}"
       end
+    end
+  end
+
+  desc "Create database before migrate"
+  task :create_database do
+    on roles(:db), in: :sequence, wait: 5 do
+      execute "cd #{release_path} && ( RVM_BIN_PATH=~/.rvm/bin /usr/bin/env bundle exec rake db:create )"
     end
   end
 

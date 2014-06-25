@@ -2,7 +2,7 @@ set :stage, :test
 set :branch, 'develop'
 
 
-server '42.121.55.211', user: 'qatime', roles: %w{web app db}, primary:true
+server '182.92.149.46', user: 'qatime', roles: %w{web app db}, primary:true
 
 set :deploy_to, "/home/#{fetch(:deploy_user)}/apps/qatime"
 

@@ -1,6 +1,5 @@
 set :branch, 'master'
 
-server '42.121.55.211', user: 'qatime', roles: %w{web app db}
 
 set :deploy_to, "/home/#{fetch(:deploy_user)}/apps/qatime"
 
@@ -32,4 +31,4 @@ set :enable_ssl, false
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-#server '182.92.149.46', user: 'deploy', roles: %w{web app}, primary: true
+server '182.92.149.46', user: 'deploy', roles: %w{web app db}, primary: true

@@ -1,5 +1,5 @@
 # 设定 GEM_HOME
-GEM_HOME = "/home/qatime/.rvm/gems/ruby-2.0.0-p481"
+GEM_HOME = "/home/deploy/.rvm/gems/ruby-2.1.2@qatime"
 
 # 获取当前项目路径
 require 'pathname'

@@ -5,7 +5,6 @@ load "config/recipes/qtfaststart.rb"
 lock '3.2.1'
 
 set :application, 'qatime'
-set :deploy_user, 'deploy'
 
 set :scm, :git
 set :repo_url, 'git@github.com:chuanjiabao1981/qatime.git'
@@ -36,7 +35,6 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
-set :rvm_ruby_version, 'ruby-2.1.2@qatime'
 set :default_env, { rvm_bin_path: '~/.rvm/bin' }
 
 set :unicorn_config_path, "/home/#{fetch(:deploy_user)}/apps/qatime/current/config/unicorn.rb"

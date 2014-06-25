@@ -1,14 +1,15 @@
 set :stage, :test
 set :branch, 'develop'
 
-
-server '182.92.149.46', user: 'qatime', roles: %w{web app db}, primary:true
+set :deploy_user, 'qatime'
+server '42.121.55.211', user: 'qatime', roles: %w{web app db}, primary:true
+set :rvm_ruby_version, 'ruby-2.0.0'
 
 set :deploy_to, "/home/#{fetch(:deploy_user)}/apps/qatime"
 
 # dont try and infer something as important as environment from
 # stage name.
-set :rails_env, :test
+set :rails_env, :production
 
 # number of unicorn workers, this will be reflected in
 # the unicorn.rb and the monit configs

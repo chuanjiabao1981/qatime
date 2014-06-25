@@ -1,5 +1,7 @@
 set :branch, 'master'
 
+set :deploy_user, 'deploy'
+set :rvm_ruby_version, 'ruby-2.1.2@qatime'
 
 set :deploy_to, "/home/#{fetch(:deploy_user)}/apps/qatime"
 

@@ -8,7 +8,7 @@
           <h4>课程介绍</h4>
           <p class="p1">
             <% desc = @lesson.course.desc %>
-            <% if desc.length >= 60 %>
+            <% if desc.length >= 50 %>
                 <% desc = @lesson.course.desc[0,60] + "......." %>
             <% end %>
             <span><%= desc %></span>
@@ -33,7 +33,6 @@
             <span>发布时间：</span>
             <span><%= DateTime.parse(@lesson.course.created_at.to_s).strftime('%Y-%m-%d %H:%M:%S').to_s %></span>
           </p>
-          <div class="qa_sep_15"></div>
         </div>
       </div>
     </div>

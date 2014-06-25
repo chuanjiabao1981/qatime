@@ -13,7 +13,6 @@ class Teachers::LessonsController < ApplicationController
   end
   def edit
     @lesson.build_a_video
-    @download_token = generate_video_download_token
   end
 
   def update

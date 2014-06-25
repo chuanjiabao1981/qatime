@@ -12,7 +12,6 @@ class CoursesController < ApplicationController
       @lesson   = @course.lessons.order(created_at: :asc).first
     end
 
-    @download_token = generate_video_download_token
   end
 
   def node

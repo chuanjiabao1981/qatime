@@ -61,5 +61,12 @@ namespace :deploy do
     end
   end
 
+  desc "Create database before migrate"
+  task :create_database do
+    on roles(:db), in: :sequence, wait: 5 do
+      execute "cd #{release_path} && ( RVM_BIN_PATH=~/.rvm/bin /usr/bin/env bundle exec rake db:create )"
+    end
+  end
+
   after "updated", "deploy:copy_jwplayer"
 end

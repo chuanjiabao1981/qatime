@@ -13,3 +13,5 @@ apt-get install postgresql-9.3
 /usr/lib/postgresql/9.3/bin/initdb -D db/ --locale=zh_CN.UTF-8
 ##修改postgresl启动目录
 ## 命令行 psql 可以进入提示行
+
+#sudo yum install postgresql-devel

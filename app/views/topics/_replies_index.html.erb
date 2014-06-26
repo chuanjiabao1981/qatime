@@ -1,7 +1,6 @@
 <% if @topic.replies.any? %>
     <div style="margin-top: 10px;list-style: none">
-      <div class="qa_box">
-        <% current_page = params[:page].to_i > 1 ? params[:page].to_i : 1 %>
+      <% current_page = params[:page].to_i > 1 ? params[:page].to_i : 1 %>
         <% i =  (current_page - 1) * 10%>
         <% for reply in @replies %>
             <div class="qa_cell">
@@ -24,6 +23,5 @@
             <div style="clear: both"></div>
             <% i = i + 1 %>
         <% end %>
-        </div>
     </div>
 <% end %>

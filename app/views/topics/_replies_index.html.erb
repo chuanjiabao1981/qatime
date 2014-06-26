@@ -4,20 +4,23 @@
         <% current_page = params[:page].to_i > 1 ? params[:page].to_i : 1 %>
         <% i =  (current_page - 1) * 10%>
         <% for reply in @replies %>
-            <div style="border-bottom:1px solid #ccc">
-                <div class="pull-left" style="padding: 8px">
-                    <%= image_tag reply.user.avatar.normal.url if reply.user%>
-                </div>
-                <div style="padding:8px;margin-left: 58px">
-                    <span style="color:gray">
-                        <small><%= reply.user.name if reply.user%></small>
-                        <small>#<%= i+1 %>楼</small>
-                        <small><%= time_ago_in_words(reply.created_at) %>前</small>
-                    </span>
-                    <div style="line-height: 60%;">
-                        <%= reply.body.html_safe %>
+            <div class="qa_cell">
+                <div style="border-bottom:1px solid #ccc">
+                    <div class="pull-left" style="padding: 8px">
+                        <%= image_tag reply.user.avatar.normal.url if reply.user%>
+                    </div>
+                    <div style="padding:8px;margin-left: 58px">
+                        <span style="color:gray">
+                            <small><%= reply.user.name if reply.user%></small>
+                            <small>#<%= i+1 %>楼</small>
+                            <small><%= time_ago_in_words(reply.created_at) %>前</small>
+                        </span>
+                        <div style="line-height: 180%;">
+                         <%= reply.body.html_safe %>
+                        </div>
                     </div>
                 </div>
+             </div>
             <div style="clear: both"></div>
             </div>
             <% i = i + 1 %>

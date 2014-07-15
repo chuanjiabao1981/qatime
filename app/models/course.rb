@@ -15,7 +15,7 @@ class Course < ActiveRecord::Base
   has_many   :students   ,:through => :course_purchase_records
   has_many   :course_purchase_records
   has_one    :cover     ,:dependent => :destroy
-  validates_inclusion_of :price,:in => [15.0,30.0] ,:message =>"价格仅可以是15和30!"
+  validates_inclusion_of :price,:in => [10.0] ,:message =>"价格仅可以是10!"
   validates_presence_of :name,:desc,:group,:state
 
   validates :desc, length: { minimum: 30 }

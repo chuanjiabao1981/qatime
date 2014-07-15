@@ -15,7 +15,7 @@
                             disabled: @course.published?,
                             :hint => "注意: 课程一旦发布就不可撤销。"
         %>
-        <%= f.input :price,collection: [ 15.0, 30.0] ,include_blank: false,disabled: @course.published?%>
+        <%= f.input :price,collection: [ 10.0 ] ,include_blank: false,disabled: @course.published?%>
         <%= f.input :desc %>
         <%= f.association :teacher, as: :hidden %>
         <%= f.button :submit, class: "btn btn-default" %>
@@ -41,9 +41,8 @@
             就可以把课程以及课程下属的知识点开放给学生。
         </li>
         <li>
-          <strong><%= Course.human_attribute_name(:price) %> </strong>  课程目前有两个价位：15元和30元。
-          选取哪个价位和课程下属的视频个数有关。一般来讲，15元的课程至少包含3个视频；30元的课程至少包含6个以上视频。
-          每个视频时长在4分钟以上5分钟以下。
+          <strong><%= Course.human_attribute_name(:price) %> </strong>  课程目前只有一个价位：10元。
+          一般来讲，10元的课程至少包含视频时长不可以小于30分钟，一节课大约在5到8分钟之间。
         </li>
       </ul>
     </div>

@@ -15,12 +15,18 @@ class Course < ActiveRecord::Base
   has_many   :students   ,:through => :course_purchase_records
   has_many   :course_purchase_records
   has_one    :cover     ,:dependent => :destroy
+  belongs_to :group_type
+  belongs_to :group_catalogue
+
   validates_inclusion_of :price,:in => [10.0] ,:message =>"价格仅可以是10!"
-  validates_presence_of :name,:desc,:group,:state
+  validates_presence_of :name,:desc,:group,:state,:group_type,:group_catalogue
 
   validates :desc, length: { minimum: 30 }
 
   validates_with CourseStateValidate
+
+  scope :by_catalogue_id,lambda {|s| where(group_catalogue_id: s ) if s}
+  scope :by_group,lambda {|s| where(group_id:  s.id) if s}
 
 
   def can_be_purchased

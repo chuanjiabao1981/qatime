@@ -2,7 +2,7 @@
   <%= render partial: 'group_header' %>
   <div class="row">
   <div class="qa_f12">
-    <% @group.courses.order(created_at: :asc).each do |course| %>
+    <% @courses.order(created_at: :asc).each do |course| %>
     <div class="col-md-4">
         <%= render partial: 'course',locals: {course: course} %>
     </div>
@@ -23,8 +23,17 @@
   </div>
   <div class="qa_sep_15"></div>
   <div class="qa_sep_15"></div>
-
   <div class="qa_box">
+    <div class="qa_cell box_header qa_f12">
+      <strong><%=link_to '全部课程',group_path(@group) %></strong>
+    </div>
+    <% @group.group_type.group_catalogues.order(index: :asc).each_with_index do |record,index| %>
+        <div class="qa_cell qa_f12">
+          <div><%= link_to "#{index+1}.  #{record.name}",group_path(@group,catalogue_id:record.id)%></div>
+        </div>
+    <% end %>
+  </div>
+  <!--div class="qa_box">
     <div class="qa_cell box_header qa_f12">
       <strong>最新加入的同学</strong>
     </div>
@@ -46,5 +55,5 @@
               <div style="clear: both"></div>
             </div>
         <% end %>
-    </div>
+    </div-->
 </div>

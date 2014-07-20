@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140606024110) do
+ActiveRecord::Schema.define(version: 20140720091344) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(version: 20140606024110) do
     t.integer  "teacher_id"
     t.string   "state",                         default: "unpublished"
     t.integer  "course_purchase_records_count"
+    t.integer  "group_type_id"
+    t.integer  "group_catalogue_id"
   end
 
   create_table "covers", force: true do |t|
@@ -75,6 +77,22 @@ ActiveRecord::Schema.define(version: 20140606024110) do
 
   add_index "covers", ["token"], name: "index_covers_on_token", using: :btree
 
+  create_table "group_catalogues", force: true do |t|
+    t.integer  "group_type_id"
+    t.string   "name"
+    t.integer  "index"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "group_types", force: true do |t|
+    t.string   "name"
+    t.string   "grade"
+    t.string   "subject"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "groups", force: true do |t|
     t.string   "name"
     t.integer  "city_id"
@@ -86,6 +104,7 @@ ActiveRecord::Schema.define(version: 20140606024110) do
     t.string   "subject"
     t.integer  "courses_count",         default: 0
     t.integer  "joined_students_count", default: 0
+    t.integer  "group_type_id"
   end
 
   add_index "groups", ["grade"], name: "index_groups_on_grade", using: :btree

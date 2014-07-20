@@ -6,7 +6,8 @@ class GroupsController < ApplicationController
 
 
   def show
-    @group = Group.find(params[:id])
+    @group    = Group.find(params[:id])
+    @courses  = Course.all.by_catalogue_id(params[:catalogue_id]).by_group(@group)
   end
 
 end

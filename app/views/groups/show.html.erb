@@ -30,7 +30,11 @@
     <% @group.group_type.group_catalogues.order(index: :asc).each_with_index do |record,index| %>
         <div class="qa_cell qa_f12">
           <div><%= link_to "#{index+1}.  #{record.name}",group_path(@group,catalogue_id:record.id)%></div>
+          <% record.get_courses(@courses).each_with_index do |course,i| %>
+            <div style="padding-left: 15px"><%=link_to "#{index+1}.#{i+1} #{course.name} (#{course.lessons_count}讲)",course_path(course)%></div>
+          <% end %>
         </div>
+
     <% end %>
   </div>
   <!--div class="qa_box">

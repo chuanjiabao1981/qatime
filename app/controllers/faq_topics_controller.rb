@@ -1,0 +1,2 @@
+class FaqTopicsController < ApplicationController
+end

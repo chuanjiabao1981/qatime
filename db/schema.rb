@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140606024110) do
+ActiveRecord::Schema.define(version: 20140722144226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,27 @@ ActiveRecord::Schema.define(version: 20140606024110) do
   end
 
   add_index "covers", ["token"], name: "index_covers_on_token", using: :btree
+
+  create_table "faq_topics", force: true do |t|
+    t.string   "title"
+    t.string   "user_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "faqs", force: true do |t|
+    t.string   "name"
+    t.text     "desc"
+    t.string   "token"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "subject"
+    t.string   "faq_type"
+    t.integer  "faq_topic_id"
+  end
+
+  add_index "faqs", ["user_id"], name: "index_faqs_on_user_id", using: :btree
 
   create_table "groups", force: true do |t|
     t.string   "name"

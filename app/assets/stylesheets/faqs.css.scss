@@ -1,0 +1,115 @@
+#homepage_faq {
+  border-bottom: 1px solid #ccc;
+  margin: 0 0 55px;
+  padding: 0 0 45px;
+  margin-left: 25px;
+  margin-right: 25px;
+
+
+  h2 {
+    color: #128deb;
+    font-size: 36px;
+    font-weight: 200;
+    line-height: 1em;
+    margin: 0 0 0.5em;
+    text-align: center;
+  }
+  .clearfix:after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+  }
+
+  ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+    width: 780px;
+    li {
+      display: block;
+      float: left;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 1.5em;
+      margin: 0 40px 12px 0;
+      padding: 0 0 0 30px;
+      position: relative;
+      width: 320px;
+      .icon {
+        background: image_url("support_sprites.png") repeat scroll -770px -430px rgba(0, 0, 0, 0);
+        display: block;
+        height: 18px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 18px;
+      }
+      a {
+        color: #000;
+        display: block;
+        cursor: pointer;
+        outline: medium none;
+      }
+    }
+    li:nth-child(2n+1) {
+      clear: left;
+    }
+  }
+  *::-moz-placeholder {
+    color: #aaa;
+    font-style: italic;
+    opacity: 1;
+  }
+}
+
+#homepage_topics ul {
+  list-style: none outside none;
+  margin: 0;
+  padding: 0;
+  width: 780px;
+  margin-left: 25px;
+  margin-right: 25px;
+
+  li:nth-child(2n+1) {
+    clear: left;
+  }
+  li {
+    display: block;
+    float: left;
+    font-family: Karbon,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0 40px 30px 0;
+    padding: 0 0 0 30px;
+    position: relative;
+    width: 320px;
+
+    .icon {
+      background: image_url("support_sprites.png");
+      background-position: -770px -70px;
+      background-repeat: no-repeat;
+      display: block;
+      height: 20px;
+      left: 0;
+      position: absolute;
+      width: 22px;
+    }
+
+    a {
+      color: #000;
+      display: block;
+      margin: 0 0 0.5em;
+      text-decoration: none;
+      cursor: pointer;
+      outline: medium none;
+    }
+  }
+  *::-moz-placeholder {
+    color: #aaa;
+    font-style: italic;
+    opacity: 1;
+  }
+}

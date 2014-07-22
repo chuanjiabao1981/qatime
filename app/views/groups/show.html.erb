@@ -2,7 +2,7 @@
   <%= render partial: 'group_header' %>
   <div class="row">
   <div class="qa_f12">
-    <% @courses.order(created_at: :asc).each do |course| %>
+    <% @catalogue_courses.each do |course| %>
     <div class="col-md-4">
         <%= render partial: 'course',locals: {course: course} %>
     </div>
@@ -29,7 +29,7 @@
     </div>
     <% @group.group_type.group_catalogues.order(index: :asc).each_with_index do |record,index| %>
         <div class="qa_cell qa_f12">
-          <div><%= link_to "#{index+1}.  #{record.name}",group_path(@group,catalogue_id:record.id)%></div>
+          <div><strong><%= "#{index+1}.  " %><%="#{record.name}"%></strong></div>
           <% record.get_courses(@courses).each_with_index do |course,i| %>
             <div style="padding-left: 15px"><%=link_to "#{index+1}.#{i+1} #{course.name} (#{course.lessons_count}讲)",course_path(course)%></div>
           <% end %>

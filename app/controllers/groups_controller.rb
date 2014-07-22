@@ -7,7 +7,8 @@ class GroupsController < ApplicationController
 
   def show
     @group    = Group.find(params[:id])
-    @courses  = Course.all.by_catalogue_id(params[:catalogue_id]).by_group(@group)
+    @courses  = Course.all.by_group(@group).order(group_catalogue_id: :asc,created_at: :asc)
+    @catalogue_courses = params[:catalogue_id] == nil ? @courses : @courses.select {|course| course.group_catalogue_id == params[:catalogue_id].to_i}
   end
 
 end

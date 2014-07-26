@@ -6,21 +6,20 @@
   <% end %>
   <div id="submenu-<%= sub %>" class="submenu_popover">
     <div style="padding: 10px" >
-      <% @cities.each do |city| %>
-          <% if city.schools.size > 0 %>
-              <div style="color: #cbcbcb;font-size: 12px;border-bottom: 1px dotted gainsboro;padding-bottom: 2px">
-                <%= city.name %>
-              </div>
-              <div class="school item qa_f12">
-                <% city.schools.each do |school| %>
-                    <ol><%=link_to school.name ,groups_path(subject:sub.downcase,school_id:school.id),{style: 'color:black'}%></ol>
-              <% end %>
-                <div style="clear:both"></div>
-              </div>
-              <div  class="qa_sep_5"></div>
-              <div  class="qa_sep_5"></div>
-          <% end %>
-      <% end %>
+      <% APP_CONFIG[:grades].each do |grade| %>
+          <% next if grade[1] == 's3' %>
+          <div style="color: #cbcbcb;font-size: 12px;border-bottom: 1px dotted gainsboro;padding-bottom: 2px">
+            <%= grade[0] %>
+                <div class="school item qa_f12">
+                  <% GroupType.get_grade_group_types(@all_group_types,sub.downcase,grade[1]).each do |group_type| %>
+                      <ol><%=link_to "#{sub_cn}#{group_type.name}" ,groups_path(group_type:group_type.id),{style: 'color:black'}%></ol>
+                  <% end %>
+                  <div style="clear:both"></div>
+                </div>
+                <div  class="qa_sep_5"></div>
+                <div  class="qa_sep_5"></div>
+            </div>
+        <% end %>
     </div>
   </div>
 </li>

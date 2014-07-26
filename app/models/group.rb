@@ -15,6 +15,7 @@ class Group < ActiveRecord::Base
 
   scope :by_subject,lambda {|s| where(subject: s) if s}
   scope :by_school,lambda {|s| where(school_id: s) if s}
+  scope :by_group_type,lambda {|s| where(group_type_id: s) if s}
 
   delegate :grade,:name,:subject , to: :group_type,allow_nil: true
 

@@ -1,0 +1,73 @@
+-
+  name: 必修1
+  subject: chemistry
+  grade: s1
+  catalogues:
+    - 从实验学化学
+    - 化学物质及其变化
+    - 金属及其化合物
+    - 非金属及其化合物
+-
+   name: 必修2
+   subject: chemistry
+   grade: s1
+   catalogues:
+     - 物质结构 元素周期律
+     - 化学反应与能量
+     - 有机化合物
+     - 化学与可持续发展
+-
+  name: 选修1
+  subject: chemistry
+  grade: s2
+  catalogues:
+    - 关注营养平衡
+    - 促进身心健康
+    - 探索生活材料
+    - 保护生存环境
+-
+  name: 选修2
+  subject: chemistry
+  grade: s2
+  catalogues:
+    - 走进化学工业
+    - 化学与资源开发利用
+    - 化学与材料的发展
+    - 化学与技术的发展
+-
+  name: 选修3
+  subject: chemistry
+  grade: s2
+  catalogues:
+    - 原子结构与性质
+    - 分子结构与性质
+    - 晶体结构与性质
+-
+  name: 选修4
+  subject: chemistry
+  grade: s2
+  catalogues:
+    - 化学反应与能量
+    - 化学反应速率和化学平衡
+    - 水溶液中的离子平衡
+    - 电化学基础
+-
+  name: 选修5
+  subject: chemistry
+  grade: s2
+  catalogues:
+    - 认识有机化合物
+    - 烃和卤代烃
+    - 烃的含氧衍生物
+    - 生命中的基础有机化学物质
+    - 进入合成有机高分子化合物的时代
+-
+  name: 选修6
+  subject: chemistry
+  grade: s2
+  catalogues:
+    - 从实验走进化学
+    - 物质的获取
+    - 物质的检测
+    - 研究型实验
+

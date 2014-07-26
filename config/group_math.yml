@@ -1,0 +1,82 @@
+-
+  name: 必修1
+  subject: math
+  grade: s1
+  catalogues:
+    - 集合
+    - 基本初等函数
+    - 函数的应用
+-
+  name: 必修2
+  subject: math
+  grade: s1
+  catalogues:
+    - 空间几何体
+    - 点、直线、平面之间的位置关系
+    - 直线与方程
+    - 圆与方程
+-
+  name: 必修3
+  subject: math
+  grade: s1
+  catalogues:
+    - 算法初步
+    - 统计
+    - 概率
+-
+  name: 必修4
+  subject: math
+  grade: s1
+  catalogues:
+    - 三角函数
+    - 平面向量
+    - 三角恒等变换
+-
+  name: 必修5
+  subject: math
+  grade: s2
+  catalogues:
+    - 解三角式
+    - 数列
+    - 不等式
+-
+  name: 选修1-1
+  subject: math
+  grade: s2
+  catalogues:
+    - 常用逻辑用语
+    - 圆锥曲线与方程
+    - 导数及其应用
+-
+  name: 选修1-2
+  subject: math
+  grade: s2
+  catalogues:
+    - 统计案例
+    - 推理与证明
+    - 数系的扩充与复数的引入
+    - 框图
+-
+  name: 选修2-1
+  subject: math
+  grade: s2
+  catalogues:
+    - 常用逻辑用语
+    - 圆锥曲线与方程
+    - 空间向量与立体几何
+-
+  name: 选修2-2
+  subject: math
+  grade: s2
+  catalogues:
+    - 导数及其应用
+    - 推理与证明
+    - 数系的扩充与复数的引入
+-
+  name: 选修2-3
+  subject: math
+  grade: s2
+  catalogues:
+    - 计数原理
+    - 随机变量及其分布
+    - 统计案例

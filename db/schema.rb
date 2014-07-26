@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140720091344) do
+ActiveRecord::Schema.define(version: 20140723150655) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,15 +84,6 @@ ActiveRecord::Schema.define(version: 20140720091344) do
     t.datetime "updated_at"
   end
 
-
-  create_table "group_catalogues", force: true do |t|
-    t.integer  "group_type_id"
-    t.string   "name"
-    t.integer  "index"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "faqs", force: true do |t|
     t.string   "name"
     t.text     "desc"
@@ -105,6 +96,14 @@ ActiveRecord::Schema.define(version: 20140720091344) do
   end
 
   add_index "faqs", ["user_id"], name: "index_faqs_on_user_id", using: :btree
+
+  create_table "group_catalogues", force: true do |t|
+    t.integer  "group_type_id"
+    t.string   "name"
+    t.integer  "index"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "group_types", force: true do |t|
     t.string   "name"

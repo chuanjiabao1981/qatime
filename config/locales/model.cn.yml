@@ -17,11 +17,13 @@ cn:
         grade: 年级
         teacher: 教师
         name: 班级名称
+        group_type: 班级类型
       course:
         name: 课程名
         price: 课程价格
         desc: 课程描述
         state: 课程状态
+        group_catalogue: 课程章节
       teacher:
         email: 电子邮件
         name: 姓名

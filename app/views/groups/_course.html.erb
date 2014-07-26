@@ -20,8 +20,11 @@
       <div class="qa_text_wrap title" >
         <span class="glyphicon glyphicon-list-alt"></span> <%=course.name%>
       </div>
-      <div class="price">
+      <!--div class="price">
         <span class="glyphicon glyphicon-bookmark"></span> <%=course.price%> ¥
+      </div-->
+      <div class="price">
+        <span class="glyphicon glyphicon-bookmark"></span> <%=course.group_catalogue.try(:name) %>
       </div>
       <div class="abs left-bottom time">
         <span class="glyphicon glyphicon-film"></span><span> 30分钟</span>

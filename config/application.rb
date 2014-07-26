@@ -7,7 +7,8 @@ require 'rails/all'
 Bundler.require(:default, Rails.env)
 APP_CONFIG = YAML.load(File.read(File.expand_path('../application.yml', __FILE__)))
 APP_CONFIG.symbolize_keys!
-
+APP_GROUP  = YAML.load(File.read(File.expand_path('../group.yml',__FILE__)))
+#APP_GROUP.symbolize_keys!
 module Qatime
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

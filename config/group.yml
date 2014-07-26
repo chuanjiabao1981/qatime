@@ -1,0 +1,61 @@
+-
+  name: 必修1
+  subject: physics
+  grade: s1
+  catalogues:
+    - 运动的描述
+    - 匀变速直线运动
+    - 相互作用
+    - 牛顿运动定律
+-
+  name: 必修2
+  subject: physics
+  grade: s1
+  catalogues:
+    - 机械能及其守恒定律
+    - 曲线运动
+    - 万有引力与航天
+-
+  name: 选修3-1
+  subject: physics
+  grade: s2
+  catalogues:
+    - 静电场
+    - 恒定电流
+    - 磁场
+-
+  name: 选修3-2
+  subject: physics
+  grade: s2
+  catalogues:
+    - 电磁感应
+    - 交变电流
+    - 传感器
+-
+  name: 选修3-3
+  subject: physics
+  grade: s2
+  catalogues:
+    - 分子动理论
+    - 气体
+    - 物态和物态变化
+    - 热力学定律
+-
+  name: 选修3-4
+  subject: physics
+  grade: s2
+  catalogues:
+    - 机械振动
+    - 机械波
+    - 光
+    - 电磁波
+    - 相对论简介
+-
+  name: 选修3-5
+  subject: physics
+  grade: s2
+  catalogues:
+    - 动量守恒定律
+    - 波粒二象性
+    - 原子结构
+    - 原子核

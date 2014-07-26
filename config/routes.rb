@@ -48,6 +48,10 @@ Qatime::Application.routes.draw do
 
   resources :faqs
 
+  resources :faq_topics do
+    resources :faqs
+  end
+
   namespace :students do
     resources :registrations
     resources :recharge_records

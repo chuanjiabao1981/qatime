@@ -1,4 +1,6 @@
 class FaqsController < ApplicationController
+  layout :resolve_layout
+
   def new
     @faq = Faq.new_with_token
   end
@@ -27,5 +29,19 @@ class FaqsController < ApplicationController
 
   def edit
     @faq = Faq.find(params[:id])
+  end
+
+  private
+  def resolve_layout
+    case current_user.role
+      when "admin"
+        "admin_home"
+      when "teacher"
+        "teacher_home"
+      when "student"
+        "student_home"
+      else
+        "application"
+    end
   end
 end

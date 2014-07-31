@@ -1,0 +1,20 @@
+<div class='col-md-11'>
+    <div class="qa_box qa_topics">
+        <% if @faqs.any? %>
+            <div id="homepage_faq" >
+                <h2>常见问题</h2>
+                <ul class="clearfix">
+                    <%= render partial: 'faq', collection: @faqs %>
+                </ul>
+            </div>
+        <% end %>
+
+        <div id="homepage_topics">
+            <ul class="clearfix">
+                <% if @faq_topics.any? %>
+                    <%= render partial: 'faq_topic', collection: @faq_topics %>
+                <% end %>
+            </ul>
+        </div>
+    </div>
+ </div>

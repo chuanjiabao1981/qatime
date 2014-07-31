@@ -42,7 +42,9 @@
         </li>
 
         <li>
-          <span class="glyphicon glyphicon-question-sign"></span><span class="qa_f18"> 疑问</span> Faq
+          <%= link_to admins_faqs_path do %>
+            <span class="glyphicon glyphicon-question-sign"></span><span class="qa_f18"> 疑问</span> Faq
+          <% end %>
         </li>
 
         <li>
@@ -56,6 +58,7 @@
       <%= yield %>
     </div>
   </div>
+  <%= debug(params) if Rails.env.development? %>
 </div>
 
 </body>

@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
 
   has_many :topics, :dependent => :destroy
   has_many :replies, :dependent => :destroy
+  has_many :faq_topics
+  has_many :faqs
 
   belongs_to :school
 

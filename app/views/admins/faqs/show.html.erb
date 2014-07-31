@@ -8,7 +8,7 @@
           </div>
         </div>
       </div>
-      <% if not @faq.video_url.nil? %>
+      <% if not @faq.video_url.nil? and not @faq.video_url.blank? %>
           <div class="qa_cell" style="height: 400px">
             <source src="<%= @faq.video_url %>" id = "video_source" type="<%= "mp4" %>" />
             <source src="<%= true %>" id = "buy_status" />
@@ -26,16 +26,6 @@
               <div style="clear: both"></div>
             </div>
           </div>
-      <% end %>
-
-      <% if current_user.admin?  %>
-        <div class="pull-right">
-            <%= link_to "", edit_faq_path(@faq), class: "glyphicon glyphicon-edit"%>
-            <%= link_to "", faq_path,
-                    :method => :delete,
-                    'data-confirm' => 'Are you sure?',
-                    class: "glyphicon glyphicon-remove"%>
-        </div>
       <% end %>
     </div>
 

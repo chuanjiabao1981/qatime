@@ -34,7 +34,14 @@ Qatime::Application.routes.draw do
     resources :schools
     resources :cities
     resources :recharge_codes
+    resources :faq_topics
+    resources :faqs
+
+    resources :faq_topics do
+      resources :faqs
+    end
   end
+
   namespace :teachers do
     resources :registrations
     resources :groups do
@@ -44,17 +51,15 @@ Qatime::Application.routes.draw do
       resources :lessons
     end
     resources :videos
-  end
-
-  resources :faqs
-
-  resources :faq_topics do
     resources :faqs
+    resources :faq_topics
   end
 
   namespace :students do
     resources :registrations
     resources :recharge_records
+    resources :faqs
+    resources :faq_topics
   end
 
   post 'students/courses/:id' => "students/courses#purchase", as: 'students_course_purchase'

@@ -1,3 +1,55 @@
-// Place all the styles related to the faq_topics controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.topic_list {
+  *::-moz-placeholder {
+    color: #aaa;
+    font-style: italic;
+    opacity: 1;
+  }
+
+  border-bottom: 1px solid #ccc;
+  margin: 0 0 25px;
+  padding: 0 0 45px;
+
+  .clearfix:after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+  }
+
+  h3 {
+    color: #128deb;
+    font-size: 36px;
+    font-weight: 200;
+    line-height: 1em;
+    margin: 0 0 0.5em;
+    padding: 0 0 10px 0;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+
+  ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 10px;
+    line-height: 28px;
+    li {
+      font-family: Karbon,"Helvetica Neue",Helvetica,Arial,sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      margin: 10px 40px 10px 0;
+      padding: 0 0 0 30px;
+      position: relative;
+      .icon {
+        background: image_url("support_sprites.png") repeat scroll -768px -70px rgba(0, 0, 0, 0);
+        display: block;
+        height: 18px;
+        left: 0;
+        position: absolute;
+        top: 5px;
+        width: 17px;
+      }
+    }
+  }
+}

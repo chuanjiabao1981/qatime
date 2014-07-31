@@ -1,0 +1,12 @@
+<div class='col-md-11'>
+  <div class="qa_box qa_topics">
+    <div class="topic_list" >
+      <h3><%=@faq_topic.title%>
+      </h3>
+
+      <ul class="clearfix">
+        <%= render partial: 'faq', collection: @faqs %>
+      </ul>
+    </div>
+  </div>
+</div>

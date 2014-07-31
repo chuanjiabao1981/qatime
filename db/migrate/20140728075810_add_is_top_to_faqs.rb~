@@ -1,0 +1,4 @@
+class AddIsTopToFaqs < ActiveRecord::Migration
+  def change
+  end
+end

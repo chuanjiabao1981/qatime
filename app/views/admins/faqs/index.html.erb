@@ -1,0 +1,25 @@
+<div class='col-md-11'>
+    <div class="qa_box qa_topics">
+      <% if @teacher_faq_topics.any? %>
+            <div id="homepage_topics">
+                <h3>
+                    老师FAQ主题
+                </h3>
+                <ul class="clearfix">
+                    <%= render partial: 'faq_topic', collection: @teacher_faq_topics %>
+                </ul>
+            </div>
+      <% end %>
+
+       <% if @student_faq_topics.any? %>
+            <div id="homepage_topics">
+                <h3>
+                    学生FAQ主题
+            </h3>
+            <ul class="clearfix">
+                <%= render partial: 'faq_topic', collection: @student_faq_topics %>
+            </ul>
+            </div>
+       <% end %>
+    </div>
+ </div>

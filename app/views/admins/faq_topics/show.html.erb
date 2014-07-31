@@ -1,9 +1,9 @@
-<div class='col-md-9'>
+<div class='col-md-11'>
   <div class="qa_box qa_topics">
     <div class="topic_list" >
       <h3><%=@faq_topic.title%>
       <% if current_user.admin? %>
-          <%=link_to new_admin_faq_topic_faq_path do %>
+          <%=link_to new_admins_faq_topic_faq_path(@faq_topic) do %>
               <button type="button" class="btn btn-large btn-success">增加FAQ</button>
           <% end %>
       <% end %>

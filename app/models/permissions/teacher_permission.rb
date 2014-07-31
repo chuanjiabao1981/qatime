@@ -31,6 +31,10 @@ module Permissions
 
       allow :courses,[:show]
       allow :sessions,[:destroy]
+      allow "teachers/faqs", [:index, :show]
+      allow "teachers/faq_topics", [:show]
+      allow :faqs, [:show]
+      allow :faq_topics, [:show]
 
     end
   end

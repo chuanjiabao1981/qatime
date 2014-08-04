@@ -29,7 +29,7 @@
       <% end %>
       <% if current_user.admin?  %>
           <div class="pull-right">
-            <%= link_to "", edit_admins_faqs_path(@faq), class: "glyphicon glyphicon-edit"%>
+            <%= link_to "", edit_admins_faq_path(@faq), class: "glyphicon glyphicon-edit"%>
             <%= link_to "", admins_faq_path,
                         :method => :delete,
                         'data-confirm' => 'Are you sure?',

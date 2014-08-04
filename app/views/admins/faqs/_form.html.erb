@@ -8,7 +8,7 @@
       </div>
     </div>
 
-    <% @faq_topic = FaqTopic.find(params[:faq_topic_id]) %>
+    <% @faq_topic = FaqTopic.find(params[:faq_topic_id]) unless not @faq_topic.nil? %>
     <%=simple_form_for([:admins, @faq_topic, @faq]) do |f| %>
         <%= render "shared/error_messages", :target => @faq %>
         <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>

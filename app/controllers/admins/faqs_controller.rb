@@ -28,11 +28,21 @@ class Admins::FaqsController < ApplicationController
   def destroy
     @faq = Faq.find(params[:id])
     @faq.destroy
-    redirect_to admin_faqs_path
+    redirect_to admins_faqs_path
   end
 
   def edit
     @faq = Faq.find(params[:id])
+    @faq_topic = @faq.faq_topic
+  end
+
+  def update
+    @faq = Faq.find(params[:id])
+    if @faq.update_attributes(params[:faq].permit!)
+      respond_with :admins,@faq
+    else
+      render 'edit'
+    end
   end
 
 end

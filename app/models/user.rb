@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   has_many :replies, :dependent => :destroy
   has_many :faq_topics
   has_many :faqs
+  has_many :messages
 
   belongs_to :school
 

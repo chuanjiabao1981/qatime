@@ -22,11 +22,6 @@
             <li>
                 <%= link_to current_user.name,user_home_path,class: "pull-left" %>
             </li>
-        <% else %>
-            <li>
-
-              <%= link_to '注册', new_students_registration_path %>
-            </li>
         <% end %>
         <% if signed_in? %>
             <li>

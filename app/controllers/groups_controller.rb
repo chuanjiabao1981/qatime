@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
   respond_to :html
   def index
-    @groups = Group.all.by_group_type(params[:group_type]).by_subject(params[:subject]).by_school(params[:school_id]).order(created_at: :asc)
+    @groups = Group.all.by_group_type(params[:group_type]).by_subject(params[:subject]).by_school(params[:school_id]).order(created_at: :asc).where(user_id: current_user.id)
   end
 
 

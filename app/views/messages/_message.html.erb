@@ -1,17 +1,20 @@
-<div style="border-bottom:1px solid #ccc">
-
-  <% sender = User.find_by_id(message.sender_id) %>
-  <div class="pull-left" style="padding: 8px">
-    <%= image_tag sender.avatar.normal.url if sender %>
-  </div>
-  <div style="padding:8px;margin-left: 58px">
-                    <span style="color:gray">
-                        <small><%= sender.name if sender%></small>
-                        <small><%= time_ago_in_words(message.created_at) %>前</small>
-                    </span>
-    <div style="line-height: 180%;">
-      <%= message.content %>
+<div class="qa_box">
+  <div class="qa_cell">
+    <div style="border-bottom:1px solid #ccc">
+        <% sender = User.find_by_id(message.sender_id) %>
+        <div class="pull-left" style="padding: 8px">
+            <%= image_tag sender.avatar.normal.url if sender %>
+        </div>
+        <div style="padding:8px;margin-left: 58px">
+          <span style="color:gray">
+            <small><%= sender.name if sender%></small>
+            <small><%= time_ago_in_words(message.created_at) %>前</small>
+          </span>
+          <div style="line-height: 180%;">
+                <%= message.content %>
+          </div>
+        </div>
+      </div>
+    <div style="clear: both"></div>
     </div>
-  </div>
-  <div style="clear: both"></div>
 </div>

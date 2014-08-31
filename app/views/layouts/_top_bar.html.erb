@@ -20,7 +20,13 @@
 
         <% if signed_in? %>
             <li>
-                <%= link_to current_user.name,user_home_path,class: "pull-left" %>
+                <% if current_user.teacher? %>
+                  <%= link_to current_user.name,edit_teachers_registration_path(current_user),class: "pull-left" %>
+                <% elsif current_user.student? %>
+                  <%= link_to current_user.name,edit_students_registration_path(current_user),class: "pull-left" %>
+                <% else %>
+                  <%= link_to current_user.name,user_home_path,class: "pull-left" %>
+                <% end %>
             </li>
         <% end %>
         <% if signed_in? %>

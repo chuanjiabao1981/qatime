@@ -4,6 +4,7 @@
   </div>
   <div class="qa_big_cell">
     <%=simple_form_for ([:teachers,@lesson.video]) do |f|%>
+        <%= render 'shared/error_messages', target: @lesson.video %>
         <%=f.input :name %>
         <%=f.input :token,as: :hidden %>
         <div id="video_show" class="rel" style="width:820px;height:385px;border:4px gray dotted">

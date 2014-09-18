@@ -1,6 +1,5 @@
 function hind_process_bar() {
     var video_progress_bar      = $("div#video_show div.progress-bar");
-
 }
 
 $(
@@ -12,6 +11,7 @@ $(
             video_show.html($("div#template-progress div.progress").clone());
         }
         video_input.on('change',function(){
+            console.log("-----------" + video_input.name + "---------------")
             video_form.ajaxSubmit({
                 dataType: 'script',
                 beforeSubmit: function(){

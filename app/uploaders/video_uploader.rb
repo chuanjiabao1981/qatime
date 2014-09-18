@@ -29,13 +29,14 @@ class VideoUploader < CarrierWave::Uploader::Base
     "videos/"
   end
 
+  def extension_white_list
+     %w(mp4)
+  end
 
   process :translate
 
   def translate
-    Rails.logger.info("--------" + self.current_path + "--------")
     result = %x(/usr/local/bin/qtfaststart #{self.current_path})
-    Rails.logger.info("--------" + result + "--------")
   end
 
 end

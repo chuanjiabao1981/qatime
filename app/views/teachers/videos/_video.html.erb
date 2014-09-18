@@ -1,3 +1,5 @@
-<video id="player" class="rel" style="width:820px;height:385px;border:4px gray dotted">
-  <source src="<%= video.name.url %>" id = "video_source" type="<%= video.video_type %>" />
-</video>
+<% if not video.name.url.nil? %>
+    <video id="player" class="rel" style="width:820px;height:385px;border:4px gray dotted">
+        <source src="<%= video.name.url %>" id = "video_source" type="<%= video.video_type %>" />
+    </video>
+<% end %>

@@ -3,8 +3,14 @@ class Teachers::VideosController < ApplicationController
   def create
     @video = Video.new(params[:video].permit!)
     @video.save
+
+    if @video.name_integrity_error
+      @video.errors.add(:name, @video.name_integrity_error)
+      Rails.logger.info(@video.name_integrity_error)
+    end
     respond_with @video
   end
+
   def update
     @video.update_attributes(params[:video].permit!)
     respond_with @video

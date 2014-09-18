@@ -1,5 +1,21 @@
 <div class='col-md-10'>
-<div class="row messages">
-    <%= render partial:'messages/message',collection:@messages %>
-</div>
+    <div class="row messages">
+      <div class="qa_box">
+        <% if @messages.any? %>
+            <div>
+              <div style="border-bottom:1px solid #ccc">
+                <h5 class="pull-right">
+                    通知提醒
+                    <small style="font-size:12px;margin-left:5px; margin-right:5px">(<%= @messages.count %> 条)</small>
+                </h5>
+               </div>
+              <div style="clear: both"></div>
+            </div>
+
+            <%= render partial:'messages/message',collection:@messages %>
+        <% else %>
+
+        <% end %>
+      </div>
+    </div>
 </div>

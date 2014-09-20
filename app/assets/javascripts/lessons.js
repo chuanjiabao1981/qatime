@@ -11,7 +11,11 @@ $(
             video_show.html($("div#template-progress div.progress").clone());
         }
         video_input.on('change',function(){
-            console.log("-----------" + video_input.name + "---------------")
+            var fileExtend = this.value.substring(this.value.lastIndexOf('.')).toLowerCase();
+            if(fileExtend != ".mp4") {
+                alert("视频文件格式只支持mp4，请重新上传！")
+                return;
+            }
             video_form.ajaxSubmit({
                 dataType: 'script',
                 beforeSubmit: function(){

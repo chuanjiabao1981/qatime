@@ -29,13 +29,11 @@ function video_load(video_width, video_height) {
         buy_status = buy_status_source.attr("src")
     }
 
-    console.log("-----------" + video_url + "---------------")
-
     if("mp4" == video_type) {
         jwplayer("player").setup({
             file:video_url,
-            //flashplayer:'/assets/jwplayer.flash.swf',
-            provider:'/assets/jwplayer/jwplayer.flash.swf',
+            flashplayer:'/assets/jwplayer.flash.swf',
+            //provider:'/assets/jwplayer/jwplayer.flash.swf',
             width: video_width,
             height: video_height,
             primary: "flash"

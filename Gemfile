@@ -57,7 +57,7 @@ gem 'bcrypt-ruby', '3.1.5'
 gem 'simple_form'
 
 # 分页
-gem 'will_paginate', '3.0.5'
+gem 'will_paginate', '3.0.4'
 gem 'will_paginate-bootstrap'
 #Bootstrap
 gem 'bootstrap-sass','3.0.2.0'

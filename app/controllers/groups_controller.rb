@@ -1,7 +1,17 @@
 class GroupsController < ApplicationController
   respond_to :html
   def index
-    @groups = Group.where(teacher_id: current_user.id).by_group_type(params[:group_type]).by_subject(params[:subject]).by_school(params[:school_id]).order(created_at: :asc)
+    case current_user.role
+      when "admin"
+        @groups = Group.by_group_type(params[:group_type]).by_subject(params[:subject]).
+            by_school(params[:school_id]).order(created_at: :asc).paginate(page: params[:page],:per_page => 10)
+      when "teacher"
+        @groups = Group.where(teacher_id: current_user.id).by_group_type(params[:group_type]).
+            by_subject(params[:subject]).by_school(params[:school_id]).order(created_at: :asc).paginate(page: params[:page],:per_page => 10)
+      when "student"
+        @groups = Group.by_group_type(params[:group_type]).by_subject(params[:subject]).
+            by_school(params[:school_id]).order(created_at: :asc).paginate(page: params[:page],:per_page => 10)
+    end
   end
 
 

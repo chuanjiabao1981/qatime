@@ -4,5 +4,6 @@
 <div class='col-md-10'>
 <div class="row groups">
     <%= render partial:'groups/group',collection:@groups %>
+    <%= will_paginate @groups %>
 </div>
 </div>

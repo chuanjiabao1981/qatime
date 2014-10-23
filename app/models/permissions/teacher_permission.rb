@@ -17,7 +17,7 @@ module Permissions
         course and course.teacher_id == user.id
       end
 
-      allow "teachers/lessons",[:edit,:update] do |lesson|
+      allow "teachers/lessons",[:edit,:update,:destroy] do |lesson|
         lesson and lesson.teacher_id == user.id
       end
 

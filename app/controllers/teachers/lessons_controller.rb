@@ -22,6 +22,13 @@ class Teachers::LessonsController < ApplicationController
       render 'edit'
     end
   end
+
+  def destroy
+      @course = @lesson.course
+      @lesson.destroy
+      redirect_to course_path(@course)
+  end
+
   private
 
   def current_resource

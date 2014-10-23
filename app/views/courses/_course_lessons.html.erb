@@ -22,8 +22,6 @@
               <%= link_to  edit_teachers_course_lesson_path(@course,lesson) do%>
                   <span class="glyphicon glyphicon-edit"></span>
               <% end %>
-          <% end %>
-          <% if allow? "teachers/lessons",:destroy,lesson %>
               <%= link_to teachers_course_lesson_path(@course, lesson), method: :delete,
                           data: { confirm: "删除前请确认！" },
                           title: lesson.name do%>

@@ -25,8 +25,11 @@ class Teachers::LessonsController < ApplicationController
 
   def destroy
       @course = @lesson.course
-      @lesson.destroy
-      redirect_to course_path(@course)
+      if @lesson.destroy
+        redirect_to course_path(@course)
+      else
+        redirect_to course_path(@course)
+      end
   end
 
   private

@@ -215,12 +215,6 @@ ActiveRecord::Schema.define(version: 20140815023344) do
     t.datetime "updated_at"
   end
 
-  create_table "sections", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "student_join_group_records", force: true do |t|
     t.integer  "student_id"
     t.integer  "group_id"

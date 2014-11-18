@@ -3,4 +3,10 @@ class LessonsController < ApplicationController
   def show
     @lesson = Lesson.find(params[:id])
   end
+
+  def destroy
+    @course = @lesson.course
+    @lesson.destroy
+    redirect_to course_path(@course)
+  end
 end

@@ -20,7 +20,5 @@
 //= require videojs/video
 //= require jwplayer/jwplayer
 //= require jquery.menu-aim
-//= require jwplayer/jwpsrv_frq
-//= require jwplayer/jwpsrv
 //= require_tree .
 // require turbolinks

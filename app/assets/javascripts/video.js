@@ -11,6 +11,7 @@ function video_preview_load() {
 }
 
 function video_load(video_width, video_height) {
+    jwplayer.key="K9h2pnBWHs4QTPVuGuOHbdSmKOgR+3DAwhwoCSw48i1trlbhLIlZ2LrOdao=";
     video_width = arguments[0] ? arguments[0] : 810;
     video_height = arguments[1] ? arguments[1] : 375;
 

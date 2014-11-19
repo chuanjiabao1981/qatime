@@ -18,9 +18,9 @@
 //= require summernote-zh-CN
 //= require jquery.form
 //= require videojs/video
-//= require jwplayer/jwplayer
-//= require jwplayer/jwpsrv_frq
-//= require jwplayer/jwpsrv
+// require jwplayer/jwplayer
+// require jwplayer/jwpsrv_frq
+// require jwplayer/jwpsrv
 //= require jquery.menu-aim
 //= require_tree .
 // require turbolinks

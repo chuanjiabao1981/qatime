@@ -19,6 +19,8 @@
 //= require jquery.form
 //= require videojs/video
 //= require jwplayer/jwplayer
+//= require jwplayer/jwpsrv_frq
+//= require jwplayer/jwpsrv
 //= require jquery.menu-aim
 //= require_tree .
 // require turbolinks

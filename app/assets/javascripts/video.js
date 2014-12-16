@@ -66,9 +66,9 @@ function video_load(video_width, video_height) {
     jwplayer("player").onTime(function(evt){
         currentTime = evt.position.toFixed(1);
         console.log(currentTime);
-        if(currentTime >= 60.1 && buy_status == "false") {
-            $('div#course_lesson_detail').html($("div#template-v_content div.v_content").clone());
-        }
+        //if(currentTime >= 60.1 && buy_status == "false") {
+        //    $('div#course_lesson_detail').html($("div#template-v_content div.v_content").clone());
+        //}
     });
 }
 

@@ -4,7 +4,7 @@ source 'http://ruby.taobao.org/'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1'
+gem 'rails', '4.2'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -20,7 +20,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -80,7 +80,13 @@ gem 'jcrop-rails-v2','0.9.12.3'
 
 gem 'net-ssh', '~> 2.9.1'
 
+# 这个为了支持controller 级别的respond_to
+gem 'responders', '~> 2.0'
+
 group :development,:test do
+  gem 'quiet_assets'
+  gem "minitest"
+  gem 'test-unit'
   gem 'rspec-rails', '~> 2.13.2'
   gem 'factory_girl_rails'
   gem 'capistrano'
@@ -88,6 +94,7 @@ group :development,:test do
   gem 'capistrano-bundler'
   gem 'capistrano-rvm'
   gem 'capistrano3-unicorn'
+
 end
 
 gem 'rest-client'

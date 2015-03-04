@@ -26,6 +26,8 @@ cn:
         group_catalogue: 课程章节
       teacher:
         email: 电子邮件
+        subject: 科目
+        category: 类型
         name: 姓名
         avatar: 头像
         school: 任课学校

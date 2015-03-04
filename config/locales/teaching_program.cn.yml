@@ -1,0 +1,11 @@
+cn:
+  activerecord:
+    models:
+      teaching_program: 大纲
+    attributes:
+      teaching_program:
+        category: 类型
+        name: 名称
+        subject: 科目
+        grade: 年级
+        content: 章节

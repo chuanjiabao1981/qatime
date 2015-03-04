@@ -48,6 +48,15 @@
         </li>
 
         <li>
+          <%= link_to admins_teaching_programs_path do %>
+              <span class="glyphicon glyphicon-question-sign"></span>
+              <span class="qa_f18">
+                   <%=TeachingProgram.model_name.human%>
+              </span>
+              Program
+          <% end %>
+        </li>
+        <li>
           <%= link_to signout_path, :method=>'delete'  do %>
               <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18"> 退出</span> Exit
           <% end %>

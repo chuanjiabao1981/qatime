@@ -10,6 +10,8 @@
 
         <div class="form-inputs">
           <%= f.input :name, :required => true %>
+          <%= f.input :subject,  :collection => APP_CONSTANT["subjects"] %>
+          <%= f.input :category, :collection => APP_CONSTANT["categories"] %>
           <%= f.association :school, :required => true ,:collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]} %>
 
           <%= f.input :email, :required => true, :autofocus => true %>

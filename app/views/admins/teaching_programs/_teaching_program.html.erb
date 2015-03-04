@@ -1,0 +1,17 @@
+<div class="row qa_big_cell">
+  <div class="col-md-1">
+    <%= teaching_program_counter + 1 %>
+  </div>
+  <div class="col-md-3">
+    <%= link_to teaching_program.name , admins_teaching_program_path(teaching_program)%>
+  </div>
+  <div class="col-md-2">
+    <%= teaching_program.subject %>
+  </div>
+  <div class="col-md-2">
+    <%= teaching_program.category %>
+  </div>
+  <div class="col-md-2">
+    <%= teaching_program.grade %>
+  </div>
+</div>

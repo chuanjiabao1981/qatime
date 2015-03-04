@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
 
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: true
-  validates_presence_of :avatar,:name
+  validates_presence_of :avatar,:name ,if: :teacher? or :student?
   validates :school ,presence: true,if: :teacher?
   validates :password, length: { minimum: 6 },:on => :create
 

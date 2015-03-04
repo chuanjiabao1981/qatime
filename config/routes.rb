@@ -38,6 +38,7 @@ Qatime::Application.routes.draw do
     resources :recharge_codes
     resources :faq_topics
     resources :faqs
+    resources :teaching_programs
 
     resources :faq_topics do
       resources :faqs

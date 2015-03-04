@@ -9,6 +9,7 @@ APP_CONFIG = YAML.load(File.read(File.expand_path('../application.yml', __FILE__
 APP_CONFIG.symbolize_keys!
 APP_GROUP  = YAML.load(File.read(File.expand_path('../group.yml',__FILE__)))
 #APP_GROUP.symbolize_keys!
+APP_CONSTANT   = YAML.load(File.read(File.expand_path('../constant.yml',__FILE__)))
 module Qatime
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -22,6 +23,8 @@ module Qatime
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :cn
+    config.active_record.raise_in_transactional_callbacks = true
+    config.assets.logger = false
     config.generators do |g|
       g.test_framework :rspec
       g.fixture_replacement :factory_girl, :dir => "spec/factories"

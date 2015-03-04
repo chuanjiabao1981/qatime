@@ -11,12 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140815023344) do
+ActiveRecord::Schema.define(version: 20150304034705) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "accounts", force: true do |t|
+  create_table "accounts", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "money",        default: 0
     t.integer  "lock_version", default: 0
@@ -24,13 +24,13 @@ ActiveRecord::Schema.define(version: 20140815023344) do
     t.datetime "updated_at"
   end
 
-  create_table "cities", force: true do |t|
+  create_table "cities", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "comments", force: true do |t|
+  create_table "comments", force: :cascade do |t|
     t.text     "body"
     t.integer  "author_id"
     t.integer  "commentable_id"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
     t.datetime "updated_at"
   end
 
-  create_table "course_purchase_records", force: true do |t|
+  create_table "course_purchase_records", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "course_id"
     t.datetime "created_at"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
   add_index "course_purchase_records", ["student_id", "course_id"], name: "student_id_course_id", unique: true, using: :btree
   add_index "course_purchase_records", ["student_id"], name: "index_course_purchase_records_on_student_id", using: :btree
 
-  create_table "courses", force: true do |t|
+  create_table "courses", force: :cascade do |t|
     t.string   "name"
     t.text     "desc"
     t.integer  "lessons_count",                 default: 0
@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
     t.integer  "group_catalogue_id"
   end
 
-  create_table "covers", force: true do |t|
+  create_table "covers", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
 
   add_index "covers", ["token"], name: "index_covers_on_token", using: :btree
 
-  create_table "faq_topics", force: true do |t|
+  create_table "faq_topics", force: :cascade do |t|
     t.string   "title"
     t.string   "user_type"
     t.datetime "created_at"
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
     t.integer  "user_id"
   end
 
-  create_table "faqs", force: true do |t|
+  create_table "faqs", force: :cascade do |t|
     t.string   "name"
     t.text     "desc"
     t.string   "token"
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
 
   add_index "faqs", ["user_id"], name: "index_faqs_on_user_id", using: :btree
 
-  create_table "group_catalogues", force: true do |t|
+  create_table "group_catalogues", force: :cascade do |t|
     t.integer  "group_type_id"
     t.string   "name"
     t.integer  "index"
@@ -108,7 +108,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
     t.datetime "updated_at"
   end
 
-  create_table "group_types", force: true do |t|
+  create_table "group_types", force: :cascade do |t|
     t.string   "name"
     t.string   "grade"
     t.string   "subject"
@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
     t.datetime "updated_at"
   end
 
-  create_table "groups", force: true do |t|
+  create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.integer  "city_id"
     t.integer  "school_id"
@@ -134,7 +134,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
   add_index "groups", ["subject", "grade"], name: "index_groups_on_subject_and_grade", using: :btree
   add_index "groups", ["subject"], name: "index_groups_on_subject", using: :btree
 
-  create_table "lessons", force: true do |t|
+  create_table "lessons", force: :cascade do |t|
     t.string   "name"
     t.text     "desc"
     t.integer  "course_id"
@@ -145,7 +145,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
     t.integer  "teacher_id"
   end
 
-  create_table "messages", force: true do |t|
+  create_table "messages", force: :cascade do |t|
     t.integer  "sender_id"
     t.integer  "receiver_id"
     t.string   "message_type"
@@ -155,7 +155,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
     t.datetime "updated_at"
   end
 
-  create_table "nodes", force: true do |t|
+  create_table "nodes", force: :cascade do |t|
     t.string   "name"
     t.string   "summary"
     t.integer  "topics_count",    default: 0
@@ -169,7 +169,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
 
   add_index "nodes", ["name"], name: "index_nodes_on_name", using: :btree
 
-  create_table "pictures", force: true do |t|
+  create_table "pictures", force: :cascade do |t|
     t.string   "name"
     t.integer  "imageable_id"
     t.string   "imageable_type"
@@ -178,7 +178,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
     t.string   "token"
   end
 
-  create_table "recharge_codes", force: true do |t|
+  create_table "recharge_codes", force: :cascade do |t|
     t.integer  "money",        default: 500
     t.string   "code"
     t.integer  "admin_id"
@@ -191,7 +191,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
 
   add_index "recharge_codes", ["code"], name: "index_recharge_codes_on_code", using: :btree
 
-  create_table "recharge_records", force: true do |t|
+  create_table "recharge_records", force: :cascade do |t|
     t.integer  "student_id"
     t.string   "code"
     t.datetime "created_at"
@@ -199,7 +199,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
     t.integer  "recharge_code_id"
   end
 
-  create_table "replies", force: true do |t|
+  create_table "replies", force: :cascade do |t|
     t.text     "body"
     t.integer  "user_id"
     t.integer  "topic_id"
@@ -208,14 +208,14 @@ ActiveRecord::Schema.define(version: 20140815023344) do
     t.string   "token"
   end
 
-  create_table "schools", force: true do |t|
+  create_table "schools", force: :cascade do |t|
     t.string   "name"
     t.integer  "city_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "student_join_group_records", force: true do |t|
+  create_table "student_join_group_records", force: :cascade do |t|
     t.integer  "student_id"
     t.integer  "group_id"
     t.datetime "created_at"
@@ -226,7 +226,17 @@ ActiveRecord::Schema.define(version: 20140815023344) do
   add_index "student_join_group_records", ["student_id", "group_id"], name: "index_student_join_group_records_on_student_id_and_group_id", unique: true, using: :btree
   add_index "student_join_group_records", ["student_id"], name: "index_student_join_group_records_on_student_id", using: :btree
 
-  create_table "topics", force: true do |t|
+  create_table "teaching_programs", force: :cascade do |t|
+    t.string   "name"
+    t.string   "category"
+    t.string   "grade"
+    t.string   "subject"
+    t.jsonb    "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "topics", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
     t.integer  "replies_count", default: 0
@@ -241,7 +251,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
     t.integer  "author_id"
   end
 
-  create_table "tutorials", force: true do |t|
+  create_table "tutorials", force: :cascade do |t|
     t.string   "title"
     t.text     "summary"
     t.text     "content"
@@ -257,7 +267,7 @@ ActiveRecord::Schema.define(version: 20140815023344) do
 
   add_index "tutorials", ["token"], name: "index_tutorials_on_token", using: :btree
 
-  create_table "users", force: true do |t|
+  create_table "users", force: :cascade do |t|
     t.string   "email",                         default: "", null: false
     t.string   "encrypted_password",            default: "", null: false
     t.string   "reset_password_token"
@@ -281,13 +291,15 @@ ActiveRecord::Schema.define(version: 20140815023344) do
     t.text     "desc"
     t.integer  "course_purchase_records_count"
     t.integer  "joined_groups_count",           default: 0
+    t.string   "subject"
+    t.string   "category"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "videos", force: true do |t|
+  create_table "videos", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150304034705) do
+ActiveRecord::Schema.define(version: 20150304215140) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,13 @@ ActiveRecord::Schema.define(version: 20150304034705) do
   end
 
   add_index "covers", ["token"], name: "index_covers_on_token", using: :btree
+
+  create_table "curriculums", force: :cascade do |t|
+    t.integer  "teacher_id"
+    t.integer  "teaching_program_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+  end
 
   create_table "faq_topics", force: :cascade do |t|
     t.string   "title"

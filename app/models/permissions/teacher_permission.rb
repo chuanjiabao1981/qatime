@@ -1,14 +1,20 @@
 module Permissions
   class TeacherPermission < BasePermission
     def initialize(user)
-      allow :groups,[:index,:show]
+      allow :curriculums,[:index,:show]
       allow :home,[:index]
       allow :pictures,[:new,:create]
       allow :messages, [:index, :show]
 
-      allow "teachers/courses",[:new,:create] do |group|
-        group and group.teacher_id == user.id
+      # need to be deleted
+
+      allow :groups,[:index,:show]
+      # end
+
+      allow "teachers/courses",[:new,:create] do |curriculum|
+        curriculum and curriculum.teacher_id == user.id
       end
+
       allow "teachers/courses",[:edit,:update] do |course|
         course and course.teacher_id == user.id
       end

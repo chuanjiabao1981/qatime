@@ -9,24 +9,31 @@ class CourseStateValidate < ActiveModel::Validator
 end
 class Course < ActiveRecord::Base
   belongs_to :teacher    ,:class_name => "User"
-  belongs_to :group      ,:counter_cache => true,:inverse_of => :courses
   has_many   :lessons    ,:dependent => :destroy
   has_many   :topics
   has_many   :students   ,:through => :course_purchase_records
   has_many   :course_purchase_records
-  has_one    :cover     ,:dependent => :destroy
-  belongs_to :group_type
-  belongs_to :group_catalogue
+
+  belongs_to :curriculum      ,:counter_cache => true, :inverse_of => :courses
 
   validates_inclusion_of :price,:in => [10.0] ,:message =>"价格仅可以是10!"
-  validates_presence_of :name,:desc,:group,:state,:group_type,:group_catalogue
+  validates_presence_of :name,:desc,:state,:curriculum,:chapter
 
   validates :desc, length: { minimum: 30 }
 
   validates_with CourseStateValidate
 
+
+  #need to be deleted
+  belongs_to :group      ,:counter_cache => true,:inverse_of => :courses
+  has_one    :cover     ,:dependent => :destroy
+  belongs_to :group_type
+  belongs_to :group_catalogue
   scope :by_catalogue_id,lambda {|s| where(group_catalogue_id: s ) if s}
   scope :by_group,lambda {|s| where(group_id:  s.id) if s}
+  #end
+
+
 
 
   def can_be_purchased

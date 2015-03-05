@@ -3,7 +3,7 @@ class Teacher < User
 
   validates_presence_of :subject,:category
   has_many :curriculums
-
+  has_many :courses
 
   ## need to be deleted
   has_many :groups

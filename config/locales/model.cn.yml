@@ -2,7 +2,7 @@ cn:
   activerecord:
     models:
       group: 班级
-      course: 课程
+      course: 专题
       teacher: 讲师
       school: 学校
       lesson: 内容
@@ -19,7 +19,7 @@ cn:
         name: 班级名称
         group_type: 班级类型
       course:
-        name: 课程名
+        name: 名称
         price: 课程价格
         desc: 课程描述
         state: 课程状态

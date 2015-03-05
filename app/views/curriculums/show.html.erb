@@ -1,0 +1,39 @@
+<div class="col-md-9 group">
+  <%= render partial: 'header' %>
+  <div class="row">
+    <div class="qa_f12">
+      <% @curriculum.courses.each do |course| %>
+          <div class="col-md-4">
+            <%= render partial: 'course',locals: {course: course} %>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div   class="col-md-3">
+  <div class="qa_box">
+    <div class="qa_cell box_header qa_f12">
+      <strong>讲师简介</strong>
+    </div>
+    <div class="qa_cell qa_f12">
+      <div style="overflow-wrap: break-word">
+        <%= @curriculum.teacher.desc %>
+      </div>
+    </div>
+  </div>
+  <div class="qa_sep_15"></div>
+  <div class="qa_sep_15"></div>
+  <div class="qa_box">
+    <div class="qa_cell box_header qa_f12">
+      <strong><%=link_to '全部课程','#'%></strong>
+    </div>
+    <% @curriculum.teaching_program.content["chapters"].each_with_index do |chapter, index| %>
+        <div class="qa_cell qa_f12">
+          <div><strong><%= "#{index+1}.  " %><%="#{chapter}"%></strong></div>
+          <% @curriculum.get_courses_by_chapter(chapter).each_with_index do |course,i| %>
+              <div style="padding-left: 15px"><%=link_to "#{index+1}.#{i+1} #{course.name} (#{course.lessons_count}讲)",course_path(course)%></div>
+          <% end %>
+        </div>
+    <% end %>
+  </div>
+</div>

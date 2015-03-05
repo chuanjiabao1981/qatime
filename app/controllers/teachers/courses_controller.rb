@@ -1,7 +1,7 @@
 class Teachers::CoursesController < ApplicationController
   respond_to :html
   def new
-    @course           = @group.build_course
+    @course           = @curriculum.build_course
   end
   def create
     @course           = @group.build_course(params[:course].permit!)
@@ -19,11 +19,11 @@ class Teachers::CoursesController < ApplicationController
   private
     def current_resource
       if params[:id]
-        @course           = Course.find(params[:id])
-        @group            = @course.group
+        @course                = Course.find(params[:id])
+        @curriculum            = @course.curriculum
         @course
-      elsif params[:group_id]
-        @group            = Group.find(params[:group_id])
+      elsif params[:curriculum_id]
+        @curriculum            = Curriculum.find(params[:curriculum_id])
       end
     end
 end

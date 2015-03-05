@@ -2,6 +2,7 @@ subjects:
   - 数学
   - 物理
   - 生物
+  - 化学
 
 categories:
   - 高中
@@ -24,3 +25,9 @@ grades:
     - 四年级
     - 五年级
     - 六年级
+
+english:
+  数学: math
+  物理: physicis
+  生物: biology
+  化学: chemistry

@@ -8,7 +8,11 @@ class SessionsController < ApplicationController
     @user = User.where(email: params[:user][:email]).first
     if @user && @user.authenticate(params[:user][:password])
       sign_in(@user)
-      redirect_to groups_path
+      if @user.teacher?
+        redirect_to teachers_home_path
+      else
+        redirect_to groups_path
+      end
     else
       @user ||= User.new
       flash.now[:warning] = "用户名或密码错误!"

@@ -1,0 +1,70 @@
+<!--%=debug APP_CONSTANT %-->
+<div class="row">
+  <div class="col-md-4">
+    <div class="card card-big card-blue">
+      <div style="padding: 10px;">
+        <span style="font-size: 35px;color: white;font-weight: 300"><%=@curriculum.teaching_program.subject %></span>
+        <span style="font-size: 18px;color: #ffc40d">
+          <%=APP_CONSTANT["english"][@curriculum.teaching_program.subject].capitalize %>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="card card-big card-gray rel">
+      <div class="abs right-top">
+        <% if current_user.student? %>
+            <span class="label label-primary">已购课程 10</span><br/>
+        <% end %>
+      </div>
+      <div class="abs right-bottom">
+        <% if allow? "teachers/courses",:new, @curriculum %>
+            <%=link_to  new_teachers_curriculum_course_path(@curriculum.id) do %>
+                <button type="button" class="btn btn-xs btn-success">新建<%=Course.model_name.human%></button>
+            <% end %>
+        <% end %>
+      </div>
+      <div class="info">
+        <div class="row">
+          <div class="col-md-12">
+
+            <span class="qa_f14" style="line-height: 30px">
+              <strong>
+                <%=@curriculum.teaching_program.subject %> •
+                <%=@curriculum.teaching_program.name %>
+              </strong>
+            </span>
+            <% if allow? "admins/groups",:edit,@curriculum %>
+                <%=link_to "#" ,style:"color:black" do %>
+                    <span style="font-size: 10px;margin-left: 10px" class="glyphicon glyphicon-edit"></span>
+                <% end %>
+            <% end %>
+
+          </div>
+        </div>
+        <div class="row qa_f12">
+          <div class="col-md-4">
+            <span class="glyphicon glyphicon-user"></span>
+            <span> <%=@curriculum.teacher.name if @curriculum.teacher%></span>
+          </div>
+          <div class="col-md-8">
+            <span class="glyphicon glyphicon-th-list"></span>
+            <span> <%= @curriculum.courses_count %> 专题 • <%= @curriculum.lessons_count %> 讲</span>
+          </div>
+        </div>
+        <div class="qa_sep_5"></div>
+        <div class="row qa_f12">
+          <div class="col-md-4">
+            <span class="glyphicon glyphicon-map-marker"></span>
+            <span> <%=@curriculum.teacher.school.city.name if @curriculum.teacher %></span>
+          </div>
+          <div class="col-md-8">
+            <span class="glyphicon glyphicon-home"></span>
+            <span><%= @curriculum.teacher.school.name if @curriculum.teacher%></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,9 +1,15 @@
 class Lesson < ActiveRecord::Base
   belongs_to :teacher,:class_name => "User"
   belongs_to :course,:counter_cache => true,:inverse_of =>:lessons
-  belongs_to :group
   has_one    :video,:dependent => :destroy
   validates_presence_of :name,:desc
+
+  belongs_to :curriculum, :counter_cache => true, :inverse_of => :lessons
+
+
+  # need to be deleted
+  belongs_to :group
+  # end
 
   def build_a_video
     self.video =   Video.where(token: self.token).order(created_at: :desc).first

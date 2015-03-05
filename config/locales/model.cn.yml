@@ -5,7 +5,7 @@ cn:
       course: 专题
       teacher: 讲师
       school: 学校
-      lesson: 内容
+      lesson: 讲座
       user: 用户
       student: 学生
       topic: 讨论
@@ -20,9 +20,9 @@ cn:
         group_type: 班级类型
       course:
         name: 名称
-        price: 课程价格
-        desc: 课程描述
+        desc: 描述
         state: 课程状态
+        chapter: 专题所属章节
         group_catalogue: 课程章节
       teacher:
         email: 电子邮件

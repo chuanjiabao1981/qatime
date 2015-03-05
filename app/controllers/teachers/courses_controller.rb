@@ -4,7 +4,7 @@ class Teachers::CoursesController < ApplicationController
     @course           = @curriculum.build_course
   end
   def create
-    @course           = @group.build_course(params[:course].permit!)
+    @course           = @curriculum.build_course(params[:course].permit!)
     @course.save
     respond_with @course
   end

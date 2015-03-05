@@ -16,12 +16,10 @@ class Course < ActiveRecord::Base
 
   belongs_to :curriculum      ,:counter_cache => true, :inverse_of => :courses
 
-  validates_inclusion_of :price,:in => [10.0] ,:message =>"价格仅可以是10!"
-  validates_presence_of :name,:desc,:state,:curriculum,:chapter
+  validates_presence_of :name,:desc,:curriculum,:chapter
 
   validates :desc, length: { minimum: 30 }
 
-  validates_with CourseStateValidate
 
 
   #need to be deleted
@@ -29,6 +27,12 @@ class Course < ActiveRecord::Base
   has_one    :cover     ,:dependent => :destroy
   belongs_to :group_type
   belongs_to :group_catalogue
+
+    validates_with CourseStateValidate
+
+    #validates_inclusion_of :price,:in => [10.0] ,:message =>"价格仅可以是10!"
+
+
   scope :by_catalogue_id,lambda {|s| where(group_catalogue_id: s ) if s}
   scope :by_group,lambda {|s| where(group_id:  s.id) if s}
   #end

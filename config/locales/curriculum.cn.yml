@@ -1,0 +1,6 @@
+cn:
+  activerecord:
+    models:
+      curriculum: 课程
+    attributes:
+      teaching_program:

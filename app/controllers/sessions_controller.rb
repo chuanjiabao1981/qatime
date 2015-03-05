@@ -10,6 +10,8 @@ class SessionsController < ApplicationController
       sign_in(@user)
       if @user.teacher?
         redirect_to teachers_home_path
+      elsif @user.admin?
+        redirect_to admins_home_path
       else
         redirect_to groups_path
       end

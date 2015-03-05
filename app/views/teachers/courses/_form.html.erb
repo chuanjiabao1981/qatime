@@ -1,6 +1,6 @@
 <div class="qa_box">
   <div class="qa_big_cell">
-    <%= link_to @curriculum.teaching_program.name,curriculum_path(@curriculum) %> /
+    <%= link_to teaching_program_full_name(@course.curriculum.teaching_program),curriculum_path(@curriculum) %> /
     <% if @course.new_record? %>
         新建<%= Course.model_name.human %>
     <% else %>
@@ -11,12 +11,7 @@
     <%= simple_form_for([:teachers,@curriculum,@course]) do |f|%>
         <%= f.input :chapter,collection:@curriculum.teaching_program.content["chapters"] ,:include_blank => false %>
         <%= f.input :name %>
-        <%= f.input :state ,as: :radio_buttons,
-                            collection:[["发布","published"],["未发布","unpublished"]],
-                            disabled: @course.published?,
-                            :hint => "注意: 课程一旦发布就不可撤销。"
-        %>
-        <%= f.input :price,collection: [ 10.0 ] ,include_blank: false,disabled: @course.published?%>
+
         <%= f.input :desc %>
         <%= f.association :curriculum, as: :hidden %>
         <%= f.association :teacher, as: :hidden %>
@@ -31,20 +26,17 @@
     <div>
       <ul>
         <li>
-          <strong><%= Course.model_name.human %> </strong> 包含若干知识点，每个知识点都是一段视频。每段视频不要超过5分钟。
-          一个<%=  Course.model_name.human  %> 所谓知识点要以"干"货为主，解决学生在解题考试中最容易遇到的问题，
-          易错点的分析、习题课、试卷讲解、等等。知识点的创建是在<strong><%= Course.model_name.human %></strong>创建之后进行的。
+          您正在创建或者编辑一个<strong><%= Course.model_name.human %> </strong>
         </li>
         <li>
-            <strong><%= Course.human_attribute_name(:state) %> </strong> 这个选项是控制是否把课程开放给学生。
-            课程一开始创建的时候是没有知识点的（但是已经有价格了），如果直接开放给学生学生看不到任何知识点，会引起误解，
-            所以这个时候建议把<%= Course.human_attribute_name(:state) %>选择为"未发布";
-            当课程下的知识点都已经上传完毕，这个时候再把<%= Course.human_attribute_name(:state) %>选择为"发布"，
-            就可以把课程以及课程下属的知识点开放给学生。
+          <%="#{@curriculum.teaching_program.grade} • #{@curriculum.teaching_program.subject} •
+                #{@curriculum.teaching_program.name}"%> 是一门<strong><%=Curriculum.model_name.human%></strong>,
+                <strong><%=Curriculum.model_name.human%></strong>下包含若<strong>章节</strong>(例如这里的"<%= @curriculum.teaching_program.content["chapters"][0]%>")，
+                每个<strong>章节</strong>下都有若干
+                <strong><%= Course.model_name.human %> </strong>
         </li>
         <li>
-          <strong><%= Course.human_attribute_name(:price) %> </strong>  课程目前只有一个价位：10元。
-          一般来讲，10元的课程至少包含视频时长不可以小于30分钟，一节课大约在5到8分钟之间。
+          围绕每个<strong><%= Course.model_name.human %> </strong>都有若干<strong><%=Lesson.model_name.human%></strong>
         </li>
       </ul>
     </div>

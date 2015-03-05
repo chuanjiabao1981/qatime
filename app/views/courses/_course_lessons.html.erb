@@ -5,7 +5,7 @@
     </div>
     <div class="pull-right">
       <% if allow? "teachers/courses",:edit,@course %>
-          <%= link_to  edit_teachers_group_course_path(@course.group,@course) do%>
+          <%= link_to  edit_teachers_curriculum_course_path(@course.curriculum,@course) do%>
               <span class="glyphicon glyphicon-edit"></span>
           <% end %>
       <% end %>

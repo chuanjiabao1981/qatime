@@ -16,7 +16,7 @@ class Teacher < User
 
   def find_or_create_curriculums
     s = []
-    TeachingProgram.where(:category => self.category).each do |teaching_program|
+    TeachingProgram.where(:category => self.category, :subject => self.subject).order(:created_at).each do |teaching_program|
       s.append(Curriculum.find_or_create_by(teacher_id: self.id, teaching_program_id: teaching_program.id))
     end
     s

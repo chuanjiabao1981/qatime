@@ -36,7 +36,7 @@
 <div class="qa_sep_15"></div>
 <% if allow? "teachers/lessons",:new,@course %>
     <%=link_to new_teachers_course_lesson_path(@course) do%>
-        <button type="button" class="btn btn-primary btn-block">添加内容</button>
+        <button type="button" class="btn btn-primary btn-block">添加<%= Lesson.model_name.human%></button>
     <% end %>
 <% end %>
 

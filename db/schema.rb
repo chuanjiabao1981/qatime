@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 20150305071306) do
     t.datetime "updated_at"
     t.integer  "group_id"
     t.integer  "teacher_id"
+    t.integer  "curriculum_id"
   end
 
   create_table "messages", force: :cascade do |t|

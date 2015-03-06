@@ -1,0 +1,10 @@
+<div class='col-md-2'>
+  <%= render_cell :teaching_program, :nav %>
+</div>
+<div class='col-md-10'>
+  <div class="row groups">
+    <%= render partial:'curriculums/curriculum',collection:@curriculums %>
+  </div>
+  <%= will_paginate @curriculums %>
+
+</div>

@@ -11,6 +11,7 @@ cn:
       topic: 讨论
       reply: 回复
       recharge_code: 充值码
+      video: 视频
     attributes:
       group:
         subject: 科目
@@ -60,3 +61,5 @@ cn:
         desc: 备注
         code: 卡号
         admin_id: 生成人员
+      video:
+        name: 视频

@@ -54,11 +54,14 @@ class Course < ActiveRecord::Base
   end
 
   def build_lesson(attributes={})
-    a         = self.lessons.build(attributes)
-    a.teacher = self.teacher
-    a.group   = self.group
+    a               = self.lessons.build(attributes)
+    a.teacher       = self.teacher
+    a.curriculum    = self.curriculum
     a.generate_token if a.token.nil?
     a.build_a_video
+    # need to be deleted
+    a.group   = self.group
+    #end
     a
   end
 

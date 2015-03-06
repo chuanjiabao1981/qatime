@@ -1,0 +1,25 @@
+<li data-submenu-id="submenu-<%= sub%>">
+  <%= link_to curriculums_path(subject:sub.downcase)  do %>
+      <span class="glyphicon glyphicon-search"></span>
+      <span style="font-size: 18px"> <%= sub_cn %></span>
+      <span style="font-size: 12px">  <%= sub %></span>
+  <% end %>
+  <div id="submenu-<%= sub %>" class="submenu_popover">
+    <div style="padding: 10px" >
+      <% APP_CONSTANT["grades_in_menu"].each do |grade| %>
+          <div style="color: #cbcbcb;font-size: 12px;border-bottom: 1px dotted gainsboro;padding-bottom: 2px">
+            <%= grade %>
+            <div class="school item qa_f12">
+              <% @all_teaching_programs.
+                         select{|teaching_program| (teaching_program.grade == grade and teaching_program.subject == sub_cn) }.each do |teaching_program| %>
+                  <ol><%=link_to "#{sub_cn}#{teaching_program.name}" ,curriculums_path(teaching_program: teaching_program.id),{style: 'color:black'}%></ol>
+              <% end %>
+              <div style="clear:both"></div>
+            </div>
+            <div  class="qa_sep_5"></div>
+            <div  class="qa_sep_5"></div>
+          </div>
+      <% end %>
+    </div>
+  </div>
+</li>

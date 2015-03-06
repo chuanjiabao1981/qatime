@@ -13,4 +13,12 @@ module ApplicationHelper
         root_path
     end
   end
+
+  def get_edit_or_create_model_string(o)
+    if o.new_record?
+      "创建"+o.model_name.human
+    else
+      "编辑"+o.model_name.human
+    end
+  end
 end

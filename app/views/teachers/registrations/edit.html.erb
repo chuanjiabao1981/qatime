@@ -10,6 +10,8 @@
       <div class="form-inputs">
         <%= f.input :name, disabled: true,:required => true %>
         <%= f.association :school,  disabled: true,:collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]} %>
+        <%= f.input :subject,   disabled:true %>
+        <%= f.input :category,  disabled:true %>
         <%= f.input :desc,:input_html => {:rows => 5, :placeholder => "讲师自我介绍。"} %>
         <%= f.input :email  , :required => true, :autofocus => true %>
         <%= f.input :avatar , input_html:{onchange:"showimagepreview(this)"}%>

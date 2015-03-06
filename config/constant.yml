@@ -9,6 +9,10 @@ categories:
   - 初中
   - 小学
 
+grades_in_menu:
+  - 高一
+  - 高二
+
 grades:
   高中:
     - 高一

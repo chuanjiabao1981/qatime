@@ -4,7 +4,7 @@
         <%= link_to curriculum_path (@course.curriculum) do%>
             <%= teaching_program_full_name(@course.curriculum.teaching_program) %>
         <% end %>
-        / <%= @course.name %>
+        / <%=  "#{@course.chapter} - #{@course.name}"  %>
         <div id="course_purchase" class="pull-right">
           <% if current_user.student? %>
               <% if current_user.courses.include?(@course) %>

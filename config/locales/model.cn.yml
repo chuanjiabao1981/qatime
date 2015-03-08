@@ -24,6 +24,7 @@ cn:
         desc: 描述
         state: 课程状态
         chapter: 专题所属章节
+        position: 位置
         group_catalogue: 课程章节
       teacher:
         email: 电子邮件

@@ -1,0 +1,23 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <%= link_to teaching_program_full_name(@curriculum.teaching_program),curriculum_path(@curriculum) %> /
+    <%= params[:chapter] %> /
+    专题位置编辑
+  </div>
+  <div class="qa_big_cell">
+    <%=simple_form_for [:teachers,@curriculum] do |f|%>
+        <div class="row">
+          <%= hidden_field_tag "chapter", params[:chapter] %>
+          <%= f.simple_fields_for :courses do |course| %>
+              <div class="row">
+                <% if (course.object.chapter == params[:chapter])  %>
+                  <%= course.input :position,wrapper_html: { class: 'col-md-2' }%>
+                  <%= course.input :name ,disabled: true,wrapper_html: { class: 'col-md-10' }%>
+                 <% end %>
+              </div>
+          <% end %>
+        </div>
+        <%= f.submit "调整" ,class: "btn btn-success" %>
+    <% end %>
+  </div>
+</div>

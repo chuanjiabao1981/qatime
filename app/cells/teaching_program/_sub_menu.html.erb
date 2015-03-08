@@ -12,7 +12,7 @@
             <div class="school item qa_f12">
               <% @all_teaching_programs.
                          select{|teaching_program| (teaching_program.grade == grade and teaching_program.subject == sub_cn) }.each do |teaching_program| %>
-                  <ol><%=link_to "#{sub_cn}#{teaching_program.name}" ,curriculums_path(teaching_program: teaching_program.id),{style: 'color:black'}%></ol>
+                  <ol><%=link_to "#{sub_cn}#{teaching_program.name}" ,curriculums_path(teaching_program_id: teaching_program.id),{style: 'color:black'}%></ol>
               <% end %>
               <div style="clear:both"></div>
             </div>

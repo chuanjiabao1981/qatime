@@ -21,4 +21,5 @@ module ApplicationHelper
       "编辑"+o.model_name.human
     end
   end
+
 end

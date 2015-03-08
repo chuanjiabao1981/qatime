@@ -52,6 +52,9 @@ Qatime::Application.routes.draw do
       resources :courses
     end
     resources :curriculums do
+      member do
+        get 'edit_courses_position'
+      end
       resources :courses
     end
 

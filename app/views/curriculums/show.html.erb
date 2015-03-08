@@ -29,7 +29,15 @@
     </div>
     <% @curriculum.teaching_program.content["chapters"].each_with_index do |chapter, index| %>
         <div class="qa_cell qa_f12">
-          <div><strong><%= "#{index+1}.  " %><%="#{chapter}"%></strong></div>
+          <div>
+            <strong class="qa_f14"><%= "#{index+1}.  " %><%="#{chapter}"%></strong>
+            <% if allow? "teachers/curriculums","edit_courses_position",@curriculum %>
+                <%= link_to edit_courses_position_teachers_curriculum_path(@curriculum, "chapter"=> chapter) do %>
+                    <strong style="color: green">编辑位置</strong>
+
+          <% end %>
+            <% end %>
+          </div>
           <% @curriculum.get_courses_by_chapter(chapter).each_with_index do |course,i| %>
               <div style="padding-left: 15px"><%=link_to "#{index+1}.#{i+1} #{course.name} (#{course.lessons_count}讲)",course_path(course)%></div>
           <% end %>

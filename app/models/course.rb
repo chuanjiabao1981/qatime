@@ -19,6 +19,7 @@ class Course < ActiveRecord::Base
   validates_presence_of :name,:desc,:curriculum,:chapter
 
   validates :desc, length: { minimum: 30 }
+  validates :position, numericality: { only_integer: true }
 
 
 

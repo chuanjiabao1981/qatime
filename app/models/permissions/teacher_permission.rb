@@ -11,6 +11,9 @@ module Permissions
       allow :groups,[:index,:show]
       # end
 
+      allow "teachers/curriculums",[:edit_courses_position,:update] do |curriculum|
+        curriculum and curriculum.teacher_id == user.id
+      end
       allow "teachers/courses",[:new,:create] do |curriculum|
         curriculum and curriculum.teacher_id == user.id
       end

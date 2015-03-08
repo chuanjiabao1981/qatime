@@ -2,7 +2,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :teacher,:class_name => "User"
   belongs_to :course,:counter_cache => true,:inverse_of =>:lessons
   has_one    :video,:dependent => :destroy
-  validates_presence_of :name,:desc
+  validates_presence_of :name,:desc,:curriculum
 
   belongs_to :curriculum, :counter_cache => true, :inverse_of => :lessons
 

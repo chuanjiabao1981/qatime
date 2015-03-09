@@ -87,4 +87,14 @@ task :teaching_program_init => :environment do
     end
   end
 
+
+  puts "########### Topic ##################"
+  Topic.all.each do |topic|
+    topic.curriculum_id = topic.group_id
+    if not topic.valid?
+      puts topic.id
+    end
+    topic.save if not dry_run
+  end
+
 end

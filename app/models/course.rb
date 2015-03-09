@@ -69,7 +69,8 @@ class Course < ActiveRecord::Base
 
   def build_topic(attributes={})
     a             = self.topics.build(attributes)
-    a.group       = self.group
+    #a.group       = self.group
+    a.curriculum  = self.curriculum
     a.generate_token if a.token.nil?
     pictures      = Picture.where(token: a.token)
     a.pictures << pictures unless pictures.empty?

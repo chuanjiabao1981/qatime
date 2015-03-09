@@ -262,6 +262,7 @@ ActiveRecord::Schema.define(version: 20150305071306) do
     t.integer  "course_id"
     t.integer  "group_id"
     t.integer  "author_id"
+    t.integer  "curriculum_id"
   end
 
   create_table "tutorials", force: :cascade do |t|

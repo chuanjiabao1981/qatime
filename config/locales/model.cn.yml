@@ -2,10 +2,10 @@ cn:
   activerecord:
     models:
       group: 班级
-      course: 专题
+      course: 讲座
       teacher: 讲师
       school: 学校
-      lesson: 讲座
+      lesson: 专题
       user: 用户
       student: 学生
       topic: 讨论
@@ -23,7 +23,7 @@ cn:
         name: 名称
         desc: 描述
         state: 课程状态
-        chapter: 专题所属章节
+        chapter: 讲座所属章节
         position: 位置
         group_catalogue: 课程章节
       teacher:
@@ -41,8 +41,8 @@ cn:
         name: 名称
         city: 城市
       lesson:
-        name: 内容名称
-        desc: 内容简介
+        name: 专题名称
+        desc: 专题简介
       user:
         email: 邮箱
         password: 密码

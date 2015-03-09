@@ -6,5 +6,6 @@ class AddCurriculumReferencyToCourses < ActiveRecord::Migration
     add_column :curriculums,    :courses_count,     :integer,   :default  => 0
     add_column :curriculums,    :lessons_count,     :integer,   :default  => 0
     add_column :lessons,        :curriculum_id,     :integer
+    add_column :topics,         :curriculum_id,     :integer
   end
 end

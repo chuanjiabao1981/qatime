@@ -23,6 +23,7 @@ class Group < ActiveRecord::Base
     a = self.courses.build(attributes)
     a.teacher    = self.teacher
     a.group_type = self.group_type
+    a.c
     a
   end
 end

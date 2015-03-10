@@ -8,6 +8,8 @@ module Permissions
       TeacherPermission.new(user)
     elsif user.student?
       StudentPermission.new(user)
+    elsif user.manager?
+      ManagerPermission.new(user)
     else
       GuestPermission.new
     end

@@ -11,6 +11,7 @@ Qatime::Application.routes.draw do
   get "teachers/home"       => "teachers/home#main",    as: 'teachers_home'
   get "admins/home"         => "admins/home#main",      as: 'admins_home'
   get "students/home"       => "students/home#main",    as: 'students_home'
+  get "managers/home"       => "managers/home#main",    as: 'managers_home'
 
   resources :groups
   resources :curriculums
@@ -40,10 +41,15 @@ Qatime::Application.routes.draw do
     resources :faq_topics
     resources :faqs
     resources :teaching_programs
-
+    resources :managers
+    resources :register_codes
     resources :faq_topics do
       resources :faqs
     end
+  end
+
+  namespace :managers do
+    resources :register_codes
   end
 
   namespace :teachers do

@@ -1,0 +1,22 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%=link_to Manager.model_name.human, admins_managers_path %></h2>
+  </div>
+  <div class="row qa_cell">
+    <div class="col-md-2 col-md-offset-1"><%=Manager.human_attribute_name(:name) %></div>
+    <div><%= @manager.name %></div>
+  </div>
+  <div class="row qa_cell">
+    <div class="col-md-2 col-md-offset-1"><%=Manager.human_attribute_name(:email) %></div>
+    <div><%= @manager.email %></div>
+  </div>
+  <div class="row qa_cell">
+    <div class="col-md-offset-1">
+      <%=link_to edit_admins_manager_path(@manager) do %>
+          <button type="button" class="btn btn-xs btn-success">
+            编辑<%=Manager.model_name.human%>
+          </button>
+      <% end %>
+    </div>
+  </div>
+</div>

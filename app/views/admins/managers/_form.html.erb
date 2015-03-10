@@ -1,0 +1,25 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%=get_edit_or_create_model_string(@manager)%></h2>
+  </div>
+</div>
+
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <%= simple_form_for [:admins, @manager] do |f| %>
+
+        <div class="form-inputs">
+          <%= f.input :name, :required => true %>
+
+          <%= f.input :email, :required => true, :autofocus => true %>
+
+          <%= f.input :password, :autocomplete => "off"%>
+          <%= f.input :password_confirmation %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, class: "btn btn-default" %>
+        </div>
+    <% end %>
+  </div>
+</div>

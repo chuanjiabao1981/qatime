@@ -1,9 +1,12 @@
 class Teacher < User
+
   default_scope {where(role: 'teacher')}
 
   validates_presence_of :subject,:category
+
   has_many :curriculums
   has_many :courses
+  has_one  :register_code, dependent: :destroy
 
   ## need to be deleted
   has_many :groups

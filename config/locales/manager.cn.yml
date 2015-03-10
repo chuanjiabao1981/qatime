@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    models:
+      manager: 管理员
+    attributes:
+      manager:
+        name: 姓名
+        password_confirmation: 密码确认

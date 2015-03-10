@@ -1,0 +1,6 @@
+cn:
+  activerecord:
+    models:
+      register_code: 注册码
+    attributes:
+      register_code:

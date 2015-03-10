@@ -47,6 +47,8 @@
           <% end %>
         </li>
 
+
+
         <li>
           <%= link_to admins_teaching_programs_path do %>
               <span class="glyphicon glyphicon-question-sign"></span>
@@ -54,6 +56,23 @@
                    <%=TeachingProgram.model_name.human%>
               </span>
               Program
+          <% end %>
+        </li>
+        <li>
+          <%= link_to admins_managers_path do %>
+              <span class="glyphicon glyphicon-question-sign"></span>
+              <span class="qa_f18">
+                人员
+              </span>
+              Manager
+          <% end %>
+        </li>
+        <li>
+          <%= link_to admins_register_codes_path do %>
+              <span class="glyphicon glyphicon-question-sign"></span>
+              <span class="qa_f18">
+                <%= RegisterCode.model_name.human%>
+              </span>
           <% end %>
         </li>
         <li>

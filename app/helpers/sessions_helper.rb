@@ -36,6 +36,8 @@ module SessionsHelper
       Teacher.find_by(remember_token: remember_token) unless remember_token.nil?
     elsif cookies[:remember_user_type] == 'admin'
       Admin.find_by(remember_token: remember_token) unless remember_token.nil?
+    elsif cookies[:remember_user_type] == 'manager'
+      Manager.find_by(remember_token: remember_token) unless remember_token.nil?
     end
   end
 end

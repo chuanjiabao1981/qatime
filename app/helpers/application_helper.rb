@@ -9,6 +9,8 @@ module ApplicationHelper
         admins_home_path
       when "student"
         students_home_path
+      when "manager"
+        managers_home_path
       else
         root_path
     end

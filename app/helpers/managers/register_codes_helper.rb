@@ -1,0 +1,2 @@
+module Managers::RegisterCodesHelper
+end

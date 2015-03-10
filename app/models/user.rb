@@ -45,6 +45,9 @@ class User < ActiveRecord::Base
     return true if self.role == "student"
     false
   end
+  def manager?
+    return true if self.role == "manager"
+  end
   private
     def create_remember_token
       self.remember_token = User.digest(User.new_remember_token)

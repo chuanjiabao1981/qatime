@@ -16,11 +16,6 @@
               <button type="button" class="btn btn-xs btn-success">编辑讲师</button>
           <% end %>
       <% end %>
-      <% if current_user.admin? %>
-        <%=link_to new_admins_group_path(teacher_id:@teacher.id) do %>
-          <button type="button" class="btn btn-xs btn-success">添加班级</button>
-        <% end %>
-      <% end %>
     </div>
 
   </div>

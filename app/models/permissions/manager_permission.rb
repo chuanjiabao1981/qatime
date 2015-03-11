@@ -5,6 +5,8 @@ module Permissions
 
       allow "managers/home",[:main]
 
+      allow :sessions,[:destroy]
+
     end
   end
 end

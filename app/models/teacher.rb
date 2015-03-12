@@ -8,10 +8,11 @@ class Teacher < User
   has_many :courses
   has_one  :register_code, dependent: :destroy
 
-  attr_accessor :register_code_value
-  attr_accessor :tmp_register_code
+  attr_accessor :register_code_value,:tmp_register_code,:accept
+
   validates_presence_of :register_code_value, on: :create
   validate :register_code_valid, on: :create
+  validates :accept, acceptance: true
 
   after_create :update_register_code
 

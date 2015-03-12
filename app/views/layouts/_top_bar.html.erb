@@ -7,15 +7,18 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <!--a class="navbar-brand" href="#">答疑时间</a-->
       <%= link_to "答疑时间" , user_home_path ,class: "navbar-brand" %>
     </div>
 
     <div class="navbar-collapse collapse" style="height: 1px;">
       <ul class="nav navbar-nav">
-        <li class="<%= "active" if controller_name == 'groups'%>"><%= link_to '首页' , curriculums_path %></li>
-        <li class="<%= "active" if controller_name == 'home' %>"><%=link_to '管理',root_path %></li>
-        <!--li class="<%= "active" if controller_name == 'topics' and action_name == 'index' %>"><%= link_to '社区',topics_path %> </li-->
+        <li class="<%= "active" if controller_name == 'curriculums'%>"><%= link_to '首页' , curriculums_path %></li>
+        <% if signed_in? %>
+            <li class="<%= "active" if controller_name == 'home' %>"><%=link_to '管理',root_path %></li>
+        <% else %>
+            <li><%= link_to "教师注册", new_teachers_registration_path %></li>
+        <% end %>
+
       </ul>
       <ul class="nav navbar-nav navbar-right">
 

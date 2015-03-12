@@ -4,6 +4,7 @@ module Permissions
       allow :home,[:index]
       allow :sessions,[:new,:create]
       allow "students/registrations",[:new,:create]
+      allow "teachers/registrations",[:new,:create]
     end
   end
 end

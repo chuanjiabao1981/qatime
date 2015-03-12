@@ -38,6 +38,7 @@ cn:
         current_password: 当前密码
         desc: 讲师简介
         register_code_value: 注册码
+        accept: 接受服务协议
       school:
         name: 名称
         city: 城市

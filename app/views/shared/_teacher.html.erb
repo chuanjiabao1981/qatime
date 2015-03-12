@@ -27,6 +27,18 @@
   </div>
   <div class="qa_cell">
     <div class="row">
+      <div class="col-md-2" style="padding-left:40px">类型</div>
+      <div class="col-md-9"><%= @teacher.category %></div>
+    </div>
+  </div>
+  <div class="qa_cell">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:40px">科目</div>
+      <div class="col-md-9"><%= @teacher.subject %></div>
+    </div>
+  </div>
+  <div class="qa_cell">
+    <div class="row">
       <div class="col-md-2" style="padding-left:40px">邮件</div>
       <div class="col-md-9"><%= @teacher.email %></div>
     </div>
@@ -42,7 +54,3 @@
 </div>
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
-
-<div class="row groups">
-  <%= render partial:'groups/group',collection:@teacher.groups %>
-</div>

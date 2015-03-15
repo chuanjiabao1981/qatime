@@ -20,7 +20,7 @@
       <div class="abs right-bottom">
         <% if allow? "teachers/courses",:new, @curriculum %>
             <%=link_to  new_teachers_curriculum_course_path(@curriculum.id) do %>
-                <button type="button" class="btn btn-xs btn-success">新建<%=Course.model_name.human%></button>
+                <button type="button" class="btn btn-xs btn-success">增加<%=Course.model_name.human%></button>
             <% end %>
         <% end %>
       </div>

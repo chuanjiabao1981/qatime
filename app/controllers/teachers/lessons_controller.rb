@@ -12,11 +12,17 @@ class Teachers::LessonsController < ApplicationController
     end
   end
   def edit
-    @lesson.build_a_video
+    logger.info(@lesson.errors.full_messages)
   end
 
   def update
+    if params[:edit]
+      params[:lesson][:state_event] = 'edit'
+    elsif params[:submit]
+      params[:lesson][:state_event] = 'submit'
+    end
     if @lesson.update_attributes(params[:lesson].permit!)
+      logger.info(@lesson.state)
       redirect_to course_path(@lesson.course)
     else
       render 'edit'

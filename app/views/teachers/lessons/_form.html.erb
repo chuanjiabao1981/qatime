@@ -17,8 +17,72 @@
         <%=f.input :name %>
         <%=f.input :desc %>
         <%=f.input :token,as: :hidden %>
-        <%= f.button :submit, class: "btn btn-default" %>
-        <%= link_to '返回', course_path(@course),class: "btn btn-default" %>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#save-lesson">
+          <%=get_edit_or_create_model_string(f.object)%>
+        </button>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submit-lesson">
+          提交<%=Lesson.model_name.human%>
+        </button>
+
+        <div class="modal fade" id="save-lesson" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">提示</h4>
+              </div>
+              <div class="modal-body">
+                <br/>
+                <% if f.object.init? %>
+                    <p>您确定创建<%=Lesson.model_name.human %>吗?</p>
+
+                <% elsif f.object.editing?%>
+                    <p>您确定编辑此<%=Lesson.model_name.human %>吗?</p>
+                <% elsif f.object.reviewing? %>
+                    <p style="color: red">此<%=Lesson.model_name.human %>正在审核中,无法编辑!</p>
+                <% end %>
+                <div class="qa_sep_15"></div>
+                <p>
+                  <span style="color:red">注意:</span> 只有<strong>提交</strong>并<strong>审核<%=Lesson.human_state_event_name(:approve)%></strong>后，
+                  学生才可以看到您的<%=Lesson.model_name.human %>。
+                </p>
+              </div>
+              <div class="modal-footer">
+                <% if not f.object.reviewing? %>
+                    <%= f.button :submit, "确定",class: "btn btn-default" ,name:"edit"%>
+                <% end %>
+                <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal fade" id="submit-lesson" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">提示</h4>
+              </div>
+              <div class="modal-body">
+                <% if f.object.init? %>
+                    <p>您确定创建<%=Lesson.model_name.human %>并提交审核么吗?<br/></p>
+                <% elsif f.object.reviewing? %>
+                    <p style="color: red">此<%=Lesson.model_name.human %>正在审核中,不需再次提交!</p>
+              <% else %>
+                    <p>您确定提交此<%=Lesson.model_name.human %>审核吗?<br/></p>
+              <% end %>
+              </div>
+              <div class="modal-footer">
+                <% if not f.object.reviewing? %>
+                    <%= f.button :submit, "确定",class: "btn btn-default" ,name:"submit"%>
+                <% end %>
+                <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
     <% end %>
 
   </div>

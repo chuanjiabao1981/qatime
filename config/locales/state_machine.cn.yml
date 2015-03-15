@@ -1,0 +1,12 @@
+cn:
+  activerecord:
+    state_machines:
+      lesson:
+        states:
+          init: 新建
+          editing: 编辑中
+          reviewing: 审核中
+        events:
+          edit: 编辑
+          approve: 通过
+          reject: 不通过

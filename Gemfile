@@ -73,9 +73,6 @@ gem "font-awesome-rails"
 
 gem 'cells','3.10.0'
 
-
-gem 'state_machine'
-
 gem 'jcrop-rails-v2','0.9.12.3'
 
 gem 'net-ssh', '~> 2.9.1'
@@ -83,7 +80,13 @@ gem 'net-ssh', '~> 2.9.1'
 # 这个为了支持controller 级别的respond_to
 gem 'responders', '~> 2.0'
 
+# 状态机
+gem 'state_machine'
+
+
 group :development,:test do
+  # 状态机做图
+  # gem 'ruby-graphviz', :require => 'graphviz'
   gem 'quiet_assets'
   gem "minitest"
   gem 'test-unit'

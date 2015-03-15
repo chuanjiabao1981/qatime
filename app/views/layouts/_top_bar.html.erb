@@ -7,14 +7,13 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to "答疑时间" , user_home_path ,class: "navbar-brand" %>
+      <%= link_to "答疑时间" , curriculums_path ,class: "navbar-brand" %>
     </div>
 
     <div class="navbar-collapse collapse" style="height: 1px;">
       <ul class="nav navbar-nav">
-        <li class="<%= "active" if controller_name == 'curriculums'%>"><%= link_to '首页' , curriculums_path %></li>
         <% if signed_in? %>
-            <li class="<%= "active" if controller_name == 'home' %>"><%=link_to '管理',root_path %></li>
+            <!--li class="<%= "active" if controller_name == 'home' %>"><%=link_to '管理',root_path %></li-->
         <% else %>
             <li><%= link_to "教师注册", new_teachers_registration_path %></li>
         <% end %>
@@ -23,15 +22,9 @@
       <ul class="nav navbar-nav navbar-right">
 
         <% if signed_in? %>
-            <li>
-                <% if current_user.teacher? %>
-                  <%= link_to current_user.name,edit_teachers_registration_path(current_user),class: "pull-left" %>
-                <% elsif current_user.student? %>
-                  <%= link_to current_user.name,edit_students_registration_path(current_user),class: "pull-left" %>
-                <% else %>
-                  <%= link_to current_user.name,user_home_path,class: "pull-left" %>
-                <% end %>
-            </li>
+          <li>
+            <%= link_to current_user.name,user_home_path,class: "pull-left" %>
+          </li>
         <% end %>
         <% if signed_in? %>
             <li>

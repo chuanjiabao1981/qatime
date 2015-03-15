@@ -60,6 +60,7 @@ class Course < ActiveRecord::Base
     a.curriculum    = self.curriculum
     a.generate_token if a.token.nil?
     a.build_a_video
+    a.state_event   = "edit"
     # need to be deleted
     a.group   = self.group
     #end
@@ -77,8 +78,8 @@ class Course < ActiveRecord::Base
     a
   end
 
-  def human_state_name
-    I18n.t("app.course.state.#{self.state}")
-  end
+  #def human_state_name
+  #  I18n.t("app.course.state.#{self.state}")
+  #end
 end
 

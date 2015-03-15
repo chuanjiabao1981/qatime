@@ -26,4 +26,23 @@ class Lesson < ActiveRecord::Base
     end
   end
 
-end
+
+  state_machine :initial => :init do
+    transition :init          => :editing,      :on => [:edit]
+    transition :editing       => same,          :on => [:edit,:approve,:reject]
+    transition :editing       => :reviewing,    :on => [:submit]
+    transition :reviewing     => same,          :on => [:submit]
+    transition :reviewing     => :editing,      :on => [:edit]
+    transition :reviewing     => :published,    :on => [:approve]
+    transition :reviewing     => :rejected,     :on => [:reject]
+    transition :rejected      => :rejected,     :on => [:reject] # 这个就是为了容错
+    transition :rejected      => :reviewing,    :on => [:submit]
+    transition :rejected      => :published,    :on => [:approve]
+    transition :rejected      => :editing,      :on => [:edit]
+    transition :published     => same,          :on => [:approve]
+    transition :published     => :rejected,     :on => [:reject]
+    transition :published     => :editing,      :on => [:edit]
+    transition :published     => :reviewing,    :on => [:submit]
+  end
+
+  end

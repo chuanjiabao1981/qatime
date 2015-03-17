@@ -1,0 +1,20 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%= get_edit_or_create_model_string(@register_code) %></h2>
+  </div>
+</div>
+
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <%= simple_form_for @register_code, :url => register_code_create_url  do |f| %>
+        <div class="form-inputs">
+          <%= f.association :school, :include_blank => false,:required => true ,:collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]} %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit,class: "btn btn-default" %>
+        </div>
+    <% end %>
+  </div>
+</div>
+

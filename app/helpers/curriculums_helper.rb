@@ -3,4 +3,7 @@ module CurriculumsHelper
   def teaching_program_full_name(teaching_program)
     "#{teaching_program.grade} • #{teaching_program.subject} • #{teaching_program.name}"
   end
+  def course_full_name(course)
+    "#{course.chapter} - #{course.name}" if course
+  end
 end

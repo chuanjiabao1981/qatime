@@ -86,7 +86,7 @@ gem 'state_machine'
 
 group :development,:test do
   # 状态机做图
-  # gem 'ruby-graphviz', :require => 'graphviz'
+  #gem 'ruby-graphviz', :require => 'graphviz'
   gem 'quiet_assets'
   gem "minitest"
   gem 'test-unit'

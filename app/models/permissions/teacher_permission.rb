@@ -30,6 +30,8 @@ module Permissions
         lesson and lesson.teacher_id == user.id
       end
 
+      allow "teachers/lessons",[:state]
+
       allow "teachers/videos",[:create]
       allow "teachers/videos",[:update] do |video|
         video and video.lesson.teacher_id == user.id

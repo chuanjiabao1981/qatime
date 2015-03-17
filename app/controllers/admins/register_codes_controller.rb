@@ -5,4 +5,5 @@ class Admins::RegisterCodesController < ApplicationController
   def index
     @register_codes = RegisterCode.all.paginate(page: params[:page],:per_page => 10)
   end
+
 end

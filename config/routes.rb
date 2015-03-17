@@ -63,7 +63,11 @@ Qatime::Application.routes.draw do
       end
       resources :courses
     end
-
+    resources :lessons do
+      collection do
+        get 'state'
+      end
+    end
     resources :courses do
       resources :lessons
     end

@@ -6,7 +6,10 @@ cn:
           init: 新建
           editing: 编辑中
           reviewing: 审核中
+          published: 已发布
+          rejected: 审核未通过
         events:
           edit: 编辑
-          approve: 通过
-          reject: 不通过
+          approve: 通过审核
+          reject: 未通过审核
+          submit: 提交审核

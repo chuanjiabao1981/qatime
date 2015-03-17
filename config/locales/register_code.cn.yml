@@ -4,3 +4,4 @@ cn:
       register_code: 注册码
     attributes:
       register_code:
+        school: 学校

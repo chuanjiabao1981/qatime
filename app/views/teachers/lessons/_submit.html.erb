@@ -1,0 +1,72 @@
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#save-lesson">
+  <%=get_edit_or_create_model_string(f.object)%>
+</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#submit-lesson">
+  <%=Lesson.human_state_event_name(:submit)%>
+</button>
+
+<div class="modal fade" id="save-lesson" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">提示</h4>
+      </div>
+      <div class="modal-body">
+        <br/>
+        <% if f.object.init? %>
+            <p>您确定创建<%=Lesson.model_name.human %>吗?</p>
+
+        <% elsif f.object.editing?%>
+            <p>您确定编辑此<%=Lesson.model_name.human %>吗?</p>
+        <% elsif f.object.reviewing? %>
+            <p style="color: red">此<%=Lesson.model_name.human %>正在<%=@lesson.human_state_name%>,无法编辑!</p>
+        <% end %>
+        <div class="qa_sep_5"></div>
+        <p>
+          <span class="label label-info">注意:</span> <strong>只有<%=Lesson.human_state_event_name(:submit)%>并<%=Lesson.human_state_event_name(:approve)%></strong>后，
+          学生才可以看到您的<%=Lesson.model_name.human %>。
+        </p>
+      </div>
+      <div class="modal-footer">
+        <% if not f.object.reviewing? %>
+            <%= f.button :submit, "确定",class: "btn btn-default" ,name:"edit"%>
+        <% end %>
+        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="submit-lesson" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">提示</h4>
+      </div>
+      <div class="modal-body">
+        <% if f.object.init? %>
+            <p>您确定创建<%=Lesson.model_name.human %>并<%= Lesson.human_state_event_name(:submit)%>么吗?<br/></p>
+        <% elsif f.object.reviewing? %>
+            <p style="color: red">此<%=Lesson.model_name.human %>正在<%=@lesson.human_state_name%>,不需再次提交!</p>
+        <% else %>
+            <p>您确定<%=Lesson.human_state_event_name(:submit)%>吗?<br/></p>
+        <% end %>
+        <p>
+          <span class="label label-info">注意:</span>
+          <strong><%=Lesson.human_state_event_name(:submit)%>后的<%= Lesson.model_name.human%>将不能修改，
+            直到“<%=Lesson.human_state_event_name(:approve) %>“或者“<%=Lesson.human_state_event_name(:reject) %>“
+            之后，才可以继续编辑。
+            !</strong>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <% if not f.object.reviewing? %>
+            <%= f.button :submit, "确定",class: "btn btn-default" ,name:"submit"%>
+        <% end %>
+        <button type="button" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div>
+  </div>
+</div>

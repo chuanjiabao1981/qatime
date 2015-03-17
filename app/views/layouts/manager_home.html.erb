@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="cn">
 <head>
-  <title>Qatime</title>
   <meta name="renderer" content="webkit">
 
+  <title>Qatime</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => false %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
   <%= csrf_meta_tags %>
@@ -21,25 +21,13 @@
     <div class='col-md-2'>
       <ul class="menu" style="color: white">
         <li>
-          <%= link_to curriculums_path do %>
-            <span class="glyphicon glyphicon-home"></span> <span class="qa_f18">首页</span> Home
+          <%= link_to managers_register_codes_path do %>
+              <span class="glyphicon glyphicon-question-sign"></span>
+              <span class="qa_f18">
+                <%= RegisterCode.model_name.human%>
+              </span>
           <% end %>
         </li>
-        <li>
-          <%= link_to state_teachers_lessons_path(teacher_id:current_user.id) do %>
-            <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"> 状态</span> State
-          <% end %>
-        </li>
-        <li>
-           <span class="glyphicon glyphicon-info-sign"></span><span class="qa_f18"> 消息</span> Message
-        </li>
-
-        <li>
-          <%= link_to teachers_faqs_path do %>
-             <span class="glyphicon glyphicon-question-sign"></span><span class="qa_f18"> 疑问</span> faq
-          <% end %>
-        </li>
-
         <li>
           <%= link_to signout_path, :method=>'delete'  do %>
               <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18"> 退出</span> Exit
@@ -51,8 +39,8 @@
       <%= yield %>
     </div>
   </div>
+  <%= debug(params) if Rails.env.development? %>
 </div>
-<%= debug(params) if Rails.env.development? %>
 
 </body>
 </html>

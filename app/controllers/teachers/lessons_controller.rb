@@ -4,6 +4,11 @@ class Teachers::LessonsController < ApplicationController
     @lesson = @course.build_lesson
   end
   def create
+    if params[:edit]
+      params[:lesson][:state_event] = 'edit'
+    elsif params[:submit]
+      params[:lesson][:state_event] = 'submit'
+    end
     @lesson =@course.build_lesson(params[:lesson].permit!)
     if @lesson.save
       redirect_to course_path(@course)

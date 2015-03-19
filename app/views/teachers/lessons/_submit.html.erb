@@ -24,7 +24,7 @@
         <% end %>
         <div class="qa_sep_5"></div>
         <p>
-          <span class="label label-info">注意:</span> <strong>只有<%=Lesson.human_state_event_name(:submit)%>并<%=Lesson.human_state_event_name(:approve)%></strong>后，
+          <span class="label label-info">注意:</span> 如果确认没有问题，请<%=Lesson.human_state_event_name(:submit)%>, 因为<strong>只有<%=Lesson.human_state_event_name(:submit)%>并<%=Lesson.human_state_event_name(:approve)%></strong>后，
           学生才可以看到您的<%=Lesson.model_name.human %>。
         </p>
       </div>

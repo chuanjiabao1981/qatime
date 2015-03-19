@@ -4,6 +4,10 @@ module Permissions
       allow "managers/register_codes",[:index,:create,:new]
 
       allow "managers/home",[:main]
+      allow :home,[:index]
+
+      allow :curriculums,[:index,:show]
+      allow :courses,[:show]
 
       allow :sessions,[:destroy]
 

@@ -10,6 +10,8 @@ class Lesson < ActiveRecord::Base
   scope :by_state,    lambda {|s| where(state: s) if s}
   scope :by_teacher,  lambda {|s| where(teacher_id: s) if s}
 
+  has_many :review_records;
+
   # need to be deleted
   belongs_to :group
   # end
@@ -32,25 +34,25 @@ class Lesson < ActiveRecord::Base
 
   state_machine :initial => :init do
     transition :init              => :editing,      :on => [:edit]
+    transition :init              => :reviewing,    :on => [:submit]
     transition :editing           => same,          :on => [:edit,:approve,:reject]
     transition :editing           => :reviewing,    :on => [:submit]
     transition :reviewing         => same,          :on => [:submit]
-    transition :reviewing         => :editing,      :on => [:edit]
     transition :reviewing         => :published,    :on => [:approve]
     transition :reviewing         => :rejected,     :on => [:reject]
     transition :rejected          => same,          :on => [:reject,:edit] # reject -> reject拒绝的时候可能有补充说明???
     transition :rejected          => :reviewing,    :on => [:submit]
     transition :rejected          => :published,    :on => [:approve]
-    transition :rejected          => :appealing,    :on => [:appeal]
-    transition :appealing         => same,          :on => [:appeal]
-    transition :appealing         => :editing,      :on => [:edit]
-    transition :appealing         => :reviewing,    :on => [:submit]
-    transition :appealing         => :published,    :on => [:approve]
-    transition :appealing         => :rejected,     :on => [:reject]
     transition :published         => same,          :on => [:approve]
     transition :published         => :rejected,     :on => [:reject]
     transition :published         => :editing,      :on => [:edit]
     transition :published         => :reviewing,    :on => [:submit]
+
+    before_transition any - :reviewing => :reviewing do |lesson,transition|
+      review_record               = lesson.review_records.build
+      review_record.start_state   = transition.from
+      review_record.save
+    end
   end
 
   end

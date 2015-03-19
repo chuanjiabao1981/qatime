@@ -1,19 +1,18 @@
 <div class="row" style="padding:10px 36px 10px 36px;border-bottom: 1px solid #e2e2e2">
   <div class="col-md-1">
-    <%= register_code_counter + 1 %>
+    #
   </div>
   <div class="col-md-3">
-    <%= link_to register_code.value  %>
+    <strong><%= RegisterCode.model_name.human %></strong>
   </div>
   <div class="col-md-4">
-   <%= register_code.school.try(:name) %>
+    <strong><%= School.model_name.human %></strong>
   </div>
   <div class="col-md-2">
-    <%=
-        register_code.get_state_human_name
-    %>
+    <strong><%= RegisterCode.model_name.human %>状态</strong>
   </div>
   <div class="col-md-2">
-    <%= register_code.teacher.try(:name) %>
+    <strong><%= RegisterCode.model_name.human %>使用者</strong>
+
   </div>
 </div>

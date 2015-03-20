@@ -19,13 +19,24 @@
       <% end %>
     </div>
     <div class='col-md-2'>
+
       <ul class="menu" style="color: white">
+        <li>
+          <%= link_to schools_path do %>
+              <span class="glyphicon glyphicon-home"></span> <span class="qa_f18"> 学校</span> School
+          <% end %>
+        </li>
         <li>
           <%= link_to managers_register_codes_path do %>
               <span class="glyphicon glyphicon-question-sign"></span>
               <span class="qa_f18">
                 <%= RegisterCode.model_name.human%>
               </span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to state_managers_lessons_path(manager_id:current_user.id) do %>
+              <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"> 状态</span> State
           <% end %>
         </li>
         <li>

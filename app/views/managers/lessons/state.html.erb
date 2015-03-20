@@ -1,25 +1,23 @@
 <div class="qa_box">
   <div class="qa_big_cell">
     <ul class="nav nav-tabs">
-
-      <%= render partial: "lesson_state_nav_tab", locals: {state:"editing"} %>
-
-      <%= render partial: "lesson_state_nav_tab", locals: {state:"rejected"} %>
-
       <%= render partial: "lesson_state_nav_tab", locals: {state:"reviewing"} %>
-
+      <%= render partial: "lesson_state_nav_tab", locals: {state:"rejected"} %>
       <%= render partial: "lesson_state_nav_tab", locals: {state:"published"} %>
     </ul>
 
     <table class="table table-striped">
       <thead>
-        <th width="%5">#</th>
-        <th width="60%">
-            <%= Lesson.model_name.human %>
-        </th>
-        <th>
-          <%= Course.model_name.human %>
-        </th>
+      <th width="4%">#</th>
+      <th width="40%">
+        <%= Lesson.model_name.human %>
+      </th>
+      <th width="40%">
+        <%= Course.model_name.human %>
+      </th>
+      <th width="10%">
+        <%= Teacher.model_name.human %>
+      </th>
       </thead>
       <%= render @lessons %>
     </table>

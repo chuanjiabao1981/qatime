@@ -30,7 +30,5 @@ class Admins::TeachersController < ApplicationController
     @teacher.update_attributes(params[:teacher].permit!)
 
     respond_with :admins,@teacher
-
-
   end
 end

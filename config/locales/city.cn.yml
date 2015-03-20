@@ -1,0 +1,7 @@
+cn:
+  activerecord:
+    models:
+      city: 城市
+    attributes:
+      city:
+        name: 名称

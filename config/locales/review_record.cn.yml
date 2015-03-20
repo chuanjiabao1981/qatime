@@ -1,0 +1,7 @@
+cn:
+  activerecord:
+    models:
+      review_record: 审核记录
+    attributes:
+      review_record:
+        reason: 审核说明

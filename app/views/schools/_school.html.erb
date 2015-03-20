@@ -1,0 +1,18 @@
+<div class="row qa_big_cell">
+  <div class="col-md-1">
+    <%= school_counter + 1 %>
+  </div>
+  <div class="col-md-3">
+    <%=school.name%>
+  </div>
+  <div class="col-md-3">
+    <%=school.city.name %>
+
+  </div>
+  <div class="col-md-2">
+    <%=link_to '编辑',edit_school_path(school)%>
+  </div>
+  <div class="col-md-2">
+    <%=link_to '删除',school_path(school),method: :delete,'data-confirm' => 'Are you sure?'%>
+  </div>
+</div>

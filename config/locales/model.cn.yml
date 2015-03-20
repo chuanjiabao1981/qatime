@@ -45,6 +45,7 @@ cn:
       lesson:
         name: 专题名称
         desc: 专题简介
+        state_event: 是否通过审核
       user:
         email: 邮箱
         password: 密码

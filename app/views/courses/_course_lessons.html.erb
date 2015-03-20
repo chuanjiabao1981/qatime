@@ -12,7 +12,7 @@
     </div>
     <div style="clear: both"></div>
   </div>
-  <% @course.lessons.each do |lesson| %>
+  <% @course.lessons.order(:created_at).each do |lesson| %>
       <div class="qa_cell">
         <div style="width: 70%" class="pull-left">
           <%=link_to  lesson.name ,course_path(@course,lesson_id:lesson.id)%>

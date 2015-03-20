@@ -1,0 +1,25 @@
+<div class="qa_box">
+    <div class="qa_big_cell">
+      <%=School.model_name.human%>列表
+    </div>
+    <table class="table">
+        <tr>
+          <td width="30%"><%=City.model_name.human%></td>
+          <td><%=@school.city.name%></td>
+        </tr>
+        <tr>
+          <td><%=School.human_attribute_name(:name)%></td>
+          <td><%=@school.name %></td>
+        </tr>
+        <tr>
+          <td>操作</td>
+          <td>
+            <%=link_to '编辑'       ,edit_school_path(@school) %>
+            <%=link_to 'destory'    ,school_path(@school),method: :delete ,'data-confirm' => 'Are you sure?' %>
+
+          </td>
+        </tr>
+
+    </table>
+</div>
+

@@ -11,8 +11,33 @@
         <div>
           <%= @lesson.desc if @lesson %>
         </div>
+
         <div style="clear: both"></div>
       </div>
+      <div class="qa_cell">
+        <% if @lesson.rejected? %>
+            <span class="qa_f12 label label-danger"><%=@lesson.human_state_name%></span>
+            <div class="qa_sep_15"></div>
+            <div>
+                <%= @lesson.current_review_record.reason %>
+            </div>
+        <% else %>
+            <span class="qa_f12 label label-success"><%=@lesson.human_state_name%></span>
+        <% end %>
+      </div>
+      <% if @lesson.reviewing? and allow? "managers/lessons",:update,@lesson   %>
+          <div class="qa_cell">
+            <%= simple_form_for [:managers,@lesson] do |f|%>
+                <%= f.input :state_event ,collection:[[Lesson.human_state_event_name(:approve),"approve"],
+                                                      [Lesson.human_state_event_name(:reject), "reject"]],
+                            :include_blank => false %>
+                <%= f.simple_fields_for :current_review_record do |review_record|%>
+                    <% review_record.input :reason,:inline_label=>true%>
+                <% end %>
+                <%= f.submit "提交审核" ,class: "btn btn-default"%>
+            <% end %>
+          </div>
+      <% end %>
     </div>
 <% else %>
     <div style="text-align: center;padding: 10px">

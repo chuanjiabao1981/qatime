@@ -1,4 +1,4 @@
 <li role="presentation" class=<%= get_active_from_params("state",state) %>>
   <%=link_to "#{Lesson.human_state_name(state)}的#{Lesson.model_name.human}",
-             state_teachers_lessons_path(state: state)%>
+             state_managers_lessons_path(state: state)%>
 </li>

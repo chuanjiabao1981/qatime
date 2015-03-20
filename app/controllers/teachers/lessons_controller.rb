@@ -17,7 +17,7 @@ class Teachers::LessonsController < ApplicationController
     end
   end
   def edit
-    logger.info(@lesson.errors.full_messages)
+    #logger.info(@lesson.errors.full_messages)
   end
 
   def update
@@ -27,8 +27,7 @@ class Teachers::LessonsController < ApplicationController
       params[:lesson][:state_event] = 'submit'
     end
     if @lesson.update_attributes(params[:lesson].permit!)
-      logger.info(@lesson.state)
-      redirect_to course_path(@lesson.course)
+      redirect_to course_path(@lesson.course,lesson_id:@lesson.id)
     else
       render 'edit'
     end
@@ -40,7 +39,7 @@ class Teachers::LessonsController < ApplicationController
     end
     @lessons = Lesson.all.
                     by_state(params[:state]).
-                    by_teacher(params[:teacher_id]).
+                    by_teacher(current_user.id).
                     order(:created_at).paginate(page: params[:page],:per_page => 10)
     render layout: 'teacher_home'
   end

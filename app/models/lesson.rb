@@ -11,6 +11,9 @@ class Lesson < ActiveRecord::Base
   scope :by_teacher,  lambda {|s| where(teacher_id: s) if s}
 
   has_many :review_records;
+  has_one  :current_review_record,-> { order 'created_at' }, :class_name => "ReviewRecord"
+
+  accepts_nested_attributes_for :current_review_record
 
   # need to be deleted
   belongs_to :group

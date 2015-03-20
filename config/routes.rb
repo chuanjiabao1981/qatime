@@ -50,6 +50,11 @@ Qatime::Application.routes.draw do
 
   namespace :managers do
     resources :register_codes
+    resources :lessons do
+      collection do
+        get 'state'
+      end
+    end
   end
 
   namespace :teachers do
@@ -85,7 +90,7 @@ Qatime::Application.routes.draw do
 
   post 'students/courses/:id' => "students/courses#purchase", as: 'students_course_purchase'
 
-
+  resources :schools
   resources :sessions
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'

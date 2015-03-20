@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
 
   delegate :allow_param?, to: :current_permission
   helper_method :allow_param?
+  layout :current_user_layout
 
   protected
 
@@ -30,6 +31,20 @@ class ApplicationController < ActionController::Base
     else
       flash[:warning] = "未授权的访问!"
       redirect_to user_home_path
+    end
+  end
+
+  def current_user_layout
+    if current_user.nil?
+      "application"
+    elsif current_user.manager?
+      "manager_home"
+    elsif current_user.admin?
+      "admin_home"
+    elsif current_user.teacher?
+      "teacher_home"
+    elsif current_user.student?
+      "student_home"
     end
   end
 

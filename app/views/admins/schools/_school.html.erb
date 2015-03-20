@@ -1,9 +1,11 @@
 <div class="row qa_big_cell">
   <div class="col-md-3">
-    <%=school.city.name %>
+    <%=school.name%>
+
   </div>
   <div class="col-md-3">
-    <%=school.name%>
+    <%=school.city.name %>
+
   </div>
   <div class="col-md-3">
     <%=link_to 'edit',edit_admins_school_path(school)%>

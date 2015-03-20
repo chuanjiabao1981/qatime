@@ -33,9 +33,7 @@ Qatime::Application.routes.draw do
   end
 
   namespace :admins do
-    resources :teachers
     resources :groups
-    resources :schools
     resources :cities
     resources :recharge_codes
     resources :faq_topics
@@ -92,6 +90,7 @@ Qatime::Application.routes.draw do
 
   resources :schools
   resources :sessions
+  resources :teachers
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'
 end

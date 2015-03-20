@@ -6,8 +6,8 @@
         <strong><%= @teacher.name %></strong>
       </span>
     <div class="pull-right">
-      <% if current_user.admin? %>
-          <%=link_to edit_admins_teacher_path(@teacher) do %>
+      <% if allow? "teachers", "edit" %>
+          <%=link_to edit_teacher_path(@teacher) do %>
               <button type="button" class="btn btn-xs btn-success">编辑讲师</button>
           <% end %>
       <% end %>

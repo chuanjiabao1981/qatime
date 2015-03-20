@@ -7,6 +7,7 @@ module Permissions
       allow "managers/home",[:main]
       allow :home,[:index]
       allow :schools,[:index,:new,:create,:show,:edit,:update]
+      allow :teachers,[:index,:new,:create,:show,:edit,:update]
       allow :curriculums,[:index,:show]
       allow :courses,[:show]
 

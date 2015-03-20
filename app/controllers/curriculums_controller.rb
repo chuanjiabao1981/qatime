@@ -1,4 +1,5 @@
 class CurriculumsController < ApplicationController
+  layout "application"
   respond_to :html
 
   def index

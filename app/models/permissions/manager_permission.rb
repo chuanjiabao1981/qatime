@@ -5,6 +5,8 @@ module Permissions
       allow "managers/lessons",[:state,:update]
 
       allow "managers/home",[:main]
+
+      allow :students,[:index,:search]
       allow :home,[:index]
       allow :schools,[:index,:new,:create,:show,:edit,:update]
       allow :teachers,[:index,:new,:create,:show,:edit,:update]

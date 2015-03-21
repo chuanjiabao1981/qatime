@@ -1,0 +1,12 @@
+<%= render layout: "students" do  %>
+    <div>
+      <% if @students.nil? or @students.size == 0 %>
+        <div class="qa_cell">
+        未查询到姓名或者邮件为 <strong><%=params[:search][:name]%></strong> 的学生！
+        </div>
+      <% else %>
+        <%= render @students %>
+      <% end %>
+    </div>
+
+<% end %>

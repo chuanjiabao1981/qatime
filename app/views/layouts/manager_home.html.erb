@@ -32,6 +32,12 @@
           <% end %>
         </li>
         <li>
+          <%= link_to students_path do %>
+              <span class="glyphicon glyphicon-hdd"></span>
+              <span class="qa_f18"> <%= Student.model_name.human %> </span> Student
+          <% end %>
+        </li>
+        <li>
           <%= link_to managers_register_codes_path do %>
               <span class="glyphicon glyphicon-question-sign"></span>
               <span class="qa_f18">

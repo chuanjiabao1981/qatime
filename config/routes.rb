@@ -91,6 +91,11 @@ Qatime::Application.routes.draw do
   resources :schools
   resources :sessions
   resources :teachers
+  resources :students do
+    collection do
+      get 'search'
+    end
+  end
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'
 end

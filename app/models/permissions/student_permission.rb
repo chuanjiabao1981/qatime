@@ -12,6 +12,8 @@ module Permissions
       allow "students/faqs", [:index, :show]
       allow "students/faq_topics", [:show]
 
+      allow :questions,[:new]
+
       allow :faqs, [:show]
       allow :faq_topics, [:show]
       allow 'students/home',[:main]

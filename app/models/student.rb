@@ -7,6 +7,9 @@ class Student < User
   has_many :courses,:through => :course_purchase_records
   has_many :course_purchase_records
 
+
+  has_many :questions
+
   def initialize(attributes = {})
     super(attributes)
     self.role = "student"

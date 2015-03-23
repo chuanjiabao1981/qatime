@@ -9,10 +9,15 @@ module Permissions
       allow :messages, [:index, :show]
       allow :replies,[:create]
       allow :pictures,[:new,:create]
+      allow :videos,[:create]
       allow "students/faqs", [:index, :show]
       allow "students/faq_topics", [:show]
 
-      allow :questions,[:new]
+      allow :questions,[:new,:create,:show]
+
+      allow :questions,[:edit,:update] do |question|
+        question and question.student_id == user.id
+      end
 
       allow :faqs, [:show]
       allow :faq_topics, [:show]

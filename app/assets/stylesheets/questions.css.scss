@@ -1,3 +1,32 @@
 // Place all the styles related to the questions controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.qa_question .qa_header
+{
+  background: #f5f5f5;
+  padding:10px;
+}
+.qa_question .qa_header .qa_title
+{
+  margin-bottom: 8px;
+}
+.qa_question .qa_header .qa_title h1
+{
+  margin-top: 0px;
+  font-size:22px;
+}
+.qa_question .qa_header .qa_info
+{
+  font-size: 12px;
+  color: #d0d0d0;
+}
+.qa_question .qa_content
+{
+  padding:10px;
+}
+.qa_question .qa_footer
+{
+  font-size:12px;
+  margin:10px 10px 0px 10px;
+  padding-bottom: 10px;
+}

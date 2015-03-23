@@ -1,0 +1,289 @@
+<script type="application/javascript">
+
+</script>
+<script type="text/javascript">
+    (function (factory){
+        /* global define */
+        if (typeof define === 'function' && define.amd) {
+            // AMD. Register as an anonymous module.
+            define(['jquery'], factory);
+        } else {
+            // Browser globals: jQuery
+            factory(window.jQuery);
+        }
+    }(function($){
+                var tmpl = $.summernote.renderer.getTemplate();
+                // core functions: range, dom
+                var range = $.summernote.core.range;
+                var dom = $.summernote.core.dom;
+
+                /**
+                 * @member plugin.video
+                 * @private
+                 * @param {jQuery} $editable
+                 * @return {String}
+                 */
+                var getTextOnRange = function ($editable) {
+                    $editable.focus();
+
+                    var rng = range.create();
+
+                    // if range on anchor, expand range with anchor
+                    if (rng.isOnAnchor()) {
+                        var anchor = dom.ancestor(rng.sc, dom.isAnchor);
+                        rng = range.createFromNode(anchor);
+                    }
+
+                    return rng.toString();
+                };
+                /**
+                 * toggle button status
+                 *
+                 * @member plugin.video
+                 * @private
+                 * @param {jQuery} $btn
+                 * @param {Boolean} isEnable
+                 */
+                var toggleBtn = function ($btn, isEnable) {
+                    $btn.toggleClass('disabled', !isEnable);
+                    $btn.attr('disabled', !isEnable);
+                };
+                /**
+                 * Show video dialog and set event handlers on dialog controls.
+                 *
+                 * @member plugin.video
+                 * @private
+                 * @param {jQuery} $dialog
+                 * @param {jQuery} $dialog
+                 * @param {Object} text
+                 * @return {Promise}
+                 */
+                var showVideoDialog = function ($editor,$editable, $dialog, text) {
+                    return $.Deferred(function (deferred) {
+                        var $videoDialog = $dialog.find('.note-video-dialog');
+
+                        var $videoUrl = $videoDialog.find('.note-video-url'),
+                                $videoBtn = $videoDialog.find('.note-video-btn');
+                        var $video_url;
+                        $videoDialog.one('shown.bs.modal', function () {
+                            $videoUrl.val(text).on('input', function () {
+                                toggleBtn($videoBtn, $videoUrl.val());
+                            }).trigger('focus');
+
+                            $videoBtn.click(function (event) {
+                                event.preventDefault();
+                                progress     = $dialog.find('#progress');
+                                progress_bar = $dialog.find('#progress-bar');
+                                console.log(progress);
+                                console.log(progress_bar);
+                                progress.hide()
+                                var fd = new FormData();
+                                //console.log($dialog.find('.note-video-url')[0].files[0]);
+                                fd.append("video[name]", $dialog.find('.note-video-url')[0].files[0]);
+                                fd.append("video[token]",$('input#video_token').val());
+                                var uploadImageForm = $("form#videos_upload");
+                                $(uploadImageForm).ajaxSubmit(
+                                        {
+                                            formData:fd,
+                                            dataType:'json',
+                                            uploadProgress: function(event, position, total, percentComplete) {
+                                                progress.show()
+                                                var percentVal = percentComplete + '%';
+                                                //alert(percentVal);
+                                                //progress_bar = $dialog.find('progress-video-bar');
+
+                                                progress_bar.text(percentVal);
+                                                progress_bar.css({width:percentVal});
+                                                if (percentVal == '100%'){
+                                                    progress.hide("slow");
+                                                }
+                                            },
+                                            error: function(xhr, status, error){
+                                                alert(xhr.status);
+
+                                            },
+                                            success: function(responseText, statusText, xhr, $form){
+                                                var url =responseText.name.url;
+                                                $videoDialog.modal('hide');
+                                                //$editor.restoreRange($editable);
+
+                                                /*
+                                                 */
+                                                $answer_video = $('<div>').append($('<video controls>').attr('src', url).attr('width', '640').attr('height', '360'))
+                                                $editor.insertNode($editable,$answer_video[0]);
+                                                console.log($editor);
+
+                                            }
+                                        }
+                                );
+                                //deferred.resolve(url);
+                            });
+                        }).one('hidden.bs.modal', function () {
+                            $videoUrl.off('input');
+                            $videoBtn.off('click');
+
+                            if (deferred.state() === 'pending') {
+                                deferred.reject();
+                            }
+                        }).modal('show');
+                    });
+                };
+                $.summernote.addPlugin({
+                    name: 'answerVideo',
+                    buttons:{
+                        answerVideo: function(){
+                            return tmpl.iconButton('fa fa-file-video-o',{
+                                event: 'showAnswerVideoDialog',
+                                title: 'answerVideo',
+                                hide: true
+                            });
+                        }
+                    },
+                    events: { // events
+                        showAnswerVideoDialog: function (event, editor, layoutInfo) {
+                            var $dialog = layoutInfo.dialog(),
+                                    $editable = layoutInfo.editable(),
+                                    text = getTextOnRange($editable);
+
+                            // save current range
+                            //editor.saveRange($editable);
+
+                            showVideoDialog(editor,$editable, $dialog, text);//then(function (url) {alert (url)});
+                        }
+                    },
+                    dialogs: { // 在页面中预先埋伏一个dialog页面，等用的时候调出来
+                        answerVideo: function (lang) {
+                            var body = '<div class="form-group row-fluid">' +
+                                    '<label>' + 'url' + ' <small class="text-muted">' + 'lang.video.providers '+ '</small></label>' +
+                                    '<input class="note-video-url form-control span12" type="file" name="files" accept="video/*" multiple="multiple"/>' +
+                                    '</div>'+
+                                    '<div class="progress" id="progress">' +
+                                    '<div class="progress-bar" id="progress-bar" role="progressbar" >'+
+                                    '</div>'+
+                                    '</div>';
+                            var footer = '<button href="#" class="btn btn-primary note-video-btn">' + 'lang.video.insert' + '</button>';
+                            return tmpl.dialog('note-video-dialog', 'lang.video.insert', body, footer);
+                        }
+                    }
+                });
+            }
+    ));
+    (function (factory) {
+        /* global define */
+        if (typeof define === 'function' && define.amd) {
+            // AMD. Register as an anonymous module.
+            define(['jquery'], factory);
+        } else {
+            // Browser globals: jQuery
+            factory(window.jQuery);
+        }
+    }(function ($) {
+        // template
+        var tmpl = $.summernote.renderer.getTemplate();
+
+
+
+        /**
+         * @class plugin.hello
+         *
+         * Hello Plugin
+         */
+        $.summernote.addPlugin({
+            /** @property {String} name name of plugin */
+            name: 'hello',
+            /**
+             * @property {Object} buttons
+             * @property {Function} buttons.hello   function to make button
+             * @property {Function} buttons.helloDropdown   function to make button
+             * @property {Function} buttons.helloImage   function to make button
+             */
+            buttons: { // buttons
+                hello: function () {
+
+                    return tmpl.iconButton('fa fa-header', {
+                        event : 'hello',
+                        title: 'hello',
+                        hide: true
+                    });
+                },
+                helloDropdown: function () {
+
+
+                    var list = '<li><a data-event="helloDropdown" href="#" data-value="summernote">summernote</a></li>';
+                    list += '<li><a data-event="helloDropdown" href="#" data-value="codemirror">Code Mirror</a></li>';
+                    var dropdown = '<ul class="dropdown-menu">' + list + '</ul>';
+
+                    return tmpl.iconButton('fa fa-header', {
+                        title: 'hello',
+                        hide: true,
+                        dropdown : dropdown
+                    });
+                },
+                helloImage : function () {
+                    return tmpl.iconButton('fa fa-file-image-o', {
+                        event : 'helloImage',
+                        title: 'helloImage',
+                        hide: true
+                    });
+                }
+
+            },
+
+            /**
+             * @property {Object} events
+             * @property {Function} events.hello  run function when button that has a 'hello' event name  fires click
+             * @property {Function} events.helloDropdown run function when button that has a 'helloDropdown' event name  fires click
+             * @property {Function} events.helloImage run function when button that has a 'helloImage' event name  fires click
+             */
+            events: { // events
+                hello: function (event, editor, layoutInfo) {
+                    // Get current editable node
+                    var $editable = layoutInfo.editable();
+
+                    // Call insertText with 'hello'
+                    editor.insertText($editable, 'hello ');
+                },
+                helloDropdown: function (event, editor, layoutInfo, value) {
+                    // Get current editable node
+                    var $editable = layoutInfo.editable();
+
+                    // Call insertText with 'hello'
+                    editor.insertText($editable, 'hello ' + value + '!!!!');
+                },
+                helloImage : function (event, editor, layoutInfo) {
+                    var $editable = layoutInfo.editable();
+
+                    var img = $('<img src="http://upload.wikimedia.org/wikipedia/commons/b/b0/NewTux.svg" />');
+                    editor.insertNode($editable, img[0]);
+                }
+            }
+        });
+    }));
+    $(document).ready(function() {
+//        $('#summernote').summernote();
+
+        $('[data-provider="summernote"]').each(function(){
+            $(this).summernote(
+                    { lang: 'zh-CN',
+                        height: 400
+
+                    }
+            );
+        })
+    });
+</script>
+
+<form id="videos_upload" action="/videos" enctype="multipart/form-data" method="post">
+  <input id="video_token" name="video[token]" type="hidden" value="<%= @question.token%>">
+</form>
+<div class="qa_box qa_big_cell">
+  <div class="progress" id="progress">
+    <div class="progress-bar" id="progress-bar" role="progressbar" >
+    </div>
+  </div>
+  <%= simple_form_for @question do |f|%>
+      <%= f.input :title %>
+      <%= f.input :content ,:input_html => { :data => {:provider => :summernote} } %>
+      <%= f.submit class:"btn btn-default"%>
+  <% end %>
+</div>

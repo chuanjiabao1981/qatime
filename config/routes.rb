@@ -96,7 +96,10 @@ Qatime::Application.routes.draw do
       get 'search'
     end
   end
-  resources :questions
+  resources :questions do
+    resources :answers
+  end
+  resources :videos
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'
 end

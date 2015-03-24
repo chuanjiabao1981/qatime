@@ -11,6 +11,14 @@ module Permissions
       allow :groups,[:index,:show]
       # end
 
+      allow :questions,[:show]
+      allow :answers,[:create] do |question|
+        question != nil
+      end
+      allow :answers,[:edit,:update] do |answer|
+        answer and answer.teacher_id == user.id
+      end
+
       allow "teachers/curriculums",[:edit_courses_position,:update] do |curriculum|
         curriculum and curriculum.teacher_id == user.id
       end

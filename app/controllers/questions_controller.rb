@@ -25,6 +25,7 @@ class QuestionsController < ApplicationController
     respond_with @question
   end
   def show
+    @answer = Answer.new
   end
 
   private

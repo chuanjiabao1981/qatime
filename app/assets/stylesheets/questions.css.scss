@@ -30,3 +30,43 @@
   margin:10px 10px 0px 10px;
   padding-bottom: 10px;
 }
+
+.qa_answer .qa_input
+{
+  padding:10px;
+}
+.qa_answer .qa_widget .qa_header
+{
+  padding-left: 10px;
+  border-bottom: 2px solid #ccc;
+}
+
+.qa_answer .qa_item .author_avatar
+{
+  float:left;
+  padding:10px;
+}
+.qa_answer .qa_item
+{
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+}
+.qa_answer .qa_item .qa_info
+{
+  padding-left: 60px;
+  padding-top:10px;
+  padding-bottom: 10px;
+  color: #777;
+  font-size: 12px;
+}
+.qa_answer .qa_item .qa_content
+{
+  padding-left: 60px;
+}
+.qa_answer .qa_item .qa_footer
+{
+  font-size:12px;
+  margin:10px 10px 0px 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

@@ -206,8 +206,9 @@ ActiveRecord::Schema.define(version: 20150323232824) do
     t.text     "content"
     t.string   "token"
     t.integer  "student_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "answers_count", default: 0
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "recharge_codes", force: :cascade do |t|

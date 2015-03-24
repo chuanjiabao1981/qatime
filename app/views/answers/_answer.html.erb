@@ -1,0 +1,18 @@
+<div class="qa_item">
+  <div class="author_avatar">
+    <%=image_tag answer.teacher.avatar.normal.url %>
+  </div>
+  <div class="qa_info">
+    <%= answer.teacher.name %> • 回答于<%= time_ago_in_words(answer.created_at) %>前
+  </div>
+  <div class="qa_content">
+    <%= raw answer.content %>
+  </div>
+  <div class="qa_footer">
+      <% if allow? "answers","edit",answer %>
+          <%=link_to edit_question_answer_path(answer.question,answer) do %>
+              <i class="fa fa-pencil-square-o"></i>编辑
+          <% end %>
+      <% end %>
+  </div>
+</div>

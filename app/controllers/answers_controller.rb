@@ -15,14 +15,17 @@ class AnswersController < ApplicationController
 
   def update
     if @answer.update_attributes(params[:answer].permit!)
-      redirect_to question_path(@question)
+      redirect_to question_path(@answer.question_id)
     else
       render 'edit'
     end
   end
   private
   def current_resource
-    @question = Question.find(params[:question_id]) if params[:question_id]
-    @answer = Answer.find(params[:id]) if params[:id]
+    if params[:id]
+      @answer = Answer.find(params[:id])
+    elsif params[:question_id]
+      @question = Question.find(params[:question_id])
+    end
   end
 end

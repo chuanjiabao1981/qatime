@@ -282,7 +282,16 @@
     </div>
   </div>
   <%= simple_form_for @question do |f|%>
-      <%= f.input :title %>
+      <div class="row">
+        <%= f.association :vip_class,
+                    include_blank: false,
+                    collection:APP_CONSTANT["vip_class_ids"].map{|k,v| [k,v.to_a]},
+                    :as => :grouped_select,
+                    :group_method => :last,
+                    wrapper_html: { class: 'col-md-2' }%>
+        <%= f.input :title ,wrapper_html: { class: 'col-md-10',style:"padding-right:0px" }%>
+      </div>
+      <%= f.input :token, as: :hidden %>
       <%= f.input :content ,:input_html => { :data => {:provider => :summernote} } %>
       <%= f.submit class:"btn btn-default"%>
   <% end %>

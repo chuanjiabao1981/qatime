@@ -11,6 +11,7 @@ module Permissions
       allow :groups,[:index,:show]
       # end
 
+      allow :questions,[:index,:show]
       allow :questions,[:show]
       allow :answers,[:create] do |question|
         question != nil

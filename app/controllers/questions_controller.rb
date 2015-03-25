@@ -2,7 +2,7 @@ class QuestionsController < ApplicationController
 
   respond_to :html
   def index
-
+    @questions = Question.all
   end
 
   def new
@@ -25,7 +25,7 @@ class QuestionsController < ApplicationController
     respond_with @question
   end
   def show
-    @answer = Answer.new
+    @answer = @question.build_a_answer(nil,{})
   end
 
   private

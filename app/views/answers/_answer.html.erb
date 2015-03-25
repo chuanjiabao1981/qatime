@@ -1,3 +1,4 @@
+<% if not answer.new_record? %>
 <div class="qa_item">
   <div class="author_avatar">
     <%=image_tag answer.teacher.avatar.normal.url %>
@@ -16,3 +17,4 @@
       <% end %>
   </div>
 </div>
+<% end %>

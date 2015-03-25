@@ -35,3 +35,15 @@ english:
   物理: physics
   生物: biology
   化学: chemistry
+
+vip_class_ids:
+  高中:
+    数学: 1
+    物理: 2
+    化学: 3
+    生物: 4
+  初中:
+    数学: 5
+    物理: 6
+    化学: 7
+    生物: 8

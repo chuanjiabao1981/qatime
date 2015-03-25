@@ -6,3 +6,4 @@ cn:
       question:
         title: 标题
         content: 内容
+        vip_class: 科目

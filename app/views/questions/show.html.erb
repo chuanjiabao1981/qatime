@@ -10,7 +10,9 @@
           </h1>
         </div>
         <div class="qa_info">
-          <%=link_to "高中数学","#" %> • <%= @question.student.name %> • 发布于<%= time_ago_in_words(@question.created_at) %>前
+          <%=link_to "#{@question.vip_class.category}#{@question.vip_class.subject}", questions_path%> •
+                     <%= @question.student.name %> •
+                    发布于<%= time_ago_in_words(@question.created_at) %>前
         </div>
 
       </div>
@@ -32,11 +34,12 @@
           <h4><%= @question.answers_count%> 个回答</h4>
         </div>
       </div>
-      <%= render @question.answers %>
-
+        <%= render @question.answers %>
     </div>
-    <div class="qa_answer">
-      <%= render 'answers/form' %>
-
-    </div>
+    <% if allow? "answers","create", @question %>
+     <div class="qa_answer">
+       <%= render 'answers/form' %>
+     </div>
+    <% end %>
+    <div class="qa_sep_15"></div>
 </div>

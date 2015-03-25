@@ -13,8 +13,8 @@ module Permissions
       allow "students/faqs", [:index, :show]
       allow "students/faq_topics", [:show]
 
-      allow :questions,[:new,:create,:show]
-
+      allow :questions,[:index,:show]
+      allow :questions,[:new,:create]
       allow :questions,[:edit,:update] do |question|
         question and question.student_id == user.id
       end

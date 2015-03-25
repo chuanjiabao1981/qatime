@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150323232824) do
+ActiveRecord::Schema.define(version: 20150325232120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,6 +207,7 @@ ActiveRecord::Schema.define(version: 20150323232824) do
     t.string   "token"
     t.integer  "student_id"
     t.integer  "answers_count", default: 0
+    t.integer  "vip_class_id"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
@@ -363,5 +364,21 @@ ActiveRecord::Schema.define(version: 20150323232824) do
   end
 
   add_index "videos", ["token"], name: "index_videos_on_token", using: :btree
+
+  create_table "vip_classes", force: :cascade do |t|
+    t.string   "subject"
+    t.string   "category"
+    t.integer  "questions_count"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  create_table "vipclasses", force: :cascade do |t|
+    t.string   "category"
+    t.string   "subject"
+    t.integer  "questions_count"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
 
 end

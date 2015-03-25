@@ -1,0 +1,14 @@
+<div class="qa_item">
+  <div class="author_avatar">
+    <%=image_tag question.student.avatar.normal.url %>
+  </div>
+  <div class="qa_title">
+    <%=link_to question.title , question_path(question)%>
+  </div>
+
+  <div class="qa_info">
+    <%=link_to "#{question.vip_class.category}#{question.vip_class.subject}",
+               questions_path ,class: "qa_node"%> •
+    <%= question.student.name %> • 发布于<%= time_ago_in_words(question.created_at) %>前
+  </div>
+</div>

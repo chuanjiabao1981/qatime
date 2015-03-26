@@ -1,0 +1,2 @@
+module VipClassesHelper
+end

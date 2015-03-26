@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <title>Qatime</title>
+  <meta name="renderer" content="webkit">
+
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => false %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= render 'layouts/top_bar' %>
+
+<div class="container">
+  <div class='row'>
+    <div class="col-md-12">
+      <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
+    </div>
+
+    <div class='col-md-9'>
+      <%= yield %>
+    </div>
+    <div class="col-md-3">
+      <div class="qa_box">
+      <div class="qa_question">
+        <div class="qa_new_header">
+          <i class="fa fa-university fa-2x"></i>
+          <%=link_to questions_path do %>
+              <span class="qa_f16">VIP课程</span>
+          <% end %>
+        </div>
+        <div style="text-align: center;">
+          <div class="qa_sep_15"></div>
+          <%=link_to new_question_path , class:"btn btn-default btn-big" do %>
+              <i class="fa fa-pencil"></i> 提问
+          <% end %>
+          <div class="qa_sep_15"></div>
+        </div>
+
+
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%= debug(params) if Rails.env.development? %>
+
+</body>
+</html>

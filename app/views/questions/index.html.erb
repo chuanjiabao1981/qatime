@@ -1,4 +1,16 @@
 <div class="qa_box">
+  <div class="qa_vip_class">
+    <div class="qa_nav">
+        <%= link_to "最新" ,questions_path %>
+        <% APP_CONSTANT["vip_class_ids"].each do |category,subjects| %>
+            <% subjects.each do |subject, vip_class_id| %>
+                <%=link_to "#{category}#{subject}", vip_class_path(vip_class_id)%>
+            <% end %>
+        <% end %>
+    </div>
+  </div>
+</div>
+<div class="qa_box">
   <div class="qa_question">
     <%= render @questions %>
   </div>

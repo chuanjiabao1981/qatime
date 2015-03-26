@@ -100,6 +100,7 @@ Qatime::Application.routes.draw do
     resources :answers
   end
   resources :videos
+  resources :vip_classes
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'
 end

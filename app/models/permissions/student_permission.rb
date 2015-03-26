@@ -13,6 +13,9 @@ module Permissions
       allow "students/faqs", [:index, :show]
       allow "students/faq_topics", [:show]
 
+      allow :vip_classes, [:show] do |vip_class|
+        vip_class
+      end
       allow :questions,[:index,:show]
       allow :questions,[:new,:create]
       allow :questions,[:edit,:update] do |question|

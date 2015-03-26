@@ -47,3 +47,13 @@ vip_class_ids:
     物理: 6
     化学: 7
     生物: 8
+
+vip_class_icons:
+  数学:
+    icon: fa fa-calculator fa-2x
+  物理:
+    icon: fa fa-rocket fa-2x
+  化学:
+    icon: fa fa-flask fa-2x
+  生物:
+    icon: fa fa-leaf fa-2x

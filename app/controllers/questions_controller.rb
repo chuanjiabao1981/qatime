@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
 
+  layout  "vip"
   respond_to :html
   def index
     @questions = Question.all

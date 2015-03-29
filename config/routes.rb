@@ -101,6 +101,11 @@ Qatime::Application.routes.draw do
   end
   resources :videos
   resources :vip_classes
+  resources :learning_plans do
+    collection do
+      get 'teachers'
+    end
+  end
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'
 end

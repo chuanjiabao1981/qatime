@@ -57,3 +57,15 @@ vip_class_icons:
     icon: fa fa-flask fa-2x
   生物:
     icon: fa fa-leaf fa-2x
+
+learning_plan:
+  duration_types:
+    一周:
+      price: 250
+      time: 1.week
+    一个月:
+      price: 800
+      time: 1.month
+    三个月:
+      price: 2200
+      time: 3.month

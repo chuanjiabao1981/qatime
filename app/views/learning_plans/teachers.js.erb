@@ -1,0 +1,3 @@
+v=$('<%= j render "teachers_form" %>').find('#the_teacher_of_learning_plan')
+s=$('<div></div>').attr('id','the_teacher_of_learning_plan').append(v)
+$('#the_teacher_of_learning_plan').replaceWith(s.html())

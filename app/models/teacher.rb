@@ -6,8 +6,12 @@ class Teacher < User
 
   has_many :curriculums
   has_many :courses
-  has_one  :register_code, dependent: :destroy
 
+  has_one  :register_code, dependent: :destroy
+  has_many :learning_plans,:through => :learning_plan_assignments
+  has_many :learning_plan_assignments
+
+  belongs_to :school
   attr_accessor :register_code_value,:tmp_register_code,:accept
 
   validates_presence_of :register_code_value, on: :create
@@ -15,6 +19,11 @@ class Teacher < User
   validates :accept, acceptance: true
 
   after_create :update_register_code
+
+  scope :by_category,lambda {|c| where(category: c) if c}
+  scope :by_subject, lambda {|s| where(subject: s) if s}
+
+  scope :by_vip_class, lambda{|vip_class| includes(:school).order("schools.name desc").by_subject(vip_class.subject).by_category(vip_class.category) }
 
   ## need to be deleted
   has_many :groups

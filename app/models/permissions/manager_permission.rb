@@ -11,6 +11,7 @@ module Permissions
       allow :schools,[:index,:new,:create,:show,:edit,:update]
       allow :teachers,[:index,:new,:create,:show,:edit,:update]
       allow :curriculums,[:index,:show]
+      allow :learning_plans,[:new,:teachers,:create,:index]
       allow :courses,[:show]
 
       allow :sessions,[:destroy]

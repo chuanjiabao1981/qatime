@@ -7,8 +7,6 @@ class LearningPlansController < ApplicationController
   def new
     @student       = Student.find(params[:student_id])
     @learning_plan = @student.learning_plans.build
-    @vip_class     = VipClass.find(1)
-    @teachers      = Teacher.by_vip_class(@vip_class)
   end
 
   def create
@@ -17,17 +15,30 @@ class LearningPlansController < ApplicationController
     if @learning_plan.save
       redirect_to learning_plans_path
     else
-      @vip_class   = VipClass.find(params[:learning_plan][:vip_class_id])
-      @teachers      = Teacher.by_vip_class(@vip_class)
-      logger.info @learning_plan.errors.full_messages
       render 'new'
     end
   end
 
+  def edit
+    @learning_plan = LearningPlan.find(params[:id])
+  end
+
+  def update
+    @learning_plan = LearningPlan.find(params[:id])
+    if @learning_plan.update_attributes(params[:learning_plan].permit!)
+      redirect_to learning_plans_path
+    else
+      render 'edit'
+    end
+
+  end
+
   def teachers
-    @vip_class = VipClass.find(params[:learning_plan][:vip_class_id])
-    @learning_plan = LearningPlan.new
-    @teachers      = Teacher.by_vip_class(@vip_class)
-    @teachers = Teacher.by_subject(@vip_class.subject).by_category(@vip_class.category)
+    if params[:id]
+      @learning_plan = LearningPlan.find(params[:id])
+      @learning_plan.vip_class_id = params[:learning_plan][:vip_class_id]
+    else
+      @learning_plan = LearningPlan.new(params[:learning_plan].permit!)
+    end
   end
 end

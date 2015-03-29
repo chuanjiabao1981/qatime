@@ -22,10 +22,14 @@ module Permissions
         question and question.student_id == user.id
       end
 
+
+      allow :students,[:show,:edit,:update] do |student|
+        student and student.id == user.id
+      end
       allow :faqs, [:show]
       allow :faq_topics, [:show]
       allow 'students/home',[:main]
-      allow 'students/registrations',[:edit,:update,:show]
+      allow 'students/registrations',[:edit,:update]
       allow 'students/recharge_records',[:index,:new,:create]
       allow 'students/courses',[:purchase]
     end

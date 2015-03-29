@@ -6,12 +6,13 @@ module Permissions
 
       allow "managers/home",[:main]
 
-      allow :students,[:index,:search]
+      allow :vip_classes,[:show]
+      allow :students,[:index,:search,:show,:edit,:create,:update]
       allow :home,[:index]
       allow :schools,[:index,:new,:create,:show,:edit,:update]
       allow :teachers,[:index,:new,:create,:show,:edit,:update]
       allow :curriculums,[:index,:show]
-      allow :learning_plans,[:new,:teachers,:create,:index]
+      allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
       allow :courses,[:show]
 
       allow :sessions,[:destroy]

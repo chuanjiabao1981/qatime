@@ -1,0 +1,30 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2>信息编辑</h2>
+  </div>
+</div>
+
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <%= simple_form_for(@student)  do |f| %>
+
+        <div class="form-inputs">
+          <%= f.input :name, :required => true,:hint => "填写真实姓名。" ,disabled: true%>
+          <%= f.input :email, :required => true, :autofocus => true,:hint=>"邮箱用于登录和密码找回。" ,disabled: true%>
+          <% %w[x y w h].each do |attribute| %>
+              <%= f.hidden_field "crop_#{attribute}"%>
+          <% end %>
+          <%= f.input :avatar,input_html:{onchange:"showimagepreview(this)"} ,:hint => "如果不想更改头像，则别填此项"%>
+          <img id="user_avatar_preview" style="width: 240px;height: 240px">
+
+          </img>
+          <%= f.input :password, :autocomplete => "off",:hint => "如果不想修改密码，则别填写此项!"%>
+          <%= f.input :password_confirmation %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.submit '更 新', class: "btn btn-default" %>
+        </div>
+    <% end %>
+  </div>
+</div>

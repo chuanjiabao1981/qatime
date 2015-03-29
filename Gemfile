@@ -36,6 +36,7 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
@@ -83,6 +84,8 @@ gem 'responders', '~> 2.0'
 # 状态机
 gem 'state_machine'
 
+# 翻页css
+gem 'will_paginate-bootstrap'
 
 group :development,:test do
   # 状态机做图

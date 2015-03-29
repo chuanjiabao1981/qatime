@@ -5,7 +5,7 @@
         <strong><%= @student.name %></strong>
     </span>
     <div class="pull-right">
-      <%=link_to edit_students_registration_path(@student) do %>
+      <%=link_to edit_student_path(@student) do %>
           <button type="button" class="btn btn-xs btn-success">编辑信息</button>
       <% end %>
     </div>
@@ -19,7 +19,7 @@
   <div class="qa_cell">
     <div class="row">
       <div class="col-md-2" style="padding-left:40px">金币</div>
-      <div class="col-md-2"><%= current_user.account.money %> ¥</div>
+      <div class="col-md-2"><%= @student.account.money %> ¥</div>
       <div class="col-md-1">
         <%=link_to "#" do %>
             <!--button type="button" class="btn btn-xs btn-success">充值</button-->
@@ -32,6 +32,10 @@
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
+<div class="qa_box box_header qa_cell">
+  <%= link_to "定制"+LearningPlan.model_name.human ,new_learning_plan_path(student_id: @student.id) %>
+</div>
+<div class="qa_box">
 
-<%=debug @student.learning_plans %>
-<%= render partial:'learning_plans/learning_plan',collection:@student.learning_plans %>
+  <%= render partial:'learning_plans/learning_plan',collection:@student.learning_plans %>
+</div>

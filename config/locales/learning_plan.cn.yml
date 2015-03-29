@@ -1,0 +1,11 @@
+cn:
+  activerecord:
+    models:
+      learning_plan: 个人学习计划
+    attributes:
+      learning_plan:
+        vip_class: 定制课程
+        teacher: 专属讲师
+        duration_type: 课程周期
+        price: 价格
+        student: 学生

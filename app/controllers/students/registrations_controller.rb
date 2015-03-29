@@ -3,7 +3,8 @@ class Students::RegistrationsController < ApplicationController
   before_filter 'already_signin' ,only: [:new]
 
   def show
-    @groups = @student.groups
+    #this not use any more
+    #all move to student::show
   end
   def new
     @student = Student.new
@@ -20,18 +21,23 @@ class Students::RegistrationsController < ApplicationController
     end
   end
   def edit
+    #this not use any more
+    #all move to student::edit
   end
   def update
-    if @student.update_attributes(params[:student].permit!)
-      redirect_to students_registration_path(@student)
-    else
-      render 'edit'
-    end
+    #this not use any more
+    #all move to student::update
+
+    #if @student.update_attributes(params[:student].permit!)
+    #  redirect_to students_registration_path(@student)
+    #else
+    #  render 'edit'
+    #end
   end
   protected
-    def current_resource
+  def current_resource
       @student = Student.find(current_user.id) if current_user
-    end
+  end
   def already_signin
     if current_user
       flash[:warning] = "已登录！"

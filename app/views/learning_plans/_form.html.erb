@@ -7,17 +7,22 @@
 <div class="qa_box qa_cell">
   <%=simple_form_for @learning_plan do |f| %>
       <!--learning_plan未开放给学生前用这个-->
-      <%= f.association :student ,collection: Student.where(id: @student.id), include_blank:false%>
+      <%= f.association :student ,collection: [@learning_plan.student], include_blank:false%>
       <%= f.association :vip_class, include_blank: false,
                         collection:VipClass.all.map{|vip_class| ["#{vip_class.category}-#{vip_class.subject}",vip_class.id]},
-                        input_html: {data:{remote:true,:url => url_for(:controller => "learning_plans", :action => "teachers")}}
+                        input_html: {data:{remote:true,
+                                            :url => url_for(:controller => "learning_plans",
+                                                            :action => "teachers",
+                                                            id:@learning_plan.id)}
+                        }
       %>
-      <%= f.input :duration_type, include_blank:false,
+      <%= f.input :duration_type, include_blank:false, disabled: !f.object.new_record?,
                   collection: APP_CONSTANT["learning_plan"]["duration_types"].map {|k,v| [k+"价格【#{v["price"]}】",k]}
       %>
-      <label class="check_boxes required control-label"><abbr title="required">*</abbr> 讲师</label>
+      <label class="check_boxes required control-label"><abbr title="required">*</abbr> 专属讲师</label>
       <div id="the_teacher_of_learning_plan">
-        <%= f.association :teachers ,collection: @teachers.map {|t| ["【#{t.school.name}】#{t.name}", t.id]},
+        <%= f.association :teachers ,
+                          collection: Teacher.by_vip_class(@learning_plan.vip_class).map {|t| ["【#{t.school.name}】#{t.name}", t.id]},
                           as: :check_boxes,label:false,
                           item_wrapper_tag: :div, item_wrapper_class:"col-md-4"
         %>

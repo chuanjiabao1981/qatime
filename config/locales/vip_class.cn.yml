@@ -1,0 +1,6 @@
+cn:
+  activerecord:
+    models:
+      vip_class: 专属课堂
+    attributes:
+      vip_class:

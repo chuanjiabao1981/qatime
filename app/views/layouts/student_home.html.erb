@@ -21,6 +21,11 @@
     <div class='col-md-2'>
       <ul class="menu" style="color: white">
         <li>
+          <%= link_to questions_path do %>
+            <span class="fa fa-university"></span> <span class="qa_f18"><%= VipClass.model_name.human %></span> Vip
+          <% end %>
+        </li>
+        <li>
           <%= link_to students_registration_path(current_user) do %>
               <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 信息</span> Info
           <% end %>

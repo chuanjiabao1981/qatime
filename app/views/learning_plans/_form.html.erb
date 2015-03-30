@@ -4,7 +4,12 @@
         margin-top:-5px;
     }
 </style>
-<div class="qa_box qa_cell">
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%= LearningPlan.model_name.human %></h2>
+
+  </div>
+  <div class="qa_big_cell">
   <%=simple_form_for @learning_plan do |f| %>
       <!--learning_plan未开放给学生前用这个-->
       <%= f.association :student ,collection: [@learning_plan.student], include_blank:false%>
@@ -34,4 +39,5 @@
       <%= f.button :submit,class: "btn btn-default" %>
 
   <% end %>
+  </div>
 </div>

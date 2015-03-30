@@ -29,8 +29,15 @@ class ApplicationController < ActionController::Base
     if current_permission.allow?(params[:controller], params[:action], current_resource)
       current_permission.permit_params! params
     else
-      flash[:warning] = "未授权的访问!"
-      redirect_to user_home_path
+      flash[:warning] = "您没有权限进行这个操作!"
+      logger.info("====================")
+      logger.info(request.referer)
+      logger.info("====================")
+      if request.referer
+        redirect_to(request.referer)
+      else
+        redirect_to user_home_path
+      end
     end
   end
 

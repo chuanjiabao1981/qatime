@@ -33,7 +33,7 @@
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
 <div class="qa_box box_header qa_cell">
-  <%= link_to "定制"+LearningPlan.model_name.human ,new_learning_plan_path(student_id: @student.id) %>
+  <%= link_to get_edit_or_create_model_string(LearningPlan.new) ,new_learning_plan_path(student_id: @student.id) %>
 </div>
 <div class="qa_box">
 

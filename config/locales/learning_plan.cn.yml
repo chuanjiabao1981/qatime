@@ -4,8 +4,9 @@ cn:
       learning_plan: 个人学习计划
     attributes:
       learning_plan:
-        vip_class: 定制课程
+        vip_class: 专属课堂
         teacher: 专属讲师
         duration_type: 课程周期
         price: 价格
         student: 学生
+        created_at: 创建时间

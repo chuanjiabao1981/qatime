@@ -1,13 +1,17 @@
 <% if learning_plan_counter == 0 %>
     <div class="row qa_cell" style="font-weight: bold">
+    <div class="col-md-2">
+        <%= LearningPlan.human_attribute_name(:vip_class) %>
+    </div>
     <div class="col-md-1">
       <%= LearningPlan.human_attribute_name(:student) %>
     </div>
-    <div class="col-md-2">
-      <%= LearningPlan.human_attribute_name(:vip_class) %>
-    </div>
+
     <div class="col-md-3">
       <%= LearningPlan.human_attribute_name(:duration_type) %>
+    </div>
+    <div class="col-md-2">
+      <%= LearningPlan.human_attribute_name(:created_at) %>
     </div>
     <div class="col-md-1">
       <%= LearningPlan.human_attribute_name(:price) %>
@@ -18,16 +22,29 @@
     </div>
 <% end %>
 <div class="row qa_cell">
-  <div class="col-md-1">
-    <%= learning_plan.student.name %>
-  </div>
+
   <div class="col-md-2">
     <%= link_to "#{learning_plan.vip_class.category}#{learning_plan.vip_class.subject}", vip_class_path(learning_plan.vip_class)%>
+    <% if allow? "learning_plans","edit", learning_plan %>
+        <%= link_to edit_learning_plan_path(learning_plan) do %>
+            <span class="qa_f12"><i class="fa fa-edit">编辑</i></span>
+        <% end %>
+    <% end %>
+  </div>
+  <div class="col-md-1">
+    <%= learning_plan.student.name %>
   </div>
   <div class="col-md-3">
     <%= learning_plan.begin_at.to_date %> ~
     <%= learning_plan.end_at.to_date %>
-
+    <% if learning_plan.expired? %>
+        <span class="qa_f12 label label-default">过期</span>
+    <% else %>
+        <span class="qa_f12 label label-success">有效</span>
+    <% end %>
+  </div>
+  <div class="col-md-2">
+    <%= learning_plan.created_at.to_date %>
   </div>
   <div class="col-md-1">
     <%= learning_plan.price %>

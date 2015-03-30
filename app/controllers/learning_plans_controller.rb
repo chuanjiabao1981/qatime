@@ -13,7 +13,8 @@ class LearningPlansController < ApplicationController
     @student       = Student.find(params[:learning_plan][:student_id])
     @learning_plan = @student.learning_plans.build(params[:learning_plan].permit!)
     if @learning_plan.save
-      redirect_to learning_plans_path
+      flash[:success] = "成功创建#{LearningPlan.model_name.human}"
+      redirect_to student_path(@student)
     else
       render 'new'
     end
@@ -26,7 +27,7 @@ class LearningPlansController < ApplicationController
   def update
     @learning_plan = LearningPlan.find(params[:id])
     if @learning_plan.update_attributes(params[:learning_plan].permit!)
-      redirect_to learning_plans_path
+      redirect_to student_path(@learning_plan.student)
     else
       render 'edit'
     end

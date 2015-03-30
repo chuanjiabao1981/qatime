@@ -28,7 +28,7 @@
         <div class="qa_new_header">
           <i class="fa fa-university fa-2x"></i>
           <%=link_to questions_path do %>
-              <span class="qa_f16">VIP课程</span>
+              <span class="qa_f16"><%= VipClass.model_name.human%></span>
           <% end %>
         </div>
         <div style="text-align: center;">

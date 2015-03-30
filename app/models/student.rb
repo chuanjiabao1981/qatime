@@ -10,8 +10,8 @@ class Student < User
 
   has_many :questions
 
-  has_many :learning_plans
-  has_many :valid_learning_plans , ->{where("? between :begin_at AND :end_at", Time.now) },class_name: 'LearningPlan'
+  has_many :learning_plans ,-> { order 'created_at desc' }
+  has_many :valid_learning_plans , ->{where("? between begin_at AND end_at", Time.zone.now.to_date) },class_name: 'LearningPlan'
 
   def initialize(attributes = {})
     super(attributes)

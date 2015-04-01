@@ -9,6 +9,7 @@ class LearningPlan < ActiveRecord::Base
 
   has_many :teachers ,through: :learning_plan_assignments
   has_many :learning_plan_assignments
+  has_many :questions
 
 
   def expired?

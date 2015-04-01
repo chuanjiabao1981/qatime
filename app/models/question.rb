@@ -1,11 +1,17 @@
 class Question < ActiveRecord::Base
   belongs_to :student
+  belongs_to :learning_plan
   belongs_to :vip_class,counter_cache: true
   has_many :answers
   scope :by_vip_class,lambda {|v| where(vip_class_id: v) if v}
 
   validates :title, length:{minimum: 10,maximum: 200}
   validates :content, length: { minimum: 20 }
+  validates_presence_of :student,:vip_class,:learning_plan
+
+  def initialize(atrributes={})
+    super(atrributes)
+  end
 
   def build_a_answer(teacher_id,attributes={})
     a                 = self.answers.build(attributes)

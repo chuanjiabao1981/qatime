@@ -225,10 +225,11 @@ ActiveRecord::Schema.define(version: 20150326225027) do
     t.text     "content"
     t.string   "token"
     t.integer  "student_id"
-    t.integer  "answers_count", default: 0
+    t.integer  "answers_count",    default: 0
     t.integer  "vip_class_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.integer  "learning_plan_id"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   create_table "recharge_codes", force: :cascade do |t|

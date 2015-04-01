@@ -14,4 +14,7 @@
   <div class="qa_question">
     <%= render @questions %>
   </div>
+  <div class="qa_cell">
+    <%= will_paginate @questions,renderer: BootstrapPagination::Rails %>
+  </div>
 </div>

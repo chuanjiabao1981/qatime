@@ -10,7 +10,7 @@
           </h1>
         </div>
         <div class="qa_info">
-          <%=link_to "#{@question.vip_class.category}#{@question.vip_class.subject}", questions_path%> •
+          <%=link_to "#{@question.vip_class.category}#{@question.vip_class.subject}", vip_class_path(@question.vip_class)%> •
                      <%= @question.student.name %> •
                     发布于<%= time_ago_in_words(@question.created_at) %>前
         </div>
@@ -34,7 +34,16 @@
           <h4><%= @question.answers_count%> 个回答</h4>
         </div>
       </div>
-        <%= render @question.answers %>
+        <% if allow? "questions","new",@question.vip_class or allow? "questions","update",@question %>
+            <%= render @question.answers %>
+        <% else %>
+          <div class="qa_box">
+          <div class="qa_sep_15"></div>
+          <div style="text-align: center;">
+            您没权限查看解答。
+          </div>
+          </div>
+        <% end %>
     </div>
     <% if allow? "answers","create", @question %>
      <div class="qa_answer">

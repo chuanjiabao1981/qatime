@@ -15,7 +15,8 @@
     </div>
 
   </div>
-  <% if @questions.size == 0 %>
+  <!--%= debug @questions %-->
+  <% if @questions.length == 0  %>
       <div style="text-align: center;">
         <div class="qa_sep_15"></div>
         还没有问题！
@@ -28,7 +29,10 @@
   <div class="qa_question">
     <%=render @questions %>
   </div>
-  <% end %>
+  <div class="qa_cell">
+        <%= will_paginate @questions,renderer: BootstrapPagination::Rails %>
+  </div>
+<% end %>
 
 
 </div>

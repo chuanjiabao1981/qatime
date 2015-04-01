@@ -3,7 +3,7 @@ class QuestionsController < ApplicationController
   layout  "vip"
   respond_to :html
   def index
-    @questions = Question.all
+    @questions = Question.all.order("created_at desc").paginate(page: params[:page],:per_page => 2)
   end
 
   def new
@@ -31,7 +31,13 @@ class QuestionsController < ApplicationController
 
   private
   def current_resource
-    @question  = Question.find(params[:id]) if params[:id]
+    if params[:id]
+      @question  = Question.find(params[:id]) if params[:id]
+    elsif params[:question] and params[:question][:vip_class_id] and not params[:question][:vip_class_id].empty?
+      @vip_class = VipClass.find(params[:question][:vip_class_id])
+    else
+      "dummy"
+    end
   end
 
 end

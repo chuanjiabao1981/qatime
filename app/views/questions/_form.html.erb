@@ -284,11 +284,12 @@
   <%= simple_form_for @question do |f|%>
       <div class="row">
         <%= f.association :vip_class,
-                    include_blank: false,
+                    include_blank: true,
                     collection:APP_CONSTANT["vip_class_ids"].map{|k,v| [k,v.to_a]},
                     :as => :grouped_select,
                     :group_method => :last,
-                    wrapper_html: { class: 'col-md-2' }%>
+                    wrapper_html: { class: 'col-md-2' }
+        %>
         <%= f.input :title ,wrapper_html: { class: 'col-md-10',style:"padding-right:0px" }%>
       </div>
       <%= f.input :token, as: :hidden %>

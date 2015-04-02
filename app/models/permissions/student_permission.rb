@@ -21,7 +21,7 @@ module Permissions
         #通过validate 阻止一个没有vip_class的question
         if vip_class == "dummy"
           next true
-        elsif user.valid_vip_class_learning_plans.any?
+        elsif user.select_a_valid_learning_plan(vip_class)
           next true
         end
         next false

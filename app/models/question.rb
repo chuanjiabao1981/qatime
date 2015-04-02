@@ -11,6 +11,9 @@ class Question < ActiveRecord::Base
 
   def initialize(atrributes={})
     super(atrributes)
+    if self.vip_class and self.student
+      self.learning_plan = self.student.select_a_valid_learning_plan(self.vip_class)
+    end
   end
 
   def build_a_answer(teacher_id,attributes={})

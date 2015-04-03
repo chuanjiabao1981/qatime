@@ -228,9 +228,12 @@ ActiveRecord::Schema.define(version: 20150326225027) do
     t.integer  "answers_count",    default: 0
     t.integer  "vip_class_id"
     t.integer  "learning_plan_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.jsonb    "infos",            default: {}, null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
+
+  add_index "questions", ["infos"], name: "index_questions_on_infos", using: :gin
 
   create_table "recharge_codes", force: :cascade do |t|
     t.integer  "money",                    default: 500

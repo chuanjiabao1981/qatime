@@ -3,7 +3,8 @@ class QuestionsController < ApplicationController
   layout  "vip"
   respond_to :html
   def index
-    @questions = Question.all.order("created_at desc").paginate(page: params[:page],:per_page => 2)
+    @questions = Question.all.includes({learning_plan: :teachers},:vip_class,:student).order("created_at desc").paginate(page: params[:page],:per_page => 10)
+
   end
 
   def new
@@ -14,7 +15,7 @@ class QuestionsController < ApplicationController
 
   def create
     @question = current_user.questions.build(params[:question].permit!)
-    @question.save
+    flash[:success] = "成功创建#{Question.model_name.human}"  if @question.save
     respond_with @question
   end
 

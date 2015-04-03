@@ -13,6 +13,7 @@ class Question < ActiveRecord::Base
     super(atrributes)
     if self.vip_class and self.student
       self.learning_plan = self.student.select_a_valid_learning_plan(self.vip_class)
+      self.infos         = {teachers: self.learning_plan.teacher_ids}
     end
   end
 

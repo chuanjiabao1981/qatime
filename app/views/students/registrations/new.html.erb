@@ -20,10 +20,11 @@
           </img>
           <%= f.input :password, :autocomplete => "off",:hint => "密码最少为6个字符。"%>
           <%= f.input :password_confirmation %>
+          <%= f.input :register_code_value %>
         </div>
 
         <div class="form-actions">
-          <%= f.submit '注 册', class: "btn btn-default" %>
+          <%= f.submit '注册', class: "btn btn-default" %>
         </div>
     <% end %>
   </div>

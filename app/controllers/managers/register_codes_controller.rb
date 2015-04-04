@@ -10,7 +10,7 @@ class Managers::RegisterCodesController < ApplicationController
   end
 
   def create
-    @register_code = RegisterCode.new(params[:register_code].permit!)
+    @register_code = RegisterCode.new
     @register_code.make_value
     @register_code.save
     redirect_to managers_register_codes_path

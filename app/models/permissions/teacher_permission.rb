@@ -19,6 +19,7 @@ module Permissions
       allow :answers,[:edit,:update] do |answer|
         answer and answer.teacher_id == user.id
       end
+      allow :vip_classes,[:show]
 
       allow "teachers/curriculums",[:edit_courses_position,:update] do |curriculum|
         curriculum and curriculum.teacher_id == user.id

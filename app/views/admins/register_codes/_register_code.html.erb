@@ -5,15 +5,13 @@
   <div class="col-md-3">
     <%= link_to register_code.value  %>
   </div>
-  <div class="col-md-4">
-   <%= register_code.school.try(:name) %>
-  </div>
+
   <div class="col-md-2">
     <%=
         register_code.get_state_human_name
     %>
   </div>
   <div class="col-md-2">
-    <%= register_code.teacher.try(:name) %>
+    <%= register_code.user.try(:name) %>
   </div>
 </div>

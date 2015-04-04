@@ -16,6 +16,7 @@
             <!--li class="<%= "active" if controller_name == 'home' %>"><%=link_to '管理',root_path %></li-->
         <% else %>
             <li><%= link_to "教师注册", new_teachers_registration_path %></li>
+            <li><%= link_to "学生注册", new_students_registration_path %></li>
         <% end %>
 
       </ul>

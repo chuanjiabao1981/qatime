@@ -32,6 +32,6 @@ class Teachers::RegistrationsController < ApplicationController
 
   protected
   def current_resource
-    @teacher = Teacher.find(current_user.id) if current_user
+    @teacher = Teacher.find_by_id(current_user.id) if current_user
   end
 end

@@ -25,11 +25,17 @@
     <div class="col-md-3">
       <div class="qa_box">
         <div class="qa_cell">
+          <i class="fa fa-university fa"></i>
+          <%=link_to questions_path do %>
+              <span><%= VipClass.model_name.human%></span>
+          <% end %>
+        </div>
+        <div class="qa_cell">
           <div class="qa_student">
               <%= image_tag current_user.avatar.normal %>
               <span style="padding-left: 10px"><%= link_to current_user.name ,'#' %></span>
-            </div>
           </div>
+        </div>
           <div>
             <div style="width:50%;float:left;border-right: 1px solid #e2e2e2">
               <div class="qa_cell">
@@ -40,16 +46,18 @@
             </div>
             <div style="width:50%;float:left">
               <div class="qa_cell">
-                  <%=link_to '#' do %>
+                  <%=link_to user_questions_path do %>
                     <i class="fa fa-flag"></i> 我的问题
-              <% end %>
+                  <% end %>
               </div>
             </div>
             <div style="clear: both"></div>
           </div>
-        </div>
 
-      </div>
+        </div>
+       </div>
+
+    </div>
       <!--div class="qa_box">
       <div class="qa_question">
         <div class="qa_new_header">

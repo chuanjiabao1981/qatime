@@ -2,7 +2,7 @@
   <div class="qa_big_cell">
     <div>
       <h2><%=RegisterCode.model_name.human%>列表
-        <%=link_to new_managers_register_code_path do %>
+        <%=link_to managers_register_codes_path,:method=> :post do %>
             <button type="button" class="btn btn-xs btn-success"><%="增加#{RegisterCode.model_name.human}" %></button>
         <% end %>
       </h2>
@@ -13,7 +13,7 @@
   <div>
     <%= render partial: "admins/register_codes/register_code_header" %>
     <%= render partial: "admins/register_codes/register_code" , collection: @register_codes %>
-    <%= will_paginate @register_codes %>
+    <%= will_paginate @register_codes ,renderer: BootstrapPagination::Rails %>
 
   </div>
 </div>

@@ -30,6 +30,12 @@ class QuestionsController < ApplicationController
     @answer = @question.build_a_answer(nil,{})
   end
 
+
+  def student
+    @questions = Question.all.where("student_id=?",current_user.id).
+                              includes({learning_plan: :teachers},:vip_class,:student).
+                              order("created_at desc").paginate(page: params[:page],:per_page => 10)
+  end
   private
   def current_resource
     if params[:id]

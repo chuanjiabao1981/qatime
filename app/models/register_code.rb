@@ -1,9 +1,6 @@
 class RegisterCode < ActiveRecord::Base
 
-  belongs_to :teacher
-  belongs_to :school
-
-  validates_presence_of :school
+  belongs_to :user
 
   def make_value
     self.value = rand(10).to_s +
@@ -23,9 +20,9 @@ class RegisterCode < ActiveRecord::Base
   end
   # 如果code_value验证成功
   # expired = true  则使得此code_value.state = expired
-  def self.verification(code_value, school_id,expired=true)
+  def self.verification(code_value, expired=true)
 
-    a = RegisterCode.where("value=? and state=? and teacher_id is NULL and school_id = ?",code_value,"available",school_id).take
+    a = RegisterCode.where("value=? and state=? and user_id is NULL",code_value,"available").take
     if a
       a.state = "expired"
       # TODO: 可以优化加锁

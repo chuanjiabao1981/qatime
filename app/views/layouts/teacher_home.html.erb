@@ -31,7 +31,9 @@
           <% end %>
         </li>
         <li>
-           <span class="glyphicon glyphicon-info-sign"></span><span class="qa_f18"> 消息</span> Message
+          <%= link_to questions_path do %>
+              <span class="fa fa-university"></span> <span class="qa_f18"><%= VipClass.model_name.human %></span> Vip
+          <% end %>
         </li>
 
         <li>

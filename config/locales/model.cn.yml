@@ -37,7 +37,6 @@ cn:
         password_confirmation: 密码确认
         current_password: 当前密码
         desc: 讲师简介
-        register_code_value: 注册码
         accept: 接受服务协议
       school:
         name: 名称
@@ -49,6 +48,7 @@ cn:
       user:
         email: 邮箱
         password: 密码
+        register_code_value: 注册码
       student:
         email: 邮箱
         name: 姓名

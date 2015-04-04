@@ -15,8 +15,9 @@ class Students::RegistrationsController < ApplicationController
     @student.build_account
     if @student.save
       sign_in(@student)
-      redirect_to groups_path
+      redirect_to user_home_path
     else
+      logger.info(@student.errors.full_messages)
       render 'new',layout: 'application'
     end
   end

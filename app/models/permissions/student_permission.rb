@@ -16,7 +16,7 @@ module Permissions
       allow :vip_classes, [:show] do |vip_class|
         vip_class
       end
-      allow :questions,[:index,:show]
+      allow :questions,[:index,:show,:student]
       allow :questions,[:new,:create] do |vip_class|
         #通过validate 阻止一个没有vip_class的question
         if vip_class == "dummy"

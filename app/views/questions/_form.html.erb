@@ -265,7 +265,15 @@
         $('[data-provider="summernote"]').each(function(){
             $(this).summernote(
                     { lang: 'zh-CN',
-                        height: 400
+                      height: 400,
+                        toolbar: [
+                            ['style', ['style']],
+                            ['font', ['bold', 'italic', 'underline', 'clear']],
+                            ['fontname', ['fontname']],
+                            ['color', ['color']],
+                            ['para', ['ul', 'ol', 'paragraph']],
+                            ['insert', [ 'picture', 'hr']],
+                        ],
 
                     }
             );

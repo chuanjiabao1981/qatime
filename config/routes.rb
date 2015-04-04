@@ -90,7 +90,12 @@ Qatime::Application.routes.draw do
 
   resources :schools
   resources :sessions
-  resources :teachers
+  resources :teachers do
+    collection do
+      get 'search'
+    end
+
+  end
   resources :students do
     collection do
       get 'search'
@@ -98,6 +103,10 @@ Qatime::Application.routes.draw do
   end
   resources :questions do
     resources :answers
+    collection do
+      get 'student'
+      get 'teacher'
+    end
   end
   resources :videos
   resources :vip_classes

@@ -8,6 +8,8 @@ class CreateLearningPlans < ActiveRecord::Migration
       t.float         :price
       t.datetime      :begin_at
       t.datetime      :end_at
+      t.integer       :questions_count,default: 0
+      t.integer       :answered_questions_count,default: 0
       t.timestamps    null: false
     end
   end

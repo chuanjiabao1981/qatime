@@ -1,0 +1,51 @@
+<% if learning_plan_counter == 0 %>
+    <div class="row qa_cell" style="font-weight: bold">
+
+      <div class="col-md-1">
+        <%= LearningPlan.human_attribute_name(:student) %>
+      </div>
+      <div class="col-md-2">
+        <%= LearningPlan.human_attribute_name(:end_at) %>
+      </div>
+      <div class="col-md-2">
+        <%= LearningPlan.human_attribute_name(:questions_count) %>
+      </div>
+      <div class="col-md-1">
+        <%= LearningPlan.human_attribute_name(:answered_questions_count) %>
+      </div>
+      <div class="col-md-3">
+        <%= LearningPlanAssignment.human_attribute_name(:answered_questions_count) %>
+      </div>
+    </div>
+<% end %>
+<div class="row qa_cell">
+  <div class="col-md-1">
+    <%= learning_plan.student.name %>
+  </div>
+  <div class="col-md-2">
+    <%= learning_plan.end_at.to_date %>
+    <% if learning_plan.expired? %>
+        <span class="qa_f12 label label-default">过期</span>
+    <% else %>
+        <span class="qa_f12 label label-success">有效</span>
+    <% end %>
+  </div>
+  <div class="col-md-2">
+    <%= learning_plan.questions_count %>
+  </div>
+  <div class="col-md-1">
+    <%= learning_plan.answered_questions_count %>
+  </div>
+  <div class="col-md-3">
+    <%= learning_plan.get_the_teacher_assignment(@teacher.id).answered_questions_count%>
+  </div>
+  <div class="col-md-2">
+    <%= link_to '查看全部问题',teacher_questions_path(learning_plan_id: learning_plan.id) %>
+  </div>
+</div>
+
+<div>
+  <div>
+
+  </div>
+</div>

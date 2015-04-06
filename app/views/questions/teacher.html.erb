@@ -1,0 +1,16 @@
+<div class="qa_box">
+  <div class="qa_vip_class">
+    <div class="qa_nav">
+      <span style="color: #999;">全部问题</span>
+    </div>
+  </div>
+</div>
+
+<div class="qa_box">
+  <div class="qa_question">
+    <%= render @questions %>
+  </div>
+  <div class="qa_cell">
+    <%= will_paginate @questions,renderer: BootstrapPagination::Rails %>
+  </div>
+</div>

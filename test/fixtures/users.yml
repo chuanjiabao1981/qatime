@@ -10,7 +10,6 @@
 #two: {}
 #  column: value
 teacher1:
-  id: 1
   name: teacher1
   role: teacher
   category: 高中
@@ -18,4 +17,22 @@ teacher1:
   email: 1@baidu.com
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   avatar: "test"
-  school_id: 1
+  school: school1
+
+teacher2:
+  name: teacher2
+  role: teacher
+  category: 高中
+  subject: 数学
+  email: 2@baidu.com
+  avatar: "test"
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  school: school1
+
+student1:
+  name: student1
+  role: student
+  email: student1@baidu.com
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+

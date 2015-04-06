@@ -1026,12 +1026,17 @@
      * @return {Boolean}
      */
     var isVisiblePoint = function (point) {
+
       if (isText(point.node) || !hasChildren(point.node) || isEmpty(point.node)) {
         return true;
       }
 
       var leftNode = point.node.childNodes[point.offset - 1];
       var rightNode = point.node.childNodes[point.offset];
+
+      if (!leftNode || /^IFRAME$/.test(leftNode.nodeName.toUpperCase())){
+          return true;
+      }
       if ((!leftNode || isVoid(leftNode)) && (!rightNode || isVoid(rightNode))) {
         return true;
       }
@@ -1639,10 +1644,8 @@
           }
           return point;
         };
-
         var startPoint = getVisiblePoint(this.getStartPoint());
         var endPoint = getVisiblePoint(this.getEndPoint());
-
         return new WrappedRange(
           startPoint.node,
           startPoint.offset,
@@ -1876,7 +1879,8 @@
         }
 
         if (dom.isParaInline(sc) || dom.isPara(sc)) {
-          return this.normalize();
+
+            return this.normalize();
         }
 
         // find inline top ancestor
@@ -2758,10 +2762,10 @@
       var nextPara;
       // on paragraph: split paragraph
       if (splitRoot) {
-        nextPara = dom.splitTree(splitRoot, rng.getStartPoint());
+          nextPara = dom.splitTree(splitRoot, rng.getStartPoint());
 
         var emptyAnchors = dom.listDescendant(splitRoot, dom.isEmptyAnchor);
-        emptyAnchors = emptyAnchors.concat(dom.listDescendant(nextPara, dom.isEmptyAnchor));
+          emptyAnchors = emptyAnchors.concat(dom.listDescendant(nextPara, dom.isEmptyAnchor));
 
         $.each(emptyAnchors, function (idx, anchor) {
           dom.remove(anchor);

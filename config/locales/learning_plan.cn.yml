@@ -10,3 +10,6 @@ cn:
         price: 价格
         student: 学生
         created_at: 创建时间
+        end_at: 截至日期
+        questions_count: 问题个数
+        answered_questions_count: 已解决

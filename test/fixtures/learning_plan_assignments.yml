@@ -1,0 +1,8 @@
+h_math_assignment1:
+  teacher_id: <%= ActiveRecord::FixtureSet.identify(:teacher1) %>
+  learning_plan_id: <%= ActiveRecord::FixtureSet.identify(:h_math_learning_plan) %>
+  answered_questions_count: 0
+h_math_assignment2:
+  teacher_id: <%= ActiveRecord::FixtureSet.identify(:teacher2) %>
+  learning_plan_id: <%= ActiveRecord::FixtureSet.identify(:h_math_learning_plan) %>
+  answered_questions_count: 0

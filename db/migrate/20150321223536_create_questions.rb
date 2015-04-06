@@ -8,9 +8,11 @@ class CreateQuestions < ActiveRecord::Migration
       t.integer :answers_count,default: 0
       t.integer :vip_class_id
       t.integer :learning_plan_id
-      t.jsonb   :infos, null:false, default: '{}'
+      t.jsonb   :answers_info, null:false, default: '{}'
+      t.jsonb   :last_answer_info, null:false,default: '{}'
       t.timestamps null: false
     end
-    add_index :questions,:infos, using: :gin
+    add_index :questions,:answers_info, using: :gin
+    add_index :questions,:last_answer_info, using: :gin
   end
 end

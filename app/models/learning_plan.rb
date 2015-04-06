@@ -12,6 +12,10 @@ class LearningPlan < ActiveRecord::Base
   has_many :questions
 
 
+
+  def get_the_teacher_assignment(teacher_id)
+    self.learning_plan_assignments.find{|a| a.teacher_id == teacher_id}
+  end
   def expired?
     return false if self.begin_at <= Time.zone.now and Time.zone.now <= self.end_at
     true
@@ -26,4 +30,16 @@ class LearningPlan < ActiveRecord::Base
     end
   end
 
+  def update_answered_questions_count(question)
+    # 如果question是第一次被解决，那么增加answered_questions_count
+    if question.is_first_answered?
+      self.class.where("id=#{self.id}").update_all("answered_questions_count = answered_questions_count + 1")
+    end
+    self.learning_plan_assignments.each do |assignment|
+      assignment.update_answered_questions_count(question)
+    end
+  end
+
 end
+
+

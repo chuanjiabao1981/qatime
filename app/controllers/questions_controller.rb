@@ -36,6 +36,12 @@ class QuestionsController < ApplicationController
                               includes({learning_plan: :teachers},:vip_class,:student).
                               order("created_at desc").paginate(page: params[:page],:per_page => 10)
   end
+  def teacher
+    @questions = Question.all.by_learning_plan(params[:learning_plan_id])
+                        .by_teacher(params[:teacher_id])
+                        .includes({learning_plan: :teachers},:vip_class,:student)
+                        .order("created_at desc").paginate(page: params[:page],:per_page => 10)
+  end
   private
   def current_resource
     if params[:id]

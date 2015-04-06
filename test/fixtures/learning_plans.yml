@@ -1,0 +1,7 @@
+h_math_learning_plan:
+  vip_class: h_math_vip_class
+  student: student1
+  duration_type: 一周
+  begin_at: <%= Time.zone.now.to_date %>
+  end_at: <%= Time.zone.now.to_date + eval(APP_CONSTANT["learning_plan"]["duration_types"]["一周"]["time"])%>
+  price: <%=APP_CONSTANT["learning_plan"]["duration_types"]["一周"]["price"] %>

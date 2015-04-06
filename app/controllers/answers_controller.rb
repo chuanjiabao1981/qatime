@@ -1,5 +1,6 @@
 class AnswersController < ApplicationController
 
+  layout 'vip'
   def create
     @answer = @question.build_a_answer(current_user.id, params[:answer].permit!)
     if @answer.save

@@ -1,0 +1,7 @@
+cn:
+  activerecord:
+    models:
+      learning_plan_assignment: 安排
+    attributes:
+      learning_plan_assignment:
+        answered_questions_count: 我解决问题个数

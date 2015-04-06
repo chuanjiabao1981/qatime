@@ -36,47 +36,35 @@
               <span style="padding-left: 10px"><%= link_to current_user.name ,'#' %></span>
           </div>
         </div>
-          <div>
-            <div style="width:50%;float:left;border-right: 1px solid #e2e2e2">
-              <div class="qa_cell">
-                <%=link_to new_question_path  do %>
-                  <i class="fa fa-pencil"></i> 我要提问
+          <% if current_user.student? %>
+              <div>
+                <div style="width:50%;float:left;border-right: 1px solid #e2e2e2">
+                  <div class="qa_cell">
+                    <%=link_to new_question_path  do %>
+                      <i class="fa fa-pencil"></i> 我要提问
+                    <% end %>
+                  </div>
+                </div>
+                <div style="width:50%;float:left">
+                  <div class="qa_cell">
+                      <%=link_to user_questions_path do %>
+                        <i class="fa fa-flag"></i> 我的问题
+                      <% end %>
+                  </div>
+                </div>
+                <div style="clear: both"></div>
+              </div>
+              </div>
+          <% elsif current_user.teacher? %>
+             <div class="qa_cell">
+                <%= link_to teacher_questions_path(teacher_id: current_user) do %>
+                   <i class="fa fa-magic"></i> 我负责的全部问题
                 <% end %>
-              </div>
-            </div>
-            <div style="width:50%;float:left">
-              <div class="qa_cell">
-                  <%=link_to user_questions_path do %>
-                    <i class="fa fa-flag"></i> 我的问题
-                  <% end %>
-              </div>
-            </div>
-            <div style="clear: both"></div>
-          </div>
+             </div>
+          <% end %>
 
-        </div>
        </div>
-
     </div>
-      <!--div class="qa_box">
-      <div class="qa_question">
-        <div class="qa_new_header">
-          <i class="fa fa-university fa"></i>
-          <%=link_to questions_path do %>
-              <span><%= VipClass.model_name.human%></span>
-          <% end %>
-        </div>
-        <div style="text-align: center;">
-          <div class="qa_sep_15"></div>
-          <%=link_to new_question_path , class:"btn btn-default btn-big" do %>
-              <i class="fa fa-pencil"></i> 提问
-          <% end %>
-          <div class="qa_sep_15"></div>
-        </div>
-
-
-      </div>
-      </div-->
     </div>
   </div>
 </div>

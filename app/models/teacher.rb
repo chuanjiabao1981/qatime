@@ -7,6 +7,7 @@ class Teacher < User
   has_many :curriculums
   has_many :courses
 
+  has_many :answers
   has_many :learning_plans,:through => :learning_plan_assignments
   has_many :learning_plan_assignments
 

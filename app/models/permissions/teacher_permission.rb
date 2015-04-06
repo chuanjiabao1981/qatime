@@ -11,7 +11,7 @@ module Permissions
       allow :groups,[:index,:show]
       # end
 
-      allow :questions,[:index,:show]
+      allow :questions,[:index,:show,:teacher]
       allow :questions,[:show]
       allow :answers,[:create] do |question|
         question != nil
@@ -41,6 +41,8 @@ module Permissions
       end
 
       allow "teachers/lessons",[:state]
+
+      allow "videos",[:create,:show]
 
       allow "teachers/videos",[:create]
       allow "teachers/videos",[:update] do |video|

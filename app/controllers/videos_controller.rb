@@ -15,6 +15,10 @@ class VideosController < ApplicationController
     @video.update_attributes(params[:video].permit!)
     respond_with @video
   end
+
+  def show
+    render layout: nil
+  end
   protected
   def current_resource
     @video = Video.find(params[:id]) if params[:id]

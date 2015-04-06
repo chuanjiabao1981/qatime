@@ -3,8 +3,17 @@
         $('[data-provider="summernote"]').each(function(){
             $(this).summernote(
                     { lang: 'zh-CN',
-                        height: 400
-
+                        height: 400,
+                        toolbar: [
+                            ['style', ['style']],
+                            ['font', ['bold', 'italic', 'underline', 'clear']],
+                            ['fontname', ['fontname']],
+                            ['color', ['color']],
+                            ['para', ['ul', 'ol', 'paragraph']],
+                            ['insert', [ 'picture', 'hr']],
+                            ['group',['video']]
+//                            ['view', ['fullscreen', 'codeview']]
+                        ]
                     }
             );
         })
@@ -15,6 +24,8 @@
     <h4>
       撰写讲解
     </h4>
+    <%= content_tag 'div', id:'qa_answer_params',data:{token:@answer.question.token} do %>
+    <% end %>
     <%=simple_form_for [@answer.question,@answer] do |f| %>
         <%= f.input :content, label: false,:input_html => { :data => {:provider => :summernote} }%>
         <%= f.submit "提交讲解", class:"btn btn-success" %>

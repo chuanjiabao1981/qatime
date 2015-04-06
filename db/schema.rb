@@ -158,9 +158,12 @@ ActiveRecord::Schema.define(version: 20150403230006) do
   create_table "learning_plan_assignments", force: :cascade do |t|
     t.integer  "learning_plan_id"
     t.integer  "teacher_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "answered_questions_count", default: 0
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
+
+  add_index "learning_plan_assignments", ["learning_plan_id", "teacher_id"], name: "unique_teacher", unique: true, using: :btree
 
   create_table "learning_plans", force: :cascade do |t|
     t.string   "duration_type"
@@ -170,8 +173,10 @@ ActiveRecord::Schema.define(version: 20150403230006) do
     t.float    "price"
     t.datetime "begin_at"
     t.datetime "end_at"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "questions_count",          default: 0
+    t.integer  "answered_questions_count", default: 0
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
   end
 
   create_table "lessons", force: :cascade do |t|
@@ -228,12 +233,14 @@ ActiveRecord::Schema.define(version: 20150403230006) do
     t.integer  "answers_count",    default: 0
     t.integer  "vip_class_id"
     t.integer  "learning_plan_id"
-    t.jsonb    "infos",            default: {}, null: false
+    t.jsonb    "answers_info",     default: {}, null: false
+    t.jsonb    "last_answer_info", default: {}, null: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
   end
 
-  add_index "questions", ["infos"], name: "index_questions_on_infos", using: :gin
+  add_index "questions", ["answers_info"], name: "index_questions_on_answers_info", using: :gin
+  add_index "questions", ["last_answer_info"], name: "index_questions_on_last_answer_info", using: :gin
 
   create_table "recharge_codes", force: :cascade do |t|
     t.integer  "money",                    default: 500

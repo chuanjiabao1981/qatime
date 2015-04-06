@@ -2,6 +2,12 @@
   <div class="author_avatar">
     <%=image_tag question.student.avatar.normal.url %>
   </div>
+  <div class="qa_status">
+    <% if question.last_answer_info.empty? %>
+        <i class="fa fa-question fa-2x"></i>
+    <% end %>
+
+  </div>
   <div class="qa_title">
     <%=link_to question.title , question_path(question)%>
   </div>
@@ -10,11 +16,15 @@
     <%=link_to "#{question.vip_class.category}#{question.vip_class.subject}",
                questions_path ,class: "qa_node"%> •
     <%= question.student.name %> • 发布于<%= time_ago_in_words(question.created_at) %>前
+
+
     <div class="qa_teacher">
-        <% question.learning_plan.teachers.each do |teacher| %>
-            <%=image_tag teacher.avatar.tiny.url,class:"img-circle" %>  <%= teacher.name %>
-        <% end %>
-        • 负责讲解
+      <% if not question.last_answer_info.empty? %>
+          <%=image_tag question.learning_plan.get_the_teacher(question.last_answer_info["teacher_id"]).avatar.tiny.url,class:"img-circle" %>
+
+          <%= question.last_answer_info["teacher_name"] %>于<%=time_ago_in_words(question.last_answer_info["answered_at"])%>前提供了一个解答
+      <% end %>
+
     </div>
 
   </div>

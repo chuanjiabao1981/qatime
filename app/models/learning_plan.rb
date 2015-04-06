@@ -16,6 +16,10 @@ class LearningPlan < ActiveRecord::Base
   def get_the_teacher_assignment(teacher_id)
     self.learning_plan_assignments.find{|a| a.teacher_id == teacher_id}
   end
+
+  def get_the_teacher(teacher_id)
+    self.teachers.find{|t| t.id == teacher_id}
+  end
   def expired?
     return false if self.begin_at <= Time.zone.now and Time.zone.now <= self.end_at
     true

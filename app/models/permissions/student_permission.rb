@@ -12,11 +12,12 @@ module Permissions
       allow :videos,[:create]
       allow "students/faqs", [:index, :show]
       allow "students/faq_topics", [:show]
+      allow :teaching_videos,[:show]
 
       allow :vip_classes, [:show] do |vip_class|
         vip_class
       end
-      allow :questions,[:index,:show,:student]
+      allow :questions,[:index,:student]
       allow :questions,[:new,:create] do |vip_class|
         #通过validate 阻止一个没有vip_class的question
         if vip_class == "dummy"
@@ -28,6 +29,11 @@ module Permissions
       end
       allow :questions,[:edit,:update] do |question|
         question and question.student_id == user.id
+      end
+
+      allow :questions,[:show] do |question|
+        #问题的owner或者有valid的learning_plan
+        question and (question.student_id == user.id or  user.select_a_valid_learning_plan(question.vip_class))
       end
 
 

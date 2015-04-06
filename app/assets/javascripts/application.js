@@ -17,7 +17,7 @@
 //= require summernote
 //= require summernote-zh-CN
 //= require jquery.form
-//= require videojs/video
+//= require video-js
 // require jwplayer/jwplayer
 // require jwplayer/jwpsrv_frq
 // require jwplayer/jwpsrv

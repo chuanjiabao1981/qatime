@@ -38,11 +38,16 @@
           <% end %>
         </li>
         <li>
+          <%= link_to questions_path do %>
+              <span class="fa fa-university"></span> <span class="qa_f18"><%= VipClass.model_name.human %></span> Vip
+          <% end %>
+        </li>
+        <li>
           <%= link_to managers_register_codes_path do %>
               <span class="glyphicon glyphicon-question-sign"></span>
               <span class="qa_f18">
                 <%= RegisterCode.model_name.human%>
-              </span>
+              </span> Code
           <% end %>
         </li>
         <li>

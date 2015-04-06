@@ -293,8 +293,8 @@
   <%= simple_form_for @question do |f|%>
       <div class="row">
         <%= f.association :vip_class,
-                    include_blank: true,
-                    collection:APP_CONSTANT["vip_class_ids"].map{|k,v| [k,v.to_a]},
+                    include_blank: false,
+                    collection:current_user.valid_learning_plans.map{|l| [l.vip_class.subject,l.vip_class.id,l.vip_class.category]}.group_by{|k| k[2]},
                     :as => :grouped_select,
                     :group_method => :last,
                     wrapper_html: { class: 'col-md-2' }

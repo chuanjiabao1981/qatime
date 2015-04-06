@@ -7,7 +7,8 @@ module Permissions
       allow "managers/home",[:main]
 
       allow :vip_classes,[:show]
-      allow :questions,[:index,:show]
+      allow :questions,[:index,:show,:student,:teacher]
+      allow :teaching_videos,[:show]
       allow :students,[:index,:search,:show,:edit,:create,:update]
       allow :home,[:index]
       allow :schools,[:index,:new,:create,:show,:edit,:update]

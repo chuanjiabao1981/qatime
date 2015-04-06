@@ -25,11 +25,7 @@
 
     <h4>
       撰写讲解
-      <div style="float:right;font-size:12px">
-        <% @answer.question.learning_plan.teachers.each do |teacher| %>
-            <%=image_tag teacher.avatar.tiny.url,class:"img-circle" %><%= teacher.name %>
-        <% end %> • 负责讲解
-      </div>
+
     </h4>
 
     <%= content_tag 'div', id:'qa_answer_params',data:{token:@answer.question.token} do %>

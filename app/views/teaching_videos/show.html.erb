@@ -1,0 +1,13 @@
+<script type="text/javascript">
+  $( function(){
+    videojs.options.flash.swf = "/assets/flash/video-js.swf"
+  })
+</script>
+
+
+<video id="example_video_1" class="video-js vjs-default-skin vjs-big-play-centered"
+       controls preload="auto" width="640" height="360"
+       >
+<source src="<%= @teaching_video.name.url %>" type='video/mp4' />
+
+</video>

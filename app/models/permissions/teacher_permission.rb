@@ -14,7 +14,7 @@ module Permissions
       allow :questions,[:index,:show,:teacher]
       allow :questions,[:show]
       allow :answers,[:create] do |question|
-        question != nil
+        question != nil and question.answers_info.keys.find{|teacher_id|  teacher_id.to_i == user.id}
       end
       allow :answers,[:edit,:update] do |answer|
         answer and answer.teacher_id == user.id
@@ -43,6 +43,8 @@ module Permissions
       allow "teachers/lessons",[:state]
 
       allow "videos",[:create,:show]
+
+      allow "teaching_videos",[:create,:show]
 
       allow "teachers/videos",[:create]
       allow "teachers/videos",[:update] do |video|

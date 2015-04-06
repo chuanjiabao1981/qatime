@@ -1,36 +1,6 @@
 <%= render 'shared/teacher' %>
 
-<div class="qa_sep_15"></div>
-<div class="qa_sep_15"></div>
 
-<div class="qa_box">
-    <ul class="nav nav-tabs" role="tablist" id="myTab">
-      <li role="presentation" class="active">
-        <a href="#vip_class" aria-controls="vip_class" role="tab" data-toggle="tab"><%=VipClass.model_name.human%></a>
-      </li>
-      <li role="presentation">
-        <a href="#Curriculum" aria-controls="Curriculum" role="tab" data-toggle="tab"><%=Curriculum.model_name.human%></a>
-      </li>
-    </ul>
-
-    <div class="tab-content">
-      <div role="tabpanel" class="tab-pane active" id="vip_class">
-        <div class="qa_box">
-          <%= render partial:'learning_plan',collection:@teacher.learning_plans %>
-        </div>
-      </div>
-      <div role="tabpanel" class="tab-pane" id="Curriculum">
-        <div class="row groups">
-          <%= render partial:'curriculums/curriculum',collection:@curriculums %>
-        </div>
-      </div>
-</div>
-</div>
-<script>
-    $(function () {
-        $('#myTab a:first').tab('show')
-    })
-</script>
 
 
 

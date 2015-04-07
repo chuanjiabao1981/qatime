@@ -5,7 +5,7 @@ class Question < ActiveRecord::Base
   belongs_to :learning_plan, counter_cache:true
   belongs_to :vip_class,counter_cache: true
   has_many :answers
-  scope :by_vip_class,lambda {|v| where(vip_class_id: v) if v}
+  has_many :pictures,as: :imageable
 
   validates :title, length:{minimum: 10,maximum: 200}
   validates :content, length: { minimum: 20 }
@@ -13,6 +13,10 @@ class Question < ActiveRecord::Base
 
   scope :by_learning_plan, lambda {|learning_plan_id| where('learning_plan_id = ?', learning_plan_id) if learning_plan_id}
   scope :by_teacher,lambda{|teacher_id| where("answers_info ? :teacher_id",{teacher_id: teacher_id}) if teacher_id}
+  scope :by_vip_class,lambda {|v| where(vip_class_id: v) if v}
+
+
+  after_save :update_picture_info
 
   def initialize(atrributes={})
     super(atrributes)
@@ -60,5 +64,9 @@ class Question < ActiveRecord::Base
       random_token = SecureRandom.urlsafe_base64
       break random_token if Question.where(token: random_token).size == 0
     end
+  end
+private
+  def update_picture_info
+    Picture.update_imageable_info(self)
   end
 end

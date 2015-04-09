@@ -1,5 +1,5 @@
 
-<%= content_tag 'div', id:'qa_question_params',data:{token: @question.token,picture_type: "Question"} do %>
+<%= content_tag 'div', id:'qa_picture_params',data:{token: @question.token,picture_type: "Question"} do %>
 
 <% end %>
 
@@ -18,11 +18,11 @@
       </div>
 
       <%= f.input :token, as: :hidden %>
-      <div class="progress" id="progress">
-        <div class="progress-bar" id="progress-bar" role="progressbar" >
+      <div class="progress" id="picture-progress">
+        <div class="progress-bar" id="picutre-progress-bar" role="progressbar" >
         </div>
       </div>
-      <%= f.input :content ,:input_html => { :data => {:provider => "summernote-question"} } %>
+      <%= f.input :content ,:input_html => { :data => {:provider => "summernote"} } %>
       <%= f.submit class:"btn btn-default"%>
   <% end %>
 </div>

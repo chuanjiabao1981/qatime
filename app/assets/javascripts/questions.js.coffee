@@ -22,24 +22,44 @@ sumitPicture = (token,pictureType,pictureFile)->
 
   deferredPictureUpload.promise()
 
-$(document).ready ->
-  $('[data-provider="summernote-question"]').each ->
-    $progress     = $('.progress');
-    $progress_bar = $('.progress-bar');
+getToolbar = ->
+  user = $('div#toolbar-parms').data('user')
+  if user == 'teacher'
+    return [['style', ['style']],
+    ['font', ['bold', 'italic', 'underline', 'clear']],
+    ['fontname', ['fontname']],
+    ['color', ['color']],
+    ['para', ['ul', 'ol', 'paragraph']],
+    ['insert', [ 'picture', 'hr']],
+    ['group',['video']]]
+  return [
+      ['style', ['style']],
+      ['font', ['bold', 'italic', 'underline', 'clear']],
+      ['fontname', ['fontname']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['insert', [ 'picture', 'hr']],
+    ]
 
+$(document).ready ->
+  $('[data-provider="summernote"]').each ->
+    $progress     = $('div#picture-progress');
+    $progress_bar = $('div#picture-progress-bar');
+    $progress.hide()
     $(this).summernote
-      lang: 'zh-CN',
+      lang: 'zh-CN'
       height: 400
       onImageUpload: (files, editor, welEditable) ->
-        sumitPicture($('div#qa_question_params').data('token'),
-                     $('div#qa_question_params').data('picture-type'),
+        $progress.show()
+        sumitPicture($('div#qa_picture_params').data('token'),
+                     $('div#qa_picture_params').data('picture-type'),
                      files[0]).done((url)->
           editor.insertImage(welEditable, url);
         ).progress((percent)->
-          $progress.show()
           $progress_bar.css({width: percent})
           $progress_bar.text(percent)
           if percent == '100%'
             $progress_bar.text("图像上传完毕")
             $progress.hide('slow')
         )
+      toolbar: getToolbar()

@@ -1,24 +1,3 @@
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('[data-provider="summernote"]').each(function(){
-            $(this).summernote(
-                    { lang: 'zh-CN',
-                        height: 400,
-                        toolbar: [
-                            ['style', ['style']],
-                            ['font', ['bold', 'italic', 'underline', 'clear']],
-                            ['fontname', ['fontname']],
-                            ['color', ['color']],
-                            ['para', ['ul', 'ol', 'paragraph']],
-                            ['insert', [ 'picture', 'hr']],
-                            ['group',['video']]
-//                            ['view', ['fullscreen', 'codeview']]
-                        ]
-                    }
-            );
-        })
-    });
-</script>
 <div class="qa_answer">
 
   <div class="qa_input">
@@ -30,7 +9,16 @@
 
     <%= content_tag 'div', id:'qa_answer_params',data:{token:@answer.question.token} do %>
     <% end %>
+    <%= content_tag 'div', id:'toolbar-parms',data:{user:current_user.role} do%>
+    <% end %>
+    <%= content_tag 'div', id:'qa_picture_params',data:{token: @answer.token,picture_type: "Answer"} do %>
+
+    <% end %>
     <%=simple_form_for [@answer.question,@answer] do |f| %>
+        <div class="progress" id="picture-progress">
+          <div class="progress-bar" id="picutre-progress-bar" role="progressbar" >
+          </div>
+        </div>
         <%= f.input :content, label: false,:input_html => { :data => {:provider => :summernote} }%>
         <%= f.submit "提交讲解", class:"btn btn-success" %>
     <% end %>

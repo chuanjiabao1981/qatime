@@ -5,11 +5,10 @@
         <h1>答疑时间</h1>
         <p style="color: #07141e">“答疑时间” 致力于把优质的本地教育资源提供给学生。</p>
         <div class="qa_sep_15"></div>
-      <div class="pull-left" style="margin-right: 40px">
-        <%= link_to '注 册',new_students_registration_path,class:"btn btn-primary " %>
-      </div>
       <div class="pull-left" style="margin-right: 20px ">
-        <%=link_to '登 录',signin_path ,class:'btn btn-primary' %>
+        <%=link_to signin_path ,class:'btn btn-primary'  do %>
+            <i class="fa fa-sign-in fa-lg"></i> 登 录</a>
+      <% end %>
       </div>
 
     </div>

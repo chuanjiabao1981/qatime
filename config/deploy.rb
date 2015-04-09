@@ -37,7 +37,8 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 set :default_env, { rvm_bin_path: '~/.rvm/bin' }
 
-set :unicorn_config_path, "/home/#{fetch(:deploy_user)}/apps/qatime/current/config/unicorn.rb"
+# 注意这里要用lambda 延迟获取deploy_user的时间
+set :unicorn_config_path,-> {"/home/#{fetch(:deploy_user)}/apps/qatime/current/config/unicorn.rb"}
 
 SSHKit.config.command_map[:rake]  = "#{fetch(:default_env)[:rvm_bin_path]}/rvm ruby-#{fetch(:rvm_ruby_version)} do bundle exec rake"
 set :pty, true

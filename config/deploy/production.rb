@@ -1,3 +1,7 @@
+
+server '182.92.149.46', user: 'deploy', roles: %w{web app db}, primary: true
+
+
 set :branch, 'qatime-0.1.0'
 
 set :deploy_user, 'deploy'
@@ -20,8 +24,8 @@ set :rails_env, :production
 # number of unicorn workers, this will be reflected in
 # the unicorn.rb and the monit configs
 set :unicorn_worker_count, 5
-set(:unicorn_env) { rails_env }
-
+set :unicorn_env , :production
+set :unicorn_rack_env,:production
 
 # whether we're using ssl or not, used for building nginx
 # config file
@@ -43,4 +47,3 @@ set :enable_ssl, false
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server '182.92.149.46', user: 'deploy', roles: %w{web app db}, primary: true

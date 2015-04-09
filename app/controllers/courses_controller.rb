@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
   respond_to :html
+  layout "application"
   def index
     @courses = Course.all.order(updated_at: :desc)
   end

@@ -7,7 +7,7 @@ set :deploy_to, "/home/#{fetch(:deploy_user)}/apps/qatime"
 
 ###### for bundler
 #设置这个使得bundler 把gem安装在相应的gemset下
-set :bundle_path, nil
+#set :bundle_path, nil
 ###### end bundler
 
 
@@ -15,9 +15,13 @@ set :bundle_path, nil
 # stage name.
 set :rails_env, :production
 
+
+
 # number of unicorn workers, this will be reflected in
 # the unicorn.rb and the monit configs
 set :unicorn_worker_count, 5
+set(:unicorn_env) { rails_env }
+
 
 # whether we're using ssl or not, used for building nginx
 # config file

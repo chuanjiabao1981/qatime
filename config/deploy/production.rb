@@ -1,9 +1,15 @@
-set :branch, 'master'
+set :branch, 'qatime-0.1.0'
 
 set :deploy_user, 'deploy'
-set :rvm_ruby_version, 'ruby-2.1.2@qatime'
+set :rvm_ruby_version, 'ruby-2.2.1@qatime'
 
 set :deploy_to, "/home/#{fetch(:deploy_user)}/apps/qatime"
+
+###### for bundler
+#设置这个使得bundler 把gem安装在相应的gemset下
+set :bundle_path, nil
+###### end bundler
+
 
 # dont try and infer something as important as environment from
 # stage name.

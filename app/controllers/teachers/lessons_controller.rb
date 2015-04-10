@@ -1,5 +1,7 @@
 class Teachers::LessonsController < ApplicationController
   respond_to :html
+  layout "application"
+
   def new
     @lesson = @course.build_lesson
   end

@@ -1,5 +1,6 @@
 class Teachers::CoursesController < ApplicationController
   respond_to :html
+  layout "application"
   def new
     @course           = @curriculum.build_course
   end

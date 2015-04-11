@@ -24,10 +24,21 @@ class LearningPlan < ActiveRecord::Base
     return false if self.begin_at <= Time.zone.now and Time.zone.now <= self.end_at
     true
   end
+  def not_started?
+    return true if Time.zone.now < self.begin_at
+  end
   def initialize(attributes = {})
     super(attributes)
     self.vip_class_id = 1 if not self.vip_class_id
-    self.begin_at   = Time.zone.now.to_date
+    #选择一个最晚结束的plan
+    a                 = self.student.select_last_valid_learning_plan(self.vip_class_id) if self.student
+    if a
+      #如果选取到了那么就从这个结束开始继续
+      self.begin_at   = a.end_at + 1.day
+    else
+      #如果没有就从当前开始
+      self.begin_at   = Time.zone.now.to_date
+    end
     if self.duration_type
       self.end_at     = self.begin_at + eval(APP_CONSTANT["learning_plan"]["duration_types"][self.duration_type]["time"])
       self.price      = APP_CONSTANT["learning_plan"]["duration_types"][self.duration_type]["price"]

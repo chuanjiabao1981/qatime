@@ -60,12 +60,12 @@ vip_class_icons:
 
 learning_plan:
   duration_types:
-    一周:
-      price: 250
-      time: 1.week
+    半个月:
+      price: 400
+      time: 2.week
     一个月:
-      price: 800
+      price: 900
       time: 1.month
     三个月:
-      price: 2200
+      price: 2500
       time: 3.month

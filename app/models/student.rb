@@ -11,8 +11,10 @@ class Student < User
   has_many :questions
 
   has_many :learning_plans ,-> { order 'created_at desc' }
-  has_many :valid_learning_plans , ->{where("? between begin_at AND end_at", Time.zone.now.to_date).order(:begin_at) },class_name: 'LearningPlan'
+  has_many :valid_learning_plans , ->{where("? between begin_at AND end_at", Time.zone.now.to_date) },class_name: 'LearningPlan'
 
+
+  scope :latest_end_at ,lambda { |s| order('end_at desc').where("vip_class_id = ?",s) }
 
   def initialize(attributes = {})
     super(attributes)
@@ -20,7 +22,11 @@ class Student < User
   end
 
   def select_first_valid_learning_plan(vip_class)
-    self.valid_learning_plans.find{|x| x.vip_class_id == vip_class.id}
+    self.valid_learning_plans.order(:begin_at).find{|x| x.vip_class_id == vip_class.id}
+  end
+
+  def select_last_valid_learning_plan(vip_class_id)
+    self.valid_learning_plans.order('end_at desc').where("vip_class_id=?",vip_class_id).first
   end
 
   def purchase_course(course_id)

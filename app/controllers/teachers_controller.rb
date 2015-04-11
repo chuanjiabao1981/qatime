@@ -17,6 +17,8 @@ class TeachersController < ApplicationController
 
   def show
     @teacher = Teacher.find(params[:id])
+    @curriculums = @teacher.find_or_create_curriculums
+
   end
 
   def edit

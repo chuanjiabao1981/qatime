@@ -1,0 +1,202 @@
+-
+  name: 七年级上
+  subject: 数学
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 有理数
+      - 整式的加减
+      - 一元一次方程
+      - 图形认识初步
+-
+  name: 七年级下
+  subject: 数学
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 相交线与平行线
+      - 实数
+      - 平面直角坐标系
+      - 二元一次方程组
+      - 不等式与不等式组
+      - 数据的收集、整理与描述
+-
+  name: 八年级上
+  subject: 数学
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 三角形
+      - 全等三角形
+      - 轴对称
+      - 整式的乘法与因式分解
+      - 分式
+-
+  name: 八年级下
+  subject: 数学
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 二次根式
+      - 勾股定理
+      - 平行四边形
+      - 一次函数
+      - 数据的分析
+-
+  name: 九年级上
+  subject: 数学
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 一元二次方程
+      - 二次函数
+      - 旋转
+      - 圆
+      - 概率初步
+-
+  name: 九年级下
+  subject: 数学
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 反比例函数
+      - 相似
+      - 锐角三角函数
+      - 投影与视图
+-
+  name: 八年级上
+  subject: 物理
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 机械运动
+      - 声现象
+      - 物变态化
+      - 光现象
+      - 透镜及其应用
+      - 质量与密度
+-
+  name: 八年级下
+  subject: 物理
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 力
+      - 运动和力
+      - 压强
+      - 浮力
+      - 功和机械能
+      - 简单机械
+-
+  name: 九年级
+  subject: 物理
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 热和能
+      - 内能的利用
+      - 电流和电路
+      - 电压 电阻
+      - 欧姆定律
+      - 电功率
+      - 生活用电
+      - 电与磁
+      - 信息的传递
+      - 能源与可持续发展
+-
+  name: 九年级上
+  subject: 化学
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 走进化学世界
+      - 我们周围的空气
+      - 物质构成的奥秘
+      - 自然界的水
+      - 化学方程式
+      - 碳和碳的氧化物
+      - 燃料及其利用
+-
+  name: 九年级下
+  subject: 化学
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 金属和金属材料
+      - 溶液
+      - 酸和碱
+      - 盐 化肥
+      - 化学与生活
+-
+  name: 七年级上
+  subject: 生物
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 认识生物
+      - 生物圈是所有生物的家
+      - 观察细胞的结构
+      - 细胞的生活
+      - 细胞怎样产生物体
+      - 没有细胞结构的微小生物病毒
+      - 生物圈中有哪些绿色植物
+      - 被子植物的一生
+      - 绿色植物与生物圈的水循环
+      - 绿色植物是生物圈中有机物的制造者
+      - 绿色植物与生物圈中的碳氧平衡
+      - 爱护植被，绿化祖国
+-
+  name: 七年级下
+  subject: 生物
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 人的由来
+      - 人体的营养
+      - 人体的呼吸
+      - 人体内物质的运输
+      - 人体内废物的排出
+      - 人体生命活动的调节
+      - 人类活动对生物圈的影响
+-
+  name: 八年级上
+  subject: 生物
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 各种环境中动物
+      - 动物的运动和行为
+      - 动物在生物圈中的作用
+      - 分布广泛的细菌和真菌
+      - 细菌和真菌在生物圈中的作用
+      - 根据生物的特征进行分类
+      - 认识生物的多样性
+      - 保护生物的多样性
+-
+  name: 八年级下
+  subject: 生物
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 生物的生殖和发育
+      - 生物的遗传和变异
+      - 生物的进化
+      - 传染病和免疫
+      - 用药和急救
+      - 了解自己 增进健康
+

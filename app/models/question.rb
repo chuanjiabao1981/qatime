@@ -21,7 +21,7 @@ class Question < ActiveRecord::Base
   def initialize(atrributes={})
     super(atrributes)
     if self.vip_class and self.student
-      self.learning_plan = self.student.select_a_valid_learning_plan(self.vip_class)
+      self.learning_plan = self.student.select_first_valid_learning_plan(self.vip_class)
       if self.learning_plan
         self.answers_info         = self.learning_plan.teacher_ids.inject({}){|h,o| h[o.to_s]=false;h}
       end

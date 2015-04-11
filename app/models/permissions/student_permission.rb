@@ -22,7 +22,7 @@ module Permissions
         #通过validate 阻止一个没有vip_class的question
         if vip_class == "dummy"
           next true
-        elsif user.select_a_valid_learning_plan(vip_class)
+        elsif user.select_first_valid_learning_plan(vip_class)
           next true
         end
         next false
@@ -33,7 +33,7 @@ module Permissions
 
       allow :questions,[:show] do |question|
         #问题的owner或者有valid的learning_plan
-        question and (question.student_id == user.id or  user.select_a_valid_learning_plan(question.vip_class))
+        question and (question.student_id == user.id or  user.select_first_valid_learning_plan(question.vip_class))
       end
 
 

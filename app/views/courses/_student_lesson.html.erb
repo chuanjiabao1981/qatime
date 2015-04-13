@@ -1,9 +1,9 @@
 <% if @lesson %>
-    <% if not current_user.courses.include?(@course) %>
-        <%=render 'courses/student_not_in_course_lesson', :locals => { :lesson => @lesson } %>
-    <% else %>
+    <!--% if not current_user.courses.include?(@course) %-->
+        <!--%=render 'courses/student_not_in_course_lesson', :locals => { :lesson => @lesson } %-->
+    <!--% else %-->
         <%=render 'courses/student_in_course_lesson', :locals => { :lesson => @lesson } %>
-    <% end %>
+    <!--% end %-->
 <% end %>
 
 <%=render 'courses/preview_finish', :locals => { :lesson => @lesson } %>

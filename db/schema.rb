@@ -415,12 +415,4 @@ ActiveRecord::Schema.define(version: 20150406091838) do
     t.datetime "updated_at",      null: false
   end
 
-  create_table "vipclasses", force: :cascade do |t|
-    t.string   "category"
-    t.string   "subject"
-    t.integer  "questions_count"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
-  end
-
 end

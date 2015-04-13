@@ -10,7 +10,31 @@ function video_preview_load() {
     video_load()
 }
 
-function video_load(video_width, video_height) {
+function video_load(video_width,video_height)
+{
+    video_width = arguments[0] ? arguments[0] : 810;
+    video_height = arguments[1] ? arguments[1] : 375;
+
+    var player = videojs('qa_video_player', {
+                                        "controls": true,
+                                        "autoplay": false,
+                                        "preload": "auto",
+                                        "width": 810,
+                                        "height": 375
+
+                                    }, function() {
+        console.log('Good to go!');
+
+//        this.play(); // if you don't trust autoplay for some reason
+
+        // How about an event listener?
+        this.on('ended', function() {
+            console.log('awww...over so soon?');
+        });
+    });
+}
+
+function video_load_jwplayer(video_width, video_height) {
     video_width = arguments[0] ? arguments[0] : 810;
     video_height = arguments[1] ? arguments[1] : 375;
 

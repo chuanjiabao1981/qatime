@@ -33,6 +33,7 @@ class ApplicationController < ActionController::Base
       logger.info("====================")
       logger.info(request.referer)
       logger.info(cookies)
+      logger.info(current_user.name)
 
       if current_user
         logger.info(current_user.name)

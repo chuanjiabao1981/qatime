@@ -32,6 +32,10 @@ class ApplicationController < ActionController::Base
       flash[:warning] = "您没有权限进行这个操作!"
       logger.info("====================")
       logger.info(request.referer)
+      if current_user
+        logger.info(current_user.name)
+        logger.info(cookies)
+      end
       logger.info("====================")
       if request.referer
         redirect_to(request.referer)

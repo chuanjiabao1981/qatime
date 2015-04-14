@@ -1,4 +1,6 @@
 class TeachingVideosController < ApplicationController
+
+  after_action :allow_qatime_iframe,only: :show
   respond_to :json,:js
   def create
     @teaching_video = TeachingVideo.new(params[:teaching_video].permit!)
@@ -17,5 +19,9 @@ class TeachingVideosController < ApplicationController
   protected
   def current_resource
     @teaching_video = TeachingVideo.find(params[:id]) if params[:id]
+  end
+
+  def allow_qatime_iframe
+    response.headers['X-Frame-Options'] = 'ALLOW-FROM http://qatime.cn/'
   end
 end

@@ -1,5 +1,7 @@
 # 设定 GEM_HOME
-GEM_HOME = "/home/deploy/.rvm/gems/ruby-2.2.1@qatime"
+#GEM_HOME = "/home/deploy/.rvm/gems/ruby-2.2.1@qatime"
+# 不需要GEM_HOME的设定，因为unicorn命令都是通过bundle 执行所有的gemset都已经保证了
+# rvm 2.2.1@qatime do bundle exec unicorn -c ..........
 
 # 获取当前项目路径
 require 'pathname'

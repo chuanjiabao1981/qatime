@@ -10,12 +10,10 @@ function video_preview_load() {
     video_load()
 }
 
-function video_load(video_width,video_height)
+function video_load(player_id)
 {
-    video_width = arguments[0] ? arguments[0] : 810;
-    video_height = arguments[1] ? arguments[1] : 375;
 
-    var player = videojs('qa_video_player', {
+    var player = videojs(player_id, {
                                         "controls": true,
                                         "autoplay": false,
                                         "preload": "auto",
@@ -99,6 +97,8 @@ function video_load_jwplayer(video_width, video_height) {
 $(
     function video_init()
     {
-        video_load();
+        if ($('video#qa_video_player').size() !=0){
+            video_load("qa_video_player");
+        }
     }
 );

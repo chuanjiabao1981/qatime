@@ -1,4 +1,2 @@
-$("div#video_show").html('<%= j render partial:'video',locals:{video:@video,use_js:true} %>');
-$(function(){
-    video_load();
-});
+$("div#video_show").html('<%= j render partial:'video',locals:{video:@video,use_js:true } %>');
+video_load(   "<%= @video_player_id %>");

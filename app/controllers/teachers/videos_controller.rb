@@ -1,6 +1,7 @@
 class Teachers::VideosController < ApplicationController
   respond_to :json,:js
   def create
+    @video_player_id = rand(10000)
     @video = Video.new(params[:video].permit!)
     @video.save
 
@@ -12,6 +13,7 @@ class Teachers::VideosController < ApplicationController
   end
 
   def update
+    @video_player_id = rand(10000)
     @video.update_attributes(params[:video].permit!)
     respond_with @video
   end

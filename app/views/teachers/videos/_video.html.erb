@@ -1,7 +1,5 @@
 <% if not video.name.url.nil? %>
-    <!--video id="player" class="rel" style="width:820px;height:385px;border:4px gray dotted"-->
-    <video id="qa_video_player" class="video-js vjs-default-skin"  data-setup="{}">
-
+    <video id="<%= defined?(@video_player_id) ? @video_player_id:"qa_video_player" %>" class="video-js vjs-default-skin" controls preload="none" width="810" height="375"  data-setup="{}">
         <source src="<%= video.name.url %>" id = "video_source" type="video/<%= video.video_type %>" />
     </video>
 <% end %>

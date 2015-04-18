@@ -2,7 +2,7 @@ class Question < ActiveRecord::Base
   include ActiveModel::Dirty
 
   belongs_to :student
-  belongs_to :learning_plan, counter_cache:true
+  belongs_to :learning_plan, counter_cache:true, inverse_of: :questions
   belongs_to :vip_class,counter_cache: true
   has_many :answers
   has_many :pictures,as: :imageable
@@ -24,14 +24,19 @@ class Question < ActiveRecord::Base
   def initialize(atrributes={})
     super(atrributes)
     if self.vip_class and self.student
-      update_learning_plan_and_answers_info(self.vip_class)
+      self.learning_plan = self.student.select_first_valid_learning_plan(vip_class)
+      if self.learning_plan
+        self.answers_info         = self.learning_plan.teacher_ids.inject({}){|h,o| h[o.to_s]=false;h}
+      end
     end
   end
 
   def update_all_infos(params)
     new_vip_class_id = params[:vip_class_id].to_i
     if new_vip_class_id != self.vip_class_id
-      update_learning_plan_and_answers_info(VipClass.find(new_vip_class_id))
+      new_learning_plan         = self.student.select_first_valid_learning_plan(VipClass.find(new_vip_class_id))
+      params[:learning_plan_id] = new_learning_plan.id
+      params[:answers_info]     = new_learning_plan.teacher_ids.inject({}){|h,o| h[o.to_s]=false;h}.to_json
     end
     self.update_attributes(params)
   end
@@ -75,11 +80,8 @@ class Question < ActiveRecord::Base
 private
 
 
-  def update_learning_plan_and_answers_info(vip_class)
-    self.learning_plan = self.student.select_first_valid_learning_plan(vip_class)
-    if self.learning_plan
-      self.answers_info         = self.learning_plan.teacher_ids.inject({}){|h,o| h[o.to_s]=false;h}
-    end
+  def update_answers_info
+
   end
 
   def update_picture_info

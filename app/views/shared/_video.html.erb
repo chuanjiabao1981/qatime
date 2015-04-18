@@ -1,0 +1,3 @@
+<video <%= "id=\"#{video_id}\"" if defined?(video_id) and not video_id.nil?%> class="video-js vjs-default-skin" controls preload="none" width="810" height="375" data-setup="{}">
+  <source src="<%= video_url %>" type="video/<%= video_type%>" />
+</video>

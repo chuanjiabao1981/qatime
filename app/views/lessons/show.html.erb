@@ -3,11 +3,8 @@
     <%= link_to @lesson.course.name,course_path(@lesson.course) ,style: "color:black" %>
   </div>
   <div class="qa_cell">
-    <source src="<%= @lesson.video.name.url %>" id = "video_source" type="<%= @lesson.video.video_type %>" />
-    <video id="player"/>
+    <%= render partial:'shared/video',locals:{video_url: @lesson.video.name.url,video_type: @lesson.video.video_type} %>
 
-
-    </video>
   </div>
   <div class="qa_cell">
     <h4><%=@lesson.name %></h4>

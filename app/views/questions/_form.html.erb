@@ -9,12 +9,13 @@
       <div class="row">
         <%= f.association :vip_class,
                     include_blank: false,
-                    collection:current_user.valid_learning_plans.map{|l| [l.vip_class.subject,l.vip_class.id,l.vip_class.category]}.uniq{|s| s.second}.group_by{|k| k[2]},
+                    collection:@student.valid_learning_plans.map{|l| [l.vip_class.subject,l.vip_class.id,l.vip_class.category]}.uniq{|s| s.second}.group_by{|k| k[2]},
                     :as => :grouped_select,
                     :group_method => :last,
                     wrapper_html: { class: 'col-md-2' }
         %>
-        <%= f.input :title ,wrapper_html: { class: 'col-md-10',style:"padding-right:0px" }%>
+        <%= f.input :title ,hint:"注意：问题要和所选的科目相匹配!",
+                    wrapper_html: { class: 'col-md-10',style:"padding-right:0px" }%>
       </div>
 
       <%= f.input :token, as: :hidden %>

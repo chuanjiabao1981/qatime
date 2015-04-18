@@ -18,16 +18,23 @@ class Question < ActiveRecord::Base
 
   after_save :update_picture_info
 
+
+  before_validation :strip_whitespace
+
   def initialize(atrributes={})
     super(atrributes)
     if self.vip_class and self.student
-      self.learning_plan = self.student.select_first_valid_learning_plan(self.vip_class)
-      if self.learning_plan
-        self.answers_info         = self.learning_plan.teacher_ids.inject({}){|h,o| h[o.to_s]=false;h}
-      end
+      update_learning_plan_and_answers_info(self.vip_class)
     end
   end
 
+  def update_all_infos(params)
+    new_vip_class_id = params[:vip_class_id].to_i
+    if new_vip_class_id != self.vip_class_id
+      update_learning_plan_and_answers_info(VipClass.find(new_vip_class_id))
+    end
+    self.update_attributes(params)
+  end
   def update_answers_info(answer)
     return if answer == nil
     self.answers_info[answer.teacher.id.to_s]   = true
@@ -66,7 +73,20 @@ class Question < ActiveRecord::Base
     end
   end
 private
+
+
+  def update_learning_plan_and_answers_info(vip_class)
+    self.learning_plan = self.student.select_first_valid_learning_plan(vip_class)
+    if self.learning_plan
+      self.answers_info         = self.learning_plan.teacher_ids.inject({}){|h,o| h[o.to_s]=false;h}
+    end
+  end
+
   def update_picture_info
     Picture.update_imageable_info(self)
+  end
+
+  def strip_whitespace
+    self.title = self.title.strip
   end
 end

@@ -8,22 +8,27 @@ class QuestionsController < ApplicationController
   end
 
   def new
+    @student   = current_user
+
     @question = Question.new
     @question.generate_token if @question.token.nil?
 
   end
 
   def create
-    @question = current_user.questions.build(params[:question].permit!)
+    @student    = current_user
+
+    @question   = current_user.questions.build(params[:question].permit!)
     flash[:success] = "成功创建#{Question.model_name.human}"  if @question.save
     respond_with @question
   end
 
   def edit
-
+    @student   = @question.student
   end
   def update
-    @question.update_attributes(params[:question].permit!)
+    @student   = @question.student
+    @question.update_all_infos(params[:question].permit!)
     respond_with @question
   end
   def show

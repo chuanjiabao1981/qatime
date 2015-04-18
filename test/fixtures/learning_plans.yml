@@ -5,3 +5,12 @@ h_math_learning_plan:
   begin_at: <%= Time.zone.now.to_date %>
   end_at: <%= Time.zone.now.to_date + eval(APP_CONSTANT["learning_plan"]["duration_types"]["半个月"]["time"])%>
   price: <%=APP_CONSTANT["learning_plan"]["duration_types"]["半个月"]["price"] %>
+
+h_physics_learning_plan:
+  vip_class: h_physics_vip_class
+  student: student1
+  duration_type: 半个月
+  begin_at: <%= Time.zone.now.to_date %>
+  end_at: <%= Time.zone.now.to_date + eval(APP_CONSTANT["learning_plan"]["duration_types"]["半个月"]["time"])%>
+  price: <%=APP_CONSTANT["learning_plan"]["duration_types"]["半个月"]["price"] %>
+

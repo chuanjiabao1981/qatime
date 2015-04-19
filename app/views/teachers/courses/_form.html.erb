@@ -31,8 +31,8 @@
         <li>
           <%="#{@curriculum.teaching_program.grade} • #{@curriculum.teaching_program.subject} •
                 #{@curriculum.teaching_program.name}"%> 是一门<strong><%=Curriculum.model_name.human%></strong>,
-                <strong><%=Curriculum.model_name.human%></strong>下包含若<strong>章节</strong>(例如这里的"<%= @curriculum.teaching_program.content["chapters"][0]%>")，
-                每个<strong>章节</strong>下都有若干
+                <strong><%=Curriculum.model_name.human%></strong>下包含若<strong>章</strong>(例如这里的"<%= @curriculum.teaching_program.content["chapters"][0]%>")，
+                每个<strong>章</strong>下都有若干
                 <strong><%= Course.model_name.human %> </strong>
         </li>
         <li>

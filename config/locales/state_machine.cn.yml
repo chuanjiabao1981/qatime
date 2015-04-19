@@ -4,7 +4,7 @@ cn:
       lesson:
         states:
           init: 新建
-          editing: 编辑中
+          editing: 未提交审核
           reviewing: 审核中
           published: 已发布
           rejected: 审核未通过

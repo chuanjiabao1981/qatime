@@ -1,15 +1,4 @@
-<script type="text/javascript">
-  $( function(){
-    videojs.options.flash.swf = "/assets/video-js.swf"
-  });
-  $(function(){
-      console.log("test me");
-      video_load();
-  })
-
-</script>
 
 
-<video id="qa_video_player_teaching_video" class="video-js vjs-default-skin" controls preload="none" width="640" height="360" data-setup="{}">
-  <source src="<%= @teaching_video.name.url %>" type='video/mp4' />
-</video>
+
+<%= video_js_player(@teaching_video,width:"640",height:"360") %>

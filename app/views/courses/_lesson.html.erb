@@ -3,8 +3,7 @@
       <div class="qa_cell" style="height: 400px">
         <%if @lesson.video and @lesson.video.name %>
 
-        <%= render partial:'shared/video',locals:{video_url: @lesson.video.name.url,video_type: @lesson.video.video_type} %>
-
+            <%= video_js_player(@lesson.video) %>
         <% else %>
             视频未上传
         <% end %>

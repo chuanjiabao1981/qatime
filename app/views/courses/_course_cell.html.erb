@@ -15,13 +15,13 @@
 
       <div>
         <%= link_to edit_teachers_curriculum_course_path(course.curriculum,course),style:"color:green" do%>
-            编辑讲座
+            编辑<%= Course.model_name.human%>
         <% end %>
       </div>
       <div class="qa_sep_5"></div>
       <div>
         <%= link_to new_teachers_course_lesson_path(course),style:"color:green" do%>
-            增加专题
+            增加<%= Lesson.model_name.human %>
         <% end %>
       </div>
 

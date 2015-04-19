@@ -1,6 +1,6 @@
 class Managers::RegisterCodesController < ApplicationController
   respond_to :html
-  layout "manager_home"
+  #layout "manager_home"
 
   def index
     @register_codes = RegisterCode.all.order(:created_at => "DESC").paginate(page: params[:page],:per_page => 10)

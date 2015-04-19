@@ -12,12 +12,11 @@
     %>
   </div>
   <div class="col-md-2">
-    <%= register_code.user.try(:name) %>
     <% if register_code.user %>
         <% if register_code.user.teacher? %>
-            <%= link_to register_code.user.name, teachers_path(register_code.user.id) %>
+            <%= link_to register_code.user.name, teacher_path(register_code.user.id) %>
         <% elsif register_code.user.student? %>
-            <%= link_to register_code.user.name, students_path(register_code.user.id) %>
+            <%= link_to register_code.user.name, student_path(register_code.user.id) %>
         <% end %>
     <% end %>
   </div>

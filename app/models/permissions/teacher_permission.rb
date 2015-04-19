@@ -1,6 +1,8 @@
 module Permissions
   class TeacherPermission < BasePermission
     def initialize(user)
+      allow :qa_faqs,[:index,:show]
+
       allow :curriculums,[:index,:show]
       allow :home,[:index]
       allow :pictures,[:new,:create]

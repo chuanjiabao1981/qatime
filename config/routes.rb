@@ -16,7 +16,8 @@ Qatime::Application.routes.draw do
   resources :groups
   resources :curriculums
   resources :messages
-  
+  resources :qa_faqs
+
   resources :topics do
     resource :replies
   end

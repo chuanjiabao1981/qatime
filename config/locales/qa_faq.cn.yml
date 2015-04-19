@@ -1,0 +1,13 @@
+cn:
+  activerecord:
+    models:
+      qa_faq: 常见问题
+    attributes:
+      qa_faq:
+        title: 问题
+        content: 内容
+        qa_faq_type: 类型
+        qa_faq_type_enum:
+          common: 通用
+          student: 学生
+          teacher: 老师

@@ -84,8 +84,6 @@ gem 'responders', '~> 2.0'
 # 状态机
 gem 'state_machine'
 
-# 翻页css
-gem 'will_paginate-bootstrap'
 
 group :development,:test do
   # 状态机做图

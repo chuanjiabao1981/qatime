@@ -1,0 +1,17 @@
+<div class="qa_box">
+  <div class="qa_faq">
+    <div class="title">
+        [<%=t("activerecord.attributes.qa_faq.qa_faq_type_enum.#{@qa_faq.qa_faq_type}")%>] <%= @qa_faq.title %>
+    </div>
+    <div class="content">
+      <%= raw @qa_faq.content %>
+    </div>
+    <div class="op">
+        <% if allow? 'qa_faq','edit' %>
+            <%= link_to '编辑' , edit_qa_faq_path(@qa_faq) %>
+        <% end %>
+    </div>
+  </div>
+
+
+</div>

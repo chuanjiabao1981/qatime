@@ -1,6 +1,8 @@
 module Permissions
   class StudentPermission < BasePermission
     def initialize(user)
+      allow :qa_faqs,[:index,:show]
+
       allow :home,[:index]
       allow :curriculums,[:index,:show]
       allow :courses,[:show]

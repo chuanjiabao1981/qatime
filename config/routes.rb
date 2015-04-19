@@ -22,7 +22,6 @@ Qatime::Application.routes.draw do
     resource :replies
   end
   resources :pictures
-  resources :covers
   resources :tutorials
   resources :topics do
     resources :replies

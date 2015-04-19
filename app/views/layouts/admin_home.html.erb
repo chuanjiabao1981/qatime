@@ -56,8 +56,8 @@
         </li>
 
         <li>
-          <%= link_to admins_faqs_path do %>
-            <span class="glyphicon glyphicon-question-sign"></span><span class="qa_f18"> 疑问</span> Faq
+          <%= link_to qa_faqs_path do %>
+            <span class="glyphicon glyphicon-question-sign"></span><span class="qa_f18"> <%= QaFaq.model_name.human %></span> Faq
           <% end %>
         </li>
 

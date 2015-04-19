@@ -25,7 +25,6 @@ class Course < ActiveRecord::Base
 
   #need to be deleted
   belongs_to :group      ,:counter_cache => true,:inverse_of => :courses
-  has_one    :cover     ,:dependent => :destroy
   belongs_to :group_type
   belongs_to :group_catalogue
 

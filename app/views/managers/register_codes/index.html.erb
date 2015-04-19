@@ -11,8 +11,8 @@
 
   </div>
   <div>
-    <%= render partial: "admins/register_codes/register_code_header" %>
-    <%= render partial: "admins/register_codes/register_code" , collection: @register_codes %>
+    <%= render partial: "register_code_header" %>
+    <%= render partial: "register_code" , collection: @register_codes %>
     <%= will_paginate @register_codes ,renderer: BootstrapPagination::Rails %>
 
   </div>

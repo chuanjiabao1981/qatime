@@ -2,12 +2,8 @@
     <div class="qa_box">
       <div class="qa_cell" style="height: 400px">
         <%if @lesson.video and @lesson.video.name %>
-        <video id="qa_video_player" class="video-js vjs-default-skin"  data-setup="{}">
 
-            <source src="<%= @lesson.video.name.url %>" id = "video_source" type="video/<%= @lesson.video.video_type %>" />
-             <!--source src="<%= true %>" id = "buy_status" /-->
-        </video>
-
+            <%= video_js_player(@lesson.video) %>
         <% else %>
             视频未上传
         <% end %>

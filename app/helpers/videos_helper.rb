@@ -1,12 +1,12 @@
 module VideosHelper
-  def video_player *args
-    options = { width: 320,
-                height: 180,
+  def video_js_player(video,*args)
+    options = { width: 810,
+                height: 375,
                 class: 'video-js vjs-default-skin vjs-big-play-centered video-center',
+                data:  {setup:{controls: true}}
                }.merge args.extract_options!
-    src = options.delete(:src) || {}
     content_tag :video, options do
-      raw src.map { |type, url| raw tag(:source, src: url, type: "video/#{type}") }.join('')
+      raw tag(:source, src:video.name.url, type: "video/#{video.video_type}")
     end
   end
 

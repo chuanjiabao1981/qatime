@@ -2,10 +2,10 @@ cn:
   activerecord:
     models:
       group: 班级
-      course: 讲座
+      course: 小节
       teacher: 讲师
       school: 学校
-      lesson: 专题
+      lesson: 课程
       user: 用户
       student: 学生
       topic: 讨论
@@ -20,10 +20,10 @@ cn:
         name: 班级名称
         group_type: 班级类型
       course:
-        name: 名称
-        desc: 描述
+        name: 小节名称
+        desc: 小节描述
         state: 课程状态
-        chapter: 讲座所属章节
+        chapter: 小节所属章
         position: 位置
         group_catalogue: 课程章节
       teacher:
@@ -42,8 +42,8 @@ cn:
         name: 名称
         city: 城市
       lesson:
-        name: 专题名称
-        desc: 专题简介
+        name: 课程名称
+        desc: 课程简介
         state_event: 是否通过审核
       user:
         email: 邮箱

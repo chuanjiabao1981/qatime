@@ -5,7 +5,7 @@
   <div class="qa_vip_class">
     <div class="qa_header">
       <%=link_to questions_path do %>
-        <span class="qa_f16">全部VIP</span> »
+        <span class="qa_f16"><%= VipClass.model_name.human %></span> »
       <% end %>
       <span class="qa_f16"><%= @vip_class.category %><%= @vip_class.subject %></span>
       <i class="<%="#{APP_CONSTANT["vip_class_icons"][@vip_class.subject]["icon"]}"%>"></i>

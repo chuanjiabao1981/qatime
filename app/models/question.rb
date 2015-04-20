@@ -80,10 +80,6 @@ class Question < ActiveRecord::Base
 private
 
 
-  def update_answers_info
-
-  end
-
   def update_picture_info
     Picture.update_imageable_info(self)
   end

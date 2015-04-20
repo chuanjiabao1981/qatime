@@ -26,9 +26,5 @@ module Qatime
     config.active_record.raise_in_transactional_callbacks = true
     config.assets.logger = false
     config.active_support.test_order = :sorted
-    #config.generators do |g|
-    #  g.test_framework :rspec
-    #  g.fixture_replacement :factory_girl, :dir => "spec/factories"
-    #end
   end
 end

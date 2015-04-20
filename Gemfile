@@ -91,13 +91,12 @@ group :development,:test do
   gem 'quiet_assets'
   gem "minitest"
   gem 'test-unit'
-  gem 'rspec-rails', '~> 2.13.2'
-  gem 'factory_girl_rails'
   gem 'capistrano'
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'capistrano-rvm'
   gem 'capistrano3-unicorn'
+  gem 'capybara'
 
 end
 

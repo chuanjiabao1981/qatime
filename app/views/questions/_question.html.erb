@@ -22,7 +22,7 @@
       <% if not question.last_answer_info.empty? %>
           <%=image_tag Teacher.find(question.last_answer_info["teacher_id"].to_i).avatar.tiny.url,class:"img-circle" %>
 
-          <%= question.last_answer_info["teacher_name"] %>老师 于<%=time_ago_in_words(question.last_answer_info["answered_at"])%>给出了解答
+          <%= question.last_answer_info["teacher_name"] %>老师于<%=time_ago_in_words(question.last_answer_info["answered_at"])%>前给出了解答
       <% end %>
 
     </div>

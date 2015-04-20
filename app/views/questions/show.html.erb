@@ -43,7 +43,7 @@
 
       </div>
 
-            <%= render @question.answers %>
+            <%= render @question.answers.order(:created_at) %>
 
     </div>
     <% if allow? "answers","create", @question %>

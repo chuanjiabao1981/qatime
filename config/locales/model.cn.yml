@@ -49,6 +49,7 @@ cn:
         email: 邮箱
         password: 密码
         register_code_value: 注册码
+        mobile: 手机
       student:
         email: 邮箱
         name: 姓名

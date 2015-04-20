@@ -2,8 +2,10 @@
   <div class="qa_big_cell">
     <div>
       <h2><%=QaFaq.model_name.human%>
-        <%=link_to new_qa_faq_path do %>
-            <button type="button" class="btn btn-xs btn-success"><%="增加#{QaFaq.model_name.human}" %></button>
+        <% if allow? 'qa_faqs','new' %>
+            <%=link_to new_qa_faq_path do %>
+                <button type="button" class="btn btn-xs btn-success"><%="增加#{QaFaq.model_name.human}" %></button>
+            <% end %>
         <% end %>
       </h2>
 

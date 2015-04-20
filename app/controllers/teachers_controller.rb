@@ -11,8 +11,16 @@ class TeachersController < ApplicationController
 
   def create
     @teacher = Teacher.new(params[:teacher].permit!)
-    @teacher.save
-    respond_with @teacher
+    if @teacher.save
+      if signed_in?
+        respond_with @teacher
+      else
+        sign_in(@teacher)
+        redirect_to user_home_path
+      end
+    else
+      render 'new',layout: 'application'
+    end
   end
 
   def show

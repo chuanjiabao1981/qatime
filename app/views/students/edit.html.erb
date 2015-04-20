@@ -9,8 +9,9 @@
     <%= simple_form_for(@student)  do |f| %>
 
         <div class="form-inputs">
+          <%= f.input :email, :required => true, :autofocus => true,:hint=>"邮箱用于登录和密码找回。" %>
+          <%= f.input :mobile, :required => true %>
           <%= f.input :name, :required => true,:hint => "填写真实姓名。" ,disabled: true%>
-          <%= f.input :email, :required => true, :autofocus => true,:hint=>"邮箱用于登录和密码找回。" ,disabled: true%>
           <% %w[x y w h].each do |attribute| %>
               <%= f.hidden_field "crop_#{attribute}"%>
           <% end %>

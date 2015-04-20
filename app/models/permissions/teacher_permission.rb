@@ -57,7 +57,7 @@ module Permissions
 
       allow "teachers/home",[:main]
 
-      allow "teachers/registrations",[:edit,:update,:show]
+      allow :teachers,[:edit,:update,:show]
 
       allow :courses,[:show]
       allow :sessions,[:destroy]

@@ -4,11 +4,12 @@
       <div class="col-md-4">
         <h2>
           <%=link_to Student.model_name.human ,students_path%>
-
-          <%=link_to new_admins_teaching_program_path do %>
-              <button type="button" class="btn btn-xs btn-success">
-                增加<%=Student.model_name.human%>
-              </button>
+          <% if allow? :student,:new %>
+              <%=link_to new_student_path do %>
+                  <button type="button" class="btn btn-xs btn-success">
+                    增加<%=Student.model_name.human%>
+                  </button>
+              <% end %>
           <% end %>
         </h2>
 

@@ -8,10 +8,12 @@
   <div class="qa_big_cell">
     <%= simple_form_for(@teacher , :html => { :method => :put }) do |f| %>
         <div class="form-inputs">
-          <%= f.input :name, :required => true %>
-          <%= f.association :school,:collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]} %>
-
-          <%= f.input :email, :required => true, :autofocus => true %>
+          <%= f.input :email  , :required => true, :autofocus => true %>
+          <%= f.input :mobile %>
+          <%= f.input :name, disabled: true,:required => true %>
+          <%= f.association :school,  disabled: true,:collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]} %>
+          <%= f.input :subject,   disabled:true %>
+          <%= f.input :category,  disabled:true %>
           <%= f.input :avatar,input_html:{onchange:"showimagepreview(this)"},:hint => "用户头像不可为空。" %>
           <img id="user_avatar_preview" style="width: 240px;height: 240px">
 

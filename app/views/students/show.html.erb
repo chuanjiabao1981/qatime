@@ -12,6 +12,12 @@
   </div>
   <div class="qa_cell">
     <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:mobile)%></div>
+      <div class="col-md-9"><%= @student.mobile %></div>
+    </div>
+  </div>
+  <div class="qa_cell">
+    <div class="row">
       <div class="col-md-2" style="padding-left:40px">邮件</div>
       <div class="col-md-9"><%= @student.email %></div>
     </div>

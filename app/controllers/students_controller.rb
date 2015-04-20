@@ -1,7 +1,26 @@
 class StudentsController < ApplicationController
+  respond_to :html
+
   def index
     @students = Student.all.paginate(page: params[:page],:per_page => 10)
 
+  end
+  def new
+    @student = Student.new
+  end
+  def create
+    @student = Student.new(params[:student].permit!)
+    @student.build_account
+    if @student.save
+      if signed_in?
+        respond_with @student
+      else
+        sign_in(@student)
+        redirect_to user_home_path
+      end
+    else
+      render 'new'
+    end
   end
   def show
   end

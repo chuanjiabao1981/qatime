@@ -11,13 +11,14 @@
               <button type="button" class="btn btn-xs btn-success">编辑讲师</button>
           <% end %>
       <% end %>
-      <% if current_user.teacher? %>
-          <%=link_to edit_teachers_registration_path(@teacher) do %>
-              <button type="button" class="btn btn-xs btn-success">编辑讲师</button>
-          <% end %>
-      <% end %>
     </div>
 
+  </div>
+  <div class="qa_cell">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:mobile)%></div>
+      <div class="col-md-9"><%= @teacher.mobile %></div>
+    </div>
   </div>
   <div class="qa_cell">
     <div class="row">

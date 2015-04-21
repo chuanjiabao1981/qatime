@@ -26,14 +26,17 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize
+    if current_user
+      logger.info("#{current_user.name} visit #{params[:controller]}:#{params[:action]}")
+    end
     if current_permission.allow?(params[:controller], params[:action], current_resource)
       current_permission.permit_params! params
+
     else
       flash[:warning] = "您没有权限进行这个操作!"
       logger.info("====================")
       logger.info(request.referer)
       logger.info(cookies)
-
       if current_user
         logger.info(current_user.name)
       end

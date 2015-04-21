@@ -14,6 +14,7 @@ teacher1:
   role: teacher
   category: 高中
   subject: 数学
+  mobile: 12345678901
   email: 1@baidu.com
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   avatar: "test"
@@ -24,6 +25,7 @@ teacher2:
   role: teacher
   category: 高中
   subject: 数学
+  mobile: 10987654321
   email: 2@baidu.com
   avatar: "test"
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
@@ -33,6 +35,7 @@ student1:
   name: student1
   role: student
   email: student1@baidu.com
+  mobile: 10000000000
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   avatar: "test"
 
@@ -41,8 +44,25 @@ physics_teacher1:
   role: teacher
   category: 高中
   subject: 物理
+  mobile: 20000000000
   email: physics_teacher1@qatime.cn
   avatar: "test"
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   school: school1
+
+biology_teacher1:
+  name: biology_teacher1
+  role: teacher
+  category: 高中
+  subject: 生物
+  mobile: 30000000000
+  email: biology_teacher1@qatime.cn
+  avatar: "test"
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  school: school1
+
+
+
+
+
 

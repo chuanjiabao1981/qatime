@@ -31,7 +31,7 @@
     <div style="padding-left: 90px;padding-right: 90px">
       <%=link_to course.name ,course_path(course)%>
       <div class="qa_f12" style="color: gray">
-        <span><%= course.chapter %></span> • <span> <%= course.lessons_count%>个专题</span>
+        <span><%= course.chapter %></span> • <span> <%= course.lessons_count%>个<%=Lesson.model_name.human%></span>
       </div>
     </div>
   </div>

@@ -97,6 +97,9 @@ group :development,:test do
   gem 'capistrano-rvm'
   gem 'capistrano3-unicorn'
   gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'headless'
+
 
 end
 

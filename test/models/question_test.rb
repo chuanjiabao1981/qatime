@@ -20,7 +20,6 @@ class QuestionTest < ActiveSupport::TestCase
     question.update_all_infos({vip_class_id: new_vip_class.id})
 
 
-    puts question.answers_info
     assert question.answers_info[users(:physics_teacher1).id.to_s] == false
     assert question.learning_plan.id != old_learning_plan.id
     assert old_learning_plan.reload.questions_count == old_learning_plan_questions_count - 1

@@ -5,3 +5,7 @@ h_math_vip_class:
 h_physics_vip_class:
   category: 高中
   subject: 物理
+
+h_biology_vip_class:
+  category: 高中
+  subject: 生物

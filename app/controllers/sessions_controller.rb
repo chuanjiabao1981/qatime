@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     @user = User.where(email: params[:user][:email]).first
     if @user && @user.authenticate(params[:user][:password])
       sign_in(@user)
-      flash[:info]="欢迎登录!"
+      flash[:info] = "欢迎登录!"
       redirect_to user_home_path
     else
       @user ||= User.new

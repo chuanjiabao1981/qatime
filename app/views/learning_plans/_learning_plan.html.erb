@@ -11,9 +11,7 @@
       <%= LearningPlan.human_attribute_name(:duration_type) %>
     </div>
 
-    <div class="col-md-1">
-      <%= LearningPlan.human_attribute_name(:price) %>
-    </div>
+
     <div class="col-md-3">
       <%= LearningPlan.human_attribute_name(:teacher) %>
     </div>
@@ -44,9 +42,7 @@
     <% end %>
   </div>
 
-  <div class="col-md-1">
-    <%= learning_plan.price %>
-  </div>
+
   <div class="col-md-3">
     <% learning_plan.teachers.each do |teacher| %>
         <span><%= teacher.name %></span>;

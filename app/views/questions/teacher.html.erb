@@ -1,7 +1,9 @@
 <div class="qa_box">
   <div class="qa_vip_class">
     <div class="qa_nav">
-      <span style="color: #999;">全部问题</span>
+      <%= link_to questions_path do %>
+        <span style="color: #999;"><%=VipClass.model_name.human%></span>
+      <% end %>
     </div>
   </div>
 </div>

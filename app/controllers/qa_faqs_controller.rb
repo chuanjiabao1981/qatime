@@ -7,6 +7,7 @@ class QaFaqsController < ApplicationController
 
   def new
     @qa_faq = QaFaq.new
+    @qa_faq.generate_token if @qa_faq.token.nil?
   end
 
   def create
@@ -24,7 +25,8 @@ class QaFaqsController < ApplicationController
   end
 
   def update
-    @qa_faq.update_attributes(params[:qa_fap].permit!)
+    @qa_faq = QaFaq.find(params[:id])
+    @qa_faq.update_attributes(params[:qa_faq].permit!)
     respond_with @qa_faq
   end
 end

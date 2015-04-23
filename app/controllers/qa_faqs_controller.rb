@@ -2,7 +2,7 @@ class QaFaqsController < ApplicationController
   respond_to :html
 
   def index
-    @qa_faqs = QaFaq.all
+    @qa_faqs = QaFaq.all.order(:created_at)
   end
 
   def new

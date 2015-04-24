@@ -56,7 +56,6 @@ Qatime::Application.routes.draw do
   end
 
   namespace :teachers do
-    resources :registrations
     resources :groups do
       resources :courses
     end
@@ -80,7 +79,6 @@ Qatime::Application.routes.draw do
   end
 
   namespace :students do
-    resources :registrations
     resources :recharge_records
     resources :faqs
     resources :faq_topics

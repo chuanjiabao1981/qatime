@@ -24,6 +24,11 @@ class LearningPlansController < ApplicationController
     @learning_plan = LearningPlan.find(params[:id])
   end
 
+  def destroy
+    @learning_plan = LearningPlan.find(params[:id])
+    @learning_plan.destroy
+    redirect_to student_path(@learning_plan.student)
+  end
   def update
     @learning_plan = LearningPlan.find(params[:id])
     if @learning_plan.update_attributes(params[:learning_plan].permit!)

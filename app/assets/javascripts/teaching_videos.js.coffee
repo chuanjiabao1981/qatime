@@ -157,7 +157,7 @@ sumitVideo = (token,videoFile)->
         hide: true
     dialogs: video: (lang) ->
       body = '<div class="form-group row-fluid">' + '<label>' + '视频' + ' <small class="text-muted">' + '视频长度不要超过10分钟' + '</small></label>' +
-      '<input class="note-video-url form-control span12" type="file" />' +
+      '<input class="note-video-url form-control span12" type="file" id="teaching-video-file"/>' +
       '<div class="progress"><div class="progress-bar" role="progressbar"></div></div>' + '</div>'
       footer = '<button href="#" class="btn btn-primary note-video-btn disabled" disabled>' + '视频上传' + '</button>'
       tmpl.dialog 'note-video-dialog', '教学视频', body, footer

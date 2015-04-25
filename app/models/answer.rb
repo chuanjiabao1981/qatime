@@ -1,4 +1,6 @@
 class Answer < ActiveRecord::Base
+  include Utils::QaToken
+
   belongs_to :question ,counter_cache: true
   belongs_to :teacher
   validates :content, length: { minimum: 20 }

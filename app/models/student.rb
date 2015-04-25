@@ -14,7 +14,6 @@ class Student < User
   has_many :valid_learning_plans , ->{where("? between begin_at AND end_at", Time.zone.now.to_date) },class_name: 'LearningPlan'
 
   has_many :not_finished_learning_plans, -> {where("? <= end_at",Time.zone.now.to_date)},class_name:'LearningPlan'
-  #scope :latest_end_at ,lambda { |s| where("vip_class_id = ? and ? <= end_at",s,Time.zone.now.to_date) }
 
   def initialize(attributes = {})
     super(attributes)

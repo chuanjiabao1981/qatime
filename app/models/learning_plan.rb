@@ -8,7 +8,7 @@ class LearningPlan < ActiveRecord::Base
   validates_presence_of :student,:vip_class,:price,:begin_at,:end_at,:teachers,:duration_type
 
   has_many :teachers ,through: :learning_plan_assignments
-  has_many :learning_plan_assignments
+  has_many :learning_plan_assignments,dependent: :destroy
   has_many :questions,inverse_of: :learning_plan
 
 

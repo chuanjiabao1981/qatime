@@ -1,2 +1,0 @@
-module Teachers::RegistrationsHelper
-end

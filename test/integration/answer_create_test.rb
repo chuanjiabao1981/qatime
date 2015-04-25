@@ -7,7 +7,7 @@ class AnswerCreateTest < ActionDispatch::IntegrationTest
     #at_exit do
     #  headless.destroy
     #end
-    Capybara.current_driver = :selenium_chrome
+    #Capybara.current_driver = :selenium_chrome
 
     teacher1            = users(:teacher1)
     student1_question1  = questions(:student1_question1)

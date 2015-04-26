@@ -1,0 +1,2 @@
+$('div#<%="#{@comment.commentable_type}-#{@comment.commentable_id}-comments form"%>')
+        .replaceWith("<%= j render partial: 'form',locals: {comment: @comment}%>");

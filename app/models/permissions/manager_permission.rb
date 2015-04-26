@@ -18,6 +18,10 @@ module Permissions
       allow :curriculums,[:index,:show]
       allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
       allow :courses,[:show]
+      allow :comments,[:create]
+      allow :comments,[:edit,:update] do |comment|
+        comment
+      end
 
       allow :sessions,[:destroy]
 

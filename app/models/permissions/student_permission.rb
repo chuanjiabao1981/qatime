@@ -47,6 +47,10 @@ module Permissions
       allow 'students/home',[:main]
       allow 'students/recharge_records',[:index,:new,:create]
       allow 'students/courses',[:purchase]
+      allow :comments,[:create]
+      allow :comments,[:edit,:update] do |comment|
+        comment and comment.author_id  == user.id
+      end
     end
   end
 end

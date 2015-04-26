@@ -9,6 +9,9 @@ class Answer < ActiveRecord::Base
   after_save :update_teaching_video,:update_picture_info
   has_many :teaching_videos
 
+  has_many :comments,as: :commentable,dependent: :destroy
+
+
   private
   def update_question
     self.question.update_answers_info(self)

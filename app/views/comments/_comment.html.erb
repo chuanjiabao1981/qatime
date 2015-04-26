@@ -1,15 +1,18 @@
-<div style="border-bottom:1px solid #ccc">
-  <div class="pull-left" style="padding: 8px">
-    <%= image_tag comment.author.avatar.normal.url if comment.author %>
+<div id="comment-<%=comment.id%>" class="item">
+  <div style="float:left">
+    <%=image_tag comment.author.avatar.small.url,class:"img-circle" %>
   </div>
-  <div style="padding:8px;margin-left: 58px">
-    <span style="color:gray">
-        <small><%= comment.author.email if comment.author%></small>
-        <small><%= comment.created_at %></small>
-    </span>
-    <div style="line-height: 180%;">
-      <%= comment.body %>
-    </div>
+  <div class="content">
+    <%= comment.body%>
   </div>
-  <div style="clear: both"></div>
+  <div class="info">
+      <strong style="color:green"><%= comment.author.name %></strong> <span style="color: #999"><%= time_ago_in_words(comment.created_at)%>前</span>
+
+      <div class="pull-right">
+        <% if allow? :comments,:edit, comment %>
+            <%=link_to '编辑' ,edit_comment_path(comment),remote:true %>
+        <% end %>
+      </div>
+  </div>
+  <div style="clear:both"></div>
 </div>

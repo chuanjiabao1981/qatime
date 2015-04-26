@@ -30,6 +30,8 @@ class User < ActiveRecord::Base
   has_many :faqs
   has_many :messages
 
+  has_many :comments,foreign_key: :author_id
+
   belongs_to :school
 
   def self.new_remember_token

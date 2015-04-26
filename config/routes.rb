@@ -106,6 +106,9 @@ Qatime::Application.routes.draw do
       get 'teacher'
     end
   end
+
+  resources :comments
+
   #resources :videos
   resources :teaching_videos
   resources :vip_classes

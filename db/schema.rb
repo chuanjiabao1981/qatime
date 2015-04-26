@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150422031154) do
+ActiveRecord::Schema.define(version: 20150426050743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,8 +29,9 @@ ActiveRecord::Schema.define(version: 20150422031154) do
     t.integer  "teacher_id"
     t.string   "token"
     t.text     "content"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "comments_count", default: 0
   end
 
   create_table "cities", force: :cascade do |t|
@@ -235,6 +236,7 @@ ActiveRecord::Schema.define(version: 20150422031154) do
     t.jsonb    "last_answer_info", default: {}, null: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
+    t.integer  "comments_count",   default: 0
   end
 
   add_index "questions", ["answers_info"], name: "index_questions_on_answers_info", using: :gin
@@ -356,7 +358,7 @@ ActiveRecord::Schema.define(version: 20150422031154) do
     t.datetime "updated_at"
     t.string   "token",          limit: 255
     t.integer  "node_id"
-    t.integer  "comments_count",             default: 0
+    t.integer  "c",             default: 0
     t.integer  "section_id"
   end
 

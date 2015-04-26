@@ -1,0 +1,4 @@
+$('div#<%="#{@comment.commentable_type}-#{@comment.commentable_id}-comments .items"%>')
+        .append("<%= j render partial:'comments/comment',locals:{comment:@comment}%>");
+$('div#<%="#{@comment.commentable_type}-#{@comment.commentable_id}-comments form"%>')
+        .replaceWith("<%= j render partial: 'form',locals: {comment: @comment.commentable.comments.build}%>");

@@ -1,0 +1,7 @@
+cn:
+  activerecord:
+    models:
+      comment: 评论
+    attributes:
+      comment:
+        body: 撰写评论

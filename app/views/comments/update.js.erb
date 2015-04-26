@@ -1,0 +1,2 @@
+$('div#<%="comment-#{@comment.id}"%>')
+        .replaceWith("<%= j render partial:'comments/comment',locals:{comment:@comment}%>");

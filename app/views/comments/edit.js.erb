@@ -1,0 +1,2 @@
+$('div#<%="comment-#{@comment.id}"%>').children().remove();
+$('div#<%="comment-#{@comment.id}"%>').append("<%= j render partial: 'form',locals: {comment: @comment}%>")

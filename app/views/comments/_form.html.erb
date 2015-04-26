@@ -1,0 +1,6 @@
+<%= simple_form_for comment,remote:true do |f|%>
+    <%= f.input :body%>
+    <%= f.input :commentable_type,as: :hidden %>
+    <%= f.input :commentable_id ,as: :hidden%>
+    <%= f.submit class: "btn btn-default btn-xs"%>
+<% end %>

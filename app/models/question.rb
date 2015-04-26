@@ -7,6 +7,9 @@ class Question < ActiveRecord::Base
   has_many :answers
   has_many :pictures,as: :imageable
 
+  has_many :comments,as: :commentable,dependent: :destroy
+
+
   validates :title, length:{minimum: 10,maximum: 200}
   validates :content, length: { minimum: 20 }
   validates_presence_of :student,:vip_class,:learning_plan

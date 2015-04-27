@@ -12,6 +12,8 @@
           <%= f.input :name, :required => true %>
 
           <%= f.input :email, :required => true, :autofocus => true %>
+          <%= f.input :avatar,input_html:{onchange:"showimagepreview(this)"},:hint => "用户头像不可为空。" %>
+          <img id="user_avatar_preview" style="width: 240px;height: 240px">
 
           <%= f.input :password, :autocomplete => "off"%>
           <%= f.input :password_confirmation %>

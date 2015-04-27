@@ -16,6 +16,15 @@ class Admins::ManagersController < ApplicationController
     respond_with :admins,@manager
   end
 
+  def edit
+    @manager = Manager.find(params[:id])
+  end
+  def update
+    @manager = Manager.find(params[:id])
+    @manager.update_attributes(params[:manager].permit!)
+    respond_with :admins,@manager
+  end
+
   def show
     @manager = Manager.find(params[:id])
   end

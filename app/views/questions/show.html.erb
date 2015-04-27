@@ -25,16 +25,7 @@
                 <i class="fa fa-pencil-square-o"></i>编辑
             <% end %>
         <% end %>
-        <!-- 注意权限问题 -->
-        <%= link_to "#{Comment.model_name.human}(#{@question.comments_count})",
-                    "##{@question.class}-#{@question.id}-comments",data:{toggle:"collapse"},
-                    aria:{expanded: false,controls:"#{@question.class}-#{@question.id}-comments"} %>
-        <div class="comments collapse" id="<%="#{@question.class}-#{@question.id}-comments"%>" >
-          <div class="items">
-            <%= render partial:'comments/comment',collection: @question.comments %>
-          </div>
-          <%= render partial:'comments/form',locals: {comment:@question.comments.build} %>
-        </div>
+        <%= render partial:'comments/index',locals: {commentable: @question} %>
       </div>
     </div>
     <div class="qa_answer">

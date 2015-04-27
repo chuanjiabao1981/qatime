@@ -66,7 +66,7 @@ module Permissions
       allow :faqs, [:show]
       allow :faq_topics, [:show]
       allow :comments,[:create]
-      allow :comments,[:edit,:update] do |comment|
+      allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
       end
 

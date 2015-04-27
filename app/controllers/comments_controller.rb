@@ -22,6 +22,9 @@ class CommentsController < ApplicationController
     end
 
   end
+  def destroy
+    @comment.destroy
+  end
   private
   def current_resource
     @comment = Comment.find(params[:id]) if params[:id]

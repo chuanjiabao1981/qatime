@@ -15,7 +15,7 @@
   <div class="qa_info">
     <%=link_to "#{question.vip_class.category}#{question.vip_class.subject}",
                questions_path ,class: "qa_node"%> •
-    <%= question.student.name %> • 发布于<%= time_ago_in_words(question.created_at) %>前
+    <%= question.student.name %> • 发布于<%= time_ago_in_words(question.created_at) %>前 • 有<%= question.comments_count%>个<%= Comment.model_name.human%>
 
 
     <div class="qa_teacher">

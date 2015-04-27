@@ -1,13 +1,18 @@
 require 'test_helper'
 
 class AnswerCreateTest < ActionDispatch::IntegrationTest
-  test "answer question" do
-    headless = Headless.new
-    headless.start
-    at_exit do
-      headless.destroy
-    end
+  def setup
+    @headless = Headless.new
+    @headless.start
     Capybara.current_driver = :selenium_chrome
+
+  end
+
+  def teardown
+    @headless.destroy
+    Capybara.use_default_driver
+  end
+  test "answer question" do
 
     teacher1            = users(:teacher1)
     student1_question1  = questions(:student1_question1)

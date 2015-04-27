@@ -1,12 +1,8 @@
 Qatime::Application.routes.draw do
   root :to => "home#index"
 
-  resources :tutorials do
-    resources :comments
-  end
 
   get "topics/node:id"      => "topics#node",           as: 'node_topics'
-  get "tutorials/node:id"   => "tutorials#node",        as: 'node_tutorials'
   get "courses/node:id"     => "courses#node",          as: 'node_courses'
   get "teachers/home"       => "teachers/home#main",    as: 'teachers_home'
   get "admins/home"         => "admins/home#main",      as: 'admins_home'
@@ -22,7 +18,6 @@ Qatime::Application.routes.draw do
     resource :replies
   end
   resources :pictures
-  resources :tutorials
   resources :topics do
     resources :replies
   end

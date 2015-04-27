@@ -9,7 +9,7 @@ class AnswerCreateTest < ActionDispatch::IntegrationTest
   end
 
   def teardown
-    @headless.destroy
+    #@headless.destroy
     Capybara.use_default_driver
   end
   test "answer question" do

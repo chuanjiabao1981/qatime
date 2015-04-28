@@ -3,7 +3,9 @@ class Teachers::VideosController < ApplicationController
   def create
     @video_player_id = rand(10000)
     @video = Video.new(params[:video].permit!)
-    @video.save
+    if @video.save
+      VideoConvertWorker.perform_async(@video.id)
+    end
 
     if @video.name_integrity_error
       @video.errors.add(:name, @video.name_integrity_error)

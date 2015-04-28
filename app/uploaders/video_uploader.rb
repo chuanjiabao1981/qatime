@@ -21,7 +21,6 @@ class VideoUploader < CarrierWave::Uploader::Base
       else
         "#{@name}.mp4"
       end
-
     end
   end
 

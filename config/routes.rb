@@ -114,4 +114,10 @@ Qatime::Application.routes.draw do
   end
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'
+
+
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
 end

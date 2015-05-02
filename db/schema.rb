@@ -389,6 +389,7 @@ ActiveRecord::Schema.define(version: 20150428230204) do
     t.integer  "lesson_id"
     t.string   "video_type",   limit: 255, default: "mp4"
     t.string   "convert_name"
+    t.string   "state",                    default: "wait_convert"
   end
 
   add_index "videos", ["token"], name: "index_videos_on_token", using: :btree

@@ -34,13 +34,13 @@ class LearningPlan < ActiveRecord::Base
     a                 = self.student.select_last_valid_learning_plan(self.vip_class_id) if self.student
     if a
       #如果选取到了那么就从这个结束开始继续
-      self.begin_at   = a.end_at + 1.day
+      self.begin_at   = (a.end_at + 1.day).beginning_of_day
     else
       #如果没有就从当前开始
       self.begin_at   = Time.zone.now.to_date
     end
     if self.duration_type
-      self.end_at     = self.begin_at + eval(APP_CONSTANT["learning_plan"]["duration_types"][self.duration_type]["time"])
+      self.end_at     = (self.begin_at + eval(APP_CONSTANT["learning_plan"]["duration_types"][self.duration_type]["time"])).end_of_day
       self.price      = APP_CONSTANT["learning_plan"]["duration_types"][self.duration_type]["price"]
     end
   end

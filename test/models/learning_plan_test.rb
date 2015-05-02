@@ -34,13 +34,13 @@ class LearningPlanTest < ActiveSupport::TestCase
     # 添加一个学习计划
     learning_plan3                = add_a_month_learning_plan(student1)
 
-    assert learning_plan2.begin_at == learning_plan1.end_at + 1.day
+    assert learning_plan2.begin_at == (learning_plan1.end_at + 1.day).beginning_of_day
     assert learning_plan2.end_at   == learning_plan1.end_at + 1.day + 1.month
 
     #puts learning_plan2.begin_at,learning_plan2.end_at
     #puts learning_plan3.begin_at,learning_plan3.end_at
 
-    assert learning_plan3.begin_at == learning_plan2.end_at + 1.day
+    assert learning_plan3.begin_at == (learning_plan2.end_at + 1.day).beginning_of_day
     assert learning_plan3.end_at   == learning_plan2.end_at + 1.day + 1.month
   end
 

@@ -3,5 +3,6 @@
     <div class="col-md-1"><%=   student_counter+1  %></div>
     <div class="col-md-2"><%=link_to student.name , student_path(student)%></div>
     <div class="col-md-2"><%= student.email %></div>
+    <div class="col-md-3"><%= student.created_at.to_date%></div>
   </div>
 </div>

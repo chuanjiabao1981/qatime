@@ -2,7 +2,7 @@ class StudentsController < ApplicationController
   respond_to :html
 
   def index
-    @students = Student.all.paginate(page: params[:page],:per_page => 10)
+    @students = Student.all.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
 
   end
   def new

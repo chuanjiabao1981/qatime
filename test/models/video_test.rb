@@ -1,11 +1,9 @@
 require 'test_helper'
 
 class VideoTest < ActiveSupport::TestCase
-  #test "convert video name" do
-  #  assert_not Video.is_converted_file? "sss-#{Video::CONVERT_POSTFIX}ssss.mp4"
-  #  assert_not Video.is_converted_file? "-#{Video::CONVERT_POSTFIX}ssss.mp4"
-  #  assert Video.is_converted_file? "asdfasdfasdf-#{Video::CONVERT_POSTFIX}.mp4"
-  #end
+=begin
+  没有这个，无法在线程中看到case对数据库的修改
+=end
   self.use_transactional_fixtures = false
 
   test "video convert worker" do
@@ -18,25 +16,34 @@ class VideoTest < ActiveSupport::TestCase
     assert_not a.convert_name.nil?
   end
 
+=begin
+  这个case 用于测试
+=end
+
   test "video change when convert" do
 
     a = build_a_video_with_mp4_file
-    puts a.name
-    puts a.id
-    puts Video.find(a.id).to_json
+
     Thread.new {
-      sleep 10
+      sleep 5
+      # 在开始converting后进行 修改video
       begin
         x = Video.find(a.id)
         File.open("#{Rails.root}/test/integration/test.mp4") do |f|
           x.name = f
         end
+        assert x.converting?
+        x.state = :wait_convert
         x.save!
       rescue Exception=>e
         puts e
       end
     }
-    VideoConvertWorker.new.perform(a.id,40)
+    assert_raises(VideoChangedWhenConvertingException) {
+      VideoConvertWorker.new.perform(a.id,10)
+    }
+    x = Video.find(a.id)
+    assert x.wait_convert?
   end
 
   private

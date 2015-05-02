@@ -8,9 +8,9 @@ class User < ActiveRecord::Base
   attr_accessor :register_code_value,:tmp_register_code
 
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: true
-  validates_presence_of :avatar,:name,:mobile ,if: :teacher? or :student?
-  validates :mobile,length:{is: 11},if: :teacher? or :student?
-  validates :mobile,numericality: { only_integer: true },if: :teacher? or :student?
+  validates_presence_of :avatar,:name,:mobile ,if: :teacher_or_student?
+  validates :mobile,length:{is: 11},if: :teacher_or_student?
+  validates :mobile,numericality: { only_integer: true },if: :teacher_or_student?
   validates :school ,presence: true,if: :teacher?
   validates :password, length: { minimum: 6 },:on => :create
 

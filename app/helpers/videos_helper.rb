@@ -6,7 +6,11 @@ module VideosHelper
                 data:  {setup:{controls: true}}
                }.merge args.extract_options!
     content_tag :video, options do
-      raw tag(:source, src:video.name.url, type: "video/#{video.video_type}")
+      if video.convert_success?
+        raw tag(:source, src:video.convert_name.url, type: "video/#{video.video_type}")
+      else
+        raw tag(:source, src:video.name.url, type: "video/#{video.video_type}")
+      end
     end
   end
 

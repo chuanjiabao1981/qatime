@@ -106,3 +106,9 @@ end
 gem 'rest-client'
 gem 'carrierwave-aliyun'
 gem 'unicorn'
+
+gem 'sidekiq'
+gem 'sidekiq-failures'
+gem 'sinatra', require: false
+gem 'slim'
+

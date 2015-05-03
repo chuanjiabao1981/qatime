@@ -16,12 +16,11 @@ class VideoUploader < CarrierWave::Uploader::Base
       path_elements = original_filename.split('.')
       extension = path_elements.last if path_elements.size > 1
 
-      if not file.extension.empty?
+      if not extension.empty?
         "#{@name}.#{extension}"
       else
         "#{@name}.mp4"
       end
-
     end
   end
 

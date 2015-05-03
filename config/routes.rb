@@ -104,7 +104,11 @@ Qatime::Application.routes.draw do
 
   resources :comments
 
-  #resources :videos
+  resources :videos do
+    member do
+      get 'convert'
+    end
+  end
   resources :teaching_videos
   resources :vip_classes
   resources :learning_plans do
@@ -114,4 +118,10 @@ Qatime::Application.routes.draw do
   end
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'
+
+
+
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
 end

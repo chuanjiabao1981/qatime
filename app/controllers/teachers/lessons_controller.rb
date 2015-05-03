@@ -13,7 +13,7 @@ class Teachers::LessonsController < ApplicationController
     end
     @lesson =@course.build_lesson(params[:lesson].permit!)
     if @lesson.save
-      redirect_to course_path(@course)
+      redirect_to course_path(@course,lesson_id:@lesson.id)
     else
       render 'new'
     end

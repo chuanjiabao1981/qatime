@@ -51,7 +51,7 @@ class VideoConvertWorker
   def convert_video(video)
     convert_video_path_name = "/tmp/#{video.build_convert_file_name}"
     #%x 获取不了stderr，所以这里进行了重定向
-    result = %x(ffmpeg -y -i #{video.name} -vcodec h264 -acodec aac -strict -2 #{convert_video_path_name} 2>&1)
+    result = %x(~/bin/ffmpeg -y -i #{video.name} -vcodec h264 -acodec aac -strict -2 #{convert_video_path_name} 2>&1)
     if ($?.exitstatus == 0)
       convert_video_path_name
     else

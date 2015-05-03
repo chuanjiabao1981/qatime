@@ -96,6 +96,7 @@ group :development,:test do
   gem 'capistrano-bundler'
   gem 'capistrano-rvm'
   gem 'capistrano3-unicorn'
+  gem 'capistrano-sidekiq'
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'headless'

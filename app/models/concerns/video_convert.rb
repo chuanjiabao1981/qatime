@@ -18,7 +18,7 @@ module VideoConvert
       end
 
       after_transition :on => :in_queue do |video,transition|
-        VideoConvertWorker.perform_async(video.id)
+        VideoConvertWorker.perform_async(video.id,0,video.class.to_s)
       end
     end
 

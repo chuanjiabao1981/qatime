@@ -4,7 +4,9 @@ class TeachingVideosController < ApplicationController
   respond_to :json,:js
   def create
     @teaching_video = TeachingVideo.new(params[:teaching_video].permit!)
-    @teaching_video.save
+    if @teaching_video.save
+      @teaching_video.add_to_convert_queue
+    end
 
     if @teaching_video.name_integrity_error
       @teaching_video.errors.add(:name, @teaching_video.name_integrity_error)

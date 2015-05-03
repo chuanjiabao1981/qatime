@@ -4,7 +4,7 @@ class Teachers::VideosController < ApplicationController
     @video_player_id = rand(10000)
     @video = Video.new(params[:video].permit!)
     if @video.save
-      VideoConvertWorker.perform_async(@video.id)
+      @video.add_to_convert_queue
     end
 
     if @video.name_integrity_error
@@ -16,7 +16,10 @@ class Teachers::VideosController < ApplicationController
 
   def update
     @video_player_id = rand(10000)
-    @video.update_attributes(params[:video].permit!)
+    @video.update_video_file(params[:video].permit!)
+    if @video.not_convert?
+      @video.add_to_convert_queue
+    end
     respond_with @video
   end
   protected

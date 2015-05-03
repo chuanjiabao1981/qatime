@@ -325,9 +325,10 @@ ActiveRecord::Schema.define(version: 20150428230204) do
     t.integer  "teacher_id"
     t.integer  "question_id"
     t.integer  "answer_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "video_type",  default: "mp4"
+    t.string   "state",       default: "not_convert"
   end
 
   add_index "teaching_videos", ["token"], name: "index_teaching_videos_on_token", using: :btree
@@ -389,7 +390,7 @@ ActiveRecord::Schema.define(version: 20150428230204) do
     t.integer  "lesson_id"
     t.string   "video_type",   limit: 255, default: "mp4"
     t.string   "convert_name"
-    t.string   "state",                    default: "wait_convert"
+    t.string   "state",                    default: "not_convert"
   end
 
   add_index "videos", ["token"], name: "index_videos_on_token", using: :btree

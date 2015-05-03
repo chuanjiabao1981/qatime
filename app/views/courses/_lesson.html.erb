@@ -27,6 +27,9 @@
             <span class="qa_f12 label label-success"><%=@lesson.human_state_name%></span>
         <% end %>
       </div>
+      <% if allow? :videos, :reconvert %>
+          <%= render partial: 'videos/video_convert',locals: {video:@lesson.video} %>
+      <% end %>
       <% if @lesson.reviewing? and allow? "managers/lessons",:update,@lesson   %>
           <div class="qa_cell">
             <%= simple_form_for [:managers,@lesson] do |f|%>

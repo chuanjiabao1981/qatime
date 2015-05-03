@@ -8,8 +8,8 @@ class VideoTest < ActiveSupport::TestCase
 
   test "video convert worker" do
 
-    a = build_a_video_with_mp4_file
-    assert a.wait_convert?
+    a = build_a_video_with_mp4_file_in_queue
+    assert a.in_queue?
     VideoConvertWorker.new.perform(a.id)
     a.reload
     assert a.convert_success?
@@ -22,7 +22,8 @@ class VideoTest < ActiveSupport::TestCase
 
   test "video change when convert" do
 
-    a = build_a_video_with_mp4_file
+    a =    build_a_video_with_mp4_file_in_queue
+
 
     Thread.new {
       sleep 5
@@ -33,7 +34,7 @@ class VideoTest < ActiveSupport::TestCase
           x.name = f
         end
         assert x.converting?
-        x.state = :wait_convert
+        x.state = :not_convert
         x.save!
       rescue Exception=>e
         puts e
@@ -43,17 +44,17 @@ class VideoTest < ActiveSupport::TestCase
       VideoConvertWorker.new.perform(a.id,10)
     }
     x = Video.find(a.id)
-    assert x.wait_convert?
+    assert x.not_convert?
   end
 
   private
-  def build_a_video_with_mp4_file
+  def build_a_video_with_mp4_file_in_queue
     a = Video.new
 
     File.open("#{Rails.root}/test/integration/test.mp4") do |f|
       a.name = f
     end
-
+    a.state = :in_queue
     a.save!
     a.reload
     a

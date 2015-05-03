@@ -1,6 +1,9 @@
 class TeachingVideo < ActiveRecord::Base
   require 'carrierwave/orm/activerecord'
-  mount_uploader :name, TeachingVideoUploader
+
+  include VideoConvert
+
+  #mount_uploader :name, TeachingVideoUploader
   belongs_to :answer
   belongs_to :teacher
   belongs_to :question

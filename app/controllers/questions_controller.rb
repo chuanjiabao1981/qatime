@@ -19,7 +19,10 @@ class QuestionsController < ApplicationController
     @student    = current_user
 
     @question   = current_user.questions.build(params[:question].permit!)
-    flash[:success] = "成功创建#{Question.model_name.human}"  if @question.save
+     if @question.save
+       flash[:success] = "成功创建#{Question.model_name.human}"
+       SmsWorker.perform_async(@question.id)
+      end
     respond_with @question
   end
 

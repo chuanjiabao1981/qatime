@@ -122,6 +122,8 @@ Qatime::Application.routes.draw do
 
 
   require 'sidekiq/web'
-  mount Sidekiq::Web => '/sidekiq'
+  require 'admin_constraint.rb'
+  mount Sidekiq::Web => '/sidekiq',:constraints => AdminConstraint.new
+
 
 end

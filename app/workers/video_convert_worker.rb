@@ -10,9 +10,10 @@ class VideoConvertWorker
   sidekiq_options :queue => :video_convert, :retry => false, :backtrace => true
 
 
-  def perform(id,after_convert_sleep=0)
+  def perform(id,after_convert_sleep=0,video_class="Video")
     begin
-      video                   = get_video(id)
+      video                   = get_video(video_class,id)
+
       convert_video_path_name = convert_video(video)
       sleep after_convert_sleep
       save_video(video,convert_video_path_name)
@@ -40,9 +41,9 @@ class VideoConvertWorker
 =begin
   标记并返回要进行转化的视频
 =end
-  def get_video(id)
-    Video.transaction do
-      video = Video.lock.find(id)
+  def get_video(video_class,id)
+    video_class.constantize.transaction do
+      video = video_class.constantize.lock.find(id)
       video.fire_events!(:convert_process_begin)
       video.save!
       video

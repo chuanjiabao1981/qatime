@@ -1,5 +1,6 @@
 class TeachingVideo < ActiveRecord::Base
   require 'carrierwave/orm/activerecord'
+  include ActiveModel::Dirty
 
   include VideoConvert
 

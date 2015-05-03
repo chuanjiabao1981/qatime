@@ -94,6 +94,15 @@
           <% end %>
         </li>
         <li>
+          <%= link_to sidekiq_web_path do %>
+              <span class="glyphicon glyphicon-question-sign"></span>
+              <span class="qa_f18">
+                队列
+              </span>
+              SideKiq
+          <% end %>
+        </li>
+        <li>
           <%= link_to signout_path, :method=>'delete'  do %>
               <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18"> 退出</span> Exit
           <% end %>

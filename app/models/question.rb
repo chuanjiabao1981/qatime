@@ -1,5 +1,6 @@
 class Question < ActiveRecord::Base
   include ActiveModel::Dirty
+  include Utils::QaToken
 
   belongs_to :student
   belongs_to :learning_plan, counter_cache:true, inverse_of: :questions
@@ -8,6 +9,8 @@ class Question < ActiveRecord::Base
   has_many :pictures,as: :imageable
 
   has_many :comments,as: :commentable,dependent: :destroy
+
+  has_many :teaching_videos #for test only
 
 
   validates :title, length:{minimum: 10,maximum: 200}
@@ -71,15 +74,10 @@ class Question < ActiveRecord::Base
   def build_a_answer(teacher_id,attributes={})
     a                 = self.answers.build(attributes)
     a.teacher_id      = teacher_id
-    a.generate_token
+    a.generate_token unless a.token
     a
   end
-  def generate_token
-    self.token = loop do
-      random_token = SecureRandom.urlsafe_base64
-      break random_token if Question.where(token: random_token).size == 0
-    end
-  end
+
 private
 
 

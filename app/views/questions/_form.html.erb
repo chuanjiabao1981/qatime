@@ -23,6 +23,7 @@
         <div class="progress-bar" id="picutre-progress-bar" role="progressbar" >
         </div>
       </div>
+      <%= f.input :token, as: :hidden %>
       <%= f.input :content ,:input_html => { :data => {:provider => "summernote"} } %>
       <%= f.submit class:"btn btn-default"%>
   <% end %>

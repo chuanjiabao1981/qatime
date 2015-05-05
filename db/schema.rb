@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150503020448) do
+ActiveRecord::Schema.define(version: 20150505051907) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,12 +68,9 @@ ActiveRecord::Schema.define(version: 20150503020448) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "price",                                     default: 30.0
-    t.integer  "group_id"
     t.integer  "teacher_id"
     t.string   "state",                         limit: 255, default: "unpublished"
     t.integer  "course_purchase_records_count"
-    t.integer  "group_type_id"
-    t.integer  "group_catalogue_id"
     t.integer  "curriculum_id"
     t.string   "chapter"
     t.integer  "position",                                  default: 0
@@ -111,40 +108,6 @@ ActiveRecord::Schema.define(version: 20150503020448) do
 
   add_index "faqs", ["user_id"], name: "index_faqs_on_user_id", using: :btree
 
-  create_table "group_catalogues", force: :cascade do |t|
-    t.integer  "group_type_id"
-    t.string   "name",          limit: 255
-    t.integer  "index"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "group_types", force: :cascade do |t|
-    t.string   "name",       limit: 255
-    t.string   "grade",      limit: 255
-    t.string   "subject",    limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "groups", force: :cascade do |t|
-    t.string   "name",                  limit: 255
-    t.integer  "city_id"
-    t.integer  "school_id"
-    t.integer  "teacher_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "grade",                 limit: 255
-    t.string   "subject",               limit: 255
-    t.integer  "courses_count",                     default: 0
-    t.integer  "joined_students_count",             default: 0
-    t.integer  "group_type_id"
-  end
-
-  add_index "groups", ["grade"], name: "index_groups_on_grade", using: :btree
-  add_index "groups", ["subject", "grade"], name: "index_groups_on_subject_and_grade", using: :btree
-  add_index "groups", ["subject"], name: "index_groups_on_subject", using: :btree
-
   create_table "learning_plan_assignments", force: :cascade do |t|
     t.integer  "learning_plan_id"
     t.integer  "teacher_id"
@@ -176,7 +139,6 @@ ActiveRecord::Schema.define(version: 20150503020448) do
     t.string   "token",         limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "group_id"
     t.integer  "teacher_id"
     t.integer  "curriculum_id"
     t.string   "state",                     default: "init"
@@ -296,17 +258,6 @@ ActiveRecord::Schema.define(version: 20150503020448) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "student_join_group_records", force: :cascade do |t|
-    t.integer  "student_id"
-    t.integer  "group_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "student_join_group_records", ["group_id"], name: "index_student_join_group_records_on_group_id", using: :btree
-  add_index "student_join_group_records", ["student_id", "group_id"], name: "index_student_join_group_records_on_student_id_and_group_id", unique: true, using: :btree
-  add_index "student_join_group_records", ["student_id"], name: "index_student_join_group_records_on_student_id", using: :btree
 
   create_table "teaching_programs", force: :cascade do |t|
     t.string   "name"

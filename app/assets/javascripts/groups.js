@@ -24,7 +24,7 @@ function activateSubmenu(row) {
     var $row = $(row),
         submenuId = $row.data("submenuId"),
         $submenu = $("#" + submenuId),
-        height = $menu.outerHeight(),
+        height = $menu.outerHeight()* 1.5,
         width = $menu.outerWidth();
 
     // Show the submenu

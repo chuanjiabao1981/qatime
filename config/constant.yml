@@ -12,6 +12,10 @@ categories:
 grades_in_menu:
   - 高一
   - 高二
+  - 高三
+  - 初一
+  - 初二
+  - 初三
 
 grades:
   高中:

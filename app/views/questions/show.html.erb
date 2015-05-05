@@ -25,6 +25,12 @@
                 <i class="fa fa-pencil-square-o"></i>编辑
             <% end %>
         <% end %>
+        <% if allow? :questions,:destroy, @question %>
+            <%=link_to question_path(@question),method: :delete,'data-confirm' => '你确定删除么?' do %>
+                &nbsp;
+                <i class="fa fa-times"></i>删除
+            <% end %>
+        <% end %>
         <%= render partial:'comments/index',locals: {commentable: @question} %>
       </div>
     </div>

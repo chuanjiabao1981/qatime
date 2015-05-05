@@ -55,6 +55,15 @@ class LearningPlan < ActiveRecord::Base
     end
   end
 
+  def decrement_answered_questions_count(question)
+    if question.is_answered?
+      self.class.where("id=#{self.id}").update_all("answered_questions_count = answered_questions_count - 1")
+    end
+    self.learning_plan_assignments.each do |assignment|
+      assignment.decrement_answered_questions_count(question)
+    end
+  end
+
 end
 
 

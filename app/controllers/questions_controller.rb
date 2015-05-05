@@ -38,6 +38,10 @@ class QuestionsController < ApplicationController
     @answer = @question.build_a_answer(nil,{})
   end
 
+  def destroy
+    @question.destroy
+    redirect_to questions_path
+  end
 
   def student
     @questions = Question.all.where("student_id=?",current_user.id).

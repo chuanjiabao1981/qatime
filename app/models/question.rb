@@ -5,7 +5,7 @@ class Question < ActiveRecord::Base
   belongs_to :student
   belongs_to :learning_plan, counter_cache:true, inverse_of: :questions
   belongs_to :vip_class,counter_cache: true
-  has_many :answers
+  has_many :answers,dependent: :destroy
   has_many :pictures,as: :imageable
 
   has_many :comments,as: :commentable,dependent: :destroy
@@ -23,9 +23,9 @@ class Question < ActiveRecord::Base
 
 
   after_save :update_picture_info
-
-
   before_validation :strip_whitespace
+
+  after_destroy :decrement_count
 
   def initialize(atrributes={})
     super(atrributes)
@@ -62,6 +62,10 @@ class Question < ActiveRecord::Base
     return true if self.last_answer_info_was.empty? and not self.last_answer_info.empty?
   end
 
+  def is_answered?
+    return true if not self.last_answer_info.empty?
+  end
+
   def is_first_answered_by_the_teacher?(teacher_id)
     # 最后一次回答此问题的teacher是否头一次回答此问题
     if self.last_answer_info["teacher_id"] == teacher_id and
@@ -71,6 +75,11 @@ class Question < ActiveRecord::Base
     end
   end
 
+  def is_answered_by_the_teacher?(teacher_id)
+    return true if  self.answers_info and self.answers_info[teacher_id.to_s]
+  end
+
+
   def build_a_answer(teacher_id,attributes={})
     a                 = self.answers.build(attributes)
     a.teacher_id      = teacher_id
@@ -79,6 +88,10 @@ class Question < ActiveRecord::Base
   end
 
 private
+
+  def decrement_count
+    self.learning_plan.decrement_answered_questions_count(self)
+  end
 
 
   def update_picture_info

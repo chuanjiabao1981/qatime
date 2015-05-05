@@ -36,8 +36,9 @@ class AnswerCreateTest < ActionDispatch::IntegrationTest
       click_button '视频上传'
       # 等待视频上传
       # TODO:: 这里可以优化看progress的进度
-      sleep 20
+      sleep 300
 
+      page.save_screenshot('screenshot.png')
 
       click_on '提交讲解'
 

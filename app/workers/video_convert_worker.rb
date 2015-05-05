@@ -14,9 +14,12 @@ class VideoConvertWorker
     begin
       video                   = get_video(video_class,id)
 
+
       convert_video_path_name = convert_video(video)
+
       sleep after_convert_sleep
       save_video(video,convert_video_path_name)
+
     rescue VideoChangedWhenConvertingException
       ## 如果视频发生变化，只要抛出异常就好了
       raise
@@ -52,6 +55,7 @@ class VideoConvertWorker
   def convert_video(video)
     convert_video_path_name = "/tmp/#{video.build_convert_file_name}"
     #%x 获取不了stderr，所以这里进行了重定向
+    #result = %x(wget #{video.name} -O /tmp/#{video.name_identifier})
     result = %x(~/bin/ffmpeg -y -i #{video.name} -vcodec h264 -acodec aac -strict -2 #{convert_video_path_name} 2>&1)
     if ($?.exitstatus == 0)
       convert_video_path_name

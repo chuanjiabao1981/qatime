@@ -2,8 +2,7 @@ class Student < User
   default_scope {where(role: 'student')}
   has_one  :account
   has_many :recharge_records
-  has_many :groups,->{distinct},:through => :student_join_group_records
-  has_many :student_join_group_records
+
   has_many :courses,:through => :course_purchase_records
   has_many :course_purchase_records
 
@@ -46,7 +45,7 @@ class Student < User
       retry
     end
     begin
-      self.groups << @course.group
+      #self.groups << @course.group
     rescue ActiveRecord::RecordNotUnique
       
     end

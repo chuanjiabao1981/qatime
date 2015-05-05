@@ -24,17 +24,7 @@ class Course < ActiveRecord::Base
 
 
   #need to be deleted
-  belongs_to :group      ,:counter_cache => true,:inverse_of => :courses
-  belongs_to :group_type
-  belongs_to :group_catalogue
-
     validates_with CourseStateValidate
-
-    #validates_inclusion_of :price,:in => [10.0] ,:message =>"价格仅可以是10!"
-
-
-  scope :by_catalogue_id,lambda {|s| where(group_catalogue_id: s ) if s}
-  scope :by_group,lambda {|s| where(group_id:  s.id) if s}
   #end
 
 
@@ -60,16 +50,12 @@ class Course < ActiveRecord::Base
     a.generate_token if a.token.nil?
     a.build_a_video
     a.state_event   = "edit"
-    # need to be deleted
-    a.group   = self.group
-    #end
     a
   end
 
 
   def build_topic(attributes={})
     a             = self.topics.build(attributes)
-    #a.group       = self.group
     a.curriculum  = self.curriculum
     a.generate_token if a.token.nil?
     pictures      = Picture.where(token: a.token)

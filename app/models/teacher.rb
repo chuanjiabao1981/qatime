@@ -21,9 +21,6 @@ class Teacher < User
 
   scope :by_vip_class, lambda{|vip_class| includes(:school).order("schools.name desc").by_subject(vip_class.subject).by_category(vip_class.category) }
 
-  ## need to be deleted
-  has_many :groups
-  ## end
 
   def initialize(attributes = {})
     super(attributes)

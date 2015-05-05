@@ -15,9 +15,6 @@ class Lesson < ActiveRecord::Base
 
   accepts_nested_attributes_for :current_review_record
 
-  # need to be deleted
-  belongs_to :group
-  # end
 
   def build_a_video
     self.video =   Video.where(token: self.token).order(created_at: :desc).first

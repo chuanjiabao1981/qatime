@@ -2,14 +2,22 @@
   <div class="col-md-1">
     <%= teacher_counter + 1 %>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     <%= link_to teacher.name , teacher_path(teacher) %>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-2">
     <%= "#{teacher.category}#{teacher.subject}"%>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-2">
     <%= teacher.school.name %>
   </div>
+  <div class="col-md-2">
+    <%= teacher.created_at.to_date %>
+  </div>
+  <% if allow? :teachers,:destroy %>
+  <div class="col-md-2">
+    <%= link_to '删除',teacher_path(teacher),method: 'delete','data-confirm' => '你确定删除此老师么?'%>
+  </div>
+  <% end %>
 
 </div>

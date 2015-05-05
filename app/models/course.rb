@@ -9,12 +9,16 @@ class CourseStateValidate < ActiveModel::Validator
 end
 class Course < ActiveRecord::Base
   belongs_to :teacher    ,:class_name => "User"
+  belongs_to :curriculum      ,:counter_cache => true, :inverse_of => :courses
+
+
+
+
   has_many   :lessons    ,:dependent => :destroy
   has_many   :topics
   has_many   :students   ,:through => :course_purchase_records
   has_many   :course_purchase_records
 
-  belongs_to :curriculum      ,:counter_cache => true, :inverse_of => :courses
 
   validates_presence_of :name,:desc,:curriculum,:chapter
 

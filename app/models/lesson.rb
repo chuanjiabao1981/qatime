@@ -1,17 +1,20 @@
 class Lesson < ActiveRecord::Base
   belongs_to :teacher,:class_name => "User"
   belongs_to :course,:counter_cache => true,:inverse_of =>:lessons
+  belongs_to :curriculum, :counter_cache => true, :inverse_of => :lessons
+
+  has_many   :review_records,:dependent => :destroy;
+  has_one    :current_review_record,-> { order 'created_at' }, :class_name => "ReviewRecord"
   has_one    :video,:dependent => :destroy
+
 
   validates_presence_of :name,:desc,:curriculum
 
-  belongs_to :curriculum, :counter_cache => true, :inverse_of => :lessons
 
   scope :by_state,    lambda {|s| where(state: s) if s}
   scope :by_teacher,  lambda {|s| where(teacher_id: s) if s}
 
-  has_many :review_records;
-  has_one  :current_review_record,-> { order 'created_at' }, :class_name => "ReviewRecord"
+
 
   accepts_nested_attributes_for :current_review_record
 

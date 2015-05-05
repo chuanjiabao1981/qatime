@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   after_create :update_register_code
 
 
-  has_many :topics, :dependent => :destroy
+  has_many :topics, :dependent => :destroy,foreign_key: :author_id
   has_many :replies, :dependent => :destroy
   has_many :faq_topics
   has_many :faqs

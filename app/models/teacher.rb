@@ -4,12 +4,13 @@ class Teacher < User
 
   validates_presence_of :subject,:category
 
-  has_many :curriculums
-  has_many :courses
+  has_many :curriculums,dependent: :destroy
+  has_many :courses,dependent: :destroy
 
-  has_many :answers
+
+  has_many :answers,:dependent => :destroy
+  has_many :learning_plan_assignments, :dependent => :destroy
   has_many :learning_plans,:through => :learning_plan_assignments
-  has_many :learning_plan_assignments
 
   belongs_to :school
   attr_accessor :accept

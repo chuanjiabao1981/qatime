@@ -38,7 +38,7 @@ class AnswerCreateTest < ActionDispatch::IntegrationTest
       # TODO:: 这里可以优化看progress的进度
       sleep 300
 
-      page.save_screenshot('screenshot.png')
+      #page.save_screenshot('screenshot.png')
 
       click_on '提交讲解'
 

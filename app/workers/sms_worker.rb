@@ -18,30 +18,27 @@ module SmsUtil
 end
 class SmsWorker
   include Sidekiq::Worker
+  include SmsUtil
+
   sidekiq_options :queue => :sms, :retry => false, :backtrace => true
   require 'net/http'
   require 'json'
 
   def perform(id)
-    QuestionCreateNotification.new(id).notify
-  end
-end
-
-class QuestionCreateNotification
-  include SmsUtil
-
-  def initialize(id)
-    @question = Question.find(id)
+    question_create_notify(id)
   end
 
-  def notify
-    @question.learning_plan.teachers.each do |teacher|
-      send_message(teacher.mobile,content)
+  private
+    def question_create_notify(id)
+      question = Question.find(id)
+      question.learning_plan.teachers.each do |teacher|
+        begin
+          send_message(teacher.mobile,
+                       "【答疑时间】#{question.student.name}向您提了一个问题，请您回复#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}。")
+        rescue Exception => e
+          logger.info e.message
+          logger.info e.backtrace.inspect
+        end
+      end
     end
-  end
-
-private
-  def content
-    "【答疑时间】#{@question.student.name}向您提了一个问题，请您回复#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}。"
-  end
 end

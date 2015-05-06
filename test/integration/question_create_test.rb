@@ -1,4 +1,7 @@
 require 'test_helper'
+require 'sidekiq/testing'
+
+Sidekiq::Testing.inline!
 
 class QuestionCreateTest < ActionDispatch::IntegrationTest
   test "question create" do

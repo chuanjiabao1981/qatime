@@ -6,7 +6,7 @@ class StudentLoginTest< ActionDispatch::IntegrationTest
     student1 = users(:student1)
     log_in_as(student1)
     assert page.has_content? Curriculum.model_name.human
-    click Curriculum.model_name.human
+    click_on Curriculum.model_name.human
 
   end
 end

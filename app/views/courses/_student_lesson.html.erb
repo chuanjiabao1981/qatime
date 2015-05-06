@@ -4,6 +4,6 @@
     <!--% else %-->
         <%=render 'courses/student_in_course_lesson', :locals => { :lesson => @lesson } %>
     <!--% end %-->
+    <%=render 'courses/preview_finish', :locals => { :lesson => @lesson } %>
 <% end %>
 
-<%=render 'courses/preview_finish', :locals => { :lesson => @lesson } %>

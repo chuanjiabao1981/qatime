@@ -7,6 +7,8 @@
   <div id="submenu-<%= sub %>" class="submenu_popover">
     <div style="padding: 10px" >
       <% APP_CONSTANT["grades_in_menu"].each do |grade| %>
+          <% next if @all_teaching_programs.
+                  select{|teaching_program| (teaching_program.grade == grade and teaching_program.subject == sub_cn) }.size == 0 %>
           <div style="color: #cbcbcb;font-size: 12px;border-bottom: 1px dotted gainsboro;padding-bottom: 2px">
             <%= grade %>
             <div class="school item qa_f12">

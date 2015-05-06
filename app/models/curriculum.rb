@@ -7,6 +7,7 @@ class Curriculum < ActiveRecord::Base
 
   scope :by_teaching_program,lambda {|s| where(teaching_program_id: s) if s}
   scope :by_subject,lambda {|s| joins(:teaching_program).where({teaching_programs:{subject: s}}) if s}
+  scope :by_passed_teacher, lambda{|s| joins(:teacher).where({users:{pass: true}}) if s.nil? or s.teacher? or s.student?}
   accepts_nested_attributes_for :courses
 
   def get_courses_by_chapter(chapter)

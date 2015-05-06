@@ -87,7 +87,10 @@ Qatime::Application.routes.draw do
     collection do
       get 'search'
     end
-
+    member do
+      get 'pass'
+      get 'unpass'
+    end
   end
   resources :students do
     collection do

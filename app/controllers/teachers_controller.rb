@@ -1,5 +1,5 @@
 class TeachersController < ApplicationController
-  respond_to :html
+  respond_to :html,:js
 
   def index
     @teachers = Teacher.all.order(:created_at).paginate(page: params[:page],:per_page => 10)
@@ -41,6 +41,16 @@ class TeachersController < ApplicationController
     respond_with @teacher
   end
 
+  def pass
+    @teacher = Teacher.find(params[:id])
+    @teacher.update_attribute(:pass, true)
+    render 'pass'
+  end
+  def unpass
+    @teacher = Teacher.find(params[:id])
+    @teacher.update_attribute(:pass,false)
+    render 'pass'
+  end
   def destroy
     @teacher = Teacher.find(params[:id])
     @teacher.destroy

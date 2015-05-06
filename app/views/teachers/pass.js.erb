@@ -1,0 +1,2 @@
+$("div#teacher_pass_status_<%=@teacher.id%>").
+        replaceWith("<%= j render partial: 'teacher_status',locals: {teacher: @teacher}%>")

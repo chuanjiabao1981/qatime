@@ -1,0 +1,7 @@
+<div id="teacher_pass_status_<%=teacher.id%>">
+  <% if not teacher.pass %>
+      未通过 • <%= link_to '通过', pass_teacher_path(teacher),remote:true %>
+  <% else %>
+      通过 • <%= link_to '不通过', unpass_teacher_path(teacher),remote: true %>
+  <% end %>
+</div>

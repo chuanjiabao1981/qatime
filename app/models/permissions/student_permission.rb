@@ -4,8 +4,8 @@ module Permissions
       allow :qa_faqs,[:index,:show]
 
       allow :home,[:index]
-      #allow :curriculums,[:index,:show]
-      #allow :courses,[:show]
+      allow :curriculums,[:index,:show]
+      allow :courses,[:show]
       allow :sessions,[:destroy]
       allow :topics,[:new,:create,:show]
       allow :messages, [:index, :show]

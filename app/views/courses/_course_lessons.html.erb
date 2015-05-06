@@ -16,7 +16,11 @@
       <div class="qa_cell">
         <div style="width: 70%" class="pull-left">
           <%=link_to  lesson.name ,course_path(@course,lesson_id:lesson.id)%>
-          <span class="qa_f12" style="color: darkgreen">[<%= lesson.human_state_name %>]</span>
+          <span class="qa_f12" style="color: darkgreen">
+            <% if current_user and not current_user.student? %>
+                [<%= lesson.human_state_name %>]
+            <% end %>
+          </span>
         </div>
         <div class="pull-right">
           <% if allow? "teachers/lessons",:edit,lesson %>

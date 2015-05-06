@@ -8,7 +8,7 @@
         <div id="course_purchase" class="pull-right">
           <% if current_user.student? %>
               <% if current_user.courses.include?(@course) %>
-                <span class="label label-info">已购买</span>
+                <!--span class="label label-info">已购买</span-->
               <% end %>
           <% end %>
         </div>
@@ -21,9 +21,12 @@
       <%=render 'lesson' %>
     <% end %>
   </div>
-  <div class="qa_sep_15"></div>
-  <div class="qa_sep_5"></div>
-  <%=render 'course_topics' %>
+  <div class="qa_box qa_cell">
+    <%=link_to questions_path  do %>
+        <span class="label label-primary"><%= VipClass.model_name.human%></span>
+    <% end %>
+  </div>
+  <!--%=render 'course_topics' %-->
 </div>
 <div class="col-md-3">
   <%= render 'course_lessons' %>

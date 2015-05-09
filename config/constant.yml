@@ -3,6 +3,7 @@ subjects:
   - 物理
   - 生物
   - 化学
+  - 英语
 
 categories:
   - 高中
@@ -39,6 +40,7 @@ english:
   物理: physics
   生物: biology
   化学: chemistry
+  英语: english
 
 vip_class_ids:
   高中:
@@ -46,6 +48,7 @@ vip_class_ids:
     物理: 2
     化学: 3
     生物: 4
+    英语: 9
   初中:
     数学: 5
     物理: 6
@@ -61,6 +64,8 @@ vip_class_icons:
     icon: fa fa-flask fa-2x
   生物:
     icon: fa fa-leaf fa-2x
+  英语:
+    icon: fa fa-language fa-2x
 
 learning_plan:
   duration_types:

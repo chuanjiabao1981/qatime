@@ -199,4 +199,99 @@
       - 传染病和免疫
       - 用药和急救
       - 了解自己 增进健康
-
+-
+  name: 必修1
+  subject: 英语
+  category: 高中
+  grade: 高一
+  content:
+    chapters:
+      - Unit 1 Friendship
+      - Unit 2 English around world
+      - Unit 3 Travel journal
+      - Unit 4 Earthquake
+      - Unit 5 Nelson Mandela --- a modern hero
+-
+  name: 必修2
+  subject: 英语
+  category: 高中
+  grade: 高一
+  content:
+    chapters:
+      - Unit 1 Cultural relics
+      - Unit 2 The Olympic Games
+      - Unit 3 Computers
+      - Unit 4 Wildlife Protection
+      - Unit 5 Music
+-
+  name: 必修3
+  subject: 英语
+  category: 高中
+  grade: 高一
+  content:
+    chapters:
+      - Unit 1 Festivals around the world
+      - Unit 2 Healthy eating
+      - Unit 3 The Million Pound Bank Note
+      - Unit 4 Astronomy:the science of the stars
+      - Unit 5 Canada –"The True North"
+-
+  name: 必修4
+  subject: 英语
+  category: 高中
+  grade: 高一
+  content:
+    chapters:
+      - Unit 1 Women of achievement
+      - Unit 2 Working the land
+      - Unit 3 A taste of English humour
+      - Unit 4 Body language
+      - Unit 5 Theme parks
+-
+  name: 必修5
+  subject: 英语
+  category: 高中
+  grade: 高二
+  content:
+    chapters:
+      - Unit 1 Great scientists
+      - Unit 2 The United Kingdom
+      - Unit 3 Life in the future
+      - Unit 4 Making the news
+      - Unit 5 First Aid
+-
+  name: 选修6
+  subject: 英语
+  category: 高中
+  grade: 高二
+  content:
+    chapters:
+      - Unit 1 Art
+      - Unit 2 Poems
+      - Unit 3 A healthy life
+      - Unit 4 Global warming
+      - Unit 5 The power of nature
+-
+  name: 选修7
+  subject: 英语
+  category: 高中
+  grade: 高二
+  content:
+    chapters:
+      - Unit 1 Living well
+      - Unit 2 Robots
+      - Unit 3 Under the sea
+      - Unit 4 Sharing
+      - Unit 5 Traveling abroad
+-
+  name: 选修8
+  subject: 英语
+  category: 高中
+  grade: 高二
+  content:
+    chapters:
+      - Unit 1 A land of diversity
+      - Unit 2 Cloning
+      - Unit 3 Inventors and inventions
+      - Unit 4 Pygmalion
+      - Unit 5 Meeting your ancestors

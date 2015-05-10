@@ -21,7 +21,7 @@ class QuestionsController < ApplicationController
     @question   = current_user.questions.build(params[:question].permit!)
      if @question.save
        flash[:success] = "成功创建#{Question.model_name.human}"
-       SmsWorker.perform_async(@question.id)
+       SmsWorker.perform_async(SmsWorker::QUESTION_CREATE_NOTIFICATION, id: @question.id)
       end
     respond_with @question
   end

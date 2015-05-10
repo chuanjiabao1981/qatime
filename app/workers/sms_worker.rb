@@ -17,6 +17,11 @@ module SmsUtil
   end
 end
 class SmsWorker
+
+  QUESTION_CREATE_NOTIFICATION = :question_create_notify
+  REGISTRATION_NOTIFICATION    = :registration_notify
+  ANSWER_CREATE_NOTIFICATION   = :answer_create_notify
+
   include Sidekiq::Worker
   include SmsUtil
 
@@ -24,13 +29,35 @@ class SmsWorker
   require 'net/http'
   require 'json'
 
-  def perform(id)
-    question_create_notify(id)
+  def perform(notification_type,options={})
+    send notification_type,options
   end
 
+
   private
-    def question_create_notify(id)
-      question = Question.find(id)
+    def answer_create_notify(options)
+      question = Question.find(options["id"])
+      teacher  = Teacher.find(options["teacher_id"])
+      begin
+        send_message(question.student.mobile,
+                     "【答疑时间】#{question.student.name}，你好，#{teacher.name}老师回复了你问题，请查看。")
+      rescue Exception => e
+        logger.info e.message
+        logger.info e.backtrace.inspect
+      end
+    end
+    def registration_notify(options)
+      user = User.find(options["id"])
+      begin
+        send_message(user.mobile,
+                     "【答疑时间】#{user.name}，你好，欢迎注册答疑时间! 请使用360极速浏览器或者360安全浏览器访问本网站。")
+      rescue Exception => e
+        logger.info e.message
+        logger.info e.backtrace.inspect
+      end
+    end
+    def question_create_notify(options)
+      question = Question.find(options["id"])
       question.learning_plan.teachers.each do |teacher|
         begin
           send_message(teacher.mobile,

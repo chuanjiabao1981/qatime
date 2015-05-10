@@ -1,0 +1,7 @@
+student_register_code:
+  value: 12345678
+  state: available
+
+teacher_register_code:
+  value: 987654321
+  state: available

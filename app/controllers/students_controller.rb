@@ -12,6 +12,7 @@ class StudentsController < ApplicationController
     @student = Student.new(params[:student].permit!)
     @student.build_account
     if @student.save
+      SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @student.id)
       if signed_in?
         respond_with @student
       else

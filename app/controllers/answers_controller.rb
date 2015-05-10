@@ -4,6 +4,7 @@ class AnswersController < ApplicationController
   def create
     @answer = @question.build_a_answer(current_user.id, params[:answer].permit!)
     if @answer.save
+      SmsWorker.perform_async(SmsWorker::ANSWER_CREATE_NOTIFICATION, id: @question.id, teacher_id: current_user.id)
       redirect_to question_path(@question)
     else
       render 'questions/show'

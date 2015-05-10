@@ -5,6 +5,7 @@ class Question < ActiveRecord::Base
   belongs_to :student
   belongs_to :learning_plan, counter_cache:true, inverse_of: :questions
   belongs_to :vip_class,counter_cache: true
+
   has_many :answers,dependent: :destroy
   has_many :pictures,as: :imageable
 
@@ -90,7 +91,7 @@ class Question < ActiveRecord::Base
 private
 
   def decrement_count
-    self.learning_plan.decrement_answered_questions_count(self)
+    self.learning_plan.decrement_answered_questions_count(self) if self.learning_plan
   end
 
 

@@ -39,6 +39,10 @@ class StudentsController < ApplicationController
                 .where("name =? or email = ?",params[:search][:name],params[:search][:name])
   end
 
+  def destroy
+    @student.destroy
+    respond_with @student
+  end
   private
   def current_resource
     @student = Student.find(params[:id]) if params[:id]

@@ -56,6 +56,7 @@ cn:
         password: 密码
         password_confirmation: 密码确认
         avatar: 头像
+        grade: 年级
       topic:
         title: 标题
         body: 内容

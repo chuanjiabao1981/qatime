@@ -13,7 +13,8 @@ class User < ActiveRecord::Base
   validates :mobile,numericality: { only_integer: true },if: :teacher_or_student?
   validates :school ,presence: true,if: :teacher?
   validates :password, length: { minimum: 6 },:on => :create
-
+  validates :grade, inclusion: { in: APP_CONSTANT["grades_in_menu"]},if: :student?
+  validates_presence_of :grade, if: :student?
   has_secure_password
 
   before_create :create_remember_token

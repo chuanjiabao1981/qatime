@@ -38,6 +38,7 @@ student1:
   mobile: 15910676326
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   avatar: "test"
+  grade: 高一
 
 physics_teacher1:
   name: physics_teacher1

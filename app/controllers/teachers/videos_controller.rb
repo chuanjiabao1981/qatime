@@ -17,9 +17,6 @@ class Teachers::VideosController < ApplicationController
   def update
     @video_player_id = rand(10000)
     @video.update_video_file(params[:video].permit!)
-    if @video.not_convert?
-      @video.add_to_convert_queue
-    end
     respond_with @video
   end
   protected

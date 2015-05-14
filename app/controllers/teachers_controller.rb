@@ -31,29 +31,36 @@ class TeachersController < ApplicationController
   end
 
   def edit
-    @teacher = Teacher.find(params[:id])
   end
 
   def update
-    @teacher = Teacher.find(params[:id])
 
     @teacher.update_attributes(params[:teacher].permit!)
 
     respond_with @teacher
   end
 
+
+  def lessons_state
+    if params[:state] == nil
+      params[:state] = 'editing'
+    end
+    @lessons = Lesson.all.
+        by_state(params[:state]).
+        by_teacher(@teacher.id).
+        order(:created_at).paginate(page: params[:page],:per_page => 10)
+    render layout: 'teacher_home'
+  end
+
   def pass
-    @teacher = Teacher.find(params[:id])
     @teacher.update_attribute(:pass, true)
     render 'pass'
   end
   def unpass
-    @teacher = Teacher.find(params[:id])
     @teacher.update_attribute(:pass,false)
     render 'pass'
   end
   def destroy
-    @teacher = Teacher.find(params[:id])
     @teacher.destroy
     respond_with @teacher
   end
@@ -61,5 +68,10 @@ class TeachersController < ApplicationController
     @teachers = Teacher.all
     .where("name =? or email = ?",params[:search][:name],params[:search][:name]).paginate(page: params[:page],:per_page => 10)
     render 'index'
+  end
+
+  private
+  def current_resource
+    @teacher = Teacher.find(params[:id]) if params[:id]
   end
 end

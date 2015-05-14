@@ -57,7 +57,9 @@ module Permissions
 
       allow "teachers/home",[:main]
 
-      allow :teachers,[:edit,:update,:show]
+      allow :teachers,[:edit,:update,:show,:lessons_sate] do |teacher|
+        teacher and teacher.id == user.id
+      end
 
       allow :courses,[:show]
       allow :sessions,[:destroy]
@@ -69,6 +71,7 @@ module Permissions
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
       end
+      allow :learning_plans,[:my_students]
 
     end
   end

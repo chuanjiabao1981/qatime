@@ -6,7 +6,7 @@
         <strong><%= @teacher.name %></strong>
       </span>
     <div class="pull-right">
-      <% if allow? "teachers", "edit" %>
+      <% if allow? "teachers", "edit" ,@teacher%>
           <%=link_to edit_teacher_path(@teacher) do %>
               <button type="button" class="btn btn-xs btn-success">编辑讲师</button>
           <% end %>

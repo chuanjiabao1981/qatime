@@ -39,11 +39,6 @@ class LearningPlansController < ApplicationController
 
   end
 
-  def my_students
-    teacher = Teacher.find(params[:teacher_id])
-    @learning_plans = teacher.learning_plans.paginate(page: params[:page],:per_page => 10)
-  end
-
   def teachers
     if params[:id]
       @learning_plan = LearningPlan.find(params[:id])

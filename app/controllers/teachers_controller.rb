@@ -27,19 +27,16 @@ class TeachersController < ApplicationController
   def show
     @teacher = Teacher.find(params[:id])
     @curriculums = @teacher.find_or_create_curriculums
-
+    render layout: 'teacher_home'
   end
 
   def edit
   end
 
   def update
-
     @teacher.update_attributes(params[:teacher].permit!)
-
     respond_with @teacher
   end
-
 
   def lessons_state
     if params[:state] == nil
@@ -50,6 +47,20 @@ class TeachersController < ApplicationController
         by_teacher(@teacher.id).
         order(:created_at).paginate(page: params[:page],:per_page => 10)
     render layout: 'teacher_home'
+  end
+
+  def students
+    @learning_plans = @teacher.learning_plans.paginate(page: params[:page],:per_page => 10)
+    render layout: 'teacher_home'
+  end
+
+  def curriculums
+    @curriculums = @teacher.find_or_create_curriculums
+    render layout: 'teacher_home'
+  end
+
+  def info
+    
   end
 
   def pass

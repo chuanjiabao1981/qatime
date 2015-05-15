@@ -30,6 +30,14 @@ class ActiveSupport::TestCase
     click_button '登录'
     assert page.has_content? '欢迎登录!'
   end
+
+  def log_in2_as(user)
+    open_session do |sess|
+      sess.https!
+      sess.post sessions_path user: { email: user.email, password: 'password'}
+      sess.https!(false)
+    end
+  end
 end
 
 class ActionDispatch::IntegrationTest

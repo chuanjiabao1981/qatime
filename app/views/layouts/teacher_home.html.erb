@@ -22,33 +22,50 @@
       <ul class="menu" style="color: white">
         <li>
           <%= link_to curriculums_path do %>
-            <span class="glyphicon glyphicon-home"></span> <span class="qa_f18">首页</span> Home
-          <% end %>
-        </li>
-        <li>
-          <%= link_to state_teachers_lessons_path(teacher_id:current_user.id) do %>
-            <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"> 状态</span> State
+            <span class="fa fa-home"></span> <span class="qa_f18">首页</span> Home
           <% end %>
         </li>
         <li>
           <%= link_to questions_path do %>
-              <span class="fa fa-university"></span> <span class="qa_f18"><%= VipClass.model_name.human %></span> Vip
+              <span class="fa fa-users"></span> <span class="qa_f18"><%= VipClass.model_name.human %></span>
           <% end %>
         </li>
         <li>
-          <%= link_to questions_path do %>
-              <span class="fa fa-university"></span> <span class="qa_f18"><%= VipClass.model_name.human %></span> Vip
+          <%= link_to students_teacher_path(@teacher) do %>
+              <span class="fa fa-graduation-cap"></span> <span class="qa_f18">我的学生</span>
           <% end %>
         </li>
+        <li>
+          <%= link_to curriculums_teacher_path(@teacher) do %>
+              <span class="fa fa-book"></span>  <span class="qa_f18">我的课程</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to "#" do %>
+              <span class="fa fa-btc"></span> <span class="qa_f18">我的金币</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to lessons_state_teacher_path(@teacher) do %>
+            <span class="fa fa-line-chart"></span> <span class="qa_f18">课程状态</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to info_teacher_path(@teacher) do %>
+              <span class="fa fa-info-circle"></span> <span class="qa_f18">个人信息</span>
+          <% end %>
+        </li>
+
+
         <li>
           <%= link_to qa_faqs_path do %>
-             <span class="glyphicon glyphicon-question-sign"></span><span class="qa_f18"> 疑问</span> faq
+             <span class="fa fa-question-circle"></span><span class="qa_f18"> 常见问题</span>
           <% end %>
         </li>
 
         <li>
           <%= link_to signout_path, :method=>'delete'  do %>
-              <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18"> 退出</span> Exit
+              <span class="fa fa-sign-out"></span> <span class="qa_f18"> 登出系统</span>
           <% end %>
         </li>
       </ul>

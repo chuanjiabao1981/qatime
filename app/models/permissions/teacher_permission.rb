@@ -42,8 +42,6 @@ module Permissions
         lesson and lesson.teacher_id == user.id
       end
 
-      allow "teachers/lessons",[:state]
-
       allow "videos",[:create,:show]
 
       allow "teaching_videos",[:create,:show]
@@ -57,7 +55,7 @@ module Permissions
 
       allow "teachers/home",[:main]
 
-      allow :teachers,[:edit,:update,:show,:lessons_sate] do |teacher|
+      allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,:info] do |teacher|
         teacher and teacher.id == user.id
       end
 
@@ -71,7 +69,6 @@ module Permissions
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
       end
-      allow :learning_plans,[:my_students]
 
     end
   end

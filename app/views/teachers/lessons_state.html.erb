@@ -13,15 +13,15 @@
 
     <table class="table table-striped">
       <thead>
-        <th width="%5">#</th>
-        <th width="60%">
-            <%= Lesson.model_name.human %>
-        </th>
-        <th>
-          <%= Course.model_name.human %>
-        </th>
+      <th width="%5">#</th>
+      <th width="60%">
+        <%= Lesson.model_name.human %>
+      </th>
+      <th>
+        <%= Course.model_name.human %>
+      </th>
       </thead>
-      <%= render @lessons %>
+      <%= render partial:'teachers/lessons/lesson',collection:@lessons %>
     </table>
     <%= will_paginate @lessons %>
 

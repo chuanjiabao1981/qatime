@@ -59,11 +59,7 @@ Qatime::Application.routes.draw do
       end
       resources :courses
     end
-    resources :lessons do
-      collection do
-        get 'state'
-      end
-    end
+    resources :lessons
     resources :courses do
       resources :lessons
     end
@@ -90,6 +86,9 @@ Qatime::Application.routes.draw do
       get 'pass'
       get 'unpass'
       get 'lessons_state'
+      get 'students'
+      get 'curriculums'
+      get 'info'
     end
   end
   resources :students do
@@ -117,7 +116,6 @@ Qatime::Application.routes.draw do
   resources :learning_plans do
     collection do
       get 'teachers'
-      get 'my_students'
     end
   end
 

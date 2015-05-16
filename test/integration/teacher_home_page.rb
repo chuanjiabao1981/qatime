@@ -27,6 +27,11 @@ class TeacherHomePageTest < ActionDispatch::IntegrationTest
     @teacher1_session.assert_template layout: "layouts/teacher_home"
 
     @teacher1_session.assert_response :success
+  end
+
+  test "teacher info" do
+    @teacher1_session.get info_teacher_path(@teacher1)
+    @teacher1_session.assert_select "a[href=?]", edit_teacher_path(@teacher1), count: 1
 
   end
 end

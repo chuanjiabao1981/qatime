@@ -53,6 +53,7 @@
   padding-top: 10px;
   padding-left: 60px;
   padding-right: 50px;
+  width: 90%;
 }
 .qa_question .qa_item .qa_info .qa_node
 {
@@ -78,11 +79,12 @@
 
 .qa_question .qa_item .qa_status
 {
-  float:right;
-  padding-top: 5px;
-  padding-right:20px;
-  color: darkgreen;
+  //这个位置是相对于qa_item的
+  position: absolute;
+  top: 35%;
+  right: 2%;
 }
+
 .qa_answer .qa_input
 {
   padding:10px;

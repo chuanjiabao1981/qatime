@@ -25,8 +25,8 @@ class TeachersController < ApplicationController
   end
 
   def show
-    @teacher = Teacher.find(params[:id])
-    @curriculums = @teacher.find_or_create_curriculums
+    #@teacher = Teacher.find(params[:id])
+    #@curriculums = @teacher.find_or_create_curriculums
     render layout: 'teacher_home'
   end
 

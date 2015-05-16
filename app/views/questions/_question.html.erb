@@ -1,11 +1,14 @@
-<div class="qa_item">
+<div class="qa_item" style="position: relative">
   <div class="author_avatar">
     <%=image_tag question.student.avatar.normal.url %>
   </div>
   <div class="qa_status">
 
-    <%= question.answers_count %>
+    <span class="label label-info">      <%= question.answers_count %></span>
+
+
   </div>
+
   <div class="qa_title">
     <%=link_to question.title , question_path(question)%>
   </div>

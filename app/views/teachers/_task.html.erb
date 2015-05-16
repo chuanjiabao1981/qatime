@@ -17,10 +17,10 @@
     <ul class="nav nav-tabs" role="tablist">
 
       <li role="presentation" class=<%= "active" if action_name == "questions" %>>
-        <%=link_to "问答社区中向您提的问题",questions_teacher_path(@teacher) %>
+        <%=link_to "#{VipClass.model_name.human}中向您提的问题",questions_teacher_path(@teacher) %>
       </li>
       <li role="presentation" class=<%= "active" if action_name == "topics" %>>
-        <%=link_to "公共课程中向您提的问题",topics_teacher_path(@teacher) %>
+        <%=link_to "#{Curriculum.model_name.human}中向您提的问题",topics_teacher_path(@teacher) %>
       </li>
     </ul>
   </div>

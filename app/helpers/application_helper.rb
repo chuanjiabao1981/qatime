@@ -5,7 +5,7 @@ module ApplicationHelper
     case current_user.role
       when "teacher"
         #teachers_home_path
-        teacher_path(current_user.id)
+        questions_teacher_path(current_user.id)
       when "admin"
         admins_home_path
       when "student"

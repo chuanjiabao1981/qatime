@@ -1,0 +1,30 @@
+<div class="qa_box">
+  <div class="qa_big_cell_without_border">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>
+          我的问答任务
+        </h2>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div role="tabpanel" style="padding-left: 1px">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+
+      <li role="presentation" class=<%= "active" if action_name == "questions" %>>
+        <%=link_to "问答社区中向您提的问题",questions_teacher_path(@teacher) %>
+      </li>
+      <li role="presentation" class=<%= "active" if action_name == "topics" %>>
+        <%=link_to "公共课程中向您提的问题",topics_teacher_path(@teacher) %>
+      </li>
+    </ul>
+  </div>
+
+  <%= yield %>
+
+</div>

@@ -89,6 +89,8 @@ Qatime::Application.routes.draw do
       get 'students'
       get 'curriculums'
       get 'info'
+      get 'questions'
+      get 'topics'
     end
   end
   resources :students do

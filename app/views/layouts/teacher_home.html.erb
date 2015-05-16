@@ -22,7 +22,7 @@
       <ul class="menu" style="color: white">
         <li>
           <%= link_to curriculums_path do %>
-            <span class="fa fa-home"></span> <span class="qa_f18">首页</span> Home
+            <span class="fa fa-home"></span> <span class="qa_f18"><%=Curriculum.model_name.human%></span>
           <% end %>
         </li>
         <li>
@@ -38,6 +38,11 @@
         <li>
           <%= link_to curriculums_teacher_path(@teacher) do %>
               <span class="fa fa-book"></span>  <span class="qa_f18">我的课程</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to questions_teacher_path(@teacher) do %>
+              <span class="fa fa-tasks"></span> <span class="qa_f18">我的任务</span>
           <% end %>
         </li>
         <li>

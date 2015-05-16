@@ -3,10 +3,8 @@
     <%=image_tag question.student.avatar.normal.url %>
   </div>
   <div class="qa_status">
-    <% if question.last_answer_info.empty? %>
-        <i class="fa fa-question fa-2x"></i>
-    <% end %>
 
+    <%= question.answers_count %>
   </div>
   <div class="qa_title">
     <%=link_to question.title , question_path(question)%>
@@ -28,4 +26,5 @@
     </div>
 
   </div>
+  <div style="clear: both"></div>
 </div>

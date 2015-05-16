@@ -38,6 +38,9 @@ class ActiveSupport::TestCase
       sess.https!(false)
     end
   end
+  def log_out2(sess)
+    sess.delete signout_path
+  end
 end
 
 class ActionDispatch::IntegrationTest

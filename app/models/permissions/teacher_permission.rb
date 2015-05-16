@@ -55,7 +55,7 @@ module Permissions
 
       allow "teachers/home",[:main]
 
-      allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,:info] do |teacher|
+      allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,:info,:questions,:topics] do |teacher|
         teacher and teacher.id == user.id
       end
 

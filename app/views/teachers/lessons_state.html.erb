@@ -23,7 +23,7 @@
       </thead>
       <%= render partial:'teachers/lessons/lesson',collection:@lessons %>
     </table>
-    <%= will_paginate @lessons %>
+    <%= will_paginate @lessons,renderer: BootstrapPagination::Rails %>
 
   </div>
 </div>

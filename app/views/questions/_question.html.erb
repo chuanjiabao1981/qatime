@@ -11,6 +11,7 @@
 
   <div class="qa_title">
     <%=link_to question.title , question_path(question)%>
+
   </div>
 
   <div class="qa_info">
@@ -18,13 +19,15 @@
                questions_path ,class: "qa_node"%> •
     <%= question.student.name %> • 发布于<%= time_ago_in_words(question.created_at) %>前 • 有<%= question.comments_count%>个<%= Comment.model_name.human%>
 
+    <% if current_user and current_user.teacher? and question.is_responed_by_the_teacher?(current_user.id)%>
+        <% if question.is_answered_by_the_teacher?(current_user.id) %>
+            • <span class="qa_answered">已处理</span>
+        <% else %>
+            • <span class="qa_not_answered">未处理</span>
+        <% end %>
+    <% end %>
 
     <div class="qa_teacher">
-      <% if not question.last_answer_info.empty? %>
-          <%=image_tag Teacher.find_by_id(question.last_answer_info["teacher_id"].to_i).try(:avatar).try(:tiny).try(:url),class:"img-circle" %>
-
-          <%= question.last_answer_info["teacher_name"] %>老师于<%=time_ago_in_words(question.last_answer_info["answered_at"])%>前给出了解答
-      <% end %>
 
     </div>
 

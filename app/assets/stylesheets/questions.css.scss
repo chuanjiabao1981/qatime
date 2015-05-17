@@ -62,6 +62,19 @@
   text-decoration: none;
   background-color: #f5f5f5;
 }
+.qa_question .qa_item .qa_info .qa_not_answered
+{
+  padding: 1px 5px;
+  color: #FF7300;
+  background-color: #f5f5f5;
+}
+
+.qa_question .qa_item .qa_info .qa_answered
+{
+  padding: 1px 5px;
+  color: #008c00;
+  background-color: #f5f5f5;
+}
 .qa_question .qa_item .qa_info .qa_teacher
 {
   float:right;

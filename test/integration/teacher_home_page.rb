@@ -32,6 +32,7 @@ class TeacherHomePageTest < ActionDispatch::IntegrationTest
   test "teacher info" do
     @teacher1_session.get info_teacher_path(@teacher1)
     @teacher1_session.assert_select "a[href=?]", edit_teacher_path(@teacher1), count: 1
-
   end
+
+
 end

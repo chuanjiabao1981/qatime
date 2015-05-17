@@ -1,0 +1,30 @@
+<div class="qa_box">
+  <div class="qa_big_cell_without_border">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>
+          我的问题
+        </h2>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div role="tabpanel" style="padding-left: 1px">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+
+      <li role="presentation" class=<%= "active" if action_name == "questions" %>>
+        <%=link_to "#{VipClass.model_name.human}中提的问题",questions_student_path(@student) %>
+      </li>
+      <li role="presentation" class=<%= "active" if action_name == "topics" %>>
+        <%=link_to "#{Curriculum.model_name.human}中的问题",topics_student_path(@student) %>
+      </li>
+    </ul>
+  </div>
+
+  <%= yield %>
+
+</div>

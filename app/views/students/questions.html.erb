@@ -1,0 +1,8 @@
+<%= render layout: "task" do %>
+    <div class="qa_question">
+      <%= render partial: 'questions/question',collection: @questions %>
+    </div>
+    <div class="qa_cell">
+      <%= will_paginate @questions,renderer: BootstrapPagination::Rails %>
+    </div>
+<% end %>

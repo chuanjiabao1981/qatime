@@ -97,6 +97,12 @@ Qatime::Application.routes.draw do
     collection do
       get 'search'
     end
+    member do
+      get 'info'
+      get 'teachers'
+      get 'questions'
+      get 'topics'
+    end
   end
   resources :questions do
     resources :answers

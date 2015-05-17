@@ -24,10 +24,30 @@ class StudentsController < ApplicationController
     end
   end
   def show
+    render :info,layout: 'student_home'
   end
   def edit
   end
 
+  def info
+    render layout: 'student_home'
+  end
+
+
+  def questions
+    @questions = Question.all.where("student_id=?",@student.id).
+        includes({learning_plan: :teachers},:vip_class,:student).
+        order("created_at desc").paginate(page: params[:page],:per_page => 10)
+  end
+
+  def topics
+
+  end
+
+  def teachers
+    @learning_plans = @student.learning_plans.paginate(page: params[:page],:per_page => 10)
+    render layout: 'student_home'
+  end
   def update
     if @student.update_attributes(params[:student].permit!)
       redirect_to student_path(@student)

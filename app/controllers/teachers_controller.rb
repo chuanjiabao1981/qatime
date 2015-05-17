@@ -60,13 +60,15 @@ class TeachersController < ApplicationController
   end
 
   def info
-    
+    render layout: 'teacher_home'
   end
 
   def questions
     @questions = Question.all.by_teacher(params[:id])
     .includes({learning_plan: :teachers},:vip_class,:student)
     .order("created_at desc").paginate(page: params[:page],:per_page => 10)
+    render layout: 'teacher_home'
+
   end
 
   def topics

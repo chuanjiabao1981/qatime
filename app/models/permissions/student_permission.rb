@@ -39,7 +39,7 @@ module Permissions
       end
 
 
-      allow :students,[:show,:edit,:update] do |student|
+      allow :students,[:show,:edit,:update,:info,:teachers,:questions,:topics] do |student|
         student and student.id == user.id
       end
       allow :faqs, [:show]

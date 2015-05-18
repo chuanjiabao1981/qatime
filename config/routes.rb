@@ -28,7 +28,6 @@ Qatime::Application.routes.draw do
   end
 
   namespace :admins do
-    resources :groups
     resources :cities
     resources :recharge_codes
     resources :faq_topics
@@ -60,11 +59,7 @@ Qatime::Application.routes.draw do
       end
       resources :courses
     end
-    resources :lessons do
-      collection do
-        get 'state'
-      end
-    end
+    resources :lessons
     resources :courses do
       resources :lessons
     end
@@ -90,11 +85,23 @@ Qatime::Application.routes.draw do
     member do
       get 'pass'
       get 'unpass'
+      get 'lessons_state'
+      get 'students'
+      get 'curriculums'
+      get 'info'
+      get 'questions'
+      get 'topics'
     end
   end
   resources :students do
     collection do
       get 'search'
+    end
+    member do
+      get 'info'
+      get 'teachers'
+      get 'questions'
+      get 'topics'
     end
   end
   resources :questions do
@@ -119,6 +126,7 @@ Qatime::Application.routes.draw do
       get 'teachers'
     end
   end
+
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'
 

@@ -53,12 +53,26 @@
   padding-top: 10px;
   padding-left: 60px;
   padding-right: 50px;
+  width: 90%;
 }
 .qa_question .qa_item .qa_info .qa_node
 {
   padding: 1px 5px;
   color: #778087;
   text-decoration: none;
+  background-color: #f5f5f5;
+}
+.qa_question .qa_item .qa_info .qa_not_answered
+{
+  padding: 1px 5px;
+  color: #FF7300;
+  background-color: #f5f5f5;
+}
+
+.qa_question .qa_item .qa_info .qa_answered
+{
+  padding: 1px 5px;
+  color: #008c00;
   background-color: #f5f5f5;
 }
 .qa_question .qa_item .qa_info .qa_teacher
@@ -78,11 +92,12 @@
 
 .qa_question .qa_item .qa_status
 {
-  float:right;
-  padding-top: 5px;
-  padding-right:20px;
-  color: darkgreen;
+  //这个位置是相对于qa_item的
+  position: absolute;
+  top: 35%;
+  right: 2%;
 }
+
 .qa_answer .qa_input
 {
   padding:10px;

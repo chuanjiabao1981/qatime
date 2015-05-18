@@ -76,6 +76,9 @@ class Question < ActiveRecord::Base
     end
   end
 
+  def is_responed_by_the_teacher?(teacher_id)
+    return true if self.answers_info and self.answers_info.include?(teacher_id.to_s)
+  end
   def is_answered_by_the_teacher?(teacher_id)
     return true if  self.answers_info and self.answers_info[teacher_id.to_s]
   end

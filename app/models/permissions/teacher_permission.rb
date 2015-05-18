@@ -42,8 +42,6 @@ module Permissions
         lesson and lesson.teacher_id == user.id
       end
 
-      allow "teachers/lessons",[:state]
-
       allow "videos",[:create,:show]
 
       allow "teaching_videos",[:create,:show]
@@ -57,7 +55,9 @@ module Permissions
 
       allow "teachers/home",[:main]
 
-      allow :teachers,[:edit,:update,:show]
+      allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,:info,:questions,:topics] do |teacher|
+        teacher and teacher.id == user.id
+      end
 
       allow :courses,[:show]
       allow :sessions,[:destroy]

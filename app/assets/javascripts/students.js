@@ -16,7 +16,7 @@ function showimagepreview(input) {
                 bgFade:     true,
                 bgOpacity: .4,
                 aspectRatio: 1 ,
-                setSelect: [ 0, 0, 128, 128 ],
+                setSelect: [ 0, 0, 240, 240 ],
                 onSelect: updateCoords,
                 onChange: updateCoords
             },function(){

@@ -3,6 +3,7 @@ class QaFaqsController < ApplicationController
 
   def index
     @qa_faqs = QaFaq.all.order(:created_at)
+    render layout: "application"
   end
 
   def new
@@ -18,6 +19,7 @@ class QaFaqsController < ApplicationController
 
   def show
     @qa_faq = QaFaq.find(params[:id])
+    render layout: "application"
   end
 
   def edit

@@ -1,6 +1,6 @@
 cn:
   activerecord:
     models:
-      vip_class: 专属课程
+      vip_class: 问答社区
     attributes:
       vip_class:

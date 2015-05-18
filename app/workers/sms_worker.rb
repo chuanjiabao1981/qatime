@@ -40,7 +40,7 @@ class SmsWorker
       teacher  = Teacher.find(options["teacher_id"])
       begin
         send_message(question.student.mobile,
-                     "【答疑时间】#{question.student.name}，你好，#{teacher.name}老师回复了你问题，请查看。")
+                     "【答疑时间】#{question.student.name}，你好，#{teacher.name}老师回复了你问题，请及时查看并给出相应评论。")
       rescue Exception => e
         logger.info e.message
         logger.info e.backtrace.inspect

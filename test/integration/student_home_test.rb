@@ -30,7 +30,7 @@ class StudentrHomePageTest < ActionDispatch::IntegrationTest
     question1 = questions(:student1_question1)
     @student1_session.get questions_student_path(@student1)
     @student1_session.assert_select "a[href=?]", question_path(question1), count: 1
-    @student1_session.assert_template 'students/'
+    @student1_session.assert_template 'students/questions'
     @student1_session.assert_response :success
 
 

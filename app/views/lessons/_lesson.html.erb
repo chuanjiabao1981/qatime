@@ -1,21 +1,6 @@
 <% if @lesson %>
     <div class="qa_box">
-      <div class="qa_cell" style="height: 400px">
-        <%if @lesson.video and @lesson.video.name %>
-
-            <%= video_js_player(@lesson.video) %>
-        <% else %>
-            视频未上传
-        <% end %>
-
-      </div>
-      <div class="qa_cell qa_f12 rel" >
-        <div>
-          <%= @lesson.desc if @lesson %>
-        </div>
-
-        <div style="clear: both"></div>
-      </div>
+      <%= render partial: 'lesson_video',locals: {lesson: @lesson} %>
       <div class="qa_cell">
         <% if @lesson.rejected? %>
             <span class="qa_f12 label label-danger"><%=@lesson.human_state_name%></span>

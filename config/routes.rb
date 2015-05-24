@@ -9,7 +9,6 @@ Qatime::Application.routes.draw do
   get "students/home"       => "students/home#main",    as: 'students_home'
   get "managers/home"       => "managers/home#main",    as: 'managers_home'
 
-  resources :groups
   resources :curriculums
   resources :messages
   resources :qa_faqs
@@ -22,8 +21,9 @@ Qatime::Application.routes.draw do
     resources :replies
   end
 
+  resources :courses
   resources :lessons
-  resources :courses do
+  resources :lessons do
     resource :topics
   end
 

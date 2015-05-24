@@ -13,6 +13,8 @@ class CoursesController < ApplicationController
       @lesson   = @course.lessons.order(created_at: :asc).first
     end
 
+    render 'lessons/show'
+
   end
 
   def node

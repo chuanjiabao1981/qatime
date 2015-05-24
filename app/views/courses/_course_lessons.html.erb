@@ -1,21 +1,21 @@
 <div class="qa_box">
   <div class="qa_cell box_header">
     <div style="width: 90%" class="pull-left">
-      <strong><%= @course.name %></strong>
+      <strong><%= course.name %></strong>
     </div>
     <div class="pull-right">
-      <% if allow? "teachers/courses",:edit,@course %>
-          <%= link_to  edit_teachers_curriculum_course_path(@course.curriculum,@course) do%>
+      <% if allow? "teachers/courses",:edit,course %>
+          <%= link_to  edit_teachers_curriculum_course_path(course.curriculum,course) do%>
               <span class="glyphicon glyphicon-edit"></span>
           <% end %>
       <% end %>
     </div>
     <div style="clear: both"></div>
   </div>
-  <% @course.lessons.order(:created_at).each do |lesson| %>
+  <% course.lessons.order(:created_at).each do |lesson| %>
       <div class="qa_cell">
         <div style="width: 70%" class="pull-left">
-          <%=link_to  lesson.name ,course_path(@course,lesson_id:lesson.id)%>
+          <%=link_to  lesson.name ,course_path(course,lesson_id:lesson.id)%>
           <span class="qa_f12" style="color: darkgreen">
             <% if current_user and not current_user.student? %>
                 [<%= lesson.human_state_name %>]
@@ -24,10 +24,10 @@
         </div>
         <div class="pull-right">
           <% if allow? "teachers/lessons",:edit,lesson %>
-              <%= link_to  edit_teachers_course_lesson_path(@course,lesson) do%>
+              <%= link_to  edit_teachers_course_lesson_path(course,lesson) do%>
                   <span class="glyphicon glyphicon-edit"></span>
               <% end %>
-              <%= link_to teachers_course_lesson_path(@course, lesson), method: :delete,
+              <%= link_to teachers_course_lesson_path(course, lesson), method: :delete,
                           data: { confirm: "删除前请确认！" },
                           title: lesson.name do%>
                   <span class="glyphicon glyphicon-trash"></span>
@@ -39,8 +39,8 @@
   <% end %>
 </div>
 <div class="qa_sep_15"></div>
-<% if allow? "teachers/lessons",:new,@course %>
-    <%=link_to new_teachers_course_lesson_path(@course) do%>
+<% if allow? "teachers/lessons",:new,course %>
+    <%=link_to new_teachers_course_lesson_path(course) do%>
         <button type="button" class="btn btn-primary btn-block">添加<%= Lesson.model_name.human%></button>
     <% end %>
 <% end %>

@@ -2,5 +2,5 @@
 <%= render 'form' %>
 </div>
 <div class="col-md-3">
-  <%= render 'courses/course_lessons' %>
+  <%= render partial: 'courses/course_lessons', locals: {course: @lesson.course} %>
 </div>

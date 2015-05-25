@@ -1,6 +1,6 @@
 class Topic < ActiveRecord::Base
 
-  include Utils::QaToken
+  include QaToken
 
 
   belongs_to :author        ,:class_name => "User",:counter_cache => true,:inverse_of => :topics
@@ -17,14 +17,6 @@ class Topic < ActiveRecord::Base
   validates_presence_of :author,:title,:body,:lesson,:course,:curriculum,:author
 
 
-  def self.new_with_token(params=nil)
-    a = Topic.new(params)
-    a.generate_token if a.token.nil?
-    pictures      = Picture.where(token: a.token)
-    a.section_id  = a.node.section_id if a.node
-    a.pictures << pictures unless pictures.empty?
-    a
-  end
 
   def initialize(atrributes={})
     super(atrributes)

@@ -1,6 +1,11 @@
 require 'test_helper'
 
 class TopicTest < ActiveSupport::TestCase
+
+  test "fixture" do
+    topic = topics(:topic1)
+    assert topic.valid?
+  end
   test "student topic valid" do
     lesson1     = lessons(:teacher1_lesson)
     student1    = Student.find(users(:student1).id)

@@ -22,10 +22,11 @@ Qatime::Application.routes.draw do
   end
 
   resources :courses
-  resources :lessons
   resources :lessons do
-    resource :topics
+    resources :topics
   end
+  resources :lessons
+
 
   namespace :admins do
     resources :cities

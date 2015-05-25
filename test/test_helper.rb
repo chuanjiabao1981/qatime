@@ -47,3 +47,22 @@ class ActionDispatch::IntegrationTest
   # Make the Capybara DSL available in all integration tests
   include Capybara::DSL
 end
+
+class LoginTestBase < ActionDispatch::IntegrationTest
+  def setup
+    @teacher          = Teacher.find(users(:teacher1).id)
+    @teacher_session  = log_in2_as(@teacher)
+    @student          = Student.find(users(:student1).id)
+    @student_session  = log_in2_as(@student)
+  end
+
+
+  def teardown
+    @teacher           = nil
+    @student           = nil
+    log_out2(@teacher_session)
+    log_out2(@student_session)
+    @teacher_session   = nil
+    @student_session   = nil
+  end
+end

@@ -28,10 +28,10 @@ class TopicsController < ApplicationController
   end
 
   def edit
-    @topic        = Topic.find(params[:id])
+    @lesson = @topic.lesson
   end
   def update
-    @topic        = Topic.find(params[:id])
+    @lesson = @topic.lesson
     if @topic.update_attributes(params[:topic].permit!)
       redirect_to topic_path(@topic),notice:"success edit topic"
     else
@@ -39,7 +39,6 @@ class TopicsController < ApplicationController
     end
   end
   def destroy
-    @topic = Topic.find(params[:id])
     @topic.destroy
     redirect_to topics_path
   end
@@ -47,5 +46,9 @@ class TopicsController < ApplicationController
     @node   = Node.find(params[:id])
     @topics = Topic.where(node_id:params[:id])
     render :index
+  end
+  private
+  def current_resource
+    @topic = Topic.find(params[:id]) if params[:id]
   end
 end

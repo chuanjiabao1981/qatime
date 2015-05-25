@@ -8,6 +8,9 @@ module Permissions
       allow :courses,[:show]
       allow :sessions,[:destroy]
       allow :topics,[:new,:create,:show]
+      allow :topics,[:edit,:update,:destroy] do |topic|
+        topic and topic.author_id == user.id
+      end
       allow :messages, [:index, :show]
       allow :replies,[:create]
       allow :pictures,[:new,:create]
@@ -47,6 +50,7 @@ module Permissions
       allow 'students/home',[:main]
       allow 'students/recharge_records',[:index,:new,:create]
       allow 'students/courses',[:purchase]
+      allow :lessons,[:show]
       allow :comments,[:create]
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id

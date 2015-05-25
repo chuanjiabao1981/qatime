@@ -18,7 +18,12 @@ class Student < User
   end
 
   def select_first_valid_learning_plan(vip_class)
-    self.valid_learning_plans.order(:begin_at).find{|x| x.vip_class_id == vip_class.id}
+    if vip_class.class == VipClass
+      vip_class_id = vip_class.id
+    else
+      vip_class_id = vip_class
+    end
+    self.valid_learning_plans.order(:begin_at).find{|x| x.vip_class_id == vip_class_id}
   end
 
   def select_last_valid_learning_plan(vip_class_id)

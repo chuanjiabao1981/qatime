@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511222259) do
+ActiveRecord::Schema.define(version: 20150518220029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20150511222259) do
     t.integer  "curriculum_id"
     t.string   "chapter"
     t.integer  "position",                                  default: 0
+    t.integer  "topics_count",                              default: 0
   end
 
   create_table "curriculums", force: :cascade do |t|
@@ -83,6 +84,7 @@ ActiveRecord::Schema.define(version: 20150511222259) do
     t.datetime "updated_at",                      null: false
     t.integer  "courses_count",       default: 0
     t.integer  "lessons_count",       default: 0
+    t.integer  "topics_count",        default: 0
   end
 
   create_table "faq_topics", force: :cascade do |t|
@@ -142,6 +144,7 @@ ActiveRecord::Schema.define(version: 20150511222259) do
     t.integer  "teacher_id"
     t.integer  "curriculum_id"
     t.string   "state",                     default: "init"
+    t.integer  "topics_count",              default: 0
   end
 
   create_table "messages", force: :cascade do |t|
@@ -286,19 +289,19 @@ ActiveRecord::Schema.define(version: 20150511222259) do
   add_index "teaching_videos", ["token"], name: "index_teaching_videos_on_token", using: :btree
 
   create_table "topics", force: :cascade do |t|
-    t.string   "title",         limit: 255
+    t.string   "title",            limit: 255
     t.text     "body"
-    t.integer  "replies_count",             default: 0
-    t.integer  "node_id"
-    t.string   "node_name",     limit: 255
+    t.integer  "replies_count",                default: 0
+    t.string   "node_name",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "token",         limit: 255
-    t.integer  "section_id"
+    t.string   "token",            limit: 255
     t.integer  "course_id"
-    t.integer  "group_id"
     t.integer  "author_id"
     t.integer  "curriculum_id"
+    t.integer  "lesson_id"
+    t.integer  "learning_plan_id"
+    t.integer  "teacher_id"
   end
 
   create_table "users", force: :cascade do |t|

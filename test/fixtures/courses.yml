@@ -1,0 +1,6 @@
+teacher1_course:
+  name: aaabbcceedd1234567890098765543221111
+  desc: 这是一个描述的字段这儿字段最短不能少于多少呢？这是一个描述的字段这儿字段最短不能少于多少呢
+  teacher: teacher1
+  curriculum: teacher1_math_curriculum
+  chapter: a

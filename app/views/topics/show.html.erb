@@ -22,11 +22,15 @@
                 <%= @topic.body.html_safe %>
               </div>
               <div class="pull-right">
-                <%= link_to "", edit_topic_path(@topic), class: "glyphicon glyphicon-edit"%>
-                <%= link_to "", topic_path(@topic),
+                <% if allow? :topics,:edit ,@topic%>
+                    <%= link_to "", edit_topic_path(@topic), class: "glyphicon glyphicon-edit"%>
+                <% end %>
+                <% if allow? :topics, :destroy ,@topic%>
+                    <%= link_to "", topic_path(@topic),
                             :method => :delete,
                             'data-confirm' => 'Are you sure?',
                             class: "glyphicon glyphicon-remove"%>
+                <% end %>
               </div>
               <div style="clear: both"></div>
             </div>
@@ -52,5 +56,5 @@
     </div>
  </div>
 <div class="col-md-3">
-  <%= render 'courses/course_lessons' %>
+  <%= render partial: 'courses/course_lessons', locals: {course: @course,current_lesson: @topic.lesson} %>
 </div>

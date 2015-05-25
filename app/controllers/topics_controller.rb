@@ -1,38 +1,37 @@
-#code:utf-8
 class TopicsController < ApplicationController
+  layout 'application'
+  respond_to :html
+
   def index
     @section_id   = params[:section_id]
     @section_id ||= Section.first!.id
     @topics = Topic.where(section_id:@section_id)
   end
   def new
-    @course         = Course.find(params[:course_id])
-    @topic          = @course.build_topic
-    @topic.author   = current_user
+    @lesson         = Lesson.find(params[:lesson_id])
+    @topic          = @lesson.topics.build
+    @course         = @lesson.course
   end
 
   def create
-    @course         = Course.find(params[:course_id])
-    @topic          = @course.build_topic(params[:topic].permit!)
+    @lesson         = Lesson.find(params[:lesson_id])
+    @topic          = @lesson.topics.build(params[:topic].permit!)
     @topic.author   = current_user
-    if @topic.save
-      redirect_to course_path(@course),notice: "success create topic"
-    else
-      render :new
-    end
+    flash[:success] = "成功创建#{Topic.model_name.human}" if @topic.save
+    respond_with @topic
   end
   def show
     @topic        = Topic.find(params[:id])
-    @replies = @topic.replies.paginate(page: params[:page])
+    @replies      = @topic.replies.paginate(page: params[:page])
     @course       = @topic.course
     @reply        = Reply.new
   end
 
   def edit
-    @topic        = Topic.find(params[:id])
+    @lesson = @topic.lesson
   end
   def update
-    @topic        = Topic.find(params[:id])
+    @lesson = @topic.lesson
     if @topic.update_attributes(params[:topic].permit!)
       redirect_to topic_path(@topic),notice:"success edit topic"
     else
@@ -40,7 +39,6 @@ class TopicsController < ApplicationController
     end
   end
   def destroy
-    @topic = Topic.find(params[:id])
     @topic.destroy
     redirect_to topics_path
   end
@@ -48,5 +46,9 @@ class TopicsController < ApplicationController
     @node   = Node.find(params[:id])
     @topics = Topic.where(node_id:params[:id])
     render :index
+  end
+  private
+  def current_resource
+    @topic = Topic.find(params[:id]) if params[:id]
   end
 end

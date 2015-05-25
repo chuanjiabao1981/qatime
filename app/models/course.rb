@@ -15,7 +15,7 @@ class Course < ActiveRecord::Base
 
 
   has_many   :lessons    ,:dependent => :destroy
-  has_many   :topics
+  has_many   :topics     ,:dependent => :destroy
   has_many   :students   ,:through => :course_purchase_records
   has_many   :course_purchase_records
 

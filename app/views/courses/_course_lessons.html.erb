@@ -13,9 +13,9 @@
     <div style="clear: both"></div>
   </div>
   <% course.lessons.order(:created_at).each do |lesson| %>
-      <div class="qa_cell">
+      <div class="qa_cell <%= "#{"selected" if current_lesson and lesson.id == current_lesson.id }"%>">
         <div style="width: 70%" class="pull-left">
-          <%=link_to  lesson.name ,course_path(course,lesson_id:lesson.id)%>
+          <%=link_to  lesson.name ,lesson_path(lesson)%>
           <span class="qa_f12" style="color: darkgreen">
             <% if current_user and not current_user.student? %>
                 [<%= lesson.human_state_name %>]

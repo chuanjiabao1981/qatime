@@ -4,7 +4,7 @@
       <%= link_to curriculum_path (course.curriculum) do%>
           <%= teaching_program_full_name(course.curriculum.teaching_program) %>
       <% end %>
-      / <%=  "#{course.chapter} - #{course.name}"  %>
+      / <%=link_to  "#{course.chapter} - #{course.name}" , lesson_path(current_lesson) %>
       <div id="course_purchase" class="pull-right">
         <% if current_user.student? %>
             <% if current_user.courses.include?(course) %>
@@ -15,8 +15,10 @@
     </div>
   </div>
   <%= yield %>
-  <%=render 'course_topics' %>
+  <% if not defined?(show_topics) or show_topics%>
+    <%=render 'courses/course_topics' %>
+  <% end %>
 </div>
 <div class="col-md-3">
-  <%= render partial: 'course_lessons',locals: {course: course} %>
+  <%= render partial: 'courses/course_lessons',locals: {course: course,current_lesson: current_lesson} %>
 </div>

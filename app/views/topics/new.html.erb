@@ -1,6 +1,3 @@
-<div class="col-md-9">
-<%= render 'form' %>
-</div>
-<div class="col-md-3">
-  <%= render partial: 'courses/course_lessons', locals: {course: @lesson.course} %>
-</div>
+<%= render layout: 'courses/course_layout',locals: {course:@lesson.course,current_lesson: @lesson,show_topics: false} do %>
+    <%= render 'form' %>
+<% end %>

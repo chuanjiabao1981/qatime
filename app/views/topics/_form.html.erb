@@ -1,9 +1,6 @@
 <%= content_tag 'div', id:'qa_picture_params',data:{token: @topic.token,picture_type: @topic.class.to_s} do %>
 <% end %>
 <div class="qa_box">
-  <div class="qa_cell box_header">
-    <%=link_to  @lesson.name,course_path(@lesson.course,lesson:@lesson) %>
-  </div>
     <div class="qa_cell">
       <div class="progress" id="picture-progress">
         <div class="progress-bar" id="picture-progress-bar" role="progressbar" >

@@ -52,5 +52,5 @@
     </div>
  </div>
 <div class="col-md-3">
-  <%= render partial: 'courses/course_lessons', locals: {course: @course} %>
+  <%= render partial: 'courses/course_lessons', locals: {course: @course,current_lesson: @topic.lesson} %>
 </div>

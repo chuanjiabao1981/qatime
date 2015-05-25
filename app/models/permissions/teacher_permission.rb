@@ -59,6 +59,7 @@ module Permissions
         teacher and teacher.id == user.id
       end
 
+      allow :lessons,[:show]
       allow :courses,[:show]
       allow :sessions,[:destroy]
       allow "teachers/faqs", [:index, :show]

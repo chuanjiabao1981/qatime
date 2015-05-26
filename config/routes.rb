@@ -13,10 +13,10 @@ Qatime::Application.routes.draw do
   resources :messages
   resources :qa_faqs
 
-  resources :topics do
-    resource :replies
-  end
+
   resources :pictures
+
+  resources :replies
   resources :topics do
     resources :replies
   end

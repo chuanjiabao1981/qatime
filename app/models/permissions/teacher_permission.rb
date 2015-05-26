@@ -8,10 +8,7 @@ module Permissions
       allow :pictures,[:new,:create]
       allow :messages, [:index, :show]
 
-      # need to be deleted
 
-      allow :groups,[:index,:show]
-      # end
 
       allow :questions,[:index,:show,:teacher]
       allow :questions,[:show]
@@ -57,6 +54,11 @@ module Permissions
 
       allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,:info,:questions,:topics] do |teacher|
         teacher and teacher.id == user.id
+      end
+
+      allow :replies,[:create]
+      allow :replies,[:edit,:update,:destroy] do |reply|
+        reply and reply.author_id == user.id
       end
 
       allow :lessons,[:show]

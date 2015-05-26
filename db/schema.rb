@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518220029) do
+ActiveRecord::Schema.define(version: 20150526012719) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -238,11 +238,11 @@ ActiveRecord::Schema.define(version: 20150518220029) do
 
   create_table "replies", force: :cascade do |t|
     t.text     "body"
-    t.integer  "user_id"
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "token",      limit: 255
+    t.integer  "author_id"
   end
 
   create_table "review_records", force: :cascade do |t|
@@ -292,7 +292,6 @@ ActiveRecord::Schema.define(version: 20150518220029) do
     t.string   "title",            limit: 255
     t.text     "body"
     t.integer  "replies_count",                default: 0
-    t.string   "node_name",        limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "token",            limit: 255

@@ -13,6 +13,9 @@ module Permissions
       end
       allow :messages, [:index, :show]
       allow :replies,[:create]
+      allow :replies,[:edit,:update,:destroy] do |reply|
+        reply and reply.author_id == user.id
+      end
       allow :pictures,[:new,:create]
       allow :videos,[:create]
       allow "students/faqs", [:index, :show]

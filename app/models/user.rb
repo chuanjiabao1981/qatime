@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
 
 
   has_many :topics, :dependent => :destroy,foreign_key: :author_id
-  has_many :replies, :dependent => :destroy
+  has_many :replies, :dependent => :destroy,foreign_key: :author_id
   has_many :faq_topics
   has_many :faqs
   has_many :messages

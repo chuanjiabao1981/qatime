@@ -6,7 +6,7 @@
     <%= reply.author.name %> • 回答于<%= time_ago_in_words(reply.created_at) %>前
   </div>
   <div class="qa_content">
-    <%= reply.body.html_safe %>
+    <%= reply.content.html_safe %>
   </div>
   <div class="pull-right qa_footer">
     <% if allow? :replies,:edit ,reply%>

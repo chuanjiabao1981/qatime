@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 20150526012719) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.text     "body"
+    t.text     "content"
     t.integer  "author_id"
     t.integer  "commentable_id"
     t.string   "commentable_type", limit: 255
@@ -237,7 +237,7 @@ ActiveRecord::Schema.define(version: 20150526012719) do
   end
 
   create_table "replies", force: :cascade do |t|
-    t.text     "body"
+    t.text     "content"
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -290,7 +290,7 @@ ActiveRecord::Schema.define(version: 20150526012719) do
 
   create_table "topics", force: :cascade do |t|
     t.string   "title",            limit: 255
-    t.text     "body"
+    t.text     "content"
     t.integer  "replies_count",                default: 0
     t.datetime "created_at"
     t.datetime "updated_at"

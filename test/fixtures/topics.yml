@@ -1,7 +1,17 @@
 topic1:
   title: aaabbbcccdddeeefffggghhhjjjqqqq
-  body: 111111111111111111111111111111110000000000000000000iiiiiiiiiiiiii333333333333333
+  content: 111111111111111111111111111111110000000000000000000iiiiiiiiiiiiii333333333333333
   author: student1
+  course: teacher1_course
+  teacher: teacher1
+  curriculum: teacher1_math_curriculum
+  learning_plan: h_math_learning_plan
+  lesson: teacher1_lesson
+
+teacher_topic1:
+  title: xxxxx
+  content: teacher topic 1 xsddfsdf
+  author: teacher1
   course: teacher1_course
   teacher: teacher1
   curriculum: teacher1_math_curriculum

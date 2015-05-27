@@ -1,10 +1,12 @@
 class LessonsController < ApplicationController
   respond_to :html
   layout "application"
+  include TopicsList
 
   def show
     @lesson     = Lesson.find(params[:id])
-    @topics     = Topic.where(lesson_id: @lesson.id)
+    @topics     = get_topics(@lesson)
+
   end
 
   def destroy

@@ -6,13 +6,13 @@
       <div class="progress-bar" id="picture-progress-bar" role="progressbar" >
       </div>
     </div>
+    <%=simple_form_for(@reply,url:get_reply_form_url(@reply,@topic)) do |f| %>
 
-    <%=simple_form_for([@topic,@reply]) do |f| %>
-        <%= render "shared/error_messages", :target => @topic %>
+        <%= render "shared/error_messages", :target => @reply %>
         <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
 
         <div class="form-group">
-          <%= f.input :body,:input_html => { :data => {:provider => "summernote"} }  %>
+          <%= f.input :content,:input_html => { :data => {:provider => "summernote"} }  %>
         </div>
         <div class="form-group">
           <%= f.button :submit, class: "btn btn-default" %>

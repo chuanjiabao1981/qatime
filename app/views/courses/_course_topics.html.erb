@@ -2,14 +2,18 @@
   <div class="qa_cell box_header">
     <div class="pull-right">
       <%=link_to new_lesson_topic_path(@lesson) do%>
-          <span class="label label-success">我要提问</span>
+          <span class="label label-success">发起讨论</span>
       <% end %>
     </div>
     <div class="pull-left">
-      <span class="label label-primary">共有10个讨论</span>
+      <span class="label label-primary">此课程共有<%=@lesson.topics_count%>个讨论</span>
     </div>
 
     <div style="clear: both"></div>
   </div>
   <%= render @topics %>
+
+  <div class="qa_cell">
+    <%= will_paginate @topics ,renderer: BootstrapPagination::Rails %>
+  </div>
 </div>

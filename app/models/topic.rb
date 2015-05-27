@@ -1,6 +1,7 @@
 class Topic < ActiveRecord::Base
 
   include QaToken
+  include ContentValidate
 
 
   belongs_to :author        ,:class_name => "User",:counter_cache => true,:inverse_of => :topics
@@ -14,7 +15,7 @@ class Topic < ActiveRecord::Base
   has_many :replies,:dependent => :destroy
   has_many :pictures,as: :imageable,:dependent => :destroy
 
-  validates_presence_of :author,:title,:body,:lesson,:course,:curriculum,:author
+  validates_presence_of :author,:lesson,:course,:curriculum,:author
 
 
 

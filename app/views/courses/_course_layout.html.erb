@@ -15,6 +15,9 @@
     </div>
   </div>
   <%= yield %>
+  <div class="qa_sep_15"></div>
+  <div class="qa_sep_15"></div>
+
   <% if not defined?(show_topics) or show_topics%>
     <%=render 'courses/course_topics' %>
   <% end %>

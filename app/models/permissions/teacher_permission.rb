@@ -49,6 +49,9 @@ module Permissions
       end
 
       allow :topics,[:new,:create,:show]
+      allow :topics,[:edit,:update,:destroy] do |topic|
+        topic and topic.author_id == user.id
+      end
 
       allow "teachers/home",[:main]
 

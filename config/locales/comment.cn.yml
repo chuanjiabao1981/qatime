@@ -4,4 +4,4 @@ cn:
       comment: 评论
     attributes:
       comment:
-        body: 撰写评论
+        content: 撰写评论

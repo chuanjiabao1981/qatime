@@ -19,7 +19,7 @@
           <div class="content">
             <div class="qa_cell">
               <div>
-                <%= @topic.body.html_safe %>
+                <%= @topic.content.html_safe %>
               </div>
               <div class="pull-right">
                 <% if allow? :topics,:edit ,@topic%>

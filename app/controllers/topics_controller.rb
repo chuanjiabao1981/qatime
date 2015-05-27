@@ -22,7 +22,7 @@ class TopicsController < ApplicationController
   end
   def show
     @topic        = Topic.find(params[:id])
-    @replies      = @topic.replies.paginate(page: params[:page])
+    @replies      = @topic.replies.order(:created_at).paginate(page: params[:page])
     @course       = @topic.course
     @reply        = Reply.new
   end
@@ -40,13 +40,10 @@ class TopicsController < ApplicationController
   end
   def destroy
     @topic.destroy
-    redirect_to topics_path
+    flash[:success] = "成功删除#{Topic.model_name.human}!"
+    redirect_to lesson_path(@topic.lesson)
   end
-  def node
-    @node   = Node.find(params[:id])
-    @topics = Topic.where(node_id:params[:id])
-    render :index
-  end
+
   private
   def current_resource
     @topic = Topic.find(params[:id]) if params[:id]

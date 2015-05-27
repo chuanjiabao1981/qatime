@@ -4,7 +4,8 @@ class TopicsTest < LoginTestBase
 
   def setup
     super
-    @topic  = topics(:topic1)
+    @topic            = topics(:topic1)
+    @teacher_topic    = topics(:teacher_topic1)
   end
   test 'topics index' do
     index_page(@student_session)
@@ -27,33 +28,68 @@ class TopicsTest < LoginTestBase
   end
 
   test 'topic edit' do
-    edit_page(@student_session)
-    edit_page(@teacher_session)
+    edit_page(@student_session,@topic,@student)
+    edit_page(@teacher_session,@topic,@teacher)
+    edit_page(@student_session,@teacher_topic,@student)
+    edit_page(@teacher_session,@teacher_topic,@teacher)
   end
 
   test 'topic update' do
+    update_page(@student_session,@topic,@student)
+    update_page(@teacher_session,@topic,@teacher)
+    update_page(@student_session,@teacher_topic,@student)
+    update_page(@teacher_session,@teacher_topic,@teacher)
+  end
 
+  test 'topic destroy 1' do
+    # 可以删除
+    destroy_page(@student_session,@topic,@student)
+    destroy_page(@teacher_session,@teacher_topic,@teacher)
+  end
+
+  test 'topic destroy 2' do
+    # 不可以删除
+    destroy_page(@teacher_session,@topic,@teacher)
+    destroy_page(@student_session,@teacher_topic,@student)
   end
 private
 
-  def update_page(user_session)
+  def destroy_page(user_session,topic,user)
+    user_session.delete topic_path(topic)
+    if topic.author_id == user.id
+      user_session.assert_redirected_to lesson_path(topic.lesson)
+    else
+      user_session.assert_redirected_to get_home_url(user)
 
+    end
   end
-  def edit_page(user_session)
-    user_session.get edit_topic_path(@topic)
-    if user_session.cookies["remember_user_type"] == "student"
+  def update_page(user_session,topic,user)
+    title = "titleeeeeee update title update"
+    user_session.put topic_path(topic),topic:{title: title,content: "xxxxxxxxxxxxxx"}
+    if topic.author_id == user.id
+      user_session.assert_redirected_to topic_path(topic)
+      user_session.follow_redirect!
+      user_session.assert_select 'h4',title
+    else
+      user_session.assert_redirected_to get_home_url(user)
+    end
+  end
+  def edit_page(user_session,topic,user)
+    user_session.get edit_topic_path(topic)
+    if topic.author_id == user.id
       user_session.assert_template 'topics/edit'
       user_session.assert_select 'form'
       user_session.assert_response :success
     else
       assert user_session.redirect?
+      user_session.assert_redirected_to get_home_url(user)
     end
   end
 
   def create_page(user_session)
     assert_difference 'Topic.count',1 do
       title = "测试一下哈哈哈哈哈哈哈"
-      user_session.post lesson_topics_path(@topic.lesson),topic:{title: title,body: "222222222222333334444444555555"}
+      user_session.post lesson_topics_path(@topic.lesson),topic:{title: title,content: "222222222222333334444444555555"}
       new_topic =  Topic.where(title: title).order(:created_at).last
 
       user_session.assert_redirected_to topic_path(new_topic)
@@ -71,7 +107,7 @@ private
   def show_page(user_session)
     user_session.get topic_path(@topic)
     user_session.assert_select 'h4',@topic.title
-    user_session.assert_select 'div',@topic.body
+    user_session.assert_select 'div',@topic.content
     user_session.assert_select 'form'
     if user_session.cookies["remember_user_type"] == "student"
       user_session.assert_select 'a[href=?]',edit_topic_path(@topic)

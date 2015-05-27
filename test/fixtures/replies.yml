@@ -1,0 +1,9 @@
+student_reply1:
+  author: student1
+  content: student_reply 1 hahahahahahaha
+  topic: topic1
+
+teacher_reply2:
+  author: teacher1
+  content: teacher_reply 2 hahahahahahaha
+  topic: teacher_topic1

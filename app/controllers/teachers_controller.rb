@@ -72,7 +72,8 @@ class TeachersController < ApplicationController
   end
 
   def topics
-    
+    @topics = Topic.all.where(teacher_id: @teacher.id).order("created_at desc").paginate(page: params[:page],:per_page => 10)
+    render layout: 'teacher_home'
   end
 
   def pass

@@ -34,5 +34,13 @@ class TeacherHomePageTest < ActionDispatch::IntegrationTest
     @teacher1_session.assert_select "a[href=?]", edit_teacher_path(@teacher1), count: 1
   end
 
+  test "teacher topics" do
+    topic1 = topics(:topic1)
+    topic2 = topics(:teacher_topic1)
+    @teacher1_session.get topics_teacher_path(@teacher1)
+    @teacher1_session.assert_select "a[href=?]", topic_path(topic1), count:1
+    @teacher1_session.assert_select "a[href=?]", topic_path(topic2), count:1
+
+  end
 
 end

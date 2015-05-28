@@ -41,7 +41,8 @@ class StudentsController < ApplicationController
   end
 
   def topics
-
+    @topics = Topic.all.where(author_id: @student.id).order("created_at desc").paginate(page: params[:page],:per_page => 10)
+    render layout: 'student_home'
   end
 
   def teachers

@@ -4,7 +4,7 @@
       <%= link_to curriculum_path (course.curriculum) do%>
           <%= teaching_program_full_name(course.curriculum.teaching_program) %>
       <% end %>
-      / <%=link_to  "#{course.chapter} - #{course.name}" , lesson_path(current_lesson) %>
+      / <%=link_to  "#{course.chapter} - #{course.name}" , course_path(course) %>
       <div id="course_purchase" class="pull-right">
         <% if current_user.student? %>
             <% if current_user.courses.include?(course) %>

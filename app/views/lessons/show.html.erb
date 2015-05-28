@@ -1,4 +1,4 @@
-<%= render layout: 'courses/course_layout',locals: {course:@lesson.course,current_lesson: @lesson} do %>
+<%= render layout: 'courses/course_layout',locals: {course:@course,current_lesson: @lesson} do %>
     <div id = "lesson">
       <% if current_user.student? %>
           <%=render 'lessons/student_lesson' %>

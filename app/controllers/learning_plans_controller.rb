@@ -14,7 +14,7 @@ class LearningPlansController < ApplicationController
     @learning_plan = @student.learning_plans.build(params[:learning_plan].permit!)
     if @learning_plan.save
       flash[:success] = "成功创建#{LearningPlan.model_name.human}"
-      redirect_to student_path(@student)
+      redirect_to teachers_student_path(@student)
     else
       render 'new'
     end

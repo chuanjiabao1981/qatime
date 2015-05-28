@@ -1,15 +1,23 @@
-<form id="pictures_upload" action="/pictures" enctype="multipart/form-data" method="post">
-  <input id="picture_token" name="picture[token]" type="hidden" value="<%= @topic.token%>">
-</form>
+<%= content_tag 'div', id:'qa_picture_params',data:{token: @reply.token,picture_type: @reply.class.to_s} do %>
+<% end %>
 <div class="qa_box">
-  <div class="qa_big_cell">
-    <div class="progress" id="progress">
-      <div class="progress-bar" id="progress-bar" role="progressbar" >
+  <div class="qa_cell">
+    <div class="progress" id="picture-progress">
+      <div class="progress-bar" id="picture-progress-bar" role="progressbar" >
       </div>
     </div>
-    <%= simple_form_for([@topic,@reply]) do |f|%>
-        <%= f.input :body %>
-        <%= f.button :submit, class: "btn btn-default" %>
+    <%=simple_form_for(@reply,url:get_reply_form_url(@reply,@topic)) do |f| %>
+
+        <%= render "shared/error_messages", :target => @reply %>
+        <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
+
+        <div class="form-group">
+          <%= f.input :content,:input_html => { :data => {:provider => "summernote"} }  %>
+        </div>
+        <div class="form-group">
+          <%= f.button :submit, class: "btn btn-default" %>
+        </div>
     <% end %>
   </div>
+
 </div>

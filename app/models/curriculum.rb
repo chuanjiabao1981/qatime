@@ -3,7 +3,7 @@ class Curriculum < ActiveRecord::Base
   belongs_to :teaching_program
   has_many :courses, -> {order 'position'}, :dependent => :destroy
   has_many :lessons
-  has_many :topics
+  has_many :topics     ,:dependent => :destroy
 
   scope :by_teaching_program,lambda {|s| where(teaching_program_id: s) if s}
   scope :by_subject,lambda {|s| joins(:teaching_program).where({teaching_programs:{subject: s}}) if s}

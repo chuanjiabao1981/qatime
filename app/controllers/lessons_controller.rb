@@ -1,7 +1,13 @@
 class LessonsController < ApplicationController
   respond_to :html
+  layout "application"
+  include TopicsList
+
   def show
-    @lesson = Lesson.find(params[:id])
+    @lesson     = Lesson.find(params[:id])
+    @course     = @lesson.course
+    @topics     = get_topics(@lesson)
+
   end
 
   def destroy

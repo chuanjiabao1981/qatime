@@ -19,38 +19,48 @@
           <div class="content">
             <div class="qa_cell">
               <div>
-                <%= @topic.body.html_safe %>
+                <%= @topic.content.html_safe %>
               </div>
               <div class="pull-right">
-                <%= link_to "", edit_topic_path(@topic), class: "glyphicon glyphicon-edit"%>
-                <%= link_to "", topic_path(@topic),
+                <% if allow? :topics,:edit ,@topic%>
+                    <%= link_to "", edit_topic_path(@topic), class: "glyphicon glyphicon-edit"%>
+                <% end %>
+                <% if allow? :topics, :destroy ,@topic%>
+                    <%= link_to "", topic_path(@topic),
                             :method => :delete,
                             'data-confirm' => 'Are you sure?',
                             class: "glyphicon glyphicon-remove"%>
+                <% end %>
               </div>
               <div style="clear: both"></div>
             </div>
           </div>
-        <div class="form-group" id = "replies_show">
-          <% if @topic.replies.any? %>
-            <div style="border-bottom:1px solid #ccc;padding: 8px;font-size:12px;color:gray" id = "replies_count">
-                <%= render 'topics/replies_count' %>
-            </div>
-          <% end %>
-          <div id = "reply_items">
-            <%= render 'topics/replies_index' %>
-          </div>
-          <div class="digg_pagination" align = “right” style="margin-top: 10px;list-style: none">
-            <%= will_paginate @replies, :container => false%>
-          </div>
+      </div>
+    </div>
+
+  <div class="qa_sep_15"></div>
+  <div class="qa_sep_15"></div>
+
+    <div class="qa_box">
+      <div class="qa_replies">
+        <div class="qa_header">
+          共收到 <b><%= @topic.replies_count %></b> 条回复
         </div>
-        <div class="form-group" id = "reply_form" >
-          <%= render 'shared/reply_form' %>
-        </div>
+        <%= render partial: 'replies/reply',collection: @replies%>
       </div>
 
+      <div class="qa_cell">
+        <%= will_paginate @replies ,renderer: BootstrapPagination::Rails %>
+      </div>
     </div>
- </div>
+
+  <div class="qa_sep_15"></div>
+  <div class="qa_sep_15"></div>
+
+  <div class="qa_box">
+      <%= render 'replies/form' %>
+    </div>
+</div>
 <div class="col-md-3">
-  <%= render 'courses/course_lessons' %>
+  <%= render partial: 'courses/course_lessons', locals: {course: @course,current_lesson: @topic.lesson} %>
 </div>

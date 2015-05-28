@@ -59,9 +59,9 @@ cn:
         grade: 年级
       topic:
         title: 标题
-        body: 内容
+        content: 内容
       reply:
-        body: 回复
+        content: 回复
       recharge_code:
         money: 金额
         desc: 备注

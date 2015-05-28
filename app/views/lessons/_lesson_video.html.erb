@@ -1,0 +1,16 @@
+<div class="qa_cell" style="height: 400px">
+  <%if lesson.video and lesson.video.name %>
+
+      <%= video_js_player(lesson.video) %>
+  <% else %>
+      视频未上传
+  <% end %>
+
+</div>
+<div class="qa_cell qa_f12 rel" >
+  <div>
+    <%= lesson.desc if lesson %>
+  </div>
+
+  <div style="clear: both"></div>
+</div>

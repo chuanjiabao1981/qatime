@@ -3,7 +3,7 @@
     <%=image_tag comment.author.avatar.small.url,class:"img-circle" %>
   </div>
   <div class="content">
-    <%= h(comment.body).gsub(/[\r\n]+/, "<br/>").html_safe%>
+    <%= h(comment.content).gsub(/[\r\n]+/, "<br/>").html_safe%>
   </div>
   <div class="info">
       <strong style="color:green"><%= comment.author.name %></strong> <span style="color: #999"><%= time_ago_in_words(comment.created_at)%>前</span>

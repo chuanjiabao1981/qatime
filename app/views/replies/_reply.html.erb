@@ -1,0 +1,23 @@
+<div class="qa_item">
+  <div class="author_avatar">
+    <%=image_tag reply.author.avatar.normal.url %>
+  </div>
+  <div class="qa_info">
+    <%= reply.author.name %> • 回答于<%= time_ago_in_words(reply.created_at) %>前
+  </div>
+  <div class="qa_content">
+    <%= reply.content.html_safe %>
+  </div>
+  <div class="pull-right qa_footer">
+    <% if allow? :replies,:edit ,reply%>
+        <%= link_to "", edit_reply_path(reply), class: "glyphicon glyphicon-edit"%>
+    <% end %>
+    <% if allow? :replies, :destroy ,reply%>
+        <%= link_to "", reply_path(reply),
+                    :method => :delete,
+                    'data-confirm' => '你确定删除此条回复么？',
+                    class: "glyphicon glyphicon-remove"%>
+    <% end %>
+  </div>
+  <div style="clear: both"></div>
+</div>

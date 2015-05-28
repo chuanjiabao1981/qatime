@@ -2,7 +2,9 @@
     <!--% if not current_user.courses.include?(@course) %-->
         <!--%=render 'courses/student_not_in_course_lesson', :locals => { :lesson => @lesson } %-->
     <!--% else %-->
-        <%=render 'courses/student_in_course_lesson', :locals => { :lesson => @lesson } %>
+    <div class="qa_box">
+        <%= render partial: 'lessons/lesson_video',locals: {lesson: @lesson} %>
+    </div>
     <!--% end %-->
     <%=render 'courses/preview_finish', :locals => { :lesson => @lesson } %>
 <% end %>

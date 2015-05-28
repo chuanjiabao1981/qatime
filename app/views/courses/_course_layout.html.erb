@@ -1,0 +1,27 @@
+<div class="col-md-9">
+  <div class="qa_box">
+    <div class="qa_cell box_header">
+      <%= link_to curriculum_path (course.curriculum) do%>
+          <%= teaching_program_full_name(course.curriculum.teaching_program) %>
+      <% end %>
+      / <%=link_to  "#{course.chapter} - #{course.name}" , course_path(course) %>
+      <div id="course_purchase" class="pull-right">
+        <% if current_user.student? %>
+            <% if current_user.courses.include?(course) %>
+                <!--span class="label label-info">已购买</span-->
+            <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <%= yield %>
+  <div class="qa_sep_15"></div>
+  <div class="qa_sep_15"></div>
+
+  <% if not defined?(show_topics) or show_topics%>
+    <%=render 'courses/course_topics' %>
+  <% end %>
+</div>
+<div class="col-md-3">
+  <%= render partial: 'courses/course_lessons',locals: {course: course,current_lesson: current_lesson} %>
+</div>

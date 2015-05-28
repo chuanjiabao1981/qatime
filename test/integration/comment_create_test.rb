@@ -27,7 +27,7 @@ class CommentCreateTest < ActionDispatch::IntegrationTest
     assert_difference 'Comment.count',1 do
 
       within(".qa_question form") do
-        fill_in :comment_body ,with: "15939062"
+        fill_in :comment_content ,with: "15939062"
         click_on "新增#{Comment.model_name.human}"
         #等待ajax执行
         sleep 5

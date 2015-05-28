@@ -17,7 +17,11 @@ class TopicsController < ApplicationController
     @lesson         = Lesson.find(params[:lesson_id])
     @topic          = @lesson.topics.build(params[:topic].permit!)
     @topic.author   = current_user
-    flash[:success] = "成功创建#{Topic.model_name.human}" if @topic.save
+
+    if @topic.save
+      flash[:success] = "成功创建#{Topic.model_name.human}"
+      SmsWorker.perform_async(SmsWorker::TOPIC_CREATE_NOTIFICATION, id: @topic.id)
+    end
     respond_with @topic
   end
   def show

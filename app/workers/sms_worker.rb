@@ -21,6 +21,7 @@ class SmsWorker
   QUESTION_CREATE_NOTIFICATION = :question_create_notify
   REGISTRATION_NOTIFICATION    = :registration_notify
   ANSWER_CREATE_NOTIFICATION   = :answer_create_notify
+  TOPIC_CREATE_NOTIFICATION    = :topic_create_notify
 
   include Sidekiq::Worker
   include SmsUtil
@@ -51,6 +52,7 @@ class SmsWorker
       begin
         send_message(user.mobile,
                      "【答疑时间】#{user.name}，你好，欢迎注册答疑时间! 请使用360极速浏览器或者360安全浏览器访问本网站。")
+
       rescue Exception => e
         logger.info e.message
         logger.info e.backtrace.inspect
@@ -66,6 +68,25 @@ class SmsWorker
           logger.info e.message
           logger.info e.backtrace.inspect
         end
+      end
+    end
+    def topic_create_notify(options)
+      topic = Topic.find(options["id"])
+      if topic.author_id != topic.teacher_id
+       _send_message do
+         send_message(topic.teacher.mobile,
+                      "【答疑时间】#{topic.teacher.name}，你好，#{topic.author.name}在公共课程中发起了讨论，请您回复#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
+         )
+       end
+      end
+    end
+
+    def _send_message(&block)
+      begin
+        yield
+      rescue Exception => e
+        logger.info e.message
+        logger.info e.backtrace.inspect
       end
     end
 end

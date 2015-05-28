@@ -1,3 +1,4 @@
+<% if @lesson %>
 <div class="qa_box qa_topics">
   <div class="qa_cell box_header">
     <div class="pull-right">
@@ -17,3 +18,4 @@
     <%= will_paginate @topics ,renderer: BootstrapPagination::Rails %>
   </div>
 </div>
+<% end %>

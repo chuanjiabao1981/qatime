@@ -1,5 +1,9 @@
 require 'test_helper'
 
+require 'sidekiq/testing'
+
+Sidekiq::Testing.inline!
+
 class TopicsTest < LoginTestBase
 
   def setup
@@ -117,8 +121,10 @@ private
   def index_page(user_session)
     user_session.get lesson_path(@topic.lesson)
     user_session.assert_select "a[href=?]", new_lesson_topic_path(@topic.lesson), count: 1
-    #头部一个，左侧一个
-    user_session.assert_select "a[href=?]", lesson_path(@topic.lesson), count: 2
+    ## 因为每个topic上都有一个lesson连接
+    n = Topic.where(lesson_id: @topic.lesson.id).count
+    user_session.assert_select "a[href=?]", lesson_path(@topic.lesson), count: 1 + n
+    user_session.assert_select "a[href=?]", course_path(@topic.course), count: 1
     user_session.assert_select "a[href=?]", topic_path(@topic), count: 1
     user_session.assert_template 'lessons/show'
     user_session.assert_response :success

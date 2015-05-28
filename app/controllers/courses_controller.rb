@@ -11,7 +11,6 @@ class CoursesController < ApplicationController
     end
     @topics     = get_topics(@lesson)
     render 'lessons/show'
-
   end
 
   def node

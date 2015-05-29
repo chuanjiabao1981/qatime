@@ -5,10 +5,15 @@ class CoursesTest < LoginTestBase
 
   def setup
     super
+    @course = courses(:teacher1_course)
+
   end
 
   test 'course new' do
-    assert false
+    @teacher_session.get edit_teachers_curriculum_course_path(@course.curriculum,@course)
+    @teacher_session.assert_template 'courses/edit'
+    @teacher_session.assert_response :success
+    @teacher_session.assert_select 'form'
   end
   test 'course create' do
     curriculum    = @teacher.curriculums.first

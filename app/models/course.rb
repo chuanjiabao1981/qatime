@@ -8,7 +8,7 @@ class CourseStateValidate < ActiveModel::Validator
   end
 end
 class Course < ActiveRecord::Base
-  belongs_to :teacher    ,:class_name => "User"
+  belongs_to :teacher    #,:class_name => "User"
   belongs_to :curriculum      ,:counter_cache => true, :inverse_of => :courses
 
 

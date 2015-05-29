@@ -7,6 +7,9 @@ class CoursesTest < LoginTestBase
     super
   end
 
+  test 'course new' do
+    assert false
+  end
   test 'course create' do
     curriculum    = @teacher.curriculums.first
     chapter       =  curriculum.teaching_program.content["chapters"][0]

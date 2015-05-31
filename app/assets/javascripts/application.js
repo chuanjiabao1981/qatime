@@ -22,5 +22,6 @@
 // require jwplayer/jwpsrv_frq
 // require jwplayer/jwpsrv
 //= require jquery.menu-aim
+//= require chosen-jquery
 //= require_tree .
 // require turbolinks

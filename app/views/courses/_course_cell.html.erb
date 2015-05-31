@@ -32,5 +32,5 @@
     </div>
 </div>
 <div class="lessons">
-      <%= render partial:"courses/lesson_cell",collection:course.lessons %>
+      <%= render partial:"courses/lesson_cell",collection:course.lessons.order(:created_at) %>
 </div>

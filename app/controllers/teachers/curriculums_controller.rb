@@ -1,4 +1,6 @@
 class Teachers::CurriculumsController < ApplicationController
+  layout "application"
+
   def edit_courses_position
     #
   end

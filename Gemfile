@@ -84,6 +84,9 @@ gem 'responders', '~> 2.0'
 # 状态机
 gem 'state_machine'
 
+# multi select javascript
+gem 'chosen-rails'
+
 
 group :development,:test do
   # 状态机做图

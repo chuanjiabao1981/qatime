@@ -9,4 +9,12 @@ class LessonsTest < LoginTestBase
   test "lesson create" do
     assert false
   end
+
+  test "lesson edit" do
+    assert false
+  end
+
+  test "lesson update" do
+    assert false
+  end
 end

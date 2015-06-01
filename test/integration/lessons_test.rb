@@ -58,9 +58,8 @@ class LessonsTest < ActionDispatch::IntegrationTest
       page.has_content? 'lesson_name 这个长度不能少10的啊啊啊aaaaaaaaaaaaaaa'
     end
 
-    page.save_screenshot('screenshot.png')
-
-
+    #page.save_screenshot('screenshot.png')
+  
   end
 
 

@@ -11,7 +11,7 @@ class Curriculum < ActiveRecord::Base
   accepts_nested_attributes_for :courses
 
   def get_courses_by_chapter(chapter)
-    self.courses.order(:position).select {|course| course.chapter == chapter}
+    self.courses.select {|course| course.chapter == chapter}
   end
 
   def build_course(attributes={})

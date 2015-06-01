@@ -44,6 +44,7 @@ cn:
       lesson:
         name: 课程名称
         desc: 课程简介
+        tags: 分类
         state_event: 是否通过审核
       user:
         email: 邮箱

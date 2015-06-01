@@ -78,3 +78,20 @@ learning_plan:
     三个月:
       price: 2500
       time: 3.month
+
+lesson_categories:
+  default:
+    - 知识点讲解
+    - 常见问题
+    - 易错点分析
+    - 期中考试重点
+    - 期末考试重点
+    - 应试技巧
+    - 解题方法与思路
+  初中:
+    default:
+      - 中考重点
+  高中:
+    default:
+      - 会考重点
+      - 高考重点

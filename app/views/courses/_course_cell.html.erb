@@ -1,20 +1,17 @@
-
-<div class="qa_cell">
-  <div class="pull-left" style="padding-right:10px;color: #2b5797">
-    <div style="font-size: 30px">
+<div class="qa_cell course">
+  <div class="pull-left no">
       <% if chapter_index +1 < 10 %>
         &nbsp;
       <% end %>
       <%="#{chapter_index+1}.#{course_index+1}"%>
       <% if course_index +1 <10 %>
       <% end %>
-    </div>
   </div>
-  <% if allow? "teachers/courses",:new, @curriculum %>
+  <% if allow? "teachers/courses",:new, curriculum %>
     <div class="pull-right">
 
       <div>
-        <%= link_to edit_teachers_curriculum_course_path(course.curriculum,course),style:"color:green" do%>
+        <%= link_to edit_teachers_curriculum_course_path(curriculum,course),style:"color:green" do%>
             编辑<%= Course.model_name.human%>
         <% end %>
       </div>
@@ -27,13 +24,13 @@
 
     </div>
   <% end %>
-  <div class="qa_f14">
-    <div style="padding-left: 90px;padding-right: 90px">
+    <div class="title qa_f16">
       <%=link_to course.name ,course_path(course)%>
       <div class="qa_f12" style="color: gray">
         <span><%= course.chapter %></span> • <span> <%= course.lessons_count%>个<%=Lesson.model_name.human%></span>
       </div>
     </div>
-  </div>
-
+</div>
+<div class="lessons">
+      <%= render partial:"courses/lesson_cell",collection:course.get_contain_tags_lessons(params[:tags])%>
 </div>

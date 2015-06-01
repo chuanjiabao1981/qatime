@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150526012719) do
+ActiveRecord::Schema.define(version: 20150531072243) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -145,7 +145,10 @@ ActiveRecord::Schema.define(version: 20150526012719) do
     t.integer  "curriculum_id"
     t.string   "state",                     default: "init"
     t.integer  "topics_count",              default: 0
+    t.jsonb    "tags",                      default: []
   end
+
+  add_index "lessons", ["tags"], name: "index_lessons_on_tags", using: :gin
 
   create_table "messages", force: :cascade do |t|
     t.integer  "sender_id"
@@ -260,6 +263,11 @@ ActiveRecord::Schema.define(version: 20150526012719) do
     t.integer  "city_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "searches", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "teaching_programs", force: :cascade do |t|

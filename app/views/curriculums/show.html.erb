@@ -3,19 +3,22 @@
   <div class="qa_sep_15"></div>
   <div class="qa_sep_15"></div>
 
+  <%= render "search" %>
+
+  <div class="qa_sep_15"></div>
+  <div class="qa_sep_15"></div>
+
+
   <div class="row">
     <div class="qa_f12">
-      <!--% @curriculum.courses.each do |course| %-->
-          <!--div class="col-md-4"-->
-            <!--%= render partial: 'course',locals: {course: course} %-->
-          <!--/div-->
-      <!--% end %-->
 
         <div class="col-md-12">
-          <div class="qa_box">
+          <div class="qa_box courses">
             <% @curriculum.teaching_program.content["chapters"].each_with_index do |chapter,chapter_index| %>
                 <% @curriculum.get_courses_by_chapter(chapter).each_with_index do |course,course_index| %>
-                    <%= render partial: 'courses/course_cell', locals: {course: course,
+                    <%= render partial: 'courses/course_cell', locals: {
+                                                                        curriculum: @curriculum,
+                                                                        course: course,
                                                                         chapter_index: chapter_index,
                                                                         course_index:course_index} %>
                 <% end %>

@@ -11,6 +11,6 @@ class CurriculumsController < ApplicationController
   end
 
   def show
-    @curriculum = Curriculum.includes(:courses).find(params[:id])
+    @curriculum = Curriculum.includes(courses:[:lessons]).find(params[:id])
   end
 end

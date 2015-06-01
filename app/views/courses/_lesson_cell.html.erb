@@ -1,0 +1,17 @@
+<div class="lesson">
+  <div class="no pull-left">
+     课程 <%= lesson_cell_counter + 1 %>
+  </div>
+  <div class="pull-left content">
+    <%= link_to lesson_cell.name , lesson_path(lesson_cell) %>
+    <div class="tag_info">
+      <% lesson_cell.tags.each do |tag| %>
+          <% if tag.strip.length != 0 %>
+          <div class="pull-left tag"> <%=tag.strip %></div>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div style="clear: both"></div>
+</div>

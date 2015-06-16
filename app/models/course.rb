@@ -53,7 +53,7 @@ class Course < ActiveRecord::Base
     a.curriculum    = self.curriculum
     a.generate_token if a.token.nil?
     a.build_a_video
-    a.state_event   = "edit"
+    #a.state_event   = "edit"
     a
   end
 

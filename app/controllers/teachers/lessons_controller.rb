@@ -19,7 +19,7 @@ class Teachers::LessonsController < ApplicationController
     end
   end
   def edit
-    #logger.info(@lesson.errors.full_messages)
+    @lesson.build_video unless @lesson.video
   end
 
   def update

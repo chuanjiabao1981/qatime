@@ -12,6 +12,9 @@ class Teacher < User
   has_many :learning_plan_assignments, :dependent => :destroy
   has_many :learning_plans,:through => :learning_plan_assignments
 
+  has_many :customized_course_assignments, :dependent => :destroy
+  has_many :customized_courses, :through => :customized_course_assignments
+  has_many :customized_tutorials,:dependent => :destroy
   belongs_to :school
   attr_accessor :accept
 

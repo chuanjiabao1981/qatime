@@ -12,6 +12,8 @@ class Student < User
 
   has_many :not_finished_learning_plans, -> {where("? <= end_at",Time.zone.now.to_date)},class_name:'LearningPlan'
 
+  has_many :customized_courses,:dependent => :destroy
+
   def initialize(attributes = {})
     super(attributes)
     self.role = "student"

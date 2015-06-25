@@ -38,6 +38,13 @@ class LessonsTest < ActionDispatch::IntegrationTest
       sleep 10
       click_button '确定'
       page.has_content? 'lesson_desc 这个长度不能小于多少啊啊啊啊，lesson_desc 这个长度到底是多少'
+      # puts find('video').src
+      puts @course.reload.lessons.count
+      l = Lesson.all.order(:created_at => :desc).first
+
+      # 判断vidoe链接是否存在
+      page.has_xpath?("//video[contains(@src,l.video.name)]")
+
     end
 
   end
@@ -53,6 +60,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
 
     click_button '保存课程'
     sleep 10
+    assert false,"这里要验证视频修改后的情况"
     assert_difference 'Lesson.where("tags ? :xx",{xx: "常见问题"}).count',1 do
       click_button '确定'
       page.has_content? 'lesson_name 这个长度不能少10的啊啊啊aaaaaaaaaaaaaaa'

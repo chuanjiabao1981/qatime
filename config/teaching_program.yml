@@ -295,3 +295,14 @@
       - Unit 3 Inventors and inventions
       - Unit 4 Pygmalion
       - Unit 5 Meeting your ancestors
+-
+  name: 总复习
+  subject: 英语
+  category: 高中
+  grade: 高三
+  content:
+    chapters:
+      - 第一轮复习
+      - 第二轮复习
+      - 第三轮复习
+      - 专题复习

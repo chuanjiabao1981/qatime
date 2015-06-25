@@ -1,4 +1,8 @@
 class Lesson < ActiveRecord::Base
+
+
+  include Utils::QaToken
+
   belongs_to :teacher  #,:class_name => "User"
   belongs_to :course,:counter_cache => true,:inverse_of =>:lessons
   belongs_to :curriculum, :counter_cache => true, :inverse_of => :lessons
@@ -7,10 +11,13 @@ class Lesson < ActiveRecord::Base
   has_many   :topics     ,:dependent => :destroy
 
   has_one    :current_review_record,-> { order 'created_at' }, :class_name => "ReviewRecord"
-  has_one    :video,:dependent => :destroy
+  has_one    :video,:dependent => :destroy,as: :videoable
 
 
   validates_presence_of :name,:desc,:curriculum
+
+
+
 
 
   scope :by_state,    lambda {|s| where(state: s) if s}
@@ -28,12 +35,6 @@ class Lesson < ActiveRecord::Base
       self.video.token = self.token
     end
     self.video
-  end
-  def generate_token
-    self.token = loop do
-      random_token = SecureRandom.urlsafe_base64
-      break random_token if Lesson.where(token: random_token).size == 0
-    end
   end
 
 

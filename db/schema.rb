@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150622225410) do
+ActiveRecord::Schema.define(version: 20150624215508) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -374,14 +374,15 @@ ActiveRecord::Schema.define(version: 20150622225410) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "videos", force: :cascade do |t|
-    t.string   "name",         limit: 255
+    t.string   "name",           limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "token",        limit: 255
-    t.integer  "lesson_id"
-    t.string   "video_type",   limit: 255, default: "mp4"
+    t.string   "token",          limit: 255
+    t.integer  "videoable_id"
+    t.string   "video_type",     limit: 255, default: "mp4"
     t.string   "convert_name"
-    t.string   "state",                    default: "not_convert"
+    t.string   "state",                      default: "not_convert"
+    t.string   "videoable_type"
   end
 
   add_index "videos", ["token"], name: "index_videos_on_token", using: :btree

@@ -14,4 +14,18 @@ class LessonTest < ActiveSupport::TestCase
 
     assert lesson1.state == 'init'
   end
+
+  test "lesson create with video" do
+    course        = courses(:teacher1_course)
+    lesson        = course.build_lesson
+    video         = Video.new
+    video.token   = lesson.video.token
+    video.save
+    puts video.id
+    puts video.
+    puts lesson.video.token
+    puts lesson.video.id
+    puts lesson.video.videoable_id
+    puts lesson.video.videoable_type
+  end
 end

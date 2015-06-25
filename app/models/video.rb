@@ -1,7 +1,7 @@
 
 class Video < ActiveRecord::Base
   require 'carrierwave/orm/activerecord'
-  belongs_to :lesson
+  belongs_to :videoable,polymorphic: true
   include VideoConvert
 
 end

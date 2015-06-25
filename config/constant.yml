@@ -4,6 +4,10 @@ subjects:
   - 生物
   - 化学
   - 英语
+  - 语文
+  - 地理
+  - 政治
+  - 历史
 
 categories:
   - 高中
@@ -41,6 +45,10 @@ english:
   生物: biology
   化学: chemistry
   英语: english
+  历史: history
+  地理: geography
+  政治: politics
+  语文: chinese
 
 vip_class_ids:
   高中:

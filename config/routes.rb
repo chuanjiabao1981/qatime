@@ -77,7 +77,15 @@ Qatime::Application.routes.draw do
 
   post 'students/courses/:id' => "students/courses#purchase", as: 'students_course_purchase'
 
-  resources :schools
+  resources :schools do
+    resources :register_codes do
+      collection do
+        get 'downloads' , defaults: { format: 'xls' }
+        get 'batch_make'
+      end
+    end
+  end
+
   resources :sessions
   resources :teachers do
     collection do

@@ -1,0 +1,33 @@
+<div class="row" style="padding:10px 36px 10px 36px;border-bottom: 1px solid #e2e2e2">
+  <div class="col-md-1">
+    <%= register_code_counter + 1 %>
+  </div>
+  <div class="col-md-3">
+    <%= link_to register_code.value  %>
+  </div>
+
+  <div class="col-md-2">
+    <%=
+        register_code.get_state_human_name
+    %>
+  </div>
+  <div class="col-md-2">
+    <% if register_code.user %>
+        <% if register_code.user.teacher? %>
+            <%= link_to register_code.user.name, teacher_path(register_code.user.id) %>
+        <% elsif register_code.user.student? %>
+            <%= link_to register_code.user.name, student_path(register_code.user.id) %>
+        <% end %>
+    <% end %>
+  </div>
+  <div class="col-md-2">
+    <%= register_code.user.try(:role) %>
+  </div>
+  <div class="col-md-2">
+    <% if register_code.school %>
+        <%= link_to register_code.school.name, school_path(register_code.school.id) %>
+    <% else %>
+        未知
+    <% end %>
+  </div>
+</div>

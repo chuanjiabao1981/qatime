@@ -17,9 +17,6 @@ class Lesson < ActiveRecord::Base
   validates_presence_of :name,:desc,:curriculum
 
 
-
-
-
   scope :by_state,    lambda {|s| where(state: s) if s}
   scope :by_teacher,  lambda {|s| where(teacher_id: s) if s}
 

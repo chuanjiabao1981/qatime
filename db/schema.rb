@@ -105,11 +105,9 @@ ActiveRecord::Schema.define(version: 20150624215508) do
   create_table "customized_tutorials", force: :cascade do |t|
     t.integer  "teacher_id"
     t.integer  "customized_course_id"
-    t.string   "name"
     t.string   "title"
     t.text     "content"
     t.integer  "position",             default: 0
-    t.string   "state"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end

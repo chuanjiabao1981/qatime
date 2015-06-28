@@ -45,7 +45,7 @@ module Permissions
 
       allow "teachers/videos",[:create]
       allow "teachers/videos",[:update] do |video|
-        video and video.lesson.teacher_id == user.id
+        video and video.author_id == user.id
       end
 
       allow :topics,[:new,:create,:show]

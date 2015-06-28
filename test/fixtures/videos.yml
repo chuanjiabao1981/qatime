@@ -1,3 +1,4 @@
 teacher1_lesson_video:
   name: "1111"
-  videoable: teacher1_lesson
+  videoable: teacher1_lesson (Lesson)
+  author: teacher1

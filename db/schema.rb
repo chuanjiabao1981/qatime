@@ -383,6 +383,7 @@ ActiveRecord::Schema.define(version: 20150624215508) do
     t.string   "convert_name"
     t.string   "state",                      default: "not_convert"
     t.string   "videoable_type"
+    t.integer  "author_id"
   end
 
   add_index "videos", ["token"], name: "index_videos_on_token", using: :btree

@@ -34,6 +34,7 @@ class Lesson < ActiveRecord::Base
       self.build_video
       self.video.token = self.token
     end
+    self.video.author_id = self.teacher_id
     self.video
   end
 

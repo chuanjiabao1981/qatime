@@ -1,6 +1,10 @@
 class RegisterCode < ActiveRecord::Base
 
   belongs_to :user
+  belongs_to :school
+
+  attr_accessor :number
+
 
   def make_value
     self.value = rand(10).to_s +
@@ -8,7 +12,7 @@ class RegisterCode < ActiveRecord::Base
         rand(10).to_s +
         rand(10).to_s +
         rand(10).to_s +
-        rand(10).to_s + "-" +format("%03d",Time.new().to_i%1000)
+        rand(10).to_s + "-" +format("%03d",(Time.new().to_i+rand(1000))%1000)
   end
 
   def get_state_human_name
@@ -32,6 +36,21 @@ class RegisterCode < ActiveRecord::Base
       a
     else
       nil
+    end
+  end
+
+  def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      sub_column_names = []
+      sub_column_names.append("id")
+      sub_column_names.append("value")
+      sub_column_names.append("state")
+      sub_column_names.append("created_at")
+
+      #csv << sub_column_names
+      all.each do |register_code|
+        csv << register_code.attributes.values_at(*sub_column_names)
+      end
     end
   end
 

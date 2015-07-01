@@ -2,3 +2,8 @@ teacher1_lesson_video:
   name: "1111"
   videoable: teacher1_lesson (Lesson)
   author: teacher1
+
+teacher1_customize_tutorial_video:
+  name: "2222"
+  videoable: customized_tutorial1 (CustomizedTutorial)
+  author: teacher1

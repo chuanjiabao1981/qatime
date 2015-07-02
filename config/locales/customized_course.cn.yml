@@ -1,0 +1,6 @@
+cn:
+  activerecord:
+    models:
+      customized_course: 专属课程
+    attributes:
+      customized_course:

@@ -4,6 +4,7 @@ class Teachers::CurriculumsController < ApplicationController
   def edit_courses_position
   end
   def update
+    return redirect_to curriculum_path(@curriculum) unless params[:curriculum]
     if @curriculum.update_attributes(params[:curriculum].permit!)
       redirect_to curriculum_path(@curriculum)
     else

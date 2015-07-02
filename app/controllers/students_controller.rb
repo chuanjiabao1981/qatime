@@ -49,6 +49,10 @@ class StudentsController < ApplicationController
     @learning_plans = @student.learning_plans.paginate(page: params[:page],:per_page => 10)
     render layout: 'student_home'
   end
+
+  def customized_courses
+
+  end
   def update
     if @student.update_attributes(params[:student].permit!)
       redirect_to student_path(@student)

@@ -30,18 +30,6 @@
       <div class="col-md-9"><%= @student.email %></div>
     </div>
   </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px">金币</div>
-      <div class="col-md-2"><%= @student.account.try(:money) %> ¥</div>
-      <div class="col-md-1">
-        <%=link_to "#" do %>
-            <!--button type="button" class="btn btn-xs btn-success">充值</button-->
-            <%=link_to '充值',new_students_recharge_record_path ,class:"btn btn-xs btn-success"%>
-        <% end %>
-      </div>
-    </div>
-  </div>
 </div>
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>

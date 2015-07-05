@@ -129,7 +129,11 @@ Qatime::Application.routes.draw do
     end
   end
 
-  resources :customized_courses
+  resources :customized_courses do
+    collection do
+      get 'teachers'
+    end
+  end
 
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'

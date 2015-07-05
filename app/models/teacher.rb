@@ -22,7 +22,7 @@ class Teacher < User
 
   scope :by_category,lambda {|c| where(category: c) if c}
   scope :by_subject, lambda {|s| where(subject: s) if s}
-
+  scope :by_school,  lambda {|s| where(school_id: s) if s}
   scope :by_vip_class, lambda{|vip_class| includes(:school).order("schools.name desc").by_subject(vip_class.subject).by_category(vip_class.category) }
 
 

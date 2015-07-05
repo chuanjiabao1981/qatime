@@ -1,5 +1,5 @@
 class TeachersController < ApplicationController
-  respond_to :html,:js
+  respond_to :html,:js,:json
 
   def index
     @teachers = Teacher.all.order(:created_at).paginate(page: params[:page],:per_page => 10)

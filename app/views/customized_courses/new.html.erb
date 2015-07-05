@@ -1,8 +1,28 @@
-<%= simple_form_for @customized_course do |f|%>
-    <%= f.input :category %>
-    <%= f.input :subject %>
-<% end %>
-
+<script>
+    $(
+            function() {
+                $("select#s_category,select#s_subject,select#s_school").on("change",function(){
+                    category = $("select#s_category").val();
+                    subject  = $("select#s_subject").val();
+                    $.ajax({
+                                url: "/customized_courses/teachers",
+                                dataType: "script",
+                                format: 'js',
+                                data: {
+                                    "category": category,
+                                    "subject": subject
+                                }
+                            }
+                    )
+                });
+                $('.customized-courses-teacher-chosen-select').chosen({
+                    placeholder_text_multiple:"专属讲师。",
+                    allow_single_deselect: true,
+                    no_results_text: '无结果',
+                    width: '100%'});
+            }
+    )
+</script>
 <div class="qa_box">
   <div class="qa_big_cell">
     <h2><%= CustomizedCourse.model_name.human %></h2>
@@ -10,11 +30,18 @@
   </div>
   <div class="qa_big_cell">
     <%=simple_form_for @customized_course do |f| %>
-        <!--learning_plan未开放给学生前用这个-->
-        <%= f.association :student ,collection: [@customized_course.student], include_blank:false%>
-        <%= f.input :s_category, collection:[['高中','高中'],['初中','初中']]%>
-        <%= f.input :s_school, collection: School.all.map  {|s| [s.name,s.id] } %>
-        <%= f.input :s_subject, collection:
-    <% end %>
+        <%= f.association :student  ,collection: [@customized_course.student], include_blank:false%>
+        <%= f.input :category, collection:[['高中','高中'],['初中','初中']], input_html:{ :id => "s_category"} %>
+        <%= f.input :subject, collection: APP_CONSTANT["subjects"].map {|s| [s,s]},input_html:{ :id => "s_subject"} %>
+        <%= f.association :teachers ,
+                          collection: Teacher.all.map {|t|[t.name,t.id,t.school.name]}.group_by{|k| k[2]},
+                          :as => :grouped_select,
+                          :group_method => :last,
+                          input_html: { multiple: true , class:'customized-courses-teacher-chosen-select',
+                                        id: 'customized-courses-teachers'}
+        %>
+
+        <%= f.button :submit,class: "btn btn-default" %>
+  <% end %>
   </div>
 </div>

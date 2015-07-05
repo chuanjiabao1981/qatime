@@ -51,7 +51,7 @@ class StudentsController < ApplicationController
   end
 
   def customized_courses
-
+    @customized_courses = @student.customized_courses.paginate(page: params[:page],per_page: 10)
   end
   def update
     if @student.update_attributes(params[:student].permit!)

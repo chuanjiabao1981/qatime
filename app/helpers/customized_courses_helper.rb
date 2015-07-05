@@ -1,0 +1,2 @@
+module CustomizedCoursesHelper
+end

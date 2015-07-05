@@ -4,3 +4,6 @@ cn:
       customized_course: 专属课程
     attributes:
       customized_course:
+        category: 类型
+        subject: 课程
+        teachers: 讲师

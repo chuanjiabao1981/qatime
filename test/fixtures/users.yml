@@ -62,6 +62,12 @@ biology_teacher1:
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   school: school1
 
+admin:
+  name: admin
+  role: admin
+  email: admin@qatime.cn
+  avatar: "test"
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
 
 
 

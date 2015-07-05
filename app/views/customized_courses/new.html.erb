@@ -1,0 +1,20 @@
+<%= simple_form_for @customized_course do |f|%>
+    <%= f.input :category %>
+    <%= f.input :subject %>
+<% end %>
+
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%= CustomizedCourse.model_name.human %></h2>
+
+  </div>
+  <div class="qa_big_cell">
+    <%=simple_form_for @customized_course do |f| %>
+        <!--learning_plan未开放给学生前用这个-->
+        <%= f.association :student ,collection: [@customized_course.student], include_blank:false%>
+        <%= f.input :s_category, collection:[['高中','高中'],['初中','初中']]%>
+        <%= f.input :s_school, collection: School.all.map  {|s| [s.name,s.id] } %>
+        <%= f.input :s_subject, collection:
+    <% end %>
+  </div>
+</div>

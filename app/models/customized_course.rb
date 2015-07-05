@@ -4,4 +4,8 @@ class CustomizedCourse < ActiveRecord::Base
   has_many :teachers,:through => :customized_course_assignments
   has_many :customized_tutorials,:dependent => :destroy
   validates_presence_of :subject,:category,:student
+
+  attr_accessor :s_category,:s_school,:s_subject
+
+
 end

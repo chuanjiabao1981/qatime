@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class StudentrHomePageTest < ActionDispatch::IntegrationTest
+class StudentHomePageTest < ActionDispatch::IntegrationTest
 
   def setup
     @student1         = Student.find(users(:student1).id)
@@ -10,7 +10,6 @@ class StudentrHomePageTest < ActionDispatch::IntegrationTest
   def teardown
     @student1           = nil
     log_out2(@student1_session)
-
     @student1_session   = nil
   end
 
@@ -43,5 +42,11 @@ class StudentrHomePageTest < ActionDispatch::IntegrationTest
     @student1_session.assert_select "a[href=?]", topic_path(topic2), count:0
 
   end
+
+  test "student customized courses" do
+    @student1_session.get customized_courses_student_path(@student1)
+    @student1_session.assert_select "a[href=?]", new_customized_course_path,count:0
+  end
+
 
 end

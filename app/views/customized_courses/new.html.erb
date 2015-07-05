@@ -5,7 +5,7 @@
                     category = $("select#s_category").val();
                     subject  = $("select#s_subject").val();
                     $.ajax({
-                                url: "/customized_courses/teachers",
+                                url: "<%=teachers_student_customized_courses_path(@student)%>",
                                 dataType: "script",
                                 format: 'js',
                                 data: {
@@ -29,12 +29,12 @@
 
   </div>
   <div class="qa_big_cell">
-    <%=simple_form_for @customized_course do |f| %>
+    <%=simple_form_for [@student,@customized_course] do |f| %>
         <%= f.association :student  ,collection: [@customized_course.student], include_blank:false%>
         <%= f.input :category, collection:[['高中','高中'],['初中','初中']], input_html:{ :id => "s_category"} %>
         <%= f.input :subject, collection: APP_CONSTANT["subjects"].map {|s| [s,s]},input_html:{ :id => "s_subject"} %>
         <%= f.association :teachers ,
-                          collection: Teacher.all.map {|t|[t.name,t.id,t.school.name]}.group_by{|k| k[2]},
+                          collection: @teachers.map {|t|[t.name,t.id,t.school.name]}.group_by{|k| k[2]},
                           :as => :grouped_select,
                           :group_method => :last,
                           input_html: { multiple: true , class:'customized-courses-teacher-chosen-select',

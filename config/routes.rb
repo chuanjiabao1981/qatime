@@ -105,6 +105,11 @@ Qatime::Application.routes.draw do
       get 'topics'
       get 'customized_courses'
     end
+    resources :customized_courses, only:[:new,:create] do
+      collection do
+        get 'teachers'
+      end
+    end
   end
   resources :questions do
     resources :answers
@@ -129,10 +134,8 @@ Qatime::Application.routes.draw do
     end
   end
 
-  resources :customized_courses do
-    collection do
-      get 'teachers'
-    end
+  resources :customized_courses,only:[:show,:edit,:update] do
+
   end
 
   get    '/signin',  to: 'sessions#new'

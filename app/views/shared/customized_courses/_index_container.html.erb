@@ -6,7 +6,7 @@
           <%= CustomizedCourse.model_name.human %>
           <% if allow? :customized_courses,:new %>
               <% if defined? student and  student %>
-                <%= link_to new_customized_course_path(student_id: student.id) do %>
+                <%= link_to new_student_customized_course_path(student) do %>
                   <button type="button" class="btn btn-xs btn-success"><%=get_edit_or_create_model_string(CustomizedCourse.new) %></button>
                 <% end %>
               <% end %>

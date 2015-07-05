@@ -1,4 +1,4 @@
-<%= simple_form_for @customized_course do |f|%>
+<%= simple_form_for [@student,@customized_course] do |f|%>
     <%= f.association :teachers ,
                       collection: @teachers.map {|t|[t.name,t.id,t.school.name]}.group_by{|k| k[2]},
                       :as => :grouped_select,

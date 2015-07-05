@@ -45,7 +45,7 @@ class StudentHomePageTest < ActionDispatch::IntegrationTest
 
   test "student customized courses" do
     @student1_session.get customized_courses_student_path(@student1)
-    @student1_session.assert_select "a[href=?]", new_customized_course_path,count:0
+    @student1_session.assert_select "a[href=?]", new_student_customized_course_path(@student1),count:0
   end
 
 

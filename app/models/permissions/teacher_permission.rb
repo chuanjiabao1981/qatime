@@ -40,13 +40,20 @@ module Permissions
       end
 
       allow "videos",[:create,:show]
+      allow "videos",[:update] do |video|
+        video and video.author_id == user.id
+      end
+
+
+      ##TODO:: delete
+      # allow "teachers/videos",[:create]
+      # allow "teachers/videos",[:update] do |video|
+      #   video and video.author_id == user.id
+      # end
+      ##delte end
 
       allow "teaching_videos",[:create,:show]
 
-      allow "teachers/videos",[:create]
-      allow "teachers/videos",[:update] do |video|
-        video and video.author_id == user.id
-      end
 
       allow :topics,[:new,:create,:show]
       allow :topics,[:edit,:update,:destroy] do |topic|

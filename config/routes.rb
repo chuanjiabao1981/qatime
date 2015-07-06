@@ -135,7 +135,7 @@ Qatime::Application.routes.draw do
   end
 
   resources :customized_courses,only:[:show,:edit,:update] do
-
+    resources :customized_tutorials
   end
 
   get    '/signin',  to: 'sessions#new'

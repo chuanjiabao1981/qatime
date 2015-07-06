@@ -11,7 +11,6 @@ class CustomizedCoursesController < ApplicationController
     @customized_course = @student.customized_courses.build(params[:customized_course].permit!)
     @teachers          = Teacher.by_category(@customized_course.category).by_subject(@customized_course.subject)
     @customized_course.save
-    puts @customized_course.errors.full_messages
     respond_with @customized_course
   end
 

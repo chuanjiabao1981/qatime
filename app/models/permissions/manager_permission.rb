@@ -3,7 +3,6 @@ module Permissions
     def initialize(user)
       allow :qa_faqs,[:index,:show]
 
-      allow "managers/register_codes",[:index,:create,:new]
       allow "managers/lessons",[:state,:update]
 
       allow "managers/home",[:main]
@@ -23,8 +22,6 @@ module Permissions
       allow :comments,[:edit,:update] do |comment|
         comment
       end
-
-      allow "schools/register_codes", [:index, :download, :new]
 
       allow :sessions,[:destroy]
 

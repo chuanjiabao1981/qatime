@@ -1,9 +1,11 @@
 class RegisterCode < ActiveRecord::Base
 
+  attr_accessor :number
+  validates :number, numericality: { only_integer: true,greater_than: 0, less_than: 10000 }
+
   belongs_to :user
   belongs_to :school
 
-  attr_accessor :number
 
 
   def make_value
@@ -52,6 +54,49 @@ class RegisterCode < ActiveRecord::Base
         csv << register_code.attributes.values_at(*sub_column_names)
       end
     end
+  end
+
+  def self.batch_make(number, school)
+    check_message = number_validate(number)
+    if "OK" != check_message
+      return check_message
+    end
+
+    current_time = Time.new()
+    timestamp = current_time.to_i.to_s
+
+    for value in 1..number.to_i
+      register_code = RegisterCode.new
+      register_code.make_value
+      register_code.school = school
+      register_code.batch_id = timestamp
+      register_code.number = 1
+      register_code.save
+    end
+
+    return "OK"
+  end
+
+  def self.number_validate(number)
+    if not number.to_i.to_s == number
+      return "number必须为整数"
+    else
+      if number.to_i <= 0 or number.to_i > 10000
+        return "number必须介于1和10000之间"
+      end
+    end
+
+    return "OK"
+  end
+
+  def self.get_available_register_codes(school, batch_id = null)
+    if not batch_id.nil? and not batch_id.blank?
+      register_codes = RegisterCode.where(:school_id=> school.id, :state=>"available", :batch_id => batch_id)
+    else
+      register_codes = RegisterCode.where(:school_id=> school.id, :state=>"available")
+    end
+    return register_codes
+
   end
 
 end

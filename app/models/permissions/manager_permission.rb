@@ -14,6 +14,7 @@ module Permissions
       allow :students,[:index,:search,:show,:edit,:create,:update,:info,:teachers]
       allow :home,[:index]
       allow :schools,[:index,:new,:create,:show,:edit,:update]
+      allow :register_codes, [:index, :new, :downloads, :create]
       allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,:students,:curriculums,:info,:questions,:topics,:lessons_state]
       allow :curriculums,[:index,:show]
       allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
@@ -22,6 +23,8 @@ module Permissions
       allow :comments,[:edit,:update] do |comment|
         comment
       end
+
+      allow "schools/register_codes", [:index, :download, :new]
 
       allow :sessions,[:destroy]
 

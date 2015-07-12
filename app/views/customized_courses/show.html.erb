@@ -1,2 +1,8 @@
 <%= link_to get_edit_or_create_model_string(CustomizedTutorial.new),
             new_customized_course_customized_tutorial_path(@customized_course) %>
+
+<div class="row">
+  <div class="col-md-4">
+    <%= render partial: 'shared/subjects/header',locals:{subject: @customized_course.subject } %>
+  </div>
+</div>

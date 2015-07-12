@@ -1,14 +1,7 @@
 <!--%=debug APP_CONSTANT %-->
 <div class="row">
   <div class="col-md-4">
-    <div class="card card-big card-blue">
-      <div style="padding: 10px;">
-        <span style="font-size: 35px;color: white;font-weight: 300"><%=@curriculum.teaching_program.subject %></span>
-        <span style="font-size: 18px;color: #ffc40d">
-          <%=APP_CONSTANT["english"][@curriculum.teaching_program.subject].capitalize %>
-        </span>
-      </div>
-    </div>
+    <%= render partial: 'shared/subjects/header',locals:{subject: @curriculum.teaching_program.subject } %>
   </div>
   <div class="col-md-8">
     <div class="card card-big card-gray rel">

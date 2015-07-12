@@ -11,10 +11,10 @@ module Permissions
       allow :vip_classes,[:show]
       allow :questions,[:index,:show,:student,:teacher]
       allow :teaching_videos,[:show]
-      allow :students,[:index,:search,:show,:edit,:create,:update,:info,:teachers]
+      allow :students,[:index,:search,:show,:edit,:create,:update,:info,:teachers,:customized_courses]
       allow :home,[:index]
       allow :schools,[:index,:new,:create,:show,:edit,:update]
-      allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,:students,:curriculums,:info,:questions,:topics,:lessons_state]
+      allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,:students,:curriculums,:info,:questions,:topics,:lessons_state,:customized_courses]
       allow :curriculums,[:index,:show]
       allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
       allow :courses,[:show]
@@ -22,6 +22,8 @@ module Permissions
       allow :comments,[:edit,:update] do |comment|
         comment
       end
+
+      allow :customized_courses, [:show]
 
       allow :sessions,[:destroy]
 

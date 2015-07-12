@@ -94,6 +94,9 @@ class TeachersController < ApplicationController
     render 'index'
   end
 
+  def customized_courses
+    @customized_courses = @teacher.customized_courses.paginate(page: params[:page],per_page: 10)
+  end
   private
   def current_resource
     @teacher = Teacher.find(params[:id]) if params[:id]

@@ -43,4 +43,9 @@ class TeacherHomePageTest < ActionDispatch::IntegrationTest
 
   end
 
+  test "teacher customized courses" do
+    @teacher1_session.get customized_courses_teacher_path(@teacher1)
+    @teacher1_session.assert_response :success
+
+  end
 end

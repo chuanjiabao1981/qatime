@@ -92,6 +92,7 @@ Qatime::Application.routes.draw do
       get 'info'
       get 'questions'
       get 'topics'
+      get 'customized_courses'
     end
   end
   resources :students do
@@ -111,6 +112,11 @@ Qatime::Application.routes.draw do
       end
     end
   end
+
+  resources :customized_courses,only:[:show,:edit,:update] do
+    resources :customized_tutorials
+  end
+
   resources :questions do
     resources :answers
     collection do
@@ -134,9 +140,7 @@ Qatime::Application.routes.draw do
     end
   end
 
-  resources :customized_courses,only:[:show,:edit,:update] do
-    resources :customized_tutorials
-  end
+
 
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'

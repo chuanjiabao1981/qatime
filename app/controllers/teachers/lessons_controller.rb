@@ -19,7 +19,7 @@ class Teachers::LessonsController < ApplicationController
     end
   end
   def edit
-    @lesson.build_video unless @lesson.video
+    # @lesson.build_video unless @lesson.video
   end
 
   def update

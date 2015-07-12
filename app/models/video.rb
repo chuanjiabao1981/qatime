@@ -6,6 +6,11 @@ class Video < ActiveRecord::Base
   include VideoConvert
 
   validates_presence_of :author
+
+  # def self.update_videoable_info(videoable_item)
+  #   Video.where("token='#{videoable_item.token}'")
+  #       .update_all({videoable_id: videoable_item.id,videoable_type: videoable_item.class.to_s})
+  # end
 end
 
 

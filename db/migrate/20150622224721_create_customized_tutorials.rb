@@ -6,6 +6,7 @@ class CreateCustomizedTutorials < ActiveRecord::Migration
       t.string  :title
       t.text    :content
       t.integer :position,:default => 0
+      t.string  :token
       t.timestamps null: false
     end
   end

@@ -8,4 +8,5 @@ class CustomizedCourse < ActiveRecord::Base
   attr_accessor :s_category,:s_school,:s_subject
 
 
+
 end

@@ -1,7 +1,8 @@
 class Lesson < ActiveRecord::Base
 
 
-  include Utils::QaToken
+  # include Utils::QaToken
+  include QaToken
 
   belongs_to :teacher  #,:class_name => "User"
   belongs_to :course,:counter_cache => true,:inverse_of =>:lessons
@@ -24,16 +25,26 @@ class Lesson < ActiveRecord::Base
 
   accepts_nested_attributes_for :current_review_record
 
+  # delegate :author_id, to: :teacher
 
-  def build_a_video
-    self.video =   Video.where(token: self.token).order(created_at: :desc).first
-    if self.video.nil?
-      self.build_video
-      self.video.token = self.token
-    end
-    self.video.author_id = self.teacher_id
-    self.video
+
+  def author_id
+    self.teacher_id
   end
+  # def build_a_video
+  #   ## 这句是为了如果出错，还能捞回以前的vidoe
+  #   ## 考虑创建lesson的时候 视频已经上传，但是由于没有title，再次render new的时候，还是要已近上传的video
+  #   ## TODO:: add Test case
+  #
+  #   self.video =   Video.where(token: self.token).order(created_at: :desc).first
+  #   if self.video.nil?
+  #     self.build_video
+  #     self.video.token = self.token
+  #   end
+  #   self.video.author_id = self.teacher_id
+  #   self.video
+  # end
+
 
 
   state_machine :initial => :init do

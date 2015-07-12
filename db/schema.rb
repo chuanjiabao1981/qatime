@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 20150624215508) do
     t.string   "title"
     t.text     "content"
     t.integer  "position",             default: 0
+    t.string   "token"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end

@@ -96,7 +96,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
     find('li input.default').set("常"+"\n")
 
     fill_in :lesson_name,with: 'lesson_name 这个长度不能少10的啊啊啊aaaaaaaaaaaaaaa'
-    page.save_screenshot('screenshot.png')
+    # page.save_screenshot('screenshot.png')
 
     click_button '保存课程'
     sleep 10
@@ -110,5 +110,23 @@ class LessonsTest < ActionDispatch::IntegrationTest
 
   end
 
+  test "update lesson without video" do
+    teacher = users(:teacher1)
+    log_in_as(teacher)
+    lesson_without_video  = lessons(:teacher1_lesson_without_video)
+    visit edit_teachers_course_lesson_path(@course,lesson_without_video)
+    assert_difference 'Video.count',1 do
+
+      attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
+      sleep 15
+      click_button '保存课程'
+      page.save_screenshot('screenshot.png')
+      sleep 10
+      click_button '确定'
+      page.has_xpath?("//video[contains(@src,lesson_without_video.reload.video.name)]")
+
+    end
+
+  end
 
 end

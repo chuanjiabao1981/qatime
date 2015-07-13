@@ -106,7 +106,7 @@ Qatime::Application.routes.draw do
       get 'topics'
       get 'customized_courses'
     end
-    resources :customized_courses, only:[:new,:create] do
+    resources :customized_courses do
       collection do
         get 'teachers'
       end

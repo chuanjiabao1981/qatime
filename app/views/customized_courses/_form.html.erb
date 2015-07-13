@@ -1,0 +1,47 @@
+<script>
+    $(
+            function() {
+                $("select#s_category,select#s_subject,select#s_school").on("change",function(){
+                    category = $("select#s_category").val();
+                    subject  = $("select#s_subject").val();
+                    $.ajax({
+                                url: "<%=teachers_student_customized_courses_path(@student)%>",
+                                dataType: "script",
+                                format: 'js',
+                                data: {
+                                    "category": category,
+                                    "subject": subject
+                                }
+                            }
+                    )
+                });
+                $('.customized-courses-teacher-chosen-select').chosen({
+                    placeholder_text_multiple:"专属讲师。",
+                    allow_single_deselect: true,
+                    no_results_text: '无结果',
+                    width: '100%'});
+            }
+    )
+</script>
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%= CustomizedCourse.model_name.human %></h2>
+
+  </div>
+  <div class="qa_big_cell">
+    <%=simple_form_for [@student,@customized_course] do |f| %>
+        <%= f.association :student  ,collection: [@customized_course.student], include_blank:false%>
+        <%= f.input :category, collection:[['高中','高中'],['初中','初中']], input_html:{ :id => "s_category"} , include_blank:false%>
+        <%= f.input :subject, collection: APP_CONSTANT["subjects"].map {|s| [s,s]},input_html:{ :id => "s_subject"} , include_blank:false%>
+        <%= f.association :teachers ,
+                          collection: @teachers.map {|t|[t.name,t.id,t.school.name]}.group_by{|k| k[2]},
+                          :as => :grouped_select,
+                          :group_method => :last,
+                          input_html: { multiple: true , class:'customized-courses-teacher-chosen-select',
+                                        id: 'customized-courses-teachers'}
+        %>
+
+        <%= f.button :submit,class: "btn btn-default" %>
+    <% end %>
+  </div>
+</div>

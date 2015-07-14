@@ -3,6 +3,7 @@ module Permissions
     def initialize(user)
       allow :qa_faqs,[:index,:show]
 
+      allow "managers/register_codes",[:index,:create,:new]
       allow "managers/lessons",[:state,:update]
 
       allow "managers/home",[:main]

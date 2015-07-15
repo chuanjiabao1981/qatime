@@ -1,0 +1,8 @@
+<%= simple_form_for [@customized_course,@customized_tutorial] do |f| %>
+    <%=f.input :title   %>
+    <%=f.input :content %>
+    <%=f.input :token,as: :hidden %>
+
+<% end %>
+
+<%= render partial: 'videos/form',locals:{video: @customized_tutorial.video} %>

@@ -5,7 +5,7 @@
                     category = $("select#s_category").val();
                     subject  = $("select#s_subject").val();
                     $.ajax({
-                                url: "<%=teachers_student_customized_courses_path(@student)%>",
+                                url: "<% if @customized_course.new_record? %> <%= teachers_student_customized_courses_path(@student) %><% else %><%=teachers_student_customized_course_path(@student,@customized_course) %><% end %>",
                                 dataType: "script",
                                 format: 'js',
                                 data: {

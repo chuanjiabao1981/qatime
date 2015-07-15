@@ -1,5 +1,7 @@
 class CustomizedCoursesController < ApplicationController
   respond_to :html,:js,:json
+  layout "application"
+
   def new
     @customized_course = @student.customized_courses.build
     all_teacher
@@ -9,7 +11,6 @@ class CustomizedCoursesController < ApplicationController
     params[:customized_course][:teacher_ids].delete("")
     @customized_course = @student.customized_courses.build(params[:customized_course].permit!)
     all_teacher
-    # @teachers          = Teacher.by_category(@customized_course.category).by_subject(@customized_course.subject)
     @customized_course.save
     respond_with @customized_course
   end
@@ -29,7 +30,8 @@ class CustomizedCoursesController < ApplicationController
   end
 
   def teachers
-    @customized_course = CustomizedCourse.new
+
+    @customized_course = CustomizedCourse.new unless @customized_course #如果没有制定则创建
     @teachers = Teacher.includes(:school).by_category(params[:category]).by_school(params[:school]).by_subject(params[:subject])
   end
   private

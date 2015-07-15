@@ -1,4 +1,3 @@
 v=$('<%= j render "teachers_option" %>').find('select#customized-courses-teachers');
-console.log(v.html());
 $('select#customized-courses-teachers').empty().append(v.html());
 $('.customized-courses-teacher-chosen-select').trigger("chosen:updated");

@@ -107,8 +107,11 @@ Qatime::Application.routes.draw do
       get 'customized_courses'
     end
     resources :customized_courses do
+      member do
+        get 'teachers' #这个是给 customized_courses 创建后用的
+      end
       collection do
-        get 'teachers'
+        get 'teachers' #这个是给 customized_courses 未创建的时候用的
       end
     end
   end

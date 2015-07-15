@@ -23,8 +23,12 @@ module Permissions
         comment
       end
 
-      allow :customized_courses, [:show,:edit,:update] do |customized_course|
+      allow :customized_courses, [:show,:edit,:update,:teachers] do |customized_course|
         user and customized_course
+      end
+
+      allow :customized_courses ,[:new,:create] do |student|
+        user and student
       end
 
       allow :sessions,[:destroy]

@@ -1,7 +1,6 @@
 class Lesson < ActiveRecord::Base
 
 
-  # include Utils::QaToken
   include QaToken
 
   belongs_to :teacher  #,:class_name => "User"

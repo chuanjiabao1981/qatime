@@ -88,6 +88,9 @@ module Permissions
       allow :customized_tutorials,[:new,:create] do |customized_course|
         user and customized_course.teacher_ids.include?(user.id)
       end
+      allow :customized_tutorials,[:show] do |customized_tutorial|
+        user and customized_tutorial.teacher_id == user.id
+      end
 
     end
   end

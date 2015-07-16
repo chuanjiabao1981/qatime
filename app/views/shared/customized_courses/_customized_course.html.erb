@@ -18,7 +18,7 @@
 <% end %>
 <div class="row qa_cell">
   <div class="col-md-3">
-    <%=link_to  "#{CustomizedCourse.model_name.human}-#{customized_course.created_at.strftime("%Y-%m-%d")}",
+    <%=link_to  customized_course_full_name(customized_course),
                 customized_course_path(customized_course)
     %>
   </div>

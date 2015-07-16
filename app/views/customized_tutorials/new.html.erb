@@ -1,8 +1,20 @@
-<%= simple_form_for [@customized_course,@customized_tutorial] do |f| %>
-    <%=f.input :title   %>
-    <%=f.input :content %>
-    <%=f.input :token,as: :hidden %>
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <%= link_to "全部#{CustomizedCourse.model_name.human}" ,customized_courses_teacher_path(current_user)%> /
+    <%= link_to customized_course_full_name(@customized_course) ,customized_course_path(@customized_course) %> /
+    <%= get_edit_or_create_model_string(@customized_tutorial) %>
+  </div>
+  <div class="qa_big_cell">
+    <%= render partial: 'videos/form',locals:{video: @customized_tutorial.video} %>
 
-<% end %>
+    <%= simple_form_for [@customized_course,@customized_tutorial] do |f| %>
+        <%=f.input :title   %>
+        <%=f.input :content %>
+        <%=f.input :token,as: :hidden %>
 
-<%= render partial: 'videos/form',locals:{video: @customized_tutorial.video} %>
+        <%= f.button :submit,class: "btn btn-default" %>
+
+    <% end %>
+
+  </div>
+</div>

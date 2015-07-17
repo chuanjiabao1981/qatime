@@ -1,7 +1,6 @@
 class RegisterCode < ActiveRecord::Base
 
   attr_accessor :number
-  validates :number, numericality: { only_integer: true,greater_than: 0, less_than: 10000 }
 
   belongs_to :user
   belongs_to :school

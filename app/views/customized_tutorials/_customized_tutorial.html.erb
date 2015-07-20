@@ -1,1 +1,18 @@
-<%= customized_course.title %>
+<div class="qa_cell customized_tutorial ">
+    <div class="pull-left no">课程
+      <% if customized_tutorial_counter +1 < 10 %>
+          &nbsp;
+      <% end %>
+      <%= customized_tutorial_counter + 1%>
+    </div>
+    <div class="pull-right">
+      <% if allow? :customized_tutorials,:edit, customized_tutorial %>
+          <%=link_to edit_customized_tutorial_path(customized_tutorial) do %>
+              <button type="button" class="btn btn-xs btn-success">编辑</button>
+          <% end %>
+      <% end %>
+    </div>
+    <div class="title">
+        <%=link_to customized_tutorial.title ,customized_tutorial_path(customized_tutorial)%>
+    </div>
+</div>

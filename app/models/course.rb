@@ -2,9 +2,6 @@ class Course < ActiveRecord::Base
   belongs_to :teacher    #,:class_name => "User"
   belongs_to :curriculum      ,:counter_cache => true, :inverse_of => :courses
 
-
-
-
   has_many   :lessons    ,-> {order 'created_at'},:dependent => :destroy
 
   has_many   :topics     ,:dependent => :destroy

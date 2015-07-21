@@ -8,7 +8,7 @@ class Lesson < ActiveRecord::Base
   belongs_to :curriculum, :counter_cache => true, :inverse_of => :lessons
 
   has_many   :review_records,:dependent => :destroy
-  has_many   :topics     ,:dependent => :destroy
+  has_many   :topics        ,as: :topicable,:dependent => :destroy
 
   has_one    :current_review_record,-> { order 'created_at' }, :class_name => "ReviewRecord"
   has_one    :video,:dependent => :destroy,as: :videoable

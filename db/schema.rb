@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624215508) do
+ActiveRecord::Schema.define(version: 20150721223549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -325,18 +325,19 @@ ActiveRecord::Schema.define(version: 20150624215508) do
   add_index "teaching_videos", ["token"], name: "index_teaching_videos_on_token", using: :btree
 
   create_table "topics", force: :cascade do |t|
-    t.string   "title",            limit: 255
+    t.string   "title",                   limit: 255
     t.text     "content"
-    t.integer  "replies_count",                default: 0
+    t.integer  "replies_count",                       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "token",            limit: 255
+    t.string   "token",                   limit: 255
     t.integer  "course_id"
     t.integer  "author_id"
     t.integer  "curriculum_id"
-    t.integer  "lesson_id"
-    t.integer  "learning_plan_id"
+    t.integer  "topicable_id"
+    t.integer  "delete_learning_plan_id"
     t.integer  "teacher_id"
+    t.string   "topicable_type"
   end
 
   create_table "users", force: :cascade do |t|

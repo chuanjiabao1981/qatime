@@ -8,14 +8,11 @@ class TopicsController < ApplicationController
     @topics = Topic.where(section_id:@section_id)
   end
   def new
-    @lesson         = Lesson.find(params[:lesson_id])
-    @topic          = @lesson.topics.build
-    @course         = @lesson.course
+    @topic          = @topicable.topics.build
   end
 
   def create
-    @lesson         = Lesson.find(params[:lesson_id])
-    @topic          = @lesson.topics.build(params[:topic].permit!)
+    @topic          = @topicable.topics.build(params[:topic].permit!)
     @topic.author   = current_user
 
     if @topic.save
@@ -27,15 +24,15 @@ class TopicsController < ApplicationController
   def show
     @topic        = Topic.find(params[:id])
     @replies      = @topic.replies.order(:created_at).paginate(page: params[:page])
-    @course       = @topic.course
+    @course       = @topic.topicable.course
     @reply        = Reply.new
   end
 
   def edit
-    @lesson = @topic.lesson
+    @topicable = @topic.topicable
   end
   def update
-    @lesson = @topic.lesson
+    @topicable = @topic.topicable
     if @topic.update_attributes(params[:topic].permit!)
       redirect_to topic_path(@topic),notice:"success edit topic"
     else
@@ -50,6 +47,14 @@ class TopicsController < ApplicationController
 
   private
   def current_resource
-    @topic = Topic.find(params[:id]) if params[:id]
+    if params[:lesson_id]
+      @topicable         = Lesson.find(params[:lesson_id])
+      res                = @topicable
+    end
+    if params[:id]
+      @topic = Topic.find(params[:id]) if params[:id]
+      res    = @topic
+    end
+    res
   end
 end

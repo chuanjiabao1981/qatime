@@ -93,7 +93,7 @@ private
   def create_page(user_session)
     assert_difference 'Topic.count',1 do
       title = "测试一下哈哈哈哈哈哈哈"
-      user_session.post lesson_topics_path(@topic.lesson),topic:{title: title,content: "222222222222333334444444555555"}
+      user_session.post lesson_topics_path(@topic.topicable),topic:{title: title,content: "222222222222333334444444555555"}
       new_topic =  Topic.where(title: title).order(:created_at).last
 
       user_session.assert_redirected_to topic_path(new_topic)
@@ -102,7 +102,7 @@ private
 
   end
   def new_page(user_session)
-    user_session.get new_lesson_topic_path(@topic.lesson)
+    user_session.get new_lesson_topic_path(@topic.topicable)
     user_session.assert_select 'form'
     user_session.assert_template 'topics/new'
     user_session.assert_response :success
@@ -119,8 +119,8 @@ private
     end
   end
   def index_page(user_session)
-    user_session.get lesson_path(@topic.lesson)
-    user_session.assert_select "a[href=?]", new_lesson_topic_path(@topic.lesson), count: 1
+    user_session.get lesson_path(@topic.topicable)
+    user_session.assert_select "a[href=?]", new_lesson_topic_path(@topic.topicable), count: 1
     ## 因为每个topic上都有一个lesson连接
     n = Topic.where(lesson_id: @topic.lesson.id).count
     user_session.assert_select "a[href=?]", lesson_path(@topic.lesson), count: 1 + n

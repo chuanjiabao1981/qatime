@@ -4,7 +4,6 @@ class Course < ActiveRecord::Base
 
   has_many   :lessons    ,-> {order 'created_at'},:dependent => :destroy
 
-  has_many   :topics     ,:dependent => :destroy
   has_many   :students   ,:through => :course_purchase_records
   has_many   :course_purchase_records
 

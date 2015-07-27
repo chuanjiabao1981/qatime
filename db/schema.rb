@@ -74,7 +74,7 @@ ActiveRecord::Schema.define(version: 20150721223549) do
     t.integer  "curriculum_id"
     t.string   "chapter"
     t.integer  "position",                                  default: 0
-    t.integer  "topics_count",                              default: 0
+    t.integer  "delete_topics_count",                       default: 0
   end
 
   create_table "curriculums", force: :cascade do |t|
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 20150721223549) do
     t.datetime "updated_at",                      null: false
     t.integer  "courses_count",       default: 0
     t.integer  "lessons_count",       default: 0
-    t.integer  "topics_count",        default: 0
+    t.integer  "delete_topics_count", default: 0
   end
 
   create_table "customized_course_assignments", force: :cascade do |t|

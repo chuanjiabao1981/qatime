@@ -7,18 +7,18 @@ class Topic < ActiveRecord::Base
   belongs_to :author        ,:class_name => "User",:counter_cache => true,:inverse_of => :topics
   # begin to delete
   # TODO:: counter处理
-  belongs_to :course        ,:counter_cache => true,:inverse_of => :topics
-  belongs_to :curriculum    ,:counter_cache => true,:inverse_of => :topics
+  # belongs_to :course        ,:counter_cache => true,:inverse_of => :topics
+  # belongs_to :curriculum    ,:counter_cache => true,:inverse_of => :topics
   # end
 
-  belongs_to :lesson        ,:counter_cache => true,:inverse_of => :topics
+  belongs_to :topicable     ,:polymorphic   => true        ,:counter_cache => true
   belongs_to :teacher
 
 
   has_many :replies,:dependent => :destroy
   has_many :pictures,as: :imageable,:dependent => :destroy
 
-  validates_presence_of :author,:lesson,:course,:curriculum,:author
+  validates_presence_of :author,:topicable,:author
 
 
 
@@ -27,7 +27,9 @@ class Topic < ActiveRecord::Base
     self.generate_token if self.token.nil?
     # self.course       = self.lesson.course if self.lesson
     # self.curriculum   = self.course.curriculum if self.course
-    self.teacher      = self.lesson.teacher if self.lesson
+    if defined? self.topicable.teacher and self.topicable.teacher
+      self.teacher      = self.topicable.teacher
+    end
     # if self.author and self.author.student?
     #   self.learning_plan =
     #       self.author.becomes(Student).select_first_valid_learning_plan(APP_CONSTANT["vip_class_ids"][self.teacher.category][self.teacher.subject])

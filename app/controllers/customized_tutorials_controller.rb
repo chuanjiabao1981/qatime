@@ -2,6 +2,10 @@ class CustomizedTutorialsController < ApplicationController
   layout "application"
   respond_to :html
 
+
+  include TopicsList
+
+
   def index
     @customized_tutorials = @customized_course.customized_tutorials.order(created_at: :asc)
   end
@@ -18,7 +22,7 @@ class CustomizedTutorialsController < ApplicationController
   end
 
   def show
-
+    @topics     = get_topics(@customized_tutorial)
   end
   private
   def current_resource

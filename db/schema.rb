@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 20150721223549) do
     t.string   "token"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.integer  "topics_count",         default: 0
   end
 
   create_table "faq_topics", force: :cascade do |t|

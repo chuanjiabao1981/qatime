@@ -24,7 +24,6 @@ class TopicsController < ApplicationController
   def show
     @topic        = Topic.find(params[:id])
     @replies      = @topic.replies.order(:created_at).paginate(page: params[:page])
-    @course       = @topic.topicable.course
     @reply        = Reply.new
   end
 
@@ -42,7 +41,8 @@ class TopicsController < ApplicationController
   def destroy
     @topic.destroy
     flash[:success] = "成功删除#{Topic.model_name.human}!"
-    redirect_to lesson_path(@topic.lesson)
+    # redirect_to lesson_path(@topic.lesson)
+    redirect_to send("#{@topic.topicable.class.to_s.downcase}_path",@topic.topicable)
   end
 
   private
@@ -50,6 +50,10 @@ class TopicsController < ApplicationController
     if params[:lesson_id]
       @topicable         = Lesson.find(params[:lesson_id])
       res                = @topicable
+    end
+    if params[:customized_tutorial_id]
+      @topicable        = CustomizedTutorial.find(params[:customized_tutorial_id])
+      res               = @topicable
     end
     if params[:id]
       @topic = Topic.find(params[:id]) if params[:id]

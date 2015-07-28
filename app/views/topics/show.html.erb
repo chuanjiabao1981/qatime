@@ -1,4 +1,4 @@
-<%= render layout: "#{@topic.topicable.class.to_s.pluralize.downcase}/topic_show_layout" do %>
+<%= render layout: "#{@topic.topicable.model_name.route_key.downcase}/topic_show_layout" do %>
     <div class="qa_box">
       <div class="qa_topic">
           <div class="header">

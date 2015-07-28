@@ -19,3 +19,7 @@
   </div>
 </div>
 
+
+<% if @customized_tutorial %>
+    <%= render partial: 'topics/index',locals: {topicable:@customized_tutorial} %>
+<% end %>

@@ -119,7 +119,9 @@ Qatime::Application.routes.draw do
   resources :customized_courses,only:[:show,:edit,:update] do
     resources :customized_tutorials
   end
-  resources :customized_tutorials
+  resources :customized_tutorials do
+    resources :topics
+  end
 
   resources :questions do
     resources :answers

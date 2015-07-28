@@ -1,4 +1,4 @@
-<%= render layout:"#{@topicable.class.to_s.pluralize.downcase}/topic_new_layout" do %>
+<%= render layout:"#{@topicable.model_name.route_key.downcase}/topic_new_layout" do %>
 
     <%= content_tag 'div', id:'qa_picture_params',data:{token: @topic.token,picture_type: @topic.class.to_s} do %>
     <% end %>
@@ -9,7 +9,7 @@
             </div>
           </div>
 
-          <%=simple_form_for([@lesson,@topic]) do |f| %>
+          <%=simple_form_for([@topicable,@topic]) do |f| %>
               <%= render "shared/error_messages", :target => @topic %>
               <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
               <div class="form-group">

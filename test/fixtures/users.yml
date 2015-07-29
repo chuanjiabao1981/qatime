@@ -69,6 +69,14 @@ admin:
   avatar: "test"
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
 
+manager:
+  name: manager
+  role: manager
+  email: manager@qatime.cn
+  avatar: test
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+
+
 
 
 

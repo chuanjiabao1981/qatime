@@ -31,6 +31,8 @@ module Permissions
         user and student
       end
 
+      allow :customized_tutorials, [:show]
+
       allow :sessions,[:destroy]
 
     end

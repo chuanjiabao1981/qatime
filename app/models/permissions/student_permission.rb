@@ -48,6 +48,9 @@ module Permissions
       allow :students,[:show,:edit,:update,:info,:teachers,:questions,:topics,:customized_courses] do |student|
         student and student.id == user.id
       end
+      allow :customized_courses,[:show] do |customized_course|
+        customized_course and customized_course.student_id == user.id
+      end
       allow :faqs, [:show]
       allow :faq_topics, [:show]
       allow 'students/home',[:main]

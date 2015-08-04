@@ -21,6 +21,14 @@ class CustomizedTutorialsController < ApplicationController
     respond_with @customized_tutorial
   end
 
+  def edit
+  end
+
+  def update
+    @customized_tutorial.update_attributes(params[:customized_tutorial].permit!)
+    respond_with @customized_tutorial
+  end
+
   def show
     @topics     = get_topics(@customized_tutorial)
   end
@@ -32,6 +40,7 @@ class CustomizedTutorialsController < ApplicationController
     end
     if params[:id]
       @customized_tutorial = CustomizedTutorial.find(params[:id])
+      @customized_course   = @customized_tutorial.customized_course
       res                  = @customized_tutorial
     end
     res

@@ -24,3 +24,10 @@ customized_tutorial_without_video1:
   content: bbbbddddeeeeessssssseeeeeeeeesssssss
   title: kkkkkkkkkkkk
   token: customized_tutorial_without_video1
+
+customized_tutorial2:
+  teacher: teacher2
+  customized_course: customized_course2
+  content: fuaaaaaaaaa1111111111222222222233333333333344444444555555
+  title: 33322aaabbbcccdddeeeddd
+  token: teacher2_customize_tutorial_video

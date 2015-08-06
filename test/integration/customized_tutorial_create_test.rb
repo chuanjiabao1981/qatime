@@ -9,7 +9,7 @@ class CustomizedTutorialCreateTest < ActionDispatch::IntegrationTest
   end
 
   def teardown
-    #@headless.destroy
+    # @headless.destroy
 
     visit get_home_url(@teacher)
     click_on '登出系统'
@@ -58,6 +58,7 @@ class CustomizedTutorialCreateTest < ActionDispatch::IntegrationTest
         assert  page.has_content? content_new_name
 
         customized_tutorial1.reload
+        assert_not_equal customized_tutorial1.video.name.url,video_old_name
         assert page.has_xpath?("//video[contains(@src,l.video.name)]")
 
 

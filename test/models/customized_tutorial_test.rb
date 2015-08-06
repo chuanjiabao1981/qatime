@@ -39,6 +39,15 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
 
 
     assert customized_tutorial1.video == video1
-
   end
+
+  test "customized course topic reply count" do
+    customized_tutorial1 = customized_tutorials(:customized_tutorial1)
+    t                    = topics(:customized_tutorial_topic1)
+    assert customized_tutorial1.valid?
+    topic                =  customized_tutorial1.topics.first
+    assert t.valid?, t.errors.full_messages
+    r1                   = replies(:customized_tutorial_topic1_reply2)
+  end
+
 end

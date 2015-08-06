@@ -42,7 +42,7 @@ class TopicsController < ApplicationController
     @topic.destroy
     flash[:success] = "成功删除#{Topic.model_name.human}!"
     # redirect_to lesson_path(@topic.lesson)
-    redirect_to send("#{@topic.topicable.class.to_s.downcase}_path",@topic.topicable)
+    redirect_to send("#{@topic.topicable.model_name.singular_route_key}_path",@topic.topicable)
   end
 
   private

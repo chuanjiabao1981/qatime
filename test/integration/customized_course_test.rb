@@ -1,4 +1,4 @@
-class CustomizedCourseTest < LoginTestBase
+class CustomizedCourseIntegrateTest < LoginTestBase
 
   def setup
     super

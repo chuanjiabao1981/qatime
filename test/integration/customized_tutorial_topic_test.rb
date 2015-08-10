@@ -68,7 +68,7 @@ class TutorialTopicsTest < LoginTestBase
     end
   end
   def update_page(user_session,topic,user)
-    title = "titleeeeeee update title update"
+    title = "xdfstitleeeeeee update title update"
     user_session.put topic_path(topic),topic:{title: title,content: "xxxxxxxxxxxxxx"}
     if topic.author_id == user.id
       user_session.assert_redirected_to topic_path(topic)

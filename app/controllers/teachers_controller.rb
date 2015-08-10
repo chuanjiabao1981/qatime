@@ -72,9 +72,17 @@ class TeachersController < ApplicationController
   end
 
   def topics
-    @topics = Topic.all.where(teacher_id: @teacher.id).order("created_at desc").paginate(page: params[:page],:per_page => 10)
+    @topics = Topic.all.where(teacher_id: @teacher.id).where(topicable_type: Lesson.to_s).order("created_at desc").paginate(page: params[:page],:per_page => 10)
     render layout: 'teacher_home'
   end
+
+
+  def customized_tutorial_topics
+    @topics = Topic.all.where(teacher_id: @teacher.id).where(topicable_type: CustomizedTutorial.to_s).order("created_at desc").paginate(page: params[:page],:per_page => 10)
+    render layout: 'teacher_home'
+
+  end
+
 
   def pass
     @teacher.update_attribute(:pass, true)

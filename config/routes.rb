@@ -92,6 +92,7 @@ Qatime::Application.routes.draw do
       get 'info'
       get 'questions'
       get 'topics'
+      get 'customized_tutorial_topics'
       get 'customized_courses'
     end
   end
@@ -104,6 +105,7 @@ Qatime::Application.routes.draw do
       get 'teachers'
       get 'questions'
       get 'topics'
+      get 'customized_tutorial_topics'
       get 'customized_courses'
     end
     resources :customized_courses do

@@ -22,6 +22,9 @@
       <li role="presentation" class=<%= "active" if action_name == "topics" %>>
         <%=link_to "#{Curriculum.model_name.human}中的问题",topics_student_path(@student) %>
       </li>
+      <li role="presentation" class=<%= "active" if action_name == "customized_tutorial_topics" %>>
+        <%=link_to "#{Curriculum.model_name.human}中的问题",customized_tutorial_topics_student_path(@student) %>
+      </li>
     </ul>
   </div>
 

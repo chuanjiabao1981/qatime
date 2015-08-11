@@ -106,8 +106,7 @@ $(
 
         var videos = document.getElementsByTagName("video");
         for(var i=0; i<videos.length;i++){
-            console.log(videos[i].id);
-            $('#'+videos[i].id).bind('contextmenu',function() { return false; });
+            $(videos[i]).bind('contextmenu',function() { return false; });
         }
 
     }

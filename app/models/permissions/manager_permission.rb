@@ -11,7 +11,7 @@ module Permissions
       allow :vip_classes,[:show]
       allow :questions,[:index,:show,:student,:teacher]
       allow :teaching_videos,[:show]
-      allow :students,[:index,:search,:show,:edit,:create,:update,:info,:teachers]
+      allow :students,[:index,:search,:show,:edit,:create,:update,:info,:teachers,:customized_courses]
       allow :home,[:index]
       allow :schools,[:index,:new,:create,:show,:edit,:update]
       allow :register_codes, [:index, :new, :downloads, :create]
@@ -23,6 +23,16 @@ module Permissions
       allow :comments,[:edit,:update] do |comment|
         comment
       end
+
+      allow :customized_courses, [:show,:edit,:update,:teachers] do |customized_course|
+        user and customized_course
+      end
+
+      allow :customized_courses ,[:new,:create] do |student|
+        user and student
+      end
+
+      allow :customized_tutorials, [:show]
 
       allow :sessions,[:destroy]
 

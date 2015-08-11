@@ -40,13 +40,20 @@ module Permissions
       end
 
       allow "videos",[:create,:show]
+      allow "videos",[:update] do |video|
+        video and video.author_id == user.id
+      end
+
+
+      ##TODO:: delete
+      # allow "teachers/videos",[:create]
+      # allow "teachers/videos",[:update] do |video|
+      #   video and video.author_id == user.id
+      # end
+      ##delte end
 
       allow "teaching_videos",[:create,:show]
 
-      allow "teachers/videos",[:create]
-      allow "teachers/videos",[:update] do |video|
-        video and video.lesson.teacher_id == user.id
-      end
 
       allow :topics,[:new,:create,:show]
       allow :topics,[:edit,:update,:destroy] do |topic|
@@ -55,7 +62,7 @@ module Permissions
 
       allow "teachers/home",[:main]
 
-      allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,:info,:questions,:topics] do |teacher|
+      allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,:info,:questions,:topics,:customized_courses,] do |teacher|
         teacher and teacher.id == user.id
       end
 
@@ -74,6 +81,15 @@ module Permissions
       allow :comments,[:create]
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
+      end
+      allow :customized_courses,[:show] do |customized_course|
+        user and customized_course.teacher_ids.include?(user.id)
+      end
+      allow :customized_tutorials,[:new,:create] do |customized_course|
+        user and customized_course.teacher_ids.include?(user.id)
+      end
+      allow :customized_tutorials,[:show,:edit,:update] do |customized_tutorial|
+        user and customized_tutorial.teacher_id == user.id
       end
 
     end

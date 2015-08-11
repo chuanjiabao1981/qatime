@@ -11,7 +11,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150709104500) do
+
+ActiveRecord::Schema.define(version: 20150721223549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,7 +75,7 @@ ActiveRecord::Schema.define(version: 20150709104500) do
     t.integer  "curriculum_id"
     t.string   "chapter"
     t.integer  "position",                                  default: 0
-    t.integer  "topics_count",                              default: 0
+    t.integer  "delete_topics_count",                       default: 0
   end
 
   create_table "curriculums", force: :cascade do |t|
@@ -84,7 +85,34 @@ ActiveRecord::Schema.define(version: 20150709104500) do
     t.datetime "updated_at",                      null: false
     t.integer  "courses_count",       default: 0
     t.integer  "lessons_count",       default: 0
-    t.integer  "topics_count",        default: 0
+    t.integer  "delete_topics_count", default: 0
+  end
+
+  create_table "customized_course_assignments", force: :cascade do |t|
+    t.integer  "customized_course_id"
+    t.integer  "teacher_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  create_table "customized_courses", force: :cascade do |t|
+    t.integer  "student_id"
+    t.string   "category",   default: "高中"
+    t.string   "subject",    default: "数学"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  create_table "customized_tutorials", force: :cascade do |t|
+    t.integer  "teacher_id"
+    t.integer  "customized_course_id"
+    t.string   "title"
+    t.text     "content"
+    t.integer  "position",             default: 0
+    t.string   "token"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "topics_count",         default: 0
   end
 
   create_table "faq_topics", force: :cascade do |t|
@@ -299,18 +327,19 @@ ActiveRecord::Schema.define(version: 20150709104500) do
   add_index "teaching_videos", ["token"], name: "index_teaching_videos_on_token", using: :btree
 
   create_table "topics", force: :cascade do |t|
-    t.string   "title",            limit: 255
+    t.string   "title",                   limit: 255
     t.text     "content"
-    t.integer  "replies_count",                default: 0
+    t.integer  "replies_count",                       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "token",            limit: 255
+    t.string   "token",                   limit: 255
     t.integer  "course_id"
     t.integer  "author_id"
     t.integer  "curriculum_id"
-    t.integer  "lesson_id"
-    t.integer  "learning_plan_id"
+    t.integer  "topicable_id"
+    t.integer  "delete_learning_plan_id"
     t.integer  "teacher_id"
+    t.string   "topicable_type"
   end
 
   create_table "users", force: :cascade do |t|
@@ -349,14 +378,16 @@ ActiveRecord::Schema.define(version: 20150709104500) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "videos", force: :cascade do |t|
-    t.string   "name",         limit: 255
+    t.string   "name",           limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "token",        limit: 255
-    t.integer  "lesson_id"
-    t.string   "video_type",   limit: 255, default: "mp4"
+    t.string   "token",          limit: 255
+    t.integer  "videoable_id"
+    t.string   "video_type",     limit: 255, default: "mp4"
     t.string   "convert_name"
-    t.string   "state",                    default: "not_convert"
+    t.string   "state",                      default: "not_convert"
+    t.string   "videoable_type"
+    t.integer  "author_id"
   end
 
   add_index "videos", ["token"], name: "index_videos_on_token", using: :btree

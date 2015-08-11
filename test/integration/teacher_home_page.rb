@@ -43,4 +43,22 @@ class TeacherHomePageTest < ActionDispatch::IntegrationTest
 
   end
 
+
+  test "customized tutorial topics" do
+    topic1 = topics(:customized_tutorial_topic1)
+    topic2 = topics(:customized_tutorial_topic2)
+    @teacher1_session.get customized_tutorial_topics_teacher_path(@teacher1)
+
+    @teacher1_session.assert_select "a[href=?]", topic_path(topic1), count:1
+    @teacher1_session.assert_select "a[href=?]", topic_path(topic2), count:1
+    @teacher1_session.assert_response :success
+
+
+  end
+
+  test "teacher customized courses" do
+    @teacher1_session.get customized_courses_teacher_path(@teacher1)
+    @teacher1_session.assert_response :success
+
+  end
 end

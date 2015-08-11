@@ -50,7 +50,7 @@ class VideoTest < ActiveSupport::TestCase
   private
   def build_a_video_with_mp4_file_in_queue
     a = Video.new
-
+    a.author = users(:teacher1)
     File.open("#{Rails.root}/test/integration/test.mp4") do |f|
       a.name = f
     end

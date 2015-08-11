@@ -54,7 +54,7 @@ $(document).ready ->
         sumitPicture($('div#qa_picture_params').data('token'),
                      $('div#qa_picture_params').data('picture-type'),
                      files[0]).done((url)->
-          editor.insertImage(welEditable, url);
+          editor.insertImage(welEditable, url)
         ).progress((percent)->
           $progress_bar.css({width: percent})
           $progress_bar.text(percent)

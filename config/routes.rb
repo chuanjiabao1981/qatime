@@ -100,6 +100,8 @@ Qatime::Application.routes.draw do
       get 'info'
       get 'questions'
       get 'topics'
+      get 'customized_tutorial_topics'
+      get 'customized_courses'
     end
   end
   resources :students do
@@ -111,8 +113,26 @@ Qatime::Application.routes.draw do
       get 'teachers'
       get 'questions'
       get 'topics'
+      get 'customized_tutorial_topics'
+      get 'customized_courses'
+    end
+    resources :customized_courses do
+      member do
+        get 'teachers' #这个是给 customized_courses 创建后用的
+      end
+      collection do
+        get 'teachers' #这个是给 customized_courses 未创建的时候用的
+      end
     end
   end
+
+  resources :customized_courses,only:[:show,:edit,:update] do
+    resources :customized_tutorials
+  end
+  resources :customized_tutorials do
+    resources :topics
+  end
+
   resources :questions do
     resources :answers
     collection do
@@ -135,6 +155,8 @@ Qatime::Application.routes.draw do
       get 'teachers'
     end
   end
+
+
 
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'

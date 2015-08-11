@@ -7,6 +7,7 @@ module Permissions
       allow :curriculums,[:index,:show]
       allow :courses,[:show]
       allow :sessions,[:destroy]
+      #TODO 不是所有人都可以发表topic
       allow :topics,[:new,:create,:show]
       allow :topics,[:edit,:update,:destroy] do |topic|
         topic and topic.author_id == user.id
@@ -45,8 +46,14 @@ module Permissions
       end
 
 
-      allow :students,[:show,:edit,:update,:info,:teachers,:questions,:topics] do |student|
+      allow :students,[:show,:edit,:update,:info,:teachers,:questions,:topics,:customized_courses,:customized_tutorial_topics] do |student|
         student and student.id == user.id
+      end
+      allow :customized_courses,[:show] do |customized_course|
+        customized_course and customized_course.student_id == user.id
+      end
+      allow :customized_tutorials,[:show] do |customized_tutorial|
+        customized_tutorial and customized_tutorial.customized_course.student_id == user.id
       end
       allow :faqs, [:show]
       allow :faq_topics, [:show]

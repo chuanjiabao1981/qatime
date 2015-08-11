@@ -5,14 +5,8 @@
     <%= get_edit_or_create_model_string(@lesson) %>
   </div>
   <div class="qa_big_cell">
-    <%=simple_form_for ([:teachers,@lesson.video]) do |f|%>
-        <%= render 'shared/error_messages', target: @lesson.video %>
-        <%=f.input :name %>
-        <%=f.input :token,as: :hidden %>
-        <div id="video_show" class="rel" style="width:820px;height:385px;border:4px gray dotted">
-            <%= render partial: 'teachers/videos/video',object: @lesson.video unless @lesson.video.name.url.nil?%></div>
-        </video>
-    <% end %>
+
+    <%= render partial: 'videos/form',locals:{video: @lesson.video} %>
     <%=simple_form_for ([:teachers,@course,@lesson]) do |f|%>
         <%=f.input :name %>
         <%=f.input :desc %>
@@ -27,12 +21,3 @@
   </div>
 </div>
 
-<div style="display: none">
-  <div id="template-progress">
-    <div class="progress">
-      <p class="abs" style="top:40%;left:45%;font-size: 24px;color:gray">视频</p>
-      <div class="progress-bar" role="progressbar" >
-      </div>
-    </div>
-  </div>
-</div>

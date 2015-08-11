@@ -2,18 +2,27 @@ topic1:
   title: aaabbbcccdddeeefffggghhhjjjqqqq
   content: 111111111111111111111111111111110000000000000000000iiiiiiiiiiiiii333333333333333
   author: student1
-  course: teacher1_course
   teacher: teacher1
-  curriculum: teacher1_math_curriculum
-  learning_plan: h_math_learning_plan
-  lesson: teacher1_lesson
+  topicable: teacher1_lesson (Lesson)
 
 teacher_topic1:
-  title: xxxxx
+  title: xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2
   content: teacher topic 1 xsddfsdf
   author: teacher1
-  course: teacher1_course
   teacher: teacher1
-  curriculum: teacher1_math_curriculum
-  learning_plan: h_math_learning_plan
-  lesson: teacher1_lesson
+  topicable: teacher1_lesson (Lesson)
+
+customized_tutorial_topic1:
+  title: xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2
+  content: teacher topic 1 xsddfsdf
+  author: student1
+  teacher: teacher1
+  topicable: customized_tutorial1 (CustomizedTutorial)
+
+customized_tutorial_topic2:
+  title: 123413412sadnfpainfasipnfunck
+  content: customized_tutorial topic for teacher1
+  author: teacher1
+  teacher: teacher1
+  topicable: customized_tutorial1 (CustomizedTutorial)
+

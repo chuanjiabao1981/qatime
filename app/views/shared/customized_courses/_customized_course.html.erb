@@ -1,0 +1,28 @@
+<% if customized_course_counter == 0 %>
+    <div class="row qa_cell" style="font-weight: bold">
+
+      <div class="col-md-3">
+        <%= CustomizedCourse.model_name.human %>
+      </div>
+
+      <div class="col-md-2">
+        <%= CustomizedCourse.human_attribute_name(:category) %>
+      </div>
+      <div class="col-md-2">
+        <%= CustomizedCourse.human_attribute_name(:subject) %>
+      </div>
+      <div class="col-md-5">
+        <%= CustomizedCourse.human_attribute_name(:teachers) %>
+      </div>
+    </div>
+<% end %>
+<div class="row qa_cell">
+  <div class="col-md-3">
+    <%=link_to  customized_course_full_name(customized_course),
+                customized_course_path(customized_course)
+    %>
+  </div>
+  <div class="col-md-2"><%= customized_course.category %></div>
+  <div class="col-md-2"><%= customized_course.subject %></div>
+  <div class="col-md-5"><%= customized_course.teachers.map {|t| t.name}.join(",") %></div>
+</div>

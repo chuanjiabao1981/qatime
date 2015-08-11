@@ -10,7 +10,7 @@
         <div class="info">
             <%= topic.author.name %> •
             <%= time_ago_in_words(topic.created_at) %>前发布 • <%=topic.replies_count%>个回复 •
-            <%= link_to topic.lesson.name ,lesson_path(topic.lesson) ,class: "qa_node"%>
+            <%= link_to topic.topicable.name ,send("#{topic.topicable.model_name.singular_route_key}_path",topic.topicable) ,class: "qa_node"%>
 
         </div>
     </div>

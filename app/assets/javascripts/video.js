@@ -22,7 +22,7 @@ function video_load(player_id)
                                         "width": 810,
                                         "height": 375
                                     }, function() {
-        console.log('Good to go!');
+        //console.log('Good to go!');
 
 //        this.play(); // if you don't trust autoplay for some reason
 

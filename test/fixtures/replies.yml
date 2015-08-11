@@ -7,3 +7,14 @@ teacher_reply2:
   author: teacher1
   content: teacher_reply 2 hahahahahahaha
   topic: teacher_topic1
+
+customized_tutorial_topic1_reply1:
+  author: teacher1
+  content: customized teacher_reply 2 hahahahahahaha
+  topic: customized_tutorial_topic1
+
+
+customized_tutorial_topic1_reply2:
+  author: student1
+  content: 2 customized teacher_reply 2 hahahahahahaha
+  topic: customized_tutorial_topic1

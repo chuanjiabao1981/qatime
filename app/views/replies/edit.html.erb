@@ -1,3 +1,4 @@
-<%= render layout: 'courses/course_layout',locals: {course:@lesson.course,current_lesson: @lesson,show_topics: false} do %>
+<%= render layout:"#{@topicable.model_name.route_key.downcase}/topic_new_layout" do %>
+
     <%= render 'form' %>
 <% end %>

@@ -41,13 +41,23 @@ class StudentsController < ApplicationController
   end
 
   def topics
-    @topics = Topic.all.where(author_id: @student.id).order("created_at desc").paginate(page: params[:page],:per_page => 10)
+    @topics = Topic.all.where(author_id: @student.id).where(topicable_type: Lesson.to_s).order("created_at desc").paginate(page: params[:page],:per_page => 10)
     render layout: 'student_home'
   end
 
   def teachers
     @learning_plans = @student.learning_plans.paginate(page: params[:page],:per_page => 10)
     render layout: 'student_home'
+  end
+
+  def customized_tutorial_topics
+    @topics = Topic.all.where(author_id: @student.id).where(topicable_type: CustomizedTutorial.to_s).order("created_at desc").paginate(page: params[:page],:per_page => 10)
+    render layout: 'student_home'
+  end
+
+
+  def customized_courses
+    @customized_courses = @student.customized_courses.paginate(page: params[:page],per_page: 10)
   end
   def update
     if @student.update_attributes(params[:student].permit!)

@@ -32,8 +32,12 @@ class LessonsTest < ActionDispatch::IntegrationTest
       attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
 
 
+      options = {from: 'lesson_tags'}
+      item_text = '知识点讲解'
+      select_from_chosen(item_text,options)
 
-      find('li input.default').set("知"+"\n")
+
+      # find('li input.default').set("知"+"\n")
 
       fill_in :lesson_name,with: 'lesson_name 这个长度不能少10的啊啊啊'
       fill_in :lesson_desc,with: 'lesson_desc 这个长度不能小于多少啊啊啊啊，lesson_desc 这个长度到底是多少'

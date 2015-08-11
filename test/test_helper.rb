@@ -62,7 +62,7 @@ class ActiveSupport::TestCase
     # field     = find_field('customized-courses-teachers',visible: false)
     field     = find_field(options[:from],visible: false)
     option_value = page.evaluate_script("$(\"##{field[:id]} option:contains('#{item_text}')\").val()")
-    page.execute_script("$('##{field[:id]}').val(#{option_value})")
+    page.execute_script("$('##{field[:id]}').val('#{option_value}')")
     page.execute_script("$('##{field[:id]}').trigger('liszt:updated').trigger('change')")
   end
 end

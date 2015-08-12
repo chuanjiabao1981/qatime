@@ -41,8 +41,10 @@ module Permissions
       end
 
       allow :questions,[:show] do |question|
-        #问题的owner或者有valid的learning_plan
-        question and (question.student_id == user.id or  user.select_first_valid_learning_plan(question.vip_class))
+        #暂时给所有的学生都开放
+        question
+        #只给问题的owner或者有valid的learning_plan
+        #question and (question.student_id == user.id or  user.select_first_valid_learning_plan(question.vip_class))
       end
 
 

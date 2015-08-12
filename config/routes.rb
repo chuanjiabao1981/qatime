@@ -125,6 +125,11 @@ Qatime::Application.routes.draw do
       end
     end
   end
+  resources :managers do
+    member do
+      get 'customized_courses'
+    end
+  end
 
   resources :customized_courses,only:[:show,:edit,:update] do
     resources :customized_tutorials

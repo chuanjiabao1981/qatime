@@ -34,6 +34,9 @@ module Permissions
 
       allow :customized_tutorials, [:show]
 
+      allow :managers,[:customized_courses] do |manager|
+        manager.id == user.id
+      end
       allow :sessions,[:destroy]
 
     end

@@ -1,0 +1,13 @@
+<% if defined?(collapse) and collapse %>
+    <div class="qa_cell">
+
+    <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#video_upload_form" aria-expanded="false" aria-controls="video_upload_form">
+      添加视频
+    </button>
+    <div id="video_upload_form" class="collapse">
+        <%= yield %>
+    </div>
+    </div>
+<% else %>
+    <%= yield %>
+<% end %>

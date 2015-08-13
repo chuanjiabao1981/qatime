@@ -1,7 +1,9 @@
 
     <%= content_tag 'div', id:'qa_picture_params',data:{token: @reply.token,picture_type: @reply.class.to_s} do %>
     <% end %>
-    <%= render partial: 'videos/form',locals:{video: @reply.video} %>
+
+
+    <%= render partial: 'videos/form',locals:{video: @reply.video,collapse: true} %>
 
     <div class="qa_box">
       <div class="qa_cell">

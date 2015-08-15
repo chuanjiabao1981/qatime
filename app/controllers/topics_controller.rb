@@ -55,6 +55,11 @@ class TopicsController < ApplicationController
       @topicable        = CustomizedTutorial.find(params[:customized_tutorial_id])
       res               = @topicable
     end
+    if params[:customized_course_id]
+      @topicable        = CustomizedCourse.find(params[:customized_course_id])
+
+      res               = @topicable
+    end
     if params[:id]
       @topic = Topic.find(params[:id]) if params[:id]
       res    = @topic

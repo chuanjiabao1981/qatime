@@ -7,8 +7,21 @@ module Permissions
       allow :curriculums,[:index,:show]
       allow :courses,[:show]
       allow :sessions,[:destroy]
-      #TODO 不是所有人都可以发表topic
-      allow :topics,[:new,:create,:show]
+
+
+      allow :topics,[:new,:create] do |topicable|
+        return false if topicable.nil?
+        if topicable.instance_of? CustomizedCourse
+          topicable.student_id == user.id
+        elsif topicable.instance_of? CustomizedTutorial
+          topicable.customized_course.student_id == user.id
+        elsif topicable.instance_of? Lesson
+          ##TODO:: 这里应该是购买的学生才能看
+          true
+
+        end
+      end
+      allow :topics,[:show]
       allow :topics,[:edit,:update,:destroy] do |topic|
         topic and topic.author_id == user.id
       end
@@ -51,7 +64,7 @@ module Permissions
       allow :students,[:show,:edit,:update,:info,:teachers,:questions,:topics,:customized_courses,:customized_tutorial_topics] do |student|
         student and student.id == user.id
       end
-      allow :customized_courses,[:show] do |customized_course|
+      allow :customized_courses,[:show,:topics] do |customized_course|
         customized_course and customized_course.student_id == user.id
       end
       allow :customized_tutorials,[:show] do |customized_tutorial|

@@ -1,10 +1,20 @@
-<div class="customized_course">
-  <%= render 'header' %>
-  <div class="qa_sep_15"></div>
-  <div class="qa_sep_15"></div>
-  <div class="qa_sep_15"></div>
-
-  <div class="qa_box customized_tutorials">
-    <%= render @customized_course.customized_tutorials %>
-  </div>
-</div>
+<%= render layout: 'main' do %>
+    <div class="qa_box customized_tutorials">
+      <div class="box_header">
+        <div class="qa_cell">
+          <div class="pull-right">
+            <% if allow? :customized_tutorials,:new , @customized_course%>
+                <%= link_to new_customized_course_customized_tutorial_path(@customized_course) do %>
+                    <span class="label label-success"><%=get_edit_or_create_model_string(CustomizedTutorial.new)%></span>
+                <%end %>
+            <% end %>
+          </div>
+          <div class="pull-left">
+            <span class="label label-primary">共有<%= @customized_course.customized_tutorials.size%>节课程</span>
+          </div>
+          <div style="clear: both"></div>
+        </div>
+      </div>
+      <%= render @customized_course.customized_tutorials %>
+    </div>
+<% end %>

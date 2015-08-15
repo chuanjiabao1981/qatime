@@ -75,7 +75,7 @@ class SmsWorker
       if topic.author_id != topic.teacher_id
        message_body =  "【答疑时间】#{topic.teacher.name}，你好，#{topic.author.name}在公共课程中发起了讨论，请您回复#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
 
-       if topic.topicable_type == CustomizedTutorial.to_s
+       if topic.topicable_type == CustomizedTutorial.to_s or topic.topicable_type == CustomizedCourse.to_s
          message_body =  "【答疑时间】#{topic.teacher.name}，你好，#{topic.author.name}在#{CustomizedCourse.model_name.human}中发起了讨论，请您回复#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
        end
        _send_message do

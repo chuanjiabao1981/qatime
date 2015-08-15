@@ -24,7 +24,7 @@ module Permissions
         comment
       end
 
-      allow :customized_courses, [:show,:edit,:update,:teachers] do |customized_course|
+      allow :customized_courses, [:show,:edit,:update,:teachers,:topics] do |customized_course|
         user and customized_course
       end
 

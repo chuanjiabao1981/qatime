@@ -1,3 +1,4 @@
+<%= render layout: "videos/collapse_form",locals: {collapse: defined?(collapse) ? collapse : false} do %>
 <%=simple_form_for video do |f|%>
     <%= render 'shared/error_messages', target: video %>
     <%=f.input :name %>
@@ -53,3 +54,4 @@
     </div>
   </div>
 </div>
+<% end %>

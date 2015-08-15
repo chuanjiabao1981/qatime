@@ -1,0 +1,5 @@
+<%= render layout: 'main' do %>
+    <% if @customized_course %>
+        <%= render partial: 'topics/index',locals: {topicable:@customized_course} %>
+    <% end %>
+<% end %>

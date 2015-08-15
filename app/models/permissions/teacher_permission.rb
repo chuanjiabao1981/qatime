@@ -45,17 +45,21 @@ module Permissions
       end
 
 
-      ##TODO:: delete
-      # allow "teachers/videos",[:create]
-      # allow "teachers/videos",[:update] do |video|
-      #   video and video.author_id == user.id
-      # end
-      ##delte end
 
       allow "teaching_videos",[:create,:show]
 
 
-      allow :topics,[:new,:create,:show]
+      allow :topics,[:new,:create] do |topicable|
+        return false if topicable.nil?
+        if topicable.instance_of? CustomizedCourse
+          topicable.teacher_ids.include?(user.id)
+        elsif topicable.instance_of? CustomizedTutorial
+          topicable.teacher_id == user.id
+        elsif topicable.instance_of? Lesson
+          topicable.teacher_id == user.id
+        end
+      end
+      allow :topics,[:show]
       allow :topics,[:edit,:update,:destroy] do |topic|
         topic and topic.author_id == user.id
       end
@@ -82,7 +86,7 @@ module Permissions
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
       end
-      allow :customized_courses,[:show] do |customized_course|
+      allow :customized_courses,[:show,:topics] do |customized_course|
         user and customized_course.teacher_ids.include?(user.id)
       end
       allow :customized_tutorials,[:new,:create] do |customized_course|

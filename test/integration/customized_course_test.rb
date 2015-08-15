@@ -28,13 +28,14 @@ class CustomizedCourseIntegrateTest < LoginTestBase
     user_session.get showpath
     user_session.assert_response :success
 
+    #puts user_session.response.body
     if user_session.cookies["remember_user_type"] == "teacher"
       user_session.assert_select 'a[href=?]',new_customized_course_customized_tutorial_path(@customized_course),1
     else
       user_session.assert_select 'a[href=?]',new_customized_course_customized_tutorial_path(@customized_course),0
     end
     user_session.assert_template 'customized_courses/show'
-    user_session.assert_select 'div'        , "课程: #{@customized_course.customized_tutorials.count}节"
+    user_session.assert_select 'div'        , "课程: #{@customized_course.customized_tutorials_count}节"
     user_session.assert_select 'div'        , "学生: #{@customized_course.student.name}"
     user_session.assert_select 'a[href=?]'  , edit_student_customized_course_path(@student,@customized_course), 0
     @customized_course.customized_tutorials.each do |customized_tutorial|

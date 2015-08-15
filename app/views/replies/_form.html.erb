@@ -1,6 +1,11 @@
 
     <%= content_tag 'div', id:'qa_picture_params',data:{token: @reply.token,picture_type: @reply.class.to_s} do %>
     <% end %>
+
+    <% if current_user and not current_user.student? %>
+        <%= render partial: 'videos/form',locals:{video: @reply.video,collapse: true} %>
+    <% end %>
+
     <div class="qa_box">
       <div class="qa_cell">
         <div class="progress" id="picture-progress">

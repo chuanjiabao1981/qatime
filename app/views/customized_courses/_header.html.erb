@@ -12,13 +12,7 @@
                 <%end %>
             <% end %>
           </div>
-          <div class="abs right-bottom">
-            <% if allow? :customized_tutorials,:new , @customized_course%>
-                <%= link_to new_customized_course_customized_tutorial_path(@customized_course) do %>
-                    <span class="label label-success"><%=get_edit_or_create_model_string(CustomizedTutorial.new)%></span>
-                <%end %>
-            <% end %>
-          </div>
+
           <div class="qa_f16">
             <strong><%= @customized_course.subject%> • <%= @customized_course.model_name.human %></strong>
           </div>

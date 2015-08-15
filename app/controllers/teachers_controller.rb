@@ -78,7 +78,9 @@ class TeachersController < ApplicationController
 
 
   def customized_tutorial_topics
-    @topics = Topic.all.where(teacher_id: @teacher.id).where(topicable_type: CustomizedTutorial.to_s).order("created_at desc").paginate(page: params[:page],:per_page => 10)
+    @topics = Topic.all.where(teacher_id: @teacher.id)
+                  .where("topicable_type=? or  topicable_type =?",CustomizedTutorial.to_s,CustomizedCourse.to_s)
+                  .order("created_at desc").paginate(page: params[:page],:per_page => 10)
     render layout: 'teacher_home'
 
   end

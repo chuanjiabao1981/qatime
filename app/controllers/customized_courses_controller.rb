@@ -34,6 +34,10 @@ class CustomizedCoursesController < ApplicationController
     @customized_course = CustomizedCourse.new unless @customized_course #如果没有制定则创建
     @teachers = Teacher.includes(:school).by_category(params[:category]).by_school(params[:school]).by_subject(params[:subject])
   end
+
+  def topics
+    @topics = @customized_course.topics.order(:created_at).paginate(page: params[:page])
+  end
   private
   def all_teacher
     @teachers          = Teacher.by_category(@customized_course.category).by_subject(@customized_course.subject)

@@ -14,6 +14,7 @@ customized_course1:
   student: student1
   category: 高中
   subject: 数学
+  customized_tutorials_count: 2
 
 
 

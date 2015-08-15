@@ -97,7 +97,12 @@ class LessonsTest < ActionDispatch::IntegrationTest
     teacher = users(:teacher1)
     log_in_as(teacher)
     visit edit_teachers_course_lesson_path(@course,@lesson)
-    find('li input.default').set("常"+"\n")
+    # find('li input.default').set("常"+"\n")
+
+    options = {from: 'lesson_tags'}
+    item_text = '常见问题'
+    select_from_chosen(item_text,options)
+
 
     fill_in :lesson_name,with: 'lesson_name 这个长度不能少10的啊啊啊aaaaaaaaaaaaaaa'
     # page.save_screenshot('screenshot.png')

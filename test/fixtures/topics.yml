@@ -26,3 +26,18 @@ customized_tutorial_topic2:
   teacher: teacher1
   topicable: customized_tutorial1 (CustomizedTutorial)
 
+customized_course_topic1:
+  title: customized_course_topic by student title
+  content: customized_course_topic by student content customized_course_topic by student content
+  author: student1
+  teacher: teacher1
+  topicable: customized_course1 (CustomizedCourse)
+
+customized_course_topic2:
+  title: customized_course_topic by teacher title
+  content: customized_course_topic by teacher content customized_course_topic by teacher content
+  author: teacher1
+  teacher: teacher1
+  topicable: customized_course1 (CustomizedCourse)
+
+

@@ -8,3 +8,5 @@ cn:
         subject: 课程
         teachers: 讲师
         student: 学生
+        customized_tutorials: 课程
+        topics: 试题讲解

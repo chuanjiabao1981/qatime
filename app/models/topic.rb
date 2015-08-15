@@ -29,6 +29,8 @@ class Topic < ActiveRecord::Base
     # self.curriculum   = self.course.curriculum if self.course
     if defined? self.topicable.teacher and self.topicable.teacher
       self.teacher      = self.topicable.teacher
+    elsif defined? self.topicable.teachers and self.topicable.teachers.size >= 1
+      self.teacher      = self.topicable.teachers.first
     end
     # if self.author and self.author.student?
     #   self.learning_plan =

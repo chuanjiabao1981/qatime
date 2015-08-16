@@ -86,6 +86,9 @@ learning_plan:
     三个月:
       price: 2500
       time: 3.month
+    新建:
+      price: -1
+      time: 1.year
 
 lesson_categories:
   default:

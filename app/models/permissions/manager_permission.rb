@@ -24,6 +24,13 @@ module Permissions
         comment
       end
 
+
+      allow :topics,[:show]
+      allow :replies,[:create]
+      allow :replies,[:edit,:update,:destroy] do |reply|
+        reply and reply.author_id == user.id
+      end
+
       allow :customized_courses, [:show,:edit,:update,:teachers,:topics] do |customized_course|
         user and customized_course
       end

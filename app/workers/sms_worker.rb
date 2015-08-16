@@ -22,6 +22,7 @@ class SmsWorker
   REGISTRATION_NOTIFICATION    = :registration_notify
   ANSWER_CREATE_NOTIFICATION   = :answer_create_notify
   TOPIC_CREATE_NOTIFICATION    = :topic_create_notify
+  REPLY_CREATE_NOTIFICATION    = :reply_create_notify
 
   include Sidekiq::Worker
   include SmsUtil
@@ -83,6 +84,20 @@ class SmsWorker
        end
       end
     end
+
+  def reply_create_notify(options)
+    reply = Reply.find(options["id"])
+    return unless reply
+    topic = reply.topic
+    return unless topic
+    # 只有是老师回复学生才需要通知
+    return unless topic.author.student? and reply.author.teacher?
+    mobile        = reply.author.mobile
+    message_body  = "【答疑时间】#{topic.author.name}，你好，#{reply.author.name}回复了你在#{topic.topicable.model_name.human}发起讨论，请关注#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
+    _send_message do
+      send_message(mobile,message_body)
+    end
+  end
 
     def _send_message(&block)
       begin

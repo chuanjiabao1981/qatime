@@ -50,14 +50,7 @@ module Permissions
 
 
       allow :topics,[:new,:create] do |topicable|
-        return false if topicable.nil?
-        if topicable.instance_of? CustomizedCourse
-          topicable.teacher_ids.include?(user.id)
-        elsif topicable.instance_of? CustomizedTutorial
-          topicable.teacher_id == user.id
-        elsif topicable.instance_of? Lesson
-          topicable.teacher_id == user.id
-        end
+        topicable_permission(topicable,user)
       end
       allow :topics,[:show]
       allow :topics,[:edit,:update,:destroy] do |topic|
@@ -70,7 +63,9 @@ module Permissions
         teacher and teacher.id == user.id
       end
 
-      allow :replies,[:create]
+      allow :replies,[:create] do |topic|
+        topic and topic.topicable and topicable_permission(topic.topicable,user)
+      end
       allow :replies,[:edit,:update,:destroy] do |reply|
         reply and reply.author_id == user.id
       end
@@ -96,6 +91,17 @@ module Permissions
         user and customized_tutorial.teacher_id == user.id
       end
 
+    end
+private
+    def topicable_permission(topicable,user)
+      return false if topicable.nil?
+      if topicable.instance_of? CustomizedCourse
+        topicable.teacher_ids.include?(user.id)
+      elsif topicable.instance_of? CustomizedTutorial
+        topicable.teacher_id == user.id
+      elsif topicable.instance_of? Lesson
+        topicable.teacher_id == user.id
+      end
     end
   end
 end

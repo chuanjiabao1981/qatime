@@ -10,23 +10,16 @@ module Permissions
 
 
       allow :topics,[:new,:create] do |topicable|
-        return false if topicable.nil?
-        if topicable.instance_of? CustomizedCourse
-          topicable.student_id == user.id
-        elsif topicable.instance_of? CustomizedTutorial
-          topicable.customized_course.student_id == user.id
-        elsif topicable.instance_of? Lesson
-          ##TODO:: 这里应该是购买的学生才能看
-          true
-
-        end
+        topicable_permission(topicable,user)
       end
       allow :topics,[:show]
       allow :topics,[:edit,:update,:destroy] do |topic|
         topic and topic.author_id == user.id
       end
       allow :messages, [:index, :show]
-      allow :replies,[:create]
+      allow :replies,[:create] do |topic|
+        topic and topic.topicable and topicable_permission(topic.topicable,user)
+      end
       allow :replies,[:edit,:update,:destroy] do |reply|
         reply and reply.author_id == user.id
       end
@@ -79,6 +72,18 @@ module Permissions
       allow :comments,[:create]
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
+      end
+    end
+private
+    def topicable_permission(topicable,user)
+      return false if topicable.nil?
+      if topicable.instance_of? CustomizedCourse
+        topicable.student_id == user.id
+      elsif topicable.instance_of? CustomizedTutorial
+        topicable.customized_course.student_id == user.id
+      elsif topicable.instance_of? Lesson
+        ##TODO:: 这里应该是购买的学生才能看
+        true
       end
     end
   end

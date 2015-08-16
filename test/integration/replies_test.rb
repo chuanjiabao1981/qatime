@@ -1,6 +1,11 @@
 require 'test_helper'
 
 
+
+require 'sidekiq/testing'
+
+Sidekiq::Testing.inline!
+
 class RepliesTest < LoginTestBase
 
   def setup

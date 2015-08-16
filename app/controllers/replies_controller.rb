@@ -15,6 +15,8 @@ class RepliesController < ApplicationController
       @topicable = @topicable
       if @reply.save
         flash[:success] = "成功发表回复！"
+        SmsWorker.perform_async(SmsWorker::REPLY_CREATE_NOTIFICATION, id: @reply.id)
+
         redirect_to topic_path(@topic)
       else
         @replies      = @topic.replies.order(:created_at).paginate(page: params[:page])
@@ -46,6 +48,16 @@ class RepliesController < ApplicationController
     end
 private
   def current_resource
-    @reply = Reply.find(params[:id]) if params[:id]
+
+    if params[:id]
+      @reply = Reply.find(params[:id])
+      res                = @reply
+    end
+    if params[:topic_id]
+      @topic = Topic.find_by_id(params[:topic_id])
+      res               = @topic
+    end
+
+    res
   end
 end

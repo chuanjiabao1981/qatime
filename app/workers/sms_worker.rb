@@ -84,6 +84,13 @@ class SmsWorker
       end
     end
 
+    def reply_create_notify(options)
+      reply = Reply.find(options["id"])
+      return unless reply
+      topic = reply.topic
+      return unless topic
+    end
+
     def _send_message(&block)
       begin
         yield

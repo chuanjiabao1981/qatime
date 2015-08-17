@@ -2,9 +2,9 @@ task :learning_plan_merge => :environment do
   dry_run = true
   LearningPlan.all.each do |learning_plan|
 
-    if learning_plan.student_id == 237 and learning_plan.vip_class_id == 4
-      puts "#{learning_plan.student.name} #{learning_plan.vip_class.category} #{learning_plan.vip_class.subject}"
-    end
+    # if learning_plan.student_id == 237 and learning_plan.vip_class_id == 4
+    #   puts "#{learning_plan.student.name} #{learning_plan.vip_class.category} #{learning_plan.vip_class.subject}"
+    # end
     ttt = {student_id:    learning_plan.student_id,
            vip_class_id:  learning_plan.vip_class_id,
            duration_type: "新建"
@@ -15,11 +15,11 @@ task :learning_plan_merge => :environment do
         a.end_at    = Time.now
         a.teachers  = learning_plan.teachers
         a.save unless dry_run
-        if learning_plan.student_id == 237 and learning_plan.vip_class_id == 4
-          puts "#{learning_plan.student.name} #{learning_plan.vip_class.category} #{learning_plan.vip_class.subject}"
-          puts a.valid?
-          puts a.errors.full_messages
-        end
+        # if learning_plan.student_id == 237 and learning_plan.vip_class_id == 4
+        #   puts "#{learning_plan.student.name} #{learning_plan.vip_class.category} #{learning_plan.vip_class.subject}"
+        #   puts a.valid?
+        #   puts a.errors.full_messages
+        # end
         # puts a.to_json
         # puts a.teacher_ids
 
@@ -36,9 +36,9 @@ task :learning_plan_merge => :environment do
         puts "not valid!!!!!!!"
         exit
       end
-    if learning_plan.student_id == 237 and learning_plan.vip_class_id == 4
-      puts LearningPlan.where(ttt).size
-    end
+    # if learning_plan.student_id == 237 and learning_plan.vip_class_id == 4
+    #   puts LearningPlan.where(ttt).size
+    # end
   end
   VipClass.all.each do |vip_class|
     Student.all.each do |student|
@@ -63,11 +63,11 @@ task :learning_plan_merge => :environment do
           end
         end
       else
-        # puts "not valid ! fuck"
-        # puts x.size
-        # puts t
-        # puts student.to_json
-        # puts vip_class.to_json
+        puts "not valid ! fuck"
+        puts x.size
+        puts t
+        puts student.to_json
+        puts vip_class.to_json
       end
     end
   end

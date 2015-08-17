@@ -12,7 +12,8 @@ class Question < ActiveRecord::Base
   has_many :comments,as: :commentable,dependent: :destroy
 
   has_many :teaching_videos #for test only
-
+  has_many :question_assignments,:dependent => :destroy
+  has_many :teachers,:through => :question_assignments
 
   validates :title, length:{minimum: 10,maximum: 200}
   validates :content, length: { minimum: 20 }

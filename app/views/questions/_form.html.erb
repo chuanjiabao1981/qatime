@@ -9,7 +9,7 @@
       <div class="row">
         <%= f.association :vip_class,
                     include_blank: false,
-                    collection:@student.valid_learning_plans.map{|l| [l.vip_class.subject,l.vip_class.id,l.vip_class.category]}.uniq{|s| s.second}.group_by{|k| k[2]},
+                    collection:@student.learning_plans.map{|l| [l.vip_class.subject,l.vip_class.id,l.vip_class.category]}.uniq{|s| s.second}.group_by{|k| k[2]},
                     :as => :grouped_select,
                     :group_method => :last,
                     wrapper_html: { class: 'col-md-2' }

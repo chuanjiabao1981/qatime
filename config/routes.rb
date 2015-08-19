@@ -143,8 +143,10 @@ Qatime::Application.routes.draw do
   end
 
   resources :questions do
+
     resources :answers
     collection do
+      get 'teachers'
       get 'student'
       get 'teacher'
     end

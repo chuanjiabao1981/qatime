@@ -3,13 +3,38 @@
 
 <% end %>
 
+<script>
+    $(
+            function() {
+                $('select#question_learning_plan_id').on("change",function(){
+                    question_learning_plan_id = $("select#question_learning_plan_id").val();
+                    $.ajax({
+                                url: "<%= teachers_questions_path %>",
+                                dataType: "script",
+                                format: 'js',
+                                data: {
+                                    "learning_plan_id": question_learning_plan_id
+                                }
+                            }
+                    )
+                });
+                $('.question-teachers-chosen-select').chosen({
+                    placeholder_text_multiple:"专属讲师。",
+                    allow_single_deselect: true,
+                    no_results_text: '无结果',
+                    width: '100%'});
+            }
+
+    )
+</script>
+
 <div class="qa_box qa_big_cell">
 
   <%= simple_form_for @question do |f|%>
       <div class="row">
-        <%= f.association :vip_class,
+        <%= f.association :learning_plan,
                     include_blank: false,
-                    collection:@student.learning_plans.map{|l| [l.vip_class.subject,l.vip_class.id,l.vip_class.category]}.uniq{|s| s.second}.group_by{|k| k[2]},
+                    collection:@student.learning_plans.map{|l| [l.vip_class.subject,l.id,l.vip_class.category]}.uniq{|s| s.second}.group_by{|k| k[2]},
                     :as => :grouped_select,
                     :group_method => :last,
                     wrapper_html: { class: 'col-md-2' }
@@ -17,7 +42,13 @@
         <%= f.input :title ,hint:"注意：问题要和所选的科目相匹配!",
                     wrapper_html: { class: 'col-md-10',style:"padding-right:0px" }%>
       </div>
-
+      <%= f.association :teachers ,
+                        collection: @teachers.map {|t|[t.name,t.id,t.school.name]}.group_by{|k| k[2]},
+                        :as => :grouped_select,
+                        :group_method => :last,
+                        input_html: { multiple: true , class:'question-teachers-chosen-select',
+                                      id: 'question-teachers'}
+      %>
       <%= f.input :token, as: :hidden %>
       <div class="progress" id="picture-progress">
         <div class="progress-bar" id="picture-progress-bar" role="progressbar" >

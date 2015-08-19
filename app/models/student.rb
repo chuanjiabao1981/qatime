@@ -19,18 +19,18 @@ class Student < User
     self.role = "student"
   end
 
-  def select_first_valid_learning_plan(vip_class)
-    if vip_class.class == VipClass
-      vip_class_id = vip_class.id
-    else
-      vip_class_id = vip_class
-    end
-    self.valid_learning_plans.order(:begin_at).find{|x| x.vip_class_id == vip_class_id}
-  end
-
-  def select_last_valid_learning_plan(vip_class_id)
-    self.not_finished_learning_plans.order('end_at desc').where("vip_class_id=?",vip_class_id).first
-  end
+  # def select_first_valid_learning_plan(vip_class)
+  #   if vip_class.class == VipClass
+  #     vip_class_id = vip_class.id
+  #   else
+  #     vip_class_id = vip_class
+  #   end
+  #   self.valid_learning_plans.order(:begin_at).find{|x| x.vip_class_id == vip_class_id}
+  # end
+  #
+  # def select_last_valid_learning_plan(vip_class_id)
+  #   self.not_finished_learning_plans.order('end_at desc').where("vip_class_id=?",vip_class_id).first
+  # end
 
   def purchase_course(course_id)
     @course = Course.find(course_id)

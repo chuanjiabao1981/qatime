@@ -39,15 +39,9 @@ module Permissions
       allow :vip_classes, [:show] do |vip_class|
         vip_class
       end
-      allow :questions,[:index,:student]
-      allow :questions,[:new,:create] do |vip_class|
-        #通过validate 阻止一个没有vip_class的question
-        if vip_class == "dummy"
-          next true
-        elsif user.select_first_valid_learning_plan(vip_class)
-          next true
-        end
-        next false
+      allow :questions,[:index,:student,:teachers,:new]
+      allow :questions,[:create] do |learning_plan|
+       learning_plan and learning_plan.student_id  == user.id
       end
       allow :questions,[:edit,:update] do |question|
         question and question.student_id == user.id

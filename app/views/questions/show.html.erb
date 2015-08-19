@@ -40,7 +40,7 @@
 
           <h4><%= @question.answers_count%> 个回答
             <div style="float:right;font-size:12px;padding-right:10px">
-              <% @question.learning_plan.try(:teachers).try(:each) do |teacher| %>
+              <% @question.try(:teachers).try(:each) do |teacher| %>
                   <%=image_tag teacher.avatar.tiny.url,class:"img-circle" %><%= teacher.name %>
               <% end %> • 负责讲解
             </div>

@@ -30,6 +30,10 @@ class ActiveSupport::TestCase
     click_button '登录'
     assert page.has_content? '欢迎登录!'
   end
+  def logout_as(user)
+    visit get_home_url(user)
+    click_on '退出系统'
+  end
 
   def log_in2_as(user)
     open_session do |sess|
@@ -58,13 +62,37 @@ class ActiveSupport::TestCase
       end
   end
 
+
   def select_from_chosen(item_text,options)
-    # field     = find_field('customized-courses-teachers',visible: false)
-    field     = find_field(options[:from],visible: false)
+    field = find_field(options[:from], visible: false)
     option_value = page.evaluate_script("$(\"##{field[:id]} option:contains('#{item_text}')\").val()")
-    page.execute_script("$('##{field[:id]}').val('#{option_value}')")
-    page.execute_script("$('##{field[:id]}').trigger('liszt:updated').trigger('change')")
+
+    if options[:merge]
+      page.execute_script("value = ['#{option_value}']\; if ($('##{field[:id]}').val()) {$.merge(value, $('##{field[:id]}').val())}")
+      option_value = page.evaluate_script("value")
+    end
+    page.execute_script("$('##{field[:id]}').val(#{option_value})")
+    page.execute_script("$('##{field[:id]}').trigger('chosen:updated')")
+    page.execute_script("$('##{field[:id]}').change()")
+
   end
+  # version 2 不支持merge 但是支持修改
+  # def select_from_chosen(item_text,options)
+  #   field     = find_field(options[:from],visible: false)
+  #   option_value = page.evaluate_script("$(\"##{field[:id]} option:contains('#{item_text}')\").val()")
+  #   page.execute_script("$('##{field[:id]}').val('#{option_value}')")
+  #   page.execute_script("$('##{field[:id]}').trigger('chosen:updated').trigger('change')")
+  #
+  # end
+
+  ##verstion 1
+  # def select_from_chosen(item_text,options)
+  #   field     = find_field(options[:from],visible: false)
+  #   option_value = page.evaluate_script("$(\"##{field[:id]} option:contains('#{item_text}')\").val()")
+  #   puts page.execute_script("$('##{field[:id]}').val('#{option_value}')")
+  #   page.execute_script("$('##{field[:id]}').trigger('liszt:updated').trigger('change')")
+  #
+  # end
 end
 
 class ActionDispatch::IntegrationTest

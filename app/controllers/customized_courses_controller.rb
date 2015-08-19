@@ -30,7 +30,6 @@ class CustomizedCoursesController < ApplicationController
   end
 
   def teachers
-
     @customized_course = CustomizedCourse.new unless @customized_course #如果没有制定则创建
     @teachers = Teacher.includes(:school).by_category(params[:category]).by_school(params[:school]).by_subject(params[:subject])
   end

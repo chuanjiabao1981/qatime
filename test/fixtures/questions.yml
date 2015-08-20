@@ -5,3 +5,11 @@ student1_question1:
   student: student1
   learning_plan: h_math_learning_plan
   answers_info: <%= {ActiveRecord::FixtureSet.identify(:teacher1)=>false,ActiveRecord::FixtureSet.identify(:teacher2)=> false}.to_json %>
+
+student1_question2:
+  title: student1 question2 title
+  content: student1 question2 content content content content content
+  vip_class: h_math_vip_class
+  student: student1
+  learning_plan: h_math_learning_plan
+  answers_info: <%= {ActiveRecord::FixtureSet.identify(:teacher1)=>false,ActiveRecord::FixtureSet.identify(:teacher2)=> false}.to_json %>

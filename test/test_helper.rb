@@ -71,7 +71,17 @@ class ActiveSupport::TestCase
       page.execute_script("value = ['#{option_value}']\; if ($('##{field[:id]}').val()) {$.merge(value, $('##{field[:id]}').val())}")
       option_value = page.evaluate_script("value")
     end
+
+    puts option_value.to_s
+    puts /^\d$/.match(option_value.to_s).nil?
     page.execute_script("$('##{field[:id]}').val(#{option_value})")
+
+    # if option_value =~ /[\w]/
+    #   puts "kkkk"
+    #   page.execute_script("$('##{field[:id]}').val(#{option_value})")
+    # else
+    #   page.execute_script("$('##{field[:id]}').val('#{option_value}')")
+    # end
     page.execute_script("$('##{field[:id]}').trigger('chosen:updated')")
     page.execute_script("$('##{field[:id]}').change()")
 
@@ -89,7 +99,7 @@ class ActiveSupport::TestCase
   # def select_from_chosen(item_text,options)
   #   field     = find_field(options[:from],visible: false)
   #   option_value = page.evaluate_script("$(\"##{field[:id]} option:contains('#{item_text}')\").val()")
-  #   puts page.execute_script("$('##{field[:id]}').val('#{option_value}')")
+  #   page.execute_script("$('##{field[:id]}').val('#{option_value}')")
   #   page.execute_script("$('##{field[:id]}').trigger('liszt:updated').trigger('change')")
   #
   # end

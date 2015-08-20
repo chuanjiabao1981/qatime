@@ -49,6 +49,15 @@ student2:
   avatar: "test"
   grade: 高一
 
+no_learning_plan_student:
+  name: student3
+  role: student
+  email: student3@baidu.com
+  mobile: 15910676326
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+
 physics_teacher1:
   name: physics_teacher1
   role: teacher

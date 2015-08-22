@@ -72,16 +72,13 @@ class ActiveSupport::TestCase
       option_value = page.evaluate_script("value")
     end
 
-    puts option_value.to_s
-    puts /^\d$/.match(option_value.to_s).nil?
-    page.execute_script("$('##{field[:id]}').val(#{option_value})")
+    if options[:single_quote]
+      page.execute_script("$('##{field[:id]}').val('#{option_value}')")
+    else
+      page.execute_script("$('##{field[:id]}').val(#{option_value})")
+    end
 
-    # if option_value =~ /[\w]/
-    #   puts "kkkk"
-    #   page.execute_script("$('##{field[:id]}').val(#{option_value})")
-    # else
-    #   page.execute_script("$('##{field[:id]}').val('#{option_value}')")
-    # end
+
     page.execute_script("$('##{field[:id]}').trigger('chosen:updated')")
     page.execute_script("$('##{field[:id]}').change()")
 

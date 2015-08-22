@@ -59,8 +59,10 @@ class CustomizedCourseCreateTest < ActionDispatch::IntegrationTest
 
     select '高中', from: :s_category
     select '物理', from: :s_subject
+    # page.save_screenshot('screenshot11.png')
 
     select_from_chosen(item_text,options)
+    # page.save_screenshot('screenshot22.png')
 
     assert_difference 'teacher.customized_courses.count',1 do
       assert_difference 'old_teacher1.customized_courses.count',-1 do

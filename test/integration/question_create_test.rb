@@ -78,18 +78,18 @@ class QuestionCreateTest < ActionDispatch::IntegrationTest
   test "question edit learning plan" do
     question = questions(:student1_question2)
     visit edit_question_path(question)
-    page.save_screenshot('screenshot11.png')
+    # page.save_screenshot('screenshot11.png')
 
     select '物理', from: "科目"
     # select '物理', from: :question_learning_plan_id
 
-    page.save_screenshot('screenshot22.png')
+    # page.save_screenshot('screenshot22.png')
 
     options = {from: 'question-teachers',merge: true}
     item_text = 'physics_teacher1'
     select_from_chosen(item_text,options)
 
-    page.save_screenshot('screenshot33.png')
+    # page.save_screenshot('screenshot33.png')
     teacher1      =  Teacher.find(users(:teacher1).id)
     teacher2      =  Teacher.find(users(:physics_teacher1).id)
     m_vip_class   =  vip_classes(:h_math_vip_class)

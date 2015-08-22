@@ -46,16 +46,16 @@ class Question < ActiveRecord::Base
   #   end
   #   self.update_attributes(params)
   # end
-  def update_answers_info(answer)
-    return if answer == nil
-    self.answers_info[answer.teacher.id.to_s]   = true
-    self.last_answer_info["teacher_name"]  = answer.teacher.name
-    self.last_answer_info["answered_at"]   = answer.created_at
-    self.last_answer_info["teacher_id"]    = answer.teacher.id
-    self.learning_plan.update_answered_questions_count(self)
-    self.save
-    reload
-  end
+  # def update_answers_info(answer)
+  #   return if answer == nil
+  #   self.answers_info[answer.teacher.id.to_s]   = true
+  #   self.last_answer_info["teacher_name"]  = answer.teacher.name
+  #   self.last_answer_info["answered_at"]   = answer.created_at
+  #   self.last_answer_info["teacher_id"]    = answer.teacher.id
+  #   self.learning_plan.update_answered_questions_count(self)
+  #   self.save
+  #   reload
+  # end
 
   def is_first_answered?
     # 如果以前从没被回答过

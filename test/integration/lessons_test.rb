@@ -32,7 +32,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
       attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
 
 
-      options = {from: 'lesson_tags'}
+      options = {from: 'lesson_tags',single_quote: true}
       item_text = '知识点讲解'
       select_from_chosen(item_text,options)
 
@@ -99,7 +99,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
     visit edit_teachers_course_lesson_path(@course,@lesson)
     # find('li input.default').set("常"+"\n")
 
-    options = {from: 'lesson_tags'}
+    options = {from: 'lesson_tags',single_quote: true}
     item_text = '常见问题'
     select_from_chosen(item_text,options)
 

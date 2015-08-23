@@ -44,9 +44,9 @@ class QuestionCreateTest < ActionDispatch::IntegrationTest
 
   test "question edit teacher" do
     question = questions(:student1_question1)
-    question.teachers.each do |t|
-      puts t.name
-    end
+    # question.teachers.each do |t|
+    #   puts t.name
+    # end
     visit edit_question_path(question)
 
     page.save_screenshot('screenshot.png')

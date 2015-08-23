@@ -32,6 +32,7 @@ class LessonTest < ActiveSupport::TestCase
   ##没有video，通过find一定能初始化一个video
   test "lesson without video edit" do
     lesson_without_video = lessons(:teacher1_lesson_without_video)
+    # puts lesson_without_video.video.new_record?
     assert lesson_without_video.video.new_record?
     assert lesson_without_video.video.videoable_type == Lesson.to_s
     lesson_without_video.save

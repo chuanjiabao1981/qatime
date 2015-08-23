@@ -6,7 +6,12 @@
   <div class="qa_info">
     <%= answer.teacher.name %> • 回答于<%= time_ago_in_words(answer.created_at) %>前
   </div>
+
   <div class="qa_content">
+    <%if answer.video and answer.video.name  and answer.video.name.url %>
+        <%= video_js_player(answer.video,width:750) %>
+    <% end %>
+
     <%= raw answer.content %>
   </div>
   <div class="qa_footer">

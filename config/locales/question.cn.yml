@@ -7,3 +7,5 @@ cn:
         title: 标题
         content: 内容
         vip_class: 科目
+        teachers: 专属讲师
+        learning_plan: 科目

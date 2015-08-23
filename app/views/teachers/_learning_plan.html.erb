@@ -1,42 +1,22 @@
 <% if learning_plan_counter == 0 %>
     <div class="row qa_cell" style="font-weight: bold">
 
-      <div class="col-md-1">
-        <%= LearningPlan.human_attribute_name(:student) %>
-      </div>
-      <div class="col-md-4">
-        <%= LearningPlan.human_attribute_name(:duration_type) %>
-      </div>
-      <div class="col-md-2">
-        <%= LearningPlan.human_attribute_name(:questions_count) %>
-      </div>
       <div class="col-md-3">
-        <%= LearningPlanAssignment.human_attribute_name(:answered_questions_count) %>
+        <%= "#{VipClass.model_name.human} #{LearningPlan.human_attribute_name(:student)}" %>
+      </div>
+
+      <div class="col-md-3">
+        问题
       </div>
     </div>
 <% end %>
 <div class="row qa_cell">
-  <div class="col-md-1">
+  <div class="col-md-3">
     <%= learning_plan.student.name %>
   </div>
-  <div class="col-md-4">
-    <%= learning_plan.begin_at.to_date %> ~
-    <%= learning_plan.end_at.to_date %>
-    <% if learning_plan.not_started? %>
-        <span class="qa_f12 label label-info">未开始</span>
-    <% elsif learning_plan.expired? %>
-        <span class="qa_f12 label label-default">已过期</span>
-    <% else %>
-        <span class="qa_f12 label label-success">进行中</span>
-    <% end %>
-  </div>
-  <div class="col-md-2">
-    <%= learning_plan.questions_count %>
-  </div>
+
+
   <div class="col-md-3">
-    <%= learning_plan.get_the_teacher_assignment(@teacher.id).answered_questions_count%>
-  </div>
-  <div class="col-md-2">
     <%= link_to '查看全部问题',teacher_questions_path(learning_plan_id: learning_plan.id) %>
   </div>
 </div>

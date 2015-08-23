@@ -9,7 +9,7 @@ module Permissions
       allow "managers/home",[:main]
 
       allow :vip_classes,[:show]
-      allow :questions,[:index,:show,:student,:teacher]
+      allow :questions,[:index,:show,:student,:teacher,:teachers]
       allow :teaching_videos,[:show]
       allow :students,[:index,:search,:show,:edit,:create,:update,:info,:teachers,:customized_courses]
       allow :home,[:index]

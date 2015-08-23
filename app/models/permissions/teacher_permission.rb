@@ -13,7 +13,9 @@ module Permissions
       allow :questions,[:index,:show,:teacher]
       allow :questions,[:show]
       allow :answers,[:create] do |question|
-        question != nil and question.answers_info.keys.find{|teacher_id|  teacher_id.to_i == user.id}
+        # question != nil and question.answers_info.keys.find{|teacher_id|  teacher_id.to_i == user.id}
+        question != nil and question.teachers and question.teacher_ids.include?(user.id)
+
       end
       allow :answers,[:edit,:update] do |answer|
         answer and answer.teacher_id == user.id

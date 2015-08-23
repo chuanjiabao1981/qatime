@@ -19,6 +19,7 @@ end
 class SmsWorker
 
   QUESTION_CREATE_NOTIFICATION = :question_create_notify
+  QUESTION_MODIFY_NOTIFICATION = :question_modify_notify
   REGISTRATION_NOTIFICATION    = :registration_notify
   ANSWER_CREATE_NOTIFICATION   = :answer_create_notify
   TOPIC_CREATE_NOTIFICATION    = :topic_create_notify
@@ -61,10 +62,22 @@ class SmsWorker
     end
     def question_create_notify(options)
       question = Question.find(options["id"])
-      question.learning_plan.teachers.each do |teacher|
+      question.teachers.each do |teacher|
         begin
           send_message(teacher.mobile,
                        "【答疑时间】#{question.student.name}向您提了一个问题，请您回复#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}。")
+        rescue Exception => e
+          logger.info e.message
+          logger.info e.backtrace.inspect
+        end
+      end
+    end
+    def question_modify_notify(options)
+      question = Question.find(options["id"])
+      question.teachers.each do |teacher|
+        begin
+          send_message(teacher.mobile,
+                       "【答疑时间】#{question.student.name}对一个问题进行了修改，请您查看#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}。")
         rescue Exception => e
           logger.info e.message
           logger.info e.backtrace.inspect
@@ -98,6 +111,7 @@ class SmsWorker
       send_message(mobile,message_body)
     end
   end
+
 
     def _send_message(&block)
       begin

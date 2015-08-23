@@ -12,14 +12,15 @@ class Question < ActiveRecord::Base
   has_many :comments,as: :commentable,dependent: :destroy
 
   has_many :teaching_videos #for test only
-
+  has_many :question_assignments,:dependent => :destroy
+  has_many :teachers,:through => :question_assignments
 
   validates :title, length:{minimum: 10,maximum: 200}
   validates :content, length: { minimum: 20 }
-  validates_presence_of :student,:vip_class,:learning_plan
+  validates_presence_of :student,:vip_class,:learning_plan,:teachers
 
   scope :by_learning_plan, lambda {|learning_plan_id| where('learning_plan_id = ?', learning_plan_id) if learning_plan_id}
-  scope :by_teacher,lambda{|teacher_id| where("answers_info ? :teacher_id",{teacher_id: teacher_id}) if teacher_id}
+  # scope :by_teacher,lambda{|teacher_id| where("answers_info ? :teacher_id",{teacher_id: teacher_id}) if teacher_id}
   scope :by_vip_class,lambda {|v| where(vip_class_id: v) if v}
 
 
@@ -30,33 +31,31 @@ class Question < ActiveRecord::Base
 
   def initialize(atrributes={})
     super(atrributes)
-    if self.vip_class and self.student
-      self.learning_plan = self.student.select_first_valid_learning_plan(vip_class)
-      if self.learning_plan
-        self.answers_info         = self.learning_plan.teacher_ids.inject({}){|h,o| h[o.to_s]=false;h}
-      end
+    if self.learning_plan
+      self.vip_class_id = self.learning_plan.vip_class_id
     end
+
   end
 
-  def update_all_infos(params)
-    new_vip_class_id = params[:vip_class_id].to_i
-    if new_vip_class_id != self.vip_class_id
-      new_learning_plan         = self.student.select_first_valid_learning_plan(VipClass.find(new_vip_class_id))
-      params[:learning_plan_id] = new_learning_plan.id
-      params[:answers_info]     = new_learning_plan.teacher_ids.inject({}){|h,o| h[o.to_s]=false;h}.to_json
-    end
-    self.update_attributes(params)
-  end
-  def update_answers_info(answer)
-    return if answer == nil
-    self.answers_info[answer.teacher.id.to_s]   = true
-    self.last_answer_info["teacher_name"]  = answer.teacher.name
-    self.last_answer_info["answered_at"]   = answer.created_at
-    self.last_answer_info["teacher_id"]    = answer.teacher.id
-    self.learning_plan.update_answered_questions_count(self)
-    self.save
-    reload
-  end
+  # def update_all_infos(params)
+  #   new_vip_class_id = params[:vip_class_id].to_i
+  #   if new_vip_class_id != self.vip_class_id
+  #     new_learning_plan         = self.student.select_first_valid_learning_plan(VipClass.find(new_vip_class_id))
+  #     params[:learning_plan_id] = new_learning_plan.id
+  #     params[:answers_info]     = new_learning_plan.teacher_ids.inject({}){|h,o| h[o.to_s]=false;h}.to_json
+  #   end
+  #   self.update_attributes(params)
+  # end
+  # def update_answers_info(answer)
+  #   return if answer == nil
+  #   self.answers_info[answer.teacher.id.to_s]   = true
+  #   self.last_answer_info["teacher_name"]  = answer.teacher.name
+  #   self.last_answer_info["answered_at"]   = answer.created_at
+  #   self.last_answer_info["teacher_id"]    = answer.teacher.id
+  #   self.learning_plan.update_answered_questions_count(self)
+  #   self.save
+  #   reload
+  # end
 
   def is_first_answered?
     # 如果以前从没被回答过
@@ -77,10 +76,13 @@ class Question < ActiveRecord::Base
   end
 
   def is_responed_by_the_teacher?(teacher_id)
-    return true if self.answers_info and self.answers_info.include?(teacher_id.to_s)
+    # return true if self.answers_info and self.answers_info.include?(teacher_id.to_s)
+    return true if self.teachers and self.teacher_ids.include?(teacher_id.to_i)
+
   end
   def is_answered_by_the_teacher?(teacher_id)
-    return true if  self.answers_info and self.answers_info[teacher_id.to_s]
+    # return true if  self.answers_info and self.answers_info[teacher_id.to_s]
+    return true if self.answers and self.answers.find {|answer| answer.teacher.id == teacher_id.to_i}
   end
 
 
@@ -89,6 +91,19 @@ class Question < ActiveRecord::Base
     a.teacher_id      = teacher_id
     a.generate_token unless a.token
     a
+  end
+
+  def init_learning_plan(student)
+    return if self.learning_plan
+    # 如果没有设置learning_plan找一个teacher个数不为0
+    if student.learning_plans.size > 0
+      student.learning_plans.each do |learning_plan|
+        if learning_plan.teachers.size > 0
+          self.learning_plan = learning_plan
+          break
+        end
+      end
+    end
   end
 
 private

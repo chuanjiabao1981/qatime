@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150817214018) do
+ActiveRecord::Schema.define(version: 20150823085734) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -221,6 +221,17 @@ ActiveRecord::Schema.define(version: 20150817214018) do
     t.string   "token"
   end
 
+  create_table "qa_files", force: :cascade do |t|
+    t.integer  "author_id"
+    t.integer  "qa_fileable_id"
+    t.string   "qa_fileable_type"
+    t.string   "name"
+    t.string   "type"
+    t.string   "token"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
   create_table "question_assignments", force: :cascade do |t|
     t.integer  "question_id"
     t.integer  "teacher_id"
@@ -301,6 +312,11 @@ ActiveRecord::Schema.define(version: 20150817214018) do
     t.integer  "city_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "searches", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "teaching_programs", force: :cascade do |t|

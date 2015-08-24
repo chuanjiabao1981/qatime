@@ -167,6 +167,7 @@ Qatime::Application.routes.draw do
     end
   end
 
+  resources :qa_files
 
 
   get    '/signin',  to: 'sessions#new'

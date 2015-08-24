@@ -31,6 +31,7 @@ getToolbar = ->
       ['color', ['color']],
       ['para', ['ul', 'ol', 'paragraph']],
       ['insert', [ 'picture', 'hr']],
+      ['group',['video']]
     ]
 
 $(document).ready ->

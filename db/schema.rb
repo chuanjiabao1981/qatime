@@ -96,10 +96,10 @@ ActiveRecord::Schema.define(version: 20150817214018) do
 
   create_table "customized_courses", force: :cascade do |t|
     t.integer  "student_id"
-    t.string   "category",                   default: "高中"
-    t.string   "subject",                    default: "数学"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.string   "category"
+    t.string   "subject"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "customized_tutorials_count", default: 0
     t.integer  "topics_count",               default: 0
   end
@@ -301,6 +301,11 @@ ActiveRecord::Schema.define(version: 20150817214018) do
     t.integer  "city_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "searches", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "teaching_programs", force: :cascade do |t|

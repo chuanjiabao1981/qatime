@@ -7,6 +7,7 @@ class ChangeVideoTable < ActiveRecord::Migration
       update videos set videoable_type = 'Lesson'
     SQL
     Video.all.each do |v|
+      next if v.id == 2
       if v.videoable and v.videoable.teacher
         v.author_id = v.videoable.teacher.id
         v.save

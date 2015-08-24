@@ -29,7 +29,7 @@
 </script>
 
 <div class="qa_box qa_big_cell">
-  <p>尊敬的用您好:</p>
+  <p>尊敬的用户您好:</p>
   <p>只有分配了专属讲师的用户才能在<%=VipClass.model_name.human%> 进行提问。如果以已经分配了专属讲师请忽略此信息。</p>
   <p>是否有专属讲师可以在
     <% if current_user and current_user.student? %>
@@ -39,7 +39,8 @@
     <% end %>
     页面中进行查看。
   </p>
-  <p>如果没有专属讲师，可以联系当地的工作站进行开通。阳泉地区 电话：0353-2135828 联系人：马老师</p>
+  <p>如果没有专属讲师，可以联系当地的工作站进行开通。</p>
+  <%= render "shared/address" %>
 </div>
 <div class="qa_box qa_big_cell">
 

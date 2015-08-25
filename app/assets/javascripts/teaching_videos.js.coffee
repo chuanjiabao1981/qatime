@@ -24,6 +24,31 @@ sumitVideo = (token,videoFile)->
 
   deferredVideoUpload.promise()
 
+sumitPicture = (token,pictureType,pictureFile,pictureFileName)->
+  deferredPictureUpload = $.Deferred()
+  pictureForm = """
+    <form id="pictures_upload" action="/pictures" enctype="multipart/form-data" method="post">
+    </form>
+  """
+  picutreFormData = new FormData
+  picutreFormData.append "picture[token]", token
+  picutreFormData.append "picture[name]" , pictureFile,pictureFileName
+  picutreFormData.append "picture[imageable_type]", pictureType
+  $(pictureForm).ajaxSubmit
+    formData: picutreFormData
+    dataType: 'json'
+    uploadProgress: (event, position, total, percentComplete)->
+      percentVal = percentComplete + '%'
+      deferredPictureUpload.notify percentVal
+    error: (xhr, status, error) ->
+      deferredPictureUpload.reject xhr.status
+    success: (responseText, statusText, xhr, $form) ->
+      deferredPictureUpload.resolve responseText.name.url
+
+
+  deferredPictureUpload.promise()
+
+
 ((factory) ->
 
   ### global define ###
@@ -111,7 +136,12 @@ sumitVideo = (token,videoFile)->
 
         $videoBtn.click (event) ->
           event.preventDefault()
-          sumitVideo($('div#qa_answer_params').data('token'),$videoUrl[0].files[0]).done((video_url)->
+          console.log("kkkkk")
+          canvas    = document.getElementById('image-canvas');
+          data      = canvas.toDataURL('image/jpeg')
+          blob      = window.dataURLtoBlob && window.dataURLtoBlob(data);
+          fileName  = $videoUrl[0].files[0].name
+          sumitPicture($('div#qa_answer_params').data('token'),"Answer",blob,fileName).done((video_url)->
             deferred.resolve(video_url)
             $videoDialog.modal 'hide'
             return
@@ -162,7 +192,7 @@ sumitVideo = (token,videoFile)->
       '<img id="qa-img-preview" src=""/>'+
       '<canvas id="image-canvas" width="500" height="500"></canvas>'+
       '<a href="#" id="canvas-download">Download as image</a>'+
-      '<button id="qa-img-rotate">翻转</button>'+
+      '<a id="qa-img-rotate">翻转</button>'+
       '<div class="progress"><div class="progress-bar" role="progressbar"></div></div>' + '</div>'
       footer = '<button href="#" class="btn btn-primary note-video-btn disabled" disabled>' + '视频上传' + '</button>'
       tmpl.dialog 'note-video-dialog', '教学视频', body, footer
@@ -221,7 +251,7 @@ $ ->
   ), false
 
 $ ->
-  image_rotate = $('button#qa-img-rotate')
+  image_rotate = $('a#qa-img-rotate')
   image        = $('img#qa-img-preview')
   angle        = 0
   image_rotate.click  ->
@@ -238,6 +268,5 @@ $ ->
     ctx.rotate(angle * Math.PI/180)
     ctx.drawImage(image[0],-canvas.width/2, -canvas.height/2,canvas.width,canvas.height);
     ctx.restore()
-
     return
 

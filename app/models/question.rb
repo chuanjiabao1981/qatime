@@ -89,7 +89,6 @@ class Question < ActiveRecord::Base
   def build_a_answer(teacher_id,attributes={})
     a                 = self.answers.build(attributes)
     a.teacher_id      = teacher_id
-    a.generate_token unless a.token
     a
   end
 

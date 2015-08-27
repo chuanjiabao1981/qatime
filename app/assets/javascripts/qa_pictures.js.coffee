@@ -177,9 +177,12 @@ getToken = ->
       tmpl.dialog 'note-qa-image-dialog', '上传图片', body, footer
     events: showImageDialog: (event, editor, layoutInfo) ->
       __qa_pictures_init()
+
       $dialog = layoutInfo.dialog()
       $editable = layoutInfo.editable()
       text = getTextOnRange($editable)
+      clearAttribute($dialog)
+
       # save current range
       editor.saveRange $editable
       showImageDialog($editable, $dialog,text).then((url) ->
@@ -249,8 +252,6 @@ __qa_pictures_init = ->
     # 不让对话框响应这个事件
     event.preventDefault()
 
-    console.log("kkkooooooo")
-    console.log(image)
     # 只有有图片的时候才进行翻转
     if image[0].width == 0
       return

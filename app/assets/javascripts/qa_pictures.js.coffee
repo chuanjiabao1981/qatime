@@ -1,29 +1,3 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
-#sumitVideo = (token,videoFile)->
-#  deferredVideoUpload = $.Deferred()
-#  videoForm = """
-#    <form id="videos_upload" action="/teaching_videos" enctype="multipart/form-data" method="post">
-#    </form>
-#  """
-#  videoFormData = new FormData
-#  videoFormData.append "teaching_video[token]", token
-#  videoFormData.append "teaching_video[name]" , videoFile
-#  $(videoForm).ajaxSubmit
-#    formData: videoFormData
-#    dataType: 'json'
-#    uploadProgress: (event, position, total, percentComplete)->
-#      percentVal = percentComplete + '%'
-#      deferredVideoUpload.notify percentVal
-#    error: (xhr, status, error) ->
-#      deferredVideoUpload.reject xhr.status
-#    success: (responseText, statusText, xhr, $form) ->
-#      deferredVideoUpload.resolve responseText.id
-#
-#  deferredVideoUpload.promise()
-
 sumitPicture = (token,pictureFile,pictureFileName)->
   deferredPictureUpload = $.Deferred()
   pictureForm = """
@@ -46,6 +20,17 @@ sumitPicture = (token,pictureFile,pictureFileName)->
 
 
   deferredPictureUpload.promise()
+
+
+getToken = ->
+  k = "undefine"
+  for i in $("input[id$='_token']")
+    if k == "undefine"
+      k = i.value
+    else if k != i.value
+      alert(" token not same do something.......")
+
+  return k
 
 
 ((factory) ->
@@ -99,7 +84,8 @@ sumitPicture = (token,pictureFile,pictureFileName)->
     return
 
   clearAttribute = ($dialog) ->
-    console.log($dialog.find('#qa-img-preview'))
+    $dialog.find('#qa-img-preview').attr('src','')
+    $dialog.find('#qa-img-preview').removeClass('rotate0 rotate90 rotate180 rotate270')
 
 
   ###*
@@ -113,87 +99,90 @@ sumitPicture = (token,pictureFile,pictureFileName)->
   # @return {Promise}
   ###
 
-  showVideoDialog = ($editable, $dialog,text) ->
+  showImageDialog = ($editable, $dialog,text) ->
     $.Deferred((deferred) ->
-      $videoDialog = $dialog.find('.note-video-dialog')
-      $videoUrl     = $videoDialog.find('.note-video-url')
-      $videoBtn     = $videoDialog.find('.note-video-btn')
-      $progressBar  = $videoDialog.find('.progress-bar')
-      $videoDialog.one('shown.bs.modal', ->
-        $videoUrl.on('change', ->
-          toggleBtn $videoBtn, true
-          return
-        )
+      $qaImageDialog  = $dialog.find('.note-qa-image-dialog')
+      $imageUrl       = $qaImageDialog.find('.note-qa-image-url')
+      $imageBtn       = $qaImageDialog.find('.note-qa-image-btn')
+      $progressBar    = $qaImageDialog.find('.progress-bar')
+      $qaImageDialog.one('shown.bs.modal', ->
 
-        $videoBtn.click (event) ->
+        $imageBtn.click (event) ->
           event.preventDefault()
-          canvas    = document.getElementById('image-canvas-r');
-          console.log(canvas)
+          canvas    = document.getElementById('image-canvas');
           data      = canvas.toDataURL('image/jpeg')
           blob      = window.dataURLtoBlob && window.dataURLtoBlob(data);
-          fileName  = $videoUrl[0].files[0].name
-          sumitPicture($('div#qa_answer_params').data('token'),blob,fileName).done((video_url)->
-            deferred.resolve(video_url)
-            $videoDialog.modal 'hide'
+          fileName  = $imageUrl[0].files[0].name
+
+          token = getToken()
+          if token == "undefine"
+            alert("no token is given")
+            return
+          sumitPicture(token,blob,fileName).done((qa_image_url)->
+            deferred.resolve(qa_image_url)
+
+            $qaImageDialog.modal 'hide'
             return
           ).fail((status)->
             alert(status)
             deferred.reject()
-            $videoDialog.modal 'hide'
+            $qaImageDialog.modal 'hide'
             return
           ).progress((percent)->
             $progressBar.css({width: percent})
             $progressBar.text(percent)
             if percent == '100%'
-              $progressBar.text("图片上传完毕,格式转换中。。。。。")
+              $progressBar.text("图片上传完毕,格式转换中，请稍后。。。。。")
           )
         return
       ).one('hidden.bs.modal', ->
         $progressBar.css({width: "0%"})
         $progressBar.text("0%")
-        toggleBtn $videoBtn, false
-        $videoUrl.val('')
-        $videoUrl.off 'input'
-        $videoBtn.off 'click'
+        toggleBtn $imageBtn, false
+        $imageUrl.val('')
+        $imageUrl.off 'input'
+        $imageBtn.off 'click'
         if deferred.state() == 'pending'
           deferred.reject()
         return
       ).modal 'show'
     )
   ###
-  # @class plugin.video
+  # @class plugin.qa_image
   #
-  # Video Plugin
+  # Qa_Image Plugin
   #
-  # video plugin is to make embeded video tag.
   #
   ###
 
   $.summernote.addPlugin
-    name: 'video'
-    buttons: video: (lang) ->
-      tmpl.iconButton 'fa fa-youtube-play',
-        event: 'showVideoDialog'
-        title: '教学视频'
+    name: 'qa_image'
+    buttons: qa_image: (lang) ->
+      tmpl.iconButton 'fa fa fa-picture-o',
+        event: 'showImageDialog'
+        title: '上传图片'
         hide: true
-    dialogs: video: (lang) ->
+    dialogs: qa_image: (lang) ->
       body =
-      '<div class="form-group row-fluid">' + '<label>' + '视频' + ' <small class="text-muted">' + '视频长度不要超过10分钟' + '</small></label>' +
-      '<input class="note-video-url form-control span12" type="file" id="qa-img-file"/>' +
-      '<img id="qa-img-preview" src=""/>'+
-      '<canvas id="image-canvas"   style="display: none"></canvas>' +
-      '<a href="#" id="canvas-download">Download as image</a>'+
-      '<a id="qa-img-rotate">翻转</a>'+
-      '<div class="progress"><div class="progress-bar" role="progressbar"></div></div>' + '</div>'
-      footer = '<button href="#" class="btn btn-primary note-video-btn disabled" disabled>' + '视频上传' + '</button>'
-      tmpl.dialog 'note-video-dialog', '教学视频', body, footer
-    events: showVideoDialog: (event, editor, layoutInfo) ->
+        '<div class="form-group row-fluid">' + '<label>' + '图片' + '</small></label>' +
+        '<input class="note-qa-image-url form-control span12" type="file" id="qa-img-file"/>' +
+        '<label>图片预览</label>'+
+        '<button id="qa-img-rotate">翻转</button>'+
+        '<div style="width: 400px;height: 400px;border: 1px dotted gray">'+
+        '<img id="qa-img-preview" src="" />'+
+        '</div>'+
+        '<canvas id="image-canvas"   style="display: none"></canvas>' +
+        '<div class="progress"><div class="progress-bar" role="progressbar"></div></div>' + '</div>'
+      footer = '<button href="#" class="btn btn-primary note-qa-image-btn disabled" disabled>' + '上传图片' + '</button>'
+      tmpl.dialog 'note-qa-image-dialog', '上传图片', body, footer
+    events: showImageDialog: (event, editor, layoutInfo) ->
+      __qa_pictures_init()
       $dialog = layoutInfo.dialog()
       $editable = layoutInfo.editable()
       text = getTextOnRange($editable)
       # save current range
       editor.saveRange $editable
-      showVideoDialog($editable, $dialog,text).then((url) ->
+      showImageDialog($editable, $dialog,text).then((url) ->
         # when ok button clicked
         # restore range
         editor.restoreRange $editable
@@ -220,56 +209,63 @@ readURL = (input) ->
 
         $('#qa-img-preview').attr
           'src': e.target.result
-          'width': 500
-          'height': 500
+          'width': 400
+          'height': 400
         canvas = document.getElementById('image-canvas');
         canvas.width     = $('#qa-img-preview')[0].naturalWidth
         canvas.height    = $('#qa-img-preview')[0].naturalHeight
 
         ctx = canvas.getContext('2d')
         ctx.drawImage(image,0,0,canvas.width,canvas.height)
+        $imageBtn       = $('.note-qa-image-btn')
+
+        $imageBtn.toggleClass 'disabled', false
+        $imageBtn.attr 'disabled', false
 
       return
 
     reader.readAsDataURL input.files[0]
   return
-$ ->
+#$ ->
+#
+#  $("input#qa-img-file").change ->
+#    readURL this
+#  download = document.getElementById('canvas-download')
+#  download.addEventListener 'click', (->
+#    canvas = document.getElementById('image-canvas');
+#    data = canvas.toDataURL()
+#    download.href = data
+#    return
+#  ), false
+
+__qa_pictures_init = ->
   $("input#qa-img-file").change ->
     readURL this
-  download = document.getElementById('canvas-download')
-  download.addEventListener 'click', (->
-    canvas = document.getElementById('image-canvas');
-#    ctx = canvas.getContext('2d');
-    data = canvas.toDataURL()
-    download.href = data
-    return
-  ), false
-
-$ ->
-  image_rotate = $('a#qa-img-rotate')
+  image_rotate = $('button#qa-img-rotate')
   image        = $('img#qa-img-preview')
   angle        = 0
-  image_rotate.click  ->
+  # 绑定rotate事件
+  image_rotate.click (event)  ->
+    # 不让对话框响应这个事件
+    event.preventDefault()
+
+    console.log("kkkooooooo")
+    console.log(image)
+    # 只有有图片的时候才进行翻转
+    if image[0].width == 0
+      return
+
+
 
     angle = (angle + 90 ) % 360
+    #css 翻转
     image.attr("class","rotate"+angle);
 
-#    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    console.log($('canvas#image-canvas'))
-    $('canvas#image-canvas').remove()
-
-#    canvas               = document.getElementById('image-canvas')
-
-    canvas               = document.createElement('canvas');
-    canvas.setAttribute('id','image-canvas-r')
-    document.body.appendChild(canvas)
-
-    console.log($('canvas#image-canvas-r'))
-    console.log(document.getElementById('image-canvas-r'))
+    canvas               = document.getElementById('image-canvas')
     ctx                  = canvas.getContext('2d')
+    # 清理
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    ctx.canvas.width     = image[0].naturalWidth
-    ctx.canvas.height    = image[0].naturalHeight
     if (angle == 0 || angle == 180)
 
       ctx.canvas.width     = image[0].naturalWidth
@@ -279,11 +275,14 @@ $ ->
       ctx.canvas.width     = image[0].naturalHeight
       ctx.canvas.height    = image[0].naturalWidth
 
-    console.log(canvas.width,canvas.height)
     ctx.save()
     ctx.translate(canvas.width / 2, canvas.height / 2);
     ctx.rotate(angle * Math.PI/180)
-    ctx.drawImage(image[0],-canvas.width/2, -canvas.height/2,canvas.width,canvas.height);
+    if (angle == 0 || angle == 180)
+      ctx.drawImage(image[0],-canvas.width/2, -canvas.height/2,canvas.width,canvas.height)
+    else
+      ctx.drawImage(image[0],-canvas.height/2,-canvas.width/2,canvas.height,canvas.width)
+
     ctx.restore()
     return
 

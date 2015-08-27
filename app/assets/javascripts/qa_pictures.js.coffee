@@ -85,6 +85,9 @@ getToken = ->
 
   clearAttribute = ($dialog) ->
     $dialog.find('#qa-img-preview').attr('src','')
+    $dialog.find('#qa-img-preview').removeAttr('width')
+    $dialog.find('#qa-img-preview').removeAttr('height')
+
     $dialog.find('#qa-img-preview').removeClass('rotate0 rotate90 rotate180 rotate270')
 
 

@@ -1,0 +1,2 @@
+module QaFilesHelper
+end

@@ -78,8 +78,10 @@ class User < ActiveRecord::Base
       if self.tmp_register_code
         self.tmp_register_code.user = self
         self.tmp_register_code.save
-        self.school_id = self.tmp_register_code.school_id
-        self.save
+        if self.student?
+          self.school_id = self.tmp_register_code.school_id
+          self.save
+        end
       end
     end
 end

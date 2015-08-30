@@ -13,6 +13,8 @@ class Lesson < ActiveRecord::Base
   has_one    :current_review_record,-> { order 'created_at' }, :class_name => "ReviewRecord"
   has_one    :video,:dependent => :destroy,as: :videoable
 
+  has_many   :qa_files, dependent: :destroy, as: :qa_fileable
+
 
   validates_presence_of :name,:desc,:curriculum
 

@@ -1,0 +1,35 @@
+<%= render layout: "qa_files/collapse_form",locals: {collapse: defined?(collapse) ? collapse : true} do %>
+    <%=simple_form_for @qa_file do |f|%>
+        <%= render 'shared/error_messages', target: @qa_file %>
+        <%=f.input :name %>
+        <div id="qa_file_show" class="rel">
+          <%= render partial: 'qa_files/qa_file',object: @qa_file unless @qa_file.name.url.nil?%>
+        </div>
+    <% end %>
+    <script>
+        $(
+                function(){
+                    var qa_file_input = $("input#qa_file_name");
+                    var qa_file_form  = qa_file_input.closest('form');
+
+
+                    qa_file_input.on('change',function(){
+                        var maxSize = 20 * 1024 * 1024;
+                        if(maxSize < this.files[0].size) {
+                            alert("文件大小超过限制");
+                            return;
+                        }
+                        var fileExtend = this.value.substring(this.value.lastIndexOf('.')).toLowerCase();
+
+                        qa_file_form.ajaxSubmit({
+                            dataType: 'script',
+                            beforeSubmit: function(){
+                            },
+                            uploadProgress: function(event, position, total, percentComplete) {
+                            }
+                        });
+                    })
+                }
+        )
+    </script>
+<% end %>

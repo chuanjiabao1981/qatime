@@ -15,7 +15,6 @@ class Lesson < ActiveRecord::Base
 
   has_many   :qa_files, dependent: :destroy, as: :qa_fileable
 
-
   validates_presence_of :name,:desc,:curriculum
 
 

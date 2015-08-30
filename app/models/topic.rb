@@ -5,11 +5,7 @@ class Topic < ActiveRecord::Base
 
 
   belongs_to :author        ,:class_name => "User",:counter_cache => true,:inverse_of => :topics
-  # begin to delete
-  # TODO:: counter处理
-  # belongs_to :course        ,:counter_cache => true,:inverse_of => :topics
-  # belongs_to :curriculum    ,:counter_cache => true,:inverse_of => :topics
-  # end
+
 
   belongs_to :topicable     ,:polymorphic   => true        ,:counter_cache => true
   belongs_to :teacher

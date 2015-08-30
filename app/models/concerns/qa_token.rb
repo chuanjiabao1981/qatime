@@ -35,5 +35,9 @@ module QaToken
       self.video.author_id = self.author_id
     end
 
+    if defined? self.pictures
+      self.token = generate_token if self.token == nil
+    end
+
   end
 end

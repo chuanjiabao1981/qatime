@@ -1,6 +1,7 @@
 <% if @lesson %>
     <div class="qa_box">
       <%= render partial: 'lessons/lesson_video',locals: {lesson: @lesson} %>
+      <%= render partial: 'shared/qa_files/qa_file', collection: @qa_files %>
 
       <div class="qa_cell">
         <% if @lesson.rejected? %>

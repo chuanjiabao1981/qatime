@@ -1,7 +1,7 @@
 class Lesson < ActiveRecord::Base
-
-
   include QaToken
+
+  attr_accessible :name, :desc, :token, :tags, :qa_files_attributes, :state_event, :teacher_id
 
   belongs_to :teacher  #,:class_name => "User"
   belongs_to :course,:counter_cache => true,:inverse_of =>:lessons
@@ -24,6 +24,8 @@ class Lesson < ActiveRecord::Base
 
 
   accepts_nested_attributes_for :current_review_record
+  accepts_nested_attributes_for :qa_files, allow_destroy: true
+
 
   # delegate :author_id, to: :teacher
 

@@ -60,7 +60,9 @@ Qatime::Application.routes.draw do
       end
       resources :courses
     end
-    resources :lessons
+    resources :lessons do
+      resources :qa_files
+    end
     resources :courses do
       resources :lessons
     end

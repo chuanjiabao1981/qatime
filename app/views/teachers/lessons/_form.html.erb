@@ -7,17 +7,24 @@
   <div class="qa_big_cell">
 
     <%= render partial: 'videos/form',locals:{video: @lesson.video} %>
+
     <%=simple_form_for ([:teachers,@course,@lesson]) do |f|%>
+        <%= render 'shared/error_messages', target: @lesson %>
         <%=f.input :name %>
         <%=f.input :desc %>
         <%=f.input :token,as: :hidden %>
         <%=f.input :tags,collection:get_curriculum_categories_collection(@course.curriculum),hint:"给课程分类，可以帮助学生快速的找到所需要的内容。",
                    input_html: { multiple: true ,class:'lesson-chosen-select'}%>
 
+        <%= f.fields_for :qa_files do |builder| %>
+            <%= render 'shared/qa_files/qa_file_fields', f: builder %>
+        <% end %>
+        <%= link_to_add_fields "添加文件", f, :qa_files %>
+        </br>
+        </br>
         <%= render partial:"submit" ,locals:{f: f}%>
 
     <% end %>
 
   </div>
 </div>
-

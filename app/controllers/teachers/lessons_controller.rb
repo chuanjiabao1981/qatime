@@ -2,8 +2,11 @@ class Teachers::LessonsController < ApplicationController
   respond_to :html
   layout "application"
 
+  include QaFilesHelper
+
   def new
     @lesson = @course.build_lesson
+    @qa_files = @lesson.qa_files.build
   end
   def create
     if params[:edit]
@@ -11,7 +14,7 @@ class Teachers::LessonsController < ApplicationController
     elsif params[:submit]
       params[:lesson][:state_event] = 'submit'
     end
-    @lesson =@course.build_lesson(params[:lesson].permit!)
+    @lesson =@course.build_lesson(change_params_for_qa_files(params[:lesson].permit!))
     if @lesson.save
       redirect_to course_path(@course,lesson_id:@lesson.id)
     else
@@ -28,7 +31,7 @@ class Teachers::LessonsController < ApplicationController
     elsif params[:submit]
       params[:lesson][:state_event] = 'submit'
     end
-    if @lesson.update_attributes(params[:lesson].permit!)
+    if @lesson.update_attributes(change_params_for_qa_files(params[:lesson].permit!))
       redirect_to course_path(@lesson.course,lesson_id:@lesson.id)
     else
       render 'edit'
@@ -56,4 +59,10 @@ class Teachers::LessonsController < ApplicationController
       @course = Course.find(params[:course_id])
     end
   end
+
+  #private
+
+  #def lesson_params
+  #  params.require(:lesson).permit(:name, :desc, :token, :tags, qa_files_attributes: [:name])
+  #end
 end

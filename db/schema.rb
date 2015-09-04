@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150824150905) do
+ActiveRecord::Schema.define(version: 20150904144328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -226,9 +226,10 @@ ActiveRecord::Schema.define(version: 20150824150905) do
     t.integer  "qa_fileable_id"
     t.string   "qa_fileable_type"
     t.string   "name"
-    t.string   "type"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.string   "qa_file_type"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "original_filename"
   end
 
   create_table "question_assignments", force: :cascade do |t|

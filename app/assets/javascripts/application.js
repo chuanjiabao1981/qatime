@@ -25,4 +25,4 @@
 //= require chosen-jquery
 //= require canvas-to-blob.min
 //= require_tree .
-// require turbolinks
+// require turbolinks}

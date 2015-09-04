@@ -1,6 +1,7 @@
 <% if @lesson %>
     <div class="qa_box">
       <%= render partial: 'lessons/lesson_video',locals: {lesson: @lesson} %>
+
       <div class="qa_cell">
         <% if @lesson.rejected? %>
             <span class="qa_f12 label label-danger"><%=@lesson.human_state_name%></span>

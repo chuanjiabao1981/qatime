@@ -70,3 +70,6 @@ cn:
         admin_id: 生成人员
       video:
         name: 视频
+      qa_file:
+        name: oss文件名
+        original_filename: 文件名

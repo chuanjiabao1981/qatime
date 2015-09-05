@@ -5,12 +5,6 @@ class QaFilesController < ApplicationController
   end
 
   def create
-    Rails.logger.info "qafile_create"
-    @qa_file = QaFile.new(params[:qa_file].permit!)
-    @qa_file.author_id = current_user.id
-
-    @qa_file.save
-    respond_with @qa_file
   end
 
   def new

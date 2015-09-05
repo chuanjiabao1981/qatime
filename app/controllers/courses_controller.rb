@@ -10,6 +10,7 @@ class CoursesController < ApplicationController
       @lesson   = @course.lessons.order(created_at: :asc).first
     end
     @topics     = get_topics(@lesson)
+    @qa_files = @lesson.qa_files
     render 'lessons/show'
   end
 

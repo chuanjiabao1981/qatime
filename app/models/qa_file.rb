@@ -4,8 +4,8 @@ class QaFile < ActiveRecord::Base
   belongs_to :qa_fileable,polymorphic: true
   belongs_to :author, class_name: "User"
 
-  attr_accessible :name, :original_filename, :author_id, :qa_file_type
+  #attr_accessible :name, :original_filename, :author_id, :qa_file_type
 
-  #validates_presence_of :author
+  validates_presence_of :author
 
 end

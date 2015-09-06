@@ -14,7 +14,7 @@ class Teachers::LessonsController < ApplicationController
     elsif params[:submit]
       params[:lesson][:state_event] = 'submit'
     end
-    @lesson =@course.build_lesson(change_params_for_qa_files(params[:lesson].permit!))
+    @lesson =@course.build_lesson(change_params_for_qa_files(params[:lesson]).permit!)
     if @lesson.save
       redirect_to course_path(@course,lesson_id:@lesson.id)
     else

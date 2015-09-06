@@ -115,4 +115,4 @@ gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'sinatra', require: false
 gem 'slim'
-gem 'protected_attributes'
+#gem 'protected_attributes'

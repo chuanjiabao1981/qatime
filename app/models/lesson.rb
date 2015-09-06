@@ -1,7 +1,7 @@
 class Lesson < ActiveRecord::Base
   include QaToken
 
-  attr_accessible :name, :desc, :token, :tags, :qa_files_attributes, :state_event, :teacher_id
+  #attr_accessible :name, :desc, :token, :tags, :qa_files_attributes, :state_event, :teacher_id
 
   belongs_to :teacher  #,:class_name => "User"
   belongs_to :course,:counter_cache => true,:inverse_of =>:lessons

@@ -9,8 +9,12 @@ class CoursesController < ApplicationController
     unless @lesson
       @lesson   = @course.lessons.order(created_at: :asc).first
     end
+
+    if @lesson
+      @qa_files = @lesson.qa_files.order(created_at: :asc)
+    end
     @topics     = get_topics(@lesson)
-    @qa_files = @lesson.qa_files
+
     render 'lessons/show'
   end
 

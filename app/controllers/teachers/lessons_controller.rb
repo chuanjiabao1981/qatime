@@ -31,7 +31,7 @@ class Teachers::LessonsController < ApplicationController
     elsif params[:submit]
       params[:lesson][:state_event] = 'submit'
     end
-    if @lesson.update_attributes(change_params_for_qa_files(params[:lesson].permit!))
+    if @lesson.update_attributes(change_params_for_qa_files(params[:lesson]).permit!)
       redirect_to course_path(@lesson.course,lesson_id:@lesson.id)
     else
       render 'edit'

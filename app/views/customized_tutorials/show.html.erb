@@ -13,9 +13,12 @@
         <% end %>
 
     </div>
+
     <div class="qa_cell">
       <%= @customized_tutorial.content %>
     </div>
+
+    <%= render partial: 'shared/qa_files/qa_file', collection: @qa_files %>
   </div>
 </div>
 

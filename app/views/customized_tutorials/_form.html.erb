@@ -12,6 +12,12 @@
         <%=f.input :content %>
         <%=f.input :token,as: :hidden %>
 
+        <%= f.fields_for :qa_files do |builder| %>
+            <%= render 'shared/qa_files/qa_file_fields', f: builder %>
+        <% end %>
+        <%= link_to_add_fields "添加文件", f, :qa_files, "shared/qa_files/" %>
+        </br>
+
         <%= f.button :submit,class: "btn btn-default" %>
 
     <% end %>

@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    models:
+      homework: 家庭作业
+    attributes:
+      homework:
+        title: 标题
+        content: 内容

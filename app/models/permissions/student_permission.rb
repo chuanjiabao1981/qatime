@@ -77,7 +77,7 @@ private
       return false if topicable.nil?
       if topicable.instance_of? CustomizedCourse
         topicable.student_id == user.id
-      elsif topicable.instance_of? CustomizedTutorial
+      elsif topicable.instance_of? CustomizedTutorial or topicable.instance_of? Homework
         topicable.customized_course.student_id == user.id
       elsif topicable.instance_of? Lesson
         ##TODO:: 这里应该是购买的学生才能看

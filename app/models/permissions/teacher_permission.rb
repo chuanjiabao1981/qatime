@@ -109,6 +109,8 @@ private
         topicable.teacher_ids.include?(user.id)
       elsif topicable.instance_of? CustomizedTutorial
         topicable.teacher_id == user.id
+      elsif topicable.instance_of? Homework
+        topicable.customized_course.teacher_ids.include?(user.id)
       elsif topicable.instance_of? Lesson
         topicable.teacher_id == user.id
       end

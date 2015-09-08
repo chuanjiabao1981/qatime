@@ -142,7 +142,9 @@ Qatime::Application.routes.draw do
     resources :topics
     resources :homeworks,only:[:show,:edit,:update,:new,:create]
   end
-  resources :homeworks
+  resources :homeworks do
+    resources :topics
+  end
   resources :customized_tutorials do
     resources :topics
   end

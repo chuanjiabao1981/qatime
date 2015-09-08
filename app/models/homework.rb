@@ -13,4 +13,7 @@ class Homework < ActiveRecord::Base
   accepts_nested_attributes_for :qa_files, allow_destroy: true
 
 
+  def name
+    self.title
+  end
 end

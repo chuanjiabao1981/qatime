@@ -40,3 +40,9 @@
     <%= render partial: 'shared/qa_files/qa_file', collection: @qa_files %>
   </div>
 </div>
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
+
+<% if @homework %>
+    <%= render partial: 'topics/index',locals: {topicable:@homework} %>
+<% end %>

@@ -6,7 +6,7 @@ class CreateHomeworks < ActiveRecord::Migration
       t.string  :title
       t.text    :content
       t.string  :token
-
+      t.integer :topics_count,default: 0
       t.timestamps null: false
     end
     add_column :customized_courses, :homeworks_count,:integer,:default=>0

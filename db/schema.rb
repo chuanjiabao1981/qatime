@@ -96,10 +96,10 @@ ActiveRecord::Schema.define(version: 20150907223348) do
 
   create_table "customized_courses", force: :cascade do |t|
     t.integer  "student_id"
-    t.string   "category"
-    t.string   "subject"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.string   "category",                   default: "高中"
+    t.string   "subject",                    default: "数学"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.integer  "customized_tutorials_count", default: 0
     t.integer  "topics_count",               default: 0
     t.integer  "homeworks_count",            default: 0
@@ -146,8 +146,9 @@ ActiveRecord::Schema.define(version: 20150907223348) do
     t.string   "title"
     t.text     "content"
     t.string   "token"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.integer  "topics_count",         default: 0
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   create_table "learning_plan_assignments", force: :cascade do |t|

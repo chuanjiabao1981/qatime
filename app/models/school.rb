@@ -5,5 +5,6 @@ class School < ActiveRecord::Base
   validates :name, uniqueness: {scope: :city_id}
 
   has_many :teachers,class_name: "User",inverse_of: :school
+  has_many :register_codes
   belongs_to :city,inverse_of: :schools
 end

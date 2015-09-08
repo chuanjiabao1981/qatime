@@ -1,0 +1,23 @@
+<div class="qa_cell box_header qa_f12">搜索</div>
+<%= simple_form_for :search ,url: curriculum_path(@curriculum) , :method => :get do |f|%>
+    <div class="qa_cell qa_box">
+      <ul style="list-style: none;padding: 0;">
+        <% get_curriculum_categories(@curriculum).each do |c|%>
+            <li class="button-checkbox" style="float: left;width:130px;padding-top: 5px;">
+              <button type="button" class="btn btn-xs btn-primary active" data-color="primary"><i class="state-icon glyphicon glyphicon-check"></i>
+                &nbsp;<%=c%>
+              </button>
+              <input type="checkbox"  name="tags[]" value="<%=c%>" class="hidden" <%="checked" if params[:tags] and params[:tags].include?(c) %>/>
+            </li>
+        <% end %>
+      </ul>
+      <div style="clear: both"></div>
+
+    </div>
+    <div style="clear: both"></div>
+    <div class="qa_cell qa_box">
+      <%= f.submit "搜索",class: "btn btn-xs btn-default"%>
+      <%= link_to '全部', curriculum_path(@curriculum),class: "btn btn-xs btn-default" %>
+
+    </div>
+<%end %>

@@ -1,12 +1,3 @@
-class CourseStateValidate < ActiveModel::Validator
-  def validate(record)
-    if record.published?
-      if record.lessons_count <=0
-        record.errors[:state] = '课程下没有知识点，不可以发布!'
-      end
-    end
-  end
-end
 class Course < ActiveRecord::Base
   belongs_to :teacher    #,:class_name => "User"
   belongs_to :curriculum      ,:counter_cache => true, :inverse_of => :courses
@@ -14,7 +5,8 @@ class Course < ActiveRecord::Base
 
 
 
-  has_many   :lessons    ,:dependent => :destroy
+  has_many   :lessons    ,-> {order 'created_at'},:dependent => :destroy
+
   has_many   :topics     ,:dependent => :destroy
   has_many   :students   ,:through => :course_purchase_records
   has_many   :course_purchase_records
@@ -24,12 +16,6 @@ class Course < ActiveRecord::Base
 
   validates :desc, length: { minimum: 30 }
   validates :position, numericality: { only_integer: true }
-
-
-
-  #need to be deleted
-    validates_with CourseStateValidate
-  #end
 
 
 
@@ -47,13 +33,27 @@ class Course < ActiveRecord::Base
     end
   end
 
+  def get_contain_tags_lessons(tags)
+    if tags.nil? or tags.empty?
+      self.lessons
+    else
+      a = []
+      self.lessons.each do |l|
+        if not (l.tags & tags).empty?
+          a << l
+        end
+      end
+      a
+    end
+  end
+
   def build_lesson(attributes={})
     a               = self.lessons.build(attributes)
     a.teacher       = self.teacher
     a.curriculum    = self.curriculum
     a.generate_token if a.token.nil?
     a.build_a_video
-    a.state_event   = "edit"
+    #a.state_event   = "edit"
     a
   end
 
@@ -67,8 +67,6 @@ class Course < ActiveRecord::Base
     a
   end
 
-  #def human_state_name
-  #  I18n.t("app.course.state.#{self.state}")
-  #end
+
 end
 

@@ -2,12 +2,14 @@
   <div class="col-md-1">
     <%= school_counter + 1 %>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     <%=school.name%>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     <%=school.city.name %>
-
+  </div>
+  <div class="col-md-2">
+    <%=link_to '验证码',school_register_codes_path(school)%>
   </div>
   <div class="col-md-2">
     <%=link_to '编辑',edit_school_path(school)%>

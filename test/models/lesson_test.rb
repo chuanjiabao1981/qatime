@@ -6,4 +6,12 @@ class LessonTest < ActiveSupport::TestCase
     lesson1.valid?
     puts lesson1.errors.full_messages
   end
+
+  test "lesson state" do
+    course  = courses(:teacher1_course)
+
+    lesson1 = course.build_lesson
+
+    assert lesson1.state == 'init'
+  end
 end

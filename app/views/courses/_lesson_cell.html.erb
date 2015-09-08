@@ -7,7 +7,7 @@
     <div class="tag_info">
       <% lesson_cell.tags.each do |tag| %>
           <% if tag.strip.length != 0 %>
-          <span> <%=tag.strip %></span>
+          <div class="pull-left tag"> <%=tag.strip %></div>
           <% end %>
       <% end %>
     </div>

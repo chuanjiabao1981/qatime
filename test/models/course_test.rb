@@ -6,4 +6,5 @@ class CourseTest < ActiveSupport::TestCase
     assert course1.valid?
 
   end
+  
 end

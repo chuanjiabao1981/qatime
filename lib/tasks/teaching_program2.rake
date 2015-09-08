@@ -7,7 +7,11 @@ task :teaching_program_init2 => :environment do
     a = TeachingProgram.where(name: t["name"],subject: t["subject"],grade: t["grade"])
     if a.size == 0
       a = TeachingProgram.new(t)
-      puts a.save
+      if not a.save
+        puts "fail:"
+        puts t["name"],t["subject"],t["grade"]
+        puts a.errors.full_messages
+      end
     end
   end
 

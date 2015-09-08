@@ -3,28 +3,7 @@
   <div class="qa_sep_15"></div>
   <div class="qa_sep_15"></div>
 
-    <%= simple_form_for :search ,url: curriculum_path(@curriculum) , :method => :get do |f|%>
-      <div class="qa_cell qa_box">
-        <ul style="list-style: none;padding: 0;">
-        <% get_curriculum_categories(@curriculum).each do |c|%>
-            <li class="button-checkbox" style="float: left;width:130px;padding-top: 5px;">
-                <button type="button" class="btn btn-xs btn-primary active" data-color="primary"><i class="state-icon glyphicon glyphicon-check"></i>
-                  &nbsp;<%=c%>
-                </button>
-              <input type="checkbox"  name="tags[]" value="<%=c%>" class="hidden" <%="checked" if params[:tags] and params[:tags].include?(c) %>/>
-            </li>
-        <% end %>
-        </ul>
-        <div style="clear: both"></div>
-
-      </div>
-      <div style="clear: both"></div>
-      <div class="qa_cell qa_box">
-            <%= f.submit "search",class: "btn btn-xs btn-default"%>
-        </div>
-    <%end %>
-
-
+  <%= render "search" %>
 
   <div class="qa_sep_15"></div>
   <div class="qa_sep_15"></div>
@@ -32,17 +11,14 @@
 
   <div class="row">
     <div class="qa_f12">
-      <!--% @curriculum.courses.each do |course| %-->
-          <!--div class="col-md-4"-->
-            <!--%= render partial: 'course',locals: {course: course} %-->
-          <!--/div-->
-      <!--% end %-->
 
         <div class="col-md-12">
           <div class="qa_box courses">
             <% @curriculum.teaching_program.content["chapters"].each_with_index do |chapter,chapter_index| %>
                 <% @curriculum.get_courses_by_chapter(chapter).each_with_index do |course,course_index| %>
-                    <%= render partial: 'courses/course_cell', locals: {course: course,
+                    <%= render partial: 'courses/course_cell', locals: {
+                                                                        curriculum: @curriculum,
+                                                                        course: course,
                                                                         chapter_index: chapter_index,
                                                                         course_index:course_index} %>
                 <% end %>

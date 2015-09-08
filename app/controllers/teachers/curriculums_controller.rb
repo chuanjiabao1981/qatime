@@ -1,12 +1,13 @@
 class Teachers::CurriculumsController < ApplicationController
+  layout "application"
+
   def edit_courses_position
-    #
   end
   def update
+    return redirect_to curriculum_path(@curriculum) unless params[:curriculum]
     if @curriculum.update_attributes(params[:curriculum].permit!)
       redirect_to curriculum_path(@curriculum)
     else
-      #params[:chapter] = "运动的描述"
       render 'edit_courses_position'
     end
   end

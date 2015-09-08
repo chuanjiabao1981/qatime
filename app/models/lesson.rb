@@ -1,14 +1,19 @@
 class Lesson < ActiveRecord::Base
+  include QaToken
+
+  #attr_accessible :name, :desc, :token, :tags, :qa_files_attributes, :state_event, :teacher_id
+
   belongs_to :teacher  #,:class_name => "User"
   belongs_to :course,:counter_cache => true,:inverse_of =>:lessons
   belongs_to :curriculum, :counter_cache => true, :inverse_of => :lessons
 
   has_many   :review_records,:dependent => :destroy
-  has_many   :topics     ,:dependent => :destroy
+  has_many   :topics        ,as: :topicable,:dependent => :destroy
 
   has_one    :current_review_record,-> { order 'created_at' }, :class_name => "ReviewRecord"
-  has_one    :video,:dependent => :destroy
+  has_one    :video,:dependent => :destroy,as: :videoable
 
+  has_many   :qa_files, dependent: :destroy, as: :qa_fileable
 
   validates_presence_of :name,:desc,:curriculum
 
@@ -19,22 +24,29 @@ class Lesson < ActiveRecord::Base
 
 
   accepts_nested_attributes_for :current_review_record
+  accepts_nested_attributes_for :qa_files, allow_destroy: true
 
 
-  def build_a_video
-    self.video =   Video.where(token: self.token).order(created_at: :desc).first
-    if self.video.nil?
-      self.build_video
-      self.video.token = self.token
-    end
-    self.video
+  # delegate :author_id, to: :teacher
+
+
+  def author_id
+    self.teacher_id
   end
-  def generate_token
-    self.token = loop do
-      random_token = SecureRandom.urlsafe_base64
-      break random_token if Lesson.where(token: random_token).size == 0
-    end
-  end
+  # def build_a_video
+  #   ## 这句是为了如果出错，还能捞回以前的vidoe
+  #   ## 考虑创建lesson的时候 视频已经上传，但是由于没有title，再次render new的时候，还是要已近上传的video
+  #   ## TODO:: add Test case
+  #
+  #   self.video =   Video.where(token: self.token).order(created_at: :desc).first
+  #   if self.video.nil?
+  #     self.build_video
+  #     self.video.token = self.token
+  #   end
+  #   self.video.author_id = self.teacher_id
+  #   self.video
+  # end
+
 
 
   state_machine :initial => :init do

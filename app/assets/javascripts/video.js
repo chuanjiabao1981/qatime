@@ -1,4 +1,5 @@
 function video_preview_load() {
+    console.log("here");
     source_node = $('source#video_preview_source')
     if(source_node == null || source_node.length == 0) {
         return
@@ -12,6 +13,7 @@ function video_preview_load() {
 
 function video_load(player_id)
 {
+    console.log('Good to go!');
 
     var player = videojs(player_id, {
                                         "controls": true,
@@ -19,9 +21,8 @@ function video_load(player_id)
                                         "preload": "auto",
                                         "width": 810,
                                         "height": 375
-
                                     }, function() {
-        console.log('Good to go!');
+        //console.log('Good to go!');
 
 //        this.play(); // if you don't trust autoplay for some reason
 
@@ -29,6 +30,7 @@ function video_load(player_id)
         this.on('ended', function() {
             console.log('awww...over so soon?');
         });
+
     });
 }
 
@@ -97,8 +99,15 @@ function video_load_jwplayer(video_width, video_height) {
 $(
     function video_init()
     {
+        console.log("here");
         if ($('video#qa_video_player').size() !=0){
             video_load("qa_video_player");
         }
+
+        var videos = document.getElementsByTagName("video");
+        for(var i=0; i<videos.length;i++){
+            $(videos[i]).bind('contextmenu',function() { return false; });
+        }
+
     }
 );

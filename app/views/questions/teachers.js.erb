@@ -1,0 +1,3 @@
+v=$('<%= j render "teachers_option" %>').find('select#question-teachers');
+$('select#question-teachers').empty().append(v.html());
+$('.question-teachers-chosen-select').trigger("chosen:updated");

@@ -2,12 +2,8 @@ class Course < ActiveRecord::Base
   belongs_to :teacher    #,:class_name => "User"
   belongs_to :curriculum      ,:counter_cache => true, :inverse_of => :courses
 
-
-
-
   has_many   :lessons    ,-> {order 'created_at'},:dependent => :destroy
 
-  has_many   :topics     ,:dependent => :destroy
   has_many   :students   ,:through => :course_purchase_records
   has_many   :course_purchase_records
 
@@ -48,25 +44,10 @@ class Course < ActiveRecord::Base
   end
 
   def build_lesson(attributes={})
-    a               = self.lessons.build(attributes)
-    a.teacher       = self.teacher
+    a               = self.lessons.build(attributes.merge(teacher_id: self.teacher.id))
     a.curriculum    = self.curriculum
-    a.generate_token if a.token.nil?
-    a.build_a_video
-    #a.state_event   = "edit"
     a
   end
-
-
-  def build_topic(attributes={})
-    a             = self.topics.build(attributes)
-    a.curriculum  = self.curriculum
-    a.generate_token if a.token.nil?
-    pictures      = Picture.where(token: a.token)
-    a.pictures << pictures unless pictures.empty?
-    a
-  end
-
 
 end
 

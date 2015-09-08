@@ -1,0 +1,25 @@
+<div class="qa_box">
+  <div class="qa_cell box_header">
+    <%=link_to customized_course_full_name(@customized_tutorial.customized_course) ,
+               customized_course_path(@customized_tutorial.customized_course)%>/<%= @customized_tutorial.title %>
+  </div>
+  <div class="qa_box">
+    <div class="qa_cell" style="height: 400px">
+        <%if @customized_tutorial.video and @customized_tutorial.video.name %>
+
+            <%= video_js_player(@customized_tutorial.video) %>
+        <% else %>
+            视频未上传
+        <% end %>
+
+    </div>
+    <div class="qa_cell">
+      <%= @customized_tutorial.content %>
+    </div>
+  </div>
+</div>
+
+
+<% if @customized_tutorial %>
+    <%= render partial: 'topics/index',locals: {topicable:@customized_tutorial} %>
+<% end %>

@@ -1,0 +1,12 @@
+<div class="col-md-9">
+  <div class="qa_box">
+    <div class="qa_cell box_head">
+      <%= link_to @topic.topicable.name,lesson_path(@topic.topicable) %>
+    </div>
+  </div>
+
+  <%= yield %>
+</div>
+<div class="col-md-3">
+  <%= render partial: 'courses/course_lessons', locals: {course: @topic.topicable.course,current_lesson: @topic.topicable} %>
+</div>

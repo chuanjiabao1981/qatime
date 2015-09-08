@@ -24,21 +24,13 @@ sumitPicture = (token,pictureType,pictureFile)->
 
 getToolbar = ->
   user = $('div#toolbar-parms').data('user')
-  if user == 'teacher'
-    return [['style', ['style']],
-    ['font', ['bold', 'italic', 'underline', 'clear']],
-    ['fontname', ['fontname']],
-    ['color', ['color']],
-    ['para', ['ul', 'ol', 'paragraph']],
-    ['insert', [ 'picture', 'hr']],
-    ['group',['video']]]
   return [
       ['style', ['style']],
       ['font', ['bold', 'italic', 'underline', 'clear']],
       ['fontname', ['fontname']],
       ['color', ['color']],
       ['para', ['ul', 'ol', 'paragraph']],
-      ['insert', [ 'picture', 'hr']],
+      ['insert', [ 'qa_image']],
     ]
 
 $(document).ready ->
@@ -54,7 +46,7 @@ $(document).ready ->
         sumitPicture($('div#qa_picture_params').data('token'),
                      $('div#qa_picture_params').data('picture-type'),
                      files[0]).done((url)->
-          editor.insertImage(welEditable, url);
+          editor.insertImage(welEditable, url)
         ).progress((percent)->
           $progress_bar.css({width: percent})
           $progress_bar.text(percent)

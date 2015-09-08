@@ -8,27 +8,29 @@ class Student < User
   has_many :questions,:dependent => :destroy
   has_many :learning_plans ,-> { order 'created_at desc' } ,:dependent => :destroy
 
-  has_many :valid_learning_plans , ->{where("? between begin_at AND end_at", Time.zone.now.to_date) },class_name: 'LearningPlan'
+  # has_many :valid_learning_plans , ->{where("? between begin_at AND end_at", Time.zone.now.to_date) },class_name: 'LearningPlan'
 
   has_many :not_finished_learning_plans, -> {where("? <= end_at",Time.zone.now.to_date)},class_name:'LearningPlan'
+
+  has_many :customized_courses,->{order(created_at: :desc)},:dependent => :destroy
 
   def initialize(attributes = {})
     super(attributes)
     self.role = "student"
   end
 
-  def select_first_valid_learning_plan(vip_class)
-    if vip_class.class == VipClass
-      vip_class_id = vip_class.id
-    else
-      vip_class_id = vip_class
-    end
-    self.valid_learning_plans.order(:begin_at).find{|x| x.vip_class_id == vip_class_id}
-  end
-
-  def select_last_valid_learning_plan(vip_class_id)
-    self.not_finished_learning_plans.order('end_at desc').where("vip_class_id=?",vip_class_id).first
-  end
+  # def select_first_valid_learning_plan(vip_class)
+  #   if vip_class.class == VipClass
+  #     vip_class_id = vip_class.id
+  #   else
+  #     vip_class_id = vip_class
+  #   end
+  #   self.valid_learning_plans.order(:begin_at).find{|x| x.vip_class_id == vip_class_id}
+  # end
+  #
+  # def select_last_valid_learning_plan(vip_class_id)
+  #   self.not_finished_learning_plans.order('end_at desc').where("vip_class_id=?",vip_class_id).first
+  # end
 
   def purchase_course(course_id)
     @course = Course.find(course_id)

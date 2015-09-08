@@ -13,16 +13,13 @@
   <%=simple_form_for @learning_plan do |f| %>
       <!--learning_plan未开放给学生前用这个-->
       <%= f.association :student ,collection: [@learning_plan.student], include_blank:false%>
-      <%= f.association :vip_class, include_blank: false,
+      <%= f.association :vip_class, include_blank: false,disabled: !f.object.new_record?,
                         collection:VipClass.all.map{|vip_class| ["#{vip_class.category}-#{vip_class.subject}",vip_class.id]},
                         input_html: {data:{remote:true,
                                             :url => url_for(:controller => "learning_plans",
                                                             :action => "teachers",
                                                             id:@learning_plan.id)}
                         }
-      %>
-      <%= f.input :duration_type, include_blank:false, disabled: !f.object.new_record?,
-                  collection: APP_CONSTANT["learning_plan"]["duration_types"].map {|k,v| [k+"价格【#{v["price"]}】",k]}
       %>
       <label class="check_boxes required control-label"><abbr title="required">*</abbr> 专属讲师</label>
       <div id="the_teacher_of_learning_plan">

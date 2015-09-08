@@ -6,6 +6,6 @@ class Picture < ActiveRecord::Base
 
   def self.update_imageable_info(imageable_item)
     Picture.where("token='#{imageable_item.token}'")
-    .update_all({imageable_id:imageable_item.id})
+    .update_all({imageable_id:imageable_item.id,imageable_type: imageable_item.class.to_s})
   end
 end

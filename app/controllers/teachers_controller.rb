@@ -1,5 +1,5 @@
 class TeachersController < ApplicationController
-  respond_to :html,:js
+  respond_to :html,:js,:json
 
   def index
     @teachers = Teacher.all.order(:created_at).paginate(page: params[:page],:per_page => 10)
@@ -64,17 +64,28 @@ class TeachersController < ApplicationController
   end
 
   def questions
-    @questions = Question.all.by_teacher(params[:id])
-    .includes({learning_plan: :teachers},:vip_class,:student)
-    .order("created_at desc").paginate(page: params[:page],:per_page => 10)
+    # @questions = Question.all.by_teacher(params[:id])
+    # .includes({learning_plan: :teachers},:vip_class,:student)
+    # .order("created_at desc").paginate(page: params[:page],:per_page => 10)
+    @questions = @teacher.questions.order("created_at desc").paginate(page: params[:page],:per_page => 10)
     render layout: 'teacher_home'
 
   end
 
   def topics
-    @topics = Topic.all.where(teacher_id: @teacher.id).order("created_at desc").paginate(page: params[:page],:per_page => 10)
+    @topics = Topic.all.where(teacher_id: @teacher.id).where(topicable_type: Lesson.to_s).order("created_at desc").paginate(page: params[:page],:per_page => 10)
     render layout: 'teacher_home'
   end
+
+
+  def customized_tutorial_topics
+    @topics = Topic.all.where(teacher_id: @teacher.id)
+                  .where("topicable_type=? or  topicable_type =?",CustomizedTutorial.to_s,CustomizedCourse.to_s)
+                  .order("created_at desc").paginate(page: params[:page],:per_page => 10)
+    render layout: 'teacher_home'
+
+  end
+
 
   def pass
     @teacher.update_attribute(:pass, true)
@@ -94,6 +105,9 @@ class TeachersController < ApplicationController
     render 'index'
   end
 
+  def customized_courses
+    @customized_courses = @teacher.customized_courses.paginate(page: params[:page],per_page: 10)
+  end
   private
   def current_resource
     @teacher = Teacher.find(params[:id]) if params[:id]

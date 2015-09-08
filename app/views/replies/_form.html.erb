@@ -1,23 +1,29 @@
-<%= content_tag 'div', id:'qa_picture_params',data:{token: @reply.token,picture_type: @reply.class.to_s} do %>
-<% end %>
-<div class="qa_box">
-  <div class="qa_cell">
-    <div class="progress" id="picture-progress">
-      <div class="progress-bar" id="picture-progress-bar" role="progressbar" >
-      </div>
-    </div>
-    <%=simple_form_for(@reply,url:get_reply_form_url(@reply,@topic)) do |f| %>
 
-        <%= render "shared/error_messages", :target => @reply %>
-        <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
-
-        <div class="form-group">
-          <%= f.input :content,:input_html => { :data => {:provider => "summernote"} }  %>
-        </div>
-        <div class="form-group">
-          <%= f.button :submit, class: "btn btn-default" %>
-        </div>
+    <%= content_tag 'div', id:'qa_picture_params',data:{token: @reply.token,picture_type: @reply.class.to_s} do %>
     <% end %>
-  </div>
 
-</div>
+    <% if current_user and not current_user.student? %>
+        <%= render partial: 'videos/form',locals:{video: @reply.video,collapse: true} %>
+    <% end %>
+
+    <div class="qa_box">
+      <div class="qa_cell">
+        <div class="progress" id="picture-progress">
+          <div class="progress-bar" id="picture-progress-bar" role="progressbar" >
+          </div>
+        </div>
+        <%=simple_form_for(@reply,url:get_reply_form_url(@reply,@topic)) do |f| %>
+
+            <%= render "shared/error_messages", :target => @reply %>
+            <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
+
+            <div class="form-group">
+              <%= f.input :content,:input_html => { :data => {:provider => "summernote"} }  %>
+            </div>
+            <div class="form-group">
+              <%= f.button :submit, class: "btn btn-default" %>
+            </div>
+        <% end %>
+      </div>
+
+    </div>

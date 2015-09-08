@@ -1,0 +1,18 @@
+
+
+<%= render layout: "task" do %>
+    <div class="qa_topics">
+
+      <% if @topics.length != 0 %>
+          <%= render @topics %>
+      <% else %>
+          <div style="text-align: center;padding: 20px">
+            在<%= CustomizedCourse.model_name.human%>,还没有学生向您提问!
+          </div>
+      <% end %>
+
+      <div class="qa_cell">
+        <%= will_paginate @topics ,renderer: BootstrapPagination::Rails %>
+      </div>
+    </div>
+<% end %>

@@ -14,6 +14,11 @@
     <%= content_tag 'div', id:'qa_picture_params',data:{token: @answer.token,picture_type: "Answer"} do %>
 
     <% end %>
+
+    <% if current_user and not current_user.student? %>
+        <%= render partial: 'videos/form',locals:{video: @answer.video,collapse: true} %>
+    <% end %>
+
     <%=simple_form_for [@answer.question,@answer] do |f| %>
         <div class="progress" id="picture-progress">
           <div class="progress-bar" id="picutre-progress-bar" role="progressbar" >

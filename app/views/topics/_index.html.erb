@@ -1,0 +1,19 @@
+<div class="qa_box qa_topics">
+  <div class="qa_cell box_header">
+    <div class="pull-right">
+      <%=link_to send("new_#{topicable.model_name.singular_route_key.downcase}_topic_path",topicable) do%>
+          <span class="label label-success">发起讨论</span>
+      <% end %>
+    </div>
+    <div class="pull-left">
+      <span class="label label-primary">共有<%=topicable.topics_count%>个讨论</span>
+    </div>
+
+    <div style="clear: both"></div>
+  </div>
+  <%= render @topics %>
+
+  <div class="qa_cell">
+    <%= will_paginate @topics ,renderer: BootstrapPagination::Rails %>
+  </div>
+</div>

@@ -7,6 +7,7 @@ class LessonsController < ApplicationController
     @lesson     = Lesson.find(params[:id])
     @course     = @lesson.course
     @topics     = get_topics(@lesson)
+    @qa_files = @lesson.qa_files.order(:created_at => "ASC")
 
   end
 

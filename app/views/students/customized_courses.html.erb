@@ -1,0 +1,7 @@
+<%= render layout: "shared/customized_courses/index_container",locals:{student: @student} do  %>
+    <% if @customized_courses.length > 0 %>
+        <%= render partial: 'shared/customized_courses/customized_course', collection: @customized_courses %>
+    <% else %>
+        <%= render 'shared/customized_courses/introduce' %>
+    <% end %>
+<% end %>

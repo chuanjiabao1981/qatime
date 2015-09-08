@@ -1,50 +1,88 @@
 require 'test_helper'
 
 
+
+require 'sidekiq/testing'
+
+Sidekiq::Testing.inline!
+
 class RepliesTest < LoginTestBase
 
   def setup
     super
     @student_reply    = replies(:student_reply1)
     @teacher_reply    = replies(:teacher_reply2)
+    @customized_tutorial_student_reply = replies(:customized_tutorial_topic1_reply2)
+    @customized_tutorial_teacher_reply = replies(:customized_tutorial_topic1_reply1)
+
+    @items                 =[[@student_session,@student],[@teacher_session,@teacher]]
+    @test_replies          =[@student_reply,@teacher_reply,@customized_tutorial_student_reply,@customized_tutorial_teacher_reply]
   end
 
   test 'reply show' do
-    reply_show(@student_session,@student_reply,@student)
-    reply_show(@student_session,@teacher_reply,@student)
-    reply_show(@teacher_session,@teacher_reply,@teacher)
-    reply_show(@teacher_session,@student_reply,@teacher)
+    @items.each do |item|
+      @test_replies.each do |reply|
+        reply_show(item[0],reply,item[1])
+      end
+    end
+    # reply_show(@student_session,@student_reply,@student)
+    # reply_show(@student_session,@teacher_reply,@student)
+    # reply_show(@teacher_session,@teacher_reply,@teacher)
+    # reply_show(@teacher_session,@student_reply,@teacher)
+    # reply_show(@student_session,@customized_tutorial_student_reply,@student)
+    # reply_show(@student_session,@customized_tutorial_teacher_reply,@student)
+    # reply_show(@teacher_session,@customized_tutorial_teacher_reply,@teacher)
+    # reply_show(@teacher_session,@customized_tutorial_student_reply,@teacher)
   end
 
   test 'reply edit' do
-    reply_edit(@student_session,@student_reply,@student)
-    reply_edit(@student_session,@teacher_reply,@student)
-    reply_edit(@teacher_session,@teacher_reply,@teacher)
-    reply_edit(@teacher_session,@student_reply,@teacher)
+    @items.each do |item|
+      @test_replies.each do |reply|
+        reply_edit(item[0],reply,item[1])
+      end
+    end
+    # reply_edit(@student_session,@student_reply,@student)
+    # reply_edit(@student_session,@teacher_reply,@student)
+    # reply_edit(@teacher_session,@teacher_reply,@teacher)
+    # reply_edit(@teacher_session,@student_reply,@teacher)
   end
 
   test 'reply update' do
-    reply_update(@student_session,@student_reply,@student)
-    reply_update(@student_session,@teacher_reply,@student)
-    reply_update(@teacher_session,@teacher_reply,@teacher)
-    reply_update(@teacher_session,@student_reply,@teacher)
+    @items.each do |item|
+      @test_replies.each do |reply|
+        reply_update(item[0],reply,item[1])
+      end
+    end
+    # reply_update(@student_session,@student_reply,@student)
+    # reply_update(@student_session,@teacher_reply,@student)
+    # reply_update(@teacher_session,@teacher_reply,@teacher)
+    # reply_update(@teacher_session,@student_reply,@teacher)
   end
 
   test 'reply create' do
-    reply_create(@student_session,@student_reply,@student)
-    reply_create(@student_session,@teacher_reply,@student)
-    reply_create(@teacher_session,@teacher_reply,@teacher)
-    reply_create(@teacher_session,@student_reply,@teacher)
+    @items.each do |item|
+      @test_replies.each do |reply|
+        reply_create(item[0],reply,item[1])
+      end
+    end
+    # reply_create(@student_session,@student_reply,@student)
+    # reply_create(@student_session,@teacher_reply,@student)
+    # reply_create(@teacher_session,@teacher_reply,@teacher)
+    # reply_create(@teacher_session,@student_reply,@teacher)
   end
 
   test 'reply destroy 1' do
     reply_destroy(@student_session,@student_reply,@student)
     reply_destroy(@student_session,@teacher_reply,@student)
+    reply_destroy(@student_session,@customized_tutorial_student_reply,@student)
+    reply_destroy(@student_session,@customized_tutorial_teacher_reply,@student)
   end
 
   test 'reply destroy 2' do
     reply_destroy(@teacher_session,@teacher_reply,@teacher)
     reply_destroy(@teacher_session,@student_reply,@teacher)
+    reply_destroy(@teacher_session,@customized_tutorial_student_reply,@teacher)
+    reply_destroy(@teacher_session,@customized_tutorial_teacher_reply,@teacher)
   end
 
 private

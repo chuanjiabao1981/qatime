@@ -1,0 +1,42 @@
+  <div class="head">
+    <div class="row">
+      <div class="col-md-4">
+        <%= render partial: 'shared/subjects/header',locals:{subject: @customized_course.subject } %>
+      </div>
+      <div class="col-md-8">
+        <div class="card card-big card-gray rel">
+          <div class="abs right-top">
+            <% if allow? :customized_courses,:edit,@customized_course %>
+                <%= link_to edit_student_customized_course_path(@customized_course.student,@customized_course) do %>
+                    <span class="label label-primary">编辑</span>
+                <%end %>
+            <% end %>
+          </div>
+
+          <div class="qa_f16">
+            <strong><%= @customized_course.subject%> • <%= @customized_course.model_name.human %></strong>
+          </div>
+          <div class="info">
+            <div class="row">
+              <div class="col-md-4">
+                学生: <%= @customized_course.student.name %>
+              </div>
+              <div class="col-md-8">
+                讲师: <%= @customized_course.teachers.map {|t| t.name}.join(",")%>
+              </div>
+            </div>
+            <div class="qa_sep_5"></div>
+            <div class="row">
+              <div class="col-md-4">
+                课程: <%= @customized_course.customized_tutorials.size%>节
+              </div>
+              <div class="col-md-8">
+                时间: <%= @customized_course.created_at.strftime("%Y-%m-%d") %>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>

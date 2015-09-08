@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    models:
+      customized_tutorial: 课程
+    attributes:
+      customized_tutorial:
+        title: 标题
+        content: 简介

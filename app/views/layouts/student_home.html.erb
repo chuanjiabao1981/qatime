@@ -27,6 +27,11 @@
           <% end %>
         </li>
         <li>
+          <%= link_to customized_courses_student_path(@student) do %>
+              <span class="fa fa-graduation-cap"></span> <span class="qa_f18"><%=CustomizedCourse.model_name.human %></span>
+          <% end %>
+        </li>
+        <li>
           <%= link_to questions_path do %>
               <span class="fa fa-users"></span> <span class="qa_f18"><%= VipClass.model_name.human %></span>
           <% end %>
@@ -55,7 +60,7 @@
         </li>
         <li>
           <%= link_to signout_path, :method=>'delete'  do %>
-              <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18"> 退出</span> Exit
+              <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18">退出系统</span>
           <% end %>
         </li>
 

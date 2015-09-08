@@ -1,0 +1,21 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>
+          <%= CustomizedCourse.model_name.human %>
+          <% if defined? student and  student %>
+              <% if allow? :customized_courses,:new,student %>
+                <%= link_to new_student_customized_course_path(student) do %>
+                  <button type="button" class="btn btn-xs btn-success"><%=get_edit_or_create_model_string(CustomizedCourse.new) %></button>
+                <% end %>
+              <% end %>
+          <% end %>
+        </h2>
+
+      </div>
+    </div>
+
+  </div>
+  <%= yield %>
+</div>

@@ -7,12 +7,19 @@ module Permissions
       allow :curriculums,[:index,:show]
       allow :courses,[:show]
       allow :sessions,[:destroy]
-      allow :topics,[:new,:create,:show]
+
+
+      allow :topics,[:new,:create] do |topicable|
+        topicable_permission(topicable,user)
+      end
+      allow :topics,[:show]
       allow :topics,[:edit,:update,:destroy] do |topic|
         topic and topic.author_id == user.id
       end
       allow :messages, [:index, :show]
-      allow :replies,[:create]
+      allow :replies,[:create] do |topic|
+        topic and topic.topicable and topicable_permission(topic.topicable,user)
+      end
       allow :replies,[:edit,:update,:destroy] do |reply|
         reply and reply.author_id == user.id
       end
@@ -25,28 +32,30 @@ module Permissions
       allow :vip_classes, [:show] do |vip_class|
         vip_class
       end
-      allow :questions,[:index,:student]
-      allow :questions,[:new,:create] do |vip_class|
-        #通过validate 阻止一个没有vip_class的question
-        if vip_class == "dummy"
-          next true
-        elsif user.select_first_valid_learning_plan(vip_class)
-          next true
-        end
-        next false
+      allow :questions,[:index,:student,:teachers,:new]
+      allow :questions,[:create] do |learning_plan|
+       learning_plan and learning_plan.student_id  == user.id
       end
       allow :questions,[:edit,:update] do |question|
         question and question.student_id == user.id
       end
 
       allow :questions,[:show] do |question|
-        #问题的owner或者有valid的learning_plan
-        question and (question.student_id == user.id or  user.select_first_valid_learning_plan(question.vip_class))
+        #暂时给所有的学生都开放
+        question
+        #只给问题的owner或者有valid的learning_plan
+        #question and (question.student_id == user.id or  user.select_first_valid_learning_plan(question.vip_class))
       end
 
 
-      allow :students,[:show,:edit,:update,:info,:teachers,:questions,:topics] do |student|
+      allow :students,[:show,:edit,:update,:info,:teachers,:questions,:topics,:customized_courses,:customized_tutorial_topics] do |student|
         student and student.id == user.id
+      end
+      allow :customized_courses,[:show,:topics] do |customized_course|
+        customized_course and customized_course.student_id == user.id
+      end
+      allow :customized_tutorials,[:show] do |customized_tutorial|
+        customized_tutorial and customized_tutorial.customized_course.student_id == user.id
       end
       allow :faqs, [:show]
       allow :faq_topics, [:show]
@@ -57,6 +66,18 @@ module Permissions
       allow :comments,[:create]
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
+      end
+    end
+private
+    def topicable_permission(topicable,user)
+      return false if topicable.nil?
+      if topicable.instance_of? CustomizedCourse
+        topicable.student_id == user.id
+      elsif topicable.instance_of? CustomizedTutorial
+        topicable.customized_course.student_id == user.id
+      elsif topicable.instance_of? Lesson
+        ##TODO:: 这里应该是购买的学生才能看
+        true
       end
     end
   end

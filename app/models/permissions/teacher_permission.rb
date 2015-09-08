@@ -93,6 +93,14 @@ module Permissions
         user and customized_tutorial.teacher_id == user.id
       end
 
+      allow :homeworks,[:new,:create] do |customized_course|
+        customized_course and customized_course.teacher_ids.include?(user.id)
+      end
+
+      allow :homeworks,[:show,:edit,:update] do |homework|
+        homework and homework.teacher_id == user.id
+      end
+
     end
 private
     def topicable_permission(topicable,user)

@@ -57,6 +57,10 @@ module Permissions
       allow :customized_tutorials,[:show] do |customized_tutorial|
         customized_tutorial and customized_tutorial.customized_course.student_id == user.id
       end
+
+      allow :homeworks ,[:show] do |homework|
+        homework and homework.customized_course.student_id == user.id
+      end
       allow :faqs, [:show]
       allow :faq_topics, [:show]
       allow 'students/home',[:main]

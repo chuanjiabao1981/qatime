@@ -1,0 +1,25 @@
+<div class="qa_box qa_cell">
+<%=simple_form_for ([@customized_course,@homework]) do |f| %>
+    <%= render "shared/error_messages", :target => @homework %>
+    <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
+    <div class="form-group">
+      <%= f.input :title ,input_html:{class:'form-control'}  %>
+    </div>
+
+    <div class="form-group">
+      <%= f.input :content,:input_html => { :data => {:provider => "summernote"} }  %>
+    </div>
+    <%= f.fields_for :qa_files do |builder| %>
+          <%= render 'shared/qa_files/qa_file_fields', f: builder %>
+    <% end %>
+    <div class="qa_sep_15"></div>
+
+      <%= link_to_add_fields "添加文件", f, :qa_files, "shared/qa_files/" %>
+    <div class="qa_sep_15"></div>
+    <div class="qa_sep_15"></div>
+
+    <div class="form-group">
+      <%= f.button :submit, class: "btn btn-default" %>
+    </div>
+<% end %>
+</div>

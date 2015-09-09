@@ -60,6 +60,10 @@ class TopicsController < ApplicationController
 
       res               = @topicable
     end
+    if params[:homework_id]
+      @topicable        = Homework.find(params[:homework_id])
+      res               = @topicable
+    end
     if params[:id]
       @topic = Topic.find(params[:id]) if params[:id]
       res    = @topic

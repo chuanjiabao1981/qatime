@@ -1,17 +1,17 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  author_id: 1
-  qa_fileable_id: 1
-  qa_fileable_type: MyString
-  name: MyString
-  type: 
-  token: MyString
-
-two:
-  author_id: 1
-  qa_fileable_id: 1
-  qa_fileable_type: MyString
-  name: MyString
-  type: 
-  token: MyString
+## Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+#
+#one:
+#  author_id: 1
+#  qa_fileable_id: 1
+#  qa_fileable_type: MyString
+#  name: MyString
+#  type:
+#  token: MyString
+#
+#two:
+#  author_id: 1
+#  qa_fileable_id: 1
+#  qa_fileable_type: MyString
+#  name: MyString
+#  type:
+#  token: MyString

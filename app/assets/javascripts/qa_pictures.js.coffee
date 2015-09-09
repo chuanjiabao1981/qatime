@@ -217,6 +217,8 @@ readURL = (input) ->
           'src': e.target.result
           'width': 400
           'height': 400
+        #清除掉上一次遗留的css信息
+        $('#qa-img-preview').removeClass('rotate0 rotate90 rotate180 rotate270')
         canvas = document.getElementById('image-canvas');
         canvas.width     = $('#qa-img-preview')[0].naturalWidth
         canvas.height    = $('#qa-img-preview')[0].naturalHeight
@@ -259,7 +261,9 @@ __qa_pictures_init = ->
     if image[0].width == 0
       return
 
-
+    # 如果没有class 则证明图片重新加载过，重设angle
+    if not image.hasClass('rotate0') and  not image.hasClass('rotate90') and not image.hasClass('rotate180') and not image.hasClass('rotate270')
+      angle = 0
 
     angle = (angle + 90 ) % 360
     #css 翻转

@@ -1,6 +1,6 @@
 module QaFilesHelper
   def change_params_for_qa_files(params)
-
+    
     if params["qa_files_attributes"].present?
       qa_files_attributes = params["qa_files_attributes"]
       author_id = current_user.id

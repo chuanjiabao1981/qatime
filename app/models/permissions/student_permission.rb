@@ -51,11 +51,15 @@ module Permissions
       allow :students,[:show,:edit,:update,:info,:teachers,:questions,:topics,:customized_courses,:customized_tutorial_topics] do |student|
         student and student.id == user.id
       end
-      allow :customized_courses,[:show,:topics] do |customized_course|
+      allow :customized_courses,[:show,:topics,:homeworks] do |customized_course|
         customized_course and customized_course.student_id == user.id
       end
       allow :customized_tutorials,[:show] do |customized_tutorial|
         customized_tutorial and customized_tutorial.customized_course.student_id == user.id
+      end
+
+      allow :homeworks ,[:show] do |homework|
+        homework and homework.customized_course.student_id == user.id
       end
       allow :faqs, [:show]
       allow :faq_topics, [:show]
@@ -73,7 +77,7 @@ private
       return false if topicable.nil?
       if topicable.instance_of? CustomizedCourse
         topicable.student_id == user.id
-      elsif topicable.instance_of? CustomizedTutorial
+      elsif topicable.instance_of? CustomizedTutorial or topicable.instance_of? Homework
         topicable.customized_course.student_id == user.id
       elsif topicable.instance_of? Lesson
         ##TODO:: 这里应该是购买的学生才能看

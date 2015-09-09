@@ -4,7 +4,7 @@ class Homework < ActiveRecord::Base
   include QaToken
   include ContentValidate
 
-  belongs_to      :customized_course
+  belongs_to      :customized_course,counter_cache: true
   belongs_to      :teacher
   has_many        :topics ,as: :topicable,:dependent => :destroy
   has_many        :qa_files, as: :qa_fileable, :dependent => :destroy

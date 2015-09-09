@@ -40,6 +40,9 @@ module Permissions
       end
 
       allow :customized_tutorials, [:show]
+      allow :homeworks,[:show] do |homework|
+        homework
+      end
 
       allow :managers,[:customized_courses] do |manager|
         manager.id == user.id

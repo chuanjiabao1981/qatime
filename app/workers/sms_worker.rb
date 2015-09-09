@@ -20,6 +20,7 @@ class SmsWorker
 
   QUESTION_CREATE_NOTIFICATION = :question_create_notify
   HOMEWORK_CREATE_NOTIFICATION = :homework_create_notify
+  TUTORIAL_CREATE_NOTIFICATION = :tutorial_create_notify
   QUESTION_MODIFY_NOTIFICATION = :question_modify_notify
   REGISTRATION_NOTIFICATION    = :registration_notify
   ANSWER_CREATE_NOTIFICATION   = :answer_create_notify
@@ -127,6 +128,18 @@ class SmsWorker
     end
   end
 
+  def tutorial_create_notify(options)
+    tutorial = CustomizedTutorial.find(options["id"])
+    return unless tutorial
+    customized_course = tutorial.customized_course
+    return unless customized_course
+    student           = customized_course.student
+    teacher           = tutorial.teacher
+    message_body      = "【答疑时间】#{student.name}，你好，#{teacher.name}在#{CustomizedCourse.model_name.human}中上传了#{CustomizedTutorial.model_name.human}，请关注#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
+    _send_message do
+      send_message(student.mobile,message_body)
+    end
+  end
     def _send_message(&block)
       begin
         yield

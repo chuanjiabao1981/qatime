@@ -17,7 +17,20 @@ class HomeworksController < ApplicationController
   def show
     @qa_files   = @homework.qa_files.order(:created_at => "ASC")
     @topics     = @homework.topics.order(:created_at).paginate(page: params[:page])
+  end
 
+  def edit
+
+  end
+
+  def update
+    @homework.update_attributes(change_params_for_qa_files(params[:homework]).permit!)
+    respond_with  @homework
+  end
+
+  def destroy
+    @homework.destroy
+    respond_with  @customized_course,@homework
   end
 
 private

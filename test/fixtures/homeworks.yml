@@ -4,8 +4,18 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+homework1:
+  customized_course: customized_course1
+  teacher: teacher1
+  title: 基础测试
+  content: 原来基础测试是关键的一换哦
+  token: teacher1_customized_course_homewoker_one
+
 # column: value
 #
-two: {}
-#  column: value
+homework2:
+  customized_course: customized_course1
+  teacher: teacher1
+  title: 基础测试2
+  content: 原来基础测试是关键的一换哦2
+  token: teacher1_customized_course_homewoker_two

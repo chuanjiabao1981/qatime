@@ -38,6 +38,8 @@ class CustomizedCourseIntegrateTest < LoginTestBase
     user_session.assert_select 'div'        , "课程: #{@customized_course.customized_tutorials_count}节"
     user_session.assert_select 'div'        , "学生: #{@customized_course.student.name}"
     user_session.assert_select 'a[href=?]'  , edit_student_customized_course_path(@student,@customized_course), 0
+    user_session.assert_select 'a[href=?]'  , homeworks_customized_course_path(@customized_course),1
+    user_session.assert_select 'a[href=?]'  , topics_customized_course_path(@customized_course),1
     @customized_course.customized_tutorials.each do |customized_tutorial|
       user_session.assert_select 'a[href=?]', customized_tutorial_path(customized_tutorial),1
       user_session.assert_select 'a', customized_tutorial.name

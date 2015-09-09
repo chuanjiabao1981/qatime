@@ -11,6 +11,11 @@ class HomeworksController < ApplicationController
     @homework = @customized_course.homeworks.build(change_params_for_qa_files(params[:homework]).permit!)
     @homework.teacher = current_user
     @homework.save
+
+    if @homework.save
+      flash[:success] = "成功创建#{Homework.model_name.human}"
+      SmsWorker.perform_async(SmsWorker::HOMEWORK_CREATE_NOTIFICATION, id: @homework.id)
+    end
     respond_with @customized_course,@homework
   end
 

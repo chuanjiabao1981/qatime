@@ -114,14 +114,14 @@ class SmsWorker
   end
 
   def homework_create_notify(options)
+
     homework = Homework.find(options["id"])
     return unless homework
     customized_course = homework.customized_course
     return unless customized_course
     teacher           = homework.teacher
     student           = customized_course.student
-
-    message_body      = "【答疑时间】#{student.name}，你好，#{teacher.name}在<%=CustomizedCourse.model_name.human%>中布置了<%=Homework.model_name.human%>，请关注#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
+    message_body      = "【答疑时间】#{student.name}，你好，#{teacher.name}在#{CustomizedCourse.model_name.human}中布置了#{Homework.model_name.human}，请关注#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
     _send_message do
       send_message(student.mobile,message_body)
     end

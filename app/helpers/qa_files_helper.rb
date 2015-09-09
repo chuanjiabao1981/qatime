@@ -1,6 +1,7 @@
 module QaFilesHelper
   def change_params_for_qa_files(params)
     qa_files_attributes = params["qa_files_attributes"]
+    return params unless qa_files_attributes
     author_id = current_user.id
 
     qa_files_attributes.each{|qa_files_attribute|

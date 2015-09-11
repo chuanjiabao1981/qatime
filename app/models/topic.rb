@@ -14,6 +14,11 @@ class Topic < ActiveRecord::Base
   has_many :replies,:dependent => :destroy
   has_many :pictures,as: :imageable,:dependent => :destroy
 
+
+  scope :by_customized_course , lambda { |params|
+    where("topicable_type=? or  topicable_type =? or topicable_type=?",CustomizedTutorial.to_s,CustomizedCourse.to_s,Homework.to_s)
+    .order("created_at desc").paginate(page: params[:page],:per_page => 10)
+  }
   validates_presence_of :author,:topicable,:author
 
 

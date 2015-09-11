@@ -18,7 +18,11 @@ class CustomizedTutorialsController < ApplicationController
   def create
     @customized_tutorial = @customized_course.customized_tutorials.build(change_params_for_qa_files(params[:customized_tutorial]).permit!)
     @customized_tutorial.teacher_id = current_user.id
-    @customized_tutorial.save
+
+    if @customized_tutorial.save
+      flash[:success] = "成功创建#{CustomizedTutorial.model_name.human}"
+      SmsWorker.perform_async(SmsWorker::TUTORIAL_CREATE_NOTIFICATION, id: @customized_tutorial.id)
+    end
     respond_with @customized_tutorial
   end
 

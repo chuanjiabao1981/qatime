@@ -2,7 +2,7 @@ module ContentValidate
   extend ActiveSupport::Concern
   included do
     if self.attribute_names.include?("title")
-      validates :title, length:{minimum: 10,maximum: 200}
+      validates :title, length:{minimum: 2,maximum: 200}
     end
     validates_presence_of :content
     validates :content, length: {minimum: 5}

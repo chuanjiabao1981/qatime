@@ -12,3 +12,11 @@ teacher1_lesson_without_video:
   course: teacher1_course
   curriculum: teacher1_math_curriculum
   teacher: teacher1
+
+teacher1_lesson_without_qa_files:
+  name: yyyyyyy
+  desc: 这个是描述描述要写什么都是可以的，这个是描述描述要写什么都是可以的这个是描述描述要写什么都是可以的
+  course: teacher1_course
+  curriculum: teacher1_math_curriculum
+  teacher: teacher1
+  token: teacher1_lesson_without_qa_files_for_test

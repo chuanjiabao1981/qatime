@@ -6,8 +6,8 @@ class Teachers::LessonsController < ApplicationController
 
   def new
     @lesson = @course.build_lesson
-    @qa_files = @lesson.qa_files.build
   end
+
   def create
     if params[:edit]
       params[:lesson][:state_event] = 'edit'

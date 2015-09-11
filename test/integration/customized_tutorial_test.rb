@@ -18,8 +18,7 @@ class CustomizedTutorialIntegrateTest < LoginTestBase
     not_show_page(@student_session,@student)
     not_show_page(@teacher_session,@teacher)
   end
-
-
+  
 
   private
   def show_page(user_session)

@@ -26,6 +26,8 @@ module Qatime
     config.active_record.raise_in_transactional_callbacks = true
     config.assets.logger = false
     config.active_support.test_order = :sorted
+    config.assets.paths << Rails.root.join("vendor", "assets", "images")
+
 
   end
 end

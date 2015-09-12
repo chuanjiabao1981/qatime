@@ -43,8 +43,8 @@ module Permissions
       allow :homeworks,[:show] do |homework|
         homework
       end
-
-      allow :managers,[:customized_courses] do |manager|
+      allow :managers,[:payment]
+      allow :managers,[:customized_courses,] do |manager|
         manager.id == user.id
       end
       allow :sessions,[:destroy]

@@ -130,6 +130,7 @@ Qatime::Application.routes.draw do
   resources :managers do
     member do
       get 'customized_courses'
+      get 'payment'
     end
   end
 
@@ -137,7 +138,12 @@ Qatime::Application.routes.draw do
     resources :customized_tutorials
     member do
       get 'topics'
+      get 'homeworks'
     end
+    resources :topics
+    resources :homeworks,only:[:show,:edit,:update,:new,:create]
+  end
+  resources :homeworks do
     resources :topics
   end
   resources :customized_tutorials do

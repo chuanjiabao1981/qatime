@@ -4,6 +4,9 @@ class ManagersController < ApplicationController
     @customized_courses = CustomizedCourse.all.paginate(page: params[:page],:per_page => 10)
   end
 
+  def payment
+
+  end
   private
   def current_resource
     @manager = Manager.find(params[:id]) if params[:id]

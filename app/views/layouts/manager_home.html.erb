@@ -48,6 +48,13 @@
           <% end %>
         </li>
         <li>
+          <%= link_to payment_manager_path(current_user) do %>
+              <span class="fa fa-credit-card"></span> <span class="qa_f18">
+                收款二维码
+              </span>
+          <% end %>
+        </li>
+        <li>
           <%= link_to managers_register_codes_path do %>
               <span class="glyphicon glyphicon-question-sign"></span>
               <span class="qa_f18">

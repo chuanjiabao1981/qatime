@@ -1,0 +1,48 @@
+<div class="qa_box">
+  <div class="qa_homework">
+    <div class="qa_cell">
+      <%= link_to Homework.model_name.human,homeworks_customized_course_path(@homework.customized_course) %>
+    </div>
+    <div class="header qa_cell">
+      <div class="pull-right">
+        <%=image_tag @homework.teacher.avatar.normal.url %>
+      </div>
+        <div class="title">
+          <h4>
+            <%= @homework.title %>
+          </h4>
+        </div>
+        <div class="info">
+          <%= @homework.teacher.name %> •  <%= time_ago_in_words(@homework.created_at) %>前
+        </div>
+
+        <div style="clear: both"></div>
+    </div>
+      <div class="content">
+        <div class="qa_cell">
+            <div>
+              <%= @homework.content.html_safe %>
+            </div>
+            <div class="pull-right">
+              <% if allow? :homeworks,:edit ,@homework%>
+                  <%= link_to "", edit_homework_path(@homework), class: "glyphicon glyphicon-edit"%>
+              <% end %>
+              <% if allow? :homworks, :destroy ,@homework%>
+                  <%= link_to "", homework_path(@homework),
+                              :method => :delete,
+                              'data-confirm' => 'Are you sure?',
+                              class: "glyphicon glyphicon-remove"%>
+              <% end %>
+            </div>
+            <div style="clear: both"></div>
+        </div>
+      </div>
+    <%= render partial: 'shared/qa_files/qa_file', collection: @qa_files %>
+  </div>
+</div>
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
+
+<% if @homework %>
+    <%= render partial: 'topics/index',locals: {topicable:@homework} %>
+<% end %>

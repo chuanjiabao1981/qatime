@@ -1,0 +1,42 @@
+// Place all the styles related to the homeworks controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.qa_homework .header
+{
+  background-color: #f5f5f5;
+
+}
+.qa_homework .header .title
+{
+  margin-right:58px;
+  margin-bottom: 10px
+}
+.qa_homework .header .info
+{
+  color: #778087;
+  text-decoration: none;
+  background-color: #f5f5f5;
+  font-size: 12px;
+}
+
+
+.qa_homeworks .homework .no
+{
+  font-size : 16px;
+  color: #2b5797;
+}
+.qa_homeworks .homework .title
+{
+  margin-left:100px;
+  margin-right:40px;
+}
+
+.qa_homeworks .homework .info
+{
+  margin-left:100px;
+  margin-right:40px;
+  margin-top: 10px;
+  color: #778087;
+  text-decoration: none;
+  font-size: 12px;
+}

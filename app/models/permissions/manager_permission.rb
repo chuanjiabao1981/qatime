@@ -31,7 +31,7 @@ module Permissions
         reply and reply.author_id == user.id
       end
 
-      allow :customized_courses, [:show,:edit,:update,:teachers,:topics] do |customized_course|
+      allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks] do |customized_course|
         user and customized_course
       end
 
@@ -40,8 +40,11 @@ module Permissions
       end
 
       allow :customized_tutorials, [:show]
-
-      allow :managers,[:customized_courses] do |manager|
+      allow :homeworks,[:show] do |homework|
+        homework
+      end
+      allow :managers,[:payment]
+      allow :managers,[:customized_courses,] do |manager|
         manager.id == user.id
       end
       allow :sessions,[:destroy]

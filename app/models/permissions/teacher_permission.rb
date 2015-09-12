@@ -83,7 +83,7 @@ module Permissions
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
       end
-      allow :customized_courses,[:show,:topics] do |customized_course|
+      allow :customized_courses,[:show,:topics,:homeworks] do |customized_course|
         user and customized_course.teacher_ids.include?(user.id)
       end
       allow :customized_tutorials,[:new,:create] do |customized_course|
@@ -91,6 +91,14 @@ module Permissions
       end
       allow :customized_tutorials,[:show,:edit,:update] do |customized_tutorial|
         user and customized_tutorial.teacher_id == user.id
+      end
+
+      allow :homeworks,[:new,:create] do |customized_course|
+        customized_course and customized_course.teacher_ids.include?(user.id)
+      end
+
+      allow :homeworks,[:show,:edit,:update] do |homework|
+        homework and homework.teacher_id == user.id
       end
 
     end
@@ -101,6 +109,8 @@ private
         topicable.teacher_ids.include?(user.id)
       elsif topicable.instance_of? CustomizedTutorial
         topicable.teacher_id == user.id
+      elsif topicable.instance_of? Homework
+        topicable.customized_course.teacher_ids.include?(user.id)
       elsif topicable.instance_of? Lesson
         topicable.teacher_id == user.id
       end

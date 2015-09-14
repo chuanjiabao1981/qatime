@@ -20,7 +20,6 @@ class CustomizedTutorialIntegrateTest < LoginTestBase
   end
 
 
-
   private
   def show_page(user_session)
     topic = topics(:customized_tutorial_topic1)

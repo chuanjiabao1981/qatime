@@ -26,5 +26,6 @@ module Qatime
     config.active_record.raise_in_transactional_callbacks = true
     config.assets.logger = false
     config.active_support.test_order = :sorted
+
   end
 end

@@ -18,6 +18,18 @@ class HomeworkIntegrateTest < LoginTestBase
     new_page(@student,@student_session,new_customized_course_homework_path(@customized_course))
   end
 
+  test 'create page' do
+    create_path  = customized_course_homeworks_path(@customized_course)
+    create_page(@teacher,@teacher_session,create_path)
+    create_page(@student,@student_session,create_path)
+  end
+
+  test 'edit page' do
+    edit_path    = edit_homework_path(@homework2)
+
+    edit_page(@teacher,@teacher_session,edit_path)
+    edit_page(@student,@student_session,edit_path)
+  end
   test 'update page' do
     update_path = customized_course_homework_path(@customized_course,@homework1)
 
@@ -26,6 +38,40 @@ class HomeworkIntegrateTest < LoginTestBase
   end
 
   private
+
+  def edit_page(user,user_session,edit_path)
+    user_session.get edit_path
+    if user.student?
+      user_session.assert_redirected_to get_home_url(user)
+      return
+    end
+    user_session.assert_response :success
+    user_session.assert_select 'form[action=?]',customized_course_homework_path(@customized_course,@homework2)
+    user_session.assert_template 'homeworks/edit','homeworks/_form'
+    user_session.assert_select '#homework_title' do
+      user_session.assert_select '[value=?]',@homework2.title,1
+    end
+  end
+  def create_page(user,user_session,create_path)
+    title        = "cccxxxedddwwwssssxxxxxxxxxxxx"
+    content      = "oo00344ddcdagpi2er1inv"
+    if user.student?
+      assert_difference 'Homework.count',0 do
+        user_session.post create_path, homework:{title: title, content: content}
+        user_session.assert_redirected_to get_home_url(user)
+      end
+      return
+    end
+
+    assert_difference 'Homework.count',1 do
+      user_session.post create_path, homework:{title: title, content: content}
+      new_homework =  Homework.where(title: title).order(:created_at).last
+
+      user_session.assert_redirected_to customized_course_homework_path(@customized_course,new_homework)
+      user_session.follow_redirect!
+      user_session.assert_select 'h4',title
+    end
+  end
 
   def update_page(user,user_session,update_path)
     if user.teacher?

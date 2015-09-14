@@ -130,6 +130,7 @@ Qatime::Application.routes.draw do
   resources :managers do
     member do
       get 'customized_courses'
+      get 'payment'
     end
   end
 

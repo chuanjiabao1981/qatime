@@ -109,7 +109,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
       click_link '添加文件'
       find(:xpath, "//fieldset[1]/div/div/input").set("#{Rails.root}/test/integration/development.log")
       click_link '添加文件'
-      find(:xpath, "//fieldset[2]/div/div/input").set("#{Rails.root}/test/integration/run_test.log")
+      find(:xpath, "//fieldset[2]/div/div/input").set("#{Rails.root}/test/integration/test.jpg")
       click_link '添加文件'
 
       click_button '保存课程'
@@ -119,7 +119,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
       # 判断上传的链接是否出现在展示列表里
 
       page.has_content? 'development.log'
-      page.has_content? 'run_test.log'
+      page.has_content? 'test.jpg'
     end
 
   end

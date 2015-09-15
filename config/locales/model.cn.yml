@@ -51,6 +51,7 @@ cn:
         password: 密码
         register_code_value: 注册码
         mobile: 手机
+        nick_name: 昵称
       student:
         email: 邮箱
         name: 姓名

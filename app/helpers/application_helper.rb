@@ -25,7 +25,6 @@ module ApplicationHelper
     end
   end
 
-
   # Used for accepts_nested_attributes_for
 
   def link_to_add_fields(name, f, association, shared_dir)

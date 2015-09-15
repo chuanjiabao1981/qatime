@@ -28,6 +28,7 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     fill_in :teacher_email,with: 'bb@qatime.cn'
     fill_in :teacher_name, with: 'test'
     fill_in :teacher_mobile, with: '15910676326'
+    fill_in :teacher_nick_name, with: "ok你好"
     select '数学',from: :teacher_subject
     select '高中',from: :teacher_category
     select '阳泉一中',from: :teacher_school_id

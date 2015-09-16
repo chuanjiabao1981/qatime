@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150915224831) do
+ActiveRecord::Schema.define(version: 20150916223428) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,15 @@ ActiveRecord::Schema.define(version: 20150915224831) do
     t.string   "commentable_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "corrections", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "teacher_id"
+    t.integer  "solution_id"
+    t.string   "token"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "course_purchase_records", force: :cascade do |t|
@@ -149,6 +158,7 @@ ActiveRecord::Schema.define(version: 20150915224831) do
     t.integer  "topics_count",         default: 0
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.integer  "solutions_count",      default: 0
   end
 
   create_table "learning_plan_assignments", force: :cascade do |t|
@@ -329,6 +339,17 @@ ActiveRecord::Schema.define(version: 20150915224831) do
   create_table "searches", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "solutions", force: :cascade do |t|
+    t.string   "title"
+    t.text     "content"
+    t.integer  "homework_id"
+    t.integer  "student_id"
+    t.string   "token"
+    t.integer  "corrections_count"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
   create_table "teaching_programs", force: :cascade do |t|

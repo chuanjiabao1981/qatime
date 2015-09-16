@@ -145,6 +145,7 @@ Qatime::Application.routes.draw do
   end
   resources :homeworks do
     resources :topics
+    resources :solutions
   end
   resources :customized_tutorials do
     resources :topics

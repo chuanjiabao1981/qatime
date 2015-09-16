@@ -43,6 +43,9 @@
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
 
+<%= render partial: 'solutions/index',locals:{homework: @homework} %>
+
 <% if @homework %>
     <%= render partial: 'topics/index',locals: {topicable:@homework} %>
 <% end %>
+

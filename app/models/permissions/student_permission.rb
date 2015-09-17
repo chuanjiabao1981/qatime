@@ -66,6 +66,11 @@ module Permissions
         homework and homework.customized_course.student_id == user.id
       end
 
+      allow :solutions,[:show,:edit,:update,:destroy] do |solution|
+        solution and solution.student_id == user.id
+      end
+
+
       allow :faqs, [:show]
       allow :faq_topics, [:show]
       allow 'students/home',[:main]

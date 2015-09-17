@@ -1,0 +1,34 @@
+<div class="qa_box">
+  <div class="qa_cell box_head">
+    <%= link_to "#{CustomizedCourse.human_attribute_name(:homeworks)} / #{@homework.title}" ,
+                homework_path(@homework) %> / <%= Solution.model_name.human%>
+  </div>
+</div>
+<div class="qa_box">
+  <div class="qa_object">
+    <div class="header">
+
+      <div class="pull-right">
+        <%=image_tag @solution.student.avatar.normal.url %>
+      </div>
+      <div class="title">
+        <h4><%= @solution.title %></h4>
+      </div>
+      <div class="info">
+        <%= [@solution.student.name,"#{time_ago_in_words(@solution.created_at)}前"].join(" • ") %>
+      </div>
+    </div>
+
+    <div class="content">
+        <div class="body">
+          <%= @solution.content.html_safe %>
+        </div>
+        <div class="operator">
+          <div class="pull-right">
+            <%= link_to_edit_destroy(@solution)%>
+          </div>
+        </div>
+        <div style="clear:both"></div>
+    </div>
+  </div>
+</div>

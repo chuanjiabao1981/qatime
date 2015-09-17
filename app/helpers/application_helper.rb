@@ -37,4 +37,27 @@ module ApplicationHelper
   end
 
 
+  def link_to_edit_destroy(o)
+    if allow? o.model_name.plural , :edit,o
+      k = link_to "", send("edit_#{o.model_name.singular}_path",@solution), class: "glyphicon glyphicon-edit"
+    end
+
+    if allow? o.model_name.plural, :destroy ,o
+      s = link_to "", send("#{o.model_name.singular}_path", @solution,:method => :delete), 'data-confirm' => 'Are you sure?',
+          class: "glyphicon glyphicon-remove"
+    end
+
+    p=nil
+    [k,s].each do |o|
+      if not o.nil?
+        if p.nil?
+          p = o
+        else
+          p = p + o
+        end
+      end
+    end
+    p
+  end
+
 end

@@ -11,6 +11,8 @@
           <%= f.input :email  , :required => true, :autofocus => true %>
           <%= f.input :mobile %>
           <%= f.input :name, disabled: true,:required => true %>
+          <%= f.input :nick_name, hint: "只可以是中文、英文或者下划线，最短3个字符最长10个字符，不可包含空格。" %>
+
           <%= f.association :school,  disabled: true,:collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]} %>
           <%= f.input :subject,   disabled:true %>
           <%= f.input :category,  disabled:true %>

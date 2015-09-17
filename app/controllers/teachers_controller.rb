@@ -96,7 +96,7 @@ class TeachersController < ApplicationController
   end
   def search
     @teachers = Teacher.all
-    .where("name =? or email = ?",params[:search][:name],params[:search][:name]).paginate(page: params[:page],:per_page => 10)
+    .where("name =? or email = ? or nick_name=?",params[:search][:name],params[:search][:name],params[:search][:name]).paginate(page: params[:page],:per_page => 10)
     render 'index'
   end
 

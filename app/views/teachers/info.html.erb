@@ -22,6 +22,12 @@
   </div>
   <div class="qa_cell">
     <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:nick_name)%></div>
+      <div class="col-md-9"><%= @teacher.nick_name %></div>
+    </div>
+  </div>
+  <div class="qa_cell">
+    <div class="row">
       <div class="col-md-2" style="padding-left:40px">学校</div>
       <div class="col-md-9"><%= @teacher.school.name %></div>
     </div>

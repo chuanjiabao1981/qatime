@@ -1,6 +1,7 @@
 class SolutionsController < ApplicationController
   layout "application"
   def new
+    @solution = Solution.new
   end
 
 

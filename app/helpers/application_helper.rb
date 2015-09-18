@@ -39,14 +39,14 @@ module ApplicationHelper
 
   def link_to_edit(o)
     if allow? o.model_name.plural , :edit,o
-      k = link_to "", send("edit_#{o.model_name.singular}_path",@solution), class: "glyphicon glyphicon-edit"
+      k = link_to "", send("edit_#{o.model_name.singular}_path",o), class: "glyphicon glyphicon-edit"
     end
     k
   end
 
   def link_to_destroy(o)
     if allow? o.model_name.plural, :destroy ,o
-      s = link_to "", send("#{o.model_name.singular}_path", @solution),:method => :delete, 'data-confirm' => 'Are you sure?',
+      s = link_to "", send("#{o.model_name.singular}_path", o),:method => :delete, 'data-confirm' => 'Are you sure?',
                   class: "glyphicon glyphicon-remove"
     end
     s

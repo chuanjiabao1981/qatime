@@ -14,11 +14,29 @@ class CorrectionsController < ApplicationController
 
   end
 
+
+  def edit
+
+  end
+
+  def update
+    if @correction.update_attributes(params[:correction].permit!)
+      flash[:success] = "成功编辑了#{Correction.model_name.human}"
+      redirect_to solution_path(@correction.solution)
+    else
+      render 'edit'
+    end
+  end
+
   private
   def current_resource
     if params[:solution_id]
       @solution = Solution.find(params[:solution_id])
       r = @solution
+    end
+    if params[:id]
+      @correction = Correction.find(params[:id])
+      r = @correction
     end
     r
   end

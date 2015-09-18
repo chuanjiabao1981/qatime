@@ -17,4 +17,8 @@
     <%= link_to_destroy(correction) %>
   </div>
   <div style="clear:both"></div>
+
+  <div class="footer">
+    <%= render partial:'comments/index',locals: {commentable: correction} %>
+  </div>
 </div>

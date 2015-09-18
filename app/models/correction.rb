@@ -7,7 +7,7 @@ class Correction < ActiveRecord::Base
   belongs_to  :solution,counter_cache: true
   has_many    :pictures,as: :imageable
   has_one     :video,as: :videoable
-  has_many    :comments,as: :commentable,dependent: :destroy
+  has_many    :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
 
   def author_id
     self.teacher_id

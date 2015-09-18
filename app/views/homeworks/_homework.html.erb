@@ -17,6 +17,7 @@
   </div>
   <div class="info">
     <%= homework.teacher.name%> • <%= time_ago_in_words(homework.created_at) %>前布置 •
-    发起了<%= homework.topics_count %>次<%= Homework.human_attribute_name(:topics) %>
+    写了<%= homework.solutions_count %>次<%= Homework.human_attribute_name(:solution) %> •
+    批改了<%= homework.corrections_count %>次<%= Homework.human_attribute_name(:solution) %>
   </div>
 </div>

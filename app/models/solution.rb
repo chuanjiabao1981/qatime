@@ -6,4 +6,7 @@ class Solution < ActiveRecord::Base
   has_many        :pictures,as: :imageable,:dependent => :destroy
   has_many        :corrections,:dependent => :destroy
   has_many        :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
+
+
+
 end

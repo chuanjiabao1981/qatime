@@ -18,4 +18,12 @@ class Homework < ActiveRecord::Base
   def name
     self.title
   end
+
+  def corrections_count
+    s = 0
+    self.solutions.each do |c|
+      s+=c.corrections_count
+    end
+    s
+  end
 end

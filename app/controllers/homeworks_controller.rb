@@ -20,8 +20,10 @@ class HomeworksController < ApplicationController
   end
 
   def show
-    @qa_files   = @homework.qa_files.order(:created_at => "ASC")
-    @topics     = @homework.topics.order(:created_at).paginate(page: params[:page])
+    @qa_files      = @homework.qa_files.order(:created_at => "ASC")
+    @topics        = @homework.topics.order(:created_at).paginate(page: params[:page])
+    @solutions     = @homework.solutions.order(:created_at).paginate(page: params[:page])
+
   end
 
   def edit

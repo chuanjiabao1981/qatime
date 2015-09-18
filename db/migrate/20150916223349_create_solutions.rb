@@ -6,7 +6,7 @@ class CreateSolutions < ActiveRecord::Migration
       t.integer :homework_id
       t.integer :student_id
       t.string  :token
-      t.integer :corrections_count
+      t.integer :corrections_count,:default=>0
       t.timestamps null: false
     end
   end

@@ -277,6 +277,36 @@ footer .copyright
 .qa_object .content .operator
 {
   padding:5px;
+}
 
+.qa_objects .qa_object_item
+{
+  padding: 10px;
+  border-bottom: 1px solid #e2e2e2;
+  position: relative;
+}
+
+.qa_objects .qa_object_item .title
+{
+  margin-right: 58px;
+  margin-bottom: 10px;
+  margin-left: 58px;
+}
+
+
+.qa_objects .qa_object_item .reply_count
+{
+
+  position: absolute;
+  top:40%;
+  right: 10px;
+  width:50px
+}
+
+.qa_objects .qa_object_item .info
+{
+  font-size: 12px;
+  color: gray;
+  margin-left: 58px;
 }
 //-----end

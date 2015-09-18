@@ -5,7 +5,7 @@ module ContentValidate
       validates :title, length:{minimum: 2,maximum: 200}
     end
     validates_presence_of :content
-    validates :content, length: {minimum: 5}
+    #validates :content, length: {minimum: 5}
     before_validation :strip_whitespace
   end
 

@@ -46,7 +46,7 @@ module ApplicationHelper
 
   def link_to_destroy(o)
     if allow? o.model_name.plural, :destroy ,o
-      s = link_to "", send("#{o.model_name.singular}_path", @solution,:method => :delete), 'data-confirm' => 'Are you sure?',
+      s = link_to "", send("#{o.model_name.singular}_path", @solution),:method => :delete, 'data-confirm' => 'Are you sure?',
                   class: "glyphicon glyphicon-remove"
     end
     s

@@ -4,4 +4,5 @@ class Solution < ActiveRecord::Base
   belongs_to      :student
   belongs_to      :homework,:counter_cache => true
   has_many        :pictures,as: :imageable,:dependent => :destroy
+  has_many        :corrections,:dependent => :destroy
 end

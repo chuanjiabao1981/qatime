@@ -1,0 +1,7 @@
+cn:
+  activerecord:
+    models:
+      correction: 作业批改
+    attributes:
+      correction:
+        content: 作业批改

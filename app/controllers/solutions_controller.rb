@@ -16,7 +16,8 @@ class SolutionsController < ApplicationController
   end
 
   def show
-
+    @correction = Correction.new
+    @corrections = @solution.corrections.order(:created_at).paginate(page: params[:page])
   end
 
 

@@ -1,0 +1,8 @@
+<div class="qa_box">
+  <div class="qa_objects">
+    <%= render @corrections %>
+  </div>
+  <div class="qa_cell">
+    <%= will_paginate @corrections ,renderer: BootstrapPagination::Rails %>
+  </div>
+</div>

@@ -19,7 +19,7 @@
       <div class="qa_content">
         <%= raw @question.content%>
       </div>
-      <div class="qa_footer">
+      <div class="footer">
         <% if allow? "questions","edit",@question %>
             <%=link_to edit_question_path(@question) do %>
                 <i class="fa fa-pencil-square-o"></i>编辑

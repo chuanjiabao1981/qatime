@@ -1,7 +1,7 @@
 cn:
   activerecord:
     models:
-      solution: 作业解答
+      solution: 作业
     attributes:
       solution:
         title: 解答说明

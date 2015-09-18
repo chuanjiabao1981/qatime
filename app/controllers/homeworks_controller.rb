@@ -10,6 +10,7 @@ class HomeworksController < ApplicationController
   def create
     @homework = @customized_course.homeworks.build(change_params_for_qa_files(params[:homework]).permit!)
     @homework.teacher = current_user
+    @homework.student = @customized_course.student
     @homework.save
 
     if @homework.save

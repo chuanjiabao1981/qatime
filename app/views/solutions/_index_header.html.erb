@@ -1,0 +1,13 @@
+<div class="qa_cell box_header">
+  <div class="pull-left">
+    <span class="label label-primary">交了<%=homework.solutions_count%>次<%=Solution.model_name.human%></span>
+  </div>
+  <div class="pull-right">
+    <% if allow? :solutions,:new,homework %>
+        <%=link_to new_homework_solution_path(homework) do%>
+            <span class="label label-success">提交<%=Solution.model_name.human%></span>
+        <% end %>
+    <% end %>
+  </div>
+  <div style="clear: both"></div>
+</div>

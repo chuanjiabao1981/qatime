@@ -1,23 +1,6 @@
 <div class="qa_box">
-  <div class="qa_cell box_header">
-    <div class="pull-left">
-      <span class="label label-primary">共有<%=homework.solutions_count%><%=Solution.model_name.human%></span>
-    </div>
-    <div class="pull-right">
-      <% if allow? :solutions,:new,homework %>
-          <%=link_to new_homework_solution_path(homework) do%>
-              <span class="label label-success">提交<%=Solution.model_name.human%></span>
-          <% end %>
-      <% end %>
-    </div>
-    <div style="clear: both"></div>
-  </div>
-  <div class="qa_objects">
-    <%= render @solutions %>
-  </div>
+  <%= render  partial: "solutions/index_header",locals: {homework: homework} %>
 
-  <div class="qa_cell">
-    <%= will_paginate @solutions ,renderer: BootstrapPagination::Rails %>
-  </div>
+  <%= render  partial: "solutions/index_items",locals:{solutions: @solutions} %>
 
 </div>

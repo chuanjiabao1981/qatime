@@ -46,7 +46,7 @@ module Permissions
         homework
       end
       allow :solutions,[:show] do |solution|
-        solution 
+        solution
       end
 
       allow :managers,[:payment]

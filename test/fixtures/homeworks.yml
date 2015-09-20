@@ -7,6 +7,7 @@
 homework1:
   customized_course: customized_course1
   teacher: teacher1
+  student: student1
   title: 基础测试
   content: 原来基础测试是关键的一换哦
   token: teacher1_customized_course_homewoker_one

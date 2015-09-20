@@ -26,6 +26,7 @@ class SmsWorker
   ANSWER_CREATE_NOTIFICATION   = :answer_create_notify
   TOPIC_CREATE_NOTIFICATION    = :topic_create_notify
   REPLY_CREATE_NOTIFICATION    = :reply_create_notify
+  NOTIFY                       = :notify
 
   include Sidekiq::Worker
   include SmsUtil
@@ -128,6 +129,16 @@ class SmsWorker
     end
   end
 
+  def notify(options)
+    from      = options["from"]
+    to        = options["to"]
+    message   = options["message"]
+    mobile    = options["mobile"]
+    sms_info  = "【答疑时间】#{to}，你好，#{from}#{message}#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
+    _send_message do
+      send_message(mobile,sms_info)
+    end
+  end
   def tutorial_create_notify(options)
     tutorial = CustomizedTutorial.find(options["id"])
     return unless tutorial

@@ -75,6 +75,10 @@ class TeachersController < ApplicationController
   end
 
 
+  def homeworks
+    @homeworks = Homework.by_teacher(@teacher).paginate(page: params[:page],:per_page => 10)
+  end
+
   def customized_tutorial_topics
     @topics = Topic.all.where(teacher_id: @teacher.id).by_customized_course(params)
     render layout: 'teacher_home'

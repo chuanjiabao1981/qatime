@@ -5,7 +5,7 @@ module ApplicationHelper
     case current_user.role
       when "teacher"
         #teachers_home_path
-        questions_teacher_path(current_user.id)
+        homeworks_teacher_path(current_user.id)
       when "admin"
         admins_home_path
       when "student"
@@ -36,5 +36,20 @@ module ApplicationHelper
     link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
+
+  def link_to_edit(o)
+    if allow? o.model_name.plural , :edit,o
+      k = link_to "", send("edit_#{o.model_name.singular}_path",o), class: "glyphicon glyphicon-edit"
+    end
+    k
+  end
+
+  def link_to_destroy(o)
+    if allow? o.model_name.plural, :destroy ,o
+      s = link_to "", send("#{o.model_name.singular}_path", o),:method => :delete, 'data-confirm' => 'Are you sure?',
+                  class: "glyphicon glyphicon-remove"
+    end
+    s
+  end
 
 end

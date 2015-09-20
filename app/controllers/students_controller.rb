@@ -55,6 +55,10 @@ class StudentsController < ApplicationController
     render layout: 'student_home'
   end
 
+  def homeworks
+    @homeworks = Homework.by_student(@student).paginate(page: params[:page],:per_page => 10)
+  end
+
 
   def customized_courses
     @customized_courses = @student.customized_courses.paginate(page: params[:page],per_page: 10)

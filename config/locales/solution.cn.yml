@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    models:
+      solution: 作业
+    attributes:
+      solution:
+        title: 解答说明
+        content: 作业解答

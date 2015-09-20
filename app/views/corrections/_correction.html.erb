@@ -1,0 +1,27 @@
+<div class="qa_object_item">
+  <div class="pull-left">
+    <%=image_tag correction.teacher.avatar.normal.url %>
+  </div>
+  <div class="info">
+    <%= [correction.teacher.name,"#{time_ago_in_words(correction.created_at)}前发布"].join(" • ")%>
+  </div>
+  <div class="content">
+    <%if correction.video and correction.video.name  and correction.video.name.url %>
+        <%= video_js_player(correction.video) %>
+    <% end %>
+
+    <%= correction.content.try(:html_safe) %>
+  </div>
+
+
+  <div class="footer">
+    <%= render partial:'comments/index',locals: {commentable: correction} %>
+  </div>
+
+  <div class="operation pull-right">
+    <%= link_to_edit(correction)%>
+    <%= link_to_destroy(correction) %>
+  </div>
+  <div style="clear:both"></div>
+
+</div>

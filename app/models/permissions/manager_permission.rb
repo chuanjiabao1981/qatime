@@ -25,6 +25,8 @@ module Permissions
       end
 
 
+
+
       allow :topics,[:show]
       allow :replies,[:create]
       allow :replies,[:edit,:update,:destroy] do |reply|
@@ -43,6 +45,10 @@ module Permissions
       allow :homeworks,[:show] do |homework|
         homework
       end
+      allow :solutions,[:show] do |solution|
+        solution 
+      end
+
       allow :managers,[:payment]
       allow :managers,[:customized_courses,] do |manager|
         manager.id == user.id

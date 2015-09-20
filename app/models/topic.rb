@@ -12,7 +12,9 @@ class Topic < ActiveRecord::Base
 
 
   has_many :replies,:dependent => :destroy
-  has_many :pictures,as: :imageable,:dependent => :destroy
+  has_many :pictures,as: :imageable
+
+  #,:dependent => :destroy
 
 
   scope :by_customized_course , lambda { |params|

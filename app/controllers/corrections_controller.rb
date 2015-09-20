@@ -3,7 +3,6 @@ class CorrectionsController < ApplicationController
   def create
     @correction = @solution.corrections.build(params[:correction].permit!)
     @correction.teacher = current_user
-    puts @correction.to_json
     if @correction.save
       flash[:success] = "成功创建了#{Correction.model_name.human}"
       @correction.notify
@@ -37,6 +36,7 @@ class CorrectionsController < ApplicationController
     end
     if params[:id]
       @correction = Correction.find(params[:id])
+      @solution   = @correction.solution
       r = @correction
     end
     r

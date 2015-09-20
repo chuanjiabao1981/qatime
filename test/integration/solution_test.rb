@@ -3,7 +3,7 @@ require 'sidekiq/testing'
 Sidekiq::Testing.inline!
 
 
-class SolutionTest < LoginTestBase
+class SolutionIntegrateTest < LoginTestBase
 
 
   def setup

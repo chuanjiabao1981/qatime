@@ -1,13 +1,14 @@
 class SolutionsController < ApplicationController
   layout "application"
   respond_to :html
+  include QaFilesHelper
 
   def new
     @solution = @solutionable.solutions.build
   end
 
   def create
-    @solution = @solutionable.solutions.build(params[:solution].permit!)
+    @solution = @solutionable.solutions.build(change_params_for_qa_files(params[:solution]).permit!)
     @solution.student = current_user
     if @solution.save
       flash[:success] = "成功创建#{Solution.model_name.human}"
@@ -19,6 +20,8 @@ class SolutionsController < ApplicationController
   def show
     @correction = Correction.new
     @corrections = @solution.corrections.order(:created_at).paginate(page: params[:page])
+    @qa_files   = @solution.qa_files.order(:created_at => "ASC")
+
   end
 
 
@@ -27,7 +30,7 @@ class SolutionsController < ApplicationController
   end
 
   def update
-    if @solution.update_attributes(params[:solution].permit!)
+    if @solution.update_attributes(change_params_for_qa_files(params[:solution]).permit!)
       flash[:success] = "成功修改#{Solution.model_name.human}"
     end
     respond_with  @solution

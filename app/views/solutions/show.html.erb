@@ -23,18 +23,24 @@
         <div class="body">
           <%= @solution.content.html_safe %>
         </div>
-
+        <%= render partial: 'shared/qa_files/qa_file', collection: @qa_files %>
     </div>
+
+
+    <div class="footer">
+      <%= render partial:'comments/index',locals: {commentable: @solution} %>
+    </div>
+
+
     <div class="operator">
       <div class="pull-right">
         <%= link_to_edit(@solution)%> &nbsp;
         <%= link_to_destroy(@solution) %>
       </div>
     </div>
+
     <div style="clear:both"></div>
-    <div class="footer">
-      <%= render partial:'comments/index',locals: {commentable: @solution} %>
-    </div>
+
 
   </div>
 

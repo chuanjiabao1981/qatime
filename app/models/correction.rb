@@ -12,4 +12,20 @@ class Correction < ActiveRecord::Base
   def author_id
     self.teacher_id
   end
+
+
+  def notify
+    teacher           = self.teacher
+    student           = self.solution.student
+
+    SmsWorker.perform_async(SmsWorker::NOTIFY,
+                            from: teacher.name,
+                            to: student.name,
+                            mobile: teacher.mobile,
+                            message: "#{Correction.model_name.human}你的#{Solution.model_name.human},请关注,"
+    )
+
+
+  end
+
 end

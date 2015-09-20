@@ -6,6 +6,7 @@ class CorrectionsController < ApplicationController
     puts @correction.to_json
     if @correction.save
       flash[:success] = "成功创建了#{Correction.model_name.human}"
+      @correction.notify
       redirect_to solution_path(@solution)
     else
       @homework = @solution.homework

@@ -3,16 +3,17 @@ class SolutionsController < ApplicationController
   respond_to :html
 
   def new
-    @solution = Solution.new
+    @solution = @solutionable.solutions.build
   end
 
   def create
-    @solution = @homework.solutions.build(params[:solution].permit!)
+    @solution = @solutionable.solutions.build(params[:solution].permit!)
     @solution.student = current_user
     if @solution.save
       flash[:success] = "成功创建#{Solution.model_name.human}"
+      @solution.notify
     end
-    respond_with @homework,@solution
+    respond_with @solutionable,@solution
   end
 
   def show
@@ -33,19 +34,19 @@ class SolutionsController < ApplicationController
   end
   def destroy
     @solution.destroy
-    @homework = @solution.homework
-    respond_with @homework
+    @solutionable = @solution.solutionable
+    respond_with @solutionable
   end
   private
   def current_resource
     if params[:homework_id]
-      @homework = Homework.find(params[:homework_id])
-      r = @homework
+      @solutionable = Homework.find(params[:homework_id])
+      r = @solutionable
     end
     if params[:id]
-      @solution = Solution.find(params[:id])
-      r         = @solution
-      @homework = @solution.homework
+      @solution     = Solution.find(params[:id])
+      r             = @solution
+      @solutionable = @solution.solutionable
     end
     r
   end

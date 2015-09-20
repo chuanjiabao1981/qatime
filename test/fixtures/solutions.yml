@@ -4,7 +4,11 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+homework_solution_one:
+  title: homework solution test title
+  content: homework solution test content
+  solutionable: homework1 (Homework)
+  student: student1
 # column: value
 #
 two: {}

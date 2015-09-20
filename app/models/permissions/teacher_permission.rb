@@ -102,19 +102,25 @@ module Permissions
       end
 
       allow :solutions,[:show] do |solution|
-        solution and solution.homework.customized_course.teacher_ids.include?(user.id)
+        solution and solution_permission(solution,user)
       end
 
       allow :corrections,[:create] do |solution|
-        solution and solution.homework.customized_course.teacher_ids.include?(user.id)
+        solution and solution_permission(solution,user)
       end
 
-      allow :corrections,[:edit,:update,:destroy] do |correction|
+      allow :corrections,[:edit,:update] do |correction|
         correction and correction.teacher_id == user.id
       end
 
     end
 private
+
+    def solution_permission(solution,user)
+      if solution.solutionable.instance_of? Homework
+        solution.solutionable.customized_course.teacher_ids.include?(user.id)
+      end
+    end
     def topicable_permission(topicable,user)
       return false if topicable.nil?
       if topicable.instance_of? CustomizedCourse

@@ -13,7 +13,7 @@ class Homework < ActiveRecord::Base
 
   accepts_nested_attributes_for :qa_files, allow_destroy: true
 
-  has_many        :solutions,:dependent =>  :destroy
+  has_many        :solutions,as: :solutionable,:dependent =>  :destroy
 
 
   scope :by_student ,lambda{|student| where(student_id:student.id).order(created_at: :desc)}

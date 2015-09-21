@@ -113,6 +113,14 @@ module Permissions
         correction and correction.teacher_id == user.id
       end
 
+      allow :exercises,[:new,:create] do |customized_tutorial|
+        customized_tutorial and customized_tutorial.teacher_id == user.id
+      end
+
+      allow :exercises,[:show,:edit,:update] do |exercise|
+        exercise and exercise.teacher_id == user.id
+      end
+
     end
 private
 

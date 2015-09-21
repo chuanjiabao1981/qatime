@@ -1,0 +1,49 @@
+<div class="qa_box">
+  <div class="qa_cell box_head">
+    <%= yield %>
+  </div>
+</div>
+<div class="qa_box">
+  <div class="qa_object">
+    <div class="header">
+
+      <div class="pull-right">
+        <%=image_tag  qa_object.author.avatar.normal.url %>
+      </div>
+      <div class="title">
+        <h4><%= qa_object.title %></h4>
+      </div>
+      <div class="info">
+        <%= [qa_object.author.name,"#{qa_object.created_at}创建"].join(" • ") %>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="body">
+        <%= qa_object.content.html_safe %>
+      </div>
+      <% if qa_object.qa_files %>
+        <%= render partial: 'shared/qa_files/qa_file', collection: qa_object.qa_files%>
+      <% end %>
+    </div>
+
+
+    <div class="footer">
+      <%= render partial:'comments/index',locals: {commentable: qa_object} %>
+    </div>
+
+
+    <div class="operator">
+      <div class="pull-right">
+        <%= link_to_edit(qa_object)%> &nbsp;
+        <%= link_to_destroy(qa_object) %>
+      </div>
+    </div>
+
+    <div style="clear:both"></div>
+
+
+  </div>
+
+</div>
+

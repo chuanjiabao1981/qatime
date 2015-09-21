@@ -24,12 +24,12 @@
 <div class="qa_box">
   <div class="box_header qa_cell">
     <div class="pull-left">
-        <span class="label label-primary">共有2个<%= Excercise.model_name.human%></span>
+        <span class="label label-primary">共有2个<%= Exercise.model_name.human%></span>
     </div>
     <div class="pull-right">
-      <% if allow? :execersices , :new, @customized_tutorial %>
-          <%=link_to new_customized_tutorial_execersice_path(@customized_tutorial) do%>
-              <span class="label label-success">布置<%= Excercise.model_name.human%></span>
+      <% if allow? :exercises , :new, @customized_tutorial %>
+          <%=link_to new_customized_tutorial_exercise_path(@customized_tutorial) do%>
+              <span class="label label-success">布置<%= Exercise.model_name.human%></span>
           <% end %>
       <% end %>
     </div>
@@ -42,7 +42,7 @@
         <div style="color: green"><strong>作 业</strong></div>
       </div>
       <div class="title">
-        asdfasdf
+        <%= link_to "asdfasdf", customized_tutorial_exercise_path(@customized_tutorial,2) %>
       </div>
       <div class="info">
         sdf • 2天前布置 • dfd • 写了1次作业 • 批改了10次

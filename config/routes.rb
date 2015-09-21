@@ -155,8 +155,10 @@ Qatime::Application.routes.draw do
   resources :corrections
   resources :customized_tutorials do
     resources :topics
-    resources :execersices
+    resources :exercises
   end
+  resources :exercises
+
 
   resources :questions do
 

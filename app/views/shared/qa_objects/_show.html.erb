@@ -14,7 +14,7 @@
         <h4><%= qa_object.title %></h4>
       </div>
       <div class="info">
-        <%= [qa_object.author.name,"#{qa_object.created_at}创建"].join(" • ") %>
+        <%= [qa_object.author.name,"#{qa_object.created_at.to_formatted_s(:db)} 创建"].join(" • ") %>
       </div>
     </div>
 

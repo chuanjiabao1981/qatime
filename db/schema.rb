@@ -106,10 +106,10 @@ ActiveRecord::Schema.define(version: 20150921233645) do
 
   create_table "customized_courses", force: :cascade do |t|
     t.integer  "student_id"
-    t.string   "category",                   default: "高中"
-    t.string   "subject",                    default: "数学"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.string   "category"
+    t.string   "subject"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "customized_tutorials_count", default: 0
     t.integer  "topics_count",               default: 0
     t.integer  "homeworks_count",            default: 0
@@ -126,6 +126,17 @@ ActiveRecord::Schema.define(version: 20150921233645) do
     t.datetime "updated_at",                       null: false
     t.integer  "topics_count",         default: 0
     t.integer  "exercises_count",      default: 0
+  end
+
+  create_table "excercises", force: :cascade do |t|
+    t.string   "token"
+    t.string   "title"
+    t.string   "content"
+    t.integer  "teacher_id"
+    t.integer  "customized_tutorial_id"
+    t.integer  "solutions_count",        default: 0
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "exercises", force: :cascade do |t|
@@ -351,13 +362,18 @@ ActiveRecord::Schema.define(version: 20150921233645) do
     t.datetime "updated_at"
   end
 
+  create_table "searches", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "solutions", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
     t.integer  "solutionable_id"
     t.integer  "student_id"
     t.string   "token"
-    t.integer  "corrections_count", default: 0
+    t.integer  "corrections_count"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "comments_count",    default: 0

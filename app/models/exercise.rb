@@ -3,6 +3,9 @@ class Exercise < ActiveRecord::Base
   include QaToken
   include ContentValidate
 
+  include QaSolution
+
+
   has_many        :qa_files      , -> { order 'created_at asc' },as: :qa_fileable #, :dependent => :destroy
   has_many        :solutions,as: :solutionable#,:dependent =>  :destroy
   has_many        :pictures,as: :imageable#,:dependent => :destroy

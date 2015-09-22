@@ -3,6 +3,7 @@ class Homework < ActiveRecord::Base
 
   include QaToken
   include ContentValidate
+  include QaSolution
 
   belongs_to      :customized_course,counter_cache: true
   belongs_to      :teacher
@@ -22,13 +23,5 @@ class Homework < ActiveRecord::Base
     self.title
   end
 
-  def corrections_count
-    s = 0
-    self.solutions.each do |c|
-      if not c.corrections_count.nil?
-        s+=c.corrections_count
-      end
-    end
-    s
-  end
+
 end

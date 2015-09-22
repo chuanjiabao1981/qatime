@@ -21,7 +21,7 @@ class Correction < ActiveRecord::Base
     SmsWorker.perform_async(SmsWorker::NOTIFY,
                             from: teacher.name,
                             to: student.name,
-                            mobile: teacher.mobile,
+                            mobile: student.mobile,
                             message: "#{Correction.model_name.human}你的#{Solution.model_name.human},请关注,"
     )
 

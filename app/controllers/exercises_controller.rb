@@ -19,6 +19,17 @@ class ExercisesController < ApplicationController
   def show
     @qa_files   = @exercise.qa_files.order(:created_at => "ASC")
   end
+
+  def edit
+
+  end
+
+  def update
+    if @exercise.update_attributes(change_params_for_qa_files(params[:exercise]).permit!)
+      flash[:success] = "成功修改了#{Exercise.model_name.human}"
+    end
+    respond_with @exercise
+  end
   private
   def current_resource
     if params[:customized_tutorial_id]
@@ -28,6 +39,7 @@ class ExercisesController < ApplicationController
     if params[:id]
       @exercise = Exercise.find(params[:id])
       r = @exercise
+      @customized_tutorial = @exercise.customized_tutorial
     end
     r
   end

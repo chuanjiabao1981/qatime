@@ -16,8 +16,9 @@
     <%=link_to homework.title ,homework_path(homework)%>
   </div>
   <div class="info">
-    <%= homework.teacher.name%> • <%= time_ago_in_words(homework.created_at) %>前布置 •
+    <%= homework.teacher.name%> • <%= homework.created_at.to_formatted_s(:db) %> 布置 •
+    批改了<%= homework.corrections_count %>次<%= Homework.human_attribute_name(:solution) %> •
+    <%= homework.student.name%> •
     写了<%= homework.solutions_count %>次<%= Homework.human_attribute_name(:solution) %> •
-    批改了<%= homework.corrections_count %>次<%= Homework.human_attribute_name(:solution) %>
   </div>
 </div>

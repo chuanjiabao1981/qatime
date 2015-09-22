@@ -4,6 +4,7 @@ class Homework < ActiveRecord::Base
   include QaToken
   include ContentValidate
   include QaSolution
+  include QaCommon
 
   belongs_to      :customized_course,counter_cache: true
   belongs_to      :teacher
@@ -17,8 +18,7 @@ class Homework < ActiveRecord::Base
   has_many        :solutions,as: :solutionable,:dependent =>  :destroy
 
 
-  scope :by_student ,lambda{|student| where(student_id:student.id).order(created_at: :desc)}
-  scope :by_teacher ,lambda{|teacher| where(teacher_id:teacher.id).order(created_at: :desc)}
+
   def name
     self.title
   end

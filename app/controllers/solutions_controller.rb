@@ -46,6 +46,10 @@ class SolutionsController < ApplicationController
       @solutionable = Homework.find(params[:homework_id])
       r = @solutionable
     end
+    if params[:exercise_id]
+      @solutionable = Exercise.find(params[:exercise_id])
+      r = @solutionable
+    end
     if params[:id]
       @solution     = Solution.find(params[:id])
       r             = @solution

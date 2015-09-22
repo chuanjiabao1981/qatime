@@ -5,14 +5,18 @@ class Exercise < ActiveRecord::Base
 
   include QaSolution
 
+  include QaCommon
+
+
 
   has_many        :qa_files      , -> { order 'created_at asc' },as: :qa_fileable #, :dependent => :destroy
-  has_many        :solutions,as: :solutionable#,:dependent =>  :destroy
   has_many        :pictures,as: :imageable#,:dependent => :destroy
+  has_many        :solutions,as: :solutionable,:dependent =>  :destroy
 
 
   belongs_to      :customized_tutorial,counter_cache: true
   belongs_to      :teacher
+  belongs_to      :student
   accepts_nested_attributes_for :qa_files, allow_destroy: true
   has_many        :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
 

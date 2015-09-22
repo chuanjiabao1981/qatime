@@ -105,6 +105,7 @@ Qatime::Application.routes.draw do
       get 'customized_tutorial_topics'
       get 'customized_courses'
       get 'homeworks'
+      get 'exercises'
     end
   end
   resources :students do
@@ -119,6 +120,7 @@ Qatime::Application.routes.draw do
       get 'customized_tutorial_topics'
       get 'customized_courses'
       get 'homeworks'
+      get 'exercises'
     end
     resources :customized_courses do
       member do
@@ -157,7 +159,9 @@ Qatime::Application.routes.draw do
     resources :topics
     resources :exercises
   end
-  resources :exercises
+  resources :exercises do
+    resources :solutions
+  end
 
 
   resources :questions do

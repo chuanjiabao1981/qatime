@@ -1,3 +1,6 @@
 <div class="qa_objects">
   <%= render exercises %>
 </div>
+<% if defined?(exercises.total_pages) %>
+    <%= will_paginate exercises ,renderer: BootstrapPagination::Rails %>
+<% end %>

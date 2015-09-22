@@ -9,6 +9,7 @@ class ExercisesController < ApplicationController
   def create
     @exercise = @customized_tutorial.exercises.build(change_params_for_qa_files(params[:exercise]).permit!)
     @exercise.teacher = current_user
+    @exercise.student = @customized_tutorial.customized_course.student
     if @exercise.save
       flash[:success] = "成功创建#{Exercise.model_name.human}"
       @exercise.notify
@@ -17,7 +18,9 @@ class ExercisesController < ApplicationController
   end
 
   def show
-    @qa_files   = @exercise.qa_files.order(:created_at => "ASC")
+    @qa_files       = @exercise.qa_files.order(:created_at => "ASC")
+    @solutions      = @exercise.solutions.order(:created_at).paginate(page: params[:page])
+
   end
 
   def edit
@@ -29,6 +32,10 @@ class ExercisesController < ApplicationController
       flash[:success] = "成功修改了#{Exercise.model_name.human}"
     end
     respond_with @exercise
+  end
+  def destroy
+    @exercise.destroy
+    respond_with @customized_tutorial
   end
   private
   def current_resource

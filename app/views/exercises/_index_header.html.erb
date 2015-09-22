@@ -1,6 +1,6 @@
 <div class="box_header qa_cell">
   <div class="pull-left">
-    <span class="label label-primary">共有2个<%= Exercise.model_name.human%></span>
+    <span class="label label-primary">共有<%=customized_tutorial.exercises_count%>个<%= Exercise.model_name.human%></span>
   </div>
   <div class="pull-right">
     <% if allow? :exercises , :new, customized_tutorial %>

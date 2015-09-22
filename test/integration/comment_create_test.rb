@@ -1,5 +1,8 @@
-require 'test_helper'
 
+require 'test_helper'
+require 'sidekiq/testing'
+
+Sidekiq::Testing.inline!
 class CommentCreateTest < ActionDispatch::IntegrationTest
   def setup
     @headless = Headless.new

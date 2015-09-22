@@ -10,6 +10,11 @@ class Solution < ActiveRecord::Base
   has_many        :qa_files, as: :qa_fileable, :dependent => :destroy
   accepts_nested_attributes_for :qa_files, allow_destroy: true
 
+
+  def author
+    self.student
+  end
+
   def notify
     teacher           = self.solutionable.teacher
     student           = self.student

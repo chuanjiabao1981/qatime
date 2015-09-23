@@ -9,7 +9,7 @@ class Homework < ActiveRecord::Base
   belongs_to      :customized_course,counter_cache: true
   belongs_to      :teacher
   belongs_to      :student
-  has_many        :topics ,as: :topicable,:dependent => :destroy
+  # has_many        :topics ,as: :topicable,:dependent => :destroy
   has_many        :qa_files, as: :qa_fileable, :dependent => :destroy
   has_many        :pictures,as: :imageable,:dependent => :destroy
 

@@ -124,6 +124,7 @@ class TutorialTopicsTest < LoginTestBase
 
   end
   def index_page(user_session)
+
     user_session.get customized_tutorial_path(@topic.topicable)
     user_session.assert_select "a[href=?]", new_customized_tutorial_topic_path(@topic.topicable), count: 1
     n = Topic.where(topicable_id: @topic.topicable.id).count

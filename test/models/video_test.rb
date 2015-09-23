@@ -1,4 +1,7 @@
 require 'test_helper'
+require 'sidekiq/testing'
+
+Sidekiq::Testing.inline!
 
 class VideoTest < ActiveSupport::TestCase
 =begin
@@ -19,6 +22,16 @@ class VideoTest < ActiveSupport::TestCase
 =begin
   这个case 用于测试
 =end
+
+  test "video get duration when convert" do
+    a = build_a_video_with_long_duration_mp4_file_in_queue
+    assert a.in_queue?
+    VideoConvertWorker.new.perform(a.id)
+    a.reload
+    assert a.convert_success?
+    assert_not a.convert_name.nil?
+    assert (a.duration == 329)
+  end
 
   test "video change when convert" do
 
@@ -47,6 +60,8 @@ class VideoTest < ActiveSupport::TestCase
     assert x.not_convert?
   end
 
+
+
   private
   def build_a_video_with_mp4_file_in_queue
     a = Video.new
@@ -59,4 +74,18 @@ class VideoTest < ActiveSupport::TestCase
     a.reload
     a
   end
+
+  private
+  def build_a_video_with_long_duration_mp4_file_in_queue
+    a = Video.new
+    a.author = users(:teacher1)
+    File.open("#{Rails.root}/test/integration/test1.mp4") do |f|
+      a.name = f
+    end
+    a.state = :in_queue
+    a.save!
+    a.reload
+    a
+  end
+
 end

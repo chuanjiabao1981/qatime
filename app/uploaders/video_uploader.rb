@@ -32,10 +32,10 @@ class VideoUploader < CarrierWave::Uploader::Base
      %w(mp4)
   end
 
-  process :translate
+  #process :translate
 
-  def translate
-    result = %x(/usr/local/bin/qtfaststart #{self.current_path})
-  end
+  #def translate
+  #  result = %x(/usr/local/bin/qtfaststart #{self.current_path})
+  #end
 
 end

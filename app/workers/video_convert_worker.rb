@@ -15,10 +15,10 @@ class VideoConvertWorker
       video                   = get_video(video_class,id)
 
 
-      convert_video_path_name = convert_video(video)
+      convert_video_path_name, duration = convert_video(video)
 
       sleep after_convert_sleep
-      save_video(video,convert_video_path_name)
+      save_video(video,convert_video_path_name,duration)
 
     rescue VideoChangedWhenConvertingException
       ## 如果视频发生变化，只要抛出异常就好了
@@ -57,14 +57,35 @@ class VideoConvertWorker
     #%x 获取不了stderr，所以这里进行了重定向
     #result = %x(wget #{video.name} -O /tmp/#{video.name_identifier})
     result = %x(~/bin/ffmpeg -y -i #{video.name} -vcodec h264 -acodec aac -strict -2 #{convert_video_path_name} 2>&1)
+
     if ($?.exitstatus == 0)
-      convert_video_path_name
+      result = %x(/usr/local/bin/qtfaststart #{convert_video_path_name} 2>&1)
+
+      if ($?.exitstatus != 0)
+        error_message = video.id.to_s + " qtfaststart failed."
+        SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message: error_message)
+        # 这里通过短信报警，发送给相关owner，提示一下即可，不需要block住整个转码的过程
+      end
+
+      duration = -1
+      duration_calc_result = %x(~/bin/ffprobe -i #{convert_video_path_name} -show_format -v quiet | sed -n 's/duration=//p')
+
+      if ($?.exitstatus == 0)
+        duration = duration_calc_result.to_f.round
+      else
+        error_message = video.id.to_s + " get durition failed."
+        SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message: error_message)
+      end
+
+      [convert_video_path_name, duration]
     else
+      error_message = video.id.to_s + " convert failed."
+      SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message: error_message)
       raise StandardError,result
     end
   end
 
-  def save_video(video,convert_video_path_name)
+  def save_video(video,convert_video_path_name, duration)
     File.open(convert_video_path_name) do |f|
       video.convert_name = f
     end
@@ -73,6 +94,7 @@ class VideoConvertWorker
 
     update_video_info video do |video|
       video.fire_events!(:convert_process_finish)
+      video.duration = duration
       video.save!
     end
 

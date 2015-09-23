@@ -147,8 +147,8 @@ class SmsWorker
     error_message = options["error_message"]
 
     begin
-      send_message("13439338326", error_message)
-      send_message("15910676326", error_message)
+      send_message("13439338326", "【答疑时间】管理员，你好，#{error_message}，请关注#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。")
+      send_message("15910676326", "【答疑时间】管理员，你好，#{error_message}，请关注#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。")
 
     rescue Exception => e
       logger.info e.message

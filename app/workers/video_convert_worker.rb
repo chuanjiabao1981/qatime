@@ -18,7 +18,7 @@ class VideoConvertWorker
       convert_video_path_name, duration = convert_video(video)
 
       sleep after_convert_sleep
-      save_video(video,convert_video_path_name)
+      save_video(video,convert_video_path_name,duration)
 
     rescue VideoChangedWhenConvertingException
       ## 如果视频发生变化，只要抛出异常就好了
@@ -56,37 +56,31 @@ class VideoConvertWorker
     convert_video_path_name = "/tmp/#{video.build_convert_file_name}"
     #%x 获取不了stderr，所以这里进行了重定向
     #result = %x(wget #{video.name} -O /tmp/#{video.name_identifier})
-
-    #第一步，先把header移动到视频头部
-
-    result = %x(/usr/local/bin/qtfaststart #{self.current_path} 2>&1)
-    if ($?.exitstatus != 0)
-      error_message = video.id + " qtfaststart failed."
-      SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message)
-      # 这里通过短信报警，发送给相关owner，提示一下即可，不需要block住整个转码的过程
-
-    end
-
     result = %x(~/bin/ffmpeg -y -i #{video.name} -vcodec h264 -acodec aac -strict -2 #{convert_video_path_name} 2>&1)
-    Rails.logger.info result
+
     if ($?.exitstatus == 0)
-      #对于转码成功的，获取其视频时长并返回
-      #对于duration没计算出来的，要不要输入一个默认值，如果出错，先爆出来
+      result = %x(/usr/local/bin/qtfaststart #{convert_video_path_name} 2>&1)
+
+      if ($?.exitstatus != 0)
+        error_message = video.id.to_s + " qtfaststart failed."
+        SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message: error_message)
+        # 这里通过短信报警，发送给相关owner，提示一下即可，不需要block住整个转码的过程
+      end
+
       duration = -1
-      duration_calc_result = %x(~/bin/ffprobe -i #{convert_video_path_name} -show_format -v quiet | sed -n 's/duration=//p'')
+      duration_calc_result = %x(~/bin/ffprobe -i #{convert_video_path_name} -show_format -v quiet | sed -n 's/duration=//p')
 
       if ($?.exitstatus == 0)
         duration = duration_calc_result.to_f.round
       else
-        error_message = video.id + " get durition failed."
-        SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message)
+        error_message = video.id.to_s + " get durition failed."
+        SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message: error_message)
       end
 
       [convert_video_path_name, duration]
     else
-      #这里需要增加报警
-      error_message = video.id + " convert failed."
-      SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message)
+      error_message = video.id.to_s + " convert failed."
+      SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message: error_message)
       raise StandardError,result
     end
   end

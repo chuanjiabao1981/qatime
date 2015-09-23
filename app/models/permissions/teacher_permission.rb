@@ -61,7 +61,9 @@ module Permissions
 
       allow "teachers/home",[:main]
 
-      allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,:info,:questions,:topics,:customized_courses,:customized_tutorial_topics,:homeworks] do |teacher|
+      allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,
+                       :info,:questions,:topics,:customized_courses,
+                       :customized_tutorial_topics,:homeworks,:exercises] do |teacher|
         teacher and teacher.id == user.id
       end
 
@@ -113,12 +115,22 @@ module Permissions
         correction and correction.teacher_id == user.id
       end
 
+      allow :exercises,[:new,:create] do |customized_tutorial|
+        customized_tutorial and customized_tutorial.teacher_id == user.id
+      end
+
+      allow :exercises,[:show,:edit,:update] do |exercise|
+        exercise and exercise.teacher_id == user.id
+      end
+
     end
 private
 
     def solution_permission(solution,user)
       if solution.solutionable.instance_of? Homework
         solution.solutionable.customized_course.teacher_ids.include?(user.id)
+      elsif solution.solutionable.instance_of? Exercise
+        solution.solutionable.customized_tutorial.teacher_id == user.id
       end
     end
     def topicable_permission(topicable,user)

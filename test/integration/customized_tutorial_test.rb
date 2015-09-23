@@ -10,8 +10,8 @@ class CustomizedTutorialIntegrateTest < LoginTestBase
   end
 
   test 'show page' do
-    show_page(@student_session)
-    show_page(@teacher_session)
+    show_page(@student_session,@student)
+    show_page(@teacher_session,@teacher)
   end
 
   test "not show page " do
@@ -21,7 +21,7 @@ class CustomizedTutorialIntegrateTest < LoginTestBase
 
 
   private
-  def show_page(user_session)
+  def show_page(user_session,user)
     topic = topics(:customized_tutorial_topic1)
     user_session.get customized_tutorial_path(@customized_tutorial)
     user_session.assert_response :success
@@ -29,6 +29,17 @@ class CustomizedTutorialIntegrateTest < LoginTestBase
     user_session.assert_select 'a[href=?]',     customized_course_path(@customized_tutorial.customized_course),1
     user_session.assert_select 'a[href=?]',    new_customized_tutorial_topic_path(@customized_tutorial),1
     user_session.assert_select 'a[href=?]',    topic_path(topic),1
+
+    exercise = exercises(:exercise_one)
+    assert exercise.valid?
+
+    user_session.assert_select 'a[href=?]', exercise_path(exercise),1
+    if user.teacher?
+      user_session.assert_select 'a[href=?]', new_customized_tutorial_exercise_path(@customized_tutorial),1
+    elsif user.student?
+      user_session.assert_select 'a[href=?]', new_customized_tutorial_exercise_path(@customized_tutorial),0
+
+    end
   end
 
   def not_show_page(user_session,user)

@@ -48,7 +48,9 @@ module Permissions
       end
 
 
-      allow :students,[:show,:edit,:update,:info,:teachers,:questions,:topics,:customized_courses,:customized_tutorial_topics,:homeworks] do |student|
+      allow :students,[:show,:edit,:update,:info,:teachers,
+                       :questions,:topics,:customized_courses,
+                       :customized_tutorial_topics,:homeworks,:exercises] do |student|
         student and student.id == user.id
       end
       allow :customized_courses,[:show,:topics,:homeworks] do |customized_course|
@@ -63,11 +65,15 @@ module Permissions
       end
 
       allow :solutions,[:new,:create] do |solutionable|
-        solutionable_permission(solutionable,user)
+        solutionable and solutionable_permission(solutionable,user)
       end
 
       allow :solutions,[:show,:edit,:update] do |solution|
         solution and solution.student_id == user.id
+      end
+
+      allow :exercises,[:show] do |exercise|
+        exercise and exercise.customized_tutorial.customized_course.student.id == user.id
       end
 
 
@@ -85,7 +91,9 @@ module Permissions
 private
     def solutionable_permission(solutionable,user)
       if solutionable.instance_of? Homework
-        solutionable and solutionable.customized_course.student_id == user.id
+        solutionable.customized_course.student_id == user.id
+      elsif solutionable.instance_of? Exercise
+        solutionable.customized_tutorial.customized_course.student_id == user.id
       end
     end
     def topicable_permission(topicable,user)

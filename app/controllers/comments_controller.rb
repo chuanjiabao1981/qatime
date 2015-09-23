@@ -5,6 +5,7 @@ class CommentsController < ApplicationController
     @comment = current_user.comments.build(params[:comment].permit!)
     @comment
     if @comment.save
+      @comment.notify
       respond_with @comment
     else
       render 'new'

@@ -18,10 +18,17 @@
       <%= @customized_tutorial.content %>
     </div>
 
-    <%= render partial: 'shared/qa_files/qa_file', collection: @qa_files %>
+    <!--<%= render partial: 'shared/qa_files/qa_file', collection: @qa_files %>-->
   </div>
 </div>
 
+<% if @customized_tutorial %>
+    <%= render partial: "exercises/index",
+               locals: {customized_tutorial: @customized_tutorial,exercises: @customized_tutorial.exercises} %>
+<% end %>
+
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
 
 <% if @customized_tutorial %>
     <%= render partial: 'topics/index',locals: {topicable:@customized_tutorial} %>

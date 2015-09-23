@@ -1,0 +1,14 @@
+  <div class="qa_object_item">
+    <div style="float:left">
+      <%=image_tag exercise.teacher.avatar.normal.url %>
+    </div>
+    <div class="title">
+      <%= link_to exercise.title, exercise_path(exercise) %>
+    </div>
+    <div class="info">
+      <%= [exercise.teacher.name,"#{exercise.created_at.to_formatted_s(:db)} 布置",
+           "批改了#{exercise.corrections_count}次",
+           "#{exercise.student.name}",
+           "写了#{exercise.solutions_count}次作业"].join(" • ")%>
+    </div>
+  </div>

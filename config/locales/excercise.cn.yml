@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    models:
+      exercise: 随堂作业
+    attributes:
+      exercise:
+        title: 作业说明
+        content: 作业内容

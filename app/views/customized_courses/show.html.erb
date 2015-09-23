@@ -15,6 +15,6 @@
           <div style="clear: both"></div>
         </div>
       </div>
-      <%= render @customized_course.customized_tutorials %>
+      <%= render @customized_course.customized_tutorials.order(:created_at) %>
     </div>
 <% end %>

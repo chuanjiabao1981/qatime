@@ -12,6 +12,9 @@ class Correction < ActiveRecord::Base
   def author_id
     self.teacher_id
   end
+  def author
+    self.teacher
+  end
 
 
   def notify
@@ -22,7 +25,7 @@ class Correction < ActiveRecord::Base
                             from: teacher.name,
                             to: student.name,
                             mobile: student.mobile,
-                            message: "#{Correction.model_name.human}你的#{Solution.model_name.human},请关注,"
+                            message: "批改了你的#{Solution.model_name.human},请关注,"
     )
 
 

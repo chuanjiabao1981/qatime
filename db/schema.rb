@@ -338,6 +338,11 @@ ActiveRecord::Schema.define(version: 20150920005600) do
     t.datetime "updated_at"
   end
 
+  create_table "searches", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "solutions", force: :cascade do |t|
     t.string   "title"
     t.text     "content"

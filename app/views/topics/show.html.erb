@@ -11,7 +11,7 @@
                 <h4><%= @topic.title %></h4>
               </div>
               <div style="color:gray;font-size: 10px;">
-                <%= @topic.author.name %> •  <%= time_ago_in_words(@topic.created_at) %>前
+                <%= @topic.author.name %> •  <%= localize(@topic.created_at,:format => :long) %> 创建
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@
     <%=image_tag reply.author.avatar.normal.url %>
   </div>
   <div class="qa_info">
-    <%= reply.author.name %> • 回答于<%= time_ago_in_words(reply.created_at) %>前
+    <%= reply.author.name %> • 回答于<%= localize(reply.created_at,:format => :long) %>
   </div>
   <div class="qa_content">
     <%if reply.video and reply.video.name  and reply.video.name.url %>

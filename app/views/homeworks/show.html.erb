@@ -13,7 +13,7 @@
           </h4>
         </div>
         <div class="info">
-          <%= @homework.teacher.name %> •  <%= time_ago_in_words(@homework.created_at) %>前
+          <%= @homework.teacher.name %> •  <%= localize(@homework.created_at,format: :long) %>布置
         </div>
 
         <div style="clear: both"></div>

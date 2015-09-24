@@ -19,6 +19,9 @@ class Homework < ActiveRecord::Base
 
 
 
+  def author
+    self.teacher
+  end
   def name
     self.title
   end

@@ -1,50 +1,7 @@
-<div class="qa_box">
-  <div class="qa_cell box_head">
+<%= render layout: 'shared/qa_objects/show',locals:{qa_object: @solution } do %>
     <%= link_to "#{@solution.model_name.human} / #{@solution.solutionable.title}" ,
-        send("#{@solution.solutionable.model_name.singular_route_key}_path",@solution.solutionable) %> / <%= Solution.model_name.human%>
-  </div>
-</div>
-<div class="qa_box">
-  <div class="qa_object">
-    <div class="header">
-
-      <div class="pull-right">
-        <%=image_tag @solution.student.avatar.normal.url %>
-      </div>
-      <div class="title">
-        <h4><%= @solution.title %></h4>
-      </div>
-      <div class="info">
-        <%= [@solution.student.name,"#{time_ago_in_words(@solution.created_at)}前"].join(" • ") %>
-      </div>
-    </div>
-
-    <div class="content">
-        <div class="body">
-          <%= @solution.content.html_safe %>
-        </div>
-        <%= render partial: 'shared/qa_files/qa_file', collection: @qa_files %>
-    </div>
-
-
-    <div class="footer">
-      <%= render partial:'comments/index',locals: {commentable: @solution} %>
-    </div>
-
-
-    <div class="operator">
-      <div class="pull-right">
-        <%= link_to_edit(@solution)%> &nbsp;
-        <%= link_to_destroy(@solution) %>
-      </div>
-    </div>
-
-    <div style="clear:both"></div>
-
-
-  </div>
-
-</div>
+                send("#{@solution.solutionable.model_name.singular_route_key}_path",@solution.solutionable) %> / <%= Solution.model_name.human%>
+<% end %>
 
 <div class="qa_sep_15"></div>
 <%= render partial: "corrections/index",locals: {solution: @solution} %>

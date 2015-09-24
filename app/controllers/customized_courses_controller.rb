@@ -35,11 +35,11 @@ class CustomizedCoursesController < ApplicationController
   end
 
   def topics
-    @topics = @customized_course.topics.order(:created_at).paginate(page: params[:page])
+    @topics = @customized_course.topics.order(created_at: :desc).paginate(page: params[:page])
   end
 
   def homeworks
-    @homeworks = @customized_course.homeworks.order(:created_at).paginate(page: params[:page])
+    @homeworks = @customized_course.homeworks.order(created_at: :desc).paginate(page: params[:page])
   end
   private
   def all_teacher

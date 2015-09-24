@@ -9,7 +9,7 @@
         </div>
         <div class="info">
             <%= topic.author.name %> •
-            <%= time_ago_in_words(topic.created_at) %>前发布 • <%=topic.replies_count%>个回复 •
+            <%= localize(topic.created_at,format: :long) %>创建 • <%=topic.replies_count%>个回复 •
             <%= link_to topic.topicable.name ,send("#{topic.topicable.model_name.singular_route_key}_path",topic.topicable) ,class: "qa_node"%>
 
         </div>

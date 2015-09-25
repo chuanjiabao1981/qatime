@@ -18,7 +18,6 @@ class ExercisesController < ApplicationController
   end
 
   def show
-    # @qa_files       = @exercise.qa_files.order(:created_at => "ASC")
     @solutions      = @exercise.solutions.order(:created_at).paginate(page: params[:page])
 
   end

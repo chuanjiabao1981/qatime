@@ -53,6 +53,7 @@ module Permissions
       allow :managers,[:customized_courses,] do |manager|
         manager.id == user.id
       end
+      allow :exercises,[:show]
       allow :sessions,[:destroy]
 
     end

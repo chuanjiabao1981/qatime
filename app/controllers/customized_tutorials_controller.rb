@@ -4,7 +4,6 @@ class CustomizedTutorialsController < ApplicationController
 
 
   include TopicsList
-  include QaFilesHelper
 
 
   def index
@@ -16,7 +15,7 @@ class CustomizedTutorialsController < ApplicationController
   end
 
   def create
-    @customized_tutorial = @customized_course.customized_tutorials.build(change_params_for_qa_files(params[:customized_tutorial]).permit!)
+    @customized_tutorial = @customized_course.customized_tutorials.build(params[:customized_tutorial].permit!)
     @customized_tutorial.teacher_id = current_user.id
 
     if @customized_tutorial.save
@@ -30,13 +29,12 @@ class CustomizedTutorialsController < ApplicationController
   end
 
   def update
-    @customized_tutorial.update_attributes(change_params_for_qa_files(params[:customized_tutorial]).permit!)
+    @customized_tutorial.update_attributes(params[:customized_tutorial].permit!)
     respond_with @customized_tutorial
   end
 
   def show
     @topics     = get_topics(@customized_tutorial)
-    @qa_files   = @customized_tutorial.qa_files.order(:created_at => "ASC")
   end
 
   private

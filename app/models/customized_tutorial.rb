@@ -9,11 +9,8 @@ class CustomizedTutorial < ActiveRecord::Base
 
   has_many   :topics        ,as: :topicable,:dependent => :destroy
 
-  has_many   :qa_files      , as: :qa_fileable #, :dependent => :destroy
   has_many   :exercises,-> { order 'created_at asc' },:dependent => :destroy
   has_many   :solutions,as: :solutionable,:dependent =>  :destroy
-
-  accepts_nested_attributes_for :qa_files, allow_destroy: true
 
 
   validates_presence_of :title,:customized_course,:teacher
@@ -25,6 +22,9 @@ class CustomizedTutorial < ActiveRecord::Base
     self.generate_token if  self.token == nil or self.token.empty?
   end
 
+  def author
+    self.teacher
+  end
   def author_id
     self.teacher_id
   end

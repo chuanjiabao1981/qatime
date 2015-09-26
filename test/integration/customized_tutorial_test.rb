@@ -33,6 +33,12 @@ class CustomizedTutorialIntegrateTest < LoginTestBase
     exercise = exercises(:exercise_one)
     assert exercise.valid?
 
+
+    if user.teacher?
+      user_session.assert_select 'a[href=?]',edit_customized_tutorial_path(@customized_tutorial),1
+    else
+      user_session.assert_select 'a[href=?]',edit_customized_tutorial_path(@customized_tutorial),0
+    end
     user_session.assert_select 'a[href=?]', exercise_path(exercise),1
     if user.teacher?
       user_session.assert_select 'a[href=?]', new_customized_tutorial_exercise_path(@customized_tutorial),1

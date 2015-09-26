@@ -43,11 +43,6 @@ class CustomizedCourseIntegrateTest < LoginTestBase
     @customized_course.customized_tutorials.each do |customized_tutorial|
       user_session.assert_select 'a[href=?]', customized_tutorial_path(customized_tutorial),1
       user_session.assert_select 'a', customized_tutorial.name
-      if user_session.cookies["remember_user_type"] == "teacher"
-        user_session.assert_select 'a[href=?]',edit_customized_tutorial_path(customized_tutorial),1
-      else
-        user_session.assert_select 'a[href=?]',edit_customized_tutorial_path(customized_tutorial),0
-      end
     end
 
   end

@@ -1,0 +1,6 @@
+<div class="qa_objects">
+  <%= render customized_tutorials %>
+</div>
+<% if defined?(customized_tutorials.total_pages) %>
+    <%= will_paginate customized_tutorials ,renderer: BootstrapPagination::Rails %>
+<% end %>

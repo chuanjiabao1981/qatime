@@ -17,11 +17,17 @@
     <div class="qa_cell">
       <%= @customized_tutorial.content %>
     </div>
-
-    <!--<%= render partial: 'shared/qa_files/qa_file', collection: @qa_files %>-->
+    <div class="qa_cell pull-right">
+      <%= link_to_edit(@customized_tutorial)%> &nbsp;
+      <%= link_to_destroy(@customized_tutorial) %>
+    </div>
+    <div style="clear: both"></div>
   </div>
 </div>
 
+
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
 <% if @customized_tutorial %>
     <%= render partial: "exercises/index",
                locals: {customized_tutorial: @customized_tutorial,exercises: @customized_tutorial.exercises} %>

@@ -16,7 +16,7 @@ class CustomizedCoursesController < ApplicationController
   end
 
   def show
-
+    @customized_tutorials = @customized_course.customized_tutorials.order(created_at: :desc).paginate(page: params[:page])
   end
 
   def edit

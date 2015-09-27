@@ -9,7 +9,7 @@
     <span class="badge"><%= solution.corrections_count %></span>
   </div>
   <div class="info">
-    <%= [solution.student.name,"#{solution.created_at.to_formatted_s(:db)}提交","#{solution.corrections_count}次批改"].join(" • ") %>
+    <%= [solution.student.name,"#{localize(solution.created_at,:format => :long)} 提交","#{solution.corrections_count}次批改"].join(" • ") %>
   </div>
 
   <div style="clear:both"></div>

@@ -11,6 +11,8 @@ class Solution < ActiveRecord::Base
   accepts_nested_attributes_for :qa_files, allow_destroy: true
 
 
+  self.per_page = 10
+
   def author
     self.student
   end

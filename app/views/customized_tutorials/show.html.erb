@@ -5,8 +5,7 @@
   </div>
   <div class="qa_box">
     <div class="qa_cell" style="height: 400px">
-        <%if @customized_tutorial.video and @customized_tutorial.video.name %>
-
+        <%if @customized_tutorial.video and @customized_tutorial.video.name and @customized_tutorial.video.name.url%>
             <%= video_js_player(@customized_tutorial.video) %>
         <% else %>
             视频未上传

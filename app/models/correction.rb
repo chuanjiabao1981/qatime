@@ -9,6 +9,9 @@ class Correction < ActiveRecord::Base
   has_one     :video,as: :videoable
   has_many    :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
 
+  self.per_page = 10
+
+
   def author_id
     self.teacher_id
   end

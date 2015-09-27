@@ -18,7 +18,7 @@ class Homework < ActiveRecord::Base
   has_many        :solutions,as: :solutionable,:dependent =>  :destroy
 
 
-
+  self.per_page = 10
   def author
     self.teacher
   end

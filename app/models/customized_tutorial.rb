@@ -15,7 +15,7 @@ class CustomizedTutorial < ActiveRecord::Base
 
   validates_presence_of :title,:customized_course,:teacher
 
-
+  self.per_page = 10
 
   def initialize(attributes = {})
     super(attributes)

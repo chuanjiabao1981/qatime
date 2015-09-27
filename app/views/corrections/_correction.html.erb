@@ -3,7 +3,7 @@
     <%=image_tag correction.teacher.avatar.normal.url %>
   </div>
   <div class="info">
-    <%= [correction.teacher.name,"#{time_ago_in_words(correction.created_at)}前发布"].join(" • ")%>
+    <%= [correction.teacher.name,"#{localize(correction.created_at,:format => :long)} 批改"].join(" • ")%>
   </div>
   <div class="content">
     <%if correction.video and correction.video.name  and correction.video.name.url %>

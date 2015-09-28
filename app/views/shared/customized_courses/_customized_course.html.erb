@@ -1,15 +1,8 @@
 <% if customized_course_counter == 0 %>
     <div class="row qa_cell" style="font-weight: bold">
 
-      <div class="col-md-3">
+      <div class="col-md-2">
         <%= CustomizedCourse.model_name.human %>
-      </div>
-
-      <div class="col-md-1">
-        <%= CustomizedCourse.human_attribute_name(:category) %>
-      </div>
-      <div class="col-md-1">
-        <%= CustomizedCourse.human_attribute_name(:subject) %>
       </div>
       <div class="col-md-1">
         <%= CustomizedCourse.human_attribute_name(:teachers) %>
@@ -24,23 +17,25 @@
         <%= Homework.model_name.human %>
       </div>
       <div class="col-md-2">
+        超过3天未写的家庭作业数量
+      </div>
+      <div class="col-md-2">
         <%= CustomizedCourse.human_attribute_name(:topics) %>
 
       </div>
     </div>
 <% end %>
 <div class="row qa_cell">
-  <div class="col-md-3">
-    <%=link_to  customized_course_full_name(customized_course),
+  <div class="col-md-2">
+    <%=link_to  "#{customized_course.category}-#{customized_course.subject}",
                 customized_course_path(customized_course)
     %>
   </div>
-  <div class="col-md-1"><%= customized_course.category %></div>
-  <div class="col-md-1"><%= customized_course.subject %></div>
   <div class="col-md-1"><%= customized_course.teachers.map {|t| t.name}.join(",") %></div>
   <div class="col-md-1"><%= customized_course.student.name %></div>
   <div class="col-md-1"><%= customized_course.customized_tutorials_count%></div>
   <div class="col-md-2"><%= customized_course.homeworks_count%></div>
+  <div class="col-md-2"><%= customized_course.timeout_to_solve_homeworks.count%></div>
   <div class="col-md-2"><%= customized_course.topics_count%></div>
 
 </div>

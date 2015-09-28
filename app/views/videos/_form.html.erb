@@ -4,8 +4,8 @@
     <%=f.input :name %>
     <%=f.input :token,as: :hidden %>
     <div id="video_show" class="rel" style="width:820px;height:385px;border:4px gray dotted">
-      <%= render partial: 'videos/video',object: video unless video.name.url.nil?%></div>
-    </video>
+      <%= render partial: 'videos/video',object: video unless video.nil? or video.name.url.nil?%>
+    </div>
 <% end %>
 
 <script>

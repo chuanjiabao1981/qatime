@@ -19,7 +19,7 @@ class SolutionsController < ApplicationController
 
   def show
     @correction = Correction.new
-    @corrections = @solution.corrections.order(:created_at).paginate(page: params[:page])
+    @corrections = @solution.corrections.order(:created_at => :desc).paginate(page: params[:page])
     @qa_files   = @solution.qa_files.order(:created_at => "ASC")
 
   end

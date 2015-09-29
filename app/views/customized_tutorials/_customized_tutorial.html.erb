@@ -6,7 +6,7 @@
     <%= link_to customized_tutorial.title, customized_tutorial_path(customized_tutorial) %>
   </div>
   <div class="info">
-    <%= [customized_tutorial.teacher.name,"#{localize(customized_tutorial.created_at,format: :long)} 发布",
+    <%= [customized_tutorial.teacher.view_name,"#{localize(customized_tutorial.created_at,format: :long)} 发布",
          "布置了#{customized_tutorial.exercises_count}次#{Exercise.model_name.human}",
          "#{customized_tutorial.topics_count}次#{Topic.model_name.human}"].join(" • ")%>
   </div>

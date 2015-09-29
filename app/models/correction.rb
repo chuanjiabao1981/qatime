@@ -25,8 +25,8 @@ class Correction < ActiveRecord::Base
     student           = self.solution.student
 
     SmsWorker.perform_async(SmsWorker::NOTIFY,
-                            from: teacher.name,
-                            to: student.name,
+                            from: teacher.view_name,
+                            to: student.view_name,
                             mobile: student.mobile,
                             message: "批改了你的#{Solution.model_name.human},请关注,"
     )

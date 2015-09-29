@@ -3,7 +3,8 @@
     <% end %>
 
     <% if current_user and not current_user.student? %>
-        <%= render partial: 'videos/form',locals:{video: @reply.video,collapse: true} %>
+        <%= video_submit_form @reply,true %>
+
     <% end %>
 
     <div class="qa_box">

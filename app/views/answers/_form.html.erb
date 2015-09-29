@@ -16,7 +16,7 @@
     <% end %>
 
     <% if current_user and not current_user.student? %>
-        <%= render partial: 'videos/form',locals:{video: @answer.video,collapse: true} %>
+        <%= video_submit_form @answer,true %>
     <% end %>
 
     <%=simple_form_for [@answer.question,@answer] do |f| %>

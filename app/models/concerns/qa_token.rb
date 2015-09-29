@@ -31,14 +31,6 @@ module QaToken
   def __fill_token
     if defined? self.video
       self.token = generate_token if self.token == nil
-      # self.video = Video.where(token: self.token).order(created_at: :desc).first
-      #
-      # if self.video.nil?
-      #   self.build_video
-      #   self.video.token = self.token
-      # end
-      #
-      # self.video.author_id = self.author_id
     end
 
     if defined? self.pictures

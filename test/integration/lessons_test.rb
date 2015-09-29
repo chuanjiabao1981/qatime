@@ -51,7 +51,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
         l = Lesson.all.order(:created_at => :desc).first
 
         # 判断video链接是否存在
-        page.has_xpath?("//video[contains(@src,l.video.name)]")
+        page.has_xpath?("//video[contains(@src,\"#{l.video.name}\")]")
 
       end
     end
@@ -213,7 +213,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
     #判断video链接是否存在
 
     click_button '确定'
-    page.has_xpath?("//video[contains(@src,l.video.name)]")
+    page.has_xpath?("//video[contains(@src,\"#{l.video.name}\")]")
 
 
     #page.save_screenshot('screenshot.png')

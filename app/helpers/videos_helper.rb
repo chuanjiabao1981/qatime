@@ -37,13 +37,14 @@ module VideosHelper
   end
 
 
-  def video_submit_form(videoable)
+  def video_submit_form(videoable,collapse=false)
+
     video = videoable.video
     if video.nil?
       video = videoable.build_video
       video.token = videoable.token
     end
-    render partial: 'videos/form',locals:{video: video}
+    render partial: 'videos/form',locals:{video: video,collapse: collapse}
   end
 
 end

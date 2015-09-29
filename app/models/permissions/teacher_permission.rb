@@ -92,7 +92,8 @@ module Permissions
         user and customized_course.teacher_ids.include?(user.id)
       end
       allow :customized_tutorials,[:show,:edit,:update] do |customized_tutorial|
-        user and customized_tutorial.teacher_id == user.id
+        user and (customized_tutorial.teacher_id == user.id or
+                    customized_tutorial.customized_course.teacher_ids.include?(user.id))
       end
 
       allow :homeworks,[:new,:create] do |customized_course|
@@ -100,7 +101,7 @@ module Permissions
       end
 
       allow :homeworks,[:show,:edit,:update] do |homework|
-        homework and homework.teacher_id == user.id
+        homework and homework.teacher_id == user.id or homework.customized_course.teacher_ids.include?(user.id)
       end
 
       allow :solutions,[:show] do |solution|
@@ -120,7 +121,9 @@ module Permissions
       end
 
       allow :exercises,[:show,:edit,:update] do |exercise|
-        exercise and exercise.teacher_id == user.id
+        exercise and
+            (exercise.teacher_id == user.id or
+                exercise.customized_tutorial.customized_course.teacher_ids.include?(user.id))
       end
 
     end
@@ -130,7 +133,8 @@ private
       if solution.solutionable.instance_of? Homework
         solution.solutionable.customized_course.teacher_ids.include?(user.id)
       elsif solution.solutionable.instance_of? Exercise
-        solution.solutionable.customized_tutorial.teacher_id == user.id
+        solution.solutionable.customized_tutorial.teacher_id == user.id or
+            solution.solutionable.customized_tutorial.customized_course.teacher_ids.include?(user.id)
       end
     end
     def topicable_permission(topicable,user)
@@ -138,7 +142,7 @@ private
       if topicable.instance_of? CustomizedCourse
         topicable.teacher_ids.include?(user.id)
       elsif topicable.instance_of? CustomizedTutorial
-        topicable.teacher_id == user.id
+        topicable.teacher_id == user.id or topicable.customized_course.teacher_ids.include?(user.id)
       elsif topicable.instance_of? Homework
         topicable.customized_course.teacher_ids.include?(user.id)
       elsif topicable.instance_of? Lesson

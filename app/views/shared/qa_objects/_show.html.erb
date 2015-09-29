@@ -16,7 +16,7 @@
         <h4><%= qa_object.title %></h4>
       </div>
       <div class="info">
-        <%= [qa_object.author.name,"#{localize(qa_object.created_at,:format => :long)} 创建"].join(" • ") %>
+        <%= [qa_object.author.view_name,"#{localize(qa_object.created_at,:format => :long)} 创建"].join(" • ") %>
       </div>
     </div>
 

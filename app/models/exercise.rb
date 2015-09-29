@@ -20,7 +20,11 @@ class Exercise < ActiveRecord::Base
   accepts_nested_attributes_for :qa_files, allow_destroy: true
   has_many        :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
 
-
+  scope timeout_to_solve ,lambda {|customized_course_id| joins(:customized_tutorial => :customized_course)
+                                                             .where(solutions_count:0,customized_tutorials:{customized_course_id: customized_course_id})
+                                                             .where("exercises.created_at < ?", 3.day.ago)
+                         }
+  # scope timeout_to_correction
   def author
     self.teacher
   end
@@ -29,8 +33,8 @@ class Exercise < ActiveRecord::Base
     student           = self.customized_tutorial.customized_course.student
 
     SmsWorker.perform_async(SmsWorker::NOTIFY,
-                            from: teacher.name,
-                            to: student.name,
+                            from: teacher.view_name,
+                            to: student.view_name,
                             mobile: student.mobile,
                             message: "布置了#{Exercise.model_name.human},请及时完成,"
     )

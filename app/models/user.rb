@@ -45,6 +45,12 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
+  def view_name
+    return name unless teacher?
+    return nick_name unless nick_name.nil? or nick_name.strip.empty?
+    return "#{name[0]}老师"
+  end
+
   def admin?
     return true if self.role == "admin"
     false

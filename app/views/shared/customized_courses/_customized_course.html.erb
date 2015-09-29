@@ -31,7 +31,7 @@
                 customized_course_path(customized_course)
     %>
   </div>
-  <div class="col-md-1"><%= customized_course.teachers.map {|t| t.name}.join(",") %></div>
+  <div class="col-md-1"><%= customized_course.teachers.map {|t| t.view_name}.join(",") %></div>
   <div class="col-md-1"><%= customized_course.student.name %></div>
   <div class="col-md-1"><%= customized_course.customized_tutorials_count%></div>
   <div class="col-md-2"><%= customized_course.homeworks_count%></div>

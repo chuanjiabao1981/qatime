@@ -2,8 +2,8 @@ module VideosHelper
   def video_js_player(video,*args)
     options = { width: 810,
                 height: 375,
-                class: 'video-js vjs-default-skin vjs-big-play-centered video-center',
-                data:  {setup:{controls: true}}
+                class: 'video-js vjs-default-skin vjs-big-play-centered video-center vjs-fade-out',
+                data:  {setup:{controls: true, preload:"auto"}}
                }.merge args.extract_options!
     content_tag :video, options do
       if video.convert_success?

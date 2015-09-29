@@ -29,6 +29,7 @@ function video_load(player_id)
         // How about an event listener?
         this.on('ended', function() {
             console.log('awww...over so soon?');
+
         });
 
     });

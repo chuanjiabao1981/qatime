@@ -8,6 +8,9 @@
   <div class="qa_content">
     <%if reply.video and reply.video.name  and reply.video.name.url %>
         <%= video_js_player(reply.video) %>
+        <%if reply.video.duration and reply.video.duration > 0 %>
+            视频时长<%= Time.at(reply.video.duration).utc.strftime("%H:%M:%S") %>
+        <% end %>
     <% end %>
 
     <%= reply.content.html_safe %>

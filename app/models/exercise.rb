@@ -20,7 +20,7 @@ class Exercise < ActiveRecord::Base
   accepts_nested_attributes_for :qa_files, allow_destroy: true
   has_many        :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
 
-  scope timeout_to_solve ,lambda {|customized_course_id| joins(:customized_tutorial => :customized_course)
+  scope :timeout_to_solve ,lambda {|customized_course_id| joins(:customized_tutorial => :customized_course)
                                                              .where(solutions_count:0,customized_tutorials:{customized_course_id: customized_course_id})
                                                              .where("exercises.created_at < ?", 3.day.ago)
                          }

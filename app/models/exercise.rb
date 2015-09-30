@@ -24,7 +24,7 @@ class Exercise < ActiveRecord::Base
                                                              .where(solutions_count:0,customized_tutorials:{customized_course_id: customized_course_id})
                                                              .where("exercises.created_at < ?", 3.day.ago)
                          }
-  # scope timeout_to_correction
+  #scope :timeout_to_correction
   def author
     self.teacher
   end

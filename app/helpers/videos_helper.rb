@@ -3,7 +3,7 @@ module VideosHelper
     options = { width: 810,
                 height: 375,
                 class: 'video-js vjs-default-skin vjs-big-play-centered video-center',
-                data:  {setup:{controls: true, preload:"auto"}}
+                data:  {setup:{controls: true}}
                }.merge args.extract_options!
     content_tag :video, options do
       if video.convert_success?

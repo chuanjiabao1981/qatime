@@ -8,7 +8,7 @@
         <%if @customized_tutorial.video and @customized_tutorial.video.name and @customized_tutorial.video.name.url%>
             <%= video_js_player(@customized_tutorial.video) %>
             <%if @customized_tutorial.video.duration and @customized_tutorial.video.duration > 0 %>
-                视频时长<%= Time.at(@customized_tutorial.video.duration).utc.strftime("%H:%M:%S") %>
+                视频时长<%= video_duration_format(@customized_tutorial.video.duration) %>
             <% end %>
         <% else %>
             视频未上传

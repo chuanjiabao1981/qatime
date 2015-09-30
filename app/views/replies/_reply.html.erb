@@ -3,18 +3,17 @@
     <%=image_tag reply.author.avatar.normal.url %>
   </div>
   <div class="qa_info">
-    <%= reply.author.view_name %> • 回答于<%= localize(reply.created_at,:format => :long) %>
+    <%if reply.video and reply.video.duration and reply.video.duration > 0 %>
+        <%= reply.author.view_name %> • 回答于<%= localize(reply.created_at,:format => :long) %> • 视频时长<%= video_duration_format(reply.video.duration) %>
+    <% else %>
+        <%= reply.author.view_name %> • 回答于<%= localize(reply.created_at,:format => :long) %>
+    <% end %>
+
   </div>
   <div class="qa_content">
     <%if reply.video and reply.video.name  and reply.video.name.url %>
-        <div class="qa_cell" style="height: 410px">
-            <%= video_js_player(reply.video) %>
-            <%if reply.video.duration and reply.video.duration > 0 %>
-                视频时长<%= Time.at(reply.video.duration).utc.strftime("%H:%M:%S") %>
-            <% end %>
-        </div>
+        <%= video_js_player(reply.video) %>
     <% end %>
-
     <%= reply.content.html_safe %>
   </div>
   <div class="pull-right qa_footer">

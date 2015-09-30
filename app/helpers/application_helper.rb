@@ -51,4 +51,11 @@ module ApplicationHelper
     end
     s
   end
+
+  def video_duration_format(duration)
+    seconds = duration % 60
+    minutes = duration / 60
+
+    format("%02d分钟%02d秒", minutes, seconds)
+  end
 end

@@ -3,11 +3,7 @@
     <%=image_tag correction.teacher.avatar.normal.url %>
   </div>
   <div class="info">
-    <%if correction.video and correction.video.duration and correction.video.duration > 0 %>
-        <%= [correction.teacher.view_name,"#{localize(correction.created_at,:format => :long)} 批改"].join(" • ")%> • 视频时长<%= video_duration_format(correction.video.duration) %>
-    <% else %>
-        <%= [correction.teacher.view_name,"#{localize(correction.created_at,:format => :long)} 批改"].join(" • ")%>
-    <% end %>
+    <%= [correction.teacher.view_name,"#{localize(correction.created_at,:format => :long)} 批改"].join(" • ")%><%= video_duration_format(correction) %>
   </div>
   <div class="content">
     <%if correction.video and correction.video.name  and correction.video.name.url %>

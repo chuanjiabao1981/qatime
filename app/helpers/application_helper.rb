@@ -52,10 +52,21 @@ module ApplicationHelper
     s
   end
 
-  def video_duration_format(duration)
+  def second_to_minutes(duration)
     seconds = duration % 60
     minutes = duration / 60
 
     format("%02d分钟%02d秒", minutes, seconds)
   end
+
+  def video_duration_format(object)
+    if object.video and object.video.duration and object.video.duration > 0
+       content = " • 视频时长" + second_to_minutes(object.video.duration)
+    else
+      content = ""
+    end
+
+    content
+  end
+
 end

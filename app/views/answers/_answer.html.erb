@@ -4,11 +4,7 @@
     <%=image_tag answer.teacher.avatar.normal.url %>
   </div>
   <div class="qa_info">
-    <%if answer.video and answer.video.duration and answer.video.duration > 0 %>
-        <%= answer.teacher.name %> • 回答于<%= time_ago_in_words(answer.created_at) %>前 • 视频时长<%= video_duration_format(answer.video.duration) %>
-    <% else %>
-        <%= answer.teacher.name %> • 回答于<%= time_ago_in_words(answer.created_at) %>前
-    <% end %>
+    <%= answer.teacher.name %> • 回答于<%= time_ago_in_words(answer.created_at) %>前<%= video_duration_format(answer) %>
   </div>
 
   <div class="qa_content">

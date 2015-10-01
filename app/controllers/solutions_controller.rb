@@ -8,8 +8,8 @@ class SolutionsController < ApplicationController
   end
 
   def create
-    @solution = @solutionable.solutions.build(change_params_for_qa_files(params[:solution]).permit!)
-    @solution.student = current_user
+    @solution                   = @solutionable.solutions.build(change_params_for_qa_files(params[:solution]).permit!)
+    @solution.student           = current_user
     if @solution.save
       flash[:success] = "成功创建#{Solution.model_name.human}"
       @solution.notify
@@ -43,11 +43,11 @@ class SolutionsController < ApplicationController
   private
   def current_resource
     if params[:homework_id]
-      @solutionable = Homework.find(params[:homework_id])
+      @solutionable       = Homework.find(params[:homework_id])
       r = @solutionable
     end
     if params[:exercise_id]
-      @solutionable = Exercise.find(params[:exercise_id])
+      @solutionable       = Exercise.find(params[:exercise_id])
       r = @solutionable
     end
     if params[:id]

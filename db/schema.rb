@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922224445) do
+ActiveRecord::Schema.define(version: 20151001111946) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,9 +54,10 @@ ActiveRecord::Schema.define(version: 20150922224445) do
     t.integer  "teacher_id"
     t.integer  "solution_id"
     t.string   "token"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
-    t.integer  "comments_count", default: 0
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "comments_count",       default: 0
+    t.integer  "customized_course_id"
   end
 
   create_table "course_purchase_records", force: :cascade do |t|
@@ -139,6 +140,7 @@ ActiveRecord::Schema.define(version: 20150922224445) do
     t.datetime "updated_at",                         null: false
     t.integer  "comments_count",         default: 0
     t.integer  "student_id"
+    t.integer  "customized_course_id"
   end
 
   create_table "faq_topics", force: :cascade do |t|
@@ -331,8 +333,9 @@ ActiveRecord::Schema.define(version: 20150922224445) do
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "token",      limit: 255
+    t.string   "token",                limit: 255
     t.integer  "author_id"
+    t.integer  "customized_course_id"
   end
 
   create_table "review_records", force: :cascade do |t|
@@ -363,11 +366,12 @@ ActiveRecord::Schema.define(version: 20150922224445) do
     t.integer  "solutionable_id"
     t.integer  "student_id"
     t.string   "token"
-    t.integer  "corrections_count", default: 0
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-    t.integer  "comments_count",    default: 0
+    t.integer  "corrections_count"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "comments_count",       default: 0
     t.string   "solutionable_type"
+    t.integer  "customized_course_id"
   end
 
   create_table "teaching_programs", force: :cascade do |t|
@@ -410,6 +414,7 @@ ActiveRecord::Schema.define(version: 20150922224445) do
     t.integer  "delete_learning_plan_id"
     t.integer  "teacher_id"
     t.string   "topicable_type"
+    t.integer  "customized_course_id"
   end
 
   create_table "users", force: :cascade do |t|

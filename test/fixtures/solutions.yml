@@ -9,6 +9,7 @@ homework_solution_one:
   content: homework solution test content
   solutionable: homework1 (Homework)
   student: student1
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
 # column: value
 #
 two: {}

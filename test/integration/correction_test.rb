@@ -13,7 +13,7 @@ class CorrectionIntegrateTest < LoginTestBase
 
 
 
-  test "correction create" do
+  test 'correction create' do
 
     create_page(@teacher,@teacher_session)
     create_page(@student,@student_session)
@@ -72,6 +72,8 @@ class CorrectionIntegrateTest < LoginTestBase
     assert_difference 'Correction.count',1 do
       user_session.post create_path,correction:{content: content}
       new_correction = @solution.corrections.order(created_at: :asc).last
+
+      assert new_correction.customized_course_id == @solution.customized_course_id,"not equal"
       user_session.assert_redirected_to solution_path(@solution)
       user_session.follow_redirect!
       user_session.assert_select 'div',new_correction.content

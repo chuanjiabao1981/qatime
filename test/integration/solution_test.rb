@@ -123,6 +123,8 @@ class SolutionIntegrateTest < LoginTestBase
     assert_difference 'Solution.count',1 do
       user_session.post create_path, solution:{title: title,content: "22233442"}
       new_solution = Solution.where(title: title).order(:created_at).last
+      #这里假设solutionable是给homework不是exercise
+      assert new_solution.customized_course_id == new_solution.solutionable.customized_course_id
       user_session.assert_redirected_to homework_solution_path(@homework,new_solution)
       user_session.follow_redirect!
       user_session.assert_select 'h4',title

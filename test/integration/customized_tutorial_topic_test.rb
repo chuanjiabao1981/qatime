@@ -95,6 +95,7 @@ class TutorialTopicsTest < LoginTestBase
       title = "okokokkokokok测试一下哈哈哈哈哈哈哈+++sdafdaf"
       user_session.post customized_tutorial_topics_path(@topic.topicable),topic:{title: title,content: "222222222222333334444444555555"}
       new_topic =  Topic.where(title: title).order(:created_at).last
+      assert new_topic.customized_course_id == new_topic.customized_course_id
       user_session.assert_redirected_to topic_path(new_topic)
     end
 

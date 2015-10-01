@@ -7,7 +7,12 @@ class CustomizedTutorial < ActiveRecord::Base
 
   has_one    :video,:dependent => :destroy,as: :videoable
 
-  has_many   :topics        ,as: :topicable,:dependent => :destroy
+  has_many   :topics        ,as: :topicable,:dependent => :destroy do
+    def build(attributes={})
+      attributes[:customized_course_id] = proxy_association.owner.customized_course_id
+      super attributes
+    end
+  end
 
   has_many   :exercises,-> { order 'created_at asc' },:dependent => :destroy
   has_many   :solutions,as: :solutionable,:dependent =>  :destroy

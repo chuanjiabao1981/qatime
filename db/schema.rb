@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150930065701) do
+ActiveRecord::Schema.define(version: 20150930224154) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -342,8 +342,9 @@ ActiveRecord::Schema.define(version: 20150930065701) do
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "token",      limit: 255
+    t.string   "token",                limit: 255
     t.integer  "author_id"
+    t.integer  "customized_course_id"
   end
 
   create_table "review_records", force: :cascade do |t|
@@ -422,6 +423,7 @@ ActiveRecord::Schema.define(version: 20150930065701) do
     t.integer  "delete_learning_plan_id"
     t.integer  "teacher_id"
     t.string   "topicable_type"
+    t.integer  "customized_course_id"
   end
 
   create_table "users", force: :cascade do |t|

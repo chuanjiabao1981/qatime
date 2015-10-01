@@ -9,9 +9,14 @@ class Exercise < ActiveRecord::Base
 
 
 
-  has_many        :qa_files      , -> { order 'created_at asc' },as: :qa_fileable #, :dependent => :destroy
-  has_many        :pictures,as: :imageable#,:dependent => :destroy
-  has_many        :solutions,as: :solutionable,:dependent =>  :destroy
+  has_many        :qa_files      , -> { order 'created_at asc' },as: :qa_fileable
+  has_many        :pictures,as: :imageable
+  has_many        :solutions,as: :solutionable,:dependent =>  :destroy do
+  def build(attributes={})
+    attributes[:customized_course_id] = proxy_association.owner.customized_tutorial.customized_course_id
+    super attributes
+  end
+end
 
 
   belongs_to      :customized_tutorial,counter_cache: true

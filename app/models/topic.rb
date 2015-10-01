@@ -11,7 +11,14 @@ class Topic < ActiveRecord::Base
   belongs_to :teacher
 
 
-  has_many :replies,:dependent => :destroy
+  has_many :replies,:dependent => :destroy do
+    def build(attribute={})
+      if not proxy_association.owner.customized_course_id.nil?
+        attribute[:customized_course_id] = proxy_association.owner.customized_course_id
+      end
+      super attribute
+    end
+  end
   has_many :pictures,as: :imageable
 
   #,:dependent => :destroy
@@ -22,6 +29,7 @@ class Topic < ActiveRecord::Base
     .order("created_at desc").paginate(page: params[:page],:per_page => 10)
   }
   validates_presence_of :author,:topicable,:author
+
 
 
 

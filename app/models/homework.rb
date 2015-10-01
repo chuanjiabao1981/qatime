@@ -15,8 +15,12 @@ class Homework < ActiveRecord::Base
 
   accepts_nested_attributes_for :qa_files, allow_destroy: true
 
-  has_many        :solutions,as: :solutionable,:dependent =>  :destroy
-
+  has_many        :solutions,as: :solutionable,:dependent =>  :destroy  do
+    def build(attributes={})
+      attributes[:customized_course_id] = proxy_association.owner.customized_course_id
+      super attributes
+    end
+  end
 
   self.per_page = 10
   def author

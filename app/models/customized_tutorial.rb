@@ -7,6 +7,8 @@ class CustomizedTutorial < ActiveRecord::Base
 
   has_one    :video,:dependent => :destroy,as: :videoable
 
+  has_one    :fee, as: :feeable
+
   has_many   :topics        ,as: :topicable,:dependent => :destroy do
     def build(attributes={})
       attributes[:customized_course_id] = proxy_association.owner.customized_course_id

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customized_course_id: 1
+  feedable_id: 1
+  feeable_type: MyString
+  value: 1.5
+  status: MyString
+
+two:
+  customized_course_id: 1
+  feedable_id: 1
+  feeable_type: MyString
+  value: 1.5
+  status: MyString

@@ -19,6 +19,11 @@ class Teacher < User
   has_many :customized_tutorials,:dependent => :destroy
   has_many :question_assignments,:dependent => :destroy
   has_many :questions ,:through => :question_assignments
+
+  has_many :corrections
+  has_many :replies
+
+
   belongs_to :school
   attr_accessor :accept
 
@@ -29,6 +34,7 @@ class Teacher < User
   scope :by_school,  lambda {|s| where(school_id: s) if s}
   scope :by_vip_class, lambda{|vip_class| includes(:school).order("schools.name desc").by_subject(vip_class.subject).by_category(vip_class.category) }
 
+  include AccountWithdraw
 
   def initialize(attributes = {})
     super(attributes)
@@ -43,5 +49,21 @@ class Teacher < User
     s
   end
 
+  def withdraw
+    account = self.account
+    # 获取到该老师所有的专属课堂的费用
 
+    teacher.customized_tutorials.where("status=? and customized_course_id is NOT NULL", false).each do |customized_tutorial|
+      withdraw_process(customized_tutorial, account)
+    end
+
+    # 获取到该老师所有作业批改的费用
+    teacher.corrections.where("status=? and customized_course_id is NOT NULL", false).each do |correction|
+      withdraw_process(correction, account)
+    end
+
+    teacher.replies.where("status=? and customized_course_id is NOT NULL", false).each do |reply|
+      withdraw_process(reply, account)
+    end
+  end
 end

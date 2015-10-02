@@ -9,6 +9,8 @@ class Correction < ActiveRecord::Base
   has_one     :video,as: :videoable
   has_many    :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
 
+
+  after_save :__after_save
   self.per_page = 5
 
 
@@ -31,7 +33,13 @@ class Correction < ActiveRecord::Base
                             message: "批改了你的#{Solution.model_name.human},请关注,"
     )
 
-
   end
+
+  private
+  def __after_save
+    self.solution.update_correction_infos(self)
+  end
+
+
 
 end

@@ -15,7 +15,14 @@ class Solution < ActiveRecord::Base
   has_many        :qa_files, as: :qa_fileable
   accepts_nested_attributes_for :qa_files, allow_destroy: true
 
+  scope :timeout_to_correct ,lambda {|customized_course_id|
+                              where(customized_course_id: customized_course_id)
+                                  .where(corrections_count: 0)
+                                  .where("created_at <= ?",3.days.ago)
+                            }
 
+  belongs_to :first_correction_author,:class_name => "User"
+  belongs_to :last_correction_author,:class => "User"
   self.per_page = 10
 
   def author
@@ -34,6 +41,16 @@ class Solution < ActiveRecord::Base
                            )
 
 
+  end
+
+  def update_correction_infos(correction)
+    if self.first_correction_author.nil?
+      self.first_correction_author_id     = correction.author.id
+      self.first_correction_created_at    = correction.created_at
+    end
+    self.last_correction_author_id        = correction.author.id
+    self.last_correction_created_at       = correction.created_at
+    self.save
   end
 
 end

@@ -11,17 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151001111946) do
+ActiveRecord::Schema.define(version: 20151002033106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
-    t.integer  "student_id"
-    t.integer  "money",        default: 0
-    t.integer  "lock_version", default: 0
+    t.integer  "money",      default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "answers", force: :cascade do |t|
@@ -129,6 +128,14 @@ ActiveRecord::Schema.define(version: 20151001111946) do
     t.integer  "exercises_count",      default: 0
   end
 
+  create_table "deposits", force: :cascade do |t|
+    t.integer  "user_id"
+    t.float    "value"
+    t.boolean  "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "exercises", force: :cascade do |t|
     t.string   "token"
     t.string   "title"
@@ -165,6 +172,16 @@ ActiveRecord::Schema.define(version: 20151001111946) do
   end
 
   add_index "faqs", ["user_id"], name: "index_faqs_on_user_id", using: :btree
+
+  create_table "fees", force: :cascade do |t|
+    t.integer  "customized_course_id"
+    t.integer  "feedable_id"
+    t.string   "feeable_type"
+    t.float    "value"
+    t.string   "status"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
 
   create_table "homeworks", force: :cascade do |t|
     t.integer  "customized_course_id"
@@ -366,7 +383,7 @@ ActiveRecord::Schema.define(version: 20151001111946) do
     t.integer  "solutionable_id"
     t.integer  "student_id"
     t.string   "token"
-    t.integer  "corrections_count"
+    t.integer  "corrections_count",    default: 0
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.integer  "comments_count",       default: 0

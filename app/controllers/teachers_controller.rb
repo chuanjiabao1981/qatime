@@ -11,6 +11,7 @@ class TeachersController < ApplicationController
 
   def create
     @teacher = Teacher.new(params[:teacher].permit!)
+    @teacher.build_account
     if @teacher.save
       SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @teacher.id)
       if signed_in?

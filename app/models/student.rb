@@ -1,6 +1,7 @@
 class Student < User
   default_scope {where(role: 'student')}
-  has_one  :account
+
+  has_many :deposits
   has_many :recharge_records
 
   has_many :courses,:through => :course_purchase_records

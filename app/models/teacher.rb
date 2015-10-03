@@ -50,15 +50,15 @@ class Teacher < User
 
   def keep_account
     account = self.account
-    CustomizedTutorial.by_teacher(self.id).invalid_tally_unit.each do |customized_tutorial|
+    CustomizedTutorial.by_teacher(self.id).valid_tally_unit.each do |customized_tutorial|
       customized_tutorial.keep_account(account)
     end
 
-    Correction.by_teacher(self.id).invalid_tally_unit.each do |correction|
+    Correction.by_teacher(self.id).valid_tally_unit.each do |correction|
       correction.keep_account(account)
     end
 
-    Reply.by_teacher(self.id).invalid_tally_unit.each do |reply|
+    Reply.by_teacher(self.id).valid_tally_unit.each do |reply|
       reply.keep_account(account)
     end
   end

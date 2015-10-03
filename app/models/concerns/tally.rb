@@ -1,7 +1,7 @@
 module Tally
   extend ActiveSupport::Concern
   included do
-    scope :invalid_tally_unit, -> { where("customized_course_id <> ''").where(:status => "open") }
+    scope :valid_tally_unit, -> { where("customized_course_id is not null").where(:status => "open") }
 
     def create_fee
       price_per_minute = 1

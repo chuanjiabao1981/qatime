@@ -15,9 +15,11 @@
       <li role="presentation" class=<%= "active" if action_name == "topics" %>>
         <%= link_to CustomizedCourse.human_attribute_name(:topics),topics_customized_course_path(@customized_course) %>
       </li>
+      <% if not current_user.student? %>
       <li role="presentation" class=<%= "active" if action_name == "solutions" %>>
         <%= link_to CustomizedCourse.human_attribute_name(:solutions),solutions_customized_course_path(@customized_course) %>
       </li>
+      <% end %>
     </ul>
   </div>
   <%= yield %>

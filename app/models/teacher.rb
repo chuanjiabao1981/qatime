@@ -33,8 +33,7 @@ class Teacher < User
   scope :by_subject, lambda {|s| where(subject: s) if s}
   scope :by_school,  lambda {|s| where(school_id: s) if s}
   scope :by_vip_class, lambda{|vip_class| includes(:school).order("schools.name desc").by_subject(vip_class.subject).by_category(vip_class.category) }
-
-  include AccountWithdraw
+  scope :by_customized_tutorials, lambda {|c| where(category: c) if c}
 
   def initialize(attributes = {})
     super(attributes)
@@ -49,21 +48,18 @@ class Teacher < User
     s
   end
 
-  def withdraw
+  def keep_account
     account = self.account
-    # 获取到该老师所有的专属课堂的费用
-
-    teacher.customized_tutorials.where("status=? and customized_course_id is NOT NULL", false).each do |customized_tutorial|
-      withdraw_process(customized_tutorial, account)
+    CustomizedTutorial.by_teacher(self.id).invalid_tally_unit.each do |customized_tutorial|
+      customized_tutorial.keep_account(account)
     end
 
-    # 获取到该老师所有作业批改的费用
-    teacher.corrections.where("status=? and customized_course_id is NOT NULL", false).each do |correction|
-      withdraw_process(correction, account)
+    Correction.by_teacher(self.id).invalid_tally_unit.each do |correction|
+      correction.keep_account(account)
     end
 
-    teacher.replies.where("status=? and customized_course_id is NOT NULL", false).each do |reply|
-      withdraw_process(reply, account)
+    Reply.by_teacher(self.id).invalid_tally_unit.each do |reply|
+      reply.keep_account(account)
     end
   end
 end

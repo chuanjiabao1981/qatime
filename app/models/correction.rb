@@ -2,6 +2,8 @@ class Correction < ActiveRecord::Base
 
   include QaToken
   include ContentValidate
+  include Tally
+  include QaCommon
 
   belongs_to  :teacher
   belongs_to  :solution,counter_cache: true

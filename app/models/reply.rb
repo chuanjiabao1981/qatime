@@ -3,6 +3,8 @@ class Reply < ActiveRecord::Base
 
   include QaToken
   include ContentValidate
+  include QaCommon
+  include Tally
 
   self.per_page = 10
 

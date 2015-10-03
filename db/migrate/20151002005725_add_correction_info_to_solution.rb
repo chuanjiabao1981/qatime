@@ -6,7 +6,7 @@ class AddCorrectionInfoToSolution < ActiveRecord::Migration
     add_column :solutions,:last_handle_author_id,:integer
 
     Solution.all.each do |s|
-      s.update_handle_infos(s.corrections)
+      s.update_handle_infos
       puts "#{s.corrections_count}----#{s.first_handle_created_at}-----#{s.last_handle_created_at}"
     end
   end

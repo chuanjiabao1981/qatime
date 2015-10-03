@@ -12,7 +12,7 @@
          "#{solution.corrections_count}次批改"
         ].join(" • ") %> •
         <% if solution.last_handle_created_at %>
-        最近一次批改于 <%= "#{localize(solution.created_at,:format => :long)} " %> •
+        最近一次批改于 <%= "#{localize(solution.last_handle_created_at,:format => :long)} " %> •
         <% end %>
         <%= solution_correction_state(solution) %>
         • <%= link_to solution.solutionable_type.constantize.model_name.human ,

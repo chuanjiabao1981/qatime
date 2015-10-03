@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151002114452) do
+ActiveRecord::Schema.define(version: 20151003215404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,11 +53,11 @@ ActiveRecord::Schema.define(version: 20151002114452) do
     t.integer  "teacher_id"
     t.integer  "solution_id"
     t.string   "token"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "comments_count",       default: 0
     t.integer  "customized_course_id"
-    t.boolean  "status",               default: false
+    t.string   "status",               default: "false"
   end
 
   create_table "course_purchase_records", force: :cascade do |t|
@@ -123,11 +123,11 @@ ActiveRecord::Schema.define(version: 20151002114452) do
     t.text     "content"
     t.integer  "position",             default: 0
     t.string   "token"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "topics_count",         default: 0
     t.integer  "exercises_count",      default: 0
-    t.boolean  "status",               default: false
+    t.string   "status",               default: "false"
   end
 
   create_table "deposits", force: :cascade do |t|
@@ -354,7 +354,7 @@ ActiveRecord::Schema.define(version: 20151002114452) do
     t.string   "token",                limit: 255
     t.integer  "author_id"
     t.integer  "customized_course_id"
-    t.boolean  "status",                           default: false
+    t.string   "status",                           default: "false"
   end
 
   create_table "review_records", force: :cascade do |t|

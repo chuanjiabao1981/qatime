@@ -41,6 +41,9 @@ class CustomizedCoursesController < ApplicationController
   def homeworks
     @homeworks = @customized_course.homeworks.order(created_at: :desc).paginate(page: params[:page])
   end
+  def solutions
+    @solutions = Solution.by_customized_course_id(params[:id]).order(created_at: :desc).paginate(page: params[:page])
+  end
   private
   def all_teacher
     @teachers          = Teacher.by_category(@customized_course.category).by_subject(@customized_course.subject)

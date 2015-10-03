@@ -1,6 +1,11 @@
 class Solution < ActiveRecord::Base
   include QaToken
   include ContentValidate
+  include QaHandle
+  include QaCommon
+
+
+
   belongs_to      :student
   belongs_to      :solutionable,polymorphic: true,:counter_cache=>true
 
@@ -21,14 +26,20 @@ class Solution < ActiveRecord::Base
                                   .where("created_at <= ?",3.days.ago)
                             }
 
-  belongs_to :first_correction_author,:class_name => "User"
-  belongs_to :last_correction_author,:class => "User"
+
+
+
+  belongs_to :first_handle_author,:class_name => "User"
+  belongs_to :last_handle_author,:class => "User"
   self.per_page = 10
 
   def author
     self.student
   end
 
+  def handles_count
+    self.corrections_count
+  end
   def notify
     teacher           = self.solutionable.teacher
     student           = self.student
@@ -43,14 +54,18 @@ class Solution < ActiveRecord::Base
 
   end
 
-  def update_correction_infos(correction)
-    if self.first_correction_author.nil?
-      self.first_correction_author_id     = correction.author.id
-      self.first_correction_created_at    = correction.created_at
-    end
-    self.last_correction_author_id        = correction.author.id
-    self.last_correction_created_at       = correction.created_at
-    self.save
+
+
+
+
+
+
+  def set_handle_infos(correction)
+    _set_handle_infos correction
   end
+  def update_handle_infos
+    _update_handle_infos self.corrections
+  end
+
 
 end

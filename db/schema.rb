@@ -378,15 +378,15 @@ ActiveRecord::Schema.define(version: 20151002005725) do
     t.integer  "student_id"
     t.string   "token"
     t.integer  "corrections_count"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-    t.integer  "comments_count",              default: 0
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "comments_count",          default: 0
     t.string   "solutionable_type"
     t.integer  "customized_course_id"
-    t.datetime "first_correction_created_at"
-    t.datetime "last_correction_created_at"
-    t.integer  "first_correction_author_id"
-    t.integer  "last_correction_author_id"
+    t.datetime "first_handle_created_at"
+    t.datetime "last_handle_created_at"
+    t.integer  "first_handle_author_id"
+    t.integer  "last_handle_author_id"
   end
 
   create_table "teaching_programs", force: :cascade do |t|

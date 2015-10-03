@@ -22,7 +22,7 @@ class HomeworksController < ApplicationController
 
   def show
     @qa_files      = @homework.qa_files.order(:created_at => "ASC")
-    @solutions     = @homework.solutions.order(:created_at).paginate(page: params[:page])
+    @solutions     = @homework.solutions.order(:created_at => "desc").paginate(page: params[:page])
 
   end
 

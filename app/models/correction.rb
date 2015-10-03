@@ -10,7 +10,8 @@ class Correction < ActiveRecord::Base
   has_many    :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
 
 
-  after_save :__after_save
+  after_save      :__after_save
+  after_destroy   :__after_destroy
   self.per_page = 5
 
 
@@ -37,7 +38,11 @@ class Correction < ActiveRecord::Base
 
   private
   def __after_save
-    self.solution.update_correction_infos(self)
+    self.solution.set_handle_infos(self)
+  end
+
+  def __after_destroy
+    self.solution.update_handle_infos
   end
 
 

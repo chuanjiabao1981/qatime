@@ -143,6 +143,7 @@ Qatime::Application.routes.draw do
     member do
       get 'topics'
       get 'homeworks'
+      get 'solutions'
     end
     resources :topics
     resources :homeworks,only:[:show,:edit,:update,:new,:create]

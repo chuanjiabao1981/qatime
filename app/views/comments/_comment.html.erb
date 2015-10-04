@@ -6,7 +6,8 @@
     <%= h(comment.content).gsub(/[\r\n]+/, "<br/>").html_safe%>
   </div>
   <div class="comment-info">
-      <strong style="color:green"><%= comment.author.name %></strong> <span style="color: #999"><%= time_ago_in_words(comment.created_at)%>前</span>
+      <strong style="color:green"><%= comment.author.name %></strong>
+        <span style="color: #999"><%= localize(comment.created_at,:format => :long) %>发布</span>
 
       <div class="pull-right">
         <% if allow? :comments,:edit, comment %>

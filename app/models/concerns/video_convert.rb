@@ -10,6 +10,7 @@ module VideoConvert
     state_machine :initial => :not_convert do
       transition :in_queue                  => :converting,     :on => [:convert_process_begin]
       transition :converting                => :convert_success,:on => [:convert_process_finish]
+      transition :convert_fail              => :converting,     :on => [:convert_process_begin]
       event :in_queue do
         transition all => :in_queue
       end

@@ -35,7 +35,9 @@ class CustomizedCoursesController < ApplicationController
   end
 
   def topics
-    @topics = @customized_course.topics.order(created_at: :desc).paginate(page: params[:page])
+    # @topics = @customized_course.topics.order(created_at: :desc).paginate(page: params[:page])
+    @topics = Topic.all.by_customized_course_id(params[:id]).order(created_at: :desc).paginate(page: params[:page])
+
   end
 
   def homeworks

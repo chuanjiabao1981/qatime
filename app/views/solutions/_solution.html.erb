@@ -14,9 +14,10 @@
         <% if solution.last_handle_created_at %>
         最近一次批改于 <%= "#{localize(solution.last_handle_created_at,:format => :long)} " %> •
         <% end %>
+        <%= link_to solution.solutionable_type.constantize.model_name.human ,
+                send("#{solution.solutionable.model_name.singular_route_key}_path",solution.solutionable)%> •
         <%= solution_correction_state(solution) %>
-        • <%= link_to solution.solutionable_type.constantize.model_name.human ,
-                      send("#{solution.solutionable.model_name.singular_route_key}_path",solution.solutionable)%>
+
   </div>
 
   <div style="clear:both"></div>

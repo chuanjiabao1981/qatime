@@ -2,12 +2,12 @@
 
 one:
   customized_course_id: 1
-  feedable_id: 1
+  feeable_id: 1
   feeable_type: MyString
   value: 1.5
 
 two:
   customized_course_id: 1
-  feedable_id: 1
+  feeable_id: 1
   feeable_type: MyString
   value: 1.5

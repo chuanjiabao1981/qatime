@@ -10,7 +10,7 @@ module Tally
       if video and video.duration and video.duration > 0
         video.lock!
         minute = Float(video.duration) / 60
-        fee_value = minute * price_per_minute
+        fee_value = format("%.1f",minute * price_per_minute).to_f
         fee = self.build_fee
         fee.value = fee_value
         fee.customized_course_id = self.customized_course_id

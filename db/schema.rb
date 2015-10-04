@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151003234816) do
+ActiveRecord::Schema.define(version: 20151004111320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -177,7 +177,7 @@ ActiveRecord::Schema.define(version: 20151003234816) do
 
   create_table "fees", force: :cascade do |t|
     t.integer  "customized_course_id"
-    t.integer  "feedable_id"
+    t.integer  "feeable_id"
     t.string   "feeable_type"
     t.float    "value"
     t.datetime "created_at",           null: false

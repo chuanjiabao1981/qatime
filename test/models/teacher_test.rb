@@ -15,4 +15,28 @@ class TeacherTest < ActiveSupport::TestCase
     biology_teacher.valid?
     puts biology_teacher.errors.full_messages
   end
+
+  test "teacher keep_account" do
+    teacher = Teacher.find(users(:teacher1).id)
+
+    assert CustomizedTutorial.by_teacher(teacher.id).valid_tally_unit.size == 3
+    assert Reply.by_teacher(teacher.id).valid_tally_unit.size == 3
+    assert Correction.by_teacher(teacher.id).valid_tally_unit.size == 3
+
+    teacher.keep_account
+
+    assert CustomizedTutorial.by_teacher(teacher.id).valid_tally_unit.size == 1
+    assert Reply.by_teacher(teacher.id).valid_tally_unit.size == 1
+    assert Correction.by_teacher(teacher.id).valid_tally_unit.size == 1
+
+
+    customized_course     = customized_courses(:customized_course1)
+
+    assert customized_course.fees.size == 6
+
+    assert teacher.account.money == 8.1
+
+    student = Student.find(users(:student1).id)
+    assert student.account.money == -8.1
+  end
 end

@@ -4,6 +4,8 @@ class CustomizedCourse < ActiveRecord::Base
   has_many :teachers,:through => :customized_course_assignments
   has_many :customized_tutorials,:dependent => :destroy
   has_many :corrections
+  has_many :replies
+  has_many :fees
 
   has_many :topics,as: :topicable,:dependent => :destroy do
     def build(attributes={})

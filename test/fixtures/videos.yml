@@ -29,6 +29,13 @@ customized_tutorial_test_tally_video_1:
   token: customized_tutorial_test_tally_video_1
   duration: 60
 
+customized_tutorial_teacher2_video:
+  name: 4444
+  author: teacher2
+  videoable: customized_tutorial_teacher2 (CustomizedTutorial)
+  token: customized_tutorial_teacher2_video
+  duration: 60
+
 correction_two_video:
   name: 4444
   author: teacher1
@@ -41,4 +48,18 @@ correction_three_video:
   author: teacher1
   videoable: correction_three (Correction)
   token: correction_three_video
+  duration: 100
+
+reply_video_1:
+  name: 4444
+  author: teacher1
+  videoable: reply_with_video_1 (Reply)
+  token: reply_with_video_1
+  duration: 60
+
+reply_video_2:
+  name: 4444
+  author: teacher1
+  videoable: reply_with_video_2 (Reply)
+  token: reply_with_video_2
   duration: 100

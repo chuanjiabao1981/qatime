@@ -96,4 +96,20 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
     assert CustomizedTutorial.by_teacher(teacher.id).valid_tally_unit.size == 1
   end
 
+  test "customized tutorial keep_account transaction" do
+    teacher = Teacher.find(users(:teacher2).id)
+    assert CustomizedTutorial.by_teacher(teacher.id).valid_tally_unit.size == 1
+
+    customized_tutorial = customized_tutorials(:customized_tutorial_teacher2)
+
+    customized_tutorial.keep_account(teacher.id)
+
+    assert_difference 'Fee.count',0 do
+      customized_tutorial.keep_account(teacher.id)
+      assert teacher.account.money == 0
+    end
+
+    #这里，因为account的money为空，如果发生加操作，应该会exception，对于exception，需要回滚，所有的操作都必须退回，也就是fee是不能产生的
+
+  end
 end

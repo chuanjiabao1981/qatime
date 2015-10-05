@@ -18,3 +18,28 @@ customized_tutorial_topic1_reply2:
   author: student1
   content: 2 customized teacher_reply 2 hahahahahahaha
   topic: customized_tutorial_topic1
+
+
+reply_with_video_1:
+  author: teacher1
+  content: 2 customized teacher_reply 2 hahahahahahaha
+  topic: customized_tutorial_topic1
+  customized_course: customized_course1
+  token: reply_with_video_1
+  status: open
+
+reply_with_video_2:
+  author: teacher1
+  content: 2 customized teacher_reply 2 hahahahahahaha
+  topic: customized_tutorial_topic1
+  customized_course: customized_course1
+  token: reply_with_video_2
+  status: open
+
+reply_with_video_3:
+  author: teacher1
+  content: 2 customized teacher_reply 2 hahahahahahaha
+  topic: customized_tutorial_topic1
+  customized_course: customized_course1
+  token: reply_with_no_video
+  status: open

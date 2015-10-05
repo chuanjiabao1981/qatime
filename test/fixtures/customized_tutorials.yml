@@ -33,6 +33,7 @@ customized_tutorial2:
   content: fuaaaaaaaaa1111111111222222222233333333333344444444555555
   title: 33322aaabbbcccdddeeeddd
   token: teacher2_customize_tutorial_video
+  status: closed
 
 customized_tutorial_test_tally:
   teacher: teacher1
@@ -48,4 +49,12 @@ customized_tutorial_test_tally_1:
   content: fuaaaaaaaaa1111111111222222222233333333333344444444555555
   title: 33322aaabbbcccdddeeeddd
   token: customized_tutorial_test_tally_video_1
+  status: open
+
+customized_tutorial_teacher2:
+  teacher: teacher2
+  customized_course: customized_course4
+  content: fuaaaaaaaaa1111111111222222222233333333333344444444555555
+  title: 33322aaabbbcccdddeeeddd
+  token: customized_tutorial_teacher2_video
   status: open

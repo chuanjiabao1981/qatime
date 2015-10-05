@@ -5,3 +5,7 @@ teacher_account:
 student_account:
   user: student1
   money: 0
+
+teacher2_account:
+  user: teacher2
+  money: adfd

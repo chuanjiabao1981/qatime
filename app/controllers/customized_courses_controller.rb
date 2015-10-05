@@ -41,7 +41,7 @@ class CustomizedCoursesController < ApplicationController
   end
 
   def homeworks
-    @homeworks = @customized_course.homeworks.order(created_at: :desc).paginate(page: params[:page])
+    @homeworks = Homework.h_index_eager_load.by_customized_course_id(@customized_course.id).order(created_at: :desc).paginate(page: params[:page])
   end
   def solutions
     @solutions = Solution.by_customized_course_id(params[:id]).order(created_at: :desc).paginate(page: params[:page])

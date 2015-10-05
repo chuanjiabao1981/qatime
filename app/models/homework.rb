@@ -8,13 +8,15 @@ class Homework < ActiveRecord::Base
   include QaCommon
 
   belongs_to      :customized_course,counter_cache: true
+  belongs_to      :customized_tutorial
   belongs_to      :teacher
   belongs_to      :student
-  # has_many        :topics ,as: :topicable,:dependent => :destroy
   has_many        :qa_files, as: :qa_fileable, :dependent => :destroy
   has_many        :pictures,as: :imageable,:dependent => :destroy
-
   accepts_nested_attributes_for :qa_files, allow_destroy: true
+
+  scope :h_index_eager_load,lambda {includes(:teacher,:student,:customized_tutorial)}
+
 
   has_many        :solutions,as: :solutionable,:dependent =>  :destroy  do
     def build(attributes={})

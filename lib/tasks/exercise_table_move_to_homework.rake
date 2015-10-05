@@ -14,7 +14,6 @@ task :exercise_table_move_to_homework => :environment do
   end
 end
 
-
 def build_new_exercise(et)
   e = Exercise.new
   e.token                   = et.token

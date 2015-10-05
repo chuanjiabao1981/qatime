@@ -1,24 +1,18 @@
-<div class="qa_cell homework ">
-  <div class="pull-left no"><%=Homework.model_name.human %>
-    <% if homework_counter +1 < 10 %>
-        &nbsp;
-    <% end %>
-    <%= homework_counter + 1%>
-  </div>
-  <div class="pull-right">
-    <% if allow? :homeworks,:edit, homework %>
-        <%=link_to edit_homework_path(homework) do %>
-            <button type="button" class="btn btn-xs btn-success">编辑</button>
-        <% end %>
-    <% end %>
+<div class="qa_object_item">
+  <div style="float:left">
+    <%=image_tag homework.teacher.avatar.normal.url %>
   </div>
   <div class="title">
     <%=link_to homework.title ,homework_path(homework)%>
   </div>
   <div class="info">
     <%= homework.teacher.view_name%> • <%= localize(homework.created_at,format: :long) %> 布置 •
-    批改了<%= homework.corrections_count %>次<%= Homework.human_attribute_name(:solution) %> •
+    批改了<%=homework.corrections_count %>次<%= Homework.human_attribute_name(:solution) %> •
     <%= homework.student.name%> •
-    写了<%= homework.solutions_count %>次<%= Homework.human_attribute_name(:solution) %> •
+    写了<%= homework.solutions_count %>次<%= Homework.human_attribute_name(:solution) %>
+    <% if homework.customized_tutorial %>
+        • <%= link_to homework.customized_tutorial.title ,customized_tutorial_path(homework.customized_tutorial) %>
+    <% end %>
+
   </div>
 </div>

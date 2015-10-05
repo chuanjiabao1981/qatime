@@ -7,9 +7,10 @@ task :exercise_table_move_to_homework => :environment do
       .update_all({solutionable_type:ExerciseTmp.to_s})
   Comment.where("commentable_type='#{Exercise.to_s}'")
       .update_all({commentable_type:ExerciseTmp.to_s})
+
+  CustomizedTutorial.update_all({exercises_count:0})
   ExerciseTmp.all.each do |et|
       build_new_exercise(et)
-
   end
 end
 

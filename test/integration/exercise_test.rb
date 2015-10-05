@@ -9,8 +9,8 @@ class ExerciseIntegrateTest < LoginTestBase
   def setup
     super
     @customized_tutorial = customized_tutorials(:customized_tutorial1)
-    @exercise = exercises(:exercise_one)
-
+    @exercise = Exercise.find(homeworks(:exercise_one).id)
+    assert @exercise.valid?
   end
 
 

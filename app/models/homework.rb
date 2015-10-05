@@ -1,5 +1,6 @@
 class Homework < ActiveRecord::Base
 
+  # default_scope {where('customized_tutorial_id is null')}
 
   include QaToken
   include ContentValidate
@@ -23,6 +24,7 @@ class Homework < ActiveRecord::Base
   end
 
   self.per_page = 10
+
   def author
     self.teacher
   end

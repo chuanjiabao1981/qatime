@@ -1,0 +1,7 @@
+teacher_account:
+  user: teacher1
+  money: 0
+
+student_account:
+  user: student1
+  money: 0

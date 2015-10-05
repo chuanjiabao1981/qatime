@@ -50,4 +50,50 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
     r1                   = replies(:customized_tutorial_topic1_reply2)
   end
 
+  # 测试记账功能
+  test "customized tutorial keep_account" do
+    #
+
+    teacher = Teacher.find(users(:teacher1).id)
+    assert CustomizedTutorial.by_teacher(teacher.id).valid_tally_unit.size == 3
+
+    customized_tutorial = customized_tutorials(:customized_tutorial_test_tally)
+
+    video = videos(:customized_tutorial_test_tally_video)
+    assert customized_tutorial.token == video.token
+    assert customized_tutorial.valid?,customized_tutorial.errors.full_messages
+    assert video.valid?,video.errors.full_messages
+
+    assert_not_nil video
+    assert customized_tutorial.video == video
+
+    customized_tutorial.keep_account(teacher.id)
+    customized_tutorial_1 = customized_tutorials(:customized_tutorial_test_tally_1)
+    customized_tutorial_1.keep_account(teacher.id)
+
+    # 帐号发生了变化
+    # 生成了fee
+    student = Student.find(users(:student1).id)
+    assert teacher.account.money == 2.7
+    assert student.account.money == -2.7
+
+    fee = customized_tutorial.fee
+    assert_not_nil fee
+    assert fee.value == 1.7
+    assert fee.feeable_id = customized_tutorial.id
+    assert fee.feeable_type = "CustomizedTutorial"
+    assert fee.customized_course_id = customized_tutorial.customized_course_id
+
+    fee = customized_tutorial_1.fee
+    assert_not_nil fee
+    assert fee.value == 1
+    assert fee.feeable_id = customized_tutorial_1.id
+    assert fee.feeable_type = "CustomizedTutorial"
+    assert fee.customized_course_id = customized_tutorial_1.customized_course_id
+
+    assert customized_tutorial.status == "closed"
+    assert customized_tutorial_1.status == "closed"
+    assert CustomizedTutorial.by_teacher(teacher.id).valid_tally_unit.size == 1
+  end
+
 end

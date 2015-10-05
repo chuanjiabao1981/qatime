@@ -4,7 +4,6 @@ teacher1_lesson_video:
   author: teacher1
   token: teacher1_lesson_for_test
 
-
 teacher1_customize_tutorial_video:
   name: "2222"
   videoable: customized_tutorial1 (CustomizedTutorial)
@@ -15,3 +14,31 @@ teacher1_already_exsits_video:
   name: 3333
   author: teacher1
   token: teacher1_already_exsits_video
+
+customized_tutorial_test_tally_video:
+  name: 4444
+  author: teacher1
+  videoable: customized_tutorial_test_tally (CustomizedTutorial)
+  token: customized_tutorial_test_tally_video
+  duration: 100
+
+customized_tutorial_test_tally_video_1:
+  name: 4444
+  author: teacher1
+  videoable: customized_tutorial_test_tally_1 (CustomizedTutorial)
+  token: customized_tutorial_test_tally_video_1
+  duration: 60
+
+correction_two_video:
+  name: 4444
+  author: teacher1
+  videoable: correction_two (Correction)
+  token: correction_two_video
+  duration: 60
+
+correction_three_video:
+  name: 4444
+  author: teacher1
+  videoable: correction_three (Correction)
+  token: correction_three_video
+  duration: 100

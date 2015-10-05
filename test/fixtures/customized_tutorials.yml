@@ -17,6 +17,7 @@ customized_tutorial1:
   content: aaaaaaaaa1111111111222222222233333333333344444444555555
   title: aaabbbcccdddeeeddd
   token: teacher1_customize_tutorial_video
+  status: open
 
 customized_tutorial_without_video1:
   teacher: teacher1
@@ -24,6 +25,7 @@ customized_tutorial_without_video1:
   content: bbbbddddeeeeessssssseeeeeeeeesssssss
   title: kkkkkkkkkkkk
   token: customized_tutorial_without_video1
+  status: closed
 
 customized_tutorial2:
   teacher: teacher2
@@ -31,3 +33,19 @@ customized_tutorial2:
   content: fuaaaaaaaaa1111111111222222222233333333333344444444555555
   title: 33322aaabbbcccdddeeeddd
   token: teacher2_customize_tutorial_video
+
+customized_tutorial_test_tally:
+  teacher: teacher1
+  customized_course: customized_course1
+  content: fuaaaaaaaaa1111111111222222222233333333333344444444555555
+  title: 33322aaabbbcccdddeeeddd
+  token: customized_tutorial_test_tally_video
+  status: open
+
+customized_tutorial_test_tally_1:
+  teacher: teacher1
+  customized_course: customized_course1
+  content: fuaaaaaaaaa1111111111222222222233333333333344444444555555
+  title: 33322aaabbbcccdddeeeddd
+  token: customized_tutorial_test_tally_video_1
+  status: open

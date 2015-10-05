@@ -3,10 +3,10 @@ class Correction < ActiveRecord::Base
   include QaToken
   include ContentValidate
   include Tally
-  include QaCommon
 
   belongs_to  :teacher
   belongs_to  :solution,counter_cache: true
+  belongs_to  :customized_course
   has_many    :pictures,as: :imageable
   has_one     :video,as: :videoable
   has_one     :fee, as:  :feeable

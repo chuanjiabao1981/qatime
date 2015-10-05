@@ -43,5 +43,32 @@ module Tally
         end
       end
     end
+
+    def keep_account_wrong(teacher_id)
+      # 先暂时写死，价格一分钟一元
+      customized_course = CustomizedCourse.find(self.customized_course_id)
+      self.transaction do
+        #防止视频被修改，这里要对关键对象加锁
+        self.lock!
+        fee = self.create_fee
+
+        if fee and fee.value > 0
+          #获取学生账户
+          student_account = Student.find(customized_course.student_id).account.lock!
+          teacher = Teacher.find(teacher_id)
+          account = teacher.account
+          account.lock!
+
+          student_account.money -= fee.value;
+          account.money += fee.value;
+          student_account.save!
+          account.save!
+          raise ActiveRecord::StatementInvalid, "Fake Wrong"
+          self.status = "closed"
+          self.save!
+        end
+      end
+    end
+
   end
 end

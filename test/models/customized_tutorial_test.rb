@@ -102,11 +102,19 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
 
     customized_tutorial = customized_tutorials(:customized_tutorial_teacher2)
 
-    customized_tutorial.keep_account(teacher.id)
-
     assert_difference 'Fee.count',0 do
-      customized_tutorial.keep_account(teacher.id)
+      begin
+        customized_tutorial.keep_account_wrong(teacher.id)
+      rescue ActiveRecord::StatementInvalid
+
+      end
+
       assert teacher.account.money == 0
+      assert customized_tutorial.status == "open"
+      student = Student.find(users(:student1).id)
+      assert student.account.money == 0
+
+
     end
 
     #这里，因为account的money为空，如果发生加操作，应该会exception，对于exception，需要回滚，所有的操作都必须退回，也就是fee是不能产生的

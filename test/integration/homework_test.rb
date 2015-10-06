@@ -1,3 +1,8 @@
+require 'sidekiq/testing'
+
+Sidekiq::Testing.inline!
+
+
 class HomeworkIntegrateTest < LoginTestBase
   def setup
     super

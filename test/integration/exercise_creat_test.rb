@@ -1,4 +1,8 @@
 class ExerciseCreateTest < ActionDispatch::IntegrationTest
+
+  set_fixture_class :homeworks => Exercise
+  fixtures :homeworks
+
   def setup
     @headless = Headless.new
     @headless.start
@@ -39,7 +43,7 @@ class ExerciseCreateTest < ActionDispatch::IntegrationTest
           click_link '添加作业文件'
           find(:xpath, "//fieldset[2]/div/div/input").set("#{Rails.root}/test/integration/development.log")
 
-          click_on '新增随堂作业'
+          click_on '新增随堂练习'
 
           assert page.has_content?('test.jpg')
           assert page.has_content?('development.log')
@@ -50,7 +54,7 @@ class ExerciseCreateTest < ActionDispatch::IntegrationTest
 
   test 'exercise edit add and remove files' do
     log_in_as(@teacher)
-    exercise = exercises(:exercise_one)
+    exercise = homeworks(:exercise_one)
     visit edit_exercise_path(exercise)
 
     assert_difference 'Video.count',0 do
@@ -71,7 +75,7 @@ class ExerciseCreateTest < ActionDispatch::IntegrationTest
           click_link '添加作业文件'
           find(:xpath, "//fieldset[4]/div/div/input").set("#{Rails.root}/test/integration/test.jpg")
 
-          click_on '更新随堂作业'
+          click_on '更新随堂练习'
           sleep 10
 
           assert page.has_content?('test.jpg')

@@ -4,13 +4,7 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-#exercise_one:
-#  title: 随堂作业一
-#  content: 2222223334444
-#  teacher: teacher1
-#  student: student1
-#  customized_tutorial: customized_tutorial1
-# column: value
+
 #
 two: {}
 #  column: value

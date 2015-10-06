@@ -32,16 +32,17 @@
           <% end %>
         </li>
         <li>
+          <%= link_to homeworks_student_path(@student) do %>
+              <span class="fa fa-tasks"></span> <span class="qa_f18">我的作业</span>
+          <% end %>
+        </li>
+        <li>
           <%= link_to questions_path do %>
               <span class="fa fa-users"></span> <span class="qa_f18"><%= VipClass.model_name.human %></span>
           <% end %>
         </li>
 
-        <li>
-          <%= link_to questions_student_path(@student) do %>
-              <span class="fa fa-tasks"></span> <span class="qa_f18">我的问题</span>
-          <% end %>
-        </li>
+
         <li>
           <%= link_to teachers_student_path(@student) do %>
               <span class="fa fa-user-secret"></span> <span class="qa_f18">我的老师</span>

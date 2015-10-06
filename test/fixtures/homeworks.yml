@@ -45,5 +45,6 @@ exercise_one:
   content: 2222223334444
   teacher: teacher1
   student: student1
+  work_type: exercise
   customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
   customized_course: customized_course1

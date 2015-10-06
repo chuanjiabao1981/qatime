@@ -112,8 +112,8 @@ class HomeworkIntegrateTest < LoginTestBase
     user_session.assert_select 'a[href=?]',homework_path(@homework2),1
     if user.teacher?
       user_session.assert_select 'a[href=?]', new_customized_course_homework_path(@customized_course),1
-      user_session.assert_select 'a[href=?]', edit_homework_path(@homework1),1
-      user_session.assert_select 'a[href=?]', edit_homework_path(@homework2),1
+      user_session.assert_select 'a[href=?]', edit_homework_path(@homework1),0
+      user_session.assert_select 'a[href=?]', edit_homework_path(@homework2),0
     else
       user_session.assert_select 'a[href=?]', new_customized_course_homework_path(@customized_course),0
       user_session.assert_select 'a[href=?]', edit_homework_path(@homework1),0

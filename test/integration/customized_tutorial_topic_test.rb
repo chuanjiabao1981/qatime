@@ -128,8 +128,9 @@ class TutorialTopicsTest < LoginTestBase
 
     user_session.get customized_tutorial_path(@topic.topicable)
     user_session.assert_select "a[href=?]", new_customized_tutorial_topic_path(@topic.topicable), count: 1
-    n = Topic.where(topicable_id: @topic.topicable.id).count
-    user_session.assert_select "a[href=?]", customized_tutorial_path(@topic.topicable), count: n
+    n =   Topic.where(topicable_id: @topic.topicable.id).count
+    m =   Exercise.where(customized_tutorial_id: @topic.topicable.id).count
+    user_session.assert_select "a[href=?]", customized_tutorial_path(@topic.topicable), count: n + m
     user_session.assert_select "a[href=?]", topic_path(@topic), count: 1
     user_session.assert_template 'customized_tutorials/show'
     user_session.assert_response :success

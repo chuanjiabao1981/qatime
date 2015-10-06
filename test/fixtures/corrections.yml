@@ -17,7 +17,7 @@ correction_two:
   content: ssddd
   teacher: teacher1
   solution: homework_solution_one
-  customized_course: customized_course1
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   token: correction_two_video
   status: open
 
@@ -25,7 +25,7 @@ correction_three:
   content: ssddd
   teacher: teacher1
   solution: homework_solution_one
-  customized_course: customized_course1
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   token: correction_three_video
   status: open
 
@@ -33,6 +33,6 @@ correction_four:
   content: ssddd
   teacher: teacher1
   solution: homework_solution_one
-  customized_course: customized_course1
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   token: correction_four_no_video
   status: open

@@ -20,8 +20,8 @@ class Teacher < User
   has_many :question_assignments,:dependent => :destroy
   has_many :questions ,:through => :question_assignments
 
-  has_many :corrections
-  has_many :replies
+  #has_many :corrections
+  #has_many :replies
 
 
   belongs_to :school

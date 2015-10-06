@@ -12,8 +12,6 @@ class Reply < ActiveRecord::Base
 
   scope :by_teacher, lambda {|t| where(author_id: t) if t}
 
-  belongs_to :customized_course
-
   has_many :pictures,as: :imageable
   has_one  :video,as: :videoable
   has_one  :fee, as: :feeable

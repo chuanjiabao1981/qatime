@@ -50,7 +50,7 @@ module Permissions
 
       allow :students,[:show,:edit,:update,:info,:teachers,
                        :questions,:topics,:customized_courses,
-                       :customized_tutorial_topics,:homeworks,:exercises] do |student|
+                       :customized_tutorial_topics,:homeworks,:solutions] do |student|
         student and student.id == user.id
       end
       allow :customized_courses,[:show,:topics,:homeworks,:solutions] do |customized_course|

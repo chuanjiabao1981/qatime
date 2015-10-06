@@ -11,7 +11,7 @@ module Permissions
       allow :vip_classes,[:show]
       allow :questions,[:index,:show,:student,:teacher,:teachers]
       allow :teaching_videos,[:show]
-      allow :students,[:index,:search,:show,:edit,:create,:update,:info,:teachers,:customized_courses,:homeworks,:exercises]
+      allow :students,[:index,:search,:show,:edit,:create,:update,:info,:teachers,:customized_courses,:homeworks,:solutions]
       allow :home,[:index]
       allow :schools,[:index,:new,:create,:show,:edit,:update]
       allow :register_codes, [:index, :new, :downloads, :create]

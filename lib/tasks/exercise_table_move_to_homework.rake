@@ -3,8 +3,7 @@ task :exercise_table_move_to_homework => :environment do
       .update_all({qa_fileable_type: ExerciseTmp.to_s})
   Picture.where("imageable_type='#{Exercise.to_s}'")
       .update_all({imageable_type:ExerciseTmp.to_s})
-  Solution.where("solutionable_type='#{Exercise.to_s}'")
-      .update_all({solutionable_type:ExerciseTmp.to_s})
+  Solution.where("solutionable_type='#{Exercise.to_s}'").update_all({solutionable_type:ExerciseTmp.to_s})
   Comment.where("commentable_type='#{Exercise.to_s}'")
       .update_all({commentable_type:ExerciseTmp.to_s})
 

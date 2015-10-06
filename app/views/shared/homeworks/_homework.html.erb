@@ -3,7 +3,11 @@
     <%=image_tag homework.teacher.avatar.normal.url %>
   </div>
   <div class="title">
-    <%=link_to homework.title ,homework_path(homework)%>
+    <% if homework.work_type == 'exercise' %>
+        <%= link_to homework.title, exercise_path(homework) %>
+    <% else %>
+        <%=link_to homework.title ,homework_path(homework)%>
+  <% end %>
   </div>
   <div class="info">
     <%= homework.teacher.view_name%> • <%= localize(homework.created_at,format: :long) %> 布置 •

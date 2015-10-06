@@ -61,8 +61,8 @@ class StudentsController < ApplicationController
   def homeworks
     @homeworks = Homework.by_student(@student).paginate(page: params[:page],:per_page => 10)
   end
-  def exercises
-    @exercises = Exercise.all.by_student(@student).paginate(page: params[:page],:per_page => 10)
+  def solutions
+    @solutions = Solution.all.where(customized_course_id: current_user.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
   end
 
   def customized_courses

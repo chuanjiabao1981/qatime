@@ -26,7 +26,7 @@ class Solution < ActiveRecord::Base
                                   .where("created_at <= ?",3.days.ago)
                             }
 
-
+  belongs_to      :customized_course
 
 
   belongs_to :first_handle_author,:class_name => "User"

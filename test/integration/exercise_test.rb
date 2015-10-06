@@ -95,12 +95,18 @@ private
       return
     end
     assert_difference 'Exercise.count',1 do
-      user_session.post create_path,exercise:{title: title,content: content}
-      new_exercise = Exercise.where(title: title).order(:created_at).last
-      assert new_exercise.customized_course_id == new_exercise.customized_tutorial.customized_course_id
-      user_session.assert_redirected_to customized_tutorial_exercise_path(@customized_tutorial,new_exercise)
-      user_session.follow_redirect!
-      user_session.assert_select 'h4',title
+      assert_difference '@customized_tutorial.reload.exercises_count',1 do
+        assert_difference '@customized_tutorial.reload.customized_course.exercises_count',1 do
+          assert_difference '@customized_tutorial.reload.customized_course.homeworks_count',0 do
+            user_session.post create_path,exercise:{title: title,content: content}
+            new_exercise = Exercise.where(title: title).order(:created_at).last
+            assert new_exercise.customized_course_id == new_exercise.customized_tutorial.customized_course_id
+            user_session.assert_redirected_to customized_tutorial_exercise_path(@customized_tutorial,new_exercise)
+            user_session.follow_redirect!
+            user_session.assert_select 'h4',title
+          end
+        end
+      end
     end
   end
   def new_page(user,user_session)

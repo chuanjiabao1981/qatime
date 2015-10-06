@@ -1,6 +1,8 @@
+
+
 <%= render layout: "task" do %>
-    <% if @exercises.length > 0 %>
-        <%= render partial: 'exercises/index_items',locals: {exercises: @exercises} %>
+    <% if @solutions.length > 0 %>
+        <%= render  partial: "solutions/index_items",locals:{solutions: @solutions} %>
     <% else %>
         <%= render 'shared/customized_courses/introduce' %>
     <% end %>

@@ -13,6 +13,7 @@ class Solution < ActiveRecord::Base
   has_many        :corrections,:dependent => :destroy do
     def build(attributes={})
       attributes[:customized_course_id] = proxy_association.owner.customized_course_id
+      attributes[:homework_id]          = proxy_association.owner.solutionable_id
       super attributes
     end
   end

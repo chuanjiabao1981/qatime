@@ -12,6 +12,7 @@ module QaWork
     has_many        :pictures,as: :imageable
     has_many        :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
 
+    has_many        :corrections
 
     has_many        :solutions,as: :solutionable,:dependent =>  :destroy  do
       def build(attributes={})

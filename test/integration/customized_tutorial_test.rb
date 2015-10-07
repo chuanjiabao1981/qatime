@@ -1,4 +1,7 @@
 class CustomizedTutorialIntegrateTest < LoginTestBase
+  set_fixture_class :homeworks => Exercise
+  fixtures :homeworks
+
 
   def setup
     super
@@ -30,7 +33,7 @@ class CustomizedTutorialIntegrateTest < LoginTestBase
     user_session.assert_select 'a[href=?]',    new_customized_tutorial_topic_path(@customized_tutorial),1
     user_session.assert_select 'a[href=?]',    topic_path(topic),1
 
-    exercise = exercises(:exercise_one)
+    exercise = homeworks(:exercise_one)
     assert exercise.valid?
 
 

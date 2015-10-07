@@ -10,7 +10,25 @@ homework_solution_one:
   solutionable: homework1 (Homework)
   student: student1
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
-# column: value
-#
-two: {}
-#  column: value
+
+homework_solution_two:
+  title: homework solution test title 2
+  content: homework solution test content 34
+  solutionable: homework1 (Homework)
+  student: student1
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+
+
+homework_solution_three:
+  title: homework solution test title 3
+  content: homework solution test content 3
+  solutionable: homework1 (Homework)
+  student: student1
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+
+homework_solution_four:
+  title: homework solution test title 4
+  content: homework solution test content 4
+  solutionable: homework1 (Homework)
+  student: student1
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>

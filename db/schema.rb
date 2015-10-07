@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006152104) do
+ActiveRecord::Schema.define(version: 20151007013711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,7 @@ ActiveRecord::Schema.define(version: 20151006152104) do
     t.integer  "comments_count",       default: 0
     t.integer  "customized_course_id"
     t.string   "status",               default: "open", null: false
+    t.integer  "homework_id"
   end
 
   create_table "course_purchase_records", force: :cascade do |t|
@@ -107,13 +108,15 @@ ActiveRecord::Schema.define(version: 20151006152104) do
 
   create_table "customized_courses", force: :cascade do |t|
     t.integer  "student_id"
-    t.string   "category",                   default: "高中"
-    t.string   "subject",                    default: "数学"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.string   "category"
+    t.string   "subject"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "customized_tutorials_count", default: 0
     t.integer  "topics_count",               default: 0
     t.integer  "homeworks_count",            default: 0
+    t.integer  "exercises_count",            default: 0
+    t.integer  "tutorial_issues_count",      default: 0
   end
 
   create_table "customized_tutorials", force: :cascade do |t|
@@ -121,13 +124,14 @@ ActiveRecord::Schema.define(version: 20151006152104) do
     t.integer  "customized_course_id"
     t.string   "title"
     t.text     "content"
-    t.integer  "position",             default: 0
+    t.integer  "position",              default: 0
     t.string   "token"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.integer  "topics_count",         default: 0
-    t.integer  "exercises_count",      default: 0
-    t.string   "status",               default: "open", null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "topics_count",          default: 0
+    t.integer  "exercises_count",       default: 0
+    t.integer  "tutorial_issues_count", default: 0
+    t.string   "status",                default: "open", null: false
   end
 
   create_table "deposits", force: :cascade do |t|
@@ -136,6 +140,17 @@ ActiveRecord::Schema.define(version: 20151006152104) do
     t.boolean  "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "excercises", force: :cascade do |t|
+    t.string   "token"
+    t.string   "title"
+    t.string   "content"
+    t.integer  "teacher_id"
+    t.integer  "customized_tutorial_id"
+    t.integer  "solutions_count",        default: 0
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "exercises", force: :cascade do |t|
@@ -190,11 +205,15 @@ ActiveRecord::Schema.define(version: 20151006152104) do
     t.string   "title"
     t.text     "content"
     t.string   "token"
-    t.integer  "topics_count",         default: 0
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.integer  "solutions_count",      default: 0
+    t.integer  "topics_count",           default: 0
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "solutions_count",        default: 0
     t.integer  "student_id"
+    t.integer  "customized_tutorial_id"
+    t.integer  "comments_count",         default: 0
+    t.integer  "corrections_count",      default: 0
+    t.string   "work_type"
   end
 
   create_table "learning_plan_assignments", force: :cascade do |t|
@@ -380,12 +399,16 @@ ActiveRecord::Schema.define(version: 20151006152104) do
     t.integer  "solutionable_id"
     t.integer  "student_id"
     t.string   "token"
-    t.integer  "corrections_count",    default: 0
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.integer  "comments_count",       default: 0
+    t.integer  "corrections_count"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "comments_count",          default: 0
     t.string   "solutionable_type"
     t.integer  "customized_course_id"
+    t.datetime "first_handle_created_at"
+    t.datetime "last_handle_created_at"
+    t.integer  "first_handle_author_id"
+    t.integer  "last_handle_author_id"
   end
 
   create_table "teaching_programs", force: :cascade do |t|
@@ -429,6 +452,16 @@ ActiveRecord::Schema.define(version: 20151006152104) do
     t.integer  "teacher_id"
     t.string   "topicable_type"
     t.integer  "customized_course_id"
+  end
+
+  create_table "tutorial_issues", force: :cascade do |t|
+    t.integer  "customized_course_id"
+    t.integer  "customized_tutorial_id"
+    t.integer  "student_id"
+    t.integer  "teacher_id"
+    t.integer  "topics_count"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "users", force: :cascade do |t|

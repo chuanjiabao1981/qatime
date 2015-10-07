@@ -77,16 +77,19 @@ class TeachersController < ApplicationController
 
 
   def homeworks
-    @homeworks = Homework.by_teacher(@teacher).paginate(page: params[:page],:per_page => 10)
+    @homeworks = Homework.by_teacher(@teacher).order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
   end
 
   def customized_tutorial_topics
-    @topics = Topic.all.where(teacher_id: @teacher.id).by_customized_course(params)
+    @topics = Topic.all.by_teacher(@teacher)
+                  .from_customized_course
+                  .order("created_at desc")
+                  .paginate(page: params[:page])
     render layout: 'teacher_home'
   end
 
-  def exercises
-    @exercises = Exercise.all.by_teacher(@teacher).paginate(page: params[:page],:per_page => 10)
+  def solutions
+    @solutions = Solution.all.where(customized_course_id: current_user.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
   end
 
 

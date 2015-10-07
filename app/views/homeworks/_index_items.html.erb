@@ -1,7 +1,6 @@
-<div class="qa_homeworks">
-  <%= render homeworks %>
+<div class="qa_objects">
+  <%= render partial: 'shared/homeworks/homework',collection: homeworks %>
 </div>
-
 <div class="qa_cell">
   <%= will_paginate homeworks ,renderer: BootstrapPagination::Rails %>
 </div>

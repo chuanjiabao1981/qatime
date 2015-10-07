@@ -63,7 +63,7 @@ module Permissions
 
       allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,
                        :info,:questions,:topics,:customized_courses,
-                       :customized_tutorial_topics,:homeworks,:exercises] do |teacher|
+                       :customized_tutorial_topics,:homeworks,:solutions] do |teacher|
         teacher and teacher.id == user.id
       end
 
@@ -85,7 +85,7 @@ module Permissions
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
       end
-      allow :customized_courses,[:show,:topics,:homeworks] do |customized_course|
+      allow :customized_courses,[:show,:topics,:homeworks,:solutions] do |customized_course|
         user and customized_course.teacher_ids.include?(user.id)
       end
       allow :customized_tutorials,[:new,:create] do |customized_course|

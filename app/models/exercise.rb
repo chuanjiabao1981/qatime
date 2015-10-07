@@ -1,37 +1,26 @@
 class Exercise < ActiveRecord::Base
 
+  self.table_name = "homeworks"
+
+  default_scope {where("work_type='exercise'")}
+
+
   include QaToken
   include ContentValidate
-
   include QaSolution
-
   include QaCommon
+  include QaWork
 
-
-
-  has_many        :qa_files      , -> { order 'created_at asc' },as: :qa_fileable
-  has_many        :pictures,as: :imageable
-  has_many        :solutions,as: :solutionable,:dependent =>  :destroy do
-  def build(attributes={})
-    attributes[:customized_course_id] = proxy_association.owner.customized_tutorial.customized_course_id
-    super attributes
-  end
-end
-
-
-  belongs_to      :customized_tutorial,counter_cache: true
-  belongs_to      :teacher
-  belongs_to      :student
-  accepts_nested_attributes_for :qa_files, allow_destroy: true
-  has_many        :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
 
   scope :timeout_to_solve ,lambda {|customized_course_id| joins(:customized_tutorial => :customized_course)
                                                              .where(solutions_count:0,customized_tutorials:{customized_course_id: customized_course_id})
                                                              .where("exercises.created_at < ?", 3.day.ago)
                          }
-  #scope :timeout_to_correction
-  def author
-    self.teacher
+
+
+  def initialize(attributes = {})
+    attributes[:work_type] = :exercise
+    super attributes
   end
   def notify
     teacher           = self.teacher

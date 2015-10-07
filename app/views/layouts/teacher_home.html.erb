@@ -36,6 +36,11 @@
           <% end %>
         </li>
         <li>
+          <%= link_to solutions_teacher_path(@teacher) do %>
+              <span class="fa fa-tasks"></span> <span class="qa_f18">我的任务</span>
+          <% end %>
+        </li>
+        <li>
           <%= link_to students_teacher_path(@teacher) do %>
               <span class="fa fa-graduation-cap"></span> <span class="qa_f18">我的学生</span>
           <% end %>
@@ -45,11 +50,7 @@
               <span class="fa fa-book"></span>  <span class="qa_f18">我的课程</span>
           <% end %>
         </li>
-        <li>
-          <%= link_to homeworks_teacher_path(@teacher) do %>
-              <span class="fa fa-tasks"></span> <span class="qa_f18">我的任务</span>
-          <% end %>
-        </li>
+
         <li>
           <%= link_to "#" do %>
               <span class="fa fa-btc"></span> <span class="qa_f18">我的金币</span>

@@ -56,7 +56,7 @@ class VideoConvertWorker
     convert_video_path_name = "/tmp/#{video.build_convert_file_name}"
     #%x 获取不了stderr，所以这里进行了重定向
     #result = %x(wget #{video.name} -O /tmp/#{video.name_identifier})
-    result = %x(~/bin/ffmpeg -y -i #{video.name} -vcodec h264 -acodec aac -strict -2 #{convert_video_path_name} 2>&1)
+    result = %x(~/bin/ffmpeg -y -i #{video.name} -vcodec h264 -c:a libfdk_aac -strict -2 #{convert_video_path_name} 2>&1)
 
     if ($?.exitstatus == 0)
       result = %x(/usr/local/bin/qtfaststart #{convert_video_path_name} 2>&1)

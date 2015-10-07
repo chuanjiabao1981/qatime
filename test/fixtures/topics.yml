@@ -18,6 +18,7 @@ customized_tutorial_topic1:
   author: student1
   teacher: teacher1
   topicable: customized_tutorial1 (CustomizedTutorial)
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
 
 customized_tutorial_topic2:
   title: 123413412sadnfpainfasipnfunck
@@ -25,6 +26,8 @@ customized_tutorial_topic2:
   author: teacher1
   teacher: teacher1
   topicable: customized_tutorial1 (CustomizedTutorial)
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+
 
 customized_course_topic1:
   title: customized_course_topic by student title
@@ -32,6 +35,8 @@ customized_course_topic1:
   author: student1
   teacher: teacher1
   topicable: customized_course1 (CustomizedCourse)
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+
 
 customized_course_topic2:
   title: customized_course_topic by teacher title
@@ -39,5 +44,7 @@ customized_course_topic2:
   author: teacher1
   teacher: teacher1
   topicable: customized_course1 (CustomizedCourse)
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+
 
 

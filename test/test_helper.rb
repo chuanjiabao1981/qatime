@@ -50,7 +50,7 @@ class ActiveSupport::TestCase
       case user.role
         when "teacher"
           #teachers_home_path
-          homeworks_teacher_path(user.id)
+          solutions_teacher_path(user.id)
         when "admin"
           admins_home_path
         when "student"

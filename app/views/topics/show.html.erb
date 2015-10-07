@@ -1,41 +1,8 @@
 <%= render layout: "#{@topic.topicable.model_name.route_key.downcase}/topic_show_layout" do %>
-    <div class="qa_box">
-      <div class="qa_topic">
-          <div class="header">
-            <div class="qa_cell" style="background-color: #f5f5f5">
-              <div class="pull-right">
-                <%=image_tag @topic.author.avatar.normal.url %>
-              </div>
 
-              <div class="title">
-                <h4><%= @topic.title %></h4>
-              </div>
-              <div style="color:gray;font-size: 10px;">
-                <%= @topic.author.name %> •  <%= time_ago_in_words(@topic.created_at) %>前
-              </div>
-            </div>
-          </div>
-          <div class="content">
-            <div class="qa_cell">
-              <div>
-                <%= @topic.content.html_safe %>
-              </div>
-              <div class="pull-right">
-                <% if allow? :topics,:edit ,@topic%>
-                    <%= link_to "", edit_topic_path(@topic), class: "glyphicon glyphicon-edit"%>
-                <% end %>
-                <% if allow? :topics, :destroy ,@topic%>
-                    <%= link_to "", topic_path(@topic),
-                            :method => :delete,
-                            'data-confirm' => 'Are you sure?',
-                            class: "glyphicon glyphicon-remove"%>
-                <% end %>
-              </div>
-              <div style="clear: both"></div>
-            </div>
-          </div>
-      </div>
-    </div>
+
+    <%= render partial: 'shared/qa_objects/show',locals:{qa_object: @topic,header_switch: false }  %>
+
 
   <div class="qa_sep_15"></div>
   <div class="qa_sep_15"></div>

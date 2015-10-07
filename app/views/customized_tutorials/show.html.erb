@@ -4,21 +4,39 @@
                customized_course_path(@customized_tutorial.customized_course)%>/<%= @customized_tutorial.title %>
   </div>
   <div class="qa_box">
-    <div class="qa_cell" style="height: 400px">
-        <%if @customized_tutorial.video and @customized_tutorial.video.name %>
-
+    <div class="qa_cell" style="height: 410px">
+        <%if @customized_tutorial.video and @customized_tutorial.video.name and @customized_tutorial.video.name.url%>
             <%= video_js_player(@customized_tutorial.video) %>
+            <%if @customized_tutorial.video.duration and @customized_tutorial.video.duration > 0 %>
+                视频时长<%= second_to_minutes(@customized_tutorial.video.duration) %>
+            <% end %>
         <% else %>
             视频未上传
         <% end %>
 
     </div>
+
     <div class="qa_cell">
       <%= @customized_tutorial.content %>
     </div>
+    <div class="qa_cell pull-right">
+      <%= link_to_edit(@customized_tutorial)%> &nbsp;
+      <%= link_to_destroy(@customized_tutorial) %>
+    </div>
+    <div style="clear: both"></div>
   </div>
 </div>
 
+
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
+<% if @customized_tutorial %>
+    <%= render partial: "exercises/index",
+               locals: {customized_tutorial: @customized_tutorial,exercises: @customized_tutorial.exercises} %>
+<% end %>
+
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
 
 <% if @customized_tutorial %>
     <%= render partial: 'topics/index',locals: {topicable:@customized_tutorial} %>

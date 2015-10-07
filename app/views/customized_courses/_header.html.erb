@@ -22,7 +22,7 @@
                 学生: <%= @customized_course.student.name %>
               </div>
               <div class="col-md-8">
-                讲师: <%= @customized_course.teachers.map {|t| t.name}.join(",")%>
+                讲师: <%= @customized_course.teachers.map {|t| t.view_name}.join(",")%>
               </div>
             </div>
             <div class="qa_sep_5"></div>

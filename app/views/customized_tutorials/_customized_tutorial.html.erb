@@ -1,18 +1,13 @@
-<div class="qa_cell customized_tutorial ">
-    <div class="pull-left no">课程
-      <% if customized_tutorial_counter +1 < 10 %>
-          &nbsp;
-      <% end %>
-      <%= customized_tutorial_counter + 1%>
-    </div>
-    <div class="pull-right">
-      <% if allow? :customized_tutorials,:edit, customized_tutorial %>
-          <%=link_to edit_customized_tutorial_path(customized_tutorial) do %>
-              <button type="button" class="btn btn-xs btn-success">编辑</button>
-          <% end %>
-      <% end %>
-    </div>
-    <div class="title">
-        <%=link_to customized_tutorial.title ,customized_tutorial_path(customized_tutorial)%>
-    </div>
+<div class="qa_object_item">
+  <div style="float:left">
+    <%=image_tag customized_tutorial.teacher.avatar.normal.url %>
+  </div>
+  <div class="title">
+    <%= link_to customized_tutorial.title, customized_tutorial_path(customized_tutorial) %>
+  </div>
+  <div class="info">
+    <%= [customized_tutorial.teacher.view_name,"#{localize(customized_tutorial.created_at,format: :long)} 发布",
+         "布置了#{customized_tutorial.exercises_count}次#{Exercise.model_name.human}",
+         "#{customized_tutorial.topics_count}次#{Topic.model_name.human}"].join(" • ")%>
+  </div>
 </div>

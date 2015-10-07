@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    models:
+      exercise: 随堂练习
+    attributes:
+      exercise:
+        title: 练习说明
+        content: 练习内容

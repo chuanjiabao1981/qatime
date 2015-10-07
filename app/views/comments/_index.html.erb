@@ -1,13 +1,20 @@
 <!-- 注意权限问题 -->
-&nbsp;
-<%= link_to "##{commentable.class}-#{commentable.id}-comments",data:{toggle:"collapse"},
-            aria:{expanded: false,controls:"#{commentable.class}-#{commentable.id}-comments"} do %>
-    <i class="fa fa-comment-o"></i><%="#{Comment.model_name.human}(#{commentable.comments_count})"%>
 
+<% if commentable.comments_count > 0 %>
+<div class="comments">
+  <div class="items">
+    <%= render partial: 'comments/comment',locals: {comment: commentable.comments[0]} %>
+  </div>
+</div>
 <% end %>
 <div class="comments collapse" id="<%="#{commentable.class}-#{commentable.id}-comments"%>" >
   <div class="items">
-    <%= render partial:'comments/comment',collection: commentable.comments %>
+    <%= render partial:'comments/comment',collection: commentable.comments[1..-1] %>
   </div>
   <%= render partial:'comments/form',locals: {comment: commentable.comments.build} %>
 </div>
+
+<%= link_to "##{commentable.class}-#{commentable.id}-comments",data:{toggle:"collapse"},
+            aria:{expanded: false,controls:"#{commentable.class}-#{commentable.id}-comments"} do %>
+    <%="查看全部#{Comment.model_name.human}(#{commentable.comments_count})"%>
+<% end %>

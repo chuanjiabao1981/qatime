@@ -5,7 +5,7 @@ module ApplicationHelper
     case current_user.role
       when "teacher"
         #teachers_home_path
-        questions_teacher_path(current_user.id)
+        solutions_teacher_path(current_user.id)
       when "admin"
         admins_home_path
       when "student"
@@ -25,7 +25,6 @@ module ApplicationHelper
     end
   end
 
-
   # Used for accepts_nested_attributes_for
 
   def link_to_add_fields(name, f, association, shared_dir)
@@ -37,5 +36,37 @@ module ApplicationHelper
     link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
+
+  def link_to_edit(o)
+    if allow? o.model_name.plural , :edit,o
+      k = link_to "", send("edit_#{o.model_name.singular}_path",o), class: "glyphicon glyphicon-edit"
+    end
+    k
+  end
+
+  def link_to_destroy(o)
+    if allow? o.model_name.plural, :destroy ,o
+      s = link_to "", send("#{o.model_name.singular}_path", o),:method => :delete, 'data-confirm' => 'Are you sure?',
+                  class: "glyphicon glyphicon-remove"
+    end
+    s
+  end
+
+  def second_to_minutes(duration)
+    seconds = duration % 60
+    minutes = duration / 60
+
+    format("%02d分钟%02d秒", minutes, seconds)
+  end
+
+  def video_duration_format(object)
+    if object.video and object.video.duration and object.video.duration > 0
+       content = " • 视频时长" + second_to_minutes(object.video.duration)
+    else
+      content = ""
+    end
+
+    content
+  end
 
 end

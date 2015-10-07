@@ -1,0 +1,22 @@
+<div class="qa_object_item">
+  <div style="float:left">
+    <%=image_tag homework.teacher.avatar.normal.url %>
+  </div>
+  <div class="title">
+    <% if homework.work_type == 'exercise' %>
+        <%= link_to homework.title, exercise_path(homework) %>
+    <% else %>
+        <%=link_to homework.title ,homework_path(homework)%>
+  <% end %>
+  </div>
+  <div class="info">
+    <%= homework.teacher.view_name%> • <%= localize(homework.created_at,format: :long) %> 布置 •
+    批改了<%=homework.corrections_count %>次<%= Homework.human_attribute_name(:solution) %> •
+    <%= homework.student.name%> •
+    写了<%= homework.solutions_count %>次<%= Homework.human_attribute_name(:solution) %>
+    <% if homework.customized_tutorial %>
+        • <%= link_to homework.customized_tutorial.title ,customized_tutorial_path(homework.customized_tutorial) %>
+    <% end %>
+
+  </div>
+</div>

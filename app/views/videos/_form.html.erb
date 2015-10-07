@@ -4,8 +4,8 @@
     <%=f.input :name %>
     <%=f.input :token,as: :hidden %>
     <div id="video_show" class="rel" style="width:820px;height:385px;border:4px gray dotted">
-      <%= render partial: 'videos/video',object: video unless video.name.url.nil?%></div>
-    </video>
+      <%= render partial: 'videos/video',object: video unless video.nil? or video.name.url.nil?%>
+    </div>
 <% end %>
 
 <script>
@@ -13,7 +13,6 @@
             function(){
                 var video_input = $("input#video_name");
                 var video_form  = video_input.closest('form');
-                console.log(video_form);
                 var video_show  = $("div#video_show");
                 if ($("div#video_show video").length == 0){
                     video_show.html($("div#template-progress div.progress").clone());

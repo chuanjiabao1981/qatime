@@ -169,7 +169,10 @@ getToken = ->
       body =
         '<div class="form-group row-fluid">' + '<label>' + '图片' + '</small></label>' +
         '<input class="note-qa-image-url form-control span12" type="file" id="qa-img-file"/>' +
-        '<label>图片预览</label>'+
+        '<label>图片预览<br/><strong style="color:red">' +
+          '1. 同学你好，请拍摄照片时，镜头垂直对准页面,在光线好的情况下进行拍摄<br/>'+
+          '2. 同学你好，如果图片是颠倒的话，请点击下边的"翻转"按钮进行调整。否则老师看起来很幸苦。谢谢亲:)' +
+          '</strong></label>'+
         '<button id="qa-img-rotate">翻转</button>'+
         '<div style="width: 400px;height: 400px;border: 1px dotted gray">'+
         '<img id="qa-img-preview" src="" />'+

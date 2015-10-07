@@ -75,10 +75,20 @@ class TeachersController < ApplicationController
   end
 
 
-  def customized_tutorial_topics
-    @topics = Topic.all.where(teacher_id: @teacher.id).by_customized_course(params)
-    render layout: 'teacher_home'
+  def homeworks
+    @homeworks = Homework.by_teacher(@teacher).order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+  end
 
+  def customized_tutorial_topics
+    @topics = Topic.all.by_teacher(@teacher)
+                  .from_customized_course
+                  .order("created_at desc")
+                  .paginate(page: params[:page])
+    render layout: 'teacher_home'
+  end
+
+  def solutions
+    @solutions = Solution.all.where(customized_course_id: current_user.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
   end
 
 
@@ -96,7 +106,7 @@ class TeachersController < ApplicationController
   end
   def search
     @teachers = Teacher.all
-    .where("name =? or email = ?",params[:search][:name],params[:search][:name]).paginate(page: params[:page],:per_page => 10)
+    .where("name =? or email = ? or nick_name=?",params[:search][:name],params[:search][:name],params[:search][:name]).paginate(page: params[:page],:per_page => 10)
     render 'index'
   end
 

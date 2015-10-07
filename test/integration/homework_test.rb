@@ -1,3 +1,8 @@
+require 'sidekiq/testing'
+
+Sidekiq::Testing.inline!
+
+
 class HomeworkIntegrateTest < LoginTestBase
   def setup
     super
@@ -64,12 +69,16 @@ class HomeworkIntegrateTest < LoginTestBase
     end
 
     assert_difference 'Homework.count',1 do
-      user_session.post create_path, homework:{title: title, content: content}
-      new_homework =  Homework.where(title: title).order(:created_at).last
+      assert_difference '@customized_course.reload.homeworks_count',1 do
+        assert_difference '@customized_course.reload.exercises_count',0 do
+          user_session.post create_path, homework:{title: title, content: content}
+          new_homework =  Homework.where(title: title).order(:created_at).last
 
-      user_session.assert_redirected_to customized_course_homework_path(@customized_course,new_homework)
-      user_session.follow_redirect!
-      user_session.assert_select 'h4',title
+          user_session.assert_redirected_to customized_course_homework_path(@customized_course,new_homework)
+          user_session.follow_redirect!
+          user_session.assert_select 'h4',title
+        end
+      end
     end
   end
 
@@ -103,8 +112,8 @@ class HomeworkIntegrateTest < LoginTestBase
     user_session.assert_select 'a[href=?]',homework_path(@homework2),1
     if user.teacher?
       user_session.assert_select 'a[href=?]', new_customized_course_homework_path(@customized_course),1
-      user_session.assert_select 'a[href=?]', edit_homework_path(@homework1),1
-      user_session.assert_select 'a[href=?]', edit_homework_path(@homework2),1
+      user_session.assert_select 'a[href=?]', edit_homework_path(@homework1),0
+      user_session.assert_select 'a[href=?]', edit_homework_path(@homework2),0
     else
       user_session.assert_select 'a[href=?]', new_customized_course_homework_path(@customized_course),0
       user_session.assert_select 'a[href=?]', edit_homework_path(@homework1),0

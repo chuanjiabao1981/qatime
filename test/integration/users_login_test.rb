@@ -7,7 +7,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     assert_template 'sessions/new'
     post sessions_path,user: { email: teacher1.email, password: "password" }
 
-    assert_redirected_to questions_teacher_path(teacher1)
+    assert_redirected_to solutions_teacher_path(teacher1)
     follow_redirect!
     assert_response :success
 

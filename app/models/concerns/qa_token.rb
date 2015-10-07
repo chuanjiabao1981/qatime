@@ -4,8 +4,8 @@ module QaToken
   CONVERT_POSTFIX='-converted'
 
   included do
-    after_save :__update_picture
-    after_initialize :__fill_token_and_video_info
+    after_save :__update_picture,:__update_video
+    after_initialize :__fill_token
   end
 
   def generate_token
@@ -22,17 +22,15 @@ module QaToken
     end
   end
 
-  def __fill_token_and_video_info
+  def __update_video
+    if defined? self.video
+      Video.update_videoable_info(self)
+    end
+  end
+
+  def __fill_token
     if defined? self.video
       self.token = generate_token if self.token == nil
-      self.video = Video.where(token: self.token).order(created_at: :desc).first
-
-      if self.video.nil?
-        self.build_video
-        self.video.token = self.token
-      end
-
-      self.video.author_id = self.author_id
     end
 
     if defined? self.pictures

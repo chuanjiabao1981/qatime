@@ -7,6 +7,7 @@
 homework1:
   customized_course: customized_course1
   teacher: teacher1
+  student: student1
   title: 基础测试
   content: 原来基础测试是关键的一换哦
   token: teacher1_customized_course_homewoker_one
@@ -16,6 +17,34 @@ homework1:
 homework2:
   customized_course: customized_course1
   teacher: teacher1
+  student: student1
   title: 基础测试2
   content: 原来基础测试是关键的一换哦2
   token: teacher1_customized_course_homewoker_two
+
+homework3:
+  customized_course: customized_course3
+  teacher: teacher1
+  student: student1
+  title: 基础测试3
+  content: 测试是否过期未处理
+  solutions_count: 0
+  created_at: <%= 10.day.ago %>
+
+homework4:
+  customized_course: customized_course3
+  teacher: teacher1
+  student: student1
+  title: 提出测试4
+  content: sdf131234
+  solutions_count: 2
+  created_at: <%= 10.day.ago %>
+
+exercise_one:
+  title: 随堂作业一
+  content: 2222223334444
+  teacher: teacher1
+  student: student1
+  work_type: exercise
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
+  customized_course: customized_course1

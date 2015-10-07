@@ -1,17 +1,67 @@
 ## Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 #
-#one:
-#  author_id: 1
-#  qa_fileable_id: 1
-#  qa_fileable_type: MyString
-#  name: MyString
-#  type:
-#  token: MyString
-#
-#two:
-#  author_id: 1
-#  qa_fileable_id: 1
-#  qa_fileable_type: MyString
-#  name: MyString
-#  type:
-#  token: MyString
+one:
+  author: teacher1
+  qa_fileable: teacher1_lesson (Lesson)
+  name: 123.txt
+  original_filename: 123.txt
+  qa_file_type: text
+
+two:
+  author: teacher1
+  qa_fileable: teacher1_lesson (Lesson)
+  name: 456.txt
+  original_filename: 456.txt
+  qa_file_type: text
+
+three:
+  author: teacher1
+  qa_fileable: teacher1_lesson (Lesson)
+  original_filename: 789.txt
+  name: 789.txt
+  qa_file_type: text
+
+
+four:
+  author: teacher1
+  qa_fileable: customized_tutorial1 (CustomizedTutorial)
+  name: 123_1.txt
+  original_filename: 123_1.txt
+  qa_file_type: text
+
+five:
+  author: teacher1
+  qa_fileable: customized_tutorial1 (CustomizedTutorial)
+  name: 456_1.txt
+  original_filename: 456_1.txt
+  qa_file_type: text
+
+six:
+  author: teacher1
+  qa_fileable: customized_tutorial1 (CustomizedTutorial)
+  original_filename: 789_1.txt
+  name: 789_1.txt
+  qa_file_type: text
+
+seven:
+  author: teacher1
+  qa_fileable: exercise_one (Exercise)
+  name: 123_1.txt
+  original_filename: 123_1.txt
+  qa_file_type: text
+
+eight:
+  author: teacher1
+  qa_fileable: exercise_one (Exercise)
+  name: 456_1.txt
+  original_filename: 456_1.txt
+  qa_file_type: text
+
+night:
+  author: teacher1
+  qa_fileable: exercise_one (Exercise)
+  original_filename: 789_1.txt
+  name: 789_1.txt
+  qa_file_type: text
+
+

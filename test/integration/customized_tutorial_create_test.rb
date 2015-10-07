@@ -28,12 +28,15 @@ class CustomizedTutorialCreateTest < ActionDispatch::IntegrationTest
     assert_difference 'Video.count',1 do
       assert_difference 'CustomizedTutorial.count',1 do
         attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
-        l = CustomizedTutorial.all.order(:created_at => :desc).first
         click_on '新增课程'
-        assert page.has_xpath?("//video[contains(@src,l.video.name)]")
+        l = CustomizedTutorial.all.order(:created_at => :desc).first
+        page.save_screenshot('screenshot.png')
+        assert page.has_xpath?("//video[contains(@src,\"#{l.video.name}\")]")
       end
     end
   end
+
+  
 
   test 'customized tutorial edit' do
     log_in_as(@teacher)
@@ -41,8 +44,6 @@ class CustomizedTutorialCreateTest < ActionDispatch::IntegrationTest
     visit edit_customized_tutorial_path(customized_tutorial1)
 
     video_old_name        = customized_tutorial1.video.name.url
-    title_old_name        = customized_tutorial1.title
-    content_old_name      = customized_tutorial1.content
 
     title_new_name        = 'fuck这个长度不能少10的啊啊啊'
     content_new_name      = 'fuck这个不能少于20啊啊啊啊啊啊啊啊啊啊12345678900987654321'
@@ -59,11 +60,36 @@ class CustomizedTutorialCreateTest < ActionDispatch::IntegrationTest
 
         customized_tutorial1.reload
         assert_not_equal customized_tutorial1.video.name.url,video_old_name
-        assert page.has_xpath?("//video[contains(@src,l.video.name)]")
+        assert page.has_xpath?("//video[contains(@src,\"#{customized_tutorial1.video.name}\")]")
+      end
+    end
+  end
 
+  test 'customized tutorial without video edit' do
+    log_in_as(@teacher)
+
+    title_new_name        = 'fxuck这个长度不能少10的啊啊啊'
+    content_new_name      = 'fuxck这个不能少于20啊啊啊xxxx啊啊啊啊啊啊啊12345678900987654321'
+    customized_tutorial1 = customized_tutorials(:customized_tutorial_without_video1)
+    visit edit_customized_tutorial_path(customized_tutorial1)
+    page.save_screenshot('screenshot.png')
+
+    assert_difference 'Video.count',1 do
+      assert_difference 'CustomizedTutorial.count',0 do
+        attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
+        fill_in :customized_tutorial_title,with: title_new_name
+        fill_in :customized_tutorial_content,with: content_new_name
+
+        click_on '更新课程'
+        assert  page.has_content? title_new_name
+        assert  page.has_content? content_new_name
+
+        customized_tutorial1.reload
+        #assert_not_equal customized_tutorial1.video.name.url,video_old_name
+        assert page.has_xpath?("//video[contains(@src,\"#{customized_tutorial1.video.name}\")]"),"no video url is match"
 
       end
     end
-
   end
+
 end

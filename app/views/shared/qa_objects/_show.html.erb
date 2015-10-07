@@ -1,0 +1,53 @@
+<% if not defined?(header_switch) or header_switch %>
+<div class="qa_box">
+  <div class="qa_cell box_head">
+    <%= yield %>
+  </div>
+</div>
+<% end %>
+<div class="qa_box">
+  <div class="qa_object">
+    <div class="header">
+
+      <div class="pull-right">
+        <%=image_tag  qa_object.author.avatar.normal.url %>
+      </div>
+      <div class="title">
+        <h4><%= qa_object.title %></h4>
+      </div>
+      <div class="info">
+        <%= [qa_object.author.view_name,"#{localize(qa_object.created_at,:format => :long)} 创建"].join(" • ") %>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="body">
+        <%= qa_object.content.html_safe %>
+      </div>
+      <% if defined?(qa_object.qa_files) and qa_object.qa_files %>
+        <%= render partial: 'shared/qa_files/qa_file', collection: qa_object.qa_files%>
+      <% end %>
+    </div>
+
+    <% if defined?(qa_object.comments) %>
+        <div class="footer">
+            <%= render partial:'comments/index',locals: {commentable: qa_object} %>
+        </div>
+    <% end %>
+
+
+
+    <div class="operator">
+      <div class="pull-right">
+        <%= link_to_edit(qa_object)%> &nbsp;
+        <%= link_to_destroy(qa_object) %>
+      </div>
+    </div>
+
+    <div style="clear:both"></div>
+
+
+  </div>
+
+</div>
+

@@ -12,6 +12,7 @@
           <%= f.input :email, :required => true, :autofocus => true,hint: "邮箱地址用于登录" %>
 
           <%= f.input :name, :required => true %>
+          <%= f.input :nick_name, hint: "只可以是中文、英文或者下划线，最短3个字符最长10个字符，不可包含空格。" %>
           <%= f.input :mobile,:required => true , hint: "当有学生购买课程或者向您提问的时候，给您发短信提醒。" %>
 
 

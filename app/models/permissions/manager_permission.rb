@@ -11,11 +11,11 @@ module Permissions
       allow :vip_classes,[:show]
       allow :questions,[:index,:show,:student,:teacher,:teachers]
       allow :teaching_videos,[:show]
-      allow :students,[:index,:search,:show,:edit,:create,:update,:info,:teachers,:customized_courses]
+      allow :students,[:index,:search,:show,:edit,:create,:update,:info,:teachers,:customized_courses,:homeworks,:solutions]
       allow :home,[:index]
       allow :schools,[:index,:new,:create,:show,:edit,:update]
       allow :register_codes, [:index, :new, :downloads, :create]
-      allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,:students,:curriculums,:info,:questions,:topics,:lessons_state]
+      allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,:students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,:exercises]
       allow :curriculums,[:index,:show]
       allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
       allow :courses,[:show]
@@ -25,13 +25,15 @@ module Permissions
       end
 
 
+
+
       allow :topics,[:show]
       allow :replies,[:create]
       allow :replies,[:edit,:update,:destroy] do |reply|
         reply and reply.author_id == user.id
       end
 
-      allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks] do |customized_course|
+      allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks,:solutions] do |customized_course|
         user and customized_course
       end
 
@@ -43,10 +45,15 @@ module Permissions
       allow :homeworks,[:show] do |homework|
         homework
       end
+      allow :solutions,[:show] do |solution|
+        solution
+      end
+
       allow :managers,[:payment]
       allow :managers,[:customized_courses,] do |manager|
         manager.id == user.id
       end
+      allow :exercises,[:show]
       allow :sessions,[:destroy]
 
     end

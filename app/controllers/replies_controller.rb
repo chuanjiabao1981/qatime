@@ -9,8 +9,7 @@ class RepliesController < ApplicationController
 
     def create
       @topic = Topic.find_by_id(params[:topic_id])
-      @reply = Reply.new(params[:reply].permit!)
-      @reply.topic = @topic
+      @reply = @topic.replies.build(params[:reply].permit!)
       @reply.author_id = current_user.id
       @topicable = @topicable
       if @reply.save

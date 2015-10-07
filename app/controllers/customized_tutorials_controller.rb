@@ -36,6 +36,11 @@ class CustomizedTutorialsController < ApplicationController
   def show
     @topics     = get_topics(@customized_tutorial)
   end
+
+  def destroy
+    @customized_tutorial.destroy
+    respond_with @customized_course
+  end
   private
   def current_resource
     if params[:customized_course_id]

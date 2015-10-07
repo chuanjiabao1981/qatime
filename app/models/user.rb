@@ -15,6 +15,8 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 },:on => :create
   validates :grade, inclusion: { in: APP_CONSTANT["grades_in_menu"]},if: :student?
   validates_presence_of :grade, if: :student?
+  validates :nick_name,allow_nil: true,allow_blank:true,uniqueness: true,
+            format: {with: /\A[\p{Han}\p{Alnum}\-_]{3,10}\z/,message:"只可以是中文、英文或者下划线，最短3个字符最长10个字符，不可包含空格。"}
   has_secure_password
 
   before_create :create_remember_token
@@ -41,6 +43,12 @@ class User < ActiveRecord::Base
 
   def self.digest(token)
     Digest::SHA1.hexdigest(token.to_s)
+  end
+
+  def view_name
+    return name unless teacher?
+    return nick_name unless nick_name.nil? or nick_name.strip.empty?
+    return "#{name[0]}老师"
   end
 
   def admin?

@@ -22,7 +22,7 @@ class CustomizedCourseIntegrateTest < LoginTestBase
     user_session.assert_response :success
     user_session.assert_select 'a[href=?]', customized_course_path(@customized_course),1
     user_session.assert_select 'a[href=?]', new_student_customized_course_path(@student),0
-    user_session.assert_select 'div'      , @customized_course.category
+    #user_session.assert_select 'div'      , @customized_course.category
   end
   def show_page(user_session,showpath)
     user_session.get showpath
@@ -43,11 +43,6 @@ class CustomizedCourseIntegrateTest < LoginTestBase
     @customized_course.customized_tutorials.each do |customized_tutorial|
       user_session.assert_select 'a[href=?]', customized_tutorial_path(customized_tutorial),1
       user_session.assert_select 'a', customized_tutorial.name
-      if user_session.cookies["remember_user_type"] == "teacher"
-        user_session.assert_select 'a[href=?]',edit_customized_tutorial_path(customized_tutorial),1
-      else
-        user_session.assert_select 'a[href=?]',edit_customized_tutorial_path(customized_tutorial),0
-      end
     end
 
   end

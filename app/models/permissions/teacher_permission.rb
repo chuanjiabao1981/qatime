@@ -61,7 +61,9 @@ module Permissions
 
       allow "teachers/home",[:main]
 
-      allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,:info,:questions,:topics,:customized_courses,:customized_tutorial_topics] do |teacher|
+      allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,
+                       :info,:questions,:topics,:customized_courses,
+                       :customized_tutorial_topics,:homeworks,:solutions] do |teacher|
         teacher and teacher.id == user.id
       end
 
@@ -83,14 +85,15 @@ module Permissions
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
       end
-      allow :customized_courses,[:show,:topics,:homeworks] do |customized_course|
+      allow :customized_courses,[:show,:topics,:homeworks,:solutions] do |customized_course|
         user and customized_course.teacher_ids.include?(user.id)
       end
       allow :customized_tutorials,[:new,:create] do |customized_course|
         user and customized_course.teacher_ids.include?(user.id)
       end
       allow :customized_tutorials,[:show,:edit,:update] do |customized_tutorial|
-        user and customized_tutorial.teacher_id == user.id
+        user and (customized_tutorial.teacher_id == user.id or
+                    customized_tutorial.customized_course.teacher_ids.include?(user.id))
       end
 
       allow :homeworks,[:new,:create] do |customized_course|
@@ -98,17 +101,48 @@ module Permissions
       end
 
       allow :homeworks,[:show,:edit,:update] do |homework|
-        homework and homework.teacher_id == user.id
+        homework and homework.teacher_id == user.id or homework.customized_course.teacher_ids.include?(user.id)
+      end
+
+      allow :solutions,[:show] do |solution|
+        solution and solution_permission(solution,user)
+      end
+
+      allow :corrections,[:create] do |solution|
+        solution and solution_permission(solution,user)
+      end
+
+      allow :corrections,[:edit,:update] do |correction|
+        correction and correction.teacher_id == user.id
+      end
+
+      allow :exercises,[:new,:create] do |customized_tutorial|
+        customized_tutorial and customized_tutorial.teacher_id == user.id
+      end
+
+      allow :exercises,[:show,:edit,:update] do |exercise|
+        exercise and
+            (exercise.teacher_id == user.id or
+                exercise.customized_tutorial.customized_course.teacher_ids.include?(user.id))
       end
 
     end
 private
+
+    def solution_permission(solution,user)
+      if solution.solutionable.instance_of? Homework
+        solution.solutionable.customized_course.teacher_ids.include?(user.id)
+      elsif solution.solutionable.instance_of? Exercise
+        solution.solutionable.customized_tutorial.teacher_id == user.id or
+            solution.solutionable.customized_tutorial.customized_course.teacher_ids.include?(user.id)
+      end
+    end
     def topicable_permission(topicable,user)
       return false if topicable.nil?
       if topicable.instance_of? CustomizedCourse
         topicable.teacher_ids.include?(user.id)
       elsif topicable.instance_of? CustomizedTutorial
-        topicable.teacher_id == user.id
+        topicable.teacher_id == user.id or topicable.customized_course.teacher_ids.include?(user.id)
       elsif topicable.instance_of? Homework
         topicable.customized_course.teacher_ids.include?(user.id)
       elsif topicable.instance_of? Lesson

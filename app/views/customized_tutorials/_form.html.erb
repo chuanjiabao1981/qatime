@@ -5,13 +5,11 @@
     <%= get_edit_or_create_model_string(@customized_tutorial) %>
   </div>
   <div class="qa_big_cell">
-    <%= render partial: 'videos/form',locals:{video: @customized_tutorial.video} %>
-
+    <%= video_submit_form @customized_tutorial %>
     <%= simple_form_for [@customized_course,@customized_tutorial] do |f| %>
         <%=f.input :title   %>
         <%=f.input :content %>
         <%=f.input :token,as: :hidden %>
-
         <%= f.button :submit,class: "btn btn-default" %>
 
     <% end %>

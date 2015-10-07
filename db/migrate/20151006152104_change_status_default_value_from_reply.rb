@@ -1,5 +1,5 @@
 class ChangeStatusDefaultValueFromReply < ActiveRecord::Migration
   def change
-    rename_column :fees, :feedable_id, :feeable_id
+    change_column :replies, :status, :string, :null => false, :default => "open"
   end
 end

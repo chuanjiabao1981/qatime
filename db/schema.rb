@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151006080542) do
+ActiveRecord::Schema.define(version: 20151007013711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 20151006080542) do
     t.integer  "topics_count",               default: 0
     t.integer  "homeworks_count",            default: 0
     t.integer  "exercises_count",            default: 0
+    t.integer  "tutorial_issues_count",      default: 0
   end
 
   create_table "customized_tutorials", force: :cascade do |t|
@@ -123,12 +124,13 @@ ActiveRecord::Schema.define(version: 20151006080542) do
     t.integer  "customized_course_id"
     t.string   "title"
     t.text     "content"
-    t.integer  "position",             default: 0
+    t.integer  "position",              default: 0
     t.string   "token"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.integer  "topics_count",         default: 0
-    t.integer  "exercises_count",      default: 0
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "topics_count",          default: 0
+    t.integer  "exercises_count",       default: 0
+    t.integer  "tutorial_issues_count", default: 0
   end
 
   create_table "excercises", force: :cascade do |t|
@@ -436,6 +438,16 @@ ActiveRecord::Schema.define(version: 20151006080542) do
     t.integer  "teacher_id"
     t.string   "topicable_type"
     t.integer  "customized_course_id"
+  end
+
+  create_table "tutorial_issues", force: :cascade do |t|
+    t.integer  "customized_course_id"
+    t.integer  "customized_tutorial_id"
+    t.integer  "student_id"
+    t.integer  "teacher_id"
+    t.integer  "topics_count"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "users", force: :cascade do |t|

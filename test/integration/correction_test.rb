@@ -7,7 +7,9 @@ class CorrectionIntegrateTest < LoginTestBase
 
   def setup
     super
-    @solution     = solutions(:homework_solution_one)
+    @solution               = solutions(:homework_solution_one)
+    @exercise_solution      = solutions(:exercise_solution_one)
+    assert @exercise_solution.valid?
   end
 
 
@@ -15,8 +17,12 @@ class CorrectionIntegrateTest < LoginTestBase
 
   test 'correction create' do
 
-    create_page(@teacher,@teacher_session)
-    create_page(@student,@student_session)
+    create_page(@teacher,@teacher_session,@solution)
+    create_page(@teacher,@teacher_session,@exercise_solution)
+
+    create_page(@student,@student_session,@solution)
+    create_page(@student,@student_session,@exercise_solution)
+
 
   end
 
@@ -59,8 +65,8 @@ class CorrectionIntegrateTest < LoginTestBase
     user_session.assert_response :success
 
   end
-  def create_page(user,user_session)
-    create_path = solution_corrections_path(@solution)
+  def create_page(user,user_session,solution)
+    create_path = solution_corrections_path(solution)
     content      = "oasdfasdfe134513413451"
     if user.student?
       assert_difference 'Correction.count',0 do
@@ -69,14 +75,17 @@ class CorrectionIntegrateTest < LoginTestBase
       end
       return
     end
-    assert_difference 'Correction.count',1 do
-      user_session.post create_path,correction:{content: content}
-      new_correction = @solution.corrections.order(created_at: :asc).last
 
-      assert new_correction.customized_course_id == @solution.customized_course_id,"not equal"
-      user_session.assert_redirected_to solution_path(@solution)
-      user_session.follow_redirect!
-      user_session.assert_select 'div',new_correction.content
+    assert_difference 'Correction.count',1 do
+      assert_difference 'solution.reload.solutionable.corrections_count',1 do
+        user_session.post create_path,correction:{content: content}
+        new_correction = solution.corrections.order(created_at: :asc).last
+
+        assert new_correction.customized_course_id == solution.customized_course_id,"not equal"
+        user_session.assert_redirected_to solution_path(solution)
+        user_session.follow_redirect!
+        user_session.assert_select 'div',new_correction.content
+      end
     end
   end
 end

@@ -6,7 +6,7 @@ class Correction < ActiveRecord::Base
 
   belongs_to  :teacher
   belongs_to  :solution,counter_cache: true
-  belongs_to      :homework,:counter_cache => true
+  belongs_to  :homework,:counter_cache => true
 
   has_many    :pictures,as: :imageable
   has_one     :video,as: :videoable

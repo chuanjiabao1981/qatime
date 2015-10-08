@@ -5,7 +5,7 @@ class Reply < ActiveRecord::Base
   include ContentValidate
   include Tally
 
-  self.per_page = 10
+  self.per_page = 5
 
   belongs_to :topic  ,:counter_cache => true,:inverse_of => :replies
   belongs_to :author, :class_name => "User",:counter_cache => true,:inverse_of => :replies

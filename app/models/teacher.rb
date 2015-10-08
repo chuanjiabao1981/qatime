@@ -33,7 +33,6 @@ class Teacher < User
   scope :by_subject, lambda {|s| where(subject: s) if s}
   scope :by_school,  lambda {|s| where(school_id: s) if s}
   scope :by_vip_class, lambda{|vip_class| includes(:school).order("schools.name desc").by_subject(vip_class.subject).by_category(vip_class.category) }
-  scope :by_customized_tutorials, lambda {|c| where(category: c) if c}
 
   def initialize(attributes = {})
     super(attributes)
@@ -49,15 +48,15 @@ class Teacher < User
   end
 
   def keep_account
-    CustomizedTutorial.by_teacher(self.id).valid_tally_unit.each do |customized_tutorial|
+    CustomizedTutorial.by_teacher_id(self.id).valid_tally_unit.each do |customized_tutorial|
       customized_tutorial.keep_account(self.id)
     end
 
-    Correction.by_teacher(self.id).valid_tally_unit.each do |correction|
+    Correction.by_teacher_id(self.id).valid_tally_unit.each do |correction|
       correction.keep_account(self.id)
     end
 
-    Reply.by_teacher(self.id).valid_tally_unit.each do |reply|
+    Reply.by_teacher_id(self.id).valid_tally_unit.each do |reply|
       reply.keep_account(self.id)
     end
   end

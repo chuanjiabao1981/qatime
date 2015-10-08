@@ -1,17 +1,22 @@
 module Tally
   extend ActiveSupport::Concern
   included do
-    scope :by_teacher, lambda {|t| where(teacher_id: t) if t}
+    scope :by_teacher_id, lambda {|t| where(teacher_id: t) if t}
     scope :valid_tally_unit, -> { where("customized_course_id is not null").where(:status => "open") }
 
-    def create_fee
-      price_per_minute = 1
-      # 生成费用单子
+    def fee_value_compute
       video = self.video
       if video and video.duration and video.duration > 0
         video.lock!
         minute = Float(video.duration) / 60
-        fee_value = format("%.1f",minute * price_per_minute).to_f
+        fee_value = format("%.1f",minute * APP_CONFIG[:price_per_minute]).to_f
+        fee_value
+      end
+    end
+
+    def __create_fee
+      fee_value = self.fee_value_compute
+      if fee_value and fee_value > 0
         fee = self.build_fee
         fee.value = fee_value
         fee.customized_course_id = self.customized_course_id
@@ -27,22 +32,22 @@ module Tally
         #防止视频被修改，这里要对关键对象加锁
         self.lock!
         begin
-          fee = self.create_fee
-
-          if fee and fee.value > 0
-            #获取学生账户
-            student_account = Student.find(customized_course.student_id).account.lock!
-            teacher = Teacher.find(teacher_id)
-            account = teacher.account
-            account.lock!
-            student_account.money -= fee.value;
-            account.money += fee.value;
-            student_account.save!
-            account.save!
-            self.status = "closed"
-            self.save!
+            fee = self.__create_fee
+            if fee and fee.value > 0
+              #获取学生账户
+              student_account = Student.find(customized_course.student_id).account.lock!
+              teacher = Teacher.find(teacher_id)
+              account = teacher.account
+              account.lock!
+              student_account.money -= fee.value;
+              account.money += fee.value;
+              student_account.save!
+              account.save!
+              self.status = "closed"
+              self.save!
           end
         rescue Exception => e
+          puts "keep_account Wrong " + self.as_json.to_s
           raise ActiveRecord::StatementInvalid, "keep_account Wrong " + self.as_json.to_s
         end
       end
@@ -54,15 +59,14 @@ module Tally
       self.transaction do
         #防止视频被修改，这里要对关键对象加锁
         self.lock!
-        fee = self.create_fee
 
+        fee = self.__create_fee
         if fee and fee.value > 0
           #获取学生账户
           student_account = Student.find(customized_course.student_id).account.lock!
           teacher = Teacher.find(teacher_id)
           account = teacher.account
           account.lock!
-
           student_account.money -= fee.value;
           account.money += fee.value;
           student_account.save!
@@ -81,8 +85,7 @@ module Tally
         #防止视频被修改，这里要对关键对象加锁
         self.lock!
         begin
-          fee = self.create_fee
-
+          fee = self.__create_fee
           if fee and fee.value > 0
             #获取学生账户
             student_account = Student.find(customized_course.student_id).account.lock!
@@ -93,11 +96,12 @@ module Tally
             account.money += fee.value;
             student_account.save!
             account.save!
+            rails "Fake wrong"
             self.status = "closed"
-            raise "Fake Wrong"
             self.save!
           end
         rescue Exception => e
+          puts "keep_account Wrong " + self.as_json.to_s
           raise ActiveRecord::StatementInvalid, "keep_account Wrong " + self.as_json.to_s
         end
       end

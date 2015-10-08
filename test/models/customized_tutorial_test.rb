@@ -55,7 +55,7 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
     #
 
     teacher = Teacher.find(users(:teacher1).id)
-    assert CustomizedTutorial.by_teacher(teacher.id).valid_tally_unit.size == 3
+    assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 3
 
     customized_tutorial = customized_tutorials(:customized_tutorial_test_tally)
 
@@ -69,6 +69,7 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
 
     customized_tutorial.keep_account(teacher.id)
     customized_tutorial_1 = customized_tutorials(:customized_tutorial_test_tally_1)
+
     customized_tutorial_1.keep_account(teacher.id)
 
     # 帐号发生了变化
@@ -93,12 +94,12 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
 
     assert customized_tutorial.status == "closed"
     assert customized_tutorial_1.status == "closed"
-    assert CustomizedTutorial.by_teacher(teacher.id).valid_tally_unit.size == 1
+    assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 1
   end
 
   test "customized tutorial keep_account transaction" do
     teacher = Teacher.find(users(:teacher2).id)
-    assert CustomizedTutorial.by_teacher(teacher.id).valid_tally_unit.size == 1
+    assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 1
 
     customized_tutorial = customized_tutorials(:customized_tutorial_teacher2)
 
@@ -121,7 +122,7 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
 
   test "customized tutorial keep_account transaction without db" do
     teacher = Teacher.find(users(:teacher2).id)
-    assert CustomizedTutorial.by_teacher(teacher.id).valid_tally_unit.size == 1
+    assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 1
 
     customized_tutorial = customized_tutorials(:customized_tutorial_teacher2)
 

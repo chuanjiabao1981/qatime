@@ -11,8 +11,8 @@ class CorrectionTest < ActiveSupport::TestCase
 
     teacher = Teacher.find(users(:teacher1).id)
 
-    print Correction.by_teacher(teacher.id).valid_tally_unit.size
-    assert Correction.by_teacher(teacher.id).valid_tally_unit.size == 3
+    print Correction.by_teacher_id(teacher.id).valid_tally_unit.size
+    assert Correction.by_teacher_id(teacher.id).valid_tally_unit.size == 3
 
     correction = corrections(:correction_two)
 
@@ -50,7 +50,7 @@ class CorrectionTest < ActiveSupport::TestCase
 
     assert correction.status == "closed"
     assert correction_1.status == "closed"
-    assert Correction.by_teacher(teacher.id).valid_tally_unit.size == 1
+    assert Correction.by_teacher_id(teacher.id).valid_tally_unit.size == 1
   end
 
   test 'create' do

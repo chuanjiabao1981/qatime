@@ -23,7 +23,7 @@ class ReplyTest < ActiveSupport::TestCase
   test "reply keep_account" do
     #
     teacher = Teacher.find(users(:teacher1).id)
-    assert Reply.by_teacher(teacher.id).valid_tally_unit.size == 3
+    assert Reply.by_teacher_id(teacher.id).valid_tally_unit.size == 3
 
     reply = replies(:reply_with_video_1)
 
@@ -61,7 +61,7 @@ class ReplyTest < ActiveSupport::TestCase
 
     assert reply.status == "closed"
     assert reply_1.status == "closed"
-    assert Reply.by_teacher(teacher.id).valid_tally_unit.size == 1
+    assert Reply.by_teacher_id(teacher.id).valid_tally_unit.size == 1
   end
 
 end

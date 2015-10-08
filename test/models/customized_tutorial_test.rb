@@ -84,6 +84,9 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
     assert fee.feeable_id = customized_tutorial.id
     assert fee.feeable_type = "CustomizedTutorial"
     assert fee.customized_course_id = customized_tutorial.customized_course_id
+    assert fee.student_account_id = student.account.id
+    assert fee.teacher_account_id = teacher.account.id
+
 
     fee = customized_tutorial_1.fee
     assert_not_nil fee

@@ -175,6 +175,10 @@ Qatime::Application.routes.draw do
     end
   end
 
+  resources :accounts do
+    resources :deposits
+  end
+
   resources :comments
 
   resources :videos do

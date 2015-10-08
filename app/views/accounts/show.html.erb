@@ -1,0 +1,11 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    账户剩余金额<%=@account.money%>
+
+    <% if @user.student? %>
+        <%= link_to "充值", "#" %>
+    <% elsif @user.teacher? %>
+        <%= link_to "提现", "#" %>
+    <% end %>
+  </div>
+</div>

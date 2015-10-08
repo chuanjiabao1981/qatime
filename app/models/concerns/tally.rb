@@ -14,12 +14,14 @@ module Tally
       end
     end
 
-    def __create_fee
+    def __create_fee(teacher_account, student_account)
       fee_value = self.fee_value_compute
       if fee_value and fee_value > 0
         fee = self.build_fee
         fee.value = fee_value
         fee.customized_course_id = self.customized_course_id
+        fee.student_account_id = student_account.id
+        fee.teacher_account_id = teacher_account.id
         fee.save!
         fee
       end
@@ -32,12 +34,14 @@ module Tally
         #防止视频被修改，这里要对关键对象加锁
         self.lock!
         begin
-            fee = self.__create_fee
+            teacher = Teacher.find(teacher_id)
+            account = teacher.account
+            student_account = Student.find(customized_course.student_id).account
+
+            fee = self.__create_fee(account, student_account)
             if fee and fee.value > 0
               #获取学生账户
-              student_account = Student.find(customized_course.student_id).account.lock!
-              teacher = Teacher.find(teacher_id)
-              account = teacher.account
+              student_account.lock!
               account.lock!
               student_account.money -= fee.value;
               account.money += fee.value;
@@ -59,13 +63,14 @@ module Tally
       self.transaction do
         #防止视频被修改，这里要对关键对象加锁
         self.lock!
+        teacher = Teacher.find(teacher_id)
+        account = teacher.account
+        student_account = Student.find(customized_course.student_id).account
 
-        fee = self.__create_fee
+        fee = self.__create_fee(account, student_account)
         if fee and fee.value > 0
           #获取学生账户
-          student_account = Student.find(customized_course.student_id).account.lock!
-          teacher = Teacher.find(teacher_id)
-          account = teacher.account
+          student_account.lock!
           account.lock!
           student_account.money -= fee.value;
           account.money += fee.value;
@@ -85,12 +90,14 @@ module Tally
         #防止视频被修改，这里要对关键对象加锁
         self.lock!
         begin
-          fee = self.__create_fee
+          teacher = Teacher.find(teacher_id)
+          account = teacher.account
+          student_account = Student.find(customized_course.student_id).account
+
+          fee = self.__create_fee(account, student_account)
           if fee and fee.value > 0
             #获取学生账户
-            student_account = Student.find(customized_course.student_id).account.lock!
-            teacher = Teacher.find(teacher_id)
-            account = teacher.account
+            student_account.lock!
             account.lock!
             student_account.money -= fee.value;
             account.money += fee.value;

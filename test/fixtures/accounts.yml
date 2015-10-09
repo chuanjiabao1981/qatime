@@ -9,3 +9,9 @@ student_account:
 teacher2_account:
   user: teacher2
   money: adfd
+
+teacher_account_2000:
+  user: teacher1
+  money: 2000
+
+

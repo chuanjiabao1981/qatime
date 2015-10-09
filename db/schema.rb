@@ -221,10 +221,10 @@ ActiveRecord::Schema.define(version: 20151008215450) do
     t.datetime "updated_at",                         null: false
     t.integer  "solutions_count",        default: 0
     t.integer  "student_id"
+    t.string   "work_type"
     t.integer  "customized_tutorial_id"
     t.integer  "comments_count",         default: 0
     t.integer  "corrections_count",      default: 0
-    t.string   "work_type"
   end
 
   create_table "learning_plan_assignments", force: :cascade do |t|
@@ -538,6 +538,16 @@ ActiveRecord::Schema.define(version: 20151008215450) do
     t.integer  "questions_count"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "xxxxxes", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "xxxxxable_id"
+    t.string   "xxxxxable_type"
+    t.integer  "tutorial_issue_id"
+    t.integer  "integer"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
 end

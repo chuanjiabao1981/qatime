@@ -1,11 +1,13 @@
 class DepositsController < ApplicationController
   def new
-    @cash_operation_record = CashOperationRecord.new
+    @deposit = Deposit.new
   end
 
   def create
-    if   @account.deposit(params[:account],current_user_id)
-      flash[:success] = "成功充值#{params[:account][:deposit_amount]}！"
+    @deposit = @account.deposit(params[:deposit].permit!,current_user.id)
+    if @deposit.valid? and not @deposit.new_record?
+      flash[:success] = "成功充值#{@deposit.value}！"
+      redirect_to send("info_#{@deposit.account.user.role}_path",@deposit.account.user)
     else
       render 'deposits/new'
     end

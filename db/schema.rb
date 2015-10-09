@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20151008215450) do
     t.integer  "operator_id"
     t.integer  "account_id"
     t.float    "value"
-    t.integer  "op_type"
+    t.string   "type"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
@@ -141,14 +141,6 @@ ActiveRecord::Schema.define(version: 20151008215450) do
     t.integer  "exercises_count",       default: 0
     t.integer  "tutorial_issues_count", default: 0
     t.string   "status",                default: "open", null: false
-  end
-
-  create_table "deposits", force: :cascade do |t|
-    t.integer  "user_id"
-    t.float    "value"
-    t.boolean  "type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "excercises", force: :cascade do |t|

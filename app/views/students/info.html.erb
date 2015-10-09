@@ -32,12 +32,12 @@
   </div>
   <div class="qa_cell">
     <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%= Student.human_attribute_name(:account) %></div>
+        <div class="col-md-2" style="padding-left:40px"><%= Account.human_attribute_name(:money) %></div>
         <div class="col-md-9">
           <%= @student.account.money %>
           <% if allow? :deposits,:new ,@student.account%>
                 <%= link_to new_account_deposit_path(@student.account) do %>
-                    <span><%= Account.human_attribute_name(:deposits) %></span>
+                    <span><%= Deposit.model_name.human %></span>
                 <% end %>
           <% end %>
         </div>
@@ -47,3 +47,7 @@
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
+<div class="qa_box">
+    <%= render partial: 'deposits/index',locals: {deposits:@deposits} %>
+</div>
+

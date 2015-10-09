@@ -4,8 +4,9 @@ class CreateCashOperationRecords < ActiveRecord::Migration
       t.integer :operator_id
       t.integer :account_id
       t.float   :value
-      t.integer :op_type
+      t.string :type
       t.timestamps null: false
     end
+    drop_table :deposits
   end
 end

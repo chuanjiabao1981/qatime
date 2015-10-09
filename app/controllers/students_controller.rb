@@ -30,6 +30,8 @@ class StudentsController < ApplicationController
   end
 
   def info
+    @deposits = @student.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+
     render layout: 'student_home'
   end
 

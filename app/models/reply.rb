@@ -1,6 +1,6 @@
 class Reply < ActiveRecord::Base
 
-
+  include QaCommon
   include QaToken
   include ContentValidate
   include Tally
@@ -10,7 +10,6 @@ class Reply < ActiveRecord::Base
   belongs_to :topic  ,:counter_cache => true,:inverse_of => :replies
   belongs_to :author, :class_name => "User",:counter_cache => true,:inverse_of => :replies
 
-  scope :by_teacher_id, lambda {|t| where(author_id: t) if t}
 
   has_many :pictures,as: :imageable
   has_one  :video,as: :videoable

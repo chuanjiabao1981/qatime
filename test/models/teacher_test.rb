@@ -19,24 +19,27 @@ class TeacherTest < ActiveSupport::TestCase
   test "teacher keep_account" do
     teacher = Teacher.find(users(:teacher1).id)
 
-    assert CustomizedTutorial.by_teacher(teacher.id).valid_tally_unit.size == 3
-    assert Reply.by_teacher(teacher.id).valid_tally_unit.size == 3
-    assert Correction.by_teacher(teacher.id).valid_tally_unit.size == 3
+    assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 3
+    assert Reply.by_author_id(teacher.id).valid_tally_unit.size == 3
+    assert Correction.by_teacher_id(teacher.id).valid_tally_unit.size == 3
 
     teacher.keep_account
 
-    assert CustomizedTutorial.by_teacher(teacher.id).valid_tally_unit.size == 1
-    assert Reply.by_teacher(teacher.id).valid_tally_unit.size == 1
-    assert Correction.by_teacher(teacher.id).valid_tally_unit.size == 1
+    assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 1
+    assert Reply.by_author_id(teacher.id).valid_tally_unit.size == 1
+    assert Correction.by_teacher_id(teacher.id).valid_tally_unit.size == 1
 
 
     customized_course     = customized_courses(:customized_course1)
 
     assert customized_course.fees.size == 6
-
-    assert teacher.account.money == 8.1
+    # customized_course.fees.each do |f|
+    #   puts f.to_json
+    # end
+    # puts teacher.account.money
+    assert teacher.account.money == 7.2
 
     student = Student.find(users(:student1).id)
-    assert student.account.money == -8.1
+    assert student.account.money == -7.2
   end
 end

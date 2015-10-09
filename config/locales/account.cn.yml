@@ -7,4 +7,4 @@ cn:
         money: 余额
         deposit: 充值
         withdraw: 取现
-        deposit_amount: 充值金额
+        keep_account: 结账

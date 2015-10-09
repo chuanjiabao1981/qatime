@@ -61,6 +61,8 @@ class TeachersController < ApplicationController
   end
 
   def info
+    @withdraws = @teacher.account.withdraws.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+
     render layout: 'teacher_home'
   end
 
@@ -100,6 +102,11 @@ class TeachersController < ApplicationController
   def unpass
     @teacher.update_attribute(:pass,false)
     render 'pass'
+  end
+  def keep_account
+    KeepAccountWorker.perform_async(@teacher.id)
+    flash[:success] = "#{Account.human_attribute_name(:keep_account)}进行中"
+    redirect_to info_teacher_path(@teacher)
   end
   def destroy
     @teacher.destroy

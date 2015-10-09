@@ -1,0 +1,22 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <div class="row">
+      <div class="col-md-4">
+        <h2>
+          <%= Account.human_attribute_name(:withdraw)%>
+        </h2>
+            <span class="label label-success">
+                <%= @account.user.name %>
+            </span>
+      </div>
+      <div class="col-md-4">
+      </div>
+    </div>
+  </div>
+  <div class="qa_big_cell">
+    <%= simple_form_for([@account,@withdraw]) do |f| %>
+        <%= f.input :value %>
+        <%= f.submit Account.human_attribute_name(:withdraw),class:"btn btn-default"  %>
+    <% end %>
+  </div>
+</div>

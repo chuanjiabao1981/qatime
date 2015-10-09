@@ -7,3 +7,4 @@ production:
   - default
   - video_convert
   - sms
+  - keep_account

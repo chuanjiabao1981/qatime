@@ -1,5 +1,6 @@
 class Correction < ActiveRecord::Base
 
+  include QaCommon
   include QaToken
   include ContentValidate
   include Tally

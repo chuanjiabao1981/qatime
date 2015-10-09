@@ -63,15 +63,15 @@ module Permissions
 
       allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,
                        :info,:questions,:topics,:customized_courses,
-                       :customized_tutorial_topics,:homeworks,:solutions,:account] do |teacher|
+                       :customized_tutorial_topics,:homeworks,:solutions] do |teacher|
         teacher and teacher.id == user.id
       end
 
       allow :replies,[:create] do |topic|
         topic and topic.topicable and topicable_permission(topic.topicable,user)
       end
-      allow :replies,[:edit,:update,:destroy] do |reply|
-        reply and reply.author_id == user.id
+      allow :replies,[:edit,:update] do |reply|
+        reply and reply.status == "open" and reply.author_id == user.id
       end
 
       allow :lessons,[:show]
@@ -113,11 +113,11 @@ module Permissions
       end
 
       allow :corrections,[:edit,:update] do |correction|
-        correction and correction.teacher_id == user.id
+        correction and correction.status == "open" and correction.teacher_id == user.id
       end
 
       allow :exercises,[:new,:create] do |customized_tutorial|
-        customized_tutorial and customized_tutorial.teacher_id == user.id
+        customized_tutorial and customized_tutorial.status == "open" and customized_tutorial.teacher_id == user.id
       end
 
       allow :exercises,[:show,:edit,:update] do |exercise|

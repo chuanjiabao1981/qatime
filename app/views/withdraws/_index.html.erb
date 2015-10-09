@@ -1,0 +1,15 @@
+<div class="qa_big_cell">
+  <h2><%=Withdraw.model_name.human%>记录</h2>
+</div>
+
+<div class="qa_cell">
+  <table class="table table-bordered">
+    <tr>
+      <th><%= Withdraw.human_attribute_name(:value)%></th>
+      <th><%= Withdraw.human_attribute_name(:created_at)%></th>
+      <th><%= Withdraw.human_attribute_name(:operator)%></th>
+    </tr>
+    <%= render withdraws %>
+  </table>
+  <%= will_paginate withdraws ,renderer: BootstrapPagination::Rails %>
+</div>

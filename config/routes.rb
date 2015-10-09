@@ -106,7 +106,7 @@ Qatime::Application.routes.draw do
       get 'customized_courses'
       get 'homeworks'
       get 'solutions'
-      get 'account'
+      get 'keep_account'
     end
   end
   resources :students do
@@ -122,7 +122,6 @@ Qatime::Application.routes.draw do
       get 'customized_courses'
       get 'homeworks'
       get 'solutions'
-      get 'account'
     end
     resources :customized_courses do
       member do

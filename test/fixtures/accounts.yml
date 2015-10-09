@@ -11,7 +11,7 @@ teacher2_account:
   money: adfd
 
 teacher_account_2000:
-  user: teacher1
+  user: teacher2
   money: 2000
 
 

@@ -1,7 +1,6 @@
 module Tally
   extend ActiveSupport::Concern
   included do
-    scope :by_teacher_id, lambda {|t| where(teacher_id: t) if t}
     scope :valid_tally_unit, -> { where("customized_course_id is not null").where(:status => "open") }
 
     def fee_value_compute
@@ -37,20 +36,21 @@ module Tally
             teacher = Teacher.find(teacher_id)
             account = teacher.account
             student_account = Student.find(customized_course.student_id).account
-
             fee = self.__create_fee(account, student_account)
+
             if fee and fee.value > 0
               #获取学生账户
               student_account.lock!
               account.lock!
-              student_account.money -= fee.value;
-              account.money += fee.value;
+              student_account.money -= fee.value
+              account.money += fee.value
               student_account.save!
               account.save!
               self.status = "closed"
               self.save!
           end
         rescue Exception => e
+          puts e.to_s
           puts "keep_account Wrong " + self.as_json.to_s
           raise ActiveRecord::StatementInvalid, "keep_account Wrong " + self.as_json.to_s
         end
@@ -68,6 +68,7 @@ module Tally
         student_account = Student.find(customized_course.student_id).account
 
         fee = self.__create_fee(account, student_account)
+        puts fee.to_json
         if fee and fee.value > 0
           #获取学生账户
           student_account.lock!

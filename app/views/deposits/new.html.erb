@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="qa_big_cell">
-    <%= simple_form_for @account,url: account_deposits_path(@account) do |f| %>
+    <%= simple_form_for @cash_operation_record do |f| %>
         <%= f.input :deposit_amount %>
         <%= f.submit Account.human_attribute_name(:deposit),class:"btn btn-default"  %>
     <% end %>

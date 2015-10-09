@@ -11,14 +11,14 @@ class AccountTest < ActiveSupport::TestCase
     account       = accounts(:teacher_account_2000)
     assert account.valid?
     assert_difference "CashOperationRecord.withdraw.count" ,0 do
-      assert_not account.withdraw({withdraw_amount: "123as"},@operator.id)
-      assert_not account.valid?
+      cash_operation_record = account.withdraw({value: "123as"},@operator.id)
+      assert_not cash_operation_record.valid?
     end
 
     assert account.money == 2000
     assert_difference "CashOperationRecord.withdraw.count" ,1 do
-      assert       account.withdraw({withdraw_amount: "1234"},@operator.id)
-      assert       account.valid?,account.errors.full_messages
+      cash_operation_record  =        account.withdraw({value: "1234"},@operator.id)
+      assert       cash_operation_record.valid?,cash_operation_record.errors.full_messages
     end
     assert account.money == 766
   end
@@ -27,14 +27,13 @@ class AccountTest < ActiveSupport::TestCase
     account       = accounts(:teacher_account_2000)
     assert account.valid?
     assert_difference "CashOperationRecord.withdraw.count" ,0 do
-      assert_not account.withdraw({withdraw_amount: "30000"},@operator.id)
+      cash_operation_record = account.withdraw({value: "30000"},@operator.id)
+      assert_not cash_operation_record.valid?
     end
-    assert_not account.valid?
     assert account.money == 2000
     assert_difference "CashOperationRecord.withdraw.count" ,1 do
-      assert     account.withdraw({withdraw_amount: "10"},@operator.id)
+      assert     account.withdraw({value: "10"},@operator.id).valid?
     end
-    assert     account.valid?,account.errors.full_messages
     assert account.money == 1990
   end
 
@@ -42,9 +41,8 @@ class AccountTest < ActiveSupport::TestCase
     account       = accounts(:teacher_account_2000)
     assert account.valid?
     assert_difference "CashOperationRecord.withdraw.count" ,0 do
-      assert_not account.withdraw({withdraw_amount: "-100"},@operator.id)
+      assert_not account.withdraw({value: "-100"},@operator.id).valid?
     end
-    assert_not account.valid?
     assert account.money == 2000
   end
 
@@ -54,14 +52,12 @@ class AccountTest < ActiveSupport::TestCase
     assert account.valid?
     assert_difference "CashOperationRecord.deposit.count" ,0 do
 
-      assert_not account.deposit({deposit_amount: "123as"},@operator.id)
+      assert_not account.deposit({value: "123as"},@operator.id).valid?
     end
-    assert_not account.valid?
     assert account.money == 2000
     assert_difference "CashOperationRecord.deposit.count" ,1 do
-      assert       account.deposit({deposit_amount: "1234"},@operator.id)
+      assert       account.deposit({value: "1234"},@operator.id).valid?
     end
-    assert       account.valid?,account.errors.full_messages
     assert account.money == 3234
   end
 
@@ -69,9 +65,8 @@ class AccountTest < ActiveSupport::TestCase
     account       = accounts(:teacher_account_2000)
     assert account.valid?
     assert_difference "CashOperationRecord.deposit.count" ,0 do
-      assert_not account.deposit({deposit_amount: "-100"},@operator.id)
+      assert_not account.deposit({value: "-100"},@operator.id).valid?
     end
-    assert_not account.valid?
     assert account.money == 2000
 
   end

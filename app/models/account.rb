@@ -1,62 +1,49 @@
 class Account < ActiveRecord::Base
   belongs_to :user
 
-
   has_many :cash_operation_records
-  attr_accessor :withdraw_amount,:deposit_amount,:withdraw_check,:deposit_check
 
-  after_initialize :__init
-
-
-
-  validate :validate_withdraw_amount, if: lambda{ self.withdraw_check }
-  validate :validate_deposit_amount,  if: lambda{ self.deposit_check  }
 
 
   #充值
   def deposit(params,operator_id)
-    self.deposit_amount = params[:deposit_amount]
-    begin
-      self.with_lock do
-        self.deposit_check    = true
-        if self.valid?
-          self.deposit_check  = false
-          self.money          = self.money + self.deposit_amount.to_f
-          self.save!
-          create_deposit_operation_record(self.deposit_amount.to_f,operator_id)
-        end
-      end
-    rescue  ActiveRecord::RecordInvalid => e
-      logger.warn e.to_s
-      logger.warn self.to_json
-      false
+    _account_operation(params,operator_id) do |params|
+      params[:op_type]          = CashOperationRecord.op_types[:deposit]
     end
   end
+
+
   #取现
   def withdraw(params,operator_id)
-    self.withdraw_amount = params[:withdraw_amount]
-    begin
-      self.with_lock do
-        # 判断withdraw_amount的format是否合法
-        # 判断withdraw_amount的是否小于account.money
-        # 通过validate的方法判断的原因是这样可以，设置errors，保证applicaiton层面的统一
-        self.withdraw_check  = true
-        if self.valid?
-          # vlidate通过了后续就可以不检查了
-          self.withdraw_check = false
-          self.money          = self.money - self.withdraw_amount.to_f
-          self.save!
-          create_withdraw_operation_record(self.withdraw_amount.to_f,operator_id)
-        else
-          false
-        end
-      end
-    rescue ActiveRecord::RecordInvalid => e
-     logger.warn e.to_s
-     logger.warn self.to_json
-     false
+    _account_operation(params,operator_id) do |params|
+      params[:op_type]          = CashOperationRecord.op_types[:withdraw]
     end
   end
+
+  def _account_operation(params,operator_id,&block)
+    params[:op_type]          = CashOperationRecord.op_types[:deposit]
+    params[:operator_id]      = operator_id
+    yield params
+    _cash_operation_record    = nil
+    self.with_lock do
+      _cash_operation_record = self.cash_operation_records.create(params)
+      if _cash_operation_record and _cash_operation_record.valid? and not _cash_operation_record.new_record?
+        _change_money _cash_operation_record
+      end
+    end
+    _cash_operation_record
+  end
+  def _change_money(cor)
+    if cor.deposit?
+      self.money = self.money + cor.value
+    elsif cor.withdraw?
+      self.money = self.money - cor.value
+    else
+      raise ActiveRecord::StatementInvalid, " cash opertaion type is wrong " + cor.to_json
+    end
+    self.save!
+  end
+
 
 
   private

@@ -1,6 +1,6 @@
 class DepositsController < ApplicationController
   def new
-    @deposit = Deposit.new
+    @cash_operation_record = CashOperationRecord.new
   end
 
   def create

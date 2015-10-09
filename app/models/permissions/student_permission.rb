@@ -50,7 +50,7 @@ module Permissions
 
       allow :students,[:show,:edit,:update,:info,:teachers,
                        :questions,:topics,:customized_courses,
-                       :customized_tutorial_topics,:homeworks,:solutions] do |student|
+                       :customized_tutorial_topics,:homeworks,:solutions,:account] do |student|
         student and student.id == user.id
       end
       allow :customized_courses,[:show,:topics,:homeworks,:solutions] do |customized_course|
@@ -87,6 +87,8 @@ module Permissions
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
       end
+
+
     end
 private
     def solutionable_permission(solutionable,user)

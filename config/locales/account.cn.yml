@@ -1,0 +1,10 @@
+cn:
+  activerecord:
+    models:
+      account: 账户
+    attributes:
+      account:
+        money: 余额
+        deposit: 充值
+        withdraw: 取现
+        deposit_amount: 充值金额

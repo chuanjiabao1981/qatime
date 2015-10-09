@@ -11,11 +11,11 @@ module Permissions
       allow :vip_classes,[:show]
       allow :questions,[:index,:show,:student,:teacher,:teachers]
       allow :teaching_videos,[:show]
-      allow :students,[:index,:search,:show,:edit,:create,:update,:info,:teachers,:customized_courses,:homeworks,:solutions]
+      allow :students,[:index,:search,:show,:edit,:create,:update,:info,:teachers,:customized_courses,:homeworks,:solutions,:account]
       allow :home,[:index]
       allow :schools,[:index,:new,:create,:show,:edit,:update]
       allow :register_codes, [:index, :new, :downloads, :create]
-      allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,:students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,:exercises]
+      allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,:students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,:exercises,:account]
       allow :curriculums,[:index,:show]
       allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
       allow :courses,[:show]
@@ -55,6 +55,10 @@ module Permissions
       end
       allow :exercises,[:show]
       allow :sessions,[:destroy]
+
+      allow :deposits,[:new,:create] do |account|
+        account and account.student?
+      end
 
     end
   end

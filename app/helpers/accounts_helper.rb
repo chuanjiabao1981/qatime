@@ -21,7 +21,23 @@ module AccountsHelper
     end
   end
 
-  # def object_is_closed(o)
-  #   content_tag :span,style: 'color: '
-  # end
+  def videoable_object_stauts(o, dotter=false)
+    if o.video
+      if o.status == "closed"
+        if dotter
+          concat " • "
+        end
+        content_tag :span,style: 'color: darkgreen' do
+          " 已结账"
+        end
+      else o.status == "open"
+        if dotter
+          concat " • "
+        end
+        content_tag :span,style: 'color: orange' do
+          "未结账"
+        end
+      end
+    end
+  end
 end

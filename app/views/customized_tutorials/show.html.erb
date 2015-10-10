@@ -18,9 +18,8 @@
       <%= @customized_tutorial.content %>
     </div>
     <div class="pull-left" style="font-size:12px;  padding: 10px;">
-      <%if @customized_tutorial.video and @customized_tutorial.video.duration and @customized_tutorial.video.duration > 0 %>
-          视频时长<%= second_to_minutes(@customized_tutorial.video.duration) %>
-      <% end %>
+      <%= videoable_object_stauts(@customized_tutorial) %>
+      <%= video_duration_format(@customized_tutorial) %>
     </div>
     <div class="qa_cell pull-right">
       <%= link_to_edit(@customized_tutorial)%> &nbsp;

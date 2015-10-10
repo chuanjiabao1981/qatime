@@ -7,9 +7,7 @@
     <div class="qa_cell" style="height: 410px">
         <%if @customized_tutorial.video and @customized_tutorial.video.name and @customized_tutorial.video.name.url%>
             <%= video_js_player(@customized_tutorial.video) %>
-            <%if @customized_tutorial.video.duration and @customized_tutorial.video.duration > 0 %>
-                视频时长<%= second_to_minutes(@customized_tutorial.video.duration) %>
-            <% end %>
+
         <% else %>
             视频未上传
         <% end %>
@@ -18,6 +16,11 @@
 
     <div class="qa_cell">
       <%= @customized_tutorial.content %>
+    </div>
+    <div class="pull-left" style="font-size:12px;  padding: 10px;">
+      <%if @customized_tutorial.video and @customized_tutorial.video.duration and @customized_tutorial.video.duration > 0 %>
+          视频时长<%= second_to_minutes(@customized_tutorial.video.duration) %>
+      <% end %>
     </div>
     <div class="qa_cell pull-right">
       <%= link_to_edit(@customized_tutorial)%> &nbsp;

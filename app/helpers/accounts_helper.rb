@@ -20,4 +20,8 @@ module AccountsHelper
       link_to "连接", topic_path(fee.feeable.topic) if fee.feeable and fee.feeable.topic
     end
   end
+
+  # def object_is_closed(o)
+  #   content_tag :span,style: 'color: '
+  # end
 end

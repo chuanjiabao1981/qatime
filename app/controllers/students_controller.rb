@@ -24,12 +24,12 @@ class StudentsController < ApplicationController
     end
   end
   def show
-    if params[:fee].nil?
-      @deposits = @student.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-    else
-      @consumption_records      = @student.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-    end
-    render :info,layout: 'student_home'
+    # if params[:fee].nil?
+    #   @deposits = @student.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    # else
+    #   @consumption_records      = @student.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    # end
+    render layout: 'student_home'
   end
   def edit
   end

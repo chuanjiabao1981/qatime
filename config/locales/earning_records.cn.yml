@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    models:
+      earning_record: 收益记录
+    attributes:
+      earning_record:
+        value: 金额
+        created: 结账时间

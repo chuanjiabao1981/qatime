@@ -43,3 +43,12 @@ reply_with_video_3:
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   token: reply_with_no_video
   status: open
+
+reply_fee_reply:
+  author: physics_teacher1
+  content: reply fee reply
+  topic: reply_fee_tutorial_topic
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+  token: reply_fee_reply_token
+  status: closed
+

@@ -23,7 +23,7 @@ class TopicsController < ApplicationController
   end
   def show
     @topic        = Topic.find(params[:id])
-    @replies      = @topic.replies.order(:created_at).paginate(page: params[:page])
+    @replies      = @topic.replies.order(:created_at=> :desc).paginate(page: params[:page])
     @reply        = Reply.new
   end
 

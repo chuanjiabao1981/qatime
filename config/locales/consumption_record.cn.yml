@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    models:
+      consumption_record: 消费记录
+    attributes:
+      consumption_record:
+        value: 金额
+        created: 结账时间

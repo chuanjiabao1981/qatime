@@ -14,4 +14,12 @@ teacher_account_2000:
   user: teacher2
   money: 2000
 
+physics_teacher1_account:
+  user: physics_teacher1
+  money: 0
+
+student2_account:
+  user: student2
+  money: 0
+
 

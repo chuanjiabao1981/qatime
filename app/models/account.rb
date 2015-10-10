@@ -1,8 +1,10 @@
 class Account < ActiveRecord::Base
   belongs_to :user
 
-  has_many :deposits
-  has_many :withdraws
+  has_many  :deposits
+  has_many  :withdraws
+  has_many  :earning_records
+  has_many  :consumption_records
 
 
   #充值

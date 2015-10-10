@@ -36,3 +36,22 @@ correction_four:
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   token: correction_four_no_video
   status: open
+
+
+exercise_fee_correction_one:
+  content: dddddsss
+  teacher: physics_teacher_1
+  solution: exercise_fee_solution_one
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+  token: exercise_fee_correction_one_token
+  status: closed
+
+correction_fee_correction_one:
+  content: 12341234
+  teacher: physics_teacher_1
+  solution: solution_for_homework_correction_fee
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+  token: correction_fee_correction_one_token
+  status: closed
+
+

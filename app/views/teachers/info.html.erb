@@ -80,10 +80,15 @@
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
-<div class="qa_box">
-  <%= render partial: 'withdraws/index',locals: {withdraws:@withdraws} %>
-</div>
 
+<%= render layout: "account_operation_record_layout" do %>
+
+    <%if params[:fee].nil? %>
+        <%= render partial: 'withdraws/index',locals: {withdraws:@withdraws} %>
+    <% else %>
+        <%= render partial: 'shared/earning_records/index',locals:{earning_records: @earning_records} %>
+    <% end %>
+<% end %>
 
 
 

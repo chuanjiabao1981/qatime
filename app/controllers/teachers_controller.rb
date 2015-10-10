@@ -61,8 +61,11 @@ class TeachersController < ApplicationController
   end
 
   def info
-    @withdraws = @teacher.account.withdraws.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-
+    if params[:fee].nil?
+      @withdraws = @teacher.account.withdraws.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    else
+      @earning_records      = @teacher.account.earning_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    end
     render layout: 'teacher_home'
   end
 

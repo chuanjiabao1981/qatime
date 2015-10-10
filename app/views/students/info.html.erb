@@ -48,6 +48,15 @@
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
 <div class="qa_box">
-    <%= render partial: 'deposits/index',locals: {deposits:@deposits} %>
 </div>
+
+<%= render layout: "account_operation_record_layout" do %>
+
+    <%if params[:fee].nil? %>
+        <%= render partial: 'deposits/index',locals: {deposits:@deposits} %>
+    <% else %>
+        <%= render partial: 'shared/consumption_records/index',locals:{consumption_records: @consumption_records} %>
+    <% end %>
+<% end %>
+
 

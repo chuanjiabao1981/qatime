@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+customized_tutorial_teacher_earning_record_1:
+  fee: customized_tutorial_teacher_earnings_1_video_fee
+  account: physics_teacher1_account
+  percent: 1
+  value: 1.5
+
+correction_one_fee_erning_record:
+  fee: exercise_fee_correction_one_fee
+  account: physics_teacher1_account
+  percent: 1
+  value: 2
+
+reply_fee_earning_record:
+  fee: reply_fee
+  account: physics_teacher1_account
+  percent: 1
+  value: 2.5
+
+homework_solution_correction_earning_record:
+  fee: correction_fee
+  account: physics_teacher1_account
+  percent: 1
+  value: 3

@@ -108,3 +108,5 @@ lesson_categories:
       - 高考重点
 
 handle_timeout: 1.day
+
+price_per_minute: 0.9

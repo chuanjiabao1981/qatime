@@ -46,5 +46,13 @@ customized_course_topic2:
   topicable: customized_course1 (CustomizedCourse)
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
 
+reply_fee_tutorial_topic:
+  title: reply fee tutorial topic
+  content: reply fee tutorial topic
+  author: physics_teacher1
+  teacher: physics_teacher1
+  topicable: customized_tutorial_teacher_earnings_1 (CustomizedTutorial)
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+
 
 

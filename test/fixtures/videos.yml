@@ -63,3 +63,12 @@ reply_video_2:
   videoable: reply_with_video_2 (Reply)
   token: reply_with_video_2
   duration: 100
+
+customized_tutorial_teacher_earnings_1_video:
+  name: video
+  author: physics_teacher1
+  videoable: customized_tutorial_teacher_earnings_1(CustomizedTutorial)
+  token: customized_tutorial_teacher_earnings_1_token
+  duration: 100
+
+

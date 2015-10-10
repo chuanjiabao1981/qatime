@@ -19,6 +19,28 @@ class StudentHomePageTest < ActionDispatch::IntegrationTest
     @student1_session.assert_select "a[href=?]", edit_student_path(@student1), count: 1
   end
 
+
+  test "student fee info" do
+    @student2               = Student.find(users(:student2).id)
+    @student2_session       = log_in2_as(@student2)
+    @student2_session.get info_student_path(@student2,fee: :y)
+    @customized_tutorial_teacher_earnings_1 = customized_tutorials(:customized_tutorial_teacher_earnings_1)
+    @exercise_fee_solution_one              = solutions(:exercise_fee_solution_one)
+    @reply_fee_tutorial_topic               = topics(:reply_fee_tutorial_topic)
+    @solution_for_homework_correction_fee   = solutions(:solution_for_homework_correction_fee)
+
+    assert @student2.account.consumption_records.length == 4
+    # @student2.account.consumption_records.each do |e|
+    #   puts e.fee.to_json
+    # end
+    @student2_session.assert_response :success
+    @student2_session.assert_select "a[href=?]",customized_tutorial_path(@customized_tutorial_teacher_earnings_1)
+    @student2_session.assert_select "a[href=?]",solution_path(@exercise_fee_solution_one)
+    @student2_session.assert_select "a[href=?]",topic_path(@reply_fee_tutorial_topic)
+    @student2_session.assert_select "a[href=?]",solution_path(@solution_for_homework_correction_fee)
+
+  end
+
   test "student curriculums" do
     @student1_session.get curriculums_path
     @student1_session.assert_response :success

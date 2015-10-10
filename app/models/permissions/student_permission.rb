@@ -20,7 +20,7 @@ module Permissions
       allow :replies,[:create] do |topic|
         topic and topic.topicable and topicable_permission(topic.topicable,user)
       end
-      allow :replies,[:edit,:update,:destroy] do |reply|
+      allow :replies,[:edit,:update] do |reply|
         reply and reply.author_id == user.id
       end
       allow :pictures,[:new,:create]

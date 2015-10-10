@@ -4,6 +4,14 @@ class ReplyTest < ActiveSupport::TestCase
 
   def setup
     @topic = topics(:topic1)
+    @old =     APP_CONSTANT["price_per_minute"]
+
+    APP_CONSTANT["price_per_minute"] = 1
+  end
+
+  def teardown
+    APP_CONSTANT["price_per_minute"] = @old
+
   end
   test "reply create" do
     reply             = @topic.teacher.replies.build
@@ -23,7 +31,7 @@ class ReplyTest < ActiveSupport::TestCase
   test "reply keep_account" do
     #
     teacher = Teacher.find(users(:teacher1).id)
-    assert Reply.by_teacher_id(teacher.id).valid_tally_unit.size == 3
+    assert Reply.by_author_id(teacher.id).valid_tally_unit.size == 3
 
     reply = replies(:reply_with_video_1)
 
@@ -42,12 +50,13 @@ class ReplyTest < ActiveSupport::TestCase
     # 帐号发生了变化
     # 生成了fee
     student = Student.find(users(:student1).id)
-    assert teacher.account.money == 2.7
-    assert student.account.money == -2.7
+    assert teacher.account.money == 2.67
+    assert student.account.money == -2.67
 
     fee = reply_1.fee
     assert_not_nil fee
-    assert fee.value == 1.7
+    assert fee.value
+    assert fee.value == 1.67
     assert fee.feeable_id = reply_1.id
     assert fee.feeable_type = "Reply"
     assert fee.customized_course_id = reply_1.customized_course_id
@@ -61,7 +70,7 @@ class ReplyTest < ActiveSupport::TestCase
 
     assert reply.status == "closed"
     assert reply_1.status == "closed"
-    assert Reply.by_teacher_id(teacher.id).valid_tally_unit.size == 1
+    assert Reply.by_author_id(teacher.id).valid_tally_unit.size == 1
   end
 
 end

@@ -5,13 +5,22 @@ class CorrectionTest < ActiveSupport::TestCase
   #   assert true
   # end
 
+  def setup
+    @old =     APP_CONSTANT["price_per_minute"]
+
+    APP_CONSTANT["price_per_minute"] = 1
+  end
+
+  def teardown
+    APP_CONSTANT["price_per_minute"] = @old
+  end
+
   # 测试记账功能
   test "correction keep_account" do
     #
 
     teacher = Teacher.find(users(:teacher1).id)
 
-    print Correction.by_teacher_id(teacher.id).valid_tally_unit.size
     assert Correction.by_teacher_id(teacher.id).valid_tally_unit.size == 3
 
     correction = corrections(:correction_two)
@@ -31,12 +40,13 @@ class CorrectionTest < ActiveSupport::TestCase
     # 帐号发生了变化
     # 生成了fee
     student = Student.find(users(:student1).id)
-    assert teacher.account.money == 2.7
-    assert student.account.money == -2.7
+    assert teacher.account.money == 2.67
+    assert student.account.money == -2.67
 
     fee = correction_1.fee
+
     assert_not_nil fee
-    assert fee.value == 1.7
+    assert fee.value == 1.67
     assert fee.feeable_id = correction_1.id
     assert fee.feeable_type = "Correction"
     assert fee.customized_course_id = correction_1.customized_course_id

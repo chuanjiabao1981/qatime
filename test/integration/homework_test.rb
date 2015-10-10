@@ -106,6 +106,7 @@ class HomeworkIntegrateTest < LoginTestBase
     end
   end
   def show_page(user,user_session,show_path)
+    # puts Homework.h_index_eager_load.by_customized_course_id(@customized_course.id).count
     user_session.get show_path
     user_session.assert_response :success
     user_session.assert_select 'a[href=?]',homework_path(@homework1),1

@@ -58,3 +58,14 @@ customized_tutorial_teacher2:
   title: 33322aaabbbcccdddeeeddd
   token: customized_tutorial_teacher2_video
   status: open
+
+
+customized_tutorial_teacher_earnings_1:
+  teacher: physics_teacher1
+  customized_course: customized_course5
+  content: customized course 5 customized tutorial content
+  title: customized course 5 customized tutorial title
+  token: customized_tutorial_teacher_earnings_1_token
+  status: closed
+
+

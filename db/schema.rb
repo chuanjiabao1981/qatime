@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151008215450) do
+ActiveRecord::Schema.define(version: 20151010040206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,14 @@ ActiveRecord::Schema.define(version: 20151008215450) do
     t.string   "commentable_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "consumption_records", force: :cascade do |t|
+    t.integer  "fee_id"
+    t.integer  "account_id"
+    t.float    "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "corrections", force: :cascade do |t|
@@ -143,6 +151,15 @@ ActiveRecord::Schema.define(version: 20151008215450) do
     t.string   "status",                default: "open", null: false
   end
 
+  create_table "earning_records", force: :cascade do |t|
+    t.integer  "fee_id"
+    t.integer  "account_id"
+    t.float    "percent"
+    t.float    "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "excercises", force: :cascade do |t|
     t.string   "token"
     t.string   "title"
@@ -198,8 +215,8 @@ ActiveRecord::Schema.define(version: 20151008215450) do
     t.float    "value"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.integer  "student_account_id"
-    t.integer  "teacher_account_id"
+    t.float    "price_per_minute"
+    t.float    "video_duration"
   end
 
   create_table "homeworks", force: :cascade do |t|
@@ -213,10 +230,10 @@ ActiveRecord::Schema.define(version: 20151008215450) do
     t.datetime "updated_at",                         null: false
     t.integer  "solutions_count",        default: 0
     t.integer  "student_id"
+    t.string   "work_type"
     t.integer  "customized_tutorial_id"
     t.integer  "comments_count",         default: 0
     t.integer  "corrections_count",      default: 0
-    t.string   "work_type"
   end
 
   create_table "learning_plan_assignments", force: :cascade do |t|
@@ -530,6 +547,16 @@ ActiveRecord::Schema.define(version: 20151008215450) do
     t.integer  "questions_count"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "xxxxxes", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "xxxxxable_id"
+    t.string   "xxxxxable_type"
+    t.integer  "tutorial_issue_id"
+    t.integer  "integer"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
 end

@@ -48,3 +48,27 @@ exercise_one:
   work_type: exercise
   customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
   customized_course: customized_course1
+
+
+exercise_fee_one:
+  title: 随堂作业 exercise fee
+  content: 123412341
+  teacher: physics_teacher_1
+  student: student2
+  work_type: exercise
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial_teacher_earnings_1) %>
+  customized_course: customized_course5
+
+homeworker_for_correction_fee_one:
+  title: homeworker correction fee
+  content: 12344321
+  teacher: physcis_teacher_1
+  student: student2
+  work_type: homework
+  customized_course: customized_course5
+
+
+
+
+
+

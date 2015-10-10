@@ -11,3 +11,33 @@ two:
   feeable_id: 1
   feeable_type: MyString
   value: 1.5
+
+
+
+customized_tutorial_teacher_earnings_1_video_fee:
+  customized_course: customized_course5
+  feeable: customized_tutorial_teacher_earnings_1 (CustomizedTutorial)
+  value: 1.5
+  video_duration: 90
+  price_per_minute: 1
+
+exercise_fee_correction_one_fee:
+  customized_course: customized_course5
+  feeable: exercise_fee_correction_one (Correction)
+  value: 2
+  video_duration: 120
+  price_per_minute: 1
+
+reply_fee:
+  customized_course: customized_course5
+  feeable: reply_fee_reply (Reply)
+  value: 2.5
+  video_duration: 150
+  price_per_minute: 1
+
+correction_fee:
+  customized_course: customized_course5
+  feeable: correction_fee_correction_one (Correction)
+  value: 3
+  video_duration: 180
+  price_per_minute: 1

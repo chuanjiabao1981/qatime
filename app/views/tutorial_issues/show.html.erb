@@ -1,0 +1,31 @@
+<div class="qa_box">
+  <div class="qa_cell box_head">
+    <%= render partial: 'tutorial_issues/nav',locals: {customized_tutorial: @tutorial_issue.customized_tutorial} %>
+  </div>
+</div>
+
+<%= render partial: 'shared/qa_objects/show',locals:{qa_object: @tutorial_issue,header_switch: false }  %>
+
+
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
+
+<div class="qa_box">
+  <div class="qa_replies">
+    <div class="qa_header">
+      共收到 <b><%= @tutorial_issue.replies_count %></b> 条回复
+    </div>
+    <%= render partial: 'shared/replies/reply',collection: @tutorial_issue_replies,as: :reply %>
+  </div>
+
+  <div class="qa_cell">
+    <%= will_paginate @tutorial_issue_replies ,render: BootstrapPagination::Rails %>
+  </div>
+</div>
+
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
+
+<div class="qa_box">
+  <%= render partial: 'shared/replies/form',locals:{topic: @tutorial_issue,reply: @tutorial_issue_reply} %>
+</div>

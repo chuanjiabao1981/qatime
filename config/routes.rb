@@ -158,9 +158,16 @@ Qatime::Application.routes.draw do
   end
   resources :corrections
   resources :customized_tutorials do
+    #TODO::这个topics要删除
     resources :topics
+    resources :tutorial_issues
     resources :exercises
   end
+
+  resources :tutorial_issues do
+    resources :tutorial_issue_replies
+  end
+
   resources :exercises do
     resources :solutions
   end

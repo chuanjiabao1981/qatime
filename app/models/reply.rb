@@ -17,9 +17,5 @@ class Reply < ActiveRecord::Base
 
   validates_presence_of :author,:topic
 
-   def initialize(atrributes={})
-    super(atrributes)
-    self.generate_token if self.token.nil?
-    self
-  end
+
 end

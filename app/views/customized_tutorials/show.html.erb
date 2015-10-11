@@ -38,6 +38,13 @@
 <% end %>
 
 <div class="qa_sep_15"></div>
+
+<% if @customized_tutorial %>
+    <%= render partial: "tutorial_issues/index",
+               locals: {customized_tutorial: @customized_tutorial,
+                        tutorial_issues: @tutorial_issues} %>
+<% end %>
+<div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
 
 <% if @customized_tutorial %>

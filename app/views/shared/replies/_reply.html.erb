@@ -1,0 +1,24 @@
+<div class="qa_item">
+  <div class="author_avatar">
+    <%=image_tag reply.author.avatar.normal.url %>
+  </div>
+  <div class="qa_info">
+    <%= reply.author.view_name %> • 回答于<%= localize(reply.created_at,:format => :long) %>
+
+    <%= video_duration_format(reply) %>
+    <%= videoable_object_stauts(reply,true) %>
+
+
+  </div>
+  <div class="qa_content">
+    <%if reply.video and reply.video.name  and reply.video.name.url %>
+        <%= video_js_player(reply.video) %>
+    <% end %>
+    <%= reply.content.html_safe %>
+  </div>
+  <div class="pull-right qa_footer">
+    link_to_edit(reply)
+    link_to_destroy(reply)
+  </div>
+  <div style="clear: both"></div>
+</div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151010040206) do
+ActiveRecord::Schema.define(version: 20151011090454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -390,10 +390,12 @@ ActiveRecord::Schema.define(version: 20151010040206) do
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "token",                limit: 255
+    t.string   "token",                  limit: 255
     t.integer  "author_id"
     t.integer  "customized_course_id"
-    t.string   "status",                           default: "open", null: false
+    t.string   "status",                             default: "open", null: false
+    t.string   "type"
+    t.integer  "customized_tutorial_id"
   end
 
   create_table "review_records", force: :cascade do |t|
@@ -477,16 +479,8 @@ ActiveRecord::Schema.define(version: 20151010040206) do
     t.integer  "teacher_id"
     t.string   "topicable_type"
     t.integer  "customized_course_id"
-  end
-
-  create_table "tutorial_issues", force: :cascade do |t|
-    t.integer  "customized_course_id"
+    t.string   "type"
     t.integer  "customized_tutorial_id"
-    t.integer  "author_id"
-    t.integer  "audience_id"
-    t.integer  "topics_count"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
   end
 
   create_table "users", force: :cascade do |t|

@@ -76,6 +76,16 @@ module Permissions
         exercise and exercise.customized_tutorial.customized_course.student.id == user.id
       end
 
+      allow :tutorial_issues, [:new,:create] do |customized_tutorial|
+        customized_tutorial and customized_tutorial.customized_course.student_id == user.id
+      end
+      allow :tutorial_issues, [:edit,:update] do |tutorial_issue|
+        tutorial_issue and tutorial_issue.author_id == user.id
+      end
+      allow :tutorial_issues, [:show] do |tutorial_issue|
+        tutorial_issue and tutorial_issue.author_id == user.id
+      end
+
 
       allow :faqs, [:show]
       allow :faq_topics, [:show]

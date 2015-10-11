@@ -65,6 +65,8 @@ module Permissions
         account and account.user.teacher?
       end
 
+      allow :tutorial_issues,[:show]
+
 
 
     end

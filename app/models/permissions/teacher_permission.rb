@@ -126,6 +126,10 @@ module Permissions
                 exercise.customized_tutorial.customized_course.teacher_ids.include?(user.id))
       end
 
+      allow :tutorial_issues,[:show] do |tutorial_issue|
+        tutorial_issue and tutorial_issue.customized_course.teacher_ids.include?(user.id)
+      end
+
     end
 private
 

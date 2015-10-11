@@ -59,7 +59,7 @@ reply_fee_tutorial_topic:
 tutorial_issue_one:
   title: 12344
   content: 1231234
-  author: teacher1
+  author: student1
   customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   type: TutorialIssue

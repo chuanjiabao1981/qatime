@@ -17,6 +17,26 @@ class TutorialIssueRepliesController < ApplicationController
 
   end
 
+  def edit
+
+  end
+
+
+  def update
+    if @tutorial_issue_reply.update_attributes(params[:tutorial_issue_reply].permit!)
+      flash[:success] = "成功修改回复！"
+      redirect_to tutorial_issue_path(@tutorial_issue_reply.tutorial_issue)
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @tutorial_issue_reply.destroy
+    respond_with @tutorial_issue_reply.tutorial_issue
+  end
+
+
   def current_resource
 
     if params[:id]

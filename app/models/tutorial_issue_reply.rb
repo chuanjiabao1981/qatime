@@ -1,4 +1,7 @@
 class TutorialIssueReply < Reply
+
+
+
   self.per_page = 5
 
   belongs_to :tutorial_issue,foreign_key: "topic_id"

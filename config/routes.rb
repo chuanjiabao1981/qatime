@@ -168,6 +168,9 @@ Qatime::Application.routes.draw do
     resources :tutorial_issue_replies
   end
 
+  resources :tutorial_issue_replies
+
+
   resources :exercises do
     resources :solutions
   end

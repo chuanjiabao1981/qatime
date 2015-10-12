@@ -52,3 +52,11 @@ reply_fee_reply:
   token: reply_fee_reply_token
   status: closed
 
+
+tutorial_issue_reply_one:
+  author: teacher1
+  content: tutorial issue reply from teacher1
+  tutorial_issue: tutorial_issue_one
+  token: tutorial_issue_reply_one
+  status: open
+  type: TutorialIssueReply

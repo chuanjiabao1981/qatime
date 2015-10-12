@@ -100,6 +100,10 @@ class ActiveSupport::TestCase
   #   page.execute_script("$('##{field[:id]}').trigger('liszt:updated').trigger('change')")
   #
   # end
+
+  def random_str
+    (0...50).map { ('a'..'z').to_a[rand(26)] }.join
+  end
 end
 
 class ActionDispatch::IntegrationTest

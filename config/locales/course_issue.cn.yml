@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    models:
+      course_issue: 日常问题
+    attributes:
+      course_issue:
+        title: 标题
+        content: 内容

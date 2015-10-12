@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151011090454) do
+ActiveRecord::Schema.define(version: 20151012230526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 20151011090454) do
     t.integer  "homeworks_count",            default: 0
     t.integer  "exercises_count",            default: 0
     t.integer  "tutorial_issues_count",      default: 0
+    t.integer  "course_issues",              default: 0
   end
 
   create_table "customized_tutorials", force: :cascade do |t|

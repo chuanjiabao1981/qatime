@@ -5,7 +5,7 @@
   <div class="pull-right">
     <% if allow? :tutorial_issues , :new, customized_tutorial %>
         <%=link_to new_customized_tutorial_tutorial_issue_path(customized_tutorial) do%>
-            <span class="label label-success">发起<%= TutorialIssue.model_name.human%></span>
+            <span class="label label-success">我要提问</span>
         <% end %>
     <% end %>
   </div>

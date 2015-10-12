@@ -10,15 +10,7 @@ class TutorialIssue < Topic
   end
 
 
-  def notify
-    to = self.customized_tutorial.customized_course.teachers.first
-    SmsWorker.perform_async(SmsWorker::NOTIFY,
-                            from: self.author.view_name,
-                            to: to.view_name,
-                            mobile: to.mobile,
-                            message: "在#{CustomizedTutorial.model_name.human}中发起了#{TutorialIssue.model_name.human},请关注"
-    )
-
-
-  end
+  # def _notify_message
+  #   "提了一个#{TutorialIssue.model_name.human},请关注"
+  # end
 end

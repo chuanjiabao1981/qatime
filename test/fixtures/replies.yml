@@ -56,7 +56,19 @@ reply_fee_reply:
 tutorial_issue_reply_one:
   author: teacher1
   content: tutorial issue reply from teacher1
+  customized_tutorial: customized_tutorial1
+  customized_course: customized_course1
   tutorial_issue: tutorial_issue_one
   token: tutorial_issue_reply_one
   status: open
   type: TutorialIssueReply
+
+tutorial_issue_reply_with_video:
+  author: teacher1
+    content: tutorial issue reply with video
+    customized_tutorial: customized_tutorial1
+    customized_course: customized_course1
+    tutorial_issue: tutorial_issue_one
+    token: tutorial_issue_reply_with_video
+    status: open
+    type: TutorialIssueReply

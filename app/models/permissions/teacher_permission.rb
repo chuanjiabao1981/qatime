@@ -133,6 +133,9 @@ module Permissions
       allow :tutorial_issue_replies,[:create] do |tutorial_issue|
         tutorial_issue and tutorial_issue.customized_course.teacher_ids.include?(user.id)
       end
+      allow :tutorial_issue_replies,[:edit,:update] do |tutorial_issue_reply|
+        tutorial_issue_reply and tutorial_issue_reply.author_id == user.id
+      end
 
     end
 private

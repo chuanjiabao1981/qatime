@@ -55,6 +55,12 @@ class TutorialIssueIntegrateTest < LoginTestBase
     user_session.assert_select "a[href=?]",customized_course_path(@tutorial_issue_one.customized_tutorial.customized_course),1
     user_session.assert_select "form[action=?]",tutorial_issue_tutorial_issue_replies_path(@tutorial_issue_one,anchor:  "new_tutorial_issue_reply"),1
     user_session.assert_select 'h4',@tutorial_issue_one.title
+    if user.student?
+      user_session.assert_select 'button','添加视频',0
+    elsif user.teacher?
+      user_session.assert_select 'button','添加视频',1
+    end
+
 
 
   end

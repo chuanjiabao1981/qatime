@@ -21,13 +21,18 @@ class TutorialIssueReplyIntegrateTest < LoginTestBase
     create_path         = tutorial_issue_tutorial_issue_replies_path(@tutorial_issue)
     redirected_to_path  = tutorial_issue_path(@tutorial_issue)
     create_page(@teacher,@teacher_session,create_path,redirected_to_path)
+    create_page(@student,@student_session,create_path,redirected_to_path)
   end
 
 
   private
   def create_page(user,user_session,create_path,redirected_to_path)
-    user_session.post create_path,tutorial_issue_reply:{content: random_str}
+    content = random_str
+    user_session.post create_path,tutorial_issue_reply:{content: content}
     user_session.assert_redirected_to redirected_to_path
+    user_session.follow_redirect!
+    user_session.assert_select 'div',content
+
   end
 
 end

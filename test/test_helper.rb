@@ -32,7 +32,11 @@ class ActiveSupport::TestCase
   end
   def logout_as(user)
     visit get_home_url(user)
-    click_on '退出系统'
+    if user.teacher?
+      click_on '登出系统'
+    else
+      click_on '退出系统'
+    end
   end
 
   def log_in2_as(user)

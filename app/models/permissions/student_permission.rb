@@ -99,6 +99,16 @@ module Permissions
       end
 
 
+      allow :tutorial_issue_replies,[:create] do |tutorial_issue|
+        tutorial_issue and tutorial_issue.customized_course.student_id == user.id
+      end
+
+      allow :tutorial_issue_replies,[:edit,:update] do |tutorial_issue_reply|
+        tutorial_issue_reply and tutorial_issue_reply.author_id == user.id
+      end
+
+
+
     end
 private
     def solutionable_permission(solutionable,user)

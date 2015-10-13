@@ -6,11 +6,12 @@ class TutorialIssueReplyWithVideo  < ActionDispatch::IntegrationTest
   def setup
     @headless = Headless.new
     @headless.start
-    @tutorial_issue_one         = topics(:tutorial_issue_one)
+    @tutorial_issue_one               = topics(:tutorial_issue_one)
 
-    Capybara.current_driver     =  :selenium_chrome
-    @teacher1                   =  users(:teacher1)
-    @tutorial_issue_reply_one   =  replies(:tutorial_issue_reply_one)
+    Capybara.current_driver           =  :selenium_chrome
+    @teacher1                         =  users(:teacher1)
+    @tutorial_issue_reply_one         =  replies(:tutorial_issue_reply_one)
+    @tutorial_issue_reply_with_video  =  replies(:tutorial_issue_reply_with_video)
     log_in_as(@teacher1)
 
   end
@@ -79,7 +80,7 @@ class TutorialIssueReplyWithVideo  < ActionDispatch::IntegrationTest
     end
   end
 
-  test 'edit add video 'do
-    
+  test 'edit video'do
+    assert_not @tutorial_issue_reply_with_video.video.nil?
   end
 end

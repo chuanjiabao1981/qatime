@@ -50,7 +50,7 @@ module Tally
 
 
 
-    def keep_account(teacher_id)
+    def keep_account(teacher_id, &block)
       return unless self.video and self.video.duration and self.video.duration > 0
       self.transaction do
         self.lock!
@@ -62,66 +62,13 @@ module Tally
             __split_fee(teacher_id,fee)
             self.status = "closed"
             self.save!
+            ##这里是为了注入异常，测试回滚用，对整个流程没有什么帮助
+            if block_given?
+              yield
+            end
         rescue Exception => e
-          puts e.to_s
+          Rails.logger.error("#{e.to_s} \n #{self.model_name.to_s} \n #{self.to_json}")
           raise ActiveRecord::StatementInvalid, "#{e.to_s} \n #{self.model_name.to_s} \n #{self.to_json}"
-        end
-      end
-    end
-
-    def keep_account_wrong(teacher_id)
-      # 先暂时写死，价格一分钟一元
-      customized_course = CustomizedCourse.find(self.customized_course_id)
-      self.transaction do
-        #防止视频被修改，这里要对关键对象加锁
-        self.lock!
-        teacher = Teacher.find(teacher_id)
-        account = teacher.account
-        student_account = Student.find(customized_course.student_id).account
-
-        fee = self.__create_fee(account, student_account)
-        if fee and fee.value > 0
-          #获取学生账户
-          student_account.lock!
-          account.lock!
-          student_account.money -= fee.value;
-          account.money += fee.value;
-          student_account.save!
-          account.save!
-          raise ActiveRecord::StatementInvalid, "Fake Wrong"
-          self.status = "closed"
-          self.save!
-        end
-      end
-    end
-
-    def keep_account_wrong_not_db(teacher_id)
-      # 先暂时写死，价格一分钟一元
-      customized_course = CustomizedCourse.find(self.customized_course_id)
-      self.transaction do
-        #防止视频被修改，这里要对关键对象加锁
-        self.lock!
-        begin
-          teacher = Teacher.find(teacher_id)
-          account = teacher.account
-          student_account = Student.find(customized_course.student_id).account
-
-          fee = self.__create_fee(account, student_account)
-          if fee and fee.value > 0
-            #获取学生账户
-            student_account.lock!
-            account.lock!
-            student_account.money -= fee.value;
-            account.money += fee.value;
-            student_account.save!
-            account.save!
-            rails "Fake wrong"
-            self.status = "closed"
-            self.save!
-          end
-        rescue Exception => e
-          logger.error "keep_account Wrong " + self.as_json.to_s
-          raise ActiveRecord::StatementInvalid, "keep_account Wrong " + self.as_json.to_s
         end
       end
     end

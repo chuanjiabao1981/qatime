@@ -109,62 +109,37 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
     assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 1
   end
 
-  # test "customized tutorial keep_account transaction" do
-  #   teacher = Teacher.find(users(:teacher2).id)
-  #   assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 1
-  #
-  #   customized_tutorial = customized_tutorials(:customized_tutorial_teacher2)
-  #
-  #   assert_difference 'Fee.count',0 do
-  #     begin
-  #       customized_tutorial.keep_account_wrong(teacher.id)
-  #     rescue ActiveRecord::StatementInvalid => e
-  #       customized_tutorial.reload
-  #     end
-  #
-  #     assert teacher.account.money == 0
-  #     assert customized_tutorial.status == "open"
-  #     student = Student.find(users(:student1).id)
-  #     assert student.account.money == 0
-  #   end
-  #
-  #   #这里，因为account的money为空，如果发生加操作，应该会exception，对于exception，需要回滚，所有的操作都必须退回，也就是fee是不能产生的
-  #
-  # end
+
+  # 将失败处理抽象出来
+  def transaction_fail(customized_tutorial, &block)
+    teacher = Teacher.find(customized_tutorial.teacher_id)
+    customized_course = CustomizedCourse.find(customized_tutorial.customized_course_id)
+    student = Student.find(customized_course.student_id)
+
+    assert_difference 'Fee.count',0 do
+      begin
+        customized_tutorial.keep_account(teacher.id) do
+          yield
+        end
+      rescue ActiveRecord::StatementInvalid => e
+        customized_tutorial.reload
+      end
+
+      assert teacher.account.money == 0
+      assert customized_tutorial.status == "open"
+      assert student.account.money == 0
+    end
+  end
 
   test "customized tutorial keep_account transaction without db" do
-    teacher = Teacher.find(users(:teacher2).id)
-
     customized_tutorial = customized_tutorials(:customized_tutorial_teacher2)
-    assert_difference 'Fee.count',0 do
-      begin
-        customized_tutorial.keep_account(teacher.id) do
-          raise "Fake Wrong"
-        end
-      rescue ActiveRecord::StatementInvalid => e
-        customized_tutorial.reload
-      end
 
-      assert teacher.account.money == 0
-      assert customized_tutorial.status == "open"
-      student = Student.find(users(:student1).id)
-      assert student.account.money == 0
+    transaction_fail(customized_tutorial) do
+      raise "Fake Wrong"
     end
 
-    assert_difference 'Fee.count',0 do
-      begin
-        customized_tutorial.keep_account(teacher.id) do
-          raise ActiveRecord::StatementInvalid, "Fake Wrong"
-        end
-      rescue ActiveRecord::StatementInvalid => e
-        customized_tutorial.reload
-      end
-
-      assert teacher.account.money == 0
-      assert customized_tutorial.status == "open"
-      student = Student.find(users(:student1).id)
-      assert student.account.money == 0
+    transaction_fail(customized_tutorial) do
+      raise ActiveRecord::StatementInvalid, "Fake Wrong"
     end
-
   end
 end

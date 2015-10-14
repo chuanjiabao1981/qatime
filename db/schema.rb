@@ -134,7 +134,7 @@ ActiveRecord::Schema.define(version: 20151012230526) do
     t.integer  "homeworks_count",            default: 0
     t.integer  "exercises_count",            default: 0
     t.integer  "tutorial_issues_count",      default: 0
-    t.integer  "course_issues",              default: 0
+    t.integer  "course_issues_count",        default: 0
   end
 
   create_table "customized_tutorials", force: :cascade do |t|

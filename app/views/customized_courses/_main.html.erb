@@ -15,6 +15,9 @@
       <li role="presentation" class=<%= "active" if action_name == "topics" %>>
         <%= link_to CustomizedCourse.human_attribute_name(:topics),topics_customized_course_path(@customized_course) %>
       </li>
+      <li role="presentation" class=<%= "active" if action_name == "course_issues" %>>
+        <%= link_to CourseIssue.model_name.human,course_issues_customized_course_path(@customized_course) %>
+      </li>
       <% if not current_user.student? %>
       <li role="presentation" class=<%= "active" if action_name == "solutions" %>>
         <%= link_to CustomizedCourse.human_attribute_name(:solutions),solutions_customized_course_path(@customized_course) %>

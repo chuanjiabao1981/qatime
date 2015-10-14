@@ -1,0 +1,7 @@
+<%= render layout: 'main' do %>
+    <% if @customized_course %>
+        <%= render partial: "course_issues/index",
+                   locals: {customized_course: @customized_course,
+                            course_issues: @course_issues} %>
+    <% end %>
+<% end %>

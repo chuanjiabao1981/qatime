@@ -1,11 +1,14 @@
 require 'test_helper'
+require 'tally_test_helper'
 
 class CustomizedTutorialTest < ActiveSupport::TestCase
+  include TallyTestHelper
 
   def setup
     @old =     APP_CONSTANT["price_per_minute"]
 
     APP_CONSTANT["price_per_minute"] = 1
+    APP_CONSTANT["test_fee_default_value"] = 1
   end
 
   def teardown
@@ -60,61 +63,26 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
     r1                   = replies(:customized_tutorial_topic1_reply2)
   end
 
-  # 测试记账功能
-  test "customized tutorial keep_account" do
-    #
+  # 测试结账功能
+  test "customized tutorial keep_account new" do
+    teacher = Teacher.find(users(:teacher_tally).id)
+    student = Student.find(users(:student_tally).id)
 
-    teacher = Teacher.find(users(:teacher1).id)
-    assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 3
-
-    customized_tutorial = customized_tutorials(:customized_tutorial_test_tally)
-
-    video = videos(:customized_tutorial_test_tally_video)
-    assert customized_tutorial.token == video.token
-    assert customized_tutorial.valid?,customized_tutorial.errors.full_messages
-    assert video.valid?,video.errors.full_messages
-
-    assert_not_nil video
-    assert customized_tutorial.video == video
-
-    customized_tutorial.keep_account(teacher.id)
-    customized_tutorial_1 = customized_tutorials(:customized_tutorial_test_tally_1)
-
-    customized_tutorial_1.keep_account(teacher.id)
-
-    # 帐号发生了变化
-    # 生成了fee
-    student = Student.find(users(:student1).id)
-    assert teacher.account.money == 2.67
-    assert student.account.money == -2.67
-
-    fee = customized_tutorial.fee
-    assert_not_nil fee
-
-    assert fee.value == 1.67
-    assert fee.feeable_id = customized_tutorial.id
-    assert fee.feeable_type = "CustomizedTutorial"
-    assert fee.customized_course_id = customized_tutorial.customized_course_id
-
-
-    fee = customized_tutorial_1.fee
-    assert_not_nil fee
-    assert fee.value == 1
-    assert fee.feeable_id = customized_tutorial_1.id
-    assert fee.feeable_type = "CustomizedTutorial"
-    assert fee.customized_course_id = customized_tutorial_1.customized_course_id
-
-    assert customized_tutorial.status == "closed"
-    assert customized_tutorial_1.status == "closed"
-    assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 1
+    customized_tutorials = CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit
+    keep_account_succeed(teacher, student, customized_tutorials, 5, APP_CONSTANT["test_fee_default_value"]) do
+      # 传入待结账的计算方法，用来测试待结账的个数
+      CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size
+    end
   end
-
 
   # 将失败处理抽象出来
   def transaction_fail(customized_tutorial, &block)
     teacher = Teacher.find(customized_tutorial.teacher_id)
     customized_course = CustomizedCourse.find(customized_tutorial.customized_course_id)
     student = Student.find(customized_course.student_id)
+
+    teacher_old_money = teacher.account.money
+    student_old_money = student.account.money
 
     assert_difference 'Fee.count',0 do
       begin
@@ -125,9 +93,9 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
         customized_tutorial.reload
       end
 
-      assert teacher.account.money == 0
+      assert teacher.account.money == teacher_old_money
       assert customized_tutorial.status == "open"
-      assert student.account.money == 0
+      assert student.account.money == student_old_money
     end
   end
 

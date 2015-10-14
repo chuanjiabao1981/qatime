@@ -19,30 +19,25 @@ customized_tutorial_topic1_reply2:
   content: 2 customized teacher_reply 2 hahahahahahaha
   topic: customized_tutorial_topic1
 
-
-reply_with_video_1:
-  author: teacher1
+<% 1.upto(5) do |i| %>
+reply_tally_<%= i %>:
+  author: teacher_tally
   content: 2 customized teacher_reply 2 hahahahahahaha
   topic: customized_tutorial_topic1
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
-  token: reply_with_video_1
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
+  token: reply_tally_video_<%= i %>
   status: open
+<% end %>
 
-reply_with_video_2:
-  author: teacher1
+<% 6.upto(10) do |i| %>
+reply_tally_<%= i %>:
+  author: teacher_tally
   content: 2 customized teacher_reply 2 hahahahahahaha
   topic: customized_tutorial_topic1
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
-  token: reply_with_video_2
-  status: open
-
-reply_with_video_3:
-  author: teacher1
-  content: 2 customized teacher_reply 2 hahahahahahaha
-  topic: customized_tutorial_topic1
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
-  token: reply_with_no_video
-  status: open
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
+  token: reply_tally_video_<%= i %>
+  status: closed
+<% end %>
 
 reply_fee_reply:
   author: physics_teacher1

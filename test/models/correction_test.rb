@@ -1,6 +1,9 @@
 require 'test_helper'
+require 'tally_test_helper'
 
 class CorrectionTest < ActiveSupport::TestCase
+ include TallyTestHelper
+
   # test "the truth" do
   #   assert true
   # end
@@ -9,6 +12,7 @@ class CorrectionTest < ActiveSupport::TestCase
     @old =     APP_CONSTANT["price_per_minute"]
 
     APP_CONSTANT["price_per_minute"] = 1
+    APP_CONSTANT["test_fee_default_value"] = 1
   end
 
   def teardown
@@ -17,50 +21,13 @@ class CorrectionTest < ActiveSupport::TestCase
 
   # 测试记账功能
   test "correction keep_account" do
-    #
+    teacher = Teacher.find(users(:teacher_tally).id)
+    student = Student.find(users(:student_tally).id)
 
-    teacher = Teacher.find(users(:teacher1).id)
-
-    assert Correction.by_teacher_id(teacher.id).valid_tally_unit.size == 3
-
-    correction = corrections(:correction_two)
-
-    video = videos(:correction_two_video)
-    assert correction.token == video.token
-    assert correction.valid?,correction.errors.full_messages
-    assert video.valid?,video.errors.full_messages
-
-    assert_not_nil video
-    assert correction.video == video
-
-    correction.keep_account(teacher.id)
-    correction_1 = corrections(:correction_three)
-    correction_1.keep_account(teacher.id)
-
-    # 帐号发生了变化
-    # 生成了fee
-    student = Student.find(users(:student1).id)
-    assert teacher.account.money == 2.67
-    assert student.account.money == -2.67
-
-    fee = correction_1.fee
-
-    assert_not_nil fee
-    assert fee.value == 1.67
-    assert fee.feeable_id = correction_1.id
-    assert fee.feeable_type = "Correction"
-    assert fee.customized_course_id = correction_1.customized_course_id
-
-    fee = correction.fee
-    assert_not_nil fee
-    assert fee.value == 1
-    assert fee.feeable_id = correction.id
-    assert fee.feeable_type = "Correction"
-    assert fee.customized_course_id = correction.customized_course_id
-
-    assert correction.status == "closed"
-    assert correction_1.status == "closed"
-    assert Correction.by_teacher_id(teacher.id).valid_tally_unit.size == 1
+    corrections = Correction.by_teacher_id(teacher.id).valid_tally_unit
+    keep_account_succeed(teacher, student, corrections, 5, APP_CONSTANT["test_fee_default_value"]) do
+      Correction.by_teacher_id(teacher.id).valid_tally_unit.size
+    end
   end
 
   test 'create' do

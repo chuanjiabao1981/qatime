@@ -13,30 +13,28 @@ correction_one:
 two: {}
 #  column: value
 
-correction_two:
-  content: ssddd
-  teacher: teacher1
-  solution: homework_solution_one
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
-  token: correction_two_video
+# Here use erb to generate tally corrections
+# 5 open
+<% 1.upto(5) do |i| %>
+correction_tally_<%= i %>:
+  content: 12341234
+  teacher: teacher_tally
+  solution: solution_for_homework_correction_fee
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
+  token: correction_tally_video_<%= i %>
   status: open
+<% end %>
 
-correction_three:
-  content: ssddd
-  teacher: teacher1
-  solution: homework_solution_one
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
-  token: correction_three_video
-  status: open
-
-correction_four:
-  content: ssddd
-  teacher: teacher1
-  solution: homework_solution_one
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
-  token: correction_four_no_video
-  status: open
-
+# 5 closed
+<% 6.upto(10) do |i| %>
+correction_tally_<%= i %>:
+  content: 12341234
+  teacher: teacher_tally
+  solution: solution_for_homework_correction_fee
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
+  token: correction_tally_video_<%= i %>
+  status: closed
+<% end %>
 
 exercise_fee_correction_one:
   content: dddddsss

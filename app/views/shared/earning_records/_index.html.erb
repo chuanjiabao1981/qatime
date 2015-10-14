@@ -8,6 +8,8 @@
       <th><%= EarningRecord.human_attribute_name(:value)%></th>
       <th><%= Fee.human_attribute_name(:type)%></th>
       <th><%= Fee.human_attribute_name(:video_duration)%></th>
+      <th><%= Fee.human_attribute_name(:price_per_minute) %></th>
+
       <th><%= Fee.human_attribute_name(:link) %></th>
     </tr>
     <%= render partial: 'shared/earning_records/earning_record',collection: earning_records %>

@@ -14,6 +14,7 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
   def teardown
     APP_CONSTANT["price_per_minute"] = @old
   end
+
   test "customized tutorial valid" do
     customized_tutorial1 = customized_tutorials(:customized_tutorial1)
     assert customized_tutorial1.valid?,customized_tutorial1.errors.full_messages

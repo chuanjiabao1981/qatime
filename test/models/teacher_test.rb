@@ -1,6 +1,18 @@
 require 'test_helper'
 
 class TeacherTest < ActiveSupport::TestCase
+  def setup
+    @old =     APP_CONSTANT["price_per_minute"]
+
+    APP_CONSTANT["price_per_minute"] = 1
+    APP_CONSTANT["test_fee_default_value"] = 1
+  end
+
+  def teardown
+    APP_CONSTANT["price_per_minute"] = @old
+  end
+
+
   test "the find or create curriculum" do
     #teacher = users(:teacher1)
     #teacher = Teacher.find(users(:teacher1).id)
@@ -17,19 +29,23 @@ class TeacherTest < ActiveSupport::TestCase
   end
 
   test "teacher keep_account" do
-    teacher = Teacher.find(users(:teacher1).id)
-    student = Student.find(users(:student1).id)
+    teacher = Teacher.find(users(:teacher_tally).id)
+    student = Student.find(users(:student_tally).id)
 
+    teacher_money = teacher.account.money
+    student_money = student.account.money
 
-    assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 3
-    assert Reply.by_author_id(teacher.id).valid_tally_unit.size == 3
-    assert Correction.by_teacher_id(teacher.id).valid_tally_unit.size == 3
+    assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 5
+    assert Reply.by_author_id(teacher.id).valid_tally_unit.size == 5
+    assert Correction.by_teacher_id(teacher.id).valid_tally_unit.size == 5
+
     teacher.keep_account
-    assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 1
-    assert Reply.by_author_id(teacher.id).valid_tally_unit.size == 1
-    assert Correction.by_teacher_id(teacher.id).valid_tally_unit.size == 1
-    customized_course     = customized_courses(:customized_course1)
-    assert customized_course.fees.size == 6
+    assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 0
+    assert Reply.by_author_id(teacher.id).valid_tally_unit.size == 0
+    assert Correction.by_teacher_id(teacher.id).valid_tally_unit.size == 0
+
+    customized_course     = customized_courses(:customized_course_tally)
+    assert customized_course.fees.size == 15
     customized_course.fees.each do |f|
       assert f.consumption_records.length == 1
       assert f.consumption_records.first.account_id == student.account.id
@@ -39,8 +55,11 @@ class TeacherTest < ActiveSupport::TestCase
       assert f.earning_records.first.value      == f.value
       assert f.video_duration   == f.feeable.video.duration
     end
-    assert teacher.account.money == 7.2
 
-    assert student.account.money == -7.2
+    teacher.account.reload
+    student.account.reload
+
+    assert teacher.account.money == teacher_money + 15
+    assert student.account.money == student_money - 15
   end
 end

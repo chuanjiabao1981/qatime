@@ -6,9 +6,7 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
 
   def setup
     @old =     APP_CONSTANT["price_per_minute"]
-
     APP_CONSTANT["price_per_minute"] = 1
-    APP_CONSTANT["test_fee_default_value"] = 1
   end
 
   def teardown
@@ -70,7 +68,7 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
     student = Student.find(users(:student_tally).id)
 
     customized_tutorials = CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit
-    keep_account_succeed(teacher, student, customized_tutorials, 5, APP_CONSTANT["test_fee_default_value"]) do
+    keep_account_succeed(teacher, student, customized_tutorials, 5, 1) do
       # 传入待结账的计算方法，用来测试待结账的个数
       CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size
     end

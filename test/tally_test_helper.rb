@@ -29,8 +29,6 @@ module TallyTestHelper
             assert fee.feeable_type = object.class.name
             assert fee.customized_course_id = object.customized_course_id
             assert fee.video_duration = object.video.duration
-
-            puts "teacher money is " + teacher.account.money.to_s
           end
         end
       end

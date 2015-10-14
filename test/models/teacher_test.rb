@@ -3,9 +3,7 @@ require 'test_helper'
 class TeacherTest < ActiveSupport::TestCase
   def setup
     @old =     APP_CONSTANT["price_per_minute"]
-
     APP_CONSTANT["price_per_minute"] = 1
-    APP_CONSTANT["test_fee_default_value"] = 1
   end
 
   def teardown

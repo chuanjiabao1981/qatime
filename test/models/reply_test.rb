@@ -9,8 +9,6 @@ class ReplyTest < ActiveSupport::TestCase
     @old =     APP_CONSTANT["price_per_minute"]
 
     APP_CONSTANT["price_per_minute"] = 1
-    #这里不把fee做成一个全局的原因是有可能每个都不一致
-    APP_CONSTANT["test_fee_default_value"] = 1
   end
 
   def teardown
@@ -38,7 +36,7 @@ class ReplyTest < ActiveSupport::TestCase
     student = Student.find(users(:student_tally).id)
 
     replies = Reply.by_author_id(teacher.id).valid_tally_unit
-    keep_account_succeed(teacher, student, replies, 5, APP_CONSTANT["test_fee_default_value"]) do
+    keep_account_succeed(teacher, student, replies, 5, 1) do
       Reply.by_author_id(teacher.id).valid_tally_unit.size
     end
   end

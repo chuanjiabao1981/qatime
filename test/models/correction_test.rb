@@ -12,7 +12,6 @@ class CorrectionTest < ActiveSupport::TestCase
     @old =     APP_CONSTANT["price_per_minute"]
 
     APP_CONSTANT["price_per_minute"] = 1
-    APP_CONSTANT["test_fee_default_value"] = 1
   end
 
   def teardown
@@ -25,7 +24,7 @@ class CorrectionTest < ActiveSupport::TestCase
     student = Student.find(users(:student_tally).id)
 
     corrections = Correction.by_teacher_id(teacher.id).valid_tally_unit
-    keep_account_succeed(teacher, student, corrections, 5, APP_CONSTANT["test_fee_default_value"]) do
+    keep_account_succeed(teacher, student, corrections, 5, 1) do
       Correction.by_teacher_id(teacher.id).valid_tally_unit.size
     end
   end

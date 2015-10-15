@@ -1,2 +1,3 @@
-<%= link_to customized_course_full_name(customized_tutorial.customized_course) ,customized_course_path(customized_tutorial.customized_course) %> /
-<%= link_to customized_tutorial.title,customized_tutorial_path(customized_tutorial) %>
+<%= link_to customized_course_full_name(customized_course) ,customized_course_path(customized_course) %>/
+<%= link_to CourseIssue.model_name.human,course_issues_customized_course_path(customized_course) %>
+

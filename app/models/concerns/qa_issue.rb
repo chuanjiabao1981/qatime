@@ -1,6 +1,7 @@
 module QaIssue
   extend ActiveSupport::Concern
   included do
+    self.per_page =10
 
     def ask_to
       self.customized_course.teachers.first

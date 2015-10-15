@@ -1,7 +1,8 @@
 module QaIssueReply
   extend ActiveSupport::Concern
   included do
-    validates :content, length: {minimum: 5}
+    self.per_page = 10
+    validates :content, length: {minimum: 5},on: :create
 
     def reply_to
       if self.author.teacher?

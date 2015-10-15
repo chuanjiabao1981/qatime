@@ -48,7 +48,7 @@ class CustomizedCoursesController < ApplicationController
   end
 
   def course_issues
-    @course_issues = []
+    @course_issues = @customized_course.course_issues.paginate(page:params[:page])
   end
   private
   def all_teacher

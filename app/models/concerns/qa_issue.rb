@@ -1,4 +1,4 @@
-module QaIssueReply
+module QaIssue
   extend ActiveSupport::Concern
   included do
 

@@ -1,18 +1,3 @@
-<div class="box_header qa_cell">
-  <div class="pull-left">
-    <span class="label label-primary">共有<%=customized_tutorial.tutorial_issues_count%>个<%= TutorialIssue.model_name.human%></span>
-  </div>
-  <div class="pull-right">
-    <% if allow? :tutorial_issues , :new, customized_tutorial %>
-        <%=link_to new_customized_tutorial_tutorial_issue_path(customized_tutorial) do%>
-            <span class="label label-success">我要提问</span>
-        <% end %>
-    <% end %>
-  </div>
-  <div style="clear:both"></div>
-</div>
-
-
 <% content_for :_issue_count do %>
     共有<%=customized_tutorial.tutorial_issues_count%>个<%= TutorialIssue.model_name.human%><% end %>
 <% content_for :_issue_new do %>

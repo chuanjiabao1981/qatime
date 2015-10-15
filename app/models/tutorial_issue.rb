@@ -1,4 +1,7 @@
 class TutorialIssue < Topic
+
+  include QaIssue
+
   belongs_to :customized_tutorial,counter_cache: true
   belongs_to :customized_course,counter_cache: true
   has_many :tutorial_issue_replies,foreign_key: "topic_id" ,dependent: :destroy do
@@ -10,7 +13,4 @@ class TutorialIssue < Topic
   end
 
 
-  # def _notify_message
-  #   "提了一个#{TutorialIssue.model_name.human},请关注"
-  # end
 end

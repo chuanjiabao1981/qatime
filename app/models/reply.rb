@@ -16,7 +16,7 @@ class Reply < ActiveRecord::Base
   has_many :pictures,as: :imageable
   has_one  :video,as: :videoable
   has_one  :fee, as: :feeable
-  validates :content, length: {minimum: 5}
+  validates :content, length: {minimum: 5}, on: :create
 
   validates_presence_of :author,:topic
 

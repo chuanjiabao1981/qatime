@@ -1,7 +1,7 @@
 module TallyTestHelper
 
   # block传入的是老师的该类服务待结账的个数
-  def keep_account_succeed(teacher, student, collection, count, fee_value, &block)
+  def keep_account_succeed(teacher, student, collection, count, &block)
 
     assert yield == count
     assert_difference 'EarningRecord.count', count do
@@ -14,6 +14,8 @@ module TallyTestHelper
 
             teacher.account.reload
             student.account.reload
+
+            fee_value = calculate_test_fee_value(object.video)
 
             assert teacher.account.money == teacher_money + fee_value
             assert student.account.money == student_money - fee_value
@@ -35,6 +37,16 @@ module TallyTestHelper
     end
 
     assert yield == 0
+  end
+
+  def calculate_test_fee_value(video)
+    if video and video.duration and video.duration > 0
+      minute                 = Float(video.duration) / 60
+      fee_value              = format("%.2f",minute * APP_CONSTANT["price_per_minute"]).to_f
+      fee_value
+    else
+      0
+    end
   end
 
 end

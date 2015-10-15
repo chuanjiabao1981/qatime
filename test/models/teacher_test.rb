@@ -1,6 +1,9 @@
 require 'test_helper'
+require 'tally_test_helper'
 
 class TeacherTest < ActiveSupport::TestCase
+  include TallyTestHelper
+
   def setup
     @old =     APP_CONSTANT["price_per_minute"]
     APP_CONSTANT["price_per_minute"] = 1
@@ -33,6 +36,21 @@ class TeacherTest < ActiveSupport::TestCase
     teacher_money = teacher.account.money
     student_money = student.account.money
 
+    # 计算预期的钱的变化值
+    money_change_expected = 0
+    CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.each do |customizedTutorial|
+      money_change_expected += calculate_test_fee_value(customizedTutorial.video)
+    end
+
+    Reply.by_author_id(teacher.id).valid_tally_unit.each do |reply|
+      money_change_expected += calculate_test_fee_value(reply.video)
+    end
+
+    Correction.by_teacher_id(teacher.id).valid_tally_unit.each do |correction|
+      money_change_expected += calculate_test_fee_value(correction.video)
+    end
+
+
     assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 5
     assert Reply.by_author_id(teacher.id).valid_tally_unit.size == 5
     assert Correction.by_teacher_id(teacher.id).valid_tally_unit.size == 5
@@ -57,7 +75,9 @@ class TeacherTest < ActiveSupport::TestCase
     teacher.account.reload
     student.account.reload
 
-    assert teacher.account.money == teacher_money + 15
-    assert student.account.money == student_money - 15
+
+
+    assert teacher.account.money == teacher_money + money_change_expected
+    assert student.account.money == student_money - money_change_expected
   end
 end

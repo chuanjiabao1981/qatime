@@ -36,7 +36,7 @@ class ReplyTest < ActiveSupport::TestCase
     student = Student.find(users(:student_tally).id)
 
     replies = Reply.by_author_id(teacher.id).valid_tally_unit
-    keep_account_succeed(teacher, student, replies, 5, 1) do
+    keep_account_succeed(teacher, student, replies, 5) do
       Reply.by_author_id(teacher.id).valid_tally_unit.size
     end
   end

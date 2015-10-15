@@ -21,7 +21,7 @@ video_belongs_to_customized_tutorial_tally_<%= i %>:
   videoable: customized_tutorial_tally_<%= i %> (CustomizedTutorial)
   author: teacher_tally
   token: customized_tutorial_tally_video_<%= i %>
-  duration: 60
+  duration: <%= 60+10*i %>
 <% end %>
 
 <% 1.upto(5) do |i| %>
@@ -30,7 +30,7 @@ video_belongs_to_correction_<%= i %>:
   videoable: correction_tally_<%= i %> (Correction)
   author: teacher_tally
   token: correction_tally_video_<%= i %>
-  duration: 60
+  duration: <%= 60+10*i %>
 <% end %>
 
 <% 1.upto(5) do |i| %>
@@ -39,7 +39,7 @@ video_belongs_to_reply_<%= i %>:
   videoable: reply_tally_<%= i %> (Reply)
   author: teacher_tally
   token: reply_tally_video_<%= i %>
-  duration: 60
+  duration: <%= 60+10*i %>
 <% end %>
 
 customized_tutorial_teacher_earnings_1_video:

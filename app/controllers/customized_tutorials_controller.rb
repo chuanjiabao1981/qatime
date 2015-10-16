@@ -33,7 +33,7 @@ class CustomizedTutorialsController < ApplicationController
 
   def show
     @topics     = get_topics(@customized_tutorial)
-    @tutorial_issues = @customized_tutorial.tutorial_issues.order(created_at: :desc)
+    @tutorial_issues = @customized_tutorial.tutorial_issues.order(created_at: :desc).paginate(page: params[:page])
   end
 
   def destroy

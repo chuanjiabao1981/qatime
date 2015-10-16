@@ -78,4 +78,12 @@ video_belongs_to_tutorial_issue_reply_with_video:
   token: tutorial_issue_reply_with_video
   duration: 100
 
+video_belongs_to_course_issue_reply_with_video:
+  name: video
+  author: teacher1
+  videoable: course_issue_reply_with_video(Reply)
+  token: course_issue_reply_with_video
+  duration: 100
+
+
 

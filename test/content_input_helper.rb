@@ -19,4 +19,28 @@ module ContentInputHelper
     add_a_picture
     add_a_video
   end
+
+  def add_video_and_picture(object,content=nil)
+    if object.new_record?
+      action = "新增"
+
+    else
+      action = "更新"
+
+    end
+    content = '这个不能少于2ssssssss0啊啊啊啊啊啊啊啊啊啊12345678900987654321' if content.nil?
+    set_all_possible_info(content)
+    assert page.has_content? content
+    click_on "#{action}#{object.model_name.human}"
+  end
+
+  def assert_picture(object)
+    p   = Picture.where(imageable_type: object.class.reflections["pictures"].active_record.to_s).order(created_at: :desc).first
+    assert object.picture_ids.include?(p.id),'要包含图片'
+  end
+
+  def assert_video(object)
+    v   = Video.where(videoable_type: object.class.reflections["video"].active_record.to_s).order(updated_at: :desc).first
+    assert object.reload.video.id == v.id,'要有视频'
+  end
 end

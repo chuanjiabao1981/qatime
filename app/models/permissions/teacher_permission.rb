@@ -141,6 +141,12 @@ module Permissions
         course_issue and course_issue.customized_course.teacher_ids.include?(user.id)
       end
 
+      allow :course_issue_replies,[:create] do |course_issue|
+        course_issue and course_issue.customized_course.teacher_ids.include?(user.id)
+      end
+      allow :course_issue_replies,[:edit,:update] do |course_issue_reply|
+        course_issue_reply and course_issue_reply.author_id == user.id and course_issue_reply.status == "open"
+      end
     end
 private
 

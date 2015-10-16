@@ -72,3 +72,24 @@ tutorial_issue_reply_with_video:
   token: tutorial_issue_reply_with_video
   status: open
   type: TutorialIssueReply
+
+course_issue_reply_one:
+  author: teacher1
+  content: course issue reply from teacher
+  customized_course: customized_course1
+  course_issue: course_issue_one
+  token: tutorial_issue_reply_one
+  status: open
+  type: CourseIssueReply
+
+course_issue_reply_with_video:
+  author: teacher1
+  content: course issue reply with video
+  customized_course: customized_course1
+  course_issue: course_issue_one
+  token: course_issue_reply_with_video
+  status: open
+  type: CourseIssueReply
+
+
+

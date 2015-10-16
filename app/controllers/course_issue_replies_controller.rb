@@ -7,13 +7,31 @@ class CourseIssueRepliesController < ApplicationController
 
     @course_issue_reply = @course_issue.course_issue_replies.build(params[:course_issue_reply].permit!)
     if @course_issue_reply.save
-      flash[:success] = "成功发表回复！"
+      flash[:success] = "成功发表#{Reply.model_name.human}！"
       @course_issue_reply.notify
       redirect_to course_issue_path(@course_issue)
     else
       @course_issue_replies             = @course_issue.course_issue_replies.order(:created_at).paginate(page: params[:page])
       render 'course_issues/show'
     end
+  end
+
+  def edit
+
+  end
+
+  def update
+    if @course_issue_reply.update_attributes(params[:course_issue_reply].permit!)
+      flash[:success] = "成功修改#{Reply.model_name.human}！"
+      redirect_to course_issue_path(@course_issue_reply.course_issue)
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @course_issue_reply.destroy
+    respond_with @course_issue_reply.course_issue
   end
 
 

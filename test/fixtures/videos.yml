@@ -15,54 +15,32 @@ teacher1_already_exsits_video:
   author: teacher1
   token: teacher1_already_exsits_video
 
-customized_tutorial_test_tally_video:
-  name: 4444
-  author: teacher1
-  videoable: customized_tutorial_test_tally (CustomizedTutorial)
-  token: customized_tutorial_test_tally_video
-  duration: 100
+<% 1.upto(5) do |i| %>
+video_belongs_to_customized_tutorial_tally_<%= i %>:
+  name: 3333
+  videoable: customized_tutorial_tally_<%= i %> (CustomizedTutorial)
+  author: teacher_tally
+  token: customized_tutorial_tally_video_<%= i %>
+  duration: <%= 60+10*i %>
+<% end %>
 
-customized_tutorial_test_tally_video_1:
-  name: 4444
-  author: teacher1
-  videoable: customized_tutorial_test_tally_1 (CustomizedTutorial)
-  token: customized_tutorial_test_tally_video_1
-  duration: 60
+<% 1.upto(5) do |i| %>
+video_belongs_to_correction_<%= i %>:
+  name: 3333
+  videoable: correction_tally_<%= i %> (Correction)
+  author: teacher_tally
+  token: correction_tally_video_<%= i %>
+  duration: <%= 60+10*i %>
+<% end %>
 
-customized_tutorial_teacher2_video:
-  name: 4444
-  author: teacher2
-  videoable: customized_tutorial_teacher2 (CustomizedTutorial)
-  token: customized_tutorial_teacher2_video
-  duration: 60
-
-correction_two_video:
-  name: 4444
-  author: teacher1
-  videoable: correction_two (Correction)
-  token: correction_two_video
-  duration: 60
-
-correction_three_video:
-  name: 4444
-  author: teacher1
-  videoable: correction_three (Correction)
-  token: correction_three_video
-  duration: 100
-
-reply_video_1:
-  name: 4444
-  author: teacher1
-  videoable: reply_with_video_1 (Reply)
-  token: reply_with_video_1
-  duration: 60
-
-reply_video_2:
-  name: 4444
-  author: teacher1
-  videoable: reply_with_video_2 (Reply)
-  token: reply_with_video_2
-  duration: 100
+<% 1.upto(5) do |i| %>
+video_belongs_to_reply_<%= i %>:
+  name: 3333
+  videoable: reply_tally_<%= i %> (Reply)
+  author: teacher_tally
+  token: reply_tally_video_<%= i %>
+  duration: <%= 60+10*i %>
+<% end %>
 
 customized_tutorial_teacher_earnings_1_video:
   name: video
@@ -70,5 +48,4 @@ customized_tutorial_teacher_earnings_1_video:
   videoable: customized_tutorial_teacher_earnings_1(CustomizedTutorial)
   token: customized_tutorial_teacher_earnings_1_token
   duration: 100
-
 

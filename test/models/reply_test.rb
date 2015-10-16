@@ -1,6 +1,8 @@
 require 'test_helper'
+require 'tally_test_helper'
 
 class ReplyTest < ActiveSupport::TestCase
+  include TallyTestHelper
 
   def setup
     @topic = topics(:topic1)
@@ -27,50 +29,16 @@ class ReplyTest < ActiveSupport::TestCase
     assert teacher_reply1.valid?, teacher_reply1.errors.full_messages
   end
 
-  # 测试记账功能
+  # 测试reply的记账功能
   test "reply keep_account" do
     #
-    teacher = Teacher.find(users(:teacher1).id)
-    assert Reply.by_author_id(teacher.id).valid_tally_unit.size == 3
+    teacher = Teacher.find(users(:teacher_tally).id)
+    student = Student.find(users(:student_tally).id)
 
-    reply = replies(:reply_with_video_1)
-
-    video = videos(:reply_video_1)
-    assert reply.token == video.token
-    assert reply.valid?,reply.errors.full_messages
-    assert video.valid?,video.errors.full_messages
-
-    assert_not_nil video
-    assert reply.video == video
-
-    reply.keep_account(teacher.id)
-    reply_1 = replies(:reply_with_video_2)
-    reply_1.keep_account(teacher.id)
-
-    # 帐号发生了变化
-    # 生成了fee
-    student = Student.find(users(:student1).id)
-    assert teacher.account.money == 2.67
-    assert student.account.money == -2.67
-
-    fee = reply_1.fee
-    assert_not_nil fee
-    assert fee.value
-    assert fee.value == 1.67
-    assert fee.feeable_id = reply_1.id
-    assert fee.feeable_type = "Reply"
-    assert fee.customized_course_id = reply_1.customized_course_id
-
-    fee = reply.fee
-    assert_not_nil fee
-    assert fee.value == 1
-    assert fee.feeable_id = reply.id
-    assert fee.feeable_type = "Reply"
-    assert fee.customized_course_id = reply.customized_course_id
-
-    assert reply.status == "closed"
-    assert reply_1.status == "closed"
-    assert Reply.by_author_id(teacher.id).valid_tally_unit.size == 1
+    replies = Reply.by_author_id(teacher.id).valid_tally_unit
+    keep_account_succeed(teacher, student, replies, 5) do
+      Reply.by_author_id(teacher.id).valid_tally_unit.size
+    end
   end
 
 end

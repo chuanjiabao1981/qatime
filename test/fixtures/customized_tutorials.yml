@@ -35,21 +35,28 @@ customized_tutorial2:
   token: teacher2_customize_tutorial_video
   status: closed
 
-customized_tutorial_test_tally:
-  teacher: teacher1
-  customized_course: customized_course1
+# Here use erb to generate tally customized_tutorials
+# 5 open
+<% 1.upto(5) do |i| %>
+customized_tutorial_tally_<%= i %>:
+  teacher: teacher_tally
+  customized_course: customized_course_tally
   content: fuaaaaaaaaa1111111111222222222233333333333344444444555555
   title: 33322aaabbbcccdddeeeddd
-  token: customized_tutorial_test_tally_video
+  token: customized_tutorial_tally_video_<%= i %>
   status: open
+<% end %>
 
-customized_tutorial_test_tally_1:
-  teacher: teacher1
-  customized_course: customized_course1
+# 5 closed
+<% 6.upto(10) do |i| %>
+customized_tutorial_tally_<%= i %>:
+  teacher: teacher_tally
+  customized_course: customized_course_tally
   content: fuaaaaaaaaa1111111111222222222233333333333344444444555555
   title: 33322aaabbbcccdddeeeddd
-  token: customized_tutorial_test_tally_video_1
-  status: open
+  token: customized_tutorial_tally_video_<%= i %>
+  status: closed
+<% end %>
 
 customized_tutorial_teacher2:
   teacher: teacher2

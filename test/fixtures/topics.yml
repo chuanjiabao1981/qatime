@@ -54,5 +54,12 @@ reply_fee_tutorial_topic:
   topicable: customized_tutorial_teacher_earnings_1 (CustomizedTutorial)
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
 
+customized_tutorial_tally:
+  title: customized_tutorial_tally_topic by teacher_tally
+  content: customized_tutorial_tally_topic by teacher_tally, used to test reply tally
+  author: teacher_tally
+  teacher: teacher_tally
+  topicable: customized_course_tally (CustomizedCourse)
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
 
 

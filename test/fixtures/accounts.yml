@@ -22,4 +22,10 @@ student2_account:
   user: student2
   money: 0
 
+account_for_teacher_tally:
+  user: teacher_tally
+  money: 0
 
+account_for_student_tally:
+  user: student_tally
+  money: 0

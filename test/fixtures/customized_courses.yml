@@ -16,6 +16,11 @@ customized_course1:
   subject: 数学
   customized_tutorials_count: 2
 
+customized_course2:
+  student: student2
+  category: 高中
+  subject: 数学
+
 customized_course_tally:
   student: student_tally
   category: 高中

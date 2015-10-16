@@ -23,7 +23,7 @@ customized_tutorial_topic1_reply2:
 reply_tally_<%= i %>:
   author: teacher_tally
   content: 2 customized teacher_reply 2 hahahahahahaha
-  topic: customized_tutorial_topic1
+  topic: customized_tutorial_tally
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
   token: reply_tally_video_<%= i %>
   status: open
@@ -33,7 +33,7 @@ reply_tally_<%= i %>:
 reply_tally_<%= i %>:
   author: teacher_tally
   content: 2 customized teacher_reply 2 hahahahahahaha
-  topic: customized_tutorial_topic1
+  topic: customized_tutorial_tally
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
   token: reply_tally_video_<%= i %>
   status: closed

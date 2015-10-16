@@ -37,34 +37,34 @@ class CourseIssueIntegrateTest < LoginTestBase
     update_page(@teacher,@teacher_session,update_path)
     update_page(@student,@student_session,update_path)
   end
-  #
-  # test 'show page' do
-  #   show_page(@teacher,@teacher_session,tutorial_issue_path(@tutorial_issue_one))
-  #   show_page(@student,@student_session,tutorial_issue_path(@tutorial_issue_one))
-  #
-  # end
+
+  test 'show page' do
+    show_path = course_issue_path(@course_issue_one)
+    # show_page(@teacher,@teacher_session,show_path)
+    show_page(@student,@student_session,show_path)
+
+  end
   private
-  # def show_page(user,user_session,show_path)
-  #   user_session.get show_path
-  #   user_session.assert_response :success
-  #   # puts user_session.response.body
-  #
-  #   if user.student?
-  #     user_session.assert_select "a[href=?]",edit_tutorial_issue_path(@tutorial_issue_one)
-  #   end
-  #   user_session.assert_select "a[href=?]",customized_tutorial_path(@tutorial_issue_one.customized_tutorial),1
-  #   user_session.assert_select "a[href=?]",customized_course_path(@tutorial_issue_one.customized_tutorial.customized_course),1
-  #   user_session.assert_select "form[action=?]",tutorial_issue_tutorial_issue_replies_path(@tutorial_issue_one,anchor:  "new_tutorial_issue_reply"),1
-  #   user_session.assert_select 'h4',@tutorial_issue_one.title
-  #   if user.student?
-  #     user_session.assert_select 'button','添加视频',0
-  #   elsif user.teacher?
-  #     user_session.assert_select 'button','添加视频',1
-  #   end
-  #
-  #
-  #
-  # end
+  def show_page(user,user_session,show_path)
+    user_session.get show_path
+    user_session.assert_response :success
+
+    if user.student?
+      user_session.assert_select "a[href=?]",edit_course_issue_path(@course_issue_one)
+    end
+    user_session.assert_select "a[href=?]",customized_course_path(@course_issue_one.customized_course),1
+    user_session.assert_select "form[action=?]",course_issue_course_issue_replies_path(@course_issue_one,anchor:  "new_course_issue_reply"),1
+
+    user_session.assert_select 'h4',@course_issue_one.title
+    # if user.student?
+    #   user_session.assert_select 'button','添加视频',0
+    # elsif user.teacher?
+    #   user_session.assert_select 'button','添加视频',1
+    # end
+
+
+
+  end
   def update_page(user,user_session,update_path)
 
     title       = "1aassedits234"

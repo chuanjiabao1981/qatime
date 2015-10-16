@@ -137,6 +137,10 @@ module Permissions
         tutorial_issue_reply and tutorial_issue_reply.author_id == user.id
       end
 
+      allow :course_issues,[:show] do |course_issue|
+        course_issue and course_issue.customized_course.teacher_ids.include?(user.id)
+      end
+
     end
 private
 

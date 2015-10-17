@@ -45,7 +45,7 @@ class TutorialIssueIntegrateTest < LoginTestBase
   private
   def show_page(user,user_session,show_path)
     user_session.get show_path
-    user_session.assert_response :success
+    user_session.assert_response :success,user.role
     # puts user_session.response.body
 
     if user.student?

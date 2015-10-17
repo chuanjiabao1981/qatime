@@ -9,6 +9,7 @@
   <div class="info">
     <%= topicable.author.view_name %> •
     <%= localize(topicable.created_at,format: :long) %>创建 • <%=topicable.replies_count%>个回复
+    <%= render partial: "#{topicable.model_name.route_key}/index_item_nav",locals: {topicable: topicable} %>
   </div>
   <div class="reply_count">
     <span class="badge"><%= topicable.replies_count %></span>

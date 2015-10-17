@@ -17,12 +17,7 @@ class CustomizedTutorial < ActiveRecord::Base
       super attributes
     end
   end
-  has_many   :topics        ,as: :topicable,:dependent => :destroy do
-    def build(attributes={})
-      attributes[:customized_course_id] = proxy_association.owner.customized_course_id
-      super attributes
-    end
-  end
+
 
   scope :by_teacher, lambda {|t| where(teacher_id: t) if t}
 

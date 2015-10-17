@@ -17,7 +17,7 @@ class TopicsController < ApplicationController
 
     if @topic.save
       flash[:success] = "成功创建#{Topic.model_name.human}"
-      SmsWorker.perform_async(SmsWorker::TOPIC_CREATE_NOTIFICATION, id: @topic.id)
+      # SmsWorker.perform_async(SmsWorker::TOPIC_CREATE_NOTIFICATION, id: @topic.id)
     end
     respond_with @topic
   end

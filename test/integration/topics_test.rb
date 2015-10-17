@@ -11,10 +11,10 @@ class TopicsTest < LoginTestBase
     @topic            = topics(:topic1)
     @teacher_topic    = topics(:teacher_topic1)
   end
-  test 'topics index' do
-    index_page(@student_session)
-    index_page(@teacher_session)
-  end
+  # test 'topics index' do
+  #   index_page(@student_session)
+  #   index_page(@teacher_session)
+  # end
 
   test 'topic show' do
     show_page(@student_session)

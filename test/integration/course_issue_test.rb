@@ -95,7 +95,7 @@ class CourseIssueIntegrateTest < LoginTestBase
     end
     user_session.assert_response :success
     user_session.assert_select "a[href=?]",customized_course_path(@customized_course),1
-    user_session.assert_select "a[href=?]",course_issues_customized_course_path(@customized_course),1
+    user_session.assert_select "a[href=?]",topics_customized_course_path(@customized_course),1
     user_session.assert_select "form[action=?]",customized_course_course_issue_path(@customized_course,@course_issue_one),1
 
   end
@@ -133,7 +133,7 @@ class CourseIssueIntegrateTest < LoginTestBase
     end
     user_session.assert_response :success
     user_session.assert_select "a[href=?]",customized_course_path(@customized_course),1
-    user_session.assert_select "a[href=?]",course_issues_customized_course_path(@customized_course),1
+    user_session.assert_select "a[href=?]",topics_customized_course_path(@customized_course),1
     user_session.assert_select "form[action=?]",customized_course_course_issues_path(@customized_course),1
   end
 end

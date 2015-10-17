@@ -24,7 +24,7 @@ class SmsWorker
   QUESTION_MODIFY_NOTIFICATION = :question_modify_notify
   REGISTRATION_NOTIFICATION    = :registration_notify
   ANSWER_CREATE_NOTIFICATION   = :answer_create_notify
-  TOPIC_CREATE_NOTIFICATION    = :topic_create_notify
+  # TOPIC_CREATE_NOTIFICATION    = :topic_create_notify
   # REPLY_CREATE_NOTIFICATION    = :reply_create_notify
   NOTIFY                       = :notify
   SYSTEM_ALARM                 = :system_alarm
@@ -88,19 +88,19 @@ class SmsWorker
         end
       end
     end
-    def topic_create_notify(options)
-      topic = Topic.find(options["id"])
-      if topic.author_id != topic.teacher_id
-       message_body =  "【答疑时间】#{topic.teacher.view_name}，你好，#{topic.author.view_name}在公共课程中发起了讨论，请您回复#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
-
-       if topic.topicable_type == CustomizedTutorial.to_s or topic.topicable_type == CustomizedCourse.to_s
-         message_body =  "【答疑时间】#{topic.teacher.view_name}，你好，#{topic.author.view_name}在#{CustomizedCourse.model_name.human}中发起了讨论，请您回复#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
-       end
-       _send_message do
-         send_message(topic.teacher.mobile,message_body)
-       end
-      end
-    end
+    # def topic_create_notify(options)
+    #   topic = Topic.find(options["id"])
+    #   if topic.author_id != topic.teacher_id
+    #    message_body =  "【答疑时间】#{topic.teacher.view_name}，你好，#{topic.author.view_name}在公共课程中发起了讨论，请您回复#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
+    #
+    #    if topic.topicable_type == CustomizedTutorial.to_s or topic.topicable_type == CustomizedCourse.to_s
+    #      message_body =  "【答疑时间】#{topic.teacher.view_name}，你好，#{topic.author.view_name}在#{CustomizedCourse.model_name.human}中发起了讨论，请您回复#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
+    #    end
+    #    _send_message do
+    #      send_message(topic.teacher.mobile,message_body)
+    #    end
+    #   end
+    # end
 
   # def reply_create_notify(options)
   #   reply = Reply.find(options["id"])

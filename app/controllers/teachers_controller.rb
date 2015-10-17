@@ -86,8 +86,9 @@ class TeachersController < ApplicationController
   end
 
   def customized_tutorial_topics
-    @topics = Topic.all.by_teacher(@teacher)
-                  .from_customized_course
+    @topics = Topic.all
+                  .by_customized_course_issue
+                  .by_customized_course_ids(@teacher.customized_course_ids)
                   .order("created_at desc")
                   .paginate(page: params[:page])
     render layout: 'teacher_home'

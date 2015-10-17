@@ -30,13 +30,17 @@ class CustomizedTutorialIntegrateTest < LoginTestBase
     user_session.assert_response :success
     user_session.assert_select 'source[src=?]', @customized_tutorial.video.name.url , 1
     user_session.assert_select 'a[href=?]',     customized_course_path(@customized_tutorial.customized_course),1
-    user_session.assert_select 'a[href=?]',    new_customized_tutorial_topic_path(@customized_tutorial),1
-    user_session.assert_select 'a[href=?]',    topic_path(topic),1
+    user_session.assert_select 'a[href=?]',    tutorial_issue_path(topic),1
 
     exercise = homeworks(:exercise_one)
     assert exercise.valid?
 
 
+    if user.teacher?
+      user_session.assert_select 'a[href=?]',    new_customized_tutorial_tutorial_issue_path(@customized_tutorial),0
+    elsif user.student?
+      user_session.assert_select 'a[href=?]',    new_customized_tutorial_tutorial_issue_path(@customized_tutorial),1
+    end
     if user.teacher?
       user_session.assert_select 'a[href=?]',edit_customized_tutorial_path(@customized_tutorial),1
     else

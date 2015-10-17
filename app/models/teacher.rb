@@ -7,7 +7,7 @@ class Teacher < User
   has_many :curriculums,dependent: :destroy
   has_many :courses,dependent: :destroy
 
-  has_many :deposits
+  # has_many :deposits
 
 
   has_many :answers,:dependent => :destroy

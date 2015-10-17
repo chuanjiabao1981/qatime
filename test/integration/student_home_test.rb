@@ -71,8 +71,8 @@ class StudentHomePageTest < ActionDispatch::IntegrationTest
     topic2 = topics(:customized_tutorial_topic2)
     @student1_session.get customized_tutorial_topics_student_path(@student1)
 
-    @student1_session.assert_select "a[href=?]", topic_path(topic1), count:1
-    @student1_session.assert_select "a[href=?]", topic_path(topic2), count:0
+    @student1_session.assert_select "a[href=?]", tutorial_issue_path(topic1), count:1
+    @student1_session.assert_select "a[href=?]", course_issue_path(topic2), count:0
     @student1_session.assert_response :success
 
 

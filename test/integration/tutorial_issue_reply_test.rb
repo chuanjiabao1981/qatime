@@ -29,7 +29,7 @@ class TutorialIssueReplyIntegrateTest < LoginTestBase
   def create_page(user,user_session,create_path,redirected_to_path)
     content = random_str
     user_session.post create_path,tutorial_issue_reply:{content: content}
-    user_session.assert_redirected_to redirected_to_path
+    user_session.assert_redirected_to redirected_to_path,user.role
     user_session.follow_redirect!
     user_session.assert_select 'div',content
 

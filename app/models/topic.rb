@@ -9,23 +9,16 @@ class Topic < ActiveRecord::Base
   belongs_to :topicable     ,:polymorphic   => true        ,:counter_cache => true
   belongs_to :teacher
 
-
-  has_many :replies,:dependent => :destroy do
-    def build(attribute={})
-      if not proxy_association.owner.customized_course_id.nil?
-        attribute[:customized_course_id] = proxy_association.owner.customized_course_id
-      end
-      super attribute
-    end
-  end
+  has_many :replies,:dependent => :destroy
   has_many :pictures,as: :imageable
 
-  #,:dependent => :destroy
 
   self.per_page = 10
 
   scope :from_customized_course, lambda {where("customized_course_id is not null").order("created_at desc") }
 
+  scope :by_customized_course_issue, lambda {where("type = ? or type = ?", TutorialIssue.to_s,CourseIssue.to_s)}
+  scope :by_customized_course_ids,   lambda {|ids| where(customized_course_id: ids)}
   validates_presence_of :author
 
 

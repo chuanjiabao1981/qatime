@@ -15,6 +15,7 @@ teacher1_already_exsits_video:
   author: teacher1
   token: teacher1_already_exsits_video
 
+# Five video for customized tutorials
 <% 1.upto(5) do |i| %>
 video_belongs_to_customized_tutorial_tally_<%= i %>:
   name: 3333
@@ -24,6 +25,7 @@ video_belongs_to_customized_tutorial_tally_<%= i %>:
   duration: <%= 60+10*i %>
 <% end %>
 
+# Five video for corrections
 <% 1.upto(5) do |i| %>
 video_belongs_to_correction_<%= i %>:
   name: 3333
@@ -33,12 +35,23 @@ video_belongs_to_correction_<%= i %>:
   duration: <%= 60+10*i %>
 <% end %>
 
+# Five video for tutorial issue replies
 <% 1.upto(5) do |i| %>
-video_belongs_to_reply_<%= i %>:
+video_belongs_to_tutorial_issue_reply_<%= i %>:
   name: 3333
-  videoable: reply_tally_<%= i %> (Reply)
+  videoable: tutorial_issue_reply_for_tally_<%= i %> (Reply)
   author: teacher_tally
-  token: reply_tally_video_<%= i %>
+  token: tutorial_issue_reply_for_tally_video_<%= i %>
+  duration: <%= 60+10*i %>
+<% end %>
+
+# Five video for course issue replies
+<% 1.upto(5) do |i| %>
+video_belongs_to_course_issue_reply_<%= i %>:
+  name: 3333
+  videoable: course_issue_reply_for_tally_<%= i %> (Reply)
+  author: teacher_tally
+  token: course_issue_reply_for_tally_video_<%= i %>
   duration: <%= 60+10*i %>
 <% end %>
 
@@ -49,8 +62,6 @@ customized_tutorial_teacher_earnings_1_video:
   token: customized_tutorial_teacher_earnings_1_token
   duration: 100
 
-<<<<<<< HEAD
-=======
 video_belongs_to_tutorial_issue_reply_with_video:
   name: video
   author: teacher1
@@ -64,7 +75,3 @@ video_belongs_to_course_issue_reply_with_video:
   videoable: course_issue_reply_with_video(Reply)
   token: course_issue_reply_with_video
   duration: 100
-
-
-
->>>>>>> qatime-topic-refactory2

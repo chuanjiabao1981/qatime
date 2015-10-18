@@ -19,23 +19,52 @@ customized_tutorial_topic1_reply2:
   content: 2 customized teacher_reply 2 hahahahahahaha
   topic: customized_tutorial_topic1
 
+# test TutorialIssue replies tally
 <% 1.upto(5) do |i| %>
-reply_tally_<%= i %>:
+tutorial_issue_reply_for_tally_<%= i %>:
   author: teacher_tally
   content: 2 customized teacher_reply 2 hahahahahahaha
-  topic: customized_tutorial_tally
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
-  token: reply_tally_video_<%= i %>
+  customized_course: customized_course_tally
+  customized_tutorial: customized_tutorial_tally_1
+  tutorial_issue: topic_for_customized_tutorial_tally
+  type: TutorialIssueReply
+  token: tutorial_issue_reply_for_tally_video_<%= i %>
   status: open
 <% end %>
 
 <% 6.upto(10) do |i| %>
-reply_tally_<%= i %>:
+tutorial_issue_reply_for_tally_<%= i %>:
   author: teacher_tally
   content: 2 customized teacher_reply 2 hahahahahahaha
-  topic: customized_tutorial_tally
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
-  token: reply_tally_video_<%= i %>
+  customized_course: customized_course_tally
+  customized_tutorial: customized_tutorial_tally_1
+  tutorial_issue: topic_for_customized_tutorial_tally
+  type: TutorialIssueReply
+  token: tutorial_issue_reply_for_tally_video_<%= i %>
+  status: closed
+<% end %>
+
+# test CourseIssue replies tally
+# Five with valid video and five without
+<% 1.upto(5) do |i| %>
+course_issue_reply_for_tally_<%= i %>:
+  author: teacher_tally
+  content: 2 customized teacher_reply 2 hahahahahahaha
+  customized_course: customized_course_tally
+  course_issue: topic_for_customized_course_tally
+  token: course_issue_reply_for_tally_video_<%= i %>
+  type: CourseIssueReply
+  status: open
+<% end %>
+
+<% 6.upto(10) do |i| %>
+course_issue_reply_for_tally_<%= i %>:
+  author: teacher_tally
+  content: 2 customized teacher_reply 2 hahahahahahaha
+  customized_course: customized_course_tally
+  course_issue: topic_for_customized_course_tally
+  type: CourseIssueReply
+  token: course_issue_reply_for_tally_video_<%= i %>
   status: closed
 <% end %>
 

@@ -380,19 +380,12 @@ ActiveRecord::Schema.define(version: 20151012230526) do
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-<<<<<<< HEAD
     t.string   "token"
     t.integer  "author_id"
     t.integer  "customized_course_id"
-    t.string   "status",               default: "open", null: false
-=======
-    t.string   "token",                  limit: 255
-    t.integer  "author_id"
-    t.integer  "customized_course_id"
-    t.string   "status",                             default: "open", null: false
+    t.string   "status",                 default: "open", null: false
     t.string   "type"
     t.integer  "customized_tutorial_id"
->>>>>>> qatime-topic-refactory2
   end
 
   create_table "review_records", force: :cascade do |t|
@@ -473,14 +466,6 @@ ActiveRecord::Schema.define(version: 20151012230526) do
     t.integer  "customized_course_id"
     t.string   "type"
     t.integer  "customized_tutorial_id"
-<<<<<<< HEAD
-    t.integer  "student_id"
-    t.integer  "teacher_id"
-    t.integer  "topics_count"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-=======
->>>>>>> qatime-topic-refactory2
   end
 
   create_table "users", force: :cascade do |t|

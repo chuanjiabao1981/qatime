@@ -3,7 +3,6 @@ class CustomizedCourse < ActiveRecord::Base
   has_many :customized_course_assignments,:dependent => :destroy
   has_many :teachers,:through => :customized_course_assignments
   has_many :customized_tutorials,:dependent => :destroy
-  has_many :course_issues
   has_many :tutorial_issues
 
   has_many :fees

@@ -38,30 +38,33 @@ class TeacherTest < ActiveSupport::TestCase
 
     # 计算预期的钱的变化值
     money_change_expected = 0
-    CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.each do |customizedTutorial|
-      money_change_expected += calculate_test_fee_value(customizedTutorial.video)
+
+    [CustomizedTutorial, Correction].each do |s|
+      assert s.by_teacher_id(teacher.id).valid_tally_unit.size == 5
+      s.by_teacher_id(self.id).valid_tally_unit.each do |object|
+        money_change_expected += calculate_test_fee_value(object.video)
+      end
     end
 
-    Reply.by_author_id(teacher.id).valid_tally_unit.each do |reply|
-      money_change_expected += calculate_test_fee_value(reply.video)
+    [TutorialIssueReply, CourseIssueReply].each do |s|
+      assert s.by_author_id(teacher.id).valid_tally_unit.size == 5
+      s.by_author_id(self.id).valid_tally_unit.each do |object|
+        money_change_expected += calculate_test_fee_value(object.video)
+      end
     end
-
-    Correction.by_teacher_id(teacher.id).valid_tally_unit.each do |correction|
-      money_change_expected += calculate_test_fee_value(correction.video)
-    end
-
-
-    assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 5
-    assert Reply.by_author_id(teacher.id).valid_tally_unit.size == 5
-    assert Correction.by_teacher_id(teacher.id).valid_tally_unit.size == 5
 
     teacher.keep_account
-    assert CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size == 0
-    assert Reply.by_author_id(teacher.id).valid_tally_unit.size == 0
-    assert Correction.by_teacher_id(teacher.id).valid_tally_unit.size == 0
+
+    [CustomizedTutorial, Correction].each do |s|
+      assert s.by_teacher_id(teacher.id).valid_tally_unit.size == 0
+    end
+
+    [TutorialIssueReply, CourseIssueReply].each do |s|
+      assert s.by_author_id(teacher.id).valid_tally_unit.size == 0
+    end
 
     customized_course     = customized_courses(:customized_course_tally)
-    assert customized_course.fees.size == 15
+    assert customized_course.fees.size == 20
     customized_course.fees.each do |f|
       assert f.consumption_records.length == 1
       assert f.consumption_records.first.account_id == student.account.id
@@ -74,8 +77,6 @@ class TeacherTest < ActiveSupport::TestCase
 
     teacher.account.reload
     student.account.reload
-
-
 
     assert teacher.account.money == teacher_money + money_change_expected
     assert student.account.money == student_money - money_change_expected

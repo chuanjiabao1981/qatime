@@ -21,6 +21,10 @@ class TutorialIssueRepliesController < ApplicationController
 
   end
 
+  def show
+    redirect_to tutorial_issue_path(@tutorial_issue_reply.tutorial_issue)
+  end
+
 
   def update
     if @tutorial_issue_reply.update_attributes(params[:tutorial_issue_reply].permit!)

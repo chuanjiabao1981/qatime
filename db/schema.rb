@@ -125,10 +125,10 @@ ActiveRecord::Schema.define(version: 20151012230526) do
 
   create_table "customized_courses", force: :cascade do |t|
     t.integer  "student_id"
-    t.string   "category"
-    t.string   "subject"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.string   "category",                   default: "高中"
+    t.string   "subject",                    default: "数学"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
     t.integer  "customized_tutorials_count", default: 0
     t.integer  "topics_count",               default: 0
     t.integer  "homeworks_count",            default: 0
@@ -159,17 +159,6 @@ ActiveRecord::Schema.define(version: 20151012230526) do
     t.float    "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "excercises", force: :cascade do |t|
-    t.string   "token"
-    t.string   "title"
-    t.string   "content"
-    t.integer  "teacher_id"
-    t.integer  "customized_tutorial_id"
-    t.integer  "solutions_count",        default: 0
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
   end
 
   create_table "exercises", force: :cascade do |t|
@@ -231,10 +220,10 @@ ActiveRecord::Schema.define(version: 20151012230526) do
     t.datetime "updated_at",                         null: false
     t.integer  "solutions_count",        default: 0
     t.integer  "student_id"
-    t.string   "work_type"
     t.integer  "customized_tutorial_id"
     t.integer  "comments_count",         default: 0
     t.integer  "corrections_count",      default: 0
+    t.string   "work_type"
   end
 
   create_table "learning_plan_assignments", force: :cascade do |t|
@@ -416,18 +405,13 @@ ActiveRecord::Schema.define(version: 20151012230526) do
     t.datetime "updated_at"
   end
 
-  create_table "searches", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "solutions", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
     t.integer  "solutionable_id"
     t.integer  "student_id"
     t.string   "token"
-    t.integer  "corrections_count"
+    t.integer  "corrections_count",       default: 0
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "comments_count",          default: 0
@@ -542,16 +526,6 @@ ActiveRecord::Schema.define(version: 20151012230526) do
     t.integer  "questions_count"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-  end
-
-  create_table "xxxxxes", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "xxxxxable_id"
-    t.string   "xxxxxable_type"
-    t.integer  "tutorial_issue_id"
-    t.integer  "integer"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
   end
 
 end

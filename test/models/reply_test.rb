@@ -13,12 +13,12 @@ class ReplyTest < ActiveSupport::TestCase
     APP_CONSTANT["price_per_minute"] = @old
 
   end
-  test "reply create" do
-    reply             = @topic.teacher.replies.build
-    reply.topic      = @topic
-    reply.content    = "sbsb zsb hahaha"
-    assert reply.valid?,reply.errors.full_messages
-  end
+  # test "reply create" do
+  #   reply             = @topic.teacher.replies.build
+  #   reply.topic      = @topic
+  #   reply.content    = "sbsb zsb hahaha"
+  #   assert reply.valid?,reply.errors.full_messages
+  # end
 
   test "fixture" do
     student_reply1 = replies(:student_reply1)

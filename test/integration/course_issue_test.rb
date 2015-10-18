@@ -5,6 +5,7 @@ require 'sidekiq/testing'
 Sidekiq::Testing.inline!
 
 class CourseIssueIntegrateTest < LoginTestBase
+  self.use_transactional_fixtures = true
 
   def setup
     @customized_course    = customized_courses(:customized_course1)

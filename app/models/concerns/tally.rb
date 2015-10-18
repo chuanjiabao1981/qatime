@@ -1,6 +1,9 @@
 module Tally
   extend ActiveSupport::Concern
   included do
+
+    has_one  :fee, as: :feeable
+
     scope :valid_tally_unit, -> { where("customized_course_id is not null").where(:status => "open") }
 
 

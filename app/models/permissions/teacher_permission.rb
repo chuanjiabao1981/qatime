@@ -130,7 +130,7 @@ module Permissions
         tutorial_issue and tutorial_issue.customized_course.teacher_ids.include?(user.id)
       end
 
-      allow :tutorial_issue_replies,[:create] do |tutorial_issue|
+      allow :tutorial_issue_replies,[:show,:create] do |tutorial_issue|
         tutorial_issue and tutorial_issue.customized_course.teacher_ids.include?(user.id)
       end
       allow :tutorial_issue_replies,[:edit,:update] do |tutorial_issue_reply|
@@ -141,7 +141,7 @@ module Permissions
         course_issue and course_issue.customized_course.teacher_ids.include?(user.id)
       end
 
-      allow :course_issue_replies,[:create] do |course_issue|
+      allow :course_issue_replies,[:show,:create] do |course_issue|
         course_issue and course_issue.customized_course.teacher_ids.include?(user.id)
       end
       allow :course_issue_replies,[:edit,:update] do |course_issue_reply|

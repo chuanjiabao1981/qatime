@@ -7,11 +7,13 @@ module ContentInputHelper
     find('div.note-insert.btn-group').click
     attach_file("qa-img-file","#{Rails.root}/test/integration/test.jpg")
     click_on '上传图片'
+    sleep 5
   end
 
   def add_a_video
     click_on '添加视频'
     attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
+    sleep 5
   end
 
   def set_all_possible_info(content)

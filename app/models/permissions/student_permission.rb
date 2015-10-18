@@ -91,7 +91,7 @@ module Permissions
       end
 
 
-      allow :tutorial_issue_replies,[:create] do |tutorial_issue|
+      allow :tutorial_issue_replies,[:show,:create] do |tutorial_issue|
         tutorial_issue and tutorial_issue.customized_course.student_id == user.id
       end
 
@@ -115,7 +115,7 @@ module Permissions
         course_issue and course_issue.author_id == user.id
       end
 
-      allow :course_issue_replies,[:create] do |course_issue|
+      allow :course_issue_replies,[:show,:create] do |course_issue|
         course_issue and course_issue.customized_course.student_id == user.id
       end
 

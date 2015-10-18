@@ -28,16 +28,31 @@ exercise_fee_correction_one_fee:
   video_duration: 120
   price_per_minute: 1
 
-reply_fee:
-  customized_course: customized_course5
-  feeable: reply_fee_reply (Reply)
-  value: 2.5
-  video_duration: 150
-  price_per_minute: 1
+#reply_fee:
+#  customized_course: customized_course5
+#  feeable: reply_fee_reply (Reply)
+#  value: 2.5
+#  video_duration: 150
+#  price_per_minute: 1
 
 correction_fee:
   customized_course: customized_course5
   feeable: correction_fee_correction_one (Correction)
   value: 3
   video_duration: 180
+  price_per_minute: 1
+
+
+fee_for_course_issue_reply:
+  customized_course: customized_course5
+  feeable: course_issue_reply_for_fee_view (Reply)
+  value: 2.5
+  video_duration: 150
+  price_per_minute: 1
+
+fee_for_tutorial_issue_reply:
+  customized_course: customized_course5
+  feeable: tutorial_issue_reply_for_fee_view (Reply)
+  value: 4
+  video_duration: 240
   price_per_minute: 1

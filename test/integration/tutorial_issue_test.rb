@@ -5,6 +5,7 @@ require 'sidekiq/testing'
 Sidekiq::Testing.inline!
 
 class TutorialIssueIntegrateTest < LoginTestBase
+  self.use_transactional_fixtures = true
 
   def setup
     @customized_tutorial = customized_tutorials(:customized_tutorial1)
@@ -45,7 +46,7 @@ class TutorialIssueIntegrateTest < LoginTestBase
   private
   def show_page(user,user_session,show_path)
     user_session.get show_path
-    user_session.assert_response :success,user.role
+    user_session.assert_response :success,"#{user.role},#{@tutorial_issue_one.to_json}"
     # puts user_session.response.body
 
     if user.student?

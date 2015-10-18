@@ -1,4 +1,9 @@
 class CustomizedTutorialCreateTest < ActionDispatch::IntegrationTest
+
+
+  self.use_transactional_fixtures = true
+
+
   def setup
     @headless = Headless.new
     @headless.start
@@ -21,19 +26,24 @@ class CustomizedTutorialCreateTest < ActionDispatch::IntegrationTest
     log_in_as(@teacher)
     visit new_customized_course_customized_tutorial_path(@customized_course)
 
+    begin
+      fill_in :customized_tutorial_title,with: '这个长度不能少10的啊啊啊'
+      fill_in :customized_tutorial_content,with: '这个不能少于20啊啊啊啊啊啊啊啊啊啊12345678900987654321'
+      page.save_screenshot('screenshot.png')
 
-    fill_in :customized_tutorial_title,with: '这个长度不能少10的啊啊啊'
-    fill_in :customized_tutorial_content,with: '这个不能少于20啊啊啊啊啊啊啊啊啊啊12345678900987654321'
-    page.save_screenshot('screenshot.png')
-
-    assert_difference 'Video.count',1 do
-      assert_difference 'CustomizedTutorial.count',1 do
-        attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
-        click_on '新增课程'
-        l = CustomizedTutorial.all.order(:created_at => :desc).first
-        page.save_screenshot('screenshot.png')
-        assert page.has_xpath?("//video[contains(@src,\"#{l.video.name}\")]")
+      assert_difference 'Video.count',1 do
+        assert_difference 'CustomizedTutorial.count',1 do
+          attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
+          sleep 10
+          click_on '新增课程'
+          l = CustomizedTutorial.all.order(:created_at => :desc).first
+          page.save_screenshot('screenshot.png')
+          assert page.has_xpath?("//video[contains(@src,\"#{l.video.name}\")]")
+        end
       end
+    rescue   Capybara::ElementNotFound =>x
+      page.save_screenshot('screenshot__xxxxxx.png')
+      raise x
     end
   end
 
@@ -51,6 +61,7 @@ class CustomizedTutorialCreateTest < ActionDispatch::IntegrationTest
     assert_difference 'Video.count',0 do
       assert_difference 'CustomizedTutorial.count',0 do
         attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
+        sleep 10
         fill_in :customized_tutorial_title,with: title_new_name
         fill_in :customized_tutorial_content,with: content_new_name
 
@@ -78,6 +89,7 @@ class CustomizedTutorialCreateTest < ActionDispatch::IntegrationTest
     assert_difference 'Video.count',1 do
       assert_difference 'CustomizedTutorial.count',0 do
         attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
+        sleep 10
         fill_in :customized_tutorial_title,with: title_new_name
         fill_in :customized_tutorial_content,with: content_new_name
 
@@ -87,7 +99,7 @@ class CustomizedTutorialCreateTest < ActionDispatch::IntegrationTest
 
         customized_tutorial1.reload
         #assert_not_equal customized_tutorial1.video.name.url,video_old_name
-        assert page.has_xpath?("//video[contains(@src,\"#{customized_tutorial1.video.name}\")]"),"no video url is match"
+        assert page.has_xpath?("//video[contains(@src,\"#{customized_tutorial1.reload.video.name}\")]"),"no video url is match"
 
       end
     end

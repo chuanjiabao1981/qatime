@@ -43,14 +43,14 @@ customized_course_topic2:
   type: CourseIssue
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
 
-reply_fee_tutorial_topic:
-  title: reply fee tutorial topic
-  content: reply fee tutorial topic
-  author: physics_teacher1
-#  teacher: physics_teacher1
-  topicable: customized_tutorial_teacher_earnings_1 (CustomizedTutorial)
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
-
+#reply_fee_tutorial_topic:
+#  title: reply fee tutorial topic
+#  content: reply fee tutorial topic
+#  author: physics_teacher1
+##  teacher: physics_teacher1
+#  topicable: customized_tutorial_teacher_earnings_1 (CustomizedTutorial)
+#  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+#
 
 
 tutorial_issue_one:
@@ -67,6 +67,25 @@ course_issue_one:
   author: student1
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   type: CourseIssue
+
+
+###Begin Fee view
+course_issue_for_fee_view:
+  title: reply fee tutorial topic
+  content: reply fee tutorial topic
+  author: student2
+  type: CourseIssue
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+
+tutorial_issue_for_fee_view:
+  title: tutorial issue for fee_view
+  content: tutorial issue for fee_view
+  author: student2
+  type: TutorialIssue
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial_teacher_earnings_1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+
+###End Fee view
 
 
 

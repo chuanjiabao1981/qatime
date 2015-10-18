@@ -29,6 +29,10 @@ class CourseIssueRepliesController < ApplicationController
     end
   end
 
+  def show
+    redirect_to course_issue_path(@course_issue_reply.course_issue)
+  end
+
   def destroy
     @course_issue_reply.destroy
     respond_with @course_issue_reply.course_issue

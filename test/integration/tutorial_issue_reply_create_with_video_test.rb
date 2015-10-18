@@ -3,6 +3,7 @@ require 'test_helper'
 require 'reply_test_helper'
 
 class TutorialIssueReplyWithVideo  < ActionDispatch::IntegrationTest
+  self.use_transactional_fixtures = true
 
   # include ContentInputHelper
   include ReplyTestHelper

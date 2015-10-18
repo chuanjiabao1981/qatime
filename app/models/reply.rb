@@ -3,7 +3,6 @@ class Reply < ActiveRecord::Base
   include QaCommon
   include QaToken
   include ContentValidate
-  include Tally
 
   self.per_page = 5
 
@@ -13,7 +12,6 @@ class Reply < ActiveRecord::Base
 
   has_many :pictures,as: :imageable
   has_one  :video,as: :videoable
-  has_one  :fee, as: :feeable
 
   validates_presence_of :author,:topic
 

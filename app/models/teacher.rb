@@ -56,7 +56,13 @@ class Teacher < User
       correction.keep_account(self.id)
     end
 
-    Reply.by_author_id(self.id).valid_tally_unit.each do |reply|
+    # Reply.by_author_id(self.id).valid_tally_unit.each do |reply|
+    #   reply.keep_account(self.id)
+    # end
+    TutorialIssueReply.by_author_id(self.id).valid_tally_unit.each do |reply|
+      reply.keep_account(self.id)
+    end
+    CourseIssueReply.by_author_id(self.id).valid_tally_unit.each do |reply|
       reply.keep_account(self.id)
     end
   end

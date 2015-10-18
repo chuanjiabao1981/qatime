@@ -41,14 +41,14 @@ class TeacherTest < ActiveSupport::TestCase
 
     [CustomizedTutorial, Correction].each do |s|
       assert s.by_teacher_id(teacher.id).valid_tally_unit.size == 5
-      s.by_teacher_id(self.id).valid_tally_unit.each do |object|
+      s.by_teacher_id(teacher.id).valid_tally_unit.each do |object|
         money_change_expected += calculate_test_fee_value(object.video)
       end
     end
 
     [TutorialIssueReply, CourseIssueReply].each do |s|
       assert s.by_author_id(teacher.id).valid_tally_unit.size == 5
-      s.by_author_id(self.id).valid_tally_unit.each do |object|
+      s.by_author_id(teacher.id).valid_tally_unit.each do |object|
         money_change_expected += calculate_test_fee_value(object.video)
       end
     end

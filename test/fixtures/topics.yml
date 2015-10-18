@@ -2,39 +2,37 @@ topic1:
   title: aaabbbcccdddeeefffggghhhjjjqqqq
   content: 111111111111111111111111111111110000000000000000000iiiiiiiiiiiiii333333333333333
   author: student1
-  teacher: teacher1
+#  teacher: teacher1
   topicable: teacher1_lesson (Lesson)
 
 teacher_topic1:
   title: xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2
   content: teacher topic 1 xsddfsdf
   author: teacher1
-  teacher: teacher1
+#  teacher: teacher1
   topicable: teacher1_lesson (Lesson)
 
 customized_tutorial_topic1:
   title: xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2
   content: teacher topic 1 xsddfsdf
   author: student1
-  teacher: teacher1
-  topicable: customized_tutorial1 (CustomizedTutorial)
+  type: TutorialIssue
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
 
 customized_tutorial_topic2:
   title: 123413412sadnfpainfasipnfunck
   content: customized_tutorial topic for teacher1
-  author: teacher1
-  teacher: teacher1
-  topicable: customized_tutorial1 (CustomizedTutorial)
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  author: student2
+  type: CourseIssue
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course2) %>
 
 
 customized_course_topic1:
   title: customized_course_topic by student title
   content: customized_course_topic by student content customized_course_topic by student content
   author: student1
-  teacher: teacher1
-  topicable: customized_course1 (CustomizedCourse)
+  type: CourseIssue
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
 
 
@@ -42,18 +40,52 @@ customized_course_topic2:
   title: customized_course_topic by teacher title
   content: customized_course_topic by teacher content customized_course_topic by teacher content
   author: teacher1
-  teacher: teacher1
-  topicable: customized_course1 (CustomizedCourse)
+  type: CourseIssue
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
 
-reply_fee_tutorial_topic:
+#reply_fee_tutorial_topic:
+#  title: reply fee tutorial topic
+#  content: reply fee tutorial topic
+#  author: physics_teacher1
+##  teacher: physics_teacher1
+#  topicable: customized_tutorial_teacher_earnings_1 (CustomizedTutorial)
+#  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+#
+
+
+tutorial_issue_one:
+  title: 12344
+  content: 1231234
+  author: student1
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  type: TutorialIssue
+
+course_issue_one:
+  title: 12344
+  content: 5543221
+  author: student1
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  type: CourseIssue
+
+
+###Begin Fee view
+course_issue_for_fee_view:
   title: reply fee tutorial topic
   content: reply fee tutorial topic
-  author: physics_teacher1
-  teacher: physics_teacher1
-  topicable: customized_tutorial_teacher_earnings_1 (CustomizedTutorial)
+  author: student2
+  type: CourseIssue
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
 
+tutorial_issue_for_fee_view:
+  title: tutorial issue for fee_view
+  content: tutorial issue for fee_view
+  author: student2
+  type: TutorialIssue
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial_teacher_earnings_1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+
+<<<<<<< HEAD
 customized_tutorial_tally:
   title: customized_tutorial_tally_topic by teacher_tally
   content: customized_tutorial_tally_topic by teacher_tally, used to test reply tally
@@ -61,5 +93,12 @@ customized_tutorial_tally:
   teacher: teacher_tally
   topicable: customized_course_tally (CustomizedCourse)
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
+=======
+###End Fee view
+
+
+
+
+>>>>>>> qatime-topic-refactory2
 
 

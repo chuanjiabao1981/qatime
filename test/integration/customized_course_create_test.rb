@@ -8,9 +8,9 @@ class CustomizedCourseCreateTest < ActionDispatch::IntegrationTest
 
   def teardown
     #@headless.destroy
-
-    visit get_home_url(@manager)
-    click_on '退出'
+    logout_as(@manager)
+    # visit get_home_url(@manager)
+    # click_on '退出'
     Capybara.use_default_driver
   end
 

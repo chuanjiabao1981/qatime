@@ -49,3 +49,22 @@ customized_tutorial_teacher_earnings_1_video:
   token: customized_tutorial_teacher_earnings_1_token
   duration: 100
 
+<<<<<<< HEAD
+=======
+video_belongs_to_tutorial_issue_reply_with_video:
+  name: video
+  author: teacher1
+  videoable: tutorial_issue_reply_with_video(Reply)
+  token: tutorial_issue_reply_with_video
+  duration: 100
+
+video_belongs_to_course_issue_reply_with_video:
+  name: video
+  author: teacher1
+  videoable: course_issue_reply_with_video(Reply)
+  token: course_issue_reply_with_video
+  duration: 100
+
+
+
+>>>>>>> qatime-topic-refactory2

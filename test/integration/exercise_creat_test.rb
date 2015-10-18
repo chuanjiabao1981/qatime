@@ -15,8 +15,10 @@ class ExerciseCreateTest < ActionDispatch::IntegrationTest
   def teardown
     # @headless.destroy
 
-    visit get_home_url(@teacher)
-    click_on '登出系统'
+    # visit get_home_url(@teacher)
+    # click_on '登出系统'
+    logout_as(@teacher)
+
     Capybara.use_default_driver
   end
 

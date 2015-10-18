@@ -6,10 +6,10 @@
       <%= consumption_type(consumption_record.fee) %>
     </td>
     <td>
-      <%= second_to_minutes(consumption_record.fee.video_duration) %>
+      <%= second_to_minutes(consumption_record.fee.try(:video_duration)) %>
     </td>
   <td>
-    <%= consumption_record.fee.price_per_minute %>
+    <%= consumption_record.fee.try(:price_per_minute) %>
   </td>
     <td>
       <%= consumption_link(consumption_record.fee) %>

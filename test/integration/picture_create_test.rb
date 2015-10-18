@@ -57,8 +57,7 @@ class PictureCreateTest < ActionDispatch::IntegrationTest
       end
 
     end
-    visit get_home_url(teacher1)
-    click_on '登出系统'
+    logout_as(teacher1)
   end
 
 end

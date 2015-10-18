@@ -126,6 +126,27 @@ module Permissions
                 exercise.customized_tutorial.customized_course.teacher_ids.include?(user.id))
       end
 
+      allow :tutorial_issues,[:show] do |tutorial_issue|
+        tutorial_issue and tutorial_issue.customized_course.teacher_ids.include?(user.id)
+      end
+
+      allow :tutorial_issue_replies,[:show,:create] do |tutorial_issue|
+        tutorial_issue and tutorial_issue.customized_course.teacher_ids.include?(user.id)
+      end
+      allow :tutorial_issue_replies,[:edit,:update] do |tutorial_issue_reply|
+        tutorial_issue_reply and tutorial_issue_reply.author_id == user.id
+      end
+
+      allow :course_issues,[:show] do |course_issue|
+        course_issue and course_issue.customized_course.teacher_ids.include?(user.id)
+      end
+
+      allow :course_issue_replies,[:show,:create] do |course_issue|
+        course_issue and course_issue.customized_course.teacher_ids.include?(user.id)
+      end
+      allow :course_issue_replies,[:edit,:update] do |course_issue_reply|
+        course_issue_reply and course_issue_reply.author_id == user.id and course_issue_reply.status == "open"
+      end
     end
 private
 

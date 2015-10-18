@@ -1,7 +1,7 @@
 <%= render layout: "task" do %>
     <div class="qa_topics">
       <% if @topics.length != 0 %>
-          <%= render @topics %>
+            <%= render partial: 'shared/topics/topicable',collection: @topics ,as: 'topicable'%>
       <% else %>
           <div style="text-align: center;padding: 20px">
 

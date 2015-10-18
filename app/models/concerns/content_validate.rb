@@ -10,7 +10,7 @@ module ContentValidate
   end
 
   def strip_whitespace
-    if self.attribute_names.include?("title")
+    if self.attribute_names.include?("title") and self.title
       self.title = self.title.strip
     end
   end

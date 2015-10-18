@@ -39,11 +39,73 @@ reply_tally_<%= i %>:
   status: closed
 <% end %>
 
-reply_fee_reply:
+#reply_fee_reply:
+#  author: physics_teacher1
+#  content: reply fee reply
+#  topic: reply_fee_tutorial_topic
+#  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+#  token: reply_fee_reply_token
+#  status: closed
+
+
+tutorial_issue_reply_one:
+  author: teacher1
+  content: tutorial issue reply from teacher1
+  customized_tutorial: customized_tutorial1
+  customized_course: customized_course1
+  tutorial_issue: tutorial_issue_one
+  token: tutorial_issue_reply_one
+  status: open
+  type: TutorialIssueReply
+
+tutorial_issue_reply_with_video:
+  author: teacher1
+  content: tutorial issue reply with video
+  customized_tutorial: customized_tutorial1
+  customized_course: customized_course1
+  tutorial_issue: tutorial_issue_one
+  token: tutorial_issue_reply_with_video
+  status: open
+  type: TutorialIssueReply
+
+course_issue_reply_one:
+  author: teacher1
+  content: course issue reply from teacher
+  customized_course: customized_course1
+  course_issue: course_issue_one
+  token: tutorial_issue_reply_one
+  status: open
+  type: CourseIssueReply
+
+course_issue_reply_with_video:
+  author: teacher1
+  content: course issue reply with video
+  customized_course: customized_course1
+  course_issue: course_issue_one
+  token: course_issue_reply_with_video
+  status: open
+  type: CourseIssueReply
+
+###Begin Fee view
+course_issue_reply_for_fee_view:
   author: physics_teacher1
   content: reply fee reply
-  topic: reply_fee_tutorial_topic
+  course_issue: course_issue_for_fee_view
+  type: CourseIssueReply
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
-  token: reply_fee_reply_token
+  token: course_issue_reply_for_fee_view
   status: closed
+
+tutorial_issue_reply_for_fee_view:
+  author: physics_teacher1
+  content: tutorial issue reply for fee view
+  tutorial_issue: tutorial_issue_for_fee_view
+  type: TutorialIssueReply
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+  token: tutorial_issue_reply_for_fee_view
+  status: closed
+###End Fee view
+
+
+
 

@@ -63,7 +63,7 @@ class StudentsController < ApplicationController
 
   def customized_tutorial_topics
     @topics = Topic.all.by_author_id(@student.id)
-                  .from_customized_course
+                  .by_customized_course_issue
                   .order("created_at desc")
                   .paginate(page: params[:page])
     render layout: 'student_home'

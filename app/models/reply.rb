@@ -3,7 +3,6 @@ class Reply < ActiveRecord::Base
   include QaCommon
   include QaToken
   include ContentValidate
-  include Tally
 
   self.per_page = 5
 
@@ -15,14 +14,13 @@ class Reply < ActiveRecord::Base
 
   has_many :pictures,as: :imageable
   has_one  :video,as: :videoable
+<<<<<<< HEAD
   has_one  :fee, as: :feeable
   validates :content, length: {minimum: 5}, on: :create
+=======
+>>>>>>> qatime-topic-refactory2
 
   validates_presence_of :author,:topic
 
-   def initialize(atrributes={})
-    super(atrributes)
-    self.generate_token if self.token.nil?
-    self
-  end
+
 end

@@ -77,6 +77,8 @@ module Permissions
       end
 
 
+
+
       allow :faqs, [:show]
       allow :faq_topics, [:show]
       allow 'students/home',[:main]
@@ -86,6 +88,39 @@ module Permissions
       allow :comments,[:create]
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
+      end
+
+
+      allow :tutorial_issue_replies,[:show,:create] do |tutorial_issue|
+        tutorial_issue and tutorial_issue.customized_course.student_id == user.id
+      end
+
+      allow :tutorial_issue_replies,[:edit,:update] do |tutorial_issue_reply|
+        tutorial_issue_reply and tutorial_issue_reply.author_id == user.id
+      end
+
+      allow :tutorial_issues, [:new,:create] do |customized_tutorial|
+        customized_tutorial and customized_tutorial.customized_course.student_id == user.id
+      end
+      allow :tutorial_issues, [:show,:edit,:update] do |tutorial_issue|
+        tutorial_issue and tutorial_issue.author_id == user.id
+      end
+
+
+      allow :course_issues,[:new,:create] do |customized_course|
+        customized_course and customized_course.student_id == user.id
+      end
+
+      allow :course_issues,[:show,:edit,:update] do |course_issue|
+        course_issue and course_issue.author_id == user.id
+      end
+
+      allow :course_issue_replies,[:show,:create] do |course_issue|
+        course_issue and course_issue.customized_course.student_id == user.id
+      end
+
+      allow :course_issue_replies,[:edit,:update] do |course_issue_reply|
+        course_issue_reply and course_issue_reply.author_id == user.id
       end
 
 

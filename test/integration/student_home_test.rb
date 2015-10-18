@@ -26,18 +26,31 @@ class StudentHomePageTest < ActionDispatch::IntegrationTest
     @student2_session.get info_student_path(@student2,fee: :y)
     @customized_tutorial_teacher_earnings_1 = customized_tutorials(:customized_tutorial_teacher_earnings_1)
     @exercise_fee_solution_one              = solutions(:exercise_fee_solution_one)
-    @reply_fee_tutorial_topic               = topics(:reply_fee_tutorial_topic)
+    # @reply_fee_tutorial_topic               = topics(:reply_fee_tutorial_topic)
     @solution_for_homework_correction_fee   = solutions(:solution_for_homework_correction_fee)
 
-    assert @student2.account.consumption_records.length == 4
+    # assert @student2.account.consumption_records.length == 4
     # @student2.account.consumption_records.each do |e|
     #   puts e.fee.to_json
     # end
     @student2_session.assert_response :success
-    @student2_session.assert_select "a[href=?]",customized_tutorial_path(@customized_tutorial_teacher_earnings_1)
-    @student2_session.assert_select "a[href=?]",solution_path(@exercise_fee_solution_one)
-    @student2_session.assert_select "a[href=?]",topic_path(@reply_fee_tutorial_topic)
-    @student2_session.assert_select "a[href=?]",solution_path(@solution_for_homework_correction_fee)
+    # @student2_session.assert_select "a[href=?]",customized_tutorial_path(@customized_tutorial_teacher_earnings_1)
+    # @student2_session.assert_select "a[href=?]",solution_path(@exercise_fee_solution_one)
+    # @student2_session.assert_select "a[href=?]",topic_path(@reply_fee_tutorial_topic)
+    # @student2_session.assert_select "a[href=?]",solution_path(@solution_for_homework_correction_fee)
+
+    @course_issue_reply_for_fee_view    = replies(:course_issue_reply_for_fee_view)
+    @tutorial_issue_reply_for_fee_view  = replies(:tutorial_issue_reply_for_fee_view)
+    # @physics_teacher1.account.earning_records.each do |x|
+    #   puts x.fee.to_json
+    # end
+    @student2_session.assert_select "a[href=?]", course_issue_reply_path(@course_issue_reply_for_fee_view)
+    @student2_session.assert_select "td",CourseIssueReply.model_name.human
+    @student2_session.assert_select "td",@course_issue_reply_for_fee_view.fee.value.to_s
+    @student2_session.assert_select "a[href=?]", tutorial_issue_reply_path(@tutorial_issue_reply_for_fee_view)
+    @student2_session.assert_select "td",TutorialIssueReply.model_name.human
+    @student2_session.assert_select "td",@tutorial_issue_reply_for_fee_view.fee.value.to_s
+
 
   end
 
@@ -71,8 +84,8 @@ class StudentHomePageTest < ActionDispatch::IntegrationTest
     topic2 = topics(:customized_tutorial_topic2)
     @student1_session.get customized_tutorial_topics_student_path(@student1)
 
-    @student1_session.assert_select "a[href=?]", topic_path(topic1), count:1
-    @student1_session.assert_select "a[href=?]", topic_path(topic2), count:0
+    @student1_session.assert_select "a[href=?]", tutorial_issue_path(topic1), count:1
+    @student1_session.assert_select "a[href=?]", course_issue_path(topic2), count:0
     @student1_session.assert_response :success
 
 

@@ -7,7 +7,7 @@ class Teacher < User
   has_many :curriculums,dependent: :destroy
   has_many :courses,dependent: :destroy
 
-  has_many :deposits
+  # has_many :deposits
 
 
   has_many :answers,:dependent => :destroy
@@ -55,10 +55,21 @@ class Teacher < User
       end
     end
 
+<<<<<<< HEAD
     [Reply].each do |s|
       s.by_author_id(self.id).valid_tally_unit.each do |object|
         object.keep_account(self.id)
       end
+=======
+    # Reply.by_author_id(self.id).valid_tally_unit.each do |reply|
+    #   reply.keep_account(self.id)
+    # end
+    TutorialIssueReply.by_author_id(self.id).valid_tally_unit.each do |reply|
+      reply.keep_account(self.id)
+    end
+    CourseIssueReply.by_author_id(self.id).valid_tally_unit.each do |reply|
+      reply.keep_account(self.id)
+>>>>>>> qatime-topic-refactory2
     end
   end
 end

@@ -53,6 +53,7 @@ module ApplicationHelper
   end
 
   def second_to_minutes(duration)
+    return unless duration
     seconds = duration % 60
     minutes = duration / 60
 

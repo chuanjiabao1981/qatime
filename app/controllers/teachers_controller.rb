@@ -95,7 +95,7 @@ class TeachersController < ApplicationController
   end
 
   def solutions
-    @solutions = Solution.all.where(customized_course_id: current_user.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
+    @solutions = Solution.all.where(customized_course_id: @teacher.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
   end
 
 

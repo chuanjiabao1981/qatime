@@ -64,6 +64,7 @@ class CustomizedTutorialCreateTest < ActionDispatch::IntegrationTest
         sleep 10
         fill_in :customized_tutorial_title,with: title_new_name
         fill_in :customized_tutorial_content,with: content_new_name
+        sleep 10
 
         click_on '更新课程'
         page.save_screenshot('screenshot.png')
@@ -92,7 +93,7 @@ class CustomizedTutorialCreateTest < ActionDispatch::IntegrationTest
         sleep 10
         fill_in :customized_tutorial_title,with: title_new_name
         fill_in :customized_tutorial_content,with: content_new_name
-
+        sleep 10
         click_on '更新课程'
         assert  page.has_content? title_new_name
         assert  page.has_content? content_new_name

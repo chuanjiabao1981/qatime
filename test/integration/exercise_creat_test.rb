@@ -33,7 +33,7 @@ class ExerciseCreateTest < ActionDispatch::IntegrationTest
     # fill_in :customized_tutorial_content,with: '这个不能少于20啊啊啊啊啊啊啊啊啊啊12345678900987654321'
     page.save_screenshot('screenshot.png')
       assert_difference 'Exercise.count',1 do
-        assert_difference 'QaFile.count', 2 do
+        assert_difference 'QaFile.count', 1 do
           # attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
 
           #添加两个文件
@@ -44,11 +44,12 @@ class ExerciseCreateTest < ActionDispatch::IntegrationTest
 
           click_link '添加作业文件'
           find(:xpath, "//fieldset[2]/div/div/input").set("#{Rails.root}/test/integration/development.log")
+          accept_alert
 
           click_on '新增随堂练习'
 
           assert page.has_content?('test.jpg')
-          assert page.has_content?('development.log')
+          assert !page.has_content?('development.log')
         end
       end
   end

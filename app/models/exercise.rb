@@ -1,16 +1,19 @@
-class Exercise < ActiveRecord::Base
+class Exercise < Examination
 
-  self.table_name = "homeworks"
+  # self.table_name = "homeworks"
 
   default_scope {where("work_type='exercise'")}
 
 
-  include QaToken
-  include ContentValidate
-  include QaSolution
-  include QaCommon
-  include QaWork
 
+  include QaWork
+  belongs_to      :customized_tutorial,counter_cache: true
+  has_many        :solutions,as: :solutionable,:dependent =>  :destroy  do
+    def build(attributes={})
+      attributes[:customized_course_id] = proxy_association.owner.customized_course_id
+      super attributes
+    end
+  end
 
   scope :timeout_to_solve ,lambda {|customized_course_id| joins(:customized_tutorial => :customized_course)
                                                              .where(solutions_count:0,customized_tutorials:{customized_course_id: customized_course_id})

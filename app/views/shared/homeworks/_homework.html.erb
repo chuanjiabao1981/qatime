@@ -14,6 +14,9 @@
     批改了<%=homework.corrections_count %>次<%= Homework.human_attribute_name(:solution) %> •
     <%= homework.student.name%> •
     写了<%= homework.solutions_count %>次<%= Homework.human_attribute_name(:solution) %>
+
+    <%= render partial: "#{homework.model_name.route_key}/index_item_nav",locals: {homework: homework} %>
+
     <% if homework.customized_tutorial %>
         • <%= link_to homework.customized_tutorial.title ,customized_tutorial_path(homework.customized_tutorial) %>
     <% end %>

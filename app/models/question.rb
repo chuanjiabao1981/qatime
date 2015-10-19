@@ -113,7 +113,7 @@ private
 
 
   def update_picture_info
-    Picture.update_imageable_info(self)
+    Picture.update_imageable_info(self,self.model_name.to_s)
   end
 
   def strip_whitespace

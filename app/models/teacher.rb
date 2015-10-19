@@ -7,7 +7,7 @@ class Teacher < User
   has_many :curriculums,dependent: :destroy
   has_many :courses,dependent: :destroy
 
-  has_many :deposits
+  # has_many :deposits
 
 
   has_many :answers,:dependent => :destroy
@@ -55,7 +55,7 @@ class Teacher < User
       end
     end
 
-    [Reply].each do |s|
+    [TutorialIssueReply, CourseIssueReply].each do |s|
       s.by_author_id(self.id).valid_tally_unit.each do |object|
         object.keep_account(self.id)
       end

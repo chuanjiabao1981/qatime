@@ -1,0 +1,4 @@
+cn:
+  activerecord:
+    models:
+      course_issue_reply: 日常问题解答

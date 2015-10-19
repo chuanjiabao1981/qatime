@@ -7,9 +7,9 @@ class Video < ActiveRecord::Base
 
   validates_presence_of :author
 
-  def self.update_videoable_info(videoable_item)
+  def self.update_videoable_info(videoable_item,videoable_type)
     Video.where("token='#{videoable_item.token}'")
-        .update_all({videoable_id: videoable_item.id,videoable_type: videoable_item.class.to_s})
+        .update_all({videoable_id: videoable_item.id,videoable_type: videoable_type})
   end
 
 end

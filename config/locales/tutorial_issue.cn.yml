@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    models:
+      tutorial_issue: 随堂问题
+    attributes:
+      tutorial_issue:
+        title: 标题
+        content: 内容

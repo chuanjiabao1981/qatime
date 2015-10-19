@@ -2,9 +2,7 @@ class CustomizedTutorialsController < ApplicationController
   layout "application"
   respond_to :html
 
-
   include TopicsList
-
 
   def index
     @customized_tutorials = @customized_course.customized_tutorials.order(created_at: :asc)
@@ -35,6 +33,7 @@ class CustomizedTutorialsController < ApplicationController
 
   def show
     @topics     = get_topics(@customized_tutorial)
+    @tutorial_issues = @customized_tutorial.tutorial_issues.order(created_at: :desc).paginate(page: params[:page])
   end
 
   def destroy

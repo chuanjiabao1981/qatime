@@ -16,14 +16,26 @@ correction_one_fee_erning_record:
   percent: 1
   value: 2
 
-reply_fee_earning_record:
-  fee: reply_fee
-  account: physics_teacher1_account
-  percent: 1
-  value: 2.5
+#reply_fee_earning_record:
+#  fee: reply_fee
+#  account: physics_teacher1_account
+#  percent: 1
+#  value: 2.5
 
 homework_solution_correction_earning_record:
   fee: correction_fee
   account: physics_teacher1_account
   percent: 1
   value: 3
+
+earning_record_for_course_issue_reply:
+  fee: fee_for_course_issue_reply
+  account: physics_teacher1_account
+  percent: 1
+  value: 2.5
+
+earning_record_for_tutorial_issue_reply:
+  fee: fee_for_tutorial_issue_reply
+  account: physics_teacher1_account
+  percent: 1
+  value: 4

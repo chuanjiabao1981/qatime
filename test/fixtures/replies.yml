@@ -19,31 +19,122 @@ customized_tutorial_topic1_reply2:
   content: 2 customized teacher_reply 2 hahahahahahaha
   topic: customized_tutorial_topic1
 
+# test TutorialIssue replies tally
 <% 1.upto(5) do |i| %>
-reply_tally_<%= i %>:
+tutorial_issue_reply_for_tally_<%= i %>:
   author: teacher_tally
   content: 2 customized teacher_reply 2 hahahahahahaha
-  topic: customized_tutorial_tally
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
-  token: reply_tally_video_<%= i %>
+  customized_course: customized_course_tally
+  customized_tutorial: customized_tutorial_tally_1
+  tutorial_issue: topic_for_customized_tutorial_tally
+  type: TutorialIssueReply
+  token: tutorial_issue_reply_for_tally_video_<%= i %>
   status: open
 <% end %>
 
 <% 6.upto(10) do |i| %>
-reply_tally_<%= i %>:
+tutorial_issue_reply_for_tally_<%= i %>:
   author: teacher_tally
   content: 2 customized teacher_reply 2 hahahahahahaha
-  topic: customized_tutorial_tally
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
-  token: reply_tally_video_<%= i %>
+  customized_course: customized_course_tally
+  customized_tutorial: customized_tutorial_tally_1
+  tutorial_issue: topic_for_customized_tutorial_tally
+  type: TutorialIssueReply
+  token: tutorial_issue_reply_for_tally_video_<%= i %>
   status: closed
 <% end %>
 
-reply_fee_reply:
+# test CourseIssue replies tally
+# Five with valid video and five without
+<% 1.upto(5) do |i| %>
+course_issue_reply_for_tally_<%= i %>:
+  author: teacher_tally
+  content: 2 customized teacher_reply 2 hahahahahahaha
+  customized_course: customized_course_tally
+  course_issue: topic_for_customized_course_tally
+  token: course_issue_reply_for_tally_video_<%= i %>
+  type: CourseIssueReply
+  status: open
+<% end %>
+
+<% 6.upto(10) do |i| %>
+course_issue_reply_for_tally_<%= i %>:
+  author: teacher_tally
+  content: 2 customized teacher_reply 2 hahahahahahaha
+  customized_course: customized_course_tally
+  course_issue: topic_for_customized_course_tally
+  type: CourseIssueReply
+  token: course_issue_reply_for_tally_video_<%= i %>
+  status: closed
+<% end %>
+
+#reply_fee_reply:
+#  author: physics_teacher1
+#  content: reply fee reply
+#  topic: reply_fee_tutorial_topic
+#  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+#  token: reply_fee_reply_token
+#  status: closed
+
+
+tutorial_issue_reply_one:
+  author: teacher1
+  content: tutorial issue reply from teacher1
+  customized_tutorial: customized_tutorial1
+  customized_course: customized_course1
+  tutorial_issue: tutorial_issue_one
+  token: tutorial_issue_reply_one
+  status: open
+  type: TutorialIssueReply
+
+tutorial_issue_reply_with_video:
+  author: teacher1
+  content: tutorial issue reply with video
+  customized_tutorial: customized_tutorial1
+  customized_course: customized_course1
+  tutorial_issue: tutorial_issue_one
+  token: tutorial_issue_reply_with_video
+  status: open
+  type: TutorialIssueReply
+
+course_issue_reply_one:
+  author: teacher1
+  content: course issue reply from teacher
+  customized_course: customized_course1
+  course_issue: course_issue_one
+  token: tutorial_issue_reply_one
+  status: open
+  type: CourseIssueReply
+
+course_issue_reply_with_video:
+  author: teacher1
+  content: course issue reply with video
+  customized_course: customized_course1
+  course_issue: course_issue_one
+  token: course_issue_reply_with_video
+  status: open
+  type: CourseIssueReply
+
+###Begin Fee view
+course_issue_reply_for_fee_view:
   author: physics_teacher1
   content: reply fee reply
-  topic: reply_fee_tutorial_topic
+  course_issue: course_issue_for_fee_view
+  type: CourseIssueReply
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
-  token: reply_fee_reply_token
+  token: course_issue_reply_for_fee_view
   status: closed
+
+tutorial_issue_reply_for_fee_view:
+  author: physics_teacher1
+  content: tutorial issue reply for fee view
+  tutorial_issue: tutorial_issue_for_fee_view
+  type: TutorialIssueReply
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+  token: tutorial_issue_reply_for_fee_view
+  status: closed
+###End Fee view
+
+
+
 

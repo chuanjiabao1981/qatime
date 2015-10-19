@@ -1,0 +1,4 @@
+cn:
+  activerecord:
+    models:
+      tutorial_issue_reply: 随堂问题解答

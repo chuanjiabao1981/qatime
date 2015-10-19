@@ -4,6 +4,9 @@ require 'sidekiq/testing'
 
 Sidekiq::Testing.inline!
 class CommentCreateTest < ActionDispatch::IntegrationTest
+
+  self.use_transactional_fixtures = true
+
   def setup
     @headless = Headless.new
     @headless.start

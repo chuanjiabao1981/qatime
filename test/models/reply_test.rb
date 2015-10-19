@@ -15,12 +15,12 @@ class ReplyTest < ActiveSupport::TestCase
     APP_CONSTANT["price_per_minute"] = @old
 
   end
-  test "reply create" do
-    reply             = @topic.teacher.replies.build
-    reply.topic      = @topic
-    reply.content    = "sbsb zsb hahaha"
-    assert reply.valid?,reply.errors.full_messages
-  end
+  # test "reply create" do
+  #   reply             = @topic.teacher.replies.build
+  #   reply.topic      = @topic
+  #   reply.content    = "sbsb zsb hahaha"
+  #   assert reply.valid?,reply.errors.full_messages
+  # end
 
   test "fixture" do
     student_reply1 = replies(:student_reply1)
@@ -31,14 +31,19 @@ class ReplyTest < ActiveSupport::TestCase
 
   # 测试reply的记账功能
   test "reply keep_account" do
-    #
     teacher = Teacher.find(users(:teacher_tally).id)
     student = Student.find(users(:student_tally).id)
 
-    replies = Reply.by_author_id(teacher.id).valid_tally_unit
-    keep_account_succeed(teacher, student, replies, 5) do
-      Reply.by_author_id(teacher.id).valid_tally_unit.size
+    course_issue_replies = CourseIssueReply.by_author_id(teacher.id).valid_tally_unit
+
+    keep_account_succeed(teacher, student, course_issue_replies, 5) do
+      CourseIssueReply.by_author_id(teacher.id).valid_tally_unit.size
+    end
+
+    tutorial_issue_replies = TutorialIssueReply.by_author_id(teacher.id).valid_tally_unit
+
+    keep_account_succeed(teacher, student, tutorial_issue_replies, 5) do
+      tutorial_issue_replies.by_author_id(teacher.id).valid_tally_unit.size
     end
   end
-
 end

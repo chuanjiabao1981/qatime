@@ -24,8 +24,8 @@ class SmsWorker
   QUESTION_MODIFY_NOTIFICATION = :question_modify_notify
   REGISTRATION_NOTIFICATION    = :registration_notify
   ANSWER_CREATE_NOTIFICATION   = :answer_create_notify
-  TOPIC_CREATE_NOTIFICATION    = :topic_create_notify
-  REPLY_CREATE_NOTIFICATION    = :reply_create_notify
+  # TOPIC_CREATE_NOTIFICATION    = :topic_create_notify
+  # REPLY_CREATE_NOTIFICATION    = :reply_create_notify
   NOTIFY                       = :notify
   SYSTEM_ALARM                 = :system_alarm
 
@@ -88,33 +88,33 @@ class SmsWorker
         end
       end
     end
-    def topic_create_notify(options)
-      topic = Topic.find(options["id"])
-      if topic.author_id != topic.teacher_id
-       message_body =  "【答疑时间】#{topic.teacher.view_name}，你好，#{topic.author.view_name}在公共课程中发起了讨论，请您回复#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
+    # def topic_create_notify(options)
+    #   topic = Topic.find(options["id"])
+    #   if topic.author_id != topic.teacher_id
+    #    message_body =  "【答疑时间】#{topic.teacher.view_name}，你好，#{topic.author.view_name}在公共课程中发起了讨论，请您回复#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
+    #
+    #    if topic.topicable_type == CustomizedTutorial.to_s or topic.topicable_type == CustomizedCourse.to_s
+    #      message_body =  "【答疑时间】#{topic.teacher.view_name}，你好，#{topic.author.view_name}在#{CustomizedCourse.model_name.human}中发起了讨论，请您回复#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
+    #    end
+    #    _send_message do
+    #      send_message(topic.teacher.mobile,message_body)
+    #    end
+    #   end
+    # end
 
-       if topic.topicable_type == CustomizedTutorial.to_s or topic.topicable_type == CustomizedCourse.to_s
-         message_body =  "【答疑时间】#{topic.teacher.view_name}，你好，#{topic.author.view_name}在#{CustomizedCourse.model_name.human}中发起了讨论，请您回复#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
-       end
-       _send_message do
-         send_message(topic.teacher.mobile,message_body)
-       end
-      end
-    end
-
-  def reply_create_notify(options)
-    reply = Reply.find(options["id"])
-    return unless reply
-    topic = reply.topic
-    return unless topic
-    # 只有是老师回复学生才需要通知
-    return unless topic.author.student? and reply.author.teacher?
-    mobile        = topic.author.mobile
-    message_body  = "【答疑时间】#{topic.author.view_name}，你好，#{reply.author.view_name}回复了你在#{topic.topicable.model_name.human}发起讨论，请关注#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
-    _send_message do
-      send_message(mobile,message_body)
-    end
-  end
+  # def reply_create_notify(options)
+  #   reply = Reply.find(options["id"])
+  #   return unless reply
+  #   topic = reply.topic
+  #   return unless topic
+  #   # 只有是老师回复学生才需要通知
+  #   return unless topic.author.student? and reply.author.teacher?
+  #   mobile        = topic.author.mobile
+  #   message_body  = "【答疑时间】#{topic.author.view_name}，你好，#{reply.author.view_name}回复了你在#{topic.topicable.model_name.human}发起讨论，请关注#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
+  #   _send_message do
+  #     send_message(mobile,message_body)
+  #   end
+  # end
 
   # def homework_create_notify(options)
   #

@@ -11,12 +11,13 @@ class CustomizedTutorial < ActiveRecord::Base
 
   has_one    :fee, as: :feeable
 
-  has_many   :topics        ,as: :topicable,:dependent => :destroy do
+  has_many   :tutorial_issues,:dependent => :destroy do
     def build(attributes={})
       attributes[:customized_course_id] = proxy_association.owner.customized_course_id
       super attributes
     end
   end
+
 
   scope :by_teacher, lambda {|t| where(teacher_id: t) if t}
 

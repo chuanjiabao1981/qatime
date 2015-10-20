@@ -66,9 +66,7 @@ module Permissions
       end
 
       allow :tutorial_issues,[:show]
-
-
-
+      allow :course_issues, [:show]
     end
   end
 end

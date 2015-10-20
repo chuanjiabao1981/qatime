@@ -1,0 +1,7 @@
+cn:
+  activerecord:
+    models:
+      examination: 习题
+    attributes:
+      examination:
+        solution: 作业

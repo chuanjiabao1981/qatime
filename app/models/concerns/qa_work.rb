@@ -24,7 +24,7 @@ module QaWork
 
     # accepts_nested_attributes_for :qa_files, allow_destroy: true
 
-    scope :h_index_eager_load,lambda {includes(:teacher,:student,:customized_tutorial)}
+    scope :h_index_eager_load,lambda {includes(:teacher,:student)}
 
 
     self.per_page = 10

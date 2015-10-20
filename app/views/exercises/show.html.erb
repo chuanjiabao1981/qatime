@@ -1,6 +1,5 @@
 <%= render layout: 'shared/qa_objects/show',locals:{qa_object: @exercise} do %>
-    <%= link_to @exercise.customized_tutorial.title,customized_tutorial_path(@exercise.customized_tutorial) %> /
-    <%= @exercise.model_name.human %>
+    <%= render partial: 'nav',locals: {customized_tutorial: @exercise.customized_tutorial} %>
 <% end %>
 
 <div class="qa_sep_15"></div>

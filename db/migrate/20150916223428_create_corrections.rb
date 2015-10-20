@@ -8,7 +8,7 @@ class CreateCorrections < ActiveRecord::Migration
 
       t.timestamps null: false
     end
-    add_column :homeworks, :solutions_count,:integer,:default=>0
+    add_column :examinations, :solutions_count,:integer,:default=>0
 
   end
 

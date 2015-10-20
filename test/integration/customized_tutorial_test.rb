@@ -1,6 +1,6 @@
 class CustomizedTutorialIntegrateTest < LoginTestBase
-  set_fixture_class :homeworks => Exercise
-  fixtures :homeworks
+  # set_fixture_class :examinations => Exercise
+  # fixtures :examinations
 
 
   def setup

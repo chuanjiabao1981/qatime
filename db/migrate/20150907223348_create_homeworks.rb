@@ -1,6 +1,6 @@
 class CreateHomeworks < ActiveRecord::Migration
   def change
-    create_table :homeworks do |t|
+    create_table :examinations do |t|
       t.integer :customized_course_id
       t.integer :teacher_id
       t.string  :title

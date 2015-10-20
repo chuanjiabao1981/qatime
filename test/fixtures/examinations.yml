@@ -11,6 +11,8 @@ homework1:
   content: 原来基础测试是关键的一换哦
   token: teacher1_customized_course_homewoker_one
   type: Homework
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+
 
 # column: value
 #

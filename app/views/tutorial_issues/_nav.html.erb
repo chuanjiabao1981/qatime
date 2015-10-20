@@ -1,2 +1,1 @@
-<%= link_to customized_course_full_name(customized_tutorial.customized_course) ,customized_course_path(customized_tutorial.customized_course) %> /
-<%= link_to customized_tutorial.title,customized_tutorial_path(customized_tutorial) %>
+<%= render partial: 'shared/customized_tutorials/nav',locals: {customized_tutorial: customized_tutorial} %>

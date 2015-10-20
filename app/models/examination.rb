@@ -21,4 +21,6 @@ class Examination < ActiveRecord::Base
   accepts_nested_attributes_for :qa_files, allow_destroy: true
 
 
+  scope :by_customized_course_work, lambda {where("type = ? or type = ?", Homework.to_s,Exercise.to_s)}
+
 end

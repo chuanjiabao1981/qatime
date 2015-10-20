@@ -98,4 +98,16 @@ class StudentHomePageTest < ActionDispatch::IntegrationTest
     @student1_session.assert_response :success
   end
 
+  test "customized course homeworks" do
+    @student1_session.get homeworks_student_path(@student1)
+    @homework1  =  examinations(:homework1)
+    @homework2  =  examinations(:homework2)
+    @exercise1  =  examinations(:exercise_one)
+    @student1_session.assert_select "a[href=?]",homework_path(@homework1),1
+    @student1_session.assert_select "a[href=?]",homework_path(@homework2),1
+    @student1_session.assert_select "a[href=?]",exercise_path(@exercise1),1
+
+
+  end
+
 end

@@ -7,8 +7,8 @@ class HomeworkIntegrateTest < LoginTestBase
   def setup
     super
     @customized_course = customized_courses(:customized_course1)
-    @homework1         = homeworks(:homework1)
-    @homework2         = homeworks(:homework2)
+    @homework1         = examinations(:homework1)
+    @homework2         = examinations(:homework2)
   end
 
   test 'show page' do
@@ -107,10 +107,15 @@ class HomeworkIntegrateTest < LoginTestBase
   end
   def show_page(user,user_session,show_path)
     # puts Homework.h_index_eager_load.by_customized_course_id(@customized_course.id).count
+    exercise1 = examinations(:exercise_one)
+
     user_session.get show_path
     user_session.assert_response :success
+    # puts user_session.response.body
     user_session.assert_select 'a[href=?]',homework_path(@homework1),1
     user_session.assert_select 'a[href=?]',homework_path(@homework2),1
+
+    user_session.assert_select 'a[href=?]',exercise_path(exercise1),1
     if user.teacher?
       user_session.assert_select 'a[href=?]', new_customized_course_homework_path(@customized_course),1
       user_session.assert_select 'a[href=?]', edit_homework_path(@homework1),0

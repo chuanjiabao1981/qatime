@@ -1,7 +1,8 @@
 <div class="qa_box">
   <div class="qa_cell box_head">
     <%= render partial: 'tutorial_issues/nav',locals: {customized_tutorial: @tutorial_issue_reply.customized_tutorial} %>
-    / 编辑<%= TutorialIssueReply.model_name.human%>
+    / <%= link_to @tutorial_issue_reply.tutorial_issue.title , tutorial_issue_path(@tutorial_issue_reply.tutorial_issue) %>
+    / <%=get_edit_or_create_model_string(@tutorial_issue_reply)%>
   </div>
   <div class="qa_cell">
     <%= render partial: 'shared/replies/form',locals:{topic: @tutorial_issue,reply: @tutorial_issue_reply} %>

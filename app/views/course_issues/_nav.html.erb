@@ -1,3 +1,3 @@
-<%= link_to customized_course_full_name(customized_course) ,customized_course_path(customized_course) %>/
+<%= render partial: 'shared/customized_courses/nav',locals: {customized_course: customized_course} %> /
 <%= link_to CustomizedCourse.human_attribute_name(:topics),topics_customized_course_path(customized_course) %>
 

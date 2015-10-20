@@ -1,7 +1,8 @@
 <div class="qa_box">
   <div class="qa_cell box_head">
     <%= render partial: 'course_issues/nav',locals: {customized_course: @course_issue_reply.customized_course} %>
-    / <%=link_to @course_issue_reply.course_issue.title,course_issue_path(@course_issue_reply.course_issue)%>/编辑<%= CourseIssueReply.model_name.human%>
+    / <%=link_to @course_issue_reply.course_issue.title,course_issue_path(@course_issue_reply.course_issue)%>/
+    <%=get_edit_or_create_model_string(@course_issue_reply)%>
   </div>
     <%= render partial: 'shared/replies/form',locals:{topic: @course_issue_reply.course_issue,reply: @course_issue_reply} %>
 

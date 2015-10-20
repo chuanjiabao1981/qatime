@@ -1,7 +1,7 @@
 <div class="qa_box">
   <div class="box_header qa_cell">
-    <%= link_to "#{@customized_tutorial.title}",customized_tutorial_path(@customized_tutorial) %> /
-    <%= Exercise.model_name.human%>
+    <%= render partial: 'nav',locals: {customized_tutorial: @customized_tutorial} %>/
+    <%=get_edit_or_create_model_string(@exercise)%>
   </div>
   <div class="qa_cell">
     <%=simple_form_for ([@customized_tutorial,@exercise]) do |f| %>

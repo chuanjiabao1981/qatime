@@ -33,6 +33,8 @@
         <%= f.association :student  ,collection: [@customized_course.student], include_blank:false%>
         <%= f.input :category, collection:[['高中','高中'],['初中','初中']], input_html:{ :id => "s_category"} , include_blank:false%>
         <%= f.input :subject, collection: APP_CONSTANT["subjects"].map {|s| [s,s]},input_html:{ :id => "s_subject"} , include_blank:false%>
+        <%= f.input :customized_course_type, include_blank:false, collection: CustomizedCourse.customized_course_type_attributes_for_select %>
+        <%= f.input :price, include_blank:false%>
         <%= f.association :teachers ,
                           collection: @teachers.map {|t|[t.name,t.id,t.school.name]}.group_by{|k| k[2]},
                           :as => :grouped_select,

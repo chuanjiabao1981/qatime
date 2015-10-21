@@ -113,3 +113,19 @@ lesson_categories:
 handle_timeout: 1.day
 
 price_per_minute: 0.9
+teacher_earning_percent: 0.9
+
+customized_course_junior_common_prices:
+  heighten: 40
+  spurt: 60
+  competition: 80
+
+customized_course_junior_high_common_prices:
+  heighten: 60
+  spurt: 90
+  competition: 110
+
+customized_course_senior_high_common_prices:
+  heighten: 80
+  spurt: 90
+  competition: 120

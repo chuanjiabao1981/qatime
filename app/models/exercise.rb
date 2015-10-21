@@ -1,7 +1,5 @@
 class Exercise < Examination
 
-
-
   include QaWork
   belongs_to      :customized_tutorial,counter_cache: true
   belongs_to      :customized_course,  counter_cache: true

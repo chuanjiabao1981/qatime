@@ -1,5 +1,16 @@
 class HomeworkSolution < Solution
   belongs_to :homework,counter_cache: true
+  belongs_to :customized_course
+
+  has_many   :homework_corrections,foreign_key: "solution_id",dependent: :destroy do
+      def build(attributes={})
+        attributes[:customized_course_id]       = proxy_association.owner.customized_course_id
+        attributes[:homework_id]                = proxy_association.owner.homework_id
+        super attributes
+      end
+  end
+
+
 
   def container
     self.homework
@@ -16,7 +27,5 @@ class HomeworkSolution < Solution
                             mobile: teacher.mobile,
                             message: "提交了#{Solution.model_name.human},请及时#{Correction.model_name.human},"
     )
-
-
   end
 end

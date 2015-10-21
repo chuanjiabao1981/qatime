@@ -6,18 +6,18 @@ class SolutionsController < ApplicationController
 
   def new
     resource_name               = resource_name_from_params(params)
-    @solution                   = build_solution(@solutionable,resource_name)
+    @solution                   = build_solution(@solutioncontainer,resource_name)
   end
 
   def create
     resource_name               = resource_name_from_params(params)
-    @solution                   = build_solution(@solutionable,resource_name,change_params_for_qa_files(params["#{resource_name}_solution".to_sym]).permit!)
+    @solution                   = build_solution(@solutioncontainer,resource_name,change_params_for_qa_files(params["#{resource_name}_solution".to_sym]).permit!)
     @solution.student           = current_user
     if @solution.save
       flash[:success]           = "成功创建#{Solution.model_name.human}"
       @solution.notify
     end
-    respond_with @solutionable,@solution
+    respond_with @solutioncontainer,@solution
   end
 
   def show
@@ -41,17 +41,17 @@ class SolutionsController < ApplicationController
   end
   def destroy
     @solution.destroy
-    @solutionable = @solution.solutionable
-    respond_with @solutionable
+    @solutioncontainer      = @solution.container
+    respond_with @solutioncontainer
   end
   private
   def current_resource
-    r               = solution_container_resource(params)
-    @solutionable   = r
+    r                     = solution_container_resource(params)
+    @solutioncontainer    = r
     if params[:id]
-      @solution     = Solution.find(params[:id])
-      r             = @solution
-      @solutionable = @solution.solutionable
+      @solution           = Solution.find(params[:id])
+      r                   = @solution
+      @solutioncontainer  = @solution.container
     end
     r
   end

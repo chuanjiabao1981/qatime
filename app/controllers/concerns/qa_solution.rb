@@ -19,7 +19,7 @@ module QaSolution
     end
   end
 
-  def build_solution(solutionowner,resource_name,params2={})
-    solutionowner.send("#{resource_name}_solutions").build(params2)
+  def build_solution(solutioncontainer,resource_name,params2={})
+    solutioncontainer.send("#{resource_name}_solutions").build(params2)
   end
 end

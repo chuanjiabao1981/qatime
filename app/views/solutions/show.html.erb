@@ -1,16 +1,18 @@
 <%= render layout: 'shared/qa_objects/show',locals:{qa_object: @solution } do %>
-    <%= link_to "#{@solution.model_name.human} / #{@solution.container.title}" ,
-                send("#{@solution.container.model_name.singular_route_key}_path",@solution.container) %> / <%= Solution.model_name.human%>
+    <%= render partial: "shared/#{@solution.container.model_name.route_key}/nav",locals: {@solution.container.model_name.singular_route_key.to_sym => @solution.container} %>
 <% end %>
 
 <div class="qa_sep_15"></div>
 <%= render partial: "corrections/index",locals: {solution: @solution} %>
 <div class="qa_sep_15"></div>
+<%if allow? :corrections,:create , @solution%>
+
 <div class="qa_box">
   <div class="box_header qa_cell">
     <strong><%= Correction.model_name.human%></strong>
   </div>
-  <%if allow? :corrections,:create , @solution%>
       <%= render 'corrections/form' %>
-  <% end %>
 </div>
+
+<% end %>
+

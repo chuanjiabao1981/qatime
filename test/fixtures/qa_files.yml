@@ -45,21 +45,21 @@ six:
 
 seven:
   author: teacher1
-  qa_fileable: exercise_one (Exercise)
+  qa_fileable: exercise_one (Examination)
   name: 123_1.txt
   original_filename: 123_1.txt
   qa_file_type: text
 
 eight:
   author: teacher1
-  qa_fileable: exercise_one (Exercise)
+  qa_fileable: exercise_one (Examination)
   name: 456_1.txt
   original_filename: 456_1.txt
   qa_file_type: text
 
 night:
   author: teacher1
-  qa_fileable: exercise_one (Exercise)
+  qa_fileable: exercise_one (Examination)
   original_filename: 789_1.txt
   name: 789_1.txt
   qa_file_type: text

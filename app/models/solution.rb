@@ -32,6 +32,7 @@ class Solution < ActiveRecord::Base
 
   belongs_to :first_handle_author,:class_name => "User"
   belongs_to :last_handle_author,:class => "User"
+
   self.per_page = 10
 
   def author
@@ -41,24 +42,6 @@ class Solution < ActiveRecord::Base
   def handles_count
     self.corrections_count
   end
-  def notify
-    teacher           = self.solutionable.teacher
-    student           = self.student
-
-    SmsWorker.perform_async(SmsWorker::NOTIFY,
-                            from: student.view_name,
-                            to: teacher.view_name,
-                            mobile: teacher.mobile,
-                            message: "提交了#{Solution.model_name.human},请及时#{Correction.model_name.human},"
-                           )
-
-
-  end
-
-
-
-
-
 
 
   def set_handle_infos(correction)
@@ -67,6 +50,9 @@ class Solution < ActiveRecord::Base
   def update_handle_infos
     _update_handle_infos self.corrections
   end
+
+
+
 
 
 end

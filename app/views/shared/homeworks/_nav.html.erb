@@ -1,0 +1,5 @@
+<%= render partial: 'shared/customized_courses/nav',locals: {customized_course: homework.customized_course} %> /
+<%= link_to CustomizedCourse.human_attribute_name(:homeworks),homeworks_customized_course_path(homework.customized_course) %>
+<% if not homework.new_record? %>
+/<%= link_to homework.title,homework_path(homework) %>
+<% end %>

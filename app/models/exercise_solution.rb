@@ -1,0 +1,2 @@
+class ExerciseSolution < Solution
+end

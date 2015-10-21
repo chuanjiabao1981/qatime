@@ -1,6 +1,6 @@
 <%= render layout: 'shared/qa_objects/show',locals:{qa_object: @solution } do %>
-    <%= link_to "#{@solution.model_name.human} / #{@solution.solutionable.title}" ,
-                send("#{@solution.solutionable.model_name.singular_route_key}_path",@solution.solutionable) %> / <%= Solution.model_name.human%>
+    <%= link_to "#{@solution.model_name.human} / #{@solution.container.title}" ,
+                send("#{@solution.container.model_name.singular_route_key}_path",@solution.container) %> / <%= Solution.model_name.human%>
 <% end %>
 
 <div class="qa_sep_15"></div>

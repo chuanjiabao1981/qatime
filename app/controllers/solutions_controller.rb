@@ -2,16 +2,19 @@ class SolutionsController < ApplicationController
   layout "application"
   respond_to :html
   include QaFilesHelper
+  include QaSolution
 
   def new
-    @solution = @solutionable.solutions.build
+    resource_name               = resource_name_from_params(params)
+    @solution                   = build_solution(@solutionable,resource_name)
   end
 
   def create
-    @solution                   = @solutionable.solutions.build(change_params_for_qa_files(params[:solution]).permit!)
+    resource_name               = resource_name_from_params(params)
+    @solution                   = build_solution(@solutionable,resource_name,change_params_for_qa_files(params["#{resource_name}_solution".to_sym]).permit!)
     @solution.student           = current_user
     if @solution.save
-      flash[:success] = "成功创建#{Solution.model_name.human}"
+      flash[:success]           = "成功创建#{Solution.model_name.human}"
       @solution.notify
     end
     respond_with @solutionable,@solution
@@ -30,7 +33,8 @@ class SolutionsController < ApplicationController
   end
 
   def update
-    if @solution.update_attributes(change_params_for_qa_files(params[:solution]).permit!)
+    resource_name               = @solution.container.model_name.singular_route_key
+    if @solution.update_attributes(change_params_for_qa_files(params["#{resource_name}_solution".to_sym]).permit!)
       flash[:success] = "成功修改#{Solution.model_name.human}"
     end
     respond_with  @solution
@@ -42,14 +46,8 @@ class SolutionsController < ApplicationController
   end
   private
   def current_resource
-    if params[:homework_id]
-      @solutionable       = Homework.find(params[:homework_id])
-      r = @solutionable
-    end
-    if params[:exercise_id]
-      @solutionable       = Exercise.find(params[:exercise_id])
-      r = @solutionable
-    end
+    r               = solution_container_resource(params)
+    @solutionable   = r
     if params[:id]
       @solution     = Solution.find(params[:id])
       r             = @solution

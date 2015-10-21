@@ -147,22 +147,23 @@ Qatime::Application.routes.draw do
       get 'solutions'
       get 'course_issues'
     end
-    #TODO::这个topics要删除
-    resources :topics
     resources :course_issues
     resources :homeworks,only:[:show,:edit,:update,:new,:create]
   end
   resources :homeworks do
-    # resources :topics
-    resources :solutions
+    #TODO:: 要删除
+    # resources :solutions
+    resources :homework_solutions, controller: :solutions
   end
+  resources :homework_solutions, controller: :solutions
+
+
   resources :solutions do
     resources :corrections
   end
   resources :corrections
   resources :customized_tutorials do
-    #TODO::这个topics要删除
-    resources :topics
+
     resources :tutorial_issues
     resources :exercises
   end

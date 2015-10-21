@@ -1,5 +1,5 @@
 <%= render layout: 'shared/qa_objects/show',locals:{qa_object: @homework } do %>
-    <%= render partial: 'nav',locals: {customized_course: @homework.customized_course} %>
+    <%= render partial: 'shared/homeworks/nav',locals: {homework: @homework} %>
 <% end %>
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>

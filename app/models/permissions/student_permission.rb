@@ -72,6 +72,13 @@ module Permissions
         solution and solution.student_id == user.id
       end
 
+      allow :homework_solutions,[:new,:create] do |homework|
+        homework and homework.customized_course.student_id == user.id
+      end
+      allow :homework_solutions,[:show,:edit,:update] do |homework_solution|
+        homework_solution and homework_solution.student_id == user.id
+      end
+
       allow :exercises,[:show] do |exercise|
         exercise and exercise.customized_tutorial.customized_course.student.id == user.id
       end

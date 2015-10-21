@@ -4,7 +4,7 @@ class HomeworksController < ApplicationController
   include QaFilesHelper
 
   def new
-    @homework = Homework.new
+    @homework = @customized_course.homeworks.build
   end
 
   def create

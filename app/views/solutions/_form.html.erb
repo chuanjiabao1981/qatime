@@ -1,7 +1,7 @@
 <div class="qa_box">
   <div class="qa_cell box_head">
-    <%= link_to "#{@solution.solutionable.model_name.human} / #{@solution.solutionable.title}" ,
-                    send("#{@solution.solutionable.model_name.singular_route_key}_path",@solution.solutionable)%>
+    <%= render partial: "shared/#{@solutionable.model_name.route_key}/nav",locals: {@solutionable.model_name.singular_route_key.to_sym => @solutionable} %>/
+    <%= get_edit_or_create_model_string(@solution,"提交")%>
   </div>
 </div>
 

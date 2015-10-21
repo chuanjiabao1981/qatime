@@ -17,13 +17,17 @@ module ApplicationHelper
     end
   end
 
-  def get_edit_or_create_model_string(o)
+  def get_edit_or_create_model_string(o,c_name=nil)
+    if c_name.nil?
+      c_name = "创建"
+    end
     if o.new_record?
-      "创建"+o.model_name.human
+      "#{c_name}#{o.model_name.human}"
     else
       "编辑"+o.model_name.human
     end
   end
+
 
   # Used for accepts_nested_attributes_for
 

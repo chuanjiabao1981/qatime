@@ -3,8 +3,8 @@
     <span class="label label-primary">交了<%=solutionable.solutions_count%>次<%=Solution.model_name.human%></span>
   </div>
   <div class="pull-right">
-    <% if allow? :solutions,:new,solutionable %>
-        <%=link_to  send("new_#{solutionable.model_name.singular_route_key.downcase}_solution_path",solutionable) do%>
+    <% if allow? "#{solutionable.model_name.singular_route_key.downcase}_solutions".to_sym,:new,solutionable %>
+        <%=link_to  send("new_#{solutionable.model_name.singular_route_key.downcase}_#{solutionable.model_name.singular_route_key.downcase}_solution_path",solutionable) do%>
             <span class="label label-success">提交<%=Solution.model_name.human%></span>
         <% end %>
     <% end %>

@@ -8,7 +8,7 @@ class Solution < ActiveRecord::Base
 
   belongs_to      :student
 
-
+  belongs_to      :examination,counter_cache: true
   # belongs_to      :solutionable,polymorphic: true,:counter_cache=>true
 
   has_many        :pictures,as: :imageable

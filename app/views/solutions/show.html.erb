@@ -1,5 +1,5 @@
 <%= render layout: 'shared/qa_objects/show',locals:{qa_object: @solution } do %>
-    <%= render partial: "shared/#{@solution.container.model_name.route_key}/nav",locals: {@solution.container.model_name.singular_route_key.to_sym => @solution.container} %>
+    <%= render partial: "shared/#{@solution.examination.model_name.route_key}/nav",locals: {@solution.examination.model_name.singular_route_key.to_sym => @solution.examination} %>
 <% end %>
 
 <div class="qa_sep_15"></div>

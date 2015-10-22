@@ -1,7 +1,7 @@
 <div class="qa_cell box_header">
   <div class="pull-left">
     <span class="label label-primary">
-      交了<%=solutioncontainer.send("#{solutioncontainer.model_name.singular_route_key}_solutions_count")%>次<%=solutioncontainer.model_name.human%></span>
+      交了<%=solutioncontainer.solutions_count%>次<%=solutioncontainer.model_name.human%></span>
   </div>
   <div class="pull-right">
     <% if allow? "#{solutioncontainer.model_name.singular_route_key.downcase}_solutions".to_sym,:new,solutioncontainer %>

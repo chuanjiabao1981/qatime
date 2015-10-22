@@ -11,9 +11,7 @@ class CustomizedCourse < ActiveRecord::Base
 
   has_many :homeworks,:dependent => :destroy
 
-  validates_presence_of :subject,:category,:student
-  validates_numericality_of :price, only_integer: true
-  validate :validate_price,:on => :create
+  validates_presence_of :subject,:category,:student, :platform_price, :teacher_price
 
   attr_accessor :s_category,:s_school,:s_subject
   enum customized_course_type: { heighten: 0, spurt: 1, competition: 2}
@@ -32,24 +30,24 @@ class CustomizedCourse < ActiveRecord::Base
     end
   end
 
-  private
-  # This validation is used to check whether the input price is greater than the min price
-  def validate_price
+  # This function is used to set prices for customized_course
+  def set_prices
     if self.category == "高中"
-      price_valid(APP_CONSTANT["customized_course_senior_high_common_prices"])
+      __set_price(APP_CONSTANT["customized_course_senior_high_common_prices"])
     elsif self.category == "初中"
-      price_valid(APP_CONSTANT["customized_course_junior_high_common_prices"])
+      __set_price(APP_CONSTANT["customized_course_junior_high_common_prices"])
     else
-      price_valid(APP_CONSTANT["customized_course_junior_common_prices"])
+      __set_price(APP_CONSTANT["customized_course_junior_common_prices"])
     end
   end
 
-  def price_valid(price_dict)
-    min_price = price_dict[self.customized_course_type]
-    if self.price < min_price
-      self.errors.add(:price,"价格低于该课程最低价:每小时" + min_price.to_s)
-    else
-      self.teacher_price = min_price * APP_CONSTANT["teacher_earning_percent"]
+  private
+
+  def __set_price(price_dict)
+    Rails.logger.info price_dict.as_json.to_s
+    if self.subject
+      self.teacher_price = price_dict[self.customized_course_type]["teacher_price"]
+      self.platform_price = price_dict[self.customized_course_type]["platform_price"]
     end
   end
 end

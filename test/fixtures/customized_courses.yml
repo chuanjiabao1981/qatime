@@ -14,8 +14,8 @@ customized_course1:
   student: student1
   category: 高中
   subject: 数学
-  price: 90
-  teacher_price: 60
+  platform_price: 0
+  teacher_price: 54
   customized_course_type: 0
   customized_tutorials_count: 2
 
@@ -23,40 +23,38 @@ customized_course2:
   student: student2
   category: 高中
   subject: 数学
-  price: 90
-  teacher_price: 60
+  platform_price: 0
+  teacher_price: 54
   customized_course_type: 0
 
 customized_course_tally:
   student: student_tally
   category: 高中
   subject: 数学
-  price: 90
-  teacher_price: 60
+  platform_price: 0
+  teacher_price: 54
   customized_course_type: 0
 
 customized_course3:
   student: student1
   category: 高中
   subject: 数学
-  price: 90
-  teacher_price: 60
+  platform_price: 0
+  teacher_price: 54
   customized_course_type: 0
 
 customized_course4:
   student: student1
   category: 高中
   subject: 数学
-  price: 90
-  teacher_price: 60
+  platform_price: 0
+  teacher_price: 54
   customized_course_type: 0
 
 customized_course5:
   student: student2
   category: 高中
   subject: 物理
-  price: 90
-  teacher_price: 60
+  platform_price: 0
+  teacher_price: 54
   customized_course_type: 0
-
-

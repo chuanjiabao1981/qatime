@@ -113,19 +113,37 @@ lesson_categories:
 handle_timeout: 1.day
 
 price_per_minute: 0.9
-teacher_earning_percent: 0.9
 
 customized_course_junior_common_prices:
-  heighten: 40
-  spurt: 60
-  competition: 80
+  heighten:
+    teacher_price: 36
+    platform_price: 0
+  spurt:
+    teacher_price: 45
+    platform_price: 5
+  competition:
+    teacher_price: 54
+    platform_price: 6
 
 customized_course_junior_high_common_prices:
-  heighten: 60
-  spurt: 90
-  competition: 110
+  heighten:
+    teacher_price: 45
+    platform_price: 0
+  spurt:
+    teacher_price: 54
+    platform_price: 6
+  competition:
+    teacher_price: 72
+    platform_price: 8
+
 
 customized_course_senior_high_common_prices:
-  heighten: 80
-  spurt: 90
-  competition: 120
+  heighten:
+    teacher_price: 54
+    platform_price: 0
+  spurt:
+    teacher_price: 72
+    platform_price: 8
+  competition:
+    teacher_price: 90
+    platform_price: 10

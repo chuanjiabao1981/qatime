@@ -12,17 +12,5 @@ module QaCommon
     scope :by_customized_course_id,
           lambda{|customized_course_id| where(customized_course_id: customized_course_id)}
 
-
-    def set_customized_course_prices(attributes, customized_course_id)
-      customized_course = CustomizedCourse.find(customized_course_id)
-
-      if customized_course
-        attributes[:price] = customized_course.price
-        attributes[:teacher_price] = customized_course.teacher_price
-      end
-
-      attributes
-    end
-
   end
 end

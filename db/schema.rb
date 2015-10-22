@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151021142911) do
+ActiveRecord::Schema.define(version: 20151022064329) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20151021142911) do
     t.string   "status",               default: "open", null: false
     t.integer  "homework_id"
     t.integer  "teacher_price"
-    t.integer  "price"
+    t.integer  "platform_price"
   end
 
   create_table "course_purchase_records", force: :cascade do |t|
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 20151021142911) do
     t.integer  "exercises_count",            default: 0
     t.integer  "tutorial_issues_count",      default: 0
     t.integer  "course_issues_count",        default: 0
-    t.integer  "price"
+    t.integer  "platform_price"
     t.integer  "customized_course_type",     default: 0
     t.integer  "teacher_price"
   end
@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 20151021142911) do
     t.string   "status",                default: "open", null: false
     t.integer  "tutorial_issues_count", default: 0
     t.integer  "teacher_price"
-    t.integer  "price"
+    t.integer  "platform_price"
   end
 
   create_table "earning_records", force: :cascade do |t|
@@ -394,7 +394,7 @@ ActiveRecord::Schema.define(version: 20151021142911) do
     t.string   "type"
     t.integer  "customized_tutorial_id"
     t.integer  "teacher_price"
-    t.integer  "price"
+    t.integer  "platform_price"
   end
 
   create_table "review_records", force: :cascade do |t|

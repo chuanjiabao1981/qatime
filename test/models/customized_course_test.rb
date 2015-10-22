@@ -7,7 +7,6 @@ class CustomizedCourseAATest < ActiveSupport::TestCase
     cc = customized_courses(:customized_course1)
     assert cc.valid?
     assert cc.teachers.size == 2 , cc.teachers.size
-
   end
 
   test "timeout_to_solve_home" do

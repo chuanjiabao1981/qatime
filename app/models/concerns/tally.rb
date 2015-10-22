@@ -6,6 +6,21 @@ module Tally
 
     scope :valid_tally_unit, -> { where("customized_course_id is not null").where(:status => "open") }
 
+    before_validation :set_customized_course_prices, on: :create
+
+    validates_presence_of :platform_price, :teacher_price
+
+    def set_customized_course_prices(object)
+      customized_course = CustomizedCourse.find(object.customized_course_id)
+
+      if customized_course
+        object.platform_price = customized_course.platform_price
+        object.teacher_price = customized_course.teacher_price
+      end
+
+      object
+    end
+
 
     ##计算
     def __create_fee(video,price_per_minute)

@@ -14,6 +14,7 @@ class Solution < ActiveRecord::Base
     def build(attributes={})
       attributes[:customized_course_id] = proxy_association.owner.customized_course_id
       attributes[:homework_id]          = proxy_association.owner.solutionable_id
+      self.set_customized_course_prices(attributes, attributes[:customized_course_id])
       super attributes
     end
   end

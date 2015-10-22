@@ -1,6 +1,7 @@
 class TutorialIssue < Topic
 
   include QaIssue
+  include QaCommon
 
   belongs_to :customized_tutorial,counter_cache: true
   belongs_to :customized_course,counter_cache: true
@@ -8,6 +9,8 @@ class TutorialIssue < Topic
     def build(attributes={})
       attributes[:customized_course_id]       = proxy_association.owner.customized_course_id
       attributes[:customized_tutorial_id]     = proxy_association.owner.customized_tutorial_id
+
+      self.set_customized_course_prices(attributes, attributes[:customized_course_id])
       super attributes
     end
   end

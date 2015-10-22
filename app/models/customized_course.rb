@@ -10,14 +10,12 @@ class CustomizedCourse < ActiveRecord::Base
   has_many :course_issues
 
   has_many :homeworks,:dependent => :destroy
+
   validates_presence_of :subject,:category,:student
-
-  validates_numericality_of :price ,greater_than: APP_CONSTANT["customized_course_min_price"].to_i,only_integer: true
-
+  validates_numericality_of :price, only_integer: true
   validate :validate_price,:on => :create
 
   attr_accessor :s_category,:s_school,:s_subject
-
   enum customized_course_type: { heighten: 0, spurt: 1, competition: 2}
 
   # has_many timeout_to_solve_homework, lambda { where(solutions_count: 0)},class_name: "Homework"
@@ -54,5 +52,4 @@ class CustomizedCourse < ActiveRecord::Base
       self.teacher_price = min_price * APP_CONSTANT["teacher_earning_percent"]
     end
   end
-
 end

@@ -7,9 +7,9 @@
   </div>
   <div class="info">
     <%= examination.teacher.view_name%> • <%= localize(examination.created_at,format: :long) %> 布置 •
-    批改了<%=examination.send("#{examination.model_name.singular_route_key}_corrections_count") %>次<%= Examination.human_attribute_name(:solution) %> •
+    批改了<%=examination.corrections_count %>次<%= Examination.human_attribute_name(:solution) %> •
     <%= examination.student.name%> •
-    写了<%= examination.send("#{examination.model_name.singular_route_key}_solutions_count")%>次<%= Examination.human_attribute_name(:solution) %>
+    写了<%= examination.solutions_count%>次<%= Examination.human_attribute_name(:solution) %>
 
     <%= render partial: "#{examination.model_name.route_key}/index_item_nav",locals: {examination: examination} %>
 

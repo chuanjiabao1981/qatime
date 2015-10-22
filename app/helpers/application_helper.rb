@@ -40,17 +40,25 @@ module ApplicationHelper
     link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
+  def _get_super_model_name(o_class)
+    return o_class.model_name if o_class.superclass.name == "ActiveRecord::Base"
+    _get_super_model_name(o_class.superclass)
+  end
 
   def link_to_edit(o)
-    if allow? o.model_name.plural , :edit,o
-      k = link_to "", send("edit_#{o.model_name.singular}_path",o), class: "glyphicon glyphicon-edit"
+    m = _get_super_model_name(o.class)
+
+    if allow? m.plural , :edit,o
+      k = link_to "", send("edit_#{m.singular}_path",o), class: "glyphicon glyphicon-edit"
     end
     k
   end
 
   def link_to_destroy(o)
-    if allow? o.model_name.plural, :destroy ,o
-      s = link_to "", send("#{o.model_name.singular}_path", o),:method => :delete, 'data-confirm' => 'Are you sure?',
+    m = _get_super_model_name(o.class)
+
+    if allow? m.plural , :destroy ,o
+      s = link_to "", send("#{m.singular}_path", o),:method => :delete, 'data-confirm' => 'Are you sure?',
                   class: "glyphicon glyphicon-remove"
     end
     s

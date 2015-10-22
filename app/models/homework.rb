@@ -12,4 +12,8 @@ class Homework < Examination
   end
   has_many       :homework_corrections
 
+
+  def response_teachers
+    self.customized_course.teachers
+  end
 end

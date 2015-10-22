@@ -5,11 +5,13 @@
 <div class="qa_sep_15"></div>
 <%= render partial: "corrections/index",locals: {solution: @solution} %>
 <div class="qa_sep_15"></div>
+
+
 <%if allow? :corrections,:create , @solution%>
 
 <div class="qa_box">
   <div class="box_header qa_cell">
-    <strong><%= Correction.model_name.human%></strong>
+    <strong><%= @correction.model_name.human%></strong>
   </div>
       <%= render 'corrections/form' %>
 </div>

@@ -5,7 +5,6 @@ class HomeworkSolution < Solution
   has_many   :homework_corrections,foreign_key: :solution_id,dependent: :destroy do
       def build(attributes={})
         attributes[:customized_course_id]       = proxy_association.owner.customized_course_id
-        attributes[:homework_id]                = proxy_association.owner.homework_id
         super attributes
       end
   end
@@ -25,7 +24,7 @@ class HomeworkSolution < Solution
                             from: student.view_name,
                             to: teacher.view_name,
                             mobile: teacher.mobile,
-                            message: "提交了#{Solution.model_name.human},请及时#{Correction.model_name.human},"
+                            message: "提交了#{HomeworkSolution.model_name.human},请及时#{Correction.model_name.human},"
     )
   end
 end

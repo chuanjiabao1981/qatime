@@ -25,7 +25,7 @@ class Examination < ActiveRecord::Base
 
   def notify
     teacher           = self.teacher
-    student           = self.customized_course.student
+    student           = self.student
 
     SmsWorker.perform_async(SmsWorker::NOTIFY,
                             from: teacher.view_name,

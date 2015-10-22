@@ -64,20 +64,14 @@ module Permissions
         homework and homework.customized_course.student_id == user.id
       end
 
-      allow :solutions,[:new,:create] do |solutionable|
-        solutionable and solutionable_permission(solutionable,user)
+      allow :solutions,[:new,:create] do |examination|
+        examination and examination.student_id == user.id
       end
 
       allow :solutions,[:show,:edit,:update] do |solution|
         solution and solution.student_id == user.id
       end
 
-      allow :homework_solutions,[:new,:create] do |homework|
-        homework and homework.customized_course.student_id == user.id
-      end
-      allow :homework_solutions,[:show,:edit,:update] do |homework_solution|
-        homework_solution and homework_solution.student_id == user.id
-      end
 
       allow :exercises,[:show] do |exercise|
         exercise and exercise.customized_tutorial.customized_course.student.id == user.id
@@ -133,13 +127,13 @@ module Permissions
 
     end
 private
-    def solutionable_permission(solutionable,user)
-      if solutionable.instance_of? Homework
-        solutionable.customized_course.student_id == user.id
-      elsif solutionable.instance_of? Exercise
-        solutionable.customized_tutorial.customized_course.student_id == user.id
-      end
-    end
+    # def solutionable_permission(solutionable,user)
+    #   if solutionable.instance_of? Homework
+    #     solutionable.customized_course.student_id == user.id
+    #   elsif solutionable.instance_of? Exercise
+    #     solutionable.customized_tutorial.customized_course.student_id == user.id
+    #   end
+    # end
     def topicable_permission(topicable,user)
       return false if topicable.nil?
       if topicable.instance_of? CustomizedCourse

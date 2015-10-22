@@ -3,9 +3,10 @@ class Exercise < Examination
   include QaWork
   belongs_to      :customized_tutorial,counter_cache: true
   belongs_to      :customized_course,  counter_cache: true
-  has_many        :solutions,as: :solutionable,:dependent =>  :destroy  do
+  has_many        :exercise_solutions,foreign_key: :examination_id,:dependent =>  :destroy  do
     def build(attributes={})
-      attributes[:customized_course_id] = proxy_association.owner.customized_course_id
+      attributes[:customized_course_id]     = proxy_association.owner.customized_course_id
+      attributes[:customized_tutorial_id]   = proxy_association.owner.customized_tutorial_id
       super attributes
     end
   end
@@ -15,8 +16,9 @@ class Exercise < Examination
                                                              .where("exercises.created_at < ?", 3.day.ago)
                          }
 
-
-
+  def response_teachers
+    self.customized_course.teachers
+  end
 
 
 end

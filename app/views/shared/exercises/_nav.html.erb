@@ -1,0 +1,4 @@
+<%= render partial: 'shared/customized_tutorials/nav' ,locals: {customized_tutorial: exercise.customized_tutorial}%>
+<% if not exercise.new_record? %>
+    /<%= link_to exercise.title,exercise_path(exercise) %>
+<% end %>

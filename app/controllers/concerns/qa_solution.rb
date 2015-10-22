@@ -12,7 +12,7 @@ module QaSolution
     end
     k
   end
-  def solution_container_resource(params={})
+  def container_resource(params={})
     k = resource_name_from_params(params)
     if k
       "#{k}".camelize.constantize.find(params["#{k}_id".to_sym])
@@ -21,5 +21,13 @@ module QaSolution
 
   def build_solution(solutioncontainer,resource_name,params2={})
     solutioncontainer.send("#{resource_name}_solutions").build(params2)
+  end
+
+  def build_correction(solution,resource_name,params)
+    solution.send("#{resource_name}_corrections").build(params)
+  end
+  def solution_show_prepare
+    @corrections  = @solution.corrections.order(:created_at => :desc).paginate(page: params[:page])
+    @qa_files     = @solution.qa_files.order(:created_at => "ASC")
   end
 end

@@ -6,25 +6,23 @@ class SolutionsController < ApplicationController
 
   def new
     resource_name               = resource_name_from_params(params)
-    @solution                   = build_solution(@solutioncontainer,resource_name)
+    @solution                   = build_solution(@examination,resource_name)
   end
 
   def create
     resource_name               = resource_name_from_params(params)
-    @solution                   = build_solution(@solutioncontainer,resource_name,change_params_for_qa_files(params["#{resource_name}_solution".to_sym]).permit!)
+    @solution                   = build_solution(@examination,resource_name,change_params_for_qa_files(params["#{resource_name}_solution".to_sym]).permit!)
     @solution.student           = current_user
     if @solution.save
       flash[:success]           = "成功创建#{Solution.model_name.human}"
       @solution.notify
     end
-    respond_with @solutioncontainer,@solution
+    respond_with @examination,@solution
   end
 
   def show
-    @correction = Correction.new
-    @corrections = @solution.corrections.order(:created_at => :desc).paginate(page: params[:page])
-    @qa_files   = @solution.qa_files.order(:created_at => "ASC")
-
+    @correction   = @solution.send("#{@solution.examination.model_name.singular_route_key}_corrections").build
+    solution_show_prepare
   end
 
 
@@ -41,17 +39,17 @@ class SolutionsController < ApplicationController
   end
   def destroy
     @solution.destroy
-    @solutioncontainer      = @solution.container
-    respond_with @solutioncontainer
+    @examination      = @solution.container
+    respond_with @examination
   end
   private
   def current_resource
-    r                     = solution_container_resource(params)
-    @solutioncontainer    = r
+    r                     = container_resource(params)
+    @examination          = r
     if params[:id]
       @solution           = Solution.find(params[:id])
       r                   = @solution
-      @solutioncontainer  = @solution.container
+      @examination  = @solution.examination
     end
     r
   end

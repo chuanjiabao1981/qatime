@@ -3,7 +3,9 @@
     <strong>批改作业<%=solution.corrections_count%>次</strong>
   </div>
   <div class="qa_objects">
-    <%= render @corrections %>
+
+    <%= render partial: 'corrections/correction',collection: @corrections ,as: :correction%>
+
   </div>
   <div class="qa_cell">
     <%= will_paginate @corrections ,renderer: BootstrapPagination::Rails %>

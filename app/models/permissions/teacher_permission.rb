@@ -105,17 +105,20 @@ module Permissions
       end
 
       allow :solutions,[:show] do |solution|
-        solution and solution_permission(solution,user)
+        solution and solution.examination.response_teachers.include?(user)
       end
 
+
       allow :corrections,[:create] do |solution|
-        solution and solution_permission(solution,user)
+        solution and solution.examination and solution.examination.response_teachers.include?(user)
       end
 
       allow :corrections,[:edit,:update] do |correction|
         correction and correction.status == "open" and correction.teacher_id == user.id
       end
-
+      # allow :exercise_corrections,[:edit,:update] do |correction|
+      #   correction and correction.status == "open" and correction.teacher_id == user.id
+      # end
       allow :exercises,[:new,:create] do |customized_tutorial|
         customized_tutorial  and customized_tutorial.teacher_id == user.id
       end
@@ -150,14 +153,14 @@ module Permissions
     end
 private
 
-    def solution_permission(solution,user)
-      if solution.solutionable.instance_of? Homework
-        solution.solutionable.customized_course.teacher_ids.include?(user.id)
-      elsif solution.solutionable.instance_of? Exercise
-        solution.solutionable.customized_tutorial.teacher_id == user.id or
-            solution.solutionable.customized_tutorial.customized_course.teacher_ids.include?(user.id)
-      end
-    end
+    # def solution_permission(solution,user)
+    #   if solution.solutionable.instance_of? Homework
+    #     solution.solutionable.customized_course.teacher_ids.include?(user.id)
+    #   elsif solution.solutionable.instance_of? Exercise
+    #     solution.solutionable.customized_tutorial.teacher_id == user.id or
+    #         solution.solutionable.customized_tutorial.customized_course.teacher_ids.include?(user.id)
+    #   end
+    # end
     def topicable_permission(topicable,user)
       return false if topicable.nil?
       if topicable.instance_of? CustomizedCourse

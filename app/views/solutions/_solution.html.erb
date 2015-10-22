@@ -3,7 +3,7 @@
     <%=image_tag solution.student.avatar.normal.url %>
   </div>
   <div class="title">
-    <%= link_to solution.title , solution_path(solution) %>
+    <%= link_to solution.title , send("#{solution.model_name.singular_route_key}_path" ,solution) %>
   </div>
 
   <div class="info">
@@ -14,8 +14,8 @@
         <% if solution.last_handle_created_at %>
         最近一次批改于 <%= "#{localize(solution.last_handle_created_at,:format => :long)} " %> •
         <% end %>
-        <%= link_to solution.container.model_name.human ,
-                send("#{solution.container.model_name.singular_route_key}_path",solution.container)%> •
+        <%= link_to solution.examination.model_name.human ,
+                send("#{solution.examination.model_name.singular_route_key}_path",solution.examination)%> •
         <%= solution_correction_state(solution) %>
 
   </div>

@@ -151,16 +151,18 @@ Qatime::Application.routes.draw do
     resources :homeworks,only:[:show,:edit,:update,:new,:create]
   end
   resources :homeworks do
-    #TODO:: 要删除
-    # resources :solutions
+
     resources :homework_solutions, controller: :solutions
   end
-  resources :homework_solutions, controller: :solutions
+  resources :homework_solutions, controller: :solutions do
+    resource :homework_corrections, controller: :corrections
+  end
 
 
   resources :solutions do
     resources :corrections
   end
+
   resources :corrections
   resources :customized_tutorials do
 
@@ -182,7 +184,10 @@ Qatime::Application.routes.draw do
 
 
   resources :exercises do
-    resources :solutions
+    resources :exercise_solutions, controller: :solutions
+  end
+  resources :exercise_solutions, controller: :solutions do
+    resources :exercise_corrections,controller: :corrections
   end
 
 

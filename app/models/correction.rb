@@ -5,13 +5,16 @@ class Correction < ActiveRecord::Base
   include ContentValidate
 
   belongs_to  :teacher
-  # belongs_to  :solution,counter_cache: true
-  # belongs_to  :homework,:counter_cache => true
+
+  belongs_to  :solution,counter_cache: true
+  belongs_to    :examination,counter_cache: true
 
   has_many    :pictures,as: :imageable
   has_one     :video,as: :videoable
   has_one     :fee, as:  :feeable
   has_many    :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
+
+  validates :content, length: {minimum: 5},on: :create
 
 
   after_save      :__after_save

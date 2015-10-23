@@ -23,6 +23,8 @@ correction_tally_<%= i %>:
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
   token: correction_tally_video_<%= i %>
   status: open
+  teacher_price: 54
+  platform_price: 0
 <% end %>
 
 # 5 closed
@@ -34,6 +36,8 @@ correction_tally_<%= i %>:
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
   token: correction_tally_video_<%= i %>
   status: closed
+  teacher_price: 54
+  platform_price: 0
 <% end %>
 
 exercise_fee_correction_one:
@@ -43,6 +47,9 @@ exercise_fee_correction_one:
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
   token: exercise_fee_correction_one_token
   status: closed
+  teacher_price: 54
+  platform_price: 0
+
 
 correction_fee_correction_one:
   content: 12341234
@@ -51,5 +58,7 @@ correction_fee_correction_one:
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
   token: correction_fee_correction_one_token
   status: closed
+  teacher_price: 54
+  platform_price: 0
 
 

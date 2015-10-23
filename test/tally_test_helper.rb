@@ -64,4 +64,23 @@ module TallyTestHelper
       [price_dict[customized_course.customized_course_type]["teacher_price"],price_dict[customized_course.customized_course_type]["platform_price"]]
     end
   end
+
+
+  def customized_course_prices_validation(object, &block)
+    customized_course = CustomizedCourse.find(object.customized_course_id)
+
+    assert object.save, object.errors.full_messages
+    assert object.valid?
+
+    platform_price = object.platform_price
+    teacher_price = object.teacher_price
+    assert platform_price == customized_course.platform_price
+    assert teacher_price  == customized_course.teacher_price
+
+    yield
+    assert object.save
+
+    assert object.platform_price == platform_price
+    assert object.teacher_price == teacher_price
+  end
 end

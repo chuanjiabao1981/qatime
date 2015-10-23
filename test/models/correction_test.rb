@@ -38,7 +38,12 @@ class CorrectionTest < ActiveSupport::TestCase
     assert @solution.last_handle_author.nil?
     @correction         = @solution.corrections.build(content: "13412341")
     @correction.teacher = @solution.solutionable.teacher
-    @correction.save
+
+    # 测试价格是否传递下去
+    customized_course_prices_validation(@correction) do
+      @correction.content = "134123412"
+    end
+
     @solution.reload
 
     assert @solution.first_handle_created_at.to_i       == @correction.created_at.to_i

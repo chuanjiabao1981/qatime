@@ -10,15 +10,13 @@ module Tally
 
     validates_presence_of :platform_price, :teacher_price
 
-    def set_customized_course_prices(object)
-      customized_course = CustomizedCourse.find(object.customized_course_id)
+    def set_customized_course_prices
+      customized_course = CustomizedCourse.find(self.customized_course_id)
 
       if customized_course
-        object.platform_price = customized_course.platform_price
-        object.teacher_price = customized_course.teacher_price
+        self.platform_price = customized_course.platform_price
+        self.teacher_price = customized_course.teacher_price
       end
-
-      object
     end
 
 

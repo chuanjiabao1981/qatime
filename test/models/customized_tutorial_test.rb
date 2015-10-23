@@ -20,6 +20,20 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
     assert customized_tutorial1.video.valid?,customized_tutorial1.video.errors.full_messages
   end
 
+  # 通过专属课堂创建专属课程，价格需要自动设置。修改课程的相关内容，价格不能发生变化
+  test "customized tutorial create" do
+    customized_course = customized_courses(:customized_course1)
+    customized_tutorial = customized_course.customized_tutorials.build
+    customized_tutorial.title = "test customized tutorial create"
+    customized_tutorial.content = "test customized tutorial create content"
+    teacher = Teacher.find(users(:teacher1).id)
+    customized_tutorial.teacher_id = teacher.id
+
+    customized_course_prices_validation(customized_tutorial) do
+      customized_tutorial.content = "test customized tutorial create content update"
+    end
+  end
+
 
   #已经存在一个video,customized tutorial create的时候和此video关联
   test "new customized tutorial with a already exsits video" do

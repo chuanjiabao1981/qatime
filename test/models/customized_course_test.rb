@@ -20,8 +20,8 @@ class CustomizedCourseAATest < ActiveSupport::TestCase
         assert cc.valid?
 
         teacher_price_expected, platform_price_expected = get_expected_customized_course_prices(cc)
-        assert cc.platform_price = platform_price_expected
-        assert cc.teacher_price = teacher_price_expected
+        assert cc.platform_price == platform_price_expected
+        assert cc.teacher_price == teacher_price_expected
       end
     end
 

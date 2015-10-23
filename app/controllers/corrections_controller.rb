@@ -11,7 +11,6 @@ class CorrectionsController < ApplicationController
       redirect_to solution_path(@solution)
     else
       solution_show_prepare
-      # @homework = @solution.homework
       render 'solutions/show'
     end
 
@@ -23,8 +22,10 @@ class CorrectionsController < ApplicationController
   end
 
   def update
-    if @correction.update_attributes(params[:correction].permit!)
-      flash[:success] = "成功编辑了#{Correction.model_name.human}"
+    resource_name         = @solution.examination.model_name.singular_route_key
+
+    if @correction.update_attributes(params["#{resource_name}_correction".to_sym].permit!)
+      flash[:success] = "成功编辑了#{@correction.model_name.human}"
       redirect_to solution_path(@correction.solution)
     else
       render 'edit'

@@ -5,8 +5,9 @@ class ExerciseSolution < Solution
 
   has_many :exercise_corrections,foreign_key: :solution_id do
     def build(attributes={})
-        attributes[:customized_course_id]     = proxy_association.owner.customized_course_id
-        attributes[:customized_tutorial_id]   = proxy_association.owner.customized_tutorial_id
+        attributes[:customized_course_id]        = proxy_association.owner.customized_course_id
+        attributes[:customized_tutorial_id]      = proxy_association.owner.customized_tutorial_id
+        attributes[:examination_id]              = proxy_association.owner.exercise.id
         super attributes
     end
   end

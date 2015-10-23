@@ -155,7 +155,7 @@ Qatime::Application.routes.draw do
     resources :homework_solutions, controller: :solutions
   end
   resources :homework_solutions, controller: :solutions do
-    resource :homework_corrections, controller: :corrections
+    resources :homework_corrections, controller: :corrections
   end
 
 

@@ -1,8 +1,8 @@
 <div class="qa_box">
   <div class="qa_cell box_head">
-    <%= link_to "#{Homework.model_name.human} / #{@correction.solution.title} / " ,
-                solution_path(@correction.solution) %>
-    <%=Correction.model_name.human%>
+    <%= render partial: "shared/#{@solution.model_name.route_key}/nav",
+               locals: {@solution.model_name.singular_route_key.to_sym => @solution} %>/
+    <%= get_edit_or_create_model_string(@correction,"提交")%>
   </div>
   <%= render 'form' %>
 </div>

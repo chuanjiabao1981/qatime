@@ -6,7 +6,7 @@ class Correction < ActiveRecord::Base
 
   belongs_to  :teacher
 
-  belongs_to  :solution,counter_cache: true
+  belongs_to    :solution,counter_cache: true
   belongs_to    :examination,counter_cache: true
 
   has_many    :pictures,as: :imageable

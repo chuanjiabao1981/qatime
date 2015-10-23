@@ -11,7 +11,7 @@ class CustomizedCourse < ActiveRecord::Base
 
   has_many :homeworks,:dependent => :destroy
 
-  validates_presence_of :subject,:category,:student, :platform_price, :teacher_price
+  validates_presence_of :subject,:category,:student, :platform_price, :teacher_price, :creator_id
 
   before_validation :set_prices
 

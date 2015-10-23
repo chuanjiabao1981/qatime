@@ -1,31 +1,31 @@
 teacher_account:
-  user: teacher1
+  accountable: teacher1 (User)
   money: 0
 
 student_account:
-  user: student1
+  accountable: student1 (User)
   money: 0
 
 teacher2_account:
-  user: teacher2
+  accountable: teacher2 (User)
   money: adfd
 
 teacher_account_2000:
-  user: teacher2
+  accountable: teacher2 (User)
   money: 2000
 
 physics_teacher1_account:
-  user: physics_teacher1
+  accountable: physics_teacher1 (User)
   money: 0
 
 student2_account:
-  user: student2
+  accountable: student2 (User)
   money: 0
 
 account_for_teacher_tally:
-  user: teacher_tally
+  accountable: teacher_tally (User)
   money: 0
 
 account_for_student_tally:
-  user: student_tally
+  accountable: student_tally (User)
   money: 0

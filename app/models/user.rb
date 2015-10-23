@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   has_many :faq_topics
   has_many :faqs
   has_many :messages
-  has_one  :account
+  has_one  :account, as: :accountable
 
 
   has_many :comments,foreign_key: :author_id

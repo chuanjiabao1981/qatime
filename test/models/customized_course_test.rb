@@ -5,6 +5,8 @@ class CustomizedCourseAATest < ActiveSupport::TestCase
   include TallyTestHelper
 
   test "validate customize course" do
+    manager = users(:manager)
+
     cc = customized_courses(:customized_course1)
     assert cc.valid?
     assert cc.teachers.size == 2 , cc.teachers.size
@@ -16,6 +18,7 @@ class CustomizedCourseAATest < ActiveSupport::TestCase
         cc = student.customized_courses.build
         cc.category = category
         cc.subject = subject
+        cc.creator_id = manager.id
         assert cc.save
         assert cc.valid?
 
@@ -29,6 +32,7 @@ class CustomizedCourseAATest < ActiveSupport::TestCase
     # By default, the customized_course_type is heighten
     cc = student.customized_courses.build
     cc.category = "高中"
+    cc.creator_id = manager.id
     cc.save
 
     teacher_price_old, platform_price_old = get_expected_customized_course_prices(cc)

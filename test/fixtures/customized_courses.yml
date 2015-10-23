@@ -18,6 +18,7 @@ customized_course1:
   teacher_price: 54
   customized_course_type: 0
   customized_tutorials_count: 2
+  creator_id: <%= ActiveRecord::FixtureSet.identify(:manager) %>
 
 customized_course2:
   student: student2
@@ -26,6 +27,7 @@ customized_course2:
   platform_price: 0
   teacher_price: 54
   customized_course_type: 0
+  creator_id: <%= ActiveRecord::FixtureSet.identify(:manager) %>
 
 customized_course_tally:
   student: student_tally
@@ -34,6 +36,7 @@ customized_course_tally:
   platform_price: 0
   teacher_price: 54
   customized_course_type: 0
+  creator_id: <%= ActiveRecord::FixtureSet.identify(:manager) %>
 
 customized_course3:
   student: student1
@@ -42,6 +45,7 @@ customized_course3:
   platform_price: 0
   teacher_price: 54
   customized_course_type: 0
+  creator_id: <%= ActiveRecord::FixtureSet.identify(:manager) %>
 
 customized_course4:
   student: student1
@@ -50,6 +54,7 @@ customized_course4:
   platform_price: 0
   teacher_price: 54
   customized_course_type: 0
+  creator_id: <%= ActiveRecord::FixtureSet.identify(:manager) %>
 
 customized_course5:
   student: student2
@@ -58,3 +63,4 @@ customized_course5:
   platform_price: 0
   teacher_price: 54
   customized_course_type: 0
+  creator_id: <%= ActiveRecord::FixtureSet.identify(:manager) %>

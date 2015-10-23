@@ -1,5 +1,5 @@
 class Account < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :accountable,polymorphic: true
 
   has_many  :deposits
   has_many  :withdraws

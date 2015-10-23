@@ -49,4 +49,19 @@ module TallyTestHelper
     end
   end
 
+  def get_expected_customized_course_prices(customized_course)
+    if customized_course.category == "高中"
+      __get_price(customized_course, APP_CONSTANT["customized_course_senior_high_common_prices"])
+    elsif customized_course.category == "初中"
+      __get_price(customized_course, APP_CONSTANT["customized_course_junior_high_common_prices"])
+    else
+      __get_price(customized_course, APP_CONSTANT["customized_course_junior_common_prices"])
+    end
+  end
+
+  def __get_price(customized_course, price_dict)
+    if customized_course.subject
+      [price_dict[customized_course.customized_course_type]["teacher_price"],price_dict[customized_course.customized_course_type]["platform_price"]]
+    end
+  end
 end

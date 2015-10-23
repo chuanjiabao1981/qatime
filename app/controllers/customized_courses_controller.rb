@@ -10,7 +10,6 @@ class CustomizedCoursesController < ApplicationController
   def create
     params[:customized_course][:teacher_ids].delete("")
     @customized_course = @student.customized_courses.build(params[:customized_course].permit!)
-    @customized_course.set_prices
     all_teacher
     @customized_course.save
     respond_with @customized_course

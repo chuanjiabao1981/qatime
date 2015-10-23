@@ -13,6 +13,8 @@ class CustomizedCourse < ActiveRecord::Base
 
   validates_presence_of :subject,:category,:student, :platform_price, :teacher_price
 
+  before_validation :set_prices
+
   attr_accessor :s_category,:s_school,:s_subject
   enum customized_course_type: { heighten: 0, spurt: 1, competition: 2}
 
@@ -31,6 +33,8 @@ class CustomizedCourse < ActiveRecord::Base
   end
 
   # This function is used to set prices for customized_course
+  private
+
   def set_prices
     if self.category == "高中"
       __set_price(APP_CONSTANT["customized_course_senior_high_common_prices"])
@@ -41,10 +45,7 @@ class CustomizedCourse < ActiveRecord::Base
     end
   end
 
-  private
-
   def __set_price(price_dict)
-    Rails.logger.info price_dict.as_json.to_s
     if self.subject
       self.teacher_price = price_dict[self.customized_course_type]["teacher_price"]
       self.platform_price = price_dict[self.customized_course_type]["platform_price"]

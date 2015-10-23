@@ -11,16 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151022064329) do
+ActiveRecord::Schema.define(version: 20151023081335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
-    t.float    "money",      default: 0.0
+    t.float    "money",             default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
+    t.integer  "accountable_id"
+    t.string   "accountable_type"
+    t.integer  "total_income"
+    t.integer  "total_expenditure"
   end
 
   create_table "answers", force: :cascade do |t|
@@ -507,6 +510,7 @@ ActiveRecord::Schema.define(version: 20151022064329) do
     t.boolean  "pass",                          default: false
     t.string   "grade"
     t.string   "nick_name"
+    t.integer  "workstation_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -535,6 +539,16 @@ ActiveRecord::Schema.define(version: 20151022064329) do
     t.integer  "questions_count"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "workstations", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "city_id"
+    t.string   "address"
+    t.integer  "tel"
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

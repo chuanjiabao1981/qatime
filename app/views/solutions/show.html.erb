@@ -1,4 +1,4 @@
-<%= render layout: 'shared/qa_objects/show',locals:{qa_object: @solution } do %>
+<%= render layout: 'shared/qa_objects/show',locals:{qa_object: @solution,use_super_controller: true } do %>
     <%= render partial: "shared/#{@solution.examination.model_name.route_key}/nav",locals: {@solution.examination.model_name.singular_route_key.to_sym => @solution.examination} %>
 <% end %>
 

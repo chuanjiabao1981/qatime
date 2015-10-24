@@ -64,4 +64,24 @@ night:
   name: 789_1.txt
   qa_file_type: text
 
+qa_file_homework1_1:
+  author: teacher1
+  qa_fileable: homework1 (Examination)
+  name: 123_1.txt
+  original_filename: 123_1.txt
+  qa_file_type: text
+
+qa_file_homework1_2:
+  author: teacher1
+  qa_fileable: homework1 (Examination)
+  name: 456_1.txt
+  original_filename: 456_1.txt
+  qa_file_type: text
+
+qa_file_homework1_3:
+  author: teacher1
+  qa_fileable: homework1 (Examination)
+  original_filename: 789_1.txt
+  name: 789_1.txt
+  qa_file_type: text
 

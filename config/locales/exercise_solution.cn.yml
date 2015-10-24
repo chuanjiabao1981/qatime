@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    models:
+      exercise_solution: 随堂作业
+    attributes:
+      exercise_solution:
+        title: 解答说明
+        content: 作业解答

@@ -45,18 +45,24 @@ module ApplicationHelper
     _get_super_model_name(o_class.superclass)
   end
 
-  def link_to_edit(o)
-    # m = _get_super_model_name(o.class)
-    m = o.class.model_name
+  def link_to_edit(o,use_super_controller = false)
+    if use_super_controller
+      m = _get_super_model_name(o.class)
+    else
+      m = o.class.model_name
+    end
     if allow? m.plural , :edit,o
       k = link_to "", send("edit_#{m.singular}_path",o), class: "glyphicon glyphicon-edit"
     end
     k
   end
 
-  def link_to_destroy(o)
-    # m = _get_super_model_name(o.class)
-    m = o.class.model_name
+  def link_to_destroy(o,use_super_controller = false)
+    if use_super_controller
+      m = _get_super_model_name(o.class)
+    else
+      m = o.class.model_name
+    end
     if allow? m.plural , :destroy ,o
       s = link_to "", send("#{m.singular}_path", o),:method => :delete, 'data-confirm' => 'Are you sure?',
                   class: "glyphicon glyphicon-remove"

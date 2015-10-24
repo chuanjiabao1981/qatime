@@ -25,7 +25,6 @@ module ContentInputHelper
   def add_video_and_picture(object,content=nil)
     if object.new_record?
       action = "新增"
-
     else
       action = "更新"
 

@@ -11,12 +11,7 @@ class ExerciseSolution < Solution
         super attributes
     end
   end
-  #
-  # has_many   :exercise_corrections,foreign_key: :solution_id ,dependent: :destroy do
-  #   attributes[:customized_course_id]     = proxy_association.owner.customized_course_id
-  #   attributes[:customized_tutorial_id]   = proxy_association.owner.customized_tutorial_id
-  #   super attributes
-  # end
+
   def notify
     teacher           = self.exercise.teacher
     student           = self.student
@@ -25,7 +20,7 @@ class ExerciseSolution < Solution
                             from: student.view_name,
                             to: teacher.view_name,
                             mobile: teacher.mobile,
-                            message: "提交了#{HomeworkSolution.model_name.human},请及时#{Correction.model_name.human},"
+                            message: "提交了#{ExerciseSolution.model_name.human},请及时#{Correction.model_name.human},"
     )
   end
 end

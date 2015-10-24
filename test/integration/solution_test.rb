@@ -158,6 +158,13 @@ class SolutionIntegrateTest < LoginTestBase
       edit_path_count               = 1
     end
 
+
+    solution.corrections.each do |c|
+      if c.teacher.id == user.id
+        user_session.assert_select 'a[href=?]',edit_correction_path(c),1
+      end
+    end
+
     user_session.assert_select 'form[action=?]' ,correction_create_path,correction_create_path_count
     user_session.assert_select 'a[href=?]', edit_path,edit_path_count
 

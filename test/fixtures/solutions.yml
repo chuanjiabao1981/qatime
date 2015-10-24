@@ -44,6 +44,8 @@ exercise_solution_one:
   exercise: exercise_one
   student: student1
   type: ExerciseSolution
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial1
 
 exercise_fee_solution_one:
   title: exercise fee solution test title 1

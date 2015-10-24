@@ -8,10 +8,21 @@ correction_one:
   content: ssddd
   teacher: teacher1
   solution: homework_solution_one
+  type: HomeworkCorrection
+  token: correction one
+  customized_course: customized_course1
+  homework: homework1
 # column: value
 #
-two: {}
-#  column: value
+correction_two:
+  content: asdfasd
+  teacher: teacher1
+  solution: exercise_solution_one
+  type: ExerciseCorrection
+  token: correction_two
+  exercise: exercise_one
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial1
 
 # Here use erb to generate tally corrections
 # 5 open
@@ -23,6 +34,7 @@ correction_tally_<%= i %>:
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
   token: correction_tally_video_<%= i %>
   status: open
+  type: HomeworkCorrection
 <% end %>
 
 # 5 closed
@@ -34,6 +46,7 @@ correction_tally_<%= i %>:
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
   token: correction_tally_video_<%= i %>
   status: closed
+  type: ExerciseCorrection
 <% end %>
 
 exercise_fee_correction_one:

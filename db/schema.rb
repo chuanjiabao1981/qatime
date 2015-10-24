@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023081725) do
+ActiveRecord::Schema.define(version: 20151024120518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -431,7 +431,7 @@ ActiveRecord::Schema.define(version: 20151023081725) do
     t.integer  "solutionable_id"
     t.integer  "student_id"
     t.string   "token"
-    t.integer  "corrections_count"
+    t.integer  "corrections_count",       default: 0
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "comments_count",          default: 0

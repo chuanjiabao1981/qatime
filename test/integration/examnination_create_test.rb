@@ -10,7 +10,9 @@ class ExaminationCreateTest < ActionDispatch::IntegrationTest
     @headless.start
     Capybara.current_driver = :selenium_chrome
     @teacher  = users(:teacher1)
-    @customized_tutorial = customized_tutorials(:customized_tutorial1)
+    @customized_tutorial  = customized_tutorials(:customized_tutorial1)
+    @customized_course    = customized_courses(:customized_course1)
+
     log_in_as(@teacher)
 
   end
@@ -23,7 +25,8 @@ class ExaminationCreateTest < ActionDispatch::IntegrationTest
 
 
   test 'create with picture' do
-    test_create_with_picture(@customized_tutorial,Exercise)
+    _create_with_picture(@customized_tutorial,Exercise)
+    _create_with_picture(@customized_course,Homework)
   end
 
   test 'exercise create with qa_files' do
@@ -93,17 +96,21 @@ class ExaminationCreateTest < ActionDispatch::IntegrationTest
 
 
 
-  def test_create_with_picture(c,e)
+  def _create_with_picture(c,e)
     new_path        = send("new_#{c.model_name.singular_route_key}_#{e.model_name.singular_route_key}_path",c)
     visit new_path
     assert_difference "Picture.where(imageable_type: \"#{Examination.to_s}\").count",1 do
       assert_difference "Picture.where(imageable_type: \"#{e.to_s}\").count",0 do
-        fill_in "exercise_title",with: '这个长度不能少10的啊啊啊aaaaa'
+        fill_in "#{}_title",with: '这个长度不能少10的啊啊啊aaaaa'
+        set_content "asdfadfasdf"
 
         add_a_picture
-        set_content "asdfadfasdf"
         click_on "新增#{e.model_name.human}"
 
+        new_examination = e.all.order(:created_at => :desc).first
+        new_picture     = Picture.where(imageable_type: "#{Examination.to_s}").order(:created_at => :desc).first
+        new_examination.pictures.include?(new_picture)
+        # page.save_screenshot('screenshot.png')
       end
     end
   end

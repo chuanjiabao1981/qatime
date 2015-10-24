@@ -3,7 +3,7 @@ class ExercisesController < ApplicationController
   layout "application"
   include QaFilesHelper
   def new
-    @exercise = Exercise.new
+    @exercise = @customized_tutorial.exercises.build
   end
 
   def create

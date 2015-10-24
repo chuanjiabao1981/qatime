@@ -5,52 +5,60 @@
 # below each fixture, per the syntax in the comments below
 #
 homework_solution_one:
-  title: homework solution test title
+  title: homework solution test title 1
   content: homework solution test content
-  solutionable: homework1 (Homework)
+  homework: homework1
   student: student1
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  type: HomeworkSolution
 
 homework_solution_two:
   title: homework solution test title 2
   content: homework solution test content 34
-  solutionable: homework1 (Homework)
+  homework: homework1
   student: student1
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  type: HomeworkSolution
 
 
 homework_solution_three:
   title: homework solution test title 3
   content: homework solution test content 3
-  solutionable: homework1 (Homework)
+  homework: homework1
   student: student1
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  type: HomeworkSolution
+
 
 homework_solution_four:
   title: homework solution test title 4
   content: homework solution test content 4
-  solutionable: homework1 (Homework)
+  homework: homework1
   student: student1
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  type: HomeworkSolution
 
 exercise_solution_one:
   title: exercise solution test title 1
   content: exercise soltuion test content 1
-  solutionable_id: <%= ActiveRecord::FixtureSet.identify(:exercise_one) %>
-  solutionable_type: Exercise
+  exercise: exercise_one
   student: student1
+  type: ExerciseSolution
 
 exercise_fee_solution_one:
   title: exercise fee solution test title 1
   content: exercise fee soltuion test content 1
-  solutionable_id: <%= ActiveRecord::FixtureSet.identify(:exercise_fee_one) %>
-  solutionable_type: Exercise
+  exercise: exercise_fee_one
   student: student2
+  type: ExerciseSolution
+
 
 solution_for_homework_correction_fee:
   title: solution for homework correction fee
   content: solution for homework correction fee
-  solutionable: homeworker_for_correction_fee_one(Homework)
+  exercise: homeworker_for_correction_fee_one
   student: student2
+  type: ExerciseSolution
+
 
 

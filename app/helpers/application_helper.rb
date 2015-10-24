@@ -46,8 +46,8 @@ module ApplicationHelper
   end
 
   def link_to_edit(o)
-    m = _get_super_model_name(o.class)
-
+    # m = _get_super_model_name(o.class)
+    m = o.class.model_name
     if allow? m.plural , :edit,o
       k = link_to "", send("edit_#{m.singular}_path",o), class: "glyphicon glyphicon-edit"
     end
@@ -55,8 +55,8 @@ module ApplicationHelper
   end
 
   def link_to_destroy(o)
-    m = _get_super_model_name(o.class)
-
+    # m = _get_super_model_name(o.class)
+    m = o.class.model_name
     if allow? m.plural , :destroy ,o
       s = link_to "", send("#{m.singular}_path", o),:method => :delete, 'data-confirm' => 'Are you sure?',
                   class: "glyphicon glyphicon-remove"

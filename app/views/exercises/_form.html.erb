@@ -1,7 +1,7 @@
 <div class="qa_box">
   <div class="box_header qa_cell">
     <%= render partial: 'shared/exercises/nav',locals: {exercise: @exercise} %>/
-    <%=get_edit_or_create_model_string(@exercise)%>
+    <%=get_edit_or_create_model_string(@exercise,"布置")%>
   </div>
   <div class="qa_cell">
     <%=simple_form_for ([@customized_tutorial,@exercise]) do |f| %>

@@ -1,7 +1,7 @@
 <div class="qa_box">
   <div class="qa_cell box_head">
-    <%= render partial: "shared/#{@solutioncontainer.model_name.route_key}/nav",
-               locals: {@solutioncontainer.model_name.singular_route_key.to_sym => @solutioncontainer} %>/
+    <%= render partial: "shared/#{@examination.model_name.route_key}/nav",
+               locals: {@examination.model_name.singular_route_key.to_sym => @examination} %>/
     <%= get_edit_or_create_model_string(@solution,"提交")%>
   </div>
 </div>
@@ -12,7 +12,7 @@
       <div class="progress-bar" id="picture-progress-bar" role="progressbar" >
       </div>
     </div>
-    <%=simple_form_for([@solutioncontainer,@solution]) do |f| %>
+    <%=simple_form_for([@examination,@solution]) do |f| %>
         <%= render "shared/error_messages", :target => @solution %>
         <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
         <div class="form-group">

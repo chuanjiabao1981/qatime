@@ -4,5 +4,5 @@ cn:
       exercise: 随堂练习
     attributes:
       exercise:
-        title: 练习说明
-        content: 练习内容
+        title: 随堂练习说明
+        content: 随堂练习内容

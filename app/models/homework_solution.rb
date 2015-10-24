@@ -12,11 +12,6 @@ class HomeworkSolution < Solution
 
 
 
-  def container
-    self.homework
-  end
-
-
   def notify
     teacher           = self.homework.teacher
     student           = self.student

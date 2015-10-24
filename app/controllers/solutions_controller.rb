@@ -31,7 +31,7 @@ class SolutionsController < ApplicationController
   end
 
   def update
-    resource_name               = @solution.container.model_name.singular_route_key
+    resource_name               = @solution.examination.model_name.singular_route_key
     if @solution.update_attributes(change_params_for_qa_files(params["#{resource_name}_solution".to_sym]).permit!)
       flash[:success] = "成功修改#{Solution.model_name.human}"
     end

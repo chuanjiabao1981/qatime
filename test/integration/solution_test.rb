@@ -14,19 +14,26 @@ class SolutionIntegrateTest < LoginTestBase
   end
 
 
-  test "solution update" do
-    solution     = solutions(:homework_solution_one)
-    update_path  = homework_solution_path(@homework,solution)
+  test "update page" do
+    homework_solution     = solutions(:homework_solution_one)
+    exercise_solution     = solutions(:exercise_solution_one)
 
-    update_page(@student,@student_session,update_path)
-    update_page(@teacher,@teacher_session,update_path)
+    update_page(@student,@student_session,homework_solution)
+    update_page(@teacher,@teacher_session,homework_solution)
+    update_page(@student,@student_session,exercise_solution)
+    update_page(@teacher,@teacher_session,exercise_solution)
+
   end
-  test "solution edit" do
-    solution     = solutions(:homework_solution_one)
-    edit_path    = edit_solution_path(solution)
+  test "edit page" do
+    homework_solution     = solutions(:homework_solution_one)
+    exercise_solution     = solutions(:exercise_solution_one)
 
-    edit_page(@student,@student_session,edit_path)
-    edit_page(@teacher,@teacher_session,edit_path)
+    edit_page(@student,@student_session,homework_solution)
+    edit_page(@teacher,@teacher_session,homework_solution)
+    edit_page(@student,@student_session,exercise_solution)
+    edit_page(@teacher,@teacher_session,exercise_solution)
+
+
   end
 
   test "show page" do
@@ -58,30 +65,32 @@ class SolutionIntegrateTest < LoginTestBase
   private
 
 
-  def update_page(user,user_session,update_path)
-    solution     = solutions(:homework_solution_one)
-    title        = "0ojashdbp"
+  def update_page(user,user_session,solution)
+
+    update_path                     = send "#{solution.examination.model_name.singular_route_key}_#{solution.model_name.singular_route_key}_path",solution.examination,solution
+    redirect_path                   = send "#{solution.model_name.singular_route_key}_path",solution
+    title                           = "0ojashdbp"
+    user_session.put update_path, solution.model_name.singular_route_key  => {title: title,content: "ssddffaaa"}
 
     if user.teacher?
-      user_session.put update_path,solution:{title: title,content: "ssddffaaa"}
       user_session.assert_redirected_to get_home_url(user)
       return
     end
-    user_session.put update_path,solution:{title: title,content: "ssddffaaa"}
-    user_session.assert_redirected_to solution_path(solution)
+    user_session.assert_redirected_to redirect_path
     user_session.follow_redirect!
     user_session.assert_select 'h4',title
   end
-  def edit_page(user,user_session,edit_path)
-    solution     = solutions(:homework_solution_one)
+  def edit_page(user,user_session,solution)
+
+    edit_path                       = edit_solution_path(solution)
+    update_path                     = send "#{solution.examination.model_name.singular_route_key}_#{solution.model_name.singular_route_key}_path",solution.examination,solution
+    user_session.get edit_path
     if user.teacher?
-      user_session.get edit_path
       user_session.assert_redirected_to get_home_url(user)
       return
     end
-    user_session.get edit_path
     user_session.assert_response :success
-    user_session.assert_select 'form[action=?]',homework_solution_path(@homework,solution)
+    user_session.assert_select 'form[action=?]',update_path
     user_session.assert_template 'solutions/_form','solutions/edit'
   end
 

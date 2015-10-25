@@ -1,0 +1,7 @@
+cn:
+  activerecord:
+    models:
+      homework_correction: 家庭作业批改
+    attributes:
+      homework_correction:
+        content: 作业批改

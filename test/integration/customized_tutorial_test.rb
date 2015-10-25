@@ -32,7 +32,7 @@ class CustomizedTutorialIntegrateTest < LoginTestBase
     user_session.assert_select 'a[href=?]',     customized_course_path(@customized_tutorial.customized_course),1
     user_session.assert_select 'a[href=?]',    tutorial_issue_path(topic),1
 
-    exercise = homeworks(:exercise_one)
+    exercise = examinations(:exercise_one)
     assert exercise.valid?
 
 

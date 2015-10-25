@@ -4,4 +4,8 @@ class ExerciseCorrection < Correction
   belongs_to :exercise,foreign_key: :examination_id
   belongs_to :customized_course
   belongs_to :customized_tutorial
+
+  def solution_name
+    ExerciseSolution.model_name.human
+  end
 end

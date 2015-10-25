@@ -24,10 +24,10 @@ correction_one_fee_consumption_record:
 #  value: 2.5
 #  account: student2_account
 
-homework_solution_correction_fee_sonsumption_record:
-  fee: correction_fee
-  value: 3
-  account: student2_account
+#homework_solution_correction_fee_sonsumption_record:
+#  fee: correction_fee
+#  value: 3
+#  account: student2_account
 
 
 consumption_record_for_course_issue_reply:
@@ -39,3 +39,14 @@ comsumption_record_for_tutorial_issue_reply:
   fee: fee_for_tutorial_issue_reply
   account: student2_account
   value: 4
+
+
+consumption_record_for_exercise_correction:
+  fee: fee_for_exercise_correction
+  account: student2_account
+  value: 4.5
+
+consumption_record_for_homework_correction:
+  fee: fee_for_homework_correction
+  account: student2_account
+  value: 5

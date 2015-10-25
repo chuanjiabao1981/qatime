@@ -158,6 +158,7 @@ Qatime::Application.routes.draw do
     resources :homework_corrections, controller: :corrections
   end
 
+  resources :homework_corrections, controller: :corrections
 
   resources :solutions do
     resources :corrections
@@ -189,6 +190,9 @@ Qatime::Application.routes.draw do
   resources :exercise_solutions, controller: :solutions do
     resources :exercise_corrections,controller: :corrections
   end
+
+  resources :exercise_corrections,controller: :corrections
+
 
 
   resources :questions do

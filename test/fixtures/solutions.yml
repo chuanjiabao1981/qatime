@@ -47,12 +47,6 @@ exercise_solution_one:
   customized_course: customized_course1
   customized_tutorial: customized_tutorial1
 
-exercise_fee_solution_one:
-  title: exercise fee solution test title 1
-  content: exercise fee soltuion test content 1
-  exercise: exercise_fee_one
-  student: student2
-  type: ExerciseSolution
 
 
 solution_for_homework_correction_fee:
@@ -61,6 +55,24 @@ solution_for_homework_correction_fee:
   exercise: homeworker_for_correction_fee_one
   student: student2
   type: ExerciseSolution
+
+exercise_solution_for_fee:
+  title: exercise solution for exercise title fee
+  content: exercise solution from exercise content fee
+  exercise: exercise_fee_one
+  student: student2
+  type: ExerciseSolution
+  customized_course: customized_course5
+  customized_tutorial: customized_tutorial_teacher_earnings_1
+
+homework_solution_for_fee:
+  title: homework solution for homework title fee
+  content: homework solution for homework content fee
+  homework: homeworker_for_correction_fee_one
+  student: student2
+  type: HomeworkSolution
+  customized_course: customized_course5
+
 
 
 

@@ -5,4 +5,8 @@ class HomeworkCorrection < Correction
   belongs_to :homework,foreign_key:  :examination_id
   belongs_to :customized_course
 
+
+  def solution_name
+    HomeworkSolution.model_name.human
+  end
 end

@@ -1,39 +1,47 @@
+require 'content_input_helper'
+
 class CorrectionWithVideoTest < ActionDispatch::IntegrationTest
+  include ContentInputHelper
+
   def setup
     @headless = Headless.new
     @headless.start
-    Capybara.current_driver =  :selenium_chrome
-    @teacher                =  users(:teacher1)
-    @solution               =  solutions(:homework_solution_one)
+    Capybara.current_driver           =  :selenium_chrome
+    @teacher                          =  users(:teacher1)
+    @homework_solution                =  solutions(:homework_solution_one)
+    @exercise_solution                =  solutions(:exercise_solution_one)
+    log_in_as(@teacher)
+
   end
 
   def teardown
-    # @headless.destroy
-
-    # visit get_home_url(@teacher)
-    # click_on '登出系统'
     logout_as(@teacher)
     Capybara.use_default_driver
   end
 
-  test 'topic reply with video' do
-    log_in_as(@teacher)
-    visit solution_path(@solution)
+  test 'create correction' do
+    _create_with_picture_and_video(@homework_solution,HomeworkCorrection)
+    _create_with_picture_and_video(@exercise_solution,ExerciseCorrection)
+  end
+
+  def _create_with_picture_and_video(solution,correction)
+    show_path = send "#{solution.model_name.singular_route_key}_path",solution
+    visit show_path
     page.save_screenshot('screenshot.png')
 
-    assert_difference 'Video.where(videoable_type:"Correction").count',1 do
-      assert_difference 'Correction.count',1 do
-        click_on '添加视频'
-        attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
-
-        find('div.note-editable').set('答案是这个样子的，确实是这个样子的字符0987654321009876543210')
-        page.save_screenshot('screenshot.png')
-
-        click_on '新增作业批改'
-        c = Correction.all.order(:created_at => :desc).first
-        assert_not c.video.nil?
-        assert page.has_content? '答案是这个样子的，确实是这个样子的字符0987654321009876543210'
-
+    assert_difference "#{correction.to_s}.count",1 do
+      assert_difference "Video.where(videoable_type: \"#{Correction.to_s}\").count",1 do
+        assert_difference "Picture.where(imageable_type: \"#{Correction.to_s}\").count",1 do
+          assert_difference "Video.where(videoable_type: \"#{correction.to_s}\").count",0 do
+            assert_difference "Picture.where(imageable_type: \"#{correction.to_s}\").count",0 do
+              set_all_possible_info random_str
+              click_on "新增#{correction.model_name.human}"
+              new_correction = correction.all.order(created_at: :desc).first
+              assert_picture new_correction
+              assert_video new_correction
+            end
+          end
+        end
       end
     end
   end

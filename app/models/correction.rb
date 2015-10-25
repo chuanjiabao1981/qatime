@@ -30,6 +30,10 @@ class Correction < ActiveRecord::Base
   end
 
 
+
+  def solution_name
+    Solution.model_name.human
+  end
   def notify
     teacher           = self.teacher
     student           = self.solution.student
@@ -38,7 +42,7 @@ class Correction < ActiveRecord::Base
                             from: teacher.view_name,
                             to: student.view_name,
                             mobile: student.mobile,
-                            message: "批改了你的#{Solution.model_name.human},请关注,"
+                            message: "批改了你的#{solution_name},请关注,"
     )
 
   end

@@ -49,20 +49,26 @@ correction_tally_<%= i %>:
   type: ExerciseCorrection
 <% end %>
 
-exercise_fee_correction_one:
+
+
+exercise_correction_for_fee_view:
   content: dddddsss
   teacher: physics_teacher_1
-  solution: exercise_fee_solution_one
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
-  token: exercise_fee_correction_one_token
+  solution: exercise_solution_for_fee
+  customized_course: customized_course5
+  customized_tutorial: customized_tutorial_teacher_earnings_1
+  token: exercise_correction_for_fee_view
   status: closed
+  type: ExerciseCorrection
 
-correction_fee_correction_one:
-  content: 12341234
+
+homework_correction_for_fee_view:
+  content: spgnasdijnfas
   teacher: physics_teacher_1
-  solution: solution_for_homework_correction_fee
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
-  token: correction_fee_correction_one_token
+  solution: homework_solution_for_fee
+  customized_course: customized_course5
+  token: homework_correction_for_fee_view_token
   status: closed
+  type: HomeworkCorrection
 
 

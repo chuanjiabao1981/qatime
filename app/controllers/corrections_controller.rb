@@ -16,6 +16,9 @@ class CorrectionsController < ApplicationController
 
   end
 
+  def show
+    redirect_to solution_path(@solution)
+  end
 
   def edit
 

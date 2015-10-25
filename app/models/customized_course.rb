@@ -4,6 +4,7 @@ class CustomizedCourse < ActiveRecord::Base
   has_many :teachers,:through => :customized_course_assignments
   has_many :customized_tutorials,:dependent => :destroy
   has_many :tutorial_issues
+  belongs_to :workstation
 
   has_many :fees
 
@@ -11,11 +12,11 @@ class CustomizedCourse < ActiveRecord::Base
 
   has_many :homeworks,:dependent => :destroy
 
-  validates_presence_of :subject,:category,:student, :platform_price, :teacher_price, :creator_id
+  validates_presence_of :subject,:category,:student, :platform_price, :teacher_price, :creator_id, :workstation_id
 
   before_validation :set_prices
 
-  attr_accessor :s_category,:s_school,:s_subject
+  attr_accessor :s_category,:s_school,:s_subject, :sale_price
   enum customized_course_type: { heighten: 0, spurt: 1, competition: 2}
 
   # has_many timeout_to_solve_homework, lambda { where(solutions_count: 0)},class_name: "Homework"

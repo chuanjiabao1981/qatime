@@ -5,6 +5,7 @@ class CustomizedCoursesController < ApplicationController
   def new
     @customized_course = @student.customized_courses.build
     all_teacher
+    @workstations = Workstation.all
   end
 
   def create

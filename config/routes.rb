@@ -39,6 +39,7 @@ Qatime::Application.routes.draw do
     resources :faq_topics do
       resources :faqs
     end
+    resources :workstations
   end
 
   namespace :managers do

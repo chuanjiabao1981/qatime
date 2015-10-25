@@ -42,6 +42,8 @@
                                         id: 'customized-courses-teachers'}
         %>
 
+        <%= f.input :workstation_id, collection: @workstations.map {|t|[t.name,t.id]}, include_blank:false %>
+
         <%= f.button :submit,class: "btn btn-default" %>
     <% end %>
   </div>

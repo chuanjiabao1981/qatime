@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151023084427) do
+ActiveRecord::Schema.define(version: 20151025024219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,8 +22,8 @@ ActiveRecord::Schema.define(version: 20151023084427) do
     t.datetime "updated_at"
     t.integer  "accountable_id"
     t.string   "accountable_type"
-    t.integer  "total_income"
-    t.integer  "total_expenditure"
+    t.float    "total_income",      default: 0.0, null: false
+    t.float    "total_expenditure", default: 0.0, null: false
   end
 
   create_table "answers", force: :cascade do |t|
@@ -144,6 +144,7 @@ ActiveRecord::Schema.define(version: 20151023084427) do
     t.integer  "customized_course_type",     default: 0
     t.integer  "teacher_price"
     t.integer  "creator_id"
+    t.integer  "workstation_id"
   end
 
   create_table "customized_tutorials", force: :cascade do |t|
@@ -216,8 +217,9 @@ ActiveRecord::Schema.define(version: 20151023084427) do
     t.float    "value"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
-    t.float    "price_per_minute"
     t.float    "video_duration"
+    t.integer  "platform_price"
+    t.integer  "teacher_price"
   end
 
   create_table "homeworks", force: :cascade do |t|
@@ -511,7 +513,6 @@ ActiveRecord::Schema.define(version: 20151023084427) do
     t.boolean  "pass",                          default: false
     t.string   "grade"
     t.string   "nick_name"
-    t.integer  "workstation_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -546,10 +547,11 @@ ActiveRecord::Schema.define(version: 20151023084427) do
     t.string   "name"
     t.integer  "city_id"
     t.string   "address"
-    t.integer  "tel"
+    t.string   "tel"
     t.string   "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "manager_id"
   end
 
 end

@@ -21,14 +21,17 @@ module Tally
 
 
     ##计算
-    def __create_fee(video,price_per_minute)
-      minute                 = Float(video.duration) / 60
-      fee_value              = format("%.2f",minute * price_per_minute).to_f
+    def __create_fee(video)
+      sale_price = self.platform_price + self.teacher_price
+
+      hours                 = Float(video.duration) / 60 / 60
+      fee_value              = format("%.2f",hours * sale_price).to_f
       return unless fee_value > 0
       fee = self.build_fee
       fee.value = fee_value
       fee.customized_course_id        = self.customized_course_id
-      fee.price_per_minute            = price_per_minute
+      fee.teacher_price               = self.teacher_price
+      fee.platform_price              = self.platform_price
       fee.video_duration              = video.duration
       fee.save!
       fee
@@ -40,6 +43,7 @@ module Tally
       consumption_account         = Student.find(customized_course.student_id).account
       consumption_account.lock!
       consumption_account.money   = consumption_account.money - fee.value
+      consumption_account.total_expenditure = consumption_account.total_expenditure + fee.value
       consumption_account.consumption_records.create!(fee: fee,value: fee.value)
       consumption_account.save!
     end
@@ -50,18 +54,31 @@ module Tally
       teacher_value              = format("%.2f",fee.value * percent).to_f
       teacher_account.lock!
       teacher_account.money      = teacher_account.money + teacher_value
+      teacher_account.total_income = teacher_account.total_income + teacher_value
       teacher_account.earning_records.create!(fee: fee,percent: percent,value: teacher_value)
       teacher_account.save!
+      teacher_value
     end
 
     ##分账给公司
-    def __split_fee_to_company(fee,percent)
+    def __split_fee_to_company(fee,percent,teacher_value)
+      customized_course = CustomizedCourse.find(self.customized_course_id)
+      workstation_account = Workstation.find(customized_course.workstation_id).account
 
+      company_value = fee.value - teacher_value
+      workstation_account.lock!
+      workstation_account.money      = workstation_account.money + company_value
+      workstation_account.total_income = workstation_account.total_income + company_value
+      workstation_account.earning_records.create!(fee: fee,percent: percent,value: company_value)
+      workstation_account.save!
     end
+
     ##分账
     def __split_fee(teacher_id,fee)
-      __split_fee_to_teacher(teacher_id,fee,1.0)
-      __split_fee_to_company(fee,0.0)
+      teacher_percent = format("%.1f",self.teacher_price / (self.teacher_price + self.platform_price)).to_f
+      company_percent = 1 - teacher_percent
+      teacher_earning = __split_fee_to_teacher(teacher_id,fee,teacher_percent)
+      __split_fee_to_company(fee, company_percent, teacher_earning)
     end
 
 
@@ -72,7 +89,7 @@ module Tally
         self.lock!
         self.video.lock!
         begin
-            fee = __create_fee(self.video,APP_CONSTANT["price_per_minute"].to_f)
+            fee = __create_fee(self.video)
             return unless fee and fee.value > 0
             __charge_fee(fee)
             __split_fee(teacher_id,fee)

@@ -75,7 +75,7 @@ module Tally
 
     ##分账
     def __split_fee(teacher_id,fee)
-      teacher_percent = format("%.1f",self.teacher_price / (self.teacher_price + self.platform_price)).to_f
+      teacher_percent = format("%.2f",self.teacher_price / (self.teacher_price + self.platform_price)).to_f
       company_percent = 1 - teacher_percent
       teacher_earning = __split_fee_to_teacher(teacher_id,fee,teacher_percent)
       __split_fee_to_company(fee, company_percent, teacher_earning)

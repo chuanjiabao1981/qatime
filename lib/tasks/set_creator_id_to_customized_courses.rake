@@ -6,5 +6,11 @@ task :set_creator_id_to_customized_courses => :environment do
       customized_course.creator_id = manager.id
       customized_course.save
     end
+
+    workstation = Workstation.first
+    if customized_course and customized_course.workstation_id.nil?
+      customized_course.workstation_id = workstation.id
+      customized_course.save
+    end
   end
 end

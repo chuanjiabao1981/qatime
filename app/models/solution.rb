@@ -11,7 +11,16 @@ class Solution < ActiveRecord::Base
   belongs_to      :examination,counter_cache: true
 
   has_many        :pictures,as: :imageable
-  has_many        :corrections,:dependent => :destroy
+  has_many        :corrections,:dependent => :destroy do
+    def page_num(o,options)
+      column = options[:by] || :created_at
+      order  = options[:order] || :desc
+      per    = options[:per] || 5
+
+      operator = (order == :asc ? "<=" : ">=")
+      (where("#{column} #{operator} ?", o.send(column)).count.to_f / per).ceil
+    end
+  end
 
   has_many        :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
   has_many        :qa_files, as: :qa_fileable

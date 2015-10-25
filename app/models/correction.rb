@@ -19,6 +19,7 @@ class Correction < ActiveRecord::Base
 
   after_save      :__after_save
   after_destroy   :__after_destroy
+
   self.per_page = 5
 
 
@@ -30,10 +31,10 @@ class Correction < ActiveRecord::Base
   end
 
 
-
   def solution_name
     Solution.model_name.human
   end
+
   def notify
     teacher           = self.teacher
     student           = self.solution.student

@@ -12,6 +12,5 @@ module QaCommon
     scope :by_customized_course_id,
           lambda{|customized_course_id| where(customized_course_id: customized_course_id)}
 
-
   end
 end

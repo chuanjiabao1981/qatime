@@ -5,7 +5,7 @@ class CustomizedCoursesController < ApplicationController
   def new
     @customized_course = @student.customized_courses.build
     all_teacher
-    @workstations = Workstation.all
+    @workstations = Workstation.by_manager_id(current_user.id)
   end
 
   def create

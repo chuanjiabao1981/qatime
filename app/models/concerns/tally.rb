@@ -25,7 +25,7 @@ module Tally
       sale_price = self.platform_price + self.teacher_price
 
       hours                 = Float(video.duration) / 60 / 60
-      fee_value              = format("%.2f",hours * sale_price).to_f
+      fee_value             = format("%.2f",hours * sale_price).to_f
       return unless fee_value > 0
       fee = self.build_fee
       fee.value = fee_value
@@ -48,38 +48,27 @@ module Tally
       consumption_account.save!
     end
 
-    ##分账给老师
-    def __split_fee_to_teacher(teacher_id,fee,percent)
-      teacher_account            = Teacher.find(teacher_id).account
-      teacher_value              = format("%.2f",fee.value * percent).to_f
-      teacher_account.lock!
-      teacher_account.money      = teacher_account.money + teacher_value
-      teacher_account.total_income = teacher_account.total_income + teacher_value
-      teacher_account.earning_records.create!(fee: fee,percent: percent,value: teacher_value)
-      teacher_account.save!
-      teacher_value
-    end
-
-    ##分账给公司
-    def __split_fee_to_company(fee,percent,teacher_value)
-      customized_course = CustomizedCourse.find(self.customized_course_id)
-      workstation_account = Workstation.find(customized_course.workstation_id).account
-
-      company_value = fee.value - teacher_value
-      workstation_account.lock!
-      workstation_account.money      = workstation_account.money + company_value
-      workstation_account.total_income = workstation_account.total_income + company_value
-      workstation_account.earning_records.create!(fee: fee,percent: percent,value: company_value)
-      workstation_account.save!
+    def __split_fee_to_relative_account(relative_account, fee, percent)
+      split_value = fee.value * percent
+      relative_account.lock!
+      relative_account.money      = relative_account.money + split_value
+      relative_account.total_income = relative_account.total_income + split_value
+      relative_account.earning_records.create!(fee: fee,percent: percent,value: split_value)
+      relative_account.save!
     end
 
     ##分账
     def __split_fee(teacher_id,fee)
       teacher_percent = format("%.2f",self.teacher_price / (self.teacher_price + self.platform_price)).to_f
-      company_percent = 1 - teacher_percent
-      teacher_earning = __split_fee_to_teacher(teacher_id,fee,teacher_percent)
-      __split_fee_to_company(fee, company_percent, teacher_earning)
-    end
+      workstation_percent = 1 - teacher_percent
+      teacher_account = Teacher.find(teacher_id).account
+      customized_course = CustomizedCourse.find(self.customized_course_id)
+      workstation_account = Workstation.find(customized_course.workstation_id).account
+      # split to teacher
+      __split_fee_to_relative_account(teacher_account, fee, teacher_percent)
+      # split to workstation
+      __split_fee_to_relative_account(workstation_account, fee, workstation_percent)
+end
 
 
 

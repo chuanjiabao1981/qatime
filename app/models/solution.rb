@@ -12,13 +12,9 @@ class Solution < ActiveRecord::Base
 
   has_many        :pictures,as: :imageable
   has_many        :corrections,:dependent => :destroy do
-    def page_num(o,options)
-      column = options[:by] || :created_at
-      order  = options[:order] || :desc
-      per    = options[:per] || 5
 
-      operator = (order == :asc ? "<=" : ">=")
-      (where("#{column} #{operator} ?", o.send(column)).count.to_f / per).ceil
+    def page_num(o)
+      _page_num(o,by: Correction.order_column,order: Correction.order_type,per: Correction.per_page)
     end
   end
 

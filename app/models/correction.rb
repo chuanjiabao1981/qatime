@@ -4,23 +4,26 @@ class Correction < ActiveRecord::Base
   include QaToken
   include ContentValidate
 
-  belongs_to  :teacher
+  belongs_to        :teacher
+  belongs_to        :solution,counter_cache: true
+  belongs_to        :examination,counter_cache: true
 
-  belongs_to    :solution,counter_cache: true
-  belongs_to    :examination,counter_cache: true
+  has_one           :video,as: :videoable
+  has_one           :fee, as:  :feeable
 
-  has_many    :pictures,as: :imageable
-  has_one     :video,as: :videoable
-  has_one     :fee, as:  :feeable
-  has_many    :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
+  has_many          :pictures,as: :imageable
+  has_many          :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
 
-  validates :content, length: {minimum: 5},on: :create
+  validates         :content, length: {minimum: 5},on: :create
 
+  cattr_accessor    :order_type,:order_column
 
-  after_save      :__after_save
-  after_destroy   :__after_destroy
+  after_save        :__after_save
+  after_destroy     :__after_destroy
 
-  self.per_page = 5
+  self.per_page       = 5
+  self.order_type     = :desc
+  self.order_column   = :created_at
 
 
   def author_id

@@ -27,7 +27,7 @@ module QaSolution
     solution.send("#{resource_name}_corrections").build(params)
   end
   def solution_show_prepare
-    @corrections  = @solution.corrections.order(:created_at => :desc).paginate(page: params[:page])
+    @corrections  = @solution.corrections.order(Correction.order_column => Correction.order_type).paginate(page: params[:page])
     @qa_files     = @solution.qa_files.order(:created_at => "ASC")
   end
 end

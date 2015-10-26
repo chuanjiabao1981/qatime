@@ -130,6 +130,7 @@ Qatime::Application.routes.draw do
       end
       collection do
         get 'teachers' #这个是给 customized_courses 未创建的时候用的
+        get 'get_sale_price'
       end
     end
   end

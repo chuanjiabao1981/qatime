@@ -37,19 +37,27 @@ class CustomizedCourse < ActiveRecord::Base
   private
 
   def set_prices
-    if self.category == "高中"
-      __set_price(APP_CONSTANT["customized_course_senior_high_common_prices"])
-    elsif self.category == "初中"
-      __set_price(APP_CONSTANT["customized_course_junior_high_common_prices"])
-    else
-      __set_price(APP_CONSTANT["customized_course_junior_common_prices"])
-    end
+    teacher_price, platform_price = get_customized_course_prices(self.category, self.customized_course_type)
+    self.teacher_price = teacher_price
+    self.platform_price = platform_price
   end
 
-  def __set_price(price_dict)
-    if self.subject
-      self.teacher_price = price_dict[self.customized_course_type]["teacher_price"]
-      self.platform_price = price_dict[self.customized_course_type]["platform_price"]
+  def self.get_customized_course_prices(category, customized_course_type)
+    if category == "高中"
+      price_dict = APP_CONSTANT["customized_course_senior_high_common_prices"]
+    elsif category == "初中"
+      price_dict = APP_CONSTANT["customized_course_junior_high_common_prices"]
+    else
+      price_dict = APP_CONSTANT["customized_course_junior_common_prices"]
     end
+
+    Rails.logger.info price_dict.as_json.to_s
+
+    Rails.logger.info customized_course_type.as_json.to_s
+
+    teacher_price = price_dict[customized_course_type]["teacher_price"]
+    platform_price = price_dict[customized_course_type]["platform_price"]
+
+    [teacher_price, platform_price]
   end
 end

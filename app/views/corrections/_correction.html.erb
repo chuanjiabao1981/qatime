@@ -1,4 +1,4 @@
-<div class="qa_object_item">
+<div class="qa_object_item <%= "animated pulse" if params[:aminate] and params[:aminate] == correction.id.to_s%>" id="<%="correction_#{correction.id}"%>">
   <div class="pull-left">
     <%=image_tag correction.teacher.avatar.normal.url %>
   </div>

@@ -109,16 +109,14 @@ module Permissions
       end
 
 
-      allow :corrections,[:create] do |solution|
+      allow :corrections,[:create,:show] do |solution|
         solution and solution.examination and solution.examination.response_teachers.include?(user)
       end
 
       allow :corrections,[:edit,:update] do |correction|
         correction and correction.status == "open" and correction.teacher_id == user.id
       end
-      # allow :exercise_corrections,[:edit,:update] do |correction|
-      #   correction and correction.status == "open" and correction.teacher_id == user.id
-      # end
+
       allow :exercises,[:new,:create] do |customized_tutorial|
         customized_tutorial  and customized_tutorial.teacher_id == user.id
       end
@@ -144,11 +142,14 @@ module Permissions
         course_issue and course_issue.customized_course.teacher_ids.include?(user.id)
       end
 
-      allow :course_issue_replies,[:show,:create] do |course_issue|
+      allow :course_issue_replies,[:create] do |course_issue|
         course_issue and course_issue.customized_course.teacher_ids.include?(user.id)
       end
       allow :course_issue_replies,[:edit,:update] do |course_issue_reply|
         course_issue_reply and course_issue_reply.author_id == user.id and course_issue_reply.status == "open"
+      end
+      allow :course_issue_replies,[:show] do |course_issue_reply|
+        course_issue_reply and course_issue_reply.customized_course.teacher_ids.include?(user.id)
       end
     end
 private

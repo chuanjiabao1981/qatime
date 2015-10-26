@@ -12,7 +12,7 @@ class Solution < ActiveRecord::Base
 
   has_many        :pictures,as: :imageable
   has_many        :corrections,:dependent => :destroy do
-
+    include QaPageNum
     def page_num(o)
       _page_num(o,by: Correction.order_column,order: Correction.order_type,per: Correction.per_page)
     end

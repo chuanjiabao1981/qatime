@@ -27,7 +27,6 @@ class CorrectionsController < ApplicationController
 
   def update
     resource_name         = @solution.examination.model_name.singular_route_key
-
     if @correction.update_attributes(params["#{resource_name}_correction".to_sym].permit!)
       flash[:success] = "成功编辑了#{@correction.model_name.human}"
       redirect_to solution_path(@correction.solution)

@@ -22,9 +22,10 @@ class CorrectionTest < ActiveSupport::TestCase
   test "correction keep_account" do
     teacher = Teacher.find(users(:teacher_tally).id)
     student = Student.find(users(:student_tally).id)
+    workstation = workstations(:workstation1)
 
     corrections = Correction.by_teacher_id(teacher.id).valid_tally_unit
-    keep_account_succeed(teacher, student, corrections, 5) do
+    keep_account_succeed(teacher, student, workstation, corrections, 5) do
       Correction.by_teacher_id(teacher.id).valid_tally_unit.size
     end
   end

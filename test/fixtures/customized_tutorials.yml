@@ -52,7 +52,7 @@ customized_tutorial_tally_<%= i %>:
   token: customized_tutorial_tally_video_<%= i %>
   status: open
   teacher_price: 54
-  platform_price: 0
+  platform_price: 6
 <% end %>
 
 # 5 closed
@@ -65,7 +65,7 @@ customized_tutorial_tally_<%= i %>:
   token: customized_tutorial_tally_video_<%= i %>
   status: closed
   teacher_price: 54
-  platform_price: 0
+  platform_price: 6
 <% end %>
 
 customized_tutorial_teacher2:

@@ -80,9 +80,10 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
   test "customized tutorial keep_account new" do
     teacher = Teacher.find(users(:teacher_tally).id)
     student = Student.find(users(:student_tally).id)
+    workstation = workstations(:workstation1)
 
     customized_tutorials = CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit
-    keep_account_succeed(teacher, student, customized_tutorials, 5) do
+    keep_account_succeed(teacher, student, workstation, customized_tutorials, 5) do
       # 传入待结账的计算方法，用来测试待结账的个数
       CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size
     end

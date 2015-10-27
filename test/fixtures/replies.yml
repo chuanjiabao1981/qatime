@@ -31,7 +31,7 @@ tutorial_issue_reply_for_tally_<%= i %>:
   token: tutorial_issue_reply_for_tally_video_<%= i %>
   status: open
   teacher_price: 54
-  platform_price: 0
+  platform_price: 6
 <% end %>
 
 <% 6.upto(10) do |i| %>
@@ -45,7 +45,7 @@ tutorial_issue_reply_for_tally_<%= i %>:
   token: tutorial_issue_reply_for_tally_video_<%= i %>
   status: closed
   teacher_price: 54
-  platform_price: 0
+  platform_price: 6
 <% end %>
 
 # test CourseIssue replies tally
@@ -60,7 +60,7 @@ course_issue_reply_for_tally_<%= i %>:
   type: CourseIssueReply
   status: open
   teacher_price: 54
-  platform_price: 0
+  platform_price: 6
 <% end %>
 
 <% 6.upto(10) do |i| %>
@@ -73,7 +73,7 @@ course_issue_reply_for_tally_<%= i %>:
   token: course_issue_reply_for_tally_video_<%= i %>
   status: closed
   teacher_price: 54
-  platform_price: 0
+  platform_price: 6
 <% end %>
 
 #reply_fee_reply:

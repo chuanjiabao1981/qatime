@@ -29,3 +29,8 @@ account_for_teacher_tally:
 account_for_student_tally:
   accountable: student_tally (User)
   money: 0
+
+account_for_workstation:
+  accountable: workstation1 (Workstation)
+  money: 0
+

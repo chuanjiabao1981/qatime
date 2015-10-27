@@ -3,6 +3,8 @@
     <h2><%=@workstation.class.model_name.human%></h2>
   </div>
   <div class="qa_big_cell">
-    <%= @workstation.name %> <%= link_to 'edit',edit_admins_workstation_path(@workstation)%>
+    <% if allow? "workstations","edit",@workstation %>
+        <%= @workstation.name %> <%= link_to 'edit',edit_admins_workstation_path(@workstation)%>
+    <% end %>
   </div>
 </div>

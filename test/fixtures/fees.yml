@@ -19,14 +19,16 @@ customized_tutorial_teacher_earnings_1_video_fee:
   feeable: customized_tutorial_teacher_earnings_1 (CustomizedTutorial)
   value: 1.5
   video_duration: 90
-  price_per_minute: 1
+  teacher_price: 54
+  platform_price: 0
 
 exercise_fee_correction_one_fee:
   customized_course: customized_course5
   feeable: exercise_fee_correction_one (Correction)
   value: 2
   video_duration: 120
-  price_per_minute: 1
+  teacher_price: 54
+  platform_price: 0
 
 #reply_fee:
 #  customized_course: customized_course5
@@ -40,7 +42,8 @@ correction_fee:
   feeable: correction_fee_correction_one (Correction)
   value: 3
   video_duration: 180
-  price_per_minute: 1
+  teacher_price: 54
+  platform_price: 0
 
 
 fee_for_course_issue_reply:
@@ -48,11 +51,13 @@ fee_for_course_issue_reply:
   feeable: course_issue_reply_for_fee_view (Reply)
   value: 2.5
   video_duration: 150
-  price_per_minute: 1
+  teacher_price: 54
+  platform_price: 0
 
 fee_for_tutorial_issue_reply:
   customized_course: customized_course5
   feeable: tutorial_issue_reply_for_fee_view (Reply)
   value: 4
   video_duration: 240
-  price_per_minute: 1
+  teacher_price: 54
+  platform_price: 0

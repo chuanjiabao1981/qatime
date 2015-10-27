@@ -23,6 +23,7 @@ class CustomizedCoursesController < ApplicationController
 
   def edit
     all_teacher
+    @workstations = Workstation.by_manager_id(current_user.id)
   end
 
   def update

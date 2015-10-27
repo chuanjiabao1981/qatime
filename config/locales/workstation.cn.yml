@@ -5,8 +5,8 @@ cn:
     attributes:
       workstation:
         name: 名称
-        city_id: 城市
+        city: 城市
         address: 地址
         tel: 电话
         email: 邮箱
-        manager_id: 经理
+        manager: 经理

@@ -33,16 +33,17 @@ class ReplyTest < ActiveSupport::TestCase
   test "reply keep_account" do
     teacher = Teacher.find(users(:teacher_tally).id)
     student = Student.find(users(:student_tally).id)
+    workstation = workstations(:workstation1)
 
     course_issue_replies = CourseIssueReply.by_author_id(teacher.id).valid_tally_unit
 
-    keep_account_succeed(teacher, student, course_issue_replies, 5) do
+    keep_account_succeed(teacher, student, workstation, course_issue_replies, 5) do
       CourseIssueReply.by_author_id(teacher.id).valid_tally_unit.size
     end
 
     tutorial_issue_replies = TutorialIssueReply.by_author_id(teacher.id).valid_tally_unit
 
-    keep_account_succeed(teacher, student, tutorial_issue_replies, 5) do
+    keep_account_succeed(teacher, student, workstation, tutorial_issue_replies, 5) do
       tutorial_issue_replies.by_author_id(teacher.id).valid_tally_unit.size
     end
   end

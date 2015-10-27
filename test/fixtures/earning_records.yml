@@ -7,13 +7,13 @@
 customized_tutorial_teacher_earning_record_1:
   fee: customized_tutorial_teacher_earnings_1_video_fee
   account: physics_teacher1_account
-  percent: 1
+  price: 54
   value: 1.5
 
 correction_one_fee_erning_record:
   fee: exercise_fee_correction_one_fee
   account: physics_teacher1_account
-  percent: 1
+  price: 54
   value: 2
 
 #reply_fee_earning_record:
@@ -25,17 +25,17 @@ correction_one_fee_erning_record:
 homework_solution_correction_earning_record:
   fee: correction_fee
   account: physics_teacher1_account
-  percent: 1
+  price: 54
   value: 3
 
 earning_record_for_course_issue_reply:
   fee: fee_for_course_issue_reply
   account: physics_teacher1_account
-  percent: 1
+  price: 54
   value: 2.5
 
 earning_record_for_tutorial_issue_reply:
   fee: fee_for_tutorial_issue_reply
   account: physics_teacher1_account
-  percent: 1
+  price: 54
   value: 4

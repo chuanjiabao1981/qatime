@@ -76,8 +76,19 @@ class CustomizedCourseCreateTest < ActionDispatch::IntegrationTest
         end
       end
     end
-    page.save_screenshot('screenshot.png')
+    #page.save_screenshot('screenshot.png')
   end
+
+  test "customized course create price show" do
+    log_in_as(@manager)
+    student1 = users(:student1)
+    visit new_student_customized_course_path(student1)
+    sleep 3
+    page.save_screenshot('screenshot.png')
+    assert page.has_content?("销售价格")
+
+  end
+
   test "customize course create link" do
     log_in_as(@manager)
     student1 = users(:student1)

@@ -6,6 +6,7 @@ class CustomizedCourseAATest < ActiveSupport::TestCase
 
   test "validate customize course" do
     manager = users(:manager)
+    workstation = Workstation.by_manager_id(manager.id).first
 
     cc = customized_courses(:customized_course1)
     assert cc.valid?
@@ -19,6 +20,7 @@ class CustomizedCourseAATest < ActiveSupport::TestCase
         cc.category = category
         cc.subject = subject
         cc.creator_id = manager.id
+        cc.workstation_id = workstation.id
         assert cc.save
         assert cc.valid?
 
@@ -33,6 +35,7 @@ class CustomizedCourseAATest < ActiveSupport::TestCase
     cc = student.customized_courses.build
     cc.category = "高中"
     cc.creator_id = manager.id
+    cc.workstation_id = workstation.id
     cc.save
 
     teacher_price_old, platform_price_old = get_expected_customized_course_prices(cc)

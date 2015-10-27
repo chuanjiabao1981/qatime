@@ -5,6 +5,7 @@ class CustomizedCourse < ActiveRecord::Base
   has_many :customized_tutorials,:dependent => :destroy
   has_many :tutorial_issues
   belongs_to :workstation
+  belongs_to :creator, :class_name => "User"
 
   has_many :fees
 
@@ -37,7 +38,17 @@ class CustomizedCourse < ActiveRecord::Base
   private
 
   def set_prices
-    teacher_price, platform_price = get_customized_course_prices(self.category, self.customized_course_type)
+    if self.new_record?
+      __set_prices
+    else
+      if self.subject_changed? or self.customized_course_type_changed?
+        __set_prices
+      end
+    end
+  end
+
+  def __set_prices
+    teacher_price, platform_price = CustomizedCourse.get_customized_course_prices(self.category, self.customized_course_type)
     self.teacher_price = teacher_price
     self.platform_price = platform_price
   end

@@ -136,6 +136,6 @@ class TutorialIssueIntegrateTest < LoginTestBase
     user_session.assert_response :success
     user_session.assert_select "a[href=?]",customized_tutorial_path(@customized_tutorial),1
     user_session.assert_select "a[href=?]",customized_course_path(@customized_tutorial.customized_course),1
-    user_session.assert_select "form[action=?]",customized_tutorial_tutorial_issues_path(@customized_tutorial),1
+   ` user_session.assert_select "form[action=?]",customized_tutorial_tutorial_issues_path(@customized_tutorial),1`
   end
 end

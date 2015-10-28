@@ -13,7 +13,7 @@ class CustomizedCourse < ActiveRecord::Base
 
   has_many :homeworks,:dependent => :destroy
 
-  validates_presence_of :subject,:category,:student, :platform_price, :teacher_price, :creator_id, :workstation_id
+  validates_presence_of :subject,:category,:student, :platform_price, :teacher_price, :creator, :workstation
 
   before_validation :set_prices
 
@@ -61,10 +61,6 @@ class CustomizedCourse < ActiveRecord::Base
     else
       price_dict = APP_CONSTANT["customized_course_junior_common_prices"]
     end
-
-    Rails.logger.info price_dict.as_json.to_s
-
-    Rails.logger.info customized_course_type.as_json.to_s
 
     teacher_price = price_dict[customized_course_type]["teacher_price"]
     platform_price = price_dict[customized_course_type]["platform_price"]

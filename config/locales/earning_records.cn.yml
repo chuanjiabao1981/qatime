@@ -6,3 +6,4 @@ cn:
       earning_record:
         value: 金额
         created: 结账时间
+        price: 每小时价格

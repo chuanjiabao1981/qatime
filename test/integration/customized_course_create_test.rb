@@ -83,11 +83,6 @@ class CustomizedCourseCreateTest < ActionDispatch::IntegrationTest
     log_in_as(@manager)
     student1 = users(:student1)
     visit new_student_customized_course_path(student1)
-    using_wait_time 3 do
-      assert page.has_content? "每小时54元"
-    end
-    page.save_screenshot('screenshot.png')
-    puts page.first("#s_sale_price").text
   end
 
   test "customize course create link" do

@@ -1,5 +1,6 @@
 class TutorialIssuesController < ApplicationController
 
+  include QaTopic
   layout 'application'
   respond_to :html
 
@@ -18,7 +19,7 @@ class TutorialIssuesController < ApplicationController
   end
 
   def show
-    @tutorial_issue_replies             = @tutorial_issue.tutorial_issue_replies.order(:created_at).paginate(page: params[:page])
+    tutorial_issue_show_prepare
     @tutorial_issue_reply              = @tutorial_issue.tutorial_issue_replies.build
   end
 

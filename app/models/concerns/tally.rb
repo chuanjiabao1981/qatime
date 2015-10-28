@@ -43,7 +43,8 @@ module Tally
 
     ##扣款
     def __charge_fee(fee)
-      consumption_account         = Student.find(self.customized_course.student_id).account
+      customized_course           = CustomizedCourse.find(self.customized_course_id)
+      consumption_account         = Student.find(customized_course.student_id).account
       consumption_account.lock!
       consumption_account.money   = consumption_account.money - fee.value
       consumption_account.total_expenditure = consumption_account.total_expenditure + fee.value
@@ -60,23 +61,22 @@ module Tally
     end
 
     ## 计算分配比例
-    def __calculate_split_value(fee)
+    def __calculate_split_value(fee, teacher_account, workstation_account)
       teacher_percent = fee.teacher_price / (fee.teacher_price + fee.platform_price)
       workstation_percent = 1 - teacher_percent
       teacher_value = float_format(fee.value * teacher_percent)
       workstation_value = float_format(fee.value * workstation_percent)
-      [teacher_value, workstation_value]
+      [[teacher_account, teacher_value, fee.teacher_price], [workstation_account, workstation_value, fee.platform_price]]
     end
 
     ##分账
     def __split_fee(teacher_id,fee)
-      teacher_value, workstation_value = __calculate_split_value(fee)
       teacher_account = Teacher.find(teacher_id).account
-      workstation_account = Workstation.find(self.customized_course.workstation_id).account
-      # split to teacher
-      __split_fee_to_relative_account(teacher_account, fee, teacher_value, fee.teacher_price)
-      # split to workstation
-      __split_fee_to_relative_account(workstation_account, fee, workstation_value, fee.platform_price)
+      customized_course = CustomizedCourse.find(self.customized_course_id)
+      workstation_account = Workstation.find(customized_course.workstation_id).account
+      __calculate_split_value(fee, teacher_account, workstation_account).each do |account, value, price|
+        __split_fee_to_relative_account(account, fee, value, price)
+      end
     end
 
 

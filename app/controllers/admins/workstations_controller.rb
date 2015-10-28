@@ -1,13 +1,14 @@
 class Admins::WorkstationsController < ApplicationController
+  before_action :worker_station_associations_prepare
+
   respond_to :html
   layout "admin_home"
+
 
   def index
     @workstations = Workstation.all
   end
   def new
-    @cities = City.all
-    @managers = Manager.all
     @workstation = Workstation.new
   end
 
@@ -26,8 +27,6 @@ class Admins::WorkstationsController < ApplicationController
 
   def edit
     @workstation = Workstation.find(params[:id])
-    @cities = City.all
-    @managers = Manager.all
   end
   def update
     @workstation = Workstation.find(params[:id])
@@ -38,5 +37,17 @@ class Admins::WorkstationsController < ApplicationController
     @workstation = Workstation.find(params[:id])
     @workstation.destroy
     redirect_to admins_workstations_path
+  end
+
+
+  private
+  def worker_station_associations_prepare
+    unless not @managers.nil?
+      @managers = Manager.all
+    end
+
+    unless not @cities.nil?
+      @cities = City.all
+    end
   end
 end

@@ -1,11 +1,11 @@
 class CustomizedCoursesController < ApplicationController
+  before_action :customized_course__associations_prepare
   respond_to :html,:js,:json
   layout "application"
 
   def new
     @customized_course = @student.customized_courses.build
     all_teacher
-    @workstations = Workstation.by_manager_id(current_user.id)
   end
 
   def create
@@ -22,8 +22,8 @@ class CustomizedCoursesController < ApplicationController
   end
 
   def edit
+    @customized_course = CustomizedCourse.find(params[:id])
     all_teacher
-    @workstations = Workstation.by_manager_id(current_user.id)
   end
 
   def update
@@ -74,5 +74,11 @@ class CustomizedCoursesController < ApplicationController
       res                = @customized_course
     end
     res
+  end
+
+  def customized_course__associations_prepare
+    unless not @workstations.nil?
+      @workstations = Workstation.by_manager_id(current_user.id)
+    end
   end
 end

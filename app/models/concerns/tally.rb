@@ -3,7 +3,6 @@ module Tally
   included do
 
     has_one  :fee, as: :feeable
-
     scope :valid_tally_unit, -> { where("customized_course_id is not null").where(:status => "open") }
 
     before_validation :set_customized_course_prices, on: :create
@@ -44,8 +43,7 @@ module Tally
 
     ##扣款
     def __charge_fee(fee)
-      customized_course           = CustomizedCourse.find(self.customized_course_id)
-      consumption_account         = Student.find(customized_course.student_id).account
+      consumption_account         = Student.find(self.customized_course.student_id).account
       consumption_account.lock!
       consumption_account.money   = consumption_account.money - fee.value
       consumption_account.total_expenditure = consumption_account.total_expenditure + fee.value
@@ -74,8 +72,7 @@ module Tally
     def __split_fee(teacher_id,fee)
       teacher_value, workstation_value = __calculate_split_value(fee)
       teacher_account = Teacher.find(teacher_id).account
-      customized_course = CustomizedCourse.find(self.customized_course_id)
-      workstation_account = Workstation.find(customized_course.workstation_id).account
+      workstation_account = Workstation.find(self.customized_course.workstation_id).account
       # split to teacher
       __split_fee_to_relative_account(teacher_account, fee, teacher_value, fee.teacher_price)
       # split to workstation
@@ -105,6 +102,5 @@ module Tally
         end
       end
     end
-
   end
 end

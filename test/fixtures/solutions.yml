@@ -39,6 +39,7 @@ exercise_solution_one:
   solutionable_id: <%= ActiveRecord::FixtureSet.identify(:exercise_one) %>
   solutionable_type: Exercise
   student: student1
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
 
 exercise_fee_solution_one:
   title: exercise fee solution test title 1
@@ -46,11 +47,13 @@ exercise_fee_solution_one:
   solutionable_id: <%= ActiveRecord::FixtureSet.identify(:exercise_fee_one) %>
   solutionable_type: Exercise
   student: student2
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
 
 solution_for_homework_correction_fee:
   title: solution for homework correction fee
   content: solution for homework correction fee
   solutionable: homeworker_for_correction_fee_one(Homework)
   student: student2
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
 
 

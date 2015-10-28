@@ -94,6 +94,8 @@ tutorial_issue_reply_one:
   token: tutorial_issue_reply_one
   status: open
   type: TutorialIssueReply
+  teacher_price: 54
+  platform_price: 6
 
 tutorial_issue_reply_with_video:
   author: teacher1
@@ -104,6 +106,8 @@ tutorial_issue_reply_with_video:
   token: tutorial_issue_reply_with_video
   status: open
   type: TutorialIssueReply
+  teacher_price: 54
+  platform_price: 6
 
 course_issue_reply_one:
   author: teacher1
@@ -113,6 +117,8 @@ course_issue_reply_one:
   token: tutorial_issue_reply_one
   status: open
   type: CourseIssueReply
+  teacher_price: 54
+  platform_price: 6
 
 course_issue_reply_with_video:
   author: teacher1
@@ -122,6 +128,8 @@ course_issue_reply_with_video:
   token: course_issue_reply_with_video
   status: open
   type: CourseIssueReply
+  teacher_price: 54
+  platform_price: 6
 
 ###Begin Fee view
 course_issue_reply_for_fee_view:
@@ -132,6 +140,8 @@ course_issue_reply_for_fee_view:
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
   token: course_issue_reply_for_fee_view
   status: closed
+  teacher_price: 54
+  platform_price: 6
 
 tutorial_issue_reply_for_fee_view:
   author: physics_teacher1
@@ -141,6 +151,8 @@ tutorial_issue_reply_for_fee_view:
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
   token: tutorial_issue_reply_for_fee_view
   status: closed
+  teacher_price: 54
+  platform_price: 6
 ###End Fee view
 
 

@@ -38,6 +38,10 @@ class Correction < ActiveRecord::Base
     Solution.model_name.human
   end
 
+  def operator_id
+    self.teacher_id
+  end
+
   def notify
     teacher           = self.teacher
     student           = self.solution.student
@@ -48,7 +52,6 @@ class Correction < ActiveRecord::Base
                             mobile: student.mobile,
                             message: "批改了你的#{solution_name},请关注,"
     )
-
   end
 
   private

@@ -34,16 +34,18 @@ class SolutionTest < ActiveSupport::TestCase
   end
 
   test "create exercise solution" do
-    exercise            = examinations(:exercise_one)
-    exercise_solution   = exercise.exercise_solutions.build(title: "123asdfds",content: "QERQWADFA")
-
+    exercise                    = examinations(:exercise_one)
+    exercise_solution           = exercise.exercise_solutions.build(title: "123asdfds",content: "QERQWADFA")
+    exercise_solution.student   = exercise.customized_course.student
     assert exercise_solution.valid?
     assert exercise_solution.customized_tutorial.valid?
     assert exercise_solution.customized_course.valid?
 
-    assert "exercise.reload.solutions_count",1 do
-      assert "Exercise.count",1 do
-        exercise_solution.save!
+    assert_difference "exercise.reload.solutions_count",1 do
+      assert_difference "ExerciseSolution.count",1 do
+        assert_difference 'CustomizedCourseActionRecord.count',1 do
+          exercise_solution.save!
+        end
       end
     end
   end

@@ -41,6 +41,9 @@ class Solution < ActiveRecord::Base
     self.student
   end
 
+  def operator_id
+    self.student_id
+  end
   def handles_count
     self.corrections_count
   end

@@ -58,7 +58,7 @@ class TeacherHomePageTest < ActionDispatch::IntegrationTest
     @physics_teacher1_session.assert_select "a[href=?]", customized_tutorial_path(@customized_tutorial_teacher_earnings_1)
     @physics_teacher1_session.assert_select "td",CustomizedTutorial.model_name.human
     @physics_teacher1_session.assert_select "td",@customized_tutorial_teacher_earnings_1.fee.value.to_s
-    @physics_teacher1_session.assert_select "a[href=?]", course_issue_reply_path(@course_issue_reply_for_fee_view)
+    @physics_teacher1_session.assert_select "a[href=?]", course_issue_reply_path(@course_issue_reply_for_fee_view.id)#,page:1,reply_aminate:@course_issue_reply_for_fee_view.id,anchor:"reply_#{@course_issue_reply_for_fee_view.id}")
     @physics_teacher1_session.assert_select "td",CourseIssueReply.model_name.human
     @physics_teacher1_session.assert_select "td",@course_issue_reply_for_fee_view.fee.value.to_s
     @physics_teacher1_session.assert_select "a[href=?]", tutorial_issue_reply_path(@tutorial_issue_reply_for_fee_view)

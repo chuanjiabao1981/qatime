@@ -25,7 +25,7 @@ class CourseIssueReplyIntegrateTest < LoginTestBase
   end
   test 'show page' do
     show_path           = course_issue_reply_path(@course_issue_reply_one)
-    redirected_to_path  = course_issue_path(@course_issue_reply_one.course_issue)
+    redirected_to_path  = course_issue_path(@course_issue_reply_one.course_issue,page:1,reply_aminate: @course_issue_reply_one.id,anchor: "reply_#{@course_issue_reply_one.id}")
     show_page(@teacher,@teacher_session,show_path,redirected_to_path)
     show_page(@student,@student_session,show_path,redirected_to_path)
   end

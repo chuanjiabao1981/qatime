@@ -10,7 +10,6 @@ class TutorialIssueIntegrateTest < LoginTestBase
   def setup
     @customized_tutorial = customized_tutorials(:customized_tutorial1)
     @tutorial_issue_one = topics(:tutorial_issue_one)
-
     super
   end
 

@@ -1,4 +1,8 @@
 class Workstation < ActiveRecord::Base
+
+  validates_length_of :name , maximum: 20,minimum: 2
+
+  validates_presence_of :name, :manager
   belongs_to :manager, :class_name => "Manager"
   belongs_to :city
   has_one  :account, as: :accountable

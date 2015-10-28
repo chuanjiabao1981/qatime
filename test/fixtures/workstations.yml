@@ -7,3 +7,11 @@ workstation1:
   tel: 1
   email: MyString
   manager: manager
+
+workstation_invalid:
+  name: MyString
+  city: yangquan
+  address: MyString
+  tel: 1
+  email: MyString
+

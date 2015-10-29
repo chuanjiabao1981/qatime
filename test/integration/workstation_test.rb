@@ -37,10 +37,6 @@ class WorkstationIntegrateTest < LoginTestBase
     end
     user_session.assert_response :success
     user_session.assert_select "form[action=?]",admins_workstations_path,1
-    # 应该有一个管理员
-    user_session.assert_select "select[id=?]","workstation_manager_id", 1
-    # 应该有一个城市
-    user_session.assert_select "select[id=?]","workstation_city_id", 1
     user_session.assert_select "option", 4
   end
 

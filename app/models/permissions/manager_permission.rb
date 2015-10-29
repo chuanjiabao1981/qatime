@@ -59,10 +59,10 @@ module Permissions
       allow :sessions,[:destroy]
 
       allow :deposits,[:new,:create] do |account|
-        account and account.user.student?
+        account and account.accountable.student?
       end
       allow :withdraws,[:new,:create] do |account|
-        account and account.user.teacher?
+        account and account.accountable.teacher?
       end
 
       allow :tutorial_issues,[:show]

@@ -6,7 +6,7 @@ class WithdrawsController < ApplicationController
     @withdraw = @account.withdraw(params[:withdraw].permit!,current_user.id)
     if @withdraw.valid? and not @withdraw.new_record?
       flash[:success] = "成功提现#{@withdraw.value}！"
-      redirect_to send("info_#{@withdraw.account.user.role}_path",@withdraw.account.user)
+      redirect_to send("info_#{@withdraw.account.accountable.role}_path",@withdraw.account.accountable)
     else
       render 'withdraws/new'
     end

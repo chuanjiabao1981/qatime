@@ -5,7 +5,9 @@ cn:
     attributes:
       fee:
         value: 余额
-        price_per_minute: 每分钟价格
+        teacher_price: 老师每小时价格
+        platform_price: 平台每小时价格
+        sale_price: 每小时价格
         video_duration: 视频时长
         desc:
         type: 类型

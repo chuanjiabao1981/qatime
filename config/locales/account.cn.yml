@@ -12,3 +12,5 @@ cn:
         student_fee_record: 消费记录
         teacher_fee_record: 收益记录
         keep_account: 结账
+        total_income: 总收入
+        total_expenditure: 总支出

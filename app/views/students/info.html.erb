@@ -34,22 +34,13 @@
     <div class="row">
         <div class="col-md-2" style="padding-left:40px"><%= Account.human_attribute_name(:money) %></div>
         <div class="col-md-9">
-          <%= @student.account.money %>
+          <%= format("%.2f",@student.account.money) %>
           <% if allow? :deposits,:new ,@student.account%>
                 <%= link_to new_account_deposit_path(@student.account) do %>
                     <span><%= Deposit.model_name.human %></span>
                 <% end %>
           <% end %>
         </div>
-    </div>
-  </div>
-
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= Account.human_attribute_name(:total_expenditure) %></div>
-      <div class="col-md-9">
-        <%= @student.account.total_expenditure %>元
-      </div>
     </div>
   </div>
 </div>

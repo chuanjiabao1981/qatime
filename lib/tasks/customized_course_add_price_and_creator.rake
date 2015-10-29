@@ -12,7 +12,7 @@ task :customized_course_add_price_and_creator => :environment do
 
     if customized_course and customized_course.teacher_price.nil?
       teacher_price, platform_price = CustomizedCourse.get_customized_course_prices(customized_course.category, "heighten")
-      if customized_course.id < 16
+      if customized_course.id < 16 and customized_course.id != 15
         customized_course.platform_price = 0
       else
         customized_course.platform_price = platform_price

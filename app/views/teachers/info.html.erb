@@ -62,7 +62,7 @@
     <div class="row">
       <div class="col-md-2" style="padding-left:40px"><%= Account.human_attribute_name(:money) %></div>
       <div class="col-md-9">
-        <%= @teacher.account.money %>元
+        <%= format("%.2f",@teacher.account.money) %>元
         <% if allow? :withdraws,:new ,@teacher.account%>
             <%= link_to new_account_withdraw_path(@teacher.account) do %>
                 <span><%= Withdraw.model_name.human %></span>
@@ -81,7 +81,7 @@
     <div class="row">
       <div class="col-md-2" style="padding-left:40px"><%= Account.human_attribute_name(:total_income) %></div>
       <div class="col-md-9">
-        <%= @teacher.account.total_income %>元
+        <%= format("%.2f",@teacher.account.total_income) %>元
       </div>
     </div>
   </div>

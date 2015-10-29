@@ -5,8 +5,8 @@ task :create_default_workstation => :environment do
   workstation = Workstation.new
 
   workstation.name = "阳泉工作站"
-  workstation.address = "阳泉"
-  workstation.tel = "13439338326"
+  workstation.address = "山西阳泉开发区远东大厦809"
+  workstation.tel = "0353-2135828"
   workstation.email = "yangquan@qatime.cn"
 
   workstation.manager = manager

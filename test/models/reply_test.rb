@@ -37,13 +37,13 @@ class ReplyTest < ActiveSupport::TestCase
 
     course_issue_replies = CourseIssueReply.by_author_id(teacher.id).valid_tally_unit
 
-    keep_account_succeed(teacher, student, workstation, course_issue_replies, 5) do
+    keep_account_succeed(teacher, student, workstation, course_issue_replies, 5, "Reply") do
       CourseIssueReply.by_author_id(teacher.id).valid_tally_unit.size
     end
 
     tutorial_issue_replies = TutorialIssueReply.by_author_id(teacher.id).valid_tally_unit
 
-    keep_account_succeed(teacher, student, workstation, tutorial_issue_replies, 5) do
+    keep_account_succeed(teacher, student, workstation, tutorial_issue_replies, 5, "Reply") do
       tutorial_issue_replies.by_author_id(teacher.id).valid_tally_unit.size
     end
   end

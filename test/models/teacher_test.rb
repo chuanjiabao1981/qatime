@@ -90,7 +90,7 @@ class TeacherTest < ActiveSupport::TestCase
     customized_course     = customized_courses(:customized_course_tally)
     assert customized_course.fees.size == 20
     customized_course.fees.each do |f|
-      assert f.consumption_records.length == 1
+      assert f.consumption_records.length           == 1
       assert f.consumption_records.first.account_id == student.account.id
       assert f.consumption_records.first.value      == f.value
 
@@ -98,13 +98,13 @@ class TeacherTest < ActiveSupport::TestCase
       teacher_earning_value = float_test_format(f.value * teacher_percent)
       workstation_earning_value = float_test_format(f.value * workstation_percent)
 
-      assert f.earning_records.length == 2
-      assert f.earning_records.first.account_id == teacher.account.id
-      assert f.earning_records.first.price      == customized_course.teacher_price
-      assert f.earning_records.first.value      == teacher_earning_value
-      assert f.earning_records.second.account_id == workstation.account.id
-      assert f.earning_records.second.price      == customized_course.platform_price
-      assert f.earning_records.second.value      == workstation_earning_value
+      assert f.earning_records.length               == 2
+      assert f.earning_records.first.account_id     == teacher.account.id
+      assert f.earning_records.first.price          == customized_course.teacher_price
+      assert f.earning_records.first.value          == teacher_earning_value
+      assert f.earning_records.second.account_id    == workstation.account.id
+      assert f.earning_records.second.price         == customized_course.platform_price
+      assert f.earning_records.second.value         == workstation_earning_value
 
       assert f.value == float_test_format(f.earning_records.first.value + f.earning_records.second.value)
       assert f.video_duration   == f.feeable.video.duration
@@ -119,13 +119,13 @@ class TeacherTest < ActiveSupport::TestCase
 
     assert workstation_account.money == float_test_format(workstation_money + workstation_money_change_expected)
 
-    assert teacher_account.total_income =  float_test_format(teacher_total_income + teacher_money_change_expected)
-    assert teacher_account.total_expenditure = teacher_total_expenditure
+    assert teacher_account.total_income ==  float_test_format(teacher_total_income + teacher_money_change_expected)
+    assert teacher_account.total_expenditure == teacher_total_expenditure
 
-    assert student_account.total_income = student_total_income
-    assert student_account.total_expenditure = float_test_format(student_total_expenditure + student_money_change_expected)
+    assert student_account.total_income == student_total_income
+    assert student_account.total_expenditure == float_test_format(student_total_expenditure + student_money_change_expected)
 
-    assert workstation_account.total_income = float_test_format(workstation_total_income + workstation_money_change_expected)
-    assert workstation_account.total_expenditure = workstation_total_expenditure
+    assert workstation_account.total_income == float_test_format(workstation_total_income + workstation_money_change_expected)
+    assert workstation_account.total_expenditure == workstation_total_expenditure
   end
 end

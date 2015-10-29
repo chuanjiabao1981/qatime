@@ -6,8 +6,8 @@
     <%= simple_form_for [:admins,@workstation] do |f|%>
         <%=f.input :name %>
         <%=f.input :address %>
-        <%= f.association :city, collection: @cities.map {|t|[t.name,t.id]} %>
-        <%= f.association :manager, collection: @managers.map {|t|[t.name,t.id]} %>
+        <%= f.association :city, collection: @cities.map {|t|[t.name,t.id]}, input_html:{ :id => "s_city"} %>
+        <%= f.association :manager, collection: @managers.map {|t|[t.name,t.id]}, input_html:{ :id => "s_manager"} %>
         <%=f.input :tel %>
         <%=f.input :email %>
         <%= f.button :submit, class: "btn btn-default" %>

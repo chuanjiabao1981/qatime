@@ -12,6 +12,7 @@ class WorkstationIntegrateTest < LoginTestBase
     @admin_session    = log_in2_as(@admin)
     @manager          = Manager.find(users(:manager).id)
     @manager_session  = log_in2_as(@manager)
+    @workstation = workstations(:workstation1)
   end
 
   test 'list page' do
@@ -20,22 +21,12 @@ class WorkstationIntegrateTest < LoginTestBase
   end
 
   test 'new page' do
-    new_page(@admin,@admin_session,new_admins_workstation_path)
-    new_page(@manager,@manager_session,new_admins_workstation_path)
+    new_page(@admin, @admin_session,new_admins_workstation_path)
+    new_page(@manager, @manager_session,new_admins_workstation_path)
   end
-
-  test 'create page' do
-
-  end
-
-  test 'edit page' do
-
-  end
-
-  test 'update page' do
-  end
-
   test 'show page' do
+    show_page(@admin, @admin_session, admins_workstation_path(@workstation))
+    show_page(@manager, @manager_session, admins_workstation_path(@workstation))
   end
 
   def new_page(user,user_session,new_path)
@@ -53,8 +44,13 @@ class WorkstationIntegrateTest < LoginTestBase
     user_session.assert_select "option", 4
   end
 
-  def create_page(user,user_session,create_path)
-
+  def show_page(user, user_session, show_path)
+    user_session.get show_path
+    if user.admin?
+      user_session.assert_response :success
+    else
+      user_session.assert_redirected_to managers_home_path
+    end
   end
 
   def teardown

@@ -79,10 +79,19 @@ class CustomizedCourseCreateTest < ActionDispatch::IntegrationTest
     #page.save_screenshot('screenshot.png')
   end
 
-  test "customized course create price show" do
+  test "customized course edit price changed" do
     log_in_as(@manager)
     student1 = users(:student1)
-    visit new_student_customized_course_path(student1)
+
+    customized_course1 = customized_courses(:customized_course1)
+
+    teacher_price = customized_course1.teacher_price
+    visit edit_student_customized_course_path(customized_course1.student,customized_course1)
+
+    select '冲刺班', from: :s_customized_course_type
+    click_on '更新专属课程'
+    customized_course1.reload
+    assert_not_equal customized_course1.teacher_price, teacher_price
   end
 
   test "customize course create link" do

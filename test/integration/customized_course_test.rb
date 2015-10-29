@@ -14,16 +14,16 @@ class CustomizedCourseIntegrateTest < LoginTestBase
   test "course show" do
     show_page(@student_session,customized_course_path(@customized_course))
     show_page(@teacher_session,customized_course_path(@customized_course))
-
   end
+
   private
   def index_page(user_session,indexpath)
     user_session.get indexpath
     user_session.assert_response :success
     user_session.assert_select 'a[href=?]', customized_course_path(@customized_course),1
     user_session.assert_select 'a[href=?]', new_student_customized_course_path(@student),0
-    #user_session.assert_select 'div'      , @customized_course.category
   end
+
   def show_page(user_session,showpath)
     user_session.get showpath
     user_session.assert_response :success
@@ -44,6 +44,5 @@ class CustomizedCourseIntegrateTest < LoginTestBase
       user_session.assert_select 'a[href=?]', customized_tutorial_path(customized_tutorial),1
       user_session.assert_select 'a', customized_tutorial.name
     end
-
   end
 end

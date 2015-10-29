@@ -36,6 +36,7 @@ module Tally
       fee.customized_course_id        = self.customized_course_id
       fee.teacher_price               = self.teacher_price
       fee.platform_price              = self.platform_price
+      fee.sale_price                  = self.platform_price + self.teacher_price
       fee.video_duration              = video.duration
       fee.save!
       fee

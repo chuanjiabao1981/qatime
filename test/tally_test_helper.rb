@@ -1,7 +1,7 @@
 module TallyTestHelper
 
   # block传入的是老师的该类服务待结账的个数
-  def keep_account_succeed(teacher, student, workstation, collection, count, &block)
+  def keep_account_succeed(teacher, student, workstation, collection, count, class_name, &block)
 
     assert yield == count
     assert_difference 'EarningRecord.count', count*2 do
@@ -21,17 +21,19 @@ module TallyTestHelper
             assert student.account.money == float_test_format(student_money - student_value)
             assert teacher.account.money == float_test_format(teacher_money + teacher_value)
             assert workstation.account.money == float_test_format(workstation_money + workstation_value)
-            assert object.status = "closed"
+
+            assert object.status == "closed"
             # 对fee和老师生成的earning_record进行属性测试
             fee = object.fee
             assert_not_nil fee
-            assert fee.value == student_value
-            assert fee.platform_price = object.platform_price
-            assert fee.teacher_price  = object.teacher_price
-            assert fee.feeable_id = object.id
-            assert fee.feeable_type = object.class.name
-            assert fee.customized_course_id = object.customized_course_id
-            assert fee.video_duration = object.video.duration
+            assert fee.value                == student_value
+            assert fee.platform_price       == object.platform_price
+            assert fee.teacher_price        == object.teacher_price
+            assert fee.sale_price           == object.platform_price + object.teacher_price
+            assert fee.feeable_id           == object.id
+            assert fee.feeable_type         == class_name
+            assert fee.customized_course_id == object.customized_course_id
+            assert fee.video_duration       == object.video.duration
           end
         end
       end

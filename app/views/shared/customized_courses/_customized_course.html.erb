@@ -10,12 +10,14 @@
       <div class="col-md-1">
         <%= CustomizedCourse.human_attribute_name(:student) %>
       </div>
-      <div class="col-md-1">
-        <%= CustomizedCourse.human_attribute_name(:teacher_price) %>
-      </div>
-      <div class="col-md-1">
-        <%= CustomizedCourse.human_attribute_name(:platform_price) %>
-      </div>
+      <% if current_user.admin? or current_user.manager? %>
+        <div class="col-md-1">
+            <%= CustomizedCourse.human_attribute_name(:teacher_price) %>
+        </div>
+        <div class="col-md-1">
+            <%= CustomizedCourse.human_attribute_name(:platform_price) %>
+        </div>
+      <% end %>
       <div class="col-md-1">
         <%= CustomizedTutorial.model_name.human %>
       </div>
@@ -39,8 +41,10 @@
   </div>
   <div class="col-md-1"><%= customized_course.teachers.map {|t| t.view_name}.join(",") %></div>
   <div class="col-md-1"><%= customized_course.student.name %></div>
-  <div class="col-md-1"><%= customized_course.teacher_price %>元</div>
-  <div class="col-md-1"><%= customized_course.platform_price %>元</div>
+  <% if current_user.admin? or current_user.manager? %>
+    <div class="col-md-1"><%= customized_course.teacher_price %>元</div>
+     <div class="col-md-1"><%= customized_course.platform_price %>元</div>
+  <% end %>
   <div class="col-md-1"><%= customized_course.customized_tutorials_count%></div>
   <div class="col-md-2"><%= customized_course.homeworks_count%></div>
   <div class="col-md-2"><%= customized_course.timeout_to_solve_homeworks.count%></div>

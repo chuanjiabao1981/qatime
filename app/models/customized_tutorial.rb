@@ -3,6 +3,8 @@ class CustomizedTutorial < ActiveRecord::Base
   include QaToken
   include QaCommon
   include Tally
+  include QaActionRecord
+
 
   belongs_to :teacher
   belongs_to :customized_course,:counter_cache => true
@@ -44,6 +46,10 @@ class CustomizedTutorial < ActiveRecord::Base
     self.teacher
   end
   def author_id
+    self.teacher_id
+  end
+
+  def operator_id
     self.teacher_id
   end
 

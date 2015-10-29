@@ -4,6 +4,8 @@ class Examination < ActiveRecord::Base
   include ContentValidate
   include QaCommon
   include QaWork
+  include QaActionRecord
+
 
 
   belongs_to      :teacher
@@ -34,6 +36,10 @@ class Examination < ActiveRecord::Base
                             message: "布置了#{self.model_name.human},请及时完成,"
     )
 
+  end
 
+
+  def operator_id
+    self.teacher_id
   end
 end

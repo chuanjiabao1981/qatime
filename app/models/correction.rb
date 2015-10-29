@@ -3,6 +3,8 @@ class Correction < ActiveRecord::Base
   include QaCommon
   include QaToken
   include ContentValidate
+  include QaActionRecord
+
 
   belongs_to        :teacher
   belongs_to        :solution,counter_cache: true

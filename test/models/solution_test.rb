@@ -51,14 +51,16 @@ class SolutionTest < ActiveSupport::TestCase
   end
 
   test "create homework solution" do
-    homework            = examinations(:homework1)
-    homework_solution   = homework.homework_solutions.build(title: "aodkofdo",content: "0ookmmn")
-
+    homework                    = examinations(:homework1)
+    homework_solution           = homework.homework_solutions.build(title: "aodkofdo",content: "0ookmmn")
+    homework_solution.student   = homework.customized_course.student
     assert homework_solution.valid?
     assert homework_solution.customized_course.valid?
-    assert "homework.reload.solutions_count",1 do
-      assert "Homework.count",1 do
-        homework_solution.save!
+    assert_difference "homework.reload.solutions_count",1 do
+      assert_difference "HomeworkSolution.count",1 do
+        assert_difference 'CustomizedCourseActionRecord.count',1 do
+          homework_solution.save!
+        end
       end
     end
   end

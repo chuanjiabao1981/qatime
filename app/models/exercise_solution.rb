@@ -1,5 +1,4 @@
 class ExerciseSolution < Solution
-  include QaActionRecord
 
 
   belongs_to :exercise,foreign_key: :examination_id

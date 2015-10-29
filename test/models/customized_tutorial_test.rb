@@ -109,4 +109,16 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
       raise ActiveRecord::StatementInvalid, "Fake Wrong"
     end
   end
+
+  test "customized_tutorial create" do
+    cc            = customized_courses(:customized_course1)
+    ct            = cc.customized_tutorials.build(title: "134123412",content: "contesdafdsfasdf")
+    ct.teacher    = cc.teachers.first
+    assert ct.valid?
+    assert_difference 'CustomizedTutorial.count',1 do
+      assert_difference 'CustomizedCourseActionRecord.count',1 do
+        ct.save!
+      end
+    end
+  end
 end

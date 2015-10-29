@@ -3,6 +3,8 @@ class Solution < ActiveRecord::Base
   include ContentValidate
   include QaHandle
   include QaCommon
+  include QaActionRecord
+
 
 
 

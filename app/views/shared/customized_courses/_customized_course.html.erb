@@ -10,7 +10,7 @@
       <div class="col-md-1">
         <%= CustomizedCourse.human_attribute_name(:student) %>
       </div>
-      <% if current_user.admin? or current_user.manager? %>
+      <% if current_user.admin? %>
         <div class="col-md-1">
             <%= CustomizedCourse.human_attribute_name(:teacher_price) %>
         </div>
@@ -41,7 +41,7 @@
   </div>
   <div class="col-md-1"><%= customized_course.teachers.map {|t| t.view_name}.join(",") %></div>
   <div class="col-md-1"><%= customized_course.student.name %></div>
-  <% if current_user.admin? or current_user.manager? %>
+  <% if current_user.admin? %>
     <div class="col-md-1"><%= customized_course.teacher_price %>元</div>
      <div class="col-md-1"><%= customized_course.platform_price %>元</div>
   <% end %>

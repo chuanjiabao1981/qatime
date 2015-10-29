@@ -11,6 +11,12 @@
         <%= CustomizedCourse.human_attribute_name(:student) %>
       </div>
       <div class="col-md-1">
+        <%= CustomizedCourse.human_attribute_name(:teacher_price) %>
+      </div>
+      <div class="col-md-1">
+        <%= CustomizedCourse.human_attribute_name(:platform_price) %>
+      </div>
+      <div class="col-md-1">
         <%= CustomizedTutorial.model_name.human %>
       </div>
       <div class="col-md-2">
@@ -19,7 +25,7 @@
       <div class="col-md-2">
         超过3天未写的家庭作业数量
       </div>
-      <div class="col-md-2">
+      <div class="col-md-1">
         <%= CustomizedCourse.human_attribute_name(:topics) %>
 
       </div>
@@ -33,9 +39,11 @@
   </div>
   <div class="col-md-1"><%= customized_course.teachers.map {|t| t.view_name}.join(",") %></div>
   <div class="col-md-1"><%= customized_course.student.name %></div>
+  <div class="col-md-1"><%= customized_course.teacher_price %>元</div>
+  <div class="col-md-1"><%= customized_course.platform_price %>元</div>
   <div class="col-md-1"><%= customized_course.customized_tutorials_count%></div>
   <div class="col-md-2"><%= customized_course.homeworks_count%></div>
   <div class="col-md-2"><%= customized_course.timeout_to_solve_homeworks.count%></div>
-  <div class="col-md-2"><%= customized_course.topics_count%></div>
+  <div class="col-md-1"><%= customized_course.topics_count%></div>
 
 </div>

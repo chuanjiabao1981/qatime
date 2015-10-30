@@ -11,7 +11,9 @@ class CommentTest < ActiveSupport::TestCase
     assert_not homework_correction_comment.customized_course.nil?
     assert_difference "Comment.count",1 do
       assert_difference "CustomizedCourseActionRecord.count",1 do
-        homework_correction_comment.save
+        assert_difference "ActionNotification.count",2 do
+          homework_correction_comment.save
+        end
       end
     end
   end
@@ -24,7 +26,9 @@ class CommentTest < ActiveSupport::TestCase
     assert_not  exercise_correction_comment.customized_course.nil?
     assert_difference "Comment.count",1 do
       assert_difference "CustomizedCourseActionRecord.count",1 do
-        exercise_correction_comment.save
+        assert_difference "ActionNotification.count",2 do
+          exercise_correction_comment.save
+        end
       end
     end
   end
@@ -37,7 +41,9 @@ class CommentTest < ActiveSupport::TestCase
     assert_not    homework_solution_comment.customized_course.nil?
     assert_difference "Comment.count",1 do
       assert_difference "CustomizedCourseActionRecord.count",1 do
-        homework_solution_comment.save
+        assert_difference "ActionNotification.count",2 do
+          homework_solution_comment.save
+        end
       end
     end
   end
@@ -50,11 +56,46 @@ class CommentTest < ActiveSupport::TestCase
     assert_not    exercise_solution_comment.customized_course.nil?
     assert_difference "Comment.count",1 do
       assert_difference "CustomizedCourseActionRecord.count",1 do
-        exercise_solution_comment.save
+        assert_difference "ActionNotification.count",2 do
+          exercise_solution_comment.save
+        end
+      end
+    end
+  end
+
+  test "homework comment" do
+    homework                           = examinations(:homework1)
+    homework_comment                   = homework.comments.build(content: "12341234")
+    homework_comment.author            = homework.teacher
+    assert        homework_comment.valid?
+    assert_not    homework_comment.customized_course.nil?
+    assert_difference "Comment.count",1 do
+      assert_difference "CustomizedCourseActionRecord.count",1 do
+        assert_difference "ActionNotification.count",2 do
+          homework_comment.save
+        end
+      end
+    end
+  end
+
+  test "exercise comment" do
+    exercise                          = examinations(:exercise_one)
+    exercise_comment                  = exercise.comments.build(content: "1234123412")
+    exercise_comment.author           = exercise.teacher
+    assert            exercise_comment.valid?
+    assert_not        exercise_comment.customized_course.nil?
+
+    assert_difference "Comment.count",1 do
+      assert_difference "CustomizedCourseActionRecord.count",1 do
+        assert_difference "ActionNotification.count",2 do
+          exercise_comment.save
+        end
       end
     end
 
   end
+
+
 
 
 end

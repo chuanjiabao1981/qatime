@@ -4,6 +4,8 @@ class Reply < ActiveRecord::Base
   include QaToken
   include ContentValidate
   include QaActionRecord
+  include QaActionNotification
+
 
 
   cattr_accessor    :order_type,:order_column

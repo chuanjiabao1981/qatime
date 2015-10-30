@@ -117,8 +117,17 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
     assert ct.valid?
     assert_difference 'CustomizedTutorial.count',1 do
       assert_difference 'CustomizedCourseActionRecord.count',1 do
-        ct.save!
+        ##因为有两个老师一个学生所以是
+        assert_difference 'ActionNotification.count',2 do
+          ct.save!
+        end
       end
     end
+  end
+
+  test "customized tutorial notification receiver" do
+    cc            = customized_tutorials(:customized_tutorial1)
+    assert_not cc.action_notification_receiver_ids.include?(cc.teacher_id)
+    assert     cc.action_notification_receiver_ids.include?(cc.customized_course.student_id)
   end
 end

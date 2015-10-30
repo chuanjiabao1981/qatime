@@ -10,7 +10,9 @@ class TutorialIssueTest < ActiveSupport::TestCase
     assert tutorial_issue.valid?,tutorial_issue.errors.full_messages
     assert_difference 'TutorialIssue.count',1 do
       assert_difference 'CustomizedCourseActionRecord.count',1 do
-        tutorial_issue.save!
+        assert_difference 'ActionNotification.count',2 do
+          tutorial_issue.save!
+        end
       end
     end
   end

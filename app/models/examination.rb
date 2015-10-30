@@ -6,6 +6,7 @@ class Examination < ActiveRecord::Base
   include QaWork
   include QaActionRecord
   include QaComment
+  include QaActionNotification
 
 
 

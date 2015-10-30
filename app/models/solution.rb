@@ -4,13 +4,16 @@ class Solution < ActiveRecord::Base
   include QaHandle
   include QaCommon
   include QaActionRecord
+  include QaComment
+
 
 
 
 
   belongs_to      :student
-
   belongs_to      :examination,counter_cache: true
+  belongs_to      :first_handle_author,:class_name => "User"
+  belongs_to      :last_handle_author,:class => "User"
 
   has_many        :pictures,as: :imageable
   has_many        :corrections,:dependent => :destroy do
@@ -20,11 +23,10 @@ class Solution < ActiveRecord::Base
     end
   end
 
-  has_many        :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
   has_many        :qa_files, as: :qa_fileable
   accepts_nested_attributes_for :qa_files, allow_destroy: true
 
-  scope :timeout_to_correct ,lambda {|customized_course_id|
+  scope           :timeout_to_correct ,lambda {|customized_course_id|
                               where(customized_course_id: customized_course_id)
                                   .where(corrections_count: 0)
                                   .where("created_at <= ?",3.days.ago)
@@ -34,8 +36,7 @@ class Solution < ActiveRecord::Base
 
 
 
-  belongs_to :first_handle_author,:class_name => "User"
-  belongs_to :last_handle_author,:class => "User"
+
 
   self.per_page = 10
 

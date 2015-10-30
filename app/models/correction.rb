@@ -4,6 +4,7 @@ class Correction < ActiveRecord::Base
   include QaToken
   include ContentValidate
   include QaActionRecord
+  include QaComment
 
 
   belongs_to        :teacher
@@ -14,7 +15,6 @@ class Correction < ActiveRecord::Base
   has_one           :fee, as:  :feeable
 
   has_many          :pictures,as: :imageable
-  has_many          :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
 
   validates         :content, length: {minimum: 5},on: :create
 

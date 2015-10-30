@@ -2,8 +2,9 @@ class CommentsController < ApplicationController
   respond_to :js
 
   def create
-    @comment = current_user.comments.build(params[:comment].permit!)
-    @comment
+    @commentable    = params[:commentable_type].constantize.find(params[:commentable_id])
+    @comment        = @commentable.comments.build(params[:comment].permit!)
+    @comment.author = current_user
     if @comment.save
       @comment.notify
       respond_with @comment

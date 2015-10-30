@@ -5,6 +5,7 @@ class Examination < ActiveRecord::Base
   include QaCommon
   include QaWork
   include QaActionRecord
+  include QaComment
 
 
 
@@ -13,8 +14,6 @@ class Examination < ActiveRecord::Base
 
   has_many        :qa_files      , -> { order 'created_at asc' },as: :qa_fileable
   has_many        :pictures,as: :imageable
-  has_many        :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
-
   has_many        :corrections
   has_many        :solutions
 

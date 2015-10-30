@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029223356) do
+ActiveRecord::Schema.define(version: 20151030010541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,9 +63,10 @@ ActiveRecord::Schema.define(version: 20151029223356) do
     t.text     "content"
     t.integer  "author_id"
     t.integer  "commentable_id"
-    t.string   "commentable_type", limit: 255
+    t.string   "commentable_type",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "customized_course_id"
   end
 
   create_table "consumption_records", force: :cascade do |t|
@@ -186,10 +187,10 @@ ActiveRecord::Schema.define(version: 20151029223356) do
     t.datetime "updated_at",                         null: false
     t.integer  "solutions_count",        default: 0
     t.integer  "student_id"
+    t.string   "work_type"
     t.integer  "customized_tutorial_id"
     t.integer  "comments_count",         default: 0
     t.integer  "corrections_count",      default: 0
-    t.string   "work_type"
     t.string   "type"
   end
 
@@ -572,6 +573,16 @@ ActiveRecord::Schema.define(version: 20151029223356) do
     t.integer  "questions_count"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "xxxxxes", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "xxxxxable_id"
+    t.string   "xxxxxable_type"
+    t.integer  "tutorial_issue_id"
+    t.integer  "integer"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
   end
 
 end

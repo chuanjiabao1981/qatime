@@ -12,9 +12,6 @@ module QaCommon
     scope :by_customized_course_id,
           lambda{|customized_course_id| where(customized_course_id: customized_course_id)}
 
-<<<<<<< HEAD
-=======
-
     def _page_num(o,options)
       column = options[:by] || :created_at
       order  = options[:order] || :desc
@@ -23,6 +20,5 @@ module QaCommon
       operator = (order == :asc ? "<=" : ">=")
       (where("#{column} #{operator} ?", o.send(column)).count.to_f / per).ceil
     end
->>>>>>> qatime-homework-refactory
   end
 end

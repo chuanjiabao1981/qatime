@@ -23,17 +23,10 @@ class CorrectionTest < ActiveSupport::TestCase
     teacher = Teacher.find(users(:teacher_tally).id)
     student = Student.find(users(:student_tally).id)
     workstation = workstations(:workstation1)
-
-<<<<<<< HEAD
-    corrections = Correction.by_teacher_id(teacher.id).valid_tally_unit
-    keep_account_succeed(teacher, student, workstation, corrections, 5, "Correction") do
-      Correction.by_teacher_id(teacher.id).valid_tally_unit.size
-=======
     corrections = HomeworkCorrection.by_teacher_id(teacher.id).valid_tally_unit
 
     keep_account_succeed(teacher, student, corrections, 5) do
       HomeworkCorrection.by_teacher_id(teacher.id).valid_tally_unit.size
->>>>>>> qatime-homework-refactory
     end
   end
 
@@ -45,18 +38,13 @@ class CorrectionTest < ActiveSupport::TestCase
     assert @solution.last_handle_created_at.nil?
     assert @solution.last_handle_author.nil?
     @correction         = @solution.corrections.build(content: "13412341")
-<<<<<<< HEAD
-    @correction.teacher = @solution.solutionable.teacher
-
     # 测试价格是否传递下去
     customized_course_prices_validation(@correction) do
       @correction.content = "134123412"
     end
 
-=======
     @correction.teacher = @solution.examination.teacher
     @correction.save
->>>>>>> qatime-homework-refactory
     @solution.reload
 
     assert @solution.first_handle_created_at.to_i       == @correction.created_at.to_i

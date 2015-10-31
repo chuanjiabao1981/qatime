@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20151029055400) do
-=======
-ActiveRecord::Schema.define(version: 20151024120518) do
->>>>>>> qatime-homework-refactory
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,16 +78,13 @@ ActiveRecord::Schema.define(version: 20151024120518) do
     t.integer  "comments_count",         default: 0
     t.integer  "customized_course_id"
     t.integer  "homework_id"
-<<<<<<< HEAD
     t.string   "status",               default: "open", null: false
     t.float    "teacher_price"
     t.float    "platform_price"
-=======
     t.string   "status",                 default: "open", null: false
     t.string   "type"
     t.integer  "customized_tutorial_id"
     t.integer  "examination_id"
->>>>>>> qatime-homework-refactory
   end
 
   create_table "course_purchase_records", force: :cascade do |t|
@@ -181,9 +174,7 @@ ActiveRecord::Schema.define(version: 20151024120518) do
     t.float    "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-<<<<<<< HEAD
     t.float    "price"
-=======
   end
 
   create_table "examinations", force: :cascade do |t|
@@ -202,18 +193,6 @@ ActiveRecord::Schema.define(version: 20151024120518) do
     t.integer  "comments_count",         default: 0
     t.integer  "corrections_count",      default: 0
     t.string   "type"
-  end
-
-  create_table "excercises", force: :cascade do |t|
-    t.string   "token"
-    t.string   "title"
-    t.string   "content"
-    t.integer  "teacher_id"
-    t.integer  "customized_tutorial_id"
-    t.integer  "solutions_count",        default: 0
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
->>>>>>> qatime-homework-refactory
   end
 
   create_table "exercises", force: :cascade do |t|
@@ -573,7 +552,6 @@ ActiveRecord::Schema.define(version: 20151024120518) do
     t.datetime "updated_at",      null: false
   end
 
-<<<<<<< HEAD
   create_table "workstations", force: :cascade do |t|
     t.string   "name"
     t.integer  "city_id"
@@ -583,16 +561,6 @@ ActiveRecord::Schema.define(version: 20151024120518) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "manager_id"
-=======
-  create_table "xxxxxes", force: :cascade do |t|
-    t.string   "title"
-    t.integer  "xxxxxable_id"
-    t.string   "xxxxxable_type"
-    t.integer  "tutorial_issue_id"
-    t.integer  "integer"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
->>>>>>> qatime-homework-refactory
   end
 
 end

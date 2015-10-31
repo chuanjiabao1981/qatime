@@ -16,7 +16,6 @@ correction_one_fee_erning_record:
   price: 54
   value: 2
 
-<<<<<<< HEAD
 #reply_fee_earning_record:
 #  fee: reply_fee
 #  account: physics_teacher1_account
@@ -28,8 +27,6 @@ homework_solution_correction_earning_record:
   account: physics_teacher1_account
   price: 54
   value: 3
-=======
->>>>>>> qatime-homework-refactory
 
 earning_record_for_course_issue_reply:
   fee: fee_for_course_issue_reply

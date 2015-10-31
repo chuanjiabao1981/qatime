@@ -8,15 +8,12 @@ correction_one:
   content: ssddd
   teacher: teacher1
   solution: homework_solution_one
-<<<<<<< HEAD
   teacher_price: 54
   platform_price: 6
-=======
   type: HomeworkCorrection
   token: correction one
   customized_course: customized_course1
   homework: homework1
->>>>>>> qatime-homework-refactory
 # column: value
 #
 correction_two:
@@ -39,12 +36,9 @@ correction_tally_<%= i %>:
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
   token: correction_tally_video_<%= i %>
   status: open
-<<<<<<< HEAD
   teacher_price: 54
   platform_price: 6
-=======
   type: HomeworkCorrection
->>>>>>> qatime-homework-refactory
 <% end %>
 
 # 5 closed
@@ -56,12 +50,9 @@ correction_tally_<%= i %>:
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
   token: correction_tally_video_<%= i %>
   status: closed
-<<<<<<< HEAD
   teacher_price: 54
   platform_price: 6
-=======
   type: ExerciseCorrection
->>>>>>> qatime-homework-refactory
 <% end %>
 
 
@@ -74,14 +65,9 @@ exercise_correction_for_fee_view:
   customized_tutorial: customized_tutorial_teacher_earnings_1
   token: exercise_correction_for_fee_view
   status: closed
-<<<<<<< HEAD
   teacher_price: 54
   platform_price: 0
-
-=======
   type: ExerciseCorrection
->>>>>>> qatime-homework-refactory
-
 
 homework_correction_for_fee_view:
   content: spgnasdijnfas
@@ -90,11 +76,6 @@ homework_correction_for_fee_view:
   customized_course: customized_course5
   token: homework_correction_for_fee_view_token
   status: closed
-<<<<<<< HEAD
   teacher_price: 54
   platform_price: 0
-=======
   type: HomeworkCorrection
->>>>>>> qatime-homework-refactory
-
-

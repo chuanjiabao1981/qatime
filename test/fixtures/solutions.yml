@@ -43,7 +43,6 @@ exercise_solution_one:
   content: exercise soltuion test content 1
   exercise: exercise_one
   student: student1
-<<<<<<< HEAD
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
 
 exercise_fee_solution_one:
@@ -52,14 +51,9 @@ exercise_fee_solution_one:
   solutionable_id: <%= ActiveRecord::FixtureSet.identify(:exercise_fee_one) %>
   solutionable_type: Exercise
   student: student2
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
-=======
   type: ExerciseSolution
   customized_course: customized_course1
   customized_tutorial: customized_tutorial1
-
-
->>>>>>> qatime-homework-refactory
 
 solution_for_homework_correction_fee:
   title: solution for homework correction fee
@@ -73,9 +67,6 @@ exercise_solution_for_fee:
   content: exercise solution from exercise content fee
   exercise: exercise_fee_one
   student: student2
-<<<<<<< HEAD
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
-=======
   type: ExerciseSolution
   customized_course: customized_course5
   customized_tutorial: customized_tutorial_teacher_earnings_1
@@ -87,8 +78,3 @@ homework_solution_for_fee:
   student: student2
   type: HomeworkSolution
   customized_course: customized_course5
-
-
->>>>>>> qatime-homework-refactory
-
-

@@ -7,11 +7,4 @@ class TutorialIssueReply < Reply
   belongs_to :customized_tutorial
   belongs_to :customized_course
 
-
-
-
-
-  def _notify_message
-    "回复了#{TutorialIssue.model_name.human}，请关注"
-  end
 end

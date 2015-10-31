@@ -117,4 +117,12 @@ class TeacherHomePageTest < ActionDispatch::IntegrationTest
 
 
   end
+
+  test "notification" do
+    customized_course_action_notification_tutorial_issue_create     = notifications(:customized_course_action_notification_tutorial_issue_create)
+    assert customized_course_action_notification_tutorial_issue_create.valid?
+    @teacher1_session.get notifications_teacher_path(@teacher1)
+    @teacher1_session.assert_response :success
+    @teacher1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_tutorial_issue_create),1
+  end
 end

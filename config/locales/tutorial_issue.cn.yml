@@ -6,3 +6,8 @@ cn:
       tutorial_issue:
         title: 标题
         content: 内容
+  action:
+    tutorial_issue:
+      create:
+        desc: "%{user},提了一个随堂问题"
+        name: 提问

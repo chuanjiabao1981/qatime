@@ -10,3 +10,25 @@ customized_course_action_record_for_tutorial_create:
   actionable: customized_tutorial1 (CustomizedTutorial)
   name: create
   type: CustomizedCourseActionRecord
+
+customized_course_action_record_for_exercise_create:
+  operator: teacher1
+  customized_course: customized_course1
+  actionable:  exercise_one (Examination)
+  name: create
+  type: CustomizedCourseActionRecord
+
+customized_course_action_record_for_tutorial_issue_create:
+  operator: student1
+  customized_course: customized_course1
+  actionable: customized_tutorial_topic1 (Topic)
+  name: create
+  type: CustomizedCourseActionRecord
+
+customized_course_action_record_for_tutorial_issue_reply_create:
+  operator: teacher1
+  customized_course: customized_course1
+  actionable: tutorial_issue_reply_one (Reply)
+  name: create
+  type: CustomizedCourseActionRecord
+

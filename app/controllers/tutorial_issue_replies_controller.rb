@@ -10,7 +10,6 @@ class TutorialIssueRepliesController < ApplicationController
     @tutorial_issue_reply = @tutorial_issue.tutorial_issue_replies.build(params[:tutorial_issue_reply].permit!)
     if @tutorial_issue_reply.save
       flash[:success] = "成功发表回复！"
-      @tutorial_issue_reply.notify
       redirect_to tutorial_issue_path(@tutorial_issue)
     else
       tutorial_issue_show_prepare

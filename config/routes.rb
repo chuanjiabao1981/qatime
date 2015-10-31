@@ -107,6 +107,7 @@ Qatime::Application.routes.draw do
       get 'homeworks'
       get 'solutions'
       get 'keep_account'
+      get 'notifications'
     end
   end
   resources :students do

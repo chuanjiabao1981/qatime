@@ -12,3 +12,30 @@ customized_course_action_notification_tutorial_create:
   type: CustomizedCourseActionNotification
   read: false
   action_name: create
+
+customized_course_action_notification_exercise_create:
+  operator: teacher1
+  customized_course: customized_course1
+  notificationable: exercise_one (Examination)
+  receiver: student1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_tutorial_issue_create:
+  operator: student1
+  customized_course: customized_course1
+  notificationable: customized_tutorial_topic1 (Topic)
+  receiver: teacher1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_tutorial_issue_reply_create:
+  operator: teacher1
+  customized_course: customized_course1
+  notificationable: tutorial_issue_reply_one (Reply)
+  receiver: student1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create

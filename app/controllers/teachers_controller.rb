@@ -98,6 +98,9 @@ class TeachersController < ApplicationController
     @solutions = Solution.by_customized_course_solution.where(customized_course_id: @teacher.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
   end
 
+  def notifications
+    @action_notifications = @teacher.customized_course_action_notifications.paginate(page: params[:page])
+  end
 
   def pass
     @teacher.update_attribute(:pass, true)

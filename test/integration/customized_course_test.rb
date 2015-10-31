@@ -23,11 +23,20 @@ class CustomizedCourseIntegrateTest < LoginTestBase
   end
   private
   def action_record_page(user_session,action_record_path)
-    customized_course_action_record_for_tutorial_create = action_records(:customized_course_action_record_for_tutorial_create)
+    customized_course_action_record_for_tutorial_create               = action_records(:customized_course_action_record_for_tutorial_create)
+    customized_course_action_record_for_exercise_create               = action_records(:customized_course_action_record_for_exercise_create)
+    customized_course_action_record_for_tutorial_issue_create         = action_records(:customized_course_action_record_for_tutorial_issue_create)
+    customized_course_action_record_for_tutorial_issue_reply_create   = action_records(:customized_course_action_record_for_tutorial_issue_reply_create)
     assert customized_course_action_record_for_tutorial_create.valid?
+    assert customized_course_action_record_for_exercise_create.valid?
+    assert customized_course_action_record_for_tutorial_issue_create.valid?
+    assert customized_course_action_record_for_tutorial_issue_reply_create.valid?
     user_session.get action_record_path
     user_session.assert_response :success
-    user_session.assert_select 'a[href=?]', customized_tutorial_path(customized_course_action_record_for_tutorial_create.actionable)
+    user_session.assert_select 'a[href=?]', customized_tutorial_path(customized_course_action_record_for_tutorial_create.actionable),1
+    user_session.assert_select 'a[href=?]', exercise_path(customized_course_action_record_for_exercise_create.actionable),1
+    user_session.assert_select 'a[href=?]', tutorial_issue_path(customized_course_action_record_for_tutorial_issue_create.actionable),1
+    user_session.assert_select 'a[href=?]', tutorial_issue_reply_path(customized_course_action_record_for_tutorial_issue_reply_create.actionable),1
   end
   def index_page(user_session,indexpath)
     user_session.get indexpath

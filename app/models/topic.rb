@@ -4,7 +4,7 @@ class Topic < ActiveRecord::Base
   include ContentValidate
   include QaCommon
   include QaActionRecord
-  include QaActionNotification
+  include QaCustomizedCourseActionNotification
 
 
 

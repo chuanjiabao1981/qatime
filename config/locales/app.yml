@@ -4,4 +4,3 @@ cn:
       state:
         published: 发布
         unpublished: 未发布
-    unread_notification: "%{count} 条未读消息"

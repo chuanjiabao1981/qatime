@@ -4,7 +4,7 @@ class CustomizedTutorial < ActiveRecord::Base
   include QaCommon
   include Tally
   include QaActionRecord
-  include QaActionNotification
+  include QaCustomizedCourseActionNotification
 
 
   validates_presence_of :title,:customized_course,:teacher

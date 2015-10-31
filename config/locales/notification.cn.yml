@@ -1,0 +1,12 @@
+cn:
+  activerecord:
+    models:
+      notification: 消息
+    attributes:
+      notification:
+        receiver: 接收者
+  view:
+    notification:
+      unread_notification_count: "%{count} 条未读消息"
+      unread: 未读
+      read: 已读

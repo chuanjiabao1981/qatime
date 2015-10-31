@@ -1,7 +1,7 @@
 class Comment < ActiveRecord::Base
 
   include QaActionRecord
-  include QaActionNotification
+  include QaCustomizedCourseActionNotification
 
   belongs_to :commentable, :polymorphic => true,:counter_cache => true,:inverse_of => :comments
   belongs_to :customized_course

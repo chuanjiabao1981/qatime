@@ -113,7 +113,13 @@ class StudentHomePageTest < ActionDispatch::IntegrationTest
     @student1_session.assert_select "a[href=?]",homework_path(@homework2),1
     @student1_session.assert_select "a[href=?]",exercise_path(@exercise1),1
 
-
   end
 
+  test "notification" do
+    customized_course_action_notification_tutorial_create     = notifications(:customized_course_action_notification_tutorial_create)
+    assert customized_course_action_notification_tutorial_create.valid?
+    @student1_session.get notifications_student_path(@student1)
+    @student1_session.assert_response :success
+    @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_tutorial_create),1
+  end
 end

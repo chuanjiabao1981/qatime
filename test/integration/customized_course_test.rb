@@ -16,7 +16,19 @@ class CustomizedCourseIntegrateTest < LoginTestBase
     show_page(@teacher_session,customized_course_path(@customized_course))
 
   end
+
+  test "action record" do
+    action_record_page(@student_session,action_records_customized_course_path(@customized_course))
+    action_record_page(@teacher_session,action_records_customized_course_path(@customized_course))
+  end
   private
+  def action_record_page(user_session,action_record_path)
+    customized_course_action_record_for_tutorial_create = action_records(:customized_course_action_record_for_tutorial_create)
+    assert customized_course_action_record_for_tutorial_create.valid?
+    user_session.get action_record_path
+    user_session.assert_response :success
+    user_session.assert_select 'a[href=?]', customized_tutorial_path(customized_course_action_record_for_tutorial_create.actionable)
+  end
   def index_page(user_session,indexpath)
     user_session.get indexpath
     user_session.assert_response :success

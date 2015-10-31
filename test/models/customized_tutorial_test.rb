@@ -118,7 +118,7 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
     assert_difference 'CustomizedTutorial.count',1 do
       assert_difference 'CustomizedCourseActionRecord.count',1 do
         ##因为有两个老师一个学生所以是
-        assert_difference 'ActionNotification.count',2 do
+        assert_difference 'CustomizedCourseActionNotification.count',2 do
           ct.save!
         end
       end

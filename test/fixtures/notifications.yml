@@ -4,8 +4,11 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+customized_course_action_notification_tutorial_create:
+  operator: teacher1
+  customized_course: customized_course1
+  notificationable: customized_tutorial1 (CustomizedTutorial)
+  receiver: student1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create

@@ -12,7 +12,7 @@ class ExcerciseTest < ActiveSupport::TestCase
     assert_difference '@customized_tutorial.reload.exercises_count',1 do
       assert_difference '@customized_tutorial.customized_course.reload.exercises_count',1 do
         assert_difference 'CustomizedCourseActionRecord.count',1 do
-          assert_difference 'ActionNotification.count',2 do
+          assert_difference 'CustomizedCourseActionNotification.count',2 do
             exercise.save!
           end
         end

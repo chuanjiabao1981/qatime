@@ -3,14 +3,25 @@
     <%=image_tag action_notification.operator.avatar.normal.url %>
   </div>
   <div class="title">
+
+    <% if action_notification.read %>
+        <span class="label label-default"><%= I18n.t "view.notification.read" %></span>
+    <% else %>
+        <span class="label label-danger"><%= I18n.t "view.notification.unread" %></span>
+    <% end %>
+
     <%=
         link_to (I18n.t "action.#{action_notification.notificationable.model_name.singular_route_key}.#{action_notification.action_name}.desc",
                         user: action_notification.operator.view_name),
                 notification_path(action_notification)
     %>
+
   </div>
   <div class="info">
     <%= localize(action_notification.created_at,format: :long) %>
     <%= I18n.t "action.#{action_notification.notificationable.model_name.singular_route_key}.#{action_notification.action_name}.name" %>
+    <% if action_notification.customized_course_id %>
+    • <%= link_to CustomizedCourse.model_name.human,customized_course_path(action_notification.customized_course_id) %>
+    <% end %>
   </div>
 </div>

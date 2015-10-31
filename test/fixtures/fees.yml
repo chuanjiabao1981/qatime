@@ -37,6 +37,7 @@ exercise_fee_correction_one_fee:
 #  video_duration: 150
 #  price_per_minute: 1
 
+<<<<<<< HEAD
 correction_fee:
   customized_course: customized_course5
   feeable: correction_fee_correction_one (Correction)
@@ -44,6 +45,14 @@ correction_fee:
   video_duration: 180
   teacher_price: 54
   platform_price: 0
+=======
+#correction_fee:
+#  customized_course: customized_course5
+#  feeable: correction_fee_correction_one (Correction)
+#  value: 3
+#  video_duration: 180
+#  price_per_minute: 1
+>>>>>>> qatime-homework-refactory
 
 
 fee_for_course_issue_reply:
@@ -59,5 +68,23 @@ fee_for_tutorial_issue_reply:
   feeable: tutorial_issue_reply_for_fee_view (Reply)
   value: 4
   video_duration: 240
+<<<<<<< HEAD
   teacher_price: 54
   platform_price: 0
+=======
+  price_per_minute: 1
+
+fee_for_exercise_correction:
+  customized_course: customized_course5
+  feeable: exercise_correction_for_fee_view (Correction)
+  value: 4.5
+  video_duration: 270
+  price_per_minute: 1
+
+fee_for_homework_correction:
+  customized_course: customized_course5
+  feeable: homework_correction_for_fee_view (Correction)
+  value: 5
+  video_duration: 300
+  price_per_minute: 1
+>>>>>>> qatime-homework-refactory

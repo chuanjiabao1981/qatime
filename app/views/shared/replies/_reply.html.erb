@@ -1,4 +1,4 @@
-<div class="qa_item">
+<div class="qa_item <%= "animated pulse" if params[:reply_aminate] and params[:reply_aminate] == reply.id.to_s%>" id="<%="reply_#{reply.id}"%>">
   <div class="author_avatar">
     <%=image_tag reply.author.avatar.normal.url %>
   </div>

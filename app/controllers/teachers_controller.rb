@@ -82,7 +82,7 @@ class TeachersController < ApplicationController
 
 
   def homeworks
-    @homeworks = Homework.by_teacher(@teacher).order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    @homeworks = Examination.by_customized_course_work.by_teacher(@teacher).order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
   end
 
   def customized_tutorial_topics
@@ -95,7 +95,7 @@ class TeachersController < ApplicationController
   end
 
   def solutions
-    @solutions = Solution.all.where(customized_course_id: @teacher.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
+    @solutions = Solution.by_customized_course_solution.where(customized_course_id: @teacher.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
   end
 
 

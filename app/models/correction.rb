@@ -3,21 +3,27 @@ class Correction < ActiveRecord::Base
   include QaCommon
   include QaToken
   include ContentValidate
-  include Tally
 
-  belongs_to  :teacher
-  belongs_to  :solution,counter_cache: true
-  belongs_to  :homework,:counter_cache => true
+  belongs_to        :teacher
+  belongs_to        :solution,counter_cache: true
+  belongs_to        :examination,counter_cache: true
 
-  has_many    :pictures,as: :imageable
-  has_one     :video,as: :videoable
-  has_one     :fee, as:  :feeable
-  has_many    :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
+  has_one           :video,as: :videoable
+  has_one           :fee, as:  :feeable
 
+  has_many          :pictures,as: :imageable
+  has_many          :comments,-> { order 'created_at asc' },as: :commentable,dependent: :destroy
 
-  after_save      :__after_save
-  after_destroy   :__after_destroy
-  self.per_page = 5
+  validates         :content, length: {minimum: 5},on: :create
+
+  cattr_accessor    :order_type,:order_column
+
+  after_save        :__after_save
+  after_destroy     :__after_destroy
+
+  self.per_page       = 5
+  self.order_type     = :desc
+  self.order_column   = :created_at
 
 
   def author_id
@@ -28,6 +34,10 @@ class Correction < ActiveRecord::Base
   end
 
 
+  def solution_name
+    Solution.model_name.human
+  end
+
   def notify
     teacher           = self.teacher
     student           = self.solution.student
@@ -36,7 +46,7 @@ class Correction < ActiveRecord::Base
                             from: teacher.view_name,
                             to: student.view_name,
                             mobile: student.mobile,
-                            message: "批改了你的#{Solution.model_name.human},请关注,"
+                            message: "批改了你的#{solution_name},请关注,"
     )
 
   end

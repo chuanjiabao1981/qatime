@@ -2,26 +2,27 @@ class SolutionsController < ApplicationController
   layout "application"
   respond_to :html
   include QaFilesHelper
+  include QaSolution
 
   def new
-    @solution = @solutionable.solutions.build
+    resource_name               = resource_name_from_params(params)
+    @solution                   = build_solution(@examination,resource_name)
   end
 
   def create
-    @solution                   = @solutionable.solutions.build(change_params_for_qa_files(params[:solution]).permit!)
+    resource_name               = resource_name_from_params(params)
+    @solution                   = build_solution(@examination,resource_name,change_params_for_qa_files(params["#{resource_name}_solution".to_sym]).permit!)
     @solution.student           = current_user
     if @solution.save
-      flash[:success] = "成功创建#{Solution.model_name.human}"
+      flash[:success]           = "成功创建#{Solution.model_name.human}"
       @solution.notify
     end
-    respond_with @solutionable,@solution
+    respond_with @examination,@solution
   end
 
   def show
-    @correction = Correction.new
-    @corrections = @solution.corrections.order(:created_at => :desc).paginate(page: params[:page])
-    @qa_files   = @solution.qa_files.order(:created_at => "ASC")
-
+    @correction   = @solution.send("#{@solution.examination.model_name.singular_route_key}_corrections").build
+    solution_show_prepare
   end
 
 
@@ -30,30 +31,25 @@ class SolutionsController < ApplicationController
   end
 
   def update
-    if @solution.update_attributes(change_params_for_qa_files(params[:solution]).permit!)
+    resource_name               = @solution.examination.model_name.singular_route_key
+    if @solution.update_attributes(change_params_for_qa_files(params["#{resource_name}_solution".to_sym]).permit!)
       flash[:success] = "成功修改#{Solution.model_name.human}"
     end
     respond_with  @solution
   end
   def destroy
     @solution.destroy
-    @solutionable = @solution.solutionable
-    respond_with @solutionable
+    @examination      = @solution.container
+    respond_with @examination
   end
   private
   def current_resource
-    if params[:homework_id]
-      @solutionable       = Homework.find(params[:homework_id])
-      r = @solutionable
-    end
-    if params[:exercise_id]
-      @solutionable       = Exercise.find(params[:exercise_id])
-      r = @solutionable
-    end
+    r                     = container_resource(params)
+    @examination          = r
     if params[:id]
-      @solution     = Solution.find(params[:id])
-      r             = @solution
-      @solutionable = @solution.solutionable
+      @solution           = Solution.find(params[:id])
+      r                   = @solution
+      @examination  = @solution.examination
     end
     r
   end

@@ -1,0 +1,4 @@
+<%= render partial: 'shared/homeworks/nav',locals: {homework: homework_solution.homework} %>
+<% if not homework_solution.new_record? %>
+    /<%= link_to homework_solution.title,homework_solution_path(homework_solution) %>
+<% end %>

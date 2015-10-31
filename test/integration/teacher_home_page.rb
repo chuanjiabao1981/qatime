@@ -35,36 +35,42 @@ class TeacherHomePageTest < ActionDispatch::IntegrationTest
   end
 
   test "teacher fee info" do
-    @physics_teacher1         = Teacher.find(users(:physics_teacher1).id)
-    @physics_teacher1_session = log_in2_as(@physics_teacher1)
-    @physics_teacher1_session.get info_teacher_path(@physics_teacher1,fee: :y)
-    @customized_tutorial_teacher_earnings_1 = customized_tutorials(:customized_tutorial_teacher_earnings_1)
-    @exercise_fee_solution_one              = solutions(:exercise_fee_solution_one)
-    # @reply_fee_tutorial_topic               = topics(:reply_fee_tutorial_topic)
-    @solution_for_homework_correction_fee   = solutions(:solution_for_homework_correction_fee)
+    @physics_teacher1                       = Teacher.find(users(:physics_teacher1).id)
+    @physics_teacher1_session               = log_in2_as(@physics_teacher1)
 
-    # @physics_teacher1_session.assert_select "a[href=?]",customized_tutorial_path(@customized_tutorial_teacher_earnings_1)
-    # @physics_teacher1_session.assert_select "a[href=?]",solution_path(@exercise_fee_solution_one)
-    # @physics_teacher1_session.assert_select "a[href=?]",topic_path(@reply_fee_tutorial_topic)
-    # @physics_teacher1_session.assert_select "a[href=?]",solution_path(@solution_for_homework_correction_fee)
+    @physics_teacher1_session.get info_teacher_path(@physics_teacher1,fee: :y)
+
+
 
 
 
     @physics_teacher1_session.assert_response :success
 
-    # assert @physics_teacher1.account.earning_records.length == 4
+    @customized_tutorial_teacher_earnings_1 = customized_tutorials(:customized_tutorial_teacher_earnings_1)
+    @course_issue_reply_for_fee_view        = replies(:course_issue_reply_for_fee_view)
+    @tutorial_issue_reply_for_fee_view      = replies(:tutorial_issue_reply_for_fee_view)
+    @exercise_correction_for_fee_view       = corrections(:exercise_correction_for_fee_view)
+    @homework_correction_for_fee_view       = corrections(:homework_correction_for_fee_view)
 
-    @course_issue_reply_for_fee_view    = replies(:course_issue_reply_for_fee_view)
-    @tutorial_issue_reply_for_fee_view  = replies(:tutorial_issue_reply_for_fee_view)
     # @physics_teacher1.account.earning_records.each do |x|
     #   puts x.fee.to_json
     # end
-    @physics_teacher1_session.assert_select "a[href=?]", course_issue_reply_path(@course_issue_reply_for_fee_view)
+    @physics_teacher1_session.assert_select "a[href=?]", customized_tutorial_path(@customized_tutorial_teacher_earnings_1)
+    @physics_teacher1_session.assert_select "td",CustomizedTutorial.model_name.human
+    @physics_teacher1_session.assert_select "td",@customized_tutorial_teacher_earnings_1.fee.value.to_s
+    @physics_teacher1_session.assert_select "a[href=?]", course_issue_reply_path(@course_issue_reply_for_fee_view.id)#,page:1,reply_aminate:@course_issue_reply_for_fee_view.id,anchor:"reply_#{@course_issue_reply_for_fee_view.id}")
     @physics_teacher1_session.assert_select "td",CourseIssueReply.model_name.human
     @physics_teacher1_session.assert_select "td",@course_issue_reply_for_fee_view.fee.value.to_s
     @physics_teacher1_session.assert_select "a[href=?]", tutorial_issue_reply_path(@tutorial_issue_reply_for_fee_view)
     @physics_teacher1_session.assert_select "td",TutorialIssueReply.model_name.human
     @physics_teacher1_session.assert_select "td",@tutorial_issue_reply_for_fee_view.fee.value.to_s
+    @physics_teacher1_session.assert_select "a[href=?]",exercise_correction_path(@exercise_correction_for_fee_view)
+    @physics_teacher1_session.assert_select "td",ExerciseCorrection.model_name.human
+    @physics_teacher1_session.assert_select "td",@exercise_correction_for_fee_view.fee.value.to_s
+    @physics_teacher1_session.assert_select "a[href=?]",homework_correction_path(@homework_correction_for_fee_view)
+    @physics_teacher1_session.assert_select "td",HomeworkCorrection.model_name.human
+    @physics_teacher1_session.assert_select "td",@homework_correction_for_fee_view.fee.value.to_s
+
 
 
   end
@@ -97,6 +103,18 @@ class TeacherHomePageTest < ActionDispatch::IntegrationTest
   test "teacher customized courses" do
     @teacher1_session.get customized_courses_teacher_path(@teacher1)
     @teacher1_session.assert_response :success
+
+  end
+
+  test "customized course homeworks" do
+    @teacher1_session.get homeworks_teacher_path(@teacher1)
+    @homework1  =  examinations(:homework1)
+    @homework2  =  examinations(:homework2)
+    @exercise1  =  examinations(:exercise_one)
+    @teacher1_session.assert_select "a[href=?]",homework_path(@homework1),1
+    @teacher1_session.assert_select "a[href=?]",homework_path(@homework2),1
+    @teacher1_session.assert_select "a[href=?]",exercise_path(@exercise1),1
+
 
   end
 end

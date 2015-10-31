@@ -1,27 +1,34 @@
 class CorrectionsController < ApplicationController
   layout "application"
+  include QaSolution
   def create
-    @correction = @solution.corrections.build(params[:correction].permit!)
-    @correction.teacher = current_user
+    resource_name         = @solution.examination.model_name.singular_route_key
+    @correction           = build_correction(@solution,resource_name,params["#{resource_name}_correction".to_sym].permit!)
+    @correction.teacher   = current_user
     if @correction.save
-      flash[:success] = "成功创建了#{Correction.model_name.human}"
+      flash[:success] = "成功创建了#{@correction.model_name.human}"
       @correction.notify
       redirect_to solution_path(@solution)
     else
-      @homework = @solution.homework
+      solution_show_prepare
       render 'solutions/show'
     end
 
   end
 
+  def show
+    page_num = @solution.corrections.page_num(@correction)
+    redirect_to solution_path(@solution,page: page_num,correction_aminate: @correction.id,anchor: "correction_#{@correction.id}")
+  end
 
   def edit
 
   end
 
   def update
-    if @correction.update_attributes(params[:correction].permit!)
-      flash[:success] = "成功编辑了#{Correction.model_name.human}"
+    resource_name         = @solution.examination.model_name.singular_route_key
+    if @correction.update_attributes(params["#{resource_name}_correction".to_sym].permit!)
+      flash[:success] = "成功编辑了#{@correction.model_name.human}"
       redirect_to solution_path(@correction.solution)
     else
       render 'edit'
@@ -30,10 +37,8 @@ class CorrectionsController < ApplicationController
 
   private
   def current_resource
-    if params[:solution_id]
-      @solution = Solution.find(params[:solution_id])
-      r = @solution
-    end
+    r                     = container_resource(params)
+    @solution             = r
     if params[:id]
       @correction = Correction.find(params[:id])
       @solution   = @correction.solution

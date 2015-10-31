@@ -3,7 +3,7 @@ class ExercisesController < ApplicationController
   layout "application"
   include QaFilesHelper
   def new
-    @exercise = Exercise.new
+    @exercise = @customized_tutorial.exercises.build
   end
 
   def create
@@ -18,7 +18,7 @@ class ExercisesController < ApplicationController
   end
 
   def show
-    @solutions      = @exercise.solutions.order(:created_at).paginate(page: params[:page])
+    @solutions      = @exercise.exercise_solutions.order(:created_at => :desc).paginate(page: params[:page])
 
   end
 

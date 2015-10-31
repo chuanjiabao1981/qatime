@@ -8,12 +8,26 @@ correction_one:
   content: ssddd
   teacher: teacher1
   solution: homework_solution_one
+<<<<<<< HEAD
   teacher_price: 54
   platform_price: 6
+=======
+  type: HomeworkCorrection
+  token: correction one
+  customized_course: customized_course1
+  homework: homework1
+>>>>>>> qatime-homework-refactory
 # column: value
 #
-two: {}
-#  column: value
+correction_two:
+  content: asdfasd
+  teacher: teacher1
+  solution: exercise_solution_one
+  type: ExerciseCorrection
+  token: correction_two
+  exercise: exercise_one
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial1
 
 # Here use erb to generate tally corrections
 # 5 open
@@ -25,8 +39,12 @@ correction_tally_<%= i %>:
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
   token: correction_tally_video_<%= i %>
   status: open
+<<<<<<< HEAD
   teacher_price: 54
   platform_price: 6
+=======
+  type: HomeworkCorrection
+>>>>>>> qatime-homework-refactory
 <% end %>
 
 # 5 closed
@@ -38,29 +56,45 @@ correction_tally_<%= i %>:
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
   token: correction_tally_video_<%= i %>
   status: closed
+<<<<<<< HEAD
   teacher_price: 54
   platform_price: 6
+=======
+  type: ExerciseCorrection
+>>>>>>> qatime-homework-refactory
 <% end %>
 
-exercise_fee_correction_one:
+
+
+exercise_correction_for_fee_view:
   content: dddddsss
   teacher: physics_teacher_1
-  solution: exercise_fee_solution_one
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
-  token: exercise_fee_correction_one_token
+  solution: exercise_solution_for_fee
+  customized_course: customized_course5
+  customized_tutorial: customized_tutorial_teacher_earnings_1
+  token: exercise_correction_for_fee_view
   status: closed
+<<<<<<< HEAD
   teacher_price: 54
   platform_price: 0
 
+=======
+  type: ExerciseCorrection
+>>>>>>> qatime-homework-refactory
 
-correction_fee_correction_one:
-  content: 12341234
+
+homework_correction_for_fee_view:
+  content: spgnasdijnfas
   teacher: physics_teacher_1
-  solution: solution_for_homework_correction_fee
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
-  token: correction_fee_correction_one_token
+  solution: homework_solution_for_fee
+  customized_course: customized_course5
+  token: homework_correction_for_fee_view_token
   status: closed
+<<<<<<< HEAD
   teacher_price: 54
   platform_price: 0
+=======
+  type: HomeworkCorrection
+>>>>>>> qatime-homework-refactory
 
 

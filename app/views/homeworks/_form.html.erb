@@ -1,3 +1,9 @@
+<div class="qa_box">
+  <div class="qa_cell box_head">
+    <%= render partial: 'shared/homeworks/nav',locals: {homework: @homework} %>/
+    <%=get_edit_or_create_model_string(@homework,"布置")%>
+  </div>
+</div>
 <div class="qa_box qa_cell">
 <%=simple_form_for ([@customized_course,@homework]) do |f| %>
     <%= render "shared/error_messages", :target => @homework %>
@@ -14,7 +20,7 @@
     <% end %>
     <div class="qa_sep_15"></div>
 
-      <%= link_to_add_fields "添加文件", f, :qa_files, "shared/qa_files/" %>
+      <%= link_to_add_fields "添加作业文件", f, :qa_files, "shared/qa_files/" %>
     <div class="qa_sep_15"></div>
     <div class="qa_sep_15"></div>
 

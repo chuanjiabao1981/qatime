@@ -49,7 +49,7 @@ class Teacher < User
 
   def keep_account
 
-    [CustomizedTutorial, Correction].each do |s|
+    [CustomizedTutorial, HomeworkCorrection,ExerciseCorrection].each do |s|
       s.by_teacher_id(self.id).valid_tally_unit.each do |object|
         object.keep_account(self.id)
       end

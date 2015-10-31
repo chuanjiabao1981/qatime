@@ -1,0 +1,7 @@
+cn:
+  activerecord:
+    models:
+      exercise_correction: 随堂作业批改
+    attributes:
+      exercise_correction:
+        content: 随堂作业批改

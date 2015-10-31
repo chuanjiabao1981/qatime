@@ -4,7 +4,7 @@ class HomeworksController < ApplicationController
   include QaFilesHelper
 
   def new
-    @homework = Homework.new
+    @homework = @customized_course.homeworks.build
   end
 
   def create
@@ -23,7 +23,7 @@ class HomeworksController < ApplicationController
 
   def show
     @qa_files      = @homework.qa_files.order(:created_at => "ASC")
-    @solutions     = @homework.solutions.order(:created_at => "desc").paginate(page: params[:page])
+    @solutions     = @homework.homework_solutions.order(:created_at => "desc").paginate(page: params[:page])
 
   end
 

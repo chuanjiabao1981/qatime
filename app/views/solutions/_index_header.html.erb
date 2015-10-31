@@ -1,11 +1,12 @@
 <div class="qa_cell box_header">
   <div class="pull-left">
-    <span class="label label-primary">交了<%=solutionable.solutions_count%>次<%=Solution.model_name.human%></span>
+    <span class="label label-primary">
+      交了<%=examination.solutions_count%>次<%=Solution.model_name.human%></span>
   </div>
   <div class="pull-right">
-    <% if allow? :solutions,:new,solutionable %>
-        <%=link_to  send("new_#{solutionable.model_name.singular_route_key.downcase}_solution_path",solutionable) do%>
-            <span class="label label-success">提交<%=Solution.model_name.human%></span>
+    <% if allow? :solutions,:new,examination %>
+        <%=link_to  send("new_#{examination.model_name.singular_route_key.downcase}_#{examination.model_name.singular_route_key.downcase}_solution_path",examination) do%>
+            <span class="label label-success">提交<%=examination.model_name.human%></span>
         <% end %>
     <% end %>
   </div>

@@ -1,4 +1,5 @@
 class CourseIssueRepliesController < ApplicationController
+  include QaTopic
   layout 'application'
   respond_to :html
 
@@ -11,7 +12,7 @@ class CourseIssueRepliesController < ApplicationController
       @course_issue_reply.notify
       redirect_to course_issue_path(@course_issue)
     else
-      @course_issue_replies             = @course_issue.course_issue_replies.order(:created_at).paginate(page: params[:page])
+      course_issue_show_prepare
       render 'course_issues/show'
     end
   end
@@ -30,7 +31,12 @@ class CourseIssueRepliesController < ApplicationController
   end
 
   def show
-    redirect_to course_issue_path(@course_issue_reply.course_issue)
+    @course_issue   =  @course_issue_reply.course_issue
+    page_num        =  @course_issue.course_issue_replies.page_num(@course_issue_reply)
+    redirect_to course_issue_path(@course_issue,
+                                  page: page_num,
+                                  reply_aminate: @course_issue_reply.id,
+                                  anchor: "reply_#{@course_issue_reply.id}")
   end
 
   def destroy

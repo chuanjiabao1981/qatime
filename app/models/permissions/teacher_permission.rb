@@ -105,11 +105,12 @@ module Permissions
       end
 
       allow :solutions,[:show] do |solution|
-        solution and solution_permission(solution,user)
+        solution and solution.examination.response_teachers.include?(user)
       end
 
-      allow :corrections,[:create] do |solution|
-        solution and solution_permission(solution,user)
+
+      allow :corrections,[:create,:show] do |solution|
+        solution and solution.examination and solution.examination.response_teachers.include?(user)
       end
 
       allow :corrections,[:edit,:update] do |correction|
@@ -141,23 +142,26 @@ module Permissions
         course_issue and course_issue.customized_course.teacher_ids.include?(user.id)
       end
 
-      allow :course_issue_replies,[:show,:create] do |course_issue|
+      allow :course_issue_replies,[:create] do |course_issue|
         course_issue and course_issue.customized_course.teacher_ids.include?(user.id)
       end
       allow :course_issue_replies,[:edit,:update] do |course_issue_reply|
         course_issue_reply and course_issue_reply.author_id == user.id and course_issue_reply.status == "open"
       end
+      allow :course_issue_replies,[:show] do |course_issue_reply|
+        course_issue_reply and course_issue_reply.customized_course.teacher_ids.include?(user.id)
+      end
     end
 private
 
-    def solution_permission(solution,user)
-      if solution.solutionable.instance_of? Homework
-        solution.solutionable.customized_course.teacher_ids.include?(user.id)
-      elsif solution.solutionable.instance_of? Exercise
-        solution.solutionable.customized_tutorial.teacher_id == user.id or
-            solution.solutionable.customized_tutorial.customized_course.teacher_ids.include?(user.id)
-      end
-    end
+    # def solution_permission(solution,user)
+    #   if solution.solutionable.instance_of? Homework
+    #     solution.solutionable.customized_course.teacher_ids.include?(user.id)
+    #   elsif solution.solutionable.instance_of? Exercise
+    #     solution.solutionable.customized_tutorial.teacher_id == user.id or
+    #         solution.solutionable.customized_tutorial.customized_course.teacher_ids.include?(user.id)
+    #   end
+    # end
     def topicable_permission(topicable,user)
       return false if topicable.nil?
       if topicable.instance_of? CustomizedCourse

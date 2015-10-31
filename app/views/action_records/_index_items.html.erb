@@ -1,0 +1,6 @@
+<div class="qa_objects">
+  <%= render partial: 'action_records/action_record',collection: action_records ,as: :action_record%>
+</div>
+<div class="qa_cell">
+  <%= will_paginate action_records ,renderer: BootstrapPagination::Rails %>
+</div>]

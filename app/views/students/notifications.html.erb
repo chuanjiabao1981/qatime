@@ -1,0 +1,13 @@
+<div class="qa_box">
+  <div class="box_header qa_cell">
+    <div class="pull-left">
+      <span class="label label-primary">
+        <%= I18n.t "app.unread_notification",count:@student.action_notifications.unread.count%>
+      </span>
+    </div>
+    <div style="clear:both"></div>
+  </div>
+  <% if @action_notifications %>
+        <%= render partial: 'notifications/action_notification_index_items',locals: {action_notifications: @action_notifications} %>
+  <% end %>
+</div>

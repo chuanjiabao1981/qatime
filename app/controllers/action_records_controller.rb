@@ -1,0 +1,2 @@
+class ActionRecordsController < ApplicationController
+end

@@ -1,0 +1,2 @@
+module ActionRecordsHelper
+end

@@ -122,6 +122,7 @@ Qatime::Application.routes.draw do
       get 'customized_courses'
       get 'homeworks'
       get 'solutions'
+      get 'notifications'
     end
     resources :customized_courses do
       member do
@@ -146,6 +147,7 @@ Qatime::Application.routes.draw do
       get 'homeworks'
       get 'solutions'
       get 'course_issues'
+      get 'action_records'
     end
     resources :course_issues
     resources :homeworks,only:[:show,:edit,:update,:new,:create]
@@ -226,7 +228,8 @@ Qatime::Application.routes.draw do
   end
 
   resources :qa_files
-
+  resources :action_records
+  resources :notifications
 
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'

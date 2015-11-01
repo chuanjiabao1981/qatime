@@ -5,3 +5,8 @@ cn:
     attributes:
       exercise_correction:
         content: 随堂作业批改
+  action:
+    exercise_correction:
+      create:
+        desc: "%{user},批改了随堂作业"
+        name: 批改

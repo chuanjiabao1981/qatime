@@ -163,7 +163,9 @@ class CorrectionTest < ActiveSupport::TestCase
       assert_difference 'homework_solution.reload.corrections_count',1 do
         assert_difference 'homework_correction.homework.reload.corrections_count',1 do
           assert_difference 'CustomizedCourseActionRecord.count',1 do
-            homework_correction.save
+            assert_difference 'CustomizedCourseActionNotification.count',2 do
+              homework_correction.save
+            end
           end
         end
       end
@@ -184,7 +186,9 @@ class CorrectionTest < ActiveSupport::TestCase
       assert_difference 'exercise_correction.exercise_solution.reload.corrections_count',1 do
         assert_difference 'exercise_correction.exercise.reload.corrections_count',1 do
           assert_difference 'CustomizedCourseActionRecord.count',1 do
-            exercise_correction.save
+            assert_difference 'CustomizedCourseActionNotification.count',2 do
+              exercise_correction.save
+            end
           end
         end
       end

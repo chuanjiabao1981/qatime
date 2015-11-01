@@ -18,7 +18,7 @@ class HomeworkTest < ActiveSupport::TestCase
       assert_difference 'homework.customized_course.reload.homeworks_count',1 do
         assert_difference 'CustomizedCourseActionRecord.count',1 do
           #两个老师所以2
-          assert_difference 'ActionNotification.count',2 do
+          assert_difference 'CustomizedCourseActionNotification.count',2 do
             homework.save!
           end
         end

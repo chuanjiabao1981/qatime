@@ -5,6 +5,8 @@ class Correction < ActiveRecord::Base
   include ContentValidate
   include QaActionRecord
   include QaComment
+  include QaCustomizedCourseActionNotification
+
 
 
   belongs_to        :teacher
@@ -36,25 +38,10 @@ class Correction < ActiveRecord::Base
   end
 
 
-  def solution_name
-    Solution.model_name.human
-  end
-
   def operator_id
     self.teacher_id
   end
 
-  def notify
-    teacher           = self.teacher
-    student           = self.solution.student
-
-    SmsWorker.perform_async(SmsWorker::NOTIFY,
-                            from: teacher.view_name,
-                            to: student.view_name,
-                            mobile: student.mobile,
-                            message: "批改了你的#{solution_name},请关注,"
-    )
-  end
 
   private
   def __after_save

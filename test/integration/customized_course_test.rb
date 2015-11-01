@@ -23,20 +23,38 @@ class CustomizedCourseIntegrateTest < LoginTestBase
   end
   private
   def action_record_page(user_session,action_record_path)
-    customized_course_action_record_for_tutorial_create               = action_records(:customized_course_action_record_for_tutorial_create)
-    customized_course_action_record_for_exercise_create               = action_records(:customized_course_action_record_for_exercise_create)
-    customized_course_action_record_for_tutorial_issue_create         = action_records(:customized_course_action_record_for_tutorial_issue_create)
-    customized_course_action_record_for_tutorial_issue_reply_create   = action_records(:customized_course_action_record_for_tutorial_issue_reply_create)
+    customized_course_action_record_for_tutorial_create                     = action_records(:customized_course_action_record_for_tutorial_create)
+    customized_course_action_record_for_exercise_create                     = action_records(:customized_course_action_record_for_exercise_create)
+    customized_course_action_record_for_tutorial_issue_create               = action_records(:customized_course_action_record_for_tutorial_issue_create)
+    customized_course_action_record_for_tutorial_issue_reply_create         = action_records(:customized_course_action_record_for_tutorial_issue_reply_create)
+    customized_course_action_record_for_homework_create                     = action_records(:customized_course_action_record_for_homework_create)
+    customized_course_action_record_homework_solution_create                = action_records(:customized_course_action_record_homework_solution_create)
+    customized_course_action_record_for_exercise_solution_create            = action_records(:customized_course_action_record_for_exercise_solution_create)
+    customized_course_action_record_for_exercise_correction_create          = action_records(:customized_course_action_record_for_exercise_correction_create)
+    customize_course_action_record_for_comment_homework_correction_create   = action_records(:customize_course_action_record_for_comment_homework_correction_create)
+    customized_course_action_record_homework_correction_create              = action_records(:customized_course_action_record_homework_correction_create)
     assert customized_course_action_record_for_tutorial_create.valid?
     assert customized_course_action_record_for_exercise_create.valid?
     assert customized_course_action_record_for_tutorial_issue_create.valid?
     assert customized_course_action_record_for_tutorial_issue_reply_create.valid?
+    assert customized_course_action_record_for_homework_create.valid?
+    assert customized_course_action_record_homework_solution_create.valid?
+    assert customized_course_action_record_for_exercise_solution_create.valid?
+    assert customized_course_action_record_for_exercise_correction_create.valid?
+    assert customize_course_action_record_for_comment_homework_correction_create.valid?
+    assert customized_course_action_record_homework_correction_create.valid?
     user_session.get action_record_path
     user_session.assert_response :success
     user_session.assert_select 'a[href=?]', customized_tutorial_path(customized_course_action_record_for_tutorial_create.actionable),1
     user_session.assert_select 'a[href=?]', exercise_path(customized_course_action_record_for_exercise_create.actionable),1
     user_session.assert_select 'a[href=?]', tutorial_issue_path(customized_course_action_record_for_tutorial_issue_create.actionable),1
     user_session.assert_select 'a[href=?]', tutorial_issue_reply_path(customized_course_action_record_for_tutorial_issue_reply_create.actionable),1
+    user_session.assert_select 'a[href=?]', homework_path(customized_course_action_record_for_homework_create.actionable),1
+    user_session.assert_select 'a[href=?]', homework_solution_path(customized_course_action_record_homework_solution_create.actionable),1
+    user_session.assert_select 'a[href=?]', exercise_solution_path(customized_course_action_record_for_exercise_solution_create.actionable),1
+    user_session.assert_select 'a[href=?]', exercise_correction_path(customized_course_action_record_for_exercise_correction_create.actionable),1
+    user_session.assert_select 'a[href=?]', comment_path(customize_course_action_record_for_comment_homework_correction_create.actionable),1
+    user_session.assert_select 'a[href=?]', homework_correction_path(customized_course_action_record_homework_correction_create.actionable),1
   end
   def index_page(user_session,indexpath)
     user_session.get indexpath

@@ -9,7 +9,6 @@ class CourseIssueRepliesController < ApplicationController
     @course_issue_reply = @course_issue.course_issue_replies.build(params[:course_issue_reply].permit!)
     if @course_issue_reply.save
       flash[:success] = "成功发表#{Reply.model_name.human}！"
-      @course_issue_reply.notify
       redirect_to course_issue_path(@course_issue)
     else
       course_issue_show_prepare

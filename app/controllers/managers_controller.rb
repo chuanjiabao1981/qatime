@@ -4,6 +4,9 @@ class ManagersController < ApplicationController
     @customized_courses = CustomizedCourse.all.paginate(page: params[:page],:per_page => 10)
   end
 
+  def action_records
+    @action_records = ActionRecord.all.order(:created_at => :desc).paginate(page: params[:page])
+  end
   def payment
 
   end

@@ -5,6 +5,7 @@ class Solution < ActiveRecord::Base
   include QaCommon
   include QaActionRecord
   include QaComment
+  include QaCustomizedCourseActionNotification
 
 
 

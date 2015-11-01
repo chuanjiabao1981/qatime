@@ -80,7 +80,7 @@ module Permissions
       allow "teachers/faq_topics", [:show]
       allow :faqs, [:show]
       allow :faq_topics, [:show]
-      allow :comments,[:create]
+      allow :comments,[:create,:show]
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
       end

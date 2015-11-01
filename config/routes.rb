@@ -138,6 +138,7 @@ Qatime::Application.routes.draw do
     member do
       get 'customized_courses'
       get 'payment'
+      get 'action_records'
     end
   end
 

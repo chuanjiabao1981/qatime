@@ -9,13 +9,21 @@
     <% else %>
         <span class="label label-danger"><%= I18n.t "view.notification.unread" %></span>
     <% end %>
-
-    <%=
+    <% if customized_course_action_notification.notificationable_type == 'Comment' %>
+        <%=
+            link_to (I18n.t "action.#{customized_course_action_notification.notificationable.model_name.singular_route_key}.#{customized_course_action_notification.action_name}.desc",
+                            user: customized_course_action_notification.operator.view_name,
+                            what: customized_course_action_notification.notificationable.commentable.model_name.human
+                    ),
+                    notification_path(customized_course_action_notification)
+        %>
+    <% else %>
+        <%=
         link_to (I18n.t "action.#{customized_course_action_notification.notificationable.model_name.singular_route_key}.#{customized_course_action_notification.action_name}.desc",
                         user: customized_course_action_notification.operator.view_name),
                 notification_path(customized_course_action_notification)
-    %>
-
+        %>
+    <% end %>
   </div>
   <div class="info">
     <%= localize(customized_course_action_notification.created_at,format: :long) %>

@@ -3,10 +3,21 @@
     <%=image_tag action_record.operator.avatar.normal.url %>
   </div>
   <div class="title">
-    <%=
-        link_to (I18n.t "action.#{action_record.actionable.model_name.singular_route_key}.#{action_record.name}.desc",user: action_record.operator.view_name),
-                        send("#{action_record.actionable.model_name.singular_route_key}_path",action_record.actionable)
-    %>
+    <% if action_record.actionable_type == "Comment" %>
+        <%=
+            link_to (I18n.t "action.#{action_record.actionable.model_name.singular_route_key}.#{action_record.name}.desc",
+                            user: action_record.operator.view_name,
+                            what: action_record.actionable.commentable.model_name.human
+                    ),
+                    send("#{action_record.actionable.model_name.singular_route_key}_path",action_record.actionable)
+        %>
+    <% else %>
+        <%=
+            link_to (I18n.t "action.#{action_record.actionable.model_name.singular_route_key}.#{action_record.name}.desc",
+                            user: action_record.operator.view_name),
+                            send("#{action_record.actionable.model_name.singular_route_key}_path",action_record.actionable)
+        %>
+    <% end %>
   </div>
   <div class="info">
     <%= localize(action_record.created_at,format: :long) %>

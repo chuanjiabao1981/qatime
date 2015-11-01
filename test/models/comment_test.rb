@@ -11,7 +11,7 @@ class CommentTest < ActiveSupport::TestCase
     assert_not homework_correction_comment.customized_course.nil?
     assert_difference "Comment.count",1 do
       assert_difference "CustomizedCourseActionRecord.count",1 do
-        assert_difference "ActionNotification.count",2 do
+        assert_difference "CustomizedCourseActionNotification.count",2 do
           homework_correction_comment.save
         end
       end
@@ -26,7 +26,7 @@ class CommentTest < ActiveSupport::TestCase
     assert_not  exercise_correction_comment.customized_course.nil?
     assert_difference "Comment.count",1 do
       assert_difference "CustomizedCourseActionRecord.count",1 do
-        assert_difference "ActionNotification.count",2 do
+        assert_difference "CustomizedCourseActionNotification.count",2 do
           exercise_correction_comment.save
         end
       end
@@ -41,7 +41,7 @@ class CommentTest < ActiveSupport::TestCase
     assert_not    homework_solution_comment.customized_course.nil?
     assert_difference "Comment.count",1 do
       assert_difference "CustomizedCourseActionRecord.count",1 do
-        assert_difference "ActionNotification.count",2 do
+        assert_difference "CustomizedCourseActionNotification.count",2 do
           homework_solution_comment.save
         end
       end
@@ -56,7 +56,7 @@ class CommentTest < ActiveSupport::TestCase
     assert_not    exercise_solution_comment.customized_course.nil?
     assert_difference "Comment.count",1 do
       assert_difference "CustomizedCourseActionRecord.count",1 do
-        assert_difference "ActionNotification.count",2 do
+        assert_difference "CustomizedCourseActionNotification.count",2 do
           exercise_solution_comment.save
         end
       end
@@ -71,7 +71,7 @@ class CommentTest < ActiveSupport::TestCase
     assert_not    homework_comment.customized_course.nil?
     assert_difference "Comment.count",1 do
       assert_difference "CustomizedCourseActionRecord.count",1 do
-        assert_difference "ActionNotification.count",2 do
+        assert_difference "CustomizedCourseActionNotification.count",2 do
           homework_comment.save
         end
       end
@@ -87,7 +87,7 @@ class CommentTest < ActiveSupport::TestCase
 
     assert_difference "Comment.count",1 do
       assert_difference "CustomizedCourseActionRecord.count",1 do
-        assert_difference "ActionNotification.count",2 do
+        assert_difference "CustomizedCourseActionNotification.count",2 do
           exercise_comment.save
         end
       end

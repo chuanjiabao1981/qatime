@@ -87,7 +87,7 @@ module Permissions
       allow 'students/recharge_records',[:index,:new,:create]
       allow 'students/courses',[:purchase]
       allow :lessons,[:show]
-      allow :comments,[:create]
+      allow :comments,[:create,:show]
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
       end

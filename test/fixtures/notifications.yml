@@ -22,6 +22,33 @@ customized_course_action_notification_exercise_create:
   read: false
   action_name: create
 
+customized_course_action_notification_exercise_solution_create:
+  operator: student1
+  customized_course: customized_course1
+  notificationable: exercise_solution_one (Solution)
+  receiver: teacher1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_exercise_correction_create:
+  operator: teacher1
+  customized_course: customized_course1
+  notificationable: correction_two (Correction)
+  receiver: student1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_homework_correction_comment_create:
+  operator: student1
+  customized_course: customized_course1
+  notificationable: comment_homework_correction (Comment)
+  receiver: teacher1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
 customized_course_action_notification_tutorial_issue_create:
   operator: student1
   customized_course: customized_course1
@@ -35,6 +62,33 @@ customized_course_action_notification_tutorial_issue_reply_create:
   operator: teacher1
   customized_course: customized_course1
   notificationable: tutorial_issue_reply_one (Reply)
+  receiver: student1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_homework_create:
+  operator: teacher1
+  customized_course: customized_course1
+  notificationable: homework1 (Examination)
+  receiver: student1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_homework_solution_create:
+  operator: student1
+  customized_course: customized_course1
+  notificationable: homework_solution_one (Solution)
+  receiver: teacher1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_homework_correction_create:
+  operator: teacher1
+  customized_course: customized_course1
+  notificationable: correction_one (Correction)
   receiver: student1
   type: CustomizedCourseActionNotification
   read: false

@@ -15,8 +15,6 @@ class HomeworksController < ApplicationController
 
     if @homework.save
       flash[:success] = "成功创建#{Homework.model_name.human}"
-      @homework.notify
-      # SmsWorker.perform_async(SmsWorker::HOMEWORK_CREATE_NOTIFICATION, id: @homework.id)
     end
     respond_with @customized_course,@homework
   end

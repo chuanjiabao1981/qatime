@@ -10,7 +10,7 @@ class CourseIssueTest < ActiveSupport::TestCase
     assert course_issue.valid?,course_issue.errors.full_messages
     assert_difference 'CourseIssue.count',1 do
       assert_difference 'CustomizedCourseActionRecord.count',1 do
-        assert_difference 'ActionNotification.count',2 do
+        assert_difference 'CustomizedCourseActionNotification.count',2 do
           course_issue.save!
         end
       end

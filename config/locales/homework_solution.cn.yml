@@ -6,3 +6,8 @@ cn:
       homework_solution:
         title: 解答说明
         content: 作业解答
+  action:
+    homework_solution:
+      create:
+        desc: "%{user},提交了家庭作业"
+        name: 提交

@@ -44,7 +44,9 @@ class SolutionTest < ActiveSupport::TestCase
     assert_difference "exercise.reload.solutions_count",1 do
       assert_difference "ExerciseSolution.count",1 do
         assert_difference 'CustomizedCourseActionRecord.count',1 do
-          exercise_solution.save!
+          assert_difference 'CustomizedCourseActionNotification.count',2 do
+            exercise_solution.save!
+          end
         end
       end
     end
@@ -59,7 +61,9 @@ class SolutionTest < ActiveSupport::TestCase
     assert_difference "homework.reload.solutions_count",1 do
       assert_difference "HomeworkSolution.count",1 do
         assert_difference 'CustomizedCourseActionRecord.count',1 do
-          homework_solution.save!
+          assert_difference 'CustomizedCourseActionNotification.count',2 do
+            homework_solution.save!
+          end
         end
       end
     end

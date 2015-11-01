@@ -6,7 +6,4 @@ class ExerciseCorrection < Correction
   belongs_to :customized_course
   belongs_to :customized_tutorial
 
-  def solution_name
-    ExerciseSolution.model_name.human
-  end
 end

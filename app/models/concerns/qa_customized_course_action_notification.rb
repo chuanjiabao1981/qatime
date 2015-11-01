@@ -37,8 +37,14 @@ module QaCustomizedCourseActionNotification
 
   def __create_action_sms_notification(receiver_id,notification)
     to        = User.find(receiver_id)
-    message   = I18n.t "action.#{notification.notificationable.model_name.singular_route_key}.#{notification.action_name}.desc",
+    if notification.notificationable_type == 'Comment'
+      message   = I18n.t "action.#{notification.notificationable.model_name.singular_route_key}.#{notification.action_name}.desc",
+                         user: notification.operator.view_name,
+                         what: notification.notificationable.commentable.model_name.human
+    else
+      message   = I18n.t "action.#{notification.notificationable.model_name.singular_route_key}.#{notification.action_name}.desc",
                 user: notification.operator.view_name
+    end
     SmsWorker.perform_async(SmsWorker::NOTIFY,
                             to: to.view_name,
                             mobile: to.mobile,

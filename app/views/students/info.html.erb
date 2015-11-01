@@ -24,6 +24,14 @@
       <div class="col-md-9"><%= @student.mobile %></div>
     </div>
   </div>
+  <% if not @student.parent_phone.nil? %>
+      <div class="qa_cell">
+        <div class="row">
+          <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:parent_phone)%></div>
+          <div class="col-md-9"><%= @student.parent_phone %></div>
+        </div>
+      </div>
+  <% end %>
   <div class="qa_cell">
     <div class="row">
       <div class="col-md-2" style="padding-left:40px">邮件</div>

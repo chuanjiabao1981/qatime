@@ -25,13 +25,23 @@ video_belongs_to_customized_tutorial_tally_<%= i %>:
   duration: <%= 60+10*i %>
 <% end %>
 
-# Five video for corrections
+# Five video for homework_correction
 <% 1.upto(5) do |i| %>
-video_belongs_to_correction_<%= i %>:
+video_belongs_to_homework_correction_<%= i %>:
   name: 3333
-  videoable: correction_tally_<%= i %> (Correction)
+  videoable: homework_correction_tally_<%= i %> (Correction)
   author: teacher_tally
-  token: correction_tally_video_<%= i %>
+  token: homework_correction_tally_video_<%= i %>
+  duration: <%= 60+10*i %>
+<% end %>
+
+# Five video for exercise_correction
+<% 1.upto(5) do |i| %>
+video_belongs_to_exercise_correction_<%= i %>:
+  name: 3333
+  videoable: exercise_correction_tally_<%= i %> (Correction)
+  author: teacher_tally
+  token: exercise_correction_tally_video_<%= i %>
   duration: <%= 60+10*i %>
 <% end %>
 

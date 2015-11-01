@@ -23,18 +23,18 @@
       <ul class="menu" style="color: white">
         <li>
           <%= link_to teachers_path do %>
-              <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 教师</span> Info
+              <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 教师</span>
           <% end %>
         </li>
         <li>
           <%= link_to schools_path do %>
-              <span class="glyphicon glyphicon-home"></span> <span class="qa_f18"> 学校</span> School
+              <span class="glyphicon glyphicon-home"></span> <span class="qa_f18"> 学校</span>
           <% end %>
         </li>
         <li>
           <%= link_to students_path do %>
               <span class="glyphicon glyphicon-hdd"></span>
-              <span class="qa_f18"> <%= Student.model_name.human %> </span> Student
+              <span class="qa_f18"> <%= Student.model_name.human %> </span>
           <% end %>
         </li>
         <li>
@@ -59,12 +59,12 @@
               <span class="glyphicon glyphicon-question-sign"></span>
               <span class="qa_f18">
                 <%= RegisterCode.model_name.human%>
-              </span> Code
+              </span>
           <% end %>
         </li>
         <li>
           <%= link_to state_managers_lessons_path(manager_id:current_user.id) do %>
-              <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"> 状态</span> State
+              <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"> 状态</span>
           <% end %>
         </li>
 

@@ -43,14 +43,6 @@ exercise_solution_one:
   content: exercise soltuion test content 1
   exercise: exercise_one
   student: student1
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
-
-exercise_fee_solution_one:
-  title: exercise fee solution test title 1
-  content: exercise fee soltuion test content 1
-  solutionable_id: <%= ActiveRecord::FixtureSet.identify(:exercise_fee_one) %>
-  solutionable_type: Exercise
-  student: student2
   type: ExerciseSolution
   customized_course: customized_course1
   customized_tutorial: customized_tutorial1

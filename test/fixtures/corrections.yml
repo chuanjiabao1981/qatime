@@ -14,8 +14,9 @@ correction_one:
   token: correction one
   customized_course: customized_course1
   homework: homework1
-# column: value
-#
+  teacher_price: 54
+  platform_price: 6
+
 correction_two:
   content: asdfasd
   teacher: teacher1
@@ -25,16 +26,18 @@ correction_two:
   exercise: exercise_one
   customized_course: customized_course1
   customized_tutorial: customized_tutorial1
+  teacher_price: 54
+  platform_price: 6
 
 # Here use erb to generate tally corrections
 # 5 open
 <% 1.upto(5) do |i| %>
-correction_tally_<%= i %>:
+homework_correction_tally_<%= i %>:
   content: 12341234
   teacher: teacher_tally
   solution: solution_for_homework_correction_fee
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
-  token: correction_tally_video_<%= i %>
+  token: homework_correction_tally_video_<%= i %>
   status: open
   teacher_price: 54
   platform_price: 6
@@ -43,19 +46,45 @@ correction_tally_<%= i %>:
 
 # 5 closed
 <% 6.upto(10) do |i| %>
-correction_tally_<%= i %>:
+homework_correction_tally_<%= i %>:
   content: 12341234
   teacher: teacher_tally
   solution: solution_for_homework_correction_fee
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
-  token: correction_tally_video_<%= i %>
+  token: homework_correction_tally_video_<%= i %>
   status: closed
+  teacher_price: 54
+  platform_price: 6
+  type: HomeworkCorrection
+<% end %>
+
+# Here use erb to generate tally corrections for ExerciseCorrection
+<% 1.upto(5) do |i| %>
+exercise_correction_tally_<%= i %>:
+  content: 12341234
+  teacher: teacher_tally
+  solution: solution_for_homework_correction_fee
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
+  token: exercise_correction_tally_video_<%= i %>
+  status: open
   teacher_price: 54
   platform_price: 6
   type: ExerciseCorrection
 <% end %>
 
-
+# 5 closed
+<% 6.upto(10) do |i| %>
+exercise_correction_tally_<%= i %>:
+  content: 12341234
+  teacher: teacher_tally
+  solution: solution_for_homework_correction_fee
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
+  token: exercise_correction_tally_video_<%= i %>
+  status: closed
+  teacher_price: 54
+  platform_price: 6
+  type: ExerciseCorrection
+<% end %>
 
 exercise_correction_for_fee_view:
   content: dddddsss

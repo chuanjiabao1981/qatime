@@ -13,6 +13,10 @@ class Student < User
 
   has_many :not_finished_learning_plans, -> {where("? <= end_at",Time.zone.now.to_date)},class_name:'LearningPlan'
 
+  validates_presence_of :parent_phone, :on => :create
+  validates :parent_phone, length:{is: 11}, :on => :create
+  validates :parent_phone,numericality: { only_integer: true },:on => :create
+
   has_many :customized_courses,->{order(created_at: :desc)},:dependent => :destroy
   has_many :solutions,:dependent => :destroy
 

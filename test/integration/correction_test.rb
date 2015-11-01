@@ -56,6 +56,7 @@ class CorrectionIntegrateTest < LoginTestBase
       user_session.assert_redirected_to get_home_url(user)
       return
     end
+
     user_session.assert_redirected_to redirected_path
     user_session.follow_redirect!
     user_session.assert_select 'div',content

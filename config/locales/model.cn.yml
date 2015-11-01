@@ -52,6 +52,7 @@ cn:
         register_code_value: 注册码
         mobile: 手机
         nick_name: 昵称
+        parent_phone: 家长手机
       student:
         email: 邮箱
         name: 姓名

@@ -57,7 +57,7 @@ class TeacherTest < ActiveSupport::TestCase
     teacher_money_change_expected = 0
     workstation_money_change_expected = 0
 
-    [CustomizedTutorial, Correction].each do |s|
+    [CustomizedTutorial, HomeworkCorrection,ExerciseCorrection].each do |s|
       assert s.by_teacher_id(teacher.id).valid_tally_unit.size == 5
       s.by_teacher_id(teacher.id).valid_tally_unit.each do |object|
         fee_value, teacher_value, workstation_value = calculate_test_expected_money_change_value(object)
@@ -79,7 +79,7 @@ class TeacherTest < ActiveSupport::TestCase
 
     teacher.keep_account
 
-    [CustomizedTutorial, Correction].each do |s|
+    [CustomizedTutorial, HomeworkCorrection,ExerciseCorrection].each do |s|
       assert s.by_teacher_id(teacher.id).valid_tally_unit.size == 0
     end
 
@@ -88,7 +88,7 @@ class TeacherTest < ActiveSupport::TestCase
     end
 
     customized_course     = customized_courses(:customized_course_tally)
-    assert customized_course.fees.size == 20
+    assert customized_course.fees.size == 25
     customized_course.fees.each do |f|
       assert f.consumption_records.length           == 1
       assert f.consumption_records.first.account_id == student.account.id

@@ -23,10 +23,13 @@ class CorrectionTest < ActiveSupport::TestCase
     teacher = Teacher.find(users(:teacher_tally).id)
     student = Student.find(users(:student_tally).id)
     workstation = workstations(:workstation1)
-    corrections = HomeworkCorrection.by_teacher_id(teacher.id).valid_tally_unit
 
-    keep_account_succeed(teacher, student, corrections, 5) do
-      HomeworkCorrection.by_teacher_id(teacher.id).valid_tally_unit.size
+
+    [HomeworkCorrection, ExerciseCorrection].each do |s|
+      corrections = s.by_teacher_id(teacher.id).valid_tally_unit
+      keep_account_succeed(teacher, student, workstation, corrections, 5, "Correction") do
+        s.by_teacher_id(teacher.id).valid_tally_unit.size
+      end
     end
   end
 
@@ -38,11 +41,6 @@ class CorrectionTest < ActiveSupport::TestCase
     assert @solution.last_handle_created_at.nil?
     assert @solution.last_handle_author.nil?
     @correction         = @solution.corrections.build(content: "13412341")
-    # 测试价格是否传递下去
-    customized_course_prices_validation(@correction) do
-      @correction.content = "134123412"
-    end
-
     @correction.teacher = @solution.examination.teacher
     @correction.save
     @solution.reload
@@ -170,6 +168,12 @@ class CorrectionTest < ActiveSupport::TestCase
         end
       end
     end
+
+    # 测试价格是否传递下去
+    customized_course_prices_validation(homework_correction) do
+      homework_correction.content = "134123412"
+    end
+
   end
 
   test 'create exercise correction' do
@@ -188,6 +192,11 @@ class CorrectionTest < ActiveSupport::TestCase
           exercise_correction.save
         end
       end
+    end
+
+    # 测试价格是否传递下去
+    customized_course_prices_validation(exercise_correction) do
+      exercise_correction.content = "134123412"
     end
   end
 end

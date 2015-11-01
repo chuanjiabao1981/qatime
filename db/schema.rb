@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029055400) do
+ActiveRecord::Schema.define(version: 20151101040124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,10 +78,9 @@ ActiveRecord::Schema.define(version: 20151029055400) do
     t.integer  "comments_count",         default: 0
     t.integer  "customized_course_id"
     t.integer  "homework_id"
-    t.string   "status",               default: "open", null: false
+    t.string   "status",                 default: "open", null: false
     t.float    "teacher_price"
     t.float    "platform_price"
-    t.string   "status",                 default: "open", null: false
     t.string   "type"
     t.integer  "customized_tutorial_id"
     t.integer  "examination_id"
@@ -188,10 +187,10 @@ ActiveRecord::Schema.define(version: 20151029055400) do
     t.datetime "updated_at",                         null: false
     t.integer  "solutions_count",        default: 0
     t.integer  "student_id"
-    t.string   "work_type"
     t.integer  "customized_tutorial_id"
     t.integer  "comments_count",         default: 0
     t.integer  "corrections_count",      default: 0
+    t.string   "work_type"
     t.string   "type"
   end
 
@@ -522,6 +521,7 @@ ActiveRecord::Schema.define(version: 20151029055400) do
     t.boolean  "pass",                                      default: false
     t.string   "grade"
     t.string   "nick_name"
+    t.string   "parent_phone"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

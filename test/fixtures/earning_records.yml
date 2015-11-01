@@ -16,12 +16,6 @@ correction_one_fee_erning_record:
   price: 54
   value: 2
 
-#reply_fee_earning_record:
-#  fee: reply_fee
-#  account: physics_teacher1_account
-#  percent: 1
-#  value: 2.5
-
 homework_solution_correction_earning_record:
   fee: correction_fee
   account: physics_teacher1_account
@@ -43,11 +37,11 @@ earning_record_for_tutorial_issue_reply:
 earning_record_for_exercise_correction:
   fee: fee_for_exercise_correction
   account: physics_teacher1_account
-  percent: 1
+  price: 54
   value: 4.5
 
 earning_record_for_homework_correction:
   fee: fee_for_homework_correction
   account: physics_teacher1_account
-  percent: 1
+  price: 54
   value: 5

@@ -12,6 +12,7 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     fill_in :student_email,with: 'bb@qatime.cn'
     fill_in :student_name, with: 'test'
     fill_in :student_mobile, with: '15910676326'
+    fill_in :student_parent_phone, with: '15910676326'
     attach_file("student_avatar","#{Rails.root}/test/integration/avatar.jpg")
     fill_in :student_password, with: '88888888'
     fill_in :student_password_confirmation, with: '88888888'

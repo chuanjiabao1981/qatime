@@ -41,6 +41,11 @@ class User < ActiveRecord::Base
 
   belongs_to :school
 
+
+  def unread_notifications_count
+    self.customized_course_action_notifications.unread.count
+  end
+
   def self.new_remember_token
     SecureRandom.urlsafe_base64
   end

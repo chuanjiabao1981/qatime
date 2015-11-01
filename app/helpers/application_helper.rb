@@ -84,8 +84,12 @@ module ApplicationHelper
     else
       content = ""
     end
-
     content
+  end
+
+  def user_notification_path
+    return unless signed_in?
+    send "notifications_#{current_user.model_name.singular_route_key}_path",current_user
   end
 
 end

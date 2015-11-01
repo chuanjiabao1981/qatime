@@ -44,8 +44,8 @@
           <%= link_to notifications_teacher_path(@teacher) do %>
               <span class="fa fa-bell"></span>
               <span class="qa_f18">我的消息
-                <% if @teacher.customized_course_action_notifications.unread.count >0 %>
-                    <span class="badge"><%= @teacher.customized_course_action_notifications.unread.count%></span>
+                <% if @teacher.unread_notifications_count >0 %>
+                    <span class="badge"><%= @teacher.unread_notifications_count%></span>
                     <% end %>
               </span>
           <% end %>

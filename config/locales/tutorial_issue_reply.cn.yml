@@ -2,3 +2,8 @@ cn:
   activerecord:
     models:
       tutorial_issue_reply: 随堂问题解答
+  action:
+    tutorial_issue_reply:
+      create:
+        desc: "%{user},解答了随堂问题"
+        name: 解答

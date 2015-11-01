@@ -28,8 +28,9 @@ class AnswerCreateTest < ActionDispatch::IntegrationTest
 
     assert_difference 'Answer.count',1 do
       assert_difference 'Video.where(videoable_type:"Answer").count',1 do
+        content = random_str
         # 写回复正文
-        find('div.note-editable').set('答案是这个样子的，确实是这个样子的字符0987654321009876543210sex')
+        find('div.note-editable').set(content)
         # # 准备上传视频
         # find("div.note-group.btn-group").click
         # attach_file("teaching-video-file","#{Rails.root}/test/integration/test.mp4")
@@ -52,7 +53,7 @@ class AnswerCreateTest < ActionDispatch::IntegrationTest
         #puts page.html
         a = Answer.all.order(created_at: :desc).first
         assert_not a.video.nil?
-        assert page.has_content? '答案是这个样子的，确实是这个样子的字符0987654321009876543210sex'
+        assert page.has_content? content
         #assert page.has_xpath?("//video[contains(@src,\"#{a.video.name}\")]",:visible => :all),"no video url"
       end
 

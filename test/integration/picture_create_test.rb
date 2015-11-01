@@ -28,7 +28,8 @@ class PictureCreateTest < ActionDispatch::IntegrationTest
     assert_difference 'Answer.count',1 do
       assert_difference 'Picture.where(imageable_type:"Answer").count',1 do
         # 写回复正文
-        find('div.note-editable').set('答案是这个样子的，确实是这个样子的字符0987654321009876543210')
+        content = random_str
+        find('div.note-editable').set(content)
         # # 准备上传视频
         # find("div.note-group.btn-group").click
         # attach_file("teaching-video-file","#{Rails.root}/test/integration/test.mp4")
@@ -53,7 +54,7 @@ class PictureCreateTest < ActionDispatch::IntegrationTest
         assert a.picture_ids.include?(p.id)
         assert page.has_xpath?("//img[contains(@src,p.name)]")
 
-        assert page.has_content? '答案是这个样子的，确实是这个样子的字符0987654321009876543210'
+        assert page.has_content? content
       end
 
     end

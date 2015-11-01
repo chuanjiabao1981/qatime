@@ -34,10 +34,10 @@ class CustomizedCourseAATest < ActiveSupport::TestCase
     # By default, the customized_course_type is heighten
     cc = student.customized_courses.build
     cc.category = "高中"
+    cc.subject  = "数学"
     cc.creator_id = manager.id
     cc.workstation_id = workstation.id
     cc.save
-
     teacher_price_old, platform_price_old = get_expected_customized_course_prices(cc)
     cc.spurt!
     teacher_price_new, platform_price_new = get_expected_customized_course_prices(cc)

@@ -6,3 +6,8 @@ cn:
       exercise_solution:
         title: 解答说明
         content: 作业解答
+  action:
+    exercise_solution:
+      create:
+        desc: "%{user},提交了随堂作业"
+        name: 提交

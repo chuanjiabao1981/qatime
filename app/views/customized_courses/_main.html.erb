@@ -20,6 +20,9 @@
         <%= link_to CustomizedCourse.human_attribute_name(:solutions),solutions_customized_course_path(@customized_course) %>
       </li>
       <% end %>
+      <li role="presentation" class=<%= "active" if action_name == "action_records" %>>
+        <%= link_to CustomizedCourse.human_attribute_name(:action_records),action_records_customized_course_path(@customized_course) %>
+      </li>
     </ul>
   </div>
   <%= yield %>

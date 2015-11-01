@@ -60,6 +60,9 @@ class CustomizedCoursesController < ApplicationController
     @sale_price = teacher_price + platform_price
   end
 
+  def action_records
+    @action_records = @customized_course.customized_course_action_records.paginate(page: params[:page])
+  end
   private
   def all_teacher
     @teachers          = Teacher.by_category(@customized_course.category).by_subject(@customized_course.subject)

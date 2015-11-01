@@ -1,4 +1,6 @@
 class ExerciseSolution < Solution
+
+
   belongs_to :exercise,foreign_key: :examination_id
   belongs_to :customized_course
   belongs_to :customized_tutorial
@@ -12,15 +14,4 @@ class ExerciseSolution < Solution
     end
   end
 
-  def notify
-    teacher           = self.exercise.teacher
-    student           = self.student
-
-    SmsWorker.perform_async(SmsWorker::NOTIFY,
-                            from: student.view_name,
-                            to: teacher.view_name,
-                            mobile: teacher.mobile,
-                            message: "提交了#{ExerciseSolution.model_name.human},请及时#{Correction.model_name.human},"
-    )
-  end
 end

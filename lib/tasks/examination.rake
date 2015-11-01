@@ -10,6 +10,7 @@ task :examination => :environment do
 
   Solution.where("solutionable_id is not null").connection.execute("update solutions set examination_id=solutionable_id")
   Solution.all.each do |s|
+    next unless s and s.examination
     s.type ="#{s.examination.class.to_s}Solution"
     s.save
     puts s.type

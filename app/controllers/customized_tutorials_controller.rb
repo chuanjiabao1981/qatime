@@ -18,7 +18,6 @@ class CustomizedTutorialsController < ApplicationController
 
     if @customized_tutorial.save
       flash[:success] = "成功创建#{CustomizedTutorial.model_name.human}"
-      SmsWorker.perform_async(SmsWorker::TUTORIAL_CREATE_NOTIFICATION, id: @customized_tutorial.id)
     end
     respond_with @customized_tutorial
   end

@@ -12,7 +12,6 @@ class CourseIssuesController < ApplicationController
     params[:course_issue][:author_id] = current_user.id
     @course_issue                     = @customized_course.course_issues.build(params[:course_issue].permit!)
     if @course_issue.save
-      @course_issue.notify
       flash[:success] ="成功创建#{CourseIssue.model_name.human}"
     end
     respond_with @customized_course,@course_issue

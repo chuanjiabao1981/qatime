@@ -1,17 +1,17 @@
 class CustomizedCourse < ActiveRecord::Base
   belongs_to :student
+  belongs_to :workstation
+  belongs_to :creator, :class_name => "User"
+
   has_many :customized_course_assignments,:dependent => :destroy
   has_many :teachers,:through => :customized_course_assignments
   has_many :customized_tutorials,:dependent => :destroy
   has_many :tutorial_issues
-  belongs_to :workstation
-  belongs_to :creator, :class_name => "User"
-
   has_many :fees
-
   has_many :course_issues
-
   has_many :homeworks,:dependent => :destroy
+  has_many :customized_course_action_records,->{ order 'created_at desc' },dependent: :destroy
+
 
   validates_presence_of :subject,:category,:student, :platform_price, :teacher_price, :creator, :workstation
 

@@ -14,8 +14,7 @@ class SolutionsController < ApplicationController
     @solution                   = build_solution(@examination,resource_name,change_params_for_qa_files(params["#{resource_name}_solution".to_sym]).permit!)
     @solution.student           = current_user
     if @solution.save
-      flash[:success]           = "成功创建#{Solution.model_name.human}"
-      @solution.notify
+      flash[:success]           = "成功提交#{resource_name.camelize.constantize.model_name.human}"
     end
     respond_with @examination,@solution
   end

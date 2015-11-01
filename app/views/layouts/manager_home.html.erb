@@ -38,6 +38,11 @@
           <% end %>
         </li>
         <li>
+          <%= link_to action_records_manager_path(current_user) do %>
+              <span class="fa fa-cogs"></span> <span class="qa_f18"><%= ActionRecord.model_name.human %></span>
+          <% end %>
+        </li>
+        <li>
           <%= link_to questions_path do %>
               <span class="fa fa-university"></span> <span class="qa_f18"><%= VipClass.model_name.human %></span>
           <% end %>

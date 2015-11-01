@@ -10,7 +10,7 @@ class Homework < Examination
       super attributes
     end
   end
-  has_many       :homework_corrections
+  has_many        :homework_corrections
 
 
   def response_teachers

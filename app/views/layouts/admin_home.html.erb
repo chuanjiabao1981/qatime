@@ -49,6 +49,11 @@
           <% end %>
         </li>
         <li>
+          <%= link_to action_records_path do %>
+              <span class="fa fa-cogs"></span> <span class="qa_f18"><%= ActionRecord.model_name.human %></span>
+          <% end %>
+        </li>
+        <li>
           <%= link_to students_path do %>
               <span class="glyphicon glyphicon-hdd"></span>
               <span class="qa_f18"> <%= Student.model_name.human %> </span>

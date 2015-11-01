@@ -3,6 +3,10 @@ class Topic < ActiveRecord::Base
   include QaToken
   include ContentValidate
   include QaCommon
+  include QaActionRecord
+  include QaCustomizedCourseActionNotification
+
+
 
 
   belongs_to :author        ,:class_name => "User",:counter_cache => true,:inverse_of => :topics
@@ -22,4 +26,7 @@ class Topic < ActiveRecord::Base
   validates_presence_of :author
 
 
+  def operator_id
+    self.author_id
+  end
 end

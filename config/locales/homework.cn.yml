@@ -8,3 +8,8 @@ cn:
         content: 内容
         topics: 讨论
         solution: 作业
+  action:
+    homework:
+      create:
+        desc: "%{user},布置了家庭作业"
+        name: 布置

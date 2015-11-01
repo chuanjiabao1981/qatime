@@ -6,3 +6,8 @@ cn:
       exercise:
         title: 随堂练习说明
         content: 随堂练习内容
+  action:
+    exercise:
+      create:
+        desc: "%{user},布置了随堂练习"
+        name: 布置

@@ -26,6 +26,17 @@ ActiveRecord::Schema.define(version: 20151101040124) do
     t.float    "total_expenditure", default: 0.0, null: false
   end
 
+  create_table "action_records", force: :cascade do |t|
+    t.integer  "operator_id"
+    t.integer  "customized_course_id"
+    t.string   "actionable_type"
+    t.integer  "actionable_id"
+    t.string   "name"
+    t.string   "type"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
   create_table "answers", force: :cascade do |t|
     t.integer  "question_id"
     t.integer  "teacher_id"
@@ -55,9 +66,10 @@ ActiveRecord::Schema.define(version: 20151101040124) do
     t.text     "content"
     t.integer  "author_id"
     t.integer  "commentable_id"
-    t.string   "commentable_type", limit: 255
+    t.string   "commentable_type",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "customized_course_id"
   end
 
   create_table "consumption_records", force: :cascade do |t|
@@ -307,6 +319,19 @@ ActiveRecord::Schema.define(version: 20151101040124) do
   end
 
   add_index "nodes", ["name"], name: "index_nodes_on_name", using: :btree
+
+  create_table "notifications", force: :cascade do |t|
+    t.string   "type"
+    t.integer  "receiver_id"
+    t.string   "notificationable_type"
+    t.integer  "notificationable_id"
+    t.integer  "operator_id"
+    t.boolean  "read",                  default: false
+    t.string   "action_name"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "customized_course_id"
+  end
 
   create_table "pictures", force: :cascade do |t|
     t.string   "name",           limit: 255

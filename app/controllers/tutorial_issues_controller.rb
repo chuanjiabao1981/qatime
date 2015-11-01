@@ -12,7 +12,6 @@ class TutorialIssuesController < ApplicationController
     params[:tutorial_issue][:author_id] = current_user.id
     @tutorial_issue = @customized_tutorial.tutorial_issues.build(params[:tutorial_issue].permit!)
     if @tutorial_issue.save
-      @tutorial_issue.notify
       flash[:success] ="成功创建#{TutorialIssue.model_name.human}"
     end
     respond_with @customized_tutorial,@tutorial_issue

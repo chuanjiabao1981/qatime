@@ -79,6 +79,10 @@ class StudentsController < ApplicationController
   def customized_courses
     @customized_courses = @student.customized_courses.paginate(page: params[:page],per_page: 10)
   end
+
+  def notifications
+    @action_notifications = @student.customized_course_action_notifications.paginate(page: params[:page])
+  end
   def update
     if @student.update_attributes(params[:student].permit!)
       redirect_to student_path(@student)

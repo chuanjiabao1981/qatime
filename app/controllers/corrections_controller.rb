@@ -7,7 +7,6 @@ class CorrectionsController < ApplicationController
     @correction.teacher   = current_user
     if @correction.save
       flash[:success] = "成功创建了#{@correction.model_name.human}"
-      @correction.notify
       redirect_to solution_path(@solution)
     else
       solution_show_prepare

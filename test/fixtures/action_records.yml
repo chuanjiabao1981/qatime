@@ -1,0 +1,75 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+customized_course_action_record_for_tutorial_create:
+  operator: teacher1
+  customized_course: customized_course1
+  actionable: customized_tutorial1 (CustomizedTutorial)
+  name: create
+  type: CustomizedCourseActionRecord
+
+customized_course_action_record_for_exercise_create:
+  operator: teacher1
+  customized_course: customized_course1
+  actionable:  exercise_one (Examination)
+  name: create
+  type: CustomizedCourseActionRecord
+
+customized_course_action_record_for_exercise_solution_create:
+  operator: student1
+  customized_course: customized_course1
+  actionable: exercise_solution_one (Solution)
+  name: create
+  type: CustomizedCourseActionRecord
+
+customized_course_action_record_for_exercise_correction_create:
+  operator: teacher1
+  customized_course: customized_course1
+  actionable: correction_two (Correction)
+  name: create
+  type: CustomizedCourseActionRecord
+
+customize_course_action_record_for_comment_homework_correction_create:
+  operator: student1
+  customized_course: customized_course1
+  actionable: comment_homework_correction (Comment)
+  name: create
+  type: CustomizedCourseActionRecord
+
+customized_course_action_record_for_tutorial_issue_create:
+  operator: student1
+  customized_course: customized_course1
+  actionable: customized_tutorial_topic1 (Topic)
+  name: create
+  type: CustomizedCourseActionRecord
+
+customized_course_action_record_for_tutorial_issue_reply_create:
+  operator: teacher1
+  customized_course: customized_course1
+  actionable: tutorial_issue_reply_one (Reply)
+  name: create
+  type: CustomizedCourseActionRecord
+
+customized_course_action_record_for_homework_create:
+  operator: teacher1
+  customized_course: customized_course1
+  actionable: homework1 (Examination)
+  name: create
+  type: CustomizedCourseActionRecord
+
+customized_course_action_record_homework_solution_create:
+  operator: student1
+  customized_course: customized_course1
+  actionable: homework_solution_one (Solution)
+  name: create
+  type: CustomizedCourseActionRecord
+
+customized_course_action_record_homework_correction_create:
+  operator: teacher1
+  customized_course: customized_course1
+  actionable: correction_one (Correction)
+  name: create
+  type: CustomizedCourseActionRecord

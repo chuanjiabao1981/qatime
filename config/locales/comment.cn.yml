@@ -5,3 +5,8 @@ cn:
     attributes:
       comment:
         content: 撰写评论
+  action:
+    comment:
+      create:
+        desc: "%{user},评论了%{what}"
+        name: 评论

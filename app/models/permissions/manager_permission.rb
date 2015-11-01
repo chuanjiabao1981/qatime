@@ -21,7 +21,7 @@ module Permissions
       allow :curriculums,[:index,:show]
       allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
       allow :courses,[:show]
-      allow :comments,[:create]
+      allow :comments,[:create,:show]
       allow :comments,[:edit,:update] do |comment|
         comment
       end
@@ -52,7 +52,7 @@ module Permissions
       end
 
       allow :managers,[:payment]
-      allow :managers,[:customized_courses,] do |manager|
+      allow :managers,[:customized_courses,:action_records] do |manager|
         manager.id == user.id
       end
       allow :exercises,[:show]
@@ -67,6 +67,11 @@ module Permissions
 
       allow :tutorial_issues,[:show]
       allow :course_issues, [:show]
+      allow :tutorial_issue_replies,[:show]
+      allow :course_issues,[:show]
+      allow :course_issue_replies,[:show]
+      allow :comments,[:show]
+      allow :corrections,[:show]
     end
   end
 end

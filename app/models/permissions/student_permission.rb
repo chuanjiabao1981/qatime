@@ -50,10 +50,11 @@ module Permissions
 
       allow :students,[:show,:edit,:update,:info,:teachers,
                        :questions,:topics,:customized_courses,
-                       :customized_tutorial_topics,:homeworks,:solutions] do |student|
+                       :customized_tutorial_topics,:homeworks,:solutions,
+                       :notifications] do |student|
         student and student.id == user.id
       end
-      allow :customized_courses,[:show,:topics,:homeworks,:solutions] do |customized_course|
+      allow :customized_courses,[:show,:topics,:homeworks,:solutions,:action_records] do |customized_course|
         customized_course and customized_course.student_id == user.id
       end
       allow :customized_tutorials,[:show] do |customized_tutorial|
@@ -86,7 +87,7 @@ module Permissions
       allow 'students/recharge_records',[:index,:new,:create]
       allow 'students/courses',[:purchase]
       allow :lessons,[:show]
-      allow :comments,[:create]
+      allow :comments,[:create,:show]
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
       end
@@ -133,24 +134,18 @@ module Permissions
         solution and solution.examination and solution.examination.student_id == user.id
       end
 
+      allow :notifications,[:show] do |notification|
+        notification and notification.receiver_id == user.id
+      end
+
 
 
     end
 private
-    # def solutionable_permission(solutionable,user)
-    #   if solutionable.instance_of? Homework
-    #     solutionable.customized_course.student_id == user.id
-    #   elsif solutionable.instance_of? Exercise
-    #     solutionable.customized_tutorial.customized_course.student_id == user.id
-    #   end
-    # end
+
     def topicable_permission(topicable,user)
       return false if topicable.nil?
-      if topicable.instance_of? CustomizedCourse
-        topicable.student_id == user.id
-      elsif topicable.instance_of? CustomizedTutorial or topicable.instance_of? Homework
-        topicable.customized_course.student_id == user.id
-      elsif topicable.instance_of? Lesson
+      if topicable.instance_of? Lesson
         ##TODO:: 这里应该是购买的学生才能看
         true
       end

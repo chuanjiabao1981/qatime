@@ -12,7 +12,6 @@ class ExercisesController < ApplicationController
     @exercise.student = @customized_tutorial.customized_course.student
     if @exercise.save
       flash[:success] = "成功创建#{Exercise.model_name.human}"
-      @exercise.notify
     end
     respond_with @customized_tutorial,@exercise
   end

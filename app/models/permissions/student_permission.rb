@@ -24,6 +24,9 @@ module Permissions
         reply and reply.author_id == user.id
       end
       allow :pictures,[:new,:create]
+      allow :pictures,[:destroy] do |picture|
+        picture and picture.author and picture.author_id == user.id
+      end
       allow :videos,[:create]
       allow "students/faqs", [:index, :show]
       allow "students/faq_topics", [:show]

@@ -1,6 +1,6 @@
 # coding: utf-8
 
-source 'http://ruby.taobao.org/'
+source 'https://ruby.taobao.org/'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -115,4 +115,7 @@ gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'sinatra', require: false
 gem 'slim'
+
+gem 'fancybox2-rails', '~> 0.2.8'
+
 #gem 'protected_attributes'

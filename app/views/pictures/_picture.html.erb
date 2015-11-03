@@ -1,0 +1,8 @@
+<div class="pull-left" id="qa-picture-<%=picture.id%>">
+  <div>
+    <%= link_to picture.name.url ,class: "qa-picture-fancybox" do %>
+        <img src="<%= picture.name.thumbnail.url%>"/>
+    <% end %>
+  </div>
+  <%= link_to '删除', picture, method: :delete, remote: true, data: { confirm: '确定删除图片么？' } %>
+</div>

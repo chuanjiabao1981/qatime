@@ -6,6 +6,9 @@ module Permissions
       allow :curriculums,[:index,:show]
       allow :home,[:index]
       allow :pictures,[:new,:create]
+      allow :pictures,[:destroy] do |picture|
+        picture and picture.author and picture.author_id == user.id
+      end
       allow :messages, [:index, :show]
 
 

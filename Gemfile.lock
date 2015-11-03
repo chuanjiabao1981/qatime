@@ -1,5 +1,5 @@
 GEM
-  remote: http://ruby.taobao.org/
+  remote: https://ruby.taobao.org/
   specs:
     actionmailer (4.2.0)
       actionpack (= 4.2.0)
@@ -106,6 +106,8 @@ GEM
     connection_pool (2.2.0)
     erubis (2.7.0)
     execjs (2.3.0)
+    fancybox2-rails (0.2.8)
+      railties (>= 3.1.0, < 5.0)
     ffi (1.9.8)
     font-awesome-rails (4.3.0.0)
       railties (>= 3.2, < 5.0)
@@ -283,6 +285,7 @@ DEPENDENCIES
   cells (= 3.10.0)
   chosen-rails
   coffee-rails (~> 4.0.0)
+  fancybox2-rails (~> 0.2.8)
   font-awesome-rails
   headless
   jbuilder (~> 1.2)

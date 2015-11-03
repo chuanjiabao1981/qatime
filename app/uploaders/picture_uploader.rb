@@ -4,7 +4,7 @@ class PictureUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
-  # include CarrierWave::MiniMagick
+  include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
   # storage :file
@@ -48,6 +48,9 @@ class PictureUploader < CarrierWave::Uploader::Base
   #   "something.jpg" if original_filename
   # end
 
+  version :thumbnail do
+    process :resize_to_fill => [96,96]
+  end
   def filename
     if original_filename
       # current_path 是 Carrierwave 上传过程临时创建的一个文件，有时间标记，所以它将是唯一的

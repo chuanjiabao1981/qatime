@@ -15,6 +15,7 @@ class PicturesController < ApplicationController
   end
 
   def destroy
+    @picture.destroy
     respond_with @picture
   end
 

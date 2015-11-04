@@ -24,10 +24,18 @@ sumitPicture = (token,pictureFile,pictureFileName)->
 
 
 updateQaPictureGallery =  ->
-  console.log("123412341234123")
   $(".qa-picture-fancybox").fancybox({
     openEffect	: 'none',
-    closeEffect	: 'none'
+    closeEffect	: 'none',
+    nextClick   : true,
+    maxWidth    : 1024,
+    helpers	: {
+      thumbs	: {
+        width	  : 50,
+        height	: 50
+      },
+      buttons	: {}
+    }
   });
 
 $(

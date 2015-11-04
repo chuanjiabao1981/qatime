@@ -4,7 +4,8 @@ module QaToken
   CONVERT_POSTFIX='-converted'
 
   included do
-    after_save :__update_picture,:__update_video
+    after_save :__update_video
+    before_validation :__update_picture
     after_initialize :__fill_token
   end
 
@@ -18,7 +19,13 @@ module QaToken
   private
   def __update_picture
     if defined? self.pictures
-      Picture.update_imageable_info(self,self.class.reflections["pictures"].active_record.to_s)
+      # Picture.update_imageable_info(self,self.class.reflections["pictures"].active_record.to_s)
+      Picture.where("token='#{self.token}' and author_id is not null").each do |p|
+        if not self.pictures.include?(p)
+          self.pictures << p
+        end
+      end
+
     end
   end
 

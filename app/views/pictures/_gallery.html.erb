@@ -1,6 +1,6 @@
 <div class="qa-picture-gallery">
-  <% if pictures %>
-    <%= render partial: 'pictures/picture',collection: pictures %>
-  <% end %>
-  <div id="qa-picture-gallery-border" style="clear: both"></div>
+  <% if pictures and pictures.length >0%>
+    <%= render partial: 'pictures/picture',collection: pictures ,locals: {show_operation: defined?(show_operation) ? show_operation : true}%>
+      <div id="qa-picture-gallery-border-<%= pictures.first.token%>" style="clear: both"></div>
+<% end %>
 </div>

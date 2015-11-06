@@ -120,6 +120,7 @@ class ExaminationCreateTest < ActionDispatch::IntegrationTest
         new_examination = e.all.order(:created_at => :desc).first
         new_picture     = Picture.where(imageable_type: "#{Examination.to_s}").order(:created_at => :desc).first
         new_examination.pictures.include?(new_picture)
+        assert_picture(new_examination)
         page.save_screenshot('screenshot.png')
       end
     end

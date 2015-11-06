@@ -38,14 +38,13 @@ class SolutionCreateTest < ActionDispatch::IntegrationTest
       assert_difference "Picture.where(imageable_type: \"#{s.to_s}\").count",0 do
         fill_in "#{s.model_name.singular_route_key}_title",with: '这个长度不能少10的啊啊啊aaaaa'
         set_content "asdfadfasdf"
-
         add_a_picture
         click_on "新增#{s.model_name.human}"
-
         new_solution    = s.all.order(:created_at => :desc).first
         new_picture     = Picture.where(imageable_type: "#{Solution.to_s}").order(:created_at => :desc).first
         new_solution.pictures.include?(new_picture)
         page.save_screenshot('screenshot.png')
+        assert_picture(new_solution)
       end
     end
   end

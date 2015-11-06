@@ -26,7 +26,6 @@ class CourseIssueCreatePicture  < ActionDispatch::IntegrationTest
     visit new_customized_course_course_issue_path(@customized_course)
     topic_create_with_picture "CourseIssue"
 
-    page.save_screenshot('screenshot.png')
 
     logout_as(student)
 

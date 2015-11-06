@@ -6,7 +6,6 @@
   </div>
   <div class="qa_cell">
     <%= simple_form_for([@course_issue.customized_course,@course_issue]) do |f| %>
-        <%= render partial: 'pictures/gallery',locals: {pictures: @course_issue.pictures} %>
         <%= render partial: "shared/topics/form",locals: {f: f} %>
         <div class="form-group">
           <%= f.button :submit, class: "btn btn-default" %>

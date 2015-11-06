@@ -24,7 +24,6 @@ class TutorialIssueCreatePicture  < ActionDispatch::IntegrationTest
     log_in_as(student)
     visit new_customized_tutorial_tutorial_issue_path(@customized_tutorial)
     topic_create_with_picture "TutorialIssue"
-    page.save_screenshot('screenshot.png')
 
     logout_as(student)
 

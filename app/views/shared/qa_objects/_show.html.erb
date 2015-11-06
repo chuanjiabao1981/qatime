@@ -24,6 +24,9 @@
       <div class="body">
         <%= qa_object.content.html_safe %>
       </div>
+      <% if defined?(qa_object.pictures) %>
+          <%= render partial: 'pictures/gallery',locals:{pictures: qa_object.pictures,show_operation: false} %>
+      <% end %>
       <% if defined?(qa_object.qa_files) and qa_object.qa_files %>
         <%= render partial: 'shared/qa_files/qa_file', collection: qa_object.qa_files%>
       <% end %>
@@ -34,9 +37,7 @@
             <%= render partial:'comments/index',locals: {commentable: qa_object} %>
         </div>
     <% end %>
-    <% if defined?(qa_object.pictures) %>
-        <%= render partial: 'pictures/gallery',locals:{pictures: qa_object.pictures} %>
-    <% end %>
+
     <div class="operator">
       <div class="pull-right">
         <%= link_to_edit(qa_object,defined?(use_super_controller) ?  use_super_controller : false)%> &nbsp;

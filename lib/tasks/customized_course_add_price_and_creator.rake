@@ -24,7 +24,7 @@ task :customized_course_add_price_and_creator => :environment do
 
 
   # 专属课堂相关的计费单元，把价格带上
-  [CustomizedTutorial, Correction, CourseIssueReply, TutorialIssueReply].each do |s|
+  [CustomizedTutorial, ExerciseCorrection,HomeworkCorrection, CourseIssueReply, TutorialIssueReply].each do |s|
     s.all.each do |object|
       if object
         if object.platform_price.nil? or object.teacher_price.nil?

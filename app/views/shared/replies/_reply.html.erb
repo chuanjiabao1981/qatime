@@ -15,7 +15,11 @@
         <%= video_js_player(reply.video) %>
     <% end %>
     <%= reply.content.html_safe %>
+    <% if defined?(reply.pictures) %>
+        <%= render partial: 'pictures/gallery',locals:{pictures: reply.pictures,show_operation: false} %>
+    <% end %>
   </div>
+
   <div class="pull-right qa_footer">
     <%= link_to_edit(reply) %>
     <%= link_to_destroy(reply) %>

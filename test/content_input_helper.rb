@@ -8,6 +8,12 @@ module ContentInputHelper
     attach_file("qa-img-file","#{Rails.root}/test/integration/test.jpg")
     click_on '上传图片'
     sleep 5
+    a = Picture.all.order(:created_at => :desc).first
+    # 验证form 页面上有
+    href = a.name.url
+    assert page.has_xpath?("//a[@href=\'#{href}\']")
+    page.save_screenshot('screenshot.png')
+
   end
 
   def add_a_video
@@ -38,6 +44,9 @@ module ContentInputHelper
   def assert_picture(object)
     p   = Picture.where(imageable_type: object.class.reflections["pictures"].active_record.to_s).order(created_at: :desc).first
     assert object.picture_ids.include?(p.id),'要包含图片'
+    # show页面上要有这个图片
+    href = p.name.url
+    assert page.has_xpath?("//a[@href=\'#{href}\']"),'no picture url'
   end
 
   def assert_video(object)

@@ -5,7 +5,8 @@
             <img src="<%= picture.name.thumbnail.url%>"/>
         <% end %>
       </div>
-      <%= debug action_name %>
-      <%= link_to '删除', picture, method: :delete, remote: true, data: { confirm: '确定删除图片么？' } %>
+      <% if not defined?(show_operation) or show_operation %>
+        <%= link_to '删除', picture, method: :delete, remote: true, data: { confirm: '确定删除图片么？' } %>
+      <% end %>
     </div>
 <% end %>

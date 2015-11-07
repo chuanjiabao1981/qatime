@@ -4,6 +4,9 @@ module QaToken
   CONVERT_POSTFIX='-converted'
 
   included do
+    has_many          :pictures, -> {order 'created_at asc'},as: :imageable
+    has_one           :video,as: :videoable
+
     after_save :__update_video
     before_validation :__update_picture
     after_initialize :__fill_token

@@ -12,7 +12,6 @@ class Answer < ActiveRecord::Base
   has_many :comments,as: :commentable,dependent: :destroy
 
   has_one :video,as: :videoable
-  has_many :pictures,as: :imageable
 
   def author_id
     self.teacher_id

@@ -5,29 +5,7 @@
   </div>
   <div class="qa_cell">
     <%=simple_form_for ([@customized_tutorial,@exercise]) do |f| %>
-        <%= render "shared/error_messages", :target => @exercise %>
-        <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
-        <div class="form-group">
-          <%= f.input :title ,input_html:{class:'form-control'}  %>
-        </div>
-
-        <div class="form-group">
-          <%= f.input :content,:input_html => { :data => {:provider => "summernote"} }  %>
-        </div>
-
-        <div class="qa_sep_15"></div>
-        <%= f.fields_for :qa_files do |builder| %>
-            <%= render 'shared/qa_files/qa_file_fields', f: builder %>
-        <% end %>
-        <%= link_to_add_fields "添加作业文件", f, :qa_files, "shared/qa_files/" %>
-        </br>
-        <div class="qa_sep_15"></div>
-        <div class="qa_sep_15"></div>
-
-
-        <div class="form-group">
-          <%= f.button :submit, class: "btn btn-default" %>
-        </div>
+        <%= render partial: "shared/examinations/form",locals: {f: f} %>
     <% end %>
   </div>
 </div>

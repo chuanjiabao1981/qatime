@@ -7,7 +7,7 @@ module ContentInputHelper
     find('div.note-insert.btn-group').click
     attach_file("qa-img-file","#{Rails.root}/test/integration/test.jpg")
     click_on '上传图片'
-    sleep 5
+    sleep 3
     a = Picture.all.order(:created_at => :desc).first
     # 验证form 页面上有
     href = a.name.url

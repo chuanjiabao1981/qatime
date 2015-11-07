@@ -14,8 +14,6 @@ class Topic < ActiveRecord::Base
   belongs_to :teacher
 
   has_many :replies,:dependent => :destroy
-  has_many :pictures,as: :imageable
-
 
   self.per_page = 10
 

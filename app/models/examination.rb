@@ -14,7 +14,6 @@ class Examination < ActiveRecord::Base
   belongs_to      :student
 
   has_many        :qa_files      , -> { order 'created_at asc' },as: :qa_fileable
-  has_many        :pictures,as: :imageable
   has_many        :corrections
   has_many        :solutions
 

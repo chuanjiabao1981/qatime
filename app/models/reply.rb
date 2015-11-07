@@ -16,9 +16,6 @@ class Reply < ActiveRecord::Base
 
 
 
-  has_many          :pictures,as: :imageable
-  has_one           :video,as: :videoable
-
   validates_presence_of :author,:topic
 
   self.order_type     = :asc

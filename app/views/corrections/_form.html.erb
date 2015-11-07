@@ -9,7 +9,7 @@
 
       <%= render "shared/error_messages", :target => @correction %>
       <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
-      <%= render partial: 'pictures/gallery',locals: {pictures: f.object.pictures} %>
+      <%= render partial: 'pictures/gallery',locals: {pictures: f.object.pictures,gallery_id: f.object.token} %>
 
       <div class="form-group">
         <%= f.input :content,:input_html => { :data => {:provider => "summernote"} }  %>

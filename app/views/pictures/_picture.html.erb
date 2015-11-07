@@ -1,7 +1,7 @@
 <% if picture and picture.author %>
     <div class="pull-left" id="qa-picture-<%=picture.id%>">
       <div>
-        <%= link_to picture.name.url ,class: "qa-picture-fancybox","data-fancybox-group"=>"gallery-#{picture.token}"  do %>
+        <%= link_to picture.name.url ,class: "qa-picture-fancybox","data-fancybox-group"=>"gallery-#{gallery_id}"  do %>
             <img src="<%= picture.name.thumbnail.url%>"/>
         <% end %>
       </div>

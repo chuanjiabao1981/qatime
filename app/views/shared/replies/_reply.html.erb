@@ -16,7 +16,7 @@
     <% end %>
     <%= reply.content.html_safe %>
     <% if defined?(reply.pictures) %>
-        <%= render partial: 'pictures/gallery',locals:{pictures: reply.pictures,show_operation: false} %>
+        <%= render partial: 'pictures/gallery',locals:{pictures: reply.pictures,show_operation: false,gallery_id: reply.token} %>
     <% end %>
   </div>
 

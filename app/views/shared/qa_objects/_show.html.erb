@@ -25,7 +25,7 @@
         <%= qa_object.content.html_safe %>
       </div>
       <% if defined?(qa_object.pictures) %>
-          <%= render partial: 'pictures/gallery',locals:{pictures: qa_object.pictures,show_operation: false} %>
+          <%= render partial: 'pictures/gallery',locals:{pictures: qa_object.pictures,show_operation: false,gallery_id: qa_object.token} %>
       <% end %>
       <% if defined?(qa_object.qa_files) and qa_object.qa_files %>
         <%= render partial: 'shared/qa_files/qa_file', collection: qa_object.qa_files%>

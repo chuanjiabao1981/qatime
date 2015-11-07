@@ -16,7 +16,6 @@ class Solution < ActiveRecord::Base
   belongs_to      :first_handle_author,:class_name => "User"
   belongs_to      :last_handle_author,:class => "User"
 
-  has_many        :pictures,as: :imageable
   has_many        :corrections,:dependent => :destroy do
     include QaPageNum
     def page_num(o)

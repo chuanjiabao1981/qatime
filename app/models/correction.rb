@@ -16,7 +16,6 @@ class Correction < ActiveRecord::Base
   has_one           :video,as: :videoable
   has_one           :fee, as:  :feeable
 
-  has_many          :pictures,as: :imageable
 
   validates         :content, length: {minimum: 5},on: :create
 

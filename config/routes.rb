@@ -10,7 +10,6 @@ Qatime::Application.routes.draw do
   get "managers/home"       => "managers/home#main",    as: 'managers_home'
 
   resources :curriculums
-  resources :messages
   resources :qa_faqs
 
 
@@ -155,6 +154,7 @@ Qatime::Application.routes.draw do
     end
     resources :course_issues
     resources :homeworks,only:[:show,:edit,:update,:new,:create]
+    resources :message_boards
   end
   resources :homeworks do
 

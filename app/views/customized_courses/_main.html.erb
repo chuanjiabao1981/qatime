@@ -1,5 +1,5 @@
 <div class="customized_course">
-  <%= render 'header' %>
+  <%= render 'customized_courses/header' %>
   <div class="qa_sep_15"></div>
   <div class="qa_sep_15"></div>
   <div class="qa_sep_15"></div>
@@ -20,6 +20,10 @@
         <%= link_to CustomizedCourse.human_attribute_name(:solutions),solutions_customized_course_path(@customized_course) %>
       </li>
       <% end %>
+      <li role="presentation" class=<%= "active" if action_name == "show" and controller_name == "message_boards" %>>
+        <%= link_to CustomizedCourseMessageBoard.model_name.human,
+                    customized_course_message_board_path(@customized_course,@customized_course.customized_course_message_board) %>
+      </li>
       <li role="presentation" class=<%= "active" if action_name == "action_records" %>>
         <%= link_to CustomizedCourse.human_attribute_name(:action_records),action_records_customized_course_path(@customized_course) %>
       </li>

@@ -141,7 +141,9 @@ module Permissions
         notification and notification.receiver_id == user.id
       end
 
-
+      allow :message_boards,[:show] do |message_board|
+        message_board and message_board.all_participants.include?(user)
+      end
 
     end
 private

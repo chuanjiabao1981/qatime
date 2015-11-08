@@ -13,8 +13,7 @@ module QaCustomizedCourseActionNotification
     def action_notification_receiver_ids
       a = []
       return a unless defined? self.customized_course and self.customized_course
-      a = a +  self.customized_course.teacher_ids
-      a = a << self.customized_course.student_id
+      a = self.customized_course.all_participants
       a = a - [self.operator_id]
       a
     end

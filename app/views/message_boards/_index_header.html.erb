@@ -1,0 +1,17 @@
+<div class="qa_cell box_header">
+  <div class="pull-left">
+    <span class="label label-primary">
+      <%= I18n.t "view.message_board.total_count", messages_count: @message_board.messages_count,message_replies_count:@message_board.message_replies_count %>
+    </span>
+  </div>
+  <div class="pull-right">
+    <div class="pull-right">
+      <% if allow? :messages,:new,@message_board %>
+          <%=link_to  new_message_board_message_path(@message_board) do%>
+              <span class="label label-success">留言</span>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div style="clear: both"></div>
+</div>

@@ -1,4 +1,6 @@
 class MessageBoardsController < ApplicationController
+  layout "application"
+
   def show
 
   end

@@ -1,5 +1,5 @@
-<%= render layout: 'customized_courses/main' do %>
+<%= render layout: "#{@message_board.model_name.singular_route_key}",locals: {message_board: @message_board} do %>
     <div class="qa_box">
-
+        <%= render partial: "message_boards/index_header" %>
     </div>
 <% end %>

@@ -1,5 +1,14 @@
 class MessagesController < ApplicationController
-	def index
-		@messages = Message.where(receiver_id:current_user.id).order(created_at: :asc)
-	end
+  layout "application"
+
+  def new
+    @message = @message_board.messages.build
+  end
+
+  private
+  def current_resource
+    if params[:message_board_id]
+      @message_board = MessageBoard.find(params[:message_board_id])
+    end
+  end
 end

@@ -235,6 +235,11 @@ Qatime::Application.routes.draw do
   resources :action_records
   resources :notifications
 
+  resources :message_boards do
+    resources :messages
+  end
+
+
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'
 

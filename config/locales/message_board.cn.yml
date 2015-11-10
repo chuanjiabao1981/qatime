@@ -1,0 +1,9 @@
+cn:
+  activerecord:
+    models:
+      message_board: 留言板
+    attributes:
+      message_board:
+  view:
+    message_board:
+      total_count: "留言板共有 %{messages_count} 条留言 •  %{message_replies_count} 条回复"

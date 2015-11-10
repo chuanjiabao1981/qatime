@@ -161,6 +161,9 @@ module Permissions
       allow :message_boards,[:show] do |message_board|
         message_board and message_board.all_participants.include?(user.id)
       end
+      allow :messages,[:new] do |message_board|
+        message_board and message_board.all_participants.include?(user.id)
+      end
 
     end
 private

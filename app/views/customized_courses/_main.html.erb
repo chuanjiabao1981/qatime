@@ -6,7 +6,7 @@
   <div class="qa_box" style="padding-left: 1px;padding-top: 10px;padding-right: 1px;">
 
     <ul class="nav nav-tabs">
-      <li role="presentation" class=<%= "active" if action_name == "show" %>>
+      <li role="presentation" class=<%= "active" if action_name == "show" and controller_name == "customized_courses"%>>
         <%= link_to "#{CustomizedCourse.human_attribute_name(:customized_tutorials)}",customized_course_path(@customized_course) %>
       </li>
       <li role="presentation" class=<%= "active" if action_name == "homeworks" %>>

@@ -5,6 +5,9 @@ class MessagesController < ApplicationController
     @message = @message_board.messages.build
   end
 
+  def create
+
+  end
   private
   def current_resource
     if params[:message_board_id]

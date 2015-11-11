@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108114223) do
+ActiveRecord::Schema.define(version: 20151108112759) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,6 +141,26 @@ ActiveRecord::Schema.define(version: 20151108114223) do
     t.integer  "teacher_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+  end
+
+  create_table "customized_course_message_boards", force: :cascade do |t|
+    t.integer  "customized_course_id"
+    t.integer  "customized_course_messages_count",        default: 0
+    t.integer  "customized_course_message_replies_count", default: 0
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+  end
+
+  create_table "customized_course_messages", force: :cascade do |t|
+    t.integer  "customized_course_message_board_id"
+    t.string   "title"
+    t.text     "content"
+    t.integer  "author_id"
+    t.integer  "customized_course_message_replies_count"
+    t.integer  "customized_course_id"
+    t.string   "token"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
   end
 
   create_table "customized_courses", force: :cascade do |t|
@@ -306,41 +326,6 @@ ActiveRecord::Schema.define(version: 20151108114223) do
   end
 
   add_index "lessons", ["tags"], name: "index_lessons_on_tags", using: :gin
-
-  create_table "message_boards", force: :cascade do |t|
-    t.integer  "messageboardable_id"
-    t.string   "messageboardable_type"
-    t.integer  "messages_count",        default: 0
-    t.integer  "message_replies_count", default: 0
-    t.string   "type"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-  end
-
-  create_table "message_replies", force: :cascade do |t|
-    t.integer  "message_id"
-    t.integer  "message_board_id"
-    t.integer  "customized_course_id"
-    t.text     "content"
-    t.string   "token"
-    t.string   "type"
-    t.integer  "author_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
-
-  create_table "messages", force: :cascade do |t|
-    t.integer  "message_board_id"
-    t.string   "title"
-    t.text     "content"
-    t.integer  "author_id"
-    t.integer  "message_replies_count"
-    t.integer  "customized_course_id"
-    t.string   "type"
-    t.string   "token"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-  end
 
   create_table "nodes", force: :cascade do |t|
     t.string   "name",            limit: 255

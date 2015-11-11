@@ -1,14 +1,14 @@
-class CustomizedCourseMessageBoard < MessageBoard
+class CustomizedCourseMessageBoard < ActiveRecord::Base
+
   include QaCustomizedCourseMessage
-  has_many :messages ,lambda { order 'created_at desc' } ,{foreign_key: :message_board_id} do
+
+  belongs_to :customized_course
+  has_many   :customized_course_messages ,lambda { order 'created_at desc' } , {dependent: :destroy}  do
+
     def build(attributes={})
-      attributes[:customized_course_id]       = proxy_association.owner.customized_course.id
-      attributes[:type]                       = CustomizedCourseMessage.model_name.to_s
+      attributes[:customized_course_id]       = proxy_association.owner.customized_course_id
       super attributes
     end
   end
 
-  def customized_course
-    self.messageboardable
-  end
 end

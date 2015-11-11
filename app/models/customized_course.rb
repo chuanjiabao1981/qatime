@@ -11,7 +11,7 @@ class CustomizedCourse < ActiveRecord::Base
   has_many :course_issues
   has_many :homeworks,:dependent => :destroy
   has_many :customized_course_action_records,->{ order 'created_at desc' },dependent: :destroy
-  has_one  :customized_course_message_board,as: :messageboardable
+  has_one  :customized_course_message_board
 
 
   validates_presence_of :subject,:category,:student, :platform_price, :teacher_price, :creator, :workstation

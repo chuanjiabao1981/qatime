@@ -501,6 +501,84 @@ ALTER SEQUENCE customized_course_assignments_id_seq OWNED BY customized_course_a
 
 
 --
+-- Name: customized_course_message_boards; Type: TABLE; Schema: public; Owner: qatime; Tablespace: 
+--
+
+CREATE TABLE customized_course_message_boards (
+    id integer NOT NULL,
+    customized_course_id integer,
+    customized_course_messages_count integer DEFAULT 0,
+    customized_course_message_replies_count integer DEFAULT 0,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE customized_course_message_boards OWNER TO qatime;
+
+--
+-- Name: customized_course_message_boards_id_seq; Type: SEQUENCE; Schema: public; Owner: qatime
+--
+
+CREATE SEQUENCE customized_course_message_boards_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE customized_course_message_boards_id_seq OWNER TO qatime;
+
+--
+-- Name: customized_course_message_boards_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: qatime
+--
+
+ALTER SEQUENCE customized_course_message_boards_id_seq OWNED BY customized_course_message_boards.id;
+
+
+--
+-- Name: customized_course_messages; Type: TABLE; Schema: public; Owner: qatime; Tablespace: 
+--
+
+CREATE TABLE customized_course_messages (
+    id integer NOT NULL,
+    customized_course_message_board_id integer,
+    title character varying,
+    content text,
+    author_id integer,
+    customized_course_message_replies_count integer,
+    customized_course_id integer,
+    token character varying,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+ALTER TABLE customized_course_messages OWNER TO qatime;
+
+--
+-- Name: customized_course_messages_id_seq; Type: SEQUENCE; Schema: public; Owner: qatime
+--
+
+CREATE SEQUENCE customized_course_messages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE customized_course_messages_id_seq OWNER TO qatime;
+
+--
+-- Name: customized_course_messages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: qatime
+--
+
+ALTER SEQUENCE customized_course_messages_id_seq OWNED BY customized_course_messages.id;
+
+
+--
 -- Name: customized_courses; Type: TABLE; Schema: public; Owner: qatime; Tablespace: 
 --
 
@@ -1004,45 +1082,6 @@ ALTER TABLE lessons_id_seq OWNER TO qatime;
 --
 
 ALTER SEQUENCE lessons_id_seq OWNED BY lessons.id;
-
-
---
--- Name: messages; Type: TABLE; Schema: public; Owner: qatime; Tablespace: 
---
-
-CREATE TABLE messages (
-    id integer NOT NULL,
-    sender_id integer,
-    receiver_id integer,
-    message_type character varying(255),
-    status character varying(255),
-    content text,
-    created_at timestamp without time zone,
-    updated_at timestamp without time zone
-);
-
-
-ALTER TABLE messages OWNER TO qatime;
-
---
--- Name: messages_id_seq; Type: SEQUENCE; Schema: public; Owner: qatime
---
-
-CREATE SEQUENCE messages_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE messages_id_seq OWNER TO qatime;
-
---
--- Name: messages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: qatime
---
-
-ALTER SEQUENCE messages_id_seq OWNED BY messages.id;
 
 
 --
@@ -2055,6 +2094,20 @@ ALTER TABLE ONLY customized_course_assignments ALTER COLUMN id SET DEFAULT nextv
 -- Name: id; Type: DEFAULT; Schema: public; Owner: qatime
 --
 
+ALTER TABLE ONLY customized_course_message_boards ALTER COLUMN id SET DEFAULT nextval('customized_course_message_boards_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: qatime
+--
+
+ALTER TABLE ONLY customized_course_messages ALTER COLUMN id SET DEFAULT nextval('customized_course_messages_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: qatime
+--
+
 ALTER TABLE ONLY customized_courses ALTER COLUMN id SET DEFAULT nextval('customized_courses_id_seq'::regclass);
 
 
@@ -2133,13 +2186,6 @@ ALTER TABLE ONLY learning_plans ALTER COLUMN id SET DEFAULT nextval('learning_pl
 --
 
 ALTER TABLE ONLY lessons ALTER COLUMN id SET DEFAULT nextval('lessons_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: qatime
---
-
-ALTER TABLE ONLY messages ALTER COLUMN id SET DEFAULT nextval('messages_id_seq'::regclass);
 
 
 --
@@ -3069,6 +3115,36 @@ SELECT pg_catalog.setval('customized_course_assignments_id_seq', 2, true);
 
 
 --
+-- Data for Name: customized_course_message_boards; Type: TABLE DATA; Schema: public; Owner: qatime
+--
+
+COPY customized_course_message_boards (id, customized_course_id, customized_course_messages_count, customized_course_message_replies_count, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: customized_course_message_boards_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
+--
+
+SELECT pg_catalog.setval('customized_course_message_boards_id_seq', 1, false);
+
+
+--
+-- Data for Name: customized_course_messages; Type: TABLE DATA; Schema: public; Owner: qatime
+--
+
+COPY customized_course_messages (id, customized_course_message_board_id, title, content, author_id, customized_course_message_replies_count, customized_course_id, token, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: customized_course_messages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
+--
+
+SELECT pg_catalog.setval('customized_course_messages_id_seq', 1, false);
+
+
+--
 -- Data for Name: customized_courses; Type: TABLE DATA; Schema: public; Owner: qatime
 --
 
@@ -3436,21 +3512,6 @@ COPY lessons (id, name, "desc", course_id, token, created_at, updated_at, teache
 --
 
 SELECT pg_catalog.setval('lessons_id_seq', 164, true);
-
-
---
--- Data for Name: messages; Type: TABLE DATA; Schema: public; Owner: qatime
---
-
-COPY messages (id, sender_id, receiver_id, message_type, status, content, created_at, updated_at) FROM stdin;
-\.
-
-
---
--- Name: messages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
---
-
-SELECT pg_catalog.setval('messages_id_seq', 1, false);
 
 
 --
@@ -4195,6 +4256,8 @@ COPY schema_migrations (version) FROM stdin;
 20151029055400
 20151101040124
 20151103223023
+20151108024851
+20151108112759
 \.
 
 
@@ -4524,9 +4587,9 @@ COPY users (id, email, encrypted_password, reset_password_token, reset_password_
 74	e@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-05-09 11:30:06.665628	2015-05-11 23:24:29.712041	0	0	333	0317710ba088e795b862a14adb208b7e.png	3	teacher	$2a$10$h3YasYZxoBvwr93GSeVwZe6qbGkJqNXgdVSE8tYmWcr/uTplxfxem	ee1424cc53cb02849aac41347d586a44f421fb59	3232323323232332323233232323323232332323233232323323232332323233232323	\N	0	英语	高中	11111111111	f	\N	\N	\N
 2	zhang@163.com		\N	\N	\N	0	\N	\N	\N	\N	2014-06-25 12:21:44.269794	2015-10-10 13:29:20.984519	14	1	张建东	ba61da898d301eb96e72f5a2a34f1e80.jpg	1	teacher	$2a$10$xUVjT1nRp.F5D3.HbuH3R.Lxqj9SHmN6B62W2oXtcx3K32J2YVvRW	2ddeb274dd1d70612cf998ad1da1d76a6ad5e328	张老师是测试老师，账号是用来测试的.	\N	0	物理	高中	15910676326	t	\N		\N
 58	machengke@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-04-11 08:16:44.673629	2015-11-01 22:45:41.42166	0	0	马成科	5950164eefd0372b42376213c9b52c4b.png	\N	manager	$2a$10$A4/9bWMF466q/dsw4HoVPuMcbySa5WP6DzkTLjzHxfh1lhjoc4/uG	7c1e110cf7de53005bb9dcc5f33d097ea21eb97d	\N	\N	0	\N	\N	\N	f	\N	\N	\N
-76	a@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-10-10 13:31:39.969233	2015-11-07 01:17:30.703697	1	21	aaa	726aea7591089e1c851099451ec316d5.JPG	1	teacher	$2a$10$an8ULUTI.zvjppnRCHfNP.2ec7bFNhUlxUeYc7e44CR2tAOt9eChS	3410eaab07d72915ecd22834f8c613756f9696e8	asdfadsfasdfa	\N	0	物理	高中	15910676326	f	\N	aaa	\N
 75	z@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-05-18 11:21:11.205946	2015-11-01 22:46:05.885754	19	11	z	5d7a99562aa61d0b40c763691a7c824e.jpg	\N	student	$2a$10$udltfN82atLbyZCipta3wOUAuDSie.owyMMGDjVQnmyqxBJXmfhoC	499bfc852852b4a4dca8eefc8cda19316ef4f1bf	\N	\N	0	\N	\N	15910676326	f	高一	\N	\N
 57	chuanjiabao1981@gmail.com		\N	\N	\N	0	\N	\N	\N	\N	2015-04-09 23:11:10.348818	2015-11-07 01:17:03.602039	5	11	admin	\N	\N	admin	$2a$10$sRIPw7gFfGtBPB4qJsmLyejlKHUPr5Nf7OQdHNAeC/FkHFCZ4W0zK	cda9d31cbdf26a1501b2c0df6a5f69dd15bd8331	\N	\N	0	\N	\N	\N	f	\N	\N	\N
+76	a@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-10-10 13:31:39.969233	2015-11-08 13:19:16.623784	1	21	aaa	726aea7591089e1c851099451ec316d5.JPG	1	teacher	$2a$10$an8ULUTI.zvjppnRCHfNP.2ec7bFNhUlxUeYc7e44CR2tAOt9eChS	954c071b3cb71630532436db6bbb7e2c1cd42b0b	asdfadsfasdfa	\N	0	物理	高中	15910676326	f	\N	aaa	\N
 \.
 
 
@@ -4937,6 +5000,22 @@ ALTER TABLE ONLY customized_course_assignments
 
 
 --
+-- Name: customized_course_message_boards_pkey; Type: CONSTRAINT; Schema: public; Owner: qatime; Tablespace: 
+--
+
+ALTER TABLE ONLY customized_course_message_boards
+    ADD CONSTRAINT customized_course_message_boards_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: customized_course_messages_pkey; Type: CONSTRAINT; Schema: public; Owner: qatime; Tablespace: 
+--
+
+ALTER TABLE ONLY customized_course_messages
+    ADD CONSTRAINT customized_course_messages_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: customized_courses_pkey; Type: CONSTRAINT; Schema: public; Owner: qatime; Tablespace: 
 --
 
@@ -5030,14 +5109,6 @@ ALTER TABLE ONLY learning_plans
 
 ALTER TABLE ONLY lessons
     ADD CONSTRAINT lessons_pkey PRIMARY KEY (id);
-
-
---
--- Name: messages_pkey; Type: CONSTRAINT; Schema: public; Owner: qatime; Tablespace: 
---
-
-ALTER TABLE ONLY messages
-    ADD CONSTRAINT messages_pkey PRIMARY KEY (id);
 
 
 --

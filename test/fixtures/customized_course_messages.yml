@@ -10,5 +10,4 @@ customized_course_message1:
   author: teacher1
   token: customized_course_message_1
   customized_course: customized_course1
-  message_board: customized_course_message_board
-  type: CustomizedCourseMessage
+  customized_course_message_board: customized_course_message_board

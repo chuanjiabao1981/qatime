@@ -5,5 +5,4 @@
 # below each fixture, per the syntax in the comments below
 #
 customized_course_message_board:
-  messageboardable: customized_course1 (CustomizedCourse)
-  type: CustomizedCourseMessageBoard
+  customized_course: customized_course1

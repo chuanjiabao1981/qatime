@@ -1,5 +1,6 @@
 <%= render layout: 'main' do %>
     <% if @homeworks %>
         <%= render partial: 'homeworks/index',locals: {customized_course:@customized_course} %>
+
     <% end %>
 <% end %>

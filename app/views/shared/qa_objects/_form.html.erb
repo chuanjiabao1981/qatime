@@ -1,7 +1,7 @@
 <%= render "shared/error_messages", :target => f.object %>
 <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
 <%= render partial: 'pictures/gallery',locals: {pictures: f.object.pictures,gallery_id: f.object.token} %>
-<% if not defined? no_title or no_title == false %>
+<% if defined?(f.object.title) %>
     <div class="form-group">
         <%= f.input :title ,input_html:{class:'form-control'}  %>
     </div>

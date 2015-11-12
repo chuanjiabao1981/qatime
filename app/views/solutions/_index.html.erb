@@ -1,6 +1,4 @@
 <div class="qa_box">
   <%= render  partial: "solutions/index_header",locals: {examination: examination} %>
-
-  <%= render  partial: "solutions/index_items",locals:{solutions: @solutions} %>
-
+  <%= render partial: "shared/qa_objects/index_items",locals: {objects: @solutions} %>
 </div>

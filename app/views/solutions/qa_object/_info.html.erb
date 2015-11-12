@@ -1,0 +1,10 @@
+<%= [solution.student.name,
+     "#{localize(solution.created_at,:format => :long)} 提交",
+     "#{solution.corrections_count}次批改"
+    ].join(" • ") %> •
+<% if solution.last_handle_created_at %>
+    最近一次批改于 <%= "#{localize(solution.last_handle_created_at,:format => :long)} " %> •
+<% end %>
+<%= link_to solution.examination.model_name.human ,
+            send("#{solution.examination.model_name.singular_route_key}_path",solution.examination)%> •
+<%= solution_correction_state(solution) %>

@@ -1,5 +1,6 @@
 <%= render layout: "layout" do %>
     <div class="qa_box">
       <%= render partial: "index_header" %>
+      <%= render partial: "shared/qa_objects/index_items",locals: {objects: @customized_course_messages} %>
     </div>
 <% end %>

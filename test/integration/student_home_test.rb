@@ -116,18 +116,20 @@ class StudentHomePageTest < ActionDispatch::IntegrationTest
   end
 
   test "notification" do
-    customized_course_action_notification_tutorial_create               = notifications(:customized_course_action_notification_tutorial_create)
-    customized_course_action_notification_exercise_create               = notifications(:customized_course_action_notification_exercise_create)
-    customized_course_action_notification_tutorial_issue_reply_create   = notifications(:customized_course_action_notification_tutorial_issue_reply_create)
-    customized_course_action_notification_homework_create               = notifications(:customized_course_action_notification_homework_create)
-    customized_course_action_notification_exercise_correction_create    = notifications(:customized_course_action_notification_exercise_correction_create)
-    customized_course_action_notification_homework_correction_create    = notifications(:customized_course_action_notification_homework_correction_create)
+    customized_course_action_notification_tutorial_create                   = notifications(:customized_course_action_notification_tutorial_create)
+    customized_course_action_notification_exercise_create                   = notifications(:customized_course_action_notification_exercise_create)
+    customized_course_action_notification_tutorial_issue_reply_create       = notifications(:customized_course_action_notification_tutorial_issue_reply_create)
+    customized_course_action_notification_homework_create                   = notifications(:customized_course_action_notification_homework_create)
+    customized_course_action_notification_exercise_correction_create        = notifications(:customized_course_action_notification_exercise_correction_create)
+    customized_course_action_notification_homework_correction_create        = notifications(:customized_course_action_notification_homework_correction_create)
+    customized_course_action_notification_customized_course_message1_create = notifications(:customized_course_action_notification_customized_course_message1_create)
     assert customized_course_action_notification_tutorial_create.valid?
     assert customized_course_action_notification_exercise_create.valid?
     assert customized_course_action_notification_tutorial_issue_reply_create.valid?
     assert customized_course_action_notification_homework_create.valid?
     assert customized_course_action_notification_exercise_correction_create.valid?
     assert customized_course_action_notification_homework_correction_create.valid?
+    assert customized_course_action_notification_customized_course_message1_create.valid?
     @student1_session.get notifications_student_path(@student1)
     @student1_session.assert_response :success
     @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_tutorial_create),1
@@ -136,5 +138,6 @@ class StudentHomePageTest < ActionDispatch::IntegrationTest
     @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_homework_create),1
     @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_exercise_correction_create),1
     @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_homework_correction_create),1
+    @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_customized_course_message1_create),1
   end
 end

@@ -1,0 +1,19 @@
+cn:
+  activerecord:
+    models:
+      customized_course_message: 留言
+    attributes:
+      customized_course_message:
+        title: 标题
+        content: 内容
+  flash:
+    customized_course_message:
+      create:
+        success: "成功发表留言"
+      update:
+        success: "成功编辑留言"
+  action:
+    customized_course_message:
+      create:
+        desc: "%{user}留言"
+        name: 留言

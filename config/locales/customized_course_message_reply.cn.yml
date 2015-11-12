@@ -1,0 +1,18 @@
+cn:
+  activerecord:
+    models:
+      customized_course_message_reply: 回复留言
+    attributes:
+      customized_course_message_reply:
+        content: 内容
+  flash:
+    customized_course_message_reply:
+      create:
+        success: "成功回复了留言"
+      update:
+        success: "成功编辑了留言"
+  action:
+    customized_course_message_reply:
+      create:
+        desc: "%{user}回复了留言"
+        name: 回复

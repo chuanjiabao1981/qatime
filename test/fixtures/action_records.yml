@@ -73,3 +73,10 @@ customized_course_action_record_homework_correction_create:
   actionable: correction_one (Correction)
   name: create
   type: CustomizedCourseActionRecord
+
+customized_course_action_record_customized_course_message1_create:
+  operator: teacher1
+  customized_course: customized_course1
+  actionable: customized_course_message1 (CustomizedCourseMessage)
+  name: cureate
+  type: CustomizedCourseActionRecord

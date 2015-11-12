@@ -8,7 +8,8 @@
 
         <div style="clear: both"></div>
       </div>
-      <%= render  partial: "solutions/index_items",locals:{solutions: @solutions} %>
+
+      <%= render partial: "shared/qa_objects/index_items",locals: {objects: @solutions} %>
 
     </div>
 <% end %>

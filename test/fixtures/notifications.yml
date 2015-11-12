@@ -93,3 +93,12 @@ customized_course_action_notification_homework_correction_create:
   type: CustomizedCourseActionNotification
   read: false
   action_name: create
+
+customized_course_action_notification_customized_course_message1_create:
+  operator: teacher1
+  customized_course: customized_course1
+  notificationable: customized_course_message1 (CustomizedCourseMessage)
+  receiver: student1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create

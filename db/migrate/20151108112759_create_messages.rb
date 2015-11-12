@@ -5,7 +5,7 @@ class CreateMessages < ActiveRecord::Migration
       t.string  :title
       t.text    :content
       t.integer :author_id
-      t.integer :customized_course_message_replies_count
+      t.integer :customized_course_message_replies_count, default: 0
       t.integer :customized_course_id
       t.string  :token
       t.timestamps null: false

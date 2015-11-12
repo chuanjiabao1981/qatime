@@ -239,6 +239,12 @@ Qatime::Application.routes.draw do
   resources :customized_course_message_boards do
     resources :customized_course_messages
   end
+  resources :customized_course_messages do
+    resources :customized_course_message_replies
+  end
+
+  resources :customized_course_message_replies
+
 
 
 

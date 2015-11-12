@@ -167,11 +167,11 @@ ActiveRecord::Schema.define(version: 20151108114223) do
     t.string   "title"
     t.text     "content"
     t.integer  "author_id"
-    t.integer  "customized_course_message_replies_count"
+    t.integer  "customized_course_message_replies_count", default: 0
     t.integer  "customized_course_id"
     t.string   "token"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
   end
 
   create_table "customized_courses", force: :cascade do |t|

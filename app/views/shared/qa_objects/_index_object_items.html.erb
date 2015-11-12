@@ -1,0 +1,10 @@
+<div class="qa_objects">
+  <%= render partial: "shared/qa_objects/object_item",
+             collection: objects, locals: {use_super_controller: use_super_controller}%>
+</div>
+
+<div class="qa_cell">
+  <% if defined?(objects.total_pages) %>
+      <%= will_paginate objects ,renderer: BootstrapPagination::Rails %>
+  <% end %>
+</div>

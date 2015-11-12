@@ -1,0 +1,37 @@
+<div class="qa_object_item <%= animate_class(object_item) %>" id="<%=object_item_id(object_item)%>">
+  <div class="pull-left">
+
+    <%= render_qa_object_item_avatar object_item %>
+  </div>
+  <div class="info">
+    <%= render_object_info object_item %>
+    <%if defined?(object_item.video) %>
+        <%= video_duration_format(object_item) %>
+        <%= videoable_object_stauts(object_item,true) %>
+    <% end %>
+
+  </div>
+  <div class="content">
+    <%if defined?(object_item.video) and object_item.video and object_item.video.name  and object_item.video.name.url %>
+        <%= video_js_player(object_item.video) %>
+    <% end %>
+
+    <%= object_item.content.try(:html_safe) %>
+    <% if defined?(object_item.pictures) %>
+        <%= render partial: 'pictures/gallery',locals:{pictures: object_item.pictures,show_operation: false,gallery_id: object_item.token} %>
+    <% end %>
+  </div>
+
+  <% if defined?(object_item.comments) %>
+    <div class="footer">
+        <%= render partial:'comments/index',locals: {commentable: object_item} %>
+    </div>
+  <% end %>
+
+  <div class="operation pull-right">
+    <%= link_to_edit(object_item, use_super_controller)%>
+    <%= link_to_destroy(object_item,use_super_controller) %>
+  </div>
+  <div style="clear:both"></div>
+
+</div>

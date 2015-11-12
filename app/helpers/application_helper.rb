@@ -92,4 +92,42 @@ module ApplicationHelper
     send "notifications_#{current_user.model_name.singular_route_key}_path",current_user
   end
 
+  def render_qa_object_avatar(qa_object)
+    render partial: "#{qa_object.model_name.route_key}/qa_object/avatar",
+           locals:  {qa_object.model_name.singular_route_key.to_sym => qa_object}
+  rescue
+    image_tag qa_object.author.avatar.normal.url
+  end
+
+  def render_qa_object_title(qa_object)
+    render partial: "#{qa_object.model_name.route_key}/qa_object/title",
+           locals:  {qa_object.model_name.singular_route_key.to_sym => qa_object}
+  rescue
+    link_to qa_object.title,send("#{qa_object.model_name.singular_route_key}_path",qa_object)
+  end
+
+  def render_qa_object_info(qa_object)
+    render partial: "#{qa_object.model_name.route_key}/qa_object/info",
+           locals: {qa_object.model_name.singular_route_key.to_sym => qa_object}
+  end
+
+  def animate_class(object_item)
+    param_key = "#{object_item.model_name.singular_route_key}_animate".to_sym
+    return "animated pulse" if params[param_key] and params[param_key] == object_item.id.to_s
+  end
+  def object_item_id(object_item)
+    return "#{object_item.model_name.singular_route_key}_#{object_item.id}"
+  end
+
+  def render_qa_object_item_avatar(qa_object_item)
+    render partial: "#{qa_object_item.model_name.route_key}/qa_object_item/avatar",
+           locals:  {qa_object_item.model_name.singular_route_key.to_sym => qa_object_item}
+  rescue
+    image_tag qa_object_item.author.avatar.normal.url
+  end
+
+  def render_object_info(qa_object_item)
+    render partial: "#{qa_object_item.model_name.route_key}/qa_object_item/info",
+           locals: {qa_object_item.model_name.singular_route_key.to_sym => qa_object_item}
+  end
 end

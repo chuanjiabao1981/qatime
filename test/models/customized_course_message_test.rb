@@ -11,7 +11,7 @@ class CustomizedCourseMessageTest < ActiveSupport::TestCase
     assert_not customized_course_message.customized_course.nil?
     assert_not customized_course_message.token.nil?
     assert_difference 'CustomizedCourseMessage.count',1 do
-      assert_difference 'customized_course_message_board.reload.messages_count',1 do
+      assert_difference 'customized_course_message_board.reload.customized_course_messages_count',1 do
         assert_difference 'CustomizedCourseActionRecord.count',1 do
           assert_difference 'CustomizedCourseActionNotification.count',2 do
             customized_course_message.save

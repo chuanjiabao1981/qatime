@@ -1,0 +1,19 @@
+<div class="qa_cell box_header">
+  <div class="pull-left">
+    <span class="label label-primary">
+      <%= I18n.t "view.customized_course_message_board.total_count",
+                 messages_count: @customized_course_message_board.customized_course_messages_count,
+                 message_replies_count:@customized_course_message_board.customized_course_message_replies_count %>
+    </span>
+  </div>
+  <div class="pull-right">
+    <div class="pull-right">
+      <% if allow? :customized_course_messages,:new,@customized_course_message_board %>
+          <%=link_to  new_customized_course_message_board_customized_course_message_path(@customized_course_message_board) do%>
+              <span class="label label-success">留言</span>
+          <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div style="clear: both"></div>
+</div>

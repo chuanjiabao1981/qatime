@@ -1,0 +1,2 @@
+module CustomizedCourseMessageBoardsHelper
+end

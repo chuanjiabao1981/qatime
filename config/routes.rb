@@ -154,7 +154,7 @@ Qatime::Application.routes.draw do
     end
     resources :course_issues
     resources :homeworks,only:[:show,:edit,:update,:new,:create]
-    resources :message_boards
+    resources :customized_course_message_boards
   end
   resources :homeworks do
 
@@ -235,9 +235,11 @@ Qatime::Application.routes.draw do
   resources :action_records
   resources :notifications
 
-  resources :message_boards do
-    resources :messages
+
+  resources :customized_course_message_boards do
+    resources :customized_course_messages
   end
+
 
 
   get    '/signin',  to: 'sessions#new'

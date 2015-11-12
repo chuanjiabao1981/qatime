@@ -1,6 +1,7 @@
 module Permissions
-  class TeacherPermission < BasePermission
+  class TeacherPermission < UserPermission
     def initialize(user)
+      super(user)
       allow :qa_faqs,[:index,:show]
 
       allow :curriculums,[:index,:show]
@@ -156,13 +157,6 @@ module Permissions
 
       allow :notifications,[:show] do |notification|
         notification and notification.receiver_id == user.id
-      end
-
-      allow :message_boards,[:show] do |message_board|
-        message_board and message_board.all_participants.include?(user.id)
-      end
-      allow :messages,[:new] do |message_board|
-        message_board and message_board.all_participants.include?(user.id)
       end
 
     end

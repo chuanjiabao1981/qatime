@@ -20,7 +20,7 @@
         <%= link_to CustomizedCourse.human_attribute_name(:solutions),solutions_customized_course_path(@customized_course) %>
       </li>
       <% end %>
-      <li role="presentation" class=<%= "active" if action_name == "show" and controller_name == "message_boards" %>>
+      <li role="presentation" class=<%= "active" if action_name == "show" and controller_name == "customized_course_message_boards" %>>
         <%= link_to CustomizedCourseMessageBoard.model_name.human,
                     customized_course_message_board_path(@customized_course,@customized_course.customized_course_message_board) %>
       </li>

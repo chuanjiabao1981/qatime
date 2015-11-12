@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108112759) do
+ActiveRecord::Schema.define(version: 20151108114223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,6 +149,17 @@ ActiveRecord::Schema.define(version: 20151108112759) do
     t.integer  "customized_course_message_replies_count", default: 0
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false
+  end
+
+  create_table "customized_course_message_replies", force: :cascade do |t|
+    t.integer  "customized_course_message_id"
+    t.integer  "customized_course_message_board_id"
+    t.integer  "customized_course_id"
+    t.text     "content"
+    t.string   "token"
+    t.integer  "author_id"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   create_table "customized_course_messages", force: :cascade do |t|

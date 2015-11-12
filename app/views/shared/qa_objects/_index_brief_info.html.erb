@@ -1,9 +1,11 @@
 <div class="qa_box">
   <div class="box_header qa_cell">
+    <%= yield :brief_header %>
   </div>
   <div class="qa_objects">
-    <%= render partial: "shared/qa_objects/object_item",
-               collection: objects, locals: {use_super_controller: use_super_controller}%>
+    <%= render partial: "shared/qa_objects/brief_info",
+               collection: objects
+    %>
   </div>
   <div class="qa_cell">
     <% if defined?(objects.total_pages) %>

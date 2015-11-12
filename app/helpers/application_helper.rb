@@ -93,21 +93,21 @@ module ApplicationHelper
   end
 
   def render_qa_object_avatar(qa_object)
-    render partial: "#{qa_object.model_name.route_key}/qa_object/avatar",
+    render partial: "#{qa_object.model_name.route_key}/brief_info/avatar",
            locals:  {qa_object.model_name.singular_route_key.to_sym => qa_object}
   rescue
     image_tag qa_object.author.avatar.normal.url
   end
 
   def render_qa_object_title(qa_object)
-    render partial: "#{qa_object.model_name.route_key}/qa_object/title",
+    render partial: "#{qa_object.model_name.route_key}/brief_info/title",
            locals:  {qa_object.model_name.singular_route_key.to_sym => qa_object}
   rescue
     link_to qa_object.title,send("#{qa_object.model_name.singular_route_key}_path",qa_object)
   end
 
   def render_qa_object_info(qa_object)
-    render partial: "#{qa_object.model_name.route_key}/qa_object/info",
+    render partial: "#{qa_object.model_name.route_key}/brief_info/info",
            locals: {qa_object.model_name.singular_route_key.to_sym => qa_object}
   end
 

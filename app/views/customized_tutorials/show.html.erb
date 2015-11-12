@@ -33,8 +33,10 @@
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
 <% if @customized_tutorial %>
-    <%= render partial: "exercises/index",
-               locals: {customized_tutorial: @customized_tutorial,exercises: @customized_tutorial.exercises} %>
+    <%= content_for :brief_header do %>
+        <%= render partial:'customized_tutorials/header/exercise',locals: {customized_tutorial: @customized_tutorial} %>
+    <% end %>
+    <%= render partial: "shared/qa_objects/index_brief_info",locals: {objects:  @customized_tutorial.exercises} %>
 <% end %>
 
 <div class="qa_sep_15"></div>

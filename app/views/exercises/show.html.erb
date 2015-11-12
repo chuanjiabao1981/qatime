@@ -5,4 +5,7 @@
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
 
-<%= render partial: 'solutions/index',locals:{examination: @exercise} %>
+<%= content_for :brief_header do%>
+    <%= render partial: 'shared/examinations/header/solution',locals: {examination: @exercise} %>
+<% end %>
+<%= render partial: "shared/qa_objects/index_brief_info",locals: {objects: @solutions} %>

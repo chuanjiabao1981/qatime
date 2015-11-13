@@ -10,11 +10,13 @@ class CustomizedCourseMessageRepliesController < ApplicationController
     @customized_course_message_reply.author = current_user
     if @customized_course_message_reply.save
       flash[:success] = I18n.t('flash.customized_course_message_reply.create.success')
+      respond_with @customized_course_message
+      return
     else
       customized_course_message_show_prepare
       render 'customized_course_messages/show'
+      return
     end
-    respond_with @customized_course_message
   end
 
   private

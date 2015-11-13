@@ -17,3 +17,6 @@ cn:
       create:
         desc: "%{user}留言"
         name: 留言
+  view:
+    customized_course_message:
+      detail_header: "此留言有%{count}条回复"

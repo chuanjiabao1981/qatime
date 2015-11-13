@@ -130,4 +130,12 @@ module ApplicationHelper
     render partial: "#{qa_object_item.model_name.route_key}/detail_info/info",
            locals: {qa_object_item.model_name.singular_route_key.to_sym => qa_object_item}
   end
+
+  def object_form_url(parent,object)
+      if object.new_record?
+        send("#{parent.model_name.singular_route_key}_#{object.model_name.plural}_path",parent,anchor: "new_#{object.model_name.singular_route_key}")
+      else
+        send("#{object.model_name.singular_route_key}_path",object)
+      end
+  end
 end

@@ -1,15 +1,11 @@
 <%= render layout: 'main' do %>
-    <div class="qa_box">
-      <div class="qa_cell box_header">
-        <div class="pull-left">
+      <% content_for :brief_header do %>
+          <div class="pull-left">
           <span class="label label-primary">
             包括<%= Homework.model_name.human%>和<%= Exercise.model_name.human%></span>
-        </div>
+          </div>
 
-        <div style="clear: both"></div>
-      </div>
-
+          <div style="clear: both"></div>
+      <% end %>
       <%= render partial: "shared/qa_objects/index_brief_info",locals: {objects: @solutions} %>
-
-    </div>
 <% end %>

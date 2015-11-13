@@ -12,7 +12,17 @@
 
 <div class="qa_sep_15"></div>
 
-<%= render partial: 'shared/qa_objects/index_detial_info',
+<%= content_for :detail_header do %>
+    <div class="pull-left">
+        <span class="label label-primary">
+            <%= I18n.t("view.customized_course_message.detail_header",
+                       count: @customized_course_message.customized_course_message_replies_count) %>
+        </span>
+    </div>
+    <div style="clear: both"></div>
+<% end %>
+
+<%= render partial: 'shared/qa_objects/index_detail_info',
            locals:{objects: @customized_course_message_replies,use_super_controller: false} %>
 <div class="qa_sep_15"></div>
 <%= render partial: 'customized_course_message_replies/from' %>

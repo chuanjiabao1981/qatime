@@ -120,14 +120,14 @@ module ApplicationHelper
   end
 
   def render_qa_object_item_avatar(qa_object_item)
-    render partial: "#{qa_object_item.model_name.route_key}/qa_object_item/avatar",
+    render partial: "#{qa_object_item.model_name.route_key}/detail_info/avatar",
            locals:  {qa_object_item.model_name.singular_route_key.to_sym => qa_object_item}
   rescue
     image_tag qa_object_item.author.avatar.normal.url
   end
 
   def render_object_info(qa_object_item)
-    render partial: "#{qa_object_item.model_name.route_key}/qa_object_item/info",
+    render partial: "#{qa_object_item.model_name.route_key}/detail_info/info",
            locals: {qa_object_item.model_name.singular_route_key.to_sym => qa_object_item}
   end
 end

@@ -34,8 +34,8 @@ class CourseIssueRepliesController < ApplicationController
     page_num        =  @course_issue.course_issue_replies.page_num(@course_issue_reply)
     redirect_to course_issue_path(@course_issue,
                                   page: page_num,
-                                  reply_aminate: @course_issue_reply.id,
-                                  anchor: "reply_#{@course_issue_reply.id}")
+                                  course_issue_reply_animate: @course_issue_reply.id,
+                                  anchor: "course_issue_reply_#{@course_issue_reply.id}")
   end
 
   def destroy

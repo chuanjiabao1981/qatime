@@ -1,5 +1,28 @@
+<!-- 在tutorial 的页面中不能使用两次brief_header 所以这里不能用公用index_brief_info -->
 <div class="qa_box">
-  <%= render partial:'tutorial_issues/index_header',locals:{customized_tutorial: customized_tutorial} %>
-  <%= render partial:'tutorial_issues/index_items', locals:{tutorial_issues: tutorial_issues} %>
-
+  <div class="box_header qa_cell">
+    <div class="pull-left">
+      <span class="label label-primary">
+        共有<%= customized_tutorial.tutorial_issues_count %>个<%= TutorialIssue.model_name.human %>
+      </span>
+    </div>
+    <div class="pull-right">
+      <% if allow? :tutorial_issues, :new, customized_tutorial %>
+          <%= link_to new_customized_tutorial_tutorial_issue_path(customized_tutorial) do %>
+              <span class="label label-success">我要提问</span>
+          <% end %>
+      <% end %>
+    </div>
+    <div style="clear:both"></div>
+  </div>
+  <div class="qa_objects">
+    <%= render partial: "shared/qa_objects/brief_info",
+               collection: tutorial_issues
+    %>
+  </div>
+  <div class="qa_cell">
+    <% if defined?(tutorial_issues.total_pages) %>
+        <%= will_paginate tutorial_issues ,renderer: BootstrapPagination::Rails %>
+    <% end %>
+  </div>
 </div>

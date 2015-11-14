@@ -1,7 +1,7 @@
 <div class="qa_box">
   <div class="qa_cell">
     <%= simple_form_for(@customized_course_message_reply,url: object_form_url(@customized_course_message,@customized_course_message_reply)) do |f| %>
-        <%= render partial: 'shared/qa_objects/form',locals: {f: f,no_file: true} %>
+        <%= render partial: 'shared/qa_objects/form',locals: {f: f} %>
     <% end %>
   </div>
 </div>

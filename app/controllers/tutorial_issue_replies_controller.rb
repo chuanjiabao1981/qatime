@@ -29,8 +29,8 @@ class TutorialIssueRepliesController < ApplicationController
 
     redirect_to tutorial_issue_path(@tutorial_issue,
                                   page: page_num,
-                                  reply_aminate: @tutorial_issue_reply.id,
-                                  anchor: "reply_#{@tutorial_issue_reply.id}")
+                                  tutorial_issue_reply_animate: @tutorial_issue_reply.id,
+                                  anchor: "tutorial_issue_reply_#{@tutorial_issue_reply.id}")
   end
 
 

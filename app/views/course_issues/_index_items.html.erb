@@ -1,8 +1,0 @@
-<div class="qa_objects">
-  <%= render partial: 'shared/topics/topicable',collection: course_issues ,as: 'topicable'%>
-</div>
-
-
-<div class="qa_cell">
-  <%= will_paginate course_issues ,renderer: BootstrapPagination::Rails %>
-</div>

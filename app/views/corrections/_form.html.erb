@@ -1,21 +1,7 @@
 <%= video_submit_form @correction,true %>
 
 <div class="qa_cell">
-  <div class="progress" id="picture-progress">
-    <div class="progress-bar" id="picture-progress-bar" role="progressbar" >
-    </div>
-  </div>
-  <%=simple_form_for([@solution,@correction]) do |f| %>
-
-      <%= render "shared/error_messages", :target => @correction %>
-      <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
-      <%= render partial: 'pictures/gallery',locals: {pictures: f.object.pictures,gallery_id: f.object.token} %>
-
-      <div class="form-group">
-        <%= f.input :content,:input_html => { :data => {:provider => "summernote"} }  %>
-      </div>
-      <div class="form-group">
-        <%= f.button :submit, class: "btn btn-default" %>
-      </div>
+  <%= simple_form_for(@correction,url: object_form_url(@solution,@correction)) do |f| %>
+      <%= render partial: 'shared/qa_objects/form',locals: {f: f} %>
   <% end %>
 </div>

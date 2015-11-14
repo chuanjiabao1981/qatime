@@ -4,7 +4,7 @@ cn:
       customized_course_message_reply: 回复留言
     attributes:
       customized_course_message_reply:
-        content: 内容
+        content: 回复留言
   flash:
     customized_course_message_reply:
       create:

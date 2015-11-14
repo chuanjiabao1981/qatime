@@ -17,7 +17,9 @@ class CorrectionsController < ApplicationController
 
   def show
     page_num = @solution.corrections.page_num(@correction)
-    redirect_to solution_path(@solution,page: page_num,correction_aminate: @correction.id,anchor: "correction_#{@correction.id}")
+    redirect_to solution_path(@solution,page: page_num,
+                              "#{@correction.model_name.singular_route_key}_animate": @correction.id,
+                              anchor: "#{@correction.model_name.singular_route_key}_#{@correction.id}")
   end
 
   def edit

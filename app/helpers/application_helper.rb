@@ -138,4 +138,11 @@ module ApplicationHelper
         send("#{object.model_name.singular_route_key}_path",object)
       end
   end
+
+  def overwrite_content_for(name, content = nil, &block)
+    @_content_for       = {} if @_content_for.nil?
+    content             = capture(&block) if block_given?
+    @_content_for[name] = content if content
+    @_content_for[name] unless content
+  end
 end

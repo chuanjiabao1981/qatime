@@ -8,30 +8,8 @@
 
 <div class="qa_box">
   <div class="qa_cell">
-    <div class="progress" id="picture-progress">
-      <div class="progress-bar" id="picture-progress-bar" role="progressbar" >
-      </div>
-    </div>
     <%=simple_form_for([@examination,@solution]) do |f| %>
-        <%= render "shared/error_messages", :target => @solution %>
-        <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
-        <%= render partial: 'pictures/gallery',locals: {pictures: f.object.pictures,gallery_id: f.object.token} %>
-        <div class="form-group">
-          <%= f.input :title ,input_html:{class:'form-control'}  %>
-        </div>
-
-        <div class="form-group">
-          <%= f.input :content,:input_html => { :data => {:provider => "summernote"} }  %>
-        </div>
-
-        <%= f.fields_for :qa_files do |builder| %>
-            <%= render 'shared/qa_files/qa_file_fields', f: builder %>
-        <% end %>
-        <%= link_to_add_fields "添加文件", f, :qa_files, "shared/qa_files/" %>
-        </br>
-        <div class="form-group">
-          <%= f.button :submit, class: "btn btn-default" %>
-        </div>
+        <%= render partial: "shared/qa_objects/form",locals: {f: f} %>
     <% end %>
   </div>
 

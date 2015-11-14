@@ -11,3 +11,6 @@ cn:
       create:
         desc: "%{user},提了一个日常问题"
         name: 提问
+  view:
+    course_issue:
+      detail_head: "共收到 %{count} 条回复"

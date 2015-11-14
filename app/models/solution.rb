@@ -23,8 +23,8 @@ class Solution < ActiveRecord::Base
     end
   end
 
-  has_many        :qa_files, as: :qa_fileable
-  accepts_nested_attributes_for :qa_files, allow_destroy: true
+  # has_many        :qa_files, as: :qa_fileable
+  # accepts_nested_attributes_for :qa_files, allow_destroy: true
 
   scope           :timeout_to_correct ,lambda {|customized_course_id|
                               where(customized_course_id: customized_course_id)

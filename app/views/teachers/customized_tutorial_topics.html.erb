@@ -1,11 +1,11 @@
 
 
 <%= render layout: "task" do %>
-    <div class="qa_topics">
+    <div class="qa_objects">
 
       <% if @topics.length != 0 %>
           <div class="qa_objects">
-            <%= render partial: 'shared/topics/topicable',collection: @topics ,as: 'topicable'%>
+            <%= render partial: 'shared/qa_objects/brief_info',collection: @topics %>
           </div>
       <% else %>
           <div style="text-align: center;padding: 20px">

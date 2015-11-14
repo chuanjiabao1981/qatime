@@ -11,3 +11,6 @@ cn:
       create:
         desc: "%{user},提了一个随堂问题"
         name: 提问
+  view:
+    tutorial_issue:
+      detail_header: "共收到 %{count} 条回复"

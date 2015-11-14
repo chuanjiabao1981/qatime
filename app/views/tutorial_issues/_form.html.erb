@@ -6,10 +6,7 @@
   </div>
   <div class="qa_cell">
     <%= simple_form_for([@tutorial_issue.customized_tutorial,@tutorial_issue]) do |f| %>
-        <%= render partial: "shared/topics/form",locals: {f: f} %>
-        <div class="form-group">
-          <%= f.button :submit, class: "btn btn-default" %>
-        </div>
+        <%= render partial: 'shared/qa_objects/form',locals: {f: f} %>
     <% end %>
   </div>
 </div>

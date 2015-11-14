@@ -6,6 +6,7 @@ cn:
       exercise:
         title: 随堂练习说明
         content: 随堂练习内容
+        qa_files: 作业文件
   action:
     exercise:
       create:

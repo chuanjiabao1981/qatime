@@ -81,7 +81,7 @@ class CorrectionIntegrateTest < LoginTestBase
   end
   def _edit_page(user,user_session,solution,correction)
     edit_path         = edit_correction_path(correction)
-    update_path       = send "#{solution.model_name.singular_route_key}_#{correction.model_name.singular_route_key}_path",solution,correction
+    update_path       = send "#{correction.model_name.singular_route_key}_path",correction
     user_session.get edit_path
     if user.student?
       user_session.assert_redirected_to get_home_url(user)

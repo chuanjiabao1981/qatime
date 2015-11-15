@@ -146,7 +146,9 @@ class SolutionIntegrateTest < LoginTestBase
   def _show_page(user,user_session,solution)
     show_path                       = send("#{solution.model_name.singular_route_key}_path",solution)
     edit_path                       = edit_solution_path(solution)
-    correction_create_path          = send("#{solution.model_name.singular_route_key}_#{solution.examination.model_name.singular_route_key}_corrections_path",solution)
+    correction_create_path          =
+        send("#{solution.model_name.singular_route_key}_#{solution.examination.model_name.singular_route_key}_corrections_path",solution,
+             anchor: "new_#{solution.examination.model_name.singular_route_key}_correction")
     correction_create_path_count    = 0
     edit_path_count                 = 0
     user_session.get show_path

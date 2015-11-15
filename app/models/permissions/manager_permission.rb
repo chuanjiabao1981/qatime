@@ -1,6 +1,7 @@
 module Permissions
-  class ManagerPermission < BasePermission
+  class ManagerPermission < StaffPermission
     def initialize(user)
+      super(user)
       allow :qa_faqs,[:index,:show]
 
       allow "managers/register_codes",[:index,:create,:new]

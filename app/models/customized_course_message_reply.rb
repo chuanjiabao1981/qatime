@@ -20,6 +20,7 @@ class CustomizedCourseMessageReply < ActiveRecord::Base
 
   self.order_type     = :asc
   self.order_column   = :created_at
+  self.per_page       = 10
 
   def operator_id
     self.author_id

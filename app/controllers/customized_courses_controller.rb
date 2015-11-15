@@ -12,6 +12,7 @@ class CustomizedCoursesController < ApplicationController
     params[:customized_course][:teacher_ids].delete("")
     @customized_course = @student.customized_courses.build(params[:customized_course].permit!)
     all_teacher
+    @customized_course.build_customized_course_message_board
     @customized_course.creator_id = current_user.id
     @customized_course.save
     respond_with @customized_course

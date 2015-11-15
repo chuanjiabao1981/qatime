@@ -22,10 +22,15 @@ module Permissions
             customized_course_message.customized_course_message_board.all_participants.include?(user.id)
       end
 
+      allow :customized_course_message_replies,[:show] do |customized_course_message_reply|
+        customized_course_message_reply and
+            customized_course_message_reply.customized_course_message.customized_course_message_board.all_participants.include?(user.id)
+      end
       allow :customized_course_message_replies,[:edit,:update] do |customized_course_message_reply|
         customized_course_message_reply and
             customized_course_message_reply.author.id == user.id
       end
+
 
     end
 

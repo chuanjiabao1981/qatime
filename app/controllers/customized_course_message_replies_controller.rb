@@ -18,12 +18,23 @@ class CustomizedCourseMessageRepliesController < ApplicationController
       return
     end
   end
-
+  def show
+    page_num = @customized_course_message.customized_course_message_replies.page_num(@customized_course_message_reply)
+    redirect_to customized_course_message_path(@customized_course_message,page: page_num,
+                                              customized_course_message_reply_animate: @customized_course_message_reply.id,
+                                              anchor: "customized_course_message_reply_#{@customized_course_message_reply.id}")
+  end
   private
   def current_resource
     if params[:customized_course_message_id]
-      @customized_course_message    = CustomizedCourseMessage.find(params[:customized_course_message_id])
-      r                             = @customized_course_message
+      @customized_course_message            = CustomizedCourseMessage.find(params[:customized_course_message_id])
+      r                                     = @customized_course_message
     end
+    if params[:id]
+      @customized_course_message_reply      = CustomizedCourseMessageReply.find(params[:id])
+      @customized_course_message            = @customized_course_message_reply.customized_course_message
+      r                                     = @customized_course_message_reply
+    end
+    r
   end
 end

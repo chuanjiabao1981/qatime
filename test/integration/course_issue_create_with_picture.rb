@@ -25,8 +25,6 @@ class CourseIssueCreatePicture  < ActionDispatch::IntegrationTest
     log_in_as(student)
     visit new_customized_course_course_issue_path(@customized_course)
     topic_create_with_picture "CourseIssue"
-
-
     logout_as(student)
 
   end

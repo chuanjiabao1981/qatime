@@ -157,6 +157,11 @@ Qatime::Application.routes.draw do
     resources :customized_course_message_boards
   end
   resources :homeworks do
+    member do
+      [:a,:b,:c].each do |x|
+        get x
+      end
+    end
 
     resources :homework_solutions, controller: :solutions
   end

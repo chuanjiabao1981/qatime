@@ -25,6 +25,12 @@ class Examination < ActiveRecord::Base
   scope :by_customized_course_work, lambda {where("type = ? or type = ?", Homework.to_s,Exercise.to_s)}
 
 
+  state_machine :state, initial: :new do
+    transition :new                  => :in_progress,     :on => [:submit]
+    transition :in_progress          => :finished,        :on => [:work_complete]
+
+  end
+
   def operator_id
     self.teacher_id
   end

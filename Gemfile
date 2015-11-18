@@ -118,4 +118,4 @@ gem 'slim'
 
 gem 'fancybox2-rails', '~> 0.2.8'
 
-#gem 'protected_attributes'
+gem 'whenever',:require => false

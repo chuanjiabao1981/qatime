@@ -9,16 +9,22 @@
 # For more information about Backup's components, see the documentation at:
 # http://backup.github.io/backup
 #
-Model.new(:db_backup, 'Description for db_backup') do
 
+environment         = ENV["BACKUP_ENV"] || "development"
+current_dir         = File.dirname(__FILE__)
+db_config           = YAML.load_file("#{current_dir}/../../config/database.yml")[environment]
+
+Logger.info db_config
+
+Model.new(:db_backup, 'Description for db_backup') do
   ##
   # PostgreSQL [Database]
   #
   database PostgreSQL do |db|
     # To dump all databases, set `db.name = :all` (or leave blank)
-    db.name               = "qatime_development"
-    db.username           = "qatime"
-    db.password           = "qatime"
+    db.name               = db_config['database']
+    db.username           = db_config['username']
+    db.password           = db_config['password']
     db.host               = "localhost"
     db.port               = 5432
     #db.socket             = "/tmp/pg.sock"
@@ -33,7 +39,7 @@ Model.new(:db_backup, 'Description for db_backup') do
   #
   store_with Local do |local|
     local.path       = "~/backups/"
-    local.keep       = 5
+    local.keep       = 10
     local.keep       = Time.now - 2592000 # Remove all backups older than 1 month.
   end
 

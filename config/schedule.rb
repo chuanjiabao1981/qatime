@@ -19,6 +19,9 @@
 
 # Learn more: http://github.com/javan/whenever
 
+puts environment
+# environment = :development
+set :environment, :development
 set :output, "#{Whenever.path}/log/cron.log"
 
 every 1.minute do

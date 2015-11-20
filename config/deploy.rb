@@ -46,6 +46,11 @@ set :pty, true
 # Default value for keep_releases is 5
 set :keep_releases, 5
 
+# this is for whenever
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
+# 设置生产还是预发环境 whenever只识别 environment
+set :whenever_variables, ->{ "environment=#{fetch :stage}" }
+
 namespace :deploy do
   task :restart do
     invoke 'unicorn:restart'

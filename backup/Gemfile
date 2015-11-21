@@ -3,3 +3,4 @@
 source 'https://ruby.taobao.org/'
 
 gem 'backup'
+gem 'backup-aliyun',:git => 'git@github.com:chuanjiabao1981/backup-aliyun.git'

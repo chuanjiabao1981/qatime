@@ -10,11 +10,15 @@
 # http://backup.github.io/backup
 #
 
+require "backup-aliyun"
+
 environment         = ENV["BACKUP_ENV"] || "development"
 current_dir         = File.dirname(__FILE__)
 db_config           = YAML.load_file("#{current_dir}/../../config/database.yml")[environment]
+app_config          = YAML.load_file("#{current_dir}/../../config/application.yml")[environment]
 
 Logger.info db_config
+
 
 Model.new(:db_backup, 'Description for db_backup') do
   ##
@@ -37,10 +41,19 @@ Model.new(:db_backup, 'Description for db_backup') do
   ##
   # Local (Copy) [Storage]
   #
-  store_with Local do |local|
-    local.path       = "~/backups/"
-    local.keep       = 10
-    local.keep       = Time.now - 2592000 # Remove all backups older than 1 month.
+  # store_with Local do |local|
+  #   local.path       = "~/backups/"
+  #   local.keep       = 10
+  #   local.keep       = Time.now - 2592000 # Remove all backups older than 1 month.
+  # end
+
+  store_with "Aliyun" do |aliyun|
+    aliyun.access_key_id        = app_config['aliyun_backup_ac']
+    aliyun.access_key_secret    = app_config['aliyun_backup_ak']
+    aliyun.bucket               = app_config['bucket_backup']
+    aliyun.path                 = '/database/'
+    aliyun.keep                 = 10
+    aliyun.aliyun_area          = 'cn-beijing'
   end
 
   ##

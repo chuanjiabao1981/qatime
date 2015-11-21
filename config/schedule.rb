@@ -21,11 +21,12 @@
 # 由于自带的rake job_type 会增加一个silent的参数，此参数在development会报错
 job_type :rake_m,    "cd :path && :environment_variable=:environment :bundle_command rake :task :output"
 
-puts environment
 # environment = :development
 set :environment, :development
 set :output, "#{Whenever.path}/log/cron.log"
 
-every 1.minute do
+
+##注意这里一定写明要roles，就是哪些机器上运行
+every 1.minute , :roles => [:db] do
   rake_m 'data_backup:db'
 end

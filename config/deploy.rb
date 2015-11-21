@@ -50,6 +50,7 @@ set :keep_releases, 5
 set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 # 设置生产还是预发环境 whenever只识别 environment
 set :whenever_variables, ->{ "environment=#{fetch :stage}" }
+set :whenever_roles, -> {:db}
 
 namespace :deploy do
   task :restart do

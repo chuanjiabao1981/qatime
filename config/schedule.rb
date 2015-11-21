@@ -18,9 +18,14 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
+# 由于自带的rake job_type 会增加一个silent的参数，此参数在development会报错
+job_type :rake_m,    "cd :path && :environment_variable=:environment :bundle_command rake :task :output"
 
+puts environment
+# environment = :development
+set :environment, :development
 set :output, "#{Whenever.path}/log/cron.log"
 
 every 1.minute do
-  rake 'data_backup:db'
+  rake_m 'data_backup:db'
 end

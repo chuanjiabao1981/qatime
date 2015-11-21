@@ -12,7 +12,7 @@ class DbBackupWorker
         # 因为这个worker是通过
         # crontab 命令调用 lib/tasks/data_backup.rake 这个task启动的
         # 所以Rails.env是在crontab的命令中传递
-        result = %x(BACKUP_ENV=#{Rails.env} bundle exec backup perform -t db_backup -c ./backup_config.rb)
+        result = %x(BACKUP_ENV=#{Rails.env} rvm use ruby-2.2.1 do bundle exec backup perform -t db_backup -c ./backup_config.rb)
         if $?.exitstatus == 0
           # SmsWorker.perform_async(SmsWorker::NOTIFY, to: "管理员", message:"成功备份" ,mobile: "15910676326")
           # do no thing

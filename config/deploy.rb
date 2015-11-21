@@ -46,6 +46,12 @@ set :pty, true
 # Default value for keep_releases is 5
 set :keep_releases, 5
 
+# this is for whenever
+set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
+# 设置生产还是预发环境 whenever只识别 environment
+set :whenever_variables, ->{ "environment=#{fetch :stage}" }
+set :whenever_roles, -> {:db}
+
 namespace :deploy do
   task :restart do
     invoke 'unicorn:restart'
@@ -66,6 +72,16 @@ namespace :deploy do
       execute "cd #{release_path} && ( RVM_BIN_PATH=~/.rvm/bin /usr/bin/env bundle exec rake db:create )"
     end
   end
-
   after "updated", "deploy:copy_jwplayer"
 end
+
+namespace :qatime do
+  desc "Transfer Qatime's secret conf to shared/config"
+  task :upload_config do
+    on roles(:all) do
+      upload! "config/application.yml", "#{shared_path}/config/application.yml"
+      upload! "config/database.yml","#{shared_path}/config/database.yml"
+    end
+  end
+end
+

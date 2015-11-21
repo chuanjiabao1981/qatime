@@ -1,6 +1,9 @@
 class CorrectionsController < ApplicationController
   layout "application"
   include QaSolution
+
+  respond_to :html
+
   def create
     resource_name         = @solution.examination.model_name.singular_route_key
     @correction           = build_correction(@solution,resource_name,params["#{resource_name}_correction".to_sym].permit!)
@@ -34,6 +37,11 @@ class CorrectionsController < ApplicationController
     else
       render 'edit'
     end
+  end
+
+  def destroy
+    @correction.destroy
+    respond_with @correction.solution
   end
 
   private

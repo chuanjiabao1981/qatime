@@ -27,6 +27,6 @@ set :output, "#{Whenever.path}/log/cron.log"
 
 
 ##注意这里一定写明要roles，就是哪些机器上运行
-every 2.minute , :roles => [:db] do
+every 4.hours , :roles => [:db] do
   rake_m 'data_backup:db'
 end

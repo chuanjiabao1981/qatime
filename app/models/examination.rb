@@ -27,7 +27,9 @@ class Examination < ActiveRecord::Base
 
   state_machine :state, initial: :new do
     transition :new                  => :in_progress,     :on => [:submit]
-    transition :in_progress          => :finished,        :on => [:work_complete]
+    transition :in_progress          => :completed,       :on => [:complete]
+    transition :new                  => :completed,       :on => [:complete]
+    transition :completed            => :in_progress,     :on => [:redo]
 
   end
 

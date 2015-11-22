@@ -158,8 +158,8 @@ Qatime::Application.routes.draw do
   end
   resources :homeworks do
     member do
-      [:a,:b,:c].each do |x|
-        get x
+      Examination.state_machines[:state].events.map(&:name).each do |x|
+        post x
       end
     end
 
@@ -196,6 +196,11 @@ Qatime::Application.routes.draw do
 
 
   resources :exercises do
+    member do
+      Examination.state_machines[:state].events.map(&:name).each do |x|
+        post x
+      end
+    end
     resources :exercise_solutions, controller: :solutions
   end
   resources :exercise_solutions, controller: :solutions do

@@ -770,7 +770,8 @@ CREATE TABLE examinations (
     comments_count integer DEFAULT 0,
     corrections_count integer DEFAULT 0,
     work_type character varying,
-    type character varying
+    type character varying,
+    state character varying DEFAULT 'new'::character varying
 );
 
 
@@ -2465,7 +2466,7 @@ COPY accounts (id, money, created_at, updated_at, accountable_id, accountable_ty
 -- Name: accounts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('accounts_id_seq', 89, true);
+SELECT pg_catalog.setval('accounts_id_seq', 90, false);
 
 
 --
@@ -2534,7 +2535,6 @@ COPY action_records (id, operator_id, customized_course_id, actionable_type, act
 60	76	3	Correction	41	create	CustomizedCourseActionRecord	2015-11-07 00:46:42.014321	2015-11-07 00:46:42.014321
 61	76	3	CustomizedCourseMessage	1	create	CustomizedCourseActionRecord	2015-11-12 22:22:09.197471	2015-11-12 22:22:09.197471
 62	76	3	CustomizedCourseMessageReply	1	create	CustomizedCourseActionRecord	2015-11-13 22:49:39.20727	2015-11-13 22:49:39.20727
-63	76	3	Correction	42	create	CustomizedCourseActionRecord	2015-11-13 23:01:10.659729	2015-11-13 23:01:10.659729
 64	76	3	CustomizedCourseMessageReply	2	create	CustomizedCourseActionRecord	2015-11-13 23:15:19.045647	2015-11-13 23:15:19.045647
 65	76	3	Correction	43	create	CustomizedCourseActionRecord	2015-11-13 23:20:07.182447	2015-11-13 23:20:07.182447
 66	76	3	Correction	44	create	CustomizedCourseActionRecord	2015-11-13 23:20:43.616485	2015-11-13 23:20:43.616485
@@ -2555,6 +2555,8 @@ COPY action_records (id, operator_id, customized_course_id, actionable_type, act
 81	75	3	Reply	104	create	CustomizedCourseActionRecord	2015-11-14 03:53:41.612066	2015-11-14 03:53:41.612066
 82	75	3	Reply	105	create	CustomizedCourseActionRecord	2015-11-14 03:56:52.109091	2015-11-14 03:56:52.109091
 83	75	3	Reply	106	create	CustomizedCourseActionRecord	2015-11-14 04:42:25.665682	2015-11-14 04:42:25.665682
+85	76	3	Correction	46	create	CustomizedCourseActionRecord	2015-11-16 23:15:00.65076	2015-11-16 23:15:00.65076
+86	76	3	Correction	47	create	CustomizedCourseActionRecord	2015-11-16 23:15:13.839845	2015-11-16 23:15:13.839845
 \.
 
 
@@ -2562,7 +2564,7 @@ COPY action_records (id, operator_id, customized_course_id, actionable_type, act
 -- Name: action_records_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('action_records_id_seq', 60, true);
+SELECT pg_catalog.setval('action_records_id_seq', 86, true);
 
 
 --
@@ -2591,7 +2593,7 @@ COPY answers (id, question_id, teacher_id, token, content, created_at, updated_a
 -- Name: answers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('answers_id_seq', 24, true);
+SELECT pg_catalog.setval('answers_id_seq', 25, false);
 
 
 --
@@ -2612,7 +2614,7 @@ COPY cash_operation_records (id, operator_id, account_id, value, type, created_a
 -- Name: cash_operation_records_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('cash_operation_records_id_seq', 6, true);
+SELECT pg_catalog.setval('cash_operation_records_id_seq', 7, false);
 
 
 --
@@ -2669,7 +2671,7 @@ COPY comments (id, content, author_id, commentable_id, commentable_type, created
 -- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('comments_id_seq', 90, true);
+SELECT pg_catalog.setval('comments_id_seq', 91, false);
 
 
 --
@@ -2695,7 +2697,7 @@ COPY consumption_records (id, fee_id, account_id, value, created_at, updated_at)
 -- Name: consumption_records_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('consumption_records_id_seq', 11, true);
+SELECT pg_catalog.setval('consumption_records_id_seq', 12, false);
 
 
 --
@@ -2743,9 +2745,10 @@ COPY corrections (id, content, teacher_id, solution_id, token, created_at, updat
 38	123412342134	76	24	1446329499-6bR1-Z8z8579qNt2rjvkAA	2015-10-31 22:11:51.693994	2015-11-05 22:20:58.719558	0	3	\N	open	HomeworkCorrection	\N	27	54	0
 40	AD发水电费	76	24	1446340943-4x9GhP9TrbzBh30Wdkht4w	2015-11-01 01:22:32.528257	2015-11-05 22:20:58.744432	2	3	\N	open	HomeworkCorrection	\N	27	54	0
 41	12341234124123412341234123412341243	76	31	1446856941-AgM0MtH0ZwdCpyICCYqnAA	2015-11-07 00:46:41.986682	2015-11-07 00:46:41.986682	0	3	\N	open	ExerciseCorrection	21	32	54	0
-42	1341234123412421	76	27	1447455588-a5FpchJ0x1IsI_6ADCTDLQ	2015-11-13 23:01:10.635717	2015-11-13 23:01:10.635717	0	3	\N	open	ExerciseCorrection	21	25	54	0
 43	12341234	76	30	1447456759-YzuWd72VD17dBRIo4SWPhw	2015-11-13 23:20:07.162475	2015-11-13 23:20:07.162475	0	3	\N	open	ExerciseCorrection	21	24	54	0
 44	123412341241	76	30	1447456807-qapXuKqq1ZRT4vzVAbFVmA	2015-11-13 23:20:43.599921	2015-11-13 23:20:43.599921	0	3	\N	open	ExerciseCorrection	21	24	54	0
+46	1234123412341234	76	34	1447715686-gY47037M7cF4lATcpUEcBQ	2015-11-16 23:15:00.619213	2015-11-16 23:15:00.619213	0	3	\N	open	HomeworkCorrection	\N	34	54	0
+47	123412341234	76	34	1447715700-JO8-OrBEFvB_qscmTppYHw	2015-11-16 23:15:13.810197	2015-11-16 23:15:13.810197	0	3	\N	open	HomeworkCorrection	\N	34	54	0
 \.
 
 
@@ -2753,7 +2756,7 @@ COPY corrections (id, content, teacher_id, solution_id, token, created_at, updat
 -- Name: corrections_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('corrections_id_seq', 41, true);
+SELECT pg_catalog.setval('corrections_id_seq', 47, true);
 
 
 --
@@ -2855,7 +2858,7 @@ COPY courses (id, name, "desc", lessons_count, token, created_at, updated_at, pr
 -- Name: courses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('courses_id_seq', 82, true);
+SELECT pg_catalog.setval('courses_id_seq', 83, false);
 
 
 --
@@ -3167,7 +3170,7 @@ COPY curriculums (id, teacher_id, teaching_program_id, created_at, updated_at, c
 -- Name: curriculums_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('curriculums_id_seq', 354, true);
+SELECT pg_catalog.setval('curriculums_id_seq', 355, false);
 
 
 --
@@ -3184,7 +3187,7 @@ COPY customized_course_assignments (id, customized_course_id, teacher_id, create
 -- Name: customized_course_assignments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('customized_course_assignments_id_seq', 2, true);
+SELECT pg_catalog.setval('customized_course_assignments_id_seq', 3, false);
 
 
 --
@@ -3202,7 +3205,7 @@ COPY customized_course_message_boards (id, customized_course_id, customized_cour
 -- Name: customized_course_message_boards_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('customized_course_message_boards_id_seq', 1, false);
+SELECT pg_catalog.setval('customized_course_message_boards_id_seq', 4, false);
 
 
 --
@@ -3219,7 +3222,7 @@ COPY customized_course_message_replies (id, customized_course_message_id, custom
 -- Name: customized_course_message_replies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('customized_course_message_replies_id_seq', 2, true);
+SELECT pg_catalog.setval('customized_course_message_replies_id_seq', 3, false);
 
 
 --
@@ -3235,7 +3238,7 @@ COPY customized_course_messages (id, customized_course_message_board_id, title, 
 -- Name: customized_course_messages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('customized_course_messages_id_seq', 1, false);
+SELECT pg_catalog.setval('customized_course_messages_id_seq', 2, false);
 
 
 --
@@ -3253,7 +3256,7 @@ COPY customized_courses (id, student_id, category, subject, created_at, updated_
 -- Name: customized_courses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('customized_courses_id_seq', 3, true);
+SELECT pg_catalog.setval('customized_courses_id_seq', 4, false);
 
 
 --
@@ -3287,7 +3290,7 @@ COPY customized_tutorials (id, teacher_id, customized_course_id, title, content,
 -- Name: customized_tutorials_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('customized_tutorials_id_seq', 21, true);
+SELECT pg_catalog.setval('customized_tutorials_id_seq', 22, false);
 
 
 --
@@ -3308,45 +3311,45 @@ COPY earning_records (id, fee_id, account_id, value, created_at, updated_at, pri
 -- Name: earning_records_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('earning_records_id_seq', 11, true);
+SELECT pg_catalog.setval('earning_records_id_seq', 12, false);
 
 
 --
 -- Data for Name: examinations; Type: TABLE DATA; Schema: public; Owner: qatime
 --
 
-COPY examinations (id, customized_course_id, teacher_id, title, content, token, topics_count, created_at, updated_at, solutions_count, student_id, customized_tutorial_id, comments_count, corrections_count, work_type, type) FROM stdin;
-7	2	2	测试是否可以仅需发送短信	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/c582eeb5d14132ddc23d9f7d62f94692.jpg" style="width: 1128px;"></p>	1441786862-TXXJTBgX3z3wM7A08tbNhA	0	2015-09-09 08:21:52.951624	2015-09-21 01:46:22.96715	0	75	\N	0	0	\N	Homework
-6	2	2	测试是否可以发送短信	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/844d7641e00de06e8ceb38beb019ffc7.jpg" style="width: 25%;"></p><p>测试感觉还是不错滴</p><p>哈哈哈哈哈哈哈</p>	1441786642-8TGfNHzEKEneBstzanC_IA	0	2015-09-09 08:18:06.743595	2015-09-21 01:46:22.934053	1	75	\N	0	0	\N	Homework
-9	2	2	ceshi yixia	okokoko	1443134338-6bOj4yCK41vVHPFVMmmmJw	0	2015-09-24 22:39:11.090968	2015-09-24 22:39:11.090968	3	75	\N	0	5	\N	Homework
-8	2	2	继续测试，看看能否发送短息	看看能否发送短息啊啊啊啊嗄	1441787068-glLyLG76QibVw6N2ri9dPg	0	2015-09-09 08:30:43.24876	2015-09-21 01:46:22.973154	1	75	\N	0	1	\N	Homework
-5	2	2	测试下是否可以使用	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/aa5730af43a434c7a69ede693275bc9a.jpg" style="width: 25%;"></p><p>哈哈哈</p>	1441775528-6Nb6fjRAfp1CiLvgmEbQ_Q	1	2015-09-09 05:16:42.473051	2015-09-21 01:46:22.979306	1	75	\N	0	9	\N	Homework
-18	3	76	sdfdsafsdf	adsfasfdasdf	1444485483-huSILAiIWTTRwQOESD67kQ	0	2015-10-10 13:58:27.263356	2015-10-10 13:58:27.263356	1	75	\N	0	1	\N	Homework
-10	2	2	看看怎么样么111		1442903924-QawoiFIfGLAPoHv_Krt8Iw	0	2015-09-22 06:39:07.200626	2015-10-01 11:21:21.909408	0	75	1	0	0	exercise	Exercise
-11	2	2	keyide	keyide sss	1442904957-cmsujdRC51Z02YMzQUwbuw	0	2015-09-22 06:56:06.544921	2015-10-01 11:21:21.928201	0	75	1	0	0	exercise	Exercise
-12	2	2	ccfasdfa	sss	1442899644-ushCGD06qUJF5etDxc2y9Q	0	2015-09-22 05:27:34.298872	2015-10-01 11:21:21.93308	0	75	1	0	0	exercise	Exercise
-13	2	2	23423412341234123412	安师大发啥地方	1442905070-K_djlHX6nMBxIhbPgOKP6A	0	2015-09-22 06:58:06.040722	2015-10-01 11:21:21.937492	0	75	1	0	0	exercise	Exercise
-14	2	2	测试以下看看啊嘛		1442897586-XKk_lhGRfdup_xtPzqaOIw	0	2015-09-22 04:53:19.888308	2015-10-01 11:21:21.942323	1	75	1	0	0	exercise	Exercise
-15	2	2	asdfasdf	asdfasdf	1444193898-Fxan8z1lCcNrJ9okNgso_A	0	2015-10-07 04:58:32.380844	2015-10-07 04:58:32.380844	0	75	13	0	0	exercise	Exercise
-16	2	2	aaaddd	asdfadf	1444197635-ht3f3TzMiUA0BJL4wtHtKw	0	2015-10-07 06:00:49.030575	2015-10-07 06:00:49.030575	0	75	13	0	0	exercise	Exercise
-17	2	2	1111	333	1444197716-g1ZIbnTemVd3d-CXqWUKaw	0	2015-10-07 06:02:10.000853	2015-10-07 06:02:10.000853	0	75	13	0	0	exercise	Exercise
-21	3	76	ceshi	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/87349fa9d1dc15ccc60826b2092cad10.JPG" style="width: 414px;"></p>	1445386591-Rhz0bUuCA4b35s_tdPnb8Q	0	2015-10-21 00:19:47.63678	2015-10-21 00:19:47.63678	1	75	15	0	0	\N	Homework
-20	3	76	1234	1234	1445377833-KSNcYRluVxmFuubuc_3Djg	0	2015-10-20 21:50:43.883698	2015-10-20 21:50:43.883698	3	75	15	0	1	exercise	Exercise
-23	3	76	asdfasdf	asdfasdfasdf	1445646725-DZRWwgcfD1QiJI54qmyJrA	0	2015-10-24 00:32:13.922978	2015-10-24 00:32:13.922978	0	75	\N	0	0	\N	Homework
-22	3	76	ccccsswe	dddsssqqq	1445515886-i4lz6KSvk0uoLVenPpiRoA	0	2015-10-22 12:11:39.470899	2015-10-24 00:31:42.671322	1	75	\N	0	3	\N	Homework
-19	3	76	asdfasf	asdfasdfasdfa	1445376653-zCMt3K5fiS0m3v6MF2M8iA	0	2015-10-20 21:31:04.079655	2015-10-20 21:31:04.079655	3	75	15	0	6	exercise	Exercise
-26	3	76	12341	12341234	1446327190-qw0ceMtVFywz5lkNDG7IWQ	0	2015-10-31 21:33:46.957243	2015-10-31 21:33:46.957243	0	75	\N	0	0	\N	Homework
-27	3	76	ceshi	ceshi	1446327854-zjNZqHkGiRnTCxHKtNXg8Q	0	2015-10-31 21:44:25.203388	2015-10-31 21:44:25.203388	2	75	\N	0	3	\N	Homework
-28	3	76	12341234	12341212341	1446765308-0C76d2Z0YWp0rvWix-SRVw	0	2015-11-05 23:15:50.251292	2015-11-05 23:15:50.251292	2	75	\N	0	0	\N	Homework
-29	3	76	lllllkkkllllllllllllll		1446852106-KkjwOxf8ui_lak_DH4vjSA	0	2015-11-06 23:23:40.810491	2015-11-06 23:23:40.810491	0	75	\N	0	0	\N	Homework
-30	3	76	ijojoijoij	12341243134	1446853253-7zDanuDhCDAqxEX4M16tyw	0	2015-11-06 23:41:05.31977	2015-11-06 23:41:05.31977	0	75	\N	0	0	\N	Homework
-31	3	76	asdfasdfas	13412341234123	1446853289-25xtUc7fqbOc8jpqffs2eA	0	2015-11-06 23:43:48.265525	2015-11-06 23:43:48.265525	0	75	\N	0	0	\N	Homework
-32	3	76	1341234	1341234	1446853565-jzbqByh2a83ebYI5khYd6w	0	2015-11-06 23:55:47.50505	2015-11-06 23:55:47.50505	1	75	21	0	1	\N	Exercise
-24	3	76	131342	1234123412	1446285733-TAdGgqZtnuYnX6IXQNNIdw	0	2015-10-31 10:02:46.014979	2015-10-31 10:02:46.014979	1	75	21	0	2	\N	Exercise
-33	3	76	qqwerqwerwr	qwerqwerqwer	1447457338-REwk5dVUulkMJkMFO3f7HQ	0	2015-11-13 23:29:24.066118	2015-11-13 23:29:24.066118	0	75	\N	0	0	\N	Homework
-35	3	76	12341	123412341243	1447457841-k5_oQSs5l5UkqtCRmwYQvw	0	2015-11-13 23:37:32.432956	2015-11-13 23:37:32.432956	0	75	21	0	0	\N	Exercise
-25	3	76	143啊安师大发	爱仕达发生的罚	1446286462-0eZYJETvTK_OD6qcJVnS8w	0	2015-10-31 10:14:30.704274	2015-10-31 10:14:30.704274	5	75	21	0	2	\N	Exercise
-34	3	76	13451345235		1447457427-Tizh7tLxU-EDMNh6tXt5uw	0	2015-11-13 23:30:44.146409	2015-11-13 23:30:44.146409	1	75	\N	0	0	\N	Homework
+COPY examinations (id, customized_course_id, teacher_id, title, content, token, topics_count, created_at, updated_at, solutions_count, student_id, customized_tutorial_id, comments_count, corrections_count, work_type, type, state) FROM stdin;
+7	2	2	测试是否可以仅需发送短信	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/c582eeb5d14132ddc23d9f7d62f94692.jpg" style="width: 1128px;"></p>	1441786862-TXXJTBgX3z3wM7A08tbNhA	0	2015-09-09 08:21:52.951624	2015-09-21 01:46:22.96715	0	75	\N	0	0	\N	Homework	new
+6	2	2	测试是否可以发送短信	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/844d7641e00de06e8ceb38beb019ffc7.jpg" style="width: 25%;"></p><p>测试感觉还是不错滴</p><p>哈哈哈哈哈哈哈</p>	1441786642-8TGfNHzEKEneBstzanC_IA	0	2015-09-09 08:18:06.743595	2015-09-21 01:46:22.934053	1	75	\N	0	0	\N	Homework	new
+9	2	2	ceshi yixia	okokoko	1443134338-6bOj4yCK41vVHPFVMmmmJw	0	2015-09-24 22:39:11.090968	2015-09-24 22:39:11.090968	3	75	\N	0	5	\N	Homework	new
+8	2	2	继续测试，看看能否发送短息	看看能否发送短息啊啊啊啊嗄	1441787068-glLyLG76QibVw6N2ri9dPg	0	2015-09-09 08:30:43.24876	2015-09-21 01:46:22.973154	1	75	\N	0	1	\N	Homework	new
+5	2	2	测试下是否可以使用	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/aa5730af43a434c7a69ede693275bc9a.jpg" style="width: 25%;"></p><p>哈哈哈</p>	1441775528-6Nb6fjRAfp1CiLvgmEbQ_Q	1	2015-09-09 05:16:42.473051	2015-09-21 01:46:22.979306	1	75	\N	0	9	\N	Homework	new
+18	3	76	sdfdsafsdf	adsfasfdasdf	1444485483-huSILAiIWTTRwQOESD67kQ	0	2015-10-10 13:58:27.263356	2015-10-10 13:58:27.263356	1	75	\N	0	1	\N	Homework	new
+10	2	2	看看怎么样么111		1442903924-QawoiFIfGLAPoHv_Krt8Iw	0	2015-09-22 06:39:07.200626	2015-10-01 11:21:21.909408	0	75	1	0	0	exercise	Exercise	new
+11	2	2	keyide	keyide sss	1442904957-cmsujdRC51Z02YMzQUwbuw	0	2015-09-22 06:56:06.544921	2015-10-01 11:21:21.928201	0	75	1	0	0	exercise	Exercise	new
+12	2	2	ccfasdfa	sss	1442899644-ushCGD06qUJF5etDxc2y9Q	0	2015-09-22 05:27:34.298872	2015-10-01 11:21:21.93308	0	75	1	0	0	exercise	Exercise	new
+13	2	2	23423412341234123412	安师大发啥地方	1442905070-K_djlHX6nMBxIhbPgOKP6A	0	2015-09-22 06:58:06.040722	2015-10-01 11:21:21.937492	0	75	1	0	0	exercise	Exercise	new
+14	2	2	测试以下看看啊嘛		1442897586-XKk_lhGRfdup_xtPzqaOIw	0	2015-09-22 04:53:19.888308	2015-10-01 11:21:21.942323	1	75	1	0	0	exercise	Exercise	new
+15	2	2	asdfasdf	asdfasdf	1444193898-Fxan8z1lCcNrJ9okNgso_A	0	2015-10-07 04:58:32.380844	2015-10-07 04:58:32.380844	0	75	13	0	0	exercise	Exercise	new
+16	2	2	aaaddd	asdfadf	1444197635-ht3f3TzMiUA0BJL4wtHtKw	0	2015-10-07 06:00:49.030575	2015-10-07 06:00:49.030575	0	75	13	0	0	exercise	Exercise	new
+17	2	2	1111	333	1444197716-g1ZIbnTemVd3d-CXqWUKaw	0	2015-10-07 06:02:10.000853	2015-10-07 06:02:10.000853	0	75	13	0	0	exercise	Exercise	new
+21	3	76	ceshi	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/87349fa9d1dc15ccc60826b2092cad10.JPG" style="width: 414px;"></p>	1445386591-Rhz0bUuCA4b35s_tdPnb8Q	0	2015-10-21 00:19:47.63678	2015-10-21 00:19:47.63678	1	75	15	0	0	\N	Homework	new
+20	3	76	1234	1234	1445377833-KSNcYRluVxmFuubuc_3Djg	0	2015-10-20 21:50:43.883698	2015-10-20 21:50:43.883698	3	75	15	0	1	exercise	Exercise	new
+23	3	76	asdfasdf	asdfasdfasdf	1445646725-DZRWwgcfD1QiJI54qmyJrA	0	2015-10-24 00:32:13.922978	2015-10-24 00:32:13.922978	0	75	\N	0	0	\N	Homework	new
+22	3	76	ccccsswe	dddsssqqq	1445515886-i4lz6KSvk0uoLVenPpiRoA	0	2015-10-22 12:11:39.470899	2015-10-24 00:31:42.671322	1	75	\N	0	3	\N	Homework	new
+19	3	76	asdfasf	asdfasdfasdfa	1445376653-zCMt3K5fiS0m3v6MF2M8iA	0	2015-10-20 21:31:04.079655	2015-10-20 21:31:04.079655	3	75	15	0	6	exercise	Exercise	new
+26	3	76	12341	12341234	1446327190-qw0ceMtVFywz5lkNDG7IWQ	0	2015-10-31 21:33:46.957243	2015-10-31 21:33:46.957243	0	75	\N	0	0	\N	Homework	new
+27	3	76	ceshi	ceshi	1446327854-zjNZqHkGiRnTCxHKtNXg8Q	0	2015-10-31 21:44:25.203388	2015-10-31 21:44:25.203388	2	75	\N	0	3	\N	Homework	new
+28	3	76	12341234	12341212341	1446765308-0C76d2Z0YWp0rvWix-SRVw	0	2015-11-05 23:15:50.251292	2015-11-05 23:15:50.251292	2	75	\N	0	0	\N	Homework	new
+29	3	76	lllllkkkllllllllllllll		1446852106-KkjwOxf8ui_lak_DH4vjSA	0	2015-11-06 23:23:40.810491	2015-11-06 23:23:40.810491	0	75	\N	0	0	\N	Homework	new
+30	3	76	ijojoijoij	12341243134	1446853253-7zDanuDhCDAqxEX4M16tyw	0	2015-11-06 23:41:05.31977	2015-11-06 23:41:05.31977	0	75	\N	0	0	\N	Homework	new
+31	3	76	asdfasdfas	13412341234123	1446853289-25xtUc7fqbOc8jpqffs2eA	0	2015-11-06 23:43:48.265525	2015-11-06 23:43:48.265525	0	75	\N	0	0	\N	Homework	new
+32	3	76	1341234	1341234	1446853565-jzbqByh2a83ebYI5khYd6w	0	2015-11-06 23:55:47.50505	2015-11-06 23:55:47.50505	1	75	21	0	1	\N	Exercise	new
+24	3	76	131342	1234123412	1446285733-TAdGgqZtnuYnX6IXQNNIdw	0	2015-10-31 10:02:46.014979	2015-10-31 10:02:46.014979	1	75	21	0	2	\N	Exercise	new
+33	3	76	qqwerqwerwr	qwerqwerqwer	1447457338-REwk5dVUulkMJkMFO3f7HQ	0	2015-11-13 23:29:24.066118	2015-11-13 23:29:24.066118	0	75	\N	0	0	\N	Homework	new
+35	3	76	12341	123412341243	1447457841-k5_oQSs5l5UkqtCRmwYQvw	0	2015-11-13 23:37:32.432956	2015-11-13 23:37:32.432956	0	75	21	0	0	\N	Exercise	new
+25	3	76	143啊安师大发	爱仕达发生的罚	1446286462-0eZYJETvTK_OD6qcJVnS8w	0	2015-10-31 10:14:30.704274	2015-10-31 10:14:30.704274	5	75	21	0	1	\N	Exercise	new
+34	3	76	13451345235		1447457427-Tizh7tLxU-EDMNh6tXt5uw	0	2015-11-13 23:30:44.146409	2015-11-13 23:30:44.146409	1	75	\N	0	2	\N	Homework	new
 \.
 
 
@@ -3354,7 +3357,7 @@ COPY examinations (id, customized_course_id, teacher_id, title, content, token, 
 -- Name: examinations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('examinations_id_seq', 32, true);
+SELECT pg_catalog.setval('examinations_id_seq', 36, false);
 
 
 --
@@ -3389,7 +3392,7 @@ COPY exercises (id, token, title, content, teacher_id, customized_tutorial_id, s
 -- Name: exercises_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('exercises_id_seq', 5, true);
+SELECT pg_catalog.setval('exercises_id_seq', 6, false);
 
 
 --
@@ -3453,7 +3456,7 @@ COPY fees (id, customized_course_id, feeable_id, feeable_type, value, created_at
 -- Name: fees_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('fees_id_seq', 11, true);
+SELECT pg_catalog.setval('fees_id_seq', 12, false);
 
 
 --
@@ -3484,7 +3487,7 @@ COPY learning_plan_assignments (id, learning_plan_id, teacher_id, answered_quest
 -- Name: learning_plan_assignments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('learning_plan_assignments_id_seq', 42, true);
+SELECT pg_catalog.setval('learning_plan_assignments_id_seq', 43, false);
 
 
 --
@@ -3503,7 +3506,7 @@ COPY learning_plans (id, duration_type, state, student_id, vip_class_id, price, 
 -- Name: learning_plans_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('learning_plans_id_seq', 24, true);
+SELECT pg_catalog.setval('learning_plans_id_seq', 25, false);
 
 
 --
@@ -3608,7 +3611,7 @@ COPY lessons (id, name, "desc", course_id, token, created_at, updated_at, teache
 -- Name: lessons_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('lessons_id_seq', 164, true);
+SELECT pg_catalog.setval('lessons_id_seq', 164, false);
 
 
 --
@@ -3692,7 +3695,6 @@ COPY notifications (id, type, receiver_id, notificationable_type, notificationab
 60	CustomizedCourseActionNotification	75	CustomizedCourseMessage	1	76	f	create	2015-11-12 22:22:09.223381	2015-11-12 22:22:09.223381	3
 65	CustomizedCourseActionNotification	75	Correction	44	76	t	create	2015-11-13 23:20:43.62968	2015-11-14 00:24:05.701726	3
 66	CustomizedCourseActionNotification	75	Examination	33	76	t	create	2015-11-13 23:29:24.115809	2015-11-14 00:24:56.069594	3
-62	CustomizedCourseActionNotification	75	Correction	42	76	t	create	2015-11-13 23:01:10.678216	2015-11-14 00:25:34.78777	3
 63	CustomizedCourseActionNotification	75	CustomizedCourseMessageReply	2	76	t	create	2015-11-13 23:15:19.073283	2015-11-14 23:41:50.581999	3
 61	CustomizedCourseActionNotification	75	CustomizedCourseMessageReply	1	76	t	create	2015-11-13 22:49:39.272174	2015-11-14 23:49:50.13419	3
 67	CustomizedCourseActionNotification	75	Examination	34	76	f	create	2015-11-13 23:30:44.205905	2015-11-13 23:30:44.205905	3
@@ -3712,6 +3714,8 @@ COPY notifications (id, type, receiver_id, notificationable_type, notificationab
 80	CustomizedCourseActionNotification	76	Reply	104	75	f	create	2015-11-14 03:53:41.625368	2015-11-14 03:53:41.625368	3
 81	CustomizedCourseActionNotification	76	Reply	105	75	f	create	2015-11-14 03:56:52.124837	2015-11-14 03:56:52.124837	3
 82	CustomizedCourseActionNotification	76	Reply	106	75	f	create	2015-11-14 04:42:25.680371	2015-11-14 04:42:25.680371	3
+84	CustomizedCourseActionNotification	75	Correction	46	76	f	create	2015-11-16 23:15:00.71251	2015-11-16 23:15:00.71251	3
+85	CustomizedCourseActionNotification	75	Correction	47	76	f	create	2015-11-16 23:15:13.858803	2015-11-16 23:15:13.858803	3
 \.
 
 
@@ -3719,7 +3723,7 @@ COPY notifications (id, type, receiver_id, notificationable_type, notificationab
 -- Name: notifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('notifications_id_seq', 59, true);
+SELECT pg_catalog.setval('notifications_id_seq', 85, true);
 
 
 --
@@ -3927,7 +3931,7 @@ COPY pictures (id, name, imageable_id, imageable_type, created_at, updated_at, t
 -- Name: pictures_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('pictures_id_seq', 214, true);
+SELECT pg_catalog.setval('pictures_id_seq', 221, false);
 
 
 --
@@ -3946,7 +3950,7 @@ COPY qa_faqs (id, title, content, qa_faq_type, created_at, updated_at, token) FR
 -- Name: qa_faqs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('qa_faqs_id_seq', 4, true);
+SELECT pg_catalog.setval('qa_faqs_id_seq', 5, false);
 
 
 --
@@ -3979,7 +3983,7 @@ COPY qa_files (id, author_id, qa_fileable_id, qa_fileable_type, name, qa_file_ty
 -- Name: qa_files_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('qa_files_id_seq', 24, true);
+SELECT pg_catalog.setval('qa_files_id_seq', 29, false);
 
 
 --
@@ -4000,7 +4004,7 @@ COPY question_assignments (id, question_id, teacher_id, created_at, updated_at) 
 -- Name: question_assignments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('question_assignments_id_seq', 7, true);
+SELECT pg_catalog.setval('question_assignments_id_seq', 8, false);
 
 
 --
@@ -4020,7 +4024,7 @@ COPY questions (id, title, content, token, student_id, answers_count, vip_class_
 -- Name: questions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('questions_id_seq', 26, true);
+SELECT pg_catalog.setval('questions_id_seq', 27, false);
 
 
 --
@@ -4084,7 +4088,7 @@ COPY register_codes (id, value, state, created_at, updated_at, user_id, school_i
 -- Name: register_codes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('register_codes_id_seq', 17, true);
+SELECT pg_catalog.setval('register_codes_id_seq', 18, false);
 
 
 --
@@ -4156,7 +4160,7 @@ COPY replies (id, content, topic_id, created_at, updated_at, token, author_id, c
 -- Name: replies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('replies_id_seq', 96, true);
+SELECT pg_catalog.setval('replies_id_seq', 107, false);
 
 
 --
@@ -4182,7 +4186,7 @@ COPY review_records (id, lesson_id, manager_id, complete_state, start_state, rea
 -- Name: review_records_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('review_records_id_seq', 12, true);
+SELECT pg_catalog.setval('review_records_id_seq', 13, false);
 
 
 --
@@ -4399,6 +4403,7 @@ COPY schema_migrations (version) FROM stdin;
 20151108024851
 20151108112759
 20151108114223
+20151115220036
 \.
 
 
@@ -4475,10 +4480,10 @@ COPY solutions (id, title, content, solutionable_id, student_id, token, correcti
 22	sdasdf	asdfasdfasf	\N	75	1445658314-mm6ggnRQGus15Dn-iUBKlg	6	2015-10-24 04:10:30.594025	2015-11-05 22:20:58.472825	0	\N	3	2015-10-25 00:10:16.840178	2015-10-26 22:05:20.9509	76	76	ExerciseSolution	19	15
 16	ceshi111111	cash2222222	\N	75	1445515583-cYq3k_2gqLkL3QxoDj7bQw	4	2015-10-22 12:06:35.081598	2015-11-05 22:20:58.616767	0	\N	3	2015-10-22 22:50:57.847266	2015-10-22 22:53:07.140889	76	76	HomeworkSolution	21	\N
 17	12341234	12341234141	\N	75	1445518373-Xbm-6Ymt99y0w6NJEJHZ5w	3	2015-10-22 12:53:09.306451	2015-11-05 22:20:58.686707	0	\N	3	2015-10-23 08:22:50.830576	2015-10-25 01:45:09.342473	76	76	HomeworkSolution	22	\N
-27	13134	12341234	\N	75	1446330601-dIsxR5REHrpVrsmypnLHlQ	2	2015-10-31 22:30:17.51936	2015-11-13 23:01:10.697382	2	\N	3	2015-10-31 22:32:38.301448	2015-11-13 23:01:10.635717	76	76	ExerciseSolution	25	21
 30	345134	123413	\N	75	1446766416-LSa9sxawVfTfpofBrenRuA	2	2015-11-05 23:33:57.456419	2015-11-13 23:20:43.649535	0	\N	3	2015-11-13 23:20:07.162475	2015-11-13 23:20:43.599921	76	76	ExerciseSolution	24	21
 33	千万人问	犬瘟热犬瘟热去	\N	75	1447459491-6HLgllwwGGcQ5uuXwBrfCA	0	2015-11-14 00:05:13.168446	2015-11-14 00:05:13.168446	0	\N	3	\N	\N	\N	\N	ExerciseSolution	25	21
-34	12341234	123412341234	\N	75	1447459629-1uam5aMRzQPL-s6-2H03PA	0	2015-11-14 00:07:30.815072	2015-11-14 00:07:30.815072	0	\N	3	\N	\N	\N	\N	HomeworkSolution	34	\N
+27	13134	12341234	\N	75	1446330601-dIsxR5REHrpVrsmypnLHlQ	1	2015-10-31 22:30:17.51936	2015-11-16 23:07:02.308513	2	\N	3	2015-10-31 22:32:38.301448	2015-10-31 22:32:38.301448	76	76	ExerciseSolution	25	21
+34	12341234	123412341234	\N	75	1447459629-1uam5aMRzQPL-s6-2H03PA	2	2015-11-14 00:07:30.815072	2015-11-16 23:16:45.204354	0	\N	3	2015-11-16 23:15:00.619213	2015-11-16 23:15:13.810197	76	76	HomeworkSolution	34	\N
 \.
 
 
@@ -4486,7 +4491,7 @@ COPY solutions (id, title, content, solutionable_id, student_id, token, correcti
 -- Name: solutions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('solutions_id_seq', 32, true);
+SELECT pg_catalog.setval('solutions_id_seq', 35, false);
 
 
 --
@@ -4554,7 +4559,7 @@ COPY teaching_programs (id, name, category, grade, subject, content, created_at,
 -- Name: teaching_programs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('teaching_programs_id_seq', 53, true);
+SELECT pg_catalog.setval('teaching_programs_id_seq', 54, false);
 
 
 --
@@ -4589,7 +4594,7 @@ COPY teaching_videos (id, name, token, vip_class, teacher_id, question_id, answe
 -- Name: teaching_videos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('teaching_videos_id_seq', 20, true);
+SELECT pg_catalog.setval('teaching_videos_id_seq', 21, false);
 
 
 --
@@ -4660,7 +4665,7 @@ COPY topics (id, title, content, replies_count, created_at, updated_at, token, c
 -- Name: topics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('topics_id_seq', 80, true);
+SELECT pg_catalog.setval('topics_id_seq', 83, false);
 
 
 --
@@ -4732,9 +4737,9 @@ COPY users (id, email, encrypted_password, reset_password_token, reset_password_
 74	e@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-05-09 11:30:06.665628	2015-05-11 23:24:29.712041	0	0	333	0317710ba088e795b862a14adb208b7e.png	3	teacher	$2a$10$h3YasYZxoBvwr93GSeVwZe6qbGkJqNXgdVSE8tYmWcr/uTplxfxem	ee1424cc53cb02849aac41347d586a44f421fb59	3232323323232332323233232323323232332323233232323323232332323233232323	\N	0	英语	高中	11111111111	f	\N	\N	\N
 2	zhang@163.com		\N	\N	\N	0	\N	\N	\N	\N	2014-06-25 12:21:44.269794	2015-10-10 13:29:20.984519	14	1	张建东	ba61da898d301eb96e72f5a2a34f1e80.jpg	1	teacher	$2a$10$xUVjT1nRp.F5D3.HbuH3R.Lxqj9SHmN6B62W2oXtcx3K32J2YVvRW	2ddeb274dd1d70612cf998ad1da1d76a6ad5e328	张老师是测试老师，账号是用来测试的.	\N	0	物理	高中	15910676326	t	\N		\N
 58	machengke@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-04-11 08:16:44.673629	2015-11-01 22:45:41.42166	0	0	马成科	5950164eefd0372b42376213c9b52c4b.png	\N	manager	$2a$10$A4/9bWMF466q/dsw4HoVPuMcbySa5WP6DzkTLjzHxfh1lhjoc4/uG	7c1e110cf7de53005bb9dcc5f33d097ea21eb97d	\N	\N	0	\N	\N	\N	f	\N	\N	\N
-57	chuanjiabao1981@gmail.com		\N	\N	\N	0	\N	\N	\N	\N	2015-04-09 23:11:10.348818	2015-11-07 01:17:03.602039	5	11	admin	\N	\N	admin	$2a$10$sRIPw7gFfGtBPB4qJsmLyejlKHUPr5Nf7OQdHNAeC/FkHFCZ4W0zK	cda9d31cbdf26a1501b2c0df6a5f69dd15bd8331	\N	\N	0	\N	\N	\N	f	\N	\N	\N
-76	a@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-10-10 13:31:39.969233	2015-11-08 13:19:16.623784	1	23	aaa	726aea7591089e1c851099451ec316d5.JPG	1	teacher	$2a$10$an8ULUTI.zvjppnRCHfNP.2ec7bFNhUlxUeYc7e44CR2tAOt9eChS	954c071b3cb71630532436db6bbb7e2c1cd42b0b	asdfadsfasdfa	\N	0	物理	高中	15910676326	f	\N	aaa	\N
-75	z@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-05-18 11:21:11.205946	2015-11-12 23:17:04.547131	21	19	z	5d7a99562aa61d0b40c763691a7c824e.jpg	\N	student	$2a$10$udltfN82atLbyZCipta3wOUAuDSie.owyMMGDjVQnmyqxBJXmfhoC	18d439bac99c58e971ea2f352141e5ef26aa0015	\N	\N	0	\N	\N	15910676326	f	高一	\N	\N
+57	chuanjiabao1981@gmail.com		\N	\N	\N	0	\N	\N	\N	\N	2015-04-09 23:11:10.348818	2015-11-16 23:03:16.361086	5	11	admin	\N	\N	admin	$2a$10$sRIPw7gFfGtBPB4qJsmLyejlKHUPr5Nf7OQdHNAeC/FkHFCZ4W0zK	1684fa39cb52841e35bae1a028da947302100f98	\N	\N	0	\N	\N	\N	f	\N	\N	\N
+75	z@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-05-18 11:21:11.205946	2015-11-16 23:07:32.659092	21	19	z	5d7a99562aa61d0b40c763691a7c824e.jpg	\N	student	$2a$10$udltfN82atLbyZCipta3wOUAuDSie.owyMMGDjVQnmyqxBJXmfhoC	8f7bd3922525936bae4ad1ab9d2983dab0880885	\N	\N	0	\N	\N	15910676326	f	高一	\N	\N
+76	a@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-10-10 13:31:39.969233	2015-11-16 23:07:53.060221	1	23	aaa	726aea7591089e1c851099451ec316d5.JPG	1	teacher	$2a$10$an8ULUTI.zvjppnRCHfNP.2ec7bFNhUlxUeYc7e44CR2tAOt9eChS	7ae02dfa54660f263010c08d58baff22044ce467	asdfadsfasdfa	\N	0	物理	高中	15910676326	f	\N	aaa	\N
 \.
 
 
@@ -4742,7 +4747,7 @@ COPY users (id, email, encrypted_password, reset_password_token, reset_password_
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('users_id_seq', 76, true);
+SELECT pg_catalog.setval('users_id_seq', 77, false);
 
 
 --
@@ -4997,10 +5002,10 @@ COPY videos (id, name, created_at, updated_at, token, videoable_id, video_type, 
 308	54e9b37a4d25cc03610f980436d3398b.mp4	2015-10-11 13:41:38.879297	2015-10-11 13:42:00.80214	1444568311-ClHMTEbKd-ZyGgSEDA1Wpw	69	mp4	\N	in_queue	Reply	57	\N
 310	740c00a071af0d9cf1d9df67845b0370.mp4	2015-10-18 01:05:06.731437	2015-10-18 01:13:41.26603	1445130122-gIMG37y361f9_Jwqts2C4w	71	mp4	6d437282e63b294de6b2d5bd9d448828.mp4	convert_success	Reply	76	42
 319	e7484d3035d7f7cb1fb58d520d3b1557.mp4	2015-10-27 22:36:34.281254	2015-10-27 22:45:07.919497	1445985373-nZi1AGh9kS1bJ2hpqeKynQ	82	mp4	859e911c78eb62ff2259339907f8790a.mp4	convert_success	Reply	76	42
-321	11d48abd9f9df8856dc43800402093d1.mp4	2015-11-07 01:21:50.729818	2015-11-07 01:21:54.823568	1446859127-f2J_AaEC-zabZEszfl2ruA	24	mp4	\N	in_queue	Answer	76	\N
-322	9e12f2c66b14d3fa409d7af74bdd1f1b.mp4	2015-11-13 23:01:04.958681	2015-11-13 23:01:08.756983	1447455588-a5FpchJ0x1IsI_6ADCTDLQ	42	mp4	\N	in_queue	Correction	76	\N
-323	8c02640e232d03355f761809711a747a.mp4	2015-11-13 23:19:44.678436	2015-11-13 23:20:00.823535	1447456759-YzuWd72VD17dBRIo4SWPhw	43	mp4	\N	in_queue	Correction	76	\N
-324	0c704aebb8a472a5d05a0f1a8ac0dc4a.mp4	2015-11-14 03:30:59.144519	2015-11-14 03:31:03.598165	1447471835-JcQLqT8MNPMZfwrajL3aFA	98	mp4	\N	in_queue	Reply	76	\N
+321	11d48abd9f9df8856dc43800402093d1.mp4	2015-11-07 01:21:50.729818	2015-11-19 22:51:34.07044	1446859127-f2J_AaEC-zabZEszfl2ruA	24	mp4	\N	convert_fail	Answer	76	\N
+323	8c02640e232d03355f761809711a747a.mp4	2015-11-13 23:19:44.678436	2015-11-19 22:51:34.079054	1447456759-YzuWd72VD17dBRIo4SWPhw	43	mp4	\N	convert_fail	Correction	76	\N
+322	9e12f2c66b14d3fa409d7af74bdd1f1b.mp4	2015-11-13 23:01:04.958681	2015-11-19 22:51:34.114209	1447455588-a5FpchJ0x1IsI_6ADCTDLQ	42	mp4	\N	convert_fail	Correction	76	\N
+324	0c704aebb8a472a5d05a0f1a8ac0dc4a.mp4	2015-11-14 03:30:59.144519	2015-11-19 22:51:34.088661	1447471835-JcQLqT8MNPMZfwrajL3aFA	98	mp4	\N	convert_fail	Reply	76	\N
 \.
 
 
@@ -5008,7 +5013,7 @@ COPY videos (id, name, created_at, updated_at, token, videoable_id, video_type, 
 -- Name: videos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('videos_id_seq', 321, true);
+SELECT pg_catalog.setval('videos_id_seq', 325, false);
 
 
 --
@@ -5032,7 +5037,7 @@ COPY vip_classes (id, subject, category, questions_count, created_at, updated_at
 -- Name: vip_classes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('vip_classes_id_seq', 9, false);
+SELECT pg_catalog.setval('vip_classes_id_seq', 10, false);
 
 
 --
@@ -5048,7 +5053,7 @@ COPY workstations (id, name, city_id, address, tel, email, created_at, updated_a
 -- Name: workstations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('workstations_id_seq', 1, true);
+SELECT pg_catalog.setval('workstations_id_seq', 2, false);
 
 
 --

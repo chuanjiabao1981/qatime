@@ -1,0 +1,17 @@
+<!-- Single button -->
+<% if defined? object_state.state %>
+    <div class="btn-group" id="<%="#{object_state.model_name.singular_route_key}-state-#{object_state.id}"%>">
+      <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= object_state.human_state_name %>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <% object_state.state_events.each do |x| %>
+            <li>
+              <%= link_to object_state.class.human_state_event_name(x) ,
+                          send("#{x}_#{object_state.model_name.singular_route_key}_path",object_state),method: :post ,remote: true%>
+            </li>
+        <% end %>
+      </ul>
+</div>
+<% end %>

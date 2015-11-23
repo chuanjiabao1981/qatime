@@ -22,4 +22,5 @@ cn:
           competition: 竞赛班
         sale_price: 销售价格
         workstation: 工作站
+        is_keep_account: 是否计费
         action_records: 全部活动

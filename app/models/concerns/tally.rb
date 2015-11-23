@@ -3,7 +3,8 @@ module Tally
   included do
 
     has_one  :fee, as: :feeable
-    scope :valid_tally_unit, -> { where("customized_course_id is not null").where(:status => "open") }
+    scope :valid_tally_unit, -> { joins(:customized_course).where(customized_courses:{is_keep_account: true}).
+                                    where("customized_course_id is not null").where(:status => "open") }
 
     before_validation :set_customized_course_prices, on: :create
 

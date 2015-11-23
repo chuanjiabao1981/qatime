@@ -39,6 +39,7 @@ customized_course_tally:
   customized_course_type: 0
   workstation: workstation1
   creator_id: <%= ActiveRecord::FixtureSet.identify(:manager) %>
+  is_keep_account: true
 
 customized_course3:
   student: student1

@@ -7,10 +7,17 @@
       </button>
       <ul class="dropdown-menu">
         <% object_state.state_events.each do |x| %>
-            <li>
-              <%= link_to object_state.class.human_state_event_name(x) ,
-                          send("#{x}_#{object_state.model_name.singular_route_key}_path",object_state),method: :post ,remote: true%>
-            </li>
+            <% if (defined?(use_super_controller) and use_super_controller and allow? _get_super_model_name(object_state.class).route_key, x ,object_state) or
+                    allow? object_state.model_name.route_key,x,object_state %>
+                <li>
+                  <%= link_to object_state.class.human_state_event_name(x) ,
+                              send("#{x}_#{object_state.model_name.singular_route_key}_path",
+                                   object_state,
+                                   use_super_controller: "#{defined?(use_super_controller) ? use_super_controller : false}"),
+                              method: :post ,
+                              remote: true %>
+                </li>
+            <% end %>
         <% end %>
       </ul>
 </div>

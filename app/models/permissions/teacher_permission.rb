@@ -103,11 +103,11 @@ module Permissions
         customized_course and customized_course.teacher_ids.include?(user.id)
       end
 
-      allow :homeworks,[:show,:edit,:update] do |homework|
+      allow :homeworks,[:show,:edit,:update,:complete,:redo] do |homework|
         homework and homework.teacher_id == user.id or homework.customized_course.teacher_ids.include?(user.id)
       end
 
-      allow :solutions,[:show] do |solution|
+      allow :solutions,[:show,:complete,:redo] do |solution|
         solution and solution.examination.response_teachers.include?(user)
       end
 
@@ -124,7 +124,7 @@ module Permissions
         customized_tutorial  and customized_tutorial.teacher_id == user.id
       end
 
-      allow :exercises,[:show,:edit,:update] do |exercise|
+      allow :exercises,[:show,:edit,:update,:complete,:redo] do |exercise|
         exercise and
             (exercise.teacher_id == user.id or
                 exercise.customized_tutorial.customized_course.teacher_ids.include?(user.id))
@@ -155,9 +155,9 @@ module Permissions
         course_issue_reply and course_issue_reply.customized_course.teacher_ids.include?(user.id)
       end
 
-      allow :notifications,[:show] do |notification|
-        notification and notification.receiver_id == user.id
-      end
+
+
+
 
     end
 private

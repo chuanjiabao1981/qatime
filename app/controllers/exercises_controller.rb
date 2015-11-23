@@ -3,10 +3,8 @@ class ExercisesController < ApplicationController
   layout "application"
   include QaFilesHelper
   include QaStateMachine
-  __event_actions(Examination)
-  # include Module.new do
-  #   __event_actions(Examination)
-  # end
+  __event_actions(Examination,:exercise)
+  
   def new
     @exercise = @customized_tutorial.exercises.build
   end

@@ -1,5 +1,16 @@
 cn:
   activerecord:
+    state_machines:
+      solution:
+        state:
+          states:
+            new: 新提交
+            completed: 批改完
+            in_progress: 批改中
+          events:
+            complete: 批改完
+            correct: 批改
+            redo: 重新批改
     models:
       solution: 作业
     attributes:

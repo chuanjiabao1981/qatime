@@ -7,4 +7,4 @@
 <%= content_for :brief_header do%>
     <%= render partial: 'shared/examinations/header/solution',locals: {examination: @homework} %>
 <% end %>
-<%= render partial: "shared/qa_objects/index_brief_info",locals: {objects: @solutions} %>
+<%= render partial: "solutions/index",locals:{solutions: @solutions} %>

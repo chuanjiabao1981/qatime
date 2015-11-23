@@ -4,6 +4,9 @@ class SolutionsController < ApplicationController
   include QaFilesHelper
   include QaSolution
 
+  include QaStateMachine
+  __event_actions(Solution,:solution)
+
   def new
     resource_name               = resource_name_from_params(params)
     @solution                   = build_solution(@examination,resource_name)

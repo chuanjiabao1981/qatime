@@ -23,9 +23,6 @@ class Solution < ActiveRecord::Base
     end
   end
 
-  # has_many        :qa_files, as: :qa_fileable
-  # accepts_nested_attributes_for :qa_files, allow_destroy: true
-
   scope           :timeout_to_correct ,lambda {|customized_course_id|
                               where(customized_course_id: customized_course_id)
                                   .where(corrections_count: 0)
@@ -35,7 +32,13 @@ class Solution < ActiveRecord::Base
   scope           :by_customized_course_solution, lambda {where("type = ? or type = ?", HomeworkSolution.to_s,ExerciseSolution.to_s)}
 
 
+  state_machine :state, initial: :new do
+    transition :new                  => :in_progress,       :on => [:correct]
+    transition :in_progress          => :completed,         :on => [:complete]
+    transition :completed            => :in_progress,       :on => [:redo]
+    transition :new                  => :completed,         :on => [:complete]
 
+  end
 
 
   self.per_page = 10

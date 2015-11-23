@@ -3,7 +3,9 @@
     <%= render_qa_object_avatar brief_info %>
   </div>
   <div class="title">
-    <%= render partial: "shared/qa_objects/state_info",locals: {object_state: brief_info} %>
+    <%= render partial: "shared/qa_objects/state_info",
+               locals: {object_state: brief_info,
+                        use_super_controller: defined?(use_super_controller) ? use_super_controller : false} %>
 
     <%= render_qa_object_title brief_info %>
   </div>

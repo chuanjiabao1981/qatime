@@ -1,7 +1,0 @@
-//$('button#exercise_35').dropdown('toggle');
-
-<% ___tmp_id = "#{@object_state.model_name.singular_route_key}-state-#{@object_state.id}" %>
-$('div#<%=___tmp_id%>')
-        .replaceWith("<%= j render partial: 'shared/qa_objects/state_info',locals: {object_state: @object_state}%>");
-
-//$('div#<%=___tmp_id%>>button').dropdown('toggle');

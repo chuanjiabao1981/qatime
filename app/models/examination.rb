@@ -1,5 +1,8 @@
 class Examination < ActiveRecord::Base
 
+  include ActiveModel::Dirty
+
+
   include QaToken
   include ContentValidate
   include QaCommon
@@ -31,6 +34,11 @@ class Examination < ActiveRecord::Base
     transition :new                  => :completed,       :on => [:complete]
     transition :completed            => :in_progress,     :on => [:redo]
 
+    after_transition do |examination,transition|
+      puts transition.from
+      puts transition.to
+      puts transition.event
+    end
   end
 
   def operator_id

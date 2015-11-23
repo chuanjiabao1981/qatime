@@ -36,7 +36,7 @@
     <%= content_for :brief_header do %>
         <%= render partial:'customized_tutorials/header/exercise',locals: {customized_tutorial: @customized_tutorial} %>
     <% end %>
-    <%= render partial: "shared/qa_objects/index_brief_info",locals: {objects:  @customized_tutorial.exercises} %>
+    <%= render partial: "shared/qa_objects/index_brief_info",locals: {objects:  @customized_tutorial.exercises,use_super_controller: true} %>
 <% end %>
 
 <div class="qa_sep_15"></div>

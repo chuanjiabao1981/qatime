@@ -138,9 +138,7 @@ module Permissions
         solution and solution.examination and solution.examination.student_id == user.id
       end
 
-      allow :notifications,[:show] do |notification|
-        notification and notification.receiver_id == user.id
-      end
+
 
 
     end

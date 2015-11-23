@@ -1,0 +1,15 @@
+<% ___tmp_id = "#{@object_state.model_name.singular_route_key}-state-#{@object_state.id}" %>
+$('div#<%=___tmp_id%>')
+        .replaceWith("<%= j render partial: 'shared/qa_objects/state_info',
+                            locals: {object_state: @object_state,
+                                     use_super_controller: @use_super_controller
+                            }%>"
+                    );
+<% if not @object_state.valid? %>
+    <% ___tmp_error = "" %>
+    $('div#<%=___tmp_id%>>button').dropdown('toggle');
+    <% @object_state.errors.each do |k,v|%>
+        <% ___tmp_error = v.to_s %>
+    <% end %>
+    alert("<%= ___tmp_error %>");
+<% end %>

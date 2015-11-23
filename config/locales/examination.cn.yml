@@ -1,5 +1,15 @@
 cn:
   activerecord:
+    state_machines:
+      examination:
+        state:
+          states:
+            new: 新布置
+            completed: 已完成
+            in_progress: 进行中
+        events:
+          complete: 已完成
+          redo: 重新打开
     models:
       examination: 习题
     attributes:

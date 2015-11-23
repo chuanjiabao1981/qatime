@@ -2,6 +2,8 @@ class HomeworksController < ApplicationController
   respond_to :html
   layout "application"
   include QaFilesHelper
+  include QaStateMachine
+  __event_actions(Examination,:homework)
 
   def new
     @homework = @customized_course.homeworks.build

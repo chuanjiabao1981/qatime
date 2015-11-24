@@ -2,7 +2,7 @@ module QaActionRecord
   extend ActiveSupport::Concern
   included do
 
-    has_many          :action_records,as: :actionable,dependent: :destroy do
+    has_many :customized_course_action_records,as: :actionable,dependent: :destroy do
       def build(attributes={})
 
         if defined? proxy_association.owner.customized_course_id  and proxy_association.owner.customized_course_id
@@ -19,7 +19,7 @@ module QaActionRecord
 
   private
   def __create_action_record
-    a = self.action_records.build(name: :create)
+    a = self.customized_course_action_records.build(name: :create)
     a.save
   end
 end

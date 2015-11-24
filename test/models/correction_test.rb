@@ -123,7 +123,7 @@ class CorrectionTest < ActiveSupport::TestCase
 
     @solution.reload
 
-    assert @solution.first_handle_created_at.to_i       == @correction1.created_at.to_i
+    assert @solution.first_handle_created_at.to_i       == @correction1.created_at.to_i,"#{@solution.first_handle_created_at} #{@correction1.created_at}"
     assert @solution.first_handle_author_id             == @correction1.author.id
     assert @solution.last_handle_created_at.to_i        == @correction2.created_at.to_i
     assert @solution.last_handle_author_id              == @correction2.author.id

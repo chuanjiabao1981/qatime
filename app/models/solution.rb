@@ -6,15 +6,20 @@ class Solution < ActiveRecord::Base
   include QaActionRecord
   include QaComment
   include QaCustomizedCourseActionNotification
-
-
-
-
+  has_many  :customized_course_state_change_records, as: :stateactionable,foreign_key: :actionable_id,foreign_type: :actionable_type do
+    def build(attributes={})
+      if defined? proxy_association.owner.customized_course_id  and proxy_association.owner.customized_course_id
+        attributes[:customized_course_id]        = proxy_association.owner.customized_course_id
+      end
+      attributes[:operator_id]                   = proxy_association.owner.operator_id
+      super attributes
+    end
+  end
 
   belongs_to      :student
   belongs_to      :examination,counter_cache: true
   belongs_to      :first_handle_author,:class_name => "User"
-  belongs_to      :last_handle_author,:class => "User"
+  belongs_to      :last_handle_author,:class_name => "User"
 
   has_many        :corrections,:dependent => :destroy do
     include QaPageNum
@@ -38,6 +43,14 @@ class Solution < ActiveRecord::Base
     transition :completed            => :in_progress,       :on => [:redo]
     transition :new                  => :completed,         :on => [:complete]
 
+    after_transition do |solution,transition|
+
+
+
+      puts transition.from
+      puts transition.to
+      puts transition.event
+    end
   end
 
 

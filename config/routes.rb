@@ -167,11 +167,11 @@ Qatime::Application.routes.draw do
   end
   resources :homework_solutions, controller: :solutions do
     resources :homework_corrections, controller: :corrections
-    member do
-      Solution.state_machines[:state].events.map(&:name).each do |x|
-        post x
-      end
-    end
+    #member do
+    #  Solution.state_machines[:state].events.map(&:name).each do |x|
+    #    post x
+    #  end
+    #end
   end
 
   resources :homework_corrections, controller: :corrections
@@ -210,11 +210,11 @@ Qatime::Application.routes.draw do
   end
   resources :exercise_solutions, controller: :solutions do
     resources :exercise_corrections,controller: :corrections
-    member do
-      Solution.state_machines[:state].events.map(&:name).each do |x|
-        post x
-      end
-    end
+    #member do
+    #  Solution.state_machines[:state].events.map(&:name).each do |x|
+    #    post x
+    #  end
+    #end
   end
 
   resources :exercise_corrections,controller: :corrections

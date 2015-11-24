@@ -57,8 +57,21 @@ class CustomizedCoursesController < ApplicationController
   def get_sale_price
     category = params[:category]
     customized_course_type  = params[:customized_course_type]
-    teacher_price, platform_price = CustomizedCourse.get_customized_course_prices(category, customized_course_type)
-    @sale_price = teacher_price + platform_price
+    is_new_record = params[:is_new_record]
+    customized_course_id = params[:customized_course_id]
+
+    if is_new_record == "new"
+      teacher_price, platform_price = CustomizedCourse.get_customized_course_prices(category, customized_course_type)
+      @sale_price = teacher_price + platform_price
+    else
+      customized_course    = CustomizedCourse.find(customized_course_id)
+      if customized_course.category == category and customized_course.customized_course_type == customized_course_type
+        @sale_price = customized_course.teacher_price + customized_course.platform_price
+      else
+        teacher_price, platform_price = CustomizedCourse.get_customized_course_prices(category, customized_course_type)
+        @sale_price = teacher_price + platform_price
+      end
+    end
   end
 
   def action_records

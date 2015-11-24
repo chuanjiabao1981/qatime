@@ -8,7 +8,9 @@
                     format: 'js',
                     data: {
                         "category": category,
-                        "customized_course_type": customized_course_type
+                        "customized_course_type": customized_course_type,
+                        "is_new_record": "<%if @customized_course.new_record? %>new<%else %>update<%end%>",
+                        "customized_course_id": "<%=@customized_course.id %>"
                     }
                 }
         )

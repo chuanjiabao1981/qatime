@@ -68,4 +68,15 @@ class SolutionTest < ActiveSupport::TestCase
       end
     end
   end
+
+  test "homework solution state change" do
+    homework_solution                 = solutions(:homework_solution_one)
+    homework_solution.state           = :in_progress
+    homework_solution.state_event     = :complete
+    assert_difference 'CustomizedCourseStateChangeRecord.count',1 do
+      assert_difference 'CustomizedCourseActionNotification.count',2 do
+        homework_solution.save
+      end
+    end
+  end
 end

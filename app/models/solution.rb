@@ -38,18 +38,19 @@ class Solution < ActiveRecord::Base
 
 
   state_machine :state, initial: :new do
-    transition :new                  => :in_progress,       :on => [:correct]
+    transition :new                  => :in_progress,       :on => [:handled]
     transition :in_progress          => :completed,         :on => [:complete]
     transition :completed            => :in_progress,       :on => [:redo]
     transition :new                  => :completed,         :on => [:complete]
 
     after_transition do |solution,transition|
 
-
-
-      puts transition.from
-      puts transition.to
-      puts transition.event
+      a = solution.customized_course_state_change_records.build(name: :state_change,
+                                                            from: transition.from,
+                                                            to: transition.to,
+                                                            event: transition.event
+                                                           )
+      a.save
     end
   end
 

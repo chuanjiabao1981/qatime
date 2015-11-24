@@ -8,7 +8,9 @@ class CorrectionTest < ActiveSupport::TestCase
   #   assert true
   # end
 
-  def setup
+ self.use_transactional_fixtures = true
+
+ def setup
     @old =     APP_CONSTANT["price_per_minute"]
 
     APP_CONSTANT["price_per_minute"] = 1
@@ -31,6 +33,16 @@ class CorrectionTest < ActiveSupport::TestCase
         s.by_teacher_id(teacher.id).valid_tally_unit.size
       end
     end
+  end
+
+  test "dont keep account" do
+    teacher           = Teacher.find(users(:teacher_tally).id)
+    customized_course = customized_courses(:customized_course_tally)
+    assert ExerciseCorrection.by_teacher_id(teacher.id).valid_tally_unit.size == 5
+    customized_course.is_keep_account = false
+    customized_course.save
+    assert ExerciseCorrection.by_teacher_id(teacher.id).valid_tally_unit.size == 0
+
   end
 
   test 'create' do
@@ -98,7 +110,7 @@ class CorrectionTest < ActiveSupport::TestCase
 
     @solution.reload
 
-    assert @solution.first_handle_created_at.to_i       == @correction1.created_at.to_i
+    assert @solution.first_handle_created_at.to_i       == @correction1.created_at.to_i,"#{@solution.first_handle_created_at} #{@correction1.created_at}"
     assert @solution.first_handle_author_id             == @correction1.author.id
     assert @solution.last_handle_created_at.to_i        == @correction3.created_at.to_i
     assert @solution.last_handle_author_id              == @correction3.author.id
@@ -122,6 +134,7 @@ class CorrectionTest < ActiveSupport::TestCase
     @correction3.destroy
 
     @solution.reload
+
 
     assert @solution.first_handle_created_at.to_i       == @correction1.created_at.to_i
     assert @solution.first_handle_author_id             == @correction1.author.id

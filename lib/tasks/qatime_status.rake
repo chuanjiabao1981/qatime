@@ -18,7 +18,8 @@ task :qatime_status => :environment do
     next unless a
     b = ActionRecord.find(k[0])
     a.notificationable = b
-    puts a.to_json
+    # a.to_json
+    a.save
   end
   # Notification.all.each do |n|
   #   puts "#{n.notificationable_id},#{n.notificationable_type}"

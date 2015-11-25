@@ -44,7 +44,7 @@ class SolutionsController < ApplicationController
   end
   def destroy
     @solution.destroy
-    @examination      = @solution.container
+    @examination      = @solution.examination
     respond_with @examination
   end
   private

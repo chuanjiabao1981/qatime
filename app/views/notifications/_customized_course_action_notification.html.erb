@@ -19,7 +19,7 @@
         %>
     <% else %>
         <%=
-        link_to (I18n.t "action.#{customized_course_action_notification.notificationable.model_name.singular_route_key}.#{customized_course_action_notification.action_name}.desc",
+        link_to (I18n.t "action.#{customized_course_action_notification.notificationable.actionable.model_name.singular_route_key}.#{customized_course_action_notification.action_name}.desc",
                         user: customized_course_action_notification.operator.view_name),
                 notification_path(customized_course_action_notification)
         %>
@@ -27,7 +27,7 @@
   </div>
   <div class="info">
     <%= localize(customized_course_action_notification.created_at,format: :long) %>
-    <%= I18n.t "action.#{customized_course_action_notification.notificationable.model_name.singular_route_key}.#{customized_course_action_notification.action_name}.name" %>
+    <%= I18n.t "action.#{customized_course_action_notification.notificationable.actionable.model_name.singular_route_key}.#{customized_course_action_notification.action_name}.name" %>
     <% if customized_course_action_notification.customized_course_id %>
     • <%= link_to CustomizedCourse.model_name.human,customized_course_path(customized_course_action_notification.customized_course_id) %>
     <% end %>

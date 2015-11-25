@@ -81,7 +81,10 @@ CREATE TABLE action_records (
     name character varying,
     type character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    "from" character varying,
+    "to" character varying,
+    event character varying
 );
 
 
@@ -1708,7 +1711,9 @@ CREATE TABLE solutions (
     last_handle_author_id integer,
     type character varying,
     examination_id integer,
-    customized_tutorial_id integer
+    customized_tutorial_id integer,
+    state character varying DEFAULT 'new'::character varying,
+    last_operator_id integer
 );
 
 
@@ -2466,97 +2471,81 @@ COPY accounts (id, money, created_at, updated_at, accountable_id, accountable_ty
 -- Name: accounts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('accounts_id_seq', 90, false);
+SELECT pg_catalog.setval('accounts_id_seq', 89, true);
 
 
 --
 -- Data for Name: action_records; Type: TABLE DATA; Schema: public; Owner: qatime
 --
 
-COPY action_records (id, operator_id, customized_course_id, actionable_type, actionable_id, name, type, created_at, updated_at) FROM stdin;
-1	76	3	CustomizedTutorial	16	create	CustomizedCourseActionRecord	2015-10-30 22:20:50.552261	2015-10-30 22:20:50.552261
-2	76	3	CustomizedTutorial	17	create	CustomizedCourseActionRecord	2015-10-31 08:44:44.334454	2015-10-31 08:44:44.334454
-4	76	3	CustomizedTutorial	19	create	CustomizedCourseActionRecord	2015-10-31 09:03:23.797883	2015-10-31 09:03:23.797883
-5	76	3	CustomizedTutorial	20	create	CustomizedCourseActionRecord	2015-10-31 09:05:00.410988	2015-10-31 09:05:00.410988
-6	76	3	CustomizedTutorial	21	create	CustomizedCourseActionRecord	2015-10-31 09:30:56.741924	2015-10-31 09:30:56.741924
-7	76	3	Examination	24	create	CustomizedCourseActionRecord	2015-10-31 10:02:46.125988	2015-10-31 10:02:46.125988
-8	76	3	Examination	25	create	CustomizedCourseActionRecord	2015-10-31 10:14:30.757297	2015-10-31 10:14:30.757297
-9	75	3	Topic	74	create	CustomizedCourseActionRecord	2015-10-31 10:28:47.778291	2015-10-31 10:28:47.778291
-10	76	3	Reply	89	create	CustomizedCourseActionRecord	2015-10-31 11:00:10.790964	2015-10-31 11:00:10.790964
-11	76	3	Reply	90	create	CustomizedCourseActionRecord	2015-10-31 11:01:45.30141	2015-10-31 11:01:45.30141
-12	76	3	Examination	26	create	CustomizedCourseActionRecord	2015-10-31 21:33:46.975583	2015-10-31 21:33:46.975583
-13	76	3	Examination	27	create	CustomizedCourseActionRecord	2015-10-31 21:44:25.215212	2015-10-31 21:44:25.215212
-14	75	3	Solution	23	create	CustomizedCourseActionRecord	2015-10-31 21:53:35.182648	2015-10-31 21:53:35.182648
-15	75	3	Solution	24	create	CustomizedCourseActionRecord	2015-10-31 22:01:38.140422	2015-10-31 22:01:38.140422
-16	76	3	Correction	37	create	CustomizedCourseActionRecord	2015-10-31 22:06:55.714067	2015-10-31 22:06:55.714067
-17	76	3	Correction	38	create	CustomizedCourseActionRecord	2015-10-31 22:11:51.726264	2015-10-31 22:11:51.726264
-18	75	3	Solution	25	create	CustomizedCourseActionRecord	2015-10-31 22:26:57.961824	2015-10-31 22:26:57.961824
-19	75	3	Solution	26	create	CustomizedCourseActionRecord	2015-10-31 22:29:33.647079	2015-10-31 22:29:33.647079
-20	75	3	Solution	27	create	CustomizedCourseActionRecord	2015-10-31 22:30:17.605048	2015-10-31 22:30:17.605048
-21	76	3	Correction	39	create	CustomizedCourseActionRecord	2015-10-31 22:32:38.350711	2015-10-31 22:32:38.350711
-22	76	3	Comment	76	create	CustomizedCourseActionRecord	2015-10-31 22:57:20.014156	2015-10-31 22:57:20.014156
-23	76	3	Comment	77	create	CustomizedCourseActionRecord	2015-10-31 22:57:49.778692	2015-10-31 22:57:49.778692
-24	76	3	Comment	78	create	CustomizedCourseActionRecord	2015-10-31 22:58:23.000367	2015-10-31 22:58:23.000367
-25	76	3	Comment	79	create	CustomizedCourseActionRecord	2015-10-31 22:58:58.507519	2015-10-31 22:58:58.507519
-26	76	3	Comment	80	create	CustomizedCourseActionRecord	2015-10-31 22:59:42.689845	2015-10-31 22:59:42.689845
-27	76	3	Comment	81	create	CustomizedCourseActionRecord	2015-10-31 23:00:17.488856	2015-10-31 23:00:17.488856
-28	76	3	Comment	82	create	CustomizedCourseActionRecord	2015-10-31 23:02:01.288893	2015-10-31 23:02:01.288893
-29	76	3	Comment	83	create	CustomizedCourseActionRecord	2015-10-31 23:04:35.895684	2015-10-31 23:04:35.895684
-30	76	3	Comment	84	create	CustomizedCourseActionRecord	2015-10-31 23:04:41.22555	2015-10-31 23:04:41.22555
-31	76	3	Comment	85	create	CustomizedCourseActionRecord	2015-10-31 23:04:58.176516	2015-10-31 23:04:58.176516
-32	76	3	Comment	86	create	CustomizedCourseActionRecord	2015-10-31 23:27:07.01278	2015-10-31 23:27:07.01278
-33	76	3	Comment	87	create	CustomizedCourseActionRecord	2015-10-31 23:27:22.841372	2015-10-31 23:27:22.841372
-34	75	3	Comment	88	create	CustomizedCourseActionRecord	2015-10-31 23:33:52.865486	2015-10-31 23:33:52.865486
-35	76	3	Correction	40	create	CustomizedCourseActionRecord	2015-11-01 01:22:32.549603	2015-11-01 01:22:32.549603
-36	76	3	Comment	89	create	CustomizedCourseActionRecord	2015-11-01 01:28:42.439362	2015-11-01 01:28:42.439362
-37	75	3	Topic	75	create	CustomizedCourseActionRecord	2015-11-01 01:31:41.652832	2015-11-01 01:31:41.652832
-38	75	3	Topic	76	create	CustomizedCourseActionRecord	2015-11-01 01:34:18.878969	2015-11-01 01:34:18.878969
-39	76	3	Reply	91	create	CustomizedCourseActionRecord	2015-11-01 01:35:13.446459	2015-11-01 01:35:13.446459
-40	75	3	Comment	90	create	CustomizedCourseActionRecord	2015-11-01 22:47:01.325361	2015-11-01 22:47:01.325361
-41	75	3	Topic	77	create	CustomizedCourseActionRecord	2015-11-03 23:06:02.185789	2015-11-03 23:06:02.185789
-42	75	3	Topic	78	create	CustomizedCourseActionRecord	2015-11-04 23:24:02.396252	2015-11-04 23:24:02.396252
-43	75	3	Reply	92	create	CustomizedCourseActionRecord	2015-11-05 22:21:18.621385	2015-11-05 22:21:18.621385
-44	75	3	Topic	79	create	CustomizedCourseActionRecord	2015-11-05 23:11:56.50611	2015-11-05 23:11:56.50611
-45	75	3	Reply	93	create	CustomizedCourseActionRecord	2015-11-05 23:12:17.178581	2015-11-05 23:12:17.178581
-46	76	3	Examination	28	create	CustomizedCourseActionRecord	2015-11-05 23:15:50.267595	2015-11-05 23:15:50.267595
-47	75	3	Solution	28	create	CustomizedCourseActionRecord	2015-11-05 23:24:01.540612	2015-11-05 23:24:01.540612
-48	75	3	Solution	29	create	CustomizedCourseActionRecord	2015-11-05 23:30:01.325812	2015-11-05 23:30:01.325812
-49	75	3	Solution	30	create	CustomizedCourseActionRecord	2015-11-05 23:33:57.470826	2015-11-05 23:33:57.470826
-50	75	3	Topic	80	create	CustomizedCourseActionRecord	2015-11-06 22:59:04.814871	2015-11-06 22:59:04.814871
-51	75	3	Reply	94	create	CustomizedCourseActionRecord	2015-11-06 23:02:49.180279	2015-11-06 23:02:49.180279
-52	75	3	Reply	95	create	CustomizedCourseActionRecord	2015-11-06 23:09:49.023132	2015-11-06 23:09:49.023132
-53	75	3	Reply	96	create	CustomizedCourseActionRecord	2015-11-06 23:11:02.638942	2015-11-06 23:11:02.638942
-54	76	3	Examination	29	create	CustomizedCourseActionRecord	2015-11-06 23:23:40.929327	2015-11-06 23:23:40.929327
-55	76	3	Examination	30	create	CustomizedCourseActionRecord	2015-11-06 23:41:05.332635	2015-11-06 23:41:05.332635
-56	76	3	Examination	31	create	CustomizedCourseActionRecord	2015-11-06 23:43:48.303509	2015-11-06 23:43:48.303509
-57	76	3	Examination	32	create	CustomizedCourseActionRecord	2015-11-06 23:55:47.675614	2015-11-06 23:55:47.675614
-58	75	3	Solution	31	create	CustomizedCourseActionRecord	2015-11-07 00:15:53.422174	2015-11-07 00:15:53.422174
-59	75	3	Solution	32	create	CustomizedCourseActionRecord	2015-11-07 00:28:44.223447	2015-11-07 00:28:44.223447
-60	76	3	Correction	41	create	CustomizedCourseActionRecord	2015-11-07 00:46:42.014321	2015-11-07 00:46:42.014321
-61	76	3	CustomizedCourseMessage	1	create	CustomizedCourseActionRecord	2015-11-12 22:22:09.197471	2015-11-12 22:22:09.197471
-62	76	3	CustomizedCourseMessageReply	1	create	CustomizedCourseActionRecord	2015-11-13 22:49:39.20727	2015-11-13 22:49:39.20727
-64	76	3	CustomizedCourseMessageReply	2	create	CustomizedCourseActionRecord	2015-11-13 23:15:19.045647	2015-11-13 23:15:19.045647
-65	76	3	Correction	43	create	CustomizedCourseActionRecord	2015-11-13 23:20:07.182447	2015-11-13 23:20:07.182447
-66	76	3	Correction	44	create	CustomizedCourseActionRecord	2015-11-13 23:20:43.616485	2015-11-13 23:20:43.616485
-67	76	3	Examination	33	create	CustomizedCourseActionRecord	2015-11-13 23:29:24.087599	2015-11-13 23:29:24.087599
-68	76	3	Examination	34	create	CustomizedCourseActionRecord	2015-11-13 23:30:44.184502	2015-11-13 23:30:44.184502
-69	76	3	Examination	35	create	CustomizedCourseActionRecord	2015-11-13 23:37:32.4694	2015-11-13 23:37:32.4694
-70	75	3	Solution	33	create	CustomizedCourseActionRecord	2015-11-14 00:05:13.221607	2015-11-14 00:05:13.221607
-71	75	3	Solution	34	create	CustomizedCourseActionRecord	2015-11-14 00:07:30.875768	2015-11-14 00:07:30.875768
-72	75	3	Topic	81	create	CustomizedCourseActionRecord	2015-11-14 03:13:43.125888	2015-11-14 03:13:43.125888
-73	76	3	Reply	97	create	CustomizedCourseActionRecord	2015-11-14 03:30:35.248393	2015-11-14 03:30:35.248393
-74	76	3	Reply	98	create	CustomizedCourseActionRecord	2015-11-14 03:33:22.525207	2015-11-14 03:33:22.525207
-75	75	3	Reply	99	create	CustomizedCourseActionRecord	2015-11-14 03:38:21.516273	2015-11-14 03:38:21.516273
-76	75	3	Reply	100	create	CustomizedCourseActionRecord	2015-11-14 03:39:06.946481	2015-11-14 03:39:06.946481
-77	75	3	Reply	101	create	CustomizedCourseActionRecord	2015-11-14 03:39:26.745465	2015-11-14 03:39:26.745465
-78	75	3	Reply	102	create	CustomizedCourseActionRecord	2015-11-14 03:39:36.472509	2015-11-14 03:39:36.472509
-79	75	3	Reply	103	create	CustomizedCourseActionRecord	2015-11-14 03:39:58.155115	2015-11-14 03:39:58.155115
-80	75	3	Topic	82	create	CustomizedCourseActionRecord	2015-11-14 03:52:57.462261	2015-11-14 03:52:57.462261
-81	75	3	Reply	104	create	CustomizedCourseActionRecord	2015-11-14 03:53:41.612066	2015-11-14 03:53:41.612066
-82	75	3	Reply	105	create	CustomizedCourseActionRecord	2015-11-14 03:56:52.109091	2015-11-14 03:56:52.109091
-83	75	3	Reply	106	create	CustomizedCourseActionRecord	2015-11-14 04:42:25.665682	2015-11-14 04:42:25.665682
-85	76	3	Correction	46	create	CustomizedCourseActionRecord	2015-11-16 23:15:00.65076	2015-11-16 23:15:00.65076
-86	76	3	Correction	47	create	CustomizedCourseActionRecord	2015-11-16 23:15:13.839845	2015-11-16 23:15:13.839845
+COPY action_records (id, operator_id, customized_course_id, actionable_type, actionable_id, name, type, created_at, updated_at, "from", "to", event) FROM stdin;
+1	76	3	CustomizedTutorial	16	create	CustomizedCourseActionRecord	2015-10-30 22:20:50.552261	2015-10-30 22:20:50.552261	\N	\N	\N
+2	76	3	CustomizedTutorial	17	create	CustomizedCourseActionRecord	2015-10-31 08:44:44.334454	2015-10-31 08:44:44.334454	\N	\N	\N
+4	76	3	CustomizedTutorial	19	create	CustomizedCourseActionRecord	2015-10-31 09:03:23.797883	2015-10-31 09:03:23.797883	\N	\N	\N
+5	76	3	CustomizedTutorial	20	create	CustomizedCourseActionRecord	2015-10-31 09:05:00.410988	2015-10-31 09:05:00.410988	\N	\N	\N
+6	76	3	CustomizedTutorial	21	create	CustomizedCourseActionRecord	2015-10-31 09:30:56.741924	2015-10-31 09:30:56.741924	\N	\N	\N
+7	76	3	Examination	24	create	CustomizedCourseActionRecord	2015-10-31 10:02:46.125988	2015-10-31 10:02:46.125988	\N	\N	\N
+8	76	3	Examination	25	create	CustomizedCourseActionRecord	2015-10-31 10:14:30.757297	2015-10-31 10:14:30.757297	\N	\N	\N
+9	75	3	Topic	74	create	CustomizedCourseActionRecord	2015-10-31 10:28:47.778291	2015-10-31 10:28:47.778291	\N	\N	\N
+10	76	3	Reply	89	create	CustomizedCourseActionRecord	2015-10-31 11:00:10.790964	2015-10-31 11:00:10.790964	\N	\N	\N
+11	76	3	Reply	90	create	CustomizedCourseActionRecord	2015-10-31 11:01:45.30141	2015-10-31 11:01:45.30141	\N	\N	\N
+12	76	3	Examination	26	create	CustomizedCourseActionRecord	2015-10-31 21:33:46.975583	2015-10-31 21:33:46.975583	\N	\N	\N
+13	76	3	Examination	27	create	CustomizedCourseActionRecord	2015-10-31 21:44:25.215212	2015-10-31 21:44:25.215212	\N	\N	\N
+14	75	3	Solution	23	create	CustomizedCourseActionRecord	2015-10-31 21:53:35.182648	2015-10-31 21:53:35.182648	\N	\N	\N
+15	75	3	Solution	24	create	CustomizedCourseActionRecord	2015-10-31 22:01:38.140422	2015-10-31 22:01:38.140422	\N	\N	\N
+16	76	3	Correction	37	create	CustomizedCourseActionRecord	2015-10-31 22:06:55.714067	2015-10-31 22:06:55.714067	\N	\N	\N
+17	76	3	Correction	38	create	CustomizedCourseActionRecord	2015-10-31 22:11:51.726264	2015-10-31 22:11:51.726264	\N	\N	\N
+18	75	3	Solution	25	create	CustomizedCourseActionRecord	2015-10-31 22:26:57.961824	2015-10-31 22:26:57.961824	\N	\N	\N
+19	75	3	Solution	26	create	CustomizedCourseActionRecord	2015-10-31 22:29:33.647079	2015-10-31 22:29:33.647079	\N	\N	\N
+20	75	3	Solution	27	create	CustomizedCourseActionRecord	2015-10-31 22:30:17.605048	2015-10-31 22:30:17.605048	\N	\N	\N
+21	76	3	Correction	39	create	CustomizedCourseActionRecord	2015-10-31 22:32:38.350711	2015-10-31 22:32:38.350711	\N	\N	\N
+22	76	3	Comment	76	create	CustomizedCourseActionRecord	2015-10-31 22:57:20.014156	2015-10-31 22:57:20.014156	\N	\N	\N
+23	76	3	Comment	77	create	CustomizedCourseActionRecord	2015-10-31 22:57:49.778692	2015-10-31 22:57:49.778692	\N	\N	\N
+24	76	3	Comment	78	create	CustomizedCourseActionRecord	2015-10-31 22:58:23.000367	2015-10-31 22:58:23.000367	\N	\N	\N
+25	76	3	Comment	79	create	CustomizedCourseActionRecord	2015-10-31 22:58:58.507519	2015-10-31 22:58:58.507519	\N	\N	\N
+26	76	3	Comment	80	create	CustomizedCourseActionRecord	2015-10-31 22:59:42.689845	2015-10-31 22:59:42.689845	\N	\N	\N
+27	76	3	Comment	81	create	CustomizedCourseActionRecord	2015-10-31 23:00:17.488856	2015-10-31 23:00:17.488856	\N	\N	\N
+28	76	3	Comment	82	create	CustomizedCourseActionRecord	2015-10-31 23:02:01.288893	2015-10-31 23:02:01.288893	\N	\N	\N
+29	76	3	Comment	83	create	CustomizedCourseActionRecord	2015-10-31 23:04:35.895684	2015-10-31 23:04:35.895684	\N	\N	\N
+30	76	3	Comment	84	create	CustomizedCourseActionRecord	2015-10-31 23:04:41.22555	2015-10-31 23:04:41.22555	\N	\N	\N
+31	76	3	Comment	85	create	CustomizedCourseActionRecord	2015-10-31 23:04:58.176516	2015-10-31 23:04:58.176516	\N	\N	\N
+32	76	3	Comment	86	create	CustomizedCourseActionRecord	2015-10-31 23:27:07.01278	2015-10-31 23:27:07.01278	\N	\N	\N
+33	76	3	Comment	87	create	CustomizedCourseActionRecord	2015-10-31 23:27:22.841372	2015-10-31 23:27:22.841372	\N	\N	\N
+34	75	3	Comment	88	create	CustomizedCourseActionRecord	2015-10-31 23:33:52.865486	2015-10-31 23:33:52.865486	\N	\N	\N
+35	76	3	Correction	40	create	CustomizedCourseActionRecord	2015-11-01 01:22:32.549603	2015-11-01 01:22:32.549603	\N	\N	\N
+36	76	3	Comment	89	create	CustomizedCourseActionRecord	2015-11-01 01:28:42.439362	2015-11-01 01:28:42.439362	\N	\N	\N
+37	75	3	Topic	75	create	CustomizedCourseActionRecord	2015-11-01 01:31:41.652832	2015-11-01 01:31:41.652832	\N	\N	\N
+38	75	3	Topic	76	create	CustomizedCourseActionRecord	2015-11-01 01:34:18.878969	2015-11-01 01:34:18.878969	\N	\N	\N
+39	76	3	Reply	91	create	CustomizedCourseActionRecord	2015-11-01 01:35:13.446459	2015-11-01 01:35:13.446459	\N	\N	\N
+40	75	3	Comment	90	create	CustomizedCourseActionRecord	2015-11-01 22:47:01.325361	2015-11-01 22:47:01.325361	\N	\N	\N
+41	75	3	Topic	77	create	CustomizedCourseActionRecord	2015-11-03 23:06:02.185789	2015-11-03 23:06:02.185789	\N	\N	\N
+42	75	3	Topic	78	create	CustomizedCourseActionRecord	2015-11-04 23:24:02.396252	2015-11-04 23:24:02.396252	\N	\N	\N
+43	75	3	Reply	92	create	CustomizedCourseActionRecord	2015-11-05 22:21:18.621385	2015-11-05 22:21:18.621385	\N	\N	\N
+44	75	3	Topic	79	create	CustomizedCourseActionRecord	2015-11-05 23:11:56.50611	2015-11-05 23:11:56.50611	\N	\N	\N
+45	75	3	Reply	93	create	CustomizedCourseActionRecord	2015-11-05 23:12:17.178581	2015-11-05 23:12:17.178581	\N	\N	\N
+46	76	3	Examination	28	create	CustomizedCourseActionRecord	2015-11-05 23:15:50.267595	2015-11-05 23:15:50.267595	\N	\N	\N
+47	75	3	Solution	28	create	CustomizedCourseActionRecord	2015-11-05 23:24:01.540612	2015-11-05 23:24:01.540612	\N	\N	\N
+48	75	3	Solution	29	create	CustomizedCourseActionRecord	2015-11-05 23:30:01.325812	2015-11-05 23:30:01.325812	\N	\N	\N
+49	75	3	Solution	30	create	CustomizedCourseActionRecord	2015-11-05 23:33:57.470826	2015-11-05 23:33:57.470826	\N	\N	\N
+50	75	3	Topic	80	create	CustomizedCourseActionRecord	2015-11-06 22:59:04.814871	2015-11-06 22:59:04.814871	\N	\N	\N
+51	75	3	Reply	94	create	CustomizedCourseActionRecord	2015-11-06 23:02:49.180279	2015-11-06 23:02:49.180279	\N	\N	\N
+52	75	3	Reply	95	create	CustomizedCourseActionRecord	2015-11-06 23:09:49.023132	2015-11-06 23:09:49.023132	\N	\N	\N
+53	75	3	Reply	96	create	CustomizedCourseActionRecord	2015-11-06 23:11:02.638942	2015-11-06 23:11:02.638942	\N	\N	\N
+54	76	3	Examination	29	create	CustomizedCourseActionRecord	2015-11-06 23:23:40.929327	2015-11-06 23:23:40.929327	\N	\N	\N
+55	76	3	Examination	30	create	CustomizedCourseActionRecord	2015-11-06 23:41:05.332635	2015-11-06 23:41:05.332635	\N	\N	\N
+56	76	3	Examination	31	create	CustomizedCourseActionRecord	2015-11-06 23:43:48.303509	2015-11-06 23:43:48.303509	\N	\N	\N
+57	76	3	Examination	32	create	CustomizedCourseActionRecord	2015-11-06 23:55:47.675614	2015-11-06 23:55:47.675614	\N	\N	\N
+58	75	3	Solution	31	create	CustomizedCourseActionRecord	2015-11-07 00:15:53.422174	2015-11-07 00:15:53.422174	\N	\N	\N
+59	75	3	Solution	32	create	CustomizedCourseActionRecord	2015-11-07 00:28:44.223447	2015-11-07 00:28:44.223447	\N	\N	\N
+60	76	3	Correction	41	create	CustomizedCourseActionRecord	2015-11-07 00:46:42.014321	2015-11-07 00:46:42.014321	\N	\N	\N
+66	76	3	CustomizedCourseMessage	4	create	CustomizedCourseActionRecord	2015-11-12 08:50:13.914134	2015-11-12 08:50:13.914134	\N	\N	\N
+67	76	3	CustomizedCourseMessageReply	1	create	CustomizedCourseActionRecord	2015-11-12 09:25:51.569967	2015-11-12 09:25:51.569967	\N	\N	\N
+68	76	3	CustomizedCourseMessageReply	2	create	CustomizedCourseActionRecord	2015-11-12 09:26:27.283412	2015-11-12 09:26:27.283412	\N	\N	\N
+69	76	3	CustomizedCourseMessageReply	3	create	CustomizedCourseActionRecord	2015-11-13 02:01:43.134027	2015-11-13 02:01:43.134027	\N	\N	\N
+70	76	3	CustomizedCourseMessageReply	4	create	CustomizedCourseActionRecord	2015-11-13 08:49:45.057654	2015-11-13 08:49:45.057654	\N	\N	\N
+71	76	3	Correction	42	create	CustomizedCourseActionRecord	2015-11-13 08:52:38.027592	2015-11-13 08:52:38.027592	\N	\N	\N
+72	75	\N	Solution	1	\N	CustomizedCourseStateChangeRecord	2015-11-24 06:25:54.331403	2015-11-24 06:25:54.331403	\N	\N	\N
+74	75	3	Solution	34	create	CustomizedCourseActionRecord	2015-11-25 08:21:41.724162	2015-11-25 08:21:41.724162	\N	\N	\N
 \.
 
 
@@ -2564,7 +2553,7 @@ COPY action_records (id, operator_id, customized_course_id, actionable_type, act
 -- Name: action_records_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('action_records_id_seq', 86, true);
+SELECT pg_catalog.setval('action_records_id_seq', 74, true);
 
 
 --
@@ -2593,7 +2582,7 @@ COPY answers (id, question_id, teacher_id, token, content, created_at, updated_a
 -- Name: answers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('answers_id_seq', 25, false);
+SELECT pg_catalog.setval('answers_id_seq', 24, true);
 
 
 --
@@ -2614,7 +2603,7 @@ COPY cash_operation_records (id, operator_id, account_id, value, type, created_a
 -- Name: cash_operation_records_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('cash_operation_records_id_seq', 7, false);
+SELECT pg_catalog.setval('cash_operation_records_id_seq', 6, true);
 
 
 --
@@ -2671,7 +2660,7 @@ COPY comments (id, content, author_id, commentable_id, commentable_type, created
 -- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('comments_id_seq', 91, false);
+SELECT pg_catalog.setval('comments_id_seq', 90, true);
 
 
 --
@@ -2697,7 +2686,7 @@ COPY consumption_records (id, fee_id, account_id, value, created_at, updated_at)
 -- Name: consumption_records_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('consumption_records_id_seq', 12, false);
+SELECT pg_catalog.setval('consumption_records_id_seq', 11, true);
 
 
 --
@@ -2745,10 +2734,7 @@ COPY corrections (id, content, teacher_id, solution_id, token, created_at, updat
 38	123412342134	76	24	1446329499-6bR1-Z8z8579qNt2rjvkAA	2015-10-31 22:11:51.693994	2015-11-05 22:20:58.719558	0	3	\N	open	HomeworkCorrection	\N	27	54	0
 40	AD发水电费	76	24	1446340943-4x9GhP9TrbzBh30Wdkht4w	2015-11-01 01:22:32.528257	2015-11-05 22:20:58.744432	2	3	\N	open	HomeworkCorrection	\N	27	54	0
 41	12341234124123412341234123412341243	76	31	1446856941-AgM0MtH0ZwdCpyICCYqnAA	2015-11-07 00:46:41.986682	2015-11-07 00:46:41.986682	0	3	\N	open	ExerciseCorrection	21	32	54	0
-43	12341234	76	30	1447456759-YzuWd72VD17dBRIo4SWPhw	2015-11-13 23:20:07.162475	2015-11-13 23:20:07.162475	0	3	\N	open	ExerciseCorrection	21	24	54	0
-44	123412341241	76	30	1447456807-qapXuKqq1ZRT4vzVAbFVmA	2015-11-13 23:20:43.599921	2015-11-13 23:20:43.599921	0	3	\N	open	ExerciseCorrection	21	24	54	0
-46	1234123412341234	76	34	1447715686-gY47037M7cF4lATcpUEcBQ	2015-11-16 23:15:00.619213	2015-11-16 23:15:00.619213	0	3	\N	open	HomeworkCorrection	\N	34	54	0
-47	123412341234	76	34	1447715700-JO8-OrBEFvB_qscmTppYHw	2015-11-16 23:15:13.810197	2015-11-16 23:15:13.810197	0	3	\N	open	HomeworkCorrection	\N	34	54	0
+42	<p><br>&nbsp; &nbsp; we&nbsp; &nbsp; qeq&nbsp; &nbsp; ew&nbsp; &nbsp; qwe</p>	76	30	1447404708-04bUTJRip9qo97lHKv-JfA	2015-11-13 08:52:38.007619	2015-11-13 08:52:38.007619	0	3	\N	open	ExerciseCorrection	21	24	54	0
 \.
 
 
@@ -2756,7 +2742,7 @@ COPY corrections (id, content, teacher_id, solution_id, token, created_at, updat
 -- Name: corrections_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('corrections_id_seq', 47, true);
+SELECT pg_catalog.setval('corrections_id_seq', 42, true);
 
 
 --
@@ -2858,7 +2844,7 @@ COPY courses (id, name, "desc", lessons_count, token, created_at, updated_at, pr
 -- Name: courses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('courses_id_seq', 83, false);
+SELECT pg_catalog.setval('courses_id_seq', 82, true);
 
 
 --
@@ -3170,7 +3156,7 @@ COPY curriculums (id, teacher_id, teaching_program_id, created_at, updated_at, c
 -- Name: curriculums_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('curriculums_id_seq', 355, false);
+SELECT pg_catalog.setval('curriculums_id_seq', 354, true);
 
 
 --
@@ -3187,7 +3173,7 @@ COPY customized_course_assignments (id, customized_course_id, teacher_id, create
 -- Name: customized_course_assignments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('customized_course_assignments_id_seq', 3, false);
+SELECT pg_catalog.setval('customized_course_assignments_id_seq', 2, true);
 
 
 --
@@ -3195,9 +3181,9 @@ SELECT pg_catalog.setval('customized_course_assignments_id_seq', 3, false);
 --
 
 COPY customized_course_message_boards (id, customized_course_id, customized_course_messages_count, customized_course_message_replies_count, created_at, updated_at) FROM stdin;
-1	1	0	0	2015-11-12 22:02:47.901596	2015-11-12 22:02:47.901596
-2	2	0	0	2015-11-12 22:02:47.909888	2015-11-12 22:02:47.909888
-3	3	1	2	2015-11-12 22:02:47.915619	2015-11-12 22:02:47.915619
+1	1	0	0	2015-11-12 06:35:35.292845	2015-11-12 06:35:35.292845
+2	2	0	0	2015-11-12 06:35:35.300381	2015-11-12 06:35:35.300381
+3	3	1	4	2015-11-12 06:35:35.306098	2015-11-12 06:35:35.306098
 \.
 
 
@@ -3205,7 +3191,7 @@ COPY customized_course_message_boards (id, customized_course_id, customized_cour
 -- Name: customized_course_message_boards_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('customized_course_message_boards_id_seq', 4, false);
+SELECT pg_catalog.setval('customized_course_message_boards_id_seq', 3, true);
 
 
 --
@@ -3213,8 +3199,10 @@ SELECT pg_catalog.setval('customized_course_message_boards_id_seq', 4, false);
 --
 
 COPY customized_course_message_replies (id, customized_course_message_id, customized_course_message_board_id, customized_course_id, content, token, author_id, created_at, updated_at) FROM stdin;
-1	1	3	3	asdfasdfasdfa	1447454970-27pc8GsRQdPUhLRlUIVKxQ	76	2015-11-13 22:49:39.106013	2015-11-13 22:49:39.106013
-2	1	3	3	315135	1447456238-xmPqb1zamHFjGpF8QW7AeA	76	2015-11-13 23:15:19.002948	2015-11-13 23:15:19.002948
+1	4	3	3	asdfasdf	1447320293-6zG64RW1qrwThbu5kyBQjw	76	2015-11-12 09:25:51.517697	2015-11-12 09:25:51.517697
+2	4	3	3	asdfasdf	1447320293-6zG64RW1qrwThbu5kyBQjw	76	2015-11-12 09:26:27.244078	2015-11-12 09:26:27.244078
+3	4	3	3	klkl	1447380073-aU1aOT77pZmcZI37n9WAQg	76	2015-11-13 02:01:43.089057	2015-11-13 02:01:43.089057
+4	4	3	3	qwer	1447404569-g0L3MrHXkrx8d3fdnmlZww	76	2015-11-13 08:49:45.005663	2015-11-13 08:49:45.005663
 \.
 
 
@@ -3222,7 +3210,7 @@ COPY customized_course_message_replies (id, customized_course_message_id, custom
 -- Name: customized_course_message_replies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('customized_course_message_replies_id_seq', 3, false);
+SELECT pg_catalog.setval('customized_course_message_replies_id_seq', 4, true);
 
 
 --
@@ -3230,7 +3218,7 @@ SELECT pg_catalog.setval('customized_course_message_replies_id_seq', 3, false);
 --
 
 COPY customized_course_messages (id, customized_course_message_board_id, title, content, author_id, customized_course_message_replies_count, customized_course_id, token, created_at, updated_at) FROM stdin;
-1	3	测试这个好不好用么	一定是好用的你看看	76	2	3	1447366906-OHVIvDp4tF-yo5xk8QEd_A	2015-11-12 22:22:09.154589	2015-11-12 22:22:09.154589
+4	3	ceshi reply	ceshi replyceshi reply	76	4	3	1447318192-oTdLAApI1Hny_vy7gTNFtg	2015-11-12 08:50:13.886106	2015-11-12 08:50:13.886106
 \.
 
 
@@ -3238,7 +3226,7 @@ COPY customized_course_messages (id, customized_course_message_board_id, title, 
 -- Name: customized_course_messages_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('customized_course_messages_id_seq', 2, false);
+SELECT pg_catalog.setval('customized_course_messages_id_seq', 4, true);
 
 
 --
@@ -3248,7 +3236,7 @@ SELECT pg_catalog.setval('customized_course_messages_id_seq', 2, false);
 COPY customized_courses (id, student_id, category, subject, created_at, updated_at, customized_tutorials_count, topics_count, homeworks_count, exercises_count, tutorial_issues_count, course_issues_count, platform_price, customized_course_type, teacher_price, creator_id, workstation_id) FROM stdin;
 1	75	高中	物理	2015-08-24 06:33:07.806399	2015-11-05 22:17:57.62529	0	0	0	0	0	0	0	0	54	58	1
 2	75	高中	物理	2015-08-24 06:33:24.700174	2015-11-05 22:17:57.638884	12	7	1	8	5	0	0	0	54	58	1
-3	75	高中	物理	2015-10-10 13:32:18.508718	2015-11-05 22:17:57.650474	7	0	11	6	6	8	0	0	54	58	1
+3	75	高中	物理	2015-10-10 13:32:18.508718	2015-11-05 22:17:57.650474	7	0	9	5	4	8	0	0	54	58	1
 \.
 
 
@@ -3256,7 +3244,7 @@ COPY customized_courses (id, student_id, category, subject, created_at, updated_
 -- Name: customized_courses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('customized_courses_id_seq', 4, false);
+SELECT pg_catalog.setval('customized_courses_id_seq', 3, true);
 
 
 --
@@ -3277,12 +3265,12 @@ COPY customized_tutorials (id, teacher_id, customized_course_id, title, content,
 12	2	2	ceshi yixa	ceshi yixa	0	1443480883-83AJBEzLBDXBeD57djgKiA	2015-09-28 22:55:12.389189	2015-11-05 22:17:58.002584	0	0	1	false	54	0
 14	76	3	cash 	cash	0	1444483952-SqJcodpleza4VMgQqgPsPw	2015-10-10 13:33:28.666158	2015-11-05 22:17:58.014467	0	0	0	closed	54	0
 13	2	2	测试一下么啊	测试一下么啊测试一下么啊	0	1443481864-W_gKimHJ3tB9VKZT5NLAUg	2015-09-28 23:11:31.50045	2015-11-05 22:17:58.026619	6	3	6	false	54	0
+15	76	3	dfsfs	asdfasdfafsafs	0	1444484627-jwUgAHWOMD7OgtS_2JlpoQ	2015-10-10 13:44:43.891788	2015-11-05 22:17:58.038124	1	3	2	closed	54	0
 16	76	3	asdfasfs	asdfasdfsadf	0	1446243638-RPgP-ekWLgxGojovG7hIWg	2015-10-30 22:20:50.514742	2015-11-05 22:17:58.051134	0	0	0	open	54	0
 17	76	3	asdfasdf	12341341241234	0	1446281074-CDTdMCnqrWvNbmL0ClbjPg	2015-10-31 08:44:44.222763	2015-11-05 22:17:58.063303	0	0	0	open	54	0
 19	76	3	134124	1234123412	0	1446282194-vYubZn7-LEcIA5nnxhgWQw	2015-10-31 09:03:23.744527	2015-11-05 22:17:58.074437	0	0	0	open	54	0
-21	76	3	asdfasdf	12341234	0	1446283847-taCus6eklbz68DMJqlg5mQ	2015-10-31 09:30:56.639098	2015-11-05 22:17:58.099242	0	4	2	open	54	0
-15	76	3	dfsfs	asdfasdfafsafs	0	1444484627-jwUgAHWOMD7OgtS_2JlpoQ	2015-10-10 13:44:43.891788	2015-11-05 22:17:58.038124	1	3	3	closed	54	0
-20	76	3	134124	1234123412	0	1446282194-vYubZn7-LEcIA5nnxhgWQw	2015-10-31 09:05:00.365861	2015-11-05 22:17:58.08787	0	0	1	open	54	0
+20	76	3	134124	1234123412	0	1446282194-vYubZn7-LEcIA5nnxhgWQw	2015-10-31 09:05:00.365861	2015-11-05 22:17:58.08787	0	0	0	open	54	0
+21	76	3	asdfasdf	12341234	0	1446283847-taCus6eklbz68DMJqlg5mQ	2015-10-31 09:30:56.639098	2015-11-05 22:17:58.099242	0	3	2	open	54	0
 \.
 
 
@@ -3290,7 +3278,7 @@ COPY customized_tutorials (id, teacher_id, customized_course_id, title, content,
 -- Name: customized_tutorials_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('customized_tutorials_id_seq', 22, false);
+SELECT pg_catalog.setval('customized_tutorials_id_seq', 21, true);
 
 
 --
@@ -3311,7 +3299,7 @@ COPY earning_records (id, fee_id, account_id, value, created_at, updated_at, pri
 -- Name: earning_records_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('earning_records_id_seq', 12, false);
+SELECT pg_catalog.setval('earning_records_id_seq', 11, true);
 
 
 --
@@ -3323,7 +3311,6 @@ COPY examinations (id, customized_course_id, teacher_id, title, content, token, 
 6	2	2	测试是否可以发送短信	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/844d7641e00de06e8ceb38beb019ffc7.jpg" style="width: 25%;"></p><p>测试感觉还是不错滴</p><p>哈哈哈哈哈哈哈</p>	1441786642-8TGfNHzEKEneBstzanC_IA	0	2015-09-09 08:18:06.743595	2015-09-21 01:46:22.934053	1	75	\N	0	0	\N	Homework	new
 9	2	2	ceshi yixia	okokoko	1443134338-6bOj4yCK41vVHPFVMmmmJw	0	2015-09-24 22:39:11.090968	2015-09-24 22:39:11.090968	3	75	\N	0	5	\N	Homework	new
 8	2	2	继续测试，看看能否发送短息	看看能否发送短息啊啊啊啊嗄	1441787068-glLyLG76QibVw6N2ri9dPg	0	2015-09-09 08:30:43.24876	2015-09-21 01:46:22.973154	1	75	\N	0	1	\N	Homework	new
-5	2	2	测试下是否可以使用	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/aa5730af43a434c7a69ede693275bc9a.jpg" style="width: 25%;"></p><p>哈哈哈</p>	1441775528-6Nb6fjRAfp1CiLvgmEbQ_Q	1	2015-09-09 05:16:42.473051	2015-09-21 01:46:22.979306	1	75	\N	0	9	\N	Homework	new
 18	3	76	sdfdsafsdf	adsfasfdasdf	1444485483-huSILAiIWTTRwQOESD67kQ	0	2015-10-10 13:58:27.263356	2015-10-10 13:58:27.263356	1	75	\N	0	1	\N	Homework	new
 10	2	2	看看怎么样么111		1442903924-QawoiFIfGLAPoHv_Krt8Iw	0	2015-09-22 06:39:07.200626	2015-10-01 11:21:21.909408	0	75	1	0	0	exercise	Exercise	new
 11	2	2	keyide	keyide sss	1442904957-cmsujdRC51Z02YMzQUwbuw	0	2015-09-22 06:56:06.544921	2015-10-01 11:21:21.928201	0	75	1	0	0	exercise	Exercise	new
@@ -3339,17 +3326,15 @@ COPY examinations (id, customized_course_id, teacher_id, title, content, token, 
 22	3	76	ccccsswe	dddsssqqq	1445515886-i4lz6KSvk0uoLVenPpiRoA	0	2015-10-22 12:11:39.470899	2015-10-24 00:31:42.671322	1	75	\N	0	3	\N	Homework	new
 19	3	76	asdfasf	asdfasdfasdfa	1445376653-zCMt3K5fiS0m3v6MF2M8iA	0	2015-10-20 21:31:04.079655	2015-10-20 21:31:04.079655	3	75	15	0	6	exercise	Exercise	new
 26	3	76	12341	12341234	1446327190-qw0ceMtVFywz5lkNDG7IWQ	0	2015-10-31 21:33:46.957243	2015-10-31 21:33:46.957243	0	75	\N	0	0	\N	Homework	new
-27	3	76	ceshi	ceshi	1446327854-zjNZqHkGiRnTCxHKtNXg8Q	0	2015-10-31 21:44:25.203388	2015-10-31 21:44:25.203388	2	75	\N	0	3	\N	Homework	new
 28	3	76	12341234	12341212341	1446765308-0C76d2Z0YWp0rvWix-SRVw	0	2015-11-05 23:15:50.251292	2015-11-05 23:15:50.251292	2	75	\N	0	0	\N	Homework	new
 29	3	76	lllllkkkllllllllllllll		1446852106-KkjwOxf8ui_lak_DH4vjSA	0	2015-11-06 23:23:40.810491	2015-11-06 23:23:40.810491	0	75	\N	0	0	\N	Homework	new
-30	3	76	ijojoijoij	12341243134	1446853253-7zDanuDhCDAqxEX4M16tyw	0	2015-11-06 23:41:05.31977	2015-11-06 23:41:05.31977	0	75	\N	0	0	\N	Homework	new
-31	3	76	asdfasdfas	13412341234123	1446853289-25xtUc7fqbOc8jpqffs2eA	0	2015-11-06 23:43:48.265525	2015-11-06 23:43:48.265525	0	75	\N	0	0	\N	Homework	new
-32	3	76	1341234	1341234	1446853565-jzbqByh2a83ebYI5khYd6w	0	2015-11-06 23:55:47.50505	2015-11-06 23:55:47.50505	1	75	21	0	1	\N	Exercise	new
-24	3	76	131342	1234123412	1446285733-TAdGgqZtnuYnX6IXQNNIdw	0	2015-10-31 10:02:46.014979	2015-10-31 10:02:46.014979	1	75	21	0	2	\N	Exercise	new
-33	3	76	qqwerqwerwr	qwerqwerqwer	1447457338-REwk5dVUulkMJkMFO3f7HQ	0	2015-11-13 23:29:24.066118	2015-11-13 23:29:24.066118	0	75	\N	0	0	\N	Homework	new
-35	3	76	12341	123412341243	1447457841-k5_oQSs5l5UkqtCRmwYQvw	0	2015-11-13 23:37:32.432956	2015-11-13 23:37:32.432956	0	75	21	0	0	\N	Exercise	new
-25	3	76	143啊安师大发	爱仕达发生的罚	1446286462-0eZYJETvTK_OD6qcJVnS8w	0	2015-10-31 10:14:30.704274	2015-10-31 10:14:30.704274	5	75	21	0	1	\N	Exercise	new
-34	3	76	13451345235		1447457427-Tizh7tLxU-EDMNh6tXt5uw	0	2015-11-13 23:30:44.146409	2015-11-13 23:30:44.146409	1	75	\N	0	2	\N	Homework	new
+5	2	2	测试下是否可以使用	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/aa5730af43a434c7a69ede693275bc9a.jpg" style="width: 25%;"></p><p>哈哈哈</p>	1441775528-6Nb6fjRAfp1CiLvgmEbQ_Q	1	2015-09-09 05:16:42.473051	2015-11-23 09:49:51.519141	1	75	\N	0	9	\N	Homework	in_progress
+30	3	76	ijojoijoij	12341243134	1446853253-7zDanuDhCDAqxEX4M16tyw	0	2015-11-06 23:41:05.31977	2015-11-23 07:25:00.005139	0	75	\N	0	0	\N	Homework	completed
+31	3	76	asdfasdfas	13412341234123	1446853289-25xtUc7fqbOc8jpqffs2eA	0	2015-11-06 23:43:48.265525	2015-11-23 08:42:41.418607	0	75	\N	0	0	\N	Homework	completed
+27	3	76	ceshi	ceshi	1446327854-zjNZqHkGiRnTCxHKtNXg8Q	0	2015-10-31 21:44:25.203388	2015-11-23 07:25:40.41455	2	75	\N	0	3	\N	Homework	in_progress
+32	3	76	1341234	1341234	1446853565-jzbqByh2a83ebYI5khYd6w	0	2015-11-06 23:55:47.50505	2015-11-23 09:02:58.2477	1	75	21	0	1	\N	Exercise	in_progress
+24	3	76	131342	1234123412	1446285733-TAdGgqZtnuYnX6IXQNNIdw	0	2015-10-31 10:02:46.014979	2015-11-23 07:38:51.995517	2	75	21	0	1	\N	Exercise	in_progress
+25	3	76	143啊安师大发	爱仕达发生的罚	1446286462-0eZYJETvTK_OD6qcJVnS8w	0	2015-10-31 10:14:30.704274	2015-11-23 07:19:14.37886	4	75	21	0	1	\N	Exercise	in_progress
 \.
 
 
@@ -3357,7 +3342,7 @@ COPY examinations (id, customized_course_id, teacher_id, title, content, token, 
 -- Name: examinations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('examinations_id_seq', 36, false);
+SELECT pg_catalog.setval('examinations_id_seq', 32, true);
 
 
 --
@@ -3392,7 +3377,7 @@ COPY exercises (id, token, title, content, teacher_id, customized_tutorial_id, s
 -- Name: exercises_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('exercises_id_seq', 6, false);
+SELECT pg_catalog.setval('exercises_id_seq', 5, true);
 
 
 --
@@ -3456,7 +3441,7 @@ COPY fees (id, customized_course_id, feeable_id, feeable_type, value, created_at
 -- Name: fees_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('fees_id_seq', 12, false);
+SELECT pg_catalog.setval('fees_id_seq', 11, true);
 
 
 --
@@ -3487,7 +3472,7 @@ COPY learning_plan_assignments (id, learning_plan_id, teacher_id, answered_quest
 -- Name: learning_plan_assignments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('learning_plan_assignments_id_seq', 43, false);
+SELECT pg_catalog.setval('learning_plan_assignments_id_seq', 42, true);
 
 
 --
@@ -3506,7 +3491,7 @@ COPY learning_plans (id, duration_type, state, student_id, vip_class_id, price, 
 -- Name: learning_plans_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('learning_plans_id_seq', 25, false);
+SELECT pg_catalog.setval('learning_plans_id_seq', 24, true);
 
 
 --
@@ -3611,7 +3596,7 @@ COPY lessons (id, name, "desc", course_id, token, created_at, updated_at, teache
 -- Name: lessons_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('lessons_id_seq', 164, false);
+SELECT pg_catalog.setval('lessons_id_seq', 164, true);
 
 
 --
@@ -3692,30 +3677,13 @@ COPY notifications (id, type, receiver_id, notificationable_type, notificationab
 57	CustomizedCourseActionNotification	76	Solution	31	75	f	create	2015-11-07 00:15:53.477774	2015-11-07 00:15:53.477774	3
 58	CustomizedCourseActionNotification	76	Solution	32	75	f	create	2015-11-07 00:28:44.247439	2015-11-07 00:28:44.247439	3
 59	CustomizedCourseActionNotification	75	Correction	41	76	f	create	2015-11-07 00:46:42.033245	2015-11-07 00:46:42.033245	3
-60	CustomizedCourseActionNotification	75	CustomizedCourseMessage	1	76	f	create	2015-11-12 22:22:09.223381	2015-11-12 22:22:09.223381	3
-65	CustomizedCourseActionNotification	75	Correction	44	76	t	create	2015-11-13 23:20:43.62968	2015-11-14 00:24:05.701726	3
-66	CustomizedCourseActionNotification	75	Examination	33	76	t	create	2015-11-13 23:29:24.115809	2015-11-14 00:24:56.069594	3
-63	CustomizedCourseActionNotification	75	CustomizedCourseMessageReply	2	76	t	create	2015-11-13 23:15:19.073283	2015-11-14 23:41:50.581999	3
-61	CustomizedCourseActionNotification	75	CustomizedCourseMessageReply	1	76	t	create	2015-11-13 22:49:39.272174	2015-11-14 23:49:50.13419	3
-67	CustomizedCourseActionNotification	75	Examination	34	76	f	create	2015-11-13 23:30:44.205905	2015-11-13 23:30:44.205905	3
-68	CustomizedCourseActionNotification	75	Examination	35	76	f	create	2015-11-13 23:37:32.490639	2015-11-13 23:37:32.490639	3
-69	CustomizedCourseActionNotification	76	Solution	33	75	f	create	2015-11-14 00:05:13.305221	2015-11-14 00:05:13.305221	3
-70	CustomizedCourseActionNotification	76	Solution	34	75	t	create	2015-11-14 00:07:30.921968	2015-11-14 00:20:18.805597	3
-64	CustomizedCourseActionNotification	75	Correction	43	76	t	create	2015-11-13 23:20:07.197461	2015-11-14 00:20:41.456688	3
-71	CustomizedCourseActionNotification	76	Topic	81	75	f	create	2015-11-14 03:13:43.202405	2015-11-14 03:13:43.202405	3
-72	CustomizedCourseActionNotification	75	Reply	97	76	f	create	2015-11-14 03:30:35.263748	2015-11-14 03:30:35.263748	3
-73	CustomizedCourseActionNotification	75	Reply	98	76	f	create	2015-11-14 03:33:22.53814	2015-11-14 03:33:22.53814	3
-74	CustomizedCourseActionNotification	76	Reply	99	75	f	create	2015-11-14 03:38:21.586826	2015-11-14 03:38:21.586826	3
-75	CustomizedCourseActionNotification	76	Reply	100	75	f	create	2015-11-14 03:39:06.964115	2015-11-14 03:39:06.964115	3
-76	CustomizedCourseActionNotification	76	Reply	101	75	f	create	2015-11-14 03:39:26.760964	2015-11-14 03:39:26.760964	3
-77	CustomizedCourseActionNotification	76	Reply	102	75	f	create	2015-11-14 03:39:36.490095	2015-11-14 03:39:36.490095	3
-78	CustomizedCourseActionNotification	76	Reply	103	75	t	create	2015-11-14 03:39:58.172348	2015-11-14 03:47:06.490735	3
-79	CustomizedCourseActionNotification	76	Topic	82	75	f	create	2015-11-14 03:52:57.475838	2015-11-14 03:52:57.475838	3
-80	CustomizedCourseActionNotification	76	Reply	104	75	f	create	2015-11-14 03:53:41.625368	2015-11-14 03:53:41.625368	3
-81	CustomizedCourseActionNotification	76	Reply	105	75	f	create	2015-11-14 03:56:52.124837	2015-11-14 03:56:52.124837	3
-82	CustomizedCourseActionNotification	76	Reply	106	75	f	create	2015-11-14 04:42:25.680371	2015-11-14 04:42:25.680371	3
-84	CustomizedCourseActionNotification	75	Correction	46	76	f	create	2015-11-16 23:15:00.71251	2015-11-16 23:15:00.71251	3
-85	CustomizedCourseActionNotification	75	Correction	47	76	f	create	2015-11-16 23:15:13.858803	2015-11-16 23:15:13.858803	3
+65	CustomizedCourseActionNotification	75	CustomizedCourseMessage	4	76	f	create	2015-11-12 08:50:13.936205	2015-11-12 08:50:13.936205	3
+66	CustomizedCourseActionNotification	75	CustomizedCourseMessageReply	1	76	f	create	2015-11-12 09:25:51.596634	2015-11-12 09:25:51.596634	3
+67	CustomizedCourseActionNotification	75	CustomizedCourseMessageReply	2	76	f	create	2015-11-12 09:26:27.314369	2015-11-12 09:26:27.314369	3
+68	CustomizedCourseActionNotification	75	CustomizedCourseMessageReply	3	76	f	create	2015-11-13 02:01:43.158125	2015-11-13 02:01:43.158125	3
+69	CustomizedCourseActionNotification	75	CustomizedCourseMessageReply	4	76	f	create	2015-11-13 08:49:45.086513	2015-11-13 08:49:45.086513	3
+70	CustomizedCourseActionNotification	75	Correction	42	76	f	create	2015-11-13 08:52:38.046876	2015-11-13 08:52:38.046876	3
+72	CustomizedCourseActionNotification	76	ActionRecord	74	75	f	create	2015-11-25 08:21:41.736301	2015-11-25 08:21:41.736301	3
 \.
 
 
@@ -3723,7 +3691,7 @@ COPY notifications (id, type, receiver_id, notificationable_type, notificationab
 -- Name: notifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('notifications_id_seq', 85, true);
+SELECT pg_catalog.setval('notifications_id_seq', 72, true);
 
 
 --
@@ -3917,13 +3885,11 @@ COPY pictures (id, name, imageable_id, imageable_type, created_at, updated_at, t
 212	5821899562eb3c3785f9b06049d55bca.JPG	26	Question	2015-11-07 01:09:19.763657	2015-11-07 01:09:25.822511	1446857782-Ez0_uFpE2jVQe4gUZ0UGqQ	75
 213	4fd74690d3099db2082e11e9ecbcec6c.jpg	24	Answer	2015-11-07 01:19:13.810339	2015-11-07 01:20:08.509218	1446859127-f2J_AaEC-zabZEszfl2ruA	76
 214	fddf35d22c2516d876c42b5d2173481f.jpg	24	Answer	2015-11-07 01:21:26.391357	2015-11-07 01:21:57.622318	1446859127-f2J_AaEC-zabZEszfl2ruA	76
-184	64e148247afb0fd1f8014b74caf5e508.jpg	30	Solution	2015-11-06 00:01:30.199555	2015-11-13 23:20:07.223847	1446766416-LSa9sxawVfTfpofBrenRuA	75
-215	440bfd6ebeb68371c647f171b31bce31.png	33	Examination	2015-11-13 23:29:19.94551	2015-11-13 23:29:24.07526	1447457338-REwk5dVUulkMJkMFO3f7HQ	76
-216	25438fd53a21c924120199920b9b58e2.png	33	Solution	2015-11-14 00:05:10.032908	2015-11-14 00:05:13.180764	1447459491-6HLgllwwGGcQ5uuXwBrfCA	75
-217	faa23b654a32045a132e0814568e1cac.png	34	Solution	2015-11-14 00:07:27.87344	2015-11-14 00:07:30.829626	1447459629-1uam5aMRzQPL-s6-2H03PA	75
-218	ae6456bb0f3760b455fc58383a9e84ca.png	98	Reply	2015-11-14 03:31:07.149207	2015-11-14 03:33:22.513386	1447471835-JcQLqT8MNPMZfwrajL3aFA	76
-219	2d6933eafe6cdc1520a8a8bd89ec8767.png	98	Reply	2015-11-14 03:31:19.932917	2015-11-14 03:33:22.518276	1447471835-JcQLqT8MNPMZfwrajL3aFA	76
-220	f2658eb947a30b00a2c77f88b67e1bd5.png	73	Reply	2015-11-14 03:37:57.306067	2015-11-14 03:38:00.008962	1445383728-2VYZ_e3zcl3ZY5rB-2jDDg	75
+216	325af50f89879b32602c2d3ac95222a2.jpg	1	CustomizedCourseMessage	2015-11-12 08:39:14.155586	2015-11-12 08:39:25.387012	1447314199--DggXy9SJUDxMDEPsDYmHg	76
+217	4eabad4d76313a0641b045caec42f177.jpg	3	CustomizedCourseMessageReply	2015-11-13 02:01:30.823719	2015-11-13 02:01:43.100848	1447380073-aU1aOT77pZmcZI37n9WAQg	76
+218	6b047999fae5428cf407d37642dc3b00.jpg	3	CustomizedCourseMessageReply	2015-11-13 02:01:39.333024	2015-11-13 02:01:43.104588	1447380073-aU1aOT77pZmcZI37n9WAQg	76
+219	a7eb3ff337629ec037e9df657f6fec4d.jpg	42	Correction	2015-11-13 08:52:35.185317	2015-11-13 08:52:38.021071	1447404708-04bUTJRip9qo97lHKv-JfA	76
+184	64e148247afb0fd1f8014b74caf5e508.jpg	30	Solution	2015-11-06 00:01:30.199555	2015-11-13 08:52:38.063455	1446766416-LSa9sxawVfTfpofBrenRuA	75
 \.
 
 
@@ -3931,7 +3897,7 @@ COPY pictures (id, name, imageable_id, imageable_type, created_at, updated_at, t
 -- Name: pictures_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('pictures_id_seq', 221, false);
+SELECT pg_catalog.setval('pictures_id_seq', 219, true);
 
 
 --
@@ -3950,7 +3916,7 @@ COPY qa_faqs (id, title, content, qa_faq_type, created_at, updated_at, token) FR
 -- Name: qa_faqs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('qa_faqs_id_seq', 5, false);
+SELECT pg_catalog.setval('qa_faqs_id_seq', 4, true);
 
 
 --
@@ -3972,10 +3938,6 @@ COPY qa_files (id, author_id, qa_fileable_id, qa_fileable_type, name, qa_file_ty
 22	76	24	Examination	25b48ea285ea20ea1d8c6d2a8f59ca38.png	image/png	2015-10-31 10:02:46.212705	2015-10-31 10:02:46.212705	aeq8qickpieecgke58 (5).png
 23	76	28	Examination	23989f2f5f58ec1df93fccf7566600f8.jpg	image/jpeg	2015-11-05 23:18:21.569729	2015-11-05 23:18:21.569729	00.jpg
 24	76	31	Examination	a54b4ca0eb1e4a2a3af14647ce2e73c4.jpg	image/jpeg	2015-11-06 23:44:12.455153	2015-11-06 23:44:12.455153	00.jpg
-25	76	33	Examination	5754019327449663a39e88b9359d76b5.png	image/png	2015-11-13 23:29:24.132065	2015-11-13 23:29:24.132065	企业真实性核验单 (1).png
-26	76	34	Examination	813f7dba1e2ceec1846c18fb136756de.png	image/png	2015-11-13 23:31:14.82186	2015-11-13 23:31:14.82186	企业真实性核验单 (1).png
-27	76	34	Examination	63ee98a60cce51e6d6c80a1849142756.png	image/png	2015-11-13 23:36:04.472265	2015-11-13 23:36:04.472265	企业真实性核验单 (1).png
-28	76	35	Examination	abdf5d58b9fa2cecb5496934154f3c05.png	image/png	2015-11-13 23:38:27.052897	2015-11-13 23:38:27.052897	企业真实性核验单.png
 \.
 
 
@@ -3983,7 +3945,7 @@ COPY qa_files (id, author_id, qa_fileable_id, qa_fileable_type, name, qa_file_ty
 -- Name: qa_files_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('qa_files_id_seq', 29, false);
+SELECT pg_catalog.setval('qa_files_id_seq', 24, true);
 
 
 --
@@ -4004,7 +3966,7 @@ COPY question_assignments (id, question_id, teacher_id, created_at, updated_at) 
 -- Name: question_assignments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('question_assignments_id_seq', 8, false);
+SELECT pg_catalog.setval('question_assignments_id_seq', 7, true);
 
 
 --
@@ -4024,7 +3986,7 @@ COPY questions (id, title, content, token, student_id, answers_count, vip_class_
 -- Name: questions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('questions_id_seq', 27, false);
+SELECT pg_catalog.setval('questions_id_seq', 26, true);
 
 
 --
@@ -4088,7 +4050,7 @@ COPY register_codes (id, value, state, created_at, updated_at, user_id, school_i
 -- Name: register_codes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('register_codes_id_seq', 18, false);
+SELECT pg_catalog.setval('register_codes_id_seq', 17, true);
 
 
 --
@@ -4143,16 +4105,6 @@ COPY replies (id, content, topic_id, created_at, updated_at, token, author_id, c
 94	asdfasdfasf	80	2015-11-06 23:02:49.15629	2015-11-06 23:02:49.15629	1446850854-w5J0BMol_pcihzSd89MS9g	75	3	open	CourseIssueReply	\N	54	0
 95	adfsdfasfasdfas	80	2015-11-06 23:09:48.862366	2015-11-06 23:09:48.862366	1446851308-3RdjIAgPEZxfoc6XovgMEw	75	3	open	CourseIssueReply	\N	54	0
 96	kkkkkkkkkk	80	2015-11-06 23:11:02.613986	2015-11-06 23:11:02.613986	1446851431-z3cTZJah2sTMQraPPFR-fA	75	3	open	CourseIssueReply	\N	54	0
-97	asdfasdfasdfasdf	79	2015-11-14 03:30:35.232622	2015-11-14 03:30:35.232622	1447471821-uJYUInvlAwqBucdKV_oXUQ	76	3	open	TutorialIssueReply	21	54	0
-98	42452345	79	2015-11-14 03:33:22.50478	2015-11-14 03:33:22.50478	1447471835-JcQLqT8MNPMZfwrajL3aFA	76	3	open	TutorialIssueReply	21	54	0
-99	asdfasdfadfad	72	2015-11-14 03:38:21.46743	2015-11-14 03:38:21.46743	1447472280-P902g4ey3-mozqaONSqRXw	75	3	open	TutorialIssueReply	15	54	0
-100	adfasdfasdfasdf	72	2015-11-14 03:39:06.933262	2015-11-14 03:39:06.933262	1447472301-sf_4CTObn-Vi86e6Nj78CQ	75	3	open	TutorialIssueReply	15	54	0
-101	112341234123423421421421	72	2015-11-14 03:39:26.728665	2015-11-14 03:39:26.728665	1447472347-Oo58tlB7BJrqObezEp-aCQ	75	3	open	TutorialIssueReply	15	54	0
-102	131341	72	2015-11-14 03:39:36.452646	2015-11-14 03:39:36.452646	1447472366-IJgdsIXy8iLtHpAcoPqFlQ	75	3	open	TutorialIssueReply	15	54	0
-103	11113413412	72	2015-11-14 03:39:58.139442	2015-11-14 03:39:58.139442	1447472376-pogwHgEGZ9ElKLL7cHcEag	75	3	open	TutorialIssueReply	15	54	0
-104	123412341234124	82	2015-11-14 03:53:41.591423	2015-11-14 03:53:41.591423	1447473212-d4dGNxcX5ubMofF0EjImpA	75	3	open	TutorialIssueReply	20	54	0
-105	asdfasdfasdfadfasf	82	2015-11-14 03:56:52.092768	2015-11-14 03:56:52.092768	1447473369-KKJrO249XTmElI5EDr7m9g	75	3	open	TutorialIssueReply	20	54	0
-106	14341342	82	2015-11-14 04:42:25.651463	2015-11-14 04:42:25.651463	1447473412-jZE0qNRViz4De8XL0Xmbiw	75	3	open	TutorialIssueReply	20	54	0
 \.
 
 
@@ -4160,7 +4112,7 @@ COPY replies (id, content, topic_id, created_at, updated_at, token, author_id, c
 -- Name: replies_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('replies_id_seq', 107, false);
+SELECT pg_catalog.setval('replies_id_seq', 96, true);
 
 
 --
@@ -4186,7 +4138,7 @@ COPY review_records (id, lesson_id, manager_id, complete_state, start_state, rea
 -- Name: review_records_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('review_records_id_seq', 13, false);
+SELECT pg_catalog.setval('review_records_id_seq', 12, true);
 
 
 --
@@ -4404,6 +4356,9 @@ COPY schema_migrations (version) FROM stdin;
 20151108112759
 20151108114223
 20151115220036
+20151123061007
+20151124035050
+20151125033543
 \.
 
 
@@ -4454,36 +4409,35 @@ SELECT pg_catalog.setval('searches_id_seq', 1, false);
 -- Data for Name: solutions; Type: TABLE DATA; Schema: public; Owner: qatime
 --
 
-COPY solutions (id, title, content, solutionable_id, student_id, token, corrections_count, created_at, updated_at, comments_count, solutionable_type, customized_course_id, first_handle_created_at, last_handle_created_at, first_handle_author_id, last_handle_author_id, type, examination_id, customized_tutorial_id) FROM stdin;
-1	我看作业应该如何写呢		\N	75	1442537450-EsO1t_83XJinMkSBrQGb1g	\N	2015-09-18 00:51:07.742448	2015-09-18 00:51:07.742448	0	\N	\N	\N	\N	\N	\N	\N	\N	\N
-7	作业处理	安师大发安师大发	6	75	1443362646-Qrj-PAJVegQrzBrHgDJWLw	\N	2015-09-27 14:04:17.754924	2015-09-30 22:27:54.439887	0	Homework	2	\N	\N	\N	\N	\N	\N	\N
-6	我看不错	确实不错	8	75	1443133698-1e1hOhpmhl4wwirg9bZJxA	1	2015-09-24 22:28:42.743596	2015-10-03 08:16:26.645495	0	Homework	2	2015-09-27 04:03:45.093425	2015-09-27 04:03:45.093425	2	2	\N	\N	\N
-8	测试是否customized_course_id	测试是否有有customized_course_id	9	75	1443658531-eB9HoU4Mm9XS-8y27reiPA	1	2015-10-01 00:18:22.483412	2015-10-03 08:16:26.655664	0	Homework	2	2015-10-01 10:38:34.214857	2015-10-01 10:38:34.214857	2	2	\N	\N	\N
-10	测试一下是否整的好的	测试是否真的好用呢	9	75	1443845734-kWWL8jwUGFAQwgmRlVJpKg	1	2015-09-23 04:20:53.31517	2015-10-03 08:16:26.665528	0	Homework	2	2015-10-03 04:22:26.285683	2015-10-03 04:22:26.285683	2	2	\N	\N	\N
-9	ceshi  customized_course_id	ceshi	14	75	1443659141-0zNxdxPSm-YNqk05Ho4wEg	\N	2015-10-01 00:25:56.295706	2015-10-06 08:48:00.459308	0	Exercise	2	\N	\N	\N	\N	\N	\N	\N
-5	看看还是行不行啊 修改下看看	看看还是行不行啊看看还是行不行啊SD发放	5	75	1442538404-N62x6Fc6tDairVbJoxpqoQ	9	2015-09-18 01:06:55.256093	2015-10-07 14:03:42.150489	2	\N	\N	2015-09-18 05:42:53.760921	2015-09-18 07:32:44.634723	2	2	\N	\N	\N
-11	继续做作业	继续做作业	9	75	1443863897-9iQR8qpQrBuaYjBGPJMHaw	3	2015-10-03 09:18:32.291979	2015-10-07 14:03:42.252645	1	Homework	2	2015-10-07 13:26:56.796116	2015-10-07 13:30:43.150865	2	2	\N	\N	\N
-13	asdfas	asdfasdf	18	75	1445292949-GBdnE3lg9-FgeP6yfpVASg	1	2015-10-19 22:16:09.00251	2015-10-19 22:17:24.838732	0	Homework	3	2015-10-19 22:17:24.805733	2015-10-19 22:17:24.805733	76	76	\N	\N	\N
-14	asdfasdf	asdfasdfasdf	19	75	1445387976-YK9Q8P75UCEvVsPL_v3mQg	\N	2015-10-21 00:39:48.038826	2015-10-21 00:39:48.038826	0	Examination	3	\N	\N	\N	\N	\N	\N	\N
-18	123413	12341241324	\N	75	1445520462-aH4nUEETb2THZO1VtOjJdQ	\N	2015-10-22 13:28:10.824794	2015-10-22 13:28:10.824794	0	\N	3	\N	\N	\N	\N	ExerciseSolution	20	15
-19	123413	12341241324	\N	75	1445520462-aH4nUEETb2THZO1VtOjJdQ	\N	2015-10-22 13:36:11.590357	2015-10-22 13:36:11.590357	0	\N	3	\N	\N	\N	\N	ExerciseSolution	20	15
-21	aa	ss	\N	75	1445521180-Q5nf0FNPu8Yejg6J6AJzbg	\N	2015-10-22 13:39:50.094934	2015-10-22 13:39:50.094934	0	\N	3	\N	\N	\N	\N	ExerciseSolution	19	15
-23	12312341	2341341	\N	75	1446328405-LATm8OQ_bthJi2tQPuq-9A	0	2015-10-31 21:53:35.162795	2015-10-31 21:53:35.162795	0	\N	3	\N	\N	\N	\N	HomeworkSolution	27	\N
-25	sadfsdf	123412341asdfasdf	\N	75	1446330406-5khZRduVq-Fd5Euk-JECJA	0	2015-10-31 22:26:57.918969	2015-10-31 22:26:57.918969	0	\N	3	\N	\N	\N	\N	ExerciseSolution	25	21
-26	asdfas	asdfadf	\N	75	1446330565-IWozmjVoc1dAlfZNaedQTQ	0	2015-10-31 22:29:33.631426	2015-10-31 22:29:33.631426	0	\N	3	\N	\N	\N	\N	ExerciseSolution	25	21
-24	asdfasdf	asdfasfsafasd	\N	75	1446328888-EHhWBz4whO_7Ka3NOfTTCQ	3	2015-10-31 22:01:38.091978	2015-11-05 22:20:58.757849	0	\N	3	2015-10-31 22:06:55.647521	2015-11-01 01:22:32.528257	76	76	HomeworkSolution	27	\N
-28	123412	123412341234	\N	75	1446765818-KUJIEOY55zrd0Viw8-plOA	0	2015-11-05 23:24:01.514714	2015-11-05 23:24:01.514714	0	\N	3	\N	\N	\N	\N	HomeworkSolution	28	\N
-29	asdfasdf	asdfasdfasdf	\N	75	1446766174-gDJHsBywQKy9b25plHNENA	0	2015-11-05 23:30:01.30919	2015-11-05 23:30:01.30919	0	\N	3	\N	\N	\N	\N	HomeworkSolution	28	\N
-20	123413	12341241324	\N	75	1445520462-aH4nUEETb2THZO1VtOjJdQ	6	2015-10-22 13:36:30.259597	2015-11-05 22:20:58.334786	0	\N	3	2015-10-23 07:53:56.246321	2015-10-23 08:19:23.733765	76	76	ExerciseSolution	20	15
-32	4asdfadfasdfasdf	dsfasdfsadfadf	\N	75	1446856094-v0cVkI0J2-UhePiudSp_4A	0	2015-11-07 00:28:44.207942	2015-11-07 00:28:44.207942	0	\N	3	\N	\N	\N	\N	ExerciseSolution	25	21
-31	kkkkk	klll	\N	75	1446855321-OkdqeyXBuMw3f1MIMXUGow	1	2015-11-07 00:15:53.380441	2015-11-07 00:46:42.067399	0	\N	3	2015-11-07 00:46:41.986682	2015-11-07 00:46:41.986682	76	76	ExerciseSolution	32	21
-22	sdasdf	asdfasdfasf	\N	75	1445658314-mm6ggnRQGus15Dn-iUBKlg	6	2015-10-24 04:10:30.594025	2015-11-05 22:20:58.472825	0	\N	3	2015-10-25 00:10:16.840178	2015-10-26 22:05:20.9509	76	76	ExerciseSolution	19	15
-16	ceshi111111	cash2222222	\N	75	1445515583-cYq3k_2gqLkL3QxoDj7bQw	4	2015-10-22 12:06:35.081598	2015-11-05 22:20:58.616767	0	\N	3	2015-10-22 22:50:57.847266	2015-10-22 22:53:07.140889	76	76	HomeworkSolution	21	\N
-17	12341234	12341234141	\N	75	1445518373-Xbm-6Ymt99y0w6NJEJHZ5w	3	2015-10-22 12:53:09.306451	2015-11-05 22:20:58.686707	0	\N	3	2015-10-23 08:22:50.830576	2015-10-25 01:45:09.342473	76	76	HomeworkSolution	22	\N
-30	345134	123413	\N	75	1446766416-LSa9sxawVfTfpofBrenRuA	2	2015-11-05 23:33:57.456419	2015-11-13 23:20:43.649535	0	\N	3	2015-11-13 23:20:07.162475	2015-11-13 23:20:43.599921	76	76	ExerciseSolution	24	21
-33	千万人问	犬瘟热犬瘟热去	\N	75	1447459491-6HLgllwwGGcQ5uuXwBrfCA	0	2015-11-14 00:05:13.168446	2015-11-14 00:05:13.168446	0	\N	3	\N	\N	\N	\N	ExerciseSolution	25	21
-27	13134	12341234	\N	75	1446330601-dIsxR5REHrpVrsmypnLHlQ	1	2015-10-31 22:30:17.51936	2015-11-16 23:07:02.308513	2	\N	3	2015-10-31 22:32:38.301448	2015-10-31 22:32:38.301448	76	76	ExerciseSolution	25	21
-34	12341234	123412341234	\N	75	1447459629-1uam5aMRzQPL-s6-2H03PA	2	2015-11-14 00:07:30.815072	2015-11-16 23:16:45.204354	0	\N	3	2015-11-16 23:15:00.619213	2015-11-16 23:15:13.810197	76	76	HomeworkSolution	34	\N
+COPY solutions (id, title, content, solutionable_id, student_id, token, corrections_count, created_at, updated_at, comments_count, solutionable_type, customized_course_id, first_handle_created_at, last_handle_created_at, first_handle_author_id, last_handle_author_id, type, examination_id, customized_tutorial_id, state, last_operator_id) FROM stdin;
+1	我看作业应该如何写呢		\N	75	1442537450-EsO1t_83XJinMkSBrQGb1g	\N	2015-09-18 00:51:07.742448	2015-11-25 03:57:47.590399	0	\N	\N	\N	\N	\N	\N	\N	\N	\N	new	75
+7	作业处理	安师大发安师大发	6	75	1443362646-Qrj-PAJVegQrzBrHgDJWLw	\N	2015-09-27 14:04:17.754924	2015-11-25 03:57:47.632088	0	Homework	2	\N	\N	\N	\N	\N	\N	\N	new	75
+6	我看不错	确实不错	8	75	1443133698-1e1hOhpmhl4wwirg9bZJxA	1	2015-09-24 22:28:42.743596	2015-11-25 03:57:47.638022	0	Homework	2	2015-09-27 04:03:45.093425	2015-09-27 04:03:45.093425	2	2	\N	\N	\N	new	75
+8	测试是否customized_course_id	测试是否有有customized_course_id	9	75	1443658531-eB9HoU4Mm9XS-8y27reiPA	1	2015-10-01 00:18:22.483412	2015-11-25 03:57:47.643921	0	Homework	2	2015-10-01 10:38:34.214857	2015-10-01 10:38:34.214857	2	2	\N	\N	\N	new	75
+10	测试一下是否整的好的	测试是否真的好用呢	9	75	1443845734-kWWL8jwUGFAQwgmRlVJpKg	1	2015-09-23 04:20:53.31517	2015-11-25 03:57:47.649592	0	Homework	2	2015-10-03 04:22:26.285683	2015-10-03 04:22:26.285683	2	2	\N	\N	\N	new	75
+34	再次提交随堂作业	再测提交隋唐作业	\N	75	1448439682-Ouw4Q8WfuVEjzKcxkCiycA	0	2015-11-25 08:21:41.690643	2015-11-25 08:21:41.690643	0	\N	3	\N	\N	\N	\N	ExerciseSolution	24	21	new	75
+9	ceshi  customized_course_id	ceshi	14	75	1443659141-0zNxdxPSm-YNqk05Ho4wEg	\N	2015-10-01 00:25:56.295706	2015-11-25 03:57:47.654972	0	Exercise	2	\N	\N	\N	\N	\N	\N	\N	new	75
+5	看看还是行不行啊 修改下看看	看看还是行不行啊看看还是行不行啊SD发放	5	75	1442538404-N62x6Fc6tDairVbJoxpqoQ	9	2015-09-18 01:06:55.256093	2015-11-25 03:57:47.661559	2	\N	\N	2015-09-18 05:42:53.760921	2015-09-18 07:32:44.634723	2	2	\N	\N	\N	new	75
+11	继续做作业	继续做作业	9	75	1443863897-9iQR8qpQrBuaYjBGPJMHaw	3	2015-10-03 09:18:32.291979	2015-11-25 03:57:47.667113	1	Homework	2	2015-10-07 13:26:56.796116	2015-10-07 13:30:43.150865	2	2	\N	\N	\N	new	75
+13	asdfas	asdfasdf	18	75	1445292949-GBdnE3lg9-FgeP6yfpVASg	1	2015-10-19 22:16:09.00251	2015-11-25 03:57:47.672766	0	Homework	3	2015-10-19 22:17:24.805733	2015-10-19 22:17:24.805733	76	76	\N	\N	\N	new	75
+14	asdfasdf	asdfasdfasdf	19	75	1445387976-YK9Q8P75UCEvVsPL_v3mQg	\N	2015-10-21 00:39:48.038826	2015-11-25 03:57:47.677858	0	Examination	3	\N	\N	\N	\N	\N	\N	\N	new	75
+18	123413	12341241324	\N	75	1445520462-aH4nUEETb2THZO1VtOjJdQ	\N	2015-10-22 13:28:10.824794	2015-11-25 03:57:47.683862	0	\N	3	\N	\N	\N	\N	ExerciseSolution	20	15	new	75
+19	123413	12341241324	\N	75	1445520462-aH4nUEETb2THZO1VtOjJdQ	\N	2015-10-22 13:36:11.590357	2015-11-25 03:57:47.688887	0	\N	3	\N	\N	\N	\N	ExerciseSolution	20	15	new	75
+21	aa	ss	\N	75	1445521180-Q5nf0FNPu8Yejg6J6AJzbg	\N	2015-10-22 13:39:50.094934	2015-11-25 03:57:47.694498	0	\N	3	\N	\N	\N	\N	ExerciseSolution	19	15	new	75
+25	sadfsdf	123412341asdfasdf	\N	75	1446330406-5khZRduVq-Fd5Euk-JECJA	0	2015-10-31 22:26:57.918969	2015-11-25 03:57:47.699227	0	\N	3	\N	\N	\N	\N	ExerciseSolution	25	21	new	75
+26	asdfas	asdfadf	\N	75	1446330565-IWozmjVoc1dAlfZNaedQTQ	0	2015-10-31 22:29:33.631426	2015-11-25 03:57:47.704025	0	\N	3	\N	\N	\N	\N	ExerciseSolution	25	21	new	75
+27	13134	12341234	\N	75	1446330601-dIsxR5REHrpVrsmypnLHlQ	1	2015-10-31 22:30:17.51936	2015-11-25 03:57:47.709006	2	\N	3	2015-10-31 22:32:38.301448	2015-10-31 22:32:38.301448	76	76	ExerciseSolution	25	21	new	75
+24	asdfasdf	asdfasfsafasd	\N	75	1446328888-EHhWBz4whO_7Ka3NOfTTCQ	3	2015-10-31 22:01:38.091978	2015-11-25 03:57:47.715124	0	\N	3	2015-10-31 22:06:55.647521	2015-11-01 01:22:32.528257	76	76	HomeworkSolution	27	\N	new	75
+20	123413	12341241324	\N	75	1445520462-aH4nUEETb2THZO1VtOjJdQ	6	2015-10-22 13:36:30.259597	2015-11-25 03:57:47.721491	0	\N	3	2015-10-23 07:53:56.246321	2015-10-23 08:19:23.733765	76	76	ExerciseSolution	20	15	new	75
+22	sdasdf	asdfasdfasf	\N	75	1445658314-mm6ggnRQGus15Dn-iUBKlg	6	2015-10-24 04:10:30.594025	2015-11-25 03:57:47.726879	0	\N	3	2015-10-25 00:10:16.840178	2015-10-26 22:05:20.9509	76	76	ExerciseSolution	19	15	new	75
+16	ceshi111111	cash2222222	\N	75	1445515583-cYq3k_2gqLkL3QxoDj7bQw	4	2015-10-22 12:06:35.081598	2015-11-25 03:57:47.731923	0	\N	3	2015-10-22 22:50:57.847266	2015-10-22 22:53:07.140889	76	76	HomeworkSolution	21	\N	new	75
+17	12341234	12341234141	\N	75	1445518373-Xbm-6Ymt99y0w6NJEJHZ5w	3	2015-10-22 12:53:09.306451	2015-11-25 03:57:47.737224	0	\N	3	2015-10-23 08:22:50.830576	2015-10-25 01:45:09.342473	76	76	HomeworkSolution	22	\N	new	75
+30	345134	123413	\N	75	1446766416-LSa9sxawVfTfpofBrenRuA	1	2015-11-05 23:33:57.456419	2015-11-25 03:57:47.768834	0	\N	3	2015-11-13 08:52:38.007619	2015-11-13 08:52:38.007619	76	76	ExerciseSolution	24	21	completed	75
+29	asdfasdf	asdfasdfasdf	\N	75	1446766174-gDJHsBywQKy9b25plHNENA	0	2015-11-05 23:30:01.30919	2015-11-25 03:57:47.777073	0	\N	3	\N	\N	\N	\N	HomeworkSolution	28	\N	completed	75
+23	12312341	2341341	\N	75	1446328405-LATm8OQ_bthJi2tQPuq-9A	0	2015-10-31 21:53:35.162795	2015-11-25 03:57:47.782325	0	\N	3	\N	\N	\N	\N	HomeworkSolution	27	\N	completed	75
+31	kkkkk	klll	\N	75	1446855321-OkdqeyXBuMw3f1MIMXUGow	1	2015-11-07 00:15:53.380441	2015-11-25 03:57:47.790526	0	\N	3	2015-11-07 00:46:41.986682	2015-11-07 00:46:41.986682	76	76	ExerciseSolution	32	21	in_progress	75
+32	4asdfadfasdfasdf	dsfasdfsadfadf	\N	75	1446856094-v0cVkI0J2-UhePiudSp_4A	0	2015-11-07 00:28:44.207942	2015-11-25 03:57:47.798421	0	\N	3	\N	\N	\N	\N	ExerciseSolution	25	21	in_progress	75
+28	123412	123412341234	\N	75	1446765818-KUJIEOY55zrd0Viw8-plOA	0	2015-11-05 23:24:01.514714	2015-11-25 03:57:47.805143	0	\N	3	\N	\N	\N	\N	HomeworkSolution	28	\N	completed	75
 \.
 
 
@@ -4491,7 +4445,7 @@ COPY solutions (id, title, content, solutionable_id, student_id, token, correcti
 -- Name: solutions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('solutions_id_seq', 35, false);
+SELECT pg_catalog.setval('solutions_id_seq', 34, true);
 
 
 --
@@ -4559,7 +4513,7 @@ COPY teaching_programs (id, name, category, grade, subject, content, created_at,
 -- Name: teaching_programs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('teaching_programs_id_seq', 54, false);
+SELECT pg_catalog.setval('teaching_programs_id_seq', 53, true);
 
 
 --
@@ -4594,7 +4548,7 @@ COPY teaching_videos (id, name, token, vip_class, teacher_id, question_id, answe
 -- Name: teaching_videos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('teaching_videos_id_seq', 21, false);
+SELECT pg_catalog.setval('teaching_videos_id_seq', 20, true);
 
 
 --
@@ -4645,6 +4599,7 @@ COPY topics (id, title, content, replies_count, created_at, updated_at, token, c
 54	测试下能否在首页展示	看看吧	4	2015-10-03 22:54:50.236075	2015-10-03 22:54:50.236075	1443912871-rU1VN1UaGuNQbOUIxYe3bw	\N	75	\N	13	\N	2	CustomizedTutorial	2	\N	\N
 64	kankan zayangzime	adfasdfasdfasdf	7	2015-10-11 07:54:08.809019	2015-10-11 07:54:08.809019	1444549287-P_n67X6XdnlLBFdvkYPPYg	\N	57	\N	\N	\N	\N	\N	2	TutorialIssue	13
 70	dasdf	1341234124	0	2015-10-15 22:59:11.080584	2015-10-15 22:59:11.080584	1444949939-jcv4BzEr8KYx-B3f0zXYCg	\N	57	\N	\N	\N	\N	\N	3	CourseIssue	\N
+72	1234	12341234	1	2015-10-20 22:09:24.275154	2015-10-20 22:09:24.275154	1445378954-SJXtNEZS7yX_ObDozShSZA	\N	75	\N	\N	\N	\N	\N	3	TutorialIssue	15
 73	测试下看看么	测试下么	2	2015-10-20 23:33:53.502718	2015-10-20 23:33:53.502718	1445384017-N-i1sKLnJtjACeTNisHIEQ	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N
 65	asdfasd	asdfasdfasf	8	2015-10-14 23:24:35.849478	2015-10-14 23:24:35.849478	1444865066-kd6KDPVP80AbWBq7Fu_BTA	\N	57	\N	\N	\N	\N	\N	3	TutorialIssue	15
 71	asdfasd	123412341244	7	2015-10-17 00:38:27.959266	2015-10-17 00:38:27.959266	1445042291-17XdWqaCIjuBlM9Xi8EafA	\N	57	\N	\N	\N	\N	\N	3	CourseIssue	\N
@@ -4653,11 +4608,8 @@ COPY topics (id, title, content, replies_count, created_at, updated_at, token, c
 75	23452345234	234523452	1	2015-11-01 01:31:41.608409	2015-11-01 01:31:41.608409	1446341491-LTfYPFh87L-g13KzQ-vEJg	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N
 77	123413412	asdfasfasdf	0	2015-11-03 23:06:02.085609	2015-11-04 23:20:27.080065	1446591916-I6HQFcPZrCQXbTPKCyeogQ	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N
 78	234234	kkkkkkkkasa	1	2015-11-04 23:24:02.310331	2015-11-05 23:10:02.462237	1446679407-XeRfrPIIMbZXEAKmJ86Ewg	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N
+79	asdfsa	asdfsadf	1	2015-11-05 23:11:56.476451	2015-11-05 23:11:56.476451	1446765067-sJw8iIY5mq9RvgaEFItwvg	\N	75	\N	\N	\N	\N	\N	3	TutorialIssue	21
 80	asdfasdf	asdfasdfadsf	3	2015-11-06 22:59:04.773584	2015-11-06 22:59:04.773584	1446850506-gg7m59K51ETMSb6VsTDwFQ	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N
-81	cash ixia	ceshiyixa	0	2015-11-14 03:13:43.048947	2015-11-14 03:13:43.048947	1447470810-K42gbh-e9bV09dfkpJxMag	\N	75	\N	\N	\N	\N	\N	3	TutorialIssue	15
-79	asdfsa	asdfsadf	3	2015-11-05 23:11:56.476451	2015-11-05 23:11:56.476451	1446765067-sJw8iIY5mq9RvgaEFItwvg	\N	75	\N	\N	\N	\N	\N	3	TutorialIssue	21
-72	1234	12341234	6	2015-10-20 22:09:24.275154	2015-10-20 22:09:24.275154	1445378954-SJXtNEZS7yX_ObDozShSZA	\N	75	\N	\N	\N	\N	\N	3	TutorialIssue	15
-82	134134	12341341241	3	2015-11-14 03:52:57.405268	2015-11-14 03:52:57.405268	1447473159-IehH7UyL0y8hmO74kKATJQ	\N	75	\N	\N	\N	\N	\N	3	TutorialIssue	20
 \.
 
 
@@ -4665,7 +4617,7 @@ COPY topics (id, title, content, replies_count, created_at, updated_at, token, c
 -- Name: topics_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('topics_id_seq', 83, false);
+SELECT pg_catalog.setval('topics_id_seq', 80, true);
 
 
 --
@@ -4737,9 +4689,9 @@ COPY users (id, email, encrypted_password, reset_password_token, reset_password_
 74	e@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-05-09 11:30:06.665628	2015-05-11 23:24:29.712041	0	0	333	0317710ba088e795b862a14adb208b7e.png	3	teacher	$2a$10$h3YasYZxoBvwr93GSeVwZe6qbGkJqNXgdVSE8tYmWcr/uTplxfxem	ee1424cc53cb02849aac41347d586a44f421fb59	3232323323232332323233232323323232332323233232323323232332323233232323	\N	0	英语	高中	11111111111	f	\N	\N	\N
 2	zhang@163.com		\N	\N	\N	0	\N	\N	\N	\N	2014-06-25 12:21:44.269794	2015-10-10 13:29:20.984519	14	1	张建东	ba61da898d301eb96e72f5a2a34f1e80.jpg	1	teacher	$2a$10$xUVjT1nRp.F5D3.HbuH3R.Lxqj9SHmN6B62W2oXtcx3K32J2YVvRW	2ddeb274dd1d70612cf998ad1da1d76a6ad5e328	张老师是测试老师，账号是用来测试的.	\N	0	物理	高中	15910676326	t	\N		\N
 58	machengke@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-04-11 08:16:44.673629	2015-11-01 22:45:41.42166	0	0	马成科	5950164eefd0372b42376213c9b52c4b.png	\N	manager	$2a$10$A4/9bWMF466q/dsw4HoVPuMcbySa5WP6DzkTLjzHxfh1lhjoc4/uG	7c1e110cf7de53005bb9dcc5f33d097ea21eb97d	\N	\N	0	\N	\N	\N	f	\N	\N	\N
-57	chuanjiabao1981@gmail.com		\N	\N	\N	0	\N	\N	\N	\N	2015-04-09 23:11:10.348818	2015-11-16 23:03:16.361086	5	11	admin	\N	\N	admin	$2a$10$sRIPw7gFfGtBPB4qJsmLyejlKHUPr5Nf7OQdHNAeC/FkHFCZ4W0zK	1684fa39cb52841e35bae1a028da947302100f98	\N	\N	0	\N	\N	\N	f	\N	\N	\N
-75	z@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-05-18 11:21:11.205946	2015-11-16 23:07:32.659092	21	19	z	5d7a99562aa61d0b40c763691a7c824e.jpg	\N	student	$2a$10$udltfN82atLbyZCipta3wOUAuDSie.owyMMGDjVQnmyqxBJXmfhoC	8f7bd3922525936bae4ad1ab9d2983dab0880885	\N	\N	0	\N	\N	15910676326	f	高一	\N	\N
-76	a@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-10-10 13:31:39.969233	2015-11-16 23:07:53.060221	1	23	aaa	726aea7591089e1c851099451ec316d5.JPG	1	teacher	$2a$10$an8ULUTI.zvjppnRCHfNP.2ec7bFNhUlxUeYc7e44CR2tAOt9eChS	7ae02dfa54660f263010c08d58baff22044ce467	asdfadsfasdfa	\N	0	物理	高中	15910676326	f	\N	aaa	\N
+75	z@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-05-18 11:21:11.205946	2015-11-25 07:42:37.845552	19	11	z	5d7a99562aa61d0b40c763691a7c824e.jpg	\N	student	$2a$10$udltfN82atLbyZCipta3wOUAuDSie.owyMMGDjVQnmyqxBJXmfhoC	dda5f5f19624d17de7f307fafb88ad86676459da	\N	\N	0	\N	\N	15910676326	f	高一	\N	\N
+57	chuanjiabao1981@gmail.com		\N	\N	\N	0	\N	\N	\N	\N	2015-04-09 23:11:10.348818	2015-11-25 08:04:11.253961	5	11	admin	\N	\N	admin	$2a$10$sRIPw7gFfGtBPB4qJsmLyejlKHUPr5Nf7OQdHNAeC/FkHFCZ4W0zK	7fbcdb986fdbe3dcb55f4efba31315720ec54015	\N	\N	0	\N	\N	\N	f	\N	\N	\N
+76	a@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-10-10 13:31:39.969233	2015-11-25 08:04:34.974209	1	21	aaa	726aea7591089e1c851099451ec316d5.JPG	1	teacher	$2a$10$an8ULUTI.zvjppnRCHfNP.2ec7bFNhUlxUeYc7e44CR2tAOt9eChS	f56c7c34c90d73d129bb6437e72dfff9cc498cbc	asdfadsfasdfa	\N	0	物理	高中	15910676326	f	\N	aaa	\N
 \.
 
 
@@ -4747,7 +4699,7 @@ COPY users (id, email, encrypted_password, reset_password_token, reset_password_
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('users_id_seq', 77, false);
+SELECT pg_catalog.setval('users_id_seq', 76, true);
 
 
 --
@@ -5002,10 +4954,9 @@ COPY videos (id, name, created_at, updated_at, token, videoable_id, video_type, 
 308	54e9b37a4d25cc03610f980436d3398b.mp4	2015-10-11 13:41:38.879297	2015-10-11 13:42:00.80214	1444568311-ClHMTEbKd-ZyGgSEDA1Wpw	69	mp4	\N	in_queue	Reply	57	\N
 310	740c00a071af0d9cf1d9df67845b0370.mp4	2015-10-18 01:05:06.731437	2015-10-18 01:13:41.26603	1445130122-gIMG37y361f9_Jwqts2C4w	71	mp4	6d437282e63b294de6b2d5bd9d448828.mp4	convert_success	Reply	76	42
 319	e7484d3035d7f7cb1fb58d520d3b1557.mp4	2015-10-27 22:36:34.281254	2015-10-27 22:45:07.919497	1445985373-nZi1AGh9kS1bJ2hpqeKynQ	82	mp4	859e911c78eb62ff2259339907f8790a.mp4	convert_success	Reply	76	42
-321	11d48abd9f9df8856dc43800402093d1.mp4	2015-11-07 01:21:50.729818	2015-11-19 22:51:34.07044	1446859127-f2J_AaEC-zabZEszfl2ruA	24	mp4	\N	convert_fail	Answer	76	\N
-323	8c02640e232d03355f761809711a747a.mp4	2015-11-13 23:19:44.678436	2015-11-19 22:51:34.079054	1447456759-YzuWd72VD17dBRIo4SWPhw	43	mp4	\N	convert_fail	Correction	76	\N
-322	9e12f2c66b14d3fa409d7af74bdd1f1b.mp4	2015-11-13 23:01:04.958681	2015-11-19 22:51:34.114209	1447455588-a5FpchJ0x1IsI_6ADCTDLQ	42	mp4	\N	convert_fail	Correction	76	\N
-324	0c704aebb8a472a5d05a0f1a8ac0dc4a.mp4	2015-11-14 03:30:59.144519	2015-11-19 22:51:34.088661	1447471835-JcQLqT8MNPMZfwrajL3aFA	98	mp4	\N	convert_fail	Reply	76	\N
+321	11d48abd9f9df8856dc43800402093d1.mp4	2015-11-07 01:21:50.729818	2015-11-07 01:21:54.823568	1446859127-f2J_AaEC-zabZEszfl2ruA	24	mp4	\N	in_queue	Answer	76	\N
+322	7616e7eaea6a7ed171cf73d8f8067083.mp4	2015-11-13 08:52:16.004002	2015-11-13 08:52:16.893766	1447404708-04bUTJRip9qo97lHKv-JfA	42	mp4	\N	in_queue	Correction	76	\N
+323	a9e4243d65df14f37bcee1f26ebf6c0e.mp4	2015-11-13 09:54:11.550434	2015-11-13 09:54:12.887985	1446856941-AgM0MtH0ZwdCpyICCYqnAA	41	mp4	\N	in_queue	Correction	76	\N
 \.
 
 
@@ -5013,7 +4964,7 @@ COPY videos (id, name, created_at, updated_at, token, videoable_id, video_type, 
 -- Name: videos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('videos_id_seq', 325, false);
+SELECT pg_catalog.setval('videos_id_seq', 323, true);
 
 
 --
@@ -5037,7 +4988,7 @@ COPY vip_classes (id, subject, category, questions_count, created_at, updated_at
 -- Name: vip_classes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('vip_classes_id_seq', 10, false);
+SELECT pg_catalog.setval('vip_classes_id_seq', 9, false);
 
 
 --
@@ -5053,7 +5004,7 @@ COPY workstations (id, name, city_id, address, tel, email, created_at, updated_a
 -- Name: workstations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('workstations_id_seq', 2, false);
+SELECT pg_catalog.setval('workstations_id_seq', 1, true);
 
 
 --

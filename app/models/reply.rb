@@ -3,7 +3,7 @@ class Reply < ActiveRecord::Base
   include QaCommon
   include QaToken
   include ContentValidate
-  include QaActionRecord
+  include QaCustomizedCourseActionRecord
   include QaCustomizedCourseActionNotification
 
 

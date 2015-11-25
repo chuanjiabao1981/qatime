@@ -3,7 +3,7 @@ class Topic < ActiveRecord::Base
   include QaToken
   include ContentValidate
   include QaCommon
-  include QaActionRecord
+  include QaCustomizedCourseActionRecord
   include QaCustomizedCourseActionNotification
 
 

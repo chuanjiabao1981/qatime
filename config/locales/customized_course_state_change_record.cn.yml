@@ -1,0 +1,11 @@
+cn:
+  activerecord:
+    models:
+      customized_course_state_change_record: 状态变化记录
+    attributes:
+      customized_course_state_change_record:
+  action:
+    customized_course_state_change_record:
+      state_change:
+        name: 状态修改
+        desc: "%{who},把%{what}的状态从%{from}修改到了%{to}"

@@ -1,7 +1,7 @@
 class CustomizedCourseMessageReply < ActiveRecord::Base
 
   include QaToken
-  include QaActionRecord
+  include QaCustomizedCourseActionRecord
   include QaCustomizedCourseActionNotification
 
 

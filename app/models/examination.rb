@@ -7,7 +7,7 @@ class Examination < ActiveRecord::Base
   include ContentValidate
   include QaCommon
   include QaWork
-  include QaActionRecord
+  include QaCustomizedCourseActionRecord
   include QaComment
   include QaCustomizedCourseActionNotification
 

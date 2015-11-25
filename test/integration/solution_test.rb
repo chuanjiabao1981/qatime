@@ -99,11 +99,11 @@ class SolutionIntegrateTest < LoginTestBase
     content       = "ransdonasdkjnvsdfpkjnvdafpign"
     create_path   = send("#{e.model_name.singular_route_key}_#{e.model_name.singular_route_key}_solutions_path",e)
     user_session.post create_path, s.model_name.singular_route_key => {title: title,content: content}
-
     if user.teacher?
       user_session.assert_redirected_to get_home_url(user)
       return
     end
+
 
     new_solution  = s.where(title: title).order(:created_at).last
     redirect_path = send "#{e.model_name.singular_route_key}_#{s.model_name.singular_route_key}_path",e,new_solution

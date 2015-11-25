@@ -3,23 +3,18 @@ class Solution < ActiveRecord::Base
   include ContentValidate
   include QaHandle
   include QaCommon
-  include QaActionRecord
+  include QaCustomizedCourseActionRecord
+  include QaCustomizedCourseStateChangeRecord
   include QaComment
-  include QaCustomizedCourseActionNotification
-  has_many  :customized_course_state_change_records, as: :stateactionable,foreign_key: :actionable_id,foreign_type: :actionable_type do
-    def build(attributes={})
-      if defined? proxy_association.owner.customized_course_id  and proxy_association.owner.customized_course_id
-        attributes[:customized_course_id]        = proxy_association.owner.customized_course_id
-      end
-      attributes[:operator_id]                   = proxy_association.owner.operator_id
-      super attributes
-    end
-  end
+
 
   belongs_to      :student
   belongs_to      :examination,counter_cache: true
   belongs_to      :first_handle_author,:class_name => "User"
   belongs_to      :last_handle_author,:class_name => "User"
+  belongs_to      :last_operator,:class_name => "User"
+
+  validates_presence_of :last_operator
 
   has_many        :corrections,:dependent => :destroy do
     include QaPageNum
@@ -45,15 +40,16 @@ class Solution < ActiveRecord::Base
 
     after_transition do |solution,transition|
 
-      a = solution.customized_course_state_change_records.build(name: :state_change,
+      a = solution.customized_course_state_change_records.build(
+                                                            name: :state_change,
                                                             from: transition.from,
                                                             to: transition.to,
-                                                            event: transition.event
+                                                            event: transition.event,
+                                                            operator_id: solution.last_operator.id
                                                            )
       a.save
     end
   end
-
 
   self.per_page = 10
 

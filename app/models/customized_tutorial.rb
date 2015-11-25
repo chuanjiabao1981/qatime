@@ -3,7 +3,7 @@ class CustomizedTutorial < ActiveRecord::Base
   include QaToken
   include QaCommon
   include Tally
-  include QaActionRecord
+  include QaCustomizedCourseActionRecord
   include QaCustomizedCourseActionNotification
 
 

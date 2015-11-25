@@ -15,11 +15,17 @@ class CustomizedCourseActionRecord < ActionRecord
 
   attr_accessor :send_sms_notification
 
-  # self.send_sms_notification                    = true
 
   def initialize(attributes = nil, options = {})
     super(attributes,options)
     self.send_sms_notification = true
+  end
+
+
+
+  def desc
+    I18n.t "action.#{self.actionable.model_name.singular_route_key}.#{self.name}.desc",
+                          user: self.operator.view_name
   end
 
 
@@ -30,7 +36,7 @@ class CustomizedCourseActionRecord < ActionRecord
       n = self.customized_course_action_notifications.build(action_name: self.name,receiver_id: receiver_id)
       n.save
       if send_sms_notification
-        __create_action_sms_notification(receiver_id,n)
+        __create_action_sms_notification(receiver_id,self.desc)
       end
     end
   end
@@ -45,5 +51,22 @@ class CustomizedCourseActionRecord < ActionRecord
     a
   end
 
+
+  def __create_action_sms_notification(receiver_id,message)
+    to        = User.find(receiver_id)
+    # if notification.notificationable_type == 'Comment'
+    #   message   = I18n.t "action.#{notification.notificationable.model_name.singular_route_key}.#{notification.action_name}.desc",
+    #                      user: notification.operator.view_name,
+    #                      what: notification.notificationable.commentable.model_name.human
+    # else
+    #   message   = I18n.t "action.#{notification.notificationable.model_name.singular_route_key}.#{notification.action_name}.desc",
+    #                      user: notification.operator.view_name
+    # end
+    SmsWorker.perform_async(SmsWorker::NOTIFY,
+                            to: to.view_name,
+                            mobile: to.mobile,
+                            message: message
+    )
+  end
 
 end

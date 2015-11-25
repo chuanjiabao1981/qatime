@@ -1,4 +1,4 @@
-module QaActionRecord
+module QaCustomizedCourseActionRecord
   extend ActiveSupport::Concern
   included do
 
@@ -9,7 +9,6 @@ module QaActionRecord
           attributes[:customized_course_id]        = proxy_association.owner.customized_course_id
           attributes[:type]                        = CustomizedCourseActionRecord.to_s
         end
-        attributes[:operator_id]                   = proxy_association.owner.operator_id
         super attributes
       end
     end
@@ -19,7 +18,7 @@ module QaActionRecord
 
   private
   def __create_action_record
-    a = self.customized_course_action_records.build(name: :create)
+    a = self.customized_course_action_records.build(name: :create,operator_id: self.last_operator.id)
     a.save
   end
 end

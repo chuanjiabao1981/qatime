@@ -3,7 +3,7 @@ class Correction < ActiveRecord::Base
   include QaCommon
   include QaToken
   include ContentValidate
-  include QaActionRecord
+  include QaCustomizedCourseActionRecord
   include QaComment
   include QaCustomizedCourseActionNotification
 

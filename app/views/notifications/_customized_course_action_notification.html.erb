@@ -1,37 +1,6 @@
-<div class="qa_object_item">
-  <div style="float:left">
-    <%=image_tag customized_course_action_notification.operator.avatar.normal.url %>
-  </div>
-  <div class="title">
-
-    <% if customized_course_action_notification.read %>
-        <span class="label label-default"><%= I18n.t "view.notification.read" %></span>
-    <% else %>
-        <span class="label label-danger"><%= I18n.t "view.notification.unread" %></span>
-    <% end %>
-    <% if customized_course_action_notification.notificationable_type == 'Comment' %>
-        <%=
-            link_to (I18n.t "action.#{customized_course_action_notification.notificationable.model_name.singular_route_key}.#{customized_course_action_notification.action_name}.desc",
-                            user: customized_course_action_notification.operator.view_name,
-                            what: customized_course_action_notification.notificationable.commentable.model_name.human
-                    ),
-                    notification_path(customized_course_action_notification)
-        %>
-    <% else %>
-        <%=
-        link_to (I18n.t "action.#{customized_course_action_notification.notificationable.actionable.model_name.singular_route_key}.#{customized_course_action_notification.action_name}.desc",
-                        user: customized_course_action_notification.operator.view_name),
-                notification_path(customized_course_action_notification)
-        %>
-    <% end %>
-  </div>
-  <div class="info">
-    <%= localize(customized_course_action_notification.created_at,format: :long) %>
-    <%= I18n.t "action.#{customized_course_action_notification.notificationable.actionable.model_name.singular_route_key}.#{customized_course_action_notification.action_name}.name" %>
-    <% if customized_course_action_notification.customized_course_id %>
-    • <%= link_to CustomizedCourse.model_name.human,customized_course_path(customized_course_action_notification.customized_course_id) %>
-    <% end %>
-  </div>
-</div>
-
-<%= render partial: "notifications/#{}"
+<%= render partial: 'action_records/action_record',
+           locals:{
+                   action_record: notification.notificationable,
+                   read: notification.read
+           }
+%>

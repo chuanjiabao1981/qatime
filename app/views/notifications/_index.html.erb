@@ -8,15 +8,11 @@
     <div style="clear:both"></div>
   </div>
   <% if notifications %>
-      <%= render partial: 'notifications/customized_course_action_notification_index_items',
-                 locals: {customized_course_action_notifications: customized_course_action_notifications} %>
-  <% end %>
-  <% if notifications %>
     <div class="qa_objects">
-        <%= render partial: 'notification',collection: notifications %>
+        <%= render partial: 'notifications/notification',collection: notifications %>
     </div>
     <div class="qa_cell">
-        <%= will_paginate customized_course_action_notifications ,renderer: BootstrapPagination::Rails %>
+        <%= will_paginate notifications ,renderer: BootstrapPagination::Rails %>
     </div>
   <% end %>
 </div>

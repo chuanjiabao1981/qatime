@@ -1,1 +1,3 @@
-<%= render partial: "notification/#{notification.notificationable_type.underscore}"
+<%= render partial: "notifications/#{notification.model_name.singular_route_key}",
+           locals:{notification: notification}
+%>

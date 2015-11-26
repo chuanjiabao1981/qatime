@@ -37,7 +37,7 @@ customize_course_action_record_for_comment_homework_correction_create:
   customized_course: customized_course1
   actionable: comment_homework_correction (Comment)
   name: create
-  type: CustomizedCourseActionRecord
+  type: CustomizedCourseCommentRecord
 
 customized_course_action_record_for_tutorial_issue_create:
   operator: student1

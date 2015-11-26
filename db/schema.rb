@@ -191,6 +191,7 @@ ActiveRecord::Schema.define(version: 20151123213055) do
     t.float    "teacher_price"
     t.integer  "creator_id"
     t.integer  "workstation_id"
+    t.integer  "discount_type",              default: 0
     t.boolean  "is_keep_account",            default: false
   end
 
@@ -227,8 +228,8 @@ ActiveRecord::Schema.define(version: 20151123213055) do
     t.text     "content"
     t.string   "token"
     t.integer  "topics_count",           default: 0
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "solutions_count",        default: 0
     t.integer  "student_id"
     t.integer  "customized_tutorial_id"
@@ -236,7 +237,6 @@ ActiveRecord::Schema.define(version: 20151123213055) do
     t.integer  "corrections_count",      default: 0
     t.string   "work_type"
     t.string   "type"
-    t.string   "state",                  default: "new"
   end
 
   create_table "excercises", force: :cascade do |t|
@@ -340,6 +340,16 @@ ActiveRecord::Schema.define(version: 20151123213055) do
 
   add_index "lessons", ["tags"], name: "index_lessons_on_tags", using: :gin
 
+  create_table "messages", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.string   "message_type", limit: 255
+    t.string   "status",       limit: 255
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "nodes", force: :cascade do |t|
     t.string   "name",            limit: 255
     t.string   "summary",         limit: 255
@@ -402,6 +412,33 @@ ActiveRecord::Schema.define(version: 20151123213055) do
     t.integer  "teacher_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "questionnaire_question_options", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "questionnaire_question_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  create_table "questionnaire_questions", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "questionnaire_questionable_id"
+    t.string   "questionnaire_questionable_type"
+    t.integer  "creator_id"
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.integer  "questionnaire_question_type",     default: 0
+  end
+
+  create_table "questionnaire_templates", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "creator_id"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "questionnaire_template_type", default: 0
+    t.string   "token"
+    t.string   "desc"
   end
 
   create_table "questions", force: :cascade do |t|

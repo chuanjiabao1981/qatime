@@ -44,6 +44,12 @@ class CustomizedCourse < ActiveRecord::Base
     a
   end
 
+  def get_manager_id
+    return nil unless not self.creator_id.nil?
+    # 通过creator id计算manager id，因为这里，creator有可能是销售，有可能是工作人员，目前只有manager
+    self.creator_id
+  end
+
   # This function is used to set prices for customized_course
   private
 

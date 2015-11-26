@@ -1,5 +1,6 @@
 class CustomizedCoursesController < ApplicationController
-  before_action :customized_course__associations_prepare
+  include QaCustomizedCourse
+  before_action :customized_course_associations_prepare
   respond_to :html,:js,:json
   layout "application"
 
@@ -91,11 +92,5 @@ class CustomizedCoursesController < ApplicationController
       res                = @customized_course
     end
     res
-  end
-
-  def customized_course__associations_prepare
-    unless not @workstations.nil?
-      @workstations = Workstation.by_manager_id(current_user.id)
-    end
   end
 end

@@ -21,6 +21,10 @@ task :qatime_status => :environment do
 
   ActionRecord.all.each do |a|
     # puts a.to_json
-    puts "#{a.type} --- #{a.actionable_type}"
+    if a.actionable_type == 'Comment'
+      a.type = 'CustomizedCourseCommentRecord'
+      a.save
+    end
+    # puts "#{a.type} --- #{a.actionable_type}"
   end
 end

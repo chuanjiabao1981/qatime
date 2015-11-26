@@ -97,7 +97,7 @@ class SolutionTest < ActiveSupport::TestCase
 
     a = CustomizedCourseStateChangeRecord.all.order(:created_at => :desc).first
     assert a.operator.id           == teacher1.id
-    assert a.stateactionable       == solution
+    assert a.actionable            == solution
     a.desc
   end
 end

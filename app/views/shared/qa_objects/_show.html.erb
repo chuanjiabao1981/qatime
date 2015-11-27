@@ -17,6 +17,9 @@
       </div>
       <div class="info">
         <%= [qa_object.author.view_name,"#{localize(qa_object.created_at,:format => :long)} 创建"].join(" • ") %>
+        <% if defined?(qa_object.state) %>
+            • <%= qa_object.human_state_name %>
+        <% end %>
       </div>
     </div>
 

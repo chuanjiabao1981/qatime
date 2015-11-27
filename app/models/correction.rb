@@ -5,21 +5,20 @@ class Correction < ActiveRecord::Base
   include ContentValidate
   include QaCustomizedCourseActionRecord
   include QaComment
-  include QaCustomizedCourseActionNotification
-
 
 
   belongs_to        :teacher
   belongs_to        :solution,counter_cache: true
   belongs_to        :examination,counter_cache: true
+  belongs_to        :last_operator,:class_name => "User"
 
   has_one           :video,as: :videoable
   has_one           :fee, as:  :feeable
 
 
-  validates         :content, length: {minimum: 5},on: :create
-
-  cattr_accessor    :order_type,:order_column
+  validates               :content, length: {minimum: 5},on: :create
+  validates_presence_of   :last_operator
+  cattr_accessor          :order_type,:order_column
 
   after_save        :__after_save
   after_destroy     :__after_destroy

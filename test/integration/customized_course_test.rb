@@ -17,7 +17,7 @@ class CustomizedCourseIntegrateTest < LoginTestBase
   end
 
   test "action record" do
-    action_record_page(@student_session,action_records_customized_course_path(@customized_course))
+    # action_record_page(@student_session,action_records_customized_course_path(@customized_course))
     action_record_page(@teacher_session,action_records_customized_course_path(@customized_course))
   end
   private
@@ -33,6 +33,7 @@ class CustomizedCourseIntegrateTest < LoginTestBase
     customize_course_action_record_for_comment_homework_correction_create   = action_records(:customize_course_action_record_for_comment_homework_correction_create)
     customized_course_action_record_homework_correction_create              = action_records(:customized_course_action_record_homework_correction_create)
     customized_course_action_record_customized_course_message1_create       = action_records(:customized_course_action_record_customized_course_message1_create)
+    customized_course_state_change_record_from_completed_to_in_progress     = action_records(:customized_course_state_change_record_from_completed_to_in_progress)
     assert customized_course_action_record_for_tutorial_create.valid?
     assert customized_course_action_record_for_exercise_create.valid?
     assert customized_course_action_record_for_tutorial_issue_create.valid?
@@ -44,6 +45,7 @@ class CustomizedCourseIntegrateTest < LoginTestBase
     assert customize_course_action_record_for_comment_homework_correction_create.valid?
     assert customized_course_action_record_homework_correction_create.valid?
     assert customized_course_action_record_customized_course_message1_create.valid?
+    assert customized_course_state_change_record_from_completed_to_in_progress.valid?
     user_session.get action_record_path
     user_session.assert_response :success
     user_session.assert_select 'a[href=?]', customized_tutorial_path(customized_course_action_record_for_tutorial_create.actionable),1
@@ -57,6 +59,8 @@ class CustomizedCourseIntegrateTest < LoginTestBase
     user_session.assert_select 'a[href=?]', comment_path(customize_course_action_record_for_comment_homework_correction_create.actionable),1
     user_session.assert_select 'a[href=?]', homework_correction_path(customized_course_action_record_homework_correction_create.actionable),1
     user_session.assert_select 'a[href=?]', customized_course_message_path(customized_course_action_record_customized_course_message1_create.actionable),1
+    user_session.assert_select 'a[href=?]', homework_solution_path(customized_course_state_change_record_from_completed_to_in_progress.actionable),
+                               text: customized_course_state_change_record_from_completed_to_in_progress.desc,count: 1
   end
   def index_page(user_session,indexpath)
     user_session.get indexpath

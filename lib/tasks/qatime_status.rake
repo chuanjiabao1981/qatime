@@ -13,6 +13,8 @@ task :qatime_status => :environment do
   kk.each do |k|
     a = Notification.find_by_notificationable_id(k[1])
     next unless a
+    next if a.notificationable_type == "ActionRecord"
+
     b = ActionRecord.find(k[0])
     a.notificationable = b
     # a.to_json
@@ -20,11 +22,14 @@ task :qatime_status => :environment do
   end
 
   ActionRecord.all.each do |a|
-    # puts a.to_json
     if a.actionable_type == 'Comment'
       a.type = 'CustomizedCourseCommentRecord'
       a.save
     end
-    # puts "#{a.type} --- #{a.actionable_type}"
+  end
+
+  Correction.all.each do |c|
+    c.last_operator_id = c.teacher_id
+    c.save
   end
 end

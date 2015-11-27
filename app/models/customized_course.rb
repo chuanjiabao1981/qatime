@@ -9,6 +9,7 @@ class CustomizedCourse < ActiveRecord::Base
   has_many :course_issues,                  dependent: :destroy
   has_many :homeworks,                      dependent: :destroy
   has_many :customized_course_action_records,->{ order 'created_at desc' },dependent: :destroy#,foreign_key: :customized_course_id
+  has_one  :customized_course_message_board,dependent:  :destroy
 
   has_many :tutorial_issues
   has_many :fees

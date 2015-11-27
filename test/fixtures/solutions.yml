@@ -11,6 +11,7 @@ homework_solution_one:
   student: student1
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   type: HomeworkSolution
+  last_operator: student1
 
 homework_solution_two:
   title: homework solution test title 2
@@ -19,6 +20,8 @@ homework_solution_two:
   student: student1
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   type: HomeworkSolution
+  last_operator: student1
+
 
 
 homework_solution_three:
@@ -28,6 +31,7 @@ homework_solution_three:
   student: student1
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   type: HomeworkSolution
+  last_operator: student1
 
 
 homework_solution_four:
@@ -37,6 +41,7 @@ homework_solution_four:
   student: student1
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   type: HomeworkSolution
+  last_operator: student1
 
 exercise_solution_one:
   title: exercise solution test title 1
@@ -46,6 +51,7 @@ exercise_solution_one:
   type: ExerciseSolution
   customized_course: customized_course1
   customized_tutorial: customized_tutorial1
+  last_operator: student1
 
 solution_for_homework_correction_fee:
   title: solution for homework correction fee
@@ -53,6 +59,7 @@ solution_for_homework_correction_fee:
   exercise: homeworker_for_correction_fee_one
   student: student2
   type: ExerciseSolution
+  last_operator: student2
 
 exercise_solution_for_fee:
   title: exercise solution for exercise title fee
@@ -62,6 +69,7 @@ exercise_solution_for_fee:
   type: ExerciseSolution
   customized_course: customized_course5
   customized_tutorial: customized_tutorial_teacher_earnings_1
+  last_operator: student2
 
 homework_solution_for_fee:
   title: homework solution for homework title fee
@@ -70,3 +78,4 @@ homework_solution_for_fee:
   student: student2
   type: HomeworkSolution
   customized_course: customized_course5
+  last_operator: student2

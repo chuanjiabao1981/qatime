@@ -78,5 +78,14 @@ customized_course_action_record_customized_course_message1_create:
   operator: teacher1
   customized_course: customized_course1
   actionable: customized_course_message1 (CustomizedCourseMessage)
-  name: cureate
+  name: create
   type: CustomizedCourseActionRecord
+
+customized_course_state_change_record_from_completed_to_in_progress:
+  operator: teacher1
+  customized_course: customized_course1
+  actionable: homework_solution_two (Solution)
+  from: completed
+  to: in_progress
+  event: redo
+  type: CustomizedCourseStateChangeRecord

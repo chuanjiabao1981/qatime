@@ -4,9 +4,10 @@ class Solution < ActiveRecord::Base
   include QaHandle
   include QaCommon
   include QaCustomizedCourseActionRecord
-  include QaCustomizedCourseStateChangeRecord
   include QaComment
+  include QaCommonState
 
+  validates_presence_of :last_operator
 
   belongs_to      :student
   belongs_to      :examination,counter_cache: true
@@ -14,7 +15,6 @@ class Solution < ActiveRecord::Base
   belongs_to      :last_handle_author,:class_name => "User"
   belongs_to      :last_operator,:class_name => "User"
 
-  validates_presence_of :last_operator
 
   has_many        :corrections,:dependent => :destroy do
     include QaPageNum
@@ -31,25 +31,6 @@ class Solution < ActiveRecord::Base
 
   scope           :by_customized_course_solution, lambda {where("type = ? or type = ?", HomeworkSolution.to_s,ExerciseSolution.to_s)}
 
-
-  state_machine :state, initial: :new do
-    transition :new                  => :in_progress,       :on => [:handled]
-    transition :in_progress          => :completed,         :on => [:complete]
-    transition :completed            => :in_progress,       :on => [:redo]
-    transition :new                  => :completed,         :on => [:complete]
-
-    after_transition do |solution,transition|
-
-      a = solution.customized_course_state_change_records.build(
-                                                            name: :state_change,
-                                                            from: transition.from,
-                                                            to: transition.to,
-                                                            event: transition.event,
-                                                            operator_id: solution.last_operator.id
-                                                           )
-      a.save
-    end
-  end
 
   self.per_page = 10
 
@@ -71,9 +52,6 @@ class Solution < ActiveRecord::Base
   def update_handle_infos
     _update_handle_infos self.corrections
   end
-
-
-
 
 
 end

@@ -16,7 +16,7 @@
   </div>
   <div class="info">
     <%= localize(action_record.created_at,format: :long) %>
-    <%= I18n.t "action.#{action_record.actionable.model_name.singular_route_key}.#{action_record.name}.name" %>
+    <%= render_action_record_name(action_record) %>
     <% if action_record.customized_course %>
         • <%= link_to CustomizedCourse.model_name.human ,customized_course_path(action_record.customized_course)%>
     <% end %>

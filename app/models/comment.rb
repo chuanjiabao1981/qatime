@@ -1,7 +1,5 @@
 class Comment < ActiveRecord::Base
 
-  # include QaCustomizedCourseActionRecord
-  # include QaCustomizedCourseActionNotification
 
   has_many :customized_course_comment_records ,as: :actionable,dependent: :destroy do
     def build(attributes={})

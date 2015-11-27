@@ -188,6 +188,10 @@ class CorrectionTest < ActiveSupport::TestCase
     exercise_correction           = exercise_solution.exercise_corrections.build(content: "13445363456",
                                                                                  last_operator_id: exercise_solution.examination.teacher.id
                                                                                 )
+
+    assert exercise_solution.state == "new"
+
+
     exercise_correction.teacher   = exercise_solution.examination.teacher
     assert exercise_correction.valid?
     assert exercise_correction.exercise_solution.valid?
@@ -198,8 +202,8 @@ class CorrectionTest < ActiveSupport::TestCase
     assert_difference 'ExerciseCorrection.count',1 do
       assert_difference 'exercise_correction.exercise_solution.reload.corrections_count',1 do
         assert_difference 'exercise_correction.exercise.reload.corrections_count',1 do
-          assert_difference 'CustomizedCourseActionRecord.count',1 do
-            assert_difference 'CustomizedCourseActionNotification.count',2 do
+          assert_difference 'CustomizedCourseActionRecord.count',2 do ###这里是由于状态改变所有多了2个记录
+            assert_difference 'CustomizedCourseActionNotification.count',4 do ###这里是由于状态改变所有多发了2个消息
               exercise_correction.save
             end
           end
@@ -211,5 +215,7 @@ class CorrectionTest < ActiveSupport::TestCase
     customized_course_prices_validation(exercise_correction) do
       exercise_correction.content = "134123412"
     end
+
+    assert exercise_solution.reload.state == "in_progress"
   end
 end

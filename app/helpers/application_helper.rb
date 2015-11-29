@@ -145,4 +145,14 @@ module ApplicationHelper
     @_content_for[name] = content if content
     @_content_for[name] unless content
   end
+
+  def state_css_style(object)
+    if object.state == "new"
+      "warning"
+    elsif object.state == "in_progress"
+      "info"
+    elsif object.state == "completed"
+      "success"
+    end
+  end
 end

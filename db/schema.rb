@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151127091416) do
+ActiveRecord::Schema.define(version: 20151127224720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -182,8 +182,8 @@ ActiveRecord::Schema.define(version: 20151127091416) do
     t.integer  "student_id"
     t.string   "category"
     t.string   "subject"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "customized_tutorials_count", default: 0
     t.integer  "topics_count",               default: 0
     t.integer  "homeworks_count",            default: 0
@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(version: 20151127091416) do
     t.float    "teacher_price"
     t.integer  "creator_id"
     t.integer  "workstation_id"
+    t.boolean  "is_keep_account",            default: false
   end
 
   create_table "customized_tutorials", force: :cascade do |t|
@@ -514,6 +515,8 @@ ActiveRecord::Schema.define(version: 20151127091416) do
     t.integer  "customized_tutorial_id"
     t.string   "state",                   default: "new"
     t.integer  "last_operator_id"
+    t.datetime "first_handled_at"
+    t.datetime "completed_at"
   end
 
   create_table "teaching_programs", force: :cascade do |t|

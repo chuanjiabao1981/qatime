@@ -7,9 +7,10 @@ $('div#<%=___tmp_id%>')
                     );
 <% if not @object_state.valid? %>
     <% ___tmp_error = "" %>
-    $('div#<%=___tmp_id%>>button').dropdown('toggle');
     <% @object_state.errors.each do |k,v|%>
         <% ___tmp_error = v.to_s %>
     <% end %>
     alert("<%= ___tmp_error %>");
+//    $('div#<%=___tmp_id%>>button').dropdown('toggle');
+
 <% end %>

@@ -7,6 +7,16 @@ class Solution < ActiveRecord::Base
   include QaComment
   include QaCommonState
 
+  class SolutionCompletedValidator < ActiveModel::Validator
+    def validate(record)
+      if record.corrections_count == 0
+        record.errors.add :base , :cant_complete
+      end
+    end
+  end
+
+  __create_state_machine(SolutionCompletedValidator)
+
   validates_presence_of :last_operator
 
   belongs_to      :student
@@ -54,4 +64,11 @@ class Solution < ActiveRecord::Base
   end
 
 
+
+
 end
+
+
+
+
+

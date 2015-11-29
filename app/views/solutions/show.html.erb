@@ -10,10 +10,20 @@
 <%if allow? :corrections,:create , @solution%>
 
 <div class="qa_box">
-  <div class="box_header qa_cell">
-    <strong><%= @correction.model_name.human%></strong>
-  </div>
+  <% if @solution.can_handle? %>
+    <div class="box_header qa_cell">
+        <strong><%= @correction.model_name.human%></strong>
+    </div>
       <%= render 'corrections/form' %>
+  <% else %>
+      <%= t("view.solution.cant_handle_html",
+                 solution_name: @solution.model_name.human,
+                 solution_state: @solution.human_state_name,
+                 solution_event: Solution.human_state_event_name(:handle),
+                 link: link_to(@solution.examination.model_name.human, send("#{@solution.examination.model_name.singular_route_key}_path"))
+          )
+      %>
+  <% end %>
 </div>
 
 <% end %>

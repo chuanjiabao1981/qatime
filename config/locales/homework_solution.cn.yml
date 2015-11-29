@@ -1,7 +1,7 @@
 cn:
   activerecord:
     models:
-      homework_solution: 家庭作业
+      homework_solution: 家庭作业解答
     attributes:
       homework_solution:
         title: 解答说明
@@ -9,5 +9,5 @@ cn:
   action:
     homework_solution:
       create:
-        desc: "%{user},提交了家庭作业"
+        desc: "%{user},提交了家庭作业的解答"
         name: 提交

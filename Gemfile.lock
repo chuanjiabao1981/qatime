@@ -192,6 +192,7 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    ruby-graphviz (1.2.2)
     rubyzip (1.1.7)
     sass (3.2.19)
     sass-rails (4.0.5)
@@ -304,6 +305,7 @@ DEPENDENCIES
   rails (= 4.2.5)
   responders (~> 2.0)
   rest-client
+  ruby-graphviz
   sass-rails (~> 4.0.0)
   sdoc
   selenium-webdriver
@@ -321,3 +323,6 @@ DEPENDENCIES
   whenever
   will_paginate (= 3.0.5)
   will_paginate-bootstrap
+
+BUNDLED WITH
+   1.10.6

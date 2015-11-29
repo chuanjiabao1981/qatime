@@ -32,4 +32,14 @@ task :qatime_status => :environment do
     c.last_operator_id = c.teacher_id
     c.save
   end
+
+  Solution.all.each do |s|
+    if not s.first_handle_created_at.nil?
+      s.first_handled_at      = s.first_handle_created_at
+      s.completed_at          = s.last_handle_created_at
+      s.state                 = :completed
+      s.save
+    end
+
+  end
 end

@@ -11,7 +11,8 @@ module QaCommonState
 
         before_transition :new => :in_progress, :do => :set_first_handled_at
         before_transition any => :completed,    :do => :set_completed_at
-
+        before_transition :on => :handle,       :do => :set_last_handled_at
+        before_transition :on => :redo,         :do => :set_last_redone_at
         event :handle do
           transition any - :completed => :in_progress
         end
@@ -38,6 +39,12 @@ module QaCommonState
 
   end
 
+  def set_last_redone_at
+    self.last_redone_at = DateTime.now
+  end
+  def set_last_handled_at
+    self.last_handled_at = DateTime.now
+  end
   def set_first_handled_at
     self.first_handled_at = DateTime.now
   end

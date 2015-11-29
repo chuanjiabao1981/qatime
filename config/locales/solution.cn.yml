@@ -17,6 +17,7 @@ cn:
       solution:
         title: 解答说明
         content: 作业解答
+        last_handled_at: 最近一次批改于
     errors:
       models:
         solution:
@@ -26,4 +27,4 @@ cn:
   view:
     solution:
       cant_handle_html: "%{solution_name} 的当前状态为：<strong>%{solution_state}</strong>，所以不可以进行 <strong>%{solution_event}</strong>。
-                         如果想继续<strong>%{solution_event}</strong>，请在%{link}修改状态后继续 <strong>%{solution_event}</strong>"
+                         如果想继续<strong>%{solution_event}</strong>，请在%{link}中修改状态后继续 <strong>%{solution_event}</strong>"

@@ -11,6 +11,7 @@ homework_solution_one:
   student: student1
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   type: HomeworkSolution
+  corrections_count: 1
   last_operator: student1
 
 homework_solution_two:

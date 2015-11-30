@@ -201,6 +201,15 @@ class ExaminationIntegrateTest < LoginTestBase
 
     user_session.assert_select 'a[href=?]',send("edit_#{o.model_name.singular_route_key}_path",o),edit_path_count
     o.solutions.each do |s|
+      s.state_events.each do |x|
+        state_change_url  = 0
+        if user.teacher?
+          if x != :handle
+            state_change_url = 1
+          end
+        end
+        user_session.assert_select 'a[href=?]',send("#{x}_#{o.model_name.singular_route_key}_solution_path",s,use_super_controller: true),state_change_url
+      end
       user_session.assert_select 'a[href=?]',send("#{s.model_name.singular_route_key}_path",s),1
     end
     new_solution_path = send "new_#{o.model_name.singular_route_key}_#{o.model_name.singular_route_key}_solution_path", o

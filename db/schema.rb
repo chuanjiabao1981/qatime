@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151129214206) do
+ActiveRecord::Schema.define(version: 20151130214629) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -241,6 +241,11 @@ ActiveRecord::Schema.define(version: 20151129214206) do
     t.string   "work_type"
     t.string   "type"
     t.string   "state",                  default: "new"
+    t.integer  "last_operator_id"
+    t.datetime "first_handled_at"
+    t.datetime "completed_at"
+    t.datetime "last_handled_at"
+    t.datetime "last_redone_at"
   end
 
   create_table "excercises", force: :cascade do |t|

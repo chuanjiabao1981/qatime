@@ -1,9 +1,11 @@
 require 'sidekiq/testing'
+require 'integration/shared/qa_common_state_test'
 
 Sidekiq::Testing.inline!
 
 
 class ExaminationIntegrateTest < LoginTestBase
+  include QaCommonStateTest
   def setup
     super
     @customized_course    = customized_courses(:customized_course1)
@@ -201,15 +203,7 @@ class ExaminationIntegrateTest < LoginTestBase
 
     user_session.assert_select 'a[href=?]',send("edit_#{o.model_name.singular_route_key}_path",o),edit_path_count
     o.solutions.each do |s|
-      s.state_events.each do |x|
-        state_change_url  = 0
-        if user.teacher?
-          if x != :handle
-            state_change_url = 1
-          end
-        end
-        user_session.assert_select 'a[href=?]',send("#{x}_#{o.model_name.singular_route_key}_solution_path",s,use_super_controller: true),state_change_url
-      end
+      check_state_change_link(user,user_session,s,true)
       user_session.assert_select 'a[href=?]',send("#{s.model_name.singular_route_key}_path",s),1
     end
     new_solution_path = send "new_#{o.model_name.singular_route_key}_#{o.model_name.singular_route_key}_solution_path", o

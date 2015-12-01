@@ -53,6 +53,7 @@ exercise_solution_one:
   customized_course: customized_course1
   customized_tutorial: customized_tutorial1
   last_operator: student1
+  corrections_count: 1
 
 solution_for_homework_correction_fee:
   title: solution for homework correction fee

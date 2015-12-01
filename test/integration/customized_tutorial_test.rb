@@ -1,7 +1,10 @@
+require 'integration/shared/qa_common_state_test'
+
 class CustomizedTutorialIntegrateTest < LoginTestBase
   # set_fixture_class :examinations => Exercise
   # fixtures :examinations
 
+  include QaCommonStateTest
 
   def setup
     super
@@ -35,7 +38,9 @@ class CustomizedTutorialIntegrateTest < LoginTestBase
     exercise = examinations(:exercise_one)
     assert exercise.valid?
 
-
+    @customized_tutorial.exercises.each do |e|
+      check_state_change_link(user,user_session,e,false)
+    end
     if user.teacher?
       user_session.assert_select 'a[href=?]',    new_customized_tutorial_tutorial_issue_path(@customized_tutorial),0
     elsif user.student?

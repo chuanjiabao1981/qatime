@@ -78,6 +78,30 @@ homeworker_for_correction_fee_one:
   type: Homework
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
 
+exercise_for_state_change_success:
+  title: 随堂作业 for state change success
+  content: 2222223334444 for state change success
+  teacher: teacher1
+  student: student1
+  type: Exercise
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  last_operator: teacher1
+  state: in_progress
+  solutions_count: 1
+
+exercise_for_state_change:
+  title: 随堂作业 for state change
+  content: 234123413 for state change
+  teacher: teacher1
+  student: student1
+  type: Exercise
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  last_operator: teacher1
+  state: new
+
+
 
 
 

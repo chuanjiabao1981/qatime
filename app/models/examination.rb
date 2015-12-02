@@ -11,7 +11,20 @@ class Examination < ActiveRecord::Base
   include QaComment
   include QaCommonState
 
-  __create_state_machine(nil)
+  class ExaminationCompletedValidator < ActiveModel::Validator
+    def validate(record)
+      if record.solutions_count == 0
+        record.errors.add :base , :cant_complete_solutions_zero
+      else
+        record.solutions.each do |solution|
+          if not solution.completed?
+            record.errors.add :base , :cant_complete_solutions_not_complete
+          end
+        end
+      end
+    end
+  end
+  __create_state_machine(ExaminationCompletedValidator)
 
   validates_presence_of :last_operator
 

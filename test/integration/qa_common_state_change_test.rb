@@ -29,6 +29,23 @@ class QaCommonStateCahngeTest < ActionDispatch::IntegrationTest
     change_state(exercise_solution,state_object_path)
   end
 
+  test "change homework new to complete" do
+    homework                      = examinations(:homework1)
+    state_object_path             = homeworks_customized_course_path(homework.customized_course)
+    change_state(homework,state_object_path)
+  end
+
+  test "change exercise new to complete from customized_course" do
+    exercise                      = examinations(:exercise_one)
+    state_object_path             = homeworks_customized_course_path(exercise.customized_course)
+    change_state(exercise,state_object_path)
+  end
+
+  test "change exercise new to complete from customized_tutorial" do
+    exercise                      = examinations(:exercise_one)
+    state_object_path             = customized_tutorial_path(exercise.customized_tutorial)
+    change_state(exercise,state_object_path)
+  end
   private
   def change_state(state_object,state_object_path)
     state_object_class        = state_object.class

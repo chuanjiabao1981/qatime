@@ -27,14 +27,23 @@ class ExcerciseTest < ActiveSupport::TestCase
     end
   end
 
-  test "exercise state change" do
-    exercise                 = examinations(:exercise_one)
+  test "exercise state change success" do
+    exercise                 = examinations(:exercise_for_state_change_success)
     check_state_change_record(exercise)
   end
 
   test "exercise timestamp" do
-    exercise                 = examinations(:exercise_one)
+    exercise                 = examinations(:exercise_for_state_change_success)
     check_state_timestamp(exercise)
+  end
+
+  test "exercise state change timestamp" do
+    exercise                 = examinations(:exercise_for_state_change)
+    student                  = exercise.customized_course.student
+    check_first_handle_timestamp exercise do |e|
+      solution = e.exercise_solutions.build(title: 111,content: 2222,student: student,last_operator: student)
+      assert solution.save
+    end
   end
 
 end

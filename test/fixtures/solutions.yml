@@ -81,3 +81,14 @@ homework_solution_for_fee:
   type: HomeworkSolution
   customized_course: customized_course5
   last_operator: student2
+
+exercise_solution_for_state_change_success:
+  title: exercise solution for exercise state change success
+  content: exercise solution for exercise state change success
+  exercise: exercise_for_state_change_success
+  student: student2
+  type: ExerciseSolution
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial1
+  last_operator: student1
+  state: completed

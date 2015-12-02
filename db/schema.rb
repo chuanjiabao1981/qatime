@@ -182,8 +182,8 @@ ActiveRecord::Schema.define(version: 20151130214629) do
     t.integer  "student_id"
     t.string   "category"
     t.string   "subject"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "customized_tutorials_count", default: 0
     t.integer  "topics_count",               default: 0
     t.integer  "homeworks_count",            default: 0
@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(version: 20151130214629) do
     t.float    "teacher_price"
     t.integer  "creator_id"
     t.integer  "workstation_id"
+    t.boolean  "is_keep_account",            default: false
   end
 
   create_table "customized_tutorials", force: :cascade do |t|

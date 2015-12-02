@@ -1,7 +1,9 @@
 require 'test_helper'
+require 'models/shared/qa_common_state_test'
 
 class SolutionTest < ActiveSupport::TestCase
 
+  include QaCommonStateTest
   self.use_transactional_fixtures = true
 
   test 'state 1' do
@@ -52,8 +54,8 @@ class SolutionTest < ActiveSupport::TestCase
 
     assert_difference "exercise.reload.solutions_count",1 do
       assert_difference "ExerciseSolution.count",1 do
-        assert_difference 'CustomizedCourseActionRecord.count',1 do
-          assert_difference 'CustomizedCourseActionNotification.count',2 do
+        assert_difference 'CustomizedCourseActionRecord.count',2 do
+          assert_difference 'CustomizedCourseActionNotification.count',4 do
             exercise_solution.save!
           end
         end
@@ -68,90 +70,45 @@ class SolutionTest < ActiveSupport::TestCase
     homework_solution.last_operator = homework.customized_course.student
     assert homework_solution.valid?
     assert homework_solution.customized_course.valid?
+    assert homework.state == "new"
+    assert homework.last_handled_at.nil?
+    assert homework.first_handled_at.nil?
     assert_difference "homework.reload.solutions_count",1 do
       assert_difference "HomeworkSolution.count",1 do
-        assert_difference 'CustomizedCourseActionRecord.count',1 do
-          assert_difference 'CustomizedCourseActionNotification.count',2 do
+        assert_difference 'CustomizedCourseActionRecord.count',2 do
+          assert_difference 'CustomizedCourseActionNotification.count',4 do
             homework_solution.save!
           end
         end
       end
     end
+
+    assert_not homework.reload.last_handled_at.nil?
+    assert_not homework.reload.first_handled_at.nil?
+    assert homework.reload.state == "in_progress"
+
   end
 
   test "homework solution state change" do
     homework_solution                 = solutions(:homework_solution_one)
-    _state_change_record(homework_solution)
+    check_state_change_record(homework_solution)
   end
 
   test "exercise_solution state change" do
     exercise_solution                    = solutions(:exercise_solution_one)
-    _state_change_record(exercise_solution)
+    check_state_change_record(exercise_solution)
   end
 
   test "homework_solution timestamp" do
     homework_solution                 = solutions(:homework_solution_one)
-    _state_timestamp(homework_solution)
+    check_state_timestamp(homework_solution)
   end
 
-  test "exercise_solutiontimestamp" do
+  test "exercise_solution timestamp" do
     exercise_solution                    = solutions(:exercise_solution_one)
-    _state_timestamp(exercise_solution)
+    check_state_timestamp(exercise_solution)
   end
 
-  private
-  def _state_timestamp(state_object)
-    assert state_object.state    == "new"
-    assert state_object.first_handled_at.nil?
-    assert state_object.last_handled_at.nil?
-    state_object.state_event     = :handle
-    state_object.save
-    assert state_object.valid?,state_object.errors.full_messages
-    assert_not state_object.reload.first_handled_at.nil?
-    assert_not state_object.reload.last_handled_at.nil?
-    assert     state_object.completed_at.nil?
-
-    state_object.state_event    = :complete
-    ###如下这句话只是为了防止completed状态下出错
-    state_object.corrections_count = 10
-    assert state_object.valid?,state_object.errors.full_messages
-    state_object.save
-    assert state_object.reload.state   == "completed",state_object.state
-    assert_not state_object.completed_at.nil?
 
 
-    ## completed之后继续处理
-    state_object.state_event    = :handle
-    state_object.save
-    state_object.reload
-    assert state_object.last_handled_at.to_f > state_object.first_handled_at.to_f
-
-    ## 记录redo时间
-    assert state_object.last_redone_at.nil?
-    state_object.state_event       = :complete
-    ###如下这句话只是为了防止completed状态下出错
-    state_object.corrections_count = 10
-    state_object.save
-    state_object.state_event    = :redo
-    state_object.save
-    assert_not state_object.last_redone_at.nil?
-  end
-  def _state_change_record(state_object)
-    state_object.state                      = :in_progress
-    teacher1                                = users(:teacher1)
-    state_object.last_operator              = teacher1
-    state_object.state_event                = :complete
-    ###如下这句话只是为了防止completed状态下出错
-    state_object.corrections_count          = 10
-    assert_difference 'CustomizedCourseStateChangeRecord.count',1 do
-      assert_difference 'CustomizedCourseActionNotification.count',2 do
-        state_object.save
-      end
-    end
-
-    a = CustomizedCourseStateChangeRecord.all.order(:created_at => :desc).first
-    assert a.operator.id           == teacher1.id
-    assert a.actionable            == state_object
-    a.desc
-  end
 end

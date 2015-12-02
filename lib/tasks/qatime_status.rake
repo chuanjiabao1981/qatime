@@ -34,13 +34,43 @@ task :qatime_status => :environment do
   end
 
   Solution.all.each do |s|
-    if not s.first_handle_created_at.nil?
+    if not s.first_handle_created_at.nil? and s.first_handled_at.nil?
       s.first_handled_at      = s.first_handle_created_at
       s.last_handled_at       = s.last_handle_created_at
       s.completed_at          = s.last_handle_created_at
       s.state                 = :completed
       s.save
     end
+  end
+
+  Examination.all.each do |e|
+    e.last_operator_id = e.teacher_id
+    e.save
+  end
+
+  Examination.all.each do |e|
+    solutions = e.solutions.order(:created_at => :asc)
+    solutions.each do |s|
+      puts s.created_at
+    end
+    if solutions.length > 0
+      e.first_handled_at  = solutions[0].created_at
+      e.last_handled_at   = solutions[-1].created_at
+      e.completed_at      = solutions[-1].created_at
+      all_competed        = true
+      solutions.each do |solution|
+        if not solution.completed?
+          all_competed    = false
+        end
+      end
+      if all_competed
+        e.state             = :completed
+      else
+        e.state             = :in_progress
+      end
+      e.save
+    end
+
 
   end
 end

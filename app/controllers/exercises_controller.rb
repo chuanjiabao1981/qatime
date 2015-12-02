@@ -3,8 +3,10 @@ class ExercisesController < ApplicationController
   layout "application"
   include QaFilesHelper
   include QaStateMachine
+  include QaCommonFilter
   __event_actions(Examination,:exercise)
-  
+  __add_last_operator_to_param(:exercise)
+
   def new
     @exercise = @customized_tutorial.exercises.build
   end

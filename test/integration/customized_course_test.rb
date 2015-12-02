@@ -1,4 +1,8 @@
+require 'integration/shared/qa_common_state_test'
+
 class CustomizedCourseIntegrateTest < LoginTestBase
+
+  include QaCommonStateTest
 
   def setup
     super
@@ -17,10 +21,25 @@ class CustomizedCourseIntegrateTest < LoginTestBase
   end
 
   test "action record" do
-    # action_record_page(@student_session,action_records_customized_course_path(@customized_course))
+    action_record_page(@student_session,action_records_customized_course_path(@customized_course))
     action_record_page(@teacher_session,action_records_customized_course_path(@customized_course))
   end
+
+  test "homeworks page" do
+    homeworks_page(@teacher,@teacher_session,homeworks_customized_course_path(@customized_course))
+    homeworks_page(@student,@student_session,homeworks_customized_course_path(@customized_course))
+  end
   private
+  def homeworks_page(user,user_session,url)
+    user_session.get url #homeworks_customized_course_path(@customized_course)
+    user_session.assert_response :success
+
+    @homeworks    = Examination.by_customized_course_work.by_customized_course_id(@customized_course.id)
+    @homeworks.each do |h|
+      user_session.assert_select 'a[href=?]', send("#{h.model_name.singular_route_key}_path",h),1
+      check_state_change_link(user,user_session,h,false)
+    end
+  end
   def action_record_page(user_session,action_record_path)
     customized_course_action_record_for_tutorial_create                     = action_records(:customized_course_action_record_for_tutorial_create)
     customized_course_action_record_for_exercise_create                     = action_records(:customized_course_action_record_for_exercise_create)

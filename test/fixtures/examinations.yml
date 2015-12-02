@@ -12,6 +12,7 @@ homework1:
   token: teacher1_customized_course_homewoker_one
   type: Homework
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  last_operator: teacher1
 
 
 # column: value
@@ -56,6 +57,8 @@ exercise_one:
   type: Exercise
   customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  last_operator: teacher1
+
 
 
 exercise_fee_one:

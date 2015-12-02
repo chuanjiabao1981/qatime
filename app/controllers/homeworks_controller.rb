@@ -3,7 +3,10 @@ class HomeworksController < ApplicationController
   layout "application"
   include QaFilesHelper
   include QaStateMachine
+  include QaCommonFilter
   __event_actions(Examination,:homework)
+
+  __add_last_operator_to_param(:homework)
 
   def new
     @homework = @customized_course.homeworks.build

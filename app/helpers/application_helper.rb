@@ -155,4 +155,40 @@ module ApplicationHelper
       "success"
     end
   end
+
+  def completed_duration(object)
+    a={
+        timeout: {
+            style: 'color: red',
+            content: '批改时间超过48小时'
+
+        },
+        in_time:{
+            style: 'color: #B00100',
+            content: '在48小时内完成批改'
+        },
+        good: {
+            style:'color: green',
+            content: '在24小时完成批改'
+        }
+    }
+    if object.state == "completed" and not object.completed_at.nil?
+      duration          = (object.completed_at - object.created_at) / 3600.0
+      duration_type     = :timeout
+      if duration <= 24
+        duration_type   = :good
+      elsif duration <= 48
+        duration_type   = :on_time
+      end
+      _duration_tag(a,duration_type)
+    end
+  end
+
+  def _duration_tag(a,duration_type)
+    if a[duration_type]
+      content_tag :span ,style: a[duration_type][:style] do
+        a[duration_type][:content]
+      end
+    end
+  end
 end

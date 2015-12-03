@@ -14,7 +14,8 @@ module QaCommonState
         before_transition :on => :handle,       :do => :set_last_handled_at
         before_transition :on => :redo,         :do => :set_last_redone_at
         event :handle do
-          transition any - :completed => :in_progress
+          # 这里不排除completed主要是考虑到如果老师关闭了solution，但是学生还是可以继续提交作业的
+          transition any  => :in_progress
         end
 
         if not completed_validation.nil?

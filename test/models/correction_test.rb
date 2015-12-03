@@ -1,8 +1,11 @@
 require 'test_helper'
 require 'tally_test_helper'
+require 'models/shared/utils/qa_test_factory'
 
 class CorrectionTest < ActiveSupport::TestCase
  include TallyTestHelper
+
+ include QaTestFactory::QaCorrectionFactory
 
 
   def setup
@@ -156,10 +159,7 @@ class CorrectionTest < ActiveSupport::TestCase
 
   test 'create homework correction' do
     homework_solution               = solutions(:homework_solution_one)
-    homework_correction             = homework_solution.homework_corrections.build(content: "!234134asdasdfads",
-                                                                                   last_operator_id: homework_solution.examination.teacher.id
-                                                                                  )
-    homework_correction.teacher     = homework_solution.examination.teacher
+    homework_correction             = correction_build(homework_solution)
     assert homework_correction.valid?
     assert homework_correction.homework_solution.valid?
     assert homework_correction.homework.valid?
@@ -167,8 +167,8 @@ class CorrectionTest < ActiveSupport::TestCase
     assert_difference 'HomeworkCorrection.count',1 do
       assert_difference 'homework_solution.reload.corrections_count',1 do
         assert_difference 'homework_correction.homework.reload.corrections_count',1 do
-          assert_difference 'CustomizedCourseActionRecord.count',1 do
-            assert_difference 'CustomizedCourseActionNotification.count',2 do
+          assert_difference 'CustomizedCourseActionRecord.count',2 do
+            assert_difference 'CustomizedCourseActionNotification.count',4 do
               homework_correction.save
             end
           end
@@ -185,14 +185,8 @@ class CorrectionTest < ActiveSupport::TestCase
 
   test 'create exercise correction' do
     exercise_solution             = solutions(:exercise_solution_one)
-    exercise_correction           = exercise_solution.exercise_corrections.build(content: "13445363456",
-                                                                                 last_operator_id: exercise_solution.examination.teacher.id
-                                                                                )
+    exercise_correction             = correction_build(exercise_solution)
 
-    assert exercise_solution.state == "new"
-
-
-    exercise_correction.teacher   = exercise_solution.examination.teacher
     assert exercise_correction.valid?
     assert exercise_correction.exercise_solution.valid?
     assert exercise_correction.exercise.valid?

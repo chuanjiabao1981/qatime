@@ -10,7 +10,7 @@
 <%if allow? :corrections,:create , @solution%>
 
 <div class="qa_box">
-  <% if @solution.can_handle? %>
+  <% if not @solution.completed? %>
     <div class="box_header qa_cell">
         <strong><%= @correction.model_name.human%></strong>
     </div>

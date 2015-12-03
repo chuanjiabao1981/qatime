@@ -1,9 +1,12 @@
 require 'test_helper'
 require 'models/shared/qa_common_state_test'
+require 'models/shared/utils/qa_test_factory'
 
 class SolutionTest < ActiveSupport::TestCase
 
   include QaCommonStateTest
+  include QaTestFactory::QaCorrectionFactory
+  include QaTestFactory::QaSolutionFactory
   self.use_transactional_fixtures = true
 
   test 'state 1' do
@@ -43,11 +46,7 @@ class SolutionTest < ActiveSupport::TestCase
 
   test "create exercise solution" do
     exercise                    = examinations(:exercise_one)
-    student1                    = users(:student1)
-    exercise_solution           = exercise.exercise_solutions.build(title: "123asdfds",
-                                                                    content: "QERQWADFA",
-                                                                    last_operator_id: student1.id )
-    exercise_solution.student   = exercise.customized_course.student
+    exercise_solution           = solution_build(exercise)
     assert exercise_solution.valid?
     assert exercise_solution.customized_tutorial.valid?
     assert exercise_solution.customized_course.valid?
@@ -65,9 +64,7 @@ class SolutionTest < ActiveSupport::TestCase
 
   test "create homework solution" do
     homework                        = examinations(:homework1)
-    homework_solution               = homework.homework_solutions.build(title: "aodkofdo",content: "0ookmmn")
-    homework_solution.student       = homework.customized_course.student
-    homework_solution.last_operator = homework.customized_course.student
+    homework_solution               = solution_build(homework)
     assert homework_solution.valid?
     assert homework_solution.customized_course.valid?
     assert homework.state == "new"
@@ -99,16 +96,31 @@ class SolutionTest < ActiveSupport::TestCase
     check_state_change_record(exercise_solution)
   end
 
-  test "homework_solution timestamp" do
-    homework_solution                 = solutions(:homework_solution_one)
-    check_state_timestamp(homework_solution)
+
+  test "exercise_solution state change timestamps" do
+    exercise_solution                    = solutions(:exercise_solution_two)
+    state_change(exercise_solution)
   end
 
-  test "exercise_solution timestamp" do
-    exercise_solution                    = solutions(:exercise_solution_one)
-    check_state_timestamp(exercise_solution)
+
+  test "homework_solution state change timestamps" do
+    homework_solution                   = solutions(:homework_solution_two)
+    state_change(homework_solution)
   end
 
+  private
+
+  def state_change(s)
+    ##批改
+    check_first_handle_timestamp s do |solution|
+      correction_create solution
+    end
+    ##批改结束
+    check_complete_timestamp(s)
+
+    ##继续批改(redo)
+    check_redo_timestamp(s)
+  end
 
 
 end

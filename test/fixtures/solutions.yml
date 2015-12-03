@@ -55,6 +55,16 @@ exercise_solution_one:
   last_operator: student1
   corrections_count: 1
 
+exercise_solution_two:
+  title: exercise solution test title 2
+  content: exercise soltuion test content 2
+  exercise: exercise_one
+  student: student1
+  type: ExerciseSolution
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial1
+  last_operator: student1
+
 solution_for_homework_correction_fee:
   title: solution for homework correction fee
   content: solution for homework correction fee

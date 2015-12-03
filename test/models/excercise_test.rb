@@ -1,10 +1,11 @@
 require 'test_helper'
 require 'models/shared/qa_common_state_test'
-
+require 'models/shared/utils/qa_test_factory'
 
 class ExcerciseTest < ActiveSupport::TestCase
 
   include QaCommonStateTest
+  include QaTestFactory::QaSolutionFactory
   self.use_transactional_fixtures = true
 
   test "build" do
@@ -32,18 +33,17 @@ class ExcerciseTest < ActiveSupport::TestCase
     check_state_change_record(exercise)
   end
 
-  test "exercise timestamp" do
-    exercise                 = examinations(:exercise_for_state_change_success)
-    check_state_timestamp(exercise)
-  end
-
   test "exercise state change timestamp" do
     exercise                 = examinations(:exercise_for_state_change)
-    student                  = exercise.customized_course.student
     check_first_handle_timestamp exercise do |e|
-      solution = e.exercise_solutions.build(title: 111,content: 2222,student: student,last_operator: student)
-      assert solution.save
+      solution_create e,completed: true
     end
+    exercise.exercise_solutions.each do |e|
+      puts e.to_json
+    end
+    check_complete_timestamp exercise
   end
+
+
 
 end

@@ -1,14 +1,17 @@
 module QaTestFactory
+  def QaTestFactory.random_str
+    (0...50).map { ('a'..'z').to_a[rand(26)] }.join
+  end
   module QaCorrectionFactory
 
-    def correction_build(solution)
+    def QaCorrectionFactory.correction_build(solution)
       if solution.instance_of?(HomeworkSolution)
-        correction = solution.homework_corrections.build(content: random_str,
+        correction = solution.homework_corrections.build(content: QaTestFactory.random_str,
                                                    last_operator: solution.examination.teacher,
                                                    teacher: solution.examination.teacher
                                                     )
       elsif solution.instance_of?(ExerciseSolution)
-        correction = solution.exercise_corrections.build(content: random_str,
+        correction = solution.exercise_corrections.build(content: QaTestFactory.random_str,
                                                    last_operator: solution.examination.teacher,
                                                    teacher: solution.examination.teacher
         )
@@ -16,7 +19,7 @@ module QaTestFactory
       correction
     end
 
-    def correction_create(solution)
+    def QaCorrectionFactory.correction_create(solution)
       correction = correction_build(solution)
       correction.save!
       correction
@@ -24,17 +27,17 @@ module QaTestFactory
   end
 
   module QaSolutionFactory
-    def solution_build(examination)
+    def QaSolutionFactory.solution_build(examination)
       student = examination.customized_course.student
       if examination.instance_of?(Homework)
-        solution  = examination.homework_solutions.build(title: random_str,
-                                                         content: random_str,
+        solution  = examination.homework_solutions.build(title: QaTestFactory.random_str,
+                                                         content: QaTestFactory.random_str,
                                                          student: student,
                                                          last_operator: student
                                                         )
       elsif examination.instance_of?(Exercise)
-        solution  = examination.exercise_solutions.build(title: random_str,
-                                                         content: random_str,
+        solution  = examination.exercise_solutions.build(title: QaTestFactory.random_str,
+                                                         content: QaTestFactory.random_str,
                                                          student: student,
                                                          last_operator: student
                                                         )
@@ -42,13 +45,15 @@ module QaTestFactory
       solution
     end
 
-    def solution_create(examination,opt={})
+    def QaSolutionFactory.solution_create(examination,opt={})
       solution = solution_build(examination)
-      if opt[:completed]
-        QaCorrectionFactory::correction_create(solution)
-        solution.state_event = :complete
-      end
       solution.save!
+      if opt[:completed]
+        QaCorrectionFactory.correction_create(solution)
+        solution.reload
+        solution.state_event = :complete
+        solution.save!
+      end
       solution
     end
   end

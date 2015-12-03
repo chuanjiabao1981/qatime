@@ -1,11 +1,12 @@
 require 'test_helper'
 require 'models/shared/qa_common_state_test'
 require 'models/shared/utils/qa_test_factory'
+require 'models/shared/qa_examination_test'
 
 class ExcerciseTest < ActiveSupport::TestCase
 
   include QaCommonStateTest
-  include QaTestFactory::QaSolutionFactory
+  include QaExaminationTest
   self.use_transactional_fixtures = true
 
   test "build" do
@@ -33,15 +34,44 @@ class ExcerciseTest < ActiveSupport::TestCase
     check_state_change_record(exercise)
   end
 
-  test "exercise state change timestamp" do
+  test "exercise state change process" do
     exercise                 = examinations(:exercise_for_state_change)
-    check_first_handle_timestamp exercise do |e|
-      solution_create e,completed: true
-    end
-    exercise.exercise_solutions.each do |e|
-      puts e.to_json
-    end
-    check_complete_timestamp exercise
+    check_examination_state_change_process(exercise)
+    # check_first_handle_timestamp exercise do |e|
+    #   QaTestFactory::QaSolutionFactory.solution_create e,completed: true
+    # end
+    #
+    # check_complete_timestamp exercise
+    #
+    # check_redo_timestamp exercise
+    # #测试completed后再进行handle
+    # #exercise 要处于in_progress状态
+    # check_complete_timestamp exercise
+    # check_handle_timestamp exercise do |e|
+    #   QaTestFactory::QaSolutionFactory.solution_create e,completed: false
+    # end
+  end
+
+
+  test "exercise cant complete 1" do
+    #没有solution的时候
+    exercise                 = examinations(:exercise_for_state_change)
+    assert exercise.solutions.length == 0
+    exercise.state_event     = :complete
+    exercise.valid?
+    assert exercise.errors.added? :base,:cant_complete_solutions_zero
+  end
+
+  test "exercise cant complete 2" do
+    #有solution，但是状态不是complete
+    exercise                 = examinations(:exercise_for_state_change)
+    assert exercise.solutions.length == 0
+    QaTestFactory::QaSolutionFactory.solution_create exercise,completed: false
+    exercise.reload
+    exercise.state_event     = :complete
+    exercise.valid?
+    puts exercise.errors.values
+    assert exercise.errors.added? :base,:cant_complete_solutions_not_complete
   end
 
 

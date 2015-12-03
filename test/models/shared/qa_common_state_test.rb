@@ -33,10 +33,10 @@ module QaCommonStateTest
 
   def check_handle_timestamp(state_object,&block)
     yield state_object
+    state_object.reload
     assert state_object.valid?,state_object.errors.full_messages
     assert_not state_object.reload.first_handled_at.nil?
     assert_not state_object.reload.last_handled_at.nil?
-    puts state_object.to_json
     assert state_object.reload.state   == "in_progress"
   end
 

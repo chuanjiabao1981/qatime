@@ -15,3 +15,10 @@ cn:
     attributes:
       examination:
         solution: 作业
+    errors:
+      models:
+        examination:
+          attributes:
+            base:
+              cant_complete_solutions_zero: 学生还未提交过作业，所以不可进入[已完成]状态
+              cant_complete_solutions_not_complete: 还有学生提交的作业没有[批改完]，所以不可进入[已完成]状态

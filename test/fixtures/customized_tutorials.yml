@@ -18,6 +18,7 @@ customized_tutorial1:
   title: aaabbbcccdddeeeddd
   token: teacher1_customize_tutorial_video
   status: open
+  last_operator: teacher1
   teacher_price: 54
   platform_price: 0
 
@@ -53,6 +54,7 @@ customized_tutorial_tally_<%= i %>:
   status: open
   teacher_price: 54
   platform_price: 6
+  last_operator: teacher_tally
 <% end %>
 
 # 5 closed
@@ -66,6 +68,7 @@ customized_tutorial_tally_<%= i %>:
   status: closed
   teacher_price: 54
   platform_price: 6
+  last_operator: teacher_tally
 <% end %>
 
 customized_tutorial_teacher2:

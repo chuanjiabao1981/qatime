@@ -165,8 +165,8 @@ class CorrectionTest < ActiveSupport::TestCase
     assert_difference 'HomeworkCorrection.count',1 do
       assert_difference 'homework_solution.reload.corrections_count',1 do
         assert_difference 'homework_correction.homework.reload.corrections_count',1 do
-          assert_difference 'CustomizedCourseActionRecord.count',2 do
-            assert_difference 'CustomizedCourseActionNotification.count',4 do
+          assert_difference 'CustomizedCourseActionRecord.count',1 do
+            assert_difference 'CustomizedCourseActionNotification.count',2 do
               homework_correction.save
             end
           end
@@ -194,8 +194,8 @@ class CorrectionTest < ActiveSupport::TestCase
     assert_difference 'ExerciseCorrection.count',1 do
       assert_difference 'exercise_correction.exercise_solution.reload.corrections_count',1 do
         assert_difference 'exercise_correction.exercise.reload.corrections_count',1 do
-          assert_difference 'CustomizedCourseActionRecord.count',2 do ###这里是由于状态改变所有多了2个记录
-            assert_difference 'CustomizedCourseActionNotification.count',4 do ###这里是由于状态改变所有多发了2个消息
+          assert_difference 'CustomizedCourseActionRecord.count',1 do
+            assert_difference 'CustomizedCourseActionNotification.count',2 do
               exercise_correction.save
             end
           end

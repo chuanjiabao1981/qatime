@@ -62,7 +62,6 @@ class CustomizedCoursesController < ApplicationController
   end
 
   def action_records
-    # @action_records = @customized_course.customized_course_action_records.paginate(page: params[:page])
     @action_records = ActionRecord.where(customized_course_id: @customized_course).order(created_at: :desc).paginate(page: params[:page])
   end
   private

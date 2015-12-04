@@ -37,15 +37,20 @@ module QaCommonState
         end
 
         after_transition do |state_object,transition|
-
-          a = state_object.customized_course_state_change_records.build(
-              name: :state_change,
-              from: transition.from,
-              to: transition.to,
-              event: transition.event,
-              operator_id: state_object.last_operator.id
-          )
-          a.save
+          # 因为handle都有专门的对象，所以不需要记录这个事件的状态
+          # correction的创建对应solutions的handle
+          # solution的撞见对应examination的handle
+          if transition.event != :handle
+            # puts "...........+#{transition.event}"
+            a = state_object.customized_course_state_change_records.build(
+                name: :state_change,
+                from: transition.from,
+                to: transition.to,
+                event: transition.event,
+                operator_id: state_object.last_operator.id
+            )
+            a.save
+          end
         end
       end
 

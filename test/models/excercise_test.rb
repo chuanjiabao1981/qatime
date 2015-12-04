@@ -53,5 +53,11 @@ class ExcerciseTest < ActiveSupport::TestCase
   end
 
 
+  test "exercise complete to in progress" do
+    exercise                 = examinations(:exercise_for_state_change)
+    check_examination_complete_change(exercise)
+  end
+
+
 
 end

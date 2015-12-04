@@ -15,7 +15,8 @@ class Solution < ActiveRecord::Base
     end
   end
 
-  __create_state_machine(SolutionCompletedValidator)
+
+  __create_state_machine(SolutionCompletedValidator,"examination")
 
   validates_presence_of :last_operator
 
@@ -42,7 +43,6 @@ class Solution < ActiveRecord::Base
   scope           :by_customized_course_solution, lambda {where("type = ? or type = ?", HomeworkSolution.to_s,ExerciseSolution.to_s)}
 
 
-  after_create      :__update_examination
 
 
   self.per_page = 10
@@ -67,10 +67,6 @@ class Solution < ActiveRecord::Base
   end
 
 
-  def __update_examination
-    ##因为只在on create调用,所以solution的last_operator和examination的last_operator相同
-    self.examination.update_attributes(last_operator_id: self.last_operator_id,state_event: :handle)
-  end
 
 
 

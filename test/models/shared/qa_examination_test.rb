@@ -19,6 +19,27 @@ module QaExaminationTest
     end
   end
 
+  # 如果examination当前处于completed状态，修改了examination.solution状态到progress
+  # 则examination的状态要处于in_progress
+  def check_examination_complete_change(examination)
+    # 先把examination设置到complete
+    QaTestFactory::QaSolutionFactory.create examination,completed: true
+    examination.reload
+    check_complete_timestamp examination
+
+    # 把solution的状态修改为in_progress
+    if examination.instance_of? Homework
+      solutions = examination.homework_solutions
+    elsif examination.instance_of? Exercise
+      solutions = examination.exercise_solutions
+    end
+    solution    =  solutions.first
+    assert solution.state == "completed"
+
+    check_redo_timestamp solution
+    # 检查examination的状态为in_progress
+    assert examination.reload.state == "in_progress"
+  end
   #examination没有solution的情况
   def check_cant_complete_1(examination)
     assert examination.solutions.length == 0

@@ -48,6 +48,16 @@ homework4:
   type: Homework
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course3) %>
 
+homework_for_state_change:
+  teacher: teacher1
+  student: student1
+  title: homework title for state change
+  content: homework content for state change
+  solutions_count: 0
+  type: Homework
+  last_operator: teacher1
+  state: new
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
 
 exercise_one:
   title: 随堂作业一

@@ -46,6 +46,7 @@ module QaCommonStateTest
     teacher1                                = users(:teacher1)
     state_object.last_operator              = teacher1
     state_object.state_event                = :complete
+    assert state_object.valid?, state_object.errors.full_messages
     assert_difference 'CustomizedCourseStateChangeRecord.count',1 do
       assert_difference 'CustomizedCourseActionNotification.count',2 do
         state_object.save

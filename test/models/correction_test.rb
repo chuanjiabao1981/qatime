@@ -5,8 +5,6 @@ require 'models/shared/utils/qa_test_factory'
 class CorrectionTest < ActiveSupport::TestCase
  include TallyTestHelper
 
- include QaTestFactory::QaCorrectionFactory
-
 
   def setup
     @old =     APP_CONSTANT["price_per_minute"]
@@ -159,7 +157,7 @@ class CorrectionTest < ActiveSupport::TestCase
 
   test 'create homework correction' do
     homework_solution               = solutions(:homework_solution_one)
-    homework_correction             = correction_build(homework_solution)
+    homework_correction             = QaTestFactory::QaCorrectionFactory.build(homework_solution)
     assert homework_correction.valid?
     assert homework_correction.homework_solution.valid?
     assert homework_correction.homework.valid?
@@ -185,7 +183,7 @@ class CorrectionTest < ActiveSupport::TestCase
 
   test 'create exercise correction' do
     exercise_solution             = solutions(:exercise_solution_one)
-    exercise_correction             = correction_build(exercise_solution)
+    exercise_correction           = QaTestFactory::QaCorrectionFactory.build(exercise_solution)
 
     assert exercise_correction.valid?
     assert exercise_correction.exercise_solution.valid?

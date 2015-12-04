@@ -4,7 +4,7 @@ module QaTestFactory
   end
   module QaCorrectionFactory
 
-    def QaCorrectionFactory.correction_build(solution)
+    def QaCorrectionFactory.build(solution)
       if solution.instance_of?(HomeworkSolution)
         correction = solution.homework_corrections.build(content: QaTestFactory.random_str,
                                                    last_operator: solution.examination.teacher,
@@ -19,15 +19,15 @@ module QaTestFactory
       correction
     end
 
-    def QaCorrectionFactory.correction_create(solution)
-      correction = correction_build(solution)
+    def QaCorrectionFactory.create(solution)
+      correction = build(solution)
       correction.save!
       correction
     end
   end
 
   module QaSolutionFactory
-    def QaSolutionFactory.solution_build(examination)
+    def QaSolutionFactory.build(examination)
       student = examination.customized_course.student
       if examination.instance_of?(Homework)
         solution  = examination.homework_solutions.build(title: QaTestFactory.random_str,
@@ -45,11 +45,11 @@ module QaTestFactory
       solution
     end
 
-    def QaSolutionFactory.solution_create(examination,opt={})
-      solution = solution_build(examination)
+    def QaSolutionFactory.create(examination,opt={})
+      solution = build(examination)
       solution.save!
       if opt[:completed]
-        QaCorrectionFactory.correction_create(solution)
+        QaCorrectionFactory.create(solution)
         solution.reload
         solution.state_event = :complete
         solution.save!

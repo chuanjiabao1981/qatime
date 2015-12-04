@@ -5,8 +5,6 @@ require 'models/shared/utils/qa_test_factory'
 class SolutionTest < ActiveSupport::TestCase
 
   include QaCommonStateTest
-  include QaTestFactory::QaCorrectionFactory
-  include QaTestFactory::QaSolutionFactory
   self.use_transactional_fixtures = true
 
   test 'state 1' do
@@ -46,7 +44,7 @@ class SolutionTest < ActiveSupport::TestCase
 
   test "create exercise solution" do
     exercise                    = examinations(:exercise_one)
-    exercise_solution           = solution_build(exercise)
+    exercise_solution           = QaTestFactory::QaSolutionFactory.build(exercise)
     assert exercise_solution.valid?
     assert exercise_solution.customized_tutorial.valid?
     assert exercise_solution.customized_course.valid?
@@ -64,7 +62,7 @@ class SolutionTest < ActiveSupport::TestCase
 
   test "create homework solution" do
     homework                        = examinations(:homework1)
-    homework_solution               = solution_build(homework)
+    homework_solution               = QaTestFactory::QaSolutionFactory.build(homework)
     assert homework_solution.valid?
     assert homework_solution.customized_course.valid?
     assert homework.state == "new"
@@ -113,7 +111,7 @@ class SolutionTest < ActiveSupport::TestCase
   def state_change(s)
     ##批改
     check_first_handle_timestamp s do |solution|
-      correction_create solution
+      QaTestFactory::QaCorrectionFactory.create solution
     end
     ##批改结束
     check_complete_timestamp(s)

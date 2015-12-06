@@ -19,7 +19,10 @@ class TutorialIssueReplyModelTest < ActiveSupport::TestCase
     assert_difference "tutorial_issue_one.reload.replies_count",1 do
       assert_difference "CustomizedCourseActionRecord.count",1 do
         assert_difference "CustomizedCourseActionNotification.count",2 do
-          tutorial_reply     = tutorial_issue_one.tutorial_issue_replies.build({content: "xxxxxxx",author: teacher})
+          tutorial_reply     = tutorial_issue_one.tutorial_issue_replies.build(content: "xxxxxxx",
+                                                                               author: teacher,
+                                                                               last_operator: teacher
+          )
           tutorial_reply.save!
           assert      tutorial_reply.valid?
           assert_not  tutorial_reply.token.nil?

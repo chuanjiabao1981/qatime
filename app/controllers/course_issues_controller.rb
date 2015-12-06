@@ -4,6 +4,9 @@ class CourseIssuesController < ApplicationController
   layout 'application'
   respond_to :html
 
+  include QaCommonFilter
+  __add_last_operator_to_param(:course_issue)
+
   def new
     @course_issue = @customized_course.course_issues.build
   end

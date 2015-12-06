@@ -97,6 +97,7 @@ tutorial_issue_reply_one:
   type: TutorialIssueReply
   teacher_price: 54
   platform_price: 6
+  last_operator: teacher1
 
 tutorial_issue_reply_with_video:
   author: teacher1

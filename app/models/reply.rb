@@ -4,7 +4,6 @@ class Reply < ActiveRecord::Base
   include QaToken
   include ContentValidate
   include QaCustomizedCourseActionRecord
-  include QaCustomizedCourseActionNotification
 
 
 
@@ -13,10 +12,10 @@ class Reply < ActiveRecord::Base
 
   belongs_to        :topic  ,:counter_cache => true,:inverse_of => :replies
   belongs_to        :author, :class_name => "User",:counter_cache => true,:inverse_of => :replies
+  belongs_to        :last_operator,class_name: User
 
 
-
-  validates_presence_of :author,:topic
+  validates_presence_of :author,:topic,:last_operator
 
   self.order_type     = :asc
   self.order_column   = :created_at

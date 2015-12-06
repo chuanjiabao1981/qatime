@@ -5,7 +5,11 @@ class CourseIssueTest < ActiveSupport::TestCase
 
   test "course issue create" do
     customized_course       = customized_courses(:customized_course1)
-    course_issue            = customized_course.course_issues.build(title: "title aSDFASDFA",content:"content IKMUJNYHFG")
+    course_issue            = customized_course.course_issues.build(
+        title: "title aSDFASDFA",
+        content:"content IKMUJNYHFG",
+        last_operator: customized_course.student
+    )
     course_issue.author     = customized_course.teachers.first
     assert course_issue.valid?,course_issue.errors.full_messages
     assert_difference 'CourseIssue.count',1 do

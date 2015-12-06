@@ -7,6 +7,8 @@ class TutorialIssuesController < ApplicationController
   include QaCommonFilter
   __add_last_operator_to_param(:tutorial_issue)
 
+  include QaStateMachine
+  __event_actions(TutorialIssue,:tutorial_issue)
 
 
   def new

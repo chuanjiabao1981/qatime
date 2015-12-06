@@ -7,6 +7,9 @@ class CourseIssuesController < ApplicationController
   include QaCommonFilter
   __add_last_operator_to_param(:course_issue)
 
+  include QaStateMachine
+  __event_actions(CourseIssue,:course_issue)
+
   def new
     @course_issue = @customized_course.course_issues.build
   end

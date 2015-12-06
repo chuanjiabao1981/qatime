@@ -91,8 +91,20 @@ task :qatime_status => :environment do
   end
 
   Topic.all.each do |t|
-    t.last_operator_id = t.author
+    t.last_operator_id = t.author_id
     t.save
+  end
+
+  Topic.all.each do |t|
+    replies = t.replies.order(:created_at => :asc)
+    #Topic只能被Teacher进行回复所以last_operator一定是teacher
+    if replies.length > 0
+      t.first_handled_at  = replies[0].created_at
+      t.last_handled_at   = replies[-1].created_at
+      t.completed_at      = replies[-1].created_at
+      t.state             = :completed
+      t.save!
+    end
   end
 
 end

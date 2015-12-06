@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206105548) do
+ActiveRecord::Schema.define(version: 20151206112442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -574,6 +574,11 @@ ActiveRecord::Schema.define(version: 20151206105548) do
     t.string   "type"
     t.integer  "customized_tutorial_id"
     t.integer  "last_operator_id"
+    t.datetime "first_handled_at"
+    t.datetime "completed_at"
+    t.datetime "last_handled_at"
+    t.datetime "last_redone_at"
+    t.string   "state",                               default: "new"
   end
 
   create_table "users", force: :cascade do |t|

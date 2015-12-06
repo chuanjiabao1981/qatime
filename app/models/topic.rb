@@ -4,7 +4,10 @@ class Topic < ActiveRecord::Base
   include ContentValidate
   include QaCommon
   include QaCustomizedCourseActionRecord
+  include QaCommonState
 
+
+  __create_state_machine
 
 
 

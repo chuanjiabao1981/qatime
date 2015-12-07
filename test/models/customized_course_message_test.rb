@@ -6,7 +6,11 @@ class CustomizedCourseMessageTest < ActiveSupport::TestCase
     teacher                         = users(:teacher1)
     assert customized_course_message_board.valid?
     customized_course_message       =
-        customized_course_message_board.customized_course_messages.build(title: "12342",content: "1234",author: teacher)
+        customized_course_message_board.customized_course_messages.build(title: "12342",
+                                                                         content: "1234",
+                                                                         author: teacher,
+                                                                         last_operator: teacher
+        )
     assert customized_course_message.valid?,customized_course_message.errors.full_messages
     assert_not customized_course_message.customized_course.nil?
     assert_not customized_course_message.token.nil?

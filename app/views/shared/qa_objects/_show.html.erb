@@ -42,6 +42,11 @@
     <% end %>
 
     <div class="operator">
+      <%= render partial: "shared/qa_objects/state_info",
+                 locals: {object_state: qa_object,
+                          use_super_controller: defined?(use_super_controller) ? use_super_controller : false,
+                          remote_link: false
+                 } %>
       <div class="pull-right">
         <%= link_to_edit(qa_object,defined?(use_super_controller) ?  use_super_controller : false)%> &nbsp;
         <%= link_to_destroy(qa_object,defined?(use_super_controller) ?  use_super_controller : false) %>

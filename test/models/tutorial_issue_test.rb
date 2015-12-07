@@ -3,7 +3,11 @@ require 'test_helper'
 class TutorialIssueTest < ActiveSupport::TestCase
   test "tutorial issue create" do
     customized_tutorial       = customized_tutorials(:customized_tutorial1)
-    tutorial_issue            = customized_tutorial.tutorial_issues.build(title: "title aSDFASDFA",content:"content IKMUJNYHFG")
+    tutorial_issue            = customized_tutorial.tutorial_issues.build(
+        title: "title aSDFASDFA",
+        content:"content IKMUJNYHFG",
+        last_operator: customized_tutorial.teacher
+    )
     tutorial_issue.author     = customized_tutorial.teacher
     assert_not tutorial_issue.token.nil?
     assert tutorial_issue.customized_course.valid?

@@ -3,6 +3,9 @@ class TutorialIssueRepliesController < ApplicationController
 
   respond_to :html
   layout 'application'
+  include QaCommonFilter
+  __add_last_operator_to_param(:tutorial_issue_reply)
+
 
   def create
     params[:tutorial_issue_reply][:author_id] = current_user.id

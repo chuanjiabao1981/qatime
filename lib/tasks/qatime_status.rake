@@ -50,9 +50,7 @@ task :qatime_status => :environment do
 
   Examination.all.each do |e|
     solutions = e.solutions.order(:created_at => :asc)
-    solutions.each do |s|
-      puts s.created_at
-    end
+
     if solutions.length > 0
       e.first_handled_at  = solutions[0].created_at
       e.last_handled_at   = solutions[-1].created_at
@@ -70,7 +68,43 @@ task :qatime_status => :environment do
       end
       e.save
     end
-
-
   end
+
+  CustomizedTutorial.all.each do |c|
+    c.last_operator_id = c.teacher_id
+    c.save
+  end
+
+  CustomizedCourseMessage.all.each do |c|
+    c.last_operator_id = c.author_id
+    c.save
+  end
+
+  CustomizedCourseMessageReply.all.each do |c|
+    c.last_operator_id = c.author_id
+    c.save
+  end
+
+  Reply.all.each do |r|
+    r.last_operator = r.author
+    r.save
+  end
+
+  Topic.all.each do |t|
+    t.last_operator_id = t.author_id
+    t.save
+  end
+
+  Topic.all.each do |t|
+    replies = t.replies.order(:created_at => :asc)
+    #Topic只能被Teacher进行回复所以last_operator一定是teacher
+    if replies.length > 0
+      t.first_handled_at  = replies[0].created_at
+      t.last_handled_at   = replies[-1].created_at
+      t.completed_at      = replies[-1].created_at
+      t.state             = :completed
+      t.save!
+    end
+  end
+
 end

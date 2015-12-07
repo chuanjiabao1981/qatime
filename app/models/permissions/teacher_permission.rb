@@ -1,5 +1,7 @@
 module Permissions
   class TeacherPermission < UserPermission
+    STATE_EVENTS = Examination.state_machines[:state].events.map(&:name) - [:handle]
+
     def initialize(user)
       super(user)
       allow :qa_faqs,[:index,:show]
@@ -103,11 +105,11 @@ module Permissions
         customized_course and customized_course.teacher_ids.include?(user.id)
       end
 
-      allow :homeworks,[:show,:edit,:update,:complete,:redo] do |homework|
+      allow :homeworks,[:show,:edit,:update]+STATE_EVENTS do |homework|
         homework and homework.teacher_id == user.id or homework.customized_course.teacher_ids.include?(user.id)
       end
 
-      allow :solutions,[:show,:complete,:redo] do |solution|
+      allow :solutions,[:show]+STATE_EVENTS do |solution|
         solution and solution.examination.response_teachers.include?(user)
       end
 
@@ -124,13 +126,13 @@ module Permissions
         customized_tutorial  and customized_tutorial.teacher_id == user.id
       end
 
-      allow :exercises,[:show,:edit,:update,:complete,:redo] do |exercise|
+      allow :exercises,[:show,:edit,:update]+STATE_EVENTS do |exercise|
         exercise and
             (exercise.teacher_id == user.id or
                 exercise.customized_tutorial.customized_course.teacher_ids.include?(user.id))
       end
 
-      allow :tutorial_issues,[:show] do |tutorial_issue|
+      allow :tutorial_issues,[:show]+STATE_EVENTS do |tutorial_issue|
         tutorial_issue and tutorial_issue.customized_course.teacher_ids.include?(user.id)
       end
 
@@ -141,7 +143,7 @@ module Permissions
         tutorial_issue_reply and tutorial_issue_reply.author_id == user.id
       end
 
-      allow :course_issues,[:show] do |course_issue|
+      allow :course_issues,[:show]+STATE_EVENTS do |course_issue|
         course_issue and course_issue.customized_course.teacher_ids.include?(user.id)
       end
 

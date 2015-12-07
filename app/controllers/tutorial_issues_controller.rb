@@ -4,6 +4,13 @@ class TutorialIssuesController < ApplicationController
   layout 'application'
   respond_to :html
 
+  include QaCommonFilter
+  __add_last_operator_to_param(:tutorial_issue)
+
+  include QaStateMachine
+  __event_actions(TutorialIssue,:tutorial_issue)
+
+
   def new
     @tutorial_issue = @customized_tutorial.tutorial_issues.build
   end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151130214629) do
+ActiveRecord::Schema.define(version: 20151206112442) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -164,6 +164,7 @@ ActiveRecord::Schema.define(version: 20151130214629) do
     t.integer  "author_id"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
+    t.integer  "last_operator_id"
   end
 
   create_table "customized_course_messages", force: :cascade do |t|
@@ -176,6 +177,7 @@ ActiveRecord::Schema.define(version: 20151130214629) do
     t.string   "token"
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false
+    t.integer  "last_operator_id"
   end
 
   create_table "customized_courses", force: :cascade do |t|
@@ -212,6 +214,7 @@ ActiveRecord::Schema.define(version: 20151130214629) do
     t.string   "status",                default: "open", null: false
     t.float    "teacher_price"
     t.float    "platform_price"
+    t.integer  "last_operator_id"
   end
 
   create_table "earning_records", force: :cascade do |t|
@@ -474,6 +477,7 @@ ActiveRecord::Schema.define(version: 20151130214629) do
     t.integer  "customized_tutorial_id"
     t.float    "teacher_price"
     t.float    "platform_price"
+    t.integer  "last_operator_id"
   end
 
   create_table "review_records", force: :cascade do |t|
@@ -568,6 +572,12 @@ ActiveRecord::Schema.define(version: 20151130214629) do
     t.integer  "customized_course_id"
     t.string   "type"
     t.integer  "customized_tutorial_id"
+    t.integer  "last_operator_id"
+    t.datetime "first_handled_at"
+    t.datetime "completed_at"
+    t.datetime "last_handled_at"
+    t.datetime "last_redone_at"
+    t.string   "state",                               default: "new"
   end
 
   create_table "users", force: :cascade do |t|

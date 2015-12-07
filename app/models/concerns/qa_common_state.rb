@@ -2,7 +2,7 @@ module QaCommonState
   extend ActiveSupport::Concern
   class_methods do
 
-    def __create_state_machine(completed_validation,parent=nil)
+    def __create_state_machine(completed_validation=nil,parent=nil)
       include QaCustomizedCourseStateChangeRecord
       state_machine :state, initial: :new do
         transition :in_progress          => :completed,         :on => [:complete]

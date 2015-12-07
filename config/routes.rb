@@ -188,12 +188,24 @@ Qatime::Application.routes.draw do
   end
 
   resources :course_issues do
+    member do
+      Topic.state_machines[:state].events.map(&:name).each do |x|
+        post x
+      end
+    end
+
     resources :course_issue_replies
   end
 
   resources :course_issue_replies
 
   resources :tutorial_issues do
+    member do
+      Topic.state_machines[:state].events.map(&:name).each do |x|
+        post x
+      end
+    end
+
     resources :tutorial_issue_replies
   end
 

@@ -19,7 +19,7 @@
                                        object_state,
                                        use_super_controller: "#{defined?(use_super_controller) ? use_super_controller : false}"),
                                   method: :post ,
-                                  remote: true %>
+                                  remote: defined?(remote_link).nil? ? true : remote_link %>
                     </li>
                 <% end %>
             <% end %>

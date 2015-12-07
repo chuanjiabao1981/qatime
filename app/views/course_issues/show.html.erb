@@ -29,6 +29,24 @@
 <div class="qa_sep_15"></div>
 
 
-<div class="qa_box">
-  <%= render partial: 'shared/replies/form',locals:{topic: @course_issue,reply: @course_issue_reply} %>
-</div>
+<%if allow? :course_issue_replies,:create , @course_issue%>
+
+    <div class="qa_box">
+      <% if not @course_issue.completed? %>
+          <%= render partial: 'shared/replies/form',locals:{topic: @course_issue,reply: @course_issue_reply} %>
+      <% else %>
+          <div style="text-align: center;padding: 20px">
+
+            <%= t("view.topic.cant_handle_html",
+                  topic_name: @course_issue.model_name.human,
+                  topic_state: @course_issue.human_state_name,
+                  topic_event: Topic.human_state_event_name(:handle),
+                  link: link_to(@course_issue.model_name.human,
+                                topics_customized_course_path(@course_issue.customized_course))
+                )
+            %>
+          </div>
+      <% end %>
+    </div>
+
+<% end %>

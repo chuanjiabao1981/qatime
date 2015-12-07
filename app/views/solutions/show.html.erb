@@ -23,7 +23,7 @@
                  solution_state: @solution.human_state_name,
                  solution_event: Solution.human_state_event_name(:handle),
                  link: link_to(@solution.examination.model_name.human,
-                               send("#{@solution.examination.model_name.singular_route_key}_path",@solution.examination))
+                               "##{@solution.model_name.singular_route_key}-state-#{@solution.id}")
           )
           %>
       </div>

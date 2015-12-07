@@ -6,7 +6,10 @@ class MessageReplyTest < ActiveSupport::TestCase
     student                         = users(:student1)
     assert customized_course_message.valid?
     customized_course_message_reply  =
-        customized_course_message.customized_course_message_replies.build(content: "sdafs",author: student)
+        customized_course_message.customized_course_message_replies.build(content: "sdafs",
+                                                                          author: student,
+                                                                          last_operator: student
+        )
     assert customized_course_message_reply.valid?
     assert_not customized_course_message_reply.token.nil?
     assert_not customized_course_message_reply.customized_course.nil?

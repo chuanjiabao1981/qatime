@@ -26,5 +26,5 @@ cn:
               cant_complete: 此作业还未进行批改，不可进入[批改完]状态
   view:
     solution:
-      cant_handle_html: "%{solution_name} 的当前状态为：<strong>%{solution_state}</strong>，所以不可以进行 <strong>%{solution_event}</strong>。
-                         如果想继续<strong>%{solution_event}</strong>，请在%{link}中修改状态后继续 <strong>%{solution_event}</strong>"
+      cant_handle_html: "此<strong>%{solution_name}</strong>的当前状态为：<strong>%{solution_state}</strong>，
+      请修改<strong>%{solution_name}</strong>的状态后再继续<strong>%{solution_event}</strong>"

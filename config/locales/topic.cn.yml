@@ -22,5 +22,5 @@ cn:
               cant_complete: 此问题还未进行解答，不可进入[已解答]状态
   view:
     topic:
-      cant_handle_html: "%{topic_name} 的当前状态为：<strong>%{topic_state}</strong>，所以不可以进行 <strong>%{topic_event}</strong>。
-                         如果想继续<strong>%{topic_event}</strong>，请在%{link}中修改状态后继续 <strong>%{topic_event}</strong>"
+      cant_handle_html: "此%{topic_name}的当前状态为：<strong>%{topic_state}</strong>。
+      请修改<strong>%{topic_name}</strong>状态后再继续<strong>%{topic_event}</strong>。"

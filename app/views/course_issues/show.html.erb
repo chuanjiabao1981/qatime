@@ -45,6 +45,24 @@
                                 topics_customized_course_path(@course_issue.customized_course))
                 )
             %>
+            <script>
+              $(function () {
+                  $('.aaaaaa').on('click',
+                          function(e){
+//                              e.preventDefault();
+                              $("<%="##{@course_issue.model_name.singular_route_key}-state-#{@course_issue.id}"%>")
+                                      .addClass("animated lightSpeedIn")
+                                      .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+                                          $(this).removeClass("lightSpeedIn");
+                                          $(this).removeClass("animated");
+                              });
+                              ;
+                          }
+                  );
+              });
+            </script>
+            <%=link_to "goto","##{@course_issue.model_name.singular_route_key}-state-#{@course_issue.id}",class: "aaaaaa" %>
+
           </div>
       <% end %>
     </div>

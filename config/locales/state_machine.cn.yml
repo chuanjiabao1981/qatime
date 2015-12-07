@@ -13,3 +13,7 @@ cn:
           approve: 通过审核
           reject: 未通过审核
           submit: 提交审核
+  view:
+    handle_state_machine:
+      cant_handle_html: "此%{name}的当前状态为：<strong>%{state}</strong>。
+      请修改<strong>%{link}</strong>状态后再继续<strong>%{event}</strong>。"

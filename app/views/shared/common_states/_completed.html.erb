@@ -1,0 +1,40 @@
+<div class="qa_box">
+  <% if not state_object.completed? %>
+      <%= yield %>
+  <% else %>
+      <div style="text-align: center;padding: 20px">
+        <%= t("view.handle_state_machine.cant_handle_html",
+              name: state_object.model_name.human,
+              state: state_object.human_state_name,
+              event: state_object.class.human_state_event_name(:handle),
+              link: link_to(state_object.model_name.human,
+                            "##{state_object.model_name.singular_route_key}-state-#{state_object.id}",class: "aaaaaa" )
+            )
+        %>
+        <style>
+            <%= "##{state_object.model_name.singular_route_key}-state-#{state_object.id}"%> {
+                -webkit-animation-duration: 1s;
+                -webkit-animation-iteration-count: 4;
+                -moz-animation-duration: 1s;
+                -moz-animation-iteration-count: 4;
+            }
+        </style>
+        <script>
+            $(function () {
+                $('.aaaaaa').on('click',
+                        function(e){
+//                              e.preventDefault();
+                            $("<%="##{state_object.model_name.singular_route_key}-state-#{state_object.id}"%>")
+                                    .addClass("animated wobble")
+                                    .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+                                        $(this).removeClass("wobble");
+                                        $(this).removeClass("animated");
+                                    });
+                            ;
+                        }
+                );
+            });
+        </script>
+      </div>
+  <% end %>
+</div>

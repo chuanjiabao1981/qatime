@@ -102,3 +102,14 @@ exercise_solution_for_state_change_success:
   customized_tutorial: customized_tutorial1
   last_operator: student1
   state: completed
+
+exercise_solution_for_ui_satate_change:
+  title: exercise solution for ui state change title
+  content: exercise content for ui state change content
+  exercise: exercise_for_ui_state_change
+  student: student1
+  type: ExerciseSolution
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial1
+  last_operator: student1
+  state: completed

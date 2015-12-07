@@ -1,0 +1,3 @@
+<% if defined? object_state.state %>
+    <span class="label label-<%=state_css_style(object_state)%>"><%= object_state.human_state_name %></span>
+<% end %>

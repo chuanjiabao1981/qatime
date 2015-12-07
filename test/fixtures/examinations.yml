@@ -111,6 +111,18 @@ exercise_for_state_change:
   last_operator: teacher1
   state: new
 
+exercise_for_ui_state_change:
+  title: exercise for ui state change title
+  content: exercise for ui state change content
+  teacher: teacher1
+  student: student1
+  type: Exercise
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  last_operator: student1
+  state: in_progress
+  solutions_count: 1
+
 
 
 

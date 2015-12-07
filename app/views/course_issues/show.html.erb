@@ -29,42 +29,9 @@
 <div class="qa_sep_15"></div>
 
 
-<%if allow? :course_issue_replies,:create , @course_issue%>
 
-    <div class="qa_box">
-      <% if not @course_issue.completed? %>
-          <%= render partial: 'shared/replies/form',locals:{topic: @course_issue,reply: @course_issue_reply} %>
-      <% else %>
-          <div style="text-align: center;padding: 20px">
-
-            <%= t("view.topic.cant_handle_html",
-                  topic_name: @course_issue.model_name.human,
-                  topic_state: @course_issue.human_state_name,
-                  topic_event: Topic.human_state_event_name(:handle),
-                  link: link_to(@course_issue.model_name.human,
-                                topics_customized_course_path(@course_issue.customized_course))
-                )
-            %>
-            <script>
-              $(function () {
-                  $('.aaaaaa').on('click',
-                          function(e){
-//                              e.preventDefault();
-                              $("<%="##{@course_issue.model_name.singular_route_key}-state-#{@course_issue.id}"%>")
-                                      .addClass("animated lightSpeedIn")
-                                      .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-                                          $(this).removeClass("lightSpeedIn");
-                                          $(this).removeClass("animated");
-                              });
-                              ;
-                          }
-                  );
-              });
-            </script>
-            <%=link_to "goto","##{@course_issue.model_name.singular_route_key}-state-#{@course_issue.id}",class: "aaaaaa" %>
-
-          </div>
-      <% end %>
-    </div>
-
+<% if allow? :course_issue_replies,:create,@course_issue %>
+    <%= render layout: "shared/common_states/completed",locals: {state_object: @course_issue} do %>
+        <%= render partial: 'shared/replies/form',locals:{topic: @course_issue,reply: @course_issue_reply} %>
+    <% end %>
 <% end %>

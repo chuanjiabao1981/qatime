@@ -20,7 +20,3 @@ cn:
           attributes:
             base:
               cant_complete: 此问题还未进行解答，不可进入[已解答]状态
-  view:
-    topic:
-      cant_handle_html: "此%{topic_name}的当前状态为：<strong>%{topic_state}</strong>。
-      请修改<strong>%{topic_name}</strong>状态后再继续<strong>%{topic_event}</strong>。"

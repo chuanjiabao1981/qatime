@@ -1,5 +1,22 @@
+module QaCommonStateUpdateParent
+  extend ActiveSupport::Concern
+
+  class_methods do
+    def __update_parent_state_machine_after_create(parent,event= :handle)
+      define_method :__update_parent_state_machine do
+        ## 以solution为例子
+        ## 因为只在on create调用,所以solution的last_operator和examination的last_operator相同
+        send(parent).update_attributes(last_operator_id: self.last_operator_id,state_event: event)
+      end
+      after_create :__update_parent_state_machine
+    end
+  end
+
+end
+
 module QaCommonState
   extend ActiveSupport::Concern
+  include QaCommonStateUpdateParent
   class_methods do
 
     def __create_state_machine(completed_validation=nil,parent=nil)
@@ -55,12 +72,13 @@ module QaCommonState
       end
 
       if not parent.nil?
-        define_method :__update_parent_first_handle do
-          ## 以solution为例子
-          ## 因为只在on create调用,所以solution的last_operator和examination的last_operator相同
-          send(parent).update_attributes(last_operator_id: self.last_operator_id,state_event: :handle)
-        end
-        after_create :__update_parent_first_handle
+        __update_parent_state_machine_after_create(parent)
+        # define_method :__update_parent_first_handle do
+        #   ## 以solution为例子
+        #   ## 因为只在on create调用,所以solution的last_operator和examination的last_operator相同
+        #   send(parent).update_attributes(last_operator_id: self.last_operator_id,state_event: :handle)
+        # end
+        # after_create :__update_parent_first_handle
       end
     end
   end

@@ -111,6 +111,8 @@ exercise_for_state_change:
   last_operator: teacher1
   state: new
 
+##Begin for ui state change
+
 exercise_for_ui_state_change:
   title: exercise for ui state change title
   content: exercise for ui state change content
@@ -123,7 +125,18 @@ exercise_for_ui_state_change:
   state: in_progress
   solutions_count: 1
 
+homwork_for_ui_state_change:
+  title: homework for ui state change title
+  content: homework for ui state change content
+  teacher: teacher1
+  student: student1
+  type: Homework
+  customized_course: customized_course1
+  last_operator: student1
+  state: in_progress
+  solutions_count: 1
 
+##End for ui state change
 
 
 

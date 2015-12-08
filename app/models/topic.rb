@@ -7,7 +7,14 @@ class Topic < ActiveRecord::Base
   include QaCommonState
 
 
-  __create_state_machine
+  class TopicCompletedValidator < ActiveModel::Validator
+    def validate(record)
+      if record.replies_count == 0
+        record.errors.add :base , :cant_complete
+      end
+    end
+  end
+  __create_state_machine(TopicCompletedValidator)
 
 
 

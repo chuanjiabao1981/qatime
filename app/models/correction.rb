@@ -5,7 +5,8 @@ class Correction < ActiveRecord::Base
   include ContentValidate
   include QaCustomizedCourseActionRecord
   include QaComment
-
+  include QaCommonStateUpdateParent
+  __update_parent_state_machine_after_create(:solution)
 
   belongs_to        :teacher
   belongs_to        :solution,counter_cache: true
@@ -22,7 +23,6 @@ class Correction < ActiveRecord::Base
 
   after_save        :__after_save
   after_destroy     :__after_destroy
-  after_create      :__update_solution
 
   self.per_page       = 5
   self.order_type     = :desc
@@ -50,12 +50,6 @@ class Correction < ActiveRecord::Base
   def __after_destroy
     self.solution.update_handle_infos
   end
-
-  def __update_solution
-    ##因为只在on create调用,所以solution的last_operator和correction的last_operator相同
-    self.solution.update_attributes(last_operator_id: self.last_operator_id,state_event: :handle)
-  end
-
 
 
 end

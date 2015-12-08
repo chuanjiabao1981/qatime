@@ -8,12 +8,6 @@ teacher_reply2:
   content: teacher_reply 2 hahahahahahaha
   topic: teacher_topic1
 
-customized_tutorial_topic1_reply1:
-  author: teacher1
-  content: customized teacher_reply 2 hahahahahahaha
-  topic: customized_tutorial_topic1
-  type:
-
 
 customized_tutorial_topic1_reply2:
   author: student1
@@ -156,6 +150,27 @@ tutorial_issue_reply_for_fee_view:
   teacher_price: 54
   platform_price: 6
 ###End Fee view
+
+
+###Begin for ui state change
+course_issue_reply_for_ui_state_change:
+  content: course issue for ui state change content
+  author: teacher1
+  customized_course: customized_course1
+  type: CourseIssueReply
+  last_operator: student1
+  course_issue: course_issue_for_ui_state_change
+
+tutorial_issue_reply_for_ui_state_change:
+  content: tutorial_issue_reply_for_ui_state_change content
+  author: teacher1
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial1
+  type: TutorialIssueReply
+  last_operator: teacher1
+  tutorial_issue: tutorial_issue_for_ui_state_change
+###End for ui state change
+
 
 
 

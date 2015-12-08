@@ -58,4 +58,27 @@ module QaTestFactory
     end
   end
 
+  module QaIssueReplyFactory
+    def QaIssueReplyFactory.build(issue)
+      teacher = issue.customized_course.teachers.first
+      if issue.instance_of?(TutorialIssue)
+        issue_reply = issue.tutorial_issue_replies.build(content: QaTestFactory.random_str,
+                                                         author: teacher,
+                                                         last_operator: teacher
+        )
+      elsif issue.instance_of?(CourseIssue)
+        issue_reply = issue.course_issue_replies.build(content: QaTestFactory.random_str,
+                                                       author: teacher,
+                                                       last_operator: teacher
+        )
+      end
+      issue_reply
+    end
+    def QaIssueReplyFactory.create(issue)
+      issue_reply = build(issue)
+      issue_reply.save!
+      issue_reply
+    end
+  end
+
 end

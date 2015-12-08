@@ -5,6 +5,9 @@ class Reply < ActiveRecord::Base
   include ContentValidate
   include QaCustomizedCourseActionRecord
 
+  include QaCommonStateUpdateParent
+  __update_parent_state_machine_after_create(:topic)
+
 
 
   cattr_accessor    :order_type,:order_column

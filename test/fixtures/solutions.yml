@@ -103,6 +103,7 @@ exercise_solution_for_state_change_success:
   last_operator: student1
   state: completed
 
+##Begin for ui state change
 exercise_solution_for_ui_satate_change:
   title: exercise solution for ui state change title
   content: exercise content for ui state change content
@@ -113,3 +114,17 @@ exercise_solution_for_ui_satate_change:
   customized_tutorial: customized_tutorial1
   last_operator: student1
   state: completed
+
+homwork_solution_for_ui_state_change:
+  title: homework solution for ui state change title
+  content: homework solution for ui state change content
+  homework: homwork_for_ui_state_change
+  student: student1
+  type: HomeworkSolution
+  customized_course: customized_course1
+  last_operator: student1
+  state: completed
+
+
+
+##End for ui state change

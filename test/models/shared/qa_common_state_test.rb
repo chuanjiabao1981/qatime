@@ -14,9 +14,18 @@ module QaCommonStateTest
 
   def check_complete_timestamp(state_object)
     assert_not state_object.state == "completed"
-    state_object.state_event    = :complete
+    state_object.state_event      = :complete
+    state_object.last_operator    = state_object.last_operator
     assert state_object.valid?,state_object.errors.full_messages
-    state_object.save
+    assert_difference 'CustomizedCourseStateChangeRecord.count',1 do
+      assert_difference 'CustomizedCourseActionNotification.count',2 do
+        state_object.save
+      end
+    end
+    a = CustomizedCourseStateChangeRecord.all.order(:created_at => :desc).first
+    assert a.operator.id           == state_object.last_operator.id
+    assert a.actionable            == state_object
+    a.desc
     assert state_object.reload.state   == "completed",state_object.state
     assert_not state_object.completed_at.nil?
   end
@@ -40,6 +49,12 @@ module QaCommonStateTest
     assert state_object.reload.state   == "in_progress"
   end
 
+
+  def check_cant_complete(state_object)
+    state_object.state_event = :complete
+    assert_not state_object.valid?
+    assert state_object.errors.added? :base,:cant_complete
+  end
 
   def check_state_change_record(state_object)
     state_object.state                      = :in_progress

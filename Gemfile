@@ -108,7 +108,7 @@ group :development,:test do
 end
 
 gem 'rest-client'
-gem 'carrierwave-aliyun'
+gem 'carrierwave-aliyun','0.3.4'
 gem 'unicorn'
 
 gem 'sidekiq'

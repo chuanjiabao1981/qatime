@@ -2,11 +2,13 @@ student_reply1:
   author: student1
   content: student_reply 1 hahahahahahaha
   topic: topic1
+  last_operator: student1
 
 teacher_reply2:
   author: teacher1
   content: teacher_reply 2 hahahahahahaha
   topic: teacher_topic1
+  last_operator: teacher1
 
 
 customized_tutorial_topic1_reply2:
@@ -27,6 +29,8 @@ tutorial_issue_reply_for_tally_<%= i %>:
   status: open
   teacher_price: 54
   platform_price: 6
+  last_operator: teacher_tally
+
 <% end %>
 
 <% 6.upto(10) do |i| %>
@@ -41,6 +45,8 @@ tutorial_issue_reply_for_tally_<%= i %>:
   status: closed
   teacher_price: 54
   platform_price: 6
+  last_operator: teacher_tally
+
 <% end %>
 
 # test CourseIssue replies tally
@@ -56,6 +62,7 @@ course_issue_reply_for_tally_<%= i %>:
   status: open
   teacher_price: 54
   platform_price: 6
+  last_operator: teacher_tally
 <% end %>
 
 <% 6.upto(10) do |i| %>
@@ -69,6 +76,8 @@ course_issue_reply_for_tally_<%= i %>:
   status: closed
   teacher_price: 54
   platform_price: 6
+  last_operator: teacher_tally
+
 <% end %>
 
 #reply_fee_reply:

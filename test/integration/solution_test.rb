@@ -1,9 +1,13 @@
 require 'sidekiq/testing'
+require 'integration/shared/qa_common_state_test'
+
 
 Sidekiq::Testing.inline!
 
 
 class SolutionIntegrateTest < LoginTestBase
+  include QaCommonStateTest
+
   self.use_transactional_fixtures = true
 
 
@@ -161,6 +165,8 @@ class SolutionIntegrateTest < LoginTestBase
     edit_path_count                 = 0
     user_session.get show_path
     user_session.assert_response :success
+
+    check_state_change_link(user,user_session,solution,true)
 
     if user.teacher?
       if solution.can_handle?

@@ -35,10 +35,12 @@ class CustomizedCourseIntegrateTest < LoginTestBase
     user_session.assert_response :success
 
     @homeworks    = Examination.by_customized_course_work.by_customized_course_id(@customized_course.id)
-    @homeworks.each do |h|
-      user_session.assert_select 'a[href=?]', send("#{h.model_name.singular_route_key}_path",h),1
-      check_state_change_link(user,user_session,h,false)
-    end
+    # check_state_change_link(user,user_session,h,false)
+    #
+    # @homeworks.each do |h|
+    #   user_session.assert_select 'a[href=?]', send("#{h.model_name.singular_route_key}_path",h),1
+    #   check_state_change_link(user,user_session,h,false)
+    # end
   end
   def action_record_page(user_session,action_record_path)
     customized_course_action_record_for_tutorial_create                     = action_records(:customized_course_action_record_for_tutorial_create)

@@ -4,6 +4,7 @@ topic1:
   author: student1
 #  teacher: teacher1
   topicable: teacher1_lesson (Lesson)
+  last_operator: student1
 
 teacher_topic1:
   title: xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2
@@ -11,6 +12,8 @@ teacher_topic1:
   author: teacher1
 #  teacher: teacher1
   topicable: teacher1_lesson (Lesson)
+  last_operator: student1
+
 
 customized_tutorial_topic1:
   title: xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2

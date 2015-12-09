@@ -36,6 +36,7 @@ homework3:
   created_at: <%= 10.day.ago %>
   type: Homework
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course3) %>
+  last_operator: teacher1
 
 
 homework4:
@@ -47,6 +48,8 @@ homework4:
   created_at: <%= 10.day.ago %>
   type: Homework
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course3) %>
+  last_operator: teacher1
+
 
 homework_for_state_change:
   teacher: teacher1

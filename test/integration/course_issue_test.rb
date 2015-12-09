@@ -1,11 +1,15 @@
 require 'test_helper'
 
 require 'sidekiq/testing'
+require 'integration/shared/qa_common_state_test'
+
 
 Sidekiq::Testing.inline!
 
 class CourseIssueIntegrateTest < LoginTestBase
   self.use_transactional_fixtures = true
+  include QaCommonStateTest
+
 
   def setup
     @customized_course    = customized_courses(:customized_course1)
@@ -63,6 +67,8 @@ class CourseIssueIntegrateTest < LoginTestBase
         new_course_issue_reply_link_count = 1
       end
     end
+    check_state_change_link(user,user_session,@course_issue_one,false)
+
     user_session.assert_select "a[href=?]",customized_course_path(@course_issue_one.customized_course),1
     user_session.assert_select "form[action=?]",course_issue_course_issue_replies_path(@course_issue_one,anchor:  "new_course_issue_reply"),new_course_issue_reply_link_count
 

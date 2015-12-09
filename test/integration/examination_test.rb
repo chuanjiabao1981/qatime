@@ -202,10 +202,13 @@ class ExaminationIntegrateTest < LoginTestBase
     end
 
     user_session.assert_select 'a[href=?]',send("edit_#{o.model_name.singular_route_key}_path",o),edit_path_count
-    o.solutions.each do |s|
-      check_state_change_link(user,user_session,s,true)
-      user_session.assert_select 'a[href=?]',send("#{s.model_name.singular_route_key}_path",s),1
-    end
+
+    check_state_change_link(user,user_session,o,false)
+
+    # o.solutions.each do |s|
+    #   check_state_change_link(user,user_session,s,true)
+    #   user_session.assert_select 'a[href=?]',send("#{s.model_name.singular_route_key}_path",s),1
+    # end
     new_solution_path = send "new_#{o.model_name.singular_route_key}_#{o.model_name.singular_route_key}_solution_path", o
     user_session.assert_select 'a[href=?]',new_solution_path,new_solution_path_count
 

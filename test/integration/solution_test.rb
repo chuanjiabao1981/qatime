@@ -51,10 +51,8 @@ class SolutionIntegrateTest < LoginTestBase
       # 测试当solution完毕的completed的时候页面的状态
       exercise_solution.state = :completed
       homework_solution.state = :completed
-
-      exercise_solution.save
-      homework_solution.save
-
+      exercise_solution.save!
+      homework_solution.save!
     end
   end
 

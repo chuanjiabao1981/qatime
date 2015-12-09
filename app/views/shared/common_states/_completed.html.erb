@@ -1,5 +1,5 @@
 <div class="qa_box">
-  <% if not state_object.completed? %>
+  <% if state_object.can_handle? %>
       <%= yield %>
   <% else %>
       <div style="text-align: center;padding: 20px">

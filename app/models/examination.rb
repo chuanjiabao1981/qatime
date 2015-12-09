@@ -24,7 +24,7 @@ class Examination < ActiveRecord::Base
       end
     end
   end
-  __create_state_machine(ExaminationCompletedValidator)
+  __create_state_machine(ExaminationCompletedValidator,nil,true)
 
   validates_presence_of :last_operator
 

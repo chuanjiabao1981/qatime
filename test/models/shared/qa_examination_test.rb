@@ -10,6 +10,7 @@ module QaExaminationTest
 
     check_complete_timestamp examination
 
+    assert examination.can_handle?
     check_redo_timestamp examination
     #测试completed后再进行handle
     #exercise 要处于in_progress状态

@@ -116,6 +116,7 @@ class SolutionTest < ActiveSupport::TestCase
     ##批改结束
     check_complete_timestamp(s)
 
+    assert_not s.can_handle?
     ##继续批改(redo)
     check_redo_timestamp(s)
   end

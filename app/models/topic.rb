@@ -5,6 +5,8 @@ class Topic < ActiveRecord::Base
   include QaCommon
   include QaCustomizedCourseActionRecord
   include QaCommonState
+  include QaComment
+
 
 
   class TopicCompletedValidator < ActiveModel::Validator

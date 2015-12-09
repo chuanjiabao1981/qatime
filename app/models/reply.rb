@@ -4,6 +4,8 @@ class Reply < ActiveRecord::Base
   include QaToken
   include ContentValidate
   include QaCustomizedCourseActionRecord
+  include QaComment
+
 
   include QaCommonStateUpdateParent
   __update_parent_state_machine_after_create(:topic)

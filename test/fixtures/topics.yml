@@ -61,6 +61,7 @@ tutorial_issue_one:
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   type: TutorialIssue
   last_operator: student1
+  replies_count: 1
 
 course_issue_one:
   title: 12344
@@ -69,6 +70,8 @@ course_issue_one:
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   type: CourseIssue
   last_operator: student1
+  replies_count: 1
+  state: in_progress
 
 ###Begin state change
 

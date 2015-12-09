@@ -19,7 +19,7 @@ module QaCommonState
   include QaCommonStateUpdateParent
   class_methods do
 
-    def __create_state_machine(completed_validation=nil,parent=nil)
+    def __create_state_machine(completed_validation=nil,parent=nil,any_time_can_handle = false)
       include QaCustomizedCourseStateChangeRecord
       state_machine :state, initial: :new do
         transition :in_progress          => :completed,         :on => [:complete]
@@ -30,9 +30,16 @@ module QaCommonState
         before_transition any  => :completed,    :do => :set_completed_at
         before_transition :on  => :handle,       :do => :set_last_handled_at
         before_transition :on  => :redo,         :do => :set_last_redone_at
-        event :handle do
-          # 这里不排除completed主要是考虑到如果老师关闭了solution，但是学生还是可以继续提交作业的
-          transition any  => :in_progress
+        if any_time_can_handle
+          event :handle do
+            # 这里不排除completed主要是考虑到如果老师关闭了examination，但是学生还是可以继续提交solution
+            transition any  => :in_progress
+          end
+        else
+          event :handle do
+            # 这里排除completed主要是考虑到如果老师关闭了solution，就不再允许correction
+            transition any - :completed => :in_progress
+          end
         end
 
         if not completed_validation.nil?

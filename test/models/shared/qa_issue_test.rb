@@ -12,6 +12,7 @@ module QaIssueTest
 
     check_complete_timestamp issue
 
+    assert_not issue.can_handle?
     check_redo_timestamp issue
 
     check_handle_timestamp issue do

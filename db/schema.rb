@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206112442) do
+ActiveRecord::Schema.define(version: 20151209083108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -478,6 +478,7 @@ ActiveRecord::Schema.define(version: 20151206112442) do
     t.float    "teacher_price"
     t.float    "platform_price"
     t.integer  "last_operator_id"
+    t.integer  "comments_count",                     default: 0
   end
 
   create_table "review_records", force: :cascade do |t|
@@ -578,6 +579,7 @@ ActiveRecord::Schema.define(version: 20151206112442) do
     t.datetime "last_handled_at"
     t.datetime "last_redone_at"
     t.string   "state",                               default: "new"
+    t.integer  "comments_count",                      default: 0
   end
 
   create_table "users", force: :cascade do |t|

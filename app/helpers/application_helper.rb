@@ -178,7 +178,7 @@ module ApplicationHelper
       if duration <= 24
         duration_type   = :good
       elsif duration <= 48
-        duration_type   = :on_time
+        duration_type   = :in_time
       end
       _duration_tag(a,duration_type)
     end

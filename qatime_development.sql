@@ -319,7 +319,8 @@ CREATE TABLE corrections (
     customized_tutorial_id integer,
     examination_id integer,
     teacher_price double precision,
-    platform_price double precision
+    platform_price double precision,
+    last_operator_id integer
 );
 
 
@@ -553,7 +554,8 @@ CREATE TABLE customized_course_message_replies (
     token character varying,
     author_id integer,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    last_operator_id integer
 );
 
 
@@ -594,7 +596,8 @@ CREATE TABLE customized_course_messages (
     customized_course_id integer,
     token character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    last_operator_id integer
 );
 
 
@@ -689,7 +692,8 @@ CREATE TABLE customized_tutorials (
     tutorial_issues_count integer DEFAULT 0,
     status character varying DEFAULT 'open'::character varying NOT NULL,
     teacher_price double precision,
-    platform_price double precision
+    platform_price double precision,
+    last_operator_id integer
 );
 
 
@@ -775,7 +779,12 @@ CREATE TABLE examinations (
     corrections_count integer DEFAULT 0,
     work_type character varying,
     type character varying,
-    state character varying DEFAULT 'new'::character varying
+    state character varying DEFAULT 'new'::character varying,
+    last_operator_id integer,
+    first_handled_at timestamp without time zone,
+    completed_at timestamp without time zone,
+    last_handled_at timestamp without time zone,
+    last_redone_at timestamp without time zone
 );
 
 
@@ -1542,7 +1551,9 @@ CREATE TABLE replies (
     type character varying,
     customized_tutorial_id integer,
     teacher_price double precision,
-    platform_price double precision
+    platform_price double precision,
+    last_operator_id integer,
+    comments_count integer DEFAULT 0
 );
 
 
@@ -1714,7 +1725,11 @@ CREATE TABLE solutions (
     examination_id integer,
     customized_tutorial_id integer,
     state character varying DEFAULT 'new'::character varying,
-    last_operator_id integer
+    last_operator_id integer,
+    first_handled_at timestamp without time zone,
+    completed_at timestamp without time zone,
+    last_handled_at timestamp without time zone,
+    last_redone_at timestamp without time zone
 );
 
 
@@ -1844,7 +1859,14 @@ CREATE TABLE topics (
     topicable_type character varying,
     customized_course_id integer,
     type character varying,
-    customized_tutorial_id integer
+    customized_tutorial_id integer,
+    last_operator_id integer,
+    first_handled_at timestamp without time zone,
+    completed_at timestamp without time zone,
+    last_handled_at timestamp without time zone,
+    last_redone_at timestamp without time zone,
+    state character varying DEFAULT 'new'::character varying,
+    comments_count integer DEFAULT 0
 );
 
 
@@ -2500,25 +2522,10 @@ COPY action_records (id, operator_id, customized_course_id, actionable_type, act
 19	75	3	Solution	26	create	CustomizedCourseActionRecord	2015-10-31 22:29:33.647079	2015-10-31 22:29:33.647079	\N	\N	\N
 20	75	3	Solution	27	create	CustomizedCourseActionRecord	2015-10-31 22:30:17.605048	2015-10-31 22:30:17.605048	\N	\N	\N
 21	76	3	Correction	39	create	CustomizedCourseActionRecord	2015-10-31 22:32:38.350711	2015-10-31 22:32:38.350711	\N	\N	\N
-22	76	3	Comment	76	create	CustomizedCourseActionRecord	2015-10-31 22:57:20.014156	2015-10-31 22:57:20.014156	\N	\N	\N
-23	76	3	Comment	77	create	CustomizedCourseActionRecord	2015-10-31 22:57:49.778692	2015-10-31 22:57:49.778692	\N	\N	\N
-24	76	3	Comment	78	create	CustomizedCourseActionRecord	2015-10-31 22:58:23.000367	2015-10-31 22:58:23.000367	\N	\N	\N
-25	76	3	Comment	79	create	CustomizedCourseActionRecord	2015-10-31 22:58:58.507519	2015-10-31 22:58:58.507519	\N	\N	\N
-26	76	3	Comment	80	create	CustomizedCourseActionRecord	2015-10-31 22:59:42.689845	2015-10-31 22:59:42.689845	\N	\N	\N
-27	76	3	Comment	81	create	CustomizedCourseActionRecord	2015-10-31 23:00:17.488856	2015-10-31 23:00:17.488856	\N	\N	\N
-28	76	3	Comment	82	create	CustomizedCourseActionRecord	2015-10-31 23:02:01.288893	2015-10-31 23:02:01.288893	\N	\N	\N
-29	76	3	Comment	83	create	CustomizedCourseActionRecord	2015-10-31 23:04:35.895684	2015-10-31 23:04:35.895684	\N	\N	\N
-30	76	3	Comment	84	create	CustomizedCourseActionRecord	2015-10-31 23:04:41.22555	2015-10-31 23:04:41.22555	\N	\N	\N
-31	76	3	Comment	85	create	CustomizedCourseActionRecord	2015-10-31 23:04:58.176516	2015-10-31 23:04:58.176516	\N	\N	\N
-32	76	3	Comment	86	create	CustomizedCourseActionRecord	2015-10-31 23:27:07.01278	2015-10-31 23:27:07.01278	\N	\N	\N
-33	76	3	Comment	87	create	CustomizedCourseActionRecord	2015-10-31 23:27:22.841372	2015-10-31 23:27:22.841372	\N	\N	\N
-34	75	3	Comment	88	create	CustomizedCourseActionRecord	2015-10-31 23:33:52.865486	2015-10-31 23:33:52.865486	\N	\N	\N
 35	76	3	Correction	40	create	CustomizedCourseActionRecord	2015-11-01 01:22:32.549603	2015-11-01 01:22:32.549603	\N	\N	\N
-36	76	3	Comment	89	create	CustomizedCourseActionRecord	2015-11-01 01:28:42.439362	2015-11-01 01:28:42.439362	\N	\N	\N
 37	75	3	Topic	75	create	CustomizedCourseActionRecord	2015-11-01 01:31:41.652832	2015-11-01 01:31:41.652832	\N	\N	\N
 38	75	3	Topic	76	create	CustomizedCourseActionRecord	2015-11-01 01:34:18.878969	2015-11-01 01:34:18.878969	\N	\N	\N
 39	76	3	Reply	91	create	CustomizedCourseActionRecord	2015-11-01 01:35:13.446459	2015-11-01 01:35:13.446459	\N	\N	\N
-40	75	3	Comment	90	create	CustomizedCourseActionRecord	2015-11-01 22:47:01.325361	2015-11-01 22:47:01.325361	\N	\N	\N
 41	75	3	Topic	77	create	CustomizedCourseActionRecord	2015-11-03 23:06:02.185789	2015-11-03 23:06:02.185789	\N	\N	\N
 42	75	3	Topic	78	create	CustomizedCourseActionRecord	2015-11-04 23:24:02.396252	2015-11-04 23:24:02.396252	\N	\N	\N
 43	75	3	Reply	92	create	CustomizedCourseActionRecord	2015-11-05 22:21:18.621385	2015-11-05 22:21:18.621385	\N	\N	\N
@@ -2554,6 +2561,19 @@ COPY action_records (id, operator_id, customized_course_id, actionable_type, act
 74	76	3	Reply	98	create	CustomizedCourseActionRecord	2015-11-14 03:33:22.525207	2015-11-14 03:33:22.525207	\N	\N	\N
 75	75	3	Reply	99	create	CustomizedCourseActionRecord	2015-11-14 03:38:21.516273	2015-11-14 03:38:21.516273	\N	\N	\N
 76	75	3	Reply	100	create	CustomizedCourseActionRecord	2015-11-14 03:39:06.946481	2015-11-14 03:39:06.946481	\N	\N	\N
+23	76	3	Comment	77	create	CustomizedCourseCommentRecord	2015-10-31 22:57:49.778692	2015-11-26 21:44:47.115109	\N	\N	\N
+24	76	3	Comment	78	create	CustomizedCourseCommentRecord	2015-10-31 22:58:23.000367	2015-11-26 21:44:47.121772	\N	\N	\N
+25	76	3	Comment	79	create	CustomizedCourseCommentRecord	2015-10-31 22:58:58.507519	2015-11-26 21:44:47.128239	\N	\N	\N
+26	76	3	Comment	80	create	CustomizedCourseCommentRecord	2015-10-31 22:59:42.689845	2015-11-26 21:44:47.144231	\N	\N	\N
+27	76	3	Comment	81	create	CustomizedCourseCommentRecord	2015-10-31 23:00:17.488856	2015-11-26 21:44:47.155571	\N	\N	\N
+28	76	3	Comment	82	create	CustomizedCourseCommentRecord	2015-10-31 23:02:01.288893	2015-11-26 21:44:47.165554	\N	\N	\N
+30	76	3	Comment	84	create	CustomizedCourseCommentRecord	2015-10-31 23:04:41.22555	2015-11-26 21:44:47.179585	\N	\N	\N
+31	76	3	Comment	85	create	CustomizedCourseCommentRecord	2015-10-31 23:04:58.176516	2015-11-26 21:44:47.194473	\N	\N	\N
+32	76	3	Comment	86	create	CustomizedCourseCommentRecord	2015-10-31 23:27:07.01278	2015-11-26 21:44:47.204057	\N	\N	\N
+33	76	3	Comment	87	create	CustomizedCourseCommentRecord	2015-10-31 23:27:22.841372	2015-11-26 21:44:47.215279	\N	\N	\N
+34	75	3	Comment	88	create	CustomizedCourseCommentRecord	2015-10-31 23:33:52.865486	2015-11-26 21:44:47.221942	\N	\N	\N
+36	76	3	Comment	89	create	CustomizedCourseCommentRecord	2015-11-01 01:28:42.439362	2015-11-26 21:44:47.229606	\N	\N	\N
+40	75	3	Comment	90	create	CustomizedCourseCommentRecord	2015-11-01 22:47:01.325361	2015-11-26 21:44:47.245953	\N	\N	\N
 77	75	3	Reply	101	create	CustomizedCourseActionRecord	2015-11-14 03:39:26.745465	2015-11-14 03:39:26.745465	\N	\N	\N
 78	75	3	Reply	102	create	CustomizedCourseActionRecord	2015-11-14 03:39:36.472509	2015-11-14 03:39:36.472509	\N	\N	\N
 79	75	3	Reply	103	create	CustomizedCourseActionRecord	2015-11-14 03:39:58.155115	2015-11-14 03:39:58.155115	\N	\N	\N
@@ -2563,6 +2583,101 @@ COPY action_records (id, operator_id, customized_course_id, actionable_type, act
 83	75	3	Reply	106	create	CustomizedCourseActionRecord	2015-11-14 04:42:25.665682	2015-11-14 04:42:25.665682	\N	\N	\N
 85	76	3	Correction	46	create	CustomizedCourseActionRecord	2015-11-16 23:15:00.65076	2015-11-16 23:15:00.65076	\N	\N	\N
 86	76	3	Correction	47	create	CustomizedCourseActionRecord	2015-11-16 23:15:13.839845	2015-11-16 23:15:13.839845	\N	\N	\N
+22	76	3	Comment	76	create	CustomizedCourseCommentRecord	2015-10-31 22:57:20.014156	2015-11-26 21:44:47.10612	\N	\N	\N
+29	76	3	Comment	83	create	CustomizedCourseCommentRecord	2015-10-31 23:04:35.895684	2015-11-26 21:44:47.172424	\N	\N	\N
+88	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-26 22:01:40.399671	2015-11-26 22:01:40.399671	completed	in_progress	redo
+89	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-26 22:51:28.169599	2015-11-26 22:51:28.169599	in_progress	completed	complete
+90	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-27 23:54:54.143572	2015-11-27 23:54:54.143572	completed	in_progress	redo
+91	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-27 23:54:56.573634	2015-11-27 23:54:56.573634	in_progress	completed	complete
+92	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-28 00:16:52.048065	2015-11-28 00:16:52.048065	completed	in_progress	redo
+93	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-28 00:16:54.353192	2015-11-28 00:16:54.353192	in_progress	completed	complete
+94	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-28 03:18:13.171895	2015-11-28 03:18:13.171895	completed	in_progress	redo
+95	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-28 03:18:14.833952	2015-11-28 03:18:14.833952	in_progress	completed	complete
+96	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-28 10:59:36.844928	2015-11-28 10:59:36.844928	completed	in_progress	redo
+97	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-29 02:15:51.190345	2015-11-29 02:15:51.190345	in_progress	completed	complete
+98	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-29 02:15:54.598019	2015-11-29 02:15:54.598019	completed	in_progress	redo
+99	76	3	Solution	33	state_change	CustomizedCourseStateChangeRecord	2015-11-29 02:16:14.088931	2015-11-29 02:16:14.088931	new	completed	complete
+100	76	3	Solution	32	state_change	CustomizedCourseStateChangeRecord	2015-11-29 02:16:16.714573	2015-11-29 02:16:16.714573	new	completed	complete
+101	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-29 02:47:34.747348	2015-11-29 02:47:34.747348	in_progress	completed	complete
+102	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-29 02:47:37.655824	2015-11-29 02:47:37.655824	completed	in_progress	redo
+103	76	3	Solution	29	state_change	CustomizedCourseStateChangeRecord	2015-11-29 02:47:42.430235	2015-11-29 02:47:42.430235	new	completed	complete
+104	76	3	Solution	29	state_change	CustomizedCourseStateChangeRecord	2015-11-29 02:47:44.683667	2015-11-29 02:47:44.683667	completed	in_progress	redo
+105	76	3	Solution	29	state_change	CustomizedCourseStateChangeRecord	2015-11-29 02:47:47.619939	2015-11-29 02:47:47.619939	in_progress	completed	complete
+106	76	3	Solution	28	state_change	CustomizedCourseStateChangeRecord	2015-11-29 03:36:24.042615	2015-11-29 03:36:24.042615	new	completed	complete
+107	76	3	Solution	26	state_change	CustomizedCourseStateChangeRecord	2015-11-29 03:36:32.292161	2015-11-29 03:36:32.292161	new	completed	complete
+108	76	3	Solution	26	state_change	CustomizedCourseStateChangeRecord	2015-11-29 03:36:42.384847	2015-11-29 03:36:42.384847	completed	in_progress	redo
+109	76	3	Solution	27	state_change	CustomizedCourseStateChangeRecord	2015-11-29 03:46:35.868581	2015-11-29 03:46:35.868581	completed	in_progress	redo
+110	76	3	Solution	27	state_change	CustomizedCourseStateChangeRecord	2015-11-29 03:47:13.837389	2015-11-29 03:47:13.837389	in_progress	completed	complete
+111	76	3	Solution	27	state_change	CustomizedCourseStateChangeRecord	2015-11-29 03:47:15.958285	2015-11-29 03:47:15.958285	completed	in_progress	redo
+112	76	3	Solution	27	state_change	CustomizedCourseStateChangeRecord	2015-11-29 03:47:18.386066	2015-11-29 03:47:18.386066	in_progress	completed	complete
+113	76	3	Solution	27	state_change	CustomizedCourseStateChangeRecord	2015-11-29 03:47:19.840685	2015-11-29 03:47:19.840685	completed	in_progress	redo
+114	76	3	Solution	33	state_change	CustomizedCourseStateChangeRecord	2015-11-29 03:55:34.485452	2015-11-29 03:55:34.485452	completed	in_progress	redo
+115	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-29 03:58:48.311602	2015-11-29 03:58:48.311602	in_progress	completed	complete
+116	76	3	Solution	28	state_change	CustomizedCourseStateChangeRecord	2015-11-29 04:02:50.583349	2015-11-29 04:02:50.583349	completed	in_progress	redo
+117	76	3	Solution	32	state_change	CustomizedCourseStateChangeRecord	2015-11-29 07:55:24.434899	2015-11-29 07:55:24.434899	completed	in_progress	redo
+118	76	3	Solution	29	state_change	CustomizedCourseStateChangeRecord	2015-11-29 07:58:48.114295	2015-11-29 07:58:48.114295	completed	in_progress	redo
+119	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-29 21:30:52.009604	2015-11-29 21:30:52.009604	completed	in_progress	redo
+120	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-29 22:38:30.451304	2015-11-29 22:38:30.451304	completed	in_progress	redo
+121	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-11-29 22:49:44.298488	2015-11-29 22:49:44.298488	completed	in_progress	redo
+122	76	3	Correction	48	create	CustomizedCourseActionRecord	2015-11-29 22:50:07.162848	2015-11-29 22:50:07.162848	\N	\N	\N
+123	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-11-29 22:50:07.266454	2015-11-29 22:50:07.266454	in_progress	in_progress	handle
+124	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-29 22:51:35.404431	2015-11-29 22:51:35.404431	in_progress	completed	complete
+125	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-29 22:57:35.612938	2015-11-29 22:57:35.612938	completed	in_progress	redo
+126	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-29 22:57:37.830418	2015-11-29 22:57:37.830418	in_progress	completed	complete
+127	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-30 21:06:55.781252	2015-11-30 21:06:55.781252	completed	in_progress	redo
+128	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-30 21:07:00.884662	2015-11-30 21:07:00.884662	in_progress	completed	complete
+129	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-30 21:07:56.96845	2015-11-30 21:07:56.96845	completed	in_progress	redo
+130	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-11-30 21:08:00.137463	2015-11-30 21:08:00.137463	in_progress	completed	complete
+131	76	3	Examination	35	state_change	CustomizedCourseStateChangeRecord	2015-11-30 22:09:48.528813	2015-11-30 22:09:48.528813	completed	in_progress	redo
+132	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-12-01 22:12:03.266422	2015-12-01 22:12:03.266422	completed	in_progress	redo
+133	76	3	Examination	35	state_change	CustomizedCourseStateChangeRecord	2015-12-01 22:12:22.413874	2015-12-01 22:12:22.413874	in_progress	completed	complete
+134	76	3	Examination	35	state_change	CustomizedCourseStateChangeRecord	2015-12-01 22:12:25.407932	2015-12-01 22:12:25.407932	completed	in_progress	redo
+135	76	3	Examination	35	state_change	CustomizedCourseStateChangeRecord	2015-12-01 22:12:33.272486	2015-12-01 22:12:33.272486	in_progress	completed	complete
+136	76	3	Examination	35	state_change	CustomizedCourseStateChangeRecord	2015-12-01 23:09:00.693054	2015-12-01 23:09:00.693054	completed	in_progress	redo
+137	76	3	Examination	33	state_change	CustomizedCourseStateChangeRecord	2015-12-01 23:09:03.251442	2015-12-01 23:09:03.251442	new	completed	complete
+138	76	3	Examination	33	state_change	CustomizedCourseStateChangeRecord	2015-12-01 23:09:05.188893	2015-12-01 23:09:05.188893	completed	in_progress	redo
+139	76	3	Examination	25	state_change	CustomizedCourseStateChangeRecord	2015-12-01 23:21:32.719215	2015-12-01 23:21:32.719215	in_progress	completed	complete
+140	76	3	Examination	24	state_change	CustomizedCourseStateChangeRecord	2015-12-01 23:21:35.928633	2015-12-01 23:21:35.928633	completed	in_progress	redo
+141	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-12-02 22:26:10.039086	2015-12-02 22:26:10.039086	in_progress	completed	complete
+142	76	3	Examination	34	state_change	CustomizedCourseStateChangeRecord	2015-12-06 03:16:31.155192	2015-12-06 03:16:31.155192	completed	in_progress	redo
+143	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-12-06 03:16:31.204138	2015-12-06 03:16:31.204138	completed	in_progress	redo
+144	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-12-06 03:17:49.55457	2015-12-06 03:17:49.55457	in_progress	completed	complete
+145	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-12-06 03:17:52.472427	2015-12-06 03:17:52.472427	completed	in_progress	redo
+146	76	3	Topic	82	state_change	CustomizedCourseStateChangeRecord	2015-12-06 13:31:09.768267	2015-12-06 13:31:09.768267	completed	in_progress	redo
+147	76	3	Topic	82	state_change	CustomizedCourseStateChangeRecord	2015-12-06 13:31:12.434447	2015-12-06 13:31:12.434447	in_progress	completed	complete
+148	76	3	Topic	82	state_change	CustomizedCourseStateChangeRecord	2015-12-06 13:31:15.588274	2015-12-06 13:31:15.588274	completed	in_progress	redo
+149	76	3	Topic	77	state_change	CustomizedCourseStateChangeRecord	2015-12-06 13:31:25.51177	2015-12-06 13:31:25.51177	new	completed	complete
+150	76	3	Topic	82	state_change	CustomizedCourseStateChangeRecord	2015-12-06 22:09:37.331972	2015-12-06 22:09:37.331972	in_progress	completed	complete
+151	76	3	Topic	82	state_change	CustomizedCourseStateChangeRecord	2015-12-06 22:09:40.113936	2015-12-06 22:09:40.113936	completed	in_progress	redo
+152	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-12-06 22:11:22.964057	2015-12-06 22:11:22.964057	in_progress	completed	complete
+153	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-12-06 22:11:25.520121	2015-12-06 22:11:25.520121	completed	in_progress	redo
+154	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-12-06 22:21:35.689209	2015-12-06 22:21:35.689209	in_progress	completed	complete
+155	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-12-06 22:25:26.919892	2015-12-06 22:25:26.919892	completed	in_progress	redo
+156	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-12-06 22:46:52.393787	2015-12-06 22:46:52.393787	in_progress	completed	complete
+157	76	3	Examination	32	state_change	CustomizedCourseStateChangeRecord	2015-12-06 22:48:14.745539	2015-12-06 22:48:14.745539	in_progress	completed	complete
+158	76	3	Examination	32	state_change	CustomizedCourseStateChangeRecord	2015-12-06 22:48:39.130336	2015-12-06 22:48:39.130336	completed	in_progress	redo
+159	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-12-06 22:48:39.148796	2015-12-06 22:48:39.148796	completed	in_progress	redo
+160	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-12-06 22:49:19.362967	2015-12-06 22:49:19.362967	in_progress	completed	complete
+161	76	3	Examination	32	state_change	CustomizedCourseStateChangeRecord	2015-12-06 22:49:22.106264	2015-12-06 22:49:22.106264	in_progress	completed	complete
+162	76	3	Examination	32	state_change	CustomizedCourseStateChangeRecord	2015-12-06 22:49:30.626985	2015-12-06 22:49:30.626985	completed	in_progress	redo
+163	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-12-06 22:49:30.645075	2015-12-06 22:49:30.645075	completed	in_progress	redo
+164	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-12-06 22:50:19.756774	2015-12-06 22:50:19.756774	in_progress	completed	complete
+165	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-12-06 23:00:40.689113	2015-12-06 23:00:40.689113	completed	in_progress	redo
+166	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-12-06 23:03:46.871879	2015-12-06 23:03:46.871879	in_progress	completed	complete
+167	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-12-06 23:04:10.151369	2015-12-06 23:04:10.151369	completed	in_progress	redo
+168	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-12-06 23:04:22.299002	2015-12-06 23:04:22.299002	in_progress	completed	complete
+169	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-12-06 23:13:42.658639	2015-12-06 23:13:42.658639	completed	in_progress	redo
+170	76	3	Correction	49	create	CustomizedCourseActionRecord	2015-12-06 23:13:54.016656	2015-12-06 23:13:54.016656	\N	\N	\N
+171	76	3	Correction	50	create	CustomizedCourseActionRecord	2015-12-06 23:14:10.597573	2015-12-06 23:14:10.597573	\N	\N	\N
+172	76	3	Solution	31	state_change	CustomizedCourseStateChangeRecord	2015-12-06 23:14:22.539431	2015-12-06 23:14:22.539431	in_progress	completed	complete
+173	76	3	Topic	82	state_change	CustomizedCourseStateChangeRecord	2015-12-07 21:42:45.880516	2015-12-07 21:42:45.880516	in_progress	completed	complete
+174	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-12-07 22:43:07.994857	2015-12-07 22:43:07.994857	in_progress	completed	complete
+175	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-12-07 22:44:58.323658	2015-12-07 22:44:58.323658	completed	in_progress	redo
+176	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-12-07 22:45:13.657165	2015-12-07 22:45:13.657165	in_progress	completed	complete
+177	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-12-07 22:56:40.366825	2015-12-07 22:56:40.366825	completed	in_progress	redo
+178	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-12-07 22:56:55.462948	2015-12-07 22:56:55.462948	in_progress	completed	complete
+179	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-12-07 22:59:29.478684	2015-12-07 22:59:29.478684	completed	in_progress	redo
+180	76	3	Solution	34	state_change	CustomizedCourseStateChangeRecord	2015-12-07 22:59:41.129672	2015-12-07 22:59:41.129672	in_progress	completed	complete
 \.
 
 
@@ -2570,7 +2685,7 @@ COPY action_records (id, operator_id, customized_course_id, actionable_type, act
 -- Name: action_records_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('action_records_id_seq', 86, true);
+SELECT pg_catalog.setval('action_records_id_seq', 180, true);
 
 
 --
@@ -2677,7 +2792,7 @@ COPY comments (id, content, author_id, commentable_id, commentable_type, created
 -- Name: comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('comments_id_seq', 91, false);
+SELECT pg_catalog.setval('comments_id_seq', 91, true);
 
 
 --
@@ -2710,51 +2825,54 @@ SELECT pg_catalog.setval('consumption_records_id_seq', 12, false);
 -- Data for Name: corrections; Type: TABLE DATA; Schema: public; Owner: qatime
 --
 
-COPY corrections (id, content, teacher_id, solution_id, token, created_at, updated_at, comments_count, customized_course_id, homework_id, status, type, customized_tutorial_id, examination_id, teacher_price, platform_price) FROM stdin;
-10	看看不错	2	6	1443326612-aurMM2OTx5YMJq8SQd8Myg	2015-09-27 04:03:45.093425	2015-10-06 08:48:07.768799	0	2	8	false	\N	\N	\N	\N	\N
-11	okok13413	2	8	1443695905-JCvEW1FbZe0Y6rRwwHEYEw	2015-10-01 10:38:34.214857	2015-10-06 08:48:08.002553	0	2	9	false	\N	\N	\N	\N	\N
-12	测试批改作业	2	10	1443846134-eroA5JjNEgdIQ9aMVAk0aQ	2015-10-03 04:22:26.285683	2015-10-06 08:48:08.043992	0	2	9	false	\N	\N	\N	\N	\N
-2	\N	2	5	1442555694-c0mEvocVv1PZEltseApbFw	2015-09-18 05:54:54.595859	2015-10-07 14:03:41.750269	0	\N	5	false	\N	\N	\N	\N	\N
-4	\N	2	5	1442555936-l2rdrO9-jwafIoLCe7mASQ	2015-09-18 05:58:56.905999	2015-10-07 14:03:41.905636	0	\N	5	false	\N	\N	\N	\N	\N
-5	asdfasdf	2	5	1442555936-x-sSQahmIQZMaKXrdLxc4w	2015-09-18 05:59:29.143379	2015-10-07 14:03:41.926148	0	\N	5	false	\N	\N	\N	\N	\N
-7	<p><span style="background-color: rgb(247, 198, 206);">asdfa</span></p><p><span style="background-color: rgb(247, 198, 206);"><br></span></p><h1><span style="background-color: rgb(247, 198, 206);">asasdfasf</span></h1>	2	5	1442559887-6sgZ1ej5pShMqNyII5QeDA	2015-09-18 07:05:19.73003	2015-10-07 14:03:41.958465	0	\N	5	false	\N	\N	\N	\N	\N
-8	<h1>asdfasdf</h1>	2	5	1442561022-bRqfnrBZygSi9Qwq2JbQeA	2015-09-18 07:25:48.393573	2015-10-07 14:03:41.988057	0	\N	5	false	\N	\N	\N	\N	\N
-6	okokokokoasdfasdf	2	5	1442559866-WZwpNtk8P7O_lZWnApRLFg	2015-09-18 07:04:47.073748	2015-10-07 14:03:42.029798	1	\N	5	false	\N	\N	\N	\N	\N
-3	\N	2	5	1442555713-f7cAZMDahJzPR6dfcewztw	2015-09-18 05:55:13.704144	2015-10-07 14:03:42.07022	1	\N	5	false	\N	\N	\N	\N	\N
-1	\N	2	5	1442554973-YCBedF6kxFk2Q_9UiM9gxA	2015-09-18 05:42:53.760921	2015-10-07 14:03:42.105689	3	\N	5	false	\N	\N	\N	\N	\N
-9	<h1>asdfasdf</h1><h1><br></h1><h1>kany烟仔不错</h1>	2	5	1442561148-NvhoyuxzJ3R_3_Whx7Y7ZQ	2015-09-18 07:32:44.634723	2015-10-07 14:03:42.130074	1	\N	5	false	\N	\N	\N	\N	\N
-13	asdfasdfasfasdfasdfas	2	11	1444224404--Qa14L3Az-V9gghacUrg5A	2015-10-07 13:26:56.796116	2015-10-07 14:03:42.172133	0	2	9	false	\N	\N	\N	\N	\N
-14	kankankan	2	11	1444224478-gD9zCDrKGGHb76WZpHF33Q	2015-10-07 13:28:06.229262	2015-10-07 14:03:42.196594	0	2	9	false	\N	\N	\N	\N	\N
-15	asdfadfadsfa	2	11	1444224486-84Ulw1qtqhbOXeJePk6UKA	2015-10-07 13:30:43.150865	2015-10-07 14:03:42.2366	0	2	9	false	\N	\N	\N	\N	\N
-17	asdfasdf	76	13	1445293036-s5t6Ay3bZfLLAXTrRrR7Hw	2015-10-19 22:17:24.805733	2015-10-19 22:17:24.805733	0	3	18	open	\N	\N	\N	\N	\N
-22	++++adfasdfasfasdfsf	76	20	1445586815-V2LRQr48h6zzgtuijKbGQA	2015-10-23 07:53:56.246321	2015-11-05 22:20:58.058286	0	3	\N	open	ExerciseCorrection	15	\N	54	0
-23	kkkkkk	76	20	1445587407-V3dl3pEEdRghG10-SF_rwg	2015-10-23 08:03:35.174069	2015-11-05 22:20:58.223907	0	3	\N	open	ExerciseCorrection	15	\N	54	0
-24	lkjljlkmlkmkl	76	20	1445587415-uLyKrpLzzj3NAXeOBVZqXQ	2015-10-23 08:07:28.057999	2015-11-05 22:20:58.247881	0	3	\N	open	ExerciseCorrection	15	\N	54	0
-25	lkmlm;lm;lk	76	20	1445587648-d3BZZQtXD40ppyjGvGxEQw	2015-10-23 08:08:15.114243	2015-11-05 22:20:58.271976	0	3	\N	open	ExerciseCorrection	15	\N	54	0
-26	;l;lk;lk;lk;	76	20	1445587695-vcZKqe4Plu-YuxUI8_AhGA	2015-10-23 08:10:43.720815	2015-11-05 22:20:58.296866	0	3	\N	open	ExerciseCorrection	15	\N	54	0
-27	asdfasdfasdfasdfadsf	76	20	1445587843-lmxw7PLEDZu9mRag2AUI3Q	2015-10-23 08:19:23.733765	2015-11-05 22:20:58.320911	0	3	\N	open	ExerciseCorrection	15	20	54	0
-30	asdfasdfadfasdfadf	76	22	1445731798-9gPdlRu84xeQZ3VMiaoc9Q	2015-10-25 00:10:16.840178	2015-11-05 22:20:58.344391	0	3	\N	closed	ExerciseCorrection	15	19	54	0
-32	asdfasf	76	22	1445897066-ER-39mQj-T0XB77fwAwuQw	2015-10-26 22:04:41.436251	2015-11-05 22:20:58.367353	0	3	\N	open	ExerciseCorrection	15	19	54	0
-33	asdfasdfsdfafasfa	76	22	1445897081-dXhkA0ICxzGGxyNzG0uy0A	2015-10-26 22:04:51.367304	2015-11-05 22:20:58.389959	0	3	\N	open	ExerciseCorrection	15	19	54	0
-34	asdfasdfasdfa	76	22	1445897091-XdrOJ1sD-O0HRNSrRI_GOw	2015-10-26 22:05:00.460437	2015-11-05 22:20:58.412775	0	3	\N	open	ExerciseCorrection	15	19	54	0
-35	asdfasfasfsfad	76	22	1445897100-EAd6L4HnK1tItxZQDjq2tQ	2015-10-26 22:05:10.81021	2015-11-05 22:20:58.436889	0	3	\N	open	ExerciseCorrection	15	19	54	0
-36	asdfasfasfasdf	76	22	1445897110-YF683FeBAkY7lb--wD9qQQ	2015-10-26 22:05:20.9509	2015-11-05 22:20:58.459175	0	3	\N	open	ExerciseCorrection	15	19	54	0
-39	123412341234124	76	27	1446330745-7DSHDZjHScEOUP5ANhtITA	2015-10-31 22:32:38.301448	2015-11-05 22:20:58.482419	11	3	\N	open	ExerciseCorrection	21	25	54	0
-18	asdfasfd	76	16	1445553051-khfH6_v_ps6NcYv0sZ2uOQ	2015-10-22 22:50:57.847266	2015-11-05 22:20:58.515675	0	3	\N	open	HomeworkCorrection	\N	\N	54	0
-20		76	16	1445554387-uGvAcmBYNPURl15LWZTmpQ	2015-10-22 22:53:52.88351	2015-11-05 22:20:58.555611	0	3	\N	open	HomeworkCorrection	\N	\N	54	0
-21	asdfasdf	76	16	1445557041-cN0yElCq8JdDnizSHI7USw	2015-10-22 23:37:43.617924	2015-11-05 22:20:58.580898	0	3	\N	open	HomeworkCorrection	\N	\N	54	0
-19	``````adddd++sdfasfasdfasdfasdfaaaadddd	76	16	1445554347-YXOdd9SRmd9PSBUxVPmtGw	2015-10-22 22:53:07.140889	2015-11-05 22:20:58.602523	0	3	\N	open	HomeworkCorrection	\N	\N	54	0
-28	ccccdddd	76	17	1445588551-ql6ea-2uljQDSCf2r4hDBA	2015-10-23 08:22:50.830576	2015-11-05 22:20:58.627137	0	3	\N	open	HomeworkCorrection	\N	22	54	0
-29	qefqwefqwefqwf	76	17	1445729570-iO3PqyCeYYR1gJyJEmAOjw	2015-10-24 23:33:07.137706	2015-11-05 22:20:58.650873	0	3	\N	open	HomeworkCorrection	\N	22	54	0
-31	测试学生页面	76	17	1445737476-fjhDwD0WjHr4djHfo2z2_Q	2015-10-25 01:45:09.342473	2015-11-05 22:20:58.673531	0	3	\N	closed	HomeworkCorrection	\N	22	54	0
-37	1234123412	76	24	1446328929-p1fxwf4ZfQJwE2mhWQJxvg	2015-10-31 22:06:55.647521	2015-11-05 22:20:58.696344	0	3	\N	open	HomeworkCorrection	\N	27	54	0
-38	123412342134	76	24	1446329499-6bR1-Z8z8579qNt2rjvkAA	2015-10-31 22:11:51.693994	2015-11-05 22:20:58.719558	0	3	\N	open	HomeworkCorrection	\N	27	54	0
-40	AD发水电费	76	24	1446340943-4x9GhP9TrbzBh30Wdkht4w	2015-11-01 01:22:32.528257	2015-11-05 22:20:58.744432	2	3	\N	open	HomeworkCorrection	\N	27	54	0
-41	12341234124123412341234123412341243	76	31	1446856941-AgM0MtH0ZwdCpyICCYqnAA	2015-11-07 00:46:41.986682	2015-11-07 00:46:41.986682	0	3	\N	open	ExerciseCorrection	21	32	54	0
-43	12341234	76	30	1447456759-YzuWd72VD17dBRIo4SWPhw	2015-11-13 23:20:07.162475	2015-11-13 23:20:07.162475	0	3	\N	open	ExerciseCorrection	21	24	54	0
-44	123412341241	76	30	1447456807-qapXuKqq1ZRT4vzVAbFVmA	2015-11-13 23:20:43.599921	2015-11-13 23:20:43.599921	0	3	\N	open	ExerciseCorrection	21	24	54	0
-46	1234123412341234	76	34	1447715686-gY47037M7cF4lATcpUEcBQ	2015-11-16 23:15:00.619213	2015-11-16 23:15:00.619213	0	3	\N	open	HomeworkCorrection	\N	34	54	0
-47	123412341234	76	34	1447715700-JO8-OrBEFvB_qscmTppYHw	2015-11-16 23:15:13.810197	2015-11-16 23:15:13.810197	0	3	\N	open	HomeworkCorrection	\N	34	54	0
+COPY corrections (id, content, teacher_id, solution_id, token, created_at, updated_at, comments_count, customized_course_id, homework_id, status, type, customized_tutorial_id, examination_id, teacher_price, platform_price, last_operator_id) FROM stdin;
+10	看看不错	2	6	1443326612-aurMM2OTx5YMJq8SQd8Myg	2015-09-27 04:03:45.093425	2015-11-27 21:43:28.101661	0	2	8	false	\N	\N	\N	\N	\N	2
+11	okok13413	2	8	1443695905-JCvEW1FbZe0Y6rRwwHEYEw	2015-10-01 10:38:34.214857	2015-11-27 21:43:28.273242	0	2	9	false	\N	\N	\N	\N	\N	2
+12	测试批改作业	2	10	1443846134-eroA5JjNEgdIQ9aMVAk0aQ	2015-10-03 04:22:26.285683	2015-11-27 21:43:28.308558	0	2	9	false	\N	\N	\N	\N	\N	2
+2	\N	2	5	1442555694-c0mEvocVv1PZEltseApbFw	2015-09-18 05:54:54.595859	2015-11-27 21:43:28.35779	0	\N	5	false	\N	\N	\N	\N	\N	2
+4	\N	2	5	1442555936-l2rdrO9-jwafIoLCe7mASQ	2015-09-18 05:58:56.905999	2015-11-27 21:43:28.489587	0	\N	5	false	\N	\N	\N	\N	\N	2
+5	asdfasdf	2	5	1442555936-x-sSQahmIQZMaKXrdLxc4w	2015-09-18 05:59:29.143379	2015-11-27 21:43:28.527051	0	\N	5	false	\N	\N	\N	\N	\N	2
+7	<p><span style="background-color: rgb(247, 198, 206);">asdfa</span></p><p><span style="background-color: rgb(247, 198, 206);"><br></span></p><h1><span style="background-color: rgb(247, 198, 206);">asasdfasf</span></h1>	2	5	1442559887-6sgZ1ej5pShMqNyII5QeDA	2015-09-18 07:05:19.73003	2015-11-27 21:43:28.558426	0	\N	5	false	\N	\N	\N	\N	\N	2
+8	<h1>asdfasdf</h1>	2	5	1442561022-bRqfnrBZygSi9Qwq2JbQeA	2015-09-18 07:25:48.393573	2015-11-27 21:43:28.59338	0	\N	5	false	\N	\N	\N	\N	\N	2
+6	okokokokoasdfasdf	2	5	1442559866-WZwpNtk8P7O_lZWnApRLFg	2015-09-18 07:04:47.073748	2015-11-27 21:43:28.627606	1	\N	5	false	\N	\N	\N	\N	\N	2
+3	\N	2	5	1442555713-f7cAZMDahJzPR6dfcewztw	2015-09-18 05:55:13.704144	2015-11-27 21:43:28.661861	1	\N	5	false	\N	\N	\N	\N	\N	2
+1	\N	2	5	1442554973-YCBedF6kxFk2Q_9UiM9gxA	2015-09-18 05:42:53.760921	2015-11-27 21:43:28.696682	3	\N	5	false	\N	\N	\N	\N	\N	2
+9	<h1>asdfasdf</h1><h1><br></h1><h1>kany烟仔不错</h1>	2	5	1442561148-NvhoyuxzJ3R_3_Whx7Y7ZQ	2015-09-18 07:32:44.634723	2015-11-27 21:43:28.74023	1	\N	5	false	\N	\N	\N	\N	\N	2
+13	asdfasdfasfasdfasdfas	2	11	1444224404--Qa14L3Az-V9gghacUrg5A	2015-10-07 13:26:56.796116	2015-11-27 21:43:28.770771	0	2	9	false	\N	\N	\N	\N	\N	2
+14	kankankan	2	11	1444224478-gD9zCDrKGGHb76WZpHF33Q	2015-10-07 13:28:06.229262	2015-11-27 21:43:28.810176	0	2	9	false	\N	\N	\N	\N	\N	2
+15	asdfadfadsfa	2	11	1444224486-84Ulw1qtqhbOXeJePk6UKA	2015-10-07 13:30:43.150865	2015-11-27 21:43:28.840781	0	2	9	false	\N	\N	\N	\N	\N	2
+17	asdfasdf	76	13	1445293036-s5t6Ay3bZfLLAXTrRrR7Hw	2015-10-19 22:17:24.805733	2015-11-27 21:43:28.870236	0	3	18	open	\N	\N	\N	\N	\N	76
+22	++++adfasdfasfasdfsf	76	20	1445586815-V2LRQr48h6zzgtuijKbGQA	2015-10-23 07:53:56.246321	2015-11-27 21:43:28.89875	0	3	\N	open	ExerciseCorrection	15	\N	54	0	76
+23	kkkkkk	76	20	1445587407-V3dl3pEEdRghG10-SF_rwg	2015-10-23 08:03:35.174069	2015-11-27 21:43:28.928783	0	3	\N	open	ExerciseCorrection	15	\N	54	0	76
+24	lkjljlkmlkmkl	76	20	1445587415-uLyKrpLzzj3NAXeOBVZqXQ	2015-10-23 08:07:28.057999	2015-11-27 21:43:28.959256	0	3	\N	open	ExerciseCorrection	15	\N	54	0	76
+25	lkmlm;lm;lk	76	20	1445587648-d3BZZQtXD40ppyjGvGxEQw	2015-10-23 08:08:15.114243	2015-11-27 21:43:28.990544	0	3	\N	open	ExerciseCorrection	15	\N	54	0	76
+26	;l;lk;lk;lk;	76	20	1445587695-vcZKqe4Plu-YuxUI8_AhGA	2015-10-23 08:10:43.720815	2015-11-27 21:43:29.022971	0	3	\N	open	ExerciseCorrection	15	\N	54	0	76
+27	asdfasdfasdfasdfadsf	76	20	1445587843-lmxw7PLEDZu9mRag2AUI3Q	2015-10-23 08:19:23.733765	2015-11-27 21:43:29.056028	0	3	\N	open	ExerciseCorrection	15	20	54	0	76
+30	asdfasdfadfasdfadf	76	22	1445731798-9gPdlRu84xeQZ3VMiaoc9Q	2015-10-25 00:10:16.840178	2015-11-27 21:43:29.091659	0	3	\N	closed	ExerciseCorrection	15	19	54	0	76
+32	asdfasf	76	22	1445897066-ER-39mQj-T0XB77fwAwuQw	2015-10-26 22:04:41.436251	2015-11-27 21:43:29.126817	0	3	\N	open	ExerciseCorrection	15	19	54	0	76
+33	asdfasdfsdfafasfa	76	22	1445897081-dXhkA0ICxzGGxyNzG0uy0A	2015-10-26 22:04:51.367304	2015-11-27 21:43:29.160713	0	3	\N	open	ExerciseCorrection	15	19	54	0	76
+34	asdfasdfasdfa	76	22	1445897091-XdrOJ1sD-O0HRNSrRI_GOw	2015-10-26 22:05:00.460437	2015-11-27 21:43:29.201965	0	3	\N	open	ExerciseCorrection	15	19	54	0	76
+35	asdfasfasfsfad	76	22	1445897100-EAd6L4HnK1tItxZQDjq2tQ	2015-10-26 22:05:10.81021	2015-11-27 21:43:29.239125	0	3	\N	open	ExerciseCorrection	15	19	54	0	76
+36	asdfasfasfasdf	76	22	1445897110-YF683FeBAkY7lb--wD9qQQ	2015-10-26 22:05:20.9509	2015-11-27 21:43:29.276835	0	3	\N	open	ExerciseCorrection	15	19	54	0	76
+39	123412341234124	76	27	1446330745-7DSHDZjHScEOUP5ANhtITA	2015-10-31 22:32:38.301448	2015-11-27 21:43:29.304801	11	3	\N	open	ExerciseCorrection	21	25	54	0	76
+18	asdfasfd	76	16	1445553051-khfH6_v_ps6NcYv0sZ2uOQ	2015-10-22 22:50:57.847266	2015-11-27 21:43:29.328491	0	3	\N	open	HomeworkCorrection	\N	\N	54	0	76
+20		76	16	1445554387-uGvAcmBYNPURl15LWZTmpQ	2015-10-22 22:53:52.88351	2015-11-27 21:43:29.35568	0	3	\N	open	HomeworkCorrection	\N	\N	54	0	76
+21	asdfasdf	76	16	1445557041-cN0yElCq8JdDnizSHI7USw	2015-10-22 23:37:43.617924	2015-11-27 21:43:29.38333	0	3	\N	open	HomeworkCorrection	\N	\N	54	0	76
+19	``````adddd++sdfasfasdfasdfasdfaaaadddd	76	16	1445554347-YXOdd9SRmd9PSBUxVPmtGw	2015-10-22 22:53:07.140889	2015-11-27 21:43:29.408165	0	3	\N	open	HomeworkCorrection	\N	\N	54	0	76
+28	ccccdddd	76	17	1445588551-ql6ea-2uljQDSCf2r4hDBA	2015-10-23 08:22:50.830576	2015-11-27 21:43:29.436897	0	3	\N	open	HomeworkCorrection	\N	22	54	0	76
+29	qefqwefqwefqwf	76	17	1445729570-iO3PqyCeYYR1gJyJEmAOjw	2015-10-24 23:33:07.137706	2015-11-27 21:43:29.481629	0	3	\N	open	HomeworkCorrection	\N	22	54	0	76
+31	测试学生页面	76	17	1445737476-fjhDwD0WjHr4djHfo2z2_Q	2015-10-25 01:45:09.342473	2015-11-27 21:43:29.549802	0	3	\N	closed	HomeworkCorrection	\N	22	54	0	76
+37	1234123412	76	24	1446328929-p1fxwf4ZfQJwE2mhWQJxvg	2015-10-31 22:06:55.647521	2015-11-27 21:43:29.583842	0	3	\N	open	HomeworkCorrection	\N	27	54	0	76
+38	123412342134	76	24	1446329499-6bR1-Z8z8579qNt2rjvkAA	2015-10-31 22:11:51.693994	2015-11-27 21:43:29.616841	0	3	\N	open	HomeworkCorrection	\N	27	54	0	76
+40	AD发水电费	76	24	1446340943-4x9GhP9TrbzBh30Wdkht4w	2015-11-01 01:22:32.528257	2015-11-27 21:43:29.652716	2	3	\N	open	HomeworkCorrection	\N	27	54	0	76
+41	12341234124123412341234123412341243	76	31	1446856941-AgM0MtH0ZwdCpyICCYqnAA	2015-11-07 00:46:41.986682	2015-11-27 21:43:29.692296	0	3	\N	open	ExerciseCorrection	21	32	54	0	76
+43	12341234	76	30	1447456759-YzuWd72VD17dBRIo4SWPhw	2015-11-13 23:20:07.162475	2015-11-27 21:43:29.740322	0	3	\N	open	ExerciseCorrection	21	24	54	0	76
+44	123412341241	76	30	1447456807-qapXuKqq1ZRT4vzVAbFVmA	2015-11-13 23:20:43.599921	2015-11-27 21:43:29.790299	0	3	\N	open	ExerciseCorrection	21	24	54	0	76
+46	1234123412341234	76	34	1447715686-gY47037M7cF4lATcpUEcBQ	2015-11-16 23:15:00.619213	2015-11-27 21:43:29.843825	0	3	\N	open	HomeworkCorrection	\N	34	54	0	76
+47	123412341234	76	34	1447715700-JO8-OrBEFvB_qscmTppYHw	2015-11-16 23:15:13.810197	2015-11-27 21:43:29.877352	0	3	\N	open	HomeworkCorrection	\N	34	54	0	76
+48	ceshi last handled at	76	31	1448837386-TdCpTuAMmN-Gq0h16nPQkA	2015-11-29 22:50:07.135837	2015-11-29 22:50:07.135837	0	3	\N	open	ExerciseCorrection	21	32	54	0	76
+49	134123421341234	76	31	1449443622-a3-BlD9hc-ypOIAi9M685A	2015-12-06 23:13:53.972213	2015-12-06 23:13:53.972213	0	3	\N	open	ExerciseCorrection	21	32	54	0	76
+50	<p>asdfasdfadsf</p><p><br></p>	76	31	1449443634-xqW3OxFajc-zYAy8-bKhjg	2015-12-06 23:14:10.578324	2015-12-06 23:14:10.578324	0	3	\N	open	ExerciseCorrection	21	32	54	0	76
 \.
 
 
@@ -2762,7 +2880,7 @@ COPY corrections (id, content, teacher_id, solution_id, token, created_at, updat
 -- Name: corrections_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('corrections_id_seq', 47, true);
+SELECT pg_catalog.setval('corrections_id_seq', 50, true);
 
 
 --
@@ -3218,9 +3336,9 @@ SELECT pg_catalog.setval('customized_course_message_boards_id_seq', 4, false);
 -- Data for Name: customized_course_message_replies; Type: TABLE DATA; Schema: public; Owner: qatime
 --
 
-COPY customized_course_message_replies (id, customized_course_message_id, customized_course_message_board_id, customized_course_id, content, token, author_id, created_at, updated_at) FROM stdin;
-1	1	3	3	asdfasdfasdfa	1447454970-27pc8GsRQdPUhLRlUIVKxQ	76	2015-11-13 22:49:39.106013	2015-11-13 22:49:39.106013
-2	1	3	3	315135	1447456238-xmPqb1zamHFjGpF8QW7AeA	76	2015-11-13 23:15:19.002948	2015-11-13 23:15:19.002948
+COPY customized_course_message_replies (id, customized_course_message_id, customized_course_message_board_id, customized_course_id, content, token, author_id, created_at, updated_at, last_operator_id) FROM stdin;
+1	1	3	3	asdfasdfasdfa	1447454970-27pc8GsRQdPUhLRlUIVKxQ	76	2015-11-13 22:49:39.106013	2015-12-04 23:36:44.622432	76
+2	1	3	3	315135	1447456238-xmPqb1zamHFjGpF8QW7AeA	76	2015-11-13 23:15:19.002948	2015-12-04 23:36:44.641054	76
 \.
 
 
@@ -3235,8 +3353,8 @@ SELECT pg_catalog.setval('customized_course_message_replies_id_seq', 3, false);
 -- Data for Name: customized_course_messages; Type: TABLE DATA; Schema: public; Owner: qatime
 --
 
-COPY customized_course_messages (id, customized_course_message_board_id, title, content, author_id, customized_course_message_replies_count, customized_course_id, token, created_at, updated_at) FROM stdin;
-1	3	测试这个好不好用么	一定是好用的你看看	76	2	3	1447366906-OHVIvDp4tF-yo5xk8QEd_A	2015-11-12 22:22:09.154589	2015-11-12 22:22:09.154589
+COPY customized_course_messages (id, customized_course_message_board_id, title, content, author_id, customized_course_message_replies_count, customized_course_id, token, created_at, updated_at, last_operator_id) FROM stdin;
+1	3	测试这个好不好用么	一定是好用的你看看	76	2	3	1447366906-OHVIvDp4tF-yo5xk8QEd_A	2015-11-12 22:22:09.154589	2015-12-04 23:21:52.431211	76
 \.
 
 
@@ -3269,26 +3387,26 @@ SELECT pg_catalog.setval('customized_courses_id_seq', 4, false);
 -- Data for Name: customized_tutorials; Type: TABLE DATA; Schema: public; Owner: qatime
 --
 
-COPY customized_tutorials (id, teacher_id, customized_course_id, title, content, "position", token, created_at, updated_at, topics_count, exercises_count, tutorial_issues_count, status, teacher_price, platform_price) FROM stdin;
-2	2	2	测试一下看看是否有什么确定可以	测试是否可以增长	0	1443229207-0dHF-i7-S7UukrllFeHQ6g	2015-09-26 01:01:28.298476	2015-11-05 22:17:57.821856	0	0	0	false	54	0
-3	2	2	ddddd	ssss	0	1443318111-wMAmyPI0XkOvcv2cR-Oxbg	2015-09-27 01:41:59.291556	2015-11-05 22:17:57.87604	0	0	0	false	54	0
-4	2	2	reqwe	11	0	1443318129-cO3hZmJKt8NeYAJQNn7DDg	2015-09-27 01:42:16.613255	2015-11-05 22:17:57.889057	0	0	0	false	54	0
-6	2	2	ceshi fanye	ceshi fanye	0	1443318168-useG0kEPae0p0Q8q5i-uZw	2015-09-27 01:42:57.180717	2015-11-05 22:17:57.900792	0	0	0	false	54	0
-7	2	2	ceshi fanye	ceshi fanye	0	1443318186-EJlDUSQBZQnQVl_ldMltZQ	2015-09-27 01:43:16.105808	2015-11-05 22:17:57.93298	0	0	0	false	54	0
-8	2	2	测试最后能不能翻页	测试最后能不能翻页	0	1443318555-HTNH0j0ems-FaOHe28hJhg	2015-09-27 01:49:33.02497	2015-11-05 22:17:57.944499	0	0	0	false	54	0
-9	2	2	测试最后不翻页	测试最后不翻页	0	1443318588-oakAwYtTaXXGK58yd3IENQ	2015-09-27 01:49:59.722111	2015-11-05 22:17:57.956195	0	0	0	false	54	0
-10	2	2	发野	发 	0	1443318616-E6pDueo7x0CByRZ2OjHgjg	2015-09-27 01:50:27.125577	2015-11-05 22:17:57.966694	0	0	0	false	54	0
-11	2	2	测试啊	测试啊	0	1443318641-9cqJRaadE1TzdL23bz1nXg	2015-09-27 01:50:52.85044	2015-11-05 22:17:57.978264	0	0	0	false	54	0
-1	2	2	ceshi ceshiceshi ceshi	ceshi ceshiceshi ceshiceshi ceshiceshi ceshi	0	1442319778-22x2ktceTNNj6w78eGIEEA	2015-09-15 12:23:14.41211	2015-11-05 22:17:57.98954	1	5	0	false	54	0
-12	2	2	ceshi yixa	ceshi yixa	0	1443480883-83AJBEzLBDXBeD57djgKiA	2015-09-28 22:55:12.389189	2015-11-05 22:17:58.002584	0	0	1	false	54	0
-14	76	3	cash 	cash	0	1444483952-SqJcodpleza4VMgQqgPsPw	2015-10-10 13:33:28.666158	2015-11-05 22:17:58.014467	0	0	0	closed	54	0
-13	2	2	测试一下么啊	测试一下么啊测试一下么啊	0	1443481864-W_gKimHJ3tB9VKZT5NLAUg	2015-09-28 23:11:31.50045	2015-11-05 22:17:58.026619	6	3	6	false	54	0
-16	76	3	asdfasfs	asdfasdfsadf	0	1446243638-RPgP-ekWLgxGojovG7hIWg	2015-10-30 22:20:50.514742	2015-11-05 22:17:58.051134	0	0	0	open	54	0
-17	76	3	asdfasdf	12341341241234	0	1446281074-CDTdMCnqrWvNbmL0ClbjPg	2015-10-31 08:44:44.222763	2015-11-05 22:17:58.063303	0	0	0	open	54	0
-19	76	3	134124	1234123412	0	1446282194-vYubZn7-LEcIA5nnxhgWQw	2015-10-31 09:03:23.744527	2015-11-05 22:17:58.074437	0	0	0	open	54	0
-21	76	3	asdfasdf	12341234	0	1446283847-taCus6eklbz68DMJqlg5mQ	2015-10-31 09:30:56.639098	2015-11-05 22:17:58.099242	0	4	2	open	54	0
-15	76	3	dfsfs	asdfasdfafsafs	0	1444484627-jwUgAHWOMD7OgtS_2JlpoQ	2015-10-10 13:44:43.891788	2015-11-05 22:17:58.038124	1	3	3	closed	54	0
-20	76	3	134124	1234123412	0	1446282194-vYubZn7-LEcIA5nnxhgWQw	2015-10-31 09:05:00.365861	2015-11-05 22:17:58.08787	0	0	1	open	54	0
+COPY customized_tutorials (id, teacher_id, customized_course_id, title, content, "position", token, created_at, updated_at, topics_count, exercises_count, tutorial_issues_count, status, teacher_price, platform_price, last_operator_id) FROM stdin;
+2	2	2	测试一下看看是否有什么确定可以	测试是否可以增长	0	1443229207-0dHF-i7-S7UukrllFeHQ6g	2015-09-26 01:01:28.298476	2015-12-04 23:07:59.637009	0	0	0	false	54	0	2
+3	2	2	ddddd	ssss	0	1443318111-wMAmyPI0XkOvcv2cR-Oxbg	2015-09-27 01:41:59.291556	2015-12-04 23:07:59.652799	0	0	0	false	54	0	2
+4	2	2	reqwe	11	0	1443318129-cO3hZmJKt8NeYAJQNn7DDg	2015-09-27 01:42:16.613255	2015-12-04 23:07:59.66544	0	0	0	false	54	0	2
+6	2	2	ceshi fanye	ceshi fanye	0	1443318168-useG0kEPae0p0Q8q5i-uZw	2015-09-27 01:42:57.180717	2015-12-04 23:07:59.678857	0	0	0	false	54	0	2
+7	2	2	ceshi fanye	ceshi fanye	0	1443318186-EJlDUSQBZQnQVl_ldMltZQ	2015-09-27 01:43:16.105808	2015-12-04 23:07:59.69289	0	0	0	false	54	0	2
+8	2	2	测试最后能不能翻页	测试最后能不能翻页	0	1443318555-HTNH0j0ems-FaOHe28hJhg	2015-09-27 01:49:33.02497	2015-12-04 23:07:59.707632	0	0	0	false	54	0	2
+9	2	2	测试最后不翻页	测试最后不翻页	0	1443318588-oakAwYtTaXXGK58yd3IENQ	2015-09-27 01:49:59.722111	2015-12-04 23:07:59.720375	0	0	0	false	54	0	2
+10	2	2	发野	发 	0	1443318616-E6pDueo7x0CByRZ2OjHgjg	2015-09-27 01:50:27.125577	2015-12-04 23:07:59.73385	0	0	0	false	54	0	2
+11	2	2	测试啊	测试啊	0	1443318641-9cqJRaadE1TzdL23bz1nXg	2015-09-27 01:50:52.85044	2015-12-04 23:07:59.748639	0	0	0	false	54	0	2
+1	2	2	ceshi ceshiceshi ceshi	ceshi ceshiceshi ceshiceshi ceshiceshi ceshi	0	1442319778-22x2ktceTNNj6w78eGIEEA	2015-09-15 12:23:14.41211	2015-12-04 23:07:59.761998	1	5	0	false	54	0	2
+12	2	2	ceshi yixa	ceshi yixa	0	1443480883-83AJBEzLBDXBeD57djgKiA	2015-09-28 22:55:12.389189	2015-12-04 23:07:59.775096	0	0	1	false	54	0	2
+14	76	3	cash 	cash	0	1444483952-SqJcodpleza4VMgQqgPsPw	2015-10-10 13:33:28.666158	2015-12-04 23:07:59.78825	0	0	0	closed	54	0	76
+13	2	2	测试一下么啊	测试一下么啊测试一下么啊	0	1443481864-W_gKimHJ3tB9VKZT5NLAUg	2015-09-28 23:11:31.50045	2015-12-04 23:07:59.803671	6	3	6	false	54	0	2
+16	76	3	asdfasfs	asdfasdfsadf	0	1446243638-RPgP-ekWLgxGojovG7hIWg	2015-10-30 22:20:50.514742	2015-12-04 23:07:59.817617	0	0	0	open	54	0	76
+17	76	3	asdfasdf	12341341241234	0	1446281074-CDTdMCnqrWvNbmL0ClbjPg	2015-10-31 08:44:44.222763	2015-12-04 23:07:59.830958	0	0	0	open	54	0	76
+19	76	3	134124	1234123412	0	1446282194-vYubZn7-LEcIA5nnxhgWQw	2015-10-31 09:03:23.744527	2015-12-04 23:07:59.845357	0	0	0	open	54	0	76
+21	76	3	asdfasdf	12341234	0	1446283847-taCus6eklbz68DMJqlg5mQ	2015-10-31 09:30:56.639098	2015-12-04 23:07:59.860456	0	4	2	open	54	0	76
+15	76	3	dfsfs	asdfasdfafsafs	0	1444484627-jwUgAHWOMD7OgtS_2JlpoQ	2015-10-10 13:44:43.891788	2015-12-04 23:07:59.873464	1	3	3	closed	54	0	76
+20	76	3	134124	1234123412	0	1446282194-vYubZn7-LEcIA5nnxhgWQw	2015-10-31 09:05:00.365861	2015-12-04 23:07:59.885907	0	0	1	open	54	0	76
 \.
 
 
@@ -3324,38 +3442,38 @@ SELECT pg_catalog.setval('earning_records_id_seq', 12, false);
 -- Data for Name: examinations; Type: TABLE DATA; Schema: public; Owner: qatime
 --
 
-COPY examinations (id, customized_course_id, teacher_id, title, content, token, topics_count, created_at, updated_at, solutions_count, student_id, customized_tutorial_id, comments_count, corrections_count, work_type, type, state) FROM stdin;
-7	2	2	测试是否可以仅需发送短信	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/c582eeb5d14132ddc23d9f7d62f94692.jpg" style="width: 1128px;"></p>	1441786862-TXXJTBgX3z3wM7A08tbNhA	0	2015-09-09 08:21:52.951624	2015-09-21 01:46:22.96715	0	75	\N	0	0	\N	Homework	new
-6	2	2	测试是否可以发送短信	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/844d7641e00de06e8ceb38beb019ffc7.jpg" style="width: 25%;"></p><p>测试感觉还是不错滴</p><p>哈哈哈哈哈哈哈</p>	1441786642-8TGfNHzEKEneBstzanC_IA	0	2015-09-09 08:18:06.743595	2015-09-21 01:46:22.934053	1	75	\N	0	0	\N	Homework	new
-9	2	2	ceshi yixia	okokoko	1443134338-6bOj4yCK41vVHPFVMmmmJw	0	2015-09-24 22:39:11.090968	2015-09-24 22:39:11.090968	3	75	\N	0	5	\N	Homework	new
-8	2	2	继续测试，看看能否发送短息	看看能否发送短息啊啊啊啊嗄	1441787068-glLyLG76QibVw6N2ri9dPg	0	2015-09-09 08:30:43.24876	2015-09-21 01:46:22.973154	1	75	\N	0	1	\N	Homework	new
-5	2	2	测试下是否可以使用	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/aa5730af43a434c7a69ede693275bc9a.jpg" style="width: 25%;"></p><p>哈哈哈</p>	1441775528-6Nb6fjRAfp1CiLvgmEbQ_Q	1	2015-09-09 05:16:42.473051	2015-09-21 01:46:22.979306	1	75	\N	0	9	\N	Homework	new
-18	3	76	sdfdsafsdf	adsfasfdasdf	1444485483-huSILAiIWTTRwQOESD67kQ	0	2015-10-10 13:58:27.263356	2015-10-10 13:58:27.263356	1	75	\N	0	1	\N	Homework	new
-10	2	2	看看怎么样么111		1442903924-QawoiFIfGLAPoHv_Krt8Iw	0	2015-09-22 06:39:07.200626	2015-10-01 11:21:21.909408	0	75	1	0	0	exercise	Exercise	new
-11	2	2	keyide	keyide sss	1442904957-cmsujdRC51Z02YMzQUwbuw	0	2015-09-22 06:56:06.544921	2015-10-01 11:21:21.928201	0	75	1	0	0	exercise	Exercise	new
-12	2	2	ccfasdfa	sss	1442899644-ushCGD06qUJF5etDxc2y9Q	0	2015-09-22 05:27:34.298872	2015-10-01 11:21:21.93308	0	75	1	0	0	exercise	Exercise	new
-13	2	2	23423412341234123412	安师大发啥地方	1442905070-K_djlHX6nMBxIhbPgOKP6A	0	2015-09-22 06:58:06.040722	2015-10-01 11:21:21.937492	0	75	1	0	0	exercise	Exercise	new
-14	2	2	测试以下看看啊嘛		1442897586-XKk_lhGRfdup_xtPzqaOIw	0	2015-09-22 04:53:19.888308	2015-10-01 11:21:21.942323	1	75	1	0	0	exercise	Exercise	new
-15	2	2	asdfasdf	asdfasdf	1444193898-Fxan8z1lCcNrJ9okNgso_A	0	2015-10-07 04:58:32.380844	2015-10-07 04:58:32.380844	0	75	13	0	0	exercise	Exercise	new
-16	2	2	aaaddd	asdfadf	1444197635-ht3f3TzMiUA0BJL4wtHtKw	0	2015-10-07 06:00:49.030575	2015-10-07 06:00:49.030575	0	75	13	0	0	exercise	Exercise	new
-17	2	2	1111	333	1444197716-g1ZIbnTemVd3d-CXqWUKaw	0	2015-10-07 06:02:10.000853	2015-10-07 06:02:10.000853	0	75	13	0	0	exercise	Exercise	new
-21	3	76	ceshi	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/87349fa9d1dc15ccc60826b2092cad10.JPG" style="width: 414px;"></p>	1445386591-Rhz0bUuCA4b35s_tdPnb8Q	0	2015-10-21 00:19:47.63678	2015-10-21 00:19:47.63678	1	75	15	0	0	\N	Homework	new
-23	3	76	asdfasdf	asdfasdfasdf	1445646725-DZRWwgcfD1QiJI54qmyJrA	0	2015-10-24 00:32:13.922978	2015-10-24 00:32:13.922978	0	75	\N	0	0	\N	Homework	new
-22	3	76	ccccsswe	dddsssqqq	1445515886-i4lz6KSvk0uoLVenPpiRoA	0	2015-10-22 12:11:39.470899	2015-10-24 00:31:42.671322	1	75	\N	0	3	\N	Homework	new
-26	3	76	12341	12341234	1446327190-qw0ceMtVFywz5lkNDG7IWQ	0	2015-10-31 21:33:46.957243	2015-10-31 21:33:46.957243	0	75	\N	0	0	\N	Homework	new
-27	3	76	ceshi	ceshi	1446327854-zjNZqHkGiRnTCxHKtNXg8Q	0	2015-10-31 21:44:25.203388	2015-10-31 21:44:25.203388	2	75	\N	0	3	\N	Homework	new
-28	3	76	12341234	12341212341	1446765308-0C76d2Z0YWp0rvWix-SRVw	0	2015-11-05 23:15:50.251292	2015-11-05 23:15:50.251292	2	75	\N	0	0	\N	Homework	new
-29	3	76	lllllkkkllllllllllllll		1446852106-KkjwOxf8ui_lak_DH4vjSA	0	2015-11-06 23:23:40.810491	2015-11-06 23:23:40.810491	0	75	\N	0	0	\N	Homework	new
-30	3	76	ijojoijoij	12341243134	1446853253-7zDanuDhCDAqxEX4M16tyw	0	2015-11-06 23:41:05.31977	2015-11-06 23:41:05.31977	0	75	\N	0	0	\N	Homework	new
-31	3	76	asdfasdfas	13412341234123	1446853289-25xtUc7fqbOc8jpqffs2eA	0	2015-11-06 23:43:48.265525	2015-11-06 23:43:48.265525	0	75	\N	0	0	\N	Homework	new
-33	3	76	qqwerqwerwr	qwerqwerqwer	1447457338-REwk5dVUulkMJkMFO3f7HQ	0	2015-11-13 23:29:24.066118	2015-11-13 23:29:24.066118	0	75	\N	0	0	\N	Homework	new
-34	3	76	13451345235		1447457427-Tizh7tLxU-EDMNh6tXt5uw	0	2015-11-13 23:30:44.146409	2015-11-13 23:30:44.146409	1	75	\N	0	2	\N	Homework	new
-35	3	76	12341	123412341243	1447457841-k5_oQSs5l5UkqtCRmwYQvw	0	2015-11-13 23:37:32.432956	2015-11-22 10:21:47.206723	0	75	21	0	0	\N	Exercise	completed
-32	3	76	1341234	1341234	1446853565-jzbqByh2a83ebYI5khYd6w	0	2015-11-06 23:55:47.50505	2015-11-22 13:40:32.822024	1	75	21	0	1	\N	Exercise	completed
-24	3	76	131342	1234123412	1446285733-TAdGgqZtnuYnX6IXQNNIdw	0	2015-10-31 10:02:46.014979	2015-11-22 13:43:45.991067	1	75	21	0	2	\N	Exercise	completed
-20	3	76	1234	1234	1445377833-KSNcYRluVxmFuubuc_3Djg	0	2015-10-20 21:50:43.883698	2015-11-22 13:56:01.061333	3	75	15	0	1	exercise	Exercise	completed
-19	3	76	asdfasf	asdfasdfasdfa	1445376653-zCMt3K5fiS0m3v6MF2M8iA	0	2015-10-20 21:31:04.079655	2015-11-22 23:25:08.606833	3	75	15	0	6	exercise	Exercise	completed
-25	3	76	143啊安师大发	爱仕达发生的罚	1446286462-0eZYJETvTK_OD6qcJVnS8w	0	2015-10-31 10:14:30.704274	2015-11-22 23:30:04.89363	5	75	21	0	1	\N	Exercise	completed
+COPY examinations (id, customized_course_id, teacher_id, title, content, token, topics_count, created_at, updated_at, solutions_count, student_id, customized_tutorial_id, comments_count, corrections_count, work_type, type, state, last_operator_id, first_handled_at, completed_at, last_handled_at, last_redone_at) FROM stdin;
+22	3	76	ccccsswe	dddsssqqq	1445515886-i4lz6KSvk0uoLVenPpiRoA	0	2015-10-22 12:11:39.470899	2015-11-30 22:08:58.278049	1	75	\N	0	3	\N	Homework	completed	76	2015-10-22 12:53:09.306451	2015-10-22 12:53:09.306451	2015-10-22 12:53:09.306451	\N
+7	2	2	测试是否可以仅需发送短信	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/c582eeb5d14132ddc23d9f7d62f94692.jpg" style="width: 1128px;"></p>	1441786862-TXXJTBgX3z3wM7A08tbNhA	0	2015-09-09 08:21:52.951624	2015-11-30 22:00:04.423685	0	75	\N	0	0	\N	Homework	new	2	\N	\N	\N	\N
+6	2	2	测试是否可以发送短信	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/844d7641e00de06e8ceb38beb019ffc7.jpg" style="width: 25%;"></p><p>测试感觉还是不错滴</p><p>哈哈哈哈哈哈哈</p>	1441786642-8TGfNHzEKEneBstzanC_IA	0	2015-09-09 08:18:06.743595	2015-11-30 22:00:04.434359	1	75	\N	0	0	\N	Homework	new	2	\N	\N	\N	\N
+19	3	76	asdfasf	asdfasdfasdfa	1445376653-zCMt3K5fiS0m3v6MF2M8iA	0	2015-10-20 21:31:04.079655	2015-11-30 22:15:40.193488	3	75	15	0	6	exercise	Exercise	in_progress	76	2015-10-22 13:39:50.094934	2015-10-24 04:10:30.594025	2015-10-24 04:10:30.594025	\N
+9	2	2	ceshi yixia	okokoko	1443134338-6bOj4yCK41vVHPFVMmmmJw	0	2015-09-24 22:39:11.090968	2015-11-30 22:00:04.444652	3	75	\N	0	5	\N	Homework	new	2	\N	\N	\N	\N
+8	2	2	继续测试，看看能否发送短息	看看能否发送短息啊啊啊啊嗄	1441787068-glLyLG76QibVw6N2ri9dPg	0	2015-09-09 08:30:43.24876	2015-11-30 22:00:04.455254	1	75	\N	0	1	\N	Homework	new	2	\N	\N	\N	\N
+5	2	2	测试下是否可以使用	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/aa5730af43a434c7a69ede693275bc9a.jpg" style="width: 25%;"></p><p>哈哈哈</p>	1441775528-6Nb6fjRAfp1CiLvgmEbQ_Q	1	2015-09-09 05:16:42.473051	2015-11-30 22:00:04.464729	1	75	\N	0	9	\N	Homework	new	2	\N	\N	\N	\N
+18	3	76	sdfdsafsdf	adsfasfdasdf	1444485483-huSILAiIWTTRwQOESD67kQ	0	2015-10-10 13:58:27.263356	2015-11-30 22:00:04.473946	1	75	\N	0	1	\N	Homework	new	76	\N	\N	\N	\N
+10	2	2	看看怎么样么111		1442903924-QawoiFIfGLAPoHv_Krt8Iw	0	2015-09-22 06:39:07.200626	2015-11-30 22:00:04.48477	0	75	1	0	0	exercise	Exercise	new	2	\N	\N	\N	\N
+11	2	2	keyide	keyide sss	1442904957-cmsujdRC51Z02YMzQUwbuw	0	2015-09-22 06:56:06.544921	2015-11-30 22:00:04.496245	0	75	1	0	0	exercise	Exercise	new	2	\N	\N	\N	\N
+12	2	2	ccfasdfa	sss	1442899644-ushCGD06qUJF5etDxc2y9Q	0	2015-09-22 05:27:34.298872	2015-11-30 22:00:04.509073	0	75	1	0	0	exercise	Exercise	new	2	\N	\N	\N	\N
+13	2	2	23423412341234123412	安师大发啥地方	1442905070-K_djlHX6nMBxIhbPgOKP6A	0	2015-09-22 06:58:06.040722	2015-11-30 22:00:04.521331	0	75	1	0	0	exercise	Exercise	new	2	\N	\N	\N	\N
+14	2	2	测试以下看看啊嘛		1442897586-XKk_lhGRfdup_xtPzqaOIw	0	2015-09-22 04:53:19.888308	2015-11-30 22:00:04.532443	1	75	1	0	0	exercise	Exercise	new	2	\N	\N	\N	\N
+15	2	2	asdfasdf	asdfasdf	1444193898-Fxan8z1lCcNrJ9okNgso_A	0	2015-10-07 04:58:32.380844	2015-11-30 22:00:04.544066	0	75	13	0	0	exercise	Exercise	new	2	\N	\N	\N	\N
+16	2	2	aaaddd	asdfadf	1444197635-ht3f3TzMiUA0BJL4wtHtKw	0	2015-10-07 06:00:49.030575	2015-11-30 22:00:04.555576	0	75	13	0	0	exercise	Exercise	new	2	\N	\N	\N	\N
+17	2	2	1111	333	1444197716-g1ZIbnTemVd3d-CXqWUKaw	0	2015-10-07 06:02:10.000853	2015-11-30 22:00:04.565152	0	75	13	0	0	exercise	Exercise	new	2	\N	\N	\N	\N
+24	3	76	131342	1234123412	1446285733-TAdGgqZtnuYnX6IXQNNIdw	0	2015-10-31 10:02:46.014979	2015-12-04 23:07:59.422254	1	75	21	0	2	\N	Exercise	completed	76	2015-11-05 23:33:57.456419	2015-11-05 23:33:57.456419	2015-11-05 23:33:57.456419	2015-12-01 23:21:35.914714
+23	3	76	asdfasdf	asdfasdfasdf	1445646725-DZRWwgcfD1QiJI54qmyJrA	0	2015-10-24 00:32:13.922978	2015-11-30 22:00:04.61892	0	75	\N	0	0	\N	Homework	new	76	\N	\N	\N	\N
+35	3	76	12341	123412341243	1447457841-k5_oQSs5l5UkqtCRmwYQvw	0	2015-11-13 23:37:32.432956	2015-12-01 23:09:00.67925	0	75	21	0	0	\N	Exercise	in_progress	76	\N	2015-12-01 22:12:33.246384	\N	2015-12-01 23:09:00.675062
+26	3	76	12341	12341234	1446327190-qw0ceMtVFywz5lkNDG7IWQ	0	2015-10-31 21:33:46.957243	2015-11-30 22:00:04.662931	0	75	\N	0	0	\N	Homework	new	76	\N	\N	\N	\N
+25	3	76	143啊安师大发	爱仕达发生的罚	1446286462-0eZYJETvTK_OD6qcJVnS8w	0	2015-10-31 10:14:30.704274	2015-12-04 23:07:59.522582	5	75	21	0	1	\N	Exercise	in_progress	76	2015-10-31 22:26:57.918969	2015-11-14 00:05:13.168446	2015-11-14 00:05:13.168446	\N
+33	3	76	qqwerqwerwr	qwerqwerqwer	1447457338-REwk5dVUulkMJkMFO3f7HQ	0	2015-11-13 23:29:24.066118	2015-12-01 23:09:05.176246	0	75	\N	0	0	\N	Homework	in_progress	76	\N	2015-12-01 23:09:03.231173	\N	2015-12-01 23:09:05.168656
+29	3	76	lllllkkkllllllllllllll		1446852106-KkjwOxf8ui_lak_DH4vjSA	0	2015-11-06 23:23:40.810491	2015-11-30 22:00:04.731405	0	75	\N	0	0	\N	Homework	new	76	\N	\N	\N	\N
+30	3	76	ijojoijoij	12341243134	1446853253-7zDanuDhCDAqxEX4M16tyw	0	2015-11-06 23:41:05.31977	2015-11-30 22:00:04.744888	0	75	\N	0	0	\N	Homework	new	76	\N	\N	\N	\N
+31	3	76	asdfasdfas	13412341234123	1446853289-25xtUc7fqbOc8jpqffs2eA	0	2015-11-06 23:43:48.265525	2015-11-30 22:00:04.759492	0	75	\N	0	0	\N	Homework	new	76	\N	\N	\N	\N
+34	3	76	13451345235		1447457427-Tizh7tLxU-EDMNh6tXt5uw	0	2015-11-13 23:30:44.146409	2015-12-06 03:16:31.057475	1	75	\N	0	2	\N	Homework	in_progress	76	2015-11-14 00:07:30.815072	2015-11-14 00:07:30.815072	2015-11-14 00:07:30.815072	2015-12-06 03:16:31.052256
+27	3	76	ceshi	ceshi	1446327854-zjNZqHkGiRnTCxHKtNXg8Q	0	2015-10-31 21:44:25.203388	2015-11-30 22:15:40.040079	2	75	\N	0	3	\N	Homework	in_progress	76	2015-10-31 21:53:35.162795	2015-10-31 22:01:38.091978	2015-10-31 22:01:38.091978	\N
+32	3	76	1341234	1341234	1446853565-jzbqByh2a83ebYI5khYd6w	0	2015-11-06 23:55:47.50505	2015-12-06 22:49:30.617134	1	75	21	0	4	\N	Exercise	in_progress	76	2015-11-07 00:15:53.380441	2015-12-06 22:49:22.084295	2015-11-07 00:15:53.380441	2015-12-06 22:49:30.609755
+28	3	76	12341234	12341212341	1446765308-0C76d2Z0YWp0rvWix-SRVw	0	2015-11-05 23:15:50.251292	2015-11-30 22:15:40.078653	2	75	\N	0	0	\N	Homework	in_progress	76	2015-11-05 23:24:01.514714	2015-11-05 23:30:01.30919	2015-11-05 23:30:01.30919	\N
+20	3	76	1234	1234	1445377833-KSNcYRluVxmFuubuc_3Djg	0	2015-10-20 21:50:43.883698	2015-11-30 22:15:40.152154	3	75	15	0	1	exercise	Exercise	in_progress	76	2015-10-22 13:28:10.824794	2015-10-22 13:36:30.259597	2015-10-22 13:36:30.259597	\N
+21	3	76	ceshi	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/87349fa9d1dc15ccc60826b2092cad10.JPG" style="width: 414px;"></p>	1445386591-Rhz0bUuCA4b35s_tdPnb8Q	0	2015-10-21 00:19:47.63678	2015-11-30 22:08:58.246943	1	75	15	0	0	\N	Homework	completed	76	2015-10-22 12:06:35.081598	2015-10-22 12:06:35.081598	2015-10-22 12:06:35.081598	\N
 \.
 
 
@@ -3640,88 +3758,177 @@ SELECT pg_catalog.setval('nodes_id_seq', 1, false);
 --
 
 COPY notifications (id, type, receiver_id, notificationable_type, notificationable_id, operator_id, read, action_name, created_at, updated_at, customized_course_id) FROM stdin;
-1	ActionNotification	75	CustomizedTutorial	16	76	t	create	2015-10-30 22:20:50.597368	2015-10-31 00:55:21.445905	\N
-2	ActionNotification	75	CustomizedTutorial	17	76	t	create	2015-10-31 08:44:44.354244	2015-10-31 08:45:13.061612	\N
-4	ActionNotification	75	CustomizedTutorial	19	76	t	create	2015-10-31 09:03:23.837912	2015-10-31 09:06:04.08054	\N
-5	ActionNotification	75	CustomizedTutorial	20	76	t	create	2015-10-31 09:05:00.444316	2015-10-31 09:06:12.066869	\N
-6	CustomizedCourseActionNotification	75	CustomizedTutorial	21	76	f	create	2015-10-31 09:30:56.791271	2015-10-31 09:30:56.791271	3
-7	CustomizedCourseActionNotification	75	Examination	24	76	t	create	2015-10-31 10:02:46.187648	2015-10-31 10:11:41.439152	3
-9	CustomizedCourseActionNotification	76	Topic	74	75	t	create	2015-10-31 10:28:47.788327	2015-10-31 10:47:55.557857	3
-10	CustomizedCourseActionNotification	75	Reply	89	76	f	create	2015-10-31 11:00:10.807114	2015-10-31 11:00:10.807114	3
-11	CustomizedCourseActionNotification	75	Reply	90	76	t	create	2015-10-31 11:01:45.339284	2015-10-31 13:16:02.295516	3
-12	CustomizedCourseActionNotification	75	Examination	26	76	t	create	2015-10-31 21:33:47.016423	2015-10-31 21:39:29.025861	3
-13	CustomizedCourseActionNotification	75	Examination	27	76	t	create	2015-10-31 21:44:25.227835	2015-10-31 21:53:19.218111	3
-14	CustomizedCourseActionNotification	76	Solution	24	75	t	create	2015-10-31 22:01:38.189952	2015-10-31 22:02:09.535695	3
-15	CustomizedCourseActionNotification	75	Correction	37	76	f	create	2015-10-31 22:06:55.767784	2015-10-31 22:06:55.767784	3
-16	CustomizedCourseActionNotification	75	Correction	38	76	f	create	2015-10-31 22:11:51.861404	2015-10-31 22:11:51.861404	3
-8	CustomizedCourseActionNotification	75	Examination	25	76	t	create	2015-10-31 10:14:30.864308	2015-10-31 22:26:39.272267	3
-17	CustomizedCourseActionNotification	76	Solution	25	75	f	create	2015-10-31 22:26:57.988668	2015-10-31 22:26:57.988668	3
-18	CustomizedCourseActionNotification	76	Solution	26	75	f	create	2015-10-31 22:29:33.664152	2015-10-31 22:29:33.664152	3
-19	CustomizedCourseActionNotification	76	Solution	27	75	t	create	2015-10-31 22:30:17.724538	2015-10-31 22:32:24.850424	3
-20	CustomizedCourseActionNotification	75	Correction	39	76	f	create	2015-10-31 22:32:38.396245	2015-10-31 22:32:38.396245	3
-21	CustomizedCourseActionNotification	75	Comment	76	76	f	create	2015-10-31 22:57:20.118349	2015-10-31 22:57:20.118349	3
-22	CustomizedCourseActionNotification	75	Comment	77	76	f	create	2015-10-31 22:57:49.802507	2015-10-31 22:57:49.802507	3
-23	CustomizedCourseActionNotification	75	Comment	78	76	f	create	2015-10-31 22:58:23.013246	2015-10-31 22:58:23.013246	3
-24	CustomizedCourseActionNotification	75	Comment	79	76	f	create	2015-10-31 22:58:58.545374	2015-10-31 22:58:58.545374	3
-25	CustomizedCourseActionNotification	75	Comment	80	76	f	create	2015-10-31 22:59:42.706186	2015-10-31 22:59:42.706186	3
-26	CustomizedCourseActionNotification	75	Comment	81	76	f	create	2015-10-31 23:00:17.502424	2015-10-31 23:00:17.502424	3
-27	CustomizedCourseActionNotification	75	Comment	82	76	f	create	2015-10-31 23:02:01.304295	2015-10-31 23:02:01.304295	3
-28	CustomizedCourseActionNotification	75	Comment	83	76	f	create	2015-10-31 23:04:35.964194	2015-10-31 23:04:35.964194	3
-29	CustomizedCourseActionNotification	75	Comment	84	76	f	create	2015-10-31 23:04:41.242119	2015-10-31 23:04:41.242119	3
-30	CustomizedCourseActionNotification	75	Comment	85	76	f	create	2015-10-31 23:04:58.192497	2015-10-31 23:04:58.192497	3
-31	CustomizedCourseActionNotification	75	Comment	86	76	f	create	2015-10-31 23:27:07.144355	2015-10-31 23:27:07.144355	3
-32	CustomizedCourseActionNotification	75	Comment	87	76	t	create	2015-10-31 23:27:22.856524	2015-10-31 23:30:34.557627	3
-33	CustomizedCourseActionNotification	76	Comment	88	75	t	create	2015-10-31 23:33:52.94446	2015-10-31 23:34:28.007836	3
-34	CustomizedCourseActionNotification	75	Correction	40	76	t	create	2015-11-01 01:22:32.566525	2015-11-01 01:30:58.808467	3
-37	CustomizedCourseActionNotification	76	Topic	76	75	t	create	2015-11-01 01:34:18.9052	2015-11-01 01:34:35.085609	3
-38	CustomizedCourseActionNotification	75	Reply	91	76	t	create	2015-11-01 01:35:13.46596	2015-11-01 01:35:41.252928	3
-36	CustomizedCourseActionNotification	76	Topic	75	75	t	create	2015-11-01 01:31:41.666831	2015-11-01 22:42:38.288543	3
-35	CustomizedCourseActionNotification	75	Comment	89	76	t	create	2015-11-01 01:28:42.510898	2015-11-01 22:46:35.671445	3
-39	CustomizedCourseActionNotification	76	Comment	90	75	f	create	2015-11-01 22:47:01.363231	2015-11-01 22:47:01.363231	3
-40	CustomizedCourseActionNotification	76	Topic	77	75	f	create	2015-11-03 23:06:02.439289	2015-11-03 23:06:02.439289	3
-41	CustomizedCourseActionNotification	76	Topic	78	75	f	create	2015-11-04 23:24:02.428029	2015-11-04 23:24:02.428029	3
-42	CustomizedCourseActionNotification	76	Reply	92	75	f	create	2015-11-05 22:21:18.757481	2015-11-05 22:21:18.757481	3
-43	CustomizedCourseActionNotification	76	Topic	79	75	f	create	2015-11-05 23:11:56.518766	2015-11-05 23:11:56.518766	3
-44	CustomizedCourseActionNotification	76	Reply	93	75	f	create	2015-11-05 23:12:17.197559	2015-11-05 23:12:17.197559	3
-45	CustomizedCourseActionNotification	75	Examination	28	76	t	create	2015-11-05 23:15:50.278696	2015-11-05 23:23:29.854106	3
-46	CustomizedCourseActionNotification	76	Solution	28	75	f	create	2015-11-05 23:24:01.567331	2015-11-05 23:24:01.567331	3
-47	CustomizedCourseActionNotification	76	Solution	29	75	f	create	2015-11-05 23:30:01.34045	2015-11-05 23:30:01.34045	3
-48	CustomizedCourseActionNotification	76	Solution	30	75	f	create	2015-11-05 23:33:57.48876	2015-11-05 23:33:57.48876	3
-49	CustomizedCourseActionNotification	76	Topic	80	75	f	create	2015-11-06 22:59:04.848112	2015-11-06 22:59:04.848112	3
-50	CustomizedCourseActionNotification	76	Reply	94	75	f	create	2015-11-06 23:02:49.202767	2015-11-06 23:02:49.202767	3
-51	CustomizedCourseActionNotification	76	Reply	95	75	f	create	2015-11-06 23:09:49.26401	2015-11-06 23:09:49.26401	3
-52	CustomizedCourseActionNotification	76	Reply	96	75	f	create	2015-11-06 23:11:02.662361	2015-11-06 23:11:02.662361	3
-53	CustomizedCourseActionNotification	75	Examination	29	76	t	create	2015-11-06 23:23:40.990716	2015-11-06 23:24:54.483136	3
-54	CustomizedCourseActionNotification	75	Examination	30	76	f	create	2015-11-06 23:41:05.344264	2015-11-06 23:41:05.344264	3
-55	CustomizedCourseActionNotification	75	Examination	31	76	f	create	2015-11-06 23:43:48.321285	2015-11-06 23:43:48.321285	3
-56	CustomizedCourseActionNotification	75	Examination	32	76	f	create	2015-11-06 23:55:47.797019	2015-11-06 23:55:47.797019	3
-57	CustomizedCourseActionNotification	76	Solution	31	75	f	create	2015-11-07 00:15:53.477774	2015-11-07 00:15:53.477774	3
-58	CustomizedCourseActionNotification	76	Solution	32	75	f	create	2015-11-07 00:28:44.247439	2015-11-07 00:28:44.247439	3
-59	CustomizedCourseActionNotification	75	Correction	41	76	f	create	2015-11-07 00:46:42.033245	2015-11-07 00:46:42.033245	3
-60	CustomizedCourseActionNotification	75	CustomizedCourseMessage	1	76	f	create	2015-11-12 22:22:09.223381	2015-11-12 22:22:09.223381	3
-65	CustomizedCourseActionNotification	75	Correction	44	76	t	create	2015-11-13 23:20:43.62968	2015-11-14 00:24:05.701726	3
-66	CustomizedCourseActionNotification	75	Examination	33	76	t	create	2015-11-13 23:29:24.115809	2015-11-14 00:24:56.069594	3
-63	CustomizedCourseActionNotification	75	CustomizedCourseMessageReply	2	76	t	create	2015-11-13 23:15:19.073283	2015-11-14 23:41:50.581999	3
-61	CustomizedCourseActionNotification	75	CustomizedCourseMessageReply	1	76	t	create	2015-11-13 22:49:39.272174	2015-11-14 23:49:50.13419	3
-67	CustomizedCourseActionNotification	75	Examination	34	76	f	create	2015-11-13 23:30:44.205905	2015-11-13 23:30:44.205905	3
-68	CustomizedCourseActionNotification	75	Examination	35	76	f	create	2015-11-13 23:37:32.490639	2015-11-13 23:37:32.490639	3
-69	CustomizedCourseActionNotification	76	Solution	33	75	f	create	2015-11-14 00:05:13.305221	2015-11-14 00:05:13.305221	3
-70	CustomizedCourseActionNotification	76	Solution	34	75	t	create	2015-11-14 00:07:30.921968	2015-11-14 00:20:18.805597	3
-64	CustomizedCourseActionNotification	75	Correction	43	76	t	create	2015-11-13 23:20:07.197461	2015-11-14 00:20:41.456688	3
-71	CustomizedCourseActionNotification	76	Topic	81	75	f	create	2015-11-14 03:13:43.202405	2015-11-14 03:13:43.202405	3
-72	CustomizedCourseActionNotification	75	Reply	97	76	f	create	2015-11-14 03:30:35.263748	2015-11-14 03:30:35.263748	3
-73	CustomizedCourseActionNotification	75	Reply	98	76	f	create	2015-11-14 03:33:22.53814	2015-11-14 03:33:22.53814	3
-74	CustomizedCourseActionNotification	76	Reply	99	75	f	create	2015-11-14 03:38:21.586826	2015-11-14 03:38:21.586826	3
-75	CustomizedCourseActionNotification	76	Reply	100	75	f	create	2015-11-14 03:39:06.964115	2015-11-14 03:39:06.964115	3
-76	CustomizedCourseActionNotification	76	Reply	101	75	f	create	2015-11-14 03:39:26.760964	2015-11-14 03:39:26.760964	3
-77	CustomizedCourseActionNotification	76	Reply	102	75	f	create	2015-11-14 03:39:36.490095	2015-11-14 03:39:36.490095	3
-78	CustomizedCourseActionNotification	76	Reply	103	75	t	create	2015-11-14 03:39:58.172348	2015-11-14 03:47:06.490735	3
-79	CustomizedCourseActionNotification	76	Topic	82	75	f	create	2015-11-14 03:52:57.475838	2015-11-14 03:52:57.475838	3
-80	CustomizedCourseActionNotification	76	Reply	104	75	f	create	2015-11-14 03:53:41.625368	2015-11-14 03:53:41.625368	3
-81	CustomizedCourseActionNotification	76	Reply	105	75	f	create	2015-11-14 03:56:52.124837	2015-11-14 03:56:52.124837	3
-82	CustomizedCourseActionNotification	76	Reply	106	75	f	create	2015-11-14 04:42:25.680371	2015-11-14 04:42:25.680371	3
-84	CustomizedCourseActionNotification	75	Correction	46	76	f	create	2015-11-16 23:15:00.71251	2015-11-16 23:15:00.71251	3
-85	CustomizedCourseActionNotification	75	Correction	47	76	f	create	2015-11-16 23:15:13.858803	2015-11-16 23:15:13.858803	3
+6	CustomizedCourseActionNotification	75	ActionRecord	6	76	f	create	2015-10-31 09:30:56.791271	2015-11-25 22:07:34.86751	3
+7	CustomizedCourseActionNotification	75	ActionRecord	7	76	t	create	2015-10-31 10:02:46.187648	2015-11-25 22:07:34.898722	3
+8	CustomizedCourseActionNotification	75	ActionRecord	8	76	t	create	2015-10-31 10:14:30.864308	2015-11-25 22:07:34.906906	3
+9	CustomizedCourseActionNotification	76	ActionRecord	9	75	t	create	2015-10-31 10:28:47.788327	2015-11-25 22:07:34.914425	3
+10	CustomizedCourseActionNotification	75	ActionRecord	10	76	f	create	2015-10-31 11:00:10.807114	2015-11-25 22:07:34.92187	3
+11	CustomizedCourseActionNotification	75	ActionRecord	11	76	t	create	2015-10-31 11:01:45.339284	2015-11-25 22:07:34.929405	3
+12	CustomizedCourseActionNotification	75	ActionRecord	12	76	t	create	2015-10-31 21:33:47.016423	2015-11-25 22:07:34.937041	3
+13	CustomizedCourseActionNotification	75	ActionRecord	13	76	t	create	2015-10-31 21:44:25.227835	2015-11-25 22:07:34.945525	3
+14	CustomizedCourseActionNotification	76	ActionRecord	15	75	t	create	2015-10-31 22:01:38.189952	2015-11-25 22:07:34.95504	3
+43	CustomizedCourseActionNotification	76	ActionRecord	66	75	f	create	2015-11-05 23:11:56.518766	2015-11-26 21:37:51.690217	3
+18	CustomizedCourseActionNotification	76	ActionRecord	4	75	f	create	2015-10-31 22:29:33.664152	2015-11-26 21:37:51.409844	3
+17	CustomizedCourseActionNotification	76	ActionRecord	18	75	f	create	2015-10-31 22:26:57.988668	2015-11-25 22:07:34.977827	3
+19	CustomizedCourseActionNotification	76	ActionRecord	5	75	t	create	2015-10-31 22:30:17.724538	2015-11-26 21:37:51.418424	3
+20	CustomizedCourseActionNotification	75	ActionRecord	6	76	f	create	2015-10-31 22:32:38.396245	2015-11-26 21:37:51.428006	3
+23	CustomizedCourseActionNotification	75	ActionRecord	7	76	f	create	2015-10-31 22:58:23.013246	2015-11-26 21:37:51.437185	3
+21	CustomizedCourseActionNotification	75	ActionRecord	22	76	f	create	2015-10-31 22:57:20.118349	2015-11-25 22:07:35.010537	3
+24	CustomizedCourseActionNotification	75	ActionRecord	8	76	f	create	2015-10-31 22:58:58.545374	2015-11-26 21:37:51.445993	3
+25	CustomizedCourseActionNotification	75	ActionRecord	12	76	f	create	2015-10-31 22:59:42.706186	2015-11-26 21:37:51.463324	3
+26	CustomizedCourseActionNotification	75	ActionRecord	13	76	f	create	2015-10-31 23:00:17.502424	2015-11-26 21:37:51.470245	3
+22	CustomizedCourseActionNotification	75	ActionRecord	14	76	f	create	2015-10-31 22:57:49.802507	2015-11-26 21:37:51.477346	3
+28	CustomizedCourseActionNotification	75	ActionRecord	48	76	f	create	2015-10-31 23:04:35.964194	2015-11-26 21:37:51.607671	3
+29	CustomizedCourseActionNotification	75	ActionRecord	49	76	f	create	2015-10-31 23:04:41.242119	2015-11-26 21:37:51.615517	3
+30	CustomizedCourseActionNotification	75	ActionRecord	56	76	f	create	2015-10-31 23:04:58.192497	2015-11-26 21:37:51.632317	3
+31	CustomizedCourseActionNotification	75	ActionRecord	57	76	f	create	2015-10-31 23:27:07.144355	2015-11-26 21:37:51.639631	3
+45	CustomizedCourseActionNotification	75	ActionRecord	58	76	t	create	2015-11-05 23:15:50.278696	2015-11-26 21:37:51.646654	3
+33	CustomizedCourseActionNotification	76	ActionRecord	71	75	t	create	2015-10-31 23:33:52.94446	2015-11-25 22:07:35.413547	3
+40	CustomizedCourseActionNotification	76	ActionRecord	60	75	f	create	2015-11-03 23:06:02.439289	2015-11-26 21:37:51.661394	3
+27	CustomizedCourseActionNotification	75	ActionRecord	56	76	f	create	2015-10-31 23:02:01.304295	2015-11-26 21:44:47.036502	3
+35	CustomizedCourseActionNotification	75	ActionRecord	36	76	t	create	2015-11-01 01:28:42.510898	2015-11-25 22:07:35.127907	3
+38	CustomizedCourseActionNotification	75	ActionRecord	6	76	t	create	2015-11-01 01:35:13.46596	2015-11-26 21:44:46.948926	3
+36	CustomizedCourseActionNotification	76	ActionRecord	61	75	t	create	2015-11-01 01:31:41.666831	2015-11-26 21:44:47.052498	3
+46	CustomizedCourseActionNotification	76	ActionRecord	59	75	f	create	2015-11-05 23:24:01.567331	2015-11-26 21:37:51.653508	3
+15	CustomizedCourseActionNotification	75	ActionRecord	61	76	f	create	2015-10-31 22:06:55.767784	2015-11-26 21:37:51.668163	3
+41	CustomizedCourseActionNotification	76	ActionRecord	42	75	f	create	2015-11-04 23:24:02.428029	2015-11-25 22:07:35.174402	3
+65	CustomizedCourseActionNotification	75	ActionRecord	66	76	t	create	2015-11-13 23:20:43.62968	2015-11-25 22:07:35.349567	3
+34	CustomizedCourseActionNotification	75	ActionRecord	69	76	t	create	2015-11-01 01:22:32.566525	2015-11-26 21:37:51.710009	3
+44	CustomizedCourseActionNotification	76	ActionRecord	45	75	f	create	2015-11-05 23:12:17.197559	2015-11-25 22:07:35.197113	3
+37	CustomizedCourseActionNotification	76	ActionRecord	64	75	t	create	2015-11-01 01:34:18.9052	2015-11-26 21:44:47.060296	3
+16	CustomizedCourseActionNotification	75	ActionRecord	64	76	f	create	2015-10-31 22:11:51.861404	2015-11-26 21:37:51.675735	3
+47	CustomizedCourseActionNotification	76	ActionRecord	48	75	f	create	2015-11-05 23:30:01.34045	2015-11-25 22:07:35.219309	3
+48	CustomizedCourseActionNotification	76	ActionRecord	49	75	f	create	2015-11-05 23:33:57.48876	2015-11-25 22:07:35.226937	3
+49	CustomizedCourseActionNotification	76	ActionRecord	50	75	f	create	2015-11-06 22:59:04.848112	2015-11-25 22:07:35.234039	3
+51	CustomizedCourseActionNotification	76	ActionRecord	52	75	f	create	2015-11-06 23:09:49.26401	2015-11-25 22:07:35.248354	3
+52	CustomizedCourseActionNotification	76	ActionRecord	53	75	f	create	2015-11-06 23:11:02.662361	2015-11-25 22:07:35.255836	3
+53	CustomizedCourseActionNotification	75	ActionRecord	54	76	t	create	2015-11-06 23:23:40.990716	2015-11-25 22:07:35.264046	3
+54	CustomizedCourseActionNotification	75	ActionRecord	55	76	f	create	2015-11-06 23:41:05.344264	2015-11-25 22:07:35.271475	3
+55	CustomizedCourseActionNotification	75	ActionRecord	56	76	f	create	2015-11-06 23:43:48.321285	2015-11-25 22:07:35.279437	3
+56	CustomizedCourseActionNotification	75	ActionRecord	57	76	f	create	2015-11-06 23:55:47.797019	2015-11-25 22:07:35.287518	3
+57	CustomizedCourseActionNotification	76	ActionRecord	58	75	f	create	2015-11-07 00:15:53.477774	2015-11-25 22:07:35.29485	3
+58	CustomizedCourseActionNotification	76	ActionRecord	59	75	f	create	2015-11-07 00:28:44.247439	2015-11-25 22:07:35.302123	3
+59	CustomizedCourseActionNotification	75	ActionRecord	60	76	f	create	2015-11-07 00:46:42.033245	2015-11-25 22:07:35.309198	3
+60	CustomizedCourseActionNotification	75	ActionRecord	61	76	f	create	2015-11-12 22:22:09.223381	2015-11-25 22:07:35.316833	3
+61	CustomizedCourseActionNotification	75	ActionRecord	62	76	t	create	2015-11-13 22:49:39.272174	2015-11-25 22:07:35.325167	3
+63	CustomizedCourseActionNotification	75	ActionRecord	64	76	t	create	2015-11-13 23:15:19.073283	2015-11-25 22:07:35.33233	3
+42	CustomizedCourseActionNotification	76	ActionRecord	65	75	f	create	2015-11-05 22:21:18.757481	2015-11-25 22:07:35.340333	3
+66	CustomizedCourseActionNotification	75	ActionRecord	67	76	t	create	2015-11-13 23:29:24.115809	2015-11-25 22:07:35.358154	3
+67	CustomizedCourseActionNotification	75	ActionRecord	68	76	f	create	2015-11-13 23:30:44.205905	2015-11-25 22:07:35.367225	3
+68	CustomizedCourseActionNotification	75	ActionRecord	69	76	f	create	2015-11-13 23:37:32.490639	2015-11-25 22:07:35.397023	3
+50	CustomizedCourseActionNotification	76	ActionRecord	51	75	f	create	2015-11-06 23:02:49.202767	2015-11-25 22:07:35.241364	3
+32	CustomizedCourseActionNotification	75	ActionRecord	70	76	t	create	2015-10-31 23:27:22.856524	2015-11-25 22:07:35.406313	3
+71	CustomizedCourseActionNotification	76	ActionRecord	72	75	f	create	2015-11-14 03:13:43.202405	2015-11-25 22:07:35.422361	3
+72	CustomizedCourseActionNotification	75	ActionRecord	73	76	f	create	2015-11-14 03:30:35.263748	2015-11-25 22:07:35.429383	3
+39	CustomizedCourseActionNotification	76	ActionRecord	69	75	f	create	2015-11-01 22:47:01.363231	2015-11-26 21:44:47.0709	3
+84	CustomizedCourseActionNotification	75	ActionRecord	85	76	f	create	2015-11-16 23:15:00.71251	2015-11-26 21:44:47.08657	3
+81	CustomizedCourseActionNotification	76	ActionRecord	86	75	f	create	2015-11-14 03:56:52.124837	2015-11-26 21:44:47.094294	3
+87	CustomizedCourseActionNotification	75	ActionRecord	88	76	f	state_change	2015-11-26 22:01:40.43235	2015-11-26 22:01:40.43235	3
+88	CustomizedCourseActionNotification	75	ActionRecord	89	76	f	state_change	2015-11-26 22:51:28.201529	2015-11-26 22:51:28.201529	3
+89	CustomizedCourseActionNotification	75	ActionRecord	90	76	f	state_change	2015-11-27 23:54:54.17973	2015-11-27 23:54:54.17973	3
+90	CustomizedCourseActionNotification	75	ActionRecord	91	76	f	state_change	2015-11-27 23:54:56.58609	2015-11-27 23:54:56.58609	3
+91	CustomizedCourseActionNotification	75	ActionRecord	92	76	f	state_change	2015-11-28 00:16:52.081282	2015-11-28 00:16:52.081282	3
+92	CustomizedCourseActionNotification	75	ActionRecord	93	76	f	state_change	2015-11-28 00:16:54.370307	2015-11-28 00:16:54.370307	3
+73	CustomizedCourseActionNotification	75	ActionRecord	9	76	f	create	2015-11-14 03:33:22.53814	2015-11-26 21:37:51.454603	3
+75	CustomizedCourseActionNotification	76	ActionRecord	22	75	f	create	2015-11-14 03:39:06.964115	2015-11-26 21:37:51.507763	3
+93	CustomizedCourseActionNotification	75	ActionRecord	94	76	f	state_change	2015-11-28 03:18:13.199869	2015-11-28 03:18:13.199869	3
+94	CustomizedCourseActionNotification	75	ActionRecord	95	76	f	state_change	2015-11-28 03:18:14.848731	2015-11-28 03:18:14.848731	3
+95	CustomizedCourseActionNotification	75	ActionRecord	96	76	f	state_change	2015-11-28 10:59:36.908719	2015-11-28 10:59:36.908719	3
+96	CustomizedCourseActionNotification	75	ActionRecord	97	76	f	state_change	2015-11-29 02:15:51.236825	2015-11-29 02:15:51.236825	3
+97	CustomizedCourseActionNotification	75	ActionRecord	98	76	f	state_change	2015-11-29 02:15:54.621271	2015-11-29 02:15:54.621271	3
+98	CustomizedCourseActionNotification	75	ActionRecord	99	76	f	state_change	2015-11-29 02:16:14.104644	2015-11-29 02:16:14.104644	3
+99	CustomizedCourseActionNotification	75	ActionRecord	100	76	f	state_change	2015-11-29 02:16:16.727391	2015-11-29 02:16:16.727391	3
+118	CustomizedCourseActionNotification	75	ActionRecord	119	76	f	state_change	2015-11-29 21:30:52.042614	2015-11-29 21:30:52.042614	3
+100	CustomizedCourseActionNotification	75	ActionRecord	101	76	f	state_change	2015-11-29 02:47:34.795828	2015-11-29 02:47:34.795828	3
+119	CustomizedCourseActionNotification	75	ActionRecord	120	76	f	state_change	2015-11-29 22:38:30.496065	2015-11-29 22:38:30.496065	3
+82	CustomizedCourseActionNotification	76	ActionRecord	54	75	f	create	2015-11-14 04:42:25.680371	2015-11-26 21:37:51.625356	3
+64	CustomizedCourseActionNotification	75	ActionRecord	65	76	t	create	2015-11-13 23:20:07.197461	2015-11-26 21:37:51.683403	3
+69	CustomizedCourseActionNotification	76	ActionRecord	67	75	f	create	2015-11-14 00:05:13.305221	2015-11-26 21:37:51.696974	3
+70	CustomizedCourseActionNotification	76	ActionRecord	68	75	t	create	2015-11-14 00:07:30.921968	2015-11-26 21:37:51.703541	3
+101	CustomizedCourseActionNotification	75	ActionRecord	102	76	f	state_change	2015-11-29 02:47:37.671861	2015-11-29 02:47:37.671861	3
+77	CustomizedCourseActionNotification	76	ActionRecord	7	75	f	create	2015-11-14 03:39:36.490095	2015-11-26 21:44:46.955938	3
+78	CustomizedCourseActionNotification	76	ActionRecord	8	75	t	create	2015-11-14 03:39:58.172348	2015-11-26 21:44:46.962308	3
+79	CustomizedCourseActionNotification	76	ActionRecord	12	75	f	create	2015-11-14 03:52:57.475838	2015-11-26 21:44:46.971662	3
+80	CustomizedCourseActionNotification	76	ActionRecord	13	75	f	create	2015-11-14 03:53:41.625368	2015-11-26 21:44:46.978064	3
+76	CustomizedCourseActionNotification	76	ActionRecord	14	75	f	create	2015-11-14 03:39:26.760964	2015-11-26 21:44:46.985023	3
+74	CustomizedCourseActionNotification	76	ActionRecord	16	75	f	create	2015-11-14 03:38:21.586826	2015-11-26 21:44:46.992135	3
+102	CustomizedCourseActionNotification	75	ActionRecord	103	76	f	state_change	2015-11-29 02:47:42.443482	2015-11-29 02:47:42.443482	3
+85	CustomizedCourseActionNotification	75	ActionRecord	57	76	f	create	2015-11-16 23:15:13.858803	2015-11-26 21:44:47.04352	3
+103	CustomizedCourseActionNotification	75	ActionRecord	104	76	f	state_change	2015-11-29 02:47:44.699232	2015-11-29 02:47:44.699232	3
+104	CustomizedCourseActionNotification	75	ActionRecord	105	76	f	state_change	2015-11-29 02:47:47.636023	2015-11-29 02:47:47.636023	3
+105	CustomizedCourseActionNotification	75	ActionRecord	106	76	f	state_change	2015-11-29 03:36:24.099557	2015-11-29 03:36:24.099557	3
+106	CustomizedCourseActionNotification	75	ActionRecord	107	76	f	state_change	2015-11-29 03:36:32.310283	2015-11-29 03:36:32.310283	3
+107	CustomizedCourseActionNotification	75	ActionRecord	108	76	f	state_change	2015-11-29 03:36:42.402761	2015-11-29 03:36:42.402761	3
+108	CustomizedCourseActionNotification	75	ActionRecord	109	76	f	state_change	2015-11-29 03:46:35.910173	2015-11-29 03:46:35.910173	3
+109	CustomizedCourseActionNotification	75	ActionRecord	110	76	f	state_change	2015-11-29 03:47:13.851819	2015-11-29 03:47:13.851819	3
+110	CustomizedCourseActionNotification	75	ActionRecord	111	76	f	state_change	2015-11-29 03:47:15.971983	2015-11-29 03:47:15.971983	3
+111	CustomizedCourseActionNotification	75	ActionRecord	112	76	f	state_change	2015-11-29 03:47:18.399245	2015-11-29 03:47:18.399245	3
+112	CustomizedCourseActionNotification	75	ActionRecord	113	76	f	state_change	2015-11-29 03:47:19.853914	2015-11-29 03:47:19.853914	3
+113	CustomizedCourseActionNotification	75	ActionRecord	114	76	f	state_change	2015-11-29 03:55:34.541266	2015-11-29 03:55:34.541266	3
+114	CustomizedCourseActionNotification	75	ActionRecord	115	76	f	state_change	2015-11-29 03:58:48.364828	2015-11-29 03:58:48.364828	3
+115	CustomizedCourseActionNotification	75	ActionRecord	116	76	f	state_change	2015-11-29 04:02:50.628836	2015-11-29 04:02:50.628836	3
+116	CustomizedCourseActionNotification	75	ActionRecord	117	76	f	state_change	2015-11-29 07:55:24.483035	2015-11-29 07:55:24.483035	3
+117	CustomizedCourseActionNotification	75	ActionRecord	118	76	f	state_change	2015-11-29 07:58:48.158809	2015-11-29 07:58:48.158809	3
+120	CustomizedCourseActionNotification	75	ActionRecord	121	76	f	state_change	2015-11-29 22:49:44.329637	2015-11-29 22:49:44.329637	3
+121	CustomizedCourseActionNotification	75	ActionRecord	122	76	f	create	2015-11-29 22:50:07.186748	2015-11-29 22:50:07.186748	3
+122	CustomizedCourseActionNotification	75	ActionRecord	123	76	f	state_change	2015-11-29 22:50:07.277501	2015-11-29 22:50:07.277501	3
+123	CustomizedCourseActionNotification	75	ActionRecord	124	76	f	state_change	2015-11-29 22:51:35.422593	2015-11-29 22:51:35.422593	3
+124	CustomizedCourseActionNotification	75	ActionRecord	125	76	f	state_change	2015-11-29 22:57:35.64278	2015-11-29 22:57:35.64278	3
+125	CustomizedCourseActionNotification	75	ActionRecord	126	76	f	state_change	2015-11-29 22:57:37.845839	2015-11-29 22:57:37.845839	3
+126	CustomizedCourseActionNotification	75	ActionRecord	127	76	f	state_change	2015-11-30 21:06:55.794696	2015-11-30 21:06:55.794696	3
+128	CustomizedCourseActionNotification	75	ActionRecord	129	76	f	state_change	2015-11-30 21:07:56.981067	2015-11-30 21:07:56.981067	3
+130	CustomizedCourseActionNotification	75	ActionRecord	131	76	f	state_change	2015-11-30 22:09:48.560011	2015-11-30 22:09:48.560011	3
+127	CustomizedCourseActionNotification	75	ActionRecord	128	76	f	state_change	2015-11-30 21:07:00.897879	2015-11-30 21:07:00.897879	3
+129	CustomizedCourseActionNotification	75	ActionRecord	130	76	f	state_change	2015-11-30 21:08:00.148734	2015-11-30 21:08:00.148734	3
+131	CustomizedCourseActionNotification	75	ActionRecord	132	76	f	state_change	2015-12-01 22:12:03.313382	2015-12-01 22:12:03.313382	3
+132	CustomizedCourseActionNotification	75	ActionRecord	133	76	f	state_change	2015-12-01 22:12:22.431652	2015-12-01 22:12:22.431652	3
+133	CustomizedCourseActionNotification	75	ActionRecord	134	76	f	state_change	2015-12-01 22:12:25.424562	2015-12-01 22:12:25.424562	3
+134	CustomizedCourseActionNotification	75	ActionRecord	135	76	f	state_change	2015-12-01 22:12:33.290374	2015-12-01 22:12:33.290374	3
+135	CustomizedCourseActionNotification	75	ActionRecord	136	76	f	state_change	2015-12-01 23:09:00.703551	2015-12-01 23:09:00.703551	3
+136	CustomizedCourseActionNotification	75	ActionRecord	137	76	f	state_change	2015-12-01 23:09:03.265346	2015-12-01 23:09:03.265346	3
+137	CustomizedCourseActionNotification	75	ActionRecord	138	76	f	state_change	2015-12-01 23:09:05.202247	2015-12-01 23:09:05.202247	3
+138	CustomizedCourseActionNotification	75	ActionRecord	139	76	f	state_change	2015-12-01 23:21:32.730348	2015-12-01 23:21:32.730348	3
+139	CustomizedCourseActionNotification	75	ActionRecord	140	76	f	state_change	2015-12-01 23:21:35.94111	2015-12-01 23:21:35.94111	3
+140	CustomizedCourseActionNotification	75	ActionRecord	141	76	t	state_change	2015-12-02 22:26:10.074954	2015-12-04 23:08:15.377275	3
+141	CustomizedCourseActionNotification	75	ActionRecord	142	76	f	state_change	2015-12-06 03:16:31.188752	2015-12-06 03:16:31.188752	3
+142	CustomizedCourseActionNotification	75	ActionRecord	143	76	f	state_change	2015-12-06 03:16:31.220009	2015-12-06 03:16:31.220009	3
+143	CustomizedCourseActionNotification	75	ActionRecord	144	76	f	state_change	2015-12-06 03:17:49.566409	2015-12-06 03:17:49.566409	3
+144	CustomizedCourseActionNotification	75	ActionRecord	145	76	f	state_change	2015-12-06 03:17:52.484058	2015-12-06 03:17:52.484058	3
+145	CustomizedCourseActionNotification	75	ActionRecord	146	76	f	state_change	2015-12-06 13:31:09.809172	2015-12-06 13:31:09.809172	3
+146	CustomizedCourseActionNotification	75	ActionRecord	147	76	f	state_change	2015-12-06 13:31:12.456258	2015-12-06 13:31:12.456258	3
+147	CustomizedCourseActionNotification	75	ActionRecord	148	76	f	state_change	2015-12-06 13:31:15.606214	2015-12-06 13:31:15.606214	3
+148	CustomizedCourseActionNotification	75	ActionRecord	149	76	f	state_change	2015-12-06 13:31:25.526612	2015-12-06 13:31:25.526612	3
+149	CustomizedCourseActionNotification	75	ActionRecord	150	76	f	state_change	2015-12-06 22:09:37.340585	2015-12-06 22:09:37.340585	3
+150	CustomizedCourseActionNotification	75	ActionRecord	151	76	f	state_change	2015-12-06 22:09:40.123025	2015-12-06 22:09:40.123025	3
+151	CustomizedCourseActionNotification	75	ActionRecord	152	76	f	state_change	2015-12-06 22:11:22.97362	2015-12-06 22:11:22.97362	3
+152	CustomizedCourseActionNotification	75	ActionRecord	153	76	f	state_change	2015-12-06 22:11:25.530327	2015-12-06 22:11:25.530327	3
+153	CustomizedCourseActionNotification	75	ActionRecord	154	76	f	state_change	2015-12-06 22:21:35.705959	2015-12-06 22:21:35.705959	3
+154	CustomizedCourseActionNotification	75	ActionRecord	155	76	f	state_change	2015-12-06 22:25:26.948472	2015-12-06 22:25:26.948472	3
+155	CustomizedCourseActionNotification	75	ActionRecord	156	76	f	state_change	2015-12-06 22:46:52.420619	2015-12-06 22:46:52.420619	3
+156	CustomizedCourseActionNotification	75	ActionRecord	157	76	f	state_change	2015-12-06 22:48:14.757291	2015-12-06 22:48:14.757291	3
+157	CustomizedCourseActionNotification	75	ActionRecord	158	76	f	state_change	2015-12-06 22:48:39.1408	2015-12-06 22:48:39.1408	3
+158	CustomizedCourseActionNotification	75	ActionRecord	159	76	f	state_change	2015-12-06 22:48:39.160466	2015-12-06 22:48:39.160466	3
+159	CustomizedCourseActionNotification	75	ActionRecord	160	76	f	state_change	2015-12-06 22:49:19.375865	2015-12-06 22:49:19.375865	3
+160	CustomizedCourseActionNotification	75	ActionRecord	161	76	f	state_change	2015-12-06 22:49:22.11736	2015-12-06 22:49:22.11736	3
+161	CustomizedCourseActionNotification	75	ActionRecord	162	76	f	state_change	2015-12-06 22:49:30.636863	2015-12-06 22:49:30.636863	3
+162	CustomizedCourseActionNotification	75	ActionRecord	163	76	f	state_change	2015-12-06 22:49:30.654907	2015-12-06 22:49:30.654907	3
+163	CustomizedCourseActionNotification	75	ActionRecord	164	76	f	state_change	2015-12-06 22:50:19.768288	2015-12-06 22:50:19.768288	3
+164	CustomizedCourseActionNotification	75	ActionRecord	165	76	f	state_change	2015-12-06 23:00:40.722665	2015-12-06 23:00:40.722665	3
+165	CustomizedCourseActionNotification	75	ActionRecord	166	76	f	state_change	2015-12-06 23:03:46.907391	2015-12-06 23:03:46.907391	3
+166	CustomizedCourseActionNotification	75	ActionRecord	167	76	f	state_change	2015-12-06 23:04:10.189045	2015-12-06 23:04:10.189045	3
+167	CustomizedCourseActionNotification	75	ActionRecord	168	76	f	state_change	2015-12-06 23:04:22.310014	2015-12-06 23:04:22.310014	3
+168	CustomizedCourseActionNotification	75	ActionRecord	169	76	f	state_change	2015-12-06 23:13:42.669641	2015-12-06 23:13:42.669641	3
+169	CustomizedCourseActionNotification	75	ActionRecord	170	76	f	create	2015-12-06 23:13:54.02828	2015-12-06 23:13:54.02828	3
+170	CustomizedCourseActionNotification	75	ActionRecord	171	76	f	create	2015-12-06 23:14:10.611649	2015-12-06 23:14:10.611649	3
+171	CustomizedCourseActionNotification	75	ActionRecord	172	76	f	state_change	2015-12-06 23:14:22.550595	2015-12-06 23:14:22.550595	3
+172	CustomizedCourseActionNotification	75	ActionRecord	173	76	f	state_change	2015-12-07 21:42:45.917093	2015-12-07 21:42:45.917093	3
+173	CustomizedCourseActionNotification	75	ActionRecord	174	76	f	state_change	2015-12-07 22:43:08.035275	2015-12-07 22:43:08.035275	3
+174	CustomizedCourseActionNotification	75	ActionRecord	175	76	f	state_change	2015-12-07 22:44:58.337393	2015-12-07 22:44:58.337393	3
+175	CustomizedCourseActionNotification	75	ActionRecord	176	76	f	state_change	2015-12-07 22:45:13.674397	2015-12-07 22:45:13.674397	3
+176	CustomizedCourseActionNotification	75	ActionRecord	177	76	f	state_change	2015-12-07 22:56:40.379107	2015-12-07 22:56:40.379107	3
+177	CustomizedCourseActionNotification	75	ActionRecord	178	76	f	state_change	2015-12-07 22:56:55.474209	2015-12-07 22:56:55.474209	3
+178	CustomizedCourseActionNotification	75	ActionRecord	179	76	f	state_change	2015-12-07 22:59:29.490803	2015-12-07 22:59:29.490803	3
+179	CustomizedCourseActionNotification	75	ActionRecord	180	76	f	state_change	2015-12-07 22:59:41.146842	2015-12-07 22:59:41.146842	3
 \.
 
 
@@ -3729,7 +3936,7 @@ COPY notifications (id, type, receiver_id, notificationable_type, notificationab
 -- Name: notifications_id_seq; Type: SEQUENCE SET; Schema: public; Owner: qatime
 --
 
-SELECT pg_catalog.setval('notifications_id_seq', 85, true);
+SELECT pg_catalog.setval('notifications_id_seq', 179, true);
 
 
 --
@@ -4101,64 +4308,64 @@ SELECT pg_catalog.setval('register_codes_id_seq', 18, false);
 -- Data for Name: replies; Type: TABLE DATA; Schema: public; Owner: qatime
 --
 
-COPY replies (id, content, topic_id, created_at, updated_at, token, author_id, customized_course_id, status, type, customized_tutorial_id, teacher_price, platform_price) FROM stdin;
-1	测试一下回复	1	2014-06-25 14:54:36.794327	2014-06-25 14:54:36.794327	aDtYDFdZEU3xUKIzeHj8LQ	2	\N	false	\N	\N	\N	\N
-3	aqaq	10	2014-11-20 23:17:10.083375	2014-11-20 23:17:10.083375	FYPYXObE6KJgBbxzPMUR0w	2	\N	false	\N	\N	\N	\N
-4	aaa	10	2014-11-20 23:18:44.119282	2014-11-20 23:18:44.119282	QrOEfoEvcDpkrUHUEJJFNg	2	\N	false	\N	\N	\N	\N
-50	<p>原因是这样的。。。。。。。。。。。。。。。</p><p>。。。。。。。。。。。。</p>	36	2015-05-28 23:35:44.784911	2015-05-28 23:35:44.784911	1432856117-DgiWYaow0l4AW_nDxAUQcQ	2	\N	false	\N	\N	\N	\N
-51	asdfasdfasdfasdfadafasdf	42	2015-09-18 05:45:02.376958	2015-09-18 05:45:02.376958	1442555094-flnTnhuLTDZXq7G_xpQ89Q	75	\N	false	\N	\N	\N	\N
-52	测试一下么	45	2015-09-29 21:51:23.605003	2015-09-30 22:48:01.668955	1443563474-H7rXn4HKuErtxe3YYd103A	2	2	false	\N	\N	\N	\N
-53	测试是否能有customized_course_id	53	2015-10-01 00:03:31.269354	2015-10-01 00:03:31.269354	1443657789-MF5qDQJ3SPf54c5rN5ZdDw	2	2	false	\N	\N	\N	\N
-54	卡那可能有没有啊	52	2015-10-01 00:04:17.683947	2015-10-01 00:04:17.683947	1443657852-lnqyrTeScpl7burBCsEAEg	2	2	false	\N	\N	\N	\N
-56	AD发水电费	62	2015-10-10 13:48:33.810044	2015-10-10 13:48:33.810044	1444484888-n8G8NTVIiQ3SnXK4Xvvwvw	76	3	open	\N	\N	\N	\N
-55	爱仕达发生的罚	62	2015-10-10 13:48:08.486408	2015-10-10 14:19:06.158713	1444484767-0KejWLzhS_94rpriz9cHpQ	76	3	closed	\N	\N	\N	\N
-60		54	2015-10-11 12:18:22.982507	2015-10-11 12:18:22.982507	1444565871-bRbrWqRl9BkdCFSOWQAqnQ	57	2	open	\N	\N	\N	\N
-61		54	2015-10-11 12:18:51.307032	2015-10-11 12:18:51.307032	1444565903-X5I1KWFgfEWYkWj4pVW9SA	57	2	open	\N	\N	\N	\N
-62		54	2015-10-11 12:19:34.410809	2015-10-11 12:19:34.410809	1444565968-79r3XAGdJYEjQ3FHwWpTGg	57	2	open	\N	\N	\N	\N
-63	<p>asdfadfasdfasdfasdfasdf<img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/4a937a6cf774f2be46de134a2a9861f3.png" style="width: 50%;"></p>	54	2015-10-11 12:36:43.679473	2015-10-11 12:36:43.679473	1444566036-QZGXWgm6JxCJ4CsGjnqNmQ	57	2	open	\N	\N	\N	\N
-72	asdfasdf	71	2015-10-18 01:51:05.230348	2015-11-05 22:20:58.820566	1445133042-gnpvQKcnhiHsDlNoq5hoeg	76	3	closed	CourseIssueReply	\N	54	0
-74	爱仕达发生的罚	73	2015-10-20 23:34:46.157917	2015-11-05 22:20:58.837208	1445384077-1110TvMZBFSc1yI_Gcpi-A	75	3	open	CourseIssueReply	\N	54	0
-75	ceshi	73	2015-10-27 21:44:59.203049	2015-11-05 22:20:58.851359	1445982286-pSvBn6nvqaSGmJ0KtUhT_A	76	3	open	CourseIssueReply	\N	54	0
-83	爱仕达发生的罚	71	2015-10-27 22:58:00.137074	2015-11-05 22:20:58.864514	1445986669-ki7i7FT3XioSGBlzFGIbPA	76	3	open	CourseIssueReply	\N	54	0
-84	爱仕达发生的罚	71	2015-10-27 22:58:46.338488	2015-11-05 22:20:58.87784	1445986680-tRKS7WwdbjIy3j2NZU5uZg	76	3	open	CourseIssueReply	\N	54	0
-85	爱仕达发生的罚	71	2015-10-27 22:58:54.580381	2015-11-05 22:20:58.891064	1445986726-WQy16r6oVbzOt8N2nLPSTQ	76	3	open	CourseIssueReply	\N	54	0
-86	爱仕达发生的罚	71	2015-10-27 22:59:02.612549	2015-11-05 22:20:58.90732	1445986734-DHvXIHVb8AxPX5Q8bxT5wA	76	3	open	CourseIssueReply	\N	54	0
-87	爱仕达发生的罚	71	2015-10-27 22:59:15.638696	2015-11-05 22:20:58.921438	1445986742-VxuKU6blowCljzM74Tth4g	76	3	open	CourseIssueReply	\N	54	0
-88	爱仕达发生的罚	71	2015-10-27 22:59:42.707562	2015-11-05 22:20:58.935303	1445986755-o3Gs7r5vkMC4p2Tm9QOHKw	76	3	closed	CourseIssueReply	\N	54	0
-91	asdfasdfasdf	75	2015-11-01 01:35:13.428463	2015-11-05 22:20:58.949017	1446341700-UKCnJ3wNFisArYFkxhNpug	76	3	open	CourseIssueReply	\N	54	0
-57	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/7ec42e452a44030847fef64967b5a2d2.png" style="width: 1128px;"></p>	64	2015-10-11 09:06:51.66978	2015-11-05 22:20:59.018098	1444552234-VVwmnatHLS30m_McjPVXVg	57	2	open	TutorialIssueReply	13	54	0
-58	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/7ec42e452a44030847fef64967b5a2d2.png" style="width: 1128px;"></p>	64	2015-10-11 09:08:42.46717	2015-11-05 22:20:59.045069	1444552234-VVwmnatHLS30m_McjPVXVg	57	2	open	TutorialIssueReply	13	54	0
-59		64	2015-10-11 09:09:42.887548	2015-11-05 22:20:59.063361	1444554522-RhiSEZzy1ti62MNLfLHLbw	57	2	open	TutorialIssueReply	13	54	0
-64	ertwertasdfadf!@#	64	2015-10-11 12:37:20.524559	2015-11-05 22:20:59.078168	1444566822-PUTCXnD7HlhEPe4VoaaZog	57	2	open	TutorialIssueReply	13	54	0
-65	asdfasdf	64	2015-10-11 12:51:51.362513	2015-11-05 22:20:59.091402	1444567851-bJKDKPQypML993v_nTaHtA	57	2	open	TutorialIssueReply	13	54	0
-66	ljlkj;lj;lkj;k	64	2015-10-11 12:58:16.177851	2015-11-05 22:20:59.105436	1444567911-MZWsChqU-jOh81yMevB5AQ	57	2	open	TutorialIssueReply	13	54	0
-69	<p><br><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/2cb084d5b42a85f51d3c3d2ac885cf9e.png" style="width: 430px;"></p>	64	2015-10-11 13:42:23.271364	2015-11-05 22:20:59.120116	1444568311-ClHMTEbKd-ZyGgSEDA1Wpw	57	2	open	TutorialIssueReply	13	54	0
-71	asdfasdfasdfadsfafasdfasdf	65	2015-10-18 01:05:17.92887	2015-11-05 22:20:59.133561	1445130122-gIMG37y361f9_Jwqts2C4w	76	3	closed	TutorialIssueReply	15	54	0
-73	wrqwerqwreadf	72	2015-10-20 23:28:58.403288	2015-11-05 22:20:59.147925	1445383728-2VYZ_e3zcl3ZY5rB-2jDDg	75	3	open	TutorialIssueReply	15	54	0
-76	asdfsafasdf	65	2015-10-27 22:32:19.054075	2015-11-05 22:20:59.160849	1445985009-hNGAO_7_eVGdKYDJ7V-NSw	76	3	open	TutorialIssueReply	15	54	0
-77	asdfafsafasd	65	2015-10-27 22:32:26.907493	2015-11-05 22:20:59.174755	1445985139-I5y6SP679H9de9_ModXdJw	76	3	open	TutorialIssueReply	15	54	0
-78	asdfasdfasf	65	2015-10-27 22:32:37.233377	2015-11-05 22:20:59.207439	1445985146-vwZtBSfwu7z9oG0P8srdpA	76	3	open	TutorialIssueReply	15	54	0
-79	asdfasdfasdfas	65	2015-10-27 22:32:46.401516	2015-11-05 22:20:59.2216	1445985157-QDbtmQWBTmCZF2WP3T312Q	76	3	open	TutorialIssueReply	15	54	0
-80	asdfasdf	65	2015-10-27 22:33:59.221116	2015-11-05 22:20:59.236179	1445985166-pED8mhwn_RqVi_h0aed4jg	76	3	open	TutorialIssueReply	15	54	0
-81	asdfasdfasdf	65	2015-10-27 22:34:12.491535	2015-11-05 22:20:59.250885	1445985239-KjfKk27SUEac00oj8ObF6g	76	3	open	TutorialIssueReply	15	54	0
-82	ceshi	65	2015-10-27 22:36:39.780384	2015-11-05 22:20:59.264531	1445985373-nZi1AGh9kS1bJ2hpqeKynQ	76	3	closed	TutorialIssueReply	15	54	0
-89	qwerqerqwr	74	2015-10-31 11:00:10.774136	2015-11-05 22:20:59.277186	1446289189-StMp9Umrzn5m4DTO3MZ-qg	76	3	open	TutorialIssueReply	21	54	0
-90	asdfasdf	74	2015-10-31 11:01:45.264289	2015-11-05 22:20:59.290651	1446289210-i-xlPEJx2Hix5l2H5NBcBQ	76	3	open	TutorialIssueReply	21	54	0
-92	asdfasdf	78	2015-11-05 22:21:18.544708	2015-11-05 22:21:18.544708	1446761653-wG-2eZtfHaUkTL65uWVbkQ	75	3	open	CourseIssueReply	\N	54	0
-93	adsfasdfa	79	2015-11-05 23:12:17.161892	2015-11-05 23:12:17.161892	1446765116-Yw_VG_6M_R75tzZQy1ef4g	75	3	open	TutorialIssueReply	21	54	0
-94	asdfasdfasf	80	2015-11-06 23:02:49.15629	2015-11-06 23:02:49.15629	1446850854-w5J0BMol_pcihzSd89MS9g	75	3	open	CourseIssueReply	\N	54	0
-95	adfsdfasfasdfas	80	2015-11-06 23:09:48.862366	2015-11-06 23:09:48.862366	1446851308-3RdjIAgPEZxfoc6XovgMEw	75	3	open	CourseIssueReply	\N	54	0
-96	kkkkkkkkkk	80	2015-11-06 23:11:02.613986	2015-11-06 23:11:02.613986	1446851431-z3cTZJah2sTMQraPPFR-fA	75	3	open	CourseIssueReply	\N	54	0
-97	asdfasdfasdfasdf	79	2015-11-14 03:30:35.232622	2015-11-14 03:30:35.232622	1447471821-uJYUInvlAwqBucdKV_oXUQ	76	3	open	TutorialIssueReply	21	54	0
-98	42452345	79	2015-11-14 03:33:22.50478	2015-11-14 03:33:22.50478	1447471835-JcQLqT8MNPMZfwrajL3aFA	76	3	open	TutorialIssueReply	21	54	0
-99	asdfasdfadfad	72	2015-11-14 03:38:21.46743	2015-11-14 03:38:21.46743	1447472280-P902g4ey3-mozqaONSqRXw	75	3	open	TutorialIssueReply	15	54	0
-100	adfasdfasdfasdf	72	2015-11-14 03:39:06.933262	2015-11-14 03:39:06.933262	1447472301-sf_4CTObn-Vi86e6Nj78CQ	75	3	open	TutorialIssueReply	15	54	0
-101	112341234123423421421421	72	2015-11-14 03:39:26.728665	2015-11-14 03:39:26.728665	1447472347-Oo58tlB7BJrqObezEp-aCQ	75	3	open	TutorialIssueReply	15	54	0
-102	131341	72	2015-11-14 03:39:36.452646	2015-11-14 03:39:36.452646	1447472366-IJgdsIXy8iLtHpAcoPqFlQ	75	3	open	TutorialIssueReply	15	54	0
-103	11113413412	72	2015-11-14 03:39:58.139442	2015-11-14 03:39:58.139442	1447472376-pogwHgEGZ9ElKLL7cHcEag	75	3	open	TutorialIssueReply	15	54	0
-104	123412341234124	82	2015-11-14 03:53:41.591423	2015-11-14 03:53:41.591423	1447473212-d4dGNxcX5ubMofF0EjImpA	75	3	open	TutorialIssueReply	20	54	0
-105	asdfasdfasdfadfasf	82	2015-11-14 03:56:52.092768	2015-11-14 03:56:52.092768	1447473369-KKJrO249XTmElI5EDr7m9g	75	3	open	TutorialIssueReply	20	54	0
-106	14341342	82	2015-11-14 04:42:25.651463	2015-11-14 04:42:25.651463	1447473412-jZE0qNRViz4De8XL0Xmbiw	75	3	open	TutorialIssueReply	20	54	0
+COPY replies (id, content, topic_id, created_at, updated_at, token, author_id, customized_course_id, status, type, customized_tutorial_id, teacher_price, platform_price, last_operator_id, comments_count) FROM stdin;
+3	aqaq	10	2014-11-20 23:17:10.083375	2015-12-05 00:02:43.8394	FYPYXObE6KJgBbxzPMUR0w	2	\N	false	\N	\N	\N	\N	2	0
+4	aaa	10	2014-11-20 23:18:44.119282	2015-12-05 00:02:43.871798	QrOEfoEvcDpkrUHUEJJFNg	2	\N	false	\N	\N	\N	\N	2	0
+51	asdfasdfasdfasdfadafasdf	42	2015-09-18 05:45:02.376958	2015-12-05 00:02:43.940728	1442555094-flnTnhuLTDZXq7G_xpQ89Q	75	\N	false	\N	\N	\N	\N	75	0
+52	测试一下么	45	2015-09-29 21:51:23.605003	2015-12-05 00:02:43.980337	1443563474-H7rXn4HKuErtxe3YYd103A	2	2	false	\N	\N	\N	\N	2	0
+53	测试是否能有customized_course_id	53	2015-10-01 00:03:31.269354	2015-12-05 00:02:44.022311	1443657789-MF5qDQJ3SPf54c5rN5ZdDw	2	2	false	\N	\N	\N	\N	2	0
+54	卡那可能有没有啊	52	2015-10-01 00:04:17.683947	2015-12-05 00:02:44.060487	1443657852-lnqyrTeScpl7burBCsEAEg	2	2	false	\N	\N	\N	\N	2	0
+56	AD发水电费	62	2015-10-10 13:48:33.810044	2015-12-05 00:02:44.084629	1444484888-n8G8NTVIiQ3SnXK4Xvvwvw	76	3	open	\N	\N	\N	\N	76	0
+55	爱仕达发生的罚	62	2015-10-10 13:48:08.486408	2015-12-05 00:02:44.111924	1444484767-0KejWLzhS_94rpriz9cHpQ	76	3	closed	\N	\N	\N	\N	76	0
+60		54	2015-10-11 12:18:22.982507	2015-12-05 00:02:44.150765	1444565871-bRbrWqRl9BkdCFSOWQAqnQ	57	2	open	\N	\N	\N	\N	57	0
+61		54	2015-10-11 12:18:51.307032	2015-12-05 00:02:44.187826	1444565903-X5I1KWFgfEWYkWj4pVW9SA	57	2	open	\N	\N	\N	\N	57	0
+62		54	2015-10-11 12:19:34.410809	2015-12-05 00:02:44.226141	1444565968-79r3XAGdJYEjQ3FHwWpTGg	57	2	open	\N	\N	\N	\N	57	0
+63	<p>asdfadfasdfasdfasdfasdf<img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/4a937a6cf774f2be46de134a2a9861f3.png" style="width: 50%;"></p>	54	2015-10-11 12:36:43.679473	2015-12-05 00:02:44.255768	1444566036-QZGXWgm6JxCJ4CsGjnqNmQ	57	2	open	\N	\N	\N	\N	57	0
+72	asdfasdf	71	2015-10-18 01:51:05.230348	2015-12-05 00:02:44.332871	1445133042-gnpvQKcnhiHsDlNoq5hoeg	76	3	closed	CourseIssueReply	\N	54	0	76	0
+74	爱仕达发生的罚	73	2015-10-20 23:34:46.157917	2015-12-05 00:02:44.354187	1445384077-1110TvMZBFSc1yI_Gcpi-A	75	3	open	CourseIssueReply	\N	54	0	75	0
+75	ceshi	73	2015-10-27 21:44:59.203049	2015-12-05 00:02:44.383148	1445982286-pSvBn6nvqaSGmJ0KtUhT_A	76	3	open	CourseIssueReply	\N	54	0	76	0
+83	爱仕达发生的罚	71	2015-10-27 22:58:00.137074	2015-12-05 00:02:44.41957	1445986669-ki7i7FT3XioSGBlzFGIbPA	76	3	open	CourseIssueReply	\N	54	0	76	0
+84	爱仕达发生的罚	71	2015-10-27 22:58:46.338488	2015-12-05 00:02:44.46255	1445986680-tRKS7WwdbjIy3j2NZU5uZg	76	3	open	CourseIssueReply	\N	54	0	76	0
+85	爱仕达发生的罚	71	2015-10-27 22:58:54.580381	2015-12-05 00:02:44.486206	1445986726-WQy16r6oVbzOt8N2nLPSTQ	76	3	open	CourseIssueReply	\N	54	0	76	0
+86	爱仕达发生的罚	71	2015-10-27 22:59:02.612549	2015-12-05 00:02:44.526978	1445986734-DHvXIHVb8AxPX5Q8bxT5wA	76	3	open	CourseIssueReply	\N	54	0	76	0
+87	爱仕达发生的罚	71	2015-10-27 22:59:15.638696	2015-12-05 00:02:44.552767	1445986742-VxuKU6blowCljzM74Tth4g	76	3	open	CourseIssueReply	\N	54	0	76	0
+88	爱仕达发生的罚	71	2015-10-27 22:59:42.707562	2015-12-05 00:02:44.58161	1445986755-o3Gs7r5vkMC4p2Tm9QOHKw	76	3	closed	CourseIssueReply	\N	54	0	76	0
+91	asdfasdfasdf	75	2015-11-01 01:35:13.428463	2015-12-05 00:02:44.619769	1446341700-UKCnJ3wNFisArYFkxhNpug	76	3	open	CourseIssueReply	\N	54	0	76	0
+58	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/7ec42e452a44030847fef64967b5a2d2.png" style="width: 1128px;"></p>	64	2015-10-11 09:08:42.46717	2015-12-05 00:02:44.715418	1444552234-VVwmnatHLS30m_McjPVXVg	57	2	open	TutorialIssueReply	13	54	0	57	0
+59		64	2015-10-11 09:09:42.887548	2015-12-05 00:02:44.759167	1444554522-RhiSEZzy1ti62MNLfLHLbw	57	2	open	TutorialIssueReply	13	54	0	57	0
+64	ertwertasdfadf!@#	64	2015-10-11 12:37:20.524559	2015-12-05 00:02:44.789498	1444566822-PUTCXnD7HlhEPe4VoaaZog	57	2	open	TutorialIssueReply	13	54	0	57	0
+65	asdfasdf	64	2015-10-11 12:51:51.362513	2015-12-05 00:02:44.825264	1444567851-bJKDKPQypML993v_nTaHtA	57	2	open	TutorialIssueReply	13	54	0	57	0
+66	ljlkj;lj;lkj;k	64	2015-10-11 12:58:16.177851	2015-12-05 00:02:44.855242	1444567911-MZWsChqU-jOh81yMevB5AQ	57	2	open	TutorialIssueReply	13	54	0	57	0
+69	<p><br><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/2cb084d5b42a85f51d3c3d2ac885cf9e.png" style="width: 430px;"></p>	64	2015-10-11 13:42:23.271364	2015-12-05 00:02:44.88143	1444568311-ClHMTEbKd-ZyGgSEDA1Wpw	57	2	open	TutorialIssueReply	13	54	0	57	0
+71	asdfasdfasdfadsfafasdfasdf	65	2015-10-18 01:05:17.92887	2015-12-05 00:02:44.923991	1445130122-gIMG37y361f9_Jwqts2C4w	76	3	closed	TutorialIssueReply	15	54	0	76	0
+73	wrqwerqwreadf	72	2015-10-20 23:28:58.403288	2015-12-05 00:02:44.970348	1445383728-2VYZ_e3zcl3ZY5rB-2jDDg	75	3	open	TutorialIssueReply	15	54	0	75	0
+76	asdfsafasdf	65	2015-10-27 22:32:19.054075	2015-12-05 00:02:44.997467	1445985009-hNGAO_7_eVGdKYDJ7V-NSw	76	3	open	TutorialIssueReply	15	54	0	76	0
+77	asdfafsafasd	65	2015-10-27 22:32:26.907493	2015-12-05 00:02:45.037348	1445985139-I5y6SP679H9de9_ModXdJw	76	3	open	TutorialIssueReply	15	54	0	76	0
+78	asdfasdfasf	65	2015-10-27 22:32:37.233377	2015-12-05 00:02:45.060924	1445985146-vwZtBSfwu7z9oG0P8srdpA	76	3	open	TutorialIssueReply	15	54	0	76	0
+79	asdfasdfasdfas	65	2015-10-27 22:32:46.401516	2015-12-05 00:02:45.105914	1445985157-QDbtmQWBTmCZF2WP3T312Q	76	3	open	TutorialIssueReply	15	54	0	76	0
+80	asdfasdf	65	2015-10-27 22:33:59.221116	2015-12-05 00:02:45.142518	1445985166-pED8mhwn_RqVi_h0aed4jg	76	3	open	TutorialIssueReply	15	54	0	76	0
+81	asdfasdfasdf	65	2015-10-27 22:34:12.491535	2015-12-05 00:02:45.176435	1445985239-KjfKk27SUEac00oj8ObF6g	76	3	open	TutorialIssueReply	15	54	0	76	0
+82	ceshi	65	2015-10-27 22:36:39.780384	2015-12-05 00:02:45.211066	1445985373-nZi1AGh9kS1bJ2hpqeKynQ	76	3	closed	TutorialIssueReply	15	54	0	76	0
+89	qwerqerqwr	74	2015-10-31 11:00:10.774136	2015-12-05 00:02:45.249743	1446289189-StMp9Umrzn5m4DTO3MZ-qg	76	3	open	TutorialIssueReply	21	54	0	76	0
+90	asdfasdf	74	2015-10-31 11:01:45.264289	2015-12-05 00:02:45.284913	1446289210-i-xlPEJx2Hix5l2H5NBcBQ	76	3	open	TutorialIssueReply	21	54	0	76	0
+92	asdfasdf	78	2015-11-05 22:21:18.544708	2015-12-05 00:02:45.342689	1446761653-wG-2eZtfHaUkTL65uWVbkQ	75	3	open	CourseIssueReply	\N	54	0	75	0
+93	adsfasdfa	79	2015-11-05 23:12:17.161892	2015-12-05 00:02:45.392139	1446765116-Yw_VG_6M_R75tzZQy1ef4g	75	3	open	TutorialIssueReply	21	54	0	75	0
+94	asdfasdfasf	80	2015-11-06 23:02:49.15629	2015-12-05 00:02:45.496641	1446850854-w5J0BMol_pcihzSd89MS9g	75	3	open	CourseIssueReply	\N	54	0	75	0
+95	adfsdfasfasdfas	80	2015-11-06 23:09:48.862366	2015-12-05 00:02:45.55741	1446851308-3RdjIAgPEZxfoc6XovgMEw	75	3	open	CourseIssueReply	\N	54	0	75	0
+96	kkkkkkkkkk	80	2015-11-06 23:11:02.613986	2015-12-05 00:02:45.610656	1446851431-z3cTZJah2sTMQraPPFR-fA	75	3	open	CourseIssueReply	\N	54	0	75	0
+97	asdfasdfasdfasdf	79	2015-11-14 03:30:35.232622	2015-12-05 00:02:45.660025	1447471821-uJYUInvlAwqBucdKV_oXUQ	76	3	open	TutorialIssueReply	21	54	0	76	0
+98	42452345	79	2015-11-14 03:33:22.50478	2015-12-05 00:02:45.712234	1447471835-JcQLqT8MNPMZfwrajL3aFA	76	3	open	TutorialIssueReply	21	54	0	76	0
+1	测试一下回复	1	2014-06-25 14:54:36.794327	2015-12-05 00:02:43.818554	aDtYDFdZEU3xUKIzeHj8LQ	2	\N	false	\N	\N	\N	\N	2	0
+50	<p>原因是这样的。。。。。。。。。。。。。。。</p><p>。。。。。。。。。。。。</p>	36	2015-05-28 23:35:44.784911	2015-12-05 00:02:43.903687	1432856117-DgiWYaow0l4AW_nDxAUQcQ	2	\N	false	\N	\N	\N	\N	2	0
+57	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/7ec42e452a44030847fef64967b5a2d2.png" style="width: 1128px;"></p>	64	2015-10-11 09:06:51.66978	2015-12-05 00:02:44.692746	1444552234-VVwmnatHLS30m_McjPVXVg	57	2	open	TutorialIssueReply	13	54	0	57	0
+99	asdfasdfadfad	72	2015-11-14 03:38:21.46743	2015-12-05 00:02:45.752832	1447472280-P902g4ey3-mozqaONSqRXw	75	3	open	TutorialIssueReply	15	54	0	75	0
+100	adfasdfasdfasdf	72	2015-11-14 03:39:06.933262	2015-12-05 00:02:45.78631	1447472301-sf_4CTObn-Vi86e6Nj78CQ	75	3	open	TutorialIssueReply	15	54	0	75	0
+101	112341234123423421421421	72	2015-11-14 03:39:26.728665	2015-12-05 00:02:45.828432	1447472347-Oo58tlB7BJrqObezEp-aCQ	75	3	open	TutorialIssueReply	15	54	0	75	0
+102	131341	72	2015-11-14 03:39:36.452646	2015-12-05 00:02:45.870289	1447472366-IJgdsIXy8iLtHpAcoPqFlQ	75	3	open	TutorialIssueReply	15	54	0	75	0
+103	11113413412	72	2015-11-14 03:39:58.139442	2015-12-05 00:02:45.912092	1447472376-pogwHgEGZ9ElKLL7cHcEag	75	3	open	TutorialIssueReply	15	54	0	75	0
+104	123412341234124	82	2015-11-14 03:53:41.591423	2015-12-05 00:02:45.950063	1447473212-d4dGNxcX5ubMofF0EjImpA	75	3	open	TutorialIssueReply	20	54	0	75	0
+105	asdfasdfasdfadfasf	82	2015-11-14 03:56:52.092768	2015-12-05 00:02:45.989538	1447473369-KKJrO249XTmElI5EDr7m9g	75	3	open	TutorialIssueReply	20	54	0	75	0
+106	14341342	82	2015-11-14 04:42:25.651463	2015-12-05 00:02:46.027331	1447473412-jZE0qNRViz4De8XL0Xmbiw	75	3	open	TutorialIssueReply	20	54	0	75	0
 \.
 
 
@@ -4414,6 +4621,17 @@ COPY schema_migrations (version) FROM stdin;
 20151123061007
 20151124035050
 20151125033543
+20151127091416
+20151127224720
+20151129214206
+20151130214629
+20151204223240
+20151204231219
+20151204232707
+20151204235912
+20151206105548
+20151206112442
+20151209083108
 \.
 
 
@@ -4464,36 +4682,36 @@ SELECT pg_catalog.setval('searches_id_seq', 1, false);
 -- Data for Name: solutions; Type: TABLE DATA; Schema: public; Owner: qatime
 --
 
-COPY solutions (id, title, content, solutionable_id, student_id, token, corrections_count, created_at, updated_at, comments_count, solutionable_type, customized_course_id, first_handle_created_at, last_handle_created_at, first_handle_author_id, last_handle_author_id, type, examination_id, customized_tutorial_id, state, last_operator_id) FROM stdin;
-1	我看作业应该如何写呢		\N	75	1442537450-EsO1t_83XJinMkSBrQGb1g	\N	2015-09-18 00:51:07.742448	2015-09-18 00:51:07.742448	0	\N	\N	\N	\N	\N	\N	\N	\N	\N	new	\N
-7	作业处理	安师大发安师大发	6	75	1443362646-Qrj-PAJVegQrzBrHgDJWLw	\N	2015-09-27 14:04:17.754924	2015-09-30 22:27:54.439887	0	Homework	2	\N	\N	\N	\N	\N	\N	\N	new	\N
-6	我看不错	确实不错	8	75	1443133698-1e1hOhpmhl4wwirg9bZJxA	1	2015-09-24 22:28:42.743596	2015-10-03 08:16:26.645495	0	Homework	2	2015-09-27 04:03:45.093425	2015-09-27 04:03:45.093425	2	2	\N	\N	\N	new	\N
-8	测试是否customized_course_id	测试是否有有customized_course_id	9	75	1443658531-eB9HoU4Mm9XS-8y27reiPA	1	2015-10-01 00:18:22.483412	2015-10-03 08:16:26.655664	0	Homework	2	2015-10-01 10:38:34.214857	2015-10-01 10:38:34.214857	2	2	\N	\N	\N	new	\N
-10	测试一下是否整的好的	测试是否真的好用呢	9	75	1443845734-kWWL8jwUGFAQwgmRlVJpKg	1	2015-09-23 04:20:53.31517	2015-10-03 08:16:26.665528	0	Homework	2	2015-10-03 04:22:26.285683	2015-10-03 04:22:26.285683	2	2	\N	\N	\N	new	\N
-9	ceshi  customized_course_id	ceshi	14	75	1443659141-0zNxdxPSm-YNqk05Ho4wEg	\N	2015-10-01 00:25:56.295706	2015-10-06 08:48:00.459308	0	Exercise	2	\N	\N	\N	\N	\N	\N	\N	new	\N
-5	看看还是行不行啊 修改下看看	看看还是行不行啊看看还是行不行啊SD发放	5	75	1442538404-N62x6Fc6tDairVbJoxpqoQ	9	2015-09-18 01:06:55.256093	2015-10-07 14:03:42.150489	2	\N	\N	2015-09-18 05:42:53.760921	2015-09-18 07:32:44.634723	2	2	\N	\N	\N	new	\N
-11	继续做作业	继续做作业	9	75	1443863897-9iQR8qpQrBuaYjBGPJMHaw	3	2015-10-03 09:18:32.291979	2015-10-07 14:03:42.252645	1	Homework	2	2015-10-07 13:26:56.796116	2015-10-07 13:30:43.150865	2	2	\N	\N	\N	new	\N
-13	asdfas	asdfasdf	18	75	1445292949-GBdnE3lg9-FgeP6yfpVASg	1	2015-10-19 22:16:09.00251	2015-10-19 22:17:24.838732	0	Homework	3	2015-10-19 22:17:24.805733	2015-10-19 22:17:24.805733	76	76	\N	\N	\N	new	\N
-14	asdfasdf	asdfasdfasdf	19	75	1445387976-YK9Q8P75UCEvVsPL_v3mQg	\N	2015-10-21 00:39:48.038826	2015-10-21 00:39:48.038826	0	Examination	3	\N	\N	\N	\N	\N	\N	\N	new	\N
-18	123413	12341241324	\N	75	1445520462-aH4nUEETb2THZO1VtOjJdQ	\N	2015-10-22 13:28:10.824794	2015-10-22 13:28:10.824794	0	\N	3	\N	\N	\N	\N	ExerciseSolution	20	15	new	\N
-19	123413	12341241324	\N	75	1445520462-aH4nUEETb2THZO1VtOjJdQ	\N	2015-10-22 13:36:11.590357	2015-10-22 13:36:11.590357	0	\N	3	\N	\N	\N	\N	ExerciseSolution	20	15	new	\N
-21	aa	ss	\N	75	1445521180-Q5nf0FNPu8Yejg6J6AJzbg	\N	2015-10-22 13:39:50.094934	2015-10-22 13:39:50.094934	0	\N	3	\N	\N	\N	\N	ExerciseSolution	19	15	new	\N
-23	12312341	2341341	\N	75	1446328405-LATm8OQ_bthJi2tQPuq-9A	0	2015-10-31 21:53:35.162795	2015-10-31 21:53:35.162795	0	\N	3	\N	\N	\N	\N	HomeworkSolution	27	\N	new	\N
-25	sadfsdf	123412341asdfasdf	\N	75	1446330406-5khZRduVq-Fd5Euk-JECJA	0	2015-10-31 22:26:57.918969	2015-10-31 22:26:57.918969	0	\N	3	\N	\N	\N	\N	ExerciseSolution	25	21	new	\N
-26	asdfas	asdfadf	\N	75	1446330565-IWozmjVoc1dAlfZNaedQTQ	0	2015-10-31 22:29:33.631426	2015-10-31 22:29:33.631426	0	\N	3	\N	\N	\N	\N	ExerciseSolution	25	21	new	\N
-24	asdfasdf	asdfasfsafasd	\N	75	1446328888-EHhWBz4whO_7Ka3NOfTTCQ	3	2015-10-31 22:01:38.091978	2015-11-05 22:20:58.757849	0	\N	3	2015-10-31 22:06:55.647521	2015-11-01 01:22:32.528257	76	76	HomeworkSolution	27	\N	new	\N
-28	123412	123412341234	\N	75	1446765818-KUJIEOY55zrd0Viw8-plOA	0	2015-11-05 23:24:01.514714	2015-11-05 23:24:01.514714	0	\N	3	\N	\N	\N	\N	HomeworkSolution	28	\N	new	\N
-29	asdfasdf	asdfasdfasdf	\N	75	1446766174-gDJHsBywQKy9b25plHNENA	0	2015-11-05 23:30:01.30919	2015-11-05 23:30:01.30919	0	\N	3	\N	\N	\N	\N	HomeworkSolution	28	\N	new	\N
-20	123413	12341241324	\N	75	1445520462-aH4nUEETb2THZO1VtOjJdQ	6	2015-10-22 13:36:30.259597	2015-11-05 22:20:58.334786	0	\N	3	2015-10-23 07:53:56.246321	2015-10-23 08:19:23.733765	76	76	ExerciseSolution	20	15	new	\N
-32	4asdfadfasdfasdf	dsfasdfsadfadf	\N	75	1446856094-v0cVkI0J2-UhePiudSp_4A	0	2015-11-07 00:28:44.207942	2015-11-07 00:28:44.207942	0	\N	3	\N	\N	\N	\N	ExerciseSolution	25	21	new	\N
-31	kkkkk	klll	\N	75	1446855321-OkdqeyXBuMw3f1MIMXUGow	1	2015-11-07 00:15:53.380441	2015-11-07 00:46:42.067399	0	\N	3	2015-11-07 00:46:41.986682	2015-11-07 00:46:41.986682	76	76	ExerciseSolution	32	21	new	\N
-22	sdasdf	asdfasdfasf	\N	75	1445658314-mm6ggnRQGus15Dn-iUBKlg	6	2015-10-24 04:10:30.594025	2015-11-05 22:20:58.472825	0	\N	3	2015-10-25 00:10:16.840178	2015-10-26 22:05:20.9509	76	76	ExerciseSolution	19	15	new	\N
-16	ceshi111111	cash2222222	\N	75	1445515583-cYq3k_2gqLkL3QxoDj7bQw	4	2015-10-22 12:06:35.081598	2015-11-05 22:20:58.616767	0	\N	3	2015-10-22 22:50:57.847266	2015-10-22 22:53:07.140889	76	76	HomeworkSolution	21	\N	new	\N
-17	12341234	12341234141	\N	75	1445518373-Xbm-6Ymt99y0w6NJEJHZ5w	3	2015-10-22 12:53:09.306451	2015-11-05 22:20:58.686707	0	\N	3	2015-10-23 08:22:50.830576	2015-10-25 01:45:09.342473	76	76	HomeworkSolution	22	\N	new	\N
-30	345134	123413	\N	75	1446766416-LSa9sxawVfTfpofBrenRuA	2	2015-11-05 23:33:57.456419	2015-11-13 23:20:43.649535	0	\N	3	2015-11-13 23:20:07.162475	2015-11-13 23:20:43.599921	76	76	ExerciseSolution	24	21	new	\N
-33	千万人问	犬瘟热犬瘟热去	\N	75	1447459491-6HLgllwwGGcQ5uuXwBrfCA	0	2015-11-14 00:05:13.168446	2015-11-14 00:05:13.168446	0	\N	3	\N	\N	\N	\N	ExerciseSolution	25	21	new	\N
-27	13134	12341234	\N	75	1446330601-dIsxR5REHrpVrsmypnLHlQ	1	2015-10-31 22:30:17.51936	2015-11-16 23:07:02.308513	2	\N	3	2015-10-31 22:32:38.301448	2015-10-31 22:32:38.301448	76	76	ExerciseSolution	25	21	new	\N
-34	12341234	123412341234	\N	75	1447459629-1uam5aMRzQPL-s6-2H03PA	2	2015-11-14 00:07:30.815072	2015-11-16 23:16:45.204354	0	\N	3	2015-11-16 23:15:00.619213	2015-11-16 23:15:13.810197	76	76	HomeworkSolution	34	\N	new	\N
+COPY solutions (id, title, content, solutionable_id, student_id, token, corrections_count, created_at, updated_at, comments_count, solutionable_type, customized_course_id, first_handle_created_at, last_handle_created_at, first_handle_author_id, last_handle_author_id, type, examination_id, customized_tutorial_id, state, last_operator_id, first_handled_at, completed_at, last_handled_at, last_redone_at) FROM stdin;
+1	我看作业应该如何写呢		\N	75	1442537450-EsO1t_83XJinMkSBrQGb1g	\N	2015-09-18 00:51:07.742448	2015-11-25 22:05:52.735476	0	\N	\N	\N	\N	\N	\N	\N	\N	\N	new	75	\N	\N	\N	\N
+7	作业处理	安师大发安师大发	6	75	1443362646-Qrj-PAJVegQrzBrHgDJWLw	\N	2015-09-27 14:04:17.754924	2015-11-25 22:05:52.78573	0	Homework	2	\N	\N	\N	\N	\N	\N	\N	new	75	\N	\N	\N	\N
+10	测试一下是否整的好的	测试是否真的好用呢	9	75	1443845734-kWWL8jwUGFAQwgmRlVJpKg	1	2015-09-23 04:20:53.31517	2015-11-29 21:51:56.76843	0	Homework	2	2015-10-03 04:22:26.285683	2015-10-03 04:22:26.285683	2	2	\N	\N	\N	completed	75	2015-10-03 04:22:26.285683	2015-10-03 04:22:26.285683	2015-10-03 04:22:26.285683	\N
+31	kkkkk	klll	\N	75	1446855321-OkdqeyXBuMw3f1MIMXUGow	4	2015-11-07 00:15:53.380441	2015-12-06 23:14:22.529136	0	\N	3	2015-11-07 00:46:41.986682	2015-12-06 23:14:10.578324	76	76	ExerciseSolution	32	21	completed	76	2015-11-07 00:46:41.986682	2015-12-06 23:14:22.521601	2015-12-06 23:14:10.623127	2015-12-06 23:13:42.637098
+9	ceshi  customized_course_id	ceshi	14	75	1443659141-0zNxdxPSm-YNqk05Ho4wEg	\N	2015-10-01 00:25:56.295706	2015-11-25 22:05:52.827058	0	Exercise	2	\N	\N	\N	\N	\N	\N	\N	new	75	\N	\N	\N	\N
+34	12341234	123412341234	\N	75	1447459629-1uam5aMRzQPL-s6-2H03PA	2	2015-11-14 00:07:30.815072	2015-12-07 22:59:41.114023	0	\N	3	2015-11-16 23:15:00.619213	2015-11-16 23:15:13.810197	76	76	HomeworkSolution	34	\N	completed	76	2015-11-16 23:15:00.619213	2015-12-07 22:59:41.104943	2015-11-16 23:15:13.810197	2015-12-07 22:59:29.456298
+32	4asdfadfasdfasdf	dsfasdfsadfadf	\N	75	1446856094-v0cVkI0J2-UhePiudSp_4A	0	2015-11-07 00:28:44.207942	2015-11-29 21:51:55.400182	0	\N	3	\N	\N	\N	\N	ExerciseSolution	25	21	in_progress	75	\N	2015-11-29 02:16:16.689824	\N	\N
+24	asdfasdf	asdfasfsafasd	\N	75	1446328888-EHhWBz4whO_7Ka3NOfTTCQ	3	2015-10-31 22:01:38.091978	2015-12-06 13:18:35.98784	0	\N	3	2015-10-31 22:06:55.647521	2015-11-01 01:22:32.528257	76	76	HomeworkSolution	27	\N	completed	75	2015-10-31 22:06:55.647521	2015-11-01 01:22:32.528257	2015-11-01 01:22:32.528257	\N
+14	asdfasdf	asdfasdfasdf	19	75	1445387976-YK9Q8P75UCEvVsPL_v3mQg	\N	2015-10-21 00:39:48.038826	2015-11-25 22:05:52.866459	0	Examination	3	\N	\N	\N	\N	\N	\N	\N	new	75	\N	\N	\N	\N
+18	123413	12341241324	\N	75	1445520462-aH4nUEETb2THZO1VtOjJdQ	\N	2015-10-22 13:28:10.824794	2015-11-25 22:05:52.877359	0	\N	3	\N	\N	\N	\N	ExerciseSolution	20	15	new	75	\N	\N	\N	\N
+19	123413	12341241324	\N	75	1445520462-aH4nUEETb2THZO1VtOjJdQ	\N	2015-10-22 13:36:11.590357	2015-11-25 22:05:52.887227	0	\N	3	\N	\N	\N	\N	ExerciseSolution	20	15	new	75	\N	\N	\N	\N
+21	aa	ss	\N	75	1445521180-Q5nf0FNPu8Yejg6J6AJzbg	\N	2015-10-22 13:39:50.094934	2015-11-25 22:05:52.897359	0	\N	3	\N	\N	\N	\N	ExerciseSolution	19	15	new	75	\N	\N	\N	\N
+23	12312341	2341341	\N	75	1446328405-LATm8OQ_bthJi2tQPuq-9A	0	2015-10-31 21:53:35.162795	2015-11-25 22:05:52.907437	0	\N	3	\N	\N	\N	\N	HomeworkSolution	27	\N	new	75	\N	\N	\N	\N
+25	sadfsdf	123412341asdfasdf	\N	75	1446330406-5khZRduVq-Fd5Euk-JECJA	0	2015-10-31 22:26:57.918969	2015-11-25 22:05:52.918871	0	\N	3	\N	\N	\N	\N	ExerciseSolution	25	21	new	75	\N	\N	\N	\N
+27	13134	12341234	\N	75	1446330601-dIsxR5REHrpVrsmypnLHlQ	1	2015-10-31 22:30:17.51936	2015-11-29 21:51:56.862242	2	\N	3	2015-10-31 22:32:38.301448	2015-10-31 22:32:38.301448	76	76	ExerciseSolution	25	21	completed	75	2015-10-31 22:32:38.301448	2015-10-31 22:32:38.301448	2015-10-31 22:32:38.301448	\N
+16	ceshi111111	cash2222222	\N	75	1445515583-cYq3k_2gqLkL3QxoDj7bQw	4	2015-10-22 12:06:35.081598	2015-12-06 13:18:35.862356	0	\N	3	2015-10-22 22:50:57.847266	2015-10-22 22:53:07.140889	76	76	HomeworkSolution	21	\N	completed	75	2015-10-22 22:50:57.847266	2015-10-22 22:53:07.140889	2015-10-22 22:53:07.140889	\N
+29	asdfasdf	asdfasdfasdf	\N	75	1446766174-gDJHsBywQKy9b25plHNENA	0	2015-11-05 23:30:01.30919	2015-11-29 21:51:55.222075	0	\N	3	\N	\N	\N	\N	HomeworkSolution	28	\N	in_progress	75	\N	2015-11-29 02:47:47.594793	\N	\N
+5	看看还是行不行啊 修改下看看	看看还是行不行啊看看还是行不行啊SD发放	5	75	1442538404-N62x6Fc6tDairVbJoxpqoQ	9	2015-09-18 01:06:55.256093	2015-12-06 13:18:35.44768	2	\N	\N	2015-09-18 05:42:53.760921	2015-09-18 07:32:44.634723	2	2	\N	\N	\N	completed	75	2015-09-18 05:42:53.760921	2015-09-18 07:32:44.634723	2015-09-18 07:32:44.634723	\N
+30	345134	123413	\N	75	1446766416-LSa9sxawVfTfpofBrenRuA	2	2015-11-05 23:33:57.456419	2015-12-06 13:18:36.060374	0	\N	3	2015-11-13 23:20:07.162475	2015-11-13 23:20:43.599921	76	76	ExerciseSolution	24	21	completed	75	2015-11-13 23:20:07.162475	2015-11-13 23:20:43.599921	2015-11-13 23:20:43.599921	\N
+6	我看不错	确实不错	8	75	1443133698-1e1hOhpmhl4wwirg9bZJxA	1	2015-09-24 22:28:42.743596	2015-11-29 21:51:56.914473	0	Homework	2	2015-09-27 04:03:45.093425	2015-09-27 04:03:45.093425	2	2	\N	\N	\N	completed	75	2015-09-27 04:03:45.093425	2015-09-27 04:03:45.093425	2015-09-27 04:03:45.093425	\N
+22	sdasdf	asdfasdfasf	\N	75	1445658314-mm6ggnRQGus15Dn-iUBKlg	6	2015-10-24 04:10:30.594025	2015-12-06 13:18:35.761371	0	\N	3	2015-10-25 00:10:16.840178	2015-10-26 22:05:20.9509	76	76	ExerciseSolution	19	15	completed	75	2015-10-25 00:10:16.840178	2015-10-26 22:05:20.9509	2015-10-26 22:05:20.9509	\N
+20	123413	12341241324	\N	75	1445520462-aH4nUEETb2THZO1VtOjJdQ	6	2015-10-22 13:36:30.259597	2015-12-06 13:18:35.643011	0	\N	3	2015-10-23 07:53:56.246321	2015-10-23 08:19:23.733765	76	76	ExerciseSolution	20	15	completed	75	2015-10-23 07:53:56.246321	2015-10-23 08:19:23.733765	2015-10-23 08:19:23.733765	\N
+11	继续做作业	继续做作业	9	75	1443863897-9iQR8qpQrBuaYjBGPJMHaw	3	2015-10-03 09:18:32.291979	2015-12-06 13:18:35.504594	1	Homework	2	2015-10-07 13:26:56.796116	2015-10-07 13:30:43.150865	2	2	\N	\N	\N	completed	75	2015-10-07 13:26:56.796116	2015-10-07 13:30:43.150865	2015-10-07 13:30:43.150865	\N
+8	测试是否customized_course_id	测试是否有有customized_course_id	9	75	1443658531-eB9HoU4Mm9XS-8y27reiPA	1	2015-10-01 00:18:22.483412	2015-11-29 21:51:56.745911	0	Homework	2	2015-10-01 10:38:34.214857	2015-10-01 10:38:34.214857	2	2	\N	\N	\N	completed	75	2015-10-01 10:38:34.214857	2015-10-01 10:38:34.214857	2015-10-01 10:38:34.214857	\N
+13	asdfas	asdfasdf	18	75	1445292949-GBdnE3lg9-FgeP6yfpVASg	1	2015-10-19 22:16:09.00251	2015-11-29 21:51:56.828072	0	Homework	3	2015-10-19 22:17:24.805733	2015-10-19 22:17:24.805733	76	76	\N	\N	\N	completed	75	2015-10-19 22:17:24.805733	2015-10-19 22:17:24.805733	2015-10-19 22:17:24.805733	\N
+17	12341234	12341234141	\N	75	1445518373-Xbm-6Ymt99y0w6NJEJHZ5w	3	2015-10-22 12:53:09.306451	2015-12-06 13:18:35.923866	0	\N	3	2015-10-23 08:22:50.830576	2015-10-25 01:45:09.342473	76	76	HomeworkSolution	22	\N	completed	75	2015-10-23 08:22:50.830576	2015-10-25 01:45:09.342473	2015-10-25 01:45:09.342473	\N
+33	千万人问	犬瘟热犬瘟热去	\N	75	1447459491-6HLgllwwGGcQ5uuXwBrfCA	0	2015-11-14 00:05:13.168446	2015-11-29 21:51:55.326343	0	\N	3	\N	\N	\N	\N	ExerciseSolution	25	21	in_progress	75	\N	2015-11-29 02:16:14.068111	\N	\N
+28	123412	123412341234	\N	75	1446765818-KUJIEOY55zrd0Viw8-plOA	0	2015-11-05 23:24:01.514714	2015-11-29 21:51:55.352672	0	\N	3	\N	\N	\N	\N	HomeworkSolution	28	\N	in_progress	75	\N	2015-11-29 03:36:23.869987	\N	\N
+26	asdfas	asdfadf	\N	75	1446330565-IWozmjVoc1dAlfZNaedQTQ	0	2015-10-31 22:29:33.631426	2015-11-29 21:51:55.37116	0	\N	3	\N	\N	\N	\N	ExerciseSolution	25	21	in_progress	75	\N	2015-11-29 03:36:32.274418	\N	\N
 \.
 
 
@@ -4611,63 +4829,63 @@ SELECT pg_catalog.setval('teaching_videos_id_seq', 21, false);
 -- Data for Name: topics; Type: TABLE DATA; Schema: public; Owner: qatime
 --
 
-COPY topics (id, title, content, replies_count, created_at, updated_at, token, course_id, author_id, curriculum_id, topicable_id, delete_learning_plan_id, teacher_id, topicable_type, customized_course_id, type, customized_tutorial_id) FROM stdin;
-1	测试一下提问	<img src="http://qatime.oss-cn-beijing.aliyuncs.com/images/41bc3e59eb5043d63233ec971c8a1c81.JPG" style="width: 402.5px;"><br><div><br></div><div>提问的图片真帅</div>	1	2014-06-25 13:20:14.961545	2015-04-09 23:06:40.631349	AfRwSUqJWSXEk2vk0tQmZQ	1	4	1	\N	\N	\N	Lesson	\N	\N	\N
-2	事实上	安师大发啥地方	0	2014-06-27 08:31:51.640529	2015-04-09 23:06:40.637527	2VZx9JhuzA_cbgRS4lyE3w	6	4	1	\N	\N	\N	Lesson	\N	\N	\N
-3	师大发啥地方12341234	按时到发送的	0	2014-06-27 08:32:47.303017	2015-04-09 23:06:40.642893	Pm2Flar8TERQ2KB5tBYUPA	6	4	1	\N	\N	\N	Lesson	\N	\N	\N
-4	11	11	0	2014-08-14 15:01:28.40435	2015-04-09 23:06:40.648318	ebZRhv4PRyi57l751DTU6Q	1	5	1	\N	\N	\N	Lesson	\N	\N	\N
-5	zz	cccccc	0	2014-08-28 09:41:50.353377	2015-04-09 23:06:40.653661	k4mFcOjweAYLzueEu_WkJg	13	6	1	\N	\N	\N	Lesson	\N	\N	\N
-6	xx	xx	0	2014-08-28 09:56:57.491334	2015-04-09 23:06:40.659133	37hhqS5wAbisOTu0aaSb8w	13	6	1	\N	\N	\N	Lesson	\N	\N	\N
-7	nn	ccccc	0	2014-08-28 10:02:26.971596	2015-04-09 23:06:40.664419	hVWahbzrzQU5c0DAwuO9PA	13	6	1	\N	\N	\N	Lesson	\N	\N	\N
-8	bb	最好有一个封面	0	2014-08-28 10:04:45.411779	2015-04-09 23:06:40.669641	LqEK5kAO2WcpyeIfseglIw	13	6	1	\N	\N	\N	Lesson	\N	\N	\N
-9	bb	最好	0	2014-08-28 10:05:30.10554	2015-04-09 23:06:40.674725	LqEK5kAO2WcpyeIfseglIw	13	6	1	\N	\N	\N	Lesson	\N	\N	\N
-10	qaqa	time	2	2014-11-20 23:15:44.710186	2015-04-09 23:06:40.679789	dCjq_sfUqW06f56k4wX3-g	23	6	162	\N	\N	\N	Lesson	\N	\N	\N
-11	mnmn	<span class="Apple-style-span" style="font-weight: bold;">aaa</span>	0	2014-11-20 23:21:50.994467	2015-04-09 23:06:40.684857	9dm0jRvy2xbyaEgbQoigrQ	23	6	162	\N	\N	\N	Lesson	\N	\N	\N
-12	,,,,,,,,	fghhhhhhhhh	0	2014-12-03 10:18:43.502644	2015-04-09 23:06:40.690214	iCwqe4s-ZqphZUH6Gai_zA	23	6	162	\N	\N	\N	Lesson	\N	\N	\N
-13	知识要点有些啥？	必修一内容知识要点的归纳总结。	0	2015-01-04 11:34:57.208557	2015-04-09 23:06:40.695415	b4qd_8MXsggPXzNAEYJSDQ	13	45	1	\N	\N	\N	Lesson	\N	\N	\N
-14	<script type="text/javascript"> document.write("Hello World!") </script>	<em>&lt;script</em> type="text/javascript"&gt; document.write("Hello World!") &lt;/script&gt;	0	2015-01-04 16:44:04.176452	2015-04-09 23:06:40.700468	5ySMvlGMWzC6MQ7-bABmCA	13	48	1	\N	\N	\N	Lesson	\N	\N	\N
-15	<script type="text/javascript"> document.write("Hello World!") </script>	fdsafdsa	0	2015-01-04 16:45:43.361985	2015-04-09 23:06:40.70553	94uGVk3RLswe2Ez_e7L8mA	13	48	1	\N	\N	\N	Lesson	\N	\N	\N
-36	这个课程中讲解的第一个例题有一些疑问	<p>讲解中，速度的我认为应该使用公式f=ma 为什么不使用呢？</p><p>谢谢老师</p>	1	2015-05-28 23:22:54.448911	2015-05-28 23:22:54.448911	1432855226-SCdEYdRBUNKLWQxe2bwH6A	80	75	323	97	\N	2	Lesson	\N	\N	\N
-37	哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈	哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈	0	2015-05-29 14:58:36.769078	2015-05-29 14:58:36.769078	1432911506-LELUKCg8cZIUH91Klf1rmg	80	2	323	159	\N	2	Lesson	\N	\N	\N
-34	测试测试测试测试测试测试	哈哈哈哈哈哈哈哈哈哈哈哈哈哈	0	2015-05-28 12:40:03.834803	2015-05-28 12:40:03.834803	1432816782-RdfhOvr-gcaieK18x9yQPQ	69	75	3	81	\N	7	Lesson	\N	\N	\N
-38	测试是否好用呢啊啊啊啊嗄	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/067d00ef8f304f5d7d5b2b6719f09f7e.png" style="width: 683px;"></p>	0	2015-08-27 06:17:40.871788	2015-08-27 06:17:40.871788	1440656232-PYM9YH2Y5G_2jSFDwmubVA	\N	2	\N	97	\N	2	Lesson	\N	\N	\N
-42	测试是否可以看到	是否可以看到有没有这个测试结果	1	2015-09-09 05:18:19.813584	2015-09-09 05:18:19.813584	1441775878-kGoH0zRztxjJaPP0iJd_Lg	\N	75	\N	5	\N	2	Homework	\N	\N	\N
-45	weisha mei kecheng	ceshi nick name	1	2015-09-29 21:49:48.238487	2015-09-30 22:48:01.65273	1443563373-sftqdDxKAJJO0JAy7vZREw	\N	2	\N	13	\N	2	CustomizedTutorial	2	\N	\N
-48	ceshi shifou you	则很难过的有耳麦	0	2015-09-30 23:00:43.727704	2015-09-30 23:00:43.727704	1443654029-RPzJo3PbcCOXJ1WQbZVDPg	\N	2	\N	2	\N	2	CustomizedCourse	\N	\N	\N
-49	customized course id		0	2015-09-30 23:02:17.222729	2015-09-30 23:02:17.222729	1443654109-KJDagcVAWXf9L2r1Sb-2-Q	\N	2	\N	2	\N	2	CustomizedCourse	\N	\N	\N
-39	sssss dddd aaaa11111111111111111111111111111111	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/5b89dd0aa598e8f80ea36feb87798fef.jpg" style="width: 768px;"><img style="width: 1024px;" src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/e995159f2e9aa7abd5fba769081ff198.jpg"><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/210e63c78d5b678bcc1b9f1009fc073c.jpg" style="width: 768px;"><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/56149671c310266b7bc2ad2d389cbb73.jpg" style="width: 1024px;"></p>	0	2015-08-27 11:37:20.616161	2015-09-30 22:48:01.541017	1440675344-vKR-YewaruJ98k3t_YFXWA	\N	75	\N	2	\N	2	CustomizedCourse	2	\N	\N
-40	haoahaohoahoaohaohoaohaohohah	<p><br><img style="width: 300px;" src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/a4ee401083a7dd131f91246dba205a74.jpg"></p>	0	2015-08-27 11:38:40.689115	2015-09-30 22:48:01.586665	1440675486-QhWSTd5Rey70uNF7RYZUxQ	\N	75	\N	2	\N	2	CustomizedCourse	2	\N	\N
-44	测试一下是否重定向是正确的	测试一下是否重定向是正确的	0	2015-09-24 23:25:17.539283	2015-09-30 22:48:01.622413	1443137099-rkljoKY9_gD6R91DR9XRBQ	\N	2	\N	2	\N	2	CustomizedCourse	2	\N	\N
-43	测试是多少啊	测试是多少啊测试是多少啊测试是多少啊测试是多少啊	0	2015-09-15 12:24:05.536383	2015-09-30 22:48:01.643637	1442319831-OMON7ypdRNcTh8e29DYYXQ	\N	2	\N	1	\N	2	CustomizedTutorial	2	\N	\N
-46	测试是否设置customized_course_id	测试一下么	0	2015-09-30 22:56:36.376426	2015-09-30 22:56:36.376426	1443653762-yv3ZmSdAKAi2DmvGNpYGIg	\N	2	\N	13	\N	2	CustomizedTutorial	\N	\N	\N
-47	测试一下是否有customized_course_id	测试一下是否有customized_course_id	0	2015-09-30 22:57:46.720933	2015-09-30 22:57:46.720933	1443653843--x31MOwhRU99uyS6T75OMA	\N	2	\N	2	\N	2	CustomizedCourse	\N	\N	\N
-50	测试测试测试	测试测试测试	0	2015-09-30 23:04:06.684401	2015-09-30 23:04:06.684401	1443654236-milwSh4MJqcXv0vPwU14gA	\N	2	\N	13	\N	2	CustomizedTutorial	\N	\N	\N
-51	测试一下啊	测试	0	2015-09-30 23:05:49.169114	2015-09-30 23:05:49.169114	1443654338-uaul7ylArZwB2r1yN9TIDg	\N	2	\N	13	\N	2	CustomizedTutorial	\N	\N	\N
-53	测试	测试	1	2015-09-30 23:50:20.065126	2015-09-30 23:50:20.065126	1443656972-fkDr4zOLqX4lz5kzsn3PJg	\N	2	\N	2	\N	2	CustomizedCourse	2	\N	\N
-52	测试有没有	测试有没有测试有没有	1	2015-09-30 23:48:54.561007	2015-09-30 23:48:54.561007	1443656923-L921_UZNFDIvjy3qvFxP6w	\N	2	\N	13	\N	2	CustomizedTutorial	2	\N	\N
-57	~~~~~~	~~~~~~~	0	2015-10-07 08:02:00.143836	2015-10-07 08:02:00.143836	1444204909-MRghZtV5joNXfyKjZw2FUA	\N	75	\N	3	\N	\N	TutorialIssue	\N	\N	\N
-58	kaka12341234124	1234123412	0	2015-10-07 08:11:35.886531	2015-10-07 08:11:35.886531	1444205485-fhUAeBFRfyepXsKe1qO2AA	\N	75	\N	4	\N	\N	TutorialIssue	\N	\N	\N
-59	12341`````	```12`313`123`	0	2015-10-07 08:13:05.7478	2015-10-07 08:13:05.7478	1444205578-psLH1eLyG5K2RBnhv_C7tA	\N	75	\N	5	\N	\N	TutorialIssue	\N	\N	\N
-60	hahahhahahahah	kankan nebuneng bianjiassddss	0	2015-10-07 09:12:30.681122	2015-10-07 09:17:10.318334	1444209127-F2Rn8bVOiFUSLvad4LIqZQ	\N	75	\N	6	\N	\N	TutorialIssue	\N	\N	\N
-61	asdfasd	123412341234	0	2015-10-07 22:33:09.839786	2015-10-07 22:33:09.839786	1444257180-ulzSX1Yr2gdIYdu_B2O6sQ	\N	2	\N	7	\N	\N	TutorialIssue	\N	\N	\N
-63	kankan zayangzime	adfasdfasdfasdf	0	2015-10-11 07:41:40.718977	2015-10-11 07:41:40.718977	1444549287-P_n67X6XdnlLBFdvkYPPYg	\N	57	\N	\N	\N	\N	\N	2	TutorialIssue	13
-62	CC撒都是翻	安师大发都是翻	2	2015-10-10 13:46:06.538956	2015-10-10 13:46:06.538956	1444484750-WO4MIUtO4zh37sZAJt1UAw	\N	76	\N	15	\N	76	CustomizedTutorial	3	\N	\N
-54	测试下能否在首页展示	看看吧	4	2015-10-03 22:54:50.236075	2015-10-03 22:54:50.236075	1443912871-rU1VN1UaGuNQbOUIxYe3bw	\N	75	\N	13	\N	2	CustomizedTutorial	2	\N	\N
-64	kankan zayangzime	adfasdfasdfasdf	7	2015-10-11 07:54:08.809019	2015-10-11 07:54:08.809019	1444549287-P_n67X6XdnlLBFdvkYPPYg	\N	57	\N	\N	\N	\N	\N	2	TutorialIssue	13
-70	dasdf	1341234124	0	2015-10-15 22:59:11.080584	2015-10-15 22:59:11.080584	1444949939-jcv4BzEr8KYx-B3f0zXYCg	\N	57	\N	\N	\N	\N	\N	3	CourseIssue	\N
-73	测试下看看么	测试下么	2	2015-10-20 23:33:53.502718	2015-10-20 23:33:53.502718	1445384017-N-i1sKLnJtjACeTNisHIEQ	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N
-65	asdfasd	asdfasdfasf	8	2015-10-14 23:24:35.849478	2015-10-14 23:24:35.849478	1444865066-kd6KDPVP80AbWBq7Fu_BTA	\N	57	\N	\N	\N	\N	\N	3	TutorialIssue	15
-71	asdfasd	123412341244	7	2015-10-17 00:38:27.959266	2015-10-17 00:38:27.959266	1445042291-17XdWqaCIjuBlM9Xi8EafA	\N	57	\N	\N	\N	\N	\N	3	CourseIssue	\N
-74	asdfas	adfasdf	2	2015-10-31 10:28:47.742585	2015-10-31 10:28:47.742585	1446287319--6HxVAqfEMTkcjMEHMhjrQ	\N	75	\N	\N	\N	\N	\N	3	TutorialIssue	21
-76	1`````````````	asdfasdf	0	2015-11-01 01:34:18.864521	2015-11-01 01:34:18.864521	1446341645-IoWYIKUz8I0vHwfgeiyGcw	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N
-75	23452345234	234523452	1	2015-11-01 01:31:41.608409	2015-11-01 01:31:41.608409	1446341491-LTfYPFh87L-g13KzQ-vEJg	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N
-77	123413412	asdfasfasdf	0	2015-11-03 23:06:02.085609	2015-11-04 23:20:27.080065	1446591916-I6HQFcPZrCQXbTPKCyeogQ	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N
-78	234234	kkkkkkkkasa	1	2015-11-04 23:24:02.310331	2015-11-05 23:10:02.462237	1446679407-XeRfrPIIMbZXEAKmJ86Ewg	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N
-80	asdfasdf	asdfasdfadsf	3	2015-11-06 22:59:04.773584	2015-11-06 22:59:04.773584	1446850506-gg7m59K51ETMSb6VsTDwFQ	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N
-81	cash ixia	ceshiyixa	0	2015-11-14 03:13:43.048947	2015-11-14 03:13:43.048947	1447470810-K42gbh-e9bV09dfkpJxMag	\N	75	\N	\N	\N	\N	\N	3	TutorialIssue	15
-79	asdfsa	asdfsadf	3	2015-11-05 23:11:56.476451	2015-11-05 23:11:56.476451	1446765067-sJw8iIY5mq9RvgaEFItwvg	\N	75	\N	\N	\N	\N	\N	3	TutorialIssue	21
-72	1234	12341234	6	2015-10-20 22:09:24.275154	2015-10-20 22:09:24.275154	1445378954-SJXtNEZS7yX_ObDozShSZA	\N	75	\N	\N	\N	\N	\N	3	TutorialIssue	15
-82	134134	12341341241	3	2015-11-14 03:52:57.405268	2015-11-14 03:52:57.405268	1447473159-IehH7UyL0y8hmO74kKATJQ	\N	75	\N	\N	\N	\N	\N	3	TutorialIssue	20
+COPY topics (id, title, content, replies_count, created_at, updated_at, token, course_id, author_id, curriculum_id, topicable_id, delete_learning_plan_id, teacher_id, topicable_type, customized_course_id, type, customized_tutorial_id, last_operator_id, first_handled_at, completed_at, last_handled_at, last_redone_at, state, comments_count) FROM stdin;
+2	事实上	安师大发啥地方	0	2014-06-27 08:31:51.640529	2015-12-06 13:18:37.482256	2VZx9JhuzA_cbgRS4lyE3w	6	4	1	\N	\N	\N	Lesson	\N	\N	\N	4	\N	\N	\N	\N	new	0
+3	师大发啥地方12341234	按时到发送的	0	2014-06-27 08:32:47.303017	2015-12-06 13:18:37.493157	Pm2Flar8TERQ2KB5tBYUPA	6	4	1	\N	\N	\N	Lesson	\N	\N	\N	4	\N	\N	\N	\N	new	0
+4	11	11	0	2014-08-14 15:01:28.40435	2015-12-06 13:18:37.50289	ebZRhv4PRyi57l751DTU6Q	1	5	1	\N	\N	\N	Lesson	\N	\N	\N	5	\N	\N	\N	\N	new	0
+5	zz	cccccc	0	2014-08-28 09:41:50.353377	2015-12-06 13:18:37.513735	k4mFcOjweAYLzueEu_WkJg	13	6	1	\N	\N	\N	Lesson	\N	\N	\N	6	\N	\N	\N	\N	new	0
+6	xx	xx	0	2014-08-28 09:56:57.491334	2015-12-06 13:18:37.52323	37hhqS5wAbisOTu0aaSb8w	13	6	1	\N	\N	\N	Lesson	\N	\N	\N	6	\N	\N	\N	\N	new	0
+7	nn	ccccc	0	2014-08-28 10:02:26.971596	2015-12-06 13:18:37.533771	hVWahbzrzQU5c0DAwuO9PA	13	6	1	\N	\N	\N	Lesson	\N	\N	\N	6	\N	\N	\N	\N	new	0
+8	bb	最好有一个封面	0	2014-08-28 10:04:45.411779	2015-12-06 13:18:37.543142	LqEK5kAO2WcpyeIfseglIw	13	6	1	\N	\N	\N	Lesson	\N	\N	\N	6	\N	\N	\N	\N	new	0
+9	bb	最好	0	2014-08-28 10:05:30.10554	2015-12-06 13:18:37.552554	LqEK5kAO2WcpyeIfseglIw	13	6	1	\N	\N	\N	Lesson	\N	\N	\N	6	\N	\N	\N	\N	new	0
+42	测试是否可以看到	是否可以看到有没有这个测试结果	1	2015-09-09 05:18:19.813584	2015-12-06 13:18:38.121911	1441775878-kGoH0zRztxjJaPP0iJd_Lg	\N	75	\N	5	\N	2	Homework	\N	\N	\N	75	2015-09-18 05:45:02.376958	2015-09-18 05:45:02.376958	2015-09-18 05:45:02.376958	\N	completed	0
+11	mnmn	<span class="Apple-style-span" style="font-weight: bold;">aaa</span>	0	2014-11-20 23:21:50.994467	2015-12-06 13:18:37.572244	9dm0jRvy2xbyaEgbQoigrQ	23	6	162	\N	\N	\N	Lesson	\N	\N	\N	6	\N	\N	\N	\N	new	0
+12	,,,,,,,,	fghhhhhhhhh	0	2014-12-03 10:18:43.502644	2015-12-06 13:18:37.581417	iCwqe4s-ZqphZUH6Gai_zA	23	6	162	\N	\N	\N	Lesson	\N	\N	\N	6	\N	\N	\N	\N	new	0
+13	知识要点有些啥？	必修一内容知识要点的归纳总结。	0	2015-01-04 11:34:57.208557	2015-12-06 13:18:37.590838	b4qd_8MXsggPXzNAEYJSDQ	13	45	1	\N	\N	\N	Lesson	\N	\N	\N	45	\N	\N	\N	\N	new	0
+14	<script type="text/javascript"> document.write("Hello World!") </script>	<em>&lt;script</em> type="text/javascript"&gt; document.write("Hello World!") &lt;/script&gt;	0	2015-01-04 16:44:04.176452	2015-12-06 13:18:37.599934	5ySMvlGMWzC6MQ7-bABmCA	13	48	1	\N	\N	\N	Lesson	\N	\N	\N	48	\N	\N	\N	\N	new	0
+15	<script type="text/javascript"> document.write("Hello World!") </script>	fdsafdsa	0	2015-01-04 16:45:43.361985	2015-12-06 13:18:37.609502	94uGVk3RLswe2Ez_e7L8mA	13	48	1	\N	\N	\N	Lesson	\N	\N	\N	48	\N	\N	\N	\N	new	0
+45	weisha mei kecheng	ceshi nick name	1	2015-09-29 21:49:48.238487	2015-12-06 13:18:38.135283	1443563373-sftqdDxKAJJO0JAy7vZREw	\N	2	\N	13	\N	2	CustomizedTutorial	2	\N	\N	2	2015-09-29 21:51:23.605003	2015-09-29 21:51:23.605003	2015-09-29 21:51:23.605003	\N	completed	0
+34	测试测试测试测试测试测试	哈哈哈哈哈哈哈哈哈哈哈哈哈哈	0	2015-05-28 12:40:03.834803	2015-12-06 13:18:37.63842	1432816782-RdfhOvr-gcaieK18x9yQPQ	69	75	3	81	\N	7	Lesson	\N	\N	\N	75	\N	\N	\N	\N	new	0
+38	测试是否好用呢啊啊啊啊嗄	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/067d00ef8f304f5d7d5b2b6719f09f7e.png" style="width: 683px;"></p>	0	2015-08-27 06:17:40.871788	2015-12-06 13:18:37.647861	1440656232-PYM9YH2Y5G_2jSFDwmubVA	\N	2	\N	97	\N	2	Lesson	\N	\N	\N	2	\N	\N	\N	\N	new	0
+53	测试	测试	1	2015-09-30 23:50:20.065126	2015-12-06 13:18:38.178139	1443656972-fkDr4zOLqX4lz5kzsn3PJg	\N	2	\N	2	\N	2	CustomizedCourse	2	\N	\N	2	2015-10-01 00:03:31.269354	2015-10-01 00:03:31.269354	2015-10-01 00:03:31.269354	\N	completed	0
+52	测试有没有	测试有没有测试有没有	1	2015-09-30 23:48:54.561007	2015-12-06 13:18:38.196345	1443656923-L921_UZNFDIvjy3qvFxP6w	\N	2	\N	13	\N	2	CustomizedTutorial	2	\N	\N	2	2015-10-01 00:04:17.683947	2015-10-01 00:04:17.683947	2015-10-01 00:04:17.683947	\N	completed	0
+48	ceshi shifou you	则很难过的有耳麦	0	2015-09-30 23:00:43.727704	2015-12-06 13:18:37.695409	1443654029-RPzJo3PbcCOXJ1WQbZVDPg	\N	2	\N	2	\N	2	CustomizedCourse	\N	\N	\N	2	\N	\N	\N	\N	new	0
+49	customized course id		0	2015-09-30 23:02:17.222729	2015-12-06 13:18:37.705291	1443654109-KJDagcVAWXf9L2r1Sb-2-Q	\N	2	\N	2	\N	2	CustomizedCourse	\N	\N	\N	2	\N	\N	\N	\N	new	0
+40	haoahaohoahoaohaohoaohaohohah	<p><br><img style="width: 300px;" src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/a4ee401083a7dd131f91246dba205a74.jpg"></p>	0	2015-08-27 11:38:40.689115	2015-12-06 13:18:37.724661	1440675486-QhWSTd5Rey70uNF7RYZUxQ	\N	75	\N	2	\N	2	CustomizedCourse	2	\N	\N	75	\N	\N	\N	\N	new	0
+44	测试一下是否重定向是正确的	测试一下是否重定向是正确的	0	2015-09-24 23:25:17.539283	2015-12-06 13:18:37.733898	1443137099-rkljoKY9_gD6R91DR9XRBQ	\N	2	\N	2	\N	2	CustomizedCourse	2	\N	\N	2	\N	\N	\N	\N	new	0
+43	测试是多少啊	测试是多少啊测试是多少啊测试是多少啊测试是多少啊	0	2015-09-15 12:24:05.536383	2015-12-06 13:18:37.743088	1442319831-OMON7ypdRNcTh8e29DYYXQ	\N	2	\N	1	\N	2	CustomizedTutorial	2	\N	\N	2	\N	\N	\N	\N	new	0
+46	测试是否设置customized_course_id	测试一下么	0	2015-09-30 22:56:36.376426	2015-12-06 13:18:37.752521	1443653762-yv3ZmSdAKAi2DmvGNpYGIg	\N	2	\N	13	\N	2	CustomizedTutorial	\N	\N	\N	2	\N	\N	\N	\N	new	0
+47	测试一下是否有customized_course_id	测试一下是否有customized_course_id	0	2015-09-30 22:57:46.720933	2015-12-06 13:18:37.762198	1443653843--x31MOwhRU99uyS6T75OMA	\N	2	\N	2	\N	2	CustomizedCourse	\N	\N	\N	2	\N	\N	\N	\N	new	0
+50	测试测试测试	测试测试测试	0	2015-09-30 23:04:06.684401	2015-12-06 13:18:37.772241	1443654236-milwSh4MJqcXv0vPwU14gA	\N	2	\N	13	\N	2	CustomizedTutorial	\N	\N	\N	2	\N	\N	\N	\N	new	0
+51	测试一下啊	测试	0	2015-09-30 23:05:49.169114	2015-12-06 13:18:37.781539	1443654338-uaul7ylArZwB2r1yN9TIDg	\N	2	\N	13	\N	2	CustomizedTutorial	\N	\N	\N	2	\N	\N	\N	\N	new	0
+62	CC撒都是翻	安师大发都是翻	2	2015-10-10 13:46:06.538956	2015-12-06 13:18:38.230816	1444484750-WO4MIUtO4zh37sZAJt1UAw	\N	76	\N	15	\N	76	CustomizedTutorial	3	\N	\N	76	2015-10-10 13:48:08.486408	2015-10-10 13:48:33.810044	2015-10-10 13:48:33.810044	\N	completed	0
+57	~~~~~~	~~~~~~~	0	2015-10-07 08:02:00.143836	2015-12-06 13:18:37.809623	1444204909-MRghZtV5joNXfyKjZw2FUA	\N	75	\N	3	\N	\N	TutorialIssue	\N	\N	\N	75	\N	\N	\N	\N	new	0
+58	kaka12341234124	1234123412	0	2015-10-07 08:11:35.886531	2015-12-06 13:18:37.818581	1444205485-fhUAeBFRfyepXsKe1qO2AA	\N	75	\N	4	\N	\N	TutorialIssue	\N	\N	\N	75	\N	\N	\N	\N	new	0
+59	12341`````	```12`313`123`	0	2015-10-07 08:13:05.7478	2015-12-06 13:18:37.828179	1444205578-psLH1eLyG5K2RBnhv_C7tA	\N	75	\N	5	\N	\N	TutorialIssue	\N	\N	\N	75	\N	\N	\N	\N	new	0
+60	hahahhahahahah	kankan nebuneng bianjiassddss	0	2015-10-07 09:12:30.681122	2015-12-06 13:18:37.837617	1444209127-F2Rn8bVOiFUSLvad4LIqZQ	\N	75	\N	6	\N	\N	TutorialIssue	\N	\N	\N	75	\N	\N	\N	\N	new	0
+61	asdfasd	123412341234	0	2015-10-07 22:33:09.839786	2015-12-06 13:18:37.846781	1444257180-ulzSX1Yr2gdIYdu_B2O6sQ	\N	2	\N	7	\N	\N	TutorialIssue	\N	\N	\N	2	\N	\N	\N	\N	new	0
+63	kankan zayangzime	adfasdfasdfasdf	0	2015-10-11 07:41:40.718977	2015-12-06 13:18:37.856288	1444549287-P_n67X6XdnlLBFdvkYPPYg	\N	57	\N	\N	\N	\N	\N	2	TutorialIssue	13	57	\N	\N	\N	\N	new	0
+10	qaqa	time	2	2014-11-20 23:15:44.710186	2015-12-06 13:18:38.07014	dCjq_sfUqW06f56k4wX3-g	23	6	162	\N	\N	\N	Lesson	\N	\N	\N	6	2014-11-20 23:17:10.083375	2014-11-20 23:18:44.119282	2014-11-20 23:18:44.119282	\N	completed	0
+36	这个课程中讲解的第一个例题有一些疑问	<p>讲解中，速度的我认为应该使用公式f=ma 为什么不使用呢？</p><p>谢谢老师</p>	1	2015-05-28 23:22:54.448911	2015-12-06 13:18:38.092545	1432855226-SCdEYdRBUNKLWQxe2bwH6A	80	75	323	97	\N	2	Lesson	\N	\N	\N	75	2015-05-28 23:35:44.784911	2015-05-28 23:35:44.784911	2015-05-28 23:35:44.784911	\N	completed	0
+37	哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈	哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈	0	2015-05-29 14:58:36.769078	2015-12-06 13:18:37.628871	1432911506-LELUKCg8cZIUH91Klf1rmg	80	2	323	159	\N	2	Lesson	\N	\N	\N	2	\N	\N	\N	\N	new	0
+39	sssss dddd aaaa11111111111111111111111111111111	<p><br><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/5b89dd0aa598e8f80ea36feb87798fef.jpg" style="width: 768px;"><img style="width: 1024px;" src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/e995159f2e9aa7abd5fba769081ff198.jpg"><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/210e63c78d5b678bcc1b9f1009fc073c.jpg" style="width: 768px;"><img src="http://qatime-test.oss-cn-beijing.aliyuncs.com/images/56149671c310266b7bc2ad2d389cbb73.jpg" style="width: 1024px;"></p>	0	2015-08-27 11:37:20.616161	2015-12-06 13:18:37.714324	1440675344-vKR-YewaruJ98k3t_YFXWA	\N	75	\N	2	\N	2	CustomizedCourse	2	\N	\N	75	\N	\N	\N	\N	new	0
+71	asdfasd	123412341244	7	2015-10-17 00:38:27.959266	2015-12-06 13:18:38.362124	1445042291-17XdWqaCIjuBlM9Xi8EafA	\N	57	\N	\N	\N	\N	\N	3	CourseIssue	\N	57	2015-10-18 01:51:05.230348	2015-10-27 22:59:42.707562	2015-10-27 22:59:42.707562	\N	completed	0
+74	asdfas	adfasdf	2	2015-10-31 10:28:47.742585	2015-12-06 13:18:38.382611	1446287319--6HxVAqfEMTkcjMEHMhjrQ	\N	75	\N	\N	\N	\N	\N	3	TutorialIssue	21	75	2015-10-31 11:00:10.774136	2015-10-31 11:01:45.264289	2015-10-31 11:01:45.264289	\N	completed	0
+70	dasdf	1341234124	0	2015-10-15 22:59:11.080584	2015-12-06 13:18:37.895067	1444949939-jcv4BzEr8KYx-B3f0zXYCg	\N	57	\N	\N	\N	\N	\N	3	CourseIssue	\N	57	\N	\N	\N	\N	new	0
+75	23452345234	234523452	1	2015-11-01 01:31:41.608409	2015-12-06 13:18:38.408813	1446341491-LTfYPFh87L-g13KzQ-vEJg	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N	75	2015-11-01 01:35:13.428463	2015-11-01 01:35:13.428463	2015-11-01 01:35:13.428463	\N	completed	0
+78	234234	kkkkkkkkasa	1	2015-11-04 23:24:02.310331	2015-12-06 13:18:38.43116	1446679407-XeRfrPIIMbZXEAKmJ86Ewg	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N	75	2015-11-05 22:21:18.544708	2015-11-05 22:21:18.544708	2015-11-05 22:21:18.544708	\N	completed	0
+76	1`````````````	asdfasdf	0	2015-11-01 01:34:18.864521	2015-12-06 13:18:37.942806	1446341645-IoWYIKUz8I0vHwfgeiyGcw	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N	75	\N	\N	\N	\N	new	0
+81	cash ixia	ceshiyixa	0	2015-11-14 03:13:43.048947	2015-12-06 13:18:38.005683	1447470810-K42gbh-e9bV09dfkpJxMag	\N	75	\N	\N	\N	\N	\N	3	TutorialIssue	15	75	\N	\N	\N	\N	new	0
+1	测试一下提问	<img src="http://qatime.oss-cn-beijing.aliyuncs.com/images/41bc3e59eb5043d63233ec971c8a1c81.JPG" style="width: 402.5px;"><br><div><br></div><div>提问的图片真帅</div>	1	2014-06-25 13:20:14.961545	2015-12-06 13:18:38.247894	AfRwSUqJWSXEk2vk0tQmZQ	1	4	1	\N	\N	\N	Lesson	\N	\N	\N	4	2014-06-25 14:54:36.794327	2014-06-25 14:54:36.794327	2014-06-25 14:54:36.794327	\N	completed	0
+54	测试下能否在首页展示	看看吧	4	2015-10-03 22:54:50.236075	2015-12-06 13:18:38.274428	1443912871-rU1VN1UaGuNQbOUIxYe3bw	\N	75	\N	13	\N	2	CustomizedTutorial	2	\N	\N	75	2015-10-11 12:18:22.982507	2015-10-11 12:36:43.679473	2015-10-11 12:36:43.679473	\N	completed	0
+64	kankan zayangzime	adfasdfasdfasdf	7	2015-10-11 07:54:08.809019	2015-12-06 13:18:38.292868	1444549287-P_n67X6XdnlLBFdvkYPPYg	\N	57	\N	\N	\N	\N	\N	2	TutorialIssue	13	57	2015-10-11 09:06:51.66978	2015-10-11 13:42:23.271364	2015-10-11 13:42:23.271364	\N	completed	0
+73	测试下看看么	测试下么	2	2015-10-20 23:33:53.502718	2015-12-06 13:18:38.319296	1445384017-N-i1sKLnJtjACeTNisHIEQ	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N	75	2015-10-20 23:34:46.157917	2015-10-27 21:44:59.203049	2015-10-27 21:44:59.203049	\N	completed	0
+65	asdfasd	asdfasdfasf	8	2015-10-14 23:24:35.849478	2015-12-06 13:18:38.348585	1444865066-kd6KDPVP80AbWBq7Fu_BTA	\N	57	\N	\N	\N	\N	\N	3	TutorialIssue	15	57	2015-10-18 01:05:17.92887	2015-10-27 22:36:39.780384	2015-10-27 22:36:39.780384	\N	completed	0
+80	asdfasdf	asdfasdfadsf	3	2015-11-06 22:59:04.773584	2015-12-06 13:18:38.460692	1446850506-gg7m59K51ETMSb6VsTDwFQ	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N	75	2015-11-06 23:02:49.15629	2015-11-06 23:11:02.613986	2015-11-06 23:11:02.613986	\N	completed	0
+79	asdfsa	asdfsadf	3	2015-11-05 23:11:56.476451	2015-12-06 13:18:38.493858	1446765067-sJw8iIY5mq9RvgaEFItwvg	\N	75	\N	\N	\N	\N	\N	3	TutorialIssue	21	75	2015-11-05 23:12:17.161892	2015-11-14 03:33:22.50478	2015-11-14 03:33:22.50478	\N	completed	0
+72	1234	12341234	6	2015-10-20 22:09:24.275154	2015-12-06 13:18:38.507622	1445378954-SJXtNEZS7yX_ObDozShSZA	\N	75	\N	\N	\N	\N	\N	3	TutorialIssue	15	75	2015-10-20 23:28:58.403288	2015-11-14 03:39:58.139442	2015-11-14 03:39:58.139442	\N	completed	0
+77	123413412	asdfasfasdf	0	2015-11-03 23:06:02.085609	2015-12-06 13:31:25.496136	1446591916-I6HQFcPZrCQXbTPKCyeogQ	\N	75	\N	\N	\N	\N	\N	3	CourseIssue	\N	76	\N	2015-12-06 13:31:25.462031	\N	\N	completed	0
+82	134134	12341341241	3	2015-11-14 03:52:57.405268	2015-12-07 21:42:45.817048	1447473159-IehH7UyL0y8hmO74kKATJQ	\N	75	\N	\N	\N	\N	\N	3	TutorialIssue	20	76	2015-11-14 03:53:41.591423	2015-12-07 21:42:45.810079	2015-11-14 04:42:25.651463	2015-12-06 22:09:40.10003	completed	0
 \.
 
 
@@ -4747,9 +4965,9 @@ COPY users (id, email, encrypted_password, reset_password_token, reset_password_
 74	e@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-05-09 11:30:06.665628	2015-05-11 23:24:29.712041	0	0	333	0317710ba088e795b862a14adb208b7e.png	3	teacher	$2a$10$h3YasYZxoBvwr93GSeVwZe6qbGkJqNXgdVSE8tYmWcr/uTplxfxem	ee1424cc53cb02849aac41347d586a44f421fb59	3232323323232332323233232323323232332323233232323323232332323233232323	\N	0	英语	高中	11111111111	f	\N	\N	\N
 2	zhang@163.com		\N	\N	\N	0	\N	\N	\N	\N	2014-06-25 12:21:44.269794	2015-10-10 13:29:20.984519	14	1	张建东	ba61da898d301eb96e72f5a2a34f1e80.jpg	1	teacher	$2a$10$xUVjT1nRp.F5D3.HbuH3R.Lxqj9SHmN6B62W2oXtcx3K32J2YVvRW	2ddeb274dd1d70612cf998ad1da1d76a6ad5e328	张老师是测试老师，账号是用来测试的.	\N	0	物理	高中	15910676326	t	\N		\N
 58	machengke@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-04-11 08:16:44.673629	2015-11-01 22:45:41.42166	0	0	马成科	5950164eefd0372b42376213c9b52c4b.png	\N	manager	$2a$10$A4/9bWMF466q/dsw4HoVPuMcbySa5WP6DzkTLjzHxfh1lhjoc4/uG	7c1e110cf7de53005bb9dcc5f33d097ea21eb97d	\N	\N	0	\N	\N	\N	f	\N	\N	\N
-75	z@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-05-18 11:21:11.205946	2015-11-16 23:07:32.659092	21	19	z	5d7a99562aa61d0b40c763691a7c824e.jpg	\N	student	$2a$10$udltfN82atLbyZCipta3wOUAuDSie.owyMMGDjVQnmyqxBJXmfhoC	8f7bd3922525936bae4ad1ab9d2983dab0880885	\N	\N	0	\N	\N	15910676326	f	高一	\N	\N
-76	a@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-10-10 13:31:39.969233	2015-11-16 23:07:53.060221	1	23	aaa	726aea7591089e1c851099451ec316d5.JPG	1	teacher	$2a$10$an8ULUTI.zvjppnRCHfNP.2ec7bFNhUlxUeYc7e44CR2tAOt9eChS	7ae02dfa54660f263010c08d58baff22044ce467	asdfadsfasdfa	\N	0	物理	高中	15910676326	f	\N	aaa	\N
-57	chuanjiabao1981@gmail.com		\N	\N	\N	0	\N	\N	\N	\N	2015-04-09 23:11:10.348818	2015-11-21 10:01:29.655242	5	11	admin	\N	\N	admin	$2a$10$sRIPw7gFfGtBPB4qJsmLyejlKHUPr5Nf7OQdHNAeC/FkHFCZ4W0zK	dc059602d7e717a50813bc1cd0106eb0b6dc7141	\N	\N	0	\N	\N	\N	f	\N	\N	\N
+57	chuanjiabao1981@gmail.com		\N	\N	\N	0	\N	\N	\N	\N	2015-04-09 23:11:10.348818	2015-11-25 22:09:59.24601	5	11	admin	\N	\N	admin	$2a$10$sRIPw7gFfGtBPB4qJsmLyejlKHUPr5Nf7OQdHNAeC/FkHFCZ4W0zK	5e06cb5161c66eaae1cdc235580f21e1dd1436fa	\N	\N	0	\N	\N	\N	f	\N	\N	\N
+76	a@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-10-10 13:31:39.969233	2015-11-25 22:10:08.106836	1	23	aaa	726aea7591089e1c851099451ec316d5.JPG	1	teacher	$2a$10$an8ULUTI.zvjppnRCHfNP.2ec7bFNhUlxUeYc7e44CR2tAOt9eChS	ad03810ee7b39d854360ad3eefa7be46612e6465	asdfadsfasdfa	\N	0	物理	高中	15910676326	f	\N	aaa	\N
+75	z@qatime.cn		\N	\N	\N	0	\N	\N	\N	\N	2015-05-18 11:21:11.205946	2015-11-26 22:06:10.926459	21	19	z	5d7a99562aa61d0b40c763691a7c824e.jpg	\N	student	$2a$10$udltfN82atLbyZCipta3wOUAuDSie.owyMMGDjVQnmyqxBJXmfhoC	cf58d156fa02aa15bab821c219d7f44a1a143e95	\N	\N	0	\N	\N	15910676326	f	高一	\N	\N
 \.
 
 
@@ -4981,41 +5199,41 @@ COPY videos (id, name, created_at, updated_at, token, videoable_id, video_type, 
 138	a4dbe82b293a881be7bf7bc4b064b0b6.mp4	2015-04-12 02:44:49.85201	2015-08-24 07:40:14.925099	E4g3ZliZFMUkWyrhbSYcCg	89	mp4	\N	not_convert	Lesson	59	\N
 276	cd3c2ebc7f26b4d96eafee5503c2eb48.mp4	2015-05-29 14:58:07.967365	2015-09-09 08:24:55.794503	V5d_rZVG5bmgQA2GsaX9Mw	159	mp4	96af6de8298c3190fa70357339df7b13.mp4	convert_success	Lesson	2	\N
 131	c5a714f69263cc8c65d02e5b95ad0be2.mp4	2015-04-03 15:03:26.254923	2015-09-18 08:57:46.293851	9WadxJT75gVWao0AH_hhuA	81	mp4	\N	not_convert	Lesson	7	\N
-292	35781328a850b774477ec1b70947c4dd.mp4	2015-09-18 07:05:15.382369	2015-09-18 07:05:19.819066	1442559887-6sgZ1ej5pShMqNyII5QeDA	7	mp4	\N	in_queue	Correction	2	\N
-293	f3f52c51d56d982005521e523304e54d.mp4	2015-09-18 07:25:35.448572	2015-09-18 07:25:48.545839	1442561022-bRqfnrBZygSi9Qwq2JbQeA	8	mp4	\N	in_queue	Correction	2	\N
-291	8166d1106eec361bec01a67557e165d1.mp4	2015-09-18 07:04:39.420461	2015-09-18 07:04:47.185941	1442559866-WZwpNtk8P7O_lZWnApRLFg	6	mp4	\N	in_queue	Correction	2	\N
-294	fd7b6c918e7b547e9bcbae84ef33f7bb.mp4	2015-09-18 07:32:37.817581	2015-09-18 07:32:44.799275	1442561148-NvhoyuxzJ3R_3_Whx7Y7ZQ	9	mp4	\N	in_queue	Correction	2	\N
 302	cbc824de3a43cc1b2a1604b2f79a6cf9.mp4	2015-10-10 14:02:10.732842	2015-10-10 14:18:24.605936	1444485673-v5dzaqXtVL-Cozl7bBaUZA	16	mp4	58318087debc5e2e099f2d427846dcc8.mp4	convert_success	Correction	76	728
-301	b78846fd22cd2379d976074b7a476e95.mp4	2015-10-10 13:46:44.170311	2015-10-10 14:09:25.180144	1444484767-0KejWLzhS_94rpriz9cHpQ	55	mp4	71893a0057ba7e6a327d3abcc38285ed.mp4	convert_success	Reply	76	728
 296	e07680acf2d9a725f56f86f6af52570c.mp4	2015-09-28 22:50:23.585629	2015-10-10 13:26:27.640616	1443480596-uJoFiyTksdpkxM-kULD8dw	\N	mp4	\N	convert_fail	\N	57	\N
 309	7922a8c5020444c8f63bcf456ef07544.mp4	2015-10-11 13:42:52.586366	2015-10-11 13:43:07.256095	1444570943-C8COxlKve4URoHmx8TP0zw	70	mp4	\N	in_queue	Reply	57	\N
 312	233b46312de4e8333bc547a6b57c5a54.mp4	2015-10-22 22:17:44.52593	2015-10-25 00:06:59.276425	1445552234-7zw_gaDdDduuWmJsggWVnA	\N	mp4	\N	convert_fail	\N	76	\N
 314	dddf268ea6edcb41d3ed2276557f92ad.mp4	2015-10-22 23:00:10.435785	2015-10-25 00:06:59.287096	1445554432-XrSYpm2JFwvIMQlGhomtuQ	\N	mp4	\N	convert_fail	\N	76	\N
-295	f7d5a34b614a565987dd89eba035cb17.mp4	2015-09-26 01:00:56.723759	2015-10-10 13:26:27.628775	1443229207-0dHF-i7-S7UukrllFeHQ6g	2	mp4	\N	convert_fail	CustomizedTutorial	2	\N
+321	11d48abd9f9df8856dc43800402093d1.mp4	2015-11-07 01:21:50.729818	2015-11-19 22:51:34.07044	1446859127-f2J_AaEC-zabZEszfl2ruA	24	mp4	\N	convert_fail	Answer	76	\N
+322	9e12f2c66b14d3fa409d7af74bdd1f1b.mp4	2015-11-13 23:01:04.958681	2015-11-19 22:51:34.114209	1447455588-a5FpchJ0x1IsI_6ADCTDLQ	42	mp4	\N	convert_fail	Correction	76	\N
+292	35781328a850b774477ec1b70947c4dd.mp4	2015-09-18 07:05:15.382369	2015-09-18 07:05:19.819066	1442559887-6sgZ1ej5pShMqNyII5QeDA	7	mp4	\N	in_queue	Correction	2	\N
+318	47fada0197cf07222dd4576507b1f025.mp4	2015-10-25 01:44:58.969669	2015-10-25 01:48:24.031207	1445737476-fjhDwD0WjHr4djHfo2z2_Q	31	mp4	e9c30e7d4a0e55e4e1695e4269cdaace.mp4	convert_success	Correction	76	42
 285	34cf110b24d90ecb504ada4d93b1f160.mp4	2015-09-15 12:23:07.186589	2015-09-15 12:23:14.495799	1442319778-22x2ktceTNNj6w78eGIEEA	1	mp4	\N	in_queue	CustomizedTutorial	2	\N
 297	63c58026ce2100bfe1ce99df46ae66c7.mp4	2015-09-28 22:54:54.582155	2015-10-10 13:26:27.482505	1443480883-83AJBEzLBDXBeD57djgKiA	12	mp4	\N	convert_fail	CustomizedTutorial	2	\N
-299	7290ee251b1bcb5c466558d4ef851608.mp4	2015-10-10 13:33:05.538124	2015-10-10 13:41:37.72201	1444483952-SqJcodpleza4VMgQqgPsPw	14	mp4	f99dd7974a716e1f4c3ff43ca1044e1e.mp4	convert_success	CustomizedTutorial	76	728
-298	d2dc7d1d9d3d85d2b5d976f89efd8583.mp4	2015-09-28 23:11:19.140016	2015-10-10 13:26:27.532757	1443481864-W_gKimHJ3tB9VKZT5NLAUg	13	mp4	\N	convert_fail	CustomizedTutorial	2	\N
 300	fd47e6aa263c242a7253ca7da56db41d.mp4	2015-10-10 13:44:12.817728	2015-10-10 14:02:53.388058	1444484627-jwUgAHWOMD7OgtS_2JlpoQ	15	mp4	2535abb844165b3c70e465afcdd683b9.mp4	convert_success	CustomizedTutorial	76	728
-315	eb50028fcd439629c79daa8db2fbe290.mp4	2015-10-23 07:53:50.344521	2015-10-25 00:06:59.301831	1445586815-V2LRQr48h6zzgtuijKbGQA	22	mp4	\N	convert_fail	Correction	76	\N
+301	b78846fd22cd2379d976074b7a476e95.mp4	2015-10-10 13:46:44.170311	2015-10-10 14:09:25.180144	1444484767-0KejWLzhS_94rpriz9cHpQ	55	mp4	71893a0057ba7e6a327d3abcc38285ed.mp4	convert_success	Reply	76	728
 317	bc4b7d24b8ecf6d4c16f352c91cab3ed.mp4	2015-10-25 00:10:12.417539	2015-10-25 00:13:28.597702	1445731798-9gPdlRu84xeQZ3VMiaoc9Q	30	mp4	8f53f28849f520b2bbfecd8f43a8be6f.mp4	convert_success	Correction	76	42
+323	8c02640e232d03355f761809711a747a.mp4	2015-11-13 23:19:44.678436	2015-11-19 22:51:34.079054	1447456759-YzuWd72VD17dBRIo4SWPhw	43	mp4	\N	convert_fail	Correction	76	\N
+293	f3f52c51d56d982005521e523304e54d.mp4	2015-09-18 07:25:35.448572	2015-09-18 07:25:48.545839	1442561022-bRqfnrBZygSi9Qwq2JbQeA	8	mp4	\N	in_queue	Correction	2	\N
+311	761ebe6661c0d9a63053528aa2ca02bf.mp4	2015-10-18 01:50:57.761847	2015-10-18 01:57:32.807272	1445133042-gnpvQKcnhiHsDlNoq5hoeg	72	mp4	4a6abeb8c11ee53a6dfcf48a70cd7b6c.mp4	convert_success	Reply	76	42
 313	800bfc3a30a678058ffe39a859f123dc.mp4	2015-10-22 22:52:57.700579	2015-10-25 00:06:59.293645	1445554347-YXOdd9SRmd9PSBUxVPmtGw	19	mp4	\N	convert_fail	Correction	76	\N
 316	8c613173308bc71d835517551dd8d31e.mp4	2015-10-23 08:22:42.735773	2015-10-23 08:22:47.866	1445588551-ql6ea-2uljQDSCf2r4hDBA	28	mp4	\N	in_queue	Correction	76	\N
-318	47fada0197cf07222dd4576507b1f025.mp4	2015-10-25 01:44:58.969669	2015-10-25 01:48:24.031207	1445737476-fjhDwD0WjHr4djHfo2z2_Q	31	mp4	e9c30e7d4a0e55e4e1695e4269cdaace.mp4	convert_success	Correction	76	42
-311	761ebe6661c0d9a63053528aa2ca02bf.mp4	2015-10-18 01:50:57.761847	2015-10-18 01:57:32.807272	1445133042-gnpvQKcnhiHsDlNoq5hoeg	72	mp4	4a6abeb8c11ee53a6dfcf48a70cd7b6c.mp4	convert_success	Reply	76	42
 320	7eb4495b8f2bdd524e14b48cb419af8d.mp4	2015-10-27 22:59:37.091205	2015-10-27 23:02:50.214604	1445986755-o3Gs7r5vkMC4p2Tm9QOHKw	88	mp4	1d428722ed8293db6d18db2f3ff66866.mp4	convert_success	Reply	76	42
-304	f86444525f91f84e7945f81af790dfa5.mp4	2015-10-11 09:02:04.73011	2015-10-18 01:00:40.522528	1444552234-VVwmnatHLS30m_McjPVXVg	58	mp4	\N	convert_fail	Reply	57	\N
-303	120d85dbf5060175e90d4619a9610a82.mp4	2015-10-11 08:31:04.698626	2015-10-18 01:00:41.81902	1444552234-VVwmnatHLS30m_McjPVXVg	58	mp4	\N	convert_fail	Reply	57	\N
+299	7290ee251b1bcb5c466558d4ef851608.mp4	2015-10-10 13:33:05.538124	2015-10-10 13:41:37.72201	1444483952-SqJcodpleza4VMgQqgPsPw	14	mp4	f99dd7974a716e1f4c3ff43ca1044e1e.mp4	convert_success	CustomizedTutorial	76	728
+298	d2dc7d1d9d3d85d2b5d976f89efd8583.mp4	2015-09-28 23:11:19.140016	2015-10-10 13:26:27.532757	1443481864-W_gKimHJ3tB9VKZT5NLAUg	13	mp4	\N	convert_fail	CustomizedTutorial	2	\N
 305	fb3d42855ab96cd82c533a34683e23e0.mp4	2015-10-11 12:51:20.887747	2015-10-18 01:00:41.877766	1444567851-bJKDKPQypML993v_nTaHtA	65	mp4	\N	convert_fail	Reply	57	\N
 306	6a04f94103946078235e2a827cdddd12.mp4	2015-10-11 12:58:01.800299	2015-10-18 01:00:41.498256	1444567911-MZWsChqU-jOh81yMevB5AQ	66	mp4	\N	convert_fail	Reply	57	\N
-307	032e1d183a3d9a11388bf74bcbf3bf41.mp4	2015-10-11 13:40:15.471744	2015-10-11 13:40:31.301278	1444568311-ClHMTEbKd-ZyGgSEDA1Wpw	69	mp4	\N	in_queue	Reply	57	\N
-308	54e9b37a4d25cc03610f980436d3398b.mp4	2015-10-11 13:41:38.879297	2015-10-11 13:42:00.80214	1444568311-ClHMTEbKd-ZyGgSEDA1Wpw	69	mp4	\N	in_queue	Reply	57	\N
+295	f7d5a34b614a565987dd89eba035cb17.mp4	2015-09-26 01:00:56.723759	2015-10-10 13:26:27.628775	1443229207-0dHF-i7-S7UukrllFeHQ6g	2	mp4	\N	convert_fail	CustomizedTutorial	2	\N
+291	8166d1106eec361bec01a67557e165d1.mp4	2015-09-18 07:04:39.420461	2015-09-18 07:04:47.185941	1442559866-WZwpNtk8P7O_lZWnApRLFg	6	mp4	\N	in_queue	Correction	2	\N
+294	fd7b6c918e7b547e9bcbae84ef33f7bb.mp4	2015-09-18 07:32:37.817581	2015-09-18 07:32:44.799275	1442561148-NvhoyuxzJ3R_3_Whx7Y7ZQ	9	mp4	\N	in_queue	Correction	2	\N
 310	740c00a071af0d9cf1d9df67845b0370.mp4	2015-10-18 01:05:06.731437	2015-10-18 01:13:41.26603	1445130122-gIMG37y361f9_Jwqts2C4w	71	mp4	6d437282e63b294de6b2d5bd9d448828.mp4	convert_success	Reply	76	42
+307	032e1d183a3d9a11388bf74bcbf3bf41.mp4	2015-10-11 13:40:15.471744	2015-10-11 13:40:31.301278	1444568311-ClHMTEbKd-ZyGgSEDA1Wpw	69	mp4	\N	in_queue	Reply	57	\N
 319	e7484d3035d7f7cb1fb58d520d3b1557.mp4	2015-10-27 22:36:34.281254	2015-10-27 22:45:07.919497	1445985373-nZi1AGh9kS1bJ2hpqeKynQ	82	mp4	859e911c78eb62ff2259339907f8790a.mp4	convert_success	Reply	76	42
-321	11d48abd9f9df8856dc43800402093d1.mp4	2015-11-07 01:21:50.729818	2015-11-19 22:51:34.07044	1446859127-f2J_AaEC-zabZEszfl2ruA	24	mp4	\N	convert_fail	Answer	76	\N
-323	8c02640e232d03355f761809711a747a.mp4	2015-11-13 23:19:44.678436	2015-11-19 22:51:34.079054	1447456759-YzuWd72VD17dBRIo4SWPhw	43	mp4	\N	convert_fail	Correction	76	\N
-322	9e12f2c66b14d3fa409d7af74bdd1f1b.mp4	2015-11-13 23:01:04.958681	2015-11-19 22:51:34.114209	1447455588-a5FpchJ0x1IsI_6ADCTDLQ	42	mp4	\N	convert_fail	Correction	76	\N
 324	0c704aebb8a472a5d05a0f1a8ac0dc4a.mp4	2015-11-14 03:30:59.144519	2015-11-19 22:51:34.088661	1447471835-JcQLqT8MNPMZfwrajL3aFA	98	mp4	\N	convert_fail	Reply	76	\N
+315	eb50028fcd439629c79daa8db2fbe290.mp4	2015-10-23 07:53:50.344521	2015-10-25 00:06:59.301831	1445586815-V2LRQr48h6zzgtuijKbGQA	22	mp4	\N	convert_fail	Correction	76	\N
+304	f86444525f91f84e7945f81af790dfa5.mp4	2015-10-11 09:02:04.73011	2015-10-18 01:00:40.522528	1444552234-VVwmnatHLS30m_McjPVXVg	57	mp4	\N	convert_fail	Reply	57	\N
+303	120d85dbf5060175e90d4619a9610a82.mp4	2015-10-11 08:31:04.698626	2015-10-18 01:00:41.81902	1444552234-VVwmnatHLS30m_McjPVXVg	57	mp4	\N	convert_fail	Reply	57	\N
+308	54e9b37a4d25cc03610f980436d3398b.mp4	2015-10-11 13:41:38.879297	2015-10-11 13:42:00.80214	1444568311-ClHMTEbKd-ZyGgSEDA1Wpw	69	mp4	\N	in_queue	Reply	57	\N
 \.
 
 

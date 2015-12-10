@@ -157,11 +157,21 @@ Qatime::Application.routes.draw do
     resources :customized_course_message_boards
   end
   resources :homeworks do
+    member do
+      Examination.state_machines[:state].events.map(&:name).each do |x|
+        post x
+      end
+    end
 
     resources :homework_solutions, controller: :solutions
   end
   resources :homework_solutions, controller: :solutions do
     resources :homework_corrections, controller: :corrections
+    member do
+     Solution.state_machines[:state].events.map(&:name).each do |x|
+       post x
+     end
+    end
   end
 
   resources :homework_corrections, controller: :corrections
@@ -178,12 +188,24 @@ Qatime::Application.routes.draw do
   end
 
   resources :course_issues do
+    member do
+      Topic.state_machines[:state].events.map(&:name).each do |x|
+        post x
+      end
+    end
+
     resources :course_issue_replies
   end
 
   resources :course_issue_replies
 
   resources :tutorial_issues do
+    member do
+      Topic.state_machines[:state].events.map(&:name).each do |x|
+        post x
+      end
+    end
+
     resources :tutorial_issue_replies
   end
 
@@ -191,10 +213,20 @@ Qatime::Application.routes.draw do
 
 
   resources :exercises do
+    member do
+      Examination.state_machines[:state].events.map(&:name).each do |x|
+        post x
+      end
+    end
     resources :exercise_solutions, controller: :solutions
   end
   resources :exercise_solutions, controller: :solutions do
     resources :exercise_corrections,controller: :corrections
+    member do
+     Solution.state_machines[:state].events.map(&:name).each do |x|
+       post x
+     end
+    end
   end
 
   resources :exercise_corrections,controller: :corrections

@@ -3,18 +3,29 @@ class Solution < ActiveRecord::Base
   include ContentValidate
   include QaHandle
   include QaCommon
-  include QaActionRecord
+  include QaCustomizedCourseActionRecord
   include QaComment
-  include QaCustomizedCourseActionNotification
+  include QaCommonState
+
+  class SolutionCompletedValidator < ActiveModel::Validator
+    def validate(record)
+      if record.corrections_count == 0
+        record.errors.add :base , :cant_complete
+      end
+    end
+  end
 
 
+  __create_state_machine(SolutionCompletedValidator,"examination")
 
-
+  validates_presence_of :last_operator
 
   belongs_to      :student
   belongs_to      :examination,counter_cache: true
   belongs_to      :first_handle_author,:class_name => "User"
-  belongs_to      :last_handle_author,:class => "User"
+  belongs_to      :last_handle_author,:class_name => "User"
+  belongs_to      :last_operator,:class_name => "User"
+
 
   has_many        :corrections,:dependent => :destroy do
     include QaPageNum
@@ -23,9 +34,6 @@ class Solution < ActiveRecord::Base
     end
   end
 
-  # has_many        :qa_files, as: :qa_fileable
-  # accepts_nested_attributes_for :qa_files, allow_destroy: true
-
   scope           :timeout_to_correct ,lambda {|customized_course_id|
                               where(customized_course_id: customized_course_id)
                                   .where(corrections_count: 0)
@@ -33,7 +41,6 @@ class Solution < ActiveRecord::Base
                             }
 
   scope           :by_customized_course_solution, lambda {where("type = ? or type = ?", HomeworkSolution.to_s,ExerciseSolution.to_s)}
-
 
 
 
@@ -63,4 +70,10 @@ class Solution < ActiveRecord::Base
 
 
 
+
 end
+
+
+
+
+

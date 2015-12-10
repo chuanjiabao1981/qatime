@@ -123,6 +123,8 @@ class StudentHomePageTest < ActionDispatch::IntegrationTest
     customized_course_action_notification_exercise_correction_create        = notifications(:customized_course_action_notification_exercise_correction_create)
     customized_course_action_notification_homework_correction_create        = notifications(:customized_course_action_notification_homework_correction_create)
     customized_course_action_notification_customized_course_message1_create = notifications(:customized_course_action_notification_customized_course_message1_create)
+    customized_course_action_notification_solution_state_change             = notifications(:customized_course_action_notification_solution_state_change)
+
     assert customized_course_action_notification_tutorial_create.valid?
     assert customized_course_action_notification_exercise_create.valid?
     assert customized_course_action_notification_tutorial_issue_reply_create.valid?
@@ -130,6 +132,8 @@ class StudentHomePageTest < ActionDispatch::IntegrationTest
     assert customized_course_action_notification_exercise_correction_create.valid?
     assert customized_course_action_notification_homework_correction_create.valid?
     assert customized_course_action_notification_customized_course_message1_create.valid?
+    assert customized_course_action_notification_solution_state_change.valid?
+
     @student1_session.get notifications_student_path(@student1)
     @student1_session.assert_response :success
     @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_tutorial_create),1
@@ -139,5 +143,7 @@ class StudentHomePageTest < ActionDispatch::IntegrationTest
     @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_exercise_correction_create),1
     @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_homework_correction_create),1
     @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_customized_course_message1_create),1
+    @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_solution_state_change),1
+
   end
 end

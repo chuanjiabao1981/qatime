@@ -4,6 +4,7 @@ topic1:
   author: student1
 #  teacher: teacher1
   topicable: teacher1_lesson (Lesson)
+  last_operator: student1
 
 teacher_topic1:
   title: xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2
@@ -11,6 +12,8 @@ teacher_topic1:
   author: teacher1
 #  teacher: teacher1
   topicable: teacher1_lesson (Lesson)
+  last_operator: student1
+
 
 customized_tutorial_topic1:
   title: xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2
@@ -60,6 +63,8 @@ tutorial_issue_one:
   customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   type: TutorialIssue
+  last_operator: student1
+  replies_count: 1
 
 course_issue_one:
   title: 12344
@@ -67,7 +72,56 @@ course_issue_one:
   author: student1
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   type: CourseIssue
+  last_operator: student1
+  replies_count: 1
+  state: in_progress
 
+###Begin state change
+
+tutorial_issue_for_state_change:
+  title: tutorial issue for state change title
+  content: tutorial issue for state change content
+  author: student1
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial1
+  type: TutorialIssue
+  last_operator: student1
+  state: new
+
+course_issue_for_state_change:
+  title: course issue for state change title
+  content: course issue for state change content
+  author: student1
+  customized_course: customized_course1
+  type: CourseIssue
+  last_operator: student1
+  state: new
+###End state change
+
+###Begin for ui state change
+course_issue_for_ui_state_change:
+  title: course issue for ui state change title
+  content: course issue for ui state change content
+  author: student1
+  customized_course: customized_course1
+  type: CourseIssue
+  last_operator: student1
+  state: in_progress
+  replies_count: 1
+
+tutorial_issue_for_ui_state_change:
+  title: tutorial_issue_for_ui_state_change title
+  content: tutorial_issue_for_ui_state_change content
+  author: student1
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial1
+  type: TutorialIssue
+  last_operator: student1
+  state: in_progress
+  replies_count: 1
+
+
+###End for ui state change
 
 ###Begin Fee view
 course_issue_for_fee_view:

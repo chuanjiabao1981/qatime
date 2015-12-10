@@ -11,3 +11,4 @@ customized_course_message1:
   token: customized_course_message_1
   customized_course: customized_course1
   customized_course_message_board: customized_course_message_board
+  last_operator: teacher1

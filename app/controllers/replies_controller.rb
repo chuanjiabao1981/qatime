@@ -3,6 +3,10 @@ class RepliesController < ApplicationController
     respond_to :html
     layout 'application'
 
+    include QaCommonFilter
+    __add_last_operator_to_param(:reply)
+
+
     def new
       @reply = Reply.new
     end

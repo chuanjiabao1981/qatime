@@ -3,15 +3,15 @@ class CustomizedTutorial < ActiveRecord::Base
   include QaToken
   include QaCommon
   include Tally
-  include QaActionRecord
-  include QaCustomizedCourseActionNotification
+  include QaCustomizedCourseActionRecord
 
 
-  validates_presence_of :title,:customized_course,:teacher
+  validates_presence_of :title,:customized_course,:teacher,:last_operator
   scope                 :by_teacher, lambda {|t| where(teacher_id: t) if t}
 
 
   belongs_to :teacher
+  belongs_to :last_operator,class_name: User
   belongs_to :customized_course,:counter_cache => true
 
   has_one    :video,:dependent => :destroy,as: :videoable

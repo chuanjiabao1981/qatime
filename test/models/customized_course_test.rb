@@ -47,6 +47,8 @@ class CustomizedCourseAATest < ActiveSupport::TestCase
   test "timeout_to_solve_home" do
     cc = customized_courses(:customized_course3)
     assert cc.valid?
+    h = cc.homeworks.first
+    assert h.valid?, h.errors.full_messages
     assert cc.homeworks.first.valid?
     assert cc.timeout_to_solve_homeworks.count == 1
   end

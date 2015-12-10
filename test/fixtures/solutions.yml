@@ -11,6 +11,8 @@ homework_solution_one:
   student: student1
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   type: HomeworkSolution
+  corrections_count: 1
+  last_operator: student1
 
 homework_solution_two:
   title: homework solution test title 2
@@ -19,6 +21,8 @@ homework_solution_two:
   student: student1
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   type: HomeworkSolution
+  last_operator: student1
+
 
 
 homework_solution_three:
@@ -28,6 +32,7 @@ homework_solution_three:
   student: student1
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   type: HomeworkSolution
+  last_operator: student1
 
 
 homework_solution_four:
@@ -37,6 +42,7 @@ homework_solution_four:
   student: student1
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
   type: HomeworkSolution
+  last_operator: student1
 
 exercise_solution_one:
   title: exercise solution test title 1
@@ -46,6 +52,18 @@ exercise_solution_one:
   type: ExerciseSolution
   customized_course: customized_course1
   customized_tutorial: customized_tutorial1
+  last_operator: student1
+  corrections_count: 1
+
+exercise_solution_two:
+  title: exercise solution test title 2
+  content: exercise soltuion test content 2
+  exercise: exercise_one
+  student: student1
+  type: ExerciseSolution
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial1
+  last_operator: student1
 
 solution_for_homework_correction_fee:
   title: solution for homework correction fee
@@ -53,6 +71,7 @@ solution_for_homework_correction_fee:
   exercise: homeworker_for_correction_fee_one
   student: student2
   type: ExerciseSolution
+  last_operator: student2
 
 exercise_solution_for_fee:
   title: exercise solution for exercise title fee
@@ -62,6 +81,7 @@ exercise_solution_for_fee:
   type: ExerciseSolution
   customized_course: customized_course5
   customized_tutorial: customized_tutorial_teacher_earnings_1
+  last_operator: student2
 
 homework_solution_for_fee:
   title: homework solution for homework title fee
@@ -70,3 +90,41 @@ homework_solution_for_fee:
   student: student2
   type: HomeworkSolution
   customized_course: customized_course5
+  last_operator: student2
+
+exercise_solution_for_state_change_success:
+  title: exercise solution for exercise state change success
+  content: exercise solution for exercise state change success
+  exercise: exercise_for_state_change_success
+  student: student2
+  type: ExerciseSolution
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial1
+  last_operator: student1
+  state: completed
+
+##Begin for ui state change
+exercise_solution_for_ui_satate_change:
+  title: exercise solution for ui state change title
+  content: exercise content for ui state change content
+  exercise: exercise_for_ui_state_change
+  student: student1
+  type: ExerciseSolution
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial1
+  last_operator: student1
+  state: completed
+
+homwork_solution_for_ui_state_change:
+  title: homework solution for ui state change title
+  content: homework solution for ui state change content
+  homework: homwork_for_ui_state_change
+  student: student1
+  type: HomeworkSolution
+  customized_course: customized_course1
+  last_operator: student1
+  state: completed
+
+
+
+##End for ui state change

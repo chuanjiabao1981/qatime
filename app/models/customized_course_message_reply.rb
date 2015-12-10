@@ -1,20 +1,20 @@
 class CustomizedCourseMessageReply < ActiveRecord::Base
 
   include QaToken
-  include QaActionRecord
-  include QaCustomizedCourseActionNotification
+  include QaCustomizedCourseActionRecord
 
 
   belongs_to :customized_course_message_board,counter_cache: true
   belongs_to :customized_course_message,counter_cache: true
   belongs_to :author,class_name: User
+  belongs_to :last_operator,class_name: User
   belongs_to :customized_course
 
   cattr_accessor    :order_type,:order_column
 
 
 
-  validates_presence_of :content,:author
+  validates_presence_of :content,:author,:last_operator
 
 
 

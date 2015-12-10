@@ -16,6 +16,8 @@ correction_one:
   homework: homework1
   teacher_price: 54
   platform_price: 6
+  last_operator: teacher1
+
 
 correction_two:
   content: asdfasd
@@ -28,6 +30,7 @@ correction_two:
   customized_tutorial: customized_tutorial1
   teacher_price: 54
   platform_price: 6
+  last_operator: teacher1
 
 # Here use erb to generate tally corrections
 # 5 open
@@ -42,6 +45,7 @@ homework_correction_tally_<%= i %>:
   teacher_price: 54
   platform_price: 6
   type: HomeworkCorrection
+  last_operator: teacher_tally
 <% end %>
 
 # 5 closed
@@ -56,6 +60,7 @@ homework_correction_tally_<%= i %>:
   teacher_price: 54
   platform_price: 6
   type: HomeworkCorrection
+  last_operator: teacher_tally
 <% end %>
 
 # Here use erb to generate tally corrections for ExerciseCorrection
@@ -70,6 +75,7 @@ exercise_correction_tally_<%= i %>:
   teacher_price: 54
   platform_price: 6
   type: ExerciseCorrection
+  last_operator: teacher_tally
 <% end %>
 
 # 5 closed
@@ -84,6 +90,7 @@ exercise_correction_tally_<%= i %>:
   teacher_price: 54
   platform_price: 6
   type: ExerciseCorrection
+  last_operator: teacher_tally
 <% end %>
 
 exercise_correction_for_fee_view:
@@ -108,3 +115,4 @@ homework_correction_for_fee_view:
   teacher_price: 54
   platform_price: 0
   type: HomeworkCorrection
+  last_operator: physics_teacher_1

@@ -7,7 +7,7 @@
 customized_course_action_notification_tutorial_create:
   operator: teacher1
   customized_course: customized_course1
-  notificationable: customized_tutorial1 (CustomizedTutorial)
+  notificationable: customized_course_action_record_for_tutorial_create (ActionRecord)
   receiver: student1
   type: CustomizedCourseActionNotification
   read: false
@@ -16,7 +16,7 @@ customized_course_action_notification_tutorial_create:
 customized_course_action_notification_exercise_create:
   operator: teacher1
   customized_course: customized_course1
-  notificationable: exercise_one (Examination)
+  notificationable: customized_course_action_record_for_exercise_create (ActionRecord)
   receiver: student1
   type: CustomizedCourseActionNotification
   read: false
@@ -25,7 +25,7 @@ customized_course_action_notification_exercise_create:
 customized_course_action_notification_exercise_solution_create:
   operator: student1
   customized_course: customized_course1
-  notificationable: exercise_solution_one (Solution)
+  notificationable: customized_course_action_record_for_exercise_solution_create (ActionRecord)
   receiver: teacher1
   type: CustomizedCourseActionNotification
   read: false
@@ -34,7 +34,7 @@ customized_course_action_notification_exercise_solution_create:
 customized_course_action_notification_exercise_correction_create:
   operator: teacher1
   customized_course: customized_course1
-  notificationable: correction_two (Correction)
+  notificationable: customized_course_action_record_for_exercise_correction_create (ActionRecord)
   receiver: student1
   type: CustomizedCourseActionNotification
   read: false
@@ -43,7 +43,7 @@ customized_course_action_notification_exercise_correction_create:
 customized_course_action_notification_homework_correction_comment_create:
   operator: student1
   customized_course: customized_course1
-  notificationable: comment_homework_correction (Comment)
+  notificationable: customize_course_action_record_for_comment_homework_correction_create (ActionRecord)
   receiver: teacher1
   type: CustomizedCourseActionNotification
   read: false
@@ -52,7 +52,7 @@ customized_course_action_notification_homework_correction_comment_create:
 customized_course_action_notification_tutorial_issue_create:
   operator: student1
   customized_course: customized_course1
-  notificationable: customized_tutorial_topic1 (Topic)
+  notificationable: customized_course_action_record_for_tutorial_issue_create (ActionRecord)
   receiver: teacher1
   type: CustomizedCourseActionNotification
   read: false
@@ -61,7 +61,7 @@ customized_course_action_notification_tutorial_issue_create:
 customized_course_action_notification_tutorial_issue_reply_create:
   operator: teacher1
   customized_course: customized_course1
-  notificationable: tutorial_issue_reply_one (Reply)
+  notificationable: customized_course_action_record_for_tutorial_issue_reply_create (ActionRecord)
   receiver: student1
   type: CustomizedCourseActionNotification
   read: false
@@ -70,7 +70,7 @@ customized_course_action_notification_tutorial_issue_reply_create:
 customized_course_action_notification_homework_create:
   operator: teacher1
   customized_course: customized_course1
-  notificationable: homework1 (Examination)
+  notificationable: customized_course_action_record_for_homework_create (ActionRecord)
   receiver: student1
   type: CustomizedCourseActionNotification
   read: false
@@ -79,7 +79,7 @@ customized_course_action_notification_homework_create:
 customized_course_action_notification_homework_solution_create:
   operator: student1
   customized_course: customized_course1
-  notificationable: homework_solution_one (Solution)
+  notificationable: customized_course_action_record_homework_solution_create (ActionRecord)
   receiver: teacher1
   type: CustomizedCourseActionNotification
   read: false
@@ -88,7 +88,7 @@ customized_course_action_notification_homework_solution_create:
 customized_course_action_notification_homework_correction_create:
   operator: teacher1
   customized_course: customized_course1
-  notificationable: correction_one (Correction)
+  notificationable: customized_course_action_record_homework_correction_create (ActionRecord)
   receiver: student1
   type: CustomizedCourseActionNotification
   read: false
@@ -97,8 +97,17 @@ customized_course_action_notification_homework_correction_create:
 customized_course_action_notification_customized_course_message1_create:
   operator: teacher1
   customized_course: customized_course1
-  notificationable: customized_course_message1 (CustomizedCourseMessage)
+  notificationable: customized_course_action_record_customized_course_message1_create (ActionRecord)
   receiver: student1
   type: CustomizedCourseActionNotification
   read: false
   action_name: create
+
+customized_course_action_notification_solution_state_change:
+  operator: teacher1
+  customized_course: customized_course1
+  notificationable: customized_course_state_change_record_from_completed_to_in_progress (ActionRecord)
+  receiver: student1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: state_change

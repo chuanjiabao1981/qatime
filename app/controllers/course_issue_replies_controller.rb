@@ -3,6 +3,9 @@ class CourseIssueRepliesController < ApplicationController
   layout 'application'
   respond_to :html
 
+  include QaCommonFilter
+  __add_last_operator_to_param(:course_issue_reply)
+
   def create
     params[:course_issue_reply][:author_id] = current_user.id
 

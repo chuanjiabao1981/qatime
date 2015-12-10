@@ -12,6 +12,7 @@ homework1:
   token: teacher1_customized_course_homewoker_one
   type: Homework
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  last_operator: teacher1
 
 
 # column: value
@@ -35,6 +36,7 @@ homework3:
   created_at: <%= 10.day.ago %>
   type: Homework
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course3) %>
+  last_operator: teacher1
 
 
 homework4:
@@ -46,7 +48,19 @@ homework4:
   created_at: <%= 10.day.ago %>
   type: Homework
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course3) %>
+  last_operator: teacher1
 
+
+homework_for_state_change:
+  teacher: teacher1
+  student: student1
+  title: homework title for state change
+  content: homework content for state change
+  solutions_count: 0
+  type: Homework
+  last_operator: teacher1
+  state: new
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
 
 exercise_one:
   title: 随堂作业一
@@ -56,6 +70,8 @@ exercise_one:
   type: Exercise
   customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  last_operator: teacher1
+
 
 
 exercise_fee_one:
@@ -75,6 +91,55 @@ homeworker_for_correction_fee_one:
   type: Homework
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
 
+exercise_for_state_change_success:
+  title: 随堂作业 for state change success
+  content: 2222223334444 for state change success
+  teacher: teacher1
+  student: student1
+  type: Exercise
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  last_operator: teacher1
+  state: in_progress
+  solutions_count: 1
+
+exercise_for_state_change:
+  title: 随堂作业 for state change
+  content: 234123413 for state change
+  teacher: teacher1
+  student: student1
+  type: Exercise
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  last_operator: teacher1
+  state: new
+
+##Begin for ui state change
+
+exercise_for_ui_state_change:
+  title: exercise for ui state change title
+  content: exercise for ui state change content
+  teacher: teacher1
+  student: student1
+  type: Exercise
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  last_operator: student1
+  state: in_progress
+  solutions_count: 1
+
+homwork_for_ui_state_change:
+  title: homework for ui state change title
+  content: homework for ui state change content
+  teacher: teacher1
+  student: student1
+  type: Homework
+  customized_course: customized_course1
+  last_operator: student1
+  state: in_progress
+  solutions_count: 1
+
+##End for ui state change
 
 
 

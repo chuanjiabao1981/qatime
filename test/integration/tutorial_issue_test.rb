@@ -1,10 +1,14 @@
 require 'test_helper'
 
 require 'sidekiq/testing'
+require 'integration/shared/qa_common_state_test'
+
 
 Sidekiq::Testing.inline!
 
 class TutorialIssueIntegrateTest < LoginTestBase
+  include QaCommonStateTest
+
   self.use_transactional_fixtures = true
 
   def setup
@@ -38,8 +42,13 @@ class TutorialIssueIntegrateTest < LoginTestBase
   end
 
   test 'show page' do
-    show_page(@teacher,@teacher_session,tutorial_issue_path(@tutorial_issue_one))
-    show_page(@student,@student_session,tutorial_issue_path(@tutorial_issue_one))
+    2.times.each do
+      show_page(@teacher,@teacher_session,tutorial_issue_path(@tutorial_issue_one))
+      show_page(@student,@student_session,tutorial_issue_path(@tutorial_issue_one))
+      @tutorial_issue_one.state = :completed
+      @tutorial_issue_one.save!
+      @tutorial_issue_one.reload
+    end
 
   end
   private
@@ -51,17 +60,18 @@ class TutorialIssueIntegrateTest < LoginTestBase
     if user.student?
       user_session.assert_select "a[href=?]",edit_tutorial_issue_path(@tutorial_issue_one)
     end
+    new_issue_repliy_link = 0
+    if user.teacher?
+      if @tutorial_issue_one.can_handle?
+        new_issue_repliy_link = 1
+      end
+    end
+    check_state_change_link(user,user_session,@tutorial_issue_one,false)
+
     user_session.assert_select "a[href=?]",customized_tutorial_path(@tutorial_issue_one.customized_tutorial),1
     user_session.assert_select "a[href=?]",customized_course_path(@tutorial_issue_one.customized_tutorial.customized_course),1
-    user_session.assert_select "form[action=?]",tutorial_issue_tutorial_issue_replies_path(@tutorial_issue_one,anchor:  "new_tutorial_issue_reply"),1
+    user_session.assert_select "form[action=?]",tutorial_issue_tutorial_issue_replies_path(@tutorial_issue_one,anchor:  "new_tutorial_issue_reply"),new_issue_repliy_link
     user_session.assert_select 'h4',@tutorial_issue_one.title
-    # if user.student?
-    #   user_session.assert_select 'button','添加视频',0
-    # elsif user.teacher?
-    #   user_session.assert_select 'button','添加视频',1
-    # end
-
-
 
   end
   def update_page(user,user_session,update_path)
@@ -81,7 +91,8 @@ class TutorialIssueIntegrateTest < LoginTestBase
             user_session.assert_redirected_to customized_tutorial_tutorial_issue_path(@tutorial_issue_one.customized_tutorial,@tutorial_issue_one)
             user_session.follow_redirect!
             user_session.assert_select 'h4',title
-            user_session.assert_select "form[action=?]",tutorial_issue_tutorial_issue_replies_path(@tutorial_issue_one,anchor:  "new_tutorial_issue_reply"),1
+            #学生不允许解答问题
+            user_session.assert_select "form[action=?]",tutorial_issue_tutorial_issue_replies_path(@tutorial_issue_one,anchor:  "new_tutorial_issue_reply"),0
           end
         end
       end

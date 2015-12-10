@@ -2,9 +2,11 @@
      "#{localize(solution.created_at,:format => :long)} 提交",
      "#{solution.corrections_count}次批改"
     ].join(" • ") %> •
-<% if solution.last_handle_created_at %>
-    最近一次批改于 <%= "#{localize(solution.last_handle_created_at,:format => :long)} " %> •
+<% if solution.in_progress? and solution.last_handled_at%>
+    <%= "#{Solution.human_attribute_name(:last_handled_at)} #{localize(solution.last_handled_at,:format => :long)}" %> •
 <% end %>
 <%= link_to solution.examination.model_name.human ,
-            send("#{solution.examination.model_name.singular_route_key}_path",solution.examination)%> •
-<%= solution_correction_state(solution) %>
+            send("#{solution.examination.model_name.singular_route_key}_path",solution.examination)%>
+<% if solution.completed? %>
+• <%= completed_duration(solution) %>
+<% end %>

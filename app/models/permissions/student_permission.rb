@@ -97,12 +97,8 @@ module Permissions
       end
 
 
-      allow :tutorial_issue_replies,[:show,:create] do |tutorial_issue|
+      allow :tutorial_issue_replies,[:show] do |tutorial_issue|
         tutorial_issue and tutorial_issue.customized_course.student_id == user.id
-      end
-
-      allow :tutorial_issue_replies,[:edit,:update] do |tutorial_issue_reply|
-        tutorial_issue_reply and tutorial_issue_reply.author_id == user.id
       end
 
       allow :tutorial_issues, [:new,:create] do |customized_tutorial|
@@ -121,13 +117,13 @@ module Permissions
         course_issue and course_issue.author_id == user.id
       end
 
-      allow :course_issue_replies,[:create] do |course_issue|
-        course_issue and course_issue.customized_course.student_id == user.id
-      end
-
-      allow :course_issue_replies,[:edit,:update] do |course_issue_reply|
-        course_issue_reply and course_issue_reply.author_id == user.id
-      end
+      # allow :course_issue_replies,[:create] do |course_issue|
+      #   course_issue and course_issue.customized_course.student_id == user.id
+      # end
+      #
+      # allow :course_issue_replies,[:edit,:update] do |course_issue_reply|
+      #   course_issue_reply and course_issue_reply.author_id == user.id
+      # end
 
 
       allow :course_issue_replies,[:show] do |course_issue_reply|
@@ -138,9 +134,7 @@ module Permissions
         solution and solution.examination and solution.examination.student_id == user.id
       end
 
-      allow :notifications,[:show] do |notification|
-        notification and notification.receiver_id == user.id
-      end
+
 
 
     end

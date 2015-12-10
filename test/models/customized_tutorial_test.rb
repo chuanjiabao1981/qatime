@@ -22,12 +22,13 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
 
   # 通过专属课堂创建专属课程，价格需要自动设置。修改课程的相关内容，价格不能发生变化
   test "customized tutorial create" do
-    customized_course = customized_courses(:customized_course1)
-    customized_tutorial = customized_course.customized_tutorials.build
-    customized_tutorial.title = "test customized tutorial create"
-    customized_tutorial.content = "test customized tutorial create content"
-    teacher = Teacher.find(users(:teacher1).id)
-    customized_tutorial.teacher_id = teacher.id
+    customized_course                 = customized_courses(:customized_course1)
+    customized_tutorial               = customized_course.customized_tutorials.build
+    customized_tutorial.last_operator = customized_course.teachers.first
+    customized_tutorial.title         = "test customized tutorial create"
+    customized_tutorial.content       = "test customized tutorial create content"
+    teacher                           = Teacher.find(users(:teacher1).id)
+    customized_tutorial.teacher_id    = teacher.id
 
     customized_course_prices_validation(customized_tutorial) do
       customized_tutorial.content = "test customized tutorial create content update"
@@ -49,14 +50,7 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
 
   end
 
-  ###没有video，通过find一定能初始化一个video
-  #test "customized tutorial without video" do
-  #  tutorial_without_video = customized_tutorials(:customized_tutorial_without_video1)
-  #  assert tutorial_without_video.video.new_record?
-  #  assert tutorial_without_video.video.videoable_type == CustomizedTutorial.to_s
-  #  tutorial_without_video.save
-  #  assert tutorial_without_video.video.new_record? == false
-  #end
+
   #有video 通过find一定找到此video
   test "customized tutorial with video" do
 
@@ -67,14 +61,7 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
     assert customized_tutorial1.video == video1
   end
 
-  # test "customized course topic reply count" do
-  #   customized_tutorial1 = customized_tutorials(:customized_tutorial1)
-  #   t                    = topics(:customized_tutorial_topic1)
-  #   assert customized_tutorial1.valid?
-  #   topic                =  customized_tutorial1.topics.first
-  #   assert t.valid?, t.errors.full_messages
-  #   r1                   = replies(:customized_tutorial_topic1_reply2)
-  # end
+
 
   # 测试结账功能
   test "customized tutorial keep_account new" do
@@ -126,9 +113,10 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
   end
 
   test "customized_tutorial create for count" do
-    cc            = customized_courses(:customized_course1)
-    ct            = cc.customized_tutorials.build(title: "134123412",content: "contesdafdsfasdf")
-    ct.teacher    = cc.teachers.first
+    cc                = customized_courses(:customized_course1)
+    ct                = cc.customized_tutorials.build(title: "134123412",content: "contesdafdsfasdf")
+    ct.teacher        = cc.teachers.first
+    ct.last_operator  = ct.teacher
     assert ct.valid?
     assert_difference 'CustomizedTutorial.count',1 do
       assert_difference 'CustomizedCourseActionRecord.count',1 do
@@ -140,9 +128,5 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
     end
   end
 
-  test "customized tutorial notification receiver" do
-    cc            = customized_tutorials(:customized_tutorial1)
-    assert_not cc.action_notification_receiver_ids.include?(cc.teacher_id)
-    assert     cc.action_notification_receiver_ids.include?(cc.customized_course.student_id)
-  end
+
 end

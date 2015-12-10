@@ -3,8 +3,12 @@ class Reply < ActiveRecord::Base
   include QaCommon
   include QaToken
   include ContentValidate
-  include QaActionRecord
-  include QaCustomizedCourseActionNotification
+  include QaCustomizedCourseActionRecord
+  include QaComment
+
+
+  include QaCommonStateUpdateParent
+  __update_parent_state_machine_after_create(:topic)
 
 
 
@@ -13,10 +17,10 @@ class Reply < ActiveRecord::Base
 
   belongs_to        :topic  ,:counter_cache => true,:inverse_of => :replies
   belongs_to        :author, :class_name => "User",:counter_cache => true,:inverse_of => :replies
+  belongs_to        :last_operator,class_name: User
 
 
-
-  validates_presence_of :author,:topic
+  validates_presence_of :author,:topic,:last_operator
 
   self.order_type     = :asc
   self.order_column   = :created_at

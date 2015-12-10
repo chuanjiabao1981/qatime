@@ -4,7 +4,7 @@
   </div>
   <div class="qa_objects">
     <%= render partial: "shared/qa_objects/brief_info",
-               collection: objects
+               collection: objects,locals: {use_super_controller: defined?(use_super_controller) ? use_super_controller : false}
     %>
   </div>
   <div class="qa_cell">

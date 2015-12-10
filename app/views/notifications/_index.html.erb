@@ -7,8 +7,12 @@
     </div>
     <div style="clear:both"></div>
   </div>
-  <% if customized_course_action_notifications %>
-      <%= render partial: 'notifications/customized_course_action_notification_index_items',
-                 locals: {customized_course_action_notifications: customized_course_action_notifications} %>
+  <% if notifications %>
+    <div class="qa_objects">
+        <%= render partial: 'notifications/notification',collection: notifications %>
+    </div>
+    <div class="qa_cell">
+        <%= will_paginate notifications ,renderer: BootstrapPagination::Rails %>
+    </div>
   <% end %>
 </div>

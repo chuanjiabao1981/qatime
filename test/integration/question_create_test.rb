@@ -7,7 +7,7 @@ Sidekiq::Testing.inline!
 
 class QuestionCreateTest < ActionDispatch::IntegrationTest
   include ContentInputHelper
-  self.use_transactional_fixtures = true
+  # self.use_transactional_fixtures = true
 
 
   def setup
@@ -34,18 +34,29 @@ class QuestionCreateTest < ActionDispatch::IntegrationTest
     select_from_chosen(item_text,options)
     teacher1 = Teacher.find(users(:teacher1).id)
 
+    assert teacher1.valid?,teacher1.errors.full_messages
+    puts Question.count
+    page.save_screenshot('screenshot.png')
+
     assert_difference 'Question.count',1 do
-      assert_difference 'teacher1.questions.count',1 do
+      assert_difference 'teacher1.reload.questions.count',1 do
         assert_difference 'Picture.where(imageable_type:"Question").count',1 do
           select '数学', from: :question_learning_plan_id
           fill_in :question_title,with: '这个长度不能少10的啊啊啊'
 
+
           set_content('这个不能少于20啊啊啊啊啊啊啊啊啊啊12345678900987654321')
 
           add_a_picture
-          click_on '新增问题'
+          puts Question.count
+          page.save_screenshot('screenshot.png')
+
+          click_on "新增问题"
+
+
 
           a = Question.all.order(created_at: :desc).first
+          puts a.to_json
           page.has_content? '这个长度不能少10的啊啊啊'
 
           assert_picture a

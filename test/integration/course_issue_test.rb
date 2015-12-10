@@ -1,11 +1,15 @@
 require 'test_helper'
 
 require 'sidekiq/testing'
+require 'integration/shared/qa_common_state_test'
+
 
 Sidekiq::Testing.inline!
 
 class CourseIssueIntegrateTest < LoginTestBase
   self.use_transactional_fixtures = true
+  include QaCommonStateTest
+
 
   def setup
     @customized_course    = customized_courses(:customized_course1)
@@ -41,9 +45,13 @@ class CourseIssueIntegrateTest < LoginTestBase
 
   test 'show page' do
     show_path = course_issue_path(@course_issue_one)
-    # show_page(@teacher,@teacher_session,show_path)
-    show_page(@student,@student_session,show_path)
-
+    2.times.each do
+      show_page(@teacher,@teacher_session,show_path)
+      show_page(@student,@student_session,show_path)
+      @course_issue_one.state = :completed
+      @course_issue_one.save!
+      @course_issue_one.reload
+    end
   end
   private
   def show_page(user,user_session,show_path)
@@ -53,8 +61,16 @@ class CourseIssueIntegrateTest < LoginTestBase
     if user.student?
       user_session.assert_select "a[href=?]",edit_course_issue_path(@course_issue_one)
     end
+    new_course_issue_reply_link_count = 0
+    if user.teacher?
+      if @course_issue_one.can_handle?
+        new_course_issue_reply_link_count = 1
+      end
+    end
+    check_state_change_link(user,user_session,@course_issue_one,false)
+
     user_session.assert_select "a[href=?]",customized_course_path(@course_issue_one.customized_course),1
-    user_session.assert_select "form[action=?]",course_issue_course_issue_replies_path(@course_issue_one,anchor:  "new_course_issue_reply"),1
+    user_session.assert_select "form[action=?]",course_issue_course_issue_replies_path(@course_issue_one,anchor:  "new_course_issue_reply"),new_course_issue_reply_link_count
 
     user_session.assert_select 'h4',@course_issue_one.title
     # if user.student?
@@ -82,7 +98,8 @@ class CourseIssueIntegrateTest < LoginTestBase
             user_session.assert_redirected_to customized_course_course_issue_path(@course_issue_one.customized_course,@course_issue_one)
             user_session.follow_redirect!
             user_session.assert_select 'h4',title
-            user_session.assert_select "form[action=?]",course_issue_course_issue_replies_path(@course_issue_one,anchor:  "new_course_issue_reply"),1
+            #学生不可以回复了
+            user_session.assert_select "form[action=?]",course_issue_course_issue_replies_path(@course_issue_one,anchor:  "new_course_issue_reply"),0
         end
       end
     end

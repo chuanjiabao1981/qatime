@@ -1,9 +1,13 @@
 require 'sidekiq/testing'
+require 'integration/shared/qa_common_state_test'
+
 
 Sidekiq::Testing.inline!
 
 
 class SolutionIntegrateTest < LoginTestBase
+  include QaCommonStateTest
+
   self.use_transactional_fixtures = true
 
 
@@ -42,10 +46,18 @@ class SolutionIntegrateTest < LoginTestBase
     homework_solution     = solutions(:homework_solution_one)
     exercise_solution     = solutions(:exercise_solution_one)
 
-    _show_page(@student,@student_session,homework_solution)
-    _show_page(@student,@student_session,exercise_solution)
-    _show_page(@teacher,@teacher_session,homework_solution)
-    _show_page(@teacher,@teacher_session,exercise_solution)
+    2.times do
+      _show_page(@student,@student_session,homework_solution)
+      _show_page(@student,@student_session,exercise_solution)
+      _show_page(@teacher,@teacher_session,homework_solution)
+      _show_page(@teacher,@teacher_session,exercise_solution)
+
+      # 测试当solution完毕的completed的时候页面的状态
+      exercise_solution.state = :completed
+      homework_solution.state = :completed
+      exercise_solution.save!
+      homework_solution.save!
+    end
   end
 
   test "new page" do
@@ -99,11 +111,11 @@ class SolutionIntegrateTest < LoginTestBase
     content       = "ransdonasdkjnvsdfpkjnvdafpign"
     create_path   = send("#{e.model_name.singular_route_key}_#{e.model_name.singular_route_key}_solutions_path",e)
     user_session.post create_path, s.model_name.singular_route_key => {title: title,content: content}
-
     if user.teacher?
       user_session.assert_redirected_to get_home_url(user)
       return
     end
+
 
     new_solution  = s.where(title: title).order(:created_at).last
     redirect_path = send "#{e.model_name.singular_route_key}_#{s.model_name.singular_route_key}_path",e,new_solution
@@ -154,8 +166,14 @@ class SolutionIntegrateTest < LoginTestBase
     user_session.get show_path
     user_session.assert_response :success
 
+    check_state_change_link(user,user_session,solution,true)
+
     if user.teacher?
-      correction_create_path_count  = 1
+      if solution.can_handle?
+        correction_create_path_count  = 1
+      else
+        correction_create_path_count  = 0
+      end
     elsif user.student? and user.id == solution.student_id
       edit_path_count               = 1
     end

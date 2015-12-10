@@ -4,6 +4,9 @@ class CustomizedTutorialsController < ApplicationController
 
   include TopicsList
 
+  include QaCommonFilter
+  __add_last_operator_to_param(:customized_tutorial)
+
   def index
     @customized_tutorials = @customized_course.customized_tutorials.order(created_at: :asc)
   end

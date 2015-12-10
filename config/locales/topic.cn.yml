@@ -1,0 +1,22 @@
+cn:
+  activerecord:
+    state_machines:
+      topic:
+        state:
+          states:
+            new: 新问题
+            completed: 已解答
+            in_progress: 解答中
+          events:
+            complete: 解答完
+            handle: 解答
+            redo: 重新解答
+    attributes:
+      topic:
+        last_handled_at: 最近一次解答
+    errors:
+      models:
+        topic:
+          attributes:
+            base:
+              cant_complete: 此问题还未进行解答，不可进入[已解答]状态

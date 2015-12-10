@@ -1,8 +1,30 @@
 cn:
   activerecord:
+    state_machines:
+      solution:
+        state:
+          states:
+            new: 新提交
+            completed: 批改完
+            in_progress: 批改中
+          events:
+            complete: 批改完
+            handle: 批改
+            redo: 重新批改
     models:
       solution: 作业
     attributes:
       solution:
         title: 解答说明
         content: 作业解答
+        last_handled_at: 最近一次批改于
+    errors:
+      models:
+        solution:
+          attributes:
+            base:
+              cant_complete: 此作业还未进行批改，不可进入[批改完]状态
+  view:
+    solution:
+      cant_handle_html: "此<strong>%{solution_name}</strong>的当前状态为：<strong>%{solution_state}</strong>，
+      请修改<strong>%{solution_name}</strong>的状态后再继续<strong>%{solution_event}</strong>"

@@ -1,7 +1,7 @@
 cn:
   activerecord:
     models:
-      exercise_solution: 随堂作业
+      exercise_solution: 随堂作业解答
     attributes:
       exercise_solution:
         title: 解答说明
@@ -9,5 +9,5 @@ cn:
   action:
     exercise_solution:
       create:
-        desc: "%{user},提交了随堂作业"
+        desc: "%{user},提交了随堂作业的解答"
         name: 提交

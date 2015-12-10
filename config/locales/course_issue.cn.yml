@@ -13,4 +13,4 @@ cn:
         name: 提问
   view:
     course_issue:
-      detail_head: "共收到 %{count} 条回复"
+      detail_header: "共有 %{count} 次解答"

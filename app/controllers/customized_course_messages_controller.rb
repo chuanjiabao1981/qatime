@@ -3,6 +3,10 @@ class CustomizedCourseMessagesController < ApplicationController
   layout "application"
   respond_to :html
 
+  include QaCommonFilter
+  __add_last_operator_to_param(:customized_course_message)
+
+
   def new
     @customized_course_message = @customized_course_message_board.customized_course_messages.build
   end

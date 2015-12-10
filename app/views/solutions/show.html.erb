@@ -7,14 +7,14 @@
 <div class="qa_sep_15"></div>
 
 
-<%if allow? :corrections,:create , @solution%>
 
-<div class="qa_box">
-  <div class="box_header qa_cell">
-    <strong><%= @correction.model_name.human%></strong>
-  </div>
-      <%= render 'corrections/form' %>
-</div>
 
+<% if allow? :corrections,:create,@solution %>
+    <%= render layout: "shared/common_states/completed",locals: {state_object: @solution} do %>
+        <div class="box_header qa_cell">
+          <strong><%= @correction.model_name.human%></strong>
+        </div>
+        <%= render 'corrections/form' %>
+    <% end %>
 <% end %>
 

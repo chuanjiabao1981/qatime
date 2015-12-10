@@ -4,15 +4,20 @@ class SolutionsController < ApplicationController
   include QaFilesHelper
   include QaSolution
 
+  include QaStateMachine
+  __event_actions(Solution,:solution)
+
   def new
     resource_name               = resource_name_from_params(params)
     @solution                   = build_solution(@examination,resource_name)
   end
 
   def create
-    resource_name               = resource_name_from_params(params)
-    @solution                   = build_solution(@examination,resource_name,change_params_for_qa_files(params["#{resource_name}_solution".to_sym]).permit!)
-    @solution.student           = current_user
+    resource_name                                           = resource_name_from_params(params)
+    params["#{resource_name}_solution"]["last_operator_id"] = current_user.id
+    @solution                                               =
+        build_solution(@examination,resource_name,change_params_for_qa_files(params["#{resource_name}_solution".to_sym]).permit!)
+    @solution.student                                       = current_user
     if @solution.save
       flash[:success]           = "成功提交#{resource_name.camelize.constantize.model_name.human}"
     end
@@ -30,7 +35,8 @@ class SolutionsController < ApplicationController
   end
 
   def update
-    resource_name               = @solution.examination.model_name.singular_route_key
+    resource_name                                           = @solution.examination.model_name.singular_route_key
+    params["#{resource_name}_solution"]["last_operator_id"] = current_user.id
     if @solution.update_attributes(change_params_for_qa_files(params["#{resource_name}_solution".to_sym]).permit!)
       flash[:success] = "成功修改#{Solution.model_name.human}"
     end
@@ -38,7 +44,7 @@ class SolutionsController < ApplicationController
   end
   def destroy
     @solution.destroy
-    @examination      = @solution.container
+    @examination      = @solution.examination
     respond_with @examination
   end
   private

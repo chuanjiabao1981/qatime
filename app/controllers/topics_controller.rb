@@ -2,6 +2,10 @@ class TopicsController < ApplicationController
   layout 'application'
   respond_to :html
 
+  include QaCommonFilter
+  __add_last_operator_to_param(:topic)
+
+
   def index
     @section_id   = params[:section_id]
     @section_id ||= Section.first!.id

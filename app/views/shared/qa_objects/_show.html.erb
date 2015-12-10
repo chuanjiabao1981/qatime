@@ -17,6 +17,9 @@
       </div>
       <div class="info">
         <%= [qa_object.author.view_name,"#{localize(qa_object.created_at,:format => :long)} 创建"].join(" • ") %>
+        <% if defined?(qa_object.state) %>
+            • <%= qa_object.human_state_name %>
+        <% end %>
       </div>
     </div>
 
@@ -39,6 +42,15 @@
     <% end %>
 
     <div class="operator">
+      <% if current_user.student? %>
+        <%= render partial: "shared/common_states/info",locals: {object_state: qa_object} %>
+      <% else %>
+        <%= render partial: "shared/common_states/handle",
+                 locals: {object_state: qa_object,
+                          use_super_controller: defined?(use_super_controller) ? use_super_controller : false,
+                          remote_link: false
+                 } %>
+      <% end %>
       <div class="pull-right">
         <%= link_to_edit(qa_object,defined?(use_super_controller) ?  use_super_controller : false)%> &nbsp;
         <%= link_to_destroy(qa_object,defined?(use_super_controller) ?  use_super_controller : false) %>

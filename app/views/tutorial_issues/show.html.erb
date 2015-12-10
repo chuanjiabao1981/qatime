@@ -26,6 +26,9 @@
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
 
-<div class="qa_box">
-  <%= render partial: 'shared/replies/form',locals:{topic: @tutorial_issue,reply: @tutorial_issue_reply} %>
-</div>
+
+<% if allow? :tutorial_issue_replies,:create,@tutorial_issue %>
+    <%= render layout: "shared/common_states/completed",locals: {state_object: @tutorial_issue} do %>
+        <%= render partial: 'shared/replies/form',locals:{topic: @tutorial_issue,reply: @tutorial_issue_reply} %>
+    <% end %>
+<% end %>

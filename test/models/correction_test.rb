@@ -1,12 +1,10 @@
 require 'test_helper'
 require 'tally_test_helper'
+require 'models/shared/utils/qa_test_factory'
 
 class CorrectionTest < ActiveSupport::TestCase
  include TallyTestHelper
 
-  # test "the truth" do
-  #   assert true
-  # end
 
  self.use_transactional_fixtures = true
 
@@ -52,21 +50,24 @@ class CorrectionTest < ActiveSupport::TestCase
     assert @solution.first_handle_author.nil?
     assert @solution.last_handle_created_at.nil?
     assert @solution.last_handle_author.nil?
-    @correction         = @solution.corrections.build(content: "13412341")
+    @correction         = @solution.corrections.build(content: "13412341",last_operator_id: @solution.customized_course.teachers.first.id)
     @correction.teacher = @solution.examination.teacher
     @correction.save
+    assert @correction.valid?,@correction.errors.full_messages
     @solution.reload
 
     assert @solution.first_handle_created_at.to_i       == @correction.created_at.to_i
-    assert @solution.first_handle_author_id             == @correction.author.id
+    assert @solution.first_handle_author_id             == @correction.author.id ,"#{@solution.first_handle_author_id},#{@correction.author.id }"
     assert @solution.last_handle_created_at.to_i        == @correction.created_at.to_i
     assert @solution.last_handle_author_id              == @correction.author.id
 
     ## 在此提交correction，first_handle_created_at不会改变了
     sleep 1
-    @correction2              = @solution.corrections.build(content: "432!@#")
+    @correction2              = @solution.corrections.build(content: "432!@#",last_operator_id: @solution.customized_course.teachers.first.id)
     @correction2.teacher_id   = users(:teacher2).id
     @correction2.save
+    assert @correction2.valid?,@correction2.errors.full_messages
+
     @solution.reload
 
     assert      @solution.first_handle_created_at.to_i       == @correction.created_at.to_i
@@ -94,15 +95,15 @@ class CorrectionTest < ActiveSupport::TestCase
 
   test 'destroy 2' do
     @solution                 = solutions(:homework_solution_three)
-    @correction1              = @solution.homework_corrections.build(content: "13412341")
+    @correction1              = @solution.homework_corrections.build(content: "13412341",last_operator_id: @solution.examination.teacher.id)
     @correction1.teacher      = @solution.examination.teacher
     @correction1.save
     sleep 1
-    @correction2              = @solution.homework_corrections.build(content: "13412x341")
+    @correction2              = @solution.homework_corrections.build(content: "13412x341",last_operator_id: @solution.examination.teacher.id)
     @correction2.teacher      = @solution.examination.teacher
     @correction2.save
     sleep 1
-    @correction3              = @solution.homework_corrections.build(content: "13xxxx412341")
+    @correction3              = @solution.homework_corrections.build(content: "13xxxx412341",last_operator_id: @solution.examination.teacher.id)
     @correction3.teacher      = @solution.examination.teacher
     @correction3.save
 
@@ -110,7 +111,8 @@ class CorrectionTest < ActiveSupport::TestCase
 
     @solution.reload
 
-    assert @solution.first_handle_created_at.to_i       == @correction1.created_at.to_i,"#{@solution.first_handle_created_at} #{@correction1.created_at}"
+
+    assert @solution.first_handle_created_at.to_i       == @correction1.created_at.to_i,"#{@solution.first_handle_created_at.to_i},#{@correction1.created_at.to_i}"
     assert @solution.first_handle_author_id             == @correction1.author.id
     assert @solution.last_handle_created_at.to_i        == @correction3.created_at.to_i
     assert @solution.last_handle_author_id              == @correction3.author.id
@@ -119,15 +121,15 @@ class CorrectionTest < ActiveSupport::TestCase
 
   test 'destroy 3' do
     @solution                 = solutions(:homework_solution_three)
-    @correction1              = @solution.homework_corrections.build(content: "13412341")
+    @correction1              = @solution.homework_corrections.build(content: "13412341",last_operator_id: @solution.examination.teacher.id)
     @correction1.teacher      = @solution.examination.teacher
     @correction1.save
     sleep 1
-    @correction2              = @solution.homework_corrections.build(content: "13412x341")
+    @correction2              = @solution.homework_corrections.build(content: "13412x341",last_operator_id: @solution.examination.teacher.id)
     @correction2.teacher      = @solution.examination.teacher
     @correction2.save
     sleep 1
-    @correction3              = @solution.homework_corrections.build(content: "13xxxx412341")
+    @correction3              = @solution.homework_corrections.build(content: "13xxxx412341",last_operator_id: @solution.examination.teacher.id)
     @correction3.teacher      = @solution.examination.teacher
     @correction3.save
 
@@ -136,7 +138,7 @@ class CorrectionTest < ActiveSupport::TestCase
     @solution.reload
 
 
-    assert @solution.first_handle_created_at.to_i       == @correction1.created_at.to_i
+    assert @solution.first_handle_created_at.to_i       == @correction1.created_at.to_i,"#{@solution.first_handle_created_at} #{@correction1.created_at}"
     assert @solution.first_handle_author_id             == @correction1.author.id
     assert @solution.last_handle_created_at.to_i        == @correction2.created_at.to_i
     assert @solution.last_handle_author_id              == @correction2.author.id
@@ -144,15 +146,15 @@ class CorrectionTest < ActiveSupport::TestCase
 
   test 'destroy 4' do
     @solution                 = solutions(:homework_solution_three)
-    @correction1              = @solution.homework_corrections.build(content: "13412341")
+    @correction1              = @solution.homework_corrections.build(content: "13412341",last_operator_id: @solution.examination.teacher.id)
     @correction1.teacher      = @solution.examination.teacher
     @correction1.save
     sleep 1
-    @correction2              = @solution.homework_corrections.build(content: "13412x341")
+    @correction2              = @solution.homework_corrections.build(content: "13412x341",last_operator_id: @solution.examination.teacher.id)
     @correction2.teacher      = @solution.examination.teacher
     @correction2.save
     sleep 1
-    @correction3              = @solution.homework_corrections.build(content: "13xxxx412341")
+    @correction3              = @solution.homework_corrections.build(content: "13xxxx412341",last_operator_id: @solution.examination.teacher.id)
     @correction3.teacher      = @solution.examination.teacher
     @correction3.save
 
@@ -169,8 +171,7 @@ class CorrectionTest < ActiveSupport::TestCase
 
   test 'create homework correction' do
     homework_solution               = solutions(:homework_solution_one)
-    homework_correction             = homework_solution.homework_corrections.build(content: "!234134asdasdfads")
-    homework_correction.teacher     = homework_solution.examination.teacher
+    homework_correction             = QaTestFactory::QaCorrectionFactory.build(homework_solution)
     assert homework_correction.valid?
     assert homework_correction.homework_solution.valid?
     assert homework_correction.homework.valid?
@@ -196,8 +197,8 @@ class CorrectionTest < ActiveSupport::TestCase
 
   test 'create exercise correction' do
     exercise_solution             = solutions(:exercise_solution_one)
-    exercise_correction           = exercise_solution.exercise_corrections.build(content: "13445363456")
-    exercise_correction.teacher   = exercise_solution.examination.teacher
+    exercise_correction           = QaTestFactory::QaCorrectionFactory.build(exercise_solution)
+
     assert exercise_correction.valid?
     assert exercise_correction.exercise_solution.valid?
     assert exercise_correction.exercise.valid?
@@ -220,5 +221,7 @@ class CorrectionTest < ActiveSupport::TestCase
     customized_course_prices_validation(exercise_correction) do
       exercise_correction.content = "134123412"
     end
+
+    assert exercise_solution.reload.state == "in_progress"
   end
 end

@@ -3,25 +3,20 @@
     <%=image_tag action_record.operator.avatar.normal.url %>
   </div>
   <div class="title">
-    <% if action_record.actionable_type == "Comment" %>
-        <%=
-            link_to (I18n.t "action.#{action_record.actionable.model_name.singular_route_key}.#{action_record.name}.desc",
-                            user: action_record.operator.view_name,
-                            what: action_record.actionable.commentable.model_name.human
-                    ),
-                    send("#{action_record.actionable.model_name.singular_route_key}_path",action_record.actionable)
-        %>
-    <% else %>
-        <%=
-            link_to (I18n.t "action.#{action_record.actionable.model_name.singular_route_key}.#{action_record.name}.desc",
-                            user: action_record.operator.view_name),
-                            send("#{action_record.actionable.model_name.singular_route_key}_path",action_record.actionable)
-        %>
+    <% if defined?(read) %>
+        <% if read %>
+            <span class="label label-default"><%= I18n.t "view.notification.read" %></span>
+        <% else %>
+            <span class="label label-danger"><%= I18n.t "view.notification.unread" %></span>
+        <% end %>
     <% end %>
+    <%= link_to action_record.desc ,
+                send("#{action_record.actionable.model_name.singular_route_key}_path",action_record.actionable)
+    %>
   </div>
   <div class="info">
     <%= localize(action_record.created_at,format: :long) %>
-    <%= I18n.t "action.#{action_record.actionable.model_name.singular_route_key}.#{action_record.name}.name" %>
+    <%= render_action_record_name(action_record) %>
     <% if action_record.customized_course %>
         • <%= link_to CustomizedCourse.model_name.human ,customized_course_path(action_record.customized_course)%>
     <% end %>

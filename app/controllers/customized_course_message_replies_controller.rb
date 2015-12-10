@@ -3,6 +3,8 @@ class CustomizedCourseMessageRepliesController < ApplicationController
   layout "application"
   respond_to :html
 
+  include QaCommonFilter
+  __add_last_operator_to_param(:customized_course_message_reply)
 
   def create
     @customized_course_message_reply        =

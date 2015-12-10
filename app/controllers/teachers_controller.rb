@@ -100,6 +100,7 @@ class TeachersController < ApplicationController
 
   def notifications
     @action_notifications = @teacher.customized_course_action_notifications.paginate(page: params[:page])
+    # @action_notifiactions =
   end
 
   def pass

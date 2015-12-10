@@ -2,6 +2,11 @@ class ExercisesController < ApplicationController
   respond_to :html
   layout "application"
   include QaFilesHelper
+  include QaStateMachine
+  include QaCommonFilter
+  __event_actions(Examination,:exercise)
+  __add_last_operator_to_param(:exercise)
+
   def new
     @exercise = @customized_tutorial.exercises.build
   end
@@ -35,6 +40,8 @@ class ExercisesController < ApplicationController
     @exercise.destroy
     respond_with @customized_tutorial
   end
+
+
   private
   def current_resource
     if params[:customized_tutorial_id]

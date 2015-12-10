@@ -6,6 +6,7 @@ class CorrectionsController < ApplicationController
 
   def create
     resource_name         = @solution.examination.model_name.singular_route_key
+    params["#{resource_name}_correction"]["last_operator_id"] = current_user.id
     @correction           = build_correction(@solution,resource_name,params["#{resource_name}_correction".to_sym].permit!)
     @correction.teacher   = current_user
     if @correction.save
@@ -21,7 +22,7 @@ class CorrectionsController < ApplicationController
   def show
     page_num = @solution.corrections.page_num(@correction)
     redirect_to solution_path(@solution,page: page_num,
-                              "#{@correction.model_name.singular_route_key}_animate": @correction.id,
+                              "#{@correction.model_name.singular_route_key}_animate" => @correction.id,
                               anchor: "#{@correction.model_name.singular_route_key}_#{@correction.id}")
   end
 
@@ -31,6 +32,8 @@ class CorrectionsController < ApplicationController
 
   def update
     resource_name         = @solution.examination.model_name.singular_route_key
+    params["#{resource_name}_correction"]["last_operator_id"] = current_user.id
+
     if @correction.update_attributes(params["#{resource_name}_correction".to_sym].permit!)
       flash[:success] = "成功编辑了#{@correction.model_name.human}"
       redirect_to solution_path(@correction.solution)

@@ -278,6 +278,8 @@ footer .copyright
 
 .qa_object .operator
 {
+  border-top: 1px solid #e2e2e2;
+  margin-top: 2px;
   padding:5px;
 }
 
@@ -285,9 +287,6 @@ footer .copyright
 {
   font-size:12px;
   padding:10px 10px 0px 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #e2e2e2;
-
 }
 .qa_objects .qa_object_item
 {

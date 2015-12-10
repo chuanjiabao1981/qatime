@@ -57,14 +57,14 @@ namespace :deploy do
     invoke 'unicorn:restart'
   end
 
-  desc "Copy static swf files"
-  task :copy_jwplayer do
-    on roles(:app,:web, :db), in: :sequence, wait: 5 do
-      ["public/assets/HLSProvider6.swf", "public/assets/jwplayer.flash.swf"].each do |path|
-        execute "ln -fs #{shared_path}/#{path} #{release_path}/#{path}"
-      end
-    end
-  end
+  # desc "Copy static swf files"
+  # task :copy_jwplayer do
+  #   on roles(:app,:web, :db), in: :sequence, wait: 5 do
+  #     ["public/assets/HLSProvider6.swf", "public/assets/jwplayer.flash.swf"].each do |path|
+  #       execute "ln -fs #{shared_path}/#{path} #{release_path}/#{path}"
+  #     end
+  #   end
+  # end
 
   desc "Create database before migrate"
   task :create_database do

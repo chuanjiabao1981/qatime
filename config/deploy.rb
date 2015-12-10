@@ -72,7 +72,7 @@ namespace :deploy do
       execute "cd #{release_path} && ( RVM_BIN_PATH=~/.rvm/bin /usr/bin/env bundle exec rake db:create )"
     end
   end
-  after "updated", "deploy:copy_jwplayer"
+  # after "updated", "deploy:copy_jwplayer"
 end
 
 namespace :qatime do

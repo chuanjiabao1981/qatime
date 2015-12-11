@@ -4,21 +4,30 @@ task :qatime_status => :environment do
     c.last_operator_id = c.student_id
     c.save
   end
-  kk = []
+
+
+
+  p4 = []
   ActionRecord.all.each do |a|
-    a = [a.id,a.actionable_id]
-    kk.append(a)
+    b = a.actionable
+    # lp = [b.customized_course_action_records.size,Notification.where(notificationable_id: b.id).size]
+    ll1 = ActionRecord.where(actionable_id: b.id).order(:created_at => :desc).ids
+    ll2 = Notification.where(notificationable_id: b.id).order(:created_at => :desc).ids
+    l1 = ll1.size
+    l2 = ll2.size
+    # puts "#{l1}-#{l2}"
+    if l1 != l2
+      puts "fuck ======================================";
+    end
+    p4.append([ll1,ll2])
   end
-
-  kk.each do |k|
-    a = Notification.find_by_notificationable_id(k[1])
-    next unless a
-    next if a.notificationable_type == "ActionRecord"
-
-    b = ActionRecord.find(k[0])
-    a.notificationable = b
-    # a.to_json
-    a.save
+  p4.each do |p|
+    p[1].zip(p[0]).each do |a,b|
+      ar = Notification.find(a)
+      br = ActionRecord.find(b)
+      ar.notificationable = br
+      ar.save
+    end
   end
 
   ActionRecord.all.each do |a|
@@ -27,6 +36,7 @@ task :qatime_status => :environment do
       a.save
     end
   end
+
 
   Correction.all.each do |c|
     c.last_operator_id = c.teacher_id

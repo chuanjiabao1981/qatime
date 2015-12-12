@@ -1,1 +1,1 @@
-Resovle issue QT-8
+close QT-8

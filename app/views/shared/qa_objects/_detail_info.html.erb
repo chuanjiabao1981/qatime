@@ -1,4 +1,18 @@
-<div class="qa_object_item <%= animate_class(detail_info) %>" id="<%=object_item_id(detail_info)%>">
+<% if need_animate?(detail_info) %>
+    <script>
+
+      $(function(){
+          $("<%="##{object_item_id(detail_info)}"%>")
+                  .addClass("animated pulse")
+                  .one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+                      $(this).removeClass("pulse");
+                      $(this).removeClass("animated");
+                  });
+      })
+
+    </script>
+<% end %>
+<div class="qa_object_item" id="<%=object_item_id(detail_info)%>">
   <div class="pull-left">
 
     <%= render_qa_object_item_avatar detail_info %>

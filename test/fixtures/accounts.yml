@@ -1,0 +1,36 @@
+teacher_account:
+  accountable: teacher1 (User)
+  money: 0
+
+student_account:
+  accountable: student1 (User)
+  money: 0
+
+teacher2_account:
+  accountable: teacher2 (User)
+  money: adfd
+
+teacher_account_2000:
+  accountable: teacher2 (User)
+  money: 2000
+
+physics_teacher1_account:
+  accountable: physics_teacher1 (User)
+  money: 0
+
+student2_account:
+  accountable: student2 (User)
+  money: 0
+
+account_for_teacher_tally:
+  accountable: teacher_tally (User)
+  money: 0
+
+account_for_student_tally:
+  accountable: student_tally (User)
+  money: 0
+
+account_for_workstation:
+  accountable: workstation1 (Workstation)
+  money: 0
+

@@ -1,10 +1,13 @@
 require 'test_helper'
+require 'content_input_helper'
 
 require 'sidekiq/testing'
 Sidekiq::Testing.inline!
 
 
 class AnswerCreateTest < ActionDispatch::IntegrationTest
+  include ContentInputHelper
+
   def setup
     @headless = Headless.new
     @headless.start
@@ -28,16 +31,11 @@ class AnswerCreateTest < ActionDispatch::IntegrationTest
 
     assert_difference 'Answer.count',1 do
       assert_difference 'Video.where(videoable_type:"Answer").count',1 do
+        content = random_str
         # 写回复正文
-        find('div.note-editable').set('答案是这个样子的，确实是这个样子的字符0987654321009876543210sex')
-        # # 准备上传视频
-        # find("div.note-group.btn-group").click
-        # attach_file("teaching-video-file","#{Rails.root}/test/integration/test.mp4")
-        # #视频上传
-        # click_button '视频上传'
-        # # 等待视频上传
-        # # TODO:: 这里可以优化看progress的进度
-        sleep 10
+        set_content(content)
+
+        add_a_picture
 
         click_on '添加视频'
         attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
@@ -45,15 +43,13 @@ class AnswerCreateTest < ActionDispatch::IntegrationTest
         click_on '提交讲解'
 
         v = Video.where(videoable_type: "Answer").order(created_at: :desc).first
-        # puts Video.where(videoable_type: "Answer").count
-        # puts v.to_json
         sleep 3
         page.save_screenshot('screenshot.png')
         #puts page.html
         a = Answer.all.order(created_at: :desc).first
         assert_not a.video.nil?
-        assert page.has_content? '答案是这个样子的，确实是这个样子的字符0987654321009876543210sex'
-        #assert page.has_xpath?("//video[contains(@src,\"#{a.video.name}\")]",:visible => :all),"no video url"
+        assert page.has_content? content
+        assert_picture a
       end
 
     end

@@ -4,7 +4,6 @@ teacher1_lesson_video:
   author: teacher1
   token: teacher1_lesson_for_test
 
-
 teacher1_customize_tutorial_video:
   name: "2222"
   videoable: customized_tutorial1 (CustomizedTutorial)
@@ -15,3 +14,74 @@ teacher1_already_exsits_video:
   name: 3333
   author: teacher1
   token: teacher1_already_exsits_video
+
+# Five video for customized tutorials
+<% 1.upto(5) do |i| %>
+video_belongs_to_customized_tutorial_tally_<%= i %>:
+  name: 3333
+  videoable: customized_tutorial_tally_<%= i %> (CustomizedTutorial)
+  author: teacher_tally
+  token: customized_tutorial_tally_video_<%= i %>
+  duration: <%= 60+10*i %>
+<% end %>
+
+# Five video for homework_correction
+<% 1.upto(5) do |i| %>
+video_belongs_to_homework_correction_<%= i %>:
+  name: 3333
+  videoable: homework_correction_tally_<%= i %> (Correction)
+  author: teacher_tally
+  token: homework_correction_tally_video_<%= i %>
+  duration: <%= 60+10*i %>
+<% end %>
+
+# Five video for exercise_correction
+<% 1.upto(5) do |i| %>
+video_belongs_to_exercise_correction_<%= i %>:
+  name: 3333
+  videoable: exercise_correction_tally_<%= i %> (Correction)
+  author: teacher_tally
+  token: exercise_correction_tally_video_<%= i %>
+  duration: <%= 60+10*i %>
+<% end %>
+
+# Five video for tutorial issue replies
+<% 1.upto(5) do |i| %>
+video_belongs_to_tutorial_issue_reply_<%= i %>:
+  name: 3333
+  videoable: tutorial_issue_reply_for_tally_<%= i %> (Reply)
+  author: teacher_tally
+  token: tutorial_issue_reply_for_tally_video_<%= i %>
+  duration: <%= 60+10*i %>
+<% end %>
+
+# Five video for course issue replies
+<% 1.upto(5) do |i| %>
+video_belongs_to_course_issue_reply_<%= i %>:
+  name: 3333
+  videoable: course_issue_reply_for_tally_<%= i %> (Reply)
+  author: teacher_tally
+  token: course_issue_reply_for_tally_video_<%= i %>
+  duration: <%= 60+10*i %>
+<% end %>
+
+customized_tutorial_teacher_earnings_1_video:
+  name: video
+  author: physics_teacher1
+  videoable: customized_tutorial_teacher_earnings_1(CustomizedTutorial)
+  token: customized_tutorial_teacher_earnings_1_token
+  duration: 100
+
+video_belongs_to_tutorial_issue_reply_with_video:
+  name: video
+  author: teacher1
+  videoable: tutorial_issue_reply_with_video(Reply)
+  token: tutorial_issue_reply_with_video
+  duration: 100
+
+video_belongs_to_course_issue_reply_with_video:
+  name: video
+  author: teacher1
+  videoable: course_issue_reply_with_video(Reply)
+  token: course_issue_reply_with_video
+  duration: 100

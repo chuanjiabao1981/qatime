@@ -1,0 +1,113 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+customized_course_action_notification_tutorial_create:
+  operator: teacher1
+  customized_course: customized_course1
+  notificationable: customized_course_action_record_for_tutorial_create (ActionRecord)
+  receiver: student1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_exercise_create:
+  operator: teacher1
+  customized_course: customized_course1
+  notificationable: customized_course_action_record_for_exercise_create (ActionRecord)
+  receiver: student1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_exercise_solution_create:
+  operator: student1
+  customized_course: customized_course1
+  notificationable: customized_course_action_record_for_exercise_solution_create (ActionRecord)
+  receiver: teacher1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_exercise_correction_create:
+  operator: teacher1
+  customized_course: customized_course1
+  notificationable: customized_course_action_record_for_exercise_correction_create (ActionRecord)
+  receiver: student1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_homework_correction_comment_create:
+  operator: student1
+  customized_course: customized_course1
+  notificationable: customize_course_action_record_for_comment_homework_correction_create (ActionRecord)
+  receiver: teacher1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_tutorial_issue_create:
+  operator: student1
+  customized_course: customized_course1
+  notificationable: customized_course_action_record_for_tutorial_issue_create (ActionRecord)
+  receiver: teacher1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_tutorial_issue_reply_create:
+  operator: teacher1
+  customized_course: customized_course1
+  notificationable: customized_course_action_record_for_tutorial_issue_reply_create (ActionRecord)
+  receiver: student1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_homework_create:
+  operator: teacher1
+  customized_course: customized_course1
+  notificationable: customized_course_action_record_for_homework_create (ActionRecord)
+  receiver: student1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_homework_solution_create:
+  operator: student1
+  customized_course: customized_course1
+  notificationable: customized_course_action_record_homework_solution_create (ActionRecord)
+  receiver: teacher1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_homework_correction_create:
+  operator: teacher1
+  customized_course: customized_course1
+  notificationable: customized_course_action_record_homework_correction_create (ActionRecord)
+  receiver: student1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_customized_course_message1_create:
+  operator: teacher1
+  customized_course: customized_course1
+  notificationable: customized_course_action_record_customized_course_message1_create (ActionRecord)
+  receiver: student1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: create
+
+customized_course_action_notification_solution_state_change:
+  operator: teacher1
+  customized_course: customized_course1
+  notificationable: customized_course_state_change_record_from_completed_to_in_progress (ActionRecord)
+  receiver: student1
+  type: CustomizedCourseActionNotification
+  read: false
+  action_name: state_change

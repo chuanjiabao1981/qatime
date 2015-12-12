@@ -3,6 +3,10 @@ class RepliesController < ApplicationController
     respond_to :html
     layout 'application'
 
+    include QaCommonFilter
+    __add_last_operator_to_param(:reply)
+
+
     def new
       @reply = Reply.new
     end
@@ -14,7 +18,7 @@ class RepliesController < ApplicationController
       @topicable = @topicable
       if @reply.save
         flash[:success] = "成功发表回复！"
-        SmsWorker.perform_async(SmsWorker::REPLY_CREATE_NOTIFICATION, id: @reply.id)
+        # SmsWorker.perform_async(SmsWorker::REPLY_CREATE_NOTIFICATION, id: @reply.id)
 
         redirect_to topic_path(@topic)
       else

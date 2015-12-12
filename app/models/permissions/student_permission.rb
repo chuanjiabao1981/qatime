@@ -1,6 +1,7 @@
 module Permissions
-  class StudentPermission < BasePermission
+  class StudentPermission < UserPermission
     def initialize(user)
+      super(user)
       allow :qa_faqs,[:index,:show]
 
       allow :home,[:index]
@@ -20,10 +21,13 @@ module Permissions
       allow :replies,[:create] do |topic|
         topic and topic.topicable and topicable_permission(topic.topicable,user)
       end
-      allow :replies,[:edit,:update,:destroy] do |reply|
+      allow :replies,[:edit,:update] do |reply|
         reply and reply.author_id == user.id
       end
       allow :pictures,[:new,:create]
+      allow :pictures,[:destroy] do |picture|
+        picture and picture.author and picture.author_id == user.id
+      end
       allow :videos,[:create]
       allow "students/faqs", [:index, :show]
       allow "students/faq_topics", [:show]
@@ -50,10 +54,11 @@ module Permissions
 
       allow :students,[:show,:edit,:update,:info,:teachers,
                        :questions,:topics,:customized_courses,
-                       :customized_tutorial_topics,:homeworks,:solutions] do |student|
+                       :customized_tutorial_topics,:homeworks,:solutions,
+                       :notifications] do |student|
         student and student.id == user.id
       end
-      allow :customized_courses,[:show,:topics,:homeworks,:solutions] do |customized_course|
+      allow :customized_courses,[:show,:topics,:homeworks,:solutions,:action_records] do |customized_course|
         customized_course and customized_course.student_id == user.id
       end
       allow :customized_tutorials,[:show] do |customized_tutorial|
@@ -64,17 +69,20 @@ module Permissions
         homework and homework.customized_course.student_id == user.id
       end
 
-      allow :solutions,[:new,:create] do |solutionable|
-        solutionable and solutionable_permission(solutionable,user)
+      allow :solutions,[:new,:create] do |examination|
+        examination and examination.student_id == user.id
       end
 
       allow :solutions,[:show,:edit,:update] do |solution|
         solution and solution.student_id == user.id
       end
 
+
       allow :exercises,[:show] do |exercise|
         exercise and exercise.customized_tutorial.customized_course.student.id == user.id
       end
+
+
 
 
       allow :faqs, [:show]
@@ -83,26 +91,58 @@ module Permissions
       allow 'students/recharge_records',[:index,:new,:create]
       allow 'students/courses',[:purchase]
       allow :lessons,[:show]
-      allow :comments,[:create]
+      allow :comments,[:create,:show]
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
       end
+
+
+      allow :tutorial_issue_replies,[:show] do |tutorial_issue|
+        tutorial_issue and tutorial_issue.customized_course.student_id == user.id
+      end
+
+      allow :tutorial_issues, [:new,:create] do |customized_tutorial|
+        customized_tutorial and customized_tutorial.customized_course.student_id == user.id
+      end
+      allow :tutorial_issues, [:show,:edit,:update] do |tutorial_issue|
+        tutorial_issue and tutorial_issue.author_id == user.id
+      end
+
+
+      allow :course_issues,[:new,:create] do |customized_course|
+        customized_course and customized_course.student_id == user.id
+      end
+
+      allow :course_issues,[:show,:edit,:update] do |course_issue|
+        course_issue and course_issue.author_id == user.id
+      end
+
+      # allow :course_issue_replies,[:create] do |course_issue|
+      #   course_issue and course_issue.customized_course.student_id == user.id
+      # end
+      #
+      # allow :course_issue_replies,[:edit,:update] do |course_issue_reply|
+      #   course_issue_reply and course_issue_reply.author_id == user.id
+      # end
+
+
+      allow :course_issue_replies,[:show] do |course_issue_reply|
+        course_issue_reply and course_issue_reply.customized_course.student_id == user.id
+      end
+
+      allow :corrections,[:show] do |solution|
+        solution and solution.examination and solution.examination.student_id == user.id
+      end
+
+
+
+
     end
 private
-    def solutionable_permission(solutionable,user)
-      if solutionable.instance_of? Homework
-        solutionable.customized_course.student_id == user.id
-      elsif solutionable.instance_of? Exercise
-        solutionable.customized_tutorial.customized_course.student_id == user.id
-      end
-    end
+
     def topicable_permission(topicable,user)
       return false if topicable.nil?
-      if topicable.instance_of? CustomizedCourse
-        topicable.student_id == user.id
-      elsif topicable.instance_of? CustomizedTutorial or topicable.instance_of? Homework
-        topicable.customized_course.student_id == user.id
-      elsif topicable.instance_of? Lesson
+      if topicable.instance_of? Lesson
         ##TODO:: 这里应该是购买的学生才能看
         true
       end

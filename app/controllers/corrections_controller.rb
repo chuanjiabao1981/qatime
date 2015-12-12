@@ -1,39 +1,56 @@
 class CorrectionsController < ApplicationController
   layout "application"
+  include QaSolution
+
+  respond_to :html
+
   def create
-    @correction = @solution.corrections.build(params[:correction].permit!)
-    @correction.teacher = current_user
+    resource_name         = @solution.examination.model_name.singular_route_key
+    params["#{resource_name}_correction"]["last_operator_id"] = current_user.id
+    @correction           = build_correction(@solution,resource_name,params["#{resource_name}_correction".to_sym].permit!)
+    @correction.teacher   = current_user
     if @correction.save
-      flash[:success] = "成功创建了#{Correction.model_name.human}"
-      @correction.notify
+      flash[:success] = "成功创建了#{@correction.model_name.human}"
       redirect_to solution_path(@solution)
     else
-      @homework = @solution.homework
+      solution_show_prepare
       render 'solutions/show'
     end
 
   end
 
+  def show
+    page_num = @solution.corrections.page_num(@correction)
+    redirect_to solution_path(@solution,page: page_num,
+                              "#{@correction.model_name.singular_route_key}_animate" => @correction.id,
+                              anchor: "#{@correction.model_name.singular_route_key}_#{@correction.id}")
+  end
 
   def edit
 
   end
 
   def update
-    if @correction.update_attributes(params[:correction].permit!)
-      flash[:success] = "成功编辑了#{Correction.model_name.human}"
+    resource_name         = @solution.examination.model_name.singular_route_key
+    params["#{resource_name}_correction"]["last_operator_id"] = current_user.id
+
+    if @correction.update_attributes(params["#{resource_name}_correction".to_sym].permit!)
+      flash[:success] = "成功编辑了#{@correction.model_name.human}"
       redirect_to solution_path(@correction.solution)
     else
       render 'edit'
     end
   end
 
+  def destroy
+    @correction.destroy
+    respond_with @correction.solution
+  end
+
   private
   def current_resource
-    if params[:solution_id]
-      @solution = Solution.find(params[:solution_id])
-      r = @solution
-    end
+    r                     = container_resource(params)
+    @solution             = r
     if params[:id]
       @correction = Correction.find(params[:id])
       @solution   = @correction.solution

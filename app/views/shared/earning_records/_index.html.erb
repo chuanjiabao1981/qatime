@@ -1,0 +1,18 @@
+<div class="qa_big_cell">
+  <h2><%=EarningRecord.model_name.human%></h2>
+</div>
+
+<div class="qa_cell">
+  <table class="table table-bordered">
+    <tr>
+      <th><%= EarningRecord.human_attribute_name(:value)%></th>
+      <th><%= Fee.human_attribute_name(:type)%></th>
+      <th><%= Fee.human_attribute_name(:video_duration)%></th>
+      <th><%= EarningRecord.human_attribute_name(:price) %></th>
+
+      <th><%= Fee.human_attribute_name(:link) %></th>
+    </tr>
+    <%= render partial: 'shared/earning_records/earning_record',collection: earning_records %>
+  </table>
+  <%= will_paginate earning_records ,renderer: BootstrapPagination::Rails %>
+</div>

@@ -17,6 +17,9 @@
       </div>
       <div class="info">
         <%= [qa_object.author.view_name,"#{localize(qa_object.created_at,:format => :long)} 创建"].join(" • ") %>
+        <% if defined?(qa_object.state) %>
+            • <%= qa_object.human_state_name %>
+        <% end %>
       </div>
     </div>
 
@@ -24,6 +27,9 @@
       <div class="body">
         <%= qa_object.content.html_safe %>
       </div>
+      <% if defined?(qa_object.pictures) %>
+          <%= render partial: 'pictures/gallery',locals:{pictures: qa_object.pictures,show_operation: false,gallery_id: qa_object.token} %>
+      <% end %>
       <% if defined?(qa_object.qa_files) and qa_object.qa_files %>
         <%= render partial: 'shared/qa_files/qa_file', collection: qa_object.qa_files%>
       <% end %>
@@ -35,12 +41,19 @@
         </div>
     <% end %>
 
-
-
     <div class="operator">
+      <% if current_user.student? %>
+        <%= render partial: "shared/common_states/info",locals: {object_state: qa_object} %>
+      <% else %>
+        <%= render partial: "shared/common_states/handle",
+                 locals: {object_state: qa_object,
+                          use_super_controller: defined?(use_super_controller) ? use_super_controller : false,
+                          remote_link: false
+                 } %>
+      <% end %>
       <div class="pull-right">
-        <%= link_to_edit(qa_object)%> &nbsp;
-        <%= link_to_destroy(qa_object) %>
+        <%= link_to_edit(qa_object,defined?(use_super_controller) ?  use_super_controller : false)%> &nbsp;
+        <%= link_to_destroy(qa_object,defined?(use_super_controller) ?  use_super_controller : false) %>
       </div>
     </div>
 

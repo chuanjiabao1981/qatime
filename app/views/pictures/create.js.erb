@@ -1,0 +1,2 @@
+$("<%= j render partial:'pictures/picture',locals:{picture:@picture,gallery_id: @picture.token}%>")
+        .insertBefore($('div#qa-picture-gallery-border-<%= @picture.token%>'))

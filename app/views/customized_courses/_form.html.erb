@@ -1,4 +1,21 @@
 <script>
+    function change_sale_price() {
+        var category = $("select#s_category").val();
+        var customized_course_type  = $("select#s_customized_course_type").val();
+        $.ajax({
+                    url: "<%= get_sale_price_student_customized_courses_path(@student)%>",
+                    dataType: "script",
+                    format: 'js',
+                    data: {
+                        "category": category,
+                        "customized_course_type": customized_course_type,
+                        "is_new_record": "<%if @customized_course.new_record? %>new<%else %>update<%end%>",
+                        "customized_course_id": "<%=@customized_course.id %>"
+                    }
+                }
+        )
+    }
+
     $(
             function() {
                 $("select#s_category,select#s_subject,select#s_school").on("change",function(){
@@ -15,6 +32,12 @@
                             }
                     )
                 });
+
+                change_sale_price();
+                $("select#s_category,select#s_customized_course_type").on("change",function(){
+                    change_sale_price();
+                });
+
                 $('.customized-courses-teacher-chosen-select').chosen({
                     placeholder_text_multiple:"专属讲师。",
                     allow_single_deselect: true,
@@ -33,6 +56,7 @@
         <%= f.association :student  ,collection: [@customized_course.student], include_blank:false%>
         <%= f.input :category, collection:[['高中','高中'],['初中','初中']], input_html:{ :id => "s_category"} , include_blank:false%>
         <%= f.input :subject, collection: APP_CONSTANT["subjects"].map {|s| [s,s]},input_html:{ :id => "s_subject"} , include_blank:false%>
+        <%= f.input :customized_course_type, include_blank:false, collection: CustomizedCourse.customized_course_type_attributes_for_select, input_html:{ :id => "s_customized_course_type"}  %>
         <%= f.association :teachers ,
                           collection: @teachers.map {|t|[t.name,t.id,t.school.name]}.group_by{|k| k[2]},
                           :as => :grouped_select,
@@ -41,7 +65,11 @@
                                         id: 'customized-courses-teachers'}
         %>
 
-        <%= f.button :submit,class: "btn btn-default" %>
+        <%= f.association :workstation, collection: @workstations.map {|t|[t.name,t.id]}, include_blank:false %>
+        <%= f.input       :is_keep_account %>
+        <%= f.input :sale_price, readonly: true, input_html:{ :id => "s_sale_price"}  %>
+
+        <%= f.button :submit,class: "btn btn-default"%>
     <% end %>
   </div>
 </div>

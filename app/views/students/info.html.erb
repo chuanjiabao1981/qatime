@@ -24,13 +24,47 @@
       <div class="col-md-9"><%= @student.mobile %></div>
     </div>
   </div>
+  <% if not @student.parent_phone.nil? %>
+      <div class="qa_cell">
+        <div class="row">
+          <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:parent_phone)%></div>
+          <div class="col-md-9"><%= @student.parent_phone %></div>
+        </div>
+      </div>
+  <% end %>
   <div class="qa_cell">
     <div class="row">
       <div class="col-md-2" style="padding-left:40px">邮件</div>
       <div class="col-md-9"><%= @student.email %></div>
     </div>
   </div>
+  <div class="qa_cell">
+    <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%= Account.human_attribute_name(:money) %></div>
+        <div class="col-md-9">
+          <%= format("%.2f",@student.account.money) %>
+          <% if allow? :deposits,:new ,@student.account%>
+                <%= link_to new_account_deposit_path(@student.account) do %>
+                    <span><%= Deposit.model_name.human %></span>
+                <% end %>
+          <% end %>
+        </div>
+    </div>
+  </div>
 </div>
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
+<div class="qa_box">
+</div>
+
+<%= render layout: "account_operation_record_layout" do %>
+
+    <%if params[:fee].nil? %>
+        <%= render partial: 'deposits/index',locals: {deposits:@deposits} %>
+    <% else %>
+        <%= render partial: 'shared/consumption_records/index',locals:{consumption_records: @consumption_records} %>
+    <% end %>
+<% end %>
+
+

@@ -4,5 +4,11 @@ cn:
       exercise: 随堂练习
     attributes:
       exercise:
-        title: 练习说明
-        content: 练习内容
+        title: 随堂练习说明
+        content: 随堂练习内容
+        qa_files: 作业文件
+  action:
+    exercise:
+      create:
+        desc: "%{user},布置了随堂练习"
+        name: 布置

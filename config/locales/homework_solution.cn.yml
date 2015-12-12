@@ -1,0 +1,13 @@
+cn:
+  activerecord:
+    models:
+      homework_solution: 家庭作业解答
+    attributes:
+      homework_solution:
+        title: 解答说明
+        content: 作业解答
+  action:
+    homework_solution:
+      create:
+        desc: "%{user},提交了家庭作业的解答"
+        name: 提交

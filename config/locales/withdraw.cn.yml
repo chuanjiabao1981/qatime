@@ -1,0 +1,9 @@
+cn:
+  activerecord:
+    models:
+      withdraw: 提现
+    attributes:
+      withdraw:
+        value: 金额
+        created_at: 提现时间
+        operator: 操作人员

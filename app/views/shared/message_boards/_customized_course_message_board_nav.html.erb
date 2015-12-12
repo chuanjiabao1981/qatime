@@ -1,0 +1,3 @@
+<%= render partial: 'shared/customized_courses/nav',locals: {customized_course: message_board.customized_course} %> /
+<%= link_to CustomizedCourseMessageBoard.model_name.human,
+            customized_course_message_board_path(message_board.customized_course,message_board) %>

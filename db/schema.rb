@@ -11,17 +11,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151007013711) do
+ActiveRecord::Schema.define(version: 20151209083108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "accounts", force: :cascade do |t|
-    t.integer  "student_id"
-    t.integer  "money",        default: 0
-    t.integer  "lock_version", default: 0
+    t.float    "money",             default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "accountable_id"
+    t.string   "accountable_type"
+    t.float    "total_income",      default: 0.0, null: false
+    t.float    "total_expenditure", default: 0.0, null: false
+  end
+
+  create_table "action_records", force: :cascade do |t|
+    t.integer  "operator_id"
+    t.integer  "customized_course_id"
+    t.string   "actionable_type"
+    t.integer  "actionable_id"
+    t.string   "name"
+    t.string   "type"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.string   "from"
+    t.string   "to"
+    t.string   "event"
   end
 
   create_table "answers", force: :cascade do |t|
@@ -34,6 +50,15 @@ ActiveRecord::Schema.define(version: 20151007013711) do
     t.integer  "comments_count", default: 0
   end
 
+  create_table "cash_operation_records", force: :cascade do |t|
+    t.integer  "operator_id"
+    t.integer  "account_id"
+    t.float    "value"
+    t.string   "type"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "cities", force: :cascade do |t|
     t.string   "name",       limit: 255
     t.datetime "created_at"
@@ -44,9 +69,18 @@ ActiveRecord::Schema.define(version: 20151007013711) do
     t.text     "content"
     t.integer  "author_id"
     t.integer  "commentable_id"
-    t.string   "commentable_type", limit: 255
+    t.string   "commentable_type",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "customized_course_id"
+  end
+
+  create_table "consumption_records", force: :cascade do |t|
+    t.integer  "fee_id"
+    t.integer  "account_id"
+    t.float    "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "corrections", force: :cascade do |t|
@@ -54,11 +88,18 @@ ActiveRecord::Schema.define(version: 20151007013711) do
     t.integer  "teacher_id"
     t.integer  "solution_id"
     t.string   "token"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.integer  "comments_count",       default: 0
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "comments_count",         default: 0
     t.integer  "customized_course_id"
     t.integer  "homework_id"
+    t.string   "status",                 default: "open", null: false
+    t.float    "teacher_price"
+    t.float    "platform_price"
+    t.string   "type"
+    t.integer  "customized_tutorial_id"
+    t.integer  "examination_id"
+    t.integer  "last_operator_id"
   end
 
   create_table "course_purchase_records", force: :cascade do |t|
@@ -106,17 +147,57 @@ ActiveRecord::Schema.define(version: 20151007013711) do
     t.datetime "updated_at",           null: false
   end
 
+  create_table "customized_course_message_boards", force: :cascade do |t|
+    t.integer  "customized_course_id"
+    t.integer  "customized_course_messages_count",        default: 0
+    t.integer  "customized_course_message_replies_count", default: 0
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+  end
+
+  create_table "customized_course_message_replies", force: :cascade do |t|
+    t.integer  "customized_course_message_id"
+    t.integer  "customized_course_message_board_id"
+    t.integer  "customized_course_id"
+    t.text     "content"
+    t.string   "token"
+    t.integer  "author_id"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "last_operator_id"
+  end
+
+  create_table "customized_course_messages", force: :cascade do |t|
+    t.integer  "customized_course_message_board_id"
+    t.string   "title"
+    t.text     "content"
+    t.integer  "author_id"
+    t.integer  "customized_course_message_replies_count", default: 0
+    t.integer  "customized_course_id"
+    t.string   "token"
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.integer  "last_operator_id"
+  end
+
   create_table "customized_courses", force: :cascade do |t|
     t.integer  "student_id"
-    t.string   "category"
-    t.string   "subject"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.string   "category",                   default: "高中"
+    t.string   "subject",                    default: "数学"
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "customized_tutorials_count", default: 0
     t.integer  "topics_count",               default: 0
     t.integer  "homeworks_count",            default: 0
     t.integer  "exercises_count",            default: 0
     t.integer  "tutorial_issues_count",      default: 0
+    t.integer  "course_issues_count",        default: 0
+    t.float    "platform_price"
+    t.integer  "customized_course_type",     default: 0
+    t.float    "teacher_price"
+    t.integer  "creator_id"
+    t.integer  "workstation_id"
+    t.boolean  "is_keep_account",            default: false
   end
 
   create_table "customized_tutorials", force: :cascade do |t|
@@ -126,22 +207,48 @@ ActiveRecord::Schema.define(version: 20151007013711) do
     t.text     "content"
     t.integer  "position",              default: 0
     t.string   "token"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "topics_count",          default: 0
     t.integer  "exercises_count",       default: 0
     t.integer  "tutorial_issues_count", default: 0
+    t.string   "status",                default: "open", null: false
+    t.float    "teacher_price"
+    t.float    "platform_price"
+    t.integer  "last_operator_id"
   end
 
-  create_table "excercises", force: :cascade do |t|
-    t.string   "token"
-    t.string   "title"
-    t.string   "content"
+  create_table "earning_records", force: :cascade do |t|
+    t.integer  "fee_id"
+    t.integer  "account_id"
+    t.float    "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.float    "price"
+  end
+
+  create_table "examinations", force: :cascade do |t|
+    t.integer  "customized_course_id"
     t.integer  "teacher_id"
-    t.integer  "customized_tutorial_id"
+    t.string   "title"
+    t.text     "content"
+    t.string   "token"
+    t.integer  "topics_count",           default: 0
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
     t.integer  "solutions_count",        default: 0
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
+    t.integer  "student_id"
+    t.integer  "customized_tutorial_id"
+    t.integer  "comments_count",         default: 0
+    t.integer  "corrections_count",      default: 0
+    t.string   "work_type"
+    t.string   "type"
+    t.string   "state",                  default: "new"
+    t.integer  "last_operator_id"
+    t.datetime "first_handled_at"
+    t.datetime "completed_at"
+    t.datetime "last_handled_at"
+    t.datetime "last_redone_at"
   end
 
   create_table "exercises", force: :cascade do |t|
@@ -181,21 +288,17 @@ ActiveRecord::Schema.define(version: 20151007013711) do
 
   add_index "faqs", ["user_id"], name: "index_faqs_on_user_id", using: :btree
 
-  create_table "homeworks", force: :cascade do |t|
+  create_table "fees", force: :cascade do |t|
     t.integer  "customized_course_id"
-    t.integer  "teacher_id"
-    t.string   "title"
-    t.text     "content"
-    t.string   "token"
-    t.integer  "topics_count",           default: 0
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "solutions_count",        default: 0
-    t.integer  "student_id"
-    t.integer  "customized_tutorial_id"
-    t.integer  "comments_count",         default: 0
-    t.integer  "corrections_count",      default: 0
-    t.string   "work_type"
+    t.integer  "feeable_id"
+    t.string   "feeable_type"
+    t.float    "value"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.float    "video_duration"
+    t.float    "platform_price"
+    t.float    "teacher_price"
+    t.float    "sale_price"
   end
 
   create_table "learning_plan_assignments", force: :cascade do |t|
@@ -262,6 +365,19 @@ ActiveRecord::Schema.define(version: 20151007013711) do
 
   add_index "nodes", ["name"], name: "index_nodes_on_name", using: :btree
 
+  create_table "notifications", force: :cascade do |t|
+    t.string   "type"
+    t.integer  "receiver_id"
+    t.string   "notificationable_type"
+    t.integer  "notificationable_id"
+    t.integer  "operator_id"
+    t.boolean  "read",                  default: false
+    t.string   "action_name"
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "customized_course_id"
+  end
+
   create_table "pictures", force: :cascade do |t|
     t.string   "name",           limit: 255
     t.integer  "imageable_id"
@@ -269,6 +385,7 @@ ActiveRecord::Schema.define(version: 20151007013711) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "token",          limit: 255
+    t.integer  "author_id"
   end
 
   create_table "qa_faqs", force: :cascade do |t|
@@ -352,9 +469,16 @@ ActiveRecord::Schema.define(version: 20151007013711) do
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "token",                limit: 255
+    t.string   "token",                  limit: 255
     t.integer  "author_id"
     t.integer  "customized_course_id"
+    t.string   "status",                             default: "open", null: false
+    t.string   "type"
+    t.integer  "customized_tutorial_id"
+    t.float    "teacher_price"
+    t.float    "platform_price"
+    t.integer  "last_operator_id"
+    t.integer  "comments_count",                     default: 0
   end
 
   create_table "review_records", force: :cascade do |t|
@@ -374,20 +498,15 @@ ActiveRecord::Schema.define(version: 20151007013711) do
     t.datetime "updated_at"
   end
 
-  create_table "searches", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "solutions", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
     t.integer  "solutionable_id"
     t.integer  "student_id"
     t.string   "token"
-    t.integer  "corrections_count"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.integer  "corrections_count",       default: 0
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "comments_count",          default: 0
     t.string   "solutionable_type"
     t.integer  "customized_course_id"
@@ -395,6 +514,15 @@ ActiveRecord::Schema.define(version: 20151007013711) do
     t.datetime "last_handle_created_at"
     t.integer  "first_handle_author_id"
     t.integer  "last_handle_author_id"
+    t.string   "type"
+    t.integer  "examination_id"
+    t.integer  "customized_tutorial_id"
+    t.string   "state",                   default: "new"
+    t.integer  "last_operator_id"
+    t.datetime "first_handled_at"
+    t.datetime "completed_at"
+    t.datetime "last_handled_at"
+    t.datetime "last_redone_at"
   end
 
   create_table "teaching_programs", force: :cascade do |t|
@@ -438,16 +566,15 @@ ActiveRecord::Schema.define(version: 20151007013711) do
     t.integer  "teacher_id"
     t.string   "topicable_type"
     t.integer  "customized_course_id"
-  end
-
-  create_table "tutorial_issues", force: :cascade do |t|
-    t.integer  "customized_course_id"
+    t.string   "type"
     t.integer  "customized_tutorial_id"
-    t.integer  "student_id"
-    t.integer  "teacher_id"
-    t.integer  "topics_count"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.integer  "last_operator_id"
+    t.datetime "first_handled_at"
+    t.datetime "completed_at"
+    t.datetime "last_handled_at"
+    t.datetime "last_redone_at"
+    t.string   "state",                               default: "new"
+    t.integer  "comments_count",                      default: 0
   end
 
   create_table "users", force: :cascade do |t|
@@ -480,6 +607,7 @@ ActiveRecord::Schema.define(version: 20151007013711) do
     t.boolean  "pass",                                      default: false
     t.string   "grade"
     t.string   "nick_name"
+    t.string   "parent_phone"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -508,6 +636,17 @@ ActiveRecord::Schema.define(version: 20151007013711) do
     t.integer  "questions_count"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+  end
+
+  create_table "workstations", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "city_id"
+    t.string   "address"
+    t.string   "tel"
+    t.string   "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "manager_id"
   end
 
 end

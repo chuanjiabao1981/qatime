@@ -2,7 +2,7 @@
 
 <%= render layout: "task" do %>
     <% if @solutions.length > 0 %>
-        <%= render  partial: "solutions/index_items",locals:{solutions: @solutions} %>
+        <%= render partial: "solutions/index",locals:{solutions: @solutions} %>
     <% else %>
         <%= render 'shared/customized_courses/introduce' %>
     <% end %>

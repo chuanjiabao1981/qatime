@@ -17,6 +17,10 @@ customized_tutorial1:
   content: aaaaaaaaa1111111111222222222233333333333344444444555555
   title: aaabbbcccdddeeeddd
   token: teacher1_customize_tutorial_video
+  status: open
+  last_operator: teacher1
+  teacher_price: 54
+  platform_price: 0
 
 customized_tutorial_without_video1:
   teacher: teacher1
@@ -24,6 +28,9 @@ customized_tutorial_without_video1:
   content: bbbbddddeeeeessssssseeeeeeeeesssssss
   title: kkkkkkkkkkkk
   token: customized_tutorial_without_video1
+  status: closed
+  teacher_price: 54
+  platform_price: 0
 
 customized_tutorial2:
   teacher: teacher2
@@ -31,3 +38,56 @@ customized_tutorial2:
   content: fuaaaaaaaaa1111111111222222222233333333333344444444555555
   title: 33322aaabbbcccdddeeeddd
   token: teacher2_customize_tutorial_video
+  status: closed
+  teacher_price: 54
+  platform_price: 0
+
+# Here use erb to generate tally customized_tutorials
+# 5 open
+<% 1.upto(5) do |i| %>
+customized_tutorial_tally_<%= i %>:
+  teacher: teacher_tally
+  customized_course: customized_course_tally
+  content: fuaaaaaaaaa1111111111222222222233333333333344444444555555
+  title: 33322aaabbbcccdddeeeddd
+  token: customized_tutorial_tally_video_<%= i %>
+  status: open
+  teacher_price: 54
+  platform_price: 6
+  last_operator: teacher_tally
+<% end %>
+
+# 5 closed
+<% 6.upto(10) do |i| %>
+customized_tutorial_tally_<%= i %>:
+  teacher: teacher_tally
+  customized_course: customized_course_tally
+  content: fuaaaaaaaaa1111111111222222222233333333333344444444555555
+  title: 33322aaabbbcccdddeeeddd
+  token: customized_tutorial_tally_video_<%= i %>
+  status: closed
+  teacher_price: 54
+  platform_price: 6
+  last_operator: teacher_tally
+<% end %>
+
+customized_tutorial_teacher2:
+  teacher: teacher2
+  customized_course: customized_course4
+  content: fuaaaaaaaaa1111111111222222222233333333333344444444555555
+  title: 33322aaabbbcccdddeeeddd
+  token: customized_tutorial_teacher2_video
+  status: open
+  teacher_price: 54
+  platform_price: 0
+
+
+customized_tutorial_teacher_earnings_1:
+  teacher: physics_teacher1
+  customized_course: customized_course5
+  content: customized course 5 customized tutorial content
+  title: customized course 5 customized tutorial title
+  token: customized_tutorial_teacher_earnings_1_token
+  status: closed
+  teacher_price: 54
+  platform_price: 0

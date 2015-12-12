@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   validates_presence_of :avatar,:name,:mobile ,if: :teacher_or_student?
   validates :mobile,length:{is: 11},if: :teacher_or_student?
   validates :mobile,numericality: { only_integer: true },if: :teacher_or_student?
+
   validates :school ,presence: true,if: :teacher?
   validates :password, length: { minimum: 6 },:on => :create
   validates :grade, inclusion: { in: APP_CONSTANT["grades_in_menu"]},if: :student?
@@ -32,10 +33,18 @@ class User < ActiveRecord::Base
   has_many :faq_topics
   has_many :faqs
   has_many :messages
+  has_one  :account, as: :accountable
+  has_many :customized_course_action_notifications,->{ order 'created_at desc'},foreign_key: :receiver_id
+
 
   has_many :comments,foreign_key: :author_id
 
   belongs_to :school
+
+
+  def unread_notifications_count
+    self.customized_course_action_notifications.unread.count
+  end
 
   def self.new_remember_token
     SecureRandom.urlsafe_base64

@@ -1,5 +1,18 @@
 <%= render layout: 'main' do %>
-    <% if @customized_course %>
-        <%= render partial: 'topics/index',locals: {topicable:@customized_course} %>
+    <%= content_for :brief_header do %>
+        <div class="pull-left">
+            <span class="label label-primary">共有<%=@customized_course.tutorial_issues_count%>个<%=TutorialIssue.model_name.human%></span>
+            <span class="label label-primary">共有<%=@customized_course.course_issues_count%>个<%=CourseIssue.model_name.human%></span>
+        </div>
+        <div class="pull-right">
+          <% if allow? :course_issues , :new, @customized_course %>
+              <%=link_to new_customized_course_course_issue_path(@customized_course) do%>
+                  <span class="label label-success">我要提问</span>
+              <% end %>
+          <% end %>        </div>
+        <div style="clear: both"></div>
     <% end %>
+
+    <%= render partial: 'shared/qa_objects/index_brief_info',
+               locals:{objects: @topics} %>
 <% end %>

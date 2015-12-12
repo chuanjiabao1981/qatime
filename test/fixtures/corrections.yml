@@ -8,7 +8,111 @@ correction_one:
   content: ssddd
   teacher: teacher1
   solution: homework_solution_one
-# column: value
-#
-two: {}
-#  column: value
+  teacher_price: 54
+  platform_price: 6
+  type: HomeworkCorrection
+  token: correction one
+  customized_course: customized_course1
+  homework: homework1
+  teacher_price: 54
+  platform_price: 6
+  last_operator: teacher1
+
+
+correction_two:
+  content: asdfasd
+  teacher: teacher1
+  solution: exercise_solution_one
+  type: ExerciseCorrection
+  token: correction_two
+  exercise: exercise_one
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial1
+  teacher_price: 54
+  platform_price: 6
+  last_operator: teacher1
+
+# Here use erb to generate tally corrections
+# 5 open
+<% 1.upto(5) do |i| %>
+homework_correction_tally_<%= i %>:
+  content: 12341234
+  teacher: teacher_tally
+  solution: solution_for_homework_correction_fee
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
+  token: homework_correction_tally_video_<%= i %>
+  status: open
+  teacher_price: 54
+  platform_price: 6
+  type: HomeworkCorrection
+  last_operator: teacher_tally
+<% end %>
+
+# 5 closed
+<% 6.upto(10) do |i| %>
+homework_correction_tally_<%= i %>:
+  content: 12341234
+  teacher: teacher_tally
+  solution: solution_for_homework_correction_fee
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
+  token: homework_correction_tally_video_<%= i %>
+  status: closed
+  teacher_price: 54
+  platform_price: 6
+  type: HomeworkCorrection
+  last_operator: teacher_tally
+<% end %>
+
+# Here use erb to generate tally corrections for ExerciseCorrection
+<% 1.upto(5) do |i| %>
+exercise_correction_tally_<%= i %>:
+  content: 12341234
+  teacher: teacher_tally
+  solution: solution_for_homework_correction_fee
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
+  token: exercise_correction_tally_video_<%= i %>
+  status: open
+  teacher_price: 54
+  platform_price: 6
+  type: ExerciseCorrection
+  last_operator: teacher_tally
+<% end %>
+
+# 5 closed
+<% 6.upto(10) do |i| %>
+exercise_correction_tally_<%= i %>:
+  content: 12341234
+  teacher: teacher_tally
+  solution: solution_for_homework_correction_fee
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
+  token: exercise_correction_tally_video_<%= i %>
+  status: closed
+  teacher_price: 54
+  platform_price: 6
+  type: ExerciseCorrection
+  last_operator: teacher_tally
+<% end %>
+
+exercise_correction_for_fee_view:
+  content: dddddsss
+  teacher: physics_teacher_1
+  solution: exercise_solution_for_fee
+  customized_course: customized_course5
+  customized_tutorial: customized_tutorial_teacher_earnings_1
+  token: exercise_correction_for_fee_view
+  status: closed
+  teacher_price: 54
+  platform_price: 0
+  type: ExerciseCorrection
+
+homework_correction_for_fee_view:
+  content: spgnasdijnfas
+  teacher: physics_teacher_1
+  solution: homework_solution_for_fee
+  customized_course: customized_course5
+  token: homework_correction_for_fee_view_token
+  status: closed
+  teacher_price: 54
+  platform_price: 0
+  type: HomeworkCorrection
+  last_operator: physics_teacher_1

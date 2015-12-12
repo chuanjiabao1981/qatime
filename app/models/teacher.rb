@@ -7,6 +7,8 @@ class Teacher < User
   has_many :curriculums,dependent: :destroy
   has_many :courses,dependent: :destroy
 
+  # has_many :deposits
+
 
   has_many :answers,:dependent => :destroy
   has_many :learning_plan_assignments, :dependent => :destroy
@@ -17,6 +19,11 @@ class Teacher < User
   has_many :customized_tutorials,:dependent => :destroy
   has_many :question_assignments,:dependent => :destroy
   has_many :questions ,:through => :question_assignments
+
+  #has_many :corrections
+  #has_many :replies
+
+
   belongs_to :school
   attr_accessor :accept
 
@@ -26,7 +33,6 @@ class Teacher < User
   scope :by_subject, lambda {|s| where(subject: s) if s}
   scope :by_school,  lambda {|s| where(school_id: s) if s}
   scope :by_vip_class, lambda{|vip_class| includes(:school).order("schools.name desc").by_subject(vip_class.subject).by_category(vip_class.category) }
-
 
   def initialize(attributes = {})
     super(attributes)
@@ -41,5 +47,18 @@ class Teacher < User
     s
   end
 
+  def keep_account
 
+    [CustomizedTutorial, HomeworkCorrection,ExerciseCorrection].each do |s|
+      s.by_teacher_id(self.id).valid_tally_unit.each do |object|
+        object.keep_account(self.id)
+      end
+    end
+
+    [TutorialIssueReply, CourseIssueReply].each do |s|
+      s.by_author_id(self.id).valid_tally_unit.each do |object|
+        object.keep_account(self.id)
+      end
+    end
+  end
 end

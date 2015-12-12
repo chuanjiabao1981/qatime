@@ -1,0 +1,12 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+customized_course_message_reply1:
+  content: customized_coures_message_reply
+  customized_course_message: customized_course_message1
+  customized_course: customized_course1
+  author: student1
+  last_operator: student1

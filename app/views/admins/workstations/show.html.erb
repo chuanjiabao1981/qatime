@@ -1,0 +1,10 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%=@workstation.class.model_name.human%></h2>
+  </div>
+  <div class="qa_big_cell">
+    <% if allow? "workstations","edit",@workstation %>
+        <%= @workstation.name %> <%= link_to 'edit',edit_admins_workstation_path(@workstation)%>
+    <% end %>
+  </div>
+</div>

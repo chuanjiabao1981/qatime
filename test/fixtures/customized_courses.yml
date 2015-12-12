@@ -14,17 +14,57 @@ customized_course1:
   student: student1
   category: 高中
   subject: 数学
+  platform_price: 0
+  teacher_price: 54
+  customized_course_type: 0
   customized_tutorials_count: 2
-
-
+  workstation: workstation1
+  creator_id: <%= ActiveRecord::FixtureSet.identify(:manager) %>
 
 customized_course2:
   student: student2
   category: 高中
   subject: 数学
+  platform_price: 0
+  teacher_price: 54
+  customized_course_type: 0
+  creator_id: <%= ActiveRecord::FixtureSet.identify(:manager) %>
 
+customized_course_tally:
+  student: student_tally
+  category: 高中
+  subject: 数学
+  platform_price: 6
+  teacher_price: 54
+  customized_course_type: 0
+  workstation: workstation1
+  creator_id: <%= ActiveRecord::FixtureSet.identify(:manager) %>
+  is_keep_account: true
 
 customized_course3:
   student: student1
   category: 高中
   subject: 数学
+  platform_price: 0
+  teacher_price: 54
+  customized_course_type: 0
+  workstation: workstation1
+  creator_id: <%= ActiveRecord::FixtureSet.identify(:manager) %>
+
+customized_course4:
+  student: student1
+  category: 高中
+  subject: 数学
+  platform_price: 0
+  teacher_price: 54
+  customized_course_type: 0
+  creator_id: <%= ActiveRecord::FixtureSet.identify(:manager) %>
+
+customized_course5:
+  student: student2
+  category: 高中
+  subject: 物理
+  platform_price: 0
+  teacher_price: 54
+  customized_course_type: 0
+  creator_id: <%= ActiveRecord::FixtureSet.identify(:manager) %>

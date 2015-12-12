@@ -25,42 +25,52 @@
 
         <li>
           <%= link_to teachers_path do %>
-              <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 教师</span> Info
+              <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 教师</span>
           <% end %>
         </li>
         <li>
           <%= link_to admins_cities_path do %>
-              <span class="glyphicon glyphicon-map-marker"></span> <span class="qa_f18"> 城市</span> City
+              <span class="glyphicon glyphicon-map-marker"></span> <span class="qa_f18"> 城市</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to admins_workstations_path do %>
+              <span class="glyphicon glyphicon-hand-up"></span> <span class="qa_f18"> <%= Workstation.model_name.human %></span>
           <% end %>
         </li>
         <li>
           <%= link_to schools_path do %>
-              <span class="glyphicon glyphicon-home"></span> <span class="qa_f18"> 学校</span> School
+              <span class="glyphicon glyphicon-home"></span> <span class="qa_f18"> 学校</span>
           <% end %>
         </li>
         <li>
           <%= link_to questions_path do %>
-              <span class="fa fa-university"></span> <span class="qa_f18"><%= VipClass.model_name.human %></span> Vip
+              <span class="fa fa-university"></span> <span class="qa_f18"><%= VipClass.model_name.human %></span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to action_records_path do %>
+              <span class="fa fa-cogs"></span> <span class="qa_f18"><%= ActionRecord.model_name.human %></span>
           <% end %>
         </li>
         <li>
           <%= link_to students_path do %>
               <span class="glyphicon glyphicon-hdd"></span>
-              <span class="qa_f18"> <%= Student.model_name.human %> </span> Student
+              <span class="qa_f18"> <%= Student.model_name.human %> </span>
           <% end %>
         </li>
         <li>
           <%= link_to admins_recharge_codes_path do %>
-              <span class="glyphicon glyphicon-credit-card"></span> <span class="qa_f18"> 充值</span> Recharge
+              <span class="glyphicon glyphicon-credit-card"></span> <span class="qa_f18"> 充值</span>
           <% end %>
         </li>
         <li>
-          <span class="glyphicon glyphicon-info-sign"></span><span class="qa_f18"> 消息</span> Message
+          <span class="glyphicon glyphicon-info-sign"></span><span class="qa_f18"> 消息</span>
         </li>
 
         <li>
           <%= link_to qa_faqs_path do %>
-            <span class="glyphicon glyphicon-question-sign"></span><span class="qa_f18"> <%= QaFaq.model_name.human %></span> Faq
+            <span class="glyphicon glyphicon-question-sign"></span><span class="qa_f18"> <%= QaFaq.model_name.human %></span>
           <% end %>
         </li>
 
@@ -72,7 +82,6 @@
               <span class="qa_f18">
                    <%=TeachingProgram.model_name.human%>
               </span>
-              Program
           <% end %>
         </li>
         <li>
@@ -81,7 +90,6 @@
               <span class="qa_f18">
                 人员
               </span>
-              Manager
           <% end %>
         </li>
 
@@ -90,7 +98,7 @@
               <span class="glyphicon glyphicon-question-sign"></span>
               <span class="qa_f18">
                 <%= RegisterCode.model_name.human%>
-              </span> Code
+              </span>
           <% end %>
         </li>
         <li>
@@ -99,12 +107,11 @@
               <span class="qa_f18">
                 队列
               </span>
-              SideKiq
           <% end %>
         </li>
         <li>
           <%= link_to signout_path, :method=>'delete'  do %>
-              <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18"> 退出</span> Exit
+              <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18">退出系统</span>
           <% end %>
         </li>
       </ul>

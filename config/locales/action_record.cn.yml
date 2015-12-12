@@ -1,0 +1,4 @@
+cn:
+  activerecord:
+    models:
+      action_record: 全部活动

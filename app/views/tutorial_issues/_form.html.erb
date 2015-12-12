@@ -1,0 +1,12 @@
+<div class="qa_box">
+  <div class="qa_cell box_head">
+    <%= render partial: 'nav',locals: {customized_tutorial: @tutorial_issue.customized_tutorial} %>
+    /    <%=get_edit_or_create_model_string(@tutorial_issue)%>
+
+  </div>
+  <div class="qa_cell">
+    <%= simple_form_for([@tutorial_issue.customized_tutorial,@tutorial_issue]) do |f| %>
+        <%= render partial: 'shared/qa_objects/form',locals: {f: f} %>
+    <% end %>
+  </div>
+</div>

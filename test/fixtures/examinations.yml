@@ -1,0 +1,148 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+homework1:
+  teacher: teacher1
+  student: student1
+  title: 基础测试
+  content: 原来基础测试是关键的一换哦
+  token: teacher1_customized_course_homewoker_one
+  type: Homework
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  last_operator: teacher1
+
+
+# column: value
+#
+homework2:
+  teacher: teacher1
+  student: student1
+  title: 基础测试2
+  content: 原来基础测试是关键的一换哦2
+  token: teacher1_customized_course_homewoker_two
+  type: Homework
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+
+
+homework3:
+  teacher: teacher1
+  student: student1
+  title: 基础测试3
+  content: 测试是否过期未处理
+  solutions_count: 0
+  created_at: <%= 10.day.ago %>
+  type: Homework
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course3) %>
+  last_operator: teacher1
+
+
+homework4:
+  teacher: teacher1
+  student: student1
+  title: 提出测试4
+  content: sdf131234
+  solutions_count: 2
+  created_at: <%= 10.day.ago %>
+  type: Homework
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course3) %>
+  last_operator: teacher1
+
+
+homework_for_state_change:
+  teacher: teacher1
+  student: student1
+  title: homework title for state change
+  content: homework content for state change
+  solutions_count: 0
+  type: Homework
+  last_operator: teacher1
+  state: new
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+
+exercise_one:
+  title: 随堂作业一
+  content: 2222223334444
+  teacher: teacher1
+  student: student1
+  type: Exercise
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  last_operator: teacher1
+
+
+
+exercise_fee_one:
+  title: 随堂作业 exercise fee
+  content: 123412341
+  teacher: physics_teacher_1
+  student: student2
+  type: Exercise
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial_teacher_earnings_1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+
+homeworker_for_correction_fee_one:
+  title: homeworker correction fee
+  content: 12344321
+  teacher: physcis_teacher_1
+  student: student2
+  type: Homework
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+
+exercise_for_state_change_success:
+  title: 随堂作业 for state change success
+  content: 2222223334444 for state change success
+  teacher: teacher1
+  student: student1
+  type: Exercise
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  last_operator: teacher1
+  state: in_progress
+  solutions_count: 1
+
+exercise_for_state_change:
+  title: 随堂作业 for state change
+  content: 234123413 for state change
+  teacher: teacher1
+  student: student1
+  type: Exercise
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  last_operator: teacher1
+  state: new
+
+##Begin for ui state change
+
+exercise_for_ui_state_change:
+  title: exercise for ui state change title
+  content: exercise for ui state change content
+  teacher: teacher1
+  student: student1
+  type: Exercise
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  last_operator: student1
+  state: in_progress
+  solutions_count: 1
+
+homwork_for_ui_state_change:
+  title: homework for ui state change title
+  content: homework for ui state change content
+  teacher: teacher1
+  student: student1
+  type: Homework
+  customized_course: customized_course1
+  last_operator: student1
+  state: in_progress
+  solutions_count: 1
+
+##End for ui state change
+
+
+
+
+
+

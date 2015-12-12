@@ -1,0 +1,18 @@
+<div class="qa_box">
+  <div class="box_header qa_cell">
+    <div class="pull-left">
+      <span class="label label-primary">
+        <%= I18n.t "view.notification.unread_notification_count",count:user.customized_course_action_notifications.unread.count%>
+      </span>
+    </div>
+    <div style="clear:both"></div>
+  </div>
+  <% if notifications %>
+    <div class="qa_objects">
+        <%= render partial: 'notifications/notification',collection: notifications %>
+    </div>
+    <div class="qa_cell">
+        <%= will_paginate notifications ,renderer: BootstrapPagination::Rails %>
+    </div>
+  <% end %>
+</div>

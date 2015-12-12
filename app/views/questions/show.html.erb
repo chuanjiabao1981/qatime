@@ -18,6 +18,9 @@
       </div>
       <div class="qa_content">
         <%= raw @question.content%>
+        <% if defined?(@question.pictures) %>
+            <%= render partial: 'pictures/gallery',locals:{pictures: @question.pictures,show_operation: false,gallery_id: @question.token} %>
+        <% end %>
       </div>
       <div class="qa_footer">
         <% if allow? "questions","edit",@question %>

@@ -1,0 +1,12 @@
+<% if picture and picture.author %>
+    <div class="pull-left" id="qa-picture-<%=picture.id%>">
+      <div>
+        <%= link_to picture.name.url ,class: "qa-picture-fancybox","data-fancybox-group"=>"gallery-#{gallery_id}"  do %>
+            <img src="<%= picture.name.thumbnail.url%>"/>
+        <% end %>
+      </div>
+      <% if not defined?(show_operation) or show_operation %>
+        <%= link_to '删除', picture, method: :delete, remote: true, data: { confirm: '确定删除图片么？' } %>
+      <% end %>
+    </div>
+<% end %>

@@ -1,0 +1,16 @@
+cn:
+  activerecord:
+    models:
+      account: 账户
+    attributes:
+      account:
+        money: 余额
+        deposit: 充值
+        deposit_record: 充值记录
+        withdraw: 取现
+        withdraw_record: 提现记录
+        student_fee_record: 消费记录
+        teacher_fee_record: 收益记录
+        keep_account: 结账
+        total_income: 总收入
+        total_expenditure: 总支出

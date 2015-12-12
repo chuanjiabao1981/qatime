@@ -18,6 +18,11 @@ set :unicorn_worker_count, 5
 # whether we're using ssl or not, used for building nginx
 # config file
 set :enable_ssl, false
+
+# set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
+
+set :environment,:test
+
 # Simple Role Syntax
 # ==================
 # Supports bulk-adding hosts to roles, the primary server in each group

@@ -1,10 +1,10 @@
 # coding: utf-8
 
-source 'http://ruby.taobao.org/'
+source 'https://ruby.taobao.org/'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2'
+gem 'rails', '4.2.5'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -90,7 +90,7 @@ gem 'chosen-rails'
 
 group :development,:test do
   # 状态机做图
-  #gem 'ruby-graphviz', :require => 'graphviz'
+  gem 'ruby-graphviz', :require => 'graphviz'
   gem 'quiet_assets'
   gem "minitest"
   gem 'test-unit'
@@ -108,11 +108,14 @@ group :development,:test do
 end
 
 gem 'rest-client'
-gem 'carrierwave-aliyun'
+gem 'carrierwave-aliyun','0.3.4'
 gem 'unicorn'
 
 gem 'sidekiq'
 gem 'sidekiq-failures'
 gem 'sinatra', require: false
 gem 'slim'
-#gem 'protected_attributes'
+
+gem 'fancybox2-rails', '~> 0.2.8'
+
+gem 'whenever',:require => false

@@ -1,0 +1,18 @@
+<div class="qa_object_item">
+  <div style="float:left">
+    <%=image_tag examination.teacher.avatar.normal.url %>
+  </div>
+  <div class="title">
+    <%= link_to examination.title,send("#{examination.model_name.singular_route_key}_path",examination) %>
+  </div>
+  <div class="info">
+    <%= examination.teacher.view_name%> • <%= localize(examination.created_at,format: :long) %> 布置 •
+    批改了<%=examination.corrections_count %>次<%= Examination.human_attribute_name(:solution) %> •
+    <%= examination.student.name%> •
+    写了<%= examination.solutions_count%>次<%= Examination.human_attribute_name(:solution) %>
+
+    <%= render partial: "#{examination.model_name.route_key}/index_item_nav",locals: {examination: examination} %>
+
+
+  </div>
+</div>

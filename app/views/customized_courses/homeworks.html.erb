@@ -1,5 +1,8 @@
 <%= render layout: 'main' do %>
     <% if @homeworks %>
-        <%= render partial: 'homeworks/index',locals: {customized_course:@customized_course} %>
+        <% content_for :brief_header do %>
+            <%= render partial: "customized_courses/header/homework",locals: {customized_course: @customized_course} %>
+        <% end %>
+        <%= render partial: "shared/qa_objects/index_brief_info",locals: {objects: @homeworks,use_super_controller: false} %>
     <% end %>
 <% end %>

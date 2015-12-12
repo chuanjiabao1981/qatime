@@ -1,6 +1,2 @@
-<div class="qa_box">
-  <%= render  partial: "solutions/index_header",locals: {solutionable: solutionable} %>
-
-  <%= render  partial: "solutions/index_items",locals:{solutions: @solutions} %>
-
-</div>
+<%= render partial: "shared/qa_objects/index_brief_info",
+           locals: {objects: solutions,use_super_controller: true} %>

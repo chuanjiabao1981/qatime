@@ -6,4 +6,8 @@ class CurriculumTest < ActiveSupport::TestCase
     assert curriculum1.valid?
     #puts curriculum1.teaching_program
   end
+
+
+
+
 end

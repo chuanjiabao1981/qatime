@@ -1,0 +1,6 @@
+<%= render layout: "layout" do %>
+    <% content_for :brief_header do %>
+        <%= render partial: "index_header" %>
+    <% end %>
+    <%= render partial: "shared/qa_objects/index_brief_info",locals: {objects: @customized_course_messages} %>
+<% end %>

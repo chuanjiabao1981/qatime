@@ -1,0 +1,15 @@
+<div class="qa_big_cell">
+  <h2><%=Deposit.model_name.human%>记录</h2>
+</div>
+
+<div class="qa_cell">
+  <table class="table table-bordered">
+    <tr>
+      <th><%= Deposit.human_attribute_name(:value)%></th>
+      <th><%= Deposit.human_attribute_name(:created_at)%></th>
+      <th><%= Deposit.human_attribute_name(:operator)%></th>
+    </tr>
+    <%= render deposits %>
+  </table>
+  <%= will_paginate deposits ,renderer: BootstrapPagination::Rails %>
+</div>

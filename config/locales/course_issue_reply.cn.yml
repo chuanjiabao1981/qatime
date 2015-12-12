@@ -1,0 +1,9 @@
+cn:
+  activerecord:
+    models:
+      course_issue_reply: 日常问题解答
+  action:
+    course_issue_reply:
+      create:
+        desc: "%{user},解答了日常问题"
+        name: 解答

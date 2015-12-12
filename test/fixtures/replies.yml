@@ -2,19 +2,185 @@ student_reply1:
   author: student1
   content: student_reply 1 hahahahahahaha
   topic: topic1
+  last_operator: student1
 
 teacher_reply2:
   author: teacher1
   content: teacher_reply 2 hahahahahahaha
   topic: teacher_topic1
-
-customized_tutorial_topic1_reply1:
-  author: teacher1
-  content: customized teacher_reply 2 hahahahahahaha
-  topic: customized_tutorial_topic1
+  last_operator: teacher1
 
 
 customized_tutorial_topic1_reply2:
   author: student1
   content: 2 customized teacher_reply 2 hahahahahahaha
   topic: customized_tutorial_topic1
+
+# test TutorialIssue replies tally
+<% 1.upto(5) do |i| %>
+tutorial_issue_reply_for_tally_<%= i %>:
+  author: teacher_tally
+  content: 2 customized teacher_reply 2 hahahahahahaha
+  customized_course: customized_course_tally
+  customized_tutorial: customized_tutorial_tally_1
+  tutorial_issue: topic_for_customized_tutorial_tally
+  type: TutorialIssueReply
+  token: tutorial_issue_reply_for_tally_video_<%= i %>
+  status: open
+  teacher_price: 54
+  platform_price: 6
+  last_operator: teacher_tally
+
+<% end %>
+
+<% 6.upto(10) do |i| %>
+tutorial_issue_reply_for_tally_<%= i %>:
+  author: teacher_tally
+  content: 2 customized teacher_reply 2 hahahahahahaha
+  customized_course: customized_course_tally
+  customized_tutorial: customized_tutorial_tally_1
+  tutorial_issue: topic_for_customized_tutorial_tally
+  type: TutorialIssueReply
+  token: tutorial_issue_reply_for_tally_video_<%= i %>
+  status: closed
+  teacher_price: 54
+  platform_price: 6
+  last_operator: teacher_tally
+
+<% end %>
+
+# test CourseIssue replies tally
+# Five with valid video and five without
+<% 1.upto(5) do |i| %>
+course_issue_reply_for_tally_<%= i %>:
+  author: teacher_tally
+  content: 2 customized teacher_reply 2 hahahahahahaha
+  customized_course: customized_course_tally
+  course_issue: topic_for_customized_course_tally
+  token: course_issue_reply_for_tally_video_<%= i %>
+  type: CourseIssueReply
+  status: open
+  teacher_price: 54
+  platform_price: 6
+  last_operator: teacher_tally
+<% end %>
+
+<% 6.upto(10) do |i| %>
+course_issue_reply_for_tally_<%= i %>:
+  author: teacher_tally
+  content: 2 customized teacher_reply 2 hahahahahahaha
+  customized_course: customized_course_tally
+  course_issue: topic_for_customized_course_tally
+  type: CourseIssueReply
+  token: course_issue_reply_for_tally_video_<%= i %>
+  status: closed
+  teacher_price: 54
+  platform_price: 6
+  last_operator: teacher_tally
+
+<% end %>
+
+#reply_fee_reply:
+#  author: physics_teacher1
+#  content: reply fee reply
+#  topic: reply_fee_tutorial_topic
+#  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+#  token: reply_fee_reply_token
+#  status: closed
+
+
+tutorial_issue_reply_one:
+  author: teacher1
+  content: tutorial issue reply from teacher1
+  customized_tutorial: customized_tutorial1
+  customized_course: customized_course1
+  tutorial_issue: tutorial_issue_one
+  token: tutorial_issue_reply_one
+  status: open
+  type: TutorialIssueReply
+  teacher_price: 54
+  platform_price: 6
+  last_operator: teacher1
+
+tutorial_issue_reply_with_video:
+  author: teacher1
+  content: tutorial issue reply with video
+  customized_tutorial: customized_tutorial1
+  customized_course: customized_course1
+  tutorial_issue: tutorial_issue_one
+  token: tutorial_issue_reply_with_video
+  status: open
+  type: TutorialIssueReply
+  teacher_price: 54
+  platform_price: 6
+
+course_issue_reply_one:
+  author: teacher1
+  content: course issue reply from teacher
+  customized_course: customized_course1
+  course_issue: course_issue_one
+  token: tutorial_issue_reply_one
+  status: open
+  type: CourseIssueReply
+  teacher_price: 54
+  platform_price: 6
+
+course_issue_reply_with_video:
+  author: teacher1
+  content: course issue reply with video
+  customized_course: customized_course1
+  course_issue: course_issue_one
+  token: course_issue_reply_with_video
+  status: open
+  type: CourseIssueReply
+  teacher_price: 54
+  platform_price: 6
+
+###Begin Fee view
+course_issue_reply_for_fee_view:
+  author: physics_teacher1
+  content: reply fee reply
+  course_issue: course_issue_for_fee_view
+  type: CourseIssueReply
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+  token: course_issue_reply_for_fee_view
+  status: closed
+  teacher_price: 54
+  platform_price: 6
+
+tutorial_issue_reply_for_fee_view:
+  author: physics_teacher1
+  content: tutorial issue reply for fee view
+  tutorial_issue: tutorial_issue_for_fee_view
+  type: TutorialIssueReply
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+  token: tutorial_issue_reply_for_fee_view
+  status: closed
+  teacher_price: 54
+  platform_price: 6
+###End Fee view
+
+
+###Begin for ui state change
+course_issue_reply_for_ui_state_change:
+  content: course issue for ui state change content
+  author: teacher1
+  customized_course: customized_course1
+  type: CourseIssueReply
+  last_operator: student1
+  course_issue: course_issue_for_ui_state_change
+
+tutorial_issue_reply_for_ui_state_change:
+  content: tutorial_issue_reply_for_ui_state_change content
+  author: teacher1
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial1
+  type: TutorialIssueReply
+  last_operator: teacher1
+  tutorial_issue: tutorial_issue_for_ui_state_change
+###End for ui state change
+
+
+
+
+

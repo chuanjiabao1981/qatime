@@ -1,0 +1,9 @@
+cn:
+  activerecord:
+    models:
+      deposit: 充值
+    attributes:
+      deposit:
+        value: 金额
+        created_at: 充值时间
+        operator: 操作人员

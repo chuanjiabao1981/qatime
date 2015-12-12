@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+workstation1:
+  name: MyString
+  city: yangquan
+  address: MyString
+  tel: 1
+  email: MyString
+  manager: manager
+
+workstation_invalid:
+  name: MyString
+  city: yangquan
+  address: MyString
+  tel: 1
+  email: MyString
+

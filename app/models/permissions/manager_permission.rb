@@ -1,6 +1,7 @@
 module Permissions
-  class ManagerPermission < BasePermission
+  class ManagerPermission < StaffPermission
     def initialize(user)
+      super(user)
       allow :qa_faqs,[:index,:show]
 
       allow "managers/register_codes",[:index,:create,:new]
@@ -11,15 +12,19 @@ module Permissions
       allow :vip_classes,[:show]
       allow :questions,[:index,:show,:student,:teacher,:teachers]
       allow :teaching_videos,[:show]
-      allow :students,[:index,:search,:show,:edit,:create,:update,:info,:teachers,:customized_courses,:homeworks,:solutions]
+      allow :students,[:index,:search,:show,:edit,:create,:update,
+                       :info,:teachers,:customized_courses,:homeworks,
+                       :solutions,:account,:customized_tutorial_topics,:questions,:notifications]
       allow :home,[:index]
       allow :schools,[:index,:new,:create,:show,:edit,:update]
       allow :register_codes, [:index, :new, :downloads, :create]
-      allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,:students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,:exercises]
+      allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,
+                       :students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,
+                       :exercises,:keep_account,:solutions,:customized_tutorial_topics,:notifications]
       allow :curriculums,[:index,:show]
       allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
       allow :courses,[:show]
-      allow :comments,[:create]
+      allow :comments,[:create,:show]
       allow :comments,[:edit,:update] do |comment|
         comment
       end
@@ -33,7 +38,7 @@ module Permissions
         reply and reply.author_id == user.id
       end
 
-      allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks,:solutions] do |customized_course|
+      allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks,:solutions, :get_sale_price] do |customized_course|
         user and customized_course
       end
 
@@ -50,12 +55,26 @@ module Permissions
       end
 
       allow :managers,[:payment]
-      allow :managers,[:customized_courses,] do |manager|
+      allow :managers,[:customized_courses,:action_records] do |manager|
         manager.id == user.id
       end
       allow :exercises,[:show]
       allow :sessions,[:destroy]
 
+      allow :deposits,[:new,:create] do |account|
+        account and account.accountable.student?
+      end
+      allow :withdraws,[:new,:create] do |account|
+        account and account.accountable.teacher?
+      end
+
+      allow :tutorial_issues,[:show]
+      allow :course_issues, [:show]
+      allow :tutorial_issue_replies,[:show]
+      allow :course_issues,[:show]
+      allow :course_issue_replies,[:show]
+      allow :comments,[:show]
+      allow :corrections,[:show]
     end
   end
 end

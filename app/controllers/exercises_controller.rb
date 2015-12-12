@@ -2,8 +2,13 @@ class ExercisesController < ApplicationController
   respond_to :html
   layout "application"
   include QaFilesHelper
+  include QaStateMachine
+  include QaCommonFilter
+  __event_actions(Examination,:exercise)
+  __add_last_operator_to_param(:exercise)
+
   def new
-    @exercise = Exercise.new
+    @exercise = @customized_tutorial.exercises.build
   end
 
   def create
@@ -12,13 +17,12 @@ class ExercisesController < ApplicationController
     @exercise.student = @customized_tutorial.customized_course.student
     if @exercise.save
       flash[:success] = "成功创建#{Exercise.model_name.human}"
-      @exercise.notify
     end
     respond_with @customized_tutorial,@exercise
   end
 
   def show
-    @solutions      = @exercise.solutions.order(:created_at).paginate(page: params[:page])
+    @solutions      = @exercise.exercise_solutions.order(:created_at => :desc).paginate(page: params[:page])
 
   end
 
@@ -36,6 +40,8 @@ class ExercisesController < ApplicationController
     @exercise.destroy
     respond_with @customized_tutorial
   end
+
+
   private
   def current_resource
     if params[:customized_tutorial_id]

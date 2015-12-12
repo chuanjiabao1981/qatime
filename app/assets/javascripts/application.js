@@ -24,5 +24,6 @@
 //= require jquery.menu-aim
 //= require chosen-jquery
 //= require canvas-to-blob.min
+//= require fancybox
 //= require_tree .
 // require turbolinks}

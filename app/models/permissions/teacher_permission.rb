@@ -1,11 +1,17 @@
 module Permissions
-  class TeacherPermission < BasePermission
+  class TeacherPermission < UserPermission
+    STATE_EVENTS = Examination.state_machines[:state].events.map(&:name) - [:handle]
+
     def initialize(user)
+      super(user)
       allow :qa_faqs,[:index,:show]
 
       allow :curriculums,[:index,:show]
       allow :home,[:index]
       allow :pictures,[:new,:create]
+      allow :pictures,[:destroy] do |picture|
+        picture and picture.author and picture.author_id == user.id
+      end
       allow :messages, [:index, :show]
 
 
@@ -13,7 +19,6 @@ module Permissions
       allow :questions,[:index,:show,:teacher]
       allow :questions,[:show]
       allow :answers,[:create] do |question|
-        # question != nil and question.answers_info.keys.find{|teacher_id|  teacher_id.to_i == user.id}
         question != nil and question.teachers and question.teacher_ids.include?(user.id)
 
       end
@@ -63,15 +68,15 @@ module Permissions
 
       allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,
                        :info,:questions,:topics,:customized_courses,
-                       :customized_tutorial_topics,:homeworks,:solutions] do |teacher|
+                       :customized_tutorial_topics,:homeworks,:solutions,:notifications] do |teacher|
         teacher and teacher.id == user.id
       end
 
       allow :replies,[:create] do |topic|
         topic and topic.topicable and topicable_permission(topic.topicable,user)
       end
-      allow :replies,[:edit,:update,:destroy] do |reply|
-        reply and reply.author_id == user.id
+      allow :replies,[:edit,:update] do |reply|
+        reply and reply.status == "open" and reply.author_id == user.id
       end
 
       allow :lessons,[:show]
@@ -81,11 +86,11 @@ module Permissions
       allow "teachers/faq_topics", [:show]
       allow :faqs, [:show]
       allow :faq_topics, [:show]
-      allow :comments,[:create]
+      allow :comments,[:create,:show]
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
       end
-      allow :customized_courses,[:show,:topics,:homeworks,:solutions] do |customized_course|
+      allow :customized_courses,[:show,:topics,:homeworks,:solutions,:action_records] do |customized_course|
         user and customized_course.teacher_ids.include?(user.id)
       end
       allow :customized_tutorials,[:new,:create] do |customized_course|
@@ -100,52 +105,68 @@ module Permissions
         customized_course and customized_course.teacher_ids.include?(user.id)
       end
 
-      allow :homeworks,[:show,:edit,:update] do |homework|
+      allow :homeworks,[:show,:edit,:update]+STATE_EVENTS do |homework|
         homework and homework.teacher_id == user.id or homework.customized_course.teacher_ids.include?(user.id)
       end
 
-      allow :solutions,[:show] do |solution|
-        solution and solution_permission(solution,user)
+      allow :solutions,[:show]+STATE_EVENTS do |solution|
+        solution and solution.examination.response_teachers.include?(user)
       end
 
-      allow :corrections,[:create] do |solution|
-        solution and solution_permission(solution,user)
+
+      allow :corrections,[:create,:show] do |solution|
+        solution and solution.examination and solution.examination.response_teachers.include?(user)
       end
 
       allow :corrections,[:edit,:update] do |correction|
-        correction and correction.teacher_id == user.id
+        correction and correction.status == "open" and correction.teacher_id == user.id
       end
 
       allow :exercises,[:new,:create] do |customized_tutorial|
-        customized_tutorial and customized_tutorial.teacher_id == user.id
+        customized_tutorial  and customized_tutorial.teacher_id == user.id
       end
 
-      allow :exercises,[:show,:edit,:update] do |exercise|
+      allow :exercises,[:show,:edit,:update]+STATE_EVENTS do |exercise|
         exercise and
             (exercise.teacher_id == user.id or
                 exercise.customized_tutorial.customized_course.teacher_ids.include?(user.id))
       end
 
+      allow :tutorial_issues,[:show]+STATE_EVENTS do |tutorial_issue|
+        tutorial_issue and tutorial_issue.customized_course.teacher_ids.include?(user.id)
+      end
+
+      allow :tutorial_issue_replies,[:show,:create] do |tutorial_issue|
+        tutorial_issue and tutorial_issue.customized_course.teacher_ids.include?(user.id)
+      end
+      allow :tutorial_issue_replies,[:edit,:update] do |tutorial_issue_reply|
+        tutorial_issue_reply and tutorial_issue_reply.author_id == user.id
+      end
+
+      allow :course_issues,[:show]+STATE_EVENTS do |course_issue|
+        course_issue and course_issue.customized_course.teacher_ids.include?(user.id)
+      end
+
+      allow :course_issue_replies,[:create] do |course_issue|
+        course_issue and course_issue.customized_course.teacher_ids.include?(user.id)
+      end
+      allow :course_issue_replies,[:edit,:update] do |course_issue_reply|
+        course_issue_reply and course_issue_reply.author_id == user.id and course_issue_reply.status == "open"
+      end
+      allow :course_issue_replies,[:show] do |course_issue_reply|
+        course_issue_reply and course_issue_reply.customized_course.teacher_ids.include?(user.id)
+      end
+
+
+
+
+
     end
 private
 
-    def solution_permission(solution,user)
-      if solution.solutionable.instance_of? Homework
-        solution.solutionable.customized_course.teacher_ids.include?(user.id)
-      elsif solution.solutionable.instance_of? Exercise
-        solution.solutionable.customized_tutorial.teacher_id == user.id or
-            solution.solutionable.customized_tutorial.customized_course.teacher_ids.include?(user.id)
-      end
-    end
     def topicable_permission(topicable,user)
       return false if topicable.nil?
-      if topicable.instance_of? CustomizedCourse
-        topicable.teacher_ids.include?(user.id)
-      elsif topicable.instance_of? CustomizedTutorial
-        topicable.teacher_id == user.id or topicable.customized_course.teacher_ids.include?(user.id)
-      elsif topicable.instance_of? Homework
-        topicable.customized_course.teacher_ids.include?(user.id)
-      elsif topicable.instance_of? Lesson
+      if topicable.instance_of? Lesson
         topicable.teacher_id == user.id
       end
     end

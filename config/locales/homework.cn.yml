@@ -8,3 +8,9 @@ cn:
         content: 内容
         topics: 讨论
         solution: 作业
+        qa_files: 作业文件
+  action:
+    homework:
+      create:
+        desc: "%{user},布置了家庭作业"
+        name: 布置

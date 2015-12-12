@@ -5,9 +5,7 @@ require 'capybara/rails'
 require 'headless'
 
 
-
 Capybara.register_driver :selenium_chrome do |app|
-
   Capybara::Selenium::Driver.new(app, :browser => :chrome,service_log_path:'/tmp/t.log',args:["--verbose"])
 end
 
@@ -23,11 +21,20 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
   def log_in_as(user)
-    visit new_session_path
+    retry_count = 0
+    begin
+      retry_count = retry_count + 1
+      visit new_session_path
 
-    fill_in :user_email,with: user.email
-    fill_in :user_password,with: 'password'
-    click_button '登录'
+      fill_in :user_email,with: user.email
+      fill_in :user_password,with: 'password'
+      click_button '登录'
+    rescue  Capybara::ElementNotFound => x
+      page.save_screenshot('screenshotxxxxxx.png')
+      raise x if retry_count > 3
+      logout_as(user)
+      retry
+    end
     assert page.has_content? '欢迎登录!'
   end
   def logout_as(user)
@@ -100,6 +107,10 @@ class ActiveSupport::TestCase
   #   page.execute_script("$('##{field[:id]}').trigger('liszt:updated').trigger('change')")
   #
   # end
+
+  def random_str
+    (0...50).map { ('a'..'z').to_a[rand(26)] }.join
+  end
 end
 
 class ActionDispatch::IntegrationTest
@@ -113,15 +124,20 @@ class LoginTestBase < ActionDispatch::IntegrationTest
     @teacher_session  = log_in2_as(@teacher)
     @student          = Student.find(users(:student1).id)
     @student_session  = log_in2_as(@student)
+    @manager          = Manager.find(users(:manager).id)
+    @manager_session  = log_in2_as(@manager)
   end
 
 
   def teardown
     @teacher           = nil
     @student           = nil
+    @manager           = nil
     log_out2(@teacher_session)
     log_out2(@student_session)
+    log_out2(@manager_session)
     @teacher_session   = nil
     @student_session   = nil
+    @manager_session   = nil
   end
 end

@@ -1,0 +1,15 @@
+<div class="qa_box">
+  <div class="qa_cell box_head">
+    <%= render partial: 'course_issues/nav',locals: {customized_course: @course_issue.customized_course} %>
+    /    <%=get_edit_or_create_model_string(@course_issue)%>
+
+  </div>
+  <div class="qa_cell">
+    <%= simple_form_for([@course_issue.customized_course,@course_issue]) do |f| %>
+        <%= render partial: "shared/topics/form",locals: {f: f} %>
+        <div class="form-group">
+          <%= f.button :submit, class: "btn btn-default" %>
+        </div>
+    <% end %>
+  </div>
+</div>

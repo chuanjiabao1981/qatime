@@ -1,9 +1,8 @@
 <%= render layout: 'main' do %>
-
     <% if @customized_course %>
-        <%= render partial: "customized_tutorials/index",
-                   locals: {customized_course: @customized_course,
-                            customized_tutorials: @customized_tutorials} %>
+        <% content_for :brief_header do %>
+            <%= render partial: "customized_courses/header/customized_tutorial",locals: {customized_course: @customized_course} %>
+        <% end %>
+        <%= render partial: "shared/qa_objects/index_brief_info",locals: {objects: @customized_tutorials} %>
     <% end %>
-
 <% end %>

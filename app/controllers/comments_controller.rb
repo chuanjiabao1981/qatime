@@ -2,14 +2,18 @@ class CommentsController < ApplicationController
   respond_to :js
 
   def create
-    @comment = current_user.comments.build(params[:comment].permit!)
-    @comment
+    @commentable    = params[:comment][:commentable_type].constantize.find(params[:comment][:commentable_id])
+    @comment        = @commentable.comments.build(params[:comment].permit!)
+    @comment.author = current_user
     if @comment.save
-      @comment.notify
       respond_with @comment
     else
       render 'new'
     end
+  end
+
+  def show
+    redirect_to send "#{@comment.commentable.model_name.singular_route_key}_path",@comment.commentable
   end
   def edit
 

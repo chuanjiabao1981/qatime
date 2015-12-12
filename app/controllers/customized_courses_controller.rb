@@ -1,4 +1,6 @@
 class CustomizedCoursesController < ApplicationController
+  include QaCustomizedCourse
+  before_action :customized_course_associations_prepare
   respond_to :html,:js,:json
   layout "application"
 
@@ -11,6 +13,8 @@ class CustomizedCoursesController < ApplicationController
     params[:customized_course][:teacher_ids].delete("")
     @customized_course = @student.customized_courses.build(params[:customized_course].permit!)
     all_teacher
+    @customized_course.build_customized_course_message_board
+    @customized_course.creator_id = current_user.id
     @customized_course.save
     respond_with @customized_course
   end
@@ -20,6 +24,7 @@ class CustomizedCoursesController < ApplicationController
   end
 
   def edit
+    @customized_course = CustomizedCourse.find(params[:id])
     all_teacher
   end
 
@@ -35,16 +40,43 @@ class CustomizedCoursesController < ApplicationController
   end
 
   def topics
-    # @topics = @customized_course.topics.order(created_at: :desc).paginate(page: params[:page])
-    @topics = Topic.all.by_customized_course_id(params[:id]).order(created_at: :desc).paginate(page: params[:page])
+    @topics = Topic.by_customized_course_id(params[:id]).by_customized_course_issue.order(created_at: :desc).paginate(page: params[:page])
 
   end
 
   def homeworks
-    @homeworks = Homework.h_index_eager_load.by_customized_course_id(@customized_course.id).order(created_at: :desc).paginate(page: params[:page])
+    @homeworks = Examination.by_customized_course_work.h_index_eager_load.by_customized_course_id(@customized_course.id).order(created_at: :desc).paginate(page: params[:page])
   end
   def solutions
     @solutions = Solution.by_customized_course_id(params[:id]).order(created_at: :desc).paginate(page: params[:page])
+  end
+
+  def course_issues
+    @course_issues = @customized_course.course_issues.paginate(page:params[:page])
+  end
+
+  def get_sale_price
+    category = params[:category]
+    customized_course_type  = params[:customized_course_type]
+    is_new_record = params[:is_new_record]
+    customized_course_id = params[:customized_course_id]
+
+    if is_new_record == "new"
+      teacher_price, platform_price = CustomizedCourse.get_customized_course_prices(category, customized_course_type)
+      @sale_price = teacher_price + platform_price
+    else
+      customized_course    = CustomizedCourse.find(customized_course_id)
+      if customized_course.category == category and customized_course.customized_course_type == customized_course_type
+        @sale_price = customized_course.teacher_price + customized_course.platform_price
+      else
+        teacher_price, platform_price = CustomizedCourse.get_customized_course_prices(category, customized_course_type)
+        @sale_price = teacher_price + platform_price
+      end
+    end
+  end
+
+  def action_records
+    @action_records = ActionRecord.where(customized_course_id: @customized_course).order(created_at: :desc).paginate(page: params[:page])
   end
   private
   def all_teacher

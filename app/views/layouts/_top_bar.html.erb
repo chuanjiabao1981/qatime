@@ -28,9 +28,19 @@
           </li>
         <% end %>
         <% if signed_in? %>
+            <% if current_user.student? or current_user.teacher? %>
+                <li>
+                  <% if current_user.unread_notifications_count > 0 %>
+                      <%= link_to "消息(#{current_user.unread_notifications_count})",user_notification_path %>
+                  <% else %>
+                      <%= link_to "消息",user_notification_path %>
+                  <% end %>
+                </li>
+            <% end %>
             <li>
               <%= link_to '登出', signout_path, :method=>'delete' %>
             </li>
+
         <% else %>
             <li>
               <%= link_to '登录', signin_path %>

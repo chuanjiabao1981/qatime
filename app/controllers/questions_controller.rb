@@ -16,14 +16,16 @@ class QuestionsController < ApplicationController
 
   def create
     @student    = current_user
-
     @question   = current_user.questions.build(params[:question].permit!)
-     if @question.save
+    if @question.save
        flash[:success] = "成功创建#{Question.model_name.human}"
        SmsWorker.perform_async(SmsWorker::QUESTION_CREATE_NOTIFICATION, id: @question.id)
      else
        __init_params
-     end
+    end
+    logger.info "-------------------------------"
+    logger.info @question.errors.full_messages
+    logger.info "*******************************"
     respond_with @question
   end
 

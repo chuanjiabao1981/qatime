@@ -1,0 +1,2 @@
+module CourseIssueRepliesHelper
+end

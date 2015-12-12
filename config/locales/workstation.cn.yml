@@ -1,0 +1,12 @@
+cn:
+  activerecord:
+    models:
+      workstation: 工作站
+    attributes:
+      workstation:
+        name: 名称
+        city: 城市
+        address: 地址
+        tel: 电话
+        email: 邮箱
+        manager: 经理

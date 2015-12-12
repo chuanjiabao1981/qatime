@@ -1,0 +1,7 @@
+<%= render layout: 'main' do %>
+    <div class="qa_box">
+        <% if @action_records %>
+            <%= render partial: 'action_records/index_items',locals: {action_records: @action_records} %>
+        <% end %>
+    </div>
+<% end %>

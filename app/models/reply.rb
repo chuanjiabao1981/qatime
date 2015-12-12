@@ -1,22 +1,34 @@
 class Reply < ActiveRecord::Base
 
-
+  include QaCommon
   include QaToken
   include ContentValidate
+  include QaCustomizedCourseActionRecord
+  include QaComment
 
-  self.per_page = 10
 
-  belongs_to :topic  ,:counter_cache => true,:inverse_of => :replies
-  belongs_to :author, :class_name => "User",:counter_cache => true,:inverse_of => :replies
+  include QaCommonStateUpdateParent
+  __update_parent_state_machine_after_create(:topic)
 
-  has_many :pictures,as: :imageable
-  has_one :video,as: :videoable
 
-  validates_presence_of :author,:topic
 
-   def initialize(atrributes={})
-    super(atrributes)
-    self.generate_token if self.token.nil?
-    self
+  cattr_accessor    :order_type,:order_column
+
+
+  belongs_to        :topic  ,:counter_cache => true,:inverse_of => :replies
+  belongs_to        :author, :class_name => "User",:counter_cache => true,:inverse_of => :replies
+  belongs_to        :last_operator,class_name: User
+
+
+  validates_presence_of :author,:topic,:last_operator
+
+  self.order_type     = :asc
+  self.order_column   = :created_at
+  self.per_page       = 5
+
+
+  def operator_id
+    self.author_id
   end
+
 end

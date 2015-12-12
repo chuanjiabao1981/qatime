@@ -7,9 +7,7 @@
     <div class="qa_cell" style="height: 410px">
         <%if @customized_tutorial.video and @customized_tutorial.video.name and @customized_tutorial.video.name.url%>
             <%= video_js_player(@customized_tutorial.video) %>
-            <%if @customized_tutorial.video.duration and @customized_tutorial.video.duration > 0 %>
-                视频时长<%= second_to_minutes(@customized_tutorial.video.duration) %>
-            <% end %>
+
         <% else %>
             视频未上传
         <% end %>
@@ -18,6 +16,10 @@
 
     <div class="qa_cell">
       <%= @customized_tutorial.content %>
+    </div>
+    <div class="pull-left" style="font-size:12px;  padding: 10px;">
+      <%= videoable_object_stauts(@customized_tutorial) %>
+      <%= video_duration_format(@customized_tutorial) %>
     </div>
     <div class="qa_cell pull-right">
       <%= link_to_edit(@customized_tutorial)%> &nbsp;
@@ -31,13 +33,16 @@
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
 <% if @customized_tutorial %>
-    <%= render partial: "exercises/index",
-               locals: {customized_tutorial: @customized_tutorial,exercises: @customized_tutorial.exercises} %>
+    <%= content_for :brief_header do %>
+        <%= render partial:'customized_tutorials/header/exercise',locals: {customized_tutorial: @customized_tutorial} %>
+    <% end %>
+    <%= render partial: "shared/qa_objects/index_brief_info",locals: {objects:  @customized_tutorial.exercises,use_super_controller: false} %>
 <% end %>
 
 <div class="qa_sep_15"></div>
-<div class="qa_sep_15"></div>
 
 <% if @customized_tutorial %>
-    <%= render partial: 'topics/index',locals: {topicable:@customized_tutorial} %>
+    <%= render partial: "tutorial_issues/index",
+               locals: {customized_tutorial: @customized_tutorial,
+                        tutorial_issues: @tutorial_issues} %>
 <% end %>

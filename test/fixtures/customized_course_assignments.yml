@@ -18,3 +18,8 @@ customized_course_assignment_1:
 customized_course_assignment_2:
   teacher: teacher2
   customized_course: customized_course1
+
+customized_course5_assignment:
+  teacher: physics_teacher1
+  customized_course: customized_course5
+

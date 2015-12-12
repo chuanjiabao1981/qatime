@@ -1,0 +1,34 @@
+<div class="qa_box">
+  <div class="qa_cell box_head">
+    <%= render partial: 'tutorial_issues/nav',locals: {customized_tutorial: @tutorial_issue.customized_tutorial} %>
+  </div>
+</div>
+
+<%= render partial: 'shared/qa_objects/show',locals:{qa_object: @tutorial_issue,header_switch: false }  %>
+
+
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
+
+<%= content_for :detail_header do %>
+    <div class="pull-left">
+        <span class="label label-primary">
+            <%= I18n.t("view.tutorial_issue.detail_header",
+                       count: @tutorial_issue.replies_count) %>
+        </span>
+    </div>
+    <div style="clear: both"></div>
+<% end %>
+
+<%= render partial: 'shared/qa_objects/index_detail_info',
+           locals:{objects: @tutorial_issue_replies,use_super_controller: false} %>
+
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
+
+
+<% if allow? :tutorial_issue_replies,:create,@tutorial_issue %>
+    <%= render layout: "shared/common_states/completed",locals: {state_object: @tutorial_issue} do %>
+        <%= render partial: 'shared/replies/form',locals:{topic: @tutorial_issue,reply: @tutorial_issue_reply} %>
+    <% end %>
+<% end %>

@@ -1,0 +1,12 @@
+cn:
+  activerecord:
+    models:
+      homework_correction: 家庭作业批改
+    attributes:
+      homework_correction:
+        content: 作业批改
+  action:
+    homework_correction:
+      create:
+        desc: "%{user},批改了家庭作业"
+        name: 批改

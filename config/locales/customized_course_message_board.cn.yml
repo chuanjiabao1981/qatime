@@ -1,0 +1,9 @@
+cn:
+  activerecord:
+    models:
+      customized_course_message_board: 留言板
+    attributes:
+      customized_course_message_board:
+  view:
+    customized_course_message_board:
+      total_count: "专属课程留言板共有 %{messages_count} 条留言 •  %{message_replies_count} 条回复"

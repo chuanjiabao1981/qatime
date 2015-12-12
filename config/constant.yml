@@ -57,6 +57,7 @@ vip_class_ids:
     化学: 3
     生物: 4
     英语: 9
+    地理: 10
   初中:
     数学: 5
     物理: 6
@@ -74,6 +75,8 @@ vip_class_icons:
     icon: fa fa-leaf fa-2x
   英语:
     icon: fa fa-language fa-2x
+  地理:
+    icon: fa fa-globe fa-2x
 
 learning_plan:
   duration_types:
@@ -108,3 +111,39 @@ lesson_categories:
       - 高考重点
 
 handle_timeout: 1.day
+
+price_per_minute: 0.9
+
+customized_course_junior_common_prices:
+  heighten:
+    teacher_price: 36
+    platform_price: 21
+  spurt:
+    teacher_price: 45
+    platform_price: 21
+  competition:
+    teacher_price: 54
+    platform_price: 21
+
+customized_course_junior_high_common_prices:
+  heighten:
+    teacher_price: 45
+    platform_price: 21
+  spurt:
+    teacher_price: 54
+    platform_price: 21
+  competition:
+    teacher_price: 72
+    platform_price: 21
+
+
+customized_course_senior_high_common_prices:
+  heighten:
+    teacher_price: 54
+    platform_price: 21
+  spurt:
+    teacher_price: 72
+    platform_price: 21
+  competition:
+    teacher_price: 90
+    platform_price: 21

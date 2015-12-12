@@ -91,7 +91,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
   end
 
 
-  # 测试一次上传多个文件
+  # 测试一次上传多个文件，测试一下过滤
   test "lesson new with multi qa_files" do
     teacher = users(:teacher1)
     log_in_as(teacher)
@@ -108,9 +108,15 @@ class LessonsTest < ActionDispatch::IntegrationTest
 
       click_link '添加文件'
       find(:xpath, "//fieldset[1]/div/div/input").set("#{Rails.root}/test/integration/development.log")
+      # Change is here:
+      accept_alert
       click_link '添加文件'
       find(:xpath, "//fieldset[2]/div/div/input").set("#{Rails.root}/test/integration/test.jpg")
       click_link '添加文件'
+      find(:xpath, "//fieldset[3]/div/div/input").set("#{Rails.root}/test/integration/avatar.jpg")
+      click_link '添加文件'
+      find(:xpath, "//fieldset[4]/div/div/input").set("#{Rails.root}/test/integration/test1.mp4")
+      accept_alert
 
       click_button '保存课程'
       sleep 10
@@ -118,8 +124,11 @@ class LessonsTest < ActionDispatch::IntegrationTest
 
       # 判断上传的链接是否出现在展示列表里
 
-      page.has_content? 'development.log'
-      page.has_content? 'test.jpg'
+      assert !page.has_content?('development.log')
+      assert page.has_content?('avatar.jpg')
+      assert page.has_content?('test.jpg')
+      assert !page.has_content?('test1.mp4')
+
     end
 
   end

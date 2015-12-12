@@ -1,0 +1,13 @@
+cn:
+  activerecord:
+    models:
+      exercise_solution: 随堂作业解答
+    attributes:
+      exercise_solution:
+        title: 解答说明
+        content: 作业解答
+  action:
+    exercise_solution:
+      create:
+        desc: "%{user},提交了随堂作业的解答"
+        name: 提交

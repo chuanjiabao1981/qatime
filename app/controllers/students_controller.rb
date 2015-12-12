@@ -24,12 +24,23 @@ class StudentsController < ApplicationController
     end
   end
   def show
-    render :info,layout: 'student_home'
+    # if params[:fee].nil?
+    #   @deposits = @student.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    # else
+    #   @consumption_records      = @student.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    # end
+    render layout: 'student_home'
   end
   def edit
   end
 
   def info
+    if params[:fee].nil?
+      @deposits = @student.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    else
+      @consumption_records      = @student.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    end
+
     render layout: 'student_home'
   end
 
@@ -52,21 +63,25 @@ class StudentsController < ApplicationController
 
   def customized_tutorial_topics
     @topics = Topic.all.by_author_id(@student.id)
-                  .from_customized_course
+                  .by_customized_course_issue
                   .order("created_at desc")
                   .paginate(page: params[:page])
     render layout: 'student_home'
   end
 
   def homeworks
-    @homeworks = Homework.by_student(@student).paginate(page: params[:page],:per_page => 10)
+    @homeworks = Examination.by_student(@student).by_customized_course_work.paginate(page: params[:page],:per_page => 10)
   end
   def solutions
-    @solutions = Solution.all.where(customized_course_id: current_user.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
+    @solutions = Solution.all.where(customized_course_id: @student.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
   end
 
   def customized_courses
     @customized_courses = @student.customized_courses.paginate(page: params[:page],per_page: 10)
+  end
+
+  def notifications
+    @action_notifications = @student.customized_course_action_notifications.paginate(page: params[:page])
   end
   def update
     if @student.update_attributes(params[:student].permit!)
@@ -78,6 +93,10 @@ class StudentsController < ApplicationController
   def search
     @students = Student.all
                 .where("name =? or email = ?",params[:search][:name],params[:search][:name])
+  end
+
+  def account
+    
   end
 
   def destroy

@@ -1,8 +1,10 @@
 <%= render layout: 'shared/qa_objects/show',locals:{qa_object: @homework } do %>
-    <%= link_to Homework.model_name.human,homeworks_customized_course_path(@homework.customized_course) %>
-
+    <%= render partial: 'shared/homeworks/nav',locals: {homework: @homework} %>
 <% end %>
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
 
-<%= render partial: 'solutions/index',locals:{solutionable: @homework} %>
+<%= content_for :brief_header do%>
+    <%= render partial: 'shared/examinations/header/solution',locals: {examination: @homework} %>
+<% end %>
+<%= render partial: "solutions/index",locals:{solutions: @solutions} %>

@@ -1,0 +1,10 @@
+<div class="qa-picture-gallery">
+  <% if pictures and pictures.length >0%>
+    <%= render partial: 'pictures/picture',collection: pictures ,
+               locals: {show_operation: defined?(show_operation) ? show_operation : true,
+                        gallery_id: gallery_id
+               }
+    %>
+  <% end %>
+  <div id="qa-picture-gallery-border-<%= gallery_id%>" style="clear: both"></div>
+</div>

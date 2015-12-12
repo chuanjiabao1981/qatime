@@ -1,0 +1,18 @@
+<div class="row qa_big_cell">
+  <div class="col-md-1">
+    <%= workstation_counter + 1 %>
+  </div>
+  <div class="col-md-3">
+    <%=link_to "#{workstation.name}",admins_workstation_path(workstation)%>
+  </div>
+  <div class="col-md-3">
+    <% if allow? "workstations","edit",workstation %>
+        <%= link_to 'edit',edit_admins_workstation_path(workstation) %>
+    <% end %>
+  </div>
+  <div class="col-md-3">
+    <% if allow? "workstations","edit",workstation %>
+        <%= link_to 'destroy',admins_workstation_path(workstation),method: :delete,'data-confirm' => 'Are you sure?' %>
+    <% end %>
+  </div>
+</div>

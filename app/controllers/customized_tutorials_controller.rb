@@ -2,9 +2,10 @@ class CustomizedTutorialsController < ApplicationController
   layout "application"
   respond_to :html
 
-
   include TopicsList
 
+  include QaCommonFilter
+  __add_last_operator_to_param(:customized_tutorial)
 
   def index
     @customized_tutorials = @customized_course.customized_tutorials.order(created_at: :asc)
@@ -20,7 +21,6 @@ class CustomizedTutorialsController < ApplicationController
 
     if @customized_tutorial.save
       flash[:success] = "成功创建#{CustomizedTutorial.model_name.human}"
-      SmsWorker.perform_async(SmsWorker::TUTORIAL_CREATE_NOTIFICATION, id: @customized_tutorial.id)
     end
     respond_with @customized_tutorial
   end
@@ -35,6 +35,7 @@ class CustomizedTutorialsController < ApplicationController
 
   def show
     @topics     = get_topics(@customized_tutorial)
+    @tutorial_issues = @customized_tutorial.tutorial_issues.order(created_at: :desc).paginate(page: params[:page])
   end
 
   def destroy

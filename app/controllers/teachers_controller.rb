@@ -11,6 +11,7 @@ class TeachersController < ApplicationController
 
   def create
     @teacher = Teacher.new(params[:teacher].permit!)
+    @teacher.build_account
     if @teacher.save
       SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @teacher.id)
       if signed_in?
@@ -60,6 +61,11 @@ class TeachersController < ApplicationController
   end
 
   def info
+    if params[:fee].nil?
+      @withdraws = @teacher.account.withdraws.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    else
+      @earning_records      = @teacher.account.earning_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    end
     render layout: 'teacher_home'
   end
 
@@ -76,21 +82,26 @@ class TeachersController < ApplicationController
 
 
   def homeworks
-    @homeworks = Homework.by_teacher(@teacher).order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    @homeworks = Examination.by_customized_course_work.by_teacher(@teacher).order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
   end
 
   def customized_tutorial_topics
-    @topics = Topic.all.by_teacher(@teacher)
-                  .from_customized_course
+    @topics = Topic.all
+                  .by_customized_course_issue
+                  .by_customized_course_ids(@teacher.customized_course_ids)
                   .order("created_at desc")
                   .paginate(page: params[:page])
     render layout: 'teacher_home'
   end
 
   def solutions
-    @solutions = Solution.all.where(customized_course_id: current_user.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
+    @solutions = Solution.by_customized_course_solution.where(customized_course_id: @teacher.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
   end
 
+  def notifications
+    @action_notifications = @teacher.customized_course_action_notifications.paginate(page: params[:page])
+    # @action_notifiactions =
+  end
 
   def pass
     @teacher.update_attribute(:pass, true)
@@ -99,6 +110,11 @@ class TeachersController < ApplicationController
   def unpass
     @teacher.update_attribute(:pass,false)
     render 'pass'
+  end
+  def keep_account
+    KeepAccountWorker.perform_async(@teacher.id)
+    flash[:success] = "#{Account.human_attribute_name(:keep_account)}进行中"
+    redirect_to info_teacher_path(@teacher)
   end
   def destroy
     @teacher.destroy

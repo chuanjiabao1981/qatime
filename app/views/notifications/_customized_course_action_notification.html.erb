@@ -1,0 +1,18 @@
+<div class="qa_object_item">
+  <div style="float:left">
+    <%=image_tag notification.operator.avatar.normal.url %>
+  </div>
+  <div class="title">
+    <% if notification.read %>
+            <span class="label label-default"><%= I18n.t "view.notification.read" %></span>
+    <% else %>
+            <span class="label label-danger"><%= I18n.t "view.notification.unread" %></span>
+    <% end %>
+    <%= link_to notification.notificationable.desc , notification_path(notification) %>
+  </div>
+  <div class="info">
+    <%= localize(notification.created_at,format: :long) %>
+    <%= render_action_record_name(notification.notificationable) %>
+    • <%= link_to CustomizedCourse.model_name.human ,customized_course_path(notification.customized_course)%>
+  </div>
+</div>

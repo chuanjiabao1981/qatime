@@ -1,41 +1,21 @@
-<% if customized_course_counter == 0 %>
-    <div class="row qa_cell" style="font-weight: bold">
-
-      <div class="col-md-2">
-        <%= CustomizedCourse.model_name.human %>
-      </div>
-      <div class="col-md-1">
-        <%= CustomizedCourse.human_attribute_name(:teachers) %>
-      </div>
-      <div class="col-md-1">
-        <%= CustomizedCourse.human_attribute_name(:student) %>
-      </div>
-      <div class="col-md-1">
-        <%= CustomizedTutorial.model_name.human %>
-      </div>
-      <div class="col-md-2">
-        <%= Homework.model_name.human %>
-      </div>
-      <div class="col-md-2">
-        超过3天未写的家庭作业数量
-      </div>
-      <div class="col-md-2">
-        <%= CustomizedCourse.human_attribute_name(:topics) %>
-
-      </div>
-    </div>
-<% end %>
-<div class="row qa_cell">
-  <div class="col-md-2">
+<tr>
+  <td>
     <%=link_to  "#{customized_course.category}-#{customized_course.subject}",
                 customized_course_path(customized_course)
     %>
-  </div>
-  <div class="col-md-1"><%= customized_course.teachers.map {|t| t.view_name}.join(",") %></div>
-  <div class="col-md-1"><%= customized_course.student.name %></div>
-  <div class="col-md-1"><%= customized_course.customized_tutorials_count%></div>
-  <div class="col-md-2"><%= customized_course.homeworks_count%></div>
-  <div class="col-md-2"><%= customized_course.timeout_to_solve_homeworks.count%></div>
-  <div class="col-md-2"><%= customized_course.topics_count%></div>
+  </td>
+  <td><%= customized_course.teachers.map {|t| t.view_name}.join(",") %></td>
+  <% if not current_user.teacher? and not current_user.student? %>
+  <td><%= t customized_course.is_keep_account.to_s %></td>
+  <% end %>
+  <td><%= customized_course.student.name %></td>
+  <% if current_user.admin? %>
+    <td><%= customized_course.teacher_price %>元</td>
+     <td><%= customized_course.platform_price %>元</td>
+  <% end %>
+  <td><%= customized_course.customized_tutorials_count%></td>
+  <td><%= customized_course.homeworks_count%></td>
+  <td><%= customized_course.timeout_to_solve_homeworks.count%></td>
+  <td><%= customized_course.topics_count%></td>
 
-</div>
+</tr>

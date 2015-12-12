@@ -1,0 +1,12 @@
+<% if current_user and not current_user.student? %>
+    <%= video_submit_form reply,true %>
+<% end %>
+
+<div class="qa_box">
+  <div class="qa_cell">
+    <%= simple_form_for(reply,url: object_form_url(topic,reply)) do |f| %>
+        <%= render partial: 'shared/qa_objects/form',locals: {f: f} %>
+    <% end %>
+  </div>
+
+</div>

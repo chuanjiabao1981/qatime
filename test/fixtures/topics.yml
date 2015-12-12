@@ -2,39 +2,40 @@ topic1:
   title: aaabbbcccdddeeefffggghhhjjjqqqq
   content: 111111111111111111111111111111110000000000000000000iiiiiiiiiiiiii333333333333333
   author: student1
-  teacher: teacher1
+#  teacher: teacher1
   topicable: teacher1_lesson (Lesson)
+  last_operator: student1
 
 teacher_topic1:
   title: xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2
   content: teacher topic 1 xsddfsdf
   author: teacher1
-  teacher: teacher1
+#  teacher: teacher1
   topicable: teacher1_lesson (Lesson)
+  last_operator: student1
+
 
 customized_tutorial_topic1:
   title: xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2xxxxx2
   content: teacher topic 1 xsddfsdf
   author: student1
-  teacher: teacher1
-  topicable: customized_tutorial1 (CustomizedTutorial)
+  type: TutorialIssue
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
 
 customized_tutorial_topic2:
   title: 123413412sadnfpainfasipnfunck
   content: customized_tutorial topic for teacher1
-  author: teacher1
-  teacher: teacher1
-  topicable: customized_tutorial1 (CustomizedTutorial)
-  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  author: student2
+  type: CourseIssue
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course2) %>
 
 
 customized_course_topic1:
   title: customized_course_topic by student title
   content: customized_course_topic by student content customized_course_topic by student content
   author: student1
-  teacher: teacher1
-  topicable: customized_course1 (CustomizedCourse)
+  type: CourseIssue
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
 
 
@@ -42,9 +43,117 @@ customized_course_topic2:
   title: customized_course_topic by teacher title
   content: customized_course_topic by teacher content customized_course_topic by teacher content
   author: teacher1
-  teacher: teacher1
-  topicable: customized_course1 (CustomizedCourse)
+  type: CourseIssue
   customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
 
+#reply_fee_tutorial_topic:
+#  title: reply fee tutorial topic
+#  content: reply fee tutorial topic
+#  author: physics_teacher1
+##  teacher: physics_teacher1
+#  topicable: customized_tutorial_teacher_earnings_1 (CustomizedTutorial)
+#  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+#
+
+
+tutorial_issue_one:
+  title: 12344
+  content: 1231234
+  author: student1
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  type: TutorialIssue
+  last_operator: student1
+  replies_count: 1
+
+course_issue_one:
+  title: 12344
+  content: 5543221
+  author: student1
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course1) %>
+  type: CourseIssue
+  last_operator: student1
+  replies_count: 1
+  state: in_progress
+
+###Begin state change
+
+tutorial_issue_for_state_change:
+  title: tutorial issue for state change title
+  content: tutorial issue for state change content
+  author: student1
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial1
+  type: TutorialIssue
+  last_operator: student1
+  state: new
+
+course_issue_for_state_change:
+  title: course issue for state change title
+  content: course issue for state change content
+  author: student1
+  customized_course: customized_course1
+  type: CourseIssue
+  last_operator: student1
+  state: new
+###End state change
+
+###Begin for ui state change
+course_issue_for_ui_state_change:
+  title: course issue for ui state change title
+  content: course issue for ui state change content
+  author: student1
+  customized_course: customized_course1
+  type: CourseIssue
+  last_operator: student1
+  state: in_progress
+  replies_count: 1
+
+tutorial_issue_for_ui_state_change:
+  title: tutorial_issue_for_ui_state_change title
+  content: tutorial_issue_for_ui_state_change content
+  author: student1
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial1
+  type: TutorialIssue
+  last_operator: student1
+  state: in_progress
+  replies_count: 1
+
+
+###End for ui state change
+
+###Begin Fee view
+course_issue_for_fee_view:
+  title: reply fee tutorial topic
+  content: reply fee tutorial topic
+  author: student2
+  type: CourseIssue
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+
+tutorial_issue_for_fee_view:
+  title: tutorial issue for fee_view
+  content: tutorial issue for fee_view
+  author: student2
+  type: TutorialIssue
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial_teacher_earnings_1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course5) %>
+
+topic_for_customized_tutorial_tally:
+  title: customized_tutorial_tally_topic by teacher_tally
+  content: customized_tutorial_tally_topic by teacher_tally, used to test reply tally
+  author: teacher_tally
+  type: TutorialIssue
+  customized_tutorial_id: <%= ActiveRecord::FixtureSet.identify(:customized_tutorial_tally_1) %>
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
+
+topic_for_customized_course_tally:
+  title: customized_tutorial_tally_topic by teacher_tally
+  content: customized_tutorial_tally_topic by teacher_tally, used to test reply tally
+  author: teacher_tally
+  type: CourseIssue
+  customized_course_id: <%= ActiveRecord::FixtureSet.identify(:customized_course_tally) %>
+
+###End Fee view
 
 

@@ -2,9 +2,14 @@ class HomeworksController < ApplicationController
   respond_to :html
   layout "application"
   include QaFilesHelper
+  include QaStateMachine
+  include QaCommonFilter
+  __event_actions(Examination,:homework)
+
+  __add_last_operator_to_param(:homework)
 
   def new
-    @homework = Homework.new
+    @homework = @customized_course.homeworks.build
   end
 
   def create
@@ -15,15 +20,13 @@ class HomeworksController < ApplicationController
 
     if @homework.save
       flash[:success] = "成功创建#{Homework.model_name.human}"
-      @homework.notify
-      # SmsWorker.perform_async(SmsWorker::HOMEWORK_CREATE_NOTIFICATION, id: @homework.id)
     end
     respond_with @customized_course,@homework
   end
 
   def show
     @qa_files      = @homework.qa_files.order(:created_at => "ASC")
-    @solutions     = @homework.solutions.order(:created_at => "desc").paginate(page: params[:page])
+    @solutions     = @homework.homework_solutions.order(:created_at => "desc").paginate(page: params[:page])
 
   end
 

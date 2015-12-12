@@ -10,7 +10,6 @@ Qatime::Application.routes.draw do
   get "managers/home"       => "managers/home#main",    as: 'managers_home'
 
   resources :curriculums
-  resources :messages
   resources :qa_faqs
 
 
@@ -39,6 +38,7 @@ Qatime::Application.routes.draw do
     resources :faq_topics do
       resources :faqs
     end
+    resources :workstations
   end
 
   namespace :managers do
@@ -106,6 +106,8 @@ Qatime::Application.routes.draw do
       get 'customized_courses'
       get 'homeworks'
       get 'solutions'
+      get 'keep_account'
+      get 'notifications'
     end
   end
   resources :students do
@@ -121,6 +123,7 @@ Qatime::Application.routes.draw do
       get 'customized_courses'
       get 'homeworks'
       get 'solutions'
+      get 'notifications'
     end
     resources :customized_courses do
       member do
@@ -128,6 +131,7 @@ Qatime::Application.routes.draw do
       end
       collection do
         get 'teachers' #这个是给 customized_courses 未创建的时候用的
+        get 'get_sale_price'
       end
     end
   end
@@ -135,6 +139,7 @@ Qatime::Application.routes.draw do
     member do
       get 'customized_courses'
       get 'payment'
+      get 'action_records'
     end
   end
 
@@ -144,25 +149,88 @@ Qatime::Application.routes.draw do
       get 'topics'
       get 'homeworks'
       get 'solutions'
+      get 'course_issues'
+      get 'action_records'
     end
-    resources :topics
+    resources :course_issues
     resources :homeworks,only:[:show,:edit,:update,:new,:create]
+    resources :customized_course_message_boards
   end
   resources :homeworks do
-    # resources :topics
-    resources :solutions
+    member do
+      Examination.state_machines[:state].events.map(&:name).each do |x|
+        post x
+      end
+    end
+
+    resources :homework_solutions, controller: :solutions
   end
+  resources :homework_solutions, controller: :solutions do
+    resources :homework_corrections, controller: :corrections
+    member do
+     Solution.state_machines[:state].events.map(&:name).each do |x|
+       post x
+     end
+    end
+  end
+
+  resources :homework_corrections, controller: :corrections
+
   resources :solutions do
     resources :corrections
   end
+
   resources :corrections
   resources :customized_tutorials do
-    resources :topics
+
+    resources :tutorial_issues
     resources :exercises
   end
-  resources :exercises do
-    resources :solutions
+
+  resources :course_issues do
+    member do
+      Topic.state_machines[:state].events.map(&:name).each do |x|
+        post x
+      end
+    end
+
+    resources :course_issue_replies
   end
+
+  resources :course_issue_replies
+
+  resources :tutorial_issues do
+    member do
+      Topic.state_machines[:state].events.map(&:name).each do |x|
+        post x
+      end
+    end
+
+    resources :tutorial_issue_replies
+  end
+
+  resources :tutorial_issue_replies
+
+
+  resources :exercises do
+    member do
+      Examination.state_machines[:state].events.map(&:name).each do |x|
+        post x
+      end
+    end
+    resources :exercise_solutions, controller: :solutions
+  end
+  resources :exercise_solutions, controller: :solutions do
+    resources :exercise_corrections,controller: :corrections
+    member do
+     Solution.state_machines[:state].events.map(&:name).each do |x|
+       post x
+     end
+    end
+  end
+
+  resources :exercise_corrections,controller: :corrections
+
 
 
   resources :questions do
@@ -173,6 +241,11 @@ Qatime::Application.routes.draw do
       get 'student'
       get 'teacher'
     end
+  end
+
+  resources :accounts do
+    resources :deposits
+    resources :withdraws
   end
 
   resources :comments
@@ -191,6 +264,20 @@ Qatime::Application.routes.draw do
   end
 
   resources :qa_files
+  resources :action_records
+  resources :notifications
+
+
+  resources :customized_course_message_boards do
+    resources :customized_course_messages
+  end
+  resources :customized_course_messages do
+    resources :customized_course_message_replies
+  end
+
+  resources :customized_course_message_replies
+
+
 
 
   get    '/signin',  to: 'sessions#new'

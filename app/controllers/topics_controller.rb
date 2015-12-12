@@ -2,6 +2,10 @@ class TopicsController < ApplicationController
   layout 'application'
   respond_to :html
 
+  include QaCommonFilter
+  __add_last_operator_to_param(:topic)
+
+
   def index
     @section_id   = params[:section_id]
     @section_id ||= Section.first!.id
@@ -17,13 +21,13 @@ class TopicsController < ApplicationController
 
     if @topic.save
       flash[:success] = "成功创建#{Topic.model_name.human}"
-      SmsWorker.perform_async(SmsWorker::TOPIC_CREATE_NOTIFICATION, id: @topic.id)
+      # SmsWorker.perform_async(SmsWorker::TOPIC_CREATE_NOTIFICATION, id: @topic.id)
     end
     respond_with @topic
   end
   def show
     @topic        = Topic.find(params[:id])
-    @replies      = @topic.replies.order(:created_at).paginate(page: params[:page])
+    @replies      = @topic.replies.order(:created_at=> :desc).paginate(page: params[:page])
     @reply        = Reply.new
   end
 

@@ -9,18 +9,38 @@ sumitPicture = (token,pictureFile,pictureFileName)->
   picutreFormData.append "picture[name]" , pictureFile,pictureFileName
   $(pictureForm).ajaxSubmit
     formData: picutreFormData
-    dataType: 'json'
+    dataType: 'script'
+    format: 'js'
     uploadProgress: (event, position, total, percentComplete)->
       percentVal = percentComplete + '%'
       deferredPictureUpload.notify percentVal
     error: (xhr, status, error) ->
       deferredPictureUpload.reject xhr.status
     success: (responseText, statusText, xhr, $form) ->
-      deferredPictureUpload.resolve responseText.name.url
-
-
+#      deferredPictureUpload.resolve responseText.name.url
+      deferredPictureUpload.resolve responseText
   deferredPictureUpload.promise()
 
+
+
+updateQaPictureGallery =  ->
+  $(".qa-picture-fancybox").fancybox({
+    openEffect	: 'none',
+    closeEffect	: 'none',
+    nextClick   : true,
+    maxWidth    : 1024,
+    helpers	: {
+      thumbs	: {
+        width	  : 50,
+        height	: 50
+      },
+      buttons	: {}
+    }
+  });
+
+$(
+  updateQaPictureGallery()
+)
 
 getToken = ->
   k = "undefine"
@@ -121,8 +141,8 @@ getToken = ->
           if token == "undefine"
             alert("no token is given")
             return
-          sumitPicture(token,blob,fileName).done((qa_image_url)->
-            deferred.resolve(qa_image_url)
+          sumitPicture(token,blob,fileName).done((picture_json)->
+            deferred.resolve(picture_json)
 
             $qaImageDialog.modal 'hide'
             return
@@ -191,13 +211,17 @@ getToken = ->
 
       # save current range
       editor.saveRange $editable
-      showImageDialog($editable, $dialog,text).then((url) ->
+      showImageDialog($editable, $dialog,text).then((picture_json) ->
         # when ok button clicked
         # restore range
         editor.restoreRange $editable
 
         #insert image
-        editor.insertImage($editable, url)
+        #editor.insertImage($editable, picture_json.name.url)
+        #把图片通过fancybox展示
+        #insertQaPicture picture_json
+        updateQaPictureGallery()
+
         clearAttribute($dialog)
         return
       ).fail ->
@@ -237,17 +261,6 @@ readURL = (input) ->
 
     reader.readAsDataURL input.files[0]
   return
-#$ ->
-#
-#  $("input#qa-img-file").change ->
-#    readURL this
-#  download = document.getElementById('canvas-download')
-#  download.addEventListener 'click', (->
-#    canvas = document.getElementById('image-canvas');
-#    data = canvas.toDataURL()
-#    download.href = data
-#    return
-#  ), false
 
 __qa_pictures_init = ->
   $("input#qa-img-file").change ->

@@ -6,3 +6,8 @@ cn:
       customized_tutorial:
         title: 标题
         content: 简介
+  action:
+      customized_tutorial:
+        create:
+          desc: "%{user},上传了专属课程"
+          name: 上传

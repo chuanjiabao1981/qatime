@@ -1,0 +1,1 @@
+QT-8 修复了animate下无法全屏播放的bug

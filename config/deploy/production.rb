@@ -2,7 +2,7 @@
 server '182.92.149.46', user: 'deploy', roles: %w{web app db}, primary: true
 
 
-set :branch, 'qatime-0.1.0'
+set :branch, 'master'
 
 set :deploy_user, 'deploy'
 set :rvm_ruby_version, '2.2.1@qatime'

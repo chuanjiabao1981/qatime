@@ -1,6 +1,6 @@
 <!-- 注意权限问题 -->
 
-<% if commentable.comments_count > 0 %>
+<% if commentable.comments.length > 0 %>
 <div class="comments">
   <div class="items">
     <%= render partial: 'comments/comment',locals: {comment: commentable.comments[0]} %>
@@ -16,5 +16,5 @@
 
 <%= link_to "##{commentable.class}-#{commentable.id}-comments",data:{toggle:"collapse"},
             aria:{expanded: false,controls:"#{commentable.class}-#{commentable.id}-comments"} do %>
-    <%="查看全部#{Comment.model_name.human}(#{commentable.comments_count})"%>
+    <%="查看全部#{Comment.model_name.human}(#{commentable.comments.length})"%>
 <% end %>

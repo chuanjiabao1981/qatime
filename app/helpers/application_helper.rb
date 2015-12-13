@@ -115,6 +115,10 @@ module ApplicationHelper
     param_key = "#{object_item.model_name.singular_route_key}_animate".to_sym
     return "animated pulse" if params[param_key] and params[param_key] == object_item.id.to_s
   end
+  def need_animate?(object_item)
+    param_key = "#{object_item.model_name.singular_route_key}_animate".to_sym
+    return true if params[param_key] and params[param_key] == object_item.id.to_s
+  end
   def object_item_id(object_item)
     return "#{object_item.model_name.singular_route_key}_#{object_item.id}"
   end

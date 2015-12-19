@@ -2,3 +2,6 @@
     * bugfix
         * [QT-8](https://qatime.atlassian.net/browse/QT-8)
     * feature
+* 0.1.0.1
+    * feature
+        * [QT-20](https://qatime.atlassian.net/browse/QT-20)

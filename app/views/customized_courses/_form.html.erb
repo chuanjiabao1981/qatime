@@ -54,7 +54,7 @@
   <div class="qa_big_cell">
     <%=simple_form_for [@student,@customized_course] do |f| %>
         <%= f.association :student  ,collection: [@customized_course.student], include_blank:false%>
-        <%= f.input :category, collection:[['高中','高中'],['初中','初中']], input_html:{ :id => "s_category"} , include_blank:false%>
+        <%= f.input :category, collection:[['高中','高中'],['初中','初中'],['小学','小学']], input_html:{ :id => "s_category"} , include_blank:false%>
         <%= f.input :subject, collection: APP_CONSTANT["subjects"].map {|s| [s,s]},input_html:{ :id => "s_subject"} , include_blank:false%>
         <%= f.input :customized_course_type, include_blank:false, collection: CustomizedCourse.customized_course_type_attributes_for_select, input_html:{ :id => "s_customized_course_type"}  %>
         <%= f.association :teachers ,

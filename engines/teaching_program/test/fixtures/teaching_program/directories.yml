@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  syllabus_id: 1
+  parent_id: 1
+
+two:
+  title: MyString
+  syllabus_id: 1
+  parent_id: 1

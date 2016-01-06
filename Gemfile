@@ -119,3 +119,5 @@ gem 'slim'
 gem 'fancybox2-rails', '~> 0.2.8'
 
 gem 'whenever',:require => false
+
+gem 'teaching_program', path: 'engines/teaching_program'

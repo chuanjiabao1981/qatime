@@ -1,3 +1,9 @@
+PATH
+  remote: engines/teaching_program
+  specs:
+    teaching_program (0.0.1)
+      rails (~> 4.2.5)
+
 GEM
   remote: https://ruby.taobao.org/
   specs:
@@ -315,6 +321,7 @@ DEPENDENCIES
   sinatra
   slim
   state_machine
+  teaching_program!
   test-unit
   therubyracer
   turbolinks

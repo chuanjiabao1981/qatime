@@ -1,0 +1,66 @@
+# encoding: UTF-8
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema.define(version: 20160112220441) do
+
+  create_table "teaching_program_courses", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "directory_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "teaching_program_directories", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "syllabus_id"
+    t.integer  "parent_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "teaching_program_homeworks", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "course_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "teaching_program_publishments", force: :cascade do |t|
+    t.integer  "course_id"
+    t.integer  "courseable_id"
+    t.string   "courseable_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "teaching_program_publishments", ["course_id"], name: "index_teaching_program_publishments_on_course_id"
+
+  create_table "teaching_program_solutions", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "homework_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "teaching_program_syllabuses", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "author_id"
+  end
+
+end

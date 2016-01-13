@@ -1,3 +1,9 @@
+PATH
+  remote: engines/course_library
+  specs:
+    course_library (0.0.1)
+      rails (~> 4.2.5)
+
 GEM
   remote: https://ruby.taobao.org/
   specs:
@@ -291,6 +297,7 @@ DEPENDENCIES
   cells (= 3.10.0)
   chosen-rails
   coffee-rails (~> 4.0.0)
+  course_library!
   fancybox2-rails (~> 0.2.8)
   font-awesome-rails
   headless

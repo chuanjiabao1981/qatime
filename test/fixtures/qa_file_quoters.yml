@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  qa_file_id: 1
+  file_quoter_id: 1
+  file_quoter_type: MyString
+
+two:
+  qa_file_id: 1
+  file_quoter_id: 1
+  file_quoter_type: MyString

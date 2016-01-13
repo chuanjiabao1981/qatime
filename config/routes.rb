@@ -289,5 +289,5 @@ Qatime::Application.routes.draw do
   require 'admin_constraint.rb'
   mount Sidekiq::Web => '/sidekiq',:constraints => AdminConstraint.new
 
-  mount TeachingProgram::Engine, at: '/teaching_program'
+  #mount TeachingProgram::Engine, at: '/teaching_program'
 end

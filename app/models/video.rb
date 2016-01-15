@@ -12,6 +12,7 @@ class Video < ActiveRecord::Base
         .update_all({videoable_id: videoable_item.id,videoable_type: videoable_type})
   end
 
+  has_many :video_quoters
 end
 
 

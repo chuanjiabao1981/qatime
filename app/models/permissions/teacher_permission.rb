@@ -164,8 +164,9 @@ module Permissions
         puts "333333333333333333333333333"
         true
       end
-      #######end course library permission##################
 
+      allow "course_library/courses",[:index]
+      #######end course library permission##################
     end
 private
 

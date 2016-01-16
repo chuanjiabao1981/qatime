@@ -31,6 +31,14 @@
           <% end %>
         </li>
         <li>
+          <%= link_to course_library.publications_path(teacher_id: @teacher.id) do %>
+              <span class="fa fa-sitemap"></span>
+              <span class="qa_f18">
+                    <%=I18n.t("view.course_library")%>
+             </span>
+        <% end %>
+        </li>
+        <li>
           <%= link_to customized_courses_teacher_path(@teacher) do %>
               <span class="fa fa-graduation-cap"></span> <span class="qa_f18"><%=CustomizedCourse.model_name.human %></span>
           <% end %>

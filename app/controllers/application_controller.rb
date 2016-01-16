@@ -40,12 +40,7 @@ class ApplicationController < ActionController::Base
         logger.info(current_user.name)
       end
       logger.info("====================")
-      if request.referer
-        #redirect_to(request.referer)
-        redirect_to user_home_path
-      else
-        redirect_to user_home_path
-      end
+      return unauthorized
     end
   end
 

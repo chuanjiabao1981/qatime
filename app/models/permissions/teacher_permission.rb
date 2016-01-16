@@ -159,7 +159,12 @@ module Permissions
 
 
 
-
+      #######begine course library permission###############
+      allow "course_library/publications",[:index] do |course_library_course|
+        puts "333333333333333333333333333"
+        true
+      end
+      #######end course library permission##################
 
     end
 private

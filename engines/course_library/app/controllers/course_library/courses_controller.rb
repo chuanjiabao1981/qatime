@@ -15,7 +15,7 @@ module CourseLibrary
       if @course.save
         flash[:success] = "成功创建 " + @course.title
       end
-      respond_with @directory,@course
+      respond_with @directory.syllabus, @directory, @course
     end
   end
 end

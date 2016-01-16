@@ -7,4 +7,8 @@ CourseLibrary::Engine.routes.draw do
     end
   end
 
+  resources :courses do
+    resources :publications
+  end
+
 end

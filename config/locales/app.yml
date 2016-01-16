@@ -4,3 +4,5 @@ cn:
       state:
         published: 发布
         unpublished: 未发布
+  view:
+    course_library: 备课中心

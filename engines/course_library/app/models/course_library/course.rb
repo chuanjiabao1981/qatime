@@ -9,5 +9,9 @@ module CourseLibrary
     has_many :picture_quoters, as: :file_quoter, class_name: "PictureQuoter"
     has_many :pictures, through: :picture_quoters
     has_many :homeworks
+
+    has_many :publications
+
+    accepts_nested_attributes_for :publications
   end
 end

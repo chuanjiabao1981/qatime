@@ -7,9 +7,12 @@ module CourseLibrary
       @publications = Course.all.count
     end
 
+    def new
+      @publications = Publication.new
+    end
+
     def current_resource
       super
-      1234
     end
   end
 end

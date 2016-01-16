@@ -11,9 +11,9 @@ module CourseLibrary
     has_many :homeworks
 
     def self.get_all_courses(teacher)
-      @syllabuses = Syllabus.find_by(author: teacher)
-      @directories = Directory.find_by(syllabus: @syllabuses)
-      @courses = Course.find_by(directory: @directories)
+      @syllabuses = Syllabus.where(author: teacher)
+      @directories = Directory.where(syllabus: @syllabuses)
+      @courses = Course.where(directory: @directories)
     end
   end
 end

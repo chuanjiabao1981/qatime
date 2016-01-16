@@ -1,2 +1,5 @@
 <h1>Courses#index</h1>
-<%=@courses %>
+
+<% @courses.each do |course|%>
+  <li> <%= link_to course.title, course %> </li>
+<% end %>

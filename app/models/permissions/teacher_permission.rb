@@ -165,7 +165,11 @@ module Permissions
         true
       end
 
-      allow "course_library/courses",[:index]
+      allow "course_library/solutions",[:index, :new, :edit, :update, :create, :show, :destroy]
+      allow "course_library/homeworks",[:index, :new, :edit, :update, :create, :show, :destroy]
+      allow "course_library/courses",[:index, :new, :edit, :update, :create, :show, :destroy]
+      allow "course_library/directories",[:index, :new, :edit, :update, :create, :show, :destroy]
+      allow "course_library/syllabuses",[:index, :new, :edit, :update, :create, :show, :destroy]
       #######end course library permission##################
     end
 private

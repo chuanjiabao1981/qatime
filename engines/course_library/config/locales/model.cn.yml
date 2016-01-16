@@ -1,0 +1,9 @@
+cn:
+  activerecord:
+    models:
+      syllabus: 教学大纲
+    attributes:
+      syllabus:
+          title: 大纲名词
+          description: 简介
+

@@ -1,0 +1,6 @@
+<%= form_for publications_path do |f| %>
+    <%= check_box_tag(:test,122) %>
+    <%= check_box_tag(:test,233) %>
+    <%= label_tag(:age_child, "I am younger than 21") %>
+    <%= f.submit "Create" %>
+<% end %>

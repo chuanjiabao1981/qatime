@@ -11,7 +11,5 @@ module CourseLibrary
     has_many :homeworks
 
     has_many :publications
-
-    accepts_nested_attributes_for :publications
   end
 end

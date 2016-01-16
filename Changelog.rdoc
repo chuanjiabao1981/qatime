@@ -5,3 +5,6 @@
 * 0.1.0.1
     * feature
         * [QT-20](https://qatime.atlassian.net/browse/QT-20)
+* 0.1.0.2
+    * feture
+        * [QT-45](https://qatime.atlassian.net/browse/QT-45)

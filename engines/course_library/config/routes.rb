@@ -6,6 +6,7 @@ CourseLibrary::Engine.routes.draw do
     end
   end
 
+  resources :publications
   resources :courses do
     resources :publications
   end

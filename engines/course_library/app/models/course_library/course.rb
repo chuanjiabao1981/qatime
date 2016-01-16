@@ -9,5 +9,11 @@ module CourseLibrary
     has_many :picture_quoters, as: :file_quoter, class_name: "PictureQuoter"
     has_many :pictures, through: :picture_quoters
     has_many :homeworks
+
+    def self.get_all_courses(teacher)
+      @syllabuses = Syllabus.find_by(author: teacher)
+      @directories = Directory.find_by(syllabus: @syllabuses)
+      @courses = Course.find_by(directory: @directories)
+    end
   end
 end

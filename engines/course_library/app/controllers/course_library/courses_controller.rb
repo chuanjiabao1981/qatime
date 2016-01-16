@@ -8,7 +8,10 @@ module CourseLibrary
 
     def edit
     end
-
+    def index
+      puts "this is a test message"
+      @courses = Course.get_all_courses(current_resource)
+    end
     def create
       @course = @directory.courses.build(params[:course].permit!)
 

@@ -7,5 +7,5 @@ class QaFile < ActiveRecord::Base
   #attr_accessible :name, :original_filename, :author_id, :qa_file_type
 
   validates_presence_of :author
-
+  has_many :qa_file_quoters
 end

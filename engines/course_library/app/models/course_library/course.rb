@@ -10,6 +10,7 @@ module CourseLibrary
     has_many :pictures, through: :picture_quoters
     has_many :homeworks
 
+    has_many :customized_courses, through: :publications , class_name: "CustomizedCourse"
     has_many :publications
   end
 end

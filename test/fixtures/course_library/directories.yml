@@ -1,0 +1,5 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+directory_one:
+  title: directory_one
+  syllabus: syllabuses_one

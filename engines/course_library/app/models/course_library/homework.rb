@@ -7,5 +7,7 @@ module CourseLibrary
     has_many :qa_files, through: :qa_file_quoters
     has_many :picture_quoters, as: :file_quoter, class_name: "PictureQuoter"
     has_many :pictures, through: :picture_quoters
+
+    has_many :exercises,class_name: "Exercise",foreign_key: "template_id"
   end
 end

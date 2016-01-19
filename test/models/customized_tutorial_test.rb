@@ -128,5 +128,19 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
     end
   end
 
+  test "customized_tutorial with template video" do
+    cc                = customized_tutorials(:customized_tutorial_template_video)
+    video             = videos(:video_template)
+    video1            = videos(:video_template_1)
+    assert cc.valid?
+    assert video.valid?
+    assert_difference 'VideoQuoter.count',1 do
+      cc.template_video = video
+      cc.template_video = video1
+    end
+
+
+  end
+
 
 end

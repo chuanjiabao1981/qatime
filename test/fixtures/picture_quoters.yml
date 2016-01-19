@@ -1,11 +1,29 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  picture_id: 1
-  file_quoter_id: 1
-  file_quoter_type: MyString
+picture_quoter_1:
+  picture: picture_1_for_course_library_homework
+  file_quoter: homework_one(CourseLibrary::Homework)
 
-two:
-  picture_id: 1
-  file_quoter_id: 1
-  file_quoter_type: MyString
+picture_quoter_2:
+  picture: picture_2_for_course_library_homework
+  file_quoter: homework_one(CourseLibrary::Homework)
+
+picture_quoter_3:
+  picture: picture_3_for_course_library_homework
+  file_quoter: homework_two(CourseLibrary::Homework)
+
+picture_quoter_4:
+  picture: picture_4_for_course_library_homework
+  file_quoter: homework_two(CourseLibrary::Homework)
+
+picture_quoter_5:
+  picture: picture_5_for_course_library_course
+  file_quoter: course_one(CourseLibrary::Course)
+
+picture_quoter_6:
+  picture: picture_6_for_course_library_course
+  file_quoter: course_one(CourseLibrary::Course)
+
+
+
+

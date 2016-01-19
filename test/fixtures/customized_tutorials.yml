@@ -91,3 +91,14 @@ customized_tutorial_teacher_earnings_1:
   status: closed
   teacher_price: 54
   platform_price: 0
+
+customized_tutorial_template_video:
+  teacher: teacher1
+  customized_course: customized_course1
+  content: aaaaaaaaa1111111111222222222233333333333344444444555555
+  title: aaabbbcccdddeeeddd
+  token: teacher1_customize_tutorial_video
+  status: open
+  last_operator: teacher1
+  teacher_price: 54
+  platform_price: 0

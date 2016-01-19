@@ -5,11 +5,12 @@ module CourseLibrary
 
 
     def build_a_customized_tutorial(customized_course_id)
-      self.build_customized_tutorial(customized_course_id: customized_course_id,
+      a = self.build_customized_tutorial(customized_course_id: customized_course_id,
                                      title: self.course.title,
-
-
+                                     description: self.course.description,
+                                     teacher_id: self.course.syllabus.author_id
       )
+
     end
   end
 end

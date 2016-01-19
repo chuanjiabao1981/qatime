@@ -5,6 +5,9 @@ class CustomizedTutorial < ActiveRecord::Base
   include Tally
   include QaCustomizedCourseActionRecord
 
+  include QaTemplate::Material
+
+
 
   validates_presence_of :title,:customized_course,:teacher,:last_operator
   scope                 :by_teacher, lambda {|t| where(teacher_id: t) if t}
@@ -13,6 +16,8 @@ class CustomizedTutorial < ActiveRecord::Base
   belongs_to :teacher
   belongs_to :last_operator,class_name: User
   belongs_to :customized_course,:counter_cache => true
+
+  belongs_to :template, class_name: CourseLibrary::Course
 
   has_one    :video,:dependent => :destroy,as: :videoable
   has_one    :fee, as: :feeable
@@ -35,6 +40,9 @@ class CustomizedTutorial < ActiveRecord::Base
 
     end
   end
+
+  has_one :video_quoter,as: :file_quoter
+  has_one :template_video,through: :video_quoter,source: :video
 
 
 

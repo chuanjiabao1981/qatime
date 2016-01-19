@@ -122,13 +122,13 @@ price_per_minute: 0.9
 
 customized_course_junior_common_prices:
   heighten:
-    teacher_price: 36
+    teacher_price: 42
     platform_price: 21
   spurt:
-    teacher_price: 45
+    teacher_price: 51
     platform_price: 21
   competition:
-    teacher_price: 54
+    teacher_price: 60
     platform_price: 21
 
 customized_course_junior_high_common_prices:

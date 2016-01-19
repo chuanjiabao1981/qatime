@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160113221627) do
+ActiveRecord::Schema.define(version: 20160116034846) do
 
   create_table "course_library_courses", force: :cascade do |t|
     t.string   "title"
@@ -24,9 +24,9 @@ ActiveRecord::Schema.define(version: 20160113221627) do
   create_table "course_library_directories", force: :cascade do |t|
     t.string   "title"
     t.integer  "parent_id"
-    t.string   "parent_type"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "syllabus_id"
   end
 
   create_table "course_library_homeworks", force: :cascade do |t|
@@ -59,6 +59,12 @@ ActiveRecord::Schema.define(version: 20160113221627) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "author_id"
+  end
+
+  create_table "teachers", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

@@ -47,4 +47,15 @@ module VideosHelper
     render partial: 'videos/form',locals:{video: video,collapse: collapse}
   end
 
+  def video_player_with_uploader(videoable, collapse=false)
+    old_video = videoable.current_video
+    video = Video.new
+    video_quoter = video.video_quoters.build()
+    video_quoter.file_quoter = videoable
+    render partial: 'videos/form_for_engines',locals:{old_video: old_video, video: video, collapse: collapse}
+  end
+
+  def video_nil?(video)
+    video unless video.nil? or video.name.url.nil?
+  end
 end

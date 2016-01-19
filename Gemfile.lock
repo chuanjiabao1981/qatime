@@ -3,6 +3,8 @@ PATH
   specs:
     course_library (0.0.1)
       rails (~> 4.2.5)
+      responders (~> 2.0)
+      simple_form
 
 GEM
   remote: https://ruby.taobao.org/

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
 
-  mount CourseLibrary::Engine => "/course_library"
+  resources :teachers
+  mount CourseLibrary::Engine => "/course_library/teachers/:teacher_id"
 end

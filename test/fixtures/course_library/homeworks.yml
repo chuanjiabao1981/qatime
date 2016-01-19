@@ -9,3 +9,7 @@ homework_two:
   title: homework_two title
   description: homework_two description
   course: course_one
+
+homework_three_without_course:
+  title: homework_three_without_course title
+  description: homework_three_without_course description

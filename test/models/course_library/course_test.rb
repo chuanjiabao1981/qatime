@@ -95,15 +95,58 @@ module CourseLibrary
       @course_one.description   = random_str
       @course_one.save
 
-
+      assert_not @course_one.is_same_lecture?(customized_tutorial)
       assert_difference 'VideoQuoter.count',0 do
         assert_difference 'QaFileQuoter.count',1 do
           assert_difference 'PictureQuoter.count',-1 do
             @course_one.syn_lecture_with_customized_tutorial(customized_tutorial)
+            assert @course_one.is_same_lecture?(customized_tutorial)
           end
         end
       end
     end
 
+    test "course syn homework" do
+      customized_tutorial = @course_one.publish_all(@customized_course1.id)
+      customized_tutorial.save
+
+      h = @course_one.homeworks.first
+      #增加一个图片
+      assert_difference 'PictureQuoter.count',1 do
+         p = pictures(:picture_7_for_course_library_course_sync)
+         x = h.picture_ids
+         x.append(p.id)
+         h.picture_ids = x
+      end
+       #删除一个文件
+       assert_difference 'QaFileQuoter.count',-1 do
+        x = h.qa_file_ids
+        x.shift
+        h.qa_file_ids = x
+       end
+
+      customized_tutorial.exercises.each do |exercise|
+        if exercise.template.id == h.id
+          puts @course_one.is_same_homework?(exercise)
+        end
+      end
+
+      assert_difference 'QaFileQuoter.count',-1 do
+        assert_difference 'PictureQuoter.count',1 do
+          @course_one.syn_homeworks_with_customized_tutorial(customized_tutorial)
+        end
+      end
+    end
+
+    test "course syn homework after add a homework" do
+      customized_tutorial = @course_one.publish_all(@customized_course1.id)
+      customized_tutorial.save
+      new_homework        = course_library_homeworks(:homework_three_without_course)
+      @course_one.homeworks<< new_homework
+      assert new_homework.reload.course_id == @course_one.id
+      @course_one.reload
+      @course_one.syn_homeworks_with_customized_tutorial(customized_tutorial)
+      assert customized_tutorial.exercises.count == @course_one.homeworks.count
+    end
   end
 end

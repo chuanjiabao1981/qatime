@@ -8,3 +8,4 @@
 * 0.1.0.2
     * feture
         * [QT-45](https://qatime.atlassian.net/browse/QT-45)
+        * [QT-46](https://qatime.atlassian.net/browse/QT-46)

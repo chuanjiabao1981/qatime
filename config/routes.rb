@@ -291,4 +291,5 @@ Qatime::Application.routes.draw do
   
   mount CourseLibrary::Engine, at: 'course_library/teachers/:teacher_id'
 
+  resources :qa_file_quoters
 end

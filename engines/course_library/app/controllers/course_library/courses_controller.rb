@@ -10,9 +10,9 @@ module CourseLibrary
     end
 
     def edit
-      @syllabus = Syllabus.find(params[:syllabus_id])
-      @directory = Directory.find(params[:directory_id])
       @course = Course.find(params[:id])
+      @directory = @course.directory
+      @syllabus = @directory.syllabus
     end
 
     def index
@@ -28,15 +28,17 @@ module CourseLibrary
       respond_with @syllabus, @directory, @course
       #respond_with @course
     end
+
     def update
-      @syllabus = Syllabus.find(params[:syllabus_id])
-      @directory = Directory.find(params[:directory_id])
-      @course = @directory.courses.build(params[:course].permit!)
-      if @course.save
+      @course = Course.find(params[:id])
+      @directory = @course.directory
+      @syllabus = @directory.syllabus
+      if @course.update(params[:course].permit!)
         flash[:success] = "更新成功"
       end
       respond_with @syllabus, @directory, @course
     end
+
     def show
       @course = Course.find(params[:id])
       @directory = @course.directory

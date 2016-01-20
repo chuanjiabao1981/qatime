@@ -171,6 +171,7 @@ module Permissions
       allow "course_library/directories",[:index, :new, :edit, :update, :create, :show, :destroy]
       allow "course_library/syllabuses",[:index, :new, :edit, :update, :create, :show, :destroy]
       #######end course library permission##################
+      allow :qa_file_quoters,[:index, :new, :edit, :update, :create, :show, :destroy]
     end
 private
 

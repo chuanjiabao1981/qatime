@@ -1,0 +1,2 @@
+class QaFilesController < ApplicationController
+end

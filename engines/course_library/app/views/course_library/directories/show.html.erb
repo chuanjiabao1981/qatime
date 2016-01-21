@@ -1,0 +1,18 @@
+<div style="height: 500px">
+  <div style="float: left;width: 200px;height: 100%;border: solid;border-width: 1px">
+    <%= render 'tree' %>
+  </div>
+  <div style="float: left;width: 700px;height: 100%;border: solid;border-width: 1px;margin-left: 10px">
+    <div>
+      <%= render 'nav'%>
+    </div>
+    <div>
+      <%=link_to "新增目录", new_syllabus_directory_path(@syllabus,:p => @directory) %>
+      <%=link_to "新增课程", new_syllabus_directory_course_path(@syllabus,@directory) %>
+    </div>
+    <div>
+      <%= render @children %>
+    </div>
+
+  </div>
+</div>

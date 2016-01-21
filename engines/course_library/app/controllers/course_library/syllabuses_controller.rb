@@ -27,6 +27,7 @@ module CourseLibrary
     def edit
       @syllabus = Syllabus.find(params[:id])
     end
+
     def update
       @syllabus = Syllabus.find(params[:id])
       if @syllabus.update_attributes(params[:syllabus].permit!)

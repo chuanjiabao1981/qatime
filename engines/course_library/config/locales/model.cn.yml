@@ -2,8 +2,11 @@ cn:
   activerecord:
     models:
       syllabus: 教学大纲
+      directory: 目录
     attributes:
       syllabus:
           title: 大纲名词
           description: 简介
+      directory:
+          title: 目录名称
 

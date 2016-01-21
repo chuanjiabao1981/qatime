@@ -13,5 +13,9 @@ module CourseLibrary
       self.directories.build(title: self.title).save
     end
 
+    after_update do
+      self.directories.find_by(parent: nil).update_attributes(:title=>self.title)
+    end
+
   end
 end

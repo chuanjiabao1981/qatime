@@ -1,24 +1,57 @@
 <div class="qa_box">
   <div class="qa_cell box_header">
-    <%= link_to @directory.title, syllabus_directory_path(@syllabus, @directory) %>/<%= @course.title %>
+    <%= link_to @syllabus.title, syllabus_path(@syllabus) %>/
+    <%= link_to @directory.title, syllabus_directory_path(@syllabus, @directory) %>/
+    <div class="qa_object header">
+      <h1><%= @course.title %></h1>
+    </div>
   </div>
   <div class="qa_big_cell">
-    <%= video_player_with_uploader @course %>
+    <h4>概述</h4>
+    <div class="qa_object content">
+      <%= @course.description %>
+    </div>
+    <div class="qa_object footer">
+      <%= link_to edit_syllabus_directory_course_path(@syllabus, @directory, @course) do %>
+          <i class="fa fa-pencil-square-o"></i>编辑
+      <% end %>
+    </div>
+  </div>
+  <div class="qa_big_cell">
+    <h4>课程视频</h4>
+    <%= video_js_player @course.current_video %>
+    <div class="qa_object footer">
+      <%= link_to edit_syllabus_directory_course_path(@syllabus, @directory, @course) do %>
+          <i class="fa fa-pencil-square-o"></i>更新视频
+      <% end %>
+      •
+      <%= link_to edit_syllabus_directory_course_path(@syllabus, @directory, @course) do %>
+          <i class="fa fa-pencil-square-o"></i>删除
+      <% end %>
+
+    </div>
   </div>
 
   <div class="qa_big_cell">
-    <div class="qa_object">
-      <%= @course.description %>
-    </div>
-    <div class="qa_object">
-      <%= link_to '编辑', edit_syllabus_directory_course_path(@syllabus, @directory, @course) %> &nbsp;
-    </div>
+    <h4>课程文件</h4>
+    <%= render partial: 'qa_files/index', locals: {quoter: @course} %>
+    <%= render partial: 'shared/qa_files/qa_file', collection: @course.qa_files%>
+    <%= link_to edit_syllabus_directory_course_path(@syllabus, @directory, @course) do %>
+        <i class="fa fa-pencil-square-o"></i>添加文件
+    <% end %>
   </div>
-  <div id="qa_files" class="qa_big_cell">
-    <%= render partial: 'qa_file_quoters/index', locals: {quoter: @course} %>
+  <div class="qa_big_cell">
+    <h4>练习与测验</h4>
   </div>
   <div style="clear: both"></div>
 </div>
 
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
+
+<%= content_for :page_modal do %>
+    <%= render 'edit_course_modal', locals:{course: @course} %>
+    <%= render 'videos/new_video_modal', locals:{course: @course} %>
+    <%= render 'qa_files/new_qa_file_modal', locals:{quoter: @course} %>
+    <%= render 'homeworks/new_homework_modal', locals: {course: @course} %>
+<% end %>

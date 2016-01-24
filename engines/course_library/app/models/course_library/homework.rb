@@ -9,5 +9,8 @@ module CourseLibrary
     has_many :pictures, through: :picture_quoters
 
     has_many :exercises,class_name: "Exercise",foreign_key: "template_id"
+
+
+
   end
 end

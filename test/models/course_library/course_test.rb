@@ -27,44 +27,43 @@ module CourseLibrary
 
     end
     test "course lecture publish" do
-      customized_tutorial     = @course_one.publish_lecture_to_customized_course(@customized_course1.id)
-      assert customized_tutorial.valid?,customized_tutorial.errors.full_messages
+
       assert_difference 'CustomizedTutorial.count',1 do
         assert_difference 'VideoQuoter.count',1 do
           assert_difference 'QaFileQuoter.count',@course_one.qa_files.length do
             assert_difference 'PictureQuoter.count',@course_one.pictures.length do
-              customized_tutorial.save
-            end
+              customized_tutorial     = CustomizedTutorial.create_from_template(@customized_course1.id,@course_one)
+              assert customized_tutorial.valid?,customized_tutorial.errors.full_messages            end
           end
         end
       end
     end
 
     test "course homework publish" do
-      customized_tutorial     = @course_one.publish_lecture_to_customized_course(@customized_course1.id)
-      customized_tutorial.save
-      @course_one.publish_homework_to_customized_tutorial(customized_tutorial)
+      customized_tutorial     = CustomizedTutorial.create_from_template(@customized_course1.id,@course_one)
+      qa_file_quoter_len      = 0
+      picture_quoter_len      = 0
+      # @course_one.publish_homework_to_customized_tutorial(customized_tutorial)
+      @course_one.homeworks.each do |h|
+        qa_file_quoter_len  = qa_file_quoter_len + h.qa_files.length
+        picture_quoter_len  = picture_quoter_len + h.pictures.length
+      end
+      assert_difference 'Exercise.count',@course_one.homeworks.length do
+        assert_difference 'QaFileQuoter.count',qa_file_quoter_len do
+          assert_difference 'PictureQuoter.count',picture_quoter_len do
+            customized_tutorial.create_exercises_from_template
 
-      customized_tutorial.exercises.each do |e|
-        qa_file_quoter_len  = e.template.qa_files.length
-        picture_quoter_len  = e.template.pictures.length
-        assert_difference 'Exercise.count',1 do
-          assert_difference 'QaFileQuoter.count',qa_file_quoter_len do
-            assert_difference 'PictureQuoter.count',picture_quoter_len do
-              e.save
-            end
           end
         end
       end
     end
 
     test "course publish all" do
-      customized_tutorial     = @course_one.publish_all(@customized_course1.id)
       assert_difference 'CustomizedTutorial.count',1 do
         assert_difference 'Exercise.count',@homework_count do
           assert_difference 'QaFileQuoter.count',@course_total_files_count do
             assert_difference 'PictureQuoter.count', @course_total_pictures_count do
-              customized_tutorial.save
+              @course_one.publish_all(@customized_course1.id)
             end
           end
         end
@@ -95,12 +94,17 @@ module CourseLibrary
       @course_one.description   = random_str
       @course_one.save
 
-      assert_not @course_one.is_same_lecture?(customized_tutorial)
+      # assert_not @course_one.is_same_lecture?(customized_tutorial)
+      assert_not customized_tutorial.is_same_with_template?
+      # assert_not @course_one.is_same_lecture?(customized_tutorial)
       assert_difference 'VideoQuoter.count',0 do
         assert_difference 'QaFileQuoter.count',1 do
           assert_difference 'PictureQuoter.count',-1 do
-            @course_one.syn_lecture_with_customized_tutorial(customized_tutorial)
-            assert @course_one.is_same_lecture?(customized_tutorial)
+            # @course_one.syn_lecture_with_customized_tutorial(customized_tutorial)
+            customized_tutorial.reload
+            customized_tutorial.sync_with_template
+            # assert @course_one.is_same_lecture?(customized_tutorial)
+            assert customized_tutorial.is_same_with_template?
           end
         end
       end
@@ -108,7 +112,6 @@ module CourseLibrary
 
     test "course syn homework" do
       customized_tutorial = @course_one.publish_all(@customized_course1.id)
-      customized_tutorial.save
 
       h = @course_one.homeworks.first
       #增加一个图片
@@ -127,13 +130,20 @@ module CourseLibrary
 
       customized_tutorial.exercises.each do |exercise|
         if exercise.template.id == h.id
-          puts @course_one.is_same_homework?(exercise)
+          assert_not exercise.is_same_with_template?
         end
       end
 
       assert_difference 'QaFileQuoter.count',-1 do
         assert_difference 'PictureQuoter.count',1 do
-          @course_one.syn_homeworks_with_customized_tutorial(customized_tutorial)
+          customized_tutorial.sync_exercises_with_template
+        end
+      end
+
+      customized_tutorial.exercises.each do |exercise|
+        if exercise.template.id == h.id
+          assert exercise.is_same_with_template?
+
         end
       end
     end
@@ -145,8 +155,12 @@ module CourseLibrary
       @course_one.homeworks<< new_homework
       assert new_homework.reload.course_id == @course_one.id
       @course_one.reload
-      @course_one.syn_homeworks_with_customized_tutorial(customized_tutorial)
-      assert customized_tutorial.exercises.count == @course_one.homeworks.count
+      assert_not customized_tutorial.exercises.count == @course_one.homeworks.count
+      customized_tutorial.reload #reload 之后才能知道worker有变动
+      assert_difference 'Exercise.count',1 do
+        customized_tutorial.sync_exercises_with_template
+      end
+      assert customized_tutorial.reload.exercises.count == @course_one.homeworks.count
     end
   end
 end

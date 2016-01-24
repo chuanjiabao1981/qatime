@@ -163,6 +163,9 @@ module Permissions
       allow "course_library/publications",[:index,:new,:create] do |teacher|
         true
       end
+      allow "course_library/courses",[:available_customized_courses_for_publish] do |course|
+        true
+      end
       #######end course library permission##################
 
     end

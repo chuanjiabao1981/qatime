@@ -1,0 +1,18 @@
+<% @available_customized_courses.each do |acc| %>
+    <%= acc.student.name %>|<%= acc.name %>
+<% end %>
+
+<% if @available_customized_courses.length !=0 %>
+    <%= simple_form_for @course ,url: course_publications_path(@course),method: :post  do |f| %>
+        <%= f.input :available_customized_course_ids ,
+                          as: :check_boxes ,
+                          collection: @available_customized_courses,
+                          label_method: lambda {|cc| "#{cc.name} | #{cc.student.name}"}
+        %>
+        <%= f.button :submit, "发布课程"%>
+    <% end %>
+<% else %>
+
+    <%= link_to t("view.course_library/publication.no_customized_course_available") ,
+                course_publications_path(@course) %>
+<% end %>

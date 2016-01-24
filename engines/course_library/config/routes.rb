@@ -10,6 +10,10 @@ CourseLibrary::Engine.routes.draw do
 
   resources :courses do
     resources :publications
+    member do
+      get 'available_customized_courses_for_publish'
+      post 'publish'
+    end
   end
 
 end

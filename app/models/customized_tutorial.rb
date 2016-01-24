@@ -68,4 +68,99 @@ class CustomizedTutorial < ActiveRecord::Base
   def name
     self.title
   end
+
+
+  def self.create_from_template(customized_course_id,template)
+    #TODO:: 如果customized_course中已经了有一个customized_tutorial和course一致
+    a = template.customized_tutorials.build(customized_course_id: customized_course_id,
+                                        title: template.title,
+                                        content: template.description,
+                                        teacher_id: template.directory.syllabus.author.id,
+                                        last_operator_id: template.author_id
+    )
+
+    a.template_video        = template.video
+    a.template_picture_ids  = template.picture_ids
+    a.template_file_ids     = template.qa_file_ids
+
+    a.save
+    a
+  end
+
+  def create_exercises_from_template
+    return if self.template.nil?
+    already_published_homework    = []
+    self.exercises.each do |e|
+      if e.template
+        already_published_homework << e.template.id
+      end
+    end
+    self.template.homeworks.each do |homework|
+      if not already_published_homework.include?(homework.id)
+        Exercise.create_from_template(self,homework)
+      end
+    end
+  end
+
+  def sync_with_template
+    return if self.template.nil?
+    self.title                 = self.template.title
+    self.content               = self.template.description
+    self.template_video        = self.template.video
+    self.template_picture_ids  = self.template.picture_ids
+    self.template_file_ids     = self.template.qa_file_ids
+    self.save
+    self
+  end
+
+  def sync_exercises_with_template
+    return if self.template.nil?
+    self.exercises.each do |exercise|
+      exercise.sync_with_template
+    end
+    #把新加的作业也同步过去
+    self.create_exercises_from_template
+    self
+  end
+
+
+  def is_same_with_template?
+    diff = []
+    template = self.template
+    if template.nil?
+      diff << "not exsits"
+      return false
+    end
+    if self.title != template.title
+      diff << "title"
+    end
+    if self.content != template.description
+      diff << "description"
+    end
+    if self.template_video  != template.video
+      diff << "video"
+    end
+
+
+    if not same_array?(self.template_picture_ids,template.picture_ids)
+      diff << "pictures"
+    end
+
+
+    if not same_array?(self.template_file_ids,template.qa_file_ids)
+      diff << "files"
+    end
+    if diff.blank?
+      return true
+    end
+    return false
+  end
+
+  private
+  def same_array?(a,b)
+    a = a || []
+    b = b || []
+    a.uniq.sort  == b.uniq.sort
+  end
+
 end

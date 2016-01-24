@@ -48,7 +48,7 @@ class Exercise < Examination
     self.content                =   self.template.description
     self.template_file_ids      =   self.template.qa_file_ids
     self.template_picture_ids   =   self.template.picture_ids
-    self
+    self.save
   end
 
   def is_same_with_template?

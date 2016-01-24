@@ -17,12 +17,14 @@ module CourseLibrary
 
     def publish_all(customized_course_id)
       customized_tutorial   = CustomizedTutorial.create_from_template(customized_course_id,self)
-      customized_tutorial.create_exercises_from_template
       customized_tutorial
     end
 
 
 
+    def has_the_homework?(homework_id)
+      self.homework_ids.include?(homework_id)
+    end
 
     def available_customized_course_ids
 

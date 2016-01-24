@@ -178,6 +178,7 @@ class CustomizedTutorial < ActiveRecord::Base
     return false
   end
 
+  
   private
   def same_array?(a,b)
     a = a || []

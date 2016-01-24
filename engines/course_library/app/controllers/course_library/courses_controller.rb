@@ -11,9 +11,6 @@ module CourseLibrary
     end
     def publish
       params[:course][:available_customized_course_ids].delete("")
-      puts "--------------------"
-      puts params[:course]
-      puts "---------------------"
       @course.update_attributes(params[:course].permit!)
       redirect_to customized_tutorials_course_path(@course)
     end

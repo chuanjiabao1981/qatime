@@ -33,7 +33,6 @@ module CourseLibrary
     def available_customized_course_ids=(arr)
       return if arr.nil?
       arr.each do |customized_course_id|
-        puts "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk#{customized_course_id}"
         self.publish_all(customized_course_id)
       end
     end

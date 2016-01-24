@@ -1,0 +1,12 @@
+cn:
+  activerecord:
+    models:
+      course_library/course: 大纲课程
+    attributes:
+      course_library/course:
+        available_customized_course_ids: 可使用此大纲课程的专属课程
+        customized_tutorials: 使用此大纲课程的专属课程
+  view:
+    course_library/publication:
+      no_customized_course_available: 本课程已发布给全部的专属课程
+

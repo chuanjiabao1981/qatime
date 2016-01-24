@@ -1,7 +1,24 @@
-<%= link_to '发布课程', available_customized_courses_for_publish_course_path(@course) %>
-<% @customized_tutorials.each do |ct|%>
-    <%= link_to ct.name ,customized_tutorial_path(ct)%>
-    <%= ct.customized_course.student.name %>
-    <%= ct.created_at %>
-    <%= ct.is_same_with_template? %>
-<% end %>
+<div class="qa_box">
+  <div class="qa_cell box_head">
+    <%=  CourseLibrary::Course.human_attribute_name(:customized_tutorials) %>
+  </div>
+  <div class="qa_sep_15"></div>
+  <div class="qa_box" style="padding-left:10px">
+      <%= link_to  available_customized_courses_for_publish_course_path(@course) do %>
+          <button type="button" class="btn btn-xs btn-success">发布到专属课程</button>
+      <% end %>
+  </div>
+  <div class="qa_sep_15"></div>
+
+  <table class="table-bordered table">
+      <% @customized_tutorials.each do |ct|%>
+        <tr>
+          <td><%= link_to ct.name ,customized_tutorial_path(ct)%></td>
+          <td><%= ct.customized_course.student.name %></td>
+          <td><%= ct.created_at %></td>
+          <td><%= ct.is_same_with_template? %></td>
+        </tr>
+      <% end %>
+  </table>
+
+</div>

@@ -17,6 +17,8 @@
           <td><%= ct.customized_course.student.name %></td>
           <td><%= ct.created_at %></td>
           <td><%= ct.is_same_with_template? %></td>
+          <td><%= link_to t('view.course_library/course.un_publish') ,
+                          un_publish_course_path(@course,customized_tutorial_id: ct.id),method: :post%></td>
         </tr>
       <% end %>
   </table>

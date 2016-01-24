@@ -20,6 +20,13 @@ module CourseLibrary
       customized_tutorial
     end
 
+    def un_publish(customized_tutorial_id)
+      customized_tutorial = CustomizedTutorial.find_by(id: customized_tutorial_id)
+      return false if customized_tutorial.nil? or customized_tutorial.is_any_component_charged?
+      customized_tutorial.destroy
+      return true
+    end
+
 
 
     def has_the_homework?(homework_id)

@@ -21,5 +21,14 @@ module Customized
       @customized_tutorial.reload
       assert @customized_tutorial.is_any_component_charged?
     end
+
+    test "tutorial issue reply charged" do
+      r = @customized_tutorial.tutorial_issues.first.tutorial_issue_replies.first
+      r.set_charged
+      r.save
+      @customized_tutorial.reload
+      assert @customized_tutorial.is_any_component_charged?
+
+    end
   end
 end

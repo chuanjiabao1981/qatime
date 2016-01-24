@@ -7,6 +7,9 @@ cn:
         available_customized_course_ids: 可使用此大纲课程的专属课程
         customized_tutorials: 使用此大纲课程的专属课程
   view:
-    course_library/publication:
+    course_library/course:
       no_customized_course_available: 本课程已发布给全部的专属课程
+      un_publish_success: 成功撤销大纲课程的发布
+      un_publish_fail: 未能撤销大纲课程的发布，因为大纲课程已计费
+      un_publish: 撤销
 

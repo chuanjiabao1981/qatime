@@ -15,6 +15,14 @@ module CourseLibrary
       redirect_to customized_tutorials_course_path(@course)
     end
 
+    def un_publish
+      if @course.un_publish(params[:customized_tutorial_id])
+        flash[:success] = t("view.course_library/course.un_publish_success")
+      else
+        flas[:error]    = t("view.course_library/course.un_publish_fail")
+      end
+      redirect_to customized_tutorials_course_path(@course)
+    end
     def current_resource
       @course = Course.find(params[:id])
       @teacher                      = @course.author

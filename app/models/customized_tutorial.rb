@@ -144,6 +144,11 @@ class CustomizedTutorial < ActiveRecord::Base
     self.exercises.each do |e|
       return true if e.is_any_component_charged?
     end
+
+    self.tutorial_issues.each do |ti|
+      return true if ti.is_any_component_charged?
+    end
+
     return false
   end
   def is_same_with_template?

@@ -14,6 +14,7 @@ CourseLibrary::Engine.routes.draw do
       get 'available_customized_courses_for_publish'
       get 'customized_tutorials'
       post 'publish'
+      post 'un_publish'
     end
   end
 

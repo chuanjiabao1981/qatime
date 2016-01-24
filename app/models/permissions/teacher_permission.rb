@@ -160,10 +160,7 @@ module Permissions
 
 
       #######begine course library permission###############
-      allow "course_library/publications",[:index,:new,:create] do |teacher|
-        true
-      end
-      allow "course_library/courses",[:available_customized_courses_for_publish] do |course|
+      allow "course_library/courses",[:available_customized_courses_for_publish,:publish,:customized_tutorials] do |course|
         true
       end
       #######end course library permission##################

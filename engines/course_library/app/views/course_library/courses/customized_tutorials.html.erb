@@ -1,0 +1,7 @@
+<%= link_to '发布课程', available_customized_courses_for_publish_course_path(@course) %>
+<% @customized_tutorials.each do |ct|%>
+    <%= link_to ct.name ,customized_tutorial_path(ct)%>
+    <%= ct.customized_course.student.name %>
+    <%= ct.created_at %>
+    <%= ct.is_same_with_template? %>
+<% end %>

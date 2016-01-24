@@ -1,9 +1,5 @@
-<% @available_customized_courses.each do |acc| %>
-    <%= acc.student.name %>|<%= acc.name %>
-<% end %>
-
 <% if @available_customized_courses.length !=0 %>
-    <%= simple_form_for @course ,url: course_publications_path(@course),method: :post  do |f| %>
+    <%= simple_form_for @course ,url: publish_course_path(@course),method: :post  do |f| %>
         <%= f.input :available_customized_course_ids ,
                           as: :check_boxes ,
                           collection: @available_customized_courses,

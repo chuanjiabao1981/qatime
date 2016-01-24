@@ -12,6 +12,7 @@ CourseLibrary::Engine.routes.draw do
     resources :publications
     member do
       get 'available_customized_courses_for_publish'
+      get 'customized_tutorials'
       post 'publish'
     end
   end

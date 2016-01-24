@@ -79,6 +79,13 @@ class Exercise < Examination
     return false
   end
 
+  def is_any_component_charged?
+    self.exercise_solutions.each do |es|
+      return true if es.is_any_component_charged?
+    end
+    return false
+  end
+
 
   private
   def same_array?(a,b)

@@ -102,3 +102,14 @@ customized_tutorial_template_video:
   last_operator: teacher1
   teacher_price: 54
   platform_price: 0
+
+customized_tutorial_for_test_is_charged:
+  teacher: teacher1
+  customized_course: customized_course1
+  content: customized_tutorial_for_test_is_charged content
+  title: customized_tutorial_for_test_is_charged title
+  token: customized_tutorial_for_test_is_charged token
+  status: open
+  last_operator: teacher1
+  teacher_price: 54
+  platform_price: 0

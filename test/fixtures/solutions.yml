@@ -128,3 +128,14 @@ homwork_solution_for_ui_state_change:
 
 
 ##End for ui state change
+
+
+exercise_solution_for_test_is_charged:
+  title: exercise_solution_for_test_is_charged title
+  content: exercise_solution_for_test_is_charged content
+  exercise: exercise_for_test_is_charged
+  student: student1
+  type: ExerciseSolution
+  customized_course: customized_course1
+  last_operator: student1
+  state: in_progress

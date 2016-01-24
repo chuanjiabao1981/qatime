@@ -139,7 +139,13 @@ class CustomizedTutorial < ActiveRecord::Base
     self
   end
 
-
+  def is_any_component_charged?
+    return true if self.is_charged?
+    self.exercises.each do |e|
+      return true if e.is_any_component_charged?
+    end
+    return false
+  end
   def is_same_with_template?
     diff = []
     template = self.template
@@ -178,7 +184,7 @@ class CustomizedTutorial < ActiveRecord::Base
     return false
   end
 
-  
+
   private
   def same_array?(a,b)
     a = a || []

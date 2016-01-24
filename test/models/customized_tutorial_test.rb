@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'tally_test_helper'
 
-class CustomizedTutorialTest < ActiveSupport::TestCase
+class CustomizedTutorialModelTest < ActiveSupport::TestCase
   include TallyTestHelper
 
   def setup

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114222400) do
+ActiveRecord::Schema.define(version: 20160116103948) do
 
   create_table "course_library_courses", force: :cascade do |t|
     t.string   "title"
@@ -59,6 +59,11 @@ ActiveRecord::Schema.define(version: 20160114222400) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "author_id"
+  end
+
+  create_table "customized_courses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

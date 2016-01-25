@@ -1,6 +1,6 @@
 <div style="height: 500px">
   <div style="float: left;width: 200px;height: 100%;border: solid;border-width: 1px">
-    <%= render 'tree' %>
+    <%= render partial: 'course_library/shared/directories/tree', locals: {syllabus: @syllabus, selected_directory: @directory} %>
   </div>
   <div style="float: left;width: 700px;height: 100%;border: solid;border-width: 1px;margin-left: 10px">
     <div>

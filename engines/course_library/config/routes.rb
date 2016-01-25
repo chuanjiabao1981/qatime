@@ -15,6 +15,7 @@ CourseLibrary::Engine.routes.draw do
       get 'customized_tutorials'
       post 'publish'
       post 'un_publish'
+      post 'sync'
     end
   end
 

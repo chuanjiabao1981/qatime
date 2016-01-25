@@ -27,6 +27,13 @@ module CourseLibrary
       return true
     end
 
+    def sync_all(customized_tutorial_id)
+      customized_tutorial = CustomizedTutorial.find_by(id: customized_tutorial_id)
+      return false if customized_tutorial.nil? or customized_tutorial.is_any_component_charged?
+      customized_tutorial.sync_with_template
+      return true
+    end
+
 
 
     def has_the_homework?(homework_id)

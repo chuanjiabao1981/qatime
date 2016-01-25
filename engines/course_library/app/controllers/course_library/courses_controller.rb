@@ -19,10 +19,21 @@ module CourseLibrary
       if @course.un_publish(params[:customized_tutorial_id])
         flash[:success] = t("view.course_library/course.un_publish_success")
       else
-        flas[:error]    = t("view.course_library/course.un_publish_fail")
+        flash[:warning]    = t("view.course_library/course.un_publish_fail")
       end
       redirect_to customized_tutorials_course_path(@course)
     end
+
+    def sync
+      if @course.sync_all(params[:customized_tutorial_id])
+        flash[:success] = t("view.course_library/course.sync_success")
+      else
+        flash[:warning] = t("view.course_library/course.sync_fail")
+      end
+      redirect_to customized_tutorials_course_path(@course)
+    end
+
+private
     def current_resource
       @course = Course.find(params[:id])
       @teacher                      = @course.author

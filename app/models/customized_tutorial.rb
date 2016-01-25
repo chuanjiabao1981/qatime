@@ -123,7 +123,7 @@ class CustomizedTutorial < ActiveRecord::Base
     self.template_file_ids     = self.template.qa_file_ids
     self.save
     self.sync_exercises_with_template
-    self
+    true
   end
 
   def sync_exercises_with_template

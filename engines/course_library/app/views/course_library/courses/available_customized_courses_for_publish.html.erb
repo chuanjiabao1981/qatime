@@ -15,8 +15,8 @@
         <% end %>
     <% else %>
 
-        <%= link_to t("view.course_library/publication.no_customized_course_available") ,
-                    course_publications_path(@course) %>
+        <%= link_to t("view.course_library/course.no_customized_course_available") ,
+                    customized_tutorials_course_path(@course) %>
     <% end %>
   </div>
 </div>

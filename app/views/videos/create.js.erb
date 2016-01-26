@@ -1,2 +1,12 @@
 $("div#video_show").html('<%= j render partial:'video',locals:{video:@video,use_js:true,video_id: @video_player_id } %>');
 video_load("<%= @video_player_id %>");
+
+if($("div#video_new input")){
+ $("div#video_new input").val("<%=@video.id%>")
+}
+if($('#newVideoModal')) {
+$('#newVideoModal').modal("hide")
+}
+if($('#newVideoForm')) {
+    $('#newVideoForm')[0].reset();
+}

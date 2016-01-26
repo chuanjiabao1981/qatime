@@ -5,12 +5,6 @@
     <div class="qa_object header">
       <h1><%= @course.title %></h1>
     </div>
-  </div>
-  <div class="qa_big_cell">
-    <h4>概述</h4>
-    <div class="qa_object content">
-      <%= @course.description %>
-    </div>
     <div class="qa_object footer">
       <%= link_to edit_syllabus_directory_course_path(@syllabus, @directory, @course) do %>
           <i class="fa fa-pencil-square-o"></i>编辑
@@ -18,27 +12,21 @@
     </div>
   </div>
   <div class="qa_big_cell">
-    <h4>课程视频</h4>
-    <%= video_js_player @course.current_video %>
-    <div class="qa_object footer">
-      <%= link_to edit_syllabus_directory_course_path(@syllabus, @directory, @course) do %>
-          <i class="fa fa-pencil-square-o"></i>更新视频
-      <% end %>
-      •
-      <%= link_to edit_syllabus_directory_course_path(@syllabus, @directory, @course) do %>
-          <i class="fa fa-pencil-square-o"></i>删除
-      <% end %>
-
+    <h4>概述</h4>
+    <div class="qa_object content">
+      <%= @course.description %>
     </div>
+  </div>
+  <div class="qa_big_cell">
+    <h4>课程视频</h4>
+    <% if ! @course.current_video.nil? %>
+    <%= video_js_player @course.current_video %>
+    <% end %>
   </div>
 
   <div class="qa_big_cell">
     <h4>课程文件</h4>
-    <%= render partial: 'qa_files/index', locals: {quoter: @course} %>
     <%= render partial: 'shared/qa_files/qa_file', collection: @course.qa_files%>
-    <%= link_to edit_syllabus_directory_course_path(@syllabus, @directory, @course) do %>
-        <i class="fa fa-pencil-square-o"></i>添加文件
-    <% end %>
   </div>
   <div class="qa_big_cell">
     <h4>练习与测验</h4>
@@ -47,11 +35,4 @@
 </div>
 
 <div class="qa_sep_15"></div>
-<div class="qa_sep_15"></div>
 
-<%= content_for :page_modal do %>
-    <%= render 'edit_course_modal', locals:{course: @course} %>
-    <%= render 'videos/new_video_modal', locals:{course: @course} %>
-    <%= render 'qa_files/new_qa_file_modal', locals:{quoter: @course} %>
-    <%= render 'homeworks/new_homework_modal', locals: {course: @course} %>
-<% end %>

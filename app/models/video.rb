@@ -14,6 +14,7 @@ class Video < ActiveRecord::Base
 
   has_many :video_quoters
   accepts_nested_attributes_for :video_quoters
+
 end
 
 

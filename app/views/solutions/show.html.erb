@@ -14,7 +14,18 @@
         <div class="box_header qa_cell">
           <strong><%= @correction.model_name.human%></strong>
         </div>
-        <%= render 'corrections/form' %>
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active"><a href="#normal" aria-controls="normal" role="tab" data-toggle="tab">原题批改</a></li>
+          <li role="presentation"><a href="#course_library_solution_ref" aria-controls="course_library_solution_ref" role="tab" data-toggle="tab">引用解答</a></li>
+        </ul>
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="normal">
+            <%= render 'corrections/form' %>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="course_library_solution_ref">
+            sssss
+          </div>
+        </div>
     <% end %>
 <% end %>
 

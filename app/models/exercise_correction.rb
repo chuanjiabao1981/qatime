@@ -5,5 +5,10 @@ class ExerciseCorrection < Correction
   belongs_to :exercise,foreign_key: :examination_id
   belongs_to :customized_course
   belongs_to :customized_tutorial
+  belongs_to :template, class_name: CourseLibrary::Solution
+
+  def template_id=(tt)
+    super(tt)
+  end
 
 end

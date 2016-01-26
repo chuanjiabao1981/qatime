@@ -1,0 +1,9 @@
+solution_one_for_homework_one:
+  title: solution_one_for_homework_one title
+  description: solution_one_for_homework_one description
+  homework: homework_one
+
+solution_two_for_homework_one:
+  title: solution_two_for_homework_one title
+  description: solution_two_for_homework_one description
+  homework: homework_one

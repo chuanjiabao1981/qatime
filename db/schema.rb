@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160119082549) do
+ActiveRecord::Schema.define(version: 20160126223730) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 20160119082549) do
     t.float    "teacher_price"
     t.float    "platform_price"
     t.integer  "last_operator_id"
+    t.integer  "template_id"
   end
 
   create_table "course_library_courses", force: :cascade do |t|

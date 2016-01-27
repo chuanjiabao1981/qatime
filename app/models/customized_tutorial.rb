@@ -180,6 +180,9 @@ class CustomizedTutorial < ActiveRecord::Base
       diff << "files"
     end
 
+    if not same_array?(exercise_template_ids,template.homework_ids)
+      diff << "exercises"
+    end
     self.exercises.each do |exercise|
       if not exercise.is_same_with_template?
         diff << "exercise #{exercise.id}"
@@ -193,6 +196,9 @@ class CustomizedTutorial < ActiveRecord::Base
 
 
   private
+  def exercise_template_ids
+    self.exercises.map {|x| x.template_id}
+  end
   def same_array?(a,b)
     a = a || []
     b = b || []

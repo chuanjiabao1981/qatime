@@ -19,7 +19,12 @@ module Customized
       end
       assert exercise.valid?
 
-      
+      student_solution = exercise.exercise_solutions.build(title: random_str,last_operator: @customized_course.student)
+      student_solution.save
+      assert student_solution.valid?,student_solution.errors.full_messages
+
+      ec = student_solution.exercise_corrections.build(template_id: @correction_template.id)
+      assert ec.valid?,ec.errors.full_messages
     end
   end
 end

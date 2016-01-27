@@ -23,7 +23,18 @@
             <%= render 'corrections/form' %>
           </div>
           <div role="tabpanel" class="tab-pane" id="course_library_solution_ref">
-            sssss
+            <% if not @solution.examination.template.nil? %>
+                <%= simple_form_for(@correction,url: object_form_url(@solution,@correction)) do |f| %>
+                    <%= f.collection_radio_buttons :template ,@solution.examination.template.solutions,:id,:title do |b|%>
+                        <%= b.label { b.radio_button + b.text+ video_js_player(b.object.video,width: 360,height: 120) } %>
+                    <% end %>
+                    <div class="form-group">
+                      <%= f.button :submit, class: "btn btn-default" %>
+                    </div>
+                <% end %>
+            <% else %>
+                此题目不是来自于大纲课程
+            <% end %>
           </div>
         </div>
     <% end %>

@@ -4,15 +4,20 @@ module CourseLibrary
   class SyllabusesController < ApplicationController
 
     def index
-      @syllabuses = Syllabus.all.order(:created_at)
+      @teacher = Teacher.find(params[:teacher_id])
+      @syllabuses = @teacher.syllabuses
+      render layout: 'teacher_home'
     end
 
     def new
-      @syllabus = Syllabus.new
+      @teacher = Teacher.find(params[:teacher_id])
+      @syllabus = @teacher.syllabuses.build
+      render layout: 'teacher_home'
     end
 
     def create
-      @syllabus = Syllabus.new(params[:syllabus].permit!)
+      @teacher = Teacher.find(params[:teacher_id])
+      @syllabus = @teacher.syllabuses.create(params[:syllabus].permit!)
       if @syllabus.save
         redirect_to syllabuses_path
       else
@@ -20,12 +25,9 @@ module CourseLibrary
       end
     end
 
-    def show
-      @syllabus = Syllabus.find(params[:id])
-    end
-
     def edit
       @syllabus = Syllabus.find(params[:id])
+      render layout: 'teacher_home'
     end
 
     def update

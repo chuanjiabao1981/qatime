@@ -1,4 +1,3 @@
-require 'json'
 module CourseLibrary
   class Syllabus < ActiveRecord::Base
     validates_presence_of :title, :description

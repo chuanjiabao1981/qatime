@@ -2,9 +2,6 @@
   <div class="qa_big_cell">
     <h2><%= CourseLibrary::Directory.model_name.human %></h2>
   </div>
-  <div>
-    <%= render 'nav'%>
-  </div>
   <div class="qa_big_cell">
     <%=simple_form_for [@syllabus,@directory] do |f|%>
         <%= f.input :parent_id,as: :hidden%>

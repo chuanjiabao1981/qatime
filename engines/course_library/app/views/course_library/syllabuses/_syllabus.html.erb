@@ -2,16 +2,16 @@
   <div class="col-md-1">
     <%= syllabus_counter + 1 %>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-3">
     <%=link_to syllabus.title, syllabus_directory_path(syllabus, syllabus.get_root_dir) %>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-6">
     <%=syllabus.description %>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-1">
     <%=link_to '编辑',edit_syllabus_path(syllabus)%>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-1">
     <%=link_to '删除',syllabus_path(syllabus),method: :delete,'data-confirm' => 'Are you sure?'%>
   </div>
 </div>

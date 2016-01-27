@@ -1,4 +1,0 @@
-<%= link_to "备课中心", syllabuses_path %>
-<% @directory.get_full_path.each do |f| %>
-    <%= link_to ' > ' + f.title, syllabus_directory_path(f.syllabus,f) %>
-<% end %>

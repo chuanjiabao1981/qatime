@@ -1,0 +1,12 @@
+cn:
+  activerecord:
+    models:
+      course_library/syllabus: 教学大纲
+      course_library/directory: 目录
+    attributes:
+      course_library/syllabus:
+          title: 大纲名称
+          description: 简介
+      course_library/directory:
+          title:目录名称
+

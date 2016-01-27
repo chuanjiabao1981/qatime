@@ -30,6 +30,8 @@
   </div>
   <div class="qa_big_cell">
     <h4>练习与测验</h4>
+    <%= link_to "添加练习", new_course_homework_path(@course) %>
+    <%= render partial: 'course_library/homeworks/homework', collection: @course.homeworks%>
   </div>
   <div style="clear: both"></div>
 </div>

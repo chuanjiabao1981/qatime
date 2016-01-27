@@ -5,8 +5,8 @@ module CourseLibrary
     include QaFilesHelper
     respond_to :html
     def new
-      @syllabus = Syllabus.find(params[:syllabus_id])
       @directory = Directory.find(params[:directory_id])
+      @syllabus = @directory.syllabus
       @course = @directory.courses.build()
       @video = Video.new()
     end
@@ -22,8 +22,8 @@ module CourseLibrary
       @courses = Course.get_all_courses(current_resource)
     end
     def create
-      @syllabus = Syllabus.find(params[:syllabus_id])
       @directory = Directory.find(params[:directory_id])
+      @syllabus = @directory.syllabus
       @course = @directory.courses.build(change_params_for_qa_files(params[:course].permit!))
       if @course.save
         flash[:success] = "创建成功"
@@ -47,5 +47,6 @@ module CourseLibrary
       @directory = @course.directory
       @syllabus = @directory.syllabus
     end
+
   end
 end

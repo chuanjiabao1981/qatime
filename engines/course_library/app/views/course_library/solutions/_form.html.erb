@@ -2,8 +2,10 @@
   <div class="qa_big_cell">
     <%= link_to @syllabus.title, course_library.syllabus_path(@syllabus) %> /
     <%= link_to @directory.title, course_library.syllabus_directory_path(@syllabus, @directory) %> /
+    <%= link_to @course.title, syllabus_directory_course_path(@syllabus, @directory, @course) %>/
+    <%= link_to @homework.title, course_homework_path(@course, @homework) %>/
   </div>
-  <%= simple_form_for [@syllabus, @directory, @course] do |f| %>
+  <%= simple_form_for [@homework, @solution] do |f| %>
       <div class="qa_big_cell">
         <%= f.input :title %>
         <%= f.input :description %>
@@ -14,8 +16,8 @@
           <%= f.input :new_video_id, as: :hidden %>
         </div>
         <div id="video_show", class="row">
-          <% if ! @course.current_video.nil? %>
-            <%= video_js_player @course.current_video %>
+          <% if ! @solution.current_video.nil? %>
+            <%= video_js_player @solution.current_video %>
           <% end %>
         </div>
         <div class="qa_object footer">

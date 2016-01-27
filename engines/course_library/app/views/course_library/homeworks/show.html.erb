@@ -1,0 +1,37 @@
+<div class="qa_box">
+  <div class="qa_cell box_header">
+    <%= link_to @syllabus.title, syllabus_path(@syllabus) %>/
+    <%= link_to @directory.title, syllabus_directory_path(@syllabus, @directory) %>/
+    <%= link_to @course.title, syllabus_directory_course_path(@syllabus, @directory, @course) %>/
+    <div class="qa_object header">
+      <h1><%= @homework.title %></h1>
+    </div>
+    <div class="qa_object footer">
+      <%= link_to edit_course_homework_path(@course, @homework) do %>
+          <i class="fa fa-pencil-square-o"></i>编辑
+      <% end %>
+    </div>
+  </div>
+  <div class="qa_big_cell">
+    <h4>概述</h4>
+    <div class="qa_object content">
+      <%= @homework.description %>
+    </div>
+  </div>
+
+  <div class="qa_big_cell">
+    <h4>材料</h4>
+    <%= render partial: 'shared/qa_files/qa_file', collection: @homework.qa_files%>
+  </div>
+
+  <div class="qa_big_cell">
+    <h4>讲解</h4>
+    <%= link_to "添加讲解", new_homework_solution_path(@homework) %>
+    <%= render partial: 'course_library/solutions/solution', collection: @homework.solutions%>
+  </div>
+
+  <div style="clear: both"></div>
+</div>
+
+<div class="qa_sep_15"></div>
+

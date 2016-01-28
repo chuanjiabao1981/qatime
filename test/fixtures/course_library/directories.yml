@@ -3,3 +3,18 @@
 directory_one:
   title: directory_one
   syllabus: syllabuses_one
+
+chapter1:
+  title: chapter1
+  parent: directory_one
+  syllabus: syllabuses_one
+
+section1:
+  title: section1
+  parent: chapter1
+  syllabus: syllabuses_one
+
+chapter2:
+  title: chapter2
+  parent: directory_one
+  syllabus: syllabuses_one

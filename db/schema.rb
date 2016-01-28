@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114222620) do
+ActiveRecord::Schema.define(version: 20160119082549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,10 +128,9 @@ ActiveRecord::Schema.define(version: 20160114222620) do
 
   create_table "course_library_publications", force: :cascade do |t|
     t.integer  "course_id"
-    t.integer  "courseable_id"
-    t.string   "courseable_type"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "customized_tutorial_id"
   end
 
   create_table "course_library_solutions", force: :cascade do |t|
@@ -264,6 +263,7 @@ ActiveRecord::Schema.define(version: 20160114222620) do
     t.float    "teacher_price"
     t.float    "platform_price"
     t.integer  "last_operator_id"
+    t.integer  "template_id"
   end
 
   create_table "earning_records", force: :cascade do |t|
@@ -297,6 +297,7 @@ ActiveRecord::Schema.define(version: 20160114222620) do
     t.datetime "completed_at"
     t.datetime "last_handled_at"
     t.datetime "last_redone_at"
+    t.integer  "template_id"
   end
 
   create_table "excercises", force: :cascade do |t|
@@ -595,19 +596,54 @@ ActiveRecord::Schema.define(version: 20160114222620) do
     t.datetime "last_redone_at"
   end
 
-  create_table "syllabus_directories", force: :cascade do |t|
+  create_table "teaching_program_courses", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "directory_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "teaching_program_directories", force: :cascade do |t|
+    t.string   "title"
     t.integer  "syllabus_id"
-    t.string   "name"
+    t.integer  "parent_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
 
-  create_table "syllabus_syllabuses", force: :cascade do |t|
+  create_table "teaching_program_homeworks", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "course_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "teaching_program_publishments", force: :cascade do |t|
+    t.integer  "course_id"
+    t.integer  "courseable_id"
+    t.string   "courseable_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "teaching_program_publishments", ["course_id"], name: "index_teaching_program_publishments_on_course_id", using: :btree
+
+  create_table "teaching_program_solutions", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "homework_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "teaching_program_syllabuses", force: :cascade do |t|
     t.string   "title"
     t.text     "description"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "owner_id"
+    t.integer  "author_id"
   end
 
   create_table "teaching_programs", force: :cascade do |t|

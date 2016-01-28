@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module CourseLibrary
-  class PublicationsControllerTest < ActionController::TestCase
+  class CoursesControllerTest < ActionController::TestCase
     setup do
       @routes = Engine.routes
     end

@@ -142,6 +142,19 @@ homwork_for_ui_state_change:
 ##End for ui state change
 
 
+exercise_for_test_is_charged:
+  title: exercise_for_test_is_charged title
+  content: exercise_for_test_is_charged content
+  teacher: teacher1
+  student: student1
+  type: Exercise
+  customized_tutorial: customized_tutorial_for_test_is_charged
+  customized_course: customized_course1
+  last_operator: teacher1
+  state: in_progress
+  solutions_count: 1
+
+
 
 
 

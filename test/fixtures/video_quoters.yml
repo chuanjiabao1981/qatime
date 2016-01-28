@@ -1,11 +1,4 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  video_id: 1
-  file_quoter_id: 1
-  file_quoter_type: MyString
-
-two:
-  video_id: 1
-  file_quoter_id: 1
-  file_quoter_type: MyString
+video_quoter_1:
+  video: video_template_1
+  file_quoter: course_one(CourseLibrary::Course)

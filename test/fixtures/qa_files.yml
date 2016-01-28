@@ -85,3 +85,47 @@ qa_file_homework1_3:
   name: 789_1.txt
   qa_file_type: text
 
+qa_file_1_for_course_library_homework:
+  author: teacher1
+  original_filename: qa_file_1_for_course_library_homework.txt
+  name: qa_file1.txt
+  qa_file_type: text
+
+qa_file_2_for_course_library_homework:
+  author: teacher1
+  original_filename: qa_file_2_for_course_library_homework.txt
+  name: qa_file2.txt
+  qa_file_type: text
+
+qa_file_3_for_course_library_homework:
+  author: teacher1
+  original_filename: qa_file_3_for_course_library_homework.txt
+  name: qa_file3.txt
+  qa_file_type: text
+
+qa_file_4_for_course_library_course:
+  author: teacher1
+  original_filename: qa_file_4_for_course_library_course.txt
+  name: qa_file4.txt
+  qa_file_type: text
+
+qa_file_5_for_course_library_course:
+  author: teacher1
+  original_filename: qa_file_5_for_course_library_course.txt
+  name: qa_file5.txt
+  qa_file_type: text
+
+qa_file_6_for_course_library_course_sync_test:
+  author: teacher1
+  original_filename: qa_file_6_for_course_library_course_sync_test.txt
+  name: qa_file6.txt
+  qa_file_type: text
+
+
+
+
+
+
+
+
+

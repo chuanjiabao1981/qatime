@@ -160,9 +160,8 @@ module Permissions
 
 
       #######begine course library permission###############
-      allow "course_library/publications",[:index] do |course_library_course|
-        puts "333333333333333333333333333"
-        true
+      allow "course_library/courses",[:available_customized_courses_for_publish,:publish,:customized_tutorials,:un_publish,:sync] do |course|
+        course and course.author_id == user.id
       end
 
       allow "course_library/solutions",[:index, :new, :edit, :update, :create, :show, :destroy]

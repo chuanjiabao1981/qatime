@@ -1,0 +1,38 @@
+<div class="qa_box">
+  <div class="qa_cell box_head">
+    <%=  CourseLibrary::Course.human_attribute_name(:customized_tutorials) %>
+  </div>
+  <div class="qa_sep_15"></div>
+  <div class="qa_box" style="padding-left:10px">
+      <%= link_to  available_customized_courses_for_publish_course_path(@course) do %>
+          <button type="button" class="btn btn-xs btn-success"><%= t('view.course_library/course.publish')%></button>
+      <% end %>
+  </div>
+  <div class="qa_sep_15"></div>
+
+  <table class="table-bordered table">
+     <tr>
+       <th>#</th>
+       <th><%= CustomizedTutorial.model_name.human %></th>
+       <th><%= Student.model_name.human %></th>
+       <th><%= t('view.course_library/course.publish_time')%></th>
+       <th><%= t('view.course_library/course.is_same')%></th>
+       <th colspan="2"><%= t('view.course_library/course.operation') %></th>
+     </tr>
+      <% @customized_tutorials.each_with_index do |ct,index|%>
+        <tr>
+          <td><%= index+1%></td>
+          <td><%= link_to ct.name ,customized_tutorial_path(ct)%></td>
+          <td><%= ct.customized_course.student.name %></td>
+          <td><%= localize(ct.created_at,format: :long) %></td>
+          <td><%= ct.is_same_with_template? ? "是":"否" %></td>
+          <td><%= link_to t('view.course_library/course.sync'),
+                          sync_course_path(@course,customized_tutorial_id: ct.id),method: :post%></td>
+          <td><%= link_to t('view.course_library/course.un_publish') ,
+                          un_publish_course_path(@course,customized_tutorial_id: ct.id),method: :post%></td>
+
+        </tr>
+      <% end %>
+  </table>
+
+</div>

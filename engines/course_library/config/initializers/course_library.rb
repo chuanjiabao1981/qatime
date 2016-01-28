@@ -1,7 +1,7 @@
 module CourseLibrary
   module ApplicationHelper
     def method_missing method, *args, &block
-      puts "LOOKING FOR ROUTES #{method}"
+      # puts "LOOKING FOR ROUTES #{method}"
       if method.to_s.end_with?('_path') or method.to_s.end_with?('_url')
         if main_app.respond_to?(method)
           main_app.send(method, *args)

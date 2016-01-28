@@ -14,4 +14,12 @@ class ExerciseSolution < Solution
     end
   end
 
+
+  def is_any_component_charged?
+    self.exercise_corrections.each do |ec|
+      return true if ec.is_charged?
+    end
+    return false
+  end
+
 end

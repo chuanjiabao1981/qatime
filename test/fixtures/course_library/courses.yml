@@ -1,0 +1,6 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+course_one:
+  title: course_one title
+  description: course_one description
+  directory: directory_one

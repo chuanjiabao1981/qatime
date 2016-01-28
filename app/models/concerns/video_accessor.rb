@@ -9,6 +9,9 @@ module VideoAccessor
         self.videos.first
       end
     end
+    def video
+      self.current_video
+    end
     def new_video_id
       nil
     end

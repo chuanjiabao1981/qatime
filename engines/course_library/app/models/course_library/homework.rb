@@ -4,6 +4,7 @@ module CourseLibrary
     belongs_to :course
     has_many :solutions
     include QaFileAccessor
+    include PictureAccessor
     has_many :exercises,class_name: "Exercise",foreign_key: "template_id"
 
 

@@ -4,5 +4,6 @@ module CourseLibrary
     belongs_to :homework
     include VideoAccessor
     include QaFileAccessor
+    include PictureAccessor
   end
 end

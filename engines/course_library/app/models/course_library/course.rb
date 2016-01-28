@@ -4,6 +4,7 @@ module CourseLibrary
     belongs_to :directory
     include VideoAccessor
     include QaFileAccessor
+    include PictureAccessor
     has_many :homeworks
     def self.get_all_courses(teacher)
       @syllabuses = Syllabus.where(author: teacher)

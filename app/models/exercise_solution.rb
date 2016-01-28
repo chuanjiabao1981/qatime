@@ -22,4 +22,12 @@ class ExerciseSolution < Solution
     return false
   end
 
+  def available_correction_templates
+    all_correction_templates = []
+    already_used             = self.corrections.map {|c| c.template }.compact
+    if not self.exercise.template.nil?
+      all_correction_templates = self.exercise.template.solutions
+    end
+    all_correction_templates - already_used
+  end
 end

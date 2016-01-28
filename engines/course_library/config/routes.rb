@@ -18,5 +18,10 @@ CourseLibrary::Engine.routes.draw do
       post 'sync'
     end
   end
+  resources :solutions do
+    member do
+      get 'video'
+    end
+  end
 
 end

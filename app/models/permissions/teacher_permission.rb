@@ -163,6 +163,10 @@ module Permissions
       allow "course_library/courses",[:available_customized_courses_for_publish,:publish,:customized_tutorials,:un_publish,:sync] do |course|
         course and course.author_id == user.id
       end
+
+      allow "course_library/solutions",[:video] do |solution|
+        true
+      end
       #######end course library permission##################
 
     end

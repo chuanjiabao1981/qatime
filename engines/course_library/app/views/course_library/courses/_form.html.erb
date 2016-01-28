@@ -3,7 +3,7 @@
     <%= link_to @syllabus.title, course_library.syllabus_path(@syllabus) %> /
     <%= link_to @directory.title, course_library.syllabus_directory_path(@syllabus, @directory) %> /
   </div>
-  <%= simple_form_for [@syllabus, @directory, @course] do |f| %>
+  <%= simple_form_for [@directory, @course] do |f| %>
       <div class="qa_big_cell">
         <%= f.input :title %>
         <%= f.input :description %>

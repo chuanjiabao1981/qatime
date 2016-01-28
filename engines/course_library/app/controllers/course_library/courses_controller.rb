@@ -29,7 +29,7 @@ module CourseLibrary
       if @course.save
         flash[:success] = "创建成功"
       end
-      respond_with @syllabus, @directory, @course
+      respond_with  @directory, @course
       #respond_with @course
     end
 
@@ -40,7 +40,7 @@ module CourseLibrary
       if @course.update(change_params_for_qa_files(params[:course].permit!))
         flash[:success] = "更新成功"
       end
-      respond_with @syllabus, @directory, @course
+      respond_with @directory, @course
     end
 
     def show
@@ -85,6 +85,10 @@ private
         @course = Course.find(params[:id])
         @teacher                      = @course.author
         @course
+      else
+        @directory = Directory.find(params[:directory_id])
+        @teacher = @directory.syllabus.author
+        nil
       end
     end
   end

@@ -2,7 +2,7 @@
   <div class="qa_cell box_header">
     <%= link_to @syllabus.title, syllabus_path(@syllabus) %>/
     <%= link_to @directory.title, syllabus_directory_path(@syllabus, @directory) %>/
-    <%= link_to @course.title, syllabus_directory_course_path(@syllabus, @directory, @course) %>/
+    <%= link_to @course.title, directory_course_path(@directory, @course) %>/
     <div class="qa_object header">
       <h1><%= @homework.title %></h1>
     </div>

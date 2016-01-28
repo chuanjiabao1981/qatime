@@ -2,7 +2,7 @@
   <div class="qa_big_cell">
     <%= link_to @syllabus.title, course_library.syllabus_path(@syllabus) %> /
     <%= link_to @directory.title, course_library.syllabus_directory_path(@syllabus, @directory) %> /
-    <%= link_to @course.title, syllabus_directory_course_path(@syllabus, @directory, @course) %>/
+    <%= link_to @course.title, directory_course_path(@directory, @course) %>/
   </div>
   <%= simple_form_for [@course, @homework] do |f| %>
       <div class="qa_big_cell">

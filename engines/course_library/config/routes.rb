@@ -4,11 +4,11 @@ CourseLibrary::Engine.routes.draw do
     resources :syllabuses
   end
   resources :syllabuses do
-    resources :directories do
-      resources :courses
-    end
+    resources :directories
   end
-
+  resources :directories do
+    resources :courses
+  end
   resources :courses
   resources :publications
   resources :homeworks

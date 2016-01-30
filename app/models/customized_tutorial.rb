@@ -195,6 +195,13 @@ class CustomizedTutorial < ActiveRecord::Base
     return false
   end
 
+  def get_the_exercise_from_template(template_id)
+    self.exercises.each do |e|
+      if e.template_id == template_id
+        return e
+      end
+    end
+  end
 
   private
   def exercise_template_ids

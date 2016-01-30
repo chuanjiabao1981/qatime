@@ -26,5 +26,13 @@ CourseLibrary::Engine.routes.draw do
   end
   resources :homeworks do
     resources :solutions
+    member do
+      delete 'mark_delete'
+    end
+  end
+  resources :solutions do
+    member do
+      delete 'mark_delete'
+    end
   end
 end

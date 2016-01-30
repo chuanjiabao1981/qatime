@@ -5,4 +5,7 @@
   <div class="col-md-5">
     <%= link_to homework.title, homework_path(homework) %>
   </div>
+  <div class="col-md-1">
+    <%= link_to '删除', mark_delete_homework_path(homework), :method => :delete, :data => { confirm:'确定删除?' } %>
+  </div>
 </div>

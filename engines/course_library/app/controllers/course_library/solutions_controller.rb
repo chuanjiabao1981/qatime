@@ -55,5 +55,15 @@ module CourseLibrary
       @syllabus = @directory.syllabus
     end
 
+    def mark_delete
+      @solution = Solution.find(params[:id])
+      @homework= @solution.homework
+      @solution.homework = nil
+      if @solution.save
+        flash[:success] = "删除成功"
+      end
+      respond_with @homework
+    end
+
   end
 end

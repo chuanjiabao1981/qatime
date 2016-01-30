@@ -5,4 +5,7 @@
   <div class="col-md-5">
     <%= link_to solution.title, solution_path(solution) %>
   </div>
+  <div class="col-md-1">
+    <%= link_to '删除', mark_delete_solution_path(solution), :method => :delete, :data => { confirm:'确定删除?' } %>
+  </div>
 </div>

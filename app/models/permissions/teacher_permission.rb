@@ -164,8 +164,8 @@ module Permissions
         course and course.author_id == user.id
       end
 
-      allow "course_library/solutions",[:index, :new, :edit, :update, :create, :show, :destroy]
-      allow "course_library/homeworks",[:index, :new, :edit, :update, :create, :show, :destroy]
+      allow "course_library/solutions",[:index, :new, :edit, :update, :create, :show, :destroy, :mark_delete]
+      allow "course_library/homeworks",[:index, :new, :edit, :update, :create, :show, :destroy, :mark_delete]
       allow "course_library/courses",[:index, :new, :edit, :update, :create, :show, :destroy]
       allow "course_library/directories",[:index, :new, :edit, :update, :create, :show, :destroy]
       allow "course_library/syllabuses",[:index, :new, :edit, :update, :create, :show, :destroy]

@@ -157,7 +157,8 @@ module Permissions
         course_issue_reply and course_issue_reply.customized_course.teacher_ids.include?(user.id)
       end
 
-
+      allow "course_library/syllabuses",[:index,:new,:create,:edit,:update]
+      allow "course_library/directories",[:show,:new,:create,:edit,:update,:destroy]
 
       #######begine course library permission###############
       allow "course_library/courses",[:available_customized_courses_for_publish,:publish,:customized_tutorials,:un_publish,:sync] do |course|

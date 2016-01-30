@@ -1,0 +1,10 @@
+<div class='col-md-2'>
+  <div style="background-color: white;padding-top: 10px;padding-bottom: 10px">
+    <div id="dir_tree"></div>
+    <%= hidden_field_tag("dir_tree_json" , get_dir_tree(syllabus, selected_directory)) %>
+  </div>
+</div>
+<div class='col-md-10'>
+  <%= render 'breadcrumb'%>
+  <%= yield %>
+</div>

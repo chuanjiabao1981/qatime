@@ -1,0 +1,6 @@
+<ol class="breadcrumb" style="margin-bottom: 0px;">
+  <li><%= link_to "备课中心", syllabuses_path %></li>
+  <% @directory.get_full_path.each do |f| %>
+      <li><%= link_to f.title, syllabus_directory_path(f.syllabus,f) %></li>
+  <% end %>
+</ol>

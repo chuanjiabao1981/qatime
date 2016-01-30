@@ -1,0 +1,14 @@
+<div class="row qa_big_cell">
+  <div class="col-md-1">
+    <%= directory_counter + 1 %>
+  </div>
+  <div class="col-md-2">
+    <%=link_to directory.title, syllabus_directory_path(directory.syllabus,directory) %>
+  </div>
+  <div class="col-md-1">
+    <%=link_to '编辑',edit_syllabus_directory_path(directory.syllabus,directory)%>
+  </div>
+  <div class="col-md-1">
+    <%=link_to '删除',syllabus_directory_path(directory.syllabus,directory),method: :delete,'data-confirm' => 'Are you sure?'%>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+<%= render layout: 'course_library/shared/directories/tree',
+           locals: {syllabus: @syllabus, selected_directory: @directory} do %>
+    <div class="qa_box">
+      <div class="qa_big_cell">
+        <%=link_to new_syllabus_directory_path(@syllabus,:p => @directory) do %>
+            <button type="button" class="btn btn-xs btn-success">新增目录</button>
+        <% end %>
+        <%=link_to new_syllabus_directory_course_path(@syllabus,@directory) do %>
+            <button type="button" class="btn btn-xs btn-success">新增课程</button>
+        <% end %>
+      </div>
+      <div class="qa_big_cell">
+        <%= render @children %>
+      </div>
+    </div>
+<% end %>

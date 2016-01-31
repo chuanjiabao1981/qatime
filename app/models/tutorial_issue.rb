@@ -21,11 +21,11 @@ class TutorialIssue < Topic
 
   end
 
-  def is_any_component_charged?
-    self.tutorial_issue_replies.each do |tir|
-      return true if tir.is_charged?
-    end
-    return false
-  end
+  # def is_any_component_charged?
+  #   self.tutorial_issue_replies.each do |tir|
+  #     return true if tir.is_charged?
+  #   end
+  #   return false
+  # end
 
 end

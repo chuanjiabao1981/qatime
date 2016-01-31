@@ -8,7 +8,9 @@ module CourseLibrary
       @customized_course = customized_courses(:customized_course1)
     end
     test "customized_tutorials" do
-      customized_tutorial = @course.publish_all(@customized_course.id)
+      # customized_tutorial = @course.publish_all(@customized_course.id)
+      customized_tutorial = CustomizedTutorial::CreateFromTemplate.new(@customized_course.id,@course).call
+
       @teacher_session.get CourseLibrary::Engine.routes.url_helpers.customized_tutorials_course_path(@course)
       @teacher_session.assert_response :success
       @teacher_session.assert_select 'a[href=?]',
@@ -40,13 +42,16 @@ module CourseLibrary
     end
 
     test "un publish" do
-      customized_tutorial = @course.publish_all(@customized_course.id)
+      # customized_tutorial = @course.publish_all(@customized_course.id)
+      customized_tutorial = CustomizedTutorial::CreateFromTemplate.new(@customized_course.id,@course).call
       @teacher_session.post  CourseLibrary::Engine.routes.url_helpers.un_publish_course_path(@course,customized_tutorial_id: customized_tutorial.id)
       @teacher_session.assert_redirected_to CourseLibrary::Engine.routes.url_helpers.customized_tutorials_course_path(@course)
     end
 
     test "sync" do
-      customized_tutorial = @course.publish_all(@customized_course.id)
+      # customized_tutorial = @course.publish_all(@customized_course.id)
+      customized_tutorial = CustomizedTutorial::CreateFromTemplate.new(@customized_course.id,@course).call
+
       @teacher_session.post CourseLibrary::Engine.routes.url_helpers.sync_course_path(@course,customized_tutorial_id: customized_tutorial.id)
       @teacher_session.assert_redirected_to CourseLibrary::Engine.routes.url_helpers.customized_tutorials_course_path(@course)
     end

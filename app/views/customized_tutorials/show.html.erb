@@ -17,6 +17,11 @@
     <div class="qa_cell">
       <%= @customized_tutorial.content %>
     </div>
+    <div class="qa_cell">
+        <% if defined?(@customized_tutorial.qa_files) and @customized_tutorial.qa_files %>
+            <%= render partial: 'shared/qa_files/qa_file', collection: @customized_tutorial.qa_files%>
+        <% end %>
+    </div>
     <div class="pull-left" style="font-size:12px;  padding: 10px;">
       <%= videoable_object_stauts(@customized_tutorial) %>
       <%= video_duration_format(@customized_tutorial) %>

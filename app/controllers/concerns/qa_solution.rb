@@ -24,7 +24,11 @@ module QaSolution
   end
 
   def build_correction(solution,resource_name,params)
-    solution.send("#{resource_name}_corrections").build(params)
+    if resource_name == "exercise" and not params[:template_id].nil?
+      ExerciseCorrection::BuildFromTemplate.new(solution,params[:template_id]).call
+    else
+      solution.send("#{resource_name}_corrections").build(params)
+    end
   end
   def solution_show_prepare
     @corrections  = @solution.corrections.order(Correction.order_column => Correction.order_type).paginate(page: params[:page])

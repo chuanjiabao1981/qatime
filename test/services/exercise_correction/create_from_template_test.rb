@@ -1,7 +1,5 @@
-require 'test_helper'
-
-module Customized
-  class ExerciseCorrectionCreateFromTemplate  < ActiveSupport::TestCase
+module ExerciseCorrectionServiceTest
+  class CreateFromTemplateTest < ActiveSupport::TestCase
     def setup
       @course_one              = course_library_courses(:course_one)
       @correction_template     = course_library_solutions(:solution_one_for_homework_one)
@@ -10,7 +8,7 @@ module Customized
 
     test "create " do
       assert @correction_template.valid?
-      customized_tutorial = @course_one.publish_all(@customized_course.id)
+      customized_tutorial = CustomizedTutorial::CreateFromTemplate.new(@customized_course.id,@course_one).call
       exercise            = nil
       customized_tutorial.exercises.each do |e|
         if e.template_id == @correction_template.homework_id
@@ -23,7 +21,8 @@ module Customized
       student_solution.save
       assert student_solution.valid?,student_solution.errors.full_messages
 
-      ec = student_solution.exercise_corrections.build(template_id: @correction_template.id)
+      ec = ExerciseCorrection::BuildFromTemplate.new(student_solution,@correction_template.id).call
+      assert_not ec.template.nil?
       assert ec.valid?,ec.errors.full_messages
     end
   end

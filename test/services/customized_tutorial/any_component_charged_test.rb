@@ -1,4 +1,5 @@
 require 'test_helper'
+module CustomizedTutorialServiceTest
 class AnyComponentChargedTest < ActiveSupport::TestCase
 
   def setup
@@ -31,4 +32,5 @@ class AnyComponentChargedTest < ActiveSupport::TestCase
     assert CustomizedTutorial::AnyComponentCharged.new(@customized_tutorial).judge?
 
   end
+end
 end

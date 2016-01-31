@@ -9,7 +9,8 @@ class CorrectionCreateFromTemplateTest  < ActionDispatch::IntegrationTest
       @course                   = course_library_courses(:course_one)
       @student                  = users(:student1)
 
-      @customized_tutorial      = @course.publish_all(@customized_course.id)
+      # @customized_tutorial      = @course.publish_all(@customized_course.id)
+      @customized_tutorial      = CustomizedTutorial::CreateFromTemplate.new(@customized_course.id,@course).call
       @correction_template      = course_library_solutions(:solution_two_for_homework_one)
       @exercise_template        = @correction_template.homework
       @exercise_from_template   = @customized_tutorial.get_the_exercise_from_template(@exercise_template.id)

@@ -15,12 +15,6 @@ class ExerciseSolution < Solution
   end
 
 
-  # def is_any_component_charged?
-  #   self.exercise_corrections.each do |ec|
-  #     return true if ec.is_charged?
-  #   end
-  #   return false
-  # end
 
   def available_correction_templates
     all_correction_templates = []

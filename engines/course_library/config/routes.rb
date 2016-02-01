@@ -33,6 +33,7 @@ CourseLibrary::Engine.routes.draw do
   resources :solutions do
     member do
       delete 'mark_delete'
+      get 'video'
     end
   end
 end

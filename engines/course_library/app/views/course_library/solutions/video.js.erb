@@ -1,0 +1,2 @@
+$("div#<%= params[:tag_id]%>").html('<%= j render partial:'video'%>');
+videojs("<%= @video_player_id %>");

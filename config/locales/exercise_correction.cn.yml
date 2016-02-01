@@ -5,8 +5,15 @@ cn:
     attributes:
       exercise_correction:
         content: 随堂作业批改
+        template: 解答
   action:
     exercise_correction:
       create:
         desc: "%{user},批改了随堂作业"
         name: 批改
+  view:
+    exercise_correction:
+      use_template: 引用解答
+      not_use_template: 原题批改
+      not_template_correction: 此题目不是来自于大纲课程,所以没有解答可供选择
+      no_template_correction_available:  无解答可供引用（可能是答案都已经用过了，也可能是在大纲中的作业没有解答）

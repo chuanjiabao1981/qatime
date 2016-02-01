@@ -3,7 +3,7 @@ require_dependency "course_library/application_controller"
 module CourseLibrary
   class SolutionsController < ApplicationController
     include QaFilesHelper
-    respond_to :html
+    respond_to :html,:json,:js
     def new
       @homework = Homework.find(params[:homework_id])
       @solution = @homework.solutions.build()
@@ -65,5 +65,19 @@ module CourseLibrary
       respond_with @homework
     end
 
+
+
+    def video
+      @video = @solution.video
+      @video_player_id = rand(10000)
+
+      respond_with @video
+    end
+    private
+    def current_resource
+      if params[:id]
+        @solution = Solution.find(params[:id])
+      end
+    end
   end
 end

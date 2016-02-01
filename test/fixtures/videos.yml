@@ -100,3 +100,13 @@ video_template_for_course_syn:
   name: video_template_for_course_sync name
   author: teacher1
   duration: 200
+
+video_template_one_for_solution_one_for_homework_one:
+  name: video_template_one_for_solution_one_for_homework_one
+  author: teacher1
+  duration: 250
+
+video_template_two_for_solution_two_for_homework_one:
+  name: video_template_one_for_solution_one_for_homework_one
+  author: teacher1
+  duration: 250

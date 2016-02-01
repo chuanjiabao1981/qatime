@@ -119,17 +119,24 @@ module Permissions
       end
 
       allow :corrections,[:edit,:update] do |correction|
-        correction and correction.status == "open" and correction.teacher_id == user.id
+        correction and correction.status == "open" and correction.teacher_id == user.id and correction.template_id.nil?
       end
 
       allow :exercises,[:new,:create] do |customized_tutorial|
         customized_tutorial  and customized_tutorial.teacher_id == user.id
       end
 
-      allow :exercises,[:show,:edit,:update]+STATE_EVENTS do |exercise|
+      allow :exercises,[:show]+STATE_EVENTS do |exercise|
         exercise and
             (exercise.teacher_id == user.id or
                 exercise.customized_tutorial.customized_course.teacher_ids.include?(user.id))
+      end
+
+      allow :exercises, [:edit,:update] do |exercise|
+        exercise and
+            (exercise.teacher_id == user.id or
+                exercise.customized_tutorial.customized_course.teacher_ids.include?(user.id)) and
+            exercise.template_id.nil?
       end
 
       allow :tutorial_issues,[:show]+STATE_EVENTS do |tutorial_issue|
@@ -161,6 +168,11 @@ module Permissions
       allow "course_library/courses",[:available_customized_courses_for_publish,:publish,:customized_tutorials,:un_publish,:sync] do |course|
         course and course.author_id == user.id
       end
+
+      allow "course_library/solutions",[:video] do |solution|
+        true
+      end
+
 
       allow "course_library/solutions",[:index, :new, :edit, :update, :create, :show, :destroy, :mark_delete]
       allow "course_library/homeworks",[:index, :new, :edit, :update, :create, :show, :destroy, :mark_delete]

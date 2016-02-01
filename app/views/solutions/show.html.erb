@@ -9,12 +9,76 @@
 
 
 
+<script>
+  $(function() {
+              $("input[type='radio'][name='exercise_correction[template_id]']").click(function(){
+                  tag_id              = "xxxx"
+                  solution_tempate_id = $("input[type='radio'][name='exercise_correction[template_id]']:checked").val()
+                  url = $("div#video_solution_path_"+solution_tempate_id).data('url')
+                  if ($("div#"+tag_id)) {
+                      $("div#"+tag_id).remove()
+                  }
+                  $("<div id=\""+tag_id+"\"></div>").insertAfter($("label[for=\"exercise_correction_template_id_"+solution_tempate_id+"\"]"))
+                  $.ajax({
+                              url: url,
+                              dataType: "script",
+                              format: 'js',
+                              data:{
+                                  tag_id: tag_id
+                              }
+                          }
+                  )
+              })
+          }
+  );
+</script>
 <% if allow? :corrections,:create,@solution %>
     <%= render layout: "shared/common_states/completed",locals: {state_object: @solution} do %>
         <div class="box_header qa_cell">
           <strong><%= @correction.model_name.human%></strong>
         </div>
-        <%= render 'corrections/form' %>
+        <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active">
+            <a href="#normal" aria-controls="normal" role="tab" data-toggle="tab">
+              <%= t("view.exercise_correction.not_use_template")%>
+            </a>
+          </li>
+          <li role="presentation">
+            <a href="#course_library_solution_ref" aria-controls="course_library_solution_ref" role="tab" data-toggle="tab">
+                <%= t("view.exercise_correction.use_template")%>
+            </a></li>
+        </ul>
+        <div class="tab-content">
+          <div role="tabpanel" class="tab-pane active" id="normal">
+            <%= render 'corrections/form' %>
+          </div>
+          <div role="tabpanel" class="tab-pane" id="course_library_solution_ref">
+            <div class="qa_cell">
+              <% @solution.available_correction_templates.each do |t| %>
+                <%= content_tag 'div',id: "video_solution_path_#{t.id}",data:{url: course_library.video_solution_path(t)} do %>
+                <% end %>
+              <% end %>
+              <% if not @solution.examination.template.nil? %>
+                <% if @solution.available_correction_templates.length >0 %>
+                    <%= simple_form_for(@correction,url: object_form_url(@solution,@correction)) do |f| %>
+                          <%=f.association :template,collection:@solution.available_correction_templates,as: :radio_buttons %>
+                        <div class="form-group">
+                          <%= f.button :submit, class: "btn btn-default" %>
+                        </div>
+                    <% end %>
+                <% else %>
+                    <div style="text-align: center;padding: 20px">
+                      <%= t('view.exercise_correction.no_template_correction_available') %>
+                    </div>
+                <% end %>
+            <% else %>
+                <div style="text-align: center;padding: 20px">
+                  <%= t('view.exercise_correction.not_template_correction') %>
+                </div>
+            <% end %>
+            </div>
+          </div>
+        </div>
     <% end %>
 <% end %>
 

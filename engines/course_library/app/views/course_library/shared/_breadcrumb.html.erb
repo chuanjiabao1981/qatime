@@ -3,4 +3,5 @@
   <% @directory.get_full_path.each do |f| %>
       <li><%= link_to f.title, syllabus_directory_path(f.syllabus,f) %></li>
   <% end %>
+  <%= yield :nav %>
 </ol>

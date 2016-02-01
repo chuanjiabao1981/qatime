@@ -80,7 +80,6 @@ class ExaminationCreateTest < ActionDispatch::IntegrationTest
     new_path        = send("new_#{c.model_name.singular_route_key}_#{e.model_name.singular_route_key}_path",c)
     visit new_path
 
-
     fill_in "#{e.model_name.singular_route_key}_title",with: '这个长度不能少10的啊啊啊'
 
     assert_difference "#{e.to_s}.count",1 do
@@ -98,9 +97,12 @@ class ExaminationCreateTest < ActionDispatch::IntegrationTest
           find(:xpath, "//fieldset[2]/div/div/input").set("#{Rails.root}/test/integration/development.log")
           accept_alert
 
+
           click_on "新增#{e.model_name.human}"
 
           assert page.has_content?('test.jpg')
+          page.save_screenshot('screenshot.png')
+
           assert !page.has_content?('development.log')
         end
       end

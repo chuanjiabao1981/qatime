@@ -71,8 +71,12 @@ class SmsWorker
           send_message(teacher.mobile,
                        "【答疑时间】#{question.student.view_name}向您提了一个问题，请您回复#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}。")
         rescue Exception => e
-          logger.info e.message
-          logger.info e.backtrace.inspect
+          if ENV["RAILS_ENV"] != "test"
+            logger.info e.message
+            logger.info e.backtrace.inspect
+          else
+            logger.info e.message
+          end
         end
       end
     end
@@ -180,8 +184,13 @@ class SmsWorker
       begin
         yield
       rescue Exception => e
-        logger.info e.message
-        logger.info e.backtrace.inspect
+        if ENV["RAILS_ENV"] != "test"
+          logger.info e.message
+          logger.info e.backtrace.inspect
+        else
+          #测试环境
+        end
+
       end
     end
 end

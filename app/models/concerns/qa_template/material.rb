@@ -8,9 +8,11 @@ module QaTemplate
       has_many        :template_pictures,through: :picture_quoters,source: :picture
     end
     def qa_files
-      return template_files if template_files
-      if defined? :qa_files
-        return super
+      #如果是模板
+      if respond_to?(:template) and not template.nil?
+        return template_files
+      else
+        super
       end
     end
   end

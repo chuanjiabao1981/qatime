@@ -4,11 +4,9 @@ class VideosController < ApplicationController
   end
 
   def create
-    puts params
     @video_player_id = rand(10000)
     @video = Video.new(params[:video].permit!)
     @video.author_id = current_user.id
-    puts @video
     if @video.save
       @video.add_to_convert_queue
     end

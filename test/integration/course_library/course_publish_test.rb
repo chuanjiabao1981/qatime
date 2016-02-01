@@ -38,11 +38,15 @@ module CourseLibrary
         @teacher_session.post CourseLibrary::Engine.routes.url_helpers.publish_course_path(@course),
                               course: { available_customized_course_ids:[a.id]}
         @teacher_session.assert_redirected_to CourseLibrary::Engine.routes.url_helpers.customized_tutorials_course_path(@course)
+        latest_customized_tutorial = CustomizedTutorial.order(:created_at => :desc).all.first
+        assert latest_customized_tutorial.valid?
+
+        @teacher_session.get customized_tutorial_path(latest_customized_tutorial)
       end
+
     end
 
     test "un publish" do
-      # customized_tutorial = @course.publish_all(@customized_course.id)
       customized_tutorial = CustomizedTutorial::CreateFromTemplate.new(@customized_course.id,@course).call
       @teacher_session.post  CourseLibrary::Engine.routes.url_helpers.un_publish_course_path(@course,customized_tutorial_id: customized_tutorial.id)
       @teacher_session.assert_redirected_to CourseLibrary::Engine.routes.url_helpers.customized_tutorials_course_path(@course)

@@ -1,6 +1,6 @@
 module CourseLibrary
   class ApplicationController < ::ApplicationController
-    layout "application"
+    layout 'course_library/layouts/application'
 
     def unauthorized
       redirect_to main_app.root_path

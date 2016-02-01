@@ -5,13 +5,13 @@ module CourseLibrary
 
     def new
       @syllabus = Syllabus.find(params[:syllabus_id])
-      @directory = @syllabus.directories.build
-      @directory.parent_id = params[:p]
+      @directory = Directory.new
+      @directory.parent = Directory.find(params[:p])
     end
 
     def show
-      @syllabus = Syllabus.find(params[:syllabus_id])
       @directory = Directory.find(params[:id])
+      @syllabus = @directory.syllabus
       @children = Directory.where(parent_id: params[:id])
     end
 
@@ -26,13 +26,13 @@ module CourseLibrary
     end
 
     def edit
-      @syllabus = Syllabus.find(params[:syllabus_id])
       @directory = Directory.find(params[:id])
+      @syllabus = @directory.syllabus
     end
 
     def update
-      @syllabus = Syllabus.find(params[:syllabus_id])
       @directory = Directory.find(params[:id])
+      @syllabus = @directory.syllabus
       if @directory.update_attributes(params[:directory].permit!)
         redirect_to syllabus_directory_path(@syllabus,@directory.parent_id)
       else
@@ -44,6 +44,15 @@ module CourseLibrary
       @directory = Directory.find(params[:id])
       @directory.destroy
       redirect_to syllabus_directory_path(@directory.syllabus,@directory.parent_id)
+    end
+
+    private
+    def current_resource
+      if ! params[:id].nil?
+        @directory = Directory.find(params[:id])
+      else
+        @syllabus = Syllabus.find(params[:syllabus_id])
+      end
     end
 
   end

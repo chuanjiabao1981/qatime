@@ -31,7 +31,7 @@
           <% end %>
         </li>
         <li>
-          <%= link_to course_library.syllabuses_path(teacher_id: @teacher.id) do %>
+          <%= link_to course_library.teacher_syllabuses_path(@teacher) do %>
               <span class="fa fa-sitemap"></span>
               <span class="qa_f18">
                     <%=I18n.t("view.course_library")%>

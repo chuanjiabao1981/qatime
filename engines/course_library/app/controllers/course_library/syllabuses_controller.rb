@@ -5,7 +5,7 @@ module CourseLibrary
 
     def index
       @teacher = Teacher.find(params[:teacher_id])
-      @syllabuses = @teacher.syllabuses
+      @syllabuses = @teacher.syllabuses.order(:title)
       render layout: 'teacher_home'
     end
 
@@ -19,30 +19,42 @@ module CourseLibrary
       @teacher = Teacher.find(params[:teacher_id])
       @syllabus = @teacher.syllabuses.create(params[:syllabus].permit!)
       if @syllabus.save
-        redirect_to syllabuses_path
+        redirect_to teacher_syllabuses_path(@teacher)
       else
-        render 'new'
+        render 'new',layout: 'teacher_home'
       end
     end
 
     def edit
       @syllabus = Syllabus.find(params[:id])
+      @teacher = @syllabus.author
       render layout: 'teacher_home'
     end
 
     def update
       @syllabus = Syllabus.find(params[:id])
+      @teacher = @syllabus.author
       if @syllabus.update_attributes(params[:syllabus].permit!)
-        redirect_to syllabuses_path
+        redirect_to teacher_syllabuses_path(@teacher)
       else
-        render 'edit'
+        render 'edit',layout: 'teacher_home'
       end
     end
 
     def destroy
       @syllabus = Syllabus.find(params[:id])
+      @teacher = @syllabus.author
       @syllabus.destroy
-      redirect_to syllabuses_path
+      redirect_to teacher_syllabuses_path(@teacher)
+    end
+
+    private
+    def current_resource
+      if ! params[:id].nil?
+        @syllabus = Syllabus.find(params[:id])
+      else
+        @teacher = Teacher.find(params[:teacher_id])
+      end
     end
 
   end

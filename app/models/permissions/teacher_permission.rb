@@ -157,9 +157,6 @@ module Permissions
         course_issue_reply and course_issue_reply.customized_course.teacher_ids.include?(user.id)
       end
 
-      allow "course_library/syllabuses",[:index,:new,:create,:edit,:update]
-      allow "course_library/directories",[:show,:new,:create,:edit,:update,:destroy]
-
       #######begine course library permission###############
       allow "course_library/courses",[:available_customized_courses_for_publish,:publish,:customized_tutorials,:un_publish,:sync] do |course|
         course and course.author_id == user.id
@@ -168,8 +165,18 @@ module Permissions
       allow "course_library/solutions",[:index, :new, :edit, :update, :create, :show, :destroy, :mark_delete]
       allow "course_library/homeworks",[:index, :new, :edit, :update, :create, :show, :destroy, :mark_delete]
       allow "course_library/courses",[:index, :new, :edit, :update, :create, :show, :destroy]
-      allow "course_library/directories",[:index, :new, :edit, :update, :create, :show, :destroy]
-      allow "course_library/syllabuses",[:index, :new, :edit, :update, :create, :show, :destroy]
+      allow "course_library/directories",[:edit, :update, :show, :destroy] do |directory|
+        directory and directory.syllabus.author_id == user.id
+      end
+      allow "course_library/directories",[:new, :create] do |syllabus|
+        syllabus and syllabus.author_id == user.id
+      end
+      allow "course_library/syllabuses",[:edit, :update, :show, :destroy] do |syllabus|
+        syllabus and syllabus.author_id == user.id
+      end
+      allow "course_library/syllabuses",[:index, :new, :create] do |teacher|
+        teacher and teacher.id == user.id
+      end
       #######end course library permission##################
       allow :qa_file_quoters,[:index, :new, :edit, :update, :create, :show, :destroy]
     end

@@ -9,9 +9,9 @@
     <%=syllabus.description %>
   </div>
   <div class="col-md-1">
-    <%=link_to '编辑',edit_syllabus_path(syllabus)%>
+    <%=link_to '编辑',edit_teacher_syllabus_path(syllabus.author,syllabus)%>
   </div>
   <div class="col-md-1">
-    <%=link_to '删除',syllabus_path(syllabus),method: :delete,'data-confirm' => 'Are you sure?'%>
+    <%=link_to '删除',teacher_syllabus_path(syllabus.author,syllabus),method: :delete,'data-confirm' => 'Are you sure?'%>
   </div>
 </div>

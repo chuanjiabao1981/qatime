@@ -1,6 +1,6 @@
 module CourseLibrary
   module DirectoriesHelper
-    private def get_dir_tree ( syllabus, selected_directory )
+    def get_dir_tree ( syllabus, selected_directory )
       data = Array.new
       if(selected_directory.id.nil?)
         selected_directory = selected_directory.parent

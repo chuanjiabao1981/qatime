@@ -25,7 +25,7 @@
           <td><%= link_to ct.name ,customized_tutorial_path(ct)%></td>
           <td><%= ct.customized_course.student.name %></td>
           <td><%= localize(ct.created_at,format: :long) %></td>
-          <td><%= ct.is_same_with_template? ? "是":"否" %></td>
+          <td><%= CustomizedTutorial::SameWithTemplate.new(ct).judge? ? "是":"否" %></td>
           <td><%= link_to t('view.course_library/course.sync'),
                           sync_course_path(@course,customized_tutorial_id: ct.id),method: :post%></td>
           <td><%= link_to t('view.course_library/course.un_publish') ,

@@ -15,11 +15,13 @@ class ExerciseSolution < Solution
   end
 
 
-  def is_any_component_charged?
-    self.exercise_corrections.each do |ec|
-      return true if ec.is_charged?
-    end
-    return false
-  end
 
+  def available_correction_templates
+    all_correction_templates = []
+    already_used             = self.corrections.map {|c| c.template }.compact
+    if not self.exercise.template.nil?
+      all_correction_templates = self.exercise.template.solutions
+    end
+    all_correction_templates - already_used
+  end
 end

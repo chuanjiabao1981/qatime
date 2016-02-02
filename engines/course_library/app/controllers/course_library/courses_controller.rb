@@ -58,12 +58,12 @@ module CourseLibrary
     end
     def publish
       params[:course][:available_customized_course_ids].delete("")
-      @course.update_attributes(params[:course].permit!)
+      Course::Publish.new(params[:course][:available_customized_course_ids],@course).call
       redirect_to customized_tutorials_course_path(@course)
     end
 
     def un_publish
-      if @course.un_publish(params[:customized_tutorial_id])
+      if Course::UnPublish.new(params[:customized_tutorial_id]).call
         flash[:success] = t("view.course_library/course.un_publish_success")
       else
         flash[:warning]    = t("view.course_library/course.un_publish_fail")
@@ -72,7 +72,7 @@ module CourseLibrary
     end
 
     def sync
-      if @course.sync_all(params[:customized_tutorial_id])
+      if Course::Sync.new(params[:customized_tutorial_id]).call
         flash[:success] = t("view.course_library/course.sync_success")
       else
         flash[:warning] = t("view.course_library/course.sync_fail")

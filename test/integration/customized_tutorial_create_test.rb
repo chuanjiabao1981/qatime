@@ -34,7 +34,7 @@ class CustomizedTutorialCreateTest < ActionDispatch::IntegrationTest
       assert_difference 'Video.count',1 do
         assert_difference 'CustomizedTutorial.count',1 do
           attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
-          sleep 10
+          sleep 20
           click_on '新增课程'
           l = CustomizedTutorial.all.order(:created_at => :desc).first
           page.save_screenshot('screenshot.png')

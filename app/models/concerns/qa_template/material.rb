@@ -12,7 +12,11 @@ module QaTemplate
       if respond_to?(:template) and not template.nil?
         return template_files
       else
-        super
+        if defined?(:super)
+          super
+        else
+          nil
+        end
       end
     end
   end

@@ -82,11 +82,14 @@ module CourseLibrary
 private
     def current_resource
       if ! params[:id].nil?
-        @course = Course.find(params[:id])
-        @teacher                      = @course.author
+        @course         = Course.find(params[:id])
+        @directory      = @course.directory
+        @syllabus       = @directory.syllabus
+        @teacher        = @course.author
         @course
       else
-        @directory = Directory.find(params[:directory_id])
+        @directory      = Directory.find(params[:directory_id])
+        @syllabus       = @directory.syllabus
         @teacher = @directory.syllabus.author
         nil
       end

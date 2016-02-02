@@ -143,6 +143,12 @@ module ApplicationHelper
       end
   end
 
+  def template_url(qa_object)
+    return if qa_object.nil? or qa_object.try(:template).nil?
+    template = qa_object.template
+    link_to template.model_name.human,course_library.send("#{template.model_name.singular_route_key}_path",template)
+  end
+
   def overwrite_content_for(name, content = nil, &block)
     @_content_for       = {} if @_content_for.nil?
     content             = capture(&block) if block_given?
@@ -159,6 +165,7 @@ module ApplicationHelper
       "success"
     end
   end
+
 
   def completed_duration(object)
     a={

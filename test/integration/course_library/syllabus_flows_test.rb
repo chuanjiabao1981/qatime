@@ -10,11 +10,9 @@ class SyllabusFlowsTest < LoginTestBase
   test "syllabuses index" do
     @teacher_session.get CourseLibrary::Engine.routes.url_helpers.teacher_syllabuses_path(@teacher)
     @teacher_session.assert_response :success
-    puts @syllabus.to_json
-    puts @directory.to_json
     assert @syllabus.valid?
     assert @directory.valid?
-    @teacher_session.assert_select 'a[href=?]', CourseLibrary::Engine.routes.url_helpers.syllabus_directory_path(@syllabus,@directory),1
+    @teacher_session.assert_select 'a[href=?]', CourseLibrary::Engine.routes.url_helpers.syllabus_directory_path(@syllabus,@directory),1,"#{@directory.to_json}- #{@syllabus.to_json}"
   end
 
   test "syllabuses new and create" do

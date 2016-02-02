@@ -35,7 +35,7 @@ class QuestionCreateTest < ActionDispatch::IntegrationTest
     teacher1 = Teacher.find(users(:teacher1).id)
 
     assert teacher1.valid?,teacher1.errors.full_messages
-    puts Question.count
+    #puts Question.count
     page.save_screenshot('screenshot.png')
 
     assert_difference 'Question.count',1 do
@@ -48,7 +48,7 @@ class QuestionCreateTest < ActionDispatch::IntegrationTest
           set_content('这个不能少于20啊啊啊啊啊啊啊啊啊啊12345678900987654321')
 
           add_a_picture
-          puts Question.count
+          #puts Question.count
           page.save_screenshot('screenshot.png')
 
           click_on "新增问题"
@@ -56,7 +56,7 @@ class QuestionCreateTest < ActionDispatch::IntegrationTest
 
 
           a = Question.all.order(created_at: :desc).first
-          puts a.to_json
+          #puts a.to_json
           page.has_content? '这个长度不能少10的啊啊啊'
 
           assert_picture a

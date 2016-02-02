@@ -3,6 +3,7 @@ require_dependency "course_library/application_controller"
 module CourseLibrary
   class CoursesController < ApplicationController
     include QaFilesHelper
+    include DirectoriesHelper
     respond_to :html
     def new
       @directory = Directory.find(params[:directory_id])

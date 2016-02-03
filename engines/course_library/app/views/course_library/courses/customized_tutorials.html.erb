@@ -1,4 +1,15 @@
 <div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%= @course.title %></h2>
+    <ul class="nav nav-tabs">
+      <li>
+        <%=link_to "课程详情", directory_course_path(@course.directory, @course) %>
+      </li>
+      <li class="active">
+        <a href="#" data-toggle="tab">发布</a>
+      </li>
+    </ul>
+  </div>
   <div class="qa_box" style="padding-left:10px">
       <%= link_to  available_customized_courses_for_publish_course_path(@course) do %>
           <button type="button" class="btn btn-xs btn-success"><%= t('view.course_library/course.publish')%></button>

@@ -6,16 +6,13 @@
         <a href="#content" data-toggle="tab">课程详情</a>
       </li>
       <li>
-        <a href="#publication" data-toggle="tab">发布</a>
+        <%=link_to '发布', customized_tutorials_course_path(@course)%>
       </li>
     </ul>
   </div>
   <div class="tab-content">
     <div class="tab-pane fade in active" id="content">
       <%= render 'content' %>
-    </div>
-    <div class="tab-pane fade" id="publication">
-      <%= render 'publication' %>
     </div>
   </div>
 </div>

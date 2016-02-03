@@ -4,3 +4,8 @@ course_one:
   title: course_one title
   description: course_one description
   directory: directory_one
+
+course_for_tally:
+  title: course_for_tally title
+  description: course_for_tally description
+  directory: directory_for_tally

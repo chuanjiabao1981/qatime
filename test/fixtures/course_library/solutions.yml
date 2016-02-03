@@ -7,3 +7,9 @@ solution_two_for_homework_one:
   title: solution_two_for_homework_one title
   description: solution_two_for_homework_one description
   homework: homework_one
+
+
+solution_for_tally:
+  title: solution for tally title
+  description: solution for tally description
+  homework: homework_for_tally

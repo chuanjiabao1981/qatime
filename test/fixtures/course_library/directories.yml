@@ -18,3 +18,8 @@ chapter2:
   title: chapter2
   parent: directory_one
   syllabus: syllabuses_one
+
+
+directory_for_tally:
+  title: directory for tally title
+  syllabus: syllabuses_for_tally

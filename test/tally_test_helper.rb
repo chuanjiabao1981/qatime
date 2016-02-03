@@ -22,7 +22,7 @@ module TallyTestHelper
             assert teacher.account.money == float_test_format(teacher_money + teacher_value)
             assert workstation.account.money == float_test_format(workstation_money + workstation_value)
 
-            assert object.status == "closed"
+            assert object.is_charged?
             # 对fee和老师生成的earning_record进行属性测试
             fee = object.fee
             assert_not_nil fee

@@ -9,6 +9,10 @@ class AnswerCreateTest < ActionDispatch::IntegrationTest
   include ContentInputHelper
 
   def setup
+
+    @student1_question1        = questions(:student1_question1)
+
+
     @headless = Headless.new
     @headless.start
     Capybara.current_driver = :selenium_chrome
@@ -20,12 +24,12 @@ class AnswerCreateTest < ActionDispatch::IntegrationTest
   end
   test "answer question" do
 
-    teacher1            = users(:teacher1)
-    student1_question1  = questions(:student1_question1)
+    teacher1                  = users(:teacher1)
+
     log_in_as(teacher1)
 
     visit questions_path
-    click_on student1_question1.title
+    click_on @student1_question1.title
 
 
 

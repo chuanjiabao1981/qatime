@@ -107,6 +107,9 @@ group :development,:test do
 
 end
 
+gem 'test_after_commit', :group => :test
+
+
 gem 'rest-client'
 gem 'carrierwave-aliyun','0.3.4'
 gem 'unicorn'

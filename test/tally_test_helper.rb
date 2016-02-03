@@ -84,7 +84,7 @@ module TallyTestHelper
   def customized_course_prices_validation(object, &block)
     customized_course = CustomizedCourse.find(object.customized_course_id)
 
-    assert object.save, object.errors.full_messages
+    assert object.save, "#{object.errors.full_messages} #{object.to_json}"
     assert object.valid?
 
     platform_price = object.platform_price

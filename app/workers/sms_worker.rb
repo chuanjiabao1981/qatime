@@ -75,7 +75,8 @@ class SmsWorker
             logger.info e.message
             logger.info e.backtrace.inspect
           else
-            logger.info e.message
+            #测试环境do nothing
+            #logger.info e.message
           end
         end
       end

@@ -19,7 +19,7 @@ class SyncWithTemplateTest < TemplateTest
     end
     v = videos(:video_template_for_course_syn)
     #修改video引用
-    @course_one.video = v
+    @course_one.videos << v
 
     @course_one.title         = random_str
     @course_one.description   = random_str

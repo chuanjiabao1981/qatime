@@ -41,7 +41,16 @@ module CourseLibrary
         latest_customized_tutorial = CustomizedTutorial.order(:created_at => :desc).all.first
         assert latest_customized_tutorial.valid?
 
+        #保证课程有文件可以正确展示
         @teacher_session.get customized_tutorial_path(latest_customized_tutorial)
+        @teacher_session.assert_response :success
+        assert @course.qa_files.count > 0
+        @course.qa_files.each do |f|
+          @teacher_session.assert_select 'a[href=?]',f.name.url
+        end
+
+        #
+
       end
 
     end

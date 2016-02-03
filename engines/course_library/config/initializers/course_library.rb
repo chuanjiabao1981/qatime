@@ -9,6 +9,9 @@ module CourseLibrary
           super
         end
       else
+        puts "-------"
+        puts method
+        puts "-------"
         super
       end
     end

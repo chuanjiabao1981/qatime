@@ -5,7 +5,6 @@ require 'sidekiq/testing'
 Sidekiq::Testing.inline!
 
 class CustomizedCourseMessageIntegrateTest < LoginTestBase
-  self.use_transactional_fixtures = true
 
   def setup
     @customized_course_message_board = customized_course_message_boards(:customized_course_message_board)

@@ -1,8 +1,6 @@
 <div class="qa_box">
   <div class="qa_big_cell">
-    <%= link_to @syllabus.title, course_library.syllabus_path(@syllabus) %> /
-    <%= link_to @directory.title, course_library.syllabus_directory_path(@syllabus, @directory) %> /
-    <%= link_to @course.title, directory_course_path(@directory, @course) %>/
+    <h2><%= CourseLibrary::Homework.model_name.human %></h2>
   </div>
   <%= simple_form_for [@course, @homework] do |f| %>
       <div class="qa_big_cell">
@@ -11,7 +9,7 @@
 
         <div class="qa_sep_15"></div>
 
-        <label>文件</label>
+        <label>材料</label>
         <div class="qa_sep_15"></div>
         <%= f.fields_for :qa_files do |builder| %>
             <%= render 'shared/qa_files/qa_file_fields', f: builder %>

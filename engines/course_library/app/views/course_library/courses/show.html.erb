@@ -1,40 +1,23 @@
 <div class="qa_box">
-  <div class="qa_cell box_header">
-    <%= link_to @syllabus.title, syllabus_path(@syllabus) %>/
-    <%= link_to @directory.title, syllabus_directory_path(@syllabus, @directory) %>/
-    <div class="qa_object header">
-      <h1><%= @course.title %></h1>
+  <div class="qa_big_cell">
+    <h2><%= @course.title %></h2>
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a href="#content" data-toggle="tab">课程详情</a>
+      </li>
+      <li>
+        <a href="#publication" data-toggle="tab">发布</a>
+      </li>
+    </ul>
+  </div>
+  <div class="tab-content">
+    <div class="tab-pane fade in active" id="content">
+      <%= render 'content' %>
     </div>
-    <div class="qa_object footer">
-      <%= link_to edit_directory_course_path(@directory, @course) do %>
-          <i class="fa fa-pencil-square-o"></i>编辑
-      <% end %>
+    <div class="tab-pane fade" id="publication">
+      <%= render 'publication' %>
     </div>
   </div>
-  <div class="qa_big_cell">
-    <h4>概述</h4>
-    <div class="qa_object content">
-      <%= @course.description %>
-    </div>
-  </div>
-  <div class="qa_big_cell">
-    <h4>课程视频</h4>
-    <% if ! @course.current_video.nil? %>
-    <%= video_js_player @course.current_video %>
-    <% end %>
-  </div>
-
-  <div class="qa_big_cell">
-    <h4>课程文件</h4>
-    <%= render partial: 'shared/qa_files/qa_file', collection: @course.qa_files%>
-  </div>
-  <div class="qa_big_cell">
-    <h4>练习与测验</h4>
-    <%= link_to "添加练习", new_course_homework_path(@course) %>
-    <%= render partial: 'course_library/homeworks/homework', collection: @course.homeworks%>
-  </div>
-  <div style="clear: both"></div>
 </div>
-
 <div class="qa_sep_15"></div>
 

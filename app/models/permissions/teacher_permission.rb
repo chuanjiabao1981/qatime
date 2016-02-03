@@ -165,18 +165,15 @@ module Permissions
       end
 
       #######begine course library permission###############
-      allow "course_library/courses",[:available_customized_courses_for_publish,:publish,:customized_tutorials,:un_publish,:sync] do |course|
-        course and course.author_id == user.id
+      allow "course_library/solutions",[:index, :new, :edit, :update, :create, :show, :destroy, :mark_delete, :video] do |solution|
+        solution and solution.homework.course.directory.syllabus.author_id == user.id
       end
-
-      allow "course_library/solutions",[:video] do |solution|
-        true
+      allow "course_library/homeworks",[:index, :new, :edit, :update, :create, :show, :destroy, :mark_delete] do |homework|
+       homework and homework.course.directory.syllabus.author_id == user.id
       end
-
-
-      allow "course_library/solutions",[:index, :new, :edit, :update, :create, :show, :destroy, :mark_delete]
-      allow "course_library/homeworks",[:index, :new, :edit, :update, :create, :show, :destroy, :mark_delete]
-      allow "course_library/courses",[:index, :new, :edit, :update, :create, :show, :destroy]
+      allow "course_library/courses",[:available_customized_courses_for_publish,:publish,:customized_tutorials,:un_publish,:sync, :index, :new, :edit, :update, :create, :show, :destroy, :mark_delete] do |course|
+        course and course.directory.syllabus.author_id == user.id
+      end
       allow "course_library/directories",[:edit, :update, :show, :destroy] do |directory|
         directory and directory.syllabus.author_id == user.id
       end

@@ -77,7 +77,15 @@ module CourseLibrary
     def current_resource
       if params[:id]
         @solution = Solution.find(params[:id])
+        @homework = @solution.homework
+      else
+        @homework = Homework.find(params[:homework_id])
       end
+      @course = @homework.course
+      @directory = @course.directory
+      @syllabus = @directory.syllabus
+      @teacher = @syllabus.author
+      @solution
     end
   end
 end

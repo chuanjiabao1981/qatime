@@ -1,8 +1,4 @@
 <div class="qa_box">
-  <div class="qa_cell box_head">
-    <%=link_to CourseLibrary::Course.human_attribute_name(:customized_tutorials) ,customized_tutorials_course_path(@course)%>
-    / <%= CourseLibrary::Course.human_attribute_name(:available_customized_course_ids) %>
-  </div>
   <div class="qa_big_cell">
     <% if @available_customized_courses.length !=0 %>
         <%= simple_form_for @course ,url: publish_course_path(@course),method: :post  do |f| %>

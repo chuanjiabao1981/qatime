@@ -21,6 +21,7 @@ CourseLibrary::Engine.routes.draw do
       post 'publish'
       post 'un_publish'
       post 'sync'
+      delete 'mark_delete'
     end
     resources :homeworks
   end

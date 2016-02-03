@@ -59,5 +59,19 @@ module CourseLibrary
       end
       respond_with @course
     end
+
+    private
+    def current_resource
+      if params[:id]
+        @homework = Homework.find(params[:id])
+        @course = @homework.course
+      else
+        @course = Course.find(params[:course_id])
+      end
+      @directory = @course.directory
+      @syllabus = @directory.syllabus
+      @teacher = @syllabus.author
+      @homework
+    end
   end
 end

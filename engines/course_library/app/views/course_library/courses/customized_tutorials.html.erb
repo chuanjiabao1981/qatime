@@ -1,8 +1,4 @@
 <div class="qa_box">
-  <div class="qa_cell box_head">
-    <%=  CourseLibrary::Course.human_attribute_name(:customized_tutorials) %>
-  </div>
-  <div class="qa_sep_15"></div>
   <div class="qa_box" style="padding-left:10px">
       <%= link_to  available_customized_courses_for_publish_course_path(@course) do %>
           <button type="button" class="btn btn-xs btn-success"><%= t('view.course_library/course.publish')%></button>

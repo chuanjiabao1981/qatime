@@ -43,10 +43,19 @@ module CourseLibrary
       respond_with @directory, @course
     end
 
+    def destroy
+      @course = Course.find(params[:id])
+      @directory = @course.directory
+      @syllabus = @directory.syllabus
+      @course.destory
+      redirect_to syllabus_directory_path(@syllabus, @directory)
+    end
+
     def show
       @course = Course.find(params[:id])
       @directory = @course.directory
       @syllabus = @directory.syllabus
+      @customized_tutorials = @course.customized_tutorials
     end
     def available_customized_courses_for_publish
       @available_customized_courses = @course.available_customized_course_for_publish
@@ -79,17 +88,25 @@ module CourseLibrary
       redirect_to customized_tutorials_course_path(@course)
     end
 
+    def mark_delete
+      @course.directory = nil
+      if @course.save
+        flash[:success] = "删除成功"
+      end
+      respond_with @directory
+    end
+
 private
     def current_resource
-      if ! params[:id].nil?
+      if params[:id]
         @course = Course.find(params[:id])
-        @teacher                      = @course.author
-        @course
+        @directory = @course.directory
       else
         @directory = Directory.find(params[:directory_id])
-        @teacher = @directory.syllabus.author
-        nil
       end
+      @syllabus = @directory.syllabus
+      @teacher = @syllabus.author
+      @course
     end
   end
 end

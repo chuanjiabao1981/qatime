@@ -1,7 +1,6 @@
 <div class="qa_box">
   <div class="qa_big_cell">
-    <%= link_to @syllabus.title, course_library.syllabus_path(@syllabus) %> /
-    <%= link_to @directory.title, course_library.syllabus_directory_path(@syllabus, @directory) %> /
+    <h2><%= CourseLibrary::Course.model_name.human %></h2>
   </div>
   <%= simple_form_for [@directory, @course] do |f| %>
       <div class="qa_big_cell">

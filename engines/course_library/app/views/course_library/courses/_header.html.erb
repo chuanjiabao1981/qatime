@@ -1,0 +1,4 @@
+<% content_for :nav do%>
+    <li><%= link_to @course.title, directory_course_path(@directory, @course)%></li>
+    <li><%= link_to @homework.title, course_homework_path(@course, @homework)%></li>
+<% end %>

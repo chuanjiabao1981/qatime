@@ -141,7 +141,7 @@ class CorrectionTest < ActiveSupport::TestCase
     @solution.reload
 
 
-    assert @solution.first_handle_created_at.to_i       == @correction1.created_at.to_i,"#{@solution.first_handle_created_at.to_i},#{@correction1.created_at.to_i}"
+    assert @solution.first_handle_created_at.to_i/100       == @correction1.created_at.to_i/100,"#{@solution.first_handle_created_at.to_i},#{@correction1.created_at.to_i}"
     assert @solution.first_handle_author_id             == @correction1.author.id
     assert @solution.last_handle_created_at.to_i        == @correction3.created_at.to_i
     assert @solution.last_handle_author_id              == @correction3.author.id

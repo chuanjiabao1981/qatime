@@ -70,13 +70,12 @@ class CustomizedCourseCreateTest < ActionDispatch::IntegrationTest
           assert_difference 'CustomizedCourse.count',0 do
             assert_difference 'CustomizedCourseAssignment.count',-1 do
               click_on '更新专属课程'
-              page.has_content? "讲师: #{teacher.name}"
             end
           end
         end
       end
     end
-    #page.save_screenshot('screenshot.png')
+    page.has_content? "讲师: #{teacher.name}"
   end
 
   test "customized course edit price changed" do

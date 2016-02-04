@@ -78,14 +78,19 @@ module CourseLibrary
       if params[:id]
         @solution = Solution.find(params[:id])
         @homework = @solution.homework
+        @course = @homework.course
+        @directory = @course.directory
+        @syllabus = @directory.syllabus
+        @teacher = @syllabus.author
+        @solution
       else
         @homework = Homework.find(params[:homework_id])
+        @course = @homework.course
+        @directory = @course.directory
+        @syllabus = @directory.syllabus
+        @teacher = @syllabus.author
+        @homework
       end
-      @course = @homework.course
-      @directory = @course.directory
-      @syllabus = @directory.syllabus
-      @teacher = @syllabus.author
-      @solution
     end
   end
 end

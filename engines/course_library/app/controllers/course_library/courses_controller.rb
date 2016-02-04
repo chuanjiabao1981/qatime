@@ -101,12 +101,15 @@ private
       if params[:id]
         @course = Course.find(params[:id])
         @directory = @course.directory
+        @syllabus = @directory.syllabus
+        @teacher = @syllabus.author
+        @course
       else
         @directory = Directory.find(params[:directory_id])
+        @syllabus = @directory.syllabus
+        @teacher = @syllabus.author
+        @directory
       end
-      @syllabus = @directory.syllabus
-      @teacher = @syllabus.author
-      @course
     end
   end
 end

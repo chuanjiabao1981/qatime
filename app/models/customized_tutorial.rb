@@ -24,8 +24,6 @@ class CustomizedTutorial < ActiveRecord::Base
 
   has_many   :solutions,as: :solutionable,:dependent =>  :destroy
 
-  # has_one    :video_quoter,as: :file_quoter
-  # has_one    :template_video,through: :video_quoter,source: :video
 
 
   has_many   :tutorial_issues,:dependent => :destroy do

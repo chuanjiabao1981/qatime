@@ -10,3 +10,11 @@ video_quoter_2:
 video_quoter_3:
   video: video_template_two_for_solution_two_for_homework_one
   file_quoter: solution_two_for_homework_one(CourseLibrary::Solution)
+
+video_quoter_4:
+  video: video_template_for_tally
+  file_quoter: course_for_tally(CourseLibrary::Course)
+
+video_quoter_5:
+  video: video_solution_template_for_tally
+  file_quoter: solution_for_tally(CourseLibrary::Solution)

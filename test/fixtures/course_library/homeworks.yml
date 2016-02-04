@@ -13,3 +13,9 @@ homework_two:
 homework_three_without_course:
   title: homework_three_without_course title
   description: homework_three_without_course description
+
+
+homework_for_tally:
+  title: homework for tally title
+  description: homework for tally description
+  course: course_for_tally

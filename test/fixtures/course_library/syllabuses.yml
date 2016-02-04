@@ -5,3 +5,8 @@ syllabuses_one:
   title: syllabus one title
   description: syllabus one description
   author: teacher1
+
+syllabuses_for_tally:
+  title: syllabuses for tally title
+  description: syllabuses for tally description
+  author: teacher_tally

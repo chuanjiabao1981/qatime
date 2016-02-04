@@ -36,7 +36,8 @@
           <td><%= link_to t('view.course_library/course.sync'),
                           sync_course_path(@course,customized_tutorial_id: ct.id),method: :post%></td>
           <td><%= link_to t('view.course_library/course.un_publish') ,
-                          un_publish_course_path(@course,customized_tutorial_id: ct.id),method: :post%></td>
+                          un_publish_course_path(@course,customized_tutorial_id: ct.id),method: :post,
+                          data:{confirm: t('view.course_library/course.un_publish_warn')}%></td>
 
         </tr>
       <% end %>

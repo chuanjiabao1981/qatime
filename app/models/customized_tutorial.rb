@@ -8,6 +8,8 @@ class CustomizedTutorial < ActiveRecord::Base
   include QaTemplate::Material
   include QaTemplate::Video
 
+  include CustomizedTutorial::Utils
+
 
   validates_presence_of :title,:customized_course,:teacher,:last_operator
   scope                 :by_teacher, lambda {|t| where(teacher_id: t) if t}

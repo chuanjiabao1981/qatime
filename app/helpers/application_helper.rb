@@ -143,10 +143,20 @@ module ApplicationHelper
       end
   end
 
-  def template_url(qa_object)
-    return if qa_object.nil? or qa_object.try(:template).nil?
+  def template_url(qa_object,span=false)
+    return if qa_object.nil? or qa_object.try(:template).nil? or current_user.student?
     template = qa_object.template
-    link_to template.model_name.human,course_library.send("#{template.model_name.singular_route_key}_path",template)
+    str      = "在备课中心查看详情"
+    if not span
+      concat "• "
+    end
+    link_to course_library.send("#{template.model_name.singular_route_key}_path",template) do
+      if span
+        content_tag('span',"#{str}",class: 'label label-success')
+      else
+        "#{str}"
+      end
+    end
   end
 
   def overwrite_content_for(name, content = nil, &block)

@@ -40,4 +40,6 @@
     </tr>
     <%= render partial:'shared/customized_courses/customized_course',collection: customized_courses %>
   </table>
+  <%= will_paginate customized_courses ,renderer: BootstrapPagination::Rails %>
 </div>
+

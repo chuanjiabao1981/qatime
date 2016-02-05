@@ -4,7 +4,10 @@
         [<%=t("activerecord.attributes.qa_faq.qa_faq_type_enum.#{@qa_faq.qa_faq_type}")%>] <%= @qa_faq.title %>
     </div>
     <div class="content">
+
       <%= raw @qa_faq.content %>
+      <%= render partial: 'pictures/gallery',locals:{pictures: @qa_faq.pictures,show_operation: false,gallery_id: @qa_faq.token} %>
+
     </div>
     <div class="op">
         <% if allow? 'qa_faq','edit' %>

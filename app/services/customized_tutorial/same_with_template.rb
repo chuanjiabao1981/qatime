@@ -39,7 +39,8 @@ class CustomizedTutorial::SameWithTemplate
       diff << "exercises"
     end
     @customized_tutorial.exercises.each do |exercise|
-      if not Exercise::SameWithTemplate.new(exercise).judge?
+      #只对有template的exercise 判断是否相同
+      if not exercise.template.nil? and not Exercise::SameWithTemplate.new(exercise).judge?
         diff << "exercise #{exercise.id}"
       end
     end

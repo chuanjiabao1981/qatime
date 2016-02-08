@@ -1,6 +1,7 @@
 class CustomizedTutorial
-  module Utils
-    def template_directory_path_str
+  module CustomizedTutorial::Utils extend ActiveSupport::Concern
+
+  def template_directory_path_str
 
       if not template.nil? and not template.directory.nil?
         prefix = nil

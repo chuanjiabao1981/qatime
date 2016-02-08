@@ -8,11 +8,21 @@ class ExerciseCorrection::SameWithTemplate
     return false if @exercise_correction.template.nil?
     template = @exercise_correction.template
 
-    diff     = []
     ##juge content and title+description is same
+    diff     = []
+
+    if not @exercise_correction.content == template.content
+      diff << "content"
+    end
 
     ##judge material
+    m_diff   =
+        CourseLibrary::Util::MaterialDiff.new(template,@exercise_correction).call
+    diff     = diff + m_diff
 
-    CourseLibrary::Util::MaterialDiff.new(@exercise_correction.tempalte,@exercise_correction).call
+    if diff.blank?
+      return true
+    end
+    return false
   end
 end

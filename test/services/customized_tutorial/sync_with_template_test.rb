@@ -93,6 +93,7 @@ class SyncWithTemplateTest < TemplateTest
     @course_one.reload
     assert_not customized_tutorial.exercises.count == @course_one.homeworks.count
     customized_tutorial.reload #reload 之后才能知道worker有变动
+
     assert_difference 'Exercise.count',1 do
       CustomizedTutorial::SyncExercisesWithTemplate.new(customized_tutorial).call
     end

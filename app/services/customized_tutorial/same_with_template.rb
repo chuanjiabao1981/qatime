@@ -21,23 +21,30 @@ class CustomizedTutorial::SameWithTemplate
     if @customized_tutorial.content != template.description
       diff << "description"
     end
-    if @customized_tutorial.template_video  != template.video
-      diff << "video"
-    end
 
 
-    if not same_array?(@customized_tutorial.template_picture_ids,template.picture_ids)
-      diff << "pictures"
-    end
+    m_diff   =
+        CourseLibrary::Util::MaterialDiff.new(template,@customized_tutorial).call
 
-
-    if not same_array?(@customized_tutorial.template_file_ids,template.qa_file_ids)
-      diff << "files"
-    end
-
+    diff     = diff + m_diff
+    # if @customized_tutorial.template_video  != template.video
+    #   diff << "video"
+    # end
+    #
+    #
+    # if not same_array?(@customized_tutorial.template_picture_ids,template.picture_ids)
+    #   diff << "pictures"
+    # end
+    #
+    #
+    # if not same_array?(@customized_tutorial.template_file_ids,template.qa_file_ids)
+    #   diff << "files"
+    # end
+    #
     if not same_array?(exercise_template_ids,template.homework_ids)
       diff << "exercises"
     end
+
     @customized_tutorial.exercises.each do |exercise|
       #只对有template的exercise 判断是否相同
       if not exercise.template.nil? and not Exercise::SameWithTemplate.new(exercise).judge?

@@ -17,14 +17,27 @@ class Exercise::SameWithTemplate
     if template.description != @exercise.content
       diff << "description"
     end
+    m_diff   =
+        CourseLibrary::Util::MaterialDiff.new(template,@exercise).call
 
-    if not same_array?(template.picture_ids,@exercise.template_picture_ids)
-      diff << "picture"
-    end
+    diff = diff + m_diff
+    # if not same_array?(template.picture_ids,@exercise.template_picture_ids)
+    #   diff << "picture"
+    # end
+    #
+    #
+    # if not same_array?(template.qa_file_ids,@exercise.template_file_ids)
+    #   diff << "files"
+    # end
 
-
-    if not same_array?(template.qa_file_ids,@exercise.template_file_ids)
-      diff << "files"
+    @exercise.solutions.each do |solution|
+      solution.corrections.each do |correction|
+        if not correction.template.nil?
+          if not ExerciseCorrection::SameWithTemplate.new(correction).judge?
+            diff << "correction#{correction.id}"
+          end
+        end
+      end
     end
     if diff.blank?
       return true

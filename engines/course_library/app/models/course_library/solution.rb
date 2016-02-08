@@ -5,5 +5,6 @@ module CourseLibrary
     include VideoAccessor
     include QaFileAccessor
     include PictureAccessor
+    include CourseLibrary::Concerns::Solution::Utils
   end
 end

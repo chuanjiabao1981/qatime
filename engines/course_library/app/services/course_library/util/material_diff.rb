@@ -34,6 +34,7 @@ module CourseLibrary
             diff << "files"
           end
         end
+        return diff
       end
 
       private

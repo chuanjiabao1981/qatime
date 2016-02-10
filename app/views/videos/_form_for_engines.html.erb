@@ -1,9 +1,25 @@
-<%= simple_form_for video do |f| %>
-    <%= f.input :name %>
-    <div class="qa_sep_15"></div>
-    <div id="upload_progress" class="row">
+<div class="modal fade" id="newVideoModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">上传视频</h4>
+      </div>
+      <div class="modal-body" id="newProductInput">
+        <%= simple_form_for video do |f| %>
+            <%= f.input :name %>
+            <div class="qa_sep_15"></div>
+            <div id="upload_progress" class="row">
+            </div>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")), '#', :class => 'btn btn-default', data: {dismiss: "modal"} %>
+      </div>
     </div>
-<% end %>
+  </div>
+</div>
+
 
 <script>
     $(
@@ -11,6 +27,7 @@
                 var video_input = $("input#video_name");
                 var video_form = video_input.closest('form');
                 var video_show = $("div#upload_progress");
+                alert(video_show);
                 if ($("div#video_show video").length == 0) {
                     video_show.html($("div#template-progress div.progress").clone());
                 }
@@ -18,6 +35,7 @@
                     var fileExtend = this.value.substring(this.value.lastIndexOf('.')).toLowerCase();
                     if (fileExtend != ".mp4") {
                         alert("视频文件格式只支持mp4，请重新上传！")
+                        video_form[0].reset()
                         return;
                     }
                     video_form.ajaxSubmit({
@@ -35,6 +53,11 @@
                             }
                         }
                     });
+                });
+
+                $('#newVideoModal').on('hide.bs.modal', function () {
+                    video_show.html("")
+                    video_form[0].reset();
                 })
             }
     )

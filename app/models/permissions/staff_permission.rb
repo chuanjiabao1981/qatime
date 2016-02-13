@@ -11,9 +11,12 @@ module Permissions
       end
 
 
-
       allow :customized_course_message_replies,[:show] do |customized_course_message_reply|
         customized_course_message_reply
+      end
+
+      allow :notifications,[:show] do |notification|
+        notification
       end
 
     end

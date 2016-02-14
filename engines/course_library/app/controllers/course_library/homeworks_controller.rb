@@ -33,7 +33,7 @@ module CourseLibrary
     end
 
     def update
-      @homework = Course.find(params[:id])
+      @homework = Homework.find(params[:id])
       @course = @homework.course
       @directory = @course.directory
       @syllabus = @directory.syllabus

@@ -67,6 +67,7 @@ module CourseLibrary
     def publish
       params[:course][:available_customized_course_ids].delete("")
       Course::Publish.new(params[:course][:available_customized_course_ids],@course).call
+      flash[:success] = t("view.course_library/course.publish_success")
       redirect_to customized_tutorials_course_path(@course)
     end
 

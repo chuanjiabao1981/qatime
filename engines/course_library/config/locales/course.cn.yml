@@ -11,6 +11,7 @@ cn:
         customized_tutorials: 使用此大纲课程的专属课程
   view:
     course_library/course:
+      publish_success: 课程发布成功
       un_publish_success: 成功撤销大纲课程的发布
       un_publish_fail: 未能撤销大纲课程的发布，因为专属课程已计费
       un_publish: 撤销

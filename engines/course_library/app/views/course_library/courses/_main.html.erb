@@ -1,0 +1,21 @@
+<%=render 'header'%>
+
+<div class="qa_box">
+    <div class="qa_big_cell">
+      <h2><%= @course.title %></h2>
+    </div>
+  <div class="qa_sep_15"></div>
+
+  <ul class="nav nav-tabs">
+        <li role="presentation" class=<%= "active" if action_name == "show" and controller_name == "courses"%>>
+          <%=link_to "课程详情", directory_course_path(@course.directory, @course) %>
+        </li>
+        <li role="presentation" class=<%= "active" if action_name == "customized_tutorials" and controller_name == "courses"%>>
+          <%=link_to '发布', customized_tutorials_course_path(@course)%>
+        </li>
+    </ul>
+    <div calss="qa_big_cell">
+      <%= yield %>
+    </div>
+
+</div>

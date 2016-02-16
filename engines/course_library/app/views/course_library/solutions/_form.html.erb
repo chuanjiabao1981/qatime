@@ -25,13 +25,7 @@
         </div>
         <div class="qa_sep_15"></div>
 
-        <label>材料</label>
-        <div class="qa_sep_15"></div>
-        <%= f.fields_for :qa_files do |builder| %>
-            <%= render 'shared/qa_files/qa_file_fields', f: builder %>
-        <% end %>
-        <%= link_to_add_fields "添加#{f.object.class.human_attribute_name(:qa_files)}", f, :qa_files, "shared/qa_files/" %></br>
-        <div class="qa_sep_15"></div>
+
 
         <%= f.submit nil, :class => 'btn btn-primary', :data => {:"disable-with" => "请稍等..."} %>
       </div>

@@ -18,9 +18,11 @@
 </div>
 <%= render partial: 'shared/qa_files/qa_file', collection: @course.qa_files %>
 </div>
-<div class="qa_big_cell">
+<div class="qa_big_cell_without_border">
   <h4>练习与测验</h4>
   <%= link_to "添加练习", new_course_homework_path(@course) %>
   <%= render partial: 'course_library/homeworks/homework', collection: @course.homeworks %>
+
 </div>
+
 <div style="clear: both"></div>

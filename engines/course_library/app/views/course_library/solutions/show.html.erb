@@ -1,9 +1,10 @@
 <%=render 'header'%>
 <div class="qa_box">
   <div class="qa_big_cell">
-    <h2><%= @solution.title %></h2>
+    <h2><%= @solution.title %>
     <%= link_to edit_homework_solution_path(@homework, @solution) do %>
         <button type="button" class="btn btn-xs btn-success">编辑</button>
+          </h2>
     <% end %>
   </div>
   <div class="qa_big_cell">

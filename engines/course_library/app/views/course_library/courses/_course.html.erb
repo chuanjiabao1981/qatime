@@ -1,9 +1,7 @@
 <div class="row qa_big_cell">
-  <div class="col-md-1">
-    <%= course_counter + 1 %>
-  </div>
   <div class="col-md-3">
-    <%=link_to course.title, directory_course_path(course.directory, course) %>
+    <span class="glyphicon glyphicon-file"></span>
+    <%=link_to course.title, course_path(course) %>
   </div>
   <div class="col-md-6">
     <%=course.description %>

@@ -6,12 +6,14 @@ class DirectoryFlowsTest < LoginTestBase
     @syllabus = course_library_syllabuses(:syllabuses_one)
     @directory = course_library_directories(:directory_one)
     @chapter1 = course_library_directories(:chapter1)
+    @course = course_library_courses(:course_one)
   end
 
   test "directory show" do
     @teacher_session.get CourseLibrary::Engine.routes.url_helpers.syllabus_directory_path(@syllabus,@directory)
     @teacher_session.assert_response :success
     @teacher_session.assert_select 'a[href=?]', CourseLibrary::Engine.routes.url_helpers.syllabus_directory_path(@syllabus,@chapter1),2
+    @teacher_session.assert_select 'a[href=?]', CourseLibrary::Engine.routes.url_helpers.course_path(@course),1
   end
 
   test "directories new and create" do

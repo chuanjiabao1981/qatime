@@ -17,7 +17,7 @@
     </div>
   <div class="qa_sep_15"></div>
 
-  <ul class="nav nav-tabs">
+  <ul class="nav nav-tabs"  style="padding-left: 1px">
         <li role="presentation" class=<%= "active" if action_name == "show" and controller_name == "courses"%>>
           <%=link_to "课程详情", directory_course_path(@course.directory, @course) %>
         </li>

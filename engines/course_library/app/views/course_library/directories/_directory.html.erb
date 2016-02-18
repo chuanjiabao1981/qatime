@@ -1,9 +1,9 @@
 <div class="row qa_big_cell">
-    <div class="col-md-1">
-      <%= directory_counter + 1 %>
-    </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
+      <span class="glyphicon glyphicon-folder-close"></span>
       <%=link_to directory.title, syllabus_directory_path(directory.syllabus,directory) %>
+    </div>
+    <div class="col-md-6">
     </div>
     <div class="col-md-1">
       <%=link_to '编辑',edit_syllabus_directory_path(directory.syllabus,directory)%>

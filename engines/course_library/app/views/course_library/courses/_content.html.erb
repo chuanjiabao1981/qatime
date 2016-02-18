@@ -2,7 +2,9 @@
   <h4>简介</h4>
 
   <div class="qa_object content">
-    <%= @course.description %>
+    <p>
+      <%= @course.description %>
+    </p>
   </div>
 </div>
 <div class="qa_big_cell">
@@ -11,16 +13,16 @@
       <%= video_js_player @course.current_video %>
   <% end %>
 </div>
-
-<div>
 <div class="qa_big_cell_without_border">
   <h4>课程文件</h4>
-</div>
-<%= render partial: 'shared/qa_files/qa_file', collection: @course.qa_files %>
+  <%= render partial: 'shared/qa_files/qa_file', collection: @course.qa_files %>
 </div>
 <div class="qa_big_cell">
-  <h4>练习与测验</h4>
-  <%= link_to "添加练习", new_course_homework_path(@course) %>
+  <h4>练习与测验
+    <%= link_to new_course_homework_path(@course) do %>
+        <button type="button" class="btn btn-xs btn-success">添加练习</button>
+    <% end %>
+  </h4>
   <%= render partial: 'course_library/homeworks/homework', collection: @course.homeworks %>
 </div>
 <div style="clear: both"></div>

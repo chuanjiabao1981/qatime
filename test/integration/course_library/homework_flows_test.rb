@@ -28,4 +28,11 @@ class CourseFlowsTest < LoginTestBase
     @teacher_session.assert_select 'a[href=?]', CourseLibrary::Engine.routes.url_helpers.edit_solution_path(course_library_solutions(:solution_two_for_homework_one)),1
   end
 
+
+  test "homework mark delete" do
+    assert_difference '@course.homeworks.count' ,-1 do
+      @teacher_session.delete CourseLibrary::Engine.routes.url_helpers.mark_delete_homework_path(@homework)
+    end
+  end
+
 end

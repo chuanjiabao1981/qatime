@@ -18,4 +18,10 @@ class CourseFlowsTest < LoginTestBase
     @teacher_session.assert_select 'source[src=?]', videos(:video_template).name.url, 1
   end
 
+  test "solution mark delete" do
+    assert_difference '@homework.solutions.count' ,-1 do
+      @teacher_session.delete CourseLibrary::Engine.routes.url_helpers.mark_delete_solution_path(@solution)
+    end
+  end
+
 end

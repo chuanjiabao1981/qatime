@@ -17,7 +17,7 @@
   <h4>课程文件</h4>
   <%= render partial: 'shared/qa_files/qa_file', collection: @course.qa_files %>
 </div>
-<div class="qa_big_cell">
+<div class="qa_big_cell_without_border">
   <h4>练习与测验
     <%= link_to new_course_homework_path(@course) do %>
         <button type="button" class="btn btn-xs btn-success">添加练习</button>

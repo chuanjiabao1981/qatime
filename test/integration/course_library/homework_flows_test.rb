@@ -35,4 +35,27 @@ class CourseFlowsTest < LoginTestBase
     end
   end
 
+  test "homework new and create" do
+    @teacher_session.get CourseLibrary::Engine.routes.url_helpers.new_course_homework_path(@course)
+    @teacher_session.assert_response :success
+
+    c = @course.homeworks.count
+    @teacher_session.post CourseLibrary::Engine.routes.url_helpers.course_homeworks_path(@course),
+                          homework: {title:"new homework", description: "new description"}
+    @teacher_session.assert_response :redirect
+    @teacher_session.assert_equal c+1,@course.homeworks.count
+  end
+
+  test "homework edit and update" do
+    @teacher_session.get CourseLibrary::Engine.routes.url_helpers.edit_homework_path(@homework)
+    @teacher_session.assert_response :success
+
+    @teacher_session.patch CourseLibrary::Engine.routes.url_helpers.homework_path(@homework),
+                           homework: {title:"homework title", description:"new description"}
+    @teacher_session.assert_response :redirect
+    @homework.reload
+    @teacher_session.assert_equal "homework title",@homework.title
+    @teacher_session.assert_equal "new description",@homework.description
+  end
+
 end

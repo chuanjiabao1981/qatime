@@ -24,4 +24,27 @@ class CourseFlowsTest < LoginTestBase
     end
   end
 
+  test "solution new and create" do
+    @teacher_session.get CourseLibrary::Engine.routes.url_helpers.new_homework_solution_path(@homework)
+    @teacher_session.assert_response :success
+
+    c = @homework.solutions.count
+    @teacher_session.post CourseLibrary::Engine.routes.url_helpers.homework_solutions_path(@homework),
+                          solution: {title:"new solution", description: "new description"}
+    @teacher_session.assert_response :redirect
+    @teacher_session.assert_equal c+1,@homework.solutions.count
+  end
+
+  test "solution edit and update" do
+    @teacher_session.get CourseLibrary::Engine.routes.url_helpers.edit_solution_path(@solution)
+    @teacher_session.assert_response :success
+
+    @teacher_session.patch CourseLibrary::Engine.routes.url_helpers.solution_path(@solution),
+                           solution: {title:"solution title", description:"new description"}
+    @teacher_session.assert_response :redirect
+    @solution.reload
+    @teacher_session.assert_equal "solution title",@solution.title
+    @teacher_session.assert_equal "new description",@solution.description
+  end
+
 end

@@ -38,8 +38,38 @@ class CourseFlowsTest < LoginTestBase
   end
 
   test "course new and create" do
+    @teacher_session.get CourseLibrary::Engine.routes.url_helpers.new_directory_course_path(@directory)
+    @teacher_session.assert_response :success
+
+    c = @directory.courses.count
+    @teacher_session.post CourseLibrary::Engine.routes.url_helpers.directory_courses_path(@directory),
+                          course: {title:"new course", description: "new description"}
+    @teacher_session.assert_response :redirect
+    @teacher_session.assert_equal c+1,@directory.courses.count
   end
 
   test "course edit and update" do
+    @teacher_session.get CourseLibrary::Engine.routes.url_helpers.edit_course_path(@course)
+    @teacher_session.assert_response :success
+
+    @teacher_session.patch CourseLibrary::Engine.routes.url_helpers.course_path(@course),
+                           course: {title:"course title", description:"new description"}
+    @teacher_session.assert_response :redirect
+    @course.reload
+    @teacher_session.assert_equal "course title",@course.title
+    @teacher_session.assert_equal "new description",@course.description
+  end
+
+  test "course create with file and video" do
+
+  end
+  test "course update video" do
+
+  end
+  test "course add file"  do
+
+  end
+  test "course remove file" do
+
   end
 end

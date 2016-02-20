@@ -1,7 +1,11 @@
 <ol class="breadcrumb" style="margin-bottom: 0px;">
   <li><%= link_to "备课中心", teacher_syllabuses_path(@syllabus.author) %></li>
   <% @directory.get_full_path.each do |f| %>
-      <li><%= link_to f.title, syllabus_directory_path(f.syllabus,f) %></li>
+      <% if @directory.id==f.id && @course.nil? %>
+          <li><%= f.title %></li>
+      <% else %>
+          <li><%= link_to f.title, syllabus_directory_path(f.syllabus,f) %></li>
+      <% end %>
   <% end %>
   <%= yield :nav %>
 </ol>

@@ -75,6 +75,15 @@ module Permissions
       allow :course_issue_replies,[:show]
       allow :comments,[:show]
       allow :corrections,[:show]
+
+      #######begine course library permission###############
+      allow "course_library/solutions",[:index, :show]
+      allow "course_library/homeworks",[:index, :show]
+      allow "course_library/courses",[:index, :show]
+      allow "course_library/directories",[:index, :show]
+      allow "course_library/syllabuses",[:index, :show]
+      #######end course library permission##################
+
     end
   end
 end

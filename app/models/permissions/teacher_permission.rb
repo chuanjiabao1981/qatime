@@ -183,13 +183,13 @@ module Permissions
       allow "course_library/courses",[:index, :new, :create] do |directory|
         directory and directory.syllabus.author_id == user.id
       end
-      allow "course_library/directories",[:edit, :update, :show, :destroy] do |directory|
+      allow "course_library/directories",[:edit, :update, :show] do |directory|
         directory and directory.syllabus.author_id == user.id
       end
       allow "course_library/directories",[:new, :create] do |syllabus|
         syllabus and syllabus.author_id == user.id
       end
-      allow "course_library/syllabuses",[:edit, :update, :show, :destroy] do |syllabus|
+      allow "course_library/syllabuses",[:edit, :update, :show] do |syllabus|
         syllabus and syllabus.author_id == user.id
       end
       allow "course_library/syllabuses",[:index, :new, :create] do |teacher|

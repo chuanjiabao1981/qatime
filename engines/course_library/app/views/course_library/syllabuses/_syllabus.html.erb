@@ -11,7 +11,9 @@
   <div class="col-md-1">
     <%=link_to '编辑',edit_teacher_syllabus_path(syllabus.author,syllabus)%>
   </div>
-  <div class="col-md-1">
-    <%=link_to '删除',teacher_syllabus_path(syllabus.author,syllabus),method: :delete,'data-confirm' => 'Are you sure?'%>
-  </div>
+  <% if allow? "course_library/syllabuses",:destroy,@syllabus %>
+    <div class="col-md-1">
+      <%=link_to '删除',teacher_syllabus_path(syllabus.author,syllabus),method: :delete,'data-confirm' => 'Are you sure?'%>
+    </div>
+  <% end %>
 </div>

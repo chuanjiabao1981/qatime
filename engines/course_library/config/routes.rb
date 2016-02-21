@@ -14,7 +14,7 @@ CourseLibrary::Engine.routes.draw do
   resources :homeworks
   resources :solutions
   resources :courses do
-    resources :publications
+    resources :course_publications
     member do
       get 'available_customized_courses_for_publish'
       get 'customized_tutorials'

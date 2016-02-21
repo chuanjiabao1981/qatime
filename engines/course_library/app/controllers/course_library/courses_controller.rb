@@ -55,10 +55,11 @@ module CourseLibrary
       @course = Course.find(params[:id])
       @directory = @course.directory
       @syllabus = @directory.syllabus
-      @customized_tutorials = @course.customized_tutorials
+      # @customized_tutorials = @course.customized_tutorials
     end
     def available_customized_courses_for_publish
       @available_customized_courses = @course.available_customized_course_for_publish
+      @course_publication           = @course.course_publications.new
     end
 
     def customized_tutorials

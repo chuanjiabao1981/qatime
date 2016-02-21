@@ -107,7 +107,7 @@ group :development,:test do
 
 end
 
-gem 'test_after_commit', :group => :test
+# gem 'test_after_commit', :group => :test
 
 
 gem 'rest-client'

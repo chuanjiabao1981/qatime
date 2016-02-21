@@ -9,7 +9,7 @@ module QaTemplate
     end
     def qa_files
       #如果是模板
-      if respond_to?(:template) and not template.nil?
+      if respond_to?(:template1) and not template.nil?
         return template_files
       else
         if defined?(super)

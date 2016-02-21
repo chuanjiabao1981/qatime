@@ -16,4 +16,10 @@
                     customized_tutorials_course_path(@course) %>
     <% end %>
   </div>
+  <div class="qa_big_cell">
+    <%= simple_form_for [@course,@course_publication] do |f| %>
+        <%= f.input :customized_course,collection: @available_customized_courses %>
+        <%= f.association :homeworks ,as: :check_boxes%>
+    <% end %>
+  </div>
 </div>

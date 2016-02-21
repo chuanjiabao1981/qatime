@@ -195,6 +195,10 @@ module Permissions
       allow "course_library/syllabuses",[:index, :new, :create] do |teacher|
         teacher and teacher.id == user.id
       end
+
+      allow "course_library/course_publications",[:index,:new,:create] do |course|
+        user and user.id == course.author_id
+      end
       #######end course library permission##################
       allow :qa_file_quoters,[:index, :new, :edit, :update, :create, :show, :destroy]
     end

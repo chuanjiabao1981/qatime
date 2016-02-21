@@ -10,6 +10,9 @@ module CourseLibrary
     belongs_to :directory
 
     has_many :homeworks
+
+    has_many :course_publications
+
     def self.get_all_courses(teacher)
       @syllabuses = Syllabus.where(author: teacher)
       @directories = Directory.where(syllabus: @syllabuses)
@@ -17,7 +20,7 @@ module CourseLibrary
     end
 
 
-    has_many :customized_tutorials,class_name: "CustomizedTutorial",foreign_key: "template_id"
+    # has_many :customized_tutorials,class_name: "CustomizedTutorial",foreign_key: "template_id"
 
 
 
@@ -30,16 +33,6 @@ module CourseLibrary
 
     end
 
-    #TODO:: remove it from model
-    def available_customized_course_for_publish
-      teacher = self.author
-      a = teacher.customized_courses
-      b = []
-      self.customized_tutorials.each do |ct|
-        b << ct.customized_course
-      end
-      a - b
-    end
 
     def author_id
       self.directory.syllabus.author.id

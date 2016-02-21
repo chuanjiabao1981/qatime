@@ -1,0 +1,39 @@
+<%= render layout: 'course_library/courses/main' do %>
+    <div class="qa_sep_15"></div>
+    <div class="qa_box" style="padding-left:10px">
+      <%= link_to  new_course_course_publication_path(@course) do %>
+          <button type="button" class="btn btn-xs btn-success"><%= t('view.course_library/course.publish')%></button>
+      <% end %>
+    </div>
+    <div class="qa_sep_15"></div>
+
+    <table class="table-bordered table">
+      <tr>
+        <th>#</th>
+        <th><%= CustomizedTutorial.model_name.human %></th>
+        <th><%= Student.model_name.human %></th>
+        <th><%= t('view.course_library/course_publication.publish_time')%></th>
+        <th><%= t('view.course_library/course_publication.is_same')%></th>
+        <th><%= t('view.course_library/course_publication.publish_lecture_switch')%></th>
+        <th><%= t('view.course_library/course_publication.homework_publications_count')%></th>
+        <th colspan="2"><%= t('view.course_library/course.operation') %></th>
+      </tr>
+      <% @course_publications.each_with_index do |pb,index|%>
+          <tr>
+            <td><%= index+1%></td>
+            <td><%= link_to pb.customized_tutorial.try(:name) ,customized_tutorial_path(pb.customized_tutorial)%></td>
+            <td><%= pb.customized_tutorial.customized_course.student.name %></td>
+            <td><%= localize(pb.customized_tutorial.created_at,format: :long) %></td>
+            <td><%= CustomizedTutorialService::CourseLibrary::SameWithTemplate.new(pb.customized_tutorial).judge? ? "是":"否" %></td>
+            <td><%= pb.publish_lecture_switch ? "是" : "否" %></td>
+            <td><%= pb.homework_publications.count %></td>
+            <td><%= link_to t('view.course_library/course.sync'),
+                            sync_course_path(@course,customized_tutorial_id: pb.customized_tutorial.id),method: :post%></td>
+            <td><%= link_to t('view.course_library/course.un_publish') ,
+                            un_publish_course_path(@course,customized_tutorial_id: pb.customized_tutorial.id),method: :post,
+                            data:{confirm: t('view.course_library/course.un_publish_warn')}%></td>
+
+          </tr>
+      <% end %>
+    </table>
+<% end %>

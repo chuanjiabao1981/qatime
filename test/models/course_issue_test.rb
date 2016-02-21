@@ -15,7 +15,7 @@ class CourseIssueTest < ActiveSupport::TestCase
         last_operator: customized_course.student
     )
     course_issue.author     = customized_course.teachers.first
-    assert course_issue.valid?,course_issue.errors.full_messages
+    assert course_issue.valid?,"#{course_issue.errors.full_messages} #{course_issue.to_json}"
     assert_difference 'CourseIssue.count',1 do
       assert_difference 'CustomizedCourseActionRecord.count',1 do
         assert_difference 'CustomizedCourseActionNotification.count',2 do

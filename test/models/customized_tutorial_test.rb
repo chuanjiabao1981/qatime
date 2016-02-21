@@ -1,7 +1,7 @@
 require 'test_helper'
 require 'tally_test_helper'
 
-class CustomizedTutorialTest < ActiveSupport::TestCase
+class CustomizedTutorialModelTest < ActiveSupport::TestCase
   include TallyTestHelper
 
   def setup
@@ -65,12 +65,20 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
 
   # 测试结账功能
   test "customized tutorial keep_account new" do
-    teacher = Teacher.find(users(:teacher_tally).id)
-    student = Student.find(users(:student_tally).id)
-    workstation = workstations(:workstation1)
+    teacher                   = Teacher.find(users(:teacher_tally).id)
+    student                   = Student.find(users(:student_tally).id)
+    customized_course_tally   = customized_courses(:customized_course_tally)
+    workstation               = workstations(:workstation1)
+    #除了fixture再添加一个从备课中心中添加的课程
+    course_for_tally          = course_library_courses(:course_for_tally)
+    course_publication        = CourseLibrary::CoursePublicationService::Util::PublicationTotal.new(course_for_tally,customized_course_tally,publish_lecture_switch:true).call
+    customized_tutorial       = CustomizedTutorialService::CourseLibrary::CreateFromPublication.new(course_publication).call
+    assert customized_tutorial.valid?
 
     customized_tutorials = CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit
-    keep_account_succeed(teacher, student, workstation, customized_tutorials, 5, "CustomizedTutorial") do
+    assert customized_tutorials.include?(customized_tutorial)
+
+    keep_account_succeed(teacher, student, workstation, customized_tutorials, 6, "CustomizedTutorial") do
       # 传入待结账的计算方法，用来测试待结账的个数
       CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit.size
     end
@@ -126,6 +134,20 @@ class CustomizedTutorialTest < ActiveSupport::TestCase
         end
       end
     end
+  end
+
+  test "customized_tutorial with template video" do
+    cc                = customized_tutorials(:customized_tutorial_template_video)
+    video             = videos(:video_template)
+    video1            = videos(:video_template_1)
+    assert cc.valid?
+    assert video.valid?
+    assert_difference 'VideoQuoter.count',1 do
+      cc.template_video = video
+      cc.template_video = video1
+    end
+
+
   end
 
 

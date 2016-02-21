@@ -1,8 +1,17 @@
 class Exercise < Examination
 
   include QaWork
+  include QaTemplate::Material
+
   belongs_to      :customized_tutorial,counter_cache: true
   belongs_to      :customized_course,  counter_cache: true
+
+
+  belongs_to :homework_publication, class_name: CourseLibrary::HomeworkPublication
+
+
+  validates_uniqueness_of :homework_publication_id ,scope: :customized_tutorial_id,unless:  "homework_publication_id.nil?"
+
   has_many        :exercise_solutions,foreign_key: :examination_id,:dependent =>  :destroy  do
     def build(attributes={})
       attributes[:customized_course_id]     = proxy_association.owner.customized_course_id

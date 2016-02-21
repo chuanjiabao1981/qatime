@@ -1,0 +1,7 @@
+<% content_for :content do %>
+    <%= render layout:'course_library/shared/tree',
+               locals: {syllabus: @syllabus, selected_directory: @directory} do %>
+        <%= yield %>
+    <% end %>
+<% end %>
+<%= render template: "layouts/application" %>

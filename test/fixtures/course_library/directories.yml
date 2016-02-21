@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+directory_one:
+  title: directory_one
+  syllabus: syllabuses_one
+
+chapter1:
+  title: chapter1
+  parent: directory_one
+  syllabus: syllabuses_one
+
+section1:
+  title: section1
+  parent: chapter1
+  syllabus: syllabuses_one
+
+chapter2:
+  title: chapter2
+  parent: directory_one
+  syllabus: syllabuses_one
+
+
+directory_for_tally:
+  title: directory for tally title
+  syllabus: syllabuses_for_tally

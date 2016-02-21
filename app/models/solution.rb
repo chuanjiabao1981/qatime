@@ -66,11 +66,6 @@ class Solution < ActiveRecord::Base
     _update_handle_infos self.corrections
   end
 
-
-
-
-
-
 end
 
 

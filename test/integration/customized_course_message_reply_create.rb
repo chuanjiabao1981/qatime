@@ -5,7 +5,6 @@ require 'content_input_helper'
 
 class CustomizedCourseMessageReplyCreate  < ActionDispatch::IntegrationTest
   include ContentInputHelper
-  self.use_transactional_fixtures = true
 
 
   def setup

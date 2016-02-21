@@ -1,0 +1,36 @@
+<%=render 'header'%>
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%= @homework.title %>
+    <%= link_to edit_homework_path(@homework) do %>
+        <button type="button" class="btn btn-xs btn-success">编辑</button>
+    <% end %>
+    </h2>
+
+  </div>
+  <div class="qa_big_cell">
+    <h4>简介</h4>
+    <div class="qa_object content">
+      <%= @homework.description %>
+    </div>
+  </div>
+
+  <div class="qa_big_cell_without_border">
+    <h4>材料</h4>
+    <%= render partial: 'shared/qa_files/qa_file', collection: @homework.qa_files%>
+  </div>
+
+  <div class="qa_big_cell_without_border">
+    <h4>讲解
+    <%= link_to new_homework_solution_path(@homework) do %>
+      <button type="button" class="btn btn-xs btn-success">添加讲解</button>
+    <% end %>
+    </h4>
+    <%= render partial: 'course_library/solutions/solution', collection: @homework.solutions%>
+  </div>
+
+  <div style="clear: both"></div>
+</div>
+
+<div class="qa_sep_15"></div>
+

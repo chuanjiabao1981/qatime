@@ -26,7 +26,7 @@ class TeacherTest < ActiveSupport::TestCase
   test "biology teacher valid" do
     biology_teacher = Teacher.find(users(:biology_teacher1).id)
     biology_teacher.valid?
-    puts biology_teacher.errors.full_messages
+    #puts biology_teacher.errors.full_messages
   end
 
   test "teacher keep_account" do

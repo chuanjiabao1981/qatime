@@ -5,8 +5,15 @@ class CustomizedTutorial < ActiveRecord::Base
   include Tally
   include QaCustomizedCourseActionRecord
 
+  include QaTemplate::Material
+  include QaTemplate::Video
+
+  include CustomizedTutorial::Utils
+
 
   validates_presence_of :title,:customized_course,:teacher,:last_operator
+  validates_uniqueness_of :course_publication_id ,scope: :customized_course_id,unless:  "course_publication_id.nil?"
+
   scope                 :by_teacher, lambda {|t| where(teacher_id: t) if t}
 
 
@@ -14,10 +21,14 @@ class CustomizedTutorial < ActiveRecord::Base
   belongs_to :last_operator,class_name: User
   belongs_to :customized_course,:counter_cache => true
 
+  belongs_to :course_publication, class_name: CourseLibrary::CoursePublication
+
   has_one    :video,:dependent => :destroy,as: :videoable
   has_one    :fee, as: :feeable
 
   has_many   :solutions,as: :solutionable,:dependent =>  :destroy
+
+
 
   has_many   :tutorial_issues,:dependent => :destroy do
     def build(attributes={})
@@ -35,7 +46,6 @@ class CustomizedTutorial < ActiveRecord::Base
 
     end
   end
-
 
 
   self.per_page = 10
@@ -60,4 +70,8 @@ class CustomizedTutorial < ActiveRecord::Base
   def name
     self.title
   end
+
+
+
+
 end

@@ -18,7 +18,6 @@ class QaFaqsController < ApplicationController
   end
 
   def show
-    @qa_faq = QaFaq.find(params[:id])
     render layout: "application"
   end
 
@@ -30,5 +29,12 @@ class QaFaqsController < ApplicationController
     @qa_faq = QaFaq.find(params[:id])
     @qa_faq.update_attributes(params[:qa_faq].permit!)
     respond_with @qa_faq
+  end
+
+  private
+  def current_resource
+    if params[:id]
+      @qa_faq = QaFaq.find(params[:id])
+    end
   end
 end

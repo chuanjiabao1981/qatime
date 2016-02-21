@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+qa_file_quoter_1:
+  qa_file: qa_file_1_for_course_library_homework
+  file_quoter: homework_one(CourseLibrary::Homework)
+
+qa_file_quoter_2:
+  qa_file: qa_file_2_for_course_library_homework
+  file_quoter: homework_one(CourseLibrary::Homework)
+
+qa_file_quoter_3:
+  qa_file: qa_file_3_for_course_library_homework
+  file_quoter: homework_two(CourseLibrary::Homework)
+
+qa_file_quoter_4:
+  qa_file: qa_file_4_for_course_library_course
+  file_quoter: course_one(CourseLibrary::Course)
+
+qa_file_quoter_5:
+  qa_file: qa_file_5_for_course_library_course
+  file_quoter: course_one(CourseLibrary::Course)
+
+
+
+

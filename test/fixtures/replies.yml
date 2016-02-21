@@ -181,6 +181,20 @@ tutorial_issue_reply_for_ui_state_change:
 ###End for ui state change
 
 
+tutorial_issue_reply_for_test_is_charged:
+  content: tutorial_issue_reply_for_test_is_charged content
+  author: teacher1
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial_for_test_is_charged
+  type: TutorialIssueReply
+  token: tutorial_issue_reply_for_test_is_charged token
+  tutorial_issue: tutorial_issue_for_test_is_charged
+  last_operator: teacher1
+  status: open
+  teacher_price: 54
+  platform_price: 0
+
+
 
 
 

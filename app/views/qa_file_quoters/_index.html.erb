@@ -1,0 +1,8 @@
+<% qa_file = quoter.qa_files.build %>
+<% qa_file.author = current_user %>
+<%= simple_form_for quoter do |f| %>
+    <%= f.simple_fields_for :qa_files do |q| %>
+        <%= render partial: "shared/qa_files/qa_file_quoter_fields", locals: {f: q} %>
+    <% end %>
+    <%= f.button :submit, class: 'btn btn-default', remote: true %>
+<% end %>

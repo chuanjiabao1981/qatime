@@ -18,7 +18,14 @@ class TutorialIssue < Topic
     def page_num(o)
       _page_num(o,by: Reply.order_column,order: Reply.order_type,per: Reply.per_page)
     end
+
   end
 
+  # def is_any_component_charged?
+  #   self.tutorial_issue_replies.each do |tir|
+  #     return true if tir.is_charged?
+  #   end
+  #   return false
+  # end
 
 end

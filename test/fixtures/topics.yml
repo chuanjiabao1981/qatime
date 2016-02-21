@@ -157,3 +157,12 @@ topic_for_customized_course_tally:
 ###End Fee view
 
 
+tutorial_issue_for_test_is_charged:
+  title: tutorial_issue_for_test_is_charged title
+  content: tutorial_issue_for_test_is_charged content
+  author: teacher1
+  type: TutorialIssue
+  customized_course: customized_course1
+  customized_tutorial: customized_tutorial_for_test_is_charged
+
+

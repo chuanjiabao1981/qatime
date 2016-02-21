@@ -1,0 +1,42 @@
+<%=render 'header'%>
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%= CourseLibrary::Course.model_name.human %></h2>
+  </div>
+  <%= simple_form_for [@directory, @course] do |f| %>
+      <div class="qa_big_cell">
+        <%= f.input :title %>
+        <%= f.input :description %>
+        <div class="qa_sep_15"></div>
+        <label>视频</label>
+
+        <div id="video_new", class="row">
+          <%= f.input :new_video_id, as: :hidden %>
+        </div>
+        <div id="video_show", class="row">
+          <% if ! @course.current_video.nil? %>
+            <%= video_js_player @course.current_video %>
+          <% end %>
+        </div>
+        <div class="qa_object footer">
+          <%= link_to "上传视频",
+                      "#",
+                      data: {toggle: "modal", target: "#newVideoModal"} %>
+        </div>
+        <div class="qa_sep_15"></div>
+
+        <label>文件</label>
+        <div class="qa_sep_15"></div>
+        <%= f.fields_for :qa_files do |builder| %>
+            <%= render 'shared/qa_files/qa_file_fields', f: builder %>
+        <% end %>
+        <%= link_to_add_fields "添加#{f.object.class.human_attribute_name(:qa_files)}", f, :qa_files, "shared/qa_files/" %></br>
+        <div class="qa_sep_15"></div>
+
+        <%= f.submit nil, :class => 'btn btn-primary', :data => {:"disable-with" => "请稍等..."} %>
+      </div>
+  <% end %>
+
+  <%= render partial: "videos/form_for_engines", locals: {video: @video} %>
+
+</div>

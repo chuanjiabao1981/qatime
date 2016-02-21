@@ -24,14 +24,44 @@ class CorrectionTest < ActiveSupport::TestCase
     student = Student.find(users(:student_tally).id)
     workstation = workstations(:workstation1)
 
+    #除了fixture再添加一个从备课中心中添加的课程
+    customized_course_tally   = customized_courses(:customized_course_tally)
+    course_for_tally          = course_library_courses(:course_for_tally)
+    course_publication        = CourseLibrary::CoursePublicationService::Util::PublicationTotal.new(course_for_tally,customized_course_tally,publish_lecture_switch:true).call
+    customized_tutorial       = CustomizedTutorialService::CourseLibrary::CreateFromPublication.new(course_publication).call
+    assert customized_tutorial.valid?
 
-    [HomeworkCorrection, ExerciseCorrection].each do |s|
+    #学生完成来自模板的作业
+    exercise         = customized_tutorial.exercises.first
+    student_solution = exercise.exercise_solutions.build(title: random_str,last_operator: student)
+    student_solution.save
+    assert student_solution.valid?,student_solution.errors.full_messages
+
+    #老师引用大纲中的作业批改之
+    correction_template = course_library_solutions(:solution_for_tally)
+    ec = ExerciseCorrectionService::CourseLibrary::BuildFromTemplate.new(student_solution,correction_template.id).call
+    ec.save
+
+    [ExerciseCorrection].each do |s|
       corrections = s.by_teacher_id(teacher.id).valid_tally_unit
-      keep_account_succeed(teacher, student, workstation, corrections, 5, "Correction") do
+      keep_account_succeed(teacher, student, workstation, corrections, 6, "Correction") do
         s.by_teacher_id(teacher.id).valid_tally_unit.size
       end
     end
   end
+
+ test "homewor correction keep account" do
+   teacher = Teacher.find(users(:teacher_tally).id)
+   student = Student.find(users(:student_tally).id)
+   workstation = workstations(:workstation1)
+
+   [HomeworkCorrection].each do |s|
+     corrections = s.by_teacher_id(teacher.id).valid_tally_unit
+     keep_account_succeed(teacher, student, workstation, corrections, 5, "Correction") do
+       s.by_teacher_id(teacher.id).valid_tally_unit.size
+     end
+   end
+ end
 
   test "dont keep account" do
     teacher           = Teacher.find(users(:teacher_tally).id)
@@ -112,7 +142,7 @@ class CorrectionTest < ActiveSupport::TestCase
     @solution.reload
 
 
-    assert @solution.first_handle_created_at.to_i       == @correction1.created_at.to_i,"#{@solution.first_handle_created_at.to_i},#{@correction1.created_at.to_i}"
+    assert @solution.first_handle_created_at.to_i/100       == @correction1.created_at.to_i/100,"#{@solution.first_handle_created_at.to_i},#{@correction1.created_at.to_i}"
     assert @solution.first_handle_author_id             == @correction1.author.id
     assert @solution.last_handle_created_at.to_i        == @correction3.created_at.to_i
     assert @solution.last_handle_author_id              == @correction3.author.id

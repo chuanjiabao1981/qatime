@@ -98,7 +98,7 @@ module Permissions
       end
       allow :customized_tutorials,[:show,:edit,:update] do |customized_tutorial|
         user and (customized_tutorial.teacher_id == user.id or
-                    customized_tutorial.customized_course.teacher_ids.include?(user.id))
+                    customized_tutorial.customized_course.teacher_ids.include?(user.id)) and customized_tutorial.template.nil?
       end
 
       allow :homeworks,[:new,:create] do |customized_course|
@@ -119,17 +119,24 @@ module Permissions
       end
 
       allow :corrections,[:edit,:update] do |correction|
-        correction and correction.status == "open" and correction.teacher_id == user.id
+        correction and correction.status == "open" and correction.teacher_id == user.id and correction.template_id.nil?
       end
 
       allow :exercises,[:new,:create] do |customized_tutorial|
         customized_tutorial  and customized_tutorial.teacher_id == user.id
       end
 
-      allow :exercises,[:show,:edit,:update]+STATE_EVENTS do |exercise|
+      allow :exercises,[:show]+STATE_EVENTS do |exercise|
         exercise and
             (exercise.teacher_id == user.id or
                 exercise.customized_tutorial.customized_course.teacher_ids.include?(user.id))
+      end
+
+      allow :exercises, [:edit,:update] do |exercise|
+        exercise and
+            (exercise.teacher_id == user.id or
+                exercise.customized_tutorial.customized_course.teacher_ids.include?(user.id)) and
+            exercise.template.nil?
       end
 
       allow :tutorial_issues,[:show]+STATE_EVENTS do |tutorial_issue|
@@ -157,10 +164,46 @@ module Permissions
         course_issue_reply and course_issue_reply.customized_course.teacher_ids.include?(user.id)
       end
 
+      #######begine course library permission###############
+      allow "course_library/solutions",[:edit, :update, :show, :destroy, :mark_delete, :video] do |solution|
+        solution and solution.homework.course.directory.syllabus.author_id == user.id
+      end
+      allow "course_library/solutions",[:index, :new, :create] do |homework|
+        homework and homework.course.directory.syllabus.author_id == user.id
+      end
+      allow "course_library/homeworks",[:edit, :update, :show, :destroy, :mark_delete] do |homework|
+       homework and homework.course.directory.syllabus.author_id == user.id
+      end
+      allow "course_library/homeworks",[:index, :new, :create] do |course|
+        course and course.directory.syllabus.author_id == user.id
+      end
+      allow "course_library/courses",[:available_customized_courses_for_publish,:publish,:customized_tutorials,:un_publish,:sync, :index, :new, :edit, :update, :create, :show, :destroy, :mark_delete] do |course|
+        course and course.directory.syllabus.author_id == user.id
+      end
+      allow "course_library/courses",[:index, :new, :create] do |directory|
+        directory and directory.syllabus.author_id == user.id
+      end
+      allow "course_library/directories",[:edit, :update, :show] do |directory|
+        directory and directory.syllabus.author_id == user.id
+      end
+      allow "course_library/directories",[:new, :create] do |syllabus|
+        syllabus and syllabus.author_id == user.id
+      end
+      allow "course_library/syllabuses",[:edit, :update, :show] do |syllabus|
+        syllabus and syllabus.author_id == user.id
+      end
+      allow "course_library/syllabuses",[:index, :new, :create] do |teacher|
+        teacher and teacher.id == user.id
+      end
 
-
-
-
+      allow "course_library/course_publications",[:index,:new,:create] do |course|
+        user and user.id == course.author_id
+      end
+      allow "course_library/course_publications",[:edit,:update,:destroy,:sync] do |course_publication|
+        course_publication and user.id == course_publication.course.author_id
+      end
+      #######end course library permission##################
+      allow :qa_file_quoters,[:index, :new, :edit, :update, :create, :show, :destroy]
     end
 private
 

@@ -1,0 +1,19 @@
+<div class="row qa_big_cell">
+  <div class="col-md-1">
+    <%= syllabus_counter + 1 %>
+  </div>
+  <div class="col-md-3">
+    <%=link_to syllabus.title, syllabus_directory_path(syllabus, syllabus.get_root_dir) %>
+  </div>
+  <div class="col-md-6">
+    <%=syllabus.description %>
+  </div>
+  <div class="col-md-1">
+    <%=link_to '编辑',edit_teacher_syllabus_path(syllabus.author,syllabus)%>
+  </div>
+  <% if allow? "course_library/syllabuses",:destroy,@syllabus %>
+    <div class="col-md-1">
+      <%=link_to '删除',teacher_syllabus_path(syllabus.author,syllabus),method: :delete,'data-confirm' => 'Are you sure?'%>
+    </div>
+  <% end %>
+</div>

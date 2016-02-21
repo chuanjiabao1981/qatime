@@ -1,0 +1,48 @@
+<fieldset>
+  <% if f.object.new_record? %>
+      <div class="row" style="padding:3px 3px 5px 0px;border-bottom: 1px solid #e2e2e2">
+        <div class="col-md-5">
+          <%= f.file_field :name %>
+          <%= f.hidden_field :author_id %>
+        </div>
+      </div>
+  <% else %>
+      <div class="row" style="padding:3px 3px 5px 0px;border-bottom: 1px solid #e2e2e2">
+        <div class="col-md-5">
+          <%= link_to f.object.original_filename, f.object.name.url(), {:style => "float:left"} %>
+        </div>
+        <div class="col-md-1">
+          <%= f.hidden_field :_destroy, {:style => "float:left"} %>
+          <%= link_to "删除", '#', class: "remove_fields", style: "float:left" %>
+        </div>
+
+      </div>
+  <% end %>
+
+  <script>
+      $(
+              function(){
+                  var inputs = document.getElementsByTagName("input");
+
+                  var docWhiteList = {'.doc':1, '.txt':1, '.pdf':1, '.docx':1, '.wps':1, '.ppt':1, '.pptx':1, '.xlsx':1};
+                  var imageWhiteList = {'.bmp':1, '.jpg':1, '.jpeg':1, '.png':1};
+
+                  var re = /(.*_qa_files_attributes_.*)/i;
+                  for(var i = 0; i < inputs.length; i++) {
+                      var input_tag = inputs[i];
+                      if (input_tag.id.search(re) != -1) {
+                          $(input_tag).on('change',function() {
+                              var fileExtend = this.value.substring(this.value.lastIndexOf('.')).toLowerCase();
+
+                              if(!docWhiteList.hasOwnProperty(fileExtend) &&  !imageWhiteList.hasOwnProperty(fileExtend)) {
+                                  alert("您上传文件的格式不满足要求，请选择图片、文本文件重新上传！");
+                                  $(this).val($.data(this, 'current'));
+                                  return;
+                              }
+                          })
+                      }
+                  }
+              }
+      )
+  </script>
+</fieldset>

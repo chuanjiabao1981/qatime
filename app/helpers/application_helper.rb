@@ -143,6 +143,22 @@ module ApplicationHelper
       end
   end
 
+  def template_url(qa_object,span=false)
+    return if qa_object.nil? or not qa_object.respond_to?(:template) or qa_object.template.nil? or current_user.student?
+    template = qa_object.template
+    str      = "在备课中心查看详情"
+    if not span
+      concat "• "
+    end
+    link_to course_library.send("#{template.model_name.singular_route_key}_path",template) do
+      if span
+        content_tag('span',"#{str}",class: 'label label-success')
+      else
+        "#{str}"
+      end
+    end
+  end
+
   def overwrite_content_for(name, content = nil, &block)
     @_content_for       = {} if @_content_for.nil?
     content             = capture(&block) if block_given?
@@ -159,6 +175,7 @@ module ApplicationHelper
       "success"
     end
   end
+
 
   def completed_duration(object)
     a={

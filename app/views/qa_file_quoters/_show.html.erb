@@ -1,0 +1,13 @@
+<% qa_file = file_quoter.qa_file %>
+<div id="file_quoter_<%= file_quoter.id %>" class="row" style="padding:3px 3px 5px 0px;border-bottom: 1px solid #e2e2e2">
+  <div class="col-md-5">
+    <% if qa_file.nil? %>
+        文件不存在
+    <% else %>
+        <%= link_to qa_file.original_filename, qa_file.name.url(), {:style => "float:left"} %>
+    <% end %>
+  </div>
+  <div class="col-md-1">
+    <%= link_to "删除引用", destroy_file_quoter_path(file_quoter), method: :delete, remote: true, confirm: %(确认删除?) %>
+  </div>
+</div>

@@ -4,7 +4,7 @@ source 'https://ruby.taobao.org/'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5'
+gem 'rails', '4.2.5.1'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -107,6 +107,9 @@ group :development,:test do
 
 end
 
+gem 'test_after_commit', :group => :test
+
+
 gem 'rest-client'
 gem 'carrierwave-aliyun','0.3.4'
 gem 'unicorn'
@@ -119,3 +122,5 @@ gem 'slim'
 gem 'fancybox2-rails', '~> 0.2.8'
 
 gem 'whenever',:require => false
+
+gem 'course_library', path: 'engines/course_library'

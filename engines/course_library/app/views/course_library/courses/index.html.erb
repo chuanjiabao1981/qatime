@@ -1,0 +1,5 @@
+<h1>Courses#index</h1>
+<%= link_to 'New Course', course_library.new_directory_course_path %>
+<% @courses.each do |course|%>
+  <li> <%= link_to course.title, directory_course_path(course.directory, course) %> </li>
+<% end %>

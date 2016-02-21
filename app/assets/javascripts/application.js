@@ -26,4 +26,6 @@
 //= require canvas-to-blob.min
 //= require fancybox
 //= require_tree .
+//= require course_library/application
+
 // require turbolinks}

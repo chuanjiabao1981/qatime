@@ -65,7 +65,7 @@ class SolutionTest < ActiveSupport::TestCase
     homework_solution               = QaTestFactory::QaSolutionFactory.build(homework)
     assert homework_solution.valid?
     assert homework_solution.customized_course.valid?
-    assert homework.state == "new"
+    assert homework.state == "new",homework.state
     assert homework.last_handled_at.nil?
     assert homework.first_handled_at.nil?
     assert_difference "homework.reload.solutions_count",1 do

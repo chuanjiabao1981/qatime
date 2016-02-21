@@ -45,7 +45,8 @@ class TutorialIssueReplyIntegrateTest < LoginTestBase
     if user.student?
       return user_session.assert_redirected_to get_home_url(user)
     end
-    user_session.assert_redirected_to redirected_to_path, "#{user.role},#{@tutorial_issue.to_json}"
+
+    user_session.assert_redirected_to redirected_to_path, "#{user.id} #{user.role},#{@tutorial_issue.to_json},#{user_session.flash.to_json}"
     user_session.follow_redirect!
     user_session.assert_select 'div',content
 

@@ -29,8 +29,6 @@ class Examination < ActiveRecord::Base
   validates_presence_of :last_operator
 
 
-
-
   belongs_to      :teacher
   belongs_to      :student
   belongs_to      :last_operator,:class_name => "User"

@@ -104,5 +104,12 @@ module Tally
         end
       end
     end
+
+    def is_charged?
+      return self.status == "closed"
+    end
+    def set_charged
+      self.status = "closed"
+    end
   end
 end

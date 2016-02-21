@@ -116,3 +116,15 @@ homework_correction_for_fee_view:
   platform_price: 0
   type: HomeworkCorrection
   last_operator: physics_teacher_1
+
+exercise_correction_for_test_is_charged:
+  content: exercise_correction_for_testis_charged content
+  teacher: teacher1
+  solution: exercise_solution_for_test_is_charged
+  customized_course: customized_course1
+  token: exercise_correction_for_test_is_charged
+  status: open
+  teacher_price: 54
+  platform_price: 0
+  type: ExerciseCorrection
+  last_operator: teacher1

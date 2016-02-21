@@ -1,0 +1,27 @@
+<%=render 'header'%>
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%= @solution.title %>
+    <%= link_to edit_solution_path(@solution) do %>
+        <button type="button" class="btn btn-xs btn-success">编辑</button>
+          </h2>
+    <% end %>
+  </div>
+  <div class="qa_big_cell">
+    <h4>简介</h4>
+    <div class="qa_object content">
+      <%= @solution.description %>
+    </div>
+  </div>
+  <div class="qa_big_cell">
+    <h4>讲解视频</h4>
+    <% if ! @solution.current_video.nil? %>
+    <%= video_js_player @solution.current_video %>
+    <% end %>
+  </div>
+
+  <div style="clear: both"></div>
+</div>
+
+<div class="qa_sep_15"></div>
+

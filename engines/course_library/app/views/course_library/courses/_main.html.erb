@@ -1,0 +1,32 @@
+<%=render 'course_library/courses/header'%>
+<div class="qa_box">
+    <div class="qa_big_cell">
+      <h2>
+        <%= @course.title %>
+        <% if action_name == "show" and controller_name == "courses" %>
+            <% if allow? "course_library/courses",:edit,@course %>
+            <span>
+              <%=link_to edit_course_path(@course) do %>
+                  <button type="button" class="btn btn-xs btn-success">编辑</button>
+              <% end %>
+            </span>
+            <% end %>
+        <% end %>
+      </h2>
+
+    </div>
+  <div class="qa_sep_15"></div>
+
+  <ul class="nav nav-tabs"  style="padding-left: 1px">
+        <li role="presentation" class=<%= "active" if action_name == "show" and controller_name == "courses"%>>
+          <%=link_to "课程详情", directory_course_path(@course.directory, @course) %>
+        </li>
+        <li role="presentation" class=<%= "active" if controller_name == "course_publications"%>>
+          <%=link_to '发布', course_course_publications_path(@course)%>
+        </li>
+    </ul>
+    <div calss="qa_big_cell">
+      <%= yield %>
+    </div>
+
+</div>

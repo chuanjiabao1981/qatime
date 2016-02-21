@@ -85,3 +85,40 @@ video_belongs_to_course_issue_reply_with_video:
   videoable: course_issue_reply_with_video(Reply)
   token: course_issue_reply_with_video
   duration: 100
+
+video_template:
+  name: video
+  author: teacher1
+  duration: 200
+
+video_template_1:
+  name: video
+  author: teaher1
+  duration: 200
+
+video_template_for_course_syn:
+  name: video_template_for_course_sync name
+  author: teacher1
+  duration: 200
+
+video_template_one_for_solution_one_for_homework_one:
+  name: video_template_one_for_solution_one_for_homework_one
+  author: teacher1
+  duration: 250
+
+video_template_two_for_solution_two_for_homework_one:
+  name: video_template_one_for_solution_one_for_homework_one
+  author: teacher1
+  duration: 250
+
+##video for template keep account
+video_template_for_tally:
+  name: video_template_for_tally name
+  author: teacher_tally
+  duration: 200
+
+video_solution_template_for_tally:
+  name: video_solution_template_for_tally name
+  author: teacher_tally
+  duration: 100
+##end

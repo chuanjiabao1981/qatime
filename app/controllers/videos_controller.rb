@@ -1,5 +1,8 @@
 class VideosController < ApplicationController
   respond_to :json,:js
+  def new
+  end
+
   def create
     @video_player_id = rand(10000)
     @video = Video.new(params[:video].permit!)

@@ -1,7 +1,7 @@
 <div class="qa_box">
   <div class="qa_cell box_header">
     <%=link_to customized_course_full_name(@customized_tutorial.customized_course) ,
-               customized_course_path(@customized_tutorial.customized_course)%>/<%= @customized_tutorial.title %>
+               customized_course_path(@customized_tutorial.customized_course)%>/<%= @customized_tutorial.title_with_template_directory_path_str %>
   </div>
   <div class="qa_box">
     <div class="qa_cell" style="height: 410px">
@@ -17,9 +17,15 @@
     <div class="qa_cell">
       <%= @customized_tutorial.content %>
     </div>
+    <div class="qa_cell">
+        <% if defined?(@customized_tutorial.qa_files) and @customized_tutorial.qa_files %>
+            <%= render partial: 'shared/qa_files/qa_file', collection: @customized_tutorial.qa_files%>
+        <% end %>
+    </div>
     <div class="pull-left" style="font-size:12px;  padding: 10px;">
       <%= videoable_object_stauts(@customized_tutorial) %>
       <%= video_duration_format(@customized_tutorial) %>
+      <%= template_url(@customized_tutorial) %>
     </div>
     <div class="qa_cell pull-right">
       <%= link_to_edit(@customized_tutorial)%> &nbsp;

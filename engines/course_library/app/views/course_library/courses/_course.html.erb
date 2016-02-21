@@ -1,0 +1,12 @@
+<div class="row qa_big_cell">
+  <div class="col-md-10">
+    <span class="glyphicon glyphicon-file"></span>
+    <%=link_to course.title, course_path(course) %>
+  </div>
+  <div class="col-md-1">
+    <%=link_to '编辑', edit_course_path(course)%>
+  </div>
+  <div class="col-md-1">
+    <%=link_to '删除', mark_delete_course_path(course), method: :delete, 'data-confirm' => '确定删除?'%>
+  </div>
+</div>

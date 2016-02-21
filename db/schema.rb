@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209083108) do
+ActiveRecord::Schema.define(version: 20160221134319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,6 +100,69 @@ ActiveRecord::Schema.define(version: 20151209083108) do
     t.float    "teacher_price"
     t.float    "platform_price"
     t.integer  "last_operator_id"
+    t.integer  "template_id"
+  end
+
+  create_table "course_library_course_publications", force: :cascade do |t|
+    t.boolean  "publish_lecture_switch", default: false
+    t.integer  "customized_course_id"
+    t.integer  "course_id"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
+  create_table "course_library_courses", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "directory_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "course_library_directories", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "parent_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "syllabus_id"
+  end
+
+  create_table "course_library_homework_publications", force: :cascade do |t|
+    t.integer  "homework_id"
+    t.integer  "course_publication_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "course_library_homeworks", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "course_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "course_library_publications", force: :cascade do |t|
+    t.integer  "course_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.integer  "customized_tutorial_id"
+  end
+
+  create_table "course_library_solutions", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "homework_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "course_library_syllabuses", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "author_id"
   end
 
   create_table "course_purchase_records", force: :cascade do |t|
@@ -216,6 +279,7 @@ ActiveRecord::Schema.define(version: 20151209083108) do
     t.float    "teacher_price"
     t.float    "platform_price"
     t.integer  "last_operator_id"
+    t.integer  "course_publication_id"
   end
 
   create_table "earning_records", force: :cascade do |t|
@@ -233,22 +297,23 @@ ActiveRecord::Schema.define(version: 20151209083108) do
     t.string   "title"
     t.text     "content"
     t.string   "token"
-    t.integer  "topics_count",           default: 0
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.integer  "solutions_count",        default: 0
+    t.integer  "topics_count",            default: 0
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "solutions_count",         default: 0
     t.integer  "student_id"
     t.integer  "customized_tutorial_id"
-    t.integer  "comments_count",         default: 0
-    t.integer  "corrections_count",      default: 0
+    t.integer  "comments_count",          default: 0
+    t.integer  "corrections_count",       default: 0
     t.string   "work_type"
     t.string   "type"
-    t.string   "state",                  default: "new"
+    t.string   "state",                   default: "new"
     t.integer  "last_operator_id"
     t.datetime "first_handled_at"
     t.datetime "completed_at"
     t.datetime "last_handled_at"
     t.datetime "last_redone_at"
+    t.integer  "homework_publication_id"
   end
 
   create_table "excercises", force: :cascade do |t|
@@ -379,6 +444,14 @@ ActiveRecord::Schema.define(version: 20151209083108) do
     t.integer  "customized_course_id"
   end
 
+  create_table "picture_quoters", force: :cascade do |t|
+    t.integer  "picture_id"
+    t.integer  "file_quoter_id"
+    t.string   "file_quoter_type"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
   create_table "pictures", force: :cascade do |t|
     t.string   "name",           limit: 255
     t.integer  "imageable_id"
@@ -396,6 +469,14 @@ ActiveRecord::Schema.define(version: 20151209083108) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.string   "token"
+  end
+
+  create_table "qa_file_quoters", force: :cascade do |t|
+    t.integer  "qa_file_id"
+    t.integer  "file_quoter_id"
+    t.string   "file_quoter_type"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "qa_files", force: :cascade do |t|
@@ -531,6 +612,56 @@ ActiveRecord::Schema.define(version: 20151209083108) do
     t.datetime "last_redone_at"
   end
 
+  create_table "teaching_program_courses", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "directory_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "teaching_program_directories", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "syllabus_id"
+    t.integer  "parent_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "teaching_program_homeworks", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "course_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "teaching_program_publishments", force: :cascade do |t|
+    t.integer  "course_id"
+    t.integer  "courseable_id"
+    t.string   "courseable_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "teaching_program_publishments", ["course_id"], name: "index_teaching_program_publishments_on_course_id", using: :btree
+
+  create_table "teaching_program_solutions", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "homework_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "teaching_program_syllabuses", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "author_id"
+  end
+
   create_table "teaching_programs", force: :cascade do |t|
     t.string   "name"
     t.string   "category"
@@ -619,6 +750,14 @@ ActiveRecord::Schema.define(version: 20151209083108) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "video_quoters", force: :cascade do |t|
+    t.integer  "video_id"
+    t.integer  "file_quoter_id"
+    t.string   "file_quoter_type"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
 
   create_table "videos", force: :cascade do |t|
     t.string   "name",           limit: 255

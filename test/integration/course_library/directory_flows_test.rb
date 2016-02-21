@@ -12,7 +12,7 @@ class DirectoryFlowsTest < LoginTestBase
   test "directory show" do
     @teacher_session.get CourseLibrary::Engine.routes.url_helpers.syllabus_directory_path(@syllabus,@directory)
     @teacher_session.assert_response :success
-    @teacher_session.assert_select 'a[href=?]', CourseLibrary::Engine.routes.url_helpers.syllabus_directory_path(@syllabus,@chapter1),2
+    @teacher_session.assert_select 'a[href=?]', CourseLibrary::Engine.routes.url_helpers.syllabus_directory_path(@syllabus,@chapter1),1
     @teacher_session.assert_select 'a[href=?]', CourseLibrary::Engine.routes.url_helpers.course_path(@course),1
   end
 

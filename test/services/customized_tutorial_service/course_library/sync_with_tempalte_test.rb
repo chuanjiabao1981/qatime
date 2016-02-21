@@ -11,9 +11,9 @@ module CustomizedTutorialServiceTest
         super
         @__course_publication  =
             ::CourseLibrary::CoursePublicationService::Util::PublicationTotal.new(@course_one,@customized_course1,publish_lecture_switch: true).call
+
         @__customized_tutorial =
             CustomizedTutorialService::CourseLibrary::CreateFromPublication.new(@__course_publication).call
-
         assert CustomizedTutorialService::CourseLibrary::SameWithTemplate.new(@__customized_tutorial).judge?
 
       end

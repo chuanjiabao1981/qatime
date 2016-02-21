@@ -11,7 +11,9 @@ module CourseLibrary
 
     before_destroy :with_payment? ,prepend: true
 
+
     def with_payment?
+
       if ExerciseService::Fee::AnyComponentCharged.new(self.exercise).judge?
         errors.add(:base,"已经计费无法删除")
         return false

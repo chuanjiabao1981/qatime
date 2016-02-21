@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160220060327) do
+ActiveRecord::Schema.define(version: 20160221134319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -279,7 +279,6 @@ ActiveRecord::Schema.define(version: 20160220060327) do
     t.float    "teacher_price"
     t.float    "platform_price"
     t.integer  "last_operator_id"
-    t.integer  "template_id"
     t.integer  "course_publication_id"
   end
 
@@ -314,7 +313,6 @@ ActiveRecord::Schema.define(version: 20160220060327) do
     t.datetime "completed_at"
     t.datetime "last_handled_at"
     t.datetime "last_redone_at"
-    t.integer  "template_id"
     t.integer  "homework_publication_id"
   end
 

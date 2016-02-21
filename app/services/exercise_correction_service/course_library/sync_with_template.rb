@@ -8,9 +8,11 @@ module ExerciseCorrectionService
 
       def call
         return if @template.nil?
-        @exercise_correction.template_video = @template.video
-        @exercise_correction.content        = @template.content
-        @exercise_correction.save
+        if not @exercise_correction.is_charged?
+          @exercise_correction.template_video = @template.video
+          @exercise_correction.content        = @template.content
+          @exercise_correction.save
+        end
       end
     end
   end

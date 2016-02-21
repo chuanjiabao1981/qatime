@@ -5,8 +5,6 @@ class Exercise < Examination
 
   belongs_to      :customized_tutorial,counter_cache: true
   belongs_to      :customized_course,  counter_cache: true
-  #TODO:: delete template
-  belongs_to      :template,class_name: CourseLibrary::Homework
 
 
   belongs_to :homework_publication, class_name: CourseLibrary::HomeworkPublication

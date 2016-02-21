@@ -9,11 +9,12 @@ module ExerciseServiceTest
 
       test "publish" do
         course_publication    = get_course_publication
-        homework_publication  = get_homework_publication(course_publication)
-        assert homework_publication.valid?
+
         #先发布lecture
         CustomizedTutorialService::CourseLibrary::CreateFromPublication.new(course_publication).call
         #再发布homework
+        homework_publication  = get_homework_publication(course_publication)
+        assert homework_publication.valid?
         exercise              = nil
         assert_difference "Exercise.count",1 do
           assert_difference 'QaFileQuoter.count',homework_publication.homework.qa_files.count do

@@ -98,7 +98,7 @@ module Permissions
       end
       allow :customized_tutorials,[:show,:edit,:update] do |customized_tutorial|
         user and (customized_tutorial.teacher_id == user.id or
-                    customized_tutorial.customized_course.teacher_ids.include?(user.id))
+                    customized_tutorial.customized_course.teacher_ids.include?(user.id)) and customized_tutorial.template.nil?
       end
 
       allow :homeworks,[:new,:create] do |customized_course|
@@ -136,7 +136,7 @@ module Permissions
         exercise and
             (exercise.teacher_id == user.id or
                 exercise.customized_tutorial.customized_course.teacher_ids.include?(user.id)) and
-            exercise.template_id.nil?
+            exercise.template.nil?
       end
 
       allow :tutorial_issues,[:show]+STATE_EVENTS do |tutorial_issue|
@@ -198,6 +198,9 @@ module Permissions
 
       allow "course_library/course_publications",[:index,:new,:create] do |course|
         user and user.id == course.author_id
+      end
+      allow "course_library/course_publications",[:edit,:update,:destroy,:sync] do |course_publication|
+        course_publication and user.id == course_publication.course.author_id
       end
       #######end course library permission##################
       allow :qa_file_quoters,[:index, :new, :edit, :update, :create, :show, :destroy]

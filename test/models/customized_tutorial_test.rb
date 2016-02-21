@@ -71,7 +71,8 @@ class CustomizedTutorialModelTest < ActiveSupport::TestCase
     workstation               = workstations(:workstation1)
     #除了fixture再添加一个从备课中心中添加的课程
     course_for_tally          = course_library_courses(:course_for_tally)
-    customized_tutorial       = CustomizedTutorial::CreateFromTemplate.new(customized_course_tally.id,course_for_tally).call
+    course_publication        = CourseLibrary::CoursePublicationService::Util::PublicationTotal.new(course_for_tally,customized_course_tally,publish_lecture_switch:true).call
+    customized_tutorial       = CustomizedTutorialService::CourseLibrary::CreateFromPublication.new(course_publication).call
     assert customized_tutorial.valid?
 
     customized_tutorials = CustomizedTutorial.by_teacher_id(teacher.id).valid_tally_unit

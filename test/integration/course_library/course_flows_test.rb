@@ -17,7 +17,7 @@ class CourseFlowsTest < LoginTestBase
     @teacher_session.get CourseLibrary::Engine.routes.url_helpers.course_path(@course)
     @teacher_session.assert_response :success
     @teacher_session.assert_select 'a[href=?]', CourseLibrary::Engine.routes.url_helpers.edit_course_path(@course),1
-    @teacher_session.assert_select 'a[href=?]', CourseLibrary::Engine.routes.url_helpers.customized_tutorials_course_path(@course),1
+    #@teacher_session.assert_select 'a[href=?]', CourseLibrary::Engine.routes.url_helpers.customized_tutorials_course_path(@course),1
     @teacher_session.assert_select 'source[src=?]', videos(:video_template).name.url, 1
     @teacher_session.assert_select 'a[href=?]', qa_files(:one).name.url,1
     @teacher_session.assert_select 'a[href=?]', qa_files(:two).name.url,1

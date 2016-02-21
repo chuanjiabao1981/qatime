@@ -37,6 +37,7 @@ module CustomizedTutorialService
             diff << "exercise #{exercise.id}"
           end
         end
+
         if diff.blank?
           return true
         end

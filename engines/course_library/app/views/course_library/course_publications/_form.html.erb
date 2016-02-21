@@ -1,0 +1,19 @@
+<%= render layout: 'course_library/courses/main' do %>
+    <div class="qa_big_cell">
+      <% if available_customized_course_for_publish(@course_publication).length !=0 %>
+          <%= simple_form_for [@course,@course_publication] do |f| %>
+              <%= f.association :customized_course,collection: available_customized_course_for_publish(@course_publication),
+                                label_method: lambda {|cc| "#{cc.name}(学生： #{cc.student.name})"},
+                                include_blank: false,
+                                disabled: ! @course_publication.new_record?
+              %>
+              <%= f.input :publish_lecture_switch %>
+              <%= f.association :homeworks ,as: :check_boxes,collection: @course.homeworks%>
+              <%= f.button :submit, "发布课程",class: "btn btn-default"%>
+          <% end %>
+      <% else %>
+          <%= link_to t("view.course_library/course_publication.no_customized_course_available") ,
+                      course_course_publications_path(@course) %>
+      <% end %>
+    </div>
+<% end %>

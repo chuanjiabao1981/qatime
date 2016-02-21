@@ -6,6 +6,7 @@ module ExerciseService
       end
 
       def judge?
+
         return false if @exercise.nil?
         diff = []
         return false if @exercise.homework_publication.nil?

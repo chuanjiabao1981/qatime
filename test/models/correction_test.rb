@@ -27,7 +27,8 @@ class CorrectionTest < ActiveSupport::TestCase
     #除了fixture再添加一个从备课中心中添加的课程
     customized_course_tally   = customized_courses(:customized_course_tally)
     course_for_tally          = course_library_courses(:course_for_tally)
-    customized_tutorial       = CustomizedTutorial::CreateFromTemplate.new(customized_course_tally.id,course_for_tally).call
+    course_publication        = CourseLibrary::CoursePublicationService::Util::PublicationTotal.new(course_for_tally,customized_course_tally,publish_lecture_switch:true).call
+    customized_tutorial       = CustomizedTutorialService::CourseLibrary::CreateFromPublication.new(course_publication).call
     assert customized_tutorial.valid?
 
     #学生完成来自模板的作业
@@ -38,7 +39,7 @@ class CorrectionTest < ActiveSupport::TestCase
 
     #老师引用大纲中的作业批改之
     correction_template = course_library_solutions(:solution_for_tally)
-    ec = ExerciseCorrection::BuildFromTemplate.new(student_solution,correction_template.id).call
+    ec = ExerciseCorrectionService::CourseLibrary::BuildFromTemplate.new(student_solution,correction_template.id).call
     ec.save
 
     [ExerciseCorrection].each do |s|

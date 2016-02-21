@@ -14,16 +14,17 @@ CourseLibrary::Engine.routes.draw do
   resources :homeworks
   resources :solutions
   resources :courses do
-    resources :publications
+    resources :course_publications
     member do
-      get 'available_customized_courses_for_publish'
-      get 'customized_tutorials'
-      post 'publish'
-      post 'un_publish'
-      post 'sync'
       delete 'mark_delete'
     end
     resources :homeworks
+  end
+
+  resources :course_publications do
+    member do
+      post 'sync'
+    end
   end
   resources :homeworks do
     resources :solutions

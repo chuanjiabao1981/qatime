@@ -23,3 +23,8 @@ customized_course5_assignment:
   teacher: physics_teacher1
   customized_course: customized_course5
 
+
+customized_course_for_course_library:
+  teacher: teacher1
+  customized_course: customized_course_for_course_library
+

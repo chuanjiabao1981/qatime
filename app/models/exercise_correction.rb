@@ -7,18 +7,5 @@ class ExerciseCorrection < Correction
   belongs_to :customized_course
   belongs_to :customized_tutorial
   belongs_to :template, class_name: CourseLibrary::Solution
-
-
   validates_uniqueness_of :template_id ,scope: :examination_id, unless:  "template_id.nil?"
-  # def template_id=(template_id)
-  #   super(template_id)
-  #   template = CourseLibrary::Solution.find_by_id(template_id)
-  #   return unless template
-  #   self.content            = "#{template.title}   #{template.description}"
-  #   self.template_video     = template.video
-  #   self.last_operator_id   = template.homework.course.author_id
-  #   self.teacher_id         = self.last_operator_id
-  # end
-
-
 end

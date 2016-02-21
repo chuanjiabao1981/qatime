@@ -10,13 +10,17 @@ class CorrectionCreateFromTemplateTest  < ActionDispatch::IntegrationTest
       @student                  = users(:student1)
 
       # @customized_tutorial      = @course.publish_all(@customized_course.id)
-      @customized_tutorial      = CustomizedTutorial::CreateFromTemplate.new(@customized_course.id,@course).call
+      course_publication        = CourseLibrary::CoursePublicationService::Util::PublicationTotal.new(@course,@customized_course,publish_lecture_switch:true).call
+      @customized_tutorial      = CustomizedTutorialService::CourseLibrary::CreateFromPublication.new(course_publication).call
       @correction_template      = course_library_solutions(:solution_two_for_homework_one)
       @exercise_template        = @correction_template.homework
-      @exercise_from_template   = @customized_tutorial.get_the_exercise_from_template(@exercise_template.id)
 
-
-
+      @customized_tutorial.exercises.each do |e|
+          if e.template.id == @exercise_template.id
+            @exercise_from_template =  e
+            break
+          end
+        end
       @headless = Headless.new
       @headless.start
       Capybara.current_driver           =  :selenium_chrome

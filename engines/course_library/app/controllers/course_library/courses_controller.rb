@@ -55,38 +55,7 @@ module CourseLibrary
       @course = Course.find(params[:id])
       @directory = @course.directory
       @syllabus = @directory.syllabus
-      @customized_tutorials = @course.customized_tutorials
-    end
-    def available_customized_courses_for_publish
-      @available_customized_courses = @course.available_customized_course_for_publish
-    end
-
-    def customized_tutorials
-      @customized_tutorials = @course.customized_tutorials
-    end
-    def publish
-      params[:course][:available_customized_course_ids].delete("")
-      Course::Publish.new(params[:course][:available_customized_course_ids],@course).call
-      flash[:success] = t("view.course_library/course.publish_success")
-      redirect_to customized_tutorials_course_path(@course)
-    end
-
-    def un_publish
-      if Course::UnPublish.new(params[:customized_tutorial_id]).call
-        flash[:success] = t("view.course_library/course.un_publish_success")
-      else
-        flash[:warning]    = t("view.course_library/course.un_publish_fail")
-      end
-      redirect_to customized_tutorials_course_path(@course)
-    end
-
-    def sync
-      if Course::Sync.new(params[:customized_tutorial_id]).call
-        flash[:success] = t("view.course_library/course.sync_success")
-      else
-        flash[:warning] = t("view.course_library/course.sync_fail")
-      end
-      redirect_to customized_tutorials_course_path(@course)
+      # @customized_tutorials = @course.customized_tutorials
     end
 
     def mark_delete

@@ -144,7 +144,7 @@ module ApplicationHelper
   end
 
   def template_url(qa_object,span=false)
-    return if qa_object.nil? or qa_object.try(:template).nil? or current_user.student?
+    return if qa_object.nil? or not qa_object.respond_to?(:template) or qa_object.template.nil? or current_user.student?
     template = qa_object.template
     str      = "在备课中心查看详情"
     if not span

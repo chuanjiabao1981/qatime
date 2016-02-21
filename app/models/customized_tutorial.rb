@@ -12,6 +12,8 @@ class CustomizedTutorial < ActiveRecord::Base
 
 
   validates_presence_of :title,:customized_course,:teacher,:last_operator
+  validates_uniqueness_of :course_publication_id ,scope: :customized_course_id,unless:  "course_publication_id.nil?"
+
   scope                 :by_teacher, lambda {|t| where(teacher_id: t) if t}
 
 
@@ -19,7 +21,7 @@ class CustomizedTutorial < ActiveRecord::Base
   belongs_to :last_operator,class_name: User
   belongs_to :customized_course,:counter_cache => true
 
-  belongs_to :template, class_name: CourseLibrary::Course
+  belongs_to :course_publication, class_name: CourseLibrary::CoursePublication
 
   has_one    :video,:dependent => :destroy,as: :videoable
   has_one    :fee, as: :feeable
@@ -69,15 +71,6 @@ class CustomizedTutorial < ActiveRecord::Base
     self.title
   end
 
-
-
-  def get_the_exercise_from_template(template_id)
-    self.exercises.each do |e|
-      if e.template_id == template_id
-        return e
-      end
-    end
-  end
 
 
 

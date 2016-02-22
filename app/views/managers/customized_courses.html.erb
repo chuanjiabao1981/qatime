@@ -1,9 +1,5 @@
 <%= render layout: "shared/customized_courses/index_container" do  %>
     <%= render partial: 'shared/customized_courses/index', locals:{customized_courses: @customized_courses }%>
-
-    <div class="qa_cell">
-      <%= will_paginate @customized_courses ,renderer: BootstrapPagination::Rails %>
-    </div>
 <% end %>
 
 

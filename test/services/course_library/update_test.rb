@@ -7,8 +7,8 @@ module CourseLibraryServiceTest
   class UpdateTest < CustomizedTutorialServiceTest::CourseLibraryTest::PublicationTest
 
 
-    #普通删除一个作业，追加一个作业
-    test "add a homework publication" do
+    #删除一个作业，追加一个作业
+    test "remove and add" do
       #先发布，只发布一个作业
       homeworks = @course_one.homeworks
       homework  = homeworks[0]
@@ -30,6 +30,27 @@ module CourseLibraryServiceTest
       #老的不在了
       assert Exercise.where(id: e.id).count == 0
     end
+
+    test "append" do
+      #先发布，只发布一个作业
+      homeworks = @course_one.homeworks
+      homework  = homeworks[0]
+      course_publication = get_course_publication(homework: homework)
+
+      customized_tutorial = CustomizedTutorialService::CourseLibrary::CreateFromPublication.new(course_publication).call
+
+      assert customized_tutorial.valid?
+      assert_difference 'Exercise.count',1 do
+        assert_difference 'QaFileQuoter.count',homeworks[1].qa_files.count  do
+          assert_difference 'PictureQuoter.count', homeworks[1].pictures.count  do
+            CourseLibrary::CoursePublicationService::Update.new(course_publication,{homework_ids:[homeworks[0].id,homeworks[1].id]}).call
+          end
+        end
+      end
+
+
+    end
+
 
   end
 end

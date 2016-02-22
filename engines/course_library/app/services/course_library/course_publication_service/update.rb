@@ -24,6 +24,8 @@ module CourseLibrary
 
         # 需要增加homework是
         need_add_homework_ids   = new_homework_ids - old_homework_ids
+
+
         need_add_homework_ids.each do |homework_id|
           @course_publication.homework_publications.create(homework_id: homework_id)
         end
@@ -31,6 +33,8 @@ module CourseLibrary
 
         @course_publication.update_attributes(@params)
 
+        #如果有删除作业的这里要refresh下
+        @course_publication.reload
         CustomizedTutorialService::CourseLibrary::CreateFromPublication.new(@course_publication).call
         CustomizedTutorialService::CourseLibrary::SyncWithTemplate.new(@course_publication.customized_tutorial).call
 

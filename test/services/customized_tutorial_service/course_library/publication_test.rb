@@ -40,6 +40,9 @@ module CustomizedTutorialServiceTest
             get_homework_publication(course_publication,h)
           end
         end
+        if options[:homework]
+          get_homework_publication(course_publication,options[:homework])
+        end
         course_publication.save!
         course_publication
       end

@@ -113,6 +113,10 @@ class ActiveSupport::TestCase
   end
 end
 
+def random_str
+  (0...50).map { ('a'..'z').to_a[rand(26)] }.join
+end
+
 class ActionDispatch::IntegrationTest
   # Make the Capybara DSL available in all integration tests
   include Capybara::DSL

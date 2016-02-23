@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'models/shared/exercise_correction/course_library/create_payed_correction_from_template'
 
 module CourseLibrary
   class HomeworkPublicationTest < ActiveSupport::TestCase
@@ -49,14 +50,9 @@ module CourseLibrary
 
       homework_publication = course_publication.homework_publications.first
       exercise             = homework_publication.exercise
-      homework             = homework_publication.homework
-      correction_template  = homework.solutions.first
-      student_solution    = exercise.exercise_solutions.build(title: random_str,last_operator: customized_course.student)
-      assert student_solution.save
 
-      ec = ExerciseCorrectionService::CourseLibrary::BuildFromTemplate.new(student_solution,correction_template.id).call
-      ec.set_charged
-      assert ec.save
+      correction = QaTest::Shared::ExerciseCorrection::CourseLibrary::CreatePayedCorrectionFromTemplate.new(exercise).call
+
 
       homework_publication.reload
       assert_difference "Exercise.count",0 do

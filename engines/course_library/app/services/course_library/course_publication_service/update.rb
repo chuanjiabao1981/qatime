@@ -56,6 +56,16 @@ module CourseLibrary
 
         true
       end
+
+      private
+      def _update_validate(course_publication,need_delete_homework_ids)
+        need_delete_homework_ids.each do |homework_id|
+          if not CourseLibrary::HomeworkPublicationService::CanUnPublish.new(course_publication,homework_id).call
+            return false
+          end
+        end
+        
+      end
     end
   end
 end

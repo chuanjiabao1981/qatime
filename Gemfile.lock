@@ -2,6 +2,7 @@ PATH
   remote: engines/course_library
   specs:
     course_library (0.0.1)
+      dirty_associations (~> 0.4.4)
       rails (~> 4.2.5)
       responders (~> 2.0)
       simple_form
@@ -113,6 +114,8 @@ GEM
       compass (>= 0.12.2)
     concurrent-ruby (1.0.0)
     connection_pool (2.2.0)
+    dirty_associations (0.4.4)
+      rails (>= 3.2.1)
     domain_name (0.5.20160128)
       unf (>= 0.0.5, < 1.0.0)
     erubis (2.7.0)

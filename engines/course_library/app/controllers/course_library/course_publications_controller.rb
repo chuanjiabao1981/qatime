@@ -26,10 +26,11 @@ module CourseLibrary
     end
 
     def update
-      if CourseLibrary::CoursePublicationService::Update.new(@course_publication,params[:course_publication].permit!).call
+      service_respond = CourseLibrary::CoursePublicationService::Update.new(@course_publication,params[:course_publication].permit!).call
+      if service_respond.success?
         return redirect_to course_course_publications_path(@course)
       else
-        flash[:error] = "已经计费不可撤销"
+        flash.now[:warning] = service_respond.errors.join(" ")
         render 'edit'
       end
     end

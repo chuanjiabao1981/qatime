@@ -25,7 +25,7 @@ module QaSolution
 
   def build_correction(solution,resource_name,params)
     if resource_name == "exercise" and not params[:template_id].nil?
-      ExerciseCorrection::BuildFromTemplate.new(solution,params[:template_id]).call
+      ExerciseCorrectionService::CourseLibrary::BuildFromTemplate.new(solution,params[:template_id]).call
     else
       solution.send("#{resource_name}_corrections").build(params)
     end

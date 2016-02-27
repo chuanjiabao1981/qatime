@@ -8,6 +8,10 @@ CourseLibrary::Engine.routes.draw do
   end
   resources :directories do
     resources :courses
+    member do
+      patch "move_higher"
+      patch "move_lower"
+    end
   end
   resources :courses
   resources :publications
@@ -17,6 +21,8 @@ CourseLibrary::Engine.routes.draw do
     resources :course_publications
     member do
       delete 'mark_delete'
+      patch "move_higher"
+      patch "move_lower"
     end
     resources :homeworks
   end

@@ -2,6 +2,7 @@ require_dependency "course_library/application_controller"
 
 module CourseLibrary
   class DirectoriesController < ApplicationController
+    respond_to :html
 
     def new
       @syllabus = Syllabus.find(params[:syllabus_id])
@@ -12,7 +13,7 @@ module CourseLibrary
     def show
       @directory = Directory.find(params[:id])
       @syllabus = @directory.syllabus
-      @children = Directory.where(parent_id: params[:id])
+      @children = @directory.children
     end
 
     def create
@@ -43,9 +44,16 @@ module CourseLibrary
     def destroy
       @directory = Directory.find(params[:id])
       @directory.destroy
-      redirect_to syllabus_directory_path(@directory.syllabus,@directory.parent_id)
+      redirect_to syllabus_directory_path(@directory.syllabus,@directory.parent)
     end
-
+    def move_higher
+      @directory.move_higher
+      respond_with @directory.parent
+    end
+    def move_lower
+      @directory.move_lower
+      respond_with @directory.parent
+    end
     private
     def current_resource
       if ! params[:id].nil?

@@ -177,13 +177,16 @@ module Permissions
       allow "course_library/homeworks",[:index, :new, :create] do |course|
         course and course.directory.syllabus.author_id == user.id
       end
-      allow "course_library/courses",[:available_customized_courses_for_publish,:publish,:customized_tutorials,:un_publish,:sync, :index, :new, :edit, :update, :create, :show, :destroy, :mark_delete] do |course|
+      allow "course_library/courses",[:available_customized_courses_for_publish,
+                                      :publish,:customized_tutorials,:un_publish,:sync,
+                                      :index, :new, :edit, :update, :create, :show, :destroy,
+                                      :mark_delete, :move_higher, :move_lower] do |course|
         course and course.directory.syllabus.author_id == user.id
       end
       allow "course_library/courses",[:index, :new, :create] do |directory|
         directory and directory.syllabus.author_id == user.id
       end
-      allow "course_library/directories",[:edit, :update, :show] do |directory|
+      allow "course_library/directories",[:edit, :update, :show, :move_higher, :move_lower] do |directory|
         directory and directory.syllabus.author_id == user.id
       end
       allow "course_library/directories",[:new, :create] do |syllabus|

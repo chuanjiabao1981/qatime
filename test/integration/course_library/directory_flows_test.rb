@@ -37,7 +37,6 @@ class DirectoryFlowsTest < LoginTestBase
     @teacher_session.assert_equal 1,@syllabus.directories.where(title:"chapter1 new").count
   end
 
-
 end
 
 

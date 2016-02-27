@@ -9,7 +9,7 @@ module CourseLibrary
       def call
         @old_homework_ids           = @course_publication.homework_ids
         @new_homework_ids           = @params[:homework_ids].nil? ? [] : @params[:homework_ids]
-
+        @new_homework_ids           = @new_homework_ids.map {|x| x.to_i}
         @need_delete_homework_ids   = []
         @new_homework_ids.delete("")
 
@@ -19,8 +19,11 @@ module CourseLibrary
         @need_delete_homework_ids   = @old_homework_ids - @new_homework_ids
         @need_add_homework_ids      = @new_homework_ids - @old_homework_ids
 
-        puts _un_publish_valid?(@course_publication)
-        return false unless _un_publish_valid?(@course_publication)
+
+        service_respond = _un_publish_valid?(@course_publication)
+        if not service_respond.success?
+          return service_respond
+        end
 
         @params.delete(:homework_ids)
 
@@ -47,26 +50,27 @@ module CourseLibrary
         #可能有lecture的撤销或者发布
         CustomizedTutorialService::CourseLibrary::SyncWithTemplate.new(@course_publication.customized_tutorial).call
 
-        true
+        return ServiceRespond.new
       end
 
       private
       def _un_publish_valid?(course_publication)
         @need_delete_homework_ids.each do |homework_id|
           if not CourseLibrary::HomeworkPublicationService::CanUnPublish.new(course_publication,homework_id).call
-            return false
+            homework = Homework.find(homework_id)
+            return ServiceRespond.new.add_error("#{homework.title} 已经计费无法撤销")
           end
         end
 
 
-        if @params[:publish_lecture_switch] == "0"
+        if @params[:publish_lecture_switch] == "0" || @params[:publish_lecture_switch] == false
           #如果要撤销 判断下是否可以撤销
           if not CourseLibrary::CoursePublicationService::CanLectureUnPublish.new(course_publication).call
-            return false
+            return ServiceRespond.new.add_error("课件已经计费无法撤销")
           end
         end
 
-        return true
+        return ServiceRespond.new
 
       end
     end

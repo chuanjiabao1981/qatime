@@ -22,7 +22,8 @@ module CourseLibraryServiceTest
       assert_difference 'Exercise.count',0 do
        assert_difference 'QaFileQuoter.count',homeworks[1].qa_files.count - homeworks[0].qa_files.count do
           assert_difference 'PictureQuoter.count', homeworks[1].pictures.count - homeworks[0].pictures.count  do
-            CourseLibrary::CoursePublicationService::Update.new(course_publication,{homework_ids:[homeworks[1].id]}).call
+            service_respond = CourseLibrary::CoursePublicationService::Update.new(course_publication,{homework_ids:[homeworks[1].id]}).call
+            assert service_respond.success?
          end
        end
       end
@@ -43,7 +44,8 @@ module CourseLibraryServiceTest
       assert_difference 'Exercise.count',1 do
         assert_difference 'QaFileQuoter.count',homeworks[1].qa_files.count  do
           assert_difference 'PictureQuoter.count', homeworks[1].pictures.count  do
-            CourseLibrary::CoursePublicationService::Update.new(course_publication,{homework_ids:[homeworks[0].id,homeworks[1].id]}).call
+            service_respond = CourseLibrary::CoursePublicationService::Update.new(course_publication,{homework_ids:[homeworks[0].id,homeworks[1].id]}).call
+            assert service_respond.success?
           end
         end
       end
@@ -70,7 +72,9 @@ module CourseLibraryServiceTest
           assert_difference 'PictureQuoter.count',0   do
             # 这里虽然只有一个作业，
             # 但是老的不会被删除
-            assert_not CourseLibrary::CoursePublicationService::Update.new(course_publication,{homework_ids:[homeworks[1].id]}).call
+            service_respond = CourseLibrary::CoursePublicationService::Update.new(course_publication,{homework_ids:[homeworks[1].id]}).call
+            assert_not service_respond.success?
+
           end
         end
       end
@@ -85,7 +89,8 @@ module CourseLibraryServiceTest
       assert_difference 'Exercise.count',0 do
         assert_difference 'QaFileQuoter.count', @lecture_files_count * -1do
           assert_difference 'PictureQuoter.count',@lecture_pictures_count * -1  do
-            assert CourseLibrary::CoursePublicationService::Update.new(course_publication,publish_lecture_switch: false).call
+            service_respond = CourseLibrary::CoursePublicationService::Update.new(course_publication,publish_lecture_switch: false).call
+            assert service_respond.success?
           end
         end
       end
@@ -101,7 +106,8 @@ module CourseLibraryServiceTest
       customized_tutorial.save
       assert_difference 'QaFileQuoter.count', 0  do
         assert_difference 'PictureQuoter.count', 0  do
-          assert_not CourseLibrary::CoursePublicationService::Update.new(course_publication,publish_lecture_switch: false).call
+          service_respond= CourseLibrary::CoursePublicationService::Update.new(course_publication,publish_lecture_switch: false).call
+          assert_not service_respond.success?
         end
       end
 

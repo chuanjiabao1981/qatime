@@ -29,6 +29,7 @@ module CourseLibrary
       if CourseLibrary::CoursePublicationService::Update.new(@course_publication,params[:course_publication].permit!).call
         return redirect_to course_course_publications_path(@course)
       else
+        flash[:error] = "已经计费不可撤销"
         render 'edit'
       end
     end

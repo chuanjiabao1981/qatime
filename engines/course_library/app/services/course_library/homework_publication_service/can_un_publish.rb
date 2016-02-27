@@ -18,14 +18,14 @@ module CourseLibrary
 
       def call
         if @fee.judge?
-          return true
+          return false #收费 就不能撤销
         end
-        return false
+        return true #未收费可以撤销
       end
 
       private
       def __get_homework_publication(course_publication,homework_id)
-        course_publication.homework_publication.find_by_homework_id(homework_id)
+        course_publication.homework_publications.find_by_homework_id(homework_id)
       end
     end
   end

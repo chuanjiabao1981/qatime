@@ -1,10 +1,24 @@
 <div class="row qa_big_cell">
-  <div class="col-md-10">
+  <div class="col-md-8">
     <span class="glyphicon glyphicon-file"></span>
     <%=link_to course.title, course_path(course) %>
   </div>
   <div class="col-md-1">
     <%=link_to '编辑', edit_course_path(course)%>
+  </div>
+  <div class="col-md-1">
+    <% if course.first? %>
+        上移
+    <% else %>
+        <%=link_to '上移',move_higher_course_path(course), method: :patch %>
+    <%end%>
+  </div>
+  <div class="col-md-1">
+    <% if course.last? %>
+        下移
+    <% else %>
+        <%=link_to '下移',move_lower_course_path(course), method: :patch%>
+    <%end%>
   </div>
   <div class="col-md-1">
     <%=link_to '删除', mark_delete_course_path(course), method: :delete, 'data-confirm' => '确定删除?'%>

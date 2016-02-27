@@ -19,6 +19,7 @@ module CourseLibrary
         @need_delete_homework_ids   = @old_homework_ids - @new_homework_ids
         @need_add_homework_ids      = @new_homework_ids - @old_homework_ids
 
+        puts _un_publish_valid?(@course_publication)
         return false unless _un_publish_valid?(@course_publication)
 
         @params.delete(:homework_ids)
@@ -58,7 +59,7 @@ module CourseLibrary
         end
 
 
-        if @params[:publish_lecture_switch] == false
+        if @params[:publish_lecture_switch] == "0"
           #如果要撤销 判断下是否可以撤销
           if not CourseLibrary::CoursePublicationService::CanLectureUnPublish.new(course_publication).call
             return false

@@ -96,9 +96,14 @@ module Permissions
       allow :customized_tutorials,[:new,:create] do |customized_course|
         user and customized_course.teacher_ids.include?(user.id)
       end
-      allow :customized_tutorials,[:show,:edit,:update] do |customized_tutorial|
+      allow :customized_tutorials,[:edit,:update] do |customized_tutorial|
         user and (customized_tutorial.teacher_id == user.id or
                     customized_tutorial.customized_course.teacher_ids.include?(user.id)) and customized_tutorial.template.nil?
+      end
+
+      allow :customized_tutorials,[:show] do |customized_tutorial|
+        user and (customized_tutorial.teacher_id == user.id or
+            customized_tutorial.customized_course.teacher_ids.include?(user.id))
       end
 
       allow :homeworks,[:new,:create] do |customized_course|

@@ -28,6 +28,7 @@
     <div class="col-md-1">
       <%= link_to "移动",
                   "#",
-                  data: {toggle: "modal", target: "#newMoveModal"} %>
+                  data: {toggle: "modal", target: "#newMoveModal#{directory.id}" } %>
     </div>
+    <%= render partial: "course_library/shared/form_for_move", locals: {type: '目录', dir: directory} %>
 </div>

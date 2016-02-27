@@ -1,4 +1,4 @@
-<div class="modal fade" id="newMoveModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="newMoveModal<%= dir.id %>" + dir.id role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -8,7 +8,7 @@
       <div class="modal-body" id="newProductInput">
         <%= simple_form_for dir do |f| %>
             <%= f.input :title, label: '当前目录', disabled: true %>
-            <%= f.association :parent, label: '移动到', collection: get_all_children(dir) %>
+            <%= f.association :parent, label: '移动到', collection: get_move_dirs(dir) %>
             <%= f.button :submit, class: "btn btn-default" %>
         <% end %>
       </div>

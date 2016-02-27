@@ -18,13 +18,19 @@ module CourseLibrary
       dir_tree_json = { "core" => { "data" => data, "multiple" => false } }.to_json
     end
 
-    def get_all_children ( directory )
-      if directory.children.nil?
-        return directory
+    def get_move_dirs (directory)
+      get_all_children(directory.syllabus.get_root_dir,nil) - [directory] - get_all_children(directory,nil)
+    end
+
+    def get_all_children ( directory, children )
+      if children.nil?
+        children = Array.new
       end
       directory.children.each do |d|
-        directory + get_all_children(d)
+        children.push(d)
+        get_all_children(d,children)
       end
+      return children
     end
   end
 end

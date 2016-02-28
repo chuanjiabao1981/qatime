@@ -1,3 +1,5 @@
+require "dirty_associations"
+require "acts_as_list"
 module CourseLibrary
   class Engine < ::Rails::Engine
 

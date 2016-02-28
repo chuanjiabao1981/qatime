@@ -37,7 +37,32 @@ class DirectoryFlowsTest < LoginTestBase
     @teacher_session.assert_equal 1,@syllabus.directories.where(title:"chapter1 new").count
   end
 
+  test "directories move children" do
 
+    first=@directory.children.first;
+    second=@directory.children.second;
+    @teacher_session.patch CourseLibrary::Engine.routes.url_helpers.move_higher_directory_path(second);
+    @directory.reload
+    @teacher_session.assert_equal second.id, @directory.children.first.id
+    @teacher_session.assert_equal first.id, @directory.children.second.id
+    @teacher_session.patch CourseLibrary::Engine.routes.url_helpers.move_lower_directory_path(second);
+    @directory.reload
+    @teacher_session.assert_equal first.id, @directory.children.first.id
+    @teacher_session.assert_equal second.id, @directory.children.second.id
+  end
+
+  test "directories move courses" do
+    first=@directory.courses.first;
+    second=@directory.courses.second;
+    @teacher_session.patch CourseLibrary::Engine.routes.url_helpers.move_higher_course_path(second);
+    @directory.reload
+    @teacher_session.assert_equal second.id, @directory.courses.first.id
+    @teacher_session.assert_equal first.id, @directory.courses.second.id
+    @teacher_session.patch CourseLibrary::Engine.routes.url_helpers.move_lower_course_path(second);
+    @directory.reload
+    @teacher_session.assert_equal first.id, @directory.courses.first.id
+    @teacher_session.assert_equal second.id, @directory.courses.second.id
+  end
 end
 
 

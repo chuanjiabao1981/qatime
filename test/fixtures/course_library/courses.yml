@@ -4,6 +4,13 @@ course_one:
   title: course_one title
   description: course_one description
   directory: directory_one
+  position: 1
+course_two:
+  title: course_two title
+  description: course_two description
+  directory: directory_one
+  position: 2
+
 
 course_for_tally:
   title: course_for_tally title

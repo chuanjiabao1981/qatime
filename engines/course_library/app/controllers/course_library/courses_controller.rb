@@ -58,8 +58,18 @@ module CourseLibrary
       # @customized_tutorials = @course.customized_tutorials
     end
 
+    def move_higher
+      @course.move_higher
+      respond_with @directory
+    end
+    def move_lower
+      @course.move_lower
+      respond_with @directory
+    end
+
     def mark_delete
       @course.directory = nil
+      @course.remove_from_list
       if @course.save
         flash[:success] = "删除成功"
       end

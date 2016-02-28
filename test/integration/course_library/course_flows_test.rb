@@ -60,16 +60,16 @@ class CourseFlowsTest < LoginTestBase
     @teacher_session.assert_equal "new description",@course.description
   end
 
-  test "course create with file and video" do
+  test "course delete and create new" do
+    @teacher_session.delete CourseLibrary::Engine.routes.url_helpers.mark_delete_course_path(@course)
+    @teacher_session.get CourseLibrary::Engine.routes.url_helpers.new_directory_course_path(@directory)
+    @teacher_session.assert_response :success
+    @teacher_session.post CourseLibrary::Engine.routes.url_helpers.directory_courses_path(@directory),
+                          course: {title:"new course", description: "new description"}
+    @directory.reload;
 
-  end
-  test "course update video" do
-
-  end
-  test "course add file"  do
-
-  end
-  test "course remove file" do
-
+    @directory.courses.each_with_index do |c, index|
+      @teacher_session.assert_equal index+1, c.position
+    end
   end
 end

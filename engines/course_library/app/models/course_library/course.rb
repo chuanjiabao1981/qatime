@@ -8,6 +8,7 @@ module CourseLibrary
 
     validates_presence_of :title, :description
     belongs_to :directory
+    acts_as_list scope: :directory
 
     has_many :homeworks
 

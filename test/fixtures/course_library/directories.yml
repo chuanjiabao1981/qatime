@@ -8,6 +8,7 @@ chapter1:
   title: chapter1
   parent: directory_one
   syllabus: syllabuses_one
+  position: 1
 
 section1:
   title: section1
@@ -18,6 +19,7 @@ chapter2:
   title: chapter2
   parent: directory_one
   syllabus: syllabuses_one
+  position: 2
 
 
 directory_for_tally:

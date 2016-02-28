@@ -7,4 +7,22 @@ $(function () {
             window.location.href = data.instance.get_node(data.selected[0]).a_attr.href;
         }
     })
+    //treeview for move directory and course
+    $('.dir_tree_move').jstree(eval("(" + $('#dir_tree_move_json').val() +")"));
+    $('.dir_tree_move').on('changed.jstree', function (e, data) {
+        if(data.action == 'select_node'){
+            select_dir_id = data.instance.get_node(data.selected[0]).id.split('_')[1]
+            forbidden_dirs = $(e.target).parents('.modal').find('#forbidden_move_dir_ids_json').val().split('_');
+            if($.inArray(select_dir_id, forbidden_dirs) >= 0){
+                alert("不能移动到当前目录");
+            }else{
+                $(e.target).parents('.modal').find('#fullpath')
+                    .text(data.instance.get_node(data.selected[0]).a_attr.id)
+                $(e.target).parents('.modal').find('#directory_parent_id')
+                    .val(select_dir_id)
+                $(e.target).parents('.modal').find('#course_directory_id')
+                    .val(select_dir_id)
+            }
+        }
+    })
 });

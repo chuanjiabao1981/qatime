@@ -19,8 +19,8 @@ module CourseLibrary
       dir_tree_json = { "core" => { "data" => data, "multiple" => false } }.to_json
     end
 
-    def get_available_move_dir_ids (directory)
-      (directory.syllabus.directories - [directory] - get_all_children(directory,nil)).map{|r| "#{r.id}"}.join("_")
+    def get_forbidden_move_dir_ids (directory)
+      ([directory] + get_all_children(directory,nil)).map{|r| "#{r.id}"}.join("_")
     end
 
     def get_all_children ( directory, children )

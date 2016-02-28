@@ -8,9 +8,9 @@
       <div class="modal-body">
         <div class="dir_tree_move"></div>
         <% if type == "c" %>
-            <%= hidden_field_tag("available_move_dir_ids_json" , get_available_move_dir_ids(cur.directory)) %>
+            <%= hidden_field_tag("forbidden_move_dir_ids_json" , '') %>
         <% elsif type == "d" %>
-            <%= hidden_field_tag("available_move_dir_ids_json" , get_available_move_dir_ids(cur)) %>
+            <%= hidden_field_tag("forbidden_move_dir_ids_json" , get_forbidden_move_dir_ids(cur)) %>
         <% end %>
       </div>
       <div class="modal-footer">

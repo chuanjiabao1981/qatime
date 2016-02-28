@@ -54,11 +54,11 @@ class DirectoryFlowsTest < LoginTestBase
   test "directories move courses" do
     first=@directory.courses.first;
     second=@directory.courses.second;
-    @teacher_session.patch CourseLibrary::Engine.routes.url_helpers.move_higher_courses_path(second);
+    @teacher_session.patch CourseLibrary::Engine.routes.url_helpers.move_higher_course_path(second);
     @directory.reload
     @teacher_session.assert_equal second.id, @directory.courses.first.id
     @teacher_session.assert_equal first.id, @directory.courses.second.id
-    @teacher_session.patch CourseLibrary::Engine.routes.url_helpers.move_lower_courses_path(second);
+    @teacher_session.patch CourseLibrary::Engine.routes.url_helpers.move_lower_course_path(second);
     @directory.reload
     @teacher_session.assert_equal first.id, @directory.courses.first.id
     @teacher_session.assert_equal second.id, @directory.courses.second.id

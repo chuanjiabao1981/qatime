@@ -1,11 +1,11 @@
 task :init_directory_and_course_position => :environment do
   CourseLibrary::Directory.all.each do |directory|
     directory.courses.order('created_at asc').each_with_index  do |course, index|
-      course.position_id = 0
+      course.position = 0
       course.save
     end
     directory.children.order('created_at asc').each_with_index  do |child, index|
-      child.position_id = 0
+      child.position = 0
       child.save
     end
   end

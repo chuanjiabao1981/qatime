@@ -1,5 +1,5 @@
 <div class="row qa_big_cell">
-  <div class="col-md-8">
+  <div class="col-md-6">
     <span class="glyphicon glyphicon-file"></span>
     <%=link_to course.title, course_path(course) %>
   </div>
@@ -23,4 +23,10 @@
   <div class="col-md-1">
     <%=link_to '删除', mark_delete_course_path(course), method: :delete, 'data-confirm' => '确定删除?'%>
   </div>
+  <div class="col-md-2">
+    <%= link_to "移动课程",
+                "#",
+                data: {toggle: "modal", target: "#newMoveModal_c#{course.id}" } %>
+  </div>
+  <%= render partial: "course_library/shared/form_for_move", locals: {type: 'c',desc: '课程', cur: course} %>
 </div>

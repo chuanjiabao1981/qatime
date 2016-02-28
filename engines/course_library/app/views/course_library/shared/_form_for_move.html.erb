@@ -1,19 +1,47 @@
-<div class="modal fade" id="newMoveModal<%= dir.id %>" + dir.id role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="newMoveModal_<%= type + "#{cur.id}" %>" + dir.id role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">移动<%= type %></h4>
+        <h4 class="modal-title">选择目录</h4>
       </div>
-      <div class="modal-body" id="newProductInput">
-        <%= simple_form_for dir do |f| %>
-            <%= f.input :title, label: '当前目录', disabled: true %>
-            <%= f.association :parent, label: '移动到', collection: get_move_dirs(dir) %>
-            <%= f.button :submit, class: "btn btn-default" %>
+      <div class="modal-body">
+        <div class="dir_tree_move"></div>
+        <% if type == "c" %>
+            <%= hidden_field_tag("available_move_dir_ids_json" , get_available_move_dir_ids(cur.directory)) %>
+        <% elsif type == "d" %>
+            <%= hidden_field_tag("available_move_dir_ids_json" , get_available_move_dir_ids(cur)) %>
         <% end %>
       </div>
       <div class="modal-footer">
-        <%= link_to t('.cancel', :default => t("helpers.links.cancel")), '#', :class => 'btn btn-default', data: {dismiss: "modal"} %>
+        <div style="text-align: left">
+          需要移动的<%= desc %>：
+          <label>
+            <% if type == "c" %>
+                <%= cur.directory.get_full_path.map{|r| "#{r.title}"}.join(" > ") + " > " + cur.title %>
+            <% elsif type == "d" %>
+                <%= cur.get_full_path.map{|r| "#{r.title}"}.join(" > ") %>
+            <% end %>
+          </label>
+        </div>
+        <div style="text-align: left">
+          移动到：
+          <label id="fullpath">
+            <% if type == "c" %>
+                <%= cur.directory.get_full_path.map{|r| "#{r.title}"}.join(" > ") %>
+            <% elsif type == "d" %>
+                <%= cur.get_full_path.map{|r| "#{r.title}"}.join(" > ") %>
+            <% end %>
+          </label>
+        </div>
+        <%= simple_form_for cur do |f| %>
+            <% if type == "c" %>
+                <%= f.input :directory_id, as: :hidden %>
+            <% elsif type == "d" %>
+                <%= f.input :parent_id, as: :hidden %>
+            <% end %>
+            <%= f.button :submit, class: "btn btn-default" %>
+        <% end %>
       </div>
     </div>
   </div>

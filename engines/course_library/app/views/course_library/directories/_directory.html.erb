@@ -1,5 +1,5 @@
 <div class="row qa_big_cell">
-    <div class="col-md-7">
+    <div class="col-md-6">
       <span class="glyphicon glyphicon-folder-close"></span>
       <%=link_to directory.title, syllabus_directory_path(directory.syllabus,directory) %>
     </div>
@@ -20,15 +20,15 @@
         <%=link_to '下移',move_lower_directory_path(directory), method: :patch%>
     <%end%>
   </div>
+  <div class="col-md-1">
     <% if allow? "course_library/directories",:destroy,@directory %>
-      <div class="col-md-1">
         <%=link_to '删除',syllabus_directory_path(directory.syllabus,directory),method: :delete,'data-confirm' => 'Are you sure?'%>
-      </div>
     <% end %>
-    <div class="col-md-1">
-      <%= link_to "移动",
-                  "#",
-                  data: {toggle: "modal", target: "#newMoveModal#{directory.id}" } %>
-    </div>
-    <%= render partial: "course_library/shared/form_for_move", locals: {type: '目录', dir: directory} %>
+  </div>
+  <div class="col-md-2">
+    <%= link_to "移动目录",
+                "#",
+                data: {toggle: "modal", target: "#newMoveModal_d#{directory.id}" } %>
+  </div>
+  <%= render partial: "course_library/shared/form_for_move", locals: {type: 'd',desc: '目录', cur: directory} %>
 </div>

@@ -6,6 +6,20 @@
     * feature
         * [QT-20](https://qatime.atlassian.net/browse/QT-20)
 * 0.1.0.2
-    * feture
+    * feature
         * [QT-45](https://qatime.atlassian.net/browse/QT-45)
         * [QT-46](https://qatime.atlassian.net/browse/QT-46)
+* 0.2.0
+    * feature
+        * [QT-21](https://qatime.atlassian.net/browse/QT-21)
+        * [QT-39](https://qatime.atlassian.net/browse/QT-39)
+        * [QT-49](https://qatime.atlassian.net/browse/QT-49)
+        * [QT-36](https://qatime.atlassian.net/browse/QT-36)
+        * [QT-37](https://qatime.atlassian.net/browse/QT-37)
+        * [QT-38](https://qatime.atlassian.net/browse/QT-38)
+        * [QT-71](https://qatime.atlassian.net/browse/QT-71)
+        * [QT-68](https://qatime.atlassian.net/browse/QT-68)
+    * bugfix
+        * [QT-34](https://qatime.atlassian.net/browse/QT-34)
+        * [QT-66](https://qatime.atlassian.net/browse/QT-66)
+        * [QT-48](https://qatime.atlassian.net/browse/QT-48)

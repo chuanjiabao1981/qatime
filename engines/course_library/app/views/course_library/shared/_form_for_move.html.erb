@@ -30,7 +30,7 @@
             <% if type == "c" %>
                 <%= cur.directory.get_full_path.map{|r| "#{r.title}"}.join(" > ") %>
             <% elsif type == "d" %>
-                <%= cur.get_full_path.map{|r| "#{r.title}"}.join(" > ") %>
+                <%= cur.parent.get_full_path.map{|r| "#{r.title}"}.join(" > ") %>
             <% end %>
           </label>
         </div>

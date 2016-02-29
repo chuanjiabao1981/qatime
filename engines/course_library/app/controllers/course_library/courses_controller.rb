@@ -76,6 +76,18 @@ module CourseLibrary
       respond_with @directory
     end
 
+	def move_dir
+	  @course = Course.find(params[:id])
+      @dir_old = @course.directory
+      @syllabus = @directory.syllabus
+      if @course.update_attributes(params[:course].permit!)
+	    @dir_new = @course.directory
+		redirect_to syllabus_directory_path(@syllabus, @dir_new)
+	  else
+	    redirect_to syllabus_directory_path(@syllabus, @dir_old)
+	  end
+	end
+
 private
     def current_resource
       if params[:id]

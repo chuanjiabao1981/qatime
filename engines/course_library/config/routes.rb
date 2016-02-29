@@ -23,6 +23,7 @@ CourseLibrary::Engine.routes.draw do
       delete 'mark_delete'
       patch "move_higher"
       patch "move_lower"
+	  patch "move_dir"
     end
     resources :homeworks
   end

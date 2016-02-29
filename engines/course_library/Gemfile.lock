@@ -2,6 +2,7 @@ PATH
   remote: .
   specs:
     course_library (0.0.1)
+      acts_as_list
       dirty_associations (~> 0.4.4)
       rails (~> 4.2.5)
       responders (~> 2.0)
@@ -45,6 +46,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    acts_as_list (0.7.2)
+      activerecord (>= 3.0)
     arel (6.0.3)
     builder (3.2.2)
     concurrent-ruby (1.0.0)
@@ -125,4 +128,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   1.10.6
+   1.11.2

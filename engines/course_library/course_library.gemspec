@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency "simple_form"
   s.add_dependency "dirty_associations", "~>0.4.4"
   s.add_dependency 'acts_as_list'
+  s.add_dependency 'virtus'
 
   s.add_development_dependency "sqlite3"
 end

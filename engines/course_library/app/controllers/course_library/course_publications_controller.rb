@@ -9,9 +9,12 @@ module CourseLibrary
 
     def new
       @course_publication = @course.course_publications.build
+      @course_publication_form = CoursePublicationForm.new
     end
 
     def create
+      a = CoursePublicationForm.new(params[:course_publication])
+      puts a.to_json
       @course_publication = @course.course_publications.build(params[:course_publication].permit!)
       if @course_publication.save
         CustomizedTutorialService::CourseLibrary::CreateFromPublication.new(@course_publication).call

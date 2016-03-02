@@ -22,13 +22,23 @@ module CourseLibrary
       end
 
       private
-      def _find_or_build_course_publication(course,customized_course_ids)
-        customized_course_ids.map do |i|
-          course.course_publications.find_or_create_by(customized_course_id: i)
+      def _find_or_build_course_publication(course,course_publication_form)
+        course_publication_form.customized_course_ids.map do |i|
+          course.course_publications.find_or_create_by(customized_course_id: i) do |course_publication|
+            #因为是用于发布不是更新所以即便form不选择也不能同步到原有的publish上
+            if course_publication_form.publish_lecture_switch
+              course_publication.publish_lecture_switch = course_publication_form.publish_lecture_switch
+            end
+          end
         end
       end
 
       def _find_or_build_homework_publication(course_publications,homework_ids)
+        course_publications.each do |cp|
+          homework_ids.each do |h|
+            cp.homework_publications.find_or_create_by(homework_id: h)
+          end
+        end
       end
     end
   end

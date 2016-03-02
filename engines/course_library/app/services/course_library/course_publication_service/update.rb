@@ -27,14 +27,22 @@ module CourseLibrary
 
         @params.delete(:homework_ids)
 
-        #需要删除homework publication
+        #需要删除（撤销）homework publication
         homework_publications = @course_publication.homework_publications.where(homework_id: @need_delete_homework_ids)
 
         homework_publications.each do |homework_publication|
           homework_publication.destroy
         end
 
+        #需要撤销lecture
+        if @params[:publish_lecture_switch] == "0" || @params[:publish_lecture_switch] == false
+          if @course_publication.customized_tutorial
+            @course_publication.customized_tutorial.destroy_lecture
+          end
+        end
 
+
+        #发布新的作业
         @need_add_homework_ids.each do |homework_id|
           @course_publication.homework_publications.create(homework_id: homework_id)
         end
@@ -45,10 +53,8 @@ module CourseLibrary
 
         @course_publication.update_attributes(@params)
 
-        #可能有课程要发布
+        #可能有lecture或者作业要发布
         CustomizedTutorialService::CourseLibrary::CreateFromPublication.new(@course_publication).call
-        #可能有lecture的撤销或者发布
-        CustomizedTutorialService::CourseLibrary::SyncWithTemplate.new(@course_publication.customized_tutorial).call
 
         return ServiceRespond.new
       end

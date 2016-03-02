@@ -41,7 +41,7 @@ module CustomizedTutorialServiceTest
       end
 
 
-      test "already have cusetomized_tutorial" do
+      test "already have lecture publish" do
         course_publication    = get_course_publication(publish_lecture_switch: true)
         customized_tutorial   = CustomizedTutorialService::CourseLibrary::CreateFromPublication.new(course_publication).call
         customized_tutorial2  = nil
@@ -55,6 +55,26 @@ module CustomizedTutorialServiceTest
           end
         end
         assert customized_tutorial2 == customized_tutorial
+      end
+
+      test "already have customized tutorial but no lecture" do
+        course_publication    = get_course_publication(publish_lecture_switch: false,include_homeworks: true)
+        customized_tutorial   = CustomizedTutorialService::CourseLibrary::CreateFromPublication.new(course_publication).call
+        customized_tutorial2  = nil
+
+        assert_difference 'CustomizedTutorial.count',0 do
+          assert_difference 'Exercise.count',0 do
+            assert_difference 'QaFileQuoter.count',@lecture_files_count do
+              assert_difference 'PictureQuoter.count', @lecture_pictures_count do
+                course_publication.publish_lecture_switch = true
+
+                customized_tutorial2 = CustomizedTutorialService::CourseLibrary::CreateFromPublication.new(course_publication).call
+              end
+            end
+          end
+        end
+        assert customized_tutorial2 == customized_tutorial
+
       end
     end
   end

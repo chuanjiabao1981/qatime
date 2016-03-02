@@ -71,6 +71,18 @@ class CustomizedTutorial < ActiveRecord::Base
     self.title
   end
 
+  def has_lecture?
+    return false if self.video.nil? or self.template_video.nil?
+    return true
+  end
+
+  def destroy_lecture
+    self.template_video        = nil
+    self.template_picture_ids  = []
+    self.template_file_ids     = []
+    self.save
+  end
+
 
 
 

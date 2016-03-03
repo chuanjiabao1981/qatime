@@ -10,7 +10,7 @@ module CourseLibrary
         #到这里的course_publication都是validate过的所以不需要验证什么
 
         #找到或者创建course_publication
-        course_publications = _find_or_build_course_publication(@course,@course_publication_form.customized_course_ids)
+        course_publications = _find_or_build_course_publication(@course,@course_publication_form)
         #找到或者创建homework_publication
         _find_or_build_homework_publication(course_publications,@course_publication_form.homework_ids)
 

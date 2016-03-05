@@ -1,0 +1,30 @@
+button:
+ -
+  name: "专属课程"
+  sub_button:
+   -
+    type: "click"
+    name: "所有课程"
+    key:  "CUSTOM_COURSE"
+ -
+  name: "作业与练习"
+  sub_button:
+   -
+    type: "click"
+    name: "家庭作业"
+    key:  "HOMEWORK"
+   -
+    type: "click"
+    name: "随堂练习"
+    key:  "EXCISE"
+ -
+  name: "关于学生"
+  sub_button:
+   -
+    type: "view"
+    name: "绑定"
+    url:  "http://rails.wrcomputer.cn/auth/wechat"
+   -
+    type: "view"
+    name: "js测试"
+    url:  "http://rails.wrcomputer.cn/welcome/jstest"

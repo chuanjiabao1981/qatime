@@ -124,3 +124,5 @@ gem 'fancybox2-rails', '~> 0.2.8'
 gem 'whenever',:require => false
 
 gem 'course_library', path: 'engines/course_library'
+
+gem 'qawechat', path: 'engines/qawechat'

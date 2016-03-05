@@ -291,5 +291,8 @@ Qatime::Application.routes.draw do
   
   mount CourseLibrary::Engine, at: '/course_library'
 
+  mount Qawechat::Engine, at: '/qawechat'
+  get 'auth/wechat/callback' => 'qawechat/omniauth_callbacks#wechat'
+
   resources :qa_file_quoters
 end

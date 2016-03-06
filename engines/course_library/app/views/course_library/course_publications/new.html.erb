@@ -3,11 +3,21 @@
           <%= simple_form_for @course_publication_form,url: course_course_publications_path(@course) do |f| %>
 
               <%= f.input :customized_course_ids,collection: @course.author.customized_courses,
-                          label_method: lambda {|cc| "#{cc.name}(学生： #{cc.student.name})"} ,as: :check_boxes%>
-              <%= f.input :publish_lecture_switch ,as: :boolean, checked_value: true, unchecked_value: false%>
-              <%= f.input :homework_ids,collection: @course.homeworks ,as: :check_boxes%>
+                          label_method: lambda {|cc| "#{cc.name}(学生： #{cc.student.name})"} ,
+                          as: :check_boxes,
+                          label: "请选择学生"
+              %>
+              <%= f.input :publish_lecture_switch ,
+                          as: :boolean, checked_value: true, unchecked_value: false,
+                          label: "发布讲义"
+              %>
+              <%= f.input :homework_ids,
+                          collection: @course.homeworks ,
+                          as: :check_boxes,
+                          label: "选择要发布的作业"
+              %>
               <%= f.button :submit, "发布课程",class: "btn btn-default"%>
-
+              <%= link_to '返回', course_course_publications_path(@course),class: "btn btn-default" %>
           <% end %>
     </div>
 <% end %>

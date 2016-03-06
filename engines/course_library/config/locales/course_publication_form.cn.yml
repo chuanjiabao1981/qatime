@@ -1,0 +1,7 @@
+cn:
+  activerecord:
+    models:
+      course_library/course_publication_form: 练习与测试
+    attributes:
+      course_library/course_publication_form:
+        publish_lecture_switch: 标题

@@ -33,15 +33,18 @@
                 <%= cur.parent.get_full_path.map{|r| "#{r.title}"}.join(" > ") %>
             <% end %>
           </label>
-        </div>
-        <%= simple_form_for cur do |f| %>
-            <% if type == "c" %>
-                <%= f.input :directory_id, as: :hidden %>
-            <% elsif type == "d" %>
-                <%= f.input :parent_id, as: :hidden %>
-            <% end %>
-            <%= f.button :submit, class: "btn btn-default" %>
-        <% end %>
+  		</div>
+		<% if type == "c" %>
+			<%= simple_form_for cur, url: move_dir_course_path(cur) do |f| %>
+				<%= f.input :directory_id, as: :hidden %>
+				<%= f.button :submit, class: "btn btn-default" %>
+			<% end %>
+		<% elsif type == "d" %>
+		    <%= simple_form_for cur do |f| %>
+			    <%= f.input :parent_id, as: :hidden %>
+			    <%= f.button :submit, class: "btn btn-default" %>
+		    <% end %>
+		<% end %>
       </div>
     </div>
   </div>

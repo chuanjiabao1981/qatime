@@ -23,3 +23,7 @@
         * [QT-34](https://qatime.atlassian.net/browse/QT-34)
         * [QT-66](https://qatime.atlassian.net/browse/QT-66)
         * [QT-48](https://qatime.atlassian.net/browse/QT-48)
+* 0.2.0.1
+    * bugfix
+        * [QT-74](https://qatime.atlassian.net/browse/QT-74)
+        * [QT-78](https://qatime.atlassian.net/browse/QT-78)

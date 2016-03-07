@@ -7,15 +7,24 @@
                           as: :check_boxes,
                           label: "请选择学生"
               %>
+
+          <div>
+            <p>选择要发布内容：</p>
+          </div>
+          <% if @course.has_lecture? %>
+
               <%= f.input :publish_lecture_switch ,
                           as: :boolean, checked_value: true, unchecked_value: false,
                           label: "发布讲义"
               %>
+          <% end %>
+          <% if @course.homeworks.length > 0 %>
               <%= f.input :homework_ids,
                           collection: @course.homeworks ,
                           as: :check_boxes,
                           label: "选择要发布的作业"
               %>
+          <% end %>
               <%= f.button :submit, "发布课程",class: "btn btn-default"%>
               <%= link_to '返回', course_course_publications_path(@course),class: "btn btn-default" %>
           <% end %>

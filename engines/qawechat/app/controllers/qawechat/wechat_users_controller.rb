@@ -3,7 +3,12 @@ require_dependency "qawechat/application_controller"
 module Qawechat
   class WechatUsersController < ApplicationController
     def new
-      @user = User.new
+      if cookies[:openid].nil?
+	flash.now[:warning] = "请关注微信公众号后绑定"
+	render 'error'
+      else
+	@user = User.new
+      end
     end
 
     def create
@@ -39,9 +44,14 @@ module Qawechat
     end
 
     def show
-      @wechat_user = WechatUser.where(id: params[:id]).first
-      if @wechat_user.nil?
-        render nothing: true
+      if cookies[:openid].nil?
+        flash.now[:warning] = "请关注微信公众号后绑定"
+        render 'error'
+      else
+      	@wechat_user = WechatUser.where(id: params[:id]).first
+      	if @wechat_user.nil?
+          render nothing: true
+	end
       end
     end
 

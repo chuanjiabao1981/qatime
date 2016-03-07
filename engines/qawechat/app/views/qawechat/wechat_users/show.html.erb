@@ -1,17 +1,12 @@
-<div>
-  <div>
-    <div class="col-md-10">
-      恭喜您，已经与账号【<%= @wechat_user.user.name %>】绑定成功！
-    </div>
-    <div class="col-md-2">
-      <%=link_to '取消绑定',wechat_user_path(@wechat_user),method: :delete,'data-confirm' => '确定取消绑定?'%>
-    </div>
-  </div>
+<div class="alert alert-success">
+      您已经与账号【<%= @wechat_user.user.name %>】成功绑定！
 </div>
-<%= wechat_config_js debug: false, api: %w(hideMenuItems closeWindow) -%>
-<script type="application/javascript">
-  wx.ready(function() {
-      wx.hideOptionMenu();
-  });
-</script>
-<a href="javascript:wx.closeWindow();">Close</a>
+<div>
+    <%=link_to wechat_user_path(@wechat_user),method: :delete,'data-confirm' => '确定取消绑定?' do %>
+        <button type="button" class="btn btn-default btn-lg btn-block">取消绑定</button>
+    <% end %>
+    </br>
+    <%=link_to "javascript:wx.closeWindow();" do %>
+        <button type="button" class="btn btn-default btn-lg btn-block">关闭</button>
+    <% end %>
+</div>    

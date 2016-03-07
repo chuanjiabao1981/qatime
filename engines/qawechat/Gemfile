@@ -11,6 +11,7 @@ gemspec
 # your gem to rubygems.org.
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'bootstrap-sass','3.0.2.0'
 # wechat
 gem 'wechat'
 gem 'omniauth-wechat-oauth2'

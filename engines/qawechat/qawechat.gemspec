@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 4.2.5"
-  s.add_dependency "wechat", "~> 0.7.4"
+  s.add_dependency "wechat", "~> 0.7.5"
   s.add_dependency "omniauth-wechat-oauth2", "~> 0.1.0"
 
   s.add_development_dependency "sqlite3"

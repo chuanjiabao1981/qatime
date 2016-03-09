@@ -20,3 +20,5 @@ gem 'jquery-rails'
 gem 'simple_form'
 
 gem 'dirty_associations'
+
+gem 'virtus'

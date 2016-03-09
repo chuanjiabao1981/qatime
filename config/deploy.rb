@@ -7,8 +7,11 @@ lock '3.4.0'
 set :application, 'qatime'
 
 set :scm, :git
-set :repo_url, 'git@github.com:chuanjiabao1981/qatime.git'
+# set :repo_url, 'git@github.com:chuanjiabao1981/qatime.git'
 
+set :repo_url, 'https://chuanjiabao1981:mgw198100@github.com/chuanjiabao1981/qatime.git'
+# set :git_https_username,'chuanjiabao1981@gmail.com'
+# set :git_https_password,'mgw198100'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call

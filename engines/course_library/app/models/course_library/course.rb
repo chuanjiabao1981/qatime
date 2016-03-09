@@ -21,9 +21,11 @@ module CourseLibrary
     end
 
 
-    # has_many :customized_tutorials,class_name: "CustomizedTutorial",foreign_key: "template_id"
 
-
+    def has_lecture?
+      return true if not video.nil? or qa_files.length > 0 or  pictures.length > 0
+      false
+    end
 
 
     def has_the_homework?(homework_id)

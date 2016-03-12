@@ -8,3 +8,4 @@ production:
   - video_convert
   - sms
   - keep_account
+  - wechat

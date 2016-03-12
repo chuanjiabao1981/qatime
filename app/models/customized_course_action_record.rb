@@ -81,7 +81,7 @@ class CustomizedCourseActionRecord < ActionRecord
       to        = User.find(receiver_id)
       WechatWorker.perform_async(WechatWorker::NOTIFY,
                                  to: to.view_name,
-                                 openid: wechat_user.id,
+                                 openid: wechat_user.openid,
                                  message: message
       )
     end

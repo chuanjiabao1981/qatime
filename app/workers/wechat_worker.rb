@@ -1,9 +1,7 @@
 
 module WechatUtil
   def send_message(openid,content)
-    s = Wechat.api.custom_message_send Wechat::Message.to(openid).text(content)
-    result = JSON.parse(s.body)
-
+    result = Wechat.api.custom_message_send Wechat::Message.to(openid).text(content)
     if result["errcode"].to_i != 0
       raise StandardError ,result
     end
@@ -16,7 +14,7 @@ class WechatWorker
   include Sidekiq::Worker
   include WechatUtil
 
-  sidekiq_options :queue => :sms, :retry => false, :backtrace => true
+  sidekiq_options :queue => :wechat, :retry => false, :backtrace => true
   require 'json'
 
   def perform(notification_type,options={})

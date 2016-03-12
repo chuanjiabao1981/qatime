@@ -1,4 +1,5 @@
 module SessionsHelper
+  include Qawechat::WechatHelper
   def sign_in(user)
     remember_token = User.new_remember_token
     cookies.permanent[:remember_token]      = remember_token
@@ -20,6 +21,7 @@ module SessionsHelper
 
   def current_user
     @current_user ||= user_from_remember_token
+    @current_user ||= user_from_wechat
   end
 
   def signed_in?
@@ -40,4 +42,10 @@ module SessionsHelper
       Manager.find_by(remember_token: remember_token) unless remember_token.nil?
     end
   end
+
+  def user_from_wechat
+    user = get_user_from_wechat(params)
+    sign_in(user) unless user.nil?
+  end
+
 end

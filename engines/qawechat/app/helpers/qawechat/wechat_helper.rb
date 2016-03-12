@@ -9,7 +9,7 @@ module Qawechat
           openid: openid,
           wechat_token: ENV["WECHAT_TOKEN"]
       }
-      host = 'rails.wrcomputer.cn'
+      host = ENV["WECHAT_NOTIFICATION_HOST"]
       url = "http://#{host}/notifications/#{id}?noncestr=#{params[:noncestr]}" +
           "&timestamp=#{params[:timestamp]}&signature=#{signature(params)}" +
           "&openid=#{openid}"
@@ -29,11 +29,13 @@ module Qawechat
         }
         if signature(params_sig) == params[:signature]
           wechat_user = Qawechat::WechatUser.find_by(openid: params[:openid])
-          #只支持老师和学生
-          if User.find(wechat_user.user_id).teacher?
-            return Teacher.find(wechat_user.user_id)
-          elsif User.find(wechat_user.user_id).student?
-            return Student.find(wechat_user.user_id)
+          user = User.find(wechat_user.user_id)
+          unless user.nil?
+            cookies[:remember_token]      = user.remember_token
+            cookies[:remember_user_type]  = user.role
+            #只支持老师和学生
+            return Teacher.find(wechat_user.user_id) if user.teacher?
+            return Student.find(wechat_user.user_id) if user.student?
           end
         end
       end

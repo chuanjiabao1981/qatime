@@ -44,8 +44,7 @@ module SessionsHelper
   end
 
   def user_from_wechat
-    user = get_user_from_wechat(params)
-    sign_in(user) unless user.nil?
+    get_user_from_wechat(params)
   end
 
 end

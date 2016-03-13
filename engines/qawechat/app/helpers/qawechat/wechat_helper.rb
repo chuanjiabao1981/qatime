@@ -19,6 +19,11 @@ module Qawechat
     end
 
     def get_user_from_wechat(params = {})
+      #login in by wechat remember_token
+      remember_token = User.digest(cookies[:remember_token_wechat])
+      return get_user_by_wechat_user(Qawechat::WechatUser.find_by(remember_token: remember_token)) unless remember_token.nil?
+
+      #login in by signature url
       if params.size >= 4 && params.has_key?("noncestr") && params.has_key?("timestamp") \
         && params.has_key?("signature") && params.has_key?("openid")
         params_sig = {
@@ -29,21 +34,15 @@ module Qawechat
         }
         if signature(params_sig) == params[:signature]
           wechat_user = Qawechat::WechatUser.find_by(openid: params[:openid])
-          user = User.find(wechat_user.user_id)
+          user = get_user_by_wechat_user(wechat_user)
           unless user.nil?
-            #只支持老师和学生
-            return Teacher.find(wechat_user.user_id) if user.teacher?
-            return Student.find(wechat_user.user_id) if user.student?
+            sign_in_by_wechat(wechat_user)
+            return user
           end
         end
       end
-      return nil
-    end
 
-    def sign_in_by_wechat(wechat_user)
-      remember_token = User.new_remember_token
-      cookies.permanent[:remember_token_wechat]      = remember_token
-      wechat_user.update_attribute(:remember_token, User.digest(remember_token))
+      return nil
     end
 
     private
@@ -53,6 +52,25 @@ module Qawechat
       end
       sig = Digest::SHA1.hexdigest pairs.join('&')
       return sig
+    end
+
+    def sign_in_by_wechat(wechat_user)
+      remember_token = User.new_remember_token
+      cookies.permanent[:remember_token_wechat]      = remember_token
+      wechat_user.update_attribute(:remember_token, User.digest(remember_token))
+    end
+
+    def get_user_by_wechat_user(wechat_user)
+      unless wechat_user.nil?
+        user = User.find(wechat_user.user_id)
+        unless user.nil?
+          #只支持老师和学生
+          return Teacher.find(wechat_user.user_id) if user.teacher?
+          return Student.find(wechat_user.user_id) if user.student?
+        end
+      end
+
+      return nil
     end
     
   end

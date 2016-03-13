@@ -27,3 +27,6 @@
     * bugfix
         * [QT-74](https://qatime.atlassian.net/browse/QT-74)
         * [QT-78](https://qatime.atlassian.net/browse/QT-78)
+* 0.2.0.2
+    * feature
+        * [QT-87](https://qatime.atlassian.net/browse/QT-87)

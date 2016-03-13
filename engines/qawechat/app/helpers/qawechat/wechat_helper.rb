@@ -31,8 +31,6 @@ module Qawechat
           wechat_user = Qawechat::WechatUser.find_by(openid: params[:openid])
           user = User.find(wechat_user.user_id)
           unless user.nil?
-            cookies[:remember_token]      = user.remember_token
-            cookies[:remember_user_type]  = user.role
             #只支持老师和学生
             return Teacher.find(wechat_user.user_id) if user.teacher?
             return Student.find(wechat_user.user_id) if user.student?
@@ -40,6 +38,12 @@ module Qawechat
         end
       end
       return nil
+    end
+
+    def sign_in_by_wechat(wechat_user)
+      remember_token = User.new_remember_token
+      cookies.permanent[:remember_token_wechat]      = remember_token
+      wechat_user.update_attribute(:remember_token, User.digest(remember_token))
     end
 
     private
@@ -50,6 +54,6 @@ module Qawechat
       sig = Digest::SHA1.hexdigest pairs.join('&')
       return sig
     end
-
+    
   end
 end

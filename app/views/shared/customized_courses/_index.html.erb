@@ -1,21 +1,27 @@
 <div class="qa_cell">
   <table class="table table-striped">
     <tr>
-      <th>
-        <%= CustomizedCourse.model_name.human %>
-      </th>
+
+      <% if not current_user.teacher? %>
+          <th><%= CustomizedCourse.model_name.human %></th>
       <th>
         <%= CustomizedCourse.human_attribute_name(:teachers) %>
       </th>
-      <% if not current_user.teacher? and not current_user.student? %>
+      <% end %>
 
+      <% if not current_user.teacher? and not current_user.student? %>
         <th>
             <%= CustomizedCourse.human_attribute_name(:is_keep_account) %>
          </th>
       <% end %>
+      <% if not current_user.student? %>
       <th>
         <%= CustomizedCourse.human_attribute_name(:student) %>
       </th>
+      <% end %>
+      <% if current_user.teacher? %>
+          <th> <%= CustomizedCourse.human_attribute_name(:desc) %> </th>
+      <% end %>
       <% if current_user.admin? %>
           <th>
             <%= CustomizedCourse.human_attribute_name(:teacher_price) %>

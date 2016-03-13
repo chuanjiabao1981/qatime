@@ -24,3 +24,4 @@ cn:
         workstation: 工作站
         is_keep_account: 是否计费
         action_records: 全部活动
+        desc: 备注

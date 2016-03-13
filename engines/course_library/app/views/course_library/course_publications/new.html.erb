@@ -2,8 +2,8 @@
     <div class="qa_big_cell">
           <%= simple_form_for @course_publication_form,url: course_course_publications_path(@course) do |f| %>
 
-              <%= f.input :customized_course_ids,collection: @course.author.customized_courses,
-                          label_method: lambda {|cc| "#{cc.name}(学生： #{cc.student.name})"} ,
+              <%= f.input :customized_course_ids,collection: @course.author.customized_courses.order(:desc),
+                          label_method: lambda {|cc| "学生： #{cc.student.name} (备注: #{cc.desc})"} ,
                           as: :check_boxes,
                           label: "请选择学生"
               %>

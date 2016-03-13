@@ -29,7 +29,9 @@ class CustomizedCoursesController < ApplicationController
   end
 
   def update
-    params[:customized_course][:teacher_ids].delete("")
+    if not params[:customized_course][:teacher_ids].nil?
+      params[:customized_course][:teacher_ids].delete("")
+    end
     @customized_course.update_attributes(params[:customized_course].permit!)
     respond_with @customized_course
   end

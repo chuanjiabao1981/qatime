@@ -3,7 +3,7 @@
       <% if available_customized_course_for_publish(@course_publication).length !=0 %>
           <%= simple_form_for [@course,@course_publication] do |f| %>
               <%= f.association :customized_course,collection: available_customized_course_for_publish(@course_publication),
-                                label_method: lambda {|cc| "#{cc.name}(学生： #{cc.student.name})"},
+                                label_method: lambda {|cc| "学生： #{cc.student.name} (#{cc.desc})"},
                                 include_blank: false,
                                 disabled: ! @course_publication.new_record?
               %>

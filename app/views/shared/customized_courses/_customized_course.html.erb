@@ -1,14 +1,25 @@
 <tr>
-  <td>
+  <% if not current_user.teacher? %>
+    <td>
     <%=link_to  "#{customized_course.category}-#{customized_course.subject}",
                 customized_course_path(customized_course)
     %>
   </td>
-  <td><%= customized_course.teachers.map {|t| t.view_name}.join(",") %></td>
+    <td><%= customized_course.teachers.map {|t| t.view_name}.join(",") %></td>
+  <% end %>
   <% if not current_user.teacher? and not current_user.student? %>
   <td><%= t customized_course.is_keep_account.to_s %></td>
   <% end %>
-  <td><%= customized_course.student.name %></td>
+  <% if not current_user.student? %>
+    <td>
+      <%= link_to  "#{customized_course.student.name}",
+                  customized_course_path(customized_course)
+      %>
+    </td>
+  <% end %>
+  <% if current_user.teacher? %>
+      <td><%= editable customized_course, :desc ,placeholder: "请输入备注",type: :textarea, value: "备注"%></td>
+  <% end %>
   <% if current_user.admin? %>
     <td><%= customized_course.teacher_price %>元</td>
      <td><%= customized_course.platform_price %>元</td>

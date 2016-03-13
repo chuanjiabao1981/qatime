@@ -20,8 +20,10 @@ module Qawechat
 
     def get_user_from_wechat(params = {})
       #login in by wechat remember_token
-      remember_token = User.digest(cookies[:remember_token_wechat])
-      return get_user_by_wechat_user(Qawechat::WechatUser.find_by(remember_token: remember_token)) unless remember_token.nil?
+      unless cookies[:remember_token_wechat].nil?
+        remember_token = User.digest(cookies[:remember_token_wechat])
+        return get_user_by_wechat_user(Qawechat::WechatUser.find_by(remember_token: remember_token))
+      end
 
       #login in by signature url
       if params.size >= 4 && params.has_key?("noncestr") && params.has_key?("timestamp") \
@@ -55,6 +57,10 @@ module Qawechat
     end
 
     def sign_in_by_wechat(wechat_user)
+      #delete website cookies
+      cookies.delete(:remember_token)
+      cookies.delete(:remember_user_type)
+      #set wechat cookies
       remember_token = User.new_remember_token
       cookies.permanent[:remember_token_wechat]      = remember_token
       wechat_user.update_attribute(:remember_token, User.digest(remember_token))

@@ -74,10 +74,8 @@ class CustomizedCourseActionRecord < ActionRecord
   end
 
   def __create_action_wechat_notification(nid,receiver_id,mes)
-    wechat_user = Qawechat::WechatUser.find_by(user_id: receiver_id)
-    if wechat_user.nil?
-      return
-    else
+    wechat_users = Qawechat::WechatUser.where(user_id: receiver_id)
+    wechat_users.each do |wechat_user|
       message = mes + "，" + get_notification_href(nid, wechat_user.openid) +  "，"
       to        = User.find(receiver_id)
       WechatWorker.perform_async(WechatWorker::NOTIFY,

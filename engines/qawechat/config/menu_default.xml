@@ -1,0 +1,8 @@
+button:
+ -
+  name: "答疑时间"
+  sub_button:
+   -
+    type: "view"
+    name: "绑定账号"
+    url:  "http://rails.wrcomputer.cn/auth/wechat"

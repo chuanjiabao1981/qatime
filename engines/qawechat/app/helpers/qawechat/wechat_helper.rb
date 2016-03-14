@@ -4,7 +4,7 @@ module Qawechat
   module WechatHelper
     def get_notification_href(id, openid)
       params = {
-          noncestr: SecureRandom.base64(16),
+          noncestr: SecureRandom.urlsafe_base64(16),
           timestamp: Time.now.to_i,
           openid: openid,
           wechat_token: ENV["WECHAT_TOKEN"]
@@ -22,9 +22,9 @@ module Qawechat
       #login in by wechat remember_token
       unless cookies[:remember_token_wechat].nil?
         remember_token = User.digest(cookies[:remember_token_wechat])
-        return get_user_by_wechat_user(Qawechat::WechatUser.find_by(remember_token: remember_token))
+        user =  get_user_by_wechat_user(Qawechat::WechatUser.find_by(remember_token: remember_token))
+        return user unless user.nil?
       end
-
       #login in by signature url
       if params.size >= 4 && params.has_key?("noncestr") && params.has_key?("timestamp") \
         && params.has_key?("signature") && params.has_key?("openid")

@@ -1,0 +1,17 @@
+button:
+ -
+  name: "专属课程"
+  sub_button:
+   -
+    type: "click"
+    name: "我的课程"
+    key:  "CUSTOM_COURSE"
+ -
+  name: "关于学生"
+  sub_button:
+   -
+    type: "view"
+    name: "绑定账号"
+    url:  "http://rails.wrcomputer.cn/auth/wechat"
+matchrule:
+  group_id: "101"

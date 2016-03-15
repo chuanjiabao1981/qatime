@@ -1,5 +1,5 @@
 class CustomizedCourseActionRecord < ActionRecord
-
+  include Qawechat::WechatHelper
   belongs_to :customized_course
 
   has_many    :customized_course_action_notifications,as: :notificationable ,:dependent => :destroy do
@@ -13,12 +13,13 @@ class CustomizedCourseActionRecord < ActionRecord
   after_create :__create_action_notification
 
 
-  attr_accessor :send_sms_notification
+  attr_accessor :send_sms_notification,:send_wechat_notification
 
 
   def initialize(attributes = nil, options = {})
     super(attributes,options)
     self.send_sms_notification = true
+    self.send_wechat_notification = true
   end
 
 
@@ -37,6 +38,9 @@ class CustomizedCourseActionRecord < ActionRecord
       n.save
       if send_sms_notification
         __create_action_sms_notification(receiver_id,self.desc)
+      end
+      if send_wechat_notification
+        __create_action_wechat_notification(n.id,receiver_id,self.desc)
       end
     end
   end
@@ -67,6 +71,19 @@ class CustomizedCourseActionRecord < ActionRecord
                             mobile: to.mobile,
                             message: message
     )
+  end
+
+  def __create_action_wechat_notification(nid,receiver_id,mes)
+    wechat_users = Qawechat::WechatUser.where(user_id: receiver_id)
+    wechat_users.each do |wechat_user|
+      message = mes + "，" + get_notification_href(nid, wechat_user.openid) +  "，"
+      to        = User.find(receiver_id)
+      WechatWorker.perform_async(WechatWorker::NOTIFY,
+                                 to: to.view_name,
+                                 openid: wechat_user.openid,
+                                 message: message
+      )
+    end
   end
 
 end

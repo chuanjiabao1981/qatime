@@ -1,0 +1,19 @@
+default: &default
+  appid: <%= ENV['WECHAT_APP_ID'] %>
+  secret: <%= ENV['WECHAT_APP_SECRET'] %>
+  token:  <%= ENV['WECHAT_TOKEN'] %>
+  access_token: <%= ENV['WECHAT_ACCESS_TOKEN'] %>
+  jsapi_ticket: <%= ENV['WECHAT_JSAPI_TICKET'] %>
+
+production:
+  appid: <%= ENV['WECHAT_APP_ID'] %>
+  secret: <%= ENV['WECHAT_APP_SECRET'] %>
+  token:   <%= ENV['WECHAT_TOKEN'] %>
+  access_token:  <%= ENV['WECHAT_ACCESS_TOKEN'] %>
+  jsapi_ticket: <%= ENV['WECHAT_JSAPI_TICKET'] %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default

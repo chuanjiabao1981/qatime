@@ -1,6 +1,7 @@
 # coding: utf-8
 
-source 'https://ruby.taobao.org/'
+#source 'https://ruby.taobao.org/'
+source 'https://gems.ruby-china.org/'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -127,3 +128,4 @@ gem 'whenever',:require => false
 
 gem 'course_library', path: 'engines/course_library'
 
+gem 'qawechat', path: 'engines/qawechat'

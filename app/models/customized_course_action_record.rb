@@ -37,7 +37,7 @@ class CustomizedCourseActionRecord < ActionRecord
       n = self.customized_course_action_notifications.build(action_name: self.name,receiver_id: receiver_id)
       n.save
       if send_sms_notification
-        #__create_action_sms_notification(receiver_id,self.desc)
+        __create_action_sms_notification(receiver_id,self.desc)
       end
       if send_wechat_notification
         __create_action_wechat_notification(n.id,receiver_id,self.desc)

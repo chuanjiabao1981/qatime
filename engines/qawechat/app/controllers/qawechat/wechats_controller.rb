@@ -1,5 +1,6 @@
 module Qawechat
 class WechatsController < ActionController::Base
+  include WechatHelper
   wechat_responder
 
   # default text responder when no other match
@@ -38,12 +39,18 @@ class WechatsController < ActionController::Base
 
   private
   def get_custom_courses(openid)
-    result = ""
-    unless WechatUser.find_by(openid: openid).nil?
-      user = User.find(wechat_user.user_id)
+    wechat_user = WechatUser.find_by(openid: openid)
+    unless wechat_user.nil?
+      usr = User.find(wechat_user.user_id)
+      user = Teacher.find(wechat_user.user_id) if usr.teacher?
+      user = Student.find(wechat_user.user_id) if usr.student?
+      result = "您的专属课程有：\n"
+      index = 1
       user.customized_courses.each do |customized_course|
-        text = "#{customized_course.category}-#{customized_course.subject}-#{customized_course.teacher}-#{customized_course.student}"
-        result += '【<a href="' + customized_course_path(customized_course) + '">' + text +'</a>】'
+	teachers = customized_course.teachers.map {|t| t.view_name}.join(",")
+        text = "#{customized_course.category}-#{customized_course.subject}-#{teachers}-#{customized_course.student.view_name}"
+        result += "#{index} " + get_customized_course_href(customized_course.id, openid, text) + "\n"
+        index = index + 1
       end
     end
     return result

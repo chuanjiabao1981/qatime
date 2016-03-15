@@ -3,19 +3,15 @@ require 'digest/sha1'
 module Qawechat
   module WechatHelper
     def get_notification_href(id, openid)
-      params = {
-          noncestr: SecureRandom.urlsafe_base64(16),
-          timestamp: Time.now.to_i,
-          openid: openid,
-          wechat_token: ENV["WECHAT_TOKEN"]
-      }
       host = ENV["WECHAT_NOTIFICATION_HOST"]
-      url = "http://#{host}/notifications/#{id}?noncestr=#{params[:noncestr]}" +
-          "&timestamp=#{params[:timestamp]}&signature=#{signature(params)}" +
-          "&openid=#{openid}"
+      url = "http://#{host}/notifications/#{id}"
+      return get_href(url, openid, '点击查看')
+    end
 
-      href = '<a href="' + url + '">点击查看</a>'
-      return href
+    def get_customized_course_href(id, openid, text)
+      host = ENV["WECHAT_NOTIFICATION_HOST"]
+      url = "http://#{host}/customized_courses/#{id}"
+      return get_href(url, openid, text)
     end
 
     def get_user_from_wechat(params = {})
@@ -48,6 +44,21 @@ module Qawechat
     end
 
     private
+    def get_href(url, openid, text)
+      params = {
+          noncestr: SecureRandom.urlsafe_base64(16),
+          timestamp: Time.now.to_i,
+          openid: openid,
+          wechat_token: ENV["WECHAT_TOKEN"]
+      }
+      host = ENV["WECHAT_NOTIFICATION_HOST"]
+      url_s = "#{url}?noncestr=#{params[:noncestr]}" +
+          "&timestamp=#{params[:timestamp]}&signature=#{signature(params)}" +
+          "&openid=#{openid}"
+      href = '<a href="' + url_s + '">' + text +'</a>'
+      return href
+    end
+
     def signature(params)
       pairs = params.keys.sort.map do |key|
         "#{key}=#{params[key]}"

@@ -32,6 +32,7 @@ module Qawechat
             group_id = Wechat.api.group_create(@user.role)["group"]["id"]
           end
           Wechat.api.user_change_group(cookies[:openid],group_id)
+          Wechat.api.custom_message_send Wechat::Message.to(cookies[:openid]).text("恭喜您，已经与#{@user.name}绑定成功，菜单会在5分钟后自动更新！")
           redirect_to wechat_user_path(@wechat_user)
         else
           render 'new'
@@ -58,6 +59,8 @@ module Qawechat
     def destroy
       @wechat_user = WechatUser.find(params[:id])
       @wechat_user.destroy
+      Wechat.api.user_change_group(cookies[:openid],'0')
+      Wechat.api.custom_message_send Wechat::Message.to(cookies[:openid]).text("取消绑定成功，菜单会在5分钟后自动更新！")
       redirect_to new_wechat_user_path
     end
   end

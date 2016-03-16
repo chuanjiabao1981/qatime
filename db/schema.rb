@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160313015105) do
+ActiveRecord::Schema.define(version: 20160313031853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -263,6 +263,7 @@ ActiveRecord::Schema.define(version: 20160313015105) do
     t.integer  "creator_id"
     t.integer  "workstation_id"
     t.boolean  "is_keep_account",            default: false
+    t.text     "desc"
   end
 
   create_table "customized_tutorials", force: :cascade do |t|

@@ -14,4 +14,4 @@ button:
     name: "绑定账号"
     url:  "http://rails.wrcomputer.cn/auth/wechat"
 matchrule:
-  group_id: "102"
+  group_id: "108"

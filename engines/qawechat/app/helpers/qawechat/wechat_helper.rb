@@ -3,13 +3,13 @@ require 'digest/sha1'
 module Qawechat
   module WechatHelper
     def get_notification_href(id, openid)
-      host = ENV["WECHAT_NOTIFICATION_HOST"]
+      host = WECHAT_CONFIG['domain_name']
       url = "http://#{host}/notifications/#{id}"
       return get_href(url, openid, '点击查看')
     end
 
     def get_customized_course_href(id, openid, text)
-      host = ENV["WECHAT_NOTIFICATION_HOST"]
+      host = WECHAT_CONFIG['domain_name']
       url = "http://#{host}/customized_courses/#{id}"
       return get_href(url, openid, text)
     end

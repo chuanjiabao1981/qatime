@@ -23,3 +23,5 @@
 
 *.sqlite3
 *.log
+
+/config/wechat.yml

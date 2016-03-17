@@ -39,6 +39,8 @@ class User < ActiveRecord::Base
 
   has_many :comments,foreign_key: :author_id
 
+  has_many :wechat_users, class_name: Qawechat::WechatUser, :dependent => :destroy
+
   belongs_to :school
 
 

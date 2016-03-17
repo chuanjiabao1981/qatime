@@ -1,0 +1,12 @@
+<div class="alert alert-success">
+      您已经与账号【<%= @wechat_user.user.name %>】成功绑定！
+</div>
+<div>
+    <%=link_to wechat_user_path(@wechat_user),method: :delete,'data-confirm' => '确定取消绑定?' do %>
+        <button type="button" class="btn btn-default btn-lg btn-block">取消绑定</button>
+    <% end %>
+    </br>
+    <%=link_to "javascript:wx.closeWindow();" do %>
+        <button type="button" class="btn btn-default btn-lg btn-block">关闭</button>
+    <% end %>
+</div>    

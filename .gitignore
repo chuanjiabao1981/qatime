@@ -19,7 +19,10 @@
 /.idea
 /config/application.yml
 /config/database.yml
+/config/wechat.yml
 
 
 *.sqlite3
 *.log
+
+/config/wechat.yml

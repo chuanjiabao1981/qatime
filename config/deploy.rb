@@ -84,6 +84,7 @@ namespace :qatime do
     on roles(:all) do
       upload! "config/application.yml", "#{shared_path}/config/application.yml"
       upload! "config/database.yml","#{shared_path}/config/database.yml"
+      upload! "config/wechat.yml","#{shared_path}/config/wechat.yml"
     end
   end
 end

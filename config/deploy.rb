@@ -31,7 +31,7 @@ set :repo_url, 'https://chuanjiabao1981:mgw198100@github.com/chuanjiabao1981/qat
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, %w{config/database.yml config/application.yml public/assets/HLSProvider6.swf public/assets/jwplayer.flash.swf }
+set :linked_files, %w{config/wechat.yml config/database.yml config/application.yml public/assets/HLSProvider6.swf public/assets/jwplayer.flash.swf }
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}

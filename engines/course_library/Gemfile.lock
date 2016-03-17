@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     course_library (0.0.1)
-      jstree-rails-4
       rails (~> 4.2.5)
       responders (~> 2.0)
       simple_form
@@ -57,7 +56,6 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     json (1.8.3)
-    jstree-rails-4 (3.2.1)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -119,7 +117,6 @@ PLATFORMS
 DEPENDENCIES
   course_library!
   jquery-rails
-  jstree-rails-4
   simple_form
   sqlite3
 

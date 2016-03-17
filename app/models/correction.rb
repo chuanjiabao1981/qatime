@@ -17,7 +17,7 @@ class Correction < ActiveRecord::Base
   has_one           :fee, as:  :feeable
 
 
-  validates               :content, length: {minimum: 5},on: :create
+  validates               :content, length: {minimum: 1},on: :create
   validates_presence_of   :last_operator
   cattr_accessor          :order_type,:order_column
 

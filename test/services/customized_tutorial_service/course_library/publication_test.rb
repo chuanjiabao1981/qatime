@@ -12,19 +12,23 @@ module CustomizedTutorialServiceTest
         assert @course_one.valid?
         assert @directory_one.valid?
         assert @customized_course1.valid?
-        assert @course_one.qa_files.length != 0
-        assert @course_one.pictures.length != 0
-        @homework_count                     = @course_one.homeworks.count
-        @lecture_files_count                = @course_one.qa_files.count
-        @lecture_pictures_count             = @course_one.pictures.count
-        @course_total_files_count           = @course_one.qa_files.count
-        @course_total_pictures_count        = @course_one.pictures.count
+        assert @course_one.qa_files.length     != 0
+        assert @course_one.pictures.length     != 0
+        @homework_count                         = @course_one.homeworks.count
+        @lecture_files_count                    = @course_one.qa_files.count
+        @lecture_pictures_count                 = @course_one.pictures.count
+        @course_total_files_count               = @course_one.qa_files.count
+        @course_total_pictures_count            = @course_one.pictures.count
+        @course_total_homework_files_count      = 0
+        @course_total_homework_pictures_count   = 0
         @course_one.homeworks.each do |h|
           assert h.valid?
-          assert h.qa_files.length    != 0
-          @course_total_files_count    = @course_total_files_count + h.qa_files.count
-          assert h.pictures.length    != 0
-          @course_total_pictures_count = @course_total_pictures_count + h.pictures.count
+          assert h.qa_files.length                != 0
+          @course_total_files_count                = @course_total_files_count + h.qa_files.count
+          @course_total_homework_files_count       = @course_total_homework_files_count + h.qa_files.count
+          assert h.pictures.length                != 0
+          @course_total_pictures_count             = @course_total_pictures_count + h.pictures.count
+          @course_total_homework_pictures_count    = @course_total_homework_pictures_count  + h.pictures.count
         end
       end
 
@@ -39,6 +43,9 @@ module CustomizedTutorialServiceTest
           @course_one.homeworks.each do |h|
             get_homework_publication(course_publication,h)
           end
+        end
+        if options[:homework]
+          get_homework_publication(course_publication,options[:homework])
         end
         course_publication.save!
         course_publication

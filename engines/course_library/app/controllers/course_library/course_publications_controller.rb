@@ -9,15 +9,17 @@ module CourseLibrary
 
     def new
       @course_publication = @course.course_publications.build
+      @course_publication_form = CoursePublicationForm.new
     end
 
     def create
-      @course_publication = @course.course_publications.build(params[:course_publication].permit!)
-      if @course_publication.save
-        CustomizedTutorialService::CourseLibrary::CreateFromPublication.new(@course_publication).call
+
+      @course_publication_form = CoursePublicationForm.new(params[:course_publication_form])
+      if @course_publication_form.submit(@course)
         flash[:success] = t("view.course_library/course_publication.publish_success")
         return redirect_to course_course_publications_path(@course)
       else
+        puts @course_publication_form.to_json
         render 'new'
       end
     end
@@ -26,9 +28,11 @@ module CourseLibrary
     end
 
     def update
-      if CourseLibrary::CoursePublicationService::Update.new(@course_publication,params[:course_publication].permit!).call
+      service_respond = CourseLibrary::CoursePublicationService::Update.new(@course_publication,params[:course_publication].permit!).call
+      if service_respond.success?
         return redirect_to course_course_publications_path(@course)
       else
+        flash.now[:warning] = service_respond.errors.join(" ")
         render 'edit'
       end
     end

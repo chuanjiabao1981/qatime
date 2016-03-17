@@ -8,7 +8,7 @@ module CourseLibrary
 
     validates_uniqueness_of :homework_id ,scope: :course_publication_id
 
-
+    validates_presence_of :homework
     before_destroy :with_payment? ,prepend: true
 
 

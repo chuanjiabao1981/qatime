@@ -18,3 +18,7 @@ gem 'jquery-rails'
 
 #表单
 gem 'simple_form'
+
+gem 'dirty_associations'
+
+gem 'virtus'

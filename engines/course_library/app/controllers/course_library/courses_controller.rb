@@ -58,13 +58,35 @@ module CourseLibrary
       # @customized_tutorials = @course.customized_tutorials
     end
 
+    def move_higher
+      @course.move_higher
+      respond_with @directory
+    end
+    def move_lower
+      @course.move_lower
+      respond_with @directory
+    end
+
     def mark_delete
       @course.directory = nil
+      @course.remove_from_list
       if @course.save
         flash[:success] = "删除成功"
       end
       respond_with @directory
     end
+
+	def move_dir
+	  @course = Course.find(params[:id])
+      @dir_old = @course.directory
+      @syllabus = @directory.syllabus
+      if @course.update_attributes(params[:course].permit!)
+	    @dir_new = @course.directory
+		redirect_to syllabus_directory_path(@syllabus, @dir_new)
+	  else
+	    redirect_to syllabus_directory_path(@syllabus, @dir_old)
+	  end
+	end
 
 private
     def current_resource

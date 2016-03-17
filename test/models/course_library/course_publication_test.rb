@@ -28,5 +28,16 @@ module CourseLibrary
 
     end
 
+
+    test "assocation homework valid test" do
+      course_publication = course_library_course_publications(:course_publication_for_course_one)
+      course_one         = course_library_courses(:course_one)
+      course_one.homeworks.first
+      course_publication.homework_ids = [course_one.homeworks[1].id]
+      course_publication.homework_publications = []
+
+
+    end
+
   end
 end

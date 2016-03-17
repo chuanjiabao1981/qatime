@@ -27,5 +27,7 @@
 //= require fancybox
 //= require_tree .
 //= require course_library/application
+//= require editable/bootstrap-editable
+//= require editable/rails
 
 // require turbolinks}

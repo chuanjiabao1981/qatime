@@ -4,15 +4,14 @@
                customized_course_path(@customized_tutorial.customized_course)%>/<%= @customized_tutorial.title_with_template_directory_path_str %>
   </div>
   <div class="qa_box">
-    <div class="qa_cell" style="height: 410px">
-        <%if @customized_tutorial.video and @customized_tutorial.video.name and @customized_tutorial.video.name.url%>
+    <%if @customized_tutorial.video and @customized_tutorial.video.name and @customized_tutorial.video.name.url%>
+
+        <div class="qa_cell" style="height: 410px">
             <%= video_js_player(@customized_tutorial.video) %>
+        </div>
+    <% else %>
+    <% end %>
 
-        <% else %>
-            视频未上传
-        <% end %>
-
-    </div>
 
     <div class="qa_cell">
       <%= @customized_tutorial.content %>

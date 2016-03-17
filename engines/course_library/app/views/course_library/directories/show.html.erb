@@ -11,4 +11,5 @@
   </div>
     <%= render @children %>
     <%= render @directory.courses %>
+    <%= hidden_field_tag("dir_tree_move_json" , get_dir_tree(@syllabus, @directory)) %>
 </div>

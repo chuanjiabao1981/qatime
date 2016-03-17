@@ -90,15 +90,20 @@ module Permissions
       allow :comments,[:edit,:update,:destroy] do |comment|
         comment and comment.author_id  == user.id
       end
-      allow :customized_courses,[:show,:topics,:homeworks,:solutions,:action_records] do |customized_course|
+      allow :customized_courses,[:show,:topics,:homeworks,:solutions,:action_records,:update] do |customized_course|
         user and customized_course.teacher_ids.include?(user.id)
       end
       allow :customized_tutorials,[:new,:create] do |customized_course|
         user and customized_course.teacher_ids.include?(user.id)
       end
-      allow :customized_tutorials,[:show,:edit,:update] do |customized_tutorial|
+      allow :customized_tutorials,[:edit,:update] do |customized_tutorial|
         user and (customized_tutorial.teacher_id == user.id or
                     customized_tutorial.customized_course.teacher_ids.include?(user.id)) and customized_tutorial.template.nil?
+      end
+
+      allow :customized_tutorials,[:show] do |customized_tutorial|
+        user and (customized_tutorial.teacher_id == user.id or
+            customized_tutorial.customized_course.teacher_ids.include?(user.id))
       end
 
       allow :homeworks,[:new,:create] do |customized_course|
@@ -177,13 +182,16 @@ module Permissions
       allow "course_library/homeworks",[:index, :new, :create] do |course|
         course and course.directory.syllabus.author_id == user.id
       end
-      allow "course_library/courses",[:available_customized_courses_for_publish,:publish,:customized_tutorials,:un_publish,:sync, :index, :new, :edit, :update, :create, :show, :destroy, :mark_delete] do |course|
+      allow "course_library/courses",[:available_customized_courses_for_publish,
+                                      :publish,:customized_tutorials,:un_publish,:sync,
+                                      :index, :new, :edit, :update, :create, :show, :destroy,
+                                      :mark_delete, :move_higher, :move_lower, :move_dir] do |course|
         course and course.directory.syllabus.author_id == user.id
       end
       allow "course_library/courses",[:index, :new, :create] do |directory|
         directory and directory.syllabus.author_id == user.id
       end
-      allow "course_library/directories",[:edit, :update, :show] do |directory|
+      allow "course_library/directories",[:edit, :update, :show, :move_higher, :move_lower] do |directory|
         directory and directory.syllabus.author_id == user.id
       end
       allow "course_library/directories",[:new, :create] do |syllabus|

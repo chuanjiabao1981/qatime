@@ -10,6 +10,7 @@ end
 class WechatWorker
 
   NOTIFY                       = :notify2
+  REPLY			       = :reply
 
   include Sidekiq::Worker
   include WechatUtil
@@ -30,6 +31,14 @@ class WechatWorker
     wechat_info  = "【答疑时间】#{to}，你好，#{message}#{Time.zone.now.strftime("%Y-%m-%d %H:%M:%S")}，谢谢。"
     _send_message do
       send_message(openid,wechat_info)
+    end
+  end
+
+  def reply(options)
+    message   = options["message"]
+    openid    = options["openid"]
+    _send_message do
+      send_message(openid,message)
     end
   end
 

@@ -20,8 +20,19 @@ class WechatsController < ActionController::Base
 
   # When user click the menu button
   on :click, with: 'CUSTOM_COURSE' do |request, key|
-    get_custom_courses(request[:FromUserName]).each do |c|
-      request.reply.text c
+    messages = get_custom_courses(request[:FromUserName])
+    if messages.size == 0
+      request.reply.text "很抱歉，您还没有开通专属课程！"
+    elsif messages.size == 1
+      request.reply.text "您的专属课程有：\n#{messages[0]}"
+    else
+      index = 1
+      messages.each do |m|
+	message = "您的专属课程有(#{ index }/#{messages.size})：\n#{m}"
+        WechatWorker.perform_async(WechatWorker::REPLY,openid: request[:FromUserName], message: message)
+	index = index + 1
+      end
+      request.reply.success
     end
   end
 
@@ -31,21 +42,25 @@ class WechatsController < ActionController::Base
   private
   def get_custom_courses(openid)
     wechat_user = WechatUser.find_by(openid: openid)
+    messages = []
     unless wechat_user.nil?
       usr = User.find(wechat_user.user_id)
       user = Teacher.find(wechat_user.user_id) if usr.teacher?
       user = Student.find(wechat_user.user_id) if usr.student?
-      result = []
-      result[0] = "您的专属课程有：\n"
-      index = 0
+      index = 1
+      message = ""
       user.customized_courses.each do |customized_course|
         teachers = customized_course.teachers.map {|t| t.view_name}.join(",")
         text = "#{customized_course.category}-#{customized_course.subject}-#{teachers}-#{customized_course.student.view_name}"
-        result[index % 8] += "#{index + 1} " + get_customized_course_href(customized_course.id, openid, text) + "\n"
+        message += "· " + get_customized_course_href(customized_course.id, openid, text) + "\n"
+        if (index % 5 == 0 and index != 1) or (index == user.customized_courses.size)
+	  messages.push(message)
+          message = ""
+        end
         index = index + 1
       end
     end
-    return result
+    return messages
   end
 
 end

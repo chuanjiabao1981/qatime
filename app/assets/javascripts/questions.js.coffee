@@ -30,7 +30,7 @@ getToolbar = ->
       ['fontname', ['fontname']],
       ['color', ['color']],
       ['para', ['ul', 'ol', 'paragraph']],
-      ['insert', [ 'qa_image']],
+      ['insert', ['qa_image']],
     ]
 
 $(document).ready ->

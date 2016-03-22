@@ -247,7 +247,7 @@ readURL = (input) ->
 
         $('#qa-img-preview').attr
           'src': e.target.result
-          'width': 400
+          'width': '100%'
           'height': 400
         #清除掉上一次遗留的css信息
         $('#qa-img-preview').removeClass('rotate0 rotate90 rotate180 rotate270')

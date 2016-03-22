@@ -36,9 +36,9 @@ $(function() {
             );
         }
     });
-    summer_note.code(summer_note.val());
+    summer_note.summernote('code', summer_note.val());
     return summer_note.closest('form').submit(function() {
-        summer_note.val(summer_note.code());
+        summer_note.val(summer_note.summernote('code'));
         return true;
     });
 });

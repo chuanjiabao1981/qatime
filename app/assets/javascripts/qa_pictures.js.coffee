@@ -172,12 +172,8 @@ getToken = ->
         body =
           '<div class="form-group row-fluid">' + '<label>' + '图片' + '</small></label>' +
           '<input class="note-qa-image-url form-control span12" type="file" id="qa-img-file"/>' +
-          '<label>图片预览<br/><strong style="color:red">' +
-            '1. 同学你好，请拍摄照片时，镜头垂直对准页面,在光线好的情况下进行拍摄<br/>'+
-            '2. 同学你好，如果图片是颠倒的话，请点击下边的"翻转"按钮进行调整。否则老师看起来很幸苦。谢谢亲:)' +
-            '</strong></label>'+
           '<button id="qa-img-rotate">翻转</button>'+
-          '<div style="width: 100%;height: 400px;border: 1px dotted gray; overflow: hidden">'+
+          '<div style="width: 100%;height: 200px;border: 1px dotted gray; overflow: hidden">'+
           '<img id="qa-img-preview" src="" />'+
           '</div>'+
           '<canvas id="image-canvas"   style="display: none"></canvas>' +
@@ -185,7 +181,6 @@ getToken = ->
         footer = '<button href="#" class="btn btn-primary note-qa-image-btn disabled" disabled>' + '上传图片' + '</button>'
 
         @$dialog = ui.dialog({
-          title: '上传图片',
           body: body,
           footer: footer,
           class: 'note-qa-image-dialog'
@@ -247,8 +242,8 @@ readURL = (input) ->
 
         $('#qa-img-preview').attr
           'src': e.target.result
-          'width': 400
-          'height': 400
+          'width': 200
+          'height': 200
         #清除掉上一次遗留的css信息
         $('#qa-img-preview').removeClass('rotate0 rotate90 rotate180 rotate270')
         canvas = document.getElementById('image-canvas');

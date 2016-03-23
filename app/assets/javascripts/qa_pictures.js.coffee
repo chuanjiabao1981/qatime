@@ -177,7 +177,7 @@ getToken = ->
             '2. 同学你好，如果图片是颠倒的话，请点击下边的"翻转"按钮进行调整。否则老师看起来很幸苦。谢谢亲:)' +
             '</strong></label>'+
           '<button id="qa-img-rotate">翻转</button>'+
-          '<div style="width: 100%;height: 400px;border: 1px dotted gray">'+
+          '<div style="width: 100%;height: 400px;border: 1px dotted gray; overflow: hidden">'+
           '<img id="qa-img-preview" src="" />'+
           '</div>'+
           '<canvas id="image-canvas"   style="display: none"></canvas>' +
@@ -247,7 +247,7 @@ readURL = (input) ->
 
         $('#qa-img-preview').attr
           'src': e.target.result
-          'width': '100%'
+          'width': 400
           'height': 400
         #清除掉上一次遗留的css信息
         $('#qa-img-preview').removeClass('rotate0 rotate90 rotate180 rotate270')

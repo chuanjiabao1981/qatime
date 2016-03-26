@@ -27,6 +27,7 @@ class WorkstationCreateTest < ActionDispatch::IntegrationTest
 
     assert_difference 'Workstation.count',1 do
       click_on '新增工作站'
+      sleep 1
     end
   end
 end

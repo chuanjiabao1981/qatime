@@ -39,6 +39,7 @@ module ContentInputHelper
     set_all_possible_info(content)
     assert page.has_content? content
     click_on "#{action}#{object.model_name.human}"
+    sleep 1
   end
 
   def assert_picture(object)

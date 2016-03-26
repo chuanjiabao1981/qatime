@@ -36,6 +36,7 @@ class HomeworkCreateAndEditTest < ActionDispatch::IntegrationTest
         accept_alert
 
         click_on '新增练习与测试'
+        sleep 1
         page.save_screenshot('screenshot.png')
         assert page.has_content?('test.jpg')
         assert !page.has_content?('development.log')
@@ -48,6 +49,7 @@ class HomeworkCreateAndEditTest < ActionDispatch::IntegrationTest
     click_link '添加文件'
     find(:xpath, "//fieldset[#{count+1}]/div/div/input").set("#{Rails.root}/test/integration/test.jpg")
     click_on '更新练习与测试'
+    sleep 1
     assert page.has_content?('test.jpg')
   end
   test "remove file" do
@@ -57,6 +59,7 @@ class HomeworkCreateAndEditTest < ActionDispatch::IntegrationTest
       visit CourseLibrary::Engine.routes.url_helpers.edit_homework_path(@homework)
       find(:xpath, "//fieldset[#{count}]").click_link("删除")
       click_on '更新练习与测试'
+      sleep 1
     end
   end
 end

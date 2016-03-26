@@ -118,7 +118,7 @@ class ExaminationCreateTest < ActionDispatch::IntegrationTest
 
         add_a_picture
         click_on "新增#{e.model_name.human}"
-
+        sleep 1
         new_examination = e.all.order(:created_at => :desc).first
         new_picture     = Picture.where(imageable_type: "#{Examination.to_s}").order(:created_at => :desc).first
         new_examination.pictures.include?(new_picture)

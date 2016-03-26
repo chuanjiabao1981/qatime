@@ -22,12 +22,12 @@
 
 </div>
 
-<%= wechat_config_js debug: false, api: %w(hideMenuItems closeWindow) -%>
+<%= wechat_config_js debug: false, api: %w(hideMenuItems closeWindow startRecord stopRecord playVoice uploadVoice) -%>
 <script type="application/javascript">
   wx.ready(function() {
       wx.hideOptionMenu();
   });
 </script>
-
+<%= javascript_include_tag "qawechat/wechatjs" %>
 </body>
 </html>

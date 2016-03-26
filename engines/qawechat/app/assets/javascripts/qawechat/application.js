@@ -10,7 +10,9 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require_tree .
+//= require qawechat/jweixin-1.0.0
+//= require qawechat/zepto.min 
 //= require jquery
 //= require jquery_ujs
 //= require jquery.form
+

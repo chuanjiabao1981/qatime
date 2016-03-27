@@ -212,6 +212,7 @@ GEM
       omniauth-oauth2 (~> 1.0)
     pg (0.18.4)
     power_assert (0.2.7)
+    puma (2.13.4)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.4)
@@ -377,6 +378,7 @@ DEPENDENCIES
   minitest
   net-ssh (~> 2.9.1)
   pg
+  puma
   qawechat!
   quiet_assets
   rails (= 4.2.5.1)

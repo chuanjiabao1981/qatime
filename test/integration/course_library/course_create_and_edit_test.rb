@@ -26,7 +26,7 @@ class CourseCreateAndEditTest < ActionDispatch::IntegrationTest
         fill_in :course_description, with: 'new course description'
         click_on '上传视频'
         attach_file("video_name", "#{Rails.root}/test/integration/test.mp4")
-        sleep 20
+        sleep 5
 
         assert !page.has_xpath?("//fieldset")
         click_link '添加文件'
@@ -50,7 +50,7 @@ class CourseCreateAndEditTest < ActionDispatch::IntegrationTest
       visit CourseLibrary::Engine.routes.url_helpers.edit_course_path(@course)
       click_on '上传视频'
       attach_file("video_name", "#{Rails.root}/test/integration/test.mp4")
-      sleep 20
+      sleep 5
       click_on '更新大纲课程'
       assert page.has_css?("video")
     end
@@ -71,6 +71,7 @@ class CourseCreateAndEditTest < ActionDispatch::IntegrationTest
       visit CourseLibrary::Engine.routes.url_helpers.edit_course_path(@course)
       find(:xpath, "//fieldset[#{count}]").click_link("删除")
       click_on '更新大纲课程'
+      sleep 1
     end
   end
 end

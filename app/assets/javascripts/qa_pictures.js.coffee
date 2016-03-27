@@ -65,13 +65,133 @@ getToken = ->
     factory window.jQuery
   return
 ) ($) ->
-  # template
-  tmpl = $.summernote.renderer.getTemplate()
-  # core functions: range, dom
-  range = $.summernote.core.range
-  dom = $.summernote.core.dom
+  $.extend(
+    $.summernote.plugins,
+    'qa_image': (context) ->
+      ui = $.summernote.ui
 
+      $editor = context.layoutInfo.editor;
+      options = context.options;
+      lang = options.langInfo;
+      self = this
+      context.memo 'button.qa_image', ->
+        button = ui.button(
+          contents: '<i class="fa fa fa-picture-o"/>'
+          tooltop: '上传图片',
+          click: =>
+            self.show()
+        )
+        button.render()
+      @events = {
+        'summernote.init': (we, e) ->
+          __qa_pictures_init()
+      }
 
+      @show = =>
+        # $dialog = context.layoutInfo.dialog()
+        # $editable = layoutInfo.editable()
+        # text = getTextOnRange($editable)
+        clearAttribute(@$dialog)
+
+        # save current range
+        context.invoke('editor.saveRange')
+
+        self.showImageDialog().then((picture_json) ->
+          # when ok button clicked
+          # restore range
+          context.invoke('editor.restoreRange');
+
+          #insert image
+          #editor.insertImage($editable, picture_json.name.url)
+          #把图片通过fancybox展示
+          #insertQaPicture picture_json
+          updateQaPictureGallery()
+
+          clearAttribute(self.$dialog)
+          return
+        ).fail ->
+          # when cancel button clicked
+          context.invoke('editor.restoreRange');
+          return
+        return
+
+      @showImageDialog = ->
+        $.Deferred (deferred) ->
+          $qaImageDialog  = self.$dialog
+          $imageUrl       = $qaImageDialog.find('.note-qa-image-url')
+          $imageBtn       = $qaImageDialog.find('.note-qa-image-btn')
+          $progressBar    = $qaImageDialog.find('.progress-bar')
+
+          ui.onDialogShown self.$dialog, ->
+
+            $imageBtn.click (event) ->
+              event.preventDefault()
+              canvas    = document.getElementById('image-canvas');
+              data      = canvas.toDataURL('image/jpeg')
+              blob      = window.dataURLtoBlob && window.dataURLtoBlob(data);
+              fileName  = $imageUrl[0].files[0].name
+
+              token = getToken()
+              if token == "undefine"
+                alert("no token is given")
+                return
+              sumitPicture(token,blob,fileName).done((picture_json)->
+                deferred.resolve(picture_json)
+
+                $qaImageDialog.modal 'hide'
+                return
+              ).fail((status)->
+                alert(status)
+                deferred.reject()
+                $qaImageDialog.modal 'hide'
+                return
+              ).progress((percent)->
+                $progressBar.css({width: percent})
+                $progressBar.text(percent)
+                if percent == '100%'
+                  $progressBar.text("图片上传完毕,格式转换中，请稍后。。。。。")
+              )
+            return
+
+          ui.onDialogHidden(self.$dialog, ->
+            $progressBar.css({width: "0%"})
+            $progressBar.text("0%")
+            toggleBtn $imageBtn, false
+            $imageUrl.val('')
+            $imageUrl.off 'input'
+            $imageBtn.off 'click'
+            if deferred.state() == 'pending'
+              deferred.reject()
+            return
+          )
+          ui.showDialog(self.$dialog);
+          return
+
+      @initialize = ->
+        $container = $(document.body)
+        body =
+          '<div class="form-group row-fluid">' + '<label>' + '图片' + '</small></label>' +
+          '<input class="note-qa-image-url form-control span12" type="file" id="qa-img-file"/>' +
+          '<button id="qa-img-rotate">翻转</button>'+
+          '<div style="width: 100%;height: 200px;border: 1px dotted gray; overflow: hidden">'+
+          '<img id="qa-img-preview" src="" />'+
+          '</div>'+
+          '<canvas id="image-canvas"   style="display: none"></canvas>' +
+          '<div class="progress"><div class="progress-bar" role="progressbar"></div></div>' + '</div>'
+        footer = '<button href="#" class="btn btn-primary note-qa-image-btn disabled" disabled>' + '上传图片' + '</button>'
+
+        @$dialog = ui.dialog({
+          body: body,
+          footer: footer,
+          class: 'note-qa-image-dialog'
+        }).render()
+
+        @$dialog.appendTo('body');
+
+        return
+
+      return
+  )
 
   ###*
   # @member plugin.video
@@ -110,126 +230,6 @@ getToken = ->
 
     $dialog.find('#qa-img-preview').removeClass('rotate0 rotate90 rotate180 rotate270')
 
-
-  ###*
-  # Show video dialog and set event handlers on dialog controls.
-  #
-  # @member plugin.video
-  # @private
-  # @param {jQuery} $dialog
-  # @param {jQuery} $dialog
-  # @param {Object} text
-  # @return {Promise}
-  ###
-
-  showImageDialog = ($editable, $dialog,text) ->
-    $.Deferred((deferred) ->
-      $qaImageDialog  = $dialog.find('.note-qa-image-dialog')
-      $imageUrl       = $qaImageDialog.find('.note-qa-image-url')
-      $imageBtn       = $qaImageDialog.find('.note-qa-image-btn')
-      $progressBar    = $qaImageDialog.find('.progress-bar')
-      $qaImageDialog.one('shown.bs.modal', ->
-
-        $imageBtn.click (event) ->
-          event.preventDefault()
-          canvas    = document.getElementById('image-canvas');
-          data      = canvas.toDataURL('image/jpeg')
-          blob      = window.dataURLtoBlob && window.dataURLtoBlob(data);
-          fileName  = $imageUrl[0].files[0].name
-
-          token = getToken()
-          if token == "undefine"
-            alert("no token is given")
-            return
-          sumitPicture(token,blob,fileName).done((picture_json)->
-            deferred.resolve(picture_json)
-
-            $qaImageDialog.modal 'hide'
-            return
-          ).fail((status)->
-            alert(status)
-            deferred.reject()
-            $qaImageDialog.modal 'hide'
-            return
-          ).progress((percent)->
-            $progressBar.css({width: percent})
-            $progressBar.text(percent)
-            if percent == '100%'
-              $progressBar.text("图片上传完毕,格式转换中，请稍后。。。。。")
-          )
-        return
-      ).one('hidden.bs.modal', ->
-        $progressBar.css({width: "0%"})
-        $progressBar.text("0%")
-        toggleBtn $imageBtn, false
-        $imageUrl.val('')
-        $imageUrl.off 'input'
-        $imageBtn.off 'click'
-        if deferred.state() == 'pending'
-          deferred.reject()
-        return
-      ).modal 'show'
-    )
-  ###
-  # @class plugin.qa_image
-  #
-  # Qa_Image Plugin
-  #
-  #
-  ###
-
-  $.summernote.addPlugin
-    name: 'qa_image'
-    buttons: qa_image: (lang) ->
-      tmpl.iconButton 'fa fa fa-picture-o',
-        event: 'showImageDialog'
-        title: '上传图片'
-        hide: true
-    dialogs: qa_image: (lang) ->
-      body =
-        '<div class="form-group row-fluid">' + '<label>' + '图片' + '</small></label>' +
-        '<input class="note-qa-image-url form-control span12" type="file" id="qa-img-file"/>' +
-        '<label>图片预览<br/><strong style="color:red">' +
-          '1. 同学你好，请拍摄照片时，镜头垂直对准页面,在光线好的情况下进行拍摄<br/>'+
-          '2. 同学你好，如果图片是颠倒的话，请点击下边的"翻转"按钮进行调整。否则老师看起来很幸苦。谢谢亲:)' +
-          '</strong></label>'+
-        '<button id="qa-img-rotate">翻转</button>'+
-        '<div style="width: 400px;height: 400px;border: 1px dotted gray">'+
-        '<img id="qa-img-preview" src="" />'+
-        '</div>'+
-        '<canvas id="image-canvas"   style="display: none"></canvas>' +
-        '<div class="progress"><div class="progress-bar" role="progressbar"></div></div>' + '</div>'
-      footer = '<button href="#" class="btn btn-primary note-qa-image-btn disabled" disabled>' + '上传图片' + '</button>'
-      tmpl.dialog 'note-qa-image-dialog', '上传图片', body, footer
-    events: showImageDialog: (event, editor, layoutInfo) ->
-      __qa_pictures_init()
-
-      $dialog = layoutInfo.dialog()
-      $editable = layoutInfo.editable()
-      text = getTextOnRange($editable)
-      clearAttribute($dialog)
-
-      # save current range
-      editor.saveRange $editable
-      showImageDialog($editable, $dialog,text).then((picture_json) ->
-        # when ok button clicked
-        # restore range
-        editor.restoreRange $editable
-
-        #insert image
-        #editor.insertImage($editable, picture_json.name.url)
-        #把图片通过fancybox展示
-        #insertQaPicture picture_json
-        updateQaPictureGallery()
-
-        clearAttribute($dialog)
-        return
-      ).fail ->
-        # when cancel button clicked
-        editor.restoreRange $editable
-        return
-      return
-  return
 readURL = (input) ->
   if input.files and input.files[0]
     reader = new FileReader
@@ -242,8 +242,8 @@ readURL = (input) ->
 
         $('#qa-img-preview').attr
           'src': e.target.result
-          'width': 400
-          'height': 400
+          'width': 200
+          'height': 200
         #清除掉上一次遗留的css信息
         $('#qa-img-preview').removeClass('rotate0 rotate90 rotate180 rotate270')
         canvas = document.getElementById('image-canvas');
@@ -309,4 +309,3 @@ __qa_pictures_init = ->
 
     ctx.restore()
     return
-

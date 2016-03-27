@@ -41,6 +41,7 @@ class CustomizedCourseCreateTest < ActionDispatch::IntegrationTest
     assert_difference 'CustomizedCourse.count',1 do
       assert_difference 'CustomizedCourseAssignment.count',0 do
         click_on '新增专属课程'
+        sleep 1
         page.save_screenshot('screenshot.png')
 
       end
@@ -70,6 +71,7 @@ class CustomizedCourseCreateTest < ActionDispatch::IntegrationTest
           assert_difference 'CustomizedCourse.count',0 do
             assert_difference 'CustomizedCourseAssignment.count',-1 do
               click_on '更新专属课程'
+              sleep 1
             end
           end
         end
@@ -89,6 +91,7 @@ class CustomizedCourseCreateTest < ActionDispatch::IntegrationTest
 
     select '冲刺班', from: :s_customized_course_type
     click_on '更新专属课程'
+    sleep 1
     customized_course1.reload
     assert_not_equal customized_course1.teacher_price, teacher_price
   end

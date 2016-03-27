@@ -52,7 +52,7 @@ class QuestionCreateTest < ActionDispatch::IntegrationTest
           page.save_screenshot('screenshot.png')
 
           click_on "新增问题"
-
+          sleep 1
 
 
           a = Question.all.order(created_at: :desc).first

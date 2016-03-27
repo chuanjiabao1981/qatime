@@ -36,6 +36,7 @@ class CorrectionWithVideoTest < ActionDispatch::IntegrationTest
             assert_difference "Picture.where(imageable_type: \"#{correction.to_s}\").count",0 do
               set_all_possible_info random_str
               click_on "新增#{correction.model_name.human}"
+              sleep 1
               new_correction = correction.all.order(created_at: :desc).first
               assert_picture new_correction
               assert_video new_correction

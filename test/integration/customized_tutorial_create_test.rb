@@ -36,10 +36,10 @@ class CustomizedTutorialCreateTest < ActionDispatch::IntegrationTest
 
           attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
           page.save_screenshot('screenshot-customized-tutorial-create-3.png')
-          sleep 20
+          sleep 5
           page.save_screenshot('screenshot-customized-tutorial-create-4.png')
           click_on '新增课程'
-
+          sleep 1
         end
       end
 

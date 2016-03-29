@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329135525) do
+ActiveRecord::Schema.define(version: 20160329141438) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -524,6 +524,13 @@ ActiveRecord::Schema.define(version: 20160329135525) do
     t.datetime "updated_at",     null: false
     t.integer  "user_id"
     t.string   "remember_token"
+  end
+
+  create_table "qawechat_wechat_voices", force: :cascade do |t|
+    t.string   "name"
+    t.string   "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "question_assignments", force: :cascade do |t|

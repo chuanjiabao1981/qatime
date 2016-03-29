@@ -10,6 +10,18 @@ PATH
       virtus
 
 PATH
+  remote: engines/media
+  specs:
+    media (0.0.1)
+      rails (~> 4.2.5.1)
+
+PATH
+  remote: engines/message
+  specs:
+    message (0.0.1)
+      rails (~> 4.2.5.1)
+
+PATH
   remote: engines/qawechat
   specs:
     qawechat (0.0.1)
@@ -69,6 +81,7 @@ GEM
     bootstrap-sass (3.0.2.0)
       sass (~> 3.2)
     builder (3.2.2)
+    byebug (8.2.2)
     capistrano (3.4.0)
       i18n
       rake (>= 10.0.0)
@@ -355,6 +368,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt-ruby (= 3.1.5)
   bootstrap-sass (= 3.0.2.0)
+  byebug
   capistrano
   capistrano-bundler
   capistrano-rails
@@ -374,6 +388,8 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jcrop-rails-v2 (= 0.9.12.3)
   jquery-rails
+  media!
+  message!
   mini_magick (= 3.3)
   minitest
   net-ssh (~> 2.9.1)

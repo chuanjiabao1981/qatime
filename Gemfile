@@ -104,6 +104,7 @@ group :development,:test do
   gem 'selenium-webdriver'
   gem 'headless'
   gem 'puma'
+  gem 'byebug'
 end
 
 gem 'test_after_commit', :group => :test
@@ -127,3 +128,5 @@ gem 'whenever',:require => false
 gem 'course_library', path: 'engines/course_library'
 
 gem 'qawechat', path: 'engines/qawechat'
+gem 'media', path: 'engines/media'
+gem 'message', path: 'engines/message'

@@ -9,7 +9,8 @@ class CustomizedCourseMessageReply < ActiveRecord::Base
   belongs_to :author,class_name: User
   belongs_to :last_operator,class_name: User
   belongs_to :customized_course
-
+  belongs_to :messageble, polymorphic: true
+  
   cattr_accessor    :order_type,:order_column
 
 

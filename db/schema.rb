@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160313031853) do
+ActiveRecord::Schema.define(version: 20160329135525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -230,6 +230,8 @@ ActiveRecord::Schema.define(version: 20160313031853) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.integer  "last_operator_id"
+    t.integer  "messageble_id"
+    t.string   "messageble_type"
   end
 
   create_table "customized_course_messages", force: :cascade do |t|
@@ -419,6 +421,28 @@ ActiveRecord::Schema.define(version: 20160313031853) do
   end
 
   add_index "lessons", ["tags"], name: "index_lessons_on_tags", using: :gin
+
+  create_table "media_voice_quoters", force: :cascade do |t|
+    t.integer  "media_voice_id"
+    t.integer  "message_voice_message_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "media_voice_quoters", ["media_voice_id"], name: "index_media_voice_quoters_on_media_voice_id", using: :btree
+  add_index "media_voice_quoters", ["message_voice_message_id"], name: "index_media_voice_quoters_on_message_voice_message_id", using: :btree
+
+  create_table "media_voices", force: :cascade do |t|
+    t.integer  "voicable_id"
+    t.string   "voicable_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "message_voice_messages", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "nodes", force: :cascade do |t|
     t.string   "name",            limit: 255
@@ -622,6 +646,56 @@ ActiveRecord::Schema.define(version: 20160313031853) do
     t.datetime "completed_at"
     t.datetime "last_handled_at"
     t.datetime "last_redone_at"
+  end
+
+  create_table "teaching_program_courses", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "directory_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  create_table "teaching_program_directories", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "syllabus_id"
+    t.integer  "parent_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "teaching_program_homeworks", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "course_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "teaching_program_publishments", force: :cascade do |t|
+    t.integer  "course_id"
+    t.integer  "courseable_id"
+    t.string   "courseable_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "teaching_program_publishments", ["course_id"], name: "index_teaching_program_publishments_on_course_id", using: :btree
+
+  create_table "teaching_program_solutions", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.integer  "homework_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "teaching_program_syllabuses", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "author_id"
   end
 
   create_table "teaching_programs", force: :cascade do |t|

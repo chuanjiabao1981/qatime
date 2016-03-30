@@ -1,0 +1,72 @@
+</br>
+<div class="col-md-12">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="panel-title">微信语音测试</h2>
+    </div>
+    <div class="panel-body">
+	<button type="button" class="btn btn-default btn-lg btn-block" id="startRecord">开始录音</button>
+        <button type="button" class="btn btn-default btn-lg btn-block" id="stopRecord">停止录音</button>
+	<button type="button" class="btn btn-default btn-lg btn-block" id="playVoice">播放语音</button>
+	<button type="button" class="btn btn-default btn-lg btn-block" id="uploadVoice">上传语音</button>
+    </div>
+  </div>
+</div>
+<script type="application/javascript">
+var voice = {
+  localId: '',
+  serverId: ''
+};
+
+document.querySelector('#startRecord').onclick = function () {
+  wx.startRecord({
+    cancel: function () {
+      alert('用户拒绝授权录音');
+    }
+  });
+};
+
+document.querySelector('#stopRecord').onclick = function () {
+  wx.stopRecord({
+    success: function (res) {
+      voice.localId = res.localId;
+    },
+    fail: function (res) {
+      alert(JSON.stringify(res));
+    }
+  });
+};
+
+document.querySelector('#playVoice').onclick = function () {
+  if (voice.localId == '') {
+    alert('请先录制一段声音，再点击播放');
+    return;
+  }
+  wx.playVoice({
+    localId: voice.localId
+  });
+};
+
+document.querySelector('#uploadVoice').onclick = function () {
+  if (voice.localId == '') {
+    alert('请先录制一段声音，再点击上传');
+    return;
+  }
+  wx.uploadVoice({
+    localId: voice.localId,
+    success: function (res) {
+      //alert('上传语音成功，serverId 为' + res.serverId);
+      voice.serverId = res.serverId;
+      var options = {
+        serverId: res.serverId
+      }
+      $.post("http://rails.wrcomputer.cn/qawechat/wechat_voice",
+      options,
+      function(data,status){
+        alert("Data: " + data + "\nStatus: " + status);
+        location.href = "http://rails.wrcomputer.cn/qawechat/wechat_voice?serverId=" + voice.serverId;
+      });
+    }
+  });
+};
+</script>

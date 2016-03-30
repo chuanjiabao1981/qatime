@@ -4,7 +4,7 @@ class WechatsController < ActionController::Base
   wechat_responder
 
   on :text, with: 'help' do |request|
-    request.reply.text '请先绑定帐号，以便接收所有通知并查看，并在菜单中查看专属课程'
+    request.reply.text '请先绑定帐号(测试账号：s@qatime.cn，密码s；t@qatime.cn，密码t)，以便接收所有通知并查看，并在菜单中查看专属课程;语音测试地址：http://rails.wrcomputer.cn/qawechat/wechat_voice'
   end
 
   on :event, with: 'subscribe' do |request|

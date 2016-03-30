@@ -2,13 +2,25 @@
 <div class="col-md-12">
   <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="panel-title">微信语音测试</h2>
+        <h2 class="panel-title">微信语音播放</h2>
     </div>
     <div class="panel-body">
-	<button type="button" class="btn btn-default btn-lg btn-block" id="startRecord">开始录音</button>
-        <button type="button" class="btn btn-default btn-lg btn-block" id="stopRecord">停止录音</button>
-	<button type="button" class="btn btn-default btn-lg btn-block" id="playVoice">播放语音</button>
-	<button type="button" class="btn btn-default btn-lg btn-block" id="uploadVoice">上传语音</button>
+	<%= hidden_field_tag("voice_serverId" , @serverId) %>
+	<button type="button" class="btn btn-default btn-lg btn-block" id="downloadAndPlayVoice">播放语音</button>
     </div>
   </div>
 </div>
+
+<script type="application/javascript">
+  document.querySelector('#downloadAndPlayVoice').onclick = function () {
+    wx.downloadVoice({
+      serverId: $('#voice_serverId').val(),
+      success: function (res) {
+        alert('下载语音成功，localId 为' + res.localId);
+	wx.playVoice({
+          localId: res.localId
+        });
+      }
+    });
+  }; 
+</script>

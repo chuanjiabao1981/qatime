@@ -2,10 +2,11 @@ require_dependency "qawechat/application_controller"
 
 module Qawechat
   class WechatVoicesController < ApplicationController
-    def new
-    end
-
     def show
+	puts "#{Rails.root}/engines/qawechat/test/fixtures/qawechat/voice.amr"
+        result = Wechat.api.media_create("voice", "#{Rails.root}/engines/qawechat/test/fixtures/qawechat/voice.amr")
+        puts "result:#{result}"
+
 	if params[:serverId].nil?
 	  render 'new'
 	else

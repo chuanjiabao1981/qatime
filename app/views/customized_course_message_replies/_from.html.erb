@@ -1,7 +1,89 @@
 <div class="qa_box">
   <div class="qa_cell">
+    <div id="audio_reply">
+      语音回复
+    </div>
+
+    <div id="wechat_record_area" style="display:none">
+      <div id="record_wechat_voice">
+        按住录音
+      </div>
+
+      <div id="audition">
+        按住试听
+      </div>
+    </div>
+
     <%= simple_form_for(@customized_course_message_reply,url: object_form_url(@customized_course_message,@customized_course_message_reply)) do |f| %>
         <%= render partial: 'shared/qa_objects/form',locals: {f: f} %>
     <% end %>
+
   </div>
 </div>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<%= wechat_config_js debug: false, api: %w(hideMenuItems closeWindow uploadVoice startRecord stopRecord onVoiceRecordEnd playVoice pauseVoice stopVoice onVoicePlayEnd downloadVoice) -%>
+<script>
+var replyVoice = false;
+var localId = null;
+var serverMediaId = null;
+
+$("#audio_reply").click(function(){
+  $('.customized_course_message_reply_content').toggle('slow', function(){
+    replyVoice = !replyVoice;
+  });
+  $('#wechat_record_area').toggle('slow');
+});
+
+$("input[type=submit]").click(function(event){
+  if(replyVoice){
+    //如果是语音回复 需要添加参数到表单
+
+    $form = $('.new_customized_course_message_reply');
+    wx.uploadVoice({
+        localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+        isShowProgressTips: 1, // 默认为1，显示进度提示
+            success: function (res) {
+            serverMediaId = res.serverId; // 返回音频的服务器端ID
+            var input = $("<input>")
+                       .attr("type", "hidden")
+                       .attr("name", "media_id").val(serverMediaId);
+           $form.append($(input));
+           $form.submit();
+        }
+    });
+
+  }else{
+    return true;
+  }
+});
+
+wx.ready(function(){
+
+  $('#record_wechat_voice').bind('touchstart', function(){
+    console.log('开始录音');
+    wx.startRecord();
+  }).bind('touchend', function(){
+    wx.stopRecord({
+      success: function (res) {
+        localId = res.localId;
+        console.log('停止录音');
+      }
+    });
+  });
+
+  $('#audition').bind('touchstart', function(){
+    if(!!localId){
+      console.log('播放录音');
+      wx.playVoice({localId: localId});
+    }
+  }).bind('touchend', function(){
+    if(!!localId){
+      console.log('停止播放录音');
+      wx.stopVoice({
+        localId: localId
+      });
+    }
+  });
+  $(".new_customized_course_message_reply").submit
+});
+</script>

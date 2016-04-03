@@ -5,12 +5,15 @@
     </div>
 
     <div id="wechat_record_area" style="display:none">
-      <div id="record_wechat_voice">
+      <div id="record_wechat_voice" class="btn btn-primary">
         按住录音
       </div>
 
-      <div id="audition">
+      <div id="audition" class="btn btn-primary">
         按住试听
+      </div>
+      <div id="stop" class="btn btn-primary">
+        Stop
       </div>
     </div>
 
@@ -21,11 +24,12 @@
   </div>
 </div>
 <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<%= wechat_config_js debug: false, api: %w(hideMenuItems closeWindow uploadVoice startRecord stopRecord onVoiceRecordEnd playVoice pauseVoice stopVoice onVoicePlayEnd downloadVoice) -%>
+<%= wechat_config_js debug: true, api: %w(hideMenuItems closeWindow uploadVoice startRecord stopRecord onVoiceRecordEnd playVoice pauseVoice stopVoice onVoicePlayEnd downloadVoice) -%>
 <script>
 var replyVoice = false;
 var localId = null;
 var serverMediaId = null;
+var recording = false;
 
 $("#audio_reply").click(function(){
   $('.customized_course_message_reply_content').toggle('slow', function(){
@@ -37,7 +41,6 @@ $("#audio_reply").click(function(){
 $("input[type=submit]").click(function(event){
   if(replyVoice){
     //如果是语音回复 需要添加参数到表单
-
     $form = $('.new_customized_course_message_reply');
     wx.uploadVoice({
         localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
@@ -51,24 +54,36 @@ $("input[type=submit]").click(function(event){
            $form.submit();
         }
     });
-
+    return false;
   }else{
     return true;
   }
 });
 
 wx.ready(function(){
-
-  $('#record_wechat_voice').bind('touchstart', function(){
-    console.log('开始录音');
-    wx.startRecord();
-  }).bind('touchend', function(){
+  var stopRecord = function(){
     wx.stopRecord({
       success: function (res) {
+        recording = false;
         localId = res.localId;
         console.log('停止录音');
       }
     });
+  };
+
+  $('#stop').click(function(){
+    stopRecord();
+  });
+  $('#record_wechat_voice').bind('touchstart', function(){
+    console.log('开始录音');
+    if(recording){
+      stopRecord();
+      return;
+    }
+    recording = true;
+    wx.startRecord();
+  }).bind('touchend', function(){
+    stopRecord();
   });
 
   $('#audition').bind('touchstart', function(){

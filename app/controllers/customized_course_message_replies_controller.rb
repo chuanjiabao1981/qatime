@@ -10,6 +10,7 @@ class CustomizedCourseMessageRepliesController < ApplicationController
     #如果上传了微信语音消息
     if params[:media_id]
       @customized_course_message_reply = MediaService::Voice::CreateWechatVoiceMessageReply.new(params[:media_id]).call
+      @customized_course_message_reply.customized_course_message = @customized_course_message
       @customized_course_message_reply.last_operator_id = params[:customized_course_message_reply][:last_operator_id]
     else
       @customized_course_message_reply        =

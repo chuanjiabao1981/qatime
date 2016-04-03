@@ -10,13 +10,17 @@ class CustomizedCourseMessageReply < ActiveRecord::Base
   belongs_to :last_operator,class_name: User
   belongs_to :customized_course
   belongs_to :messageble, polymorphic: true
-  
+
   cattr_accessor    :order_type,:order_column
 
 
 
-  validates_presence_of :content,:author,:last_operator
+  validates_presence_of :author,:last_operator
+  validates_presence_of :content, unless: :is_messageble
 
+  def is_messageble
+    !!self.messageble_type
+  end
 
 
   self.order_type     = :asc

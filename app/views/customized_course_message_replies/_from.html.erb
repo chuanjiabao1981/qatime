@@ -12,9 +12,7 @@
       <div id="audition" class="btn btn-primary">
         按住试听
       </div>
-      <div id="stop" class="btn btn-primary">
-        Stop
-      </div>
+
     </div>
 
     <%= simple_form_for(@customized_course_message_reply,url: object_form_url(@customized_course_message,@customized_course_message_reply)) do |f| %>
@@ -32,10 +30,15 @@ var serverMediaId = null;
 var recording = false;
 
 $("#audio_reply").click(function(){
-  $('.customized_course_message_reply_content').toggle('slow', function(){
+  $('.customized_course_message_reply_content').toggle('fast', function(){
     replyVoice = !replyVoice;
+    if(replyVoice){
+      $("#audio_reply").text('文字回复');
+    }else{
+      $("#audio_reply").text('语音回复');
+    }
   });
-  $('#wechat_record_area').toggle('slow');
+  $('#wechat_record_area').toggle('fast');
 });
 
 $("input[type=submit]").click(function(event){
@@ -74,6 +77,7 @@ wx.ready(function(){
   $('#stop').click(function(){
     stopRecord();
   });
+
   $('#record_wechat_voice').bind('touchstart', function(){
     console.log('开始录音');
     if(recording){

@@ -87,6 +87,7 @@ gem 'state_machine'
 # multi select javascript
 gem 'chosen-rails'
 
+gem 'aasm'
 
 group :development,:test do
   # 状态机做图

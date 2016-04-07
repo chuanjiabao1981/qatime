@@ -6,12 +6,11 @@ module MediaService
       end
 
       def call
-        oss_file_uri = WechatVoiceConvertWorker.new.perform(@media_id)
-
         wechat_voice = Qawechat::WechatVoice.new
-        wechat_voice.name = oss_file_uri
+        wechat_voice.name = @media_id
         wechat_voice.save
-
+        wechat_voice.in_queue!
+        
         voice = wechat_voice.build_voice
         voice.save
 
@@ -21,7 +20,9 @@ module MediaService
         voice_message.reload
         voice_message.save
 
-        voice_message.build_customized_course_message_reply
+        reply = CustomizedCourseMessageReply.new
+        reply.messageble = voice_message
+        reply
       end
     end
   end

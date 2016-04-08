@@ -1,16 +1,16 @@
 <div class="qa_box">
   <div class="qa_cell">
-    <div id="audio_reply">
+    <div id="audio_reply" style="display:none">
       语音回复
     </div>
 
     <div id="wechat_record_area" style="display:none">
-      <div id="record_wechat_voice" class="btn btn-primary">
+      <div id="record_wechat_voice" class="btn btn-primary" style="width:75%;float:left;">
         按住录音
       </div>
 
-      <div id="audition" class="btn btn-primary">
-        按住试听
+      <div id="audition" class="btn btn-primary" style="width:20%;float:right;">
+        试听
       </div>
 
     </div>
@@ -28,42 +28,44 @@ var replyVoice = false;
 var localId = null;
 var serverMediaId = null;
 var recording = false;
-
-$("#audio_reply").click(function(){
-  $('.customized_course_message_reply_content').toggle('fast', function(){
-    replyVoice = !replyVoice;
-    if(replyVoice){
-      $("#audio_reply").text('文字回复');
-    }else{
-      $("#audio_reply").text('语音回复');
-    }
-  });
-  $('#wechat_record_area').toggle('fast');
-});
-
-$("input[type=submit]").click(function(event){
-  if(replyVoice){
-    //如果是语音回复 需要添加参数到表单
-    $form = $('.new_customized_course_message_reply');
-    wx.uploadVoice({
-        localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
-        isShowProgressTips: 1, // 默认为1，显示进度提示
-            success: function (res) {
-            serverMediaId = res.serverId; // 返回音频的服务器端ID
-            var input = $("<input>")
-                       .attr("type", "hidden")
-                       .attr("name", "media_id").val(serverMediaId);
-           $form.append($(input));
-           $form.submit();
-        }
-    });
-    return false;
-  }else{
-    return true;
-  }
-});
+var audition = false;
 
 wx.ready(function(){
+  $("#audio_reply").show();
+  $("#audio_reply").click(function(){
+    $('.customized_course_message_reply_content').toggle('fast', function(){
+      replyVoice = !replyVoice;
+      if(replyVoice){
+        $("#audio_reply").text('文字回复');
+      }else{
+        $("#audio_reply").text('语音回复');
+      }
+    });
+    $('#wechat_record_area').toggle('fast');
+  });
+
+  $("input[type=submit]").click(function(event){
+    if(replyVoice){
+      //如果是语音回复 需要添加参数到表单
+      $form = $('.new_customized_course_message_reply');
+      wx.uploadVoice({
+          localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+          isShowProgressTips: 1, // 默认为1，显示进度提示
+              success: function (res) {
+              serverMediaId = res.serverId; // 返回音频的服务器端ID
+              var input = $("<input>")
+                         .attr("type", "hidden")
+                         .attr("name", "media_id").val(serverMediaId);
+             $form.append($(input));
+             $form.submit();
+          }
+      });
+      return false;
+    }else{
+      return true;
+    }
+  });
+
   var stopRecord = function(){
     wx.stopRecord({
       success: function (res) {
@@ -90,19 +92,45 @@ wx.ready(function(){
     stopRecord();
   });
 
-  $('#audition').bind('touchstart', function(){
-    if(!!localId){
-      console.log('播放录音');
-      wx.playVoice({localId: localId});
-    }
-  }).bind('touchend', function(){
-    if(!!localId){
-      console.log('停止播放录音');
-      wx.stopVoice({
-        localId: localId
-      });
+  $('#audition').click(function(){
+    if(audition){
+      //正在播放 点击停止
+      if(!!localId){
+        wx.stopVoice({
+          localId: localId
+        });
+        $('#audition').text('试听');
+      }
+    }else{
+      if(!!localId){
+        $('#audition').text('停止');
+        wx.playVoice({localId: localId});
+      }
     }
   });
-  $(".new_customized_course_message_reply").submit
+
+  wx.onVoicePlayEnd({
+    success: function (res) {
+      $('#audition').text('试听');
+    }
+  });
+
+  $('.unconvert-voice').each(function(index){
+    $this = $(this);
+    var media_id = $this.data('media-id');
+    $this.text('点击播放');
+    $this.click(function(){
+      wx.downloadVoice({
+          serverId: media_id, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+          isShowProgressTips: 1, // 默认为1，显示进度提示
+          success: function (res) {
+              var thislocalId = res.localId; // 返回音频的本地ID
+              wx.playVoice({
+                localId: thislocalId
+              });
+          }
+      });
+    });
+  });
 });
 </script>

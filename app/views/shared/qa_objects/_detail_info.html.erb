@@ -36,7 +36,16 @@
     <% end %>
 
     <% if defined?(detail_info.messageble_type) and detail_info.messageble_type == 'Message::VoiceMessage' %>
-      <audio src="<%= detail_info.messageble.voice.voicable.name %>" preload="auto" controls></audio>
+      <% if detail_info.messageble.voice.voicable.convert_success? %>
+        <audio src="<%= detail_info.messageble.voice.voicable.name %>" preload="auto" controls></audio>
+        <p class="duration">
+          <%= detail_info.messageble.voice.voicable.duration %>''
+        </p>
+      <% else %>
+        <p data-media-id="<%= detail_info.messageble.voice.voicable.name %>" class="unconvert-voice">
+          语音正在转换中
+        </p>
+      <% end %>
     <% end %>
   </div>
 

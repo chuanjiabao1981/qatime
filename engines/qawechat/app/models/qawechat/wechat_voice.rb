@@ -19,7 +19,7 @@ module Qawechat
         transitions from: :converting, to: :convert_success
       end
 
-      event :convert_process_exec_error do
+      event :convert_process_exec_error, after: :send_alert do
         transitions from: :converting, to: :convert_fail
       end
 
@@ -29,5 +29,9 @@ module Qawechat
       WechatVoiceConvertWorker.perform_async(self.id)
     end
 
+    def send_alert
+      error_message = self.id.to_s + " voice convert failed."
+      SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message: error_message)
+    end
   end
 end

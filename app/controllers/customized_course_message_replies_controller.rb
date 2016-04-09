@@ -7,14 +7,14 @@ class CustomizedCourseMessageRepliesController < ApplicationController
   __add_last_operator_to_param(:customized_course_message_reply)
 
   def create
-    #如果上传了微信语音消息
-    if params[:media_id]
-      @customized_course_message_reply = MediaService::Voice::CreateWechatVoiceMessageReply.new(params[:media_id]).call
-      @customized_course_message_reply.customized_course_message = @customized_course_message
-      @customized_course_message_reply.last_operator_id = params[:customized_course_message_reply][:last_operator_id]
-    else
+
       @customized_course_message_reply        =
           @customized_course_message.customized_course_message_replies.build(params[:customized_course_message_reply].permit!)
+
+    #如果上传了微信语音消息
+    if params[:media_id]
+      voice_message = MediaService::Voice::CreateWechatVoiceMessage.new(params[:media_id]).call
+      @customized_course_message_reply.messageble = voice_message
     end
 
     @customized_course_message_reply.author = current_user

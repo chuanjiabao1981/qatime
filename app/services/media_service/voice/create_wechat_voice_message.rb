@@ -1,6 +1,6 @@
 module MediaService
   module Voice
-    class CreateWechatVoiceMessageReply
+    class CreateWechatVoiceMessage
       def initialize(media_id)
         @media_id = media_id
       end
@@ -10,7 +10,7 @@ module MediaService
         wechat_voice.name = @media_id
         wechat_voice.save
         wechat_voice.in_queue!
-        
+
         voice = wechat_voice.build_voice
         voice.save
 
@@ -20,9 +20,7 @@ module MediaService
         voice_message.reload
         voice_message.save
 
-        reply = CustomizedCourseMessageReply.new
-        reply.messageble = voice_message
-        reply
+        voice_message
       end
     end
   end

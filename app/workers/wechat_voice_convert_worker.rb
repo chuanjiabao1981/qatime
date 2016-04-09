@@ -23,6 +23,8 @@ class WechatVoiceConvertWorker
       voice.name = oss_url
       voice.duration = duration
       voice.save
+      voice.reload
+      
       voice.convert_process_finish!
     else
       voice.convert_process_exec_error!

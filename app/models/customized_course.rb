@@ -13,7 +13,7 @@ class CustomizedCourse < ActiveRecord::Base
 
   has_many :tutorial_issues
   has_many :fees
-
+  has_many :messages, as: :messagable, class_name: Message::Message
 
   validates_presence_of :subject,:category,:student, :platform_price, :teacher_price, :creator, :workstation
 

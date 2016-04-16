@@ -53,4 +53,40 @@ class CustomizedCourseAATest < ActiveSupport::TestCase
     assert cc.timeout_to_solve_homeworks.count == 1
   end
 
+  test 'create new text message for customize course' do
+    cc = customized_courses(:customized_course3)
+    assert cc.valid?
+    assert_equal 0, cc.messages.length
+
+    text_message = Message::TextMessage.new
+    text_message.content = 'hello world'
+    text_message.save
+
+    message = Message::Message.new
+    cc.messages << message
+    text_message.message = message
+
+    assert cc.save
+    assert_equal 1, cc.messages.length
+
+    #insert a image message
+    image_message = Message::ImageMessage.new
+    image = Message::Image.new
+    image.name = 'some pic url'
+
+    image_message.images << image
+    image_message.save
+
+    message = Message::Message.new
+    image_message.message = message
+
+    cc.messages << message
+    assert cc.save
+    assert_equal 2, cc.messages.length
+
+    #fetch all messages
+    cc = CustomizedCourse.includes(messages: :implementable).where(id: cc.id).first
+    assert_equal 2, cc.messages.count
+  end
+
 end

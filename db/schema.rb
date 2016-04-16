@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407121249) do
+ActiveRecord::Schema.define(version: 20160416013202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -439,9 +439,52 @@ ActiveRecord::Schema.define(version: 20160407121249) do
     t.datetime "updated_at",    null: false
   end
 
+  create_table "message_image_messages", force: :cascade do |t|
+    t.integer  "count"
+    t.integer  "author_id"
+    t.integer  "last_operator_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "message_images", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "imagable_id"
+    t.string   "imagable_type"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "message_messages", force: :cascade do |t|
+    t.integer  "messagable_id"
+    t.string   "messagable_type"
+    t.integer  "implementable_id"
+    t.string   "implementable_type"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+  end
+
+  create_table "message_text_messages", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "author_id"
+    t.integer  "last_operator_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
   create_table "message_voice_messages", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "message_wechat_voice_messages", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "duration"
+    t.string   "state"
+    t.integer  "author_id"
+    t.integer  "last_operator_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "nodes", force: :cascade do |t|

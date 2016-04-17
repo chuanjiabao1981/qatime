@@ -1,0 +1,7 @@
+<div class="qa_box">
+  <div class="qa_cell">
+    <% messages.each do |message| %>
+      <%= render partial: 'messages/message', locals: {message: message.implementable} %>
+    <% end %>
+  </div>
+</div>

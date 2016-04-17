@@ -143,6 +143,10 @@ Qatime::Application.routes.draw do
     end
   end
 
+  resources :customized_course_messages do
+    resources :customized_course_message_replies
+  end
+
   resources :customized_courses,only:[:show,:edit,:update] do
     resources :customized_tutorials
     member do
@@ -155,6 +159,7 @@ Qatime::Application.routes.draw do
     resources :course_issues
     resources :homeworks,only:[:show,:edit,:update,:new,:create]
     resources :customized_course_message_boards
+    resources :messages, as: :messaging
   end
   resources :homeworks do
     member do
@@ -270,9 +275,6 @@ Qatime::Application.routes.draw do
 
   resources :customized_course_message_boards do
     resources :customized_course_messages
-  end
-  resources :customized_course_messages do
-    resources :customized_course_message_replies
   end
 
   resources :customized_course_message_replies

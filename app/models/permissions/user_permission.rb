@@ -31,6 +31,8 @@ module Permissions
             customized_course_message_reply.author.id == user.id
       end
 
+      allow :messages, [:create]
+
       allow :notifications,[:show] do |notification|
         notification and notification.receiver_id == user.id
       end

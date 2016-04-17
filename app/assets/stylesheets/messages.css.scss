@@ -1,0 +1,32 @@
+.message_form{
+  width: 50%;
+  margin: 0 auto;
+  max-width: 580px;
+  #content-area{
+    width: 50%;
+    border-width: 1px;
+    border-style: solid;
+    resize: none;
+  }
+  #upload-image{
+    display: inline-block;
+    position: relative;
+  }
+
+  #imageupload-input{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    direction: ltr;
+    cursor: pointer;
+  }
+  .image-canvas{
+    float: left;
+    margin-right: 10px;
+    overflow: auto;
+  }
+}

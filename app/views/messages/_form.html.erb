@@ -1,0 +1,200 @@
+<div class="qa_box">
+  <div class="qa_cell">
+    <div id="audio_reply" style="display:none">
+      语音回复
+    </div>
+
+    <div id="wechat_record_area" style="display:none">
+      <div id="record_wechat_voice" class="btn btn-primary" style="width:75%;float:left;">
+        按住录音
+      </div>
+
+      <div id="audition" class="btn btn-primary" style="width:20%;float:right;">
+        试听
+      </div>
+
+    </div>
+
+
+    <div class="message_form">
+      <%= form_tag customized_course_messaging_index_path(@customized_course) do  %>
+          <div id="text-message-area">
+            <label for="content-area">留言内容</label>
+            <input type="text" id="content-area" name="text_message_content"/>
+          </div>
+
+
+          <div id="preview-area">
+
+          </div>
+          <span class="btn btn-success fileinput-button" id="upload-image">
+            <i class="fa fa-picture-o" aria-hidden="true"></i>
+            <input id="imageupload-input" type="file" multiple="multiple"/>
+          </span>
+        <%= submit_tag '提交' %>
+      <% end %>
+
+
+    </div>
+
+  </div>
+</div>
+<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<%= wechat_config_js debug: false, api: %w(hideMenuItems closeWindow uploadVoice startRecord stopRecord onVoiceRecordEnd playVoice pauseVoice stopVoice onVoicePlayEnd downloadVoice) -%>
+<script>
+uploadButton = $('<button/>')
+  .addClass('btn btn-primary')
+  .prop('disabled', true)
+  .text('Processing...')
+  .on('click', function () {
+      var $this = $(this),
+          data = $this.data();
+      $this
+          .off('click')
+          .text('Abort')
+          .on('click', function () {
+              $this.remove();
+              data.abort();
+          });
+      data.submit().always(function () {
+          $this.remove();
+      });
+  });
+
+$("#imageupload-input").fileupload({
+  dataType: 'json',
+  autoUpload: false,
+  acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+}).on('fileuploadadd', function (e, data) {
+    data.context = $('#preview-area');
+    $.each(data.files, function (index, file) {
+        data.files[index]['identity'] = Math.random().toString(36).substring(10);
+
+        var node = $('<div class="image-canvas"/>');
+        node.attr('id', file.identity);
+        node.appendTo(data.context);
+    });
+
+    //隐藏其它消息
+    $("#wechat_record_area").hide();
+    $("#text-message-area").hide();
+}).on('fileuploadprocessalways', function (e, data) {
+    var index = data.index,
+        file = data.files[index],
+        node = $('#'+file.identity);
+    if (file.preview) {
+        node.prepend(file.preview);
+        console.log(file.preview)
+    }
+})
+
+var replyVoice = false;
+var localId = null;
+var serverMediaId = null;
+var recording = false;
+var audition = false;
+
+wx.ready(function(){
+  $("#audio_reply").show();
+  $("#audio_reply").click(function(){
+    $('.customized_course_message_reply_content').toggle('fast', function(){
+      replyVoice = !replyVoice;
+      if(replyVoice){
+        $("#audio_reply").text('文字回复');
+      }else{
+        $("#audio_reply").text('语音回复');
+      }
+    });
+    $('#wechat_record_area').toggle('fast');
+  });
+
+  $("input[type=submit]").click(function(event){
+    if(replyVoice){
+      //如果是语音回复 需要添加参数到表单
+      $form = $('.new_customized_course_message_reply');
+      wx.uploadVoice({
+          localId: localId, // 需要上传的音频的本地ID，由stopRecord接口获得
+          isShowProgressTips: 1, // 默认为1，显示进度提示
+              success: function (res) {
+              serverMediaId = res.serverId; // 返回音频的服务器端ID
+              var input = $("<input>")
+                         .attr("type", "hidden")
+                         .attr("name", "media_id").val(serverMediaId);
+             $form.append($(input));
+             $form.submit();
+          }
+      });
+      return false;
+    }else{
+      return true;
+    }
+  });
+
+  var stopRecord = function(){
+    wx.stopRecord({
+      success: function (res) {
+        recording = false;
+        localId = res.localId;
+        console.log('停止录音');
+      }
+    });
+  };
+
+  $('#stop').click(function(){
+    stopRecord();
+  });
+
+  $('#record_wechat_voice').bind('touchstart', function(){
+    console.log('开始录音');
+    if(recording){
+      stopRecord();
+      return;
+    }
+    recording = true;
+    wx.startRecord();
+  }).bind('touchend', function(){
+    stopRecord();
+  });
+
+  $('#audition').click(function(){
+    if(audition){
+      //正在播放 点击停止
+      if(!!localId){
+        wx.stopVoice({
+          localId: localId
+        });
+        $('#audition').text('试听');
+      }
+    }else{
+      if(!!localId){
+        $('#audition').text('停止');
+        wx.playVoice({localId: localId});
+      }
+    }
+  });
+
+  wx.onVoicePlayEnd({
+    success: function (res) {
+      $('#audition').text('试听');
+    }
+  });
+
+  $('.unconvert-voice').each(function(index){
+    $this = $(this);
+    var media_id = $this.data('media-id');
+    $this.text('点击播放');
+    $this.click(function(){
+      wx.downloadVoice({
+          serverId: media_id, // 需要下载的音频的服务器端ID，由uploadVoice接口获得
+          isShowProgressTips: 1, // 默认为1，显示进度提示
+          success: function (res) {
+              var thislocalId = res.localId; // 返回音频的本地ID
+              wx.playVoice({
+                localId: thislocalId
+              });
+          }
+      });
+    });
+  });
+});
+</script>

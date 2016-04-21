@@ -17,7 +17,7 @@
 
 
     <div class="message_form">
-      <%= form_tag customized_course_messaging_index_path(@customized_course) do  %>
+      <%= form_tag customized_course_messaging_index_path(@customized_course), multipart: true do  %>
           <div id="text-message-area">
             <label for="content-area">留言内容</label>
             <input type="text" id="content-area" name="text_message_content"/>
@@ -29,7 +29,7 @@
           </div>
           <span class="btn btn-success fileinput-button" id="upload-image">
             <i class="fa fa-picture-o" aria-hidden="true"></i>
-            <input id="imageupload-input" type="file" multiple="multiple"/>
+            <input id="imageupload-input" type="file" multiple="multiple" name="image_messages[]"/>
           </span>
         <%= submit_tag '提交' %>
       <% end %>
@@ -62,8 +62,8 @@ uploadButton = $('<button/>')
   });
 
 $("#imageupload-input").fileupload({
-  dataType: 'json',
   autoUpload: false,
+  replaceFileInput: false,
   acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
 }).on('fileuploadadd', function (e, data) {
     data.context = $('#preview-area');
@@ -86,8 +86,7 @@ $("#imageupload-input").fileupload({
         node.prepend(file.preview);
         console.log(file.preview)
     }
-})
-
+});
 var replyVoice = false;
 var localId = null;
 var serverMediaId = null;

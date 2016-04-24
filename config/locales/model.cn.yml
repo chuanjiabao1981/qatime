@@ -53,6 +53,7 @@ cn:
         mobile: 手机
         nick_name: 昵称
         parent_phone: 家长手机
+        school: 学校
       student:
         email: 邮箱
         name: 姓名

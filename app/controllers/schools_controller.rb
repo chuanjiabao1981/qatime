@@ -44,6 +44,10 @@ class SchoolsController < ApplicationController
 
   private
 
+  def current_resource
+    load_school if params[:id]
+  end
+
   def load_school
     @school = School.find params[:id]
   end

@@ -33,5 +33,18 @@ module MessageServer
 
       message
     end
+
+    #创建微信语音消息
+    def create_wechat_voice_message(params)
+      voice_message = Message::WechatVoiceMessage.new
+      voice_message.name = params[:media_id]
+      voice_message.author_id = params[:author_id]
+      voice_message.save
+
+      message = Message::Message.new
+      voice_message.message = message
+
+      message
+    end
   end
 end

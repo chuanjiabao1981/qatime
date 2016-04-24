@@ -2,7 +2,7 @@ class WechatVoiceConvertWorker
   include Sidekiq::Worker
 
   def perform(voice_id)
-    voice = Qawechat::WechatVoice::find(voice_id)
+    voice = Message::WechatVoiceMessage.find(voice_id)
 
     #下载音频文件
     arm_file = Wechat.api.media voice.name

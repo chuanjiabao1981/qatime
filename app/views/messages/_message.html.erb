@@ -11,6 +11,17 @@
             <%= image_tag image.name, height: '30'%>
         <% end %>
       </p>
+  <% elsif message.respond_to?(:duration) %>
+      <% if message.convert_success? %>
+          <audio src="<%= message.name %>" preload="auto" controls></audio>
+          <p class="duration">
+            <%= message.duration %>''
+          </p>
+      <% else %>
+          <p data-media-id="<%= message.name %>" class="unconvert-voice">
+            语音正在转换中
+          </p>
+      <% end %>
   <% end %>
 
 </div>

@@ -4,4 +4,7 @@
       <%= render partial: 'messages/message', locals: {message: message.implementable} %>
     <% end %>
   </div>
+  <div class="qa_cell">
+    <%= will_paginate messages ,renderer: BootstrapPagination::Rails %>
+  </div>
 </div>

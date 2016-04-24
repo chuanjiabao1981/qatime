@@ -28,6 +28,16 @@ class MessagesController < ApplicationController
               author_id: current_user.id
           }
       }
+
+    #语音消息
+    elsif params[:media_id]
+      options = {
+          type: :wechat_voice,
+          params: {
+              media_id: params[:media_id],
+              author_id: current_user.id
+          }
+      }
     end
 
     message = MessageServer::CreateMessage.new(options).call

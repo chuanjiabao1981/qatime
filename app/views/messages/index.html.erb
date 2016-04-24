@@ -1,7 +1,7 @@
 <%= render layout: "layout" do %>
     <% content_for :brief_header do %>
     <% end %>
-    <%= render partial: "messages/messages",locals: {messages: @customized_course.messages} %>
+    <%= render partial: "messages/messages",locals: {messages: @messages} %>
 
     <div class="qa_sep_15"></div>
     <%= render partial: 'messages/form' %>

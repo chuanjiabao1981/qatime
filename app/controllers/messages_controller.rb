@@ -2,7 +2,8 @@ class MessagesController < ApplicationController
   layout "application"
 
   def index
-    @customized_course = CustomizedCourse.includes(messages: :implementable).find(params[:customized_course_id])
+    @customized_course = CustomizedCourse.find(params[:customized_course_id])
+    @messages = @customized_course.messages.includes(:implementable).order('created_at desc').paginate(page: params[:page])
   end
 
   def create

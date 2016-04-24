@@ -154,6 +154,7 @@ GEM
     hashie (3.4.3)
     headless (2.2.2)
     hike (1.2.3)
+    hirb (0.7.3)
     http (1.0.2)
       addressable (~> 2.3)
       http-cookie (~> 1.0)
@@ -371,6 +372,7 @@ DEPENDENCIES
   fancybox2-rails (~> 0.2.8)
   font-awesome-rails
   headless
+  hirb
   jbuilder (~> 1.2)
   jcrop-rails-v2 (= 0.9.12.3)
   jquery-rails

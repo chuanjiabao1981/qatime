@@ -12,25 +12,43 @@ module Permissions
       allow :vip_classes,[:show]
       allow :questions,[:index,:show,:student,:teacher,:teachers]
       allow :teaching_videos,[:show]
-      allow :students,[:index,:search,:show,:edit,:create,:update,
-                       :info,:teachers,:customized_courses,:homeworks,
-                       :solutions,:account,:customized_tutorial_topics,:questions,:notifications]
-      allow :home,[:index]
-      allow :schools,[:index,:new,:create,:show,:edit,:update]
-      allow :register_codes, [:index, :new, :downloads, :create]
-      allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,
-                       :students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,
-                       :exercises,:keep_account,:solutions,:customized_tutorial_topics,:notifications]
-      allow :curriculums,[:index,:show]
-      allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
-      allow :courses,[:show]
-      allow :comments,[:create,:show]
-      allow :comments,[:edit,:update] do |comment|
-        comment
+
+      allow :students, [:index, :search, :show, :edit, :create, :update,
+                        :info, :teachers, :customized_courses, :homeworks,
+                        :solutions, :account, :customized_tutorial_topics,
+                        :questions, :notifications] do |student|
+        student.school.blank? ||
+          user.city.schools
+              .collect { |s| s.students.collect(&:id) }
+              .flatten.include?(student.id)
       end
 
+      allow :home, [:index]
 
+      allow :schools, [:index, :show]
+      allow :schools, [:new, :create, :edit, :update] do |school|
+        user.city_id == school.city_id
+      end
 
+      allow :register_codes, [:index, :new, :downloads, :create]
+
+      allow :teachers, [:index, :new, :create, :show, :edit, :update,
+                        :search, :pass, :unpass, :students, :curriculums,
+                        :info, :questions, :topics, :lessons_state, :homeworks,
+                        :exercises, :keep_account, :solutions,
+                        :customized_tutorial_topics, :notifications] do |teacher|
+        user.city.schools
+            .collect { |s| s.teachers.collect(&:id) }
+            .flatten.include?(teacher.id)
+      end
+
+      allow :curriculums, [:index, :show]
+      allow :learning_plans, [:new, :teachers, :create, :index, :edit, :update]
+      allow :courses, [:show]
+      allow :comments, [:create, :show]
+      allow :comments, [:edit, :update] do |comment|
+        comment
+      end
 
       allow :topics,[:show]
       allow :replies,[:create]
@@ -38,8 +56,13 @@ module Permissions
         reply and reply.author_id == user.id
       end
 
-      allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks,:solutions, :get_sale_price] do |customized_course|
-        user and customized_course
+      allow :customized_courses,
+            [:show, :edit, :update, :teachers, :topics,
+             :homeworks, :solutions, :get_sale_price] do |customized_course|
+        user && customized_course &&
+          user.workstations
+              .collect { |w| w.customized_courses.collect(&:id) }
+              .flatten.include?(customized_course.id)
       end
 
       allow :customized_courses ,[:new,:create] do |student|

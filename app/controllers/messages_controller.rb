@@ -8,9 +8,9 @@ class MessagesController < ApplicationController
   def create
     @customized_course = CustomizedCourse.find(params[:customized_course_id])
     options = {}
-
+    message_type = params[:message_type]
     #文字消息
-    if params[:text_message_content] and params[:text_message_content].length > 0
+    if message_type == 'text_message' and params[:text_message_content].length > 0
       options = {
           type: :text,
           params: {
@@ -19,11 +19,11 @@ class MessagesController < ApplicationController
           }
       }
     #上传了图片 图片消息
-    elsif params[:image_messages].length > 0
+    elsif message_type == 'image_message'
       options = {
           type: :images,
           params: {
-              images: params[:image_messages],
+              image_ids: params[:image_ids],
               author_id: current_user.id
           }
       }
@@ -33,5 +33,22 @@ class MessagesController < ApplicationController
     @customized_course.messages << message
 
     redirect_to customized_course_messaging_index_path(@customized_course)
+  end
+
+  #上传图片
+  def upload_image
+    image_upload = params[:file]
+
+    uploader = PictureUploader.new
+    File.open(image_upload.path) do |file|
+      uploader.store!(file)
+    end
+
+    oss_url = uploader.url
+    image = Message::Image.new
+    image.name = oss_url
+    image.save
+
+    render json: image
   end
 end

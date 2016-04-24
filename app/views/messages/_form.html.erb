@@ -15,78 +15,142 @@
 
     </div>
 
+    <div id="fileList" class="uploader-list">
+    </div>
 
     <div class="message_form">
-      <%= form_tag customized_course_messaging_index_path(@customized_course), multipart: true do  %>
+      <%= form_tag customized_course_messaging_index_path(@customized_course), multipart: true, id: 'message_submit_form' do  %>
           <div id="text-message-area">
             <label for="content-area">留言内容</label>
             <input type="text" id="content-area" name="text_message_content"/>
           </div>
-
+          <input id="message-type" name="message_type" type="hidden" value="text_message"/>
 
           <div id="preview-area">
 
           </div>
-          <span class="btn btn-success fileinput-button" id="upload-image">
-            <i class="fa fa-picture-o" aria-hidden="true"></i>
-            <input id="imageupload-input" type="file" multiple="multiple" name="image_messages[]"/>
-          </span>
-        <%= submit_tag '提交' %>
+
+        <%= submit_tag '提交', id: 'message_submit_form_button'%>
       <% end %>
 
 
     </div>
+
+    <!--dom结构部分-->
+    <div id="uploader-demo">
+      <!--用来存放item-->
+      <div id="fileList" class="uploader-list"></div>
+      <div id="filePicker">选择图片</div>
+    </div>
+
 
   </div>
 </div>
 <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 <%= wechat_config_js debug: false, api: %w(hideMenuItems closeWindow uploadVoice startRecord stopRecord onVoiceRecordEnd playVoice pauseVoice stopVoice onVoicePlayEnd downloadVoice) -%>
 <script>
-uploadButton = $('<button/>')
-  .addClass('btn btn-primary')
-  .prop('disabled', true)
-  .text('Processing...')
-  .on('click', function () {
-      var $this = $(this),
-          data = $this.data();
-      $this
-          .off('click')
-          .text('Abort')
-          .on('click', function () {
-              $this.remove();
-              data.abort();
-          });
-      data.submit().always(function () {
-          $this.remove();
-      });
+
+
+  // 初始化Web Uploader
+  var uploader = WebUploader.create({
+
+    // 选完文件后，是否自动上传。
+    auto: false,
+    fileNumLimit: 10,
+    // swf文件路径
+    swf: '/assets/Uploader.swf',
+
+    // 文件接收服务端。
+    server: '<%= upload_image_customized_course_messaging_index_path(@customized_course) %>',
+
+    // 选择文件的按钮。可选。
+    // 内部根据当前运行是创建，可能是input元素，也可能是flash.
+    pick: '#filePicker',
+
+    // 只允许选择图片文件。
+    accept: {
+      title: 'Images',
+      extensions: 'gif,jpg,jpeg,bmp,png',
+      mimeTypes: 'image/*'
+    },
+
   });
 
-$("#imageupload-input").fileupload({
-  autoUpload: false,
-  replaceFileInput: false,
-  acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
-}).on('fileuploadadd', function (e, data) {
-    data.context = $('#preview-area');
-    $.each(data.files, function (index, file) {
-        data.files[index]['identity'] = Math.random().toString(36).substring(10);
+  uploader.on( 'fileQueued', function( file ) {
+    var $li = $(
+            '<div id="' + file.id + '" class="file-item thumbnail">' +
+            '<img>' +
+            '<div class="info">' + file.name + '</div>' +
+            '</div>'
+        ),
+        $img = $li.find('img');
 
-        var node = $('<div class="image-canvas"/>');
-        node.attr('id', file.identity);
-        node.appendTo(data.context);
+
+    // $list为容器jQuery实例
+    $('#preview-area').append( $li );
+
+    // 创建缩略图
+    // 如果为非图片文件，可以不用调用此方法。
+    // thumbnailWidth x thumbnailHeight 为 100 x 100
+    uploader.makeThumb( file, function( error, src ) {
+      if ( error ) {
+        $img.replaceWith('<span>不能预览</span>');
+        return;
+      }
+
+      $img.attr( 'src', src );
+    }, '100', '100' );
+  });
+
+  uploader.on('uploadBeforeSend', function( object, data, headers) {
+    //拓展HTTP头部
+    $.extend(headers, {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
     });
+  });
 
-    //隐藏其它消息
-    $("#wechat_record_area").hide();
-    $("#text-message-area").hide();
-}).on('fileuploadprocessalways', function (e, data) {
-    var index = data.index,
-        file = data.files[index],
-        node = $('#'+file.identity);
-    if (file.preview) {
-        node.prepend(file.preview);
-        console.log(file.preview)
+  var imageUploaded = false;
+  var submitForm = false;
+
+  $("#message_submit_form").submit(function (e) {
+    if(submitForm){
+      return true;
     }
-});
+    //点击提交表单事件
+    e.preventDefault();
+    var $_form = $(this);
+
+    //检查是否上传图片
+    if(uploader.getFiles().length > 0){
+      var success_nums = 0;
+      var image_nums = uploader.getFiles().length;
+
+      uploader.on('uploadSuccess', function (file, response) {
+        success_nums += 1;
+
+        //插入图片ID
+        $('<input>').attr({
+          type: 'hidden',
+          name: 'image_ids[]',
+          value: response.id
+        }).appendTo($_form);
+
+        //如果所有图片都上传完成
+        if(success_nums == image_nums){
+          $('#message-type').val('image_message');
+          submitForm = true;
+          $_form.trigger('submit');
+        }
+      });
+      uploader.upload();
+    }else{
+      //没有图片上传
+      submitForm = true;
+      $_form.trigger('submit');
+    }
+
+  });
+
 var replyVoice = false;
 var localId = null;
 var serverMediaId = null;

@@ -20,23 +20,25 @@ module MessageServerTest
     end
 
     test 'create image message' do
-      image_files = ['test/integration/test.jpg'];
-      images = image_files.map do |image|
-        path = Rails.root.join(image)
-        Rack::Test::UploadedFile.new(path, "image/jpeg")
+      image_files = ['test/integration/test.jpg', 'somefilename'];
+      images = image_files.map do |image_name|
+        image = Message::Image.new
+        image.name = image_name
+        image.save
+        image
       end
 
       options = {
         type: :images,
         params: {
-          images: images,
+          image_ids: images.map(&:id),
           author_id: 1
         }
       }
 
       message = MessageServer::CreateMessage.new(options).call
       assert message.save
-      assert_equal 1, message.implementable.images.count
+      assert_equal image_files.length, message.implementable.images.count
     end
   end
 

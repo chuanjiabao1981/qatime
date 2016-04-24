@@ -1,11 +1,16 @@
-<% if message.respond_to?(:content) %>
-  <p>
-    <%=  message.content %>
-  </p>
-<% elsif message.respond_to?(:images) %>
-  <p>
-    <% message.images.each do |image| %>
-      <%= image_tag image.name, height: '30'%>
-    <% end %>
-  </p>
-<% end %>
+<div class="qa_object">
+  <%= render_qa_object_item_avatar message %>
+
+  <% if message.respond_to?(:content) %>
+      <p>
+        <%=  message.content %>
+      </p>
+  <% elsif message.respond_to?(:images) %>
+      <p>
+        <% message.images.each do |image| %>
+            <%= image_tag image.name, height: '30'%>
+        <% end %>
+      </p>
+  <% end %>
+
+</div>

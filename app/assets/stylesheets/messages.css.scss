@@ -1,3 +1,7 @@
+/*
+*= require webuploader
+*/
+
 .message_form{
   width: 50%;
   margin: 0 auto;
@@ -29,4 +33,19 @@
     margin-right: 10px;
     overflow: auto;
   }
+}
+
+.uploader-list{
+  width: 100%;
+  overflow: hidden;
+}
+.thumbnail{
+  width: 110px;
+  height: 110px;
+}
+.file-item {
+  float: left;
+  position: relative;
+  margin: 0 20px 20px 0;
+  padding: 4px;
 }

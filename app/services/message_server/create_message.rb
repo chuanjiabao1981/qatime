@@ -11,23 +11,9 @@ module MessageServer
     #创建图片消息
     def create_images_message(params)
       image_message = Message::ImageMessage.new
-      params[:images].each do |image_upload|
-
-        uploader = PictureUploader.new
-
-        File.open(image_upload.path) do |file|
-          uploader.store!(file)
-        end
-
-        oss_url = uploader.url
-
-        image = Message::Image.new
-        image.name = oss_url
-        image_message.images << image
-      end
+      image_message.image_ids = params[:image_ids]
       image_message.author_id = params[:author_id]
       image_message.count = image_message.images.length
-
       message = Message::Message.new
       image_message.message = message
       image_message.save

@@ -159,8 +159,13 @@ Qatime::Application.routes.draw do
     resources :course_issues
     resources :homeworks,only:[:show,:edit,:update,:new,:create]
     resources :customized_course_message_boards
-    resources :messages, as: :messaging
+    resources :messages, as: :messaging do
+      collection do
+        post :upload_image
+      end
+    end
   end
+
   resources :homeworks do
     member do
       Examination.state_machines[:state].events.map(&:name).each do |x|

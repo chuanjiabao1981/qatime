@@ -26,3 +26,4 @@
 *.log
 
 /config/wechat.yml
+db/schema.rb

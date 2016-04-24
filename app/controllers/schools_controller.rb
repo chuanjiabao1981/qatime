@@ -2,7 +2,8 @@ class SchoolsController < ApplicationController
   respond_to :html
 
   def index
-    @schools = School.all.order(:created_at)
+    @schools = School.order(:created_at)
+                     .paginate(page: params[:page], per_page: 10)
   end
 
   def new
@@ -19,14 +20,15 @@ class SchoolsController < ApplicationController
   end
 
   def show
-    @school = School.find(params[:id])
+    load_school
   end
 
   def edit
-    @school = School.find(params[:id])
+    load_school
   end
+
   def update
-    @school = School.find(params[:id])
+    load_school
     if @school.update_attributes(params[:school].permit!)
       redirect_to schools_path
     else
@@ -35,10 +37,14 @@ class SchoolsController < ApplicationController
   end
 
   def destroy
-    @school = School.find(params[:id])
+    load_school
     @school.destroy
     redirect_to schools_path
   end
 
+  private
 
+  def load_school
+    @school = School.find params[:id]
+  end
 end

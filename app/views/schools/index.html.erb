@@ -12,6 +12,7 @@
   <div>
 
     <%= render @schools %>
+    <%= will_paginate @schools, renderer: BootstrapPagination::Rails %>
 
   </div>
 </div>

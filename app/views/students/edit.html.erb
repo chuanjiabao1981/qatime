@@ -13,6 +13,7 @@
           <%= f.input :mobile, :required => true %>
           <%= f.input :parent_phone,:required=>true,:hint=>"当余额不足时，会给您家长发送短信提醒。"%>
           <%= f.input :name, :required => true,:hint => "填写真实姓名。" ,disabled: true%>
+          <%= f.association :school, required: true, collection: School.all.collect { |s| ["#{s.city.name}-#{s.name}", s.id]}, include_blank: false %>
           <%= f.input :grade, :required => true,:collection => APP_CONSTANT["grades_in_menu"],include_blank:false %>
 
           <% %w[x y w h].each do |attribute| %>

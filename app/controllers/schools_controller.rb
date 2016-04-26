@@ -2,8 +2,11 @@ class SchoolsController < ApplicationController
   respond_to :html
 
   def index
-    @schools = School.order(:created_at)
-                     .paginate(page: params[:page], per_page: 10)
+    @schools = if current_user.manager?
+                 current_user.city.schools
+               else
+                 School.all
+               end.order(:created_at).paginate(page: params[:page], per_page: 10)
   end
 
   def new

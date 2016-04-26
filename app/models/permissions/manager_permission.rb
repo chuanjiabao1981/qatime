@@ -13,7 +13,8 @@ module Permissions
       allow :questions,[:index,:show,:student,:teacher,:teachers]
       allow :teaching_videos,[:show]
 
-      allow :students, [:index, :search, :show, :edit, :create, :update,
+      allow :students, [:index]
+      allow :students, [:search, :show, :edit, :create, :update,
                         :info, :teachers, :customized_courses, :homeworks,
                         :solutions, :account, :customized_tutorial_topics,
                         :questions, :notifications] do |student|
@@ -32,7 +33,9 @@ module Permissions
 
       allow :register_codes, [:index, :new, :downloads, :create]
 
-      allow :teachers, [:index, :new, :create, :show, :edit, :update,
+      allow :teachers, [:index]
+
+      allow :teachers, [:new, :create, :show, :edit, :update,
                         :search, :pass, :unpass, :students, :curriculums,
                         :info, :questions, :topics, :lessons_state, :homeworks,
                         :exercises, :keep_account, :solutions,

@@ -2,12 +2,21 @@ class StudentsController < ApplicationController
   respond_to :html
 
   def index
-    @students = Student.all.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-
+    @students = if current_user.manager?
+                  student_ids = current_user.city.schools
+                                            .collect { |s| s.students.collect(&:id) }
+                                            .flatten
+                  Student.where('school_id IS ? OR id IN (?)', nil, student_ids)
+                else
+                  Student.all
+                end.order(created_at: :desc).paginate(
+                  page: params[:page], per_page: 10)
   end
+
   def new
     @student = Student.new
   end
+
   def create
     @student = Student.new(params[:student].permit!)
     @student.build_account
@@ -23,6 +32,7 @@ class StudentsController < ApplicationController
       render 'new'
     end
   end
+
   def show
     # if params[:fee].nil?
     #   @deposits = @student.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
@@ -31,6 +41,7 @@ class StudentsController < ApplicationController
     # end
     render layout: 'student_home'
   end
+
   def edit
   end
 
@@ -43,7 +54,6 @@ class StudentsController < ApplicationController
 
     render layout: 'student_home'
   end
-
 
   def questions
     @questions = Question.all.where("student_id=?",@student.id).
@@ -96,7 +106,7 @@ class StudentsController < ApplicationController
   end
 
   def account
-    
+
   end
 
   def destroy

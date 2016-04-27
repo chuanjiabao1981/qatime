@@ -26,16 +26,16 @@ module Permissions
 
       allow :home, [:index]
 
-      allow :schools, [:index, :show]
-      allow :schools, [:new, :create, :edit, :update] do |school|
+      allow :schools, [:index, :show, :new, :create]
+      allow :schools, [:edit, :update] do |school|
         user.city_id == school.city_id
       end
 
       allow :register_codes, [:index, :new, :downloads, :create]
 
-      allow :teachers, [:index]
+      allow :teachers, [:index, :new, :create]
 
-      allow :teachers, [:new, :create, :show, :edit, :update,
+      allow :teachers, [:show, :edit, :update,
                         :search, :pass, :unpass, :students, :curriculums,
                         :info, :questions, :topics, :lessons_state, :homeworks,
                         :exercises, :keep_account, :solutions,

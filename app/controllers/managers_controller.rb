@@ -1,9 +1,12 @@
 class ManagersController < ApplicationController
   def customized_courses
     @customized_courses = begin
-      CustomizedCourse.where('workstation_id IS NOT ?', nil)
-                      .order(:created_at)
-                      .paginate(page: params[:page], per_page: 10)
+      workstation_ids = current_resource.workstations.collect(&:id).uniq
+      if workstation_ids
+        CustomizedCourse.where(workstation_id: workstation_ids)
+      else
+        CustomizedCourse.all
+      end.order(:created_at).paginate(page: params[:page], per_page: 10)
     end
   end
 

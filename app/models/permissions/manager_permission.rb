@@ -81,7 +81,7 @@ module Permissions
       end
 
       allow :managers,[:payment]
-      allow :managers,[:customized_courses,:action_records] do |manager|
+      allow :managers, [:customized_courses, :action_records] do |manager|
         manager.id == user.id
       end
       allow :exercises,[:show]

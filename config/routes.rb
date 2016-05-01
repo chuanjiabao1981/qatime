@@ -159,11 +159,6 @@ Qatime::Application.routes.draw do
     resources :course_issues
     resources :homeworks,only:[:show,:edit,:update,:new,:create]
     resources :customized_course_message_boards
-    resources :messages, as: :messaging do
-      collection do
-        post :upload_image
-      end
-    end
   end
 
   resources :homeworks do
@@ -300,6 +295,7 @@ Qatime::Application.routes.draw do
 
   mount Qawechat::Engine, at: '/qawechat'
   get 'auth/wechat/callback' => 'qawechat/omniauth_callbacks#wechat'
+  mount Message::Engine, at: '/messaging'
 
   resources :qa_file_quoters
 end

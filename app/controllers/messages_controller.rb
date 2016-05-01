@@ -8,41 +8,8 @@ class MessagesController < ApplicationController
 
   def create
     @customized_course = CustomizedCourse.find(params[:customized_course_id])
-    options = {}
-    message_type = params[:message_type]
-    #文字消息
-    if message_type == 'text_message' and params[:text_message_content].length > 0
-      options = {
-          type: :text,
-          params: {
-              content: params[:text_message_content],
-              author_id: current_user.id
-          }
-      }
-    #上传了图片 图片消息
-    elsif message_type == 'image_message'
-      options = {
-          type: :images,
-          params: {
-              image_ids: params[:image_ids],
-              author_id: current_user.id
-          }
-      }
-
-    #语音消息
-    elsif params[:media_id]
-      options = {
-          type: :wechat_voice,
-          params: {
-              media_id: params[:media_id],
-              author_id: current_user.id
-          }
-      }
-    end
-
-    message = MessageServer::CreateMessage.new(options).call
+    message = MessageService::DispatchMessage.new(current_user.id, params).call
     @customized_course.messages << message
-
     redirect_to customized_course_messaging_index_path(@customized_course)
   end
 

@@ -10,12 +10,6 @@ PATH
       virtus
 
 PATH
-  remote: engines/media
-  specs:
-    media (0.0.1)
-      rails (~> 4.2.5.1)
-
-PATH
   remote: engines/message
   specs:
     message (0.0.1)
@@ -390,7 +384,6 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jcrop-rails-v2 (= 0.9.12.3)
   jquery-rails
-  media!
   message!
   mini_magick (= 3.3)
   minitest

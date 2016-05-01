@@ -129,6 +129,5 @@ gem 'whenever',:require => false
 gem 'course_library', path: 'engines/course_library'
 
 gem 'qawechat', path: 'engines/qawechat'
-gem 'media', path: 'engines/media'
 gem 'message', path: 'engines/message'
 gem 'wechat'

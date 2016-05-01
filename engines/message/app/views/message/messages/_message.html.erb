@@ -1,0 +1,27 @@
+<div class="qa_object">
+  <%= render_qa_object_item_avatar message %>
+
+  <% if message.respond_to?(:content) %>
+      <p>
+        <%=  message.content %>
+      </p>
+  <% elsif message.respond_to?(:images) %>
+      <p>
+        <% message.images.each do |image| %>
+            <%= image_tag image.name, height: '30'%>
+        <% end %>
+      </p>
+  <% elsif message.respond_to?(:duration) %>
+      <% if message.convert_success? %>
+          <audio src="<%= message.name %>" preload="auto" controls></audio>
+          <p class="duration">
+            <%= message.duration %>''
+          </p>
+      <% else %>
+          <p data-media-id="<%= message.name %>" class="unconvert-voice">
+            语音正在转换中
+          </p>
+      <% end %>
+  <% end %>
+
+</div>

@@ -1,0 +1,6 @@
+<%= render layout: "layout" do %>
+    <%= render partial: "messages/messages",locals: {messages: @messages} %>
+
+    <div class="qa_sep_15"></div>
+    <%= render partial: 'messages/form' %>
+<% end %>

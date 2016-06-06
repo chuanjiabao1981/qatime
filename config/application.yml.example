@@ -1,0 +1,29 @@
+物理: Physics
+生物: Biology
+数学: Math
+化学: Chemistry
+高一: s1
+高二: s2
+高三: s3
+physics: 物理
+biology: 生物
+math: 数学
+chemistry: 化学
+s1: 高一
+s2: 高二
+s3: 高三
+subjects:
+  - [物理,physics]
+  - [生物,biology]
+  - [数学,math]
+  - [化学,chemistry]
+grades:
+  - [高一,s1]
+  - [高二,s2]
+  - [高三,s3]
+
+recharge_key: recharge_key
+aliyun_ac: aliyun_ac
+aliyun_ak: aliyun_ak
+bucket_online: bucket-online
+bucket_test: bucket-test

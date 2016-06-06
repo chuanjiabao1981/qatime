@@ -29,3 +29,10 @@ end unless School.exists?
 School.find_each do |school|
   RegisterCode.batch_make(10.to_s, school) # ...... 不要问我为啥10.to_s 我想静静
 end unless RegisterCode.exists?
+
+# vip class initialize
+APP_CONSTANT["vip_class_ids"].each do |cate, value|
+  value.each do |subject, class_id|
+    VipClass.create(id: class_id, subject: subject, category: cate)
+  end
+end unless VipClass.exists?

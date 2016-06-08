@@ -28,8 +28,8 @@ sudo apt-get install -y git \
 # libxi6 libgconf-2-4 \
 
 # postgresql
-sudo apt-cache policy postgresql-9.3
-sudo apt-get install -y postgresql-9.3
+sudo apt-cache policy postgresql-9.4
+sudo apt-get install -y postgresql-9.4
 sudo apt-get install -y libpq-dev
 
 # 安装nginx

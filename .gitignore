@@ -26,3 +26,5 @@
 *.log
 
 /config/wechat.yml
+
+.vagrant/

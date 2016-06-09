@@ -23,7 +23,8 @@ sudo apt-get install -y git \
                         ruby2.2 \
                         ruby2.2-dev \
                         chromium-browser \
-                        xvfb
+                        xvfb \
+                        imagemagick
 
 # libxi6 libgconf-2-4 \
 

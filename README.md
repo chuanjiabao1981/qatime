@@ -33,3 +33,7 @@ rails s -b 0.0.0.0
 ```
 
 Open http://localhost:3000 in host
+
+## More
+
+You can visit the [Wiki](https://github.com/chuanjiabao1981/qatime/wiki)

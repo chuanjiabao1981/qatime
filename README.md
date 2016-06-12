@@ -10,7 +10,7 @@ The source code of QATime
 * ffmpeg
 * ImageMagick 6.5 +
 
-## Requirements for production
+## Requirements for test
 
 * google-chrome
 * chromedriver

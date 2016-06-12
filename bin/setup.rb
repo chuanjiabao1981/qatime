@@ -69,7 +69,7 @@ Dir.chdir APP_ROOT do
 
   puts_section 'Checking Package Dependencies...' do
     pkg_exist = true
-    [['psql', 'PostgreSQL 9.3+']].each do |item|
+    [['psql', 'PostgreSQL 9.4+']].each do |item|
       puts_line_with_yn item[1] do
         if `which #{item[0]}` == ''
           pkg_exist = false

@@ -30,3 +30,10 @@
 * 0.2.0.2
     * feature
         * [QT-87](https://qatime.atlassian.net/browse/QT-87)
+
+* 0.2.0.3
+    * bugfix
+        * [QT-119](https://qatime.atlassian.net/browse/QT-119)
+    * feature
+        * [QT-118](https://qatime.atlassian.net/browse/QT-118)
+        * [QT-120](https://qatime.atlassian.net/browse/QT-120)

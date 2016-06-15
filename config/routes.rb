@@ -277,13 +277,8 @@ Qatime::Application.routes.draw do
 
   resources :customized_course_message_replies
 
-
-
-
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'
-
-
 
   require 'sidekiq/web'
   require 'admin_constraint.rb'
@@ -293,6 +288,9 @@ Qatime::Application.routes.draw do
 
   mount Qawechat::Engine, at: '/qawechat'
   get 'auth/wechat/callback' => 'qawechat/omniauth_callbacks#wechat'
+
+  # 直播
+  mount LiveStudio::Engine, at: '/live_studio'
 
   resources :qa_file_quoters
 end

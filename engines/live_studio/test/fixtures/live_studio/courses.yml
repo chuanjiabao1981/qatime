@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  teacher_id: 
+  workstation_id: 
+  status: 1
+
+two:
+  name: MyString
+  teacher_id: 
+  workstation_id: 
+  status: 1

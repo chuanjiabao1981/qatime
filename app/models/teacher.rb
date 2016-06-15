@@ -20,7 +20,9 @@ class Teacher < User
   has_many :question_assignments,:dependent => :destroy
   has_many :questions ,:through => :question_assignments
 
-  has_many :syllabuses ,class_name: CourseLibrary::Syllabus,foreign_key: :author_id 
+  has_many :syllabuses ,class_name: CourseLibrary::Syllabus,foreign_key: :author_id
+
+  has_many :live_studio_courses, class_name:  LiveStudio::Course
 
   #has_many :corrections
   #has_many :replies

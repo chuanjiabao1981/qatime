@@ -10,6 +10,12 @@ PATH
       virtus
 
 PATH
+  remote: engines/live_studio
+  specs:
+    live_studio (0.0.1)
+      rails (~> 4.2.5.1)
+
+PATH
   remote: engines/qawechat
   specs:
     qawechat (0.0.1)
@@ -374,6 +380,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jcrop-rails-v2 (= 0.9.12.3)
   jquery-rails
+  live_studio!
   mini_magick (= 3.3)
   minitest
   net-ssh (~> 2.9.1)

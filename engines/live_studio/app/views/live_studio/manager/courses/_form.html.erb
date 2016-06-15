@@ -1,0 +1,14 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%= LiveStudio::Course.model_name.human %></h2>
+  </div>
+  <div class="qa_big_cell">
+    <%= simple_form_for [:manager, @course] do |f|%>
+        <%= f.input :name %>
+        <%= f.input :teacher_id %>
+        <%= f.input :description, type: :text %>
+        <%= f.input :workstation_id, collection: @workstations %>
+        <%= f.button :submit, class: "btn btn-default" %>
+    <% end %>
+  </div>
+</div>

@@ -3,9 +3,10 @@ class Manager < User
 
   has_many :workstations
 
+  has_many :live_studio_courses, through: :workstations
+
   def initialize(attributes = {})
     super(attributes)
     self.role = "manager"
   end
-
 end

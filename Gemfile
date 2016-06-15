@@ -125,5 +125,5 @@ gem 'x-editable-rails'
 gem 'whenever',:require => false
 
 gem 'course_library', path: 'engines/course_library'
-
 gem 'qawechat', path: 'engines/qawechat'
+gem 'live_studio', path: 'engines/live_studio'

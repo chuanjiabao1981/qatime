@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160313031853) do
+ActiveRecord::Schema.define(version: 20160615073126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -401,6 +401,49 @@ ActiveRecord::Schema.define(version: 20160313031853) do
   end
 
   add_index "lessons", ["tags"], name: "index_lessons_on_tags", using: :gin
+
+  create_table "live_studio_courses", force: :cascade do |t|
+    t.string   "name",           limit: 100,             null: false
+    t.integer  "teacher_id"
+    t.integer  "workstation_id",                         null: false
+    t.integer  "status",                     default: 0
+    t.text     "description"
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+  end
+
+  add_index "live_studio_courses", ["teacher_id"], name: "index_live_studio_courses_on_teacher_id", using: :btree
+  add_index "live_studio_courses", ["workstation_id"], name: "index_live_studio_courses_on_workstation_id", using: :btree
+
+  create_table "live_studio_live_channels", force: :cascade do |t|
+    t.string   "name",       limit: 200,             null: false
+    t.integer  "course_id"
+    t.string   "remote_id"
+    t.integer  "state",                  default: 0
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "live_studio_live_channels", ["course_id"], name: "index_live_studio_live_channels_on_course_id", using: :btree
+
+  create_table "live_studio_live_streams", force: :cascade do |t|
+    t.string   "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "live_studio_tickets", force: :cascade do |t|
+    t.integer  "course_id"
+    t.integer  "student_id"
+    t.integer  "lesson_id"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "live_studio_tickets", ["course_id"], name: "index_live_studio_tickets_on_course_id", using: :btree
+  add_index "live_studio_tickets", ["lesson_id"], name: "index_live_studio_tickets_on_lesson_id", using: :btree
+  add_index "live_studio_tickets", ["student_id"], name: "index_live_studio_tickets_on_student_id", using: :btree
 
   create_table "nodes", force: :cascade do |t|
     t.string   "name"

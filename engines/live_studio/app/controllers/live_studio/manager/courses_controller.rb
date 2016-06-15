@@ -45,7 +45,7 @@ module LiveStudio
 
     # DELETE /manager/courses/1
     def destroy
-      @manager_course.destroy
+      @course.destroy
       redirect_to manager_courses_url, notice: 'Course was successfully destroyed.'
     end
 

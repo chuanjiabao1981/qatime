@@ -13,7 +13,7 @@
   <% @courses.each do |course| -%>
     <div class="row qa_big_cell">
       <div class="col-md-1">
-        <%= course_counter + 1 %>
+        <%= 1 %>
       </div>
       <div class="col-md-2">
         <%= course.name%>
@@ -24,10 +24,10 @@
       <div class="col-md-2">
       </div>
       <div class="col-md-2">
-        <%=link_to '编辑', edit_course_path(course)%>
+        <%=link_to '编辑', edit_manager_course_path(course)%>
       </div>
       <div class="col-md-2">
-        <%=link_to '删除', course_path(course),method: :delete,'data-confirm' => 'Are you sure?'%>
+        <%=link_to '删除', manager_course_path(course), method: :delete, 'data-confirm' => 'Are you sure?'%>
       </div>
     </div>
   <% end -%>

@@ -36,8 +36,8 @@ module LiveStudio
 
     # PATCH/PUT /manager/courses/1
     def update
-      if @manager_course.update(manager_course_params)
-        redirect_to @manager_course, notice: 'Course was successfully updated.'
+      if @course.update(manager_course_params)
+        redirect_to [:manager, @course], notice: 'Course was successfully updated.'
       else
         render :edit
       end
@@ -57,6 +57,11 @@ module LiveStudio
 
       # Only allow a trusted parameter "white list" through.
       def course_params
+        params.require(:course).permit(:name, :teacher_id, :description, :workstation_id, :price)
+      end
+
+      # Only allow a trusted parameter "white list" through for update.
+      def manager_course_params
         params.require(:course).permit(:name, :teacher_id, :description, :workstation_id, :price)
       end
   end

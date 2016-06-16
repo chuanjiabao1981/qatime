@@ -48,6 +48,9 @@ Qatime::Application.routes.draw do
         get 'state'
       end
     end
+
+    resources :sellers, except: [:show]
+    resources :waiters, except: [:show]
   end
 
   namespace :teachers do
@@ -283,7 +286,7 @@ Qatime::Application.routes.draw do
   require 'sidekiq/web'
   require 'admin_constraint.rb'
   mount Sidekiq::Web => '/sidekiq',:constraints => AdminConstraint.new
-  
+
   mount CourseLibrary::Engine, at: '/course_library'
 
   mount Qawechat::Engine, at: '/qawechat'

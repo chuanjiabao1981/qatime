@@ -1,0 +1,20 @@
+<div class="row qa_big_cell">
+  <div class="col-md-1">
+    <%= seller_counter + 1 %>
+  </div>
+  <div class="col-md-2">
+    <%= seller.name%>
+  </div>
+  <div class="col-md-2">
+    <%= seller.email %>
+  </div>
+  <div class="col-md-2">
+    <%= seller.mobile %>
+  </div>
+  <div class="col-md-2">
+    <%=link_to '编辑', edit_managers_seller_path(seller)%>
+  </div>
+  <div class="col-md-2">
+    <%=link_to '删除', managers_seller_path(seller), method: :delete, 'data-confirm' => 'Are you sure?'%>
+  </div>
+</div>

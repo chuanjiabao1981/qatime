@@ -135,10 +135,7 @@ module Permissions
       allow :corrections,[:show] do |solution|
         solution and solution.examination and solution.examination.student_id == user.id
       end
-
-
-
-
+      allow 'live_studio/orders', [:new, :create, :pay, :show]
     end
 private
 

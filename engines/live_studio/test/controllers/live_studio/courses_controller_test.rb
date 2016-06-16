@@ -11,5 +11,10 @@ module LiveStudio
       assert_response :success
     end
 
+    test "should get teate" do
+      get :teate
+      assert_response :success
+    end
+
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160616011050) do
+ActiveRecord::Schema.define(version: 20160616024627) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -414,13 +414,14 @@ ActiveRecord::Schema.define(version: 20160616011050) do
   add_index "live_studio_channels", ["course_id"], name: "index_live_studio_channels_on_course_id", using: :btree
 
   create_table "live_studio_courses", force: :cascade do |t|
-    t.string   "name",           limit: 100,             null: false
+    t.string   "name",           limit: 100,                                     null: false
     t.integer  "teacher_id"
-    t.integer  "workstation_id",                         null: false
-    t.integer  "status",                     default: 0
+    t.integer  "workstation_id",                                                 null: false
+    t.integer  "status",                                             default: 0
     t.text     "description"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.decimal  "price",                      precision: 6, scale: 2
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
   end
 
   add_index "live_studio_courses", ["teacher_id"], name: "index_live_studio_courses_on_teacher_id", using: :btree
@@ -493,6 +494,20 @@ ActiveRecord::Schema.define(version: 20160616011050) do
     t.datetime "updated_at",                            null: false
     t.integer  "customized_course_id"
   end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.string   "product_type"
+    t.decimal  "total_money",            precision: 6, scale: 2
+    t.integer  "state"
+    t.integer  "pay_type",     limit: 2
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+  end
+
+  add_index "orders", ["product_type", "product_id"], name: "index_orders_on_product_type_and_product_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "picture_quoters", force: :cascade do |t|
     t.integer  "picture_id"
@@ -798,4 +813,5 @@ ActiveRecord::Schema.define(version: 20160616011050) do
     t.integer  "manager_id"
   end
 
+  add_foreign_key "orders", "users"
 end

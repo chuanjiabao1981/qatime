@@ -11,5 +11,14 @@ module LiveStudio
 
     has_many :channels
     has_many :streams, through: :channel
+
+    # teacher's name. return blank when teacher is missiong
+    def teacher_name
+      teacher.try(:name)
+    end
+
+    def order_params
+      { total_money: price, product: self }
+    end
   end
 end

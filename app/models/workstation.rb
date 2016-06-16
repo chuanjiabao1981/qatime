@@ -10,4 +10,7 @@ class Workstation < ActiveRecord::Base
   scope :by_manager_id  ,lambda {|t| where(manager_id: t) if t}
 
   has_many :live_studio_courses, class_name: LiveStudio::Course
+
+  has_many :waiters
+  has_many :sellers
 end

@@ -3,7 +3,7 @@ class CreateOrders < ActiveRecord::Migration
     create_table :orders do |t|
       t.references :user, index: true, foreign_key: true
       t.references :product, polymorphic: true, index: true
-      t.decimal :total_money, precision: 6, scale: 2
+      t.decimal :total_money, precision: 6, scale: 2, default: 0.0
       t.integer :state
       t.integer :pay_type, limit: 2
 

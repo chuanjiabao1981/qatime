@@ -7,7 +7,7 @@ class CreateLiveStudioCourses < ActiveRecord::Migration
       t.references :workstation, index: true, null: false
       t.integer :status, default: 0
       t.text :description
-      t.decimal :price, precision: 6, scale: 2
+      t.decimal :price, precision: 6, scale: 2, default: 0.0
 
       t.timestamps null: false
     end

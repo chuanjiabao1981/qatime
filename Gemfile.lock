@@ -13,7 +13,12 @@ PATH
   remote: engines/live_studio
   specs:
     live_studio (0.0.1)
-      rails (~> 4.2.5.1)
+      acts_as_list
+      dirty_associations (~> 0.4.4)
+      rails (~> 4.2.5)
+      responders (~> 2.0)
+      simple_form
+      virtus
 
 PATH
   remote: engines/qawechat
@@ -413,4 +418,4 @@ DEPENDENCIES
   x-editable-rails
 
 BUNDLED WITH
-   1.11.2
+   1.12.5

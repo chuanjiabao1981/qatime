@@ -7,8 +7,8 @@ module LiveStudio
     # end
 
     test "course must has a teacher name or blank" do
-      course = courses(:course_one)
-      teacher = teachers(:teacher_one)
+      course = live_studio_courses(:course_one)
+      teacher = users(:teacher1)
       assert_equal(course.teacher_name, teacher.name, "教师姓名不相符")
 
       course_no_teacher = courses(:course_no_teacher)

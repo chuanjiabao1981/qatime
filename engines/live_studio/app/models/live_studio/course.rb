@@ -22,11 +22,12 @@ module LiveStudio
     end
 
     def init_channel
-      return unless channels.balnk?
+      return unless channels.blank?
       channels.create(name: "#{name} - 直播室 - #{id}", course_id: id)
     end
 
     private
+
     after_create :init_channel_job
     def init_channel_job
       ChannelCreateJob.perform_later(id)

@@ -1,3 +1,5 @@
+<h1><%= @course.name %> 详情</h1>
+
 <p>
   <strong>Name:</strong>
   <%= @course.name %>
@@ -6,6 +8,21 @@
 <p>
   <strong>Teacher:</strong>
   <%= @course.teacher.name %>
+</p>
+
+<p>
+  <strong>Workstation:</strong>
+  <%= @course.workstation.name %>
+</p>
+
+<p>
+  <strong>Workstation:</strong>
+  <%= @course.description %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @course.price %>
 </p>
 
 <%= link_to 'Edit', edit_manager_course_path(@course) %> |

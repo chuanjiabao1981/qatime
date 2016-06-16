@@ -20,69 +20,7 @@
     </div>
     <div class='col-md-2'>
 
-      <ul class="menu" style="color: white">
-        <li>
-          <%= link_to teachers_path do %>
-              <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 教师</span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to schools_path do %>
-              <span class="glyphicon glyphicon-home"></span> <span class="qa_f18"> 学校</span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to students_path do %>
-              <span class="glyphicon glyphicon-hdd"></span>
-              <span class="qa_f18"> <%= Student.model_name.human %> </span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to action_records_manager_path(current_user) do %>
-              <span class="fa fa-cogs"></span> <span class="qa_f18"><%= ActionRecord.model_name.human %></span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to questions_path do %>
-              <span class="fa fa-university"></span> <span class="qa_f18"><%= VipClass.model_name.human %></span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to customized_courses_manager_path(current_user) do %>
-              <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"> <%= CustomizedCourse.model_name.human%></span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to payment_manager_path(current_user) do %>
-              <span class="fa fa-credit-card"></span> <span class="qa_f18">
-                收款二维码
-              </span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to managers_register_codes_path do %>
-              <span class="glyphicon glyphicon-question-sign"></span>
-              <span class="qa_f18">
-                <%= RegisterCode.model_name.human%>
-              </span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to state_managers_lessons_path(manager_id:current_user.id) do %>
-              <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"> 状态</span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to live_studio.manager_courses_path do %>
-            <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">辅导班</span>
-          <% end %>
-        </li>
-        <li>
-          <%= link_to signout_path, :method=>'delete'  do %>
-              <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18">退出系统</span>
-          <% end %>
-        </li>
-      </ul>
+      <%= render "layouts/sidebar/#{current_user.role}" %>
     </div>
     <div class='col-md-10'>
       <%= yield %>

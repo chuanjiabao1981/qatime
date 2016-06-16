@@ -8,5 +8,8 @@ module LiveStudio
     has_many :taste_tickets # 试听证
 
     has_many :students, through: :buy_tickets
+
+    has_many :channels
+    has_many :streams, through: :channel
   end
 end

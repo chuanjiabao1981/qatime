@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module LiveStudio
-  class LiveStreamTest < ActiveSupport::TestCase
+  class StreamTest < ActiveSupport::TestCase
     # test "the truth" do
     #   assert true
     # end

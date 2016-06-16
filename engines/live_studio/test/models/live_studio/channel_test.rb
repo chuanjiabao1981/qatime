@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module LiveStudio
-  class LiveChannelTest < ActiveSupport::TestCase
+  class ChannelTest < ActiveSupport::TestCase
     # test "the truth" do
     #   assert true
     # end

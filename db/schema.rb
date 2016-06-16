@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615073126) do
+ActiveRecord::Schema.define(version: 20160616011050) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -402,6 +402,17 @@ ActiveRecord::Schema.define(version: 20160615073126) do
 
   add_index "lessons", ["tags"], name: "index_lessons_on_tags", using: :gin
 
+  create_table "live_studio_channels", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.integer  "course_id"
+    t.string   "remote_id",  limit: 100
+    t.integer  "state",                  default: 0
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "live_studio_channels", ["course_id"], name: "index_live_studio_channels_on_course_id", using: :btree
+
   create_table "live_studio_courses", force: :cascade do |t|
     t.string   "name",           limit: 100,             null: false
     t.integer  "teacher_id"
@@ -431,6 +442,17 @@ ActiveRecord::Schema.define(version: 20160615073126) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "live_studio_streams", force: :cascade do |t|
+    t.string   "protocol",   limit: 20
+    t.string   "address",    limit: 255
+    t.integer  "channel_id"
+    t.integer  "user_count",             default: 0
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "live_studio_streams", ["channel_id"], name: "index_live_studio_streams_on_channel_id", using: :btree
 
   create_table "live_studio_tickets", force: :cascade do |t|
     t.integer  "course_id"

@@ -28,5 +28,7 @@ module Qatime
     config.assets.logger = false
     config.active_support.test_order = :sorted
 
+    config.active_job.queue_adapter = :sidekiq
+
   end
 end

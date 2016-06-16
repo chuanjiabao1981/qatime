@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160616024627) do
+ActiveRecord::Schema.define(version: 20160616090430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -764,11 +764,21 @@ ActiveRecord::Schema.define(version: 20160616024627) do
     t.string   "grade"
     t.string   "nick_name"
     t.string   "parent_phone"
+    t.integer  "workstation_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["workstation_id"], name: "index_users_on_workstation_id", using: :btree
+
+  create_table "users_and_workstations", id: false, force: :cascade do |t|
+    t.integer "users_id"
+    t.integer "workstations_id"
+  end
+
+  add_index "users_and_workstations", ["users_id"], name: "index_users_and_workstations_on_users_id", using: :btree
+  add_index "users_and_workstations", ["workstations_id"], name: "index_users_and_workstations_on_workstations_id", using: :btree
 
   create_table "video_quoters", force: :cascade do |t|
     t.integer  "video_id"

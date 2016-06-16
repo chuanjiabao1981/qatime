@@ -20,5 +20,16 @@ module LiveStudio
     def order_params
       { total_money: price, product: self }
     end
+
+    def init_channel
+      return unless channels.balnk?
+      channels.create(name: "#{name} - 直播室 - #{id}", course_id: id)
+    end
+
+    private
+    after_create :init_channel_job
+    def init_channel_job
+      ChannelCreateJob.perform_later(id)
+    end
   end
 end

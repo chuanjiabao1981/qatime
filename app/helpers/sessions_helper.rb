@@ -31,6 +31,7 @@ module SessionsHelper
   private
   def user_from_remember_token
     remember_token = User.digest(cookies[:remember_token])
+    user_type = cookies[:remember_user_type]
 
     if cookies[:remember_user_type] == 'student'
       Student.find_by(remember_token: remember_token) unless remember_token.nil?
@@ -40,6 +41,10 @@ module SessionsHelper
       Admin.find_by(remember_token: remember_token) unless remember_token.nil?
     elsif cookies[:remember_user_type] == 'manager'
       Manager.find_by(remember_token: remember_token) unless remember_token.nil?
+    elsif user_type == 'waiter'
+      Waiter.find_by(remember_token: remember_token) unless remember_token.nil?
+    elsif user_type == 'seller'
+      Seller.find_by(remember_token: remember_token) unless remember_token.nil?
     end
   end
 

@@ -7,11 +7,11 @@ module ApplicationHelper
         #teachers_home_path
         solutions_teacher_path(current_user.id)
       when "admin"
-        admins_home_path
+        main_app.admins_home_path
       when "student"
-        students_home_path
+        main_app.students_home_path
       when "manager"
-        managers_home_path
+        main_app.managers_home_path
       else
         root_path
     end

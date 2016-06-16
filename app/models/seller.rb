@@ -6,6 +6,6 @@ class Seller < User
 
   def initialize(attributes = {})
     super(attributes)
-    self.role = "manager"
+    self.role = "seller"
   end
 end

@@ -57,7 +57,7 @@ module LiveStudio
 
       # Only allow a trusted parameter "white list" through.
       def course_params
-        params.require(:course).permit(:name, :teacher_id, :description, :workstation_id)
+        params.require(:course).permit(:name, :teacher_id, :description, :workstation_id, :price)
       end
   end
 end

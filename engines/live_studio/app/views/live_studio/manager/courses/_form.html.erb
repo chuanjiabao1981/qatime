@@ -8,6 +8,7 @@
         <%= f.input :teacher_id %>
         <%= f.input :description, type: :text %>
         <%= f.input :workstation_id, collection: @workstations %>
+        <%= f.input :price %>
         <%= f.button :submit, class: "btn btn-default" %>
     <% end %>
   </div>

@@ -35,9 +35,8 @@ module LiveStudio
 
     # 发货
     def deliver(order)
-      ticket = buy_ticketsClient.find_or_create_by(user_id: order.user_id)
+      ticket = buy_tickets.find_or_create_by(student_id: order.user_id)
       ticket.active!
-      order.delivery
     end
 
     def for_sell?

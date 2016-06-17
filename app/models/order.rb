@@ -26,11 +26,11 @@ class Order < ActiveRecord::Base
     state :waste
 
     event :pay do
-      transitions from: :unpaid, to: :paid, after: :delivery
+      transitions from: :unpaid, to: :paid
     end
 
     event :ship do
-      transitions from: :paid, to: :shipped
+      transitions from: :paid, to: :shipped, before: :delivery_product
     end
 
     event :finish do
@@ -47,8 +47,13 @@ class Order < ActiveRecord::Base
   end
 
   # 发货
-  def delivery
-    product.delivery(self)
-    ship
+  def delivery_product
+    product.deliver(self)
+  end
+
+  # 支付并发货
+  def pay_and_ship!
+    pay!
+    ship!
   end
 end

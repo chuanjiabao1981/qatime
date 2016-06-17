@@ -23,3 +23,21 @@ course_destroy_teacher:
   teacher_id: 99999
   workstation_id: 1
   status: 1
+
+course_init:
+  name: 初始化辅导班
+  teacher: users(:teacher1)
+  workstation: workstation(:workstation1)
+  status: 0
+
+course_preview:
+  name: 招生中的辅导班
+  teacher: users(:teacher1)
+  workstation: workstation(:workstation1)
+  status: 1
+
+course_teaching:
+  name: 上课中的辅导班
+  teacher: users(:teacher1)
+  workstation: workstation(:workstation1)
+  status: 2

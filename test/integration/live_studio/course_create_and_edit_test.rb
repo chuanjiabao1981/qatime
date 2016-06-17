@@ -8,7 +8,6 @@ module LiveStudio
       @headless.start
       Capybara.current_driver = :selenium_chrome
       @manager = ::Manager.find(users(:manager).id)
-      logout_as(@manager)
       log_in_as(@manager)
     end
 
@@ -18,7 +17,7 @@ module LiveStudio
     end
 
     test "manager create a course" do
-      teacher = Teacher.find(users(:teacher1).id)
+      teacher = ::Teacher.find(users(:teacher1).id)
       workstation = @manager.workstations.sample
       assert_difference '@manager.live_studio_courses.count', 1 do
         visit live_studio.new_manager_course_path(@directory)

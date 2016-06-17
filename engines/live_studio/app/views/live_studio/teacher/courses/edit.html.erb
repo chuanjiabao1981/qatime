@@ -1,0 +1,18 @@
+<h1>Editing Manager Course</h1>
+
+<%= simple_form_for [:teacher, @course] do |f|%>
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :teacher_id %>
+    <%= f.input :description, type: :text %>
+    <%= f.input :workstation_id, collection: @workstations %>
+    <%= f.input :price %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: "btn btn-default" %>
+  </div>
+<% end %>
+
+<%= link_to 'Show', @manager_course %> |
+<%= link_to 'Back', manager_courses_path %>

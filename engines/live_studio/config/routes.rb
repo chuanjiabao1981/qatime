@@ -15,4 +15,12 @@ LiveStudio::Engine.routes.draw do
   namespace :manager do
     resources :courses
   end
+
+  namespace :teacher do
+    resources :courses, only: [:index, :show, :edit, :update]
+  end
+
+  namespace :student do
+    resources :courses, only: [:index, :show]
+  end
 end

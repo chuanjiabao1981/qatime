@@ -8,6 +8,7 @@ module LiveStudio
       @headless.start
       Capybara.current_driver = :selenium_chrome
       @manager = ::Manager.find(users(:manager).id)
+      logout_as(@manager)
       log_in_as(@manager)
     end
 
@@ -32,5 +33,22 @@ module LiveStudio
       assert_equal(teacher.id, course.teacher_id, '辅导班老师指定错误')
       assert_equal(100.0, course.price.to_f, '定价出错')
     end
+
+    test "manager update a course" do
+      course = Course.last
+
+      visit live_studio.edit_manager_course_path(course)
+      fill_in :course_name, with: '测试英语辅导课程更新'
+      fill_in :course_description, with: 'edit course description'
+      fill_in :course_teacher_id, with: 2
+      fill_in :course_price, with: 80.0
+      click_on '更新Course'
+
+      assert_equal(course.name, '测试英语辅导课程更新', '辅导班名称修改错误')
+      assert_equal(course.description, 'edit course description', '辅导班描述修改错误')
+      assert_equal(course.teacher_id, 2, '辅导班老师修改错误')
+      assert_equal(course.price.to_f, 80.0, '辅导班定价修改错误')
+    end
+
   end
 end

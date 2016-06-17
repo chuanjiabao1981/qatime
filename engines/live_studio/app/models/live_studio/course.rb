@@ -7,7 +7,7 @@ module LiveStudio
            completed: 3 # 已结束
          }
 
-    belongs_to :teacher
+    belongs_to :teacher, class_name: '::Teacher'
     belongs_to :workstation
 
     has_many :tickets # 听课证

@@ -3,8 +3,8 @@ class Manager < User
 
   has_many :workstations
 
-  has_many :selles
-  has_many :waiters
+  has_many :sellers, through: :workstations
+  has_many :waiters, through: :workstations
 
   has_many :live_studio_courses, through: :workstations
 

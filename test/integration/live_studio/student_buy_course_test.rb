@@ -32,7 +32,7 @@ module LiveStudio
       assert_difference '@student.orders.count', 1, "辅导班下单失败" do
         click_on("buy-course-#{course_preview.id}")
         choose("order_pay_type_0")
-        click_on("新增Order")
+        click_on("新增订单")
       end
     end
 

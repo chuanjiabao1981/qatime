@@ -26,7 +26,7 @@ module LiveStudio
         fill_in :course_teacher_id, with: teacher.id
         fill_in :course_price, with: 100.0
         select workstation.name, from: 'course_workstation_id'
-        click_on '新增Course'
+        click_on '新增辅导班'
       end
       course = Course.last
       assert_equal(teacher.id, course.teacher_id, '辅导班老师指定错误')
@@ -42,7 +42,7 @@ module LiveStudio
       fill_in :course_description, with: 'edit course description'
       fill_in :course_teacher_id, with: teacher2.id
       fill_in :course_price, with: 80.0
-      click_on '更新Course'
+      click_on '更新辅导班'
       course.reload
       assert_equal('测试英语辅导课程更新', course.name, '辅导班名称修改错误')
       assert_equal('edit course description', course.description, '辅导班描述修改错误')

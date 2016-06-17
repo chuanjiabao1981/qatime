@@ -7,13 +7,13 @@
 
     <div>
       <%= form_tag("", method: "get") do -%>
-        <%= label_tag(:category, 'category') %>
+        <%= label_tag(t(:category)) %>
         <%= select_tag :category, options_for_select(APP_CONSTANT["grades_in_menu"]) %>
 
-        <%= label_tag(:subjects, 'subjects') %>
+        <%= label_tag(t(:subject)) %>
         <%= select_tag :subjects, options_for_select(APP_CONSTANT["subjects"]) %>
 
-        <%= label_tag(:teacher, 'teacher') %>
+        <%= label_tag(t(:teacher)) %>
         <%= text_field_tag :teacher %>
         <%= submit_tag "搜索" %>
       <% end -%>

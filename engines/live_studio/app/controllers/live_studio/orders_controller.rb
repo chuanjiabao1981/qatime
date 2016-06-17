@@ -24,7 +24,8 @@ module LiveStudio
       @order.user = current_user
 
       if @order.save
-        redirect_to course_order_path(@course, @order), notice: 'Order was successfully created.'
+        redirect_to course_order_path(@course, @order), notice: 
+            t('activerecord.successful.messages.created', model: @order.class.model_name.human)
       else
         render :new
       end

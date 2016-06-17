@@ -2,3 +2,7 @@ cn:
   activerecord:
     models:
       action_record: 全部活动
+    successful:
+      messages:
+        created: "%{model}已创建"
+        updated: "%{model}已更新"

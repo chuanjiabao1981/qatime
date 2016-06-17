@@ -199,4 +199,8 @@ cn:
   activerecord:
     errors:
       <<: *errors
+  category: 类型
+  teacher: 辅导老师
+  subject: 科目
+  alipay: 支付宝
 

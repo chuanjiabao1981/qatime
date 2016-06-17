@@ -8,7 +8,7 @@
       <div><%= f.label :teacher %> <%= @course.teacher_name %></div>
       <div><%= f.label :price %> <%= @course.price %></div>
       <div><%= f.label :description %> <%= @course.name %></div>
-      <div><%= f.input :pay_type, as: :radio_buttons, collection: ::Order::PAY_TYPE.to_a %> </div>
+      <div><%= f.input :pay_type, as: :radio_buttons, collection: ::Order.pay_types %> </div>
       <%= f.button :submit, class: "btn btn-default" %>
     <% end %>
   </div>

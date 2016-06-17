@@ -56,4 +56,11 @@ class Order < ActiveRecord::Base
     pay!
     ship!
   end
+
+  class << self
+    # i18n PAY_TYPE
+    def pay_types
+      PAY_TYPE.map{|k,v| [I18n.t(k), v]}
+    end
+  end
 end

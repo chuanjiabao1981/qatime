@@ -77,3 +77,13 @@ cn:
       qa_file:
         name: oss文件名
         original_filename: 文件名
+      waiter:
+        name: 姓名
+        workstation_id: 工作站
+        password_confirmation: 密码确认
+      seller:
+        name: 姓名
+        workstation_id: 工作站
+        password_confirmation: 密码确认
+
+

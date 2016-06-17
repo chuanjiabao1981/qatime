@@ -19,6 +19,8 @@ module LiveStudio
     has_many :channels
     has_many :streams, through: :channel
 
+    scope :for_sell, -> { where(status: [Course.statuses[:preview], Course.statuses[:teaching]]) }
+
     # teacher's name. return blank when teacher is missiong
     def teacher_name
       teacher.try(:name)
@@ -46,7 +48,7 @@ module LiveStudio
     # 是否可购买
     def can_buy?(user)
       return false if !for_sell? || !user.student?
-      user.live_studio_tickets.map(&:course_id).include?(id)
+      !user.live_studio_tickets.map(&:course_id).include?(id)
     end
 
     private

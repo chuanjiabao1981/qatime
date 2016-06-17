@@ -73,6 +73,10 @@ module Permissions
       allow :comments,[:show]
       allow :corrections,[:show]
 
+
+      allow 'managers/sellers', [:index, :new, :create, :edit, :update, :destroy]
+      allow 'managers/waiters', [:index, :new, :create, :edit, :update, :destroy]
+
       #######begine course library permission###############
       allow "course_library/solutions",[:index, :show]
       allow "course_library/homeworks",[:index, :show]

@@ -8,6 +8,8 @@ cn:
         subject: 课程
         teachers: 讲师
         student: 学生
+        waiter: 客服
+        seller: 销售
         creator: 创建者
         teacher_price: 老师价格
         platform_price: 平台价格

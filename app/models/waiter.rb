@@ -6,6 +6,6 @@ class Waiter < User
 
   def initialize(attributes = {})
     super(attributes)
-    self.role = "manager"
+    self.role = "waiter"
   end
 end

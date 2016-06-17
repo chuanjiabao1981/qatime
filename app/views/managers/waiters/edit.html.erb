@@ -1,0 +1,20 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%= Waiter.model_name.human %></h2>
+  </div>
+  <div class="qa_big_cell">
+    <%= simple_form_for [:managers, @waiter] do |f|%>
+      <%= f.error_notification %>
+
+      <div class="form-inputs">
+        <%= f.input :name %>
+        <%= f.input :email %>
+        <%= f.input :mobile %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit %>
+      </div>
+    <% end %>
+  </div>
+</div>

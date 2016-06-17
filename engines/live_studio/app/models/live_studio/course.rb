@@ -1,13 +1,13 @@
 module LiveStudio
   class Course < ActiveRecord::Base
-    enum state: {
+    enum status: {
            init: 0, # 初始化
            preview: 1, # 招生中
            teaching: 2, # 已开课
            completed: 3 # 已结束
          }
 
-    belongs_to :teacher
+    belongs_to :teacher, class_name: '::Teacher'
     belongs_to :workstation
 
     has_many :tickets # 听课证

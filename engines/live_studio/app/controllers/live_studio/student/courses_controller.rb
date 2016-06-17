@@ -2,7 +2,6 @@ require_dependency "live_studio/student/base_controller"
 
 module LiveStudio
   class Student::CoursesController < Student::BaseController
-
     before_action :courses_chain
 
     def index
@@ -19,6 +18,5 @@ module LiveStudio
       @student = current_user
       @student.live_studio_courses
     end
-
   end
 end

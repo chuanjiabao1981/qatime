@@ -8,6 +8,8 @@ cn:
       lesson: 课程
       user: 用户
       student: 学生
+      waiter: 客服
+      seller: 销售
       topic: 讨论
       reply: 回复
       recharge_code: 充值码

@@ -1,5 +1,5 @@
 class AddWorkstationIdToUsers < ActiveRecord::Migration
   def change
-    add_column :users,:workstation_id,:integer
+    add_reference :users, :workstation, index: true
   end
 end

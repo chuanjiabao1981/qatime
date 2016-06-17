@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160313031853) do
+ActiveRecord::Schema.define(version: 20160616090430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -402,6 +402,72 @@ ActiveRecord::Schema.define(version: 20160313031853) do
 
   add_index "lessons", ["tags"], name: "index_lessons_on_tags", using: :gin
 
+  create_table "live_studio_channels", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.integer  "course_id"
+    t.string   "remote_id",  limit: 100
+    t.integer  "state",                  default: 0
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "live_studio_channels", ["course_id"], name: "index_live_studio_channels_on_course_id", using: :btree
+
+  create_table "live_studio_courses", force: :cascade do |t|
+    t.string   "name",           limit: 100,                                     null: false
+    t.integer  "teacher_id"
+    t.integer  "workstation_id",                                                 null: false
+    t.integer  "status",                                             default: 0
+    t.text     "description"
+    t.decimal  "price",                      precision: 6, scale: 2
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
+  end
+
+  add_index "live_studio_courses", ["teacher_id"], name: "index_live_studio_courses_on_teacher_id", using: :btree
+  add_index "live_studio_courses", ["workstation_id"], name: "index_live_studio_courses_on_workstation_id", using: :btree
+
+  create_table "live_studio_live_channels", force: :cascade do |t|
+    t.string   "name",       limit: 200,             null: false
+    t.integer  "course_id"
+    t.string   "remote_id"
+    t.integer  "state",                  default: 0
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "live_studio_live_channels", ["course_id"], name: "index_live_studio_live_channels_on_course_id", using: :btree
+
+  create_table "live_studio_live_streams", force: :cascade do |t|
+    t.string   "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "live_studio_streams", force: :cascade do |t|
+    t.string   "protocol",   limit: 20
+    t.string   "address",    limit: 255
+    t.integer  "channel_id"
+    t.integer  "user_count",             default: 0
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "live_studio_streams", ["channel_id"], name: "index_live_studio_streams_on_channel_id", using: :btree
+
+  create_table "live_studio_tickets", force: :cascade do |t|
+    t.integer  "course_id"
+    t.integer  "student_id"
+    t.integer  "lesson_id"
+    t.string   "type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "live_studio_tickets", ["course_id"], name: "index_live_studio_tickets_on_course_id", using: :btree
+  add_index "live_studio_tickets", ["lesson_id"], name: "index_live_studio_tickets_on_lesson_id", using: :btree
+  add_index "live_studio_tickets", ["student_id"], name: "index_live_studio_tickets_on_student_id", using: :btree
+
   create_table "nodes", force: :cascade do |t|
     t.string   "name"
     t.string   "summary"
@@ -428,6 +494,20 @@ ActiveRecord::Schema.define(version: 20160313031853) do
     t.datetime "updated_at",                            null: false
     t.integer  "customized_course_id"
   end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.string   "product_type"
+    t.decimal  "total_money",            precision: 6, scale: 2
+    t.integer  "state"
+    t.integer  "pay_type",     limit: 2
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
+  end
+
+  add_index "orders", ["product_type", "product_id"], name: "index_orders_on_product_type_and_product_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "picture_quoters", force: :cascade do |t|
     t.integer  "picture_id"
@@ -684,11 +764,21 @@ ActiveRecord::Schema.define(version: 20160313031853) do
     t.string   "grade"
     t.string   "nick_name"
     t.string   "parent_phone"
+    t.integer  "workstation_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["workstation_id"], name: "index_users_on_workstation_id", using: :btree
+
+  create_table "users_and_workstations", id: false, force: :cascade do |t|
+    t.integer "users_id"
+    t.integer "workstations_id"
+  end
+
+  add_index "users_and_workstations", ["users_id"], name: "index_users_and_workstations_on_users_id", using: :btree
+  add_index "users_and_workstations", ["workstations_id"], name: "index_users_and_workstations_on_workstations_id", using: :btree
 
   create_table "video_quoters", force: :cascade do |t|
     t.integer  "video_id"
@@ -733,4 +823,5 @@ ActiveRecord::Schema.define(version: 20160313031853) do
     t.integer  "manager_id"
   end
 
+  add_foreign_key "orders", "users"
 end

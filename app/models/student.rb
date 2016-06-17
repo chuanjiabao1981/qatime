@@ -12,6 +12,9 @@ class Student < User
   has_many :customized_courses,->{order(created_at: :desc)},:dependent => :destroy
   has_many :solutions,:dependent => :destroy
 
+  # 直播
+  has_many :live_studio_tickets, class_name: LiveStudio::Ticket
+  has_many :live_studio_courses, through: :live_studio_tickets, source: :course
 
   validates_presence_of :parent_phone, :on => :create
   validates :parent_phone, length:{is: 11}, :on => :create

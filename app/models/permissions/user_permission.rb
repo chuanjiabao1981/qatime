@@ -36,6 +36,8 @@ module Permissions
       end
 
 
+      allow 'live_studio/courses', [:index, :taste]
+
 
     end
 

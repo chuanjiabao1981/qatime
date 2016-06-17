@@ -29,9 +29,6 @@ module Permissions
         comment
       end
 
-
-
-
       allow :topics,[:show]
       allow :replies,[:create]
       allow :replies,[:edit,:update,:destroy] do |reply|
@@ -76,6 +73,10 @@ module Permissions
       allow :comments,[:show]
       allow :corrections,[:show]
 
+
+      allow 'managers/sellers', [:index, :new, :create, :edit, :update, :destroy]
+      allow 'managers/waiters', [:index, :new, :create, :edit, :update, :destroy]
+
       #######begine course library permission###############
       allow "course_library/solutions",[:index, :show]
       allow "course_library/homeworks",[:index, :show]
@@ -83,6 +84,10 @@ module Permissions
       allow "course_library/directories",[:index, :show]
       allow "course_library/syllabuses",[:index, :show]
       #######end course library permission##################
+
+      ## begin live studio permission
+      allow 'live_studio/manager/courses', [:index, :show, :new, :create, :edit, :update, :destroy]
+      ## end live studio permission
 
     end
   end

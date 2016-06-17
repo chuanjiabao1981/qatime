@@ -1,5 +1,7 @@
 module ApplicationHelper
   def user_home_path
+    p '--------===================='
+    p signed_in?
     return signin_path unless signed_in?
 
     case current_user.role
@@ -7,11 +9,15 @@ module ApplicationHelper
         #teachers_home_path
         solutions_teacher_path(current_user.id)
       when "admin"
-        admins_home_path
+        main_app.admins_home_path
       when "student"
-        students_home_path
+        main_app.students_home_path
       when "manager"
-        managers_home_path
+        main_app.managers_home_path
+      when "waiter"
+        main_app.waiters_home_path
+      when "seller"
+        main_app.sellers_home_path
       else
         root_path
     end

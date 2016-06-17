@@ -1,0 +1,11 @@
+cn:
+  activerecord:
+    models:
+      course_library/publication: 课程发布
+    attributes:
+      course_library/publication:
+        course: 课程
+  view:
+    course_library/publication:
+      no_customized_course_available: 本课程已发布给全部的专属课程
+

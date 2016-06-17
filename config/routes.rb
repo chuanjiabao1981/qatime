@@ -48,6 +48,9 @@ Qatime::Application.routes.draw do
         get 'state'
       end
     end
+
+    resources :sellers, except: [:show]
+    resources :waiters, except: [:show]
   end
 
   namespace :teachers do
@@ -277,22 +280,20 @@ Qatime::Application.routes.draw do
 
   resources :customized_course_message_replies
 
-
-
-
   get    '/signin',  to: 'sessions#new'
   delete '/signout', to: 'sessions#destroy'
-
-
 
   require 'sidekiq/web'
   require 'admin_constraint.rb'
   mount Sidekiq::Web => '/sidekiq',:constraints => AdminConstraint.new
-  
+
   mount CourseLibrary::Engine, at: '/course_library'
 
   mount Qawechat::Engine, at: '/qawechat'
   get 'auth/wechat/callback' => 'qawechat/omniauth_callbacks#wechat'
+
+  # 直播
+  mount LiveStudio::Engine, at: '/live_studio'
 
   resources :qa_file_quoters
 end

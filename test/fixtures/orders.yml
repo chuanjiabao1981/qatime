@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  product_id: 
+  product_type: Product
+  total_money: 9.99
+  state: 1
+
+two:
+  user_id: 
+  product_id: 
+  product_type: Product
+  total_money: 9.99
+  state: 1

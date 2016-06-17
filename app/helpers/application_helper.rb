@@ -1,7 +1,5 @@
 module ApplicationHelper
   def user_home_path
-    p '--------===================='
-    p signed_in?
     return signin_path unless signed_in?
 
     case current_user.role

@@ -20,7 +20,7 @@ class TopicReplyWithVideoTest < ActionDispatch::IntegrationTest
   test 'topic reply with video' do
     log_in_as(@teacher)
     visit topic_path(@topic)
-    page.save_screenshot('screenshot.png')
+    page.save_screenshot('screenshots/screenshot.png')
 
     assert_difference 'Video.where(videoable_type:"Reply").count',1 do
       assert_difference 'Reply.count',1 do

@@ -37,7 +37,7 @@ class HomeworkCreateAndEditTest < ActionDispatch::IntegrationTest
 
         click_on '新增练习与测试'
         sleep 1
-        page.save_screenshot('screenshot.png')
+        page.save_screenshot('screenshots/screenshot.png')
         assert page.has_content?('test.jpg')
         assert !page.has_content?('development.log')
       end

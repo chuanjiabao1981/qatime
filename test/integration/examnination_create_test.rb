@@ -68,7 +68,7 @@ class ExaminationCreateTest < ActionDispatch::IntegrationTest
       click_on "更新#{e.model_name.human}"
 
       sleep 10
-      page.save_screenshot('screenshot.png')
+      page.save_screenshot('screenshots/screenshot.png')
 
       assert page.has_content?('test.jpg'),"1111"
       assert !page.has_content?('123_1.txt'),"2222"
@@ -101,7 +101,7 @@ class ExaminationCreateTest < ActionDispatch::IntegrationTest
           click_on "新增#{e.model_name.human}"
 
           assert page.has_content?('test.jpg')
-          page.save_screenshot('screenshot.png')
+          page.save_screenshot('screenshots/screenshot.png')
 
           assert !page.has_content?('development.log')
         end
@@ -123,7 +123,7 @@ class ExaminationCreateTest < ActionDispatch::IntegrationTest
         new_picture     = Picture.where(imageable_type: "#{Examination.to_s}").order(:created_at => :desc).first
         new_examination.pictures.include?(new_picture)
         assert_picture(new_examination)
-        page.save_screenshot('screenshot.png')
+        page.save_screenshot('screenshots/screenshot.png')
       end
     end
   end

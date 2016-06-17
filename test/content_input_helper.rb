@@ -12,7 +12,7 @@ module ContentInputHelper
     # 验证form 页面上有
     href = a.name.url
     assert page.has_xpath?("//a[@href=\'#{href}\']")
-    page.save_screenshot('screenshot.png')
+    page.save_screenshot('screenshots/screenshot.png')
 
   end
 

@@ -24,7 +24,7 @@ class CustomizedTutorialEditWithoutVideo < ActionDispatch::IntegrationTest
     content_new_name      = 'fuxck这个不能少于20啊啊啊xxxx啊啊啊啊啊啊啊12345678900987654321'
     customized_tutorial1 = customized_tutorials(:customized_tutorial_without_video1)
     visit edit_customized_tutorial_path(customized_tutorial1)
-    page.save_screenshot('screenshot.png')
+    page.save_screenshot('screenshots/screenshot.png')
 
     assert_difference 'Video.count',1 do
       assert_difference 'CustomizedTutorial.count',0 do

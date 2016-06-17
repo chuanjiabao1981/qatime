@@ -36,7 +36,7 @@ class TopicCreateWithPicture  < ActionDispatch::IntegrationTest
         assert page.has_xpath?("//img[contains(@src,t.name)]")
       end
     end
-    page.save_screenshot('screenshot.png')
+    page.save_screenshot('screenshots/screenshot.png')
 
     logout_as(student)
 

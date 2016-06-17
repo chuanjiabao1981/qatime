@@ -35,7 +35,7 @@ class TutorialIssueReplyWithVideo  < ActionDispatch::IntegrationTest
 
     assert @tutorial_issue_reply_one.video.nil?
     visit edit_tutorial_issue_reply_path(@tutorial_issue_reply_one)
-    # page.save_screenshot('screenshot.png')
+    # page.save_screenshot('screenshots/screenshot.png')
     edit_add_video(@tutorial_issue_reply_one)
   end
 

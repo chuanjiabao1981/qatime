@@ -8,7 +8,7 @@ class ManagersSellerAndWaiterTest < ActionDispatch::IntegrationTest
     @headless = Headless.new
     @headless.start
     Capybara.current_driver = :selenium_chrome
-    @manager            = users(:manager1)
+    @manager            = Manager.find(users(:manager).id)
     log_in_as(@manager)
   end
 
@@ -26,7 +26,7 @@ class ManagersSellerAndWaiterTest < ActionDispatch::IntegrationTest
       fill_in(:seller_email, with: 'best_seller@seller.cn')
       fill_in(:seller_password, with: '123456')
       fill_in(:seller_password_confirmation, with: '123456')
-      fill_in(:waiter_mobile, with: '15811111111')
+      fill_in(:seller_mobile, with: '15811111111')
       select workstation.name, from: 'seller_workstation_id'
       click_on '新增销售'
     end
@@ -51,7 +51,7 @@ class ManagersSellerAndWaiterTest < ActionDispatch::IntegrationTest
       fill_in(:seller_email, with: 'best_seller@seller.cn')
       fill_in(:seller_password, with: '123456')
       fill_in(:seller_password_confirmation, with: '1234567')
-      fill_in(:waiter_mobile, with: '15811111111')
+      fill_in(:seller_mobile, with: '15811111111')
       select workstation.name, from: 'seller_workstation_id'
       click_on '新增销售'
     end

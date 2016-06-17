@@ -48,7 +48,7 @@ class AnswerCreateTest < ActionDispatch::IntegrationTest
 
         v = Video.where(videoable_type: "Answer").order(created_at: :desc).first
         sleep 3
-        page.save_screenshot('screenshot.png')
+        page.save_screenshot('screenshots/screenshot.png')
         #puts page.html
         a = Answer.all.order(created_at: :desc).first
         assert_not a.video.nil?

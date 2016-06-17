@@ -49,7 +49,7 @@ class CorrectionCreateFromTemplateTest  < ActionDispatch::IntegrationTest
       click_on "新增#{ExerciseCorrection.model_name.human}"
 
       assert page.has_content?(homework_solution_one.description)
-      page.save_screenshot('screenshot.png')
+      page.save_screenshot('screenshots/screenshot.png')
 
 
     end

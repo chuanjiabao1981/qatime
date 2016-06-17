@@ -53,7 +53,7 @@ class CommentCreateTest < ActionDispatch::IntegrationTest
       click_on "新增#{Comment.model_name.human}"
       sleep 5
     end
-    # page.save_screenshot('screenshot.png')
+    # page.save_screenshot('screenshots/screenshot.png')
     page.has_content? content
   end
 
@@ -86,7 +86,7 @@ class CommentCreateTest < ActionDispatch::IntegrationTest
     end
     page.has_content? content
 
-    page.save_screenshot('screenshot.png')
+    page.save_screenshot('screenshots/screenshot.png')
 
   end
 end

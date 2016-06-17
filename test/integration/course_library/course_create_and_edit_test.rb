@@ -39,7 +39,7 @@ class CourseCreateAndEditTest < ActionDispatch::IntegrationTest
 
 
         click_on '新增大纲课程'
-        page.save_screenshot('screenshot.png')
+        page.save_screenshot('screenshots/screenshot.png')
         assert page.has_content?('test.jpg')
         assert !page.has_content?('development.log')
       end

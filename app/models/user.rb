@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
+  ROLES = %w(admin guest manager teacher student waiter seller)
+
   require 'carrierwave/orm/activerecord'
   mount_uploader :avatar, AvatarUploader
 
@@ -62,24 +64,16 @@ class User < ActiveRecord::Base
     return "#{name[0]}老师"
   end
 
-  def admin?
-    return true if self.role == "admin"
-    false
+  ROLES.each do |method_name|
+    define_method("#{method_name}?") do
+      role == method_name
+    end
   end
+
   def teacher_or_student?
     teacher? or student?
   end
-  def teacher?
-    return true if self.role == "teacher"
-    false
-  end
-  def student?
-    return true if self.role == "student"
-    false
-  end
-  def manager?
-    return true if self.role == "manager"
-  end
+
   private
     def create_remember_token
       self.remember_token = User.digest(User.new_remember_token)

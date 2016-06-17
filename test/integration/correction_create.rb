@@ -27,7 +27,7 @@ class CorrectionWithVideoTest < ActionDispatch::IntegrationTest
   def _create_with_picture_and_video(solution,correction)
     show_path = send "#{solution.model_name.singular_route_key}_path",solution
     visit show_path
-    page.save_screenshot('screenshot.png')
+    page.save_screenshot('screenshots/screenshot.png')
 
     assert_difference "#{correction.to_s}.count",1 do
       assert_difference "Video.where(videoable_type: \"#{Correction.to_s}\").count",1 do

@@ -32,7 +32,7 @@ class CourseIssueReplyWithVideo  < ActionDispatch::IntegrationTest
   test 'edit add a video' do
     assert @course_issue_reply_one.video.nil?
     visit edit_course_issue_reply_path(@course_issue_reply_one)
-    page.save_screenshot('screenshot.png')
+    page.save_screenshot('screenshots/screenshot.png')
     edit_add_video(@course_issue_reply_one)
   end
 

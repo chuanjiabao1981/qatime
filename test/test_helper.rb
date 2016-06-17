@@ -30,7 +30,7 @@ class ActiveSupport::TestCase
       fill_in :user_password,with: 'password'
       click_button '登录'
     rescue  Capybara::ElementNotFound => x
-      page.save_screenshot('screenshotxxxxxx.png')
+      page.save_screenshot('screenshots/screenshotxxxxxx.png')
       raise x if retry_count > 3
       logout_as(user)
       retry

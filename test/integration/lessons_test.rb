@@ -225,7 +225,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
     page.has_xpath?("//video[contains(@src,\"#{l.video.name}\")]")
 
 
-    #page.save_screenshot('screenshot.png')
+    #page.save_screenshot('screenshots/screenshot.png')
 
   end
 
@@ -241,7 +241,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
 
 
     fill_in :lesson_name,with: 'lesson_name 这个长度不能少10的啊啊啊aaaaaaaaaaaaaaa'
-    # page.save_screenshot('screenshot.png')
+    # page.save_screenshot('screenshots/screenshot.png')
 
     click_button '保存课程'
     sleep 10
@@ -251,7 +251,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
     end
 
     #puts Lesson.where("tags ? :xx",{xx: "常见问题"}).count
-    #page.save_screenshot('screenshot.png')
+    #page.save_screenshot('screenshots/screenshot.png')
 
   end
 
@@ -265,7 +265,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
       attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
       sleep 15
       click_button '保存课程'
-      page.save_screenshot('screenshot.png')
+      page.save_screenshot('screenshots/screenshot.png')
       sleep 10
       click_button '确定'
       page.has_xpath?("//video[contains(@src,lesson_without_video.reload.video.name)]")

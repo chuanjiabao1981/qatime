@@ -41,3 +41,16 @@ course_teaching:
   teacher: users(:teacher1)
   workstation: workstation(:workstation1)
   status: 2
+
+course_without_channel:
+  name: 没有初始化的辅导班
+  teacher: users(:teacher1)
+  workstation: workstation(:workstation1)
+  status: 2
+
+course_one_of_teacher_one:
+  name: teacher_one_course_one
+  teacher_id: 1
+  workstation_id: 1
+  price: 100
+  status: 2

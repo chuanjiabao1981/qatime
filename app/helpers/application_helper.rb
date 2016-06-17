@@ -21,7 +21,7 @@ module ApplicationHelper
     end
   end
 
-  def get_edit_or_create_model_string(o,c_name=nil)
+  def get_edit_or_create_model_string(o, c_name=nil)
     if c_name.nil?
       c_name = "创建"
     end

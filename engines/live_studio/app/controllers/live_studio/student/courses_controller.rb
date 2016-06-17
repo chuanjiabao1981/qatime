@@ -16,7 +16,8 @@ module LiveStudio
     private
 
     def courses_chain
-      current_user.live_studio_courses
+      @student = current_user
+      @student.live_studio_courses
     end
 
   end

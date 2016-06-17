@@ -1,6 +1,6 @@
 module LiveStudio
   class Course < ActiveRecord::Base
-    belongs_to :teacher
+    belongs_to :teacher, class_name: "User"
     belongs_to :workstation
 
     has_many :tickets # 听课证

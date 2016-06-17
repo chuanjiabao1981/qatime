@@ -136,6 +136,11 @@ module Permissions
         solution and solution.examination and solution.examination.student_id == user.id
       end
       allow 'live_studio/orders', [:new, :create, :pay, :show]
+
+      ## begin live studio permission
+      allow 'live_studio/student/courses', [:index, :show]
+      ## end live studio permission
+
     end
 private
 

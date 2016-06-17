@@ -1,0 +1,17 @@
+<ul class="menu" style="color: white">
+  <li>
+    <%= link_to live_studio.manager_courses_path do %>
+      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">辅导班</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to "##" do %>
+      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">账号管理</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to signout_path, :method=>'delete'  do %>
+        <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18">退出系统</span>
+    <% end %>
+  </li>
+</ul>

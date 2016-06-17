@@ -3,6 +3,7 @@ module Permissions
     def initialize(user)
       super(user)
 
+      allow :sessions,[:destroy]
       allow :home, [:index]
       allow "managers/home", [:main]
 

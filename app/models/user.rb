@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
 
   before_create :create_remember_token
 
+  has_many :orders
 
   validates_presence_of :register_code_value, on: :create, if: :teacher_or_student?
   validate :register_code_valid, on: :create, if: :teacher_or_student?

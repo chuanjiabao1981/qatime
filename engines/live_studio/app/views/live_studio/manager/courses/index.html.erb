@@ -2,9 +2,12 @@
   <div class="qa_big_cell">
     <div>
       <h2> <%= LiveStudio::Course.model_name.human %>
-        <%=link_to new_manager_course_path do %>
+
+        <% unless current_user.waiter? -%>
+          <%=link_to new_manager_course_path do %>
             <button type="button" class="btn btn-xs btn-success">增加<%= LiveStudio::Course.model_name.human %></button>
-        <% end %>
+          <% end %>
+        <% end -%>
       </h2>
     </div>
 

@@ -36,7 +36,7 @@ class CustomizedCourseMessageReplyCreate  < ActionDispatch::IntegrationTest
     new_customized_course_message_reply = CustomizedCourseMessageReply.all.order(created_at: :desc).first
     assert_picture new_customized_course_message_reply
     assert page.has_content? content
-    page.save_screenshot('screenshot.png')
+    page.save_screenshot('screenshots/screenshot.png')
 
     logout_as(student)
 

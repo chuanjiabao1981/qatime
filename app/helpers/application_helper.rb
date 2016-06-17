@@ -1,7 +1,5 @@
 module ApplicationHelper
   def user_home_path
-    p '--------===================='
-    p signed_in?
     return signin_path unless signed_in?
 
     case current_user.role
@@ -15,15 +13,15 @@ module ApplicationHelper
       when "manager"
         main_app.managers_home_path
       when "waiter"
-        main_app.waiters_home_path
+        main_app.managers_home_path
       when "seller"
-        main_app.sellers_home_path
+        main_app.managers_home_path
       else
         root_path
     end
   end
 
-  def get_edit_or_create_model_string(o,c_name=nil)
+  def get_edit_or_create_model_string(o, c_name=nil)
     if c_name.nil?
       c_name = "创建"
     end

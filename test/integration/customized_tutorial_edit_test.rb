@@ -35,7 +35,7 @@ class CustomizedTutorialEditTest < ActionDispatch::IntegrationTest
         sleep 10
 
         click_on '更新课程'
-        page.save_screenshot('screenshot.png')
+        page.save_screenshot('screenshots/screenshot.png')
         assert  page.has_content? title_new_name
         assert  page.has_content? content_new_name
 

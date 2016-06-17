@@ -212,6 +212,10 @@ module Permissions
       end
       #######end course library permission##################
       allow :qa_file_quoters,[:index, :new, :edit, :update, :create, :show, :destroy]
+
+      ## begin live studio permission
+      allow 'live_studio/teacher/courses', [:index, :show, :edit, :update]
+      ## end live studio permission
     end
 private
 

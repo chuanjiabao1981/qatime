@@ -26,8 +26,6 @@ class Student < User
     self.role = "student"
   end
 
-
-
   def purchase_course(course_id)
     @course = Course.find(course_id)
     raise '课程不存在!'   unless @course

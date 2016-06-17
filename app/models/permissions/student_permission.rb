@@ -119,6 +119,13 @@ module Permissions
         course_issue and course_issue.author_id == user.id
       end
 
+
+      ### start students namespace
+      allow 'students/orders', [:index]
+      allow 'students/orders', [:pay]
+
+      ### end students namespace
+
       # allow :course_issue_replies,[:create] do |course_issue|
       #   course_issue and course_issue.customized_course.student_id == user.id
       # end
@@ -136,6 +143,11 @@ module Permissions
         solution and solution.examination and solution.examination.student_id == user.id
       end
       allow 'live_studio/orders', [:new, :create, :pay, :show]
+
+      ## begin live studio permission
+      allow 'live_studio/student/courses', [:index, :show]
+      ## end live studio permission
+
     end
 private
 

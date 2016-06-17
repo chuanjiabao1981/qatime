@@ -1,5 +1,12 @@
 module LiveStudio
   class Course < ActiveRecord::Base
+    enum state: {
+           init: 0, # 初始化
+           preview: 1, # 招生中
+           teaching: 2, # 已开课
+           completed: 3 # 已结束
+         }
+
     belongs_to :teacher
     belongs_to :workstation
 
@@ -24,6 +31,22 @@ module LiveStudio
     def init_channel
       return unless channels.blank?
       channels.create(name: "#{name} - 直播室 - #{id}", course_id: id)
+    end
+
+    # 发货
+    def deliver(order)
+      ticket = buy_tickets.find_or_create_by(student_id: order.user_id)
+      ticket.active!
+    end
+
+    def for_sell?
+      preview? || teaching?
+    end
+
+    # 是否可购买
+    def can_buy?(user)
+      return false if !for_sell? || !user.student?
+      user.live_studio_tickets.map(&:course_id).include?(id)
     end
 
     private

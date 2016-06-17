@@ -44,7 +44,7 @@ class SolutionCreateTest < ActionDispatch::IntegrationTest
         new_solution    = s.all.order(:created_at => :desc).first
         new_picture     = Picture.where(imageable_type: "#{Solution.to_s}").order(:created_at => :desc).first
         new_solution.pictures.include?(new_picture)
-        page.save_screenshot('screenshot.png')
+        page.save_screenshot('screenshots/screenshot.png')
         assert_picture(new_solution)
       end
     end

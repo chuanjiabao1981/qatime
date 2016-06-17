@@ -3,6 +3,10 @@ module Permissions
     def initialize(user)
       super(user)
 
+      allow :sessions,[:destroy]
+      allow :home, [:index]
+      allow "managers/home", [:main]
+
       ## begin live studio permission
       allow 'live_studio/manager/courses', [:index, :show, :new, :create, :edit, :update]
       ## end live studio permission

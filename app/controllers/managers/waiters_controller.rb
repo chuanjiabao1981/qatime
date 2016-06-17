@@ -20,7 +20,6 @@ class Managers::WaitersController < ApplicationController
 
   # GET /managers/waiters/1/edit
   def edit
-    @workstations = current_user.workstations.select(:id, :name).map {|w| [w.name, w.id] }
   end
 
   # POST /managers/waiters
@@ -33,6 +32,7 @@ class Managers::WaitersController < ApplicationController
         format.html { redirect_to managers_waiters_path, notice: 'Waiter was successfully created.' }
         format.json { render action: 'show', status: :created, location: @waiter }
       else
+        @workstations = current_user.workstations.select(:id, :name).map {|w| [w.name, w.id] }
         format.html { render action: 'new' }
         format.json { render json: @waiter.errors, status: :unprocessable_entity }
       end

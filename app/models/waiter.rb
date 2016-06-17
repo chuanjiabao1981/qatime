@@ -8,4 +8,5 @@ class Waiter < User
     super(attributes)
     self.role = "waiter"
   end
+
 end

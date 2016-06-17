@@ -8,4 +8,9 @@ class Seller < User
     super(attributes)
     self.role = "seller"
   end
+
+  # 为了和manager一样统一操作
+  def workstations
+    [workstation].compact
+  end
 end

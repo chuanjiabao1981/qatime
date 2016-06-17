@@ -20,7 +20,6 @@ class Managers::SellersController < ApplicationController
 
   # GET /managers/sellers/1/edit
   def edit
-    @workstations = current_user.workstations.select(:id, :name).map {|w| [w.name, w.id] }
   end
 
   # POST /managers/sellers
@@ -34,6 +33,7 @@ class Managers::SellersController < ApplicationController
         format.json { render action: 'show', status: :created, location: @seller }
       else
         format.html { render action: 'new' }
+        @workstations = current_user.workstations.select(:id, :name).map {|w| [w.name, w.id] }
         format.json { render json: @seller.errors, status: :unprocessable_entity }
       end
     end

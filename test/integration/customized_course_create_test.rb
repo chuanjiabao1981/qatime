@@ -31,7 +31,7 @@ class CustomizedCourseCreateTest < ActionDispatch::IntegrationTest
       page.has_content? "讲师: #{teacher.name}"
       click_on '新增专属课程'
     end
-    # page.save_screenshot('screenshot.png')
+    # page.save_screenshot('screenshots/screenshot.png')
   end
 
   test "customized course create without teacher" do
@@ -42,7 +42,7 @@ class CustomizedCourseCreateTest < ActionDispatch::IntegrationTest
       assert_difference 'CustomizedCourseAssignment.count',0 do
         click_on '新增专属课程'
         sleep 1
-        page.save_screenshot('screenshot.png')
+        page.save_screenshot('screenshots/screenshot.png')
 
       end
     end
@@ -60,10 +60,10 @@ class CustomizedCourseCreateTest < ActionDispatch::IntegrationTest
 
     select '高中', from: :s_category
     select '物理', from: :s_subject
-    # page.save_screenshot('screenshot11.png')
+    # page.save_screenshot('screenshots/screenshot11.png')
 
     select_from_chosen(item_text,options)
-    # page.save_screenshot('screenshot22.png')
+    # page.save_screenshot('screenshots/screenshot22.png')
 
     assert_difference 'teacher.customized_courses.count',1 do
       assert_difference 'old_teacher1.customized_courses.count',-1 do

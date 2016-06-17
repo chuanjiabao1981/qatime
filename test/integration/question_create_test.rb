@@ -36,7 +36,7 @@ class QuestionCreateTest < ActionDispatch::IntegrationTest
 
     assert teacher1.valid?,teacher1.errors.full_messages
     #puts Question.count
-    page.save_screenshot('screenshot.png')
+    page.save_screenshot('screenshots/screenshot.png')
 
     assert_difference 'Question.count',1 do
       assert_difference 'teacher1.reload.questions.count',1 do
@@ -49,7 +49,7 @@ class QuestionCreateTest < ActionDispatch::IntegrationTest
 
           add_a_picture
           #puts Question.count
-          page.save_screenshot('screenshot.png')
+          page.save_screenshot('screenshots/screenshot.png')
 
           click_on "新增问题"
           sleep 1
@@ -72,7 +72,7 @@ class QuestionCreateTest < ActionDispatch::IntegrationTest
     # end
     visit edit_question_path(question)
 
-    page.save_screenshot('screenshot.png')
+    page.save_screenshot('screenshots/screenshot.png')
 
     options = {from: 'question-teachers',merge: true}
     item_text = 'teacher2'
@@ -80,7 +80,7 @@ class QuestionCreateTest < ActionDispatch::IntegrationTest
     teacher2 = Teacher.find(users(:teacher2).id)
 
     select_from_chosen(item_text,options)
-    page.save_screenshot('screenshot.png')
+    page.save_screenshot('screenshots/screenshot.png')
 
     assert_difference 'Question.count',0 do
       assert_difference 'teacher1.questions.count',0 do
@@ -101,18 +101,18 @@ class QuestionCreateTest < ActionDispatch::IntegrationTest
   test "question edit learning plan" do
     question = questions(:student1_question2)
     visit edit_question_path(question)
-    # page.save_screenshot('screenshot11.png')
+    # page.save_screenshot('screenshots/screenshot11.png')
 
     select '物理', from: "科目"
     # select '物理', from: :question_learning_plan_id
 
-    # page.save_screenshot('screenshot22.png')
+    # page.save_screenshot('screenshots/screenshot22.png')
 
     options = {from: 'question-teachers',merge: true}
     item_text = 'physics_teacher1'
     select_from_chosen(item_text,options)
 
-    # page.save_screenshot('screenshot33.png')
+    # page.save_screenshot('screenshots/screenshot33.png')
     teacher1      =  Teacher.find(users(:teacher1).id)
     teacher2      =  Teacher.find(users(:physics_teacher1).id)
     m_vip_class   =  vip_classes(:h_math_vip_class)

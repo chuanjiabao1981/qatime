@@ -16,7 +16,7 @@ module LiveStudio
     # GET /manager/courses/new
     def new
       @course = Course.new
-      @workstations = current_user.workstations.select(:id, :name).map {|w| [w.name, w.id] }
+      @workstations = workstations
     end
 
     # GET /manager/courses/1/edit
@@ -30,6 +30,7 @@ module LiveStudio
       if @course.save
         redirect_to [:manager, @course], notice: 'Course was successfully created.'
       else
+        @workstations = workstations
         render :new
       end
     end
@@ -50,19 +51,31 @@ module LiveStudio
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_course
-        @course = Course.find(params[:id])
-      end
 
-      # Only allow a trusted parameter "white list" through.
-      def course_params
-        params.require(:course).permit(:name, :teacher_id, :description, :workstation_id, :price)
-      end
+    # Only allow a trusted parameter "white list" through.
+    def course_params
+      params.require(:course).permit(:name, :teacher_id, :description, :workstation_id, :price)
+    end
 
-      # Only allow a trusted parameter "white list" through for update.
-      def manager_course_params
-        params.require(:course).permit(:name, :teacher_id, :description, :workstation_id, :price)
-      end
+    # Only allow a trusted parameter "white list" through for update.
+    def manager_course_params
+      params.require(:course).permit(:name, :teacher_id, :description, :workstation_id, :price)
+    end
+
+    # Use callbacks to share common setup or constraints between actions.
+    def set_course
+      @course = Course.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def course_params
+      params.require(:course).permit(:name, :teacher_id, :description, :workstation_id, :price)
+    end
+
+    def workstations
+      return [current_user.workstation.name, current_user.workstation_id] if current_user.waiter? or current_user.seller?
+      current_user.workstations.select(:id, :name).map {|w| [w.name, w.id] }
+    end
+
   end
 end

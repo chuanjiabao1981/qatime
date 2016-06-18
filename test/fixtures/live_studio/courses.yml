@@ -31,9 +31,10 @@ course_init:
   status: 0
 
 course_preview:
+  id: 5
   name: 招生中的辅导班
-  teacher: users(:teacher1)
-  workstation: workstation(:workstation1)
+  teacher_id: 1
+  workstation_id: 1
   status: 1
 
 course_teaching:

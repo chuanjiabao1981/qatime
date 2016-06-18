@@ -1,13 +1,4 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  course_id: 
-  student_id: 
-  lesson_id: 
-  type: 
-
-two:
-  course_id: 
-  student_id: 
-  lesson_id: 
-  type: 
+ticket_of_student_one:
+  student_id: 9
+  course_id: 5
+  type: LiveStudio::BuyTicket

@@ -51,6 +51,13 @@ module LiveStudio
       !user.live_studio_tickets.map(&:course_id).include?(id)
     end
 
+    def validate_order(order)
+      user = order.user
+      order.errors[:product] << '课程目前不对外招生' unless for_sell?
+      order.errors[:product] << '课程只对学生销售' unless user.student?
+      order.errors[:product] << '您已经购买过该课程' if user.live_studio_tickets.map(&:course_id).include?(id)
+    end
+
     private
 
     after_create :init_channel_job

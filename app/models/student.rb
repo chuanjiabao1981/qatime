@@ -46,7 +46,6 @@ class Student < User
     begin
       #self.groups << @course.group
     rescue ActiveRecord::RecordNotUnique
-      
     end
   end
 

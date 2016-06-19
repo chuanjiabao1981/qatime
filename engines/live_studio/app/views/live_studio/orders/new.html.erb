@@ -1,9 +1,10 @@
 <div class="qa_box">
   <div class="qa_big_cell">
-    <h2>购买 <%= LiveStudio::Course.model_name.human %></h2>
+    <h2>购买<%= LiveStudio::Course.model_name.human %></h2>
   </div>
   <div class="qa_big_cell">
     <%= simple_form_for [:course, @order] do |f|%>
+      <%= @order.errors.full_messages %>
       <div><%= f.label :name %> <%= @course.name %></div>
       <div><%= f.label :teacher %> <%= @course.teacher_name %></div>
       <div><%= f.label :price %> <%= @course.price %></div>

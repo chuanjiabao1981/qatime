@@ -4,7 +4,7 @@
     <%= f.input :name %>
     <%= f.association :teacher %>
     <%= f.input :description, type: :text %>
-    <%= f.association :workstation, collection: @workstations %>
+    <%= f.association :workstation, collection: @workstations if @course.new_record? %>
     <%= f.input :price %>
   </div>
 

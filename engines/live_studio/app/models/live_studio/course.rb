@@ -7,6 +7,8 @@ module LiveStudio
            completed: 3 # 已结束
          }
 
+    validates :workstation, :teacher, presence: true
+
     belongs_to :teacher, class_name: '::Teacher'
     belongs_to :workstation
 
@@ -48,7 +50,15 @@ module LiveStudio
     # 是否可购买
     def can_buy?(user)
       return false if !for_sell? || !user.student?
-      !user.live_studio_tickets.map(&:course_id).include?(id)
+      # 好奇怪的语法
+      # 由于User没有设置单表集成, user无法自动生成合适类型
+      # 可能会造成 n + 1查询
+      Student.find(user.id).live_studio_tickets.map(&:course_id).include?(id)
+      # !user.live_studio_tickets.map(&:course_id).include?(id)
+    end
+
+    def short_description(len=20)
+      description.truncate(len)
     end
 
     private

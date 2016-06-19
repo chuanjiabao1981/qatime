@@ -46,7 +46,6 @@ class User < ActiveRecord::Base
 
   belongs_to :school
 
-
   def unread_notifications_count
     self.customized_course_action_notifications.unread.count
   end

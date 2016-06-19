@@ -1,9 +1,10 @@
 <%= simple_form_for [:manager, @course] do |f|%>
+  <%= f.error_notification %>
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.input :teacher_id %>
+    <%= f.association :teacher %>
     <%= f.input :description, type: :text %>
-    <%= f.input :workstation_id, collection: @workstations %>
+    <%= f.association :workstation, collection: @workstations if @course.new_record? %>
     <%= f.input :price %>
   </div>
 

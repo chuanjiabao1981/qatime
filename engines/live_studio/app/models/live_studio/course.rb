@@ -1,11 +1,13 @@
 module LiveStudio
   class Course < ActiveRecord::Base
     enum status: {
-           init: 0, # 初始化
-           preview: 1, # 招生中
-           teaching: 2, # 已开课
-           completed: 3 # 已结束
-         }
+      init: 0, # 初始化
+      preview: 1, # 招生中
+      teaching: 2, # 已开课
+      completed: 3 # 已结束
+    }
+
+    validates :name, presence: true
 
     validates :workstation, :teacher, presence: true
 
@@ -53,12 +55,19 @@ module LiveStudio
       # 好奇怪的语法
       # 由于User没有设置单表集成, user无法自动生成合适类型
       # 可能会造成 n + 1查询
-      Student.find(user.id).live_studio_tickets.map(&:course_id).include?(id)
+      ::Student.find(user.id).live_studio_tickets.map(&:course_id).include?(id)
       # !user.live_studio_tickets.map(&:course_id).include?(id)
     end
 
     def short_description(len=20)
       description.truncate(len)
+    end
+
+    def validate_order(order)
+      user = order.user
+      order.errors[:product] << '课程目前不对外招生' unless for_sell?
+      order.errors[:product] << '课程只对学生销售' unless user.student?
+      order.errors[:product] << '您已经购买过该课程' if user.live_studio_tickets.map(&:course_id).include?(id)
     end
 
     private

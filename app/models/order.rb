@@ -6,6 +6,12 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :product, polymorphic: true
 
+  validates :user, :product, presence: true
+
+  validate do |record|
+    record.product.validate_order(record) if record.product
+  end
+
   include AASM
 
   enum state: {

@@ -55,7 +55,7 @@ module LiveStudio
       # 好奇怪的语法
       # 由于User没有设置单表集成, user无法自动生成合适类型
       # 可能会造成 n + 1查询
-      Student.find(user.id).live_studio_tickets.map(&:course_id).include?(id)
+      ::Student.find(user.id).live_studio_tickets.map(&:course_id).include?(id)
       # !user.live_studio_tickets.map(&:course_id).include?(id)
     end
 

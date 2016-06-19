@@ -7,23 +7,20 @@
   </div>
 
   <div>
+
     <% @courses.each do |course| -%>
-    <div class="row qa_big_cell">
-      <div class="col-md-1">
-        <%= 1 %>
+      <div class="row qa_big_cell">
+        <div class="col-md-2">
+          <%= link_to course.name, [:student, course] %>
+        </div>
+        <div class="col-md-2">
+          <%= course.teacher_name %>
+        </div>
+        <div class="col-md-4">
+          <%= course.short_description %>
+        </div>
       </div>
-      <div class="col-md-2">
-        <%= course.name%>
-      </div>
-      <div class="col-md-2">
-        <%= course.teacher_name %>
-      </div>
-      <div class="col-md-2">
-      </div>
-      <div class="col-md-4">
-        <%= course.short_description %>
-      </div>
-    </div>
     <% end -%>
+
   </div>
 </div>

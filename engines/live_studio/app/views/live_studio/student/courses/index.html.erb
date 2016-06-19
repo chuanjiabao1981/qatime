@@ -16,12 +16,12 @@
         <%= course.name%>
       </div>
       <div class="col-md-2">
-        <%= course.name %>
+        <%= course.teacher_name %>
       </div>
       <div class="col-md-2">
       </div>
-      <div class="col-md-2">
-        <%=link_to '查看', student_course_path(course)%>
+      <div class="col-md-4">
+        <%= course.short_description %>
       </div>
     </div>
     <% end -%>

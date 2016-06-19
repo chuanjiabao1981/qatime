@@ -4,7 +4,6 @@
   </div>
   <div class="qa_big_cell">
     <%= simple_form_for [:course, @order] do |f|%>
-      <%= @order.errors.full_messages %>
       <div><%= f.label :name %> <%= @course.name %></div>
       <div><%= f.label :teacher %> <%= @course.teacher_name %></div>
       <div><%= f.label :price %> <%= @course.price %></div>

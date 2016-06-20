@@ -1,0 +1,14 @@
+<link href="http://nos.netease.com/vod163/nep.min.css" rel="stylesheet">
+<script src="http://nos.netease.com/vod163/nep.min.js"></script>
+<video id="my-video" class="video-js" controls poster="poster.png" preload="auto" width="640" height="480" data-setup='{}'>
+    <source src="MY_VIDEO.mp4" type="video/mp4">
+</video>
+<script>
+var myPlayer = neplayer("my-video", {}, function() {
+});
+myPlayer.setDataSource({
+  type: "rtmp/flv",
+  src: "rtmp://v2e95df8c.live.126.net/live/262c29c7f1dd4562a8d668420c70a8ad"
+});
+myPlayer.play();
+</script>

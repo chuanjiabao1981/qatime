@@ -19,6 +19,5 @@ module LiveStudio
       @student = current_user
       @student.live_studio_courses
     end
-
   end
 end

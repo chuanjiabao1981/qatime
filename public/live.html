@@ -1,0 +1,31 @@
+<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="http://nos.netease.com/vod163/nePublisher.js"></script>
+
+<input type="button" name="" id="start" value="start">
+<input type="button" name="" id="stop" value="stop">
+
+<div id="my-publisher"><div>
+
+<script>
+  var url = 'rtmp://p2e95df8c.live.126.net/live/262c29c7f1dd4562a8d668420c70a8ad?wsSecret=b91487cb45400ea7c626cdeb143d3ada&wsTime=1465720807';
+  var myPublisher = new nePublisher('my-publisher', url, { /*videoOptions*/ }, { /*flashOptions*/},
+    function() { //初始化成功的回调函数
+      var cameraArray = this.getCameraList(),//获得摄像头列表 返回字符串数组
+          miciroPhoneArray = this.getMicroPhoneList();//获得麦克风列表 返回字符串数组
+      myPublisher.startPreview();
+    }, 
+    function(code, desc) {
+        /*
+            判断是否有错误代码传入检查初始化时是否发生错误
+            若有错误可进行相应的错误提示
+        */   
+    });
+
+  $("#start").click(function() {
+    myPublisher.startPublish();
+  });
+  $("#stop").click(function() {
+    myPublisher.stopPreview();
+    myPublisher.stopPublish();
+  });
+</script>

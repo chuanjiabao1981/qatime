@@ -3,10 +3,7 @@
 <%= simple_form_for [:teacher, @course] do |f|%>
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.input :teacher_id %>
     <%= f.input :description, type: :text %>
-    <%= f.input :workstation_id, collection: @workstations %>
-    <%= f.input :price %>
   </div>
 
   <div class="form-actions">

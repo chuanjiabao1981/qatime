@@ -1,29 +1,52 @@
-<h1><%= @course.name %> 详情</h1>
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <span style="padding-left:10px" class="qa_f18">
+      <%= link_to LiveStudio::Course.model_name.human, live_studio.manager_courses_path %> &gt;
+      <strong><%= @course.name %></strong>
+    </span>
+    <div class="pull-right">
+      <% if allow? "live_studio/manager/courses", "edit", @course %>
+        <%=link_to edit_manager_course_path(@course) do %>
+          <button type="button" class="btn btn-xs btn-success">编辑辅导班</button>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="qa_cell">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:name)%></div>
+      <div class="col-md-9"><%= @course.name %></div>
+    </div>
+  </div>
+  <div class="qa_cell">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:teacher)%></div>
+      <div class="col-md-9"><%= @course.teacher_name %></div>
+    </div>
+  </div>
+  <div class="qa_cell">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:price)%></div>
+      <div class="col-md-9"><%= @course.price %></div>
+    </div>
+  </div>
+  <div class="qa_cell">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:description)%></div>
+      <div class="col-md-9"><%= @course.description %></div>
+    </div>
+  </div>
+  <div class="qa_cell">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:status)%></div>
+      <div class="col-md-9"><%= @course.status %></div>
+    </div>
+  </div>
+</div>
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @course.name %>
-</p>
 
-<p>
-  <strong>Teacher:</strong>
-  <%= @course.teacher.name %>
-</p>
 
-<p>
-  <strong>Workstation:</strong>
-  <%= @course.workstation.name %>
-</p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @course.description %>
-</p>
-
-<p>
-  <strong>Price:</strong>
-  <%= @course.price %>
-</p>
-
-<%= link_to 'Edit', edit_manager_course_path(@course) %> |
-<%= link_to 'Back', manager_courses_path %>

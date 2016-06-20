@@ -2,28 +2,28 @@
   <div class="qa_big_cell">
     <div>
       <h2> <%= LiveStudio::Course.model_name.human %>
+        <%=link_to courses_path do %>
+          <button type="button" class="btn btn-xs btn-success">搜索<%= LiveStudio::Course.model_name.human %></button>
+        <% end %>
       </h2>
     </div>
   </div>
 
   <div>
+
     <% @courses.each do |course| -%>
-    <div class="row qa_big_cell">
-      <div class="col-md-1">
-        <%= 1 %>
+      <div class="row qa_big_cell">
+        <div class="col-md-2">
+          <%= link_to course.name, [:student, course] %>
+        </div>
+        <div class="col-md-2">
+          <%= course.teacher_name %>
+        </div>
+        <div class="col-md-4">
+          <%= course.short_description %>
+        </div>
       </div>
-      <div class="col-md-2">
-        <%= course.name%>
-      </div>
-      <div class="col-md-2">
-        <%= course.name %>
-      </div>
-      <div class="col-md-2">
-      </div>
-      <div class="col-md-2">
-        <%=link_to '编辑', edit_teacher_course_path(course)%>
-      </div>
-    </div>
     <% end -%>
+
   </div>
 </div>

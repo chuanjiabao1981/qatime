@@ -1,11 +1,15 @@
 module LiveStudio
   class Course < ActiveRecord::Base
     enum status: {
-           init: 0, # 初始化
-           preview: 1, # 招生中
-           teaching: 2, # 已开课
-           completed: 3 # 已结束
-         }
+      init: 0, # 初始化
+      preview: 1, # 招生中
+      teaching: 2, # 已开课
+      completed: 3 # 已结束
+    }
+
+    validates :name, presence: true
+
+    validates :workstation, :teacher, presence: true
 
     belongs_to :teacher, class_name: '::Teacher'
     belongs_to :workstation
@@ -18,6 +22,8 @@ module LiveStudio
 
     has_many :channels
     has_many :streams, through: :channel
+
+    scope :for_sell, -> { where(status: [Course.statuses[:preview], Course.statuses[:teaching]]) }
 
     # teacher's name. return blank when teacher is missiong
     def teacher_name
@@ -46,7 +52,15 @@ module LiveStudio
     # 是否可购买
     def can_buy?(user)
       return false if !for_sell? || !user.student?
-      user.live_studio_tickets.map(&:course_id).include?(id)
+      # 好奇怪的语法
+      # 由于User没有设置单表集成, user无法自动生成合适类型
+      # 可能会造成 n + 1查询
+      ::Student.find(user.id).live_studio_tickets.map(&:course_id).include?(id)
+      # !user.live_studio_tickets.map(&:course_id).include?(id)
+    end
+
+    def short_description(len=20)
+      description.truncate(len)
     end
 
     private

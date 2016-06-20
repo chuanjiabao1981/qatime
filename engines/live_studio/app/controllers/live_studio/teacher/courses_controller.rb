@@ -19,7 +19,7 @@ module LiveStudio
     # PATCH/PUT /teacher/courses/1
     def update
       if @course.update(teacher_course_params)
-        redirect_to [:teacher, @course], notice: 'Course was successfully updated.'
+        redirect_to [:teacher, @course], notice: i18n_notice('updated', @course)
       else
         render :edit
       end

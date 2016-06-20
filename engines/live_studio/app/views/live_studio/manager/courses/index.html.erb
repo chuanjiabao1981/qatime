@@ -28,7 +28,7 @@
         <%=link_to '编辑', edit_manager_course_path(course)%>
       </div>
       <div class="col-md-1">
-        <%=link_to '删除', manager_course_path(course), method: :delete, 'data-confirm' => 'Are you sure?'%>
+        <%=link_to '删除', manager_course_path(course), method: :delete, 'data-confirm' => t('activerecord.view.message.confirm')%>
       </div>
     </div>
   <% end -%>

@@ -2,7 +2,11 @@ cn:
   activerecord:
     models:
       action_record: 全部活动
+    view:
+      message:
+        confirm: '确认操作'
     successful:
       messages:
         created: "%{model}已创建"
         updated: "%{model}已更新"
+        destroyed: "%{model}已删除"

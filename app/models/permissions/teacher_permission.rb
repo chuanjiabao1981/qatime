@@ -215,6 +215,7 @@ module Permissions
 
       ## begin live studio permission
       allow 'live_studio/teacher/courses', [:index, :show, :edit, :update]
+      allow 'live_studio/teacher/lessons', [:index, :show, :new, :create, :edit, :update, :destroy]
       ## end live studio permission
     end
 private

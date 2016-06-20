@@ -10,6 +10,8 @@ LiveStudio::Engine.routes.draw do
     member do
       get 'taste' # 试听
     end
+
+    resources :lessons, only: [:show]
   end
 
   namespace :manager do
@@ -17,7 +19,9 @@ LiveStudio::Engine.routes.draw do
   end
 
   namespace :teacher do
-    resources :courses, only: [:index, :show, :edit, :update]
+    resources :courses, only: [:index, :show, :edit, :update] do
+      resources :lessons
+    end
   end
 
   namespace :student do

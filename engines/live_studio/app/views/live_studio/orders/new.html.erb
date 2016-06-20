@@ -1,6 +1,8 @@
 <div class="qa_box">
   <div class="qa_big_cell">
-    <h2>购买<%= LiveStudio::Course.model_name.human %></h2>
+    <h2>
+      <%= "#{t('activerecord.view.buy')}#{LiveStudio::Course.model_name.human}" %>
+    </h2>
   </div>
   <div class="qa_big_cell">
     <%= simple_form_for [:course, @order] do |f|%>

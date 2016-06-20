@@ -28,7 +28,7 @@ module LiveStudio
       @course = @current_user.live_studio_courses.new(course_params)
 
       if @course.save
-        redirect_to [:manager, @course], notice: 'Course was successfully created.'
+        redirect_to [:manager, @course], notice: i18n_notice('created', @course)
       else
         @workstations = workstations
         render :new
@@ -38,7 +38,7 @@ module LiveStudio
     # PATCH/PUT /manager/courses/1
     def update
       if @course.update(manager_course_params)
-        redirect_to [:manager, @course], notice: 'Course was successfully updated.'
+        redirect_to [:manager, @course], notice: i18n_notice('updated', @course)
       else
         render :edit
       end
@@ -47,7 +47,7 @@ module LiveStudio
     # DELETE /manager/courses/1
     def destroy
       @course.destroy
-      redirect_to manager_courses_url, notice: 'Course was successfully destroyed.'
+      redirect_to manager_courses_url, notice: i18n_notice('destroyed', @course)
     end
 
     private

@@ -66,7 +66,7 @@ class Order < ActiveRecord::Base
   class << self
     # i18n PAY_TYPE
     def pay_types
-      PAY_TYPE.map{|k,v| [I18n.t(k), v]}
+      PAY_TYPE.map{|k,v| [I18n.t("activerecord.view.#{k}"), v]}
     end
   end
 end

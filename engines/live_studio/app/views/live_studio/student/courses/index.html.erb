@@ -3,7 +3,9 @@
     <div>
       <h2> <%= LiveStudio::Course.model_name.human %>
         <%=link_to courses_path do %>
-          <button type="button" class="btn btn-xs btn-success">搜索<%= LiveStudio::Course.model_name.human %></button>
+          <button type="button" class="btn btn-xs btn-success">
+            <%= t("activerecord.view.search") %><%= LiveStudio::Course.model_name.human %>
+          </button>
         <% end %>
       </h2>
     </div>

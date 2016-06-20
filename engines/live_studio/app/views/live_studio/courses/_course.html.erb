@@ -11,6 +11,6 @@
   <div class="col-md-2">
   </div>
   <div class="col-md-2">
-    <%= link_to '立即购买', new_course_order_path(course), id: "buy-course-#{course.id}" if course.can_buy?(current_user) %>
+    <%= link_to t("activerecord.view.buy_now"), new_course_order_path(course), id: "buy-course-#{course.id}" if course.can_buy?(current_user) %>
   </div>
 </div>

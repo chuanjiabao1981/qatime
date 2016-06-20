@@ -7,7 +7,9 @@
     <div class="pull-right">
       <% if allow? "live_studio/manager/courses", "edit", @course %>
         <%=link_to edit_manager_course_path(@course) do %>
-          <button type="button" class="btn btn-xs btn-success">编辑辅导班</button>
+          <button type="button" class="btn btn-xs btn-success">
+            <%= t("activerecord.view.edit") %><%= @course.class.model_name %>
+          </button>
         <% end %>
       <% end %>
     </div>

@@ -1,4 +1,4 @@
-<h1><%= @course.name %> 详情</h1>
+<h1><%= @course.name %> <%= t('activerecord.view.info') %></h1>
 
 <p>
   <strong>Name:</strong>
@@ -25,5 +25,5 @@
   <%= @course.price %>
 </p>
 
-<%= link_to 'Edit', edit_teacher_course_path(@course) %> |
-<%= link_to 'Back', teacher_courses_path %>
+<%= link_to t('activerecord.view.edit'), edit_teacher_course_path(@course) %> |
+<%= link_to t('activerecord.view.back'), teacher_courses_path %>

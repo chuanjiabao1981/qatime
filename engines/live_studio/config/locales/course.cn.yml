@@ -13,9 +13,9 @@ cn:
         pay_type: 支付方式
       live_studio/course:
         name: 名称
-        teacher_id: 辅导老师
+        teacher: 辅导老师
         description: 说明
-        workstation_id: 工作站
+        workstation: 工作站
         price: 价格
       course_library/course:
         title: 标题

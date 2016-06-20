@@ -1,6 +1,8 @@
-<h1>Editing Order</h1>
+<h1>
+  <%= t("activerecord.view.edit") %><%= @order.class.model_name.human %>
+</h1>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @order %> |
-<%= link_to 'Back', orders_path %>
+<%= link_to t('activerecord.view.select'), @order %> |
+<%= link_to t('activerecord.view.back'), orders_path %>

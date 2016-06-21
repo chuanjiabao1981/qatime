@@ -473,10 +473,9 @@ ActiveRecord::Schema.define(version: 20160621011745) do
     t.integer  "course_id"
     t.integer  "student_id"
     t.integer  "lesson_id"
-    t.integer  "state",      limit: 2, default: 0
     t.string   "type"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "live_studio_tickets", ["course_id"], name: "index_live_studio_tickets_on_course_id", using: :btree

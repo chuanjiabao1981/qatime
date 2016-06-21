@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160616005852) do
+ActiveRecord::Schema.define(version: 20160620104749) do
 
   create_table "live_studio_channels", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -25,18 +25,32 @@ ActiveRecord::Schema.define(version: 20160616005852) do
   add_index "live_studio_channels", ["course_id"], name: "index_live_studio_channels_on_course_id"
 
   create_table "live_studio_courses", force: :cascade do |t|
-    t.string   "name",           limit: 100,                                     null: false
+    t.string   "name",           limit: 100,                                       null: false
     t.integer  "teacher_id"
-    t.integer  "workstation_id",                                                 null: false
+    t.integer  "workstation_id",                                                   null: false
     t.integer  "status",                                             default: 0
     t.text     "description"
-    t.decimal  "price",                      precision: 6, scale: 2
-    t.datetime "created_at",                                                     null: false
-    t.datetime "updated_at",                                                     null: false
+    t.decimal  "price",                      precision: 6, scale: 2, default: 0.0
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
   end
 
   add_index "live_studio_courses", ["teacher_id"], name: "index_live_studio_courses_on_teacher_id"
   add_index "live_studio_courses", ["workstation_id"], name: "index_live_studio_courses_on_workstation_id"
+
+  create_table "live_studio_lessons", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "course_id"
+    t.string   "description"
+    t.integer  "state"
+    t.string   "start_time"
+    t.string   "end_time"
+    t.date     "class_date"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "live_studio_lessons", ["course_id"], name: "index_live_studio_lessons_on_course_id"
 
   create_table "live_studio_streams", force: :cascade do |t|
     t.string   "protocol",   limit: 20

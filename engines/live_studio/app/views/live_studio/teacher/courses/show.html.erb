@@ -1,29 +1,87 @@
-<h1><%= @course.name %> <%= t('activerecord.view.info') %></h1>
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <span style="padding-left:10px" class="qa_f18">
+      <%= link_to LiveStudio::Course.model_name.human, live_studio.teacher_courses_path %> &gt;
+      <strong><%= @course.name %></strong>
+    </span>
+    <div class="pull-right">
+      <% if allow? "live_studio/manager/courses", "edit", @course %>
+        <%=link_to edit_manager_course_path(@course) do %>
+          <button type="button" class="btn btn-xs btn-success">
+            <%= t("activerecord.view.edit") %><%= @course.class.model_name %>
+          </button>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+  <div class="qa_cell">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:name)%></div>
+      <div class="col-md-9"><%= @course.name %></div>
+    </div>
+  </div>
+  <div class="qa_cell">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:teacher)%></div>
+      <div class="col-md-9"><%= @course.teacher_name %></div>
+    </div>
+  </div>
+  <div class="qa_cell">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:price)%></div>
+      <div class="col-md-9"><%= @course.price %></div>
+    </div>
+  </div>
+  <div class="qa_cell">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:description)%></div>
+      <div class="col-md-9"><%= @course.description %></div>
+    </div>
+  </div>
+  <div class="qa_cell">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:status)%></div>
+      <div class="col-md-9"><%= @course.status %></div>
+    </div>
+  </div>
+</div>
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @course.name %>
-</p>
 
-<p>
-  <strong>Teacher:</strong>
-  <%= @course.teacher.name %>
-</p>
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <span style="padding-left:10px" class="qa_f18">
+      <strong>课程列表</strong>
+      <%=link_to new_teacher_course_lesson_path(@course) do %>
+        <button type="button" class="btn btn-xs btn-success">
+          <%= t("activerecord.view.create") %><%= LiveStudio::Lesson.model_name.human %>
+        </button>
+      <% end %>
+    </span>
+  </div>
 
-<p>
-  <strong>Workstation:</strong>
-  <%= @course.workstation.name %>
-</p>
+  <div>
+    <% @course.lessons.each do |lesson| -%>
+    <div class="row qa_big_cell">
+      <div class="col-md-1">
+      </div>
+      <div class="col-md-2">
+        <%= lesson.name%>
+      </div>
+      <div class="col-md-2">
+        <%= lesson.name %>
+      </div>
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-2">
+      </div>
+    </div>
+    <% end -%>
+  </div>
+</div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @course.description %>
-</p>
 
-<p>
-  <strong>Price:</strong>
-  <%= @course.price %>
-</p>
 
-<%= link_to t('activerecord.view.edit'), edit_teacher_course_path(@course) %> |
-<%= link_to t('activerecord.view.back'), teacher_courses_path %>
+

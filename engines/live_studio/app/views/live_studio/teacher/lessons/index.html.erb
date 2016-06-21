@@ -23,8 +23,11 @@
         <td><%= teacher_lesson.end_time %></td>
         <td><%= teacher_lesson.class_date %></td>
         <td><%= link_to 'Show', teacher_lesson %></td>
-        <td><%= link_to 'Edit', edit_teacher_lesson_path(teacher_lesson) %></td>
-        <td><%= link_to 'Destroy', teacher_lesson, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Edit', edit_teacher_course_lesson_path(params[:course_id], teacher_lesson) %></td>
+        <td>
+          <%= link_to 'Destroy', teacher_course_lesson_path(params[:course_id], teacher_lesson),
+                        method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -32,4 +35,4 @@
 
 <br>
 
-<%= link_to 'New Lesson', new_teacher_lesson_path %>
+<%= link_to 'New Lesson', new_teacher_course_lesson_path(params[:course_id]) %>

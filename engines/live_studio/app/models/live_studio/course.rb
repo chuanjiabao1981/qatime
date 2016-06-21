@@ -35,6 +35,10 @@ module LiveStudio
       { total_money: price, product: self }
     end
 
+    def status_text
+      I18n.t("status.#{status}")
+    end
+
     def init_channel
       return unless channels.blank?
       channels.create(name: "#{name} - 直播室 - #{id}", course_id: id)

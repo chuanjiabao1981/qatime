@@ -23,5 +23,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'acts_as_list'
   s.add_dependency 'virtus'
 
+  s.add_dependency 'typhoeus'
+
   s.add_development_dependency "sqlite3"
 end

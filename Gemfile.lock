@@ -18,6 +18,7 @@ PATH
       rails (~> 4.2.5)
       responders (~> 2.0)
       simple_form
+      typhoeus
       virtus
 
 PATH

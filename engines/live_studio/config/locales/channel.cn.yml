@@ -1,0 +1,7 @@
+cn:
+  activerecord:
+    models:
+      live_studio/channel: 直播频道
+    attributes:
+      live_studio/channel:
+        name: 频道名称

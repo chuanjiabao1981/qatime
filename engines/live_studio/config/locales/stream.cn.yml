@@ -1,0 +1,8 @@
+cn:
+  activerecord:
+    models:
+      live_studio/stream: 直播流
+    attributes:
+      live_studio/stream:
+        address_push_url: 推流地址
+        address_rtmp_pull_url: rtmp拉流地址

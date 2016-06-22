@@ -21,6 +21,9 @@ LiveStudio::Engine.routes.draw do
   namespace :teacher do
     resources :courses, only: [:index, :show, :edit, :update] do
       resources :lessons
+      member do
+        patch :sync_channel_streams
+      end
     end
   end
 

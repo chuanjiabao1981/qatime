@@ -65,9 +65,9 @@
           <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Channel.human_attribute_name(:name) %></div>
           <div class="col-md-9">
             <%= channel.name %>
-              <% if channel_streams_count == 0 %>
+              <%=link_to sync_channel_streams_teacher_course_path(@course, channel_id: channel.id),  method: :patch do %>
                 <button type="button" class="btn btn-xs btn-success">
-                  同步视频流
+                  创建/同步视频流
                 </button>
               <% end %>
           </div>

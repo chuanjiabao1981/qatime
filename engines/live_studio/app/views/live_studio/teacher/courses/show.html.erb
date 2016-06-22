@@ -8,7 +8,7 @@
       <% if allow? "live_studio/manager/courses", "edit", @course %>
         <%=link_to edit_manager_course_path(@course) do %>
           <button type="button" class="btn btn-xs btn-success">
-            <%= t("activerecord.view.edit") %><%= @course.class.model_name %>
+            <%= t("activerecord.view.edit") %><%= @course.class.model_name.human %>
           </button>
         <% end %>
       <% end %>
@@ -41,7 +41,7 @@
   <div class="qa_cell">
     <div class="row">
       <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:status)%></div>
-      <div class="col-md-9"><%= @course.status %></div>
+      <div class="col-md-9"><%= @course.status_text %></div>
     </div>
   </div>
 </div>
@@ -105,21 +105,31 @@
   </div>
 
   <div>
-    <% @course.lessons.each do |lesson| -%>
     <div class="row qa_big_cell">
-      <div class="col-md-1">
+    <% %w(name se_time date operate).each do |col| %>
+        <div class="col-md-2">
+          <%= t("activerecord.view.#{col}") %>
+        </div>
+    <% end %>
+     </div>
+    <% @course.lessons.each do |lesson| -%>
+      <div class="row qa_big_cell">
+        <div class="col-md-2">
+          <%= lesson.name %>
+        </div>
+        <div class="col-md-2">
+          <%= lesson.start_time%> - <%= lesson.end_time%>
+        </div>
+        <div class="col-md-2">
+          <%= lesson.class_date %>
+        </div>
+        <div class="col-md-2">
+          <%= link_to t('activerecord.view.edit'), edit_teacher_course_lesson_path(@course, lesson) %>
+          <%= link_to t("activerecord.view.delete"), teacher_course_lesson_path(@course, lesson), method: :delete,
+                     'data-confirm' => t('activerecord.view.message.confirm') %>
+
+        </div>
       </div>
-      <div class="col-md-2">
-        <%= lesson.name%>
-      </div>
-      <div class="col-md-2">
-        <%= lesson.name %>
-      </div>
-      <div class="col-md-2">
-      </div>
-      <div class="col-md-2">
-      </div>
-    </div>
     <% end -%>
   </div>
 </div>

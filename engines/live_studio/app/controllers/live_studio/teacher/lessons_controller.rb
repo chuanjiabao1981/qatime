@@ -1,13 +1,13 @@
-require_dependency "live_studio/application_controller"
+#require_dependency "live_studio/application_controller"
 
 module LiveStudio
-  class Teacher::LessonsController < ApplicationController
+  class Teacher::LessonsController < Teacher::BaseController
     before_action :set_course
     before_action :set_teacher_lesson, only: [:show, :edit, :update, :destroy]
 
     # GET /teacher/lessons
     def index
-      @teacher_lessons = Teacher::Lesson.all
+      @teacher_lessons = LiveStudio::Lesson.all
     end
 
     # GET /teacher/lessons/1
@@ -16,7 +16,7 @@ module LiveStudio
 
     # GET /teacher/lessons/new
     def new
-      @teacher_lesson = Teacher::Lesson.new
+      @teacher_lesson = Lesson.new
     end
 
     # GET /teacher/lessons/1/edit
@@ -25,10 +25,10 @@ module LiveStudio
 
     # POST /teacher/lessons
     def create
-      @teacher_lesson = Teacher::Lesson.new(teacher_lesson_params)
+      @teacher_lesson = LiveStudio::Lesson.new(teacher_lesson_params)
 
       if @teacher_lesson.save
-        redirect_to @teacher_lesson, notice: 'Lesson was successfully created.'
+        redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('created', @teacher_lesson)
       else
         render :new
       end
@@ -37,7 +37,7 @@ module LiveStudio
     # PATCH/PUT /teacher/lessons/1
     def update
       if @teacher_lesson.update(teacher_lesson_params)
-        redirect_to @teacher_lesson, notice: 'Lesson was successfully updated.'
+        redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('updated', @teacher_lesson)
       else
         render :edit
       end
@@ -46,10 +46,16 @@ module LiveStudio
     # DELETE /teacher/lessons/1
     def destroy
       @teacher_lesson.destroy
-      redirect_to teacher_lessons_url, notice: 'Lesson was successfully destroyed.'
+      redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('destroyed', @teacher_lesson)
     end
 
+
     private
+
+    def set_teacher_lesson
+      @teacher_lesson = Lesson.find_by(id: params[:id])
+    end
+
     def set_course
       @course = Course.find(params[:course_id])
     end
@@ -60,8 +66,8 @@ module LiveStudio
     end
 
     # Only allow a trusted parameter "white list" through.
-    def lesson_params
-      params.require(:lesson).permit(:name, :description, :start_time, :end_time, :class_date)
+    def teacher_lesson_params
+      params.require(:lesson).permit(:name, :description, :start_time, :end_time, :class_date).merge(course_id: params[:course_id])
     end
   end
 end

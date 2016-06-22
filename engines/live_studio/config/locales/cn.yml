@@ -1,0 +1,85 @@
+cn:
+  status:
+    init: 初始化
+    preview: 招生中
+    teaching: 已开课
+    completed: 已结束
+  activerecord:
+    models:
+      order: 订单
+      course_library/course: 大纲课程
+      live_studio/course: 辅导班
+      live_studio/lesson: 课程
+    attributes:
+      live_studio/lesson:
+        name: 课程名称
+        description: 课程简介
+        start_time: 开始时间
+        end_time: 结束时间
+        class_date: 课程日期
+        state_event: 是否通过审核
+      order:
+        name: 辅导班
+        teacher: 辅导老师
+        price: 价格
+        description: 说明
+        pay_type: 支付方式
+      live_studio/course:
+        name: 名称
+        teacher: 辅导老师
+        description: 说明
+        workstation: 工作站
+        price: 价格
+        status: 状态
+      course_library/course:
+        title: 标题
+        description: 简介
+        qa_files: 文件
+        available_customized_course_ids: 可使用此大纲课程的专属课程
+        customized_tutorials: 使用此大纲课程的专属课程
+    view:
+      category: 类型
+      teacher: 辅导老师
+      subject: 科目
+      alipay: 支付宝
+      buy: 购买
+      buy_now: 立即购买
+      search: 搜索
+      edit: 编辑
+      create: 创建
+      delete: 删除
+      select: 查看
+      info: 详情
+      manage: 管理
+      pay_now: 立即支付
+      back: 返回
+      list: 列表
+      name: 名称
+      se_time: 起止时间
+      date: 日期
+      operate: 操作
+      message:
+        confirm: 确认操作
+      course_library/course:
+        publish_success: 课程发布成功
+        un_publish_success: 成功撤销大纲课程的发布
+        un_publish_fail: 未能撤销大纲课程的发布，因为专属课程已计费
+        un_publish: 撤销
+        un_publish_warn: 撤销后将会再专属课程中删除此课程，您确定要撤销吗？
+        publish: 发布到专属课程
+        publish_time: 发布时间
+        sync_success: 成功完成大纲课程和专属课程的同步
+        sync_fail: 未能完成大纲课程和专属可成的同步，因为专属课程已计费
+        sync: 同步
+        no_customized_course_available: 没有可使用此大纲课程的专属课程
+        is_same: 是否一致
+        operation: 操作
+    successful:
+      messages:
+        created: "%{model}已创建"
+        updated: "%{model}已更新"
+        destroyed: "%{model}已删除"
+
+
+
+

@@ -84,10 +84,10 @@ module LiveStudio
       streams1 = channel.streams.first
       streams2 = channel.streams.last
 
-      assert_equal("bfca60cef2eb464fbf0f05c3fafacef1", channel.remote_id, 'error')
+      assert_equal("bfca60cef2eb464fbf0f05c3fafacef1", channel.remote_id, '频道remote_id不正确')
 
-      assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044b", streams1.address, 'error')
-      assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044e", streams2.address, 'error')
+      assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044b", streams1.address, '推流地址不正确')
+      assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044e", streams2.address, 'rtmp拉流地址不正确')
     end
 
     test "sync channel streams for course" do
@@ -110,10 +110,10 @@ module LiveStudio
 
       streams1 = channel.streams.first
       streams2 = channel.streams.last
-      assert_equal("bfca60cef2eb464fbf0f05c3fafacef2", channel.remote_id, 'error')
+      assert_equal("bfca60cef2eb464fbf0f05c3fafacef2", channel.remote_id, '频道remote_id不正确')
 
-      assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044bb", streams1.address, 'error')
-      assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044ee", streams2.address, 'error')
+      assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044bb", streams1.address, '推流地址不正确')
+      assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044ee", streams2.address, 'rtmp拉流地址不正确')
       end
   end
 end

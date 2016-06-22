@@ -6,6 +6,41 @@ module LiveStudio
     #   assert true
     # end
 
+    setup do
+      @create_response_body1 = {
+        "code": 200,
+        "msg": '',
+        "ret": {
+          "cid": "bfca60cef2eb464fbf0f05c3fafacef1",
+          "ctime": "rtmp://p2e95df8c.live.126.net/live/19419193f30441a",
+          "pushUrl": "rtmp://p2e95df8c.live.126.net/live/19419193f3044b",
+          "httpPullUrl": "rtmp://p2e95df8c.live.126.net/live/19419193f3044c",
+          "hlsPullUrl": "rtmp://p2e95df8c.live.126.net/live/19419193f3044d",
+          "rtmpPullUrl": "rtmp://p2e95df8c.live.126.net/live/19419193f3044e"
+        }
+      }.to_json
+
+      @create_response_body2 = {
+        "code": 200,
+        "msg": '',
+        "ret": {
+          "cid": "bfca60cef2eb464fbf0f05c3fafacef2",
+          "ctime": "rtmp://p2e95df8c.live.126.net/live/19419193f30441aa",
+          "pushUrl": "rtmp://p2e95df8c.live.126.net/live/19419193f3044bb",
+          "httpPullUrl": "rtmp://p2e95df8c.live.126.net/live/19419193f3044cv",
+          "hlsPullUrl": "rtmp://p2e95df8c.live.126.net/live/19419193f3044dd",
+          "rtmpPullUrl": "rtmp://p2e95df8c.live.126.net/live/19419193f3044ee"
+        }
+      }.to_json
+
+      @delete_response_body = {
+        "code": 200,
+        "msg": "",
+        "ret": {}
+      }.to_json
+
+    end
+
     test "course must has a teacher name or blank" do
       teacher = Teacher.find(users(:teacher1).id)
       course = live_studio_courses(:course_one)
@@ -36,5 +71,49 @@ module LiveStudio
         course.init_channel
       end
     end
+
+    test "create channel streams for course" do
+      course = live_studio_courses(:course_without_channel)
+
+      response = Typhoeus::Response.new(code: 200, body: @create_response_body1)
+      Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)
+      Typhoeus.get("https://vcloud.163.com/app/channel/create") == response
+
+      channel = course.init_channel
+
+      streams1 = channel.streams.first
+      streams2 = channel.streams.last
+
+      assert_equal("bfca60cef2eb464fbf0f05c3fafacef1", channel.remote_id, 'error')
+
+      assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044b", streams1.address, 'error')
+      assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044e", streams2.address, 'error')
+    end
+
+    test "sync channel streams for course" do
+      course = live_studio_courses(:course_without_channel)
+
+      response = Typhoeus::Response.new(code: 200, body: @create_response_body1)
+      Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)
+      Typhoeus.get("https://vcloud.163.com/app/channel/create") == response
+
+      channel = course.init_channel
+      response = Typhoeus::Response.new(code: 200, body: @delete_response_body)
+      Typhoeus.stub('https://vcloud.163.com/app/channel/delete').and_return(response)
+      Typhoeus.get("https://vcloud.163.com/app/channel/delete") == response
+
+      response = Typhoeus::Response.new(code: 200, body: @create_response_body2)
+      Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)
+      Typhoeus.get("https://vcloud.163.com/app/channel/create") == response
+
+      channel.sync_streams
+
+      streams1 = channel.streams.first
+      streams2 = channel.streams.last
+      assert_equal("bfca60cef2eb464fbf0f05c3fafacef2", channel.remote_id, 'error')
+
+      assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044bb", streams1.address, 'error')
+      assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044ee", streams2.address, 'error')
+      end
   end
 end

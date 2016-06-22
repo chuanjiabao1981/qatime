@@ -8,8 +8,8 @@ module LiveStudio
     after_create :create_remote_channel
 
     def create_remote_channel
-      app_key = "4777a817079249d8bbe660bd912a4285"
-      app_secret = "640d551c3dd64ab88de5b63ff7b5fa6d"
+      app_key = VCLOUD_CONFIG['AppKey']
+      app_secret = VCLOUD_CONFIG['AppSecret']
       nonce = SecureRandom.hex 32
       cur_time = Time.now.utc.to_i.to_s
 

@@ -11,6 +11,7 @@ APP_GROUP  = YAML.load(File.read(File.expand_path('../group.yml',__FILE__)))
 #APP_GROUP.symbolize_keys!
 APP_CONSTANT   = YAML.load(File.read(File.expand_path('../constant.yml',__FILE__)))
 WECHAT_CONFIG = YAML.load(File.read(File.expand_path('../wechat.yml', __FILE__)))[Rails.env]
+VCLOUD_CONFIG = YAML.load(File.read(File.expand_path('../vcloud.yml', __FILE__)))
 module Qatime
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

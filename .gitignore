@@ -20,7 +20,7 @@
 /config/application.yml
 /config/database.yml
 /config/wechat.yml
-
+/config/vcloud.yml
 
 *.sqlite3
 *.log

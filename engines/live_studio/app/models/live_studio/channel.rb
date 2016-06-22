@@ -41,7 +41,6 @@ module LiveStudio
             )
 
       res = JSON.parse(res.body).symbolize_keys
-      p res
       if res[:code] == 200
         _res = res[:ret].symbolize_keys
         streams.create([
@@ -61,7 +60,6 @@ module LiveStudio
     def delete_remote_channel
       return streams.destroy_all unless remote_id.present?
       set_remote_channel_request_params
-
       res = ::Typhoeus.post(
               "https://vcloud.163.com/app/channel/delete",
               headers: {
@@ -78,11 +76,10 @@ module LiveStudio
               }.to_json
             )
 
-      _res = JSON.parse(res.body).symbolize_keys
-      p _res
-      if _res[:code] == 200
+      res = JSON.parse(res.body).symbolize_keys
+
+      if res[:code] == 200
         streams.destroy_all
-        self.update_columns(remote_id: nil)
       else
         errors.add :base, res[:msg]
       end

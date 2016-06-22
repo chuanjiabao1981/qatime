@@ -11,6 +11,7 @@ module LiveStudio
 
     private
     after_create :create_remote_channel
+    after_destroy :delete_remote_channel
 
     def set_remote_channel_request_params
       @app_key = VCLOUD_CONFIG['AppKey']
@@ -19,7 +20,6 @@ module LiveStudio
       @cur_time = Time.now.utc.to_i.to_s
 
       @check_sum = Digest::SHA1.hexdigest(@app_secret + @nonce + @cur_time)
-
     end
 
     def create_remote_channel

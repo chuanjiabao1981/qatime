@@ -1,16 +1,8 @@
-<div class="row qa_big_cell">
-  <div class="col-md-1">
-    <%= course_counter + 1 %>
-  </div>
-  <div class="col-md-2">
-    <%= course.name%>
-  </div>
-  <div class="col-md-2">
-    <%= course.teacher_name %>
-  </div>
-  <div class="col-md-2">
-  </div>
-  <div class="col-md-2">
-    <%= link_to t("activerecord.view.buy_now"), new_course_order_path(course), id: "buy-course-#{course.id}" if course.can_buy?(current_user) %>
-  </div>
-</div>
+<tr>
+  <td><%= course_counter + 1 %></td>
+  <td><%= course.name %></td>
+  <td><%= course.teacher_name %></td>
+  <td><%= course.short_description %></td>
+  <td><%= course.price %></td>
+  <td><%= link_to t("activerecord.view.buy_now"), new_course_order_path(course), id: "buy-course-#{course.id}" if course.can_buy?(current_user) %></td>
+</tr>

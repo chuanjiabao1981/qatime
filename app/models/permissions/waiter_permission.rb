@@ -8,7 +8,7 @@ module Permissions
       allow "managers/home", [:main]
 
       ## begin live studio permission
-      allow 'live_studio/manager/courses', [:index, :show]
+      allow 'live_studio/manager/courses', [:index, :show, :publish]
       ## end live studio permission
     end
   end

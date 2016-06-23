@@ -15,7 +15,11 @@ LiveStudio::Engine.routes.draw do
   end
 
   namespace :manager do
-    resources :courses
+    resources :courses do
+      member do
+        post :publish
+      end
+    end
   end
 
   namespace :teacher do

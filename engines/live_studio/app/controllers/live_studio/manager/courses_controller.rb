@@ -2,7 +2,7 @@ require_dependency "live_studio/manager/base_controller"
 
 module LiveStudio
   class Manager::CoursesController < Manager::BaseController
-    before_action :set_course, only: [:show, :edit, :update, :destroy]
+    before_action :set_course, only: [:show, :edit, :update, :destroy, :publish]
 
     # GET /manager/courses
     def index
@@ -33,6 +33,11 @@ module LiveStudio
         @workstations = workstations
         render :new
       end
+    end
+
+    # 开始招生
+    def publish
+      @course.preview! if @course.init?
     end
 
     # PATCH/PUT /manager/courses/1
@@ -73,7 +78,7 @@ module LiveStudio
     end
 
     def workstations
-      return [current_user.workstation.name, current_user.workstation_id] if current_user.waiter? or current_user.seller?
+      return [[current_user.workstation.name, current_user.workstation_id]] if current_user.waiter? or current_user.seller?
       current_user.workstations.select(:id, :name).map {|w| [w.name, w.id] }
     end
 

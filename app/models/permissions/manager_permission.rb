@@ -86,7 +86,7 @@ module Permissions
       #######end course library permission##################
 
       ## begin live studio permission
-      allow 'live_studio/manager/courses', [:index, :show, :new, :create, :edit, :update, :destroy]
+      allow 'live_studio/manager/courses', [:index, :show, :new, :create, :edit, :update, :destroy, :publish]
       ## end live studio permission
 
     end

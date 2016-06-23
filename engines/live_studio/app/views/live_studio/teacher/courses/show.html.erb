@@ -53,6 +53,48 @@
 <div class="qa_box">
   <div class="qa_big_cell">
     <span style="padding-left:10px" class="qa_f18">
+      <strong>频道推拉流地址列表</strong>
+    </span>
+  </div>
+
+  <div>
+    <% @course.channels.each do |channel| -%>
+      <% channel_streams_count = channel.streams.count %>
+      <div class="qa_cell">
+        <div class="row">
+          <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Channel.human_attribute_name(:name) %></div>
+          <div class="col-md-9">
+            <%= channel.name %>
+              <%=link_to sync_channel_streams_teacher_course_path(@course, channel_id: channel.id),  method: :patch do %>
+                <button type="button" class="btn btn-xs btn-success">
+                  创建/同步视频流
+                </button>
+              <% end %>
+          </div>
+        </div>
+
+        <% if !(channel_streams_count == 0) %>
+        <div class="row">
+          <div class="col-md-2" style="padding-left:60px"><%= LiveStudio::Stream.human_attribute_name(:address_push_url) %></div>
+          <div class="col-md-9"><%= channel.streams.first.address %></div>
+        </div>
+        <div class="row">
+          <div class="col-md-2" style="padding-left:60px"><%= LiveStudio::Stream.human_attribute_name(:address_rtmp_pull_url) %></div>
+          <div class="col-md-9"><%= channel.streams.last.address %></div>
+        </div>
+        <% end %>
+      </div>
+    <% end -%>
+  </div>
+</div>
+</div>
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
+<div class="qa_sep_15"></div>
+
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <span style="padding-left:10px" class="qa_f18">
       <strong>课程列表</strong>
       <%=link_to new_teacher_course_lesson_path(@course) do %>
         <button type="button" class="btn btn-xs btn-success">

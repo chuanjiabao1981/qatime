@@ -1,0 +1,15 @@
+lesson_one:
+  name: 测试课程1
+  course: courses(:course_teach_2)
+  description: 测试描述
+  start_time: 10:20
+  end_time: 05:30
+  class_date: 2016-10-01
+
+lesson_two:
+  name: 测试课程2
+  course: courses(:course_teach_2)
+  description: 测试描述
+  start_time: 10:20
+  end_time: 05:30
+  class_date: 2016-10-01

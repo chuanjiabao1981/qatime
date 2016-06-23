@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @teacher_lesson.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @teacher_lesson.description %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @teacher_lesson.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @teacher_lesson.end_time %>
+</p>
+
+<p>
+  <strong>Class date:</strong>
+  <%= @teacher_lesson.class_date %>
+</p>
+
+<%= link_to 'Edit', edit_teacher_lesson_path(@teacher_lesson) %> |
+<%= link_to 'Back', teacher_lessons_path %>

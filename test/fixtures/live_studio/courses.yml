@@ -55,3 +55,9 @@ course_one_of_teacher_one:
   workstation_id: 1
   price: 100
   status: 2
+
+course_teach_2:
+  name: 上课中的辅导班2
+  teacher: users(:teacher_one)
+  workstation: workstation(:workstation1)
+  status: 2

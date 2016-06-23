@@ -17,6 +17,7 @@ module LiveStudio
     has_many :tickets # 听课证
     has_many :buy_tickets # 普通听课证
     has_many :taste_tickets # 试听证
+    has_many :lessons # 课时
 
     has_many :students, through: :buy_tickets
 
@@ -32,6 +33,10 @@ module LiveStudio
 
     def order_params
       { total_money: price, product: self }
+    end
+
+    def status_text
+      I18n.t("status.#{status}")
     end
 
     def init_channel

@@ -1,0 +1,38 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Teacher Lessons</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Start time</th>
+      <th>End time</th>
+      <th>Class date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teacher_lessons.each do |teacher_lesson| %>
+      <tr>
+        <td><%= teacher_lesson.name %></td>
+        <td><%= teacher_lesson.description %></td>
+        <td><%= teacher_lesson.start_time %></td>
+        <td><%= teacher_lesson.end_time %></td>
+        <td><%= teacher_lesson.class_date %></td>
+        <td><%= link_to 'Show', teacher_lesson %></td>
+        <td><%= link_to 'Edit', edit_teacher_course_lesson_path(params[:course_id], teacher_lesson) %></td>
+        <td>
+          <%= link_to 'Destroy', teacher_course_lesson_path(params[:course_id], teacher_lesson),
+                        method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Lesson', new_teacher_course_lesson_path(params[:course_id]) %>

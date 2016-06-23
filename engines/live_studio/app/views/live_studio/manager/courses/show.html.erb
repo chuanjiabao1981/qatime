@@ -8,7 +8,7 @@
       <% if allow? "live_studio/manager/courses", "edit", @course %>
         <%=link_to edit_manager_course_path(@course) do %>
           <button type="button" class="btn btn-xs btn-success">
-            <%= t("activerecord.view.edit") %><%= @course.class.model_name %>
+            <%= t("activerecord.view.edit") %><%= @course.class.model_name.human %>
           </button>
         <% end %>
       <% end %>
@@ -41,7 +41,7 @@
   <div class="qa_cell">
     <div class="row">
       <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:status)%></div>
-      <div class="col-md-9"><%= @course.status %></div>
+      <div class="col-md-9"><%= @course.status_text %></div>
     </div>
   </div>
 </div>

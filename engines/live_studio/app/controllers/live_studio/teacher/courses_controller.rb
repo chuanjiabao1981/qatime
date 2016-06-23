@@ -8,6 +8,7 @@ module LiveStudio
 
     def index
       @courses = courses_chain.paginate(page: params[:page])
+
     end
 
     def show
@@ -28,7 +29,8 @@ module LiveStudio
     private
 
     def courses_chain
-      @teacher = current_user
+      # current_user可能是manager
+      # @teacher = current_user
       @teacher.live_studio_courses
     end
 

@@ -1,17 +1,22 @@
-<h1>
-  <%= t('activerecord.view.manage') %><%= ::Course.model_name.human %>
-</h1>
-
-<%= simple_form_for [:teacher, @course] do |f|%>
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :description, type: :text %>
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2>
+      <%= t("activerecord.view.edit") %><%= LiveStudio::Course.model_name.human %>
+    </h2>
   </div>
+</div>
 
-  <div class="form-actions">
-    <%= f.button :submit, class: "btn btn-default" %>
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <%= simple_form_for [:teacher, @course] do |f|%>
+      <div class="form-inputs">
+        <%= f.input :name %>
+        <%= f.input :description, type: :text %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, class: "btn btn-default" %>
+      </div>
+    <% end %>
   </div>
-<% end %>
-
-<%= link_to t('activerecord.view.select'), @manager_course %> |
-<%= link_to t('activerecord.view.back'), manager_courses_path %>
+</div>

@@ -2,9 +2,11 @@
 <div class="form-inputs">
   <%= f.input :name %>
   <%= f.input :description, as: :text %>
-  <%= f.input :start_time %>
-  <%= f.input :end_time %>
-  <%= f.input :class_date %>
+  <%= f.input :start_time, as: :select, prompt: "#{t('activerecord.view.pick')}#{LiveStudio::Lesson.human_attribute_name(:start_time)}",
+              collection: (0..23).to_a.map{|i| ["#{i}:00","#{i}:30"]}.flatten %>
+  <%= f.input :end_time, as: :select, prompt: "#{t('activerecord.view.pick')}#{LiveStudio::Lesson.human_attribute_name(:end_time)}",
+              collection: (0..23).to_a.map{|i| ["#{i}:00","#{i}:30"]}.flatten %>
+  <%= f.input :class_date,as: :string, input_html: {type: :date} %>
 </div>
 <div class="form-actions">
   <%= f.button :submit, class: "btn btn-default" %>

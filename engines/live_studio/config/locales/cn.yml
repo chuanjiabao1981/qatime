@@ -58,6 +58,7 @@ cn:
       se_time: 起止时间
       date: 日期
       operate: 操作
+      pick: 选择
       message:
         confirm: 确认操作
       course_library/course:

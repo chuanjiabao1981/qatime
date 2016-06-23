@@ -23,7 +23,7 @@ module LiveStudio
         visit live_studio.new_manager_course_path(@directory)
         fill_in :course_name, with: '测试英语辅导课程'
         fill_in :course_description, with: 'new course description'
-        fill_in :course_teacher_id, with: teacher.id
+        select teacher.name, from: :course_teacher_id
         fill_in :course_price, with: 100.0
         select workstation.name, from: 'course_workstation_id'
         click_on '新增辅导班'
@@ -40,7 +40,7 @@ module LiveStudio
       visit live_studio.edit_manager_course_path(course)
       fill_in :course_name, with: '测试英语辅导课程更新'
       fill_in :course_description, with: 'edit course description'
-      fill_in :course_teacher_id, with: teacher2.id
+      select teacher2.name, from: :course_teacher_id
       fill_in :course_price, with: 80.0
       click_on '更新辅导班'
       course.reload

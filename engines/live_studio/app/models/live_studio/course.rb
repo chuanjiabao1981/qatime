@@ -65,7 +65,7 @@ module LiveStudio
     end
 
     def short_description(len=20)
-      description.truncate(len)
+      description.try(:truncate, len)
     end
 
     def validate_order(order)

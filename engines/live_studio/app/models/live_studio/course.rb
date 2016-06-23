@@ -79,7 +79,8 @@ module LiveStudio
 
     after_create :init_channel_job
     def init_channel_job
-      ChannelCreateJob.perform_later(id)
+      init_channel
+      # ChannelCreateJob.perform_later(id)
     end
   end
 end

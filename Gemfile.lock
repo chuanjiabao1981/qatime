@@ -18,6 +18,7 @@ PATH
       rails (~> 4.2.5)
       responders (~> 2.0)
       simple_form
+      typhoeus
       virtus
 
 PATH
@@ -152,6 +153,8 @@ GEM
       unf (>= 0.0.5, < 1.0.0)
     equalizer (0.0.11)
     erubis (2.7.0)
+    ethon (0.9.0)
+      ffi (>= 1.3.0)
     execjs (2.6.0)
     fancybox2-rails (0.2.8)
       railties (>= 3.1.0, < 5.0)
@@ -327,6 +330,8 @@ GEM
     tilt (1.4.1)
     turbolinks (2.5.3)
       coffee-rails
+    typhoeus (1.0.2)
+      ethon (>= 0.9.0)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uber (0.0.15)
@@ -412,6 +417,7 @@ DEPENDENCIES
   test_after_commit
   therubyracer
   turbolinks
+  typhoeus
   uglifier (>= 1.3.0)
   unicorn
   whenever

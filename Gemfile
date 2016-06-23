@@ -89,6 +89,8 @@ gem 'state_machine'
 # multi select javascript
 gem 'chosen-rails'
 
+# runs HTTP requests
+gem 'typhoeus'
 
 group :development,:test do
   # 状态机做图

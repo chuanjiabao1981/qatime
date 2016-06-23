@@ -1,8 +1,22 @@
 cn:
   activerecord:
     models:
+      order: 订单
       course_library/course: 大纲课程
+      live_studio/course: 辅导班
     attributes:
+      order:
+        name: 辅导班
+        teacher: 辅导老师
+        price: 价格
+        description: 说明
+        pay_type: 支付方式
+      live_studio/course:
+        name: 名称
+        teacher: 辅导老师
+        description: 说明
+        workstation: 工作站
+        price: 价格
       course_library/course:
         title: 标题
         description: 简介

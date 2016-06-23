@@ -199,4 +199,7 @@ cn:
   activerecord:
     errors:
       <<: *errors
+  simple_form:
+    error_notification:
+      default_message: "请检查以下问题"
 

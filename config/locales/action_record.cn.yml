@@ -2,3 +2,27 @@ cn:
   activerecord:
     models:
       action_record: 全部活动
+    view:
+      category: 类型
+      teacher: 辅导老师
+      subject: 科目
+      alipay: 支付宝
+      buy: 购买
+      buy_now: 立即购买
+      search: 搜索
+      edit: 编辑
+      create: 创建
+      delete: 删除
+      select: 查看
+      info: 详情
+      manage: 管理
+      pay_now: 立即支付
+      back: 返回
+      list: 列表
+      message:
+        confirm: 确认操作
+    successful:
+      messages:
+        created: "%{model}已创建"
+        updated: "%{model}已更新"
+        destroyed: "%{model}已删除"

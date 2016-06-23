@@ -12,6 +12,6 @@ Vagrant.configure(2) do |config|
   config.vm.provision 'shell', path: 'bin/provision.sh', privileged: false
 
   config.vm.provider 'virtualbox' do |vb|
-    vb.memory = '4096'
+    vb.memory = '2048'
   end
 end

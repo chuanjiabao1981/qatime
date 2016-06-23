@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Orders</h1>
+<h1><%= "#{Order.model_name.human}#{t('activerecord.view.list')}" %></h1>
 
 <table>
   <thead>
@@ -12,9 +12,12 @@
   <tbody>
     <% @orders.each do |order| %>
       <tr>
-        <td><%= link_to 'Show', order %></td>
-        <td><%= link_to 'Edit', edit_order_path(order) %></td>
-        <td><%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to t('activerecord.view.select'), order %></td>
+        <td><%= link_to t('activerecord.view.edit'), edit_order_path(order) %></td>
+        <td>
+          <%= link_to t('activerecord.view.delete'), order, method: :delete,
+                        data: { confirm: t('activerecord.view.message.confirm') } %>
+        </td>
       </tr>
     <% end %>
   </tbody>
@@ -22,4 +25,4 @@
 
 <br>
 
-<%= link_to 'New Order', new_order_path %>
+<%= link_to "#{t('activerecord.view.create')}#{Order.model_name.human}", new_order_path %>

@@ -24,7 +24,7 @@ module LiveStudio
       @order.user = current_user
 
       if @order.save
-        redirect_to course_order_path(@course, @order), notice: 'Order was successfully created.'
+        redirect_to course_order_path(@course, @order), notice: i18n_notice('created', @order)
       else
         render :new
       end
@@ -33,7 +33,7 @@ module LiveStudio
     # PATCH/PUT /orders/1
     def update
       if @order.update(order_params)
-        redirect_to @order, notice: 'Order was successfully updated.'
+        redirect_to @order, notice: i18n_notice('updated', @order)
       else
         render :edit
       end

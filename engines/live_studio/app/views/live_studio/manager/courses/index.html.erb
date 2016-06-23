@@ -5,7 +5,9 @@
 
         <% unless current_user.waiter? -%>
           <%=link_to new_manager_course_path do %>
-            <button type="button" class="btn btn-xs btn-success">增加<%= LiveStudio::Course.model_name.human %></button>
+            <button type="button" class="btn btn-xs btn-success">
+              <%= t("activerecord.view.create") %><%= LiveStudio::Course.model_name.human %>
+            </button>
           <% end %>
         <% end -%>
       </h2>
@@ -25,10 +27,11 @@
         <%= course.short_description %>
       </div>
       <div class="col-md-1">
-        <%=link_to '编辑', edit_manager_course_path(course)%>
+        <%=link_to t("activerecord.view.edit"), edit_manager_course_path(course)%>
       </div>
       <div class="col-md-1">
-        <%=link_to '删除', manager_course_path(course), method: :delete, 'data-confirm' => 'Are you sure?'%>
+        <%=link_to t("activerecord.view.delete"), manager_course_path(course), method: :delete,
+                   'data-confirm' => t('activerecord.view.message.confirm') %>
       </div>
     </div>
   <% end -%>

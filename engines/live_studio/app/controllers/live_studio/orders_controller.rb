@@ -11,7 +11,7 @@ module LiveStudio
 
     # GET /orders/new
     def new
-      @order = ::Order.new
+      @order = ::Order.new(product: @course)
     end
 
     # GET /orders/1/edit

@@ -42,6 +42,7 @@ cn:
       teacher: 辅导老师
       subject: 科目
       alipay: 支付宝
+      weixin: 微信
       buy: 购买
       buy_now: 立即购买
       search: 搜索

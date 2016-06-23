@@ -1,17 +1,34 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <h2>
-      <%= "#{t('activerecord.view.buy')}#{LiveStudio::Course.model_name.human}" %>
-    </h2>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= "#{t('activerecord.view.buy')}#{LiveStudio::Course.model_name.human}" %></h3>
   </div>
-  <div class="qa_big_cell">
+  <div class="panel-body">
     <%= simple_form_for [:course, @order] do |f|%>
-      <div><%= f.label :name %> <%= @course.name %></div>
-      <div><%= f.label :teacher %> <%= @course.teacher_name %></div>
-      <div><%= f.label :price %> <%= @course.price %></div>
-      <div><%= f.label :description %> <%= @course.name %></div>
-      <div><%= f.input :pay_type, as: :radio_buttons, collection: ::Order.pay_types %> </div>
-      <%= f.button :submit, class: "btn btn-default" %>
+      <div class="order_info">
+        <div>
+          <%= f.label :name %>
+          <span><%= @course.name %></span>
+        </div>
+        <div>
+          <%= f.label :teacher %>
+          <span><%= @course.teacher_name %></span>
+        </div>
+        <div>
+          <%= f.label :price %>
+          <span><%= @course.price %></span>
+        </div>
+        <div>
+          <%= f.label :description %>
+          <span><%= @course.name %></span>
+        </div>
+        <div>
+          <%= f.label :pay_type %>
+          <%= f.input_field :pay_type, as: :radio_buttons, collection: ::Order.pay_types %>
+        </div>
+
+        <br />
+        <%= f.button :submit, class: "btn btn-default" %>
+      </div>
     <% end %>
   </div>
 </div>

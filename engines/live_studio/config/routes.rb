@@ -11,7 +11,11 @@ LiveStudio::Engine.routes.draw do
       get 'taste' # 试听
     end
 
-    resources :lessons, only: [:show]
+    resources :lessons, only: [:show] do
+      member do
+        get :play
+      end
+    end
   end
 
   namespace :manager do

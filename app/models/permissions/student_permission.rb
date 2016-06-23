@@ -146,6 +146,7 @@ module Permissions
 
       ## begin live studio permission
       allow 'live_studio/student/courses', [:index, :show]
+      allow 'live_studio/lessons', [:show, :play]
       ## end live studio permission
 
     end

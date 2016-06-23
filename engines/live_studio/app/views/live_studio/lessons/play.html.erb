@@ -1,0 +1,16 @@
+<% channel = @course.channels.first %>
+<%= channel.name %>
+<link href="http://nos.netease.com/vod163/nep.min.css" rel="stylesheet">
+<script src="http://nos.netease.com/vod163/nep.min.js"></script>
+<video id="my-video" class="video-js" controls "poster"="poster.png" preload="auto" width="640" height="480" data-setup='{}'>
+    <source "src"="MY_VIDEO.mp4" type="video/mp4">
+</video>
+<script>
+var myPlayer = neplayer("my-video", {}, function() {
+});
+myPlayer.setDataSource({
+  type: "rtmp/flv",
+  src: "<%#= channel.streams.last.address %>rtmp://v587def8c.live.126.net/live/f0395a672857497cab05cc7ec7f7850c"
+});
+myPlayer.play();
+</script>

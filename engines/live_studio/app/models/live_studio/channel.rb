@@ -1,6 +1,6 @@
 module LiveStudio
   class Channel < ActiveRecord::Base
-    VCLOUD_HOST = 'https://vcloud.163.com'
+    VCLOUD_HOST = 'https://vcloud.163.com'.freeze
 
     belongs_to :course
     has_many :push_streams, dependent: :destroy
@@ -12,6 +12,7 @@ module LiveStudio
     end
 
     private
+
     after_create :create_remote_channel
     after_destroy :delete_remote_channel
 
@@ -26,8 +27,12 @@ module LiveStudio
       )
       return unless res.success?
       result = JSON.parse(res.body).symbolize_keys[:ret]
-      push_streams.create({address: result[:pushUrl], protocol: 'rtmp'})
-      pull_streams.create({address: result[:rtmpPullUrl], protocol: 'rtmp'})
+      build_streams(result)
+    end
+
+    def build_streams(result)
+      push_streams.create(address: result[:pushUrl], protocol: 'rtmp')
+      pull_streams.create(address: result[:rtmpPullUrl], protocol: 'rtmp')
     end
 
     def delete_remote_channel
@@ -52,7 +57,7 @@ module LiveStudio
         Nonce: VCLOUD_CONFIG['AppSecret'],
         CurTime: cur_time,
         CheckSum: check_sum,
-        'Content-Type'=> "application/json;charset=utf-8"
+        'Content-Type' => 'application/json;charset=utf-8'
       }
     end
   end

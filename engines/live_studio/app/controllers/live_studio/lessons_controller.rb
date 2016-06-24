@@ -10,6 +10,7 @@ module LiveStudio
     end
 
     def play
+      @student.
     end
 
     private

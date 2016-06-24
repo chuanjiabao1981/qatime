@@ -15,6 +15,7 @@ class Student < User
   # 直播
   has_many :live_studio_tickets, class_name: LiveStudio::Ticket
   has_many :live_studio_courses, class_name: LiveStudio::Course, through: :live_studio_tickets, source: :course
+  has_many :live_studio_play_records, class_name: LiveStudio::PlayRecord
 
   validates_presence_of :parent_phone, :on => :create
   validates :parent_phone, length:{is: 11}, :on => :create

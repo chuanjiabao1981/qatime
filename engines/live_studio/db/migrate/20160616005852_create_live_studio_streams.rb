@@ -5,6 +5,7 @@ class CreateLiveStudioStreams < ActiveRecord::Migration
       t.string :address, limit: 255
       t.references :channel, index: true
       t.integer :user_count, default: 0
+      t.string :type, limit: 100
 
       t.timestamps null: false
     end

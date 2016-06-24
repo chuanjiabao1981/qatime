@@ -5,6 +5,8 @@ module LiveStudio
     before_action :set_lession, only: [:show, :play]
 
     def show
+      @course = Course.find(params[:course_id])
+      @lesson = @course.lessons.find(params[:id])
     end
 
     def play

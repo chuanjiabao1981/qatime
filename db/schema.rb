@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160624054931) do
+ActiveRecord::Schema.define(version: 20160624061715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,15 @@ ActiveRecord::Schema.define(version: 20160624054931) do
     t.integer  "comments_count", default: 0
   end
 
+  create_table "cash_accounts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.decimal  "balance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "cash_accounts", ["user_id"], name: "index_cash_accounts_on_user_id", using: :btree
+
   create_table "cash_operation_records", force: :cascade do |t|
     t.integer  "operator_id"
     t.integer  "account_id"
@@ -58,6 +67,21 @@ ActiveRecord::Schema.define(version: 20160624054931) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "cash_records", force: :cascade do |t|
+    t.integer  "cash_account_id"
+    t.decimal  "before",          precision: 10, scale: 2
+    t.decimal  "after",           precision: 10, scale: 2
+    t.decimal  "different",       precision: 10, scale: 2
+    t.integer  "ref_id"
+    t.string   "ref_type"
+    t.string   "remark"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  add_index "cash_records", ["cash_account_id"], name: "index_cash_records_on_cash_account_id", using: :btree
+  add_index "cash_records", ["ref_type", "ref_id"], name: "index_cash_records_on_ref_type_and_ref_id", using: :btree
 
   create_table "cities", force: :cascade do |t|
     t.string   "name"
@@ -861,6 +885,7 @@ ActiveRecord::Schema.define(version: 20160624054931) do
     t.integer  "manager_id"
   end
 
+  add_foreign_key "cash_accounts", "users"
   add_foreign_key "live_studio_cash_accounts", "users"
   add_foreign_key "orders", "users"
 end

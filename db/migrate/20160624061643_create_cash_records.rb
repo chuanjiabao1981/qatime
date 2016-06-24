@@ -1,7 +1,7 @@
-class CreateLiveStudioCashRecords < ActiveRecord::Migration
+class CreateCashRecords < ActiveRecord::Migration
   def change
-    create_table :live_studio_cash_records do |t|
-      t.references :cash_account, index: true
+    create_table :cash_records do |t|
+      t.references :cash_account, index: true, foreign_key: true
       t.decimal :before, precision: 10, scale: 2
       t.decimal :after, precision: 10, scale: 2
       t.decimal :different, precision: 10, scale: 2

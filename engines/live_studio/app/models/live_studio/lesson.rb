@@ -39,6 +39,10 @@ module LiveStudio
       end
     end
 
+    def can_play?
+      ready? or teaching?
+    end
+
     private
 
     # 系统服务费

@@ -6,7 +6,7 @@ module LiveStudio
       @courses = Course.for_sell.includes(:teacher).all
     end
 
-    def teate
+    def taste
     end
   end
 end

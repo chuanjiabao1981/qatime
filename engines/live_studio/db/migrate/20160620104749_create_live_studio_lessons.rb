@@ -8,7 +8,7 @@ class CreateLiveStudioLessons < ActiveRecord::Migration
       t.string :start_time, limit: 6
       t.string :end_time, limit: 6
       t.date :class_date
-      t.integer :pos, limit: 4, default 0
+      t.integer :pos, limit: 4, default: 0
     end
   end
 end

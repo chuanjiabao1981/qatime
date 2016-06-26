@@ -1,6 +1,6 @@
 module LiveStudio
   class Channel < ActiveRecord::Base
-    VCLOUD_HOST = 'https://vcloud.163.com'
+    VCLOUD_HOST = 'https://vcloud.163.com'.freeze
 
     belongs_to :course
     has_many :push_streams, dependent: :destroy
@@ -12,6 +12,7 @@ module LiveStudio
     end
 
     private
+
     after_create :create_remote_channel
     after_destroy :delete_remote_channel
 
@@ -25,9 +26,13 @@ module LiveStudio
         }.to_json
       )
       return unless res.success?
-      result = JSON.parse(res.body).symbolize_keys[:ret]
-      push_streams.create({address: result[:pushUrl], protocol: 'rtmp'})
-      pull_streams.create({address: result[:rtmpPullUrl], protocol: 'rtmp'})
+      result = JSON.parse(res.body).symbolize_keys
+      build_streams(result[:ret]) if result[:code] == 200
+    end
+
+    def build_streams(result)
+      push_streams.create(address: result[:pushUrl], protocol: 'rtmp')
+      pull_streams.create(address: result[:rtmpPullUrl], protocol: 'rtmp')
     end
 
     def delete_remote_channel
@@ -44,15 +49,18 @@ module LiveStudio
     end
 
     def vcloud_headers
+      app_secret = VCLOUD_CONFIG['AppSecret']
       nonce = SecureRandom.hex 32
-      cur_time = Time.now.to_i.to_s
-      check_sum = Digest::SHA1.hexdigest("#{VCLOUD_CONFIG['AppSecret']}#{nonce}#{cur_time}")
+      cur_time = Time.now.utc.to_i.to_s
+
+      check_sum = Digest::SHA1.hexdigest(app_secret + nonce + cur_time)
+
       {
         AppKey: VCLOUD_CONFIG['AppKey'],
-        Nonce: VCLOUD_CONFIG['AppSecret'],
+        Nonce: nonce,
         CurTime: cur_time,
         CheckSum: check_sum,
-        'Content-Type'=> "application/json;charset=utf-8"
+        'Content-Type' => "application/json;charset=utf-8"
       }
     end
   end

@@ -22,7 +22,8 @@ module LiveStudio
     has_many :students, through: :buy_tickets
 
     has_many :channels
-    has_many :streams, through: :channel
+    has_many :push_streams, through: :channel
+    has_many :pull_streams, through: :channel
 
     scope :for_sell, -> { where(status: [Course.statuses[:preview], Course.statuses[:teaching]]) }
 

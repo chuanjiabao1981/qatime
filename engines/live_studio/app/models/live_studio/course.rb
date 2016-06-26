@@ -54,14 +54,16 @@ module LiveStudio
       preview? || teaching?
     end
 
-    # 是否可购买
-    def can_buy?(user)
-      return false if !for_sell? || !user.student?
-      # 好奇怪的语法
-      # 由于User没有设置单表集成, user无法自动生成合适类型
-      # 可能会造成 n + 1查询
-      !::Student.find(user.id).live_studio_tickets.map(&:course_id).include?(id)
-      # !user.live_studio_tickets.map(&:course_id).include?(id)
+    # 用户是否已经购买
+    def own_by?(user)
+      user.live_studio_tickets.map(&:course_id).include?(id)
+    end
+
+    # 是否卖给用户
+    def sell_to?(user)
+      return false unless user.student? # 辅导班只卖给学生
+      return false unless for_sell? # 必须在售中的辅导班
+      !own_by?(user) # 没买过该辅导班才可以购买
     end
 
     def short_description(len=20)

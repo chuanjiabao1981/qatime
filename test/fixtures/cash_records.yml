@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cash_account_id: 
+  before: 9.99
+  after: 9.99
+  different: 9.99
+  ref_id: 
+  ref_type: Ref
+  remark: MyString
+
+two:
+  cash_account_id: 
+  before: 9.99
+  after: 9.99
+  different: 9.99
+  ref_id: 
+  ref_type: Ref
+  remark: MyString

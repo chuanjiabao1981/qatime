@@ -1,11 +1,13 @@
 module LiveStudio
   class Course < ActiveRecord::Base
+    SYSTEM_FEE = 0.1 # 系统每个人每分钟收费
+
     enum status: {
-      init: 0, # 初始化
-      preview: 1, # 招生中
-      teaching: 2, # 已开课
-      completed: 3 # 已结束
-    }
+           init: 0, # 初始化
+           preview: 1, # 招生中
+           teaching: 2, # 已开课
+           completed: 3 # 已结束
+         }
 
     validates :name, presence: true
 
@@ -24,6 +26,10 @@ module LiveStudio
     has_many :channels
     has_many :push_streams, through: :channel
     has_many :pull_streams, through: :channel
+
+    # TODO 换成真正的地址
+    def push_stream
+    end
 
     scope :for_sell, -> { where(status: [Course.statuses[:preview], Course.statuses[:teaching]]) }
 

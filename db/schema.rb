@@ -476,25 +476,18 @@ ActiveRecord::Schema.define(version: 20160624061715) do
   add_index "live_studio_courses", ["workstation_id"], name: "index_live_studio_courses_on_workstation_id", using: :btree
 
   create_table "live_studio_lessons", force: :cascade do |t|
-    t.string   "name",          limit: 100
+    t.string   "name"
     t.integer  "course_id"
-    t.integer  "teacher_id"
     t.string   "description"
-    t.integer  "state",         limit: 2,   default: 0
-    t.string   "start_time",    limit: 6
-    t.string   "end_time",      limit: 6
+    t.integer  "state"
+    t.string   "start_time"
+    t.string   "end_time"
     t.date     "class_date"
-    t.integer  "live_count",                default: 0
-    t.datetime "live_start_at"
-    t.datetime "live_end_at"
-    t.integer  "real_time",                 default: 0
-    t.integer  "pos",                       default: 0
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "live_studio_lessons", ["course_id"], name: "index_live_studio_lessons_on_course_id", using: :btree
-  add_index "live_studio_lessons", ["teacher_id"], name: "index_live_studio_lessons_on_teacher_id", using: :btree
 
   create_table "live_studio_live_channels", force: :cascade do |t|
     t.string   "name",       limit: 200,             null: false
@@ -528,10 +521,9 @@ ActiveRecord::Schema.define(version: 20160624061715) do
     t.integer  "course_id"
     t.integer  "student_id"
     t.integer  "lesson_id"
-    t.integer  "state",      limit: 2, default: 0
     t.string   "type"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "live_studio_tickets", ["course_id"], name: "index_live_studio_tickets_on_course_id", using: :btree
@@ -804,20 +796,20 @@ ActiveRecord::Schema.define(version: 20160624061715) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                                     default: "",    null: false
-    t.string   "encrypted_password",                        default: "",    null: false
+    t.string   "email",                         default: "",    null: false
+    t.string   "encrypted_password",            default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                             default: 0
+    t.integer  "sign_in_count",                 default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "topics_count",                              default: 0
-    t.integer  "replies_count",                             default: 0
+    t.integer  "topics_count",                  default: 0
+    t.integer  "replies_count",                 default: 0
     t.string   "name"
     t.string   "avatar"
     t.integer  "school_id"
@@ -826,16 +818,15 @@ ActiveRecord::Schema.define(version: 20160624061715) do
     t.string   "remember_token"
     t.text     "desc"
     t.integer  "course_purchase_records_count"
-    t.integer  "joined_groups_count",                       default: 0
+    t.integer  "joined_groups_count",           default: 0
     t.string   "subject"
     t.string   "category"
     t.string   "mobile"
-    t.boolean  "pass",                                      default: false
+    t.boolean  "pass",                          default: false
     t.string   "grade"
     t.string   "nick_name"
     t.string   "parent_phone"
     t.integer  "workstation_id"
-    t.string   "type",                          limit: 100
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

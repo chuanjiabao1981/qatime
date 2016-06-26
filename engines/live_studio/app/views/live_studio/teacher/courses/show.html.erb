@@ -47,7 +47,9 @@
   <div class="qa_cell">
     <div class="row">
       <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Stream.human_attribute_name(:address)%></div>
-      <div class="col-md-9"><%= @course.push_stream.try(:adress) %></div>
+      <div class="col-md-9"><%= @course.push_stream.try(:address) %>
+	<%= link_to "获取直播地址", channel_teacher_course_path(@course), method: :patch, remote: true, id: "sync_channel" unless @course.push_stream  %>
+      </div>
     </div>
   </div>
 </div>

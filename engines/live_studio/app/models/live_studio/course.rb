@@ -24,11 +24,11 @@ module LiveStudio
     has_many :students, through: :buy_tickets
 
     has_many :channels
-    has_many :push_streams, through: :channel
-    has_many :pull_streams, through: :channel
+    has_many :push_streams, through: :channels
+    has_many :pull_streams, through: :channels
 
-    # TODO 换成真正的地址
     def push_stream
+      push_streams.last
     end
 
     scope :for_sell, -> { where(status: [Course.statuses[:preview], Course.statuses[:teaching]]) }

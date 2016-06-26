@@ -30,7 +30,7 @@ LiveStudio::Engine.routes.draw do
     resources :courses, only: [:index, :show, :edit, :update] do
       resources :lessons
       member do
-        patch :sync_channel_streams
+        patch :channel
       end
     end
   end

@@ -60,13 +60,13 @@ module LiveStudio
     # 教师分成
     def teacher_fee!(money)
       teacher_money = money * course.teacher_percentage
-      teacher.cash_account.add(teacher_money, self, "课程完成 - #{name}")
+      teacher.cash_account!.increase(teacher_money, self, "课程完成 - #{name}")
       teacher_money
     end
 
     # 代理商分成
     def manager_fee!(money)
-      course.manager.cash_account.add(money, self, "课程完成 - #{name}")
+      course.manager.cash_account!.increase(money, self, "课程完成 - #{name}")
     end
 
   end

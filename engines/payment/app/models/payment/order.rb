@@ -1,7 +1,7 @@
 module Payment
   class Order < ActiveRecord::Base
     PAY_TYPE = {
-      alipay: 0,
+      #alipay: 0,
       weixin: 1
     }.freeze
 

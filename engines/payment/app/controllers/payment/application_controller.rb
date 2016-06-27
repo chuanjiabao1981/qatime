@@ -1,4 +1,6 @@
 module Payment
-  class ApplicationController < ActionController::Base
+  class ApplicationController < ::ApplicationController
+    # layout 'payment/layouts/application'
+
   end
 end

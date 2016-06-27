@@ -476,18 +476,25 @@ ActiveRecord::Schema.define(version: 20160624094829) do
   add_index "live_studio_courses", ["workstation_id"], name: "index_live_studio_courses_on_workstation_id", using: :btree
 
   create_table "live_studio_lessons", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",          limit: 100
     t.integer  "course_id"
+    t.integer  "teacher_id"
     t.string   "description"
-    t.integer  "state"
-    t.string   "start_time"
-    t.string   "end_time"
+    t.integer  "state",         limit: 2,   default: 0
+    t.string   "start_time",    limit: 6
+    t.string   "end_time",      limit: 6
     t.date     "class_date"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "live_count",                default: 0
+    t.datetime "live_start_at"
+    t.datetime "live_end_at"
+    t.integer  "real_time",                 default: 0
+    t.integer  "pos",                       default: 0
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   add_index "live_studio_lessons", ["course_id"], name: "index_live_studio_lessons_on_course_id", using: :btree
+  add_index "live_studio_lessons", ["teacher_id"], name: "index_live_studio_lessons_on_teacher_id", using: :btree
 
   create_table "live_studio_live_channels", force: :cascade do |t|
     t.string   "name",       limit: 200,             null: false

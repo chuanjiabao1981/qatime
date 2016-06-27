@@ -2,6 +2,10 @@ module LiveStudio
   class Course < ActiveRecord::Base
     SYSTEM_FEE = 0.1 # 系统每个人每分钟收费
 
+    USER_STATUS_BOUGHT = :bought # 已购买
+    USER_STATUS_TASTING = :tasting # 正在试听
+    USER_STATUS_TASTED = :tasted # 已经试听
+
     enum status: {
            init: 0, # 初始化
            preview: 1, # 招生中
@@ -80,11 +84,33 @@ module LiveStudio
       user.live_studio_tickets.map(&:course_id).include?(id)
     end
 
+    def bought_by?(user)
+      buy_tickets.where(student_id: user.id).exists?
+    end
+
+    # 用户购买状态
+    def status_for(user)
+      return USER_STATUS_BOUGHT if buy_tickets.where(student_id: user.id).exists?
+      return USER_STATUS_TASTING if taste_tickets.where(student_id: user.id).exists?
+      return USER_STATUS_TASTED if taste_tickets.where(student_id: user.id).exists?
+    end
+
+    # 是否可以试听
+    def can_taste?(user)
+      return false unless user.student?
+      return false if buy_tickets.where(student_id: user.id).exists?
+      !taste_tickets.where(student_id: user.id).exists?
+    end
+
+    def tasting?(user)
+      taste_tickets.where(student_id: user.id).exists?
+    end
+
     # 是否卖给用户
     def sell_to?(user)
       return false unless user.student? # 辅导班只卖给学生
       return false unless for_sell? # 必须在售中的辅导班
-      !own_by?(user) # 没买过该辅导班才可以购买
+      !bought_by?(user) # 没买过该辅导班才可以购买
     end
 
     def short_description(len=20)

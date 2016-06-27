@@ -12,6 +12,7 @@ module LiveStudio
     end
 
     def show
+      @lessons = @course.lessons.order("id")
     end
 
     def edit

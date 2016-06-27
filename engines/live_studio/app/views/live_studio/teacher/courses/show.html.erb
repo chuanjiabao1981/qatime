@@ -71,28 +71,34 @@
 
   <div>
     <div class="row qa_big_cell">
-    <% %w(name se_time date operate).each do |col| %>
+    <% %w(name se_time date state operate).each do |col| %>
         <div class="col-md-2">
           <%= t("activerecord.view.#{col}") %>
         </div>
     <% end %>
      </div>
-    <% @course.lessons.each do |lesson| -%>
-      <div class="row qa_big_cell">
+    <% @lessons.each do |lesson| -%>
+      <div class="row qa_big_cell" id="row-<%= lesson.id %>">
         <div class="col-md-2">
           <%= lesson.name %>
         </div>
         <div class="col-md-2">
-          <%= lesson.start_time%> - <%= lesson.end_time%>
+          <%= lesson.start_time %> - <%= lesson.end_time %>
         </div>
         <div class="col-md-2">
           <%= lesson.class_date %>
         </div>
+        <div class="col-md-2 state">
+          <%= lesson.state %>
+        </div>
         <div class="col-md-2">
-          <%= link_to t('activerecord.view.edit'), edit_teacher_course_lesson_path(@course, lesson) %>
-          <%= link_to t("activerecord.view.delete"), teacher_course_lesson_path(@course, lesson), method: :delete,
-                     'data-confirm' => t('activerecord.view.message.confirm') %>
+	  <% unless lesson.has_finished? %>
+            <%= link_to t('activerecord.view.edit'), edit_teacher_course_lesson_path(@course, lesson) %>
+            <%= link_to t("activerecord.view.delete"), teacher_course_lesson_path(@course, lesson), method: :delete,
+                'data-confirm' => t('activerecord.view.message.confirm') %>
+            <%= link_to t("activerecord.view.lesson_ready"), ready_teacher_course_lesson_path(@course, lesson), class: 'ready', method: :patch, remote: true if lesson.ready_for? %>
 
+	  <% end %>
         </div>
       </div>
     <% end -%>

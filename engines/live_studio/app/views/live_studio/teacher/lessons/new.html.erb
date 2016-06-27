@@ -10,7 +10,7 @@
 
 <div class="qa_box">
   <div class="qa_big_cell">
-    <%= simple_form_for(@teacher_lesson,url: teacher_course_lessons_path(params[:course_id])) do |f| %>
+    <%= simple_form_for(@lesson, url: teacher_course_lessons_path(@course)) do |f| %>
       <%= render partial: 'form', locals: {f: f} %>
     <% end %>
   </div>

@@ -80,8 +80,6 @@ cn:
         no_customized_course_available: 没有可使用此大纲课程的专属课程
         is_same: 是否一致
         operation: 操作
-      lesson:
-        lesson_can_not_play: 该课程不能播放或已经结束!
     successful:
       messages:
         created: "%{model}已创建"
@@ -89,6 +87,7 @@ cn:
         destroyed: "%{model}已删除"
         begin_live_studio: "%{model}已开始直播"
         end_live_studio: "%{model}已结束直播"
+        lesson_can_not_play: 该课程不能播放或已经结束!
 
 
 

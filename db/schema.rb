@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627061503) do
+ActiveRecord::Schema.define(version: 20160627065822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -481,7 +481,7 @@ ActiveRecord::Schema.define(version: 20160627061503) do
     t.integer  "course_id"
     t.integer  "teacher_id"
     t.string   "description"
-    t.integer  "state",         limit: 2,   default: 0
+    t.integer  "status",        limit: 2,   default: 0
     t.string   "start_time",    limit: 6
     t.string   "end_time",      limit: 6
     t.date     "class_date"
@@ -543,9 +543,13 @@ ActiveRecord::Schema.define(version: 20160627061503) do
     t.integer  "course_id"
     t.integer  "student_id"
     t.integer  "lesson_id"
+    t.integer  "status",       limit: 2,                         default: 0
+    t.integer  "buy_count",    limit: 8,                         default: 0
+    t.integer  "used_count",   limit: 8,                         default: 0
     t.string   "type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.decimal  "lesson_price",           precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
   end
 
   add_index "live_studio_tickets", ["course_id"], name: "index_live_studio_tickets_on_course_id", using: :btree

@@ -15,7 +15,7 @@ var myPlayer = neplayer("my-video", {}, function() {
 });
 myPlayer.setDataSource({
   type: "rtmp/flv",
-  src: "<%= channel.streams.last.address %>"
+  src: "<%= channel.pull_streams.last.address %>"
 });
 
 myPlayer.play();

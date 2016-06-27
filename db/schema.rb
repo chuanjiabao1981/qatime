@@ -472,8 +472,6 @@ ActiveRecord::Schema.define(version: 20160627065822) do
 
   add_index "live_studio_lessons", ["course_id"], name: "index_live_studio_lessons_on_course_id", using: :btree
   add_index "live_studio_lessons", ["teacher_id"], name: "index_live_studio_lessons_on_teacher_id", using: :btree
-<<<<<<< HEAD
-=======
 
   create_table "live_studio_live_channels", force: :cascade do |t|
     t.string   "name",       limit: 200,             null: false
@@ -491,7 +489,6 @@ ActiveRecord::Schema.define(version: 20160627065822) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
->>>>>>> 9370e4c0e749351f916d48eda0313f9c829e32aa
 
   create_table "live_studio_streams", force: :cascade do |t|
     t.string   "protocol",   limit: 20

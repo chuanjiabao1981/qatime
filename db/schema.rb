@@ -514,6 +514,20 @@ ActiveRecord::Schema.define(version: 20160627065822) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "live_studio_play_records", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "course_id"
+    t.integer  "lesson_id"
+    t.datetime "start_time_at"
+    t.datetime "end_time_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "live_studio_play_records", ["course_id"], name: "index_live_studio_play_records_on_course_id", using: :btree
+  add_index "live_studio_play_records", ["lesson_id"], name: "index_live_studio_play_records_on_lesson_id", using: :btree
+  add_index "live_studio_play_records", ["student_id"], name: "index_live_studio_play_records_on_student_id", using: :btree
+
   create_table "live_studio_streams", force: :cascade do |t|
     t.string   "protocol",   limit: 20
     t.string   "address",    limit: 255
@@ -530,12 +544,13 @@ ActiveRecord::Schema.define(version: 20160627065822) do
     t.integer  "course_id"
     t.integer  "student_id"
     t.integer  "lesson_id"
-    t.integer  "status",     limit: 2, default: 0
-    t.integer  "buy_count",  limit: 8, default: 0
-    t.integer  "used_count", limit: 8, default: 0
+    t.integer  "status",       limit: 2,                         default: 0
+    t.integer  "buy_count",    limit: 8,                         default: 0
+    t.integer  "used_count",   limit: 8,                         default: 0
     t.string   "type"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.decimal  "lesson_price",           precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
   end
 
   add_index "live_studio_tickets", ["course_id"], name: "index_live_studio_tickets_on_course_id", using: :btree

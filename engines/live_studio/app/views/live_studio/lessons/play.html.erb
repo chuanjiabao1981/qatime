@@ -15,7 +15,7 @@ var myPlayer = neplayer("my-video", {}, function() {
 });
 myPlayer.setDataSource({
   type: "rtmp/flv",
-  src: "<%#= channel.streams.last.address %>rtmp://v587def8c.live.126.net/live/f0395a672857497cab05cc7ec7f7850c"
+  src: "<%= channel.streams.last.address %>"
 });
 
 myPlayer.play();

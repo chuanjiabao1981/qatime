@@ -63,6 +63,7 @@ cn:
       begin_live_studio: 开始直播
       end_live_studio: 结束直播
       finished_live_studio: 完成直播
+      begin_watch_live_studio: 观看直播
       message:
         confirm: 确认操作
       course_library/course:

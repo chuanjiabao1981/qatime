@@ -6,7 +6,7 @@ class CreateLiveStudioLessons < ActiveRecord::Migration
       t.references :course, index: true
       t.references :teacher, index: true
       t.string :description
-      t.integer :state, limit: 2, default: 0
+      t.integer :status, limit: 2, default: 0
       t.string :start_time, limit: 6
       t.string :end_time, limit: 6
       t.date :class_date

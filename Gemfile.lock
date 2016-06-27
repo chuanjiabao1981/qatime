@@ -30,7 +30,7 @@ PATH
       wechat (~> 0.7.5)
 
 GEM
-  remote: https://gems.ruby-china.org/
+  remote: https://ruby.taobao.org/
   specs:
     aasm (4.4.1)
     actionmailer (4.2.5.1)

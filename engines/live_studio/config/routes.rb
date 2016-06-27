@@ -30,6 +30,8 @@ LiveStudio::Engine.routes.draw do
     resources :courses, only: [:index, :show, :edit, :update] do
       resources :lessons do
         member do
+          patch :begin_live_studio
+          patch :end_live_studio
           patch :ready
         end
       end

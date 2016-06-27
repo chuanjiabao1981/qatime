@@ -1,6 +1,6 @@
 module LiveStudio
   class Lesson < ActiveRecord::Base
-    enum state: {
+    enum status: {
       init: 0, # 初始化
       ready: 1, # 等待上课
       teaching: 2, # 上课中
@@ -40,7 +40,7 @@ module LiveStudio
     end
 
     def has_finished?
-      self[:state] > Lesson.states[:ready]
+      self[:status] > Lesson.statuses[:ready]
     end
 
     # 是否可以准备上课
@@ -65,6 +65,7 @@ module LiveStudio
     end
 
     # 代理商分成
+    # 代理商的分成打入workstation账户下
     def manager_fee!(money)
       course.workstation.cash_account!.increase(money, self, "课程完成 - #{name}")
     end

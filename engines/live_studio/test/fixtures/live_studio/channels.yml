@@ -4,10 +4,10 @@ one:
   name: MyString
   course_id: 
   remote_id: MyString
-  state: 1
+  status: 1
 
 two:
   name: MyString
   course_id: 
   remote_id: MyString
-  state: 1
+  status: 1

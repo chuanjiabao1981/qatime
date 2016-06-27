@@ -455,7 +455,7 @@ ActiveRecord::Schema.define(version: 20160627065822) do
     t.string   "name",       limit: 255
     t.integer  "course_id"
     t.string   "remote_id",  limit: 100
-    t.integer  "state",                  default: 0
+    t.integer  "status",                 default: 0
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
   end
@@ -530,7 +530,9 @@ ActiveRecord::Schema.define(version: 20160627065822) do
     t.integer  "course_id"
     t.integer  "student_id"
     t.integer  "lesson_id"
-    t.integer  "state",      limit: 2, default: 0
+    t.integer  "status",     limit: 2, default: 0
+    t.integer  "buy_count",  limit: 8, default: 0
+    t.integer  "used_count", limit: 8, default: 0
     t.string   "type"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false

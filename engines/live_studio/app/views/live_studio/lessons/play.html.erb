@@ -26,4 +26,13 @@ myPlayer.play();
 var playState = myPlayer.getPlayState(); //1：播放中；2：暂停中；3：播放结束
 console.log(playState);
 
+if(playState == 1)
+//中途离开
+window.onbeforeunload = function() {
+　　<% @play_record.touch(:end_time_at) %>
+}
+else if(playState == 3)
+{
+  <% @play_record.touch(:end_time_at) %>
+}
 </script>

@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20160627061503) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "cash_records", force: :cascade do |t|
+  create_table "change_records", force: :cascade do |t|
     t.integer  "cash_account_id"
     t.decimal  "before",          precision: 10, scale: 2
     t.decimal  "after",           precision: 10, scale: 2
@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(version: 20160627061503) do
     t.datetime "updated_at",                               null: false
   end
 
-  add_index "cash_records", ["cash_account_id"], name: "index_cash_records_on_cash_account_id", using: :btree
-  add_index "cash_records", ["ref_type", "ref_id"], name: "index_cash_records_on_ref_type_and_ref_id", using: :btree
+  add_index "change_records", ["cash_account_id"], name: "index_change_records_on_cash_account_id", using: :btree
+  add_index "change_records", ["ref_type", "ref_id"], name: "index_change_records_on_ref_type_and_ref_id", using: :btree
 
   create_table "cities", force: :cascade do |t|
     t.string   "name"
@@ -480,7 +480,7 @@ ActiveRecord::Schema.define(version: 20160627061503) do
     t.integer  "course_id"
     t.integer  "teacher_id"
     t.string   "description"
-    t.integer  "state",         limit: 2,   default: 0
+    t.integer  "status",        limit: 2,   default: 0
     t.string   "start_time",    limit: 6
     t.string   "end_time",      limit: 6
     t.date     "class_date"

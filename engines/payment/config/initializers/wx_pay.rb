@@ -1,7 +1,7 @@
 # required
 WxPay.appid = WECHAT_CONFIG['appid']
 WxPay.key = WECHAT_CONFIG['secret']
-WxPay.mch_id = WECHAT_CONFIG['YOUR_MCH_ID']
+WxPay.mch_id = WECHAT_CONFIG['mch_id']
 
 # cert, see https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=4_3
 # using PCKS12 for rollback

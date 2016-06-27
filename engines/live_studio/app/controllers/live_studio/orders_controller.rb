@@ -11,7 +11,7 @@ module LiveStudio
 
     # GET /orders/new
     def new
-      @order = ::Order.new(product: @course)
+      @order = Payment::Order.new(product: @course)
     end
 
     # GET /orders/1/edit
@@ -20,11 +20,11 @@ module LiveStudio
 
     # POST /orders
     def create
-      @order = Order.new(order_params.merge(@course.order_params))
+      @order = Payment::Order.new(order_params.merge(@course.order_params))
       @order.user = current_user
 
       if @order.save
-        redirect_to course_order_path(@course, @order), notice: i18n_notice('created', @order)
+        redirect_to payment.user_order_path(@order.order_no), notice: i18n_notice('created', @order)
       else
         render :new
       end
@@ -46,7 +46,7 @@ module LiveStudio
       end
 
       def set_order
-        @order = ::Order.find(params[:id])
+        @order = Payment::Order.find(params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.

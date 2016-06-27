@@ -299,6 +299,8 @@ Qatime::Application.routes.draw do
 
   # 直播
   mount LiveStudio::Engine, at: '/live_studio'
+  # 支付
+  mount Payment::Engine, at: '/payment'
 
   resources :qa_file_quoters
 end

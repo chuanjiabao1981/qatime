@@ -4,7 +4,7 @@ one:
   name: MyString
   course_id: 
   description: MyString
-  state: 1
+  status: 1
   start_time: MyString
   end_time: MyString
   class_date: 2016-06-20
@@ -13,7 +13,7 @@ two:
   name: MyString
   course_id: 
   description: MyString
-  state: 1
+  status: 1
   start_time: MyString
   end_time: MyString
   class_date: 2016-06-20

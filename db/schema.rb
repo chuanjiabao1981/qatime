@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627065822) do
+ActiveRecord::Schema.define(version: 20160627061503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,14 +51,13 @@ ActiveRecord::Schema.define(version: 20160627065822) do
   end
 
   create_table "cash_accounts", force: :cascade do |t|
-    t.integer  "owner_id"
-    t.string   "owner_type"
-    t.decimal  "balance",    precision: 8, scale: 2, default: 0.0
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.integer  "user_id"
+    t.decimal  "balance"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "cash_accounts", ["owner_type", "owner_id"], name: "index_cash_accounts_on_owner_type_and_owner_id", using: :btree
+  add_index "cash_accounts", ["user_id"], name: "index_cash_accounts_on_user_id", using: :btree
 
   create_table "cash_operation_records", force: :cascade do |t|
     t.integer  "operator_id"
@@ -69,20 +68,20 @@ ActiveRecord::Schema.define(version: 20160627065822) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "change_records", force: :cascade do |t|
+  create_table "cash_records", force: :cascade do |t|
     t.integer  "cash_account_id"
-    t.decimal  "before",          precision: 8, scale: 2
-    t.decimal  "after",           precision: 8, scale: 2
-    t.decimal  "different",       precision: 8, scale: 2
+    t.decimal  "before",          precision: 10, scale: 2
+    t.decimal  "after",           precision: 10, scale: 2
+    t.decimal  "different",       precision: 10, scale: 2
     t.integer  "ref_id"
     t.string   "ref_type"
-    t.string   "summary"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.string   "remark"
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
   end
 
-  add_index "change_records", ["cash_account_id"], name: "index_change_records_on_cash_account_id", using: :btree
-  add_index "change_records", ["ref_type", "ref_id"], name: "index_change_records_on_ref_type_and_ref_id", using: :btree
+  add_index "cash_records", ["cash_account_id"], name: "index_cash_records_on_cash_account_id", using: :btree
+  add_index "cash_records", ["ref_type", "ref_id"], name: "index_cash_records_on_ref_type_and_ref_id", using: :btree
 
   create_table "cities", force: :cascade do |t|
     t.string   "name"
@@ -455,7 +454,7 @@ ActiveRecord::Schema.define(version: 20160627065822) do
     t.string   "name",       limit: 255
     t.integer  "course_id"
     t.string   "remote_id",  limit: 100
-    t.integer  "status",                 default: 0
+    t.integer  "state",                  default: 0
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
   end
@@ -481,7 +480,7 @@ ActiveRecord::Schema.define(version: 20160627065822) do
     t.integer  "course_id"
     t.integer  "teacher_id"
     t.string   "description"
-    t.integer  "status",        limit: 2,   default: 0
+    t.integer  "state",         limit: 2,   default: 0
     t.string   "start_time",    limit: 6
     t.string   "end_time",      limit: 6
     t.date     "class_date"
@@ -514,6 +513,20 @@ ActiveRecord::Schema.define(version: 20160627065822) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "live_studio_play_records", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "course_id"
+    t.integer  "lesson_id"
+    t.datetime "start_time_at"
+    t.datetime "end_time_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "live_studio_play_records", ["course_id"], name: "index_live_studio_play_records_on_course_id", using: :btree
+  add_index "live_studio_play_records", ["lesson_id"], name: "index_live_studio_play_records_on_lesson_id", using: :btree
+  add_index "live_studio_play_records", ["student_id"], name: "index_live_studio_play_records_on_student_id", using: :btree
+
   create_table "live_studio_streams", force: :cascade do |t|
     t.string   "protocol",   limit: 20
     t.string   "address",    limit: 255
@@ -530,12 +543,9 @@ ActiveRecord::Schema.define(version: 20160627065822) do
     t.integer  "course_id"
     t.integer  "student_id"
     t.integer  "lesson_id"
-    t.integer  "status",     limit: 2, default: 0
-    t.integer  "buy_count",  limit: 8, default: 0
-    t.integer  "used_count", limit: 8, default: 0
     t.string   "type"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "live_studio_tickets", ["course_id"], name: "index_live_studio_tickets_on_course_id", using: :btree
@@ -913,7 +923,7 @@ ActiveRecord::Schema.define(version: 20160627065822) do
     t.integer  "manager_id"
   end
 
-  add_foreign_key "change_records", "cash_accounts"
+  add_foreign_key "cash_accounts", "users"
   add_foreign_key "live_studio_cash_accounts", "users"
   add_foreign_key "orders", "users"
 end

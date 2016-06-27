@@ -27,6 +27,9 @@ module LiveStudio
     has_many :push_streams, through: :channels
     has_many :pull_streams, through: :channels
 
+    has_many :play_records #听课记录
+
+    # TODO 换成真正的地址
     def push_stream
       push_streams.last
     end

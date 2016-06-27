@@ -11,6 +11,8 @@ module LiveStudio
     belongs_to :course
     belongs_to :teacher, class_name: ::Teacher # 区别于course的teacher防止课程中途换教师
 
+    has_many :play_records #听课记录
+
     validates :name, :description, :course_id, :start_time, :end_time, :class_date, presence: true
 
     # 课程完成
@@ -37,6 +39,10 @@ module LiveStudio
         manager_fee!(money) # 代理商分成
         completed!
       end
+    end
+
+    def can_play?
+      ready? or teaching?
     end
 
     def has_finished?

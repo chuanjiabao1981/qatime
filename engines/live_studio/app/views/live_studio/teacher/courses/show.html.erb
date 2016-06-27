@@ -77,8 +77,8 @@
         </div>
     <% end %>
      </div>
-    <% @lessons.each do |lesson| -%>
-      <div class="row qa_big_cell" id="row-<%= lesson.id %>">
+     <% @lessons.each do |lesson| -%>
+       <div class="row qa_big_cell" id="row-<%= lesson.id %>">
         <div class="col-md-2">
           <%= lesson.name %>
         </div>
@@ -92,14 +92,20 @@
           <%= lesson.status %>
         </div>
         <div class="col-md-2">
-	  <% unless lesson.has_finished? %>
+          <% unless lesson.has_finished? %>
             <%= link_to t('activerecord.view.edit'), edit_teacher_course_lesson_path(@course, lesson) %>
             <%= link_to t("activerecord.view.delete"), teacher_course_lesson_path(@course, lesson), method: :delete,
-                'data-confirm' => t('activerecord.view.message.confirm') %>
+            'data-confirm' => t('activerecord.view.message.confirm') %>
             <%= link_to t("activerecord.view.lesson_ready"), ready_teacher_course_lesson_path(@course, lesson), class: 'ready', method: :patch, remote: true if lesson.ready_for? %>
 
-	  <% end %>
-        </div>
+              <% if lesson.live_start_at.blank? %>
+                <%= link_to t("activerecord.view.begin_live_studio"), begin_live_studio_teacher_course_lesson_path(@course, lesson), method: :patch %>
+              <% else lesson.live_end_at.blank? %>
+                <%= link_to t("activerecord.view.end_live_studio"), end_live_studio_teacher_course_lesson_path(@course, lesson), method: :patch %>
+              <% end %>
+
+            <% end %>
+          </div>
       </div>
     <% end -%>
   </div>

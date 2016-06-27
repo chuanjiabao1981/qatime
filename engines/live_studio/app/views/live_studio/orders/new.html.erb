@@ -23,7 +23,7 @@
         </div>
         <div>
           <%= f.label :pay_type %>
-          <%= f.input_field :pay_type, as: :radio_buttons, collection: ::Order.pay_types %>
+          <%= f.input_field :pay_type, as: :radio_buttons, collection: Payment::Order.pay_types %>
         </div>
 
         <br />

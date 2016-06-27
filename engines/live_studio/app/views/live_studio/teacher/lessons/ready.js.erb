@@ -1,4 +1,4 @@
 <% if @lesson.ready? -%>
  $("#row-<%= @lesson.id %> .ready").remove();
- $("#row-<%= @lesson.id %> .state").text("<%= @lesson.state %>");
+ $("#row-<%= @lesson.id %> .status").text("<%= @lesson.status %>");
 <% end %>

@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
   has_one  :account, as: :accountable
   has_many :customized_course_action_notifications,->{ order 'created_at desc'},foreign_key: :receiver_id
 
+  has_one :cash_account, as: :owner
 
   has_many :comments,foreign_key: :author_id
 
@@ -72,6 +73,11 @@ class User < ActiveRecord::Base
 
   def teacher_or_student?
     teacher? or student?
+  end
+
+  def cash_account!
+    return cash_account if cash_account.present?
+    CashAccount.create(owner: self)
   end
 
   private

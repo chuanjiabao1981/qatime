@@ -17,7 +17,7 @@ cn:
         start_time: 开始时间
         end_time: 结束时间
         class_date: 课程日期
-        state_event: 是否通过审核
+        status_event: 是否通过审核
       order:
         name: 辅导班
         teacher: 辅导老师

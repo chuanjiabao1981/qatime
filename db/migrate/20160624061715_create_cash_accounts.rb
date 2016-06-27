@@ -1,8 +1,8 @@
 class CreateCashAccounts < ActiveRecord::Migration
   def change
     create_table :cash_accounts do |t|
-      t.references :user, index: true, foreign_key: true
-      t.decimal :balance
+      t.references :owner, polymorphic: true, index: true
+      t.decimal :balance, precision: 8, scale: 2, default: 0.0
 
       t.timestamps null: false
     end

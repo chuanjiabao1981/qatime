@@ -14,6 +14,7 @@ class CreateLiveStudioLessons < ActiveRecord::Migration
       t.datetime :live_end_at
       t.integer :real_time, default: 0
       t.integer :pos, limit: 4, default: 0
+      t.decimal :lesson_price, precision: 8, scale: 2, default: 0.0
 
       t.timestamps null: false
     end

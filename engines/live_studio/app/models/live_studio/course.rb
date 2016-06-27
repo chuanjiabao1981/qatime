@@ -54,9 +54,20 @@ module LiveStudio
       channels.create(name: "#{name} - 直播室 - #{id}", course_id: id)
     end
 
+    # 当前价格
+    def current_price
+      left_count = lessons.unfinished.count
+      price * left_count / lessons.count
+    end
+
+    # 当前单节课程价格
+    def current_single_price
+      price / lessons.count
+    end
+
     # 发货
     def deliver(order)
-      ticket = buy_tickets.find_or_create_by(student_id: order.user_id)
+      ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: current_single_price)
       ticket.active!
     end
 

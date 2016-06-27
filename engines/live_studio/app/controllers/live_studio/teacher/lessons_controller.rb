@@ -59,12 +59,12 @@ module LiveStudio
 
     def begin_live_studio
       @lesson.touch(:live_start_at)
+      @lesson.teaching!
       redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('begin_live_studio', @lesson)
     end
 
     def end_live_studio
       @lesson.update(live_count: @lesson.play_records.count)
-
       @lesson.touch(:live_end_at)
       @lesson.finish
 

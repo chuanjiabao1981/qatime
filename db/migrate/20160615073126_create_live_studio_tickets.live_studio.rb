@@ -9,6 +9,7 @@ class CreateLiveStudioTickets < ActiveRecord::Migration
       t.integer :buy_count, limit: 6, default: 0
       t.integer :used_count, limit: 6, default: 0
       t.string :type
+      t.decimal :lesson_price, precision: 8, scale: 2, default: 0.0
 
       t.timestamps null: false
     end

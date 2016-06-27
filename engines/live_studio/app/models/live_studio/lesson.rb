@@ -15,6 +15,8 @@ module LiveStudio
 
     validates :name, :description, :course_id, :start_time, :end_time, :class_date, presence: true
 
+    scope :unfinish, -> { where("status < ?", Lesson.statuses[:finished]) }
+
     # 课程完成
     # 课程完成以后进行结算
     def finish
@@ -29,10 +31,10 @@ module LiveStudio
     # 完成结算
     # 结算失败的课程可以重复结算
     def complete!
-      return if finished?
+      return unless finished?
       # 本次课程学费
       # 根据学生单次课程成本价计算
-      money = course.buy_tickets.sum(&:lesson_price)
+      money = course.buy_tickets.sum(:lesson_price)
       CashAccount.transaction do
         money -= system_fee!(money) # 系统收取佣金
         money -= teacher_fee!(money) # 教师分成
@@ -46,7 +48,7 @@ module LiveStudio
     end
 
     def has_finished?
-      self[:status] > Lesson.statuses[:ready]
+      self[:status] > Lesson.statuses[:teaching]
     end
 
     # 是否可以准备上课
@@ -65,7 +67,7 @@ module LiveStudio
 
     # 教师分成
     def teacher_fee!(money)
-      teacher_money = money * course.teacher_percentage
+      teacher_money = money * course.teacher_percentage / 100
       teacher.cash_account!.increase(teacher_money, self, "课程完成 - #{name}")
       teacher_money
     end

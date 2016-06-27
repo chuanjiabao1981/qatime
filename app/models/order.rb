@@ -1,6 +1,7 @@
 class Order < ActiveRecord::Base
   PAY_TYPE = {
-    alipay: 0
+    alipay: 0,
+    weixin: 1
   }.freeze
 
   belongs_to :user

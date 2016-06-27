@@ -1,89 +1,67 @@
 module LiveStudio
   class Channel < ActiveRecord::Base
-    belongs_to :course
+    VCLOUD_HOST = 'https://vcloud.163.com'.freeze
 
-    has_many :streams
+    belongs_to :course
+    has_many :push_streams, dependent: :destroy
+    has_many :pull_streams, dependent: :destroy
 
     def sync_streams
-      self.send :delete_remote_channel
-      self.send :create_remote_channel
+      delete_remote_channel
+      create_remote_channel
     end
 
     private
+
     after_create :create_remote_channel
     after_destroy :delete_remote_channel
 
-    def set_remote_channel_request_params
-      @app_key = VCLOUD_CONFIG['AppKey']
-      @app_secret = VCLOUD_CONFIG['AppSecret']
-      @nonce = SecureRandom.hex 32
-      @cur_time = Time.now.utc.to_i.to_s
-
-      @check_sum = Digest::SHA1.hexdigest(@app_secret + @nonce + @cur_time)
+    def create_remote_channel
+      res = ::Typhoeus.post(
+        "#{VCLOUD_HOST}/app/channel/create",
+        headers: vcloud_headers,
+        body: {
+          name: name,
+          type: 0
+        }.to_json
+      )
+      return unless res.success?
+      result = JSON.parse(res.body).symbolize_keys
+      build_streams(result[:ret]) if result[:code] == 200
     end
 
-    def create_remote_channel
-      set_remote_channel_request_params
-
-      res = ::Typhoeus.post(
-              "https://vcloud.163.com/app/channel/create",
-              headers: {
-                AppKey: @app_key,
-                Nonce: @nonce,
-                CurTime: @cur_time,
-                CheckSum: @check_sum,
-                'Content-Type'=> "application/json;charset=utf-8"
-              },
-              body: {
-                name: name,
-                type: 0
-              }.to_json
-            )
-
-      res = JSON.parse(res.body).symbolize_keys
-      if res[:code] == 200
-        _res = res[:ret].symbolize_keys
-        streams.create([
-          {
-            address: _res[:pushUrl]
-          },
-          {
-            address: _res[:rtmpPullUrl]
-          }
-        ])
-        self.update_columns(remote_id: _res[:cid])
-      else
-        errors.add :base, res[:msg]
-      end
+    def build_streams(result)
+      push_streams.create(address: result[:pushUrl], protocol: 'rtmp')
+      pull_streams.create(address: result[:rtmpPullUrl], protocol: 'rtmp')
     end
 
     def delete_remote_channel
-      return streams.destroy_all unless remote_id.present?
-      set_remote_channel_request_params
-      res = ::Typhoeus.post(
-              "https://vcloud.163.com/app/channel/delete",
-              headers: {
-                AppKey: @app_key,
-                Nonce: @nonce,
-                CurTime: @cur_time,
-                CheckSum: @check_sum,
-                'Content-Type'=> "application/json;charset=utf-8"
-              },
-              body: {
-                name: name,
-                cid: remote_id,
-                type: 0
-              }.to_json
-            )
-
-      res = JSON.parse(res.body).symbolize_keys
-
-      if res[:code] == 200
-        streams.destroy_all
-      else
-        errors.add :base, res[:msg]
-      end
+      return  unless remote_id.present?
+      ::Typhoeus.post(
+        "#{VCLOUD_HOST}/app/channel/delete",
+        headers: vcloud_headers,
+        body: {
+          name: name,
+          cid: remote_id,
+          type: 0
+        }.to_json
+      )
     end
 
+    def vcloud_headers
+      app_secret = VCLOUD_CONFIG['AppSecret']
+      nonce = SecureRandom.hex 32
+      cur_time = Time.now.utc.to_i.to_s
+
+      check_sum = Digest::SHA1.hexdigest(app_secret + nonce + cur_time)
+
+      {
+        AppKey: VCLOUD_CONFIG['AppKey'],
+        Nonce: nonce,
+        CurTime: cur_time,
+        CheckSum: check_sum,
+        'Content-Type' => "application/json;charset=utf-8"
+      }
+    end
   end
 end

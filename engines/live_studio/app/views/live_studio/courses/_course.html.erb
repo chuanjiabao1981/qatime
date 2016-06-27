@@ -4,5 +4,11 @@
   <td><%= course.teacher_name %></td>
   <td><%= course.short_description %></td>
   <td><%= course.price %></td>
-  <td><%= link_to t("activerecord.view.buy_now"), new_course_order_path(course), id: "buy-course-#{course.id}" if course.can_buy?(current_user) %></td>
+  <td>
+    <% if course.sell_to?(current_user) -%>
+      <%= link_to t("activerecord.view.buy_now"), new_course_order_path(course), id: "buy-course-#{course.id}" %>
+    <% elsif course.own_by?(current_user) -%>
+      已购买
+    <% end -%>
+  </td>
 </tr>

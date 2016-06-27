@@ -1,8 +1,9 @@
+set :use_sudo, true 
+
 set :branch, 'testing'
 
 set :deploy_user, 'qatime'
-server '42.121.55.211', user: 'qatime', roles: %w{web app db}, primary:true
-set :rvm_ruby_version, 'ruby-2.0.0'
+server '60.205.95.115', user: 'qatime', roles: %w{web app db}, primary:true
 
 set :deploy_to, "/home/#{fetch(:deploy_user)}/apps/qatime"
 
@@ -21,3 +22,5 @@ set :enable_ssl, false
 # set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:stage)}" }
 
 set :environment, :test
+
+# set :sidekiq_monit_use_sudo, false

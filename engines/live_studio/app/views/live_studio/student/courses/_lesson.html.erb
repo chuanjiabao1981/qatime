@@ -25,6 +25,11 @@
         <td>
           <%= lesson.class_date %>
         </td>
+        <td>
+          <% if lesson.can_play? %>
+            <%= link_to t("activerecord.view.begin_watch_live_studio"), play_course_lesson_path(@course, lesson) %>
+          <% end %>
+        </td>
       </tr>
     <% end -%>
   </table>

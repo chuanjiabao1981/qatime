@@ -66,7 +66,7 @@ module LiveStudio
 
     # 代理商分成
     def manager_fee!(money)
-      course.manager.cash_account!.increase(money, self, "课程完成 - #{name}")
+      course.workstation.cash_account!.increase(money, self, "课程完成 - #{name}")
     end
 
   end

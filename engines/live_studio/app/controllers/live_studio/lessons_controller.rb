@@ -10,11 +10,10 @@ module LiveStudio
     end
 
     def play
-      @play_record = @student.live_studio_play_records.create(
+      @play_record = @student.live_studio_play_records.find_or_create_by(
         course: @course,
         lesson: @lesson
       )
-      @play_record.touch(:start_time_at)
     end
 
     private

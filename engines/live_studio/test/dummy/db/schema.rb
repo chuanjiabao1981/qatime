@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160620104749) do
+ActiveRecord::Schema.define(version: 20160624092232) do
 
   create_table "live_studio_channels", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -39,18 +39,39 @@ ActiveRecord::Schema.define(version: 20160620104749) do
   add_index "live_studio_courses", ["workstation_id"], name: "index_live_studio_courses_on_workstation_id"
 
   create_table "live_studio_lessons", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",          limit: 100
     t.integer  "course_id"
+    t.integer  "teacher_id"
     t.string   "description"
-    t.integer  "state"
-    t.string   "start_time"
-    t.string   "end_time"
+    t.integer  "state",         limit: 2,   default: 0
+    t.string   "start_time",    limit: 6
+    t.string   "end_time",      limit: 6
     t.date     "class_date"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "live_count",                default: 0
+    t.datetime "live_start_at"
+    t.datetime "live_end_at"
+    t.integer  "real_time",                 default: 0
+    t.integer  "pos",           limit: 4,   default: 0
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
   end
 
   add_index "live_studio_lessons", ["course_id"], name: "index_live_studio_lessons_on_course_id"
+  add_index "live_studio_lessons", ["teacher_id"], name: "index_live_studio_lessons_on_teacher_id"
+
+  create_table "live_studio_play_records", force: :cascade do |t|
+    t.integer  "student_id"
+    t.integer  "course_id"
+    t.integer  "lesson_id"
+    t.datetime "start_time_at"
+    t.datetime "end_time_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "live_studio_play_records", ["course_id"], name: "index_live_studio_play_records_on_course_id"
+  add_index "live_studio_play_records", ["lesson_id"], name: "index_live_studio_play_records_on_lesson_id"
+  add_index "live_studio_play_records", ["student_id"], name: "index_live_studio_play_records_on_student_id"
 
   create_table "live_studio_streams", force: :cascade do |t|
     t.string   "protocol",   limit: 20

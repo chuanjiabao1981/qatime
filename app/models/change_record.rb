@@ -1,4 +1,4 @@
-class CashRecord < ActiveRecord::Base
+class ChangeRecord < ActiveRecord::Base
   belongs_to :cash_account
   belongs_to :ref, polymorphic: true
 end

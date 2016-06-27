@@ -5,16 +5,26 @@ module LiveStudio
     before_action :set_lession, only: [:show, :play]
 
     def show
+      @course = Course.find(params[:course_id])
+      @lesson = @course.lessons.find(params[:id])
     end
 
     def play
+      @play_record = @student.live_studio_play_records.find_or_create_by(
+        course: @course,
+        lesson: @lesson
+      )
     end
 
     private
 
     def set_lession
-      @course = Course.find(params[:course_id])
+      @student = current_user
+
+      @course = @student.live_studio_courses.find(params[:course_id])
       @lesson = @course.lessons.find(params[:id])
+
+      redirect_to root_path, notice: t("view.lesson.lesson_can_not_play") if @lesson.can_play?
     end
 
   end

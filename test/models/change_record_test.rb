@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CashRecordTest < ActiveSupport::TestCase
+class ChangeRecordTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

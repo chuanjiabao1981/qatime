@@ -810,20 +810,20 @@ ActiveRecord::Schema.define(version: 20160624094829) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                         default: "",    null: false
-    t.string   "encrypted_password",            default: "",    null: false
+    t.string   "email",                                     default: "",    null: false
+    t.string   "encrypted_password",                        default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                 default: 0
+    t.integer  "sign_in_count",                             default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "topics_count",                  default: 0
-    t.integer  "replies_count",                 default: 0
+    t.integer  "topics_count",                              default: 0
+    t.integer  "replies_count",                             default: 0
     t.string   "name"
     t.string   "avatar"
     t.integer  "school_id"
@@ -832,15 +832,16 @@ ActiveRecord::Schema.define(version: 20160624094829) do
     t.string   "remember_token"
     t.text     "desc"
     t.integer  "course_purchase_records_count"
-    t.integer  "joined_groups_count",           default: 0
+    t.integer  "joined_groups_count",                       default: 0
     t.string   "subject"
     t.string   "category"
     t.string   "mobile"
-    t.boolean  "pass",                          default: false
+    t.boolean  "pass",                                      default: false
     t.string   "grade"
     t.string   "nick_name"
     t.string   "parent_phone"
     t.integer  "workstation_id"
+    t.string   "type",                          limit: 100
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

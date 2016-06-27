@@ -3,7 +3,7 @@
 module LiveStudio
   class Teacher::LessonsController < Teacher::BaseController
     before_action :set_course
-    before_action :set_teacher_lesson, only: [:show, :edit, :update, :destroy]
+    before_action :set_teacher_lesson, only: [:show, :edit, :update, :destroy, :begin_live_studio]
 
     # GET /teacher/lessons
     def index
@@ -49,6 +49,10 @@ module LiveStudio
       redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('destroyed', @teacher_lesson)
     end
 
+    def begin_live_studio
+
+      redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('begin_live_studio', @teacher_lesson)
+    end
 
     private
 

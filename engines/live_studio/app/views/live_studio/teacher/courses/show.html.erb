@@ -90,7 +90,7 @@
           <%= link_to t('activerecord.view.edit'), edit_teacher_course_lesson_path(@course, lesson) %>
           <%= link_to t("activerecord.view.delete"), teacher_course_lesson_path(@course, lesson), method: :delete,
                      'data-confirm' => t('activerecord.view.message.confirm') %>
-
+          <%= link_to t("activerecord.view.begin_live_studio"), begin_live_studio_teacher_course_lesson_path(@course, lesson), method: :patch %>
         </div>
       </div>
     <% end -%>

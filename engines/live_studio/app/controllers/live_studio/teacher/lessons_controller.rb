@@ -3,11 +3,11 @@
 module LiveStudio
   class Teacher::LessonsController < Teacher::BaseController
     before_action :set_course
-    before_action :set_teacher_lesson, only: [:show, :edit, :update, :destroy]
+    before_action :set_lesson, only: [:show, :edit, :update, :destroy, :ready]
 
     # GET /teacher/lessons
     def index
-      @teacher_lessons = LiveStudio::Lesson.all
+      @lessons = LiveStudio::Lesson.all
     end
 
     # GET /teacher/lessons/1
@@ -16,7 +16,7 @@ module LiveStudio
 
     # GET /teacher/lessons/new
     def new
-      @teacher_lesson = Lesson.new
+      @lesson = Lesson.new
     end
 
     # GET /teacher/lessons/1/edit
@@ -25,19 +25,24 @@ module LiveStudio
 
     # POST /teacher/lessons
     def create
-      @teacher_lesson = LiveStudio::Lesson.new(teacher_lesson_params)
+      @lesson = @course.lessons.new(lesson_params)
+      @lesson.teacher = current_user
 
-      if @teacher_lesson.save
-        redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('created', @teacher_lesson)
+      if @lesson.save
+        redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('created', @lesson)
       else
         render :new
       end
     end
 
+    def ready
+      @lesson.ready!
+    end
+
     # PATCH/PUT /teacher/lessons/1
     def update
-      if @teacher_lesson.update(teacher_lesson_params)
-        redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('updated', @teacher_lesson)
+      if @lesson.update(lesson_params)
+        redirect_to teacher_course_path(@course), notice: i18n_notice('updated', @lesson)
       else
         render :edit
       end
@@ -45,15 +50,15 @@ module LiveStudio
 
     # DELETE /teacher/lessons/1
     def destroy
-      @teacher_lesson.destroy
-      redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('destroyed', @teacher_lesson)
+      @lesson.destroy
+      redirect_to teacher_course_path(@course), notice: i18n_notice('destroyed', @lesson)
     end
 
 
     private
 
-    def set_teacher_lesson
-      @teacher_lesson = Lesson.find_by(id: params[:id])
+    def set_lesson
+      @lesson = Lesson.find_by(id: params[:id])
     end
 
     def set_course
@@ -66,8 +71,8 @@ module LiveStudio
     end
 
     # Only allow a trusted parameter "white list" through.
-    def teacher_lesson_params
-      params.require(:lesson).permit(:name, :description, :start_time, :end_time, :class_date).merge(course_id: params[:course_id])
+    def lesson_params
+      params.require(:lesson).permit(:name, :description, :start_time, :end_time, :class_date)
     end
   end
 end

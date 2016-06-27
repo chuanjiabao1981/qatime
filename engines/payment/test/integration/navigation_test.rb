@@ -1,7 +1,8 @@
 require 'test_helper'
 
-class OrderTest < ActiveSupport::TestCase
+class NavigationTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
 end
+

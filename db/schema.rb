@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627052016) do
+ActiveRecord::Schema.define(version: 20160627061503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20160627052016) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "change_records", force: :cascade do |t|
+  create_table "cash_records", force: :cascade do |t|
     t.integer  "cash_account_id"
     t.decimal  "before",          precision: 10, scale: 2
     t.decimal  "after",           precision: 10, scale: 2
@@ -80,8 +80,8 @@ ActiveRecord::Schema.define(version: 20160627052016) do
     t.datetime "updated_at",                               null: false
   end
 
-  add_index "change_records", ["cash_account_id"], name: "index_change_records_on_cash_account_id", using: :btree
-  add_index "change_records", ["ref_type", "ref_id"], name: "index_change_records_on_ref_type_and_ref_id", using: :btree
+  add_index "cash_records", ["cash_account_id"], name: "index_cash_records_on_cash_account_id", using: :btree
+  add_index "cash_records", ["ref_type", "ref_id"], name: "index_cash_records_on_ref_type_and_ref_id", using: :btree
 
   create_table "cities", force: :cascade do |t|
     t.string   "name"
@@ -532,6 +532,7 @@ ActiveRecord::Schema.define(version: 20160627052016) do
     t.string   "address",    limit: 255
     t.integer  "channel_id"
     t.integer  "user_count",             default: 0
+    t.string   "type",       limit: 100
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
   end
@@ -591,6 +592,21 @@ ActiveRecord::Schema.define(version: 20160627052016) do
 
   add_index "orders", ["product_type", "product_id"], name: "index_orders_on_product_type_and_product_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
+  create_table "payment_orders", force: :cascade do |t|
+    t.string   "order_no",     limit: 64,                                       null: false
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.string   "product_type"
+    t.decimal  "total_money",             precision: 8, scale: 2, default: 0.0
+    t.integer  "status",                                          default: 0,   null: false
+    t.integer  "pay_type",                                        default: 0,   null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
+  end
+
+  add_index "payment_orders", ["product_type", "product_id"], name: "index_payment_orders_on_product_type_and_product_id", using: :btree
+  add_index "payment_orders", ["user_id"], name: "index_payment_orders_on_user_id", using: :btree
 
   create_table "picture_quoters", force: :cascade do |t|
     t.integer  "picture_id"

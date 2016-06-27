@@ -32,10 +32,11 @@ LiveStudio::Engine.routes.draw do
         member do
           patch :begin_live_studio
           patch :end_live_studio
+          patch :ready
         end
       end
       member do
-        patch :sync_channel_streams
+        patch :channel
       end
     end
   end

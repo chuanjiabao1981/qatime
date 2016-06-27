@@ -31,8 +31,8 @@ module LiveStudio
     end
 
     def build_streams(result)
-      push_streams.create(address: result[:pushUrl], protocol: 'rtmp')
-      pull_streams.create(address: result[:rtmpPullUrl], protocol: 'rtmp')
+      push_streams.create(address: result['pushUrl'], protocol: 'rtmp')
+      pull_streams.create(address: result['rtmpPullUrl'], protocol: 'rtmp')
     end
 
     def delete_remote_channel

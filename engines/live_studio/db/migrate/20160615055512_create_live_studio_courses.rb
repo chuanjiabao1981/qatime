@@ -7,6 +7,7 @@ class CreateLiveStudioCourses < ActiveRecord::Migration
       t.integer :status, default: 0
       t.text :description
       t.decimal :price, precision: 6, scale: 2, default: 0.0
+      t.decimal :teacher_percentage, precision: 2, scale: 2, default: 0.0
 
       t.timestamps null: false
     end

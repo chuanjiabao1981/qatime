@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627061503) do
+ActiveRecord::Schema.define(version: 20160627065822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,13 +51,14 @@ ActiveRecord::Schema.define(version: 20160627061503) do
   end
 
   create_table "cash_accounts", force: :cascade do |t|
-    t.integer  "user_id"
-    t.decimal  "balance"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.decimal  "balance",    precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
   end
 
-  add_index "cash_accounts", ["user_id"], name: "index_cash_accounts_on_user_id", using: :btree
+  add_index "cash_accounts", ["owner_type", "owner_id"], name: "index_cash_accounts_on_owner_type_and_owner_id", using: :btree
 
   create_table "cash_operation_records", force: :cascade do |t|
     t.integer  "operator_id"
@@ -910,7 +911,6 @@ ActiveRecord::Schema.define(version: 20160627061503) do
     t.integer  "manager_id"
   end
 
-  add_foreign_key "cash_accounts", "users"
   add_foreign_key "live_studio_cash_accounts", "users"
   add_foreign_key "orders", "users"
 end

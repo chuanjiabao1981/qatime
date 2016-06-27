@@ -4,7 +4,7 @@ module LiveStudio
   class Teacher::CoursesController < Teacher::BaseController
 
     before_action :courses_chain
-    before_action :set_course, only: [:show, :edit, :update, :destroy, :sync_channel_streams]
+    before_action :set_course, only: [:show, :edit, :update, :destroy, :channel]
 
     def index
       @courses = courses_chain.paginate(page: params[:page])
@@ -12,6 +12,7 @@ module LiveStudio
     end
 
     def show
+      @lessons = @course.lessons.order("id")
     end
 
     def edit
@@ -26,10 +27,10 @@ module LiveStudio
       end
     end
 
-    def sync_channel_streams
-      @channel = @course.channels.find(params[:channel_id] )
-      @channel.sync_streams
-      redirect_to [:teacher, @course], notice: @channel.errors[:base].join(',')
+    def channel
+      @course.channels.destroy_all
+      @course.init_channel
+      @channel = @course.channels.last
     end
 
     private

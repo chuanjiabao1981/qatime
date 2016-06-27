@@ -7,7 +7,7 @@ lock '3.4.0'
 set :application, 'qatime'
 
 set :scm, :git
-# set :repo_url, 'git@github.com:chuanjiabao1981/qatime.git'
+set :repo_url, 'git@github.com:chuanjiabao1981/qatime.git'
 
 # set :git_https_username,'chuanjiabao1981@gmail.com'
 # set :git_https_password,'mgw198100'
@@ -30,19 +30,19 @@ set :scm, :git
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, %w{config/wechat.yml config/database.yml config/application.yml public/assets/HLSProvider6.swf public/assets/jwplayer.flash.swf }
+set :linked_files, %w{config/wechat.yml config/database.yml config/application.yml config/application.yml config/vcloud.yml }
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
-set :default_env, { rvm_bin_path: '~/.rvm/bin' }
+# set :default_env, { rvm_bin_path: '~/.rvm/bin' }
 
 # 注意这里要用lambda 延迟获取deploy_user的时间
 set :unicorn_config_path,-> {"/home/#{fetch(:deploy_user)}/apps/qatime/current/config/unicorn.rb"}
 
-SSHKit.config.command_map[:rake]  = "#{fetch(:default_env)[:rvm_bin_path]}/rvm ruby-#{fetch(:rvm_ruby_version)} do bundle exec rake"
+# SSHKit.config.command_map[:rake]  = "#{fetch(:default_env)[:rvm_bin_path]}/rvm ruby-#{fetch(:rvm_ruby_version)} do bundle exec rake"
 set :pty, true
 
 # Default value for keep_releases is 5
@@ -71,7 +71,8 @@ namespace :deploy do
   desc "Create database before migrate"
   task :create_database do
     on roles(:db), in: :sequence, wait: 5 do
-      execute "cd #{release_path} && ( RVM_BIN_PATH=~/.rvm/bin /usr/bin/env bundle exec rake db:create )"
+      # execute "cd #{release_path} && ( RVM_BIN_PATH=~/.rvm/bin /usr/bin/env bundle exec rake db:create )"
+      execute "cd #{release_path} && (bundle exec rake db:create )"
     end
   end
   # after "updated", "deploy:copy_jwplayer"
@@ -84,6 +85,7 @@ namespace :qatime do
       upload! "config/application.yml", "#{shared_path}/config/application.yml"
       upload! "config/database.yml","#{shared_path}/config/database.yml"
       upload! "config/wechat.yml","#{shared_path}/config/wechat.yml"
+      upload! "config/vcloud.yml","#{shared_path}/config/vcloud.yml"
     end
   end
 end

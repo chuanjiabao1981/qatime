@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160627052016) do
+ActiveRecord::Schema.define(version: 20160627065822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,13 +51,14 @@ ActiveRecord::Schema.define(version: 20160627052016) do
   end
 
   create_table "cash_accounts", force: :cascade do |t|
-    t.integer  "user_id"
-    t.decimal  "balance"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.decimal  "balance",    precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
   end
 
-  add_index "cash_accounts", ["user_id"], name: "index_cash_accounts_on_user_id", using: :btree
+  add_index "cash_accounts", ["owner_type", "owner_id"], name: "index_cash_accounts_on_owner_type_and_owner_id", using: :btree
 
   create_table "cash_operation_records", force: :cascade do |t|
     t.integer  "operator_id"
@@ -471,12 +472,33 @@ ActiveRecord::Schema.define(version: 20160627052016) do
 
   add_index "live_studio_lessons", ["course_id"], name: "index_live_studio_lessons_on_course_id", using: :btree
   add_index "live_studio_lessons", ["teacher_id"], name: "index_live_studio_lessons_on_teacher_id", using: :btree
+<<<<<<< HEAD
+=======
+
+  create_table "live_studio_live_channels", force: :cascade do |t|
+    t.string   "name",       limit: 200,             null: false
+    t.integer  "course_id"
+    t.string   "remote_id"
+    t.integer  "state",                  default: 0
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+  end
+
+  add_index "live_studio_live_channels", ["course_id"], name: "index_live_studio_live_channels_on_course_id", using: :btree
+
+  create_table "live_studio_live_streams", force: :cascade do |t|
+    t.string   "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+>>>>>>> 9370e4c0e749351f916d48eda0313f9c829e32aa
 
   create_table "live_studio_streams", force: :cascade do |t|
     t.string   "protocol",   limit: 20
     t.string   "address",    limit: 255
     t.integer  "channel_id"
     t.integer  "user_count",             default: 0
+    t.string   "type",       limit: 100
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
   end
@@ -539,6 +561,21 @@ ActiveRecord::Schema.define(version: 20160627052016) do
   add_index "orders", ["order_no"], name: "index_orders_on_order_no", using: :btree
   add_index "orders", ["product_type", "product_id"], name: "index_orders_on_product_type_and_product_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
+
+  create_table "payment_orders", force: :cascade do |t|
+    t.string   "order_no",     limit: 64,                                       null: false
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.string   "product_type"
+    t.decimal  "total_money",             precision: 8, scale: 2, default: 0.0
+    t.integer  "status",                                          default: 0,   null: false
+    t.integer  "pay_type",                                        default: 0,   null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
+  end
+
+  add_index "payment_orders", ["product_type", "product_id"], name: "index_payment_orders_on_product_type_and_product_id", using: :btree
+  add_index "payment_orders", ["user_id"], name: "index_payment_orders_on_user_id", using: :btree
 
   create_table "picture_quoters", force: :cascade do |t|
     t.integer  "picture_id"
@@ -848,5 +885,6 @@ ActiveRecord::Schema.define(version: 20160627052016) do
   end
 
   add_foreign_key "cash_accounts", "users"
+  add_foreign_key "live_studio_cash_accounts", "users"
   add_foreign_key "orders", "users"
 end

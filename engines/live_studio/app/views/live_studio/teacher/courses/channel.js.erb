@@ -1,0 +1,4 @@
+<% if @channel.errors.blank? -%>
+ $("#sync_channel").replaceWith("<%= @channel.push_streams.last.try(:address) %>");
+<% else -%>
+<% end -%>

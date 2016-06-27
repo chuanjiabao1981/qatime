@@ -12,11 +12,31 @@
 end unless City.count > 0
 
 # admin initialize
-User.create(name: 'admin',
+Admin.create(name: 'admin',
             email: 'admin@admin.com',
-            password: 'admin123',
-            password_confirmation: 'admin123',
-            role: 'admin') unless User.exists?
+            password: '123456',
+            password_confirmation: '123456',
+            role: 'admin') unless Admin.exists?
+
+m = Manager.create(name: 'manager',
+            email: 'm1@manager.com',
+            password: '123456',
+            password_confirmation: '123456',
+            role: 'manager') unless Manager.exists?
+
+Workstation.create(name: "第一工作站",
+            city_id: 1,
+            address: '南三环中路',
+            tel: '15811010176',
+            email: 'xinshuaifeng@126.com',
+            manager_id: m.id
+  ) unless Workstation.exists?
+
+Teacher.create(name: 'teacher',
+            email: 't1@teacher.com',
+            password: '123456',
+            password_confirmation: '123456',
+            role: 'teacher') unless Teacher.exists?
 
 # school initialize
 %w(一中 二中 三中).each do |suffix|

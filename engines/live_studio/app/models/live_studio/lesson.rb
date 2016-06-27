@@ -1,6 +1,6 @@
 module LiveStudio
   class Lesson < ActiveRecord::Base
-    enum status: {
+    enum state: {
       init: 0, # 初始化
       ready: 1, # 等待上课
       teaching: 2, # 上课中
@@ -9,7 +9,7 @@ module LiveStudio
     }
 
     belongs_to :course
-    belongs_to :teacher # 区别于course的teacher防止课程中途换教师
+    belongs_to :teacher, class_name: ::Teacher # 区别于course的teacher防止课程中途换教师
 
     validates :name, :description, :course_id, :start_time, :end_time, :class_date, presence: true
 
@@ -37,6 +37,15 @@ module LiveStudio
         manager_fee!(money) # 代理商分成
         completed!
       end
+    end
+
+    def has_finished?
+      self[:state] > Lesson.states[:ready]
+    end
+
+    # 是否可以准备上课
+    def ready_for?
+      init? && class_date == Date.today
     end
 
     private

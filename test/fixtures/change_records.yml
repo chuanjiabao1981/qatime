@@ -7,7 +7,7 @@ one:
   different: 9.99
   ref_id: 
   ref_type: Ref
-  remark: MyString
+  summary: MyString
 
 two:
   cash_account_id: 
@@ -16,4 +16,4 @@ two:
   different: 9.99
   ref_id: 
   ref_type: Ref
-  remark: MyString
+  summary: MyString

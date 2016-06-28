@@ -73,10 +73,6 @@ module LiveStudio
 
     private
 
-    def set_lesson
-      @lesson = Lesson.find_by(id: params[:id])
-    end
-
     def set_course
       @course = Course.find(params[:course_id])
     end

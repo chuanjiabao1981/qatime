@@ -26,6 +26,8 @@ module LiveStudio
       if @order.save
         redirect_to payment.user_order_path(@order.order_no)#, notice: i18n_notice('created', @order)
       else
+        p @order.errors
+        p '--------------'
         render :new
       end
     end

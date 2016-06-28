@@ -33,7 +33,6 @@ module LiveStudio
 
     has_many :play_records #听课记录
 
-    # TODO 换成真正的地址
     def push_stream
       push_streams.last
     end
@@ -66,11 +65,13 @@ module LiveStudio
 
     # 当前单节课程价格
     def current_single_price
+      return 0.0 if price.to_f == 0.0
       price / lessons.count
     end
 
     # 发货
     def deliver(order)
+      taste_tickets.where(student_id: order.user_id).useable.map(&:replaced!) # 替换正在使用的试听券
       ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: current_single_price)
       ticket.active!
     end
@@ -121,10 +122,33 @@ module LiveStudio
       user = order.user
       order.errors[:product] << '课程目前不对外招生' unless for_sell?
       order.errors[:product] << '课程只对学生销售' unless user.student?
-      order.errors[:product] << '您已经购买过该课程' if user.live_studio_tickets.map(&:course_id).include?(id)
+      order.errors[:product] << '您已经购买过该课程' if buy_tickets.where(student_id: user.id).exists?
+    end
+
+    # 观看授权
+    def play_authorize(user, lesson)
+      # 正在观看不需要继续授权
+      play_record = play_records.where(user_id: user.id, lesson_id: lesson.id).first
+      return play_record if play_record
+      return student_authorize(user, lesson) if user.student?
+      others_authorize(user, lesson)
     end
 
     private
+
+    # 学生授权播放
+    def student_authorize(user, lesson)
+      ticket = tickets.useable.where(student_id: user.id).first
+      return unless ticket
+      play_records.create(user_id: user.id, lesson_id: lesson.id, ticket: ticket)
+    end
+
+    # 教师授权播放
+    def others_authorize(user, lesson)
+      return if user.teacher? && user.id != teacher_id
+      return if self.workstation_id != user.workstation_id
+      play_records.create(user_id: user.id, lesson_id: lesson.id)
+    end
 
     after_create :init_channel_job
     def init_channel_job

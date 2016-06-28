@@ -57,7 +57,7 @@ module Payment
       {
           body: 'test order',
           out_trade_no: @order.order_no,
-          total_fee: @order.total_money.to_i,
+          total_fee: (@order.total_money * 100).to_i,
           spbill_create_ip: request.env['REMOTE_ADDR'],
           notify_url:  "#{WECHAT_CONFIG['domain_name']}/payment/notify",
           trade_type: 'NATIVE',

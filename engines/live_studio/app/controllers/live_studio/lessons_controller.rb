@@ -10,12 +10,9 @@ module LiveStudio
     end
 
     def play
+      @paly_record = @course.play_authorize(current_user, @lesson)
+      redirect_to [:manager, @course], notice: i18n_notice('has not bought', @course) if @paly_record.nil?
       @teacher = @course.teacher
-
-      @play_record = @student.live_studio_play_records.find_or_create_by(
-        course: @course,
-        lesson: @lesson
-      )
     end
 
     private

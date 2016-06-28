@@ -7,6 +7,8 @@ module LiveStudio
     end
 
     def taste
+      @course = Course.find(params[:id])
+      @course.taste_tickets.find_or_create_by(student_id: current_user.id)
     end
   end
 end

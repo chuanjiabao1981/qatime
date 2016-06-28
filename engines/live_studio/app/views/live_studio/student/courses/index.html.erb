@@ -1,32 +1,25 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
+<div class="qa_box panel panel-default">
+  <div class="qa_big_cell panel-heading">
     <div>
-      <h2> <%= LiveStudio::Course.model_name.human %>
-        <%=link_to courses_path do %>
-          <button type="button" class="btn btn-xs btn-success">
-            <%= t("activerecord.view.search") %><%= LiveStudio::Course.model_name.human %>
-          </button>
-        <% end %>
-      </h2>
+      <%= LiveStudio::Course.model_name.human %>
+      <%=link_to courses_path do %>
+      <button type="button" class="btn btn-xs btn-success">
+        <%= t("activerecord.view.search") %><%= LiveStudio::Course.model_name.human %>
+      </button>
+      <% end %>
     </div>
   </div>
 
-  <div>
 
-    <% @courses.each do |course| -%>
-      <div class="row qa_big_cell">
-        <div class="col-md-2">
-          <%= link_to course.name, [:student, course] %>
-        </div>
-        <div class="col-md-2">
-          <%= course.teacher_name %>
-        </div>
-        <div class="col-md-4">
-          <%= course.short_description %>
-        </div>
-      </div>
-    </div>
-    <% end -%>
-
-  </div>
+  <table class="table">
+    <tr>
+      <th>#</th>
+      <th>辅导班名称</th>
+      <th>任课教师</th>
+      <th>状态</th>
+      <th>类型</th>
+      <th>操作</th>
+    </tr>
+    <%= render partial: 'ticket', collection: @tickets %>
+  </table>
 </div>

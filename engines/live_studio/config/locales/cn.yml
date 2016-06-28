@@ -10,7 +10,7 @@ cn:
       taste: 试听
   helpers:
     label:
-      order:
+      payment/order:
         name: 辅导班
         teacher: 辅导老师
         price: 价格
@@ -31,7 +31,7 @@ cn:
         class_date: 课程日期
         status_event: 是否通过审核
         status: 状态
-      order:
+      payment/order:
         name: 辅导班
         teacher: 辅导老师
         price: 价格

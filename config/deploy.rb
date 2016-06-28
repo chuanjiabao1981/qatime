@@ -56,6 +56,7 @@ set :whenever_roles, -> {:db}
 
 namespace :deploy do
   task :restart do
+    p '---------------'
     invoke 'unicorn:restart'
   end
 

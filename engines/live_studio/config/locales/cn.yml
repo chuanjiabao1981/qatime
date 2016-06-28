@@ -76,6 +76,8 @@ cn:
       end_live_studio: 结束直播
       finished_live_studio: 完成直播
       begin_watch_live_studio: 观看直播
+      teacher_desc: 老师简介
+      lesson_desc: 课程简介
       message:
         confirm: 确认操作
       course_library/course:

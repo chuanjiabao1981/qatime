@@ -33,7 +33,7 @@ set :repo_url, 'git@github.com:chuanjiabao1981/qatime.git'
 set :linked_files, %w{config/wechat.yml config/database.yml config/application.yml config/application.yml config/vcloud.yml }
 
 # Default value for linked_dirs is []
-set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads public/qrcode}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -89,4 +89,3 @@ namespace :qatime do
     end
   end
 end
-

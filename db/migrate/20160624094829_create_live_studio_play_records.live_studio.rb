@@ -5,6 +5,8 @@ class CreateLiveStudioPlayRecords < ActiveRecord::Migration
       t.references :user, index: true
       t.references :course, index: true
       t.references :lesson, index: true
+      t.references :ticket, index: true
+
       t.datetime :start_time_at
       t.datetime :end_time_at
 

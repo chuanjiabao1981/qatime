@@ -37,6 +37,9 @@ cn:
         price: 价格
         status: 状态
         type_name: 类型
+        teacher_percentage: 教师分成百分比
+        preset_lesson_count: 课程数
+        lesson_price: 单节课程价格
       live_studio/ticket:
         course: 辅导班
         lesson: 课程

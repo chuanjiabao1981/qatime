@@ -92,6 +92,8 @@ gem 'chosen-rails'
 # runs HTTP requests
 gem 'typhoeus'
 
+gem 'wx_pay'
+
 group :development,:test do
   # 状态机做图
   gem 'ruby-graphviz', :require => 'graphviz'

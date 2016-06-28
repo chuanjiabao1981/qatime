@@ -10,6 +10,9 @@ module Permissions
       allow :qa_faqs,[:show] do |faq|
         not faq.teacher?
       end
+
+      # wechat payment callback url
+      allow 'payment/orders', [:notify]
     end
   end
 end

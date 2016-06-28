@@ -1,6 +1,6 @@
 # required
 WxPay.appid = WECHAT_CONFIG['appid']
-WxPay.key = WECHAT_CONFIG['secret']
+WxPay.key = WECHAT_CONFIG['key']
 WxPay.mch_id = WECHAT_CONFIG['mch_id']
 
 # cert, see https://pay.weixin.qq.com/wiki/doc/api/app/app.php?chapter=4_3

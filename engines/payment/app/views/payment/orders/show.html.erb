@@ -1,16 +1,38 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <div class="row">
-      <div class="col-md-4">
-        <h2>
-          支付
-        </h2>
+<div class="panel panel-default">
+  <div class="panel-heading">支付</div>
+  <div class="panel-body">
+    <%= hidden_field_tag :order_no, params[:id] %>
 
-      </div>
-
+    <div class="qa_big_cell">
+      <div>订单号：<%= @order.order_no %></div>
+      <div>产品名称：<%= @order.product.name %></div>
+      <div>支付金额：<%= @order.total_money %> 元</div>
+    </div>
+    <div class="qa_big_cell text-center">
+      <%= image_tag(@qrcode_url) %>
+      <div>微信二维码 扫一扫支付</div>
     </div>
   </div>
-  <div class="qa_box">
-    <%= image_tag(@qrcode_url) %>
-  </div>
 </div>
+
+
+
+<script>
+  function showUnreadNews()
+  {
+    $(document).ready(function() {
+      $.ajax({
+        type: "GET",
+        url: "result?order_no="+$('#order_no').val(),
+        success: function(msg) {
+          if(msg == 'paid'){
+            location.href="/live_studio/student/courses";
+          }else{
+            console.log('未支付成功');
+          }
+        }
+      });
+    });
+  }
+  setInterval('showUnreadNews()',2000);
+</script>

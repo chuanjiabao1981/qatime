@@ -150,7 +150,7 @@ module Permissions
       ## end live studio permission
 
       # payment permission
-      allow 'payment/orders', [:index, :show, :destroy]
+      allow 'payment/orders', [:index, :show, :destroy, :result]
       # payment permission
     end
 private

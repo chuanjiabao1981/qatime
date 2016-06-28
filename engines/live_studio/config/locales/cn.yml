@@ -22,6 +22,7 @@ cn:
         end_time: 结束时间
         class_date: 课程日期
         status_event: 是否通过审核
+        status: 状态
       order:
         name: 辅导班
         teacher: 辅导老师
@@ -37,6 +38,9 @@ cn:
         price: 价格
         status: 状态
         type_name: 类型
+        teacher_percentage: 教师分成百分比
+        preset_lesson_count: 课程数
+        lesson_price: 单节课程价格
       live_studio/ticket:
         course: 辅导班
         lesson: 课程
@@ -56,7 +60,9 @@ cn:
       alipay: 支付宝
       weixin: 微信
       buy: 购买
+      taste: 试听
       buy_now: 立即购买
+      taste_now: 立即试听
       search: 搜索
       edit: 编辑
       create: 创建
@@ -75,6 +81,7 @@ cn:
       begin_live_studio: 开始直播
       end_live_studio: 结束直播
       finished_live_studio: 完成直播
+      status: 状态
       begin_watch_live_studio: 观看直播
       teacher_desc: 老师简介
       lesson_desc: 课程简介

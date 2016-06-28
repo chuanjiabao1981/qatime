@@ -13,11 +13,14 @@ module LiveStudio
            completed: 3 # 已结束
          }
 
-    validates :name, presence: true
+    validates :name, :price, presence: true
+    validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than: 0, less_than: 100 }
+    validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than: 200 }
 
     validates :workstation, :teacher, presence: true
 
     belongs_to :teacher, class_name: '::Teacher'
+
     belongs_to :workstation
 
     has_many :tickets # 听课证
@@ -59,20 +62,13 @@ module LiveStudio
 
     # 当前价格
     def current_price
-      left_count = lessons.unfinished.count
-      price * left_count / lessons.count
-    end
-
-    # 当前单节课程价格
-    def current_single_price
-      return 0.0 if price.to_f == 0.0
-      price / lessons.count
+      lesson_price * (preset_lesson_count - completed_lesson_count)
     end
 
     # 发货
     def deliver(order)
       taste_tickets.where(student_id: order.user_id).useable.map(&:replaced!) # 替换正在使用的试听券
-      ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: current_single_price)
+      ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: lesson_price)
       ticket.active!
     end
 
@@ -135,6 +131,11 @@ module LiveStudio
     end
 
     private
+
+    before_create :set_lesson_price
+    def set_lesson_price
+      self.lesson_price = (price / preset_lesson_count).to_i if preset_lesson_count.to_i > 0
+    end
 
     # 学生授权播放
     def student_authorize(user, lesson)

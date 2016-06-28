@@ -477,6 +477,7 @@ ActiveRecord::Schema.define(version: 20160627065822) do
     t.integer  "user_id"
     t.integer  "course_id"
     t.integer  "lesson_id"
+    t.integer  "ticket_id"
     t.datetime "start_time_at"
     t.datetime "end_time_at"
     t.datetime "created_at",    null: false
@@ -485,6 +486,7 @@ ActiveRecord::Schema.define(version: 20160627065822) do
 
   add_index "live_studio_play_records", ["course_id"], name: "index_live_studio_play_records_on_course_id", using: :btree
   add_index "live_studio_play_records", ["lesson_id"], name: "index_live_studio_play_records_on_lesson_id", using: :btree
+  add_index "live_studio_play_records", ["ticket_id"], name: "index_live_studio_play_records_on_ticket_id", using: :btree
   add_index "live_studio_play_records", ["user_id"], name: "index_live_studio_play_records_on_user_id", using: :btree
 
   create_table "live_studio_streams", force: :cascade do |t|

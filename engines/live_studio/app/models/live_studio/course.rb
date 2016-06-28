@@ -18,6 +18,7 @@ module LiveStudio
     validates :workstation, :teacher, presence: true
 
     belongs_to :teacher, class_name: '::Teacher'
+
     belongs_to :workstation
 
     has_many :tickets # 听课证

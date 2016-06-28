@@ -149,6 +149,9 @@ module Permissions
       allow 'live_studio/lessons', [:show, :play]
       ## end live studio permission
 
+      # payment permission
+      allow 'payment/orders', [:index, :show, :destroy, :result]
+      # payment permission
     end
 private
 

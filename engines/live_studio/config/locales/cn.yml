@@ -4,6 +4,10 @@ cn:
     preview: 招生中
     teaching: 已开课
     completed: 已结束
+  live_studio/ticket:
+    type_name:
+      buy: 已购买
+      taste: 试听
   activerecord:
     models:
       order: 订单
@@ -18,6 +22,7 @@ cn:
         end_time: 结束时间
         class_date: 课程日期
         status_event: 是否通过审核
+        status: 状态
       order:
         name: 辅导班
         teacher: 辅导老师
@@ -27,10 +32,21 @@ cn:
       live_studio/course:
         name: 名称
         teacher: 辅导老师
+        short_description: 摘要
         description: 说明
         workstation: 工作站
         price: 价格
         status: 状态
+        type_name: 类型
+        teacher_percentage: 教师分成百分比
+        preset_lesson_count: 课程数
+        lesson_price: 单节课程价格
+      live_studio/ticket:
+        course: 辅导班
+        lesson: 课程
+        student: 学生
+        status: 状态
+        type_name: 状态
       course_library/course:
         title: 标题
         description: 简介
@@ -44,7 +60,9 @@ cn:
       alipay: 支付宝
       weixin: 微信
       buy: 购买
+      taste: 试听
       buy_now: 立即购买
+      taste_now: 立即试听
       search: 搜索
       edit: 编辑
       create: 创建
@@ -63,6 +81,11 @@ cn:
       begin_live_studio: 开始直播
       end_live_studio: 结束直播
       finished_live_studio: 完成直播
+      status: 状态
+      begin_watch_live_studio: 观看直播
+      teacher_desc: 老师简介
+      lesson_desc: 课程简介
+      course_desc: 辅导班信息
       message:
         confirm: 确认操作
       course_library/course:
@@ -79,8 +102,6 @@ cn:
         no_customized_course_available: 没有可使用此大纲课程的专属课程
         is_same: 是否一致
         operation: 操作
-      lesson:
-        lesson_can_not_play: 该课程不能播放或已经结束!
     successful:
       messages:
         created: "%{model}已创建"
@@ -88,6 +109,4 @@ cn:
         destroyed: "%{model}已删除"
         begin_live_studio: "%{model}已开始直播"
         end_live_studio: "%{model}已结束直播"
-
-
-
+        lesson_can_not_play: 该课程不能播放或已经结束!

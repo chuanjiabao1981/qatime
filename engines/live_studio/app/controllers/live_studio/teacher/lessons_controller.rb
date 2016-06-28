@@ -58,24 +58,17 @@ module LiveStudio
     end
 
     def begin_live_studio
-      @lesson.touch(:live_start_at)
+      @lesson.teach!
       redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('begin_live_studio', @lesson)
     end
 
     def end_live_studio
-      @lesson.update(live_count: @lesson.play_records.count)
-
-      @lesson.touch(:live_end_at)
-      @lesson.finish
+      @lesson.finish!
 
       redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('end_live_studio', @lesson)
     end
 
     private
-
-    def set_lesson
-      @lesson = Lesson.find_by(id: params[:id])
-    end
 
     def set_course
       @course = Course.find(params[:course_id])

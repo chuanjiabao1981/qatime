@@ -26,6 +26,7 @@ PATH
   specs:
     payment (0.0.1)
       rails (~> 4.2.5.1)
+      rqrcode
 
 PATH
   remote: engines/qawechat
@@ -277,6 +278,8 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
+    rqrcode (0.10.1)
+      chunky_png (~> 1.0)
     ruby-graphviz (1.2.2)
     rubyzip (1.2.0)
     sass (3.2.19)
@@ -367,6 +370,9 @@ GEM
     will_paginate (3.0.5)
     will_paginate-bootstrap (1.0.1)
       will_paginate (>= 3.0.3)
+    wx_pay (0.7.0)
+      activesupport (>= 3.2)
+      rest-client (>= 1.7)
     x-editable-rails (1.5.5)
       railties
     xpath (2.0.0)
@@ -430,6 +436,7 @@ DEPENDENCIES
   whenever
   will_paginate (= 3.0.5)
   will_paginate-bootstrap
+  wx_pay
   x-editable-rails
 
 BUNDLED WITH

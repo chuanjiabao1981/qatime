@@ -8,8 +8,8 @@
   </td>
   <td><%= course.status %></td>
   <td>
-    <%=link_to t("activerecord.view.edit"), edit_manager_course_path(course) if allow?("live_studio/teacher/courses", "update") %>
-    <%=link_to t("activerecord.view.delete"), manager_course_path(course), method: :delete,
+    <%=link_to t("activerecord.view.edit"), edit_teacher_course_path(course) if allow?("live_studio/teacher/courses", "update") %>
+    <%=link_to t("activerecord.view.delete"), teacher_course_path(course), method: :delete,
                'data-confirm' => t('activerecord.view.message.confirm') if allow?("live_studio/teacher/courses", "destroy") %>
   </td>
 </tr>

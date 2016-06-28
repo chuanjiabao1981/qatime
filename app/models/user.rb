@@ -45,6 +45,8 @@ class User < ActiveRecord::Base
 
   has_many :wechat_users, class_name: Qawechat::WechatUser, :dependent => :destroy
 
+  has_many :live_studio_play_records, class_name: LiveStudio::PlayRecord
+
   belongs_to :school
 
   def unread_notifications_count

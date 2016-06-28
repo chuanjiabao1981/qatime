@@ -1,7 +1,7 @@
 module Payment
   class Order < ActiveRecord::Base
     PAY_TYPE = {
-      alipay: 0,
+      #alipay: 0,
       weixin: 1
     }.freeze
 
@@ -38,7 +38,10 @@ module Payment
       end
 
       event :ship do
-        transitions from: :paid, to: :shipped, before: :delivery_product
+        before do
+          delivery_product
+        end
+        transitions from: :paid, to: :shipped
       end
 
       event :finish do

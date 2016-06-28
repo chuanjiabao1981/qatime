@@ -60,7 +60,9 @@ cn:
       alipay: 支付宝
       weixin: 微信
       buy: 购买
+      taste: 试听
       buy_now: 立即购买
+      taste_now: 立即试听
       search: 搜索
       edit: 编辑
       create: 创建

@@ -55,6 +55,9 @@ set :whenever_variables, ->{ "environment=#{fetch :stage}" }
 set :whenever_roles, -> {:db}
 
 namespace :deploy do
+  task :restart do
+    invoke 'unicorn:duplicate'
+  end
   # desc "Copy static swf files"
   # task :copy_jwplayer do
   #   on roles(:app,:web, :db), in: :sequence, wait: 5 do
@@ -72,7 +75,8 @@ namespace :deploy do
     end
   end
 
-  after 'deploy:restart', 'unicorn:duplicate'
+  after :publishing, :restart
+  after :finishing, 'deploy:cleanup'
   # after "updated", "deploy:copy_jwplayer"
 end
 

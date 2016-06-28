@@ -45,7 +45,9 @@ stdout_path APP_PATH + "/log/unicorn.stdout.log"
 
 preload_app true
 
-before_fork do |server, worker|ENV['BUNDLE_GEMFILE'] = "#{working_directory}/Gemfile"
+before_fork do |server, worker|
+  ActiveRecord::Base.connection.disconnect! if defined?(ActiveRecord::Base)
+  sleep(2)
   old_pid = "#{APP_PATH}/tmp/pids/unicorn.pid.oldbin"
   if File.exists?(old_pid) && server.pid != old_pid
     begin
@@ -55,8 +57,6 @@ before_fork do |server, worker|ENV['BUNDLE_GEMFILE'] = "#{working_directory}/Gem
     end
   end
 
-  defined?(ActiveRecord::Base) and
-      ActiveRecord::Base.connection.disconnect!
 end
 
 after_fork do |server, worker|

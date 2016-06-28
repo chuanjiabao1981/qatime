@@ -121,11 +121,34 @@ module LiveStudio
       order.errors[:product] << '您已经购买过该课程' if buy_tickets.where(student_id: user.id).exists?
     end
 
+    # 观看授权
+    def play_authorize(user, lesson)
+      # 正在观看不需要继续授权
+      play_record = play_records.where(user_id: user.id, lesson_id: lesson.id).first
+      return play_record if play_record
+      return student_authorize(user, lesson) if user.student?
+      others_authorize(user, lesson)
+    end
+
     private
 
     before_create :set_lesson_price
     def set_lesson_price
       self.lesson_price = (price / preset_lesson_count).to_i if preset_lesson_count.to_i > 0
+    end
+
+    # 学生授权播放
+    def student_authorize(user, lesson)
+      ticket = tickets.useable.where(student_id: user.id).first
+      return unless ticket
+      play_records.create(user_id: user.id, lesson_id: lesson.id, ticket: ticket)
+    end
+
+    # 教师授权播放
+    def others_authorize(user, lesson)
+      return if user.teacher? && user.id != teacher_id
+      return if self.workstation_id != user.workstation_id
+      play_records.create(user_id: user.id, lesson_id: lesson.id)
     end
 
     after_create :init_channel_job

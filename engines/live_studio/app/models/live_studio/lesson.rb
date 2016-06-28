@@ -77,6 +77,10 @@ module LiveStudio
       init? && class_date == Date.today
     end
 
+    def short_description(len=20)
+      description.try(:truncate, len)
+    end
+
     private
 
     # 系统服务费

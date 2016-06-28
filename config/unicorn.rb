@@ -45,7 +45,16 @@ stdout_path APP_PATH + "/log/unicorn.stdout.log"
 
 preload_app true
 
-before_fork do |server, worker|
+before_fork do |server, worker|ENV['BUNDLE_GEMFILE'] = "#{working_directory}/Gemfile"
+  old_pid = "#{APP_PATH}/tmp/pids/unicorn.pid.oldbin"
+  if File.exists?(old_pid) && server.pid != old_pid
+    begin
+      Process.kill("QUIT", File.read(old_pid).to_i)
+    rescue Errno::ENOENT, Errno::ESRCH
+      puts "Send 'QUIT' signal to unicorn error!"
+    end
+  end
+
   defined?(ActiveRecord::Base) and
       ActiveRecord::Base.connection.disconnect!
 end

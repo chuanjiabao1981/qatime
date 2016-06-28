@@ -2,6 +2,10 @@ module LiveStudio
   class Course < ActiveRecord::Base
     SYSTEM_FEE = 0.1 # 系统每个人每分钟收费
 
+    USER_STATUS_BOUGHT = :bought # 已购买
+    USER_STATUS_TASTING = :tasting # 正在试听
+    USER_STATUS_TASTED = :tasted # 已经试听
+
     enum status: {
            init: 0, # 初始化
            preview: 1, # 招生中
@@ -29,7 +33,6 @@ module LiveStudio
 
     has_many :play_records #听课记录
 
-    # TODO 换成真正的地址
     def push_stream
       push_streams.last
     end
@@ -62,11 +65,13 @@ module LiveStudio
 
     # 当前单节课程价格
     def current_single_price
+      return 0.0 if price.to_f == 0.0
       price / lessons.count
     end
 
     # 发货
     def deliver(order)
+      taste_tickets.where(student_id: order.user_id).useable.map(&:replaced!) # 替换正在使用的试听券
       ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: current_single_price)
       ticket.active!
     end
@@ -80,11 +85,33 @@ module LiveStudio
       user.live_studio_tickets.map(&:course_id).include?(id)
     end
 
+    def bought_by?(user)
+      buy_tickets.where(student_id: user.id).exists?
+    end
+
+    # 用户购买状态
+    def status_for(user)
+      return USER_STATUS_BOUGHT if buy_tickets.where(student_id: user.id).exists?
+      return USER_STATUS_TASTING if taste_tickets.where(student_id: user.id).exists?
+      return USER_STATUS_TASTED if taste_tickets.where(student_id: user.id).exists?
+    end
+
+    # 是否可以试听
+    def can_taste?(user)
+      return false unless user.student?
+      return false if buy_tickets.where(student_id: user.id).exists?
+      !taste_tickets.where(student_id: user.id).exists?
+    end
+
+    def tasting?(user)
+      taste_tickets.where(student_id: user.id).exists?
+    end
+
     # 是否卖给用户
     def sell_to?(user)
       return false unless user.student? # 辅导班只卖给学生
       return false unless for_sell? # 必须在售中的辅导班
-      !own_by?(user) # 没买过该辅导班才可以购买
+      !bought_by?(user) # 没买过该辅导班才可以购买
     end
 
     def short_description(len=20)
@@ -95,7 +122,7 @@ module LiveStudio
       user = order.user
       order.errors[:product] << '课程目前不对外招生' unless for_sell?
       order.errors[:product] << '课程只对学生销售' unless user.student?
-      order.errors[:product] << '您已经购买过该课程' if user.live_studio_tickets.map(&:course_id).include?(id)
+      order.errors[:product] << '您已经购买过该课程' if buy_tickets.where(student_id: user.id).exists?
     end
 
     private

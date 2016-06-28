@@ -10,6 +10,8 @@ module LiveStudio
     end
 
     def play
+      @teacher = @course.teacher
+
       @play_record = @student.live_studio_play_records.find_or_create_by(
         course: @course,
         lesson: @lesson

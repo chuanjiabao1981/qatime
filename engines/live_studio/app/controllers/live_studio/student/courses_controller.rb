@@ -6,7 +6,7 @@ module LiveStudio
     before_action :courses_chain
 
     def index
-      @courses = courses_chain.paginate(page: params[:page])
+      @tickets = current_user.live_studio_tickets.useable.includes(course: :teacher)
     end
 
     def show

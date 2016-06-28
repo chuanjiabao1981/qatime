@@ -3,16 +3,63 @@
 <% end %>
 <% content_for :javascript do %>
   <script src="http://nos.netease.com/vod163/nep.min.js"></script>
-<% end %>
+  <% end %>
+
 
 <% channel = @course.channels.first %>
-<h3>
-  <%= channel.name %>
-</h3>
 <div class="qa_sep_15"></div>
 
 <div class="row">
   <div class="col-md-4">
+
+    <div class="row">
+      <div class="qa_box">
+        <div class="qa_big_cell">
+          <span class="qa_f18">
+            <strong><%= t("activerecord.view.course_desc") %></strong>
+          </span>
+        </div>
+        <div class="qa_cell">
+          <div class="row">
+            <div class="col-md-4" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:name)%></div>
+            <div class="col-md-8"><%= @course.name %></div>
+          </div>
+        </div>
+        <div class="qa_cell">
+          <div class="row">
+            <div class="col-md-4" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:description)%></div>
+            <div class="col-md-8"><%= @course.description %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa_sep_15"></div>
+
+    <div class="row">
+      <div class="qa_box">
+        <div class="qa_big_cell">
+          <span class="qa_f18">
+            <strong><%= t("activerecord.view.lesson_desc") %></strong>
+          </span>
+        </div>
+        <div class="qa_cell">
+          <div class="row">
+            <div class="col-md-4" style="padding-left:40px"><%= LiveStudio::Lesson.human_attribute_name(:name)%></div>
+            <div class="col-md-8"><%= @lesson.name %></div>
+          </div>
+        </div>
+        <div class="qa_cell">
+          <div class="row">
+            <div class="col-md-4" style="padding-left:40px"><%= LiveStudio::Lesson.human_attribute_name(:description)%></div>
+            <div class="col-md-8"><%= @lesson.description %></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa_sep_15"></div>
+
     <div class="row">
       <div class="qa_box">
         <div class="qa_big_cell">
@@ -48,37 +95,12 @@
       </div>
     </div>
 
-    <div class="qa_sep_15"></div>
-    <div class="qa_sep_15"></div>
-
-    <div class="row">
-      <div class="qa_box">
-        <div class="qa_big_cell">
-          <span class="qa_f18">
-            <strong><%= t("activerecord.view.lesson_desc") %></strong>
-          </span>
-        </div>
-
-        <div class="qa_cell">
-          <div class="row">
-            <div class="col-md-4" style="padding-left:40px"><%= LiveStudio::Lesson.human_attribute_name(:name)%></div>
-            <div class="col-md-8"><%= @lesson.name %></div>
-          </div>
-        </div>
-        <div class="qa_cell">
-          <div class="row">
-            <div class="col-md-4" style="padding-left:40px"><%= LiveStudio::Lesson.human_attribute_name(:description)%></div>
-            <div class="col-md-8"><%= @lesson.description %></div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
   <div class="col-md-1">
   </div>
 
-  <div class="col-md-7">
+  <div class="col-md-8">
     <video id="my-video" class="video-js" controls poster="<%= image_url('publish-bg.png') %>" preload="auto" width="640" height="480" data-setup='{}'>
     <source "src"="MY_VIDEO.mp4" type="video/mp4">
     </video>

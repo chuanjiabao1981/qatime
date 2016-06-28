@@ -4,7 +4,7 @@ class CreateLiveStudioChannels < ActiveRecord::Migration
       t.string :name, limit: 255
       t.references :course, index: true
       t.string :remote_id, limit: 100
-      t.integer :state, default: 0
+      t.integer :status, default: 0
 
       t.timestamps null: false
     end

@@ -4,7 +4,7 @@ module LiveStudio
     belongs_to :student
     belongs_to :lesson
 
-    enum state: {
+    enum status: {
            inactive: 0,
            active: 1,
            used: 2,

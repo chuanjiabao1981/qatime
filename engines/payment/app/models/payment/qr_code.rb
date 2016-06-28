@@ -17,8 +17,8 @@ module Payment
             module_px_size: 0,
             file: nil # path to write
         )
-        qrcode_url = "/uploads/qrcode/#{id.to_s}_#{Time.now.to_i.to_s}.png"
-        IO.write("public/#{qrcode_url}", png.to_s.force_encoding('UTF-8'))
+        qrcode_url = "/qrcode/#{id.to_s}_#{Time.now.to_i.to_s}.png"
+        IO.write("public#{qrcode_url}", png.to_s.force_encoding('UTF-8'))
         qrcode_url
       end
     end

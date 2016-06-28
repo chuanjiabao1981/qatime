@@ -20,6 +20,10 @@ module LiveStudio
 
     # POST /orders
     def create
+      # 用户之前的未支付订单 更新为无效订单
+      waste_orders = Payment::Order.where(user: current_user, status: 0, product: @course)
+      waste_orders.update_all(status: 99) if waste_orders.present?
+
       @order = Payment::Order.new(order_params.merge(@course.order_params))
       @order.user = current_user
 

@@ -8,9 +8,17 @@ cn:
     type_name:
       buy: 已购买
       taste: 试听
+  helpers:
+    label:
+      order:
+        name: 辅导班
+        teacher: 辅导老师
+        price: 价格
+        description: 说明
+        pay_type: 支付方式
   activerecord:
     models:
-      order: 订单
+      payment/order: 订单
       course_library/course: 大纲课程
       live_studio/course: 辅导班
       live_studio/lesson: 课程

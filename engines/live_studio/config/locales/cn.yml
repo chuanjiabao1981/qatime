@@ -4,6 +4,10 @@ cn:
     preview: 招生中
     teaching: 已开课
     completed: 已结束
+  live_studio/ticket:
+    type_name:
+      buy: 已购买
+      taste: 试听
   activerecord:
     models:
       order: 订单
@@ -27,10 +31,18 @@ cn:
       live_studio/course:
         name: 名称
         teacher: 辅导老师
+        short_description: 摘要
         description: 说明
         workstation: 工作站
         price: 价格
         status: 状态
+        type_name: 类型
+      live_studio/ticket:
+        course: 辅导班
+        lesson: 课程
+        student: 学生
+        status: 状态
+        type_name: 状态
       course_library/course:
         title: 标题
         description: 简介
@@ -88,6 +100,3 @@ cn:
         begin_live_studio: "%{model}已开始直播"
         end_live_studio: "%{model}已结束直播"
         lesson_can_not_play: 该课程不能播放或已经结束!
-
-
-

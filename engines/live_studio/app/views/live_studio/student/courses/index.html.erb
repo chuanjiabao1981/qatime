@@ -14,11 +14,11 @@
   <table class="table">
     <tr>
       <th>#</th>
-      <th>辅导班名称</th>
-      <th>任课教师</th>
-      <th>状态</th>
-      <th>类型</th>
-      <th>操作</th>
+      <th><%= LiveStudio::Course.human_attribute_name(:name)  %></th>
+      <th><%= LiveStudio::Course.human_attribute_name(:teacher)  %></th>
+      <th><%= LiveStudio::Course.human_attribute_name(:status)  %></th>
+      <th><%= LiveStudio::Ticket.human_attribute_name(:type_name)  %></th>
+      <th><%= t("activerecord.view.operate") %></th>
     </tr>
     <%= render partial: 'ticket', collection: @tickets %>
   </table>

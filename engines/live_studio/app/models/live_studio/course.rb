@@ -65,11 +65,13 @@ module LiveStudio
 
     # 当前单节课程价格
     def current_single_price
+      return 0.0 if price.to_f == 0.0
       price / lessons.count
     end
 
     # 发货
     def deliver(order)
+      taste_tickets.where(student_id: order.user_id).useable.map(&:replaced!) # 替换正在使用的试听券
       ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: current_single_price)
       ticket.active!
     end
@@ -120,7 +122,7 @@ module LiveStudio
       user = order.user
       order.errors[:product] << '课程目前不对外招生' unless for_sell?
       order.errors[:product] << '课程只对学生销售' unless user.student?
-      order.errors[:product] << '您已经购买过该课程' if user.live_studio_tickets.map(&:course_id).include?(id)
+      order.errors[:product] << '您已经购买过该课程' if buy_tickets.where(student_id: user.id).exists?
     end
 
     private

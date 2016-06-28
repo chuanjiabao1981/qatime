@@ -16,7 +16,7 @@
 /tmp
 
 /public/uploads/*
-/public/qrcode/*
+/public/qrcode/*.png
 /.idea
 /config/application.yml
 /config/database.yml

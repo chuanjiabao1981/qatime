@@ -118,4 +118,9 @@ myPlayer.setDataSource({
 
 myPlayer.play();
 
+myPlayer.onError(function(err){
+  console.log(err.errCode);
+  console.log(err.errMsg);
+});
+
 </script>

@@ -34,6 +34,9 @@ module Payment
       state :waste
 
       event :pay do
+        after do
+          increase_cash_admin_account
+        end
         transitions from: :unpaid, to: :paid
       end
 
@@ -74,6 +77,8 @@ module Payment
       (total_money * 100).to_i
     end
 
+
+
     class << self
       # i18n PAY_TYPE
       def pay_types
@@ -84,9 +89,16 @@ module Payment
     private
 
     before_create :generate_order_no
+
     def generate_order_no
       num = '%04d' % rand(1000)
       self.order_no = Time.now.to_s(:number) + num
     end
+
+    # 支付以后cash_admin账户增加金额
+    def increase_cash_admin_account
+      CashAdmin.current.increase_cash_account(total_money, self, '用户充值消费')
+    end
+
   end
 end

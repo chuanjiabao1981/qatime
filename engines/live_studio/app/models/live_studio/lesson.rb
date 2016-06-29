@@ -56,9 +56,14 @@ module LiveStudio
           # 根据学生单次课程成本价计算
           money = course.buy_tickets.sum(:lesson_price)
           CashAccount.transaction do
-            money -= system_fee!(money) # 系统收取佣金
-            money -= teacher_fee!(money) # 教师分成
-            manager_fee!(money) # 代理商分成
+            # 系统支出
+            decrease_cash_admin_account(money)
+            # 系统收取佣金
+            money -= system_fee!(money)
+            # 教师分成
+            money -= teacher_fee!(money)
+            # 代理商分成
+            manager_fee!(money)
           end
         end
         transitions from: :finished, to: :completed
@@ -93,6 +98,7 @@ module LiveStudio
     def system_fee!(money)
       system_money = Course::SYSTEM_FEE * live_count * real_time
       system_money = money if system_money > money
+      increase_cash_admin_account(system_money)
       system_money
     end
 
@@ -107,6 +113,18 @@ module LiveStudio
     # 代理商的分成打入workstation账户下
     def manager_fee!(money)
       course.workstation.cash_account!.increase(money, self, "课程完成 - #{id} - #{name}")
+    end
+
+    # 结算完成后
+    # 系统账户 支出结算金额
+    def decrease_cash_admin_account(money)
+      CashAdmin.current.decrease_cash_account(money, self, '课程完成 - 支出结算')
+    end
+
+    # 结算完成后
+    # 系统账户 收取服务费
+    def increase_cash_admin_account(money)
+      CashAdmin.current.increase_cash_account(money, self, '课程完成 - 系统服务费')
     end
 
   end

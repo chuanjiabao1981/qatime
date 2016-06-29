@@ -14,7 +14,7 @@ module Payment
       if r['code_url'].is_a? String
         @qrcode_url = Qr_Code.generate_payment(@order.id, r['code_url'])
       else
-        @order.trash
+        @order.trash!
         redirect_to live_studio.courses_path, notice: '二维码生成失败，请稍后重试'
       end
     end

@@ -7,7 +7,7 @@
   <td>
     <%= course.short_description %>
   </td>
-  <td><%= course.status %></td>
+  <td><%= course.status_text %></td>
   <td><%= ticket.type_name %></td>
   <td>
     <%= link_to t("activerecord.view.buy_now"), new_course_order_path(course), id: "buy-course-#{course.id}" if ticket.taste? %>

@@ -94,6 +94,9 @@ gem 'typhoeus'
 
 gem 'wx_pay'
 
+# 软删除
+gem 'soft_delete_rails'
+
 group :development,:test do
   # 状态机做图
   gem 'ruby-graphviz', :require => 'graphviz'

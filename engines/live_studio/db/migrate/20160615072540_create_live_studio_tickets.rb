@@ -7,6 +7,8 @@ class CreateLiveStudioTickets < ActiveRecord::Migration
       t.integer :status, limit: 2, default: 0
       t.string :type
 
+      t.datetime :deleted_at
+
       t.timestamps null: false
     end
   end

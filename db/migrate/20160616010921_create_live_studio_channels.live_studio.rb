@@ -7,6 +7,8 @@ class CreateLiveStudioChannels < ActiveRecord::Migration
       t.string :remote_id, limit: 100
       t.integer :status, default: 0
 
+      t.datetime :deleted_at
+
       t.timestamps null: false
     end
   end

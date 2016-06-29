@@ -8,6 +8,8 @@ class CreatePaymentOrders < ActiveRecord::Migration
       t.integer :status, default: 0, null: false
       t.integer :pay_type, default: 0, null: false
 
+      t.datetime :deleted_at
+
       t.timestamps null: false
     end
   end

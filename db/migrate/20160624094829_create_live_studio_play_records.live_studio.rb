@@ -10,6 +10,8 @@ class CreateLiveStudioPlayRecords < ActiveRecord::Migration
       t.datetime :start_time_at
       t.datetime :end_time_at
 
+      t.datetime :deleted_at
+
       t.timestamps null: false
     end
   end

@@ -1,5 +1,7 @@
 module LiveStudio
   class Course < ActiveRecord::Base
+    has_soft_delete
+
     SYSTEM_FEE = 0.1 # 系统每个人每分钟收费
 
     USER_STATUS_BOUGHT = :bought # 已购买

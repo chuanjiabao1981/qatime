@@ -1,5 +1,7 @@
 module LiveStudio
   class Ticket < ActiveRecord::Base
+    has_soft_delete
+
     belongs_to :course
     belongs_to :student
     belongs_to :lesson

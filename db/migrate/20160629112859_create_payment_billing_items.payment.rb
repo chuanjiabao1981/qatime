@@ -1,3 +1,4 @@
+# This migration comes from payment (originally 20160629062345)
 class CreatePaymentBillingItems < ActiveRecord::Migration
   def change
     create_table :payment_billing_items do |t|

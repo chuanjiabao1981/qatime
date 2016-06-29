@@ -97,7 +97,7 @@ module Payment
 
     # 支付以后cash_admin账户增加金额
     def increase_cash_admin_account
-      CashAdmin.current.increase_cash_account(total_money, self, '用户充值消费')
+      CashAdmin.increase_cash_account(total_money, self, '用户充值消费')
     end
 
   end

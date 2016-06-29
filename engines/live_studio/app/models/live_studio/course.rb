@@ -67,7 +67,7 @@ module LiveStudio
 
     # 发货
     def deliver(order)
-      taste_tickets.where(student_id: order.user_id).useable.map(&:replaced!) # 替换正在使用的试听券
+      taste_tickets.where(student_id: order.user_id).available.map(&:replaced!) # 替换正在使用的试听券
       ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: lesson_price)
       ticket.active!
     end
@@ -139,7 +139,7 @@ module LiveStudio
 
     # 学生授权播放
     def student_authorize(user, lesson)
-      ticket = tickets.useable.where(student_id: user.id).first
+      ticket = tickets.available.where(student_id: user.id).first
       return unless ticket
       ticket.active if ticket.taste? && ticket.inactive?
       ticket.inc_used_count!

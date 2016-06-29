@@ -7,6 +7,8 @@ class CreatePaymentOrders < ActiveRecord::Migration
       t.decimal :total_money, precision: 8, scale: 2, default: 0.0
       t.integer :status, default: 0, null: false
       t.integer :pay_type, default: 0, null: false
+      t.string :qrcode_url
+      t.string :remote_ip
 
       t.datetime :deleted_at
 

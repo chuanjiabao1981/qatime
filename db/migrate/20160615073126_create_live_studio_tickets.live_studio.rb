@@ -11,6 +11,8 @@ class CreateLiveStudioTickets < ActiveRecord::Migration
       t.string :type
       t.decimal :lesson_price, precision: 8, scale: 2, default: 0.0
 
+      t.datetime :deleted_at
+
       t.timestamps null: false
     end
   end

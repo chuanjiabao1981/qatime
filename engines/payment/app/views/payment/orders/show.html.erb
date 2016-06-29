@@ -25,7 +25,7 @@
         type: "GET",
         url: "result?order_no="+$('#order_no').val(),
         success: function(msg) {
-          if(msg == 'paid'){
+          if( 'paid,shipped,completed'.indexOf(msg)!=-1 ){
             location.href="/live_studio/student/courses";
           }else{
             console.log('未支付成功');

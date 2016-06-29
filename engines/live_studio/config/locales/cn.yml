@@ -86,6 +86,10 @@ cn:
       teacher_desc: 老师简介
       lesson_desc: 课程简介
       course_desc: 辅导班信息
+      flash_can_not_call_msg:
+        flash_uninstall_or_too_old_msg: 您的浏览器没有安装flash插件,或flash插件版本过低!请点击
+        click_here_msg: 这里
+        install_flash_msg: 安装flash
       message:
         confirm: 确认操作
       course_library/course:

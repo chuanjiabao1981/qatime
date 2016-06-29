@@ -108,7 +108,7 @@
 
     <div style="display:none; height: 480px; width: 800px; background-color: #FFF; padding-top: 50px" id="no-flash-area">
       <p align="center">
-        您的浏览器没有安装flash插件,或flash插件版本过低!请点击<a href="https://get.adobe.com/cn/flashplayer/">这里</a>进行安装flash
+        <%= t("activerecord.view.flash_can_not_call_msg.flash_uninstall_or_too_old_msg") %><a href="https://get.adobe.com/cn/flashplayer/"><%= t("activerecord.view.flash_can_not_call_msg.click_here_msg") %></a><%= t("activerecord.view.flash_can_not_call_msg.install_flash_msg") %>
       </p>
     </div>
   </div>

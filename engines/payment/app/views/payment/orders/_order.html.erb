@@ -5,5 +5,5 @@
   <td><%= order.status %></td>
   <td><%= order.order_no %></td>
   <td><%= order.created_at.to_s(:db) %></td>
-  <td><%= link_to t("activerecord.view.pay"),  user_order_path(order) if order.unpaid? %></td>
+  <td><%= link_to t("activerecord.view.pay"),  user_order_path(order.order_no) if order.unpaid? %></td>
 </tr>

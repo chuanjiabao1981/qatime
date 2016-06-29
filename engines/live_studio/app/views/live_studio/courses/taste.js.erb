@@ -1,3 +1,3 @@
 <% if @course.tasting?(current_user) -%>
-  $("#taste-course-<%= @course.id %>").replaceWith("<%= j(link_to '正在试听', student_course_path(@course)) %>");
+  $("#taste-course-<%= @course.id %>").replaceWith("<%= j(link_to t('live_studio/ticket.type_name.tasted'), student_course_path(@course)) %>");
 <% end %>

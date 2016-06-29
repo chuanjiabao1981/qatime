@@ -56,3 +56,12 @@ APP_CONSTANT["vip_class_ids"].each do |cate, value|
     VipClass.create(id: class_id, subject: subject, category: cate)
   end
 end unless VipClass.exists?
+
+# cash_admin init
+CashAdmin.create(
+  name: 'cash_admin',
+  email: 'cash_admin@admin.com',
+  password: '123456',
+  password_confirmation: '123456',
+  role: 'cash_admin'
+)  if CashAdmin.current.blank?

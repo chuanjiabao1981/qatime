@@ -12,7 +12,7 @@ class CashAccount < ActiveRecord::Base
   end
 
   # 减钱
-  def decrease
+  def decrease(money, ref, summary)
     change(-money, ref, summary)
   end
 

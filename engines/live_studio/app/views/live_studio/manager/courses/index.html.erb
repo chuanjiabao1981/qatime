@@ -18,12 +18,14 @@
   <!-- Table -->
   <table class="table">
     <tr>
-      <th>#</th>
-      <th>辅导班名称</th>
-      <th>任课教师</th>
-      <th>简介</th>
-      <th>状态</th>
-      <th>操作</th>   
+      <tr>
+        <th>#</th>
+	<% %w(name teacher description status).each do |attr| -%>
+        <th><%= LiveStudio::Course.human_attribute_name(attr) %></th>
+	<% end %>
+        <th><%= t("activerecord.view.operate") %></th>
+      </tr>
+      
     </tr>
     <%= render partial: 'course', collection: @courses %>
   </table>

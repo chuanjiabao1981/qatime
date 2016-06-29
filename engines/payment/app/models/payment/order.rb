@@ -24,7 +24,7 @@ module Payment
     validates :user, :product, presence: true
 
     validate do |record|
-      record.product.validate_order(record) if record.product
+      record.product.validate_order(record) if new_record? && record.product
     end
 
     aasm :column => :status, :enum => true do

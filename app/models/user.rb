@@ -100,7 +100,7 @@ class User < ActiveRecord::Base
 
   def unique_cash_admin
     # 只能有一个cash_admin用户
-    if cash_admin.present?
+    if CashAdmin.current.present?
       errors.add(:role, '现金账户已存在') unless CashAdmin.current == self
     end
   end

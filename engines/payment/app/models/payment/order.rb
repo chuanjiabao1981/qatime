@@ -34,7 +34,7 @@ module Payment
       state :waste
 
       event :pay do
-        after do
+        before do
           increase_cash_admin_account
         end
         transitions from: :unpaid, to: :paid
@@ -73,7 +73,7 @@ module Payment
 
     # 应该支付金额
     def pay_money
-      return 1 if Rails.env.testing?
+      return 1 if Rails.env.testing? || Rails.env.development?
       (total_money * 100).to_i
     end
 

@@ -44,6 +44,7 @@ module LiveStudio
         end
 
         after do
+          expire_taste_tickets # 过期试听证
           complete!
         end
         transitions from: :teaching, to: :finished
@@ -82,6 +83,11 @@ module LiveStudio
     end
 
     private
+
+    # 过期试听证
+    def expire_taste_tickets
+      course.taste_tickets.used.map(&:expired!)
+    end
 
     # 系统服务费
     def system_fee!(money)

@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       flash[:info] = "欢迎登录!"
       redirect_to user_home_path
     else
-      @user = User.new(email: @user.email)
+      @user = User.new(email: @user.try(:email))
       flash.now[:warning] = "用户名或密码错误!"
       render 'new'
     end

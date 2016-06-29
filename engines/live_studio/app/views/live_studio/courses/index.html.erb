@@ -17,11 +17,10 @@
     <table class="table">
       <tr>
         <th>#</th>
-        <th>名称</th>
-        <th>教师</th>
-        <th>描述</th>
-        <th>价格</th>
-        <th>购买</th>
+	<% %w(name teacher description price).each do |attr| -%>
+        <th><%= LiveStudio::Course.human_attribute_name(attr) %></th>
+	<% end %>
+        <th><%= t("activerecord.view.operate") %></th>
       </tr>
       <%= render @courses %>
     </table>

@@ -5,6 +5,10 @@ module Payment
     skip_before_action :verify_authenticity_token, :only => :notify
     before_action :set_student, skip: [:notify]
 
+    def index
+      @orders = current_user.orders.paginate(page: params[:page])
+    end
+
     # 生成微信支付二维码
     def show
       @order = current_user.orders.find_by!(order_no: params[:id])

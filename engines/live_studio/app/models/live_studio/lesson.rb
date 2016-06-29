@@ -126,13 +126,13 @@ module LiveStudio
     # 结算完成后
     # 系统账户 支出结算金额
     def decrease_cash_admin_account(money)
-      CashAdmin.current.decrease_cash_account(money, self, '课程完成 - 支出结算')
+      CashAdmin.decrease_cash_account(money, self, '课程完成 - 支出结算')
     end
 
     # 结算完成后
     # 系统账户 收取服务费
     def increase_cash_admin_account(money)
-      CashAdmin.current.increase_cash_account(money, self, '课程完成 - 系统服务费')
+      CashAdmin.increase_cash_account(money, self, '课程完成 - 系统服务费')
     end
 
   end

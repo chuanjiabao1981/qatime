@@ -120,6 +120,11 @@ module Payment
       self.order_no = Time.now.to_s(:number) + num
     end
 
+    # 支付以后cash_admin账户增加金额
+    def increase_cash_admin_account
+      CashAdmin.increase_cash_account(total_money, self, '用户充值消费')
+    end
+
     def remote_params
       {
           body: "购买辅导班：#{product.name}",
@@ -131,10 +136,6 @@ module Payment
           fee_type: 'CNY'
       }
     end
-
-    # 支付以后cash_admin账户增加金额
-    def increase_cash_admin_account
-      CashAdmin.current.increase_cash_account(total_money, self, '用户充值消费')
-    end
   end
 end
+

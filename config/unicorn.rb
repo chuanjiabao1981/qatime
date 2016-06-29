@@ -4,10 +4,12 @@
 # rvm 2.2.1@qatime do bundle exec unicorn -c ..........
 
 # 获取当前项目路径
-require 'pathname'
-path = Pathname.new(__FILE__).realpath # 当前文件完整路径
-path = path.sub('/config/unicorn.rb', '')
-APP_PATH = path.to_s
+# require 'pathname'
+# path = Pathname.new(__FILE__).realpath # 当前文件完整路径
+# path = path.sub('/config/unicorn.rb', '').sub()
+#
+
+APP_PATH = '/home/qatime/apps/qatime/current'
 
 # 或直接填写
 # APP_PATH = "/path_to_project/workspace/project_name"
@@ -44,8 +46,17 @@ stdout_path APP_PATH + "/log/unicorn.stdout.log"
 preload_app true
 
 before_fork do |server, worker|
-  defined?(ActiveRecord::Base) and
-      ActiveRecord::Base.connection.disconnect!
+  ActiveRecord::Base.connection.disconnect! if defined?(ActiveRecord::Base)
+  sleep(2)
+  old_pid = "#{APP_PATH}/tmp/pids/unicorn.pid.oldbin"
+  if File.exists?(old_pid) && server.pid != old_pid
+    begin
+      Process.kill("QUIT", File.read(old_pid).to_i)
+    rescue Errno::ENOENT, Errno::ESRCH
+      puts "Send 'QUIT' signal to unicorn error!"
+    end
+  end
+
 end
 
 after_fork do |server, worker|

@@ -14,7 +14,7 @@ module Payment
       if r['code_url'].is_a? String
         @qrcode_url = Qr_Code.generate_payment(@order.id, r['code_url'])
       else
-        @order.trash
+        @order.trash!
         redirect_to live_studio.courses_path, notice: '二维码生成失败，请稍后重试'
       end
     end
@@ -34,7 +34,7 @@ module Payment
       end
       if flag
         @order = Order.find_by(order_no: @result['out_trade_no'])
-        @order.pay if @order.unpaid?
+        @order.pay_and_ship! if @order.unpaid?
         render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
       else
         render :xml => {return_code: "FAIL", return_msg: "签名失败"}.to_xml(root: 'xml', dasherize: false)
@@ -55,9 +55,9 @@ module Payment
 
     def order_params
       {
-          body: 'test order',
+          body: "购买辅导班：#{@order.product.name}",
           out_trade_no: @order.order_no,
-          total_fee: @order.total_money.to_i,
+          total_fee: @order.pay_money,
           spbill_create_ip: request.env['REMOTE_ADDR'],
           notify_url:  "#{WECHAT_CONFIG['domain_name']}/payment/notify",
           trade_type: 'NATIVE',

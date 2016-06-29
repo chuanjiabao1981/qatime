@@ -9,7 +9,7 @@
   <td>
     <%= course.short_description %>
   </td>
-  <td><%= course.status %></td>
+  <td><%= course.status_text %></td>
   <td>
     <%=link_to t("activerecord.view.edit"), edit_manager_course_path(course) if allow?("live_studio/manager/courses", "update") %>
     <%=link_to t("activerecord.view.delete"), manager_course_path(course), method: :delete,

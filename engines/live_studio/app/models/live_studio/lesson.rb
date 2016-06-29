@@ -1,5 +1,7 @@
 module LiveStudio
   class Lesson < ActiveRecord::Base
+    has_soft_delete
+
     enum status: {
       init: 0, # 初始化
       ready: 1, # 等待上课

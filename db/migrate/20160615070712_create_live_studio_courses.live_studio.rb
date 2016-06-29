@@ -14,6 +14,8 @@ class CreateLiveStudioCourses < ActiveRecord::Migration
       t.integer :preset_lesson_count, limit: 4, default: 0 # 预设课程数量
       t.integer :completed_lesson_count, limit: 4, default: 0 # 完成课程数量
 
+      t.datetime :deleted_at
+
       t.timestamps null: false
     end
   end

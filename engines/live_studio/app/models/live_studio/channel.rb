@@ -1,5 +1,7 @@
 module LiveStudio
   class Channel < ActiveRecord::Base
+    has_soft_delete
+
     VCLOUD_HOST = 'https://vcloud.163.com'.freeze
 
     belongs_to :course

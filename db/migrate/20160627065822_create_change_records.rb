@@ -8,6 +8,8 @@ class CreateChangeRecords < ActiveRecord::Migration
       t.references :ref, polymorphic: true, index: true
       t.string :summary
 
+      t.datetime :deleted_at
+
       t.timestamps null: false
     end
   end

@@ -10,6 +10,8 @@ class CreatePaymentOrders < ActiveRecord::Migration
       t.string :qrcode_url
       t.string :remote_ip
 
+      t.datetime :deleted_at
+
       t.timestamps null: false
     end
   end

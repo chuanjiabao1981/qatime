@@ -1,6 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading"><%= LiveStudio::Course.model_name.human %></div>
   <div class="panel-body">
+    <!--
       <%= form_tag("", method: "get") do -%>
         <%= label_tag(t("activerecord.view.category")) %>
         <%= select_tag :category, options_for_select(APP_CONSTANT["grades_in_menu"]) %>
@@ -10,16 +11,16 @@
         <%= text_field_tag :teacher %>
         <%= submit_tag t("activerecord.view.search") %>
       <% end -%>
+      -->
   </div>
   <div>
     <table class="table">
       <tr>
         <th>#</th>
-        <th>名称</th>
-        <th>教师</th>
-        <th>描述</th>
-        <th>价格</th>
-        <th>购买</th>
+	<% %w(name teacher description price).each do |attr| -%>
+        <th><%= LiveStudio::Course.human_attribute_name(attr) %></th>
+	<% end %>
+        <th><%= t("activerecord.view.operate") %></th>
       </tr>
       <%= render @courses %>
     </table>

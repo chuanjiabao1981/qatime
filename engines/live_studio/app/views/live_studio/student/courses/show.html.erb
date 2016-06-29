@@ -35,6 +35,12 @@
       <div class="col-md-9"><%= @course.status %></div>
     </div>
   </div>
+  <div class="qa_cell">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Ticket.human_attribute_name(:type_name)  %></div>
+      <div class="col-md-9"><%= @ticket.try(:type_name) %></div>
+    </div>
+  </div>
 </div>
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>

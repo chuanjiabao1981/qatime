@@ -6,15 +6,14 @@
   <!-- Table -->
   <table class="table">
     <tr>
-      <% %w(name se_time date).each do |col| %>
+      <% %w(name se_time date operate).each do |col| %>
       <th>
         <%= t("activerecord.view.#{col}") %>
       </th>
       <% end %>
     </tr>
 
-
-    <% @course.lessons.each do |lesson| -%>
+    <% @lessons.each do |lesson| -%>
       <tr>
         <td>
           <%= lesson.name %>
@@ -27,7 +26,7 @@
         </td>
         <td>
           <% if lesson.can_play? %>
-            <%= link_to t("activerecord.view.begin_watch_live_studio"), play_course_lesson_path(@course, lesson) %>
+            <%= link_to t("activerecord.view.begin_watch_live_studio"), play_course_lesson_path(@course, lesson) if @play_hash[:lesson_id] || @ticket %>
           <% end %>
         </td>
       </tr>

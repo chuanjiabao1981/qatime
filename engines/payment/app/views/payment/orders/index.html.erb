@@ -1,0 +1,18 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    我的订单
+  </div>
+  <div>
+    <table class="table">
+      <tr>
+        <th>#</th>
+	<% %w(product total_money status order_no created_at).each do |attr| -%>
+        <th><%= Payment::Order.human_attribute_name(attr) %></th>
+	<% end %>
+	<th><%= t("activerecord.view.operate") %></th>
+      </tr>
+
+      <%= render @orders %>
+    </table>
+  </div>
+</div>

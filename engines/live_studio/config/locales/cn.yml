@@ -6,8 +6,13 @@ cn:
     completed: 已结束
   live_studio/ticket:
     type_name:
-      buy: 已购买
-      taste: 试听
+      buy_inactive: 已购买
+      buy_active: 已购买
+      buy_used: 已结束
+      taste_inactive: 准备试听
+      taste_active: 正在试听
+      taste_active: 试听结束
+      tasted: 正在试听
   helpers:
     label:
       payment/order:
@@ -54,7 +59,7 @@ cn:
         lesson: 课程
         student: 学生
         status: 状态
-        type_name: 状态
+        type_name: 听课类型
       course_library/course:
         title: 标题
         description: 简介

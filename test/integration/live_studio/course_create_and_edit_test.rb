@@ -24,13 +24,16 @@ module LiveStudio
         fill_in :course_name, with: '测试英语辅导课程'
         fill_in :course_description, with: 'new course description'
         select teacher.name, from: :course_teacher_id
-        fill_in :course_price, with: 100.0
+        fill_in :course_price, with: 300.0
+        fill_in :course_teacher_percentage, with: 10
+        fill_in :course_preset_lesson_count, with: 15
         select workstation.name, from: 'course_workstation_id'
         click_on '新增辅导班'
       end
       course = Course.last
       assert_equal(teacher.id, course.teacher_id, '辅导班老师指定错误')
-      assert_equal(100.0, course.price.to_f, '定价出错')
+      assert_equal(300, course.price.to_f, '定价出错')
+      assert_equal(20, course.lesson_price.to_f, '单价计算错误')
     end
 
     test "manager update a course" do

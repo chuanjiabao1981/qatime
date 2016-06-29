@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  ROLES = %w(admin guest manager teacher student waiter seller)
+  ROLES = %w(admin guest manager teacher student waiter seller cash_admin)
 
   require 'carrierwave/orm/activerecord'
   mount_uploader :avatar, AvatarUploader
@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
 
   validates_presence_of :register_code_value, on: :create, if: :teacher_or_student?
   validate :register_code_valid, on: :create, if: :teacher_or_student?
+  validate :unique_cash_admin, if: :cash_admin?
+
   after_create :update_register_code
 
 
@@ -83,26 +85,34 @@ class User < ActiveRecord::Base
   end
 
   private
-    def create_remember_token
-      self.remember_token = User.digest(User.new_remember_token)
-    end
-    def register_code_valid
-      # 这里虽然设置了true使得验证成功后此注册码过期，但是由于如果整体teacher不成成功会rollback，
-      # 所以一个正确验证码在user其他字段不成功的情况下，同样还是有效的
-      self.tmp_register_code = RegisterCode.verification(self.register_code_value, true)
-      if not self.tmp_register_code
-        errors.add("register_code_value","注册码不正确")
-      end
-    end
+  def create_remember_token
+    self.remember_token = User.digest(User.new_remember_token)
+  end
 
-    def update_register_code
-      if self.tmp_register_code
-        self.tmp_register_code.user = self
-        self.tmp_register_code.save
-        if self.student?
-          self.school_id = self.tmp_register_code.school_id
-          self.save
-        end
+  def register_code_valid
+    # 这里虽然设置了true使得验证成功后此注册码过期，但是由于如果整体teacher不成成功会rollback，
+    # 所以一个正确验证码在user其他字段不成功的情况下，同样还是有效的
+    self.tmp_register_code = RegisterCode.verification(self.register_code_value, true)
+    if not self.tmp_register_code
+      errors.add("register_code_value","注册码不正确")
+    end
+  end
+
+  def unique_cash_admin
+    # 只能有一个cash_admin用户
+    if CashAdmin.current.present?
+      errors.add(:role, '现金账户已存在') unless CashAdmin.current == self
+    end
+  end
+
+  def update_register_code
+    if self.tmp_register_code
+      self.tmp_register_code.user = self
+      self.tmp_register_code.save
+      if self.student?
+        self.school_id = self.tmp_register_code.school_id
+        self.save
       end
     end
+  end
 end

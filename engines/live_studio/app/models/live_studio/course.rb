@@ -141,6 +141,7 @@ module LiveStudio
     def student_authorize(user, lesson)
       ticket = tickets.useable.where(student_id: user.id).first
       return unless ticket
+      ticket.inc_use!
       play_records.create(user_id: user.id, lesson_id: lesson.id, ticket: ticket)
     end
 

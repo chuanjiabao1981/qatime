@@ -23,5 +23,11 @@ module LiveStudio
     def taste?
       false
     end
+
+    def inc_use!
+      self.used_count += 1
+      self.used! if used_count >= buy_count
+      save
+    end
   end
 end

@@ -54,7 +54,7 @@ cn:
         lesson: 课程
         student: 学生
         status: 状态
-        type_name: 状态
+        type_name: 听课类型
       course_library/course:
         title: 标题
         description: 简介

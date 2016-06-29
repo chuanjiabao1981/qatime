@@ -55,7 +55,7 @@ module Payment
 
     def order_params
       {
-          body: 'test order',
+          body: "购买辅导班：#{@order.product.name}",
           out_trade_no: @order.order_no,
           total_fee: (@order.total_money * 100).to_i,
           spbill_create_ip: request.env['REMOTE_ADDR'],

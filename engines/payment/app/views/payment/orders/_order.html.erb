@@ -1,0 +1,9 @@
+<tr>
+  <td><%= order_counter + 1 %></td>
+  <td><%= order.product.try(:name) %></td>
+  <td><%= order.total_money %></td>
+  <td><%= order.pay_timeout? ? t("activerecord.view.timeout") : order.status %></td>
+  <td><%= order.order_no %></td>
+  <td><%= order.created_at.to_s(:db) %></td>
+  <td><%= link_to t("activerecord.view.pay"),  user_order_path(order.order_no) if order.unpaid? && !order.pay_timeout? %></td>
+</tr>

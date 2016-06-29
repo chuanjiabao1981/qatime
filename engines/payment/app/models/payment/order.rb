@@ -12,6 +12,8 @@ module Payment
            paid: 1, # 已支付
            shipped: 2, # 已发货
            completed: 3, # 已完成
+           expired: 96, # 过期订单
+           failed: 97, # 下单失败
            refunded: 98, # 已退款
            waste: 99 # 无效订单
          }
@@ -22,7 +24,7 @@ module Payment
     validates :user, :product, presence: true
 
     validate do |record|
-      record.product.validate_order(record) if record.product
+      record.product.validate_order(record) if new_record? && record.product
     end
 
     aasm :column => :status, :enum => true do
@@ -58,6 +60,10 @@ module Payment
       event :trash do
         transitions from: [:unpaid], to: :waste
       end
+
+      event :fail do
+        transitions from: [:unpaid], to: :failed
+      end
     end
 
     # 发货
@@ -86,6 +92,23 @@ module Payment
       end
     end
 
+    after_create :init_remote_order
+    def init_remote_order
+      r = WxPay::Service.invoke_unifiedorder(remote_params)
+      if r['code_url'].blank?
+        fail!
+      else
+        self.qrcode_url = Qr_Code.generate_payment(id, r['code_url'])
+        save
+      end
+    end
+
+    # 支付是否超时微信两小时过期
+    def pay_timeout?
+      return false unless unpaid?
+      created_at > 2.hours.ago
+    end
+
     private
 
     before_create :generate_order_no
@@ -100,5 +123,16 @@ module Payment
       CashAdmin.increase_cash_account(total_money, self, '用户充值消费')
     end
 
+    def remote_params
+      {
+          body: "购买辅导班：#{product.name}",
+          out_trade_no: order_no,
+          total_fee: pay_money,
+          spbill_create_ip: remote_ip,
+          notify_url:  "#{WECHAT_CONFIG['domain_name']}/payment/notify",
+          trade_type: 'NATIVE',
+          fee_type: 'CNY'
+      }
+    end
   end
 end

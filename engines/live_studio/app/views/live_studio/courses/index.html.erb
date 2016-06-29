@@ -1,6 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading"><%= LiveStudio::Course.model_name.human %></div>
   <div class="panel-body">
+    <!--
       <%= form_tag("", method: "get") do -%>
         <%= label_tag(t("activerecord.view.category")) %>
         <%= select_tag :category, options_for_select(APP_CONSTANT["grades_in_menu"]) %>
@@ -10,6 +11,7 @@
         <%= text_field_tag :teacher %>
         <%= submit_tag t("activerecord.view.search") %>
       <% end -%>
+      -->
   </div>
   <div>
     <table class="table">

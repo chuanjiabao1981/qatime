@@ -16,6 +16,8 @@ class CreateLiveStudioLessons < ActiveRecord::Migration
       t.integer :real_time, default: 0
       t.integer :pos, limit: 4, default: 0
 
+      t.datetime :deleted_at
+
       t.timestamps null: false
     end
   end

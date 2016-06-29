@@ -16,6 +16,8 @@ class CreateLiveStudioLessons < ActiveRecord::Migration
       t.integer :pos, limit: 4, default: 0
       t.decimal :lesson_price, precision: 8, scale: 2, default: 0.0
 
+      t.datetime :deleted_at
+
       t.timestamps null: false
     end
   end

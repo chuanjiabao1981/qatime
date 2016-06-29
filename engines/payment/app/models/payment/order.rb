@@ -68,6 +68,12 @@ module Payment
       ship!
     end
 
+    # 应该支付金额
+    def pay_money
+      return 1 if Rails.env.testing?
+      (total_money * 100).to_i
+    end
+
     class << self
       # i18n PAY_TYPE
       def pay_types

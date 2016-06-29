@@ -1,5 +1,7 @@
 cn:
   activerecord:
+    view:
+      pay: 立即支付
     models:
       payment/order: 订单
     attributes:

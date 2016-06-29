@@ -7,6 +7,8 @@ class CreateLiveStudioStreams < ActiveRecord::Migration
       t.integer :user_count, default: 0
       t.string :type, limit: 100
 
+      t.datetime :deleted_at
+
       t.timestamps null: false
     end
   end

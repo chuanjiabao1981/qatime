@@ -1,5 +1,7 @@
 module Payment
   class Order < ActiveRecord::Base
+    has_soft_delete
+
     PAY_TYPE = {
       #alipay: 0,
       weixin: 1

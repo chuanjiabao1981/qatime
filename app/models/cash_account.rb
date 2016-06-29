@@ -1,4 +1,5 @@
 class CashAccount < ActiveRecord::Base
+  has_soft_delete
 
   belongs_to :owner, polymorphic: true
   has_many :change_records

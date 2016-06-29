@@ -13,18 +13,19 @@ module LiveStudio
            waste: 99
          }
 
-    scope :useable, -> { where("status < ?", Ticket.statuses[:used]) }
+    scope :available, -> { where("status < ?", Ticket.statuses[:used]) }
+    scope :visiable, -> { where("status <= ?", Ticket.statuses[:used]) }
 
     def type_name
-      t_name = self.class.name.underscore.gsub(/live_studio\/(\w*)_ticket/, "\\1")
-      I18n.t("live_studio/ticket.type_name.#{t_name}")
+      return I18n.t("live_studio/ticket.type_name.taste_#{status}") if taste?
+      I18n.t("live_studio/ticket.type_name.buy_#{status}")
     end
 
     def taste?
       false
     end
 
-    def inc_use!
+    def inc_used_count!
       self.used_count += 1
       self.used! if used_count >= buy_count
       save

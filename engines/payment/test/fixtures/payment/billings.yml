@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  target_id: 
+  target_type: Target
+  total_money: 9.99
+  deleted_at: 2016-06-29 14:21:05
+  summary: MyString
+
+two:
+  target_id: 
+  target_type: Target
+  total_money: 9.99
+  deleted_at: 2016-06-29 14:21:05
+  summary: MyString

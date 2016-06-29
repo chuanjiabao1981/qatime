@@ -5,15 +5,15 @@
   <td><%= course.short_description %></td>
   <td><%= course.price %></td>
   <td>
-    <% if course.can_taste?(current_user) %>
+    <% if course.own_by?(current_user) %>
+      已购买
+    <% elsif ourse.can_taste?(current_user) %>
       <%= link_to t("activerecord.view.taste"), taste_course_path(course), id: "taste-course-#{course.id}" %>
     <% elsif course.tasting?(current_user) %>
       <span>正在试听</span>
     <% end %>
-    <% if course.sell_to?(current_user) -%>
+    <% if course.sell_to?(current_user) && !course.own_by?(current_user) -%>
       <%= link_to t("activerecord.view.buy_now"), new_course_order_path(course), id: "buy-course-#{course.id}" %>
-    <% elsif course.own_by?(current_user) -%>
-      已购买
     <% end -%>
   </td>
 </tr>

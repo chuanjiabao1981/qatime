@@ -16,15 +16,15 @@ module LiveStudio
     belongs_to :course
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
 
-    has_many :play_records #听课记录
+    has_many :play_records # 听课记录
     has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
 
     validates :name, :description, :course_id, :start_time, :end_time, :class_date, presence: true
 
     include AASM
 
-    aasm :column => :status, :enum => true do
-      state :init, :initial => true
+    aasm column: :status, enum: true do
+      state :init, initial: true
       state :ready
       state :teaching
       state :finished
@@ -76,7 +76,7 @@ module LiveStudio
     end
 
     def can_play?
-      ready? or teaching?
+      ready? || teaching?
     end
 
     def has_finished?
@@ -88,7 +88,7 @@ module LiveStudio
       init? && class_date == Date.today
     end
 
-    def short_description(len=20)
+    def short_description(len = 20)
       description.try(:truncate, len)
     end
 
@@ -125,15 +125,14 @@ module LiveStudio
 
     # 结算完成后
     # 系统账户 支出结算金额
-    def decrease_cash_admin_account(money)
-      CashAdmin.decrease_cash_account(money, self, '课程完成 - 支出结算')
+    def decrease_cash_admin_account(money, billing)
+      CashAdmin.decrease_cash_account(money, billing, '课程完成 - 支出结算')
     end
 
     # 结算完成后
     # 系统账户 收取服务费
-    def increase_cash_admin_account(money)
-      CashAdmin.increase_cash_account(money, self, '课程完成 - 系统服务费')
+    def increase_cash_admin_account(money, billing)
+      CashAdmin.increase_cash_account(money, billing, '课程完成 - 系统服务费')
     end
-
   end
 end

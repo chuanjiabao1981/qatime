@@ -1,0 +1,8 @@
+order_one:
+  order_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user_id: 10
+  product_id: 6
+  product_type: 'LiveStudio::Course'
+  total_money: 1000
+  status: 0
+  pay_type: 1

@@ -115,6 +115,17 @@ student_one_with_course:
   grade: 高一
   type: Student
 
+student_with_order:
+  id: 10
+  name: student1
+  role: student
+  email: student_with_order@baidu.com
+  mobile: 15910676326
+  parent_phone: 15910676326
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
 
 no_learning_plan_student:
   name: student3
@@ -166,6 +177,13 @@ manager:
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   type: Manager
 
+cash_admin:
+  name: cash_admin
+  role: cash_admin
+  email: cash_admin@qatime.cn
+  avatar: test
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  type: CashAdmin
 
 
 

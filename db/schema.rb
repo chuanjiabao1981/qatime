@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20160629112859) do
     t.integer  "owner_id"
     t.string   "owner_type"
     t.decimal  "balance",    precision: 8, scale: 2, default: 0.0
+    t.datetime "deleted_at"
     t.datetime "created_at",                                       null: false
     t.datetime "updated_at",                                       null: false
   end
@@ -77,6 +78,7 @@ ActiveRecord::Schema.define(version: 20160629112859) do
     t.integer  "ref_id"
     t.string   "ref_type"
     t.string   "summary"
+    t.datetime "deleted_at"
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
   end
@@ -432,6 +434,7 @@ ActiveRecord::Schema.define(version: 20160629112859) do
     t.integer  "course_id"
     t.string   "remote_id",  limit: 100
     t.integer  "status",                 default: 0
+    t.datetime "deleted_at"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
   end
@@ -450,6 +453,7 @@ ActiveRecord::Schema.define(version: 20160629112859) do
     t.integer  "lesson_count",                                               default: 0
     t.integer  "preset_lesson_count",                                        default: 0
     t.integer  "completed_lesson_count",                                     default: 0
+    t.datetime "deleted_at"
     t.datetime "created_at",                                                               null: false
     t.datetime "updated_at",                                                               null: false
   end
@@ -471,6 +475,7 @@ ActiveRecord::Schema.define(version: 20160629112859) do
     t.datetime "live_end_at"
     t.integer  "real_time",                 default: 0
     t.integer  "pos",                       default: 0
+    t.datetime "deleted_at"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
   end
@@ -485,6 +490,7 @@ ActiveRecord::Schema.define(version: 20160629112859) do
     t.integer  "ticket_id"
     t.datetime "start_time_at"
     t.datetime "end_time_at"
+    t.datetime "deleted_at"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
   end
@@ -500,6 +506,7 @@ ActiveRecord::Schema.define(version: 20160629112859) do
     t.integer  "channel_id"
     t.integer  "user_count",             default: 0
     t.string   "type",       limit: 100
+    t.datetime "deleted_at"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
   end
@@ -515,6 +522,7 @@ ActiveRecord::Schema.define(version: 20160629112859) do
     t.integer  "used_count",   limit: 8,                         default: 0
     t.string   "type"
     t.decimal  "lesson_price",           precision: 8, scale: 2, default: 0.0
+    t.datetime "deleted_at"
     t.datetime "created_at",                                                   null: false
     t.datetime "updated_at",                                                   null: false
   end
@@ -584,6 +592,9 @@ ActiveRecord::Schema.define(version: 20160629112859) do
     t.decimal  "total_money",             precision: 8, scale: 2, default: 0.0
     t.integer  "status",                                          default: 0,   null: false
     t.integer  "pay_type",                                        default: 0,   null: false
+    t.string   "qrcode_url"
+    t.string   "remote_ip"
+    t.datetime "deleted_at"
     t.datetime "created_at",                                                    null: false
     t.datetime "updated_at",                                                    null: false
   end

@@ -36,6 +36,7 @@ module Payment
       state :completed
       state :refunded
       state :waste
+      state :failed
 
       event :pay do
         before do
@@ -64,6 +65,9 @@ module Payment
       end
 
       event :fail do
+        error do
+          nil
+        end
         transitions from: [:unpaid], to: :failed
       end
     end
@@ -97,7 +101,7 @@ module Payment
     after_create :init_remote_order
     def init_remote_order
       r = WxPay::Service.invoke_unifiedorder(remote_params)
-      if r['code_url'].blank?
+      if !r['code_url'].is_a?(String)
         fail!
       else
         self.qrcode_url = Qr_Code.generate_payment(id, r['code_url'])

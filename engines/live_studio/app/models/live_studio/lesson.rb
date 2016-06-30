@@ -109,7 +109,7 @@ module LiveStudio
 
     # 教师分成
     def teacher_fee!(money, billing)
-      teacher_money = money * course.teacher_percentage / 100
+      teacher_money = money * course.teacher_percentage.to_f / 100
       teacher.cash_account!.increase(teacher_money, billing, "课程完成 - #{id} - #{name}")
       teacher_money
     end

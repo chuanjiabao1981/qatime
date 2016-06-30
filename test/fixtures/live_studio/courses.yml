@@ -77,3 +77,4 @@ course_with_lessons:
   status: 1
   teacher_percentage: 20
   preset_lesson_count: 10
+  price: 200

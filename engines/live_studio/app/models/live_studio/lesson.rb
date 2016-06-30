@@ -60,7 +60,7 @@ module LiveStudio
           # 根据学生单次课程成本价计算
           money = course.buy_tickets.sum(:lesson_price)
           billing = billings.create(total_money: money, summary: "课程完成结算, 结算金额: #{money}")
-          CashAccount.transaction do
+          Payment::CashAccount.transaction do
             # 系统支出
             decrease_cash_admin_account(money)
             # 系统收取佣金

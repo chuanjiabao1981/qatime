@@ -1,9 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  owner:
+  owner_id: 
+  owner_type: Owner
   balance: 9.99
+  deleted_at: 
 
 two:
-  owner:
+  owner_id: 
+  owner_type: Owner
   balance: 9.99
+  deleted_at: 

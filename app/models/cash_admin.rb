@@ -22,12 +22,12 @@ class CashAdmin < User
       cash_admin
     end
 
-    def decrease_cash_account(money, ref, summary)
-      current.cash_account!.decrease(money, ref, summary)
+    def decrease_cash_account(money, billing, summary)
+      current.cash_account!.decrease(money, billing, summary)
     end
 
-    def increase_cash_account(money, ref, summary)
-      current.cash_account!.increase(money, ref, summary)
+    def increase_cash_account(money, billing, summary)
+      current.cash_account!.increase(money, billing, summary)
     end
   end
 end

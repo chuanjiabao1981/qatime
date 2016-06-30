@@ -104,7 +104,6 @@ module LiveStudio
       system_money = Course::SYSTEM_FEE * live_count * real_time
       system_money = money if system_money > money
       increase_cash_admin_account(system_money, billing)
-      billing.billing_items.create(account: CashAdmin.current, total_money: system_money, summary: "课程-#{name}-#{id}完成,系统服务费#{system_money}")
       system_money
     end
 
@@ -112,7 +111,6 @@ module LiveStudio
     def teacher_fee!(money, billing)
       teacher_money = money * course.teacher_percentage / 100
       teacher.cash_account!.increase(teacher_money, self, "课程完成 - #{id} - #{name}")
-      billing.billing_items.create(account: teacher, total_money: teacher_money, summary: "课程-#{name}-#{id}完成,教师提成#{teacher_money}")
       teacher_money
     end
 
@@ -120,7 +118,6 @@ module LiveStudio
     # 代理商的分成打入workstation账户下
     def manager_fee!(money, billing)
       course.workstation.cash_account!.increase(money, self, "课程完成 - #{id} - #{name}")
-      billing.billing_items.create(account: course.workstation, total_money: money, summary: "课程-#{name}-#{id}完成,代理商提成#{money}")
     end
 
     # 结算完成后

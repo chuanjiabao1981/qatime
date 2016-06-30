@@ -166,8 +166,25 @@ manager:
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   type: Manager
 
+english_teacher:
+  id: 10
+  name: 高中英语老师
+  role: teacher
+  category: 高中
+  subject: 英语
+  mobile: 15910676326
+  email: engilish_teacher1@qatime.cn
+  avatar: "test"
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  school: school1
+  type: Teacher
 
-
-
-
-
+cash_admin:
+  id: 11
+  name: 系统财务账户
+  role: cash_admin
+  mobile: 15910676326
+  email: cash_admin@qatime.cn
+  avatar: test
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  type: CashAdmin

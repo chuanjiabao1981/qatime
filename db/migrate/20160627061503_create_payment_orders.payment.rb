@@ -9,6 +9,7 @@ class CreatePaymentOrders < ActiveRecord::Migration
       t.integer :status, default: 0, null: false
       t.integer :pay_type, default: 0, null: false
       t.string :qrcode_url
+      t.string :pay_url
       t.string :remote_ip
 
       t.datetime :deleted_at

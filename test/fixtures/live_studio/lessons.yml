@@ -21,3 +21,41 @@ lesson_three:
   start_time: 10:20
   end_time: 05:30
   class_date: 2016-10-01
+
+english_lesson_today:
+  name: 英语辅导班-第一节
+  course_id: 4
+  description: 测试描述
+  start_time: 10:20
+  end_time: 05:30
+  class_date: <%= Date.today %>
+
+english_lesson_tomorrow:
+  name: 英语辅导班-第二节
+  course_id: 4
+  description: 测试描述
+  start_time: 10:20
+  end_time: 05:30
+  class_date: <%= Date.tomorrow %>
+
+english_lesson_onlive:
+  name: 英语辅导班-正在直播课程
+  course_id: 4
+  description: 测试描述
+  start_time: 10:20
+  end_time: 05:30
+  status: 2
+  live_start_at: <%= 1.hours.ago %>
+  class_date: <%= Date.today %>
+
+english_lesson_finished:
+  name: 英语辅导班-已完成
+  teacher_id: 10
+  course_id: 4
+  description: 测试描述
+  start_time: 10:20
+  end_time: 05:30
+  status: 3
+  live_start_at: <%= 1.hours.ago %>
+  live_end_at: <%= Time.now %>
+  class_date: <%= Date.today %>

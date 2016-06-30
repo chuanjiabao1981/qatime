@@ -91,9 +91,11 @@ cn:
       date: 日期
       operate: 操作
       pick: 选择
+      lesson_ready: 准备上课
       begin_live_studio: 开始直播
       end_live_studio: 结束直播
       finished_live_studio: 完成直播
+      lesson_completed: 立即结算
       status: 状态
       begin_watch_live_studio: 观看直播
       teacher_desc: 老师简介

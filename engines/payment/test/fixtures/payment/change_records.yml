@@ -2,18 +2,18 @@
 
 one:
   cash_account_id: 
+  different: 9.99
   before: 9.99
   after: 9.99
-  different: 9.99
-  ref_id: 
-  ref_type: Ref
+  billing_id: 
   summary: MyString
+  deleted_at: 
 
 two:
   cash_account_id: 
+  different: 9.99
   before: 9.99
   after: 9.99
-  different: 9.99
-  ref_id: 
-  ref_type: Ref
+  billing_id: 
   summary: MyString
+  deleted_at: 

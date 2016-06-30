@@ -25,6 +25,8 @@ module Payment
 
     validates :user, :product, presence: true
 
+    has_many :billings, as: :target
+
     validate do |record|
       record.product.validate_order(record) if new_record? && record.product
     end
@@ -104,6 +106,7 @@ module Payment
       if !r['code_url'].is_a?(String)
         fail!
       else
+        self.pay_url = r['code_url']
         self.qrcode_url = Qr_Code.generate_payment(id, r['code_url'])
         save
       end
@@ -126,7 +129,8 @@ module Payment
 
     # 支付以后cash_admin账户增加金额
     def increase_cash_admin_account
-      CashAdmin.increase_cash_account(total_money, self, '用户充值消费')
+      billing = billings.create(total_money: total_money, summary: "用户支付, 订单编号：#{order_no} 系统进账: #{total_money}")
+      CashAdmin.increase_cash_account(total_money, billing, '用户充值消费')
     end
 
     def remote_params
@@ -142,4 +146,3 @@ module Payment
     end
   end
 end
-

@@ -16,15 +16,15 @@ module LiveStudio
     belongs_to :course
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
 
-    has_many :play_records #听课记录
+    has_many :play_records # 听课记录
     has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
 
     validates :name, :description, :course_id, :start_time, :end_time, :class_date, presence: true
 
     include AASM
 
-    aasm :column => :status, :enum => true do
-      state :init, :initial => true
+    aasm column: :status, enum: true do
+      state :init, initial: true
       state :ready
       state :teaching
       state :finished
@@ -60,9 +60,9 @@ module LiveStudio
           # 根据学生单次课程成本价计算
           money = course.buy_tickets.sum(:lesson_price)
           billing = billings.create(total_money: money, summary: "课程完成结算, 结算金额: #{money}")
-          CashAccount.transaction do
+          Payment::CashAccount.transaction do
             # 系统支出
-            decrease_cash_admin_account(money)
+            decrease_cash_admin_account(money, billing)
             # 系统收取佣金
             money -= system_fee!(money, billing)
             # 教师分成
@@ -76,7 +76,7 @@ module LiveStudio
     end
 
     def can_play?
-      ready? or teaching?
+      ready? || teaching?
     end
 
     def has_finished?
@@ -88,7 +88,7 @@ module LiveStudio
       init? && class_date == Date.today
     end
 
-    def short_description(len=20)
+    def short_description(len = 20)
       description.try(:truncate, len)
     end
 
@@ -103,37 +103,33 @@ module LiveStudio
     def system_fee!(money, billing)
       system_money = Course::SYSTEM_FEE * live_count * real_time
       system_money = money if system_money > money
-      increase_cash_admin_account(system_money)
-      billing.billing_items.create(account: CashAdmin.current, total_money: system_money, summary: "课程-#{name}-#{id}完成,系统服务费#{system_money}")
+      increase_cash_admin_account(system_money, billing)
       system_money
     end
 
     # 教师分成
     def teacher_fee!(money, billing)
-      teacher_money = money * course.teacher_percentage / 100
-      teacher.cash_account!.increase(teacher_money, self, "课程完成 - #{id} - #{name}")
-      billing.billing_items.create(account: teacher, total_money: teacher_money, summary: "课程-#{name}-#{id}完成,教师提成#{teacher_money}")
+      teacher_money = money * course.teacher_percentage.to_f / 100
+      teacher.cash_account!.increase(teacher_money, billing, "课程完成 - #{id} - #{name} - #{teacher_money}/#{money}")
       teacher_money
     end
 
     # 代理商分成
     # 代理商的分成打入workstation账户下
     def manager_fee!(money, billing)
-      course.workstation.cash_account!.increase(money, self, "课程完成 - #{id} - #{name}")
-      billing.billing_items.create(account: course.workstation, total_money: money, summary: "课程-#{name}-#{id}完成,代理商提成#{money}")
+      course.workstation.cash_account!.increase(money, billing, "课程完成 - #{id} - #{name}")
     end
 
     # 结算完成后
     # 系统账户 支出结算金额
-    def decrease_cash_admin_account(money)
-      CashAdmin.decrease_cash_account(money, self, '课程完成 - 支出结算')
+    def decrease_cash_admin_account(money, billing)
+      CashAdmin.decrease_cash_account(money, billing, '课程完成 - 支出结算')
     end
 
     # 结算完成后
     # 系统账户 收取服务费
-    def increase_cash_admin_account(money)
-      CashAdmin.increase_cash_account(money, self, '课程完成 - 系统服务费')
+    def increase_cash_admin_account(money, billing)
+      CashAdmin.increase_cash_account(money, billing, '课程完成 - 系统服务费')
     end
-
   end
 end

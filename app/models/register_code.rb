@@ -1,4 +1,5 @@
 class RegisterCode < ActiveRecord::Base
+  scope :able_code, ->{ where(state: 'available')}
 
   attr_accessor :number
 
@@ -88,7 +89,7 @@ class RegisterCode < ActiveRecord::Base
     return "OK"
   end
 
-  def self.get_available_register_codes(school, batch_id = null)
+  def self.get_available_register_codes(school, batch_id = nil)
     if not batch_id.nil? and not batch_id.blank?
       register_codes = RegisterCode.where(:school_id=> school.id, :state=>"available", :batch_id => batch_id)
     else

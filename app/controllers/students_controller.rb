@@ -5,9 +5,15 @@ class StudentsController < ApplicationController
     @students = Student.all.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
 
   end
+
   def new
     @student = Student.new
+    if Rails.env.testing? || Rails.env.development?
+      RegisterCode.able_code.last.try(:value) || RegisterCode.batch_make("20", School.last)
+      @student.register_code_value = RegisterCode.able_code.last.value
+    end
   end
+
   def create
     @student = Student.new(params[:student].permit!)
     @student.build_account

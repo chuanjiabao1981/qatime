@@ -62,7 +62,7 @@ module LiveStudio
           billing = billings.create(total_money: money, summary: "课程完成结算, 结算金额: #{money}")
           Payment::CashAccount.transaction do
             # 系统支出
-            decrease_cash_admin_account(money)
+            decrease_cash_admin_account(money, billing)
             # 系统收取佣金
             money -= system_fee!(money, billing)
             # 教师分成
@@ -103,7 +103,7 @@ module LiveStudio
     def system_fee!(money, billing)
       system_money = Course::SYSTEM_FEE * live_count * real_time
       system_money = money if system_money > money
-      increase_cash_admin_account(system_money)
+      increase_cash_admin_account(system_money, billing)
       billing.billing_items.create(account: CashAdmin.current, total_money: system_money, summary: "课程-#{name}-#{id}完成,系统服务费#{system_money}")
       system_money
     end

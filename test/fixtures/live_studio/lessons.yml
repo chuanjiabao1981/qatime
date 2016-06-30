@@ -21,6 +21,7 @@ lesson_three:
   start_time: 10:20
   end_time: 05:30
   class_date: 2016-10-01
+  status: 2
 
 english_lesson_today:
   name: 英语辅导班-第一节

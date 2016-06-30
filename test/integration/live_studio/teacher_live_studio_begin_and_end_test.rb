@@ -28,6 +28,10 @@ module LiveStudio
       visit live_studio.teacher_course_path(course)
       page.has_content? "结束直播"
       click_on '结束直播'
+
+      visit live_studio.teacher_course_path(course)
+      page.has_no_content? "开始直播"
+      page.has_no_content? "结束直播"
     end
 
   end

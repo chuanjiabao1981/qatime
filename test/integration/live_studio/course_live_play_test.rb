@@ -22,10 +22,11 @@ module LiveStudio
       lesson = live_studio_lessons(:lesson_three)
       channel = live_studio_channels(:three)
 
-      visit live_studio.play_course_lesson_path(course, lesson)
-
-      page.has_content? channel.name
-
+      assert_difference LiveStudio::PlayRecord.count, +1 do
+        visit live_studio.play_course_lesson_path(course, lesson)
+        page.has_content? channel.name
+      end
     end
+
   end
 end

@@ -8,6 +8,7 @@ module LiveStudio
       @headless = Headless.new
       @headless.start
       Capybara.current_driver = :selenium_chrome
+      @teacher = users(:english_teacher)
 
       log_in_as(@teacher)
     end
@@ -43,11 +44,10 @@ module LiveStudio
     test "lesson complete and billing and cash" do
       course = live_studio_courses(:course_with_lessons)
       lesson = live_studio_lessons(:english_lesson_finished)
-      @teacher = users(:english_teacher)
       @workstation = workstations(:workstation_one)
-      assert_difference '@workstation.cash_account!.balance', 75.2 do
-        assert_difference '@teacher.cash_account!.balance', 18.8 do
-          assert_difference 'CashAdmin.current.cash_account!.balance', -94 do
+      assert_difference '@workstation.cash_account!.reload.balance.to_f', 48.0 do
+        assert_difference '@teacher.cash_account!.reload.balance.to_f', 12.0 do
+          assert_difference 'CashAdmin.current.cash_account!.balance.to_f', -60.0 do
             visit live_studio.teacher_course_path(course)
             click_on("立即结算")
           end

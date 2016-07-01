@@ -75,6 +75,10 @@ module LiveStudio
       end
     end
 
+    def status_text
+      I18n.t("activerecord.status.live_studio/lesson.#{status}")
+    end
+
     def can_play?
       ready? || teaching?
     end

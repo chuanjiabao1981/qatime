@@ -18,6 +18,7 @@ module LiveStudio
 
     scope :available, -> { where("status < ?", Ticket.statuses[:used]) }
     scope :visiable, -> { where("status <= ?", Ticket.statuses[:used]) }
+    scope :authorizable, -> { where("status < ?", Ticket.statuses[:pre_used]) }
 
     def type_name
       return I18n.t("live_studio/ticket.type_name.taste_#{status}") if taste?
@@ -36,6 +37,16 @@ module LiveStudio
         self.pre_used!
       end
       save
+    end
+
+    # 是否可用
+    def available?
+      self[:status] < Ticket.statuses[:used]
+    end
+
+    # 是否可以授权新的课程
+    def authorizable?
+      self[:status] < Ticket.statuses[:pre_used]
     end
   end
 end

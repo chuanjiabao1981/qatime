@@ -13,6 +13,7 @@ two:
   status: 1
 
 three:
+  id: 3
   name: 辅导班3 - 直播室 - 3
   course_id: 3
   remote_id: MyString

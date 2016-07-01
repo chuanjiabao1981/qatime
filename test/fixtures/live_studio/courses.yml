@@ -65,6 +65,6 @@ course_teach_2:
 course_with_lesson:
   id: 3
   name: 辅导班3
-  teacher: users(:teacher_one)
+  teacher_id: 1
   workstation: workstation(:workstation1)
   status: 2

@@ -2,3 +2,7 @@ ticket_of_student_one:
   student_id: 9
   course_id: 5
   type: LiveStudio::BuyTicket
+ticket_of_student_one_course_three:
+  student_id: 9
+  course_id: 3
+  type: LiveStudio::BuyTicket

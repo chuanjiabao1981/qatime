@@ -1,0 +1,4 @@
+<% if @course.completed? -%>
+ $("#close-course").remove();
+ $("#course-status").text("<%= @course.status_text %>");
+<% end -%>

@@ -40,15 +40,25 @@
   </div>
   <div class="qa_cell">
     <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:preset_lesson_count)%></div>
+      <div class="col-md-9">
+	<%= @course.completed_lesson_count %> / <%= @course.preset_lesson_count %>
+	<%= link_to t("activerecord.view.close_course"), close_teacher_course_path(@course),
+	    id: "close-course", remote: true, method: :patch, 'data-confirm' => t("activerecord.view.message.course_confirm_close") if  @course.ready_for_close? %>
+      </div>
+    </div>
+  </div>
+  <div class="qa_cell">
+    <div class="row">
       <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:status)%></div>
-      <div class="col-md-9"><%= @course.status_text %></div>
+      <div class="col-md-9" id="course-status"><%= @course.status_text %></div>
     </div>
   </div>
   <div class="qa_cell">
     <div class="row">
       <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::PushStream.human_attribute_name(:address)%></div>
       <div class="col-md-9"><%= @course.push_stream.try(:address) %>
-        <%= link_to "获取直播地址", channel_teacher_course_path(@course), method: :patch, remote: true, id: "sync_channel" unless @course.push_stream  %>
+        <%= link_to t("activerecord.view.sync_channel"), channel_teacher_course_path(@course), method: :patch, remote: true, id: "sync_channel" unless @course.push_stream  %>
       </div>
     </div>
   </div>
@@ -65,7 +75,7 @@
         <button type="button" class="btn btn-xs btn-success">
           <%= t("activerecord.view.create") %><%= LiveStudio::Lesson.model_name.human %>
         </button>
-      <% end %>
+      <% end unless @course.completed? %>
     </span>
   </div>
 

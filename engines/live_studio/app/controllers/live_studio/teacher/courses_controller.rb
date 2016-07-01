@@ -4,7 +4,7 @@ module LiveStudio
   class Teacher::CoursesController < Teacher::BaseController
 
     before_action :courses_chain
-    before_action :set_course, only: [:show, :edit, :update, :destroy, :channel]
+    before_action :set_course, only: [:show, :edit, :update, :destroy, :channel, :close]
 
     def index
       @courses = courses_chain.paginate(page: params[:page])
@@ -31,6 +31,10 @@ module LiveStudio
       @course.channels.destroy_all
       @course.init_channel
       @channel = @course.channels.last
+    end
+
+    def close
+      @course.completed! if @course.ready_for_close?
     end
 
     private

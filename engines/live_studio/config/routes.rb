@@ -37,6 +37,7 @@ LiveStudio::Engine.routes.draw do
         end
       end
       member do
+        patch :close
         patch :channel
       end
     end

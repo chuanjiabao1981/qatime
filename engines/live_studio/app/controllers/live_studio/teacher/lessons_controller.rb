@@ -40,6 +40,7 @@ module LiveStudio
 
     def ready
       @lesson.ready!
+      redirect_to teacher_course_path(params[:course_id])
     end
 
     # PATCH/PUT /teacher/lessons/1

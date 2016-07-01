@@ -134,7 +134,12 @@ module LiveStudio
 
     # 更新完成课程数量
     def reset_completed_lesson_count!
-      update_attributes!(completed_lesson_count: lessons.completed.count)
+      update_attributes!(completed_lesson_count: lessons.teached.count)
+    end
+
+    # 是否可以结课
+    def ready_for_close?
+      teaching? && completed_lesson_count >= preset_lesson_count
     end
 
     private
@@ -146,7 +151,7 @@ module LiveStudio
 
     # 学生授权播放
     def student_authorize(user, lesson)
-      ticket = tickets.available.where(student_id: user.id).first
+      ticket = tickets.authorizable.where(student_id: user.id).first
       return unless ticket
       ticket.active! if ticket.taste? && ticket.inactive?
       ticket.inc_used_count!

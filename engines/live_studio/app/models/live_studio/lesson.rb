@@ -12,6 +12,7 @@ module LiveStudio
 
     default_scope { order("id asc") }
     scope :unfinish, -> { where("status < ?", Lesson.statuses[:finished]) }
+    scope :teached, -> { where("status > ?", Lesson.statuses[:teaching]) } # 已经完成上课
 
     belongs_to :course
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
@@ -48,7 +49,7 @@ module LiveStudio
         end
 
         after do
-          expire_taste_tickets # 过期试听证
+          used_taste_tickets # 过期试听证
           complete!
         end
         transitions from: :teaching, to: :finished
@@ -101,8 +102,8 @@ module LiveStudio
     private
 
     # 过期试听证
-    def expire_taste_tickets
-      course.taste_tickets.used.map(&:expired!)
+    def used_taste_tickets
+      course.taste_tickets.pre_used.map(&:used!)
     end
 
     # 系统服务费

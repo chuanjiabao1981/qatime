@@ -3,7 +3,7 @@
   <td><%= course.name %></td>
   <td><%= course.teacher_name %></td>
   <td><%= course.short_description %></td>
-  <td><%= course.price %></td>
+  <td><%= course.current_price %></td>
   <td>
     <% if course.bought_by?(current_user) %>
       已购买

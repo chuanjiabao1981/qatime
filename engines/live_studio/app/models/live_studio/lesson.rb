@@ -69,6 +69,8 @@ module LiveStudio
             money -= teacher_fee!(money, billing)
             # 代理商分成
             manager_fee!(money, billing)
+            # 更新辅导课程完成数量
+            course.reset_completed_lesson_count!
           end
         end
         transitions from: :finished, to: :completed

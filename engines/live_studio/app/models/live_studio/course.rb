@@ -146,9 +146,9 @@ module LiveStudio
 
     # 学生授权播放
     def student_authorize(user, lesson)
-      ticket = tickets.available.where(student_id: user.id).first
+      ticket = tickets.authorizable.where(student_id: user.id).first
       return unless ticket
-      ticket.active if ticket.taste? && ticket.inactive?
+      ticket.active! if ticket.taste? && ticket.inactive?
       ticket.inc_used_count!
       play_records.create(user_id: user.id, lesson_id: lesson.id, ticket: ticket)
     end

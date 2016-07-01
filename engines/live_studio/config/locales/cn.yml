@@ -12,7 +12,8 @@ cn:
       buy_used: 已结束
       taste_inactive: 准备试听
       taste_active: 正在试听
-      taste_active: 试听结束
+      taste_pre_used: 正在试听
+      taste_used: 试听结束
       tasted: 正在试听
   helpers:
     label:

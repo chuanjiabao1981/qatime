@@ -11,3 +11,13 @@ cn:
         total_money: 订单金额
         created_at: 下单时间
         status: 订单状态
+    status:
+      order:
+        unpaid: 未支付
+        paid: 已支付
+        shipped: 已发货
+        completed: 已完成
+        expired: 过期订单
+        failed: 下单失败
+        refunded: 已退款
+        waste: 无效订单

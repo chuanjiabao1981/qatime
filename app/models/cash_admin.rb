@@ -7,7 +7,7 @@ class CashAdmin < User
 
 
   class << self
-
+    # 系统现金账户
     def current
       cash_admin = find_by(role: 'cash_admin')
       if cash_admin.blank?
@@ -16,16 +16,21 @@ class CashAdmin < User
                 name: 'cash_admin',
                 email: 'cash_admin@qatime.cn',
                 password: '123456',
-                password_confirmation: '123456',
+                password_confirmation: '123456'
             )
       end
       cash_admin
     end
 
+    # 系统账户余额
+    def current_cash
+      current.cash_account!.balance.to_f
+    end
+    # 系统账户支出
     def decrease_cash_account(money, billing, summary)
       current.cash_account!.decrease(money, billing, summary)
     end
-
+    # 系统账户收入
     def increase_cash_account(money, billing, summary)
       current.cash_account!.increase(money, billing, summary)
     end

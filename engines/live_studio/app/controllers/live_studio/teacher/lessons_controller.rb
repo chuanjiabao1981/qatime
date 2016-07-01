@@ -5,7 +5,7 @@ module LiveStudio
     before_action :set_course
     before_action :set_lesson, only: [
       :show, :edit, :update, :destroy,
-      :ready, :begin_live_studio, :end_live_studio
+      :ready, :begin_live_studio, :end_live_studio, :complete
     ]
 
     # GET /teacher/lessons
@@ -64,7 +64,11 @@ module LiveStudio
 
     def end_live_studio
       @lesson.finish!
+      redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('end_live_studio', @lesson)
+    end
 
+    def complete
+      @lesson.complete!
       redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('end_live_studio', @lesson)
     end
 

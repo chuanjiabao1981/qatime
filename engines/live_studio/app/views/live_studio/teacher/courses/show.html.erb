@@ -48,7 +48,7 @@
     <div class="row">
       <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Stream.human_attribute_name(:address)%></div>
       <div class="col-md-9"><%= @course.push_stream.try(:address) %>
-	<%= link_to "获取直播地址", channel_teacher_course_path(@course), method: :patch, remote: true, id: "sync_channel" unless @course.push_stream  %>
+        <%= link_to "获取直播地址", channel_teacher_course_path(@course), method: :patch, remote: true, id: "sync_channel" unless @course.push_stream  %>
       </div>
     </div>
   </div>
@@ -94,17 +94,17 @@
       <div class="col-md-2">
         <%= link_to t('activerecord.view.edit'), edit_teacher_course_lesson_path(@course, lesson) unless lesson.has_finished? %>
         <%= link_to t("activerecord.view.delete"), teacher_course_lesson_path(@course, lesson), method: :delete,
-	    confirm: t('activerecord.view.message.confirm') if lesson.init? %>
+            confirm: t('activerecord.view.message.confirm') if lesson.init? %>
 
-	<% if lesson.ready_for? -%>
+        <% if lesson.ready_for? -%>
           <%= link_to t("activerecord.view.lesson_ready"), ready_teacher_course_lesson_path(@course, lesson), class: 'ready', method: :patch, remote: true %>
-	<% elsif lesson.ready? -%>
-          <%= link_to t("activerecord.view.begin_live_studio"), begin_live_studio_teacher_course_lesson_path(@course, lesson), method: :patch %>
-	<% elsif lesson.teaching? -%>
-          <%= link_to t("activerecord.view.end_live_studio"), end_live_studio_teacher_course_lesson_path(@course, lesson), method: :patch %>
-	<% elsif lesson.finished? %>
-          <%= link_to t("activerecord.view.completed"), end_live_studio_teacher_course_lesson_path(@course, lesson), method: :patch %>
-	<% end%>
+        <% elsif lesson.ready? -%>
+          <%= link_to t("activerecord.view.begin_live_studio"), begin_live_studio_teacher_course_lesson_path(@course, lesson), class: 'live', method: :patch %>
+        <% elsif lesson.teaching? -%>
+          <%= link_to t("activerecord.view.end_live_studio"), end_live_studio_teacher_course_lesson_path(@course, lesson), class: 'finish', method: :patch %>
+        <% elsif lesson.finished? %>
+          <%= link_to t("activerecord.view.lesson_completed"), complete_teacher_course_lesson_path(@course, lesson), class: 'complete', method: :patch %>
+        <% end%>
       </div>
     </div>
     <% end -%>

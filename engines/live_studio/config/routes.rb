@@ -33,6 +33,7 @@ LiveStudio::Engine.routes.draw do
           patch :begin_live_studio
           patch :end_live_studio
           patch :ready
+          patch :complete
         end
       end
       member do

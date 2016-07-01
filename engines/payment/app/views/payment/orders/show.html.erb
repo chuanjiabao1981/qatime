@@ -9,7 +9,7 @@
       <div>支付金额：<%= @order.total_money %> 元</div>
     </div>
     <div class="qa_big_cell text-center">
-      <%= image_tag(@order.qrcode_url) %>
+      <%= image_tag(@order.qrcode_url, id: 'wechat_qrcode') %>
       <div>微信二维码 扫一扫支付</div>
     </div>
   </div>

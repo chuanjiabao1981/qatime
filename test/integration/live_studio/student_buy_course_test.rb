@@ -7,7 +7,7 @@ module LiveStudio
       @headless = Headless.new
       @headless.start
       Capybara.current_driver = :selenium_chrome
-      @student = ::Student.find(users(:student1).id)
+      @student = ::Student.find(users(:student_with_order).id)
       log_in_as(@student)
     end
 
@@ -31,12 +31,17 @@ module LiveStudio
       course_preview = live_studio_courses(:course_preview)
       assert_difference '@student.orders.count', 1, "辅导班下单失败" do
         click_on("buy-course-#{course_preview.id}")
-        choose("order_pay_type_0")
+        choose("order_pay_type_1")
         click_on("新增订单")
       end
     end
 
     test "student pay order" do
+      @order = payment_orders(:order_one)
+      visit payment.user_order_path(@order.order_no)
+      assert has_selector?('img#wechat_qrcode')
+      @order.pay_and_ship!
+      assert CashAdmin.current_cash == @order.total_money.to_f
     end
   end
 end

@@ -61,3 +61,11 @@ ticket_of_student_one_course_three:
   student_id: 9
   course_id: 3
   type: LiveStudio::BuyTicket
+
+ticket_of_tasting:
+  student_id: 12
+  course_id: 10
+  type: LiveStudio::TasteTicket
+  buy_count: 2
+  used_count: 0
+  lesson_price: 0

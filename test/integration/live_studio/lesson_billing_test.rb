@@ -36,7 +36,11 @@ module LiveStudio
       course = live_studio_courses(:course_with_lessons)
       lesson = live_studio_lessons(:english_lesson_onlive)
       visit live_studio.teacher_course_path(course)
-      click_on("结束直播")
+      assert_difference 'course.reload.completed_lesson_count', 1, "没有更新辅导班课程完成数量" do
+        assert_difference 'course.reload.current_price.to_f', -20, "课程完成以后课程价格没有修改" do
+          click_on("结束直播")
+        end
+      end
       lesson.reload
       assert_equal("completed", lesson.status)
     end

@@ -84,4 +84,16 @@ course_with_lessons:
   status: 1
   teacher_percentage: 20
   preset_lesson_count: 10
+  lesson_price: 20
+  price: 200
+
+tasting_course:
+  id: 10
+  name: 试听中的辅导班
+  teacher_id: 10
+  workstation_id: 1
+  status: 1
+  teacher_percentage: 20
+  preset_lesson_count: 10
+  lesson_price: 20
   price: 200

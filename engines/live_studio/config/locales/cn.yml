@@ -8,6 +8,7 @@ cn:
     type_name:
       buy_inactive: 已购买
       buy_active: 已购买
+      buy_pre_used: 已购买
       buy_used: 已结束
       taste_inactive: 准备试听
       taste_active: 正在试听

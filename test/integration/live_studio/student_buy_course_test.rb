@@ -40,8 +40,9 @@ module LiveStudio
       @order = payment_orders(:order_one)
       visit payment.user_order_path(@order.order_no)
       assert has_selector?('img#wechat_qrcode')
-      @order.pay_and_ship!
-      assert CashAdmin.current_cash == @order.total_money.to_f
+      assert_difference "CashAdmin.current_cash", @order.total_money.to_f, "订单支付完成系统收入不正确" do
+        @order.pay_and_ship!
+      end
     end
 
     test "student taste and buy course" do

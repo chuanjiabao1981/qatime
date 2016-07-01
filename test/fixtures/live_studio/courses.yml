@@ -55,6 +55,9 @@ course_one_of_teacher_one:
   workstation_id: 1
   price: 100
   status: 2
+  teacher_percentage: 20
+  preset_lesson_count: 10
+  lesson_price: 20
 
 course_teach_2:
   name: 上课中的辅导班2

@@ -107,7 +107,7 @@
             confirm: t('activerecord.view.message.confirm') if lesson.init? %>
 
         <% if lesson.ready_for? -%>
-          <%= link_to t("activerecord.view.lesson_ready"), ready_teacher_course_lesson_path(@course, lesson), class: 'ready', method: :patch, remote: true %>
+          <%= link_to t("activerecord.view.lesson_ready"), ready_teacher_course_lesson_path(@course, lesson), class: 'ready', method: :patch %>
         <% elsif lesson.ready? -%>
           <%= link_to t("activerecord.view.begin_live_studio"), begin_live_studio_teacher_course_lesson_path(@course, lesson), class: 'live', method: :patch %>
         <% elsif lesson.teaching? -%>

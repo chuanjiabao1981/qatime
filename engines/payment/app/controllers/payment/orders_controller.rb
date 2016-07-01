@@ -4,7 +4,7 @@ module Payment
   class OrdersController < ApplicationController
     skip_before_action :verify_authenticity_token, :only => :notify
     before_action :set_student, skip: [:notify]
-    layout 'payment/layouts/payment', only: [:show]
+    layout :layout_no_nav
 
     def index
       @orders = current_user.orders.paginate(page: params[:page])
@@ -12,8 +12,8 @@ module Payment
 
     # 生成微信支付二维码
     def show
-      @order = current_user.orders.find_by!(order_no: params[:id])
 
+      @order = current_user.orders.find_by!(order_no: params[:id])
       @order.init_remote_order unless @order.qrcode_url
     end
 
@@ -49,6 +49,11 @@ module Payment
 
     def set_student
       @student = current_user
+    end
+
+    def layout_no_nav
+      no_nav_arys = %w(show)
+      "payment/layouts/#{no_nav_arys.include?(action_name) ? 'payment' : 'application'}"
     end
   end
 end

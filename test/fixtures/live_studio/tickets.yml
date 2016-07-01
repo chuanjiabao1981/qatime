@@ -56,3 +56,8 @@ ticket_for_taste:
   used_count: 1
   lesson_price: 0
   type: LiveStudio::TasteTicket
+
+ticket_of_student_one_course_three:
+  student_id: 9
+  course_id: 3
+  type: LiveStudio::BuyTicket

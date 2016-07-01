@@ -7,12 +7,13 @@ module LiveStudio
     belongs_to :lesson
 
     enum status: {
-           inactive: 0,
-           active: 1,
-           used: 2,
-           replaced: 97,
-           expired: 98,
-           waste: 99
+           inactive: 0, # 准备试听
+           active: 1, # 可用
+           pre_used: 2, # 已经用完最后课程没有结束
+           used: 3, # 已经用完
+           replaced: 97, # 试听证被正式听课证替换
+           expired: 98, # 未使用过期
+           waste: 99 # 不可用
          }
 
     scope :available, -> { where("status < ?", Ticket.statuses[:used]) }
@@ -27,9 +28,13 @@ module LiveStudio
       false
     end
 
-    def inc_used_count!
+    def inc_used_count!(urgent=false)
       self.used_count += 1
-      self.used! if used_count >= buy_count
+      if urgent && used_count >= buy_count
+        self.used!
+      elsif used_count >= buy_count
+        self.pre_used!
+      end
       save
     end
   end

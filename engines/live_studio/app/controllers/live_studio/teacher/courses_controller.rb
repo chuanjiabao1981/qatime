@@ -35,6 +35,7 @@ module LiveStudio
 
     def close
       @course.completed! if @course.ready_for_close?
+      redirect_to [:teacher, @course], notice: i18n_notice('closed', @course)
     end
 
     private

@@ -118,7 +118,7 @@ module Payment
     # 支付是否超时微信两小时过期
     def pay_timeout?
       return false unless unpaid?
-      created_at > 2.hours.ago
+      created_at < 2.hours.ago
     end
 
     private

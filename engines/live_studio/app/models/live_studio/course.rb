@@ -132,6 +132,11 @@ module LiveStudio
       others_authorize(user, lesson)
     end
 
+    # 更新完成课程数量
+    def reset_completed_lesson_count!
+      update_attributes!(completed_lesson_count: lessons.completed.count)
+    end
+
     private
 
     before_create :set_lesson_price

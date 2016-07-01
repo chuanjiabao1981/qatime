@@ -7,7 +7,7 @@ module Payment
     layout :layout_no_nav
 
     def index
-      @orders = current_user.orders.paginate(page: params[:page])
+      @orders = current_user.orders.order(id: :desc).paginate(page: params[:page])
     end
 
     # 生成微信支付二维码

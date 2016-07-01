@@ -11,3 +11,4 @@ cn:
         total_money: 订单金额
         created_at: 下单时间
         status: 订单状态
+        pay_type: 支付方式

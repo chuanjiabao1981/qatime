@@ -91,7 +91,10 @@ module Payment
       (total_money * 100).to_i
     end
 
-
+    # 订单状态
+    def status_text
+      I18n.t("activerecord.status.order.#{status}")
+    end
 
     class << self
       # i18n PAY_TYPE

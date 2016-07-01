@@ -1,5 +1,5 @@
 module Payment
   class ApplicationController < ::ApplicationController
-    layout 'payment/layouts/payment'
+    layout 'payment/layouts/application'
   end
 end

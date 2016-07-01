@@ -4,6 +4,7 @@ module Payment
   class OrdersController < ApplicationController
     skip_before_action :verify_authenticity_token, :only => :notify
     before_action :set_student, skip: [:notify]
+    layout 'payment/layouts/payment', only: [:show]
 
     def index
       @orders = current_user.orders.paginate(page: params[:page])

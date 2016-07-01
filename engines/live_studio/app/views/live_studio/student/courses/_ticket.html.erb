@@ -10,6 +10,6 @@
   <td><%= course.status_text %></td>
   <td><%= ticket.type_name %></td>
   <td>
-    <%= link_to t("activerecord.view.buy_now"), new_course_order_path(course), id: "buy-course-#{course.id}" if ticket.taste? %>
+    <%= link_to t("activerecord.view.pay_now"), new_course_order_path(course), id: "buy-course-#{course.id}" if ticket.taste? %>
   </td>
 </tr>

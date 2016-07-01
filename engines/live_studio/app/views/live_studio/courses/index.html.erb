@@ -16,11 +16,11 @@
   <div>
     <table class="table">
       <tr>
-        <th>#</th>
-	<% %w(name teacher description price).each do |attr| -%>
-        <th><%= LiveStudio::Course.human_attribute_name(attr) %></th>
-	<% end %>
-        <th><%= t("activerecord.view.operate") %></th>
+        <th style="width: 5%">#</th>
+        <% %w(name teacher description price).each do |attr| -%>
+            <th style="width: 20%"><%= LiveStudio::Course.human_attribute_name(attr) %></th>
+        <% end %>
+        <th style="width: 15%"><%= t("activerecord.view.operate") %></th>
       </tr>
       <%= render @courses %>
     </table>

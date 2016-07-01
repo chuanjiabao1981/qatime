@@ -2,6 +2,7 @@ cn:
   activerecord:
     view:
       pay: 立即支付
+      timeout: 已超时
     models:
       payment/order: 订单
     attributes:

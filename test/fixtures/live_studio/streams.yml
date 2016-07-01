@@ -2,12 +2,17 @@
 
 one:
   protocol: MyString
-  address: 
-  channel_id: 
+  address:
+  channel_id:
   user_count: 1
 
 two:
   protocol: MyString
-  address: 
-  channel_id: 
+  address:
+  channel_id:
   user_count: 1
+
+pull_stream_for_channle_three:
+  channel_id: 3
+  address: "rtmp://v587def8c.live.126.net/live/70a0ea6744944496825f068a5c98c528"
+  type: LiveStudio::PullStream

@@ -24,7 +24,6 @@ cn:
   activerecord:
     models:
       payment/order: 订单
-      course_library/course: 大纲课程
       live_studio/course: 辅导班
       live_studio/lesson: 课程
     attributes:
@@ -36,12 +35,6 @@ cn:
         class_date: 课程日期
         status_event: 是否通过审核
         status: 状态
-      payment/order:
-        name: 辅导班
-        teacher: 辅导老师
-        price: 价格
-        description: 说明
-        pay_type: 支付方式
       live_studio/course:
         name: 名称
         teacher: 辅导老师
@@ -54,18 +47,24 @@ cn:
         teacher_percentage: 教师分成百分比
         preset_lesson_count: 课程数
         lesson_price: 单节课程价格
+        address: 上课地址
+      live_studio/push_stream:
+        address: 直播地址
+      live_studio/pull_stream:
+        address: 观看地址
       live_studio/ticket:
         course: 辅导班
         lesson: 课程
         student: 学生
         status: 状态
         type_name: 听课类型
-      course_library/course:
-        title: 标题
-        description: 简介
-        qa_files: 文件
-        available_customized_course_ids: 可使用此大纲课程的专属课程
-        customized_tutorials: 使用此大纲课程的专属课程
+    status:
+      live_studio/lesson:
+        init: 初始化
+        ready: 准备上课
+        teaching: 上课中
+        finished: 待结算
+        completed: 已结算
     view:
       category: 类型
       teacher: 辅导老师

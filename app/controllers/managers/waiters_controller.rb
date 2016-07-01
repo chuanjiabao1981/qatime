@@ -29,7 +29,7 @@ class Managers::WaitersController < ApplicationController
 
     respond_to do |format|
       if @waiter.save
-        format.html { redirect_to managers_waiters_path, notice: 'Waiter was successfully created.' }
+        format.html { redirect_to managers_waiters_path, notice: i18n_notice('created',@waiter) }
         format.json { render action: 'show', status: :created, location: @waiter }
       else
         @workstations = current_user.workstations.select(:id, :name).map {|w| [w.name, w.id] }

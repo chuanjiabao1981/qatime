@@ -16,6 +16,9 @@ class ApplicationController < ActionController::Base
   layout :current_user_layout
 
   protected
+  def i18n_notice(type, model)
+    t("activerecord.successful.messages.#{type}", model: model.class.model_name.human)
+  end
 
   def current_permission
     @current_permission ||= Permissions.permission_for(current_user)

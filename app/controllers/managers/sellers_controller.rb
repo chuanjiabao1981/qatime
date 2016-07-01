@@ -29,7 +29,7 @@ class Managers::SellersController < ApplicationController
 
     respond_to do |format|
       if @seller.save
-        format.html { redirect_to managers_sellers_path, notice: 'Seller was successfully created.' }
+        format.html { redirect_to managers_sellers_path, notice: i18n_notice('created',@seller) }
         format.json { render action: 'show', status: :created, location: @seller }
       else
         format.html { render action: 'new' }

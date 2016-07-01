@@ -65,6 +65,23 @@ course_teach_2:
 course_with_lesson:
   id: 3
   name: 辅导班3
-  teacher: users(:teacher_one)
+  teacher_id: 1
   workstation: workstation(:workstation1)
   status: 2
+
+course_with_order:
+  id: 6
+  name: 辅导班4
+  teacher: 1
+  workstation: workstation(:workstation1)
+  status: 2
+
+course_with_lessons:
+  id: 4
+  name: 可直播辅导班
+  teacher_id: 10
+  workstation_id: 1
+  status: 1
+  teacher_percentage: 20
+  preset_lesson_count: 10
+  price: 200

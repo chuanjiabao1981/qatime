@@ -18,9 +18,9 @@ module Payment
     end
 
     def change(money, billing, summary)
-      change_records.create(before: balance, after: balance + money, different: money, billing: billing, summary: summary)
+      change_records.create!(before: balance, after: balance + money, different: money, billing: billing, summary: summary)
       self.balance = change_records.sum(:different)
-      save
+      save!
     end
   end
 end

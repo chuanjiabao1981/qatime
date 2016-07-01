@@ -6,7 +6,7 @@
   <!-- Table -->
   <table class="table">
     <tr>
-      <% %w(name se_time date operate).each do |col| %>
+      <% %w(name se_time date status operate).each do |col| %>
       <th>
         <%= t("activerecord.view.#{col}") %>
       </th>
@@ -23,6 +23,9 @@
         </td>
         <td>
           <%= lesson.class_date %>
+        </td>
+        <td>
+          <%= lesson.status_text %>
         </td>
         <td>
           <% if lesson.can_play? %>

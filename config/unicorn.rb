@@ -4,12 +4,10 @@
 # rvm 2.2.1@qatime do bundle exec unicorn -c ..........
 
 # 获取当前项目路径
-# require 'pathname'
-# path = Pathname.new(__FILE__).realpath # 当前文件完整路径
-# path = path.sub('/config/unicorn.rb', '').sub()
-#
-
-APP_PATH = '/home/qatime/apps/qatime/current'
+require 'pathname'
+path = Pathname.new(__FILE__).realpath # 当前文件完整路径
+path = path.sub('/config/unicorn.rb', '')
+APP_PATH = path.to_s
 
 # 或直接填写
 # APP_PATH = "/path_to_project/workspace/project_name"

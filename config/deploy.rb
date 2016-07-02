@@ -37,12 +37,12 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/sys
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
-# set :default_env, { rvm_bin_path: '~/.rvm/bin' }
+set :default_env, { rvm_bin_path: '~/.rvm/bin' }
 
 # 注意这里要用lambda 延迟获取deploy_user的时间
 set :unicorn_config_path,-> {"/home/#{fetch(:deploy_user)}/apps/qatime/current/config/unicorn.rb"}
 
-# SSHKit.config.command_map[:rake]  = "#{fetch(:default_env)[:rvm_bin_path]}/rvm ruby-#{fetch(:rvm_ruby_version)} do bundle exec rake"
+SSHKit.config.command_map[:rake]  = "#{fetch(:default_env)[:rvm_bin_path]}/rvm ruby-#{fetch(:rvm_ruby_version)} do bundle exec rake"
 set :pty, true
 
 # Default value for keep_releases is 5
@@ -70,8 +70,8 @@ namespace :deploy do
   desc "Create database before migrate"
   task :create_database do
     on roles(:db), in: :sequence, wait: 5 do
-      # execute "cd #{release_path} && ( RVM_BIN_PATH=~/.rvm/bin /usr/bin/env bundle exec rake db:create )"
-      execute "cd #{release_path} && (bundle exec rake db:create )"
+      execute "cd #{release_path} && ( RVM_BIN_PATH=~/.rvm/bin /usr/bin/env bundle exec rake db:create )"
+      # execute "cd #{release_path} && (bundle exec rake db:create )"
     end
   end
 

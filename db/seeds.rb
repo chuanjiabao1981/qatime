@@ -64,4 +64,4 @@ CashAdmin.create(
   password: '123456',
   password_confirmation: '123456',
   role: 'cash_admin'
-)  if CashAdmin.current.blank?
+)  if CashAdmin.current!.blank?

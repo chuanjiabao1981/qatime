@@ -9,7 +9,7 @@ class CashAdmin < User
   class << self
     # 系统现金账户
     def current!
-      last || create(
+      first || create(
         name: 'cash_admin',
         email: 'cash_admin@qatime.cn',
         password: '123456',
@@ -37,6 +37,6 @@ class CashAdmin < User
 
   def unique_cash_admin
     # 只能有一个cash_admin用户
-    errors.add(:role, '现金账户已存在') if CashAdmin.last
+    errors.add(:role, '现金账户已存在') if CashAdmin.first
   end
 end

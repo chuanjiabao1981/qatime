@@ -28,10 +28,8 @@ class User < ActiveRecord::Base
 
   validates_presence_of :register_code_value, on: :create, if: :teacher_or_student?
   validate :register_code_valid, on: :create, if: :teacher_or_student?
-  validate :unique_cash_admin, if: :cash_admin?
 
   after_create :update_register_code
-
 
   has_many :topics, :dependent => :destroy,foreign_key: :author_id
   has_many :replies, :dependent => :destroy,foreign_key: :author_id
@@ -95,13 +93,6 @@ class User < ActiveRecord::Base
     self.tmp_register_code = RegisterCode.verification(self.register_code_value, true)
     if not self.tmp_register_code
       errors.add("register_code_value","注册码不正确")
-    end
-  end
-
-  def unique_cash_admin
-    # 只能有一个cash_admin用户
-    if CashAdmin.current.present?
-      errors.add(:role, '现金账户已存在') unless CashAdmin.current == self
     end
   end
 

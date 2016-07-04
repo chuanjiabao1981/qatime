@@ -44,7 +44,7 @@
       <div class="col-md-9">
 	<%= @course.completed_lesson_count %> / <%= @course.preset_lesson_count %>
 	<%= link_to t("activerecord.view.close_course"), close_teacher_course_path(@course),
-	    id: "close-course", remote: true, method: :patch, 'data-confirm' => t("activerecord.view.message.course_confirm_close") if  @course.ready_for_close? %>
+	    id: "close-course", method: :patch, 'data-confirm' => t("activerecord.view.message.course_confirm_close") if  @course.ready_for_close? %>
       </div>
     </div>
   </div>

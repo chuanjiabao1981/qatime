@@ -37,3 +37,7 @@
     * feature
         * [QT-118](https://qatime.atlassian.net/browse/QT-118)
         * [QT-120](https://qatime.atlassian.net/browse/QT-120)
+
+* 0.3.0
+    * feature
+	* [QT-121](https://qatime.atlassian.net/browse/QT-121)

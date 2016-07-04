@@ -134,4 +134,5 @@ cn:
         destroyed: "%{model}已删除"
         begin_live_studio: "%{model}已开始直播"
         end_live_studio: "%{model}已结束直播"
+        closed: "%{model}已结束"
         lesson_can_not_play: 该课程不能播放或已经结束!

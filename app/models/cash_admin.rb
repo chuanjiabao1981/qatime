@@ -19,17 +19,17 @@ class CashAdmin < User
 
     # 系统账户余额
     def current_cash
-      current.cash_account!.balance.to_f
+      current!.cash_account!.balance.to_f
     end
 
     # 系统账户支出
     def decrease_cash_account(money, billing, summary)
-      current.cash_account!.decrease(money, billing, summary)
+      current!.cash_account!.decrease(money, billing, summary)
     end
 
     # 系统账户收入
     def increase_cash_account(money, billing, summary)
-      current.cash_account!.increase(money, billing, summary)
+      current!.cash_account!.increase(money, billing, summary)
     end
   end
 

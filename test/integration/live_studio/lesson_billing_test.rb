@@ -51,7 +51,7 @@ module LiveStudio
       @workstation = workstations(:workstation_one)
       assert_difference '@workstation.cash_account!.reload.balance.to_f', 48.0 do
         assert_difference '@teacher.cash_account!.reload.balance.to_f', 12.0 do
-          assert_difference 'CashAdmin.current.cash_account!.balance.to_f', -60.0 do
+          assert_difference 'CashAdmin.current!.cash_account!.balance.to_f', -60.0 do
             visit live_studio.teacher_course_path(course)
             click_on("立即结算")
           end

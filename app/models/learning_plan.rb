@@ -7,8 +7,8 @@ class LearningPlan < ActiveRecord::Base
 
   validates_presence_of :student,:vip_class,:teachers
 
-  has_many :teachers ,through: :learning_plan_assignments
-  has_many :learning_plan_assignments,dependent: :destroy
+  has_many :teachers, through: :learning_plan_assignments, source: 'teacher'
+  has_many :learning_plan_assignments, dependent: :destroy
   has_many :questions,inverse_of: :learning_plan
 
   validates :student, uniqueness:{scope:[:vip_class,:duration_type],message: "已存在此学科的老师，不可重复创建。"}

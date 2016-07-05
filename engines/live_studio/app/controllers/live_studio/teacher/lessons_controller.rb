@@ -29,10 +29,10 @@ module LiveStudio
     # POST /teacher/lessons
     def create
       @lesson = @course.lessons.new(lesson_params)
-      @lesson.teacher = current_user
+      @lesson.teacher = @teacher
 
       if @lesson.save
-        redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('created', @lesson)
+        redirect_to teacher_course_path(@teacher,params[:course_id]), notice: i18n_notice('created', @lesson)
       else
         render :new
       end
@@ -40,13 +40,13 @@ module LiveStudio
 
     def ready
       @lesson.ready!
-      redirect_to teacher_course_path(params[:course_id])
+      redirect_to teacher_course_path(@teacher,params[:course_id])
     end
 
     # PATCH/PUT /teacher/lessons/1
     def update
       if @lesson.update(lesson_params)
-        redirect_to teacher_course_path(@course), notice: i18n_notice('updated', @lesson)
+        redirect_to teacher_course_path(@teacher,@course), notice: i18n_notice('updated', @lesson)
       else
         render :edit
       end
@@ -55,22 +55,22 @@ module LiveStudio
     # DELETE /teacher/lessons/1
     def destroy
       @lesson.destroy
-      redirect_to teacher_course_path(@course), notice: i18n_notice('destroyed', @lesson)
+      redirect_to teacher_course_path(@teacher,@course), notice: i18n_notice('destroyed', @lesson)
     end
 
     def begin_live_studio
       @lesson.teach!
-      redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('begin_live_studio', @lesson)
+      redirect_to teacher_course_path(@teacher,params[:course_id]), notice: i18n_notice('begin_live_studio', @lesson)
     end
 
     def end_live_studio
       @lesson.finish!
-      redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('end_live_studio', @lesson)
+      redirect_to teacher_course_path(@teacher,params[:course_id]), notice: i18n_notice('end_live_studio', @lesson)
     end
 
     def complete
       @lesson.complete!
-      redirect_to teacher_course_path(params[:course_id]), notice: i18n_notice('end_live_studio', @lesson)
+      redirect_to teacher_course_path(@teacher,params[:course_id]), notice: i18n_notice('end_live_studio', @lesson)
     end
 
     private

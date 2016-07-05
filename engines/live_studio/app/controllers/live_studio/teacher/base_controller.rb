@@ -7,7 +7,7 @@ module LiveStudio
       before_action :set_teacher
 
       def set_teacher
-        @teacher = current_user
+        @teacher = ::Teacher.find_by(id: params[:teacher_id]) || current_user
       end
     end
   end

@@ -11,7 +11,7 @@
   </li>
   <li>
     <%= link_to students_path do %>
-        <span class="glyphicon glyphicon-hdd"></span>
+        <span class="glyphicon glyphicon-tags"></span>
         <span class="qa_f18"> <%= Student.model_name.human %> </span>
     <% end %>
   </li>
@@ -23,7 +23,7 @@
   </li>
   <li>
     <%= link_to managers_waiters_path do %>
-        <span class="glyphicon glyphicon-hdd"></span>
+        <span class="glyphicon glyphicon-headphones"></span>
         <span class="qa_f18"> <%= Waiter.model_name.human %> </span>
     <% end %>
   </li>
@@ -59,7 +59,7 @@
   </li>
   <li>
     <%= link_to state_managers_lessons_path(manager_id:current_user.id) do %>
-        <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"> 状态</span>
+        <span class="fa fa-line-chart"></span> <span class="qa_f18"> 状态</span>
     <% end %>
   </li>
   <li>

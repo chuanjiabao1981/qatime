@@ -1,4 +1,4 @@
-<%= simple_form_for [:manager, @course] do |f|%>
+<%= simple_form_for(@course, url: (@course.new_record? ? manager_courses_path(@manager) : manager_course_path(@manager, @course))) do |f|%>
   <%= f.error_notification %>
   <div class="form-inputs">
     <%= f.input :name %>

@@ -19,13 +19,13 @@ module LiveStudio
 
     test "student courses index view" do
       course = live_studio_courses(:course_preview)
-      visit live_studio.student_courses_path
+      visit live_studio.student_courses_path(@student)
       page.has_content? course.name
     end
 
     test "student courses show view" do
       course = live_studio_courses(:course_preview)
-      visit live_studio.student_course_path(course)
+      visit live_studio.student_course_path(@student,course)
       page.has_content? course.name
       page.has_content? course.teacher.name
       page.has_content? course.workstation.name

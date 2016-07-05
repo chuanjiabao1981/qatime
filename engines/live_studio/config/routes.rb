@@ -24,16 +24,14 @@ LiveStudio::Engine.routes.draw do
     end
   end
 
-  namespace :manager do
-    resources :courses do
-      member do
-        post :publish
+  scope module: :teacher do
+    resources :teachers, only: [] do
+      resources :courses, only: [:index, :show, :edit, :update, :create] do
+        member do
+          patch :close
+          patch :channel
+        end
       end
-    end
-  end
-
-  namespace :teacher do
-    resources :courses, only: [:index, :show, :edit, :update] do
       resources :lessons do
         member do
           patch :begin_live_studio
@@ -42,12 +40,33 @@ LiveStudio::Engine.routes.draw do
           patch :complete
         end
       end
+    end
+  end
+
+  namespace :manager do
+    resources :courses do
       member do
-        patch :close
-        patch :channel
+        post :publish
       end
     end
   end
+
+  # namespace :teacher do
+  #   resources :courses, only: [:index, :show, :edit, :update] do
+  #     resources :lessons do
+  #       member do
+  #         patch :begin_live_studio
+  #         patch :end_live_studio
+  #         patch :ready
+  #         patch :complete
+  #       end
+  #     end
+  #     member do
+  #       patch :close
+  #       patch :channel
+  #     end
+  #   end
+  # end
 
   namespace :student do
     resources :courses, only: [:index, :show]

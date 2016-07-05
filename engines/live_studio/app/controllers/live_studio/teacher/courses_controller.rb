@@ -21,7 +21,7 @@ module LiveStudio
     # PATCH/PUT /teacher/courses/1
     def update
       if @course.update(teacher_course_params)
-        redirect_to [:teacher, @course], notice: i18n_notice('updated', @course)
+        redirect_to teacher_course_path(@teacher, @course), notice: i18n_notice('updated', @course)
       else
         render :edit
       end
@@ -35,14 +35,12 @@ module LiveStudio
 
     def close
       @course.completed! if @course.ready_for_close?
-      redirect_to [:teacher, @course], notice: i18n_notice('closed', @course)
+      redirect_to teacher_course_path(@teacher, @course), notice: i18n_notice('closed', @course)
     end
 
     private
 
     def courses_chain
-      # current_user可能是manager
-      # @teacher = current_user
       @teacher.live_studio_courses
     end
 

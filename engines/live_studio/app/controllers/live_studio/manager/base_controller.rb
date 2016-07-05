@@ -10,7 +10,7 @@ module LiveStudio
       private
 
       def set_manager
-        @manager = ::Account.find(params[:manager_id])
+        @manager = ::User.find(params[:manager_id])
       end
     end
   end

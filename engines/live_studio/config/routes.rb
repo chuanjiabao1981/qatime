@@ -18,6 +18,12 @@ LiveStudio::Engine.routes.draw do
     end
   end
 
+  scope module: 'manager' do
+    resources :managers, only: [] do
+      resources :courses
+    end
+  end
+
   namespace :manager do
     resources :courses do
       member do

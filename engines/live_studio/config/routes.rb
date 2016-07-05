@@ -68,7 +68,12 @@ LiveStudio::Engine.routes.draw do
   #   end
   # end
 
-  namespace :student do
-    resources :courses, only: [:index, :show]
+  # namespace :student do
+  #   resources :courses, only: [:index, :show]
+  # end
+  scope module: :student do
+    resources :students do
+      resources :courses, only: [:index, :show]
+    end
   end
 end

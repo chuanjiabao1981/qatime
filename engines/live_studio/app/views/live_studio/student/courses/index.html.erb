@@ -2,7 +2,7 @@
   <div class="qa_big_cell panel-heading">
     <div>
       <%= LiveStudio::Course.model_name.human %>
-      <%=link_to courses_path do %>
+      <%=link_to courses_path(student_id: @student.id) do %>
       <button type="button" class="btn btn-xs btn-success">
         <%= t("activerecord.view.search") %><%= LiveStudio::Course.model_name.human %>
       </button>

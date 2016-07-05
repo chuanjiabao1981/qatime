@@ -2,7 +2,7 @@
 <tr>
   <td><%= ticket_counter + 1 %></td>
   <td>
-    <%= link_to course.name, [:student, course] %>
+    <%= link_to course.name, student_course_path(@student, course) %>
   </td>
   <td>
     <%= course.short_description %>
@@ -10,6 +10,6 @@
   <td><%= course.status_text %></td>
   <td><%= ticket.type_name %></td>
   <td>
-    <%= link_to t("activerecord.view.buy_now"), new_course_order_path(course), id: "buy-course-#{course.id}" if ticket.taste? %>
+    <%= link_to t("activerecord.view.buy_now"), new_course_order_path(course), id: "buy-course-#{course.id}" if ticket.taste? && current_user == @student %>
   </td>
 </tr>

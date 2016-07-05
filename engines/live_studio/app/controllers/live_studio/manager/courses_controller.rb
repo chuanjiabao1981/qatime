@@ -28,7 +28,7 @@ module LiveStudio
       @course = @current_user.live_studio_courses.new(course_params)
 
       if @course.save
-        redirect_to [:manager, @course], notice: i18n_notice('created', @course)
+        redirect_to manager_course_path(@manager, @course), notice: i18n_notice('created', @course)
       else
         @workstations = workstations
         render :new
@@ -43,7 +43,7 @@ module LiveStudio
     # PATCH/PUT /manager/courses/1
     def update
       if @course.update(manager_course_params)
-        redirect_to [:manager, @course], notice: i18n_notice('updated', @course)
+        redirect_to manager_course_path(@manager, @course), notice: i18n_notice('updated', @course)
       else
         render :edit
       end

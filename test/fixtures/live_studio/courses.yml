@@ -36,6 +36,8 @@ course_preview:
   teacher_id: 1
   workstation_id: 1
   status: 1
+  price: 1000
+  preset_lesson_count: 2
 
 course_teaching:
   name: 上课中的辅导班

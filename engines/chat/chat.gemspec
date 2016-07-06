@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = Chat::VERSION
   s.authors     = ["xinshuaifeng"]
   s.email       = ["xinshuaifeng@126.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Chat."
-  s.description = "TODO: Description of Chat."
+  s.homepage    = ""
+  s.summary     = "Summary of Chat."
+  s.description = "Description of Chat."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]

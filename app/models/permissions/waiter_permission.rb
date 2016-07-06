@@ -5,7 +5,7 @@ module Permissions
 
       allow :sessions, [:destroy]
       allow :home, [:index]
-      allow "managers/home", [:main]
+      allow "waiters/home", [:main]
 
       ## begin live studio permission
       allow 'live_studio/manager/courses', [:index, :show, :publish]

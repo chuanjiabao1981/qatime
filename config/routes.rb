@@ -48,9 +48,8 @@ Qatime::Application.routes.draw do
         get 'state'
       end
     end
-
-    resources :sellers, except: [:show]
-    resources :waiters, except: [:show]
+    resources :sellers, except: [:index, :show]
+    resources :waiters, except: [:index, :show]
   end
 
   namespace :teachers do
@@ -148,6 +147,8 @@ Qatime::Application.routes.draw do
       get 'customized_courses'
       get 'payment'
       get 'action_records'
+      get :waiters
+      get :sellers
     end
   end
 

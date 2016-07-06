@@ -10,6 +10,15 @@ class ManagersController < ApplicationController
   def payment
 
   end
+
+  def waiters
+    @waiters = current_resource.waiters.order('id desc').paginate(page: params[:page])
+  end
+
+  def sellers
+    @sellers = current_resource.sellers.order('id desc').paginate(page: params[:page])
+  end
+
   private
   def current_resource
     @manager = Manager.find(params[:id]) if params[:id]

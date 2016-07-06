@@ -2,7 +2,7 @@
   <!-- Default panel contents -->
   <div class="panel-heading">
     <%= LiveStudio::Course.model_name.human %>
-    <% if allow? "live_studio/manager/courses", "create" %>
+    <% if allow?("live_studio/manager/courses", "create", @manager) %>
       <%=link_to new_manager_course_path(@manager) do %>
       <button type="button" class="btn btn-xs btn-success">
         <%= t("activerecord.view.create") %><%= LiveStudio::Course.model_name.human %>

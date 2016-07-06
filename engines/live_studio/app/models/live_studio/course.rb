@@ -39,6 +39,8 @@ module LiveStudio
 
     has_many :play_records #听课记录
 
+    has_one :chat_team, foreign_key: 'live_studio_course_id', class_name: '::Chat::Team'
+
     def push_stream
       push_streams.last
     end

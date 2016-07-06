@@ -2,6 +2,8 @@
 class CreateChatTeams < ActiveRecord::Migration
   def change
     create_table :chat_teams do |t|
+      t.references :live_studio_course, index: true
+
       t.string :team_id
       t.text :announcement
       t.string :name

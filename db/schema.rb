@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20160706061356) do
   end
 
   create_table "chat_accounts", force: :cascade do |t|
+    t.integer  "user_id"
     t.string   "accid"
     t.string   "token"
     t.string   "username"
@@ -67,6 +68,8 @@ ActiveRecord::Schema.define(version: 20160706061356) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "chat_accounts", ["user_id"], name: "index_chat_accounts_on_user_id", using: :btree
 
   create_table "chat_join_records", force: :cascade do |t|
     t.integer  "account_id"
@@ -79,12 +82,15 @@ ActiveRecord::Schema.define(version: 20160706061356) do
   add_index "chat_join_records", ["team_id"], name: "index_chat_join_records_on_team_id", using: :btree
 
   create_table "chat_teams", force: :cascade do |t|
+    t.integer  "live_studio_course_id"
     t.string   "team_id"
     t.text     "announcement"
     t.string   "name"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
+
+  add_index "chat_teams", ["live_studio_course_id"], name: "index_chat_teams_on_live_studio_course_id", using: :btree
 
   create_table "cities", force: :cascade do |t|
     t.string   "name"

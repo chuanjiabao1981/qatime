@@ -47,6 +47,8 @@ class User < ActiveRecord::Base
 
   has_many :live_studio_play_records, class_name: LiveStudio::PlayRecord
 
+  has_one :chat_account, class_name: '::Chat::Account'
+
   belongs_to :school
 
   def unread_notifications_count

@@ -2,6 +2,8 @@
 class CreateChatAccounts < ActiveRecord::Migration
   def change
     create_table :chat_accounts do |t|
+      t.references :user, index: true
+
       t.string :accid
       t.string :token
       t.string :username

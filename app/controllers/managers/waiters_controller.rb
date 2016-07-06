@@ -1,12 +1,6 @@
 class Managers::WaitersController < ApplicationController
   before_action :set_waiter, only: [:show, :edit, :update, :destroy]
 
-  # GET /managers/waiters
-  # GET /managers/waiters.json
-  def index
-    @waiters = current_user.waiters.order('id desc').paginate(page: params[:page])
-  end
-
   # GET /managers/waiters/1
   # GET /managers/waiters/1.json
   def show

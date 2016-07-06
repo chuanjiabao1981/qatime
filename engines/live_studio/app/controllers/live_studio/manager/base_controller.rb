@@ -10,7 +10,11 @@ module LiveStudio
       private
 
       def set_manager
-        @manager = ::User.find(params[:manager_id])
+        @manager ||= ::User.find(params[:manager_id])
+      end
+
+      def current_resource
+        @resource ||= set_manager
       end
     end
   end

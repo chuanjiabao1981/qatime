@@ -1,3 +1,4 @@
+<% @manager ||= current_user -%>
 <ul class="menu" style="color: white">
   <li>
     <%= link_to teachers_path do %>
@@ -16,19 +17,19 @@
     <% end %>
   </li>
   <li>
-    <%= link_to managers_sellers_path do %>
+    <%= link_to sellers_manager_path(@manager) do %>
         <span class="glyphicon glyphicon-hdd"></span>
         <span class="qa_f18"> <%= Seller.model_name.human %> </span>
     <% end %>
   </li>
   <li>
-    <%= link_to managers_waiters_path do %>
+    <%= link_to waiters_manager_path(@manager) do %>
         <span class="glyphicon glyphicon-headphones"></span>
         <span class="qa_f18"> <%= Waiter.model_name.human %> </span>
     <% end %>
   </li>
   <li>
-    <%= link_to action_records_manager_path(current_user) do %>
+    <%= link_to action_records_manager_path(@manager) do %>
         <span class="fa fa-cogs"></span> <span class="qa_f18"><%= ActionRecord.model_name.human %></span>
     <% end %>
   </li>
@@ -38,12 +39,12 @@
     <% end %>
   </li>
   <li>
-    <%= link_to customized_courses_manager_path(current_user) do %>
+    <%= link_to customized_courses_manager_path(@manager) do %>
         <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"> <%= CustomizedCourse.model_name.human%></span>
     <% end %>
   </li>
   <li>
-    <%= link_to payment_manager_path(current_user) do %>
+    <%= link_to payment_manager_path(@manager) do %>
         <span class="fa fa-credit-card"></span> <span class="qa_f18">
           收款二维码
         </span>
@@ -58,7 +59,7 @@
     <% end %>
   </li>
   <li>
-    <%= link_to state_managers_lessons_path(manager_id:current_user.id) do %>
+    <%= link_to state_managers_lessons_path(@manager) do %>
         <span class="fa fa-line-chart"></span> <span class="qa_f18"> 状态</span>
     <% end %>
   </li>

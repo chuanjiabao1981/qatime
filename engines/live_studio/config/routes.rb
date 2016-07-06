@@ -20,7 +20,11 @@ LiveStudio::Engine.routes.draw do
 
   scope module: 'manager' do
     resources :managers, only: [] do
-      resources :courses
+      resources :courses do
+        member do
+          patch :publish
+        end
+      end
     end
   end
 
@@ -43,13 +47,6 @@ LiveStudio::Engine.routes.draw do
     end
   end
 
-  namespace :manager do
-    resources :courses do
-      member do
-        post :publish
-      end
-    end
-  end
 
   # namespace :teacher do
   #   resources :courses, only: [:index, :show, :edit, :update] do

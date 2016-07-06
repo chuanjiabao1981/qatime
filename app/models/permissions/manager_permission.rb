@@ -52,7 +52,7 @@ module Permissions
       end
 
       allow :managers,[:payment]
-      allow :managers,[:customized_courses,:action_records] do |manager|
+      allow :managers,[:customized_courses,:action_records, :waiters, :sellers] do |manager|
         manager.id == user.id
       end
       allow :exercises,[:show]
@@ -74,8 +74,8 @@ module Permissions
       allow :corrections,[:show]
 
 
-      allow 'managers/sellers', [:index, :new, :create, :edit, :update, :destroy]
-      allow 'managers/waiters', [:index, :new, :create, :edit, :update, :destroy]
+      allow 'managers/sellers', [:new, :create, :edit, :update, :destroy]
+      allow 'managers/waiters', [:new, :create, :edit, :update, :destroy]
 
       #######begine course library permission###############
       allow "course_library/solutions",[:index, :show]
@@ -86,7 +86,9 @@ module Permissions
       #######end course library permission##################
 
       ## begin live studio permission
-      allow 'live_studio/manager/courses', [:index, :show, :new, :create, :edit, :update, :destroy, :publish]
+      allow 'live_studio/manager/courses', [:index, :show, :new, :create, :edit, :update, :destroy, :publish] do |manager|
+        manager.id == user.id
+      end
       ## end live studio permission
 
     end

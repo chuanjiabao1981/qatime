@@ -11,8 +11,8 @@
   </td>
   <td><%= course.status_text %></td>
   <td>
-    <%=link_to t("activerecord.view.edit"), edit_manager_course_path(@manager, course) if allow?("live_studio/manager/courses", "update") %>
+    <%=link_to t("activerecord.view.edit"), edit_manager_course_path(@manager, course) if allow?("live_studio/manager/courses", "update", @manager) %>
     <%=link_to t("activerecord.view.delete"), manager_course_path(@manager, course), method: :delete,
-               'data-confirm' => t('activerecord.view.message.confirm') if allow?("live_studio/manager/courses", "destroy") %>
+               'data-confirm' => t('activerecord.view.message.confirm') if allow?("live_studio/manager/courses", "destroy", @manager) %>
   </td>
 </tr>

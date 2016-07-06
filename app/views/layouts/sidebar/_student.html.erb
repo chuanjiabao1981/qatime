@@ -37,12 +37,12 @@
     <% end %>
   </li>
   <li>
-    <%= link_to live_studio.student_courses_path do %>
+    <%= link_to live_studio.student_courses_path(@student) do %>
     <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">我的辅导班</span>
     <% end %>
   </li>
   <li>
-    <%= link_to payment.user_orders_path do %>
+    <%= link_to payment.user_orders_path(@student,user_class: @student.type) do %>
     <span class="glyphicon glyphicon-list"></span> <span class="qa_f18">我的订单</span>
     <% end %>
   </li>

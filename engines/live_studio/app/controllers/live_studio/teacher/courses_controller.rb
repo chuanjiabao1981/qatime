@@ -18,7 +18,7 @@ module LiveStudio
     def edit
     end
 
-    # PATCH/PUT /teacher/courses/1
+    # PATCH/PUT /teachers/:teacher_id/courses/:id
     def update
       if @course.update(teacher_course_params)
         redirect_to teacher_course_path(@teacher, @course), notice: i18n_notice('updated', @course)

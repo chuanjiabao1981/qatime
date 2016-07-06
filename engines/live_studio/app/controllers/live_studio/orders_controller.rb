@@ -29,7 +29,7 @@ module LiveStudio
       @order.user = current_user
 
       if @order.save
-        redirect_to payment.user_order_path(@order.order_no)#, notice: i18n_notice('created', @order)
+        redirect_to payment.user_order_path(current_user,@order.order_no)
       else
         p @order.errors
         p '--------------'

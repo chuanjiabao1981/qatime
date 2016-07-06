@@ -11,6 +11,7 @@ module LiveStudio
 
     # GET /manager/courses/1
     def show
+      @lessons = @course.lessons
     end
 
     # GET /manager/courses/new

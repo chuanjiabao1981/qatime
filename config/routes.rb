@@ -302,7 +302,7 @@ Qatime::Application.routes.draw do
   # 支付
   mount Payment::Engine, at: '/payment'
   # 聊天
-  mount Payment::Engine, at: '/chat'
+  mount Chat::Engine, at: '/chat'
 
   resources :qa_file_quoters
 end

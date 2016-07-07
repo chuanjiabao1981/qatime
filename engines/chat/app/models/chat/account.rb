@@ -11,17 +11,14 @@ module Chat
     def set_chat_account #创建云信ID
       res = ::Typhoeus.post(
         "#{NETEASE_HOST}/nimserver/user/create.action",
-        headers: vcloud_headers,
+        headers: netease_headers,
         body: %Q{accid=#{accid}&name=#{user.nick_name}}
       )
       return unless res.success?
 
       result = JSON.parse(res.body).symbolize_keys
-      p result
 
       if result[:code] == 200
-        p result[:info]
-
         self.update_columns(result[:info].symbolize_keys)
       end
     end
@@ -29,7 +26,7 @@ module Chat
     def update_chat_account #云信ID更新
       res = ::Typhoeus.post(
         "#{NETEASE_HOST}/nimserver/user/update.action",
-        headers: vcloud_headers,
+        headers: netease_headers,
         body: %Q{accid=#{accid}}
       )
     end
@@ -37,7 +34,7 @@ module Chat
     def refresh_token #更新并获取新token
       res = ::Typhoeus.post(
         "#{NETEASE_HOST}/nimserver/user/refreshToken.action",
-        headers: vcloud_headers,
+        headers: netease_headers,
         body: %Q{accid=#{accid}}
       )
 
@@ -47,9 +44,31 @@ module Chat
       self.update_columns(result[:info].symbolize_keys) if result[:code] == 200
     end
 
+    def update_uinfo #更新用户名片
+      update_data = %Q{accid=#{accid}&name=#{user.nick_name}}
+
+      res = ::Typhoeus.post(
+        "#{NETEASE_HOST}/nimserver/user/updateUinfo.action",
+        headers: netease_headers,
+        body: update_data
+      )
+      result = JSON.parse(res.body).symbolize_keys
+
+      raise ActiveRecord::Rollback unless res.success? && result[:code] == 200
+    end
+
+    def get_uinfo #获取用户名片
+      res = ::Typhoeus.post(
+        "#{NETEASE_HOST}/nimserver/user/getUinfos.action",
+        headers: netease_headers,
+        body: %Q{accids=['#{accid}']}
+      )
+      result = JSON.parse(res.body).symbolize_keys
+    end
+
     private
 
-    def vcloud_headers
+    def netease_headers
       app_secret = NETEASE_CONFIG['AppSecret']
       nonce = SecureRandom.hex 16
       cur_time = Time.now.utc.to_i.to_s

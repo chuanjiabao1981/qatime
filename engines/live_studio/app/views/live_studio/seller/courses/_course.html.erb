@@ -1,0 +1,18 @@
+<tr>
+  <td><%= course_counter + 1 %></td>
+  <td>
+    <%= link_to course.name, seller_course_path(@current_resource, course) %>
+  </td>
+  <td>
+    <%= course.teacher_name %>
+  </td>
+  <td>
+    <%= course.short_description %>
+  </td>
+  <td><%= course.status_text %></td>
+  <td>
+    <%=link_to t("activerecord.view.edit"), edit_seller_course_path(@current_resource, course) if allow?("live_studio/seller/courses", "update", @current_resource) %>
+    <%=link_to t("activerecord.view.delete"), seller_course_path(@current_resource, course), method: :delete,
+               'data-confirm' => t('activerecord.view.message.confirm') if allow?("live_studio/seller/courses", "destroy", @current_resource) %>
+  </td>
+</tr>

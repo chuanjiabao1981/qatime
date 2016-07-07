@@ -8,7 +8,9 @@ module Permissions
       allow "sellers/home", [:main]
 
       ## begin live studio permission
-      allow 'live_studio/manager/courses', [:index, :show, :new, :create, :edit, :update, :destroy, :publish]
+      allow 'live_studio/seller/courses', [:index, :show, :new, :create, :edit, :update, :destroy, :publish] do |resource|
+        resource.id == user.id
+      end
       ## end live studio permission
     end
   end

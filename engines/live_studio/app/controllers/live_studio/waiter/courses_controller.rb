@@ -1,7 +1,5 @@
-require_dependency "live_studio/manager/base_controller"
-
 module LiveStudio
-  class Manager::CoursesController < Manager::BaseController
+  class Waiter::CoursesController < Waiter::BaseController
     before_action :set_course, only: [:show, :edit, :update, :destroy, :publish]
 
     # GET /manager/courses
@@ -26,10 +24,10 @@ module LiveStudio
 
     # POST /manager/courses
     def create
-      @course = @current_resource.live_studio_courses.new(course_params)
+      @course = @current_user.live_studio_courses.new(course_params)
 
       if @course.save
-        redirect_to manager_course_path(@current_user, @course), notice: i18n_notice('created', @course)
+        redirect_to waiter_course_path(@current_resource, @course), notice: i18n_notice('created', @course)
       else
         @workstations = workstations
         render :new
@@ -43,8 +41,8 @@ module LiveStudio
 
     # PATCH/PUT /manager/courses/1
     def update
-      if @course.update(manager_course_params)
-        redirect_to manager_course_path(@current_resource, @course), notice: i18n_notice('updated', @course)
+      if @course.update(course_params)
+        redirect_to waiter_course_path(@current_resource, @course), notice: i18n_notice('updated', @course)
       else
         render :edit
       end
@@ -53,20 +51,10 @@ module LiveStudio
     # DELETE /manager/courses/1
     def destroy
       @course.destroy
-      redirect_to manager_courses_url, notice: i18n_notice('destroyed', @course)
+      redirect_to waiter_courses_url, notice: i18n_notice('destroyed', @course)
     end
 
     private
-
-    # Only allow a trusted parameter "white list" through.
-    def course_params
-      params.require(:course).permit(:name, :teacher_id, :description, :workstation_id, :price)
-    end
-
-    # Only allow a trusted parameter "white list" through for update.
-    def manager_course_params
-      params.require(:course).permit(:name, :teacher_id, :description, :workstation_id, :price)
-    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_course
@@ -79,7 +67,7 @@ module LiveStudio
     end
 
     def workstations
-      @current_resource.workstations.select(:id, :name).map {|w| [w.name, w.id] }
+      [[current_user.workstation.name, current_user.workstation_id]]
     end
 
   end

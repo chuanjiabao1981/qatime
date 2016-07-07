@@ -28,6 +28,22 @@ LiveStudio::Engine.routes.draw do
     end
   end
 
+  scope module: 'seller' do
+    resources :sellers, only: [] do
+      resources :courses do
+        patch :publish, on: :member
+      end
+    end
+  end
+
+  scope module: 'waiter' do
+    resources :waiters, only: [] do
+      resources :courses, only: [:index, :show, :edit, :update] do
+        patch :publish, on: :member
+      end
+    end
+  end
+
   scope module: :teacher do
     resources :teachers, only: [] do
       resources :courses, only: [:index, :show, :edit, :update, :create] do

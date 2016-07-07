@@ -4,8 +4,8 @@ production:
   AppSecret: AppSecret
 
 development:
-  AppKey: AppKey
-  AppSecret: AppSecret
+  AppKey: 26d55c601d4fb126f61cb0b51bc90e6c
+  AppSecret: 59068668dc6c
 
 testing:
   AppKey: AppKey

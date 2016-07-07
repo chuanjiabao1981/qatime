@@ -46,22 +46,22 @@ module Chat
         body: {
           accid: accid
         }.to_json
+      )
 
       return unless res.success?
 
       result = JSON.parse(res.body).symbolize_keys
       self.update_columns(result[:info].symbolize_keys) if result[:code] == 200
-      )
     end
 
     private
 
     def vcloud_headers
-      app_key = NETEASE_CONFIG['AppKey']
-      nonce = SecureRandom.hex 32
+      app_secret = NETEASE_CONFIG['AppSecret']
+      nonce = SecureRandom.hex 16
       cur_time = Time.now.utc.to_i.to_s
 
-      check_sum = Digest::SHA1.hexdigest(app_key + nonce + cur_time)
+      check_sum = Digest::SHA1.hexdigest(app_secret + nonce + cur_time)
 
       {
         AppKey: NETEASE_CONFIG['AppKey'],

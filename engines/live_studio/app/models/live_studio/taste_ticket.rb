@@ -19,7 +19,7 @@ module LiveStudio
       return if student.chat_account.present?
 
       student.create_chat_account(
-        accid: SecureRandom.hex(32)
+        accid: SecureRandom.hex(16)
       )
     end
 

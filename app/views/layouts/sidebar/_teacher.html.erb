@@ -1,0 +1,84 @@
+<% @teacher ||= @current_resource -%>
+<ul class="menu" style="color: white">
+  <li>
+    <%= link_to curriculums_path do %>
+    <span class="fa fa-home"></span> <span class="qa_f18"><%=Curriculum.model_name.human%></span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to questions_path do %>
+    <span class="fa fa-users"></span> <span class="qa_f18"><%= VipClass.model_name.human %></span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to course_library.teacher_syllabuses_path(@teacher) do %>
+    <span class="fa fa-sitemap"></span>
+    <span class="qa_f18">
+      <%=I18n.t("view.course_library")%>
+    </span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to customized_courses_teacher_path(@teacher) do %>
+    <span class="fa fa-graduation-cap"></span> <span class="qa_f18"><%=CustomizedCourse.model_name.human %></span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to solutions_teacher_path(@teacher) do %>
+    <span class="fa fa-tasks"></span> <span class="qa_f18">我的任务</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to notifications_teacher_path(@teacher) do %>
+    <span class="fa fa-bell"></span>
+    <span class="qa_f18">我的消息
+      <% if @teacher.unread_notifications_count >0 %>
+      <span class="badge"><%= @teacher.unread_notifications_count%></span>
+      <% end %>
+    </span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to students_teacher_path(@teacher) do %>
+    <span class="fa fa-graduation-cap"></span> <span class="qa_f18">我的学生</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to curriculums_teacher_path(@teacher) do %>
+    <span class="fa fa-book"></span>  <span class="qa_f18">我的课程</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to lessons_state_teacher_path(@teacher) do %>
+    <span class="fa fa-line-chart"></span> <span class="qa_f18">课程状态</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to live_studio.teacher_courses_path(@teacher) do %>
+    <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">我的辅导班</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to payment.user_change_records_path(@teacher) do %>
+    <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">账户流水</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to info_teacher_path(@teacher) do %>
+    <span class="fa fa-info-circle"></span> <span class="qa_f18">个人信息</span>
+    <% end %>
+  </li>
+
+
+  <li>
+    <%= link_to qa_faqs_path do %>
+    <span class="fa fa-question-circle"></span><span class="qa_f18">常见问题</span>
+    <% end %>
+  </li>
+
+  <li>
+    <%= link_to signout_path, :method=>'delete'  do %>
+    <span class="fa fa-sign-out"></span> <span class="qa_f18">退出系统</span>
+    <% end %>
+  </li>
+</ul>

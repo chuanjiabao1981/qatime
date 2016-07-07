@@ -1,23 +1,14 @@
 Payment::Engine.routes.draw do
 
-  post :callback
-
-    resources :users, only: [] do
-      resources :orders, only: [:index, :show, :destroy, :notify] do
-        collection do
-          get :result
-        end
+  resources :users, only: [] do
+    resources :orders, only: [:index, :show, :destroy] do
+      collection do
+        get :result
       end
     end
 
-  # resource :user, only: [] do
-  #   resources :orders, only: [:index, :show, :destroy, :notify] do
-  #     collection do
-  #       get :result
-  #     end
-  #   end
-  # end
+    resources :change_records, only: [:index]
+  end
 
-  post :notify,to: "orders#notify"
-
+  post :notify, to: "orders#notify"
 end

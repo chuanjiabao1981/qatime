@@ -5,6 +5,7 @@ cn:
       timeout: 已超时
     models:
       payment/order: 订单
+      payment/change_record: 资金流水
     attributes:
       payment/order:
         order_no: 订单编号
@@ -13,6 +14,12 @@ cn:
         created_at: 下单时间
         status: 订单状态
         pay_type: 支付方式
+      payment/change_record:
+        different: 收支
+        after: 余额
+        target: 结算对象
+        summary: 描述
+        created_at: 结算时间
     status:
       order:
         unpaid: 未支付

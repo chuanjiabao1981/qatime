@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+  <!-- Default panel contents -->
+  <div class="panel-heading">
+    <%= LiveStudio::Course.model_name.human %>
+    <% if allow?("live_studio/seller/courses", "create", @current_resource) %>
+      <%=link_to new_seller_course_path(@current_resource) do %>
+      <button type="button" class="btn btn-xs btn-success">
+        <%= t("activerecord.view.create") %><%= LiveStudio::Course.model_name.human %>
+      </button>
+      <% end %>
+    <% end -%>
+  </div>
+  <!--
+  <div class="panel-body">
+  </div>
+  -->
+
+  <!-- Table -->
+  <table class="table">
+    <tr>
+      <tr>
+        <th>#</th>
+	<% %w(name teacher description status).each do |attr| -%>
+        <th><%= LiveStudio::Course.human_attribute_name(attr) %></th>
+	<% end %>
+        <th><%= t("activerecord.view.operate") %></th>
+      </tr>
+
+    </tr>
+    <%= render partial: 'course', collection: @courses %>
+  </table>
+</div>

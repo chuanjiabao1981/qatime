@@ -5,10 +5,12 @@ module Permissions
 
       allow :sessions, [:destroy]
       allow :home, [:index]
-      allow "managers/home", [:main]
+      allow "waiters/home", [:main]
 
       ## begin live studio permission
-      allow 'live_studio/manager/courses', [:index, :show, :publish]
+      allow 'live_studio/waiter/courses', [:index, :show, :publish] do |resource|
+        resource.id == user.id
+      end
       ## end live studio permission
     end
   end

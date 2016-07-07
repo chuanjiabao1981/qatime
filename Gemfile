@@ -113,6 +113,7 @@ group :development,:test do
   gem 'selenium-webdriver'
   gem 'headless'
   gem 'puma'
+  gem 'thin'
 end
 
 gem 'test_after_commit', :group => :test

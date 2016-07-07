@@ -13,9 +13,9 @@ module ApplicationHelper
       when "manager"
         main_app.managers_home_path
       when "waiter"
-        main_app.managers_home_path
+        main_app.waiters_home_path
       when "seller"
-        main_app.managers_home_path
+        main_app.sellers_home_path
       else
         root_path
     end

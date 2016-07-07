@@ -1,6 +1,8 @@
+<% @current_resource ||= @current_user %>
+
 <ul class="menu" style="color: white">
   <li>
-    <%= link_to live_studio.manager_courses_path do %>
+    <%= link_to live_studio.seller_courses_path(@current_resource) do %>
       <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">辅导班</span>
     <% end %>
   </li>

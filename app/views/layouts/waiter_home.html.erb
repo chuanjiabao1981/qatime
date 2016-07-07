@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta name="renderer" content="webkit">
+
+  <title>Qatime</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => false %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= render 'layouts/top_bar' %>
+
+<div class="container">
+  <div class='row'>
+    <div class="col-md-12">
+      <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
+    </div>
+    <div class='col-md-2'>
+      <%= render "layouts/sidebar/waiter" %>
+    </div>
+    <div class='col-md-10'>
+      <%= yield %>
+    </div>
+  </div>
+  <%= debug(params) if Rails.env.development? %>
+</div>
+<%= render 'layouts/footer' %>
+
+</body>
+</html>

@@ -31,5 +31,11 @@ module LiveStudio
       assert_equal('测试英语辅导课程更新', course.name, '辅导班名称修改错误')
       assert_equal('edit course description', course.description, '辅导班描述修改错误')
     end
+
+    test 'teacher visit other teacher course' do
+      other_teacher = users(:english_teacher)
+      visit live_studio.teacher_courses_path(other_teacher)
+      assert_match('您没有权限进行这个操作', page.text, '错误: 教师访问其他老师的辅导班')
+    end
   end
 end

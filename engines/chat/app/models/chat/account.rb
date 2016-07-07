@@ -12,20 +12,17 @@ module Chat
       res = ::Typhoeus.post(
         "#{NETEASE_HOST}/nimserver/user/create.action",
         headers: vcloud_headers,
-        body: {
-          accid: accid,
-          name: user.nick_name
-        }.to_json
+        body: %Q{accid=#{accid}&name=#{user.nick_name}}
       )
       return unless res.success?
 
       result = JSON.parse(res.body).symbolize_keys
 
       if result[:code] == 200
-        result[:info].symbolize_keys
-        result[:info][:username] = result[:info][:name]
-        result[:info].delete(:name)
-        self.update_columns(result[:info])
+        _result = result[:info].symbolize_keys
+        _result[:username] = _result[:name]
+        _result.delete(:name)
+        self.update_columns(_result)
       end
     end
 
@@ -33,9 +30,7 @@ module Chat
       res = ::Typhoeus.post(
         "#{NETEASE_HOST}/nimserver/user/update.action",
         headers: vcloud_headers,
-        body: {
-          accid: accid
-        }.to_json
+        body: %Q{accid=#{accid}}
       )
     end
 
@@ -43,9 +38,7 @@ module Chat
       res = ::Typhoeus.post(
         "#{NETEASE_HOST}/nimserver/user/refreshToken.action",
         headers: vcloud_headers,
-        body: {
-          accid: accid
-        }.to_json
+        body: %Q{accid=#{accid}}
       )
 
       return unless res.success?

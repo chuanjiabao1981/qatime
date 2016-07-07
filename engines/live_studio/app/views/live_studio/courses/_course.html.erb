@@ -8,11 +8,11 @@
     <% if course.bought_by?(current_user) %>
       已购买
     <% elsif course.can_taste?(current_user) %>
-      <%= link_to t("activerecord.view.taste"), taste_course_path(course), id: "taste-course-#{course.id}", method: :post, remote: true %>
+      <%= link_to t("activerecord.view.taste"), taste_course_path(course, student_id: params[:student_id]), id: "taste-course-#{course.id}", method: :post, remote: true %>
     <% elsif course.tasting?(current_user) %>
-      <%= link_to t("live_studio/ticket.type_name.tasted"), student_course_path(course) %>
+      <%= link_to t("live_studio/ticket.type_name.tasted"), student_course_path(params[:student_id],course) %>
     <% end %>
-    <% if course.sell_to?(current_user) && !course.bought_by?(current_user) -%>
+    <% if course.sell_to?(@student) && !course.bought_by?(@student) && current_user == @student -%>
       <%= link_to t("activerecord.view.buy_now"), new_course_order_path(course), id: "buy-course-#{course.id}" %>
     <% end -%>
   </td>

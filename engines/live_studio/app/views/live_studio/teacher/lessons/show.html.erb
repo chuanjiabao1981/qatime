@@ -25,5 +25,5 @@
   <%= @teacher_lesson.class_date %>
 </p>
 
-<%= link_to 'Edit', edit_teacher_lesson_path(@teacher_lesson) %> |
-<%= link_to 'Back', teacher_lessons_path %>
+<%= link_to 'Edit', edit_teacher_lesson_path(@teacher,@teacher_lesson) %> |
+<%= link_to 'Back', teacher_lessons_path(@teacher) %>

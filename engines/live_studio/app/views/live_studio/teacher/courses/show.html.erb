@@ -1,12 +1,12 @@
 <div class="qa_box">
   <div class="qa_big_cell">
     <span style="padding-left:10px" class="qa_f18">
-      <%= link_to LiveStudio::Course.model_name.human, live_studio.teacher_courses_path %> &gt;
+      <%= link_to LiveStudio::Course.model_name.human, teacher_courses_path(@teacher) %> &gt;
       <strong><%= @course.name %></strong>
     </span>
     <div class="pull-right">
       <% if allow? "live_studio/manager/courses", "edit", @course %>
-        <%=link_to edit_manager_course_path(@course) do %>
+        <%=link_to edit_manager_course_path(@course.workstation.manager,@course) do %>
           <button type="button" class="btn btn-xs btn-success">
             <%= t("activerecord.view.edit") %><%= @course.class.model_name.human %>
           </button>
@@ -43,7 +43,7 @@
       <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:preset_lesson_count)%></div>
       <div class="col-md-9">
 	<%= @course.completed_lesson_count %> / <%= @course.preset_lesson_count %>
-	<%= link_to t("activerecord.view.close_course"), close_teacher_course_path(@course),
+	<%= link_to t("activerecord.view.close_course"), close_teacher_course_path(@teacher,@course),
 	    id: "close-course", method: :patch, 'data-confirm' => t("activerecord.view.message.course_confirm_close") if  @course.ready_for_close? %>
       </div>
     </div>
@@ -58,7 +58,16 @@
     <div class="row">
       <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::PushStream.human_attribute_name(:address)%></div>
       <div class="col-md-9"><%= @course.push_stream.try(:address) %>
-        <%= link_to t("activerecord.view.sync_channel"), channel_teacher_course_path(@course), method: :patch, remote: true, id: "sync_channel" unless @course.push_stream  %>
+        <%= link_to t("activerecord.view.sync_channel"), channel_teacher_course_path(@teacher,@course), method: :patch, remote: true, id: "sync_channel" unless @course.push_stream  %>
+      </div>
+    </div>
+  </div>
+  <div class="qa_cell">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%= t("activerecord.view.client_download") %></div>
+      <div class="col-md-9">
+	<span>1.0.0</span>
+        <%= link_to t("activerecord.view.download"), "http://qatime-production.oss-cn-beijing.aliyuncs.com/download/software/%E7%9B%B4%E6%92%AD%E5%AE%A2%E6%88%B7%E7%AB%AF.zip"  %>
       </div>
     </div>
   </div>
@@ -71,7 +80,7 @@
   <div class="qa_big_cell">
     <span style="padding-left:10px" class="qa_f18">
       <strong>课程列表</strong>
-      <%=link_to new_teacher_course_lesson_path(@course) do %>
+      <%=link_to new_teacher_lesson_path(@teacher,course_id: @course.id) do %>
         <button type="button" class="btn btn-xs btn-success">
           <%= t("activerecord.view.create") %><%= LiveStudio::Lesson.model_name.human %>
         </button>
@@ -102,21 +111,25 @@
         <%= lesson.status_text %>
       </div>
       <div class="col-md-2">
-        <%= link_to t('activerecord.view.edit'), edit_teacher_course_lesson_path(@course, lesson) unless lesson.has_finished? %>
-        <%= link_to t("activerecord.view.delete"), teacher_course_lesson_path(@course, lesson), method: :delete,
+        <%= link_to t('activerecord.view.edit'), edit_teacher_lesson_path(@teacher,lesson,course_id: @course) unless lesson.has_finished? %>
+        <%= link_to t("activerecord.view.delete"), teacher_lesson_path(@teacher,lesson,course_id: @course), method: :delete,
             confirm: t('activerecord.view.message.confirm') if lesson.init? %>
 
         <% if lesson.ready_for? -%>
-          <%= link_to t("activerecord.view.lesson_ready"), ready_teacher_course_lesson_path(@course, lesson), class: 'ready', method: :patch %>
+          <%= link_to t("activerecord.view.lesson_ready"), ready_teacher_lesson_path(@teacher,lesson,course_id: @course), class: 'ready', method: :patch %>
         <% elsif lesson.ready? -%>
-          <%= link_to t("activerecord.view.begin_live_studio"), begin_live_studio_teacher_course_lesson_path(@course, lesson), class: 'live', method: :patch %>
+          <%= link_to t("activerecord.view.begin_live_studio"), begin_live_studio_teacher_lesson_path(@teacher,lesson,course_id: @course), class: 'live', method: :patch %>
         <% elsif lesson.teaching? -%>
-          <%= link_to t("activerecord.view.end_live_studio"), end_live_studio_teacher_course_lesson_path(@course, lesson), class: 'finish', method: :patch %>
+          <%= link_to t("activerecord.view.end_live_studio"), end_live_studio_teacher_lesson_path(@teacher,lesson,course_id: @course), class: 'finish', method: :patch %>
         <% elsif lesson.finished? %>
-          <%= link_to t("activerecord.view.lesson_completed"), complete_teacher_course_lesson_path(@course, lesson), class: 'complete', method: :patch %>
+          <%= link_to t("activerecord.view.lesson_completed"), complete_teacher_lesson_path(@teacher,lesson,course_id: @course), class: 'complete', method: :patch %>
         <% end%>
       </div>
     </div>
     <% end -%>
+
+    <div class="qa_big_cell">
+      <%= will_paginate @lessons %>
+    </div>
   </div>
 </div>

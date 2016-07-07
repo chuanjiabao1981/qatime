@@ -1,15 +1,15 @@
 <tr>
   <td><%= course_counter + 1 %></td>
   <td>
-    <%= link_to course.name, [:teacher, course] %>
+    <%= link_to course.name, teacher_course_path(@teacher, course) %>
   </td>
   <td>
     <%= course.short_description %>
   </td>
   <td><%= course.status_text %></td>
   <td>
-    <%=link_to t("activerecord.view.edit"), edit_teacher_course_path(course) if allow?("live_studio/teacher/courses", "update") %>
-    <%=link_to t("activerecord.view.delete"), teacher_course_path(course), method: :delete,
+    <%=link_to t("activerecord.view.edit"), edit_teacher_course_path(@teacher,course) if allow?("live_studio/teacher/courses", "update") %>
+    <%=link_to t("activerecord.view.delete"), teacher_course_path(@teacher,course), method: :delete,
                'data-confirm' => t('activerecord.view.message.confirm') if allow?("live_studio/teacher/courses", "destroy") %>
   </td>
 </tr>

@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   validate :register_code_valid, on: :create, if: :teacher_or_student?
 
   after_create :update_register_code
+  after_commit :update_chat_account, if: :nick_name_changed?
 
   has_many :topics, :dependent => :destroy,foreign_key: :author_id
   has_many :replies, :dependent => :destroy,foreign_key: :author_id
@@ -107,5 +108,9 @@ class User < ActiveRecord::Base
         self.save
       end
     end
+  end
+
+  def update_chat_account
+    chat_account.update_chat_account
   end
 end

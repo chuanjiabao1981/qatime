@@ -8,7 +8,7 @@ module Chat
 
     after_create :set_chat_account
 
-    def set_chat_account
+    def set_chat_account #创建云信ID
       res = ::Typhoeus.post(
         "#{NETEASE_HOST}/nimserver/user/create.action",
         headers: vcloud_headers,
@@ -29,7 +29,7 @@ module Chat
       end
     end
 
-    def update_chat_account
+    def update_chat_account #云信ID更新
       res = ::Typhoeus.post(
         "#{NETEASE_HOST}/nimserver/user/update.action",
         headers: vcloud_headers,
@@ -39,9 +39,9 @@ module Chat
       )
     end
 
-    def refresh_token
+    def refresh_token #更新并获取新token
       res = ::Typhoeus.post(
-        "#{NETEASE_HOST}/nimserver/user/update.action",
+        "#{NETEASE_HOST}/nimserver/user/refreshToken.action",
         headers: vcloud_headers,
         body: {
           accid: accid
@@ -71,5 +71,6 @@ module Chat
         'Content-Type' => "application/x-www-form-urlencoded;charset=utf-8"
       }
     end
+
   end
 end

@@ -1,0 +1,12 @@
+# 网易云信配置
+production:
+  AppKey: AppKey
+
+development:
+  AppKey: AppKey
+
+testing:
+  AppKey: AppKey
+
+test:
+  AppKey: AppKey

@@ -22,4 +22,8 @@
     </tr>
     <%= render partial: 'ticket', collection: @tickets %>
   </table>
+
+  <div class="panel-footer">
+    <%= will_paginate @tickets %>
+  </div>
 </div>

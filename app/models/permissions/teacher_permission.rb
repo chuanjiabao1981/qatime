@@ -221,7 +221,7 @@ module Permissions
       ]
       ## end live studio permission
     end
-private
+    private
 
     def topicable_permission(topicable,user)
       return false if topicable.nil?

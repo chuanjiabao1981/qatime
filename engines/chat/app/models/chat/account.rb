@@ -17,12 +17,12 @@ module Chat
       return unless res.success?
 
       result = JSON.parse(res.body).symbolize_keys
+      p result
 
       if result[:code] == 200
-        _result = result[:info].symbolize_keys
-        _result[:username] = _result[:name]
-        _result.delete(:name)
-        self.update_columns(_result)
+        p result[:info]
+
+        self.update_columns(result[:info].symbolize_keys)
       end
     end
 

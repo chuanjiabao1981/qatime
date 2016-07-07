@@ -19,7 +19,7 @@
       <% end %>
     </div>
     <div class='col-md-2'>
-      <%= render "layouts/sidebar/#{@current_resource.role}" %>
+      <%= render "layouts/sidebar/#{(@resource_owner || @current_resource).role}" %>
     </div>
     <div class='col-md-10'>
       <%= yield %>

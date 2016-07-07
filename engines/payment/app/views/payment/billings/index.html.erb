@@ -1,0 +1,20 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%= Payment::Billing.model_name.human %>
+  </div>
+  <div>
+    <table class="table">
+      <tr>
+        <th>#</th>
+        <% %w(total_money details summary created_at).each do |attr| -%>
+        <th><%= Payment::Billing.human_attribute_name(attr) %></th>
+        <% end %>
+      </tr>
+
+      <%= render @billings %>
+    </table>
+    <div class="panel-footer">
+      <%= will_paginate @billings %>
+    </div>
+  </div>
+</div>

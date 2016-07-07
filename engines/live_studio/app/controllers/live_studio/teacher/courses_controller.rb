@@ -12,7 +12,7 @@ module LiveStudio
     end
 
     def show
-      @lessons = @course.lessons.order("id")
+      @lessons = @course.lessons.order("id").paginate(page: params[:page])
     end
 
     def edit

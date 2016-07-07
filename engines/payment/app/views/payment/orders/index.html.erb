@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    我的订单
+    <%= Payment::Order.model_name.human %>
   </div>
   <div>
     <table class="table">
@@ -14,5 +14,8 @@
 
       <%= render @orders %>
     </table>
+    <div class="panel-footer">
+      <%= will_paginate @orders %>
+    </div>
   </div>
 </div>

@@ -304,6 +304,8 @@ Qatime::Application.routes.draw do
   mount LiveStudio::Engine, at: '/live_studio'
   # 支付
   mount Payment::Engine, at: '/payment'
+  # 聊天
+  mount Chat::Engine, at: '/chat'
 
   resources :qa_file_quoters
 end

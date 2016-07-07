@@ -1,4 +1,10 @@
 PATH
+  remote: engines/chat
+  specs:
+    chat (0.0.1)
+      rails (~> 4.2.5.1)
+
+PATH
   remote: engines/course_library
   specs:
     course_library (0.0.1)
@@ -402,6 +408,7 @@ DEPENDENCIES
   carrierwave
   carrierwave-aliyun (= 0.3.4)
   cells (= 3.10.0)
+  chat!
   chosen-rails
   coffee-rails (~> 4.0.0)
   course_library!

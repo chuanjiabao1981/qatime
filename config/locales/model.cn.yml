@@ -4,6 +4,7 @@ cn:
       group: 班级
       course: 小节
       teacher: 讲师
+      cash_admin: 系统账户
       school: 学校
       lesson: 课程
       user: 用户

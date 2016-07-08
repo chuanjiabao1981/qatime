@@ -30,16 +30,16 @@ class LiveStudio::TeacherLessonTest < ActionDispatch::IntegrationTest
   end
 
   test "teacher lesson index view " do
-    @teacher_session.get @routes.teacher_courses_path(@course)
+    @teacher_session.get @routes.teacher_courses_path(@teacher)
     @teacher_session.assert_response :success
   end
 
   test 'teacher lesson new and create' do
-    @teacher_session.get @routes.new_teacher_course_lesson_path(@course)
+    @teacher_session.get @routes.new_teacher_lesson_path(@teacher,course_id: @course)
     @teacher_session.assert_response :success
 
     c = @course.lessons.count
-    @teacher_session.post @routes.teacher_course_lessons_path(@course),
+    @teacher_session.post @routes.teacher_lessons_path(@teacher,course_id: @course),
                           lesson: {
                               name:"new lesson",
                               description:"lesson description ",
@@ -53,10 +53,10 @@ class LiveStudio::TeacherLessonTest < ActionDispatch::IntegrationTest
   end
 
   test 'teacher lesson edit and update' do
-    @teacher_session.get @routes.edit_teacher_course_lesson_path(@course,@lesson)
+    @teacher_session.get @routes.edit_teacher_lesson_path(@teacher,@lesson,course_id: @course)
     @teacher_session.assert_response :success
 
-    @teacher_session.patch @routes.teacher_course_lesson_path(@course,@lesson),
+    @teacher_session.patch @routes.teacher_lesson_path(@teacher,@lesson,course_id: @course),
                            lesson: {name:"new lesson x1"}
     @teacher_session.assert_response :redirect
     @teacher_session.assert_equal 1,@course.lessons.where(name:"new lesson x1").count

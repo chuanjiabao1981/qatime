@@ -107,6 +107,10 @@ module Payment
     def init_remote_order
       r = WxPay::Service.invoke_unifiedorder(remote_params)
       if !r['code_url'].is_a?(String)
+        logger.error '===== PAYMENT ERROR START ====='
+        logger.error r
+        logger.error remote_params
+        logger.error '===== PAYMENT ERROR END ====='
         fail!
       else
         self.pay_url = r['code_url']

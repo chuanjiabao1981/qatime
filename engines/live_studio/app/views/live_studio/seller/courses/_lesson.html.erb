@@ -1,0 +1,38 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <strong>课程安排</strong>
+  </div>
+
+  <!-- Table -->
+  <table class="table">
+    <tr>
+      <% %w(name se_time date status operate).each do |col| %>
+      <th>
+        <%= t("activerecord.view.#{col}") %>
+      </th>
+      <% end %>
+    </tr>
+
+    <% @lessons.each do |lesson| -%>
+      <tr>
+        <td>
+          <%= lesson.name %>
+        </td>
+        <td>
+          <%= lesson.start_time%> - <%= lesson.end_time%>
+        </td>
+        <td>
+          <%= lesson.class_date %>
+        </td>
+        <td>
+          <%= lesson.status_text %>
+        </td>
+        <td>
+        </td>
+      </tr>
+    <% end -%>
+  </table>
+  <div class="panel-footer">
+    <%= will_paginate @lessons %>
+  </div>
+</div>

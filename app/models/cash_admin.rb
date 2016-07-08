@@ -10,7 +10,7 @@ class CashAdmin < User
     # 系统现金账户
     def current!
       first || create(
-        name: 'cash_admin',
+        name: '财务',
         email: 'cash_admin@qatime.cn',
         password: '123456',
         password_confirmation: '123456'

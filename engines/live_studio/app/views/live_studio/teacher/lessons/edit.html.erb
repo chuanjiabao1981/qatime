@@ -1,8 +1,8 @@
 <div class="qa_box">
   <div class="qa_big_cell">
     <span style="padding-left:10px" class="qa_f18">
-      <%= link_to LiveStudio::Course.model_name.human, live_studio.teacher_courses_path %> &gt;
-      <%= link_to @course.name, live_studio.teacher_course_path(@course) %> &gt;
+      <%= link_to LiveStudio::Course.model_name.human, teacher_courses_path(@teacher) %> &gt;
+      <%= link_to @course.name, teacher_course_path(@teacher,@course) %> &gt;
       <strong><%= LiveStudio::Lesson.model_name.human %></strong>
     </span>
   </div>
@@ -10,7 +10,7 @@
 
 <div class="qa_box">
   <div class="qa_big_cell">
-    <%= simple_form_for(@lesson, url: teacher_course_lesson_path(@course, @lesson)) do |f| %>
+    <%= simple_form_for(@lesson, url: teacher_lesson_path(@teacher,@lesson,course_id: @course)) do |f| %>
       <%= render partial: 'form', locals: {f: f} %>
     <% end %>
   </div>

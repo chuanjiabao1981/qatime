@@ -1,3 +1,4 @@
+<% @student ||= @current_resource -%>
 <ul class="menu" style="color: white">
   <li>
     <%= link_to curriculums_path do %>
@@ -11,7 +12,7 @@
   </li>
   <li>
     <%= link_to homeworks_student_path(@student) do %>
-    <span class="fa fa-tasks"></span> <span class="qa_f18">我的作业</span>
+    <span class="fa fa-book"></span> <span class="qa_f18">我的作业</span>
     <% end %>
   </li>
   <li>
@@ -37,13 +38,13 @@
     <% end %>
   </li>
   <li>
-    <%= link_to live_studio.student_courses_path do %>
-    <span class="fa fa-user-secret"></span> <span class="qa_f18">我的辅导班</span>
+    <%= link_to live_studio.student_courses_path(@student) do %>
+    <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">我的辅导班</span>
     <% end %>
   </li>
   <li>
-    <%= link_to payment.user_orders_path do %>
-    <span class="fa fa-user-secret"></span> <span class="qa_f18">我的订单</span>
+    <%= link_to payment.user_orders_path(@student,user_class: @student.type) do %>
+    <span class="glyphicon glyphicon-list"></span> <span class="qa_f18">我的订单</span>
     <% end %>
   </li>
   <li>

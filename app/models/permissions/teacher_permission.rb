@@ -214,14 +214,22 @@ module Permissions
       allow :qa_file_quoters,[:index, :new, :edit, :update, :create, :show, :destroy]
 
       ## begin live studio permission
-      allow 'live_studio/teacher/courses', [:index, :show, :edit, :update, :sync_channel_streams, :channel, :close]
+      allow 'live_studio/teacher/courses', [:index, :show, :edit, :update, :sync_channel_streams, :channel, :close] do |teacher|
+        teacher && teacher == user
+      end
       allow 'live_studio/teacher/lessons', [
         :index, :show, :new, :create, :edit, :update, :destroy,
         :begin_live_studio, :end_live_studio, :ready, :complete
-      ]
+      ] do |teacher|
+        teacher && teacher == user
+      end
+      allow 'payment/change_records', [:index] do |resource|
+        resource.id == user.id
+      end
+      allow 'payment/billings', [:index]
       ## end live studio permission
     end
-private
+    private
 
     def topicable_permission(topicable,user)
       return false if topicable.nil?

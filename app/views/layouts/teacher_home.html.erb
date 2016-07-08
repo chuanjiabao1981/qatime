@@ -40,7 +40,7 @@
         </li>
         <li>
           <%= link_to customized_courses_teacher_path(@teacher) do %>
-              <span class="fa fa-graduation-cap"></span> <span class="qa_f18"><%=CustomizedCourse.model_name.human %></span>
+              <span class="fa fa-server"></span> <span class="qa_f18"><%=CustomizedCourse.model_name.human %></span>
           <% end %>
         </li>
         <li>
@@ -74,10 +74,15 @@
           <% end %>
         </li>
         <li>
-          <%= link_to live_studio.teacher_courses_path do %>
-            <span class="fa fa-line-chart"></span> <span class="qa_f18">我的辅导班</span>
+          <%= link_to live_studio.teacher_courses_path(@teacher) do %>
+            <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">我的辅导班</span>
           <% end %>
         </li>
+	<li>
+	  <%= link_to payment.user_change_records_path(@teacher) do %>
+	  <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">账户流水</span>
+	  <% end %>
+	</li>
         <li>
           <%= link_to info_teacher_path(@teacher) do %>
               <span class="fa fa-info-circle"></span> <span class="qa_f18">个人信息</span>

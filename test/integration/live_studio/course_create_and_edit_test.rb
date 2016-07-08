@@ -19,8 +19,9 @@ module LiveStudio
     test "manager create a course" do
       teacher = ::Teacher.find(users(:teacher1).id)
       workstation = @manager.workstations.sample
+
       assert_difference '@manager.live_studio_courses.count', 1 do
-        visit live_studio.new_manager_course_path(@directory)
+        visit live_studio.new_manager_course_path(@manager)
         fill_in :course_name, with: '测试英语辅导课程'
         fill_in :course_description, with: 'new course description'
         select teacher.name, from: :course_teacher_id
@@ -30,6 +31,7 @@ module LiveStudio
         select workstation.name, from: 'course_workstation_id'
         click_on '新增辅导班'
       end
+
       course = Course.last
       assert_equal(teacher.id, course.teacher_id, '辅导班老师指定错误')
       assert_equal(300, course.price.to_f, '定价出错')
@@ -40,7 +42,7 @@ module LiveStudio
       course = Course.last
       teacher2 = ::Teacher.find(users(:teacher2).id)
 
-      visit live_studio.edit_manager_course_path(course)
+      visit live_studio.edit_manager_course_path(@manager, course)
       fill_in :course_name, with: '测试英语辅导课程更新'
       fill_in :course_description, with: 'edit course description'
       select teacher2.name, from: :course_teacher_id

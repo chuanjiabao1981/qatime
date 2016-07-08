@@ -6,7 +6,7 @@ CarrierWave.configure do |config|
     config.aliyun_bucket = APP_CONFIG[:bucket_online]
     config.aliyun_internal = true
   else
-    config.aliyun_bucket = APP_CONFIG[:bucket_test]
+    config.aliyun_bucket = APP_CONFIG[:bucket_testing]
     config.aliyun_internal = false
   end
   config.aliyun_area = "cn-beijing"

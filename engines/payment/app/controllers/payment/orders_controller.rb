@@ -3,17 +3,16 @@ require_dependency "payment/application_controller"
 module Payment
   class OrdersController < ApplicationController
     skip_before_action :verify_authenticity_token, :only => :notify
-    before_action :set_student, skip: [:notify]
+    before_action :set_user, skip: [:notify]
     layout :layout_no_nav
 
     def index
-      @orders = current_user.orders.order(id: :desc).paginate(page: params[:page])
+      @orders = @user.orders.order(id: :desc).paginate(page: params[:page])
     end
 
     # 生成微信支付二维码
     def show
-
-      @order = current_user.orders.find_by!(order_no: params[:id])
+      @order = @user.orders.find_by!(order_no: params[:id])
       @order.init_remote_order unless @order.qrcode_url
     end
 
@@ -41,14 +40,16 @@ module Payment
 
     # 支付结果
     def result
-      @order = @student.orders.find_by(order_no: params[:order_no])
+      @order = @user.orders.find_by(order_no: params[:order_no])
       render text: @order.status
     end
 
     private
 
-    def set_student
-      @student = current_user
+    def set_user
+      user_class = params[:user_class].try(:constantize)
+      @user = user_class.try(:find_by,id: params[:user_id]) || current_user
+      @student = @user if @user.student?
     end
 
     def layout_no_nav

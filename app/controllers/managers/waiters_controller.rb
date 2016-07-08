@@ -1,12 +1,6 @@
 class Managers::WaitersController < ApplicationController
   before_action :set_waiter, only: [:show, :edit, :update, :destroy]
 
-  # GET /managers/waiters
-  # GET /managers/waiters.json
-  def index
-    @waiters = current_user.waiters.order('id desc').paginate(page: params[:page])
-  end
-
   # GET /managers/waiters/1
   # GET /managers/waiters/1.json
   def show
@@ -29,7 +23,7 @@ class Managers::WaitersController < ApplicationController
 
     respond_to do |format|
       if @waiter.save
-        format.html { redirect_to managers_waiters_path, notice: i18n_notice('created',@waiter) }
+        format.html { redirect_to waiters_manager_path(current_user), notice: i18n_notice('created',@waiter) }
         format.json { render action: 'show', status: :created, location: @waiter }
       else
         @workstations = current_user.workstations.select(:id, :name).map {|w| [w.name, w.id] }
@@ -44,7 +38,7 @@ class Managers::WaitersController < ApplicationController
   def update
     respond_to do |format|
       if @waiter.update(waiter_params.slice(:name, :email, :mobile))
-        format.html { redirect_to managers_waiters_path, notice: 'Waiter was successfully updated.' }
+        format.html { redirect_to waiters_manager_path(current_user), notice: 'Waiter was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -58,7 +52,7 @@ class Managers::WaitersController < ApplicationController
   def destroy
     @waiter.destroy
     respond_to do |format|
-      format.html { redirect_to managers_waiters_url }
+      format.html { redirect_to waiters_manager_path(current_user) }
       format.json { head :no_content }
     end
   end

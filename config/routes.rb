@@ -8,6 +8,8 @@ Qatime::Application.routes.draw do
   get "admins/home"         => "admins/home#main",      as: 'admins_home'
   get "students/home"       => "students/home#main",    as: 'students_home'
   get "managers/home"       => "managers/home#main",    as: 'managers_home'
+  get "sellers/home"        => "sellers/home#main",     as: 'sellers_home'
+  get "waiters/home"        => "waiters/home#main",     as: 'waiters_home'
 
   resources :curriculums
   resources :qa_faqs
@@ -48,9 +50,8 @@ Qatime::Application.routes.draw do
         get 'state'
       end
     end
-
-    resources :sellers, except: [:show]
-    resources :waiters, except: [:show]
+    resources :sellers, except: [:index, :show]
+    resources :waiters, except: [:index, :show]
   end
 
   namespace :teachers do
@@ -148,6 +149,8 @@ Qatime::Application.routes.draw do
       get 'customized_courses'
       get 'payment'
       get 'action_records'
+      get :waiters
+      get :sellers
     end
   end
 

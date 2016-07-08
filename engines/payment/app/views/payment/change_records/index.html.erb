@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%= Payment::ChangeRecord.model_name.human %>
+  </div>
+  <div>
+    <table class="table">
+      <tr>
+        <th>#</th>
+        <% %w(different after summary created_at).each do |attr| -%>
+          <th><%= Payment::ChangeRecord.human_attribute_name(attr) %></th>
+        <% end %>
+      </tr>
+
+      <%= render @change_records %>
+    </table>
+
+    <div class="panel-footer">
+      <%= will_paginate @change_records %>
+    </div>
+  </div>
+</div>

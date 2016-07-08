@@ -36,13 +36,17 @@ module LiveStudio
     has_many :channels
     has_many :push_streams, through: :channels
     has_many :pull_streams, through: :channels
-
     has_many :play_records #听课记录
 
     has_one :chat_team, foreign_key: 'live_studio_course_id', class_name: '::Chat::Team'
+    has_many :billings, through: :lessons, class_name: 'Payment::Billing' # 结算记录
 
     def push_stream
       push_streams.last
+    end
+
+    def pull_stream
+      pull_streams.last
     end
 
     scope :for_sell, -> { where(status: [Course.statuses[:preview], Course.statuses[:teaching]]) }
@@ -143,6 +147,12 @@ module LiveStudio
     # 是否可以结课
     def ready_for_close?
       teaching? && completed_lesson_count >= preset_lesson_count
+    end
+
+    # TODO
+    # 当前直播课程
+    def current_lesson
+      lessons.last
     end
 
     private

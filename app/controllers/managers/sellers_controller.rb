@@ -29,7 +29,7 @@ class Managers::SellersController < ApplicationController
 
     respond_to do |format|
       if @seller.save
-        format.html { redirect_to managers_sellers_path, notice: i18n_notice('created',@seller) }
+        format.html { redirect_to sellers_manager_url(current_user), notice: i18n_notice('created', @seller) }
         format.json { render action: 'show', status: :created, location: @seller }
       else
         format.html { render action: 'new' }
@@ -44,7 +44,7 @@ class Managers::SellersController < ApplicationController
   def update
     respond_to do |format|
       if @seller.update(seller_params.slice(:name, :email, :mobile))
-        format.html { redirect_to managers_sellers_path, notice: 'Seller was successfully updated.' }
+        format.html { redirect_to sellers_manager_url(current_user), notice: 'Seller was successfully updated.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -58,7 +58,7 @@ class Managers::SellersController < ApplicationController
   def destroy
     @seller.destroy
     respond_to do |format|
-      format.html { redirect_to managers_sellers_url }
+      format.html { redirect_to sellers_manager_url(current_user) }
       format.json { head :no_content }
     end
   end

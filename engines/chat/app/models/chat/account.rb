@@ -10,8 +10,9 @@ module Chat
 
     def self.create_by_user(user)
       user.create_chat_account(
-        accid: SecureRandom.hex(16)
-        name: user.nick_name
+        accid: SecureRandom.hex(16),
+        name: user.nick_name,
+        icon: user.avatar_url(:tiny)
       )
     end
 
@@ -19,12 +20,12 @@ module Chat
       res = ::Typhoeus.post(
         "#{NETEASE_HOST}/nimserver/user/create.action",
         headers: netease_headers,
-        body: %Q{accid=#{accid}&name=#{user.nick_name}}
+        body: %Q{accid=#{accid}&name=#{user.nick_name}&icon=#{user.avatar_url(:tiny)}}
       )
       return unless res.success?
 
       result = JSON.parse(res.body).symbolize_keys
-
+      p "=======#{result}"
       if result[:code] == 200
         self.update_columns(result[:info].symbolize_keys)
       end
@@ -54,11 +55,12 @@ module Chat
     def sync_uinfo #同步用户名片
       update_uinfo
       res = get_uinfo
-      self.update_columns(accid: res[:accid], name: res[:name])
+      res.delete(:gender)
+      self.update_columns(res)
     end
 
     def update_uinfo #更新用户名片
-      update_data = %Q{accid=#{accid}&name=#{user.nick_name}}
+      update_data = %Q{accid=#{accid}&name=#{user.nick_name}&icon=#{user.avatar_url(:tiny)}}
 
       res = ::Typhoeus.post(
         "#{NETEASE_HOST}/nimserver/user/updateUinfo.action",

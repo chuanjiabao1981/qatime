@@ -40,6 +40,7 @@ class TeachersController < ApplicationController
 
   def update
     @teacher.update_attributes(params[:teacher].permit!)
+    LiveService::ChatAccountFromUser.new(@teacher).sync_uinfo
     respond_with @teacher
   end
 

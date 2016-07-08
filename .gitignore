@@ -22,6 +22,7 @@
 /config/database.yml
 /config/wechat.yml
 /config/vcloud.yml
+/config/netease.yml
 
 *.sqlite3
 *.log

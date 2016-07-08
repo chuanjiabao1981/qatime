@@ -13,5 +13,6 @@ module LiveStudio
     def set_buy_count
       self.buy_count = TASTE_COUNT
     end
+
   end
 end

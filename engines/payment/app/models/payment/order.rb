@@ -151,5 +151,6 @@ module Payment
           fee_type: 'CNY'
       }
     end
+
   end
 end

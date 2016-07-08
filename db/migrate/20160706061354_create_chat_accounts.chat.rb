@@ -6,7 +6,7 @@ class CreateChatAccounts < ActiveRecord::Migration
 
       t.string :accid
       t.string :token
-      t.string :username
+      t.string :name
       t.string :icon
 
       t.timestamps null: false

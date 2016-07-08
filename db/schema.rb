@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20160707100012) do
     t.integer  "user_id"
     t.string   "accid"
     t.string   "token"
-    t.string   "username"
+    t.string   "name"
     t.string   "icon"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

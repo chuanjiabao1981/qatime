@@ -10,5 +10,10 @@ module LiveService
       ::Chat::Account.create_by_user(@user)
     end
 
+    def sync_uinfo
+      return if @user.chat_account.blank?
+      @user.chat_account.update_uinfo
+    end
+
   end
 end

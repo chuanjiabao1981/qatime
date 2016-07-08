@@ -61,6 +61,7 @@ module Chat
       result = JSON.parse(res.body).symbolize_keys
 
       raise ActiveRecord::Rollback unless res.success? && result[:code] == 200
+      self.update_columns(accid: get_uinfo[:accid], name: get_uinfo[:name])
     end
 
     def get_uinfo #获取用户名片
@@ -70,6 +71,9 @@ module Chat
         body: %Q{accids=['#{accid}']}
       )
       result = JSON.parse(res.body).symbolize_keys
+      if result[:code] == 200
+        return result[:uinfos][0].symbolize_keys
+      end
     end
 
     private

@@ -8,6 +8,12 @@ module Chat
 
     after_create :set_chat_account
 
+    def self.create_by_user(user)
+      user.create_chat_account(
+        accid: SecureRandom.hex(16)
+      )
+    end
+
     def set_chat_account #创建云信ID
       res = ::Typhoeus.post(
         "#{NETEASE_HOST}/nimserver/user/create.action",

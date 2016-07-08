@@ -152,14 +152,14 @@ module Payment
       }
     end
 
-    after_create :set_chat_account
-    def set_chat_account
-      return if user.chat_account.present?
+    # after_create :set_chat_account
+    # def set_chat_account
+    #   return if user.chat_account.present?
 
-      user.create_chat_account(
-        accid: SecureRandom.hex(16)
-      )
-    end
+    #   user.create_chat_account(
+    #     accid: SecureRandom.hex(16)
+    #   )
+    # end
 
   end
 end

@@ -11,6 +11,10 @@ module LiveStudio
     def taste
       @course = Course.find(params[:id])
       @course.taste_tickets.find_or_create_by(student: @student)
+
+      @taste_ticket = @course.taste_tickets.find_by(student: @student)
+
+      LiveService::CreateChatAccountFromUser.new(@student).set_chat_account
     end
 
     private

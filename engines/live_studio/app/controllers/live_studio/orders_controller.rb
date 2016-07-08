@@ -29,6 +29,7 @@ module LiveStudio
       @order.user = current_user
 
       if @order.save
+        LiveService::CreateChatAccountFromUser.new(@order.user).set_chat_account
         redirect_to payment.user_order_path(current_user,@order.order_no)
       else
         p @order.errors

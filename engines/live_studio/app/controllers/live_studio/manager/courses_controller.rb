@@ -40,8 +40,10 @@ module LiveStudio
 
     # 开始招生
     def publish
-      @course.preview! if @course.init?
-      LiveService::CourseDirector.new(@course).instance_for_course
+      if @course.init?
+        @course.preview!
+        LiveService::CourseDirector.new(@course).instance_for_course
+      end
     end
 
     # PATCH/PUT /manager/courses/1

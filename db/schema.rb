@@ -74,20 +74,22 @@ ActiveRecord::Schema.define(version: 20160707100012) do
   create_table "chat_join_records", force: :cascade do |t|
     t.integer  "account_id"
     t.integer  "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "role",       limit: 16
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   add_index "chat_join_records", ["account_id"], name: "index_chat_join_records_on_account_id", using: :btree
   add_index "chat_join_records", ["team_id"], name: "index_chat_join_records_on_team_id", using: :btree
 
   create_table "chat_teams", force: :cascade do |t|
+    t.string   "team_id",               limit: 32
+    t.string   "name",                  limit: 64
     t.integer  "live_studio_course_id"
-    t.string   "team_id"
+    t.string   "owner",                 limit: 32
     t.text     "announcement"
-    t.string   "name"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   add_index "chat_teams", ["live_studio_course_id"], name: "index_chat_teams_on_live_studio_course_id", using: :btree

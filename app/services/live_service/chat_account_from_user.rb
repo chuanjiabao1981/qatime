@@ -1,5 +1,5 @@
 module LiveService
-  class CreateChatAccountFromUser
+  class ChatAccountFromUser
 
     def initialize(user)
       @user = user

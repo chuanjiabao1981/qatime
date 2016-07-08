@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160706061356) do
+ActiveRecord::Schema.define(version: 20160707100012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -597,10 +597,13 @@ ActiveRecord::Schema.define(version: 20160706061356) do
     t.datetime "deleted_at"
     t.datetime "created_at",                                            null: false
     t.datetime "updated_at",                                            null: false
+    t.integer  "owner_id"
+    t.string   "owner_type"
   end
 
   add_index "payment_change_records", ["billing_id"], name: "index_payment_change_records_on_billing_id", using: :btree
   add_index "payment_change_records", ["cash_account_id"], name: "index_payment_change_records_on_cash_account_id", using: :btree
+  add_index "payment_change_records", ["owner_type", "owner_id"], name: "index_payment_change_records_on_owner_type_and_owner_id", using: :btree
 
   create_table "payment_orders", force: :cascade do |t|
     t.string   "order_no",     limit: 64,                                       null: false

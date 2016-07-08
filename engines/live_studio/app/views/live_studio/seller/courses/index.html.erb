@@ -29,4 +29,8 @@
     </tr>
     <%= render partial: 'course', collection: @courses %>
   </table>
+
+  <div class="panel-footer">
+    <%= will_paginate @courses %>
+  </div>
 </div>

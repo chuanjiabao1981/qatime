@@ -223,6 +223,10 @@ module Permissions
       ] do |teacher|
         teacher && teacher == user
       end
+      allow 'payment/change_records', [:index] do |resource|
+        resource.id == user.id
+      end
+      allow 'payment/billings', [:index]
       ## end live studio permission
     end
     private

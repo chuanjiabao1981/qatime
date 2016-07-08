@@ -27,3 +27,4 @@ aliyun_ac: aliyun_ac
 aliyun_ak: aliyun_ak
 bucket_online: bucket-online
 bucket_test: bucket-test
+bucket_testing: qatime-testing

@@ -9,7 +9,7 @@ module LiveStudio
 
     # GET /manager/courses/1
     def show
-      @lessons = @course.lessons
+      @lessons = @course.lessons.order(:id).paginate(page: params[:page])
     end
 
     # GET /manager/courses/new

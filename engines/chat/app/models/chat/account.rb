@@ -11,6 +11,7 @@ module Chat
     def self.create_by_user(user)
       user.create_chat_account(
         accid: SecureRandom.hex(16)
+        name: user.nick_name
       )
     end
 

@@ -10,9 +10,13 @@ module LiveService
       ::Chat::Account.create_by_user(@user)
     end
 
-    def sync_uinfo
+    def sync_chat_uinfo
       return if @user.chat_account.blank?
-      @user.chat_account.update_uinfo
+      @user.chat_account.sync_uinfo
+    end
+
+    def init_account_for_live
+      # 初始化
     end
 
   end

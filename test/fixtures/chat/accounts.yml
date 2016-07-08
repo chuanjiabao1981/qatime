@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+chat_account:
+  user_id: 3
+  accid: "a37ca1b885bae8d732f88a2ae35218c4"
+
+student_chat_account:
+  user_id: 9
+  accid: "a37ca1b885bae8d732f88a2ae35218c4"

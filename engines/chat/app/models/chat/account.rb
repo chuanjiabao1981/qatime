@@ -50,7 +50,7 @@ module Chat
       self.update_columns(result[:info].symbolize_keys) if result[:code] == 200
     end
 
-    def sync_uinfo
+    def sync_uinfo #同步用户名片
       update_uinfo
       res = get_uinfo
       self.update_columns(accid: res[:accid], name: res[:name])

@@ -50,6 +50,12 @@ module Chat
       self.update_columns(result[:info].symbolize_keys) if result[:code] == 200
     end
 
+    def sync_uinfo
+      update_uinfo
+      res = get_uinfo
+      self.update_columns(accid: res[:accid], name: res[:name])
+    end
+
     def update_uinfo #更新用户名片
       update_data = %Q{accid=#{accid}&name=#{user.nick_name}}
 
@@ -61,7 +67,6 @@ module Chat
       result = JSON.parse(res.body).symbolize_keys
 
       raise ActiveRecord::Rollback unless res.success? && result[:code] == 200
-      self.update_columns(accid: get_uinfo[:accid], name: get_uinfo[:name])
     end
 
     def get_uinfo #获取用户名片

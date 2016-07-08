@@ -116,6 +116,6 @@ class User < ActiveRecord::Base
   # end
 
   # def update_chat_account_uinfo
-  #   chat_account.update_uinfo
+  #   chat_account.sync_uinfo
   # end
 end

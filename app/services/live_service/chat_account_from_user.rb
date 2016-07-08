@@ -12,7 +12,7 @@ module LiveService
 
     def sync_uinfo
       return if @user.chat_account.blank?
-      @user.chat_account.update_uinfo
+      @user.chat_account.sync_uinfo
     end
 
   end

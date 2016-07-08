@@ -59,6 +59,20 @@ teacher2:
   school: school1
   type: Teacher
 
+teacher3:
+  id: 3
+  name: teacher3
+  nick_name: teacher_3
+  role: teacher
+  category: 高中
+  subject: 数学
+  mobile: 15910676326
+  email: 3@baidu.com
+  avatar: test
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  school: school1
+  type: Teacher
+
 # Teacher account used for test tally
 teacher_tally:
   name: teacher_tally

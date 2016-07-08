@@ -44,6 +44,10 @@ module LiveStudio
       push_streams.last
     end
 
+    def pull_stream
+      pull_streams.last
+    end
+
     scope :for_sell, -> { where(status: [Course.statuses[:preview], Course.statuses[:teaching]]) }
 
     # teacher's name. return blank when teacher is missiong
@@ -142,6 +146,12 @@ module LiveStudio
     # 是否可以结课
     def ready_for_close?
       teaching? && completed_lesson_count >= preset_lesson_count
+    end
+
+    # TODO
+    # 当前直播课程
+    def current_lesson
+      lessons.last
     end
 
     private

@@ -35,11 +35,7 @@ module Permissions
         notification and notification.receiver_id == user.id
       end
 
-
-      allow 'live_studio/courses', [:index, :taste]
-
-
+      allow 'live_studio/courses', [:index, :taste, :play]
     end
-
   end
 end

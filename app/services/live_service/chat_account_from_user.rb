@@ -1,8 +1,13 @@
 module LiveService
   class ChatAccountFromUser
-
     def initialize(user)
       @user = user
+    end
+
+    def instance_account
+      result = ::Chat::IM.user_create(accid: random_accid, name: @user.nick_name, icon: @user.avatar_url(:tiny))
+      p result
+      ::Chat::Account.create(user: @user, accid: result['accid'], token: result['token'], name: @user.nick_name, icon: @user.avatar_url(:tiny))
     end
 
     def set_chat_account
@@ -19,5 +24,10 @@ module LiveService
       # 初始化
     end
 
+    private
+
+    def random_accid
+      SecureRandom.hex(16)
+    end
   end
 end

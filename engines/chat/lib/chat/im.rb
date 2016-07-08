@@ -1,6 +1,6 @@
 module Chat
   class IM
-    IM_HOST = 'https://api.netease.im/nimserver'.freeze
+    IM_HOST = 'https://api.netease.im'.freeze
     cattr_accessor :app_key, :app_secret
 
     def self.config(conf)
@@ -10,23 +10,26 @@ module Chat
 
     def self.team_create(params)
       params = { magree: 0, joinmode: 2 }.merge(params)
-      post_request("#{IM_HOST}/team/create.action", params)
+      result = post_request("/team/create.action", params)
+      result['tid'] if result
     end
 
     def self.team_add(tid, owner, msg, members)
       params = { magree: 0, tid: tid, owner: owner, msg: msg, members: members }
-      post_request("#{IM_HOST}/team/add.action", params)
+      post_request("/team/add.action", params)
     end
 
-    def self.user_create
+    def self.user_create(params)
+      result = post_request("/user/create.action", params)
+      result['info'] if result
     end
 
     private_class_method
 
-    def self.post_request(url, body)
+    def self.post_request(uri, body)
       body = body.map {|k, v| "#{k}=#{v}"}.join("&") if body.is_a?(Hash)
-      res = Typhoeus.post(url, headers: headers, body: body)
-      return JSON.parse(res.body)['tid'] if res.success?
+      res = Typhoeus.post("#{IM_HOST}/nimserver#{uri}", headers: headers, body: body)
+      return JSON.parse(res.body) if res.success?
       Rails.logger.error("云信服务器通信错误\n#{url}\n#{body}")
       nil
     end

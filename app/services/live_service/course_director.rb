@@ -9,12 +9,13 @@ module LiveService
       # 初始化直播推拉流
       instance_studio
       teacher = @course.teacher
+      chat_account = teacher.chat_account
       # 检查教师云信ID
-      instance_account(teacher) unless teacher.chat_account
+      chat_account ||= instance_account(teacher)
       user_ids = @course.tickets.map(&:student_id)
       members = Chat::Account.where(id: user_ids)
       # 初始化聊天群组
-      instance_team(teacher.chat_account, members)
+      instance_team(chat_account, members)
     end
 
     # 辅导班授权
@@ -34,7 +35,7 @@ module LiveService
     def instance_team(owner, members)
       # 创建群组，默认不需要用户同意、不允许任何人申请加入
       team_id = Chat::IM.team_create(tname: "#{@course.name} 讨论组", owner: owner.accid, members: [], msg: "#{@course.name} 讨论组")
-      team = Chat::Team.create(team_id: team_id, name: "#{@couse.name} 讨论组", live_studio_course: @course)
+      team = Chat::Team.create(team_id: team_id, name: "#{@course.name} 讨论组", live_studio_course: @course)
       add_to_team(team, [owner], 'owner') # 教师最为owner加入群组
       add_to_team(team, members, 'normal') # 加入现有学生进入群组
     end
@@ -50,7 +51,7 @@ module LiveService
     end
 
     def instance_account(user)
-      LiveService::ChatAccountFromUser.new(user).set_chat_account
+      LiveService::ChatAccountFromUser.new(user).instance_account
     end
   end
 end

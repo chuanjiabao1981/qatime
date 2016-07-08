@@ -7,7 +7,7 @@ module Chat
     has_many :join_records
     has_many :teams, through: :join_records
 
-    after_create :set_chat_account
+    # after_create :set_chat_account
 
     def self.create_by_user(user)
       user.create_chat_account(

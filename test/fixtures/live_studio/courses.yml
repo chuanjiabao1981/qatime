@@ -26,8 +26,11 @@ course_destroy_teacher:
 
 course_init:
   name: 初始化辅导班
-  teacher: users(:teacher1)
-  workstation: workstation(:workstation1)
+  teacher: teacher1
+  workstation: workstation1
+  teacher_percentage: 30
+  preset_lesson_count: 10
+  price: 1000
   status: 0
 
 course_preview:
@@ -98,6 +101,16 @@ tasting_course:
   teacher_id: 10
   workstation_id: 1
   status: 1
+  teacher_percentage: 20
+  preset_lesson_count: 10
+  lesson_price: 20
+  price: 200
+
+course_without_chat_team:
+  name: 没有聊天群组的辅导班
+  teacher: teacher_without_chat_account
+  workstation: workstation1
+  status: 0
   teacher_percentage: 20
   preset_lesson_count: 10
   lesson_price: 20

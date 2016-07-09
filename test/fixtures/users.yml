@@ -205,6 +205,18 @@ english_teacher:
   school: school1
   type: Teacher
 
+teacher_without_chat_account:
+  name: 没有云信ID的老师
+  role: teacher
+  category: 高中
+  subject: 英语
+  mobile: 15910676326
+  email: teacher_without_chat_account@qatime.cn
+  avatar: "test"
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  school: school1
+  type: Teacher
+
 cash_admin:
   id: 11
   name: 系统财务账户

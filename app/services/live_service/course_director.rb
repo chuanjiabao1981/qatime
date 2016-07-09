@@ -18,7 +18,7 @@ module LiveService
       instance_team(chat_account, members)
     end
 
-    # 辅导班授权
+    # 辅导播放班授权
     def authorize_for_course(lesson)
     end
 

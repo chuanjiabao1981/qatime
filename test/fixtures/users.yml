@@ -217,6 +217,18 @@ teacher_without_chat_account:
   school: school1
   type: Teacher
 
+teacher_with_chat_account:
+  name: 有云信ID的老师
+  role: teacher
+  category: 高中
+  subject: 英语
+  mobile: 15910676326
+  email: course_with_junior_teacher@qatime.cn
+  avatar: "test"
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  school: school1
+  type: Teacher
+
 cash_admin:
   id: 11
   name: 系统财务账户
@@ -226,3 +238,21 @@ cash_admin:
   avatar: test
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   type: CashAdmin
+
+waiter:
+  name: 客服
+  role: waiter
+  email: waiter@qatime.cn
+  mobile: 15811110111
+  workstation: workstation1
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  type: Waiter
+
+seller:
+  name: 销售
+  role: seller
+  email: seller@qatime.cn
+  mobile: 15811110111
+  workstation: workstation1
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  type: Seller

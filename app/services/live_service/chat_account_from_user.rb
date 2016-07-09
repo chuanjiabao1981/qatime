@@ -6,7 +6,6 @@ module LiveService
 
     def instance_account
       result = ::Chat::IM.user_create(accid: random_accid, name: @user.nick_name, icon: @user.avatar_url(:tiny))
-      p result
       ::Chat::Account.create(user: @user, accid: result['accid'], token: result['token'], name: @user.nick_name, icon: @user.avatar_url(:tiny))
     end
 

@@ -7,3 +7,9 @@ chat_account:
 student_chat_account:
   user_id: 9
   accid: "a37ca1b885bae8d732f88a2ae35218c4"
+
+teacher_chat_account:
+  user: course_with_junior_teacher
+  accid: teacher_chat_account
+  token: teacher_chat_account
+  name: teacher_chat_account

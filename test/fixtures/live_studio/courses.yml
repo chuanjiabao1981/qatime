@@ -115,3 +115,13 @@ course_without_chat_team:
   preset_lesson_count: 10
   lesson_price: 20
   price: 200
+
+course_with_junior_teacher:
+  name: 教师有云信ID的聊天室
+  teacher: teacher_with_chat_account
+  workstation: workstation1
+  status: 0
+  teacher_percentage: 20
+  preset_lesson_count: 10
+  lesson_price: 20
+  price: 200

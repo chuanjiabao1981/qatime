@@ -14,7 +14,7 @@ module LiveService
 
     def set_chat_account
       return if @user.chat_account.present?
-      instance_chat_account
+      instance_account
     end
 
     # 更新同步网易云信名片
@@ -24,7 +24,7 @@ module LiveService
       # 更新获取网易云信名片
       chat_account = @user.chat_account
       Chat::IM.update_uinfo(chat_account)
-      uinfo = Chat::IM.get_uinfo(.chat_account)
+      uinfo = Chat::IM.get_uinfo(chat_account)
 
       chat_account.update_columns(uinfo)
     end

@@ -50,7 +50,6 @@ module Chat
     def self.get_uinfo(chat_account)
       params = {accids: [chat_account.accid]}
       result = post_request("/user/getUinfos.action", params)
-      p result
       if result['code'] == 200
         result = result['uinfos'][0]
         result.delete('gender')

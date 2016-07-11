@@ -17,19 +17,35 @@ module LiveStudio
       Capybara.use_default_driver
     end
 
-    test "student buy course without account" do
+    test "student taste course without account" do
       course = live_studio_courses(:course_with_lessons)
       visit live_studio.courses_index_path(student_id: @student)
-
-      assert_nil @student.chat_account
 
       assert_difference "course.reload.taste_tickets.count", 1, "不能正确生成试听证" do
         assert_difference "@student.live_studio_courses.count", 1, "不能正确试听辅导班" do
           click_on("taste-course-#{course.id}")
-          p @student.chat_account
-          assert_not_nil @student.chat_account
           assert has_no_selector?("#taste-course-#{course.id}")
+
+          @student.reload
+          assert_not_nil @student.chat_account, "没有正确创建云信ID"
+          @student.chat_account.destroy
         end
+      end
+    end
+
+    test "student buy course without account" do
+      p "test2"
+
+      visit live_studio.courses_index_path(student_id: @student)
+      course_preview = live_studio_courses(:course_preview)
+      assert_difference '@student.orders.count', 1, "辅导班下单失败" do
+        click_on("buy-course-#{course_preview.id}")
+        choose("order_pay_type_1")
+        click_on("新增订单")
+
+        @student.reload
+        assert_not_nil @student.chat_account
+        @student.chat_account.destroy
       end
     end
 

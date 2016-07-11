@@ -6,13 +6,15 @@ module LiveService
 
     # 创建聊天群组
     # 创建群组，默认不需要用户同意、不允许任何人申请加入
-    def instance_team(course, teacher_account)
+    def instance_team(course, teacher_account = nil)
       if course.chat_team
         @team = course.chat_team
         return @team
       end
+      teacher_account = course.teacher.chat_account
+      teacher_account ||= LiveService::ChatAccountFromUser.new(course.teacher).instance_account
       team_id = Chat::IM.team_create(tname: "#{course.name} 讨论组", owner: teacher_account.accid, members: [], msg: "#{course.name} 讨论组")
-      @team = Chat::Team.create(team_id: team_id, name: "#{@course.name} 讨论组", live_studio_course: @course)
+      @team = Chat::Team.create(team_id: team_id, name: "#{course.name} 讨论组", live_studio_course: course)
     end
 
     def remove_members(user_ids)

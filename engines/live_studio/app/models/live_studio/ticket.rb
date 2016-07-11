@@ -53,7 +53,7 @@ module LiveStudio
 
     after_create :add_to_team
     def add_to_team
-      Chat::TeamMemberCreaterJob.perform_later(course_id, student_id)
+      ::Chat::TeamMemberCreatorJob.perform_later(course.id, student_id)
     end
   end
 end

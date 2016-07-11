@@ -229,6 +229,18 @@ teacher_with_chat_account:
   school: school1
   type: Teacher
 
+teacher_for_taste_course:
+  name: 试听辅导班的老师
+  role: teacher
+  category: 高中
+  subject: 英语
+  mobile: 15910676326
+  email: teacher_for_taste_course@qatime.cn
+  avatar: "test"
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  school: school1
+  type: Teacher
+
 cash_admin:
   id: 11
   name: 系统财务账户

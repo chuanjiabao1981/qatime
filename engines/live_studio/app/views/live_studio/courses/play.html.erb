@@ -92,7 +92,7 @@ $(function() {
   $("#message-form").submit(function() {
     var msg = live_chat.nim.sendText({
       scene: 'team',
-      to: live_chat.team_id,
+      to: live_chat.teamId,
       text: $("#message-area").val(),
       done: sendMsgDone
     });

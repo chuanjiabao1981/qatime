@@ -1,6 +1,7 @@
 (function(e) {
   var data = {};
   var nim;
+  var team = {};
 
   function onConnect() {
       console.log('连接成功');
@@ -32,12 +33,6 @@
       console.log(error);
   }
 
-
-  function onTeams(teams) {
-      console.log('收到群列表', teams);
-      data.teams = nim.mergeTeams(data.teams, teams);
-      onInvalidTeams(teams.invalid);
-  }
   function onInvalidTeams(teams) {
       data.teams = nim.cutTeams(data.teams, teams);
       data.invalidTeams = nim.mergeTeams(data.invalidTeams, teams);
@@ -84,8 +79,26 @@
   }
   function onMsg(msg) {
       console.log('收到消息', msg.scene, msg.type, msg);
+      // 不是该聊天组消息
+      if(msg.scene != "team" || msg.to != team.id ) {
+        console.log(msg.scene != "team");
+        console.log(team.id);
+        console.log(msg.to);
+        console.log(msg.to != team.id);
+        return;
+      }
       pushMsg(msg);
-      onCustomMsg(msg);
+      switch (msg.type) {
+      case 'custom':
+          onCustomMsg(msg);
+          break;
+      case 'notification':
+          // 处理群通知消息
+          onTeamNotificationMsg(msg);
+          break;
+      default:
+          break;
+      }
   }
   function pushMsg(msgs) {
     console.log(msgs);
@@ -94,14 +107,70 @@
       data.msgs = data.msgs || {};
       data.msgs[sessionId] = nim.mergeMsgs(data.msgs[sessionId], msgs);
   }
+
+  function onTeams(teams) {
+    console.log('收到群列表', teams);
+    data.teams = nim.mergeTeams(data.teams, teams);
+    $.each(data.teams, function(index, team) {
+      if(team.teamId == this.teamId){
+        if(team.announcement) teamAnnouncement(team.announcement);
+        return;
+      } 
+    });
+    onInvalidTeams(teams.invalid);
+  }
+
+  // 系统消息
+  function onTeamNotificationMsg(msg) {
+    // 处理群通知消息
+    var type = msg.attach.type,
+        from = msg.from,
+        teamId = msg.to,
+        timetag = msg.time,
+        team = msg.attach.team,
+        account = msg.attach.account,
+        accounts = msg.attach.accounts,
+        members = msg.attach.members;
+
+
+    switch (type) {
+    case 'updateTeam':
+        team.updateTime = timetag;
+        onTeams(team);
+        break;
+    case 'addTeamMembers':
+        onAddTeamMembers(team, accounts, members);
+        break;
+    case 'removeTeamMembers':
+        onRemoveTeamMembers(team, teamId, accounts);
+        break;
+    case 'acceptTeamInvite':
+        onAddTeamMembers(team, [from], members);
+        break;
+    case 'passTeamApply':
+        onAddTeamMembers(team, [account], members);
+        break;
+    case 'addTeamManagers':
+        updateTeamManagers(teamId, members);
+        break;
+    case 'removeTeamManagers':
+        updateTeamManagers(teamId, members);
+        break;
+    case 'leaveTeam':
+        onRemoveTeamMembers(team, teamId, [from]);
+        break;
+    case 'dismissTeam':
+        dismissTeam(teamId);
+        break;
+    case 'transferTeam':
+        transferTeam(team, members);
+        break;
+    }
+  }
+
   function onCustomMsg(msg) {
     // 处理自定义消息
     $("#messages").append("<div>" + msg.fromNick + "说: " + msg.text + "</div>");
-  }
-
-  function onTeamNotificationMsg(msg) {
-    // 系统消息处理
-    $("#messages").append("<div>" + msg + "</div>");
   }
 
   function refreshTeamMembersUI(teamId) {
@@ -117,12 +186,17 @@
       $("#members-panel").append(media);
     });
   }
+
+  function teamAnnouncement(announcement) {
+    $("#notice-panel").html("<p>" + announcement + "</p>")
+  }
   e.LiveChat = function(appKey) {
     this.appKey = appKey;
-    this.config = function(account, token, team_id) {
-      this.team_id = team_id;
+    this.config = function(account, token, teamId) {
+      this.teamId = teamId;
       this.account = account;
       this.token = token;
+      team.id = this.teamId;
     };
     this.init = function() {
       nim = this.nim = NIM.getInstance({

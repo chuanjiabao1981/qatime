@@ -19,10 +19,10 @@ module LiveStudio
     test "student search course" do
       course_init = live_studio_courses(:course_init)
       visit live_studio.courses_index_path(student_id: @student)
-      course_preview = live_studio_courses(:course_preview)
+      course_preview_two = live_studio_courses(:course_preview_two)
       course_teaching = live_studio_courses(:course_teaching)
       assert(page.has_no_link?("buy-course-#{course_init.id}"), "购买链接错误显示")
-      assert(page.has_link?("buy-course-#{course_preview.id}"), "不能正常购买辅导班")
+      assert(page.has_link?("buy-course-#{course_preview_two.id}"), "不能正常购买辅导班")
       assert(page.has_link?("buy-course-#{course_teaching.id}"), "不能正常购买辅导班")
     end
 

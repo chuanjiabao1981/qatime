@@ -25,7 +25,7 @@ module LiveService
 
     # 拉入群组
     def add_to_team(members, role, remote = false)
-      members = members.to_a
+      members = members.to_a.compact
       current_members = @team.join_records.map(&:account_id)
       members.delete_if {|m| current_members.include?(m.id)}
       Chat::IM.team_add(@team.team_id, @team.owner, "#{@course.name} 讨论组", members) if remote

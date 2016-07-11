@@ -42,6 +42,14 @@ course_preview:
   price: 1000
   preset_lesson_count: 2
 
+course_preview_two:
+  name: 招生中的辅导班2
+  teacher: teacher1
+  workstation: workstation
+  status: 1
+  price: 1000
+  preset_lesson_count: 10
+
 course_teaching:
   name: 上课中的辅导班
   teacher: users(:teacher1)

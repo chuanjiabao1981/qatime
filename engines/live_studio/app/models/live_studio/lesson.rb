@@ -40,40 +40,10 @@ module LiveStudio
       end
 
       event :finish do
-        before do
-          self.teacher_id = course.teacher_id
-          # TODO 需要改成付费听课人数
-          self.live_count = play_records.count # 听课人数
-          self.live_end_at = Time.now
-          self.real_time = ((live_end_at - live_start_at) / 60.0).ceil # 实际直播时间
-        end
-
-        after do
-          used_taste_tickets # 过期试听证
-          complete!
-        end
         transitions from: :teaching, to: :finished
       end
 
       event :complete do
-        before do
-          # 本次课程学费
-          # 根据学生单次课程成本价计算
-          money = course.buy_tickets.sum(:lesson_price)
-          billing = billings.create(total_money: money, summary: "课程完成结算, 结算金额: #{money}")
-          Payment::CashAccount.transaction do
-            # 系统支出
-            decrease_cash_admin_account(money, billing)
-            # 系统收取佣金
-            money -= system_fee!(money, billing)
-            # 教师分成
-            money -= teacher_fee!(money, billing)
-            # 代理商分成
-            manager_fee!(money, billing)
-            # 更新辅导课程完成数量
-            course.reset_completed_lesson_count!
-          end
-        end
         transitions from: :finished, to: :completed
       end
     end

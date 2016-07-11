@@ -48,5 +48,12 @@ module LiveStudio
     def authorizable?
       self[:status] < Ticket.statuses[:pre_used]
     end
+
+    private
+
+    after_create :add_to_team
+    def add_to_team
+      Chat::TeamMemberCreaterJob.perform_later(course_id, student_id)
+    end
   end
 end

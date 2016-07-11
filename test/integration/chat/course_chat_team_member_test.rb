@@ -1,0 +1,54 @@
+require 'test_helper'
+
+module LiveStudio
+  class CourseChatTeamMemberTest < ActionDispatch::IntegrationTest
+    def setup
+      @routes = Engine.routes
+      @headless = Headless.new
+      @headless.start
+      @student = users(:student1)
+      team_results = 10.times.map { Typhoeus::Response.new(code: 200, body: {status: 200, 'tid': SecureRandom.hex(16)}.to_json)}
+      Typhoeus.stub('https://api.netease.im/nimserver/team/create.action').and_return(team_results)
+      account_results = 10.times.map { Typhoeus::Response.new(code: 200, body: {status: 200, 'info': {accid: SecureRandom.hex(16), token: SecureRandom.hex(16)} }.to_json)}
+      Typhoeus.stub('https://api.netease.im/nimserver/user/create.action').and_return(account_results)
+      Capybara.current_driver = :selenium_chrome
+      log_in_as(@student)
+    end
+
+    def teardown
+      logout_as(@student)
+      Capybara.use_default_driver
+    end
+
+    test 'student taste course join team' do
+      course = live_studio_courses(:course_for_taste)
+      visit live_studio.courses_path
+      assert_difference "course.taste_tickets.count", 1, "试听失败" do
+        click_link("taste-course-#{course.id}")
+        Chat::TeamMemberCreatorJob.perform_now(course.id, @student.id)
+        @student.reload
+        course.reload
+      end
+      assert_not_nil @student.chat_account, "学生没有创建云信ID"
+      assert_not_nil course.reload.chat_team, "没有自动创建聊天群组"
+      assert course.chat_team.accounts.includes(@student.chat_account), "没有正确加入群组"
+    end
+
+    test 'student buy course join team' do
+      course = live_studio_courses(:course_for_tasting)
+      visit live_studio.courses_path
+      assert_difference "course.buy_tickets.count", 1, "购买失败" do
+        click_link("buy-course-#{course.id}")
+        choose("order_pay_type_1")
+        click_on("新增订单")
+        Chat::TeamMemberCreatorJob.perform_now(course.id, @student.id)
+        @student.reload
+        course.reload
+      end
+      assert_not_nil @student.chat_account, "学生没有创建云信ID"
+      assert_not_nil course.reload.chat_team, "没有自动创建聊天群组"
+      assert course.chat_team.accounts.includes(@student.chat_account), "没有正确加入群组"
+    end
+
+  end
+end

@@ -125,3 +125,23 @@ course_with_junior_teacher:
   preset_lesson_count: 10
   lesson_price: 20
   price: 200
+
+course_for_taste:
+  name: 试听辅导班
+  teacher: teacher_for_taste_course
+  workstation_id: workstation1
+  status: 1
+  teacher_percentage: 20
+  preset_lesson_count: 10
+  lesson_price: 20
+  price: 200
+
+course_for_tasting:
+  name: 正在试听辅导班
+  teacher: teacher_for_taste_course
+  workstation_id: workstation1
+  status: 1
+  teacher_percentage: 20
+  preset_lesson_count: 10
+  lesson_price: 20
+  price: 200

@@ -15,7 +15,7 @@ module LiveStudio
 
       @taste_ticket = @course.taste_tickets.find_by(student: @student)
 
-      LiveService::ChatAccountFromUser.new(@student).set_chat_account
+      LiveService::ChatAccountFromUser.new(@student).instance_account
     end
 
     def show

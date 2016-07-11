@@ -41,7 +41,7 @@
           <div class="panel-body" id="members-panel" style="display: none;">
           </div>
           <div class="panel-body" id="message-panel">
-            <div id="messages">
+            <div id="messages" style="height: 260px; overflow-y: scroll;">
             </div>
             <div>
               <form action="##" id="message-form">
@@ -90,10 +90,12 @@ $(function() {
   });
 
   $("#message-form").submit(function() {
+    msg = $("#message-area").val().trim();
+    if(msg == '') return false;
     var msg = live_chat.nim.sendText({
       scene: 'team',
       to: live_chat.teamId,
-      text: $("#message-area").val(),
+      text: msg,
       done: sendMsgDone
     });
     console.log('正在发送p2p text消息, id=' + msg.idClient);

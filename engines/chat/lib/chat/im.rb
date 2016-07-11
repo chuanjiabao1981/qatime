@@ -19,11 +19,6 @@ module Chat
       post_request("/team/add.action", params)
     end
 
-    def self.user_create(params)
-      result = post_request("/user/create.action", params)
-      result['info'] if result
-    end
-
     # 创建云信ID
     def self.account_create(params)
       result = post_request("/user/create.action", params)

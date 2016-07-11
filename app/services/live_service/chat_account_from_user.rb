@@ -8,12 +8,8 @@ module LiveService
       return if @user.chat_account.present?
 
       result_data = Chat::IM.account_create(accid: "#{random_accid}", name: "#{@user.nick_name}", icon: "#{@user.avatar_url(:tiny)}")
-
       create_data = {name: @user.name, icon: @user.avatar_url(:tiny)}
-
-      create_data.merge(result_data)
-
-      @user.create_chat_account(create_data)
+      @user.create_chat_account(create_data.merge(result_data))
     end
 
     # 更新同步网易云信名片

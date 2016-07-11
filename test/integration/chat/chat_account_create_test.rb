@@ -34,8 +34,6 @@ module LiveStudio
     end
 
     test "student buy course without account" do
-      p "test2"
-
       visit live_studio.courses_index_path(student_id: @student)
       course_preview = live_studio_courses(:course_preview)
       assert_difference '@student.orders.count', 1, "辅导班下单失败" do

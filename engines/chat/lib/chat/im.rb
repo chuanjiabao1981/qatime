@@ -26,7 +26,7 @@ module Chat
     end
 
     # 云信ID更新
-    def self.update_chat_account(chat_account)
+    def self.update_account(chat_account)
       params = {accid: chat_account.accid}
       post_request("/user/update.action", params)
     end

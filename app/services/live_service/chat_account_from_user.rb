@@ -5,16 +5,15 @@ module LiveService
     end
 
     def instance_account
-      result_data = Chat::IM.account_create(accid: "#{random_accid}", name: "#{@user.nick_name}", icon: "#{@user.avatar_url(:tiny)}")
-      chat_account = @user.create_chat_account(result_data)
-
-      uinfo = Chat::IM.get_uinfo(chat_account)
-      chat_account.update_columns(uinfo)
-    end
-
-    def set_chat_account
       return if @user.chat_account.present?
-      instance_account
+
+      result_data = Chat::IM.account_create(accid: "#{random_accid}", name: "#{@user.nick_name}", icon: "#{@user.avatar_url(:tiny)}")
+
+      create_data = {name: @user.name, icon: @user.avatar_url(:tiny)}
+
+      create_data.merge(result_data)
+
+      @user.create_chat_account(create_data)
     end
 
     # 更新同步网易云信名片

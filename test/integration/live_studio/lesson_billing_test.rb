@@ -39,8 +39,6 @@ module LiveStudio
       assert_difference 'course.reload.completed_lesson_count', 1, "没有更新辅导班课程完成数量" do
         assert_difference 'course.reload.current_price.to_f', -20, "课程完成以后课程价格没有修改" do
           click_on("结束直播")
-          p lesson.reload.status
-          p course.reload.lessons.map(&:status)
         end
       end
       lesson.reload

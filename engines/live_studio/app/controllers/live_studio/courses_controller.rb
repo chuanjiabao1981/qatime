@@ -38,8 +38,12 @@ module LiveStudio
     def update_notice
       @course = Course.find(params[:id])
       @teacher = @course.teacher
+      team = @course.chat_team
       attrs = params.require(:team).permit(:announcement)
-      @course.chat_team.update_columns(attrs)
+
+      team.update_columns(attrs)
+      team.reload
+      Chat::IM.team_update(tid: team.team_id, announcement: team.announcement)
 
       redirect_to teacher_course_path(@teacher, @course)
     end

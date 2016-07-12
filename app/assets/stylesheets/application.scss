@@ -382,4 +382,40 @@ footer .copyright
   background-color: #f2dede;
   border-color: #ebccd1;
 }
+
+#chat-panels {
+  border: 1px solid #dddddd;
+  border-top: none;
+}
+
+#tool-bar {
+  margin: 0 -15px;
+  height: 30px;
+  border: 1px solid #dddddd;
+  border-left: none;
+  border-right: none;
+}
+
+#message-input {
+  margin: 0 -15px;
+}
+
+#message-input textarea {
+  resize: none;
+  border: none;
+}
+
+#message-input div {
+  padding: 0;
+  height: 104px;
+}
+
+#message-input #send-btn {
+  width: 100%;
+  height: 100%;
+}
+
+#message-panel {
+  padding-bottom: 0;
+}
 //-----end

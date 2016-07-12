@@ -43,7 +43,7 @@ module LiveStudio
 
       team.update_columns(attrs)
       team.reload
-      Chat::IM.team_update(tid: team.team_id, announcement: team.announcement)
+      Chat::IM.team_update(tid: team.team_id, owner: team.owner, announcement: team.announcement)
 
       redirect_to teacher_course_path(@teacher, @course)
     end

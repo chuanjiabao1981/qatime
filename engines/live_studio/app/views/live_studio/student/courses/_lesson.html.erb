@@ -29,7 +29,7 @@
         </td>
         <td>
           <% if lesson.can_play? %>
-            <%= link_to t("activerecord.view.begin_watch_live_studio"), play_course_lesson_path(@course, lesson) if @play_hash[lesson.id] || @ticket.authorizable? %>
+            <%= link_to t("activerecord.view.begin_watch_live_studio"), play_course_path(@course) if @play_hash[lesson.id] || @ticket.authorizable? %>
           <% end %>
         </td>
       </tr>

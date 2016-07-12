@@ -5,13 +5,30 @@
   <%= javascript_include_tag "live_studio/nep.min.js" %>
   <%= javascript_include_tag "live_studio/Web_SDK_Base_v2.4.0.js" %>
   <%= javascript_include_tag "live_studio/Web_SDK_NIM_v2.4.0.js" %>
+  <%= javascript_include_tag "live_studio/chat.js" %>
 <% end %>
-
 
 <% channel = @course.channels.first %>
 <div class="qa_sep_15"></div>
 
-<div class="row">
+<div class="row" style="width: 1200px;">
+
+  <div class="col-md-8" style="padding: 0px;">
+    <!-- 根据flash是否安装，来显示 -->
+    <video id="my-video" class="video-js" controls poster="<%= image_url('publish-bg.png') %>" preload="auto" width="800" height="480" data-setup='{}' style="display:none;">
+      <source "src"="MY_VIDEO.mp4" type="video/mp4">
+    </video>
+
+    <div style="display:none; height: 480px; width: 800px; background-color: #FFF; padding-top: 50px" id="no-flash-area">
+      <p align="center">
+        <%= t("activerecord.view.flash_can_not_call_msg.flash_uninstall_or_too_old_msg") %><a href="https://get.adobe.com/cn/flashplayer/"><%= t("activerecord.view.flash_can_not_call_msg.click_here_msg") %></a><%= t("activerecord.view.flash_can_not_call_msg.install_flash_msg") %>
+      </p>
+    </div>
+  </div>
+
+  <div class="col-md-1">
+  </div>
+
   <div class="col-md-4">
     <div class="panel panel-default">
       <div class="panel-body">
@@ -24,7 +41,7 @@
           <div class="panel-body" id="members-panel" style="display: none;">
           </div>
           <div class="panel-body" id="message-panel">
-            <div id="messages">
+            <div id="messages" style="height: 260px; overflow-y: scroll;">
             </div>
             <div>
               <form action="##" id="message-form">
@@ -40,21 +57,6 @@
     </div>
   </div>
 
-  <div class="col-md-1">
-  </div>
-
-  <div class="col-md-8">
-    <!-- 根据flash是否安装，来显示 -->
-    <video id="my-video" class="video-js" controls poster="<%= image_url('publish-bg.png') %>" preload="auto" width="800" height="480" data-setup='{}' style="display:none;">
-      <source "src"="MY_VIDEO.mp4" type="video/mp4">
-    </video>
-
-    <div style="display:none; height: 480px; width: 800px; background-color: #FFF; padding-top: 50px" id="no-flash-area">
-      <p align="center">
-        <%= t("activerecord.view.flash_can_not_call_msg.flash_uninstall_or_too_old_msg") %><a href="https://get.adobe.com/cn/flashplayer/"><%= t("activerecord.view.flash_can_not_call_msg.click_here_msg") %></a><%= t("activerecord.view.flash_can_not_call_msg.install_flash_msg") %>
-      </p>
-    </div>
-  </div>
 </div>
 
 <div id="media-template" style="display: none;">
@@ -69,8 +71,15 @@
   <div>
 </div>
 
+<%= content_for :javascript do %>
 <script>
+
 $(function() {
+
+  var live_chat = new LiveChat("<%= Chat::IM.app_key %>");
+  live_chat.config("<%= @chat_account.accid %>", "<%= @chat_account.token %>", "<%= @chat_team.team_id %>");
+  live_chat.init();
+
   $("#chat-tabs").click(function(event) {
     if($(event.target).parent("li").hasClass("active")) return false;
     $("#chat-tabs li").removeClass("active");
@@ -81,15 +90,17 @@ $(function() {
   });
 
   $("#message-form").submit(function() {
-    var msg = nim.sendText({
+    msg = $("#message-area").val().trim();
+    if(msg == '') return false;
+    var msg = live_chat.nim.sendText({
       scene: 'team',
-      to: '7443987',
-      text: $("#message-area").val(),
+      to: live_chat.teamId,
+      text: msg,
       done: sendMsgDone
     });
     console.log('正在发送p2p text消息, id=' + msg.idClient);
     $("#message-area").val("");
-    pushMsg(msg);
+    live_chat.pushMsg(msg);
     return false;
   });
 
@@ -98,146 +109,12 @@ $(function() {
       console.log(msg);
       console.log('发送' + msg.scene + ' ' + msg.type + '消息' + (!error?'成功':'失败') + ', id=' + msg.idClient);
       $("#messages").append("<div>我 说: " + msg.text + "</div>");
-      pushMsg(msg);
+      live_chat.pushMsg(msg);
   }
-
-  var data = {};
-  var nim = NIM.getInstance({
-    // debug: true,
-    appKey: '598009675f2c399d27f3292c3425c1a8',
-    account: 'cwheart',
-    token: 'cwheart',
-    onconnect: onConnect,
-    onwillreconnect: onWillReconnect,
-    ondisconnect: onDisconnect,
-    onerror: onError,
-    onteams: onTeams,
-    onsynccreateteam: onCreateTeam,
-    onteammembers: onTeamMembers,
-    onsyncteammembersdone: onSyncTeamMembersDone,
-    onupdateteammember: onUpdateTeamMember,
-    onroamingmsgs: onRoamingMsgs,
-    onofflinemsgs: onOfflineMsgs,
-    onmsg: onMsg
-  });
-  function onConnect() {
-      console.log('连接成功');
-  }
-  function onWillReconnect(obj) {
-      // 此时说明 SDK 已经断开连接, 请开发者在界面上提示用户连接已断开, 而且正在重新建立连接
-      console.log('即将重连');
-      console.log(obj.retryCount);
-      console.log(obj.duration);
-  }
-  function onDisconnect(error) {
-      // 此时说明 SDK 处于断开状态, 开发者此时应该根据错误码提示相应的错误信息, 并且跳转到登录页面
-      console.log('丢失连接');
-      console.log(error);
-      if (error) {
-          switch (error.code) {
-          // 账号或者密码错误, 请跳转到登录页面并提示错误
-          case 302:
-              break;
-          // 被踢, 请提示错误后跳转到登录页面
-          case 'kicked':
-              break;
-          default:
-              break;
-          }
-      }
-  }
-  function onError(error) {
-      console.log(error);
-  }
-
-
-  function onTeams(teams) {
-      console.log('收到群列表', teams);
-      data.teams = nim.mergeTeams(data.teams, teams);
-      onInvalidTeams(teams.invalid);
-  }
-  function onInvalidTeams(teams) {
-      data.teams = nim.cutTeams(data.teams, teams);
-      data.invalidTeams = nim.mergeTeams(data.invalidTeams, teams);
-      refreshTeamsUI();
-  }
-  function onCreateTeam(team) {
-      console.log('你创建了一个群', team);
-      data.teams = nim.mergeTeams(data.teams, team);
-      refreshTeamsUI();
-      onTeamMembers({
-          teamId: team.teamId,
-          members: owner
-      });
-  }
-  function refreshTeamsUI() {
-      // 刷新界面
-  }
-  function onTeamMembers(obj) {
-      var teamId = obj.teamId;
-      var members = obj.members;
-      console.log('群id', teamId, '群成员', members);
-      data.teamMembers = data.teamMembers || {};
-      data.teamMembers[teamId] = nim.mergeTeamMembers(data.teamMembers[teamId], members);
-      data.teamMembers[teamId] = nim.cutTeamMembers(data.teamMembers[teamId], members.invalid);
-      refreshTeamMembersUI(teamId);
-  }
-  function onSyncTeamMembersDone() {
-      console.log('同步群列表完成');
-  }
-  function onUpdateTeamMember(teamMember) {
-      console.log('群成员信息更新了', teamMember);
-      onTeamMembers({
-          teamId: teamMember.teamId,
-          members: teamMember
-      });
-  }
-  function onRoamingMsgs(obj) {
-      console.log('收到漫游消息', obj);
-      pushMsg(obj.msgs);
-  }
-  function onOfflineMsgs(obj) {
-      console.log('收到离线消息', obj);
-      pushMsg(obj.msgs);
-  }
-  function onMsg(msg) {
-      console.log('收到消息', msg.scene, msg.type, msg);
-      pushMsg(msg);
-      onCustomMsg(msg);
-  }
-  function pushMsg(msgs) {
-      if (!Array.isArray(msgs)) { msgs = [msgs]; }
-      var sessionId = msgs[0].sessionId;
-      data.msgs = data.msgs || {};
-      data.msgs[sessionId] = nim.mergeMsgs(data.msgs[sessionId], msgs);
-  }
-  function onCustomMsg(msg) {
-    // 处理自定义消息
-    $("#messages").append("<div>" + msg.from + "说: " + msg.text + "</div>");
-  }
-
-  function onTeamNotificationMsg(msg) {
-    // 系统消息处理
-    $("#messages").append("<div>" + msg + "</div>");
-  }
-
-
-  function refreshTeamMembersUI(teamId) {
-    var members = data.teamMembers[teamId];
-    $.each(members, function(index){
-      var member = members[index];
-      console.log(member);
-      var media = $("#media-template .media").clone();
-      media.find("img").attr("src", "https://ruby-china-files.b0.upaiyun.com/user/big_avatar/2110.jpg");
-      media.find(".media-body").text(member.account);
-      console.log(media);
-
-      $("#members-panel").append(media);
-    });
-  }
-
-
 });
+
+
+
 
 //判断flash是否安装方法
 function flashChecker(){
@@ -295,3 +172,4 @@ else{
   $("#no-flash-area").show() //提示div
 }
 </script>
+<% end -%>

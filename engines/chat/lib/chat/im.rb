@@ -63,7 +63,7 @@ module Chat
       body = body.map {|k, v| "#{k}=#{v}"}.join("&") if body.is_a?(Hash)
       res = Typhoeus.post("#{IM_HOST}/nimserver#{uri}", headers: headers, body: body)
       return JSON.parse(res.body) if res.success?
-      Rails.logger.error("云信服务器通信错误\n#{url}\n#{body}")
+      Rails.logger.error("云信服务器通信错误\n#{uri}\n#{body}")
       nil
     end
 

@@ -27,10 +27,12 @@ module LiveStudio
 
     def play
       @course = Course.find(params[:id])
+      @chat_team = @course.chat_team
       # @tickets = @course.tickets.available.includes(:student)
       @lesson = @course.current_lesson
       @teacher = @course.teacher
       @pull_stream = @course.pull_stream
+      @chat_account = current_user.chat_account
     end
 
     private

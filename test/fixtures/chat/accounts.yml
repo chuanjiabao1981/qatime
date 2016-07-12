@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+teacher_chat_account:
+  user: course_with_junior_teacher
+  accid: teacher_with_chat_account
+  token: teacher_chat_account
+  name: teacher_chat_account
+
+chat_account_with_teacher:
+  user: teacher_with_chat_account
+  accid: teacher_chat_account
+  token: teacher_chat_account
+  name: teacher_chat_account

@@ -293,7 +293,7 @@ Qatime::Application.routes.draw do
 
   require 'sidekiq/web'
   require 'admin_constraint.rb'
-  mount Sidekiq::Web => '/sidekiq',:constraints => AdminConstraint.new
+  mount Sidekiq::Web => '/sidekiq', :constraints => AdminConstraint.new
 
   mount CourseLibrary::Engine, at: '/course_library'
 

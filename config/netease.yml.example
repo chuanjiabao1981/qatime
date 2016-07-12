@@ -1,16 +1,16 @@
 # 网易云信配置
 production:
-  AppKey: AppKey
-  AppSecret: AppSecret
+  app_key: AppKey
+  app_secret: AppSecret
 
 development:
-  AppKey: AppKey
-  AppSecret: AppSecret
+  app_key: AppKey
+  app_secret: AppSecret
 
 testing:
-  AppKey: AppKey
-  AppSecret: AppSecret
+  app_key: AppKey
+  app_secret: AppSecret
 
 test:
-  AppKey: AppKey
-  AppSecret: AppSecret
+  app_key: AppKey
+  app_secret: AppSecret

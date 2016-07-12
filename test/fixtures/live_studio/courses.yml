@@ -26,8 +26,11 @@ course_destroy_teacher:
 
 course_init:
   name: 初始化辅导班
-  teacher: users(:teacher1)
-  workstation: workstation(:workstation1)
+  teacher: teacher1
+  workstation: workstation1
+  teacher_percentage: 30
+  preset_lesson_count: 10
+  price: 1000
   status: 0
 
 course_preview:
@@ -38,6 +41,14 @@ course_preview:
   status: 1
   price: 1000
   preset_lesson_count: 2
+
+course_preview_two:
+  name: 招生中的辅导班2
+  teacher: teacher1
+  workstation: workstation
+  status: 1
+  price: 1000
+  preset_lesson_count: 10
 
 course_teaching:
   name: 上课中的辅导班
@@ -97,6 +108,46 @@ tasting_course:
   name: 试听中的辅导班
   teacher_id: 10
   workstation_id: 1
+  status: 1
+  teacher_percentage: 20
+  preset_lesson_count: 10
+  lesson_price: 20
+  price: 200
+
+course_without_chat_team:
+  name: 没有聊天群组的辅导班
+  teacher: teacher_without_chat_account
+  workstation: workstation1
+  status: 0
+  teacher_percentage: 20
+  preset_lesson_count: 10
+  lesson_price: 20
+  price: 200
+
+course_with_junior_teacher:
+  name: 教师有云信ID的聊天室
+  teacher: teacher_with_chat_account
+  workstation: workstation1
+  status: 0
+  teacher_percentage: 20
+  preset_lesson_count: 10
+  lesson_price: 20
+  price: 200
+
+course_for_taste:
+  name: 试听辅导班
+  teacher: teacher_for_taste_course
+  workstation_id: workstation1
+  status: 1
+  teacher_percentage: 20
+  preset_lesson_count: 10
+  lesson_price: 20
+  price: 200
+
+course_for_tasting:
+  name: 正在试听辅导班
+  teacher: teacher_for_taste_course
+  workstation_id: workstation1
   status: 1
   teacher_percentage: 20
   preset_lesson_count: 10

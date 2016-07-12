@@ -9,3 +9,5 @@ production:
   - sms
   - keep_account
   - wechat
+  - live_studio
+  - chat

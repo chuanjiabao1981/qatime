@@ -29,6 +29,8 @@ module LiveStudio
       @course = @current_resource.live_studio_courses.new(course_params)
 
       if @course.save
+        LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
+
         redirect_to manager_course_path(@current_user, @course), notice: i18n_notice('created', @course)
       else
         @workstations = workstations
@@ -38,7 +40,10 @@ module LiveStudio
 
     # 开始招生
     def publish
-      @course.preview! if @course.init?
+      if @course.init?
+        @course.preview!
+        LiveService::CourseDirector.new(@course).instance_for_course
+      end
     end
 
     # PATCH/PUT /manager/courses/1

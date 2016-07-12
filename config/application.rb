@@ -14,7 +14,8 @@ WECHAT_CONFIG = YAML.load(File.read(File.expand_path('../wechat.yml', __FILE__))
 # 网易视频云配置
 VCLOUD_CONFIG = YAML.load(File.read(File.expand_path('../vcloud.yml', __FILE__)))[Rails.env]
 # 网易云信配置
-NETEASE_CONFIG = YAML.load(File.read(File.expand_path('../netease.yml', __FILE__)))[Rails.env]
+Chat::IM.config(YAML.load(File.read(File.expand_path('../netease.yml', __FILE__)))[Rails.env])
+
 module Qatime
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

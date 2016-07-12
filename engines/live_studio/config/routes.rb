@@ -9,6 +9,7 @@ LiveStudio::Engine.routes.draw do
     resources :orders, only: [:new, :create, :pay, :show] # 下单
     member do
       post 'taste' # 试听
+      get :play # 观看直播
     end
 
     resources :lessons, only: [:show] do

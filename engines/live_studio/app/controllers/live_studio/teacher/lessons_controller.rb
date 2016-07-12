@@ -64,13 +64,16 @@ module LiveStudio
     end
 
     def end_live_studio
-      @lesson.finish!
+      LiveService::BillingDirector.new(@lesson).finish
       redirect_to teacher_course_path(@teacher,params[:course_id]), notice: i18n_notice('end_live_studio', @lesson)
     end
 
+    # 结算失败的课程单独结算
     def complete
-      @lesson.complete!
-      redirect_to teacher_course_path(@teacher,params[:course_id]), notice: i18n_notice('end_live_studio', @lesson)
+      @course = @lesson.course
+      # 课程结算
+      LiveService::BillingDirector.new(@lesson).billing
+      redirect_to teacher_course_path(@teacher, @course), notice: i18n_notice('end_live_studio', @lesson)
     end
 
     private

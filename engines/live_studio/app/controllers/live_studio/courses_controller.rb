@@ -35,6 +35,15 @@ module LiveStudio
       @chat_account = current_user.chat_account
     end
 
+    def update_notice
+      @course = Course.find(params[:id])
+      @teacher = @course.teacher
+      attrs = params.require(:team).permit(:announcement)
+      @course.chat_team.update_columns(attrs)
+
+      redirect_to teacher_course_path(@teacher, @course)
+    end
+
     private
     # 直播授权
     def play_authorize
@@ -42,6 +51,10 @@ module LiveStudio
 
     def set_student
       @student = ::Student.find_by(id: params[:student_id]) || current_user
+    end
+
+    def current_resource
+      Course.find(params[:id]) if params[:id]
     end
   end
 end

@@ -223,6 +223,10 @@ module Permissions
       ] do |teacher|
         teacher && teacher == user
       end
+
+      allow 'live_studio/courses', [:update_notice] do |course|
+        course.teacher_id == user.id
+      end
       allow 'payment/change_records', [:index] do |resource|
         resource.id == user.id
       end

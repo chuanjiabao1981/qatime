@@ -20,7 +20,7 @@ module Chat
     end
 
     def self.team_kick(tid, owner, member)
-      params =  { tid: tid, owner: owner, member: member }
+      params = { tid: tid, owner: owner, member: member }
       post_request("/team/kick.action", params)
     end
 

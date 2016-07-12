@@ -74,7 +74,11 @@
 <%= content_for :javascript do %>
 <script>
 
+
 $(function() {
+  $( window ).bind( "beforeunload", function() {
+    return "是否离开直播页面";
+  });
 
   var live_chat = new LiveChat("<%= Chat::IM.app_key %>");
   live_chat.config("<%= @chat_account.accid %>", "<%= @chat_account.token %>", "<%= @chat_team.team_id %>");

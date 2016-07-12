@@ -50,6 +50,8 @@ cn:
         preset_lesson_count: 课程数
         lesson_price: 单节课程价格
         address: 上课地址
+        grade: 年级
+        subject: 科目
       live_studio/push_stream:
         address: 直播地址
       live_studio/pull_stream:

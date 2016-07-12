@@ -6,6 +6,8 @@
     <%= f.input :teacher_percentage %>
     <%= f.input :preset_lesson_count, input_html: {class: 'lesson_price_item'} %>
     <%= f.input :description, type: :text %>
+    <%= f.input :subject, type: :select, collection: APP_CONSTANT['subjects'] %>
+    <%= f.input :grade, type: :select, collection: APP_CONSTANT['grades_in_menu'] %>
     <%= f.association :workstation, collection: @workstations if @course.new_record? %>
     <%= f.input :price, input_html: {class: 'lesson_price_item'}, hint: "#{LiveStudio::Course.human_attribute_name(:lesson_price)}: #{@course.lesson_price}" %>
   </div>

@@ -10,6 +10,7 @@ LiveStudio::Engine.routes.draw do
     member do
       post 'taste' # 试听
       get :play # 观看直播
+      patch :update_notice
     end
 
     resources :lessons, only: [:show] do

@@ -71,6 +71,24 @@
       </div>
     </div>
   </div>
+  <% if @course.chat_team.present? %>
+  <div class="qa_cell">
+    <div class="row">
+      <div class="col-md-2" style="padding-left:40px"><%= Chat::Team.human_attribute_name(:announcement)%></div>
+      <div class="col-md-9" id="show_notice_area">
+        <%= @course.chat_team.announcement %>
+        <button type="button" class="btn btn-xs btn-success" id="edit_notice_btn">编辑</button>
+      </div>
+
+      <div class="col-md-9" id="edit_notice_area" style="display:none;">
+        <%= simple_form_for(@course.chat_team, url: update_notice_course_path(@course), html: {id: "edit_notice_form"}) do |f| %>
+          <%= f.input :announcement, label: false, as: :text, input_html: {size: "60x4"} %>
+        <% end %>
+        <button type="button" class="btn btn-xs btn-success" id="submit_notice_btn">完成</button>
+      </div>
+    </div>
+  </div>
+  <% end %>
 </div>
 <div class="qa_sep_15"></div>
 <div class="qa_sep_15"></div>
@@ -133,3 +151,17 @@
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#edit_notice_btn").click(function(event){
+      $("#show_notice_area").hide()
+      $("#edit_notice_area").show()
+    })
+    $("#submit_notice_btn").click(function(event){
+      $('#edit_notice_form').submit()
+      $("#show_notice_area").show()
+      $("#edit_notice_area").hide()
+    })
+  })
+</script>

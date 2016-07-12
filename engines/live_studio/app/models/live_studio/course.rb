@@ -160,6 +160,34 @@ module LiveStudio
       current_lesson
     end
 
+    # 修复辅导班群组及群组成员
+    def reset_live_team
+      LiveService::CourseDirector.new(self).instance_for_course if chat_team.blank?
+      reload
+
+      # 本地查询出的辅导班学生的accid数组
+      l_course_accounts = tickets.map do |ticket|
+        student = ticket.student
+        LiveService::ChatAccountFromUser.new(student).instance_account if student.chat_account.blank?
+
+        student.reload
+        student.chat_account.accid
+      end
+
+      # 云信服务器的辅导班学生的accid数组
+      s_course_accounts = Chat::IM.team_query(chat_team.team_id)['members']
+
+      # 本地比服务器的多，即部分学生没有进入聊天室
+      arr_l_s = l_course_accounts - s_course_accounts
+      Chat::IM.team_add(chat_team.team_id, chat_team.owner, "#{name} 讨论组", arr_l_s) if arr_l_s.count > 0
+
+      # 服务器比本地的多,即聊天室有非辅导班的学生
+      arr_s_l = s_course_accounts -  l_course_accounts
+      arr_s_l.each do |accid|
+        Chat::IM.team_kick(chat_team.team_id, chat_team.owner, account.accid)
+      end if arr_s_l.count > 0
+    end
+
     private
 
     before_create :set_lesson_price

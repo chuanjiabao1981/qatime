@@ -3,7 +3,7 @@ module LiveStudio
     has_soft_delete
 
     belongs_to :course
-    belongs_to :student
+    belongs_to :student, class_name: "::Student"
     belongs_to :lesson
 
     enum status: {

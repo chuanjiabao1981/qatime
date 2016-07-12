@@ -1,4 +1,3 @@
-<% @lessons.each do |lesson| -%>
 <tr>
   <td>
     <%= lesson.name %>
@@ -13,8 +12,5 @@
     <%= lesson.status_text(current_user.role) %>
   </td>
   <td>
-    <% if lesson.can_play? %>
-    <% end %>
   </td>
 </tr>
-<% end -%>

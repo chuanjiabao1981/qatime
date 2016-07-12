@@ -1,7 +1,7 @@
 (function(e) {
   var data = {};
   var nim;
-  var team = {};
+  var currentTeam = {};
 
   function onConnect() {
       console.log('连接成功');
@@ -80,11 +80,11 @@
   function onMsg(msg) {
       console.log('收到消息', msg.scene, msg.type, msg);
       // 不是该聊天组消息
-      if(msg.scene != "team" || msg.to != team.id ) {
+      if(msg.scene != "team" || msg.to != currentTeam.id ) {
         console.log(msg.scene != "team");
-        console.log(team.id);
+        console.log(currentTeam.id);
         console.log(msg.to);
-        console.log(msg.to != team.id);
+        console.log(msg.to != currentTeam.id);
         return;
       }
       pushMsg(msg);
@@ -112,13 +112,55 @@
     console.log('收到群列表', teams);
     data.teams = nim.mergeTeams(data.teams, teams);
     $.each(data.teams, function(index, team) {
-      if(team.teamId == this.teamId){
+      if(team.teamId == currentTeam.id){
         if(team.announcement) teamAnnouncement(team.announcement);
         return;
       } 
     });
     onInvalidTeams(teams.invalid);
   }
+
+  function onAddTeamMembers(team, accounts, members) {
+    var teamId = team.teamId;
+    if(team.teamId != currentTeam.id) return false;
+      /*
+      	如果是别人被拉进来了，那么拼接群成员列表
+      	如果是自己被拉进来了，那么同步一次群成员列表
+      */
+      if (accounts.indexOf(data.account) === -1) {
+          onTeamMembers({
+              teamId: teamId,
+              members: members
+          });
+      } else {
+          nim.getTeamMembers({
+              teamId: teamId,
+              sync: true,
+              done: function(error, obj) {
+                  if (!error) {
+                      onTeamMembers(obj);
+                  }
+              }
+          });
+      }
+      onTeams(team);
+  }
+  function onRemoveTeamMembers(team, teamId, accounts) {
+    /*
+    如果是别人被踢了，那么移除群成员
+    如果是自己被踢了，那么离开该群
+    */
+    if (accounts.indexOf(data.account) === -1) {
+        if (team) {
+            onTeams(team);
+        }
+        data.teamMembers[teamId] = nim.cutTeamMembersByAccounts(data.teamMembers[teamId], teamId, accounts);
+        refreshTeamMembersUI();
+    } else {
+        leaveTeam(teamId);
+    }
+    }
+    
 
   // 系统消息
   function onTeamNotificationMsg(msg) {
@@ -175,6 +217,7 @@
 
   function refreshTeamMembersUI(teamId) {
     var members = data.teamMembers[teamId];
+    $("#members-panel").empty();
     $.each(members, function(index){
       var member = members[index];
       console.log(member);
@@ -197,7 +240,7 @@
       this.teamId = teamId;
       this.account = account;
       this.token = token;
-      team.id = this.teamId;
+      currentTeam.id = this.teamId;
     };
     this.init = function() {
       nim = this.nim = NIM.getInstance({

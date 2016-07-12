@@ -153,7 +153,6 @@ module LiveStudio
     # TODO
     # 当前直播课程
     def current_lesson
-      today_lessons = lessons.today
       lessons.last
     end
 

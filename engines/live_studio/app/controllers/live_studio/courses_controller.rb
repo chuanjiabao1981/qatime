@@ -20,6 +20,7 @@ module LiveStudio
 
     def show
       @course = Course.find(params[:id])
+      @lessons = @course.lessons.paginate(page: params[:page])
     end
 
     def live
@@ -27,9 +28,10 @@ module LiveStudio
 
     def play
       @course = Course.find(params[:id])
+      @lesson = @course.current_lesson
+      redirect_to @course, notice: i18n_notice('today has no lesson', @course) if @lesson.nil?
       @chat_team = @course.chat_team
       # @tickets = @course.tickets.available.includes(:student)
-      @lesson = @course.current_lesson
       @teacher = @course.teacher
       @pull_stream = @course.pull_stream
       @chat_account = current_user.chat_account
@@ -38,6 +40,8 @@ module LiveStudio
     private
     # 直播授权
     def play_authorize
+      @paly_record = @course.play_authorize(current_user, @lesson)
+      redirect_to @course, notice: i18n_notice('have not bought', @course) if @paly_record.nil?
     end
 
     def set_student

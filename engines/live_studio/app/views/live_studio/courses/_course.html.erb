@@ -1,19 +1,16 @@
 <tr>
   <td><%= course_counter + 1 %></td>
-  <td><%= course.name %></td>
+  <td><%= link_to course.name, live_studio.course_path(course) %></td>
   <td><%= course.teacher_name %></td>
   <td><%= course.short_description %></td>
   <td><%= course.current_price %></td>
   <td>
-    <% if course.bought_by?(current_user) %>
-      已购买
-    <% elsif course.can_taste?(current_user) %>
-      <%= link_to t("activerecord.view.taste"), taste_course_path(course, student_id: params[:student_id]), id: "taste-course-#{course.id}", method: :post, remote: true %>
-    <% elsif course.tasting?(current_user) %>
-      <%= link_to t("live_studio/ticket.type_name.tasted"), student_course_path(params[:student_id],course) %>
+    <% if(current_user.student?) %>
+    <%= render partial: "student_operate", locals: {course: course}  %>
+    <% elsif current_user.teacher? %>
+    <%= render "teacher_operate"  %>
+    <% else %>
+    <%= render "manager_operate"  %>
     <% end %>
-    <% if course.sell_to?(@student) && !course.bought_by?(@student) && current_user == @student -%>
-      <%= link_to t("activerecord.view.buy_now"), new_course_order_path(course), id: "buy-course-#{course.id}" %>
-    <% end -%>
   </td>
 </tr>

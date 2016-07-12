@@ -48,8 +48,9 @@ module LiveStudio
       end
     end
 
-    def status_text
-      I18n.t("activerecord.status.live_studio/lesson.#{status}")
+    def status_text(role=nil)
+      role_status = role == 'student' ? "#{role}.#{status}" : status
+      I18n.t("activerecord.status.live_studio/lesson.#{role_status}")
     end
 
     def can_play?

@@ -13,6 +13,7 @@ module LiveStudio
     default_scope { order("id asc") }
     scope :unfinish, -> { where("status < ?", Lesson.statuses[:finished]) }
     scope :teached, -> { where("status > ?", Lesson.statuses[:teaching]) } # 已经完成上课
+    scope :today, -> { where(class_date: Date.today) }
 
     belongs_to :course
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师

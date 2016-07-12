@@ -136,6 +136,7 @@ cn:
         no_customized_course_available: 没有可使用此大纲课程的专属课程
         is_same: 是否一致
         operation: 操作
+
     successful:
       messages:
         created: "%{model}已创建"
@@ -145,3 +146,8 @@ cn:
         end_live_studio: "%{model}已结束直播"
         closed: "%{model}已结束"
         lesson_can_not_play: 该课程不能播放或已经结束!
+    failed:
+      messages:
+        today_has_no_lesson: "%{model}今日没有课程!"
+        have_not_bought: "%{model}未购买!"
+        can_not_play: "%{model}不能播放!"

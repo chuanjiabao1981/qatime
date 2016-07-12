@@ -153,7 +153,11 @@ module LiveStudio
     # TODO
     # 当前直播课程
     def current_lesson
-      lessons.last
+      today_lessons = lessons.today
+      current_lesson = today_lessons.select {|lesson| lesson.teaching? }.first
+      current_lesson ||= today_lessons.select {|lesson| lesson.finished? || lesson.completed? }.last
+      current_lesson ||= today_lessons.select {|lesson| lesson.ready? || lesson.init? }.first
+      current_lesson
     end
 
     private

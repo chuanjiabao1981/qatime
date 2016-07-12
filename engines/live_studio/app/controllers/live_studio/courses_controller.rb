@@ -29,7 +29,7 @@ module LiveStudio
     def play
       @course = Course.find(params[:id])
       @lesson = @course.current_lesson
-      redirect_to @course, notice: i18n_notice('today has no lesson', @course) if @lesson.nil?
+      redirect_to @course, alert: i18n_failed('today_has_no_lesson', @course) if @lesson.nil?
       @chat_team = @course.chat_team
       # @tickets = @course.tickets.available.includes(:student)
       @teacher = @course.teacher
@@ -41,7 +41,7 @@ module LiveStudio
     # 直播授权
     def play_authorize
       @paly_record = @course.play_authorize(current_user, @lesson)
-      redirect_to @course, notice: i18n_notice('have not bought', @course) if @paly_record.nil?
+      redirect_to @course, alert: i18n_failed('have not bought', @course) if @paly_record.nil?
     end
 
     def set_student

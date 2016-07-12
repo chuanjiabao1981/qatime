@@ -1,13 +1,3 @@
-<% content_for :stylesheet do %>
-  <%= stylesheet_link_tag "live_studio/nep.min.css" %>
-<% end %>
-<% content_for :javascript do %>
-  <%= javascript_include_tag "live_studio/nep.min.js" %>
-  <%= javascript_include_tag "live_studio/Web_SDK_Base_v2.4.0.js" %>
-  <%= javascript_include_tag "live_studio/Web_SDK_NIM_v2.4.0.js" %>
-  <%= javascript_include_tag "live_studio/chat.js" %>
-<% end %>
-
 <% channel = @course.channels.first %>
 <div class="qa_sep_15"></div>
 
@@ -16,13 +6,22 @@
   <div class="col-md-8" style="padding: 0px;">
     <!-- 根据flash是否安装，来显示 -->
     <video id="my-video" class="video-js" controls poster="<%= image_url('publish-bg.png') %>" preload="auto" width="800" height="480" data-setup='{}' style="display:none;">
-      <source "src"="MY_VIDEO.mp4" type="video/mp4">
+      <source src="MY_VIDEO.mp4" type="video/mp4">
     </video>
-
     <div style="display:none; height: 480px; width: 800px; background-color: #FFF; padding-top: 50px" id="no-flash-area">
       <p align="center">
         <%= t("activerecord.view.flash_can_not_call_msg.flash_uninstall_or_too_old_msg") %><a href="https://get.adobe.com/cn/flashplayer/"><%= t("activerecord.view.flash_can_not_call_msg.click_here_msg") %></a><%= t("activerecord.view.flash_can_not_call_msg.install_flash_msg") %>
       </p>
+    </div>
+    <div class="course-info-div">
+      <%= content_tag(:div, '直播详情', class: 'info-title') %>
+      <%= content_tag(:div, "辅导班名：#{@course.name}", class: 'info-cell') %>
+      <%= content_tag(:div, "课程名称：#{@lesson.name}", class: 'info-cell') %>
+      <%= content_tag(:div, "主讲老师：#{@teacher.name}", class: 'info-cell') %>
+      <%= content_tag(:div, "所属科目：#{"暂无"}", class: 'info-cell') %>
+      <%= content_tag(:div, "开播日期：#{@lesson.class_date.strftime}", class: 'info-cell') %>
+      <%= content_tag(:div, "开播时间：#{@lesson.start_time}~#{@lesson.end_time}", class: 'info-cell') %>
+      <%= content_tag(:div, "辅导简介：#{@course.description}", class:'info-desc') %>
     </div>
   </div>
 
@@ -39,9 +38,17 @@
         </ul>
         <div panel panel-default id="chat-panels">
           <div class="panel-body" id="members-panel" style="display: none;">
+            <% @chat_team.accounts.each do |account|%>
+                <%= content_tag(:div, class: 'media') do %>
+                    <%= content_tag(:div, class: 'media_left') do %>
+                        <%= image_tag(account.icon_url,class: 'media-object')%>
+                    <% end %>
+                    <%= content_tag(:div, account.name, class: 'media-body') %>
+                <% end %>
+            <% end %>
           </div>
           <div class="panel-body" id="message-panel">
-            <div id="messages" style="height: 260px; overflow-y: scroll;">
+            <div id="messages">
             </div>
             <div id="tool-bar">
               <!--
@@ -77,18 +84,20 @@
 <div id="media-template" style="display: none;">
   <div class="media">
     <div class="media-left">
+    <!--
       <a href="##">
         <img class="media-object img-circle" height="30" width="30" style="width: 30px; height: 30px;" src="" alt="...">
       </a>
+      -->
     </div>
     <div class="media-body">
     </div>
-  <div>
+    <div>
+    </div>
+  </div>
 </div>
 
-<%= content_for :javascript do %>
 <script>
-
 $(function() {
   $( window ).bind( "beforeunload", function() {
     return "是否离开直播页面";
@@ -126,72 +135,83 @@ $(function() {
     return false;
   });
 
+  
+
   function sendMsgDone(error, msg) {
-      console.log(error);
-      console.log(msg);
-      console.log('发送' + msg.scene + ' ' + msg.type + '消息' + (!error?'成功':'失败') + ', id=' + msg.idClient);
-      $("#messages").append("<div>我 说: " + msg.text + "</div>");
-      live_chat.pushMsg(msg);
+
+    console.log(error);
+    console.log(msg);
+    console.log('发送' + msg.scene + ' ' + msg.type + '消息' + (!error?'成功':'失败') + ', id=' + msg.idClient);
+    $("#messages").append(
+        "<div class='talk-div'>" + msg.fromNick + "（我）说: " + msg.text +
+        "<div class='talk-time-div'>" + sendMessageTime(msg) + "</div>" +
+        "</div>");
+    $("#messages").scrollTop($("#messages").prop('scrollHeight'));
+    live_chat.pushMsg(msg);
+  }
+
+  function sendMessageTime(msg){
+    var date = new Date(msg.time);
+    var hours = date.getHours();
+    var minutes = "0" + date.getMinutes();
+    var seconds = "0" + date.getSeconds();
+    return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)
   }
 });
 
+  //判断flash是否安装方法
+  function flashChecker(){
+    var hasFlash=0;　　　　//是否安装了flash
+    var flashVersion=0;　　//flash版本
 
-
-
-//判断flash是否安装方法
-function flashChecker(){
-  var hasFlash=0;　　　　//是否安装了flash
-  var flashVersion=0;　　//flash版本
-
-  if(document.all)
-  {
-    var swf = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
-    if(swf) {
-      hasFlash=1;
-      VSwf=swf.GetVariable("$version");
-      flashVersion=parseInt(VSwf.split(" ")[1].split(",")[0]);
-    }
-  }else
-  {
-    if (navigator.plugins && navigator.plugins.length > 0)
+    if(document.all)
     {
-      var swf=navigator.plugins["Shockwave Flash"];
-      if (swf)
-      {
+      var swf = new ActiveXObject('ShockwaveFlash.ShockwaveFlash');
+      if(swf) {
         hasFlash=1;
-        var words = swf.description.split(" ");
-        for (var i = 0; i < words.length; ++i)
+        VSwf=swf.GetVariable("$version");
+        flashVersion=parseInt(VSwf.split(" ")[1].split(",")[0]);
+      }
+    }else
+    {
+      if (navigator.plugins && navigator.plugins.length > 0)
+      {
+        var swf=navigator.plugins["Shockwave Flash"];
+        if (swf)
         {
-          if (isNaN(parseInt(words[i]))) continue;
-          flashVersion = parseInt(words[i]);
+          hasFlash=1;
+          var words = swf.description.split(" ");
+          for (var i = 0; i < words.length; ++i)
+          {
+            if (isNaN(parseInt(words[i]))) continue;
+            flashVersion = parseInt(words[i]);
+          }
         }
       }
     }
+    return {f:hasFlash,v:flashVersion};
   }
-  return {f:hasFlash,v:flashVersion};
-}
 
-var fls=flashChecker();
+  var fls=flashChecker();
 
-if(fls.f) //判断flash是否安装
-{
-  $("#my-video").show() //显示播放器
-  var myPlayer = neplayer("my-video", {}, function() {
-  });
-  myPlayer.setDataSource({
-    type: "rtmp/flv",
-    src: "<%= channel.pull_streams.last.address %>"
-  });
+  if(fls.f) //判断flash是否安装
+  {
+    $("#my-video").show() //显示播放器
+    var myPlayer = neplayer("my-video", {}, function() {
+    });
+    myPlayer.setDataSource({
+      type: "rtmp/flv",
+      src: "<%= channel.pull_streams.last.address %>"
+    });
 
-  myPlayer.play();
+    myPlayer.play();
 
-  myPlayer.onError(function(err){
-    console.log(err.errCode);
-    console.log(err.errMsg);
-  });
-}
-else{
-  $("#no-flash-area").show() //提示div
-}
+    myPlayer.onError(function(err){
+      console.log(err.errCode);
+      console.log(err.errMsg);
+    });
+  }
+  else{
+    $("#no-flash-area").show() //提示div
+  }
 </script>
-<% end -%>

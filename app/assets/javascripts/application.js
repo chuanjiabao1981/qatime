@@ -28,5 +28,6 @@
 //= require course_library/application
 //= require editable/bootstrap-editable
 //= require editable/rails
+//= require live_studio/application
 
 // require turbolinks}

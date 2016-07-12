@@ -162,7 +162,8 @@ module LiveStudio
       reload
 
       # 本地查询出的辅导班学生的accid数组
-      l_course_accounts = studens.map do |student|
+      l_course_accounts = tickets.map do |ticket|
+        student = ticket.student
         LiveService::ChatAccountFromUser.new(student).instance_account if student.chat_account.blank?
 
         student.reload

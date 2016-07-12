@@ -4,7 +4,7 @@ class CreateChatAccounts < ActiveRecord::Migration
     create_table :chat_accounts do |t|
       t.references :user, index: true
 
-      t.string :accid, limit: 16, null: false
+      t.string :accid, limit: 32, null: false
       t.string :token, limit: 32, null: false
       t.string :name, limit: 128
       t.string :icon

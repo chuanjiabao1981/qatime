@@ -390,10 +390,15 @@ footer .copyright
 
 #tool-bar {
   margin: 0 -15px;
-  height: 30px;
+  height: 40px;
   border: 1px solid #dddddd;
   border-left: none;
   border-right: none;
+  padding: 4px;
+}
+
+#tool-bar button {
+  margin-left: 5px;
 }
 
 #message-input {

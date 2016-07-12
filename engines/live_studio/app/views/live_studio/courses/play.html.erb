@@ -43,7 +43,17 @@
           <div class="panel-body" id="message-panel">
             <div id="messages" style="height: 260px; overflow-y: scroll;">
             </div>
-            <div id="tool-bar"></div>
+            <div id="tool-bar">
+              <!--
+              <button type="button" class="btn btn-default btn-sm" id="scroll-btn">
+                滚屏
+              </button>
+              -->
+              <button type="button" class="btn btn-default btn-sm" id="clear-btn">
+                清屏
+              </button>
+
+            </div>
             <div id="message-input">
               <form action="##" id="message-form">
                 <div class="col-md-9">
@@ -79,10 +89,13 @@
 <%= content_for :javascript do %>
 <script>
 
-
 $(function() {
   $( window ).bind( "beforeunload", function() {
     return "是否离开直播页面";
+  });
+
+  $("#clear-btn").click(function() {
+    $("#messages").empty();
   });
 
   var live_chat = new LiveChat("<%= Chat::IM.app_key %>");

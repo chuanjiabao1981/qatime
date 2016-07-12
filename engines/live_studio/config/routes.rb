@@ -5,11 +5,12 @@ LiveStudio::Engine.routes.draw do
 
   get 'courses_controller/index'
 
-  resources :courses, only: [:index] do
+  resources :courses, only: [:index, :show] do
     resources :orders, only: [:new, :create, :pay, :show] # 下单
     member do
       post 'taste' # 试听
       get :play # 观看直播
+      patch :update_notice
     end
 
     resources :lessons, only: [:show] do

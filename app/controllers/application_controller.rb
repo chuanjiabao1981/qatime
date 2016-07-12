@@ -19,6 +19,9 @@ class ApplicationController < ActionController::Base
   def i18n_notice(type, model)
     t("activerecord.successful.messages.#{type}", model: model.class.model_name.human)
   end
+  def i18n_failed(type, model)
+    t("activerecord.failed.messages.#{type}", model: model.class.model_name.human)
+  end
 
   def current_permission
     @current_permission ||= Permissions.permission_for(current_user)

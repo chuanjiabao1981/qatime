@@ -19,6 +19,16 @@ module Chat
       post_request("/team/add.action", params)
     end
 
+    def self.team_query(tid, ope=1)
+      params = { tids: [tid], ope: ope }
+      result = post_request("/team/query.action", params)
+      result['tinfos'][0] if result
+    end
+
+    def self.team_update(params)
+      post_request("/team/update.action", params)
+    end
+
     # 创建云信ID
     def self.account_create(params)
       result = post_request("/user/create.action", params)

@@ -15,6 +15,9 @@ cn:
         created_at: 下单时间
         status: 订单状态
         pay_type: 支付方式
+        course_name: 课程名称
+        course_teacher: 任课教师
+        course_description: 课程描述
       payment/change_record:
         different: 收支
         after: 余额

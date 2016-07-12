@@ -43,10 +43,25 @@
           <div class="panel-body" id="message-panel">
             <div id="messages" style="height: 260px; overflow-y: scroll;">
             </div>
-            <div>
+            <div id="tool-bar">
+              <!--
+              <button type="button" class="btn btn-default btn-sm" id="scroll-btn">
+                滚屏
+              </button>
+              -->
+              <button type="button" class="btn btn-default btn-sm" id="clear-btn">
+                清屏
+              </button>
+
+            </div>
+            <div id="message-input">
               <form action="##" id="message-form">
-                <textarea name="message" id="message-area" cols="40" rows="5"></textarea>
-                <input type="submit" name="send" id="send-btn">
+                <div class="col-md-9">
+                  <textarea name="message" id="message-area" cols="33" rows="5"></textarea>
+                </div>
+                <div class="col-md-3">
+                  <input type="submit" name="send" id="send-btn" value="发送" style="display: float;">
+                </div>
               </form>
             </div>
           </div>
@@ -63,7 +78,7 @@
   <div class="media">
     <div class="media-left">
       <a href="##">
-        <img class="media-object" height="30" width="30" style="width: 30px; height: 30px;" src="" alt="...">
+        <img class="media-object img-circle" height="30" width="30" style="width: 30px; height: 30px;" src="" alt="...">
       </a>
     </div>
     <div class="media-body">
@@ -75,6 +90,13 @@
 <script>
 
 $(function() {
+  $( window ).bind( "beforeunload", function() {
+    return "是否离开直播页面";
+  });
+
+  $("#clear-btn").click(function() {
+    $("#messages").empty();
+  });
 
   var live_chat = new LiveChat("<%= Chat::IM.app_key %>");
   live_chat.config("<%= @chat_account.accid %>", "<%= @chat_account.token %>", "<%= @chat_team.team_id %>");

@@ -6,19 +6,19 @@
     <%= simple_form_for [:course, @order] do |f|%>
       <div class="order_info">
         <div>
-          <%= f.label :name %>
+          <%= f.label :course_name %>
           <span><%= @course.name %></span>
         </div>
         <div>
-          <%= f.label :teacher %>
+          <%= f.label :course_teacher %>
           <span><%= @course.teacher_name %></span>
         </div>
         <div>
-          <%= f.label :price %>
+          <%= f.label :total_money %>
           <span><%= @course.price %></span>
         </div>
         <div>
-          <%= f.label :description %>
+          <%= f.label :course_description %>
           <span><%= @course.name %></span>
         </div>
         <div>

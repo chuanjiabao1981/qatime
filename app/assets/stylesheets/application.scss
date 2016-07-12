@@ -371,4 +371,56 @@ footer .copyright
   margin-right: 20px;
 }
 
+.alert-notice {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-alert {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+
+#chat-panels {
+  border: 1px solid #dddddd;
+  border-top: none;
+}
+
+#tool-bar {
+  margin: 0 -15px;
+  height: 40px;
+  border: 1px solid #dddddd;
+  border-left: none;
+  border-right: none;
+  padding: 4px;
+}
+
+#tool-bar button {
+  margin-left: 5px;
+}
+
+#message-input {
+  margin: 0 -15px;
+}
+
+#message-input textarea {
+  resize: none;
+  border: none;
+}
+
+#message-input div {
+  padding: 0;
+  height: 104px;
+}
+
+#message-input #send-btn {
+  width: 100%;
+  height: 100%;
+}
+
+#message-panel {
+  padding-bottom: 0;
+}
 //-----end

@@ -1,0 +1,16 @@
+<tr>
+  <td>
+    <%= lesson.name %>
+  </td>
+  <td>
+    <%= lesson.start_time%> - <%= lesson.end_time%>
+  </td>
+  <td>
+    <%= lesson.class_date %>
+  </td>
+  <td>
+    <%= lesson.status_text(current_user.role) %>
+  </td>
+  <td>
+  </td>
+</tr>

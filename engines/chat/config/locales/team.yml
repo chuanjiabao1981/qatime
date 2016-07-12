@@ -1,0 +1,7 @@
+cn:
+  activerecord:
+      models:
+        chat/team: 聊天群组
+      attributes:
+        chat/team:
+          announcement: 群组公告

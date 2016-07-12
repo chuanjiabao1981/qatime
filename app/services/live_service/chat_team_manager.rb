@@ -29,7 +29,7 @@ module LiveService
       current_members = @team.join_records.map(&:account_id)
       members.delete_if {|m| current_members.include?(m.id)}
       @course = @team.live_studio_course
-      Chat::IM.team_add(@team.team_id, @team.owner, "#{@course.name} 讨论组", members) if remote
+      Chat::IM.team_add(@team.team_id, @team.owner, "#{@course.name} 讨论组", members.map(&:accid)) if remote
       members.each do |member|
         Chat::JoinRecord.create(team_id: @team.id, account_id: member.id, role: role)
       end

@@ -11,7 +11,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 20160710040933) do
 
   # These are extensions that must be enabled in order to support this database
@@ -62,12 +61,12 @@ ActiveRecord::Schema.define(version: 20160710040933) do
 
   create_table "chat_accounts", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "accid"
-    t.string   "token"
-    t.string   "name"
+    t.string   "accid",      limit: 32,  null: false
+    t.string   "token",      limit: 32,  null: false
+    t.string   "name",       limit: 128
     t.string   "icon"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "chat_accounts", ["user_id"], name: "index_chat_accounts_on_user_id", using: :btree
@@ -75,20 +74,22 @@ ActiveRecord::Schema.define(version: 20160710040933) do
   create_table "chat_join_records", force: :cascade do |t|
     t.integer  "account_id"
     t.integer  "team_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "role",       limit: 16
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   add_index "chat_join_records", ["account_id"], name: "index_chat_join_records_on_account_id", using: :btree
   add_index "chat_join_records", ["team_id"], name: "index_chat_join_records_on_team_id", using: :btree
 
   create_table "chat_teams", force: :cascade do |t|
+    t.string   "team_id",               limit: 32
+    t.string   "name",                  limit: 64
     t.integer  "live_studio_course_id"
-    t.string   "team_id"
+    t.string   "owner",                 limit: 32
     t.text     "announcement"
-    t.string   "name"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
   add_index "chat_teams", ["live_studio_course_id"], name: "index_chat_teams_on_live_studio_course_id", using: :btree
@@ -454,8 +455,8 @@ ActiveRecord::Schema.define(version: 20160710040933) do
     t.integer  "workstation_id",                                                           null: false
     t.integer  "status",                                                     default: 0
     t.text     "description"
-    t.decimal  "price",                              precision: 6, scale: 2, default: 0.0
-    t.decimal  "lesson_price",                       precision: 6, scale: 2, default: 0.0
+    t.decimal  "price",                              precision: 8, scale: 2, default: 0.0
+    t.decimal  "lesson_price",                       precision: 8, scale: 2, default: 0.0
     t.integer  "teacher_percentage",                                         default: 0
     t.integer  "lesson_count",                                               default: 0
     t.integer  "preset_lesson_count",                                        default: 0

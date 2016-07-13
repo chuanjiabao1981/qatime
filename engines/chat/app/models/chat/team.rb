@@ -5,5 +5,7 @@ module Chat
     has_many :join_records
     has_many :accounts, through: :join_records
 
+    validates :name, presence: true
+
   end
 end

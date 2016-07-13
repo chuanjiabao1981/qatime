@@ -2,3 +2,66 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+#messages{
+    height: 395px;
+    overflow-y: scroll;
+}
+#members-panel{
+    height: 555px;
+    overflow-y: scroll;
+}
+.talk-div{
+    /*background-color: #f0f0f0;*/
+    font-size: 14px;
+    /*padding: 5px 10px;*/
+    margin: 1px;
+    border-radius: 5px;
+    word-break: break-all;
+}
+.talk-time-div{
+    font-size: 12px;
+    color: #CCCCCC;
+}
+.course-info-div{
+    padding: 10px;
+    background-color: #ffffff;
+    float: left;
+    width: 100%;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    -moz-border-radius-bottomleft: 4px;
+    -moz-border-radius-bottomright: 4px;
+}
+.course-info-div .info-title{
+    font-size: 24px;
+    font-weight: 800;
+}
+.course-info-div .info-cell{
+    font-size: 14px;
+    float: left;
+    width: 50%;
+    word-break: break-all;
+    padding: 2px 5px;
+}
+.course-info-div .info-desc{
+    font-size: 14px;
+    float: left;
+    width: 100%;
+    word-break: break-all;
+    padding: 2px 5px;
+}
+.media-object{
+    width: 30px;
+    height: 30px;
+}
+.media{
+    width: 100%;
+}
+.media div{
+    float: left;
+}
+.media-body{
+    height: 30px;
+    line-height: 30px;
+    margin-left: 10px;
+}

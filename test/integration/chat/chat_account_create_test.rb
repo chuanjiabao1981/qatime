@@ -10,7 +10,7 @@ module LiveStudio
 
       @student = users(:no_chat_account_student)
 
-      account_result = Typhoeus::Response.new(code: 200, body: {code: 200, info: {accid: SecureRandom.hex(16), token: SecureRandom.hex(16)} }.to_json)
+      account_result = Typhoeus::Response.new(code: 200, body: { code: 200, info: { accid: SecureRandom.hex(16), token: SecureRandom.hex(16) } }.to_json)
       Typhoeus.stub('https://api.netease.im/nimserver/user/create.action').and_return(account_result)
 
       log_in_as(@student)

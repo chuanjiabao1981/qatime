@@ -20,6 +20,7 @@
  *= require fancybox
  *= require course_library/application
  *= require editable/bootstrap-editable
+ *= require live_studio/application
  */
 
 @import 'bootstrap';
@@ -422,5 +423,13 @@ footer .copyright
 
 #message-panel {
   padding-bottom: 0;
+}
+
+#members-panel .media {
+  margin-top: 5px;
+}
+
+#members-panel .media:first-child {
+  margin-top: 0px;
 }
 //-----end

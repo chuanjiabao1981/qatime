@@ -182,9 +182,9 @@ module LiveStudio
       Chat::IM.team_add(chat_team.team_id, chat_team.owner, "#{name} 讨论组", arr_l_s) if arr_l_s.count > 0
 
       # 服务器比本地的多,即聊天室有非辅导班的学生
-      arr_s_l = s_course_accounts -  l_course_accounts
+      arr_s_l = s_course_accounts - l_course_accounts
       arr_s_l.each do |accid|
-        Chat::IM.team_kick(chat_team.team_id, chat_team.owner, account.accid)
+        Chat::IM.team_kick(chat_team.team_id, chat_team.owner, accid)
       end if arr_s_l.count > 0
     end
 

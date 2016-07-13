@@ -35,6 +35,7 @@ module LiveStudio
       @teacher = @course.teacher
       @pull_stream = @course.pull_stream
       @chat_account = current_user.chat_account
+      @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id)
     end
 
     def update_notice

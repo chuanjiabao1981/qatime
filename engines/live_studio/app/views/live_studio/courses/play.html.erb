@@ -45,7 +45,7 @@
                     <% end %>
                     <%= content_tag(:div, account.name, class: 'media-body') %>
                 <% end %>
-            <% end %>
+            <% end if @chat_team %>
           </div>
           <div class="panel-body" id="message-panel">
             <div id="messages">
@@ -99,6 +99,11 @@
 
 <script>
 $(function() {
+  var accid = "<%= @chat_account.accid %>";
+  var token = "<%= @chat_account.token %>";
+  var team_role = "<%= @join_record.try(:role) %>";
+  var chat_team_id = "<%= @chat_team.try(:team_id) %>";
+
   $( window ).bind( "beforeunload", function() {
     return "是否离开直播页面";
   });
@@ -108,8 +113,19 @@ $(function() {
   });
 
   var live_chat = new LiveChat("<%= Chat::IM.app_key %>");
-  live_chat.config("<%= @chat_account.accid %>", "<%= @chat_account.token %>", "<%= @chat_team.team_id %>");
-  live_chat.init();
+  
+  if(accid == "" || chat_team_id == "" || team_role == "") {
+    $.getJSON("<%= chat.live_studio_course_teams_finish_path(@course) %>", function(data) {
+      accid = data.accid;
+      token = data.token;
+      chat_team_id = data.team_id;
+      live_chat.config(accid, token, chat_team_id);
+      live_chat.init();
+    });
+  } else {
+    live_chat.config(accid, token, chat_team_id);
+    live_chat.init();
+  }
 
   $("#chat-tabs").click(function(event) {
     if($(event.target).parent("li").hasClass("active")) return false;

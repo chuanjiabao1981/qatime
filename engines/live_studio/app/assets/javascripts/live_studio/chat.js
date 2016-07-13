@@ -147,6 +147,8 @@
      如果是别人被拉进来了，那么拼接群成员列表
      如果是自己被拉进来了，那么同步一次群成员列表
      */
+
+    console.log("有新成员加入");
     if (accounts.indexOf(data.account) === -1) {
       onTeamMembers({
         teamId: teamId,
@@ -192,7 +194,7 @@
       team = msg.attach.team,
       account = msg.attach.account,
       accounts = msg.attach.accounts,
-      members = msg.attach.members;
+      members = msg.attach.users || msg.attach.members;
 
     switch (type) {
       case 'updateTeam':

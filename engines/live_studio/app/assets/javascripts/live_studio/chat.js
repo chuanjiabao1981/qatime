@@ -73,15 +73,35 @@
   // 漫游消息
   function onRoamingMsgs(obj) {
     console.log('收到漫游消息', obj);
-    pushMsg(obj.msgs);
+
+    currentTeamMsgs = $.grep(obj.msgs, function(index, msg) {
+      console.log(index);
+      console.log(msg);
+      return msg.type == "team" && msg.to == currentTeam.id;
+    });
+
+    $.each(currentTeamMsgs, function(index, msg) {
+      onMsg(msg, false);
+    });
+    nim.markMsgRead(currentTeamMsgs);
   }
   // 离线消息
   function onOfflineMsgs(obj) {
     console.log('收到离线消息', obj);
-    pushMsg(obj.msgs);
+
+    currentTeamMsgs = $.grep(obj.msgs, function(index, msg) {
+      console.log(index);
+      console.log(msg);
+      return msg.type == "team" && msg.to == currentTeam.id;
+    });
+
+    $.each(currentTeamMsgs, function(index, msg) {
+      onMsg(msg, false);
+    });
+    nim.markMsgRead(currentTeamMsgs);
   }
   // 消息处理
-  function onMsg(msg) {
+  function onMsg(msg, mark = true) {
     console.log('收到消息', msg.scene, msg.type, msg);
     // 不是该聊天组消息
     if(msg.scene != "team" || msg.to != currentTeam.id ) {
@@ -103,6 +123,7 @@
         onNormalMsg(msg)
         break;
     }
+    if(mark) nim.markMsgRead(msg);
   }
   function pushMsg(msgs) {
     console.log(msgs);
@@ -249,6 +270,7 @@
     };
     this.init = function() {
       nim = this.nim = NIM.getInstance({
+        autoMarkRead: false, // 取消自动标记已读
         // debug: true,
         appKey: this.appKey,
         account: this.account,

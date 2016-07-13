@@ -88,17 +88,12 @@
   // 离线消息
   function onOfflineMsgs(obj) {
     console.log('收到离线消息', obj);
+    if(obj.sessionId != "team-" + currentTeam.id) return false;
 
-    currentTeamMsgs = $.grep(obj.msgs, function(index, msg) {
-      console.log(index);
-      console.log(msg);
-      return msg.type == "team" && msg.to == currentTeam.id;
-    });
-
-    $.each(currentTeamMsgs, function(index, msg) {
+    $.each(obj.msgs, function(index, msg) {
       onMsg(msg, false);
     });
-    nim.markMsgRead(currentTeamMsgs);
+    nim.markMsgRead(obj.msgs);
   }
   // 消息处理
   function onMsg(msg, mark = true) {
@@ -270,6 +265,7 @@
     };
     this.init = function() {
       nim = this.nim = NIM.getInstance({
+        db: false,
         autoMarkRead: false, // 取消自动标记已读
         // debug: true,
         appKey: this.appKey,

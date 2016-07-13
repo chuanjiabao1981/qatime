@@ -96,7 +96,7 @@
     nim.markMsgRead(obj.msgs);
   }
   // 消息处理
-  function onMsg(msg, mark = true) {
+  function onMsg(msg, mark) {
     console.log('收到消息', msg.scene, msg.type, msg);
     // 不是该聊天组消息
     if(msg.scene != "team" || msg.to != currentTeam.id ) {

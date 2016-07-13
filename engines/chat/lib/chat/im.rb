@@ -19,6 +19,11 @@ module Chat
       post_request("/team/add.action", params)
     end
 
+    def self.team_kick(tid, owner, member)
+      params = { tid: tid, owner: owner, member: member }
+      post_request("/team/kick.action", params)
+    end
+
     def self.team_query(tid, ope=1)
       params = { tids: [tid], ope: ope }
       result = post_request("/team/query.action", params)

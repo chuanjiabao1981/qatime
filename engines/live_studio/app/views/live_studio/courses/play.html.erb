@@ -99,8 +99,8 @@
 
 <script>
 $(function() {
-  var accid = "<%= @chat_account.accid %>";
-  var token = "<%= @chat_account.token %>";
+  var accid = "<%= @chat_account.try(:accid) %>";
+  var token = "<%= @chat_account.try(:token) %>";
   var team_role = "<%= @join_record.try(:role) %>";
   var chat_team_id = "<%= @chat_team.try(:team_id) %>";
 

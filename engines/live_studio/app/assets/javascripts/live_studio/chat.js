@@ -149,6 +149,14 @@
      */
 
     console.log("有新成员加入");
+    console.log(accounts);
+    console.log(members);
+    $.each(members, function(index, member) {
+      if(accounts.indexOf(member.account) >= 0) {
+        $("#messages").append("<div class='notice-div'>" + member.nick +  " 加入了聊天组</div>")
+      } 
+    });
+
     if (accounts.indexOf(data.account) === -1) {
       onTeamMembers({
         teamId: teamId,

@@ -149,6 +149,9 @@ $(function() {
     $("#messages").scrollTop($("#messages").prop('scrollHeight'));
     live_chat.pushMsg(msg);
   }
+});
+
+
 
   function sendMessageTime(msg){
     var date = new Date(msg.time);
@@ -157,7 +160,6 @@ $(function() {
     var seconds = "0" + date.getSeconds();
     return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)
   }
-});
 
   //判断flash是否安装方法
   function flashChecker(){

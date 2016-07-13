@@ -428,4 +428,8 @@ footer .copyright
 #members-panel .media {
   margin-top: 5px;
 }
+
+#members-panel .media:first-child {
+  margin-top: 0px;
+}
 //-----end

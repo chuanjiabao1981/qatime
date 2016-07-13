@@ -70,14 +70,17 @@
       members: teamMember
     });
   }
+  // 漫游消息
   function onRoamingMsgs(obj) {
     console.log('收到漫游消息', obj);
     pushMsg(obj.msgs);
   }
+  // 离线消息
   function onOfflineMsgs(obj) {
     console.log('收到离线消息', obj);
     pushMsg(obj.msgs);
   }
+  // 消息处理
   function onMsg(msg) {
     console.log('收到消息', msg.scene, msg.type, msg);
     // 不是该聊天组消息
@@ -259,6 +262,7 @@
         onteammembers: onTeamMembers,
         onsyncteammembersdone: onSyncTeamMembersDone,
         onupdateteammember: onUpdateTeamMember,
+        // 消息
         onroamingmsgs: onRoamingMsgs,
         onofflinemsgs: onOfflineMsgs,
         onmsg: onMsg

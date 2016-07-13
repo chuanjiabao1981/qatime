@@ -24,7 +24,7 @@ module Chat
       post_request("/team/kick.action", params)
     end
 
-    def self.team_query(tid, ope=1)
+    def self.team_query(tid, ope = 1)
       params = { tids: [tid], ope: ope }
       result = post_request("/team/query.action", params)
       result['tinfos'][0] if result
@@ -35,20 +35,21 @@ module Chat
     end
 
     # 创建云信ID
-    def self.account_create(params)
+    def self.account_create(accid, name, icon)
+      params = { accid: accid, name: name, icon: icon }
       result = post_request("/user/create.action", params)
       result['info'] if result
     end
 
     # 云信ID更新
     def self.update_account(chat_account)
-      params = {accid: chat_account.accid}
+      params = { accid: chat_account.accid }
       post_request("/user/update.action", params)
     end
 
     # 更新并获取新token
     def self.refresh_token(chat_account)
-      params = {accid: chat_account.accid}
+      params = { accid: chat_account.accid }
       result = post_request("/user/refreshToken.action", params)
 
       result['info'] if result
@@ -57,13 +58,13 @@ module Chat
     # 更新用户名片
     def self.update_uinfo(chat_account)
       # 根据chat_account 对应的user的数据来更新
-      params = {accid: chat_account.accid, name: chat_account.user.nick_name, icon: chat_account.user.avatar_url(:small)}
+      params = { accid: chat_account.accid, name: chat_account.user.nick_name, icon: chat_account.user.avatar_url(:small) }
       post_request("/user/updateUinfo.action", params)
     end
 
     # 获取用户名片
     def self.get_uinfo(chat_account)
-      params = {accids: [chat_account.accid]}
+      params = { accids: [chat_account.accid] }
       result = post_request("/user/getUinfos.action", params)
       if result['code'] == 200
         result = result['uinfos'][0]

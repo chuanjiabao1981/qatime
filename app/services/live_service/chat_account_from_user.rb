@@ -8,8 +8,8 @@ module LiveService
       return if @user.chat_account.present?
 
       account_name = @user.nick_name || @user.name
-      result_data = Chat::IM.account_create(accid: "#{random_accid}", name: account_name, icon: "#{@user.avatar_url(:tiny)}")
-      create_data = {name: account_name, icon: @user.avatar_url(:tiny)}
+      result_data = Chat::IM.account_create(accid: "#{random_accid}", name: account_name, icon: "#{@user.avatar_url(:small)}")
+      create_data = {name: account_name, icon: @user.avatar_url(:small)}
       @user.create_chat_account(create_data.merge(result_data))
     end
 

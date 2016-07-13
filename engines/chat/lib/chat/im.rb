@@ -57,7 +57,7 @@ module Chat
     # 更新用户名片
     def self.update_uinfo(chat_account)
       # 根据chat_account 对应的user的数据来更新
-      params = {accid: chat_account.accid, name: chat_account.user.nick_name, icon: chat_account.user.avatar_url(:tiny)}
+      params = {accid: chat_account.accid, name: chat_account.user.nick_name, icon: chat_account.user.avatar_url(:small)}
       post_request("/user/updateUinfo.action", params)
     end
 

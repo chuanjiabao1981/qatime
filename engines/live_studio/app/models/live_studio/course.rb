@@ -150,14 +150,9 @@ module LiveStudio
       teaching? && completed_lesson_count >= preset_lesson_count
     end
 
-    # TODO
     # 当前直播课程
     def current_lesson
-      today_lessons = lessons.today
-      current_lesson = today_lessons.select {|lesson| lesson.teaching? }.first
-      current_lesson ||= today_lessons.select {|lesson| lesson.finished? || lesson.completed? }.last
-      current_lesson ||= today_lessons.select {|lesson| lesson.ready? || lesson.init? }.first
-      current_lesson
+      lessons.unfinish.first
     end
 
     # 修复辅导班群组及群组成员

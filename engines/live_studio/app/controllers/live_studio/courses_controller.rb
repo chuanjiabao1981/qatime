@@ -29,13 +29,12 @@ module LiveStudio
     def play
       @course = Course.find(params[:id])
       @lesson = @course.current_lesson
-      redirect_to @course, alert: i18n_failed('today_has_no_lesson', @course) if @lesson.nil?
       @chat_team = @course.chat_team
       # @tickets = @course.tickets.available.includes(:student)
       @teacher = @course.teacher
       @pull_stream = @course.pull_stream
       @chat_account = current_user.chat_account
-      @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) if @chat_account
+      @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) if @chat_team && @chat_account
     end
 
     def update_notice

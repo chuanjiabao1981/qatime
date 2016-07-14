@@ -1,3 +1,8 @@
+<% content_for :javascript do %>
+  <%= javascript_include_tag "live_studio/nep.min" %>
+  <%= javascript_include_tag "live_studio/live" %>
+<% end %>
+
 <% channel = @course.channels.first %>
 <div class="qa_sep_15"></div>
 
@@ -6,7 +11,7 @@
   <div class="col-md-8" style="padding: 0px;">
     <!-- 根据flash是否安装，来显示 -->
     <video id="my-video" class="video-js" controls poster="<%= image_url('publish-bg.png') %>" preload="auto" width="800" height="480" data-setup='{}' style="display:none;">
-      <source src="MY_VIDEO.mp4" type="video/mp4">
+      <source src="/MY_VIDEO.mp4" type="video/mp4">
     </video>
     <div style="display:none; height: 480px; width: 800px; background-color: #FFF; padding-top: 50px" id="no-flash-area">
       <p align="center">
@@ -56,7 +61,7 @@
             <div id="message-input">
               <form action="##" id="message-form">
                 <div class="col-md-9">
-                  <textarea name="message" id="message-area" cols="33" rows="5"></textarea>
+                  <textarea name="message" id="message-area" cols="33" rows="5" oninput="if(value.length>100) value=value.substr(0,100)"></textarea>
                 </div>
                 <div class="col-md-3">
                   <input type="submit" name="send" id="send-btn" value="发送" style="display: float;">
@@ -89,6 +94,7 @@
   </div>
 </div>
 
+<% content_for :javascript do %>
 <script>
 var chatInited = false;
 
@@ -110,7 +116,7 @@ $(function() {
   });
 
   var live_chat = new LiveChat("<%= Chat::IM.app_key %>");
-  
+
   if(accid == "" || chat_team_id == "" || team_role == "") {
     $.getJSON("<%= chat.live_studio_course_teams_finish_path(@course) %>", function(data) {
       accid = data.accid;
@@ -136,7 +142,8 @@ $(function() {
 
   $("#message-form").submit(function() {
     if(!chatInited) return false;
-    msg = $("#message-area").val().trim();
+    msg = $("#message-area").val().trim().replace(/\</g, '&lt;').replace(/\>/g, '&gt;');;
+
     if(msg == '') return false;
     var msg = live_chat.nim.sendText({
       scene: 'team',
@@ -158,12 +165,25 @@ $(function() {
     console.log(msg);
     console.log('发送' + msg.scene + ' ' + msg.type + '消息' + (!error?'成功':'失败') + ', id=' + msg.idClient);
     $("#messages").append(
-        "<div class='talk-div'>" + msg.fromNick + "（我）说: " + msg.text +
+        "<div class='talk-div'>" + msg.fromNick + "（我）说: " + msg.text.replace(/\n/g, "<br />") +
         "<div class='talk-time-div'>" + sendMessageTime(msg) + "</div>" +
         "</div>");
     $("#messages").scrollTop($("#messages").prop('scrollHeight'));
     live_chat.pushMsg(msg);
   }
+
+  $('#message-area').keydown(function() {
+    var message = $(this).val();
+    if (event.keyCode == 13) {
+      if (message == "") {
+        // alert("Enter Some Text In Textarea");
+      } else {
+        $('#message-form').submit();
+      }
+      $("#message-area").val('');
+      return false;
+    }
+  });
 });
 
 
@@ -231,4 +251,7 @@ $(function() {
   else{
     $("#no-flash-area").show() //提示div
   }
+
 </script>
+<% end %>
+

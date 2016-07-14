@@ -152,7 +152,7 @@
     $.each(members, function(index, member) {
       if(accounts.indexOf(member.account) >= 0) {
         $("#messages").append("<div class='notice-div'>" + member.nick +  " 加入了聊天组</div>")
-      } 
+      }
     });
 
     if (accounts.indexOf(data.account) === -1) {
@@ -239,7 +239,7 @@
 
   function onNormalMsg(msg) {
     // 处理自定义消息
-    $("#messages").append("<div class='talk-div'>" + msg.fromNick + " 说: " + msg.text +
+    $("#messages").append("<div class='talk-div'>" + msg.fromNick + " 说: " + msg.text.replace(/\n/g, "<br />") +
       "<div class='talk-time-div'>" + sendMessageTime(msg) + "</div>" +
       "</div>");
     $("#messages").scrollTop($("#messages").prop('scrollHeight'));
@@ -266,7 +266,7 @@
     if(!announcement || announcement == '') announcement = "管理员很懒什么也没有留下"
     $("#notice-panel").html("<p>" + announcement + "</p>")
   }
-  e.LiveChat = function(appKey) {
+  window.LiveChat = function(appKey) {
     this.appKey = appKey;
     this.config = function(account, token, teamId) {
       this.teamId = teamId;

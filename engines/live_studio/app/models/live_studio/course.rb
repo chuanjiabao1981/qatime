@@ -70,6 +70,10 @@ module LiveStudio
       channels.create(name: "#{name} - 直播室 - #{id}", course_id: id)
     end
 
+    def lesson_count_left
+      preset_lesson_count - completed_lesson_count
+    end
+
     # 当前价格
     def current_price
       lesson_price * (preset_lesson_count - completed_lesson_count)
@@ -78,7 +82,7 @@ module LiveStudio
     # 发货
     def deliver(order)
       taste_tickets.where(student_id: order.user_id).available.map(&:replaced!) # 替换正在使用的试听券
-      ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: lesson_price)
+      ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: lesson_price, buy_count: lesson_count_left)
       ticket.active!
     end
 
@@ -159,7 +163,7 @@ module LiveStudio
     end
 
     # 学生授权播放
-    def student_authorize(user, _lesson)
+    def student_authorize(user)
       tickets.available.find_by(student_id: user.id)
     end
 

@@ -109,4 +109,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  after_update :sync_chat_account, if: name_changed
+  def sync_chat_account
+
+  end
+
+  # chat account是否需要同步
+  def chat_account_changed?
+    name_changed? || nick_name_changed || avatar_changed?
+  end
+
 end

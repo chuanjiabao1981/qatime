@@ -61,7 +61,7 @@
             <div id="message-input">
               <form action="##" id="message-form">
                 <div class="col-md-9">
-                  <textarea name="message" id="message-area" cols="33" rows="5"></textarea>
+                  <textarea name="message" id="message-area" cols="33" rows="5" oninput="if(value.length>100) value=value.substr(0,100)"></textarea>
                 </div>
                 <div class="col-md-3">
                   <input type="submit" name="send" id="send-btn" value="发送" style="display: float;">
@@ -116,7 +116,7 @@ $(function() {
   });
 
   var live_chat = new LiveChat("<%= Chat::IM.app_key %>");
-  
+
   if(accid == "" || chat_team_id == "" || team_role == "") {
     $.getJSON("<%= chat.live_studio_course_teams_finish_path(@course) %>", function(data) {
       accid = data.accid;
@@ -143,6 +143,8 @@ $(function() {
   $("#message-form").submit(function() {
     if(!chatInited) return false;
     msg = $("#message-area").val().trim();
+    msg = encodeHtmlEntity(msg);
+
     if(msg == '') return false;
     var msg = live_chat.nim.sendText({
       scene: 'team',
@@ -164,7 +166,7 @@ $(function() {
     console.log(msg);
     console.log('发送' + msg.scene + ' ' + msg.type + '消息' + (!error?'成功':'失败') + ', id=' + msg.idClient);
     $("#messages").append(
-        "<div class='talk-div'>" + msg.fromNick + "（我）说: " + msg.text +
+        "<div class='talk-div'>" + msg.fromNick + "（我）说: " + msg.text.replace(/\n/g, "<br />") +
         "<div class='talk-time-div'>" + sendMessageTime(msg) + "</div>" +
         "</div>");
     $("#messages").scrollTop($("#messages").prop('scrollHeight'));
@@ -237,6 +239,25 @@ $(function() {
   else{
     $("#no-flash-area").show() //提示div
   }
+
+  $(document).ready(function() {
+    $('#message-area').keydown(function() {
+      var message = $(this).val();
+      if (event.keyCode == 13) {
+        if (message == "") {
+          // alert("Enter Some Text In Textarea");
+        } else {
+          $('#message-form').submit();
+        }
+        $("#message-area").val('');
+        return false;
+      }
+    });
+  });
+
+  var encodeHtmlEntity = function(str) {
+    return str.replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
+  };
 </script>
 <% end %>
 

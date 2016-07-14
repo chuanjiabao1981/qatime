@@ -98,16 +98,16 @@
 </div>
 
 <script>
+var chatInited = false;
+
+function chatInitCallback() {
+  chatInited = true;
+};
 $(function() {
   var accid = "<%= @chat_account.try(:accid) %>";
   var token = "<%= @chat_account.try(:token) %>";
   var team_role = "<%= @join_record.try(:role) %>";
   var chat_team_id = "<%= @chat_team.try(:team_id) %>";
-  var chatInited = false;
-
-  function chatInitCallback() {
-    chatInited = true;
-  };
 
   $( window ).bind( "beforeunload", function() {
     return "是否离开直播页面";

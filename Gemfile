@@ -94,6 +94,9 @@ gem 'typhoeus'
 
 gem 'wx_pay'
 
+# 监控
+gem 'oneapm_rpm'
+
 # 软删除
 gem 'soft_delete_rails'
 

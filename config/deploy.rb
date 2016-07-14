@@ -30,7 +30,7 @@ set :repo_url, 'git@github.com:chuanjiabao1981/qatime.git'
 # set :pty, true
 
 # Default value for :linked_files is []
-set :linked_files, %w{config/wechat.yml config/database.yml config/application.yml config/application.yml config/vcloud.yml config/netease.yml }
+set :linked_files, %w{config/wechat.yml config/database.yml config/application.yml config/application.yml config/vcloud.yml config/netease.yml config/oneapm.yml }
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads public/qrcode}
@@ -89,6 +89,7 @@ namespace :qatime do
       upload! "config/wechat.yml","#{shared_path}/config/wechat.yml"
       upload! "config/vcloud.yml","#{shared_path}/config/vcloud.yml"
       upload! "config/netease.yml","#{shared_path}/config/netease.yml"
+      upload! "config/oneapm.yml","#{shared_path}/config/oneapm.yml"
     end
   end
 end

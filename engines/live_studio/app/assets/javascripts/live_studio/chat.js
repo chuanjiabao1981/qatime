@@ -246,6 +246,9 @@
   }
 
   function refreshTeamMembersUI(teamId) {
+    $.get('/chat/live_studio_courses/'+teamId+'/teams/members',function(data){
+      $("#members-panel").html(data);
+    });
     //var members = data.teamMembers[teamId];
     //$.each(members, function(index){
     //    var member = members[index];

@@ -18,6 +18,13 @@ module Chat
 
     # 返回群成员列表
     def members
+      chat_team = Chat::Team.find_by(team_id: params[:live_studio_course_id])
+      @accounts = chat_team.try(:accounts)
+      if !@accounts.blank?
+        top = Account.find_by(accid: chat_team.owner)
+        @accounts = @accounts.reject{|a| a.accid == top.accid}.sort_by(&:name).unshift(top)
+      end
+      render partial: 'live_studio/courses/members'
     end
   end
 end

@@ -82,7 +82,7 @@ module LiveService
 
     # 更新听课证
     def update_tickets
-      LiveStudio::CourseTicketCleaner(@lesson.id)
+      ::LiveStudio::CourseTicketCleanerJob.perform_later(@lesson.id)
     end
   end
 end

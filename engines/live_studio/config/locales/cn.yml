@@ -66,12 +66,14 @@ cn:
         ready: 准备上课
         teaching: 上课中
         finished: 待结算
+        billing: 已结算
         completed: 已结算
         student:
           init: 初始化
           ready: 准备上课
           teaching: 上课中
           finished: 已完成
+          billing: 已结算
           completed: 已完成
 
     view:

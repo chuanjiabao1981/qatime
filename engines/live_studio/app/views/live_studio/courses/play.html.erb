@@ -145,6 +145,8 @@ $(function() {
   $("#message-form").submit(function() {
     if(!chatInited) return false;
     msg = $("#message-area").val().trim();
+    msg = encodeHtmlEntity(msg);
+
     if(msg == '') return false;
     var msg = live_chat.nim.sendText({
       scene: 'team',
@@ -166,7 +168,7 @@ $(function() {
     console.log(msg);
     console.log('发送' + msg.scene + ' ' + msg.type + '消息' + (!error?'成功':'失败') + ', id=' + msg.idClient);
     $("#messages").append(
-        "<div class='talk-div'>" + msg.fromNick + "（我）说: " + msg.text +
+        "<div class='talk-div'>" + msg.fromNick + "（我）说: " + msg.text.replace(/\n/g, "<br />") +
         "<div class='talk-time-div'>" + sendMessageTime(msg) + "</div>" +
         "</div>");
     $("#messages").scrollTop($("#messages").prop('scrollHeight'));
@@ -246,9 +248,7 @@ $(function() {
       if (event.keyCode == 13) {
         if (message == "") {
           // alert("Enter Some Text In Textarea");
-
         } else {
-          console.log($(this).val())
           $('#message-form').submit();
         }
         $("#message-area").val('');
@@ -257,5 +257,7 @@ $(function() {
     });
   });
 
-
+  var encodeHtmlEntity = function(str) {
+    return str.replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
+  };
 </script>

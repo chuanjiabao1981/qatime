@@ -266,7 +266,7 @@
     if(!announcement || announcement == '') announcement = "管理员很懒什么也没有留下"
     $("#notice-panel").html("<p>" + announcement + "</p>")
   }
-  e.LiveChat = function(appKey) {
+  window.LiveChat = function(appKey) {
     this.appKey = appKey;
     this.config = function(account, token, teamId) {
       this.teamId = teamId;

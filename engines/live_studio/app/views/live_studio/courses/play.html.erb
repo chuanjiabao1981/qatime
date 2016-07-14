@@ -1,3 +1,8 @@
+<% content_for :javascript do %>
+  <%= javascript_include_tag "live_studio/nep.min" %>
+  <%= javascript_include_tag "live_studio/live" %>
+<% end %>
+
 <% channel = @course.channels.first %>
 <div class="qa_sep_15"></div>
 
@@ -89,6 +94,7 @@
   </div>
 </div>
 
+<% content_for :javascript do %>
 <script>
 var chatInited = false;
 
@@ -232,3 +238,5 @@ $(function() {
     $("#no-flash-area").show() //提示div
   }
 </script>
+<% end %>
+

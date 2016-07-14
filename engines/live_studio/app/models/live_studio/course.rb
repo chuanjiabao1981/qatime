@@ -15,7 +15,7 @@ module LiveStudio
            completed: 3 # 已结束
          }
 
-    validates :name, :price, presence: true
+    validates :name, :price, :subject, :grade, presence: true
     validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than: 0, less_than: 100 }
     validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than: 200 }
     validates :price, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 999999}

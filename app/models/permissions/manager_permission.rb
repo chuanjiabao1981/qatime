@@ -89,6 +89,9 @@ module Permissions
       allow 'live_studio/manager/courses', [:index, :show, :new, :create, :edit, :update, :destroy, :publish] do |manager|
         manager.id == user.id
       end
+      allow 'live_studio/teacher/courses', [:index, :show]
+      allow 'live_studio/student/courses', [:index, :show]
+      allow 'live_studio/courses', [:index]
       ## end live studio permission
 
     end

@@ -29,6 +29,8 @@ module LiveStudio
         fill_in :course_teacher_percentage, with: 10
         fill_in :course_preset_lesson_count, with: 15
         select workstation.name, from: 'course_workstation_id'
+        select '语文', from: 'course_subject'
+        select '六年级', from: 'course_grade'
         click_on '新增辅导班'
       end
 

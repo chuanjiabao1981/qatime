@@ -40,11 +40,6 @@ class TeachersController < ApplicationController
 
   def update
     @teacher.update_attributes(params[:teacher].permit!)
-
-    if @teacher.nick_name != @teacher.chat_account.name
-      LiveService::ChatAccountFromUser.new(@teacher).sync_chat_uinfo
-    end
-
     respond_with @teacher
   end
 

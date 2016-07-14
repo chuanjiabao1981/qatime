@@ -4,8 +4,9 @@
   var nim;
   var currentTeam = {};
 
-  function onConnect() {
+  function onConnect(fn) {
     console.log('连接成功');
+    fn();
   }
   function onWillReconnect(obj) {
     // 此时说明 SDK 已经断开连接, 请开发者在界面上提示用户连接已断开, 而且正在重新建立连接
@@ -270,7 +271,7 @@
       this.token = token;
       currentTeam.id = this.teamId;
     };
-    this.init = function() {
+    this.init = function(fn) {
       nim = this.nim = NIM.getInstance({
         db: false,
         autoMarkRead: false, // 取消自动标记已读
@@ -278,7 +279,7 @@
         appKey: this.appKey,
         account: this.account,
         token: this.token,
-        onconnect: onConnect,
+        onconnect: onConnect(fn),
         onwillreconnect: onWillReconnect,
         ondisconnect: onDisconnect,
         onerror: onError,

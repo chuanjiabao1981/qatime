@@ -103,6 +103,11 @@ $(function() {
   var token = "<%= @chat_account.try(:token) %>";
   var team_role = "<%= @join_record.try(:role) %>";
   var chat_team_id = "<%= @chat_team.try(:team_id) %>";
+  var chatInited = false;
+
+  function chatInitCallback() {
+    chatInited = true;
+  };
 
   $( window ).bind( "beforeunload", function() {
     return "是否离开直播页面";
@@ -120,11 +125,11 @@ $(function() {
       token = data.token;
       chat_team_id = data.team_id;
       live_chat.config(accid, token, chat_team_id);
-      live_chat.init();
+      live_chat.init(chatInitCallback);
     });
   } else {
     live_chat.config(accid, token, chat_team_id);
-    live_chat.init();
+    live_chat.init(chatInitCallback);
   }
 
   $("#chat-tabs").click(function(event) {
@@ -138,6 +143,7 @@ $(function() {
   });
 
   $("#message-form").submit(function() {
+    if(!chatInited) return false;
     msg = $("#message-area").val().trim();
     if(msg == '') return false;
     var msg = live_chat.nim.sendText({

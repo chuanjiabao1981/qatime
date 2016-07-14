@@ -144,8 +144,7 @@ $(function() {
 
   $("#message-form").submit(function() {
     if(!chatInited) return false;
-    msg = $("#message-area").val().trim();
-    msg = encodeHtmlEntity(msg);
+    msg = $("#message-area").val().trim().replace(/\</g, '&lt;').replace(/\>/g, '&gt;');;
 
     if(msg == '') return false;
     var msg = live_chat.nim.sendText({
@@ -174,6 +173,19 @@ $(function() {
     $("#messages").scrollTop($("#messages").prop('scrollHeight'));
     live_chat.pushMsg(msg);
   }
+
+  $('#message-area').keydown(function() {
+    var message = $(this).val();
+    if (event.keyCode == 13) {
+      if (message == "") {
+        // alert("Enter Some Text In Textarea");
+      } else {
+        $('#message-form').submit();
+      }
+      $("#message-area").val('');
+      return false;
+    }
+  });
 });
 
 
@@ -242,22 +254,4 @@ $(function() {
     $("#no-flash-area").show() //提示div
   }
 
-  $(document).ready(function() {
-    $('#message-area').keydown(function() {
-      var message = $(this).val();
-      if (event.keyCode == 13) {
-        if (message == "") {
-          // alert("Enter Some Text In Textarea");
-        } else {
-          $('#message-form').submit();
-        }
-        $("#message-area").val('');
-        return false;
-      }
-    });
-  });
-
-  var encodeHtmlEntity = function(str) {
-    return str.replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
-  };
 </script>

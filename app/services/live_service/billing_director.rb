@@ -12,7 +12,7 @@ module LiveService
       @lesson.live_end_at = Time.now
       @lesson.real_time = ((@lesson.live_end_at - @lesson.live_start_at) / 60.0).ceil # 实际直播时间
       @lesson.finish!
-      used_taste_tickets # 过期试听证
+      update_tickets
     end
 
     # 课程结算
@@ -80,13 +80,9 @@ module LiveService
       CashAdmin.increase_cash_account(money, billing, '课程完成 - 系统服务费')
     end
 
-    # 过期试听证
-    def used_taste_tickets
-      pre_used_tickets = @course.taste_tickets.pre_used
-      pre_used_tickets.map(&:used!)
-      # 异步踢出聊天群组
-      used_student_ids = pre_used_tickets.map(&:student_id)
-      Chat::TeamMemberCleanerJob.perform_later(used_student_ids)
+    # 更新听课证
+    def update_tickets
+      ::LiveStudio::CourseTicketCleanerJob.perform_later(@lesson.id)
     end
   end
 end

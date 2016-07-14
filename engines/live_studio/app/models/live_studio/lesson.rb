@@ -7,7 +7,8 @@ module LiveStudio
       ready: 1, # 等待上课
       teaching: 2, # 上课中
       finished: 3, # 已完成
-      completed: 4 # 已结算
+      billing: 4, # 结算中
+      completed: 5 # 已结算
     }
 
     default_scope { order("id asc") }
@@ -46,10 +47,11 @@ module LiveStudio
 
       event :complete do
         transitions from: :finished, to: :completed
+        transitions from: :billing, to: :completed
       end
     end
 
-    def status_text(role=nil)
+    def status_text(role = nil)
       role_status = role == 'student' ? "#{role}.#{status}" : status
       I18n.t("activerecord.status.live_studio/lesson.#{role_status}")
     end

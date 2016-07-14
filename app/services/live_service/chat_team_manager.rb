@@ -18,9 +18,10 @@ module LiveService
     end
 
     def remove_members(user_ids)
-      Chat::Account.where(user_id: user_ids).find_each do |account|
+      account_ids = Chat::Account.where(user_id: user_ids).find_each do |account|
         Chat::IM.team_kick(@team.team_id, @team.owner, account.accid)
       end
+      @team.join_records.where(account_id: account_ids).destroy_all
     end
 
     # 拉入群组

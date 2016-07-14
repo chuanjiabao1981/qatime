@@ -6,7 +6,7 @@
   <!-- Table -->
   <table class="table">
     <tr>
-      <% %w(name se_time date status operate).each do |col| %>
+      <% %w(name se_time date status).each do |col| %>
       <th>
         <%= t("activerecord.view.#{col}") %>
       </th>
@@ -26,11 +26,6 @@
         </td>
         <td>
           <%= lesson.status_text %>
-        </td>
-        <td>
-          <% if lesson.can_play? %>
-            <%= link_to t("activerecord.view.begin_watch_live_studio"), play_course_path(@course) if @play_hash[lesson.id] || @ticket.authorizable? %>
-          <% end %>
         </td>
       </tr>
     <% end -%>

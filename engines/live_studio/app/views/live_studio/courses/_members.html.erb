@@ -1,0 +1,8 @@
+<% @accounts.each do |account|%>
+    <%= content_tag(:div, class: 'media') do %>
+        <%= content_tag(:div, class: 'media_left') do %>
+            <%= image_tag(account.icon_url,class: 'media-object img-circle')%>
+        <% end %>
+        <%= content_tag(:div, account.name, class: 'media-body') %>
+    <% end %>
+<% end if @accounts %>

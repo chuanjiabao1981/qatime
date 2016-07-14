@@ -38,14 +38,6 @@
         </ul>
         <div panel panel-default id="chat-panels">
           <div class="panel-body" id="members-panel" style="display: none;">
-            <% @chat_team.accounts.each do |account|%>
-                <%= content_tag(:div, class: 'media') do %>
-                    <%= content_tag(:div, class: 'media_left') do %>
-                        <%= image_tag(account.icon_url,class: 'media-object img-circle')%>
-                    <% end %>
-                    <%= content_tag(:div, account.name, class: 'media-body') %>
-                <% end %>
-            <% end if @chat_team %>
           </div>
           <div class="panel-body" id="message-panel">
             <div id="messages">

@@ -18,9 +18,11 @@ module LiveService
     def sync_chat_uinfo
       return if @user.chat_account.blank?
 
-      # 更新获取网易云信名片
       chat_account = @user.chat_account
-      Chat::IM.update_uinfo(chat_account)
+      account_name = @user.nick_name || @user.name
+
+      # 更新获取网易云信名片
+      Chat::IM.update_uinfo(chat_account.accid, account_name, @user.avatar_url(:small))
       uinfo = Chat::IM.get_uinfo(chat_account)
 
       chat_account.update_columns(uinfo)

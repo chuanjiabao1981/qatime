@@ -3,6 +3,8 @@ require_dependency "live_studio/application_controller"
 module LiveStudio
   class CoursesController < ApplicationController
     before_action :set_student
+    before_action :set_course, only: [:show, :play]
+    before_action :play_authorize, only: [:play]
 
     def index
       @courses = Course.for_sell.includes(:teacher).all
@@ -27,7 +29,6 @@ module LiveStudio
     end
 
     def play
-      @course = Course.find(params[:id])
       @lesson = @course.current_lesson
       @chat_team = @course.chat_team
       # @tickets = @course.tickets.available.includes(:student)
@@ -51,10 +52,13 @@ module LiveStudio
     end
 
     private
+    def set_course
+      @course = Course.find(params[:id])
+    end
+
     # 直播授权
     def play_authorize
-      @paly_record = @course.play_authorize(current_user, @lesson)
-      redirect_to @course, alert: i18n_failed('have not bought', @course) if @paly_record.nil?
+      redirect_to @course, alert: i18n_failed('have not bought', @course) unless @course.play_authorize(current_user, @lesson)
     end
 
     def set_student

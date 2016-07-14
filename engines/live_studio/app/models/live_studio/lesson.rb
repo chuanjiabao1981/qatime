@@ -72,7 +72,7 @@ module LiveStudio
     end
 
     def live_time
-      "#{live_time}~#{end_time}"
+      "#{start_time}~#{end_time}"
     end
 
     private

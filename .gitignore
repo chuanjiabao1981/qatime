@@ -31,3 +31,4 @@
 
 .vagrant/
 screenshots/*.png
+config/oneapm.yml

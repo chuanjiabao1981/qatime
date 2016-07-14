@@ -71,6 +71,10 @@ module LiveStudio
       description.try(:truncate, len)
     end
 
+    def live_time
+      "#{start_time}~#{end_time}"
+    end
+
     private
 
     # 过期试听证

@@ -4,8 +4,9 @@
   var nim;
   var currentTeam = {};
 
-  function onConnect() {
+  function onConnect(fn) {
     console.log('连接成功');
+    fn();
   }
   function onWillReconnect(obj) {
     // 此时说明 SDK 已经断开连接, 请开发者在界面上提示用户连接已断开, 而且正在重新建立连接
@@ -88,20 +89,15 @@
   // 离线消息
   function onOfflineMsgs(obj) {
     console.log('收到离线消息', obj);
+    if(obj.sessionId != "team-" + currentTeam.id) return false;
 
-    currentTeamMsgs = $.grep(obj.msgs, function(index, msg) {
-      console.log(index);
-      console.log(msg);
-      return msg.type == "team" && msg.to == currentTeam.id;
-    });
-
-    $.each(currentTeamMsgs, function(index, msg) {
+    $.each(obj.msgs, function(index, msg) {
       onMsg(msg, false);
     });
-    nim.markMsgRead(currentTeamMsgs);
+    nim.markMsgRead(obj.msgs);
   }
   // 消息处理
-  function onMsg(msg, mark = true) {
+  function onMsg(msg, mark) {
     console.log('收到消息', msg.scene, msg.type, msg);
     // 不是该聊天组消息
     if(msg.scene != "team" || msg.to != currentTeam.id ) {
@@ -152,6 +148,13 @@
      如果是别人被拉进来了，那么拼接群成员列表
      如果是自己被拉进来了，那么同步一次群成员列表
      */
+
+    $.each(members, function(index, member) {
+      if(accounts.indexOf(member.account) >= 0) {
+        $("#messages").append("<div class='notice-div'>" + member.nick +  " 加入了聊天组</div>")
+      } 
+    });
+
     if (accounts.indexOf(data.account) === -1) {
       onTeamMembers({
         teamId: teamId,
@@ -197,7 +200,7 @@
       team = msg.attach.team,
       account = msg.attach.account,
       accounts = msg.attach.accounts,
-      members = msg.attach.members;
+      members = msg.attach.users || msg.attach.members;
 
     switch (type) {
       case 'updateTeam':
@@ -268,14 +271,15 @@
       this.token = token;
       currentTeam.id = this.teamId;
     };
-    this.init = function() {
+    this.init = function(fn) {
       nim = this.nim = NIM.getInstance({
+        db: false,
         autoMarkRead: false, // 取消自动标记已读
         // debug: true,
         appKey: this.appKey,
         account: this.account,
         token: this.token,
-        onconnect: onConnect,
+        onconnect: onConnect(fn),
         onwillreconnect: onWillReconnect,
         ondisconnect: onDisconnect,
         onerror: onError,

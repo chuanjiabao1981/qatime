@@ -159,7 +159,7 @@ module LiveStudio
     end
 
     # 学生授权播放
-    def student_authorize(user, _lesson)
+    def student_authorize(user)
       tickets.available.find_by(student_id: user.id)
     end
 

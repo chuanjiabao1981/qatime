@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20160710040933) do
   create_table "chat_join_records", force: :cascade do |t|
     t.integer  "account_id"
     t.integer  "team_id"
+    t.string   "nick_name",  limit: 64
     t.string   "role",       limit: 16
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false

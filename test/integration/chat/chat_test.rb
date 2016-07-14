@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module LiveStudio
-  class CourseLivePlayTest < ActionDispatch::IntegrationTest
+  class ChatTest < ActionDispatch::IntegrationTest
     def setup
       @routes = Engine.routes
       @headless = Headless.new
@@ -24,13 +24,14 @@ module LiveStudio
       Capybara.use_default_driver
     end
 
-    test "student watch play" do
+    test "student say somthing" do
       course = live_studio_courses(:course_with_lesson)
-      channel = live_studio_channels(:three)
 
       visit live_studio.play_course_path(course)
-      page.has_content? channel.name
-      page.has_selector?('div#my-video')
+      sleep(3)
+      fill_in "message-area", with: "大家好呀"
+      click_on "发送"
+      sleep(10)
     end
   end
 end

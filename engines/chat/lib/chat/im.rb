@@ -38,7 +38,7 @@ module Chat
     def self.account_create(accid, name, icon)
       params = { accid: accid, name: name, icon: icon }
       result = post_request("/user/create.action", params)
-      result['info'] if result
+      return result['code'] == 200 ? result['info'] : refresh_token(accid) if result
     end
 
     # 云信ID更新
@@ -48,10 +48,9 @@ module Chat
     end
 
     # 更新并获取新token
-    def self.refresh_token(chat_account)
-      params = { accid: chat_account.accid }
+    def self.refresh_token(accid)
+      params = { accid: accid }
       result = post_request("/user/refreshToken.action", params)
-
       result['info'] if result
     end
 

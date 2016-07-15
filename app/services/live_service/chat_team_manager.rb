@@ -13,6 +13,7 @@ module LiveService
       @team = find_or_create_chat_team(course, teacher_account)
       Tools.with_log("course-#{course.id}-team-create", 30) do
         @team.team_id = Chat::IM.team_create(tname: @team.name, owner: @team.owner, members: [], msg: "#{course.name} 讨论组")
+        @team.save
       end unless @team.team_id
       @team
     end

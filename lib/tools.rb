@@ -4,7 +4,7 @@ class Tools
     yield block if Redis.current.setnx(key, lock_time)
   ensure
     if timeout
-      Redis.current.setnx(key, timeout)
+      Redis.current.expire(key, timeout)
     else
       Redis.current.del(key)
     end

@@ -1,3 +1,5 @@
+require 'encryption'
+
 module LiveService
   class ChatAccountFromUser
     def initialize(user)
@@ -32,14 +34,14 @@ module LiveService
 
     private
 
-    def random_accid
-      SecureRandom.hex(16)
+    def encryption_accid
+      Encryption.md5("#{Rails.env}-#{@user.id}")
     end
 
     def find_or_create_chat_account
       return @user.chat_account if @user.chat_account
       account_name = @user.nick_name || @user.name
-      @user.create_chat_account(name: account_name, icon: @user.avatar_url(:small), accid: random_accid)
+      @user.create_chat_account(name: account_name, icon: @user.avatar_url(:small), accid: encryption_accid)
     rescue ActiveRecord::RecordNotUnique
       @user.reload
       retry

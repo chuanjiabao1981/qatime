@@ -20,15 +20,6 @@ module LiveStudio
       Capybara.using_session("student") do
         log_in_as(@student)
       end
-      Capybara.using_session("teacher") do
-        log_in_as(@student)
-      end
-      Capybara.using_session("student") do
-        logout_as(@student)
-      end
-      Capybara.using_session("teacher") do
-        logout_as(@student)
-      end
     end
   end
 end

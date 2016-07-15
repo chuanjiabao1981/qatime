@@ -47,6 +47,5 @@ module LiveStudio
 
     test "instance team when teacher has no chat account" do
     end
-
   end
 end

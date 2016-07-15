@@ -38,7 +38,7 @@ module Chat
     def self.account_create(accid, name, icon)
       params = { accid: accid, name: name, icon: icon }
       result = post_request("/user/create.action", params)
-      return result['info'] if result && result['status'] == 200
+      return result['info'] if result && (result['code'] == 200 || result['status'] == 200)
       # 已经存在刷新
       refresh_token(accid) if result && result['desc'] == 'already register'
     end

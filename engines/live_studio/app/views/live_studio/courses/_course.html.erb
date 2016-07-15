@@ -8,9 +8,9 @@
     <% if(current_user.student?) %>
     <%= render partial: "student_operate", locals: {course: course}  %>
     <% elsif current_user.teacher? %>
-    <%= render "teacher_operate"  %>
+    <%= render partial: "teacher_operate", locals: {course: course}  %>
     <% else %>
-    <%= render "manager_operate"  %>
+    <%= render partial: "manager_operate", locals: {course: course}  %>
     <% end %>
   </td>
 </tr>

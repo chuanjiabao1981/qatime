@@ -69,3 +69,8 @@ ticket_of_tasting:
   buy_count: 2
   used_count: 0
   lesson_price: 0
+
+ticket_for_student_tally:
+  student: student_tally
+  course: course_with_junior_teacher
+  type: LiveStudio::BuyTicket

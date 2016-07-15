@@ -21,7 +21,7 @@ module LiveService
 
       # 更新获取网易云信名片
       Chat::IM.update_uinfo(chat_account.accid, account_name, @user.avatar_url(:small))
-      uinfo = Chat::IM.get_uinfo(chat_account)
+      uinfo = Chat::IM.get_uinfo(chat_account.accid)
 
       chat_account.update_columns(uinfo)
     end

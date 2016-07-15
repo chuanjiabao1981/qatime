@@ -35,12 +35,11 @@ module Chat
     end
 
     # 创建云信ID
-    def self.account_create(accid, name, icon)
+    def self.account_create(accid, name, icon, token = nil)
       params = { accid: accid, name: name, icon: icon }
+      params[:token] = token if token.present?
       result = post_request("/user/create.action", params)
-      return result['info'] if result && result['status'] == 200
-      # 已经存在刷新
-      refresh_token(accid) if result && result['desc'] == 'already register'
+      return result['code'] == 200 ? result['info'] : refresh_token(accid) if result
     end
 
     # 云信ID更新
@@ -63,8 +62,8 @@ module Chat
     end
 
     # 获取用户名片
-    def self.get_uinfo(chat_account)
-      params = { accids: [chat_account.accid] }
+    def self.get_uinfo(accid)
+      params = { accids: [accid] }
       result = post_request("/user/getUinfos.action", params)
       if result['code'] == 200
         result = result['uinfos'][0]

@@ -1,13 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-teacher_chat_account:
-  user: course_with_junior_teacher
-  accid: teacher_with_chat_account
-  token: teacher_chat_account
-  name: teacher_chat_account
-
 chat_account_with_teacher:
   user: teacher_with_chat_account
-  accid: teacher_chat_account
-  token: teacher_chat_account
+  accid: ed03014ecec41b0379a580b666709315
+  token: b9b8e76e1d57d1933994f58f7b2176e5
   name: teacher_chat_account
+
+
+chat_account_student_tally:
+  user: student_tally
+  accid: 748380625c78c72d908d3842c4e30d2b
+  token: 7845406777c4299b9249175dc700b38c
+  name: student_tally
+

@@ -27,7 +27,7 @@ module Chat
             redis.hset(team_id, :members, @members.join(','))
           end
         end
-        @members ||= redis.hget(team_id, :members)
+        @members ||= redis.hget(team_id, :members).try(:split, ',')
         @members.to_a
       end
 

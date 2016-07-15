@@ -5,7 +5,7 @@ module Chat
     has_many :teams, through: :join_records
 
     def icon_url
-      icon.presence || "/assets/no_header.png"
+      icon.presence || "/imgs/no_header.png"
     end
   end
 end

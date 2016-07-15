@@ -4,11 +4,9 @@ require 'rails/test_help'
 require 'capybara/rails'
 require 'headless'
 
-
 Capybara.register_driver :selenium_chrome do |app|
-  Capybara::Selenium::Driver.new(app, :browser => :chrome,service_log_path:'/tmp/t.log',args:["--verbose"])
+  Capybara::Selenium::Driver.new(app, browser: :chrome, service_log_path: '/tmp/t.log', args: ["--verbose"])
 end
-
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
@@ -19,7 +17,7 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  # Add more helper methods to be used by all tests here..
   def log_in_as(user)
     retry_count = 0
     begin
@@ -29,7 +27,7 @@ class ActiveSupport::TestCase
       fill_in :user_email,with: user.email
       fill_in :user_password,with: 'password'
       click_button '登录'
-    rescue  Capybara::ElementNotFound => x
+    rescue Capybara::ElementNotFound => x
       page.save_screenshot('screenshots/screenshotxxxxxx.png')
       raise x if retry_count > 3
       logout_as(user)
@@ -37,8 +35,15 @@ class ActiveSupport::TestCase
     end
     assert page.has_content? '欢迎登录!'
   end
-  def logout_as(user)
-    visit get_home_url(user)
+
+  def logout_as(user, confirm = false)
+    if confirm
+      accept_prompt(with: "是否离开直播页面") do
+        visit get_home_url(user)
+      end
+    else
+      visit get_home_url(user)
+    end
     click_on '退出系统'
   end
 

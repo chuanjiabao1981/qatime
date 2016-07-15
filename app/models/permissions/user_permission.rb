@@ -36,7 +36,7 @@ module Permissions
       end
 
       allow 'live_studio/courses', [:index, :taste, :play, :show]
-      allow 'chat/teams', [:finish, :members]
+      allow 'chat/teams', [:finish, :members, :member_visit]
     end
   end
 end

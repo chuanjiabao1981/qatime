@@ -19,12 +19,37 @@ module Chat
     # 返回群成员列表
     def members
       chat_team = Chat::Team.find_by(team_id: params[:live_studio_course_id])
-      @accounts = chat_team.try(:accounts)
+      @accounts = chat_team.try(:accounts).to_a
+
       if !@accounts.blank?
-        top = Account.find_by(accid: chat_team.owner)
-        @accounts = @accounts.reject{|a| a.accid == top.accid}.sort_by(&:name).unshift(top)
+        owner = Account.find_by(accid: chat_team.owner)
+        members = params[:members].try(:split,',')
+        @online_accounts = Account.where(accid: members).to_a
+        # 老师一定online,但不能重复
+        @online_accounts << owner
+        @online_accounts.uniq!
+        @token = Digest::MD5.hexdigest(members.join) if members.present?
+        # 老师排第一 在线学生和不在线学生依次按name排序
+        @accounts = @accounts - @online_accounts.to_a
+        @accounts = @online_accounts.sort_by(&:name) + @accounts.sort_by(&:name)
+        @accounts = @accounts.reject{|a| a == owner }.unshift(owner)
       end
       render partial: 'live_studio/courses/members'
+    end
+
+    # 成员访问群组
+    # 如果在线成员发生变化,则返回 members
+    def member_visit
+      team_id = params[:live_studio_course_id]
+      acc_id = params[:acc_id]
+      token = params[:token]
+      Chat::Team.cache_member_visit(team_id,acc_id)
+      @members = Chat::Team.online_members(team_id, token)
+      if token == Digest::MD5.hexdigest(@members.join)
+        render text: 'nothing'
+      else
+        redirect_to action: :members, members: @members.uniq.compact.join(',')
+      end
     end
   end
 end

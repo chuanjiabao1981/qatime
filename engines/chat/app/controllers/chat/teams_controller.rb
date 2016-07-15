@@ -25,9 +25,6 @@ module Chat
         owner = Account.find_by(accid: chat_team.owner)
         members = params[:members].try(:split,',')
         @online_accounts = Account.where(accid: members).to_a
-        # 老师一定online,但不能重复
-        @online_accounts << owner
-        @online_accounts.uniq!
         @token = Digest::MD5.hexdigest(members.join) if members.present?
         # 老师排第一 在线学生和不在线学生依次按name排序
         @accounts = @accounts - @online_accounts.to_a

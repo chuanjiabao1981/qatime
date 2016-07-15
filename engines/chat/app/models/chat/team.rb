@@ -19,7 +19,8 @@ module Chat
                 if (Time.now - visit_time.to_time) < 30
                   acc_id
                 end
-              end.compact!
+              end
+          @members.compact!
           unless @members.blank?
             md5_token = Digest::MD5.hexdigest(@members.join)
             redis.hset(team_id, :md5_token, md5_token)

@@ -30,7 +30,6 @@ module LiveStudio
 
         fill_in "message-area", with: "同学们，大家好呀"
         click_on "发送"
-        sleep(10)
 
         page.has_content? "同学们，大家好呀"
       end
@@ -40,12 +39,11 @@ module LiveStudio
 
         visit live_studio.play_course_path(@course)
 
-        sleep(3)
+        sleep(5)
         page.has_content? "同学们，大家好呀"
 
         fill_in "message-area", with: "大家好呀"
         click_on "发送"
-        sleep(10)
 
         page.has_content? "大家好呀"
       end

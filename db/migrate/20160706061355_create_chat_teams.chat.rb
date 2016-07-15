@@ -4,7 +4,7 @@ class CreateChatTeams < ActiveRecord::Migration
     create_table :chat_teams do |t|
       t.string :team_id, limit: 32
       t.string :name, limit: 64
-      t.references :live_studio_course, index: true
+      t.references :live_studio_course, index: true, unique: true
       t.string :owner, limit: 32
       t.text :announcement
 

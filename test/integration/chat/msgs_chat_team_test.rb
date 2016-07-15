@@ -51,10 +51,10 @@ module LiveStudio
       end
 
       Capybara.using_session("student") do
-        logout_as(@student)
+        logout_as(@student, true)
       end
       Capybara.using_session("teacher") do
-        logout_as(@teacher)
+        logout_as(@teacher, true)
       end
     end
   end

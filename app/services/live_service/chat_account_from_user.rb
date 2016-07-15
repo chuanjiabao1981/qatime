@@ -10,7 +10,7 @@ module LiveService
       chat_account = find_or_create_chat_account
       return chat_account if chat_account.token
       result_data = Chat::IM.account_create(chat_account.accid, chat_account.name, chat_account.icon)
-      chat_account.update_attributes(result_data.slice(:token, :accid, :name).compact)
+      chat_account.update_attributes(result_data.slice('token', 'accid', 'name').compact)
       chat_account
     end
 

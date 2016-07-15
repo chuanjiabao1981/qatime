@@ -28,6 +28,7 @@ module LiveService
       current_members = @team.join_records.map(&:account_id)
       members.delete_if {|m| current_members.include?(m.id)}
       @course = @team.live_studio_course
+
       Chat::IM.team_add(@team.team_id, @team.owner, "#{@course.name} 讨论组", members.map(&:accid)) if remote
       members.each do |member|
         Chat::JoinRecord.create(team_id: @team.id, account_id: member.id, role: role, nick_name: member.name)
@@ -41,7 +42,7 @@ module LiveService
       LiveService::ChatAccountFromUser.new(user).instance_account
     end
 
-    def find_or_create_chat_team(course)
+    def find_or_create_chat_team(course, teacher_account)
       return course.chat_team if course.chat_team
       Chat::Team.create(owner: teacher_account.accid, name: "#{course.name} 讨论组", live_studio_course: course)
     rescue ActiveRecord::RecordNotUnique

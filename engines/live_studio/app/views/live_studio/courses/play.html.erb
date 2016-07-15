@@ -100,7 +100,25 @@
 
       function chatInitCallback() {
         chatInited = true;
+        visit();
       };
+
+      function visit(){
+        console.log('dddd');
+        var team_id = "<%= @chat_team.try(:team_id) %>";
+        var params = {
+          acc_id: "<%= @chat_account.try(:accid) %>",
+          token: $("#online_token").val()
+        }
+        $.get('/chat/live_studio_courses/'+team_id+'/teams/member_visit',params,function(data){
+          if(data == 'nothing'){
+            console.log(data);
+          }else{
+            $("#members-panel").html(data);
+          }
+        });
+      }
+      setInterval(visit,30000);
 
       $(function() {
         var accid = "<%= @chat_account.try(:accid) %>";
@@ -158,8 +176,6 @@
           return false;
         });
 
-
-
         function sendMsgDone(error, msg) {
 
           console.log(error);
@@ -185,23 +201,6 @@
             return false;
           }
         });
-        visit();
-        function visit(){
-          console.log('dddd');
-          var params = {
-            team_id: chat_team_id,
-            acc_id: accid,
-            token: $("#online_token").val()
-          }
-          $.get('/chat/live_studio_courses/'+chat_team_id+'/teams/member_visit',params,function(data){
-            if(data == 'nothing'){
-              console.log(data);
-            }else{
-              $("#members-panel").html(data);
-            }
-          });
-        }
-        setInterval(visit,30000);
       });
 
 

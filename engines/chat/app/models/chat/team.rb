@@ -11,21 +11,18 @@ module Chat
     class << self
       # redis cache methods
       # 群组在线成员列表
-      def online_members(team_id,md5_token)
-        if md5_token && @redis.hget(team_id, :md5_token) == md5_token
-        else
-          @members =
-              redis.hgetall("#{team_id}_visits").try(:map) do |acc_id, visit_time|
-                if (Time.now - visit_time.to_time) < 30
-                  acc_id
-                end
+      def online_members(team_id,md5_token=nil)
+        @members =
+            redis.hgetall("#{team_id}_visits").try(:map) do |acc_id, visit_time|
+              if (Time.now - visit_time.to_time) < 30
+                acc_id
               end
-          @members.compact!
-          unless @members.blank?
-            md5_token = Digest::MD5.hexdigest(@members.join)
-            redis.hset(team_id, :md5_token, md5_token)
-            redis.hset(team_id, :members, @members.join(','))
-          end
+            end
+        @members.compact!
+        if md5_token.blank? || md5_token != Digest::MD5.hexdigest(@members.join)
+          md5_token = Digest::MD5.hexdigest(@members.join)
+          redis.hset(team_id, :md5_token, md5_token)
+          redis.hset(team_id, :members, @members.join(','))
         end
         @members ||= redis.hget(team_id, :members).try(:split, ',')
         @members.to_a

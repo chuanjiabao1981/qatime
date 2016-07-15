@@ -23,7 +23,7 @@ module Chat
 
       if !@accounts.blank?
         owner = Account.find_by(accid: chat_team.owner)
-        members = params[:members].try(:split,',')
+        members = Chat::Team.online_members(chat_team.team_id)
         @online_accounts = Account.where(accid: members).to_a
         @token = Digest::MD5.hexdigest(members.join) if members.present?
         # 老师排第一 在线学生和不在线学生依次按name排序
@@ -42,10 +42,10 @@ module Chat
       token = params[:token]
       Chat::Team.cache_member_visit(team_id,acc_id)
       @members = Chat::Team.online_members(team_id, token)
-      if token == Digest::MD5.hexdigest(@members.join)
+      if token == Chat::Team.token(team_id)
         render text: 'nothing'
       else
-        redirect_to action: :members, members: @members.uniq.compact.join(',')
+        redirect_to action: :members
       end
     end
   end

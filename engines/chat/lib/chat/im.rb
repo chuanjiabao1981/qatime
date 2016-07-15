@@ -39,7 +39,9 @@ module Chat
       params = { accid: accid, name: name, icon: icon }
       params[:token] = token if token.present?
       result = post_request("/user/create.action", params)
-      return result['code'] == 200 ? result['info'] : refresh_token(accid) if result
+      return result['info'] if result && (result['code'] == 200 || result['status'] == 200)
+      # 已经存在刷新
+      refresh_token(accid) if result && result['desc'] == 'already register'
     end
 
     # 云信ID更新
@@ -52,6 +54,8 @@ module Chat
     def self.refresh_token(accid)
       params = { accid: accid }
       result = post_request("/user/refreshToken.action", params)
+      p result
+      p '----------/////////'
       result['info'] if result
     end
 
@@ -77,6 +81,7 @@ module Chat
     def self.post_request(uri, body)
       body = body.map {|k, v| "#{k}=#{v}"}.join("&") if body.is_a?(Hash)
       res = Typhoeus.post("#{IM_HOST}/nimserver#{uri}", headers: headers, body: body)
+      Rails.logger.info(res.body) if res.success?
       return JSON.parse(res.body) if res.success?
       Rails.logger.error("云信服务器通信错误\n#{uri}\n#{body}")
       nil

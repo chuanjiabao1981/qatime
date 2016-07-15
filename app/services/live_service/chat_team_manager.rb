@@ -1,3 +1,5 @@
+require 'tools'
+
 module LiveService
   class ChatTeamManager
     def initialize(team)
@@ -9,9 +11,9 @@ module LiveService
     def instance_team(course, teacher_account = nil)
       teacher_account ||= find_or_instance_account(course.teacher)
       @team = find_or_create_chat_team(course, teacher_account)
-      return @team if @team.team_id
-      team_id = Chat::IM.team_create(tname: @team.name, owner: @team.owner, members: [], msg: "#{course.name} 讨论组")
-      @team.update_attributes(team_id: team_id)
+      Tools.with_log("course-#{course.id}-team-create", 30) do
+        @team.team_id = Chat::IM.team_create(tname: @team.name, owner: @team.owner, members: [], msg: "#{course.name} 讨论组")
+      end unless @team.team_id
       @team
     end
 

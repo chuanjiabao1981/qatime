@@ -16,11 +16,8 @@ module LiveStudio
       @course = live_studio_courses(:course_with_junior_teacher)
       @channel = live_studio_channels(:three)
 
-      result_data = Chat::IM.account_create(@teacher_account.accid, @teacher_account.name, @teacher.avatar_url(:small), @teacher_account.token)
-      @teacher_account.update_columns(result_data) if result_data
-
-      result_data = Chat::IM.account_create(@student_account.accid, @student_account.name, @student.avatar_url(:small), @student_account.token)
-      @student_account.update_columns(result_data) if result_data
+      LiveService::ChatAccountFromUser.new(@teacher).instance_account
+      LiveService::ChatAccountFromUser.new(@student).instance_account
     end
 
     def teardown
@@ -30,13 +27,15 @@ module LiveStudio
     test "student chat in team" do
       Capybara.using_session("teacher") do
         log_in_as(@teacher)
+        @course.reload
         visit chat.live_studio_course_teams_finish_path(@course)
+
         @course.reload
         visit live_studio.play_course_path(@course)
 
         p Chat::IM.team_query(@course.chat_team.team_id)
-        p "----teacher_chat_account=#{@teacher_account.accid}"
-        p "----student_chat_account=#{@student_account.accid}"
+        p "----teacher_chat_account=#{@teacher_account.token}"
+        p "----student_chat_account=#{@student_account.token}"
 
         sleep(3)
 
@@ -57,7 +56,7 @@ module LiveStudio
 
         fill_in "message-area", with: "大家好呀"
         click_on "发送"
-        sleep(100)
+        sleep(50)
 
         page.has_content? "大家好呀"
       end

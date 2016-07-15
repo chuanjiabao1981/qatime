@@ -18,3 +18,9 @@ three:
   course_id: 3
   remote_id: MyString
   status: 1
+
+channel_for_course_with_junior_teacher:
+  name: MyString
+  course: course_with_junior_teacher
+  remote_id: MyString
+  status: 1

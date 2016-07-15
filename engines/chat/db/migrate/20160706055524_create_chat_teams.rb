@@ -9,5 +9,7 @@ class CreateChatTeams < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    add_index :chat_teams, :live_studio_course_id, unique: true, name: :chat_teams_course_id_unique
   end
 end

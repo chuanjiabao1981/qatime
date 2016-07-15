@@ -7,10 +7,12 @@ module LiveStudio
       @headless = Headless.new
       @headless.start
       @student = users(:student1)
-      team_results = 10.times.map { Typhoeus::Response.new(code: 200, body: {status: 200, 'tid': SecureRandom.hex(16)}.to_json)}
+      team_results = Array.new(10) { Typhoeus::Response.new(code: 200, body: { status: 200, tid: SecureRandom.hex(16) }.to_json)}
       Typhoeus.stub('https://api.netease.im/nimserver/team/create.action').and_return(team_results)
-      account_results = 10.times.map { Typhoeus::Response.new(code: 200, body: {status: 200, 'info': {accid: SecureRandom.hex(16), token: SecureRandom.hex(16)} }.to_json)}
+      account_results = Array.new(10) { Typhoeus::Response.new(code: 200, body: { status: 200, info: { accid: SecureRandom.hex(16), token: SecureRandom.hex(16) } }.to_json)}
       Typhoeus.stub('https://api.netease.im/nimserver/user/create.action').and_return(account_results)
+      join_results = Array.new(10) { Typhoeus::Response.new(code: 200, body: { code: 200 }.to_json)}
+      Typhoeus.stub('https://api.netease.im/nimserver/team/add.action').and_return(join_results)
       Capybara.current_driver = :selenium_chrome
       log_in_as(@student)
     end
@@ -49,6 +51,5 @@ module LiveStudio
       assert_not_nil course.reload.chat_team, "没有自动创建聊天群组"
       assert course.chat_team.accounts.includes(@student.chat_account), "没有正确加入群组"
     end
-
   end
 end

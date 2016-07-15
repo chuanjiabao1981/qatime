@@ -61,8 +61,8 @@ ActiveRecord::Schema.define(version: 20160710040933) do
 
   create_table "chat_accounts", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "accid",      limit: 32,  null: false
-    t.string   "token",      limit: 32,  null: false
+    t.string   "accid",      limit: 32
+    t.string   "token",      limit: 32
     t.string   "name",       limit: 128
     t.string   "icon"
     t.datetime "created_at",             null: false

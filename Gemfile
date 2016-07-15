@@ -10,6 +10,8 @@ gem 'rails', '4.2.5.1'
 # Use postgresql as the database for Active Record
 gem 'pg'
 
+gem 'redis'
+
 gem 'aasm'
 
 # Use SCSS for stylesheets
@@ -117,6 +119,7 @@ group :development,:test do
   gem 'headless'
   gem 'puma'
   gem 'thin'
+  gem 'pry'
 end
 
 gem 'test_after_commit', :group => :test

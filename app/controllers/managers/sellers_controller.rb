@@ -44,7 +44,7 @@ class Managers::SellersController < ApplicationController
   def update
     respond_to do |format|
       if @seller.update(seller_params.slice(:name, :email, :mobile))
-        format.html { redirect_to sellers_manager_url(current_user), notice: 'Seller was successfully updated.' }
+        format.html { redirect_to sellers_manager_url(current_user), notice: i18n_notice('updated', @seller) }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

@@ -5,24 +5,32 @@ course_one:
   teacher: users(:teacher1)
   workstation_id: 1
   status: 1
+  grade: 六年级
+  subject: 语文
 
 course_two:
   name: 测试辅导2班
   teacher: users(:teacher1)
   workstation_id: 1
   status: 1
+  grade: 六年级
+  subject: 语文
 
 course_no_teacher:
   name: 测试辅导3班
   teacher:
   workstation_id: 1
   status: 1
+  grade: 六年级
+  subject: 语文
 
 course_destroy_teacher:
   name: 测试辅导3班
   teacher_id: 99999
   workstation_id: 1
   status: 1
+  grade: 六年级
+  subject: 语文
 
 course_init:
   name: 初始化辅导班
@@ -32,6 +40,8 @@ course_init:
   preset_lesson_count: 10
   price: 1000
   status: 0
+  grade: 六年级
+  subject: 语文
 
 course_preview:
   id: 5
@@ -41,6 +51,8 @@ course_preview:
   status: 1
   price: 1000
   preset_lesson_count: 2
+  grade: 六年级
+  subject: 语文
 
 course_preview_two:
   name: 招生中的辅导班2
@@ -49,18 +61,24 @@ course_preview_two:
   status: 1
   price: 1000
   preset_lesson_count: 10
+  grade: 六年级
+  subject: 语文
 
 course_teaching:
   name: 上课中的辅导班
   teacher: users(:teacher1)
   workstation: workstation(:workstation1)
   status: 2
+  grade: 六年级
+  subject: 语文
 
 course_without_channel:
   name: 没有初始化的辅导班
   teacher: users(:teacher1)
   workstation: workstation(:workstation1)
   status: 2
+  grade: 六年级
+  subject: 语文
 
 course_one_of_teacher_one:
   name: teacher_one_course_one
@@ -71,12 +89,16 @@ course_one_of_teacher_one:
   teacher_percentage: 20
   preset_lesson_count: 10
   lesson_price: 20
+  grade: 六年级
+  subject: 语文
 
 course_teach_2:
   name: 上课中的辅导班2
   teacher: users(:teacher_one)
   workstation: workstation(:workstation1)
   status: 2
+  grade: 六年级
+  subject: 语文
 
 course_with_lesson:
   id: 3
@@ -84,6 +106,8 @@ course_with_lesson:
   teacher_id: 1
   workstation: workstation(:workstation1)
   status: 2
+  grade: 六年级
+  subject: 语文
 
 course_with_order:
   id: 6
@@ -91,6 +115,8 @@ course_with_order:
   teacher: 1
   workstation: workstation(:workstation1)
   status: 2
+  grade: 六年级
+  subject: 语文
 
 course_with_lessons:
   id: 4
@@ -102,6 +128,8 @@ course_with_lessons:
   preset_lesson_count: 10
   lesson_price: 20
   price: 200
+  grade: 六年级
+  subject: 语文
 
 tasting_course:
   id: 10
@@ -113,6 +141,8 @@ tasting_course:
   preset_lesson_count: 10
   lesson_price: 20
   price: 200
+  grade: 六年级
+  subject: 语文
 
 course_without_chat_team:
   name: 没有聊天群组的辅导班
@@ -123,6 +153,8 @@ course_without_chat_team:
   preset_lesson_count: 10
   lesson_price: 20
   price: 200
+  grade: 六年级
+  subject: 语文
 
 course_with_junior_teacher:
   name: 教师有云信ID的聊天室
@@ -133,6 +165,8 @@ course_with_junior_teacher:
   preset_lesson_count: 10
   lesson_price: 20
   price: 200
+  grade: 六年级
+  subject: 语文
 
 course_for_taste:
   name: 试听辅导班
@@ -143,6 +177,8 @@ course_for_taste:
   preset_lesson_count: 10
   lesson_price: 20
   price: 200
+  grade: 六年级
+  subject: 语文
 
 course_for_tasting:
   name: 正在试听辅导班
@@ -153,3 +189,5 @@ course_for_tasting:
   preset_lesson_count: 10
   lesson_price: 20
   price: 200
+  grade: 六年级
+  subject: 语文

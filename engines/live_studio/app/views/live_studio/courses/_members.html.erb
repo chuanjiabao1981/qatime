@@ -3,6 +3,7 @@
         <%= content_tag(:div, class: 'media_left') do %>
             <%= image_tag(account.icon_url,class: 'media-object img-circle')%>
         <% end %>
-        <%= content_tag(:div, account.name, class: 'media-body') %>
+        <%= content_tag(:div, account.name, class: "media-body #{@online_accounts.try(:include?,account) ? 'online' : nil}") %>
     <% end %>
 <% end if @accounts %>
+<%= hidden_field_tag :online_token, @token %>

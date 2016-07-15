@@ -38,7 +38,7 @@ class Managers::WaitersController < ApplicationController
   def update
     respond_to do |format|
       if @waiter.update(waiter_params.slice(:name, :email, :mobile))
-        format.html { redirect_to waiters_manager_path(current_user), notice: 'Waiter was successfully updated.' }
+        format.html { redirect_to waiters_manager_path(current_user), notice: i18n_notice('updated',@waiter) }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

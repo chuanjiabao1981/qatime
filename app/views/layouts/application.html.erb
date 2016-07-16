@@ -4,14 +4,10 @@
   <title>Qatime</title>
   <meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => false %>
   <%= yield :stylesheet %>
 
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => false %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
-
-
-  <!--link href="http://vjs.zencdn.net/4.4/video-js.css" rel="stylesheet"-->
-  <!--script src="http://vjs.zencdn.net/4.4/video-js.js"></script-->
   <%= csrf_meta_tags %>
 </head>
 <body>

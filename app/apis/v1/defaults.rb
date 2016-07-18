@@ -9,8 +9,8 @@ module V1
       format          :json
       content_type    :json, 'application/json;charset=UTF-8'
       default_format  :json
-      # formatter       :json, BodyFormatter
-      # error_formatter :json, ErrorFormatter
+      formatter       :json, BodyFormatter
+      error_formatter :json, ErrorFormatter
       helpers         APIHelpers
 
       include         APIErrors

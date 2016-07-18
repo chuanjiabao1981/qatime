@@ -53,3 +53,16 @@ module APIErrors
     end
   end
 end
+
+module Grape::Middleware
+  class Error
+    # 将默认错误返回状态码改为200
+    def out_error(message = {})
+      error = {
+        message: message,
+        status: 200
+      }
+      error_response(error)
+    end
+  end
+end

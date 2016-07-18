@@ -4,13 +4,6 @@ module APIHelpers
   extend ActiveSupport::Concern
   include VersionsHelper
 
-  # 认证管理员
-  def staffer_authenticate!
-    # 如果token不存在，则返回没有得到token
-    raise APIErrors::NoGetAuthenticate unless request.headers["Authorization"].present?
-    raise APIErrors::AuthenticateFail unless current_staffer
-  end
-
   # 认证用户
   def authenticate!
     # 如果token不存在，则返回没有得到token
@@ -18,57 +11,17 @@ module APIHelpers
     raise APIErrors::AuthenticateFail unless current_user
   end
 
-  def verify_p2p_account!
-    raise APIErrors::VeriftyFail, "还未开通i操盘账户" unless current_user.p2p_account_exists?
-  end
-
-  def verify_user_certification!
-    raise APIErrors::VeriftyFail, "还未绑定手机号" unless current_user.mobile.present?
-    raise APIErrors::VeriftyFail, "还未进行实名认证" unless current_user.certification_exists?
-  end
-
-  # 在接口执行之前进行统计工作
-  def extend_callback
-    # 记录用户活跃度
-    current_user.try(:sign_user_active)
-  rescue
-    raise unless Rails.env.production?
-  end
-
   # 设备的sn码
   def sn_code
     @header_sn_code ||= headers["X-Sn-Code"]
-  end
-
-  def setup_token(user, attr={})
-    attr.merge!(sn_code: sn_code, device: client_version)
-    user.make_token(attr)
-
-    UserLoginLog.app_login!(user, attr.slice(:sn_code, :device).merge(ip: ip))
   end
 
   def ip
     headers["X-Real-Ip"] || env['REMOTE_ADDR']
   end
 
-  def current_staffer
-    @current_staffer ||= begin
-      header_token = request.headers["Authorization"]
-
-      token = ApiStafferToken.where(access_token: header_token, sn_code: sn_code).first
-
-      # 如果token存在并且没有过期
-      if token && !token.expired?
-        # 如果临近过期时间，推迟过期时间
-        token.refresh_expires_at! if token.expires_at - Time.now <= 3.days
-        token.staffer
-      else
-        nil
-      end
-    end
-  end
-
   def current_user
+    return nil
     @current_user ||= begin
       header_token = request.headers["Authorization"]
 

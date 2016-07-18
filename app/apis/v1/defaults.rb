@@ -18,20 +18,7 @@ module V1
       before do
         I18n.locale = 'zh-CN'
 
-        # header("X-User-ID", current_user.id) if current_user.present?
-
-        # unless request.path =~ /\/api-doc/
-        #   raise APIErrors::NoVisitPermission if headers["X-Client-Key"] != ::Setting.api_key
-
-        #   # 额外统计相关工作
-        #   extend_callback
-
-        #   # 强制更新版本
-        #   force_update!
-
-        #   # 记录request 关键数据
-        #   setup_request
-        # end
+        header("X-User-ID", current_user.id) if current_user.present?
       end
     end
   end

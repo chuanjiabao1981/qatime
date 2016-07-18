@@ -35,5 +35,9 @@ module Qatime
 
     config.active_job.queue_adapter = :sidekiq
 
+
+    config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
+    config.autoload_paths += Dir[Rails.root.join('app', 'apis', '*')]
+
   end
 end

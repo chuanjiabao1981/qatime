@@ -306,6 +306,9 @@ Qatime::Application.routes.draw do
   mount Payment::Engine, at: '/payment'
   # 聊天
   mount Chat::Engine, at: '/chat'
+  # API
+  mount Qatime::API => '/'
+
 
   resources :qa_file_quoters
 end

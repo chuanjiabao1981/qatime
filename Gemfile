@@ -3,16 +3,18 @@
 source 'https://ruby.taobao.org/'
 # source 'https://gems.ruby-china.org/'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
-
 gem 'redis'
 
 gem 'aasm'
+
+gem 'grape'
+gem 'grape-entity'
+gem 'grape-swagger'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

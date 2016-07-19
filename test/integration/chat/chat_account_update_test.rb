@@ -29,7 +29,7 @@ module LiveStudio
 
       fill_in :teacher_nick_name, with: "new_nick_name"
       click_on "更新信息"
-      Chat::SyncChatAccountJob.perform_now(@teacher.id)
+      Chat::SyncChatAccountJob.perform_later(@teacher.id)
 
       assert_equal('new_nick_name', @teacher.chat_account.name, '云信account更新错误')
     end

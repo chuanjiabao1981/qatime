@@ -3,6 +3,7 @@ require "grape-swagger"
 module V1
   class Base < Grape::API
     include V1::Defaults
+    include SessionsHelper
 
     mount V1::System
     mount V1::Sessions

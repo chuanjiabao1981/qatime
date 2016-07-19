@@ -1,10 +1,17 @@
 module SessionsHelper
   include Qawechat::WechatHelper
-  def sign_in(user)
+  def sign_in(user, client_type)
     remember_token = User.new_remember_token
-    cookies.permanent[:remember_token]      = remember_token
-    cookies.permanent[:remember_user_type]  = user.role
-    user.update_attribute(:remember_token, User.digest(remember_token))
+    if client_type == :web
+      cookies.permanent[:remember_token]      = remember_token
+      cookies.permanent[:remember_user_type]  = user.role
+      # user.update_attribute(:remember_token, User.digest(remember_token))
+    end
+
+    user.create_login_token(
+      remember_token: User.digest(remember_token),
+      client_type: client_type
+    )
     current_user = user
   end
   def sign_out

@@ -5,8 +5,9 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     teacher = users(:teacher1)
     remember_token = teacher.login_tokens.first.remember_token
 
-    get '/api/v1/live_studio/teacher/courses', {}, "HTTP_HOST" => "localhost", 'Remember-Token' => remember_token
+    get '/api/v1/live_studio/teacher/courses', nil, header('Remember-Token', remember_token)
     assert_response :success
     assert_equal [], JSON.parse(response.body)
+
   end
 end

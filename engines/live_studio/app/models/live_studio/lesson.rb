@@ -13,7 +13,7 @@ module LiveStudio
 
     default_scope { order("id asc") }
     scope :unfinish, -> { where("status < ?", Lesson.statuses[:finished]) }
-    scope :should_complete, -> { where("status < ? and (live_start_at - ?) > > interval '48 hour'", Lesson.statuses[:completed],Time.now)}
+    scope :should_complete, -> { where("status = ? and (? - live_start_at) > interval '1 hour'", Lesson.statuses[:teaching],Time.now)}
     scope :teached, -> { where("status > ?", Lesson.statuses[:teaching]) } # 已经完成上课
     scope :today, -> { where(class_date: Date.today) }
 
@@ -55,8 +55,27 @@ module LiveStudio
     end
 
     def status_text(role = nil)
-      role_status = role == 'student' ? "#{role}.#{status}" : status
-      I18n.t("activerecord.status.live_studio/lesson.#{role_status}")
+      # 如果角色是学生,则显示的状态不一样,如下:
+      # 未开课(还没有到上课日期)
+      # 等待直播(今天的课程还没有开始直播)
+      # 正在直播
+      # 暂停直播(已经开始的直播10分钟没有收到心跳)
+      # 结束直播(收到结束请求，或者被系统清理的辅导班)
+      @role_status =
+          if role == 'student'
+            if class_date > Date.today
+              'init'
+            else
+              case status
+                when 'teaching'
+                  ((last_heartbeat_at - live_start_at) / 60).ceil > 10 ? 'suspended' : 'teaching'
+                when 'finished','billing','completed'
+                  'closed'
+              end
+            end
+          end
+      @role_status = "student.#{@role_status}" if @role_status
+      I18n.t("activerecord.status.live_studio/lesson.#{@role_status || status}")
     end
 
     def can_play?
@@ -92,6 +111,10 @@ module LiveStudio
 
     def current_live_session
       live_sessions.last || new_live_session
+    end
+
+    def last_heartbeat_at
+      current_live_session.heartbeat_at
     end
 
     private

@@ -8,10 +8,9 @@ module SessionsHelper
       # user.update_attribute(:remember_token, User.digest(remember_token))
     end
 
-    user.create_login_token(
-      remember_token: User.digest(remember_token),
-      client_type: client_type
-    )
+    login_token = user.login_tokens.find_or_create_by(client_type: client_type)
+    login_token.update_attribute(:remember_token, User.digest(remember_token))
+
     current_user = user
   end
   def sign_out

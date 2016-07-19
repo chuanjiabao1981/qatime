@@ -89,6 +89,6 @@ module Qawechat
 
       return nil
     end
-    
+
   end
 end

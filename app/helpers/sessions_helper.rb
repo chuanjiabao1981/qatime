@@ -1,6 +1,7 @@
 module SessionsHelper
   include Qawechat::WechatHelper
-  def sign_in(user, client_type)
+
+  def sign_in(user, client_type = :web)
     remember_token = User.new_remember_token
     if client_type == :web
       cookies.permanent[:remember_token]      = remember_token
@@ -13,14 +14,17 @@ module SessionsHelper
 
     current_user = user
   end
-  def sign_out
-    current_user.update_attribute(:remember_token,
-                                  User.digest(User.new_remember_token))
-    cookies.delete(:remember_token)
-    cookies.delete(:remember_user_type)
-    self.current_user = nil
 
+  def sign_out(client_type = :web)
+    # current_user.update_attribute(:remember_token,
+                                  # User.digest(User.new_remember_token))
+    if client_type == :web
+      cookies.delete(:remember_token)
+      cookies.delete(:remember_user_type)
+    end
+    self.current_user = nil
   end
+
   def current_user=(user)
     @current_user = user
   end
@@ -35,27 +39,19 @@ module SessionsHelper
   end
 
   private
-  def user_from_remember_token
-    remember_token = User.digest(cookies[:remember_token])
-    user_type = cookies[:remember_user_type]
 
-    if cookies[:remember_user_type] == 'student'
-      Student.find_by(remember_token: remember_token) unless remember_token.nil?
-    elsif cookies[:remember_user_type] == 'teacher'
-      Teacher.find_by(remember_token: remember_token) unless remember_token.nil?
-    elsif cookies[:remember_user_type] == 'admin'
-      Admin.find_by(remember_token: remember_token) unless remember_token.nil?
-    elsif cookies[:remember_user_type] == 'manager'
-      Manager.find_by(remember_token: remember_token) unless remember_token.nil?
-    elsif user_type == 'waiter'
-      Waiter.find_by(remember_token: remember_token) unless remember_token.nil?
-    elsif user_type == 'seller'
-      Seller.find_by(remember_token: remember_token) unless remember_token.nil?
+  def user_from_remember_token
+    client_type = headers['Client-Type'] || :web
+    if client_type == :web
+      remember_token = User.digest(cookies[:remember_token])
+      User.find_by(remember_token: remember_token) unless remember_token.nil?
+    else
+      remember_token = headers['Remember-Token']
+      LoginToken.find_by(remember_token: remember_token).user unless remember_token.nil?
     end
   end
 
   def user_from_wechat
     get_user_from_wechat(params)
   end
-
 end

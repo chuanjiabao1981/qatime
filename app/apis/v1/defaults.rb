@@ -17,8 +17,6 @@ module V1
       # 调用接口时验证api_key
       before do
         I18n.locale = 'zh-CN'
-
-        header("X-User-ID", current_user.id) if current_user.present?
       end
     end
   end

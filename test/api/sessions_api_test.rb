@@ -6,7 +6,7 @@ class Qatime::CoursesAPITest < ActiveSupport::TestCase
   end
 
   test "GET /api/v1/sessions returns user's remember_token" do
-    teacher = users(:teacher_one)
+    teacher = users(:teacher1)
     teacher.password = "pa123456"
     teacher.save!
     teacher.reload
@@ -18,7 +18,6 @@ class Qatime::CoursesAPITest < ActiveSupport::TestCase
     }
 
     assert last_response.created?, "创建失败"
-
     res = JSON.parse(last_response.body)
 
     assert_equal 1, res['status'], '状态码不对'

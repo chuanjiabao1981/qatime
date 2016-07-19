@@ -39,23 +39,15 @@ module SessionsHelper
   end
 
   private
-  def user_from_remember_token
-    remember_token = User.digest(cookies[:remember_token])
-    user_type = cookies[:remember_user_type]
 
-    if cookies[:remember_user_type] == 'student'
-      Student.find_by(remember_token: remember_token) unless remember_token.nil?
-    elsif cookies[:remember_user_type] == 'teacher'
-      Teacher.find_by(remember_token: remember_token) unless remember_token.nil?
-    elsif cookies[:remember_user_type] == 'admin'
-      Admin.find_by(remember_token: remember_token) unless remember_token.nil?
-    elsif cookies[:remember_user_type] == 'manager'
-      Manager.find_by(remember_token: remember_token) unless remember_token.nil?
-    elsif user_type == 'waiter'
-      Waiter.find_by(remember_token: remember_token) unless remember_token.nil?
-    elsif user_type == 'seller'
-      Seller.find_by(remember_token: remember_token) unless remember_token.nil?
+  def user_from_remember_token(client_type = :web)
+    if client_type == :web
+      remember_token = cookies[:remember_token]
+    else
+      remember_token = headers[:remember_token]
     end
+
+    LoginToken.find_by(remember_token: User.digest(remember_token)).user unless remember_token.nil?
   end
 
   def user_from_wechat

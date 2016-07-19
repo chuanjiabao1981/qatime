@@ -5,7 +5,7 @@ module V1
       namespace "live_studio/teacher", path: "live_studio" do
         resource :courses do
           desc '辅导班列表接口' do
-            headers 'Remember-Token': {
+            headers 'Remember-Token' => {
                       description: 'RememberToken',
                       required: true
                     }
@@ -18,7 +18,7 @@ module V1
           end
 
           desc '辅导班全信息接口' do
-            headers 'Remember-Token': {
+            headers 'Remember-Token' => {
                       description: 'RememberToken',
                       required: true
                     }
@@ -32,7 +32,7 @@ module V1
         end
 
         desc '辅导班详情接口' do
-          headers 'Remember-Token': {
+          headers 'Remember-Token' => {
                     description: 'RememberToken',
                     required: true
                   }

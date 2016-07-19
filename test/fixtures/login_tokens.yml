@@ -1,1 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+teacher_login_token:
+  user: teacher1
+  remember_token: 'f9c0ecf80dbd9e070eb879eb82a9da26ad1eda93'
+  client_type: 1

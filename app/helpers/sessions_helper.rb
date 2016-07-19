@@ -54,5 +54,4 @@ module SessionsHelper
   def user_from_wechat
     get_user_from_wechat(params)
   end
-
 end

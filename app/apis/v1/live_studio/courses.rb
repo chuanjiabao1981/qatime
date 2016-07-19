@@ -6,8 +6,8 @@ module V1
         resource :courses do
           desc '辅导班列表接口' do
             headers 'Remember-Token': {
-                    description: 'RememberToken',
-                    required: true
+                      description: 'RememberToken',
+                      required: true
                     }
           end
           params do
@@ -19,8 +19,8 @@ module V1
 
           desc '辅导班全信息接口' do
             headers 'Remember-Token': {
-                    description: 'RememberToken',
-                    required: true
+                      description: 'RememberToken',
+                      required: true
                     }
           end
           params do
@@ -33,8 +33,8 @@ module V1
 
         desc '辅导班详情接口' do
           headers 'Remember-Token': {
-                  description: 'RememberToken',
-                  required: true
+                    description: 'RememberToken',
+                    required: true
                   }
         end
         params do

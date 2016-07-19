@@ -3,6 +3,7 @@ require 'will_paginate/array'
 module APIHelpers
   extend ActiveSupport::Concern
   include VersionsHelper
+  include SessionsHelper
 
   # 认证用户
   def authenticate!

@@ -14,15 +14,15 @@ module V1
           params do
           end
           get do
-            courses_data = @current_user.live_studio_courses.map do |course|
-              {}.tap do |h|
-                COURSE_ATTR.each do |attri|
-                  h[attri] = course.send attri
-                end
-              end
-            end
-
-            { courses: courses_data }
+            # courses_data = @current_user.live_studio_courses.map do |course|
+            #   {}.tap do |h|
+            #     COURSE_ATTR.each do |attri|
+            #       h[attri] = course.send attri
+            #     end
+            #   end
+            # end
+            courses = @current_user.live_studio_courses
+            present courses, with: Entities::LiveStudio::Course, type: :default
           end
 
           desc '辅导班全信息接口'

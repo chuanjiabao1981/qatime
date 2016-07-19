@@ -13,6 +13,7 @@ module V1
           params do
           end
           get do
+            p headers
             courses = current_user.live_studio_courses
             present courses, with: Entities::LiveStudio::Course, type: :default
           end

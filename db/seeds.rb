@@ -90,7 +90,7 @@ unless LiveStudio::Course.exists?
           grade: '初三',
           preset_lesson_count: 2
       )
-  LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
+ # LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
 end
 
 # vip class initialize

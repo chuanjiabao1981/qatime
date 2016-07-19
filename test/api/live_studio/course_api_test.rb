@@ -9,7 +9,7 @@ class Qatime::CoursesAPITest < ActiveSupport::TestCase
     teacher = users(:teacher1)
     remember_token = teacher.login_tokens.first.remember_token
 
-    get '/api/v1/live_studio/teacher/courses', {}, headers: { 'Remember-Token': remember_token }
+    get '/api/v1/live_studio/teacher/courses', nil, header('Remember-Token', remember_token)
 
     assert last_response.ok?
     assert_equal [], JSON.parse(last_response.body)

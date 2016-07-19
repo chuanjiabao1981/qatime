@@ -40,14 +40,15 @@ module SessionsHelper
 
   private
 
-  def user_from_remember_token(client_type = :web)
+  def user_from_remember_token
+    client_type = headers['Client-Type'] || :web
     if client_type == :web
-      remember_token = cookies[:remember_token]
+      remember_token = User.digest(cookies[:remember_token])
+      User.find_by(remember_token: remember_token) unless remember_token.nil?
     else
-      remember_token = headers[:remember_token]
+      remember_token = headers['Remember-Token']
+      LoginToken.find_by(remember_token: remember_token).user unless remember_token.nil?
     end
-
-    LoginToken.find_by(remember_token: User.digest(remember_token)).user unless remember_token.nil?
   end
 
   def user_from_wechat

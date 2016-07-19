@@ -1,7 +1,7 @@
 module V1
   # 辅导班接口
   module LiveStudio
-    class Courses < Grape::API
+    class Courses < V1::Base
       namespace "live_studio/teacher", path: "live_studio" do
         before do
           @current_user ||= ::Teacher.last

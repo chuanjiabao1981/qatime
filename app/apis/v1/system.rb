@@ -1,6 +1,6 @@
 module V1
   # 系统环境
-  class System < Grape::API
+  class System < Base
     namespace :system, desc: '系统环境' do
       desc '接口健康状态'
       get 'health' do

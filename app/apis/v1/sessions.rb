@@ -1,6 +1,6 @@
 module V1
   # 系统环境
-  class Sessions < Grape::API
+  class Sessions < Base
     resource :sessions do
       desc 'User Signup.'
       params do

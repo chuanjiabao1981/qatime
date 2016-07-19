@@ -28,7 +28,7 @@ module ErrorFormatter
       status: 0,
       error: message
     }
-    $api_logger.error "end   [#{env['REQUEST_METHOD']}] #{env['REQUEST_PATH']}, output: #{result.to_h}"
+    Rails.logger.error "end   [#{env['REQUEST_METHOD']}] #{env['REQUEST_PATH']}, output: #{result.to_h}"
     result.to_json
   end
 end

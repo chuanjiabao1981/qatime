@@ -83,6 +83,12 @@
           console.log.apply(console, arguments);
         }
       }
+
+      $(".auth-header").change(function() {
+        var token = $("#remember-token").val();
+        swaggerUi.api.clientAuthorizations.add("key", new SwaggerClient.ApiKeyAuthorization("Remember-Token", token, "header"));
+      });
+
   });
   </script>
 </head>
@@ -100,6 +106,9 @@
 </div>
 
 <div id="message-bar" class="swagger-ui-wrap" data-sw-translate>&nbsp;</div>
+<div id="swagger-ui-headers" class="swagger-ui-wrap auth-header">
+  <label>Token: </label><input type="text" id="remember-token" name="remember-token">
+</div>
 <div id="swagger-ui-container" class="swagger-ui-wrap"></div>
 </body>
 </html>

@@ -48,7 +48,6 @@ module V1
 
         desc '直播开始接口'
         params do
-          requires :id, type: Integer, desc: '辅导班ID'
           requires :lesson_id, type: Integer, desc: '课程ID'
         end
         get :live_start do
@@ -69,12 +68,10 @@ module V1
 
         desc '直播结束接口'
         params do
-          requires :id, type: Integer, desc: '辅导班ID'
           requires :lesson_id, type: Integer, desc: '课程ID'
         end
         get :live_end do
-          @course = @current_user.live_studio_courses.find(params[:id])
-          @lesson = @course.lessons.find_by(id: params[:lesson_id])
+          @lesson = ::LiveStudio::Lesson.find_by(id: params[:lesson_id])
           LiveService::BillingDirector.new(@lesson).finish
         end
       end

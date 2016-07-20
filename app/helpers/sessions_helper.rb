@@ -16,7 +16,7 @@ module SessionsHelper
   end
 
   def sign_out
-    client_type = headers['Client-Type'].to_sym || :web
+    client_type = headers['Client-Type'].try(:to_sym) || :web
     if client_type == :web
       current_user.update_attribute(:remember_token, User.digest(User.new_remember_token))
       cookies.delete(:remember_token)

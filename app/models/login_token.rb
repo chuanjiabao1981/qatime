@@ -6,4 +6,7 @@ class LoginToken < ActiveRecord::Base
     web: 2,
     app: 3
   }
+
+  validates :user, presence: true
+  validates :client_type, presence: true
 end

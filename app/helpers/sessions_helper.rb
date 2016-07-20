@@ -7,12 +7,11 @@ module SessionsHelper
       cookies.permanent[:remember_token]      = remember_token
       cookies.permanent[:remember_user_type]  = user.role
     end
-
     client_type = LoginToken.client_types[client_type]
     login_token = user.login_tokens.find_or_create_by(client_type: client_type)
     login_token.update_attribute(:remember_token, User.digest(remember_token))
-
     current_user = user
+    login_token
   end
 
   def sign_out

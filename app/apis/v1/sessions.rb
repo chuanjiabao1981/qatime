@@ -38,7 +38,7 @@ module V1
                   required: true
                 }
       end
-      delete :destroy do
+      delete do
         sign_out
       end
     end

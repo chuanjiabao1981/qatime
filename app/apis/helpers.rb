@@ -8,13 +8,8 @@ module APIHelpers
   # 认证用户
   def authenticate!
     # 如果token不存在，则返回没有得到token
-    raise APIErrors::NoGetAuthenticate unless request.headers["Authorization"].present?
+    raise APIErrors::NoGetAuthenticate unless request.headers["Remember-Token"].present?
     raise APIErrors::AuthenticateFail unless current_user
-  end
-
-  # 设备的sn码
-  def sn_code
-    @header_sn_code ||= headers["X-Sn-Code"]
   end
 
   def ip

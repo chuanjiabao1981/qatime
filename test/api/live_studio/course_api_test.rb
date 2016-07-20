@@ -18,15 +18,14 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     teacher = users(:teacher1)
     remember_token = teacher.login_tokens.first.remember_token
 
-    get '/api/v1/live_studio/teacher/courses', {}, { 'Remember-Token': remember_token }
+    get '/api/v1/live_studio/teacher/courses/full', {}, { 'Remember-Token': remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
 
-    p res['data']
-
     assert_equal 1, res['status']
     assert_equal 2, res['data'].size
+    assert_equal true, res['data'].first.has_key?('lessons')
   end
 
   test "get course detail of teacher" do
@@ -41,5 +40,6 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
 
     assert_equal 1, res['status']
     assert_equal 8, res['data'].size
+    assert_equal true, res['data'].has_key?('lessons')
   end
 end

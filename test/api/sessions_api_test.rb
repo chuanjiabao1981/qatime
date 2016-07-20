@@ -12,9 +12,8 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
 
     post '/api/v1/sessions', {
       email: teacher.email,
-      password: teacher.password,
-      client_type: 'pc'
-    }
+      password: teacher.password
+    },{ 'Client-Type': 'pc'}
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -23,11 +22,11 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_equal teacher.login_tokens.where(client_type: LoginToken.client_types[:pc]).first.remember_token, res['data']['remember_token'], '状态码不对'
   end
 
-  test "GET /api/v1/sessions/destroy returns user's remember_token" do
+  test "DELETE /api/v1/sessions returns user's remember_token" do
     teacher = users(:teacher1)
     remember_token = teacher.login_tokens.first.remember_token
 
-    delete '/api/v1/sessions/destroy', {}, { 'Remember-Token': remember_token, 'Client-Type': 'pc' }
+    delete '/api/v1/sessions', {}, { 'Remember-Token': remember_token, 'Client-Type': 'pc' }
 
     assert_response :success
     res = JSON.parse(response.body)

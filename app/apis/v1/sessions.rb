@@ -2,15 +2,19 @@ module V1
   # 登录接口
   class Sessions < Base
     resource :sessions do
-      desc 'User Signup.'
+      desc 'User Signup.' do
+        headers 'Remember-Token' => {
+                  description: 'RememberToken',
+                  required: true
+                }
+      end
       params do
         requires :email, type: String, desc: '邮箱.'
         requires :password, type: String, desc: '密码.'
-        requires :client_type, type: String, values: %w{pc web app}, desc: '客户端类型'
       end
       post do
         user = User.where(email: params[:email]).first
-        client_type = params[:client_type].to_sym
+        client_type = headers['Client-Type'].to_sym
 
         if user && user.authenticate(params[:password])
           sign_in(user, client_type)

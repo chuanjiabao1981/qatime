@@ -12,9 +12,8 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
 
     post '/api/v1/sessions', {
       email: teacher.email,
-      password: teacher.password,
-      client_type: 'pc'
-    }
+      password: teacher.password
+    },{ 'Client-Type': 'pc'}
 
     assert_response :success
     res = JSON.parse(response.body)

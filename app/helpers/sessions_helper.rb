@@ -47,7 +47,7 @@ module SessionsHelper
 
   def user_from_remember_token
     digest_token = headers['Remember-Token'] || User.digest(cookies[:remember_token])
-    LoginToken.find_by(remember_token: digest_token).user
+    LoginToken.find_by(remember_token: digest_token).try(:user)
   end
 
   def user_from_wechat

@@ -23,6 +23,20 @@ module V1
 
         result
       end
+
+      desc 'User Signout.' do
+        headers 'Remember-Token' => {
+                  description: 'RememberToken',
+                  required: true
+                },
+                'Client-Type' => {
+                  description: 'client_type',
+                  required: true
+                }
+      end
+      delete :destroy do
+        sign_out
+      end
     end
   end
 end

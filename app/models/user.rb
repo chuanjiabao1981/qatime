@@ -51,6 +51,8 @@ class User < ActiveRecord::Base
 
   belongs_to :school
 
+  has_many :login_tokens
+
   def unread_notifications_count
     self.customized_course_action_notifications.unread.count
   end

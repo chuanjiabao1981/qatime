@@ -3,6 +3,7 @@ require 'will_paginate/array'
 module APIHelpers
   extend ActiveSupport::Concern
   include VersionsHelper
+  include SessionsHelper
 
   # 认证用户
   def authenticate!
@@ -18,26 +19,6 @@ module APIHelpers
 
   def ip
     headers["X-Real-Ip"] || env['REMOTE_ADDR']
-  end
-
-  def current_user
-    return nil
-    @current_user ||= begin
-      header_token = request.headers["Authorization"]
-
-      token = ApiToken.where(access_token: header_token, sn_code: sn_code).first
-
-      # 如果token存在并且没有过期
-      if token && !token.expired?
-        # 如果临近过期时间，推迟过期时间
-        token.refresh_expires_at! if token.expires_at - Time.now <= 3.days
-        # 如果device和这次请求的device不一致，更新device记录
-        token.update(device: client_version) if token.device != client_version
-        token.user
-      else
-        nil
-      end
-    end
   end
 
   # 对客户端提交的未正确进行UTF-8编码的数据进行编码

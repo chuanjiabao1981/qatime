@@ -5,7 +5,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     teacher = users(:teacher1)
     remember_token = teacher.login_tokens.first.remember_token
 
-    get '/api/v1/live_studio/teacher/courses', {}, { 'Remember-Token': remember_token }
+    get "/api/v1/live_studio/teachers/#{teacher.id}/courses", { page: 1, per_page: 10 }, { 'Remember-Token': remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -18,7 +18,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     teacher = users(:teacher1)
     remember_token = teacher.login_tokens.first.remember_token
 
-    get '/api/v1/live_studio/teacher/courses/full', {}, { 'Remember-Token': remember_token }
+    get "/api/v1/live_studio/teachers/#{teacher.id}/courses/full", { page: 1, per_page: 10 }, { 'Remember-Token': remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -33,7 +33,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     course = teacher.live_studio_courses.last
     remember_token = teacher.login_tokens.first.remember_token
 
-    get "/api/v1/live_studio/teacher/courses/#{course.id}", {}, { 'Remember-Token': remember_token }
+    get "/api/v1/live_studio/teachers/#{teacher.id}/courses/courses/#{course.id}", { page: 1, per_page: 10 }, { 'Remember-Token': remember_token }
 
     assert_response :success
     res = JSON.parse(response.body)

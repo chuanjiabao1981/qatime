@@ -3,5 +3,5 @@
     $(this).submit ->
       return true if $(this).hasClass("duplicate")
       return false if $(this).hasClass("submiting")
-      $(this).addClass("submiting");
+      $(this).addClass("submiting");application
 )(jQuery)

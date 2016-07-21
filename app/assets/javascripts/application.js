@@ -28,3 +28,4 @@
 //= require course_library/application
 //= require editable/bootstrap-editable
 //= require editable/rails
+//= require jquery.qqFace.js

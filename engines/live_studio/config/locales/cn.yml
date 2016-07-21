@@ -71,13 +71,14 @@ cn:
         billing: 已结算
         completed: 已结算
         student:
-          init: 初始化
-          ready: 准备上课
-          teaching: 上课中
-          finished: 已完成
-          billing: 已结算
-          completed: 已完成
-
+          init: 未开课
+          ready: 等待直播
+          teaching: 正在直播
+          suspended: 暂停直播
+          closed: 直播结束
+#          finished: 已完成
+#          billing: 已结算
+#          completed: 已完成
     view:
       category: 类型
       teacher: 辅导老师

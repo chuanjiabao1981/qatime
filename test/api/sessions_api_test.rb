@@ -12,9 +12,8 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
 
     post '/api/v1/sessions', {
       email: teacher.email,
-      password: teacher.password,
-      client_type: 'pc'
-    }
+      password: teacher.password
+    },{ 'Client-Type' => 'pc'}
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -26,7 +25,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     teacher = users(:teacher1)
     remember_token = teacher.login_tokens.first.remember_token
 
-    delete '/api/v1/sessions', {}, { 'Remember-Token': remember_token, 'Client-Type': 'pc' }
+    delete '/api/v1/sessions', {}, { 'Remember-Token'=> remember_token, 'Client-Type'=> 'pc' }
 
     assert_response :success
     res = JSON.parse(response.body)

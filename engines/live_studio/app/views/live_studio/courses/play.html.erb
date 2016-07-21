@@ -52,11 +52,9 @@
             <div id="messages">
             </div>
             <div id="tool-bar">
-              <!--
-              <button type="button" class="btn btn-default btn-sm" id="scroll-btn">
-                滚屏
+              <button type="button" class="btn btn-default btn-sm" id="emotion-btn">
+                表情
               </button>
-              -->
               <button type="button" class="btn btn-default btn-sm" id="clear-btn">
                 清屏
               </button>
@@ -208,7 +206,7 @@
           console.log(msg);
           console.log('发送' + msg.scene + ' ' + msg.type + '消息' + (!error?'成功':'失败') + ', id=' + msg.idClient);
           $("#messages").append(
-              "<div class='talk-div'>" + msg.fromNick + "（我）说: " + msg.text.replace(/\n/g, "<br />") +
+              "<div class='talk-div'>" + msg.fromNick + "（我）说: " + $.replaceChatMsg(msg.text) +
               "<div class='talk-time-div'>" + sendMessageTime(msg) + "</div>" +
               "</div>");
           $("#messages").scrollTop($("#messages").prop('scrollHeight'));
@@ -265,6 +263,7 @@
           }
         }
 
+        $("#emotion-btn").qqFace({ assign: "message-area", path: "<%= asset_path('assets/face/') %>" });
       });
 
 

@@ -230,7 +230,6 @@
 
         $('#history-btn').click(function(event) {
           if(!chatInited) return false;
-
           var msg = live_chat.nim.getHistoryMsgs({
             scene: 'team',
             to: live_chat.teamId,
@@ -248,12 +247,12 @@
               if(msg.type != "notification"){
                 if(msg.from == accid){
                   append_msgs = append_msgs + "<div class='talk-div'>" + msg.fromNick + "（我）说: " + msg.text.replace(/\n/g, "<br />") +
-                    "<div class='talk-time-div'>" + sendMessageTime(msg) + "</div>" +
+                    "<div class='talk-time-div'>" + sendMessageTime(msg, 'long') + "</div>" +
                     "</div>"
                 }
                 else{
                   append_msgs = append_msgs + "<div class='talk-div'>" + msg.fromNick + " 说: " + msg.text.replace(/\n/g, "<br />") +
-                    "<div class='talk-time-div'>" + sendMessageTime(msg) + "</div>" +
+                    "<div class='talk-time-div'>" + sendMessageTime(msg, 'long') + "</div>" +
                     "</div>"
                 }
               }
@@ -268,12 +267,20 @@
 
 
 
-      function sendMessageTime(msg){
+      function sendMessageTime(msg, type){
         var date = new Date(msg.time);
         var hours = date.getHours();
         var minutes = "0" + date.getMinutes();
         var seconds = "0" + date.getSeconds();
-        return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)
+        if(type == "long"){
+          var year = date.getFullYear();
+          var month = date.getMonth();
+          var day = date.getDay();
+          return year + "-" + month + "-" + day + " " + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)
+        }
+        else{
+          return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)
+        }
       }
 
       //判断flash是否安装方法

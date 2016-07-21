@@ -39,7 +39,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     res = JSON.parse(response.body)
 
     assert_equal 1, res['status']
-    assert_equal 8, res['data'].size
+    assert_equal 9, res['data'].size
     assert_equal true, res['data'].has_key?('lessons')
   end
 end

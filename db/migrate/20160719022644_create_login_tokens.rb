@@ -3,7 +3,7 @@ class CreateLoginTokens < ActiveRecord::Migration
     create_table :login_tokens do |t|
       t.references :user, index: true
 
-      t.string :remember_token
+      t.string :remember_token, limit: 64, index: true
       t.integer :client_type
       t.integer :platform
 

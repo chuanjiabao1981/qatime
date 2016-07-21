@@ -4,6 +4,10 @@ module V1
     class Courses < V1::Base
       namespace "live_studio" do
         namespace :teachers do
+          before do
+            authenticate!
+          end
+
           route_param :teacher_id do
             resource :courses do
               desc '辅导班列表接口' do

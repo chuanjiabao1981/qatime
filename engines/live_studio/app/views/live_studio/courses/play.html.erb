@@ -71,10 +71,14 @@
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                       <h4 class="modal-title" id="myModalLabel">历史消息</h4>
                     </div>
-                    <div class="modal-body" id="history-area" style="height: 300px; width: 600px; overflow: auto">
+                    <div class="modal-body" id="history-area" style="height: 300px; overflow: auto;">
 
                     </div>
                     <div class="modal-footer">
+                      <div class="text-center">
+                        <button type="button" class="btn btn-default" id="page-pre">上一页</button>
+                        <button type="button" class="btn btn-default" id="page-after">下一页</button>
+                      </div>
                       <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                     </div>
                   </div>
@@ -226,20 +230,62 @@
           }
         });
 
+        var time_str = Date.parse(new Date())
         $('#history-btn').click(function(event) {
-          if(!chatInited) return false;
-          var msg = live_chat.nim.getHistoryMsgs({
-            scene: 'team',
-            to: live_chat.teamId,
-            asc: true,
-            limit: 20,
-            done: getHistoryMsgsDone
-          });
+          console.log("时间" + time_str);
+          time_str = Date.parse(new Date())
+          appendHistoryMsgs(event,null,time_str);
         });
+
+        $("#page-pre").click(function(event) {
+          console.log("上一页--开始" + time_str);
+          appendHistoryMsgs(event,time_str,null);
+        });
+        $("#page-after").click(function(event) {
+          console.log("下一页--结束" + time_str);
+          appendHistoryMsgs(event,null,time_str);
+        });
+
+        function appendHistoryMsgs(event, begin_time, end_time) {
+          if(!chatInited) return false;
+          $("#history-area").empty();
+          if(begin_time){
+            var msg = live_chat.nim.getHistoryMsgs({
+              scene: 'team',
+              to: live_chat.teamId,
+              beginTime: begin_time,
+              asc: true,
+              limit: 20,
+              done: getHistoryMsgsDone
+            });
+          }
+          if(end_time){
+            var msg = live_chat.nim.getHistoryMsgs({
+              scene: 'team',
+              to: live_chat.teamId,
+              endTime: end_time,
+              asc: true,
+              limit: 20,
+              done: getHistoryMsgsDone
+            });
+          }
+          var scrolled = false;
+          function updateScroll(){
+            if(!scrolled){
+              var element = document.getElementById("history-area");
+              element.scrollTop = element.scrollHeight;
+            }
+          }
+          $("#history-area").on('scroll', function(){
+            scrolled=true;
+          });
+          window.setInterval(updateScroll);
+        }
 
         function getHistoryMsgsDone(error, obj) {
           console.log('获取p2p历史消息' + (!error?'成功':'失败'));
           console.log(error);
+          console.log(obj.msgs);
           if (!error) {
             var append_msgs = ''
             obj.msgs.forEach(function(msg){
@@ -256,10 +302,16 @@
                 }
               }
             })
+
+            if (obj.msgs.length == 20){
+              time_str = obj.msgs[0].time
+            }
+
+            console.log("开始" + time_str);
+
             $("#history-area").append(
               append_msgs
             );
-
           }
         }
 

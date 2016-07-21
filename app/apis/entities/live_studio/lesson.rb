@@ -1,6 +1,7 @@
 module Entities
   module LiveStudio
     class Lesson < Grape::Entity
+      expose :id
       expose :name
       expose :status_text
       expose :class_date

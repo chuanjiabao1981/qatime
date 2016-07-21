@@ -61,6 +61,28 @@
                 清屏
               </button>
 
+              <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#history-modal" id="history-btn">
+                历史消息
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="history-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">历史消息</h4>
+                    </div>
+                    <div class="modal-body" id="history-area">
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
             <div id="message-input">
               <form action="##" id="message-form">
@@ -205,6 +227,43 @@
             return false;
           }
         });
+
+        $('#history-btn').click(function(event) {
+          if(!chatInited) return false;
+
+          var msg = live_chat.nim.getHistoryMsgs({
+            scene: 'team',
+            to: live_chat.teamId,
+            asc: true,
+            done: getHistoryMsgsDone
+          });
+        });
+
+        function getHistoryMsgsDone(error, obj) {
+          console.log('获取p2p历史消息' + (!error?'成功':'失败'));
+          console.log(error);
+          if (!error) {
+            var append_msgs = ''
+            obj.msgs.forEach(function(msg){
+              if(msg.type != "notification"){
+                if(msg.from == accid){
+                  append_msgs = append_msgs + "<div class='talk-div'>" + msg.fromNick + "（我）说: " + msg.text.replace(/\n/g, "<br />") +
+                    "<div class='talk-time-div'>" + sendMessageTime(msg) + "</div>" +
+                    "</div>"
+                }
+                else{
+                  append_msgs = append_msgs + "<div class='talk-div'>" + msg.fromNick + " 说: " + msg.text.replace(/\n/g, "<br />") +
+                    "<div class='talk-time-div'>" + sendMessageTime(msg) + "</div>" +
+                    "</div>"
+                }
+              }
+            })
+            $("#history-area").append(
+              append_msgs
+            );
+          }
+        }
+
       });
 
 

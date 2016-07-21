@@ -2,6 +2,7 @@ module Permissions
   class BasePermission
     def allow?(controller, action, resource = nil)
       allowed = @allow_all || @allowed_actions[[controller.to_s, action.to_s]]
+      resource.is_a?(Array) && resource << action
       allowed && (allowed == true || resource && allowed.call(resource))
     end
 

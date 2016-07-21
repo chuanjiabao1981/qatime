@@ -6,7 +6,7 @@ module LiveStudio
 
     # GET /manager/courses
     def index
-      @courses = @current_resource.live_studio_courses.paginate(page: params[:page])
+      @courses = @manager.live_studio_courses.paginate(page: params[:page])
     end
 
     # GET /manager/courses/1
@@ -26,7 +26,7 @@ module LiveStudio
 
     # POST /manager/courses
     def create
-      @course = @current_resource.live_studio_courses.new(course_params)
+      @course = @manager.live_studio_courses.new(course_params)
 
       if @course.save
         LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
@@ -49,7 +49,7 @@ module LiveStudio
     # PATCH/PUT /manager/courses/1
     def update
       if @course.update(manager_course_params)
-        redirect_to manager_course_path(@current_resource, @course), notice: i18n_notice('updated', @course)
+        redirect_to manager_course_path(@manager, @course), notice: i18n_notice('updated', @course)
       else
         render :edit
       end
@@ -87,7 +87,7 @@ module LiveStudio
     end
 
     def workstations
-      @current_resource.workstations.select(:id, :name).map {|w| [w.name, w.id] }
+      @manager.workstations.select(:id, :name).map {|w| [w.name, w.id] }
     end
 
   end

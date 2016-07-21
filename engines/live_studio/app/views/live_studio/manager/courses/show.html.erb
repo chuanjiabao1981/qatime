@@ -42,8 +42,8 @@
     <div class="row">
       <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:status)%></div>
       <div class="col-md-9" id="status-row">
-	<%= @course.status_text %>
-	<%= link_to t("activerecord.view.course_publish"), publish_manager_course_path(@manager, @course), method: :patch, remote: true, 'data-confirm' => t("activerecord.view.message.course_confirm_publish") if @course.init? %>
+        <%= @course.status_text %>
+        <%#= link_to t("activerecord.view.course_publish"), publish_manager_course_path(@manager, @course), method: :patch, remote: true, 'data-confirm' => t("activerecord.view.message.course_confirm_publish") if @course.init? %>
       </div>
     </div>
   </div>

@@ -86,7 +86,7 @@ module Permissions
       #######end course library permission##################
 
       ## begin live studio permission
-      allow 'live_studio/manager/courses', [:index, :show, :new, :create, :edit, :update, :destroy, :publish] do |manager,course,action|
+      allow 'live_studio/manager/courses', [:index, :show, :new, :create, :edit, :update, :destroy] do |manager,course,action|
         # manager操作辅导班权限细分
         # 根据辅导班状态
         # 初始化: 增删改查

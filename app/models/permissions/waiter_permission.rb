@@ -8,8 +8,8 @@ module Permissions
       allow "waiters/home", [:main]
 
       ## begin live studio permission
-      allow 'live_studio/waiter/courses', [:index, :show, :publish] do |resource|
-        resource.id == user.id
+      allow 'live_studio/waiter/courses', [:index, :show] do |resource|
+        resource == user
       end
       ## end live studio permission
     end

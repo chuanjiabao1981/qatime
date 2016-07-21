@@ -1,7 +1,7 @@
 <tr>
   <td><%= course_counter + 1 %></td>
   <td>
-    <%= link_to course.name, waiter_course_path(@current_resource, course) %>
+    <%= link_to course.name, waiter_course_path(@waiter, course) %>
   </td>
   <td>
     <%= course.teacher_name %>
@@ -11,8 +11,8 @@
   </td>
   <td><%= course.status_text %></td>
   <td>
-    <%=link_to t("activerecord.view.edit"), edit_waiter_course_path(@current_resource, course) if allow?("live_studio/waiter/courses", "update", @current_resource) %>
-    <%=link_to t("activerecord.view.delete"), waiter_course_path(@current_resource, course), method: :delete,
-               'data-confirm' => t('activerecord.view.message.confirm') if allow?("live_studio/waiter/courses", "destroy", @current_resource) %>
+    <%# =link_to t("activerecord.view.edit"), edit_waiter_course_path(@waiter, course) if allow?("live_studio/waiter/courses", "update", @waiter) %>
+    <%# =link_to t("activerecord.view.delete"), waiter_course_path(@waiter, course), method: :delete,
+               'data-confirm' => t('activerecord.view.message.confirm') if allow?("live_studio/waiter/courses", "destroy", @waiter) %>
   </td>
 </tr>

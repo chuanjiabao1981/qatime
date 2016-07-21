@@ -2,13 +2,13 @@
   <!-- Default panel contents -->
   <div class="panel-heading">
     <%= LiveStudio::Course.model_name.human %>
-    <% if allow?("live_studio/waiter/courses", "create", @current_resource) %>
-      <%=link_to new_waiter_course_path(@current_resource) do %>
-      <button type="button" class="btn btn-xs btn-success">
-        <%= t("activerecord.view.create") %><%= LiveStudio::Course.model_name.human %>
-      </button>
-      <% end %>
-    <% end -%>
+    <!--<%# if allow?("live_studio/waiter/courses", "create", @waiter) %>-->
+      <!--<%#=link_to new_waiter_course_path(@waiter) do %>-->
+      <!--<button type="button" class="btn btn-xs btn-success">-->
+        <!--<#%= t("activerecord.view.create") %><%= LiveStudio::Course.model_name.human %>-->
+      <!--</button>-->
+      <!--<%# end %>-->
+    <!--<%# end -%>-->
   </div>
   <!--
   <div class="panel-body">

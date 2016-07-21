@@ -5,12 +5,13 @@
       <strong><%= @course.name %></strong>
     </span>
     <div class="pull-right">
-      <% if allow? "live_studio/manager/courses", "edit", @course %>
-        <%=link_to edit_manager_course_path(@course.workstation.manager,@course) do %>
+      <%= allow_link_to({action: 'edit', url: edit_teacher_course_path(@teacher,@course),variable: @course}) do %>
+      <%# if allow? "live_studio/manager/courses", "edit", @course %>
+        <%#=link_to edit_manager_course_path(@course.workstation.manager,@course) do %>
           <button type="button" class="btn btn-xs btn-success">
             <%= t("activerecord.view.edit") %><%= @course.class.model_name.human %>
           </button>
-        <% end %>
+        <% #end %>
       <% end %>
     </div>
   </div>
@@ -51,7 +52,10 @@
   <div class="qa_cell">
     <div class="row">
       <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:status)%></div>
-      <div class="col-md-9" id="course-status"><%= @course.status_text %></div>
+      <div class="col-md-9" id="course-status">
+        <%= @course.status_text %>
+        <%= link_to t("activerecord.view.course_publish"), publish_course_path(@course), method: :patch, remote: true, 'data-confirm' => t("activerecord.view.message.course_confirm_publish") if @course.init? %>
+      </div>
     </div>
   </div>
   <div class="qa_cell">
@@ -105,7 +109,9 @@
   <div class="qa_big_cell">
     <span style="padding-left:10px" class="qa_f18">
       <strong>课程列表</strong>
-      <%=link_to new_teacher_lesson_path(@teacher,course_id: @course.id) do %>
+      <%= allow_link_to({route: 'live_studio/teacher/lessons', action: 'new',
+                         url: new_teacher_lesson_path(@teacher,course_id: @course.id)}) do %>
+      <%#=link_to new_teacher_lesson_path(@teacher,course_id: @course.id) do %>
         <button type="button" class="btn btn-xs btn-success">
           <%= t("activerecord.view.create") %><%= LiveStudio::Lesson.model_name.human %>
         </button>
@@ -136,9 +142,11 @@
         <%= lesson.status_text %>
       </div>
       <div class="col-md-2">
-        <%= link_to t('activerecord.view.edit'), edit_teacher_lesson_path(@teacher,lesson,course_id: @course) unless lesson.has_finished? %>
+        <%= allow_link_to({route: 'live_studio/teacher/lessons', action: 'edit', url:
+            edit_teacher_lesson_path(@teacher,lesson,course_id: @course)}){t('activerecord.view.edit')} unless lesson.has_finished?%>
+        <%#= link_to t('activerecord.view.edit'), edit_teacher_lesson_path(@teacher,lesson,course_id: @course) unless lesson.has_finished? %>
         <%= link_to t("activerecord.view.delete"), teacher_lesson_path(@teacher,lesson,course_id: @course), method: :delete,
-            confirm: t('activerecord.view.message.confirm') if lesson.init? %>
+            confirm: t('activerecord.view.message.confirm') if lesson.init? && @course.init? %>
 
         <% if lesson.ready_for? -%>
           <%= link_to t("activerecord.view.lesson_ready"), ready_teacher_lesson_path(@teacher,lesson,course_id: @course), class: 'ready', method: :patch %>

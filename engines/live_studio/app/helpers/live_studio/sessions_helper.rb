@@ -5,6 +5,7 @@ module LiveStudio
     def current_resource(variable=nil)
       @resource = User.find_by(id: params_user_id) || current_user
       @variable = variable || Course.find_by(id: params[:id]) if params[:controller].include?('courses')
+      @variable = variable || Course.find_by(id: params[:course_id]) if params[:controller].include?('lessons')
       [@resource, @variable]
     end
 

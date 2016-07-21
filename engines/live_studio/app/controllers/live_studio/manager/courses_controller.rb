@@ -2,7 +2,7 @@ require_dependency "live_studio/manager/base_controller"
 
 module LiveStudio
   class Manager::CoursesController < Manager::BaseController
-    before_action :set_course, only: [:show, :edit, :update, :destroy, :publish]
+    before_action :set_course, only: [:show, :edit, :update, :destroy]
 
     # GET /manager/courses
     def index
@@ -35,14 +35,6 @@ module LiveStudio
       else
         @workstations = workstations
         render :new
-      end
-    end
-
-    # 开始招生
-    def publish
-      if @course.init?
-        @course.preview!
-        LiveService::CourseDirector.new(@course).instance_for_course
       end
     end
 

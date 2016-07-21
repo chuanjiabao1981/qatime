@@ -234,6 +234,7 @@
           var msg = live_chat.nim.getHistoryMsgs({
             scene: 'team',
             to: live_chat.teamId,
+            asc: true,
             done: getHistoryMsgsDone
           });
         });
@@ -243,30 +244,20 @@
           console.log(error);
           if (!error) {
             var append_msgs = ''
-
             obj.msgs.forEach(function(msg){
-              console.log(i);
-              console.log(msg.text);
-              if (msg.type == "notification"){
-                var html_safe_msg = '' +
-                "<div class='talk-time-div'>" + sendMessageTime(msg) + "</div>" +
-                "</div>"
+              if(msg.type != "notification"){
+                if(msg.from == accid){
+                  append_msgs = append_msgs + "<div class='talk-div'>" + msg.fromNick + "（我）说: " + msg.text.replace(/\n/g, "<br />") +
+                    "<div class='talk-time-div'>" + sendMessageTime(msg) + "</div>" +
+                    "</div>"
+                }
+                else{
+                  append_msgs = append_msgs + "<div class='talk-div'>" + msg.fromNick + " 说: " + msg.text.replace(/\n/g, "<br />") +
+                    "<div class='talk-time-div'>" + sendMessageTime(msg) + "</div>" +
+                    "</div>"
+                }
               }
-              else{
-                var html_safe_msg = msg.text.replace(/\n/g, "<br />") +
-                "<div class='talk-time-div'>" + sendMessageTime(msg) + "</div>" +
-                "</div>"
-              }
-
-              if(msg.from == accid){
-                var ex_msg = "<div class='talk-div'>" + msg.fromNick + "（我）说: "
-              }
-              else{
-                var ex_msg = "<div class='talk-div'>" + msg.fromNick + " 说: "
-              }
-              append_msgs = append_msgs + ex_msg + html_safe_msg
             })
-
             $("#history-area").append(
               append_msgs
             );

@@ -232,8 +232,6 @@
           console.log("时间" + time_str);
           time_str = Date.parse(new Date())
           appendHistoryMsgs(event,time_str,0);
-
-          last_time_str = time_str
         });
 
         $("#history-area").scroll(function() {
@@ -242,8 +240,6 @@
               appendHistoryMsgs(event,time_str,1);
             }
           }
-
-          last_time_str = time_str
         });
 
         function appendHistoryMsgs(event,end_time,type) {
@@ -296,12 +292,17 @@
 
             if (obj.msgs.length == 20){
               time_str = obj.msgs[0].time
+              last_time_str = time_str
+              $("#history-area").prepend(
+                append_msgs
+              );
+              console.log("开始" + time_str);
+            }else {
+              console.log("没有更多了");
+              time_str = 0
             }
-            console.log("开始" + time_str);
 
-            $("#history-area").prepend(
-              append_msgs
-            );
+
           }
         }
 

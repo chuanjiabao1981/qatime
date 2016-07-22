@@ -114,5 +114,11 @@
 <%= yield(:page_modal) if content_for?(:page_modal) %>
 <%= yield(:page_javascript) if content_for?(:page_javascript) %>
 
+<script>
+  $(function() {
+    $("form").preventDup();
+  });
+</script>
+
 </body>
 </html>

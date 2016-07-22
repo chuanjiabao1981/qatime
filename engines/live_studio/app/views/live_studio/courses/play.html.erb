@@ -15,7 +15,7 @@
   <div class="col-md-8" style="padding: 0px;">
     <!-- 根据flash是否安装，来显示 -->
     <video id="my-video" class="video-js" controls poster="<%= image_url('publish-bg.png') %>" preload="auto" width="800" height="480" data-setup='{}' style="display:none;">
-      <source src="/MY_VIDEO.mp4" type="video/mp4">
+      <source src="/imgs/MY_VIDEO.mp4" type="video/mp4">
     </video>
     <div style="display:none; height: 480px; width: 800px; background-color: #FFF; padding-top: 50px" id="no-flash-area">
       <p align="center">
@@ -52,14 +52,34 @@
             <div id="messages">
             </div>
             <div id="tool-bar">
-              <!--
-              <button type="button" class="btn btn-default btn-sm" id="scroll-btn">
-                滚屏
+              <button type="button" class="btn btn-default btn-sm" id="emotion-btn">
+                表情
               </button>
-              -->
               <button type="button" class="btn btn-default btn-sm" id="clear-btn">
                 清屏
               </button>
+
+              <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#history-modal" id="history-btn">
+                历史消息
+              </button>
+
+              <!-- Modal -->
+              <div class="modal fade" id="history-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title" id="myModalLabel">历史消息</h4>
+                    </div>
+                    <div class="modal-body" id="history-area" style="height: 300px; overflow: auto;">
+
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
             </div>
             <div id="message-input">
@@ -114,7 +134,7 @@
           acc_id: "<%= @chat_account.try(:accid) %>",
           token: $("#online_token").val()
         }
-        $.get('/chat/live_studio_courses/'+team_id+'/teams/member_visit',params,function(data){
+        $.get('/chat/teams/' + team_id + '/member_visit', params,function(data){
           if(data == 'nothing'){
             console.log(data);
           }else{
@@ -141,7 +161,7 @@
         var live_chat = new LiveChat("<%= Chat::IM.app_key %>");
 
         if(accid == "" || chat_team_id == "" || team_role == "") {
-          $.getJSON("<%= chat.live_studio_course_teams_finish_path(@course) %>", function(data) {
+          $.getJSON("<%= chat.finish_live_studio_course_teams_path(@course) %>", function(data) {
             accid = data.accid;
             token = data.token;
             chat_team_id = data.team_id;
@@ -186,7 +206,7 @@
           console.log(msg);
           console.log('发送' + msg.scene + ' ' + msg.type + '消息' + (!error?'成功':'失败') + ', id=' + msg.idClient);
           $("#messages").append(
-              "<div class='talk-div'>" + msg.fromNick + "（我）说: " + msg.text.replace(/\n/g, "<br />") +
+              "<div class='talk-div'>" + msg.fromNick + "（我）说: " + $.replaceChatMsg(msg.text) +
               "<div class='talk-time-div'>" + sendMessageTime(msg) + "</div>" +
               "</div>");
           $("#messages").scrollTop($("#messages").prop('scrollHeight'));
@@ -205,16 +225,105 @@
             return false;
           }
         });
+
+        var time_str = Date.parse(new Date())
+        $('#history-btn').click(function(event) {
+          console.log("时间" + time_str);
+          time_str = Date.parse(new Date())
+          appendHistoryMsgs(event,time_str,0);
+        });
+
+        $("#history-area").scroll(function() {
+          if(!$(this).hasClass( "loading" ) && time_str != 0){
+            if ($("#history-area").scrollTop() < 150){
+              appendHistoryMsgs(event,time_str,1);
+            }
+          }
+        });
+
+        function appendHistoryMsgs(event,end_time,type) {
+          if(!chatInited) return false;
+          $("#history-area").addClass("loading")
+          if (type == 0) $("#history-area").empty();
+          var msg = live_chat.nim.getHistoryMsgs({
+            scene: 'team',
+            to: live_chat.teamId,
+            endTime: end_time,
+            asc: true,
+            limit: 20,
+            done: getHistoryMsgsDone
+          });
+
+          if (type == 0) {
+            var scrolled = false;
+            function updateScroll(){
+              if(!scrolled){
+                var element = document.getElementById("history-area");
+                element.scrollTop = element.scrollHeight;
+              }
+            }
+            $("#history-area").on('scroll', function(){
+              scrolled=true;
+            });
+            window.setInterval(updateScroll);
+          }
+        }
+
+        function getHistoryMsgsDone(error, obj) {
+          console.log('获取p2p历史消息' + (!error?'成功':'失败'));
+          console.log(error);
+          console.log(obj.msgs);
+          if (!error) {
+            var append_msgs = ''
+            obj.msgs.forEach(function(msg){
+              if(msg.type != "notification"){
+                if(msg.from == accid){
+                  append_msgs = append_msgs + "<div class='talk-div'>" + msg.fromNick + "（我）说: " + $.replaceChatMsg(msg.text) +
+                    "<div class='talk-time-div'>" + sendMessageTime(msg, 'long') + "</div>" +
+                    "</div>"
+                }
+                else{
+                  append_msgs = append_msgs + "<div class='talk-div'>" + msg.fromNick + " 说: " + $.replaceChatMsg(msg.text) +
+                    "<div class='talk-time-div'>" + sendMessageTime(msg, 'long') + "</div>" +
+                    "</div>"
+                }
+              }
+            })
+
+            if (obj.msgs.length == 20){
+              time_str = obj.msgs[0].time
+              $("#history-area").prepend(append_msgs);
+              console.log("开始" + time_str);
+            }else {
+              if(time_str != 0){
+                $("#history-area").prepend(append_msgs);
+              }
+              time_str = 0
+              console.log("没有更多了");
+            }
+            $("#history-area").removeClass("loading");
+          }
+        }
+
+        $("#emotion-btn").qqFace({ assign: "message-area", path: "<%= asset_path('assets/face/') %>" });
       });
 
 
 
-      function sendMessageTime(msg){
+      function sendMessageTime(msg, type){
         var date = new Date(msg.time);
         var hours = date.getHours();
         var minutes = "0" + date.getMinutes();
         var seconds = "0" + date.getSeconds();
-        return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)
+        if(type == "long"){
+          var year = date.getFullYear();
+          var month = date.getMonth() + 1;
+          var date = date.getDate();
+          return year + "-" + month + "-" + date + " " + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)
+        }
+        else{
+          return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)
+        }
       }
 
       //判断flash是否安装方法

@@ -58,7 +58,12 @@ module V1
             end
 
 
-            desc '直播开始接口'
+            desc '直播开始接口' do
+              headers 'Remember-Token' => {
+                  description: 'RememberToken',
+                  required: true
+              }
+            end
             params do
               requires :lesson_id, type: Integer, desc: '课程ID'
             end
@@ -68,7 +73,12 @@ module V1
               @lesson.current_live_session.token
             end
 
-            desc '直播心跳通知接口'
+            desc '直播心跳通知接口' do
+              headers 'Remember-Token' => {
+                  description: 'RememberToken',
+                  required: true
+              }
+            end
             params do
               requires :lesson_id, type: Integer, desc: '课程ID'
               optional :token, type: String, desc: '心跳token'
@@ -78,7 +88,12 @@ module V1
               @lesson.heartbeats(params[:token])
             end
 
-            desc '直播结束接口'
+            desc '直播结束接口' do
+              headers 'Remember-Token' => {
+                  description: 'RememberToken',
+                  required: true
+              }
+            end
             params do
               requires :lesson_id, type: Integer, desc: '课程ID'
             end

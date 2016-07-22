@@ -88,4 +88,6 @@ LiveStudio::Engine.routes.draw do
       resources :courses, only: [:index, :show]
     end
   end
+
+  get 'helps/courses', to: 'helps#course'
 end

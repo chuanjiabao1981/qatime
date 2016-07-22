@@ -119,6 +119,7 @@ cn:
       close_course: 现在结课
       client_download: 直播软件
       download: 下载
+      helps_course: 课程帮助
       flash_can_not_call_msg:
         flash_uninstall_or_too_old_msg: 您的浏览器没有安装flash插件,或flash插件版本过低!请点击
         click_here_msg: 这里

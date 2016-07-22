@@ -15,7 +15,7 @@ module V1
 
         if user && user.authenticate(params[:password])
           login_token = sign_in(user, client_type)
-          present login_token, with: API::Entities::LoginToken
+          present login_token, with: Entities::LoginToken
         else
           { error: "email or password error" }
         end

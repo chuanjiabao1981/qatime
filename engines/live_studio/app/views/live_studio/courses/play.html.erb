@@ -227,16 +227,23 @@
         });
 
         var time_str = Date.parse(new Date())
+        var last_time_str
         $('#history-btn').click(function(event) {
           console.log("时间" + time_str);
           time_str = Date.parse(new Date())
           appendHistoryMsgs(event,time_str,0);
+
+          last_time_str = time_str
         });
 
         $("#history-area").scroll(function() {
-          if ($("#history-area").scrollTop() < 100){
-            appendHistoryMsgs(event,time_str,1);
+          if (last_time_str == time_str){
+            if ($("#history-area").scrollTop() < 100){
+              appendHistoryMsgs(event,time_str,1);
+            }
           }
+
+          last_time_str = time_str
         });
 
         function appendHistoryMsgs(event,end_time,type) {

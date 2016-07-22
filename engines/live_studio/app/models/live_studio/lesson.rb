@@ -67,7 +67,6 @@ module LiveStudio
       end
 
       event :finish do
-        transitions from: :teaching, to: :finished
         transitions from: :paused, to: :finished
         transitions from: :closed, to: :finished
       end

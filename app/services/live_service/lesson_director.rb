@@ -33,7 +33,7 @@ module LiveService
     end
 
     # 清理未完成课程
-    # 1. paused, closed状态下的课程finish
+    # 1. 昨天(包括)以前paused, closed状态下的课程finish
     # 2. 上课时间在前天(包括)以前并且状态为teaching的课程finish
     def self.clean_lessons
     end

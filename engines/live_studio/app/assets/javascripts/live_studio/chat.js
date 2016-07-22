@@ -247,7 +247,7 @@
 
   function refreshTeamMembersUI(teamId) {
     if(teamId != currentTeam.id) return;
-    $.get('/chat/live_studio_courses/'+teamId+'/teams/members',function(data){
+    $.get('/chat/teams/' + teamId + '/members',function(data){
       $("#members-panel").html(data);
     });
     //var members = data.teamMembers[teamId];

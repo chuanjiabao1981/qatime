@@ -1,6 +1,6 @@
 require 'test_helper'
 
-module LiveStudio
+module Chat
   class ChatAccountCreateTest < ActionDispatch::IntegrationTest
     def setup
       @routes = Engine.routes

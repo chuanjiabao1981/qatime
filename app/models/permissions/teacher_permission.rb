@@ -231,6 +231,7 @@ module Permissions
         resource.id == user.id
       end
       allow 'payment/billings', [:index]
+      allow 'live_studio/helps', [:course]
       ## end live studio permission
     end
     private

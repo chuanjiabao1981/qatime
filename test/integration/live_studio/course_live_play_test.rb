@@ -8,7 +8,10 @@ module LiveStudio
       @headless.start
       Capybara.current_driver = :selenium_chrome
 
-      @student = users(:student_one_with_course)
+      @student = users(:student_tally)
+      @course = live_studio_courses(:course_with_junior_teacher)
+
+      LiveService::ChatAccountFromUser.new(@student).instance_account(true)
       log_in_as(@student)
     end
 
@@ -25,11 +28,12 @@ module LiveStudio
     end
 
     test "student watch play" do
-      course = live_studio_courses(:course_with_lesson)
-      channel = live_studio_channels(:three)
+      visit chat.finish_live_studio_course_teams_path(@course)
+      @course.reload
 
-      visit live_studio.play_course_path(course)
-      page.has_content? channel.name
+      visit live_studio.play_course_path(@course)
+
+      page.has_content? @course.name
       page.has_selector?('div#my-video')
     end
   end

@@ -32,7 +32,6 @@ module SessionsHelper
 
   def current_user
     @current_user ||= user_from_remember_token
-    p @current_user
     @current_user ||= user_from_wechat
   end
 

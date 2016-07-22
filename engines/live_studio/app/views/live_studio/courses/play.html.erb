@@ -227,7 +227,6 @@
         });
 
         var time_str = Date.parse(new Date())
-        var last_time_str
         $('#history-btn').click(function(event) {
           console.log("时间" + time_str);
           time_str = Date.parse(new Date())
@@ -235,8 +234,8 @@
         });
 
         $("#history-area").scroll(function() {
-          if(last_time_str == time_str){
-            if ($("#history-area").scrollTop() < 100){
+          if(!$(this).hasClass( "loading" ) && time_str != 0){
+            if ($("#history-area").scrollTop() < 150){
               appendHistoryMsgs(event,time_str,1);
             }
           }
@@ -244,6 +243,7 @@
 
         function appendHistoryMsgs(event,end_time,type) {
           if(!chatInited) return false;
+          $("#history-area").addClass("loading")
           if (type == 0) $("#history-area").empty();
           var msg = live_chat.nim.getHistoryMsgs({
             scene: 'team',
@@ -292,17 +292,16 @@
 
             if (obj.msgs.length == 20){
               time_str = obj.msgs[0].time
-              last_time_str = time_str
               $("#history-area").prepend(append_msgs);
               console.log("开始" + time_str);
             }else {
-              last_time_str = obj.msgs[0].time
               if(time_str != 0){
                 $("#history-area").prepend(append_msgs);
               }
               time_str = 0
               console.log("没有更多了");
             }
+            $("#history-area").removeClass("loading");
           }
         }
 

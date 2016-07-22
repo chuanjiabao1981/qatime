@@ -282,12 +282,12 @@
             obj.msgs.forEach(function(msg){
               if(msg.type != "notification"){
                 if(msg.from == accid){
-                  append_msgs = append_msgs + "<div class='talk-div'>" + msg.fromNick + "（我）说: " + msg.text.replace(/\n/g, "<br />") +
+                  append_msgs = append_msgs + "<div class='talk-div'>" + msg.fromNick + "（我）说: " + $.replaceChatMsg(msg.text) +
                     "<div class='talk-time-div'>" + sendMessageTime(msg, 'long') + "</div>" +
                     "</div>"
                 }
                 else{
-                  append_msgs = append_msgs + "<div class='talk-div'>" + msg.fromNick + " 说: " + msg.text.replace(/\n/g, "<br />") +
+                  append_msgs = append_msgs + "<div class='talk-div'>" + msg.fromNick + " 说: " + $.replaceChatMsg(msg.text) +
                     "<div class='talk-time-div'>" + sendMessageTime(msg, 'long') + "</div>" +
                     "</div>"
                 }

@@ -45,3 +45,16 @@
 * 0.4.0
     * feature
         * [QT-148](https://qatime.atlassian.net/browse/QT-148)
+
+* 0.5.0
+    * feature
+        * [QT-186](https://qatime.atlassian.net/browse/QT-186)
+        * [QT-183](https://qatime.atlassian.net/browse/QT-183)
+        * [QT-178](https://qatime.atlassian.net/browse/QT-178)
+        * [QT-173](https://qatime.atlassian.net/browse/QT-133)
+        * [QT-176](https://qatime.atlassian.net/browse/QT-186)
+        * [QT-174](https://qatime.atlassian.net/browse/QT-174)
+        * [QT-173](https://qatime.atlassian.net/browse/QT-173)
+        * [QT-171](https://qatime.atlassian.net/browse/QT-171)
+    * bugfix
+        * [QT-175](https://qatime.atlassian.net/browse/QT-175)

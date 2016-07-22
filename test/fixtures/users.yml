@@ -42,7 +42,7 @@ teacher1:
   subject: 数学
   mobile: 15910676326
   email: 1@baidu.com
-  password_digest: <%= BCrypt::Password.create("123456", cost: 4) %>
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   avatar: test
   school: school1
   type: Teacher

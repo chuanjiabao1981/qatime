@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    @user = User.where(email: params[:user][:email]).first
+    @user = User.find_by(email: params[:user][:email])
     if @user && @user.authenticate(params[:user][:password])
       sign_in(@user)
       flash[:info] = "欢迎登录!"

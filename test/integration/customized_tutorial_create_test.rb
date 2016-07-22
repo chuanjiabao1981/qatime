@@ -8,6 +8,7 @@ class CustomizedTutorialCreateTest < ActionDispatch::IntegrationTest
     @teacher  = users(:teacher1)
     @customized_course =  customized_courses(:customized_course1)
     log_in_as(@teacher)
+    sleep 100
 
   end
 

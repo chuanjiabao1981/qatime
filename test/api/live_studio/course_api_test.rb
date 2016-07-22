@@ -4,7 +4,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
   def setup
     @teacher = users(:teacher1)
     post '/api/v1/sessions', email: @teacher.email,
-                             password: '123456',
+                             password: 'password',
                              client_type: 'pc'
     @remember_token = JSON.parse(response.body)['data']['remember_token']
   end

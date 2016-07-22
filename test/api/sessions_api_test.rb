@@ -13,11 +13,10 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     post '/api/v1/sessions', {
       email: teacher.email,
       password: teacher.password
-    },{ 'Client-Type': 'pc'}
+    },{ 'Client-Type' => 'pc'}
 
     assert_response :success
     res = JSON.parse(response.body)
-
     assert_equal 1, res['status'], '状态码不对'
     assert_equal teacher.login_tokens.where(client_type: LoginToken.client_types[:pc]).first.remember_token, res['data']['remember_token'], '状态码不对'
   end
@@ -26,7 +25,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     teacher = users(:teacher1)
     remember_token = teacher.login_tokens.first.remember_token
 
-    delete '/api/v1/sessions', {}, { 'Remember-Token': remember_token, 'Client-Type': 'pc' }
+    delete '/api/v1/sessions', {}, { 'Remember-Token'=> remember_token, 'Client-Type'=> 'pc' }
 
     assert_response :success
     res = JSON.parse(response.body)

@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
 
   after_update :sync_chat_account, if: :chat_account_changed?
   def sync_chat_account
-    Chat::SyncChatAccountJob.perform_now(id)
+    Chat::SyncChatAccountJob.perform_later(id)
   end
 
   # chat account是否需要同步

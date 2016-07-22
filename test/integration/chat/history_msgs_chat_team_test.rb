@@ -1,6 +1,6 @@
 require 'test_helper'
 
-module LiveStudio
+module Chat
   class HistoryMsgsChatTeamTest < ActionDispatch::IntegrationTest
     def setup
       @routes = Engine.routes
@@ -24,7 +24,7 @@ module LiveStudio
       Capybara.using_session("teacher") do
         log_in_as(@teacher)
         @course.reload
-        visit chat.live_studio_course_teams_finish_path(@course)
+        visit chat.finish_live_studio_course_teams_path(@course)
         @course.reload
         visit live_studio.play_course_path(@course)
 

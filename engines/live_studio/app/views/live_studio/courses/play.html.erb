@@ -15,7 +15,7 @@
   <div class="col-md-8" style="padding: 0px;">
     <!-- 根据flash是否安装，来显示 -->
     <video id="my-video" class="video-js" controls poster="<%= image_url('publish-bg.png') %>" preload="auto" width="800" height="480" data-setup='{}' style="display:none;">
-      <source src="/MY_VIDEO.mp4" type="video/mp4">
+      <source src="/imgs/MY_VIDEO.mp4" type="video/mp4">
     </video>
     <div style="display:none; height: 480px; width: 800px; background-color: #FFF; padding-top: 50px" id="no-flash-area">
       <p align="center">
@@ -134,7 +134,7 @@
           acc_id: "<%= @chat_account.try(:accid) %>",
           token: $("#online_token").val()
         }
-        $.get('/chat/live_studio_courses/'+team_id+'/teams/member_visit',params,function(data){
+        $.get('/chat/teams/' + team_id + '/member_visit', params,function(data){
           if(data == 'nothing'){
             console.log(data);
           }else{
@@ -161,7 +161,7 @@
         var live_chat = new LiveChat("<%= Chat::IM.app_key %>");
 
         if(accid == "" || chat_team_id == "" || team_role == "") {
-          $.getJSON("<%= chat.live_studio_course_teams_finish_path(@course) %>", function(data) {
+          $.getJSON("<%= chat.finish_live_studio_course_teams_path(@course) %>", function(data) {
             accid = data.accid;
             token = data.token;
             chat_team_id = data.team_id;

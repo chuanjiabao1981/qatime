@@ -61,14 +61,15 @@ ActiveRecord::Schema.define(version: 20160719033022) do
 
   create_table "chat_accounts", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "accid",      limit: 32,  null: false
-    t.string   "token",      limit: 32,  null: false
+    t.string   "accid",      limit: 32
+    t.string   "token",      limit: 32
     t.string   "name",       limit: 128
     t.string   "icon"
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
+  add_index "chat_accounts", ["user_id"], name: "chat_accounts_user_id_unique", unique: true, using: :btree
   add_index "chat_accounts", ["user_id"], name: "index_chat_accounts_on_user_id", using: :btree
 
   create_table "chat_join_records", force: :cascade do |t|
@@ -568,6 +569,16 @@ ActiveRecord::Schema.define(version: 20160719033022) do
 
   add_index "login_tokens", ["digest_token"], name: "index_login_tokens_on_digest_token", using: :btree
   add_index "login_tokens", ["user_id"], name: "index_login_tokens_on_user_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.string   "message_type", limit: 255
+    t.string   "status",       limit: 255
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "nodes", force: :cascade do |t|
     t.string   "name"

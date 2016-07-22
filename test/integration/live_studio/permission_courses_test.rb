@@ -20,7 +20,6 @@ module LiveStudio
       init_course = LiveStudio::Course.init.first
       cant_delete =  LiveStudio::Course.preview.first
       cant_edit = LiveStudio::Course.for_sell.last
-      student = users(:student_with_order)
       click_on '辅导班'
       # create course
       click_on '创建辅导班',match: :first

@@ -235,7 +235,7 @@
         });
 
         $("#history-area").scroll(function() {
-          if (last_time_str == time_str){
+          if(last_time_str == time_str){
             if ($("#history-area").scrollTop() < 100){
               appendHistoryMsgs(event,time_str,1);
             }
@@ -293,16 +293,16 @@
             if (obj.msgs.length == 20){
               time_str = obj.msgs[0].time
               last_time_str = time_str
-              $("#history-area").prepend(
-                append_msgs
-              );
+              $("#history-area").prepend(append_msgs);
               console.log("开始" + time_str);
             }else {
-              console.log("没有更多了");
+              last_time_str = obj.msgs[0].time
+              if(time_str != 0){
+                $("#history-area").prepend(append_msgs);
+              }
               time_str = 0
+              console.log("没有更多了");
             }
-
-
           }
         }
 

@@ -86,8 +86,27 @@ module Permissions
       #######end course library permission##################
 
       ## begin live studio permission
-      allow 'live_studio/manager/courses', [:index, :show, :new, :create, :edit, :update, :destroy, :publish] do |manager|
-        manager.id == user.id
+      allow 'live_studio/manager/courses', [:index, :show, :new, :create, :edit, :update, :destroy] do |manager,course,action|
+        # manager操作辅导班权限细分
+        # 根据辅导班状态
+        # 初始化: 增删改查
+        # 招生中: 查删(条件:无购买记录)
+        # 已开课: 查删(条件:同上)
+        # 已完成: 查
+        permission =
+            case course.try(:status)
+              when 'init'
+                true
+              when 'preview','teaching'
+                action == 'show' || (action == 'destroy' && course.tickets.blank?)
+              when 'completed'
+                action == 'show'
+              when nil
+                true
+              else
+                false
+            end
+        manager == user && permission
       end
       allow 'live_studio/teacher/courses', [:index, :show]
       allow 'live_studio/student/courses', [:index, :show]

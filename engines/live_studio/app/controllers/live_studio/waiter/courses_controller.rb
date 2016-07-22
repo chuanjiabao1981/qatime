@@ -4,7 +4,7 @@ module LiveStudio
 
     # GET /manager/courses
     def index
-      @courses = @current_resource.live_studio_courses.paginate(page: params[:page])
+      @courses = @waiter.live_studio_courses.paginate(page: params[:page])
     end
 
     # GET /manager/courses/1
@@ -27,7 +27,7 @@ module LiveStudio
       @course = @current_user.live_studio_courses.new(course_params)
 
       if @course.save
-        redirect_to waiter_course_path(@current_resource, @course), notice: i18n_notice('created', @course)
+        redirect_to waiter_course_path(@waiter, @course), notice: i18n_notice('created', @course)
       else
         @workstations = workstations
         render :new
@@ -45,7 +45,7 @@ module LiveStudio
     # PATCH/PUT /manager/courses/1
     def update
       if @course.update(course_params)
-        redirect_to waiter_course_path(@current_resource, @course), notice: i18n_notice('updated', @course)
+        redirect_to waiter_course_path(@waiter, @course), notice: i18n_notice('updated', @course)
       else
         render :edit
       end

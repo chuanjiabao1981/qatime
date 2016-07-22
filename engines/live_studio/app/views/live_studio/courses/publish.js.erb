@@ -1,0 +1,3 @@
+<% if @course.preview? -%>
+$("#course-status").text("<%= @course.status_text %>");
+<% end -%>

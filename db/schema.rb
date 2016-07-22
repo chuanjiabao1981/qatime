@@ -61,15 +61,14 @@ ActiveRecord::Schema.define(version: 20160719033022) do
 
   create_table "chat_accounts", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "accid",      limit: 32
-    t.string   "token",      limit: 32
-    t.string   "name",       limit: 128
+    t.string   "accid"
+    t.string   "token"
+    t.string   "name"
     t.string   "icon"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "chat_accounts", ["user_id"], name: "chat_accounts_user_id_unique", unique: true, using: :btree
   add_index "chat_accounts", ["user_id"], name: "index_chat_accounts_on_user_id", using: :btree
 
   create_table "chat_join_records", force: :cascade do |t|
@@ -456,8 +455,8 @@ ActiveRecord::Schema.define(version: 20160719033022) do
     t.integer  "workstation_id",                                                           null: false
     t.integer  "status",                                                     default: 0
     t.text     "description"
-    t.decimal  "price",                              precision: 8, scale: 2, default: 0.0
-    t.decimal  "lesson_price",                       precision: 8, scale: 2, default: 0.0
+    t.decimal  "price",                              precision: 6, scale: 2, default: 0.0
+    t.decimal  "lesson_price",                       precision: 6, scale: 2, default: 0.0
     t.integer  "teacher_percentage",                                         default: 0
     t.integer  "lesson_count",                                               default: 0
     t.integer  "preset_lesson_count",                                        default: 0

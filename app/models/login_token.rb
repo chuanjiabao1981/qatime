@@ -9,4 +9,6 @@ class LoginToken < ActiveRecord::Base
 
   validates :user, presence: true
   validates :client_type, presence: true
+
+  attr_accessor :remember_token
 end

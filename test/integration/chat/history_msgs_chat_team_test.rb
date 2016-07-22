@@ -28,9 +28,8 @@ module Chat
         @course.reload
         visit live_studio.play_course_path(@course)
 
+        sleep(5)
         fill_in "message-area", with: "同学们，大家好呀"
-        click_on "发送"
-        fill_in "message-area", with: "同学们，大家好呀2"
         click_on "发送"
       end
 
@@ -38,12 +37,12 @@ module Chat
         log_in_as(@student)
         visit live_studio.play_course_path(@course)
 
-        sleep(5)
+        sleep(10)
         click_on "历史消息"
+        sleep(20)
 
         page.has_selector?('div#history-area')
         page.find('div#history-area').has_content?('同学们，大家好呀')
-        page.find('div#history-area').has_content?('同学们，大家好呀2')
       end
 
       Capybara.using_session("student") do

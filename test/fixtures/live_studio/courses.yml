@@ -191,3 +191,27 @@ course_for_tasting:
   price: 200
   grade: 六年级
   subject: 语文
+
+course_for_tasting_for_delete:
+  name: s辅导班
+  teacher: teacher_for_taste_course
+  workstation_id: 1
+  status: 1
+  teacher_percentage: 20
+  preset_lesson_count: 10
+  lesson_price: 20
+  price: 200
+  grade: 六年级
+  subject: 语文
+
+course_for_edit:
+  name: 辅导班
+  teacher: teacher_for_taste_course
+  workstation_id: 1
+  status: 1
+  teacher_percentage: 20
+  preset_lesson_count: 10
+  lesson_price: 20
+  price: 200
+  grade: 六年级
+  subject: 语文

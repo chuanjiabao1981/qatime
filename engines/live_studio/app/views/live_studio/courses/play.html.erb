@@ -119,7 +119,7 @@
         <%= content_tag(:div, "辅导简介：#{@course.description}", class:'info-desc') %>
       </div>
       <div id='detail_teacher_area' class="course-info-div">
-        <%= image_tag @teacher.avatar_url(:small), class: 'info-img' %>
+        <%= image_tag @teacher.avatar_url(:big), class: 'info-img' %>
         <%= content_tag(:div, "老师姓名：#{@teacher.name}", class: 'info-cell') %>
         <%= content_tag(:div, "授课科目：#{@teacher.subject}", class: 'info-cell') %>
         <%= content_tag(:div, "授课年级：#{@teacher.category}", class: 'info-cell') %>

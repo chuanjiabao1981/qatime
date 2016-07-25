@@ -8,6 +8,7 @@ subjects:
   - 地理
   - 政治
   - 历史
+  - 科学
 
 categories:
   - 高中
@@ -55,6 +56,7 @@ english:
   地理: geography
   政治: politics
   语文: chinese
+  科学: science
 
 vip_class_ids:
   高中:

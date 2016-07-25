@@ -46,10 +46,4 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_equal 9, res['data'].size
     assert_equal true, res['data'].has_key?('lessons')
   end
-
-  test "GET /api/v1/live_studio/teacher/courses returns teacher's courses list" do
-    get '/api/v1/live_studio/teacher/courses'
-    assert_response :success
-    assert_equal [], JSON.parse(last_response.body)
-  end
 end

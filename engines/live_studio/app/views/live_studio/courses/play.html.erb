@@ -92,8 +92,8 @@
 
 </div>
 <div class="row panel panel-default">
-  <div class="text-center" style="cursor:pointer;">
-    <span id="live_detail_btn" data-detail-area="#live_detail_area">直播详情<span class="glyphicon glyphicon-chevron-up"></span></span>
+  <div class="panel-body text-center">
+    <span id="live_detail_btn" data-detail-area="#live_detail_area" style="cursor:pointer;">直播详情<span class="glyphicon glyphicon-chevron-up"></span></span>
   </div>
 
   <div class="panel-body" style="display: none;">
@@ -113,24 +113,29 @@
         <%= content_tag(:div, "辅导班名：#{@course.name}", class: 'info-cell') %>
         <%= content_tag(:div, "当前课程：#{@lesson.try(:name)}", class: 'info-cell') %>
         <%= content_tag(:div, "科目类型：#{@course.subject}", class: 'info-cell') %>
-        <%= content_tag(:div, "年纪类型：#{@course.subject}", class: 'info-cell') %>
+        <%= content_tag(:div, "年纪类型：#{@course.grade}", class: 'info-cell') %>
         <%= content_tag(:div, "主讲老师：#{@teacher.name}", class: 'info-cell') %>
-        <%= content_tag(:div, "直播时间：#{@lesson.try(:live_time)}", class: 'info-cell') %>
+        <%= content_tag(:div, "直播时间：#{@lesson.class_date} #{@lesson.try(:live_time)}", class: 'info-cell') %>
         <%= content_tag(:div, "辅导简介：#{@course.description}", class:'info-desc') %>
       </div>
       <div id='detail_teacher_area' class="course-info-div">
+        <%= image_tag @teacher.avatar_url(:small), class: 'info-img' %>
         <%= content_tag(:div, "老师姓名：#{@teacher.name}", class: 'info-cell') %>
-        <%= content_tag(:div, "最高学历：#{@lesson.try(:name)}", class: 'info-cell') %>
-        <%= content_tag(:div, "职教年数：#{@course.subject}", class: 'info-cell') %>
-        <%= content_tag(:div, "授课科目：#{@course.subject}", class: 'info-cell') %>
-        <%= content_tag(:div, "授课年级：#{@teacher.name}", class: 'info-cell') %>
-        <%= content_tag(:div, "所在学校：#{@lesson.try(:live_time)}", class: 'info-cell') %>
-        <%= content_tag(:div, "自我介绍：#{@course.description}", class:'info-desc') %>
+        <%= content_tag(:div, "授课科目：#{@teacher.subject}", class: 'info-cell') %>
+        <%= content_tag(:div, "授课年级：#{@teacher.category}", class: 'info-cell') %>
+        <%= content_tag(:div, "所在学校：#{@teacher.school.name}", class: 'info-cell') %>
       </div>
       <div id='detail_course_area' class="course-info-div">
-        <% @course.lessons.each do |lesson| %>
-          <%= content_tag(:div, "课程名称：#{lesson.name}", class: 'info-cell') %>
-        <% end %>
+        <table class="table">
+          <% @course.lessons.each_with_index do |lesson, index| %>
+          <tr class="row">
+          <td class="col-md-2"><%= "%02i" % [index + 1] %></td>
+            <td class="col-md-4"><%= lesson.class_date %><%= lesson.try(:live_time) %></td>
+            <td class="col-md-4"><%= lesson.name %></td>
+            <td class="col-md-2"><%= lesson.status_text %></td>
+          </tr>
+          <% end %>
+        </table>
       </div>
     </div>
 

@@ -50,6 +50,12 @@
     word-break: break-all;
     padding: 2px 5px;
 }
+
+.course-info-div .info-img{
+    float: left;
+    padding: 2px 5px;
+}
+
 .media-object{
     width: 30px;
     height: 30px;
@@ -69,5 +75,5 @@
     color: #008c00;
 }
 span.active{
-    color: blue;
+    color: #1a0dab;
 }

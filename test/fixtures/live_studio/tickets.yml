@@ -74,3 +74,8 @@ ticket_for_student_tally:
   student: student_tally
   course: course_with_junior_teacher
   type: LiveStudio::BuyTicket
+
+ticket_for_cant_delete:
+  student: student_tally
+  course: course_for_tasting_for_delete
+  type: LiveStudio::BuyTicket

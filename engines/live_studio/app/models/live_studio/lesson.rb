@@ -4,7 +4,7 @@ module LiveStudio
 
     enum status: {
       init: 0, # 初始化
-      ready: 1, # 等待上课
+        ready: 1, # 等待上课
       teaching: 2, # 上课中
       paused: 3, # 暂停中 意外中断可以继续直播
       closed: 4, # 直播结束 可以继续直播
@@ -16,9 +16,10 @@ module LiveStudio
     default_scope { order("id asc") }
 
     scope :unfinish, -> { where("status < ?", Lesson.statuses[:finished]) }
-    scope :should_complete, -> { where("status = ? and (? - live_start_at) > interval '1 hour'", Lesson.statuses[:teaching], Time.now)}
+    scope :should_complete, -> { where(status: [statuses[:finished],statuses[:billing]]).where("class_date > ?", Date.yesterday)}
     scope :teached, -> { where("status > ?", Lesson.statuses[:teaching]) } # 已经完成上课
     scope :today, -> { where(class_date: Date.today) }
+    scope :waiting_finish, ->{ where(status: [statuses[:paused],statuses[:closed]])}
 
     belongs_to :course
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
@@ -29,6 +30,7 @@ module LiveStudio
     has_many :live_sessions # 直播 心跳记录
 
     validates :name, :description, :course_id, :start_time, :end_time, :class_date, presence: true
+    before_create :data_preview
 
     include AASM
 
@@ -43,18 +45,19 @@ module LiveStudio
       state :completed
 
       event :teach do
-        before do
-          # 开始上课之前把辅导班设置为已开课
-          course.teaching! if course.preview?
-          # 记录上课开始时间
-          self.live_start_at = Time.now if live_start_at.nil?
-          # 开始上课之前把上一节未结束的课程设置为结束,并切不能继续直播
-          course.lessons.where(status: [Lesson.statuses[:paused], Lesson.statuses[:closed]]).each do |lesson|
-            lesson.finish! unless lesson.id == id
-          end
-        end
+        # before do
+        #   # 开始上课之前把辅导班设置为已开课
+        #   course.teaching! if course.preview?
+        #   # 记录上课开始时间
+        #   self.live_start_at = Time.now if live_start_at.nil?
+        #   # 开始上课之前把上一节未结束的课程设置为结束,并切不能继续直播
+        #   course.lessons.waiting_finish.each do |lesson|
+        #     lesson.finish! unless lesson.id == id
+        #   end
+        # end
         transitions from: :ready, to: :teaching
         transitions from: :paused, to: :teaching
+        transitions from: :closed, to: :teaching
       end
 
       event :pause do
@@ -187,6 +190,10 @@ module LiveStudio
         duration: 0, # 单位(分钟)
         heartbeat_at: Time.now
       )
+    end
+
+    def data_preview
+      self.status = self.class_date == Date.today ? 1 : 0
     end
   end
 end

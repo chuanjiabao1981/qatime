@@ -30,3 +30,18 @@ set :output, "#{Whenever.path}/log/cron.log"
 every 4.hours , :roles => [:db] do
   rake_m 'data_backup:db'
 end
+
+# 每天凌晨1点把今天将要上课的课程设为ready状态
+every 1.day, :at => '1:00 am', :roles => [:web] do
+  runner "LiveService::LessonDirector.new.ready_today_lessons"
+end
+
+# 每天凌晨1点30分清理未完成的课程
+every 1.day, :at => '1:30 am', :roles => [:web] do
+  runner "LiveService::LessonDirector.new.clean_lessons"
+end
+
+# 每天凌晨2点结算已完成的课程
+every 1.day, :at => '2:00 am', :roles => [:web] do
+  runner "LiveService::LessonDirector.new.billing_lessons"
+end

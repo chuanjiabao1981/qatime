@@ -28,3 +28,8 @@ aliyun_ak: aliyun_ak
 bucket_online: bucket-online
 bucket_test: bucket-test
 bucket_testing: qatime-testing
+
+production:
+  aliyun_backup_ac: aliyun_backup_ac
+  aliyun_backup_ak: aliyun_backup_ak
+  bucket_backup: bucket_backup

@@ -22,16 +22,6 @@
         <%= t("activerecord.view.flash_can_not_call_msg.flash_uninstall_or_too_old_msg") %><a href="https://get.adobe.com/cn/flashplayer/"><%= t("activerecord.view.flash_can_not_call_msg.click_here_msg") %></a><%= t("activerecord.view.flash_can_not_call_msg.install_flash_msg") %>
       </p>
     </div>
-    <div class="course-info-div">
-      <%= content_tag(:div, '直播详情', class: 'info-title') %>
-      <%= content_tag(:div, "辅导班名：#{@course.name}", class: 'info-cell') %>
-      <%= content_tag(:div, "课程名称：#{@lesson.try(:name)}", class: 'info-cell') %>
-      <%= content_tag(:div, "主讲老师：#{@teacher.name}", class: 'info-cell') %>
-      <%= content_tag(:div, "所属科目：#{@course.subject}", class: 'info-cell') %>
-      <%= content_tag(:div, "开播日期：#{@lesson.try(:class_date).try(:strftime)}", class: 'info-cell') %>
-      <%= content_tag(:div, "开播时间：#{@lesson.try(:live_time)}", class: 'info-cell') %>
-      <%= content_tag(:div, "辅导简介：#{@course.description}", class:'info-desc') %>
-    </div>
   </div>
 
   <div class="col-md-1">
@@ -85,7 +75,7 @@
             <div id="message-input">
               <form action="##" id="message-form">
                 <div class="col-md-9">
-                  <textarea name="message" id="message-area" cols="33" rows="5" oninput="if(value.length>100) value=value.substr(0,100)"></textarea>
+                  <textarea name="message" id="message-area" cols="33" rows="4" oninput="if(value.length>100) value=value.substr(0,100)"></textarea>
                 </div>
                 <div class="col-md-3">
                   <input type="submit" name="send" id="send-btn" value="发送" style="display: float;">
@@ -98,6 +88,52 @@
         </div>
       </div>
     </div>
+  </div>
+
+</div>
+<div class="row panel panel-default">
+  <div class="text-center" style="cursor:pointer;">
+    <span id="live_detail_btn" data-detail-area="#live_detail_area">直播详情<span class="glyphicon glyphicon-chevron-up"></span></span>
+  </div>
+
+  <div class="panel-body" style="display: none;">
+    <div id="live_detail_area" style="display: none;">
+      <span id='detail_base_btn' data-detail-area="#detail_base_area" style="cursor:pointer;">
+       基本信息<span class="glyphicon glyphicon-chevron-up"></span>
+      </span>|
+      <span id='detail_teacher_btn' data-detail-area="#detail_teacher_area" style="cursor:pointer;">
+        老师详情<span class="glyphicon glyphicon-chevron-up"></span>
+      </span>|
+      <span id='detail_course_btn' data-detail-area="#detail_course_area" style="cursor:pointer;">
+        课程列表<span class="glyphicon glyphicon-chevron-up"></span>
+      </span>
+    </div>
+    <div style="display: none;">
+      <div id='detail_base_area' class="course-info-div">
+        <%= content_tag(:div, "辅导班名：#{@course.name}", class: 'info-cell') %>
+        <%= content_tag(:div, "当前课程：#{@lesson.try(:name)}", class: 'info-cell') %>
+        <%= content_tag(:div, "科目类型：#{@course.subject}", class: 'info-cell') %>
+        <%= content_tag(:div, "年纪类型：#{@course.subject}", class: 'info-cell') %>
+        <%= content_tag(:div, "主讲老师：#{@teacher.name}", class: 'info-cell') %>
+        <%= content_tag(:div, "直播时间：#{@lesson.try(:live_time)}", class: 'info-cell') %>
+        <%= content_tag(:div, "辅导简介：#{@course.description}", class:'info-desc') %>
+      </div>
+      <div id='detail_teacher_area' class="course-info-div">
+        <%= content_tag(:div, "老师姓名：#{@teacher.name}", class: 'info-cell') %>
+        <%= content_tag(:div, "最高学历：#{@lesson.try(:name)}", class: 'info-cell') %>
+        <%= content_tag(:div, "职教年数：#{@course.subject}", class: 'info-cell') %>
+        <%= content_tag(:div, "授课科目：#{@course.subject}", class: 'info-cell') %>
+        <%= content_tag(:div, "授课年级：#{@teacher.name}", class: 'info-cell') %>
+        <%= content_tag(:div, "所在学校：#{@lesson.try(:live_time)}", class: 'info-cell') %>
+        <%= content_tag(:div, "自我介绍：#{@course.description}", class:'info-desc') %>
+      </div>
+      <div id='detail_course_area' class="course-info-div">
+        <% @course.lessons.each do |lesson| %>
+          <%= content_tag(:div, "课程名称：#{lesson.name}", class: 'info-cell') %>
+        <% end %>
+      </div>
+    </div>
+
   </div>
 
 </div>
@@ -325,6 +361,49 @@
           return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)
         }
       }
+
+
+      //直播详情切换js
+      $('span[data-detail-area]').click(function(event){
+        var span = $(this).children("span.glyphicon").first()
+        var parent_detail_div = $($(this).data('detail-area')).parent()
+
+        $($(this).data('detail-area')).children(span).each(function() {
+          console.log($(this))
+          $(this).removeClass('active')
+          if($(this).hasClass("glyphicon-chevron-down")){
+            $(this).removeClass("glyphicon-chevron-down")
+            $(this).addClass("glyphicon-chevron-up")
+          }
+        });
+
+        if($(this).hasClass("active")){
+          $(this).toggleClass("active")
+          span.toggleClass("glyphicon-chevron-up")
+          span.toggleClass("glyphicon-chevron-down")
+          parent_detail_div.hide();
+          $($(this).data('detail-area')).hide();
+        }else{
+          var siblings = $(this).siblings(span);
+          console.log(siblings.length)
+          siblings.each(function() {
+            var sub_span = $(this).children(span).first()
+            if(sub_span.hasClass("glyphicon-chevron-down")){
+              sub_span.toggleClass("glyphicon-chevron-up")
+              sub_span.toggleClass("glyphicon-chevron-down")
+            }
+          });
+
+          $(this).toggleClass("active")
+          span.toggleClass("glyphicon-chevron-up")
+          span.toggleClass("glyphicon-chevron-down")
+          $(this).siblings().removeClass("active")
+          parent_detail_div.show();
+          parent_detail_div.children(span).hide();
+
+          $($(this).data('detail-area')).show();
+        }
+      })
 
       //判断flash是否安装方法
       function flashChecker(){

@@ -3,11 +3,11 @@
   They will automatically be included in application.css.
 */
 #messages{
-    height: 395px;
+    height: 266px;
     overflow-y: scroll;
 }
 #members-panel{
-    height: 555px;
+    height: 405px;
     overflow-y: scroll;
 }
 .talk-div{
@@ -39,7 +39,7 @@
 .course-info-div .info-cell{
     font-size: 14px;
     float: left;
-    width: 50%;
+    width: 100%;
     word-break: break-all;
     padding: 2px 5px;
 }
@@ -67,4 +67,7 @@
 }
 .online{
     color: #008c00;
+}
+span.active{
+    color: blue;
 }

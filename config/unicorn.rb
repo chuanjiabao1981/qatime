@@ -8,6 +8,8 @@ require 'pathname'
 path = Pathname.new(__FILE__).realpath # 当前文件完整路径
 path = path.sub('/config/unicorn.rb', '')
 APP_PATH = path.to_s
+p '--------->>>>>>>>'
+p APP_PATH
 
 # 或直接填写
 # APP_PATH = "/path_to_project/workspace/project_name"

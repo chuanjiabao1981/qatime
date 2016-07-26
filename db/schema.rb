@@ -570,7 +570,7 @@ ActiveRecord::Schema.define(version: 20160726053344) do
     t.datetime "updated_at",              null: false
   end
 
-  add_index "login_tokens", ["digest_token"], name: "index_login_tokens_on_remember_token", using: :btree
+  add_index "login_tokens", ["digest_token"], name: "index_login_tokens_on_digest_token", using: :btree
   add_index "login_tokens", ["user_id"], name: "index_login_tokens_on_user_id", using: :btree
 
   create_table "messages", force: :cascade do |t|

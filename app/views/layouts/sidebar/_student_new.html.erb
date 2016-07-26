@@ -1,0 +1,56 @@
+<% @student ||= @current_resource -%>
+<div style="border: 1px solid; padding: 6px">
+  <center>
+    <%= image_tag @student.avatar_url(:big) %><br/>
+    <%= @student.name %>
+  </center>
+
+  <ul class="menu" style="color: white">
+    <li>
+      <%= link_to info_student_path(@student) do %>
+        <span class="fa fa-info-circle"></span> <span class="qa_f18">用户设置</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to payment.user_orders_path(@student,user_class: @student.type) do %>
+      <span class="glyphicon glyphicon-list"></span> <span class="qa_f18">我的订单</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to live_studio.student_courses_path(@student) do %>
+      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">我的辅导</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to homeworks_student_path(@student) do %>
+      <span class="fa fa-book"></span> <span class="qa_f18">我的作业</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to teachers_student_path(@student) do %>
+      <span class="fa fa-user-secret"></span> <span class="qa_f18">我的老师</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to teachers_student_path(@student) do %>
+      <span class="fa fa-user-secret"></span> <span class="qa_f18">我的提问</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to teachers_student_path(@student) do %>
+      <span class="fa fa-user-secret"></span> <span class="qa_f18">我的课表</span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to notifications_student_path(@student) do %>
+      <span class="fa fa-bell"></span>
+      <span class="qa_f18">我的消息
+        <% if @student.unread_notifications_count >0 %>
+        <span class="badge"><%= @student.unread_notifications_count%></span>
+        <% end %>
+      </span>
+      <% end %>
+    </li>
+  </ul>
+</div>
+

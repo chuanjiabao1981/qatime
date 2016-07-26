@@ -1,3 +1,10 @@
+<%= content_for :breadcrumb do %>
+  <ol class="breadcrumb">
+    <li><a href="#">首页</a></li>
+    <li class="active">用户设置</li>
+  </ol>
+<% end %>
+
 <div class="qa_box">
   <div class="qa_big_cell">
     <%=image_tag @student.avatar.big.url %>

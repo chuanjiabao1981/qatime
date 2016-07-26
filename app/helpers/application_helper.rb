@@ -216,4 +216,24 @@ module ApplicationHelper
       end
     end
   end
+
+  def student_sidebar_nav_is?(nav)
+    case nav.to_s.to_sym
+    when :setting
+      r = controller_name == 'students' && action_name == 'info'
+    when :orders
+      r = controller_name == 'orders' && action_name == 'index'
+    when :courses
+      r = controller_name == 'courses'
+    when :homeworks
+      r = controller_name == 'students' && action_name == 'homeworks'
+    when :teachers
+      r = controller_name == 'students' && action_name == 'teachers'
+    when :notifications
+      r = controller_name == 'students' && action_name == 'notifications'
+    else
+      raise "unknow nav: #{nav}"
+    end
+    r
+  end
 end

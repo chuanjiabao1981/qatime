@@ -15,10 +15,13 @@
 <div class="container">
   <div class='row'>
     <div class="col-md-12">
-        <% flash.each do |key, value| %>
-            <div class="alert alert-<%= key %>"><%= value %></div>
-        <% end %>
+      <%= render 'layouts/student_top_bar' %>
+      <%= yield :breadcrumb %>
+      <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
     </div>
+
     <div class='col-md-2'>
       <%= render "layouts/sidebar/student" %>
     </div>

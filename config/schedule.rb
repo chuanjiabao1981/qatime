@@ -33,15 +33,20 @@ end
 
 # 每天凌晨1点把今天将要上课的课程设为ready状态
 every 1.day, :at => '1:00 am', :roles => [:web] do
-  runner "LiveService::LessonDirector.new.ready_today_lessons"
+  runner "LiveService::LessonDirector.ready_today_lessons"
 end
 
 # 每天凌晨1点30分清理未完成的课程
 every 1.day, :at => '1:30 am', :roles => [:web] do
-  runner "LiveService::LessonDirector.new.clean_lessons"
+  runner "LiveService::LessonDirector.clean_lessons"
 end
 
 # 每天凌晨2点结算已完成的课程
 every 1.day, :at => '2:00 am', :roles => [:web] do
-  runner "LiveService::LessonDirector.new.billing_lessons"
+  runner "LiveService::LessonDirector.billing_lessons"
+end
+
+# 五分钟执行一次,判断是否有teaching状态的课程已离线
+every 5.minutes do
+  runner "LessonPauseWorker.perform_async"
 end

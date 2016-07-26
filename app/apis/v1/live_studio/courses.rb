@@ -69,7 +69,7 @@ module V1
             end
             get :live_start do
               @lesson = ::LiveStudio::Lesson.find_by(id: params[:lesson_id])
-              @lesson.teaching! if @lesson.ready?
+              LiveService::LessonDirector.new(@lesson).lesson_start
               @lesson.current_live_session.token
             end
 
@@ -99,7 +99,7 @@ module V1
             end
             get :live_end do
               @lesson = ::LiveStudio::Lesson.find_by(id: params[:lesson_id])
-              LiveService::BillingDirector.new(@lesson).finish
+              @lesson.close!
             end
           end
         end

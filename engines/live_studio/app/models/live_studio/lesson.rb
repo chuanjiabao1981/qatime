@@ -1,3 +1,4 @@
+require 'encryption'
 module LiveStudio
   class Lesson < ActiveRecord::Base
     has_soft_delete
@@ -133,6 +134,9 @@ module LiveStudio
       @live_session.duration += 5
       @live_session.heartbeat_at = Time.now
       @live_session.save
+      self.heartbeat_time = Time.now
+      teach
+      save
       @live_session.token
     end
 
@@ -186,7 +190,7 @@ module LiveStudio
 
     def new_live_session
       live_sessions.create(
-        token: Digest::MD5.hexdigest(Time.now.to_s).upcase,
+        token: ::Encryption.md5("#{self.id}#{Time.now}").downcase,
         heartbeat_count: 0,
         duration: 0, # 单位(分钟)
         heartbeat_at: Time.now

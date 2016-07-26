@@ -86,7 +86,7 @@ course_one_of_teacher_one:
   teacher_id: 1
   workstation_id: 1
   price: 100
-  status: 2
+  status: 0
   teacher_percentage: 20
   preset_lesson_count: 10
   lesson_price: 20

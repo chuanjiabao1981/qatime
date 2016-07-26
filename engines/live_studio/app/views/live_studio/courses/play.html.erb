@@ -408,7 +408,20 @@
           parent_detail_div.show();
           parent_detail_div.children(span).hide();
 
-          $($(this).data('detail-area')).show();
+
+          var detail_area = $($(this).data('detail-area'))
+          detail_area.show();
+
+          var detail_area_first = detail_area.children(span).first()
+          detail_area_first.toggleClass("active")
+          detail_area_first.children(span).first().toggleClass("glyphicon-chevron-up")
+          detail_area_first.children(span).first().toggleClass("glyphicon-chevron-down")
+          console.log("_______>>>>>")
+          console.log(detail_area_first.data('detail-area'))
+          console.log("_______<<<<<")
+          $(detail_area_first.data('detail-area')).parent().children().hide();
+          $(detail_area_first.data('detail-area')).parent().show()
+          $(detail_area_first.data('detail-area')).show()
         }
       })
 

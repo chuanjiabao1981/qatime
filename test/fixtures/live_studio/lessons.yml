@@ -130,6 +130,7 @@ closed_lesson:
 2days_ago_teaching_lesson:
   name: 英语辅导班-第二节
   course_id: 10000
+  teacher_id: 10
   description: 测试描述
   start_time: '10:20'
   end_time: '05:30'

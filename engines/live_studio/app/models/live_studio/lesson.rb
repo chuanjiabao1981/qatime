@@ -132,7 +132,8 @@ module LiveStudio
       @live_session.duration += 5
       @live_session.heartbeat_at = Time.now
       @live_session.save
-      heartbeat_time = Time.now
+      self.heartbeat_time = Time.now
+      teach
       save
       @live_session.token
     end

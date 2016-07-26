@@ -371,26 +371,28 @@
       //直播详情切换js
       $('span[data-detail-area]').click(function(event){
         var span = $(this).children("span.glyphicon").first()
-        var parent_detail_div = $($(this).data('detail-area')).parent()
+        var detail_div = $($(this).data('detail-area'))
+        var detail_parent_div = detail_div.parent()
 
-        $($(this).data('detail-area')).children(span).each(function() {
-          console.log($(this))
+        detail_div.children(span).each(function() {
           $(this).removeClass('active')
-          if($(this).hasClass("glyphicon-chevron-down")){
-            $(this).removeClass("glyphicon-chevron-down")
-            $(this).addClass("glyphicon-chevron-up")
-          }
+          $(this).children(span).each(function() {
+            if($(this).hasClass("glyphicon-chevron-down")){
+              $(this).removeClass("glyphicon-chevron-down")
+              $(this).addClass("glyphicon-chevron-up")
+            }
+          })
         });
 
         if($(this).hasClass("active")){
           $(this).toggleClass("active")
           span.toggleClass("glyphicon-chevron-up")
           span.toggleClass("glyphicon-chevron-down")
-          parent_detail_div.hide();
-          $($(this).data('detail-area')).hide();
+          detail_parent_div.hide();
+          detail_div.hide();
         }else{
           var siblings = $(this).siblings(span);
-          console.log(siblings.length)
+          siblings.removeClass("active")
           siblings.each(function() {
             var sub_span = $(this).children(span).first()
             if(sub_span.hasClass("glyphicon-chevron-down")){
@@ -399,14 +401,25 @@
             }
           });
 
-          $(this).toggleClass("active")
           span.toggleClass("glyphicon-chevron-up")
           span.toggleClass("glyphicon-chevron-down")
-          $(this).siblings().removeClass("active")
-          parent_detail_div.show();
-          parent_detail_div.children(span).hide();
 
-          $($(this).data('detail-area')).show();
+          $(this).toggleClass("active")
+
+          detail_parent_div.show();
+          detail_parent_div.children(span).hide();
+
+          detail_div.show();
+
+          var detail_child_first = detail_div.children(span).first()
+          detail_child_first.toggleClass("active")
+
+          detail_child_first.children(span).first().toggleClass("glyphicon-chevron-up")
+          detail_child_first.children(span).first().toggleClass("glyphicon-chevron-down")
+
+          $(detail_child_first.data('detail-area')).parent().children().hide()
+          $(detail_child_first.data('detail-area')).parent().show()
+          $(detail_child_first.data('detail-area')).show()
         }
       })
 

@@ -16,7 +16,7 @@ module LiveStudio
     default_scope { order("id asc") }
 
     scope :unfinish, -> { where("status < ?", Lesson.statuses[:finished]) }
-    scope :should_complete, -> { where(status: [statuses[:finished],statuses[:billing]]).where("class_date > ?", Date.yesterday)}
+    scope :should_complete, -> { where(status: [statuses[:finished],statuses[:billing]]).where("class_date < ?", Date.yesterday)}
     scope :teached, -> { where("status > ?", Lesson.statuses[:teaching]) } # 已经完成上课
     scope :today, -> { where(class_date: Date.today) }
     scope :waiting_finish, ->{ where(status: [statuses[:paused],statuses[:closed]])}
@@ -132,6 +132,8 @@ module LiveStudio
       @live_session.duration += 5
       @live_session.heartbeat_at = Time.now
       @live_session.save
+      heartbeat_time = Time.now
+      save
       @live_session.token
     end
 

@@ -10,6 +10,7 @@ module LiveService
     # 3. 开始上课时间为空的初始化开始上课时间
     # 4. finish上一节课，为了避免漏处理  finish该辅导班内所有paused, closed状态的其它课程
     # 5. 开始本节课
+    # 6. 添加心跳记录
     def lesson_start
       @course = @lesson.course
       # 如果辅导班已经有状态为teaching的课程,则返回false
@@ -24,6 +25,7 @@ module LiveService
           lesson.finish! unless lesson.id == @lesson.id
         end
         @lesson.teach!
+        @lesson.heartbeats
       end
     end
 
@@ -37,20 +39,26 @@ module LiveService
     # 1. 昨天(包括)以前paused, closed状态下的课程finish
     # 2. 上课时间在前天(包括)以前并且状态为teaching的课程finish
     def self.clean_lessons
-      #
+      LiveStudio::Lesson.waiting_finish.where('class_date <= ?',Date.yesterday).find_each(batch_size: 500).map(&:finish!)
+      LiveStudio::Lesson.teaching.where('class_date < ?', Date.yesterday).find_each(batch_size: 500).each do |lesson|
+        lesson.close! && lesson.finish!
+      end
     end
 
     # 结算课程
     # finish状态下并且上课日期在前天(包括)以前的课程complete
     def self.billing_lessons
-      #
+      LiveStudio::Lesson.should_complete.each do |lesson|
+        lesson.finished? && LiveService::BillingDirector.new(lesson).billing
+        lesson.billing? && lesson.complete!
+      end
     end
 
     # 暂停课程
     # teaching状态下10分钟没有收到心跳的课程
-    # TODO 暂时没有heartbeat_time字段
     def self.pause_lessons
-      LiveStudio::LiveSession.teaching.where("heartbeat_time < ?", 10.minutes.ago.to_i).map(&:pause!)
+      LiveStudio::Lesson.teaching.where("heartbeat_time < ?", 10.minutes.ago.to_i).map(&:pause!)
     end
+
   end
 end

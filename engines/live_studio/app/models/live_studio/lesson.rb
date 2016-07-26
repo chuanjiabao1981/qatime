@@ -4,7 +4,7 @@ module LiveStudio
 
     enum status: {
       init: 0, # 初始化
-        ready: 1, # 等待上课
+      ready: 1, # 等待上课
       teaching: 2, # 上课中
       paused: 3, # 暂停中 意外中断可以继续直播
       closed: 4, # 直播结束 可以继续直播
@@ -16,10 +16,11 @@ module LiveStudio
     default_scope { order("id asc") }
 
     scope :unfinish, -> { where("status < ?", Lesson.statuses[:finished]) }
-    scope :should_complete, -> { where(status: [statuses[:finished],statuses[:billing]]).where("class_date > ?", Date.yesterday)}
+    scope :unclosed, -> { where('status < ?', Lesson.statuses[:closed]) }
+    scope :should_complete, -> { where(status: [statuses[:finished], statuses[:billing]]).where("class_date > ?", Date.yesterday)}
     scope :teached, -> { where("status > ?", Lesson.statuses[:teaching]) } # 已经完成上课
     scope :today, -> { where(class_date: Date.today) }
-    scope :waiting_finish, ->{ where(status: [statuses[:paused],statuses[:closed]])}
+    scope :waiting_finish, -> { where(status: [statuses[:paused], statuses[:closed]])}
 
     belongs_to :course
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
@@ -126,7 +127,7 @@ module LiveStudio
     end
 
     # 心跳
-    def heartbeats(token=nil)
+    def heartbeats(token = nil)
       @live_session = token.blank? ? new_live_session : current_live_session
       @live_session.heartbeat_count += 1
       @live_session.duration += 5

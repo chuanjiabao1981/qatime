@@ -12,17 +12,18 @@ module LiveService
     # 5. 开始本节课
     def lesson_start
       @course = @lesson.course
-
+      # 如果辅导班已经有状态为teaching的课程,则返回false
+      return false if !@course.lessons.teaching.blank?
       # 第一节课开始上课之前把辅导班设置为已开课
       @course.teaching! if @course.preview?
-
       LiveStudio::Lesson.transaction do
         # 记录上课开始时间
         @lesson.live_start_at = Time.now if @lesson.live_start_at.nil?
         # 开始上课之前把上一节未结束(pause, closed)的课程设置为结束(finished)，finished状态下的课程不能继续直播
         @course.lessons.waiting_finish.each do |lesson|
-          lesson.finish! unless lesson.id == id
+          lesson.finish! unless lesson.id == @lesson.id
         end
+        @lesson.teach!
       end
     end
 
@@ -36,11 +37,13 @@ module LiveService
     # 1. 昨天(包括)以前paused, closed状态下的课程finish
     # 2. 上课时间在前天(包括)以前并且状态为teaching的课程finish
     def self.clean_lessons
+      #
     end
 
     # 结算课程
     # finish状态下并且上课日期在前天(包括)以前的课程complete
     def self.billing_lessons
+      #
     end
 
     # 暂停课程

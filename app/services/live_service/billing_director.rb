@@ -11,7 +11,7 @@ module LiveService
       @lesson.live_count = @lesson.play_records.of(:student).count # 听课人数
       @lesson.live_end_at = Time.now if @lesson.live_end_at.blank?
       @lesson.real_time = ((@lesson.live_end_at - @lesson.live_start_at) / 60.0).ceil # 实际直播时间
-      @lesson.finish!
+      @lesson.close!
       update_tickets
     end
 

@@ -71,7 +71,7 @@ class QaCommonStateCahngeTest < ActionDispatch::IntegrationTest
       click_on state_object_class.human_state_event_name(:complete)
     end
     # sleep 5
-    page.save_screenshot("screenshot.png")
+    page.save_screenshot("screenshots/screenshot.png")
 
     within("div##{state_object_model_name.singular_route_key}-state-#{state_object.id}") do
       #如果不存在则会报异常

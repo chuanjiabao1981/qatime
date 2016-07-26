@@ -376,10 +376,12 @@
         $($(this).data('detail-area')).children(span).each(function() {
           console.log($(this))
           $(this).removeClass('active')
-          if($(this).hasClass("glyphicon-chevron-down")){
-            $(this).removeClass("glyphicon-chevron-down")
-            $(this).addClass("glyphicon-chevron-up")
-          }
+          $(this).children(span).each(function() {
+            if($(this).hasClass("glyphicon-chevron-down")){
+              $(this).removeClass("glyphicon-chevron-down")
+              $(this).addClass("glyphicon-chevron-up")
+            }
+          })
         });
 
         if($(this).hasClass("active")){

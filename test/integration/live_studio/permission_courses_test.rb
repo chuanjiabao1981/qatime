@@ -29,6 +29,7 @@ module LiveStudio
       click_on init_course.name
       page.go_back
       visit live_studio.edit_manager_course_path(@user,init_course)
+      select 'teacher_one', from: :course_teacher_id
       click_on '更新辅导班',match: :first
       assert_match '辅导班已更新',page.text, '初始化辅导班没有更新权限'
       # edit cant_edit

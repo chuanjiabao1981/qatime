@@ -62,7 +62,7 @@ english_lesson_finished:
   class_date: <%= Date.today %>
   live_count: 5
   real_time: 60
-ready_lesson_today:
+ready_lessoncourses_today:
   name: 英语辅导班-第二节
   course_id: courses(:course_teach_2)
   description: 测试描述
@@ -71,4 +71,86 @@ ready_lesson_today:
   class_date: <%= Date.today %>
   status: 1
 
+lesson_for_course_with_junior_teacher:
+  name: 英语辅导班-第二节
+  course: course_with_junior_teacher
+  description: 测试描述
+  start_time: 10:20
+  end_time: 05:30
+  class_date: <%= Date.today %>
+  status: 1
 
+ready_lesson_today2:
+  name: 英语辅导班-第二节
+  course_id: 5
+  description: 测试描述
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 1
+
+ready_lesson_today3:
+  name: 英语辅导班-第二节
+  course_id: 5
+  description: 测试描述
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 1
+
+teaching_lesson:
+  name: 英语辅导班-第二节
+  course_id: 10000
+  description: 测试描述
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  heartbeat_time: <%= 15.minutes.ago%>
+  status: 2
+
+ready_lesson_for_false:
+  name: 英语辅导班-第二节
+  course_id: 10000
+  description: 测试描述
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 1
+
+closed_lesson:
+  name: 英语辅导班-第二节
+  course_id: 10000
+  description: 测试描述
+  start_time: '10:20'
+  end_time: '05:30'
+  teacher_id: 10
+  class_date: <%= Date.yesterday %>
+  status: 4
+
+2days_ago_teaching_lesson:
+  name: 英语辅导班-第二节
+  course_id: 10000
+  teacher_id: 10
+  description: 测试描述
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today.ago 2.days %>
+  status: 2
+finish_lesson:
+  name: 英语辅导班-第二节
+  course_id: 10000
+  teacher_id: 10
+  description: 测试描述
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today.ago 2.days %>
+  status: 5
+ready_lesson_for_init_course:
+  name: 英语辅导班-第二节
+  course_id: 10001
+  teacher_id: 10
+  description: 测试描述
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today.ago 2.days %>
+  status: 0

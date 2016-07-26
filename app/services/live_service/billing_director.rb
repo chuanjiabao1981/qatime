@@ -29,8 +29,10 @@ module LiveService
         money -= teacher_fee!(money, billing)
         # 代理商分成
         manager_fee!(money, billing)
-        # 更新辅导课程完成数量
+        # 改变课程状态
+        @lesson.close! && @lesson.finish! if @lesson.teaching?
         @lesson.complete!
+        # 更新辅导课程完成数量
         @course.reset_completed_lesson_count!
       end
     end

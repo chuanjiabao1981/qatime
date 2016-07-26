@@ -58,3 +58,13 @@
         * [QT-171](https://qatime.atlassian.net/browse/QT-171)
     * bugfix
         * [QT-175](https://qatime.atlassian.net/browse/QT-175)
+
+* 0.5.1
+    * feature
+        * [QT-163](https://qatime.atlassian.net/browse/QT-163)
+        * [QT-172](https://qatime.atlassian.net/browse/QT-172)
+        * [QT-187](https://qatime.atlassian.net/browse/QT-187)
+        * [QT-191](https://qatime.atlassian.net/browse/QT-191)
+    * bugfix
+        * [QT-188](https://qatime.atlassian.net/browse/QT-188)
+

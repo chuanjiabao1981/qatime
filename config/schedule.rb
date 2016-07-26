@@ -45,3 +45,8 @@ end
 every 1.day, :at => '2:00 am', :roles => [:web] do
   runner "LiveService::LessonDirector.billing_lessons"
 end
+
+# 五分钟执行一次,判断是否有teaching状态的课程已离线
+every 5.minutes do
+  runner "LessonPauseWorker.perform_async"
+end

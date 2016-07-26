@@ -560,17 +560,17 @@ ActiveRecord::Schema.define(version: 20160726053344) do
 
   create_table "login_tokens", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "digest_token", limit: 64
+    t.string   "remember_token", limit: 64
     t.integer  "client_type"
     t.integer  "platform"
     t.datetime "expired_at"
     t.string   "login_ip"
     t.datetime "login_at"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
-  add_index "login_tokens", ["digest_token"], name: "index_login_tokens_on_remember_token", using: :btree
+  add_index "login_tokens", ["remember_token"], name: "index_login_tokens_on_remember_token", using: :btree
   add_index "login_tokens", ["user_id"], name: "index_login_tokens_on_user_id", using: :btree
 
   create_table "messages", force: :cascade do |t|

@@ -1,10 +1,11 @@
+require 'encryption'
 module LiveStudio
   class Lesson < ActiveRecord::Base
     has_soft_delete
 
     enum status: {
       init: 0, # 初始化
-        ready: 1, # 等待上课
+      ready: 1, # 等待上课
       teaching: 2, # 上课中
       paused: 3, # 暂停中 意外中断可以继续直播
       closed: 4, # 直播结束 可以继续直播
@@ -188,7 +189,7 @@ module LiveStudio
 
     def new_live_session
       live_sessions.create(
-        token: Digest::MD5.hexdigest(Time.now.to_s).upcase,
+        token: ::Encryption.md5("#{self.id}#{Time.now}").downcase,
         heartbeat_count: 0,
         duration: 0, # 单位(分钟)
         heartbeat_at: Time.now

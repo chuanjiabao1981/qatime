@@ -10,7 +10,7 @@ module LiveService
     # 3. 开始上课时间为空的初始化开始上课时间
     # 4. finish上一节课，为了避免漏处理  finish该辅导班内所有paused, closed状态的其它课程
     # 5. 开始本节课
-    # 6. 添加心跳记录
+    # 6. 初始化心跳
     def lesson_start
       @course = @lesson.course
       # 如果辅导班已经有状态为teaching的课程,则返回false
@@ -25,7 +25,7 @@ module LiveService
           lesson.finish! unless lesson.id == @lesson.id
         end
         @lesson.teach!
-        @lesson.heartbeats
+        @lesson.current_live_session
       end
     end
 
@@ -57,7 +57,7 @@ module LiveService
     # 暂停课程
     # teaching状态下10分钟没有收到心跳的课程
     def self.pause_lessons
-      LiveStudio::Lesson.teaching.where("heartbeat_time < ?", 10.minutes.ago.to_i).map(&:pause!)
+      LiveStudio::Lesson.teaching.where("heartbeat_time < ?", 10.minutes.ago).map(&:pause!)
     end
 
   end

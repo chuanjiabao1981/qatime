@@ -35,31 +35,10 @@ module LiveStudio
     test "lesson finish and billing" do
       course = live_studio_courses(:course_with_lessons)
       lesson = live_studio_lessons(:english_lesson_onlive)
-      visit live_studio.teacher_course_path(@teacher,course)
-      assert_difference 'course.reload.completed_lesson_count', 1, "没有更新辅导班课程完成数量" do
-        assert_difference 'course.reload.current_price.to_f', -20, "课程完成以后课程价格没有修改" do
-          click_on("结束直播")
-        end
-      end
+      visit live_studio.teacher_course_path(@teacher, course)
+      click_on("结束直播")
       lesson.reload
-      assert_equal("completed", lesson.status)
+      assert_equal("closed", lesson.status)
     end
-
-    test "lesson complete and billing and cash" do
-      course = live_studio_courses(:course_with_lessons)
-      lesson = live_studio_lessons(:english_lesson_finished)
-      @workstation = workstations(:workstation_one)
-      assert_difference '@workstation.cash_account!.reload.balance.to_f', 48.0 do
-        assert_difference '@teacher.cash_account!.reload.balance.to_f', 12.0 do
-          assert_difference 'CashAdmin.current!.cash_account!.balance.to_f', -60.0 do
-            visit live_studio.teacher_course_path(@teacher,course)
-            click_on("立即结算")
-          end
-        end
-      end
-      lesson.reload
-      assert_equal("completed", lesson.status)
-    end
-
   end
 end

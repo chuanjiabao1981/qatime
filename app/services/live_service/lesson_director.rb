@@ -49,6 +49,7 @@ module LiveService
     # finish状态下并且上课日期在前天(包括)以前的课程complete
     def self.billing_lessons
       LiveStudio::Lesson.should_complete.each do |lesson|
+        next unless lesson.teacher
         lesson.finished? && LiveService::BillingDirector.new(lesson).billing
         lesson.billing? && lesson.complete!
       end
@@ -59,6 +60,5 @@ module LiveService
     def self.pause_lessons
       LiveStudio::Lesson.teaching.where("heartbeat_time < ?", 10.minutes.ago).map(&:pause!)
     end
-
   end
 end

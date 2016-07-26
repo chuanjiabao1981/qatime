@@ -22,15 +22,17 @@ module CourseLibrary
       @directory = Directory.find(params[:directory_id])
       @courses = @directory.courses
     end
+
     def create
       @directory = Directory.find(params[:directory_id])
       @syllabus = @directory.syllabus
       @course = @directory.courses.build(change_params_for_qa_files(params[:course].permit!))
       if @course.save
         flash[:success] = "创建成功"
+      else
+        @video = Video.new
       end
-      respond_with  @directory, @course
-      #respond_with @course
+      respond_with @directory, @course
     end
 
     def update

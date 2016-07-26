@@ -152,7 +152,7 @@ module LiveStudio
 
     # 当前直播课程
     def current_lesson
-      lessons.unfinish.first
+      lessons.today.unclosed.first || lessons.today.last
     end
 
     private

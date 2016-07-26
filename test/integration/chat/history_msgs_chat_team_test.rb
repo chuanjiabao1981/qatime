@@ -39,10 +39,9 @@ module Chat
 
         sleep(10)
         click_on "历史消息"
-        sleep(20)
 
         page.has_selector?('div#history-area')
-        page.find('div#history-area').has_content?('同学们，大家好呀')
+        assert find(:css, 'div#history-area').has_content?('同学们，大家好呀'), "历史消息查看错误"
       end
 
       Capybara.using_session("student") do

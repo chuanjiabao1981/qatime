@@ -4,11 +4,12 @@ module LiveStudio
   module Seller
     class BaseController < ApplicationController
       layout "seller_home"
-      before_action :current_resource
+      before_action :set_user
+      include ::LiveStudio::SessionsHelper
 
       private
-      def current_resource
-        @current_resource ||= ::Seller.find(params[:seller_id])
+      def set_user
+        @seller ||= ::Seller.find(params[:seller_id])
       end
     end
   end

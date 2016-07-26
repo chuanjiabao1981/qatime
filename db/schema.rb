@@ -61,21 +61,19 @@ ActiveRecord::Schema.define(version: 20160719033022) do
 
   create_table "chat_accounts", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "accid",      limit: 32
-    t.string   "token",      limit: 32
-    t.string   "name",       limit: 128
+    t.string   "accid"
+    t.string   "token"
+    t.string   "name"
     t.string   "icon"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  add_index "chat_accounts", ["user_id"], name: "chat_accounts_user_id_unique", unique: true, using: :btree
   add_index "chat_accounts", ["user_id"], name: "index_chat_accounts_on_user_id", using: :btree
 
   create_table "chat_join_records", force: :cascade do |t|
     t.integer  "account_id"
     t.integer  "team_id"
-    t.string   "nick_name",  limit: 64
     t.string   "role",       limit: 16
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
@@ -94,7 +92,6 @@ ActiveRecord::Schema.define(version: 20160719033022) do
     t.datetime "updated_at",                       null: false
   end
 
-  add_index "chat_teams", ["live_studio_course_id"], name: "chat_teams_course_id_unique", unique: true, using: :btree
   add_index "chat_teams", ["live_studio_course_id"], name: "index_chat_teams_on_live_studio_course_id", using: :btree
 
   create_table "cities", force: :cascade do |t|
@@ -458,8 +455,8 @@ ActiveRecord::Schema.define(version: 20160719033022) do
     t.integer  "workstation_id",                                                           null: false
     t.integer  "status",                                                     default: 0
     t.text     "description"
-    t.decimal  "price",                              precision: 8, scale: 2, default: 0.0
-    t.decimal  "lesson_price",                       precision: 8, scale: 2, default: 0.0
+    t.decimal  "price",                              precision: 6, scale: 2, default: 0.0
+    t.decimal  "lesson_price",                       precision: 6, scale: 2, default: 0.0
     t.integer  "teacher_percentage",                                         default: 0
     t.integer  "lesson_count",                                               default: 0
     t.integer  "preset_lesson_count",                                        default: 0
@@ -559,18 +556,28 @@ ActiveRecord::Schema.define(version: 20160719033022) do
 
   create_table "login_tokens", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "remember_token", limit: 64
+    t.string   "digest_token", limit: 64
     t.integer  "client_type"
     t.integer  "platform"
     t.datetime "expired_at"
     t.string   "login_ip"
     t.datetime "login_at"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
-  add_index "login_tokens", ["remember_token"], name: "index_login_tokens_on_remember_token", using: :btree
+  add_index "login_tokens", ["digest_token"], name: "index_login_tokens_on_digest_token", using: :btree
   add_index "login_tokens", ["user_id"], name: "index_login_tokens_on_user_id", using: :btree
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.string   "message_type", limit: 255
+    t.string   "status",       limit: 255
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "nodes", force: :cascade do |t|
     t.string   "name"

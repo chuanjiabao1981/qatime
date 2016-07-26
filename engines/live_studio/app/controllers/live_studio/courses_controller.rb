@@ -3,12 +3,20 @@ require_dependency "live_studio/application_controller"
 module LiveStudio
   class CoursesController < ApplicationController
     before_action :set_student
-    before_action :set_course, only: [:show, :play]
+    before_action :set_course, only: [:show, :play, :publish]
     before_action :play_authorize, only: [:play]
 
     def index
       @courses = Course.for_sell.includes(:teacher).all
       @tickets = @student.live_studio_tickets.where(course_id: @courses.map(&:id)) if @student.student?
+    end
+
+    # 开始招生
+    def publish
+      if @course.init?
+        @course.preview!
+        LiveService::CourseDirector.new(@course).instance_for_course
+      end
     end
 
     def taste

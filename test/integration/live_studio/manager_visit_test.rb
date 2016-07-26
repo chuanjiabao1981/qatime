@@ -17,7 +17,7 @@ module LiveStudio
     end
 
     test 'visit teacher page' do
-      @teacher = Teacher.first
+      @teacher = ::Teacher.first
       @course = @teacher.live_studio_courses.first
       click_on '教师'
       visit teacher_path(@teacher)

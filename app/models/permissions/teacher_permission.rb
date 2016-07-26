@@ -98,7 +98,7 @@ module Permissions
       end
       allow :customized_tutorials,[:edit,:update] do |customized_tutorial|
         user and (customized_tutorial.teacher_id == user.id or
-                    customized_tutorial.customized_course.teacher_ids.include?(user.id)) and customized_tutorial.template.nil?
+            customized_tutorial.customized_course.teacher_ids.include?(user.id)) and customized_tutorial.template.nil?
       end
 
       allow :customized_tutorials,[:show] do |customized_tutorial|
@@ -177,7 +177,7 @@ module Permissions
         homework and homework.course.directory.syllabus.author_id == user.id
       end
       allow "course_library/homeworks",[:edit, :update, :show, :destroy, :mark_delete] do |homework|
-       homework and homework.course.directory.syllabus.author_id == user.id
+        homework and homework.course.directory.syllabus.author_id == user.id
       end
       allow "course_library/homeworks",[:index, :new, :create] do |course|
         course and course.directory.syllabus.author_id == user.id
@@ -214,23 +214,30 @@ module Permissions
       allow :qa_file_quoters,[:index, :new, :edit, :update, :create, :show, :destroy]
 
       ## begin live studio permission
-      allow 'live_studio/teacher/courses', [:index, :show, :edit, :update, :sync_channel_streams, :channel, :close] do |teacher|
-        teacher && teacher == user
-      end
-      allow 'live_studio/teacher/lessons', [
-        :index, :show, :new, :create, :edit, :update, :destroy,
-        :begin_live_studio, :end_live_studio, :ready, :complete
-      ] do |teacher|
-        teacher && teacher == user
+      allow 'live_studio/teacher/courses', [:index, :show, :edit, :update, :sync_channel_streams, :channel, :close] do |teacher, course, action|
+        # 只有初始化的辅导班可以编辑
+        permission = %w(edit update).include?(action) ? course.init? : true
+        teacher && teacher == user && permission
       end
 
-      allow 'live_studio/courses', [:update_notice] do |course|
+      allow 'live_studio/teacher/lessons', [
+          :index, :show, :new, :create, :edit, :update, :destroy,
+          :begin_live_studio, :end_live_studio, :ready, :complete
+      ] do |teacher, course, action|
+        # 课程的辅导班初始化状态可以变新增 编辑 删除 | 招生中状态可以编辑
+        permission = %w(new create edit update destroy).include?(action) ? course.init? : true ||
+            %w(edit update).include?(action) ? course.preview? : true
+        teacher && teacher == user && permission
+      end
+
+      allow 'live_studio/courses', [:update_notice,:publish] do |course|
         course.teacher_id == user.id
       end
       allow 'payment/change_records', [:index] do |resource|
         resource.id == user.id
       end
       allow 'payment/billings', [:index]
+      allow 'live_studio/helps', [:course]
       ## end live studio permission
     end
     private

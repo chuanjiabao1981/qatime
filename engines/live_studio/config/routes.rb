@@ -11,6 +11,7 @@ LiveStudio::Engine.routes.draw do
       post 'taste' # 试听
       get :play # 观看直播
       patch :update_notice
+      patch :publish
     end
 
     resources :lessons, only: [:show] do
@@ -22,11 +23,7 @@ LiveStudio::Engine.routes.draw do
 
   scope module: 'manager' do
     resources :managers, only: [] do
-      resources :courses do
-        member do
-          patch :publish
-        end
-      end
+      resources :courses
     end
   end
 
@@ -91,4 +88,6 @@ LiveStudio::Engine.routes.draw do
       resources :courses, only: [:index, :show]
     end
   end
+
+  get 'helps/courses', to: 'helps#course'
 end

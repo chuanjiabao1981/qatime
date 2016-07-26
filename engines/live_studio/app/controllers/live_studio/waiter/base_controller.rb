@@ -9,7 +9,7 @@ module LiveStudio
 
       private
       def current_resource
-        @current_resource ||= ::Waiter.find(params[:waiter_id])
+        @waiter ||= ::Waiter.find_by(id: params[:waiter_id])
       end
     end
   end

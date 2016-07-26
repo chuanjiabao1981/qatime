@@ -1,5 +1,13 @@
 require 'test_helper'
 class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
+  def setup
+    @teacher = users(:teacher1)
+    post '/api/v1/sessions', email: @teacher.email,
+                             password: 'password',
+                             client_type: 'pc'
+    @remember_token = JSON.parse(response.body)['data']['remember_token']
+  end
+
   def app
     Rails.application
   end
@@ -10,14 +18,13 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
 
   def get_url(url, params)
     teacher = users(:teacher1)
-    token = teacher.login_tokens.first.remember_token
     url['teacher_id'] = teacher.id.to_s
-    get url, params, {'Remember-Token' => token }
+    get url, params, 'Remember-Token' => @remember_token
   end
 
   test 'GET /api/v1/live_studio/teacher/live_start' do
     lesson = live_studio_lessons(:ready_lesson_today)
-    get_url("/api/v1/live_studio/teachers/teacher_id/live_start",{lesson_id: lesson.id})
+    get_url("/api/v1/live_studio/teachers/teacher_id/live_start", {lesson_id: lesson.id})
     assert_response :success
     assert data.length == 32
   end
@@ -38,6 +45,7 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
     lesson = live_studio_lessons(:english_lesson_onlive)
     get_url('/api/v1/live_studio/teachers/teacher_id/live_end', {lesson_id: lesson.id})
     assert_response :success
+    p JSON.parse(response.body)
     assert data, '没有正确返回true'
   end
 end

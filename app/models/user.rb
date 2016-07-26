@@ -22,8 +22,6 @@ class User < ActiveRecord::Base
             format: {with: /\A[\p{Han}\p{Alnum}\-_]{3,10}\z/,message:"只可以是中文、英文或者下划线，最短3个字符最长10个字符，不可包含空格。"}
   has_secure_password
 
-  before_create :create_remember_token
-
   has_many :orders, class_name: ::Payment::Order
 
   validates_presence_of :register_code_value, on: :create, if: :teacher_or_student?
@@ -87,10 +85,6 @@ class User < ActiveRecord::Base
   end
 
   private
-  def create_remember_token
-    self.remember_token = User.digest(User.new_remember_token)
-  end
-
   def register_code_valid
     # 这里虽然设置了true使得验证成功后此注册码过期，但是由于如果整体teacher不成成功会rollback，
     # 所以一个正确验证码在user其他字段不成功的情况下，同样还是有效的

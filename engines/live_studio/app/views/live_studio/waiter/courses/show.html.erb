@@ -1,17 +1,17 @@
 <div class="qa_box">
   <div class="qa_big_cell">
     <span style="padding-left:10px" class="qa_f18">
-      <%= link_to LiveStudio::Course.model_name.human, live_studio.waiter_courses_path(@current_resource) %> &gt;
+      <%= link_to LiveStudio::Course.model_name.human, live_studio.waiter_courses_path(@waiter) %> &gt;
       <strong><%= @course.name %></strong>
     </span>
     <div class="pull-right">
-      <% if allow? "live_studio/waiter/courses", "edit", @course %>
-        <%=link_to edit_waiter_course_path(@current_resource, @course) do %>
-          <button type="button" class="btn btn-xs btn-success">
-            <%= t("activerecord.view.edit") %><%= @course.class.model_name.human %>
-          </button>
-        <% end %>
-      <% end %>
+      <!--<%# if allow? "live_studio/waiter/courses", "edit", @course %>-->
+        <!--<%#=link_to edit_waiter_course_path(@waiter, @course) do %>-->
+          <!--<button type="button" class="btn btn-xs btn-success">-->
+            <!--<#%= t("activerecord.view.edit") %><%= @course.class.model_name.human %>-->
+          <!--</button>-->
+        <!--<%# end %>-->
+      <!--<%# end %>-->
     </div>
   </div>
   <div class="qa_cell">
@@ -42,8 +42,8 @@
     <div class="row">
       <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:status)%></div>
       <div class="col-md-9" id="status-row">
-	<%= @course.status_text %>
-	<%= link_to t("activerecord.view.course_publish"), publish_waiter_course_path(@current_resource, @course), method: :patch, remote: true, 'data-confirm' => t("activerecord.view.message.course_confirm_publish") if @course.init? %>
+        <%= @course.status_text %>
+        <%#= link_to t("activerecord.view.course_publish"), publish_waiter_course_path(@waiter, @course), method: :patch, remote: true, 'data-confirm' => t("activerecord.view.message.course_confirm_publish") if @course.init? %>
       </div>
     </div>
   </div>

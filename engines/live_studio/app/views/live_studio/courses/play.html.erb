@@ -374,9 +374,9 @@
         var detail_div = $($(this).data('detail-area'))
         var detail_parent_div = detail_div.parent()
 
-        detail_div.children(span).each(function() {
+        detail_div.children("span[data-detail-area]").each(function() {
           $(this).removeClass('active')
-          $(this).children(span).each(function() {
+          $(this).children("span.glyphicon").each(function() {
             if($(this).hasClass("glyphicon-chevron-down")){
               $(this).removeClass("glyphicon-chevron-down")
               $(this).addClass("glyphicon-chevron-up")
@@ -394,13 +394,12 @@
           var siblings = $(this).siblings(span);
           siblings.removeClass("active")
           siblings.each(function() {
-            var sub_span = $(this).children(span).first()
+            var sub_span = $(this).children("span.glyphicon").first()
             if(sub_span.hasClass("glyphicon-chevron-down")){
               sub_span.toggleClass("glyphicon-chevron-up")
               sub_span.toggleClass("glyphicon-chevron-down")
             }
           });
-
           span.toggleClass("glyphicon-chevron-up")
           span.toggleClass("glyphicon-chevron-down")
 
@@ -414,8 +413,8 @@
           var detail_child_first = detail_div.children(span).first()
           detail_child_first.toggleClass("active")
 
-          detail_child_first.children(span).first().toggleClass("glyphicon-chevron-up")
-          detail_child_first.children(span).first().toggleClass("glyphicon-chevron-down")
+          detail_child_first.children("span.glyphicon").first().toggleClass("glyphicon-chevron-up")
+          detail_child_first.children("span.glyphicon").first().toggleClass("glyphicon-chevron-down")
 
           $(detail_child_first.data('detail-area')).parent().children().hide()
           $(detail_child_first.data('detail-area')).parent().show()

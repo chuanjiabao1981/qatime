@@ -9,7 +9,9 @@ module Chat
       @chat_account ||= LiveService::ChatAccountFromUser.new(current_user).instance_account
       # 如果没有team创建team
       @chat_team = @course.chat_team
-      @chat_team ||= LiveService::ChatTeamManager.new(@chat_team).instance_team(@course, @course.teacher.chat_account)
+      unless @chat_team && @chat_team.team_id.present?
+        @chat_team = LiveService::ChatTeamManager.new(@chat_team).instance_team(@course, @course.teacher.chat_account)
+      end
       # 当前用户没有加入群组立即加入群组
       @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id)
       @join_record ||= LiveService::ChatTeamManager.new(@chat_team).add_to_team([@chat_account], 'normal')
@@ -40,7 +42,7 @@ module Chat
       team_id = params[:id]
       acc_id = params[:acc_id]
       token = params[:token]
-      Chat::Team.cache_member_visit(team_id, acc_id)
+      Chat::Team.cache_member_visit(team_id,acc_id)
       @members = Chat::Team.online_members(team_id, token)
       if token == Chat::Team.token(team_id)
         render text: 'nothing'

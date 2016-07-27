@@ -10,17 +10,19 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= render 'layouts/top_bar' %>
+<%= render 'layouts/student_top_bar' %>
 
 <div class="container">
   <div class='row'>
     <div class="col-md-12">
-        <% flash.each do |key, value| %>
-            <div class="alert alert-<%= key %>"><%= value %></div>
-        <% end %>
+      <%= yield :breadcrumb %>
+      <% flash.each do |key, value| %>
+          <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
     </div>
+
     <div class='col-md-2'>
-      <%= render "layouts/sidebar/student" %>
+      <%= render "layouts/sidebar/student_new" %>
     </div>
     <div class='col-md-10'>
       <%= yield %>

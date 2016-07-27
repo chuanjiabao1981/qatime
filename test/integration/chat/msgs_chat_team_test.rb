@@ -28,10 +28,11 @@ module Chat
         @course.reload
         visit live_studio.play_course_path(@course)
 
+        sleep(10)
         fill_in "message-area", with: "同学们，大家好呀"
         click_on "发送"
 
-        page.has_content? "同学们，大家好呀"
+        assert page.has_content?("同学们，大家好呀"), "消息发送失败"
       end
 
       Capybara.using_session("student") do
@@ -39,13 +40,13 @@ module Chat
 
         visit live_studio.play_course_path(@course)
 
-        sleep(5)
-        page.has_content? "同学们，大家好呀"
+        sleep(10)
+        assert page.has_content?("同学们，大家好呀"), "消息接收失败"
 
         fill_in "message-area", with: "大家好呀"
         click_on "发送"
 
-        page.has_content? "大家好呀"
+        assert page.has_content?("大家好呀"), "消息发送失败"
       end
 
       Capybara.using_session("student") do

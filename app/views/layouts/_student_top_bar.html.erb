@@ -27,26 +27,23 @@
 
       </ul>
       <ul class="nav navbar-nav navbar-right">
-
-        <% if signed_in? %>
-          <li>
-            <%= link_to current_user.name,user_home_path,class: "pull-left" %>
-          </li>
-        <% end %>
         <% if signed_in? %>
             <% if current_user.student? or current_user.teacher? %>
-                <li>
-                  <% if current_user.unread_notifications_count > 0 %>
-                      <%= link_to "消息(#{current_user.unread_notifications_count})",user_notification_path %>
-                  <% else %>
-                      <%= link_to "消息",user_notification_path %>
-                  <% end %>
-                </li>
+              <li>
+                <%= link_to user_notification_path do %>
+                  <span class="glyphicon glyphicon-envelope"></span>
+                  <span class="badge"><%= current_user.unread_notifications_count if current_user.unread_notifications_count > 0 %></span>
+                <% end %>
+              </li>
             <% end %>
             <li>
-              <%= link_to '登出', signout_path, :method=>'delete' %>
+              <%= link_to user_home_path do %>
+                <span class="glyphicon glyphicon-user"></span>
+              <% end %>
             </li>
-
+            <li>
+              <%= link_to '退出', signout_path, :method=>'delete' %>
+            </li>
         <% else %>
             <li>
               <%= link_to '登录', signin_path %>

@@ -49,7 +49,6 @@ module LiveService
     # finish状态下并且上课日期在前天(包括)以前的课程complete
     def self.billing_lessons
       LiveStudio::Lesson.should_complete.each do |lesson|
-        next unless lesson.teacher
         lesson.finished? && LiveService::BillingDirector.new(lesson).billing
         lesson.billing? && lesson.complete!
       end

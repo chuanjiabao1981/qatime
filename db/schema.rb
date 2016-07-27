@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719033022) do
+ActiveRecord::Schema.define(version: 20160727093834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -472,22 +472,23 @@ ActiveRecord::Schema.define(version: 20160719033022) do
   add_index "live_studio_courses", ["workstation_id"], name: "index_live_studio_courses_on_workstation_id", using: :btree
 
   create_table "live_studio_lessons", force: :cascade do |t|
-    t.string   "name",          limit: 100
+    t.string   "name",           limit: 100
     t.integer  "course_id"
     t.integer  "teacher_id"
     t.string   "description"
-    t.integer  "status",        limit: 2,   default: 0
-    t.string   "start_time",    limit: 6
-    t.string   "end_time",      limit: 6
+    t.integer  "status",         limit: 2,   default: 0
+    t.string   "start_time",     limit: 6
+    t.string   "end_time",       limit: 6
     t.date     "class_date"
-    t.integer  "live_count",                default: 0
+    t.integer  "live_count",                 default: 0
     t.datetime "live_start_at"
     t.datetime "live_end_at"
-    t.integer  "real_time",                 default: 0
-    t.integer  "pos",                       default: 0
+    t.integer  "real_time",                  default: 0
+    t.integer  "pos",                        default: 0
     t.datetime "deleted_at"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.datetime "heartbeat_time"
   end
 
   add_index "live_studio_lessons", ["course_id"], name: "index_live_studio_lessons_on_course_id", using: :btree
@@ -568,16 +569,6 @@ ActiveRecord::Schema.define(version: 20160719033022) do
 
   add_index "login_tokens", ["digest_token"], name: "index_login_tokens_on_digest_token", using: :btree
   add_index "login_tokens", ["user_id"], name: "index_login_tokens_on_user_id", using: :btree
-
-  create_table "messages", force: :cascade do |t|
-    t.integer  "sender_id"
-    t.integer  "receiver_id"
-    t.string   "message_type", limit: 255
-    t.string   "status",       limit: 255
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "nodes", force: :cascade do |t|
     t.string   "name"
@@ -910,7 +901,6 @@ ActiveRecord::Schema.define(version: 20160719033022) do
     t.integer  "school_id"
     t.string   "role"
     t.string   "password_digest"
-    t.string   "remember_token"
     t.text     "desc"
     t.integer  "course_purchase_records_count"
     t.integer  "joined_groups_count",                       default: 0
@@ -923,10 +913,14 @@ ActiveRecord::Schema.define(version: 20160719033022) do
     t.string   "parent_phone"
     t.integer  "workstation_id"
     t.string   "type",                          limit: 100
+    t.integer  "sex",                                       default: 0
+    t.datetime "birthday"
+    t.integer  "province"
+    t.integer  "city"
+    t.text     "description"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["workstation_id"], name: "index_users_on_workstation_id", using: :btree
 

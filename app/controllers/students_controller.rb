@@ -41,11 +41,11 @@ class StudentsController < ApplicationController
   end
 
   def info
-    if params[:fee].nil?
-      @deposits = @student.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-    else
-      @consumption_records      = @student.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-    end
+    # if params[:fee].nil?
+    #   @deposits = @student.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    # else
+    #   @consumption_records      = @student.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    # end
 
     render layout: 'student_home'
   end
@@ -102,7 +102,7 @@ class StudentsController < ApplicationController
   end
 
   def account
-    
+
   end
 
   def destroy

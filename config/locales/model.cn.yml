@@ -50,12 +50,18 @@ cn:
         tags: 分类
         state_event: 是否通过审核
       user:
+        name: 姓名
+        sex: 性别
+        birthday: 生日
+        address: 地区
+        description: 简介
         email: 邮箱
         password: 密码
         register_code_value: 注册码
         mobile: 手机
         nick_name: 昵称
         parent_phone: 家长手机
+        school: 学校
       student:
         email: 邮箱
         name: 姓名

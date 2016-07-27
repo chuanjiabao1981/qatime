@@ -1,70 +1,124 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <%=image_tag @student.avatar.big.url %>
-    <span style="padding-left:10px" class="qa_f18">
-        <strong><%= @student.name %></strong>
-    </span>
-    <div class="pull-right">
-      <% if allow? :students,:edit , @student %>
-          <%=link_to edit_student_path(@student) do %>
-              <button type="button" class="btn btn-xs btn-success">编辑信息</button>
-          <% end %>
-      <% end %>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:grade)%></div>
-      <div class="col-md-9"><%= @student.grade %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:mobile)%></div>
-      <div class="col-md-9"><%= @student.mobile %></div>
-    </div>
-  </div>
-  <% if not @student.parent_phone.nil? %>
-      <div class="qa_cell">
-        <div class="row">
-          <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:parent_phone)%></div>
-          <div class="col-md-9"><%= @student.parent_phone %></div>
-        </div>
-      </div>
-  <% end %>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px">邮件</div>
-      <div class="col-md-9"><%= @student.email %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%= Account.human_attribute_name(:money) %></div>
-        <div class="col-md-9">
-          <%= format("%.2f",@student.account.money) %>
-          <% if allow? :deposits,:new ,@student.account%>
-                <%= link_to new_account_deposit_path(@student.account) do %>
-                    <span><%= Deposit.model_name.human %></span>
-                <% end %>
-          <% end %>
-        </div>
-    </div>
-  </div>
-</div>
-<div class="qa_sep_15"></div>
-<div class="qa_sep_15"></div>
-<div class="qa_sep_15"></div>
-<div class="qa_box">
-</div>
-
-<%= render layout: "account_operation_record_layout" do %>
-
-    <%if params[:fee].nil? %>
-        <%= render partial: 'deposits/index',locals: {deposits:@deposits} %>
-    <% else %>
-        <%= render partial: 'shared/consumption_records/index',locals:{consumption_records: @consumption_records} %>
-    <% end %>
+<%= content_for :breadcrumb do %>
+  <ol class="breadcrumb">
+    <li><%= link_to "个人中心",info_student_path(@student) %></li>
+  </ol>
 <% end %>
 
+<div class="qa_box row">
+  <div style="padding-left: 1px">
+  <ul class="nav nav-tabs nav-justified">
+      <li role="presentation" class=<%= "active" if action_name == "info" and params[:safe].nil? %>><%=link_to "个人信息", info_student_path(@student) %></li>
+      <li role="presentation" class=<%= "active" if action_name == "info"  and not params[:safe].nil? %>><%=link_to "安全设置",info_student_path(@student,safe: :y) %></li>
+    </ul>
+  </div>
+
+  <% if params[:safe].nil? %>
+
+  <div class="col-md-4 text-center" style="vertical-align:middle;padding-top:30px">
+    <%=image_tag @student.avatar_url(:ex_big) %>
+  </div>
+  <div class="col-md-8">
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:name)%></div>
+        <div class="col-md-9">
+          <%= @student.name %>
+          <div class="pull-right">
+            <% if allow? :students,:edit , @student %>
+              <%=link_to edit_student_path(@student) do %>
+                <button type="button" class="btn btn-xs btn-success">编辑信息</button>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:sex)%></div>
+        <div class="col-md-9"><%= @student.sex %></div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:birthday)%></div>
+        <div class="col-md-9"><%= @student.birthday %></div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:address)%></div>
+        <div class="col-md-9"><%= @student.province %><%= @student.city %></div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:description)%></div>
+        <div class="col-md-9"><%= @student.description %></div>
+      </div>
+    </div>
+  </div>
+  <% else %>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-3" style="padding-left:40px">登录<%=Student.human_attribute_name(:password)%>
+          <div style="padding-left:20px">
+            此密码不可见
+          </div>
+        </div>
+        <div class="col-md-6" style="padding-left:40px">
+            登录答疑时间需要输入密码验证。
+        </div>
+        <div class="col-md-2 col-md-offset-1 pull-right">
+          <br/>修改登录密码
+        </div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-3" style="padding-left:40px">绑定<%=Student.human_attribute_name(:mobile)%>
+          <div style="padding-left:20px">
+            <%= @student.mobile %>
+          </div>
+        </div>
+        <div class="col-md-6" style="padding-left:40px">
+          更改绑定手机需要同事对新旧手机进行验证，如果当前手机号遗失或无法收到验证码。
+        </div>
+        <div class="col-md-2 col-md-offset-1 pull-right">
+          <br/>修改绑定手机
+        </div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-3" style="padding-left:40px">绑定<%=Student.human_attribute_name(:email)%>
+          <div style="padding-left:20px">
+            <%= @student.email %>
+          </div>
+        </div>
+        <div class="col-md-6" style="padding-left:40px">
+          注意！修改绑定邮箱，用户登录邮箱将一起变更。
+        </div>
+        <div class="col-md-2 col-md-offset-1 pull-right">
+          <br/>修改绑定邮箱
+        </div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:parent_phone)%>
+          <div style="padding-left:20px">
+            <%= @student.parent_phone %>
+          </div>
+        </div>
+        <div class="col-md-6" style="padding-left:40px">
+          修改家长手机号码后，原号码将不再接受提醒。
+        </div>
+        <div class="col-md-2 col-md-offset-1 pull-right">
+          <br/>修改家长手机
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
 

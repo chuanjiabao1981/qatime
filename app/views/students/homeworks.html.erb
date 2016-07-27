@@ -1,3 +1,9 @@
+<%= content_for :breadcrumb do %>
+  <ol class="breadcrumb">
+    <li><%= link_to "个人中心",info_student_path(@student) %></li>
+  </ol>
+<% end %>
+
 <%= render layout: "task" do %>
     <% if @homeworks.length > 0 %>
         <%= render partial: 'shared/qa_objects/index_brief_info',locals: {objects: @homeworks} %>

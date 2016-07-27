@@ -19,7 +19,11 @@
       <% end %>
     </div>
     <div class='col-md-2'>
-      <%= render "layouts/sidebar/#{(@resource_owner || @current_resource).role}" %>
+      <% if (@resource_owner || @current_resource).is_a?(Student) %>
+        <%= render "layouts/sidebar/student_new" %>
+      <% else %>
+        <%= render "layouts/sidebar/#{(@resource_owner || @current_resource).role}" %>
+      <% end %>
     </div>
     <div class='col-md-10'>
       <%= yield %>

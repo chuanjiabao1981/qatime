@@ -10,12 +10,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= render 'layouts/top_bar' %>
+<%= render 'layouts/student_top_bar' %>
 
 <div class="container">
   <div class='row'>
     <div class="col-md-12">
-      <%= render 'layouts/student_top_bar' %>
       <%= yield :breadcrumb %>
       <% flash.each do |key, value| %>
           <div class="alert alert-<%= key %>"><%= value %></div>

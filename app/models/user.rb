@@ -107,7 +107,7 @@ class User < ActiveRecord::Base
 
   after_update :sync_chat_account, if: :chat_account_changed?
   def sync_chat_account
-    Chat::SyncChatAccountJob.delay_for(5.minutes).perform(id)
+    Chat::SyncChatAccountJob.set(wait: 5.minutes).perform_later(id)
   end
 
   # chat account是否需要同步

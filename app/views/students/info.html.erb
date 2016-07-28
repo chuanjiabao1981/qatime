@@ -7,14 +7,14 @@
 <div class="qa_box row">
   <div style="padding-left: 1px">
   <ul class="nav nav-tabs nav-justified">
-      <li role="presentation" class=<%= "active" if action_name == "info" and params[:safe].nil? %>><%=link_to "个人信息", info_student_path(@student) %></li>
+      <li role="presentation" class=<%= "active" if (action_name == "info" or action_name == "edit") and params[:safe].nil? %>><%=link_to "个人信息", info_student_path(@student) %></li>
       <li role="presentation" class=<%= "active" if action_name == "info"  and not params[:safe].nil? %>><%=link_to "安全设置",info_student_path(@student,safe: :y) %></li>
     </ul>
   </div>
 
   <% if params[:safe].nil? %>
 
-  <div class="col-md-4 text-center" style="vertical-align:middle;padding-top:30px">
+  <div class="col-md-4 text-center" style="vertical-align:middle;padding-top:55px">
     <%=image_tag @student.avatar_url(:ex_big) %>
   </div>
   <div class="col-md-8">
@@ -37,6 +37,18 @@
       <div class="row">
         <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:sex)%></div>
         <div class="col-md-9"><%= @student.sex %></div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:grade)%></div>
+        <div class="col-md-9"><%= @student.grade %></div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:school)%></div>
+        <div class="col-md-9"><%= @student.school %></div>
       </div>
     </div>
     <div class="qa_cell">

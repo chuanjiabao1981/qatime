@@ -220,7 +220,9 @@ module ApplicationHelper
   def student_sidebar_nav_is?(nav)
     case nav.to_s.to_sym
     when :setting
-      r = controller_name == 'students' && action_name == 'info'
+      r = controller_name == 'students' && (
+            action_name == 'info' || action_name == 'edit'
+          )
     when :orders
       r = controller_name == 'orders' && action_name == 'index'
     when :courses

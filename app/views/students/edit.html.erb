@@ -1,34 +1,76 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <h2>信息编辑</h2>
+<%= content_for :breadcrumb do %>
+  <ol class="breadcrumb">
+    <li><%= link_to "个人中心",info_student_path(@student) %></li>
+  </ol>
+<% end %>
+
+<div class="qa_box row">
+  <div style="padding-left: 1px">
+  <ul class="nav nav-tabs nav-justified">
+      <li role="presentation" class=<%= "active" if (action_name == "info" or action_name == "edit") and params[:safe].nil? %>><a href="##">个人信息</a></li>
+      <li role="presentation" class=<%= "active" if action_name == "info"  and not params[:safe].nil? %>><%=link_to "安全设置",info_student_path(@student,safe: :y) %></li>
+    </ul>
   </div>
-</div>
 
-<div class="qa_box">
-  <div class="qa_big_cell">
+  <div class="col-md-4 text-center" style="vertical-align:middle;padding-top:170px">
+    <%=image_tag @student.avatar_url(:ex_big) %>
+  </div>
+  <div class="col-md-8">
+
     <%= simple_form_for(@student)  do |f| %>
-
-        <div class="form-inputs">
-          <%= f.input :email, :required => true, :autofocus => true,:hint=>"邮箱用于登录和密码找回。" %>
-          <%= f.input :mobile, :required => true %>
-          <%= f.input :parent_phone,:required=>true,:hint=>"当余额不足时，会给您家长发送短信提醒。"%>
-          <%= f.input :name, :required => true,:hint => "填写真实姓名。" ,disabled: true%>
-          <%= f.input :grade, :required => true,:collection => APP_CONSTANT["grades_in_menu"],include_blank:false %>
-
-          <% %w[x y w h].each do |attribute| %>
-              <%= f.hidden_field "crop_#{attribute}"%>
-          <% end %>
-          <%= f.input :avatar,input_html:{onchange:"showimagepreview(this)"} ,:hint => "如果不想更改头像，则别填此项"%>
-          <img id="user_avatar_preview" style="width: 240px;height: 240px">
-
-          </img>
-          <%= f.input :password, :autocomplete => "off",:hint => "如果不想修改密码，则别填写此项!"%>
-          <%= f.input :password_confirmation %>
+      <div class="qa_cell">
+        <div class="row">
+          <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:name)%></div>
+          <div class="col-md-9">
+            <%= f.input :name, label: false %>
+          </div>
         </div>
-
-        <div class="form-actions">
-          <%= f.submit '更 新', class: "btn btn-default" %>
+      </div>
+      <div class="qa_cell">
+        <div class="row">
+          <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:sex)%></div>
+          <div class="col-md-9">
+            <%= f.collection_radio_buttons :province, [[1, "男"], [2, "女"]], :first, :last, label: false %>
+          </div>
         </div>
+      </div>
+      <div class="qa_cell">
+        <div class="row">
+          <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:birthday)%></div>
+          <div class="col-md-9">
+            <%= f.input :birthday, label: false, as: :string, input_html: {type: :date} %>
+          </div>
+        </div>
+      </div>
+      <div class="qa_cell">
+        <div class="row">
+          <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:grade)%></div>
+          <div class="col-md-9"><%= f.input :grade, label: false,:collection => APP_CONSTANT["grades_in_menu"],include_blank:false %></div>
+        </div>
+      </div>
+      <div class="qa_cell">
+        <div class="row">
+          <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:school)%></div>
+          <div class="col-md-9"><%= f.input :school, label: false %></div>
+        </div>
+      </div>
+      <div class="qa_cell">
+        <div class="row">
+          <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:address)%></div>
+          <div class="col-md-9">
+            <%= f.select :province, [["山西", 1]], include_blank: true %>
+            <%= f.select :city, [["阳泉", 1]], include_blank: true %>
+          </div>
+        </div>
+      </div>
+      <div class="qa_cell">
+        <div class="row">
+          <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:description)%></div>
+          <div class="col-md-9">
+            <%= f.input :description, label: false, as: :text %>
+          </div>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>

@@ -38,7 +38,7 @@
         <div class="row">
           <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:birthday)%></div>
           <div class="col-md-9">
-            <%= f.input :birthday, label: false, as: :string, input_html: {type: :date} %>
+            <%= f.input :birthday, label: false, as: :string, input_html: {type: :date, max: Time.now.strftime('%Y-%m-%d')} %>
           </div>
         </div>
       </div>

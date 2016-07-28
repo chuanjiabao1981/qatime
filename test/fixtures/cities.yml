@@ -1,3 +1,16 @@
 yangquan:
   id: 1
   name: 阳泉
+chaoyang:
+  province: beijing
+  name: 朝阳
+changping:
+  province: beijing
+  name: 昌平
+taiyuan:
+  province: shanxi
+  name: 太原
+datong:
+  province: shanxi
+  name: 大同
+

@@ -13,7 +13,7 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
   end
 
   def data
-    JSON.parse(response.body)['data']
+    JSON.parse(response.body)['data']['live_token']
   end
 
   def get_url(url, params)
@@ -45,7 +45,6 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
     lesson = live_studio_lessons(:english_lesson_onlive)
     get_url('/api/v1/live_studio/teachers/teacher_id/live_end', {lesson_id: lesson.id})
     assert_response :success
-    p JSON.parse(response.body)
-    assert data, '没有正确返回true'
+    assert data.length == 32, '没有正确返回'
   end
 end

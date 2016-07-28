@@ -18,7 +18,7 @@ module V1
             requires :id, type: Integer, desc: '课程ID'
           end
           get ':id/start' do
-            @lesson = ::LiveStudio::Lesson.find_by(id: params[:lesson_id])
+            @lesson = ::LiveStudio::Lesson.find(params[:lesson_id])
             LiveService::LessonDirector.new(@lesson).lesson_start
             @lesson.current_live_session.token
           end
@@ -34,7 +34,7 @@ module V1
             optional :token, type: String, desc: '心跳token'
           end
           get ':id/heartbeat' do
-            @lesson = ::LiveStudio::Lesson.find_by(id: params[:lesson_id])
+            @lesson = ::LiveStudio::Lesson.find(params[:lesson_id])
             @lesson.heartbeats(params[:token])
           end
 
@@ -48,7 +48,7 @@ module V1
             requires :lesson_id, type: Integer, desc: '课程ID'
           end
           get ':id/close' do
-            @lesson = ::LiveStudio::Lesson.find_by(id: params[:lesson_id])
+            @lesson = ::LiveStudio::Lesson.find(params[:lesson_id])
             @lesson.close!
           end
         end

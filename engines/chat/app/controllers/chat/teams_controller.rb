@@ -18,7 +18,7 @@ module Chat
 
     # 返回群成员列表
     def members
-      chat_team = Chat::Team.find_by(team_id: params[:live_studio_course_id])
+      chat_team = Chat::Team.find_by(team_id: params[:id])
       @accounts = chat_team.try(:accounts).to_a
 
       if !@accounts.blank?
@@ -37,10 +37,10 @@ module Chat
     # 成员访问群组
     # 如果在线成员发生变化,则返回 members
     def member_visit
-      team_id = params[:live_studio_course_id]
+      team_id = params[:id]
       acc_id = params[:acc_id]
       token = params[:token]
-      Chat::Team.cache_member_visit(team_id,acc_id)
+      Chat::Team.cache_member_visit(team_id, acc_id)
       @members = Chat::Team.online_members(team_id, token)
       if token == Chat::Team.token(team_id)
         render text: 'nothing'

@@ -1087,3 +1087,92 @@
       - 长干曲
       - 菩萨蛮
       - 凤阳花鼓
+-
+  name: 七年级上册
+  subject: 语文
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 七年级下册
+  subject: 语文
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 八年级上册
+  subject: 语文
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 八年级下册
+  subject: 语文
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 九年级上册
+  subject: 语文
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 九年级下册
+  subject: 语文
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 总复习
+  subject: 语文
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 第一轮复习
+      - 第二轮复习
+      - 第三轮复习
+      - 中考专题

@@ -57,7 +57,7 @@
                 <%= f.association :province, label: false, :collection => Province.all.collect { |s| [s.name, s.id]} %>
               </div>
               <div class="col-md-6">
-                <%= f.association :city, label: false, include_blank:false %>
+                <%= f.association :city, label: false %>
               </div>
             </div>
           </div>
@@ -90,7 +90,7 @@
       sltCity.length=1;
       for(var i=0;i<provinceCity.length;i++){
         sltCity[i+1]=new Option(provinceCity[i][1],provinceCity[i][0]);
-    }
+      }
     })
 
     $("button[data-form-reset]").on('click',function(event){

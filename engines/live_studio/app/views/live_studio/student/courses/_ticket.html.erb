@@ -1,15 +1,39 @@
 <% course = ticket.course -%>
-<tr>
-  <td><%= ticket_counter + 1 %></td>
-  <td>
-    <%= link_to course.name, student_course_path(@student, course) %>
-  </td>
-  <td>
-    <%= course.short_description %>
-  </td>
-  <td><%= course.status_text %></td>
-  <td><%= ticket.type_name %></td>
-  <td>
-    <%= link_to t("activerecord.view.buy_now"), new_course_order_path(course), id: "buy-course-#{course.id}" if ticket.taste? && current_user == @student %>
-  </td>
-</tr>
+<!--<tr>-->
+  <!--<td><%= ticket_counter + 1 %></td>-->
+  <!--<td>-->
+    <!--<%= link_to course.name, student_course_path(@student, course) %>-->
+  <!--</td>-->
+  <!--<td>-->
+    <!--<%= course.short_description %>-->
+  <!--</td>-->
+  <!--<td><%= course.status_text %></td>-->
+  <!--<td><%= ticket.type_name %></td>-->
+  <!--<td>-->
+    <!--<%= link_to t("activerecord.view.buy_now"), new_course_order_path(course), id: "buy-course-#{course.id}" if ticket.taste? && current_user == @student %>-->
+  <!--</td>-->
+<!--</tr>-->
+
+<%= content_tag(:div, class: 'course-box-div') do %>
+    <%= content_tag(:div, class: 'course-describe-div') do%>
+        <%= content_tag(:div,"开课时间：#{course.live_start_time}",class: 'describe-ceil') %>
+        <%= content_tag(:div,"结课时间：#{course.live_end_time}",class: 'describe-ceil') %>
+        <%= content_tag(:div,"状态：#{course.live_status_text}",class: 'describe-ceil') %>
+    <% end %>
+    <%= content_tag(:div, class: 'course-info-div') do %>
+        <%= content_tag(:div, image_tag(course.publicize_url(:list)),class: 'publicize') %>
+        <%= content_tag(:div, class: 'course-content-div') do %>
+            <%= content_tag(:div, course.name, class: 'course-name') %>
+            <%= content_tag(:div, "科目：#{course.subject}", class: 'content-ceil') %>
+            <%= content_tag(:div, "老师：#{course.teacher.try(:name)}", class: 'content-ceil') %>
+            <%= content_tag(:div, "进度：#{course.subject}", class: 'content-ceil') %>
+            <%= content_tag(:div, "剩余：#{course.subject}", class: 'content-ceil') %>
+            <%= content_tag(:div, "当前：#{course.subject}") %>
+        <%end %>
+        <%= content_tag(:div, class: 'course-operator-div') do%>
+            <%= content_tag(:a, '详细信息', class: 'btn btn-default operator-btn') %>
+            <%= content_tag(:a, '课程列表', class: 'btn btn-default operator-btn') %>
+            <%= content_tag(:a, '立即学习', class: 'btn btn-default operator-btn') %>
+        <% end %>
+    <% end %>
+<% end %>

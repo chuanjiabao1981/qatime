@@ -11,7 +11,7 @@ module LiveStudio
         completed: 5 # 已结算
     }
 
-    default_scope { order("id asc") }
+    # default_scope { order("id asc") }
     scope :unfinish, -> { where("status < ?", Lesson.statuses[:finished]) }
     scope :should_complete, -> { where("status = ? and (? - live_start_at) > interval '1 hour'", Lesson.statuses[:teaching],Time.now)}
     scope :teached, -> { where("status > ?", Lesson.statuses[:teaching]) } # 已经完成上课

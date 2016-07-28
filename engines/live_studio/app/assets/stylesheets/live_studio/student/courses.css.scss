@@ -1,0 +1,86 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+.panel-support{
+    padding: 10px;
+    float: left;
+    width: 100%;
+}
+.course-header-div{
+    position: relative;
+}
+.course-header-div .search-link{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+.course-header-div .title{
+    font-size: 18px;
+    font-weight: 600;
+}
+.course-taxon-list{
+    margin-top: 20px;
+    text-align: center;
+}
+.course-taxon-div{
+    width: 16.6%;
+    border: solid 1px #CCCCCC;
+    float: left;
+    height: 3em;
+    line-height: 3em;
+}
+.course-taxon-div:hover{
+    background-color: #cccccc;
+    cursor: pointer;
+}
+.course-box-div{
+    float: left;
+    width: 100%;
+    padding: 10px;
+    border-bottom: solid 1px;
+    .course-describe-div{
+        color: #CCCCCC;
+        font-size: 13px;
+        .describe-ceil{
+            width: 33%;
+            float: left;
+        }
+    }
+    .course-info-div{
+        float: inherit;
+        width: 100%;
+        .publicize{
+            float: inherit;
+            min-width: 18%;
+            padding: 10px;
+            img{
+                width: 132px;
+                height: 99px;
+            }
+        }
+        .course-content-div{
+            float: inherit;
+            width: 65%;
+            padding: 10px;
+            .course-name{
+                font-size: 18px;
+                font-weight: 600;
+            }
+            .content-ceil{
+                width: 50%;
+                float: inherit;
+            }
+        }
+        .course-operator-div {
+            float: inherit;
+            word-wrap: break-word;
+            word-break: normal;
+            width: 12%;
+            .operator-btn{
+                float: inherit;
+                margin: 2px;
+            }
+        }
+    }
+}

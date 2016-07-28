@@ -1,8 +1,2 @@
-<%= content_for :breadcrumb do %>
-  <ol class="breadcrumb">
-    <li><%= link_to "个人中心",info_student_path(@student) %></li>
-  </ol>
-<% end %>
-
 <%= render partial: 'notifications/index',locals: {user: @student,
                                                    notifications: @action_notifications} %>

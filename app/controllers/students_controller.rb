@@ -92,7 +92,7 @@ class StudentsController < ApplicationController
   end
   def update
     if @student.update_attributes(params[:student].permit!)
-      redirect_to student_path(@student)
+      redirect_to info_student_path(@student)
     else
       render 'edit'
     end

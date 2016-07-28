@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  extend Enumerize
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   ROLES = %w(admin guest manager teacher student waiter seller cash_admin)
@@ -49,7 +51,19 @@ class User < ActiveRecord::Base
 
   belongs_to :school
 
+  belongs_to :province
+  belongs_to :city
+
   has_many :login_tokens
+
+  SEX_HASH = {
+    male: 1, # 男
+    female: 2, # 女
+  }
+
+  enumerize :sex, in: SEX_HASH, i18n_scope: "enums.user.sex",
+                      scope: true,
+                      predicates: { prefix: true }
 
   def unread_notifications_count
     self.customized_course_action_notifications.unread.count

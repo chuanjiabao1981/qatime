@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160727093834) do
+ActiveRecord::Schema.define(version: 20160728062656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,10 +95,13 @@ ActiveRecord::Schema.define(version: 20160727093834) do
   add_index "chat_teams", ["live_studio_course_id"], name: "index_chat_teams_on_live_studio_course_id", using: :btree
 
   create_table "cities", force: :cascade do |t|
+    t.integer  "province_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "cities", ["province_id"], name: "index_cities_on_province_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
@@ -675,6 +678,12 @@ ActiveRecord::Schema.define(version: 20160727093834) do
     t.integer  "author_id"
   end
 
+  create_table "provinces", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "qa_faqs", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
@@ -913,10 +922,10 @@ ActiveRecord::Schema.define(version: 20160727093834) do
     t.string   "parent_phone"
     t.integer  "workstation_id"
     t.string   "type",                          limit: 100
+    t.integer  "province_id"
+    t.integer  "city_id"
     t.integer  "sex",                                       default: 0
     t.date     "birthday"
-    t.integer  "province"
-    t.integer  "city"
     t.text     "description"
   end
 

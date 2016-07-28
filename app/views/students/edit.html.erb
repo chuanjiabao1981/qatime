@@ -17,7 +17,7 @@
   </div>
   <div class="col-md-8">
 
-    <%= simple_form_for(@student)  do |f| %>
+    <%= simple_form_for(@student, html: {id: :edit_student_info})  do |f| %>
       <div class="qa_cell">
         <div class="row">
           <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:name)%></div>
@@ -30,7 +30,7 @@
         <div class="row">
           <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:sex)%></div>
           <div class="col-md-9">
-            <%= f.collection_radio_buttons :province, [[1, "男"], [2, "女"]], :first, :last, label: false %>
+            <%= f.input :sex, as: :radio_buttons, label: false %>
           </div>
         </div>
       </div>
@@ -45,21 +45,21 @@
       <div class="qa_cell">
         <div class="row">
           <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:grade)%></div>
-          <div class="col-md-9"><%= f.input :grade, label: false,:collection => APP_CONSTANT["grades_in_menu"],include_blank:false %></div>
-        </div>
-      </div>
-      <div class="qa_cell">
-        <div class="row">
-          <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:school)%></div>
-          <div class="col-md-9"><%= f.input :school, label: false %></div>
+          <div class="col-md-9"><%= f.input :grade, label: false,:collection => APP_CONSTANT["grades_in_menu"], include_blank:false %></div>
         </div>
       </div>
       <div class="qa_cell">
         <div class="row">
           <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:address)%></div>
           <div class="col-md-9">
-            <%= f.select :province, [["山西", 1]], include_blank: true %>
-            <%= f.select :city, [["阳泉", 1]], include_blank: true %>
+            <div class="row">
+              <div class="col-md-6">
+                <%= f.association :province, label: false, :collection => Province.all.collect { |s| [s.name, s.id]} %>
+              </div>
+              <div class="col-md-6">
+                <%= f.association :city, label: false, include_blank:false %>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -73,4 +73,40 @@
       </div>
     <% end %>
   </div>
+
+  <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#edit_student_info" data-jump-href="<%= info_student_path(@student) %>">取消</button>
+  <button type="button" class="col-md-offset-2 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#edit_student_info">保存</button>
 </div>
+
+<script type="text/javascript">
+
+  $(document).ready(function(){
+     var city= <%= raw Province.all.map{|province| province.cities.pluck(:id, :name)} %>
+
+    $('#student_province_id').change(function(){
+      var sltProvince=document.getElementById("student_province_id");
+      var sltCity=document.getElementById("student_city_id");
+      var provinceCity=city[sltProvince.selectedIndex-1];
+      sltCity.length=1;
+      for(var i=0;i<provinceCity.length;i++){
+        sltCity[i+1]=new Option(provinceCity[i][1],provinceCity[i][0]);
+    }
+    })
+
+    $("button[data-form-reset]").on('click',function(event){
+      var $node = $(event.target)
+      var $form = $node.data('form-el')
+      var jump_href = $node.data('jump-href')
+
+      $($form)[0].reset()
+      if(jump_href){
+        window.location.href= $node.data('jump-href')
+      }
+    });
+    $("button[data-form-submit]").on('click',function(event){
+      var $node = $(event.target)
+      var $form = $node.data('form-el')
+      $($form).submit()
+    });
+  })
+</script>

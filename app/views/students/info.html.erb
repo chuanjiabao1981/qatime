@@ -36,7 +36,7 @@
     <div class="qa_cell">
       <div class="row">
         <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:sex)%></div>
-        <div class="col-md-9"><%= @student.sex %></div>
+        <div class="col-md-9"><%= @student.sex_text %></div>
       </div>
     </div>
     <div class="qa_cell">
@@ -48,7 +48,7 @@
     <div class="qa_cell">
       <div class="row">
         <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:school)%></div>
-        <div class="col-md-9"><%= @student.school %></div>
+        <div class="col-md-9"><%= @student.school.name %></div>
       </div>
     </div>
     <div class="qa_cell">
@@ -60,7 +60,10 @@
     <div class="qa_cell">
       <div class="row">
         <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:address)%></div>
-        <div class="col-md-9"><%= @student.province %><%= @student.city %></div>
+        <div class="col-md-9">
+          <%= @student.province.name %>&nbsp;
+          <%= @student.city.name %>
+        </div>
       </div>
     </div>
     <div class="qa_cell">

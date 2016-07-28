@@ -69,8 +69,10 @@ module V1
             end
             get :live_start do
               @lesson = ::LiveStudio::Lesson.find(params[:lesson_id])
+              raise_change_error_for(@lesson.ready? || @lesson.paused? || @lesson.closed?)
               LiveService::LessonDirector.new(@lesson).lesson_start
               @lesson.current_live_session.token
+              present @lesson, with: Entities::LiveStudio::Lesson, type: :live_start
             end
 
             desc '直播心跳通知接口' do
@@ -85,7 +87,9 @@ module V1
             end
             get :heartbeat do
               @lesson = ::LiveStudio::Lesson.find(params[:lesson_id])
+              raise_change_error_for(@lesson.teaching? || @lesson.paused?)
               @lesson.heartbeats(params[:token])
+              present @lesson, with: Entities::LiveStudio::Lesson, type: :live_start
             end
 
             desc '直播结束接口' do
@@ -99,7 +103,9 @@ module V1
             end
             get :live_end do
               @lesson = ::LiveStudio::Lesson.find(params[:lesson_id])
+              raise_change_error_for(@lesson.teaching? || @lesson.paused?)
               @lesson.close!
+              present @lesson, with: Entities::LiveStudio::Lesson, type: :live_start
             end
           end
         end

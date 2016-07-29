@@ -50,7 +50,7 @@ class StudentInfoShowAndEditTest < ActionDispatch::IntegrationTest
     @student.reload
     assert_equal('name test', @student.name, '学生name更新错误')
     assert_equal('男', @student.sex_text, '学生sex更新错误')
-    assert_equal('1995/07/08', @student.birthday, '学生birthday更新错误')
+    assert page.has_content?('1995-07-08'), '学生birthday更新错误'
     assert_equal('高二', @student.grade, '学生grade更新错误')
     assert_equal('山西', @student.province.name, '学生province更新错误')
     assert_equal('大同', @student.city.name, '学生city更新错误')

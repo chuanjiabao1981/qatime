@@ -127,7 +127,7 @@
 
       <div id="edit_mobile_area" style="<%= session[:binding_email] ? '' : 'display:none;' %>">
           <% if(!session[:binding_email] || session[:binding_email][:step] == 1) %>
-            <%= form_tag(captcha_for_change_email_student_path(@student), method: :post, id: "captcha_for_change_email_form") do %>
+            <%= form_tag(mobile_captcha_for_change_email_student_path(@student), method: :post, id: "mobile_captcha_for_change_email_form") do %>
               <div class="row" >
                 <div class="col-md-2 col-md-offset-3
                  text-right">
@@ -150,9 +150,9 @@
                 </div>
               </div>
               <div class="row">
-                <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#captcha_for_change_email_form">下一步</button>
+                <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#mobile_captcha_for_change_email_form">下一步</button>
 
-                <button type="button" class="col-md-offset-1 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#captcha_for_change_email_form" data-jump-href="<%= info_student_path(@student,safe: :y) %>">取消</button>
+                <button type="button" class="col-md-offset-1 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#mobile_captcha_for_change_email_form" data-jump-href="<%= info_student_path(@student,safe: :y) %>">取消</button>
               </div>
             <% end %>
           <% elsif session[:binding_email][:step] == 2 %>
@@ -173,8 +173,8 @@
                 </div>
                 <div class="col-md-6">
                   <%= text_field_tag :input_captcha_code %>
-                  <button type="button" class="btn btn-default btn-sm">
-                    <%= link_to('获取校验码', '', remote: true)%>
+                  <button type="button" class="btn btn-default btn-sm" id="send_email_btn">
+                    获取校验码
                   </button>
                 </div>
               </div>
@@ -216,5 +216,16 @@ $(document).ready(function(){
     console.log($node.data('edit-area'))
     $edit_area.show();
   });
+
+  $('#send_email_btn').on('click',function(event){
+    $.ajax({
+      url: '<%= email_captcha_for_change_email_student_url(@student) %>',
+      type: 'POST',
+      data: {
+        new_email: $('#new_email').val()
+      }
+    });
+  });
+
 })
 </script>

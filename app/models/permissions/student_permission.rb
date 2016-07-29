@@ -58,7 +58,8 @@ module Permissions
                        :questions,:topics,:customized_courses,
                        :customized_tutorial_topics,:homeworks,:solutions,
                        :notifications, :auth_user_for_change_email,
-                       :captcha_for_change_email] do |student|
+                       :mobile_captcha_for_change_email,
+                       :email_captcha_for_change_email] do |student|
         student and student.id == user.id
       end
       allow :customized_courses,[:show,:topics,:homeworks,:solutions,:action_records] do |customized_course|

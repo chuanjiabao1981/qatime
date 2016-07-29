@@ -1,3 +1,6 @@
+<%= content_for :javascript do %>
+  <%= javascript_include_tag "student_new_common", "data-turbolinks-track" => false %>
+<% end %>
 <%= content_for :breadcrumb do %>
   <ol class="breadcrumb">
     <li><%= link_to "个人中心",info_student_path(@student) %></li>
@@ -85,7 +88,8 @@
             登录答疑时间需要输入密码验证。
         </div>
         <div class="col-md-2 col-md-offset-1 pull-right">
-          <br/>修改登录密码
+          <br/>
+          <button type="button" class="btn btn-default">修改登录密码</button>
         </div>
       </div>
     </div>
@@ -100,7 +104,8 @@
           更改绑定手机需要同事对新旧手机进行验证，如果当前手机号遗失或无法收到验证码。
         </div>
         <div class="col-md-2 col-md-offset-1 pull-right">
-          <br/>修改绑定手机
+          <br/>
+          <button type="button" class="btn btn-default">修改绑定手机</button>
         </div>
       </div>
     </div>
@@ -115,9 +120,73 @@
           注意！修改绑定邮箱，用户登录邮箱将一起变更。
         </div>
         <div class="col-md-2 col-md-offset-1 pull-right">
-          <br/>修改绑定邮箱
+          <br/>
+          <button type="button" class="btn btn-default" data-edit-area="#edit_mobile_area">修改绑定邮箱</button>
         </div>
       </div>
+
+      <div id="edit_mobile_area" style="<%= session[:binding_email] ? '' : 'display:none;' %>">
+          <% if(!session[:binding_email] || session[:binding_email][:step] == 1) %>
+            <%= form_tag(captcha_for_change_email_student_path(@student), method: :post, id: "captcha_for_change_email_form") do %>
+              <div class="row" >
+                <div class="col-md-2 col-md-offset-3
+                 text-right">
+                  当前绑定<%=Student.human_attribute_name(:email)%>:
+                </div>
+                <div class="col-md-3">
+                  <%= @student.email %>
+                </div>
+              </div>
+              <div class="row" >
+                <div class="col-md-2 col-md-offset-3
+                 text-right">
+                  手机校验码:
+                </div>
+                <div class="col-md-6">
+                  <%= text_field_tag :input_captcha_code %>
+                  <button type="button" class="btn btn-default btn-sm">
+                    <%= link_to('获取校验码', auth_user_for_change_email_student_path(@student), method: :patch, remote: true)%>
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#captcha_for_change_email_form">下一步</button>
+
+                <button type="button" class="col-md-offset-1 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#captcha_for_change_email_form" data-jump-href="<%= info_student_path(@student,safe: :y) %>">取消</button>
+              </div>
+            <% end %>
+          <% elsif session[:binding_email][:step] == 2 %>
+            <%= form_tag do %>
+              <div class="row" >
+                <div class="col-md-2 col-md-offset-3
+                 text-right">
+                  新邮箱地址:
+                </div>
+                <div class="col-md-3">
+                  <%= text_field_tag :new_email %>
+                </div>
+              </div>
+              <div class="row" >
+                <div class="col-md-2 col-md-offset-3
+                 text-right">
+                  邮箱校验码:
+                </div>
+                <div class="col-md-6">
+                  <%= text_field_tag :input_captcha_code %>
+                  <button type="button" class="btn btn-default btn-sm">
+                    <%= link_to('获取校验码', '', remote: true)%>
+                  </button>
+                </div>
+              </div>
+              <div class="row">
+                <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px">绑定邮箱</button>
+
+                <button type="button" class="col-md-offset-1 btn btn-default" style="margin-top: 20px;margin-bottom: 20px">取消</button>
+              </div>
+            <% end %>
+          <% elsif session[:binding_email][:step] == 3 %>
+          <% end %>
+        </div>
     </div>
     <div class="qa_cell">
       <div class="row">
@@ -130,10 +199,22 @@
           修改家长手机号码后，原号码将不再接受提醒。
         </div>
         <div class="col-md-2 col-md-offset-1 pull-right">
-          <br/>修改家长手机
+          <br/>
+          <button type="button" class="btn btn-default">修改家长手机</button>
         </div>
       </div>
     </div>
   <% end %>
 </div>
 
+<script type="text/javascript">
+
+$(document).ready(function(){
+  $('button[data-edit-area]').on('click',function(event){
+    var $node = $(event.target)
+    var $edit_area = $($node.data('edit-area'))
+    console.log($node.data('edit-area'))
+    $edit_area.show();
+  });
+})
+</script>

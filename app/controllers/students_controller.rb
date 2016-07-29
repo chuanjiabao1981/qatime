@@ -47,6 +47,7 @@ class StudentsController < ApplicationController
     # else
     #   @consumption_records      = @student.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
     # end
+    session[:binding_email] = nil unless session[:binding_email] && params[:binding_email] == 'y'
 
     render layout: 'student_home_new'
   end
@@ -110,7 +111,33 @@ class StudentsController < ApplicationController
     @student.destroy
     respond_with @student
   end
+
+  def auth_user_for_change_email
+    captcha = '%04d' % rand(10000)
+    session[:binding_email] = {
+      send_to: @student.mobile,
+      captcha: captcha,
+      expired_at: 5.minutes.since.to_i,
+      step: 1
+    }
+
+    SmsWorker.perform_async(SmsWorker::SEND_CAPTCHA, mobile: @student.mobile, captcha: captcha)
+    respond_to do |format|
+      format.json { render json: @student, status: :accepted }
+    end
+  end
+
+  def captcha_for_change_email
+    if(session[:binding_email][:expired_at] > Time.zone.now.to_i && params[:input_captcha_code] == session[:binding_email][:captcha])
+
+      session[:binding_email][:step] = 2
+    end
+
+    redirect_to action: :info, safe: :y, binding_email: :y
+  end
+
   private
+
   def current_resource
     @student = Student.find(params[:id]) if params[:id]
   end

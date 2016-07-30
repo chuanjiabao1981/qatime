@@ -66,9 +66,14 @@
             float: inherit;
             width: 65%;
             padding: 10px;
+            .course-info-col{
+                float: inherit;
+                width: 100%;
+            }
             .course-name{
                 font-size: 18px;
                 font-weight: 600;
+                float: left;
             }
             .content-ceil{
                 width: 50%;
@@ -79,11 +84,37 @@
             float: inherit;
             word-wrap: break-word;
             word-break: normal;
-            width: 12%;
+            width: 15%;
+            display: table;
             .operator-btn{
                 float: inherit;
                 margin: 2px;
             }
+            .course-buy-btn{
+                display: table-cell;
+                vertical-align: middle;
+            }
+            .course-operator-btn{
+                display: inline-block;
+                float: right;
+                width: 80%;
+            }
         }
     }
+}
+.matrix {
+    margin-left: 10px;
+    display: inline-block;
+    padding: 2px 5px;
+    font-size: 12px;
+    background-color: #BBBBBB;
+    color: white;
+    transform: skew(-20deg);
+}
+.matrix.preview {
+    background-color: red;
+}
+
+.matrix div {
+    transform: skew(20deg);
 }

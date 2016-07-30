@@ -117,6 +117,11 @@ module LiveStudio
       current_live_session.heartbeat_at
     end
 
+    def is_over?
+      # todo 判断课程是否已经结束
+      false
+    end
+
     private
 
     # 过期试听证

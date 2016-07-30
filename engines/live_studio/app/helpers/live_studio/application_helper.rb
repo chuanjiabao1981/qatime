@@ -11,5 +11,17 @@ module LiveStudio
             p.present? && p.call
           end
     end
+
+    def preview_time(course)
+      date = course.current_lesson.try(:class_date)
+      if date
+        if date == Date.today
+          content_tag(:div, content_tag(:div,"今日 #{course.current_lesson.start_time}"),
+                      class: "course-preview matrix #{course.current_lesson.is_over? ? '' : 'preview'}")
+        elsif date > Date.today
+          content_tag(:div, "(距离开课 #{Date.today - date})天", class: 'course-preview')
+        end
+      end
+    end
   end
 end

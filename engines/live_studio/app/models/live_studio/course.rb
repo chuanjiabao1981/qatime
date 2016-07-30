@@ -154,7 +154,7 @@ module LiveStudio
 
     # 当前直播课程
     def current_lesson
-      lessons.unfinish.first
+      lessons.unfinish.first || lessons.last
     end
 
     def live_start_time
@@ -167,10 +167,6 @@ module LiveStudio
       lesson = lessons.order('class_date asc,id').last
       lesson.try(:live_end_at).try(:strftime,'%Y-%m-%d %H:%M') ||
           "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:end_time)}"
-    end
-
-    def live_status_text
-      'test'
     end
 
     private

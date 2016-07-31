@@ -101,24 +101,23 @@ class User < ActiveRecord::Base
 
   def validate_email_captcha(session_email, attrs={})
     input_captcha = attrs.delete(:input_captcha)
-    case session_email[:setp]
+    case session_email[:step]
     when 1
       unless session_email[:send_to] == mobile && session_email[:captcha] == input_captcha
-        errors.add :base, "校验码码不匹配"
+        errors.add :base, I18n.t("flash.alert.captcha_error!")
         return false
       end
     when 2
       unless session_email[:send_to] == input_emial && session_email[:captcha] == captcha
-        errors.add :base, "校验码码不匹配"
+        errors.add :base, I18n.t("flash.alert.captcha_error!")
         return false
       end
     end
 
     unless captcha_effective?(session_email[:expired_at])
-      errors.add :base, "验证码已过期"
+      errors.add :base, I18n.t("flash.alert.captcha_invalid!")
       return false
     end
-
     return true
   end
 

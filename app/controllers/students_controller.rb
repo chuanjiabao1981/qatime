@@ -128,12 +128,11 @@ class StudentsController < ApplicationController
   end
 
   def mobile_captcha_for_change_email
-    attrs = params.require(:student).permit(:input_captcha)
-    if @student.validate_email_captcha(session[:binding_email], attrs)
+    if @student.validate_email_captcha(session[:binding_email], params.require(:student).permit(:input_captcha))
       session[:binding_email][:step] = 2
       redirect_to action: :info, safe: :y, binding_email: :y
     else
-      redirect_to info_student_path(@student, params:{safe: :y, binding_email: :y})
+      redirect_to info_student_path(@student, params:{safe: :y, binding_email: :y}), alert: @student.errors[:base].join(',')
     end
   end
 
@@ -158,14 +157,13 @@ class StudentsController < ApplicationController
   end
 
   def emial_captcha_for_change_email
-    attrs = params.require(:student).permit(:input_captcha, :input_email)
-    @student.validate_email_captcha(session[:binding_email], attrs)
+    @student.validate_email_captcha(session[:binding_email], params.require(:student).permit(:input_captcha, :input_email))
     if(session[:binding_email][:expired_at] > Time.zone.now.to_i && params[:input_captcha_code] == session[:binding_email][:captcha])
 
       session[:binding_email][:step] = 2
       redirect_to action: :info, safe: :y, binding_email: :y
     else
-      redirect_to info_student_path(@student, params:{safe: :y, binding_email: :y}), notice: "输入的校验码错误或已过期"
+      redirect_to info_student_path(@student, params:{safe: :y, binding_email: :y}), alert: @student.errors[:base].join(',')
     end
   end
 

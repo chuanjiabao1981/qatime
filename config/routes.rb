@@ -135,6 +135,7 @@ Qatime::Application.routes.draw do
       get 'notifications'
       patch 'auth_user_for_change_email'
       post 'mobile_captcha_for_change_email'
+      post 'send_email_for_change_email'
       post 'email_captcha_for_change_email'
     end
     resources :customized_courses do

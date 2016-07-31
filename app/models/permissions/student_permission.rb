@@ -59,6 +59,7 @@ module Permissions
                        :customized_tutorial_topics,:homeworks,:solutions,
                        :notifications, :auth_user_for_change_email,
                        :mobile_captcha_for_change_email,
+                       :send_email_for_change_email,
                        :email_captcha_for_change_email] do |student|
         student and student.id == user.id
       end

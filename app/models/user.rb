@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessor :register_code_value,:tmp_register_code
+  attr_accessor :input_captcha, :input_email
 
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: true
   validates_presence_of :avatar,:name,:mobile ,if: :teacher_or_student?
@@ -98,6 +99,29 @@ class User < ActiveRecord::Base
     Payment::CashAccount.create(owner: self)
   end
 
+  def validate_email_captcha(session_email, attrs={})
+    input_captcha = attrs.delete(:input_captcha)
+    case session_email[:setp]
+    when 1
+      unless session_email[:send_to] == mobile && session_email[:captcha] == input_captcha
+        errors.add :base, "校验码码不匹配"
+        return false
+      end
+    when 2
+      unless session_email[:send_to] == input_emial && session_email[:captcha] == captcha
+        errors.add :base, "校验码码不匹配"
+        return false
+      end
+    end
+
+    unless captcha_effective?(session_email[:expired_at])
+      errors.add :base, "验证码已过期"
+      return false
+    end
+
+    return true
+  end
+
   private
   def register_code_valid
     # 这里虽然设置了true使得验证成功后此注册码过期，但是由于如果整体teacher不成成功会rollback，
@@ -127,5 +151,9 @@ class User < ActiveRecord::Base
   # chat account是否需要同步
   def chat_account_changed?
     name_changed? || nick_name_changed? || avatar_changed?
+  end
+
+  def captcha_effective?(expired_at)
+    expired_at > Time.zone.now.to_i
   end
 end

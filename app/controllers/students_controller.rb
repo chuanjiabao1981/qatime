@@ -128,22 +128,23 @@ class StudentsController < ApplicationController
   end
 
   def mobile_captcha_for_change_email
-    if(session[:binding_email][:expired_at] > Time.zone.now.to_i && params[:input_captcha_code] == session[:binding_email][:captcha])
-
+    attrs = params.require(:student).permit(:input_captcha)
+    if @student.validate_email_captcha(session[:binding_email], attrs)
       session[:binding_email][:step] = 2
       redirect_to action: :info, safe: :y, binding_email: :y
     else
-      redirect_to info_student_path(@student, params:{safe: :y, binding_email: :y}), notice: "输入的校验码错误或已过期"
+      redirect_to info_student_path(@student, params:{safe: :y, binding_email: :y})
     end
   end
 
-  def email_captcha_for_change_email
-    if params[:new_email] =~ /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/
-      new_email = params[:new_email]
+  def send_email_for_change_email
+    input_email = params[:input_email]
+    if input_email =~ /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/
+
       captcha = '%04d' % rand(10000)
 
       session[:binding_email] = {
-        send_to: new_email,
+        send_to: input_email,
         captcha: captcha,
         expired_at: 5.minutes.since.to_i,
         step: 2
@@ -153,6 +154,18 @@ class StudentsController < ApplicationController
       redirect_to action: :info, safe: :y, binding_email: :y
     else
       redirect_to action: :info, safe: :y, binding_email: :y
+    end
+  end
+
+  def emial_captcha_for_change_email
+    attrs = params.require(:student).permit(:input_captcha, :input_email)
+    @student.validate_email_captcha(session[:binding_email], attrs)
+    if(session[:binding_email][:expired_at] > Time.zone.now.to_i && params[:input_captcha_code] == session[:binding_email][:captcha])
+
+      session[:binding_email][:step] = 2
+      redirect_to action: :info, safe: :y, binding_email: :y
+    else
+      redirect_to info_student_path(@student, params:{safe: :y, binding_email: :y}), notice: "输入的校验码错误或已过期"
     end
   end
 

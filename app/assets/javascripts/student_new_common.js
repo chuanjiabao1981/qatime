@@ -12,6 +12,7 @@ $(document).ready(function(){
   $("button[data-form-submit]").on('click',function(event){
     var $node = $(event.target)
     var $form = $node.data('form-el')
+    console.log($form)
     $($form).submit()
   });
 

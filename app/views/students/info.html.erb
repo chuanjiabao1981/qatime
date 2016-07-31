@@ -127,7 +127,7 @@
 
       <div id="edit_mobile_area" style="<%= session[:binding_email] ? '' : 'display:none;' %>">
           <% if(!session[:binding_email] || session[:binding_email][:step] == 1) %>
-            <%= form_tag(mobile_captcha_for_change_email_student_path(@student), method: :post, id: "mobile_captcha_for_change_email_form") do %>
+            <%= simple_form_for(@student, url: mobile_captcha_for_change_email_student_path(@student), method: :post, html: {id: "mobile_captcha_for_change_email_form"}) do |f| %>
               <div class="row" >
                 <div class="col-md-2 col-md-offset-3
                  text-right">
@@ -142,11 +142,15 @@
                  text-right">
                   手机校验码:
                 </div>
-                <div class="col-md-6">
-                  <%= text_field_tag :input_captcha_code %>
-                  <button type="button" class="btn btn-default btn-sm">
-                    <%= link_to('获取校验码', auth_user_for_change_email_student_path(@student), method: :patch, remote: true)%>
-                  </button>
+                <div class="col-md-7">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <%= f.input :input_captcha, label: false %>
+                    </div>
+                    <button type="button" class="btn btn-default btn-sm">
+                      <%= link_to('获取校验码', auth_user_for_change_email_student_path(@student), method: :patch, remote: true)%>
+                    </button>
+                  </div>
                 </div>
               </div>
               <div class="row">
@@ -156,14 +160,15 @@
               </div>
             <% end %>
           <% elsif session[:binding_email][:step] == 2 %>
-            <%= form_tag do %>
+
+            <%= simple_form_for(@student, url: email_captcha_for_change_email_student_path(@student), method: :post, html: {id: "email_captcha_for_change_email_form"}) do |f| %>
               <div class="row" >
                 <div class="col-md-2 col-md-offset-3
                  text-right">
                   新邮箱地址:
                 </div>
                 <div class="col-md-3">
-                  <%= text_field_tag :new_email %>
+                  <%= f.input :input_email, label: false %>
                 </div>
               </div>
               <div class="row" >
@@ -171,11 +176,15 @@
                  text-right">
                   邮箱校验码:
                 </div>
-                <div class="col-md-6">
-                  <%= text_field_tag :input_captcha_code %>
-                  <button type="button" class="btn btn-default btn-sm" id="send_email_btn">
-                    获取校验码
-                  </button>
+                <div class="col-md-7">
+                  <div class="row">
+                    <div class="col-md-2">
+                      <%= f.input :input_captcha, label: false %>
+                    </div>
+                    <button type="button" class="btn btn-default btn-sm" id="send_email_btn">
+                      获取校验码
+                    </button>
+                  </div>
                 </div>
               </div>
               <div class="row">
@@ -218,11 +227,12 @@ $(document).ready(function(){
   });
 
   $('#send_email_btn').on('click',function(event){
+    console.log('111')
     $.ajax({
-      url: '<%= email_captcha_for_change_email_student_url(@student) %>',
+      url: '<%= send_email_for_change_email_student_url(@student) %>',
       type: 'POST',
       data: {
-        new_email: $('#new_email').val()
+        input_email: $('#student_input_email').val()
       }
     });
   });

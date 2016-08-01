@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
 
   validates :school ,presence: true,if: :teacher?
   validates :password, length: { minimum: 6 },:on => :create
+  validates :password, length: { minimum: 6 }, if: :update_password?
   validates :grade, inclusion: { in: APP_CONSTANT["grades_in_menu"]},if: :student?
   validates_presence_of :grade, if: :student?
   validates :nick_name,allow_nil: true,allow_blank:true,uniqueness: true,
@@ -157,4 +158,9 @@ class User < ActiveRecord::Base
   def captcha_effective?(expired_at)
     expired_at > Time.zone.now.to_i
   end
+
+  def update_password?
+    current_password.present?
+  end
+
 end

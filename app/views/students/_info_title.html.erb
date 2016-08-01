@@ -1,0 +1,6 @@
+<div style="padding-left: 1px">
+  <ul class="nav nav-tabs nav-justified">
+  <li role="presentation" class=<%= "active" if (action_name == "info" or action_name == "edit") %>><%= link_to t("students.common.personal_information"), info_student_path(@student) %></li>
+    <li role="presentation" class=<%= "active" if action_name == "security_setting" %>><%= link_to t("students.common.security_setting"), security_setting_student_path(@student) %></li>
+  </ul>
+</div>

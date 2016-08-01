@@ -47,6 +47,11 @@ class StudentsController < ApplicationController
     # else
     #   @consumption_records      = @student.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
     # end
+
+    render layout: 'student_home_new'
+  end
+
+  def security_setting
     session[:binding_email] = nil unless session[:binding_email] && params[:binding_email] == 'y'
 
     render layout: 'student_home_new'
@@ -130,9 +135,9 @@ class StudentsController < ApplicationController
   def mobile_captcha_for_change_email
     if @student.validate_email_captcha(session[:binding_email], params.require(:student).permit(:input_captcha))
       session[:binding_email][:step] = 2
-      redirect_to action: :info, safe: :y, binding_email: :y
+      redirect_to action: :security_setting, safe: :y, binding_email: :y
     else
-      redirect_to info_student_path(@student, params:{safe: :y, binding_email: :y}), alert: @student.errors[:base].join(',')
+      redirect_to security_setting_student_path(@student, params:{ binding_email: :y}), alert: @student.errors[:base].join(',')
     end
   end
 
@@ -161,14 +166,14 @@ class StudentsController < ApplicationController
   def email_captcha_for_change_email
     if @student.validate_email_captcha(session[:binding_email], params.require(:student).permit(:input_captcha, :input_email))
       session[:binding_email][:step] = 3
-      redirect_to action: :info, safe: :y, binding_email: :y,binding_success: :y
+      redirect_to action: :security_setting, binding_email: :y,binding_success: :y
     else
-      redirect_to info_student_path(@student, params:{safe: :y, binding_email: :y, binding_success: :f})
+      redirect_to security_setting_student_path(@student, params:{ binding_email: :y, binding_success: :f})
     end
   end
 
   def validate_password
-    if @student && @student.authenticate(params[:password])
+    if @student && @student.authenticate(params['password'])
       respond_to do |format|
         format.json { render json: @student, status: :accepted }
       end
@@ -176,6 +181,16 @@ class StudentsController < ApplicationController
       respond_to do |format|
         format.json { render json: @student, status: :bad_request }
       end
+    end
+  end
+
+  def update_password
+    if @student.authenticate(params[:student][:current_password]) && @student.update_attributes(params[:student].permit!)
+      session[:update_password] = nil
+      redirect_to security_setting_student_path(@student)
+    else
+      session[:update_password] = true
+      render :security_setting
     end
   end
 

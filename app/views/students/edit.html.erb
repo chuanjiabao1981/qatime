@@ -5,12 +5,7 @@
 <% end %>
 
 <div class="qa_box row">
-  <div style="padding-left: 1px">
-  <ul class="nav nav-tabs nav-justified">
-      <li role="presentation" class=<%= "active" if (action_name == "info" or action_name == "edit") and params[:safe].nil? %>><a href="##"><%= t("students.common.personal_information") %></a></li>
-      <li role="presentation" class=<%= "active" if action_name == "info"  and not params[:safe].nil? %>><%=link_to t("students.common.security_setting"),info_student_path(@student,safe: :y) %></li>
-    </ul>
-  </div>
+  <%= render "info_title" %>
 
   <div class="col-md-4 text-center" style="vertical-align:middle;padding-top:170px">
     <%=image_tag @student.avatar_url(:ex_big) %>

@@ -61,7 +61,8 @@ module Permissions
                        :mobile_captcha_for_change_email,
                        :send_email_for_change_email,
                        :email_captcha_for_change_email,
-                       :validate_password] do |student|
+                       :validate_password,
+                       :security_setting, :update_password] do |student|
         student and student.id == user.id
       end
       allow :customized_courses,[:show,:topics,:homeworks,:solutions,:action_records] do |customized_course|

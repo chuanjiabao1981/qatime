@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessor :register_code_value,:tmp_register_code
   attr_accessor :input_captcha, :input_email
+  attr_accessor :current_password
 
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: true
   validates_presence_of :avatar,:name,:mobile ,if: :teacher_or_student?

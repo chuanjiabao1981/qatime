@@ -3,7 +3,17 @@ require_dependency "live_studio/student/base_controller"
 module LiveStudio
   class Student::CoursesController < Student::BaseController
     def index
-      @tickets = LiveService::LiveService.tickets_for_cate(@student, params[:cate])
+      @tickets = @student.live_studio_tickets.visiable.includes(course: :teacher)
+      if filter_patams[:cate]
+        # 根据分类过滤辅导班
+        # cate: today今日上课辅导班, taste: 试听辅导班
+        @tickets = LiveService::CourseDirector.courses_for_filter(@student, filter_patams[:cate])
+      elsif filter_patams[:status]
+        # 根据状态过滤辅导班
+        # TODO 字符串转换成数据库整形数值
+        status = LiveStudio::Course.statuses[filter_patams[:status]]
+        @tickets = @tickets.joins(:course).where(live_studio_courses: { status: status })
+      end
       @tickets = @tickets.paginate(page: params[:per_page])
     end
 
@@ -13,6 +23,16 @@ module LiveStudio
       @lessons = @course.lessons.order(:id).paginate(page: params[:page])
       @play_records = PlayRecord.where(user_id: @student.id, lesson_id: @lessons.map(&:id))
       @play_hash = @play_records.inject({}){ |hash, v| hash[v.lesson_id] = v.id; hash }
+    end
+
+    private
+
+    def filter_patams
+      # status参数和cate参数保留一个
+      # 使用分类查询不能使用状态查询
+      filter_patams = params[:cate].slice(:cate, :status)
+      filter_patams.delete(:status) if filter_patams[:cate]
+      filter_patams
     end
   end
 end

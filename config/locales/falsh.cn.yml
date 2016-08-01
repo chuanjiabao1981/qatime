@@ -3,4 +3,5 @@ cn:
     alert:
       captcha_error!: 校验码不匹配!
       captcha_invalid!: 校验码无效！
+      password_error!: 当前登录密码输入错误!
     notice:

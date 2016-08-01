@@ -167,6 +167,18 @@ class StudentsController < ApplicationController
     end
   end
 
+  def validate_password
+    if @student && @student.authenticate(params[:password])
+      respond_to do |format|
+        format.json { render json: @student, status: :accepted }
+      end
+    else
+      respond_to do |format|
+        format.json { render json: @student, status: :bad_request }
+      end
+    end
+  end
+
   private
 
   def current_resource

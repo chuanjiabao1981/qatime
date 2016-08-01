@@ -60,7 +60,8 @@ module Permissions
                        :notifications, :auth_user_for_change_email,
                        :mobile_captcha_for_change_email,
                        :send_email_for_change_email,
-                       :email_captcha_for_change_email] do |student|
+                       :email_captcha_for_change_email,
+                       :validate_password] do |student|
         student and student.id == user.id
       end
       allow :customized_courses,[:show,:topics,:homeworks,:solutions,:action_records] do |customized_course|

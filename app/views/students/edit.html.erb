@@ -1,14 +1,14 @@
 <%= content_for :breadcrumb do %>
   <ol class="breadcrumb">
-    <li><%= link_to "个人中心",info_student_path(@student) %></li>
+    <li><%= link_to t("students.common.personal_center"),info_student_path(@student) %></li>
   </ol>
 <% end %>
 
 <div class="qa_box row">
   <div style="padding-left: 1px">
   <ul class="nav nav-tabs nav-justified">
-      <li role="presentation" class=<%= "active" if (action_name == "info" or action_name == "edit") and params[:safe].nil? %>><a href="##">个人信息</a></li>
-      <li role="presentation" class=<%= "active" if action_name == "info"  and not params[:safe].nil? %>><%=link_to "安全设置",info_student_path(@student,safe: :y) %></li>
+      <li role="presentation" class=<%= "active" if (action_name == "info" or action_name == "edit") and params[:safe].nil? %>><a href="##"><%= t("students.common.personal_information") %></a></li>
+      <li role="presentation" class=<%= "active" if action_name == "info"  and not params[:safe].nil? %>><%=link_to t("students.common.security_setting"),info_student_path(@student,safe: :y) %></li>
     </ul>
   </div>
 
@@ -74,8 +74,8 @@
     <% end %>
   </div>
 
-  <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#edit_student_info" data-jump-href="<%= info_student_path(@student) %>">取消</button>
-  <button type="button" class="col-md-offset-2 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#edit_student_info">保存</button>
+  <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#edit_student_info" data-jump-href="<%= info_student_path(@student) %>"><%= t "students.common.cancel" %></button>
+  <button type="button" class="col-md-offset-2 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#edit_student_info"><%= t "students.common.save" %></button>
 </div>
 
 <script type="text/javascript">

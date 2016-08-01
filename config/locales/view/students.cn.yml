@@ -1,0 +1,36 @@
+cn:
+  students:
+    common:
+      personal_center: 个人中心
+      personal_information: 个人信息
+      security_setting: 安全设置
+      next_step: 下一步
+      cancel: 取消
+      save: 保存
+      ok: 确定
+    info:
+      edit_information: 编辑信息
+      login_password: 登录密码
+      this_password_is_not_visible: 此密码不可见
+      required_authentication_password: 登录答疑时间需要输入密码验证。
+      modify_login_password: 修改登录密码
+      bound_mobile: 绑定手机
+      bound_mobile_desc: 更改绑定手机需要同事对新旧手机进行验证，如果当前手机号遗失或无法收到验证码。
+      modified_binding_mobile: 修改绑定手机
+      bound_email: 绑定邮箱
+      bound_email_desc: 注意！修改绑定邮箱，用户登录邮箱将一起变更。
+      modified_binding_email: 修改绑定邮箱
+      binding_email: 当前绑定邮箱
+      mobile_captcha: 手机校验码
+      get_captcha: 获取验证码
+      new_email: 新邮箱地址
+      email_captcha: 邮箱校验码
+      to_bind_email: 绑定邮箱
+      bind_email_success_text1: 恭喜您，绑定成功，
+      bind_email_success_text2: 您可以使用新邮箱进行登录。
+      bind_email_fail_text1: 绑定失败
+      bind_email_fail_text2: 验证码不正确。
+      bound_parent_phone: 家长手机
+      bound_parent_phone_desc: 修改家长手机号码后，原号码将不再接受提醒。
+      modified_binding_parent_phone: 修改家长手机
+

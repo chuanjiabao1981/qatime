@@ -16,9 +16,9 @@ module LiveStudio
            waste: 99      # 不可用
          }
 
-    scope :available, -> { where("status < ?", Ticket.statuses[:used]) }
-    scope :visiable, -> { where("status <= ?", Ticket.statuses[:used]) }
-    scope :authorizable, -> { where("status < ?", Ticket.statuses[:pre_used]) }
+    scope :available, -> { where("live_studio_tickets.status < ?", statuses[:used]) }
+    scope :visiable, -> { where("live_studio_tickets.status <= ?", statuses[:used]) }
+    scope :authorizable, -> { where("live_studio_tickets.status < ?", statuses[:pre_used]) }
 
     def type_name
       return I18n.t("live_studio/ticket.type_name.taste_#{status}") if taste?

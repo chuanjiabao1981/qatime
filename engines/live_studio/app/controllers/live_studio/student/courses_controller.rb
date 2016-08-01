@@ -4,11 +4,10 @@ module LiveStudio
   class Student::CoursesController < Student::BaseController
     def index
 
-      @tickets = @student.live_studio_tickets.includes(course: :teacher).includes(course: :lessons)
+      @tickets = @student.live_studio_tickets.visiable.joins('left join live_studio_courses on live_studio_tickets.course_id = live_studio_courses.id').
+          includes(course: :teacher).includes(course: :lessons)
       @tickets =
-          case params[:taxonomic]
-            when 'all'
-              @tickets.visiable
+          case params[:filter]
             when 'today'
               @tickets.select do |ticket|
                 ticket.course.lessons.select do |lesson|
@@ -16,26 +15,15 @@ module LiveStudio
                 end.present?
               end
             when 'waiting'
-              @tickets.select do |ticket|
-                date = ticket.course.lessons.sort_by(&:class_date).first.try(:class_date)
-                date && date > Date.today
-              end
+              tickets(:preview)
             when 'teaching'
-              @tickets.select do |ticket|
-                ticket.course.lessons.select do |lesson|
-                  lesson.class_date >= Date.today
-                end.present?
-              end
+              tickets(:teaching)
             when 'closed'
-              @tickets.select do |ticket|
-                ticket.course.lessons.select do |lesson|
-                  lesson.class_date >= Date.today
-                end.blank?
-              end
+              tickets(:completed)
             when 'tasted'
               @student.live_studio_taste_tickets.includes(course: :teacher).includes(course: :lessons)
             else
-              @tickets.visiable
+              @tickets
           end
       @tickets = @tickets.paginate(page: params[:per_page])
     end
@@ -46,6 +34,11 @@ module LiveStudio
       @lessons = @course.lessons.order(:id).paginate(page: params[:page])
       @play_records = PlayRecord.where(user_id: @student.id, lesson_id: @lessons.map(&:id))
       @play_hash = @play_records.inject({}){ |hash, v| hash[v.lesson_id] = v.id; hash }
+    end
+
+    private
+    def tickets(course_status)
+      @tickets.where('live_studio_courses.status = ?', LiveStudio::Course.statuses[course_status])
     end
   end
 end

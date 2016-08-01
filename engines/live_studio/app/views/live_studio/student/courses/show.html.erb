@@ -1,55 +1,108 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <span style="padding-left:10px" class="qa_f18">
-      <%= link_to LiveStudio::Course.model_name.human, live_studio.student_courses_path %> &gt;
-      <strong><%= @course.name %></strong>
-    </span>
+<div class="qa_box panel panel-default panel-support">
+  <div class='course-header-div'>
+    <%= content_tag(:div, t("activerecord.view.course"), class: 'title') %>
+    <%= content_tag(:div, class: 'search-link') do %>
+      <%= content_tag(:a, href: courses_path) do %>
+        <span class="glyphicon glyphicon-shopping-cart"></span><%= t('activerecord.view.buy_new_course') %>
+      <% end %>
+    <% end %>
   </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:name)%></div>
-      <div class="col-md-9"><%= @course.name %></div>
-    </div>
+  <div class="course-info-list">
+    <a href='#content_info' data-toggle="tab">
+      <div class="list-ceil <%= params[:index].blank? || params[:index] == 'info' ? ' active' : nil %>"><%= t('view.course_show.info') %></div>
+    </a>
+    <a href='#lesson_list' data-toggle="tab">
+      <div class="list-ceil<%= params[:index] == 'list' ? ' active' : nil %>"><%= t('view.course_show.lessons') %></div>
+    </a>
   </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:teacher)%></div>
-      <div class="col-md-9"><%= @course.teacher_name %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:price)%></div>
-      <div class="col-md-9"><%= @course.price %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:description)%></div>
-      <div class="col-md-9"><%= @course.description %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:status)%></div>
-      <div class="col-md-9"><%= @course.status_text %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Ticket.human_attribute_name(:type_name)  %></div>
-      <div class="col-md-9"><%= @ticket.try(:type_name) %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-9" style="padding-left:40px;">
-        <%= link_to t("activerecord.view.begin_watch_live_studio"), play_course_path(@course) if @ticket.authorizable? %>
+  <div class="tab-content">
+    <div id="content_info" class="tab-pane fade<%= params[:index].blank? || params[:index] == 'info' ? ' in active' : nil %>">
+      <div class="info-header">
+        <div class="info-name">
+          <strong><%= @course.name %></strong>
+        </div>
+        <div class="info-subtitle">
+          <div class="info-status">
+            <%= t('view.course_show.status') %>
+            <%= @course.status_text %>
+          </div>
+          <div class="info-preview">
+            <%= preview_time(@course) %>
+          </div>
+        </div>
+        <%= content_tag(:div, link_to('Buy', new_course_order_path(@course), id: "buy-course-#{@course.id}",class: 'btn btn-default'),
+                        class: 'course-buy-btn') if @ticket.taste? && current_user == @student%>
+        <%= content_tag(:div, link_to('Play', play_course_path(@course),class: 'btn btn-default'),
+                        class: 'course-buy-btn') if @ticket.taste? && current_user == @student%>
       </div>
+      <div></div>
+    </div>
+    <div id="lesson_list" class="tab-pane fade<%= params[:index] == 'list' ? ' in active' : nil %>">
+      List
     </div>
   </div>
 </div>
-<div class="qa_sep_15"></div>
-<div class="qa_sep_15"></div>
+<script>
+  $(function() {
+    $('.list-ceil').click(function(){
+      $('.list-ceil').removeClass('active');
+      $(this).addClass('active');
+    });
+  });
+</script>
+<!--<div class="qa_box">-->
+<!--<div class="qa_big_cell">-->
+<!--<span style="padding-left:10px" class="qa_f18">-->
+<%#= link_to LiveStudio::Course.model_name.human, live_studio.student_courses_path %>
+<!--&gt;-->
+<!--<strong><%#= @course.name %></strong>-->
+<!--</span>-->
+<!--</div>-->
+<!--<div class="qa_cell">-->
+<!--<div class="row">-->
+<!--<div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:name)%></div>-->
+<!--<div class="col-md-9"><%= @course.name %></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="qa_cell">-->
+<!--<div class="row">-->
+<!--<div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:teacher)%></div>-->
+<!--<div class="col-md-9"><%= @course.teacher_name %></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="qa_cell">-->
+<!--<div class="row">-->
+<!--<div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:price)%></div>-->
+<!--<div class="col-md-9"><%= @course.price %></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="qa_cell">-->
+<!--<div class="row">-->
+<!--<div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:description)%></div>-->
+<!--<div class="col-md-9"><%= @course.description %></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="qa_cell">-->
+<!--<div class="row">-->
+<!--<div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:status)%></div>-->
+<!--<div class="col-md-9"><%= @course.status_text %></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="qa_cell">-->
+<!--<div class="row">-->
+<!--<div class="col-md-2" style="padding-left:40px"><%#= LiveStudio::Ticket.human_attribute_name(:type_name)  %></div>-->
+<!--<div class="col-md-9"><%= @ticket.try(:type_name) %></div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="qa_cell">-->
+<!--<div class="row">-->
+<!--<div class="col-md-9" style="padding-left:40px;">-->
+<!--<%#= link_to t("activerecord.view.begin_watch_live_studio"), play_course_path(@course) if @ticket.authorizable? %>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="qa_sep_15"></div>-->
+<!--<div class="qa_sep_15"></div>-->
 
-<%= render 'lesson' %>
+<!--<%#= render 'lesson' %>-->

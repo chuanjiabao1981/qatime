@@ -127,3 +127,23 @@
 .matrix div {
   transform: skew(20deg);
 }
+
+
+.course-info-list{
+  margin-top: 20px;
+  text-align: center;
+}
+.list-ceil{
+  width: 50%;
+  color: #0A0A0A;
+  border: solid 1px #CCCCCC;
+  float: left;
+  height: 3em;
+  line-height: 3em;
+  cursor: pointer;
+}
+
+.list-ceil.active{
+  background-color: #cccccc;
+  color: #ffffff;
+}

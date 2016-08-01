@@ -11,8 +11,8 @@ cn:
       surplus: 剩余：
       lesson_time: 课时
       current: 当前：
-      info_link: 详细信息
-      lessons_link: 课程列表
+      info: 详细信息
+      lessons: 课程列表
       study_link: 立即学习
   status:
     init: 初始化

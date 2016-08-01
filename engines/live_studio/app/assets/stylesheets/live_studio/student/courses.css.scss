@@ -3,118 +3,123 @@
   They will automatically be included in application.css.
 */
 .panel-support{
-    padding: 10px;
-    float: left;
-    width: 100%;
+  padding: 10px;
+  float: left;
+  width: 100%;
+  .none-list{
+    height: 200px;
+    line-height: 150px;
+    text-align: center;
+  }
 }
 .course-header-div{
-    position: relative;
+  position: relative;
 }
 .course-header-div .search-link{
-    position: absolute;
-    right: 10px;
-    top: 10px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
 .course-header-div .title{
-    font-size: 18px;
-    font-weight: 600;
+  font-size: 18px;
+  font-weight: 600;
 }
 .course-taxon-list{
-    margin-top: 20px;
-    text-align: center;
+  margin-top: 20px;
+  text-align: center;
 }
 .course-taxon-div{
-    width: 16.6%;
-    color: #0A0A0A;
-    border: solid 1px #CCCCCC;
-    float: left;
-    height: 3em;
-    line-height: 3em;
-    cursor: pointer;
+  width: 16.6%;
+  color: #0A0A0A;
+  border: solid 1px #CCCCCC;
+  float: left;
+  height: 3em;
+  line-height: 3em;
+  cursor: pointer;
 }
 .course-taxon-div.active{
-    background-color: #cccccc;
-    color: #ffffff;
+  background-color: #cccccc;
+  color: #ffffff;
 }
 
 .course-box-div{
-    float: left;
-    width: 100%;
-    padding: 10px;
-    border-bottom: solid 1px;
-    .course-describe-div{
-        color: #CCCCCC;
-        font-size: 13px;
-        .describe-ceil{
-            width: 33%;
-            float: left;
-        }
+  float: left;
+  width: 100%;
+  padding: 10px;
+  border-bottom: solid 1px;
+  .course-describe-div{
+    color: #CCCCCC;
+    font-size: 13px;
+    .describe-ceil{
+      width: 33%;
+      float: left;
     }
-    .course-info-div{
+  }
+  .course-info-div{
+    float: inherit;
+    width: 100%;
+    .publicize{
+      float: inherit;
+      min-width: 18%;
+      padding: 10px;
+      img{
+        width: 132px;
+        height: 99px;
+      }
+    }
+    .course-content-div{
+      float: inherit;
+      width: 65%;
+      padding: 10px;
+      .course-info-col{
         float: inherit;
         width: 100%;
-        .publicize{
-            float: inherit;
-            min-width: 18%;
-            padding: 10px;
-            img{
-                width: 132px;
-                height: 99px;
-            }
-        }
-        .course-content-div{
-            float: inherit;
-            width: 65%;
-            padding: 10px;
-            .course-info-col{
-                float: inherit;
-                width: 100%;
-            }
-            .course-name{
-                font-size: 18px;
-                font-weight: 600;
-                float: left;
-            }
-            .content-ceil{
-                width: 50%;
-                float: inherit;
-            }
-        }
-        .course-operator-div {
-            float: inherit;
-            word-wrap: break-word;
-            word-break: normal;
-            width: 15%;
-            display: table;
-            .operator-btn{
-                float: inherit;
-                margin: 2px;
-            }
-            .course-buy-btn{
-                display: table-cell;
-                vertical-align: middle;
-            }
-            .course-operator-btn{
-                display: inline-block;
-                float: right;
-                width: 80%;
-            }
-        }
+      }
+      .course-name{
+        font-size: 18px;
+        font-weight: 600;
+        float: left;
+      }
+      .content-ceil{
+        width: 50%;
+        float: inherit;
+      }
     }
+    .course-operator-div {
+      float: inherit;
+      word-wrap: break-word;
+      word-break: normal;
+      width: 15%;
+      display: table;
+      .operator-btn{
+        float: inherit;
+        margin: 2px;
+      }
+      .course-buy-btn{
+        display: table-cell;
+        vertical-align: middle;
+      }
+      .course-operator-btn{
+        display: inline-block;
+        float: right;
+        width: 80%;
+      }
+    }
+  }
 }
 .matrix {
-    margin-left: 10px;
-    display: inline-block;
-    padding: 2px 5px;
-    font-size: 12px;
-    background-color: #BBBBBB;
-    color: white;
-    transform: skew(-20deg);
+  margin-left: 10px;
+  display: inline-block;
+  padding: 2px 5px;
+  font-size: 12px;
+  background-color: #BBBBBB;
+  color: white;
+  transform: skew(-20deg);
 }
 .matrix.preview {
-    background-color: red;
+  background-color: red;
 }
 
 .matrix div {
-    transform: skew(20deg);
+  transform: skew(20deg);
 }

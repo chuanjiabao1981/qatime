@@ -15,31 +15,31 @@
 <!--</tr>-->
 
 <%= content_tag(:div, class: 'course-box-div') do %>
-    <%= content_tag(:div, class: 'course-describe-div') do%>
-        <%= content_tag(:div,"开课时间：#{course.live_start_time}",class: 'describe-ceil') %>
-        <%= content_tag(:div,"结课时间：#{course.live_end_time}",class: 'describe-ceil') %>
-        <%= content_tag(:div,"状态：#{course.status_text}#{ticket.taste? ? '(试听)' : nil}",class: 'describe-ceil') %>
+  <%= content_tag(:div, class: 'course-describe-div') do%>
+    <%= content_tag(:div,"#{t('view.course_show.start_time')}#{course.live_start_time}",class: 'describe-ceil') %>
+    <%= content_tag(:div,"#{t('view.course_show.end_time')}#{course.live_end_time}",class: 'describe-ceil') %>
+    <%= content_tag(:div,"#{t('view.course_show.status')}#{course.status_text}#{ticket.taste? ? t('view.course_show.taste') : nil}",class: 'describe-ceil') %>
+  <% end %>
+  <%= content_tag(:div, class: 'course-info-div') do %>
+    <%= content_tag(:div, image_tag(course.publicize_url(:list)),class: 'publicize') %>
+    <%= content_tag(:div, class: 'course-content-div') do %>
+      <%= content_tag(:div,class: 'course-info-col') do %>
+        <%= content_tag(:div, course.name, class: 'course-name') %>
+        <%= preview_time(course) %>
+      <% end %>
+      <%= content_tag(:div, "#{t('view.course_show.subject')}#{course.subject}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.teacher')}#{course.teacher.try(:name)}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.schedule')}#{course.completed_lesson_count}/#{course.preset_lesson_count}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.surplus')}#{course.lesson_count_left} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.current')}#{course.current_lesson.try(:name)}") %>
+    <%end %>
+    <%= content_tag(:div, class: 'course-operator-div') do%>
+      <%= content_tag(:div, link_to('Buy', new_course_order_path(course), id: "buy-course-#{course.id}"), class: 'course-buy-btn') if ticket.taste? && current_user == @student%>
+      <%= content_tag(:div, class: 'course-operator-btn') do %>
+        <%= content_tag(:a, t('view.course_show.info_link'), class: 'btn btn-default operator-btn') %>
+        <%= content_tag(:a, t('view.course_show.lessons_link'), class: 'btn btn-default operator-btn') %>
+        <%= content_tag(:a, t('view.course_show.study_link'), class: 'btn btn-default operator-btn') %>
+      <% end %>
     <% end %>
-    <%= content_tag(:div, class: 'course-info-div') do %>
-        <%= content_tag(:div, image_tag(course.publicize_url(:list)),class: 'publicize') %>
-        <%= content_tag(:div, class: 'course-content-div') do %>
-            <%= content_tag(:div,class: 'course-info-col') do %>
-                <%= content_tag(:div, course.name, class: 'course-name') %>
-                <%= preview_time(course) %>
-            <% end %>
-            <%= content_tag(:div, "科目：#{course.subject}", class: 'content-ceil') %>
-            <%= content_tag(:div, "老师：#{course.teacher.try(:name)}", class: 'content-ceil') %>
-            <%= content_tag(:div, "进度：#{course.completed_lesson_count}/#{course.preset_lesson_count}", class: 'content-ceil') %>
-            <%= content_tag(:div, "剩余：#{course.lesson_count_left} 课时", class: 'content-ceil') %>
-            <%= content_tag(:div, "当前：#{course.current_lesson.try(:name)}") %>
-        <%end %>
-        <%= content_tag(:div, class: 'course-operator-div') do%>
-            <%= content_tag(:div, link_to('Buy', new_course_order_path(course), id: "buy-course-#{course.id}"), class: 'course-buy-btn') if ticket.taste? && current_user == @student%>
-            <%= content_tag(:div, class: 'course-operator-btn') do %>
-                <%= content_tag(:a, '详细信息', class: 'btn btn-default operator-btn') %>
-                <%= content_tag(:a, '课程列表', class: 'btn btn-default operator-btn') %>
-                <%= content_tag(:a, '立即学习', class: 'btn btn-default operator-btn') %>
-            <% end %>
-        <% end %>
-    <% end %>
+  <% end %>
 <% end %>

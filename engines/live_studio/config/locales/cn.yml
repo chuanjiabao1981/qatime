@@ -1,4 +1,19 @@
 cn:
+  view:
+    course_show:
+      start_time: 开课时间：
+      end_time: 结课时间：
+      status: 状态：
+      taste: (试听)
+      subject: 科目：
+      teacher: 老师：
+      schedule: 进度：
+      surplus: 剩余：
+      lesson_time: 课时
+      current: 当前：
+      info_link: 详细信息
+      lessons_link: 课程列表
+      study_link: 立即学习
   status:
     init: 初始化
     preview: 招生中
@@ -80,6 +95,14 @@ cn:
 #          billing: 已结算
 #          completed: 已完成
     view:
+      course: 我的辅导
+      filter:
+        today: 今日辅导
+        all: 全部
+        waiting: 待开课
+        teaching: 开课中
+        closed: 已结束
+        tasted: 试听
       category: 类型
       teacher: 辅导老师
       subject: 科目
@@ -88,6 +111,8 @@ cn:
       buy: 购买
       taste: 试听
       buy_now: 立即购买
+      buy_new_course: 购买新辅导
+      none_tips: 当前列表没有发现辅导班，%s。
       taste_now: 立即试听
       search: 搜索
       edit: 编辑

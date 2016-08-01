@@ -30,7 +30,7 @@ module LiveService
     # taste 试听辅导班
     # today 今日辅导班
     # 只提供查询链，请自行分页
-    def courses_for_cate(user, cate)
+    def self.courses_for_filter(user, cate)
       # 试听辅导班
       return user.live_studio_taste_tickets.includes(course: :teacher) if 'taste' == cate
       # 今日辅导班

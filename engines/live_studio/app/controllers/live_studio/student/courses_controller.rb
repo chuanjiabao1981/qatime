@@ -14,7 +14,7 @@ module LiveStudio
         status = LiveStudio::Course.statuses[filter_patams[:status]]
         @tickets = @tickets.joins(:course).where(live_studio_courses: { status: status })
       end
-      @tickets = @tickets.paginate(page: params[:per_page])
+      @tickets = @tickets.paginate(page: params[:page])
     end
 
     def show
@@ -30,9 +30,9 @@ module LiveStudio
     def filter_patams
       # status参数和cate参数保留一个
       # 使用分类查询不能使用状态查询
-      filter_patams = params[:cate].slice(:cate, :status)
-      filter_patams.delete(:status) if filter_patams[:cate]
-      filter_patams
+      @filter_patams = params.slice(:cate, :status)
+      @filter_patams.delete(:status) if @filter_patams[:cate]
+      @filter_patams
     end
   end
 end

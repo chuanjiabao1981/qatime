@@ -99,9 +99,9 @@ cn:
       filter:
         today: 今日辅导
         all: 全部
-        waiting: 待开课
+        preview: 待开课
         teaching: 开课中
-        closed: 已结束
+        completed: 已结束
         tasted: 试听
       category: 类型
       teacher: 辅导老师

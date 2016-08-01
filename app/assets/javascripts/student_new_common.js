@@ -12,9 +12,17 @@ $(document).ready(function(){
 
     $($form)[0].reset()
     if(jump_href){
-      window.location.href= $node.data('jump-href')
+      window.location.href= jump_href
     }
   });
+
+  $("button[data-jump-btn").on('click',function(event){
+    var $node = $(event.target)
+    var jump_href = $node.data('jump-href')
+
+    window.location.href= jump_href
+  });
+
 
   $("button[data-form-submit]").on('click',function(event){
     var $node = $(event.target)
@@ -23,9 +31,8 @@ $(document).ready(function(){
   });
 
   $('input[data-send-captcha-btn]').on('click',function(event){
-    console.log("aaa")
     var $node = $(event.target)
-    var send = $(this)[0]
+    var send = this
     var send_to_input = $($node.data('send-to-input'))[0]
     var next_btn = $($node.data('next-btn'))
 
@@ -37,9 +44,11 @@ $(document).ready(function(){
       var pattern = /\[(.*)\]/;
       var input_name = send_to_input.name;
       var result = input_name.match(pattern);
-      send_data = '{ ' + result[1] + ': ' + send_to_input.value +' }'
-    }
 
+      send_data = {}
+      send_data[result[0]] = send_to_input.value
+
+    }
     $.ajax({
       url: send_url,
       type: send_type,

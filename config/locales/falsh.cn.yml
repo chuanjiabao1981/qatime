@@ -1,6 +1,6 @@
 cn:
   flash:
     alert:
-      captcha_error!: 校验码码不匹配!
+      captcha_error!: 校验码不匹配!
       captcha_invalid!: 校验码无效！
     notice:

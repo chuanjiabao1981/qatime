@@ -101,6 +101,7 @@ class User < ActiveRecord::Base
 
   def validate_email_captcha(session_email, attrs={})
     input_captcha = attrs.delete(:input_captcha)
+    input_email = attrs.delete(:input_email)
     case session_email[:step]
     when 1
       unless session_email[:send_to] == mobile && session_email[:captcha] == input_captcha
@@ -108,7 +109,7 @@ class User < ActiveRecord::Base
         return false
       end
     when 2
-      unless session_email[:send_to] == input_emial && session_email[:captcha] == captcha
+      unless session_email[:send_to] == input_email && session_email[:captcha] == input_captcha
         errors.add :base, I18n.t("flash.alert.captcha_error!")
         return false
       end

@@ -149,10 +149,13 @@ class StudentsController < ApplicationController
         step: 2
       }
       UserMailer.send_captcha(@student, captcha).deliver
-
-      redirect_to action: :info, safe: :y, binding_email: :y
+      respond_to do |format|
+        format.json { render json: @student, status: :accepted }
+      end
     else
-      redirect_to action: :info, safe: :y, binding_email: :y
+      respond_to do |format|
+        format.json { render json: @student, status: :accepted }
+      end
     end
   end
 

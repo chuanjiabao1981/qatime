@@ -123,7 +123,6 @@ class StudentsController < ApplicationController
 
     SmsWorker.perform_async(SmsWorker::SEND_CAPTCHA, mobile: @student.mobile, captcha: captcha)
     respond_to do |format|
-      binding.pry
       format.json { render json: @student, status: :accepted }
     end
   end

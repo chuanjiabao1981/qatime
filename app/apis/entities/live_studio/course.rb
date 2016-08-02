@@ -3,7 +3,12 @@ module Entities
     class Course < Grape::Entity
       expose :id
       expose :name
-      expose :subject
+      expose :subject do |course|
+        course.subject.to_s
+      end
+      expose :grade do |course|
+        course.grade.to_s
+      end
       expose :status
       expose :description
       expose :lesson_count

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160726053344) do
+ActiveRecord::Schema.define(version: 20160728070531) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -469,6 +469,7 @@ ActiveRecord::Schema.define(version: 20160726053344) do
     t.datetime "updated_at",                                                               null: false
     t.string   "subject"
     t.string   "grade"
+    t.string   "publicize"
   end
 
   add_index "live_studio_courses", ["teacher_id"], name: "index_live_studio_courses_on_teacher_id", using: :btree
@@ -570,7 +571,7 @@ ActiveRecord::Schema.define(version: 20160726053344) do
     t.datetime "updated_at",              null: false
   end
 
-  add_index "login_tokens", ["digest_token"], name: "index_login_tokens_on_digest_token", using: :btree
+  add_index "login_tokens", ["digest_token"], name: "index_login_tokens_on_remember_token", using: :btree
   add_index "login_tokens", ["user_id"], name: "index_login_tokens_on_user_id", using: :btree
 
   create_table "messages", force: :cascade do |t|
@@ -686,6 +687,12 @@ ActiveRecord::Schema.define(version: 20160726053344) do
     t.datetime "updated_at"
     t.string   "token",          limit: 255
     t.integer  "author_id"
+  end
+
+  create_table "provinces", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "qa_faqs", force: :cascade do |t|
@@ -926,6 +933,11 @@ ActiveRecord::Schema.define(version: 20160726053344) do
     t.string   "parent_phone"
     t.integer  "workstation_id"
     t.string   "type",                          limit: 100
+    t.integer  "province_id"
+    t.integer  "city_id"
+    t.integer  "sex",                                       default: 0
+    t.date     "birthday"
+    t.text     "description"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

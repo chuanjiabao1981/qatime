@@ -70,6 +70,196 @@
       - 锐角三角函数
       - 投影与视图
 -
+  name: 一年级上册
+  subject: 数学
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 准备课
+      - 位置
+      - 1~5的认识和加减法
+      - 认识图形（一）
+      - 6~10的认识和加减法
+      - 11~20各数的认识
+      - 认识钟表
+      - 20以内的进位加法
+      - 总复习
+-
+  name: 一年级下册
+  subject: 数学
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 认识图形（二）
+      - 20以内的退位减法
+      - 分类与整理
+      - 100以内数的认识
+      - 认识人民币
+      - 100以内的加法和减法（一）
+      - 找规律
+      - 总复习
+-
+  name: 二年级上册
+  subject: 数学
+  category: 小学
+  grade: 二年级
+  content:
+    chapters:
+      - 长度单位
+      - 100以内的加法（二）
+      - 角的初步认识
+      - 表内乘法（一）
+      - 观察物体（一）
+      - 表内乘法（二）
+      - 认识时间
+      - 数学广角--搭配（一）
+      - 总复习
+-
+  name: 二年级下册
+  subject: 数学
+  category: 小学
+  grade: 二年级
+  content:
+    chapters:
+      - 数据收集整理
+      - 表内除法（一）
+      - 圆形的运动（一）
+      - 表内除法（二）
+      - 混合运算
+      - 有余数的除法
+      - 万以内数的认识
+      - 克和千克
+      - 数学广角--推理
+      - 总复习
+-
+  name: 三年级上册
+  subject: 数学
+  category: 小学
+  grade: 三年级
+  content:
+    chapters:
+      - 时、分、秒
+      - 万以内的加法和减法（一）
+      - 测量
+      - 万以内的加法和减法（二）
+      - 倍的认识
+      - 多位数乘一位数
+      - 长方形和正方形
+      - 分数的初步认识
+      - 数学广角--集合
+      - 总复习
+-
+  name: 三年级下册
+  subject: 数学
+  category: 小学
+  grade: 三年级
+  content:
+    chapters:
+      - 位置与方向（一）
+      - 除数是一位数的除法
+      - 复式统计表
+      - 两位数乘两位数
+      - 面积
+      - 年、月、日
+      - 小数的初步认识
+      - 数学广角--搭配（二）
+      - 总复习
+-
+  name: 四年级上册
+  subject: 数学
+  category: 小学
+  grade: 四年级
+  content:
+    chapters:
+      - 大数的认识--1亿有多大
+      - 公顷和平方千米
+      - 角的度量
+      - 三位数乘两位数
+      - 平行四边形和梯形
+      - 除数是两位数的除法
+      - 条形统计图
+      - 数学广角--优化
+      - 总复习
+-
+  name: 四年级下册
+  subject: 数学
+  category: 小学
+  grade: 四年级
+  content:
+    chapters:
+      - 四则运算
+      - 观察物体（二）
+      - 运算定律
+      - 小数的意义和性质
+      - 三角形
+      - 小数的加法和减法
+      - 图形的运动（二）
+      - 平均数与条形统计图
+      - 数学广角--鸡兔同笼
+      - 总复习
+-
+  name: 五年级上册
+  subject: 数学
+  category: 小学
+  grade: 五年级
+  content:
+    chapters:
+      - 小数乘法
+      - 位置
+      - 小数除法
+      - 可能性
+      - 简易方程
+      - 多边形的面积
+      - 数学广角--植树问题
+      - 总复习
+-
+  name: 五年级下册
+  subject: 数学
+  category: 小学
+  grade: 五年级
+  content:
+    chapters:
+      - 观察物体（三）
+      - 因数与倍数
+      - 长方形和正方形
+      - 分数的意义和性质
+      - 图形的运动（三）
+      - 分数的加法和减法
+      - 折线统计图
+      - 数学广角--找次品
+      - 总复习
+-
+  name: 六年级上册
+  subject: 数学
+  category: 小学
+  grade: 六年级
+  content:
+    chapters:
+      - 分数乘法
+      - 位置与方向（二）
+      - 分数除法
+      - 比
+      - 圆
+      - 百分数（一）
+      - 扇形统计图
+      - 数学广角--数与形
+      - 总复习
+-
+  name: 六年级下册
+  subject: 数学
+  category: 小学
+  grade: 六年级
+  content:
+    chapters:
+      - 复数
+      - 百分数（二）
+      - 圆柱与圆锥
+      - 比例
+      - 数学广角--鸽巢问题
+      - 整理和复习
+-
   name: 八年级上
   subject: 物理
   category: 初中
@@ -295,6 +485,168 @@
       - Unit 3 Inventors and inventions
       - Unit 4 Pygmalion
       - Unit 5 Meeting your ancestors
+-
+  name: 七年级上册
+  subject: 英语
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - Unit 1 Good morning!
+      - Unit 2 What's this in English?
+      - Unit 3 This is my sister.
+      - Unit 4 Where’s my backpack?
+      - Unit 5 Do you have a soccer ball?
+      - Unit 6 Do you like bananas?
+      - Unit 7 How much are these pants?
+      - Unit 8 When is your birthday?
+      - Unit 9 Do you want to go to a movie?
+      - Unit 10 Can you play the guitar?
+      - Unit 11 What time do you go to school?
+      - Unit 12 My favorite subject is science.
+-
+  name: 七年级下册
+  subject: 英语
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - Unit 1 where's your pen pal from?
+      - Unit 2 where's the post office？
+      - Unit 3 why do you like koalas?
+      - Unit 4 I want to be an actor.
+      - Unit 5 I'm watching TV.
+      - Unit 6 It's raining.
+      - Unit 7 What does he look like?
+      - Unit 8 I'd like some noodles.
+      - Unit 9 How was your weekend?
+      - Unit 10 Where did you go on vacatiom?
+      - Unit 11 What do you think of game shows?
+      - Unit 12 Don’t eat in class
+-
+  name: 八年级上册
+  subject: 英语
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - Unit 1 How often do you exercise?
+      - Unit 2 What's the matter?
+      - Unit 3 What are you doing for vacation?
+      - Unit 4 How do you get to school?
+      - Unit 5 Can you come to my party?
+      - Unit 6 I'm more outgoing than my sister.
+      - Unit 7 How do you make a banana milk shake?
+      - Unit 8 How was your school trip?
+      - Unit 9 When was he born?
+      - Unit 10 I'm going to be a basketball player.
+      - Unit 11 Could you please clean your room?
+      - Unit 12 what's the best radio station?
+-
+  name: 八年级下册
+  subject: 英语
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - Unit 1 Will people have robots?
+      - Unit 2 What should I do?
+      - Unit 3 What were you doing when the UFO arrived?
+      - Unit 4 He said I was hard-working.
+      - Unit 5 If you go to the party, you’ll have a great time!
+      - Unit 6 How long have you been collecting shells?
+      - Unit 7 Would you mind turning down the music?
+      - Unit 8 Why don’t you get her a scarf?
+      - Unit 9 Have you ever been to an amusement park?
+      - Unit 10 It’s a nice day, isn’t it?
+-
+  name: 九年级
+  subject: 英语
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - Unit 1  How do you study for a test ?
+      - Unit 2  I used to be afraid of the dark. 
+      - Unit 3  Teenagers should be allowed to choose their own clothes.
+      - Unit 4  What would you do?
+      - Unit 5  It must belong to Carla. 
+      - Unit 6  I like music that I can dance to. 
+      - Unit 7  Where would you like to visit ?
+      - Unit 8  I'll help clean up the city parks .
+      - Unit 9  When was it invented?
+      - Unit 10 By the time I got outside,the bus had already left.
+      - Unit 11 Could you please tell me where the restrooms are?
+      - Unit 12 You're supposed to shake hands.
+      - Unit13  Rainy days make me sad.
+      - Unit14  H ave you packed yet ?
+      - Unit15  We're trying to save the manatees.
+-
+  name: 七年级上册
+  subject: 科学
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 第一章 科学入门
+      - 第二章 观察生物
+      - 第三章 地球与宇宙
+      - 第四章 物质的特性
+-
+  name: 七年级下册
+  subject: 科学
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 第一章 对环境的察觉
+      - 第二章 运动和力
+      - 第三章 代代相传的生命
+      - 第四章 不断运动的地球
+-
+  name: 八年级上册
+  subject: 科学
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 第一章 生活中的水
+      - 第二章 地球的“外衣”—大气
+      - 第三章 生命活动的调节
+      - 第四章 电路探秘
+-
+  name: 八年级下册
+  subject: 科学
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 第一章 电和磁
+      - 第二章 物质的结构和组成
+      - 第三章 空气与生命
+      - 第四章 植物与土壤
+-
+  name: 九年级上册
+  subject: 科学
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 第一章 探索物质的变化
+      - 第二章 物质转化与材料利用
+      - 第三章 能量的转化与守恒
+      - 第四章 代谢与平衡
+-
+  name: 九年级下册
+  subject: 科学
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 第一章 演化的自然
+      - 第二章 生物与环境
+      - 第三章 人的健康与环境
+      - 第四章 环境与可持续发展
 -
   name: 总复习
   subject: 英语

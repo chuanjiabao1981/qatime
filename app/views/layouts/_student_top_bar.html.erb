@@ -15,8 +15,8 @@
         <% if signed_in? %>
           <li><%= link_to t("view.student_bars.home_page"), user_home_path %></li>
           <li><%= link_to t("view.student_bars.curriculums"), curriculums_path %></li>
-          <li><%= link_to t("view.student_bars.curriculums"), customized_courses_student_path(@student) %></li>
-          <li><%= link_to t("view.student_bars.curriculums"), questions_path %></li>
+          <li><%= link_to t("view.student_bars.customized_courses"), customized_courses_student_path(@student) %></li>
+          <li><%= link_to t("view.student_bars.questions"), questions_path %></li>
           <li><%= link_to t("view.student_bars.live_studio_courses"), live_studio.courses_path(student_id: @student.id) %></li>
           <li><a href="##"><%= t("view.student_bars.download") %></a></li>
           <li><a href="##"><%= t("view.student_bars.common_problem") %></a></li>

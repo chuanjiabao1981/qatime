@@ -1,4 +1,5 @@
 <% if_show_email_div = (params[:cat].to_s.to_sym == :security_setting && params[:by].to_s.to_sym == :email) %>
+
 <div id="edit_email_area" style="padding-top: 30px;<%= 'display:none;' unless if_show_email_div %>">
   <% if(!session[:edit_email] || session[:edit_email][:step] == 1) %>
     <%= form_tag(verify_ajax_captchas_path, method: :post, id: "mobile_captcha_for_change_email_form") do |f| %>
@@ -37,53 +38,54 @@
     <% end %>
   <% elsif session[:edit_email][:step] == 2 %>
 
-  <%= simple_form_for(@student, url: email_captcha_for_change_email_student_path(@student, cat: :security_setting, by: :email), method: :post, html: {id: "email_captcha_for_change_email_form"}) do |f| %>
-  <div class="row" >
-    <div class="col-md-2 col-md-offset-3 text-right">
-      <%= t ".new_email" %>:
-    </div>
-    <div class="col-md-3">
-      <%= f.input :input_email, label: false, input_html: { maxlength: 50 } %>
-    </div>
-  </div>
-  <div class="row" >
-    <div class="col-md-2 col-md-offset-3 text-right">
-      <%= t ".email_captcha" %>:
-    </div>
-    <div class="col-md-7">
-      <div class="row">
-        <div class="col-md-2">
-          <%= f.input :input_captcha, label: false, input_html: { maxlength: 4 } %>
+    <%= simple_form_for(@student, url: email_captcha_for_change_email_student_path(@student, cat: :security_setting, by: :email), method: :post, html: {id: "email_captcha_for_change_email_form"}) do |f| %>
+      <div class="row" >
+        <div class="col-md-2 col-md-offset-3 text-right">
+          <%= t ".new_email" %>:
         </div>
-        <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_input_email" data-next-btn="#email_step_2_next_btn" data-send-url="<%= ajax_captchas_url %>" data-send-type='email' data-edit-type="edit_email" value="<%= t ".get_captcha" %>">
+        <div class="col-md-3">
+          <%= f.input :input_email, label: false, input_html: { maxlength: 50 } %>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#email_captcha_for_change_email_form" disabled="disabled" id="email_step_2_next_btn"><%= t ".to_bind_email" %></button>
+      <div class="row" >
+        <div class="col-md-2 col-md-offset-3 text-right">
+          <%= t ".email_captcha" %>:
+        </div>
+        <div class="col-md-7">
+          <div class="row">
+            <div class="col-md-2">
+              <%= f.input :input_captcha, label: false, input_html: { maxlength: 4 } %>
+            </div>
+            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_input_email" data-next-btn="#email_step_2_next_btn" data-send-url="<%= ajax_captchas_url %>" data-send-type='email' data-edit-type="edit_email" value="<%= t ".get_captcha" %>">
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#email_captcha_for_change_email_form" disabled="disabled" id="email_step_2_next_btn"><%= t ".to_bind_email" %></button>
 
-      <button type="button" class="col-md-offset-1 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#email_captcha_for_change_email_form" data-jump-href="<%= security_setting_student_path(@student) %>"><%= t "students.common.cancel" %></button>
-    </div>
+        <button type="button" class="col-md-offset-1 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#email_captcha_for_change_email_form" data-jump-href="<%= security_setting_student_path(@student) %>"><%= t "students.common.cancel" %></button>
+      </div>
     <% end %>
-    <% elsif session[:edit_email][:step] == 3 %>
+  <% elsif session[:edit_email][:step] == 3 %>
     <% if params[:binding_success] == 'y' %>
-    <div class="row">
-      <p class="text-center">
-        <%= t ".bind_email_success_text1" %><br/>
-        <%= t ".bind_email_success_text2" %>
-      </p>
-      <p class="text-center">
-        <button type="button" class="btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-jump-btn data-jump-href="<%= security_setting_student_path(@student) %>"><%= t "students.common.ok" %></button>
-      </p>
-    </div>
+      <div class="row">
+        <p class="text-center">
+          <%= t ".bind_email_success_text1" %><br/>
+          <%= t ".bind_email_success_text2" %>
+        </p>
+        <p class="text-center">
+          <button type="button" class="btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-jump-btn data-jump-href="<%= security_setting_student_path(@student) %>"><%= t "students.common.ok" %></button>
+        </p>
+      </div>
     <% else %>
-    <div class="row">
-      <p class="text-center">
-        <%= t ".bind_email_fail_text1" %><br/>
-      </p>
-      <p class="text-center">
-        <button type="button" class="btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-jump-btn data-jump-href="<%= security_setting_student_path(@student) %>"><%= t "students.common.ok" %></button>
-      </p>
-    </div>
+      <div class="row">
+        <p class="text-center">
+          <%= t ".bind_email_fail_text1" %><br/>
+        </p>
+        <p class="text-center">
+          <button type="button" class="btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-jump-btn data-jump-href="<%= security_setting_student_path(@student) %>"><%= t "students.common.ok" %></button>
+        </p>
+      </div>
     <% end %>
-    <% end %>
-  </div>
+  <% end %>
+</div>

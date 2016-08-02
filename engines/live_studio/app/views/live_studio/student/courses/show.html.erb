@@ -9,10 +9,14 @@
   </div>
   <div class="course-info-list">
     <a href='#content_info' data-toggle="tab">
-      <div class="list-ceil <%= params[:index].blank? || params[:index] == 'info' ? ' active' : nil %>"><%= t('view.course_show.info') %></div>
+      <div id="info_div" class="list-ceil <%= params[:index].blank? || params[:index] == 'info' ? ' active' : nil %>">
+        <%= t('view.course_show.info') %>
+      </div>
     </a>
     <a href='#lesson_list' data-toggle="tab">
-      <div class="list-ceil<%= params[:index] == 'list' ? ' active' : nil %>"><%= t('view.course_show.lessons') %></div>
+      <div id="list_div" class="list-ceil<%= params[:index] == 'list' ? ' active' : nil %>">
+        <%= t('view.course_show.lessons') %>
+      </div>
     </a>
   </div>
   <div class="info-header">
@@ -58,13 +62,13 @@
     $('.list-ceil').click(function(event){
       $('.list-ceil').removeClass('active');
       $(this).addClass('active');
-      if($('#lesson_list').hasClass('active')){
-        $('.info-subtitle').addClass('hide');
-        $('.info-list-subtitle').removeClass('hide');
-      }
-      if($('#content_info').hasClass('active')){
+      if($(this).attr('id') == 'info_div'){
         $('.info-list-subtitle').addClass('hide');
         $('.info-subtitle').removeClass('hide');
+      }
+      if($(this).attr('id') == 'list_div'){
+        $('.info-list-subtitle').removeClass('hide');
+        $('.info-subtitle').addClass('hide');
       }
     });
   });

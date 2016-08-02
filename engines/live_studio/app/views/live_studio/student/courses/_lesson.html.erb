@@ -9,7 +9,7 @@
   </thead>
   <tbody>
   <% @course.lessons.each_with_index do |lesson,i| %>
-    <tr>
+    <tr class="<%= lesson.is_over? ? 'over-lesson' : nil %>">
       <td><%= i+1 %></td>
       <td>
         <%= lesson.class_date %>

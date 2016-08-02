@@ -224,7 +224,7 @@
 .teacher-info{
   float: left;
   width: 100%;
-  height: 200px;
+  padding: 10px;
   div{
     float: inherit;
     margin: auto;
@@ -233,4 +233,7 @@
   .teacher-label{
     text-align: center;
   }
+}
+.over-lesson{
+  color: #999;
 }

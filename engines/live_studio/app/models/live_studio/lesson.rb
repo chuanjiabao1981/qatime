@@ -119,7 +119,7 @@ module LiveStudio
 
     def is_over?
       # todo 判断课程是否已经结束
-      false
+      true
     end
 
     private

@@ -99,7 +99,6 @@ class StudentsController < ApplicationController
   def update
     student_params = send("#{params[:by]}_params")
 
-
     if params[:by].to_s.to_sym == :password
       if @student.authenticate(params[:student][:current_password]) && @student.update(student_params)
         redirect_to edit_student_path(@student, cat: params[:cat]), notice: t("flash.notice.update_success")

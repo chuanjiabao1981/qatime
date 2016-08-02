@@ -10,7 +10,7 @@ module UserService
     end
 
     def self.verify(obj, code)
-      obj[:captcha] == code && obj.expired_at.to_i > 5.minutes.ago.to_i
+      obj[:captcha] == code && obj[:expired_at].to_i > 5.minutes.ago.to_i
     end
   end
 end

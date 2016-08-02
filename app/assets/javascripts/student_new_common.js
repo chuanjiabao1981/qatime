@@ -45,6 +45,7 @@ $(document).ready(function(){
     var send_data = ''
     var send_url = $node.data('send-url')
     var send_type = $node.data('send-type')
+    var edit_type = $node.data('edit-type')
 
     if(send_to_input){
       var pattern = /\[(.*)\]/;
@@ -54,6 +55,7 @@ $(document).ready(function(){
       send_data = {}
       send_data["send_to"] = send_to_input.value
       send_data["send_type"] = send_type
+      send_data["edit_type"] = edit_type
 
     }
     console.log(send_data)

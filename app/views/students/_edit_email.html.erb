@@ -1,7 +1,5 @@
 <% if_show_email_div = (params[:cat].to_s.to_sym == :security_setting && params[:by].to_s.to_sym == :email) %>
 <div id="edit_email_area" style="padding-top: 30px;<%= 'display:none;' unless if_show_email_div %>">
-  <%= "----"%>
-  <%= session[:edit_email] %>
   <% if(!session[:edit_email] || session[:edit_email][:step] == 1) %>
     <%= form_tag(verify_ajax_captchas_path, method: :post, id: "mobile_captcha_for_change_email_form") do |f| %>
       <input type="hidden" name="send_to" value="<%= @student.mobile %>" id="student_mobile">
@@ -39,7 +37,7 @@
     <% end %>
   <% elsif session[:edit_email][:step] == 2 %>
 
-  <%= simple_form_for(@student, url: email_captcha_for_change_email_student_path(@student), method: :post, html: {id: "email_captcha_for_change_email_form"}) do |f| %>
+  <%= simple_form_for(@student, url: email_captcha_for_change_email_student_path(@student, cat: :security_setting, by: :email), method: :post, html: {id: "email_captcha_for_change_email_form"}) do |f| %>
   <div class="row" >
     <div class="col-md-2 col-md-offset-3 text-right">
       <%= t ".new_email" %>:

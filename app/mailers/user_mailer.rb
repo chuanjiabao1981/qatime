@@ -1,10 +1,9 @@
 class UserMailer < ApplicationMailer
   default from: 'from@example.com'
 
-  def send_captcha(user, captcha)
-    @user = user
+  def change_email_captcha(send_to, captcha)
     @captcha  = captcha
 
-    mail(to: @user.email, subject: '绑定邮箱')
+    mail(to: send_to, subject: '绑定邮箱')
   end
 end

@@ -5,7 +5,7 @@ module UserService
       Rails.logger.debug("The Code Is: #{code}") unless Rails.env.production?
       SmsWorker.perform_async(SmsWorker::SEND_CAPTCHA, mobile: send_to, captcha: code) if 'mobile' == type
       # TODO
-      EmailWorker.perform_async(EmailWorker::SEND_CAPTCHA, email: send_to, code: code) if 'email' == type
+      EmailWorker.perform_async(EmailWorker::CHANGE_EMAIL_CAPTCHA, email: send_to, code: code) if 'email' == type
       code
     end
 

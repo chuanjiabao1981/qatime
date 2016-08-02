@@ -178,14 +178,27 @@ class StudentsController < ApplicationController
     end
   end
 
-  # def email_captcha_for_change_email
-  #   if @student.validate_email_captcha(session[:binding_email], params.require(:student).permit(:input_captcha, :input_email))
-  #     session[:binding_email][:step] = 3
-  #     redirect_to action: :security_setting, binding_email: :y,binding_success: :y
-  #   else
-  #     redirect_to security_setting_student_path(@student, params:{ binding_email: :y, binding_success: :f})
-  #   end
-  # end
+  def email_captcha_for_change_email
+    captcha_key = "captcha-#{params[:student][:input_email]}"
+
+    @result = UserService::CaptchaManager.verify(session[captcha_key], params[:student][:input_captcha])
+    if @result
+      session[captcha_key] = nil
+      session[:edit_email] = nil
+
+      if @student.update(email: params[:student][:input_email])
+        if params[:cat].to_s.to_sym == :edit_profile
+          redirect_to info_student_path(@student), notice: t("flash.notice.update_success")
+        elsif params[:cat].to_s.to_sym == :security_setting
+          redirect_to edit_student_path(@student, cat: params[:cat]), notice: t("flash.notice.update_success")
+        end
+      else
+        render :edit, layout: "student_home_new"
+      end
+    else
+      render :edit, layout: "student_home_new"
+    end
+  end
 
   def validate_password
     if @student && @student.authenticate(params['password'])

@@ -11,6 +11,7 @@ module APIErrors
   NoGetAuthenticate = Class.new StandardError
   AccountNotlogin   = Class.new StandardError
   VersionOldError   = Class.new StandardError
+  StatusChangeError = Class.new StandardError
 
   module ClassMethods
     def include_errors
@@ -49,6 +50,10 @@ module APIErrors
 
       rescue_from VersionOldError do
         out_error(code: 1009, msg: "您的应用版本过旧，请更新最新版本")
+      end
+
+      rescue_from StatusChangeError do
+        out_error(code: 1010, msg: "状态无法切换")
       end
     end
   end

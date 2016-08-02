@@ -110,4 +110,8 @@ module APIHelpers
       data
     end
   end
+
+  def raise_change_error_for(flag)
+    !flag && raise(APIErrors::StatusChangeError)
+  end
 end

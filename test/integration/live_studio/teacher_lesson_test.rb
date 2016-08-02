@@ -11,14 +11,14 @@ class LiveStudio::TeacherLessonTest < ActionDispatch::IntegrationTest
     @headless.start
     Capybara.current_driver = :selenium_chrome
 
-    @manager = ::Manager.find(users(:manager).id)
+    @manager = users(:manager)
     @workstation = @manager.workstations.sample
 
-    @teacher = ::Teacher.find(users(:teacher_one).id)
+    @teacher = users(:teacher_one)
 
     @teacher_session = log_in2_as(@teacher)
-    @course = live_studio_courses(:course_one)
-    @lesson = live_studio_lessons(:lesson_one)
+    @course = live_studio_courses(:course_for_init)
+    @lesson = live_studio_lessons(:ready_lesson_for_init_course)
     @course.lessons << @lesson
     @course.teacher = @teacher
     @course.save

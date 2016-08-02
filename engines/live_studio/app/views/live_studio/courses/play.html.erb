@@ -111,11 +111,15 @@
     <div style="display: none;">
       <div id='detail_base_area' class="course-info-div">
         <%= content_tag(:div, "辅导班名：#{@course.name}", class: 'info-cell') %>
-        <%= content_tag(:div, "当前课程：#{@lesson.try(:name)}", class: 'info-cell') %>
+        <% if @current_lesson %>
+        <%= content_tag(:div, "当前课程：#{@current_lesson.name}", class: 'info-cell') %>
+        <% else %>
+        <%= content_tag(:div, "当前课程：今日无课程", class: 'info-cell') %>
+        <% end %>
         <%= content_tag(:div, "科目类型：#{@course.subject}", class: 'info-cell') %>
         <%= content_tag(:div, "年纪类型：#{@course.grade}", class: 'info-cell') %>
         <%= content_tag(:div, "主讲老师：#{@teacher.name}", class: 'info-cell') %>
-        <%= content_tag(:div, "直播时间：#{@lesson.class_date} #{@lesson.try(:live_time)}", class: 'info-cell') %>
+        <%= content_tag(:div, "直播时间：#{@current_lesson.class_date} #{@current_lesson.try(:live_time)}", class: 'info-cell') %>
         <%= content_tag(:div, "辅导简介：#{@course.description}", class:'info-desc') %>
       </div>
       <div id='detail_teacher_area' class="course-info-div">

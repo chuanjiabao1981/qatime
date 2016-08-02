@@ -154,7 +154,11 @@ module LiveStudio
 
     # 当前直播课程
     def current_lesson
-      lessons.unfinish.first || lessons.last
+      lessons.today.unclosed.first || lessons.today.last
+    end
+
+    def current_lesson_name
+      current_lesson.try(:name) || I18n.t('view.course_show.nil_data')
     end
 
     def live_start_time

@@ -46,7 +46,6 @@ module LiveStudio
       assert find(:css, '#live_detail_area').has_content?('老师详情'), '老师详情按钮不存在'
       assert find(:css, '#live_detail_area').has_content?('课程列表'), '课程列表按钮不存在'
 
-      find(:css, '#detail_base_btn').click
       assert find(:css, '#detail_base_area').has_content?(@course.name), '基本信息显示不正确'
 
       find(:css, '#detail_teacher_btn').click

@@ -59,12 +59,12 @@ module LiveStudio
     end
 
     def begin_live_studio
-      @lesson.teach!
+      LiveService::LessonDirector.new(@lesson).lesson_start
       redirect_to teacher_course_path(@teacher,params[:course_id]), notice: i18n_notice('begin_live_studio', @lesson)
     end
 
     def end_live_studio
-      LiveService::BillingDirector.new(@lesson).finish
+      @lesson.close!
       redirect_to teacher_course_path(@teacher,params[:course_id]), notice: i18n_notice('end_live_studio', @lesson)
     end
 

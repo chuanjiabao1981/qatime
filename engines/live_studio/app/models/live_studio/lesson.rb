@@ -20,6 +20,7 @@ module LiveStudio
     scope :should_complete, -> { where(status: [statuses[:finished], statuses[:billing]]).where("class_date > ?", Date.yesterday)}
     scope :teached, -> { where("status > ?", Lesson.statuses[:teaching]) } # 已经完成上课
     scope :today, -> { where(class_date: Date.today) }
+    scope :since_today, -> {where('class_date > ?',Date.today)}
     scope :waiting_finish, -> { where(status: [statuses[:paused], statuses[:closed]])}
 
     belongs_to :course

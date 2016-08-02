@@ -13,6 +13,7 @@ module Entities
         course.push_stream.try(:address)
       end
       expose :lessons, using: Entities::LiveStudio::Lesson, if: { type: :full }
+      expose :teacher, using: Entities::LiveStudio::Teacher, if: { type: :full }
     end
   end
 end

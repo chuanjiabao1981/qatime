@@ -1,0 +1,77 @@
+<!-- 密码 -->
+<div class="qa_cell">
+  <div class="row">
+    <div class="col-md-3" style="padding-left:40px"><%= t(".login_password") %>
+      <div style="padding-left:20px">
+        <%= t(".this_password_is_not_visible") %>
+      </div>
+    </div>
+    <div class="col-md-6" style="padding-left:40px">
+      <%= t(".required_authentication_password") %>
+    </div>
+    <div class="col-md-2 col-md-offset-1 pull-right">
+      <br/>
+      <button type="button" class="btn btn-default" data-edit-area="#edit_login_password_area"><%= t('.modify_login_password') %></button>
+    </div>
+  </div>
+  <%= render "edit_password" %>
+</div>
+
+<!-- 手机 -->
+<div class="qa_cell">
+  <div class="row">
+    <div class="col-md-3" style="padding-left:40px"><%= t(".bound_mobile")%>
+      <div style="padding-left:20px">
+        <%= @student.mobile %>
+      </div>
+    </div>
+    <div class="col-md-6" style="padding-left:40px">
+      <%= t(".bound_mobile_desc") %>
+    </div>
+    <div class="col-md-2 col-md-offset-1 pull-right">
+      <br/>
+      <button type="button" class="btn btn-default"><%= t(".modified_binding_mobile") %></button>
+    </div>
+  </div>
+  <%= render "edit_mobile" %>
+</div>
+
+<!-- 邮箱 -->
+<div class="qa_cell">
+  <div class="row">
+    <div class="col-md-3" style="padding-left:40px"><%= t(".bound_email")%>
+      <div style="padding-left:20px">
+        <%= @student.email %>
+      </div>
+    </div>
+    <div class="col-md-6" style="padding-left:40px">
+      <%= t('.bound_email_desc') %>
+    </div>
+    <div class="col-md-2 col-md-offset-1 pull-right">
+      <br/>
+      <button type="button" class="btn btn-default" data-edit-area="#edit_email_area"><%= t('.modified_binding_email') %></button>
+    </div>
+  </div>
+  <%= render "edit_email" %>
+</div>
+
+<!-- 家长手机 -->
+<div class="qa_cell">
+  <div class="row">
+    <div class="col-md-3" style="padding-left:40px"><%= t ".bound_parent_phone" %>
+      <div style="padding-left:20px">
+        <%= @student.parent_phone %>
+      </div>
+    </div>
+    <div class="col-md-6" style="padding-left:40px">
+      <%= t ".bound_parent_phone_desc" %>
+    </div>
+    <div class="col-md-2 col-md-offset-1 pull-right">
+      <br/>
+      <button type="button" class="btn btn-default"><%= t ".modified_binding_parent_phone" %></button>
+    </div>
+  </div>
+  <%= render "edit_parent_phone" %>
+</div>
+
+

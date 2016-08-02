@@ -10,6 +10,7 @@
   <div class="col-md-4 text-center" style="vertical-align:middle;padding-top:55px">
     <%=image_tag @student.avatar_url(:ex_big) %>
   </div>
+
   <div class="col-md-8">
     <div class="qa_cell">
       <div class="row">
@@ -18,7 +19,7 @@
           <%= @student.name %>
           <div class="pull-right">
             <% if allow? :students,:edit , @student %>
-              <%=link_to edit_student_path(@student) do %>
+              <%=link_to edit_student_path(@student, cat: :edit_profile, by: :profile) do %>
                 <button type="button" class="btn btn-xs btn-success"><%= t(".edit_information") %></button>
               <% end %>
             <% end %>

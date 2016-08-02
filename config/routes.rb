@@ -318,4 +318,10 @@ Qatime::Application.routes.draw do
 
 
   resources :qa_file_quoters
+
+  namespace :ajax do
+    resource :captchas, only: [:create] do
+      post :verify, on: :member
+    end
+  end
 end

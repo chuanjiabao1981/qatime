@@ -21,40 +21,6 @@
         <button type="button" class="btn btn-default" data-edit-area="#edit_login_password_area"><%= t('.modify_login_password') %></button>
       </div>
     </div>
-    <div id="edit_login_password_area" style="<%= session[:update_password] ? '': 'display:none;'%>">
-      <%= simple_form_for(@student, url: update_password_student_path(@student), method: :post, html: {id: "modify_login_password_form"}) do |f| %>
-      <div class="row">
-        <div class="col-md-2 col-md-offset-3 text-right" >
-          当前登录密码:
-        </div>
-        <div class="col-md-3">
-          <%= f.input :current_password, label: false, html: { onBlur: "textBlur()" } %>
-        </div>
-        <div class="col-md-2 error_input" style="color: red;">
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-2 col-md-offset-3 text-right">
-          新密码登录:
-        </div>
-        <div class="col-md-3">
-          <%= f.input :password, label: false %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-2 col-md-offset-3 text-right">
-          确认新密码:
-        </div>
-        <div class="col-md-3">
-          <%= f.input :password_confirmation, label: false %>
-        </div>
-      </div>
-      <% end %>
-      <div class="row">
-        <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#modify_login_password_form" data-jump-href="<%= security_setting_student_path(@student) %>"><%= t "students.common.cancel" %></button>
-        <button type="button" class="col-md-offset-1 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#modify_login_password_form"><%= t "students.common.save" %></button>
-      </div>
-    </div>
   </div>
   <div class="qa_cell">
     <div class="row">
@@ -84,93 +50,10 @@
       </div>
       <div class="col-md-2 col-md-offset-1 pull-right">
         <br/>
-        <button type="button" class="btn btn-default" data-edit-area="#edit_mobile_area"><%= t('.modified_binding_email') %></button>
+        <button type="button" class="btn btn-default" data-edit-area="#edit_email_area"><%= t('.modified_binding_email') %></button>
       </div>
     </div>
 
-    <div id="edit_mobile_area" style="<%= session[:binding_email] ? '' : 'display:none;' %>">
-      <% if(!session[:binding_email] || session[:binding_email][:step] == 1) %>
-      <%= simple_form_for(@student, url: mobile_captcha_for_change_email_student_path(@student), method: :post, html: {id: "mobile_captcha_for_change_email_form"}) do |f| %>
-      <div class="row" >
-        <div class="col-md-2 col-md-offset-3 text-right">
-          <%= t ".binding_email" %>:
-        </div>
-        <div class="col-md-3">
-          <%= @student.email %>
-        </div>
-      </div>
-      <div class="row" >
-        <div class="col-md-2 col-md-offset-3 text-right">
-          <%= t ".mobile_captcha" %>:
-        </div>
-        <div class="col-md-7">
-          <div class="row">
-            <div class="col-md-2">
-              <%= f.input :input_captcha, label: false, input_html: { maxlength: 4 } %>
-            </div>
-            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input data-next-btn="#email_step_1_next_btn" data-send-url="<%= auth_user_for_change_email_student_url(@student) %>" data-send-type='PATCH' value="<%= t ".get_captcha" %>">
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#mobile_captcha_for_change_email_form" disabled="disabled" id="email_step_1_next_btn"><%= t "students.common.next_step" %></button>
-
-        <button type="button" class="col-md-offset-1 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#mobile_captcha_for_change_email_form" data-jump-href="<%= security_setting_student_path(@student) %>"><%= t "students.common.cancel" %></button>
-      </div>
-      <% end %>
-      <% elsif session[:binding_email][:step] == 2 %>
-
-      <%= simple_form_for(@student, url: email_captcha_for_change_email_student_path(@student), method: :post, html: {id: "email_captcha_for_change_email_form"}) do |f| %>
-      <div class="row" >
-        <div class="col-md-2 col-md-offset-3 text-right">
-          <%= t ".new_email" %>:
-        </div>
-        <div class="col-md-3">
-          <%= f.input :input_email, label: false, input_html: { maxlength: 50 } %>
-        </div>
-      </div>
-      <div class="row" >
-        <div class="col-md-2 col-md-offset-3 text-right">
-          <%= t ".email_captcha" %>:
-        </div>
-        <div class="col-md-7">
-          <div class="row">
-            <div class="col-md-2">
-              <%= f.input :input_captcha, label: false, input_html: { maxlength: 4 } %>
-            </div>
-            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_input_email" data-next-btn="#email_step_2_next_btn" data-send-url="<%= send_email_for_change_email_student_url(@student) %>" data-send-type='POST' value="<%= t ".get_captcha" %>">
-          </div>
-        </div>
-        <div class="row">
-          <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#email_captcha_for_change_email_form" disabled="disabled" id="email_step_2_next_btn"><%= t ".to_bind_email" %></button>
-
-          <button type="button" class="col-md-offset-1 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#email_captcha_for_change_email_form" data-jump-href="<%= security_setting_student_path(@student) %>"><%= t "students.common.cancel" %></button>
-        </div>
-        <% end %>
-        <% elsif session[:binding_email][:step] == 3 %>
-        <% if params[:binding_success] == 'y' %>
-        <div class="row">
-          <p class="text-center">
-            <%= t ".bind_email_success_text1" %><br/>
-            <%= t ".bind_email_success_text2" %>
-          </p>
-          <p class="text-center">
-            <button type="button" class="btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-jump-btn data-jump-href="<%= security_setting_student_path(@student) %>"><%= t "students.common.ok" %></button>
-          </p>
-        </div>
-        <% else %>
-        <div class="row">
-          <p class="text-center">
-            <%= t ".bind_email_fail_text1" %><br/>
-          </p>
-          <p class="text-center">
-            <button type="button" class="btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-jump-btn data-jump-href="<%= security_setting_student_path(@student) %>"><%= t "students.common.ok" %></button>
-          </p>
-        </div>
-        <% end %>
-        <% end %>
-      </div>
-    </div>
     <div class="qa_cell">
       <div class="row">
         <div class="col-md-3" style="padding-left:40px"><%= t ".bound_parent_phone" %>

@@ -51,12 +51,11 @@ class StudentsController < ApplicationController
     render layout: 'student_home_new'
   end
 
-  def security_setting
-    session[:binding_email] = nil unless session[:binding_email] && params[:binding_email] == 'y'
+  # def security_setting
+  #   session[:binding_email] = nil unless session[:binding_email] && params[:binding_email] == 'y'
 
-    render layout: 'student_home_new'
-  end
-
+  #   render layout: 'student_home_new'
+  # end
 
   def questions
     @questions = Question.all.where("student_id=?",@student.id).
@@ -96,13 +95,30 @@ class StudentsController < ApplicationController
   def notifications
     @action_notifications = @student.customized_course_action_notifications.paginate(page: params[:page])
   end
+
   def update
-    if @student.update_attributes(params[:student].permit!)
-      redirect_to info_student_path(@student)
+    student_params = send("#{params[:by]}_params")
+
+
+    if params[:by].to_s.to_sym == :password
+      if @student.authenticate(params[:student][:current_password]) && @student.update(student_params)
+        redirect_to edit_student_path(@student, cat: params[:cat]), notice: t("flash.notice.update_success")
+      else
+        render :edit, layout: "student_home_new"
+      end
     else
-      render 'edit'
+      if @student.update(student_params)
+        if params[:cat].to_s.to_sym == :edit_profile
+          redirect_to info_student_path(@student), notice: t("flash.notice.update_success")
+        elsif params[:cat].to_s.to_sym == :security_setting
+          redirect_to edit_student_path(@student, cat: params[:cat]), notice: t("flash.notice.update_success")
+        end
+      else
+        render :edit, layout: "student_home_new"
+      end
     end
   end
+
   def search
     @students = Student.all
                 .where("name =? or email = ?",params[:search][:name],params[:search][:name])
@@ -163,14 +179,14 @@ class StudentsController < ApplicationController
     end
   end
 
-  def email_captcha_for_change_email
-    if @student.validate_email_captcha(session[:binding_email], params.require(:student).permit(:input_captcha, :input_email))
-      session[:binding_email][:step] = 3
-      redirect_to action: :security_setting, binding_email: :y,binding_success: :y
-    else
-      redirect_to security_setting_student_path(@student, params:{ binding_email: :y, binding_success: :f})
-    end
-  end
+  # def email_captcha_for_change_email
+  #   if @student.validate_email_captcha(session[:binding_email], params.require(:student).permit(:input_captcha, :input_email))
+  #     session[:binding_email][:step] = 3
+  #     redirect_to action: :security_setting, binding_email: :y,binding_success: :y
+  #   else
+  #     redirect_to security_setting_student_path(@student, params:{ binding_email: :y, binding_success: :f})
+  #   end
+  # end
 
   def validate_password
     if @student && @student.authenticate(params['password'])
@@ -184,19 +200,29 @@ class StudentsController < ApplicationController
     end
   end
 
-  def update_password
-    if @student.authenticate(params[:student][:current_password]) && @student.update_attributes(params[:student].permit!)
-      session[:update_password] = nil
-      redirect_to security_setting_student_path(@student)
-    else
-      session[:update_password] = true
-      render :security_setting
-    end
-  end
-
   private
 
   def current_resource
     @student = Student.find(params[:id]) if params[:id]
+  end
+
+  def password_params
+    params.require(:student).permit(:current_password, :password, :password_confirmation)
+  end
+
+  def email_params
+    params.require(:student).permit(:email, :captcha)
+  end
+
+  def mobile_params
+    params.require(:student).permit(:mobile, :captcha)
+  end
+
+  def parent_phone_params
+    params.require(:student).permit(:parent_phone, :captcha)
+  end
+
+  def profile_params
+    params.require(:student).permit(:name, :sex, :birthday, :grade, :province_id, :city_id, :description)
   end
 end

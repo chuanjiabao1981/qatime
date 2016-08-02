@@ -162,6 +162,8 @@ module Permissions
         resource.id == user.id
       end
       # payment permission
+
+      allow 'ajax/captchas', [:create, :verify]
     end
 private
 

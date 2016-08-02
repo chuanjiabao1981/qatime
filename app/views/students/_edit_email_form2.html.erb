@@ -1,0 +1,29 @@
+  <% elsif session[:binding_email][:step] == 2 %>
+
+  <%= simple_form_for(@student, url: email_captcha_for_change_email_student_path(@student), method: :post, html: {id: "email_captcha_for_change_email_form"}) do |f| %>
+  <div class="row" >
+    <div class="col-md-2 col-md-offset-3 text-right">
+      <%= t ".new_email" %>:
+    </div>
+    <div class="col-md-3">
+      <%= f.input :input_email, label: false, input_html: { maxlength: 50 } %>
+    </div>
+  </div>
+  <div class="row" >
+    <div class="col-md-2 col-md-offset-3 text-right">
+      <%= t ".email_captcha" %>:
+    </div>
+    <div class="col-md-7">
+      <div class="row">
+        <div class="col-md-2">
+          <%= f.input :input_captcha, label: false, input_html: { maxlength: 4 } %>
+        </div>
+        <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_input_email" data-next-btn="#email_step_2_next_btn" data-send-url="<%= send_email_for_change_email_student_url(@student) %>" data-send-type='POST' value="<%= t ".get_captcha" %>">
+      </div>
+    </div>
+    <div class="row">
+      <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#email_captcha_for_change_email_form" disabled="disabled" id="email_step_2_next_btn"><%= t ".to_bind_email" %></button>
+
+      <button type="button" class="col-md-offset-1 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#email_captcha_for_change_email_form" data-jump-href="<%= security_setting_student_path(@student) %>"><%= t "students.common.cancel" %></button>
+    </div>
+    <% end %>

@@ -5,6 +5,12 @@ $(document).ready(function(){
     $edit_area.show();
   });
 
+  $('button[data-edit-area2]').on('click',function(event){
+    var $node = $(event.target)
+    var edit_area = $($node.data('edit-area2'))
+    window.location.href= edit_area
+  });
+
   $("button[data-form-reset").on('click',function(event){
     var $node = $(event.target)
     var $form = $node.data('form-el')
@@ -46,14 +52,16 @@ $(document).ready(function(){
       var result = input_name.match(pattern);
 
       send_data = {}
-      send_data[result[0]] = send_to_input.value
+      send_data["send_to"] = send_to_input.value
+      send_data["send_type"] = send_type
 
     }
+    console.log(send_data)
     $.ajax({
       url: send_url,
-      type: send_type,
       data: send_data,
       dataType: 'json',
+      type: "POST",
 
       error: function(xhr, statusText, errorThrown, $form){
         alert(xhr.responseText)

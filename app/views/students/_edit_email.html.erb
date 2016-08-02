@@ -1,0 +1,4 @@
+<% if_show_email_div = (params[:cat].to_s.to_sym == :security_setting && params[:by].to_s.to_sym == :email) %>
+<div id="edit_email_area" style="padding-top: 30px;<%= 'display:none;' unless if_show_email_div %>">
+  <%= render "edit_email_form1" %>
+</div>

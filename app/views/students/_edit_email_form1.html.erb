@@ -1,0 +1,31 @@
+<% if(!session[:binding_email] || session[:binding_email][:step] == 1) %>
+  <%= simple_form_for(@student, url: mobile_captcha_for_change_email_student_path(@student), method: :post, html: {id: "mobile_captcha_for_change_email_form"}) do |f| %>
+    <div class="row" >
+      <div class="col-md-2 col-md-offset-3 text-right">
+        <%= t ".binding_email" %>:
+      </div>
+      <div class="col-md-3">
+        <%= @student.email %>
+      </div>
+    </div>
+    <div class="row" >
+      <div class="col-md-2 col-md-offset-3 text-right">
+        <%= t ".mobile_captcha" %>:
+      </div>
+      <div class="col-md-7">
+        <div class="row">
+          <div class="col-md-2">
+            <%= f.input :input_captcha, label: false, input_html: { maxlength: 4 } %>
+          </div>
+          <%= f.input :mobile, as: :hidden %>
+          <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_mobile" data-next-btn="#email_step_1_next_btn" data-send-url="<%= ajax_captchas_url %>" data-send-type='email' value="<%= t ".get_captcha" %>">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#mobile_captcha_for_change_email_form" disabled="disabled" id="email_step_1_next_btn"><%= t "students.common.next_step" %></button>
+
+      <button type="button" class="col-md-offset-1 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#mobile_captcha_for_change_email_form" data-jump-href="<%= security_setting_student_path(@student) %>"><%= t "students.common.cancel" %></button>
+    </div>
+  <% end %>
+<% end %>

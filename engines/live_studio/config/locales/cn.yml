@@ -14,6 +14,32 @@ cn:
       info: 详细信息
       lessons: 课程列表
       study_link: 立即学习
+      distance_text1: (距开课 %d天)
+      distance_text2: 距离开课还有%d天
+    course_info_show:
+      subject: 科目类型：
+      grade: 年级类型：
+      teacher: 授课老师：
+      lesson_count: 课时总数：
+      schedule: 课程进度：
+      surplus: 剩余课时：
+      start_time: 开课时间：
+      end_time: 结课时间：
+      ticket_count: 已购人数：
+      desc: 简介：
+      teacher_label: 教师资料简介
+      teacher_name: 老师姓名：
+      highest_education: 最高学历：
+      teaching_years: 执教年数：
+      subject: 所授科目：
+      grade_range: 年级范围：
+      school: 所在学校：
+      teacher_desc: 自我介绍：
+      lesson_plan: "%s开课~%s结课"
+      number: 序号
+      lesson_start_at: 上课时间
+      lesson_name: 课程名称
+      lesson_status: 课程状态
   status:
     init: 初始化
     preview: 招生中
@@ -57,6 +83,7 @@ cn:
         teacher: 辅导老师
         short_description: 摘要
         description: 说明
+        publicize: 封面
         workstation: 工作站
         price: 价格
         status: 状态

@@ -15,38 +15,57 @@
       <div class="list-ceil<%= params[:index] == 'list' ? ' active' : nil %>"><%= t('view.course_show.lessons') %></div>
     </a>
   </div>
+  <div class="info-header">
+    <div class="info-name">
+      <strong><%= @course.name %></strong>
+    </div>
+    <%= content_tag :div, class: "info-subtitle #{params[:index] == 'list' ? 'hide' : nil}" do %>
+      <div class="info-status">
+        <%= t('view.course_show.status') %>
+        <%= @course.status_text %>
+      </div>
+      <div class="info-preview">
+        <%= preview_time(@course,{text2: true}) %>
+      </div>
+    <% end %>
+    <%= content_tag :div, class: "info-list-subtitle #{params[:index] == 'list' ? nil : 'hide'}" do %>
+      <div>
+        <%= t('view.course_info_show.lesson_plan') % [@course.live_start_time ,@course.live_end_time] %>
+      </div>
+      <div>
+        <%= "#{t('view.course_info_show.schedule')}#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>
+      </div>
+    <% end %>
+    <%= content_tag(:div,class: 'course-play-btn') do%>
+      <%= link_to(play_course_path(@course),class: 'btn btn-default') do %>
+        <span class="glyphicon glyphicon-play"></span>
+      <% end %>
+    <% end if @ticket.authorizable? %>
+    <%= content_tag(:div, link_to('Buy', new_course_order_path(@course), id: "buy-course-#{@course.id}",class: 'btn btn-default'),
+                    class: 'course-buy-btn') if @ticket.taste? && current_user == @student%>
+  </div>
   <div class="tab-content">
     <div id="content_info" class="tab-pane fade<%= params[:index].blank? || params[:index] == 'info' ? ' in active' : nil %>">
-      <div class="info-header">
-        <div class="info-name">
-          <strong><%= @course.name %></strong>
-        </div>
-        <div class="info-subtitle">
-          <div class="info-status">
-            <%= t('view.course_show.status') %>
-            <%= @course.status_text %>
-          </div>
-          <div class="info-preview">
-            <%= preview_time(@course) %>
-          </div>
-        </div>
-        <%= content_tag(:div, link_to('Buy', new_course_order_path(@course), id: "buy-course-#{@course.id}",class: 'btn btn-default'),
-                        class: 'course-buy-btn') if @ticket.taste? && current_user == @student%>
-        <%= content_tag(:div, link_to('Play', play_course_path(@course),class: 'btn btn-default'),
-                        class: 'course-buy-btn') if @ticket.taste? && current_user == @student%>
-      </div>
-      <div></div>
+      <%= render 'course_info' %>
     </div>
     <div id="lesson_list" class="tab-pane fade<%= params[:index] == 'list' ? ' in active' : nil %>">
-      List
+      <%= render 'lesson' %>
     </div>
   </div>
 </div>
 <script>
   $(function() {
-    $('.list-ceil').click(function(){
+    $('.list-ceil').click(function(event){
       $('.list-ceil').removeClass('active');
       $(this).addClass('active');
+      if($('#lesson_list').hasClass('active')){
+        $('.info-subtitle').addClass('hide');
+        $('.info-list-subtitle').removeClass('hide');
+      }
+      if($('#content_info').hasClass('active')){
+        $('.info-list-subtitle').addClass('hide');
+        $('.info-subtitle').removeClass('hide');
+      }
     });
   });
 </script>

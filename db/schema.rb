@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728070531) do
+ActiveRecord::Schema.define(version: 20160802042216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -495,6 +495,7 @@ ActiveRecord::Schema.define(version: 20160728070531) do
     t.string   "subject"
     t.string   "grade"
     t.string   "publicize"
+    t.integer  "buy_tickets_count",                                          default: 0
   end
 
   add_index "live_studio_courses", ["teacher_id"], name: "index_live_studio_courses_on_teacher_id", using: :btree
@@ -961,6 +962,9 @@ ActiveRecord::Schema.define(version: 20160728070531) do
     t.integer  "province"
     t.integer  "city"
     t.text     "description"
+    t.string   "highest_education"
+    t.integer  "teaching_years"
+    t.string   "grade_range"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

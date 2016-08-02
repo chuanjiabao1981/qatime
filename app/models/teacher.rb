@@ -1,5 +1,6 @@
 class Teacher < User
 
+  serialize :grade_range, Array
   default_scope {where(role: 'teacher')}
 
   validates_presence_of :subject,:category

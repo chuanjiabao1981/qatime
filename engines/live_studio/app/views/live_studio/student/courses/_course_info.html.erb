@@ -1,0 +1,80 @@
+<div class="info-body">
+  <div class="info-publicize">
+    <%= image_tag @course.publicize_url(:info) %>
+  </div>
+  <div class="info-content">
+    <table class="table table-hover">
+      <tr>
+        <td><%= t('view.course_info_show.subject') %><%= @course.subject %></td>
+        <td><%= t('view.course_info_show.grade') %><%= @course.grade %></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= t('view.course_info_show.teacher') %><%= @course.teacher.name %>
+        </td>
+      </tr>
+      <tr>
+        <td><%= t('view.course_info_show.lesson_count') %><%= @course.preset_lesson_count %></td>
+        <td><%= t('view.course_info_show.schedule') %><%= "#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= t('view.course_info_show.surplus') %><%= @course.lesson_count_left %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= t('view.course_info_show.start_time') %><%= @course.live_start_time %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= t('view.course_info_show.end_time') %><%= @course.live_end_time %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= t('view.course_info_show.ticket_count') %><%= @course.grade %>
+        </td>
+      </tr>
+    </table>
+    <strong class="info-price">￥ <%= @course.price %></strong>
+  </div>
+  <div class="info-intro">
+    <div><%= t('view.course_info_show.desc') %></div>
+    <%= @course.description %>
+  </div>
+</div>
+<div class="teacher-info">
+  <div class='teacher-label'>
+    <%= content_tag :strong, t('view.course_info_show.teacher_label') %>
+  </div>
+  <% teacher = @course.teacher %>
+  <div>
+    <%= image_tag(teacher.avatar_url(:ex_big)) %>
+  </div>
+  <div>
+    <%= "#{t('view.course_info_show.teacher_name')}#{teacher.name}" %>
+  </div>
+  <div>
+    <%= "#{t('view.course_info_show.highest_education')}#{teacher.highest_education}" %>
+  </div>
+  <div>
+    <%= "#{t('view.course_info_show.teaching_years')}#{teacher.teaching_years}" %>
+  </div>
+  <div>
+    <%= "#{t('view.course_info_show.subject')}#{teacher.subject}" %>
+  </div>
+  <div>
+    <%= "#{t('view.course_info_show.grade_range')}#{teacher.grade_range.join('，')}" %>
+  </div>
+  <div>
+    <%= "#{t('view.course_info_show.school')}#{teacher.school.name}" %>
+  </div>
+  <div>
+    <%= "#{t('view.course_info_show.teacher_desc')}" %>
+  </div>
+  <div>
+    <%= teacher.desc %>
+  </div>
+</div>

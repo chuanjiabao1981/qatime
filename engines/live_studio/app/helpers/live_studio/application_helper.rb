@@ -12,16 +12,19 @@ module LiveStudio
           end
     end
 
-    def preview_time(course)
+    def preview_time(course, options={})
       date = course.current_lesson.try(:class_date)
       if date
         if date == Date.today
           content_tag(:div, content_tag(:div,"今日 #{course.current_lesson.start_time}"),
                       class: "course-preview matrix #{course.current_lesson.is_over? ? '' : 'preview'}")
         elsif date > Date.today
-          content_tag(:div, "(距离开课 #{(date - Date.today).to_i}天)", class: 'course-preview')
+          text = options[:text2].blank? ? 'distance_text1' : 'distance_text2'
+          text = I18n.t("view.course_show.#{text}") % (date - Date.today).to_i
+          content_tag(:div, text, class: 'course-preview')
         end
       end
     end
+
   end
 end

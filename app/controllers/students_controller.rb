@@ -132,52 +132,6 @@ class StudentsController < ApplicationController
     respond_with @student
   end
 
-  def auth_user_for_change_email
-    captcha = '%04d' % rand(10000)
-    session[:binding_email] = {
-      send_to: @student.mobile,
-      captcha: captcha,
-      expired_at: 5.minutes.since.to_i,
-      step: 1
-    }
-
-    SmsWorker.perform_async(SmsWorker::SEND_CAPTCHA, mobile: @student.mobile, captcha: captcha)
-    respond_to do |format|
-      format.json { render json: @student, status: :accepted }
-    end
-  end
-
-  def mobile_captcha_for_change_email
-    if @student.validate_email_captcha(session[:binding_email], params.require(:student).permit(:input_captcha))
-      session[:binding_email][:step] = 2
-      redirect_to action: :security_setting, safe: :y, binding_email: :y
-    else
-      redirect_to security_setting_student_path(@student, params:{ binding_email: :y}), alert: @student.errors[:base].join(',')
-    end
-  end
-
-  def send_email_for_change_email
-    input_email = params[:input_email]
-    if input_email =~ /^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/
-      captcha = '%04d' % rand(10000)
-
-      session[:binding_email] = {
-        send_to: input_email,
-        captcha: captcha,
-        expired_at: 5.minutes.since.to_i,
-        step: 2
-      }
-      UserMailer.send_captcha(@student, captcha).deliver
-      respond_to do |format|
-        format.json { render json: @student, status: :accepted }
-      end
-    else
-      respond_to do |format|
-        format.json { render json: @student, status: 417 }
-      end
-    end
-  end
-
   def email_captcha_for_change_email
     captcha_key = "captcha-#{params[:student][:input_email]}"
 

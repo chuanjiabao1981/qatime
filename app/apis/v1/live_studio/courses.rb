@@ -123,7 +123,7 @@ module V1
               end
 
               get do
-                courses = LiveStudio::Course.last(20)
+                courses = ::LiveStudio::Course.last(20)
                 present courses, with: Entities::LiveStudio::Course, type: :default
               end
             end
@@ -151,7 +151,7 @@ module V1
           end
           get do
             # TODO 分类查询
-            courses = LiveStudio::Course.last(20)
+            courses = ::LiveStudio::Course.last(20)
             present courses, with: Entities::LiveStudio::Course, type: :default
           end
 
@@ -167,7 +167,7 @@ module V1
           end
           get '/:id' do
             # TODO 代码实现
-            course = LiveStudio::Course.last
+            course = ::LiveStudio::Course.last
             present course, with: Entities::LiveStudio::Course, type: :full
           end
 
@@ -183,7 +183,7 @@ module V1
           end
           get '/:id/taste' do
             # TODO 代码实现
-            course = LiveStudio::Ticket.last
+            course = ::LiveStudio::Ticket.last
             present course, with: Entities::LiveStudio::Ticket
           end
         end

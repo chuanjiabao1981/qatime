@@ -22,7 +22,7 @@ module V1
               end
               get do
                 courses = current_user.live_studio_courses
-                present courses, with: Entities::LiveStudio::Course, type: :default
+                present courses, with: Entities::LiveStudio::TeacherCourse, type: :default
               end
 
               desc '辅导班全信息接口' do
@@ -37,7 +37,7 @@ module V1
               end
               get :full do
                 courses = current_user.live_studio_courses
-                present courses, with: Entities::LiveStudio::Course, type: :full
+                present courses, with: Entities::LiveStudio::TeacherCourse, type: :full
               end
 
               desc '辅导班详情接口' do
@@ -53,10 +53,9 @@ module V1
               end
               get 'courses/:id' do
                 course = current_user.live_studio_courses.find(params[:id])
-                present course, with: Entities::LiveStudio::Course, type: :full
+                present course, with: Entities::LiveStudio::TeacherCourse, type: :full
               end
             end
-
 
             desc '直播开始接口' do
               headers 'Remember-Token' => {
@@ -115,7 +114,7 @@ module V1
           before do
             authenticate!
           end
-          route_param :staudent_id do
+          route_param :student_id do
             resource :courses do
               desc '学生我的辅导班接口' do
                 headers 'Remember-Token' => {
@@ -174,7 +173,7 @@ module V1
           get '/:id' do
             # TODO 代码实现
             course = ::LiveStudio::Course.last
-            present course, with: Entities::LiveStudio::Course, type: :full
+            present course, with: Entities::LiveStudio::Course, type: :default
           end
 
           desc '试听辅导班接口' do
@@ -191,6 +190,21 @@ module V1
             # TODO 代码实现
             course = ::LiveStudio::Ticket.last
             present course, with: Entities::LiveStudio::Ticket
+          end
+
+          desc '辅导班直播信息' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, desc: '辅导班ID'
+          end
+          get '/:id/play_info' do
+            # TODO 代码实现
+            course = ::LiveStudio::Course.last
+            present course, with: Entities::LiveStudio::StudentCourse, type: :full
           end
         end
       end

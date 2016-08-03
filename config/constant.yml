@@ -117,6 +117,9 @@ lesson_categories:
     default:
       - 会考重点
       - 高考重点
+  小学:
+    default:
+      - 小升初重点
 
 handle_timeout: 1.day
 

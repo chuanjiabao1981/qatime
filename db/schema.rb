@@ -938,14 +938,14 @@ ActiveRecord::Schema.define(version: 20160803101952) do
     t.string   "parent_phone"
     t.integer  "workstation_id"
     t.string   "type",                          limit: 100
-    t.integer  "province_id"
-    t.integer  "city_id"
-    t.integer  "gender",                                    default: 0
-    t.date     "birthday"
     t.text     "description"
     t.string   "highest_education"
     t.integer  "teaching_years"
     t.string   "grade_range"
+    t.integer  "province_id"
+    t.integer  "city_id"
+    t.integer  "gender",                                    default: 0
+    t.date     "birthday"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

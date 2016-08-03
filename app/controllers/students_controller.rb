@@ -179,7 +179,7 @@ class StudentsController < ApplicationController
   end
 
   def profile_params
-    params.require(:student).permit(:name, :gender, :birthday, :grade, :province_id, :city_id, :description)
+    params.require(:student).permit(:name, :gender, :birthday, :grade, :province_id, :city_id, :desc)
   end
 
   def avatar_params

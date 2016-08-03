@@ -36,11 +36,16 @@ class TeachersController < ApplicationController
   end
 
   def edit
+    render layout: 'teacher_home_new'
   end
 
   def update
-    @teacher.update_attributes(params[:teacher].permit!)
-    respond_with @teacher
+    update_by = params[:by]
+    if @teacher.update(update_params(update_by))
+      redirect_to edit_teacher_path(@teacher, cate:  params[:cate]), notice: t("flash.notice.update_success")
+    else
+      render :edit, layout: "teacher_home_new"
+    end
   end
 
   def lessons_state
@@ -134,7 +139,36 @@ class TeachersController < ApplicationController
     @customized_courses = @teacher.customized_courses.paginate(page: params[:page],per_page: 10)
   end
   private
+
   def current_resource
     @teacher = Teacher.find(params[:id]) if params[:id]
+  end
+
+  def password_params
+    params.require(:teacher).permit(:current_password, :password, :password_confirmation)
+  end
+
+  def email_params
+    params.require(:teacher).permit(:email, :captcha_confirmation)
+  end
+
+  def mobile_params
+    params.require(:teacher).permit(:mobile, :captcha_confirmation)
+  end
+
+  def parent_phone_params
+    params.require(:teacher).permit(:parent_phone, :captcha_confirmation)
+  end
+
+  def profile_params
+    params.require(:teacher).permit(:name, :gender, :birthday, :grade, :province_id, :city_id, :desc)
+  end
+
+  def avatar_params
+    params.require(:teacher).permit(:avatar)
+  end
+
+  def update_params(update_by)
+    send("#{update_by}_params")
   end
 end

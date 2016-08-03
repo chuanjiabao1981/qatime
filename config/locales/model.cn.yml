@@ -41,6 +41,9 @@ cn:
         current_password: 当前密码
         desc: 讲师简介
         accept: 接受服务协议
+        subject: 可授科目
+        grade_range: 可授年级
+        teaching_years: 执教年龄
       school:
         name: 名称
         city: 城市

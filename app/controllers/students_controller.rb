@@ -191,4 +191,8 @@ class StudentsController < ApplicationController
   def profile_params
     params.require(:student).permit(:name, :gender, :birthday, :grade, :province_id, :city_id, :description)
   end
+
+  def avatar_params
+    params.require(:student).permit(:avatar)
+  end
 end

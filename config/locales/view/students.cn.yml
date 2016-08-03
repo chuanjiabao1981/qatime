@@ -6,6 +6,7 @@ cn:
       security_setting: 安全设置
       next_step: 下一步
       cancel: 取消
+      select: 选择
       save: 保存
       ok: 确定
     info:

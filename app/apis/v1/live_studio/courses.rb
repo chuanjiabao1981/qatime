@@ -109,7 +109,7 @@ module V1
           before do
             authenticate!
           end
-          route_param :staudent_id do
+          route_param :student_id do
             resource :courses do
               desc '学生我的辅导班接口' do
                 headers 'Remember-Token' => {

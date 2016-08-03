@@ -1439,3 +1439,277 @@
       - 长干曲
       - 菩萨蛮
       - 凤阳花鼓
+-
+  name: 七年级上册
+  subject: 语文
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 七年级下册
+  subject: 语文
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 八年级上册
+  subject: 语文
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 八年级下册
+  subject: 语文
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 九年级上册
+  subject: 语文
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 九年级下册
+  subject: 语文
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 总复习
+  subject: 语文
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 第一轮复习
+      - 第二轮复习
+      - 第三轮复习
+      - 中考专题
+-
+  name: 一年级上册
+  subject: 语文
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 识字1
+      - 识字2
+      - 课文
+-
+  name: 一年级下册
+  subject: 语文
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 识字1
+      - 识字2
+      - 识字3
+      - 识字4
+      - 识字5
+      - 识字6
+      - 识字7
+      - 识字8
+      - 选读课文
+-
+  name: 二年级上册
+  subject: 语文
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 识字1
+      - 识字2
+      - 识字3
+      - 识字4
+      - 识字5
+      - 识字6
+      - 识字7
+      - 识字8
+      - 选读课文
+-
+  name: 二年级下册
+  subject: 语文
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 第七组
+      - 第八组
+      - 选读课文
+-
+  name: 三年级上册
+  subject: 语文
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 第七组
+      - 第八组
+      - 选读课文
+-
+  name: 三年级下册
+  subject: 语文
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 第七组
+      - 第八组
+      - 选读课文
+-
+  name: 四年级上册
+  subject: 语文
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 第七组
+      - 第八组
+      - 选读课文
+-
+  name: 四年级下册
+  subject: 语文
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 第七组
+      - 第八组
+      - 选读课文
+-
+  name: 五年级上册
+  subject: 语文
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 第七组
+      - 第八组
+      - 选读课文
+-
+  name: 五年级下册
+  subject: 语文
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 第七组
+      - 第八组
+      - 选读课文
+-
+  name: 六年级上册
+  subject: 语文
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 第七组
+      - 第八组
+      - 选读课文
+-
+  name: 六年级下册
+  subject: 语文
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 古诗词背诵
+      - 综合复习

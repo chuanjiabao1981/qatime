@@ -15,7 +15,7 @@
       </div>
       <div class="modal-body">
         <div class="row">
-          <%= simple_form_for(@student, url: student_path(@student, cat: :edit_profile, by: :avatar))  do |f| %>
+          <%= simple_form_for(@student, url: student_path(@student, cate:  :edit_profile, by: :avatar))  do |f| %>
             <div class="col-md-8">
               <img id="student_avatar_preview" style="width: 240px;height: 240px">
             </div>
@@ -48,7 +48,7 @@
 
 <div class="col-md-8">
 
-  <%= simple_form_for(@student, url: student_path(@student, cat: :edit_profile, by: :profile), html: {id: :edit_profile_form})  do |f| %>
+  <%= simple_form_for(@student, url: student_path(@student, cate:  :edit_profile, by: :profile), html: {id: :edit_profile_form})  do |f| %>
     <div class="qa_cell">
       <div class="row">
         <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:name)%></div>

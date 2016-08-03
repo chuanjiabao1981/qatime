@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessor :register_code_value,:tmp_register_code
-  attr_accessor :input_captcha, :input_email
+  attr_accessor :captcha
   attr_accessor :current_password
 
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: true
@@ -25,6 +25,9 @@ class User < ActiveRecord::Base
   validates_presence_of :grade, if: :student?
   validates :nick_name,allow_nil: true,allow_blank:true,uniqueness: true,
             format: {with: /\A[\p{Han}\p{Alnum}\-_]{3,10}\z/,message:"只可以是中文、英文或者下划线，最短3个字符最长10个字符，不可包含空格。"}
+  validates_confirmation_of :captcha
+
+  validates :captcha_confirmation, presence: true, length: { minimum: 4 }, if: :require_captcha_confirmation?, on: :update
   has_secure_password
 
   has_many :orders, class_name: ::Payment::Order
@@ -101,6 +104,10 @@ class User < ActiveRecord::Base
     Payment::CashAccount.create(owner: self)
   end
 
+  def require_captcha_confirmation?
+    email_changed? || mobile_changed? || parent_phone_changed?
+  end
+
   def validate_email_captcha(session_email, attrs={})
     input_captcha = attrs.delete(:input_captcha)
     input_email = attrs.delete(:input_email)
@@ -125,13 +132,12 @@ class User < ActiveRecord::Base
   end
 
   private
+
   def register_code_valid
     # 这里虽然设置了true使得验证成功后此注册码过期，但是由于如果整体teacher不成成功会rollback，
     # 所以一个正确验证码在user其他字段不成功的情况下，同样还是有效的
-    self.tmp_register_code = RegisterCode.verification(self.register_code_value, true)
-    if not self.tmp_register_code
-      errors.add("register_code_value","注册码不正确")
-    end
+    self.tmp_register_code = RegisterCode.verification(register_code_value, true)
+    errors.add("register_code_value", "注册码不正确") unless tmp_register_code
   end
 
   def update_register_code
@@ -145,13 +151,14 @@ class User < ActiveRecord::Base
     end
   end
 
-  after_update :sync_chat_account, if: :chat_account_changed?
+  after_commit :sync_chat_account, on: :update, if: :chat_account_changed?
   def sync_chat_account
     Chat::SyncChatAccountJob.perform_later(id)
   end
 
   # chat account是否需要同步
   def chat_account_changed?
+    return false unless chat_account
     name_changed? || nick_name_changed? || avatar_changed?
   end
 

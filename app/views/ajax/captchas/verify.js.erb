@@ -1,0 +1,8 @@
+<% if @result -%>
+  location.href = "<%= raw edit_student_path(@student, cate: params[:cate], by: params[:by]) -%>";
+<% else %>
+  <!-- TODO 国际化 -->
+  $("#<%= params[:edit_type] %>-captcha-input").next().remove();
+  $("#<%= params[:edit_type] %>-captcha-input").parent().addClass("has-error").append('<span class="help-block has-error"><%= t("errors.messages.confirmation") %></span>');
+<% end -%>
+

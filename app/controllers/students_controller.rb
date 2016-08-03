@@ -1,9 +1,12 @@
 class StudentsController < ApplicationController
+  before_action :step_one_session, only: [:edit, :update]
+  before_action :require_step_one_session, only: :update
+  before_action :set_captcha_code, only: :update
+
   respond_to :html
 
   def index
     @students = Student.all.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-
   end
 
   def new
@@ -97,24 +100,11 @@ class StudentsController < ApplicationController
   end
 
   def update
-    student_params = send("#{params[:by]}_params")
-
-    if params[:by].to_s.to_sym == :password
-      if @student.authenticate(params[:student][:current_password]) && @student.update(student_params)
-        redirect_to edit_student_path(@student, cat: params[:cat]), notice: t("flash.notice.update_success")
-      else
-        render :edit, layout: "student_home_new"
-      end
+    update_by = params[:by]
+    if @student.update(update_params(update_by))
+      redirect_to edit_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
     else
-      if @student.update(student_params)
-        if params[:cat].to_s.to_sym == :edit_profile
-          redirect_to info_student_path(@student), notice: t("flash.notice.update_success")
-        elsif params[:cat].to_s.to_sym == :security_setting
-          redirect_to edit_student_path(@student, cat: params[:cat]), notice: t("flash.notice.update_success")
-        end
-      else
-        render :edit, layout: "student_home_new"
-      end
+      render :edit, layout: "student_home_new"
     end
   end
 
@@ -141,10 +131,10 @@ class StudentsController < ApplicationController
       session[:edit_email] = nil
 
       if @student.update(email: params[:student][:input_email])
-        if params[:cat].to_s.to_sym == :edit_profile
+        if params[:cate].to_s.to_sym == :edit_profile
           redirect_to info_student_path(@student), notice: t("flash.notice.update_success")
-        elsif params[:cat].to_s.to_sym == :security_setting
-          redirect_to edit_student_path(@student, cat: params[:cat]), notice: t("flash.notice.update_success")
+        elsif params[:cate].to_s.to_sym == :security_setting
+          redirect_to edit_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
         end
       else
         render :edit, layout: "student_home_new"
@@ -177,15 +167,15 @@ class StudentsController < ApplicationController
   end
 
   def email_params
-    params.require(:student).permit(:email, :captcha)
+    params.require(:student).permit(:email, :captcha_confirmation)
   end
 
   def mobile_params
-    params.require(:student).permit(:mobile, :captcha)
+    params.require(:student).permit(:mobile, :captcha_confirmation)
   end
 
   def parent_phone_params
-    params.require(:student).permit(:parent_phone, :captcha)
+    params.require(:student).permit(:parent_phone, :captcha_confirmation)
   end
 
   def profile_params
@@ -194,5 +184,51 @@ class StudentsController < ApplicationController
 
   def avatar_params
     params.require(:student).permit(:avatar)
+  end
+
+  def update_params(update_by)
+    send("#{update_by}_params")
+  end
+
+  # 第一步验证成功以后会设置第一步对应的session
+  # 用户修改个人信息根据需要检查是否存在第一步生成的session
+  def require_step_one_session
+    update_by = params[:by]
+    return true if %w(email mobile parent_phone).exclude?(update_by) || @step_one_session
+    # 没有第一步的session跳转到编辑页面
+    # TODO 国际化
+    redirect_to edit_student_path(@student, by: params[:by], cate: params[:cate]), alert: t("please.verify.step.one.#{update_by}")
+  end
+
+  # 第一步验证通过后设置的session
+  def step_one_session
+    update_by = params[:by]
+    send_to = case update_by
+              when 'email'
+                # 修改邮箱第一步验证用户手机
+                @student.mobile
+              when 'mobile'
+                # 修改手机第一步验证用户现在的手机
+                @student.mobile
+              when 'parent_phone'
+                # 修改家长手机第一步验证用户现在的家长手机
+                @student.parent_phone
+              end
+    step_one_session = session["change-#{update_by}-#{send_to}"]
+    return unless step_one_session
+    if step_one_session[:expire_at] > Time.now.to_i
+      @step_one_session = step_one_session
+    else
+      session.delete("change-#{update_by}-#{send_to}")
+    end
+    @step_one_session
+  end
+
+  def set_captcha_code
+    update_by = params[:by]
+    # 只有邮箱、手机、家长手机修改需要检查验证码
+    return true if %w(email mobile parent_phone).exclude?(update_by)
+    captcha_key = "captcha-#{update_params(update_by)[update_by.to_sym]}"
+    @student.captcha = UserService::CaptchaManager.captcha_of(session[captcha_key])
   end
 end

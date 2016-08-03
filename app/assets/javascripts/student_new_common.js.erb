@@ -40,7 +40,6 @@ $(document).ready(function(){
     var $node = $(event.target)
     var send = this
     var send_to_input = $($node.data('send-to-input'))[0]
-    var next_btn = $($node.data('next-btn'))
 
     var send_data = ''
     var send_url = $node.data('send-url')
@@ -70,24 +69,19 @@ $(document).ready(function(){
       },
 
       success: function(responseText, statusText, xhr, $form){
-        if(next_btn){
-          times=60,
-          timer=null;
-
-          next_btn.removeAttr("disabled")
-
-          timer=setInterval(function(){
-            times--;
-            if(times<=0){
-              send.value='获取验证码';
-              clearInterval(timer);
-              send.disabled=false;
-            }else{
-              send.value=times+'秒后重试'
-              send.disabled=true;
-            }
-          },1000)
-        }
+        times=60,
+        timer=null;
+        timer=setInterval(function(){
+          times--;
+          if(times<=0){
+            send.value='<%= I18n.t("students.common.get_captcha")%>';
+            clearInterval(timer);
+            send.disabled=false;
+          }else{
+            send.value=times+'<%= I18n.t("students.common.try_get_captcha_again")%>'
+            send.disabled=true;
+          }
+        },1000)
       }
     });
   });

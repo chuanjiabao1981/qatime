@@ -9,69 +9,24 @@
   <% end %>
 
   <div class="filter-box">
-    <div class="dropdown">
-      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-        科目<span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <% APP_CONSTANT['subjects'].each do |sub| %>
-          <li><a href="#"><%= sub %></a></li>
-        <% end %>
-      </ul>
-    </div>
-    <div class="dropdown">
-      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-        年级类型<span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <% APP_CONSTANT['grades_in_menu'].each do |grade| %>
-          <li><a href="#"><%= grade %></a></li>
-        <% end %>
-      </ul>
-    </div>
-    <div class="dropdown">
-      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-        价格<span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li><a href="#">由低到高</a></li>
-        <li><a href="#">由高到低</a></li>
-        <li><a href="#">自定义范围</a></li>
-      </ul>
-    </div>
-    <div class="dropdown">
-      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-        课时总数<span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li><a href="#">由少到多</a></li>
-        <li><a href="#">由多到少</a></li>
-        <li><a href="#">自定义范围</a></li>
-      </ul>
-    </div>
-    <div class="dropdown">
-      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-        开课日期<span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li><a href="#">升序排列</a></li>
-        <li><a href="#">降序排列</a></li>
-        <li><a href="#">自定义范围</a></li>
-      </ul>
-    </div>
-    <div class="dropdown">
-      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-        当前状态<span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li><a href="#">全部</a></li>
-        <li><a href="#">招生中</a></li>
-        <li><a href="#">开课中</a></li>
-      </ul>
-    </div>
+    <%= render partial: 'filter' %>
   </div>
   <div>
     <%= render @courses %>
     <%= will_paginate @courses %>
   </div>
 </div>
+<script>
+  $(function(){
+    $(document).on('click','._menu',function(e) {
+      if( $(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle' ) {
+        $(this).collapse('hide');
+        $(this).css('height','auto');
+      }
+      if($(e.target).is('input')){
+        e.preventDefault();
+        return false;
+      }
+    });
+  });
+</script>

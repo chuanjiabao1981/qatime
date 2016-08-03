@@ -12,8 +12,8 @@ cn:
     info:
       edit_information: 编辑信息
     edit_profile:
-      edit_avatar_btn: 修改头像
-      edit_avatar_title: 修改头像
+      edit_avatar_btn: 更换头像
+      edit_avatar_title: 更换头像
     security_setting:
       login_password: 登录密码
       this_password_is_not_visible: 此密码不可见

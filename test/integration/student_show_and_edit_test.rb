@@ -49,11 +49,22 @@ class StudentInfoShowAndEditTest < ActionDispatch::IntegrationTest
     click_on '保存'
     @student.reload
     assert_equal('name test', @student.name, '学生name更新错误')
-    assert_equal('男', @student.sex_text, '学生sex更新错误')
+    assert_equal('男', @student.gender_text, '学生gender更新错误')
     assert page.has_content?('1995-07-08'), '学生birthday更新错误'
     assert_equal('高二', @student.grade, '学生grade更新错误')
     assert_equal('山西', @student.province.name, '学生province更新错误')
     assert_equal('大同', @student.city.name, '学生city更新错误')
     assert_equal('description test', @student.description, '学生description更新错误')
+  end
+
+  test "student avatar edit view" do
+    visit info_student_path(@student)
+    click_on '编辑信息', match: :first
+    click_on '更换头像', match: :first
+
+    execute_script("$('input[name=\"student[avatar]\"]').show()")
+    attach_file("student_avatar", "#{Rails.root}/test/integration/avatar.jpg")
+
+    click_on '保存', match: :first
   end
 end

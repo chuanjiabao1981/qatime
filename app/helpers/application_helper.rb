@@ -238,4 +238,16 @@ module ApplicationHelper
     end
     r
   end
+
+  def teacher_sidebar_nav_is?(nav)
+    case nav.to_s.to_sym
+    when :setting
+      r = controller_name == 'teachers' && (
+            action_name == 'info' || action_name == 'edit'
+          )
+    else
+      raise "unknow nav: #{nav}"
+    end
+    r
+  end
 end

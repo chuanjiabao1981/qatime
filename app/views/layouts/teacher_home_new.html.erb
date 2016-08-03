@@ -17,9 +17,8 @@
       <%= yield :breadcrumb %>
       <%= render 'layouts/shared/flash' %>
     </div>
-
     <div class='col-md-2'>
-      <%= render "layouts/sidebar/student_new" %>
+      <%= render "layouts/sidebar/teacher_new" %>
     </div>
     <div class='col-md-10'>
       <%= yield %>
@@ -27,6 +26,10 @@
   </div>
 </div>
 <%= render 'layouts/footer' %>
+<!--%= debug(params) if Rails.env.development? %-->
+
+<%= yield(:page_modal) if content_for?(:page_modal) %>
+<%= yield(:page_javascript) if content_for?(:page_javascript) %>
 
 <script>
   $(function() {

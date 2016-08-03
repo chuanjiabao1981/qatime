@@ -70,7 +70,7 @@ class TeachersController < ApplicationController
     else
       @earning_records      = @teacher.account.earning_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
     end
-    render layout: 'teacher_home'
+    render layout: 'teacher_home_new'
   end
 
   def questions

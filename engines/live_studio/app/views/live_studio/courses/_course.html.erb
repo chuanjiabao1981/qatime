@@ -1,16 +1,54 @@
-<tr>
-  <td><%= course_counter + 1 %></td>
-  <td><%= link_to course.name, live_studio.course_path(course) %></td>
-  <td><%= course.teacher_name %></td>
-  <td><%= course.short_description %></td>
-  <td><%= course.current_price %></td>
-  <td>
-    <% if(current_user.student?) %>
-    <%= render partial: "student_operate", locals: {course: course}  %>
-    <% elsif current_user.teacher? %>
-    <%= render partial: "teacher_operate", locals: {course: course}  %>
-    <% else %>
-    <%= render partial: "manager_operate", locals: {course: course}  %>
+<%= content_tag(:div, class: 'course-box-div') do %>
+  <%= content_tag(:div, class: 'course-info-div') do %>
+    <%= content_tag(:div, image_tag(course.publicize_url(:list)),class: 'publicize support') %>
+    <%= content_tag(:div, class: 'course-content-div support') do %>
+      <%= content_tag(:div,class: 'course-info-col') do %>
+        <%= content_tag(:div, course.name, class: 'course-name') %>
+        <%= content_tag(:div, t('view.course_search_show.buy_tickets_count') % course.buy_tickets_count,
+                        class: 'course-buy-count')%>
+      <% end %>
+      <%= content_tag(:div, "#{t('view.course_info_show.desc')}#{truncate(course.description,length: 112)}") %>
+      <%= content_tag(:div, "#{t('view.course_info_show.subject')}#{course.subject}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_info_show.grade')}#{course.grade}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_info_show.teacher')}#{course.teacher.try(:name)}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_info_show.lesson_count')}#{course.preset_lesson_count} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.start_time')}#{course.live_start_time}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.end_time')}#{course.live_end_time}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_search_show.current_status')}#{course.status_text} #{course.completed_lesson_count}/#{course.preset_lesson_count}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.teach_type')}", class: 'content-ceil') %>
+      <%= content_tag(:div, content_tag(:strong, "￥ #{course.price}")) %>
+    <%end %>
+    <%= content_tag(:div, class: 'course-operator-div support') do%>
+      <%#= content_tag(:div, link_to('Buy', new_course_order_path(course), id: "buy-course-#{course.id}",class: 'btn btn-default'),
+                      class: 'course-buy-btn') %>
+      <%= content_tag(:div, class: 'course-operator-btn') do %>
+        <%= link_to t('view.course_search_show.info'), live_studio.course_path(course),
+                    class: 'btn btn-default operator-btn support same-btn' %>
+        <% flag = course.sell_to?(@student) && !course.bought_by?(@student) && current_user == @student %>
+        <%= link_to t("view.course_search_show.#{course.tasting?(current_user) ? 'tasted' : 'taste'}"),
+                    live_studio.taste_course_path(course, student_id: params[:student_id]),
+                    id: "taste-course-#{course.id}", method: :post, remote: true,
+                    class: "btn btn-default operator-btn same-btn #{course.tasting?(current_user) ? 'disabled' : nil}" if flag %>
+        <%= link_to t("view.course_search_show.#{flag ? 'buy' : 'bought'}"), live_studio.new_course_order_path(course),
+                    id: "buy-course-#{course.id}", class: "btn btn-default operator-btn same-btn #{flag ? nil : 'disabled'}" %>
+      <% end %>
     <% end %>
-  </td>
-</tr>
+  <% end %>
+<% end %>
+
+<!--<tr>-->
+<!--<td><%= course_counter + 1 %></td>-->
+<!--<td><%= link_to course.name, live_studio.course_path(course) %></td>-->
+<!--<td><%= course.teacher_name %></td>-->
+<!--<td><%= course.short_description %></td>-->
+<!--<td><%= course.current_price %></td>-->
+<!--<td>-->
+<!--<% if(current_user.student?) %>-->
+  <!--<%= render partial: "student_operate", locals: {course: course}  %>-->
+  <!--<% elsif current_user.teacher? %>-->
+  <!--<%= render partial: "teacher_operate", locals: {course: course}  %>-->
+  <!--<% else %>-->
+  <!--<%= render partial: "manager_operate", locals: {course: course}  %>-->
+  <!--<% end %>-->
+<!--</td>-->
+<!--</tr>-->

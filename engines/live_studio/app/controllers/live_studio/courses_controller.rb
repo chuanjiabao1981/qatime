@@ -7,9 +7,9 @@ module LiveStudio
     before_action :play_authorize, only: [:play]
 
     def index
-      @courses = Course.for_sell.includes(:teacher).all
-      @tickets = @student.live_studio_tickets.where(course_id: @courses.map(&:id)) if @student.student?
-      render layout: "student_home"
+      @courses = Course.for_sell.includes(:teacher).paginate(page: params[:page], per_page: 5)
+      @tickets = @student.live_studio_tickets.where(course_id: @courses.map(&:id))
+      #render layout: "student_home"
     end
 
     # 开始招生

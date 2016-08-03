@@ -2,6 +2,13 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
+.font-small{
+  font-size: 12px;
+}
+strong{ font-size: 26px;}
+.same-btn{
+  width: 124px;
+}
 .panel-support{
   padding: 10px;
   float: left;
@@ -67,6 +74,16 @@
         height: 99px;
       }
     }
+    .publicize.support{
+      padding: 0;
+      img{
+        width: 280px;
+        height: 210px;
+      }
+    }
+    .course-content-div.support{
+      width: 60%;
+    }
     .course-content-div{
       float: inherit;
       width: 65%;
@@ -74,6 +91,11 @@
       .course-info-col{
         float: inherit;
         width: 100%;
+        .course-buy-count{
+          font-size: 12px;
+          color: #ccc;
+          float: right;
+        }
       }
       .course-name{
         font-size: 18px;
@@ -85,6 +107,9 @@
         float: inherit;
       }
     }
+    .course-operator-div.support{
+      width: 12%;
+    }
     .course-operator-div {
       float: inherit;
       word-wrap: break-word;
@@ -94,6 +119,9 @@
       .operator-btn{
         float: inherit;
         margin: 2px;
+      }
+      .operator-btn.support{
+        margin-bottom: 7em;
       }
       .course-buy-btn{
         display: table-cell;
@@ -217,7 +245,6 @@
     width: 50%;
     table{ margin-bottom: 10px;}
     table td{border: 0px;}
-    strong{ font-size: 26px;}
   }
 }
 
@@ -236,4 +263,25 @@
 }
 .over-lesson{
   color: #999;
+}
+
+
+/////
+.course-page {
+  float: left;
+  width: 100%;
+  padding: 10px;
+  .dropdown{
+    float: left;
+    width: 16%;
+    margin: 2px;
+    button{
+      width: 100%;
+    }
+  }
+  .filter-box{
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+  }
 }

@@ -17,6 +17,7 @@ cn:
       distance_text1: (距开课 %d天)
       distance_text2: 距离开课还有%d天
       nil_data: 暂无
+      teach_type: 授课方式：在线直播
     course_info_show:
       subject: 科目类型：
       grade: 年级类型：
@@ -41,6 +42,14 @@ cn:
       lesson_start_at: 上课时间
       lesson_name: 课程名称
       lesson_status: 课程状态
+    course_search_show:
+      buy_tickets_count: 已购人数：%d
+      current_status: 当前状态：
+      info: 了解更多信息
+      taste: 加入免费试听
+      buy: 立即购买支付
+      tasted: 已加入免费试听
+      bought: 已购买
   status:
     init: 初始化
     preview: 招生中

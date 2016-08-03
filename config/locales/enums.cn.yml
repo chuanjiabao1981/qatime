@@ -1,6 +1,6 @@
 cn:
   enums:
     user:
-      sex:
+      gender:
         male: 男
         female: 女

@@ -51,7 +51,7 @@ cn:
         state_event: 是否通过审核
       user:
         name: 姓名
-        sex: 性别
+        gender: 性别
         birthday: 生日
         address: 地区
         description: 简介

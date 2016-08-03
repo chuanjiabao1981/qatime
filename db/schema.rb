@@ -924,7 +924,7 @@ ActiveRecord::Schema.define(version: 20160728062656) do
     t.string   "type",                          limit: 100
     t.integer  "province_id"
     t.integer  "city_id"
-    t.integer  "sex",                                       default: 0
+    t.integer  "gender",                                    default: 0
     t.date     "birthday"
     t.text     "description"
   end

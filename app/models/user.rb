@@ -59,12 +59,12 @@ class User < ActiveRecord::Base
 
   has_many :login_tokens
 
-  SEX_HASH = {
+  GENDER_HASH = {
     male: 1, # 男
     female: 2, # 女
   }
 
-  enumerize :sex, in: SEX_HASH, i18n_scope: "enums.user.sex",
+  enumerize :gender, in: GENDER_HASH, i18n_scope: "enums.user.gender",
                       scope: true,
                       predicates: { prefix: true }
 

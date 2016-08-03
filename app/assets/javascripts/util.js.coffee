@@ -16,3 +16,9 @@
       str = $.replaceFaceEm(str)
       str = $.replaceBR(str)
 )(jQuery)
+
+jQuery ->
+  $("form").on "ajax:complete", ->
+    $(this).removeClass("submiting")
+
+

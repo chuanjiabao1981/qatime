@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessor :register_code_value,:tmp_register_code
-  attr_accessor :input_captcha, :input_email
+  attr_accessor :captcha
   attr_accessor :current_password
 
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: true
@@ -25,6 +25,9 @@ class User < ActiveRecord::Base
   validates_presence_of :grade, if: :student?
   validates :nick_name,allow_nil: true,allow_blank:true,uniqueness: true,
             format: {with: /\A[\p{Han}\p{Alnum}\-_]{3,10}\z/,message:"只可以是中文、英文或者下划线，最短3个字符最长10个字符，不可包含空格。"}
+  validates_confirmation_of :captcha
+
+  validates :captcha_confirmation, presence: true, length: { minimum: 4 }, if: :require_captcha_confirmation?, on: :update
   has_secure_password
 
   has_many :orders, class_name: ::Payment::Order
@@ -99,6 +102,10 @@ class User < ActiveRecord::Base
   def cash_account!
     return cash_account if cash_account.present?
     Payment::CashAccount.create(owner: self)
+  end
+
+  def require_captcha_confirmation?
+    email_changed? || mobile_changed? || parent_phone_changed?
   end
 
   def validate_email_captcha(session_email, attrs={})

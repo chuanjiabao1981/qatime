@@ -1558,7 +1558,7 @@
   name: 二年级上册
   subject: 语文
   category: 小学
-  grade: 一年级
+  grade: 二年级
   content:
     chapters:
       - 识字1
@@ -1574,7 +1574,7 @@
   name: 二年级下册
   subject: 语文
   category: 小学
-  grade: 一年级
+  grade: 二年级
   content:
     chapters:
       - 第一组
@@ -1590,7 +1590,7 @@
   name: 三年级上册
   subject: 语文
   category: 小学
-  grade: 一年级
+  grade: 三年级
   content:
     chapters:
       - 第一组
@@ -1606,7 +1606,7 @@
   name: 三年级下册
   subject: 语文
   category: 小学
-  grade: 一年级
+  grade: 三年级
   content:
     chapters:
       - 第一组
@@ -1622,7 +1622,7 @@
   name: 四年级上册
   subject: 语文
   category: 小学
-  grade: 一年级
+  grade: 四年级
   content:
     chapters:
       - 第一组
@@ -1638,7 +1638,7 @@
   name: 四年级下册
   subject: 语文
   category: 小学
-  grade: 一年级
+  grade: 四年级
   content:
     chapters:
       - 第一组
@@ -1654,7 +1654,7 @@
   name: 五年级上册
   subject: 语文
   category: 小学
-  grade: 一年级
+  grade: 五年级
   content:
     chapters:
       - 第一组
@@ -1670,7 +1670,7 @@
   name: 五年级下册
   subject: 语文
   category: 小学
-  grade: 一年级
+  grade: 五年级
   content:
     chapters:
       - 第一组
@@ -1686,7 +1686,7 @@
   name: 六年级上册
   subject: 语文
   category: 小学
-  grade: 一年级
+  grade: 六年级
   content:
     chapters:
       - 第一组
@@ -1702,7 +1702,7 @@
   name: 六年级下册
   subject: 语文
   category: 小学
-  grade: 一年级
+  grade: 六年级
   content:
     chapters:
       - 第一组

@@ -56,13 +56,6 @@
       <% end %>
     </li>
     <li>
-      <%= link_to teacher_questions_path(teacher_id: @teacher.id) do %>
-        <span class="fa fa-question"></span>
-        <span class="qa_f18"><%= t "view.teacher_bars.teacher_questions" %></span>&nbsp;&nbsp;
-        <span class="glyphicon glyphicon-chevron-right"></span>
-      <% end %>
-    </li>
-    <li>
       <%= link_to "##" do %>
         <span class="fa fa-film"></span>
         <span class="qa_f18"><%= t "view.teacher_bars.video_manage" %></span>&nbsp;&nbsp;
@@ -80,6 +73,20 @@
       <%= link_to course_library.teacher_syllabuses_path(@teacher) do %>
         <span class="fa fa-sitemap"></span>
         <span class="qa_f18"><%= t "view.teacher_bars.teacher_syllabuses" %></span>&nbsp;&nbsp;
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to customized_courses_teacher_path(@teacher) do %>
+        <span class="fa fa-info-circle"></span>
+        <span class="qa_f18"><%= t("view.common_bars.customized_courses") %></span>&nbsp;&nbsp;
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to teacher_questions_path(teacher_id: @teacher.id) do %>
+        <span class="fa fa-question"></span>
+        <span class="qa_f18"><%= t("view.common_bars.questions") %></span>&nbsp;&nbsp;
         <span class="glyphicon glyphicon-chevron-right"></span>
       <% end %>
     </li>

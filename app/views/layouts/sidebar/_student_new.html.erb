@@ -8,32 +8,37 @@
   <ul class="menu" style="color: white">
     <li>
       <%= link_to info_student_path(@student) do %>
-        <span class="fa fa-info-circle"></span> <span class="qa_f18"><%= t("view.common_bars.user_setting") %></span>
-        &nbsp;&nbsp;<span class="glyphicon <%= student_sidebar_nav_is?(:setting) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+        <span class="fa fa-info-circle"></span>
+        <span class="qa_f18"><%= t("view.common_bars.user_setting") %></span>&nbsp;&nbsp;
+        <span class="glyphicon <%= student_sidebar_nav_is?(:setting) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
     <li>
       <%= link_to payment.user_orders_path(@student,user_class: @student.type) do %>
-      <span class="glyphicon glyphicon-list"></span> <span class="qa_f18"><%= t("view.student_bars.my_orders") %></span>
-      &nbsp;&nbsp;<span class="glyphicon <%= student_sidebar_nav_is?(:orders) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+      <span class="glyphicon glyphicon-list"></span>
+      <span class="qa_f18"><%= t("view.student_bars.my_orders") %></span>&nbsp;&nbsp;
+      <span class="glyphicon <%= student_sidebar_nav_is?(:orders) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
     <li>
       <%= link_to live_studio.student_courses_path(@student) do %>
-      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"><%= t("view.student_bars.my_course") %></span>
-      &nbsp;&nbsp;<span class="glyphicon <%= student_sidebar_nav_is?(:courses) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      <span class="qa_f18"><%= t("view.student_bars.my_course") %></span>&nbsp;&nbsp;
+      <span class="glyphicon <%= student_sidebar_nav_is?(:courses) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
     <li>
       <%= link_to homeworks_student_path(@student) do %>
-      <span class="fa fa-book"></span> <span class="qa_f18"><%= t("view.student_bars.my_homework") %></span>
-      &nbsp;&nbsp;<span class="glyphicon <%= student_sidebar_nav_is?(:homeworks) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+      <span class="fa fa-book"></span>
+      <span class="qa_f18"><%= t("view.student_bars.my_homework") %></span>&nbsp;&nbsp;
+      <span class="glyphicon <%= student_sidebar_nav_is?(:homeworks) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
     <li>
       <%= link_to teachers_student_path(@student) do %>
-      <span class="fa fa-user-secret"></span> <span class="qa_f18"><%= t("view.student_bars.my_teachers") %></span>
-      &nbsp;&nbsp;<span class="glyphicon <%= student_sidebar_nav_is?(:teachers) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+      <span class="fa fa-user-secret"></span>
+      <span class="qa_f18"><%= t("view.student_bars.my_teachers") %></span>&nbsp;&nbsp;
+      <span class="glyphicon <%= student_sidebar_nav_is?(:teachers) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
     <li>
@@ -43,8 +48,22 @@
         <% if @student.unread_notifications_count >0 %>
         <span class="badge"><%= @student.unread_notifications_count%></span>
         <% end %>
-      </span>
-      &nbsp;&nbsp;<span class="glyphicon <%= student_sidebar_nav_is?(:notifications) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+      </span>&nbsp;&nbsp;
+      <span class="glyphicon <%= student_sidebar_nav_is?(:notifications) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to customized_courses_student_path(@student) do %>
+      <span class="fa fa-user-secret"></span>
+      <span class="qa_f18"><%= t("view.common_bars.customized_courses") %></span>&nbsp;&nbsp;
+      <span class="glyphicon glyphicon-chevron-right"></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to student_questions_path(student_id: @student.id) do %>
+        <span class="fa fa-question"></span>
+        <span class="qa_f18"><%= t("view.common_bars.questions") %></span>&nbsp;&nbsp;
+        <span class="glyphicon glyphicon-chevron-right"></span>
       <% end %>
     </li>
   </ul>

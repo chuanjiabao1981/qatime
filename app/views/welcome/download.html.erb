@@ -1,0 +1,32 @@
+<div class="qa_box">
+  <% Software.all.each do |software| %>
+    <div class="qa_big_cell">
+      <div class="row">
+        <div class="col-md-3">
+          <%= image_tag software.logo %>
+        </div>
+        <div class="col-md-7">
+          <p><b><%= software.title %></b>-<%= software.subtitle %></p>
+          <p><%= software.desc %></p>
+        </div>
+        <div class="col-md-2">
+          <%= image_tag software.qr_code %>
+        </div>
+      </div>
+      <div class="qa_sep_15"></div>
+      <div class="qa_sep_15"></div>
+    <% end %>
+
+  <!-- <div class="qa_big_cell">
+    <div class="row">
+      <div class="col-md-2">
+      </div>
+      <div class="col-md-7">
+        <p><b>"答疑时间"&nbsp;老师班&nbsp;app</b>-让辅导学员不再繁琐和低效</p>
+        <p>答疑时间老师班是一款为老师量身定做，帮助老师管理辅导班和课程，实时处理学生疑问，让老师活的巨大手艺，搞笑辩解的app产品</p>
+      </div>
+      <div class="col-md-2">
+      </div>
+    </div>
+  </div> -->
+</div>

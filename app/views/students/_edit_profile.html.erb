@@ -2,7 +2,7 @@
   <div style="padding-bottom:30px;">
     <%= image_tag @student.avatar_url(:ex_big) %>
   </div>
-  <p><button type="button" class="btn btn-default" data-toggle="modal" data-target="#edit_avatar">修改图片</button></p>
+  <p><button type="button" class="btn btn-default" data-toggle="modal" data-target="#edit_avatar"><%= t("students.edit_avatar_btn") %></button></p>
 </div>
 
 <!-- edit avatar Modal -->
@@ -11,7 +11,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">更换头像</h4>
+        <h4 class="modal-title" id="myModalLabel"><%= t("students.edit_avatar_title") %></h4>
       </div>
       <div class="modal-body">
         <div class="row">

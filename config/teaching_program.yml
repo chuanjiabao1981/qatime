@@ -1713,3 +1713,132 @@
       - 第六组
       - 古诗词背诵
       - 综合复习
+-
+  name: 一年级上册
+  subject: 科学
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 我们的生活与科技
+      - 学科学的"好帮手"
+      - 天气与生活
+      - 文具的科学
+      - 服装的科学
+-
+  name: 一年级下册
+  subject: 科学
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 工具的科学
+      - 周围的植物
+      - 饮食的科学
+-
+  name: 二年级上册
+  subject: 科学
+  category: 小学
+  grade: 二年级
+  content:
+    chapters:
+      - 观察动物
+      - 我们的家园
+      - 玩具
+-
+  name: 二年级下册
+  subject: 科学
+  category: 小学
+  grade: 二年级
+  content:
+    chapters:
+      - 交通工具
+      - 生活用具
+      - 石头、沙和水
+-
+  name: 三年级上册
+  subject: 科学
+  category: 小学
+  grade: 三年级
+  content:
+    chapters:
+      - 和动物交朋友
+      - 动物的生活
+      - 动物的本领
+      - 水和空气很重要
+-
+  name: 三年级下册
+  subject: 科学
+  category: 小学
+  grade: 三年级
+  content:
+    chapters:
+      - 天气与植物
+      - 植物的生长
+      - 植物生活的土地 
+      - 植物和我们
+-
+  name: 四年级上册
+  subject: 科学
+  category: 小学
+  grade: 四年级
+  content:
+    chapters:
+      - 考察前的准备
+      - 认识更多的生物
+      - 蓝色的地球
+      - 陪伴我们的日与月
+-
+  name: 四年级下册
+  subject: 科学
+  category: 小学
+  grade: 四年级
+  content:
+    chapters:
+      - 奇妙的光
+      - 各种各样的声音
+      - 离不开的电
+      - 神奇的电磁铁
+-
+  name: 五年级上册
+  subject: 科学
+  category: 小学
+  grade: 五年级
+  content:
+    chapters:
+      - 建筑与形状
+      - 建筑与材料
+      - 建筑与简单机械
+-
+  name: 五年级下册
+  subject: 科学
+  category: 小学
+  grade: 五年级
+  content:
+    chapters:
+      - 物质的变化
+      - 生长与变化
+      - 地表的变化
+      - 不平静的地球
+-
+  name: 六年级上册
+  subject: 科学
+  category: 小学
+  grade: 六年级
+  content:
+    chapters:
+      - 植物的生命系统
+      - 人体的奥秘
+      - 自然界里的水循环
+      - 日地月系统
+-
+  name: 六年级下册
+  subject: 科学
+  category: 小学
+  grade: 六年级
+  content:
+    chapters:
+      - 能量与生活
+      - 生物与环境
+      - 资源保护与环境危机
+      - 无限宇宙

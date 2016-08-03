@@ -1,103 +1,70 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <%=image_tag @teacher.avatar.big.url %>
+<%= content_for :breadcrumb do %>
+  <ol class="breadcrumb">
+    <li><%= link_to t("students.common.personal_center"),info_student_path(@teacher) %></li>
+  </ol>
+<% end %>
 
-    <span style="padding-left:10px" class="qa_f18">
-        <strong><%= @teacher.name %></strong>
-      </span>
-    <div class="pull-right">
-      <% if allow? "teachers", "edit" ,@teacher%>
-          <%=link_to edit_teacher_path(@teacher) do %>
-              <button type="button" class="btn btn-xs btn-success">编辑讲师</button>
-          <% end %>
-      <% end %>
-    </div>
+<div class="qa_box row">
+  <%= render "info_title" %>
 
+  <div class="col-md-4 text-center" style="vertical-align:middle;padding-top:55px">
+    <%=image_tag @teacher.avatar_url(:ex_big) %>
   </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:mobile)%></div>
-      <div class="col-md-9"><%= @teacher.mobile %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:nick_name)%></div>
-      <div class="col-md-9"><%= @teacher.nick_name %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px">学校</div>
-      <div class="col-md-9"><%= @teacher.school.name %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px">类型</div>
-      <div class="col-md-9"><%= @teacher.category %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px">科目</div>
-      <div class="col-md-9"><%= @teacher.subject %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px">邮件</div>
-      <div class="col-md-9"><%= @teacher.email %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px">简介</div>
-      <div class="col-md-10">
-        <%= @teacher.desc%>
+
+  <div class="col-md-8">
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:name)%></div>
+        <div class="col-md-9">
+          <%= @teacher.name %>
+          <div class="pull-right">
+            <% if allow? "teachers", "edit" ,@teacher%>
+              <%=link_to edit_teacher_path(@teacher, cate: :edit_profile, by: :profile) do %>
+                <button type="button" class="btn btn-xs btn-success">编辑讲师</button>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= Account.human_attribute_name(:money) %></div>
-      <div class="col-md-9">
-        <%= format("%.2f",@teacher.account.money) %>元
-        <% if allow? :withdraws,:new ,@teacher.account%>
-            <%= link_to new_account_withdraw_path(@teacher.account) do %>
-                <span><%= Withdraw.model_name.human %></span>
-            <% end %>
-        <% end %>
-        <% if allow? :teachers,:keep_account ,@teacher%>
-            <%= link_to keep_account_teacher_path(@teacher) do %>
-                <span><%= Account.human_attribute_name(:keep_account)%></span>
-            <% end %>
-        <% end %>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:gender)%></div>
+        <div class="col-md-9"><%= @teacher.gender_text %></div>
       </div>
     </div>
-  </div>
-
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= Account.human_attribute_name(:total_income) %></div>
-      <div class="col-md-9">
-        <%= format("%.2f",@teacher.account.total_income) %>元
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:grade)%></div>
+        <div class="col-md-9"><%= @teacher.grade %></div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:school)%></div>
+        <div class="col-md-9"><%= @teacher.school.name %></div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:birthday)%></div>
+        <div class="col-md-9"><%= @teacher.birthday %></div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:address)%></div>
+        <div class="col-md-9">
+          <%= @teacher.province.try(:name) %>&nbsp;
+          <%= @teacher.city.try(:name) %>
+        </div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:description)%></div>
+        <div class="col-md-9"><%= @teacher.description %></div>
       </div>
     </div>
   </div>
 </div>
-<div class="qa_sep_15"></div>
-<div class="qa_sep_15"></div>
-<div class="qa_sep_15"></div>
-
-<%= render layout: "account_operation_record_layout" do %>
-
-    <%if params[:fee].nil? %>
-        <%= render partial: 'withdraws/index',locals: {withdraws:@withdraws} %>
-    <% else %>
-        <%= render partial: 'shared/earning_records/index',locals:{earning_records: @earning_records} %>
-    <% end %>
-<% end %>
-
-
-

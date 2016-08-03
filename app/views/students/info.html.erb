@@ -19,7 +19,7 @@
           <%= @student.name %>
           <div class="pull-right">
             <% if allow? :students,:edit , @student %>
-              <%=link_to edit_student_path(@student, cate:  :edit_profile, by: :profile) do %>
+              <%=link_to edit_student_path(@student, cate: :edit_profile, by: :profile) do %>
                 <button type="button" class="btn btn-xs btn-success"><%= t(".edit_information") %></button>
               <% end %>
             <% end %>

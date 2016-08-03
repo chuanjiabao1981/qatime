@@ -3,6 +3,6 @@
 <% else %>
   <!-- TODO 国际化 -->
   $("#<%= params[:edit_type] %>-captcha-input").next().remove();
-  $("#<%= params[:edit_type] %>-captcha-input").parent().addClass("has-error").append('<span class="help-block has-error">与确认值不匹配</span>');
+  $("#<%= params[:edit_type] %>-captcha-input").parent().addClass("has-error").append('<span class="help-block has-error"><%= t("errors.messages.confirmation") %></span>');
 <% end -%>
 

@@ -9,6 +9,8 @@ cn:
       select: 选择
       save: 保存
       ok: 确定
+      get_captcha: 获取验证码
+      try_get_captcha_again: 秒后重试
     info:
       edit_information: 编辑信息
     security_setting:

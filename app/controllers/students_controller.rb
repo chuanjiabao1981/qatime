@@ -7,7 +7,6 @@ class StudentsController < ApplicationController
 
   def index
     @students = Student.all.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-
   end
 
   def new
@@ -103,7 +102,7 @@ class StudentsController < ApplicationController
   def update
     update_by = params[:by]
     if @student.update(update_params(update_by))
-      redirect_to edit_student_path(@student, cat: params[:cat]), notice: t("flash.notice.update_success")
+      redirect_to edit_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
     else
       render :edit, layout: "student_home_new"
     end
@@ -132,10 +131,10 @@ class StudentsController < ApplicationController
       session[:edit_email] = nil
 
       if @student.update(email: params[:student][:input_email])
-        if params[:cat].to_s.to_sym == :edit_profile
+        if params[:cate].to_s.to_sym == :edit_profile
           redirect_to info_student_path(@student), notice: t("flash.notice.update_success")
-        elsif params[:cat].to_s.to_sym == :security_setting
-          redirect_to edit_student_path(@student, cat: params[:cat]), notice: t("flash.notice.update_success")
+        elsif params[:cate].to_s.to_sym == :security_setting
+          redirect_to edit_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
         end
       else
         render :edit, layout: "student_home_new"

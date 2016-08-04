@@ -17,6 +17,8 @@ cn:
       distance_text1: (距开课 %d天)
       distance_text2: 距离开课还有%d天
       nil_data: 暂无
+      preview_lesson: 课程还未开始
+      complete_lesson: 全部课程已完成
       teach_type: 授课方式：在线直播
     course_info_show:
       subject: 科目类型：

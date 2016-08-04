@@ -9,11 +9,11 @@ module LiveStudio
     USER_STATUS_TASTED = :tasted # 已经试听
 
     enum status: {
-           init: 0, # 初始化
-           preview: 1, # 招生中
-           teaching: 2, # 已开课
-           completed: 3 # 已结束
-         }
+      init: 0, # 初始化
+      preview: 1, # 招生中
+      teaching: 2, # 已开课
+      completed: 3 # 已结束
+    }
 
     validates :name, :price, :subject, :grade, presence: true
     validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than: 0, less_than: 100 }
@@ -162,19 +162,26 @@ module LiveStudio
     end
 
     def current_lesson_name
-      current_lesson.try(:name) || I18n.t('view.course_show.nil_data')
+      case status.to_s
+        when 'preview'
+          I18n.t('view.course_show.preview_lesson')
+        when 'teaching'
+          current_lesson.try(:name)
+        when 'completed'
+          I18n.t('view.course_show.complete_lesson')
+      end || I18n.t('view.course_show.nil_data')
     end
 
     def live_start_time
       lesson = lessons.order('class_date asc,id').first
       lesson.try(:live_start_at).try(:strftime,'%Y-%m-%d %H:%M') ||
-          "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:start_time)}"
+        "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:start_time)}"
     end
 
     def live_end_time
       lesson = lessons.order('class_date asc,id').last
       lesson.try(:live_end_at).try(:strftime,'%Y-%m-%d %H:%M') ||
-          "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:end_time)}"
+        "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:end_time)}"
     end
 
     private

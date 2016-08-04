@@ -37,9 +37,10 @@
       <%= content_tag(:div, link_to('Buy', new_course_order_path(course), id: "buy-course-#{course.id}",class: 'btn btn-default'),
                       class: 'course-buy-btn') if ticket.taste? && current_user == @student%>
       <%= content_tag(:div, class: 'course-operator-btn') do %>
-        <%= content_tag(:a, t('view.course_show.info'),href: student_course_path(@student,course), class: 'btn btn-default operator-btn') %>
-        <%= content_tag(:a, t('view.course_show.lessons'),href: student_course_path(@student,course), class: 'btn btn-default operator-btn') %>
-        <%= content_tag(:a, t('view.course_show.study_link'),href: play_course_path(course), class: 'btn btn-default operator-btn') %>
+        <%= link_to t('view.course_show.info'),student_course_path(@student,course), class: 'btn btn-default operator-btn' %>
+        <%= link_to t('view.course_show.lessons'),student_course_path(@student,course,index: 'list'), class: 'btn btn-default operator-btn' %>
+        <%= link_to t('view.course_show.study_link'), play_course_path(course),
+                    class: "btn btn-default operator-btn #{course.lessons.blank? || course.completed? ? 'disabled' : nil}" %>
       <% end %>
     <% end %>
   <% end %>

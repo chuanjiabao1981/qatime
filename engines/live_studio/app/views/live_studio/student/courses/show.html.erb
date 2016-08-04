@@ -41,7 +41,7 @@
       </div>
     <% end %>
     <%= content_tag(:div,class: 'course-play-btn') do%>
-      <%= link_to(play_course_path(@course),class: 'btn btn-default') do %>
+      <%= link_to(play_course_path(@course),class: "btn btn-default #{@course.lessons.blank? || @course.completed? ? 'disabled' : nil}") do %>
         <span class="glyphicon glyphicon-play"></span>
       <% end %>
     <% end if @ticket.authorizable? %>

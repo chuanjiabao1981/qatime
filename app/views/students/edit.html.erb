@@ -6,6 +6,9 @@
 
 <div class="qa_box row">
   <%= render "info_title" %>
-
-  <%= render params[:cate] %>
+  <% if params[:cate] == "security_setting" %>
+    <%= render "security_setting" %>
+  <% else %>
+    <%= render "edit_profile" %>
+  <% end %>
 </div>

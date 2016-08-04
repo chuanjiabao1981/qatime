@@ -133,8 +133,6 @@ Qatime::Application.routes.draw do
       get 'homeworks'
       get 'solutions'
       get 'notifications'
-      post 'email_captcha_for_change_email'
-      post 'validate_password'
     end
     resources :customized_courses do
       member do

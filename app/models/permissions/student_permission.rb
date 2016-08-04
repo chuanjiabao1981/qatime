@@ -57,9 +57,7 @@ module Permissions
       allow :students,[:show,:edit,:update,:info,:teachers,
                        :questions,:topics,:customized_courses,
                        :customized_tutorial_topics,:homeworks,:solutions,
-                       :notifications, :auth_user_for_change_email,
-                       :email_captcha_for_change_email,
-                       :validate_password] do |student|
+                       :notifications] do |student|
         student and student.id == user.id
       end
       allow :customized_courses,[:show,:topics,:homeworks,:solutions,:action_records] do |customized_course|

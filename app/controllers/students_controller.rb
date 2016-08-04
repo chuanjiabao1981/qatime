@@ -54,12 +54,6 @@ class StudentsController < ApplicationController
     render layout: 'student_home_new'
   end
 
-  # def security_setting
-  #   session[:binding_email] = nil unless session[:binding_email] && params[:binding_email] == 'y'
-
-  #   render layout: 'student_home_new'
-  # end
-
   def questions
     @questions = Question.all.where("student_id=?",@student.id).
         includes({learning_plan: :teachers},:vip_class,:student).
@@ -126,40 +120,6 @@ class StudentsController < ApplicationController
     respond_with @student
   end
 
-  def email_captcha_for_change_email
-    captcha_key = "captcha-#{params[:student][:input_email]}"
-
-    @result = UserService::CaptchaManager.verify(session[captcha_key], params[:student][:input_captcha])
-    if @result
-      session[captcha_key] = nil
-      session[:edit_email] = nil
-
-      if @student.update(email: params[:student][:input_email])
-        if params[:cate].to_s.to_sym == :edit_profile
-          redirect_to info_student_path(@student), notice: t("flash.notice.update_success")
-        elsif params[:cate].to_s.to_sym == :security_setting
-          redirect_to edit_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
-        end
-      else
-        render :edit, layout: "student_home_new"
-      end
-    else
-      render :edit, layout: "student_home_new"
-    end
-  end
-
-  def validate_password
-    if @student && @student.authenticate(params['password'])
-      respond_to do |format|
-        format.json { render json: {status: 1} }
-      end
-    else
-      respond_to do |format|
-        format.json { render json: {status: 0} }
-      end
-    end
-  end
-
   private
 
   def current_resource
@@ -179,7 +139,7 @@ class StudentsController < ApplicationController
   end
 
   def parent_phone_params
-    params.require(:student).permit(:parent_phone, :captcha_confirmation)
+    params.require(:student).permit(:current_password, :parent_phone, :captcha_confirmation)
   end
 
   def profile_params
@@ -239,7 +199,6 @@ class StudentsController < ApplicationController
     captcha_key = "captcha-#{update_params(update_by)[update_by.to_sym]}"
     @student.captcha = UserService::CaptchaManager.captcha_of(session[captcha_key])
   end
-
 
   def update_by
     @update_by ||= params[:by]

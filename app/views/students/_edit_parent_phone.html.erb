@@ -13,7 +13,7 @@
           <%= t ".binding_parent_phone" %>:
         </div>
         <div class="col-md-3">
-          <%= @student.parent_phone %>
+          <%= @student.parent_phone_was %>
         </div>
       </div>
       <div class="row" >
@@ -21,7 +21,7 @@
           当前登录密码:
         </div>
         <div class="col-md-3">
-          <%= f.input :current_password, label: false, html: { onBlur: "textBlur()" } %>
+          <%= f.input :current_password, label: false %>
         </div>
         <div class="col-md-2 error_input" style="color: red;">
         </div>
@@ -31,7 +31,8 @@
           <%= t ".binding_parent_phone" %>:
         </div>
         <div class="col-md-3">
-          <%= f.input :parent_phone, label: false, input_html: { maxlength: 11, value: "" } %>
+          <% _input_html = action_name == "edit" ?  { maxlength: 11, value: "" } : { length: 11 } %>
+          <%= f.input :parent_phone, label: false, input_html: _input_html %>
         </div>
       </div>
       <div class="row" >
@@ -54,5 +55,3 @@
       </div>
     <% end %>
 </div>
-
-

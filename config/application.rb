@@ -37,7 +37,15 @@ module Qatime
 
     config.active_job.queue_adapter = :sidekiq
 
-
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address: APP_CONFIG[:emial_address],
+      port: "25",
+      domain: "qatime.cn",
+      user_name: APP_CONFIG[:emial_username],
+      password: APP_CONFIG[:emial_password],
+      authentication: "login"
+    }
     # config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
     # config.autoload_paths += Dir[Rails.root.join('app', 'apis', '*')]
 

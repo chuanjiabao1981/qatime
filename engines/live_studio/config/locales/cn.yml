@@ -136,6 +136,8 @@ cn:
         finished: 待结算
         billing: 已结算
         completed: 已结算
+        paused: 暂停中
+        closed: 已结束
         student:
           init: 未开课
           ready: 等待直播

@@ -2,7 +2,7 @@
   <%= content_tag(:div, class: 'course-header-div') do%>
     <%= content_tag(:div, t("activerecord.models.live_studio/course"), class: 'title') %>
     <%= content_tag(:div, class: 'search-link') do %>
-      <%= content_tag(:a, href: student_courses_path(@student)) do %>
+      <%= content_tag(:a, href: student_courses_path(current_user)) do %>
         <%= t('activerecord.view.course') %>
       <% end %>
     <% end %>

@@ -150,8 +150,8 @@ module LiveStudio
     end
 
     def is_over?
-      # todo 判断课程是否已经结束
-      true
+      # 判断课程是否已经结束
+      %w(closed finished billing completed).include?(status)
     end
 
     private

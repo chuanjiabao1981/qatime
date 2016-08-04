@@ -8,7 +8,7 @@ module LiveStudio
 
     def index
       @courses = LiveService::CourseDirector.courses_search(search_params).paginate(page: params[:page], per_page: 5)
-      @tickets = @student.live_studio_tickets.where(course_id: @courses.map(&:id))
+      @tickets = @student.live_studio_tickets.where(course_id: @courses.map(&:id)) if @student
     end
 
     # 开始招生
@@ -71,7 +71,7 @@ module LiveStudio
     end
 
     def set_student
-      @student = ::Student.find_by(id: params[:student_id]) || current_user
+      @student = ::Student.find_by(id: params[:student_id]) #|| current_user
     end
 
     def current_resource

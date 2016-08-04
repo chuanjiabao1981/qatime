@@ -13,7 +13,7 @@
       <td><%= i+1 %></td>
       <td>
         <%= lesson.class_date %>
-        <%= lesson.live_start_at || lesson.start_time %>
+        <%= lesson.live_start_at.try(:strftime, '%H:%M') || lesson.start_time %>-<%= lesson.live_end_at.try(:strftime, '%H:%M') || lesson.end_time %>
       </td>
       <td><%= lesson.name %></td>
       <td><%= lesson.status_text %></td>

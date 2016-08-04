@@ -51,7 +51,7 @@
 .font-small{
   font-size: 12px;
 }
-strong{ font-size: 26px;}
+.course-box-div strong{ font-size: 26px;}
 .same-btn{
   width: 124px;
 }
@@ -246,6 +246,14 @@ strong{ font-size: 26px;}
       div{
       display: inline-block;
       margin-right: 20px;
+    }
+  }
+  .course-taste-btn{
+    float:right;
+    margin: 0 10px;
+    .btn-default{
+      padding: 2px;
+      font-size: 12px;
     }
   }
   .course-buy-btn{

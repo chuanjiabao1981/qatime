@@ -100,19 +100,7 @@ class StudentsController < ApplicationController
   end
 
   def update
-    update_by = params[:by]
-    send_to = case update_by
-                  when 'email'
-                    # 修改邮箱第一步验证用户手机
-                    @student.mobile
-                  when 'mobile'
-                    # 修改手机第一步验证用户现在的手机
-                    @student.mobile
-                  when 'parent_phone'
-                    # 修改家长手机第一步验证用户现在的家长手机
-                    @student.parent_phone
-                  end
-    if @student.update(update_params(update_by))
+    if excute_update(update_by)
       if params[:cate] == "edit_profile"
         redirect_to info_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
       else
@@ -206,6 +194,13 @@ class StudentsController < ApplicationController
     send("#{update_by}_params")
   end
 
+  # 根据跟新内容判断是否需要密码更新
+  def excute_update(update_by)
+    update_params = update_params(update_by)
+    return @student.update_with_password(update_params) if %w(password parent_phone).include?(update_by)
+    @student.update(update_params)
+  end
+
   # 第一步验证成功以后会设置第一步对应的session
   # 用户修改个人信息根据需要检查是否存在第一步生成的session
   def require_step_one_session
@@ -243,5 +238,21 @@ class StudentsController < ApplicationController
     return true if %w(email mobile parent_phone).exclude?(update_by)
     captcha_key = "captcha-#{update_params(update_by)[update_by.to_sym]}"
     @student.captcha = UserService::CaptchaManager.captcha_of(session[captcha_key])
+  end
+
+
+  def update_by
+    @update_by ||= params[:by]
+  end
+
+  def send_to
+    @send_to ||= case update_by
+                 when 'email'
+                   # 修改邮箱第一步验证用户手机
+                   @student.mobile
+                 when 'mobile'
+                   # 修改手机第一步验证用户现在的手机
+                   @student.mobile
+                 end
   end
 end

@@ -39,6 +39,19 @@ class Teacher < User
   scope :by_school,  lambda {|s| where(school_id: s) if s}
   scope :by_vip_class, lambda{|vip_class| includes(:school).order("schools.name desc").by_subject(vip_class.subject).by_category(vip_class.category) }
 
+  TEACHING_YEARS_HASH = {
+    within_three_years: 3,
+    within_ten_years: 10,
+    within_twenty_years: 20,
+    more_than_twenty_years: 21
+  }
+
+  enumerize :teaching_years, in: TEACHING_YEARS_HASH,
+                      i18n_scope: "enums.teacher.teaching_years",
+                      default: :within_three_years,
+                      scope: true,
+                      predicates: { prefix: true }
+
   def initialize(attributes = {})
     super(attributes)
     self.role = "teacher"
@@ -65,5 +78,11 @@ class Teacher < User
         object.keep_account(self.id)
       end
     end
+  end
+
+  def grade_range_text
+    _grade_range = grade_range
+    _grade_range.delete("")
+    _grade_range.join(" ")
   end
 end

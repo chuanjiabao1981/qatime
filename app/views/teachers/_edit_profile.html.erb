@@ -90,6 +90,31 @@
     </div>
     <div class="qa_cell">
       <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:subject)%></div>
+        <div class="col-md-9">
+          <%= f.input :subject, label: false,  :collection => APP_CONSTANT["subjects"] %>
+        </div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:teaching_years)%></div>
+        <div class="col-md-9">
+          <%= f.input :teaching_years, label: false, as: :select %>
+        </div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:grade_range)%></div>
+        <div class="col-md-9">
+          <%= f.input :grade_range, collection: APP_CONSTANT["grades"][@teacher.category], label: false, as: :check_boxes %>
+        </div>
+      </div>
+    </div>
+
+    <div class="qa_cell">
+      <div class="row">
         <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:desc)%></div>
         <div class="col-md-9">
           <%= f.input :desc, label: false, as: :text %>

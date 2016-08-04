@@ -42,7 +42,11 @@ class TeachersController < ApplicationController
   def update
     update_by = params[:by]
     if @teacher.update(update_params(update_by))
-      redirect_to edit_teacher_path(@teacher, cate:  params[:cate]), notice: t("flash.notice.update_success")
+      if params[:cate] == "edit_profile"
+        redirect_to info_teacher_path(@teacher, cate:  params[:cate]), notice: t("flash.notice.update_success")
+      else
+        redirect_to edit_teacher_path(@teacher, cate:  params[:cate]), notice: t("flash.notice.update_success")
+      end
     else
       render :edit, layout: "teacher_home_new"
     end
@@ -161,7 +165,7 @@ class TeachersController < ApplicationController
   end
 
   def profile_params
-    params.require(:teacher).permit(:name, :gender, :birthday, :grade, :province_id, :city_id, :desc)
+    params.require(:teacher).permit(:name, :gender, :birthday, :province_id, :city_id, :subject, :teaching_years, :desc, grade_range: [])
   end
 
   def avatar_params

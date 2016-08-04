@@ -125,8 +125,9 @@ module V1
               params do
                 optional :page, type: Integer, desc: '当前页面'
                 optional :per_page, type: Integer, desc: '每页记录数'
+                optional :cate, type: String, desc: '分类 today: 今日; taste: 试听', values: %w(today taste)
+                optional :status, type: String, desc: '辅导班状态 preview: 待开课; teaching: 已开课; completed: 已结束', values: %w(preview teaching completed)
               end
-
               get do
                 courses = ::LiveStudio::Course.last(20)
                 present courses, with: Entities::LiveStudio::Course, type: :default

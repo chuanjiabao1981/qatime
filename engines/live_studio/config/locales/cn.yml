@@ -78,6 +78,8 @@ cn:
       subject: 科目：%s
       grade: 年级：%s
       next_live_time: 下次课时间：%s
+      price_unit: 价格(元)：%.2f
+      avg_price: 课均价(元)：%.2f
   status:
     init: 初始化
     preview: 招生中

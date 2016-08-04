@@ -1,0 +1,75 @@
+<div class="info-body">
+  <div class="info-publicize">
+    <%= image_tag @course.publicize_url(:info) %>
+  </div>
+  <div class="info-content">
+    <table class="table table-hover">
+      <tr>
+        <td><%= t('view.course_info_show.subject') %><%= @course.subject %></td>
+        <td><%= t('view.course_info_show.grade') %><%= @course.grade %></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= t('view.course_info_show.teacher') %><%= @course.teacher.name %>
+        </td>
+      </tr>
+      <tr>
+        <td><%= t('view.course_info_show.lesson_count') %><%= @course.preset_lesson_count %></td>
+        <td><%= t('view.course_info_show.schedule') %><%= "#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= t('view.course_info_show.surplus') %><%= @course.lesson_count_left %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= t('view.course_info_show.start_time') %><%= @course.live_start_time %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= t('view.course_info_show.end_time') %><%= @course.live_end_time %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= t('view.course_info_show.ticket_count') %><%= @course.buy_tickets_count %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= t('view.teacher_course.price_unit') % @course.price %>
+        </td>
+        <td>
+          <%= t('view.teacher_course.avg_price') % (@course.price / @course.preset_lesson_count) %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= t('view.teacher_course.teacher_percentage') % @course.teacher_percentage %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <div><%= Chat::Team.human_attribute_name(:announcement)%></div>
+          <div class="col-md-9" id="show_notice_area">
+            <%= @course.chat_team.announcement %>
+            <button type="button" class="btn btn-xs btn-success" id="edit_notice_btn">编辑</button>
+          </div>
+
+          <div class="col-md-9" id="edit_notice_area" style="display:none;">
+            <%= simple_form_for(@course.chat_team, url: update_notice_course_path(@course), html: {id: "edit_notice_form"}) do |f| %>
+              <%= f.input :announcement, label: false, as: :text, input_html: {size: "60x4"} %>
+            <% end %>
+            <button type="button" class="btn btn-xs btn-success" id="submit_notice_btn">完成</button>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="info-intro">
+    <div><%= t('view.course_info_show.desc') %></div>
+    <%= @course.description %>
+  </div>
+</div>

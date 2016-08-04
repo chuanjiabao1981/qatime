@@ -1,173 +1,76 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <span style="padding-left:10px" class="qa_f18">
-      <%= link_to LiveStudio::Course.model_name.human, teacher_courses_path(@teacher) %> &gt;
-      <strong><%= @course.name %></strong>
-    </span>
-    <div class="pull-right">
-      <%= allow_link_to({action: 'edit', url: edit_teacher_course_path(@teacher,@course),variable: @course}) do %>
-      <%# if allow? "live_studio/manager/courses", "edit", @course %>
-        <%#=link_to edit_manager_course_path(@course.workstation.manager,@course) do %>
-          <button type="button" class="btn btn-xs btn-success">
-            <%= t("activerecord.view.edit") %><%= @course.class.model_name.human %>
-          </button>
-        <% #end %>
-      <% end %>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:name)%></div>
-      <div class="col-md-9"><%= @course.name %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:teacher)%></div>
-      <div class="col-md-9"><%= @course.teacher_name %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:price)%></div>
-      <div class="col-md-9"><%= @course.price %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:description)%></div>
-      <div class="col-md-9"><%= @course.description %></div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:preset_lesson_count)%></div>
-      <div class="col-md-9">
-	<%= @course.completed_lesson_count %> / <%= @course.preset_lesson_count %>
-	<%= link_to t("activerecord.view.close_course"), close_teacher_course_path(@teacher,@course),
-	    id: "close-course", method: :patch, 'data-confirm' => t("activerecord.view.message.course_confirm_close") if  @course.ready_for_close? %>
-      </div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::Course.human_attribute_name(:status)%></div>
-      <div class="col-md-9" id="course-status">
-        <%= @course.status_text %>
-        <%= link_to t("activerecord.view.course_publish"), publish_course_path(@course), method: :patch, remote: true, 'data-confirm' => t("activerecord.view.message.course_confirm_publish") if @course.init? %>
-      </div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= LiveStudio::PushStream.human_attribute_name(:address)%></div>
-      <div class="col-md-9"><%= @course.push_stream.try(:address) %>
-        <%= link_to t("activerecord.view.sync_channel"), channel_teacher_course_path(@teacher,@course), method: :patch, remote: true, id: "sync_channel" unless @course.push_stream  %>
-      </div>
-    </div>
-  </div>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= t("activerecord.view.client_download") %></div>
-      <div class="col-md-9">
-	<span>1.0.0</span>
-        <%= link_to t("activerecord.view.download"), "http://qatime-production.oss-cn-beijing.aliyuncs.com/download/software/%E7%9B%B4%E6%92%AD%E5%AE%A2%E6%88%B7%E7%AB%AF.zip"  %>
-      </div>
-    </div>
-  </div>
-  <% if @course.chat_team.present? %>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-2" style="padding-left:40px"><%= Chat::Team.human_attribute_name(:announcement)%></div>
-      <div class="col-md-9" id="show_notice_area">
-        <%= @course.chat_team.announcement %>
-        <button type="button" class="btn btn-xs btn-success" id="edit_notice_btn">编辑</button>
-      </div>
-
-      <div class="col-md-9" id="edit_notice_area" style="display:none;">
-        <%= simple_form_for(@course.chat_team, url: update_notice_course_path(@course), html: {id: "edit_notice_form"}) do |f| %>
-          <%= f.input :announcement, label: false, as: :text, input_html: {size: "60x4"} %>
-        <% end %>
-        <button type="button" class="btn btn-xs btn-success" id="submit_notice_btn">完成</button>
-      </div>
-    </div>
-  </div>
-  <% end %>
-  <div class="qa_cell">
-    <div class="row">
-      <div class="col-md-9" style="padding-left:40px;">
-	<%= link_to t("activerecord.view.begin_watch_live_studio"), play_course_path(@course) %>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="qa_sep_15"></div>
-<div class="qa_sep_15"></div>
-<div class="qa_sep_15"></div>
-
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <span style="padding-left:10px" class="qa_f18">
-      <strong>课程列表</strong>
-      <%= allow_link_to({route: 'live_studio/teacher/lessons', action: 'new',
-                         url: new_teacher_lesson_path(@teacher,course_id: @course.id)}) do %>
-      <%#=link_to new_teacher_lesson_path(@teacher,course_id: @course.id) do %>
-        <button type="button" class="btn btn-xs btn-success">
-          <%= t("activerecord.view.create") %><%= LiveStudio::Lesson.model_name.human %>
-        </button>
-      <% end unless @course.completed? %>
-    </span>
-  </div>
-
-  <div>
-    <div class="row qa_big_cell">
-    <% %w(name se_time date status operate).each do |col| %>
-        <div class="col-md-2">
-          <%= t("activerecord.view.#{col}") %>
-        </div>
+<div class="qa_box panel panel-default panel-support">
+  <div class='course-header-div'>
+    <%= link_to LiveStudio::Course.model_name.human, teacher_courses_path(@teacher) %> &gt;
+    <strong><%= @course.name %></strong>
+    <%= content_tag(:div, class: 'search-link') do %>
+      <%= link_to t("activerecord.view.course_publish"), publish_course_path(@course), method: :patch, remote: true, 'data-confirm' => t("activerecord.view.message.course_confirm_publish") if @course.init? %>
     <% end %>
+  </div>
+  <div class="course-info-list">
+    <a href='#content_info' data-toggle="tab">
+      <div id="info_div" class="list-ceil <%= params[:index].blank? || params[:index] == 'info' ? ' active' : nil %>">
+        <%= t('view.course_show.info') %>
+      </div>
+    </a>
+    <a href='#lesson_list' data-toggle="tab">
+      <div id="list_div" class="list-ceil<%= params[:index] == 'list' ? ' active' : nil %>">
+        <%= t('view.course_show.lessons') %>
+      </div>
+    </a>
+  </div>
+  <div class="info-header">
+    <div class="info-name">
+      <strong><%= @course.name %></strong>
     </div>
-    <% @lessons.each do |lesson| -%>
-    <div class="row qa_big_cell" id="row-<%= lesson.id %>">
-      <div class="col-md-2">
-        <%= lesson.name %>
+    <%= content_tag :div, class: "info-subtitle #{params[:index] == 'list' ? 'hide' : nil}" do %>
+      <div class="info-status">
+        <%= t('view.course_show.status') %>
+        <%= @course.status_text %>
       </div>
-      <div class="col-md-2">
-        <%= lesson.start_time %> - <%= lesson.end_time %>
+      <div class="info-preview">
+        <%= preview_time(@course,{text2: true}) %>
       </div>
-      <div class="col-md-2">
-        <%= lesson.class_date %>
+      <div>
+        <%= "#{t('view.course_info_show.ticket_count')}#{@course.buy_tickets_count}" %>
       </div>
-      <div class="col-md-2 status">
-        <%= lesson.status_text %>
+    <% end %>
+    <%= content_tag :div, class: "info-list-subtitle #{params[:index] == 'list' ? nil : 'hide'}" do %>
+      <div>
+        <%= t('view.course_info_show.lesson_plan') % [@course.live_start_time ,@course.live_end_time] %>
       </div>
-      <div class="col-md-2">
-        <%= allow_link_to({route: 'live_studio/teacher/lessons', action: 'edit', url:
-            edit_teacher_lesson_path(@teacher,lesson,course_id: @course)}){t('activerecord.view.edit')} unless lesson.has_finished?%>
-        <%#= link_to t('activerecord.view.edit'), edit_teacher_lesson_path(@teacher,lesson,course_id: @course) unless lesson.has_finished? %>
-        <%= link_to t("activerecord.view.delete"), teacher_lesson_path(@teacher,lesson,course_id: @course), method: :delete,
-            confirm: t('activerecord.view.message.confirm') if lesson.init? && @course.init? %>
-
-        <% if lesson.ready_for? -%>
-          <%= link_to t("activerecord.view.lesson_ready"), ready_teacher_lesson_path(@teacher,lesson,course_id: @course), class: 'ready', method: :patch %>
-        <% elsif lesson.ready? -%>
-          <%= link_to t("activerecord.view.begin_live_studio"), begin_live_studio_teacher_lesson_path(@teacher,lesson,course_id: @course), class: 'live', method: :patch %>
-        <% elsif lesson.teaching? -%>
-          <%= link_to t("activerecord.view.end_live_studio"), end_live_studio_teacher_lesson_path(@teacher,lesson,course_id: @course), class: 'finish', method: :patch %>
-        <% elsif lesson.finished? %>
-          <%= link_to t("activerecord.view.lesson_completed"), complete_teacher_lesson_path(@teacher,lesson,course_id: @course), class: 'complete', method: :patch %>
-        <% end%>
+      <div>
+        <%= "#{t('view.course_info_show.schedule')}#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>
       </div>
+    <% end %>
+    <%= allow_link_to({action: 'edit', url: edit_teacher_course_path(@teacher,@course),variable: @course,
+                       sub: {class: 'course-buy-btn'}}) do %>
+        <%= t("activerecord.view.edit") %><%= @course.class.model_name.human %>
+    <% end %>
+  </div>
+  <div class="tab-content">
+    <div id="content_info" class="tab-pane fade<%= params[:index].blank? || params[:index] == 'info' ? ' in active' : nil %>">
+      <%= render 'course_info' %>
     </div>
-    <% end -%>
-
-    <div class="qa_big_cell">
-      <%= will_paginate @lessons %>
+    <div id="lesson_list" class="tab-pane fade<%= params[:index] == 'list' ? ' in active' : nil %>">
+      <%= render '/live_studio/student/courses/lesson' %>
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
+<script>
+  $(function() {
+    $('.list-ceil').click(function(event){
+      $('.list-ceil').removeClass('active');
+      $(this).addClass('active');
+      if($(this).attr('id') == 'info_div'){
+        $('.info-list-subtitle').addClass('hide');
+        $('.info-subtitle').removeClass('hide');
+      }
+      if($(this).attr('id') == 'list_div'){
+        $('.info-list-subtitle').removeClass('hide');
+        $('.info-subtitle').addClass('hide');
+      }
+    });
+  });
   $(document).ready(function(){
     $("#edit_notice_btn").click(function(event){
       $("#show_notice_area").hide()

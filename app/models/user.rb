@@ -19,7 +19,6 @@ class User < ActiveRecord::Base
   validates :mobile,numericality: { only_integer: true },if: :teacher_or_student?
 
   validates :school ,presence: true,if: :teacher?
-  validates :password, length: { minimum: 6 },:on => :create
   validates :password, length: { minimum: 6 }, if: :update_password?
   validates :grade, inclusion: { in: APP_CONSTANT["grades_in_menu"]},if: :student?
   validates_presence_of :grade, if: :student?
@@ -131,6 +130,21 @@ class User < ActiveRecord::Base
     return true
   end
 
+  # 使用密码更新数据，更新前验证当前密码
+  def update_with_password(params, *options)
+    current_password = params.delete(:current_password)
+    result = if authenticate(current_password)
+               update_attributes(params, *options)
+             else
+               assign_attributes(params, *options)
+               valid?
+               errors.add(:current_password, current_password.blank? ? :blank : :invalid)
+               false
+             end
+    self.password = self.password_confirmation = nil
+    result
+  end
+
   private
 
   def register_code_valid
@@ -167,7 +181,6 @@ class User < ActiveRecord::Base
   end
 
   def update_password?
-    current_password.present?
+    !password.nil?
   end
-
 end

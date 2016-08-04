@@ -100,8 +100,7 @@ class StudentsController < ApplicationController
   end
 
   def update
-    update_by = params[:by]
-    if @student.update(update_params(update_by))
+    if excute_update(params[:update_by])
       redirect_to edit_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
     else
       render :edit, layout: "student_home_new"
@@ -188,6 +187,13 @@ class StudentsController < ApplicationController
 
   def update_params(update_by)
     send("#{update_by}_params")
+  end
+
+  # 根据跟新内容判断是否需要密码更新
+  def excute_update(update_by)
+    update_params = update_params(update_by)
+    return @student.update_with_password(update_params) if %w(password parent_phone).include?(update_by)
+    @student.update(update_params)
   end
 
   # 第一步验证成功以后会设置第一步对应的session

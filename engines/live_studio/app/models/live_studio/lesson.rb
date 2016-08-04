@@ -15,12 +15,14 @@ module LiveStudio
     }
 
     # default_scope { order("id asc") }
-    scope :unfinish, -> { where("status < ?", Lesson.statuses[:finished]) }
-    scope :unclosed, -> { where('status < ?', Lesson.statuses[:closed]) }
-    scope :should_complete, -> { where(status: [statuses[:finished], statuses[:billing]]).where("class_date > ?", Date.yesterday)}
+    scope :unfinish, -> { where("status < ?", Lesson.statuses[:finished]) } # 未完成的课程
+    scope :unclosed, -> { where('status < ?', Lesson.statuses[:closed]) } # 未关闭的课程
+    scope :unstart, -> { where('status < ?', Lesson.statuses[:teaching]) } # 未开始的课程
+    scope :should_complete, -> { where(status: [statuses[:finished], statuses[:billing]]).where("class_date > ?", Date.yesterday)} # 可以completed的课程
     scope :teached, -> { where("status > ?", Lesson.statuses[:teaching]) } # 已经完成上课
     scope :today, -> { where(class_date: Date.today) }
     scope :since_today, -> {where('class_date > ?',Date.today)}
+    scope :include_today, -> {where('class_date >= ?',Date.today)}
     scope :waiting_finish, -> { where(status: [statuses[:paused], statuses[:closed]])}
 
     belongs_to :course

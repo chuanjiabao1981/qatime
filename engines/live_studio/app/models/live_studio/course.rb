@@ -85,6 +85,11 @@ module LiveStudio
       lesson_price * (preset_lesson_count - completed_lesson_count)
     end
 
+    def live_next_time
+      lesson = lessons.include_today.unstart.first
+      lesson && "#{lesson.class_date} #{lesson.start_time}-#{lesson.end_time}" || I18n.t('view.course_show.nil_data')
+    end
+
     # 发货
     def deliver(order)
       taste_tickets.where(student_id: order.user_id).available.map(&:replaced!) # 替换正在使用的试听券

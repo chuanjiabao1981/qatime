@@ -71,6 +71,13 @@ cn:
       pay: 支付
       weixin_tips_text1: 请使用微信扫一扫
       weixin_tips_text2: 扫描二维码支付
+    teacher_course:
+      price: 价格：%.2f￥
+      teacher_percentage: 分成比例：%d%
+      buy_tickets_count: 已购人数：%d
+      subject: 科目：%s
+      grade: 年级：%s
+      next_live_time: 下次课时间：%s
   status:
     init: 初始化
     preview: 招生中
@@ -163,6 +170,7 @@ cn:
         teaching: 开课中
         completed: 已结束
         tasted: 试听
+        init: 未开始
       category: 类型
       teacher: 辅导老师
       subject: 科目

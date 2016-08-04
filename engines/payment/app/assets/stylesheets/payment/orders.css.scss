@@ -1,0 +1,27 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+.payment-header{
+  font-size: 16px;
+  border-bottom: #cccccc 1px solid;
+  div{
+    float: right;
+  }
+}
+.payment-body{
+  float: left;
+  width: 100%;
+  padding: 20px 20%;
+  .qrcode-div,.tips-div{
+    float: inherit;
+    width: 50%;
+    div{
+      text-align: center;
+      font-size: 14px;
+      color: #BBBBBB;
+    }
+  }
+  #wechat_qrcode{ width: 260px;}
+  #pay_tips_img{ width: 200px;}
+}

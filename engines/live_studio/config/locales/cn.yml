@@ -66,6 +66,11 @@ cn:
       lesson_count: 课时总数
       class_date: 开课日期
       status: 当前状态
+    payment_show:
+      weixin_pay: 微信支付
+      pay: 支付
+      weixin_tips_text1: 请使用微信扫一扫
+      weixin_tips_text2: 扫描二维码支付
   status:
     init: 初始化
     preview: 招生中

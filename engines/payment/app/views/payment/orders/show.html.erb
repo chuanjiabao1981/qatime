@@ -1,17 +1,41 @@
 <div class="panel panel-default">
-  <div class="panel-heading">支付</div>
   <div class="panel-body">
     <%= hidden_field_tag :order_no, params[:id] %>
 
-    <div class="qa_big_cell">
-      <div>订单号：<%= @order.order_no %></div>
-      <div>产品名称：<%= @order.product.name %></div>
-      <div>支付金额：<%= @order.total_money %> 元</div>
+    <div class="payment-header">
+      <%= t('view.payment_show.weixin_pay') %>
+      <div>
+        <%= t('view.payment_show.pay') %>￥<%= @order.total_money %>
+      </div>
     </div>
-    <div class="qa_big_cell text-center">
-      <%= image_tag(@order.qrcode_url, id: 'wechat_qrcode') %>
-      <div>微信二维码 扫一扫支付</div>
+    <div class="payment-body">
+      <div class="qrcode-div">
+        <div>
+          <%= image_tag(@order.qrcode_url, id: 'wechat_qrcode') %>
+        </div>
+        <div>
+          <%= t('view.payment_show.weixin_tips_text1') %>
+        </div>
+        <div>
+          <%= t('view.payment_show.weixin_tips_text2') %>
+        </div>
+      </div>
+      <div class="tips-div">
+        <div>
+          <%= image_tag('/imgs/pay_tips.png', id: 'pay_tips_img') %>
+        </div>
+      </div>
     </div>
+
+    <!--<div class="qa_big_cell">-->
+    <!--<div>订单号：<%= @order.order_no %></div>-->
+    <!--<div>产品名称：<%= @order.product.name %></div>-->
+    <!--<div>支付金额：<%= @order.total_money %> 元</div>-->
+    <!--</div>-->
+    <!--<div class="qa_big_cell text-center">-->
+    <!--<%= image_tag(@order.qrcode_url, id: 'wechat_qrcode') %>-->
+    <!--<div>微信二维码 扫一扫支付</div>-->
+    <!--</div>-->
   </div>
 </div>
 

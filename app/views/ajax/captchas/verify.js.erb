@@ -1,5 +1,9 @@
 <% if @result -%>
-  location.href = "<%= raw edit_student_path(@student, cate: params[:cate], by: params[:by]) -%>";
+  <% if @student %>
+    location.href = "<%= raw edit_student_path(@student, cate: params[:cate], by: params[:by]) -%>";
+  <% elsif @teacher %>
+    location.href = "<%= raw edit_teacher_path(@teacher, cate: params[:cate], by: params[:by]) -%>";
+  <% end %>
 <% else %>
   <!-- TODO 国际化 -->
   $("#<%= params[:by] %>-captcha-input").next().remove();

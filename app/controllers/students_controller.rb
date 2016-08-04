@@ -167,7 +167,6 @@ class StudentsController < ApplicationController
     update_by = params[:by]
     return true if %w(email mobile).exclude?(update_by) || @step_one_session
     # 没有第一步的session跳转到编辑页面
-    # TODO 国际化
     redirect_to edit_student_path(@student, by: params[:by], cate: params[:cate]), alert: t("flash.alert.please_verify_step_one_#{update_by}")
   end
 

@@ -4,7 +4,6 @@ class Ajax::CaptchasController < ApplicationController
     # Util.random_code
     code = UserService::CaptchaManager.instance_and_notice(params[:send_type], params[:send_to])
     captcha_key = "captcha-#{params[:send_to]}"
-
     session[captcha_key] = { send_to: params[:send_to], captcha: code, expire_at: 5.minutes.since.to_i }
 
     respond_to do |format|
@@ -13,7 +12,11 @@ class Ajax::CaptchasController < ApplicationController
   end
 
   def verify
-    @student = Student.find(params[:student_id])
+    if params[:student_id]
+      @student = Student.find(params[:student_id])
+    else
+      @teacher = Teacher.find(params[:teacher_id])
+    end
     by = params[:by]
     send_to = params[:send_to]
     captcha_key = "captcha-#{send_to}"

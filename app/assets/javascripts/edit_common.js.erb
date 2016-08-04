@@ -5,12 +5,6 @@ $(document).ready(function(){
     $edit_area.show();
   });
 
-  $('button[data-edit-area2]').on('click',function(event){
-    var $node = $(event.target)
-    var edit_area = $($node.data('edit-area2'))
-    window.location.href= edit_area
-  });
-
   $("button[data-form-reset").on('click',function(event){
     var $node = $(event.target)
     var $form = $node.data('form-el')
@@ -33,12 +27,11 @@ $(document).ready(function(){
   $("button[data-form-submit]").on('click',function(event){
     var $node = $(event.target)
     var $form = $node.data('form-el')
-    console.log(111)
-    console.log($form)
     $($form).submit()
   });
 
   $('input[data-send-captcha-btn]').on('click',function(event){
+
     var $node = $(event.target)
     var send = this
     var send_to_input = $($node.data('send-to-input'))[0]
@@ -59,7 +52,6 @@ $(document).ready(function(){
       send_data["edit_type"] = edit_type
 
     }
-    console.log(send_data)
     $.ajax({
       url: send_url,
       data: send_data,

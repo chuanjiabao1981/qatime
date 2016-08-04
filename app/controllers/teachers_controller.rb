@@ -1,4 +1,8 @@
 class TeachersController < ApplicationController
+  before_action :step_one_session, only: [:edit, :update]
+  before_action :require_step_one_session, only: :update
+  before_action :set_captcha_code, only: :update
+
   respond_to :html,:js,:json
 
   def index
@@ -40,11 +44,11 @@ class TeachersController < ApplicationController
   end
 
   def update
-    update_by = params[:by]
-    if @teacher.update(update_params(update_by))
+    if excute_update(update_by)
       if params[:cate] == "edit_profile"
         redirect_to info_teacher_path(@teacher, cate:  params[:cate]), notice: t("flash.notice.update_success")
       else
+        session.delete("change-#{update_by}-#{send_to}")
         redirect_to edit_teacher_path(@teacher, cate:  params[:cate]), notice: t("flash.notice.update_success")
       end
     else
@@ -85,7 +89,6 @@ class TeachersController < ApplicationController
   def questions
     @questions = @teacher.questions.order("created_at desc").paginate(page: params[:page],:per_page => 10)
     render layout: 'teacher_home'
-
   end
 
   def topics
@@ -160,10 +163,6 @@ class TeachersController < ApplicationController
     params.require(:teacher).permit(:mobile, :captcha_confirmation)
   end
 
-  def parent_phone_params
-    params.require(:teacher).permit(:parent_phone, :captcha_confirmation)
-  end
-
   def profile_params
     params.require(:teacher).permit(:name, :gender, :birthday, :province_id, :city_id, :subject, :teaching_years, :desc, grade_range: [])
   end
@@ -174,5 +173,65 @@ class TeachersController < ApplicationController
 
   def update_params(update_by)
     send("#{update_by}_params")
+  end
+
+  # 根据跟新内容判断是否需要密码更新
+  def excute_update(update_by)
+    update_params = update_params(update_by)
+    return @teacher.update_with_password(update_params) if %w(password).include?(update_by)
+    @teacher.update(update_params)
+  end
+
+  # 第一步验证成功以后会设置第一步对应的session
+  # 用户修改个人信息根据需要检查是否存在第一步生成的session
+  def require_step_one_session
+    update_by = params[:by]
+    return true if %w(email mobile).exclude?(update_by) || @step_one_session
+    # 没有第一步的session跳转到编辑页面
+    redirect_to edit_teacher_path(@teacher, by: params[:by], cate: params[:cate]), alert: t("flash.alert.please_verify_step_one_#{update_by}")
+  end
+
+  # 第一步验证通过后设置的session
+  def step_one_session
+    update_by = params[:by]
+    send_to = case update_by
+              when 'email'
+                # 修改邮箱第一步验证用户手机
+                @teacher.mobile
+              when 'mobile'
+                # 修改手机第一步验证用户现在的手机
+                @teacher.mobile
+              end
+    step_one_session = session["change-#{update_by}-#{send_to}"]
+    return unless step_one_session
+    if step_one_session[:expire_at] > Time.now.to_i
+      @step_one_session = step_one_session
+    else
+      session.delete("change-#{update_by}-#{send_to}")
+    end
+    @step_one_session
+  end
+
+  def set_captcha_code
+    update_by = params[:by]
+    # 只有邮箱、手机修改需要检查验证码
+    return true if %w(email mobile).exclude?(update_by)
+    captcha_key = "captcha-#{update_params(update_by)[update_by.to_sym]}"
+    @teacher.captcha = UserService::CaptchaManager.captcha_of(session[captcha_key])
+  end
+
+  def update_by
+    @update_by ||= params[:by]
+  end
+
+  def send_to
+    @send_to ||= case update_by
+                 when 'email'
+                   # 修改邮箱第一步验证用户手机
+                   @teacher.mobile
+                 when 'mobile'
+                   # 修改手机第一步验证用户现在的手机
+                   @teacher.mobile
+                 end
   end
 end

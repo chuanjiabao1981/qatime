@@ -101,8 +101,24 @@ class StudentsController < ApplicationController
 
   def update
     update_by = params[:by]
+    send_to = case update_by
+                  when 'email'
+                    # 修改邮箱第一步验证用户手机
+                    @student.mobile
+                  when 'mobile'
+                    # 修改手机第一步验证用户现在的手机
+                    @student.mobile
+                  when 'parent_phone'
+                    # 修改家长手机第一步验证用户现在的家长手机
+                    @student.parent_phone
+                  end
     if @student.update(update_params(update_by))
-      redirect_to edit_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
+      if params[:cate] == "edit_profile"
+        redirect_to info_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
+      else
+        session.delete("change-#{update_by}-#{send_to}")
+        redirect_to edit_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
+      end
     else
       render :edit, layout: "student_home_new"
     end
@@ -147,11 +163,11 @@ class StudentsController < ApplicationController
   def validate_password
     if @student && @student.authenticate(params['password'])
       respond_to do |format|
-        format.json { render json: @student, status: :accepted }
+        format.json { render json: {status: 1} }
       end
     else
       respond_to do |format|
-        format.json { render json: @student, status: :bad_request }
+        format.json { render json: {status: 0} }
       end
     end
   end
@@ -194,10 +210,10 @@ class StudentsController < ApplicationController
   # 用户修改个人信息根据需要检查是否存在第一步生成的session
   def require_step_one_session
     update_by = params[:by]
-    return true if %w(email mobile parent_phone).exclude?(update_by) || @step_one_session
+    return true if %w(email mobile).exclude?(update_by) || @step_one_session
     # 没有第一步的session跳转到编辑页面
     # TODO 国际化
-    redirect_to edit_student_path(@student, by: params[:by], cate: params[:cate]), alert: t("please.verify.step.one.#{update_by}")
+    redirect_to edit_student_path(@student, by: params[:by], cate: params[:cate]), alert: t("flash.alert.please_verify_step_one_#{update_by}")
   end
 
   # 第一步验证通过后设置的session
@@ -210,9 +226,6 @@ class StudentsController < ApplicationController
               when 'mobile'
                 # 修改手机第一步验证用户现在的手机
                 @student.mobile
-              when 'parent_phone'
-                # 修改家长手机第一步验证用户现在的家长手机
-                @student.parent_phone
               end
     step_one_session = session["change-#{update_by}-#{send_to}"]
     return unless step_one_session

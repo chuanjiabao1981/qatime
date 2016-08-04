@@ -72,6 +72,7 @@ cn:
         password_confirmation: 密码确认
         avatar: 头像
         grade: 年级
+        desc: 个人简介
       topic:
         title: 标题
         content: 内容

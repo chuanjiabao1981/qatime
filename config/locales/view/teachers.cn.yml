@@ -37,9 +37,5 @@ cn:
       new_email: 新邮箱地址
       email_captcha: 邮箱校验码
       to_bind_email: 绑定邮箱
-      bind_email_success_text1: 恭喜您，绑定成功，
-      bind_email_success_text2: 您可以使用新邮箱进行登录。
-      bind_email_fail_text1: 绑定失败
-      bind_email_fail_text2: 验证码不正确。
 
 

@@ -37,9 +37,18 @@ cn:
       new_email: 新邮箱地址
       email_captcha: 邮箱校验码
       to_bind_email: 绑定邮箱
-      bind_email_success_text1: 恭喜您，绑定成功，
-      bind_email_success_text2: 您可以使用新邮箱进行登录。
-      bind_email_fail_text1: 绑定失败
-      bind_email_fail_text2: 验证码不正确。
-
+    edit_mobile:
+      binding_mobile: 当前手机号码
+      mobile_captcha: 手机校验码
+      get_captcha: 获取验证码
+      new_mobile: 新手机号码
+      mobile_captcha: 手机校验码
+      to_bind_mobile: 绑定手机
+    edit_parent_phone:
+      binding_parent_phone: 当前家长手机
+      mobile_captcha: 手机校验码
+      get_captcha: 获取验证码
+      new_parent_phone: 新家长手机
+      mobile_captcha: 手机校验码
+      to_bind_parent_phone: 绑定家长手机
 

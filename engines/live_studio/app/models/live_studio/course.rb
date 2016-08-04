@@ -43,6 +43,10 @@ module LiveStudio
     has_one :chat_team, foreign_key: 'live_studio_course_id', class_name: '::Chat::Team'
 
     has_many :billings, through: :lessons, class_name: 'Payment::Billing' # 结算记录
+    scope :by_status, ->(status){status.blank? || status == 'all' ? nil : where(status: statuses[status.to_sym])}
+    scope :by_subject, ->(subject){ subject.blank? || subject == 'all' ? nil : where(subject: subject)}
+    scope :by_grade, ->(grade){ grade.blank? || grade == 'all' ? nil : where(grade: grade)}
+    scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
 
     def push_stream
       push_streams.last

@@ -21,5 +21,9 @@ module LiveStudio
     def self_settings
       t('view.course_search_show.self_settings')
     end
+
+    def search_value_show_word(variable)
+      params[variable].blank? || params[variable] == 'all' ? '' : " [#{params[variable]}]"
+    end
   end
 end

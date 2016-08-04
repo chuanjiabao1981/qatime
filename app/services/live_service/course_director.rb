@@ -38,6 +38,14 @@ module LiveService
       user.live_studio_tickets.visiable.includes(course: [:teacher, :lessons]).where(live_studio_lessons: { class_date: Date.today })
     end
 
+    # 过滤辅导班
+    # 检索条件: subject grade status
+    # 排序条件: class_date
+    def self.courses_search(search_params)
+      LiveStudio::Course.for_sell.by_subject(search_params[:subject]).by_status(search_params[:status]).
+        by_grade(search_params[:grade]).class_date_sort(search_params[:class_date_sort]).includes(:teacher)
+    end
+
     private
 
     def instance_studio

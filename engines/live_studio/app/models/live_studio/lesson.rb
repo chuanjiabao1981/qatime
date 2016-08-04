@@ -33,6 +33,7 @@ module LiveStudio
 
     validates :name, :description, :course_id, :start_time, :end_time, :class_date, presence: true
     before_create :data_preview
+    after_commit :update_course
 
     include AASM
 
@@ -204,6 +205,11 @@ module LiveStudio
 
     def data_preview
       self.status = self.class_date == Date.today ? 1 : 0
+    end
+
+    def update_course
+      first_class_date = course.lessons.order(:class_date).first.class_date
+      course.update(class_date: first_class_date)
     end
   end
 end

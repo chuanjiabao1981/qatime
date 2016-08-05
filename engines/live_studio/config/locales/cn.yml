@@ -85,6 +85,7 @@ cn:
       avg_price: 课均价(元)：
       publicize: 点此更换图片
       course_name: 辅导班名称：
+      team_announcement: 群组公告：
   status:
     init: 初始化
     preview: 招生中

@@ -32,7 +32,7 @@ module LiveStudio
       @lesson.teacher = @teacher
 
       if @lesson.save
-        redirect_to teacher_course_path(@teacher,params[:course_id]), notice: i18n_notice('created', @lesson)
+        redirect_to edit_teacher_course_path(@teacher,params[:course_id],index: 'list'), notice: i18n_notice('created', @lesson)
       else
         render :new
       end
@@ -55,7 +55,7 @@ module LiveStudio
     # DELETE /teacher/lessons/1
     def destroy
       @lesson.destroy
-      redirect_to teacher_course_path(@teacher,@course), notice: i18n_notice('destroyed', @lesson)
+      redirect_to edit_teacher_course_path(@teacher,@course,index: 'list'), notice: i18n_notice('destroyed', @lesson)
     end
 
     def begin_live_studio

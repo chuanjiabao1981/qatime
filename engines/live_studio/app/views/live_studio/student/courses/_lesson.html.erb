@@ -5,6 +5,7 @@
     <td><%= t('view.course_info_show.lesson_start_at') %></td>
     <td><%= t('view.course_info_show.lesson_name') %></td>
     <td><%= t('view.course_info_show.lesson_status') %></td>
+    <%= content_tag :td, '' if action_name == 'edit' %>
   </tr>
   </thead>
   <tbody>
@@ -17,44 +18,48 @@
       </td>
       <td><%= lesson.name %></td>
       <td><%= lesson.status_text %></td>
+      <%= content_tag :td do  %>
+        <%= link_to t("activerecord.view.delete"), teacher_lesson_path(@teacher,lesson,course_id: @course), method: :delete,
+                    data:{confirm: t('activerecord.view.message.confirm')} if lesson.init? && @course.init? %>
+      <% end if action_name == 'edit'%>
     </tr>
   <% end %>
   </tbody>
 </table>
 
 <!--<div class="panel panel-default">-->
-  <!--<div class="panel-heading">-->
-    <!--<strong>课程安排</strong>-->
-  <!--</div>-->
+<!--<div class="panel-heading">-->
+<!--<strong>课程安排</strong>-->
+<!--</div>-->
 
-  <!--&lt;!&ndash; Table &ndash;&gt;-->
-  <!--<table class="table">-->
-    <!--<tr>-->
-      <!--<% %w(name se_time date status).each do |col| %>-->
-      <!--<th>-->
-        <!--<%= t("activerecord.view.#{col}") %>-->
-      <!--</th>-->
-      <!--<% end %>-->
-    <!--</tr>-->
+<!--&lt;!&ndash; Table &ndash;&gt;-->
+<!--<table class="table">-->
+<!--<tr>-->
+<!--<% %w(name se_time date status).each do |col| %>-->
+  <!--<th>-->
+  <!--<%= t("activerecord.view.#{col}") %>-->
+  <!--</th>-->
+  <!--<% end %>-->
+<!--</tr>-->
 
-    <!--<% @lessons.each do |lesson| -%>-->
-      <!--<tr>-->
-        <!--<td>-->
-          <!--<%= lesson.name %>-->
-        <!--</td>-->
-        <!--<td>-->
-          <!--<%= lesson.start_time%> - <%= lesson.end_time%>-->
-        <!--</td>-->
-        <!--<td>-->
-          <!--<%= lesson.class_date %>-->
-        <!--</td>-->
-        <!--<td>-->
-          <!--<%= lesson.status_text %>-->
-        <!--</td>-->
-      <!--</tr>-->
-    <!--<% end -%>-->
-  <!--</table>-->
-  <!--<div class="panel-footer">-->
-    <!--<%= will_paginate @lessons %>-->
-  <!--</div>-->
+<!--<% @lessons.each do |lesson| -%>-->
+  <!--<tr>-->
+  <!--<td>-->
+  <!--<%= lesson.name %>-->
+  <!--</td>-->
+  <!--<td>-->
+  <!--<%= lesson.start_time%> - <%= lesson.end_time%>-->
+  <!--</td>-->
+  <!--<td>-->
+  <!--<%= lesson.class_date %>-->
+  <!--</td>-->
+  <!--<td>-->
+  <!--<%= lesson.status_text %>-->
+  <!--</td>-->
+  <!--</tr>-->
+  <!--<% end -%>-->
+<!--</table>-->
+<!--<div class="panel-footer">-->
+<!--<%= will_paginate @lessons %>-->
+<!--</div>-->
 <!--</div>-->

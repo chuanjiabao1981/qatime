@@ -1,20 +1,24 @@
 require 'test_helper'
 
-class StudentUpdatePasswordTest < ActionDispatch::IntegrationTest
+class StudentUpdatePasswordAndEmailTest < ActionDispatch::IntegrationTest
   def setup
     @headless = Headless.new
     @headless.start
     Capybara.current_driver = :selenium_chrome
+    p Util.random_code
+    Util.stub(:random_code).and_return('1234')
   end
 
   def teardown
     Capybara.use_default_driver
+    Util.unstub(:random_code)
   end
 
   test "student update password" do
     student = users(:student1)
     log_in_as(student)
-    visit security_setting_student_path(student)
+    visit info_student_path(student)
+    click_on "安全设置"
 
     click_on "修改登录密码", match: :first
 
@@ -30,7 +34,9 @@ class StudentUpdatePasswordTest < ActionDispatch::IntegrationTest
   test "student update password new password too short" do
     student = users(:student_one_with_course)
     log_in_as(student)
-    visit security_setting_student_path(student)
+
+    visit info_student_path(student)
+    click_on "安全设置"
     click_on "修改登录密码", match: :first
 
     fill_in :student_current_password, with: 'password'
@@ -39,5 +45,21 @@ class StudentUpdatePasswordTest < ActionDispatch::IntegrationTest
     click_on "保存", match: :first
 
     assert page.has_content? "过短（最短为 6 个字符）"
+
+    new_logout_as(student)
+  end
+
+  test "student update email" do
+    student = users(:update_email_student)
+    log_in_as(student)
+
+    visit info_student_path(student)
+    click_on "安全设置"
+    click_on "修改绑定邮箱", match: :first
+    click_on "获取验证码", match: :first
+
+    fill_in "email-captcha-input", with: "1234"
+    click_on "下一步"
+    sleep(10)
   end
 end

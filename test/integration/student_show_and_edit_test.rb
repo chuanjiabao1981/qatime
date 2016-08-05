@@ -44,7 +44,7 @@ class StudentInfoShowAndEditTest < ActionDispatch::IntegrationTest
     select '高二', from: :student_grade
     select '山西', from: :student_province_id
     select '大同', from: :student_city_id
-    fill_in :student_description, with: 'description test'
+    fill_in :student_desc, with: 'desc test'
 
     click_on '保存'
     @student.reload
@@ -54,7 +54,7 @@ class StudentInfoShowAndEditTest < ActionDispatch::IntegrationTest
     assert_equal('高二', @student.grade, '学生grade更新错误')
     assert_equal('山西', @student.province.name, '学生province更新错误')
     assert_equal('大同', @student.city.name, '学生city更新错误')
-    assert_equal('description test', @student.description, '学生description更新错误')
+    assert_equal('desc test', @student.desc, '学生desc更新错误')
   end
 
   test "student avatar edit view" do

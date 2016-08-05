@@ -129,6 +129,7 @@ student_one_with_course:
   avatar: "test"
   grade: 高一
   type: Student
+  school: school2
 
 student_with_order:
   id: 12
@@ -162,6 +163,17 @@ no_chat_account_student:
   avatar: "test"
   grade: 高一
   type: Student
+
+update_email_student:
+  name: student
+  role: student
+  email: student_update_email@baidu.com
+  mobile: 15910676326
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
+  school: school2
 
 physics_teacher1:
   name: physics_teacher1

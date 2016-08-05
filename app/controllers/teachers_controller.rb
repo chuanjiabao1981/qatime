@@ -78,11 +78,11 @@ class TeachersController < ApplicationController
   end
 
   def info
-    if params[:fee].nil?
-      @withdraws = @teacher.account.withdraws.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-    else
-      @earning_records      = @teacher.account.earning_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-    end
+    # if params[:fee].nil?
+    #   @withdraws = @teacher.account.withdraws.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    # else
+    #   @earning_records      = @teacher.account.earning_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    # end
     render layout: 'teacher_home_new'
   end
 
@@ -164,7 +164,7 @@ class TeachersController < ApplicationController
   end
 
   def profile_params
-    params.require(:teacher).permit(:name, :gender, :birthday, :province_id, :city_id, :subject, :teaching_years, :desc, grade_range: [])
+    params.require(:teacher).permit(:name, :gender, :birthday, :province_id, :city_id, :school_id, :subject, :teaching_years, :desc, grade_range: [])
   end
 
   def avatar_params

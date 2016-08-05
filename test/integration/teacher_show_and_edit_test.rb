@@ -33,37 +33,44 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
     assert page.has_content?('修改绑定邮箱'), '修改绑定邮箱按钮不存在'
   end
 
-  # test "teacher info edit view" do
-  #   visit info_teacher_path(@teacher)
-  #   click_on '编辑信息', match: :first
+  test "teacher info edit view" do
+    visit info_teacher_path(@teacher)
+    click_on '编辑信息', match: :first
 
-  #   fill_in :teacher_name, with: 'name test'
-  #   choose("男")
-  #   fill_in :teacher_birthday, with: Time.local(1995, 7, 8).strftime('%Y/%m/%d')
-  #   select '高二', from: :teacher_grade
-  #   select '山西', from: :teacher_province_id
-  #   select '大同', from: :teacher_city_id
-  #   fill_in :teacher_desc, with: 'desc test'
+    fill_in :teacher_name, with: 'name test'
+    choose("男")
+    fill_in :teacher_birthday, with: Time.local(1995, 7, 8).strftime('%Y/%m/%d')
+    select '山西', from: :teacher_province_id
+    select '大同', from: :teacher_city_id
+    select '阳泉二中', from: :teacher_school_id
+    select '英语', from: :teacher_subject
+    select '二十年以上', from: :teacher_teaching_years
+    find(:css, "#teacher_grade_range_[value='高一']").set(true)
+    find(:css, "#teacher_grade_range_[value='高二']").set(false)
+    find(:css, "#teacher_grade_range_[value='高三']").set(true)
+    fill_in :teacher_desc, with: 'desc test'
 
-  #   click_on '保存'
-  #   @teacher.reload
-  #   assert_equal('name test', @teacher.name, '学生name更新错误')
-  #   assert_equal('男', @teacher.gender_text, '学生gender更新错误')
-  #   assert page.has_content?('1995-07-08'), '学生birthday更新错误'
-  #   assert_equal('高二', @teacher.grade, '学生grade更新错误')
-  #   assert_equal('山西', @teacher.province.name, '学生province更新错误')
-  #   assert_equal('大同', @teacher.city.name, '学生city更新错误')
-  #   assert_equal('desc test', @teacher.desc, '学生desc更新错误')
-  # end
+    click_on '保存'
 
-  # test "teacher avatar edit view" do
-  #   visit info_teacher_path(@teacher)
-  #   click_on '编辑信息', match: :first
-  #   click_on '更换头像', match: :first
+    assert page.has_content?('name test'), '教师name更新错误'
+    assert page.has_content?('男'), '教师gender更新错误'
+    assert page.has_content?('1995-07-08'), '教师birthday更新错误'
+    assert page.has_content?('山西 大同'), '教师地区更新错误'
+    assert page.has_content?('阳泉二中'), '教师任课学校更新错误'
+    assert page.has_content?('英语'), '教师可授科目更新错误'
+    assert page.has_content?('高一 高三'), '教师可授年级更新错误'
+    assert page.has_content?('二十年以上'), '教师执教年龄更新错误'
+    assert page.has_content?('desc test'), '教师讲师简介更新错误'
+  end
 
-  #   execute_script("$('input[name=\"teacher[avatar]\"]').show()")
-  #   attach_file("teacher_avatar", "#{Rails.root}/test/integration/avatar.jpg")
+  test "teacher avatar edit view" do
+    visit info_teacher_path(@teacher)
+    click_on '编辑信息', match: :first
+    click_on '更换头像', match: :first
 
-  #   click_on '保存', match: :first
-  # end
+    execute_script("$('input[name=\"teacher[avatar]\"]').show()")
+    attach_file("teacher_avatar", "#{Rails.root}/test/integration/avatar.jpg")
+
+    click_on '保存', match: :first
+  end
 end

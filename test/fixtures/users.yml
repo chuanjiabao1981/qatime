@@ -86,6 +86,18 @@ teacher_tally:
   school: school1
   type: Teacher
 
+teacher_update_password:
+  name: teacher_tally
+  role: teacher
+  category: 高中
+  subject: 数学
+  mobile: 13439338326
+  email: tally1@taobao.com
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  school: school1
+  type: Teacher
+
 # Student account used for test tally
 student_tally:
   name: student_tally

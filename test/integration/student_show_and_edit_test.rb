@@ -67,4 +67,40 @@ class StudentInfoShowAndEditTest < ActionDispatch::IntegrationTest
 
     click_on '保存', match: :first
   end
+
+  test "student update mobile" do
+    visit info_student_path(@student)
+    click_on "安全设置"
+    click_on "修改绑定手机", match: :first
+    click_on "获取验证码", match: :first
+
+    fill_in "mobile-captcha-input", with: "1234"
+    click_on "下一步"
+
+    fill_in "student_mobile", with: "13800001111"
+    click_on "获取验证码", match: :first
+
+    fill_in "student_captcha_confirmation", with: "1234"
+
+    click_on "绑定手机"
+    @student.reload
+    assert_equal("13800001111", @student.mobile, '更新手机错误')
+  end
+
+  test "student update parent phone" do
+    visit info_student_path(@student)
+    click_on "安全设置"
+    click_on "修改家长手机", match: :first
+
+    fill_in "student_current_password", with: "password"
+    fill_in "student_parent_phone", with: "13811110000"
+    click_on "获取验证码"
+    fill_in "student_captcha_confirmation", with: "1234"
+
+    sleep(10)
+    click_on "绑定家长手机"
+
+    @student.reload
+    assert_equal("13811110000", @student.parent_phone, '更新家长手机错误')
+  end
 end

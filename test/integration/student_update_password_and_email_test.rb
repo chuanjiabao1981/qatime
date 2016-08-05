@@ -5,13 +5,10 @@ class StudentUpdatePasswordAndEmailTest < ActionDispatch::IntegrationTest
     @headless = Headless.new
     @headless.start
     Capybara.current_driver = :selenium_chrome
-    p Util.random_code
-    Util.stub(:random_code).and_return('1234')
   end
 
   def teardown
     Capybara.use_default_driver
-    Util.unstub(:random_code)
   end
 
   test "student update password" do
@@ -60,6 +57,15 @@ class StudentUpdatePasswordAndEmailTest < ActionDispatch::IntegrationTest
 
     fill_in "email-captcha-input", with: "1234"
     click_on "下一步"
+
+    fill_in "student_email", with: "test1@test.com"
+    click_on "获取验证码", match: :first
+
+    fill_in "student_captcha_confirmation", with: "1234"
+
+    click_on "绑定邮箱"
+    student.reload
     sleep(10)
+    assert_equal("test1@test.com", student.email, '更新邮箱错误')
   end
 end

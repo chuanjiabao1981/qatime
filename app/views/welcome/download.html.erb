@@ -6,7 +6,7 @@
           <%= image_tag software.logo_url(:big) %>
         </div>
         <div class="col-md-8">
-          <p><span style="font-size: 23px;font-weight: 500;line-height: 1.1;"><%= software.title %></span>-<%= software.subtitle %></p>
+          <p><span style="font-size: 23px;font-weight: 500;line-height: 1.1;"><%= software.title %></span>-<%= software.sub_title %></p>
           <p><%= software.desc %></p>
         </div>
         <div class="col-md-2 text-right">
@@ -17,6 +17,7 @@
   <% end %>
 
   <!-- 显示 Demo begin -->
+  <% if Software.all.count == 0 %>
   <% software = Software.last || Software.new %>
   <div class="qa_big_cell">
     <div class="row">
@@ -24,7 +25,7 @@
         <%= image_tag software.logo_url(:big), size: "64x64" %>
       </div>
       <div class="col-md-8">
-        <p><span style="font-size: 23px;font-weight: 500;line-height: 1.1;">"答疑时间"&nbsp;老师班&nbsp;app</span>-让辅导学员不再繁琐和低效</p>
+        <p><span style="font-size: 23px;font-weight: 500;line-height: 1.1;">"答疑时间"&nbsp;老师版&nbsp;app</span>-让辅导学员不再繁琐和低效</p>
         <p>答疑时间老师班是一款为老师量身定做，帮助老师管理辅导班和课程，实时处理学生疑问，让老师获得巨大收益，高效便捷的app产品</p>
       </div>
       <div class="col-md-2 text-right">
@@ -39,7 +40,7 @@
         <%= image_tag software.logo_url(:big), size: "64x64" %>
       </div>
       <div class="col-md-8">
-        <p><span style="font-size: 23px;font-weight: 500;line-height: 1.1;">"答疑时间"&nbsp;老师班&nbsp;app</span>-让辅导学员不再繁琐和低效</p>
+        <p><span style="font-size: 23px;font-weight: 500;line-height: 1.1;">"答疑时间"&nbsp;老师版&nbsp;app</span>-让辅导学员不再繁琐和低效</p>
         <p>答疑时间老师班是一款为老师量身定做，帮助老师管理辅导班和课程，实时处理学生疑问，让老师获得巨大收益，高效便捷的app产品</p>
       </div>
       <div class="col-md-2 text-right">
@@ -47,6 +48,7 @@
       </div>
     </div>
   </div>
+  <% end %>
   <!-- 显示 Demo end -->
 
   <div class="qa_sep_15"></div>

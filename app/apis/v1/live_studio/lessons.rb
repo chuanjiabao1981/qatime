@@ -18,9 +18,11 @@ module V1
             requires :id, type: Integer, desc: '课程ID'
           end
           get ':id/start' do
-            @lesson = ::LiveStudio::Lesson.find_by(id: params[:lesson_id])
+            @lesson = ::LiveStudio::Lesson.find(params[:id])
+            raise_change_error_for(@lesson.ready? || @lesson.paused? || @lesson.closed?)
             LiveService::LessonDirector.new(@lesson).lesson_start
             @lesson.current_live_session.token
+            present @lesson, with: Entities::LiveStudio::Lesson, type: :live_start
           end
 
           desc '直播心跳通知接口' do
@@ -34,8 +36,10 @@ module V1
             optional :token, type: String, desc: '心跳token'
           end
           get ':id/heartbeat' do
-            @lesson = ::LiveStudio::Lesson.find_by(id: params[:lesson_id])
+            @lesson = ::LiveStudio::Lesson.find(params[:id])
+            raise_change_error_for(@lesson.teaching? || @lesson.paused?)
             @lesson.heartbeats(params[:token])
+            present @lesson, with: Entities::LiveStudio::Lesson, type: :live_start
           end
 
           desc '直播结束接口' do
@@ -45,11 +49,13 @@ module V1
             }
           end
           params do
-            requires :lesson_id, type: Integer, desc: '课程ID'
+            requires :id, type: Integer, desc: '课程ID'
           end
           get ':id/close' do
-            @lesson = ::LiveStudio::Lesson.find_by(id: params[:lesson_id])
+            @lesson = ::LiveStudio::Lesson.find(params[:id])
+            raise_change_error_for(@lesson.teaching? || @lesson.paused?)
             @lesson.close!
+            present @lesson, with: Entities::LiveStudio::Lesson, type: :live_start
           end
         end
       end

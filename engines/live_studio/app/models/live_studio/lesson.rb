@@ -136,7 +136,7 @@ module LiveStudio
       @live_session.heartbeat_at = Time.now
       @live_session.save
       self.heartbeat_time = Time.now
-      teach
+      teach if ready? || paused? || closed?
       save
       @live_session.token
     end

@@ -33,11 +33,6 @@
         </td>
       </tr>
       <tr>
-        <td colspan="2">
-          <%= t('view.course_info_show.ticket_count') %><%= @course.buy_tickets_count %>
-        </td>
-      </tr>
-      <tr>
         <td>
           <%= t('view.teacher_course.price_unit') % @course.price %>
         </td>
@@ -46,8 +41,11 @@
         </td>
       </tr>
       <tr>
-        <td colspan="2">
+        <td>
           <%= t('view.teacher_course.teacher_percentage') % @course.teacher_percentage %>
+        </td>
+        <td>
+          <%= t('view.course_info_show.ticket_count') %><%= @course.buy_tickets_count %>
         </td>
       </tr>
       <tr>

@@ -17,7 +17,7 @@ module V1
           params do
             requires :id, type: Integer, desc: '课程ID'
           end
-          post ':id/start' do
+          get ':id/start' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
             raise_change_error_for(@lesson.ready? || @lesson.paused? || @lesson.closed?)
             LiveService::LessonDirector.new(@lesson).lesson_start
@@ -35,7 +35,7 @@ module V1
             requires :id, type: Integer, desc: '课程ID'
             optional :token, type: String, desc: '心跳token'
           end
-          post ':id/heartbeat' do
+          get ':id/heartbeat' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
             raise_change_error_for(@lesson.teaching? || @lesson.paused?)
             @lesson.heartbeats(params[:token])
@@ -51,7 +51,7 @@ module V1
           params do
             requires :id, type: Integer, desc: '课程ID'
           end
-          post ':id/close' do
+          get ':id/close' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
             raise_change_error_for(@lesson.teaching? || @lesson.paused?)
             @lesson.close!

@@ -67,4 +67,7 @@
         * [QT-191](https://qatime.atlassian.net/browse/QT-191)
     * bugfix
         * [QT-188](https://qatime.atlassian.net/browse/QT-188)
+* 0.5.2
+    * feature
+        * [QT-189](https://qatime.atlassian.net/browse/QT-189)
 

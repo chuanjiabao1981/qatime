@@ -104,6 +104,9 @@ gem 'oneapm_rpm'
 # 软删除
 gem 'soft_delete_rails'
 
+# 枚举
+gem 'enumerize'
+
 group :development,:test do
   # 状态机做图
   gem 'ruby-graphviz', :require => 'graphviz'

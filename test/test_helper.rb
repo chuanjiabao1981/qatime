@@ -47,6 +47,17 @@ class ActiveSupport::TestCase
     click_on '退出系统'
   end
 
+  def new_logout_as(user, confirm = false)
+    if confirm
+      accept_prompt(with: "是否离开直播页面") do
+        visit get_home_url(user)
+      end
+    else
+      visit get_home_url(user)
+    end
+    click_on '退出'
+  end
+
   def log_in2_as(user)
     open_session do |sess|
       sess.https!

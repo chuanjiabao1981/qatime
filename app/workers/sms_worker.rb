@@ -29,6 +29,7 @@ class SmsWorker
   # REPLY_CREATE_NOTIFICATION    = :reply_create_notify
   NOTIFY                       = :notify2
   SYSTEM_ALARM                 = :system_alarm
+  SEND_CAPTCHA                 = :send_captcha
 
   include Sidekiq::Worker
   include SmsUtil
@@ -182,6 +183,18 @@ class SmsWorker
     end
   end
 
+  def send_captcha(options)
+    mobile  = options["mobile"]
+    captcha = options["captcha"]
+    begin
+      send_message(mobile,
+       "【答疑时间】验证码: #{captcha}，您好，如果不是您操作，请尽快修改密码")
+    rescue Exception => e
+      logger.info e.message
+      logger.info e.backtrace.inspect
+    end
+  end
+
     def _send_message(&block)
       begin
         yield
@@ -195,4 +208,5 @@ class SmsWorker
 
       end
     end
+
 end

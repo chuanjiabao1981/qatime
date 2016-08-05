@@ -107,6 +107,7 @@ student1:
   avatar: "test"
   grade: 高一
   type: Student
+  school: school2
 
 student2:
   name: student2

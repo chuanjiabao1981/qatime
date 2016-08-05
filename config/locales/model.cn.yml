@@ -41,6 +41,9 @@ cn:
         current_password: 当前密码
         desc: 讲师简介
         accept: 接受服务协议
+        subject: 可授科目
+        grade_range: 可授年级
+        teaching_years: 执教年龄
       school:
         name: 名称
         city: 城市
@@ -50,12 +53,18 @@ cn:
         tags: 分类
         state_event: 是否通过审核
       user:
+        name: 姓名
+        gender: 性别
+        birthday: 生日
+        address: 地区
+        description: 简介
         email: 邮箱
         password: 密码
         register_code_value: 注册码
         mobile: 手机
         nick_name: 昵称
         parent_phone: 家长手机
+        school: 学校
       student:
         email: 邮箱
         name: 姓名
@@ -63,6 +72,7 @@ cn:
         password_confirmation: 密码确认
         avatar: 头像
         grade: 年级
+        desc: 个人简介
       topic:
         title: 标题
         content: 内容

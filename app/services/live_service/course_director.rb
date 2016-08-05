@@ -26,6 +26,26 @@ module LiveService
     def deliver_ticket
     end
 
+    # 分类查询辅导班
+    # taste 试听辅导班
+    # today 今日辅导班
+    # 只提供查询链，请自行分页
+    def self.courses_for_filter(user, cate)
+      # 试听辅导班
+      return user.live_studio_taste_tickets.includes(course: :teacher) if 'taste' == cate
+      # 今日辅导班
+      # TODO查询逻辑有点复杂，可以考虑通过增加冗余字段来简化查询
+      user.live_studio_tickets.visiable.includes(course: [:teacher, :lessons]).where(live_studio_lessons: { class_date: Date.today })
+    end
+
+    # 过滤辅导班
+    # 检索条件: subject grade status
+    # 排序条件: class_date
+    def self.courses_search(search_params)
+      LiveStudio::Course.for_sell.by_subject(search_params[:subject]).by_status(search_params[:status]).
+        by_grade(search_params[:grade]).class_date_sort(search_params[:class_date_sort]).includes(:teacher)
+    end
+
     private
 
     def instance_studio

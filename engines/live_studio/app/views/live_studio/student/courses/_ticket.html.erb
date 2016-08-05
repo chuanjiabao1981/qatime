@@ -1,15 +1,47 @@
 <% course = ticket.course -%>
-<tr>
-  <td><%= ticket_counter + 1 %></td>
-  <td>
-    <%= link_to course.name, student_course_path(@student, course) %>
-  </td>
-  <td>
-    <%= course.short_description %>
-  </td>
-  <td><%= course.status_text %></td>
-  <td><%= ticket.type_name %></td>
-  <td>
-    <%= link_to t("activerecord.view.buy_now"), new_course_order_path(course), id: "buy-course-#{course.id}" if ticket.taste? && current_user == @student %>
-  </td>
-</tr>
+<!--<tr>-->
+<!--<td><%= ticket_counter + 1 %></td>-->
+<!--<td>-->
+<!--<%= link_to course.name, student_course_path(@student, course) %>-->
+<!--</td>-->
+<!--<td>-->
+<!--<%= course.short_description %>-->
+<!--</td>-->
+<!--<td><%= course.status_text %></td>-->
+<!--<td><%= ticket.type_name %></td>-->
+<!--<td>-->
+<!--<%=  %>-->
+<!--</td>-->
+<!--</tr>-->
+
+<%= content_tag(:div, class: 'course-box-div') do %>
+  <%= content_tag(:div, class: 'course-describe-div') do%>
+    <%= content_tag(:div,"#{t('view.course_show.start_time')}#{course.live_start_time}",class: 'describe-ceil') %>
+    <%= content_tag(:div,"#{t('view.course_show.end_time')}#{course.live_end_time}",class: 'describe-ceil') %>
+    <%= content_tag(:div,"#{t('view.course_show.status')}#{course.status_text}#{ticket.taste? ? t('view.course_show.taste') : nil}",class: 'describe-ceil') %>
+  <% end %>
+  <%= content_tag(:div, class: 'course-info-div') do %>
+    <%= content_tag(:div, image_tag(course.publicize_url(:list)),class: 'publicize') %>
+    <%= content_tag(:div, class: 'course-content-div') do %>
+      <%= content_tag(:div,class: 'course-info-col') do %>
+        <%= content_tag(:div, course.name, class: 'course-name') %>
+        <%= preview_time(course) %>
+      <% end %>
+      <%= content_tag(:div, "#{t('view.course_show.subject')}#{course.subject}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.teacher')}#{course.teacher.try(:name)}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.schedule')}#{course.completed_lesson_count}/#{course.preset_lesson_count}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.surplus')}#{course.lesson_count_left} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.current')}#{course.current_lesson_name}") %>
+    <%end %>
+    <%= content_tag(:div, class: 'course-operator-div') do%>
+      <%= content_tag(:div, link_to('Buy', new_course_order_path(course), id: "buy-course-#{course.id}",class: 'btn btn-default'),
+                      class: 'course-buy-btn') if ticket.taste? && current_user == @student%>
+      <%= content_tag(:div, class: 'course-operator-btn') do %>
+        <%= link_to t('view.course_show.info'),student_course_path(@student,course), class: 'btn btn-default operator-btn' %>
+        <%= link_to t('view.course_show.lessons'),student_course_path(@student,course,index: 'list'), class: 'btn btn-default operator-btn' %>
+        <%= link_to t('view.course_show.study_link'), play_course_path(course),
+                    class: "btn btn-default operator-btn #{course.lessons.blank? || course.completed? ? 'disabled' : nil}" %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

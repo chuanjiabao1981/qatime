@@ -3,7 +3,7 @@ module Entities
     class Lesson < Grape::Entity
       expose :id
       expose :name
-      expose :status_text
+      expose :status
       expose :class_date
       expose :live_time
     end

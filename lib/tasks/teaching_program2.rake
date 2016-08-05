@@ -1,3 +1,4 @@
+desc "导入课程目录"
 task :teaching_program_init2 => :environment do
 
   dry_run = false

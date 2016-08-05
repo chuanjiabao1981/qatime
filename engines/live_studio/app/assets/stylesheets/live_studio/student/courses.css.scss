@@ -1,0 +1,349 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+//
+
+.dropdown-submenu {
+  position:relative;
+  width: 100%;
+}
+.dropdown-submenu>.dropdown-menu {
+  top:0;
+  left:100%;
+  margin-top:-6px;
+  margin-left:-1px;
+  -webkit-border-radius:0 6px 6px 6px;
+  -moz-border-radius:0 6px 6px 6px;
+  border-radius:0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display:block;
+}
+.dropdown-submenu>a:after {
+  display:block;
+  content:" ";
+  float:right;
+  width:0;
+  height:0;
+  border-color:transparent;
+  border-style:solid;
+  border-width:5px 0 5px 5px;
+  border-left-color:#cccccc;
+  margin-top:5px;
+  margin-right:-10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color:#ffffff;
+}
+.dropdown-submenu.pull-left {
+  float:none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left:-100%;
+  margin-left:10px;
+  -webkit-border-radius:6px 0 6px 6px;
+  -moz-border-radius:6px 0 6px 6px;
+  border-radius:6px 0 6px 6px;
+}
+
+
+.font-small{
+  font-size: 12px;
+}
+.course-box-div strong{ font-size: 26px;}
+.same-btn{
+  width: 124px;
+}
+.panel-support{
+  padding: 10px;
+  float: left;
+  width: 100%;
+  .none-list{
+    height: 200px;
+    line-height: 150px;
+    text-align: center;
+  }
+}
+.course-header-div{
+  position: relative;
+}
+.course-header-div .search-link{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.course-header-div .title{
+  font-size: 18px;
+  font-weight: 600;
+}
+.course-taxon-list{
+  margin-top: 20px;
+  text-align: center;
+}
+.course-taxon-div{
+  width: 16.6%;
+  color: #0A0A0A;
+  border: solid 1px #CCCCCC;
+  float: left;
+  height: 3em;
+  line-height: 3em;
+  cursor: pointer;
+}
+.course-taxon-div.active{
+  background-color: #cccccc;
+  color: #ffffff;
+}
+
+.course-box-div{
+  float: left;
+  width: 100%;
+  padding: 10px;
+  border-bottom: solid 1px;
+  .course-describe-div{
+    color: #CCCCCC;
+    font-size: 13px;
+    .describe-ceil{
+      width: 33%;
+      float: left;
+    }
+  }
+  .course-info-div{
+    float: inherit;
+    width: 100%;
+    .publicize{
+      float: inherit;
+      min-width: 18%;
+      padding: 10px;
+      img{
+        width: 132px;
+        height: 99px;
+      }
+    }
+    .publicize.support{
+      padding: 0;
+      img{
+        width: 280px;
+        height: 210px;
+      }
+    }
+    .course-content-div.support{
+      width: 60%;
+    }
+    .course-content-div{
+      float: inherit;
+      width: 65%;
+      padding: 10px;
+      .course-info-col{
+        float: inherit;
+        width: 100%;
+        .course-buy-count{
+          font-size: 12px;
+          color: #ccc;
+          float: right;
+        }
+      }
+      .course-name{
+        font-size: 18px;
+        font-weight: 600;
+        float: left;
+      }
+      .content-ceil{
+        width: 50%;
+        float: inherit;
+      }
+    }
+    .course-operator-div.support{
+      width: 12%;
+    }
+    .course-operator-div {
+      float: inherit;
+      word-wrap: break-word;
+      word-break: normal;
+      width: 15%;
+      display: table;
+      .operator-btn{
+        float: inherit;
+        margin: 2px;
+      }
+      .operator-btn.support{
+        margin-bottom: 7em;
+      }
+      .course-buy-btn{
+        display: table-cell;
+        vertical-align: middle;
+        .btn-default{
+          padding: 2px;
+          font-size: 12px;
+        }
+      }
+      .course-operator-btn{
+        display: inline-block;
+        float: right;
+        width: 80%;
+      }
+    }
+  }
+}
+.matrix {
+  margin-left: 10px;
+  display: inline-block;
+  padding: 2px 5px;
+  font-size: 12px;
+  background-color: #BBBBBB;
+  color: white;
+  transform: skew(-20deg);
+}
+.matrix.preview {
+  background-color: red;
+}
+
+.matrix div {
+  transform: skew(20deg);
+}
+
+
+.course-info-list{
+  margin-top: 20px;
+  text-align: center;
+}
+.list-ceil{
+  width: 50%;
+  color: #0A0A0A;
+  border: solid 1px #CCCCCC;
+  float: left;
+  height: 3em;
+  line-height: 3em;
+  cursor: pointer;
+}
+
+.list-ceil.active{
+  background-color: #cccccc;
+  color: #ffffff;
+}
+#content_info{
+  float: left;
+  width: 100%;
+  padding: 0 20px;
+}
+.info-header{
+  float: inherit;
+  width: 100%;
+  margin-top:10px;
+  padding:0 20px;
+  .info-subtitle{
+    font-size: 12px;
+    color:#CCCCCC;
+    float: inherit;
+    width: 45%;
+    div{
+      display: inline-block;
+      margin-right: 30px;
+    }
+  }
+  .info-list-subtitle{
+    float: inherit;
+      div{
+      display: inline-block;
+      margin-right: 20px;
+    }
+  }
+  .course-taste-btn{
+    float:right;
+    margin: 0 10px;
+    .btn-default{
+      padding: 2px;
+      font-size: 12px;
+    }
+  }
+  .course-buy-btn{
+    float:right;
+    .btn{
+      padding: 2px;
+      font-size: 12px;
+    }
+  }
+  .course-play-btn{
+    float:right;
+    .btn-default{
+      border-radius: 2em;
+      font-size: 12px;
+      padding: 2px 2px 2px 4px;
+      margin: 0 10px;
+    }
+  }
+}
+.info-body{
+  float: left;
+  width: 100%;
+  border-bottom: solid 1px #CCCCCC;
+  padding: 10px;
+  div{
+    float: inherit;
+  }
+  .info-intro{
+    padding: 0 20px;
+    width: 100%;
+    div{ width: 100%;}
+  }
+  .info-publicize{
+    width: 50%;
+    img{
+      width: 400px;
+      height: 300px;
+      display: block;
+      margin: auto;
+    }
+  }
+  .info-content{
+    width: 50%;
+    table{ margin-bottom: 10px;}
+    table td{border: 0px;}
+  }
+}
+
+.teacher-info{
+  float: left;
+  width: 100%;
+  padding: 10px;
+  div{
+    float: inherit;
+    margin: auto;
+    width: 100%;
+  }
+  .teacher-label{
+    text-align: center;
+  }
+}
+.over-lesson{
+  color: #999;
+}
+
+
+/////
+.course-page {
+  float: left;
+  width: 100%;
+  padding: 10px;
+  .dropdown{
+    float: left;
+    width: 16%;
+    margin: 2px;
+    .search-input{
+      width: 60px;
+      margin: 2px;
+    }
+    .search-input.date{ width: 120px; }
+    .search-form-div{ text-align: center; }
+    button{ width: 100%; }
+    button.search-btn{
+      width: 120px;
+      margin: 5px;
+    }
+  }
+  .filter-box{
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+  }
+}

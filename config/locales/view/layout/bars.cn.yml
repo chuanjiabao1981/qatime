@@ -1,0 +1,35 @@
+cn:
+  view:
+    common_bars:
+      aqtime: 答疑时间
+      teacher_register: 教师注册
+      student_register: 学生注册
+      sign_out: 退出
+      sing_in: 登录
+      user_setting: 用户设置
+      home_page: 首页
+      curriculums: 公开课程
+      customized_courses: 专属课程
+      questions: 问答社区
+      live_studio_courses: 辅导班
+      download: 下载
+      common_problem: 常见问题
+    student_bars:
+      my_orders: 我的订单
+      my_course: 我的辅导
+      my_homework: 我的作业
+      my_teachers: 我的老师
+      my_notice: 我的消息
+    teacher_bars:
+      property_management: 财产管理
+      curriculum_schedule: 课程表
+      my_courses: 辅导班
+      lesson_setting: 课程设置
+      homework_manage: 作业管理
+      teacher_students: 学生管理
+      teacher_questions: 我的问答
+      video_manage: 视频管理
+      notification: 消息中心
+      teacher_syllabuses: 备课中心
+
+

@@ -13,7 +13,7 @@
   name: 七年级下
   subject: 数学
   category: 初中
-  grade: 初二
+  grade: 初一
   content:
     chapters:
       - 相交线与平行线
@@ -69,6 +69,196 @@
       - 相似
       - 锐角三角函数
       - 投影与视图
+-
+  name: 一年级上册
+  subject: 数学
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 准备课
+      - 位置
+      - 1~5的认识和加减法
+      - 认识图形（一）
+      - 6~10的认识和加减法
+      - 11~20各数的认识
+      - 认识钟表
+      - 20以内的进位加法
+      - 总复习
+-
+  name: 一年级下册
+  subject: 数学
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 认识图形（二）
+      - 20以内的退位减法
+      - 分类与整理
+      - 100以内数的认识
+      - 认识人民币
+      - 100以内的加法和减法（一）
+      - 找规律
+      - 总复习
+-
+  name: 二年级上册
+  subject: 数学
+  category: 小学
+  grade: 二年级
+  content:
+    chapters:
+      - 长度单位
+      - 100以内的加法（二）
+      - 角的初步认识
+      - 表内乘法（一）
+      - 观察物体（一）
+      - 表内乘法（二）
+      - 认识时间
+      - 数学广角--搭配（一）
+      - 总复习
+-
+  name: 二年级下册
+  subject: 数学
+  category: 小学
+  grade: 二年级
+  content:
+    chapters:
+      - 数据收集整理
+      - 表内除法（一）
+      - 圆形的运动（一）
+      - 表内除法（二）
+      - 混合运算
+      - 有余数的除法
+      - 万以内数的认识
+      - 克和千克
+      - 数学广角--推理
+      - 总复习
+-
+  name: 三年级上册
+  subject: 数学
+  category: 小学
+  grade: 三年级
+  content:
+    chapters:
+      - 时、分、秒
+      - 万以内的加法和减法（一）
+      - 测量
+      - 万以内的加法和减法（二）
+      - 倍的认识
+      - 多位数乘一位数
+      - 长方形和正方形
+      - 分数的初步认识
+      - 数学广角--集合
+      - 总复习
+-
+  name: 三年级下册
+  subject: 数学
+  category: 小学
+  grade: 三年级
+  content:
+    chapters:
+      - 位置与方向（一）
+      - 除数是一位数的除法
+      - 复式统计表
+      - 两位数乘两位数
+      - 面积
+      - 年、月、日
+      - 小数的初步认识
+      - 数学广角--搭配（二）
+      - 总复习
+-
+  name: 四年级上册
+  subject: 数学
+  category: 小学
+  grade: 四年级
+  content:
+    chapters:
+      - 大数的认识--1亿有多大
+      - 公顷和平方千米
+      - 角的度量
+      - 三位数乘两位数
+      - 平行四边形和梯形
+      - 除数是两位数的除法
+      - 条形统计图
+      - 数学广角--优化
+      - 总复习
+-
+  name: 四年级下册
+  subject: 数学
+  category: 小学
+  grade: 四年级
+  content:
+    chapters:
+      - 四则运算
+      - 观察物体（二）
+      - 运算定律
+      - 小数的意义和性质
+      - 三角形
+      - 小数的加法和减法
+      - 图形的运动（二）
+      - 平均数与条形统计图
+      - 数学广角--鸡兔同笼
+      - 总复习
+-
+  name: 五年级上册
+  subject: 数学
+  category: 小学
+  grade: 五年级
+  content:
+    chapters:
+      - 小数乘法
+      - 位置
+      - 小数除法
+      - 可能性
+      - 简易方程
+      - 多边形的面积
+      - 数学广角--植树问题
+      - 总复习
+-
+  name: 五年级下册
+  subject: 数学
+  category: 小学
+  grade: 五年级
+  content:
+    chapters:
+      - 观察物体（三）
+      - 因数与倍数
+      - 长方形和正方形
+      - 分数的意义和性质
+      - 图形的运动（三）
+      - 分数的加法和减法
+      - 折线统计图
+      - 数学广角--找次品
+      - 总复习
+-
+  name: 六年级上册
+  subject: 数学
+  category: 小学
+  grade: 六年级
+  content:
+    chapters:
+      - 分数乘法
+      - 位置与方向（二）
+      - 分数除法
+      - 比
+      - 圆
+      - 百分数（一）
+      - 扇形统计图
+      - 数学广角--数与形
+      - 总复习
+-
+  name: 六年级下册
+  subject: 数学
+  category: 小学
+  grade: 六年级
+  content:
+    chapters:
+      - 复数
+      - 百分数（二）
+      - 圆柱与圆锥
+      - 比例
+      - 数学广角--鸽巢问题
+      - 整理和复习
 -
   name: 八年级上
   subject: 物理
@@ -295,6 +485,168 @@
       - Unit 3 Inventors and inventions
       - Unit 4 Pygmalion
       - Unit 5 Meeting your ancestors
+-
+  name: 七年级上册
+  subject: 英语
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - Unit 1 Good morning!
+      - Unit 2 What's this in English?
+      - Unit 3 This is my sister.
+      - Unit 4 Where’s my backpack?
+      - Unit 5 Do you have a soccer ball?
+      - Unit 6 Do you like bananas?
+      - Unit 7 How much are these pants?
+      - Unit 8 When is your birthday?
+      - Unit 9 Do you want to go to a movie?
+      - Unit 10 Can you play the guitar?
+      - Unit 11 What time do you go to school?
+      - Unit 12 My favorite subject is science.
+-
+  name: 七年级下册
+  subject: 英语
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - Unit 1 where's your pen pal from?
+      - Unit 2 where's the post office？
+      - Unit 3 why do you like koalas?
+      - Unit 4 I want to be an actor.
+      - Unit 5 I'm watching TV.
+      - Unit 6 It's raining.
+      - Unit 7 What does he look like?
+      - Unit 8 I'd like some noodles.
+      - Unit 9 How was your weekend?
+      - Unit 10 Where did you go on vacatiom?
+      - Unit 11 What do you think of game shows?
+      - Unit 12 Don’t eat in class
+-
+  name: 八年级上册
+  subject: 英语
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - Unit 1 How often do you exercise?
+      - Unit 2 What's the matter?
+      - Unit 3 What are you doing for vacation?
+      - Unit 4 How do you get to school?
+      - Unit 5 Can you come to my party?
+      - Unit 6 I'm more outgoing than my sister.
+      - Unit 7 How do you make a banana milk shake?
+      - Unit 8 How was your school trip?
+      - Unit 9 When was he born?
+      - Unit 10 I'm going to be a basketball player.
+      - Unit 11 Could you please clean your room?
+      - Unit 12 what's the best radio station?
+-
+  name: 八年级下册
+  subject: 英语
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - Unit 1 Will people have robots?
+      - Unit 2 What should I do?
+      - Unit 3 What were you doing when the UFO arrived?
+      - Unit 4 He said I was hard-working.
+      - Unit 5 If you go to the party, you’ll have a great time!
+      - Unit 6 How long have you been collecting shells?
+      - Unit 7 Would you mind turning down the music?
+      - Unit 8 Why don’t you get her a scarf?
+      - Unit 9 Have you ever been to an amusement park?
+      - Unit 10 It’s a nice day, isn’t it?
+-
+  name: 九年级
+  subject: 英语
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - Unit 1  How do you study for a test ?
+      - Unit 2  I used to be afraid of the dark. 
+      - Unit 3  Teenagers should be allowed to choose their own clothes.
+      - Unit 4  What would you do?
+      - Unit 5  It must belong to Carla. 
+      - Unit 6  I like music that I can dance to. 
+      - Unit 7  Where would you like to visit ?
+      - Unit 8  I'll help clean up the city parks .
+      - Unit 9  When was it invented?
+      - Unit 10 By the time I got outside,the bus had already left.
+      - Unit 11 Could you please tell me where the restrooms are?
+      - Unit 12 You're supposed to shake hands.
+      - Unit13  Rainy days make me sad.
+      - Unit14  H ave you packed yet ?
+      - Unit15  We're trying to save the manatees.
+-
+  name: 七年级上册
+  subject: 科学
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 第一章 科学入门
+      - 第二章 观察生物
+      - 第三章 地球与宇宙
+      - 第四章 物质的特性
+-
+  name: 七年级下册
+  subject: 科学
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 第一章 对环境的察觉
+      - 第二章 运动和力
+      - 第三章 代代相传的生命
+      - 第四章 不断运动的地球
+-
+  name: 八年级上册
+  subject: 科学
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 第一章 生活中的水
+      - 第二章 地球的“外衣”—大气
+      - 第三章 生命活动的调节
+      - 第四章 电路探秘
+-
+  name: 八年级下册
+  subject: 科学
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 第一章 电和磁
+      - 第二章 物质的结构和组成
+      - 第三章 空气与生命
+      - 第四章 植物与土壤
+-
+  name: 九年级上册
+  subject: 科学
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 第一章 探索物质的变化
+      - 第二章 物质转化与材料利用
+      - 第三章 能量的转化与守恒
+      - 第四章 代谢与平衡
+-
+  name: 九年级下册
+  subject: 科学
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 第一章 演化的自然
+      - 第二章 生物与环境
+      - 第三章 人的健康与环境
+      - 第四章 环境与可持续发展
 -
   name: 总复习
   subject: 英语
@@ -1087,3 +1439,588 @@
       - 长干曲
       - 菩萨蛮
       - 凤阳花鼓
+-
+  name: 七年级上册
+  subject: 语文
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 七年级下册
+  subject: 语文
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 八年级上册
+  subject: 语文
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 八年级下册
+  subject: 语文
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 九年级上册
+  subject: 语文
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 九年级下册
+  subject: 语文
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 第一单元
+      - 第二单元
+      - 第三单元
+      - 第四单元
+      - 第五单元
+      - 第六单元
+-
+  name: 总复习
+  subject: 语文
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 第一轮复习
+      - 第二轮复习
+      - 第三轮复习
+      - 中考专题
+-
+  name: 一年级上册
+  subject: 语文
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 识字1
+      - 识字2
+      - 课文
+-
+  name: 一年级下册
+  subject: 语文
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 识字1
+      - 识字2
+      - 识字3
+      - 识字4
+      - 识字5
+      - 识字6
+      - 识字7
+      - 识字8
+      - 选读课文
+-
+  name: 二年级上册
+  subject: 语文
+  category: 小学
+  grade: 二年级
+  content:
+    chapters:
+      - 识字1
+      - 识字2
+      - 识字3
+      - 识字4
+      - 识字5
+      - 识字6
+      - 识字7
+      - 识字8
+      - 选读课文
+-
+  name: 二年级下册
+  subject: 语文
+  category: 小学
+  grade: 二年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 第七组
+      - 第八组
+      - 选读课文
+-
+  name: 三年级上册
+  subject: 语文
+  category: 小学
+  grade: 三年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 第七组
+      - 第八组
+      - 选读课文
+-
+  name: 三年级下册
+  subject: 语文
+  category: 小学
+  grade: 三年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 第七组
+      - 第八组
+      - 选读课文
+-
+  name: 四年级上册
+  subject: 语文
+  category: 小学
+  grade: 四年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 第七组
+      - 第八组
+      - 选读课文
+-
+  name: 四年级下册
+  subject: 语文
+  category: 小学
+  grade: 四年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 第七组
+      - 第八组
+      - 选读课文
+-
+  name: 五年级上册
+  subject: 语文
+  category: 小学
+  grade: 五年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 第七组
+      - 第八组
+      - 选读课文
+-
+  name: 五年级下册
+  subject: 语文
+  category: 小学
+  grade: 五年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 第七组
+      - 第八组
+      - 选读课文
+-
+  name: 六年级上册
+  subject: 语文
+  category: 小学
+  grade: 六年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 第七组
+      - 第八组
+      - 选读课文
+-
+  name: 六年级下册
+  subject: 语文
+  category: 小学
+  grade: 六年级
+  content:
+    chapters:
+      - 第一组
+      - 第二组
+      - 第三组
+      - 第四组
+      - 第五组
+      - 第六组
+      - 古诗词背诵
+      - 综合复习
+-
+  name: 一年级上册
+  subject: 科学
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 我们的生活与科技
+      - 学科学的"好帮手"
+      - 天气与生活
+      - 文具的科学
+      - 服装的科学
+-
+  name: 一年级下册
+  subject: 科学
+  category: 小学
+  grade: 一年级
+  content:
+    chapters:
+      - 工具的科学
+      - 周围的植物
+      - 饮食的科学
+-
+  name: 二年级上册
+  subject: 科学
+  category: 小学
+  grade: 二年级
+  content:
+    chapters:
+      - 观察动物
+      - 我们的家园
+      - 玩具
+-
+  name: 二年级下册
+  subject: 科学
+  category: 小学
+  grade: 二年级
+  content:
+    chapters:
+      - 交通工具
+      - 生活用具
+      - 石头、沙和水
+-
+  name: 三年级上册
+  subject: 科学
+  category: 小学
+  grade: 三年级
+  content:
+    chapters:
+      - 和动物交朋友
+      - 动物的生活
+      - 动物的本领
+      - 水和空气很重要
+-
+  name: 三年级下册
+  subject: 科学
+  category: 小学
+  grade: 三年级
+  content:
+    chapters:
+      - 天气与植物
+      - 植物的生长
+      - 植物生活的土地 
+      - 植物和我们
+-
+  name: 四年级上册
+  subject: 科学
+  category: 小学
+  grade: 四年级
+  content:
+    chapters:
+      - 考察前的准备
+      - 认识更多的生物
+      - 蓝色的地球
+      - 陪伴我们的日与月
+-
+  name: 四年级下册
+  subject: 科学
+  category: 小学
+  grade: 四年级
+  content:
+    chapters:
+      - 奇妙的光
+      - 各种各样的声音
+      - 离不开的电
+      - 神奇的电磁铁
+-
+  name: 五年级上册
+  subject: 科学
+  category: 小学
+  grade: 五年级
+  content:
+    chapters:
+      - 建筑与形状
+      - 建筑与材料
+      - 建筑与简单机械
+-
+  name: 五年级下册
+  subject: 科学
+  category: 小学
+  grade: 五年级
+  content:
+    chapters:
+      - 物质的变化
+      - 生长与变化
+      - 地表的变化
+      - 不平静的地球
+-
+  name: 六年级上册
+  subject: 科学
+  category: 小学
+  grade: 六年级
+  content:
+    chapters:
+      - 植物的生命系统
+      - 人体的奥秘
+      - 自然界里的水循环
+      - 日地月系统
+-
+  name: 六年级下册
+  subject: 科学
+  category: 小学
+  grade: 六年级
+  content:
+    chapters:
+      - 能量与生活
+      - 生物与环境
+      - 资源保护与环境危机
+      - 无限宇宙
+-
+  name: 七年级上册
+  subject: 地理
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 地球和地图
+      - 陆地和海洋
+      - 天气与气候
+      - 居民与聚落
+      - 发展与合作
+-
+  name: 七年级下册
+  subject: 地理
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 我们生活的大洲——亚洲
+      - 我们邻近的国家和地区
+      - 东半球其他的国家和地区
+      - 西半球的国家
+      - 极地地区
+-
+  name: 八年级上册
+  subject: 地理
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 从世界看中国
+      - 中国的自然环境
+      - 中国的自然资源
+      - 中国的经济发展
+-
+  name: 八年级下册
+  subject: 地理
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 自然特征与农业
+      - 南方地区
+      - 西北地区
+      - 西藏地区
+      - 中国在世界中
+-
+  name: 七年级上册
+  subject: 历史
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 第一单元 中华文明的起源
+      - 第二单元 国家的产生和社会的变革
+      - 第三单元 统一国家的建立
+      - 第四单元 政治分立与民族融合
+-
+  name: 七年级下册
+  subject: 历史
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 第一单元 繁荣与开放的社会
+      - 第二单元 经济重心的南移和民族关系的发展
+      - 第三单元 统一多国家的巩固和社会的危机
+-
+  name: 八年级上册
+  subject: 历史
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 第一单元 侵略与反抗
+      - 第二单元 近代化的探索
+      - 第三单元 新民主主义革命的兴起
+      - 第四单元 中华民族的抗日战争
+      - 第五单元 人民解放军的胜利
+      - 第六单元 经济和社会生活
+      - 第七单元 科学技术与思想文华
+-
+  name: 八年级下册
+  subject: 历史
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 第一单元 中华人民共和国的成立和巩固
+      - 第二单元 社会主义道路的探索
+      - 第三单元 建设有中国特色的社会主义
+      - 第四单元 民族团结与祖国统一
+      - 第五单元 国防建设与外交成就
+      - 第六单元 科技教育与文华
+      - 第七单元 社会生活
+-
+  name: 九年级上册
+  subject: 历史
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 第一单元 人类文明的开端
+      - 第二单元 亚洲和欧洲的封建社会
+      - 第三单元 中国文明的传播与发展
+      - 第四单元 不如近代
+      - 第五单元 殖民扩张与殖民地人民的抗战
+      - 第六单元 无产阶级的斗争与资产阶级统治的加强
+      - 第七单元 垄断资本主义时代的世界
+      - 第八单元 璀璨的近代文化
+-
+  name: 九年级下册
+  subject: 历史
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 第一单元 苏联社会主义道路的探索
+      - 第二单元 凡尔赛—华盛顿体系下的世界
+      - 第三单元 第二次世界大战
+      - 第四单元 战后主要资本主义国家的发展变化
+      - 第五单元 社会主义国家的改革与演变
+      - 第六单元 亚非拉国家的独立和振兴
+      - 第七单元 战后世界格局的演变
+      - 第八单元 现代科学技术和文华
+-
+  name: 七年级上册
+  subject: 政治
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 第一单元 笑迎接新生活
+      - 第二单元 认识新自我
+      - 第三单元 过富有情趣的生活
+      - 第四单元 过健康、安全的生活
+-
+  name: 七年级下册
+  subject: 政治
+  category: 初中
+  grade: 初一
+  content:
+    chapters:
+      - 第一单元　做自尊自信的人
+      - 第二单元　做自立自强的人
+      - 第三单元　做意志坚强的人
+      - 第四单元　做知法守法用法的人
+-
+  name: 八年级上册
+  subject: 政治
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 第一单元　相亲相爱一家人
+      - 第二单元　师友结伴同行
+      - 第三单元　我们的朋友遍天下
+      - 第四单元　交往艺术新思维
+-
+  name: 八年级下册
+  subject: 政治
+  category: 初中
+  grade: 初二
+  content:
+    chapters:
+      - 第一单元　权利义务伴我行
+      - 第二单元　我们的人身权利
+      - 第三单元　我们的文化、经济权利
+      - 第四单元　我们崇尚公平和正义
+-
+  name: 九年级全一册
+  subject: 政治
+  category: 初中
+  grade: 初三
+  content:
+    chapters:
+      - 第一单元　承担责任　服务社会
+      - 第二单元　了解祖国　爱我中华
+      - 第三单元　融入社会　肩负使命
+      - 第四单元　满怀希望　迎接明天
+

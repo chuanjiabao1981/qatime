@@ -285,10 +285,25 @@
   div{
     float: inherit;
   }
+  input{
+    padding: 2px;
+  }
   .info-intro{
     padding: 0 20px;
     width: 100%;
     div{ width: 100%;}
+    textarea{
+      width: 100%;
+      padding: 5px;
+      height: 140px;
+    }
+  }
+  .info-submit-btn{
+    width: 100%;
+    padding:20px;
+    button{
+      margin: 10px;
+    }
   }
   .info-publicize{
     width: 50%;
@@ -297,6 +312,13 @@
       height: 300px;
       display: block;
       margin: auto;
+    }
+    div{
+      font-size: 12px;
+      color: #cccccc;
+      border-top: solid 1px #BBBBBB;
+      width: 100%;
+      text-align: right;
     }
   }
   .info-content{
@@ -321,6 +343,10 @@
 }
 .over-lesson{
   color: #999;
+}
+#show_notice_area{
+  word-break:break-all;
+  word-wrap:break-word;
 }
 
 

@@ -25,6 +25,7 @@ module LiveStudio
     end
 
     def edit
+      @lessons = @course.lessons.order("id").paginate(page: params[:page])
     end
 
     # PATCH/PUT /teachers/:teacher_id/courses/:id
@@ -59,7 +60,7 @@ module LiveStudio
 
     # Only allow a trusted parameter "white list" through for update.
     def teacher_course_params
-      params.require(:course).permit(:name, :description,:publicize)
+      params.require(:course).permit(:name, :preset_lesson_count,:description,:publicize, :price)
     end
 
     def filter_patams

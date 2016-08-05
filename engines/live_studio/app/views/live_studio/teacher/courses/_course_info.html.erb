@@ -1,9 +1,42 @@
 <div class="info-body">
   <div class="info-publicize">
-    <%= image_tag @course.publicize_url(:info) %>
+    <%= image_tag @course.publicize_url(:info),id: 'course_publicize_preview' %>
+    <%= content_tag(:div, class: '') do %>
+      <%= f.file_field :publicize, label: false, style: "display:none;", onchange: 'showimagepreview(this)' %>
+      <a href="javascript:void(0);" class="btn" id="select_publicize_btn"><%= t "view.teacher_course.publicize" %></a>
+      <br/>
+      建议：<br/>
+      图片比例 4:3，<br/>
+      图片格式为jpeg或png，<br/>
+      图片大小不大于100KB，<br/>
+      禁止上传涉及恐怖、暴力、血腥、色情、政治类图片
+      <script>
+        $("#select_publicize_btn").on('click',function(event){
+          $("#course_publicize").click();
+        })
+        function showimagepreview(input){
+          console.log('hi');
+          if (input.files && input.files[0]) {
+            var filerdr = new FileReader();
+            console.log('hi2');
+
+            filerdr.onload = function(e) {
+              $('#course_publicize_preview').attr('src', e.target.result);
+            }
+            filerdr.readAsDataURL(input.files[0]);
+          }
+        }
+      </script>
+    <% end if action_name == 'edit'%>
   </div>
   <div class="info-content">
     <table class="table table-hover">
+      <%= content_tag :tr do %>
+      <td colspan="2">
+        <%= t('view.teacher_course.course_name') %>
+        <%= f.text_field :name %>
+      </td>
+      <% end if action_name == 'edit' %>
       <tr>
         <td><%= t('view.course_info_show.subject') %><%= @course.subject %></td>
         <td><%= t('view.course_info_show.grade') %><%= @course.grade %></td>
@@ -14,7 +47,11 @@
         </td>
       </tr>
       <tr>
-        <td><%= t('view.course_info_show.lesson_count') %><%= @course.preset_lesson_count %></td>
+        <td>
+          <%= t('view.course_info_show.lesson_count') %>
+          <%= @course.preset_lesson_count if action_name != 'edit'%>
+          <%= f.text_field :preset_lesson_count if action_name == 'edit'%>
+        </td>
         <td><%= t('view.course_info_show.schedule') %><%= "#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %></td>
       </tr>
       <tr>
@@ -24,20 +61,26 @@
       </tr>
       <tr>
         <td colspan="2">
-          <%= t('view.course_info_show.start_time') %><%= @course.live_start_time %>
+          <%= t('view.course_info_show.start_time') %>
+          <%= @course.live_start_time %>
+          <%= t('view.course_info_show.time_tips') if action_name == 'edit'%>
         </td>
       </tr>
       <tr>
         <td colspan="2">
-          <%= t('view.course_info_show.end_time') %><%= @course.live_end_time %>
+          <%= t('view.course_info_show.end_time') %>
+          <%= @course.live_end_time %>
+          <%= t('view.course_info_show.time_tips') if action_name == 'edit'%>
         </td>
       </tr>
       <tr>
         <td>
-          <%= t('view.teacher_course.price_unit') % @course.price %>
+          <%= t('view.teacher_course.price_unit')%>
+          <%= @course.price if action_name != 'edit'%>
+          <%= f.text_field :price if action_name == 'edit'%>
         </td>
         <td>
-          <%= t('view.teacher_course.avg_price') % (@course.price / @course.preset_lesson_count) %>
+          <%= t('view.teacher_course.avg_price')%><%= (@course.price / @course.preset_lesson_count) %>
         </td>
       </tr>
       <tr>
@@ -53,12 +96,12 @@
           <div><%= Chat::Team.human_attribute_name(:announcement)%></div>
           <div class="col-md-9" id="show_notice_area">
             <%= @course.chat_team.announcement %>
-            <button type="button" class="btn btn-xs btn-success" id="edit_notice_btn">编辑</button>
+            <%= button_tag t('activerecord.view.edit'),class: 'btn btn-xs btn-success', id: 'edit_notice_btn' if action_name != 'edit' %>
           </div>
 
           <div class="col-md-9" id="edit_notice_area" style="display:none;">
-            <%= simple_form_for(@course.chat_team, url: update_notice_course_path(@course), html: {id: "edit_notice_form"}) do |f| %>
-              <%= f.input :announcement, label: false, as: :text, input_html: {size: "60x4"} %>
+            <%= simple_form_for(@course.chat_team, url: update_notice_course_path(@course), html: {id: "edit_notice_form"}) do |sf| %>
+              <%= sf.input :announcement, label: false, as: :text, input_html: {size: "60x4"} %>
             <% end %>
             <button type="button" class="btn btn-xs btn-success" id="submit_notice_btn">完成</button>
           </div>
@@ -68,6 +111,11 @@
   </div>
   <div class="info-intro">
     <div><%= t('view.course_info_show.desc') %></div>
-    <%= @course.description %>
+    <%= @course.description if action_name != 'edit'%>
+    <%= f.text_area :description if action_name == 'edit' %>
   </div>
+  <%= content_tag :div,class: 'text-center info-submit-btn' do %>
+    <%= link_to t('view.cancel_btn'),:back, class: 'btn btn-default' %>
+    <%= button_tag t('view.save_btn'), class: 'btn btn-default btn-primary' %>
+  <% end if action_name == 'edit'%>
 </div>

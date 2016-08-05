@@ -1,23 +1,69 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <h2>
-      <%= t("activerecord.view.edit") %><%= LiveStudio::Course.model_name.human %>
-    </h2>
+<div class="qa_box panel panel-default panel-support">
+  <div class='course-header-div'>
+    <%= link_to LiveStudio::Course.model_name.human, teacher_courses_path(@teacher) %> &gt;
+    <strong><%= @course.name %></strong>
   </div>
-</div>
-
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <%= simple_form_for @course,url: teacher_course_path(@teacher, @course),enctype: "multipart/form-data" do |f|%>
-      <div class="form-inputs">
-        <%= f.input :name %>
-        <%= f.input :description, type: :text %>
-        <%= f.input :publicize,type: :file, multiple: true %>
+  <div class="course-info-list">
+    <a href='#content_info' data-toggle="tab">
+      <div id="info_div" class="list-ceil <%= params[:index].blank? || params[:index] == 'info' ? ' active' : nil %>">
+        <%= t('view.course_show.info') %>
       </div>
-
-      <div class="form-actions">
-        <%= f.button :submit, class: "btn btn-default" %>
+    </a>
+    <a href='#lesson_list' data-toggle="tab">
+      <div id="list_div" class="list-ceil<%= params[:index] == 'list' ? ' active' : nil %>">
+        <%= t('view.course_show.lessons') %>
+      </div>
+    </a>
+  </div>
+  <div class="info-header">
+    <div class="info-name">
+      <strong><%= @course.name %></strong>
+    </div>
+    <%= content_tag :div, class: "info-subtitle #{params[:index] == 'list' ? 'hide' : nil}" do %>
+      <div class="info-status">
+        <%= t('view.course_show.status') %>
+        <%= @course.status_text %>
+      </div>
+      <div class="info-preview">
+        <%= preview_time(@course,{text2: true}) %>
+      </div>
+      <div>
+        <%= "#{t('view.course_info_show.ticket_count')}#{@course.buy_tickets_count}" %>
+      </div>
+    <% end %>
+    <%= content_tag :div, class: "info-list-subtitle #{params[:index] == 'list' ? nil : 'hide'}" do %>
+      <div>
+        <%= t('view.course_info_show.lesson_plan') % [@course.live_start_time ,@course.live_end_time] %>
+      </div>
+      <div>
+        <%= "#{t('view.course_info_show.schedule')}#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>
       </div>
     <% end %>
   </div>
+  <div class="tab-content">
+    <div id="content_info" class="tab-pane fade<%= params[:index].blank? || params[:index] == 'info' ? ' in active' : nil %>">
+      <%= simple_form_for @course,url: teacher_course_path(@teacher, @course),enctype: "multipart/form-data" do  |f| %>
+        <%= render partial: 'course_info',locals: {f: f} %>
+      <% end %>
+    </div>
+    <div id="lesson_list" class="tab-pane fade<%= params[:index] == 'list' ? ' in active' : nil %>">
+      <%= render '/live_studio/student/courses/lesson' %>
+    </div>
+  </div>
 </div>
+<script>
+  $(function() {
+    $('.list-ceil').click(function(event){
+      $('.list-ceil').removeClass('active');
+      $(this).addClass('active');
+      if($(this).attr('id') == 'info_div'){
+        $('.info-list-subtitle').addClass('hide');
+        $('.info-subtitle').removeClass('hide');
+      }
+      if($(this).attr('id') == 'list_div'){
+        $('.info-list-subtitle').removeClass('hide');
+        $('.info-subtitle').addClass('hide');
+      }
+    });
+  });
+</script>

@@ -1,5 +1,7 @@
 cn:
   view:
+    save_btn: 保存
+    cancel_btn: 取消
     course_show:
       start_time: 开课时间：
       end_time: 结课时间：
@@ -44,6 +46,7 @@ cn:
       lesson_start_at: 上课时间
       lesson_name: 课程名称
       lesson_status: 课程状态
+      time_tips: 设置课程后系统将自动生成此时间
     course_search_show:
       buy_tickets_count: 已购人数：%d
       current_status: 当前状态：
@@ -78,8 +81,10 @@ cn:
       subject: 科目：%s
       grade: 年级：%s
       next_live_time: 下次课时间：%s
-      price_unit: 价格(元)：%.2f
-      avg_price: 课均价(元)：%.2f
+      price_unit: 价格(元)：
+      avg_price: 课均价(元)：
+      publicize: 点此更换图片
+      course_name: 辅导班名称：
   status:
     init: 初始化
     preview: 招生中

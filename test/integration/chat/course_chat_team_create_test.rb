@@ -20,13 +20,7 @@ module Chat
       log_in_as(@seller)
       @course = live_studio_courses(:course_with_junior_teacher)
       visit live_studio.seller_course_path(@seller, @course)
-      accept_alert do
-        click_on("开始招生")
-      end
-      assert page.has_content?('招生中'), "开始招生失败"
-      @course.reload
-      assert @course.preview?, "开始招生后，辅导班状态不正确"
-      assert_not_nil @course.chat_team
+      assert page.has_no_content?('开始招生'), "销售开始招生权限错误"
       logout_as(@seller)
     end
 
@@ -34,14 +28,7 @@ module Chat
       log_in_as(@manager)
       @course = live_studio_courses(:course_without_chat_team)
       visit live_studio.manager_course_path(@manager, @course)
-      accept_alert do
-        click_on("开始招生")
-      end
-      assert page.has_content?('招生中'), "开始招生失败"
-      @course.reload
-      assert @course.preview?, "开始招生后，辅导班状态不正确"
-      assert_not_nil @course.chat_team
-      assert_not_nil @course.teacher.chat_account
+      assert page.has_no_content?('开始招生'), "管理员开始招生权限错误"
       logout_as(@manager)
     end
 

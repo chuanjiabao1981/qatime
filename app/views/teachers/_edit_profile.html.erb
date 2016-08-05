@@ -51,7 +51,7 @@
   <%= simple_form_for(@teacher, url: teacher_path(@teacher, cate: :edit_profile, by: :profile), html: {id: :edit_profile_form})  do |f| %>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:name)%></div>
+        <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:name)%></div>
         <div class="col-md-9">
           <%= f.input :name, label: false %>
         </div>
@@ -59,7 +59,7 @@
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:gender)%></div>
+        <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:gender)%></div>
         <div class="col-md-9">
           <%= f.input :gender, as: :radio_buttons, label: false %>
         </div>
@@ -67,7 +67,7 @@
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:birthday)%></div>
+        <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:birthday)%></div>
         <div class="col-md-9">
           <%= f.input :birthday, label: false, as: :string, input_html: {type: :date, max: Time.now.strftime('%Y-%m-%d')} %>
         </div>
@@ -75,7 +75,7 @@
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:address)%></div>
+        <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:address)%></div>
         <div class="col-md-9">
           <div class="row">
             <div class="col-md-6">
@@ -90,7 +90,7 @@
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:school)%></div>
+        <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:school)%></div>
         <div class="col-md-9">
           <%= f.input :school_id, label: false, :collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]} %>
         </div>
@@ -98,7 +98,7 @@
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:subject)%></div>
+        <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:subject)%></div>
         <div class="col-md-9">
           <%= f.input :subject, label: false,  :collection => APP_CONSTANT["subjects"] %>
         </div>
@@ -106,7 +106,7 @@
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:teaching_years)%></div>
+        <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:teaching_years)%></div>
         <div class="col-md-9">
           <%= f.input :teaching_years, label: false, as: :select %>
         </div>
@@ -114,7 +114,7 @@
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:grade_range)%></div>
+        <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:grade_range)%></div>
         <div class="col-md-9">
           <%= f.input :grade_range, collection: APP_CONSTANT["grades"][@teacher.category], label: false, as: :check_boxes %>
         </div>
@@ -123,7 +123,7 @@
 
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%=Teacher.human_attribute_name(:desc)%></div>
+        <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:desc)%></div>
         <div class="col-md-9">
           <%= f.input :desc, label: false, as: :text %>
         </div>

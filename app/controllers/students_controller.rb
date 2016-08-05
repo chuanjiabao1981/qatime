@@ -165,9 +165,8 @@ class StudentsController < ApplicationController
   # 用户修改个人信息根据需要检查是否存在第一步生成的session
   def require_step_one_session
     update_by = params[:by]
-    return true if %w(email mobile).exclude?(update_by) || @step_one_session
+    return true if %w(email mobile).exclude?(update_by)  || !UserService::CaptchaManager.expire?(@step_one_session)
     # 没有第一步的session跳转到编辑页面
-    # TODO 国际化
     redirect_to edit_student_path(@student, by: params[:by], cate: params[:cate]), alert: t("flash.alert.please_verify_step_one_#{update_by}")
   end
 

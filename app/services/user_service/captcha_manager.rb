@@ -17,5 +17,9 @@ module UserService
       return if obj.blank? || obj[:expire_at] < Time.now.to_i
       obj[:captcha]
     end
+
+    def self.expire?(obj)
+      obj.blank? || obj[:expire_at] < Time.now.to_i
+    end
   end
 end

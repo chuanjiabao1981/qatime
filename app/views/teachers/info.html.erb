@@ -20,7 +20,7 @@
           <div class="pull-right">
             <% if allow? "teachers", "edit" ,@teacher%>
               <%=link_to edit_teacher_path(@teacher, cate: :edit_profile, by: :profile) do %>
-                <button type="button" class="btn btn-xs btn-success">编辑讲师</button>
+                <button type="button" class="btn btn-xs btn-success"><%= t ".edit_information" %></button>
               <% end %>
             <% end %>
           </div>

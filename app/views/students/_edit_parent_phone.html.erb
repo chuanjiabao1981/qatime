@@ -2,7 +2,6 @@
 
 <div id="edit_parent_phone_area" style="padding-top: 30px;<%= 'display:none;' unless if_show_parent_phone_div %>">
     <%= simple_form_for(@student, url: student_path(@student, cate: :security_setting, by: :parent_phone), html: {id: "change_parent_phone_form"}) do |f| %>
-      <input type="hidden" name="send_to" value="<%= @student.parent_phone %>" id="student_parent_phone">
       <input type="hidden" name="edit_type" value="mobile">
       <input type="hidden" name="student_id" value="<%= @student.id %>">
       <input type="hidden" name="cate" value="security_setting">
@@ -31,7 +30,7 @@
           <%= t ".binding_parent_phone" %>:
         </div>
         <div class="col-md-3">
-          <% _input_html = action_name == "edit" ?  { maxlength: 11, value: "" } : { length: 11 } %>
+          <% _input_html = action_name == "edit" ?  { maxlength: 11, value: "" } : { maxlength: 11 } %>
           <%= f.input :parent_phone, label: false, input_html: _input_html %>
         </div>
       </div>

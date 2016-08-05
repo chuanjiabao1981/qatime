@@ -65,7 +65,6 @@ class StudentUpdatePasswordAndEmailTest < ActionDispatch::IntegrationTest
 
     click_on "绑定邮箱"
     student.reload
-    sleep(10)
     assert_equal("test1@test.com", student.email, '更新邮箱错误')
   end
 end

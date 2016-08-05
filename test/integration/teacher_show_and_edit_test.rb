@@ -73,4 +73,24 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
 
     click_on '保存', match: :first
   end
+
+  test "teacher update mobile" do
+    visit info_teacher_path(@teacher)
+    click_on "安全设置"
+    click_on "修改绑定手机", match: :first
+    click_on "获取验证码", match: :first
+
+    fill_in "mobile-captcha-input", with: "1234"
+    click_on "下一步"
+
+    fill_in "teacher_mobile", with: "13800001111"
+    click_on "获取验证码", match: :first
+
+    fill_in "teacher_captcha_confirmation", with: "1234"
+
+    click_on "绑定手机"
+    @teacher.reload
+    assert_equal("13800001111", @teacher.mobile, '更新手机错误')
+  end
+
 end

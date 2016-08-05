@@ -45,4 +45,26 @@ class TeacherUpdatePasswordAndEmailTest < ActionDispatch::IntegrationTest
 
     new_logout_as(teacher)
   end
+
+  test "teacher update email" do
+    teacher = users(:update_email_teacher)
+    log_in_as(teacher)
+
+    visit info_teacher_path(teacher)
+    click_on "安全设置"
+    click_on "修改绑定邮箱", match: :first
+    click_on "获取验证码", match: :first
+
+    fill_in "email-captcha-input", with: "1234"
+    click_on "下一步"
+
+    fill_in "teacher_email", with: "test_teacher1@test.com"
+    click_on "获取验证码", match: :first
+
+    fill_in "teacher_captcha_confirmation", with: "1234"
+
+    click_on "绑定邮箱"
+    teacher.reload
+    assert_equal("test_teacher1@test.com", teacher.email, '更新邮箱错误')
+  end
 end

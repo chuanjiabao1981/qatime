@@ -210,6 +210,17 @@ biology_teacher1:
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   school: school1
   type: Teacher
+update_email_teacher:
+  name: physics_teacher1
+  role: teacher
+  category: 高中
+  subject: 物理
+  mobile: 15910676326
+  email: update_email_teacher@qatime.cn
+  avatar: "test"
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  school: school1
+  type: Teacher
 
 admin:
   name: admin

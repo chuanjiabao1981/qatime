@@ -7,9 +7,8 @@ module LiveStudio
     before_action :play_authorize, only: [:play]
 
     def index
-      @courses = Course.for_sell.includes(:teacher).all
-      @tickets = @student.live_studio_tickets.where(course_id: @courses.map(&:id)) if @student.student?
-      render layout: "student_home"
+      @courses = LiveService::CourseDirector.courses_search(search_params).paginate(page: params[:page], per_page: 5)
+      @tickets = @student.live_studio_tickets.where(course_id: @courses.map(&:id)) if @student
     end
 
     # 开始招生
@@ -72,11 +71,15 @@ module LiveStudio
     end
 
     def set_student
-      @student = ::Student.find_by(id: params[:student_id]) || current_user
+      @student = ::Student.find_by(id: params[:student_id]) #|| current_user
     end
 
     def current_resource
       Course.find(params[:id]) if params[:id]
+    end
+
+    def search_params
+      params.permit(:subject, :grade, :class_date_sort, :status)
     end
   end
 end

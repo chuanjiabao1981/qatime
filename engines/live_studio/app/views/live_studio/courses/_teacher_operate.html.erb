@@ -5,6 +5,6 @@
 <% elsif course.tasting?(current_user) %>
   <%= link_to t("live_studio/ticket.type_name.tasted"), live_studio.course_path(course) %>
 <% end %>
-<% if course.sell_to?(@student) && !course.bought_by?(@student) && current_user == @student -%>
+<% if course.sell_to?(current_user) && !course.bought_by?(current_user) && current_user == @student -%>
   <%= link_to t("activerecord.view.buy_now"), live_studio.new_course_order_path(course), id: "buy-course-#{course.id}" %>
 <% end -%>

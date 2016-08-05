@@ -1,28 +1,32 @@
-<div class="panel panel-default">
-  <div class="panel-heading"><%= LiveStudio::Course.model_name.human %></div>
-  <div class="panel-body">
-    <!--
-      <%= form_tag("", method: "get") do -%>
-        <%= label_tag(t("activerecord.view.category")) %>
-        <%= select_tag :category, options_for_select(APP_CONSTANT["grades_in_menu"]) %>
-        <%= label_tag(t("activerecord.view.subject")) %>
-        <%= select_tag :subjects, options_for_select(APP_CONSTANT["subjects"]) %>
-        <%= label_tag(t("activerecord.view.teacher")) %>
-        <%= text_field_tag :teacher %>
-        <%= submit_tag t("activerecord.view.search") %>
-      <% end -%>
-      -->
+<div class="panel panel-default course-page">
+  <%= content_tag(:div, class: 'course-header-div') do%>
+    <%= content_tag(:div, t("activerecord.models.live_studio/course"), class: 'title') %>
+    <%= content_tag(:div, class: 'search-link') do %>
+      <%= content_tag(:a, href: student_courses_path(current_user)) do %>
+        <%= t('activerecord.view.course') %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <div class="filter-box">
+    <%= render partial: 'filter' %>
   </div>
   <div>
-    <table class="table">
-      <tr>
-        <th style="width: 5%">#</th>
-        <% %w(name teacher description price).each do |attr| -%>
-            <th style="width: 20%"><%= LiveStudio::Course.human_attribute_name(attr) %></th>
-        <% end %>
-        <th style="width: 15%"><%= t("activerecord.view.operate") %></th>
-      </tr>
-      <%= render @courses %>
-    </table>
+    <%= render @courses %>
+    <%= will_paginate @courses %>
   </div>
 </div>
+<script>
+  $(function(){
+    $(document).on('click','._menu',function(e) {
+      if( $(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle' ) {
+        $(this).collapse('hide');
+        $(this).css('height','auto');
+      }
+      if($(e.target).is('input')){
+        e.preventDefault();
+        return false;
+      }
+    });
+  });
+</script>

@@ -25,7 +25,7 @@ module LiveStudio
       waste_orders.update_all(status: 99) if waste_orders.present?
 
       @order = Payment::Order.new(order_params.merge(@course.order_params))
-      @order.remote_ip = request.remote_ip
+      @order.remote_ip = '127.0.0.1'#request.remote_ip
       @order.user = current_user
 
       if @order.save

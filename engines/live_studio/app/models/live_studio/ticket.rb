@@ -7,18 +7,18 @@ module LiveStudio
     belongs_to :lesson
 
     enum status: {
-           inactive: 0, # 准备试听
-           active: 1, # 可用
-           pre_used: 2, # 已经用完最后课程没有结束
-           used: 3, # 已经用完
-           replaced: 97, # 试听证被正式听课证替换
-           expired: 98, # 未使用过期
-           waste: 99 # 不可用
+           inactive: 0,   # 准备试听
+           active: 1,     # 可用
+           pre_used: 2,   # 已经用完最后课程没有结束
+           used: 3,       # 已经用完
+           replaced: 97,  # 试听证被正式听课证替换
+           expired: 98,   # 未使用过期
+           waste: 99      # 不可用
          }
 
-    scope :available, -> { where("status < ?", Ticket.statuses[:used]) }
-    scope :visiable, -> { where("status <= ?", Ticket.statuses[:used]) }
-    scope :authorizable, -> { where("status < ?", Ticket.statuses[:pre_used]) }
+    scope :available, -> { where("live_studio_tickets.status < ?", statuses[:used]) }
+    scope :visiable, -> { where("live_studio_tickets.status <= ?", statuses[:used]) }
+    scope :authorizable, -> { where("live_studio_tickets.status < ?", statuses[:pre_used]) }
 
     def type_name
       return I18n.t("live_studio/ticket.type_name.taste_#{status}") if taste?

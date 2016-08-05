@@ -1,3 +1,4 @@
 <% if @course.tasting?(current_user) -%>
-  $("#taste-course-<%= @course.id %>").replaceWith("<%= j(link_to t('live_studio/ticket.type_name.tasted'), student_course_path(@student,@course)) %>");
+$("#taste-course-<%= @course.id %>").text("<%= j(t('view.course_search_show.tasted')) %>");
+$("#taste-course-<%= @course.id %>").addClass('disabled');
 <% end %>

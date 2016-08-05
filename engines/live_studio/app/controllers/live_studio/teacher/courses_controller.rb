@@ -50,7 +50,7 @@ module LiveStudio
 
     # Only allow a trusted parameter "white list" through for update.
     def teacher_course_params
-      params.require(:course).permit(:name, :description)
+      params.require(:course).permit(:name, :description,:publicize)
     end
   end
 end

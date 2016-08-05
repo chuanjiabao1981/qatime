@@ -1,33 +1,11 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <h2>编辑讲师</h2>
-  </div>
-</div>
+<%= content_for :breadcrumb do %>
+  <ol class="breadcrumb">
+    <li><%= link_to t("teachers.common.personal_center"),info_teacher_path(@teacher) %></li>
+  </ol>
+<% end %>
 
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <%= simple_form_for(@teacher , :html => { :method => :put }) do |f| %>
-        <div class="form-inputs">
-          <%= f.input :email  , :required => true, :autofocus => true %>
-          <%= f.input :mobile %>
-          <%= f.input :name, disabled: true,:required => true %>
-          <%= f.input :nick_name, hint: "只可以是中文、英文或者下划线，最短3个字符最长10个字符，不可包含空格。" %>
+<div class="qa_box row">
+  <%= render "info_title" %>
 
-          <%= f.association :school,  disabled: true,:collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]} %>
-          <%= f.input :subject,   disabled:true %>
-          <%= f.input :category,  disabled:true %>
-          <%= f.input :avatar,input_html:{onchange:"showimagepreview(this)"},:hint => "用户头像不可为空。" %>
-          <img id="user_avatar_preview" style="width: 240px;height: 240px">
-
-          <%= f.input :desc %>
-
-          <%= f.input :password, :autocomplete => "off", :hint => "如果不想修改密码，则别填写此项!", :required => false %>
-          <%= f.input :password_confirmation, :required => false %>
-        </div>
-
-        <div class="form-actions">
-          <%= f.submit "更新信息", class: "btn btn-default" %>
-        </div>
-    <% end %>
-  </div>
+  <%= render params[:cate] %>
 </div>

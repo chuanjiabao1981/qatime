@@ -2023,4 +2023,104 @@
       - 第二单元　了解祖国　爱我中华
       - 第三单元　融入社会　肩负使命
       - 第四单元　满怀希望　迎接明天
+-
+  name: 三年级上册
+  subject: 英语
+  category: 小学
+  grade: 三年级
+  content:
+    chapters:
+      - Unit 1 Hello
+      - Unit 2 Look at Me
+      - Unit 3 Let's Paint
+      - Unit 4 We Love Animals
+      - Unit 5 Lest’s Eat
+      - Unit 6 Happy Birthday
+-
+  name: 三年级下册
+  subject: 英语
+  category: 小学
+  grade: 三年级
+  content:
+    chapters:
+      - Unit 1 Welcome back to school
+      - Unit 2 My family
+      - Unit 3 How many?
+      - Unit 4 Do you like pears?
+      - Unit 5 Where is my ruler?
+      - Unit 6 At the zoo
+-
+  name: 四年级上册
+  subject: 英语
+  category: 小学
+  grade: 四年级
+  content:
+    chapters:
+      - Unit 1 My Classroom
+      - Unit 2 My Schoolbag
+      - Unit 3 My Friends
+      - Unit 4 My Home
+      - Unit 5 What would You Like?
+      - Unit 6 Meet My Family!
+-
+  name: 四年级下册
+  subject: 英语
+  category: 小学
+  grade: 四年级
+  content:
+    chapters:
+      - Unit 1 Our School
+      - Unit 2 What Time Is It?
+      - Unit 3 Is This Your Skirt?
+      - Unit 4 It’s Warm Today
+-
+  name: 五年级上册
+  subject: 英语
+  category: 小学
+  grade: 五年级
+  content:
+    chapters:
+      - Unit 1 My New Teachers
+      - Unit 2 My Days of the Week
+      - Unit 3 What’s Your Favourite Food?
+      - Unit 4 What Can You Do?
+      - Unit 5 My New Room
+      - Unit 6 In a Nature Park
+-
+  name: 五年级下册
+  subject: 英语
+  category: 小学
+  grade: 五年级
+  content:
+    chapters:
+      - Unit 1 This Is My Day
+      - Unit 2 My Favourite Season
+      - Unit 3 My Birthday
+      - Unit 4 what Are You Doing?
+      - Unit 5 Look at the Monkeys
+      - Unit 6 A Field Trip
+-
+  name: 六年级上册
+  subject: 英语
+  category: 小学
+  grade: 六年级
+  content:
+    chapters:
+      - Unit 1 How Do You Go There?
+      - Unit 2 Where Is the Science Museum?
+      - Unit 3 What Are You Going to Do?
+      - Unit 4 I Have a Pen Pal
+      - Unit 5 What Does She Do?
+      - Unit 6 The Story of Rain
+-
+  name: 六年级下册
+  subject: 英语
+  category: 小学
+  grade: 六年级
+  content:
+    chapters:
+      - Unit 1 How Tall Are You?
+      - Unit 2 What’s the Matter,Mike?
+      - Unit 3 Last Weekend
+      - Unit 4 My Holiday
 

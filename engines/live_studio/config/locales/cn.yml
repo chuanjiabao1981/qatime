@@ -1,4 +1,76 @@
 cn:
+  view:
+    course_show:
+      start_time: 开课时间：
+      end_time: 结课时间：
+      status: 状态：
+      taste: (试听)
+      subject: 科目：
+      teacher: 老师：
+      schedule: 进度：
+      surplus: 剩余：
+      lesson_time: 课时
+      current: 当前课程：
+      info: 详细信息
+      lessons: 课程列表
+      study_link: 立即学习
+      distance_text1: (距开课 %d天)
+      distance_text2: 距离开课还有%d天
+      nil_data: 暂无
+      preview_lesson: 课程还未开始
+      complete_lesson: 全部课程已完成
+      teach_type: 授课方式：在线直播
+    course_info_show:
+      subject: 科目类型：
+      grade: 年级类型：
+      teacher: 授课老师：
+      lesson_count: 课时总数：
+      schedule: 课程进度：
+      surplus: 剩余课时：
+      start_time: 开课时间：
+      end_time: 结课时间：
+      ticket_count: 已购人数：
+      desc: 简介：
+      teacher_label: 教师资料简介
+      teacher_name: 老师姓名：
+      highest_education: 最高学历：
+      teaching_years: 执教年数：
+      subject: 所授科目：
+      grade_range: 年级范围：
+      school: 所在学校：
+      teacher_desc: 自我介绍：
+      lesson_plan: "%s开课~%s结课"
+      number: 序号
+      lesson_start_at: 上课时间
+      lesson_name: 课程名称
+      lesson_status: 课程状态
+    course_search_show:
+      buy_tickets_count: 已购人数：%d
+      current_status: 当前状态：
+      info: 了解更多信息
+      taste: 加入免费试听
+      buy: 立即购买支付
+      tasted: 已加入免费试听
+      bought: 已购买
+      submit_value: 确认
+      self_settings: 自定义范围
+      price_asc: 由低到高
+      price_desc: 由高到低
+      lesson_count_asc: 由少到多
+      lesson_count_desc: 由多到少
+      class_date_asc: 升序排列
+      class_date_desc: 降序排列
+      subject: 科目
+      grade: 年级
+      price: 价格
+      lesson_count: 课时总数
+      class_date: 开课日期
+      status: 当前状态
+    payment_show:
+      weixin_pay: 微信支付
+      pay: 支付
+      weixin_tips_text1: 请使用微信扫一扫
+      weixin_tips_text2: 扫描二维码支付
   status:
     init: 初始化
     preview: 招生中
@@ -42,6 +114,7 @@ cn:
         teacher: 辅导老师
         short_description: 摘要
         description: 说明
+        publicize: 封面
         workstation: 工作站
         price: 价格
         status: 状态
@@ -70,6 +143,8 @@ cn:
         finished: 待结算
         billing: 已结算
         completed: 已结算
+        paused: 暂停中
+        closed: 已结束
         student:
           init: 未开课
           ready: 等待直播
@@ -80,6 +155,14 @@ cn:
 #          billing: 已结算
 #          completed: 已完成
     view:
+      course: 我的辅导
+      filter:
+        today: 今日辅导
+        all: 全部
+        preview: 待开课
+        teaching: 开课中
+        completed: 已结束
+        tasted: 试听
       category: 类型
       teacher: 辅导老师
       subject: 科目
@@ -88,6 +171,8 @@ cn:
       buy: 购买
       taste: 试听
       buy_now: 立即购买
+      buy_new_course: 购买新辅导
+      none_tips: 当前列表没有发现辅导班，%s。
       taste_now: 立即试听
       search: 搜索
       edit: 编辑

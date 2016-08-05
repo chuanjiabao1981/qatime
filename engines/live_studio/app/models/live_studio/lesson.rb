@@ -14,13 +14,13 @@ module LiveStudio
       completed: 7 # 已结算
     }
 
-    default_scope { order("id asc") }
-
+    # default_scope { order("id asc") }
     scope :unfinish, -> { where("status < ?", Lesson.statuses[:finished]) }
     scope :unclosed, -> { where('status < ?', Lesson.statuses[:closed]) }
     scope :should_complete, -> { where(status: [statuses[:finished], statuses[:billing]]).where("class_date > ?", Date.yesterday)}
     scope :teached, -> { where("status > ?", Lesson.statuses[:teaching]) } # 已经完成上课
     scope :today, -> { where(class_date: Date.today) }
+    scope :since_today, -> {where('class_date > ?',Date.today)}
     scope :waiting_finish, -> { where(status: [statuses[:paused], statuses[:closed]])}
 
     belongs_to :course
@@ -33,6 +33,7 @@ module LiveStudio
 
     validates :name, :description, :course_id, :start_time, :end_time, :class_date, presence: true
     before_create :data_preview
+    after_commit :update_course
 
     include AASM
 
@@ -148,6 +149,11 @@ module LiveStudio
       current_live_session.heartbeat_at
     end
 
+    def is_over?
+      # 判断课程是否已经结束
+      %w(closed finished billing completed).include?(status)
+    end
+
     private
 
     # 过期试听证
@@ -199,6 +205,11 @@ module LiveStudio
 
     def data_preview
       self.status = self.class_date == Date.today ? 1 : 0
+    end
+
+    def update_course
+      first_class_date = course.lessons.order(:class_date).first.class_date
+      course.update(class_date: first_class_date)
     end
   end
 end

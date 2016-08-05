@@ -33,3 +33,8 @@ production:
   aliyun_backup_ac: aliyun_backup_ac
   aliyun_backup_ak: aliyun_backup_ak
   bucket_backup: bucket_backup
+
+emial_address: emial_address
+email_username: email_username
+email_password: email_password
+

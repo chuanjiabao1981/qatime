@@ -1,34 +1,14 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <h2>信息编辑</h2>
-  </div>
-</div>
+<%= content_for :breadcrumb do %>
+  <ol class="breadcrumb">
+    <li><%= link_to t("students.common.personal_center"),info_student_path(@student) %></li>
+  </ol>
+<% end %>
 
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <%= simple_form_for(@student)  do |f| %>
-
-        <div class="form-inputs">
-          <%= f.input :email, :required => true, :autofocus => true,:hint=>"邮箱用于登录和密码找回。" %>
-          <%= f.input :mobile, :required => true %>
-          <%= f.input :parent_phone,:required=>true,:hint=>"当余额不足时，会给您家长发送短信提醒。"%>
-          <%= f.input :name, :required => true,:hint => "填写真实姓名。" ,disabled: true%>
-          <%= f.input :grade, :required => true,:collection => APP_CONSTANT["grades_in_menu"],include_blank:false %>
-
-          <% %w[x y w h].each do |attribute| %>
-              <%= f.hidden_field "crop_#{attribute}"%>
-          <% end %>
-          <%= f.input :avatar,input_html:{onchange:"showimagepreview(this)"} ,:hint => "如果不想更改头像，则别填此项"%>
-          <img id="user_avatar_preview" style="width: 240px;height: 240px">
-
-          </img>
-          <%= f.input :password, :autocomplete => "off",:hint => "如果不想修改密码，则别填写此项!"%>
-          <%= f.input :password_confirmation %>
-        </div>
-
-        <div class="form-actions">
-          <%= f.submit '更 新', class: "btn btn-default" %>
-        </div>
-    <% end %>
-  </div>
+<div class="qa_box row">
+  <%= render "info_title" %>
+  <% if params[:cate] == "security_setting" %>
+    <%= render "security_setting" %>
+  <% else %>
+    <%= render "edit_profile" %>
+  <% end %>
 </div>

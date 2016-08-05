@@ -1,0 +1,54 @@
+cn:
+  students:
+    common:
+      personal_center: 个人中心
+      personal_information: 个人信息
+      security_setting: 安全设置
+      next_step: 下一步
+      cancel: 取消
+      select: 选择
+      save: 保存
+      ok: 确定
+      get_captcha: 获取验证码
+      try_get_captcha_again: 秒后重试
+    info:
+      edit_information: 编辑信息
+    edit_profile:
+      edit_avatar_btn: 更换头像
+      edit_avatar_title: 更换头像
+    security_setting:
+      login_password: 登录密码
+      this_password_is_not_visible: 此密码不可见
+      required_authentication_password: 登录答疑时间需要输入密码验证。
+      modify_login_password: 修改登录密码
+      bound_mobile: 绑定手机
+      bound_mobile_desc: 更改绑定手机需要同事对新旧手机进行验证，如果当前手机号遗失或无法收到验证码。
+      modified_binding_mobile: 修改绑定手机
+      bound_email: 绑定邮箱
+      bound_email_desc: 注意！修改绑定邮箱，用户登录邮箱将一起变更。
+      modified_binding_email: 修改绑定邮箱
+      bound_parent_phone: 家长手机
+      bound_parent_phone_desc: 修改家长手机号码后，原号码将不再接受提醒。
+      modified_binding_parent_phone: 修改家长手机
+    edit_email:
+      binding_email: 当前绑定邮箱
+      mobile_captcha: 手机校验码
+      get_captcha: 获取验证码
+      new_email: 新邮箱地址
+      email_captcha: 邮箱校验码
+      to_bind_email: 绑定邮箱
+    edit_mobile:
+      binding_mobile: 当前手机号码
+      mobile_captcha: 手机校验码
+      get_captcha: 获取验证码
+      new_mobile: 新手机号码
+      mobile_captcha: 手机校验码
+      to_bind_mobile: 绑定手机
+    edit_parent_phone:
+      binding_parent_phone: 当前家长手机
+      mobile_captcha: 手机校验码
+      get_captcha: 获取验证码
+      new_parent_phone: 新家长手机
+      mobile_captcha: 手机校验码
+      to_bind_parent_phone: 绑定家长手机
+

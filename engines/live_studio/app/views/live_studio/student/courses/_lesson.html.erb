@@ -1,36 +1,60 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <strong>课程安排</strong>
-  </div>
-
-  <!-- Table -->
-  <table class="table">
-    <tr>
-      <% %w(name se_time date status).each do |col| %>
-      <th>
-        <%= t("activerecord.view.#{col}") %>
-      </th>
-      <% end %>
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <td><%= t('view.course_info_show.number') %></td>
+    <td><%= t('view.course_info_show.lesson_start_at') %></td>
+    <td><%= t('view.course_info_show.lesson_name') %></td>
+    <td><%= t('view.course_info_show.lesson_status') %></td>
+  </tr>
+  </thead>
+  <tbody>
+  <% @course.lessons.each_with_index do |lesson,i| %>
+    <tr class="<%= lesson.is_over? ? 'over-lesson' : nil %>">
+      <td><%= i+1 %></td>
+      <td>
+        <%= lesson.class_date %>
+        <%= lesson.live_start_at || lesson.start_time %>
+      </td>
+      <td><%= lesson.name %></td>
+      <td><%= lesson.status_text %></td>
     </tr>
+  <% end %>
+  </tbody>
+</table>
 
-    <% @lessons.each do |lesson| -%>
-      <tr>
-        <td>
-          <%= lesson.name %>
-        </td>
-        <td>
-          <%= lesson.start_time%> - <%= lesson.end_time%>
-        </td>
-        <td>
-          <%= lesson.class_date %>
-        </td>
-        <td>
-          <%= lesson.status_text %>
-        </td>
-      </tr>
-    <% end -%>
-  </table>
-  <div class="panel-footer">
-    <%= will_paginate @lessons %>
-  </div>
-</div>
+<!--<div class="panel panel-default">-->
+  <!--<div class="panel-heading">-->
+    <!--<strong>课程安排</strong>-->
+  <!--</div>-->
+
+  <!--&lt;!&ndash; Table &ndash;&gt;-->
+  <!--<table class="table">-->
+    <!--<tr>-->
+      <!--<% %w(name se_time date status).each do |col| %>-->
+      <!--<th>-->
+        <!--<%= t("activerecord.view.#{col}") %>-->
+      <!--</th>-->
+      <!--<% end %>-->
+    <!--</tr>-->
+
+    <!--<% @lessons.each do |lesson| -%>-->
+      <!--<tr>-->
+        <!--<td>-->
+          <!--<%= lesson.name %>-->
+        <!--</td>-->
+        <!--<td>-->
+          <!--<%= lesson.start_time%> - <%= lesson.end_time%>-->
+        <!--</td>-->
+        <!--<td>-->
+          <!--<%= lesson.class_date %>-->
+        <!--</td>-->
+        <!--<td>-->
+          <!--<%= lesson.status_text %>-->
+        <!--</td>-->
+      <!--</tr>-->
+    <!--<% end -%>-->
+  <!--</table>-->
+  <!--<div class="panel-footer">-->
+    <!--<%= will_paginate @lessons %>-->
+  <!--</div>-->
+<!--</div>-->

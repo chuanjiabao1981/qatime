@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  extend Enumerize
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   ROLES = %w(admin guest manager teacher student waiter seller cash_admin)
@@ -8,6 +10,8 @@ class User < ActiveRecord::Base
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessor :register_code_value,:tmp_register_code
+  attr_accessor :captcha
+  attr_accessor :current_password
 
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: true
   validates_presence_of :avatar,:name,:mobile ,if: :teacher_or_student?
@@ -15,11 +19,14 @@ class User < ActiveRecord::Base
   validates :mobile,numericality: { only_integer: true },if: :teacher_or_student?
 
   validates :school ,presence: true,if: :teacher?
-  validates :password, length: { minimum: 6 },:on => :create
+  validates :password, length: { minimum: 6 }, if: :update_password?
   validates :grade, inclusion: { in: APP_CONSTANT["grades_in_menu"]},if: :student?
   validates_presence_of :grade, if: :student?
   validates :nick_name,allow_nil: true,allow_blank:true,uniqueness: true,
             format: {with: /\A[\p{Han}\p{Alnum}\-_]{3,10}\z/,message:"只可以是中文、英文或者下划线，最短3个字符最长10个字符，不可包含空格。"}
+  validates_confirmation_of :captcha
+
+  validates :captcha_confirmation, presence: true, length: { minimum: 4 }, if: :require_captcha_confirmation?, on: :update
   has_secure_password
 
   has_many :orders, class_name: ::Payment::Order
@@ -49,7 +56,19 @@ class User < ActiveRecord::Base
 
   belongs_to :school
 
+  belongs_to :province
+  belongs_to :city
+
   has_many :login_tokens
+
+  GENDER_HASH = {
+    male: 1, # 男
+    female: 2, # 女
+  }
+
+  enumerize :gender, in: GENDER_HASH, i18n_scope: "enums.user.gender",
+                      scope: true,
+                      predicates: { prefix: true }
 
   def unread_notifications_count
     self.customized_course_action_notifications.unread.count
@@ -84,6 +103,48 @@ class User < ActiveRecord::Base
     Payment::CashAccount.create(owner: self)
   end
 
+  def require_captcha_confirmation?
+    email_changed? || mobile_changed? || parent_phone_changed?
+  end
+
+  def validate_email_captcha(session_email, attrs={})
+    input_captcha = attrs.delete(:input_captcha)
+    input_email = attrs.delete(:input_email)
+    case session_email[:step]
+    when 1
+      unless session_email[:send_to] == mobile && session_email[:captcha] == input_captcha
+        errors.add :base, I18n.t("flash.alert.captcha_error!")
+        return false
+      end
+    when 2
+      unless session_email[:send_to] == input_email && session_email[:captcha] == input_captcha
+        errors.add :base, I18n.t("flash.alert.captcha_error!")
+        return false
+      end
+    end
+
+    unless captcha_effective?(session_email[:expired_at])
+      errors.add :base, I18n.t("flash.alert.captcha_invalid!")
+      return false
+    end
+    return true
+  end
+
+  # 使用密码更新数据，更新前验证当前密码
+  def update_with_password(params, *options)
+    current_password = params.delete(:current_password)
+    result = if authenticate(current_password)
+               update_attributes(params, *options)
+             else
+               assign_attributes(params, *options)
+               valid?
+               errors.add(:current_password, current_password.blank? ? :blank : :invalid)
+               false
+             end
+    self.password = self.password_confirmation = nil
+    result
+  end
+
   private
 
   def register_code_valid
@@ -113,5 +174,13 @@ class User < ActiveRecord::Base
   def chat_account_changed?
     return false unless chat_account
     name_changed? || nick_name_changed? || avatar_changed?
+  end
+
+  def captcha_effective?(expired_at)
+    expired_at > Time.zone.now.to_i
+  end
+
+  def update_password?
+    !password.nil?
   end
 end

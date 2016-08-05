@@ -1,0 +1,12 @@
+cn:
+  enums:
+    user:
+      gender:
+        male: 男
+        female: 女
+    teacher:
+      teaching_years:
+        within_three_years: 三年以内
+        within_ten_years: 三到十年
+        within_twenty_years: 十年到二十年
+        more_than_twenty_years: 二十年以上

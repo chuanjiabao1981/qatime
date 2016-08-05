@@ -9,6 +9,7 @@ module LiveStudio
     def index
       @courses = Course.for_sell.includes(:teacher).all
       @tickets = @student.live_studio_tickets.where(course_id: @courses.map(&:id)) if @student.student?
+      render layout: "student_home"
     end
 
     # 开始招生

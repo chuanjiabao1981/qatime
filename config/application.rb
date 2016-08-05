@@ -27,7 +27,9 @@ module Qatime
     config.time_zone = 'Beijing'
     I18n.enforce_available_locales = false
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
+    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+
     config.i18n.default_locale = :cn
     config.active_record.raise_in_transactional_callbacks = true
     config.assets.logger = false
@@ -35,7 +37,15 @@ module Qatime
 
     config.active_job.queue_adapter = :sidekiq
 
-
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address: APP_CONFIG[:emial_address],
+      port: "25",
+      domain: "qatime.cn",
+      user_name: APP_CONFIG[:emial_username],
+      password: APP_CONFIG[:emial_password],
+      authentication: "login"
+    }
     # config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
     # config.autoload_paths += Dir[Rails.root.join('app', 'apis', '*')]
 

@@ -22,14 +22,16 @@ module LiveStudio
 
     validates :workstation, :teacher, presence: true
 
+    mount_uploader :publicize, ::PublicizeUploader
+
     belongs_to :teacher, class_name: '::Teacher'
 
     belongs_to :workstation
 
-    has_many :tickets # 听课证
-    has_many :buy_tickets # 普通听课证
+    has_many :tickets       # 听课证
+    has_many :buy_tickets   # 普通听课证
     has_many :taste_tickets # 试听证
-    has_many :lessons # 课时
+    has_many :lessons       # 课时
 
     has_many :students, through: :buy_tickets
 
@@ -153,6 +155,22 @@ module LiveStudio
     # 当前直播课程
     def current_lesson
       lessons.today.unclosed.first || lessons.today.last
+    end
+
+    def current_lesson_name
+      current_lesson.try(:name) || I18n.t('view.course_show.nil_data')
+    end
+
+    def live_start_time
+      lesson = lessons.order('class_date asc,id').first
+      lesson.try(:live_start_at).try(:strftime,'%Y-%m-%d %H:%M') ||
+          "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:start_time)}"
+    end
+
+    def live_end_time
+      lesson = lessons.order('class_date asc,id').last
+      lesson.try(:live_end_at).try(:strftime,'%Y-%m-%d %H:%M') ||
+          "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:end_time)}"
     end
 
     private

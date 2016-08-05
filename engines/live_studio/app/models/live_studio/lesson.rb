@@ -14,8 +14,7 @@ module LiveStudio
       completed: 7 # 已结算
     }
 
-    default_scope { order("id asc") }
-
+    # default_scope { order("id asc") }
     scope :unfinish, -> { where("status < ?", Lesson.statuses[:finished]) }
     scope :unclosed, -> { where('status < ?', Lesson.statuses[:closed]) }
     scope :should_complete, -> { where(status: [statuses[:finished], statuses[:billing]]).where("class_date > ?", Date.yesterday)}
@@ -146,6 +145,11 @@ module LiveStudio
 
     def last_heartbeat_at
       current_live_session.heartbeat_at
+    end
+
+    def is_over?
+      # todo 判断课程是否已经结束
+      true
     end
 
     private

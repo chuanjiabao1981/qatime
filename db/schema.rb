@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160726053344) do
+ActiveRecord::Schema.define(version: 20160803101952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -469,6 +469,8 @@ ActiveRecord::Schema.define(version: 20160726053344) do
     t.datetime "updated_at",                                                               null: false
     t.string   "subject"
     t.string   "grade"
+    t.string   "publicize"
+    t.integer  "buy_tickets_count",                                          default: 0
   end
 
   add_index "live_studio_courses", ["teacher_id"], name: "index_live_studio_courses_on_teacher_id", using: :btree
@@ -688,6 +690,12 @@ ActiveRecord::Schema.define(version: 20160726053344) do
     t.integer  "author_id"
   end
 
+  create_table "provinces", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "qa_faqs", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
@@ -815,6 +823,20 @@ ActiveRecord::Schema.define(version: 20160726053344) do
     t.datetime "updated_at"
   end
 
+  create_table "softwares", force: :cascade do |t|
+    t.string   "logo"
+    t.string   "title"
+    t.string   "sub_title"
+    t.text     "desc"
+    t.string   "role"
+    t.string   "version"
+    t.integer  "platform"
+    t.string   "qr_code"
+    t.string   "download_links"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
   create_table "solutions", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
@@ -926,6 +948,14 @@ ActiveRecord::Schema.define(version: 20160726053344) do
     t.string   "parent_phone"
     t.integer  "workstation_id"
     t.string   "type",                          limit: 100
+    t.integer  "province_id"
+    t.integer  "city_id"
+    t.integer  "gender",                                    default: 0
+    t.date     "birthday"
+    t.text     "description"
+    t.string   "highest_education"
+    t.integer  "teaching_years"
+    t.string   "grade_range"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

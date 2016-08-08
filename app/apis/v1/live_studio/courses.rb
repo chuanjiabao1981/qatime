@@ -36,7 +36,7 @@ module V1
                 optional :per_page, type: Integer
               end
               get :full do
-                courses = current_user.live_studio_courses.include(:lessons).uncompleted
+                courses = current_user.live_studio_courses.includes(:lessons).uncompleted
                 present courses, with: Entities::LiveStudio::TeacherCourse, type: :full
               end
 

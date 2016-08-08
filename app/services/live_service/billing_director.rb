@@ -88,7 +88,7 @@ module LiveService
 
     # 结算完成后
     # 系统账户 收取服务费
-    def increase_cash_admin_account(money, billing， msg = nil)
+    def increase_cash_admin_account(money, billing, msg = nil)
       case msg
       when :im_fee
         CashAdmin.increase_cash_account(money, billing, '课程完成 - IM聊天费')

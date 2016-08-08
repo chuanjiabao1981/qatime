@@ -85,28 +85,9 @@ module LiveStudio
       end
     end
 
-    def status_text(role = nil)
-      # 如果角色是学生,则显示的状态不一样,如下:
-      # 未开课(还没有到上课日期)
-      # 等待直播(今天的课程还没有开始直播)
-      # 正在直播
-      # 暂停直播(已经开始的直播10分钟没有收到心跳)
-      # 结束直播(收到结束请求，或者被系统清理的辅导班)
-      @role_status =
-          if role == 'student'
-            if class_date > Date.today
-              'init'
-            else
-              case status
-                when 'teaching'
-                  ((last_heartbeat_at - live_start_at) / 60).ceil > 10 ? 'suspended' : 'teaching'
-                when 'finished','billing','completed'
-                  'closed'
-              end
-            end
-          end
-      @role_status = "student.#{@role_status}" if @role_status
-      I18n.t("activerecord.status.live_studio/lesson.#{@role_status || status}")
+    def status_text(role = nil,outer = true)
+      role == 'teacher' || role = 'student'
+      I18n.t("lesson_status.#{role}.#{status}#{!outer && status == 'paused' ? '_inner' : ''}")
     end
 
     def can_play?

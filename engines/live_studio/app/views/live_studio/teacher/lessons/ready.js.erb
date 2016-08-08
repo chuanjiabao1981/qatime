@@ -1,4 +1,4 @@
 <% if @lesson.ready? -%>
  $("#row-<%= @lesson.id %> .ready").replaceWith("<%= j link_to(t("activerecord.view.begin_live_studio"), begin_live_studio_teacher_lesson_path(@teacher,@lesson,course_id: @course), class: 'live', method: :patch) %>");
- $("#row-<%= @lesson.id %> .status").text("<%= @lesson.status_text %>");
+ $("#row-<%= @lesson.id %> .status").text("<%= @lesson.status_text(current_user.role) %>");
 <% end %>

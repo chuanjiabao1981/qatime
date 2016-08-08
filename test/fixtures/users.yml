@@ -130,6 +130,7 @@ student2:
   avatar: "test"
   grade: 高一
   type: Student
+  school: school2
 
 student_one_with_course:
   id: 9

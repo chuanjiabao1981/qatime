@@ -26,7 +26,9 @@ class AdminVisitsTest < ActionDispatch::IntegrationTest
     click_on  "#{@teacher.name}[昵称:#{@teacher.nick_name}]"
     click_on '我的辅导班', match: :first
     # visit live_studio.teacher_course_path(@teacher,@course)
-    click_on @course.name
+    # click_on @course.name
+    visit chat.finish_live_studio_course_teams_path(@course)
+    visit live_studio.edit_teacher_course_path(@teacher, @course)
     click_on '创建课程', match: :first
     fill_in :lesson_name, with: 'test lesson'
     fill_in :lesson_description, with: 'test description'
@@ -45,11 +47,10 @@ class AdminVisitsTest < ActionDispatch::IntegrationTest
     @course = live_studio_courses(:course_preview)
     click_on '学生'
     click_on @student.name
-    click_on '我的辅导班'
-    click_on @course.name
+    click_on '我的辅导'
+    visit live_studio.student_course_path(@student, @course, index: 'list')
     assert_match(@course.lessons.last.name, page.text, 'Admin 没有找到辅导班课程')
-    page.go_back
-    click_on '搜索辅导班',match: :first
+    click_on '辅导班',match: :first
     assert_match(@course.name,page.text, 'Admin 没有正确访问搜索辅导班页面')
     page.go_back
     # click_on '我的订单'

@@ -23,7 +23,8 @@ module LiveStudio
     end
 
     def search_value_show_word(variable)
-      params[variable].blank? || params[variable] == 'all' ? '' : " [#{params[variable]}]"
+      flag = variable == 'status' ? t("status.#{params[variable]}") : params[variable]
+      params[variable].blank? || params[variable] == 'all' ? '' : " [#{flag}]"
     end
   end
 end

@@ -2,4 +2,5 @@ school1:
   city_id: 1
   name: 阳泉一中
 school2:
+  city: changping
   name: 阳泉二中

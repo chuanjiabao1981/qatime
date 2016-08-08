@@ -1,5 +1,12 @@
 <div class="panel panel-default">
   <div class="panel-heading">
+    <%= Account.human_attribute_name(:money) %>:
+    <%= format("%.2f",@current_resource.account.money) %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
     <%= Payment::ChangeRecord.model_name.human %>
   </div>
   <div>

@@ -37,7 +37,7 @@ cn:
       teacher_name: 老师姓名：
       highest_education: 最高学历：
       teaching_years: 执教年数：
-      subject: 所授科目：
+      subject: 科目类型：
       grade_range: 年级范围：
       school: 所在学校：
       teacher_desc: 自我介绍：

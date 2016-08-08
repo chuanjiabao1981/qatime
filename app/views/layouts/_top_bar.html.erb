@@ -16,7 +16,6 @@
             <!--li class="<%= "active" if controller_name == 'home' %>"><%=link_to '管理',root_path %></li-->
           <li><%= link_to '首页', user_home_path %></li>
           <li><%= link_to '公开课程', curriculums_path %></li>
-          <li><%= link_to '专属课程', customized_courses_student_path(current_user) %></li>
           <li><%= link_to '问答社区', questions_path %></li>
           <li><%= link_to '辅导班', live_studio.courses_path(student_id: @student.try(:id)) %></li>
           <li><a href="##">下载</a></li>

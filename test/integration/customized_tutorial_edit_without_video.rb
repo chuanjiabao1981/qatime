@@ -29,10 +29,10 @@ class CustomizedTutorialEditWithoutVideo < ActionDispatch::IntegrationTest
     assert_difference 'Video.count',1 do
       assert_difference 'CustomizedTutorial.count',0 do
         attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
-        sleep 10
+        sleep 5
         fill_in :customized_tutorial_title,with: title_new_name
         fill_in :customized_tutorial_content,with: content_new_name
-        sleep 10
+        sleep 5
         click_on '更新课程'
         assert  page.has_content? title_new_name
         assert  page.has_content? content_new_name

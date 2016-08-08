@@ -15,6 +15,7 @@ module LiveStudio
         @tickets = @tickets.joins(:course).where(live_studio_courses: { status: status })
       end
       @tickets = @tickets.paginate(page: params[:page])
+      render layout: 'student_home_new'
     end
 
     def show
@@ -23,6 +24,7 @@ module LiveStudio
       @lessons = @course.lessons.order(:id).paginate(page: params[:page])
       @play_records = PlayRecord.where(user_id: @student.id, lesson_id: @lessons.map(&:id))
       @play_hash = @play_records.inject({}){ |hash, v| hash[v.lesson_id] = v.id; hash }
+      render layout: 'student_home_new'
     end
 
     private

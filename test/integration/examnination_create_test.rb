@@ -67,7 +67,7 @@ class ExaminationCreateTest < ActionDispatch::IntegrationTest
 
       click_on "更新#{e.model_name.human}"
 
-      sleep 10
+      sleep 5
       page.save_screenshot('screenshots/screenshot.png')
 
       assert page.has_content?('test.jpg'),"1111"

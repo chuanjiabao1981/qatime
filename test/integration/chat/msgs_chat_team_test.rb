@@ -28,7 +28,7 @@ module Chat
         @course.reload
         visit live_studio.play_course_path(@course)
 
-        sleep(10)
+        sleep 5
         fill_in "message-area", with: "同学们，大家好呀"
         click_on "发送"
 
@@ -40,7 +40,7 @@ module Chat
 
         visit live_studio.play_course_path(@course)
 
-        sleep(10)
+        sleep 5
         assert page.has_content?("同学们，大家好呀"), "消息接收失败"
 
         fill_in "message-area", with: "大家好呀"

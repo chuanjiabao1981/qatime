@@ -7,7 +7,6 @@ class StudentsController < ApplicationController
 
   def index
     @students = Student.all.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-    render layout: 'student_home_new'
   end
 
   def new
@@ -39,7 +38,7 @@ class StudentsController < ApplicationController
     # else
     #   @consumption_records      = @student.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
     # end
-    render layout: 'student_home_new'
+    render layout: 'student_home'
   end
 
   def edit

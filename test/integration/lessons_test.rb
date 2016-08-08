@@ -44,7 +44,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
       assert_difference 'Lesson.where("tags ? :xx",{xx: "知识点讲解"}).count',1 do
 
         click_button '保存课程'
-        sleep 10
+        sleep 5
         click_button '确定'
         page.has_content? 'lesson_desc 这个长度不能小于多少啊啊啊啊，lesson_desc 这个长度到底是多少'
         # puts find('video').src
@@ -80,7 +80,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
 
       find(:xpath, "//fieldset[1]/div/div/input").set("#{Rails.root}/test/integration/test.jpg")
       click_button '保存课程'
-      sleep 10
+      sleep 5
       click_button '确定'
 
       # 判断上传的链接是否出现在展示列表里
@@ -119,7 +119,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
       accept_alert
 
       click_button '保存课程'
-      sleep 10
+      sleep 5
       click_button '确定'
 
       # 判断上传的链接是否出现在展示列表里
@@ -181,7 +181,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
       find(:xpath, "//fieldset[4]/div/div/input").set("#{Rails.root}/test/integration/test.jpg")
 
       click_button '保存课程'
-      sleep 10
+      sleep 5
       click_button '确定'
 
       # 判断上传的链接是否出现在展示列表里
@@ -210,10 +210,10 @@ class LessonsTest < ActionDispatch::IntegrationTest
     old_name = @lesson.video.name.url
 
 
-    sleep 15
+    sleep 5
 
     click_button '保存课程'
-    sleep 10
+    sleep 5
 
     assert_not_equal @lesson.reload.video.name.url , old_name
 
@@ -244,7 +244,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
     # page.save_screenshot('screenshots/screenshot.png')
 
     click_button '保存课程'
-    sleep 10
+    sleep 5
     assert_difference 'Lesson.where("tags ? :xx",{xx: "常见问题"}).count',1 do
       click_button '确定'
       page.has_content? 'lesson_name 这个长度不能少10的啊啊啊aaaaaaaaaaaaaaa'
@@ -263,10 +263,10 @@ class LessonsTest < ActionDispatch::IntegrationTest
     assert_difference 'Video.count',1 do
 
       attach_file("video_name","#{Rails.root}/test/integration/test.mp4")
-      sleep 15
+      sleep 5
       click_button '保存课程'
       page.save_screenshot('screenshots/screenshot.png')
-      sleep 10
+      sleep 5
       click_button '确定'
       page.has_xpath?("//video[contains(@src,lesson_without_video.reload.video.name)]")
 

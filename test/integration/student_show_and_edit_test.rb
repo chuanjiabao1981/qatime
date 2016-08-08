@@ -97,7 +97,7 @@ class StudentInfoShowAndEditTest < ActionDispatch::IntegrationTest
     click_on "获取验证码"
     fill_in "student_captcha_confirmation", with: "1234"
 
-    sleep(10)
+    sleep 5
     click_on "绑定家长手机"
 
     @student.reload

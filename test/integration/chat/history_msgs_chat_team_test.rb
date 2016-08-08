@@ -37,7 +37,7 @@ module Chat
         log_in_as(@student)
         visit live_studio.play_course_path(@course)
 
-        sleep(10)
+        sleep 5
         click_on "历史消息"
 
         page.has_selector?('div#history-area')

@@ -14,7 +14,7 @@
   <div class="col-md-8">
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:name)%></div>
+        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:name)%></div>
         <div class="col-md-9">
           <%= @student.name %>
           <div class="pull-right">
@@ -29,31 +29,31 @@
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:gender)%></div>
+        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:gender)%></div>
         <div class="col-md-9"><%= @student.gender_text %></div>
       </div>
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:grade)%></div>
+        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:grade)%></div>
         <div class="col-md-9"><%= @student.grade %></div>
       </div>
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:school)%></div>
+        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:school)%></div>
         <div class="col-md-9"><%= @student.school.name %></div>
       </div>
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:birthday)%></div>
+        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:birthday)%></div>
         <div class="col-md-9"><%= @student.birthday %></div>
       </div>
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:address)%></div>
+        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:address)%></div>
         <div class="col-md-9">
           <%= @student.province.try(:name) %>&nbsp;
           <%= @student.city.try(:name) %>
@@ -62,7 +62,7 @@
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2" style="padding-left:40px"><%=Student.human_attribute_name(:desc)%></div>
+        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:desc)%></div>
         <div class="col-md-9"><%= @student.desc %></div>
       </div>
     </div>

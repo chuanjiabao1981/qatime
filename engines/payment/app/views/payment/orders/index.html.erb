@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <%= Account.human_attribute_name(:money) %>:
-    <%= format("%.2f",@student.account.money) %>
+    <%= format("%.2f",@student.try(:account).try(:money).to_f) %>
   </div>
 </div>
 

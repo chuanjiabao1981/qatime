@@ -44,18 +44,17 @@ class AdminVisitsTest < ActionDispatch::IntegrationTest
 
   test 'admin visit student page' do
     @student = users(:student_one_with_course)
+    @student.create_account
     @course = live_studio_courses(:course_preview)
     click_on '学生'
     click_on @student.name
-    click_on '我的辅导'
     visit live_studio.student_course_path(@student, @course, index: 'list')
+
     assert_match(@course.lessons.last.name, page.text, 'Admin 没有找到辅导班课程')
     click_on '辅导班',match: :first
-    # assert_match(@course.name,page.text, 'Admin 没有正确访问搜索辅导班页面')
+    assert_match(@course.name,page.text, 'Admin 没有正确访问搜索辅导班页面')
     page.go_back
-    # click_on '我的订单'
-    visit payment.user_orders_path(@student,user_class: @student.class)
-    # assert page.status_code == 200
+    click_on '我的订单'
     assert_match('商品名称', page.text, 'Admin 没有正确访问我的订单页面')
   end
 

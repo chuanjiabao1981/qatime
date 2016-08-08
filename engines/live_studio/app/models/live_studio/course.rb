@@ -3,6 +3,7 @@ module LiveStudio
     has_soft_delete
 
     SYSTEM_FEE = 0.1.freeze # 系统每个人每分钟收费
+    IM_FEE = 1.freeze # im聊天系统的费用
 
     USER_STATUS_BOUGHT = :bought # 已购买
     USER_STATUS_TASTING = :tasting # 正在试听

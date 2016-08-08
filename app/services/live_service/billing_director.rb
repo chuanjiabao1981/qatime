@@ -23,6 +23,8 @@ module LiveService
       Payment::CashAccount.transaction do
         # 系统支出
         decrease_cash_admin_account(money, billing)
+        # 每节课IM费用
+        money -= im_fee!(money, billing)
         # 系统收取佣金
         money -= system_fee!(money, billing)
         # 教师分成
@@ -49,11 +51,19 @@ module LiveService
       @course.buy_tickets.sum(:lesson_price)
     end
 
+    #IM聊天人头费
+    def im_fee!(money, billing)
+      im_money = LiveStudio::Course::IM_FEE * @lesson.live_count
+      im_money = money if im_money > money
+      increase_cash_admin_account(im_money, billing, msg = :im_fee)
+      im_money
+    end
+
     # 系统服务费
     def system_fee!(money, billing)
       system_money = LiveStudio::Course::SYSTEM_FEE * @lesson.live_count * @lesson.real_time
       system_money = money if system_money > money
-      increase_cash_admin_account(system_money, billing)
+      increase_cash_admin_account(system_money, billing, msg = :system_fee)
       system_money
     end
 
@@ -78,8 +88,13 @@ module LiveService
 
     # 结算完成后
     # 系统账户 收取服务费
-    def increase_cash_admin_account(money, billing)
-      CashAdmin.increase_cash_account(money, billing, '课程完成 - 系统服务费')
+    def increase_cash_admin_account(money, billing， msg = nil)
+      case msg
+      when :im_fee
+        CashAdmin.increase_cash_account(money, billing, '课程完成 - IM聊天费')
+      when :system_fee
+        CashAdmin.increase_cash_account(money, billing, '课程完成 - 系统服务费')
+      end
     end
 
     # 更新听课证

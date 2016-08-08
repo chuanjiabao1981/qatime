@@ -95,7 +95,7 @@
         <td colspan="2">
           <div><%= t('view.teacher_course.team_announcement') %></div>
           <div class="col-md-9" id="show_notice_area">
-            <%= @course.chat_team.announcement %>
+            <%= @course.chat_team.try(:announcement) %>
             <%= button_tag t('activerecord.view.edit'),class: 'btn btn-xs btn-success', id: 'edit_notice_btn' if action_name != 'edit' %>
           </div>
 

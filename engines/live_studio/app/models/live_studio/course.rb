@@ -48,6 +48,10 @@ module LiveStudio
     scope :by_grade, ->(grade){ grade.blank? || grade == 'all' ? nil : where(grade: grade)}
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
 
+    def cant_publish?
+      !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank? || lessons.count < preset_lesson_count
+    end
+
     def push_stream
       push_streams.last
     end

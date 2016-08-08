@@ -19,7 +19,7 @@ module LiveStudio
       accept_prompt(with: "是否离开直播页面") do
         visit get_home_url(user)
       end
-      click_on '退出系统'
+      click_on '退出'
     end
 
     def teardown

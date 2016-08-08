@@ -1,3 +1,6 @@
 <% if @course.preview? -%>
-$("#course-status").text("<%= @course.status_text %>");
+$('#publish_tips').modal('show');
+$('#tips_live_start_at').text('<%= @course.live_start_time %>');
+$("#course_publish_btn_<%= @course.id %>").addClass('disabled');
+$("#edit_btn_<%= @course.id %>").remove();
 <% end -%>

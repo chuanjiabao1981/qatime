@@ -23,10 +23,11 @@ module LiveStudio
 
     test "teacher update a courses" do
       course = live_studio_courses(:course_one_of_teacher_one)
+      visit chat.finish_live_studio_course_teams_path(course)
       visit live_studio.edit_teacher_course_path(@teacher,course)
       fill_in :course_name, with: '测试英语辅导课程更新'
       fill_in :course_description, with: 'edit course description'
-      click_on '更新辅导班'
+      click_on '保存'
       course.reload
       assert_equal('测试英语辅导课程更新', course.name, '辅导班名称修改错误')
       assert_equal('edit course description', course.description, '辅导班描述修改错误')

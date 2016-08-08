@@ -100,7 +100,7 @@ module ApplicationHelper
     render partial: "#{qa_object.model_name.route_key}/brief_info/avatar",
            locals:  {qa_object.model_name.singular_route_key.to_sym => qa_object}
   rescue
-    image_tag qa_object.author.avatar.normal.url
+    image_tag qa_object.author.try(:avatar).try(:normal).try(:url)
   end
 
   def render_qa_object_title(qa_object)

@@ -9,11 +9,11 @@ module LiveStudio
       Capybara.current_driver = :selenium_chrome
 
       @student = ::Student.find(users(:student_one_with_course).id)
-      log_in_as(@student)
+      new_log_in_as(@student)
     end
 
     def teardown
-      logout_as(@student)
+      new_logout_as(@student)
       Capybara.use_default_driver
     end
 

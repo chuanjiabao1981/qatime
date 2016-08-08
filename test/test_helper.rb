@@ -47,6 +47,24 @@ class ActiveSupport::TestCase
     click_on '退出系统'
   end
 
+  def new_log_in_as(user)
+    retry_count = 0
+    begin
+      retry_count = retry_count + 1
+      visit new_session_path
+
+      fill_in :user_email,with: user.email
+      fill_in :user_password,with: 'password'
+      click_button '登录'
+    rescue Capybara::ElementNotFound => x
+      page.save_screenshot('screenshots/screenshotxxxxxx.png')
+      raise x if retry_count > 3
+      new_logout_as(user)
+      retry
+    end
+    assert page.has_content? '欢迎登录!'
+  end
+
   def new_logout_as(user, confirm = false)
     if confirm
       accept_prompt(with: "是否离开直播页面") do

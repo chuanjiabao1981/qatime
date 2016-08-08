@@ -86,6 +86,8 @@ cn:
       publicize: 点此更换图片
       course_name: 辅导班名称：
       team_announcement: 群组公告：
+      publish_confirm: 确认后将不能再对辅导班信息和课程进行任何修改，是否确认招生？
+      tips: 提示
   status:
     init: 初始化
     preview: 招生中

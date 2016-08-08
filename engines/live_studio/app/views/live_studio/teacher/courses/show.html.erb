@@ -3,8 +3,11 @@
     <%= link_to LiveStudio::Course.model_name.human, teacher_courses_path(@teacher) %> &gt;
     <strong><%= @course.name %></strong>
     <%= content_tag(:div, class: 'search-link') do %>
-      <%= link_to t("activerecord.view.course_publish"), publish_course_path(@course), method: :patch, remote: true, 'data-confirm' => t("activerecord.view.message.course_confirm_publish") if @course.init? %>
+      <%= link_to t("activerecord.view.course_publish"), publish_course_path(@course), method: :patch,
+                  class: "btn btn-default btn-xs #{@course.cant_publish? ? 'disabled' : nil}",
+                  remote: true, 'data-confirm' => t("view.teacher_course.publish_confirm"), id: "course_publish_btn_#{@course.id}" %>
     <% end %>
+    <%= render partial: '/live_studio/courses/publish_tips' %>
   </div>
   <div class="course-info-list">
     <a href='#content_info' data-toggle="tab">
@@ -43,7 +46,7 @@
       </div>
     <% end %>
     <%= allow_link_to({action: 'edit', url: edit_teacher_course_path(@teacher,@course),variable: @course,
-                       sub: {class: 'course-buy-btn'}}) do %>
+                       sub: {class: 'course-buy-btn',id: "edit_btn_#{@course.id}"}}) do %>
         <%= t("activerecord.view.edit") %><%= @course.class.model_name.human %>
     <% end %>
   </div>

@@ -3,11 +3,13 @@ require 'test_helper'
 module LiveStudio
   class ManagerVisitTest < ActionDispatch::IntegrationTest
     def setup
-      @manager = users(:manager)
-      @workstation = @manager.workstations.sample
+      @routes = Engine.routes
       @headless = Headless.new
       @headless.start
       Capybara.current_driver = :selenium_chrome
+
+      @manager = users(:manager)
+      @workstation = @manager.workstations.sample
       log_in_as(@manager)
     end
 
@@ -20,9 +22,10 @@ module LiveStudio
       @teacher = ::Teacher.first
       @course = @teacher.live_studio_courses.first
       click_on '教师'
+      visit chat.finish_live_studio_course_teams_path(@course)
       visit teacher_path(@teacher)
       click_on '我的辅导班'
-      click_on @course.name,match: :first
+      visit live_studio.teacher_course_path(@teacher, @course)
       assert_match @course.name, page.text, '没有正确跳转到辅导班详情页'
     end
 
@@ -31,11 +34,11 @@ module LiveStudio
       @course = live_studio_courses(:course_preview)
       click_on '学生'
       visit student_path(@student)
-      click_on '我的辅导班'
-      click_on @course.name,match: :first
+      click_on '我的辅导'
+      visit live_studio.student_course_path(@student, @course)
       assert_match @course.name, page.text, '--'
       page.go_back
-      click_on '搜索辅导班', match: :first
+      click_on '辅导班', match: :first
       assert_match(LiveStudio::Course.preview.last.name, page.text, '没有正确跳转到辅导班搜索页')
     end
 

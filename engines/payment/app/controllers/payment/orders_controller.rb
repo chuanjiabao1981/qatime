@@ -3,7 +3,7 @@ require_dependency "payment/application_controller"
 module Payment
   class OrdersController < ApplicationController
     skip_before_action :verify_authenticity_token, :only => :notify
-    before_action :set_user, skip: [:notify]
+    before_action :set_user, only: [:index, :show, :result]
     layout :layout_no_nav
 
     def index
@@ -47,9 +47,8 @@ module Payment
     private
 
     def set_user
-      user_class = params[:user_class].try(:constantize)
-      @user = user_class.try(:find_by,id: params[:user_id]) || current_user
-      @student = @user if @user.student?
+      @user = Student.find(params[:user_id])
+      @student = @user
     end
 
     def layout_no_nav

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160808141858) do
+ActiveRecord::Schema.define(version: 20160808142756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -95,13 +95,11 @@ ActiveRecord::Schema.define(version: 20160808141858) do
   add_index "chat_teams", ["live_studio_course_id"], name: "index_chat_teams_on_live_studio_course_id", using: :btree
 
   create_table "cities", force: :cascade do |t|
-    t.integer  "province_id"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "province_id"
   end
-
-  add_index "cities", ["province_id"], name: "index_cities_on_province_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"

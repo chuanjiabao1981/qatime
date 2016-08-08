@@ -18,14 +18,17 @@ module LiveStudio
         @courses = @courses.where(status: status)
       end
       @courses = @courses.paginate(page: params[:page])
+      render layout: 'teacher_home_new'
     end
 
     def show
       @lessons = @course.lessons.order("id").paginate(page: params[:page])
+      render layout: 'teacher_home_new'
     end
 
     def edit
       @lessons = @course.lessons.order("id").paginate(page: params[:page])
+      render layout: 'teacher_home_new'
     end
 
     # PATCH/PUT /teachers/:teacher_id/courses/:id

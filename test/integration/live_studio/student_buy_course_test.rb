@@ -8,11 +8,11 @@ module LiveStudio
       @headless.start
       Capybara.current_driver = :selenium_chrome
       @student = ::Student.find(users(:student_with_order).id)
-      log_in_as(@student)
+      new_log_in_as(@student)
     end
 
     def teardown
-      logout_as(@student)
+      new_logout_as(@student)
       Capybara.use_default_driver
     end
 
@@ -48,19 +48,19 @@ module LiveStudio
     test "student taste and buy course" do
       course = live_studio_courses(:course_with_lessons)
       visit live_studio.courses_index_path(student_id: @student)
-      assert_difference "course.reload.taste_tickets.count", 1, "不能正确生成试听证" do
-        assert_difference "@student.live_studio_courses.count", 1, "不能正确试听辅导班" do
-          click_on("taste-course-#{course.id}")
-          assert has_no_selector?("#taste-course-#{course.id}")
-        end
-      end
-      visit live_studio.courses_index_path(student_id: @student)
+      count = @student.live_studio_courses.count
+      taste_count = course.reload.taste_tickets.count
+      click_on("taste-course-#{course.id}")
+      sleep 2
+      assert_equal @student.reload.live_studio_courses.count, count+1, "不能正确试听辅导班"
+      assert_equal course.reload.taste_tickets.count, taste_count+1, "不能正确生成试听证"
     end
 
     test "student buy tasting course" do
       course = live_studio_courses(:tasting_course)
       visit live_studio.courses_index_path(student_id: @student)
       assert_difference "@student.reload.orders.count", 1, "正在试听的辅导班下单失败" do
+        #visit live_studio.new_course_order_path(course)
         click_on("buy-course-#{course.id}")
         choose("order_pay_type_1")
         click_on("新增订单")

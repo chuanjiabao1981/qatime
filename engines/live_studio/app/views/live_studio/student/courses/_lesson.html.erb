@@ -17,7 +17,7 @@
         <%= lesson.live_start_at.try(:strftime, '%H:%M') || lesson.start_time %>-<%= lesson.live_end_at.try(:strftime, '%H:%M') || lesson.end_time %>
       </td>
       <td><%= lesson.name %></td>
-      <td><%= lesson.status_text %></td>
+      <td><%= lesson.status_text(current_user.role) %></td>
       <%= content_tag :td do  %>
         <%= link_to t("activerecord.view.delete"), teacher_lesson_path(@teacher,lesson,course_id: @course), method: :delete,
                     data:{confirm: t('activerecord.view.message.confirm')} if lesson.init? && @course.init? %>

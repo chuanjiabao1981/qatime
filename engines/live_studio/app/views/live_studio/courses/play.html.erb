@@ -136,7 +136,7 @@
           <td class="col-md-2"><%= "%02i" % [index + 1] %></td>
             <td class="col-md-4"><%= lesson.class_date %><%= lesson.try(:live_time) %></td>
             <td class="col-md-4"><%= lesson.name %></td>
-            <td class="col-md-2"><%= lesson.status_text %></td>
+            <td class="col-md-2"><%= lesson.status_text('student',false) %></td>
           </tr>
           <% end %>
         </table>

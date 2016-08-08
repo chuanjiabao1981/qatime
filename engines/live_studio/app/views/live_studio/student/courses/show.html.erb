@@ -32,7 +32,7 @@
         <%= preview_time(@course,{text2: true}) %>
       </div>
     <% end %>
-    <%= content_tag :div, class: "info-list-subtitle #{params[:index] == 'list' ? nil : 'hide'}" do %>
+    <%= content_tag :div, class: "info-list-subtitle font-grey #{params[:index] == 'list' ? nil : 'hide'}" do %>
       <div>
         <%= t('view.course_info_show.lesson_plan') % [@course.live_start_time ,@course.live_end_time] %>
       </div>

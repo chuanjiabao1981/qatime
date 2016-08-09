@@ -261,6 +261,8 @@ module ApplicationHelper
       r = controller_name == 'teachers' && action_name == 'students'
     when :notification
       r = controller_name == 'teachers' && action_name == 'notifications'
+    when :teacher_syllabuses
+      r = controller_name == 'syllabuses' && action_name == 'index'
     when :customized_courses
       r = controller_name == 'teachers' && action_name == 'customized_courses'
     when :questions

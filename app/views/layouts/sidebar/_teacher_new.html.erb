@@ -14,10 +14,10 @@
       <% end %>
     </li>
     <li>
-      <%= link_to payment.user_change_records_path(@teacher) do %>
+      <%= link_to payment.cash_user_path(@teacher) do %>
         <span class="fa fa-usd"></span>
         <span class="qa_f18"><%= t "view.teacher_bars.property_management" %></span>
-        <span class="glyphicon arraw-span glyphicon-chevron-right"></span>
+        <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:cash) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
 <!--     <li>
@@ -31,7 +31,7 @@
       <%= link_to live_studio.teacher_courses_path(@teacher) do %>
         <span class="fa fa-users"></span>
         <span class="qa_f18"><%= t "view.teacher_bars.my_courses" %></span></span>
-        <span class="glyphicon arraw-span glyphicon-chevron-right"></span>
+        <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:my_courses) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
     <!-- <li>
@@ -41,18 +41,18 @@
         <span class="glyphicon arraw-span glyphicon-chevron-right"></span>
       <%# end %>
     </li> -->
-    <li>
-      <%= link_to "##" do %>
+<!--     <li>
+      <%#= link_to "##" do %>
         <span class="fa fa-book"></span>
-        <span class="qa_f18"><%= t "view.teacher_bars.homework_manage" %></span></span>
+        <span class="qa_f18"><%#= t "view.teacher_bars.homework_manage" %></span></span>
         <span class="glyphicon arraw-span glyphicon-chevron-right"></span>
-      <% end %>
-    </li>
+      <%# end %>
+    </li> -->
     <li>
       <%= link_to students_teacher_path(@teacher) do %>
         <span class="fa fa-user-plus"></span>
         <span class="qa_f18"><%= t "view.teacher_bars.teacher_students" %></span>
-        <span class="glyphicon arraw-span glyphicon-chevron-right"></span>
+        <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:teacher_students) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
     <!-- <li>
@@ -66,28 +66,28 @@
       <%= link_to notifications_teacher_path(@teacher) do %>
         <span class="fa fa-bell"></span>
         <span class="qa_f18"><%= t "view.teacher_bars.notification" %></span>
-        <span class="glyphicon arraw-span glyphicon-chevron-right"></span>
+        <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:notification) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
     <li>
       <%= link_to course_library.teacher_syllabuses_path(@teacher) do %>
         <span class="fa fa-sitemap"></span>
         <span class="qa_f18"><%= t "view.teacher_bars.teacher_syllabuses" %></span>
-        <span class="glyphicon arraw-span glyphicon-chevron-right"></span>
+        <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:teacher_syllabuses) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
     <li>
       <%= link_to customized_courses_teacher_path(@teacher) do %>
         <span class="fa fa-graduation-cap"></span>
         <span class="qa_f18"><%= t("view.common_bars.customized_courses") %></span>
-        <span class="glyphicon arraw-span glyphicon-chevron-right"></span>
+        <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:customized_courses) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
     <li>
       <%= link_to teacher_questions_path(teacher_id: @teacher.id) do %>
         <span class="fa fa-question"></span>
         <span class="qa_f18"><%= t("view.common_bars.questions") %></span>
-        <span class="glyphicon arraw-span glyphicon-chevron-right"></span>
+        <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:questions) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
   </ul>

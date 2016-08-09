@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
     elsif current_user.teacher?
       "teacher_home_new"
     elsif current_user.student?
-      "student_home_new"
+      'student_home_new'
     end
   end
 

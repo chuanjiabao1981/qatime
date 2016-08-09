@@ -1,5 +1,5 @@
 class Teachers::FaqsController < ApplicationController
-  layout "teacher_home"
+  layout 'teacher_home_new'
 
   def index
     @faqs = Faq.where(is_top: "1", faq_type:"老师")

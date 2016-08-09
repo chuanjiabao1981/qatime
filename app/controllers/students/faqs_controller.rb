@@ -1,5 +1,5 @@
 class Students::FaqsController < ApplicationController
-  layout "student_home"
+  layout 'student_home_new'
 
   def new
     @faq = Faq.new_with_token

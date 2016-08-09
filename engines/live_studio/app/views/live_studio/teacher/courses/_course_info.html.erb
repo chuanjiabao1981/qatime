@@ -15,10 +15,8 @@
           $("#course_publicize").click();
         })
         function showimagepreview(input){
-          console.log('hi');
           if (input.files && input.files[0]) {
             var filerdr = new FileReader();
-            console.log('hi2');
 
             filerdr.onload = function(e) {
               $('#course_publicize_preview').attr('src', e.target.result);
@@ -84,11 +82,8 @@
         </td>
       </tr>
       <tr>
-        <td>
+        <td colspan="2">
           <%= t('view.teacher_course.teacher_percentage') % @course.teacher_percentage %>
-        </td>
-        <td>
-          <%= t('view.course_info_show.ticket_count') %><%= @course.buy_tickets_count %>
         </td>
       </tr>
       <%= content_tag :tr do %>

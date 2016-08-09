@@ -24,8 +24,9 @@
         <%= link_to t('view.course_show.info'),teacher_course_path(@teacher,course), class: 'btn btn-default operator-btn' %>
         <%= link_to t('view.course_show.lessons'),teacher_course_path(@teacher,course,index: 'list'), class: 'btn btn-default operator-btn' %>
         <%= link_to t("activerecord.view.course_publish"), publish_course_path(course), method: :patch,
-                    class: "btn btn-default operator-btn", remote: true, 'data-confirm' => t("view.teacher_course.publish_confirm"),
-                    id: "course_publish_btn_#{course.id}" if !course.cant_publish?%>
+                    class: "btn btn-default operator-btn #{course.cant_publish? ? 'disabled' : nil}",
+                    remote: true, 'data-confirm' => t("view.teacher_course.publish_confirm"),
+                    id: "course_publish_btn_#{course.id}" if course.init?%>
       <% end %>
     <% end %>
   <% end %>

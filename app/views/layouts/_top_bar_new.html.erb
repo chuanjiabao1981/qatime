@@ -1,3 +1,4 @@
+<% @current_resource ||= current_user %>
 <div class="navbar navbar-inverse <%= "navbar-fixed-top" if defined?(fixed) and fixed %>" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -26,20 +27,27 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if signed_in? %>
-            <% if current_user.student? or current_user.teacher? %>
+            <% if @current_resource.student? or @current_resource.teacher? %>
               <li>
                 <%= link_to user_notification_path do %>
                   <span class="glyphicon glyphicon-envelope"></span>
-                  <span class="badge"><%= current_user.unread_notifications_count if current_user.unread_notifications_count > 0 %></span>
+                  <span class="badge"><%= @current_resource.unread_notifications_count if @current_resource.unread_notifications_count > 0 %></span>
                 <% end %>
               </li>
               <li>
-                <% _link = current_user.student? ? info_student_path(@student) : info_teacher_path(@teacher) %>
+                <% _link = @current_resource.student? ? info_student_path(@current_resource) : info_teacher_path(@current_resource) %>
                 <%= link_to _link do %>
                   <span class="glyphicon glyphicon-user"></span>
                 <% end %>
               </li>
+            <% else %>
+              <li>
+                <%= link_to user_home_path do %>
+                <span class="glyphicon glyphicon-user"></span>
+                <% end %>
+              </li>
             <% end %>
+
             <li>
               <%= link_to t("view.common_bars.sign_out"), signout_path, :method=>'delete' %>
             </li>

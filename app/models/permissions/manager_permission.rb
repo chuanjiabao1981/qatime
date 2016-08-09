@@ -113,6 +113,7 @@ module Permissions
       allow 'live_studio/courses', [:index]
       ## end live studio permission
       allow 'chat/teams', [:finish, :members, :member_visit]
+      allow 'welcome', [:download]
     end
   end
 end

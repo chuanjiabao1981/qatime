@@ -62,9 +62,9 @@ class ApplicationController < ActionController::Base
     elsif current_user.admin?
       "admin_home"
     elsif current_user.teacher?
-      "teacher_home"
+      "teacher_home_new"
     elsif current_user.student?
-      "student_home"
+      "student_home_new"
     end
   end
 

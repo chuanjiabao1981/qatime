@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
-  layout "application_new"
+  layout "application"
   def download
   end
 end

@@ -54,7 +54,7 @@ module Payment
     def layout_no_nav
       no_nav_arys = %w(show)
       if @student
-        "student_home"
+        "student_home_new"
       else
         "payment/layouts/#{no_nav_arys.include?(action_name) ? 'payment' : 'application'}"
       end

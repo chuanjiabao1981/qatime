@@ -38,7 +38,7 @@ class StudentsController < ApplicationController
     # else
     #   @consumption_records      = @student.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
     # end
-    render layout: 'student_home'
+    render layout: 'student_home_new'
   end
 
   def edit
@@ -63,12 +63,12 @@ class StudentsController < ApplicationController
 
   def topics
     @topics = Topic.all.where(author_id: @student.id).where(topicable_type: Lesson.to_s).order("created_at desc").paginate(page: params[:page],:per_page => 10)
-    render layout: 'student_home'
+    render layout: 'student_home_new'
   end
 
   def teachers
     @learning_plans = @student.learning_plans.paginate(page: params[:page],:per_page => 10)
-    render layout: 'student_home'
+    render layout: 'student_home_new'
   end
 
   def customized_tutorial_topics
@@ -76,7 +76,7 @@ class StudentsController < ApplicationController
                   .by_customized_course_issue
                   .order("created_at desc")
                   .paginate(page: params[:page])
-    render layout: 'student_home'
+    render layout: 'student_home_new'
   end
 
   def homeworks

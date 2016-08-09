@@ -103,7 +103,7 @@ class StudentsController < ApplicationController
         redirect_to edit_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
       end
     else
-      render :edit, layout: "student_home_new"
+      render :edit, layout: 'student_home_new'
     end
   end
 

@@ -1,5 +1,5 @@
 class Teachers::RegistrationsController < ApplicationController
-  layout "teacher_home"
+  layout 'teacher_home_new'
   respond_to :html
 
   def new

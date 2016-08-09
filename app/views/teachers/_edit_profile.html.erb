@@ -77,8 +77,9 @@
             <div class="col-md-6">
               <%= f.association :province, label: false, :collection => Province.all.collect { |s| [s.name, s.id]} %>
             </div>
+            <% cities_collection = @teacher.province ? @teacher.province.cities.all.collect { |s| [s.name, s.id]} : [] %>
             <div class="col-md-6">
-              <%= f.association :city, label: false %>
+              <%= f.association :city, label: false, collection: cities_collection %>
             </div>
           </div>
         </div>

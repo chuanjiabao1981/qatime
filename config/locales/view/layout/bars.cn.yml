@@ -14,8 +14,10 @@ cn:
       live_studio_courses: 辅导班
       download: 下载
       common_problem: 常见问题
-      my_wallet: 我的钱包
+      personal_center: 个人中心
+      notice: 消息
     student_bars:
+      my_wallet: 我的钱包
       my_orders: 我的订单
       my_course: 我的辅导
       my_homework: 我的作业

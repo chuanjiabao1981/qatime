@@ -46,6 +46,20 @@ module LiveService
         by_grade(search_params[:grade]).class_date_sort(search_params[:class_date_sort]).includes(:teacher)
     end
 
+    def self.courses_for_teacher_index(user,params)
+      @courses = user.live_studio_courses
+      if LiveStudio::Course.statuses.include?(params[:status])
+        # 根据状态过滤辅导班
+        status = LiveStudio::Course.statuses[params[:status]]
+        @courses = @courses.where(status: status)
+      elsif params[:status] == 'today'
+        # 根据分类过滤辅导班
+        # status: today今日上课辅导班
+        @courses = @courses.includes(:lessons).where(live_studio_lessons: { class_date: Date.today })
+      end
+      @courses
+    end
+
     private
 
     def instance_studio

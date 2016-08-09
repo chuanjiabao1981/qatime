@@ -3,10 +3,10 @@ module V1
   module LiveStudio
     class Courses < V1::Base
       namespace "live_studio" do
+        before do
+          authenticate!
+        end
         namespace :teachers do
-          before do
-            authenticate!
-          end
 
           route_param :teacher_id do
             resource :courses do
@@ -17,11 +17,13 @@ module V1
                 }
               end
               params do
-                optional :page, type: Integer
-                optional :per_page, type: Integer
+                optional :page, type: Integer, desc: '第page页数'
+                optional :per_page, type: Integer, desc: '每页per_page条数据'
+                optional :status, type: String,desc: 'status=today结果为今天上课辅导班,status=辅导班状态,则按状态来过滤辅导班'
               end
               get do
-                courses = current_user.live_studio_courses.uncompleted
+                courses = LiveService::CourseDirector.courses_for_teacher_index(current_user, params).
+                  paginate(page: params[:page], per_page: params[:per_page])
                 present courses, with: Entities::LiveStudio::TeacherCourse, type: :default
               end
 
@@ -32,11 +34,13 @@ module V1
                 }
               end
               params do
-                optional :page, type: Integer
-                optional :per_page, type: Integer
+                optional :page, type: Integer, desc: '第page页数'
+                optional :per_page, type: Integer, desc: '每页per_page条数据'
+                optional :status, type: String,desc: 'status=today结果为今天上课辅导班,status=辅导班状态,则按状态来过滤辅导班'
               end
               get :full do
-                courses = current_user.live_studio_courses.includes(:lessons).uncompleted
+                courses = LiveService::CourseDirector.courses_for_teacher_index(current_user, params).
+                  paginate(page: params[:page], per_page: params[:per_page])
                 present courses, with: Entities::LiveStudio::TeacherCourse, type: :full
               end
 
@@ -48,8 +52,6 @@ module V1
               end
               params do
                 requires :id, type: Integer, desc: '辅导班ID'
-                optional :page, type: Integer
-                optional :per_page, type: Integer
               end
               get 'courses/:id' do
                 course = current_user.live_studio_courses.find(params[:id])
@@ -60,10 +62,6 @@ module V1
         end
 
         namespace :students do
-          # TODO 重复代码考虑放到上层作用域
-          before do
-            authenticate!
-          end
           route_param :student_id do
             resource :courses do
               desc '学生我的辅导班接口' do

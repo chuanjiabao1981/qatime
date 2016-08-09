@@ -38,13 +38,13 @@
             </div>
             <div id="tool-bar">
               <button type="button" class="btn btn-default btn-sm" id="emotion-btn">
-                表情
+                <%= image_tag 'expression.png', size: "20x20" %>
               </button>
               <button type="button" class="btn btn-default btn-sm" id="clear-btn">
-                清屏
+                <%= image_tag 'clean_up.png', size: "20x20" %>
               </button>
 
-              <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#history-modal" id="history-btn">
+              <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#history-modal" id="history-btn" style="float: right;">
                 历史消息
               </button>
 

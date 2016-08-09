@@ -17,9 +17,10 @@ module V1
                 }
               end
               params do
-                optional :page, type: Integer, desc: '第page页数'
-                optional :per_page, type: Integer, desc: '每页per_page条数据'
-                optional :status, type: String,desc: 'status=today结果为今天上课辅导班,status=辅导班状态,则按状态来过滤辅导班'
+                optional :page, type: Integer, desc: '当前页面'
+                optional :per_page, type: Integer, desc: '每页记录数'
+                optional :status, type: String,desc: '过滤条件 init:初始化; preview: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班',
+                         values: %w(init preview teaching completed today)
               end
               get do
                 courses = LiveService::CourseDirector.courses_for_teacher_index(current_user, params).
@@ -34,9 +35,10 @@ module V1
                 }
               end
               params do
-                optional :page, type: Integer, desc: '第page页数'
-                optional :per_page, type: Integer, desc: '每页per_page条数据'
-                optional :status, type: String,desc: 'status=today结果为今天上课辅导班,status=辅导班状态,则按状态来过滤辅导班'
+                optional :page, type: Integer, desc: '当前页面'
+                optional :per_page, type: Integer, desc: '每页记录数'
+                optional :status, type: String,desc: '过滤条件 init:初始化; preview: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班',
+                         values: %w(init preview teaching completed today)
               end
               get :full do
                 courses = LiveService::CourseDirector.courses_for_teacher_index(current_user, params).
@@ -77,7 +79,8 @@ module V1
                 optional :status, type: String, desc: '辅导班状态 preview: 待开课; teaching: 已开课; completed: 已结束', values: %w(preview teaching completed)
               end
               get do
-                courses = ::LiveStudio::Course.last(20)
+                tickets = LiveService::CourseDirector.courses_for_student_index(current_user,params).paginate(page: params[:page], per_page: params[:per_page])
+                courses = tickets.map(&:course)
                 present courses, with: Entities::LiveStudio::Course, type: :default
               end
             end

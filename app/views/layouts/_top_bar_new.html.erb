@@ -42,7 +42,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if signed_in? %>
-            <% if @current_resource.student? or @current_resource.teacher? %>
+            <% if current_user.student? or current_user.teacher? %>
               <li>
                 <%= link_to user_notification_path do %>
                   <span class="glyphicon glyphicon-envelope"></span>

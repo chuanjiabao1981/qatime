@@ -88,7 +88,7 @@
       <div class="row">
         <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:school)%></div>
         <div class="col-md-9">
-          <%= f.input :school_id, label: false, :collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]} %>
+          <%= f.input :school_id, label: false, :collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]}, include_blank: false %>
         </div>
       </div>
     </div>
@@ -96,7 +96,7 @@
       <div class="row">
         <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:subject)%></div>
         <div class="col-md-9">
-          <%= f.input :subject, label: false,  :collection => APP_CONSTANT["subjects"] %>
+          <%= f.input :subject, label: false, :collection => APP_CONSTANT["subjects"], include_blank: false %>
         </div>
       </div>
     </div>
@@ -104,7 +104,7 @@
       <div class="row">
         <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:teaching_years)%></div>
         <div class="col-md-9">
-          <%= f.input :teaching_years, label: false, as: :select %>
+          <%= f.input :teaching_years, label: false, as: :select, include_blank: false %>
         </div>
       </div>
     </div>
@@ -112,7 +112,7 @@
       <div class="row">
         <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:grade_range)%></div>
         <div class="col-md-9">
-          <%= f.input :grade_range, collection: APP_CONSTANT["grades_in_menu"], label: false, as: :check_boxes %>
+          <%= f.input :grade_range, collection: APP_CONSTANT["grades"][@teacher.category], label: false, as: :check_boxes %>
         </div>
       </div>
     </div>

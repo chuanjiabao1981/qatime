@@ -91,7 +91,7 @@
           <%= t('view.course_info_show.ticket_count') %><%= @course.buy_tickets_count %>
         </td>
       </tr>
-      <tr>
+      <%= content_tag :tr do %>
         <td colspan="2">
           <div><%= t('view.teacher_course.team_announcement') %></div>
           <div class="col-md-9" id="show_notice_area">
@@ -106,7 +106,7 @@
             <button type="button" class="btn btn-xs btn-success" id="submit_notice_btn">完成</button>
           </div>
         </td>
-      </tr>
+      <% end if @course.chat_team.present? %>
     </table>
   </div>
   <div class="info-intro">

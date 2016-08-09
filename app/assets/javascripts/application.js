@@ -17,9 +17,9 @@
 //= require summernote
 //= require jquery.form
 //= require video-js
-//= require jwplayer/jwplayer
-//= require jwplayer/jwpsrv_frq
-//= require jwplayer/jwpsrv
+// require jwplayer/jwplayer
+// require jwplayer/jwpsrv_frq
+// require jwplayer/jwpsrv
 //= require jquery.menu-aim
 //= require chosen-jquery
 //= require canvas-to-blob.min

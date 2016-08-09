@@ -14,9 +14,11 @@
     <div class="navbar-collapse collapse" style="height: 1px;">
       <ul class="nav navbar-nav">
         <% if signed_in? %>
-          <li><%= link_to t("view.common_bars.home_page"), user_home_path %></li>
-          <li><%= link_to t("view.common_bars.curriculums"), curriculums_path %></li>
-          <li><%= link_to t("view.common_bars.live_studio_courses"), live_studio.courses_path %></li>
+          <% if @current_resource.student? or @current_resource.teacher? %>
+            <li><%= link_to t("view.common_bars.home_page"), user_home_path %></li>
+            <li><%= link_to t("view.common_bars.curriculums"), curriculums_path %></li>
+            <li><%= link_to t("view.common_bars.live_studio_courses"), live_studio.courses_path %></li>
+          <% end %>
           <!-- <li><%#= link_to t("view.common_bars.download"), welcome_download_path %></li> -->
           <li><%= link_to t("view.common_bars.common_problem"), qa_faqs_path %></li>
         <% else %>

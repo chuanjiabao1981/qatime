@@ -26,7 +26,7 @@
     <%= will_paginate @courses %>
   <% end %>
   <%= content_tag(:div, class: 'none-list') do %>
-    <%= sanitize(t('activerecord.view.none_tips') % content_tag(:a, t('activerecord.view.buy_now'), href: courses_path)) %>
+    <%= t('view.teacher_course.teacher_course_none_tips') %>
   <% end if @courses.blank? %>
 <% end %>
 

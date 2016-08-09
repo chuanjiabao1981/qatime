@@ -33,12 +33,13 @@
                   <span class="badge"><%= current_user.unread_notifications_count if current_user.unread_notifications_count > 0 %></span>
                 <% end %>
               </li>
+              <li>
+                <% _link = current_user.student? ? info_student_path(@student) : info_teacher_path(@teacher) %>
+                <%= link_to _link do %>
+                  <span class="glyphicon glyphicon-user"></span>
+                <% end %>
+              </li>
             <% end %>
-            <li>
-              <%= link_to user_home_path do %>
-                <span class="glyphicon glyphicon-user"></span>
-              <% end %>
-            </li>
             <li>
               <%= link_to t("view.common_bars.sign_out"), signout_path, :method=>'delete' %>
             </li>

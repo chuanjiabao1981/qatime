@@ -10,4 +10,20 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require_tree .
+//= require jquery
+//= require jquery_ujs
+//= require jquery.Jcrop
+//= require bootstrap
+//= require summernote
+//= require jquery.form
+//= require jquery.menu-aim
+//= require chosen-jquery
+//= require canvas-to-blob.min
+//= require fancybox
+//= require editable/bootstrap-editable
+//= require editable/rails
+//= require jquery.qqFace.js
+//= require live_studio/nep.min
+//= require live_studio/Web_SDK_Base_v2.4.0
+//= require live_studio/Web_SDK_NIM_v2.4.0
+//= require live_studio/chat

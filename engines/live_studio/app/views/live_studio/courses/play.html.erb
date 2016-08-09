@@ -2,11 +2,6 @@
   <%= stylesheet_link_tag "live_studio/live", media: "all", "data-turbolinks-track" => false %>
 <% end %>
 
-<% content_for :javascript do %>
-    <%= javascript_include_tag "live_studio/nep.min" %>
-    <%= javascript_include_tag "live_studio/live" %>
-<% end %>
-
 <% channel = @course.channels.first %>
 <div class="qa_sep_15"></div>
 

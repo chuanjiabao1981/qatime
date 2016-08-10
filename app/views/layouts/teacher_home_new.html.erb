@@ -17,6 +17,9 @@
   <div class='row'>
     <div class="col-md-12">
       <%= yield :breadcrumb %>
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
       <%= render 'layouts/shared/flash' %>
     </div>
     <div class='col-md-2'>

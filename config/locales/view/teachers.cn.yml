@@ -22,7 +22,7 @@ cn:
       required_authentication_password: 登录答疑时间需要输入密码验证。
       modify_login_password: 修改登录密码
       bound_mobile: 绑定手机
-      bound_mobile_desc: 更改绑定手机需要同事对新旧手机进行验证，如果当前手机号遗失或无法收到验证码。
+      bound_mobile_desc: 更改绑定手机需要同时对新旧手机进行验证，如果当前手机号遗失或无法收到验证码
       modified_binding_mobile: 修改绑定手机
       bound_email: 绑定邮箱
       bound_email_desc: 注意！修改绑定邮箱，用户登录邮箱将一起变更。

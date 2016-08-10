@@ -73,6 +73,7 @@ cn:
         avatar: 头像
         grade: 年级
         desc: 个人简介
+        accept: 接受服务协议
       topic:
         title: 标题
         content: 内容

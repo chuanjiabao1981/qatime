@@ -32,8 +32,8 @@ module LiveService
     # 检索条件: subject grade status
     # 排序条件: class_date
     def self.courses_search(search_params)
-      LiveStudio::Course.for_sell.by_subject(search_params[:subject]).by_status(search_params[:status]).
-        by_grade(search_params[:grade]).class_date_sort(search_params[:class_date_sort]).includes(:teacher)
+      @courses = LiveStudio::Course.for_sell.includes(:teacher)
+      query_by_params(@courses, search_params)
     end
 
     def self.courses_for_teacher_index(user,params)
@@ -78,6 +78,24 @@ module LiveService
       # 今日辅导班
       # TODO 查询逻辑有点复杂，可以考虑通过增加冗余字段来简化查询
       user.live_studio_tickets.visiable.includes(course: [:teacher, :lessons]).where(live_studio_lessons: { class_date: Date.today })
+    end
+
+    def self.query_by_params(courses, params)
+      %w(subject grade status).each do |i|
+        if params[i].present? && params[i] != 'all'
+          courses = courses.where(i => i == 'status' ? LiveStudio::Course.statuses[params[i]] : params[i])
+        end
+      end
+      if params[:sort_by].present?
+        # 排序方式,多个排序字段用-隔开,默认倒序,需要正序加上.asc后缀 例如: created_at-price.asc-buy_tickets_count.asc
+        order_str =
+          params[:sort_by].split('-').map{ |i|
+            column = i.split('.')[0]
+            "#{column} #{i.split('.')[1] || 'desc'}" if LiveStudio::Course.column_names.include?(column)
+          }.join(',')
+        courses.order(order_str)
+      end
+      courses
     end
 
     def instance_studio

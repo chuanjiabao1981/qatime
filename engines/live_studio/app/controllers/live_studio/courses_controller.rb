@@ -9,7 +9,7 @@ module LiveStudio
     def index
       @courses = LiveService::CourseDirector.courses_search(search_params).paginate(page: params[:page])
       if @student && @student.student?
-        @tickets = @student.live_studio_tickets.where(course_id: @courses.map(&:id)) if @student
+        @tickets = @student.live_studio_tickets.includes(course: :lesson).where(course_id: @courses.map(&:id)) if @student
       else
         @tickets = Array.new
       end
@@ -83,7 +83,14 @@ module LiveStudio
     end
 
     def search_params
-      params.permit(:subject, :grade, :class_date_sort, :status)
+      flag_params = params.permit(:subject, :grade, :class_date_sort, :status)
+      flag_sort = []
+      %w(class_date_sort price_sort buy_tickets_count_sort).each do |sort|
+        flag_params[sort].present? && flag_sort << "#{sort.gsub('_sort','')}.#{flag_params[sort]}"
+        flag_params.delete(sort)
+      end
+      flag_params[:sort_by] = flag_sort.join('-')
+      flag_params
     end
   end
 end

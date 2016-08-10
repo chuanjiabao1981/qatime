@@ -97,7 +97,7 @@ module V1
           params do
             optional :page, type: Integer, desc: '当前页面'
             optional :per_page, type: Integer, desc: '每页记录数'
-            optional :sort_by, type: String, desc: '排序方式,多个排序字段用-隔开,默认倒序,需要正序加上.desc后缀 例如: created_at-price.asc-buy_count.asc'
+            optional :sort_by, type: String, desc: '排序方式,多个排序字段用-隔开,默认倒序,需要正序加上.asc后缀 例如: created_at-price.asc-buy_count.asc'
             optional :subject, type: String, desc: '科目', values: APP_CONSTANT['subjects']
             optional :grade, type: String, desc: '年级', values: APP_CONSTANT['grades_in_menu']
             optional :price_floor, type: Integer, desc: '价格开始区间'
@@ -107,9 +107,9 @@ module V1
             optional :status, type: String, desc: '辅导班状态 all: 全部; preview: 招生中; teaching: 已开课', values: %w(all preview teaching)
           end
           get do
-            # TODO 分类查询
-            courses = ::LiveStudio::Course.last(20)
-            present courses, with: Entities::LiveStudio::Course, type: :default
+            courses = LiveService::CourseDirector.courses_search(params).paginate(page: params[:page], per_page: params[:per_page])
+            entity = current_user.student? ? Entities::LiveStudio::StudentCourse : Entities::LiveStudio::Course
+            present courses, with: entity, type: :default, options: current_user
           end
 
           desc '辅导班详情、辅导班列表、教师信息接口' do

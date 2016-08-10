@@ -114,6 +114,7 @@ module Permissions
       ## end live studio permission
       allow 'chat/teams', [:finish, :members, :member_visit]
       allow 'welcome', [:download]
+      allow 'payment/users', [:cash]
     end
   end
 end

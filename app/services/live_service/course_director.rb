@@ -66,6 +66,11 @@ module LiveService
       @tickets
     end
 
+    def self.taste_course_ticket(user, course)
+      LiveService::ChatAccountFromUser.new(user).instance_account
+      course.taste_tickets.find_or_create_by(student: user)
+    end
+
     private
 
     # 分类查询辅导班

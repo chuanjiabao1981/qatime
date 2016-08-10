@@ -151,9 +151,9 @@ module V1
             requires :id, desc: '辅导班ID'
           end
           get '/:id/taste' do
-            # TODO 代码实现
-            course = ::LiveStudio::Ticket.last
-            present course, with: Entities::LiveStudio::Ticket
+            course = ::LiveStudio::Course.find(params[:id])
+            ticket = LiveService::CourseDirector.taste_course_ticket(current_user, course)
+            present ticket, with: Entities::LiveStudio::Ticket
           end
 
           desc '辅导班直播信息' do

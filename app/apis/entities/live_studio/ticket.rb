@@ -1,6 +1,6 @@
 module Entities
   module LiveStudio
-    class Course < Grape::Entity
+    class Ticket < Grape::Entity
       expose :id
       expose :status
     end

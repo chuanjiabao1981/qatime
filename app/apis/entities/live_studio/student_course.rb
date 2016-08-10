@@ -1,11 +1,11 @@
 module Entities
   module LiveStudio
-    class StudentCourse < Course
+    class StudentCourse < Entities::LiveStudio::Course
 
       expose :pull_address do |course|
         course.pull_stream.try(:address)
       end
-      expose :teacher, using: Entities::LiveStudio::Teacher, if: { type: :full }
+      expose :teacher, using: Entities::Teacher, if: { type: :full }
       expose :is_tasting do |course, options|
         course.tasting?(options[:current_user])
       end

@@ -10,7 +10,7 @@ module V1
 
           route_param :teacher_id do
             resource :courses do
-              desc '辅导班列表接口' do
+              desc '教师辅导班列表接口' do
                 headers 'Remember-Token' => {
                     description: 'RememberToken',
                     required: true
@@ -28,7 +28,7 @@ module V1
                 present courses, with: Entities::LiveStudio::TeacherCourse, type: :default
               end
 
-              desc '辅导班全信息接口' do
+              desc '教师辅导班全信息接口' do
                 headers 'Remember-Token' => {
                     description: 'RememberToken',
                     required: true
@@ -46,7 +46,7 @@ module V1
                 present courses, with: Entities::LiveStudio::TeacherCourse, type: :full
               end
 
-              desc '辅导班详情接口' do
+              desc '教师辅导班详情接口' do
                 headers 'Remember-Token' => {
                     description: 'RememberToken',
                     required: true
@@ -55,7 +55,7 @@ module V1
               params do
                 requires :id, type: Integer, desc: '辅导班ID'
               end
-              get 'courses/:id' do
+              get ':id' do
                 course = current_user.live_studio_courses.find(params[:id])
                 present course, with: Entities::LiveStudio::TeacherCourse, type: :full
               end
@@ -66,7 +66,7 @@ module V1
         namespace :students do
           route_param :student_id do
             resource :courses do
-              desc '学生我的辅导班接口' do
+              desc '学生我的辅导班列表接口' do
                 headers 'Remember-Token' => {
                     description: 'RememberToken',
                     required: true
@@ -81,14 +81,28 @@ module V1
               get do
                 tickets = LiveService::CourseDirector.courses_for_student_index(current_user,params).paginate(page: params[:page], per_page: params[:per_page])
                 courses = tickets.map(&:course)
-                present courses, with: Entities::LiveStudio::Course, type: :default
+                present courses, with: Entities::LiveStudio::StudentCourse, type: :full, options: current_user
+              end
+
+              desc '学生辅导班详情接口' do
+                headers 'Remember-Token' => {
+                  description: 'RememberToken',
+                  required: true
+                }
+              end
+              params do
+                requires :id, type: Integer, desc: '辅导班ID'
+              end
+              get ':id' do
+                course = current_user.live_studio_courses.find(params[:id])
+                present course, with: Entities::LiveStudio::StudentCourse, type: :full, options: current_user
               end
             end
           end
         end
 
         resource :courses do
-          desc '辅导班列表接口' do
+          desc '检索辅导班列表接口' do
             headers 'Remember-Token' => {
                 description: 'RememberToken',
                 required: true
@@ -112,20 +126,19 @@ module V1
             present courses, with: entity, type: :default, options: current_user
           end
 
-          desc '辅导班详情、辅导班列表、教师信息接口' do
+          desc '检索辅导班详情接口' do
             headers 'Remember-Token' => {
               description: 'RememberToken',
               required: true
             }
           end
-
           params do
             requires :id, desc: '辅导班ID'
           end
           get '/:id' do
-            # TODO 代码实现
-            course = ::LiveStudio::Course.last
-            present course, with: Entities::LiveStudio::Course, type: :default
+            course = ::LiveStudio::Course.find(params[:id])
+            entity = current_user.student? ? Entities::LiveStudio::StudentCourse : Entities::LiveStudio::Course
+            present course, with: entity, type: :full, options: current_user
           end
 
           desc '试听辅导班接口' do
@@ -134,7 +147,6 @@ module V1
               required: true
             }
           end
-
           params do
             requires :id, desc: '辅导班ID'
           end

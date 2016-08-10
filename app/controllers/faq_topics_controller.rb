@@ -16,9 +16,9 @@ class FaqTopicsController < ApplicationController
       when "admin"
         "admin_home"
       when "teacher"
-        "teacher_home"
+        'teacher_home_new'
       when "student"
-        "student_home"
+        'student_home_new'
     end
   end
 end

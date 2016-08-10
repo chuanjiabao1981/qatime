@@ -9,7 +9,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= render 'layouts/top_bar' %>
+<%= render 'layouts/top_bar_new' %>
 
 <div class="container">
   <div class='row'>
@@ -21,6 +21,8 @@
     <div class='col-md-2'>
       <% if (@resource_owner || @current_resource).is_a?(Student) %>
         <%= render "layouts/sidebar/student_new" %>
+      <% elsif (@resource_owner || @current_resource).is_a?(Teacher) %>
+        <%= render "layouts/sidebar/teacher_new" %>
       <% else %>
         <%= render "layouts/sidebar/#{(@resource_owner || @current_resource).role}" %>
       <% end %>

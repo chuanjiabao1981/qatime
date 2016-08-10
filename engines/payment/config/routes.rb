@@ -7,6 +7,8 @@ Payment::Engine.routes.draw do
       end
     end
 
+    get :cash, on: :member
+
     resources :change_records, only: [:index]
   end
 

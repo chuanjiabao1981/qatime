@@ -36,7 +36,7 @@ class TeachersController < ApplicationController
   def show
     #@teacher = Teacher.find(params[:id])
     #@curriculums = @teacher.find_or_create_curriculums
-    render layout: 'teacher_home'
+    render layout: 'teacher_home_new'
   end
 
   def edit
@@ -64,17 +64,17 @@ class TeachersController < ApplicationController
         by_state(params[:state]).
         by_teacher(@teacher.id).
         order(:created_at).paginate(page: params[:page],:per_page => 10)
-    render layout: 'teacher_home'
+    render layout: 'teacher_home_new'
   end
 
   def students
     @learning_plans = @teacher.learning_plans.paginate(page: params[:page],:per_page => 10)
-    render layout: 'teacher_home'
+    render layout: 'teacher_home_new'
   end
 
   def curriculums
     @curriculums = @teacher.find_or_create_curriculums
-    render layout: 'teacher_home'
+    render layout: 'teacher_home_new'
   end
 
   def info
@@ -88,12 +88,12 @@ class TeachersController < ApplicationController
 
   def questions
     @questions = @teacher.questions.order("created_at desc").paginate(page: params[:page],:per_page => 10)
-    render layout: 'teacher_home'
+    render layout: 'teacher_home_new'
   end
 
   def topics
     @topics = Topic.all.where(teacher_id: @teacher.id).where(topicable_type: Lesson.to_s).order("created_at desc").paginate(page: params[:page],:per_page => 10)
-    render layout: 'teacher_home'
+    render layout: 'teacher_home_new'
   end
 
 
@@ -107,7 +107,7 @@ class TeachersController < ApplicationController
                   .by_customized_course_ids(@teacher.customized_course_ids)
                   .order("created_at desc")
                   .paginate(page: params[:page])
-    render layout: 'teacher_home'
+    render layout: 'teacher_home_new'
   end
 
   def solutions
@@ -117,6 +117,7 @@ class TeachersController < ApplicationController
   def notifications
     @action_notifications = @teacher.customized_course_action_notifications.paginate(page: params[:page])
     # @action_notifiactions =
+    render layout: 'teacher_home_new'
   end
 
   def pass
@@ -144,6 +145,7 @@ class TeachersController < ApplicationController
 
   def customized_courses
     @customized_courses = @teacher.customized_courses.paginate(page: params[:page],per_page: 10)
+    render layout: 'teacher_home_new'
   end
   private
 

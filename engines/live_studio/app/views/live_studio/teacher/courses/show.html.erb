@@ -5,7 +5,8 @@
     <%= content_tag(:div, class: 'search-link') do %>
       <%= link_to t("activerecord.view.course_publish"), publish_course_path(@course), method: :patch,
                   class: "btn btn-default btn-xs #{@course.cant_publish? ? 'disabled' : nil}",
-                  remote: true, 'data-confirm' => t("view.teacher_course.publish_confirm"), id: "course_publish_btn_#{@course.id}" %>
+                  remote: true, 'data-confirm' => t("view.teacher_course.publish_confirm"),
+                  id: "course_publish_btn_#{@course.id}" if @course.init?%>
     <% end %>
     <%= render partial: '/live_studio/courses/publish_tips' %>
   </div>

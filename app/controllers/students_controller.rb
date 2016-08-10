@@ -38,7 +38,7 @@ class StudentsController < ApplicationController
     # else
     #   @consumption_records      = @student.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
     # end
-    render layout: 'student_home'
+    render layout: 'student_home_new'
   end
 
   def edit
@@ -63,12 +63,12 @@ class StudentsController < ApplicationController
 
   def topics
     @topics = Topic.all.where(author_id: @student.id).where(topicable_type: Lesson.to_s).order("created_at desc").paginate(page: params[:page],:per_page => 10)
-    render layout: 'student_home'
+    render layout: 'student_home_new'
   end
 
   def teachers
     @learning_plans = @student.learning_plans.paginate(page: params[:page],:per_page => 10)
-    render layout: 'student_home'
+    render layout: 'student_home_new'
   end
 
   def customized_tutorial_topics
@@ -76,11 +76,12 @@ class StudentsController < ApplicationController
                   .by_customized_course_issue
                   .order("created_at desc")
                   .paginate(page: params[:page])
-    render layout: 'student_home'
+    render layout: 'student_home_new'
   end
 
   def homeworks
     @homeworks = Examination.by_student(@student).by_customized_course_work.paginate(page: params[:page],:per_page => 10)
+    render layout: 'student_home_new'
   end
   def solutions
     @solutions = Solution.all.where(customized_course_id: @student.customized_course_ids).order(created_at: :desc).paginate(page: params[:page])
@@ -88,10 +89,12 @@ class StudentsController < ApplicationController
 
   def customized_courses
     @customized_courses = @student.customized_courses.paginate(page: params[:page],per_page: 10)
+    render layout: 'student_home_new'
   end
 
   def notifications
     @action_notifications = @student.customized_course_action_notifications.paginate(page: params[:page])
+    render layout: 'student_home_new'
   end
 
   def update
@@ -103,7 +106,7 @@ class StudentsController < ApplicationController
         redirect_to edit_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
       end
     else
-      render :edit, layout: "student_home_new"
+      render :edit, layout: 'student_home_new'
     end
   end
 

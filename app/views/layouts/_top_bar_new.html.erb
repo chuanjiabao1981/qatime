@@ -1,3 +1,4 @@
+<% @current_resource ||= current_user %>
 <div class="navbar navbar-inverse <%= "navbar-fixed-top" if defined?(fixed) and fixed %>" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -7,22 +8,37 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to t("view.common_bars.aqtime"), user_home_path ,class: "navbar-brand" %>
+      <% if signed_in? && (@current_resource.student? or @current_resource.teacher?) %>
+        <% if @current_resource.student? %>
+          <%= link_to t("view.common_bars.aqtime"), live_studio.student_courses_path(@current_resource), class: "navbar-brand" %>
+        <% elsif @current_resource.teacher? %>
+          <%= link_to t("view.common_bars.aqtime"), live_studio.teacher_courses_path(@current_resource), class: "navbar-brand" %>
+        <% end %>
+      <% else %>
+        <%= link_to t("view.common_bars.aqtime"), user_home_path, class: "navbar-brand" %>
+      <% end %>
     </div>
 
     <div class="navbar-collapse collapse" style="height: 1px;">
       <ul class="nav navbar-nav">
         <% if signed_in? %>
-          <li><%= link_to t("view.common_bars.home_page"), user_home_path %></li>
+          <li>
+            <% if @current_resource.student? %>
+              <%= link_to t("view.common_bars.home_page"), live_studio.student_courses_path(@current_resource) %>
+            <% elsif @current_resource.teacher? %>
+              <%= link_to t("view.common_bars.home_page"), live_studio.teacher_courses_path(@current_resource) %>
+            <% else %>
+              <%= link_to t("view.common_bars.home_page"), user_home_path %>
+            <% end %>
+          </li>
           <li><%= link_to t("view.common_bars.curriculums"), curriculums_path %></li>
           <li><%= link_to t("view.common_bars.live_studio_courses"), live_studio.courses_path %></li>
-          <li><%= link_to t("view.common_bars.download"), welcome_download_path %></li>
+          <!-- <li><%#= link_to t("view.common_bars.download"), welcome_download_path %></li> -->
           <li><%= link_to t("view.common_bars.common_problem"), qa_faqs_path %></li>
         <% else %>
           <li><%= link_to t("view.common_bars.teacher_register"), new_teacher_path %></li>
           <li><%= link_to t("view.common_bars.student_register"), new_student_path %></li>
         <% end %>
-
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if signed_in? %>
@@ -30,15 +46,24 @@
               <li>
                 <%= link_to user_notification_path do %>
                   <span class="glyphicon glyphicon-envelope"></span>
-                  <span class="badge"><%= current_user.unread_notifications_count if current_user.unread_notifications_count > 0 %></span>
+                  <%= t "view.common_bars.notice" %>
+                  <span class="badge"><%= @current_resource.unread_notifications_count if @current_resource.unread_notifications_count > 0 %></span>
+                <% end %>
+              </li>
+              <li>
+                <% _link = @current_resource.student? ? info_student_path(@current_resource) : info_teacher_path(@current_resource) %>
+                <%= link_to _link do %>
+                  <span class="glyphicon glyphicon-user"></span>
+                  <%= t "view.common_bars.personal_center" %>
+                <% end %>
+              </li>
+            <% else %>
+              <li>
+                <%= link_to user_home_path do %>
+                  <span class="glyphicon glyphicon-user"></span>
                 <% end %>
               </li>
             <% end %>
-            <li>
-              <%= link_to user_home_path do %>
-                <span class="glyphicon glyphicon-user"></span>
-              <% end %>
-            </li>
             <li>
               <%= link_to t("view.common_bars.sign_out"), signout_path, :method=>'delete' %>
             </li>

@@ -81,7 +81,7 @@ module V1
               get do
                 tickets = LiveService::CourseDirector.courses_for_student_index(current_user,params).paginate(page: params[:page], per_page: params[:per_page])
                 courses = tickets.map(&:course)
-                present courses, with: Entities::LiveStudio::StudentCourse, type: :full, options: current_user
+                present courses, with: Entities::LiveStudio::StudentCourse, type: :default, options: current_user
               end
 
               desc '学生辅导班详情接口' do
@@ -167,7 +167,7 @@ module V1
           end
           get '/:id/play_info' do
             # TODO 代码实现
-            course = ::LiveStudio::Course.last
+            course = ::LiveStudio::Course.find(params[:id])
             present course, with: Entities::LiveStudio::StudentCourse, type: :full
           end
         end

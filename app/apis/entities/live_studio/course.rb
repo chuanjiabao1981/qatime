@@ -14,7 +14,12 @@ module Entities
       expose :lesson_count
       expose :preset_lesson_count
       expose :completed_lesson_count
+      expose :live_start_time
+      expose :live_end_time
       expose :lessons, using: Entities::LiveStudio::Lesson, if: { type: :full }
+      expose :members, using: Entities::Chat::Team, if: { type: :full } do |course|
+        course.chat_team
+      end
     end
   end
 end

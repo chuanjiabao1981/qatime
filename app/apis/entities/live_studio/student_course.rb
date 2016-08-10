@@ -6,6 +6,7 @@ module Entities
         course.pull_stream.try(:address)
       end
       expose :teacher, using: Entities::Teacher, if: { type: :full }
+
       expose :is_tasting do |course, options|
         course.tasting?(options[:current_user])
       end

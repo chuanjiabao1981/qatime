@@ -51,7 +51,7 @@ module V1
           params do
             requires :id, type: Integer, desc: '课程ID'
           end
-          get ':id/live_close' do
+          get ':id/live_end' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
             raise_change_error_for(@lesson.teaching? || @lesson.paused?)
             @lesson.close!

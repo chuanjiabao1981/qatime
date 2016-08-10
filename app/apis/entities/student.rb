@@ -1,16 +1,17 @@
 module Entities
   class Student < Entities::User
-    expose :email
-    expose :mobile
-    expose :parent_phone
+    expose :gender
+    expose :birthday
     expose :grade
-    expose :desc
-    expose :address do |s|
-      if s.province && s.city
-        "%s %s"  [s.province.name, s.city.name]
-      elsif s.city
-        s.city.name
-      end
+    expose :province do |s|
+      s.province_id
     end
+    expose :city do |s|
+      s.city_id
+    end
+    expose :school do |s|
+      s.school_id
+    end
+    expose :desc
   end
 end

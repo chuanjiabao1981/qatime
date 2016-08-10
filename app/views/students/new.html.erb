@@ -24,7 +24,6 @@
           </img>
           <%= f.input :password, :autocomplete => "off",:hint => "密码最少为6个字符。"%>
           <%= f.input :password_confirmation %>
-          <%= f.input :register_code_value %>
           <% if f.object.new_record? %>
               <%= f.input :register_code_value %>
 

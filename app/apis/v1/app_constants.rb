@@ -18,13 +18,9 @@ module V1
         schools = ::School.all
 
         # grades = APP_CONSTANT["grades_in_menu"].to_json
-        provinces = present provinces, with: Entities::Province
-        cities = present cities, with: Entities::City
-        schools = present schools, with: Entities::School
-        {
-          grades: provinces
-        }
-
+        present :cities, cities, with: Entities::City
+        present :provinces, provinces, with: Entities::Province
+        present :schools, schools, with: Entities::School
       end
 
       desc '获取年级列表' do

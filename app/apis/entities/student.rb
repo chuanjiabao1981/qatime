@@ -1,7 +1,8 @@
 module Entities
-  class Teacher < Entities::User
+  class Student < Entities::User
     expose :gender
     expose :birthday
+    expose :grade
     expose :province do |s|
       s.province_id
     end

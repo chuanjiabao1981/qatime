@@ -3,14 +3,14 @@
     <div class="qa_big_cell">
       <div class="row">
         <div class="col-md-2 text-left">
-          <%= image_tag software.logo_url(:big) %>
+          <%= image_tag software.logo_url(:big), size: '64x64', alt: software.title %>
         </div>
         <div class="col-md-8">
           <p><span style="font-size: 23px;font-weight: 500;line-height: 1.1;"><%= software.title %></span>-<%= software.sub_title %></p>
           <p><%= software.desc %></p>
         </div>
         <div class="col-md-2 text-right">
-          <%= image_tag software.qr_code_url(:big) %>
+          <%= image_tag software.qr_code_url(:big), size: '64x64', alt: software.title  %>
         </div>
       </div>
     </div>

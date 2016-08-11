@@ -3,20 +3,25 @@
     <div class="qa_big_cell">
       <div class="row">
         <div class="col-md-2 text-left">
-          <%= image_tag software.logo_url(:big) %>
+          <%= image_tag software.logo_url(:big), size: "120x120", alt: software.title %>
         </div>
         <div class="col-md-8">
           <p><span style="font-size: 23px;font-weight: 500;line-height: 1.1;"><%= software.title %></span>-<%= software.sub_title %></p>
           <p><%= software.desc %></p>
         </div>
         <div class="col-md-2 text-right">
-          <%= image_tag software.qr_code_url(:big) %>
+          <% if software.platform_windows? %>
+            <%= link_to software.download_links do %>
+              <br><br>
+              <button class="btn btn-default btn-lg" type="button"><%= t ".download" %></button>
+            <% end %>
+          <% else %>
+            <%= image_tag software.qr_code_url(:big), size: "120x120", alt: software.title %>
+          <% end %>
         </div>
       </div>
     </div>
   <% end %>
-
-
-  <div class="qa_sep_15"></div>
-  <div class="qa_sep_15"></div>
 </div>
+
+

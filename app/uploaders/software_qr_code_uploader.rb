@@ -36,7 +36,7 @@ class SoftwareQrCodeUploader < CarrierWave::Uploader::Base
   #   process :resize_to_fit => [50, 50]
   # end
   version :big do
-    process :resize_to_fill => [64,64]
+    process :resize_to_fill => [120,120]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

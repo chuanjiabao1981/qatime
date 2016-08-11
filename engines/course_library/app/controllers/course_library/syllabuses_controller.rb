@@ -6,13 +6,13 @@ module CourseLibrary
     def index
       @teacher = Teacher.find(params[:teacher_id])
       @syllabuses = @teacher.syllabuses.order(:title)
-      render layout: 'teacher_home'
+      render layout: 'teacher_home_new'
     end
 
     def new
       @teacher = Teacher.find(params[:teacher_id])
       @syllabus = @teacher.syllabuses.build
-      render layout: 'teacher_home'
+      render layout: 'teacher_home_new'
     end
 
     def create
@@ -21,14 +21,14 @@ module CourseLibrary
       if @syllabus.save
         redirect_to teacher_syllabuses_path(@teacher)
       else
-        render 'new',layout: 'teacher_home'
+        render 'new',layout: 'teacher_home_new'
       end
     end
 
     def edit
       @syllabus = Syllabus.find(params[:id])
       @teacher = @syllabus.author
-      render layout: 'teacher_home'
+      render layout: 'teacher_home_new'
     end
 
     def update
@@ -37,7 +37,7 @@ module CourseLibrary
       if @syllabus.update_attributes(params[:syllabus].permit!)
         redirect_to teacher_syllabuses_path(@teacher)
       else
-        render 'edit',layout: 'teacher_home'
+        render 'edit',layout: 'teacher_home_new'
       end
     end
 

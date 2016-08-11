@@ -21,6 +21,8 @@ class Student < User
   validates :parent_phone, length:{is: 11}, :on => :create
   validates :parent_phone,numericality: { only_integer: true },:on => :create
 
+  attr_accessor :accept
+  validates :accept, acceptance: true
 
   def initialize(attributes = {})
     super(attributes)

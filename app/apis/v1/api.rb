@@ -8,6 +8,9 @@ module V1
     mount V1::Sessions
     mount V1::LiveStudio::Courses
     mount V1::LiveStudio::Lessons
+    mount V1::Students
+    mount V1::Teachers
+    mount V1::AppConstants
 
     add_swagger_documentation mount_path: "/api-doc", api_version: "v1", hide_documentation_path: true, hide_format: false,
                               info: { title: "答疑时间API接口", description: "v1.0" }

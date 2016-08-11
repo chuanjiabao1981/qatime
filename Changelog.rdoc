@@ -99,4 +99,16 @@
         * [QT-193](https://qatime.atlassian.net/browse/QT-193)
     * bugfix
         * [QT-209](https://qatime.atlassian.net/browse/QT-209)
+* 0.6.1
+    * bugfix
+        * [QT-257](https://qatime.atlassian.net/browse/QT-257)
+        * [QT-256](https://qatime.atlassian.net/browse/QT-256)
+        * [QT-255](https://qatime.atlassian.net/browse/QT-255)
+        * [QT-254](https://qatime.atlassian.net/browse/QT-254)
+        * [QT-253](https://qatime.atlassian.net/browse/QT-253)
+        * [QT-251](https://qatime.atlassian.net/browse/QT-251)
+        * [QT-249](https://qatime.atlassian.net/browse/QT-249)
+        * [QT-248](https://qatime.atlassian.net/browse/QT-248)
+        * [QT-236](https://qatime.atlassian.net/browse/QT-236)
+    * feature
 

@@ -42,7 +42,7 @@
     <div class="qa_cell">
       <div class="row">
         <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:school)%></div>
-        <div class="col-md-9"><%= @student.school.name %></div>
+        <div class="col-md-9"><%= @student.school.try(:name) %></div>
       </div>
     </div>
     <div class="qa_cell">

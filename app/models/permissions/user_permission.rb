@@ -37,10 +37,12 @@ module Permissions
 
       allow 'live_studio/courses', [:index, :taste, :play, :show]
       allow 'chat/teams', [:finish, :members, :member_visit]
-
       allow 'ajax/captchas', [:create, :verify]
-
       allow 'welcome', [:download]
+
+      allow 'payment/users', [:cash] do |resource|
+        resource.id == user.id
+      end
     end
   end
 end

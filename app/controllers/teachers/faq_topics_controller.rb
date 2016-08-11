@@ -1,5 +1,5 @@
 class Teachers::FaqTopicsController < ApplicationController
-  layout "teacher_home"
+  layout 'teacher_home_new'
 
   def show
     @faq_topic = FaqTopic.find(params[:id])

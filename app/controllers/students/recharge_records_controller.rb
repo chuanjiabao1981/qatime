@@ -1,5 +1,5 @@
 class Students::RechargeRecordsController < ApplicationController
-  layout 'student_home'
+  layout 'student_home_new'
 
   def index
     @recharge_records = current_user.recharge_records

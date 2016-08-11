@@ -223,18 +223,26 @@ module ApplicationHelper
       r = controller_name == 'students' && (
             action_name == 'info' || action_name == 'edit'
           )
+    when :cash
+      r = controller_name == 'users' && action_name == 'cash'
     when :orders
       r = controller_name == 'orders' && action_name == 'index'
     when :courses
-      r = controller_name == 'courses'
+      r = controller_name == 'courses' && (
+            action_name == 'index' || action_name == 'show'
+          )
     when :homeworks
       r = controller_name == 'students' && action_name == 'homeworks'
     when :teachers
       r = controller_name == 'students' && action_name == 'teachers'
     when :notifications
       r = controller_name == 'students' && action_name == 'notifications'
+    when :customized_courses
+      r = controller_name == 'students' && action_name == 'customized_courses'
+    when :questions
+      r = controller_name == 'questions' && action_name == 'student'
     else
-      raise "unknow nav: #{nav}"
+      r = false
     end
     r
   end
@@ -245,8 +253,22 @@ module ApplicationHelper
       r = controller_name == 'teachers' && (
             action_name == 'info' || action_name == 'edit'
           )
+    when :cash
+      r = controller_name == 'users' && action_name == 'cash'
+    when :my_courses
+      r = controller_name == 'courses' && action_name == 'index'
+    when :teacher_students
+      r = controller_name == 'teachers' && action_name == 'students'
+    when :notification
+      r = controller_name == 'teachers' && action_name == 'notifications'
+    when :teacher_syllabuses
+      r = controller_name == 'syllabuses' && action_name == 'index'
+    when :customized_courses
+      r = controller_name == 'teachers' && action_name == 'customized_courses'
+    when :questions
+      r = controller_name == 'questions' && action_name == 'teacher'
     else
-      raise "unknow nav: #{nav}"
+      r = false
     end
     r
   end

@@ -17,7 +17,7 @@ module V1
         cities = ::City.all
         schools = ::School.all
 
-        # grades = APP_CONSTANT["grades_in_menu"].to_json
+        present :grades, APP_CONSTANT["grades_in_menu"]
         present :cities, cities, with: Entities::City
         present :provinces, provinces, with: Entities::Province
         present :schools, schools, with: Entities::School

@@ -1,5 +1,5 @@
 module Entities
-  class City < Grape::Entity
+  class AppConstant < Grape::Entity
     expose :id
     expose :province_id
     expose :name

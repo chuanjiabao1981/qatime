@@ -15,7 +15,6 @@ module V1
       params do
         requires :id, type: Integer, desc: 'ID'
       end
-
       get "/:id/info" do
         student = ::Student.find(params[:id])
         present student, with: Entities::Student

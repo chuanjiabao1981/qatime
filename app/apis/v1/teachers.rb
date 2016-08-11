@@ -12,6 +12,9 @@ module V1
                     required: true
                   }
       end
+      params do
+        requires :id, type: Integer, desc: 'ID'
+      end
       get "/:id/info" do
         teacher = ::Teacher.find(params[:id])
         present teacher, with: Entities::Teacher
@@ -24,6 +27,7 @@ module V1
                   }
       end
       params do
+        requires :id, type: Integer, desc: 'ID'
         requires :name, type: String, desc: '姓名'
         optional :avatar, type: File, desc: '头像'
         optional :gender, type: String, desc: '性别'

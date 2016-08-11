@@ -10,3 +10,8 @@ cn:
         within_ten_years: 三到十年
         within_twenty_years: 十年到二十年
         more_than_twenty_years: 二十年以上
+    software:
+      platform:
+        windows: Windows
+        android: Android
+        ios: IOS

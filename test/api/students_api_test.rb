@@ -12,8 +12,8 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     Rails.application
   end
 
-  test "GET /api/v1/students/info returns student's info" do
-    get "/api/v1/students/info", {}, 'Remember-Token' => @remember_token
+  test "GET /api/v1/students/:id/info returns student's info" do
+    get "/api/v1/students/#{@student.id}/info", {}, 'Remember-Token' => @remember_token
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -24,9 +24,9 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_equal @student.name, res['data']['name']
   end
 
-  test "POST /api/v1/students/update updat student and returns student's info" do
+  test "POST /api/v1/students/:id/update updat student and returns student's info" do
     img_file = fixture_file_upload("#{Rails.root}/test/integration/avatar.jpg", 'image/jpeg')
-    post "/api/v1/students/update", {name: "test_name", grade: "初一", avatar: img_file, gender: "male", birthday: "2000-01-01", desc: "desc test"}, 'Remember-Token' => @remember_token
+    post "/api/v1/students/#{@student.id}/update", {name: "test_name", grade: "初一", avatar: img_file, gender: "male", birthday: "2000-01-01", desc: "desc test"}, 'Remember-Token' => @remember_token
 
     assert_response :success
     res = JSON.parse(response.body)

@@ -50,9 +50,9 @@ module LiveStudio
       @course = Course.find(params[:id])
       @teacher = @course.teacher
       team = @course.chat_team
-      attrs = params.require(:team).permit(:announcement)
+      attrs = params.require(:team_announcement).permit(:announcement)
 
-      team.update_columns(attrs)
+      team.team_announcements.create(attrs.merge(edit_at: Time.now))
       team.reload
       Chat::IM.team_update(tid: team.team_id, owner: team.owner, announcement: team.announcement)
 

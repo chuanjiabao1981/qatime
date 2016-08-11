@@ -17,7 +17,7 @@ module Entities
       expose :live_start_time
       expose :live_end_time
       expose :lessons, using: Entities::LiveStudio::Lesson, if: { type: :full }
-      expose :members, using: Entities::Chat::Team, if: { type: :full } do |course|
+      expose :chat_team, using: Entities::Chat::Team, if: { type: :full } do |course|
         course.chat_team
       end
     end

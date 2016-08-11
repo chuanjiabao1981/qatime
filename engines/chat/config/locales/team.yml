@@ -5,3 +5,5 @@ cn:
       attributes:
         chat/team:
           announcement: 群组公告
+        chat/team_announcement:
+          announcement: 群组公告

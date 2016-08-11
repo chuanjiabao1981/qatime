@@ -8,6 +8,9 @@ module Chat
 
     validates :name, presence: true
 
+    def announcement
+      team_announcements.where.not(announcement: nil).last.try(:announcement)
+    end
 
     class << self
       # redis cache methods

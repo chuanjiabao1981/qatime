@@ -71,6 +71,16 @@ module LiveService
       course.taste_tickets.find_or_create_by(student: user)
     end
 
+    # 创建订单
+    # 添加 chat account
+    # 返回 order
+    def self.create_order(user, course, params)
+      order = Payment::Order.new(params.merge(course.order_params))
+      order.user = user
+      order.save && LiveService::ChatAccountFromUser.new(order.user).instance_account
+      order
+    end
+
     private
 
     # 分类查询辅导班

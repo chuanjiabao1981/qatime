@@ -156,6 +156,30 @@ module V1
             present ticket, with: Entities::LiveStudio::Ticket
           end
 
+          desc '创建辅导班订单接口' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, desc: '辅导班ID'
+            requires :pay_type, type: Integer, desc: '支付方式 0: 支付宝; 1: 微信', values: Payment::Order::PAY_TYPE.values
+          end
+          get '/:id/orders' do
+            course = ::LiveStudio::Course.find(params[:id])
+            order_params = {
+              pay_type: params[:pay_type], remote_ip: headers['X-Real-Ip']
+            }
+            order = LiveService::CourseDirector.create_order(current_user, course, order_params)
+            order.init_remote_order if order.prepayid.blank?
+            {
+              id: order.order_no,
+              prepayid: order.prepayid.to_s,
+              noncestr: order.noncestr.to_s
+            }
+          end
+
           desc '辅导班直播信息' do
             headers 'Remember-Token' => {
               description: 'RememberToken',

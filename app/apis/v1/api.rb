@@ -11,6 +11,7 @@ module V1
     mount V1::Students
     mount V1::Teachers
     mount V1::AppConstants
+    mount V1::Payment::Orders
 
     add_swagger_documentation mount_path: "/api-doc", api_version: "v1", hide_documentation_path: true, hide_format: false,
                               info: { title: "答疑时间API接口", description: "v1.0" }

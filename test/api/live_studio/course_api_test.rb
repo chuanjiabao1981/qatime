@@ -42,7 +42,6 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal 15, res['data'].size
     assert_equal true, res['data'].has_key?('lessons')
   end
 
@@ -76,7 +75,6 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal 18, res['data'].size
     assert_equal true, res['data'].has_key?('lessons')
   end
 
@@ -93,7 +91,6 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal 10, res['data'].size
     assert_equal true, res['data'].first.has_key?('is_tasting')
   end
 
@@ -111,7 +108,6 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal 18, res['data'].size
     assert_equal true, res['data'].has_key?('lessons')
     assert_equal true, res['data'].has_key?('is_tasting')
   end
@@ -145,7 +141,6 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal 18, res['data'].size
     assert_equal true, res['data'].has_key?('chat_team')
   end
 

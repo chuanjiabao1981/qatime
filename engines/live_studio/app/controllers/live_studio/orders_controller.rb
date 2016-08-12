@@ -23,13 +23,9 @@ module LiveStudio
       # 用户之前的未支付订单 更新为无效订单
       waste_orders = Payment::Order.where(user: current_user, status: 0, product: @course)
       waste_orders.update_all(status: 99) if waste_orders.present?
-
-      @order = Payment::Order.new(order_params.merge(@course.order_params))
-      @order.remote_ip = request.remote_ip
-      @order.user = current_user
-
+      order_params = params.require(:order).permit(:pay_type).merge(remote_ip: request.remote_ip)
+      @order = LiveService::CourseDirector.create_order(current_user, @course, order_params)
       if @order.save
-        LiveService::ChatAccountFromUser.new(@order.user).instance_account
         redirect_to payment.user_order_path(current_user, @order.order_no)
       else
         p @order.errors

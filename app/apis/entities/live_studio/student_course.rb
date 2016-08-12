@@ -2,7 +2,7 @@ module Entities
   module LiveStudio
     class StudentCourse < Entities::LiveStudio::Course
 
-      expose :pull_address do |course|
+      expose :pull_address, if: { type: :full } do |course|
         course.pull_stream.try(:address)
       end
       expose :teacher, using: Entities::Teacher, if: { type: :full }

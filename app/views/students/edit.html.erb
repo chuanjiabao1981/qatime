@@ -5,10 +5,11 @@
 <% end %>
 
 <div class="qa_box row">
-  <%= render "info_title" %>
   <% if params[:cate] == "security_setting" %>
+    <%= render "info_title" %>
     <%= render "security_setting" %>
   <% elsif params[:cate] == "edit_profile" %>
+    <%= render "info_title" %>
     <%= render "edit_profile" %>
   <% elsif params[:cate] == "register" %>
     <%= render "edit_profile_for_register" %>

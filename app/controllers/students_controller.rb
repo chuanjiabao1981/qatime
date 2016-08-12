@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   before_action :step_one_session, only: [:edit, :update]
   before_action :require_step_one_session, only: :update
-  before_action :set_captcha_code, only: :update
+  before_action :set_captcha_code, only: [:update, :create]
 
   respond_to :html
 
@@ -18,14 +18,14 @@ class StudentsController < ApplicationController
   end
 
   def create
-    @student = Student.new(create_params)
-
     @student.build_account
     if @student.save
       SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @student.id)
-      redirect_to edit_student_path(@student)
+      session.delete("captcha-#{create_params[:login_mobile]}")
+      sign_in(@student) unless signed_in?
+      redirect_to edit_student_path(@student, cate: :register, by: :register)
     else
-      binding.pry
+      render 'new'
     end
   end
 
@@ -39,7 +39,11 @@ class StudentsController < ApplicationController
   end
 
   def edit
-    render layout: 'student_home_new'
+    if params[:cate] == "register"
+      render layout: 'application'
+    else
+      render layout: 'student_home_new'
+    end
   end
 
   def info
@@ -98,12 +102,18 @@ class StudentsController < ApplicationController
     if excute_update(update_by)
       if params[:cate] == "edit_profile"
         redirect_to info_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
+      elsif params[:cate] == "register"
+        redirect_to user_home_path, notice: t("flash.notice.register_success")
       else
         session.delete("change-#{update_by}-#{send_to}")
         redirect_to edit_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
       end
     else
-      render :edit, layout: 'student_home_new'
+      if params[:cate] == "register"
+        render :edit, layout: 'application'
+      else
+        render :edit, layout: 'student_home_new'
+      end
     end
   end
 
@@ -155,12 +165,16 @@ class StudentsController < ApplicationController
   end
 
   def create_params
-    params.require(:student).permit(:login_mobile, :password, :password_confirmation, :register_code_value, :accept)
+    params.require(:student).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :register_code_value, :accept)
+  end
+
+  def register_params
+    params.require(:student).permit(:name, :gender, :grade, :birthday, :desc, :email, :email_confirmation, :parent_phone, :parent_phone_confirmation, :avatar)
   end
 
   # 根据跟新内容判断是否需要密码更新
   def excute_update(update_by)
-    update_params = update_params(update_by)
+    update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h
     return @student.update_with_password(update_params) if %w(password parent_phone).include?(update_by)
     @student.update(update_params)
   end
@@ -196,11 +210,17 @@ class StudentsController < ApplicationController
   end
 
   def set_captcha_code
-    update_by = params[:by]
-    # 只有邮箱、手机、家长手机修改需要检查验证码
-    return true if %w(email mobile parent_phone).exclude?(update_by)
-    captcha_key = "captcha-#{update_params(update_by)[update_by.to_sym]}"
-    @student.captcha = UserService::CaptchaManager.captcha_of(session[captcha_key])
+    if params[:by] == "create"
+      @student = Student.new(create_params)
+      captcha_key = "captcha-#{create_params[:login_mobile]}"
+      @student.captcha = UserService::CaptchaManager.captcha_of(session[captcha_key])
+    else
+      update_by = params[:by]
+      # 只有邮箱、手机、家长手机修改需要检查验证码
+      return true if %w(email mobile parent_phone).exclude?(update_by)
+      captcha_key = "captcha-#{update_params(update_by)[update_by.to_sym]}"
+      @student.captcha = UserService::CaptchaManager.captcha_of(session[captcha_key])
+    end
   end
 
   def update_by

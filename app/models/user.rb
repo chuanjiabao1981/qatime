@@ -16,8 +16,16 @@ class User < ActiveRecord::Base
   # validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: true
   # validates_presence_of :avatar,:name,:mobile ,if: :teacher_or_student?
 
-  validates :login_mobile,length:{is: 11},if: :teacher_or_student?
-  validates :login_mobile,numericality: { only_integer: true },if: :teacher_or_student?
+  validates_confirmation_of :email, :parent_phone
+  validates_presence_of :avatar, :name, :grade, if: :teacher_or_student?, on: :update
+
+  validates :email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, if: :register_teacher_or_student?
+  validates :email_confirmation, presence: true, if: :register_teacher_or_student_change_email?, on: [:update]
+  validates :parent_phone, allow_blank: true, length: { is: 11 }, numericality: { only_integer: true }, if: :register_teacher_or_student?
+  validates :parent_phone_confirmation, presence: true, if: :register_teacher_or_student_change_parent_phone?, on: [:update]
+
+  validates :login_mobile, length: { is: 11 }, if: :teacher_or_student?
+  validates :login_mobile, numericality: { only_integer: true }, if: :teacher_or_student?
 
   # validates :mobile,length:{is: 11},if: :teacher_or_student?
   # validates :mobile,numericality: { only_integer: true },if: :teacher_or_student?
@@ -30,7 +38,7 @@ class User < ActiveRecord::Base
             format: {with: /\A[\p{Han}\p{Alnum}\-_]{3,10}\z/,message:"只可以是中文、英文或者下划线，最短3个字符最长10个字符，不可包含空格。"}
   validates_confirmation_of :captcha
 
-  validates :captcha_confirmation, presence: true, length: { minimum: 4 }, if: :require_captcha_confirmation?, on: :update
+  validates :captcha_confirmation, presence: true, length: { minimum: 4 }, if: :require_captcha_confirmation?, on: [:update, :create]
   has_secure_password
 
   has_many :orders, class_name: ::Payment::Order
@@ -102,36 +110,25 @@ class User < ActiveRecord::Base
     teacher? or student?
   end
 
+  def register_teacher_or_student?
+    (teacher? || student?) && !name_was.present? && !grade_was.present?
+  end
+
+  def register_teacher_or_student_change_email?
+    register_teacher_or_student? && email?
+  end
+
+  def register_teacher_or_student_change_parent_phone?
+    register_teacher_or_student? && parent_phone?
+  end
+
   def cash_account!
     return cash_account if cash_account.present?
     Payment::CashAccount.create(owner: self)
   end
 
   def require_captcha_confirmation?
-    email_changed? || mobile_changed? || parent_phone_changed?
-  end
-
-  def validate_email_captcha(session_email, attrs={})
-    input_captcha = attrs.delete(:input_captcha)
-    input_email = attrs.delete(:input_email)
-    case session_email[:step]
-    when 1
-      unless session_email[:send_to] == mobile && session_email[:captcha] == input_captcha
-        errors.add :base, I18n.t("flash.alert.captcha_error!")
-        return false
-      end
-    when 2
-      unless session_email[:send_to] == input_email && session_email[:captcha] == input_captcha
-        errors.add :base, I18n.t("flash.alert.captcha_error!")
-        return false
-      end
-    end
-
-    unless captcha_effective?(session_email[:expired_at])
-      errors.add :base, I18n.t("flash.alert.captcha_invalid!")
-      return false
-    end
-    return true
+    (name_was.present? && (email_changed? || mobile_changed? || parent_phone_changed?)) || new_record?
   end
 
   # 使用密码更新数据，更新前验证当前密码
@@ -156,6 +153,10 @@ class User < ActiveRecord::Base
     # 所以一个正确验证码在user其他字段不成功的情况下，同样还是有效的
     self.tmp_register_code = RegisterCode.verification(register_code_value, true)
     errors.add("register_code_value", "注册码不正确") unless tmp_register_code
+  end
+
+  def register_user?
+    name.blank? || grade.blank?
   end
 
   def update_register_code

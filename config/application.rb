@@ -39,11 +39,11 @@ module Qatime
 
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
-      address: APP_CONFIG[:emial_address],
+      address: APP_CONFIG[:email_address],
       port: "25",
       domain: "qatime.cn",
-      user_name: APP_CONFIG[:emial_username],
-      password: APP_CONFIG[:emial_password],
+      user_name: APP_CONFIG[:email_username],
+      password: APP_CONFIG[:email_password],
       authentication: "login"
     }
     # config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')

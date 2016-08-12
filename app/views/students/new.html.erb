@@ -3,7 +3,7 @@
     <div class="qa_big_cell ">
       <h2 class="text-center">注册</h2>
 
-      <%= simple_form_for(@student, url: students_path(@student, cate: :register, by: :register) ) do |f| %>
+      <%= simple_form_for(@student, url: students_path(@student, cate: :register, by: :create) ) do |f| %>
       <div class="form-inputs">
         <div class="row">
           <div class="col-md-3 text-right"><%= Student.human_attribute_name(:login_mobile)%></div>
@@ -16,9 +16,9 @@
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-7">
-                <div class="form-group string optional student_captcha"><input maxlength="4" id="mobile-captcha-input" class="string optional form-control" size="4" type="text" name="captcha"></div>
+                <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 } %>
               </div>
-              <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_mobile" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="register" value="<%= t "students.common.get_captcha" %>">
+              <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="register" value="<%= t "students.common.get_captcha" %>">
               </div>
             </div>
           </div>

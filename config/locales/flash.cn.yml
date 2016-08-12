@@ -9,3 +9,4 @@ cn:
       please_verify_step_one_parent_phone : 修改绑定家长手机号码，请先验证绑定的手机
     notice:
       update_success: 更新成功
+      register_success: 完善信息修改完成

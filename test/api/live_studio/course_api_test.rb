@@ -148,4 +148,21 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_equal 18, res['data'].size
     assert_equal true, res['data'].has_key?('chat_team')
   end
+
+  test 'create course order' do
+    student = users(:student_one_with_course)
+
+    post '/api/v1/sessions', email: student.email,
+         password: 'password',
+         client_type: 'app'
+    @remember_token = JSON.parse(response.body)['data']['remember_token']
+    course = LiveStudio::Course.preview.last
+    post "/api/v1/live_studio/courses/#{course.id}/orders", {pay_type: 1}, {'Remember-Token' => @remember_token}
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status']
+    assert_equal 4, res['data'].size
+    assert_equal true, res['data'].has_key?('prepayid')
+  end
+
 end

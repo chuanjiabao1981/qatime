@@ -166,18 +166,14 @@ module V1
             requires :id, desc: '辅导班ID'
             requires :pay_type, type: Integer, desc: '支付方式 0: 支付宝; 1: 微信', values: Payment::Order::PAY_TYPE.values
           end
-          get '/:id/orders' do
+          post '/:id/orders' do
             course = ::LiveStudio::Course.find(params[:id])
             order_params = {
-              pay_type: params[:pay_type], remote_ip: headers['X-Real-Ip']
+              pay_type: params[:pay_type], remote_ip: headers['X-Real-Ip'] || env["REMOTE_ADDR"]
             }
             order = LiveService::CourseDirector.create_order(current_user, course, order_params)
-            order.init_remote_order if order.prepayid.blank?
-            {
-              id: order.order_no,
-              prepayid: order.prepayid.to_s,
-              noncestr: order.noncestr.to_s
-            }
+            order.init_remote_order if order.unpaid? && order.prepayid.blank?
+            present order, with: Entities::Payment::Order
           end
 
           desc '辅导班直播信息' do
@@ -190,7 +186,6 @@ module V1
             requires :id, desc: '辅导班ID'
           end
           get '/:id/play_info' do
-            # TODO 代码实现
             course = ::LiveStudio::Course.find(params[:id])
             present course, with: Entities::LiveStudio::StudentCourse, type: :full
           end

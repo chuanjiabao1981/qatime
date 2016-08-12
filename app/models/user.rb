@@ -13,15 +13,19 @@ class User < ActiveRecord::Base
   attr_accessor :captcha
   attr_accessor :current_password
 
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: true
-  validates_presence_of :avatar,:name,:mobile ,if: :teacher_or_student?
-  validates :mobile,length:{is: 11},if: :teacher_or_student?
-  validates :mobile,numericality: { only_integer: true },if: :teacher_or_student?
+  # validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: true
+  # validates_presence_of :avatar,:name,:mobile ,if: :teacher_or_student?
+
+  validates :login_mobile,length:{is: 11},if: :teacher_or_student?
+  validates :login_mobile,numericality: { only_integer: true },if: :teacher_or_student?
+
+  # validates :mobile,length:{is: 11},if: :teacher_or_student?
+  # validates :mobile,numericality: { only_integer: true },if: :teacher_or_student?
 
   validates :school ,presence: true,if: :teacher?
   validates :password, length: { minimum: 6 }, if: :update_password?
-  validates :grade, inclusion: { in: APP_CONSTANT["grades_in_menu"]},if: :student?
-  validates_presence_of :grade, if: :student?
+  # validates :grade, inclusion: { in: APP_CONSTANT["grades_in_menu"]},if: :student?
+  # validates_presence_of :grade, if: :student?
   validates :nick_name,allow_nil: true,allow_blank:true,uniqueness: true,
             format: {with: /\A[\p{Han}\p{Alnum}\-_]{3,10}\z/,message:"只可以是中文、英文或者下划线，最短3个字符最长10个字符，不可包含空格。"}
   validates_confirmation_of :captcha

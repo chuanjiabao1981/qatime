@@ -8,7 +8,9 @@
   <%= render "info_title" %>
   <% if params[:cate] == "security_setting" %>
     <%= render "security_setting" %>
-  <% else %>
+  <% elsif params[:cate] == "edit_profile" %>
     <%= render "edit_profile" %>
+  <% elsif params[:cate] == "register" %>
+    <%= render "edit_profile_for_register" %>
   <% end %>
 </div>

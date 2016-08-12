@@ -18,20 +18,17 @@ class StudentsController < ApplicationController
   end
 
   def create
-    @student = Student.new(params[:student].permit!)
+    @student = Student.new(create_params)
+
     @student.build_account
     if @student.save
       SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @student.id)
-      if signed_in?
-        respond_with @student
-      else
-        sign_in(@student)
-        redirect_to user_home_path
-      end
+      redirect_to edit_student_path(@student)
     else
-      render 'new'
+      binding.pry
     end
   end
+
   def show
     # if params[:fee].nil?
     #   @deposits = @student.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
@@ -116,7 +113,6 @@ class StudentsController < ApplicationController
   end
 
   def account
-
   end
 
   def destroy
@@ -156,6 +152,10 @@ class StudentsController < ApplicationController
 
   def update_params(update_by)
     send("#{update_by}_params")
+  end
+
+  def create_params
+    params.require(:student).permit(:login_mobile, :password, :password_confirmation, :register_code_value, :accept)
   end
 
   # 根据跟新内容判断是否需要密码更新

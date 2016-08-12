@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160808142756) do
+ActiveRecord::Schema.define(version: 20160811125504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,17 +50,6 @@ ActiveRecord::Schema.define(version: 20160808142756) do
     t.integer  "comments_count", default: 0
   end
 
-  create_table "cash_accounts", force: :cascade do |t|
-    t.integer  "owner_id"
-    t.string   "owner_type"
-    t.decimal  "balance",    precision: 8, scale: 2, default: 0.0
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
-    t.datetime "deleted_at"
-  end
-
-  add_index "cash_accounts", ["owner_type", "owner_id"], name: "index_cash_accounts_on_owner_type_and_owner_id", using: :btree
-
   create_table "cash_operation_records", force: :cascade do |t|
     t.integer  "operator_id"
     t.integer  "account_id"
@@ -70,30 +59,14 @@ ActiveRecord::Schema.define(version: 20160808142756) do
     t.datetime "updated_at",  null: false
   end
 
-  create_table "change_records", force: :cascade do |t|
-    t.integer  "cash_account_id"
-    t.decimal  "before",          precision: 8, scale: 2
-    t.decimal  "after",           precision: 8, scale: 2
-    t.decimal  "different",       precision: 8, scale: 2
-    t.integer  "ref_id"
-    t.string   "ref_type"
-    t.string   "summary"
-    t.datetime "deleted_at"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
-  end
-
-  add_index "change_records", ["cash_account_id"], name: "index_change_records_on_cash_account_id", using: :btree
-  add_index "change_records", ["ref_type", "ref_id"], name: "index_change_records_on_ref_type_and_ref_id", using: :btree
-
   create_table "chat_accounts", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "accid",      limit: 32
-    t.string   "token",      limit: 32
-    t.string   "name",       limit: 128
+    t.string   "accid"
+    t.string   "token"
+    t.string   "name"
     t.string   "icon"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "chat_accounts", ["user_id"], name: "index_chat_accounts_on_user_id", using: :btree
@@ -101,7 +74,6 @@ ActiveRecord::Schema.define(version: 20160808142756) do
   create_table "chat_join_records", force: :cascade do |t|
     t.integer  "account_id"
     t.integer  "team_id"
-    t.string   "nick_name",  limit: 64
     t.string   "role",       limit: 16
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
@@ -484,8 +456,8 @@ ActiveRecord::Schema.define(version: 20160808142756) do
     t.integer  "workstation_id",                                                           null: false
     t.integer  "status",                                                     default: 0
     t.text     "description"
-    t.decimal  "price",                              precision: 8, scale: 2, default: 0.0
-    t.decimal  "lesson_price",                       precision: 8, scale: 2, default: 0.0
+    t.decimal  "price",                              precision: 6, scale: 2, default: 0.0
+    t.decimal  "lesson_price",                       precision: 6, scale: 2, default: 0.0
     t.integer  "teacher_percentage",                                         default: 0
     t.integer  "lesson_count",                                               default: 0
     t.integer  "preset_lesson_count",                                        default: 0
@@ -628,20 +600,6 @@ ActiveRecord::Schema.define(version: 20160808142756) do
     t.datetime "updated_at",                            null: false
     t.integer  "customized_course_id"
   end
-
-  create_table "payment_billing_items", force: :cascade do |t|
-    t.integer  "billing_id"
-    t.integer  "account_id"
-    t.string   "account_type"
-    t.decimal  "total_money",  precision: 8, scale: 2
-    t.datetime "deleted_at"
-    t.string   "summary"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
-  end
-
-  add_index "payment_billing_items", ["account_type", "account_id"], name: "index_payment_billing_items_on_account_type_and_account_id", using: :btree
-  add_index "payment_billing_items", ["billing_id"], name: "index_payment_billing_items_on_billing_id", using: :btree
 
   create_table "payment_billings", force: :cascade do |t|
     t.integer  "target_id"
@@ -948,7 +906,7 @@ ActiveRecord::Schema.define(version: 20160808142756) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                                     default: "",    null: false
+    t.string   "email",                                                     null: false
     t.string   "encrypted_password",                        default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -979,9 +937,6 @@ ActiveRecord::Schema.define(version: 20160808142756) do
     t.string   "parent_phone"
     t.integer  "workstation_id"
     t.string   "type",                          limit: 100
-    t.integer  "sex",                                       default: 0
-    t.integer  "province"
-    t.integer  "city"
     t.text     "description"
     t.string   "highest_education"
     t.integer  "teaching_years"
@@ -990,6 +945,7 @@ ActiveRecord::Schema.define(version: 20160808142756) do
     t.integer  "city_id"
     t.integer  "gender",                                    default: 0
     t.date     "birthday"
+    t.string   "login_mobile"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -1039,5 +995,4 @@ ActiveRecord::Schema.define(version: 20160808142756) do
     t.integer  "manager_id"
   end
 
-  add_foreign_key "change_records", "cash_accounts"
 end

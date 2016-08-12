@@ -3,8 +3,6 @@ module Entities
     expose :id
     expose :name
     expose :nick_name
-    expose :small_avatar_url do |u|
-      u.avatar_url(:small)
-    end
+    expose :avatar_url
   end
 end

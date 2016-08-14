@@ -13,6 +13,8 @@ cn:
       try_get_captcha_again: 秒后重试
     new:
       captcha: 验证码
+    edit_profile_for_register:
+      title: 完善信息-学生
     info:
       edit_information: 编辑信息
     edit_profile:

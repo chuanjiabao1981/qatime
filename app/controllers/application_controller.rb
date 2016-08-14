@@ -35,6 +35,7 @@ class ApplicationController < ActionController::Base
     if current_user
       logger.info("#{current_user.name} visit #{params[:controller]}:#{params[:action]}")
     end
+
     if current_permission.allow?(params[:controller], params[:action], current_resource)
       current_permission.permit_params! params
 

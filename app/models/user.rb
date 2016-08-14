@@ -17,20 +17,20 @@ class User < ActiveRecord::Base
   # validates_presence_of :avatar,:name,:mobile ,if: :teacher_or_student?
 
   validates_confirmation_of :email, :parent_phone
-  validates_presence_of :avatar, :name, :grade, if: :teacher_or_student?, on: :update
-
+  validates_presence_of :avatar, :name, if: :teacher_or_student?, on: :update
+  validates_presence_of :grade, if: :student?, on: :update
   validates :email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, if: :register_teacher_or_student?
   validates :email_confirmation, presence: true, if: :register_teacher_or_student_change_email?, on: [:update]
   validates :parent_phone, allow_blank: true, length: { is: 11 }, numericality: { only_integer: true }, if: :register_teacher_or_student?
-  validates :parent_phone_confirmation, presence: true, if: :register_teacher_or_student_change_parent_phone?, on: [:update]
+  validates :parent_phone_confirmation, presence: true, if: :register_teacher_or_student_change_parent_phone?, on: :update
 
-  validates :login_mobile, length: { is: 11 }, if: :teacher_or_student?
+  validates :login_mobile, length: { is: 11 }, uniqueness: true, if: :teacher_or_student?
   validates :login_mobile, numericality: { only_integer: true }, if: :teacher_or_student?
 
   # validates :mobile,length:{is: 11},if: :teacher_or_student?
   # validates :mobile,numericality: { only_integer: true },if: :teacher_or_student?
 
-  validates :school ,presence: true,if: :teacher?
+  # validates :school ,presence: true,if: :teacher?
   validates :password, length: { minimum: 6 }, if: :update_password?
   # validates :grade, inclusion: { in: APP_CONSTANT["grades_in_menu"]},if: :student?
   # validates_presence_of :grade, if: :student?
@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   validates_presence_of :register_code_value, on: :create, if: :teacher_or_student?
   validate :register_code_valid, on: :create, if: :teacher_or_student?
 
-  after_create :update_register_code
+  after_create :update_register_code, on: :update, if: :register_teacher_or_student?
 
   has_many :topics, :dependent => :destroy,foreign_key: :author_id
   has_many :replies, :dependent => :destroy,foreign_key: :author_id
@@ -153,10 +153,6 @@ class User < ActiveRecord::Base
     # 所以一个正确验证码在user其他字段不成功的情况下，同样还是有效的
     self.tmp_register_code = RegisterCode.verification(register_code_value, true)
     errors.add("register_code_value", "注册码不正确") unless tmp_register_code
-  end
-
-  def register_user?
-    name.blank? || grade.blank?
   end
 
   def update_register_code

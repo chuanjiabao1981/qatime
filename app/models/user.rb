@@ -97,6 +97,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.find_by_mobile_or_login_mobile(mobile)
+    find_by(login_mobile: mobile) || find_by(mobile: mobile)
+  end
+
   def self.new_remember_token
     SecureRandom.urlsafe_base64
   end

@@ -2,14 +2,26 @@
   <div class="qa_box row">
     <div class="qa_big_cell ">
       <h2 class="text-center"><%= t ".title" %></h2>
-      <% @user = @user || @current_resource || User.new %>
-      <%= simple_form_for(@user, url: passwords_path, html: { method: :put }) do |f| %>
+      <% @current_resource = @current_resource || User.new %>
+      <%= simple_form_for(@current_resource, url: passwords_path, html: { method: :put }) do |f| %>
       <div class="form-inputs">
         <div class="row">
           <div class="col-md-3 text-right"><%= Student.human_attribute_name(:login_mobile)%></div>
-          <div class="col-md-6">
-            <%= f.input :login_mobile, label: false, input_html: { maxlength: 11 } %>
-          </div>
+          <% if signed_in? && (@current_resource.student? || @current_resource.teacher?)%>
+            <% mobile = @current_resource.login_mobile ||  @current_resource.mobile %>
+            <div class="col-md-6">
+              <%= mobile %>
+            </div>
+            <% if @current_resource.teacher? %>
+              <input maxlength="11" class="string optional form-control" size="11" type="hidden" name="teacher[login_mobile]" id="teacher_login_mobile" value="<%= mobile %>">
+            <% else %>
+              <input maxlength="11" class="string optional form-control" size="11" type="hidden" name="student[login_mobile]" id="student_login_mobile" value="<%= mobile %>">
+            <% end %>
+          <% else %>
+            <div class="col-md-6">
+              <%= f.input :login_mobile, label: false, input_html: { maxlength: 11 } %>
+            </div>
+          <% end %>
         </div>
         <div class="row">
           <div class="col-md-3 text-right"><%= t ".captcha" %></div>
@@ -18,7 +30,16 @@
               <div class="col-md-7">
                 <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 } %>
               </div>
-              <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#user_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="edit_password" value="<%= t "students.common.get_captcha" %>">
+              <% if signed_in? && (@current_resource.student? || @current_resource.teacher?) %>
+                <% if @current_resource.teacher? %>
+                  <% send_input = "#teacher_login_mobile" %>
+                <% else %>
+                  <% send_input = "#student_login_mobile" %>
+                <% end %>
+              <% else %>
+                <% send_input = "#user_login_mobile" %>
+              <% end %>
+              <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="<%= send_input %>" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="edit_password" value="<%= t "students.common.get_captcha" %>">
               </div>
             </div>
           </div>

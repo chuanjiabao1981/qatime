@@ -2,14 +2,21 @@ module V1
   # 学生接口
   class Students < Base
     resource :students do
+      before do
+        authenticate!
+      end
+
       desc 'student info.' do
         headers 'Remember-Token' => {
                     description: 'RememberToken',
                     required: true
                   }
       end
-      get :info do
-        student = current_user
+      params do
+        requires :id, type: Integer, desc: 'ID'
+      end
+      get "/:id/info" do
+        student = ::Student.find(params[:id])
         present student, with: Entities::Student
       end
 
@@ -20,6 +27,7 @@ module V1
                   }
       end
       params do
+        requires :id, type: Integer, desc: 'ID'
         requires :name, type: String, desc: '姓名'
         requires :grade, type: String, desc: '年级'
         optional :avatar, type: File, desc: '头像'
@@ -27,8 +35,8 @@ module V1
         optional :birthday, type: DateTime, desc: '生日'
         optional :desc, type: String, desc: '简介'
       end
-      post :update do
-        student = current_user
+      post "/:id/update" do
+        student = ::Student.find(params[:id])
         update_params = ActionController::Parameters.new(params)
         if student.update({
           name: update_params[:name],

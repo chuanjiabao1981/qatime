@@ -172,7 +172,7 @@ module V1
               pay_type: params[:pay_type], remote_ip: headers['X-Real-Ip'] || env["REMOTE_ADDR"]
             }
             order = LiveService::CourseDirector.create_order(current_user, course, order_params)
-            order.init_remote_order if order.unpaid? && order.prepayid.blank?
+            order.init_remote_order if order.unpaid? && order.prepay_id.blank?
             present order, with: Entities::Payment::Order
           end
 

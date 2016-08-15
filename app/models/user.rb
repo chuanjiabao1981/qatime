@@ -13,13 +13,15 @@ class User < ActiveRecord::Base
   attr_accessor :captcha
   attr_accessor :current_password
   attr_accessor :login_account
+  attr_accessor :if_update_password
 
   # validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: true
   # validates_presence_of :avatar,:name,:mobile ,if: :teacher_or_student?
 
   validates_confirmation_of :email, :parent_phone
-  validates_presence_of :avatar, :name, if: :teacher_or_student?, on: :update
-  validates_presence_of :grade, if: :student?, on: :update
+  validates_presence_of :avatar, :name, if: :student_or_teacher_register_update_need?, on: :update
+  validates_presence_of :grade, if: :student_register_update_need?, on: :update
+  validates_presence_of :subject, :category, if: :teacher_register_update_need?, on: :update
   validates :email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, if: :register_teacher_or_student?
   validates :email_confirmation, presence: true, if: :register_teacher_or_student_change_email?, on: [:update]
   validates :parent_phone, allow_blank: true, length: { is: 11 }, numericality: { only_integer: true }, if: :register_teacher_or_student?
@@ -120,7 +122,7 @@ class User < ActiveRecord::Base
   end
 
   def register_teacher_or_student?
-    (teacher? || student?) && !name_was.present? && !grade_was.present?
+    (teacher? || student?) && !name_was.present?
   end
 
   def register_teacher_or_student_change_email?
@@ -191,6 +193,18 @@ class User < ActiveRecord::Base
   end
 
   def update_password?
-    !password.nil?
+    !password.nil? or if_update_password.present?
+  end
+
+  def student_or_teacher_register_update_need?
+    teacher_or_student? && !update_password?
+  end
+
+  def student_register_update_need?
+    student? && !update_password?
+  end
+
+  def teacher_register_update_need?
+    teacher? && !update_password?
   end
 end

@@ -188,6 +188,9 @@ update_email_student:
   type: Student
   school: school2
 
+find_password_student1:
+  login_mobile: 13812344321
+
 physics_teacher1:
   name: physics_teacher1
   role: teacher
@@ -316,3 +319,6 @@ seller:
   workstation: workstation1
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   type: Seller
+
+
+

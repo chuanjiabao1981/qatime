@@ -265,8 +265,8 @@ module ApplicationHelper
       r = controller_name == 'syllabuses' && action_name == 'index'
     when :customized_courses
       r = controller_name == 'teachers' && action_name == 'customized_courses'
-    when :questions
-      r = controller_name == 'questions' && action_name == 'teacher'
+    when :curriculums
+      r = controller_name == 'teachers' && action_name == 'curriculums'
     else
       r = false
     end

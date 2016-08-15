@@ -116,8 +116,8 @@ module Payment
       else
         self.pay_url = r['code_url']
         self.qrcode_url = Qr_Code.generate_payment(id, r['code_url'])
-        self.prepayid = r['prepay_id']
-        self.noncestr = r['nonce_str']
+        self.prepay_id = r['prepay_id']
+        self.nonce_str = r['nonce_str']
         save
       end
     end

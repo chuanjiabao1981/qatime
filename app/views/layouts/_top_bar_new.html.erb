@@ -22,15 +22,26 @@
     <div class="navbar-collapse collapse" style="height: 1px;">
       <ul class="nav navbar-nav">
         <% if signed_in? %>
-          <li>
-            <% if @current_resource.student? %>
+          <% if @current_resource.student? %>
+            <li>
               <%= link_to t("view.common_bars.home_page"), live_studio.student_courses_path(@current_resource) %>
-            <% elsif @current_resource.teacher? %>
+            </li>
+            <li>
+             <%= link_to t("view.common_bars.customized_courses"), customized_courses_student_path(@current_resource) %>
+            </li>
+
+          <% elsif @current_resource.teacher? %>
+            <li>
               <%= link_to t("view.common_bars.home_page"), live_studio.teacher_courses_path(@current_resource) %>
-            <% else %>
+            </li>
+            <li>
+             <%= link_to t("view.common_bars.customized_courses"), customized_courses_teacher_path(@current_resource) %>
+            </li>
+          <% else %>
+            <li>
               <%= link_to t("view.common_bars.home_page"), user_home_path %>
-            <% end %>
-          </li>
+            </li>
+          <% end %>
           <li><%= link_to t("view.common_bars.curriculums"), curriculums_path %></li>
           <li><%= link_to t("view.common_bars.questions"), questions_path %></li>
           <li><%= link_to t("view.common_bars.live_studio_courses"), live_studio.courses_path %></li>

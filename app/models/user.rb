@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   attr_accessor :register_code_value,:tmp_register_code
   attr_accessor :captcha
   attr_accessor :current_password
+  attr_accessor :login_account
 
   # validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: true
   # validates_presence_of :avatar,:name,:mobile ,if: :teacher_or_student?
@@ -84,6 +85,14 @@ class User < ActiveRecord::Base
 
   def unread_notifications_count
     self.customized_course_action_notifications.unread.count
+  end
+
+  def self.find_by_login_account(login_account)
+    if VALID_EMAIL_REGEX =~ login_account
+      find_by(email: login_account)
+    else
+      find_by(login_mobile: login_account)
+    end
   end
 
   def self.new_remember_token

@@ -34,6 +34,16 @@ class ApplicationController < ActionController::Base
   def authorize
     if current_user
       logger.info("#{current_user.name} visit #{params[:controller]}:#{params[:action]}")
+      if current_user.register_teacher_or_student?
+        if  action_name != 'edit' && !(controller_name == 'sessions' && action_name == 'destroy')
+          if current_user.student?
+            return redirect_to edit_student_path(current_user, cate: :register, by: :register), alert: t("flash.alert.please_improve_your_info")
+          else
+            return redirect_to edit_teacher_path(current_user, cate: :register, by: :register), alert: t("flash.alert.please_improve_your_info")
+          end
+        end
+      end
+
     end
 
     if current_permission.allow?(params[:controller], params[:action], current_resource)

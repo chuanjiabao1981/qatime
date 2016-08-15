@@ -7,6 +7,7 @@ cn:
       please_verify_step_one_email: 修改绑定邮箱，请先验证绑定的手机
       please_verify_step_one_mobile: 修改绑定手机号码，请先验证绑定的手机
       please_verify_step_one_parent_phone : 修改绑定家长手机号码，请先验证绑定的手机
+      please_improve_your_info: 在做其他操作前，请先完善您的个人信息！
     notice:
       update_success: 更新成功
       register_success: 完善信息修改完成

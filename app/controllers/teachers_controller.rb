@@ -193,7 +193,7 @@ class TeachersController < ApplicationController
 
   # 根据跟新内容判断是否需要密码更新
   def excute_update(update_by)
-    update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h
+    update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
     return @teacher.update_with_password(update_params) if %w(password).include?(update_by)
     @teacher.update(update_params)
   end

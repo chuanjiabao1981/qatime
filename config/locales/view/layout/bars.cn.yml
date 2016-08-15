@@ -28,7 +28,8 @@ cn:
       curriculum_schedule: 课程表
       my_courses: 我的辅导
       curriculums: 我的课程
-      homework_manage: 作业管理
+      homeworks: 作业管理
+      lessons_state: 课程状态
       teacher_students: 学生管理
       teacher_questions: 我的问答
       video_manage: 视频管理

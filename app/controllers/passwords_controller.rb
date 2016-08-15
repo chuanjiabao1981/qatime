@@ -16,7 +16,7 @@ class PasswordsController < ApplicationController
     captcha_key = "captcha-#{password_params[:login_mobile]}"
 
     session[captcha_key]
-    @current_resource = User.find_by_mobile_or_login_mobile(password_params[:login_mobile]) || @current_resource
+    @current_resource = @current_resource || User.find_by_mobile_or_login_mobile(password_params[:login_mobile])
     if @current_resource
       @current_resource.captcha = UserService::CaptchaManager.captcha_of(session[captcha_key])
       @current_resource.if_update_password = 1

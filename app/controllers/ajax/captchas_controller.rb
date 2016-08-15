@@ -5,7 +5,6 @@ class Ajax::CaptchasController < ApplicationController
     code = UserService::CaptchaManager.instance_and_notice(params[:send_type], params[:send_to])
     captcha_key = "captcha-#{params[:send_to]}"
     session[captcha_key] = { send_to: params[:send_to], captcha: code, expire_at: 15.minutes.since.to_i }
-
     respond_to do |format|
       format.json { render json: status }
     end

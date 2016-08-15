@@ -61,6 +61,7 @@ cn:
         email: 邮箱
         password: 密码
         register_code_value: 注册码
+        login_mobile: 手机
         mobile: 手机
         nick_name: 昵称
         parent_phone: 家长手机

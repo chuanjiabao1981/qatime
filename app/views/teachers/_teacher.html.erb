@@ -9,7 +9,7 @@
     <%= "#{teacher.category}#{teacher.subject}"%>
   </div>
   <div class="col-md-2">
-    <%= teacher.school.name %>
+    <%= teacher.school.try(:name) %>
   </div>
 
   <% if allow? :teachers,:destroy %>

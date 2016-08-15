@@ -7,11 +7,8 @@ module Entities
       expose :status
       expose :prepay_id
       expose :nonce_str
-      expose :partner_id do |order|
-        WECHAT_CONFIG['mch_id']
-      end
-      expose :timestamp do |order|
-        Time.now.to_i.to_s
+      expose :generate_app_pay_params do |order|
+        WxPay::Service.generate_app_pay_req(order.remote_params)
       end
     end
   end

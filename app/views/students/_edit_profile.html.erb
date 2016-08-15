@@ -26,6 +26,9 @@
                 </div>
               </p>
               <p>
+                <% %w[x y w h].each do |attribute| %>
+                  <%= f.hidden_field "crop_#{attribute}"%>
+                <% end %>
                 <%= f.input :avatar, label: false, input_html:{onchange:"showimagepreviewarea(this)", style: "display:none;"} %>
               </p>
               <p>

@@ -24,8 +24,8 @@ class User < ActiveRecord::Base
   validates :parent_phone, allow_blank: true, length: { is: 11 }, numericality: { only_integer: true }, if: :register_teacher_or_student?
   validates :parent_phone_confirmation, presence: true, if: :register_teacher_or_student_change_parent_phone?, on: :update
 
-  validates :login_mobile, length: { is: 11 }, uniqueness: true, if: :teacher_or_student?
-  validates :login_mobile, numericality: { only_integer: true }, if: :teacher_or_student?
+  validates :login_mobile, length: { is: 11 }, uniqueness: true, if: :teacher_or_student?, on: :create
+  validates :login_mobile, numericality: { only_integer: true }, if: :teacher_or_student?, on: :create
 
   # validates :mobile,length:{is: 11},if: :teacher_or_student?
   # validates :mobile,numericality: { only_integer: true },if: :teacher_or_student?

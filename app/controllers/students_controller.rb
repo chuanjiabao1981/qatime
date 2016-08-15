@@ -157,7 +157,7 @@ class StudentsController < ApplicationController
   end
 
   def avatar_params
-    params.require(:student).permit(:avatar)
+    params.require(:student).permit(:crop_x, :crop_y, :crop_w, :crop_h, :avatar)
   end
 
   def update_params(update_by)
@@ -169,7 +169,7 @@ class StudentsController < ApplicationController
   end
 
   def register_params
-    params.require(:student).permit(:name, :gender, :grade, :birthday, :desc, :email, :email_confirmation, :parent_phone, :parent_phone_confirmation, :avatar)
+    params.require(:student).permit(:name, :gender, :grade, :birthday, :desc, :email, :email_confirmation, :parent_phone, :parent_phone_confirmation, :crop_x, :crop_y, :crop_w, :crop_h, :avatar)
   end
 
   # 根据跟新内容判断是否需要密码更新

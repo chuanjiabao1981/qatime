@@ -24,7 +24,7 @@ class ActiveSupport::TestCase
       retry_count = retry_count + 1
       visit new_session_path
 
-      fill_in :user_email,with: user.email
+      fill_in :user_login_account,with: user.email
       fill_in :user_password,with: 'password'
       click_button '登录'
     rescue Capybara::ElementNotFound => x
@@ -53,7 +53,7 @@ class ActiveSupport::TestCase
       retry_count = retry_count + 1
       visit new_session_path
 
-      fill_in :user_email,with: user.email
+      fill_in :user_login_account,with: user.email
       fill_in :user_password,with: 'password'
       click_button '登录'
     rescue Capybara::ElementNotFound => x
@@ -79,7 +79,7 @@ class ActiveSupport::TestCase
   def log_in2_as(user)
     open_session do |sess|
       sess.https!
-      sess.post sessions_path user: { email: user.email, password: 'password'}
+      sess.post sessions_path user: { login_account: user.email, password: 'password'}
       sess.https!(false)
     end
   end

@@ -12,7 +12,7 @@
 
       <th><%= Fee.human_attribute_name(:link) %></th>
     </tr>
-    <%= render partial: 'shared/earning_records/earning_record',collection: earning_records %>
+    <%= render partial: '/shared/earning_records/earning_record',collection: earning_records %>
   </table>
   <%= will_paginate earning_records ,renderer: BootstrapPagination::Rails %>
 </div>

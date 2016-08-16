@@ -9,7 +9,7 @@
       <th><%= Withdraw.human_attribute_name(:created_at)%></th>
       <th><%= Withdraw.human_attribute_name(:operator)%></th>
     </tr>
-    <%= render withdraws %>
+    <%= render partial: '/withdraws/withdraw',collection: withdraws %>
   </table>
   <%= will_paginate withdraws ,renderer: BootstrapPagination::Rails %>
 </div>

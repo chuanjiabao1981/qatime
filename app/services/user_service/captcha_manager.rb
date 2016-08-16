@@ -10,7 +10,7 @@ module UserService
         SmsWorker.perform_async(SmsWorker::SEND_CAPTCHA, mobile: send_to, captcha: code, type: type) if 'mobile' == send_type
       end
 
-      EmailWorker.perform_async(EmailWorker::CHANGE_EMAIL_CAPTCHA, email: send_to, code: code) if 'email' == send_type
+      EmailWorker.perform_async(EmailWorker::CHANGE_EMAIL_CAPTCHA, email: send_to, captcha: code) if 'email' == send_type
       code
     end
 

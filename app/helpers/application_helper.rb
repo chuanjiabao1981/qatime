@@ -239,8 +239,6 @@ module ApplicationHelper
       r = controller_name == 'students' && action_name == 'notifications'
     when :customized_courses
       r = controller_name == 'students' && action_name == 'customized_courses'
-    when :questions
-      r = controller_name == 'questions' && action_name == 'student'
     else
       r = false
     end
@@ -265,8 +263,12 @@ module ApplicationHelper
       r = controller_name == 'syllabuses' && action_name == 'index'
     when :customized_courses
       r = controller_name == 'teachers' && action_name == 'customized_courses'
+    when :lessons_state
+      r = controller_name == 'teachers' && action_name == 'lessons_state'
     when :curriculums
       r = controller_name == 'teachers' && action_name == 'curriculums'
+    when :homeworks
+      r = controller_name == 'teachers' && action_name == 'homeworks'
     else
       r = false
     end

@@ -2,11 +2,11 @@
   <div role="tabpanel" style="padding-left: 1px">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class=<%= "active" if action_name == "info" and params[:fee].nil? %>>
-        <%=link_to Account.human_attribute_name(:withdraw_record),info_teacher_path(@teacher) %>
+      <li role="presentation" class=<%= "active" if action_name == "cash" and params[:fee].nil? %>>
+        <%=link_to Account.human_attribute_name(:withdraw_record), payment.cash_user_path(@teacher) %>
       </li>
-      <li role="presentation" class=<%= "active" if action_name == "info"  and not params[:fee].nil?%>>
-        <%=link_to Account.human_attribute_name(:teacher_fee_record),info_teacher_path(@teacher,fee: :y) %>
+      <li role="presentation" class=<%= "active" if action_name == "cash"  and not params[:fee].nil?%>>
+        <%=link_to Account.human_attribute_name(:teacher_fee_record),payment.cash_user_path(@teacher, fee: :y) %>
       </li>
     </ul>
   </div>

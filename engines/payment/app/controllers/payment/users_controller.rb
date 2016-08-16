@@ -19,7 +19,7 @@ module Payment
         end
       end
 
-      @change_records = @current_resource.cash_account!.change_records.includes(billing: :target).paginate(page: params[:page])
+      # @change_records = @current_resource.cash_account!.change_records.includes(billing: :target).paginate(page: params[:page])
     end
 
     private

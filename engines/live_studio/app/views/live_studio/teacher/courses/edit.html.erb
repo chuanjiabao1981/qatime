@@ -39,11 +39,6 @@
         <%= "#{t('view.course_info_show.schedule')}#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>
       </div>
     <% end %>
-    <%= allow_link_to({route: 'live_studio/teacher/lessons', action: 'new',
-                       url: new_teacher_lesson_path(@teacher,course_id: @course.id),sub: {class: 'btn btn-xs btn-success course-buy-btn'}}) do %>
-      <%#=link_to new_teacher_lesson_path(@teacher,course_id: @course.id) do %>
-        <%= t("activerecord.view.create") %><%= LiveStudio::Lesson.model_name.human %>
-    <% end unless @course.completed? %>
   </div>
   <div class="tab-content">
     <div id="content_info" class="tab-pane fade<%= params[:index].blank? || params[:index] == 'info' ? ' in active' : nil %>">
@@ -52,7 +47,7 @@
       <% end %>
     </div>
     <div id="lesson_list" class="tab-pane fade<%= params[:index] == 'list' ? ' in active' : nil %>">
-      <%= render '/live_studio/student/courses/lesson' %>
+      <%= render 'edit_lesson' %>
     </div>
   </div>
 </div>

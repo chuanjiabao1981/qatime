@@ -148,6 +148,10 @@ module Payment
       }
     end
 
+    def app_pay_params
+      WxPay::Service.generate_app_pay_req(prepayid: prepay_id, noncestr: nonce_str)
+    end
+
     private
 
     before_create :generate_order_no

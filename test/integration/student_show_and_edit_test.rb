@@ -76,15 +76,13 @@ class StudentInfoShowAndEditTest < ActionDispatch::IntegrationTest
 
     fill_in "mobile-captcha-input", with: "1234"
     click_on "下一步"
-
-    fill_in "student_mobile", with: "13800001111"
+    fill_in "student_login_mobile", with: "13800001111"
     click_on "获取验证码", match: :first
 
     fill_in "student_captcha_confirmation", with: "1234"
-
     click_on "绑定手机"
     @student.reload
-    assert_equal("13800001111", @student.mobile, '更新手机错误')
+    assert_equal("13800001111", @student.login_mobile, '更新手机错误')
   end
 
   test "student update parent phone" do
@@ -96,8 +94,6 @@ class StudentInfoShowAndEditTest < ActionDispatch::IntegrationTest
     fill_in "student_parent_phone", with: "13811110000"
     click_on "获取验证码"
     fill_in "student_captcha_confirmation", with: "1234"
-
-    sleep 5
     click_on "绑定家长手机"
 
     @student.reload

@@ -8,7 +8,7 @@
           <div class="col-md-offset-3 col-md-6">
             <div class="input-group form-group string optional user_login_account">
               <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-              <input maxlength="11" class="form-control string optional form-control" autofocus="autofocus" placeholder="<%= t '.login_account_placeholder'%>" size="11" type="text" name="user[login_account]" id="user_login_account">
+              <input class="form-control string optional form-control" autofocus="autofocus" placeholder="<%= t '.login_account_placeholder'%>" type="text" name="user[login_account]" id="user_login_account">
             </div>
           </div>
         </div>
@@ -20,6 +20,12 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-md-offset-3 col-md-6">
+            <%= link_to t("passwords.common.find_password"), edit_passwords_path, class: 'btn' %>
+          </div>
+        </div>
+
         <div class="row text-center">
           <%= f.submit t(".sign_in"), class: "btn btn-default" %>
         </div>

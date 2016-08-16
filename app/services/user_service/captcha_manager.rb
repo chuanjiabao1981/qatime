@@ -1,11 +1,16 @@
 module UserService
   class CaptchaManager
-    def self.instance_and_notice(type, send_to)
+    def self.instance_and_notice(send_type, send_to, type)
       code = ::Util.random_code
       Rails.logger.debug("The Code Is: #{code}") unless Rails.env.production?
-      SmsWorker.perform_async(SmsWorker::SEND_CAPTCHA, mobile: send_to, captcha: code) if 'mobile' == type
-      # TODO
-      EmailWorker.perform_async(EmailWorker::CHANGE_EMAIL_CAPTCHA, email: send_to, code: code) if 'email' == type
+
+      if type == "register"
+        SmsWorker.perform_async(SmsWorker::REGISTER_CAPTCHA, mobile: send_to, captcha: code) if 'mobile' == send_type
+      else
+        SmsWorker.perform_async(SmsWorker::SEND_CAPTCHA, mobile: send_to, captcha: code, type: type) if 'mobile' == send_type
+      end
+
+      EmailWorker.perform_async(EmailWorker::CHANGE_EMAIL_CAPTCHA, email: send_to, code: code, type: type) if 'email' == send_type
       code
     end
 

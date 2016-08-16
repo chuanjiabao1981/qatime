@@ -66,5 +66,28 @@ class TeacherUpdatePasswordAndEmailTest < ActionDispatch::IntegrationTest
     click_on "绑定邮箱"
     teacher.reload
     assert_equal("test_teacher1@test.com", teacher.email, '更新邮箱错误')
+    new_logout_as(teacher)
+  end
+
+  test "teacher find password by login_mobile" do
+    teacher = users(:find_password_teacher)
+    new_log_in_as(teacher)
+
+    visit info_teacher_path(teacher)
+    click_on "安全设置"
+    click_on "修改登录密码", match: :first
+    click_on "找回密码", match: :first
+
+    click_on "获取验证码", match: :first
+
+    fill_in "teacher_captcha_confirmation", with: "1234"
+
+    fill_in :teacher_password, with: 'pa123456'
+    fill_in :teacher_password_confirmation, with: 'pa123456'
+
+    click_on "提交"
+
+    assert page.has_content?('更新成功'), '没有找回密码'
+    new_logout_as(teacher)
   end
 end

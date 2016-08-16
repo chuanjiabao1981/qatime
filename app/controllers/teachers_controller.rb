@@ -167,8 +167,8 @@ class TeachersController < ApplicationController
     params.require(:teacher).permit(:email, :captcha_confirmation)
   end
 
-  def mobile_params
-    params.require(:teacher).permit(:mobile, :captcha_confirmation)
+  def login_mobile_params
+    params.require(:teacher).permit(:login_mobile, :captcha_confirmation)
   end
 
   def profile_params
@@ -193,7 +193,7 @@ class TeachersController < ApplicationController
 
   # 根据跟新内容判断是否需要密码更新
   def excute_update(update_by)
-    update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h
+    update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
     return @teacher.update_with_password(update_params) if %w(password).include?(update_by)
     @teacher.update(update_params)
   end
@@ -236,7 +236,7 @@ class TeachersController < ApplicationController
     else
       update_by = params[:by]
       # 只有邮箱、手机、家长手机修改需要检查验证码
-      return true if %w(email mobile parent_phone).exclude?(update_by)
+      return true if %w(email login_mobile parent_phone).exclude?(update_by)
       captcha_key = "captcha-#{update_params(update_by)[update_by.to_sym]}"
       @teacher.captcha = UserService::CaptchaManager.captcha_of(session[captcha_key])
     end

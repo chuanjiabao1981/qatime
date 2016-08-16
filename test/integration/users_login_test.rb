@@ -34,10 +34,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
     fill_in :user_login_account, with: user.email
     fill_in :user_password, with: 'password'
-
-    sleep 5
-
-    click_on "登录", match: :second
+    click_button "登录", match: :first
 
     assert page.has_content?('欢迎登录!'), "登录不成功"
   end

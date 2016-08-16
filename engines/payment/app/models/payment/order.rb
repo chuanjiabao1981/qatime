@@ -148,6 +148,10 @@ module Payment
       }
     end
 
+    def app_pay_params
+      { prepayid: prepay_id, noncestr: nonce_str }
+    end
+
     private
 
     before_create :generate_order_no

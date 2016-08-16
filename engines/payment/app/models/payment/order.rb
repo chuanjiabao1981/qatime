@@ -2,6 +2,8 @@ module Payment
   class Order < ActiveRecord::Base
     has_soft_delete
 
+    RESULT_SUCCESS == "SUCCESS".freeze
+
     PAY_TYPE = {
       #alipay: 0,
       weixin: 1
@@ -107,18 +109,18 @@ module Payment
     def init_remote_order
       return init_order_for_test if Rails.env.test?
       r = WxPay::Service.invoke_unifiedorder(remote_params)
-      if !r['code_url'].is_a?(String)
+      if r["return_code"] == RESULT_SUCCESS
+        self.pay_url = r['code_url']
+        self.qrcode_url = Qr_Code.generate_payment(id, r['code_url']) if r['code_url'].is_a?(String)
+        self.prepay_id = r['prepay_id']
+        self.nonce_str = r['nonce_str']
+        save
+      else
         logger.error '===== PAYMENT ERROR START ====='
         logger.error r
         logger.error remote_params
         logger.error '===== PAYMENT ERROR END ====='
         fail!
-      else
-        self.pay_url = r['code_url']
-        self.qrcode_url = Qr_Code.generate_payment(id, r['code_url'])
-        self.prepay_id = r['prepay_id']
-        self.nonce_str = r['nonce_str']
-        save
       end
     end
 

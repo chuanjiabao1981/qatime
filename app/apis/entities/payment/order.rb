@@ -7,7 +7,9 @@ module Entities
       expose :status
       expose :prepay_id
       expose :nonce_str
-      expose :app_pay_params
+      expose :app_pay_params do |order|
+        order.app_pay_params
+      end
     end
   end
 end

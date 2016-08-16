@@ -109,7 +109,7 @@ module Payment
     def init_remote_order
       return init_order_for_test if Rails.env.test?
       r = WxPay::Service.invoke_unifiedorder(remote_params)
-      if r["return_code"] == RESULT_SUCCESS
+      if r["return_code"] == Payment::Order::RESULT_SUCCESS
         self.pay_url = r['code_url']
         self.qrcode_url = Qr_Code.generate_payment(id, r['code_url']) if r['code_url'].is_a?(String)
         self.prepay_id = r['prepay_id']

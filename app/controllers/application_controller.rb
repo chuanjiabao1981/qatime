@@ -37,9 +37,9 @@ class ApplicationController < ActionController::Base
       if current_user.register_teacher_or_student?
         if  action_name != 'edit' && !(controller_name == 'sessions' && action_name == 'destroy') && !(action_name == 'update' && params[:by] == 'register')
           if current_user.student?
-            return redirect_to edit_student_path(current_user, cate: :register, by: :register), alert: t("flash.alert.please_improve_your_info")
+            return redirect_to main_app.edit_student_path(current_user, cate: :register, by: :register), alert: t("flash.alert.please_improve_your_info")
           else
-            return redirect_to edit_teacher_path(current_user, cate: :register, by: :register), alert: t("flash.alert.please_improve_your_info")
+            return redirect_to main_app.edit_teacher_path(current_user, cate: :register, by: :register), alert: t("flash.alert.please_improve_your_info")
           end
         end
       end

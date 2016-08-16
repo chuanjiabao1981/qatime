@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
     if VALID_EMAIL_REGEX =~ login_account
       find_by(email: login_account)
     else
-      find_by_mobile_or_login_mobile(login_account)
+      find_by(login_mobile: login_account)
     end
   end
 
@@ -159,6 +159,10 @@ class User < ActiveRecord::Base
              end
     self.password = self.password_confirmation = nil
     result
+  end
+
+  def login_mobile_or_mobile
+    login_mobile ||  mobile
   end
 
   private

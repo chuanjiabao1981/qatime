@@ -144,8 +144,8 @@ class StudentsController < ApplicationController
     params.require(:student).permit(:email, :captcha_confirmation)
   end
 
-  def mobile_params
-    params.require(:student).permit(:mobile, :captcha_confirmation)
+  def login_mobile_params
+    params.require(:student).permit(:login_mobile, :captcha_confirmation)
   end
 
   def parent_phone_params
@@ -217,7 +217,7 @@ class StudentsController < ApplicationController
     else
       update_by = params[:by]
       # 只有邮箱、手机、家长手机修改需要检查验证码
-      return true if %w(email mobile parent_phone).exclude?(update_by)
+      return true if %w(email login_mobile parent_phone).exclude?(update_by)
       captcha_key = "captcha-#{update_params(update_by)[update_by.to_sym]}"
       @student.captcha = UserService::CaptchaManager.captcha_of(session[captcha_key])
     end

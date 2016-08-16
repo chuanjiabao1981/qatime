@@ -83,14 +83,14 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
     fill_in "mobile-captcha-input", with: "1234"
     click_on "下一步"
 
-    fill_in "teacher_mobile", with: "13800001111"
+    fill_in "teacher_login_mobile", with: "13800001111"
     click_on "获取验证码", match: :first
 
     fill_in "teacher_captcha_confirmation", with: "1234"
 
     click_on "绑定手机"
     @teacher.reload
-    assert_equal("13800001111", @teacher.mobile, '更新手机错误')
+    assert_equal("13800001111", @teacher.login_mobile, '更新手机错误')
   end
 
 end

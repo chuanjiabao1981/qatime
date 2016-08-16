@@ -8,14 +8,13 @@
         <div class="row">
           <div class="col-md-3 text-right"><%= Student.human_attribute_name(:login_mobile)%></div>
           <% if signed_in? && (@current_resource.student? || @current_resource.teacher?)%>
-            <% mobile = @current_resource.login_mobile ||  @current_resource.mobile %>
             <div class="col-md-6">
-              <%= mobile %>
+              <%= @current_resource.login_mobile_or_mobile %>
             </div>
             <% if @current_resource.teacher? %>
-              <input maxlength="11" class="string optional form-control" size="11" type="hidden" name="teacher[login_mobile]" id="teacher_login_mobile" value="<%= mobile %>">
+              <input maxlength="11" class="string optional form-control" size="11" type="hidden" name="teacher[login_mobile]" id="teacher_login_mobile" value="<%= @current_resource.login_mobile_or_mobile %>">
             <% else %>
-              <input maxlength="11" class="string optional form-control" size="11" type="hidden" name="student[login_mobile]" id="student_login_mobile" value="<%= mobile %>">
+              <input maxlength="11" class="string optional form-control" size="11" type="hidden" name="student[login_mobile]" id="student_login_mobile" value="<%= @current_resource.login_mobile_or_mobile %>">
             <% end %>
           <% else %>
             <div class="col-md-6">
@@ -39,7 +38,7 @@
               <% else %>
                 <% send_input = "#user_login_mobile" %>
               <% end %>
-              <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="<%= send_input %>" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="edit_password" value="<%= t "students.common.get_captcha" %>">
+              <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="<%= send_input %>" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="find_password" value="<%= t "students.common.get_captcha" %>">
               </div>
             </div>
           </div>

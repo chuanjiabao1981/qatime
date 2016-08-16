@@ -1,10 +1,10 @@
 <% if_show_mobile_div = (params[:cate].to_s.to_sym == :security_setting && params[:by].to_s.to_sym == :mobile) %>
 
-<div id="edit_mobile_area" style="padding-top: 30px;<%= 'display:none;' unless if_show_mobile_div %>">
+<div id="edit_login_mobile_area" style="padding-top: 30px;<%= 'display:none;' unless if_show_mobile_div %>">
   <!-- 使用mobile_was,来防止未更新的情况 -->
   <% unless session["change-mobile-#{@student.mobile_was}"] %>
     <%= form_tag(verify_ajax_captchas_path, method: :post, remote: true, id: "mobile_captcha_for_change_mobile_form") do |f| %>
-      <input type="hidden" name="send_to" value="<%= @student.mobile %>" id="student_mobile">
+      <input type="hidden" name="send_to" value="<%= @student.login_mobile_or_mobile %>" id="student_login_mobile">
       <input type="hidden" name="edit_type" value="mobile">
       <input type="hidden" name="student_id" value="<%= @student.id %>">
       <input type="hidden" name="cate" value="security_setting">
@@ -15,7 +15,7 @@
           <%= t ".binding_mobile" %>:
         </div>
         <div class="col-md-3">
-          <%= @student.mobile %>
+          <%= @student.login_mobile_or_mobile %>
         </div>
       </div>
       <div class="row" >
@@ -27,7 +27,7 @@
             <div class="col-md-2">
               <div class="form-group string optional student_captcha"><input maxlength="4" id="mobile-captcha-input" class="string optional form-control" size="4" type="text" name="captcha"></div>
             </div>
-            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_mobile" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="edit_mobile" value="<%= t ".get_captcha" %>">
+            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="login_mobile" value="<%= t ".get_captcha" %>">
           </div>
         </div>
       </div>
@@ -38,14 +38,14 @@
       </div>
     <% end %>
   <% else %>
-    <%= simple_form_for(@student, url: student_path(@student, cate: :security_setting, by: :mobile), html: {id: "mobile_captcha_for_change_mobile_form"}) do |f| %>
+    <%= simple_form_for(@student, url: student_path(@student, cate: :security_setting, by: :login_mobile), html: {id: "mobile_captcha_for_change_mobile_form"}) do |f| %>
       <div class="row" >
         <div class="col-md-2 col-md-offset-3 text-right">
           <%= t ".new_mobile" %>:
         </div>
         <div class="col-md-3">
           <% _input_html = action_name == "edit" ?  { maxlength: 11, value: "" } : { length: 11 } %>
-          <%= f.input :mobile, label: false, input_html: _input_html %>
+          <%= f.input :login_mobile, label: false, input_html: _input_html %>
         </div>
       </div>
       <div class="row">
@@ -57,7 +57,7 @@
             <div class="col-md-2">
               <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 } %>
             </div>
-            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_mobile" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="edit_mobile" value="<%= t ".get_captcha" %>">
+            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="login_mobile" value="<%= t ".get_captcha" %>">
           </div>
         </div>
       </div>

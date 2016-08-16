@@ -28,15 +28,9 @@ module LiveStudio
 
     # POST /teacher/lessons
     def create
-      new_lesson_params
-      # @lesson = @course.lessons.new(lesson_params)
-      # @lesson.teacher = @teacher
-      #
-      # if @lesson.save
-      #   redirect_to edit_teacher_course_path(@teacher,params[:course_id],index: 'list'), notice: i18n_notice('created', @lesson)
-      # else
-      #   render :new
-      # end
+      LiveService::LessonDirector.edit_lessons(@course, params)
+      redirect_to edit_teacher_course_path(@teacher,params[:course_id],index: 'list'),
+                  notice: t("activerecord.successful.messages.updated", model: LiveStudio::Lesson.model_name.human)
     end
 
     def ready
@@ -79,11 +73,7 @@ module LiveStudio
 
     private
 
-    def new_lesson_params
-      params[:insert_lesson_list].split(',').map do |no|
-        params.permit("new_name_#{no}","new_start_time_#{no}","new_end_time_#{no}","new_class_date_#{no}")
-      end
-    end
+
 
     def set_course
       @course = Course.find(params[:course_id])

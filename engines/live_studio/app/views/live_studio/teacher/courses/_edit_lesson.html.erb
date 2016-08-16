@@ -1,4 +1,4 @@
-<%= form_tag teacher_lessons_path(course_id: @course),method: :post do %>
+<%= form_tag teacher_lessons_path(course_id: @course),method: :post, id: 'edit_less_form' do %>
   <table class="table table-hover">
     <thead>
     <tr>
@@ -13,13 +13,15 @@
       <td class="lesson-no"></td>
       <td>
         <div>
-          <%= text_field_tag "new_class_date_", '', type: :date,class: 'form-control lesson-class-date' %>
+          <%= text_field_tag "new_class_date_", '', type: :date,class: 'form-control lesson-class-date',
+                             placeholder: t('view.teacher_course.date_holder') %>
           <%= select_tag "new_start_time_", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,''),class: 'form-control lesson-time' %>
+          ~
           <%= select_tag "new_end_time_", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,''),class: 'form-control lesson-time' %>
         </div>
       </td>
       <td>
-        <%= text_field_tag "new_name_", '', class: 'form-control'%>
+        <%= text_field_tag "new_name_", '', class: 'form-control', placeholder: t('view.teacher_course.lesson_name_holder')%>
       </td>
       <td><a href="javascript:void(0);" onclick="delete_self(this)" class="delete-link"><%= t("activerecord.view.delete") %></a></td>
     </tr>
@@ -28,13 +30,15 @@
         <td><%= i+1 %></td>
         <td>
           <div>
-            <%= text_field_tag "class_date_#{lesson.id}", lesson.class_date, type: :date,class: 'form-control lesson-class-date' %>
+            <%= text_field_tag "class_date_#{lesson.id}", lesson.class_date, type: :date,class: 'form-control lesson-class-date',
+                               placeholder: t('view.teacher_course.date_holder') %>
             <%= select_tag "start_time_#{lesson.id}", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,lesson.start_time),class: 'form-control lesson-time' %>
+            ~
             <%= select_tag "end_time_#{lesson.id}", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,lesson.end_time),class: 'form-control lesson-time' %>
           </div>
         </td>
         <td>
-          <%= text_field_tag "name_#{lesson.id}", lesson.name, class: 'form-control'%>
+          <%= text_field_tag "name_#{lesson.id}", lesson.name, class: 'form-control',  placeholder: t('view.teacher_course.lesson_name_holder')%>
         </td>
         <td>
           <%= link_to(t("activerecord.view.delete"), "javascript:delete_default(#{lesson.id})") if lesson.init? && @course.init? %>
@@ -47,7 +51,7 @@
     <a href="javascript:void(0);" id="insert_lesson">新增课程</a>
   </div>
   <%= content_tag :div,class: 'text-center info-submit-btn' do %>
-    <%= link_to t('view.cancel_btn'),:back, class: 'btn btn-default' %>
+    <%= link_to t('view.cancel_btn'), teacher_course_path(@teacher,@course), class: 'btn btn-default' %>
     <%= button_tag t('view.save_btn'), class: 'btn btn-default btn-primary' %>
   <% end%>
   <%= hidden_field_tag :insert_lesson_list, '' %>
@@ -59,6 +63,20 @@
   var lesson_count = <%= @course.lessons.count %>;
   var insert_lesson_list = new Array();
   var delete_lesson_list = new Array();
+
+
+  $('#edit_less_form').submit(function(){
+    var return_flag = true;
+    $('#edit_less_form').find('tr[class^=lesson]').find('input').map(function(index,doc){
+      if($(doc).val().replace(/(^\s*)|(\s*$)/g, "").length==0){
+        return_flag = false;
+      }
+    });
+    if(!return_flag){
+      alert('<%= t('view.teacher_course.data_holder') %>');
+    }
+    return return_flag;
+  });
 
   // 添加tr
   $('#insert_lesson').click(function(){

@@ -211,7 +211,7 @@ class SmsWorker
     captcha = options["captcha"]
     begin
       send_message(mobile,
-       "【答疑时间】您好，您正在注册答疑时间，验证码: #{captcha}如果不是您本人操作，请忽略")
+       "【答疑时间】您好，您正在注册答疑时间，验证码: #{captcha}，如果不是您本人操作，请忽略")
     rescue Exception => e
       logger.info e.message
       logger.info e.backtrace.inspect

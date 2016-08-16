@@ -143,7 +143,7 @@ module Payment
         total_fee: pay_money,
         spbill_create_ip: remote_ip,
         notify_url:  "#{WECHAT_CONFIG['domain_name']}/payment/notify",
-        trade_type: 'NATIVE',
+        trade_type: trade_type,
         fee_type: 'CNY'
       }
     end

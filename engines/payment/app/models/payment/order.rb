@@ -2,7 +2,7 @@ module Payment
   class Order < ActiveRecord::Base
     has_soft_delete
 
-    RESULT_SUCCESS == "SUCCESS".freeze
+    RESULT_SUCCESS = "SUCCESS".freeze
 
     PAY_TYPE = {
       #alipay: 0,

@@ -136,6 +136,18 @@ module Payment
       created_at < 2.hours.ago
     end
 
+    def remote_params
+      {
+        body: "购买辅导班：#{product.name}",
+        out_trade_no: order_no,
+        total_fee: pay_money,
+        spbill_create_ip: remote_ip,
+        notify_url:  "#{WECHAT_CONFIG['domain_name']}/payment/notify",
+        trade_type: 'NATIVE',
+        fee_type: 'CNY'
+      }
+    end
+
     private
 
     before_create :generate_order_no
@@ -149,18 +161,6 @@ module Payment
     def increase_cash_admin_account
       billing = billings.create(total_money: total_money, summary: "用户支付, 订单编号：#{order_no} 系统进账: #{total_money}")
       CashAdmin.increase_cash_account(total_money, billing, '用户充值消费')
-    end
-
-    def remote_params
-      {
-          body: "购买辅导班：#{product.name}",
-          out_trade_no: order_no,
-          total_fee: pay_money,
-          spbill_create_ip: remote_ip,
-          notify_url:  "#{WECHAT_CONFIG['domain_name']}/payment/notify",
-          trade_type: 'NATIVE',
-          fee_type: 'CNY'
-      }
     end
 
   end

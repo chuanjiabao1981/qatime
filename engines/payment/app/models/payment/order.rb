@@ -149,7 +149,7 @@ module Payment
     end
 
     def app_pay_params
-      { prepayid: prepay_id, noncestr: nonce_str }
+      WxPay::Service.generate_app_pay_req(prepayid: prepay_id, noncestr: nonce_str)
     end
 
     private

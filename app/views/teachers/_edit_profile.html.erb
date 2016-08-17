@@ -142,8 +142,16 @@
     })
 
     $("#select_avatar_btn").on('click',function(event){
-      console.log("123")
       $("#teacher_avatar").click()
+    })
+
+    $("button.close").on('click',function(event){
+      $("#teacher_avatar").value = ''
+      $('#teacher_avatar_preview').attr('src', '');
+      $("#teacher_avatar_preview2").attr('src', '');
+      if (jcrop_api){
+        jcrop_api.destroy();
+      }
     })
 
   })
@@ -157,8 +165,8 @@
         var filerdr = new FileReader();
 
         filerdr.onload = function(e) {
-          $("#teacher_avatar_preview2").attr('src', e.target.result);
           $('#teacher_avatar_preview').attr('src', e.target.result);
+          $("#teacher_avatar_preview2").attr('src', e.target.result);
         }
         if (jcrop_api){
           jcrop_api.destroy();

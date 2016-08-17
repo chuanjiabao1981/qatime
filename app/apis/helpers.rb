@@ -7,9 +7,21 @@ module APIHelpers
 
   # 认证用户
   def authenticate!
-    # 如果token不存在，则返回没有得到token
-    raise APIErrors::NoGetAuthenticate unless request.headers["Remember-Token"].present?
-    raise APIErrors::AuthenticateFail unless current_user
+    # 如果token不存在，提示未登录
+    raise APIErrors::NotLogin unless request.headers["Remember-Token"].present?
+    # 找不到current_user，提示授权过期
+    raise APIErrors::AuthenticateExpired unless current_user
+    raise APIErrors::NoVisitPermission unless allow?
+  end
+
+  # 检查客户端
+  # TODO 未实现
+  def check_client!
+  end
+
+  # 权限认证
+  def allow?
+    true
   end
 
   def ip
@@ -40,31 +52,31 @@ module APIHelpers
     objs.paginate(page: params[:page] || 1, per_page: params[:per_page] || 10, total_entries: total_entries)
   end
 
-  def present(data, options={})
-    # 如果不是get请求并且能够reload，就执行reload保证数据同步更新
-    data.reload if (!request.get?) && data.respond_to?(:reload)
-    options.merge!(current_user: current_user) if current_user.present?
+  # def present(data, options={})
+  #   # 如果不是get请求并且能够reload，就执行reload保证数据同步更新
+  #   data.reload if (!request.get?) && data.respond_to?(:reload)
+  #   options.merge!(current_user: current_user) if current_user.present?
 
-    is_paging = data.respond_to?(:total_pages)
+  #   is_paging = data.respond_to?(:total_pages)
 
-    if is_paging
-      super :per_page, data.per_page
-      super :page, data.current_page
-      super :total_pages, data.total_pages
-      super :total_entries, data.total_entries
-    end
+  #   if is_paging
+  #     super :per_page, data.per_page
+  #     super :page, data.current_page
+  #     super :total_pages, data.total_pages
+  #     super :total_entries, data.total_entries
+  #   end
 
-    # 扩展n+1相关查询数据
-    expand_data(data)
+  #   # 扩展n+1相关查询数据
+  #   expand_data(data)
 
-    if data == true
-      data = 1
-    elsif data == false
-      data = 0
-    end
+  #   if data == true
+  #     data = 1
+  #   elsif data == false
+  #     data = 0
+  #   end
 
-    is_paging ? super(:data, data, options) : super(data, options)
-  end
+  #   is_paging ? super(:data, data, options) : super(data, options)
+  # end
 
   def expand_data(data)
     #User.expand_users(data) if [User::ActiveRecord_Relation, User::ActiveRecord_AssociationRelation].include? data.class

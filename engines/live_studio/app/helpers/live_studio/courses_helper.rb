@@ -2,12 +2,17 @@ module LiveStudio
   module CoursesHelper
 
     def search_value_show(variable)
-      sort = "#{variable}_sort".to_sym
-      min = "#{variable}_min".to_sym
-      max = "#{variable}_max".to_sym
-      return_flag = params[sort].present? ? " [#{t("view.course_search_show.#{variable}_#{params[sort]}")}]" : ''
+      sort = ''
+      if params['sort_by'].present? && params[:sort_by].include?(variable)
+        variable = params['sort_by'].split('.').first
+        sort = params['sort_by'].split('.').last
+      end
+      min = "#{variable}_floor".to_sym
+      max = "#{variable}_ceil".to_sym
+      return_flag = sort.present? ? " [#{t("view.course_search_show.#{variable}_#{sort}")}]" : ''
       if params[min].present? || params[max].present?
-        return_flag = " [#{params[min]} ~ #{params[max]}]"
+
+        return_flag = sort && sort == 'desc' ? " [#{params[max]} ~ #{params[min]}]" : " [#{params[min]} ~ #{params[max]}]"
       end
       return_flag
     end

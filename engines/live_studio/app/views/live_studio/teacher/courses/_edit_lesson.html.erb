@@ -1,0 +1,131 @@
+<%= form_tag teacher_lessons_path(course_id: @course),method: :post, id: 'edit_less_form' do %>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <td><%= t('view.course_info_show.number') %></td>
+      <td width="40%" style="text-align: center;"><%= t('view.course_info_show.lesson_start_at') %></td>
+      <td style="text-align: center;"><%= t('view.course_info_show.lesson_name') %></td>
+      <td>&nbsp;</td>
+    </tr>
+    </thead>
+    <tbody id="lesson_body">
+    <tr id="lesson-copy">
+      <td class="lesson-no"></td>
+      <td>
+        <div>
+          <%= text_field_tag "new_class_date_", '', type: :date,class: 'form-control lesson-class-date',
+                             placeholder: t('view.teacher_course.date_holder'), max: '2055-01-01' %>
+          <%= select_tag "new_start_time_", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,''),
+                         class: 'form-control lesson-time' %>
+          ~
+          <%= select_tag "new_end_time_", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,''),
+                         class: 'form-control lesson-time' %>
+        </div>
+      </td>
+      <td>
+        <%= text_field_tag "new_name_", '', class: 'form-control', placeholder: t('view.teacher_course.lesson_name_holder')%>
+      </td>
+      <td><a href="javascript:void(0);" onclick="delete_self(this)" class="delete-link"><%= t("activerecord.view.delete") %></a></td>
+    </tr>
+    <% @course.lessons.each_with_index do |lesson,i| %>
+      <tr class="lesson-<%= lesson.id %>">
+        <td><%= i+1 %></td>
+        <td>
+          <div>
+            <%= text_field_tag "class_date_#{lesson.id}", lesson.class_date, type: :date,class: 'form-control lesson-class-date',
+                               placeholder: t('view.teacher_course.date_holder'), max: '2055-01-01' %>
+            <%= select_tag "start_time_#{lesson.id}", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,lesson.start_time),
+                           class: 'form-control lesson-time' %>
+            ~
+            <%= select_tag "end_time_#{lesson.id}", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,lesson.end_time),
+                           class: 'form-control lesson-time' %>
+          </div>
+        </td>
+        <td>
+          <%= text_field_tag "name_#{lesson.id}", lesson.name, class: 'form-control',  placeholder: t('view.teacher_course.lesson_name_holder')%>
+        </td>
+        <td>
+          <%= link_to(t("activerecord.view.delete"), "javascript:delete_default(#{lesson.id})") if lesson.init? && @course.init? %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <div class="insert-lesson">
+    <%= link_to t('view.insert_btn') % Lesson.model_name.human, 'javascript:void(0);', id: 'insert_lesson' %>
+  </div>
+  <%= content_tag :div,class: 'text-center info-submit-btn' do %>
+    <%= link_to t('view.cancel_btn'), teacher_course_path(@teacher,@course), class: 'btn btn-default' %>
+    <%= button_tag t('view.save_btn'), class: 'btn btn-default btn-primary' %>
+  <% end %>
+  <%= hidden_field_tag :insert_lesson_list, '' %>
+  <%= hidden_field_tag :delete_lesson_list, '' %>
+  <%= hidden_field_tag :default_lesson_list, @course.lessons.map(&:id).join(',') %>
+<% end %>
+
+<script type="text/javascript" charset="utf-8">
+  var lesson_count = <%= @course.lessons.count %>;
+  var insert_lesson_list = new Array();
+  var delete_lesson_list = new Array();
+
+
+  $('#edit_less_form').submit(function(){
+    var return_flag = true;
+    $('#edit_less_form').find('tr[class^=lesson]').find('input').map(function(index,doc){
+      if($(doc).val().replace(/(^\s*)|(\s*$)/g, "").length==0){
+        return_flag = false;
+      }
+    });
+
+    if(!return_flag){
+      alert('<%= t('view.teacher_course.data_holder') %>');
+      return return_flag;
+    }else{
+      $('#edit_less_form').submit();
+    }
+  });
+
+  // 添加tr
+  $('#insert_lesson').click(function(){
+    lesson_count += 1;
+    var copy = $('#lesson-copy').clone();
+    copy.css('display', 'table-row');
+    copy.attr('id', '');
+    copy.addClass('lesson-'+lesson_count);
+    copy.find('.lesson-no').html(lesson_count);
+    insert_lesson_list.push(lesson_count);
+    $('#insert_lesson_list').val(insert_lesson_list.join(','));
+    $("#lesson_body").append(set_attr(copy, lesson_count).clone());
+  });
+
+  // 删除新添tr
+  function delete_self(obj){
+    lesson_count -= 1;
+    var lesson_no = parseInt($(obj).attr('rel'));
+    var index = insert_lesson_list.indexOf(lesson_no);
+    insert_lesson_list.splice(index, 1);
+    $('#insert_lesson_list').val(insert_lesson_list.join(','));
+    $(obj).closest('tr').remove();
+  }
+
+  // 删除动态tr
+  function delete_default(lesson_id){
+    lesson_count -= 1;
+    if(confirm('<%= t('activerecord.view.message.confirm') %>')){
+      delete_lesson_list.push(lesson_id);
+      $('#delete_lesson_list').val(delete_lesson_list.join(','));
+      $('.lesson-'+lesson_id).closest('tr').remove();
+    }
+  }
+
+  // 为新tr创建属性
+  function set_attr(obj, no){
+    var attrs = new Array('new_class_date_', 'new_start_time_', 'new_end_time_', 'new_name_');
+    for(var i=0; i < attrs.length; i++){
+      $(obj).find('#'+attrs[i]).attr('name', attrs[i]+no);
+      $(obj).find('#'+attrs[i]).attr('id', attrs[i]+no);
+    }
+    $(obj).find('a.delete-link').attr('rel', no);
+    return obj;
+  }
+</script>

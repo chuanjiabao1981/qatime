@@ -14,6 +14,12 @@ teacher_account_2000:
   accountable: teacher2 (User)
   money: 2000
 
+total_income_teacher:
+  id: 1000
+  accountable: teacher_tally (User)
+  money: 2000
+  total_income: 3000
+
 physics_teacher1_account:
   accountable: physics_teacher1 (User)
   money: 0
@@ -33,4 +39,3 @@ account_for_student_tally:
 account_for_workstation:
   accountable: workstation1 (Workstation)
   money: 0
-

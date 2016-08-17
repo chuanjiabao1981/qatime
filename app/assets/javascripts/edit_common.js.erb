@@ -5,7 +5,7 @@ $(document).ready(function(){
     $edit_area.show();
   });
 
-  $("button[data-form-reset").on('click',function(event){
+  $("button[data-form-reset]").on('click',function(event){
     var $node = $(event.target)
     var $form = $node.data('form-el')
     var jump_href = $node.data('jump-href')
@@ -16,7 +16,7 @@ $(document).ready(function(){
     }
   });
 
-  $("button[data-jump-btn").on('click',function(event){
+  $("button[data-jump-btn]").on('click',function(event){
     var $node = $(event.target)
     var jump_href = $node.data('jump-href')
 
@@ -38,8 +38,7 @@ $(document).ready(function(){
 
     var send_data = ''
     var send_url = $node.data('send-url')
-    var send_type = $node.data('send-type')
-    var edit_type = $node.data('edit-type')
+    var key = $node.data('key')
 
     if(send_to_input){
       var pattern = /\[(.*)\]/;
@@ -48,9 +47,7 @@ $(document).ready(function(){
 
       send_data = {}
       send_data["send_to"] = send_to_input.value
-      send_data["send_type"] = send_type
-      send_data["edit_type"] = edit_type
-
+      send_data["key"] = key
     }
     $.ajax({
       url: send_url,

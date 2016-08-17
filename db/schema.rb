@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160808142756) do
+ActiveRecord::Schema.define(version: 20160816115133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,12 +110,19 @@ ActiveRecord::Schema.define(version: 20160808142756) do
   add_index "chat_join_records", ["account_id"], name: "index_chat_join_records_on_account_id", using: :btree
   add_index "chat_join_records", ["team_id"], name: "index_chat_join_records_on_team_id", using: :btree
 
+  create_table "chat_team_announcements", force: :cascade do |t|
+    t.integer  "team_id"
+    t.text     "announcement"
+    t.datetime "edit_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "chat_teams", force: :cascade do |t|
     t.string   "team_id",               limit: 32
     t.string   "name",                  limit: 64
     t.integer  "live_studio_course_id"
     t.string   "owner",                 limit: 32
-    t.text     "announcement"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
@@ -685,19 +692,22 @@ ActiveRecord::Schema.define(version: 20160808142756) do
   add_index "payment_change_records", ["owner_type", "owner_id"], name: "index_payment_change_records_on_owner_type_and_owner_id", using: :btree
 
   create_table "payment_orders", force: :cascade do |t|
-    t.string   "order_no",     limit: 64,                                       null: false
+    t.string   "order_no",     limit: 64,                                            null: false
     t.integer  "user_id"
     t.integer  "product_id"
     t.string   "product_type"
     t.decimal  "total_money",             precision: 8, scale: 2, default: 0.0
-    t.integer  "status",                                          default: 0,   null: false
-    t.integer  "pay_type",                                        default: 0,   null: false
+    t.integer  "status",                                          default: 0,        null: false
+    t.integer  "pay_type",                                        default: 0,        null: false
     t.string   "qrcode_url"
     t.string   "pay_url"
     t.string   "remote_ip"
     t.datetime "deleted_at"
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
+    t.datetime "created_at",                                                         null: false
+    t.datetime "updated_at",                                                         null: false
+    t.string   "prepay_id"
+    t.string   "nonce_str"
+    t.string   "trade_type",   limit: 16,                         default: "NATIVE"
   end
 
   add_index "payment_orders", ["product_type", "product_id"], name: "index_payment_orders_on_product_type_and_product_id", using: :btree
@@ -948,7 +958,7 @@ ActiveRecord::Schema.define(version: 20160808142756) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                                     default: "",    null: false
+    t.string   "email"
     t.string   "encrypted_password",                        default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -990,9 +1000,11 @@ ActiveRecord::Schema.define(version: 20160808142756) do
     t.integer  "city_id"
     t.integer  "gender",                                    default: 0
     t.date     "birthday"
+    t.string   "login_mobile"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["login_mobile"], name: "index_users_on_login_mobile", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["workstation_id"], name: "index_users_on_workstation_id", using: :btree
 

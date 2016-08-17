@@ -17,7 +17,7 @@ module V1
           login_token = sign_in(user, client_type)
           present login_token, with: Entities::LoginToken
         else
-          { error: "email or password error" }
+          { result: 'failed', error: "email or password error" }
         end
       end
 

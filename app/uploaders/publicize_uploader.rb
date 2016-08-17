@@ -19,13 +19,16 @@ class PublicizeUploader < CarrierWave::Uploader::Base
   end
 
   version :info do
-    process :resize_to_fill => [400,300]
+    process :resize_to_fill => [480,300]
   end
   version :list do
-    process :resize_to_fill => [280,210]
+    process :resize_to_fill => [320,200]
   end
   version :small do
-    process :resize_to_fill => [132,99]
+    process :resize_to_fill => [160,100]
+  end
+  version :app_info do
+    process :resize_to_fill => [800,500]
   end
 
   #
@@ -46,7 +49,7 @@ class PublicizeUploader < CarrierWave::Uploader::Base
   def default_url
     # For Rails 3.1+ asset pipeline compatibility:
     # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
-    "/imgs/no_img.png"
+    "#{APP_CONFIG[:host]}/imgs/no_img.png"
   end
 
   # Process files as they are uploaded:

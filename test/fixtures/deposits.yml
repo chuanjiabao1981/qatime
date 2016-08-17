@@ -1,0 +1,5 @@
+deposit_one:
+  operator: manager
+  account: student_account
+  value: 1000
+  type: Deposit

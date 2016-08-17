@@ -19,6 +19,7 @@ module LiveStudio
     after_destroy :delete_remote_channel
 
     def create_remote_channel
+      build_streams && return unless Rails.env.production?
       res = ::Typhoeus.post(
         "#{VCLOUD_HOST}/app/channel/create",
         headers: vcloud_headers,
@@ -32,9 +33,16 @@ module LiveStudio
       build_streams(result[:ret]) if result[:code] == 200
     end
 
-    def build_streams(result)
-      push_streams.create(address: result['pushUrl'], protocol: 'rtmp')
-      pull_streams.create(address: result['rtmpPullUrl'], protocol: 'rtmp')
+    def build_streams(result={})
+      if Rails.env.production?
+        push_streams.create(address: result['pushUrl'], protocol: 'rtmp')
+        pull_streams.create(address: result['rtmpPullUrl'], protocol: 'rtmp')
+      else
+        push = 'rtmp://pa0a19f55.live.126.net/live/2794c854398f4d05934157e05e2fe419?wsSecret=a3c84d0ecfdeb7434ffaa534607b9e8f&wsTime=1471330308'
+        pull = 'rtmp://va0a19f55.live.126.net/live/2794c854398f4d05934157e05e2fe419'
+        push_streams.create(address: push, protocol: 'rtmp')
+        pull_streams.create(address: pull, protocol: 'rtmp')
+      end
     end
 
     def delete_remote_channel

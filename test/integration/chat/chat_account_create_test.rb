@@ -17,19 +17,20 @@ module Chat
     end
 
     def teardown
-      logout_as(@student)
+      new_logout_as(@student)
       Capybara.use_default_driver
     end
 
     test "student taste course without account" do
-      course = live_studio_courses(:course_with_lessons)
+      course = live_studio_courses(:tasting_course)
       visit live_studio.courses_index_path(student_id: @student)
 
       assert_difference "course.reload.taste_tickets.count", 1, "不能正确生成试听证" do
         assert_difference "@student.live_studio_courses.count", 1, "不能正确试听辅导班" do
-          click_on("taste-course-#{course.id}")
-          assert has_no_selector?("#taste-course-#{course.id}")
 
+          click_on("taste-course-#{course.id}")
+          sleep 2
+          assert page.find("#taste-course-#{course.id}")['class'].include?('disabled'), '不能正确点击试听按钮'
           @student.reload
           assert_not_nil @student.chat_account, "没有正确创建云信ID"
           @student.chat_account.destroy

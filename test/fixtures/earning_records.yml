@@ -45,3 +45,9 @@ earning_record_for_homework_correction:
   account: physics_teacher1_account
   price: 54
   value: 5
+
+earning_record_for_teacher:
+  fee: fee_for_homework_correction
+  account_id: 1000
+  price: 54
+  value: 5

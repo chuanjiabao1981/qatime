@@ -13,18 +13,18 @@
     <% end %>
   <% end %>
   <%= content_tag(:div, class: 'course-taxon-list') do %>
-    <%= content_tag(:a,content_tag(:div, t("activerecord.view.filter.today"),
-                                   class: "course-taxon-div #{@filter_patams[:cate]=='today' ? 'active' : nil}"),href: "?cate=today") %>
-    <%= content_tag(:a,content_tag(:div, t("activerecord.view.filter.all"),
-                                   class: "course-taxon-div #{@filter_patams.blank? ? 'active' : nil}"), href: student_courses_path(@student)) %>
-    <%= content_tag(:a,content_tag(:div, t("activerecord.view.filter.preview"),
-                                   class: "course-taxon-div #{@filter_patams[:status]=='preview' ? 'active' : nil}"), href: "?status=preview") %>
-    <%= content_tag(:a,content_tag(:div, t("activerecord.view.filter.teaching"),
-                                   class: "course-taxon-div #{@filter_patams[:status]=='teaching' ? 'active' : nil}"), href: "?status=teaching") %>
-    <%= content_tag(:a,content_tag(:div, t("activerecord.view.filter.completed"),
-                                   class: "course-taxon-div #{@filter_patams[:status]=='completed' ? 'active' : nil}"), href: "?status=completed") %>
-    <%= content_tag(:a,content_tag(:div, t("activerecord.view.filter.tasted"),
-                                   class: "course-taxon-div #{@filter_patams[:cate]=='taste' ? 'active' : nil}"), href: "?cate=taste") %>
+    <%= link_to content_tag(:div, t("activerecord.view.filter.today"),
+                                   class: "course-taxon-div #{@filter_patams[:cate]=='today' ? 'active' : nil}"), "?cate=today" %>
+    <%= link_to content_tag(:div, t("activerecord.view.filter.all"),
+                                   class: "course-taxon-div #{@filter_patams.blank? ? 'active' : nil}"), student_courses_path(@student) %>
+    <%= link_to content_tag(:div, t("activerecord.view.filter.preview"),
+                                   class: "course-taxon-div #{@filter_patams[:status]=='preview' ? 'active' : nil}"), "?status=preview" %>
+    <%= link_to content_tag(:div, t("activerecord.view.filter.teaching"),
+                                   class: "course-taxon-div #{@filter_patams[:status]=='teaching' ? 'active' : nil}"), "?status=teaching" %>
+    <%= link_to content_tag(:div, t("activerecord.view.filter.completed"),
+                                   class: "course-taxon-div #{@filter_patams[:status]=='completed' ? 'active' : nil}"), "?status=completed" %>
+    <%= link_to content_tag(:div, t("activerecord.view.filter.tasted"),
+                                   class: "course-taxon-div #{@filter_patams[:cate]=='taste' ? 'active' : nil}"), "?cate=taste" %>
   <% end %>
   <%= content_tag(:div, class: 'course-list') do %>
     <%= render partial: 'ticket', collection: @tickets %>

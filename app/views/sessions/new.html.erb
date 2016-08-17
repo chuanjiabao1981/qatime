@@ -1,16 +1,36 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <h2>
-      登录
-    </h2>
-  </div>
-  <div class="qa_big_cell">
-    <%= simple_form_for @user,url: sessions_path,method: :post do |f| %>
-        <%= f.input :email, :required => false, :autofocus => true %>
-        <%= f.input :password ,:required => false%>
-        <div class="form-actions">
-          <%= f.submit "登录", class: "btn btn-default" %>
+<div class="col-md-6 col-md-offset-3">
+  <div class="qa_box row">
+    <div class="qa_big_cell ">
+      <h2 class="text-center"><%= t ".sign_in" %></h2>
+      <%= simple_form_for @user, url: sessions_path, method: :post do |f| %>
+      <div class="form-inputs">
+        <div class="row">
+          <div class="col-md-offset-3 col-md-6">
+            <div class="input-group form-group string optional user_login_account">
+              <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+              <input class="form-control string optional form-control" autofocus="autofocus" placeholder="<%= t '.login_account_placeholder'%>" type="text" name="user[login_account]" id="user_login_account">
+            </div>
+          </div>
         </div>
-    <% end %>
+        <div class="row">
+          <div class="col-md-offset-3 col-md-6">
+            <div class="input-group form-group string optional user_password">
+              <span class="input-group-addon" id="basic-addon1"><i class="fa fa-key" aria-hidden="true"></i></span>
+              <input class="password optional form-control" placeholder="<%= t '.password_placeholder' %>" type="password" name="user[password]" id="user_password">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-offset-3 col-md-6">
+            <%= link_to t("passwords.common.find_password"), new_password_path, class: 'btn' %>
+          </div>
+        </div>
+
+        <div class="row text-center">
+          <%= f.submit t(".sign_in"), class: "btn btn-default" %>
+        </div>
+      </div>
+      <% end %>
+    </div>
   </div>
 </div>

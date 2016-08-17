@@ -98,6 +98,7 @@ Qatime::Application.routes.draw do
   end
 
   resources :sessions
+  resources :passwords, only: [:new, :create]
   resources :teachers do
     collection do
       get 'search'

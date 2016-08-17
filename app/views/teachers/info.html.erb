@@ -29,6 +29,12 @@
     </div>
     <div class="qa_cell">
       <div class="row">
+        <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:nick_name)%></div>
+        <div class="col-md-9"><%= @teacher.nick_name %></div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
         <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:gender)%></div>
         <div class="col-md-9"><%= @teacher.gender_text %></div>
       </div>
@@ -41,29 +47,20 @@
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:address)%></div>
-        <div class="col-md-9">
-          <%= @teacher.province.try(:name) %>&nbsp;
-          <%= @teacher.city.try(:name) %>
-        </div>
+        <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:category)%></div>
+        <div class="col-md-9"><%= @teacher.category %></div>
       </div>
     </div>
     <div class="qa_cell">
       <div class="row">
         <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:school)%></div>
-        <div class="col-md-9"><%= @teacher.school.name %></div>
+        <div class="col-md-9"><%= @teacher.school.try(:name) %></div>
       </div>
     </div>
     <div class="qa_cell">
       <div class="row">
         <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:subject)%></div>
         <div class="col-md-9"><%= @teacher.subject %></div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:grade_range)%></div>
-        <div class="col-md-9"><%= @teacher.grade_range_text %></div>
       </div>
     </div>
     <div class="qa_cell">

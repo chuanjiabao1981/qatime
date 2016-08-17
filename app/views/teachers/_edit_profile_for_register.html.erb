@@ -1,0 +1,85 @@
+<div class="col-md-10 col-md-offset-1">
+  <div class="qa_box row">
+    <div class="qa_big_cell ">
+      <h2 class="text-center"><%= t ".title" %></h2>
+
+      <%= simple_form_for(@teacher, url: teacher_path(@teacher, cate: :register, by: :register) ) do |f| %>
+      <div class="form-inputs">
+        <div class="row">
+          <div class="row">
+            <div class="col-md-2 text-right"><%= Teacher.human_attribute_name(:name)%><abbr title="required">*</abbr></div>
+            <div class="col-md-9">
+              <%= f.input :name, label: false, placeholder: t('.name_ph') %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 text-right"><%= Teacher.human_attribute_name(:nick_name)%></div>
+            <div class="col-md-9">
+              <%= f.input :nick_name, label: false %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 text-right"><%= Teacher.human_attribute_name(:gender)%></div>
+            <div class="col-md-9">
+              <%= f.input :gender, as: :radio_buttons, label: false %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 text-right"><%= Teacher.human_attribute_name(:avatar)%><abbr title="required">*</abbr></div>
+            <div class="col-md-9">
+              <% %w[x y w h].each do |attribute| %>
+                <%= f.hidden_field "crop_#{attribute}"%>
+              <% end %>
+              <%= f.input :avatar, label: false, input_html:{onchange:"showimagepreview(this)"}, :hint => "用户头像不可为空。" %>
+              <div style="width: 242px;height: 242px; border: 1px dashed;">
+                <img id="user_avatar_preview" style="width: 100%;">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 text-right"><%= Teacher.human_attribute_name(:birthday) %></div>
+            <div class="col-md-9">
+              <%= f.input :birthday, label: false, as: :string, input_html: {type: :date, max: Time.now.strftime('%Y-%m-%d')} %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 text-right"><%= Teacher.human_attribute_name(:subject) %><abbr title="required">*</abbr></div>
+            <div class="col-md-9">
+              <%= f.input :subject, label: false, :collection => APP_CONSTANT["subjects"], include_blank: false %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 text-right"><%= Teacher.human_attribute_name(:category) %><abbr title="required">*</abbr></div>
+            <div class="col-md-9">
+              <%= f.input :category, label: false, :collection => APP_CONSTANT["categories"], include_blank:false %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 text-right"><%= Teacher.human_attribute_name(:desc) %></div>
+            <div class="col-md-9">
+              <%= f.input :desc, label: false, as: :text, placeholder: t('.desc_ph') %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2 text-right"><%= Teacher.human_attribute_name(:email) %></div>
+            <div class="col-md-9">
+              <%= f.input :email, label: false, placeholder: t('.email_ph') %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-md-9">
+              <%= f.input :email_confirmation, label: false, placeholder: t('.email_confirmation_ph') %>
+            </div>
+          </div>
+        </div>
+
+        <div class="row text-center">
+          <%= f.submit '完成注册', class: "btn btn-default" %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

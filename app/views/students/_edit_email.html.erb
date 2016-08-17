@@ -2,9 +2,9 @@
 
 <div id="edit_email_area" style="padding-top: 30px;<%= 'display:none;' unless if_show_email_div %>">
   <!-- mobile_was,防止家长手机未更新的情况 -->
-  <% unless session["change-email-#{@student.mobile_was}"] %>
+  <% if UserService::CaptchaManager.expire?(session["change-email-#{@student.login_mobile_was}"]) %>
     <%= form_tag(verify_ajax_captchas_path, method: :post, remote: true, id: "mobile_captcha_for_change_email_form") do |f| %>
-      <input type="hidden" name="send_to" value="<%= @student.mobile %>" id="student_mobile">
+      <input type="hidden" name="send_to" value="<%= @student.login_mobile %>" id="student_login_mobile">
       <input type="hidden" name="edit_type" value="email">
       <input type="hidden" name="student_id" value="<%= @student.id %>">
       <input type="hidden" name="cate" value="security_setting">
@@ -27,7 +27,7 @@
             <div class="col-md-2">
               <div class="form-group string optional student_captcha"><input maxlength="4" id="email-captcha-input" class="string optional form-control" size="4" type="text" name="captcha"></div>
             </div>
-            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_mobile" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="edit_email" value="<%= t ".get_captcha" %>">
+            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-key="send_captcha" value="<%= t ".get_captcha" %>">
           </div>
         </div>
       </div>
@@ -57,7 +57,7 @@
             <div class="col-md-2">
               <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 } %>
             </div>
-            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_email" data-send-url="<%= ajax_captchas_url %>" data-send-type='email' data-edit-type="edit_email" value="<%= t ".get_captcha" %>">
+            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_email" data-send-url="<%= ajax_captchas_url %>" data-key="change_email_captcha" value="<%= t ".get_captcha" %>">
           </div>
         </div>
       </div>

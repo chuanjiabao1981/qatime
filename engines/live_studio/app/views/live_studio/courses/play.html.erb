@@ -112,7 +112,7 @@
         <%= content_tag(:div, "当前课程：今日无课程", class: 'info-cell') %>
         <% end %>
         <%= content_tag(:div, "科目类型：#{@course.subject}", class: 'info-cell') %>
-        <%= content_tag(:div, "年纪类型：#{@course.grade}", class: 'info-cell') %>
+        <%= content_tag(:div, "年级类型：#{@course.grade}", class: 'info-cell') %>
         <%= content_tag(:div, "主讲老师：#{@teacher.name}", class: 'info-cell') %>
         <%= content_tag(:div, "直播时间：#{@current_lesson.class_date} #{@current_lesson.try(:live_time)}", class: 'info-cell') %>
         <%= content_tag(:div, "辅导简介：#{@course.description}", class:'info-desc') %>
@@ -120,9 +120,11 @@
       <div id='detail_teacher_area' class="course-info-div">
         <%= image_tag @teacher.avatar_url(:big), class: 'info-img' %>
         <%= content_tag(:div, "老师姓名：#{@teacher.name}", class: 'info-cell') %>
+        <%= content_tag(:div, "执教年龄：#{@teacher.teaching_years_text}", class: 'info-cell') %>
         <%= content_tag(:div, "授课科目：#{@teacher.subject}", class: 'info-cell') %>
         <%= content_tag(:div, "授课年级：#{@teacher.category}", class: 'info-cell') %>
         <%= content_tag(:div, "所在学校：#{@teacher.school.name}", class: 'info-cell') %>
+        <%= content_tag(:div, "自我介绍：#{@teacher.desc}", class: 'info-cell') %>
       </div>
       <div id='detail_course_area' class="course-info-div">
         <table class="table">

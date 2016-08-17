@@ -9,7 +9,7 @@ module LiveStudio
     def index
       @courses = LiveService::CourseDirector.courses_search(search_params).paginate(page: params[:page])
       if @student && @student.student?
-        @tickets = @student.live_studio_tickets.where(course_id: @courses.map(&:id)) if @student
+        @tickets = @student.live_studio_tickets.includes(course: :lesson).where(course_id: @courses.map(&:id)) if @student
       else
         @tickets = Array.new
       end
@@ -25,11 +25,7 @@ module LiveStudio
 
     def taste
       @course = Course.find(params[:id])
-      @course.taste_tickets.find_or_create_by(student: @student)
-
-      @taste_ticket = @course.taste_tickets.find_by(student: @student)
-
-      LiveService::ChatAccountFromUser.new(@student).instance_account
+      @taste_ticket = LiveService::CourseDirector.taste_course_ticket(@student, @course)
     end
 
     def show
@@ -54,9 +50,9 @@ module LiveStudio
       @course = Course.find(params[:id])
       @teacher = @course.teacher
       team = @course.chat_team
-      attrs = params.require(:team).permit(:announcement)
+      attrs = params.require(:team_announcement).permit(:announcement)
 
-      team.update_columns(attrs)
+      team.team_announcements.create(attrs.merge(edit_at: Time.now))
       team.reload
       Chat::IM.team_update(tid: team.team_id, owner: team.owner, announcement: team.announcement)
 
@@ -83,7 +79,17 @@ module LiveStudio
     end
 
     def search_params
-      params.permit(:subject, :grade, :class_date_sort, :status)
+      params.permit(
+        :subject, :grade, :sort_by, :status, :price_floor,
+        :price_ceil,:class_date_floor,:class_date_ceil,:preset_lesson_count_floor,:preset_lesson_count_ceil
+      )
+      # flag_sort = []
+      # %w(class_date_sort price_sort lesson_count_sort).each do |sort|
+      #   flag_params[sort].present? && flag_sort << "#{sort.gsub('_sort','')}.#{flag_params[sort]}"
+      #   flag_params.delete(sort)
+      # end
+      # flag_params[:sort_by] = flag_sort.join('-')
+      # flag_params
     end
   end
 end

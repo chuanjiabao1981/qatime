@@ -10,7 +10,7 @@
       </tr>
       <tr>
         <td colspan="2">
-          <%= t('view.course_info_show.teacher') %><%= @course.teacher.name %>
+          <%= t('view.course_info_show.teacher') %><%= @course.teacher.try(:name) %>
         </td>
       </tr>
       <tr>
@@ -54,13 +54,16 @@
     <%= image_tag(teacher.avatar_url(:ex_big)) %>
   </div>
   <div>
-    <%= "#{t('view.course_info_show.teacher_name')}#{teacher.name}" %>
+    <%= "#{t('view.course_info_show.teacher_name')}#{teacher.try(:name)}" %>
   </div>
   <div>
     <%= "#{t('view.course_info_show.highest_education')}#{teacher.highest_education}" %>
   </div>
   <div>
     <%= "#{t('view.course_info_show.teaching_years')}#{teacher.teaching_years_text}" %>
+  </div>
+  <div>
+    <%= "#{t('view.course_info_show.category')}#{teacher.category}" %>
   </div>
   <div>
     <%= "#{t('view.course_info_show.subject')}#{teacher.subject}" %>

@@ -17,9 +17,9 @@ class Student < User
   has_many :live_studio_courses, class_name: LiveStudio::Course, through: :live_studio_tickets, source: :course
   has_many :live_studio_taste_tickets, class_name: LiveStudio::TasteTicket
 
-  validates_presence_of :parent_phone, :on => :create
-  validates :parent_phone, length:{is: 11}, :on => :create
-  validates :parent_phone,numericality: { only_integer: true },:on => :create
+  # validates_presence_of :parent_phone, :on => :create
+  # validates :parent_phone, length:{is: 11}, :on => :create
+  # validates :parent_phone,numericality: { only_integer: true },:on => :create
 
   attr_accessor :accept
   validates :accept, acceptance: true

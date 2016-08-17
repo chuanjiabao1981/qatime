@@ -46,6 +46,14 @@
   -moz-border-radius:6px 0 6px 6px;
   border-radius:6px 0 6px 6px;
 }
+.form-control.lesson-class-date{
+  display: inline-block;
+  width: 50%;
+}
+.form-control.lesson-time{
+  display:inline-block;
+  width: 22%;
+}
 
 
 .font-small{
@@ -117,14 +125,14 @@
       padding: 10px;
       img{
         width: 132px;
-        height: 99px;
+        height: 83px;
       }
     }
     .publicize.support{
       padding: 0;
       img{
         width: 280px;
-        height: 210px;
+        height: 228px;
       }
     }
     .course-content-div.support{
@@ -177,8 +185,9 @@
         display: table-cell;
         vertical-align: middle;
         .btn-default{
-          padding: 2px;
-          font-size: 12px;
+          padding: 6px;
+          font-size: 14px;
+          color: lightcoral;
         }
       }
       .course-operator-btn{
@@ -247,7 +256,7 @@
   }
   .info-list-subtitle{
     float: inherit;
-      div{
+    div{
       display: inline-block;
       margin-right: 20px;
     }
@@ -256,15 +265,16 @@
     float:right;
     margin: 0 10px;
     .btn-default{
-      padding: 2px;
-      font-size: 12px;
+      padding: 6px;
+      font-size: 14px;
     }
   }
   .course-buy-btn{
     float:right;
     .btn{
-      padding: 2px;
-      font-size: 12px;
+      padding: 6px;
+      font-size: 14px;
+      color: lightcoral;
     }
   }
   .course-play-btn{
@@ -298,18 +308,11 @@
       height: 140px;
     }
   }
-  .info-submit-btn{
-    width: 100%;
-    padding:20px;
-    button{
-      margin: 10px;
-    }
-  }
   .info-publicize{
     width: 50%;
     img{
       width: 400px;
-      height: 300px;
+      height: 250px;
       display: block;
       margin: auto;
     }
@@ -318,7 +321,6 @@
       color: #cccccc;
       border-top: solid 1px #BBBBBB;
       width: 100%;
-      text-align: right;
     }
   }
   .info-content{
@@ -345,7 +347,7 @@
   color: #999;
 }
 .font-red{
-  color: red;
+  color: lightcoral;
 }
 #show_notice_area{
   word-break:break-all;
@@ -360,7 +362,7 @@
   padding: 10px;
   .dropdown{
     float: left;
-    width: 24%;
+    width: 16%;
     margin: 2px;
     .search-input{
       width: 60px;
@@ -379,4 +381,30 @@
     width: 100%;
     margin-top: 10px;
   }
+}
+#lesson-copy{
+  display: none;
+}
+#insert_lesson{
+  float: right;
+}
+.insert-lesson{
+  float: right;
+}
+.info-submit-btn{
+  width: 100%;
+  padding:20px;
+  float: right;
+  button{
+    margin: 10px;
+  }
+}
+#select_publicize_btn{
+  margin: auto;
+  display: block;
+}
+.announcement-div{
+  float: left;
+  width: 100%;
+  padding: 10px;
 }

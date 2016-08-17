@@ -2,6 +2,7 @@ cn:
   view:
     save_btn: 保存
     cancel_btn: 取消
+    insert_btn: 新增%s
     course_show:
       start_time: 开课时间：
       end_time: 结课时间：
@@ -25,6 +26,7 @@ cn:
     course_info_show:
       subject: 科目类型：
       grade: 年级类型：
+      category: 年级类型：
       teacher: 授课老师：
       lesson_count: 课时总数：
       schedule: 课程进度：
@@ -59,8 +61,8 @@ cn:
       self_settings: 自定义范围
       price_asc: 由低到高
       price_desc: 由高到低
-      lesson_count_asc: 由少到多
-      lesson_count_desc: 由多到少
+      preset_lesson_count_asc: 由少到多
+      preset_lesson_count_desc: 由多到少
       class_date_asc: 升序排列
       class_date_desc: 降序排列
       subject: 科目
@@ -89,6 +91,11 @@ cn:
       publish_confirm: 确认后将不能再对辅导班信息和课程进行任何修改，是否确认招生？
       tips: 提示
       teacher_course_none_tips: 没有找到符合条件的辅导班。
+      lesson_name_holder: '请输入课程名称,格式: 第X课 课程标题'
+      date_holder: '请选择日期'
+      data_holder: 请完善数据
+      upload_img_tips: '建议：<br/>图片像素800*500最佳；<br/>支持格式jpeg、png；大小500k以内；<br/>禁止使用涉及暴力、血腥、色情、政治等图片。'
+      without_tips: 可能会导致当前修改无法保存，是否离开？
   status:
     init: 初始化
     preview: 招生中
@@ -177,7 +184,7 @@ cn:
       filter:
         today: 今日辅导
         all: 全部
-        preview: 待开课
+        preview: 招生中
         teaching: 开课中
         completed: 已结束
         tasted: 试听

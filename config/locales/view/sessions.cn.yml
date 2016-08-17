@@ -1,0 +1,7 @@
+cn:
+  sessions:
+    new:
+      sign_in: 登录
+      login_account_placeholder: '请输入手机号/邮箱帐号'
+      password_placeholder: '请输入密码'
+

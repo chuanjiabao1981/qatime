@@ -23,7 +23,7 @@
     <div class="col-md-3" style="padding-left:40px"><%= t(".bound_mobile")%>
       <div style="padding-left:20px">
         <!-- 使用mobile_was,来防止未更新的情况 -->
-        <%= @student.mobile_was %>
+        <%= @student.login_mobile_was %>
       </div>
     </div>
     <div class="col-md-6" style="padding-left:40px">
@@ -31,10 +31,10 @@
     </div>
     <div class="col-md-2 col-md-offset-1 pull-right">
       <br/>
-      <button type="button" class="btn btn-default" data-edit-area="#edit_mobile_area"><%= t(".modified_binding_mobile") %></button>
+      <button type="button" class="btn btn-default" data-edit-area="#edit_login_mobile_area"><%= t(".modified_binding_mobile") %></button>
     </div>
   </div>
-  <%= render "edit_mobile" %>
+  <%= render "edit_login_mobile" %>
 </div>
 
 <!-- 邮箱 -->

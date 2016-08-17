@@ -61,7 +61,6 @@
 
 <script type="text/javascript" charset="utf-8">
   var lesson_count = <%= @course.lessons.count %>;
-  var preset_lesson_count = <%= @course.preset_lesson_count %>;
   var insert_lesson_list = new Array();
   var delete_lesson_list = new Array();
 
@@ -73,15 +72,13 @@
         return_flag = false;
       }
     });
-    if(lesson_count > preset_lesson_count){
-      return_flag = false;
-      alert('<%= t('view.teacher_course.lesson_count_out_tips') % @course.preset_lesson_count %>');
+
+    if(!return_flag){
+      alert('<%= t('view.teacher_course.data_holder') %>');
+      return return_flag;
     }else{
-      if(!return_flag){
-        alert('<%= t('view.teacher_course.data_holder') %>');
-      }
+      $('#edit_less_form').submit();
     }
-    return return_flag;
   });
 
   // 添加tr

@@ -20,7 +20,7 @@ class CourseIssueReplyWithVideo  < ActionDispatch::IntegrationTest
   end
 
   def teardown
-    logout_as(@teacher1)
+    new_logout_as(@teacher1)
     Capybara.use_default_driver
   end
 

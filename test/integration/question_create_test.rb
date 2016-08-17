@@ -20,7 +20,7 @@ class QuestionCreateTest < ActionDispatch::IntegrationTest
   end
   def teardown
     super
-    logout_as(@student1)
+    new_logout_as(@student1)
 
     Capybara.use_default_driver
 

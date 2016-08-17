@@ -32,7 +32,7 @@ class CorrectionCreateFromTemplateTest  < ActionDispatch::IntegrationTest
     end
 
     def teardown
-      logout_as(@teacher)
+      new_logout_as(@teacher)
       Capybara.use_default_driver
     end
 

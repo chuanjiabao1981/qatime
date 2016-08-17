@@ -9,7 +9,7 @@ class WorkstationCreateTest < ActionDispatch::IntegrationTest
 
   def teardown
     #@headless.destroy
-    logout_as(@admin)
+    new_logout_as(@admin)
     # visit get_home_url(@manager)
     # click_on '退出'
     Capybara.use_default_driver

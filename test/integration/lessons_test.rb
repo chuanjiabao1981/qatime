@@ -18,7 +18,7 @@ class LessonsTest < ActionDispatch::IntegrationTest
     teacher = users(:teacher1)
 
     visit get_home_url(teacher)
-    click_on '登出'
+    click_on '退出'
     Capybara.use_default_driver
   end
 

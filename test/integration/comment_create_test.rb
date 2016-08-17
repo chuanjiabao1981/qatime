@@ -18,7 +18,7 @@ class CommentCreateTest < ActionDispatch::IntegrationTest
 
   def teardown
     #@headless.destroy
-    logout_as(@teacher1)
+    new_logout_as(@teacher1)
     Capybara.use_default_driver
   end
 

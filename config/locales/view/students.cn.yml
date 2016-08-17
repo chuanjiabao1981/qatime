@@ -40,6 +40,7 @@ cn:
       modified_binding_parent_phone: 修改家长手机
     edit_email:
       binding_email: 当前绑定邮箱
+      binding_mobile: 当前绑定手机
       mobile_captcha: 手机校验码
       get_captcha: 获取验证码
       new_email: 新邮箱地址

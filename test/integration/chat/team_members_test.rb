@@ -17,11 +17,12 @@ module Chat
       LiveService::ChatAccountFromUser.new(@teacher).instance_account(true)
       LiveService::ChatAccountFromUser.new(@student).instance_account(true)
       visit chat.finish_live_studio_course_teams_path(@course)
+      @living = false
       @course.reload
     end
 
     def teardown
-      logout_as(@student)
+      new_logout_as(@student, @living)
       Capybara.use_default_driver
     end
 
@@ -37,12 +38,12 @@ module Chat
 
     test 'team member list page' do
       visit live_studio.play_course_path(@course)
+      sleep(20)
+
       click_on '成员', match: :first
       assert page.has_content?(@student.name)
       assert page.find(".online").has_content?(@student.name)
-      accept_alert do
-        click_on @student.name, match: :first
-      end
+      @living = true
     end
   end
 end

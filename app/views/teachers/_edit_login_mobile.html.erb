@@ -3,7 +3,7 @@
   <!-- 使用mobile_was,来防止未更新的情况 -->
   <% if UserService::CaptchaManager.expire?(session["change-login_mobile-#{@teacher.login_mobile_was}"]) %>
     <%= form_tag(verify_ajax_captchas_path, method: :post, remote: true, id: "mobile_captcha_for_change_mobile_form") do |f| %>
-      <input type="hidden" name="send_to" value="<%= @teacher.login_mobile_or_mobile %>" id="teacher_login_mobile">
+      <input type="hidden" name="send_to" value="<%= @teacher.login_mobile %>" id="teacher_login_mobile">
       <input type="hidden" name="teacher_id" value="<%= @teacher.id %>">
       <input type="hidden" name="cate" value="security_setting">
       <input type="hidden" name="by" value="login_mobile">
@@ -13,7 +13,7 @@
           <%= t ".binding_mobile" %>:
         </div>
         <div class="col-md-3">
-          <%= @teacher.login_mobile_or_mobile %>
+          <%= @teacher.login_mobile %>
         </div>
       </div>
       <div class="row" >

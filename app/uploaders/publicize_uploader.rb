@@ -19,16 +19,16 @@ class PublicizeUploader < CarrierWave::Uploader::Base
   end
 
   version :info do
-    process :resize_to_fill => [400,300]
+    process :resize_to_fill => [480,300]
   end
   version :list do
-    process :resize_to_fill => [320,240]
+    process :resize_to_fill => [320,200]
   end
   version :small do
-    process :resize_to_fill => [160,120]
+    process :resize_to_fill => [160,100]
   end
   version :app_info do
-    process :resize_to_fill => [1280,800]
+    process :resize_to_fill => [800,500]
   end
 
   #

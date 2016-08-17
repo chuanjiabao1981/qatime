@@ -133,7 +133,7 @@ class StudentsController < ApplicationController
   private
 
   def current_resource
-    @student = Student.find(params[:id]) if params[:id]
+    @current_resource = @student = Student.find(params[:id]) if params[:id]
   end
 
   def password_params

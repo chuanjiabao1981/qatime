@@ -191,7 +191,7 @@ class StudentsController < ApplicationController
   end
 
   def update_login_mobile
-    send_to_was = @teacher.login_mobile
+    send_to_was = @student.login_mobile
     # TODO 存储验证码的key区分开来，不同功能的验证码不使用
     captcha_manager = UserService::CaptchaManager.new(login_mobile_params[:login_mobile])
     @student.captcha = captcha_manager.captcha_of(:send_captcha)
@@ -220,7 +220,7 @@ class StudentsController < ApplicationController
     captcha_manager = UserService::CaptchaManager.new(parent_phone_params[:parent_phone])
     @student.captcha = captcha_manager.captcha_of(:send_captcha)
     @student.captcha_required!
-    @student.update_with_password(email_params)
+    @student.update_with_password(parent_phone_params)
   ensure
     if @student.errors.blank?
       captcha_manager.expire_captch(:send_captcha)

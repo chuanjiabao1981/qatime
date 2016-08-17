@@ -19,9 +19,9 @@ class TeacherUpdatePasswordAndEmailTest < ActionDispatch::IntegrationTest
 
     click_on "修改登录密码", match: :first
 
-    fill_in :user_current_password, with: 'password'
-    fill_in :user_password, with: 'pa123456'
-    fill_in :user_password_confirmation, with: 'pa123456'
+    fill_in :teacher_current_password, with: 'password'
+    fill_in :teacher_password, with: 'pa123456'
+    fill_in :teacher_password_confirmation, with: 'pa123456'
     click_on "保存", match: :first
     teacher.reload
     assert_equal(true, teacher.authenticate('pa123456').present?, '更新密码错误')
@@ -70,6 +70,29 @@ class TeacherUpdatePasswordAndEmailTest < ActionDispatch::IntegrationTest
     click_on "提交"
 
     assert page.has_content?('更新成功'), '没有找回密码'
+    new_logout_as(teacher)
+  end
+
+  test "teacher update login mobile" do
+    teacher = users(:chang_login_mobile_teacher)
+    new_log_in_as(teacher)
+
+    visit info_teacher_path(teacher)
+    click_on "安全设置"
+    click_on "修改绑定手机", match: :first
+    click_on "获取验证码", match: :first
+
+    fill_in "mobile-captcha-input", with: "1234"
+    click_on "下一步"
+
+    fill_in "teacher_login_mobile", with: "13800000011"
+    click_on "获取验证码", match: :first
+
+    fill_in "teacher_captcha_confirmation", with: "1234"
+
+    click_on "绑定手机"
+    teacher.reload
+    assert_equal("13800000011", teacher.login_mobile, '更新手机错误')
     new_logout_as(teacher)
   end
 end

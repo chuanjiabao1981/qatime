@@ -22,6 +22,7 @@ class PasswordsController < ApplicationController
       @current_resource.if_update_password = 1
       if @current_resource.update(password_params)
         session.delete(captcha_key)
+        @current_resource.if_update_password = nil
         if signed_in?
           redirect_to user_home_path, notice: t("flash.notice.update_success")
         else

@@ -76,6 +76,14 @@
     </div>
     <div class="qa_cell">
       <div class="row">
+        <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:category)%></div>
+        <div class="col-md-9">
+          <%= f.input :category, label: false, :collection => APP_CONSTANT["categories"], include_blank: false %>
+        </div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
         <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:school)%></div>
         <div class="col-md-9">
           <%= f.input :school_id, label: false, :collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]}, include_blank: false %>

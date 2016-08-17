@@ -174,7 +174,7 @@ class TeachersController < ApplicationController
   end
 
   def profile_params
-    params.require(:teacher).permit(:name, :gender, :birthday, :province_id, :city_id, :school_id, :subject, :teaching_years, :desc, grade_range: [])
+    params.require(:teacher).permit(:name, :gender, :birthday, :category, :school_id, :subject, :teaching_years, :desc)
   end
 
   def avatar_params

@@ -40,6 +40,7 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
     fill_in :teacher_name, with: 'name test'
     choose("男")
     fill_in :teacher_birthday, with: Time.local(1995, 7, 8).strftime('%Y/%m/%d')
+    select '小学', from: :teacher_category
     select '阳泉二中', from: :teacher_school_id
     select '英语', from: :teacher_subject
     select '二十年以上', from: :teacher_teaching_years
@@ -50,6 +51,7 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
     assert page.has_content?('name test'), '教师name更新错误'
     assert page.has_content?('男'), '教师gender更新错误'
     assert page.has_content?('1995-07-08'), '教师birthday更新错误'
+    assert page.has_content?('小学'), '教师category更新错误'
     assert page.has_content?('英语'), '教师可授科目更新错误'
     assert page.has_content?('二十年以上'), '教师执教年龄更新错误'
     assert page.has_content?('desc test'), '教师讲师简介更新错误'

@@ -30,7 +30,7 @@ module Chat
 
           click_on("taste-course-#{course.id}")
           sleep 2
-          assert page.find("#taste-course-#{course.id}")['class'].include?('disabled')
+          assert page.find("#taste-course-#{course.id}")['class'].include?('disabled'), '不能正确点击试听按钮'
           @student.reload
           assert_not_nil @student.chat_account, "没有正确创建云信ID"
           @student.chat_account.destroy

@@ -42,8 +42,6 @@ class StudentInfoShowAndEditTest < ActionDispatch::IntegrationTest
     choose("男")
     fill_in :student_birthday, with: Time.local(1995, 7, 8).strftime('%Y/%m/%d')
     select '高二', from: :student_grade
-    select '山西', from: :student_province_id
-    select '大同', from: :student_city_id
     fill_in :student_desc, with: 'desc test'
 
     click_on '保存'
@@ -52,8 +50,6 @@ class StudentInfoShowAndEditTest < ActionDispatch::IntegrationTest
     assert_equal('男', @student.gender_text, '学生gender更新错误')
     assert page.has_content?('1995-07-08'), '学生birthday更新错误'
     assert_equal('高二', @student.grade, '学生grade更新错误')
-    assert_equal('山西', @student.province.name, '学生province更新错误')
-    assert_equal('大同', @student.city.name, '学生city更新错误')
     assert_equal('desc test', @student.desc, '学生desc更新错误')
   end
 
@@ -66,23 +62,6 @@ class StudentInfoShowAndEditTest < ActionDispatch::IntegrationTest
     attach_file("student_avatar", "#{Rails.root}/test/integration/avatar.jpg")
 
     click_on '保存', match: :first
-  end
-
-  test "student update mobile" do
-    visit info_student_path(@student)
-    click_on "安全设置"
-    click_on "修改绑定手机", match: :first
-    click_on "获取验证码", match: :first
-
-    fill_in "mobile-captcha-input", with: "1234"
-    click_on "下一步"
-    fill_in "student_login_mobile", with: "13800001111"
-    click_on "获取验证码", match: :first
-
-    fill_in "student_captcha_confirmation", with: "1234"
-    click_on "绑定手机"
-    @student.reload
-    assert_equal("13800001111", @student.login_mobile, '更新手机错误')
   end
 
   test "student update parent phone" do

@@ -208,6 +208,7 @@ class TeachersController < ApplicationController
   end
 
   def update_login_mobile
+    send_to_was = @teacher.login_mobile
     # TODO 存储验证码的key区分开来，不同功能的验证码不使用
     captcha_manager = UserService::CaptchaManager.new(login_mobile_params[:login_mobile])
     @teacher.captcha = captcha_manager.captcha_of(:send_captcha)
@@ -269,10 +270,10 @@ class TeachersController < ApplicationController
     @send_to ||= case update_by
                  when 'email'
                    # 修改邮箱第一步验证用户手机
-                   @teacher.mobile
-                 when 'mobile'
+                   @teacher.login_mobile
+                 when 'login_mobile'
                    # 修改手机第一步验证用户现在的手机
-                   @teacher.mobile
+                   @teacher.login_mobile
                  end
   end
 end

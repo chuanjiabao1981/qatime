@@ -59,8 +59,8 @@ cn:
       self_settings: 自定义范围
       price_asc: 由低到高
       price_desc: 由高到低
-      lesson_count_asc: 由少到多
-      lesson_count_desc: 由多到少
+      preset_lesson_count_asc: 由少到多
+      preset_lesson_count_desc: 由多到少
       class_date_asc: 升序排列
       class_date_desc: 降序排列
       subject: 科目

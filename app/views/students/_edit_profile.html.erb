@@ -18,7 +18,7 @@
           <%= simple_form_for(@student, url: student_path(@student, cate: :edit_profile, by: :avatar))  do |f| %>
             <div class="col-md-8">
               <div style="width: 242px;height: 242px; border: 1px dashed;">
-                <img id="teacher_avatar_preview" style="width: 100%;">
+                <img id="student_avatar_preview" style="width: 100%;">
               </div>
             </div>
             <div class="col-md-4">
@@ -127,6 +127,15 @@
 
     $("#select_avatar_btn").on('click',function(event){
       $("#student_avatar").click()
+    })
+
+    $("button.close").on('click',function(event){
+      $("#student_avatar").value = ''
+      $('#student_avatar_preview').attr('src', '');
+      $("#student_avatar_preview2").attr('src', '');
+      if (jcrop_api){
+        jcrop_api.destroy();
+      }
     })
 
   })

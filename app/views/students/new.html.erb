@@ -18,7 +18,7 @@
               <div class="col-md-7">
                 <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 } %>
               </div>
-              <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="register" value="<%= t "students.common.get_captcha" %>">
+              <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="register" data-key="register_captcha" value="<%= t "students.common.get_captcha" %>">
               </div>
             </div>
           </div>

@@ -2,9 +2,10 @@ class Ajax::CaptchasController < ApplicationController
   # 生成验证码，并发送邮件或者短信
   def create
     # Util.random_code
-    code = UserService::CaptchaManager.instance_and_notice(params[:send_type], params[:send_to], params[:edit_type])
-    captcha_key = "captcha-#{params[:send_to]}"
-    session[captcha_key] = { send_to: params[:send_to], captcha: code, expire_at: 15.minutes.since.to_i }
+    # code = UserService::CaptchaManager.instance_and_notice(params[:send_type], params[:send_to], params[:edit_type])
+    # captcha_key = "captcha-#{params[:send_to]}"
+    # session[captcha_key] = { send_to: params[:send_to], captcha: code, expire_at: 15.minutes.since.to_i }
+    UserService::CaptchaManager.new(params[:send_to]).generate_and_notice(params[:key])
     respond_to do |format|
       format.json { render json: status }
     end

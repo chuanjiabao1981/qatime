@@ -18,10 +18,14 @@ class StudentsController < ApplicationController
   end
 
   def create
+    @student = Student.new(create_params).captcha_required!
+    captcha_manager = UserService::CaptchaManager.new(create_params[:login_mobile])
+    @student.captcha = captcha_manager.captcha_of(:register_captcha)
     @student.build_account
     if @student.save
       SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @student.id)
-      session.delete("captcha-#{create_params[:login_mobile]}")
+      # 删除注册验证码
+      captcha_manager.expire_captch(:register_captcha)
       sign_in(@student) unless signed_in?
       redirect_to edit_student_path(@student, cate: :register, by: :register)
     else

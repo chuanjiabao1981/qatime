@@ -11,7 +11,8 @@ module LiveStudio
       max = "#{variable}_ceil".to_sym
       return_flag = sort.present? ? " [#{t("view.course_search_show.#{variable}_#{sort}")}]" : ''
       if params[min].present? || params[max].present?
-        return_flag = " [#{params[min]} ~ #{params[max]}]"
+
+        return_flag = sort && sort == 'desc' ? " [#{params[max]} ~ #{params[min]}]" : " [#{params[min]} ~ #{params[max]}]"
       end
       return_flag
     end

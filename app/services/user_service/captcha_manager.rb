@@ -78,6 +78,8 @@ module UserService
         SmsWorker::REGISTER_CAPTCHA
       when :send_captcha
         SmsWorker::SEND_CAPTCHA
+      when :get_password_back
+        SmsWorker::GET_PASSWORD_BACK
       end
     end
   end

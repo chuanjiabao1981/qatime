@@ -8,7 +8,7 @@
           <div class="col-md-3 text-right"><%= Student.human_attribute_name(:login_mobile)%></div>
           <% if signed_in? %>
             <div class="col-md-6">
-              <%= current_user.login_mobile %>
+              <%= current_user.login_mobile_or_mobile %>
             </div>
           <% else %>
             <div class="col-md-6">
@@ -23,16 +23,7 @@
               <div class="col-md-7">
                 <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 } %>
               </div>
-              <% if signed_in? && (@current_resource.student? || @current_resource.teacher?) %>
-                <% if @current_resource.teacher? %>
-                  <% send_input = "#teacher_login_mobile" %>
-                <% else %>
-                  <% send_input = "#student_login_mobile" %>
-                <% end %>
-              <% else %>
-                <% send_input = "#user_login_mobile" %>
-              <% end %>
-              <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="<%= send_input %>" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="find_password" data-key="get_password_back" value="<%= t "students.common.get_captcha" %>">
+              <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#send_input" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="find_password" data-key="get_password_back" value="<%= t "students.common.get_captcha" %>">
               </div>
             </div>
           </div>

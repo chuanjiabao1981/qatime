@@ -1,7 +1,7 @@
 <% if_show_mobile_div = (params[:cate].to_s.to_sym == :security_setting && params[:by].to_s.to_sym == :login_mobile) %>
 <div id="edit_login_mobile_area" style="padding-top: 30px;<%= 'display:none;' unless if_show_mobile_div %>">
   <!-- 使用mobile_was,来防止未更新的情况 -->
-  <% if UserService::CaptchaManager.expire?(session["change-login_mobile-#{@student.login_mobile_was}"]) %>
+  <% if @student.login_mobile_was.present? && UserService::CaptchaManager.expire?(session["change-login_mobile-#{@student.login_mobile_was}"]) %>
     <%= form_tag(verify_ajax_captchas_path, method: :post, remote: true, id: "mobile_captcha_for_change_mobile_form") do |f| %>
       <input type="hidden" name="send_to" value="<%= @student.login_mobile %>" id="student_login_mobile">
       <input type="hidden" name="student_id" value="<%= @student.id %>">

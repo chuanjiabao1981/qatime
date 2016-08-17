@@ -9,7 +9,11 @@ class PasswordsController < ApplicationController
     @user.captcha = captcha_manager.captcha_of(:get_password_back)
     if @user.update_with_captcha(password_params)
       captcha_manager.expire_captch(:get_password_back)
-      redirect_to signin_path
+      if signed_in?
+        redirect_to user_home_path, notice: t("flash.notice.update_success")
+      else
+        redirect_to new_session_path, notice: t("flash.notice.update_success")
+      end
     else
       @user.id = nil
       render :new

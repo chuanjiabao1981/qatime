@@ -1,7 +1,6 @@
 class TeachersController < ApplicationController
   before_action :step_one_session, only: [:edit, :update]
   before_action :require_step_one_session, only: :update
-  before_action :set_captcha_code, only: [:update, :create]
 
   respond_to :html,:js,:json
 
@@ -18,6 +17,9 @@ class TeachersController < ApplicationController
   end
 
   def create
+    @teacher = Teacher.new(create_params).captcha_required!
+    captcha_manager = UserService::CaptchaManager.new(create_params[:login_mobile])
+    @teacher.captcha = captcha_manager.captcha_of(:register_captcha)
     @teacher.build_account
     if @teacher.save
       SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @teacher.id)
@@ -193,16 +195,48 @@ class TeachersController < ApplicationController
 
   # 根据跟新内容判断是否需要密码更新
   def excute_update(update_by)
-    update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
-    return @teacher.update_with_password(update_params) if %w(password).include?(update_by)
-    @teacher.update(update_params)
+    case update_by
+    when "login_mobile"
+      return update_login_mobile
+    when "email"
+      return update_email
+    else
+      update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
+      return @teacher.update_with_password(update_params) if %w(password).include?(update_by)
+      @teacher.update(update_params)
+    end
+  end
+
+  def update_login_mobile
+    send_to_was = @teacher.login_mobile
+    # TODO 存储验证码的key区分开来，不同功能的验证码不使用
+    captcha_manager = UserService::CaptchaManager.new(login_mobile_params[:login_mobile])
+    @teacher.captcha = captcha_manager.captcha_of(:send_captcha)
+    @teacher.update_with_captcha(login_mobile_params)
+  ensure
+    if @teacher.errors.blank?
+      captcha_manager.expire_captch(:send_captcha)
+      session.delete("change-login_mobile-#{send_to_was}") if send_to_was
+    end
+  end
+
+  def update_email
+    # TODO 存储验证码的key区分开来，不同功能的验证码不使用
+    captcha_manager = UserService::CaptchaManager.new(email_params[:email])
+    @teacher.captcha = captcha_manager.captcha_of(:change_email_captcha)
+    @teacher.update_with_captcha(email_params)
+  ensure
+    if @teacher.errors.blank?
+      captcha_manager.expire_captch(:change_email_captcha)
+      session.delete("change-email-#{@teacher.login_mobile}")
+    end
   end
 
   # 第一步验证成功以后会设置第一步对应的session
   # 用户修改个人信息根据需要检查是否存在第一步生成的session
   def require_step_one_session
     update_by = params[:by]
-    return true if %w(email login_mobile).exclude?(update_by) || !UserService::CaptchaManager.expire?(@step_one_session)
+    return true if %w(email login_mobile).exclude?(update_by) || @teacher.login_mobile.blank? || !UserService::CaptchaManager.expire?(@step_one_session)
     # 没有第一步的session跳转到编辑页面
     redirect_to edit_teacher_path(@teacher, by: params[:by], cate: params[:cate]), alert: t("flash.alert.please_verify_step_one_#{update_by}")
   end
@@ -213,10 +247,10 @@ class TeachersController < ApplicationController
     send_to = case update_by
               when 'email'
                 # 修改邮箱第一步验证用户手机
-                @teacher.mobile
-              when 'mobile'
+                @teacher.login_mobile
+              when 'login_mobile'
                 # 修改手机第一步验证用户现在的手机
-                @teacher.mobile
+                @teacher.login_mobile
               end
     step_one_session = session["change-#{update_by}-#{send_to}"]
     return unless step_one_session
@@ -228,20 +262,6 @@ class TeachersController < ApplicationController
     @step_one_session
   end
 
-  def set_captcha_code
-    if params[:by] == "create"
-      @teacher = Teacher.new(create_params)
-      captcha_key = "captcha-#{create_params[:login_mobile]}"
-      @teacher.captcha = UserService::CaptchaManager.captcha_of(session[captcha_key])
-    else
-      update_by = params[:by]
-      # 只有邮箱、手机、家长手机修改需要检查验证码
-      return true if %w(email login_mobile parent_phone).exclude?(update_by)
-      captcha_key = "captcha-#{update_params(update_by)[update_by.to_sym]}"
-      @teacher.captcha = UserService::CaptchaManager.captcha_of(session[captcha_key])
-    end
-  end
-
   def update_by
     @update_by ||= params[:by]
   end
@@ -250,10 +270,10 @@ class TeachersController < ApplicationController
     @send_to ||= case update_by
                  when 'email'
                    # 修改邮箱第一步验证用户手机
-                   @teacher.mobile
-                 when 'mobile'
+                   @teacher.login_mobile
+                 when 'login_mobile'
                    # 修改手机第一步验证用户现在的手机
-                   @teacher.mobile
+                   @teacher.login_mobile
                  end
   end
 end

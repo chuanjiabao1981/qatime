@@ -52,8 +52,6 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
     assert page.has_content?('name test'), '教师name更新错误'
     assert page.has_content?('男'), '教师gender更新错误'
     assert page.has_content?('1995-07-08'), '教师birthday更新错误'
-    assert page.has_content?('山西 大同'), '教师地区更新错误'
-    assert page.has_content?('阳泉二中'), '教师任课学校更新错误'
     assert page.has_content?('英语'), '教师可授科目更新错误'
     assert page.has_content?('二十年以上'), '教师执教年龄更新错误'
     assert page.has_content?('desc test'), '教师讲师简介更新错误'
@@ -69,24 +67,4 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
 
     click_on '保存', match: :first
   end
-
-  test "teacher update mobile" do
-    visit info_teacher_path(@teacher)
-    click_on "安全设置"
-    click_on "修改绑定手机", match: :first
-    click_on "获取验证码", match: :first
-
-    fill_in "mobile-captcha-input", with: "1234"
-    click_on "下一步"
-
-    fill_in "teacher_login_mobile", with: "13800001111"
-    click_on "获取验证码", match: :first
-
-    fill_in "teacher_captcha_confirmation", with: "1234"
-
-    click_on "绑定手机"
-    @teacher.reload
-    assert_equal("13800001111", @teacher.login_mobile, '更新手机错误')
-  end
-
 end

@@ -12,16 +12,18 @@ class Ajax::CaptchasController < ApplicationController
   end
 
   def verify
+    send_to = params[:send_to]
+    by = params[:by]
     if params[:student_id]
       @student = Student.find(params[:student_id])
     else
       @teacher = Teacher.find(params[:teacher_id])
     end
-    by = params[:by]
-    send_to = params[:send_to]
-    captcha_key = "captcha-#{send_to}"
-    @result = UserService::CaptchaManager.verify(session[captcha_key], params[:captcha])
+
+    captcha_manager = UserService::CaptchaManager.new(send_to)
+    @result = captcha_manager.captcha_of(:send_captcha)
     session["change-#{by}-#{send_to}"] = { result: 'ok', expire_at: 15.minutes.since.to_i } if @result
+
     respond_to do |format|
       format.js
     end

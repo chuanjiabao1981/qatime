@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
 
   validates :login_mobile, length: { is: 11 }, uniqueness: true, if: :teacher_or_student?, on: :create
   validates :login_mobile, numericality: { only_integer: true }, if: :teacher_or_student?, on: :create
+  validates :login_mobile, uniqueness: true, if: :login_mobile_changed?, on: :update
 
   # validates :mobile,length:{is: 11},if: :teacher_or_student?
   # validates :mobile,numericality: { only_integer: true },if: :teacher_or_student?
@@ -43,8 +44,8 @@ class User < ActiveRecord::Base
             format: {with: /\A[\p{Han}\p{Alnum}\-_]{3,10}\z/,message:"只可以是中文、英文或者下划线，最短3个字符最长10个字符，不可包含空格。"}
 
   # 验证码验证
-  validates :captcha, confirmation: { case_sensitive: false, message: I18n.t("captcha_invalid") }, if: :captcha_required?
-  validates :captcha_confirmation, presence: true, length: { minimum: 4, message: I18n.t("captcha_invalid") }, if: :captcha_required?
+  validates :captcha, confirmation: { case_sensitive: false }, if: :captcha_required?
+  validates :captcha_confirmation, presence: true, length: { minimum: 4 }, if: :captcha_required?
 
   has_secure_password
 

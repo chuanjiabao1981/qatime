@@ -31,6 +31,7 @@ class SmsWorker
   SYSTEM_ALARM                 = :system_alarm
   SEND_CAPTCHA                 = :send_captcha
   REGISTER_CAPTCHA             = :register_captcha
+  GET_PASSWORD_BACK            = :get_password_back
 
   include Sidekiq::Worker
   include SmsUtil
@@ -200,10 +201,19 @@ class SmsWorker
     begin
       send_message(mobile,
        "【答疑时间】您好，您正在修改#{type}，验证码: #{captcha}，如果不是您本人操作，请尽快修改登录密码")
-    rescue Exception => e
+    rescue StandardError => e
       logger.info e.message
       logger.info e.backtrace.inspect
     end
+  end
+
+  def get_password_back(options)
+    mobile  = options["mobile"]
+    captcha = options["captcha"]
+    send_message(mobile, "【答疑时间】您好，您正在修改登陆密码，验证码: #{captcha}，如果不是您本人操作，请尽快修改登录密码")
+  rescue StandardError => e
+    logger.info e.message
+    logger.info e.backtrace.inspect
   end
 
   def register_captcha(options)

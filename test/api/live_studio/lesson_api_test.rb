@@ -22,7 +22,7 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
 
   test 'GET /api/v1/live_studio/teacher/start' do
     lesson = live_studio_lessons(:ready_lesson_for_false)
-    get_url("/api/v1/live_studio/lessons/#{lesson.id}/start", {})
+    get_url("/api/v1/live_studio/lessons/#{lesson.id}/live_start", {})
     assert_response :success
     assert data.length == 32
   end
@@ -41,7 +41,7 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
 
   test 'GET /api/v1/live_studio/teacher/close' do
     lesson = live_studio_lessons(:english_lesson_onlive)
-    get_url("/api/v1/live_studio/lessons/#{lesson.id}/close", {})
+    get_url("/api/v1/live_studio/lessons/#{lesson.id}/live_end", {})
     assert_response :success
     assert data.length == 32, '没有正确返回'
   end

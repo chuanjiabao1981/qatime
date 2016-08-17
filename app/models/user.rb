@@ -9,8 +9,9 @@ class User < ActiveRecord::Base
   mount_uploader :avatar, AvatarUploader
 
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
-  attr_accessor :register_code_value,:tmp_register_code
+  attr_accessor :register_code_value, :tmp_register_code
   attr_accessor :captcha
+  attr_reader :captcha_required
   attr_accessor :current_password
   attr_accessor :login_account
   attr_accessor :if_update_password
@@ -23,6 +24,7 @@ class User < ActiveRecord::Base
   validates_presence_of :grade, if: :student_register_update_need?, on: :update
   validates_presence_of :subject, :category, if: :teacher_register_update_need?, on: :update
   validates :email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, if: :register_teacher_or_student?
+  validates :email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, on: :update
   validates :email_confirmation, presence: true, if: :register_teacher_or_student_change_email?, on: [:update]
   validates :parent_phone, allow_blank: true, length: { is: 11 }, numericality: { only_integer: true }, if: :register_teacher_or_student?
   validates :parent_phone_confirmation, presence: true, if: :register_teacher_or_student_change_parent_phone?, on: :update
@@ -39,9 +41,11 @@ class User < ActiveRecord::Base
   # validates_presence_of :grade, if: :student?
   validates :nick_name,allow_nil: true,allow_blank:true,uniqueness: true,
             format: {with: /\A[\p{Han}\p{Alnum}\-_]{3,10}\z/,message:"只可以是中文、英文或者下划线，最短3个字符最长10个字符，不可包含空格。"}
-  validates_confirmation_of :captcha
 
-  validates :captcha_confirmation, presence: true, length: { minimum: 4 }, if: :require_captcha_confirmation?, on: [:update, :create]
+  # 验证码验证
+  validates :captcha, confirmation: { case_sensitive: false }, if: :captcha_required?
+  validates :captcha_confirmation, presence: true, length: { minimum: 4 }, if: :captcha_required?
+
   has_secure_password
 
   has_many :orders, class_name: ::Payment::Order
@@ -78,7 +82,7 @@ class User < ActiveRecord::Base
 
   GENDER_HASH = {
     male: 1, # 男
-    female: 2, # 女
+    female: 2 # 女
   }
 
   enumerize :gender, in: GENDER_HASH, i18n_scope: "enums.user.gender",
@@ -146,6 +150,17 @@ class User < ActiveRecord::Base
     (name_was.present? && (email_changed? || mobile_changed? || parent_phone_changed?)) || new_record?
   end
 
+  # 是否需要验证码，通过调用update_with_captcha来满足该条件
+  def captcha_required?
+    @captcha_required == true
+  end
+
+  # 手动强制调用验证码验证
+  def captcha_required!
+    @captcha_required = true
+    self
+  end
+
   # 使用密码更新数据，更新前验证当前密码
   def update_with_password(params, *options)
     current_password = params.delete(:current_password)
@@ -161,8 +176,14 @@ class User < ActiveRecord::Base
     result
   end
 
+  # 使用验证码更新数据
+  def update_with_captcha(params, *options)
+    @captcha_required = true
+    update_attributes(params, *options)
+  end
+
   def login_mobile_or_mobile
-    login_mobile ||  mobile
+    login_mobile || mobile
   end
 
   private

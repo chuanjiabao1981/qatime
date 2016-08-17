@@ -18,10 +18,14 @@ class StudentsController < ApplicationController
   end
 
   def create
+    @student = Student.new(create_params).captcha_required!
+    captcha_manager = UserService::CaptchaManager.new(create_params[:login_mobile])
+    @student.captcha = captcha_manager.captcha_of(:register_captcha)
     @student.build_account
     if @student.save
       SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @student.id)
-      session.delete("captcha-#{create_params[:login_mobile]}")
+      # 删除注册验证码
+      captcha_manager.expire_captch(:register_captcha)
       sign_in(@student) unless signed_in?
       redirect_to edit_student_path(@student, cate: :register, by: :register)
     else
@@ -183,7 +187,7 @@ class StudentsController < ApplicationController
   # 用户修改个人信息根据需要检查是否存在第一步生成的session
   def require_step_one_session
     update_by = params[:by]
-    return true if %w(email mobile).exclude?(update_by)  || !UserService::CaptchaManager.expire?(@step_one_session)
+    return true if %w(email login_mobile).exclude?(update_by)  || !UserService::CaptchaManager.expire?(@step_one_session)
     # 没有第一步的session跳转到编辑页面
     redirect_to edit_student_path(@student, by: params[:by], cate: params[:cate]), alert: t("flash.alert.please_verify_step_one_#{update_by}")
   end

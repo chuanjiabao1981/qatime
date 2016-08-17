@@ -46,6 +46,14 @@
   -moz-border-radius:6px 0 6px 6px;
   border-radius:6px 0 6px 6px;
 }
+.form-control.lesson-class-date{
+  display: inline-block;
+  width: 50%;
+}
+.form-control.lesson-time{
+  display:inline-block;
+  width: 22%;
+}
 
 
 .font-small{
@@ -379,4 +387,7 @@
     width: 100%;
     margin-top: 10px;
   }
+}
+#lesson-copy{
+  display: none;
 }

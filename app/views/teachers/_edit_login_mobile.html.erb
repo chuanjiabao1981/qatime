@@ -1,14 +1,14 @@
-<% if_show_mobile_div = (params[:cate].to_s.to_sym == :security_setting && params[:by].to_s.to_sym == :mobile) %>
-
+<% if_show_mobile_div = (params[:cate].to_s.to_sym == :security_setting && params[:by].to_s.to_sym == :login_mobile) %>
 <div id="edit_login_mobile_area" style="padding-top: 30px;<%= 'display:none;' unless if_show_mobile_div %>">
   <!-- 使用mobile_was,来防止未更新的情况 -->
-  <% if UserService::CaptchaManager.expire?(session["change-mobile-#{@teacher.mobile_was}"]) %>
+  <% mobile_was = @teacher.login_mobile.present? ? @teacher.login_mobile_was : @teacher.mobile_was %>
+  <% if UserService::CaptchaManager.expire?(session["change-login_mobile-#{mobile_was}"]) %>
     <%= form_tag(verify_ajax_captchas_path, method: :post, remote: true, id: "mobile_captcha_for_change_mobile_form") do |f| %>
       <input type="hidden" name="send_to" value="<%= @teacher.login_mobile_or_mobile %>" id="teacher_login_mobile">
       <input type="hidden" name="edit_type" value="mobile">
       <input type="hidden" name="teacher_id" value="<%= @teacher.id %>">
       <input type="hidden" name="cate" value="security_setting">
-      <input type="hidden" name="by" value="mobile">
+      <input type="hidden" name="by" value="login_mobile">
 
       <div class="row" >
         <div class="col-md-2 col-md-offset-3 text-right">
@@ -27,7 +27,7 @@
             <div class="col-md-2">
               <div class="form-group string optional teacher_captcha"><input maxlength="4" id="mobile-captcha-input" class="string optional form-control" size="4" type="text" name="captcha"></div>
             </div>
-            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#teacher_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="login_mobile" value="<%= t ".get_captcha" %>">
+            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#teacher_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="edit_login_mobile" value="<%= t ".get_captcha" %>">
           </div>
         </div>
       </div>

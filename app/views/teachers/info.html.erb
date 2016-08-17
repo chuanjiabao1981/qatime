@@ -41,17 +41,8 @@
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:address)%></div>
-        <div class="col-md-9">
-          <%= @teacher.province.try(:name) %>&nbsp;
-          <%= @teacher.city.try(:name) %>
-        </div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
         <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:school)%></div>
-        <div class="col-md-9"><%= @teacher.school.name %></div>
+        <div class="col-md-9"><%= @teacher.school.try(:name) %></div>
       </div>
     </div>
     <div class="qa_cell">

@@ -81,7 +81,7 @@ module V1
               get do
                 tickets = LiveService::CourseDirector.courses_for_student_index(current_user,params).paginate(page: params[:page], per_page: params[:per_page])
                 courses = tickets.map(&:course)
-                present courses, with: Entities::LiveStudio::StudentCourse, type: :default, current_user: current_user
+                present courses, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user
               end
 
               desc '学生辅导班详情接口' do
@@ -172,7 +172,7 @@ module V1
               pay_type: params[:pay_type], remote_ip: headers['X-Real-Ip'] || env["REMOTE_ADDR"]
             }
             order = LiveService::CourseDirector.create_order(current_user, course, order_params)
-            order.init_remote_order if order.unpaid? && order.prepayid.blank?
+            order.init_remote_order if order.unpaid? && order.prepay_id.blank?
             present order, with: Entities::Payment::Order
           end
 

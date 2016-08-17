@@ -116,8 +116,8 @@ module Payment
       else
         self.pay_url = r['code_url']
         self.qrcode_url = Qr_Code.generate_payment(id, r['code_url'])
-        self.prepayid = r['prepay_id']
-        self.noncestr = r['nonce_str']
+        self.prepay_id = r['prepay_id']
+        self.nonce_str = r['nonce_str']
         save
       end
     end
@@ -136,6 +136,22 @@ module Payment
       created_at < 2.hours.ago
     end
 
+    def remote_params
+      {
+        body: "购买辅导班：#{product.name}",
+        out_trade_no: order_no,
+        total_fee: pay_money,
+        spbill_create_ip: remote_ip,
+        notify_url:  "#{WECHAT_CONFIG['domain_name']}/payment/notify",
+        trade_type: 'NATIVE',
+        fee_type: 'CNY'
+      }
+    end
+
+    def app_pay_params
+      WxPay::Service.generate_app_pay_req(prepayid: prepay_id, noncestr: nonce_str)
+    end
+
     private
 
     before_create :generate_order_no
@@ -149,18 +165,6 @@ module Payment
     def increase_cash_admin_account
       billing = billings.create(total_money: total_money, summary: "用户支付, 订单编号：#{order_no} 系统进账: #{total_money}")
       CashAdmin.increase_cash_account(total_money, billing, '用户充值消费')
-    end
-
-    def remote_params
-      {
-          body: "购买辅导班：#{product.name}",
-          out_trade_no: order_no,
-          total_fee: pay_money,
-          spbill_create_ip: remote_ip,
-          notify_url:  "#{WECHAT_CONFIG['domain_name']}/payment/notify",
-          trade_type: 'NATIVE',
-          fee_type: 'CNY'
-      }
     end
 
   end

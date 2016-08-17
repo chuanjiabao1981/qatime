@@ -17,7 +17,9 @@
         <div class="row">
           <%= simple_form_for(@teacher, url: teacher_path(@teacher, cate: :edit_profile, by: :avatar))  do |f| %>
             <div class="col-md-8">
-              <img id="teacher_avatar_preview" style="width: 240px;height: 240px">
+              <div style="width: 242px;height: 242px; border: 1px dashed;">
+                <img id="teacher_avatar_preview" style="width: 100%;">
+              </div>
             </div>
             <div class="col-md-4">
               <p>
@@ -69,22 +71,6 @@
         <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:birthday)%></div>
         <div class="col-md-9">
           <%= f.input :birthday, label: false, as: :string, input_html: {type: :date, max: Time.now.strftime('%Y-%m-%d')} %>
-        </div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:address)%></div>
-        <div class="col-md-9">
-          <div class="row">
-            <div class="col-md-6">
-              <%= f.association :province, label: false, :collection => Province.all.collect { |s| [s.name, s.id]} %>
-            </div>
-            <% cities_collection = @teacher.province ? @teacher.province.cities.all.collect { |s| [s.name, s.id]} : [] %>
-            <div class="col-md-6">
-              <%= f.association :city, label: false, collection: cities_collection %>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -142,8 +128,16 @@
     })
 
     $("#select_avatar_btn").on('click',function(event){
-      console.log("123")
       $("#teacher_avatar").click()
+    })
+
+    $("button.close").on('click',function(event){
+      $("#teacher_avatar").value = ''
+      $('#teacher_avatar_preview').attr('src', '');
+      $("#teacher_avatar_preview2").attr('src', '');
+      if (jcrop_api){
+        jcrop_api.destroy();
+      }
     })
 
   })
@@ -157,8 +151,8 @@
         var filerdr = new FileReader();
 
         filerdr.onload = function(e) {
-          $("#teacher_avatar_preview2").attr('src', e.target.result);
           $('#teacher_avatar_preview').attr('src', e.target.result);
+          $("#teacher_avatar_preview2").attr('src', e.target.result);
         }
         if (jcrop_api){
           jcrop_api.destroy();

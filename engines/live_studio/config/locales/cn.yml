@@ -89,6 +89,9 @@ cn:
       publish_confirm: 确认后将不能再对辅导班信息和课程进行任何修改，是否确认招生？
       tips: 提示
       teacher_course_none_tips: 没有找到符合条件的辅导班。
+      lesson_name_holder: '请输入课程名称,格式: 第X课 课程标题'
+      date_holder: '请选择日期'
+      data_holder: 请完善数据
   status:
     init: 初始化
     preview: 招生中

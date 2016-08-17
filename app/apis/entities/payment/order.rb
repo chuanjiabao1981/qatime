@@ -5,8 +5,9 @@ module Entities
         order.order_no
       end
       expose :status
-      expose :prepayid
-      expose :noncestr
+      expose :prepay_id
+      expose :nonce_str
+      expose :app_pay_params
     end
   end
 end

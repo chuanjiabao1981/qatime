@@ -156,7 +156,7 @@ class TeachersController < ApplicationController
   private
 
   def current_resource
-    @teacher = Teacher.find(params[:id]) if params[:id]
+    @current_resource = @teacher = Teacher.find(params[:id]) if params[:id]
   end
 
   def password_params

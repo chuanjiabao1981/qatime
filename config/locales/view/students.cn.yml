@@ -14,7 +14,7 @@ cn:
     new:
       title: 学生注册
       captcha: 验证码
-      login_mobile_ph: 请输入大陆是十一位手机号码
+      login_mobile_ph: 请输入大陆十一位手机号码
       captcha_confirmation_ph: 手机验证码
       password_ph: 请输入8-16位密码
       password_confirmation_ph: 再输入一次密码
@@ -31,7 +31,7 @@ cn:
       required_authentication_password: 登录答疑时间需要输入密码验证。
       modify_login_password: 修改登录密码
       bound_mobile: 绑定手机
-      bound_mobile_desc: 更改绑定手机需要同时对新旧手机进行验证，如果当前手机号遗失或无法收到验证码。
+      bound_mobile_desc: 注意！修改绑定手机，用户登录手机号将一起改变；需要同时对新旧手机进行验证。
       modified_binding_mobile: 修改绑定手机
       bound_email: 绑定邮箱
       bound_email_desc: 注意！修改绑定邮箱，用户登录邮箱将一起变更。

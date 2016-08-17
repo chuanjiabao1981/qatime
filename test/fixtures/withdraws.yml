@@ -1,0 +1,5 @@
+withdraw1:
+  operator: manager
+  account_id: 1000
+  value: 100
+  type: Withdraw

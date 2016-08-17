@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }, if: :update_password?
   # validates :grade, inclusion: { in: APP_CONSTANT["grades_in_menu"]},if: :student?
   # validates_presence_of :grade, if: :student?
-  validates :nick_name,allow_nil: true,allow_blank:true,uniqueness: true,
+  validates :nick_name, allow_nil: true, allow_blank:true, uniqueness: true,
             format: {with: /\A[\p{Han}\p{Alnum}\-_]{3,10}\z/,message:"只可以是中文、英文或者下划线，最短3个字符最长10个字符，不可包含空格。"}
 
   # 验证码验证

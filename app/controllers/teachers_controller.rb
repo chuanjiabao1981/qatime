@@ -174,7 +174,7 @@ class TeachersController < ApplicationController
   end
 
   def profile_params
-    params.require(:teacher).permit(:name, :gender, :birthday, :category, :school_id, :subject, :teaching_years, :desc)
+    params.require(:teacher).permit(:name, :nick_name, :gender, :birthday, :category, :school_id, :subject, :teaching_years, :desc)
   end
 
   def avatar_params
@@ -190,7 +190,7 @@ class TeachersController < ApplicationController
   end
 
   def register_params
-    params.require(:teacher).permit(:name, :gender, :subject, :category, :birthday, :desc, :email, :email_confirmation, :crop_x, :crop_y, :crop_w, :crop_h, :avatar)
+    params.require(:teacher).permit(:name, :nick_name, :gender, :subject, :category, :birthday, :desc, :email, :email_confirmation, :crop_x, :crop_y, :crop_w, :crop_h, :avatar)
   end
 
   # 根据跟新内容判断是否需要密码更新

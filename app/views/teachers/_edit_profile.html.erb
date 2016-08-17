@@ -60,6 +60,14 @@
     </div>
     <div class="qa_cell">
       <div class="row">
+        <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:nick_name)%></div>
+        <div class="col-md-9">
+          <%= f.input :nick_name, label: false %>
+        </div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
         <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:gender)%></div>
         <div class="col-md-9">
           <%= f.input :gender, as: :radio_buttons, label: false %>

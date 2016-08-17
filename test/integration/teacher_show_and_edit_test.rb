@@ -38,6 +38,7 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
     click_on '编辑信息', match: :first
 
     fill_in :teacher_name, with: 'name test'
+    fill_in :teacher_nick_name, with: 'nick_name'
     choose("男")
     fill_in :teacher_birthday, with: Time.local(1995, 7, 8).strftime('%Y/%m/%d')
     select '小学', from: :teacher_category
@@ -47,8 +48,8 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
     fill_in :teacher_desc, with: 'desc test'
 
     click_on '保存'
-
     assert page.has_content?('name test'), '教师name更新错误'
+    assert page.has_content?('nick_name'), '教师nick_name更新错误'
     assert page.has_content?('男'), '教师gender更新错误'
     assert page.has_content?('1995-07-08'), '教师birthday更新错误'
     assert page.has_content?('小学'), '教师category更新错误'

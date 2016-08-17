@@ -1,5 +1,5 @@
 <div class="qa_box">
-  <% Software.all.each do |software| %>
+  <% @softwares.each do |software| %>
     <div class="qa_big_cell">
       <div class="row">
         <div class="col-md-2 text-left">
@@ -21,7 +21,7 @@
         </div>
       </div>
     </div>
-  <% end %>
+  <% end if @softwares %>
 </div>
 
 

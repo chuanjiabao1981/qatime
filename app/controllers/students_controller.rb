@@ -191,7 +191,7 @@ class StudentsController < ApplicationController
   end
 
   def update_login_mobile
-    send_to_was = @teacher.login_mobile
+    send_to_was = @student.login_mobile
     # TODO 存储验证码的key区分开来，不同功能的验证码不使用
     captcha_manager = UserService::CaptchaManager.new(login_mobile_params[:login_mobile])
     @student.captcha = captcha_manager.captcha_of(:send_captcha)
@@ -232,7 +232,7 @@ class StudentsController < ApplicationController
   # 用户修改个人信息根据需要检查是否存在第一步生成的session
   def require_step_one_session
     update_by = params[:by]
-    return true if %w(email login_mobile).exclude?(update_by)  || !UserService::CaptchaManager.expire?(@step_one_session)
+    return true if %w(email login_mobile).exclude?(update_by)  || @student.login_mobile.blank? || !UserService::CaptchaManager.expire?(@step_one_session)
     # 没有第一步的session跳转到编辑页面
     redirect_to edit_student_path(@student, by: params[:by], cate: params[:cate]), alert: t("flash.alert.please_verify_step_one_#{update_by}")
   end

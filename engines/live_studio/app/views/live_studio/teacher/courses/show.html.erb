@@ -1,7 +1,6 @@
 <div class="qa_box panel panel-default panel-support">
   <div class='course-header-div'>
-    <%= link_to LiveStudio::Course.model_name.human, teacher_courses_path(@teacher) %> &gt;
-    <strong><%= @course.name %></strong>
+    <strong><%= t('activerecord.view.course') %></strong>
     <%= content_tag(:div, class: 'search-link') do %>
       <%= link_to t("activerecord.view.course_publish"), publish_course_path(@course), method: :patch,
                   class: "btn btn-default btn-xs #{@course.cant_publish? ? 'disabled' : nil}",

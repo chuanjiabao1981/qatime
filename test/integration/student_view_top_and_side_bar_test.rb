@@ -22,7 +22,6 @@ class StudentViewTopAndSideBarTest < ActionDispatch::IntegrationTest
     assert page.has_content?('专属课程'), 'topbar专属课程不存在'
     assert page.has_content?('问答社区'), 'topbar问答社区不存在'
     assert page.has_content?('辅导班'), 'topbar辅导班不存在'
-    assert page.has_content?('下载'), 'topbar下载不存在'
     assert page.has_content?('常见问题'), 'topbar常见问题不存在'
   end
 

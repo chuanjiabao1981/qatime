@@ -79,17 +79,17 @@ module LiveStudio
     end
 
     def search_params
-      flag_params = params.permit(
-        :subject, :grade, :class_date_sort, :status, :price_floor,
+      params.permit(
+        :subject, :grade, :sort_by, :status, :price_floor,
         :price_ceil,:class_date_floor,:class_date_ceil,:preset_lesson_count_floor,:preset_lesson_count_ceil
       )
-      flag_sort = []
-      %w(class_date_sort price_sort buy_tickets_count_sort).each do |sort|
-        flag_params[sort].present? && flag_sort << "#{sort.gsub('_sort','')}.#{flag_params[sort]}"
-        flag_params.delete(sort)
-      end
-      flag_params[:sort_by] = flag_sort.join('-')
-      flag_params
+      # flag_sort = []
+      # %w(class_date_sort price_sort lesson_count_sort).each do |sort|
+      #   flag_params[sort].present? && flag_sort << "#{sort.gsub('_sort','')}.#{flag_params[sort]}"
+      #   flag_params.delete(sort)
+      # end
+      # flag_params[:sort_by] = flag_sort.join('-')
+      # flag_params
     end
   end
 end

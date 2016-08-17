@@ -12,6 +12,7 @@ cn:
       get_captcha: 获取验证码
       try_get_captcha_again: 秒后重试
     new:
+      title: 老师注册
       captcha: 验证码
       login_mobile_ph: 请输入大陆是十一位手机号码
       captcha_confirmation_ph: 手机验证码
@@ -53,5 +54,10 @@ cn:
       new_mobile: 新手机号码
       mobile_captcha: 手机校验码
       to_bind_mobile: 绑定手机
+    edit_profile_for_register:
+      name_ph: 请输入真实姓名或昵称，方便学生联系您
+      desc_ph: 请介绍下自己(一百字以内)
+      email_ph: 绑定后可通过邮箱进行登录
+      email_confirmation_ph: 再输入一次进行确认
 
 

@@ -9,7 +9,7 @@
           <div class="row">
             <div class="col-md-2 text-right"><%= Student.human_attribute_name(:name)%><abbr title="required">*</abbr></div>
             <div class="col-md-9">
-              <%= f.input :name, label: false %>
+              <%= f.input :name, label: false, placeholder: t('.name_ph') %>
             </div>
           </div>
           <div class="row">
@@ -46,33 +46,33 @@
           <div class="row">
             <div class="col-md-2 text-right"><%= Student.human_attribute_name(:desc) %></div>
             <div class="col-md-9">
-              <%= f.input :desc, label: false, as: :text %>
+              <%= f.input :desc, label: false, as: :text, placeholder: t(".desc_ph") %>
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-2 text-right"><%= Student.human_attribute_name(:parent_phone) %></div>
             <div class="col-md-9">
-              <%= f.input :parent_phone, label: false %>
+              <%= f.input :parent_phone, label: false, placeholder: t(".parent_phone_ph") %>
             </div>
           </div>
           <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-9">
-              <%= f.input :parent_phone_confirmation, label: false %>
+              <%= f.input :parent_phone_confirmation, label: false, placeholder: t(".parent_phone_confirmation_ph") %>
             </div>
           </div>
 
           <div class="row">
             <div class="col-md-2 text-right"><%= Student.human_attribute_name(:email) %></div>
             <div class="col-md-9">
-              <%= f.input :email, label: false %>
+              <%= f.input :email, label: false, placeholder: t('.email_ph') %>
             </div>
           </div>
           <div class="row">
             <div class="col-md-2"></div>
             <div class="col-md-9">
-              <%= f.input :email_confirmation, label: false %>
+              <%= f.input :email_confirmation, label: false, placeholder: t('.email_confirmation_ph') %>
             </div>
           </div>
         </div>

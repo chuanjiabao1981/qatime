@@ -233,7 +233,7 @@ class TeachersController < ApplicationController
     if params[:by] == "create"
       @teacher = Teacher.new(create_params)
       captcha_manager = UserService::CaptchaManager.new(create_params[:login_mobile])
-      @teacher.captcha = captcha_manager.captcha_of()
+      @teacher.captcha = captcha_manager.captcha_of(:register_captcha)
     else
       update_by = params[:by]
       # 只有邮箱、手机、家长手机修改需要检查验证码

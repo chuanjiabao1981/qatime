@@ -41,7 +41,7 @@ cn:
       new_email: 新邮箱地址
       email_captcha: 邮箱校验码
       to_bind_email: 绑定邮箱
-    edit_mobile:
+    edit_login_mobile:
       binding_mobile: 当前手机号码
       mobile_captcha: 手机校验码
       get_captcha: 获取验证码

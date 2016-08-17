@@ -30,6 +30,7 @@ class SmsWorker
   NOTIFY                       = :notify2
   SYSTEM_ALARM                 = :system_alarm
   SEND_CAPTCHA                 = :send_captcha
+  REGISTER_CAPTCHA             = :register_captcha
 
   include Sidekiq::Worker
   include SmsUtil
@@ -186,9 +187,31 @@ class SmsWorker
   def send_captcha(options)
     mobile  = options["mobile"]
     captcha = options["captcha"]
+    case options["type"]
+    when 'edit_email'
+      type = "邮箱"
+    when 'find_password'
+      type = "密码"
+    when 'edit_login_mobile'
+      type = "绑定的手机"
+    when 'edit_parent_phone'
+      type = "绑定的家长手机"
+    end
     begin
       send_message(mobile,
-       "【答疑时间】验证码: #{captcha}，您好，如果不是您操作，请尽快修改密码")
+       "【答疑时间】您好，您正在修改#{type}，验证码: #{captcha}，如果不是您本人操作，请尽快修改登录密码")
+    rescue Exception => e
+      logger.info e.message
+      logger.info e.backtrace.inspect
+    end
+  end
+
+  def register_captcha(options)
+    mobile  = options["mobile"]
+    captcha = options["captcha"]
+    begin
+      send_message(mobile,
+       "【答疑时间】您好，您正在注册答疑时间，验证码: #{captcha}，如果不是您本人操作，请忽略")
     rescue Exception => e
       logger.info e.message
       logger.info e.backtrace.inspect

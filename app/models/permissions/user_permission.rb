@@ -43,6 +43,8 @@ module Permissions
       allow 'payment/users', [:cash] do |resource|
         resource.id == user.id
       end
+
+      allow 'passwords', [:new, :create, :edit, :update]
     end
   end
 end

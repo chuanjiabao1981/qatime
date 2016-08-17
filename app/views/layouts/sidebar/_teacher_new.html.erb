@@ -20,6 +20,13 @@
         <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:cash) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
+    <li>
+      <%= link_to notifications_teacher_path(@teacher) do %>
+        <span class="fa fa-bell"></span>
+        <span class="qa_f18"><%= t "view.teacher_bars.notification" %></span>
+        <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:notification) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+      <% end %>
+    </li>
 <!--     <li>
       <%#= link_to "##" do %>
         <span class="fa fa-calendar"></span>
@@ -34,20 +41,27 @@
         <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:my_courses) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
-    <!-- <li>
-      <%#= link_to "##" do %>
-        <span class="fa fa-cog"></span>
-        <span class="qa_f18"><%#= t "view.teacher_bars.lesson_setting" %></span></span>
-        <span class="glyphicon arraw-span glyphicon-chevron-right"></span>
-      <%# end %>
-    </li> -->
-<!--     <li>
-      <%#= link_to "##" do %>
+    <li>
+      <%= link_to curriculums_teacher_path(@teacher) do %>
+        <span class="fa fa-file-text-o"></span>
+        <span class="qa_f18"><%= t "view.teacher_bars.curriculums" %></span></span>
+        <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:curriculums) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to lessons_state_teacher_path(@teacher) do %>
+        <span class="fa fa-bar-chart"></span>
+        <span class="qa_f18"><%= t "view.teacher_bars.lessons_state" %></span></span>
+        <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:lessons_state) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to homeworks_teacher_path(@teacher) do %>
         <span class="fa fa-book"></span>
-        <span class="qa_f18"><%#= t "view.teacher_bars.homework_manage" %></span></span>
-        <span class="glyphicon arraw-span glyphicon-chevron-right"></span>
-      <%# end %>
-    </li> -->
+        <span class="qa_f18"><%= t "view.teacher_bars.homeworks" %></span></span>
+        <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:homeworks) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+      <% end %>
+    </li>
     <li>
       <%= link_to students_teacher_path(@teacher) do %>
         <span class="fa fa-user-plus"></span>
@@ -62,32 +76,12 @@
         <span class="glyphicon arraw-span glyphicon-chevron-right"></span>
       <%# end %>
     </li> -->
-    <li>
-      <%= link_to notifications_teacher_path(@teacher) do %>
-        <span class="fa fa-bell"></span>
-        <span class="qa_f18"><%= t "view.teacher_bars.notification" %></span>
-        <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:notification) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
-      <% end %>
-    </li>
+
     <li>
       <%= link_to course_library.teacher_syllabuses_path(@teacher) do %>
         <span class="fa fa-sitemap"></span>
         <span class="qa_f18"><%= t "view.teacher_bars.teacher_syllabuses" %></span>
         <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:teacher_syllabuses) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
-      <% end %>
-    </li>
-    <li>
-      <%= link_to customized_courses_teacher_path(@teacher) do %>
-        <span class="fa fa-graduation-cap"></span>
-        <span class="qa_f18"><%= t("view.common_bars.customized_courses") %></span>
-        <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:customized_courses) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
-      <% end %>
-    </li>
-    <li>
-      <%= link_to teacher_questions_path(teacher_id: @teacher.id) do %>
-        <span class="fa fa-question"></span>
-        <span class="qa_f18"><%= t("view.common_bars.questions") %></span>
-        <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:questions) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
   </ul>

@@ -95,8 +95,8 @@
           </div>
 
           <div class="col-md-9" id="edit_notice_area" style="display:none;">
-            <%= simple_form_for(@course.chat_team, url: update_notice_course_path(@course), html: {id: "edit_notice_form"}) do |sf| %>
-              <%= sf.input :announcement, label: false, as: :text, input_html: {size: "60x4"} %>
+            <%= simple_form_for(@course.chat_team.team_announcements.new, url: update_notice_course_path(@course), html: {id: "edit_notice_form"}) do |sf| %>
+              <%= sf.input :announcement, label: false, as: :text, input_html: {size: "60x4", value: "#{@course.chat_team.announcement}"} %>
             <% end %>
             <button type="button" class="btn btn-xs btn-success" id="submit_notice_btn">完成</button>
           </div>

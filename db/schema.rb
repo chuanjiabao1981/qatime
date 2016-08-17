@@ -82,12 +82,19 @@ ActiveRecord::Schema.define(version: 20160812024021) do
   add_index "chat_join_records", ["account_id"], name: "index_chat_join_records_on_account_id", using: :btree
   add_index "chat_join_records", ["team_id"], name: "index_chat_join_records_on_team_id", using: :btree
 
+  create_table "chat_team_announcements", force: :cascade do |t|
+    t.integer  "team_id"
+    t.text     "announcement"
+    t.datetime "edit_at"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
   create_table "chat_teams", force: :cascade do |t|
     t.string   "team_id",               limit: 32
     t.string   "name",                  limit: 64
     t.integer  "live_studio_course_id"
     t.string   "owner",                 limit: 32
-    t.text     "announcement"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
@@ -656,6 +663,8 @@ ActiveRecord::Schema.define(version: 20160812024021) do
     t.datetime "deleted_at"
     t.datetime "created_at",                                                    null: false
     t.datetime "updated_at",                                                    null: false
+    t.string   "prepayid"
+    t.string   "noncestr"
   end
 
   add_index "payment_orders", ["product_type", "product_id"], name: "index_payment_orders_on_product_type_and_product_id", using: :btree

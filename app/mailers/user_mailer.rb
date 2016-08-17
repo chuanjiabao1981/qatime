@@ -1,8 +1,9 @@
 class UserMailer < ApplicationMailer
   default from: 'info@bjwwtd.com'
 
-  def change_email_captcha(send_to, captcha)
-    @captcha = captcha
+  def change_email_captcha(options)
+    @captcha  = options["captcha"]
+    send_to = options["email"]
 
     mail(to: send_to, subject: '绑定邮箱')
   end

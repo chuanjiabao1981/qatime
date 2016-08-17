@@ -8,18 +8,12 @@
     <% end %>
   <% end %>
   <%= content_tag(:div, class: 'course-taxon-list') do %>
-    <%= content_tag(:a,content_tag(:div, t("activerecord.view.filter.all"),
-                                   class: "course-taxon-div #{@filter_patams.blank? ? 'active' : nil}"), href: teacher_courses_path(@teacher)) %>
-    <%= content_tag(:a,content_tag(:div, t("activerecord.view.filter.today"),
-                                   class: "course-taxon-div #{@filter_patams[:cate]=='today' ? 'active' : nil}"),href: "?cate=today") %>
-    <%= content_tag(:a,content_tag(:div, t("activerecord.view.filter.init"),
-                                   class: "course-taxon-div #{@filter_patams[:status]=='init' ? 'active' : nil}"), href: "?status=init") %>
-    <%= content_tag(:a,content_tag(:div, t("activerecord.view.filter.preview"),
-                                   class: "course-taxon-div #{@filter_patams[:status]=='preview' ? 'active' : nil}"), href: "?status=preview") %>
-    <%= content_tag(:a,content_tag(:div, t("activerecord.view.filter.teaching"),
-                                   class: "course-taxon-div #{@filter_patams[:status]=='teaching' ? 'active' : nil}"), href: "?status=teaching") %>
-    <%= content_tag(:a,content_tag(:div, t("activerecord.view.filter.completed"),
-                                   class: "course-taxon-div #{@filter_patams[:status]=='completed' ? 'active' : nil}"), href: "?status=completed") %>
+    <%= link_to content_tag(:div, t("activerecord.view.filter.all"),
+                                   class: "course-taxon-div #{params[:status].blank? ? 'active' : nil}"), teacher_courses_path(@teacher) %>
+    <% %w(today init preview teaching completed).each do |status| %>
+      <%= link_to content_tag(:div, t("activerecord.view.filter.#{status}"),
+                                     class: "course-taxon-div #{params[:status]==status ? 'active' : nil}"), "?status=#{status}" %>
+    <% end %>
   <% end %>
   <%= content_tag(:div, class: 'course-list') do %>
     <%= render partial: 'course', collection: @courses %>

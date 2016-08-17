@@ -18,10 +18,14 @@ class StudentsController < ApplicationController
   end
 
   def create
+    @student = Student.new(create_params).captcha_required!
+    captcha_manager = UserService::CaptchaManager.new(create_params[:login_mobile])
+    @student.captcha = captcha_manager.captcha_of(:register_captcha)
     @student.build_account
     if @student.save
       SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @student.id)
-      session.delete("captcha-#{create_params[:login_mobile]}")
+      # 删除注册验证码
+      captcha_manager.expire_captch(:register_captcha)
       sign_in(@student) unless signed_in?
       redirect_to edit_student_path(@student, cate: :register, by: :register)
     else
@@ -144,8 +148,8 @@ class StudentsController < ApplicationController
     params.require(:student).permit(:email, :captcha_confirmation)
   end
 
-  def mobile_params
-    params.require(:student).permit(:mobile, :captcha_confirmation)
+  def login_mobile_params
+    params.require(:student).permit(:login_mobile, :captcha_confirmation)
   end
 
   def parent_phone_params
@@ -157,7 +161,7 @@ class StudentsController < ApplicationController
   end
 
   def avatar_params
-    params.require(:student).permit(:avatar)
+    params.require(:student).permit(:crop_x, :crop_y, :crop_w, :crop_h, :avatar)
   end
 
   def update_params(update_by)
@@ -169,12 +173,12 @@ class StudentsController < ApplicationController
   end
 
   def register_params
-    params.require(:student).permit(:name, :gender, :grade, :birthday, :desc, :email, :email_confirmation, :parent_phone, :parent_phone_confirmation, :avatar)
+    params.require(:student).permit(:name, :gender, :grade, :birthday, :desc, :email, :email_confirmation, :parent_phone, :parent_phone_confirmation, :crop_x, :crop_y, :crop_w, :crop_h, :avatar)
   end
 
   # 根据跟新内容判断是否需要密码更新
   def excute_update(update_by)
-    update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h
+    update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
     return @student.update_with_password(update_params) if %w(password parent_phone).include?(update_by)
     @student.update(update_params)
   end
@@ -183,7 +187,7 @@ class StudentsController < ApplicationController
   # 用户修改个人信息根据需要检查是否存在第一步生成的session
   def require_step_one_session
     update_by = params[:by]
-    return true if %w(email mobile).exclude?(update_by)  || !UserService::CaptchaManager.expire?(@step_one_session)
+    return true if %w(email login_mobile).exclude?(update_by)  || !UserService::CaptchaManager.expire?(@step_one_session)
     # 没有第一步的session跳转到编辑页面
     redirect_to edit_student_path(@student, by: params[:by], cate: params[:cate]), alert: t("flash.alert.please_verify_step_one_#{update_by}")
   end
@@ -217,7 +221,7 @@ class StudentsController < ApplicationController
     else
       update_by = params[:by]
       # 只有邮箱、手机、家长手机修改需要检查验证码
-      return true if %w(email mobile parent_phone).exclude?(update_by)
+      return true if %w(email login_mobile parent_phone).exclude?(update_by)
       captcha_key = "captcha-#{update_params(update_by)[update_by.to_sym]}"
       @student.captcha = UserService::CaptchaManager.captcha_of(session[captcha_key])
     end

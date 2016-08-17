@@ -38,3 +38,5 @@ email_address: email_address
 email_username: email_username
 email_password: email_password
 
+host: http://example.cn
+

@@ -26,6 +26,9 @@
                 </div>
               </p>
               <p>
+                <% %w[x y w h].each do |attribute| %>
+                  <%= f.hidden_field "crop_#{attribute}"%>
+                <% end %>
                 <%= f.input :avatar, label: false, input_html:{onchange:"showimagepreviewarea(this)", style: "display:none;"} %>
               </p>
               <p>
@@ -109,15 +112,6 @@
         </div>
       </div>
     </div>
-    <div class="qa_cell">
-      <div class="row">
-        <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:grade_range)%></div>
-        <div class="col-md-9">
-          <%= f.input :grade_range, collection: APP_CONSTANT["grades"][@teacher.category], label: false, as: :check_boxes %>
-        </div>
-      </div>
-    </div>
-
     <div class="qa_cell">
       <div class="row">
         <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:desc)%></div>

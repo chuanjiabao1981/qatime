@@ -9,12 +9,27 @@ module Entities
       expose :grade do |course|
         course.grade.to_s
       end
-      expose :status
-      expose :description
-      expose :lesson_count
-      expose :preset_lesson_count
-      expose :completed_lesson_count
+      expose :teacher_name do |course|
+        course.teacher.try(:name).to_s
+      end
+      expose :price do |course|
+        course.price.to_f.round(2)
+      end
+      expose :buy_tickets_count
+      expose :status, if: { type: :full }
+      expose :description, if: { type: :full }
+      expose :lesson_count, if: { type: :full }
+      expose :preset_lesson_count, if: { type: :full }
+      expose :completed_lesson_count, if: { type: :full }
+      expose :live_start_time, if: { type: :full }
+      expose :live_end_time, if: { type: :full }
+      expose :publicize do |course|
+        options[:type] == :full ? course.publicize_url(:info) : course.publicize_url(:list)
+      end
       expose :lessons, using: Entities::LiveStudio::Lesson, if: { type: :full }
+      expose :chat_team, using: Entities::Chat::Team, if: { type: :full } do |course|
+        course.chat_team
+      end
     end
   end
 end

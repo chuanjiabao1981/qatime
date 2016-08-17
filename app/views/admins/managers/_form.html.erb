@@ -12,6 +12,9 @@
           <%= f.input :name, :required => true %>
 
           <%= f.input :email, :required => true, :autofocus => true %>
+          <% %w[x y w h].each do |attribute| %>
+            <%= f.hidden_field "crop_#{attribute}"%>
+          <% end %>
           <%= f.input :avatar,input_html:{onchange:"showimagepreview(this)"},:hint => "用户头像不可为空。" %>
           <img id="user_avatar_preview" style="width: 240px;height: 240px">
 

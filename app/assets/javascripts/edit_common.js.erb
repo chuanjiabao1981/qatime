@@ -5,7 +5,7 @@ $(document).ready(function(){
     $edit_area.show();
   });
 
-  $("button[data-form-reset").on('click',function(event){
+  $("button[data-form-reset]").on('click',function(event){
     var $node = $(event.target)
     var $form = $node.data('form-el')
     var jump_href = $node.data('jump-href')
@@ -16,7 +16,7 @@ $(document).ready(function(){
     }
   });
 
-  $("button[data-jump-btn").on('click',function(event){
+  $("button[data-jump-btn]").on('click',function(event){
     var $node = $(event.target)
     var jump_href = $node.data('jump-href')
 

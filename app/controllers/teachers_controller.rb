@@ -200,16 +200,14 @@ class TeachersController < ApplicationController
       return update_login_mobile
     when "email"
       return update_email
-    when "parent_phone"
-      return update_parent_phone
+    else
+      update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
+      return @teacher.update_with_password(update_params) if %w(password).include?(update_by)
+      @teacher.update(update_params)
     end
-    # update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
-    # return @teacher.update_with_password(update_params) if %w(password).include?(update_by)
-    # @teacher.update(update_params)
   end
 
   def update_login_mobile
-    send_to_was = @teacher.login_mobile
     # TODO 存储验证码的key区分开来，不同功能的验证码不使用
     captcha_manager = UserService::CaptchaManager.new(login_mobile_params[:login_mobile])
     @teacher.captcha = captcha_manager.captcha_of(:send_captcha)
@@ -222,7 +220,6 @@ class TeachersController < ApplicationController
   end
 
   def update_email
-    @teacher.update_with_captcha(email_params)
     # TODO 存储验证码的key区分开来，不同功能的验证码不使用
     captcha_manager = UserService::CaptchaManager.new(email_params[:email])
     @teacher.captcha = captcha_manager.captcha_of(:change_email_captcha)

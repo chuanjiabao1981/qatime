@@ -24,7 +24,7 @@ module Entities
       expose :live_start_time, if: { type: :full }
       expose :live_end_time, if: { type: :full }
       expose :publicize do |course|
-        options[:type] == :full ? course.publicize_url(:info) : course.publicize_url(:list)
+        options[:type] == :full ? course.publicize_url(:app_info) : course.publicize_url(:list)
       end
       expose :lessons, using: Entities::LiveStudio::Lesson, if: { type: :full }
       expose :chat_team, using: Entities::Chat::Team, if: { type: :full } do |course|

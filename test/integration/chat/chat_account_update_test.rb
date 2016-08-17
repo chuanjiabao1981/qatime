@@ -20,19 +20,23 @@ module Chat
     end
 
     def teardown
-      logout_as(@teacher)
+      new_logout_as(@teacher)
       Capybara.use_default_driver
     end
 
-    test "update teacher account when teacher update nick name" do
-      visit edit_teacher_path(@teacher)
+    test "update teacher account when teacher update name" do
+      click_on "用户设置"
+      click_on "安全设置"
+      click_on "个人信息"
+      click_on "编辑信息", match: :first
 
-      fill_in :teacher_nick_name, with: "new_nick_name"
-      click_on "更新信息"
-
+      fill_in :teacher_name, with: "new_name"
+      click_on "保存"
+      @teacher.reload
+      @teacher.nick_name = 'test_nick_name'
       Chat::SyncChatAccountJob.perform_now(@teacher.id)
 
-      assert_equal('new_nick_name', @teacher.chat_account.name, '云信account更新错误')
+      assert_equal('test_nick_name', @teacher.chat_account.name, '云信account更新错误')
     end
   end
 end

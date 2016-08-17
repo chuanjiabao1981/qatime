@@ -13,6 +13,10 @@ cn:
       try_get_captcha_again: 秒后重试
     new:
       captcha: 验证码
+      login_mobile_ph: 请输入大陆是十一位手机号码
+      captcha_confirmation_ph: 手机验证码
+      password_ph: 请输入8-16位密码
+      password_confirmation_ph: 再输入一次密码
     edit_profile_for_register:
       title: 完善信息-老师
     info:

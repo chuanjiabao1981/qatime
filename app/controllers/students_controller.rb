@@ -1,7 +1,7 @@
 class StudentsController < ApplicationController
   before_action :step_one_session, only: [:edit, :update]
   before_action :require_step_one_session, only: :update
-  before_action :set_captcha_code, only: [:update, :create]
+  before_action :set_captcha_code, only: :update
 
   respond_to :html
 
@@ -214,17 +214,11 @@ class StudentsController < ApplicationController
   end
 
   def set_captcha_code
-    if params[:by] == "create"
-      @student = Student.new(create_params)
-      captcha_manager = UserService::CaptchaManager.new(create_params[:login_mobile])
-      @student.captcha = captcha_manager.captcha_of(session[captcha_key])
-    else
-      update_by = params[:by]
-      # 只有邮箱、手机、家长手机修改需要检查验证码
-      return true if %w(email login_mobile parent_phone).exclude?(update_by)
-      captcha_manager = UserService::CaptchaManager.new(update_params(update_by)[update_by.to_sym])
-      @student.captcha = captcha_manager.captcha_of(session[captcha_key])
-    end
+    update_by = params[:by]
+    # 只有邮箱、手机、家长手机修改需要检查验证码
+    return true if %w(email login_mobile parent_phone).exclude?(update_by)
+    captcha_manager = UserService::CaptchaManager.new(update_params(update_by)[update_by.to_sym])
+    @student.captcha = captcha_manager.captcha_of(session[captcha_key])
   end
 
   def update_by

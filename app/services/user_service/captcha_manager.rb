@@ -55,12 +55,12 @@ module UserService
 
     # 短信通知
     def sms_notice(code, key)
-      SmsWorker.perform_async(sms_notice_tpl(key), mobile: @send_to, captcha: code)
+      # SmsWorker.perform_async(sms_notice_tpl(key), mobile: @send_to, captcha: code)
     end
 
     # 邮件通知
     def email_notice(code, key)
-      EmailWorker.perform_async(email_notice_tpl(key), email: @send_to, captcha: code)
+      # EmailWorker.perform_async(email_notice_tpl(key), email: @send_to, captcha: code)
     end
 
     # 邮件通知模板

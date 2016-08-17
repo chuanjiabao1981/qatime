@@ -1,7 +1,7 @@
 class TeachersController < ApplicationController
   before_action :step_one_session, only: [:edit, :update]
   before_action :require_step_one_session, only: :update
-  before_action :set_captcha_code, only: [:update, :create]
+  before_action :set_captcha_code, only: :update
 
   respond_to :html,:js,:json
 
@@ -18,6 +18,9 @@ class TeachersController < ApplicationController
   end
 
   def create
+    @teacher = Teacher.new(create_params).captcha_required!
+    captcha_manager = UserService::CaptchaManager.new(create_params[:login_mobile])
+    @teacher.captcha = captcha_manager.captcha_of(:register_captcha)
     @teacher.build_account
     if @teacher.save
       SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @teacher.id)
@@ -230,17 +233,11 @@ class TeachersController < ApplicationController
   end
 
   def set_captcha_code
-    if params[:by] == "create"
-      @teacher = Teacher.new(create_params)
-      captcha_manager = UserService::CaptchaManager.new(create_params[:login_mobile])
-      @teacher.captcha = captcha_manager.captcha_of(:register_captcha)
-    else
-      update_by = params[:by]
-      # 只有邮箱、手机、家长手机修改需要检查验证码
-      return true if %w(email login_mobile parent_phone).exclude?(update_by)
-      captcha_manager = UserService::CaptchaManager.new(update_params(update_by)[update_by.to_sym])
-      @teacher.captcha = captcha_manager.captcha_of(session[captcha_key])
-    end
+    update_by = params[:by]
+    # 只有邮箱、手机、家长手机修改需要检查验证码
+    return true if %w(email login_mobile parent_phone).exclude?(update_by)
+    captcha_manager = UserService::CaptchaManager.new(update_params(update_by)[update_by.to_sym])
+    @teacher.captcha = captcha_manager.captcha_of(session[captcha_key])
   end
 
   def update_by

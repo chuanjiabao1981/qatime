@@ -3,8 +3,8 @@
     <thead>
     <tr>
       <td><%= t('view.course_info_show.number') %></td>
-      <td><%= t('view.course_info_show.lesson_start_at') %></td>
-      <td><%= t('view.course_info_show.lesson_name') %></td>
+      <td width="40%" style="text-align: center;"><%= t('view.course_info_show.lesson_start_at') %></td>
+      <td style="text-align: center;"><%= t('view.course_info_show.lesson_name') %></td>
       <td>&nbsp;</td>
     </tr>
     </thead>
@@ -47,13 +47,13 @@
     <% end %>
     </tbody>
   </table>
-  <div>
-    <a href="javascript:void(0);" id="insert_lesson">新增课程</a>
+  <div class="insert-lesson">
+    <%= link_to t('view.insert_btn') % Lesson.model_name.human, 'javascript:void(0);', id: 'insert_lesson' %>
   </div>
   <%= content_tag :div,class: 'text-center info-submit-btn' do %>
     <%= link_to t('view.cancel_btn'), teacher_course_path(@teacher,@course), class: 'btn btn-default' %>
     <%= button_tag t('view.save_btn'), class: 'btn btn-default btn-primary' %>
-  <% end%>
+  <% end %>
   <%= hidden_field_tag :insert_lesson_list, '' %>
   <%= hidden_field_tag :delete_lesson_list, '' %>
   <%= hidden_field_tag :default_lesson_list, @course.lessons.map(&:id).join(',') %>
@@ -61,6 +61,7 @@
 
 <script type="text/javascript" charset="utf-8">
   var lesson_count = <%= @course.lessons.count %>;
+  var preset_lesson_count = <%= @course.preset_lesson_count %>;
   var insert_lesson_list = new Array();
   var delete_lesson_list = new Array();
 
@@ -72,8 +73,13 @@
         return_flag = false;
       }
     });
-    if(!return_flag){
-      alert('<%= t('view.teacher_course.data_holder') %>');
+    if(lesson_count > preset_lesson_count){
+      return_flag = false;
+      alert('<%= t('view.teacher_course.lesson_count_out_tips') % @course.preset_lesson_count %>');
+    }else{
+      if(!return_flag){
+        alert('<%= t('view.teacher_course.data_holder') %>');
+      }
     }
     return return_flag;
   });
@@ -84,6 +90,7 @@
     var copy = $('#lesson-copy').clone();
     copy.css('display', 'table-row');
     copy.attr('id', '');
+    copy.addClass('lesson-'+lesson_count);
     copy.find('.lesson-no').html(lesson_count);
     insert_lesson_list.push(lesson_count);
     $('#insert_lesson_list').val(insert_lesson_list.join(','));
@@ -92,6 +99,7 @@
 
   // 删除新添tr
   function delete_self(obj){
+    lesson_count -= 1;
     var lesson_no = parseInt($(obj).attr('rel'));
     var index = insert_lesson_list.indexOf(lesson_no);
     insert_lesson_list.splice(index, 1);
@@ -101,6 +109,7 @@
 
   // 删除动态tr
   function delete_default(lesson_id){
+    lesson_count -= 1;
     if(confirm('<%= t('activerecord.view.message.confirm') %>')){
       delete_lesson_list.push(lesson_id);
       $('#delete_lesson_list').val(delete_lesson_list.join(','));

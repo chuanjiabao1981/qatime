@@ -28,7 +28,7 @@ class PublicizeUploader < CarrierWave::Uploader::Base
     process :resize_to_fill => [160,120]
   end
   version :app_info do
-    process :resize_to_fill => [800,500]
+    process :resize_to_fill => [1280,800]
   end
 
   #

@@ -1,3 +1,7 @@
+<% content_for :javascript do %>
+  <%= javascript_include_tag "course_library/application", "data-turbolinks-track" => false %>
+<% end %>
+
 <% content_for :content do %>
     <%= render layout:'course_library/shared/tree',
                locals: {syllabus: @syllabus, selected_directory: @directory} do %>

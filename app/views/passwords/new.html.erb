@@ -9,6 +9,7 @@
           <% if signed_in? %>
             <div class="col-md-6">
               <%= current_user.login_mobile_or_mobile %>
+              <input maxlength="11" class="string optional form-control" size="11" type="hidden" name="user[login_mobile]" id="user_login_mobile" value="<%= current_user.login_mobile_or_mobile %>">
             </div>
           <% else %>
             <div class="col-md-6">
@@ -23,7 +24,7 @@
               <div class="col-md-7">
                 <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 } %>
               </div>
-              <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#send_input" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="find_password" data-key="get_password_back" value="<%= t "students.common.get_captcha" %>">
+              <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#user_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-key="get_password_back" value="<%= t "students.common.get_captcha" %>">
               </div>
             </div>
           </div>

@@ -9,7 +9,7 @@
           <div class="row">
             <div class="col-md-2 text-right"><%= Student.human_attribute_name(:name)%><abbr title="required">*</abbr></div>
             <div class="col-md-9">
-              <%= f.input :name, label: false %>
+              <%= f.input :name, label: false, placeholder: t(".name_placeholder") %>
             </div>
           </div>
           <div class="row">

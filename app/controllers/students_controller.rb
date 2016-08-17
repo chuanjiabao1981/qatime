@@ -216,14 +216,14 @@ class StudentsController < ApplicationController
   def set_captcha_code
     if params[:by] == "create"
       @student = Student.new(create_params)
-      captcha_key = "captcha-#{create_params[:login_mobile]}"
-      @student.captcha = UserService::CaptchaManager.captcha_of(session[captcha_key])
+      captcha_manager = UserService::CaptchaManager.new(create_params[:login_mobile])
+      @student.captcha = captcha_manager.captcha_of(session[captcha_key])
     else
       update_by = params[:by]
       # 只有邮箱、手机、家长手机修改需要检查验证码
       return true if %w(email login_mobile parent_phone).exclude?(update_by)
-      captcha_key = "captcha-#{update_params(update_by)[update_by.to_sym]}"
-      @student.captcha = UserService::CaptchaManager.captcha_of(session[captcha_key])
+      captcha_manager = UserService::CaptchaManager.new(update_params(update_by)[update_by.to_sym])
+      @student.captcha = captcha_manager.captcha_of(session[captcha_key])
     end
   end
 

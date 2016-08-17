@@ -1,7 +1,7 @@
 <div class="col-md-6 col-md-offset-3">
   <div class="qa_box row">
     <div class="qa_big_cell ">
-      <h2 class="text-center">老师注册</h2>
+      <h2 class="text-center"><%= t('.title') %></h2>
 
       <%= simple_form_for(@teacher, url: teachers_path(@teacher, cate: :register, by: :create) ) do |f| %>
       <div class="form-inputs">

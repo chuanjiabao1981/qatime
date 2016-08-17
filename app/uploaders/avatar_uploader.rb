@@ -19,26 +19,26 @@ class AvatarUploader < CarrierWave::Uploader::Base
   end
 
   #这个大小和预览值保持一致，否则坐标会是错误的
-  process :resize_to_fill => [240,240]
+  process :resize_to_fit => [240,240]
   process :crop
 
   version :ex_big do
-    process :resize_to_fill => [128,128]
+    process :resize_to_fit => [128,128]
 
   end
   version :big do
-    process :resize_to_fill => [64,64]
+    process :resize_to_fit => [64,64]
   end
   version :normal do
-    process :resize_to_fill => [48, 48]
+    process :resize_to_fit => [48, 48]
   end
 
   version :small do
-    process :resize_to_fill => [32,32]
+    process :resize_to_fit => [32,32]
   end
 
   version :tiny do
-    process :resize_to_fill => [16,16]
+    process :resize_to_fit => [16,16]
   end
 
   def crop

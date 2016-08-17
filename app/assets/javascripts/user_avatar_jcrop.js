@@ -1,6 +1,7 @@
-var jcrop_api;
-var model_name;
+var jcrop_api,
+    model_name;
 
+// 上传头像js
 function showimagepreview(input) {
     var model_avatar_id = input.id
     model_name = model_avatar_id.substr(0, model_avatar_id.length-7)
@@ -9,6 +10,11 @@ function showimagepreview(input) {
 
         filerdr.onload = function(e) {
             $('#user_avatar_preview').attr('src', e.target.result);
+
+            var user_avatar_preview_height = $('#user_avatar_preview').height()
+            $('#user_avatar_preview').parent().css({
+                paddingTop : Math.round((240 - user_avatar_preview_height) / 2) + 'px'
+            });
         }
         if (jcrop_api){
             jcrop_api.destroy();

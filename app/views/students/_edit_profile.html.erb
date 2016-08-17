@@ -97,18 +97,6 @@
 <script type="text/javascript">
 
   $(document).ready(function(){
-     var city= <%= raw Province.all.map{|province| province.cities.pluck(:id, :name)} %>
-
-    $('#student_province_id').change(function(){
-      var sltProvince=document.getElementById("student_province_id");
-      var sltCity=document.getElementById("student_city_id");
-      var provinceCity=city[sltProvince.selectedIndex-1];
-      sltCity.length=1;
-      for(var i=0;i<provinceCity.length;i++){
-        sltCity[i+1]=new Option(provinceCity[i][1],provinceCity[i][0]);
-      }
-    })
-
     $("#select_avatar_btn").on('click',function(event){
       $("#student_avatar").click()
     })
@@ -117,6 +105,21 @@
       $("#student_avatar").value = ''
       $('#student_avatar_preview').attr('src', '');
       $("#student_avatar_preview2").attr('src', '');
+
+      $('#student_avatar_preview').parent().css({
+        paddingTop: '0px'
+      });
+      $('#student_avatar_preview').css({
+        height: 'auto',
+        width: '100%'
+      });
+      $("#student_avatar_preview2").css({
+        height: '128px',
+        width: '128px',
+        marginTop: '0px',
+        marginLeft: '0px'
+      })
+
       if (jcrop_api){
         jcrop_api.destroy();
       }
@@ -133,8 +136,14 @@
         var filerdr = new FileReader();
 
         filerdr.onload = function(e) {
-          $("#student_avatar_preview2").attr('src', e.target.result);
           $('#student_avatar_preview').attr('src', e.target.result);
+          $("#student_avatar_preview2").attr('src', e.target.result);
+
+          var student_avatar_preview_height = $('#student_avatar_preview').height()
+          console.log(student_avatar_preview_height)
+          $('#student_avatar_preview').parent().css({
+              paddingTop : Math.round((240 - student_avatar_preview_height) / 2) + 'px'
+          });
         }
         if (jcrop_api){
           jcrop_api.destroy();

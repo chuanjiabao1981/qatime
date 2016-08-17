@@ -115,18 +115,6 @@
 <script type="text/javascript">
 
   $(document).ready(function(){
-     var city= <%= raw Province.all.map{|province| province.cities.pluck(:id, :name)} %>
-
-    $('#teacher_province_id').change(function(){
-      var sltProvince=document.getElementById("teacher_province_id");
-      var sltCity=document.getElementById("teacher_city_id");
-      var provinceCity=city[sltProvince.selectedIndex-1];
-      sltCity.length=1;
-      for(var i=0;i<provinceCity.length;i++){
-        sltCity[i+1]=new Option(provinceCity[i][1],provinceCity[i][0]);
-      }
-    })
-
     $("#select_avatar_btn").on('click',function(event){
       $("#teacher_avatar").click()
     })
@@ -135,6 +123,21 @@
       $("#teacher_avatar").value = ''
       $('#teacher_avatar_preview').attr('src', '');
       $("#teacher_avatar_preview2").attr('src', '');
+
+      $('#teacher_avatar_preview').parent().css({
+        paddingTop: '0px'
+      });
+      $('#teacher_avatar_preview').css({
+        height: 'auto',
+        width: '100%'
+      });
+      $("#teacher_avatar_preview2").css({
+        height: '128px',
+        width: '128px',
+        marginTop: '0px',
+        marginLeft: '0px'
+      })
+
       if (jcrop_api){
         jcrop_api.destroy();
       }
@@ -153,6 +156,12 @@
         filerdr.onload = function(e) {
           $('#teacher_avatar_preview').attr('src', e.target.result);
           $("#teacher_avatar_preview2").attr('src', e.target.result);
+
+          var teacher_avatar_preview_height = $('#teacher_avatar_preview').height()
+          console.log(teacher_avatar_preview_height)
+          $('#teacher_avatar_preview').parent().css({
+              paddingTop : Math.round((240 - teacher_avatar_preview_height) / 2) + 'px'
+          });
         }
         if (jcrop_api){
           jcrop_api.destroy();

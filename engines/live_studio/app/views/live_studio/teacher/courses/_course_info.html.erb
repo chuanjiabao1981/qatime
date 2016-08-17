@@ -4,12 +4,7 @@
     <%= content_tag(:div, class: '') do %>
       <%= f.file_field :publicize, label: false, style: "display:none;", onchange: 'showimagepreview(this)' %>
       <a href="javascript:void(0);" class="btn" id="select_publicize_btn"><%= t "view.teacher_course.publicize" %></a>
-      <br/>
-      建议：<br/>
-      图片比例 4:3，<br/>
-      图片格式为jpeg或png，<br/>
-      图片大小不大于100KB，<br/>
-      禁止上传涉及恐怖、暴力、血腥、色情、政治类图片
+      <%= sanitize t('view.teacher_course.upload_img_tips') %>
       <script>
         $("#select_publicize_btn").on('click',function(event){
           $("#course_publicize").click();

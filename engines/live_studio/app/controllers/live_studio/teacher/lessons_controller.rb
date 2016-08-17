@@ -29,7 +29,7 @@ module LiveStudio
     # POST /teacher/lessons
     def create
       LiveService::LessonDirector.edit_lessons(@course, params)
-      redirect_to edit_teacher_course_path(@teacher,params[:course_id],index: 'list'),
+      redirect_to teacher_course_path(@teacher,params[:course_id],index: 'list'),
                   notice: t("activerecord.successful.messages.updated", model: LiveStudio::Lesson.model_name.human)
     end
 

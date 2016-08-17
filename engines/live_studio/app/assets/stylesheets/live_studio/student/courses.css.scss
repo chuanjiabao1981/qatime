@@ -185,8 +185,9 @@
         display: table-cell;
         vertical-align: middle;
         .btn-default{
-          padding: 2px;
-          font-size: 12px;
+          padding: 6px;
+          font-size: 14px;
+          color: lightcoral;
         }
       }
       .course-operator-btn{
@@ -255,7 +256,7 @@
   }
   .info-list-subtitle{
     float: inherit;
-      div{
+    div{
       display: inline-block;
       margin-right: 20px;
     }
@@ -264,15 +265,16 @@
     float:right;
     margin: 0 10px;
     .btn-default{
-      padding: 2px;
-      font-size: 12px;
+      padding: 6px;
+      font-size: 14px;
     }
   }
   .course-buy-btn{
     float:right;
     .btn{
-      padding: 2px;
-      font-size: 12px;
+      padding: 6px;
+      font-size: 14px;
+      color: lightcoral;
     }
   }
   .course-play-btn{
@@ -304,13 +306,6 @@
       width: 100%;
       padding: 5px;
       height: 140px;
-    }
-  }
-  .info-submit-btn{
-    width: 100%;
-    padding:20px;
-    button{
-      margin: 10px;
     }
   }
   .info-publicize{
@@ -353,7 +348,7 @@
   color: #999;
 }
 .font-red{
-  color: red;
+  color: lightcoral;
 }
 #show_notice_area{
   word-break:break-all;
@@ -390,4 +385,27 @@
 }
 #lesson-copy{
   display: none;
+}
+#insert_lesson{
+  float: right;
+}
+.insert-lesson{
+  float: right;
+}
+.info-submit-btn{
+  width: 100%;
+  padding:20px;
+  float: right;
+  button{
+    margin: 10px;
+  }
+}
+#select_publicize_btn{
+  margin: auto;
+  display: block;
+}
+.announcement-div{
+  float: left;
+  width: 100%;
+  padding: 10px;
 }

@@ -2,6 +2,7 @@ cn:
   view:
     save_btn: 保存
     cancel_btn: 取消
+    insert_btn: 新增%s
     course_show:
       start_time: 开课时间：
       end_time: 结课时间：
@@ -92,6 +93,7 @@ cn:
       lesson_name_holder: '请输入课程名称,格式: 第X课 课程标题'
       date_holder: '请选择日期'
       data_holder: 请完善数据
+      lesson_count_out_tips: 课程数量大于预设课程数量，预设数量为%d节课程
   status:
     init: 初始化
     preview: 招生中
@@ -180,7 +182,7 @@ cn:
       filter:
         today: 今日辅导
         all: 全部
-        preview: 待开课
+        preview: 招生中
         teaching: 开课中
         completed: 已结束
         tasted: 试听

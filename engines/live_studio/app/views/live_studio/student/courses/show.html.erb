@@ -40,12 +40,10 @@
         <%= "#{t('view.course_info_show.schedule')}#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>
       </div>
     <% end %>
-    <%= content_tag(:div,class: 'course-play-btn') do%>
-      <%= link_to(play_course_path(@course),class: "btn btn-default #{@course.lessons.blank? || @course.completed? ? 'disabled' : nil}") do %>
-        <span class="glyphicon glyphicon-play"></span>
-      <% end %>
+    <%= content_tag(:div,class: 'course-taste-btn') do%>
+      <%= link_to t('view.course_show.study_link'),play_course_path(@course),class: "btn btn-default #{@course.lessons.blank? || @course.completed? ? 'disabled' : nil}" %>
     <% end if @ticket.authorizable? %>
-    <%= content_tag(:div, link_to('Buy', new_course_order_path(@course), id: "buy-course-#{@course.id}",class: 'btn btn-default'),
+    <%= content_tag(:div, link_to(t('activerecord.view.buy'), new_course_order_path(@course), id: "buy-course-#{@course.id}",class: 'btn btn-default'),
                     class: 'course-buy-btn') if @ticket.taste? && current_user == @student%>
   </div>
   <div class="tab-content">

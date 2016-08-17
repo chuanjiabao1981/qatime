@@ -1,8 +1,4 @@
 <div class="qa_box panel panel-default panel-support">
-  <div class='course-header-div'>
-    <%= link_to LiveStudio::Course.model_name.human, teacher_courses_path(@teacher) %> &gt;
-    <strong><%= @course.name %></strong>
-  </div>
   <div class="course-info-list">
     <a href='#content_info' data-toggle="tab">
       <div id="info_div" class="list-ceil <%= params[:index].blank? || params[:index] == 'info' ? ' active' : nil %>">
@@ -31,7 +27,7 @@
         <%= "#{t('view.course_info_show.ticket_count')}#{@course.buy_tickets_count}" %>
       </div>
     <% end %>
-    <%= content_tag :div, class: "info-list-subtitle #{params[:index] == 'list' ? nil : 'hide'}" do %>
+    <%= content_tag :div, class: "info-list-subtitle font-grey #{params[:index] == 'list' ? nil : 'hide'}" do %>
       <div>
         <%= t('view.course_info_show.lesson_plan') % [@course.live_start_time ,@course.live_end_time] %>
       </div>

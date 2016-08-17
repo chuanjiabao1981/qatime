@@ -5,6 +5,6 @@ class EmailWorker
   sidekiq_options :queue => :email, :retry => false, :backtrace => true
 
   def perform(notification_type,options={})
-    UserMailer.send(notification_type, options)
+    UserMailer.send(notification_type, options).deliver
   end
 end

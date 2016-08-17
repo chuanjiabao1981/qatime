@@ -26,6 +26,7 @@ cn:
     course_info_show:
       subject: 科目类型：
       grade: 年级类型：
+      category: 年级类型：
       teacher: 授课老师：
       lesson_count: 课时总数：
       schedule: 课程进度：

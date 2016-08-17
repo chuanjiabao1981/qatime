@@ -193,15 +193,41 @@ class TeachersController < ApplicationController
 
   # 根据跟新内容判断是否需要密码更新
   def excute_update(update_by)
-    update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
-    return @teacher.update_with_password(update_params) if %w(password).include?(update_by)
-    @teacher.update(update_params)
+    case update_by
+    when "login_mobile"
+      return update_login_mobile
+    when "email"
+      return update_email
+    when "parent_phone"
+      return update_parent_phone
+    end
+    # update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
+    # return @teacher.update_with_password(update_params) if %w(password).include?(update_by)
+    # @teacher.update(update_params)
+  end
+
+  def update_login_mobile
+    # TODO 存储验证码的key区分开来，不同功能的验证码不使用
+    captcha_manager = UserService::CaptchaManager.new(login_mobile_params[:login_mobile])
+    @teacher.captcha = captcha_manager.captcha_of(:send_captcha)
+    @teacher.update_with_captcha(login_mobile_params)
+  ensure
+    captcha_manager.expire_captch(:send_captcha) if @teacher.errors.blank?
+  end
+
+  def update_email
+    @teacher.update_with_captcha(email_params)
+    # TODO 存储验证码的key区分开来，不同功能的验证码不使用
+    captcha_manager = UserService::CaptchaManager.new(email_params[:email])
+    @teacher.captcha = captcha_manager.captcha_of(:send_captcha)
+    @teacher.update_with_captcha(email_params)
+  ensure
+    captcha_manager.expire_captch(:send_captcha) if @teacher.errors.blank?
   end
 
   # 第一步验证成功以后会设置第一步对应的session
   # 用户修改个人信息根据需要检查是否存在第一步生成的session
   def require_step_one_session
-
     update_by = params[:by]
     return true if %w(email login_mobile).exclude?(update_by) || !UserService::CaptchaManager.expire?(@step_one_session)
     # 没有第一步的session跳转到编辑页面
@@ -239,7 +265,7 @@ class TeachersController < ApplicationController
       # 只有邮箱、手机、家长手机修改需要检查验证码
       return true if %w(email login_mobile parent_phone).exclude?(update_by)
       captcha_manager = UserService::CaptchaManager.new(update_params(update_by)[update_by.to_sym])
-      @teacher.captcha = captcha_manager.captcha_of(session[captcha_key])
+      @teacher.captcha = captcha_manager.captcha_of(:send_captcha)
     end
   end
 

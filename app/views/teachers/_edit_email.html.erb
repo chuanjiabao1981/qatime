@@ -28,7 +28,7 @@
             <div class="col-md-2">
               <div class="form-group string optional teacher_captcha"><input maxlength="4" id="email-captcha-input" class="string optional form-control" size="4" type="text" name="captcha"></div>
             </div>
-            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#teacher_login_mobile_for_change_email" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="edit_email" value="<%= t ".get_captcha" %>">
+            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#teacher_login_mobile_for_change_email" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="edit_email" data-key="send_captcha" value="<%= t ".get_captcha" %>">
           </div>
         </div>
       </div>
@@ -58,7 +58,7 @@
             <div class="col-md-2">
               <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 } %>
             </div>
-            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#teacher_email" data-send-url="<%= ajax_captchas_url %>" data-send-type='email' data-edit-type="edit_email" value="<%= t ".get_captcha" %>">
+            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#teacher_email" data-send-url="<%= ajax_captchas_url %>" data-send-type='email' data-edit-type="edit_email"  data-key="send_captcha" value="<%= t ".get_captcha" %>">
           </div>
         </div>
       </div>

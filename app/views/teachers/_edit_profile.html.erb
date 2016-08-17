@@ -76,22 +76,6 @@
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:address)%></div>
-        <div class="col-md-9">
-          <div class="row">
-            <div class="col-md-6">
-              <%= f.association :province, label: false, :collection => Province.all.collect { |s| [s.name, s.id]} %>
-            </div>
-            <% cities_collection = @teacher.province ? @teacher.province.cities.all.collect { |s| [s.name, s.id]} : [] %>
-            <div class="col-md-6">
-              <%= f.association :city, label: false, collection: cities_collection %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="qa_cell">
-      <div class="row">
         <div class="col-md-2 text-right"><%=Teacher.human_attribute_name(:school)%></div>
         <div class="col-md-9">
           <%= f.input :school_id, label: false, :collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]}, include_blank: false %>

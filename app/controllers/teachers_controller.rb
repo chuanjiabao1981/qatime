@@ -1,7 +1,6 @@
 class TeachersController < ApplicationController
   before_action :step_one_session, only: [:edit, :update]
   before_action :require_step_one_session, only: :update
-  before_action :set_captcha_code, only: :update
 
   respond_to :html,:js,:json
 
@@ -210,22 +209,29 @@ class TeachersController < ApplicationController
   end
 
   def update_login_mobile
+    send_to_was = @teacher.login_mobile
     # TODO 存储验证码的key区分开来，不同功能的验证码不使用
     captcha_manager = UserService::CaptchaManager.new(login_mobile_params[:login_mobile])
     @teacher.captcha = captcha_manager.captcha_of(:send_captcha)
     @teacher.update_with_captcha(login_mobile_params)
   ensure
-    captcha_manager.expire_captch(:send_captcha) if @teacher.errors.blank?
+    if @teacher.errors.blank?
+      captcha_manager.expire_captch(:send_captcha)
+      session.delete("change-login_mobile-#{send_to_was}")
+    end
   end
 
   def update_email
     @teacher.update_with_captcha(email_params)
     # TODO 存储验证码的key区分开来，不同功能的验证码不使用
     captcha_manager = UserService::CaptchaManager.new(email_params[:email])
-    @teacher.captcha = captcha_manager.captcha_of(:send_captcha)
+    @teacher.captcha = captcha_manager.captcha_of(:change_email_captcha)
     @teacher.update_with_captcha(email_params)
   ensure
-    captcha_manager.expire_captch(:send_captcha) if @teacher.errors.blank?
+    if @teacher.errors.blank?
+      captcha_manager.expire_captch(:change_email_captcha)
+      session.delete("change-email-#{@teacher.login_mobile}")
+    end
   end
 
   # 第一步验证成功以后会设置第一步对应的session
@@ -256,14 +262,6 @@ class TeachersController < ApplicationController
       session.delete("change-#{update_by}-#{send_to}")
     end
     @step_one_session
-  end
-
-  def set_captcha_code
-    update_by = params[:by]
-    # 只有邮箱、手机、家长手机修改需要检查验证码
-    return true if %w(email login_mobile parent_phone).exclude?(update_by)
-    captcha_manager = UserService::CaptchaManager.new(update_params(update_by)[update_by.to_sym])
-    @teacher.captcha = captcha_manager.captcha_of(session[captcha_key])
   end
 
   def update_by

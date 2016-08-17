@@ -5,55 +5,50 @@ module APIErrors
     klass.send(:include_errors)
   end
 
-  VeriftyFail       = Class.new StandardError
-  AuthenticateFail  = Class.new StandardError
-  NoVisitPermission = Class.new StandardError
-  NoGetAuthenticate = Class.new StandardError
-  AccountNotlogin   = Class.new StandardError
-  VersionOldError   = Class.new StandardError
-  StatusChangeError = Class.new StandardError
+  NotLogin              = Class.new StandardError
+  AuthenticateExpired   = Class.new StandardError
+  NoVisitPermission     = Class.new StandardError
+  AuthenticateFail      = Class.new StandardError
+  VersionOldError       = Class.new StandardError
+  ClientInvalid         = Class.new StandardError
 
   module ClassMethods
     def include_errors
       rescue_from :all do |e|
         Rails.logger.error "#{e.message}\n\n#{e.backtrace.join("\n")}"
-        out_error(code: 2001, msg: e.message)
+        out_error(code: 9999, msg: e.message)
       end
 
-      rescue_from VeriftyFail do |e|
-        out_error(code: 1001, msg: e.message || "失败")
+      rescue_from NotLogin do |e|
+        out_error(code: 1001, msg: e.message || "未登录")
+      end
+
+      rescue_from AuthenticateExpired do
+        out_error(code: 1002, msg: "授权过期")
       end
 
       rescue_from NoVisitPermission do
-        out_error(code: 1002, msg: "无访问权限")
+        out_error(code: 1003, msg: "无访问权限")
       end
 
       rescue_from AuthenticateFail do
-        out_error(code: 1003, msg: "没有访问权限，请重新登录")
-      end
-
-      rescue_from ActiveRecord::RecordInvalid do |e|
-        out_error(code: 1005, msg: e.message)
-      end
-
-      rescue_from Grape::Exceptions::ValidationErrors do |e|
-        out_error(code: 1006, msg: e.message || "输入内容格式有误")
-      end
-
-      rescue_from NoGetAuthenticate do
-        out_error(code: 1007, msg: "没有访问权限，请重新登录")
-      end
-
-      rescue_from AccountNotlogin do
-        out_error(code: 1008, msg: "请登录券商账号")
+        out_error(code: 1004, msg: "授权失败")
       end
 
       rescue_from VersionOldError do
-        out_error(code: 1009, msg: "您的应用版本过旧，请更新最新版本")
+        out_error(code: 2001, msg: "您的应用版本过旧，请更新最新版本")
       end
 
-      rescue_from StatusChangeError do
-        out_error(code: 1010, msg: "状态无法切换")
+      rescue_from ClientInvalid do
+        out_error(code: 2002, msg: "不支持的客户端")
+      end
+
+      rescue_from Grape::Exceptions::ValidationErrors do |e|
+        out_error(code: 3001, msg: e.message || "输入内容格式有误")
+      end
+
+      rescue_from ActiveRecord::RecordInvalid do |e|
+        out_error(code: 3002, msg: e.message)
       end
     end
   end

@@ -14,10 +14,12 @@
       <td>
         <div>
           <%= text_field_tag "new_class_date_", '', type: :date,class: 'form-control lesson-class-date',
-                             placeholder: t('view.teacher_course.date_holder') %>
-          <%= select_tag "new_start_time_", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,''),class: 'form-control lesson-time' %>
+                             placeholder: t('view.teacher_course.date_holder'), max: '2055-01-01' %>
+          <%= select_tag "new_start_time_", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,''),
+                         class: 'form-control lesson-time' %>
           ~
-          <%= select_tag "new_end_time_", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,''),class: 'form-control lesson-time' %>
+          <%= select_tag "new_end_time_", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,''),
+                         class: 'form-control lesson-time' %>
         </div>
       </td>
       <td>
@@ -31,10 +33,12 @@
         <td>
           <div>
             <%= text_field_tag "class_date_#{lesson.id}", lesson.class_date, type: :date,class: 'form-control lesson-class-date',
-                               placeholder: t('view.teacher_course.date_holder') %>
-            <%= select_tag "start_time_#{lesson.id}", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,lesson.start_time),class: 'form-control lesson-time' %>
+                               placeholder: t('view.teacher_course.date_holder'), max: '2055-01-01' %>
+            <%= select_tag "start_time_#{lesson.id}", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,lesson.start_time),
+                           class: 'form-control lesson-time' %>
             ~
-            <%= select_tag "end_time_#{lesson.id}", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,lesson.end_time),class: 'form-control lesson-time' %>
+            <%= select_tag "end_time_#{lesson.id}", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,lesson.end_time),
+                           class: 'form-control lesson-time' %>
           </div>
         </td>
         <td>

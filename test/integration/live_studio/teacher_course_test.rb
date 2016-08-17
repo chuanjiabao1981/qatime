@@ -17,7 +17,7 @@ module LiveStudio
     end
 
     def teardown
-      logout_as(@teacher)
+      new_logout_as(@teacher)
       Capybara.use_default_driver
     end
 
@@ -37,6 +37,11 @@ module LiveStudio
       other_teacher = users(:english_teacher)
       visit live_studio.teacher_courses_path(other_teacher)
       assert_match('您没有权限进行这个操作', page.text, '错误: 教师访问其他老师的辅导班')
+    end
+
+    test 'teacher visit page' do
+      click_on '我的课程'
+      assert page.has_content?('我的课程')
     end
   end
 end

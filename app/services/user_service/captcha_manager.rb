@@ -1,18 +1,18 @@
 module UserService
   class CaptchaManager
-    def self.instance_and_notice(send_type, send_to, type)
-      code = ::Util.random_code
-      Rails.logger.debug("The Code Is: #{code}") unless Rails.env.production?
+    # def self.instance_and_notice(send_type, send_to, type)
+    #   code = ::Util.random_code
+    #   Rails.logger.debug("The Code Is: #{code}") unless Rails.env.production?
 
-      if type == "register"
-        SmsWorker.perform_async(SmsWorker::REGISTER_CAPTCHA, mobile: send_to, captcha: code) if 'mobile' == send_type
-      else
-        SmsWorker.perform_async(SmsWorker::SEND_CAPTCHA, mobile: send_to, captcha: code, type: type) if 'mobile' == send_type
-      end
+    #   if type == "register"
+    #     SmsWorker.perform_async(SmsWorker::REGISTER_CAPTCHA, mobile: send_to, captcha: code) if 'mobile' == send_type
+    #   else
+    #     SmsWorker.perform_async(SmsWorker::SEND_CAPTCHA, mobile: send_to, captcha: code, type: type) if 'mobile' == send_type
+    #   end
 
-      EmailWorker.perform_async(EmailWorker::CHANGE_EMAIL_CAPTCHA, email: send_to, captcha: code) if 'email' == send_type
-      code
-    end
+    #   EmailWorker.perform_async(EmailWorker::CHANGE_EMAIL_CAPTCHA, email: send_to, captcha: code) if 'email' == send_type
+    #   code
+    # end
 
     def self.verify(obj, code)
       obj[:captcha] == code && obj[:expire_at] > Time.now.to_i
@@ -55,12 +55,12 @@ module UserService
 
     # 短信通知
     def sms_notice(code, key)
-      SmsWorker.perform_async(email_notice_tpl(key), mobile: @send_to, captcha: code)
+      SmsWorker.perform_async(sms_notice_tpl(key), mobile: @send_to, captcha: code)
     end
 
     # 邮件通知
     def email_notice(code, key)
-      EmailWorker.perform_async(sms_notice_tpl(key), email: @send_to, captcha: code)
+      EmailWorker.perform_async(email_notice_tpl(key), email: @send_to, captcha: code)
     end
 
     # 邮件通知模板

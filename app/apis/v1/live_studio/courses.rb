@@ -115,9 +115,11 @@ module V1
             optional :subject, type: String, desc: '科目', values: APP_CONSTANT['subjects']
             optional :grade, type: String, desc: '年级', values: APP_CONSTANT['grades_in_menu']
             optional :price_floor, type: Integer, desc: '价格开始区间'
-            optional :price_ceil, type: String, desc: '价格结束区间'
+            optional :price_ceil, type: Integer, desc: '价格结束区间'
             optional :class_date_floor, type: String, desc: '开课日期结束区间'
             optional :class_date_ceil, type: String, desc: '开课日期结束区间'
+            optional :preset_lesson_count_floor, type: Integer, desc: '课时总数开始区间'
+            optional :preset_lesson_count_ceil, type: Integer, desc: '课时总数结束区间'
             optional :status, type: String, desc: '辅导班状态 all: 全部; preview: 招生中; teaching: 已开课', values: %w(all preview teaching)
           end
           get do

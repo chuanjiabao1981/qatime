@@ -95,11 +95,17 @@ module LiveService
       user.live_studio_tickets.visiable.includes(course: [:teacher, :lessons]).where(live_studio_lessons: { class_date: Date.today })
     end
 
+
     def self.query_by_params(courses, params)
       %w(subject grade status).each do |i|
         if params[i].present? && params[i] != 'all'
           courses = courses.where(i => i == 'status' ? LiveStudio::Course.statuses[params[i]] : params[i])
         end
+      end
+      [["price_floor","price_ceil"], ["class_date_floor","class_date_ceil"], ["preset_lesson_count_floor", "preset_lesson_count_ceil"]].each do |i|
+        column = i.first.gsub('_floor', '')
+        courses = courses.where("#{column} >= ?",params[i.first]) if params[i.first].present?
+        courses = courses.where("#{column} <= ?",params[i.last]) if params[i.last].present?
       end
       if params[:sort_by].present?
         # 排序方式,多个排序字段用-隔开,默认倒序,需要正序加上.asc后缀 例如: created_at-price.asc-buy_tickets_count.asc
@@ -108,7 +114,7 @@ module LiveService
             column = i.split('.')[0]
             "#{column} #{i.split('.')[1] || 'desc'}" if LiveStudio::Course.column_names.include?(column)
           }.join(',')
-        courses.order(order_str)
+        courses = courses.order(order_str)
       end
       courses
     end

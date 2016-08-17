@@ -79,7 +79,10 @@ module LiveStudio
     end
 
     def search_params
-      flag_params = params.permit(:subject, :grade, :class_date_sort, :status)
+      flag_params = params.permit(
+        :subject, :grade, :class_date_sort, :status, :price_floor,
+        :price_ceil,:class_date_floor,:class_date_ceil,:preset_lesson_count_floor,:preset_lesson_count_ceil
+      )
       flag_sort = []
       %w(class_date_sort price_sort buy_tickets_count_sort).each do |sort|
         flag_params[sort].present? && flag_sort << "#{sort.gsub('_sort','')}.#{flag_params[sort]}"

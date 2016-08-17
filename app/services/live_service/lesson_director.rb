@@ -59,5 +59,44 @@ module LiveService
     def self.pause_lessons
       LiveStudio::Lesson.teaching.where("heartbeat_time < ?", 10.minutes.ago).map(&:pause!)
     end
+
+    # 编辑课程
+    def self.edit_lessons(course, params)
+      all_ids = course.lessons.map{|l| l.id.to_s}
+      delete_ids = params[:delete_lesson_list].split(',')
+      LiveStudio::Lesson.transaction do
+        if all_ids
+          delete_ids.each do |id|
+            LiveStudio::Lesson.find(id).destroy
+          end
+          (all_ids - delete_ids).each do |id|
+            LiveStudio::Lesson.find(id).update(edit_lesson_params(id,params))
+          end
+        end
+        create_lessons(course,params)
+      end
+    end
+
+    private
+    def self.create_lessons(course,params)
+      params[:insert_lesson_list].split(',').map do |no|
+        course.lessons.create(
+          name: params["new_name_#{no}"],
+          start_time: params["new_start_time_#{no}"],
+          end_time: params["new_end_time_#{no}"],
+          class_date: params["new_class_date_#{no}"]
+        )
+      end
+    end
+
+    def self.edit_lesson_params(id,params)
+      {
+        name: params["name_#{id}"],
+        start_time: params["start_time_#{id}"],
+        end_time: params["end_time_#{id}"],
+        class_date: params["class_date_#{id}"]
+      }
+    end
+
   end
 end

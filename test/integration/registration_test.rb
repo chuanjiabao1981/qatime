@@ -47,7 +47,7 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     click_on "教师注册"
     teacher_register_code = register_codes(:teacher_register_code)
 
-    fill_in :teacher_login_mobile, with: '13811110000'
+    fill_in :teacher_login_mobile, with: '13811112222'
     click_on "获取验证码", match: :first
     fill_in :teacher_captcha_confirmation, with: '1234'
     fill_in :teacher_password, with: 'pa123456'

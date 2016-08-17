@@ -1,5 +1,4 @@
 <% if_show_mobile_div = (params[:cate].to_s.to_sym == :security_setting && params[:by].to_s.to_sym == :login_mobile) %>
-
 <div id="edit_login_mobile_area" style="padding-top: 30px;<%= 'display:none;' unless if_show_mobile_div %>">
   <!-- 使用mobile_was,来防止未更新的情况 -->
   <% if UserService::CaptchaManager.expire?(session["change-login_mobile-#{@teacher.login_mobile_was}"]) %>

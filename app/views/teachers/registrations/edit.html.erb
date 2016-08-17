@@ -18,9 +18,9 @@
           <%= f.hidden_field "crop_#{attribute}"%>
         <% end %>
         <%= f.input :avatar , input_html:{onchange:"showimagepreview(this)"}%>
-        <img id="user_avatar_preview" style="width: 240px;height: 240px">
-
-        </img>
+        <div style="width: 242px;height: 242px; border: 1px dashed;">
+          <img id="user_avatar_preview" style="width: 100%;">
+        </div>
 
         <%= f.input :password, :autocomplete => "off", :hint => "如果不想修改密码，则别填写此项!", :required => false %>
         <%= f.input :password_confirmation, :required => false %>

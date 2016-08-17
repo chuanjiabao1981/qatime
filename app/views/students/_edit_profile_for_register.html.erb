@@ -25,7 +25,9 @@
                 <%= f.hidden_field "crop_#{attribute}"%>
               <% end %>
               <%= f.input :avatar, label: false, input_html:{onchange:"showimagepreview(this)"},:hint => "用户头像不可为空。" %>
-              <img id="user_avatar_preview" style="width: 240px;height: 240px">
+              <div style="width: 242px;height: 242px; border: 1px dashed;">
+                <img id="user_avatar_preview" style="width: 100%;">
+              </div>
             </div>
           </div>
 

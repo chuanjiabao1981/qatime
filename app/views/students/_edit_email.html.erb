@@ -2,7 +2,8 @@
 
 <div id="edit_email_area" style="padding-top: 30px;<%= 'display:none;' unless if_show_email_div %>">
   <!-- mobile_was,防止家长手机未更新的情况 -->
-  <% if UserService::CaptchaManager.expire?(session["change-email-#{@student.mobile_was}"]) %>
+  <% mobile_was = @student.login_mobile.present? ? @student.login_mobile_was : @student.mobile_was  %>
+  <% if UserService::CaptchaManager.expire?(session["change-email-#{mobile_was}"]) %>
     <%= form_tag(verify_ajax_captchas_path, method: :post, remote: true, id: "mobile_captcha_for_change_email_form") do |f| %>
       <input type="hidden" name="send_to" value="<%= @student.login_mobile_or_mobile %>" id="student_login_mobile">
       <input type="hidden" name="edit_type" value="email">

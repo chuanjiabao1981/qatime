@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   validates_presence_of :grade, if: :student_register_update_need?, on: :update
   validates_presence_of :subject, :category, if: :teacher_register_update_need?, on: :update
   validates :email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, if: :register_teacher_or_student?
-  validates :email, allow_blank: true, uniqueness: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, on: :update
+  validates :email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, on: :update
   validates :email_confirmation, presence: true, if: :register_teacher_or_student_change_email?, on: [:update]
   validates :parent_phone, allow_blank: true, length: { is: 11 }, numericality: { only_integer: true }, if: :register_teacher_or_student?
   validates :parent_phone_confirmation, presence: true, if: :register_teacher_or_student_change_parent_phone?, on: :update

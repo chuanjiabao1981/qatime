@@ -44,7 +44,7 @@ module Permissions
         resource.id == user.id
       end
 
-      allow 'passwords', [:edit, :update]
+      allow 'passwords', [:new, :create, :edit, :update]
     end
   end
 end

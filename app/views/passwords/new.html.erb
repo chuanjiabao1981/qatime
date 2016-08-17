@@ -1,0 +1,60 @@
+<div class="col-md-10 col-md-offset-1">
+  <div class="qa_box row">
+    <div class="qa_big_cell ">
+      <h2 class="text-center"><%= t ".title" %></h2>
+      <%= simple_form_for(@user, as: :user, url: passwords_path, html: { method: :post }) do |f| %>
+      <div class="form-inputs">
+        <div class="row">
+          <div class="col-md-3 text-right"><%= Student.human_attribute_name(:login_mobile)%></div>
+          <% if signed_in? %>
+            <div class="col-md-6">
+              <%= current_user.login_mobile %>
+            </div>
+          <% else %>
+            <div class="col-md-6">
+              <%= f.input :login_mobile, label: false, input_html: { maxlength: 11 } %>
+            </div>
+          <% end %>
+        </div>
+        <div class="row">
+          <div class="col-md-3 text-right"><%= t ".captcha" %></div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-7">
+                <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 } %>
+              </div>
+              <% if signed_in? && (@current_resource.student? || @current_resource.teacher?) %>
+                <% if @current_resource.teacher? %>
+                  <% send_input = "#teacher_login_mobile" %>
+                <% else %>
+                  <% send_input = "#student_login_mobile" %>
+                <% end %>
+              <% else %>
+                <% send_input = "#user_login_mobile" %>
+              <% end %>
+              <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="<%= send_input %>" data-send-url="<%= ajax_captchas_url %>" data-send-type='mobile' data-edit-type="find_password" data-key="get_password_back" value="<%= t "students.common.get_captcha" %>">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 text-right"><%= Student.human_attribute_name(:password) %></div>
+          <div class="col-md-6">
+            <%= f.input :password, label: false, :autocomplete => "off" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3 text-right"><%= Student.human_attribute_name(:password_confirmation)%></div>
+          <div class="col-md-6">
+            <%= f.input :password_confirmation, label: false %>
+          </div>
+        </div>
+
+        <div class="row text-center">
+          <%= f.submit t('.submit'), class: "btn btn-default" %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

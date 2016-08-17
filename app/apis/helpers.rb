@@ -7,9 +7,21 @@ module APIHelpers
 
   # 认证用户
   def authenticate!
-    # 如果token不存在，则返回没有得到token
-    raise APIErrors::NoGetAuthenticate unless request.headers["Remember-Token"].present?
-    raise APIErrors::AuthenticateFail unless current_user
+    # 如果token不存在，提示未登录
+    raise APIErrors::NotLogin unless request.headers["Remember-Token"].present?
+    # 找不到current_user，提示授权过期
+    raise APIErrors::AuthenticateExpired unless current_user
+    raise APIErrors::NoVisitPermission unless allow?
+  end
+
+  # 检查客户端
+  # TODO 未实现
+  def check_client!
+  end
+
+  # 权限认证
+  def allow?
+    true
   end
 
   def ip

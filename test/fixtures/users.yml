@@ -190,6 +190,7 @@ no_chat_account_student:
   type: Student
 
 update_email_student:
+  login_mobile: 13800000001
   name: student
   role: student
   email: student_update_email@baidu.com
@@ -209,6 +210,18 @@ find_password_student2:
   role: student
   email: student_find_password@baidu.com
   mobile: 15910676326
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
+  school: school2
+chang_login_mobile_student1:
+  login_mobile: 13512344321
+  name: chang_login_mobile_student
+  role: student
+  email: chang_login_mobile_student1@baidu.com
+  mobile: 15910676326
+  parent_phone: 15910676326
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   avatar: "test"
   grade: 高一

@@ -7,7 +7,7 @@ class PasswordsController < ApplicationController
     @user = User.find_by_login_mobile!(password_params[:login_mobile])
     captcha_manager = UserService::CaptchaManager.new(password_params[:login_mobile])
     @user.captcha = captcha_manager.captcha_of(:get_password_back)
-    if @user.update_with_captha(password_params)
+    if @user.update_with_captcha(password_params)
       captcha_manager.expire_captch(:get_password_back)
       redirect_to signin_path
     else

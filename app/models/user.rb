@@ -150,7 +150,7 @@ class User < ActiveRecord::Base
     (name_was.present? && (email_changed? || mobile_changed? || parent_phone_changed?)) || new_record?
   end
 
-  # 是否需要验证码，通过调用update_with_captha来满足该条件
+  # 是否需要验证码，通过调用update_with_captcha来满足该条件
   def captcha_required?
     @captcha_required == true
   end
@@ -177,11 +177,8 @@ class User < ActiveRecord::Base
   end
 
   # 使用验证码更新数据
-  def update_with_captha(params, *options)
+  def update_with_captcha(params, *options)
     @captcha_required = true
-    valid?
-    p valid?
-    p errors
     update_attributes(params, *options)
   end
 

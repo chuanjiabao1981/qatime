@@ -94,6 +94,7 @@ cn:
       date_holder: '请选择日期'
       data_holder: 请完善数据
       upload_img_tips: '建议：<br/>图片像素800*500最佳；<br/>支持格式jpeg、png；大小500k以内；<br/>禁止使用涉及暴力、血腥、色情、政治等图片。'
+      without_tips: 可能会导致当前修改无法保存，是否离开？
   status:
     init: 初始化
     preview: 招生中

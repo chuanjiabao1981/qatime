@@ -50,15 +50,20 @@
 <script>
   $(function() {
     $('.list-ceil').click(function(event){
-      $('.list-ceil').removeClass('active');
-      $(this).addClass('active');
-      if($(this).attr('id') == 'info_div'){
-        $('.info-list-subtitle').addClass('hide');
-        $('.info-subtitle').removeClass('hide');
-      }
-      if($(this).attr('id') == 'list_div'){
-        $('.info-list-subtitle').removeClass('hide');
-        $('.info-subtitle').addClass('hide');
+      if(!confirm('<%= t('view.teacher_course.without_tips') %>')){
+        event.preventDefault();
+        return false;
+      }else{
+        $('.list-ceil').removeClass('active');
+        $(this).addClass('active');
+        if($(this).attr('id') == 'info_div'){
+          $('.info-list-subtitle').addClass('hide');
+          $('.info-subtitle').removeClass('hide');
+        }
+        if($(this).attr('id') == 'list_div'){
+          $('.info-list-subtitle').removeClass('hide');
+          $('.info-subtitle').addClass('hide');
+        }
       }
     });
   });

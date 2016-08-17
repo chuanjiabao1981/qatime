@@ -21,67 +21,66 @@
       <% end %>
     </ul>
   </div>
-  <!--
-  <!--<div class="dropdown">-->
-    <!--<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">-->
-      <!--<%#= t('view.course_search_show.price') %><%#= search_value_show('price') %><span class="caret"></span> -->
-    <!--</button>-->
-    <!--<ul class="dropdown-menu _menu">-->
-      <!--<li>-->
-        <!--<a href="javascript:void(0);" class="search-link-submit" rel="price_sort" data="asc">-->
-          <!--<%#= t('view.course_search_show.price_asc') %>-->
-        <!--</a>-->
-      <!--</li>-->
-      <!--<li>-->
-        <!--<a href="javascript:void(0);" class="search-link-submit" rel="price_sort" data="desc">-->
-          <!--<%#= t('view.course_search_show.price_desc') %>-->
-        <!--</a>-->
-      <!--</li>-->
-      <!--<li class="divider"></li>-->
-      <!--<li class="dropdown-submenu pull-right">-->
-        <!--<a tabindex="-1" href="#"><%= self_settings %></a>-->
-        <!--<ul class="dropdown-menu">-->
-          <!--<li>-->
-            <!--<div class="search-form-div">-->
-              <!--<%#= text_field_tag :price_min, params[:price_min], class: 'search-input' %>~-->
-              <!--<%#= text_field_tag :price_max, params[:price_max], class: 'search-input' %>-->
-              <!--<%#= search_submit %>-->
-            <!--</div>-->
-          <!--</li>-->
-        <!--</ul>-->
-      <!--</li>-->
-    <!--</ul>-->
-  <!--</div>-->
-  <!--<div class="dropdown">-->
-    <!--<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">-->
-      <!--<%#= t('view.course_search_show.lesson_count') %><%#= search_value_show('lesson_count') %><span class="caret"></span>-->
-    <!--</button>-->
-    <!--<ul class="dropdown-menu _menu">-->
-      <!--<li>-->
-        <!--<a href="javascript:void(0);" class="search-link-submit" rel="lesson_count_sort" data="asc">-->
-          <!--<%#= t('view.course_search_show.lesson_count_asc') %>-->
-        <!--</a>-->
-      <!--</li>-->
-      <!--<li>-->
-        <!--<a href="javascript:void(0);" class="search-link-submit" rel="lesson_count_sort" data="desc">-->
-          <!--<%#= t('view.course_search_show.lesson_count_desc') %>-->
-        <!--</a>-->
-      <!--</li>-->
-      <!--<li class="divider"></li>-->
-      <!--<li class="dropdown-submenu pull-right">-->
-        <!--<a tabindex="-1" href="#"><%#= self_settings %></a>-->
-        <!--<ul class="dropdown-menu">-->
-          <!--<li>-->
-            <!--<div class="search-form-div">-->
-              <!--<%#= text_field_tag :lesson_count_min, params[:lesson_count_min], class: 'search-input' %>~-->
-              <!--<%#= text_field_tag :lesson_count_max, params[:lesson_count_max], class: 'search-input' %>-->
-              <!--<%#= search_submit %>-->
-            <!--</div>-->
-          <!--</li>-->
-        <!--</ul>-->
-      <!--</li>-->
-    <!--</ul>-->
-  <!--</div>-->
+  <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+      <%= t('view.course_search_show.price') %><%#= search_value_show('price') %><span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu _menu">
+      <li>
+        <a href="javascript:void(0);" class="search-link-submit" rel="price_sort" data="asc">
+          <%= t('view.course_search_show.price_asc') %>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0);" class="search-link-submit" rel="price_sort" data="desc">
+          <%= t('view.course_search_show.price_desc') %>
+        </a>
+      </li>
+      <li class="divider"></li>
+      <li class="dropdown-submenu pull-right">
+        <a tabindex="-1" href="#"><%= self_settings %></a>
+        <ul class="dropdown-menu">
+          <li>
+            <div class="search-form-div">
+              <%= text_field_tag :price_floor, params[:price_floor], class: 'search-input' %>~
+              <%= text_field_tag :price_ceil, params[:price_ceil], class: 'search-input' %>
+              <%= search_submit %>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+      <%= t('view.course_search_show.lesson_count') %><%#= search_value_show('lesson_count') %><span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu _menu">
+      <li>
+        <a href="javascript:void(0);" class="search-link-submit" rel="lesson_count_sort" data="asc">
+          <%= t('view.course_search_show.lesson_count_asc') %>
+        </a>
+      </li>
+      <li>
+        <a href="javascript:void(0);" class="search-link-submit" rel="lesson_count_sort" data="desc">
+          <%= t('view.course_search_show.lesson_count_desc') %>
+        </a>
+      </li>
+      <li class="divider"></li>
+      <li class="dropdown-submenu pull-right">
+        <a tabindex="-1" href="#"><%= self_settings %></a>
+        <ul class="dropdown-menu">
+          <li>
+            <div class="search-form-div">
+              <%= text_field_tag :preset_lesson_count_floor, params[:preset_lesson_count_floor], class: 'search-input' %>~
+              <%= text_field_tag :preset_lesson_count_ceil, params[:preset_lesson_count_ceil], class: 'search-input' %>
+              <%= search_submit %>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
   <div class="dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
       <%= t('view.course_search_show.class_date') %><%= search_value_show('class_date') %><span class="caret"></span>
@@ -89,19 +88,19 @@
     <ul class="dropdown-menu _menu">
       <li><a href="javascript:void(0);" class="search-link-submit" rel="class_date_sort" data="asc"><%= t('view.course_search_show.class_date_asc') %></a></li>
       <li><a href="javascript:void(0);" class="search-link-submit" rel="class_date_sort" data="desc"><%= t('view.course_search_show.class_date_desc') %></a></li>
-      <!--<li class="divider"></li>-->
-      <!--<li class="dropdown-submenu pull-right">-->
-        <!--<a tabindex="-1"  href="#"><%#= self_settings %></a>-->
-        <!--<ul class="dropdown-menu">-->
-          <!--<li>-->
-            <!--<div class="search-form-div">-->
-              <!--<%#= text_field_tag :class_date_start, params[:class_date_start], class: 'search-input date' %>-->
-              <!--<%#= text_field_tag :class_date_end, params[:class_date_end], class: 'search-input date' %>-->
-              <!--<%#= search_submit %>-->
-            <!--</div>-->
-          <!--</li>-->
-        <!--</ul>-->
-      <!--</li>-->
+      <li class="divider"></li>
+      <li class="dropdown-submenu pull-right">
+        <a tabindex="-1"  href="#"><%= self_settings %></a>
+        <ul class="dropdown-menu">
+          <li>
+            <div class="search-form-div">
+              <%= text_field_tag :class_date_floor, params[:class_date_floor],type: :date, class: 'search-input date' %>
+              <%= text_field_tag :class_date_ceil, params[:class_date_ceil],type: :date, class: 'search-input date' %>
+              <%= search_submit %>
+            </div>
+          </li>
+        </ul>
+      </li>
     </ul>
   </div>
   <div class="dropdown">
@@ -116,8 +115,8 @@
   </div>
   <%= hidden_field_tag :subject, params[:subject] %>
   <%= hidden_field_tag :grade, params[:grade] %>
-  <!--<%= hidden_field_tag :price_sort, params[:price_sort] %>-->
-  <!--<%= hidden_field_tag :lesson_count_sort, params[:lesson_count_sort] %>-->
+  <%= hidden_field_tag :price_sort, params[:price_sort] %>
+  <%= hidden_field_tag :lesson_count_sort, params[:lesson_count_sort] %>
   <%= hidden_field_tag :class_date_sort, params[:class_date_sort] %>
   <%= hidden_field_tag :status, params[:status] %>
   <%= hidden_field_tag :student_id, params[:student_id] %>

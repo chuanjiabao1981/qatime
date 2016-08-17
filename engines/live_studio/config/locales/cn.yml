@@ -93,7 +93,6 @@ cn:
       lesson_name_holder: '请输入课程名称,格式: 第X课 课程标题'
       date_holder: '请选择日期'
       data_holder: 请完善数据
-      lesson_count_out_tips: 课程数量大于预设课程数量，预设数量为%d节课程
       upload_img_tips: '建议：<br/>图片像素800*500最佳；<br/>支持格式jpeg、png；大小500k以内；<br/>禁止使用涉及暴力、血腥、色情、政治等图片。'
   status:
     init: 初始化

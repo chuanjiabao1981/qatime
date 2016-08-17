@@ -31,6 +31,7 @@ class User < ActiveRecord::Base
 
   validates :login_mobile, length: { is: 11 }, uniqueness: true, if: :teacher_or_student?, on: :create
   validates :login_mobile, numericality: { only_integer: true }, if: :teacher_or_student?, on: :create
+  validates :login_mobile, uniqueness: true, if: :login_mobile_changed?, on: :update
 
   # validates :mobile,length:{is: 11},if: :teacher_or_student?
   # validates :mobile,numericality: { only_integer: true },if: :teacher_or_student?

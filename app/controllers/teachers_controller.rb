@@ -216,7 +216,7 @@ class TeachersController < ApplicationController
   ensure
     if @teacher.errors.blank?
       captcha_manager.expire_captch(:send_captcha)
-      session.delete("change-login_mobile-#{send_to_was}")
+      session.delete("change-login_mobile-#{send_to_was}") if send_to_was
     end
   end
 
@@ -236,7 +236,7 @@ class TeachersController < ApplicationController
   # 用户修改个人信息根据需要检查是否存在第一步生成的session
   def require_step_one_session
     update_by = params[:by]
-    return true if %w(email login_mobile).exclude?(update_by) || !UserService::CaptchaManager.expire?(@step_one_session)
+    return true if %w(email login_mobile).exclude?(update_by) || @teacher.login_mobile.blank? || !UserService::CaptchaManager.expire?(@step_one_session)
     # 没有第一步的session跳转到编辑页面
     redirect_to edit_teacher_path(@teacher, by: params[:by], cate: params[:cate]), alert: t("flash.alert.please_verify_step_one_#{update_by}")
   end

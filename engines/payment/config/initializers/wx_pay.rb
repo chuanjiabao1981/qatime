@@ -8,4 +8,4 @@ WxPay.mch_id = WECHAT_CONFIG['mch_id']
 # WxPay.set_apiclient_by_pkcs12(File.read(pkcs12_filepath), pass)
 
 # optional - configurations for RestClient timeout, etc.
-WxPay.extra_rest_client_options = {timeout: 2, open_timeout: 3}
+WxPay.extra_rest_client_options = {timeout: 20, open_timeout: 5}

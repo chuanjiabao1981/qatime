@@ -17,9 +17,9 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_equal login_token.digest_token, User.digest(res['data']['remember_token']), '状态码不对'
   end
 
-  test "POST /api/v1/sessions as login_mobile returns user's remember_token" do
+  test "POST /api/v1/sessions as login_account returns user's remember_token" do
     student = users(:update_email_student)
-    post '/api/v1/sessions', login_mobile: '13800000001',
+    post '/api/v1/sessions', login_account: '13800000001',
                              password: 'password',
                              client_type: 'pc'
     assert_response :success

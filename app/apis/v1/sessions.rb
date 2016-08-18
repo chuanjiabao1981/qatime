@@ -6,13 +6,13 @@ module V1
       end
       params do
         optional :email, type: String, desc: '邮箱.'
-        optional :login_mobile, type: String, desc: '登录手机号.'
+        optional :login_account, type: String, desc: '登录帐号.'
         requires :password, type: String, desc: '密码.'
         requires :client_type, type: String, desc: '登陆方式.'
-        exactly_one_of :email, :login_mobile
+        exactly_one_of :email, :login_account
       end
       post do
-        login_account = params[:login_mobile] || params[:email]
+        login_account = params[:login_account] || params[:email]
         user = login_account.include?("@") ? User.find_by(email: login_account) : User.find_by(login_mobile: login_account)
         client_type = params['client_type']
 

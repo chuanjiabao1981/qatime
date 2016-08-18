@@ -4,7 +4,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     Rails.application
   end
 
-  test "GET /api/v1/sessions returns user's remember_token" do
+  test "POST /api/v1/sessions as email returns user's remember_token" do
     teacher = users(:teacher1)
     post '/api/v1/sessions', email: '1@baidu.com',
                              password: 'password',
@@ -13,6 +13,19 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], '状态码不对'
     login_token = teacher.reload.login_tokens.find {|t| t.client_type == 'pc' }
+    assert_not_nil login_token
+    assert_equal login_token.digest_token, User.digest(res['data']['remember_token']), '状态码不对'
+  end
+
+  test "POST /api/v1/sessions as login_mobile returns user's remember_token" do
+    student = users(:update_email_student)
+    post '/api/v1/sessions', login_mobile: '13800000001',
+                             password: 'password',
+                             client_type: 'pc'
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status'], '状态码不对'
+    login_token = student.reload.login_tokens.find {|t| t.client_type == 'pc' }
     assert_not_nil login_token
     assert_equal login_token.digest_token, User.digest(res['data']['remember_token']), '状态码不对'
   end

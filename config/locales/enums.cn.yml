@@ -6,10 +6,10 @@ cn:
         female: 女
     teacher:
       teaching_years:
-        within_three_years: 三年以内
-        within_ten_years: 三到十年
-        within_twenty_years: 十年到二十年
-        more_than_twenty_years: 二十年以上
+        within_three_years: 3年以内
+        within_ten_years: 3-10年
+        within_twenty_years: 10-20年
+        more_than_twenty_years: 20年以上
     software:
       platform:
         windows: Windows

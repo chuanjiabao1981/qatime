@@ -73,9 +73,18 @@ cn:
       status: 当前状态
     payment_show:
       weixin_pay: 微信支付
+      alipay_pay: 支付宝支付
       pay: 支付
       weixin_tips_text1: 请使用微信扫一扫
       weixin_tips_text2: 扫描二维码支付
+      actual_price: 应付金额：
+      order_confirm: 订单确认
+      product_info: 商品信息
+      order_pay: 订单支付
+      order_no: '订单编号:  %s'
+      order_created_at: '创建时间:  %s'
+      order_pay_type: '支付方式:  %s'
+      order_tips: '提示: 请您在提交订单后24小时内完成支付，否则订单会自动取消。'
     teacher_course:
       price: 价格：%.2f￥
       teacher_percentage: 分成比例：%d%

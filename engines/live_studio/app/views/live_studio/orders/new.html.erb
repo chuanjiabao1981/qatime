@@ -1,34 +1,117 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title"><%= "#{t('activerecord.view.buy')}#{LiveStudio::Course.model_name.human}" %></h3>
+      <%= link_to LiveStudio::Course.model_name.human, live_studio.courses_path(student_id: @student.try(:id)) %> &gt;
+      <strong><%= @course.name %></strong>
   </div>
   <div class="panel-body">
-    <%= simple_form_for [:course, @order] do |f|%>
-      <div class="order_info">
-        <div>
-          <%= f.label :course_name %>
-          <span><%= @course.name %></span>
-        </div>
-        <div>
-          <%= f.label :course_teacher %>
-          <span><%= @course.teacher_name %></span>
-        </div>
-        <div>
-          <%= f.label :total_money %>
-          <span><%= @course.price %></span>
-        </div>
-        <div>
-          <%= f.label :course_description %>
-          <span><%= @course.name %></span>
-        </div>
-        <div>
-          <%= f.label :pay_type %>
-          <%= f.input_field :pay_type, as: :radio_buttons, collection: Payment::Order.pay_types %>
-        </div>
-
-        <br />
-        <%= f.button :submit, class: "btn btn-default" %>
+    <div class="text-center">
+      <h4>
+      <%= t('view.payment_show.order_confirm') %>
+      </h4>
+    </div>
+    <div class="order-info">
+      <table class="table table-white table-condensed border-bottom-grey">
+        <thead>
+        <tr>
+          <td colspan="3" class="order-info-td">
+            <%= t('view.payment_show.product_info') %>
+          </td>
+          <td>
+            <%= t('view.course_search_show.price') %>
+          </td>
+          <td>
+            <%= t('helpers.label.payment/order.pay_type') %>
+          </td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td class="order-img-td" rowspan="5">
+            <%= image_tag @course.publicize_url(:small), class: 'order-img' %>
+          </td>
+          <td class='order-name-td' colspan="2"><%= @course.name %></td>
+          <td class='order-price-td' rowspan="5">
+            <%= format('￥%0.2f', @course.price) %>
+          </td>
+          <td rowspan="5" class="order-pay-type">
+            <% ::Payment::Order::PAY_TYPE.each do |k ,v| %>
+              <%= link_to t("view.payment_show.#{k}_pay"),'javascript:void(0);',rel: v,class: 'btn btn-default btn-pay' %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td><%= t('view.course_info_show.subject') %><%= @course.subject %></td>
+          <td><%= t('view.course_info_show.grade') %><%= @course.grade %></td>
+        </tr>
+        <tr>
+          <td><%= t('view.course_info_show.teacher') %><%= @course.teacher.try(:name) %></td>
+          <td><%= t('view.course_info_show.lesson_count') %><%= @course.preset_lesson_count %></td>
+        </tr>
+        <tr>
+          <td><%= t('view.course_info_show.start_time') %><%= @course.live_start_time %></td>
+          <td><%= t('view.course_info_show.end_time') %><%= @course.live_end_time %></td>
+        </tr>
+        <tr>
+          <td><%= "#{t('view.course_search_show.current_status')}#{ @course.status_text} #{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %></td>
+          <td><%= t('view.course_show.teach_type') %></td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="float-right">
+        <%= simple_form_for [:course, @order] do |f|%>
+          <div>
+            <%= content_tag :span, t('view.payment_show.actual_price'),class: 'font-big' %>
+            <%= content_tag :span, format('%0.2f', @course.price), class: 'font-red font-max' %>
+          </div>
+          <%= f.input :pay_type, as: :hidden %>
+          <%= f.button :submit, class: "btn btn-default float-right" %>
+        <% end %>
       </div>
-    <% end %>
+    </div>
+    <!---->
+    <!---->
+    <!--<%= simple_form_for [:course, @order] do |f|%>-->
+      <!--<div class="order_info">-->
+        <!--<div>-->
+          <!--<%= f.label :course_name %>-->
+          <!--<span><%= @course.name %></span>-->
+        <!--</div>-->
+        <!--<div>-->
+          <!--<%= f.label :course_teacher %>-->
+          <!--<span><%= @course.teacher_name %></span>-->
+        <!--</div>-->
+        <!--<div>-->
+          <!--<%= f.label :total_money %>-->
+          <!--<span><%= @course.price %></span>-->
+        <!--</div>-->
+        <!--<div>-->
+          <!--<%= f.label :course_description %>-->
+          <!--<span><%= @course.name %></span>-->
+        <!--</div>-->
+        <!--<div>-->
+          <!--<%= f.label :pay_type %>-->
+          <!--<%= f.input_field :pay_type, as: :radio_buttons, collection: Payment::Order.pay_types %>-->
+        <!--</div>-->
+
+        <!--<br />-->
+        <!--<%= f.button :submit, class: "btn btn-default" %>-->
+      <!--</div>-->
+    <!--<% end %>-->
   </div>
 </div>
+
+<script type="text/javascript" charset="utf-8">
+  $('.btn-pay').click(function(){
+    $('.btn-pay').removeClass('active');
+    $(this).addClass('active');
+    var pay_type = $(this).attr('rel');
+    $('#order_pay_type').val(pay_type);
+  });
+  $('#new_order').submit(function(){
+    if($('#order_pay_type').val() == ''){
+      alert('请选择支付方式');
+      return false;
+    }
+    $(this).submit();
+  });
+</script>

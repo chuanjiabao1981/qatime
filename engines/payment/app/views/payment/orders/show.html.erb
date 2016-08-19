@@ -3,11 +3,47 @@
     <%= hidden_field_tag :order_no, params[:id] %>
 
     <div class="payment-header">
-      <%= t('view.payment_show.weixin_pay') %>
-      <div>
-        <%= t('view.payment_show.pay') %>￥<%= @order.total_money %>
-      </div>
+      <%= link_to LiveStudio::Course.model_name.human, live_studio.courses_path(student_id: @student.try(:id)) %> &gt;
+      <strong><%= @course.name %></strong>
     </div>
+    <div class="text-center">
+      <h4>
+        <%= t('view.payment_show.order_pay') %>
+      </h4>
+    </div>
+    <table class="table table-white table-condensed payment-table">
+      <thead>
+      <tr>
+        <td>
+          <%= t('view.course_search_show.price') %>
+        </td>
+        <td colspan="2">
+          <%= t('view.payment_show.product_info') %>
+        </td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="price" rowspan="3"><%= format '￥%0.2f',@order.total_money %></td>
+        <td colspan="2">
+          <%= t('view.payment_show.order_no') % @order.order_no %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= t('view.payment_show.order_created_at') % @order.created_at.strftime('%Y-%m-%d %H:%M:%S') %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= t('view.payment_show.order_pay_type') % t("view.payment_show.#{::Payment::Order::PAY_TYPE.key(@order.pay_type)}_pay") %>
+        </td>
+        <td class="tips">
+          <%= t('view.payment_show.order_tips') %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
     <div class="payment-body">
       <div class="qrcode-div">
         <div>
@@ -28,13 +64,13 @@
     </div>
 
     <!--<div class="qa_big_cell">-->
-    <!--<div>订单号：<%= @order.order_no %></div>-->
-    <!--<div>产品名称：<%= @order.product.name %></div>-->
-    <!--<div>支付金额：<%= @order.total_money %> 元</div>-->
+      <!--<div>订单号：<%= @order.order_no %></div>-->
+      <!--<div>产品名称：<%= @order.product.name %></div>-->
+      <!--<div>支付金额：<%= @order.total_money %> 元</div>-->
     <!--</div>-->
     <!--<div class="qa_big_cell text-center">-->
-    <!--<%= image_tag(@order.qrcode_url, id: 'wechat_qrcode') %>-->
-    <!--<div>微信二维码 扫一扫支付</div>-->
+      <!--<%= image_tag(@order.qrcode_url, id: 'wechat_qrcode') %>-->
+      <!--<div>微信二维码 扫一扫支付</div>-->
     <!--</div>-->
   </div>
 </div>
@@ -42,21 +78,21 @@
 
 
 <script>
-  function showUnreadNews()
-  {
-    $(document).ready(function() {
-      $.ajax({
-        type: "GET",
-        url: "result?order_no="+$('#order_no').val(),
-        success: function(msg) {
-          if( 'paid,shipped,completed'.indexOf(msg)!=-1 ){
-            location.href="<%= live_studio.student_courses_path(@order.user) %>";
-          }else{
-            console.log('未支付成功');
+    function showUnreadNews()
+    {
+      $(document).ready(function() {
+        $.ajax({
+          type: "GET",
+          url: "result?order_no="+$('#order_no').val(),
+          success: function(msg) {
+            if( 'paid,shipped,completed'.indexOf(msg)!=-1 ){
+              location.href="<%= live_studio.student_courses_path(@order.user) %>";
+            }else{
+              console.log('未支付成功');
+            }
           }
-        }
+        });
       });
-    });
-  }
-  setInterval('showUnreadNews()',2000);
+    }
+    setInterval('showUnreadNews()',2000);
 </script>

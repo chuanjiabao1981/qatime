@@ -81,6 +81,7 @@ cn:
       order_confirm: 订单确认
       product_info: 商品信息
       order_pay: 订单支付
+      order_product_name: 商品名称：
       order_no: '订单编号:  %s'
       order_created_at: '创建时间:  %s'
       order_pay_type: '支付方式:  %s'

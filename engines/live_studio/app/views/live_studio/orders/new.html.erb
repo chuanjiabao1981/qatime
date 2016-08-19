@@ -10,7 +10,7 @@
       </h4>
     </div>
     <div class="order-info">
-      <table class="table table-white table-condensed border-bottom-grey">
+      <table class="table table-white table-condensed border-grey">
         <thead>
         <tr>
           <td colspan="3" class="order-info-td">
@@ -29,7 +29,7 @@
           <td class="order-img-td" rowspan="5">
             <%= image_tag @course.publicize_url(:small), class: 'order-img' %>
           </td>
-          <td class='order-name-td' colspan="2"><%= @course.name %></td>
+          <td class='order-name-td' colspan="2"><%= t('view.payment_show.order_product_name') %><%= @course.name %></td>
           <td class='order-price-td' rowspan="5">
             <%= format('￥%0.2f', @course.price) %>
           </td>
@@ -52,7 +52,7 @@
           <td><%= t('view.course_info_show.end_time') %><%= @course.live_end_time %></td>
         </tr>
         <tr>
-          <td><%= "#{t('view.course_search_show.current_status')}#{ @course.status_text} #{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %></td>
+          <td><%= "#{t('view.course_search_show.current_status')}#{@course.status_text}" %></td>
           <td><%= t('view.course_show.teach_type') %></td>
         </tr>
         </tbody>
@@ -61,10 +61,10 @@
         <%= simple_form_for [:course, @order] do |f|%>
           <div>
             <%= content_tag :span, t('view.payment_show.actual_price'),class: 'font-big' %>
-            <%= content_tag :span, format('%0.2f', @course.price), class: 'font-red font-max' %>
+            <%= content_tag :span, format('￥%0.2f', @course.price), class: 'font-red font-max weight' %>
           </div>
           <%= f.input :pay_type, as: :hidden %>
-          <%= f.button :submit, class: "btn btn-default float-right" %>
+          <%= f.button :submit,t('activerecord.view.pay_now'), class: "btn btn-default float-right" %>
         <% end %>
       </div>
     </div>

@@ -415,6 +415,7 @@
     thead{
       background-color: #CCCCCC;
       border: #cccccc 1px solid;
+      td{ text-align: center;}
     }
     td{ border: 0;}
     td.order-price-td{
@@ -449,17 +450,21 @@
   float: left;
 }
 .font-big{
-  font-weight: bold;
   font-size: 18px;
 }
 .font-max{
-  font-weight: bold;
   font-size: 24px;
+}
+.weight{
+  font-weight: bold;
 }
 .btn-pay{
   width: 80%;
   margin: auto;
 }
-.border-bottom-grey{
-  border-bottom: 1px solid grey;
+.btn-pay.active{
+  border: 0;
+}
+.border-grey{
+  border: 1px solid #cccccc;
 }

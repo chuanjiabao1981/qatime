@@ -57,9 +57,6 @@
     <%= "#{t('view.course_info_show.teacher_name')}#{teacher.try(:name)}" %>
   </div>
   <div>
-    <%= "#{t('view.course_info_show.highest_education')}#{teacher.highest_education}" %>
-  </div>
-  <div>
     <%= "#{t('view.course_info_show.teaching_years')}#{teacher.teaching_years_text}" %>
   </div>
   <div>
@@ -67,9 +64,6 @@
   </div>
   <div>
     <%= "#{t('view.course_info_show.subject')}#{teacher.subject}" %>
-  </div>
-  <div>
-    <%= "#{t('view.course_info_show.grade_range')}#{teacher.grade_range.join('，')}" %>
   </div>
   <div>
     <%= "#{t('view.course_info_show.school')}#{teacher.school.name}" %>

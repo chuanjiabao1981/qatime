@@ -5,12 +5,15 @@ module V1
       desc 'User Signup.' do
       end
       params do
-        requires :email, type: String, desc: '邮箱.'
+        optional :email, type: String, desc: '邮箱.'
+        optional :login_account, type: String, desc: '登录帐号.'
         requires :password, type: String, desc: '密码.'
         requires :client_type, type: String, desc: '登陆方式.'
+        exactly_one_of :email, :login_account
       end
       post do
-        user = User.where(email: params[:email]).first
+        login_account = params[:login_account] || params[:email]
+        user = login_account.include?("@") ? User.find_by(email: login_account) : User.find_by(login_mobile: login_account)
         client_type = params['client_type']
 
         if user && user.authenticate(params[:password])

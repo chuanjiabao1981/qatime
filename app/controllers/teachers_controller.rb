@@ -64,6 +64,18 @@ class TeachersController < ApplicationController
     end
   end
 
+  def admin_edit
+  end
+
+  def admin_update
+    update_params = params.require(:teacher).permit(:password, :login_mobile, :email, :parent_phone)
+
+    @teacher.password_required! if update_params[:password]
+
+    @teacher.update(update_params)
+    @update_attr = update_params.keys.first
+  end
+
   def lessons_state
     if params[:state] == nil
       params[:state] = 'editing'
@@ -203,6 +215,8 @@ class TeachersController < ApplicationController
     else
       update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
       return @teacher.update_with_password(update_params) if %w(password).include?(update_by)
+
+      @teacher.update_register_required!
       @teacher.update(update_params)
     end
   end

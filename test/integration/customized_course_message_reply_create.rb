@@ -38,7 +38,7 @@ class CustomizedCourseMessageReplyCreate  < ActionDispatch::IntegrationTest
     assert page.has_content? content
     page.save_screenshot('screenshots/screenshot.png')
 
-    logout_as(student)
+    new_logout_as(student)
 
   end
 end

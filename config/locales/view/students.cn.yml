@@ -68,4 +68,13 @@ cn:
       parent_phone_confirmation_ph: 再输入一次进行确认
       email_ph: 绑定后可通过邮箱进行登录
       email_confirmation_ph: 再输入一次进行确认
+    student:
+      edit_student: 修改安全信息
+    admin_edit_form:
+      edit_student: 修改安全信息
+      password_label: 修改登录密码
+      login_mobile_label: 修改绑定手机
+      email_label: 修改绑定邮箱
+      parent_phone_label: 修改家长手机
+      submit: 确定
 

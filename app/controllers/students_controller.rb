@@ -48,6 +48,18 @@ class StudentsController < ApplicationController
     end
   end
 
+  def admin_edit
+  end
+
+  def admin_update
+    update_params = params.require(:student).permit(:password, :login_mobile, :email, :parent_phone)
+
+    @student.password_required! if update_params[:password]
+
+    @student.update(update_params)
+    @update_attr = update_params.keys.first
+  end
+
   def info
     # if params[:fee].nil?
     #   @deposits = @student.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
@@ -186,6 +198,8 @@ class StudentsController < ApplicationController
     else
       update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
       return @student.update_with_password(update_params) if %w(password).include?(update_by)
+
+      @student.update_register_required!
       @student.update(update_params)
     end
   end

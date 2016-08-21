@@ -2,7 +2,7 @@
   <div class="col-md-1">
     <%= teacher_counter + 1 %>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
     <%= link_to "#{teacher.name}[昵称:#{teacher.nick_name}]" , teacher_path(teacher) %>
   </div>
   <div class="col-md-2">
@@ -13,7 +13,7 @@
   </div>
 
   <% if allow? :teachers,:destroy %>
-    <div class="col-md-2">
+    <div class="col-md-1">
         <%= link_to '删除',teacher_path(teacher),method: 'delete','data-confirm' => '你确定删除此老师么?'%>
     </div>
   <% end %>
@@ -22,5 +22,14 @@
       <%= render partial: 'teacher_status',locals: {teacher: teacher}%>
     </div>
   <% end %>
+  <% if allow? :teachers, :edit %>
+    <div class="col-md-2">
+      <%= link_to admin_edit_teacher_path(teacher), method: :get, :remote => true, id: "teacher_#{teacher.id}" do %>
+        <%= t(".edit_teacher") %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 
+<div class="row" id="teacher_edit_<%= teacher.id %>" style="display: none;padding:10px 36px 10px 36px;border-bottom: 1px solid #e2e2e2">
 </div>

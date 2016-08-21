@@ -14,7 +14,7 @@ class ManagersSellerAndWaiterTest < ActionDispatch::IntegrationTest
 
   def teardown
     #@headless.destroy
-    logout_as(@manager)
+    new_logout_as(@manager)
     Capybara.use_default_driver
   end
 

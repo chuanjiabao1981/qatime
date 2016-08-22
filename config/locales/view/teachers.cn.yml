@@ -66,7 +66,6 @@ cn:
       password_label: 修改登录密码
       login_mobile_label: 修改绑定手机
       email_label: 修改绑定邮箱
-      parent_phone_label: 修改家长手机
       submit: 确定
 
 

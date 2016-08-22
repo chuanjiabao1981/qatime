@@ -66,8 +66,10 @@ module UserService
     # 邮件通知模板
     def email_notice_tpl(key)
       case key.to_sym
-      when :change_email_captcha
-        EmailWorker::CHANGE_EMAIL_CAPTCHA
+        when :change_email_captcha
+          EmailWorker::CHANGE_EMAIL_CAPTCHA
+        when :get_password_back
+          EmailWorker::GET_PASSWORD_BACK
       end
     end
 

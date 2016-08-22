@@ -21,7 +21,7 @@
       <div class="col-md-2">
         <% if @current_lesson %>
           <% if @current_lesson.paused? %>
-            <span class="<%= 'current_lesson_paused' if @current_lesson.paused? %>" id="show_current_lesson_status">
+            <span class="current_lesson_paused" id="show_current_lesson_status">
               <%= t 'view.play.current_lesson_paused' %>
             </span>
           <% else %>
@@ -221,7 +221,7 @@
       <% if @current_lesson %>
         setInterval(function(){
           $.getScript( "refresh_current_lesson", function( data, textStatus, jqxhr ) {});
-        }, 10 * 60 * 1000);
+        }, 1 * 60 * 1000);
       <% end %>
 
       $(function() {

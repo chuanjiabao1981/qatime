@@ -1,0 +1,10 @@
+var edit_div = $('#teacher_edit_<%= @teacher.id %>')
+if(edit_div.hasClass("show_edit_div"))
+{
+  edit_div.removeClass("show_edit_div")
+  edit_div.html("")
+  edit_div.hide()
+}else
+{
+  edit_div.addClass("show_edit_div").show().append('<%= j render 'admin_edit_form' %>');
+}

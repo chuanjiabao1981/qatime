@@ -7,19 +7,19 @@
       <div class="form-inputs">
         <div class="row">
           <div class="row">
-            <div class="col-md-2 text-right"><%= Student.human_attribute_name(:name)%><abbr title="required">*</abbr></div>
+            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:name)%><abbr title="required">*</abbr></div>
             <div class="col-md-9">
               <%= f.input :name, label: false, placeholder: t('.name_ph') %>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-2 text-right"><%= Student.human_attribute_name(:gender)%></div>
+            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:gender)%></div>
             <div class="col-md-9">
               <%= f.input :gender, as: :radio_buttons, label: false %>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-2 text-right"><%= Student.human_attribute_name(:avatar)%><abbr title="required">*</abbr></div>
+            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:avatar)%><abbr title="required">*</abbr></div>
             <div class="col-md-9">
               <% %w[x y w h].each do |attribute| %>
                 <%= f.hidden_field "crop_#{attribute}"%>
@@ -32,26 +32,26 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2 text-right"><%= Student.human_attribute_name(:birthday) %></div>
+            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:birthday) %></div>
             <div class="col-md-9">
               <%= f.input :birthday, label: false, as: :string, input_html: {type: :date, max: Time.now.strftime('%Y-%m-%d')} %>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-2 text-right"><%= Student.human_attribute_name(:grade) %></div>
+            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:grade) %></div>
             <div class="col-md-9">
               <%= f.input :grade, label: false,:collection => APP_CONSTANT["grades_in_menu"], include_blank:false %>
             </div>
           </div>
           <div class="row">
-            <div class="col-md-2 text-right"><%= Student.human_attribute_name(:desc) %></div>
+            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:desc) %></div>
             <div class="col-md-9">
               <%= f.input :desc, label: false, as: :text, placeholder: t(".desc_ph") %>
             </div>
           </div>
 
           <div class="row">
-            <div class="col-md-2 text-right"><%= Student.human_attribute_name(:parent_phone) %></div>
+            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:parent_phone) %></div>
             <div class="col-md-9">
               <%= f.input :parent_phone, label: false, placeholder: t(".parent_phone_ph") %>
             </div>
@@ -64,7 +64,7 @@
           </div>
 
           <div class="row">
-            <div class="col-md-2 text-right"><%= Student.human_attribute_name(:email) %></div>
+            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:email) %></div>
             <div class="col-md-9">
               <%= f.input :email, label: false, placeholder: t('.email_ph') %>
             </div>

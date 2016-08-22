@@ -56,5 +56,11 @@ module LiveStudio
       assert_equal(teacher2.id, course.teacher_id, '辅导班老师修改错误')
       assert_equal(80.0, course.price.to_f, '辅导班定价修改错误')
     end
+
+    test 'manager select_btn search' do
+      course = LiveStudio::Course.init.last
+      visit live_studio.edit_manager_course_path(@manager, course)
+      assert_equal find('button[data-id="course_teacher_id"]').click, nil, '没找到bootstrap-select'
+    end
   end
 end

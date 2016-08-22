@@ -55,6 +55,8 @@ class StudentsController < ApplicationController
     update_params = params.require(:student).permit(:password, :login_mobile, :email, :parent_phone)
 
     @student.password_required! if update_params[:password]
+    @student.update_register_required! if update_params[:login_mobile]
+
     @student.update(update_params)
     @update_attr = update_params.keys.first
   end

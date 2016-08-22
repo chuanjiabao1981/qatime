@@ -14,7 +14,7 @@
 
   <% if allow? :teachers,:destroy %>
     <div class="col-md-1">
-        <%= link_to '删除',teacher_path(teacher),method: 'delete','data-confirm' => '你确定删除此老师么?'%>
+      <%=link_to t('.delete'), teacher_path(teacher), method: :delete, 'data-confirm'=> t('.delete_confirm')%>
     </div>
   <% end %>
   <% if allow? :teachers,:pass %>

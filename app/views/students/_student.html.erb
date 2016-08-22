@@ -6,7 +6,7 @@
     <div class="col-md-3"><%= student.created_at.to_date%></div>
     <% if allow? :students,:destroy %>
     <div class="col-md-2">
-      <%=link_to '删除',student_path(student),method: :delete, 'data-confirm'=>'你确定删除此学生么?'%>
+      <%=link_to t('.delete'), student_path(student), method: :delete, 'data-confirm'=> t('.delete_confirm')%>
     </div>
     <% end %>
     <% if allow? :students, :admin_edit %>

@@ -52,6 +52,9 @@
               <%= text_field_tag :price_ceil, params[:price_ceil], class: 'search-input' %>
               <%= search_submit %>
             </div>
+            <div class="text-center">
+              <%= link_to '清除范围', 'javascript:void(0);', class: 'clear-range', rel: 'price' %>
+            </div>
           </li>
         </ul>
       </li>
@@ -81,6 +84,9 @@
               <%= text_field_tag :preset_lesson_count_floor, params[:preset_lesson_count_floor], class: 'search-input' %>~
               <%= text_field_tag :preset_lesson_count_ceil, params[:preset_lesson_count_ceil], class: 'search-input' %>
               <%= search_submit %>
+            </div>
+            <div class="text-center">
+              <%= link_to '清除范围', 'javascript:void(0);', class: 'clear-range', rel: 'preset_lesson_count' %>
             </div>
           </li>
         </ul>
@@ -121,6 +127,13 @@
   </div>
 </form>
 <script>
+  $('.clear-range').click(function(){
+    var tag = $(this).attr('rel');
+    $('#'+tag+'_floor').val('');
+    $('#'+tag+'_ceil').val('');
+    $('#search-form').submit();
+  });
+
   $(".search-link-submit").click(function(){
     var tag = $(this).attr('rel');
     var value = $(this).attr('data');

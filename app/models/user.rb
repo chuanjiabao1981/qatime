@@ -175,12 +175,12 @@ class User < ActiveRecord::Base
 
   # 是否需要验证是否完善个人信息
   def update_register_required?
-    @need_update_register ==  true
+    @update_register_required ==  true
   end
 
   # 手动强制调用验证完善个人信息
   def update_register_required!
-    @need_update_register = true
+    @update_register_required = true
   end
 
   # 使用密码更新数据，更新前验证当前密码

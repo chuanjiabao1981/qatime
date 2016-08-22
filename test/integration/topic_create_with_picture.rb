@@ -38,7 +38,7 @@ class TopicCreateWithPicture  < ActionDispatch::IntegrationTest
     end
     page.save_screenshot('screenshots/screenshot.png')
 
-    logout_as(student)
+    new_logout_as(student)
 
   end
 end

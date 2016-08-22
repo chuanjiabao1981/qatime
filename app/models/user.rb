@@ -11,10 +11,11 @@ class User < ActiveRecord::Base
   attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
   attr_accessor :register_code_value, :tmp_register_code
   attr_accessor :captcha
-  attr_reader :captcha_required
   attr_accessor :current_password
   attr_accessor :login_account
-  attr_accessor :if_update_password
+  attr_reader :captcha_required
+  attr_reader :password_required
+  attr_reader :update_register_required
 
   # validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },uniqueness: true
   # validates_presence_of :avatar,:name,:mobile ,if: :teacher_or_student?
@@ -26,12 +27,11 @@ class User < ActiveRecord::Base
   validates :email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, if: :register_teacher_or_student?
   validates :email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, on: :update
   validates :email_confirmation, presence: true, if: :register_teacher_or_student_change_email?, on: [:update]
-  validates :parent_phone, allow_blank: true, length: { is: 11 }, numericality: { only_integer: true }, if: :register_teacher_or_student?
+  validates :parent_phone, allow_blank: true, length: { is: 11 }, numericality: { only_integer: true }, on: :update
   validates :parent_phone_confirmation, presence: true, if: :register_teacher_or_student_change_parent_phone?, on: :update
 
-  validates :login_mobile, length: { is: 11 }, uniqueness: true, if: :teacher_or_student?, on: :create
-  validates :login_mobile, numericality: { only_integer: true }, if: :teacher_or_student?, on: :create
-  validates :login_mobile, uniqueness: true, if: :login_mobile_changed?, on: :update
+  validates :login_mobile, length: { is: 11 }, uniqueness: true, numericality: { only_integer: true }, if: :teacher_or_student?, on: :create
+  validates :login_mobile, allow_blank: true, length: { is: 11 }, uniqueness: true, numericality: { only_integer: true }, if: :student_or_teacher_register_update_need?, on: :update
 
   # validates :mobile,length:{is: 11},if: :teacher_or_student?
   # validates :mobile,numericality: { only_integer: true },if: :teacher_or_student?
@@ -130,14 +130,18 @@ class User < ActiveRecord::Base
     teacher? or student?
   end
 
+  # 是否完善注册第二步个人信息
+  # 使用姓名是否存在判断需要验证注册第二步个人信息字段
   def register_teacher_or_student?
     (teacher? || student?) && !name_was.present?
   end
 
+  # 验证注册第二步验证邮箱的确认输入
   def register_teacher_or_student_change_email?
     register_teacher_or_student? && email?
   end
 
+  # 验证注册第二步验证家长手机的确认输入
   def register_teacher_or_student_change_parent_phone?
     register_teacher_or_student? && parent_phone?
   end
@@ -162,6 +166,27 @@ class User < ActiveRecord::Base
     self
   end
 
+  # 是否需要密码
+  def password_required?
+    @password_required == true
+  end
+
+  # 手动强制调用验证码验证
+  def password_required!
+    @password_required = true
+    self
+  end
+
+  # 是否需要验证是否完善个人信息
+  def update_register_required?
+    @update_register_required ==  true
+  end
+
+  # 手动强制调用验证完善个人信息
+  def update_register_required!
+    @update_register_required = true
+  end
+
   # 使用密码更新数据，更新前验证当前密码
   def update_with_password(params, *options)
     current_password = params.delete(:current_password)
@@ -181,10 +206,6 @@ class User < ActiveRecord::Base
   def update_with_captcha(params, *options)
     @captcha_required = true
     update_attributes(params, *options)
-  end
-
-  def login_mobile_or_mobile
-    login_mobile || mobile
   end
 
   private
@@ -222,19 +243,29 @@ class User < ActiveRecord::Base
     expired_at > Time.zone.now.to_i
   end
 
+  # 是否验证密码
   def update_password?
-    !password.nil? or if_update_password.present?
+    !password.nil? || password_required?
   end
 
+  # 是否需要验证学生或老师注册第二步的共有字段
+  # 1.当注册后，未完善个人信息，找回密码时，不需要验证(姓名，头像)
+  # 2.当admin或者manager修改安全信息时，不需要验证(姓名，头像)
   def student_or_teacher_register_update_need?
-    teacher_or_student? && !update_password?
+    teacher_or_student? && !update_password? && @update_register_required == true
   end
 
+  # 是否需要验证学生注册第二步的特有字段
+  # 1.当注册后，未完善个人信息，找回密码时，不需要验证(年级)
+  # 2.当admin或者manager修改安全信息时，不需要验证(年级)
   def student_register_update_need?
-    student? && !update_password?
+    student? && !update_password? && @update_register_required == true
   end
 
+  # 是否需要验证教师注册第二步的特有字段
+  # 1.当注册后，未完善个人信息，找回密码时，不需要验证(科目)
+  # 2.当admin或者manager修改安全信息时，不需要验证(科目)
   def teacher_register_update_need?
-    teacher? && !update_password?
+    teacher? && !update_password? && @update_register_required == true
   end
 end

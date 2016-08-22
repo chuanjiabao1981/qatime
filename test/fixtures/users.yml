@@ -36,6 +36,7 @@ teacher_two:
   type: Teacher
 
 teacher1:
+  login_mobile: 15910000001
   name: teacher1
   role: teacher
   category: 高中
@@ -87,11 +88,11 @@ teacher_tally:
   type: Teacher
 
 teacher_update_password:
+  login_mobile: 13439338002
   name: teacher_tally
   role: teacher
   category: 高中
   subject: 数学
-  mobile: 13439338326
   email: tally1@taobao.com
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   avatar: "test"
@@ -110,6 +111,18 @@ find_password_teacher:
   school: school1
   type: Teacher
 
+admin_edit_teacher:
+  login_mobile: 13892920001
+  name: admin_edit_teacher
+  role: teacher
+  category: 高中
+  subject: 数学
+  email: admin_edit_teacher@taobao.com
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  school: school1
+  type: Teacher
+
 # Student account used for test tally
 student_tally:
   name: student_tally
@@ -122,10 +135,10 @@ student_tally:
   type: Student
 
 student1:
+  login_mobile: 15900000001
   name: student1
   role: student
   email: student1@baidu.com
-  mobile: 15910676326
   parent_phone: 15910676326
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   avatar: "test"
@@ -215,6 +228,7 @@ find_password_student2:
   grade: 高一
   type: Student
   school: school2
+
 chang_login_mobile_student1:
   login_mobile: 13512344321
   name: chang_login_mobile_student
@@ -228,12 +242,24 @@ chang_login_mobile_student1:
   type: Student
   school: school2
 
+admin_edit_student:
+  login_mobile: 13892920002
+  name: admin_edit_student
+  role: student
+  email: admin_edit_student@baidu.com
+  parent_phone: 13892920003
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
+  school: school2
+
 physics_teacher1:
   name: physics_teacher1
   role: teacher
   category: 高中
   subject: 物理
-  mobile: 15910676326
+  login_mobile: 15910676001
   email: physics_teacher1@qatime.cn
   avatar: "test"
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
@@ -252,11 +278,11 @@ biology_teacher1:
   school: school1
   type: Teacher
 update_email_teacher:
+  login_mobile: 15910676003
   name: physics_teacher1
   role: teacher
   category: 高中
   subject: 物理
-  mobile: 15910676326
   email: update_email_teacher@qatime.cn
   avatar: "test"
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>

@@ -6,6 +6,35 @@
 <div class="qa_sep_15"></div>
 
 <div class="row" style="width: 1200px;">
+  <div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-md-7" style="passing-left: 5px;">
+        <%= @course.name %>
+      </div>
+
+      <div class="col-md-3">
+        <%= t "activerecord.view.chat.chat_team_members_count" %>
+        <span id="team_online_count"></span>
+      </div>
+
+      <div class="col-md-2">
+        <% if @current_lesson %>
+          <% if @current_lesson.paused? %>
+          <span style="<%= 'color: red;' if @current_lesson.paused? %>">
+            <%= t 'view.play.current_lesson_paused' %>
+          </span>
+          <% else %>
+            <%= @current_lesson.status_text %>
+          <% end %>
+        <% else %>
+          <%= t 'view.play.no_current_lesson' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
 
   <div class="col-md-8" style="padding: 0px;">
     <!-- 根据flash是否安装，来显示 -->
@@ -45,7 +74,7 @@
               </button>
 
               <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#history-modal" id="history-btn" style="float: right;">
-                历史消息
+                <%= t 'view.play.chat_history' %>
               </button>
 
               <!-- Modal -->
@@ -54,13 +83,13 @@
                   <div class="modal-content">
                     <div class="modal-header">
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title" id="myModalLabel">历史消息</h4>
+                      <h4 class="modal-title" id="myModalLabel"><%= t 'view.play.chat_history' %></h4>
                     </div>
                     <div class="modal-body" id="history-area" style="height: 300px; overflow: auto;">
 
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                      <button type="button" class="btn btn-default" data-dismiss="modal"><%= t 'view.play.close' %></button>
                     </div>
                   </div>
                 </div>
@@ -73,7 +102,7 @@
                   <textarea name="message" id="message-area" cols="33" rows="4" oninput="if(value.length>100) value=value.substr(0,100)"></textarea>
                 </div>
                 <div class="col-md-3">
-                  <input type="submit" name="send" id="send-btn" value="发送" style="display: float;">
+                  <input type="submit" name="send" id="send-btn" value="<%= t "view.play.send_msg" %>" style="display: float;">
                 </div>
               </form>
             </div>
@@ -88,45 +117,45 @@
 </div>
 <div class="row panel panel-default">
   <div class="panel-body text-center">
-    <span id="live_detail_btn" data-detail-area="#live_detail_area" style="cursor:pointer;">直播详情<span class="glyphicon glyphicon-chevron-up"></span></span>
+    <span id="live_detail_btn" data-detail-area="#live_detail_area" style="cursor:pointer;" class="active"><%= t "view.play.live_studio_detail" %><span class="glyphicon glyphicon-chevron-down"></span></span>
   </div>
 
-  <div class="panel-body" style="display: none;">
-    <div id="live_detail_area" style="display: none;">
-      <span id='detail_base_btn' data-detail-area="#detail_base_area" style="cursor:pointer;">
-       基本信息<span class="glyphicon glyphicon-chevron-up"></span>
+  <div class="panel-body">
+    <div id="live_detail_area">
+      <span id='detail_base_btn' data-detail-area="#detail_base_area" style="cursor:pointer;" class="active">
+       <%= t "view.play.base_info" %><span class="glyphicon glyphicon-chevron-down"></span>
       </span>|
       <span id='detail_teacher_btn' data-detail-area="#detail_teacher_area" style="cursor:pointer;">
-        老师详情<span class="glyphicon glyphicon-chevron-up"></span>
+        <%= t "view.play.teacher_info" %><span class="glyphicon glyphicon-chevron-up"></span>
       </span>|
       <span id='detail_course_btn' data-detail-area="#detail_course_area" style="cursor:pointer;">
-        课程列表<span class="glyphicon glyphicon-chevron-up"></span>
+        <%= t "view.play.lessons_list" %><span class="glyphicon glyphicon-chevron-up"></span>
       </span>
     </div>
-    <div style="display: none;">
+    <div>
       <div id='detail_base_area' class="course-info-div">
-        <%= content_tag(:div, "辅导班名：#{@course.name}", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.course_name'}#{@course.name}", class: 'info-cell') %>
         <% if @current_lesson %>
-        <%= content_tag(:div, "当前课程：#{@current_lesson.name}", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.current_lesson_name'}#{@current_lesson.name}", class: 'info-cell') %>
         <% else %>
-        <%= content_tag(:div, "当前课程：今日无课程", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.current_lesson_name'}#{t 'view.play.no_current_lesson'}", class: 'info-cell') %>
         <% end %>
-        <%= content_tag(:div, "科目类型：#{@course.subject}", class: 'info-cell') %>
-        <%= content_tag(:div, "年级类型：#{@course.grade}", class: 'info-cell') %>
-        <%= content_tag(:div, "主讲老师：#{@teacher.name}", class: 'info-cell') %>
-        <%= content_tag(:div, "直播时间：#{@current_lesson.class_date} #{@current_lesson.try(:live_time)}", class: 'info-cell') %>
-        <%= content_tag(:div, "辅导简介：#{@course.description}", class:'info-desc') %>
+        <%= content_tag(:div, "#{t 'view.play.course_subject'}#{@course.subject}", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.course_grade'}#{@course.grade}", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.teacher_name'}#{@teacher.name}", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.class_date'}#{@current_lesson.class_date} #{@current_lesson.try(:live_time)}", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.course_description'}#{@course.description}", class:'info-desc') %>
       </div>
-      <div id='detail_teacher_area' class="course-info-div">
+      <div id='detail_teacher_area' class="course-info-div" style="display:none;">
         <%= image_tag @teacher.avatar_url(:big), class: 'info-img' %>
-        <%= content_tag(:div, "老师姓名：#{@teacher.name}", class: 'info-cell') %>
-        <%= content_tag(:div, "执教年龄：#{@teacher.teaching_years_text}", class: 'info-cell') %>
-        <%= content_tag(:div, "授课科目：#{@teacher.subject}", class: 'info-cell') %>
-        <%= content_tag(:div, "授课年级：#{@teacher.category}", class: 'info-cell') %>
-        <%= content_tag(:div, "所在学校：#{@teacher.school.name}", class: 'info-cell') %>
-        <%= content_tag(:div, "自我介绍：#{@teacher.desc}", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.teacher_name'}#{@teacher.name}", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.teaching_years_text'}#{@teacher.teaching_years_text}", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.teacher_subject'}#{@teacher.subject}", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.teacher_category'}#{@teacher.category}", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.teacher_school_name'}#{@teacher.school.name}", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.teacher_desc'}#{@teacher.desc}", class: 'info-cell') %>
       </div>
-      <div id='detail_course_area' class="course-info-div">
+      <div id='detail_course_area' class="course-info-div" style="display:none;">
         <table class="table">
           <% @course.lessons.each_with_index do |lesson, index| %>
           <tr class="row">
@@ -170,7 +199,6 @@
       };
 
       function visit(){
-        console.log('dddd');
         var team_id = "<%= @chat_team.try(:team_id) %>";
         var params = {
           acc_id: "<%= @chat_account.try(:accid) %>",

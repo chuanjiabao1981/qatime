@@ -70,9 +70,13 @@ class TeachersController < ApplicationController
   def admin_update
     update_params = params.require(:teacher).permit(:password, :login_mobile, :email, :parent_phone)
 
+    # 更新密码时，验证密码
     @teacher.password_required! if update_params[:password]
+    # 更新手机时，验证手机
     @teacher.update_register_required! if update_params[:login_mobile]
+
     @teacher.update(update_params)
+    # 获取更新的字段，便于更新提示
     @update_attr = update_params.keys.first
   end
 

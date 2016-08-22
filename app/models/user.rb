@@ -130,14 +130,17 @@ class User < ActiveRecord::Base
     teacher? or student?
   end
 
+  # 是否完善注册第二步个人信息
   def register_teacher_or_student?
     (teacher? || student?) && !name_was.present?
   end
 
+  # 在注册第二步验证邮箱的确认输入
   def register_teacher_or_student_change_email?
     register_teacher_or_student? && email?
   end
 
+  # 在注册第二步验证家长手机的确认输入
   def register_teacher_or_student_change_parent_phone?
     register_teacher_or_student? && parent_phone?
   end
@@ -239,18 +242,22 @@ class User < ActiveRecord::Base
     expired_at > Time.zone.now.to_i
   end
 
+  # 是否验证密码
   def update_password?
     !password.nil? or password_required?
   end
 
+  # 是否需要验证学生或老师注册第二步的共有字段
   def student_or_teacher_register_update_need?
     teacher_or_student? && !update_password? && @update_register_required == true
   end
 
+  # 是否需要验证学生注册第二步的特有字段
   def student_register_update_need?
     student? && !update_password? && @update_register_required == true
   end
 
+  # 是否需要验证教师注册第二步的特有字段
   def teacher_register_update_need?
     teacher? && !update_password? && @update_register_required == true
   end

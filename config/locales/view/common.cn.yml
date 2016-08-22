@@ -1,0 +1,7 @@
+cn:
+  view:
+    common:
+      please_bind_login_mobile: 请先绑定手机号
+      no_bound_mobile: 还未绑定手机
+      no_bound_email: 还未绑定邮箱
+      no_bound_parent_phone: 还未绑定家长手机

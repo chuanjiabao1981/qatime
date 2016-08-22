@@ -12,7 +12,11 @@
           <%= t ".binding_parent_phone" %>:
         </div>
         <div class="col-md-3">
-          <%= @student.parent_phone_was %>
+          <% if @student.parent_phone%>
+            <%= @student.parent_phone_was %>
+          <% else %>
+            <span class="alert_red_span"><%= t("view.common.no_bound_parent_phone") %></span>
+          <% end %>
         </div>
       </div>
       <div class="row" >

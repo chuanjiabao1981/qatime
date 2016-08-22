@@ -3,6 +3,13 @@ var edit_input = edit_div + ' #teacher_' + '<%= @update_attr -%>';
 var parent_div = $(edit_input).parent();
 
 <% if @teacher.errors.present? -%>
+  if(parent_div.hasClass("update-success"))
+  {
+    parent_div.removeClass("update-success")
+    var success_span = $(edit_input).next();
+    success_span.remove()
+  };
+
   if(!parent_div.hasClass("has-error"))
   {
     parent_div.addClass("has-error").append('<span class="help-block has-error">' + '<%= @teacher.errors[@update_attr.to_sym][0] %>' + '</span>');

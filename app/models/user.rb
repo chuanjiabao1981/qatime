@@ -213,7 +213,7 @@ class User < ActiveRecord::Base
   end
 
   def login_account
-    login_mobile || email
+    @login_account || login_mobile || email
   end
 
   private

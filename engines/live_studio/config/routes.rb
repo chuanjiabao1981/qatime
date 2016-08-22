@@ -12,6 +12,7 @@ LiveStudio::Engine.routes.draw do
       get :play # 观看直播
       post :update_notice
       patch :publish
+      get :refresh_current_lesson
     end
 
     resources :lessons, only: [:show] do

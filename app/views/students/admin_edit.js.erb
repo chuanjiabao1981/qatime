@@ -1,1 +1,11 @@
-$('#student_edit_<%= @student.id %>').show().append('<%= j render 'admin_edit_form' %>');
+var edit_div = $('#student_edit_<%= @student.id %>')
+if(edit_div.hasClass("show_edit_div"))
+{
+  edit_div.removeClass("show_edit_div")
+  edit_div.html("")
+  edit_div.hide()
+}else
+{
+  edit_div.addClass("show_edit_div").show().append('<%= j render 'admin_edit_form' %>');
+}
+

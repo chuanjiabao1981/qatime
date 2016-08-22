@@ -28,3 +28,5 @@
 //= require editable/bootstrap-editable
 //= require editable/rails
 //= require jquery.qqFace.js
+//= require bootstrap-select.min
+//= require defaults-zh_CN

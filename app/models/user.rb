@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   validates :email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, if: :register_teacher_or_student?
   validates :email, allow_blank: true, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, on: :update
   validates :email_confirmation, presence: true, if: :register_teacher_or_student_change_email?, on: [:update]
-  validates :parent_phone, allow_blank: true, length: { is: 11 }, numericality: { only_integer: true }, if: :register_teacher_or_student?
+  validates :parent_phone, allow_blank: true, length: { is: 11 }, numericality: { only_integer: true }, on: :update
   validates :parent_phone_confirmation, presence: true, if: :register_teacher_or_student_change_parent_phone?, on: :update
 
   validates :login_mobile, length: { is: 11 }, uniqueness: true, numericality: { only_integer: true }, if: :teacher_or_student?, on: :create
@@ -178,7 +178,7 @@ class User < ActiveRecord::Base
     @need_update_register ==  true
   end
 
-  # 手动强制不验证完善个人信息
+  # 手动强制调用验证完善个人信息
   def update_register_required!
     @need_update_register = true
   end

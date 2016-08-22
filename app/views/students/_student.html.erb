@@ -9,7 +9,7 @@
       <%=link_to '删除',student_path(student),method: :delete, 'data-confirm'=>'你确定删除此学生么?'%>
     </div>
     <% end %>
-    <% if allow? :students, :edit %>
+    <% if allow? :students, :admin_edit %>
     <div class="col-md-2">
       <%= link_to admin_edit_student_path(student), method: :get, :remote => true, id: "student_#{student.id}" do %>
         <%= t(".edit_student") %>

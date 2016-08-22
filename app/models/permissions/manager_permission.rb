@@ -14,13 +14,13 @@ module Permissions
       allow :teaching_videos,[:show]
       allow :students,[:index,:search,:show,:edit,:create,:update,
                        :info,:teachers,:customized_courses,:homeworks,
-                       :solutions,:account,:customized_tutorial_topics,:questions,:notifications]
+                       :solutions,:account,:customized_tutorial_topics,:questions,:notifications, :admin_edit, :admin_update]
       allow :home,[:index]
       allow :schools,[:index,:new,:create,:show,:edit,:update]
       allow :register_codes, [:index, :new, :downloads, :create]
       allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,
                        :students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,
-                       :exercises,:keep_account,:solutions,:customized_tutorial_topics,:notifications]
+                       :exercises,:keep_account,:solutions,:customized_tutorial_topics,:notifications, :admin_edit, :admin_update]
       allow :curriculums,[:index,:show]
       allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
       allow :courses,[:show]

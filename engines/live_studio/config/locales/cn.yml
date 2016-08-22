@@ -113,7 +113,7 @@ cn:
       send_msg: 发送
       live_studio_detail: 直播详情
       base_info: 基本信息
-      teacher_info: 老师详请
+      teacher_info: 老师详情
       lessons_list: 课程列表
       course_name: 辅导班名：
       current_lesson_name: 当前课程：

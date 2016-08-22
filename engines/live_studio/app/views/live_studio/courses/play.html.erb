@@ -15,20 +15,24 @@
 
       <div class="col-md-3">
         <%= t "activerecord.view.chat.chat_team_members_count" %>
-        <span id="team_online_count"></span>
+        <span id="team_online_count">0</span>
       </div>
 
       <div class="col-md-2">
         <% if @current_lesson %>
           <% if @current_lesson.paused? %>
-          <span style="<%= 'color: red;' if @current_lesson.paused? %>">
-            <%= t 'view.play.current_lesson_paused' %>
-          </span>
+            <span class="<%= 'current_lesson_paused' if @current_lesson.paused? %>" id="show_current_lesson_status">
+              <%= t 'view.play.current_lesson_paused' %>
+            </span>
           <% else %>
-            <%= @current_lesson.status_text %>
+            <span id="show_current_lesson_status">
+              <%= @current_lesson.status_text %>
+            </span>
           <% end %>
         <% else %>
-          <%= t 'view.play.no_current_lesson' %>
+          <span id="show_current_lesson_status">
+            <%= t 'view.play.no_current_lesson' %>
+          </span>
         <% end %>
       </div>
     </div>
@@ -213,6 +217,12 @@
         });
       }
       setInterval(visit,30000);
+
+      <% if @current_lesson %>
+        setInterval(function(){
+          $.getScript( "refresh_current_lesson", function( data, textStatus, jqxhr ) {});
+        }, 10 * 60 * 1000);
+      <% end %>
 
       $(function() {
         var accid = "<%= @chat_account.try(:accid) %>";

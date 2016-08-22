@@ -50,6 +50,7 @@ cn:
       lesson_status: 课程状态
       time_tips: 设置课程后系统将自动生成此时间
     course_search_show:
+      clear_range_btn: 清除范围
       buy_tickets_count: 已购人数：%d
       current_status: 当前状态：
       info: 了解更多信息

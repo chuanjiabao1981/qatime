@@ -26,5 +26,9 @@ module LiveStudio
       end
     end
 
+    # 这个方法为了向上兼容以前的数据看起来不出错
+    def time_fmt(n)
+      n.length == 5 ? n : "0#{n}"
+    end
   end
 end

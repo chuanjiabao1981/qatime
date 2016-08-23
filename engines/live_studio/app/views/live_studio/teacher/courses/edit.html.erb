@@ -49,11 +49,25 @@
 </div>
 <script>
   $(function() {
+    var unsaved = false;
+
+    $(":input").change(function(){ //trigers change in all input fields including text type
+      unsaved = true;
+    });
+
+    function unloadPage(){
+      console.log(unsaved);
+      if(unsaved){
+        return true;
+      }
+    }
+
     $('.list-ceil').click(function(event){
-      if(!confirm('<%= t('view.teacher_course.without_tips') %>')){
+      if(unloadPage() && !confirm('<%= t('view.teacher_course.without_tips') %>')){
         event.preventDefault();
         return false;
       }else{
+        unsaved = false;
         $('.list-ceil').removeClass('active');
         $(this).addClass('active');
         if($(this).attr('id') == 'info_div'){

@@ -88,19 +88,17 @@
       });
     }
     $(default_lessons).each(function(i,v){
-      if($('#start_time_'+v).val() == $('#end_time_'+v).val())
+      if(undefined != $('#start_time_'+v).val() && $('#start_time_'+v).val() == $('#end_time_'+v).val())
         return_flag = false;
     });
     $(insert_lesson_list).each(function(i,v){
-      if($('#new_start_time_'+v).val() == $('#new_end_time_'+v).val())
+      if(undefined != $('#start_time_'+v).val() && $('#new_start_time_'+v).val() == $('#new_end_time_'+v).val())
         return_flag = false;
     });
     if(!return_flag){
       alert('<%= t('view.teacher_course.data_holder') %>');
-      return return_flag;
-    }else{
-      $('#edit_less_form').submit();
     }
+    return return_flag;
   });
 
   // 添加tr

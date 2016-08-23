@@ -65,7 +65,7 @@ module LiveService
       all_ids = course.lessons.map{|l| l.id.to_s}
       delete_ids = params[:delete_lesson_list].split(',')
       LiveStudio::Lesson.transaction do
-        if all_ids
+        if all_ids.present?
           delete_ids.each do |id|
             LiveStudio::Lesson.find(id).destroy
           end

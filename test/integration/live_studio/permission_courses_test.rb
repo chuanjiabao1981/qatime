@@ -29,7 +29,8 @@ module LiveStudio
       click_on init_course.name
       page.go_back
       visit live_studio.edit_manager_course_path(@user,init_course)
-      select 'teacher_one', from: :course_teacher_id
+      find('button[data-id="course_teacher_id"]').click
+      find("ul.dropdown-menu.inner > li > a > span.text", text: 'teacher_one').click
       click_on '更新辅导班',match: :first
       assert_match '辅导班已更新',page.text, '初始化辅导班没有更新权限'
       # edit cant_edit
@@ -98,8 +99,8 @@ module LiveStudio
       click_link '新增课程'
       flag = init.lessons.count+1
       fill_in "new_class_date_#{flag}", with: Time.now.strftime('%Y/%m/%d')
-      select '9:00', from: "new_start_time_#{flag}"
-      select '9:30', from: "new_end_time_#{flag}"
+      select '9:00', match: :first, from: "new_start_time_#{flag}"
+      select '9:30', match: :first, from: "new_end_time_#{flag}"
       fill_in "new_name_#{flag}", with: 'test lesson'
       click_on '保存'
       assert_match '课程已更新', page.text, '没有创建课程'

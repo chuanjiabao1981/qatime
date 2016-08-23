@@ -61,8 +61,12 @@ module LiveStudio
 
     test 'manager select_btn search' do
       course = LiveStudio::Course.init.last
+      teacher = users(:teacher_without_chat_account)
       visit live_studio.edit_manager_course_path(@manager, course)
-      assert_equal find('button[data-id="course_teacher_id"]').click, nil, '没找到bootstrap-select'
+      find('button[data-id="course_teacher_id"]').click
+      assert_equal find("ul.dropdown-menu.inner").all('li').size,Teacher.count+1, '没有正确加载select'
+      find('div.bs-searchbox input').set(teacher.name)
+      assert_equal find("ul.dropdown-menu.inner").all('li').size,1,'没有匹配到数据'
     end
   end
 end

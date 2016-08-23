@@ -5,6 +5,7 @@ cn:
         team_members: 成员
         team_message: 聊天
         team_notice: 公告
+        chat_team_members_count: '在线人数:'
       pay: 立即支付
       timeout: 已超时
     models:

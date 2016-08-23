@@ -35,7 +35,7 @@ module Permissions
         notification and notification.receiver_id == user.id
       end
 
-      allow 'live_studio/courses', [:index, :taste, :play, :show]
+      allow 'live_studio/courses', [:index, :taste, :play, :show, :refresh_current_lesson]
       allow 'chat/teams', [:finish, :members, :member_visit]
       allow 'ajax/captchas', [:create, :verify]
       allow 'welcome', [:download]

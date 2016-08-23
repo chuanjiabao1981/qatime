@@ -59,5 +59,19 @@ cn:
       desc_ph: 请介绍下自己(一百字以内)
       email_ph: 绑定后可通过邮箱进行登录
       email_confirmation_ph: 再输入一次进行确认
+    teacher:
+      edit_teacher: 修改安全信息
+      delete: 删除
+      delete_confirm: '你确定删除此老师么?'
+    admin_edit_form:
+      edit_teacher: 修改安全信息
+      password_label: 修改登录密码
+      login_mobile_label: 修改绑定手机
+      email_label: 修改绑定邮箱
+      submit: 确定
+    edit_password:
+      current_password_label: '当前登录密码:'
+      password_label: '新密码登录:'
+      password_confirmation_label: '确认新密码'
 
 

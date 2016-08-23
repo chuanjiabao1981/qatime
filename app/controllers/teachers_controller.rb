@@ -64,6 +64,22 @@ class TeachersController < ApplicationController
     end
   end
 
+  def admin_edit
+  end
+
+  def admin_update
+    update_params = params.require(:teacher).permit(:password, :login_mobile, :email, :parent_phone)
+
+    # 更新密码时，验证密码
+    @teacher.password_required! if update_params[:password]
+    # 更新手机时，验证手机
+    @teacher.update_register_required! if update_params[:login_mobile]
+
+    @teacher.update(update_params)
+    # 获取更新的字段，便于更新提示
+    @update_attr = update_params.keys.first
+  end
+
   def lessons_state
     if params[:state] == nil
       params[:state] = 'editing'
@@ -203,6 +219,8 @@ class TeachersController < ApplicationController
     else
       update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
       return @teacher.update_with_password(update_params) if %w(password).include?(update_by)
+
+      @teacher.update_register_required!
       @teacher.update(update_params)
     end
   end

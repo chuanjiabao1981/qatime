@@ -41,7 +41,7 @@ class CustomizedCourseMessageCreate  < ActionDispatch::IntegrationTest
     assert_picture new_customized_course_message
     page.save_screenshot('screenshots/screenshot.png')
 
-    logout_as(student)
+    new_logout_as(student)
 
   end
 end

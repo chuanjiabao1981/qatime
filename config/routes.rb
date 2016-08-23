@@ -118,6 +118,8 @@ Qatime::Application.routes.draw do
       get 'solutions'
       get 'keep_account'
       get 'notifications'
+      get :admin_edit
+      patch :admin_update
     end
   end
   resources :students do
@@ -134,6 +136,8 @@ Qatime::Application.routes.draw do
       get 'homeworks'
       get 'solutions'
       get 'notifications'
+      get :admin_edit
+      patch :admin_update
     end
     resources :customized_courses do
       member do

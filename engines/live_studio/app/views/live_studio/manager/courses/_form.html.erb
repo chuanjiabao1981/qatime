@@ -2,7 +2,7 @@
   <%= f.error_notification %>
   <div class="form-inputs">
     <%= f.input :name %>
-    <%= f.association :teacher %>
+    <%= f.association :teacher, input_html:{class: 'selectpicker',"data-live-search" => true} %>
     <%= f.input :teacher_percentage %>
     <%= f.input :preset_lesson_count, input_html: {class: 'lesson_price_item'} %>
     <%= f.input :description, type: :text %>
@@ -18,6 +18,12 @@
 <% end %>
 
 <script>
+  $('.selectpicker').selectpicker({
+    style: 'btn-default show-tick',
+    size: 4,
+    'data-live-search': "true"
+  });
+
   $(function(){
     $(".lesson_price_item").change(function(){
       var price = parseInt($("#course_price").val());

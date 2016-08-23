@@ -9,7 +9,7 @@
       <input type="hidden" name="by" value="login_mobile">
 
       <div class="row" >
-        <div class="col-md-2 col-md-offset-3 text-right">
+        <div class="col-md-2 col-md-offset-3 text-right form_lable">
           <%= t ".binding_mobile" %>:
         </div>
         <div class="col-md-3">
@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="row" >
-        <div class="col-md-2 col-md-offset-3 text-right">
+        <div class="col-md-2 col-md-offset-3 text-right form_lable">
           <%= t ".mobile_captcha" %>:
         </div>
         <div class="col-md-7">
@@ -38,7 +38,7 @@
   <% else %>
     <%= simple_form_for(@teacher, url: teacher_path(@teacher, cate: :security_setting, by: :login_mobile), html: {id: "mobile_captcha_for_change_mobile_form"}) do |f| %>
       <div class="row" >
-        <div class="col-md-2 col-md-offset-3 text-right">
+        <div class="col-md-2 col-md-offset-3 text-right form_lable">
           <%= t ".new_mobile" %>:
         </div>
         <div class="col-md-3">
@@ -47,7 +47,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-2 col-md-offset-3 text-right">
+        <div class="col-md-2 col-md-offset-3 text-right form_lable">
           <%= t ".mobile_captcha" %>:
         </div>
         <div class="col-md-7">

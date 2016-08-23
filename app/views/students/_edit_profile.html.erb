@@ -52,7 +52,7 @@
   <%= simple_form_for(@student, url: student_path(@student, cate: :edit_profile, by: :profile), html: {id: :edit_profile_form})  do |f| %>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2 text-right"><%=Student.human_attribute_name(:name)%></div>
+        <div class="col-md-2 text-right form_lable"><%=Student.human_attribute_name(:name)%></div>
         <div class="col-md-9">
           <%= f.input :name, label: false %>
         </div>
@@ -60,7 +60,7 @@
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2 text-right"><%=Student.human_attribute_name(:gender)%></div>
+        <div class="col-md-2 text-right form_lable"><%=Student.human_attribute_name(:gender)%></div>
         <div class="col-md-9">
           <%= f.input :gender, as: :radio_buttons, label: false %>
         </div>
@@ -68,7 +68,7 @@
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2 text-right"><%=Student.human_attribute_name(:birthday)%></div>
+        <div class="col-md-2 text-right form_lable"><%=Student.human_attribute_name(:birthday)%></div>
         <div class="col-md-9">
           <%= f.input :birthday, label: false, as: :string, input_html: {type: :date, max: Time.now.strftime('%Y-%m-%d')} %>
         </div>
@@ -76,13 +76,13 @@
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2 text-right"><%=Student.human_attribute_name(:grade)%></div>
+        <div class="col-md-2 text-right form_lable"><%=Student.human_attribute_name(:grade)%></div>
         <div class="col-md-9"><%= f.input :grade, label: false,:collection => APP_CONSTANT["grades_in_menu"], include_blank:false %></div>
       </div>
     </div>
     <div class="qa_cell">
       <div class="row">
-        <div class="col-md-2 text-right"><%=Student.human_attribute_name(:desc)%></div>
+        <div class="col-md-2 text-right form_lable"><%=Student.human_attribute_name(:desc)%></div>
         <div class="col-md-9">
           <%= f.input :desc, label: false, as: :text %>
         </div>

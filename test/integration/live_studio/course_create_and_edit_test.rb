@@ -41,6 +41,28 @@ module LiveStudio
       assert_equal(20, course.lesson_price.to_f, '单价计算错误')
     end
 
+    test "manager create a course when price too lower" do
+      teacher = users(:teacher_one)
+      workstation = @manager.workstations.sample
+
+      assert_difference '@manager.live_studio_courses.count', 0 do
+        visit live_studio.new_manager_course_path(@manager)
+        fill_in :course_name, with: '测试英语辅导课程'
+        fill_in :course_description, with: 'new course description'
+        find('button[data-id="course_teacher_id"]').click
+        find("ul.dropdown-menu.inner > li > a > span.text", text: teacher.name).click
+        fill_in :course_price, with: 2.0
+        fill_in :course_teacher_percentage, with: 10
+        fill_in :course_preset_lesson_count, with: 15
+        select workstation.name, from: 'course_workstation_id'
+        select '语文', from: 'course_subject'
+        select '六年级', from: 'course_grade'
+        click_on '新增辅导班'
+      end
+
+      page.has_content? "必须大于 75"
+    end
+
     test "manager update a course" do
       course = Course.last
       teacher2 = users(:teacher_without_chat_account)

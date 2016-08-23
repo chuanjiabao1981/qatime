@@ -425,6 +425,39 @@ chang_email_teacher1:
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   school: school1
   type: Teacher
+search_teacher_1:
+  login_mobile: 15800000001
+  name: search_teacher_1
+  role: teacher
+  category: 高中
+  subject: 英语
+  mobile: 15910676326
+  avatar: "test"
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  school: school1
+  type: Teacher
+search_teacher_2:
+  login_mobile: 15800000002
+  name: search_teacher_2
+  role: teacher
+  category: 高中
+  subject: 英语
+  mobile: 15910676326
+  avatar: "test"
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  school: school1
+  type: Teacher
+search_teacher_3:
+  login_mobile: 15800000003
+  name: search_teacher_3
+  role: teacher
+  category: 高中
+  subject: 英语
+  mobile: 15910676326
+  avatar: "test"
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  school: school1
+  type: Teacher
 
 cash_admin:
   id: 11

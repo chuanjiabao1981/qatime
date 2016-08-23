@@ -65,6 +65,8 @@ module LiveStudio
       visit live_studio.edit_manager_course_path(@manager, course)
       find('button[data-id="course_teacher_id"]').click
       assert_equal find("ul.dropdown-menu.inner").all('li').size,Teacher.count+1, '没有正确加载select'
+      find('div.bs-searchbox input').set("search_teacher")
+      assert_equal find("ul.dropdown-menu.inner").all('li').size, 3, '数据匹配不正确'
       find('div.bs-searchbox input').set(teacher.name)
       assert_equal find("ul.dropdown-menu.inner").all('li').size,1,'没有匹配到数据'
     end

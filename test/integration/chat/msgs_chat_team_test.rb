@@ -33,6 +33,7 @@ module Chat
         click_on "发送"
 
         assert page.has_content?("同学们，大家好呀"), "消息发送失败"
+        assert page.has_content?("在线人数: 1"), "在线人数显示错误"
       end
 
       Capybara.using_session("student") do
@@ -47,6 +48,7 @@ module Chat
         click_on "发送"
 
         assert page.has_content?("大家好呀"), "消息发送失败"
+        assert page.has_content?("在线人数: 2"), "在线人数显示错误"
       end
 
       Capybara.using_session("student") do

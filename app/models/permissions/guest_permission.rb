@@ -16,7 +16,7 @@ module Permissions
       allow 'ajax/captchas', [:create, :verify]
       allow 'passwords', [:edit, :update]
 
-
+      allow 'welcome', [:download]
       allow 'passwords', [:new, :create]
     end
   end

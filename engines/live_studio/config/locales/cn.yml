@@ -50,6 +50,7 @@ cn:
       lesson_status: 课程状态
       time_tips: 设置课程后系统将自动生成此时间
     course_search_show:
+      clear_range_btn: 清除范围
       buy_tickets_count: 已购人数：%d
       current_status: 当前状态：
       info: 了解更多信息
@@ -73,9 +74,19 @@ cn:
       status: 当前状态
     payment_show:
       weixin_pay: 微信支付
+      alipay_pay: 支付宝支付
       pay: 支付
       weixin_tips_text1: 请使用微信扫一扫
       weixin_tips_text2: 扫描二维码支付
+      actual_price: 应付金额：
+      order_confirm: 订单确认
+      product_info: 商品信息
+      order_pay: 订单支付
+      order_product_name: 商品名称：
+      order_no: '订单编号:  %s'
+      order_created_at: '创建时间:  %s'
+      order_pay_type: '支付方式:  %s'
+      order_tips: '提示: 请您在提交订单后24小时内完成支付，否则订单会自动取消。'
     teacher_course:
       price: 价格：%.2f￥
       teacher_percentage: 分成比例：%d%
@@ -96,6 +107,28 @@ cn:
       data_holder: 请完善数据
       upload_img_tips: '建议：<br/>图片像素800*500最佳；<br/>支持格式jpeg、png；大小500k以内；<br/>禁止使用涉及暴力、血腥、色情、政治等图片。'
       without_tips: 可能会导致当前修改无法保存，是否离开？
+    play:
+      chat_history: 历史消息
+      close: 关闭
+      send_msg: 发送
+      live_studio_detail: 直播详情
+      base_info: 基本信息
+      teacher_info: 老师详情
+      lessons_list: 课程列表
+      course_name: 辅导班名：
+      current_lesson_name: 当前课程：
+      no_current_lesson: 今日无直播
+      current_lesson_paused: 直播暂停中
+      course_subject: 科目类型：
+      course_grade: 年级类型：
+      teacher_name: 主讲老师：
+      class_date: 直播时间：
+      course_description: 辅导简介：
+      teaching_years_text: 执教年龄：
+      teacher_subject: 授课科目：
+      teacher_category: 授课年级：
+      teacher_school_name: 所在学校：
+      teacher_desc: 自我介绍：
   status:
     init: 初始化
     preview: 招生中

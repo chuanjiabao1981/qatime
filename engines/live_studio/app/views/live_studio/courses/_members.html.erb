@@ -7,3 +7,11 @@
     <% end %>
 <% end if @accounts %>
 <%= hidden_field_tag :online_token, @token %>
+
+<% if @online_accounts %>
+  <script type="text/javascript">
+    if($("#team_online_count")){
+      $("#team_online_count").html("<%= @online_accounts.count %>")
+    }
+  </script>
+<% end %>

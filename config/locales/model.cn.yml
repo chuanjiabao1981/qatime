@@ -66,6 +66,7 @@ cn:
         nick_name: 昵称
         parent_phone: 家长手机
         school: 学校
+        login_account: 登陆名
       student:
         email: 邮箱
         name: 姓名

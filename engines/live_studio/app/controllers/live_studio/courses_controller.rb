@@ -40,8 +40,6 @@ module LiveStudio
       @chat_team = @course.chat_team
       @current_lesson = @course.current_lesson
       # @tickets = @course.tickets.available.includes(:student)
-      p '------------>>>>>'
-      p LiveStudio::Lesson.find(@current_lesson.id)
       @teacher = @course.teacher
       @pull_stream = @course.pull_stream
       @chat_account = current_user.chat_account

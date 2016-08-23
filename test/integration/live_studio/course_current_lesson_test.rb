@@ -2,6 +2,7 @@ require 'test_helper'
 
 module LiveStudio
   class CourseCurrentLessonTest < ActionDispatch::IntegrationTest
+    self.use_transactional_fixtures = false
     def setup
       @routes = Engine.routes
       @headless = Headless.new
@@ -32,23 +33,13 @@ module LiveStudio
       course.reload
       course.current_lesson.reload
 
-      p course
-      p course.current_lesson
-      p course.current_lesson.status_text
-      p LiveStudio::Lesson.find(course.current_lesson.id)
-
       visit live_studio.play_course_path(course)
-      course.reload
-      course.current_lesson.reload
+      assert page.has_content?('直播中'), '直播状态显示不正确'
 
-      p course
-      p course.current_lesson
-      p course.current_lesson.status_text
+      course.current_lesson.pause!
+      page.execute_script("$.getScript( 'refresh_current_lesson', function( data, textStatus, jqxhr ) {});")
 
-      sleep 10
-      # assert page.has_selector?('div#my-video'), "播放器初始化错误"
-
-      LiveService::LessonDirector.new(course.current_lesson).pause_lessons
+      assert page.has_content?('直播暂停中'), '直播状态显示不正确'
     end
   end
 end

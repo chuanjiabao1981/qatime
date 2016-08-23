@@ -39,9 +39,9 @@ module LiveStudio
       @course.reload
       visit live_studio.play_course_path(@course)
 
-      assert page.has_content?('直播详情'), '直播详情按钮不存在'
-      find(:css, '#live_detail_btn').click
+      assert page.has_content?(@course.name), '辅导班名称显示不正确'
 
+      assert page.has_content?('直播详情'), '直播详情按钮不存在'
       assert find(:css, '#live_detail_area').has_content?('基本信息'), '基本信息按钮不存在'
       assert find(:css, '#live_detail_area').has_content?('老师详情'), '老师详情按钮不存在'
       assert find(:css, '#live_detail_area').has_content?('课程列表'), '课程列表按钮不存在'

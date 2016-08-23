@@ -48,6 +48,23 @@ class StudentsController < ApplicationController
     end
   end
 
+  def admin_edit
+  end
+
+  def admin_update
+    update_params = params.require(:student).permit(:password, :login_mobile, :email, :parent_phone)
+
+    # 更新密码时，验证密码
+    @student.password_required! if update_params[:password]
+    # 更新手机时，验证手机
+    @student.update_register_required! if update_params[:login_mobile]
+
+    @student.update(update_params)
+
+    # 获取更新的字段，便于更新提示
+    @update_attr = update_params.keys.first
+  end
+
   def info
     # if params[:fee].nil?
     #   @deposits = @student.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
@@ -186,6 +203,8 @@ class StudentsController < ApplicationController
     else
       update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
       return @student.update_with_password(update_params) if %w(password).include?(update_by)
+
+      @student.update_register_required!
       @student.update(update_params)
     end
   end

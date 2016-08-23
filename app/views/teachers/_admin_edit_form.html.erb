@@ -1,0 +1,18 @@
+<div class="row" style="margin-bottom: 30px;">
+  <h2 class="text-center"><%= t(".edit_teacher") %></h2>
+</div>
+<% %w(password login_mobile email).each do |attr| %>
+<div class="row" >
+<%= simple_form_for(@teacher, url: admin_update_teacher_path(@teacher), remote: :ture) do |f| %>
+  <div class="col-md-2 col-md-offset-3 text-right form_lable">
+    <%= t ".#{attr}_label" %>
+  </div>
+  <div class="col-md-3">
+    <%= f.input attr.to_sym, label: false %>
+  </div>
+  <div class="col-md-3">
+    <%= f.submit t(".submit"), id: "submit_#{attr}_#{@teacher.id}",class: "btn btn-default"%>
+  </div>
+  <% end %>
+</div>
+<% end %>

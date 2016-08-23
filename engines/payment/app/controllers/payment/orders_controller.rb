@@ -14,6 +14,7 @@ module Payment
     def show
       @order = @user.orders.find_by!(order_no: params[:id])
       @order.init_remote_order unless @order.qrcode_url
+      @course = @order.product
     end
 
     # 支付通知

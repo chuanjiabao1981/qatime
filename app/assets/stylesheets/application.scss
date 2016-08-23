@@ -20,6 +20,7 @@
  *= require fancybox
  *= require course_library/application
  *= require editable/bootstrap-editable
+ *= require bootstrap-select.min
  */
 
 @import 'bootstrap';
@@ -461,4 +462,16 @@ span.fa{
 
 #edit_parent_phone_area .row {
   min-height: 30px;
+}
+
+div.form_lable{
+  margin-top: 5px;
+}
+
+span.alert_red_span{
+  color: red;
+}
+
+span.current_lesson_paused{
+  color: red;
 }

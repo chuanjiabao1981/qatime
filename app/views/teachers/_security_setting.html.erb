@@ -23,7 +23,11 @@
     <div class="col-md-3" style="padding-left:40px"><%= t(".bound_mobile")%>
       <div style="padding-left:20px">
         <!-- 使用mobile_was,来防止未更新的情况 -->
-        <%= @teacher.login_mobile_was %>
+        <% if @teacher.login_mobile %>
+          <%= @teacher.login_mobile_was %>
+        <% else %>
+          <span class="alert_red_span"><%= t("view.common.no_bound_mobile") %></span>
+        <% end %>
       </div>
     </div>
     <div class="col-md-6" style="padding-left:40px">
@@ -43,7 +47,15 @@
     <div class="col-md-3" style="padding-left:40px"><%= t(".bound_email")%>
       <div style="padding-left:20px">
         <!-- email_was,来邮箱防止未更新的情况 -->
-        <%= @teacher.email_was %>
+        <% if @teacher.login_mobile %>
+          <% if @teacher.email%>
+            <%= @teacher.email_was %>
+          <% else %>
+            <span class="alert_red_span"><%= t("view.common.no_bound_email") %></span>
+          <% end %>
+        <% else %>
+          <span class="alert_red_span"><%= t("view.common.no_bound_mobile") %></span>
+        <% end %>
       </div>
     </div>
     <div class="col-md-6" style="padding-left:40px">

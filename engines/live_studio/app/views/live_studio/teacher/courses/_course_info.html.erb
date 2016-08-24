@@ -46,13 +46,7 @@
           <%= f.text_field :preset_lesson_count ,class: 'lesson_price_item' if action_name == 'edit'%>
         </td>
         <td><%= t('view.course_info_show.schedule') %>
-          <%= @course.completed_lesson_count%>/<span class="lesson-count-set"><%= @course.preset_lesson_count %></span>
-        </td>
-      </tr>
-      <tr>
-        <td colspan="2">
-          <%= t('view.course_info_show.surplus') %>
-          <span class="lesson-count-set"><%= @course.lesson_count_left %></span>
+          <%= @course.lesson_count %>/<span class="lesson-count-set"><%= @course.preset_lesson_count %></span>
         </td>
       </tr>
       <tr>

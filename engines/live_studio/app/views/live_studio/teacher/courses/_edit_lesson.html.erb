@@ -1,4 +1,4 @@
-<%= form_tag teacher_lessons_path(course_id: @course),method: :post, id: 'edit_less_form' do %>
+<%= form_tag teacher_lessons_path(course_id: @course),method: :post, id: 'edit_less_form',class: 'duplicate' do %>
   <table class="table table-hover">
     <thead>
     <tr>
@@ -13,12 +13,18 @@
       <td class="lesson-no"></td>
       <td>
         <div>
+          <%
+             start_arr = (0..23).to_a.map{|r| ["%02d:00" % r,"%02d:30" % r]}.flatten
+             end_arr = start_arr.clone
+             end_arr.shift
+             end_arr.push('00:00')
+          %>
           <%= text_field_tag "new_class_date_", '', type: :date,class: 'form-control lesson-class-date',
-                             placeholder: t('view.teacher_course.date_holder'), max: '2055-01-01' %>
-          <%= select_tag "new_start_time_", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,''),
+                             placeholder: t('view.teacher_course.date_holder'), min: Date.today, max: '2055-01-01' %>
+          <%= select_tag "new_start_time_", options_for_select(start_arr,''),
                          class: 'form-control lesson-time' %>
           ~
-          <%= select_tag "new_end_time_", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,''),
+          <%= select_tag "new_end_time_", options_for_select(end_arr,''), min: Date.today, max: '2055-01-01',
                          class: 'form-control lesson-time' %>
         </div>
       </td>
@@ -33,12 +39,12 @@
         <td>
           <div>
             <%= text_field_tag "class_date_#{lesson.id}", lesson.class_date, type: :date,class: 'form-control lesson-class-date',
-                               placeholder: t('view.teacher_course.date_holder'), max: '2055-01-01' %>
-            <%= select_tag "start_time_#{lesson.id}", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,lesson.start_time),
-                           class: 'form-control lesson-time' %>
+                               placeholder: t('view.teacher_course.date_holder'), min: Date.today,max: '2055-01-01' %>
+            <%= select_tag "start_time_#{lesson.id}", options_for_select(start_arr,time_fmt(lesson.start_time)),
+                           class: 'form-control lesson-time', onchange: "set_end_time(this,#{lesson.id})" %>
             ~
-            <%= select_tag "end_time_#{lesson.id}", options_for_select((0..23).to_a.map{|r| ["#{r}:00","#{r}:30"]}.flatten,lesson.end_time),
-                           class: 'form-control lesson-time' %>
+            <%= select_tag "end_time_#{lesson.id}", options_for_select(end_arr,time_fmt(lesson.end_time)),
+                           class: 'form-control lesson-time', onchange: "set_start_time(this,#{lesson.id})" %>
           </div>
         </td>
         <td>
@@ -68,7 +74,6 @@
   var insert_lesson_list = new Array();
   var delete_lesson_list = new Array();
 
-
   $('#edit_less_form').submit(function(){
     var return_flag = true;
     $('#edit_less_form').find('tr[class^=lesson]').find('input').map(function(index,doc){
@@ -76,13 +81,24 @@
         return_flag = false;
       }
     });
-
+    var default_lessons = $('#default_lesson_list').val().split(',');
+    if(delete_lesson_list.length > 0){
+      delete_lesson_list.each(function(i,v){
+        default_lessons.splice(default_lessons.indexOf(v),1);
+      });
+    }
+    $(default_lessons).each(function(i,v){
+      if(undefined != $('#start_time_'+v).val() && $('#start_time_'+v).val() == $('#end_time_'+v).val())
+        return_flag = false;
+    });
+    $(insert_lesson_list).each(function(i,v){
+      if(undefined != $('#start_time_'+v).val() && $('#new_start_time_'+v).val() == $('#new_end_time_'+v).val())
+        return_flag = false;
+    });
     if(!return_flag){
       alert('<%= t('view.teacher_course.data_holder') %>');
-      return return_flag;
-    }else{
-      $('#edit_less_form').submit();
     }
+    return return_flag;
   });
 
   // 添加tr
@@ -95,7 +111,7 @@
     copy.find('.lesson-no').html(lesson_count);
     insert_lesson_list.push(lesson_count);
     $('#insert_lesson_list').val(insert_lesson_list.join(','));
-    $("#lesson_body").append(set_attr(copy, lesson_count).clone());
+    $("#lesson_body").append(set_attr(copy, lesson_count));
   });
 
   // 删除新添tr
@@ -126,6 +142,53 @@
       $(obj).find('#'+attrs[i]).attr('id', attrs[i]+no);
     }
     $(obj).find('a.delete-link').attr('rel', no);
+    $(obj).find('#new_start_time_'+no).bind('change', function(){
+      set_end_time(this,no);
+    });
+    $(obj).find('#new_end_time_'+no).bind('change', function(){
+      set_start_time(this,no);
+    });
     return obj;
   }
+  var time_arr = new Array(<%= ('"'+(0..23).to_a.map{|r| ["%02d:00" % r,"%02d:30" % r]}.flatten.join('","') + '"').html_safe %>);
+  var end_time_arr = time_arr.slice();
+  end_time_arr.shift();
+  end_time_arr.push('00:00');
+  function set_end_time(obj,no){
+    var start_time = $(obj).val();
+    var end_arr = end_time_arr;
+    var end_time_id = '#';
+    if($(obj).attr('id').split('_')[0] == 'new')
+      end_time_id+='new_';
+    end_time_id+='end_time_'+no;
+    console.log($(obj).val());
+    if($(obj).val() != '00:00')
+      end_arr = end_time_arr.slice(end_time_arr.indexOf(start_time)+1);
+    append_select(end_time_id,end_arr);
+  }
+
+  function set_start_time(obj,no){
+    var end_time = $(obj).val();
+    var start_arr = time_arr.slice(0,time_arr.indexOf(end_time));
+    var start_time_id = '#';
+    if($(obj).attr('id').split('_')[0] == 'new')
+      start_time_id+='new_';
+    start_time_id+='start_time_'+no;
+    if($(obj).val() != '00:00')
+      append_select(start_time_id,start_arr);
+  }
+
+  function append_select(obj,arr){
+    var optionsAsString = "";
+    $(arr).each(function(i,v){
+      var option_value = $(obj).val();
+      if(option_value == v){
+        optionsAsString += "<option value='" + v + "' selected>" + v + "</option>";
+      }else{
+        optionsAsString += "<option value='" + v + "'>" + v + "</option>";
+      }
+    });
+    $(obj).html(optionsAsString);
+  }
+
 </script>

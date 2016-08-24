@@ -115,6 +115,7 @@ module Permissions
       allow 'chat/teams', [:finish, :members, :member_visit]
       allow 'welcome', [:download]
       allow 'payment/users', [:cash]
+      allow 'payment/orders', [:index, :show]
     end
   end
 end

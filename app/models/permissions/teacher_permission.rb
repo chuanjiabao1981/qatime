@@ -4,7 +4,6 @@ module Permissions
 
     def initialize(user)
       super(user)
-      allow :qa_faqs,[:index,:show]
 
       allow :curriculums,[:index,:show]
       allow :home,[:index]

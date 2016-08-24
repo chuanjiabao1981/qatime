@@ -2,10 +2,6 @@ module Permissions
   class StudentPermission < UserPermission
     def initialize(user)
       super(user)
-      allow :qa_faqs,[:index,:show]
-      allow :qa_faqs,[:show] do |faq|
-        faq and not faq.teacher?
-      end
       allow :home,[:index]
       allow :curriculums,[:index,:show]
       allow :courses,[:show]

@@ -10,22 +10,17 @@ module V1
         requires :password_confirmation, type: String, desc: '密码确认'
         requires :register_code_value, type: String, desc: '注册码'
         requires :accept, type: String, desc: '接受服务协议'
-        requires :type, type: Symbol, values: [:teacher, :student], desc: '注册用户类型'
+        requires :type, type: String, values: ['Student'], desc: '注册用户类型'
         requires :client_type, type: String, desc: '登陆方式.'
       end
 
       post :register do
         client_type = params[:client_type].to_sym
-        create_params = ActionController::Parameters.new(params).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :register_code_value, :accept)
+        create_params_with_type = ActionController::Parameters.new(params).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :register_code_value, :accept, :type)
 
-        case params[:type]
-        when :teacher
-          user = Teacher.new(create_params).captcha_required!
-        when :student
-          user = Student.new(create_params).captcha_required!
-        end
+        user = User.new(create_params_with_type).captcha_required!
 
-        captcha_manager = UserService::CaptchaManager.new(create_params[:login_mobile])
+        captcha_manager = UserService::CaptchaManager.new(create_params_with_type[:login_mobile])
         user.captcha = captcha_manager.captcha_of(:register_captcha)
         user.build_account
 

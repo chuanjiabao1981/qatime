@@ -1,6 +1,7 @@
 module Entities
   class Teacher < Entities::User
     expose :teaching_years
+    expose :category
     expose :subject
     expose :grade_range
     expose :gender

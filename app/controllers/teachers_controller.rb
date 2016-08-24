@@ -123,6 +123,7 @@ class TeachersController < ApplicationController
 
   def homeworks
     @homeworks = Examination.by_customized_course_work.by_teacher(@teacher).order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    render layout: 'teacher_home_new'
   end
 
   def customized_tutorial_topics

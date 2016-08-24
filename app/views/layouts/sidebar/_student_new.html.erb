@@ -59,7 +59,13 @@
         <span class="glyphicon arraw-span <%= student_sidebar_nav_is?(:teachers) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
-
+    <li>
+      <%= link_to customized_courses_student_path(@student) do %>
+        <span class="fa fa-briefcase"></span>
+        <span class="qa_f18"><%= t("view.common_bars.customized_courses") %></span>&nbsp;&nbsp;
+        <span class="glyphicon arraw-span <%= student_sidebar_nav_is?(:customized_courses) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+      <% end %>
+    </li>
   </ul>
 </div>
 

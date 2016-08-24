@@ -16,7 +16,7 @@ module V1
       include         APIErrors
       # 调用接口时验证api_key
       before do
-        I18n.locale = 'zh-CN'
+        I18n.locale = 'cn'
       end
     end
   end

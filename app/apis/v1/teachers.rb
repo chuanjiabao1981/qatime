@@ -29,24 +29,51 @@ module V1
       params do
         requires :id, type: Integer, desc: 'ID'
         requires :name, type: String, desc: '姓名'
-        optional :avatar, type: File, desc: '头像'
+        optional :avatar, :type => Rack::Multipart::UploadedFile, desc: '头像'
         optional :gender, type: String, desc: '性别'
         optional :birthday, type: DateTime, desc: '生日'
         optional :desc, type: String, desc: '简介'
       end
-      post "/:id/update" do
+      put "/:id" do
         teacher = ::Teacher.find(params[:id])
-        update_params = ActionController::Parameters.new(params)
-        if teacher.update({
-          name: update_params[:name],
-          avatar: update_params[:avatar],
-          gender: update_params[:gender],
-          birthday: update_params[:birthday],
-          desc: update_params[:desc]
-        })
+        update_params = ActionController::Parameters.new(params).permit(:name, :avatar, :gender, :birthday, :desc)
+        update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar])
+        if teacher.update(update_params)
           present teacher, with: Entities::Teacher
         else
-          { error: "params error" }
+          raise(ActiveRecord::RecordInvalid.new(teacher))
+        end
+      end
+
+      desc 'teacher update profile.' do
+        headers 'Remember-Token' => {
+                    description: 'RememberToken',
+                    required: true
+                  }
+      end
+      params do
+        requires :id, type: Integer, desc: 'ID'
+        requires :name, type: String, desc: '姓名'
+        optional :nick_name, type: String, desc: '姓名'
+        optional :avatar, :type => Rack::Multipart::UploadedFile, desc: '头像'
+        optional :gender, type: String, desc: '性别'
+        optional :birthday, type: DateTime, desc: '生日'
+        optional :desc, type: String, desc: '简介'
+        requires :subject, type: String, desc: '科目'
+        requires :category, type: String, desc: '类型'
+        optional :email, type: String, desc: '邮箱'
+        optional :email_confirmation, type: String, desc: '邮箱确认'
+
+        all_or_none_of :email, :email_confirmation
+      end
+      put "/:id/profile" do
+        teacher = ::Teacher.find(params[:id])
+        update_params = ActionController::Parameters.new(params).permit(:name, :nick_name, :gender, :subject, :category, :birthday, :desc, :email, :email_confirmation)
+        update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar])
+        if teacher.update(update_params)
+          present teacher, with: Entities::Teacher
+        else
+          raise(ActiveRecord::RecordInvalid.new(teacher))
         end
       end
     end

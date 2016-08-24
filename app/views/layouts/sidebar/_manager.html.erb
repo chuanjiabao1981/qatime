@@ -68,6 +68,13 @@
       <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">辅导班</span>
     <% end %>
   </li>
+
+  <li>
+    <%= link_to curriculums_path do %>
+      <span class="fa fa-folder-open-o"></span> <span class="qa_f18"><%= t("view.common_bars.curriculums") %></span>
+    <% end %>
+  </li>
+
   <li>
     <%= link_to signout_path, :method=>'delete'  do %>
         <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18">退出系统</span>

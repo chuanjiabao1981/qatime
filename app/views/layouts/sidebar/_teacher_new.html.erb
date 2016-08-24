@@ -84,5 +84,12 @@
         <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:teacher_syllabuses) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
+    <li>
+      <%= link_to customized_courses_teacher_path(@teacher) do %>
+        <span class="fa fa-briefcase"></span>
+        <span class="qa_f18"><%= t "view.common_bars.customized_courses" %></span>
+        <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:customized_courses) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+      <% end %>
+    </li>
   </ul>
 </div>

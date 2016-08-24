@@ -1,0 +1,24 @@
+<% @current_resource ||= @current_user %>
+
+<ul class="faq-menu">
+  <%= content_tag :li, class: current_page?(action: :courses) ? 'active' : '' do%>
+    <%= link_to courses_qa_faqs_path do %>
+      <span class="qa_f18">辅导班流程</span>
+    <% end %>
+  <% end %>
+  <%= content_tag :li, class: current_page?(action: :teacher) ? 'active' : '' do%>
+    <%= link_to teacher_qa_faqs_path do %>
+      <span class="qa_f18">老师使用说明</span>
+    <% end %>
+  <% end %>
+  <%= content_tag :li, class: current_page?(action: :student) ? 'active' : '' do%>
+    <%= link_to student_qa_faqs_path do %>
+      <span class="qa_f18">学生使用说明</span>
+    <% end %>
+  <% end %>
+  <%= content_tag :li, class: current_page?('/qa_faqs') || params[:action] == 'show' ? 'active' : '' do%>
+    <%= link_to qa_faqs_path do %>
+      <span class="qa_f18">常见问题</span>
+    <% end %>
+  <% end %>
+</ul>

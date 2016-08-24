@@ -3,7 +3,7 @@ class QaFaqsController < ApplicationController
 
   def index
     @qa_faqs = QaFaq.all.order(:created_at)
-    render layout: "application"
+    render layout: "faqs"
   end
 
   def new
@@ -18,7 +18,7 @@ class QaFaqsController < ApplicationController
   end
 
   def show
-    render layout: "application"
+    render layout: "faqs"
   end
 
   def edit
@@ -30,6 +30,19 @@ class QaFaqsController < ApplicationController
     @qa_faq.update_attributes(params[:qa_faq].permit!)
     respond_with @qa_faq
   end
+
+  def courses
+    render layout: "faqs"
+  end
+
+  def teacher
+    render layout: "faqs"
+  end
+
+  def student
+    render layout: "faqs"
+  end
+
 
   private
   def current_resource

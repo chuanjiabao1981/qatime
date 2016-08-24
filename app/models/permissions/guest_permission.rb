@@ -6,9 +6,9 @@ module Permissions
       allow :students,[:new,:create]
       allow :teachers,[:new,:create]
       allow :teaching_videos,[:show]
-      allow :qa_faqs,[:index,:courses,:teacher,:student]
+      allow :qa_faqs,[:index,:courses,:show]
       allow :qa_faqs,[:show] do |faq|
-        not faq.teacher?
+        faq && !faq.teacher?
       end
 
       # wechat payment callback url

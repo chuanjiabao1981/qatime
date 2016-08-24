@@ -51,7 +51,7 @@ module LiveStudio
     scope :uncompleted, -> { where('status < ?', Course.statuses[:completed]) }
 
     def cant_publish?
-      !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank? || lesson_count < preset_lesson_count
+      !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank? || lesson_count != preset_lesson_count
     end
 
     def push_stream

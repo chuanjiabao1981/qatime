@@ -21,10 +21,17 @@ module Entities
       expose :lesson_count, if: { type: :full }
       expose :preset_lesson_count, if: { type: :full }
       expose :completed_lesson_count, if: { type: :full }
-      expose :live_start_time, if: { type: :full }
-      expose :live_end_time, if: { type: :full }
+      expose :live_start_time
+      expose :live_end_time
       expose :publicize do |course|
-        options[:type] == :full ? course.publicize_url(:app_info) : course.publicize_url(:list)
+        case options[:size]
+          when :search
+            course.publicize_url(:info)
+          when :info
+            course.publicize_url(:app_info)
+          else
+            course.publicize_url(:list)
+        end
       end
       expose :lessons, using: Entities::LiveStudio::Lesson, if: { type: :full }
       expose :chat_team, using: Entities::Chat::Team, if: { type: :full } do |course|

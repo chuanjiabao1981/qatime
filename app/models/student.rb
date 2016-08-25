@@ -15,6 +15,7 @@ class Student < User
   # 直播
   has_many :live_studio_tickets, class_name: LiveStudio::Ticket
   has_many :live_studio_courses, class_name: LiveStudio::Course, through: :live_studio_tickets, source: :course
+  has_many :live_studio_lessons, class_name: LiveStudio::Lesson, through: :live_studio_courses, source: :lessons
   has_many :live_studio_taste_tickets, class_name: LiveStudio::TasteTicket
 
   # validates_presence_of :parent_phone, :on => :create

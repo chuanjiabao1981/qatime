@@ -24,7 +24,7 @@ module LiveStudio
     scope :since_today, -> {where('class_date > ?',Date.today)}
     scope :include_today, -> {where('class_date >= ?',Date.today)}
     scope :waiting_finish, -> { where(status: [statuses[:paused], statuses[:closed]])}
-    scope :month, -> (month){where('class_date >= ? and class_date <= ?',month.beginning_of_month.to_date,month.end_of_month.to_date)}
+    scope :month, -> (month){where('live_studio_lessons.class_date >= ? and live_studio_lessons.class_date <= ?',month.beginning_of_month.to_date,month.end_of_month.to_date)}
 
     belongs_to :course
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师

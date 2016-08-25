@@ -11,6 +11,7 @@ module RegisterAble
     validates_confirmation_of :email
 
     # 第一步注册验证
+    validates :login_mobile, presence: true, length: { is: 11 }, uniqueness: true, numericality: { only_integer: true }, on: :create
     validates :password, length: { minimum: 6 }, if: :register_columns_required?
 
     validates_presence_of :register_code_value, on: :create

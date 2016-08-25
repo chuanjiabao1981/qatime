@@ -21,14 +21,12 @@ class User < ActiveRecord::Base
   validates :nick_name, allow_nil: true, allow_blank:true, uniqueness: true,
             format: {with: /\A[\p{Han}\p{Alnum}\-_]{3,10}\z/,message:"只可以是中文、英文或者下划线，最短3个字符最长10个字符，不可包含空格。"}
 
-  validates :login_mobile, presence: true, length: { is: 11 }, uniqueness: true, numericality: { only_integer: true }, on: :create
-
+  validates :login_mobile, uniqueness: true, allow_blank: true
   # 验证码验证
   validates :captcha, confirmation: { case_sensitive: false }, if: :captcha_required?
 
   # 个人安全信息修改
-  validates :password, length: { minimum: 6 }, if: :password_required?, on: :update
-  validates :login_mobile, length: { is: 11 }, uniqueness: true, numericality: { only_integer: true }, if: :login_mobile_changed?, on: :update
+  validates :password, allow_blank: true, length: { minimum: 6 }, if: :password_required?, on: :update
   validates :email, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, if: :email_changed?, on: :update
 
   validates_presence_of :avatar, :name, if: :teacher_or_student_columns_required?, on: :update

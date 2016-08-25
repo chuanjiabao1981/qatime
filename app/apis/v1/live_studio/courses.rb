@@ -57,7 +57,7 @@ module V1
               end
               get ':id' do
                 course = current_user.live_studio_courses.find(params[:id])
-                present course, with: Entities::LiveStudio::TeacherCourse, type: :full
+                present course, with: Entities::LiveStudio::TeacherCourse, type: :full, size: :info
               end
             end
           end
@@ -81,7 +81,7 @@ module V1
               get do
                 tickets = LiveService::CourseDirector.courses_for_student_index(current_user,params).paginate(page: params[:page], per_page: params[:per_page])
                 courses = tickets.map(&:course)
-                present courses, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user
+                present courses, with: Entities::LiveStudio::StudentCourse, type: :default, current_user: current_user
               end
 
               desc '学生辅导班详情接口' do
@@ -95,7 +95,7 @@ module V1
               end
               get ':id' do
                 course = current_user.live_studio_courses.find(params[:id])
-                present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user
+                present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user, size: :info
               end
             end
           end
@@ -125,7 +125,7 @@ module V1
           get do
             courses = LiveService::CourseDirector.courses_search(params).paginate(page: params[:page], per_page: params[:per_page])
             entity = current_user.student? ? Entities::LiveStudio::StudentCourse : Entities::LiveStudio::Course
-            present courses, with: entity, type: :default, current_user: current_user
+            present courses, with: entity, type: :default, current_user: current_user, size: :info
           end
 
           desc '检索辅导班详情接口' do
@@ -140,7 +140,7 @@ module V1
           get '/:id' do
             course = ::LiveStudio::Course.find(params[:id])
             entity = current_user.student? ? Entities::LiveStudio::StudentCourse : Entities::LiveStudio::Course
-            present course, with: entity, type: :full, current_user: current_user
+            present course, with: entity, type: :full, current_user: current_user, size: :info
           end
 
           desc '试听辅导班接口' do
@@ -189,7 +189,7 @@ module V1
           end
           get '/:id/play_info' do
             course = ::LiveStudio::Course.find(params[:id])
-            present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user
+            present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user,size: :info
           end
         end
       end

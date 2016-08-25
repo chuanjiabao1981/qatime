@@ -14,7 +14,7 @@ module Chat
       join_results = Array.new(10) { Typhoeus::Response.new(code: 200, body: { code: 200 }.to_json)}
       Typhoeus.stub('https://api.netease.im/nimserver/team/add.action').and_return(join_results)
       Capybara.current_driver = :selenium_chrome
-      log_in_as(@student)
+      new_log_in_as(@student)
     end
 
     def teardown
@@ -41,8 +41,8 @@ module Chat
       visit live_studio.courses_path
       assert_difference "course.buy_tickets.count", 1, "购买失败" do
         click_link("buy-course-#{course.id}")
-        choose("order_pay_type_1")
-        click_on("新增订单")
+        click_link('微信支付')
+        click_on '立即支付'
         Chat::TeamMemberCreatorJob.perform_now(course.id, @student.id)
         @student.reload
         course.reload

@@ -22,7 +22,7 @@ module Chat
 
     test "student get histroy chat in team" do
       Capybara.using_session("teacher") do
-        log_in_as(@teacher)
+        new_log_in_as(@teacher)
         @course.reload
         visit chat.finish_live_studio_course_teams_path(@course)
         @course.reload
@@ -34,7 +34,7 @@ module Chat
       end
 
       Capybara.using_session("student") do
-        log_in_as(@student)
+        new_log_in_as(@student)
         visit live_studio.play_course_path(@course)
 
         sleep 5

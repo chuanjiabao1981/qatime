@@ -17,7 +17,7 @@ class TeachersController < ApplicationController
   end
 
   def create
-    @teacher = Teacher.new(create_params).captcha_required!
+    @teacher = Teacher.new(create_params).register_columns_required!.captcha_required!
     captcha_manager = UserService::CaptchaManager.new(create_params[:login_mobile])
     @teacher.captcha = captcha_manager.captcha_of(:register_captcha)
     @teacher.build_account
@@ -72,9 +72,6 @@ class TeachersController < ApplicationController
 
     # 更新密码时，验证密码
     @teacher.password_required! if update_params[:password]
-    # 更新手机时，验证手机
-    @teacher.update_register_required! if update_params[:login_mobile]
-
     @teacher.update(update_params)
     # 获取更新的字段，便于更新提示
     @update_attr = update_params.keys.first
@@ -224,7 +221,7 @@ class TeachersController < ApplicationController
         return @teacher.update_with_password(update_params)
       end
 
-      @teacher.update_register_required!
+      @teacher.teacher_columns_required!
       @teacher.update(update_params)
     end
   end
@@ -234,7 +231,6 @@ class TeachersController < ApplicationController
     # TODO 存储验证码的key区分开来，不同功能的验证码不使用
     captcha_manager = UserService::CaptchaManager.new(login_mobile_params[:login_mobile])
     @teacher.captcha = captcha_manager.captcha_of(:send_captcha)
-    @teacher.update_register_required!
     @teacher.update_with_captcha(login_mobile_params)
   ensure
     if @teacher.errors.blank?

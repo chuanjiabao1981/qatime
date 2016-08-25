@@ -1,4 +1,6 @@
 class Student < User
+  include RegisterAble
+
   default_scope {where(role: 'student')}
 
   has_many :deposits
@@ -17,12 +19,20 @@ class Student < User
   has_many :live_studio_courses, class_name: LiveStudio::Course, through: :live_studio_tickets, source: :course
   has_many :live_studio_taste_tickets, class_name: LiveStudio::TasteTicket
 
-  # validates_presence_of :parent_phone, :on => :create
-  # validates :parent_phone, length:{is: 11}, :on => :create
-  # validates :parent_phone,numericality: { only_integer: true },:on => :create
+  attr_reader :student_columns_required
 
-  attr_accessor :accept
-  validates :accept, acceptance: true
+  validates_confirmation_of :parent_phone
+
+  # 第二步注册，学生更新验证
+  validates_presence_of :grade, if: :student_columns_required?, on: :update
+  validates :parent_phone, allow_blank: true, length: { is: 11 }, numericality: { only_integer: true }, on: :update
+
+  # 修改个人安全信息验证
+  validates :parent_phone, length: { is: 11 }, numericality: { only_integer: true }, if: :parent_phone?, on: :update
+
+  # 修改个人信息（非找回密码，非admin修改个人信息）
+  # TO DO
+  # validates_presence_of :avatar, :name, on: :update
 
   def initialize(attributes = {})
     super(attributes)
@@ -73,5 +83,17 @@ class Student < User
     Account.update_counters self.account.id,:money => recharge_code.money
 
     recharge_code.money
+  end
+
+  # 学生必填的字段
+  def student_columns_required?
+    @student_columns_required == true || teacher_or_student_columns_required?
+  end
+
+  # 强制设置学生必填字段
+  def student_columns_required!
+    teacher_or_student_columns_required!
+    @student_columns_required = true
+    self
   end
 end

@@ -17,7 +17,7 @@ class StudentsController < ApplicationController
   end
 
   def create
-    @student = Student.new(create_params).captcha_required!
+    @student = Student.new(create_params).register_columns_required!.captcha_required!
     captcha_manager = UserService::CaptchaManager.new(create_params[:login_mobile])
     @student.captcha = captcha_manager.captcha_of(:register_captcha)
     @student.build_account
@@ -56,8 +56,6 @@ class StudentsController < ApplicationController
 
     # 更新密码时，验证密码
     @student.password_required! if update_params[:password]
-    # 更新手机时，验证手机
-    @student.update_register_required! if update_params[:login_mobile]
 
     @student.update(update_params)
 
@@ -208,7 +206,7 @@ class StudentsController < ApplicationController
         return @student.update_with_password(update_params)
       end
 
-      @student.update_register_required!
+      @student.teacher_columns_required!
       @student.update(update_params)
     end
   end
@@ -218,7 +216,6 @@ class StudentsController < ApplicationController
     # TODO 存储验证码的key区分开来，不同功能的验证码不使用
     captcha_manager = UserService::CaptchaManager.new(login_mobile_params[:login_mobile])
     @student.captcha = captcha_manager.captcha_of(:send_captcha)
-    @student.update_register_required!
     @student.update_with_captcha(login_mobile_params)
   ensure
     if @student.errors.blank?

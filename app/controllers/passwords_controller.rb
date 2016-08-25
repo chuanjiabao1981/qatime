@@ -4,7 +4,7 @@ class PasswordsController < ApplicationController
   end
 
   def create
-    @user = User.find_by_login_account(password_params[:login_account])
+    @user = User.find_by_login_account(password_params[:login_account]).password_required!
     captcha_manager = UserService::CaptchaManager.new(password_params[:login_account])
     @user.captcha = captcha_manager.captcha_of(:get_password_back)
     if @user.update_with_captcha(password_params)

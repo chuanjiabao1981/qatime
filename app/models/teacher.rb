@@ -1,15 +1,13 @@
 class Teacher < User
+  include RegisterAble
 
   serialize :grade_range, Array
   default_scope {where(role: 'teacher')}
-
-  # validates_presence_of :subject, :category, on: :update
 
   has_many :curriculums,dependent: :destroy
   has_many :courses,dependent: :destroy
 
   # has_many :deposits
-
 
   has_many :answers,:dependent => :destroy
   has_many :learning_plan_assignments, :dependent => :destroy
@@ -28,11 +26,11 @@ class Teacher < User
   #has_many :corrections
   #has_many :replies
 
-
   belongs_to :school
-  attr_accessor :accept
+  attr_reader :teacher_columns_required
 
-  validates :accept, acceptance: true
+  # 第二步注册，教师更新验证
+  validates_presence_of :subject, :category, if: :teacher_columns_required?, on: :update
 
   scope :by_category,lambda {|c| where(category: c) if c}
   scope :by_subject, lambda {|s| where(subject: s) if s}
@@ -66,7 +64,6 @@ class Teacher < User
   end
 
   def keep_account
-
     [CustomizedTutorial, HomeworkCorrection,ExerciseCorrection].each do |s|
       s.by_teacher_id(self.id).valid_tally_unit.each do |object|
         object.keep_account(self.id)
@@ -84,5 +81,17 @@ class Teacher < User
     _grade_range = grade_range
     _grade_range.delete("")
     _grade_range.join(" ")
+  end
+
+  # 老师必填字段
+  def teacher_columns_required?
+    @teacher_columns_required == true || teacher_or_student_columns_required?
+  end
+
+  # 强制设置老师必填字段
+  def teacher_columns_required!
+    teacher_or_student_columns_required!
+    @teacher_columns_required = true
+    self
   end
 end

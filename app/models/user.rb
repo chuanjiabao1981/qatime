@@ -165,8 +165,9 @@ class User < ActiveRecord::Base
     student? || teacher?
   end
 
+  # 非老师和学生且并非找回密码
   def not_teacher_or_student?
-    !student_or_teacher?
+    !student_or_teacher? && !password_required?
   end
 
   private

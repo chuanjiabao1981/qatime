@@ -41,4 +41,37 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     assert_equal "2000-01-01", res['data']['birthday']
     assert_equal @student.desc, res['data']['desc']
   end
+
+
+  test 'GET /api/v1/student/schedule no params' do
+    @student = users(:student_one_with_course)
+    post '/api/v1/sessions', email: @student.email,
+         password: 'password',
+         client_type: 'app'
+    @remember_token = JSON.parse(response.body)['data']['remember_token']
+
+    get "/api/v1/students/#{@student.id}/schedule", {}, 'Remember-Token' => @remember_token
+    data = JSON.parse(response.body)['data']
+    assert_response :success
+    assert data.class == Array
+    assert data.first['lessons'].count == 2, '返回课程数量不对'
+    return_date = data.first['date'].to_date
+    assert return_date >= Time.now.beginning_of_month.to_date && return_date <= Time.now.end_of_month.to_date, '返回数据日期不正确'
+  end
+
+  test 'GET /api/v1/student/:id/schedule has params' do
+    @student = users(:student_one_with_course)
+    post '/api/v1/sessions', email: @student.email,
+         password: 'password',
+         client_type: 'app'
+    @remember_token = JSON.parse(response.body)['data']['remember_token']
+
+    get "/api/v1/students/#{@student.id}/schedule", {month: Time.now.to_date.to_s}, 'Remember-Token' => @remember_token
+    data = JSON.parse(response.body)['data']
+    assert_response :success
+    assert data.class == Array
+    assert data.first['lessons'].count == 2, '返回课程数量不对'
+    return_date = data.first['date'].to_date
+    assert return_date >= Time.now.beginning_of_month.to_date && return_date <= Time.now.end_of_month.to_date, '返回数据日期不正确'
+  end
 end

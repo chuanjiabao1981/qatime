@@ -26,7 +26,21 @@ module LiveService
     def deliver_ticket
     end
 
-
+    # 根据参数查询当月课程安排
+    def self.courses_by_month(user, month=nil)
+      month = month.blank? ? Time.now : month.to_time
+      hash = {}
+      user.live_studio_lessons.month(month).map do |lesson|
+        date = lesson.class_date.to_s
+        hash[date] ||= []
+        hash[date] << lesson
+      end
+      items = []
+      hash.map do |date,lessons|
+        items << {date: date, lessons: lessons}
+      end
+      items
+    end
 
     # 过滤辅导班
     # 检索条件: subject grade status

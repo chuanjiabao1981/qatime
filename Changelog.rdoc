@@ -133,4 +133,23 @@
     * bugfix
         * [QT-280](https://qatime.atlassian.net/browse/QT-280)
         * [QT-281](https://qatime.atlassian.net/browse/QT-281)
-
+* 0.7.0
+    * feature
+       * [QT-214](https://qatime.atlassian.net/browse/QT-214)
+       * [QT-238](https://qatime.atlassian.net/browse/QT-238)
+       * [QT-268](https://qatime.atlassian.net/browse/QT-268)
+       * [QT-287](https://qatime.atlassian.net/browse/QT-287)
+       * [QT-289](https://qatime.atlassian.net/browse/QT-289)
+       * [QT-290](https://qatime.atlassian.net/browse/QT-290)
+       * [QT-291](https://qatime.atlassian.net/browse/QT-291)
+       * [QT-295](https://qatime.atlassian.net/browse/QT-295)
+       * [QT-296](https://qatime.atlassian.net/browse/QT-296)
+       * [QT-297](https://qatime.atlassian.net/browse/QT-297)
+       * [QT-298](https://qatime.atlassian.net/browse/QT-298)
+       * [QT-302](https://qatime.atlassian.net/browse/QT-302)
+       * [QT-303](https://qatime.atlassian.net/browse/QT-303)
+       * [QT-304](https://qatime.atlassian.net/browse/QT-304)
+    * bugfix
+       * [QT-282](https://qatime.atlassian.net/browse/QT-282)
+       * [QT-286](https://qatime.atlassian.net/browse/QT-286)
+       * [QT-299](https://qatime.atlassian.net/browse/QT-299)

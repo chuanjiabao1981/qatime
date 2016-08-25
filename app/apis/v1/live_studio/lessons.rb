@@ -8,6 +8,20 @@ module V1
             authenticate!
           end
 
+          desc '学生课程表接口' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            optional :month, type: String, desc: '月份: 2016-10-01 该值为空则默认返回当月数据'
+          end
+          get 'schedule' do
+            arr = LiveService::CourseDirector.courses_by_month(params[:month])
+            present arr, with: Entities::LiveStudio::Schedule
+          end
+
           desc '直播开始接口' do
             headers 'Remember-Token' => {
               description: 'RememberToken',

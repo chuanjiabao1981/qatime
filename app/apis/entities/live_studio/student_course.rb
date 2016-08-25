@@ -2,7 +2,7 @@ module Entities
   module LiveStudio
     class StudentCourse < Entities::LiveStudio::Course
 
-      expose :pull_address, if: { type: :full } do |course, options|
+      expose :pull_address do |course, options|
         ticket = ::LiveStudio::Ticket.where(student: options[:current_user],course: course).authorizable.last
         ticket.present? ? course.pull_stream.try(:address) : ''
       end

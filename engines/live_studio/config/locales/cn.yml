@@ -29,7 +29,7 @@ cn:
       category: 年级类型：
       teacher: 授课老师：
       lesson_count: 课时总数：
-      schedule: 课程进度：
+      schedule: 已设课程：
       surplus: 剩余课时：
       start_time: 开课时间：
       end_time: 结课时间：

@@ -82,7 +82,7 @@ class TeacherUpdatePasswordAndEmailTest < ActionDispatch::IntegrationTest
     click_on "修改绑定手机", match: :first
     click_on "获取验证码", match: :first
 
-    fill_in "mobile-captcha-input", with: "1234"
+    fill_in "login_mobile-captcha-input", with: "1234"
     click_on "下一步"
 
     fill_in "teacher_login_mobile", with: "13800000011"

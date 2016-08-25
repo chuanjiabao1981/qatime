@@ -1,5 +1,5 @@
 class Teacher < User
-  include RegisterAble
+  include Registable
 
   serialize :grade_range, Array
   default_scope {where(role: 'teacher')}

@@ -1,5 +1,5 @@
 class Student < User
-  include RegisterAble
+  include Registable
 
   default_scope {where(role: 'student')}
 

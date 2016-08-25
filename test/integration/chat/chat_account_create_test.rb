@@ -13,7 +13,7 @@ module Chat
       account_result = Typhoeus::Response.new(code: 200, body: { code: 200, info: { accid: SecureRandom.hex(16), token: SecureRandom.hex(16) } }.to_json)
       Typhoeus.stub('https://api.netease.im/nimserver/user/create.action').and_return(account_result)
 
-      log_in_as(@student)
+      new_log_in_as(@student)
     end
 
     def teardown
@@ -43,8 +43,8 @@ module Chat
       course_preview = live_studio_courses(:course_preview)
       assert_difference '@student.orders.count', 1, "辅导班下单失败" do
         click_on("buy-course-#{course_preview.id}")
-        choose("order_pay_type_1")
-        click_on("新增订单")
+        click_link '微信支付'
+        click_on '立即支付'
 
         @student.reload
         assert_not_nil @student.chat_account

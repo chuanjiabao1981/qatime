@@ -44,4 +44,10 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     assert data.length == 32, '没有正确返回'
   end
+
+  test 'GET /api/v1/live_studio/lessons/schedule' do
+    get_url("/api/v1/live_studio/lessons/schedule", {})
+    assert_response :success
+    assert JSON.parse(response.body)['data'].class == Array
+  end
 end

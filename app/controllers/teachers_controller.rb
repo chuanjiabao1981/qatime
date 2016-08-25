@@ -214,7 +214,9 @@ class TeachersController < ApplicationController
     when "email"
       return update_email
     else
-      update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
+      update_params = update_params(update_by)
+      update_params.delete(:email) if update_params[:email] == ""
+      update_params.delete(:email_confirmation) if update_params[:email_confirmation] == ""
 
       if %w(password).include?(update_by)
         @teacher.password_required!

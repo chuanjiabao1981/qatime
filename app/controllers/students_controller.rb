@@ -199,14 +199,16 @@ class StudentsController < ApplicationController
     when "parent_phone"
       return update_parent_phone
     else
-      update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
+      update_params = update_params(update_by)
+      update_params.delete(:email) if update_params[:email] == ""
+      update_params.delete(:email_confirmation) if update_params[:email_confirmation] == ""
 
       if %w(password).include?(update_by)
         @student.password_required!
         return @student.update_with_password(update_params)
       end
 
-      @student.teacher_columns_required!
+      @student.student_columns_required!
       @student.update(update_params)
     end
   end

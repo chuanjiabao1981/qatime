@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   validates :captcha, confirmation: { case_sensitive: false }, if: :captcha_required?
 
   # 个人安全信息修改
-  validates :password, length: { minimum: 6 }, if: :password, on: :update
+  validates :password, length: { minimum: 6 }, if: :password_required?, on: :update
   validates :login_mobile, length: { is: 11 }, uniqueness: true, numericality: { only_integer: true }, if: :login_mobile_changed?, on: :update
   validates :email, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, if: :email_changed?, on: :update
 

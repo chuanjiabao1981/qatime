@@ -1,4 +1,5 @@
 <% @teacher ||= @current_resource -%>
+<% @teacher ||= current_user -%>
 <div style="border: 1px solid; padding: 6px">
   <center>
     <%= image_tag @teacher.avatar_url(:big) %><br/>

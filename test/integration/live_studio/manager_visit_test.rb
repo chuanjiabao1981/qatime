@@ -38,7 +38,7 @@ module LiveStudio
       visit live_studio.student_course_path(@student, @course)
       assert_match @course.name, page.text, '--'
       page.go_back
-      click_on '辅导班', match: :first
+      visit live_studio.courses_index_path
       assert_match(LiveStudio::Course.preview.last.name, page.text, '没有正确跳转到辅导班搜索页')
     end
 

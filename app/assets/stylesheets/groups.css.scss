@@ -94,3 +94,42 @@ ul.menu li.maintainHover
 {
   text-align: center;
 }
+.col-md-2.support{
+  padding: 0;
+  width: 13%;
+
+}
+.col-md-10.support{
+  padding: 20px;
+  width: 87%;
+  background: #f1f1f1;
+}
+.faq-menu{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+  .active{
+    background: #f1f1f1;
+    a{
+      color: #666;
+    }
+  }
+
+}
+ul.faq-menu li
+{
+  padding: 10px;
+  background-color: #4683ea;
+  #border-bottom: 1px solid #CCCCCC;
+  text-align: center;
+  color: #e5e5e5;
+  :hover{
+    color: white;
+    cursor: hand;
+  }
+  a{
+    color: #e5e5e5;
+    text-decoration: none;
+  }
+}

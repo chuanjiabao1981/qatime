@@ -1,0 +1,7 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+qa_one:
+  title: test_title
+  content: test_desc
+  qa_faq_type: 0
+  token: customized_tutorial_teacher_earnings_1_token

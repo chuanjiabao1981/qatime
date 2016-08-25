@@ -12,7 +12,13 @@ Qatime::Application.routes.draw do
   get "waiters/home"        => "waiters/home#main",     as: 'waiters_home'
 
   resources :curriculums
-  resources :qa_faqs
+  resources :qa_faqs do
+    collection do
+      get 'courses'
+      get 'teacher'
+      get 'student'
+    end
+  end
 
 
   resources :pictures

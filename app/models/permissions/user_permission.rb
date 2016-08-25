@@ -1,6 +1,7 @@
 module Permissions
   class UserPermission < BasePermission
     def initialize(user)
+      allow :qa_faqs,[:index,:show,:courses]
 
       allow :customized_course_message_boards,[:show] do |customized_course_message_board|
         customized_course_message_board and

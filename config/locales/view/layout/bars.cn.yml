@@ -13,9 +13,14 @@ cn:
       questions: 问答社区
       live_studio_courses: 辅导班
       download: 下载
-      common_problem: 常见问题
+      common_problem: 帮助
       personal_center: 个人中心
       notice: 消息
+    qa_bars:
+      courses: 辅导班流程
+      teacher: 老师使用说明
+      student: 学生使用说明
+      faqs: 常见问题
     student_bars:
       my_wallet: 我的钱包
       my_orders: 我的订单

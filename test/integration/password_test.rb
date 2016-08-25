@@ -42,7 +42,6 @@ class PasswordTest < ActionDispatch::IntegrationTest
     fill_in :user_password_confirmation, with: "pa123456"
 
     click_on "提交", match: :first
-    binding.pry
     assert page.has_content?('更新成功'), '没有找回密码'
   end
 end

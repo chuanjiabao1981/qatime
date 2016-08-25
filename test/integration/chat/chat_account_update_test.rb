@@ -16,7 +16,7 @@ module Chat
       uinfos = Typhoeus::Response.new(code: 200, body: {code: 200, uinfos: [{accid: SecureRandom.hex(16), token: SecureRandom.hex(16), name: "new_nick_name", gender: 0}]}.to_json)
       Typhoeus.stub('https://api.netease.im/nimserver/user/getUinfos.action').and_return(uinfos)
 
-      log_in_as(@teacher)
+      new_log_in_as(@teacher)
     end
 
     def teardown

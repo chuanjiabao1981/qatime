@@ -29,7 +29,8 @@ cn:
       category: 年级类型：
       teacher: 授课老师：
       lesson_count: 课时总数：
-      schedule: 已设课程：
+      schedule: 课程进度：
+      setup_lesson: 已设课程：
       surplus: 剩余课时：
       start_time: 开课时间：
       end_time: 结课时间：
@@ -73,6 +74,8 @@ cn:
       class_date: 开课日期
       status: 当前状态
     payment_show:
+      order_info: 订单信息
+      pay_total: 支付金额
       weixin_pay: 微信支付
       alipay_pay: 支付宝支付
       pay: 支付

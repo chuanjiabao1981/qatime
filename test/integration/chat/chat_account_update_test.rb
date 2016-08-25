@@ -28,15 +28,15 @@ module Chat
       click_on "用户设置"
       click_on "安全设置"
       click_on "个人信息"
-      click_on "编辑信息", match: :first
 
+      click_on "编辑信息", match: :first
       fill_in :teacher_name, with: "new_name"
+      fill_in :teacher_nick_name, with: "新昵称"
       click_on "保存"
       @teacher.reload
-      @teacher.nick_name = 'test_nick_name'
       Chat::SyncChatAccountJob.perform_now(@teacher.id)
 
-      assert_equal('test_nick_name', @teacher.chat_account.name, '云信account更新错误')
+      assert_equal('新昵称', @teacher.chat_account.name, '云信account更新错误')
     end
   end
 end

@@ -187,7 +187,7 @@ class User < ActiveRecord::Base
   # chat account是否需要同步
   def chat_account_changed?
     return false unless chat_account
-    name_changed? || nick_name_changed? || avatar_changed?
+    chat_account.name != (nick_name || name)
   end
 
   def captcha_effective?(expired_at)

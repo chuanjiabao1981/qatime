@@ -215,8 +215,10 @@ class TeachersController < ApplicationController
       return update_email
     else
       update_params = update_params(update_by)
-      update_params.delete(:email) if update_params[:email] == ""
-      update_params.delete(:email_confirmation) if update_params[:email_confirmation] == ""
+      if update_params[:email] == ""
+        update_params.delete(:email)
+        update_params.delete(:email_confirmation) if update_params[:email_confirmation] == ""
+      end
 
       if %w(password).include?(update_by)
         @teacher.password_required!

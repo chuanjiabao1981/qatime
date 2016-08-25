@@ -1,7 +1,7 @@
 <% if_show_email_div = (params[:cate].to_s.to_sym == :security_setting && params[:by].to_s.to_sym == :email) %>
 
 <div id="edit_email_area" style="padding-top: 30px;<%= 'display:none;' unless if_show_email_div %>">
-  <!-- mobile_was,防止家长手机未更新的情况 -->
+  <!-- mobile_was,防止手机未更新的情况 -->
   <% if @teacher.login_mobile? %>
     <% if UserService::CaptchaManager.expire?(session["change-email-#{@teacher.login_mobile_was}"]) %>
       <%= form_tag(verify_ajax_captchas_path, method: :post, remote: true, id: "mobile_captcha_for_change_email_form") do |f| %>

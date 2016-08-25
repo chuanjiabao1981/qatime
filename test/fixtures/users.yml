@@ -242,6 +242,41 @@ chang_login_mobile_student1:
   type: Student
   school: school2
 
+chang_login_mobile_student2:
+  name: chang_login_mobile_student2
+  role: student
+  email: chang_login_mobile_student2@baidu.com
+  mobile: 15910676326
+  parent_phone: 15910676326
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
+  school: school2
+
+chang_email_student1:
+  login_mobile: 13892920005
+  name: chang_email_student1
+  role: student
+  mobile: 15910676326
+  parent_phone: 15910676326
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
+  school: school2
+
+chang_parent_phone_student1:
+  login_mobile: 13892920006
+  name: chang_email_student1
+  role: student
+  mobile: 15910676326
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
+  school: school2
+
 admin_edit_student:
   login_mobile: 13892920002
   name: admin_edit_student
@@ -363,6 +398,62 @@ chang_login_mobile_teacher:
   subject: 英语
   mobile: 15910676326
   email: chang_login_mobile_teacher@qatime.cn
+  avatar: "test"
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  school: school1
+  type: Teacher
+
+chang_login_mobile_teacher2:
+  name: chang_login_mobile_teacher2
+  role: teacher
+  category: 高中
+  subject: 英语
+  mobile: 15910676326
+  email: chang_login_mobile_teacher2@qatime.cn
+  avatar: "test"
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  school: school1
+  type: Teacher
+chang_email_teacher1:
+  login_mobile: 13892920008
+  name: chang_login_mobile_teacher2
+  role: teacher
+  category: 高中
+  subject: 英语
+  mobile: 15910676326
+  avatar: "test"
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  school: school1
+  type: Teacher
+search_teacher_1:
+  login_mobile: 15800000001
+  name: search_teacher_1
+  role: teacher
+  category: 高中
+  subject: 英语
+  mobile: 15910676326
+  avatar: "test"
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  school: school1
+  type: Teacher
+search_teacher_2:
+  login_mobile: 15800000002
+  name: search_teacher_2
+  role: teacher
+  category: 高中
+  subject: 英语
+  mobile: 15910676326
+  avatar: "test"
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  school: school1
+  type: Teacher
+search_teacher_3:
+  login_mobile: 15800000003
+  name: search_teacher_3
+  role: teacher
+  category: 高中
+  subject: 英语
+  mobile: 15910676326
   avatar: "test"
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   school: school1

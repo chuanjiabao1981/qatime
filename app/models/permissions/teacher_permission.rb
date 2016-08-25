@@ -4,7 +4,6 @@ module Permissions
 
     def initialize(user)
       super(user)
-      allow :qa_faqs,[:index,:show]
 
       allow :curriculums,[:index,:show]
       allow :home,[:index]
@@ -13,7 +12,7 @@ module Permissions
         picture and picture.author and picture.author_id == user.id
       end
       allow :messages, [:index, :show]
-
+      allow :qa_faqs,[:teacher]
 
 
       allow :questions,[:index,:show,:teacher]

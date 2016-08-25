@@ -2,7 +2,7 @@ module Permissions
   class ManagerPermission < StaffPermission
     def initialize(user)
       super(user)
-      allow :qa_faqs,[:index,:show]
+      allow :qa_faqs,[:index,:show,:courses,:student,:teacher]
 
       allow "managers/register_codes",[:index,:create,:new]
       allow "managers/lessons",[:state,:update]
@@ -20,7 +20,7 @@ module Permissions
       allow :register_codes, [:index, :new, :downloads, :create]
       allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,
                        :students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,
-                       :exercises,:keep_account,:solutions,:customized_tutorial_topics,:notifications, :admin_edit, :admin_update]
+                       :exercises,:keep_account,:solutions,:customized_tutorial_topics,:notifications, :admin_edit, :admin_update, :customized_courses]
       allow :curriculums,[:index,:show]
       allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
       allow :courses,[:show]
@@ -115,6 +115,7 @@ module Permissions
       allow 'chat/teams', [:finish, :members, :member_visit]
       allow 'welcome', [:download]
       allow 'payment/users', [:cash]
+      allow 'payment/orders', [:index, :show]
     end
   end
 end

@@ -14,7 +14,7 @@ module V1
       post do
         login_account = params[:login_account] || params[:email]
         user = login_account.include?("@") ? User.find_by(email: login_account) : User.find_by(login_mobile: login_account)
-        client_type = params['client_type']
+        client_type = params['client_type'].to_sym
 
         if user && user.authenticate(params[:password])
           login_token = sign_in(user, client_type)

@@ -1,6 +1,7 @@
 module Permissions
   class UserPermission < BasePermission
     def initialize(user)
+      allow :qa_faqs,[:index,:show,:courses]
 
       allow :customized_course_message_boards,[:show] do |customized_course_message_board|
         customized_course_message_board and
@@ -35,7 +36,7 @@ module Permissions
         notification and notification.receiver_id == user.id
       end
 
-      allow 'live_studio/courses', [:index, :taste, :play, :show]
+      allow 'live_studio/courses', [:index, :taste, :play, :show, :refresh_current_lesson]
       allow 'chat/teams', [:finish, :members, :member_visit]
       allow 'ajax/captchas', [:create, :verify]
       allow 'welcome', [:download]

@@ -3,13 +3,13 @@
   <!-- 使用mobile_was,来防止未更新的情况 -->
   <% if @student.login_mobile_was.present? && UserService::CaptchaManager.expire?(session["change-login_mobile-#{@student.login_mobile_was}"]) %>
     <%= form_tag(verify_ajax_captchas_path, method: :post, remote: true, id: "mobile_captcha_for_change_mobile_form") do |f| %>
-      <input type="hidden" name="send_to" value="<%= @student.login_mobile %>" id="student_login_mobile">
+      <input type="hidden" name="send_to" value="<%= @student.login_mobile %>" id="student_login_mobile_for_change_login_mobile">
       <input type="hidden" name="student_id" value="<%= @student.id %>">
       <input type="hidden" name="cate" value="security_setting">
       <input type="hidden" name="by" value="login_mobile">
 
       <div class="row" >
-        <div class="col-md-2 col-md-offset-3 text-right form_lable">
+        <div class="col-md-2 col-md-offset-3 text-right">
           <%= t ".binding_mobile" %>:
         </div>
         <div class="col-md-3">
@@ -23,9 +23,9 @@
         <div class="col-md-7">
           <div class="row">
             <div class="col-md-2">
-              <div class="form-group string optional student_captcha"><input maxlength="4" id="mobile-captcha-input" class="string optional form-control" size="4" type="text" name="captcha"></div>
+              <div class="form-group string optional student_captcha"><input maxlength="4" id="login_mobile-captcha-input" class="string optional form-control" size="4" type="text" name="captcha"></div>
             </div>
-            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-key="send_captcha" value="<%= t ".get_captcha" %>">
+            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_login_mobile_for_change_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-key="send_captcha" value="<%= t ".get_captcha" %>">
           </div>
         </div>
       </div>

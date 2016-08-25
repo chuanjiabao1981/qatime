@@ -3,7 +3,7 @@ require_dependency "live_studio/application_controller"
 module LiveStudio
   class CoursesController < ApplicationController
     before_action :set_student
-    before_action :set_course, only: [:show, :play, :publish]
+    before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson]
     before_action :play_authorize, only: [:play]
 
     def index
@@ -44,6 +44,10 @@ module LiveStudio
       @pull_stream = @course.pull_stream
       @chat_account = current_user.chat_account
       @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) if @chat_team && @chat_account
+    end
+
+    def refresh_current_lesson
+      @current_lesson = @course.current_lesson
     end
 
     def update_notice

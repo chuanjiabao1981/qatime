@@ -19,7 +19,7 @@ module LiveStudio
     validates :name, :price, :subject, :grade, presence: true
     validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than: 0, less_than: 100 }
     validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than: 200 }
-    validates :price, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 999999}
+    validates :price, numericality: {greater_than: :lower_price, less_than_or_equal_to: 999999}
 
     validates :workstation, :teacher, presence: true
 
@@ -218,6 +218,12 @@ module LiveStudio
     def init_channel_job
       init_channel
       # ChannelCreateJob.perform_later(id)
+    end
+
+    def lower_price
+      lp = 0
+      lp = preset_lesson_count.to_i * 5 if preset_lesson_count.to_i > 0
+      lp
     end
   end
 end

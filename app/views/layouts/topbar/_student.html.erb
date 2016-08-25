@@ -21,15 +21,13 @@
         <li><%= link_to t("view.common_bars.common_problem"), qa_faqs_path %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <% if current_user.student? %>
-          <li>
-            <%= link_to user_notification_path do %>
-            <span class="glyphicon glyphicon-envelope"></span>
-            <%= t "view.common_bars.notice" %>
-            <span class="badge"><%= student.unread_notifications_count if student.unread_notifications_count > 0 %></span>
-            <% end %>
-          </li>
-        <% end %>
+        <li>
+          <%= link_to user_notification_path do %>
+          <span class="glyphicon glyphicon-envelope"></span>
+          <%= t "view.common_bars.notice" %>
+          <span class="badge"><%= student.unread_notifications_count if student.unread_notifications_count > 0 %></span>
+          <% end %>
+        </li>
         <li>
           <%= link_to info_student_path(student) do %>
             <span class="glyphicon glyphicon-user"></span>

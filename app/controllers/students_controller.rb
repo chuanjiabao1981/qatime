@@ -17,7 +17,7 @@ class StudentsController < ApplicationController
   end
 
   def create
-    @student = Student.new(create_params).captcha_required!
+    @student = Student.new(create_params).register_columns_required!.captcha_required!
     captcha_manager = UserService::CaptchaManager.new(create_params[:login_mobile])
     @student.captcha = captcha_manager.captcha_of(:register_captcha)
     @student.build_account
@@ -56,8 +56,6 @@ class StudentsController < ApplicationController
 
     # 更新密码时，验证密码
     @student.password_required! if update_params[:password]
-    # 更新手机时，验证手机
-    @student.update_register_required! if update_params[:login_mobile]
 
     @student.update(update_params)
 
@@ -201,10 +199,18 @@ class StudentsController < ApplicationController
     when "parent_phone"
       return update_parent_phone
     else
-      update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
-      return @student.update_with_password(update_params) if %w(password).include?(update_by)
+      update_params = update_params(update_by)
+      if update_params[:email] == ""
+        update_params.delete(:email)
+        update_params.delete(:email_confirmation) if update_params[:email_confirmation] == ""
+      end
 
-      @student.update_register_required!
+      if %w(password).include?(update_by)
+        @student.password_required!
+        return @student.update_with_password(update_params)
+      end
+
+      @student.student_columns_required!
       @student.update(update_params)
     end
   end

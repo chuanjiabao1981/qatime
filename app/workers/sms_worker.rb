@@ -1,7 +1,7 @@
 
 module SmsUtil
   def send_message(mobile,content)
-    return if ENV["RAILS_ENV"] == "test"
+    return if Rails.env.test?
     uri = URI.parse('http://yunpian.com/v1/sms/send.json')
 
     s = Net::HTTP.post_form(uri,

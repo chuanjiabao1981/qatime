@@ -21,7 +21,11 @@ class Ajax::CaptchasController < ApplicationController
     end
 
     captcha_manager = UserService::CaptchaManager.new(send_to)
-    @result = captcha_manager.captcha_of(:send_captcha)
+    captcha = captcha_manager.captcha_of(:send_captcha)
+
+    if params[:captcha] == captcha
+      @result = captcha
+    end
     session["change-#{by}-#{send_to}"] = { result: 'ok', expire_at: 15.minutes.since.to_i } if @result
 
     respond_to do |format|

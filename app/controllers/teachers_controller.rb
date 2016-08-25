@@ -17,7 +17,7 @@ class TeachersController < ApplicationController
   end
 
   def create
-    @teacher = Teacher.new(create_params).captcha_required!
+    @teacher = Teacher.new(create_params).register_columns_required!.captcha_required!
     captcha_manager = UserService::CaptchaManager.new(create_params[:login_mobile])
     @teacher.captcha = captcha_manager.captcha_of(:register_captcha)
     @teacher.build_account
@@ -72,9 +72,6 @@ class TeachersController < ApplicationController
 
     # 更新密码时，验证密码
     @teacher.password_required! if update_params[:password]
-    # 更新手机时，验证手机
-    @teacher.update_register_required! if update_params[:login_mobile]
-
     @teacher.update(update_params)
     # 获取更新的字段，便于更新提示
     @update_attr = update_params.keys.first
@@ -123,6 +120,7 @@ class TeachersController < ApplicationController
 
   def homeworks
     @homeworks = Examination.by_customized_course_work.by_teacher(@teacher).order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+    render layout: 'teacher_home_new'
   end
 
   def customized_tutorial_topics
@@ -217,10 +215,18 @@ class TeachersController < ApplicationController
     when "email"
       return update_email
     else
-      update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
-      return @teacher.update_with_password(update_params) if %w(password).include?(update_by)
+      update_params = update_params(update_by)
+      if update_params[:email] == ""
+        update_params.delete(:email)
+        update_params.delete(:email_confirmation) if update_params[:email_confirmation] == ""
+      end
 
-      @teacher.update_register_required!
+      if %w(password).include?(update_by)
+        @teacher.password_required!
+        return @teacher.update_with_password(update_params)
+      end
+
+      @teacher.teacher_columns_required!
       @teacher.update(update_params)
     end
   end

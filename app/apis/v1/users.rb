@@ -68,6 +68,7 @@ module V1
         user = ::User.find(params[:id])
         password_params = ActionController::Parameters.new(params).permit(:current_password, :password, :password_confirmation)
 
+        user.password_required!
         if user.update_with_password(password_params)
           present user, with: Entities::User
         else

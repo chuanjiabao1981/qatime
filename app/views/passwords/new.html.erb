@@ -5,7 +5,7 @@
       <%= simple_form_for(@user, as: :user, url: passwords_path, html: { method: :post }) do |f| %>
       <div class="form-inputs">
         <div class="row">
-          <div class="col-md-3 text-right"><%= Student.human_attribute_name(:login_account)%></div>
+          <div class="col-md-3 text-right form_lable"><%= Student.human_attribute_name(:login_account)%></div>
           <% if signed_in? %>
             <div class="col-md-6">
               <%= current_user.login_account %>
@@ -18,7 +18,7 @@
           <% end %>
         </div>
         <div class="row">
-          <div class="col-md-3 text-right"><%= t ".captcha" %></div>
+          <div class="col-md-3 text-right form_lable"><%= t ".captcha" %></div>
           <div class="col-md-6">
             <div class="row">
               <div class="col-md-7">
@@ -30,7 +30,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-3 text-right"><%= Student.human_attribute_name(:password) %></div>
+          <div class="col-md-3 text-right form_lable"><%= Student.human_attribute_name(:password) %></div>
           <div class="col-md-6">
             <%= f.input :password, label: false, :autocomplete => "off", input_html:{placeholder: t('.passwd_hd')} %>
           </div>

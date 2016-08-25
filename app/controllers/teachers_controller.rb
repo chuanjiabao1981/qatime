@@ -218,7 +218,11 @@ class TeachersController < ApplicationController
       return update_email
     else
       update_params = update_params(update_by).map{|a| a unless a[1] == "" }.compact.to_h.symbolize_keys!
-      return @teacher.update_with_password(update_params) if %w(password).include?(update_by)
+
+      if %w(password).include?(update_by)
+        @teacher.password_required!
+        return @teacher.update_with_password(update_params)
+      end
 
       @teacher.update_register_required!
       @teacher.update(update_params)
@@ -230,6 +234,7 @@ class TeachersController < ApplicationController
     # TODO 存储验证码的key区分开来，不同功能的验证码不使用
     captcha_manager = UserService::CaptchaManager.new(login_mobile_params[:login_mobile])
     @teacher.captcha = captcha_manager.captcha_of(:send_captcha)
+    @teacher.update_register_required!
     @teacher.update_with_captcha(login_mobile_params)
   ensure
     if @teacher.errors.blank?

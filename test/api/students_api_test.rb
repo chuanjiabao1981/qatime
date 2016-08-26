@@ -19,7 +19,7 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     res = JSON.parse(response.body)
 
     assert_equal 1, res['status']
-    assert_equal 14, res['data'].size
+    assert_equal 15, res['data'].size
 
     assert_equal @student.name, res['data']['name']
   end
@@ -32,7 +32,7 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     res = JSON.parse(response.body)
 
     assert_equal 1, res['status']
-    assert_equal 14, res['data'].size
+    assert_equal 15, res['data'].size
 
     @student.reload
     assert_equal @student.name, res['data']['name']

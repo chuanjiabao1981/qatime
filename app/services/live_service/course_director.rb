@@ -27,19 +27,24 @@ module LiveService
     end
 
     # 根据参数查询当月课程安排
-    def self.courses_by_month(user, month=nil)
+    def self.courses_by_month(user, month=nil, state=nil)
       month = month.blank? ? Time.now : month.to_time
       hash = {}
-      user.live_studio_lessons.month(month).map do |lesson|
+      lessons = user.live_studio_lessons.month(month)
+      lessons = case state
+                  when 'unclosed'
+                    lessons.unclosed
+                  when 'closed'
+                    lessons.already_closed
+                  else
+                    lessons
+                end
+      lessons.map do |lesson|
         date = lesson.class_date.to_s
         hash[date] ||= []
         hash[date] << lesson
       end
-      items = []
-      hash.map do |date,lessons|
-        items << {date: date, lessons: lessons}
-      end
-      items
+      hash.map{|date,lessons| {date: date, lessons: lessons}}
     end
 
     # 过滤辅导班

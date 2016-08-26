@@ -125,7 +125,7 @@ module V1
           get do
             courses = LiveService::CourseDirector.courses_search(params).paginate(page: params[:page], per_page: params[:per_page])
             entity = current_user.student? ? Entities::LiveStudio::StudentCourse : Entities::LiveStudio::Course
-            present courses, with: entity, type: :default, current_user: current_user, size: :info
+            present courses, with: entity, type: :default, current_user: current_user
           end
 
           desc '检索辅导班详情接口' do

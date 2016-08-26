@@ -38,7 +38,7 @@ module V1
       put "/:id" do
         student = ::Student.find(params[:id])
         update_params = ActionController::Parameters.new(params).permit(:name, :gender, :grade, :birthday, :desc)
-        update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar]) if update_params[:avatar]
+        update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar]) if params[:avatar]
         if student.update(update_params)
           present student, with: Entities::Student
         else

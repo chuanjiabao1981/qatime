@@ -15,6 +15,7 @@ module Registable
     validates :password, length: { minimum: 6 }, if: :register_columns_required?
 
     validates_presence_of :register_code_value, on: :create
+    validate :register_code_valid, on: :create
     validates :accept, acceptance: true
 
     # 第二步注册更新验证

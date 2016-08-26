@@ -29,7 +29,7 @@ class Student < User
   validates :parent_phone, allow_blank: true, length: { is: 11 }, numericality: { only_integer: true }, on: :update
 
   # 修改个人安全信息验证
-  validates :parent_phone, length: { is: 11 }, numericality: { only_integer: true }, if: :parent_phone?, on: :update
+  validates :parent_phone, length: { is: 11 }, numericality: { only_integer: true }, if: :parent_phone_changed?, on: :update
 
   # 修改个人信息（非找回密码，非admin修改个人信息）
   # TO DO

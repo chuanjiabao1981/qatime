@@ -38,7 +38,7 @@ module V1
       put "/:id" do
         student = ::Student.find(params[:id])
         update_params = ActionController::Parameters.new(params).permit(:name, :gender, :grade, :birthday, :desc)
-        update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar])
+        update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar]) if update_params[:avatar]
         if student.update(update_params)
           present student, with: Entities::Student
         else
@@ -58,7 +58,7 @@ module V1
         requires :avatar, type: File, desc: '头像'
         optional :gender, type: String, desc: '性别'
         requires :grade, type: String, desc: '年级'
-        optional :avatar, :type => Rack::Multipart::UploadedFile, desc: '头像'
+        requires :avatar, :type => Rack::Multipart::UploadedFile, desc: '头像'
         optional :birthday, type: DateTime, desc: '生日'
         optional :desc, type: String, desc: '简介'
         optional :email, type: String, desc: '邮箱'
@@ -72,6 +72,7 @@ module V1
         student = ::Student.find(params[:id])
         update_params = ActionController::Parameters.new(params).permit(:name, :gender, :grade, :birthday, :desc, :email, :email_confirmation, :parent_phone, :parent_phone_confirmation)
         update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar])
+
         if student.update(update_params)
           present student, with: Entities::Student
         else

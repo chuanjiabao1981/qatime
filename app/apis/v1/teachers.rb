@@ -37,7 +37,7 @@ module V1
       put "/:id" do
         teacher = ::Teacher.find(params[:id])
         update_params = ActionController::Parameters.new(params).permit(:name, :avatar, :gender, :birthday, :desc)
-        update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar])
+        update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar]) if update_params[:avatar]
         if teacher.update(update_params)
           present teacher, with: Entities::Teacher
         else
@@ -54,8 +54,8 @@ module V1
       params do
         requires :id, type: Integer, desc: 'ID'
         requires :name, type: String, desc: '姓名'
-        optional :nick_name, type: String, desc: '姓名'
-        optional :avatar, :type => Rack::Multipart::UploadedFile, desc: '头像'
+        optional :nick_name, type: String, desc: '昵称'
+        requires :avatar, :type => Rack::Multipart::UploadedFile, desc: '头像'
         optional :gender, type: String, desc: '性别'
         optional :birthday, type: DateTime, desc: '生日'
         optional :desc, type: String, desc: '简介'
@@ -70,6 +70,7 @@ module V1
         teacher = ::Teacher.find(params[:id])
         update_params = ActionController::Parameters.new(params).permit(:name, :nick_name, :gender, :subject, :category, :birthday, :desc, :email, :email_confirmation)
         update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar])
+
         if teacher.update(update_params)
           present teacher, with: Entities::Teacher
         else

@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   validates :captcha, confirmation: { case_sensitive: false }, if: :captcha_required?
 
   # 个人安全信息修改
-  validates :password, allow_blank: true, length: { minimum: 6 }, if: :password_required?, on: :update
+  validates :password, length: { minimum: 6 }, if: :password_required?, on: :update
   validates :email, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, if: :email_changed?, on: :update
 
   validates_presence_of :avatar, :name, if: :teacher_or_student_columns_required?, on: :update
@@ -144,7 +144,6 @@ class User < ActiveRecord::Base
                errors.add(:current_password, current_password.blank? ? :blank : :invalid)
                false
              end
-
     self.password = self.password_confirmation = nil
     result
   end

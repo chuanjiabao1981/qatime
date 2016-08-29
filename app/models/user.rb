@@ -73,9 +73,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_login_account(login_account)
-    return User.new if login_account.blank?
-    user = VALID_EMAIL_REGEX =~ login_account ? find_by(email: login_account) : find_by(login_mobile: login_account)
-    user || User.new
+    VALID_EMAIL_REGEX =~ login_account ? find_by(email: login_account) : find_by(login_mobile: login_account)
   end
 
   def self.find_by_mobile_or_login_mobile(mobile)
@@ -153,8 +151,10 @@ class User < ActiveRecord::Base
   def update_with_captcha(params, *options)
     @captcha_required = true
     update_attributes(params, *options)
-    errors.add(:login_account, :unregistered) if login_account.blank?
-    errors.blank?
+  end
+
+  def add_error_for_login_account
+    errors.add(:login_account, :unregistered)
   end
 
   def login_account

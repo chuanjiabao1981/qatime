@@ -37,12 +37,6 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:birthday) %></div>
-            <div class="col-md-9">
-              <%= f.input :birthday, label: false, as: :string, input_html: {type: :date, max: Time.now.strftime('%Y-%m-%d')} %>
-            </div>
-          </div>
-          <div class="row">
             <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:subject) %><abbr title="required">*</abbr></div>
             <div class="col-md-9">
               <%= f.input :subject, label: false, :collection => APP_CONSTANT["subjects"], include_blank: false %>

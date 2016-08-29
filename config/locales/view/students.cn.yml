@@ -18,8 +18,6 @@ cn:
       captcha_confirmation_ph: 手机验证码
       password_ph: 请输入密码
       password_confirmation_ph: 再输入一次密码
-    edit_profile_for_register:
-      title: 完善信息-学生
     info:
       edit_information: 编辑信息
     edit_profile:
@@ -63,6 +61,7 @@ cn:
       mobile_captcha: 手机校验码
       to_bind_parent_phone: 绑定家长手机
     edit_profile_for_register:
+      title: 完善信息-学生
       name_ph: 请输入真实姓名，方便老师联系你
       desc_ph: 请介绍下自己(一百字以内)
       parent_phone_ph: 余额不足时会对您的家长进行短信通知

@@ -12,6 +12,7 @@ module V1
         present :cities, cities, with: Entities::City
         present :provinces, provinces, with: Entities::Province
         present :schools, schools, with: Entities::School
+        present :im_app_key, Chat::IM.app_key
       end
 
       desc '获取年级列表'
@@ -35,6 +36,11 @@ module V1
       get :schools do
         schools = ::School.all
         present schools, with: Entities::School
+      end
+
+      desc '获取云信信息'
+      get :im_app_key do
+        present :im_app_key, Chat::IM.app_key
       end
     end
   end

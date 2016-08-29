@@ -4,7 +4,7 @@
     <strong><%= @course.name %></strong>
     <%= content_tag(:div, class: 'search-link') do %>
       <%= link_to t('activerecord.view.course'), student_courses_path(current_user) %>
-    <% end %>
+    <% end if current_user.student?%>
   </div>
   <div class="course-info-list">
     <a href='#content_info' data-toggle="tab">
@@ -47,7 +47,7 @@
                   class: "btn btn-default #{@course.tasting?(@student) ? 'disabled' : nil}") %>
     <% end if flag %>
     <%= content_tag(:div, link_to(t('activerecord.view.buy_now'), new_course_order_path(@course), id: "buy-course-#{@course.id}",class: 'btn btn-default'),
-                    class: 'course-buy-btn') if @student%>
+                    class: 'course-buy-btn') if @student && @student.student?%>
   </div>
   <div class="tab-content">
     <div id="content_info" class="tab-pane fade<%= params[:index].blank? || params[:index] == 'info' ? ' in active' : nil %>">

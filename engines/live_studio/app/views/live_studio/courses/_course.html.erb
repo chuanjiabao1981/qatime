@@ -22,7 +22,7 @@
       <%#= content_tag(:div, link_to('Buy', new_course_order_path(course), id: "buy-course-#{course.id}",class: 'btn btn-default'),
                       class: 'course-buy-btn') %>
       <%= content_tag(:div, class: 'course-operator-btn') do %>
-        <%= link_to t('view.course_search_show.info'), live_studio.course_path(course, student_id: @student.try(:id)),
+        <%= link_to t('view.course_search_show.info'), live_studio.course_path(course),
                     class: 'btn btn-default operator-btn support same-btn' %>
         <% flag = course.sell_to?(current_user) && !course.bought_by?(current_user) && current_user == @student %>
         <%= link_to t("view.course_search_show.#{course.tasting?(current_user) ? 'tasted' : 'taste'}"),
@@ -30,7 +30,7 @@
                     id: "taste-course-#{course.id}", method: :post, remote: true,
                     class: "btn btn-default operator-btn same-btn #{course.tasting?(current_user) ? 'disabled' : nil}" if flag %>
         <%= link_to t("view.course_search_show.#{flag ? 'buy' : 'bought'}"), live_studio.new_course_order_path(course),
-                    id: "buy-course-#{course.id}", class: "btn btn-default operator-btn same-btn #{flag ? nil : 'disabled'}" if @student %>
+                    id: "buy-course-#{course.id}", class: "btn btn-default operator-btn same-btn #{flag ? nil : 'disabled'}" if @student && @student.student? %>
       <% end %>
     <% end %>
   <% end %>

@@ -4,17 +4,23 @@ class PasswordsController < ApplicationController
   end
 
   def create
-    @user = User.find_by_login_account(password_params[:login_account]).password_required!
-    captcha_manager = UserService::CaptchaManager.new(password_params[:login_account])
-    @user.captcha = captcha_manager.captcha_of(:get_password_back)
-    if @user.update_with_captcha(password_params)
-      captcha_manager.expire_captch(:get_password_back)
-      if signed_in?
-        redirect_to user_home_path, notice: t("flash.notice.update_success")
+    @user = User.find_by_login_account(password_params[:login_account]).try(:password_required!)
+    if @user
+      captcha_manager = UserService::CaptchaManager.new(password_params[:login_account])
+      @user.captcha = captcha_manager.captcha_of(:get_password_back)
+      if @user.update_with_captcha(password_params)
+        captcha_manager.expire_captch(:get_password_back)
+        if signed_in?
+          redirect_to user_home_path, notice: t("flash.notice.update_success")
+        else
+          redirect_to new_session_path, notice: t("flash.notice.update_success")
+        end
       else
-        redirect_to new_session_path, notice: t("flash.notice.update_success")
+        render :new
       end
     else
+      @user = User.new(password_params)
+      @user.add_error_for_login_account
       render :new
     end
   end

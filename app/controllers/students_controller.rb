@@ -205,6 +205,11 @@ class StudentsController < ApplicationController
         update_params.delete(:email_confirmation) if update_params[:email_confirmation] == ""
       end
 
+      if update_params[:parent_phone] == ""
+        update_params.delete(:parent_phone)
+        update_params.delete(:parent_phone_confirmation) if update_params[:parent_phone_confirmation] == ""
+      end
+
       if %w(password).include?(update_by)
         @student.password_required!
         return @student.update_with_password(update_params)

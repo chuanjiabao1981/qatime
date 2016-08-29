@@ -7,7 +7,7 @@
   <%= content_tag(:div, class: 'course-header-div') do%>
     <%= content_tag(:div, t("activerecord.view.course"), class: 'title') %>
     <%= content_tag(:div, class: 'search-link') do %>
-      <%= content_tag(:a, href: courses_path(student_id: @student.try(:id))) do %>
+      <%= link_to courses_path do %>
         <span class="glyphicon glyphicon-shopping-cart"></span><%= t('activerecord.view.buy_new_course') %>
       <% end %>
     <% end %>

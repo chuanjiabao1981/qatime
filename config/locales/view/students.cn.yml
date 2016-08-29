@@ -63,7 +63,7 @@ cn:
       mobile_captcha: 手机校验码
       to_bind_parent_phone: 绑定家长手机
     edit_profile_for_register:
-      name_ph: 请输入真实姓名，方便老师联系你
+      name_ph: 请输入真实姓名，方便老师联系您
       desc_ph: 请介绍下自己(一百字以内)
       parent_phone_ph: 余额不足时会对您的家长进行短信通知
       parent_phone_confirmation_ph: 再输入一次进行确认

@@ -3,6 +3,7 @@ module Entities
     expose :gender
     expose :birthday
     expose :grade
+    expose :parent_phone
     expose :province do |s|
       s.province_id
     end

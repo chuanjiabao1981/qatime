@@ -15,7 +15,7 @@
           <div class="row">
             <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:nick_name)%></div>
             <div class="col-md-9">
-              <%= f.input :nick_name, label: false %>
+              <%= f.input :nick_name, label: false, placeholder: t('.nick_name_ph') %>
             </div>
           </div>
           <div class="row">
@@ -34,12 +34,6 @@
               <div style="width: 242px;height: 242px; border: 1px dashed;">
                 <img id="user_avatar_preview" style="width: 100%;">
               </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:birthday) %></div>
-            <div class="col-md-9">
-              <%= f.input :birthday, label: false, as: :string, input_html: {type: :date, max: Time.now.strftime('%Y-%m-%d')} %>
             </div>
           </div>
           <div class="row">

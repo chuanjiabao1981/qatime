@@ -30,13 +30,6 @@
               </div>
             </div>
           </div>
-
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:birthday) %></div>
-            <div class="col-md-9">
-              <%= f.input :birthday, label: false, as: :string, input_html: {type: :date, max: Time.now.strftime('%Y-%m-%d')} %>
-            </div>
-          </div>
           <div class="row">
             <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:grade) %></div>
             <div class="col-md-9">

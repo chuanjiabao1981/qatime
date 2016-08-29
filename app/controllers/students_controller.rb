@@ -186,7 +186,7 @@ class StudentsController < ApplicationController
   end
 
   def register_params
-    params.require(:student).permit(:name, :gender, :grade, :birthday, :desc, :email, :email_confirmation, :parent_phone, :parent_phone_confirmation, :crop_x, :crop_y, :crop_w, :crop_h, :avatar)
+    params.require(:student).permit(:name, :gender, :grade, :desc, :email, :email_confirmation, :parent_phone, :parent_phone_confirmation, :crop_x, :crop_y, :crop_w, :crop_h, :avatar)
   end
 
   # 根据跟新内容判断是否需要密码更新
@@ -203,6 +203,11 @@ class StudentsController < ApplicationController
       if update_params[:email] == ""
         update_params.delete(:email)
         update_params.delete(:email_confirmation) if update_params[:email_confirmation] == ""
+      end
+
+      if update_params[:parent_phone] == ""
+        update_params.delete(:parent_phone)
+        update_params.delete(:parent_phone_confirmation) if update_params[:parent_phone_confirmation] == ""
       end
 
       if %w(password).include?(update_by)

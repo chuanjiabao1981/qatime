@@ -39,6 +39,26 @@ module V1
             orders = LiveService::OrderDirector.orders_for_user_index(current_user, params).order(id: :desc).paginate(page: params[:page])
             present orders, with: Entities::Payment::Order, type: :full
           end
+
+          desc '取消订单' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+
+          params do
+            requires :id, type: String, desc: '订单ID'
+          end
+
+          patch ':id/cancel' do
+            order = ::Payment::Order.find_by(order_no: params[:id])
+            if order.canceled!
+              present order, with: Entities::Payment::Order, type: :full
+            else
+              raise(ActiveRecord::RecordInvalid.new(order))
+            end
+          end
         end
       end
     end

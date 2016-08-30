@@ -91,7 +91,7 @@
           </td>
           <td class="price" rowspan="3">
             <p>
-              <%= link_to t('view.payment_show.cancel_order'), cancel_order_user_order_path(@user, @order.order_no), method: :patch, data: { confirm: t('view.payment_show.cancel_order_confirm') }, class: 'btn btn-default operator-btn' %>
+              <%= link_to t('view.payment_show.cancel_order'), cancel_order_user_order_path(@user, @order.order_no, cate: :show), method: :patch, data: { confirm: t('view.payment_show.cancel_order_confirm') }, class: 'btn btn-default operator-btn' %>
             </p>
             <p>
               <%= link_to t('activerecord.view.pay_now'), pay_user_order_path(@user, @order.order_no), class: 'btn btn-default operator-btn' %>

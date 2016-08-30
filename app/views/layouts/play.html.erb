@@ -6,7 +6,9 @@
 
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => false %>
   <%= stylesheet_link_tag    "live_studio/application", media: "all", "data-turbolinks-track" => false %>
+  <%= stylesheet_link_tag    "payment/application", media: "all", "data-turbolinks-track" => false %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
+
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -23,8 +25,13 @@
       </div>
       <% end %>
     </div>
+
     <div class='col-md-2'>
-      <%= render "layouts/sidebar/teacher_new" %>
+      <% if current_user.student? %>
+        <%= render "layouts/sidebar/student_new" %>
+      <% elsif current_user.teacher? %>
+        <%= render "layouts/sidebar/teacher_new" %>
+      <% end %>
     </div>
     <div class='col-md-10'>
       <%= yield %>
@@ -32,10 +39,6 @@
   </div>
 </div>
 <%= render 'layouts/footer' %>
-<!--%= debug(params) if Rails.env.development? %-->
-
-<%= yield(:page_modal) if content_for?(:page_modal) %>
-<%= yield(:page_javascript) if content_for?(:page_javascript) %>
 
 <script>
   $(function() {

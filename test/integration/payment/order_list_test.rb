@@ -22,12 +22,12 @@ module Payment
       click_on '我的订单'
       find("div.order-taxon-div", text: '未支付').click
       page.has_content? '取消订单'
-      page.has_content? '立即支付'
+      page.has_content? '立即付款'
       page.has_content? '查看详情'
       find("div.order-taxon-div", text: '已支付').click
       page.has_content? '查看详情'
       find("div.order-taxon-div", text: '已取消').click
-      page.has_content? '重新下单'
+      page.has_content? '重新购买'
       page.has_content? '查看详情'
     end
   end

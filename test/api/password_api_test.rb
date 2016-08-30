@@ -4,12 +4,12 @@ class Qatime::PasswordAPITest < ActionDispatch::IntegrationTest
     Rails.application
   end
 
-  test "PUT /api/v1/find_password find password by email" do
+  test "PUT /api/v1/password find password by email" do
     user = users(:student1)
     login_account = user.email
 
     post "/api/v1/captcha", {send_to: login_account, key: :get_password_back}
-    put "/api/v1/find_password", {login_account: login_account, captcha_confirmation: "1234", password: "pa123456", password_confirmation: "pa123456"}, 'Remember-Token' => @remember_token
+    put "/api/v1/password", {login_account: login_account, captcha_confirmation: "1234", password: "pa123456", password_confirmation: "pa123456"}, 'Remember-Token' => @remember_token
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -18,13 +18,13 @@ class Qatime::PasswordAPITest < ActionDispatch::IntegrationTest
     assert_equal(true, user.authenticate('pa123456').present?, '找回密码错误')
   end
 
-  test "PUT /api/v1/find_password find password by login_mobile" do
+  test "PUT /api/v1/password find password by login_mobile" do
     user = users(:student1)
     login_account = user.login_mobile
 
     post "/api/v1/captcha", {send_to: login_account, key: :get_password_back}
 
-    put "/api/v1/find_password", {login_account: user.login_mobile,
+    put "/api/v1/password", {login_account: user.login_mobile,
         captcha_confirmation: "1234", password: "pa1234567", password_confirmation: "pa1234567"}, 'Remember-Token' => @remember_token
 
     assert_response :success

@@ -181,6 +181,18 @@ student_with_order:
   grade: 高一
   type: Student
 
+student_with_order2:
+  login_mobile: 13892920012
+  name: student2
+  role: student
+  email: student_with_orde2@baidu.com
+  mobile: 15910676326
+  parent_phone: 15910676326
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
+
 no_learning_plan_student:
   name: student3
   role: student

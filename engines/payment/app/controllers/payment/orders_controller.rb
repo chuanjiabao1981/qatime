@@ -20,7 +20,8 @@ module Payment
     def cancel_order
       @order = @user.orders.find_by!(order_no: params[:id])
       if @order.canceled!
-        redirect_to user_order_path(@user, @order.order_no), notice: t("flash.notice.canel_order_success")
+        redirect_to user_order_path(@user, @order.order_no), notice: t("flash.notice.canel_order_success") if params[:cate] == "show"
+        redirect_to user_orders_path(@user, cate: :unpaid), notice: t("flash.notice.canel_order_success") if params[:cate] == "index"
       else
         redirect_to user_order_path(@user, @order.order_no), alert: t("flash.alert.canel_order_failed")
       end

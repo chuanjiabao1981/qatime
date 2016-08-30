@@ -10,7 +10,7 @@ order_one:
 order2:
   order_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: student_with_order2
-  product: course_with_order
+  product: course_with_order2
   product_type: 'LiveStudio::Course'
   total_money: 1000
   status: 1
@@ -19,7 +19,7 @@ order2:
 order4:
   order_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: student_with_order2
-  product: course_with_order
+  product: course_with_order2
   product_type: 'LiveStudio::Course'
   total_money: 1000
   status: 95
@@ -28,7 +28,7 @@ order4:
 order5:
   order_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: student_with_order2
-  product: course_with_order
+  product: course_with_order2
   product_type: 'LiveStudio::Course'
   total_money: 1000
   status: 0

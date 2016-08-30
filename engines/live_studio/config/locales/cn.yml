@@ -74,6 +74,7 @@ cn:
       class_date: 开课日期
       status: 当前状态
     payment_show:
+      product_info: 商品详情
       order_info: 订单信息
       pay_total: 支付金额
       weixin_pay: 微信支付
@@ -84,8 +85,15 @@ cn:
       actual_price: 应付金额：
       order_confirm: 订单确认
       product_info: 商品信息
+      order_info: 订单信息
       order_pay: 订单支付
+      new_order: 重新下单
+      cancel_order: 取消订单
+      cancel_order_confirm: 您确定要取消订单么？
       order_product_name: 商品名称：
+      order_product_status: 当前状态：
+      order_actual_price: 应付金额
+      order_actual_price2: 实付金额
       order_no: '订单编号:  %s'
       order_created_at: '创建时间:  %s'
       order_pay_type: '支付方式:  %s'

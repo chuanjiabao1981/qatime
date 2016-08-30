@@ -15,6 +15,7 @@ module V1
     mount V1::Register
     mount V1::Captcha
     mount V1::Users
+    mount V1::Password
 
     add_swagger_documentation mount_path: "/api-doc", api_version: "v1", hide_documentation_path: true, hide_format: false,
                               info: { title: "答疑时间API接口", description: "v1.0" }

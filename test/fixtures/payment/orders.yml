@@ -6,3 +6,30 @@ order_one:
   total_money: 1000
   status: 0
   pay_type: 1
+
+order2:
+  order_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student_with_order2
+  product: course_with_order
+  product_type: 'LiveStudio::Course'
+  total_money: 1000
+  status: 1
+  pay_type: 1
+
+order4:
+  order_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student_with_order2
+  product: course_with_order
+  product_type: 'LiveStudio::Course'
+  total_money: 1000
+  status: 95
+  pay_type: 1
+
+order5:
+  order_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student_with_order2
+  product: course_with_order
+  product_type: 'LiveStudio::Course'
+  total_money: 1000
+  status: 0
+  pay_type: 1

@@ -8,7 +8,7 @@ module V1
       requires :password, type: String, desc: '新密码'
       requires :password_confirmation, type: String, desc: '密码确认'
     end
-    put "find_password" do
+    put "password" do
       password_params = ActionController::Parameters.new(params).permit(:login_account, :password, :password_confirmation, :captcha_confirmation)
 
       user = User.find_by_login_account(password_params[:login_account]).try(:password_required!)

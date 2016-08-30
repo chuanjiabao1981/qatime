@@ -93,6 +93,7 @@ cn:
       order_product_name: 商品名称：
       order_product_status: 当前状态：
       order_actual_price: 应付金额
+      order_actual_price2: 实付金额
       order_no: '订单编号:  %s'
       order_created_at: '创建时间:  %s'
       order_pay_type: '支付方式:  %s'

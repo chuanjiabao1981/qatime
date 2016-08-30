@@ -37,7 +37,7 @@ module V1
 
           get do
             orders = LiveService::OrderDirector.orders_for_user_index(current_user, params).order(id: :desc).paginate(page: params[:page])
-            present orders, with: Entities::Payment::Order
+            present orders, with: Entities::Payment::Order, type: :full
           end
         end
       end

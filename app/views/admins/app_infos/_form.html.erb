@@ -1,0 +1,24 @@
+
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%=@app_info.class.model_name.human%></h2>
+  </div>
+  <div class="qa_big_cell">
+    <%= simple_form_for [:admins,@app_info] do |f|%>
+      <%= f.input :name %>
+      <%= f.input :category, as: :select, collection: AppInfo.i18n_categories %>
+      <%= f.input :version, placeholder: '用于区分不同版本的应用'  %>
+      <%= f.input :level ,placeholder: '由低向高更新',input_html: {min: 1} %>
+      <%= f.input :description  %>
+      <%= f.input :download_url  %>
+      <%= f.input :enforce  %>
+      <%= f.input :enforce_level, placeholder: '例如设置为5,则级别小于等于5的同类别应用启动时必须强制更新,不填则默认所有级别均默认强制升级',input_html: {min: 1} %>
+      <%= f.button :submit, class: "btn btn-default" %>
+    <% end %>
+  </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+  $('#app_info_enforce_level').change(function(){
+    $('#app_info_enforce').attr('checked','true');
+  });
+</script>

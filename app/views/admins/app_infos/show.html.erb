@@ -1,0 +1,48 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%=@app_info.class.model_name.human%></h2>
+  </div>
+  <div class="qa_big_cell">
+    <%= AppInfo.human_attribute_name(:name) %>
+    <br/>
+    <%= @app_info.name %> <%= link_to 'edit',edit_admins_app_info_path(@app_info) if @app_info.init?%>
+  </div>
+  <%= content_tag :div,class: 'qa_big_cell' do%>
+    <%= AppInfo.human_attribute_name(:running_at) %>
+    <br/>
+    <%= @app_info.running_at || '未发布' %>
+  <% end %>
+  <div class="qa_big_cell">
+    <%= AppInfo.human_attribute_name(:category) %>
+    <br/><%= @app_info.category_text %>
+  </div>
+  <div class="qa_big_cell">
+    <%= AppInfo.human_attribute_name(:version) %>
+    <br/><%= @app_info.version %>
+  </div>
+  <div class="qa_big_cell">
+    <%= AppInfo.human_attribute_name(:level) %>
+    <br/><%= @app_info.level %>
+  </div>
+  <div class="qa_big_cell">
+    <%= AppInfo.human_attribute_name(:download_url) %>
+    <br/><%= @app_info.download_url %>
+  </div>
+  <div class="qa_big_cell">
+    <%= AppInfo.human_attribute_name(:status) %>
+    <br/><%= @app_info.status_text %>
+  </div>
+  <div class="qa_big_cell">
+    <%= AppInfo.human_attribute_name(:enforce) %>
+    <br/><%= @app_info.enforce_text %>
+  </div>
+  <%= content_tag :div, class: 'qa_big_cell' do %>
+    <%= AppInfo.human_attribute_name(:enforce_level) %>
+    <br/><%= @app_info.enforce_level || '全部' %>
+  <% end if @app_info.enforce%>
+  <%= content_tag :div, class: 'qa_big_cell' do %>
+    <%= AppInfo.human_attribute_name(:qr_code) %>
+    <br/>
+    <%= @app_info.qr_code.present? ? image_tag(@app_info.qr_code_url) : '发布后生成二维码'%>
+  <% end %>
+</div>

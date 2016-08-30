@@ -1,0 +1,23 @@
+<div class="row qa_big_cell">
+  <div class="col-md-1">
+    <%= app_info_counter + 1 %>
+  </div>
+  <div class="col-md-3">
+    <%= link_to app_info.name, admins_app_info_path(app_info) %>
+  </div>
+  <div class="col-md-2">
+    <%= app_info.category_text %>
+  </div>
+  <div class="col-md-1">
+    <%= app_info.version %>
+  </div>
+  <div class="col-md-1">
+    <%= app_info.status_text %>
+  </div>
+  <div class="col-md-1">
+    <%= link_to 'edit',edit_admins_app_info_path(app_info) if app_info.init?%>
+  </div>
+  <div class="col-md-2">
+    <%= link_to '发布',run_admins_app_info_path(app_info),'data-confirm' => '请确认!发布之后无法编辑' if app_info.init? %>
+  </div>
+</div>

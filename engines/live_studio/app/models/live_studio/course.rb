@@ -54,6 +54,11 @@ module LiveStudio
       !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank? || lesson_count != preset_lesson_count
     end
 
+    def preview!
+      self.published_at = Time.now
+      super
+    end
+
     def push_stream
       push_streams.last
     end

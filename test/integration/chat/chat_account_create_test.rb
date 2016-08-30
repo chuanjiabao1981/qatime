@@ -44,7 +44,7 @@ module Chat
       assert_difference '@student.orders.count', 1, "辅导班下单失败" do
         click_on("buy-course-#{course_preview.id}")
         click_link '微信支付'
-        click_on '立即支付'
+        click_on '立即付款'
 
         @student.reload
         assert_not_nil @student.chat_account

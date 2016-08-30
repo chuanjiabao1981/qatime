@@ -9,7 +9,7 @@ cn:
       please_verify_step_one_parent_phone : 修改绑定家长手机号码，请先验证绑定的手机
       please_improve_your_info: 在做其他操作前，请先完善您的个人信息！
       no_account: 该用户未注册
-      order_failed: 抱歉，下单失败啦；请重新下单。
+      order_failed: 抱歉，下单失败啦；请重新购买。
       canel_order_failed: 取消订单失败
     notice:
       update_success: 更新成功

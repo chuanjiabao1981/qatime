@@ -25,8 +25,8 @@ module LiveStudio
       waste_orders.update_all(status: 99) if waste_orders.present?
       @order = LiveService::CourseDirector.create_order(current_user, @course,  order_params.merge(remote_ip: request.remote_ip))
       if @order.save
-        redirect_to payment.user_order_path(current_user, @order.order_no), alert: t("flash.alert.order_failed") if @order.failed?
-        redirect_to payment.user_order_path(current_user, @order.order_no)
+        redirect_to payment.pay_user_order_path(current_user, @order.order_no), alert: t("flash.alert.order_failed") if @order.failed?
+        redirect_to payment.pay_user_order_path(current_user, @order.order_no)
       else
         p @order.errors
         p '--------------'

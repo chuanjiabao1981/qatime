@@ -3,7 +3,10 @@ module Entities
     class Lesson < Grape::Entity
       expose :id
       expose :name
-      expose :status
+      expose :status do |lesson|
+        outer = options[:outer] == false ? false : true
+        lesson.status_text(options[:current_user].try(:role), outer)
+      end
       expose :class_date
       expose :live_time
       expose :live_token, if: { type: :live_start } do |lesson|

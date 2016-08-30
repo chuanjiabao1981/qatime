@@ -189,7 +189,7 @@ module V1
           end
           get '/:id/play_info' do
             course = ::LiveStudio::Course.find(params[:id])
-            present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user,size: :info
+            present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user,size: :info, outer: false
           end
         end
       end

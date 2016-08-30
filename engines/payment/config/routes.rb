@@ -5,6 +5,11 @@ Payment::Engine.routes.draw do
       collection do
         get :result
       end
+
+      member do
+        get :pay
+        patch :cancel_order
+      end
     end
 
     get :cash, on: :member

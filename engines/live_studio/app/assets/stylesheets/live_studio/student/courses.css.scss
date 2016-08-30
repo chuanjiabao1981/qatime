@@ -102,7 +102,19 @@
   background-color: #cccccc;
   color: #ffffff;
 }
-
+.order-taxon-div{
+  width: 25%;
+  color: #0A0A0A;
+  border: solid 1px #CCCCCC;
+  float: left;
+  height: 3em;
+  line-height: 3em;
+  cursor: pointer;
+}
+.order-taxon-div.active{
+  background-color: #cccccc;
+  color: #ffffff;
+}
 .course-box-div{
   float: left;
   width: 100%;

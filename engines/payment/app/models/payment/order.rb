@@ -9,6 +9,10 @@ module Payment
       weixin: 1
     }.freeze
 
+    CATE_UNPAID =%w(unpaid).freeze
+    CATE_PAID =%w(paid shipped completed).freeze
+    CATE_CANCELED =%w(canceled expired refunded).freeze
+
     include AASM
 
     enum status: {
@@ -16,6 +20,7 @@ module Payment
            paid: 1, # 已支付
            shipped: 2, # 已发货
            completed: 3, # 已完成
+           canceled: 95, # 已取消
            expired: 96, # 过期订单
            failed: 97, # 下单失败
            refunded: 98, # 已退款
@@ -36,6 +41,7 @@ module Payment
     aasm :column => :status, :enum => true do
       state :unpaid, :initial => true
       state :paid
+      state :canceled
       state :shipped
       state :completed
       state :refunded
@@ -47,6 +53,13 @@ module Payment
           increase_cash_admin_account
         end
         transitions from: :unpaid, to: :paid
+      end
+
+      event :cancel do
+        before do
+          increase_cash_admin_account
+        end
+        transitions from: :unpaid, to: :canceled
       end
 
       event :ship do
@@ -143,7 +156,7 @@ module Payment
         body: "购买辅导班：#{product.name}",
         out_trade_no: order_no,
         total_fee: pay_money,
-        spbill_create_ip: remote_ip,
+        spbill_create_ip: '127.0.0.1',#remote_ip,
         notify_url:  "#{WECHAT_CONFIG['domain_name']}/payment/notify",
         trade_type: trade_type,
         fee_type: 'CNY'
@@ -152,6 +165,12 @@ module Payment
 
     def app_pay_params
       WxPay::Service.generate_app_pay_req(prepayid: prepay_id, noncestr: nonce_str)
+    end
+
+    def self.show_orders
+      status_waste = Payment::Order.statuses[:waste]
+      statuses_failed = Payment::Order.statuses[:failed]
+      where.not(status: [status_waste, statuses_failed])
     end
 
     private

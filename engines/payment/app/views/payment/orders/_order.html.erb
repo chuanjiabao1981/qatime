@@ -7,7 +7,7 @@
   <% end %>
   <%= content_tag(:div, class: 'course-info-div') do %>
     <%= content_tag(:div, image_tag(course.publicize_url(:list)),class: 'publicize') %>
-    <%= content_tag(:div, class: 'course-content-div') do %>
+    <%= content_tag(:div, class: 'orders-content-div') do %>
       <%= content_tag(:div,class: 'course-info-col') do %>
         <%= content_tag(:div, course.name, class: 'course-name') %>
       <% end %>
@@ -17,6 +17,17 @@
       <%= content_tag(:div, "#{t('view.course_show.surplus')}#{course.lesson_count_left} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.current')}#{course.current_lesson_name}") %>
     <%end %>
+
+    <%= content_tag(:div, class: 'order-operator-div') do%>
+      <%= content_tag(:div, class: 'course-operator-btn') do %>
+          <p>
+            <%= t('view.payment_show.order_actual_price2') %>
+          </p>
+          <p>
+            <span class="alert_red_span"><%= format '￥%0.2f', order.total_money %></span>
+          </p>
+      <% end %>
+    <% end %>
 
     <%= content_tag(:div, class: 'course-operator-div') do%>
       <%= content_tag(:div, class: 'course-operator-btn') do %>

@@ -3,7 +3,7 @@
     <div>
       <h2>
         应用列表
-        <%=link_to new_admins_app_info_path do %>
+        <%=link_to new_admins_software_path do %>
           <button type="button" class="btn btn-xs btn-success">新增应用</button>
         <% end %>
       </h2>
@@ -15,19 +15,19 @@
       序号
     </div>
     <div class="col-md-3">
-      应用名称
+      <%= Software.human_attribute_name(:title) %>
     </div>
     <div class="col-md-2">
-      类型
+      <%= Software.human_attribute_name(:platform) %>
     </div>
     <div class="col-md-1">
-      版本号
+      <%= Software.human_attribute_name(:version) %>
     </div>
     <div class="col-md-1">
-      状态
+      <%= Software.human_attribute_name(:status) %>
     </div>
   </div>
   <div>
-    <%= render @app_infos %>
+    <%= render @softwares %>
   </div>
 </div>

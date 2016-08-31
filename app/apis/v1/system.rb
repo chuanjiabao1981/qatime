@@ -23,17 +23,15 @@ module V1
 
       desc '检测是否需要升级'
       params do
-        requires :category, type: String, desc: '应用分类', values: AppInfo.categories.keys
-        requires :level, type: Integer, desc: '应用级别'
+        requires :title, type: String, desc: '应用名'
+        requires :version, type: String, desc: '版本号'
+        requires :platform, type: String, desc: '平台', values: ::Software.platform.values
       end
       get 'check_update' do
-        app_infos = ::AppInfo.running.where(category: params[:category]).where('level > ?',params[:level]).order(level: :desc)
-        app_info = app_infos.first
-        enforce =
-          app_infos.select do |info|
-            true if info.enforce && (info.enforce_level.blank? || info.enforce_level <= params[:level])
-          end.present?
-        present app_info,with: Entities::AppInfo, enforce: enforce
+        softwares = ::Software.where(title: params[:title],platform: ::Software::PLATFORM_HASH[params[:platform].to_sym]).where('version > ?', params[:version]).order(version: :desc)
+        software = softwares.first
+        enforce = softwares.select{|soft| true if soft.enforce}.present?
+        present software,with: Entities::Software, enforce: enforce
       end
     end
   end

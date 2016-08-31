@@ -1,11 +1,11 @@
 module Entities
-  class AppInfo < Grape::Entity
-    expose :name
-    expose :category
+  class Software < Grape::Entity
+    expose :title
+    expose :sub_title
     expose :version
-    expose :level
+    expose :desc
     expose :description
-    expose :download_url
+    expose :download_links
     expose :qr_code_url
     expose :enforce do |_,options|
       options[:enforce]

@@ -1,0 +1,61 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%=@software.class.model_name.human%></h2>
+  </div>
+  <div class="qa_big_cell">
+    <%= Software.human_attribute_name(:title) %>
+    <br/>
+    <%= @software.title %> <%= link_to 'edit',edit_admins_software_path(@software) if @software.init?%>
+  </div>
+
+  <div class="qa_big_cell">
+    <%= Software.human_attribute_name(:sub_title) %>
+    <br/><%= @software.sub_title %>
+  </div>
+  <%= content_tag :div,class: 'qa_big_cell' do%>
+    <%= Software.human_attribute_name(:running_at) %>
+    <br/>
+    <%= @software.running_at || '未发布' %>
+  <% end %>
+  <div class="qa_big_cell">
+    <%= Software.human_attribute_name(:platform) %>
+    <br/><%= @software.platform_text %>
+  </div>
+  <div class="qa_big_cell">
+    <%= Software.human_attribute_name(:version) %>
+    <br/><%= @software.version %>
+  </div>
+  <div class="qa_big_cell">
+    <%= Software.human_attribute_name(:desc) %>
+    <br/><%= @software.desc %>
+  </div>
+  <div class="qa_big_cell">
+    <%= Software.human_attribute_name(:description) %>
+    <br/><%= @software.description %>
+  </div>
+  <div class="qa_big_cell">
+    <%= Software.human_attribute_name(:download_links) %>
+    <br/><%= @software.download_links %>
+  </div>
+  <div class="qa_big_cell">
+    <%= Software.human_attribute_name(:status) %>
+    <br/><%= @software.status_text %>
+  </div>
+  <div class="qa_big_cell">
+    <%= Software.human_attribute_name(:enforce) %>
+    <br/><%= @software.enforce %>
+  </div>
+  <div class="qa_big_cell">
+    <%= Software.human_attribute_name(:role) %>
+    <br/><%= @software.role %>
+  </div>
+  <div class="qa_big_cell">
+    <%= Software.human_attribute_name(:logo) %>
+    <br/><%= image_tag @software.logo_url %>
+  </div>
+  <%= content_tag :div, class: 'qa_big_cell' do %>
+    <%= Software.human_attribute_name(:qr_code) %>
+    <br/>
+    <%= @software.qr_code.present? ? image_tag(@software.qr_code_url) : '发布后生成二维码'%>
+  <% end %>
+</div>

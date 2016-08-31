@@ -15,7 +15,7 @@ cn:
       reply: 回复
       recharge_code: 充值码
       video: 视频
-      app_info: 应用
+      software: 应用
     attributes:
       group:
         subject: 科目
@@ -100,16 +100,18 @@ cn:
         name: 姓名
         workstation_id: 工作站
         password_confirmation: 密码确认
-      app_info:
-        name: 名称
-        category: 类型
+      software:
+        title: 应用
+        sub_title: 应用说明
+        platform: 平台
         version: 版本
-        level: 级别
+        desc: 版本说明
+        role: 下载用户
+        logo: Logo
         description: 更新说明
-        download_url: 下载地址
+        download_links: 下载地址
         qr_code: 二维码
         enforce: 是否强制升级
-        enforce_level: 需要强制升级的应用级别
         status: 状态
         running_at: 发布时间
 

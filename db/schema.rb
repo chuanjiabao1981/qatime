@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160830071235) do
+ActiveRecord::Schema.define(version: 20160831080433) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,24 +49,6 @@ ActiveRecord::Schema.define(version: 20160830071235) do
     t.datetime "updated_at",                 null: false
     t.integer  "comments_count", default: 0
   end
-
-  create_table "app_infos", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "category"
-    t.string   "version"
-    t.integer  "level"
-    t.text     "description"
-    t.string   "download_url"
-    t.string   "qr_code"
-    t.integer  "status",        default: 0
-    t.boolean  "enforce"
-    t.integer  "enforce_level"
-    t.datetime "running_at"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
-  add_index "app_infos", ["level"], name: "index_app_infos_on_level", using: :btree
 
   create_table "cash_accounts", force: :cascade do |t|
     t.integer  "owner_id"
@@ -897,8 +879,12 @@ ActiveRecord::Schema.define(version: 20160830071235) do
     t.integer  "platform"
     t.string   "qr_code"
     t.string   "download_links"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.text     "description"
+    t.integer  "status",         default: 0
+    t.boolean  "enforce"
+    t.datetime "running_at"
   end
 
   create_table "solutions", force: :cascade do |t|

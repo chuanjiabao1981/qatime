@@ -15,10 +15,6 @@ cn:
         windows: Windows
         android: Android
         ios: IOS
-    app_info:
-      category:
-        student_android: 学生安卓应用
-        teacher_pc: 老师PC应用
       status:
         init: 初始化
         running: 运行中

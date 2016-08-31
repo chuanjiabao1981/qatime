@@ -9,7 +9,7 @@ module LiveStudio
 
       private
       def set_student
-        @student = ::Student.find_by(id: params[:student_id]) || current_user
+        @current_resource = @student = ::Student.find_by(id: params[:student_id]) || current_user
       end
     end
   end

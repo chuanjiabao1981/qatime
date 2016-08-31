@@ -21,9 +21,9 @@ module LiveStudio
 
       if @lesson.finished? && LiveService::BillingDirector.new(@lesson).billing
         @lesson.billing? && @lesson.complete!
-        redirect_to live_studio.teacher_course_path(@course.teacher, @course, index: :list), notice: t("flash.notice.lesson_completed_failed")
+        redirect_to live_studio.teacher_course_path(@course.teacher, @course, index: :list), notice: t("flash.notice.lesson_completed_success")
       else
-        redirect_to live_studio.teacher_course_path(@course.teacher, @course, index: :list), alert: t("flash.alert.lesson_completed_success")
+        redirect_to live_studio.teacher_course_path(@course.teacher, @course, index: :list), alert: t("flash.alert.lesson_completed_failed")
       end
     end
 

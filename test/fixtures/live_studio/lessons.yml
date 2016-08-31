@@ -62,6 +62,21 @@ english_lesson_finished:
   class_date: <%= Date.today %>
   live_count: 5
   real_time: 60
+
+english_lesson2_finished:
+  name: 英语辅导班-已完成
+  teacher_id: 10
+  course_id: 4
+  description: 测试描述
+  start_time: 10:20
+  end_time: 05:30
+  status: 5
+  live_start_at: <%= 1.hours.ago %>
+  live_end_at: <%= Time.now %>
+  class_date: <%= Date.today %>
+  live_count: 5
+  real_time: 60
+
 ready_lessoncourses_today:
   name: 英语辅导班-第二节
   course_id: courses(:course_teach_2)

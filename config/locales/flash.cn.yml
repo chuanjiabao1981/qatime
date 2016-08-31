@@ -11,7 +11,9 @@ cn:
       no_account: 该用户未注册
       order_failed: 抱歉，下单失败啦；请重新购买。
       canel_order_failed: 取消订单失败
+      lesson_completed_failed: 结算课程失败！
     notice:
       update_success: 更新成功
       register_success: 完善信息修改完成
       canel_order_success: 取消订单成功
+      lesson_completed_success: 结算课程成功！

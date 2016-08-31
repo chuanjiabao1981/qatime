@@ -57,6 +57,33 @@ module V1
             @lesson.close!
             present @lesson, with: Entities::LiveStudio::Lesson, type: :live_start
           end
+
+          desc '客服手动结算' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, type: Integer, desc: '课程ID'
+          end
+          patch ':id/completed' do
+            if current_user.waiter?
+              lesson = ::LiveStudio::Lesson.find(params[:id])
+              raise_change_error_for(lesson.finished?)
+
+              if lesson.finished? && LiveService::BillingDirector.new(lesson).billing
+                lesson.billing? && lesson.complete!
+
+                lesson.reload
+                present lesson, with: Entities::LiveStudio::Lesson
+              else
+                raise(ActiveRecord::RecordInvalid.new(lesson))
+              end
+            else
+              raise(APIErrors::NoVisitPermission.new())
+            end
+          end
         end
       end
     end

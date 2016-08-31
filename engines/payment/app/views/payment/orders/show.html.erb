@@ -3,7 +3,7 @@
     <%= hidden_field_tag :order_no, params[:id] %>
 
     <div class="payment-header">
-      <%= link_to LiveStudio::Course.model_name.human, live_studio.courses_path(student_id: @student.id) %> &gt;
+      <%= link_to LiveStudio::Course.model_name.human, live_studio.courses_path(student_id: @student.try(:id)) %> &gt;
       <strong><%= @course.name %></strong>
     </div>
 

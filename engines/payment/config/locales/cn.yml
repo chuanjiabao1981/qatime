@@ -4,6 +4,7 @@ cn:
       order: 我的订单
       pay: 立即支付
       timeout: 已超时
+      pay_view_phone: 提示：如支付遇到问题，请拨打电话 010-58442007
     models:
       payment/order: 订单
       payment/change_record: 资金流水

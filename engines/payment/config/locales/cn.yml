@@ -32,8 +32,8 @@ cn:
         created_at: 结算时间
     status:
       order:
-        unpaid: 未支付
-        paid: 已支付
+        unpaid: 待付款
+        paid: 已付款
         shipped: 已完成
         completed: 已完成
         canceled: 已取消
@@ -41,4 +41,10 @@ cn:
         failed: 下单失败
         refunded: 已退款
         waste: 无效订单
-
+    cate_text:
+      order:
+        unpaid: 等待付款
+        paid: 正在交易
+        completed: 交易完成
+        canceled: 交易关闭
+        others: 无效订单

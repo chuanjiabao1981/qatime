@@ -33,10 +33,11 @@ cn:
         created_at: 结算时间
     status:
       order:
-        unpaid: 未支付
-        paid: 已支付
-        shipped: 已发货
+        unpaid: 待付款
+        paid: 已付款
+        shipped: 已完成
         completed: 已完成
+        canceled: 已取消
         expired: 过期订单
         failed: 下单失败
         refunded: 已退款

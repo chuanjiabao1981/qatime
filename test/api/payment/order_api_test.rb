@@ -27,7 +27,7 @@ class Qatime::OrderApiTest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal 3, res['data'].size
+    assert_equal 4, res['data'].size
 
     get "/api/v1/payment/orders", {cate: "unpaid"}, {'Remember-Token' => remember_token}
     assert_response :success

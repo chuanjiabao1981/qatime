@@ -83,11 +83,11 @@
         <% case @order.status.to_sym %>
         <% when :paid %>
           <td class="price" rowspan="3" colspan="2">
-            <%= @order.status_text %>
+            <%= @order.cate_text %>
           </td>
         <% when :unpaid %>
           <td class="price" rowspan="3">
-            <%= @order.status_text %>
+            <%= @order.cate_text %>
           </td>
           <td class="price" rowspan="3">
             <p>

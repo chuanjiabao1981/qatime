@@ -173,6 +173,24 @@ module Payment
       where.not(status: [status_waste, statuses_failed])
     end
 
+    def cate_text
+      cate = if CATE_UNPAID.include?(status)
+        'unpaid'
+      elsif CATE_PAID.include?(status)
+        'paid'
+      elsif CATE_CANCELED.include?(status)
+        'canceled'
+      else
+        'others'
+      end
+
+      if completed?
+        I18n.t("activerecord.cate_text.order.completed")
+      else
+        I18n.t("activerecord.cate_text.order.#{cate}")
+      end
+    end
+
     private
 
     before_create :generate_order_no

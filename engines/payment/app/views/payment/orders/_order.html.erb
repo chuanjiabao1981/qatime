@@ -3,7 +3,7 @@
   <%= content_tag(:div, class: 'course-describe-div') do%>
     <%= content_tag(:div,"#{Payment::Order.human_attribute_name(:order_no)}#{order.order_no}",class: 'describe-ceil') %>
     <%= content_tag(:div,"#{Payment::Order.human_attribute_name(:created_at)} #{l order.created_at, format: :long}",class: 'describe-ceil') %>
-    <%= content_tag(:div,"#{order.status_text}",class: 'describe-ceil') %>
+    <%= content_tag(:div, "#{order.cate_text}",class: 'describe-ceil') %>
   <% end %>
   <%= content_tag(:div, class: 'course-info-div') do %>
     <%= content_tag(:div, image_tag(course.publicize_url(:list)),class: 'publicize') %>

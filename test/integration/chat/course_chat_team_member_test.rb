@@ -42,7 +42,7 @@ module Chat
       assert_difference "course.buy_tickets.count", 1, "购买失败" do
         click_link("buy-course-#{course.id}")
         click_link('微信支付')
-        click_on '立即支付'
+        click_on '立即付款'
         Chat::TeamMemberCreatorJob.perform_now(course.id, @student.id)
         @student.reload
         course.reload

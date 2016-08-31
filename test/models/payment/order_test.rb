@@ -18,5 +18,19 @@ module Payment
                 )
       end
     end
+
+    test "cate text" do
+      unpid_order = payment_orders(:order_one)
+      assert unpid_order.cate_text == "等待付款"
+
+      paid_order = payment_orders(:order2)
+      assert paid_order.cate_text == "正在交易"
+
+      canceled_order = payment_orders(:order4)
+      assert canceled_order.cate_text == "交易关闭"
+
+      completed_order = payment_orders(:order6)
+      assert completed_order.cate_text == "交易完成"
+    end
   end
 end

@@ -44,6 +44,7 @@ module LiveStudio
       @pull_stream = @course.pull_stream
       @chat_account = current_user.chat_account
       @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) if @chat_team && @chat_account
+      render layout: 'play'
     end
 
     def refresh_current_lesson

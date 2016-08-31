@@ -25,6 +25,9 @@ module Entities
       expose :teacher_name, if: {type: :schedule} do |lesson|
         lesson.course.teacher.try(:name).to_s
       end
+      expose :course_id, if: {type: :schedule} do |lesson|
+        lesson.course.try(:id).to_s
+      end
     end
   end
 end

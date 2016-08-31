@@ -36,8 +36,8 @@ module V1
           end
 
           get do
-            orders = LiveService::OrderDirector.orders_for_user_index(current_user, params).order(id: :desc).paginate(page: params[:page])
-            present orders, with: Entities::Payment::Order, type: :full
+            orders = LiveService::OrderDirector.orders_for_user_index(current_user, params).order(id: :desc).paginate(page: params[:page], per_page: params[:per_page])
+            present orders, with: Entities::Payment::Order, type: :product
           end
 
           desc '取消订单' do
@@ -54,7 +54,7 @@ module V1
           patch ':id/cancel' do
             order = ::Payment::Order.find_by(order_no: params[:id])
             if order.canceled!
-              present order, with: Entities::Payment::Order, type: :full
+              present order, with: Entities::Payment::Order, type: :product
             else
               raise(ActiveRecord::RecordInvalid.new(order))
             end

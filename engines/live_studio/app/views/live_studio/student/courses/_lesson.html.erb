@@ -17,15 +17,17 @@
         <%= lesson.live_start_at.try(:strftime, '%H:%M') || lesson.start_time %>-<%= lesson.live_end_at.try(:strftime, '%H:%M') || lesson.end_time %>
       </td>
       <td><%= lesson.name %></td>
-      <td><%= lesson.status_text(current_user.role) %></td>
+      <td>
+        <%= lesson.status_text(current_user.role) %>
+
+        <% if allow?(:lessons, :completed, lesson) && lesson.finished?  %>
+          <%= link_to t('view.course_info_show.completed_lesson'), completed_course_lesson_path(@course, lesson), method: :patch %>
+        <% end  %>
+      </td>
       <%= content_tag :td do  %>
         <%= link_to t("activerecord.view.delete"), teacher_lesson_path(@teacher,lesson,course_id: @course), method: :delete,
                     data:{confirm: t('activerecord.view.message.confirm')} if lesson.init? && @course.init? %>
       <% end if action_name == 'edit'%>
-
-      <%= content_tag :td do  %>
-        <%= link_to t('view.course_info_show.completed_lesson'), completed_course_lesson_path(@course, lesson), method: :patch %>
-      <% end if allow?(:lessons, :completed, lesson) && lesson.finished? %>
     </tr>
   <% end %>
   </tbody>

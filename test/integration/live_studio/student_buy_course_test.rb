@@ -7,7 +7,7 @@ module LiveStudio
       @headless = Headless.new
       @headless.start
       Capybara.current_driver = :selenium_chrome
-      @student = ::Student.find(users(:student_with_order).id)
+      @student = ::Student.find(users(:student_with_order2).id)
       new_log_in_as(@student)
     end
 
@@ -33,12 +33,13 @@ module LiveStudio
         click_on("buy-course-#{course_preview.id}")
         click_link '微信支付'
         click_on '立即支付'
+        page.has_content? "提示：如支付遇到问题，请拨打电话 010-58442007"
       end
     end
 
     test "student pay order" do
-      @order = payment_orders(:order_one)
-      visit payment.user_order_path(@student,@order.order_no)
+      @order = payment_orders(:order5)
+      visit payment.pay_user_order_path(@student,@order.order_no)
       assert has_selector?('img#wechat_qrcode')
       assert_difference "CashAdmin.current_cash", @order.total_money.to_f, "订单支付完成系统收入不正确" do
         @order.pay_and_ship!

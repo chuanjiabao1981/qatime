@@ -44,4 +44,36 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     assert data.length == 32, '没有正确返回'
   end
+
+  test 'PATCH /api/v1/live_studio/lessons/#{lesson.id}/completed teacher failed' do
+    teacher = users(:teacher1)
+    post '/api/v1/sessions', email: teacher.email,
+         password: 'password',
+         client_type: 'pc'
+    remember_token = JSON.parse(response.body)['data']['remember_token']
+
+    lesson = live_studio_lessons(:english_lesson2_finished)
+    patch "/api/v1/live_studio/lessons/#{lesson.id}/completed", {id: "test_name"}, 'Remember-Token' => remember_token
+
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 0, res['status']
+    assert_equal 1003, res['error']['code']
+  end
+
+  test 'PATCH /api/v1/live_studio/lessons/#{lesson.id}/completed waiter' do
+    waiter = users(:waiter)
+    post '/api/v1/sessions', email: waiter.email,
+         password: 'password',
+         client_type: 'pc'
+    remember_token = JSON.parse(response.body)['data']['remember_token']
+
+    lesson = live_studio_lessons(:english_lesson2_finished)
+    patch "/api/v1/live_studio/lessons/#{lesson.id}/completed", {id: "test_name"}, 'Remember-Token' => remember_token
+
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status']
+    assert_equal 'completed', res['data']['status']
+  end
 end

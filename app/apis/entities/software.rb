@@ -6,7 +6,9 @@ module Entities
     expose :desc
     expose :description
     expose :download_links
-    expose :qr_code_url
+    expose :qr_code_url do |soft|
+      soft.qr_code.try(:code_url)
+    end
     expose :enforce do |_,options|
       options[:enforce]
     end

@@ -6,11 +6,19 @@ class SoftwareTest < ActiveSupport::TestCase
   # end
 
   test 'running! after set running_at' do
-    app_info = app_infos(:one)
+    software = softwares(:four)
+    assert software.running_at.blank?
+    software.running!
+    software.reload
+    assert software.running_at.present?
   end
 
   test 'running! after assign qr_code' do
-    # todo
+    software = softwares(:four)
+    assert software.qr_code.blank?
+    software.running!
+    software.reload
+    assert software.qr_code.present?
   end
 
 end

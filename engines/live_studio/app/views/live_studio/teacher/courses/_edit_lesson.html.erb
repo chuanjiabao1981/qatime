@@ -39,7 +39,7 @@
         <td>
           <div>
             <%= text_field_tag "class_date_#{lesson.id}", lesson.class_date, type: :date,class: 'form-control lesson-class-date',
-                               placeholder: t('view.teacher_course.date_holder'), min: Date.today,max: '2055-01-01', disabled: can_edit %>
+                               placeholder: t('view.teacher_course.date_holder'), min: ((lesson.class_date - 15) < Date.today ? Date.today : (lesson.class_date - 15)), max: (lesson.class_date + 15), onchange: "set_start_time_by_date(this,#{lesson.id})", disabled: can_edit %>
             <%= select_tag "start_time_#{lesson.id}", options_for_select(start_arr,time_fmt(lesson.start_time)),
                            class: 'form-control lesson-time', onchange: "set_end_time(this,#{lesson.id})", disabled: can_edit %>
             ~
@@ -144,6 +144,9 @@
       $(obj).find('#'+attrs[i]).attr('id', attrs[i]+no);
     }
     $(obj).find('a.delete-link').attr('rel', no);
+    $(obj).find('#new_class_date_'+no).bind('change', function(){
+      set_start_time_by_date(this,no)
+    });
     $(obj).find('#new_start_time_'+no).bind('change', function(){
       set_end_time(this,no);
     });
@@ -180,6 +183,37 @@
       append_select(start_time_id,start_arr);
   }
 
+  function set_start_time_by_date(obj,no){
+    var date_time = $(obj).val();
+    var date_today = '<%= Date.today %>';
+
+    if(date_time == date_today){
+      var hour_now = '<%= Time.zone.now.min > 30 ? "#{"%2i" % [(Time.zone.now.hour == 23 ? 23 : Time.zone.now.hour) + 1]}:00" : "#{Time.zone.now.hour}:30" %>'
+
+      var start_arr = end_time_arr;
+      var start_time_id = '#';
+      if($(obj).attr('id').split('_')[0] == 'new')
+        start_time_id+='new_';
+      start_time_id+='start_time_'+no;
+
+      end_arr = end_time_arr.slice(end_time_arr.indexOf(hour_now)+1, end_time_arr.length-1);
+
+      var optionsAsString = "";
+      optionsAsString += "<option value='" + hour_now + "'>" + hour_now + "</option>";
+
+      $(end_arr).each(function(i,v){
+        var option_value = hour_now
+        if(option_value == v){
+          optionsAsString += "<option value='" + v + "' selected>" + v + "</option>";
+        }else{
+          optionsAsString += "<option value='" + v + "'>" + v + "</option>";
+        }
+      });
+
+      $(start_time_id).html(optionsAsString);
+    }
+  }
+
   function append_select(obj,arr){
     var optionsAsString = "";
     $(arr).each(function(i,v){
@@ -192,5 +226,4 @@
     });
     $(obj).html(optionsAsString);
   }
-
 </script>

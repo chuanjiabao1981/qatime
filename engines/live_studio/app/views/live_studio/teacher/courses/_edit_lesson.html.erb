@@ -33,31 +33,31 @@
       <td><a href="javascript:void(0);" onclick="delete_self(this)" class="delete-link"><%= t("activerecord.view.delete") %></a></td>
     </tr>
     <% @course.order_lessons.each_with_index do |lesson,i| %>
-      <% can_edit = !lesson.init? && !@course.completed? %>
+      <% change_class_date_not_edit = (!lesson.init? && action_name == "update_class_data")%>
       <tr class="lesson-<%= lesson.id %>">
         <td><%= i+1 %></td>
         <td>
           <div>
             <%= text_field_tag "class_date_#{lesson.id}", lesson.class_date, type: :date,class: 'form-control lesson-class-date',
-                               placeholder: t('view.teacher_course.date_holder'), min: ((lesson.class_date - 15) < Date.today ? Date.today : (lesson.class_date - 15)), max: (lesson.class_date + 15), onchange: "set_start_time_by_date(this,#{lesson.id})", disabled: can_edit %>
+                               placeholder: t('view.teacher_course.date_holder'), min: ((lesson.class_date - 15) < Date.today ? Date.today : (lesson.class_date - 15)), max: (lesson.class_date + 15), onchange: "set_start_time_by_date(this,#{lesson.id})", disabled: change_class_date_not_edit %>
             <%= select_tag "start_time_#{lesson.id}", options_for_select(start_arr,time_fmt(lesson.start_time)),
-                           class: 'form-control lesson-time', onchange: "set_end_time(this,#{lesson.id})", disabled: can_edit %>
+                           class: 'form-control lesson-time', onchange: "set_end_time(this,#{lesson.id})", disabled: change_class_date_not_edit %>
             ~
             <%= select_tag "end_time_#{lesson.id}", options_for_select(end_arr,time_fmt(lesson.end_time)),
-                           class: 'form-control lesson-time', onchange: "set_start_time(this,#{lesson.id})", disabled: can_edit %>
+                           class: 'form-control lesson-time', onchange: "set_start_time(this,#{lesson.id})", disabled: change_class_date_not_edit %>
           </div>
         </td>
         <td>
-          <%= text_field_tag "name_#{lesson.id}", lesson.name, class: 'form-control',  placeholder: t('view.teacher_course.lesson_name_holder'), disabled: can_edit %>
+          <%= text_field_tag "name_#{lesson.id}", lesson.name, class: 'form-control',  placeholder: t('view.teacher_course.lesson_name_holder'), disabled: (action_name == "update_class_data") %>
         </td>
         <td>
-          <%= link_to(t("activerecord.view.delete"), "javascript:delete_default(#{lesson.id})") if lesson.init? && @course.init? %>
+          <%= link_to(t("activerecord.view.delete"), "javascript:delete_default(#{lesson.id})") if lesson.init? && @course.init? && action_name != "update_class_data" %>
         </td>
       </tr>
     <% end %>
     </tbody>
   </table>
-  <% if !@course.completed? && @course.lesson_count < @course.preset_lesson_count %>
+  <% if !@course.completed? && @course.lesson_count < @course.preset_lesson_count && action_name != "update_class_data" %>
     <div class="insert-lesson">
       <%= link_to t('view.insert_btn') % Lesson.model_name.human, 'javascript:void(0);', id: 'insert_lesson' %>
     </div>

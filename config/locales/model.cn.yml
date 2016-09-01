@@ -15,7 +15,7 @@ cn:
       reply: 回复
       recharge_code: 充值码
       video: 视频
-      software: 应用
+      software: 软件
     attributes:
       group:
         subject: 科目
@@ -101,11 +101,11 @@ cn:
         workstation_id: 工作站
         password_confirmation: 密码确认
       software:
-        title: 应用
-        sub_title: 应用说明
+        title: 软件名称
+        sub_title: 软件说明
         platform: 平台
         version: 版本
-        desc: 版本说明
+        desc: 软件介绍
         role: 下载用户
         logo: Logo
         description: 更新说明

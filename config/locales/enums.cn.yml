@@ -16,6 +16,6 @@ cn:
         android: Android
         ios: IOS
       status:
-        init: 初始化
-        running: 运行中
-        invalid: 已失效
+        init: 未发布
+        running: 已发布
+        invalid: 已下架

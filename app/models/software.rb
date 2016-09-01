@@ -1,9 +1,9 @@
 class Software < ActiveRecord::Base
   extend Enumerize
-  validates_presence_of :title, :sub_title, :platform, :version, :role, :desc, :description, :download_links
+  validates_presence_of :title, :sub_title, :platform, :version, :role, :desc, :description, :download_links, :logo
 
   mount_uploader :logo, SoftwareLogoUploader
-  mount_uploader :qr_code, SoftwareQrCodeUploader
+  has_one :qr_code, as: :qr_codeable
 
   PLATFORM_HASH = {
     windows: 1,
@@ -18,10 +18,10 @@ class Software < ActiveRecord::Base
             i18n_scope: "enums.software.platform",
             scope: true,
             predicates: { prefix: true }
+  before_update :assign_qr_code
 
   def running!
     self.running_at = Time.now
-    self.assign_qr_code
     super
   end
 
@@ -30,10 +30,10 @@ class Software < ActiveRecord::Base
   end
 
   def assign_qr_code
-    relative_path = Payment::Qr_Code.generate_tmp(self.download_links)
+    relative_path = QrCode.generate_tmp(self.download_links)
     tmp_path = Rails.root.join(relative_path)
     File.open(tmp_path) do |file|
-      self.qr_code = file
+      self.create_qr_code(code: file)
     end
     File.delete(tmp_path)
   end

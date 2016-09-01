@@ -5,7 +5,7 @@
   <div class="qa_big_cell">
     <%= Software.human_attribute_name(:title) %>
     <br/>
-    <%= @software.title %> <%= link_to 'edit',edit_admins_software_path(@software) if @software.init?%>
+    <%= @software.title %> <%= link_to 'edit',edit_admins_software_path(@software)%>
   </div>
 
   <div class="qa_big_cell">
@@ -56,6 +56,6 @@
   <%= content_tag :div, class: 'qa_big_cell' do %>
     <%= Software.human_attribute_name(:qr_code) %>
     <br/>
-    <%= @software.qr_code.present? ? image_tag(@software.qr_code_url) : '发布后生成二维码'%>
+    <%= @software.qr_code.present? ? image_tag(@software.qr_code.code_url) : '发布后生成二维码'%>
   <% end %>
 </div>

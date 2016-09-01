@@ -215,7 +215,7 @@ module Permissions
       ## begin live studio permission
       allow 'live_studio/teacher/courses', [:index, :show, :edit, :update, :sync_channel_streams, :channel, :close] do |teacher, course, action|
         # 只有初始化的辅导班可以编辑
-        permission = %w(edit update).include?(action) ? course.init? : true
+        permission = %w(edit update).include?(action) ? !course.completed? : true
         teacher && teacher == user && permission
       end
 

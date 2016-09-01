@@ -19,16 +19,9 @@ module APIHelpers
   def check_client!
   end
 
-  def current_permission
-    @current_permission ||= Permissions.permission_for(current_user)
-  end
-
-  def auth_params
-  end
-
   # 权限认证
   def allow?
-    current_permission.api_allow?(request.request_method, request.path, auth_params)
+    true
   end
 
   def ip

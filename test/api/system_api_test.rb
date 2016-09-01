@@ -22,7 +22,6 @@ class Qatime::SystemApiTest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    binding.pry
     assert !res['data']['enforce']
   end
 end

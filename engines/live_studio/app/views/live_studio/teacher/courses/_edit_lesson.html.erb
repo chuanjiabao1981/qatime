@@ -57,7 +57,7 @@
     <% end %>
     </tbody>
   </table>
-  <% if @course.init? %>
+  <% if !@course.completed? && @course.lesson_count < @course.preset_lesson_count %>
     <div class="insert-lesson">
       <%= link_to t('view.insert_btn') % Lesson.model_name.human, 'javascript:void(0);', id: 'insert_lesson' %>
     </div>
@@ -162,11 +162,16 @@
   function set_end_time(obj,no){
     var start_time = $(obj).val();
     var end_arr = end_time_arr;
+
+    if(is_today(obj,no)){
+      var hour_now = '<%= Time.zone.now.min > 30 ? "#{"%2i" % [(Time.zone.now.hour == 23 ? 23 : Time.zone.now.hour) + 1]}:00" : "#{Time.zone.now.hour}:30" %>'
+      end_time_arr = end_time_arr.slice(end_time_arr.indexOf(hour_now), end_time_arr.length);
+    }
+
     var end_time_id = '#';
     if($(obj).attr('id').split('_')[0] == 'new')
       end_time_id+='new_';
     end_time_id+='end_time_'+no;
-    console.log($(obj).val());
     if($(obj).val() != '00:00')
       end_arr = end_time_arr.slice(end_time_arr.indexOf(start_time)+1);
     append_select(end_time_id,end_arr);
@@ -175,6 +180,12 @@
   function set_start_time(obj,no){
     var end_time = $(obj).val();
     var start_arr = time_arr.slice(0,time_arr.indexOf(end_time));
+
+    if(is_today(obj,no)){
+      var hour_now = '<%= Time.zone.now.min > 30 ? "#{"%2i" % [(Time.zone.now.hour == 23 ? 23 : Time.zone.now.hour) + 1]}:00" : "#{Time.zone.now.hour}:30" %>'
+      start_arr = start_arr.slice(start_arr.indexOf(hour_now), start_arr.length);
+    }
+
     var start_time_id = '#';
     if($(obj).attr('id').split('_')[0] == 'new')
       start_time_id+='new_';
@@ -196,7 +207,7 @@
         start_time_id+='new_';
       start_time_id+='start_time_'+no;
 
-      end_arr = end_time_arr.slice(end_time_arr.indexOf(hour_now)+1, end_time_arr.length-1);
+      end_arr = end_time_arr.slice(end_time_arr.indexOf(hour_now)+1, end_time_arr.length);
 
       var optionsAsString = "";
       optionsAsString += "<option value='" + hour_now + "'>" + hour_now + "</option>";
@@ -225,5 +236,19 @@
       }
     });
     $(obj).html(optionsAsString);
+  }
+
+  function is_today(obj,no){
+    var class_date_id = "#"
+    if($(obj).attr('id').split('_')[0] == 'new')
+      class_date_id+='new_';
+    class_date_id+='class_date_'+no;
+    var date_today = '<%= Date.today %>';
+
+    if($(class_date_id).val() == date_today){
+      return true
+    }else{
+      return false
+    }
   }
 </script>

@@ -1,8 +1,10 @@
 cn:
   activerecord:
     view:
+      order: 我的订单
       pay: 立即支付
       timeout: 已超时
+      pay_view_phone: 提示：如支付遇到问题，请拨打电话 010-58442007
     models:
       payment/order: 订单
       payment/change_record: 资金流水
@@ -31,11 +33,19 @@ cn:
         created_at: 结算时间
     status:
       order:
-        unpaid: 未支付
-        paid: 已支付
-        shipped: 已发货
+        unpaid: 待付款
+        paid: 已付款
+        shipped: 已完成
         completed: 已完成
+        canceled: 已取消
         expired: 过期订单
         failed: 下单失败
         refunded: 已退款
         waste: 无效订单
+    cate_text:
+      order:
+        unpaid: 等待付款
+        paid: 正在交易
+        completed: 交易完成
+        canceled: 交易关闭
+        others: 无效订单

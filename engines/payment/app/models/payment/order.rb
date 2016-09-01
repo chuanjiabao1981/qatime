@@ -9,6 +9,10 @@ module Payment
       weixin: 1
     }.freeze
 
+    CATE_UNPAID =%w(unpaid).freeze
+    CATE_PAID =%w(paid shipped completed).freeze
+    CATE_CANCELED =%w(canceled expired refunded).freeze
+
     include AASM
 
     enum status: {
@@ -16,6 +20,7 @@ module Payment
            paid: 1, # 已支付
            shipped: 2, # 已发货
            completed: 3, # 已完成
+           canceled: 95, # 已取消
            expired: 96, # 过期订单
            failed: 97, # 下单失败
            refunded: 98, # 已退款
@@ -36,6 +41,7 @@ module Payment
     aasm :column => :status, :enum => true do
       state :unpaid, :initial => true
       state :paid
+      state :canceled
       state :shipped
       state :completed
       state :refunded
@@ -47,6 +53,13 @@ module Payment
           increase_cash_admin_account
         end
         transitions from: :unpaid, to: :paid
+      end
+
+      event :cancel do
+        before do
+          increase_cash_admin_account
+        end
+        transitions from: :unpaid, to: :canceled
       end
 
       event :ship do
@@ -152,6 +165,30 @@ module Payment
 
     def app_pay_params
       WxPay::Service.generate_app_pay_req(prepayid: prepay_id, noncestr: nonce_str)
+    end
+
+    def self.show_orders
+      status_waste = Payment::Order.statuses[:waste]
+      statuses_failed = Payment::Order.statuses[:failed]
+      where.not(status: [status_waste, statuses_failed])
+    end
+
+    def cate_text
+      cate = if CATE_UNPAID.include?(status)
+        'unpaid'
+      elsif CATE_PAID.include?(status)
+        'paid'
+      elsif CATE_CANCELED.include?(status)
+        'canceled'
+      else
+        'others'
+      end
+
+      if completed?
+        I18n.t("activerecord.cate_text.order.completed")
+      else
+        I18n.t("activerecord.cate_text.order.#{cate}")
+      end
     end
 
     private

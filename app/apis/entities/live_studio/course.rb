@@ -15,12 +15,15 @@ module Entities
       expose :price do |course|
         course.price.to_f.round(2)
       end
+      expose :chat_team_id do |course|
+        course.try(:chat_team).try(:team_id).to_s
+      end
       expose :buy_tickets_count
       expose :status, if: { type: :full }
       expose :description, if: { type: :full }
       expose :lesson_count, if: { type: :full }
-      expose :preset_lesson_count, if: { type: :full }
-      expose :completed_lesson_count, if: { type: :full }
+      expose :preset_lesson_count
+      expose :completed_lesson_count
       expose :live_start_time
       expose :live_end_time
       expose :publicize do |course|

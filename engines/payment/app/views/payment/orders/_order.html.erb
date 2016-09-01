@@ -1,9 +1,53 @@
-<tr>
-  <td><%= order_counter + 1 %></td>
-  <td><%= order.product.try(:name) %></td>
-  <td><%= order.total_money %></td>
-  <td><%= order.pay_timeout? ? t("activerecord.view.timeout") : order.status_text %></td>
-  <td><%= order.order_no %></td>
-  <td><%= localize(order.created_at, format: :long) %></td>
-  <td><%= link_to t("activerecord.view.pay"),  user_order_path(@user,order.order_no) if order.unpaid? && !order.pay_timeout? && @user == current_user %></td>
-</tr>
+<% course = order.product -%>
+<%= content_tag(:div, class: 'course-box-div') do %>
+  <%= content_tag(:div, class: 'course-describe-div') do%>
+    <%= content_tag(:div,"#{Payment::Order.human_attribute_name(:order_no)}#{order.order_no}",class: 'describe-ceil') %>
+    <%= content_tag(:div,"#{Payment::Order.human_attribute_name(:created_at)} #{l order.created_at, format: :long}",class: 'describe-ceil') %>
+    <%= content_tag(:div, "#{order.cate_text}",class: 'describe-ceil') %>
+  <% end %>
+  <%= content_tag(:div, class: 'course-info-div') do %>
+    <%= content_tag(:div, image_tag(course.publicize_url(:list)),class: 'publicize') %>
+    <%= content_tag(:div, class: 'orders-content-div') do %>
+      <%= content_tag(:div,class: 'course-info-col') do %>
+        <%= content_tag(:div, course.name, class: 'course-name') %>
+      <% end %>
+      <%= content_tag(:div, "#{t('view.course_show.subject')}#{course.subject}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.teacher')}#{course.teacher.name}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.schedule')}#{course.completed_lesson_count}/#{course.preset_lesson_count}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.surplus')}#{course.lesson_count_left} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.current')}#{course.current_lesson_name}") %>
+    <%end %>
+
+    <%= content_tag(:div, class: 'order-operator-div') do%>
+      <%= content_tag(:div, class: 'course-operator-btn') do %>
+          <p>
+            <%= t('view.payment_show.order_actual_price2') %>
+          </p>
+          <p>
+            <span class="alert_red_span"><%= format '￥%0.2f', order.total_money %></span>
+          </p>
+      <% end %>
+    <% end %>
+
+    <%= content_tag(:div, class: 'course-operator-div') do%>
+      <%= content_tag(:div, class: 'course-operator-btn') do %>
+        <%= link_to t('view.payment_show.cancel_order'), cancel_order_user_order_path(@user, order.order_no, cate: :index), method: :patch, data: { confirm: t('view.payment_show.cancel_order_confirm') }, class: 'btn btn-default operator-btn' %>
+        <%= link_to t('activerecord.view.pay_now'), pay_user_order_path(@user, order.order_no), class: 'btn btn-default operator-btn' %>
+        <%= link_to t('view.course_show.info'), user_order_path(@user,order.order_no), class: 'btn btn-default operator-btn' %>
+      <% end %>
+    <% end if Payment::Order::CATE_UNPAID.include?(order.status) %>
+
+    <%= content_tag(:div, class: 'course-operator-div') do%>
+      <%= content_tag(:div, class: 'course-operator-btn') do %>
+        <%= link_to t('view.course_show.info'), user_order_path(@user,order.order_no), class: 'btn btn-default operator-btn' %>
+      <% end %>
+    <% end if Payment::Order::CATE_PAID.include?(order.status) %>
+
+    <%= content_tag(:div, class: 'course-operator-div') do%>
+      <%= content_tag(:div, class: 'course-operator-btn') do %>
+        <%= link_to t('view.payment_show.new_order'), live_studio.student_course_path(@user, course), class: 'btn btn-default operator-btn' %>
+        <%= link_to t('view.course_show.info'), user_order_path(@user,order.order_no), class: 'btn btn-default operator-btn' %>
+      <% end %>
+    <% end if Payment::Order::CATE_CANCELED.include?(order.status) %>
+  <% end %>
+<% end %>

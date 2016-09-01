@@ -33,16 +33,16 @@ cn:
       teacher:
         email: 电子邮件
         subject: 科目
-        category: 类型
+        category: 授课类型
         name: 姓名
         avatar: 头像
         school: 任课学校
         password: 密码
         password_confirmation: 密码确认
         current_password: 当前密码
-        desc: 讲师简介
+        desc: 简介
         accept: 接受服务协议
-        subject: 可授科目
+        subject: 授课科目
         grade_range: 可授年级
         teaching_years: 执教年龄
       school:
@@ -75,7 +75,7 @@ cn:
         password_confirmation: 密码确认
         avatar: 头像
         grade: 年级
-        desc: 个人简介
+        desc: 简介
         accept: 接受服务协议
       topic:
         title: 标题

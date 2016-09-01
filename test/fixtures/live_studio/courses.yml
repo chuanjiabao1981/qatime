@@ -119,6 +119,14 @@ course_with_order:
   grade: 六年级
   subject: 语文
 
+course_with_order2:
+  name: 辅导班4
+  teacher: physics_teacher1
+  workstation: workstation(:workstation1)
+  status: 2
+  grade: 六年级
+  subject: 语文
+
 course_with_lessons:
   id: 4
   name: 可直播辅导班

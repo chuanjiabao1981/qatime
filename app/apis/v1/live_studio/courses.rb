@@ -6,15 +6,9 @@ module V1
         before do
           authenticate!
         end
-
         namespace :teachers do
-          route_param :teacher_id do
-            helpers do
-              def auth_params
-                @teacher = ::Teacher.find_by(id: params[:teacher_id])
-              end
-            end
 
+          route_param :teacher_id do
             resource :courses do
               desc '教师辅导班列表接口' do
                 headers 'Remember-Token' => {
@@ -71,12 +65,6 @@ module V1
 
         namespace :students do
           route_param :student_id do
-            helpers do
-              def auth_params
-                @student ||= ::Student.find_by(id: params[:student_id])
-              end
-            end
-
             resource :courses do
               desc '学生我的辅导班列表接口' do
                 headers 'Remember-Token' => {

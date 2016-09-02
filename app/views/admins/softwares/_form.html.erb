@@ -1,0 +1,22 @@
+
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%=@software.class.model_name.human%></h2>
+  </div>
+  <div class="qa_big_cell">
+    <%= simple_form_for [:admins,@software] do |f|%>
+      <%= f.input :title %>
+      <%= f.input :logo, as: :file %>
+      <%= f.input :sub_title %>
+      <%= f.input :category, as: :select, collection: Software.i18n_categories %>
+      <%= f.input :platform, as: :select, collection: Software.platform.options %>
+      <%= f.input :version, placeholder: '用于区分不同版本的应用'  %>
+      <%= f.input :desc %>
+      <%= f.input :role, as: :select, collection: Software.roles %>
+      <%= f.input :description  %>
+      <%= f.input :download_links %>
+      <%= f.input :enforce %>
+      <%= f.button :submit, class: "btn btn-default" %>
+    <% end %>
+  </div>
+</div>

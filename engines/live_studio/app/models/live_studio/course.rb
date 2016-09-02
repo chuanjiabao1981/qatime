@@ -200,6 +200,10 @@ module LiveStudio
         "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:end_time)}"
     end
 
+    def order_lessons
+      lessons.except(:order).order(:class_date, :live_start_at, :live_end_at)
+    end
+
     private
 
     before_create :set_lesson_price

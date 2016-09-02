@@ -21,7 +21,8 @@
           %>
           <%= text_field_tag "new_class_date_", '', type: :date,class: 'form-control lesson-class-date',
                              placeholder: t('view.teacher_course.date_holder'), min: Date.today, max: '2055-01-01' %>
-          <%= select_tag "new_start_time_", options_for_select(start_arr,''), class: 'form-control lesson-time' %>
+          <%= select_tag "new_start_time_", options_for_select(start_arr,''),
+                         class: 'form-control lesson-time' %>
           ~
           <%= select_tag "new_end_time_", options_for_select(end_arr,''), min: Date.today, max: '2055-01-01',
                          class: 'form-control lesson-time' %>
@@ -32,36 +33,33 @@
       </td>
       <td><a href="javascript:void(0);" onclick="delete_self(this)" class="delete-link"><%= t("activerecord.view.delete") %></a></td>
     </tr>
-    <% @course.order_lessons.each_with_index do |lesson,i| %>
-      <% change_class_date_not_edit = (!lesson.init? && action_name == "update_class_date")%>
+    <% @course.lessons.each_with_index do |lesson,i| %>
       <tr class="lesson-<%= lesson.id %>">
         <td><%= i+1 %></td>
         <td>
           <div>
             <%= text_field_tag "class_date_#{lesson.id}", lesson.class_date, type: :date,class: 'form-control lesson-class-date',
-                               placeholder: t('view.teacher_course.date_holder'), min: ((lesson.class_date - 15) < Date.today ? Date.today : (lesson.class_date - 15)), max: (lesson.class_date + 15), onchange: "set_start_time_by_date(this,#{lesson.id})", disabled: change_class_date_not_edit %>
+                               placeholder: t('view.teacher_course.date_holder'), min: Date.today,max: '2055-01-01' %>
             <%= select_tag "start_time_#{lesson.id}", options_for_select(start_arr,time_fmt(lesson.start_time)),
-                           class: 'form-control lesson-time', onchange: "set_end_time(this,#{lesson.id})", disabled: change_class_date_not_edit %>
+                           class: 'form-control lesson-time', onchange: "set_end_time(this,#{lesson.id})" %>
             ~
             <%= select_tag "end_time_#{lesson.id}", options_for_select(end_arr,time_fmt(lesson.end_time)),
-                           class: 'form-control lesson-time', onchange: "set_start_time(this,#{lesson.id})", disabled: change_class_date_not_edit %>
+                           class: 'form-control lesson-time', onchange: "set_start_time(this,#{lesson.id})" %>
           </div>
         </td>
         <td>
-          <%= text_field_tag "name_#{lesson.id}", lesson.name, class: 'form-control',  placeholder: t('view.teacher_course.lesson_name_holder'), disabled: (action_name == "update_class_date") %>
+          <%= text_field_tag "name_#{lesson.id}", lesson.name, class: 'form-control',  placeholder: t('view.teacher_course.lesson_name_holder')%>
         </td>
         <td>
-          <%= link_to(t("activerecord.view.delete"), "javascript:delete_default(#{lesson.id})") if lesson.init? && @course.init? && action_name != "update_class_date" %>
+          <%= link_to(t("activerecord.view.delete"), "javascript:delete_default(#{lesson.id})") if lesson.init? && @course.init? %>
         </td>
       </tr>
     <% end %>
     </tbody>
   </table>
-  <% if !@course.completed? && @course.lesson_count < @course.preset_lesson_count && action_name != "update_class_date" %>
-    <div class="insert-lesson">
-      <%= link_to t('view.insert_btn') % Lesson.model_name.human, 'javascript:void(0);', id: 'insert_lesson' %>
-    </div>
-  <% end %>
+  <div class="insert-lesson">
+    <%= link_to t('view.insert_btn') % Lesson.model_name.human, 'javascript:void(0);', id: 'insert_lesson' %>
+  </div>
   <%= content_tag :div,class: 'text-center info-submit-btn' do %>
     <%= link_to t('view.cancel_btn'), teacher_course_path(@teacher,@course), class: 'btn btn-default' %>
     <%= button_tag t('view.save_btn'), class: 'btn btn-default btn-primary' %>
@@ -144,9 +142,6 @@
       $(obj).find('#'+attrs[i]).attr('id', attrs[i]+no);
     }
     $(obj).find('a.delete-link').attr('rel', no);
-    $(obj).find('#new_class_date_'+no).bind('change', function(){
-      set_start_time_by_date(this,no)
-    });
     $(obj).find('#new_start_time_'+no).bind('change', function(){
       set_end_time(this,no);
     });
@@ -162,16 +157,11 @@
   function set_end_time(obj,no){
     var start_time = $(obj).val();
     var end_arr = end_time_arr;
-
-    if(is_today(obj,no)){
-      var hour_now = '<%= Time.zone.now.min > 30 ? "#{"%02i" % [(Time.zone.now.hour == 23 ? 23 : Time.zone.now.hour) + 1]}:00" : "#{Time.zone.now.hour}:30" %>'
-      end_time_arr = end_time_arr.slice(end_time_arr.indexOf(hour_now), end_time_arr.length);
-    }
-
     var end_time_id = '#';
     if($(obj).attr('id').split('_')[0] == 'new')
       end_time_id+='new_';
     end_time_id+='end_time_'+no;
+    console.log($(obj).val());
     if($(obj).val() != '00:00')
       end_arr = end_time_arr.slice(end_time_arr.indexOf(start_time)+1);
     append_select(end_time_id,end_arr);
@@ -180,48 +170,12 @@
   function set_start_time(obj,no){
     var end_time = $(obj).val();
     var start_arr = time_arr.slice(0,time_arr.indexOf(end_time));
-
-    if(is_today(obj,no)){
-      var hour_now = '<%= Time.zone.now.min > 30 ? "#{"%02i" % [(Time.zone.now.hour == 23 ? 23 : Time.zone.now.hour) + 1]}:00" : "#{Time.zone.now.hour}:30" %>'
-      start_arr = start_arr.slice(start_arr.indexOf(hour_now), start_arr.length);
-    }
-
     var start_time_id = '#';
     if($(obj).attr('id').split('_')[0] == 'new')
       start_time_id+='new_';
     start_time_id+='start_time_'+no;
     if($(obj).val() != '00:00')
       append_select(start_time_id,start_arr);
-  }
-
-  function set_start_time_by_date(obj,no){
-    var date_time = $(obj).val();
-    var date_today = '<%= Date.today %>';
-
-    if(date_time == date_today){
-      var hour_now = '<%= 20 > 30 ? "#{"%02i" % [(Time.zone.now.hour == 23 ? 23 : Time.zone.now.hour) + 1]}:00" : "#{"%02i" % [Time.zone.now.hour]}:30" %>'
-
-      var start_arr = end_time_arr;
-      var start_time_id = '#';
-      if($(obj).attr('id').split('_')[0] == 'new')
-        start_time_id+='new_';
-      start_time_id+='start_time_'+no;
-      console.log(hour_now)
-      end_arr = end_time_arr.slice(end_time_arr.indexOf(hour_now)+1, end_time_arr.length);
-
-      var optionsAsString = "";
-      console.log(end_arr)
-      $(end_arr).each(function(i,v){
-        var option_value = hour_now
-        if(option_value == v){
-          optionsAsString += "<option value='" + v + "' selected>" + v + "</option>";
-        }else{
-          optionsAsString += "<option value='" + v + "'>" + v + "</option>";
-        }
-      });
-
-      $(start_time_id).html(optionsAsString);
-    }
   }
 
   function append_select(obj,arr){
@@ -237,17 +191,4 @@
     $(obj).html(optionsAsString);
   }
 
-  function is_today(obj,no){
-    var class_date_id = "#"
-    if($(obj).attr('id').split('_')[0] == 'new')
-      class_date_id+='new_';
-    class_date_id+='class_date_'+no;
-    var date_today = '<%= Date.today %>';
-
-    if($(class_date_id).val() == date_today){
-      return true
-    }else{
-      return false
-    }
-  }
 </script>

@@ -39,7 +39,7 @@ module LiveStudio
     end
 
     def update_class_date
-      render :edit
+      @lessons = @course.lessons.order("id").paginate(page: params[:page])
     end
 
     private

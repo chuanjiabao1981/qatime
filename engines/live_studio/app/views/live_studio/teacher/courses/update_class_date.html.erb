@@ -1,27 +1,24 @@
 <div class="qa_box panel panel-default panel-support">
-  <div class='course-header-div'>
-    <strong><%= t('activerecord.view.course') %></strong>
-  </div>
   <div class="info-header">
-    <div class="info-name">
-      <strong><%= @course.name %></strong>
-    </div>
+    <h4 class="text-center"><%= @course.name %></h4>
     <%= content_tag :div, class: "info-list-subtitle #{params[:index] == 'list' ? nil : 'hide'}" do %>
-      <div>
-        <%= t('view.course_info_show.lesson_plan') % [@course.live_start_time ,@course.live_end_time] %>
-      </div>
-      <div>
-        <%= "#{t('view.course_info_show.schedule')}#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>
-      </div>
+      <p style="color: gray;">
+        <span style="padding-right: 20px;">
+          <%= t('view.course_info_show.lesson_plan') % [@course.live_start_time ,@course.live_end_time] %>
+        </span>
+        <span>
+          <%= "#{t('view.course_info_show.schedule')}#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>
+        </span>
+      </p>
     <% end %>
   </div>
   <div class="tab-content">
     <div id="lesson_list" class="tab-pane fade<%= params[:index] == 'list' ? ' in active' : nil %>">
 
       <%= form_tag teacher_lessons_path(course_id: @course),method: :post, id: 'edit_less_form',class: 'duplicate' do %>
-      <table class="table table-hover">
+      <table class="table">
         <thead>
-          <tr>
+          <tr style="background: #eee">
             <td><%= t('view.course_info_show.number') %></td>
             <td width="40%" style="text-align: center;"><%= t('view.course_info_show.lesson_start_at') %></td>
             <td style="text-align: center;"><%= t('view.course_info_show.lesson_name') %></td>

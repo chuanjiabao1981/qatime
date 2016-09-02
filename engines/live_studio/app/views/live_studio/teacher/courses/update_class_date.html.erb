@@ -75,11 +75,11 @@
             <td>
               <div>
                 <%= text_field_tag "class_date_#{lesson.id}", lesson.class_date, type: :date,class: 'form-control lesson-class-date',
-                placeholder: t('view.teacher_course.date_holder'), min: Date.today,max: '2055-01-01', onchange: "set_start_time_by_date(this,#{lesson.id})", disabled: !can_edit %>
-                <%= select_tag "start_time_#{lesson.id}", options_for_select(select_start_arr, time_fmt(select_start_arr.index(lesson.start_time) ? lesson.start_time : select_start_arr.first)),
-                class: 'form-control lesson-time', onchange: "set_end_time(this,#{lesson.id})", disabled: !can_edit %>
+                  placeholder: t('view.teacher_course.date_holder'), min: Date.today,max: '2055-01-01', onchange: "set_start_time_by_date(this,#{lesson.id})", disabled: !can_edit %>
+                <%= select_tag "start_time_#{lesson.id}", options_for_select(start_arr, time_fmt(lesson.start_time)),
+                  class: 'form-control lesson-time', onchange: "set_end_time(this,#{lesson.id})", disabled: !can_edit %>
                 ~
-                <%= select_tag "end_time_#{lesson.id}", options_for_select(end_arr,time_fmt(lesson.end_time)),
+                <%= select_tag "end_time_#{lesson.id}", options_for_select(end_arr, time_fmt(lesson.end_time)),
                 class: 'form-control lesson-time', onchange: "set_start_time(this,#{lesson.id})", disabled: !can_edit %>
               </div>
             </td>

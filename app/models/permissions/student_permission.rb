@@ -157,6 +157,11 @@ module Permissions
         resource.id == user.id
       end
       # payment permission
+
+      # 学生辅导班列表
+      api_allow :GET, "/api/v1/live_studio/students/[\\w-]+/courses" do |student|
+        student && student.id == user.id
+      end
     end
 private
 

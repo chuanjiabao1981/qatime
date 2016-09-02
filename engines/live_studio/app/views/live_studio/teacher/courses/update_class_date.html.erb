@@ -150,7 +150,8 @@
       if((undefined != $('#start_time_'+v).val() && $('#start_time_'+v).val() == $('#end_time_'+v).val()) || $('#start_time_'+v).val() > $('#end_time_'+v).val()){
         error_input_count += 1;
       }
-      if($('#class_date_'+v).val() == '<%= Date.today %>'){
+
+      if($('#class_date_'+v).val() == '<%= Date.today %>' && ($('#start_time_'+v).val() < '<%= "%02i:%02i" % [Time.zone.now.hour, Time.zone.now.min] %>')){
         error_input_count += 1
       }
     });
@@ -164,7 +165,7 @@
       alert('<%= t('view.teacher_course.data_error_holder') %>');
       return_flag = false;
     }
-    return false;
+    return return_flag;
   });
 
   var time_arr = new Array(<%= ('"'+(0..23).to_a.map{|r| ["%02d:00" % r,"%02d:30" % r]}.flatten.join('","') + '"').html_safe %>);

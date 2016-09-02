@@ -15,6 +15,7 @@ cn:
       reply: 回复
       recharge_code: 充值码
       video: 视频
+      software: 软件
     attributes:
       group:
         subject: 科目
@@ -32,16 +33,16 @@ cn:
       teacher:
         email: 电子邮件
         subject: 科目
-        category: 类型
+        category: 授课类型
         name: 姓名
         avatar: 头像
         school: 任课学校
         password: 密码
         password_confirmation: 密码确认
         current_password: 当前密码
-        desc: 讲师简介
+        desc: 简介
         accept: 接受服务协议
-        subject: 可授科目
+        subject: 授课科目
         grade_range: 可授年级
         teaching_years: 执教年龄
       school:
@@ -74,7 +75,7 @@ cn:
         password_confirmation: 密码确认
         avatar: 头像
         grade: 年级
-        desc: 个人简介
+        desc: 简介
         accept: 接受服务协议
       topic:
         title: 标题
@@ -99,5 +100,20 @@ cn:
         name: 姓名
         workstation_id: 工作站
         password_confirmation: 密码确认
+      software:
+        title: 软件名称
+        sub_title: 软件说明
+        platform: 平台
+        version: 版本
+        desc: 软件介绍
+        role: 下载用户
+        logo: Logo
+        description: 更新说明
+        download_links: 下载地址
+        qr_code: 二维码
+        enforce: 是否强制升级
+        status: 状态
+        published_at: 发布时间
+        category: 软件分类
 
 

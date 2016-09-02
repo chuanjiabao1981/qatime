@@ -145,7 +145,8 @@
         <%= content_tag(:div, "#{t 'view.play.course_subject'}#{@course.subject}", class: 'info-cell') %>
         <%= content_tag(:div, "#{t 'view.play.course_grade'}#{@course.grade}", class: 'info-cell') %>
         <%= content_tag(:div, "#{t 'view.play.teacher_name'}#{@teacher.name}", class: 'info-cell') %>
-        <%= content_tag(:div, "#{t 'view.play.class_date'}#{@current_lesson.class_date} #{@current_lesson.try(:live_time)}", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.live_start_time'}#{@course.try(:live_start_time)}", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.live_end_time'}#{@course.try(:live_end_time)}", class: 'info-cell') %>
         <%= content_tag(:div, "#{t 'view.play.course_description'}#{@course.description}", class:'info-desc') %>
       </div>
       <div id='detail_teacher_area' class="course-info-div" style="display:none;">
@@ -154,7 +155,7 @@
         <%= content_tag(:div, "#{t 'view.play.teaching_years_text'}#{@teacher.teaching_years_text}", class: 'info-cell') %>
         <%= content_tag(:div, "#{t 'view.play.teacher_subject'}#{@teacher.subject}", class: 'info-cell') %>
         <%= content_tag(:div, "#{t 'view.play.teacher_category'}#{@teacher.category}", class: 'info-cell') %>
-        <%= content_tag(:div, "#{t 'view.play.teacher_school_name'}#{@teacher.school.name}", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.teacher_school_name'}#{@teacher.school.try(:name)}", class: 'info-cell') %>
         <%= content_tag(:div, "#{t 'view.play.teacher_desc'}#{@teacher.desc}", class: 'info-cell') %>
       </div>
       <div id='detail_course_area' class="course-info-div" style="display:none;">

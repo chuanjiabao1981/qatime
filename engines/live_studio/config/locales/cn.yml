@@ -36,10 +36,10 @@ cn:
       end_time: 结课时间：
       ticket_count: 已购人数：
       desc: 简介：
-      teacher_label: 教师资料简介
+      teacher_label: 教师资料
       teacher_name: 老师姓名：
       highest_education: 最高学历：
-      teaching_years: 执教年数：
+      teaching_years: 执教年龄：
       subject: 科目类型：
       grade_range: 年级范围：
       school: 所在学校：
@@ -125,11 +125,13 @@ cn:
       close: 关闭
       send_msg: 发送
       live_studio_detail: 直播详情
-      base_info: 基本信息
-      teacher_info: 老师详情
+      base_info: 辅导概况
+      teacher_info: 教师资料
       lessons_list: 课程列表
       course_name: 辅导班名：
-      current_lesson_name: 当前课程：
+      current_lesson_name: 课程进度：
+      live_start_time: 开课时间：
+      live_end_time: 结课时间：
       no_current_lesson: 今日无直播
       current_lesson_paused: 直播暂停中
       course_subject: 科目类型：

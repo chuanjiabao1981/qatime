@@ -154,7 +154,7 @@
         <%= content_tag(:div, "#{t 'view.play.teaching_years_text'}#{@teacher.teaching_years_text}", class: 'info-cell') %>
         <%= content_tag(:div, "#{t 'view.play.teacher_subject'}#{@teacher.subject}", class: 'info-cell') %>
         <%= content_tag(:div, "#{t 'view.play.teacher_category'}#{@teacher.category}", class: 'info-cell') %>
-        <%= content_tag(:div, "#{t 'view.play.teacher_school_name'}#{@teacher.school.name}", class: 'info-cell') %>
+        <%= content_tag(:div, "#{t 'view.play.teacher_school_name'}#{@teacher.school.try(:name)}", class: 'info-cell') %>
         <%= content_tag(:div, "#{t 'view.play.teacher_desc'}#{@teacher.desc}", class: 'info-cell') %>
       </div>
       <div id='detail_course_area' class="course-info-div" style="display:none;">

@@ -34,7 +34,7 @@
             </div>
             <div class="col-md-9">
               <span class="glyphicon glyphicon-home"></span>
-              <span> <%= curriculum.teacher.school.name %></span>
+              <span> <%= curriculum.teacher.school.try(:name) %></span>
             </div>
           </div>
         </div>

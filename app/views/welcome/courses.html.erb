@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <title>Qatime</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => false %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= render 'layouts/top_bar_new' %>
+
+<div class="container">
+  <div class='row'>
+    <%= image_tag 'courses_banner.jpg', width: "100%" %>
+
+    <div class="row row_courses">
+      <% courses = LiveStudio::Course.first(3) %>
+      <% courses.each do |course|%>
+        <% teacher = course.teacher %>
+        <div class="col-md-4">
+          <div class="course_div">
+            <p class="text-center"><%= course.name %></p>
+            <%= image_tag course.publicize_url(:list), width: "100%" %>
+
+            <div class="courseThumb">
+              <%= image_tag teacher.avatar_url, size: "35x35", class: "teacher_avatar img-circle";%>
+              <%= teacher.name %>
+              <span class="teacher_span"style="">老师</span>
+              <span >高一地理/共十四课</span>
+            </div>
+
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= render 'layouts/footer' %>
+</body>
+</html>
+
+
+<style type="text/css">
+  .row_courses{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding: 15px 0px !important;
+    background: #eee;
+  }
+
+  .courseThumb {
+    margin-bottom: 10px;
+  }
+
+  .teacher_avatar{
+    margin-left: 15px;
+    margin-right: 10px;
+  }
+
+  .teacher_span{
+    padding-left: 2px;
+  }
+
+  .course_div{
+    border: 1px solid;
+    background: #fff;
+  }
+</style>

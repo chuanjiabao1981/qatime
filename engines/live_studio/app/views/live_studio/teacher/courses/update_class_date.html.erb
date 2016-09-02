@@ -2,34 +2,10 @@
   <div class='course-header-div'>
     <strong><%= t('activerecord.view.course') %></strong>
   </div>
-  <div class="course-info-list">
-    <a href='#content_info' data-toggle="tab">
-      <div id="info_div" class="list-ceil <%= params[:index].blank? || params[:index] == 'info' ? ' active' : nil %>">
-        <%= t('view.course_show.info') %>
-      </div>
-    </a>
-    <a href='#lesson_list' data-toggle="tab">
-      <div id="list_div" class="list-ceil<%= params[:index] == 'list' ? ' active' : nil %>">
-        <%= t('view.course_show.lessons') %>
-      </div>
-    </a>
-  </div>
   <div class="info-header">
     <div class="info-name">
       <strong><%= @course.name %></strong>
     </div>
-    <%= content_tag :div, class: "info-subtitle #{params[:index] == 'list' ? 'hide' : nil}" do %>
-      <div class="info-status">
-        <%= t('view.course_show.status') %>
-        <%= @course.status_text %>
-      </div>
-      <div class="info-preview">
-        <%= preview_time(@course,{text2: true}) %>
-      </div>
-      <div>
-        <%= "#{t('view.course_info_show.ticket_count')}#{@course.buy_tickets_count}" %>
-      </div>
-    <% end %>
     <%= content_tag :div, class: "info-list-subtitle #{params[:index] == 'list' ? nil : 'hide'}" do %>
       <div>
         <%= t('view.course_info_show.lesson_plan') % [@course.live_start_time ,@course.live_end_time] %>
@@ -40,9 +16,6 @@
     <% end %>
   </div>
   <div class="tab-content">
-    <div id="content_info" class="tab-pane fade<%= params[:index].blank? || params[:index] == 'info' ? ' in active' : nil %>">
-      <%= render 'course_info' %>
-    </div>
     <div id="lesson_list" class="tab-pane fade<%= params[:index] == 'list' ? ' in active' : nil %>">
 
       <%= form_tag teacher_lessons_path(course_id: @course),method: :post, id: 'edit_less_form',class: 'duplicate' do %>
@@ -62,7 +35,7 @@
              end_arr.shift
              end_arr.push('00:00')
           %>
-          <% @course.lessons.each_with_index do |lesson,i| %>
+          <% @course.order_lessons.each_with_index do |lesson,i| %>
           <% can_edit = lesson.init? || lesson.ready? %>
           <tr class="lesson-<%= lesson.id %>">
             <td><%= i+1 %></td>
@@ -81,7 +54,9 @@
               <%= text_field_tag "name_#{lesson.id}", lesson.name, class: 'form-control',  placeholder: t('view.teacher_course.lesson_name_holder'), disabled: true %>
             </td>
             <td>
-              <%= lesson.status_text %>
+              <span style="<%= 'color: gray;' if !can_edit %>">
+                <%= lesson.status_text %>
+              </span>
             </td>
           </tr>
           <% end %>
@@ -98,34 +73,6 @@
     </div>
   </div>
 </div>
-<script>
-  $(function() {
-    $('.list-ceil').click(function(event){
-      $('.list-ceil').removeClass('active');
-      $(this).addClass('active');
-      if($(this).attr('id') == 'info_div'){
-        $('.info-list-subtitle').addClass('hide');
-        $('.info-subtitle').removeClass('hide');
-      }
-      if($(this).attr('id') == 'list_div'){
-        $('.info-list-subtitle').removeClass('hide');
-        $('.info-subtitle').addClass('hide');
-      }
-    });
-  });
-  $(document).ready(function(){
-    $("#edit_notice_btn").click(function(event){
-      $("#show_notice_area").hide()
-      $("#edit_notice_area").show()
-    })
-    $("#submit_notice_btn").click(function(event){
-      $('#edit_notice_form').submit()
-      $("#show_notice_area").show()
-      $("#edit_notice_area").hide()
-    })
-  })
-</script>
-
 
 <script type="text/javascript" charset="utf-8">
   var lesson_count = <%= @course.lessons.count %>;
@@ -159,12 +106,11 @@
     if(blank_input_count!=0){
       alert('<%= t('view.teacher_course.data_holder') %>');
       return_flag = false;
-    }
-
-    if(error_input_count!=0 || blank_input_count!=0){
+    }else if(error_input_count!=0){
       alert('<%= t('view.teacher_course.data_error_holder') %>');
       return_flag = false;
     }
+
     return return_flag;
   });
 

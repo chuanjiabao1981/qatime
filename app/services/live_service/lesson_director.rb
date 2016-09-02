@@ -96,6 +96,12 @@ module LiveService
               end_time: params["end_time_#{id}"],
               class_date: params["class_date_#{id}"]
             }
+
+        if params["class_date_#{id}"] == Date.today.to_s
+          h[:status] = :ready
+        else
+          h[:status] = :init
+        end
       else
         h[:name] = params["name_#{id}"]
       end

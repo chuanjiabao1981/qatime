@@ -33,7 +33,7 @@
       <td><a href="javascript:void(0);" onclick="delete_self(this)" class="delete-link"><%= t("activerecord.view.delete") %></a></td>
     </tr>
     <% @course.order_lessons.each_with_index do |lesson,i| %>
-      <% change_class_date_not_edit = (!lesson.init? && action_name == "update_class_data")%>
+      <% change_class_date_not_edit = (!lesson.init? && action_name == "update_class_date")%>
       <tr class="lesson-<%= lesson.id %>">
         <td><%= i+1 %></td>
         <td>
@@ -48,16 +48,16 @@
           </div>
         </td>
         <td>
-          <%= text_field_tag "name_#{lesson.id}", lesson.name, class: 'form-control',  placeholder: t('view.teacher_course.lesson_name_holder'), disabled: (action_name == "update_class_data") %>
+          <%= text_field_tag "name_#{lesson.id}", lesson.name, class: 'form-control',  placeholder: t('view.teacher_course.lesson_name_holder'), disabled: (action_name == "update_class_date") %>
         </td>
         <td>
-          <%= link_to(t("activerecord.view.delete"), "javascript:delete_default(#{lesson.id})") if lesson.init? && @course.init? && action_name != "update_class_data" %>
+          <%= link_to(t("activerecord.view.delete"), "javascript:delete_default(#{lesson.id})") if lesson.init? && @course.init? && action_name != "update_class_date" %>
         </td>
       </tr>
     <% end %>
     </tbody>
   </table>
-  <% if !@course.completed? && @course.lesson_count < @course.preset_lesson_count && action_name != "update_class_data" %>
+  <% if !@course.completed? && @course.lesson_count < @course.preset_lesson_count && action_name != "update_class_date" %>
     <div class="insert-lesson">
       <%= link_to t('view.insert_btn') % Lesson.model_name.human, 'javascript:void(0);', id: 'insert_lesson' %>
     </div>
@@ -164,7 +164,7 @@
     var end_arr = end_time_arr;
 
     if(is_today(obj,no)){
-      var hour_now = '<%= Time.zone.now.min > 30 ? "#{"%2i" % [(Time.zone.now.hour == 23 ? 23 : Time.zone.now.hour) + 1]}:00" : "#{Time.zone.now.hour}:30" %>'
+      var hour_now = '<%= Time.zone.now.min > 30 ? "#{"%02i" % [(Time.zone.now.hour == 23 ? 23 : Time.zone.now.hour) + 1]}:00" : "#{Time.zone.now.hour}:30" %>'
       end_time_arr = end_time_arr.slice(end_time_arr.indexOf(hour_now), end_time_arr.length);
     }
 
@@ -182,7 +182,7 @@
     var start_arr = time_arr.slice(0,time_arr.indexOf(end_time));
 
     if(is_today(obj,no)){
-      var hour_now = '<%= Time.zone.now.min > 30 ? "#{"%2i" % [(Time.zone.now.hour == 23 ? 23 : Time.zone.now.hour) + 1]}:00" : "#{Time.zone.now.hour}:30" %>'
+      var hour_now = '<%= Time.zone.now.min > 30 ? "#{"%02i" % [(Time.zone.now.hour == 23 ? 23 : Time.zone.now.hour) + 1]}:00" : "#{Time.zone.now.hour}:30" %>'
       start_arr = start_arr.slice(start_arr.indexOf(hour_now), start_arr.length);
     }
 
@@ -199,19 +199,18 @@
     var date_today = '<%= Date.today %>';
 
     if(date_time == date_today){
-      var hour_now = '<%= Time.zone.now.min > 30 ? "#{"%2i" % [(Time.zone.now.hour == 23 ? 23 : Time.zone.now.hour) + 1]}:00" : "#{Time.zone.now.hour}:30" %>'
+      var hour_now = '<%= 20 > 30 ? "#{"%02i" % [(Time.zone.now.hour == 23 ? 23 : Time.zone.now.hour) + 1]}:00" : "#{"%02i" % [Time.zone.now.hour]}:30" %>'
 
       var start_arr = end_time_arr;
       var start_time_id = '#';
       if($(obj).attr('id').split('_')[0] == 'new')
         start_time_id+='new_';
       start_time_id+='start_time_'+no;
-
+      console.log(hour_now)
       end_arr = end_time_arr.slice(end_time_arr.indexOf(hour_now)+1, end_time_arr.length);
 
       var optionsAsString = "";
-      optionsAsString += "<option value='" + hour_now + "'>" + hour_now + "</option>";
-
+      console.log(end_arr)
       $(end_arr).each(function(i,v){
         var option_value = hour_now
         if(option_value == v){

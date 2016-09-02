@@ -267,7 +267,7 @@ cn:
       lesson_completed: 立即结算
       status: 状态
       course_publish: 开始招生
-      update_class_data: 调课
+      update_class_date: 调课
       begin_watch_live_studio: 进入直播室
       teacher_desc: 老师简介
       lesson_desc: 课程简介

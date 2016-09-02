@@ -4,7 +4,7 @@ module LiveStudio
   class Teacher::CoursesController < Teacher::BaseController
     layout 'teacher_home_new'
 
-    before_action :set_course, only: [:show, :edit, :update, :destroy, :channel, :close, :update_class_data]
+    before_action :set_course, only: [:show, :edit, :update, :destroy, :channel, :close, :update_class_date]
 
     def index
       @courses = LiveService::CourseDirector.courses_for_teacher_index(@teacher, params).paginate(page: params[:page])
@@ -38,7 +38,7 @@ module LiveStudio
       redirect_to teacher_course_path(@teacher, @course), notice: i18n_notice('closed', @course)
     end
 
-    def update_class_data
+    def update_class_date
       render :edit
     end
 

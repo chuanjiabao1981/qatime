@@ -7,7 +7,7 @@
                   remote: true, 'data-confirm' => t("view.teacher_course.publish_confirm"),
                   id: "course_publish_btn_#{@course.id}" if @course.init?%>
 
-      <%= link_to t("activerecord.view.update_class_data"), update_class_data_teacher_course_path(@teacher, @course, index: :list), class: "btn btn-default btn-xs" %>
+      <%= link_to t("activerecord.view.update_class_date"), update_class_date_teacher_course_path(@teacher, @course, index: :list), class: "btn btn-default btn-xs" %>
     <% end %>
     <%= render partial: '/live_studio/courses/publish_tips' %>
   </div>

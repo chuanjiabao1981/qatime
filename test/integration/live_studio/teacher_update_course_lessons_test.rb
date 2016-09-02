@@ -21,10 +21,10 @@ module LiveStudio
       lesson = live_studio_lessons(:lesson2_of_update_course)
 
       visit chat.finish_live_studio_course_teams_path(course)
-      visit live_studio.update_class_data_teacher_course_path(teacher, course, index: :list)
+      visit live_studio.update_class_date_teacher_course_path(teacher, course, index: :list)
 
 
-      time_begin = "%2i" % [Time.zone.now.hour + 1]
+      time_begin = "%02i" % [Time.zone.now.hour + 1]
       select "#{time_begin}:00", match: :first, from: "start_time_#{lesson.id}"
 
       assert_raises Capybara::ElementNotFound,'没有正确捕捉异常' do

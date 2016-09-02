@@ -5,8 +5,11 @@
   <div class="col-md-3">
     <%= link_to software.title, admins_software_path(software) %>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-1">
     <%= software.platform_text %>
+  </div>
+  <div class="col-md-2">
+    <%= software.category_text %>
   </div>
   <div class="col-md-1">
     <%= software.version %>

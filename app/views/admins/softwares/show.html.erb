@@ -13,13 +13,17 @@
     <br/><%= @software.sub_title %>
   </div>
   <%= content_tag :div,class: 'qa_big_cell' do%>
-    <%= Software.human_attribute_name(:running_at) %>
+    <%= Software.human_attribute_name(:published_at) %>
     <br/>
-    <%= @software.running_at || '未发布' %>
+    <%= @software.published_at || '未发布' %>
   <% end %>
   <div class="qa_big_cell">
     <%= Software.human_attribute_name(:platform) %>
     <br/><%= @software.platform_text %>
+  </div>
+  <div class="qa_big_cell">
+    <%= Software.human_attribute_name(:category) %>
+    <br/><%= @software.category_text %>
   </div>
   <div class="qa_big_cell">
     <%= Software.human_attribute_name(:version) %>

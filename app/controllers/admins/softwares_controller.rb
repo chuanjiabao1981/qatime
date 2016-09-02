@@ -1,7 +1,7 @@
 class Admins::SoftwaresController < ApplicationController
   respond_to :html
   def index
-    @softwares = Software.all
+    @softwares = Software.all.order(id: :desc)
   end
 
   def new
@@ -36,12 +36,12 @@ class Admins::SoftwaresController < ApplicationController
 
   def run
     @software = Software.find params[:id]
-    @software.running!
+    @software.published!
     redirect_to action: :index
   end
 
   private
   def software_params
-    params.require(:software).permit(:title, :sub_title, :platform, :version, :role, :desc, :description, :download_links, :enforce, :logo)
+    params.require(:software).permit(:title, :sub_title, :platform, :version, :role, :category, :desc, :description, :download_links, :enforce, :logo)
   end
 end

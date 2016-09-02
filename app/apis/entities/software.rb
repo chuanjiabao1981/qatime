@@ -3,6 +3,7 @@ module Entities
     expose :title
     expose :sub_title
     expose :version
+    expose :category
     expose :desc
     expose :description
     expose :download_links
@@ -12,6 +13,6 @@ module Entities
     expose :enforce do |_,options|
       options[:enforce]
     end
-    expose :running_at
+    expose :published_at
   end
 end

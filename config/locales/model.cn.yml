@@ -113,6 +113,7 @@ cn:
         qr_code: 二维码
         enforce: 是否强制升级
         status: 状态
-        running_at: 发布时间
+        published_at: 发布时间
+        category: 软件分类
 
 

@@ -18,6 +18,7 @@ one:
   running_at: <%= Time.now%>
   logo: test
   platform: 1
+  category: 0
 two:
   title: 教师问答社区
   version: 0.0.2
@@ -30,6 +31,7 @@ two:
   running_at: <%= Time.now%>
   logo: test
   platform: 1
+  category: 0
 three:
   title: 教师问答社区
   version: 0.0.3
@@ -41,6 +43,7 @@ three:
   enforce: false
   running_at: <%= Time.now%>
   logo: test
+  category: 0
   platform: 1
 four:
   title: 教师问答社区
@@ -54,3 +57,4 @@ four:
   role: teacher
   logo: test
   platform: 1
+  category: 0

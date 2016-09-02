@@ -5,7 +5,7 @@ class CreateQrCodes < ActiveRecord::Migration
       t.references :qr_codeable, polymorphic: true
       t.timestamps null: false
     end
-    # remove_column :payment_orders, :qrcode_url
-    # remove_column :softwares, :qr_code
+    remove_column :payment_orders, :qrcode_url
+    remove_column :softwares, :qr_code
   end
 end

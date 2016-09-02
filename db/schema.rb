@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160830071235) do
+ActiveRecord::Schema.define(version: 20160901064007) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -704,7 +704,6 @@ ActiveRecord::Schema.define(version: 20160830071235) do
     t.decimal  "total_money",             precision: 8, scale: 2, default: 0.0
     t.integer  "status",                                          default: 0,        null: false
     t.integer  "pay_type",                                        default: 0,        null: false
-    t.string   "qrcode_url"
     t.string   "pay_url"
     t.string   "remote_ip"
     t.datetime "deleted_at"
@@ -777,6 +776,14 @@ ActiveRecord::Schema.define(version: 20160830071235) do
     t.datetime "updated_at",     null: false
     t.integer  "user_id"
     t.string   "remember_token"
+  end
+
+  create_table "qr_codes", force: :cascade do |t|
+    t.string   "code"
+    t.integer  "qr_codeable_id"
+    t.string   "qr_codeable_type"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "question_assignments", force: :cascade do |t|
@@ -877,10 +884,14 @@ ActiveRecord::Schema.define(version: 20160830071235) do
     t.string   "role"
     t.string   "version"
     t.integer  "platform"
-    t.string   "qr_code"
     t.string   "download_links"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.text     "description"
+    t.integer  "status",         default: 0
+    t.boolean  "enforce"
+    t.datetime "published_at"
+    t.integer  "category"
   end
 
   create_table "solutions", force: :cascade do |t|

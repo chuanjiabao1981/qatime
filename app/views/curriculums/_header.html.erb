@@ -54,7 +54,7 @@
           </div>
           <div class="col-md-8">
             <span class="glyphicon glyphicon-home"></span>
-            <span><%= @curriculum.teacher.school.name if @curriculum.teacher%></span>
+            <span><%= @curriculum.teacher.school.try(:name) if @curriculum.teacher%></span>
           </div>
         </div>
 

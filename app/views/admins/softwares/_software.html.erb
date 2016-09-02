@@ -1,0 +1,26 @@
+<div class="row qa_big_cell">
+  <div class="col-md-1">
+    <%= software_counter + 1 %>
+  </div>
+  <div class="col-md-3">
+    <%= link_to software.title, admins_software_path(software) %>
+  </div>
+  <div class="col-md-1">
+    <%= software.platform_text %>
+  </div>
+  <div class="col-md-2">
+    <%= software.category_text %>
+  </div>
+  <div class="col-md-1">
+    <%= software.version %>
+  </div>
+  <div class="col-md-1">
+    <%= software.status_text %>
+  </div>
+  <div class="col-md-1">
+    <%= link_to 'edit',edit_admins_software_path(software) %>
+  </div>
+  <div class="col-md-1">
+    <%= link_to '发布',run_admins_software_path(software),'data-confirm' => '请确认!' if software.init? %>
+  </div>
+</div>

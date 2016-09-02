@@ -10,5 +10,9 @@ class WelcomeController < ApplicationController
     end
     @softwares = flag_hash.values
   end
+
+  def courses
+    render layout: false
+  end
 end
 

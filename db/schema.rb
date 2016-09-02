@@ -852,8 +852,7 @@ ActiveRecord::Schema.define(version: 20160902071332) do
     t.text     "description"
     t.integer  "status",         default: 0
     t.boolean  "enforce"
-    t.datetime "published_at"
-    t.integer  "category"
+    t.datetime "running_at"
   end
 
   create_table "solutions", force: :cascade do |t|

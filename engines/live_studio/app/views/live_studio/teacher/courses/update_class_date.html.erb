@@ -63,14 +63,8 @@
              end_arr.push('00:00')
           %>
           <% @course.lessons.each_with_index do |lesson,i| %>
+          <% can_edit = lesson.init? || lesson.ready? %>
           <tr class="lesson-<%= lesson.id %>">
-            <% if lesson.class_date == Date.today %>
-              <%
-                can_edit = lesson.init? || lesson.ready?
-                hour_now = Time.zone.now.min > 30 ? "#{"%02i" % [(Time.zone.now.hour == 23 ? 23 : Time.zone.now.hour) + 1]}:00" : "#{"%02i" % [Time.zone.now.hour]}:30"
-                select_start_arr = start_arr.slice(start_arr.index(hour_now), start_arr.length)
-              %>
-            <% end %>
             <td><%= i+1 %></td>
             <td>
               <div>
@@ -156,6 +150,9 @@
       if((undefined != $('#start_time_'+v).val() && $('#start_time_'+v).val() == $('#end_time_'+v).val()) || $('#start_time_'+v).val() > $('#end_time_'+v).val()){
         error_input_count += 1;
       }
+      if($('#class_date_'+v).val() == '<%= Date.today %>'){
+        error_input_count += 1
+      }
     });
 
     if(blank_input_count!=0){
@@ -167,7 +164,7 @@
       alert('<%= t('view.teacher_course.data_error_holder') %>');
       return_flag = false;
     }
-    return return_flag;
+    return false;
   });
 
   var time_arr = new Array(<%= ('"'+(0..23).to_a.map{|r| ["%02d:00" % r,"%02d:30" % r]}.flatten.join('","') + '"').html_safe %>);
@@ -189,9 +186,8 @@
 
   function set_start_time_by_date(obj,no){
     var date_time = $(obj).val();
-    var date_today = '<%= Date.today %>';
 
-    if(date_time == date_today){
+    if(date_time == '<%= Date.today %>'){
       var hour_now = '<%= Time.zone.now.min > 30 ? "#{"%02i" % [(Time.zone.now.hour == 23 ? 23 : Time.zone.now.hour) + 1]}:00" : "#{"%02i" % [Time.zone.now.hour]}:30" %>'
 
       var start_arr = end_time_arr;
@@ -250,9 +246,8 @@
     if($(obj).attr('id').split('_')[0] == 'new')
       class_date_id+='new_';
     class_date_id+='class_date_'+no;
-    var date_today = '<%= Date.today %>';
 
-    if($(class_date_id).val() == date_today){
+    if($(class_date_id).val() == '<%= Date.today %>'){
       return true
     }else{
       return false

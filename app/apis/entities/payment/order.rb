@@ -12,6 +12,7 @@ module Entities
       end
       expose :pay_type
       expose :created_at
+      expose :pay_at
       expose :product, using: Entities::LiveStudio::Course, if: { type: :product }
     end
   end

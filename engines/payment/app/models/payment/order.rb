@@ -48,7 +48,7 @@ module Payment
       state :waste
       state :failed
 
-      event :pay do
+      event :pay, after_commit: :touch_pay_at do
         before do
           increase_cash_admin_account
         end
@@ -206,5 +206,9 @@ module Payment
       CashAdmin.increase_cash_account(total_money, billing, '用户充值消费')
     end
 
+    # 记录支付时间
+    def touch_pay_at
+      touch(:pay_at)
+    end
   end
 end

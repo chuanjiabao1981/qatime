@@ -2,3 +2,21 @@ cn:
   welcome:
     download:
       download: 点击下载
+    courses:
+      hot: 最热推荐
+      all_courses: 全部课程
+      teacher: 老师
+      lesson_count: "共%{count}课"
+      get_more: 了解更多信息
+      about_us: 关于我们
+      qr_desc1: 扫描左侧二维码关注"答疑
+      qr_desc2: 时间"官方公众号，随时随
+      qr_desc3: 地了解最新的学习信息。
+      waiter_phone: 客服电话
+      work_time: 周一至周五
+      waiter_qq_lable: 客服 QQ
+      waiter_qq: 2436219060 韩老师 关老师
+      address_lable: 地址
+      address: 山西阳泉开发区远东大厦809
+      join_us_cities: 合作城市   阳泉 | 暨阳
+

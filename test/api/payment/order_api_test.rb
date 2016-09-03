@@ -48,7 +48,7 @@ class Qatime::OrderApiTest < ActionDispatch::IntegrationTest
     res = JSON.parse(response.body)
     order_id = res['data'][0]['id']
 
-    patch "/api/v1/payment/orders/#{order_id}/cancel", {}, {'Remember-Token' => remember_token}
+    put "/api/v1/payment/orders/#{order_id}/cancel", {}, {'Remember-Token' => remember_token}
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']

@@ -10,5 +10,13 @@ class WelcomeController < ApplicationController
     end
     @softwares = flag_hash.values
   end
-end
 
+  def courses
+    if Rails.env.production?
+      @courses = LiveStudio::Course.find(35, 36, 37, 38, 39, 40)
+    else
+      @courses = LiveStudio::Course.first(6)
+    end
+    render layout: false
+  end
+end

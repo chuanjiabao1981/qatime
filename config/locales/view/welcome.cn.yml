@@ -4,6 +4,7 @@ cn:
       download: 点击下载
     courses:
       hot: 最热推荐
+      new: 最新推荐
       all_courses: 全部课程
       teacher: 老师
       lesson_count: "共%{count}课"

@@ -12,9 +12,7 @@ module Entities
       end
       expose :pay_type
       expose :pay_at do |order|
-        unless order.pay_at.blank?
-          order.pay_at.strftime("%Y-%m-%d %H:%M:%S")
-        end
+        order.pay_at.try(:strftime,"%Y-%m-%d %H:%M:%S")
       end
       expose :created_at do |order|
         order.created_at.strftime("%Y-%m-%d %H:%M:%S")

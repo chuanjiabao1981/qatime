@@ -14,59 +14,211 @@
 
 <div class="container">
   <div class='row'>
-    <%= image_tag 'courses_banner.jpg', width: "100%" %>
+    <!-- banner 图片 -->
+    <div style="width: 96%;margin-left: 2%;">
+      <%= image_tag 'courses_banner.jpg', width: "100%" %>
+    </div>
 
-    <div class="row row_courses">
-      <% courses = LiveStudio::Course.first(3) %>
-      <% courses.each do |course|%>
-        <% teacher = course.teacher %>
-        <div class="col-md-4">
-          <div class="course_div">
-            <p class="text-center"><%= course.name %></p>
-            <%= image_tag course.publicize_url(:list), width: "100%" %>
+    <!-- 课程列表 -->
+    <div class="hot_courses_title", style="width: 96%;margin-left: 2%;">
+      <%= t ".hot" %><b class="hot"><i>hot</i></b>
+      <span class="all_courses_link"><a herf="##"><%= t ".all_courses" %></a></span>
+    </div>
 
-            <div class="courseThumb">
-              <%= image_tag teacher.avatar_url, size: "35x35", class: "teacher_avatar img-circle";%>
-              <%= teacher.name %>
-              <span class="teacher_span"style="">老师</span>
-              <span >高一地理/共十四课</span>
+    <div style="width:94%; margin-left: 3%;">
+      <% @courses.each_slice(3) do |courses|%>
+        <div class="row row_courses">
+          <% courses.each do |course|%>
+            <% teacher = course.teacher %>
+            <div class="col-md-4">
+              <div class="course_div">
+                <p class="text-center"><%= course.name %></p>
+                <%= image_tag course.publicize_url(:list), width: "100%", height: "200px" %>
+                <div class="courseThumb">
+                  <%= image_tag teacher.try(:avatar_url), size: "35x35", class: "teacher_avatar img-circle";%>
+                  <%= teacher.try(:name) %>
+                  <span class="teacher_span"><%= t ".teacher" %></span>
+                  <span class="course_lessons"><%= course.grade %><%= course.subject %>/<%= t ".lesson_count", count: course.preset_lesson_count %></span>
+                </div>
+                <div class="div_bottom">
+                  <div class="desc_div">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<%= truncate(course.description, length: 150) %>
+                  </div>
+                  <p class="text-center"><a herf="##"><%= t ".get_more" %></a></p>
+                </div>
+              </div>
             </div>
-
-          </div>
+          <% end %>
         </div>
       <% end %>
     </div>
+
+    <!-- 关于我们 二维码 -->
+    <div class="row about_us_div">
+      <div class="col-md-2">
+        <p class="text-right about_us"><%= t ".about_us" %></p>
+      </div>
+      <div class="col-md-1 img_gzh"><%= image_tag 'courses_gzh.png', width: "100%" %></div>
+
+      <div class="col-md-3">
+        <p class="qr_desc">
+          <%= t ".qr_desc1" %><br>
+          <%= t ".qr_desc2" %><br>
+          <%= t ".qr_desc3" %><br>
+        </p>
+      </div>
+
+      <div class="col-md-1">
+        <div class="border" >
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <table>
+          <tr>
+            <td class="td_title"><%= t ".waiter_phone" %></td>
+            <td>
+              <span class="tel_span">
+                0353-2135828
+              </span>
+              <div class="week_div">
+                <%= t ".work_time" %><br>
+                9:00~18:00
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><%= t ".waiter_qq_lable" %></td>
+            <td class="qq_td"><%= t ".waiter_qq_lable" %></td>
+          </tr>
+          <tr>
+            <td><span class="address_lable"><%= t ".address_lable" %></span></td>
+            <td><%= t ".address" %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <hr align=center width=1000 color=#eee size=1 style="margin: 5px auto;">
+
+    <div class="row">
+      <div class="col-md-offset-1">
+        <p>合作城市   阳泉 | 暨阳</p>
+      </div>
+    </div>
+
   </div>
+
 </div>
 
 <%= render 'layouts/footer' %>
 </body>
 </html>
 
-
 <style type="text/css">
+  .hot_courses_title{
+    margin-top:20px;
+  }
+
+  .hot{
+    color:red;
+  }
+
+  .all_courses_link{
+    float:right;
+    padding-right:10px;
+  }
+
   .row_courses{
-    margin-top: 20px;
-    margin-bottom: 10px;
+    margin-bottom:10px;
     padding: 15px 0px !important;
-    background: #eee;
+    background: #fff;
   }
 
   .courseThumb {
-    margin-bottom: 10px;
+    margin-bottom:10px;
   }
 
   .teacher_avatar{
-    margin-left: 15px;
-    margin-right: 10px;
+    overflow:auto;
+    margin-left:15px;
+    margin-right:10px;
   }
 
   .teacher_span{
     padding-left: 2px;
   }
 
+  .course_lessons{
+    float:right;
+    padding-right: 10px;
+    padding-top: 5px;
+  }
+
+  .div_bottom{
+    margin: 5px 2px;
+    height: 93px;
+  }
+
+  .desc_div{
+    height: 63px;
+    margin-bottom:5px;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:3;
+    overflow:hidden;
+  }
+
+  .about_us_div{
+    margin-top:20px;
+  }
+
+  .week_div{
+    float:right;
+    margin-top:6px;
+    font-size:12px;
+  }
+
+  .qq_td{
+    padding-bottom:10px;
+    padding-top:8px;
+  }
+
+  .img_gzh{
+    padding-top:15px;
+  }
+
+  p.about_us{
+    padding-top:42px;
+    padding-right:30px;
+  }
+
+  .border{
+    height:75px;
+    margin-top:15px;
+    margin-left:-12px;
+    border-left:1px solid gray;
+  }
+  .td_title{
+    padding-right:20px;
+  }
+
+  .tel_span{
+    font-size:28px;
+    margin-top:12px;
+    padding-right:30px;
+  }
+
+  .address_lable{
+    letter-spacing:2em;
+  }
+
+  p.qr_desc{
+    padding-top:22px;
+    margin-left:30px;
+  }
+
   .course_div{
-    border: 1px solid;
-    background: #fff;
+    border:1px solid #eee;
+    background:#fff;
   }
 </style>

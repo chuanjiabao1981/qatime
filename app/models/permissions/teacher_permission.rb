@@ -67,7 +67,7 @@ module Permissions
 
       allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,
                        :info,:questions,:topics,:customized_courses,
-                       :customized_tutorial_topics,:homeworks,:solutions,:notifications] do |teacher|
+                       :customized_tutorial_topics,:homeworks,:solutions,:notifications,:schedules] do |teacher|
         teacher and teacher.id == user.id
       end
 

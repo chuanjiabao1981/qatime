@@ -31,6 +31,11 @@ class StudentsController < ApplicationController
     end
   end
 
+  def schedules
+    @wait_lessons = @student.live_studio_lessons.unclosed
+    @close_lessons = @student.live_studio_lessons.already_closed
+  end
+
   def show
     # if params[:fee].nil?
     #   @deposits = @student.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
@@ -150,7 +155,7 @@ class StudentsController < ApplicationController
   private
 
   def current_resource
-    @current_resource = @student = Student.find(params[:id]) if params[:id]
+    @current_resource = @student = User.find(params[:id]) if params[:id]
   end
 
   def password_params

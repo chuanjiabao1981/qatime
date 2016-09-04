@@ -64,6 +64,12 @@ class TeachersController < ApplicationController
     end
   end
 
+  def schedules
+    @wait_lessons = @teacher.live_studio_lessons.unclosed
+    @close_lessons = @teacher.live_studio_lessons.already_closed
+    render 'students/schedules'
+  end
+
   def admin_edit
   end
 

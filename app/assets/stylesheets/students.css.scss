@@ -1,3 +1,23 @@
 // Place all the styles related to the students controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.schedules-list-ceil{
+  width: 33%;
+  color: #0A0A0A;
+  border: solid 1px #CCCCCC;
+  float: left;
+  height: 3em;
+  line-height: 3em;
+  cursor: pointer;
+  text-align: center;
+}
+.schedules-tb{
+  thead{
+    background: #CCCCCC;
+  }
+  td{
+    img{
+      width: 120px;
+    }
+  }
+}

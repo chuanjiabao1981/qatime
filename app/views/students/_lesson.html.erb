@@ -1,0 +1,33 @@
+<table class="table table-white table-condensed border-grey schedules-tb">
+  <thead>
+  <tr>
+    <td colspan="4" class="">
+      <%= link_to "#{t('view.course_info_show.lesson_name') }: #{lesson.name}", live_studio.send("#{@user.role}_course_path",@user,lesson.course.id)%>
+    </td>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td class="" rowspan="3">
+      <%= image_tag lesson.course.publicize_url(:small), class: 'order-img' %>
+    </td>
+    <td class=''>
+      <%= lesson.course.name %>
+    </td>
+    <td class='text-center' rowspan="3">
+      <%= lesson.class_date %>
+      <br/>
+      <%= "#{lesson.start_time}-#{lesson.end_time}" %>
+    </td>
+    <td rowspan="3" class="text-center center-block">
+      <%= lesson.status_text %>
+    </td>
+  </tr>
+  <tr>
+    <td><%= t('view.course_search_show.grade') %> :<%= lesson.course.grade %></td>
+  </tr>
+  <tr>
+    <td><%= "#{t('view.course_search_show.buy_tickets_count') % lesson.course.buy_tickets_count}" %></td>
+  </tr>
+  </tbody>
+</table>

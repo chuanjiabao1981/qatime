@@ -4,7 +4,7 @@ module Permissions
       super(user)
       allow :home,[:index]
       allow :curriculums,[:index,:show]
-      allow :courses,[:show]
+      allow :courses,[:show, :schedule_sources]
       allow :sessions,[:destroy]
       allow :qa_faqs,[:student]
       allow :qa_faqs,[:show] do |faq|
@@ -57,7 +57,7 @@ module Permissions
       allow :students,[:show,:edit,:update,:info,:teachers,
                        :questions,:topics,:customized_courses,
                        :customized_tutorial_topics,:homeworks,:solutions,
-                       :notifications] do |student|
+                       :notifications,:schedules] do |student|
         student and student.id == user.id
       end
       allow :customized_courses,[:show,:topics,:homeworks,:solutions,:action_records] do |customized_course|

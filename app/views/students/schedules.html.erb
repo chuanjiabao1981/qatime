@@ -1,0 +1,29 @@
+
+
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <div class="row">
+      <div>
+        <h2>
+          <%= t("view.student_bars.schedules") %>
+        </h2>
+      </div>
+      <div id="calendar">
+      </div>
+    </div>
+  </div>
+  <div class="qa_box">
+    <%= render partial:'learning_plans/learning_plan',collection:@student.learning_plans %>
+  </div>
+</div>
+
+<script type="text/javascript" src="/assets/zh-CN.js"></script>
+<script type="text/javascript" src="/assets/underscore.js"></script>
+<script type="text/javascript" src="/assets/calendar.js"></script>
+<script type="text/javascript" charset="utf-8">
+  var calendar = $("#calendar").calendar({
+    tmpl_path: "/tmpls/",
+    language: 'zh-CN',
+    events_source: '/courses/schedule_sources?user_id=<%= @student.id %>'
+  });
+</script>

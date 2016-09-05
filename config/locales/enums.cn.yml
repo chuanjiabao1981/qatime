@@ -15,3 +15,10 @@ cn:
         windows: Windows
         android: Android
         ios: IOS
+      status:
+        init: 未发布
+        published: 已发布
+        invalid: 已下架
+      category:
+        teacher_live: 教师直播端
+        student_client: 学生客户端

@@ -47,9 +47,8 @@
   </div>
 </div>
 
-<script type="text/javascript" src="/assets/zh-CN.js"></script>
-<script type="text/javascript" src="/assets/underscore.js"></script>
-<script type="text/javascript" src="/assets/calendar.js"></script>
+<% content_for :javascript do -%>
+<%= javascript_include_tag "calendar-lib" %>
 <script type="text/javascript" charset="utf-8">
   var calendar = $("#calendar").calendar({
     tmpl_path: "/tmpls/",
@@ -64,3 +63,4 @@
     });
   });
 </script>
+<% end -%>

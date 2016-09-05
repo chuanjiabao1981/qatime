@@ -21,7 +21,7 @@ module LiveStudio
       visit live_studio.edit_teacher_course_path(@teacher, course, index: 'list')
       click_link '新增课程'
       flag = course.lessons.count+1
-      fill_in "new_class_date_#{flag}", with: Time.now.strftime('%Y/%m/%d')
+      fill_in "new_class_date_#{flag}", with: (Date.today + 1).strftime('%Y/%m/%d')
       select '09:00', match: :first, from: "new_start_time_#{flag}"
       select '09:30', match: :first, from: "new_end_time_#{flag}"
       fill_in "new_name_#{flag}", with: 'test lesson'
@@ -34,7 +34,7 @@ module LiveStudio
       visit live_studio.edit_teacher_course_path(@teacher, course, index: 'list')
       click_link '新增课程'
       flag = course.lessons.count+1
-      fill_in "new_class_date_#{flag}", with: Time.now.strftime('%Y/%m/%d')
+      fill_in "new_class_date_#{flag}", with: (Date.today + 1).strftime('%Y/%m/%d')
       select '09:00', match: :first, from: "new_start_time_#{flag}"
 
       assert_raises Capybara::ElementNotFound,'没有正确捕捉异常' do

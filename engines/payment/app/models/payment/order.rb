@@ -33,6 +33,7 @@ module Payment
     validates :user, :product, presence: true
 
     has_many :billings, as: :target
+    has_one :qr_code, as: :qr_codeable
 
     validate do |record|
       record.product.validate_order(record) if new_record? && record.product
@@ -48,7 +49,7 @@ module Payment
       state :waste
       state :failed
 
-      event :pay do
+      event :pay, after_commit: :touch_pay_at do
         before do
           increase_cash_admin_account
         end
@@ -124,7 +125,7 @@ module Payment
       r = WxPay::Service.invoke_unifiedorder(remote_params)
       if r["return_code"] == Payment::Order::RESULT_SUCCESS
         self.pay_url = r['code_url']
-        self.qrcode_url = Qr_Code.generate_payment(id, r['code_url']) if r['code_url'].is_a?(String)
+        assign_qr_code(r['code_url']) if r['code_url'].is_a?(String)
         self.prepay_id = r['prepay_id']
         self.nonce_str = r['nonce_str']
         save
@@ -206,5 +207,18 @@ module Payment
       CashAdmin.increase_cash_account(total_money, billing, '用户充值消费')
     end
 
+    # 记录支付时间
+    def touch_pay_at
+      touch(:pay_at)
+    end
+
+    def assign_qr_code(url)
+      relative_path = QrCode.generate_tmp(url)
+      tmp_path = Rails.root.join(relative_path)
+      File.open(tmp_path) do |file|
+        create_qr_code(code: file)
+      end
+      File.delete(tmp_path)
+    end
   end
 end

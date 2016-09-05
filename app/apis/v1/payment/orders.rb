@@ -51,7 +51,7 @@ module V1
             requires :id, type: String, desc: '订单ID'
           end
 
-          patch ':id/cancel' do
+          put ':id/cancel' do
             order = ::Payment::Order.find_by(order_no: params[:id])
             if order.canceled!
               present order, with: Entities::Payment::Order, type: :product

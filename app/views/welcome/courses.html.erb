@@ -44,19 +44,20 @@
                   <span class="hot course_price"><b>￥<%= "%0.2f" % course.price %></b></span>
                   <%= link_to signin_path do %>
                     <div class="buy_btn text-center">
-                      <span><b style="color: #fff;">立即购买</b></span>
+                      <span><b style="color: #fff;"><%= t ".buy_now" %></b></span>
                     </div>
                   <% end %>
                   <%= link_to signin_path do %>
                     <div class="taste_btn text-center">
                       <span>
-                        <b style="color: #fff;">加入<br>
-                          试听</b>
+                        <b style="color: #fff;">
+                          <%= t ".taste_now1" %><br>
+                          <%= t ".taste_now2" %></b>
                         </span>
                       </div>
                     <% end %>
                   <br>
-                  <span class="buy_number">已购人数<%= course.buy_tickets_count %></span>
+                  <span class="buy_number"><%= t ".buy_count" %><%= course.buy_tickets_count %></span>
                 </div>
                 <hr>
 

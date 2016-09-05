@@ -40,7 +40,7 @@
                 <p class="text-center"><%= course.name %></p>
                 <%= image_tag course.publicize_url(:list), width: "100%", height: "188px" %>
 
-                <div style="height: 45px">
+                <div style="height: 55px">
                   <span class="hot course_price"><b>￥<%= "%0.2f" % course.price %></b></span>
                   <%= link_to signin_path do %>
                     <div class="buy_btn text-center">
@@ -59,7 +59,7 @@
                   <br>
                   <span class="buy_number"><%= t ".buy_count" %><%= course.buy_tickets_count %></span>
                 </div>
-                <hr>
+                <hr style="margin-top: 10px; margin-bottom: 10px;">
 
                 <div class="courseThumb">
                   <%= image_tag teacher.try(:avatar_url), size: "35x35", class: "teacher_avatar img-circle";%>
@@ -169,6 +169,7 @@
 
   .courseThumb {
     margin-bottom:10px;
+    font-size: 13px;
   }
 
   .teacher_avatar{
@@ -179,12 +180,14 @@
 
   .teacher_span{
     padding-left: 2px;
+    font-size: 13px;
   }
 
   .course_lessons{
     float:right;
     padding-right: 10px;
     padding-top: 5px;
+    font-size: 13px;
   }
 
   .div_bottom{
@@ -193,12 +196,13 @@
   }
 
   .desc_div{
-    height: 63px;
-    margin-bottom:5px;
+    height: 55px;
+    margin-bottom:8px;
     display:-webkit-box;
     -webkit-box-orient:vertical;
     -webkit-line-clamp:3;
     overflow:hidden;
+    font-size: 13px;
   }
 
   .about_us_div{

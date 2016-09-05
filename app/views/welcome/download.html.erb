@@ -16,7 +16,7 @@
               <button class="btn btn-default btn-lg" type="button"><%= t ".download" %></button>
             <% end %>
           <% else %>
-            <%= image_tag software.qr_code_url(:big), size: "120x120", alt: software.title %>
+            <%= image_tag software.qr_code.code_url, size: "120x120", alt: software.title %>
           <% end %>
         </div>
       </div>

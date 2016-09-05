@@ -117,6 +117,7 @@ cn:
       lesson_name_holder: '请输入课程名称,格式: 第X课 课程标题'
       date_holder: '请选择日期'
       data_holder: 请完善数据
+      data_error_holder: 开始时间必须小于结束时间且不能小于当前时间
       upload_img_tips: '建议：<br/>图片像素800*500最佳；<br/>支持格式jpeg、png；大小500k以内；<br/>禁止使用涉及暴力、血腥、色情、政治等图片。'
       without_tips: 可能会导致当前修改无法保存，是否离开？
     play:
@@ -269,6 +270,7 @@ cn:
       lesson_completed: 立即结算
       status: 状态
       course_publish: 开始招生
+      update_class_date: 调课
       begin_watch_live_studio: 进入直播室
       teacher_desc: 老师简介
       lesson_desc: 课程简介

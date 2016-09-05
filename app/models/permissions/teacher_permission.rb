@@ -213,7 +213,7 @@ module Permissions
       allow :qa_file_quoters,[:index, :new, :edit, :update, :create, :show, :destroy]
 
       ## begin live studio permission
-      allow 'live_studio/teacher/courses', [:index, :show, :edit, :update, :sync_channel_streams, :channel, :close] do |teacher, course, action|
+      allow 'live_studio/teacher/courses', [:index, :show, :edit, :update, :sync_channel_streams, :channel, :close, :update_class_date] do |teacher, course, action|
         # 只有初始化的辅导班可以编辑
         permission = %w(edit update).include?(action) ? course.init? : true
         teacher && teacher == user && permission
@@ -223,9 +223,8 @@ module Permissions
           :index, :show, :new, :create, :edit, :update, :destroy,
           :begin_live_studio, :end_live_studio, :ready, :complete
       ] do |teacher, course, action|
-        # 课程的辅导班初始化状态可以变新增 编辑 删除 | 招生中状态可以编辑
-        permission = %w(new create edit update destroy).include?(action) ? course.init? : true ||
-            %w(edit update).include?(action) ? course.preview? : true
+        # 课程的辅导班初始化状态可以变新增 编辑 删除 | 招生中状态可以编辑 | 上课中状态可以调课
+        permission = (%w(new create edit update destroy).include?(action) ? course.init? : true) || (%w(edit update).include?(action) ? course.preview? : true) || (%w(create update).include?(action) ? course.teaching? : true)
         teacher && teacher == user && permission
       end
 

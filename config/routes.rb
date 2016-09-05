@@ -2,6 +2,7 @@ Qatime::Application.routes.draw do
   root :to => "home#index"
 
   get 'welcome/download'
+  get 'welcome/courses'
   get "topics/node:id"      => "topics#node",           as: 'node_topics'
   get "courses/node:id"     => "courses#node",          as: 'node_courses'
   get "teachers/home"       => "teachers/home#main",    as: 'teachers_home'
@@ -51,6 +52,11 @@ Qatime::Application.routes.draw do
       resources :faqs
     end
     resources :workstations
+    resources :softwares do
+      member do
+        get :run
+      end
+    end
   end
 
   namespace :managers do

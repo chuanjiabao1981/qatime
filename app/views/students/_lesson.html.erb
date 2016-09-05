@@ -8,18 +8,18 @@
   </thead>
   <tbody>
   <tr>
-    <td class="" rowspan="3">
+    <td style="width: 20%;" rowspan="3">
       <%= image_tag lesson.course.publicize_url(:small), class: 'order-img' %>
     </td>
-    <td class=''>
+    <td style="width: 45%;">
       <%= lesson.course.name %>
     </td>
-    <td class='text-center' rowspan="3">
+    <td class='text-center schedules-border-td' rowspan="3">
       <%= lesson.class_date %>
       <br/>
       <%= "#{lesson.start_time}-#{lesson.end_time}" %>
     </td>
-    <td rowspan="3" class="text-center">
+    <td rowspan="3" class="text-center schedules-border-td">
       <%= lesson.status_text %>
     </td>
   </tr>

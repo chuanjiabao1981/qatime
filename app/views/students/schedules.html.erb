@@ -6,13 +6,13 @@
   <div class="qa_big_cell">
     <div class="row">
       <div>
-        <h2>
+        <span>
           <%= t("view.student_bars.schedules") %>
-        </h2>
+        </span>
       </div>
       <div class="">
         <a href='#schedules_div' data-toggle="tab">
-          <div class="schedules-list-ceil" id="schedules_ceil">
+          <div class="schedules-list-ceil active" id="schedules_ceil">
             <%= t('schedules.tab.schedules') %>
           </div>
         </a>
@@ -55,5 +55,12 @@
     tmpl_path: "/tmpls/",
     language: 'zh-CN',
     events_source: '/courses/schedule_sources?user_id=<%= @user.id %>'
+  });
+
+  $(function() {
+    $('.schedules-list-ceil').click(function(event){
+      $('.schedules-list-ceil').removeClass('active');
+      $(this).addClass('active');
+    });
   });
 </script>

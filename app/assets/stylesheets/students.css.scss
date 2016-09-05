@@ -10,6 +10,10 @@
   line-height: 3em;
   cursor: pointer;
   text-align: center;
+  margin-bottom: 5px;
+}
+.schedules-list-ceil.active{
+  background-color: #CCCCCC;
 }
 table.schedules-tb{
   thead{
@@ -17,8 +21,16 @@ table.schedules-tb{
   }
   tbody tr td{
     border-top: 0;
+    vertical-align: middle;
     img{
       width: 120px;
     }
+  }
+  td.schedules-split-td{
+    width: 35%;
+  }
+  td.schedules-border-td{
+    border-left: #CCCCCC solid 1px;
+    border-right: #CCCCCC solid 1px;
   }
 }

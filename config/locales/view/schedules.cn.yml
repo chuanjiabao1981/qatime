@@ -2,6 +2,6 @@ cn:
   schedules:
     tab:
       schedules: 课程日历
-      wait: 待上课
+      wait: 未上课
       close: 已上课
 

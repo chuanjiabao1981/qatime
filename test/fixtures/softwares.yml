@@ -15,7 +15,7 @@ one:
   download_links: test_url
   status: 1
   enforce: true
-  running_at: <%= Time.now%>
+  published_at: <%= Time.now%>
   logo: test
   platform: 1
   category: 0
@@ -28,7 +28,7 @@ two:
   download_links: test_url
   status: 1
   enforce: true
-  running_at: <%= Time.now%>
+  published_at: <%= Time.now%>
   logo: test
   platform: 1
   category: 0
@@ -41,7 +41,7 @@ three:
   download_links: test_url
   status: 1
   enforce: false
-  running_at: <%= Time.now%>
+  published_at: <%= Time.now%>
   logo: test
   category: 0
   platform: 1

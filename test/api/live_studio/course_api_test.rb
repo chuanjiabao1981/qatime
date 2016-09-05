@@ -156,7 +156,22 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal 5, res['data'].size
+    assert_equal 8, res['data'].size
   end
 
+  test 'visit realtime' do
+    course = live_studio_courses(:course_with_junior_teacher)
+    student = users(:student_one_with_course)
+
+    post '/api/v1/sessions', email: student.email,
+         password: 'password',
+         client_type: 'app'
+    @remember_token = JSON.parse(response.body)['data']['remember_token']
+
+    get "/api/v1/live_studio/courses/#{course.id}/realtime", {}, { 'Remember-Token' => @remember_token }
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status']
+    assert_equal 3, res['data'].size
+  end
 end

@@ -141,7 +141,6 @@ module Payment
     def init_order_for_test
       raise 'Only For Test' unless Rails.env.test?
       self.pay_url = 'http://localhost/'
-      self.qrcode_url = 'http://localhost/'
       save
       pay_and_ship!
     end

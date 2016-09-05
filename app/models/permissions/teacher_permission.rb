@@ -79,7 +79,7 @@ module Permissions
       end
 
       allow :lessons,[:show]
-      allow :courses,[:show]
+      allow :courses,[:show, :schedule_sources]
       allow :sessions,[:destroy]
       allow "teachers/faqs", [:index, :show]
       allow "teachers/faq_topics", [:show]

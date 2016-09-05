@@ -11,11 +11,12 @@
   cursor: pointer;
   text-align: center;
 }
-.schedules-tb{
+table.schedules-tb{
   thead{
     background: #CCCCCC;
   }
-  td{
+  tbody tr td{
+    border-top: 0;
     img{
       width: 120px;
     }

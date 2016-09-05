@@ -31,7 +31,7 @@ class CoursesController < ApplicationController
       result << {
         id: lesson.id,
         title: lesson.name,
-        url: live_studio.student_course_path(user,lesson.course.id),
+        url: live_studio.send("#{user.role}_course_path",user,lesson.course.id),
         class: 'evnet-important',
         start: "#{lesson.class_date} #{lesson.start_time}".to_time.to_i*1000,
         end: "#{lesson.class_date} #{lesson.end_time}".to_time.to_i*1000

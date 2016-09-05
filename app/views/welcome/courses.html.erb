@@ -15,25 +15,52 @@
 <div class="container">
   <div class='row'>
     <!-- banner 图片 -->
-    <div style="width: 96%;margin-left: 2%;">
+    <div style="width:1000px; margin: 0 auto;">
       <%= image_tag 'courses_banner.jpg', width: "100%" %>
     </div>
 
     <!-- 课程列表 -->
-    <div class="hot_courses_title", style="width: 96%;margin-left: 2%;">
+    <div class="hot_courses_title", style="width:1000px; margin: 0 auto;">
       <%= t ".hot" %><b class="hot"><i>hot</i></b>
-      <span class="all_courses_link"><a herf="##"><%= t ".all_courses" %></a></span>
+      <%= link_to signin_path do %>
+        <span class="all_courses_link"><%= t ".all_courses" %></span>
+      <% end %>
     </div>
 
-    <div style="width:94%; margin-left: 3%;">
-      <% @courses.each_slice(3) do |courses|%>
+    <div style="width:970px; margin: 0 auto;"">
+      <% @courses.each_slice(3).with_index do |courses, index|%>
+        <% if index == 1 %>
+          <span class="news"><%= t ".new" %><b class="hot"><i>new</i></b></span>
+        <% end %>
         <div class="row row_courses">
           <% courses.each do |course|%>
             <% teacher = course.teacher %>
             <div class="col-md-4">
               <div class="course_div">
                 <p class="text-center"><%= course.name %></p>
-                <%= image_tag course.publicize_url(:list), width: "100%", height: "200px" %>
+                <%= image_tag course.publicize_url(:list), width: "100%", height: "188px" %>
+
+                <div style="height: 45px">
+                  <span class="hot course_price"><b>￥<%= "%0.2f" % course.price %></b></span>
+                  <%= link_to signin_path do %>
+                    <div class="buy_btn text-center">
+                      <span><b style="color: #fff;"><%= t ".buy_now" %></b></span>
+                    </div>
+                  <% end %>
+                  <%= link_to signin_path do %>
+                    <div class="taste_btn text-center">
+                      <span>
+                        <b style="color: #fff;">
+                          <%= t ".taste_now1" %><br>
+                          <%= t ".taste_now2" %></b>
+                        </span>
+                      </div>
+                    <% end %>
+                  <br>
+                  <span class="buy_number"><%= t ".buy_count" %><%= course.buy_tickets_count %></span>
+                </div>
+                <hr>
+
                 <div class="courseThumb">
                   <%= image_tag teacher.try(:avatar_url), size: "35x35", class: "teacher_avatar img-circle";%>
                   <%= teacher.try(:name) %>
@@ -44,7 +71,9 @@
                   <div class="desc_div">
                     &nbsp;&nbsp;&nbsp;&nbsp;<%= truncate(course.description, length: 150) %>
                   </div>
-                  <p class="text-center"><a herf="##"><%= t ".get_more" %></a></p>
+                  <%= link_to signin_path do %>
+                    <p class="text-center"><%= t ".get_more" %></p>
+                  <% end %>
                 </div>
               </div>
             </div>
@@ -102,7 +131,7 @@
 
     <div class="row">
       <div class="col-md-offset-1">
-        <p><%= t ".join_us_cities" %></p>
+        <p class="join_us_cities"><%= t ".join_us_cities" %></p>
       </div>
     </div>
 
@@ -116,11 +145,15 @@
 
 <style type="text/css">
   .hot_courses_title{
-    margin-top:20px;
+    margin-top:20px !important;
   }
 
   .hot{
     color:red;
+  }
+
+  .news{
+    margin-left: -12px;
   }
 
   .all_courses_link{
@@ -189,7 +222,7 @@
 
   p.about_us{
     padding-top:42px;
-    padding-right:30px;
+    padding-right:15px;
   }
 
   .border{
@@ -214,11 +247,40 @@
 
   p.qr_desc{
     padding-top:22px;
-    margin-left:30px;
+    margin-left:40px;
   }
 
   .course_div{
     border:1px solid #eee;
     background:#fff;
+  }
+  .join_us_cities{
+    margin-left: 15px;
+  }
+
+  .course_price{
+    font-size: 24px;
+  }
+
+  .buy_number{
+    padding-left: 60px;
+    color: gray;
+  }
+
+  .taste_btn{
+    float:right;
+    width:50px;
+    height:50px;
+    padding-top: 3px;
+    background-color:rgb(100,204,207);
+  }
+  .buy_btn{
+    float: right;
+    width: 80px;
+    height: 50px;
+    margin-left: 10px;
+    margin-right: 2px;
+    padding-top: 14px;
+    background-color: rgb(251,153,39);
   }
 </style>

@@ -30,8 +30,9 @@ module V1
       get 'check_update' do
         category = ::Software.categories[params[:category].to_sym]
         platform = ::Software::PLATFORM_HASH[params[:platform].to_sym]
-        softwares = ::Software.where(category: category,platform: platform).where('version > ?', params[:version]).order(version: :desc)
-        software = softwares.first
+        softwares = ::Software.where(category: category,platform: platform)
+        softwares = softwares.where('version > ?', params[:version]) if params[:version].present?
+        software = softwares.order(version: :desc).first
         enforce = softwares.select{|soft| true if soft.enforce}.present?
         present software,with: Entities::Software, enforce: enforce
       end

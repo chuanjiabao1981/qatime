@@ -22,7 +22,6 @@ class StudentsController < ApplicationController
     @student.captcha = captcha_manager.captcha_of(:register_captcha)
     @student.build_account
     if @student.save
-      SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @student.id)
       session.delete("captcha-#{create_params[:login_mobile]}")
       sign_in(@student) unless signed_in?
       redirect_to edit_student_path(@student, cate: :register, by: :register)
@@ -120,6 +119,7 @@ class StudentsController < ApplicationController
       if params[:cate] == "edit_profile"
         redirect_to info_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
       elsif params[:cate] == "register"
+        SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @student.id)
         redirect_to user_home_path, notice: t("flash.notice.register_success")
       else
         session.delete("change-#{update_by}-#{send_to}")

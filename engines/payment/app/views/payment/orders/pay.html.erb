@@ -47,7 +47,7 @@
     <div class="payment-body">
       <div class="qrcode-div">
         <div>
-          <%= image_tag(@order.qr_code.code_url, id: 'wechat_qrcode') %>
+          <%= image_tag(@order.qr_code.try(:code_url), id: 'wechat_qrcode') %>
         </div>
         <div>
           <%= t('view.payment_show.weixin_tips_text1') %>

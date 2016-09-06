@@ -15,10 +15,11 @@ one:
   download_links: test_url
   status: 1
   enforce: true
-  running_at: <%= Time.now%>
+  published_at: <%= Time.now%>
   logo: test
   platform: 1
   category: 0
+  role: teacher
 two:
   title: 教师问答社区
   version: 0.0.2
@@ -28,9 +29,10 @@ two:
   download_links: test_url
   status: 1
   enforce: true
-  running_at: <%= Time.now%>
+  published_at: <%= Time.now%>
   logo: test
   platform: 1
+  role: teacher
   category: 0
 three:
   title: 教师问答社区
@@ -41,10 +43,11 @@ three:
   download_links: test_url
   status: 1
   enforce: false
-  running_at: <%= Time.now%>
+  published_at: <%= Time.now%>
   logo: test
   category: 0
   platform: 1
+  role: teacher
 four:
   title: 教师问答社区
   version: 0.0.4

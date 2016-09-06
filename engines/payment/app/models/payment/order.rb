@@ -121,7 +121,7 @@ module Payment
 
     after_create :init_remote_order
     def init_remote_order
-      return init_order_for_test if Rails.env.test?
+      return if Rails.env.test?
       r = WxPay::Service.invoke_unifiedorder(remote_params)
       if r["return_code"] == Payment::Order::RESULT_SUCCESS
         self.pay_url = r['code_url']
@@ -141,7 +141,6 @@ module Payment
     def init_order_for_test
       raise 'Only For Test' unless Rails.env.test?
       self.pay_url = 'http://localhost/'
-      self.qrcode_url = 'http://localhost/'
       save
       pay_and_ship!
     end

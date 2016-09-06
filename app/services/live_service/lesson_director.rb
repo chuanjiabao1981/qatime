@@ -90,13 +90,13 @@ module LiveService
     end
 
     def self.edit_lesson_params(id,params)
-      if params["name_#{id}"].blank?
-        h = {
-              start_time: params["start_time_#{id}"],
-              end_time: params["end_time_#{id}"],
-              class_date: params["class_date_#{id}"]
-            }
+      h = {
+            start_time: params["start_time_#{id}"],
+            end_time: params["end_time_#{id}"],
+            class_date: params["class_date_#{id}"]
+          }
 
+      if params["name_#{id}"].blank?
         if params["class_date_#{id}"] == Date.today.to_s
           h[:status] = :ready
         else

@@ -13,7 +13,8 @@ module Payment
     # 生成微信支付二维码
     def pay
       @order = @user.orders.find_by!(order_no: params[:id])
-      @order.init_remote_order unless @order.qr_code.code_url
+      @order.init_order_for_test if Rails.env.test?
+      @order.init_remote_order unless @order.qr_code.try(:code_url)
       @course = @order.product
     end
 

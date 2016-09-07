@@ -157,6 +157,44 @@ module Permissions
         resource.id == user.id
       end
       # payment permission
+
+      ## begin api permission
+      api_allow :DELETE, "/api/v1/sessions"
+
+      # 学生辅导班列表
+      api_allow :GET, "/api/v1/live_studio/students/[\\w-]+/courses/full" do |student|
+        student && student.id == user.id
+      end
+      api_allow :GET, "/api/v1/live_studio/students/[\\w-]+/courses/[\\w-]+" do |student|
+        student && student.id == user.id
+      end
+      api_allow :GET, "/api/v1/live_studio/students/[\\w-]+/courses" do |student|
+        student && student.id == user.id
+      end
+      api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/orders"
+
+      # 学生个人信息接口
+      api_allow :GET, "/api/v1/students/[\\w-]+/info" do |student|
+        student && student.id == user.id
+      end
+      api_allow :PUT, "/api/v1/students/[\\w-]+" do |student|
+        student && student.id == user.id
+      end
+      api_allow :PUT, "/api/v1/students/[\\w-]+/profile" do |student|
+        student && student.id == user.id
+      end
+      api_allow :GET, "/api/v1/students/[\\w-]+/schedule" do |student|
+        student && student.id == user.id
+      end
+      api_allow :PUT, "/api/v1/students/[\\w-]+/parent_phone" do |student|
+        student && student.id == user.id
+      end
+
+      # payment
+      api_allow :GET, "/api/v1/payment/orders/[\\w-]+/result"
+      api_allow :GET, "/api/v1/payment/orders"
+      api_allow :PUT, "/api/v1/payment/orders/[\\w-]+/cancel"
+      ## end api permission
     end
 private
 

@@ -49,7 +49,7 @@ module Payment
       state :waste
       state :failed
 
-      event :pay do
+      event :pay, after_commit: :touch_pay_at do
         before do
           increase_cash_admin_account
         end
@@ -121,7 +121,7 @@ module Payment
 
     after_create :init_remote_order
     def init_remote_order
-      return init_order_for_test if Rails.env.test?
+      return if Rails.env.test?
       r = WxPay::Service.invoke_unifiedorder(remote_params)
       if r["return_code"] == Payment::Order::RESULT_SUCCESS
         self.pay_url = r['code_url']
@@ -141,7 +141,6 @@ module Payment
     def init_order_for_test
       raise 'Only For Test' unless Rails.env.test?
       self.pay_url = 'http://localhost/'
-      self.qrcode_url = 'http://localhost/'
       save
       pay_and_ship!
     end
@@ -205,6 +204,11 @@ module Payment
     def increase_cash_admin_account
       billing = billings.create(total_money: total_money, summary: "用户支付, 订单编号：#{order_no} 系统进账: #{total_money}")
       CashAdmin.increase_cash_account(total_money, billing, '用户充值消费')
+    end
+
+    # 记录支付时间
+    def touch_pay_at
+      touch(:pay_at)
     end
 
     def assign_qr_code(url)

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901064007) do
+ActiveRecord::Schema.define(version: 20160902071332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -712,6 +712,7 @@ ActiveRecord::Schema.define(version: 20160901064007) do
     t.string   "prepay_id"
     t.string   "nonce_str"
     t.string   "trade_type",   limit: 16,                         default: "NATIVE"
+    t.datetime "pay_at"
   end
 
   add_index "payment_orders", ["product_type", "product_id"], name: "index_payment_orders_on_product_type_and_product_id", using: :btree

@@ -9,7 +9,7 @@
   </tr>
   </thead>
   <tbody>
-  <% @course.lessons.each_with_index do |lesson,i| %>
+  <% @course.order_lessons.each_with_index do |lesson,i| %>
     <tr class="<%= lesson.is_over? || lesson.ready? ? 'font-grey' : nil %>">
       <td><%= i+1 %></td>
       <td>

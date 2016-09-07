@@ -17,7 +17,7 @@ class SoftwareTest < ActionDispatch::IntegrationTest
     visit info_teacher_path(teacher)
     click_on '下载'
 
-    assert page.has_content?('答疑时间-android版'), '软件不能显示'
+    assert page.has_content?('教师问答社区'), '软件不能显示'
     new_logout_as(teacher)
   end
 end

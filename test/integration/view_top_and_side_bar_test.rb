@@ -14,7 +14,7 @@ class StudentViewTopAndSideBarTest < ActionDispatch::IntegrationTest
     visit root_path
 
     assert find('div.navbar-collapse').has_content?('下载'), 'topbar下载不存在'
-    assert find('div.navbar-collapse').has_content?('常见问题'), 'topbar常见问题不存在'
+    assert find('div.navbar-collapse').has_content?('帮助'), 'topbar帮助不存在'
   end
 
   test "student view top and side bar" do
@@ -27,7 +27,7 @@ class StudentViewTopAndSideBarTest < ActionDispatch::IntegrationTest
     assert find('div.navbar-collapse').has_content?('问答社区'), 'topbar问答社区不存在'
     assert find('div.navbar-collapse').has_content?('辅导班'), 'topbar辅导班不存在'
     assert find('div.navbar-collapse').has_content?('下载'), 'topbar下载不存在'
-    assert find('div.navbar-collapse').has_content?('常见问题'), 'topbar常见问题不存在'
+    assert find('div.navbar-collapse').has_content?('帮助'), 'topbar帮助不存在'
 
     assert find('ul.menu').has_content?('用户设置'), 'sidebar用户设置不存在'
     assert find('ul.menu').has_content?('我的钱包'), 'sidebar我的钱包不存在'
@@ -42,7 +42,7 @@ class StudentViewTopAndSideBarTest < ActionDispatch::IntegrationTest
   end
 
   test "teacher view top and side bar" do
-    teacher = users(:teacher)
+    teacher = users(:teacher1)
     log_in_as(teacher)
 
     assert find('div.navbar-collapse').has_content?('首页'), 'topbar首页不存在'
@@ -51,7 +51,7 @@ class StudentViewTopAndSideBarTest < ActionDispatch::IntegrationTest
     assert find('div.navbar-collapse').has_content?('问答社区'), 'topbar问答社区不存在'
     assert find('div.navbar-collapse').has_content?('辅导班'), 'topbar辅导班不存在'
     assert find('div.navbar-collapse').has_content?('下载'), 'topbar下载不存在'
-    assert find('div.navbar-collapse').has_content?('常见问题'), 'topbar常见问题不存在'
+    assert find('div.navbar-collapse').has_content?('帮助'), 'topbar帮助不存在'
 
     assert find('ul.menu').has_content?('用户设置'), 'sidebar用户设置不存在'
     assert find('ul.menu').has_content?('财产管理'), 'sidebar财产管理不存在'
@@ -73,7 +73,7 @@ class StudentViewTopAndSideBarTest < ActionDispatch::IntegrationTest
 
     assert find('div.navbar-collapse').has_content?('首页'), 'topbar首页不存在'
     assert find('div.navbar-collapse').has_content?('下载'), 'topbar下载不存在'
-    assert find('div.navbar-collapse').has_content?('常见问题'), 'topbar常见问题不存在'
+    assert find('div.navbar-collapse').has_content?('帮助'), 'topbar帮助不存在'
 
     assert find('ul.menu').has_content?('专属课程'), 'sidebar专属课程不存在'
 
@@ -86,7 +86,7 @@ class StudentViewTopAndSideBarTest < ActionDispatch::IntegrationTest
 
     assert find('div.navbar-collapse').has_content?('首页'), 'topbar首页不存在'
     assert find('div.navbar-collapse').has_content?('下载'), 'topbar下载不存在'
-    assert find('div.navbar-collapse').has_content?('常见问题'), 'topbar常见问题不存在'
+    assert find('div.navbar-collapse').has_content?('帮助'), 'topbar帮助不存在'
 
     new_logout_as(admin)
   end

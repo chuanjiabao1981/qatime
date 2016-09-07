@@ -22,6 +22,8 @@
 //= require fancybox
 //= require editable/bootstrap-editable
 //= require editable/rails
+//= require bootstrap-select.min
+//= require defaults-zh_CN
 //= require jquery.qqFace.js
 //= require live_studio/nep.min
 //= require live_studio/Web_SDK_Base_v2.4.0

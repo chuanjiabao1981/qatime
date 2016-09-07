@@ -54,6 +54,11 @@ module LiveStudio
       !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank? || lesson_count != preset_lesson_count
     end
 
+    def preview!
+      self.published_at = Time.now
+      super
+    end
+
     def push_stream
       push_streams.last
     end
@@ -193,6 +198,10 @@ module LiveStudio
       lesson = lessons.order('class_date asc,id').last
       lesson.try(:live_end_at).try(:strftime,'%Y-%m-%d %H:%M') ||
         "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:end_time)}"
+    end
+
+    def order_lessons
+      lessons.except(:order).order(:class_date, :live_start_at, :live_end_at)
     end
 
     private

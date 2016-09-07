@@ -14,7 +14,7 @@ cn:
       surplus: 剩余：
       lesson_time: 课时
       current: 当前课程：
-      info: 详细信息
+      info: 查看详情
       lessons: 课程列表
       study_link: 立即学习
       distance_text1: (距开课 %d天)
@@ -36,10 +36,10 @@ cn:
       end_time: 结课时间：
       ticket_count: 已购人数：
       desc: 简介：
-      teacher_label: 教师资料简介
+      teacher_label: 教师资料
       teacher_name: 老师姓名：
       highest_education: 最高学历：
-      teaching_years: 执教年数：
+      teaching_years: 执教年龄：
       subject: 科目类型：
       grade_range: 年级范围：
       school: 所在学校：
@@ -50,6 +50,7 @@ cn:
       lesson_name: 课程名称
       lesson_status: 课程状态
       time_tips: 设置课程后系统将自动生成此时间
+      completed_lesson: 结算课程
     course_search_show:
       clear_range_btn: 清除范围
       buy_tickets_count: 已购人数：%d
@@ -74,6 +75,7 @@ cn:
       class_date: 开课日期
       status: 当前状态
     payment_show:
+      product_info: 商品详情
       order_info: 订单信息
       pay_total: 支付金额
       weixin_pay: 微信支付
@@ -84,8 +86,15 @@ cn:
       actual_price: 应付金额：
       order_confirm: 订单确认
       product_info: 商品信息
+      order_info: 订单信息
       order_pay: 订单支付
+      new_order: 重新购买
+      cancel_order: 取消订单
+      cancel_order_confirm: 您确定要取消订单么？
       order_product_name: 商品名称：
+      order_product_status: 当前状态：
+      order_actual_price: 应付金额
+      order_actual_price2: 实付金额
       order_no: '订单编号:  %s'
       order_created_at: '创建时间:  %s'
       order_pay_type: '支付方式:  %s'
@@ -108,6 +117,7 @@ cn:
       lesson_name_holder: '请输入课程名称,格式: 第X课 课程标题'
       date_holder: '请选择日期'
       data_holder: 请完善数据
+      data_error_holder: 开始时间必须小于结束时间且不能小于当前时间
       upload_img_tips: '建议：<br/>图片像素800*500最佳；<br/>支持格式jpeg、png；大小500k以内；<br/>禁止使用涉及暴力、血腥、色情、政治等图片。'
       without_tips: 可能会导致当前修改无法保存，是否离开？
     play:
@@ -115,11 +125,13 @@ cn:
       close: 关闭
       send_msg: 发送
       live_studio_detail: 直播详情
-      base_info: 基本信息
-      teacher_info: 老师详情
+      base_info: 辅导概况
+      teacher_info: 教师资料
       lessons_list: 课程列表
       course_name: 辅导班名：
-      current_lesson_name: 当前课程：
+      current_lesson_name: 课程进度：
+      live_start_time: 开课时间：
+      live_end_time: 结课时间：
       no_current_lesson: 今日无直播
       current_lesson_paused: 直播暂停中
       course_subject: 科目类型：
@@ -243,7 +255,7 @@ cn:
       select: 查看
       info: 详情
       manage: 管理
-      pay_now: 立即支付
+      pay_now: 立即付款
       back: 返回
       list: 列表
       name: 名称
@@ -258,6 +270,7 @@ cn:
       lesson_completed: 立即结算
       status: 状态
       course_publish: 开始招生
+      update_class_date: 调课
       begin_watch_live_studio: 进入直播室
       teacher_desc: 老师简介
       lesson_desc: 课程简介

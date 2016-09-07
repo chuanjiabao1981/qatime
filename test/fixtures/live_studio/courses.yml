@@ -93,6 +93,18 @@ course_one_of_teacher_one:
   grade: 六年级
   subject: 语文
 
+update_course_by_physics_teacher1:
+  teacher: physics_teacher1
+  name: update_course_by_physics_teacher1
+  price: 100
+  status: 0
+  teacher_percentage: 20
+  preset_lesson_count: 10
+  lesson_price: 20
+  grade: 六年级
+  subject: 语文
+  workstation: workstation_invalid
+
 course_teach_2:
   name: 上课中的辅导班2
   teacher: users(:teacher_one)
@@ -114,6 +126,14 @@ course_with_order:
   id: 6
   name: 辅导班4
   teacher: 1
+  workstation: workstation(:workstation1)
+  status: 2
+  grade: 六年级
+  subject: 语文
+
+course_with_order2:
+  name: 辅导班4
+  teacher: physics_teacher1
   workstation: workstation(:workstation1)
   status: 2
   grade: 六年级

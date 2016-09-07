@@ -18,6 +18,7 @@ LiveStudio::Engine.routes.draw do
     resources :lessons, only: [:show] do
       member do
         get :play
+        patch :completed
       end
     end
   end
@@ -50,6 +51,7 @@ LiveStudio::Engine.routes.draw do
         member do
           patch :close
           patch :channel
+          get :update_class_date
         end
       end
       resources :lessons do

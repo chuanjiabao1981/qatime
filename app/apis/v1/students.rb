@@ -6,6 +6,12 @@ module V1
         authenticate!
       end
 
+      helpers do
+        def auth_params
+          @student = ::Student.find_by(id: params[:id])
+        end
+      end
+
       desc 'student info.' do
         headers 'Remember-Token' => {
                     description: 'RememberToken',

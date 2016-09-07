@@ -9,6 +9,10 @@ module Payment
       weixin: 1
     }.freeze
 
+    CATE_UNPAID =%w(unpaid).freeze
+    CATE_PAID =%w(paid shipped completed).freeze
+    CATE_CANCELED =%w(canceled expired refunded).freeze
+
     include AASM
 
     enum status: {
@@ -16,6 +20,7 @@ module Payment
            paid: 1, # 已支付
            shipped: 2, # 已发货
            completed: 3, # 已完成
+           canceled: 95, # 已取消
            expired: 96, # 过期订单
            failed: 97, # 下单失败
            refunded: 98, # 已退款
@@ -28,6 +33,7 @@ module Payment
     validates :user, :product, presence: true
 
     has_many :billings, as: :target
+    has_one :qr_code, as: :qr_codeable
 
     validate do |record|
       record.product.validate_order(record) if new_record? && record.product
@@ -36,17 +42,25 @@ module Payment
     aasm :column => :status, :enum => true do
       state :unpaid, :initial => true
       state :paid
+      state :canceled
       state :shipped
       state :completed
       state :refunded
       state :waste
       state :failed
 
-      event :pay do
+      event :pay, after_commit: :touch_pay_at do
         before do
           increase_cash_admin_account
         end
         transitions from: :unpaid, to: :paid
+      end
+
+      event :cancel do
+        before do
+          increase_cash_admin_account
+        end
+        transitions from: :unpaid, to: :canceled
       end
 
       event :ship do
@@ -107,11 +121,11 @@ module Payment
 
     after_create :init_remote_order
     def init_remote_order
-      return init_order_for_test if Rails.env.test?
+      return if Rails.env.test?
       r = WxPay::Service.invoke_unifiedorder(remote_params)
       if r["return_code"] == Payment::Order::RESULT_SUCCESS
         self.pay_url = r['code_url']
-        self.qrcode_url = Qr_Code.generate_payment(id, r['code_url']) if r['code_url'].is_a?(String)
+        assign_qr_code(r['code_url']) if r['code_url'].is_a?(String)
         self.prepay_id = r['prepay_id']
         self.nonce_str = r['nonce_str']
         save
@@ -127,7 +141,6 @@ module Payment
     def init_order_for_test
       raise 'Only For Test' unless Rails.env.test?
       self.pay_url = 'http://localhost/'
-      self.qrcode_url = 'http://localhost/'
       save
       pay_and_ship!
     end
@@ -154,6 +167,30 @@ module Payment
       WxPay::Service.generate_app_pay_req(prepayid: prepay_id, noncestr: nonce_str)
     end
 
+    def self.show_orders
+      status_waste = Payment::Order.statuses[:waste]
+      statuses_failed = Payment::Order.statuses[:failed]
+      where.not(status: [status_waste, statuses_failed])
+    end
+
+    def cate_text
+      cate = if CATE_UNPAID.include?(status)
+        'unpaid'
+      elsif CATE_PAID.include?(status)
+        'paid'
+      elsif CATE_CANCELED.include?(status)
+        'canceled'
+      else
+        'others'
+      end
+
+      if completed?
+        I18n.t("activerecord.cate_text.order.completed")
+      else
+        I18n.t("activerecord.cate_text.order.#{cate}")
+      end
+    end
+
     private
 
     before_create :generate_order_no
@@ -169,5 +206,18 @@ module Payment
       CashAdmin.increase_cash_account(total_money, billing, '用户充值消费')
     end
 
+    # 记录支付时间
+    def touch_pay_at
+      touch(:pay_at)
+    end
+
+    def assign_qr_code(url)
+      relative_path = QrCode.generate_tmp(url)
+      tmp_path = Rails.root.join(relative_path)
+      File.open(tmp_path) do |file|
+        create_qr_code(code: file)
+      end
+      File.delete(tmp_path)
+    end
   end
 end

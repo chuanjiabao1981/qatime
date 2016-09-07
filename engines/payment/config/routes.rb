@@ -2,8 +2,10 @@ Payment::Engine.routes.draw do
 
   resources :users, only: [] do
     resources :orders, only: [:index, :show, :destroy] do
-      collection do
+      member do
         get :result
+        get :pay
+        patch :cancel_order
       end
     end
 

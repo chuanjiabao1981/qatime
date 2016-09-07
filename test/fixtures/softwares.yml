@@ -6,3 +6,58 @@ android:
   role: teacher
   sub_title: 让辅导学员不再繁琐和低效
   desc: 答疑时间老师班是一款为老师量身定做，帮助老师管理辅导班和课程，实时处理学生疑问，让老师获得巨大收益，高效便捷的app产品
+one:
+  title: 教师问答社区
+  version: 0.0.1
+  sub_title: 让辅导学员不再繁琐和低效
+  desc: 答疑时间老师班是一款为老师量身定做，帮助老师管理辅导班和课程，实时处理学生疑问，让老师获得巨大收益，高效便捷的app产品
+  description: test_description
+  download_links: test_url
+  status: 1
+  enforce: true
+  published_at: <%= Time.now%>
+  logo: test
+  platform: 1
+  category: 0
+  role: teacher
+two:
+  title: 教师问答社区
+  version: 0.0.2
+  sub_title: 让辅导学员不再繁琐和低效
+  desc: 答疑时间老师班是一款为老师量身定做，帮助老师管理辅导班和课程，实时处理学生疑问，让老师获得巨大收益，高效便捷的app产品
+  description: test_description
+  download_links: test_url
+  status: 1
+  enforce: true
+  published_at: <%= Time.now%>
+  logo: test
+  platform: 1
+  role: teacher
+  category: 0
+three:
+  title: 教师问答社区
+  version: 0.0.3
+  sub_title: 让辅导学员不再繁琐和低效
+  desc: 答疑时间老师班是一款为老师量身定做，帮助老师管理辅导班和课程，实时处理学生疑问，让老师获得巨大收益，高效便捷的app产品
+  description: test_description
+  download_links: test_url
+  status: 1
+  enforce: false
+  published_at: <%= Time.now%>
+  logo: test
+  category: 0
+  platform: 1
+  role: teacher
+four:
+  title: 教师问答社区
+  version: 0.0.4
+  sub_title: 让辅导学员不再繁琐和低效
+  desc: 答疑时间老师班是一款为老师量身定做，帮助老师管理辅导班和课程，实时处理学生疑问，让老师获得巨大收益，高效便捷的app产品
+  description: test_description
+  download_links: test_url
+  status: 0
+  enforce: false
+  role: teacher
+  logo: test
+  platform: 1
+  category: 0

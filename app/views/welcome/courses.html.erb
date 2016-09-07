@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <title>Qatime</title>
+  <meta name="renderer" content="webkit">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => false %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<%= render 'layouts/top_bar_new' %>
+
+<div class="container">
+  <div class='row'>
+    <!-- banner 图片 -->
+    <div style="width:1000px; margin: 0 auto;">
+      <%= image_tag 'courses_banner.jpg', width: "100%" %>
+    </div>
+
+    <!-- 课程列表 -->
+    <div class="hot_courses_title", style="width:1000px; margin: 0 auto;">
+      <%= t ".hot" %><b class="hot"><i>hot</i></b>
+      <%= link_to signin_path do %>
+        <span class="all_courses_link"><%= t ".all_courses" %></span>
+      <% end %>
+    </div>
+
+    <div style="width:970px; margin: 0 auto;"">
+      <% @courses.each_slice(3).with_index do |courses, index|%>
+        <% if index == 1 %>
+          <span class="news"><%= t ".new" %><b class="hot"><i>new</i></b></span>
+        <% end %>
+        <div class="row row_courses">
+          <% courses.each do |course|%>
+            <% teacher = course.teacher %>
+            <div class="col-md-4">
+              <div class="course_div">
+                <p class="text-center"><%= course.name %></p>
+                <%= image_tag course.publicize_url(:list), width: "100%", height: "188px" %>
+
+                <div style="height: 55px">
+                  <span class="hot course_price"><b>￥<%= "%0.2f" % course.price %></b></span>
+                  <%= link_to signin_path do %>
+                    <div class="buy_btn text-center">
+                      <span><b style="color: #fff;"><%= t ".buy_now" %></b></span>
+                    </div>
+                  <% end %>
+                  <%= link_to signin_path do %>
+                    <div class="taste_btn text-center">
+                      <span>
+                        <b style="color: #fff;">
+                          <%= t ".taste_now1" %><br>
+                          <%= t ".taste_now2" %></b>
+                        </span>
+                      </div>
+                    <% end %>
+                  <br>
+                  <span class="buy_number"><%= t ".buy_count" %><%= course.buy_tickets_count %></span>
+                </div>
+                <hr style="margin-top: 10px; margin-bottom: 10px;">
+
+                <div class="courseThumb">
+                  <%= image_tag teacher.try(:avatar_url), size: "35x35", class: "teacher_avatar img-circle";%>
+                  <%= teacher.try(:name) %>
+                  <span class="teacher_span"><%= t ".teacher" %></span>
+                  <span class="course_lessons"><%= course.grade %><%= course.subject %>/<%= t ".lesson_count", count: course.preset_lesson_count %></span>
+                </div>
+                <div class="div_bottom">
+                  <div class="desc_div">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<%= truncate(course.description, length: 150) %>
+                  </div>
+                  <%= link_to signin_path do %>
+                    <p class="text-center"><%= t ".get_more" %></p>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- 关于我们 二维码 -->
+    <div class="row about_us_div">
+      <div class="col-md-2">
+        <p class="text-right about_us"><%= t ".about_us" %></p>
+      </div>
+      <div class="col-md-1 img_gzh"><%= image_tag 'courses_gzh.png', width: "100%" %></div>
+
+      <div class="col-md-3">
+        <p class="qr_desc">
+          <%= t ".qr_desc1" %><br>
+          <%= t ".qr_desc2" %><br>
+          <%= t ".qr_desc3" %><br>
+        </p>
+      </div>
+
+      <div class="col-md-1">
+        <div class="border" >
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <table>
+          <tr>
+            <td class="td_title"><%= t ".waiter_phone" %></td>
+            <td>
+              <span class="tel_span">
+                0353-2135828
+              </span>
+              <div class="week_div">
+                <%= t ".work_time" %><br>
+                9:00~18:00
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><%= t ".waiter_qq_lable" %></td>
+            <td class="qq_td"><%= t ".waiter_qq" %></td>
+          </tr>
+          <tr>
+            <td><span class="address_lable"><%= t ".address_lable" %></span></td>
+            <td><%= t ".address" %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <hr align=center width=1000 color=#eee size=1 style="margin: 5px auto;">
+
+    <div class="row">
+      <div class="col-md-offset-1">
+        <p class="join_us_cities"><%= t ".join_us_cities" %></p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<%= render 'layouts/footer' %>
+</body>
+</html>
+
+<style type="text/css">
+  .hot_courses_title{
+    margin-top:20px !important;
+  }
+
+  .hot{
+    color:red;
+  }
+
+  .news{
+    margin-left: -12px;
+  }
+
+  .all_courses_link{
+    float:right;
+    padding-right:10px;
+  }
+
+  .row_courses{
+    margin-bottom:10px;
+    padding: 15px 0px !important;
+    background: #fff;
+  }
+
+  .courseThumb {
+    margin-bottom:10px;
+    font-size: 13px;
+  }
+
+  .teacher_avatar{
+    overflow:auto;
+    margin-left:15px;
+    margin-right:10px;
+  }
+
+  .teacher_span{
+    padding-left: 2px;
+    font-size: 13px;
+  }
+
+  .course_lessons{
+    float:right;
+    padding-right: 10px;
+    padding-top: 5px;
+    font-size: 13px;
+  }
+
+  .div_bottom{
+    margin: 5px 2px;
+    height: 93px;
+  }
+
+  .desc_div{
+    height: 55px;
+    margin-bottom:8px;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:3;
+    overflow:hidden;
+    font-size: 13px;
+  }
+
+  .about_us_div{
+    margin-top:20px;
+  }
+
+  .week_div{
+    float:right;
+    margin-top:6px;
+    font-size:12px;
+  }
+
+  .qq_td{
+    padding-bottom:10px;
+    padding-top:8px;
+  }
+
+  .img_gzh{
+    padding-top:15px;
+  }
+
+  p.about_us{
+    padding-top:42px;
+    padding-right:15px;
+  }
+
+  .border{
+    height:75px;
+    margin-top:15px;
+    margin-left:-12px;
+    border-left:1px solid gray;
+  }
+  .td_title{
+    padding-right:20px;
+  }
+
+  .tel_span{
+    font-size:28px;
+    margin-top:12px;
+    padding-right:30px;
+  }
+
+  .address_lable{
+    letter-spacing:2em;
+  }
+
+  p.qr_desc{
+    padding-top:22px;
+    margin-left:40px;
+  }
+
+  .course_div{
+    border:1px solid #eee;
+    background:#fff;
+  }
+  .join_us_cities{
+    margin-left: 15px;
+  }
+
+  .course_price{
+    font-size: 24px;
+  }
+
+  .buy_number{
+    padding-left: 60px;
+    color: gray;
+  }
+
+  .taste_btn{
+    float:right;
+    width:50px;
+    height:50px;
+    padding-top: 3px;
+    background-color:rgb(100,204,207);
+  }
+  .buy_btn{
+    float: right;
+    width: 80px;
+    height: 50px;
+    margin-left: 10px;
+    margin-right: 2px;
+    padding-top: 14px;
+    background-color: rgb(251,153,39);
+  }
+</style>

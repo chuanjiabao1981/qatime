@@ -6,9 +6,15 @@ module V1
         before do
           authenticate!
         end
-        namespace :teachers do
 
+        namespace :teachers do
           route_param :teacher_id do
+            helpers do
+              def auth_params
+                @teacher = ::Teacher.find_by(id: params[:teacher_id])
+              end
+            end
+
             resource :courses do
               desc '教师辅导班列表接口' do
                 headers 'Remember-Token' => {
@@ -65,6 +71,12 @@ module V1
 
         namespace :students do
           route_param :student_id do
+            helpers do
+              def auth_params
+                @student ||= ::Student.find_by(id: params[:student_id])
+              end
+            end
+
             resource :courses do
               desc '学生我的辅导班列表接口' do
                 headers 'Remember-Token' => {
@@ -156,6 +168,26 @@ module V1
             course = ::LiveStudio::Course.find(params[:id])
             ticket = LiveService::CourseDirector.taste_course_ticket(current_user, course)
             present ticket, with: Entities::LiveStudio::Ticket
+          end
+
+          desc '公告 成员状态 直播列表' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, desc: '辅导班ID'
+          end
+          get '/:id/realtime' do
+            course = ::LiveStudio::Course.find(params[:id])
+            realtime =
+              {
+                announcements: course.chat_team.try(:team_announcements).try(:order, created_at: :desc),
+                members: course.chat_team.try(:join_records).try(:map,&:account),
+                current_lesson_status: course.current_lesson.try(:status)
+              }
+            present realtime,with: Entities::CourseRealtime
           end
 
           desc '创建辅导班订单接口' do

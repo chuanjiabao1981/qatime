@@ -15,6 +15,18 @@ module LiveStudio
       @teacher = @course.teacher
     end
 
+    def completed
+      @course = Course.find(params[:course_id])
+      @lesson = @course.lessons.find(params[:id])
+
+      if @lesson.finished? && LiveService::BillingDirector.new(@lesson).billing
+        @lesson.billing? && @lesson.complete!
+        redirect_to live_studio.teacher_course_path(@course.teacher, @course, index: :list), notice: t("flash.notice.lesson_completed_success")
+      else
+        redirect_to live_studio.teacher_course_path(@course.teacher, @course, index: :list), alert: t("flash.alert.lesson_completed_failed")
+      end
+    end
+
     private
 
     def set_lession
@@ -25,6 +37,5 @@ module LiveStudio
 
       redirect_to student_course_path(@course), notice: i18n_notice('lesson_can_not_play', @lesson) unless @lesson.can_play?
     end
-
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160816115133) do
+ActiveRecord::Schema.define(version: 20160902071332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -505,8 +505,13 @@ ActiveRecord::Schema.define(version: 20160816115133) do
     t.string   "publicize"
     t.integer  "buy_tickets_count",                                          default: 0
     t.date     "class_date"
+    t.datetime "published_at"
   end
 
+  add_index "live_studio_courses", ["class_date"], name: "index_live_studio_courses_on_class_date", using: :btree
+  add_index "live_studio_courses", ["preset_lesson_count"], name: "index_live_studio_courses_on_preset_lesson_count", using: :btree
+  add_index "live_studio_courses", ["price"], name: "index_live_studio_courses_on_price", using: :btree
+  add_index "live_studio_courses", ["published_at"], name: "index_live_studio_courses_on_published_at", using: :btree
   add_index "live_studio_courses", ["teacher_id"], name: "index_live_studio_courses_on_teacher_id", using: :btree
   add_index "live_studio_courses", ["workstation_id"], name: "index_live_studio_courses_on_workstation_id", using: :btree
 
@@ -699,7 +704,6 @@ ActiveRecord::Schema.define(version: 20160816115133) do
     t.decimal  "total_money",             precision: 8, scale: 2, default: 0.0
     t.integer  "status",                                          default: 0,        null: false
     t.integer  "pay_type",                                        default: 0,        null: false
-    t.string   "qrcode_url"
     t.string   "pay_url"
     t.string   "remote_ip"
     t.datetime "deleted_at"
@@ -708,6 +712,7 @@ ActiveRecord::Schema.define(version: 20160816115133) do
     t.string   "prepay_id"
     t.string   "nonce_str"
     t.string   "trade_type",   limit: 16,                         default: "NATIVE"
+    t.datetime "pay_at"
   end
 
   add_index "payment_orders", ["product_type", "product_id"], name: "index_payment_orders_on_product_type_and_product_id", using: :btree
@@ -772,6 +777,14 @@ ActiveRecord::Schema.define(version: 20160816115133) do
     t.datetime "updated_at",     null: false
     t.integer  "user_id"
     t.string   "remember_token"
+  end
+
+  create_table "qr_codes", force: :cascade do |t|
+    t.string   "code"
+    t.integer  "qr_codeable_id"
+    t.string   "qr_codeable_type"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
   end
 
   create_table "question_assignments", force: :cascade do |t|
@@ -872,10 +885,14 @@ ActiveRecord::Schema.define(version: 20160816115133) do
     t.string   "role"
     t.string   "version"
     t.integer  "platform"
-    t.string   "qr_code"
     t.string   "download_links"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.text     "description"
+    t.integer  "status",         default: 0
+    t.boolean  "enforce"
+    t.datetime "published_at"
+    t.integer  "category"
   end
 
   create_table "solutions", force: :cascade do |t|

@@ -2,6 +2,16 @@ module V1
   # 用户接口
   class Users < Base
     resource :users do
+      before do
+        authenticate!
+      end
+
+      helpers do
+        def auth_params
+          @user = ::User.find_by(id: params[:id])
+        end
+      end
+
       desc 'update email.' do
         headers 'Remember-Token' => {
                     description: 'RememberToken',

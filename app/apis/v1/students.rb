@@ -8,7 +8,7 @@ module V1
 
       helpers do
         def auth_params
-          @Student = ::Student.find_by(id: params[:id])
+          @student = ::Student.find_by(id: params[:id])
         end
       end
 

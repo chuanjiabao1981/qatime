@@ -34,12 +34,12 @@
         </div>
         <div id="wait_lesson" class="tab-pane fade">
           <% @wait_lessons.each do |lesson| %>
-            <%= render partial: '/students/lesson', locals: {lesson: lesson} %>
+            <%= render partial: '/live_studio/student/students/lesson', locals: {lesson: lesson} %>
           <% end %>
         </div>
         <div id="close_lessons" class="tab-pane fade">
           <% @close_lessons.each do |lesson| %>
-            <%= render partial: '/students/lesson', locals: {lesson: lesson} %>
+            <%= render partial: '/live_studio/student/students/lesson', locals: {lesson: lesson} %>
           <% end %>
         </div>
       </div>
@@ -53,7 +53,7 @@
   var calendar = $("#calendar").calendar({
     tmpl_path: "/tmpls/",
     language: 'zh-CN',
-    events_source: '/courses/schedule_sources?user_id=<%= @user.id %>'
+    events_source: '/live_studio/courses/schedule_sources?user_id=<%= @user.id %>'
   });
 
   $(function() {

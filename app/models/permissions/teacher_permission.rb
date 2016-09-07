@@ -67,7 +67,7 @@ module Permissions
 
       allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,
                        :info,:questions,:topics,:customized_courses,
-                       :customized_tutorial_topics,:homeworks,:solutions,:notifications,:schedules] do |teacher|
+                       :customized_tutorial_topics,:homeworks,:solutions,:notifications] do |teacher|
         teacher and teacher.id == user.id
       end
 
@@ -79,7 +79,7 @@ module Permissions
       end
 
       allow :lessons,[:show]
-      allow :courses,[:show, :schedule_sources]
+      allow :courses,[:show]
       allow :sessions,[:destroy]
       allow "teachers/faqs", [:index, :show]
       allow "teachers/faq_topics", [:show]
@@ -219,6 +219,7 @@ module Permissions
         teacher && teacher == user && permission
       end
 
+      allow 'live_studio/teacher/teachers', [:schedules]
       allow 'live_studio/teacher/lessons', [
           :index, :show, :new, :create, :edit, :update, :destroy,
           :begin_live_studio, :end_live_studio, :ready, :complete

@@ -7,6 +7,11 @@ LiveStudio::Engine.routes.draw do
 
   resources :courses, only: [:index, :show] do
     resources :orders, only: [:new, :create, :pay, :show] # 下单
+
+    collection do
+      get :schedule_sources
+    end
+
     member do
       post 'taste' # 试听
       get :play # 观看直播
@@ -47,6 +52,9 @@ LiveStudio::Engine.routes.draw do
 
   scope module: :teacher do
     resources :teachers, only: [] do
+      member do
+        get :schedules
+      end
       resources :courses, only: [:index, :show, :edit, :update, :create] do
         member do
           patch :close
@@ -62,6 +70,7 @@ LiveStudio::Engine.routes.draw do
           patch :complete
         end
       end
+
     end
   end
 
@@ -88,6 +97,9 @@ LiveStudio::Engine.routes.draw do
   # end
   scope module: :student do
     resources :students do
+      member do
+        get :schedules
+      end
       resources :courses, only: [:index, :show]
     end
   end

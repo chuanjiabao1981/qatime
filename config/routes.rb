@@ -29,11 +29,7 @@ Qatime::Application.routes.draw do
     resources :replies
   end
 
-  resources :courses do
-    collection do
-      get :schedule_sources
-    end
-  end
+  resources :courses
   resources :lessons do
     resources :topics
   end
@@ -135,7 +131,6 @@ Qatime::Application.routes.draw do
       get 'keep_account'
       get 'notifications'
       get :admin_edit
-      get :schedules
       patch :admin_update
     end
   end
@@ -154,7 +149,6 @@ Qatime::Application.routes.draw do
       get 'solutions'
       get 'notifications'
       get :admin_edit
-      get :schedules
       patch :admin_update
     end
     resources :customized_courses do

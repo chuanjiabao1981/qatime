@@ -30,11 +30,6 @@ class StudentsController < ApplicationController
     end
   end
 
-  def schedules
-    @wait_lessons = @student.live_studio_lessons.unclosed
-    @close_lessons = @student.live_studio_lessons.already_closed
-  end
-
   def show
     # if params[:fee].nil?
     #   @deposits = @student.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)

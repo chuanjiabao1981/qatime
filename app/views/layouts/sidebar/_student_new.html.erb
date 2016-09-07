@@ -47,7 +47,7 @@
       <% end %>
     </li>
     <li>
-      <%= link_to schedules_student_path(@student) do %>
+      <%= link_to live_studio.schedules_student_path(@student) do %>
         <span class="fa fa-calendar"></span>
         <span class="qa_f18"><%= t("view.student_bars.schedules") %></span>
         <span class="glyphicon arraw-span <%= student_sidebar_nav_is?(:schedules) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>

@@ -306,6 +306,13 @@ cn:
         no_customized_course_available: 没有可使用此大纲课程的专属课程
         is_same: 是否一致
         operation: 操作
+      course_action_record:
+        name:
+          course_create: "%%{course_name}辅导班创建成功！"
+          course_teaching: "%{course_name}开课了！"
+          lesson_teach: "%{course_name}辅导班的%{lesson_name}上课啦！"
+          lesson_change_class_date: "%{course_name}辅导班的%{lesson_name}调整啦！"
+          update_notice: "%{course_name}辅导班更新了新公告！"
 
     successful:
       messages:

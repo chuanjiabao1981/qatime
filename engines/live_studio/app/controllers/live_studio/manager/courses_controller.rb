@@ -27,9 +27,12 @@ module LiveStudio
     # POST /manager/courses
     def create
       @course = @manager.live_studio_courses.new(course_params)
-
       if @course.save
         LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
+
+        # 创建course_action_record，及发送消息
+        course_action_record = @course.course_action_records.create(name: t("activerecord.view.course_action_record.name.course_create", course_name: @course.name), operator: current_user, category: :course_create)
+        LiveService::CourseActionRecordDirector.new(course_action_record).create_action_notification
 
         redirect_to manager_course_path(@current_user, @course), notice: i18n_notice('created', @course)
       else

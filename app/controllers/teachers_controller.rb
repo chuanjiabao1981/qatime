@@ -137,8 +137,12 @@ class TeachersController < ApplicationController
   end
 
   def notifications
-    @action_notifications = @teacher.customized_course_action_notifications.paginate(page: params[:page])
-    # @action_notifiactions =
+    if params[:cate].blank? || params[:cate] == 'course'
+      params[:cate] = 'course'
+      @action_notifications = @teacher.course_action_notifications.paginate(page: params[:page])
+    elsif params[:cate] == 'system'
+      @action_notifications = @teacher.customized_course_action_notifications.paginate(page: params[:page])
+    end
     render layout: 'teacher_home_new'
   end
 

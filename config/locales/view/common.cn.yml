@@ -5,3 +5,5 @@ cn:
       no_bound_mobile: 还未绑定手机
       no_bound_email: 还未绑定邮箱
       no_bound_parent_phone: 还未绑定家长手机
+      live_studio_course_notice: 辅导班消息
+      system_notice: 系统消息

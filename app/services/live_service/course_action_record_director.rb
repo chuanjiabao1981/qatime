@@ -13,22 +13,18 @@ module LiveService
 
     # 创建辅导班，发送消息
     def course_create
-      n = @course_active_record.course_action_notifications.build(action_name: @course_active_record.name, receiver_id: receiver_teacher)
-      n.save
+      build_course_action_notifications(receiver_teacher)
     end
 
     # 辅导班开课发送消息
     def course_teaching
-      all_receiver.each do |receiver_id|
-        n = @course_active_record.course_action_notifications.build(action_name: @course_active_record.name, receiver_id: receiver_id)
-        n.save
-      end
+      build_course_action_notifications(all_receiver)
     end
 
     # 上课提醒
-    # def lesson_teach
-    #   course.
-    # end
+    def lesson_teach
+      build_course_action_notifications(all_receiver)
+    end
 
     # 修改辅导班公告，发送消息
     def update_notice
@@ -57,6 +53,17 @@ module LiveService
       a = a +  course.teacher_id
       a = a << course.student_ids
       a
+    end
+
+    def build_course_action_notifications(receivers)
+      if receivers.is_a?(Array)
+        receivers.each do |receiver_id|
+          n = @course_active_record.course_action_notifications.build(action_name: @course_active_record.name, receiver_id: receiver_id)
+          n.save
+      else
+        n = @course_active_record.course_action_notifications.build(action_name: @course_active_record.name, receiver_id: receivers.to_s.to_i)
+        n.save
+      end
     end
   end
 end

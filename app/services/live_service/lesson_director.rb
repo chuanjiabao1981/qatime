@@ -16,7 +16,12 @@ module LiveService
       # 如果辅导班已经有状态为teaching的课程,则返回false
       return false if !@course.lessons.teaching.blank?
       # 第一节课开始上课之前把辅导班设置为已开课
-      @course.teaching! if @course.preview?
+      if @course.preview?
+        @course.teaching!
+        course_action_record = @course.course_action_records.create(name: t("activerecord.view.course_action_record.name.course_teaching", course_name: @course.name), operator: current_user, category: :course_teaching)
+        # 发送辅导班开课通知
+        LiveService::CourseActionRecordDirector.new(course_action_record).create_action_notification
+      end
       LiveStudio::Lesson.transaction do
         # 记录上课开始时间
         @lesson.live_start_at = Time.now if @lesson.live_start_at.nil?
@@ -25,6 +30,10 @@ module LiveService
           lesson.finish! unless lesson.id == @lesson.id
         end
         @lesson.teach!
+        course_action_record = @course.course_action_records.create(name: t("activerecord.view.course_action_record.name.lesson_teach", course_name: @course.name, lesson_name: @lesson.name), operator: current_user, category: :lesson_teach, live_studio_course_id: @lesson.id)
+        # 发送课程开始上课通知
+        LiveService::CourseActionRecordDirector.new(course_action_record).create_action_notification
+
         @lesson.current_live_session
       end
     end
@@ -70,7 +79,15 @@ module LiveService
             LiveStudio::Lesson.find(id).destroy
           end
           (all_ids - delete_ids).each do |id|
-            LiveStudio::Lesson.find(id).update(edit_lesson_params(id,params))
+            update_params = edit_lesson_params(id,params)
+            lesson = LiveStudio::Lesson.find(id)
+            lesson.update(update_params)
+
+            # 如果没有name，则为调课，发送调课消息
+            if !update_params.has_key?(:name)
+              course_action_record = @course.course_action_records.create(name: t("activerecord.view.course_action_record.name.lesson_change_class_date", course_name: @course.name, lesson_name: lesson.name), operator: current_user, category: :lesson_change_class_date, live_studio_lesson_id: id)
+              LiveService::CourseActionRecordDirector.new(course_action_record).create_action_notification
+            end
           end
         end
         create_lessons(course,params)

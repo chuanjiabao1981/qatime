@@ -1,0 +1,16 @@
+<div class="">
+  <div style="">
+    <%=image_tag notification.operator.avatar.normal.url %>
+  </div>
+  <div class="title">
+    <% if notification.read %>
+      <span class="label label-default"><%= I18n.t "view.notification.read" %></span>
+    <% else %>
+      <span class="label label-danger"><%= I18n.t "view.notification.unread" %></span>
+    <% end %>
+    <%= link_to "1234" , notification_path(notification) %>
+  </div>
+  <div class="">
+    <%= localize(notification.created_at,format: :long) %>
+  </div>
+</div>

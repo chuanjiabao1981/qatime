@@ -44,6 +44,7 @@ module LiveStudio
     has_one :chat_team, foreign_key: 'live_studio_course_id', class_name: '::Chat::Team'
 
     has_many :billings, through: :lessons, class_name: 'Payment::Billing' # 结算记录
+    scope :month, -> (month){where('live_studio_courses.class_date >= ? and live_studio_courses.class_date <= ?',month.beginning_of_month.to_date,month.end_of_month.to_date)}
     scope :by_status, ->(status){status.blank? || status == 'all' ? nil : where(status: statuses[status.to_sym])}
     scope :by_subject, ->(subject){ subject.blank? || subject == 'all' ? nil : where(subject: subject)}
     scope :by_grade, ->(grade){ grade.blank? || grade == 'all' ? nil : where(grade: grade)}

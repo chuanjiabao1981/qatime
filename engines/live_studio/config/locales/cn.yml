@@ -1,5 +1,9 @@
 cn:
   view:
+    tips:
+      none_lessons: 当前无课程
+    columns:
+      tickets_count: 人数
     save_btn: 保存
     cancel_btn: 取消
     insert_btn: 新增%s

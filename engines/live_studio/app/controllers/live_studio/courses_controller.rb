@@ -64,6 +64,16 @@ module LiveStudio
       redirect_to teacher_course_path(@teacher, @course)
     end
 
+    def schedule_sources
+      @user = User.find(params[:user_id])
+      moment = params[:date].blank? ? Time.now : params[:date].to_time
+      arr = LiveService::CourseDirector.courses_by_month(@user, moment)
+      @date_list = arr.map{|data| data[:date]}
+      lesson_map = arr.select{|data| data[:date].to_time == moment}.first
+      @lessons = lesson_map[:lessons] if lesson_map.present?
+      render partial: 'live_studio/student/students/lesson'
+    end
+
     private
 
     def set_course

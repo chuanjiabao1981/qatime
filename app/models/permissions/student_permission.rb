@@ -145,6 +145,7 @@ module Permissions
       allow 'live_studio/orders', [:new, :create, :pay, :show]
 
       ## begin live studio permission
+      allow 'live_studio/student/students', [:schedules]
       allow 'live_studio/student/courses', [:index, :show]
       allow 'live_studio/lessons', [:show, :play]
       ## end live studio permission
@@ -187,6 +188,9 @@ module Permissions
         student && student.id == user.id
       end
       api_allow :PUT, "/api/v1/students/[\\w-]+/parent_phone" do |student|
+        student && student.id == user.id
+      end
+      api_allow :GET, "/api/v1/live_studio/students/[\\w-]+/schedule" do |student|
         student && student.id == user.id
       end
 

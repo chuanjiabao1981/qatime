@@ -25,7 +25,7 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     res = JSON.parse(response.body)
 
     assert_equal 1, res['status']
-    assert_equal 15, res['data'].size
+    assert_equal 16, res['data'].size
 
     assert_equal @student.name, res['data']['name']
   end
@@ -49,7 +49,7 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     res = JSON.parse(response.body)
 
     assert_equal 1, res['status']
-    assert_equal 15, res['data'].size
+    assert_equal 16, res['data'].size
 
     @student.reload
     assert_equal @student.name, res['data']['name']
@@ -71,14 +71,14 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     assert_equal "无访问权限", res['error']['msg']
   end
 
-  test 'GET /api/v1/student/schedule no params by student' do
+  test 'GET /api/v1/live_studio/student/schedule no params by student' do
     @student = users(:student_one_with_course)
     post '/api/v1/sessions', email: @student.email,
          password: 'password',
          client_type: 'app'
     @remember_token = JSON.parse(response.body)['data']['remember_token']
 
-    get "/api/v1/students/#{@student.id}/schedule", {}, 'Remember-Token' => @remember_token
+    get "/api/v1/live_studio/students/#{@student.id}/schedule", {}, 'Remember-Token' => @remember_token
     data = JSON.parse(response.body)['data']
     assert_response :success
     assert data.class == Array
@@ -87,8 +87,8 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     assert return_date >= Time.now.beginning_of_month.to_date && return_date <= Time.now.end_of_month.to_date, '返回数据日期不正确'
   end
 
-  test 'GET /api/v1/student/schedule returns error by teacher' do
-    get "/api/v1/students/#{@teacher.id}/schedule", {}, 'Remember-Token' => @teacher_remember_token
+  test 'GET /api/v1/live_studio/student/schedule returns error by teacher' do
+    get "/api/v1/live_studio/students/#{@teacher.id}/schedule", {}, 'Remember-Token' => @teacher_remember_token
     assert_response :success
     res = JSON.parse(response.body)
 
@@ -97,14 +97,14 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     assert_equal "无访问权限", res['error']['msg']
   end
 
-  test 'GET /api/v1/student/:id/schedule has params by student' do
+  test 'GET /api/v1/live_studio/student/:id/schedule has params by student' do
     @student = users(:student_one_with_course)
     post '/api/v1/sessions', email: @student.email,
          password: 'password',
          client_type: 'app'
     @remember_token = JSON.parse(response.body)['data']['remember_token']
 
-    get "/api/v1/students/#{@student.id}/schedule", {month: Time.now.to_date.to_s}, 'Remember-Token' => @remember_token
+    get "/api/v1/live_studio/students/#{@student.id}/schedule", {month: Time.now.to_date.to_s}, 'Remember-Token' => @remember_token
     data = JSON.parse(response.body)['data']
     assert_response :success
     assert data.class == Array
@@ -113,8 +113,8 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     assert return_date >= Time.now.beginning_of_month.to_date && return_date <= Time.now.end_of_month.to_date, '返回数据日期不正确'
   end
 
-  test 'GET /api/v1/student/:id/schedule returns error by teacher' do
-    get "/api/v1/students/#{@teacher.id}/schedule", {month: Time.now.to_date.to_s}, 'Remember-Token' => @teacher_remember_token
+  test 'GET /api/v1/live_studio/student/:id/schedule returns error by teacher' do
+    get "/api/v1/live_studio/students/#{@teacher.id}/schedule", {month: Time.now.to_date.to_s}, 'Remember-Token' => @teacher_remember_token
     assert_response :success
     res = JSON.parse(response.body)
 

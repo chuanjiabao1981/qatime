@@ -219,6 +219,7 @@ module Permissions
         teacher && teacher == user && permission
       end
 
+      allow 'live_studio/teacher/teachers', [:schedules]
       allow 'live_studio/teacher/lessons', [
           :index, :show, :new, :create, :edit, :update, :destroy,
           :begin_live_studio, :end_live_studio, :ready, :complete
@@ -251,7 +252,11 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/teachers/[\\w-]+/courses" do |teacher|
         teacher && teacher.id == user.id
       end
+      api_allow :GET, "/api/v1/live_studio/teachers/[\\w-]+/schedule" do |teacher|
+        teacher && teacher.id == user.id
+      end
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/taste"
+      api_allow :GET, "/api/v1/live_studio/teachers/[\\w-]+/schedules"
       api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/live_start"
       api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/live_end"
 

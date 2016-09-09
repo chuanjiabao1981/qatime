@@ -66,6 +66,21 @@ module V1
                 present course, with: Entities::LiveStudio::TeacherCourse, type: :full, size: :info
               end
             end
+
+            desc '老师课程表接口' do
+              headers 'Remember-Token' => {
+                description: 'RememberToken',
+                required: true
+              }
+            end
+            params do
+              optional :month, type: String, desc: '月份: 2016-10-01 该值为空则默认返回当月数据'
+              optional :state, type: String, desc: '课程状态:未上课 已完成 不传则默认返回全部', values: %w(unclosed closed)
+            end
+            get 'schedule' do
+              arr = LiveService::CourseDirector.courses_by_month(current_user, params[:month], params[:state])
+              present arr, with: Entities::LiveStudio::Schedule, type: :schedule
+            end
           end
         end
 
@@ -109,6 +124,21 @@ module V1
                 course = current_user.live_studio_courses.find(params[:id])
                 present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user, size: :info
               end
+            end
+
+            desc '学生课程表接口' do
+              headers 'Remember-Token' => {
+                description: 'RememberToken',
+                required: true
+              }
+            end
+            params do
+              optional :month, type: String, desc: '月份: 2016-10-01 该值为空则默认返回当月数据'
+              optional :state, type: String, desc: '课程状态:未上课 已完成 不传则默认返回全部', values: %w(unclosed closed)
+            end
+            get 'schedule' do
+              arr = LiveService::CourseDirector.courses_by_month(current_user, params[:month], params[:state])
+              present arr, with: Entities::LiveStudio::Schedule, type: :schedule
             end
           end
         end

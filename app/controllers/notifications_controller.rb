@@ -8,8 +8,6 @@ class NotificationsController < ApplicationController
 
     if current_resource.type == "LiveStudio::CourseActionNotification"
       begin
-        binding.pry
-
         if current_user.teacher?
           case @notification.notificationable.category.to_s.split("_").first
           when "course"

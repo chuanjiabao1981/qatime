@@ -1,11 +1,19 @@
 <div class="qa_object_item" style="clear: both;">
-  <div class="course_notice_title">
+  <div style="float:left">
+  <%
+    arr = notification.notificationable.category.to_s.split("_");
+    image_name = (arr - arr.last(2)).join("_")
+  %>
+  <%= image_tag "/assets/#{image_name}.jpg",class: "img-responsive" %>
+  </div>
+  <div class="title">
     <% if notification.read %>
       <span class="label label-default"><%= I18n.t "view.notification.read" %></span>
     <% else %>
       <span class="label label-danger"><%= I18n.t "view.notification.unread" %></span>
     <% end %>
-    <%= link_to notification.notificationable.content, notification_path(notification) %>
+    <%= notification.notificationable.content %>
+    <%= link_to t("view.course_show.info"), notification_path(notification) %>
   </div>
   <div class="info">
     <%= localize(notification.created_at,format: :long) %>

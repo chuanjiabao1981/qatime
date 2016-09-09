@@ -4,7 +4,7 @@
     arr = notification.notificationable.category.to_s.split("_");
     image_name = (arr - arr.last(2)).join("_")
   %>
-  <%= image_tag "/assets/#{image_name}.jpg",class: "img-responsive" %>
+  <%= image_tag "#{image_name}.jpg",class: "img-responsive" %>
   </div>
   <div class="title">
     <% if notification.read %>

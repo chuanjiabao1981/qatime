@@ -14,8 +14,8 @@
       padding: 5px;
       position: relative;
       .circle {
-        width: 10px;
-        height: 10px;
+        width: 8px;
+        height: 8px;
         display: inline-block;
         background: #FF6600;
         float: left;
@@ -34,7 +34,7 @@
       color: #c0c0c0;
     }
     div.active{
-      background: #CCCCCC;
+      background: #d6e9c6;
     }
     div.able{
       cursor: pointer;
@@ -42,7 +42,7 @@
   }
   .calendar-nav{
     float: right;
-    width: 24%;
+    width: 25%;
     text-align: center;
     padding: 10px;
     #prev_month{

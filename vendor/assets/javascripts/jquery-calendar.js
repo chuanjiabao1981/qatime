@@ -69,7 +69,7 @@
     };
     this.drawNav = function() {
       var year, month, day, date;
-      year = $('<div class="nav-year"><span id="prev_month">&lt;</span><span id="back_today">今</span>'+this.initDate.getFullYear()+'年</div>');
+      year = $('<div class="nav-year"><span id="prev_month">&lt;</span>'+this.initDate.getFullYear()+'年</div>');
       month = $('<div class="nav-month">'+(this.initDate.getMonth()+1)+'月<span id="next_month">&gt;</span></div>');
       day = $('<div class="nav-day">'+this.showDay(this.initDate.getDay())+'</div>');
       date = $('<div class="nav-date">'+this.initDate.getDate()+'</div>');

@@ -38,6 +38,10 @@ module LiveStudio
         end
       end
 
+      teacher.reload
+      # 教师消息提醒
+      assert_equal("您有新的辅导班任务：测试英语辅导课程，请尽快设置内容及课程后进行招生发布。",teacher.course_action_notifications.last.notificationable.content, "消息发送错误")
+
       course = Course.last
       assert_equal(teacher.id, course.teacher_id, '辅导班老师指定错误')
       assert_equal(300, course.price.to_f, '定价出错')

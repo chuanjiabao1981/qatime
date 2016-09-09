@@ -5,7 +5,7 @@
     <% else %>
       <span class="label label-danger"><%= I18n.t "view.notification.unread" %></span>
     <% end %>
-    <%= link_to notification.notificationable.name, notification_path(notification) %>
+    <%= link_to notification.notificationable.content, notification_path(notification) %>
   </div>
   <div class="info">
     <%= localize(notification.created_at,format: :long) %>

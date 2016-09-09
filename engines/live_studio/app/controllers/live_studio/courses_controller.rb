@@ -61,10 +61,19 @@ module LiveStudio
       team.reload
       Chat::IM.team_update(tid: team.team_id, owner: team.owner, announcement: team.announcement)
 
-      course_action_record = @course.course_action_records.create(name: :update_notice, category: :update_notice)
+      # 生成course_action_record,给学生发送提示
+      course_action_record = @course.course_action_records.new(
+        content: I18n.t(
+          "activerecord.view.course_action_record.content.notice_update_for_students",
+          course_name: course.name
+        ),
+        category: :notice_update_for_students,
+        live_studio_course_id: course.id,
+        live_studio_lesson_id: id
+      )
       course_action_record.save(validate: false)
-        # 发送辅导班公告通知
-        LiveService::CourseActionRecordDirector.new(course_action_record).create_action_notification
+
+      LiveService::CourseActionRecordDirector.new(course_action_record).create_action_notification
 
       redirect_to teacher_course_path(@teacher, @course)
     end

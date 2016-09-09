@@ -1,33 +1,56 @@
-<table class="schedules-tb table table-white table-condensed border-grey">
-  <thead>
-  <tr>
-    <td colspan="4" class="">
-      <%= link_to "#{t('view.course_info_show.lesson_name') }: #{lesson.name}", live_studio.send("#{@user.role}_course_path",@user,lesson.course.id)%>
-    </td>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td style="width: 20%;" rowspan="3">
-      <%= image_tag lesson.course.publicize_url(:small), class: 'order-img' %>
-    </td>
-    <td style="width: 45%;">
-      <%= lesson.course.name %>
-    </td>
-    <td class='text-center schedules-border-td' rowspan="3">
-      <%= lesson.class_date %>
-      <br/>
-      <%= "#{lesson.start_time}-#{lesson.end_time}" %>
-    </td>
-    <td rowspan="3" class="text-center schedules-border-td">
-      <%= lesson.status_text %>
-    </td>
-  </tr>
-  <tr>
-    <td><%= t('view.course_search_show.grade') %> :<%= lesson.course.grade %></td>
-  </tr>
-  <tr>
-    <td><%= "#{t('view.course_search_show.buy_tickets_count') % lesson.course.buy_tickets_count}" %></td>
-  </tr>
-  </tbody>
-</table>
+<%
+   lessons = @lessons || lessons
+%>
+<% if @date_list.present? %>
+  <script type="text/javascript" charset="utf-8">
+    //callback(data['result']);
+    var arr = '<%= @date_list.join(',') %>'.split(',');
+    for (var i = 0; i < arr.length; i++){
+      var tmp_date = arr[i];
+      tmp_date = new Date(tmp_date);
+      var tmp_cell = $("#calendar").find('.cell-'+(tmp_date.getMonth()+1)+'-'+tmp_date.getDate());
+      $(tmp_cell).addClass('able');
+      $(tmp_cell).attr('rel', arr[i]);
+      $(tmp_cell).append('<span class="circle">&nbsp;</span>');
+    }
+  </script>
+<% end %>
+
+<% lessons.each do |lesson| %>
+  <table class="schedules-tb table table-white table-condensed border-grey">
+    <thead>
+    <tr>
+      <td colspan="5">
+        <%= "#{t('view.course_info_show.lesson_name') }: #{lesson.name}"%>
+      </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td style="width: 20%;" rowspan="3">
+        <%= image_tag lesson.course.publicize_url(:small), class: 'order-img' %>
+      </td>
+      <td style="width: 45%;">
+        <%= lesson.course.name %>
+      </td>
+      <td class='text-center schedules-border-td' rowspan="3">
+        <%= lesson.class_date %>
+        <br/>
+        <%= "#{lesson.start_time}-#{lesson.end_time}" %>
+      </td>
+      <td rowspan="3" class="text-center schedules-border-td">
+        <%= lesson.status_text %>
+      </td>
+      <%= content_tag :td, rowspan: 3, class: "text-center #{lesson.is_over? && 'font-grey'}" do %>
+        <%= link_to_if !lesson.is_over?, '进入', live_studio.send("#{@user.role}_course_path",@user,lesson.course.id) %>
+      <% end if @user.student? %>
+    </tr>
+    <tr>
+      <td><%= t('view.course_search_show.grade') %> :<%= lesson.course.grade %></td>
+    </tr>
+    <tr>
+      <td><%= "#{t('view.course_search_show.buy_tickets_count') % lesson.course.buy_tickets_count}" %></td>
+    </tr>
+    </tbody>
+  </table>
+<% end if lessons %>

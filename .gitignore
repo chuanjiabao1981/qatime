@@ -18,6 +18,7 @@
 
 /public/uploads/*
 /public/qrcode/*.png
+/public/assets/*
 /.idea
 /config/application.yml
 /config/database.yml

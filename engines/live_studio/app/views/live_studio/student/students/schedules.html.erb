@@ -31,16 +31,14 @@
         <div id="schedules_div" class="tab-pane fade in active">
           <div id="calendar">
           </div>
+          <div id="calendar_data">
+          </div>
         </div>
         <div id="wait_lesson" class="tab-pane fade">
-          <% @wait_lessons.each do |lesson| %>
-            <%= render partial: '/live_studio/student/students/lesson', locals: {lesson: lesson} %>
-          <% end %>
+          <%= render partial: '/live_studio/student/students/lesson', locals: {lessons: @wait_lessons} %>
         </div>
         <div id="close_lessons" class="tab-pane fade">
-          <% @close_lessons.each do |lesson| %>
-            <%= render partial: '/live_studio/student/students/lesson', locals: {lesson: lesson} %>
-          <% end %>
+          <%= render partial: '/live_studio/student/students/lesson', locals: {lessons: @close_lessons} %>
         </div>
       </div>
     </div>
@@ -48,19 +46,22 @@
 </div>
 
 <% content_for :javascript do -%>
-<%= javascript_include_tag "calendar-lib" %>
-<script type="text/javascript" charset="utf-8">
-  var calendar = $("#calendar").calendar({
-    tmpl_path: "/tmpls/",
-    language: 'zh-CN',
-    events_source: '/live_studio/courses/schedule_sources?user_id=<%= @user.id %>'
-  });
+  <%= javascript_include_tag "jquery-calendar" %>
+  <script type="text/javascript" charset="utf-8">
+    var calendar = $("#calendar").calendar(
+      {
+        data_url: '<%= live_studio.schedule_sources_courses_path(user_id: (@student || @teacher).id) %>',
+        callback: function(data) {
+          console.log(data);
+          $('#calendar_data').html(data);
+        }
+      });
 
-  $(function() {
-    $('.schedules-list-ceil').click(function(event){
-      $('.schedules-list-ceil').removeClass('active');
-      $(this).addClass('active');
+    $(function() {
+      $('.schedules-list-ceil').click(function(event){
+        $('.schedules-list-ceil').removeClass('active');
+        $(this).addClass('active');
+      });
     });
-  });
-</script>
+  </script>
 <% end -%>

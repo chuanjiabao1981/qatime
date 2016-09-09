@@ -1,0 +1,83 @@
+#calendar{
+  float:left;
+  background: #f1f1f1;
+  width: 100%;
+  .calendar-title,.calendar-list{
+    float: left;
+    width: 75%;
+    div{
+      float:left;
+      width: 14.28%;
+      height: 20%;
+      text-align: center;
+      padding: 5px;
+      position: relative;
+      .circle {
+        width: 10px;
+        height: 10px;
+        display: inline-block;
+        background: red;
+        float: left;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 30px;
+        right: 0;
+        margin: auto;
+      }
+    }
+    div.virtual{
+      color: #c0c0c0;
+    }
+    div.active{
+      background: #CCCCCC;
+    }
+    div.able{
+      cursor: pointer;
+    }
+  }
+  .calendar-nav{
+    float: right;
+    width: 24%;
+    background: #cccccc;
+    text-align: center;
+    padding: 30px;
+    #prev_month{
+      cursor: pointer;
+      margin-right: 10px;
+      font-weight: 900;
+    }
+    #next_month{
+      cursor: pointer;
+      margin-left: 10px;
+      font-weight: 900;
+    }
+    .nav-year{
+      float: left;
+      width: 50%;
+      text-align:right;
+    }
+    .nav-month{
+      float: left;
+      width: 50%;
+      text-align:left;
+      padding-left: 12px;
+    }
+    .nav-date{
+      padding-top: 20px;
+      font-size: 24px;
+      font-weight: 900;
+    }
+    .nav-day{
+      margin-top: 20px;
+    }
+  }
+}
+#calendar_data{
+  margin-top: 20px;
+  float: left;
+  width: 100%;
+}

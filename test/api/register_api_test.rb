@@ -36,7 +36,7 @@ class Qatime::RegisterAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal 15, res['data'].size
+    assert_equal 16, res['data'].size
 
     student.reload
     assert_equal student.name, res['data']['name']

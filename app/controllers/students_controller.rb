@@ -110,12 +110,7 @@ class StudentsController < ApplicationController
   end
 
   def notifications
-    if params[:cate].blank? || params[:cate] == 'course'
-      params[:cate] = 'course'
-      @action_notifications = @student.course_action_notifications.paginate(page: params[:page])
-    elsif params[:cate] == 'system'
-      @action_notifications = @student.customized_course_action_notifications.paginate(page: params[:page])
-    end
+    @action_notifications = @student.notifications.paginate(page: params[:page])
     render layout: 'student_home_new'
   end
 

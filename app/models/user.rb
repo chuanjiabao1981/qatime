@@ -40,6 +40,8 @@ class User < ActiveRecord::Base
   has_many :faqs
   has_many :messages
   has_one  :account, as: :accountable
+
+  has_many :notifications,->{ order 'created_at desc'}, foreign_key: :receiver_id
   has_many :customized_course_action_notifications,->{ order 'created_at desc'},foreign_key: :receiver_id
   has_many :course_action_notifications, class_name: '::LiveStudio::CourseActionNotification', foreign_key: :receiver_id
 

@@ -1,10 +1,11 @@
 #calendar{
   float:left;
-  background: #f1f1f1;
+  background: #cccccc;
   width: 100%;
   .calendar-title,.calendar-list{
     float: left;
     width: 75%;
+    background: #f1f1f1;
     div{
       float:left;
       width: 14.28%;
@@ -16,7 +17,7 @@
         width: 10px;
         height: 10px;
         display: inline-block;
-        background: red;
+        background: #FF6600;
         float: left;
         -moz-border-radius: 5px;
         -webkit-border-radius: 5px;
@@ -42,9 +43,8 @@
   .calendar-nav{
     float: right;
     width: 24%;
-    background: #cccccc;
     text-align: center;
-    padding: 30px;
+    padding: 10px;
     #prev_month{
       cursor: pointer;
       margin-right: 10px;
@@ -55,6 +55,13 @@
       margin-left: 10px;
       font-weight: 900;
     }
+    #back_today{
+      color: white;
+      display: inline-block;
+      background: #555555;
+      margin: 0 2px;
+      cursor: pointer;
+    }
     .nav-year{
       float: left;
       width: 50%;
@@ -64,15 +71,14 @@
       float: left;
       width: 50%;
       text-align:left;
-      padding-left: 12px;
+      padding-left: 20px;
     }
     .nav-date{
       padding-top: 20px;
-      font-size: 24px;
+      font-size: 80px;
       font-weight: 900;
     }
     .nav-day{
-      margin-top: 20px;
     }
   }
 }

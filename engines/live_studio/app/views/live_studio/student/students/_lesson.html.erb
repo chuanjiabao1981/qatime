@@ -9,12 +9,12 @@
       var tmp_date = arr[i];
       tmp_date = new Date(tmp_date);
       var tmp_cell = $("#calendar").find('.cell-'+(tmp_date.getMonth()+1)+'-'+tmp_date.getDate());
-      $(tmp_cell).addClass('able');
       $(tmp_cell).attr('rel', arr[i]);
       $(tmp_cell).append('<span class="circle">&nbsp;</span>');
     }
   </script>
 <% end %>
+<%= content_tag :div, t('view.tips.none_lessons') if lessons.blank? %>
 
 <% lessons.each do |lesson| %>
   <table class="schedules-tb table table-white table-condensed border-grey">
@@ -34,7 +34,7 @@
         <%= lesson.course.name %>
       </td>
       <td class='text-center schedules-border-td' rowspan="3">
-        <%= lesson.class_date %>
+        <%= l lesson.class_date,format: :long %>
         <br/>
         <%= "#{lesson.start_time}-#{lesson.end_time}" %>
       </td>
@@ -46,10 +46,10 @@
       <% end if @user.student? %>
     </tr>
     <tr>
-      <td><%= t('view.course_search_show.grade') %> :<%= lesson.course.grade %></td>
+      <td><%= t('view.course_search_show.grade') %>:<%= lesson.course.grade %></td>
     </tr>
     <tr>
-      <td><%= "#{t('view.course_search_show.buy_tickets_count') % lesson.course.buy_tickets_count}" %></td>
+      <td><%= "#{t('view.columns.tickets_count')}: #{lesson.course.buy_tickets_count}" %></td>
     </tr>
     </tbody>
   </table>

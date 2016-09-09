@@ -8,10 +8,24 @@ class NotificationsController < ApplicationController
 
     if current_resource.type == "LiveStudio::CourseActionNotification"
       begin
+        binding.pry
+
         if current_user.teacher?
-          redirect_to live_studio.teacher_course_path(current_user.id, @notification.notificationable.live_studio_course.id)
+          case @notification.notificationable.category.to_s.split("_").first
+          when "course"
+            redirect_to live_studio.teacher_course_path(current_user.id, @notification.notificationable.live_studio_course.id)
+          when "lesson"
+            redirect_to live_studio.teacher_course_path(current_user.id, @notification.notificationable.live_studio_course.id, index: :list)
+          end
         elsif current_user.student?
-          redirect_to live_studio.student_course_path(current_user.id, @notification.notificationable.live_studio_course.id)
+          case @notification.notificationable.category.to_s.split("_").first
+          when "course"
+            redirect_to live_studio.student_course_path(current_user.id, @notification.notificationable.live_studio_course.id)
+          when "lesson"
+            redirect_to live_studio.student_course_path(current_user.id, @notification.notificationable.live_studio_course.id, index: :list)
+          when "notice"
+            redirect_to live_studio.play_course_path(@notification.live_studio_course)
+          end
         else
           redirect_to user_home_path
         end

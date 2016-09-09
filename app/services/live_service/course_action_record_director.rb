@@ -11,32 +11,41 @@ module LiveService
       send @course_active_record.category.to_s.to_sym
     end
 
-    # 创建辅导班，发送消息
-    def course_create
+    # 学生
+    # 上课提醒
+    def lesson_teach_for_students
+      build_course_action_notifications(receiver_students)
+    end
+
+    # 辅导班开课
+    def course_teaching_for_students
+      build_course_action_notifications(receiver_students)
+    end
+
+    # 辅导班调课
+    def lesson_change_class_date_for_students
+      build_course_action_notifications(receiver_students)
+    end
+
+    # 辅导班公告发布
+    def notice_update_for_students
+      build_course_action_notifications(receiver_students)
+    end
+
+    # 老师
+    # 新辅导班
+    def course_create_for_teacher
       build_course_action_notifications(receiver_teacher)
     end
 
-    # 辅导班开课发送消息
-    def course_teaching
-      build_course_action_notifications(all_receiver)
-    end
-
-    # 调课
-    def lesson_change_class_date
-      build_course_lesson_action_notifications(receiver_students)
+    # 辅导班开课
+    def course_teaching_for_teacher
+      build_course_action_notifications(receiver_teacher)
     end
 
     # 上课提醒
-    def lesson_teach
-      build_course_lesson_action_notifications(all_receiver)
-    end
-
-    # 修改辅导班公告，发送消息
-    def update_notice
-      receiver_students.each do |receiver_id|
-        n = @course_active_record.course_action_notifications.build(action_name: @course_active_record.name, receiver_id: receiver_id)
-        n.save
-      end
+    def lesson_teach_for_teacher
+      build_course_action_notifications(receiver_teacher)
     end
 
     private
@@ -51,13 +60,6 @@ module LiveService
 
     def receiver_students
       course.student_ids
-    end
-
-    def all_receiver
-      a = []
-      a = a + course.student_ids
-      a = a << course.teacher_id
-      a
     end
 
     def build_course_action_notifications(receivers)

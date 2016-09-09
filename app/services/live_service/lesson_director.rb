@@ -18,10 +18,23 @@ module LiveService
       # 第一节课开始上课之前把辅导班设置为已开课
       if @course.preview?
         @course.teaching!
-        course_action_record = @course.course_action_records.new(name: I18n.t("activerecord.view.course_action_record.name.course_teaching", course_name: @course.name), category: :course_teaching, live_studio_course_id: @course.id, live_studio_lesson_id: @lesson.id)
-        course_action_record.save(validate: false)
-        # 发送辅导班开课通知
-        LiveService::CourseActionRecordDirector.new(course_action_record).create_action_notification
+        %w(students teacher).each do |receiver|
+          # 生成 course_action_record
+          course_action_record = @course.course_action_records.new(
+            content: I18n.t(
+              "activerecord.view.course_action_record.content.course_teaching_for_#{receiver}",
+              course_name: @course.name,
+              course_class_date: @course.class_date
+            ),
+            category: "course_teaching_for_#{receiver}".to_sym,
+            live_studio_course_id: @course.id,
+            live_studio_lesson_id: @lesson.id
+          )
+          course_action_record.save(validate: false)
+
+          # 发送辅导班开课通知
+          LiveService::CourseActionRecordDirector.new(course_action_record).create_action_notification
+        end
       end
       LiveStudio::Lesson.transaction do
         # 记录上课开始时间
@@ -38,7 +51,27 @@ module LiveService
     # 准备上课
     # 上课时间为今天的设置为ready状态, init => ready
     def self.ready_today_lessons
-      LiveStudio::Lesson.today.init.find_each(batch_size: 500).map(&:ready!)
+      LiveStudio::Lesson.today.init.find_each(batch_size: 500).each do |lesson|
+        lesson.ready!
+        course = lesson.course
+        %w(students teacher).each do |receiver|
+          # 生成 course_action_record
+          course_action_record = course.course_action_records.new(
+            content: I18n.t(
+              "activerecord.view.course_action_record.content.lesson_teach_for_#{receiver}",
+              lesson_name: lesson.name,
+              lesson_live_begin_time: lesson.live_begin_time,
+            ),
+            category: "lesson_teach_for_#{receiver}".to_sym,
+            live_studio_course_id: course.id,
+            live_studio_lesson_id: lesson.id
+          )
+          course_action_record.save(validate: false)
+
+          # 发送辅导班开课通知
+          LiveService::CourseActionRecordDirector.new(course_action_record).create_action_notification
+        end
+      end
     end
 
     # 清理未完成课程
@@ -78,11 +111,24 @@ module LiveService
           (all_ids - delete_ids).each do |id|
             update_params = edit_lesson_params(id,params)
             lesson = LiveStudio::Lesson.find(id)
+            _old_lesson_date = lesson.class_date.to_s + " " + lesson.live_time.to_s
             lesson.update(update_params)
-
-            # 如果没有name，则为调课，发送调课消息
+            lesson.reload
+            _new_lesson_date = lesson.class_date.to_s + " " + lesson.live_time.to_s
+            # 如果没有name，则为调课，给学生发送调课消息
             if !update_params.has_key?(:name) && update_params[:class_date]
-              course_action_record = course.course_action_records.new(name: I18n.t("activerecord.view.course_action_record.name.lesson_change_class_date", course_name: course.name, lesson_name: lesson.name), category: :lesson_change_class_date, live_studio_lesson_id: id)
+              course_action_record = course.course_action_records.new(
+                content: I18n.t(
+                  "activerecord.view.course_action_record.content.lesson_change_class_date_for_students",
+                  lesson_name: lesson.name,
+                  teacher_name: course.teacher.name,
+                  old_lesson_date: _old_lesson_date,
+                  new_lesson_date: _new_lesson_date
+                ),
+                category: :lesson_change_class_date_for_students,
+                live_studio_course_id: course.id,
+                live_studio_lesson_id: id
+              )
               course_action_record.save(validate: false)
               LiveService::CourseActionRecordDirector.new(course_action_record).create_action_notification
             end

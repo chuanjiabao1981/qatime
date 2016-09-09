@@ -113,6 +113,10 @@ module LiveStudio
       "#{start_time}~#{end_time}"
     end
 
+    def live_begin_time
+      "#{class_date} #{start_time}"
+    end
+
     # 心跳
     def heartbeats(token = nil)
       @live_session = token.blank? ? new_live_session : current_live_session

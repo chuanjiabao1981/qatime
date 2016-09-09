@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20160907084901) do
     t.string   "event"
     t.integer  "live_studio_course_id"
     t.integer  "live_studio_lesson_id"
+    t.text     "content"
     t.string   "category"
   end
 

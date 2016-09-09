@@ -54,6 +54,7 @@ course_preview:
   grade: 六年级
   subject: 语文
   teacher_percentage: 20
+  class_date: <%= Date.today %>
 
 course_preview_two:
   name: 招生中的辅导班2

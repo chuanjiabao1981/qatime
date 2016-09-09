@@ -1,48 +1,18 @@
-<div class="qa_box panel panel-default panel-support">
-  <div class='course-header-div'>
-    <%= content_tag(:div, t("view.student_bars.my_notice"), class: 'title') %>
-  </div>
-  <% @current_resource %>
-  <% %>
-  <div class="course-info-list">
-    <%= link_to eval("notifications_#{@current_resource.model_name.singular_route_key}_path(@current_resource, cate: :course)") do %>
-      <div id="info_div" class="list-ceil <%= params[:cate].blank? || params[:cate] == 'course' ? ' active' : nil %>">
-        <%= t('view.common.live_studio_course_notice') %>
-      </div>
-    <% end %>
-    <%= link_to eval("notifications_#{@current_resource.model_name.singular_route_key}_path(@current_resource, cate: :system)") do %>
-      <div id="list_div" class="list-ceil<%= params[:cate] == 'system' ? ' active' : nil %>">
-        <%= t('view.common.system_notice') %>
-      </div>
-    <% end %>
-  </div>
-
-  <% if notifications.count > 0 %>
-    <div class="qa_objects">
-      <%= render partial: 'notifications/notification',collection: notifications %>
-    </div>
-    <div>
-      <%= will_paginate notifications ,renderer: BootstrapPagination::Rails %>
-    </div>
-  <% end %>
-</div>
-
-<!--
 <div class="qa_box">
   <div class="box_header qa_cell">
     <div class="pull-left">
       <span class="label label-primary">
-        <%#= I18n.t "view.notification.unread_notification_count",count:user.customized_course_action_notifications.unread.count%>
+        <%= I18n.t "view.notification.unread_notification_count",count:user.notifications.unread.count%>
       </span>
     </div>
     <div style="clear:both"></div>
   </div>
-  <%# if notifications %>
+  <% if notifications %>
     <div class="qa_objects">
-        <%#= render partial: 'notifications/notification',collection: notifications %>
+        <%= render partial: 'notifications/notification',collection: notifications %>
     </div>
     <div class="qa_cell">
-        <%#= will_paginate notifications ,renderer: BootstrapPagination::Rails %>
+        <%= will_paginate notifications ,renderer: BootstrapPagination::Rails %>
     </div>
-  <%# end %>
-</div> -->
+  <% end %>
+</div>

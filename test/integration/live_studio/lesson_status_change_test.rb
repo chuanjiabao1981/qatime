@@ -27,11 +27,15 @@ class LiveStudio::TeacherLessonTest < ActionDispatch::IntegrationTest
 
   test 'service lesson start course teaching?' do
     preview_course = live_studio_courses(:course_preview)
+    student = preview_course.students.first
     ready_lesson = live_studio_lessons(:ready_lesson_today2)
     LiveService::LessonDirector.new(ready_lesson).lesson_start
     preview_course.reload
     ready_lesson.reload
     assert preview_course.teaching? ,'辅导班应改为上课中'
+
+    student.reload
+    assert student.course_action_notifications.last.live_studio_course == preview_course, '辅导班开课提醒错误'
     assert ready_lesson.live_start_at.present?, '课程直播开始时间为空'
     assert preview_course.lessons.waiting_finish.blank?, 'closed paused 的数据不为空'
     assert ready_lesson.live_sessions.present?, '直播中的课程应该有心跳记录'

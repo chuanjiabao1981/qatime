@@ -21,9 +21,14 @@ module LiveService
       build_course_action_notifications(all_receiver)
     end
 
+    # 调课
+    def lesson_change_class_date
+      build_course_lesson_action_notifications(receiver_students)
+    end
+
     # 上课提醒
     def lesson_teach
-      build_course_action_notifications(all_receiver)
+      build_course_lesson_action_notifications(all_receiver)
     end
 
     # 修改辅导班公告，发送消息
@@ -50,18 +55,19 @@ module LiveService
 
     def all_receiver
       a = []
-      a = a +  course.teacher_id
-      a = a << course.student_ids
+      a = a + course.student_ids
+      a = a << course.teacher_id
       a
     end
 
     def build_course_action_notifications(receivers)
       if receivers.is_a?(Array)
         receivers.each do |receiver_id|
-          n = @course_active_record.course_action_notifications.build(action_name: @course_active_record.name, receiver_id: receiver_id)
+          n = @course_active_record.course_action_notifications.build(action_name: @course_active_record.name, receiver_id: receiver_id, live_studio_course_id: @course_active_record.live_studio_course_id, live_studio_lesson_id: @course_active_record.live_studio_lesson_id)
           n.save
+        end
       else
-        n = @course_active_record.course_action_notifications.build(action_name: @course_active_record.name, receiver_id: receivers.to_s.to_i)
+        n = @course_active_record.course_action_notifications.build(action_name: @course_active_record.name, receiver_id: receivers.to_s.to_i, live_studio_course_id: @course_active_record.live_studio_course_id, live_studio_lesson_id: @course_active_record.live_studio_lesson_id)
         n.save
       end
     end

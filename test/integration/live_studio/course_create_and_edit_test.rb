@@ -32,7 +32,10 @@ module LiveStudio
         select workstation.name, from: 'course_workstation_id'
         select '语文', from: 'course_subject'
         select '六年级', from: 'course_grade'
-        click_on '新增辅导班'
+
+        assert_difference 'teacher.course_action_notifications.count', 1 do
+          click_on '新增辅导班'
+        end
       end
 
       course = Course.last

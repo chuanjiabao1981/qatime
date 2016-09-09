@@ -32,7 +32,6 @@ module LiveStudio
       assert page.has_content?(user.live_studio_lessons.unclosed.first.name)
       page.find("#schedules_ceil").click
       course = user.live_studio_lessons.today.first.course
-      page.find(:xpath, "//a[@href='/live_studio/teachers/#{user.id}/courses/#{course.id}']",match: :first).click
       assert page.has_content?(course.name)
       new_logout_as(user)
     end

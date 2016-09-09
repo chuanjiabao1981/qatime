@@ -15,9 +15,8 @@ module LiveStudio
 
     test 'manager course permission' do
       @user = users(:manager)
-      log_in_as(@user)
+      new_log_in_as(@user)
       init_course = @user.live_studio_courses.init.first
-      cant_delete =  live_studio_courses(:course_for_tasting_for_delete)
       cant_edit = live_studio_courses(:course_for_edit)
       visit live_studio.manager_courses_path(@user)
       # create course
@@ -46,7 +45,7 @@ module LiveStudio
 
     test 'seller course permission' do
       @user = users(:seller)
-      log_in_as(@user)
+      new_log_in_as(@user)
       visit live_studio.seller_courses_path(@user)
       # create course
       click_on '创建辅导班', match: :first
@@ -80,9 +79,8 @@ module LiveStudio
 
     test 'teacher course permission' do
       @user = users(:teacher1)
-      log_in_as(@user)
+      new_log_in_as(@user)
       init = @user.live_studio_courses.init.first
-      prew = @user.live_studio_courses.preview.first
       # 初始化辅导班
       visit chat.finish_live_studio_course_teams_path(init)
       visit chat.finish_live_studio_course_teams_path(init)

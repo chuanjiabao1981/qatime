@@ -238,6 +238,39 @@ module Permissions
       allow 'payment/billings', [:index]
       allow 'live_studio/helps', [:course]
       ## end live studio permission
+
+      ## begin api permission
+      api_allow :DELETE, "/api/v1/sessions"
+
+      # 老师辅导班列表
+      api_allow :GET, "/api/v1/live_studio/teachers/[\\w-]+/courses/full" do |teacher|
+        teacher && teacher.id == user.id
+      end
+      api_allow :GET, "/api/v1/live_studio/teachers/[\\w-]+/courses/[\\w-]+" do |teacher|
+        teacher && teacher.id == user.id
+      end
+      api_allow :GET, "/api/v1/live_studio/teachers/[\\w-]+/courses" do |teacher|
+        teacher && teacher.id == user.id
+      end
+      api_allow :GET, "/api/v1/live_studio/teachers/[\\w-]+/schedule" do |teacher|
+        teacher && teacher.id == user.id
+      end
+      api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/taste"
+      api_allow :GET, "/api/v1/live_studio/teachers/[\\w-]+/schedules"
+      api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/live_start"
+      api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/live_end"
+
+      # 老师个人信息接口
+      api_allow :GET, "/api/v1/teachers/[\\w-]+/info" do |teacher|
+        teacher && teacher.id == user.id
+      end
+      api_allow :PUT, "/api/v1/teachers/[\\w-]+" do |teacher|
+        teacher && teacher.id == user.id
+      end
+      api_allow :PUT, "/api/v1/teachers/[\\w-]+/profile" do |teacher|
+        teacher && teacher.id == user.id
+      end
+      ## end api permission
     end
     private
 

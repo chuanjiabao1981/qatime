@@ -7,14 +7,13 @@ module LiveStudio
       before_action :set_teacher
       include ::LiveStudio::SessionsHelper
 
-
       private
       # def current_resource
       #   @resource ||= set_teacher
       # end
 
       def set_teacher
-        @teacher = ::Teacher.find_by(id: params[:teacher_id]) || current_user
+        @teacher = ::Teacher.find(params[:teacher_id] || params[:id])
       end
     end
   end

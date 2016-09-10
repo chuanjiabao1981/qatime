@@ -2,6 +2,8 @@ require 'test_helper'
 module LiveStudio
   class SchedulesTest < ActionDispatch::IntegrationTest
     def setup
+      # @routes = Engine.routes
+      @admin = users(:admin)
       @headless = Headless.new
       @headless.start
       Capybara.current_driver = :selenium_chrome
@@ -34,6 +36,22 @@ module LiveStudio
       course = user.live_studio_lessons.today.first.course
       assert page.has_content?(course.name)
       new_logout_as(user)
+    end
+
+    test "admin visit schedules" do
+      today = Date.today
+      student = users(:student_one_with_course)
+      teacher = users(:teacher_with_chat_account)
+      log_in_as(@admin)
+      visit student_path(student)
+      click_on '课程表'
+      # assert today.to_s, find("#calendar").find(".active").attr("rel"), "没有默认选中今日"
+      assert page.has_content?("课程日历")
+      assert page.has_content?("未上课")
+      assert page.has_content?("已上课")
+      visit teacher_path(teacher)
+      click_on '课程表'
+      new_logout_as(@admin)
     end
   end
 end

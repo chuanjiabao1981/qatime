@@ -45,6 +45,7 @@ module LiveStudio
     has_one :chat_team, foreign_key: 'live_studio_course_id', class_name: '::Chat::Team'
 
     has_many :billings, through: :lessons, class_name: 'Payment::Billing' # 结算记录
+
     has_many :course_action_records,->{ order 'created_at desc' }, dependent: :destroy, foreign_key: :live_studio_course_id
 
     scope :month, -> (month){where('live_studio_courses.class_date >= ? and live_studio_courses.class_date <= ?',month.beginning_of_month.to_date,month.end_of_month.to_date)}

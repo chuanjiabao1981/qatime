@@ -94,7 +94,13 @@ module LiveService
     # 添加 chat account
     # 返回 order
     def self.create_order(user, course, params)
-      order = Payment::Order.new(params.merge(course.order_params))
+      order =
+        if params[:order_no].present?
+          order = Payment::Order.find_by(order_no: params[:order_no])
+          order.pay_type = params[:pay_type]
+          order
+        end
+      order = order || Payment::Order.new(params.merge(course.order_params))
       order.user = user
       order.save && LiveService::ChatAccountFromUser.new(order.user).instance_account
       order

@@ -12,14 +12,27 @@
 .payment-body{
   float: left;
   width: 100%;
-  padding: 20px 20%;
-  .qrcode-div,.tips-div{
-    float: inherit;
-    width: 50%;
-    div{
-      text-align: center;
-      font-size: 14px;
-      color: #BBBBBB;
+  position: relative;
+  .go-back-div{
+    position: absolute;
+    height: 20px;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+  }
+  .payment-show-div{
+    padding: 20px 0;
+    width:60%;
+    margin: 0 auto;
+    .qrcode-div,.tips-div{
+      width: 50%;
+      float: left;
+      margin: 20px 0;
+      div{
+        text-align: center;
+        font-size: 14px;
+        color: #BBBBBB;
+      }
     }
   }
   #wechat_qrcode{ width: 260px;}

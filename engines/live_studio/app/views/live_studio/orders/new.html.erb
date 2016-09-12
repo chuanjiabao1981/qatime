@@ -1,12 +1,12 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-      <%= link_to LiveStudio::Course.model_name.human, live_studio.courses_path(student_id: @student.try(:id)) %> &gt;
-      <strong><%= @course.name %></strong>
+    <%= link_to LiveStudio::Course.model_name.human, live_studio.courses_path(student_id: @student.try(:id)) %> &gt;
+    <strong><%= @course.name %></strong>
   </div>
   <div class="panel-body">
     <div class="text-center">
       <h4>
-      <%= t('view.payment_show.order_confirm') %>
+        <%= t('view.payment_show.order_confirm') %>
       </h4>
     </div>
     <div class="order-info">
@@ -35,7 +35,12 @@
           </td>
           <td rowspan="5" class="order-pay-type">
             <% ::Payment::Order::PAY_TYPE.each do |k ,v| %>
-              <%= link_to t("view.payment_show.#{k}_pay"),'javascript:void(0);',rel: v,class: 'btn btn-default btn-pay' %>
+              <div>
+                <%= radio_button_tag :pay_type, v, @order.pay_type == v %>
+                <%= image_tag "/imgs/#{k}.png" %>
+                <%= t("view.payment_show.#{k}_pay") %>
+              </div>
+              <%#= link_to t("view.payment_show.#{k}_pay"),'javascript:void(0);',rel: v,class: 'btn btn-default btn-pay' %>
             <% end %>
           </td>
         </tr>
@@ -57,56 +62,28 @@
         </tr>
         </tbody>
       </table>
+      <%= content_tag :div, t('view.payment_show.order_tips_2'), class: 'text-center font-grey' %>
       <div class="float-right">
-        <%= simple_form_for [:course, @order] do |f|%>
+        <%= simple_form_for @order, url: live_studio.course_orders_path(@course),method: :post do |f|%>
           <div>
             <%= content_tag :span, t('view.payment_show.actual_price'),class: 'font-big' %>
             <%= content_tag :span, format('￥%0.2f', @course.price), class: 'font-red font-max weight' %>
           </div>
           <%= f.input :pay_type, as: :hidden %>
+          <%= f.input :order_no, as: :hidden %>
           <%= f.button :submit,t('activerecord.view.pay_now'), class: "btn btn-default float-right" %>
         <% end %>
       </div>
     </div>
-    <!---->
-    <!---->
-    <!--<%= simple_form_for [:course, @order] do |f|%>-->
-      <!--<div class="order_info">-->
-        <!--<div>-->
-          <!--<%= f.label :course_name %>-->
-          <!--<span><%= @course.name %></span>-->
-        <!--</div>-->
-        <!--<div>-->
-          <!--<%= f.label :course_teacher %>-->
-          <!--<span><%= @course.teacher_name %></span>-->
-        <!--</div>-->
-        <!--<div>-->
-          <!--<%= f.label :total_money %>-->
-          <!--<span><%= @course.price %></span>-->
-        <!--</div>-->
-        <!--<div>-->
-          <!--<%= f.label :course_description %>-->
-          <!--<span><%= @course.name %></span>-->
-        <!--</div>-->
-        <!--<div>-->
-          <!--<%= f.label :pay_type %>-->
-          <!--<%= f.input_field :pay_type, as: :radio_buttons, collection: Payment::Order.pay_types %>-->
-        <!--</div>-->
-
-        <!--<br />-->
-        <!--<%= f.button :submit, class: "btn btn-default" %>-->
-      <!--</div>-->
-    <!--<% end %>-->
   </div>
 </div>
 
 <script type="text/javascript" charset="utf-8">
-  $('.btn-pay').click(function(){
-    $('.btn-pay').removeClass('active');
-    $(this).addClass('active');
-    var pay_type = $(this).attr('rel');
+  $('input[name="pay_type"]').change(function(){
+    var pay_type = $('input[name="pay_type"]:checked').val();
     $('#order_pay_type').val(pay_type);
   });
+
   $('#new_order').submit(function(){
     if($('#order_pay_type').val() == ''){
       alert('请选择支付方式');

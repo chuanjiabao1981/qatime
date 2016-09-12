@@ -45,20 +45,25 @@
       </tbody>
     </table>
     <div class="payment-body">
-      <div class="qrcode-div">
-        <div>
-          <%= image_tag(@order.qr_code.try(:code_url), id: 'wechat_qrcode') %>
-        </div>
-        <div>
-          <%= t('view.payment_show.weixin_tips_text1') %>
-        </div>
-        <div>
-          <%= t('view.payment_show.weixin_tips_text2') %>
-        </div>
+      <div class="go-back-div">
+        <%= link_to sanitize(t('view.payment_show.go_back_tips')), live_studio.new_course_order_path(@course,no: params[:id]) %>
       </div>
-      <div class="tips-div">
-        <div>
-          <%= image_tag('/imgs/pay_tips.png', id: 'pay_tips_img') %>
+      <div class="payment-show-div">
+        <div class="qrcode-div">
+          <div>
+            <%= image_tag(@order.qr_code.try(:code_url), id: 'wechat_qrcode') %>
+          </div>
+          <div>
+            <%= t('view.payment_show.weixin_tips_text1') %>
+          </div>
+          <div>
+            <%= t('view.payment_show.weixin_tips_text2') %>
+          </div>
+        </div>
+        <div class="tips-div">
+          <div>
+            <%= image_tag('/imgs/pay_tips.png', id: 'pay_tips_img') %>
+          </div>
         </div>
       </div>
     </div>

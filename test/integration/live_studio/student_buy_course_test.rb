@@ -31,7 +31,7 @@ module LiveStudio
       course_preview = live_studio_courses(:course_preview)
       assert_difference '@student.orders.count', 1, "辅导班下单失败" do
         click_on("buy-course-#{course_preview.id}")
-        click_link '微信支付'
+        choose('pay_type', option: '1')
         click_on '立即付款'
         page.has_content? "提示：如支付遇到问题，请拨打电话 010-58442007"
       end
@@ -63,7 +63,7 @@ module LiveStudio
       assert_difference "@student.reload.orders.count", 1, "正在试听的辅导班下单失败" do
         #visit live_studio.new_course_order_path(course)
         click_on("buy-course-#{course.id}")
-        click_link '微信支付'
+        choose('pay_type', option: '1')
         click_on '立即付款'
       end
     end

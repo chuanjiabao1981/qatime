@@ -6,7 +6,7 @@ module Payment
 
     PAY_TYPE = {
       #alipay: 0,
-      weixin: 1
+      wechat: 1
     }.freeze
 
     CATE_UNPAID =%w(unpaid).freeze

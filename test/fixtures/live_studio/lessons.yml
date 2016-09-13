@@ -208,3 +208,30 @@ init_lesson_change_ready:
   end_time: '05:30'
   class_date: <%= Date.today %>
   status: 0
+
+lesson_for_start_at_today1:
+  name: 今日开课辅导班-第一节课
+  course: course_start_at_today
+  description: 测试描述
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 0
+
+lesson_for_start_at_today2:
+  name: 今日开课辅导班-第2节课
+  course: course_start_at_today
+  description: 测试描述
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.tomorrow %>
+  status: 0
+
+lesson_for_start_at_today3:
+  name: 今日开课辅导班-第3节课
+  course: course_start_at_today
+  description: 测试描述
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= 2.days.from_now.to_date %>
+  status: 0

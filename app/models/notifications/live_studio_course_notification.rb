@@ -1,6 +1,10 @@
 class LiveStudioCourseNotification < ::Notification
+  ACTION_ASSIGN = :assign
+  ACTION_START = :start
+
   ACTION_IMAGES = {
-    assign: "course_create.jpg"
+    assign: "course_create.jpg",
+    start: ""
   }.freeze
 
   # 通知显示logo

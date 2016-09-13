@@ -1,12 +1,12 @@
 module LiveService
-  class CourseNotificationSender
-    def initialize(course)
-      @course = course
+  class LessonNotificationSender
+    def initialize(lesson)
+      @lesson = lesson
     end
 
     def notice(action_name)
       receivers_of(action_name).each do |receiver|
-        ::LiveStudioCourseNotification.create(receiver: receiver, notificationable: @course, action_name: action_name)
+        ::LiveStudioLessonNotification.create(receiver: receiver, notificationable: @lesson, action_name: action_name)
       end
     end
 
@@ -20,8 +20,8 @@ module LiveService
     # 辅导班开课通知提醒者
     # Warning 学生数量太大的时候不要使用这种方式查询
     def start_receivers_of
-      receivers = @course.tickets.available.includes(:student).map(&:student)
-      receivers << @course.teacher
+      receivers = @lesson.course.tickets.available.includes(:student).map(&:student)
+      receivers << @lesson.course.teacher
       receivers
     end
   end

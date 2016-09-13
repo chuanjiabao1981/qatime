@@ -1,15 +1,15 @@
 require 'test_helper'
 
 module LiveServiceTest
-  class CourseNotificationSenderTest  < ActiveSupport::TestCase
+  class LessonNotificationSenderTest  < ActiveSupport::TestCase
     test 'send course start notification to teacher and students' do
-      @course = live_studio_courses(:course_start_at_today)
+      @lesson = live_studio_lessons(:lesson_for_start_at_today1)
       @teacher = users(:teacher1)
       @student = users(:student2)
-      assert_difference("LiveStudioCourseNotification.where(action_name: :start).count", 4, "辅导班开课通知人数不正确") do
+      assert_difference("LiveStudioLessonNotification.where(action_name: :start).count", 4, "课程上课通知人数不正确") do
         assert_difference("@teacher.reload.notifications.count", 1, "老师收到的通知数量不正确") do
           assert_difference("@student.reload.notifications.count", 1, "学生收到的通知数量不正确") do
-            LiveService::CourseNotificationSender.new(@course).notice(:start)
+            LiveService::LessonNotificationSender.new(@lesson).notice(:start)
           end
         end
       end

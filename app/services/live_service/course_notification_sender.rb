@@ -19,9 +19,9 @@ module LiveService
 
     # 辅导班开课通知提醒者
     # Warning 学生数量太大的时候不要使用这种方式查询
-    def ready_receivers_of
+    def start_receivers_of
       receivers = @course.tickets.available.includes(:student).map(&:student)
-      receivers.unshift(@course.teacher)
+      receivers << @course.teacher
       receivers
     end
   end

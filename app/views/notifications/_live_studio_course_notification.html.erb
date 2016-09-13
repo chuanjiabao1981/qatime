@@ -9,8 +9,14 @@
     <% else %>
       <span class="label label-danger"><%= I18n.t "view.notification.unread" %></span>
     <% end %>
-    <%= notification.notificationable.name %>
-    <%= link_to t("view.course_show.info"), notification_path(notification) %>
+    <%= t("view.notification.live_studio_course.#{notification.action_name}", course_name: notification.notificationable.name, day: notification.notificationable.class_date) %>
+    <% if @receiver.student? -%>
+      <%= link_to t("view.course_show.info"), notification_path(notification, rt: live_studio.student_course_path(@receiver, notification.notificationable)) %>
+    <% elsif @receiver.teacher? -%>
+      <%= link_to t("view.course_show.info"), notification_path(notification, rt: live_studio.teacher_course_path(@receiver, notification.notificationable)) %>
+    <% else -%>
+      <%= link_to t("view.course_show.info"), notification_path(notification, rt: live_studio.manager_course_path(@receiver, notification.notificationable)) %>
+    <% end -%>
   </div>
   <div class="info">
     <%= localize(notification.created_at, format: :long) %>

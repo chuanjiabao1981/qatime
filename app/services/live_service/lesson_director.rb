@@ -16,26 +16,7 @@ module LiveService
       # 如果辅导班已经有状态为teaching的课程,则返回false
       return false if !@course.lessons.teaching.blank?
       # 第一节课开始上课之前把辅导班设置为已开课
-      if @course.preview?
-        @course.teaching!
-        %w(students teacher).each do |receiver|
-          # 生成 course_action_record
-          course_action_record = @course.course_action_records.new(
-            content: I18n.t(
-              "activerecord.view.course_action_record.content.course_teaching_for_#{receiver}",
-              course_name: @course.name,
-              course_class_date: @course.class_date
-            ),
-            category: "course_teaching_for_#{receiver}".to_sym,
-            live_studio_course_id: @course.id,
-            live_studio_lesson_id: @lesson.id
-          )
-          course_action_record.save(validate: false)
-
-          # 发送辅导班开课通知
-          LiveService::CourseActionRecordDirector.new(course_action_record).create_action_notification
-        end
-      end
+      @course.teaching! if @course.preview?
       LiveStudio::Lesson.transaction do
         # 记录上课开始时间
         @lesson.live_start_at = Time.now if @lesson.live_start_at.nil?
@@ -54,22 +35,9 @@ module LiveService
       LiveStudio::Lesson.today.init.find_each(batch_size: 500).each do |lesson|
         lesson.ready!
         course = lesson.course
-        %w(students teacher).each do |receiver|
-          # 生成 course_action_record
-          course_action_record = course.course_action_records.new(
-            content: I18n.t(
-              "activerecord.view.course_action_record.content.lesson_teach_for_#{receiver}",
-              lesson_name: lesson.name,
-              lesson_live_begin_time: lesson.live_begin_time,
-            ),
-            category: "lesson_teach_for_#{receiver}".to_sym,
-            live_studio_course_id: course.id,
-            live_studio_lesson_id: lesson.id
-          )
-          course_action_record.save(validate: false)
-
-          # 发送辅导班开课通知
-          LiveService::CourseActionRecordDirector.new(course_action_record).create_action_notification
+        if course.preview?
+          course.teaching!
+          LiveService::CourseNotificationSender.new(course).notice(:ready)
         end
       end
     end

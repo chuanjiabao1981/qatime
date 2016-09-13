@@ -10,3 +10,8 @@ cn:
       unread_notification_count: "%{count} 条未读消息"
       unread: 未读
       read: 已读
+      live_studio_course:
+        assign: "您有新的辅导班任务【%{course_name}】, 请设置后发布招生"
+        ready: "您的辅导班【%{course_name}】已于今日(%{day})开课。"
+      live_studio_lesson:
+        assign: "您有新的辅导班任务【%{course_name}】, 请设置后发布招生"

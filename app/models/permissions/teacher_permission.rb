@@ -71,8 +71,12 @@ module Permissions
         teacher and teacher.id == user.id
       end
 
-      allow :notifications, [:index, :show] do |resource_user|
+      allow :notifications, [:index] do |resource_user|
         resource_user && user.id == resource_user.id
+      end
+
+      allow :notifications, [:show] do |notification|
+        notification.receiver_id == user.id
       end
 
       allow :replies,[:create] do |topic|

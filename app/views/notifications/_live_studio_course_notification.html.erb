@@ -1,0 +1,18 @@
+<div class="qa_object_item" style="clear: both;">
+  <div style="float:left">
+  <%= image_tag "#{notification.logo_image}", class: "img-responsive" %>
+  </div>
+
+  <div class="title">
+    <% if notification.read %>
+      <span class="label label-default"><%= I18n.t "view.notification.read" %></span>
+    <% else %>
+      <span class="label label-danger"><%= I18n.t "view.notification.unread" %></span>
+    <% end %>
+    <%= notification.notificationable.name %>
+    <%= link_to t("view.course_show.info"), notification_path(notification) %>
+  </div>
+  <div class="info">
+    <%= localize(notification.created_at, format: :long) %>
+  </div>
+</div>

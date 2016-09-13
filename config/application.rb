@@ -47,7 +47,7 @@ module Qatime
       authentication: "login"
     }
     # config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
-    # config.autoload_paths += Dir[Rails.root.join('app', 'apis', '*')]
+    config.autoload_paths << "#{Rails.root}/app/models/notifications"
 
   end
 end

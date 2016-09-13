@@ -1,6 +1,13 @@
 class NotificationsController < ApplicationController
+  before_action :load_user
+  before_action :load_notification, only: [:show]
+
+  def index
+    @notifications = @receiver.notifications.includes([:notificationable, :from]).paginate(page: params[:page])
+  end
+
   def show
-    #默认都是action notification
+    # 默认都是action notification
     if not @notification.read and @notification.receiver_id == current_user.id
       @notification.read = true
       @notification.save
@@ -43,7 +50,15 @@ class NotificationsController < ApplicationController
 
   private
 
-  def current_resource
+  def load_user
+    @receiver ||= User.find(params[:user_id])
+  end
+
+  def load_notification
     @notification = Notification.find(params[:id])
+  end
+
+  def current_resource
+    load_user
   end
 end

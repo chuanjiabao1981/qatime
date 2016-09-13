@@ -234,6 +234,12 @@ module LiveStudio
       # ChannelCreateJob.perform_later(id)
     end
 
+    # 辅导班创建通知指定教师
+    after_commit :notice_teacher_for_assign, on: :create
+    def notice_teacher_for_assign
+      ::LiveStudioCourseNotification.create(from: workstation, receiver: teacher, notificationable: self, action_name: :assign)
+    end
+
     def lower_price
       lp = 0
       lp = preset_lesson_count.to_i * 5 if preset_lesson_count.to_i > 0

@@ -64,13 +64,12 @@
       </table>
       <%= content_tag :div, t('view.payment_show.order_tips_2'), class: 'text-center font-grey' %>
       <div class="float-right">
-        <%= simple_form_for @order, url: live_studio.course_orders_path(@course),method: :post do |f|%>
+        <%= simple_form_for [:course, @order] do |f|%>
           <div>
             <%= content_tag :span, t('view.payment_show.actual_price'),class: 'font-big' %>
             <%= content_tag :span, format('￥%0.2f', @course.price), class: 'font-red font-max weight' %>
           </div>
           <%= f.input :pay_type, as: :hidden %>
-          <%= f.input :order_no, as: :hidden %>
           <%= f.button :submit,t('activerecord.view.pay_now'), class: "btn btn-default float-right" %>
         <% end %>
       </div>

@@ -46,7 +46,7 @@
     </table>
     <div class="payment-body">
       <div class="go-back-div">
-        <%= link_to sanitize(t('view.payment_show.go_back_tips')), live_studio.new_course_order_path(@course,no: params[:id]) %>
+        <%= link_to sanitize(t('view.payment_show.go_back_tips')), live_studio.new_course_order_path(@course) %>
       </div>
       <div class="payment-show-div">
         <div class="qrcode-div">

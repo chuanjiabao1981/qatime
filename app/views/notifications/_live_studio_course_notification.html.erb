@@ -1,6 +1,8 @@
 <div class="qa_object_item" style="clear: both;">
   <div style="float:left">
-  <%= image_tag "#{notification.logo_image}", class: "img-responsive" %>
+    <label class="logo live_studio_course_<%= notification.action_name %>">
+      <%= t("view.notification.label.live_studio_course.#{notification.action_name}") %>
+    </label>
   </div>
 
   <div class="title">

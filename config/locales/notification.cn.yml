@@ -16,3 +16,11 @@ cn:
       live_studio_lesson:
         start_for_teacher: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时授课"
         start_for_student: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时参加学习"
+      label:
+        live_studio_course:
+          assign: 辅导任务
+          start: 开课提醒
+        live_studio_lesson:
+          start_for_teacher: 上课提醒
+          start_for_student: 上课提醒
+

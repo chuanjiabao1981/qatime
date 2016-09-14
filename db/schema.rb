@@ -623,14 +623,13 @@ ActiveRecord::Schema.define(version: 20160912115632) do
     t.string   "notificationable_type"
     t.integer  "notificationable_id"
     t.integer  "operator_id"
-    t.boolean  "read",                             default: false
+    t.boolean  "read",                  default: false
     t.string   "action_name"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.integer  "customized_course_id"
     t.integer  "live_studio_course_id"
     t.integer  "live_studio_lesson_id"
-    t.string   "action_type",           limit: 64
     t.integer  "from_id"
     t.string   "from_type"
   end

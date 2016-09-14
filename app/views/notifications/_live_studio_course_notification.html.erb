@@ -11,7 +11,16 @@
     <% else %>
       <span class="label label-danger"><%= I18n.t "view.notification.unread" %></span>
     <% end %>
-    <%= t("view.notification.live_studio_course.#{notification.action_name}", course_name: notification.notificationable.name, day: notification.notificationable.class_date) %>
+    
+    <% if notification.action_name.to_sym == LiveStudioCourseNotification::ACTION_NOTICE_CREATE %>
+      <%= t("view.notification.live_studio_course.#{notification.action_name}", content: notification.notificationable.chat_team.try(:announcement), teacher_name: notification.notificationable.teacher.name) %>
+    <% else %>
+      <%= t("view.notification.live_studio_course.#{notification.action_name}", course_name: notification.notificationable.name, day: notification.notificationable.class_date) %>
+    <% end %>
+
+
+
+
     <% if @receiver.student? -%>
       <%= link_to t("view.course_show.info"), notification_path(notification, rt: live_studio.student_course_path(@receiver, notification.notificationable)) %>
     <% elsif @receiver.teacher? -%>

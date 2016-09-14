@@ -10,6 +10,13 @@ module LiveService
       end
     end
 
+    # 异步发送通知
+    def notice_with_asyn(action_name, immediately = false)
+      return notice_without_asyn(action_name) if immediately
+      NotificationSenderJob.perform_later(self.class.name, action_name.to_s, @lesson)
+    end
+    alias_method_chain :notice, :asyn
+
     # 通知接受者
     def receivers_of(action_name)
       send("#{action_name}_receivers_of")

@@ -510,5 +510,15 @@ span.current_lesson_paused{
   color: read;
 }
 
+// 有课未上
+#notifications-list .live_studio_lesson_miss_for_teacher {
+  background-color: #FF9900;
+}
+
+// 调课提醒
+#notifications-list .live_studio_lesson_change_time {
+  background-color: #FF9900;
+}
+
 
 // 通知样式end

@@ -146,3 +146,10 @@ live_studio_lesson_start_for_student:
   type: LiveStudioLessonNotification
   read: false
   action_name: start_for_student
+
+live_studio_lesson_miss_for_student:
+  notificationable: lesson_for_start_at_today1 (LiveStudio::Lesson)
+  receiver: teacher1
+  type: LiveStudioLessonNotification
+  read: false
+  action_name: miss_for_teacher

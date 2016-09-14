@@ -36,11 +36,12 @@ module LiveService
         lesson.ready!
         # 课程上课提醒，没有准确的定时任务的时候临时解决方案
         # 每天定时任务发送
-        LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_START)
+        LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_START_FOR_TEACHER)
+        LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_START_FOR_STUDENT)
         course = lesson.course
         if course.preview?
           course.teaching!
-          LiveService::CourseNotificationSender.new(course).notice(LiveStudioCourseNotification::ACTION_START)
+          LiveService::CourseNotificationSender.new(course).notice(LiveStudioCourseNotification::ACTION_MISS_FOR_TEACHER)
         end
       end
     end
@@ -48,10 +49,16 @@ module LiveService
     # 清理未完成课程
     # 1. 昨天(包括)以前paused, closed状态下的课程finish
     # 2. 上课时间在前天(包括)以前并且状态为teaching的课程finish
+    # 3. 错过的昨日课程发送通知
     def self.clean_lessons
       LiveStudio::Lesson.waiting_finish.where('class_date <= ?',Date.yesterday).find_each(batch_size: 500).map(&:finish!)
       LiveStudio::Lesson.teaching.where('class_date < ?', Date.yesterday).find_each(batch_size: 500).each do |lesson|
         lesson.close! && lesson.finish!
+      end
+
+      # 未上课提醒
+      LiveStudio::Lesson.ready.where('class_date = ?', Date.yesterday).find_each(batch_size: 500).each do |lesson|
+        LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_MISS)
       end
     end
 

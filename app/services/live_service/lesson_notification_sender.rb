@@ -10,19 +10,33 @@ module LiveService
       end
     end
 
-    private
-
     # 通知接受者
     def receivers_of(action_name)
       send("#{action_name}_receivers_of")
     end
 
+    private
+
+    def start_for_teacher_receivers_of
+      [@lesson.course.teacher]
+    end
+
     # 辅导班开课通知提醒者
     # Warning 学生数量太大的时候不要使用这种方式查询
-    def start_receivers_of
-      receivers = @lesson.course.tickets.available.includes(:student).map(&:student)
-      receivers << @lesson.course.teacher
-      receivers
+    def start_for_student_receivers_of
+      @lesson.course.tickets.available.includes(:student).map(&:student)
+    end
+
+    # 辅导班开课通知提醒者
+    # Warning 学生数量太大的时候不要使用这种方式查询
+    def miss_for_teacher_receivers_of
+      [@lesson.course.teacher]
+    end
+
+    # 辅导班开课通知提醒者
+    # Warning 学生数量太大的时候不要使用这种方式查询
+    def miss_for_student_receivers_of
+      @lesson.course.tickets.available.includes(:student).map(&:student)
     end
   end
 end

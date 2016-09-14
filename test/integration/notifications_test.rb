@@ -18,7 +18,7 @@ class NotificationsTest < ActionDispatch::IntegrationTest
     @lesson = live_studio_lessons(:lesson_for_start_at_today1)
     log_in_as(@user)
     click_on "消息中心"
-    assert_equal 6, page.find_all(".label-danger").count, "教师未读消息数量不正确"
+    assert_equal 7, page.find_all(".label-danger").count, "教师未读消息数量不正确"
     assert page.has_content?("您有新的辅导班任务【今天开课辅导班】, 请设置后发布招生"), "新的辅导班任务通知不正确"
     assert page.has_content?("您的辅导班【今天开课辅导班】已于今日(#{Date.today})开课"), "教师辅导班开课通知显示不正确"
     assert page.has_content?("您的课程 \"今日开课辅导班-第一节课\" 将于#{I18n.localize(@lesson.start_at, format: :short)}开始上课，请准时授课"), "教师上课提醒通知显示不正确"
@@ -37,6 +37,8 @@ class NotificationsTest < ActionDispatch::IntegrationTest
   test "others view notification" do
     @user = users(:teacher1)
     log_in_as(@user)
+    click_on "消息中心"
+    assert page.has_content?("您的课程 \"今日开课辅导班-第一节课\" 未能准时授课, 请尽快进行调课并补上, 以免影响您的教学安排"), "未上课通知不正确"
   end
 
   test "live studio course notification" do

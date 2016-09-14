@@ -12,6 +12,7 @@ cn:
       read: 已读
       live_studio_course:
         assign: "您有新的辅导班任务【%{course_name}】, 请设置后发布招生"
-        ready: "您的辅导班【%{course_name}】已于今日(%{day})开课。"
+        start: "您的辅导班【%{course_name}】已于今日(%{day})开课"
       live_studio_lesson:
-        assign: "您有新的辅导班任务【%{course_name}】, 请设置后发布招生"
+        start_for_teacher: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时授课"
+        start_for_student: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时参加学习"

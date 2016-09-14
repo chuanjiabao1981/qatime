@@ -276,3 +276,16 @@ course_start_at_today:
   grade: 六年级
   subject: 语文
   class_date: <%= Date.today %>
+
+init_course1:
+  name: 准备中的辅导班1
+  teacher: teacher1
+  workstation: workstation_another
+  status: 0
+  teacher_percentage: 20
+  preset_lesson_count: 10
+  lesson_price: 20
+  price: 200
+  grade: 六年级
+  subject: 语文
+  class_date: <%= Date.yesterday %>

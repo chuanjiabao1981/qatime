@@ -76,7 +76,7 @@ module Permissions
       end
 
       allow :notifications, [:show] do |notification|
-        notification.receiver_id == user.id
+        notification && notification.receiver_id == user.id
       end
 
       allow :replies,[:create] do |topic|

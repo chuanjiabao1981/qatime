@@ -58,7 +58,7 @@
         <%= f.input :subject, collection: APP_CONSTANT["subjects"].map {|s| [s,s]},input_html:{ :id => "s_subject"} , include_blank:false%>
         <%= f.input :customized_course_type, include_blank:false, collection: CustomizedCourse.customized_course_type_attributes_for_select, input_html:{ :id => "s_customized_course_type"}  %>
         <%= f.association :teachers ,
-                          collection: @teachers.map {|t|[t.name,t.id,t.school.name]}.group_by{|k| k[2]},
+                          collection: @teachers.map {|t|[t.name,t.id,t.school.try(:name)]}.group_by{|k| k[2]},
                           :as => :grouped_select,
                           :group_method => :last,
                           input_html: { multiple: true , class:'customized-courses-teacher-chosen-select',

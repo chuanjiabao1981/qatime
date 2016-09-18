@@ -276,6 +276,10 @@ Qatime::Application.routes.draw do
     resources :withdraws
   end
 
+  resources :users do
+    resources :notifications, only: [:index, :show], shallow: true
+  end
+
   resources :comments
 
   resources :videos do
@@ -293,8 +297,6 @@ Qatime::Application.routes.draw do
 
   resources :qa_files
   resources :action_records
-  resources :notifications
-
 
   resources :customized_course_message_boards do
     resources :customized_course_messages

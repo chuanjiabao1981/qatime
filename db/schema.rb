@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160912115632) do
+ActiveRecord::Schema.define(version: 20160918082853) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -697,6 +697,31 @@ ActiveRecord::Schema.define(version: 20160912115632) do
   add_index "payment_orders", ["product_type", "product_id"], name: "index_payment_orders_on_product_type_and_product_id", using: :btree
   add_index "payment_orders", ["user_id"], name: "index_payment_orders_on_user_id", using: :btree
 
+  create_table "payment_remote_orders", force: :cascade do |t|
+    t.integer  "order_id"
+    t.string   "order_no",   limit: 16
+    t.decimal  "amount",                precision: 8, scale: 2
+    t.string   "remote_ip",  limit: 64
+    t.integer  "status"
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+  end
+
+  add_index "payment_remote_orders", ["order_id"], name: "index_payment_remote_orders_on_order_id", using: :btree
+
+  create_table "payment_transactions", force: :cascade do |t|
+    t.integer  "user_id"
+    t.decimal  "amount",                precision: 8, scale: 2
+    t.string   "no",         limit: 16
+    t.string   "remote_ip",  limit: 64
+    t.integer  "pay_type"
+    t.integer  "status"
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+  end
+
+  add_index "payment_transactions", ["user_id"], name: "index_payment_transactions_on_user_id", using: :btree
+
   create_table "picture_quoters", force: :cascade do |t|
     t.integer  "picture_id"
     t.integer  "file_quoter_id"
@@ -1044,4 +1069,5 @@ ActiveRecord::Schema.define(version: 20160912115632) do
     t.integer  "manager_id"
   end
 
+  add_foreign_key "payment_transactions", "users"
 end

@@ -34,6 +34,7 @@ module Payment
 
     has_many :billings, as: :target
     has_one :qr_code, as: :qr_codeable
+    has_many :remote_orders, as: :order
 
     validate do |record|
       record.product.validate_order(record) if new_record? && record.product

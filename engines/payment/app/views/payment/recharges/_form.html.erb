@@ -1,0 +1,25 @@
+<%= simple_form_for(@recharge, url: user_recharges_path(@resource_user, @recharge)) do |f| %>
+  <% if @recharge.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recharge.errors.count, "error") %> prohibited this recharge from being saved:</h2>
+
+      <ul>
+      <% @recharge.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :amount %><br>
+    <%= f.text_field :amount %>
+  </div>
+
+  <div class="field">
+    <%= f.input :pay_type, as: :select, collection: @recharge.class.pay_type.options %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,6 @@
+cn:
+  enumerize:
+    payment/recharge:
+      pay_type:
+        weixin: 微信支付
+        alipay: 支付宝支付

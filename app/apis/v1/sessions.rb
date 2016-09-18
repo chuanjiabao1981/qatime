@@ -16,11 +16,10 @@ module V1
         login_account = params[:login_account] || params[:email]
         user = login_account.include?("@") ? User.find_by(email: login_account) : User.find_by(login_mobile: login_account)
         client_type = params['client_type'].to_sym
-        # 判断客户端类型是否可以登陆
-        soft = ::Software.published.where(category: ::Software.categories[params[:client_cate]]).last
-        raise APIErrors::ClientInvalid unless soft.present? && soft.role == user.role
-
         if user && user.authenticate(params[:password])
+          # 判断客户端类型是否可以登陆
+          soft = ::Software.published.where(category: ::Software.categories[params[:client_cate]]).last
+          raise APIErrors::ClientInvalid unless soft.present? && soft.role == user.role
           login_token = sign_in(user, client_type)
           present login_token, with: Entities::LoginToken
         else

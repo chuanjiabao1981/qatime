@@ -699,26 +699,35 @@ ActiveRecord::Schema.define(version: 20160918082853) do
 
   create_table "payment_remote_orders", force: :cascade do |t|
     t.integer  "order_id"
-    t.string   "order_no",   limit: 16
-    t.decimal  "amount",                precision: 8, scale: 2
+    t.string   "order_type"
+    t.string   "order_no",   limit: 64
+    t.decimal  "amount",                 precision: 8, scale: 2
     t.string   "remote_ip",  limit: 64
+    t.string   "trade_type", limit: 32
+    t.string   "pay_url"
+    t.string   "type",       limit: 128
     t.integer  "status"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.string   "prepay_id"
+    t.text     "nonce_str"
+    t.datetime "pay_at"
+    t.datetime "deleted_at"
+    t.datetime "created_at",                                     null: false
+    t.datetime "updated_at",                                     null: false
   end
 
-  add_index "payment_remote_orders", ["order_id"], name: "index_payment_remote_orders_on_order_id", using: :btree
+  add_index "payment_remote_orders", ["order_type", "order_id"], name: "index_payment_remote_orders_on_order_type_and_order_id", using: :btree
 
   create_table "payment_transactions", force: :cascade do |t|
     t.integer  "user_id"
-    t.decimal  "amount",                precision: 8, scale: 2
-    t.string   "no",         limit: 16
-    t.string   "remote_ip",  limit: 64
+    t.decimal  "amount",                    precision: 8, scale: 2
+    t.string   "transaction_no", limit: 64
+    t.string   "remote_ip",      limit: 64
     t.integer  "pay_type"
     t.integer  "status"
-    t.string   "type",       limit: 64
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.string   "source",         limit: 64
+    t.string   "type",           limit: 64
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
   end
 
   add_index "payment_transactions", ["user_id"], name: "index_payment_transactions_on_user_id", using: :btree

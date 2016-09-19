@@ -11,15 +11,7 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :amount %><br>
-    <%= f.text_field :amount %>
-  </div>
-
-  <div class="field">
-    <%= f.input :pay_type, as: :select, collection: @recharge.class.pay_type.options %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+  <%= f.input :amount %>
+  <%= f.input :pay_type, as: :select, collection: @recharge.class.pay_type.options -%>
+  <%= f.button :submit %>
 <% end %>

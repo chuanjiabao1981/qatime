@@ -3,7 +3,7 @@ require_dependency "payment/application_controller"
 module Payment
   class RechargesController < ApplicationController
     before_action :set_resource_user
-    before_action :set_recharge, only: [:show, :edit, :update, :destroy]
+    before_action :set_recharge, only: [:show, :edit, :update, :destroy, :pay]
 
     # GET /recharges
     def index
@@ -25,10 +25,10 @@ module Payment
 
     # POST /recharges
     def create
-      @recharge = @resource_user.payment_recharges.new(recharge_params)
+      @recharge = @resource_user.payment_recharges.new(recharge_params.merge(remote_ip: request.remote_ip, source: :web))
 
       if @recharge.save
-        redirect_to payment.pay_order_path(@recharge.order.order_no), notice: 'Recharge was successfully created.'
+        redirect_to payment.pay_recharge_path(@recharge.transaction_no), notice: 'Recharge was successfully created.'
       else
         render :new
       end
@@ -49,10 +49,14 @@ module Payment
       redirect_to recharges_url, notice: 'Recharge was successfully destroyed.'
     end
 
+    def pay
+      render layout: 'payment'
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_recharge
-        @recharge ||= Recharge.find(params[:id])
+        @recharge ||= Recharge.find_by_transaction_no!(params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.

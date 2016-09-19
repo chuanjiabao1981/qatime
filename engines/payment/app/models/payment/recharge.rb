@@ -3,42 +3,53 @@ module Payment
     extend Enumerize
     include AASM
 
-    has_many :remote_orders, as: :order
+    attr_accessor :remote_ip, :trade_type
+    has_one :order, as: :product
 
-    enumerize :pay_type, in: { alipay: 1, weixin: 2 }
+    enumerize :pay_type, in: { alipay: 0, weixin: 1 }
 
     enum status: {
-           unpaid: 0, # 未支付
-           paid: 1, # 已支付
-           shipped: 1, # 已发货
-           received: 3, # 确认收货
-           closed: 94, # 已取消
+           unpaid: 0, # 等待支付
+           success: 1, # 充值成功
+           closed: 94, # 已关闭
            canceled: 95, # 已取消
-           expired: 96, # 过期订单
-           failed: 97, # 下单失败
            refunded: 98, # 已退款
-           waste: 99 # 无效订单
          }
 
     aasm column: :status, enum: true do
       state :unpaid, initial: true
-      state :paid
-      state :shipped
-      state :received
-      state :canceled
+      state :success
       state :closed
+      state :canceled
 
-      event :pay, after_commit: :deliver! do
-        transitions from: :unpaid, to: :paid
-      end
-
-      # 发货
-      event :deliver do |recharge|
+      # 充值
+      event :call do |recharge|
         before do
           change_cash!
         end
-        transitions from: [:paid, :shipped], to: :received
+        transitions from: [:unpaid], to: :success
       end
+    end
+
+    # 发货
+    def deliver(order)
+      return false if order.total_money != amount || !order.paid?
+      call!
+    end
+
+    def validate_order(_order)
+      unpaid?
+    end
+
+    # 生成订单
+    after_create :instance_order, on: :create
+    def instance_order
+      o = Order.create(order_params)
+      p o.errors
+    end
+
+    def name
+      self.class.model_name.human
     end
 
     private
@@ -46,5 +57,10 @@ module Payment
     def change_cash!
       user.cash_account!.increase(amount, nil, "账户充值")
     end
+
+    def order_params
+      { total_money: amount, product: self, pay_type: pay_type, remote_ip: remote_ip, trade_type: trade_type, user: user }
+    end
+
   end
 end

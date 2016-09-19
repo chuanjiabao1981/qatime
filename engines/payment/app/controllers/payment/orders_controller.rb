@@ -64,7 +64,11 @@ module Payment
     private
 
     def set_user
-      @user = Student.find(params[:user_id])
+      @user = if params[:user_id]
+                Student.find(params[:user_id])
+              else
+                Order.find_by!(order_no: params[:id]).user
+              end
       @student = @user
     end
 

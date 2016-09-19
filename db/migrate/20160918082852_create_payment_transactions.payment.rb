@@ -8,6 +8,7 @@ class CreatePaymentTransactions < ActiveRecord::Migration
       t.string :remote_ip, limit: 64
       t.integer :pay_type, limit: 4
       t.integer :status, limit: 4
+      t.string :type, limit: 64
 
       t.timestamps null: false
     end

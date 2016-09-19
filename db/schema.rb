@@ -716,6 +716,7 @@ ActiveRecord::Schema.define(version: 20160918082853) do
     t.string   "remote_ip",  limit: 64
     t.integer  "pay_type"
     t.integer  "status"
+    t.string   "type",       limit: 64
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false
   end

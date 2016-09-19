@@ -28,7 +28,7 @@ module Payment
       @recharge = @resource_user.payment_recharges.new(recharge_params)
 
       if @recharge.save
-        redirect_to @recharge, notice: 'Recharge was successfully created.'
+        redirect_to payment.pay_order_path(@recharge.order.order_no), notice: 'Recharge was successfully created.'
       else
         render :new
       end
@@ -57,7 +57,7 @@ module Payment
 
       # Only allow a trusted parameter "white list" through.
       def recharge_params
-        params.require(:recharge).permit(:amount, :created_at, :status)
+        params.require(:recharge).permit(:amount, :pay_type)
       end
 
       def set_resource_user

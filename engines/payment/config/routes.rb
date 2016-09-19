@@ -9,14 +9,20 @@ Payment::Engine.routes.draw do
       end
     end
 
-    get :cash, on: :member
-
-    resources :change_records, only: [:index]
-
     resources :recharges, only: [:index, :new, :show, :edit, :create], shallow: true do
       member do
         get :pay
       end
+    end
+
+    get :cash, on: :member
+
+    resources :change_records, only: [:index]
+  end
+
+  resources :orders, only: [] do
+    member do
+      get :pay
     end
   end
 

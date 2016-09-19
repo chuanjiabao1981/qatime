@@ -20,6 +20,10 @@ module Payment
       # 支付
       event :pay do
         transitions from: :unpaid, to: :paid
+
+        after do
+          pay_order!
+        end
       end
 
       # 已支付订单退款
@@ -43,6 +47,11 @@ module Payment
     # 支付通知地址
     def notify_url
       order.try(:notify_url)
+    end
+
+    private
+    def pay_order!
+      order.pay!
     end
 
   end

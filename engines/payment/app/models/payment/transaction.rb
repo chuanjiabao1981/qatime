@@ -1,7 +1,9 @@
 module Payment
   class Transaction < ActiveRecord::Base
+    extend Enumerize
+
     belongs_to :user
 
-    enum source: [:web, :app]
+    enumerize :source, in: { web: 0, app: 1 }
   end
 end

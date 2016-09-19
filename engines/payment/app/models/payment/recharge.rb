@@ -3,7 +3,7 @@ module Payment
     extend Enumerize
     include AASM
 
-    attr_accessor :remote_ip, :trade_type, :source
+    attr_accessor :remote_ip, :trade_type
 
     has_one :remote_order, as: :order, class_name: Payment::WeixinOrder
 
@@ -59,7 +59,7 @@ module Payment
     # 生成流水号
     before_create :generate_transaction_no
     def generate_transaction_no
-      self.transaction_no = Util.random_code
+      self.transaction_no = Util.random_order_no
     end
 
   end

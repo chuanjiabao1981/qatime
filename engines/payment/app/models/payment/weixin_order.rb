@@ -36,7 +36,6 @@ module Payment
       }
     end
 
-
     def pay_money
       money = super
       (money * 100).to_i

@@ -32,13 +32,13 @@ cn:
         details: 明细
         created_at: 结算时间
       payment/recharge:
-        status: 充值状态
-        status/unpaid: 未支付
-        status/paid: 支付成功
-        status/shipped: 支付成功
-        status/received: 充值成功
-        status/refunding: 等待退款
-        status/refunded: 已退款
+        aasm_status:
+          unpaid: 未支付
+          paid: 支付成功
+          shipped: 支付成功
+          received: 充值成功
+          refunding: 等待退款
+          refunded: 已退款
 
     status:
       order:

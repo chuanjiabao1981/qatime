@@ -19,4 +19,22 @@ namespace :payment do
     end
     puts "导入完成 共#{count}条"
   end
+
+  desc "账户余额迁移"
+  task migrate_to_cash_account: :environment do
+    count = 0
+    puts "开始迁移"
+    Account.includes(:accountable).find_each(batch_size: 500) do |account|
+      next if account.accountable.nil?
+      cash_account = account.accountable.cash_account!
+      next if cash_account.migrated
+      cash_account.total_income = account.total_income
+      cash_account.total_expenditure = account.total_expenditure
+      cash_account.balance += account.money
+      cash_account.migrated = true
+      cash_account.save
+      count += 1
+      puts "完成记录: #{count}条" if count % 100 == 0
+    end
+  end
 end

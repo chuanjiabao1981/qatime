@@ -1,4 +1,5 @@
 module Payment
+  # 账户流水
   class ChangeRecord < ActiveRecord::Base
     has_soft_delete
 

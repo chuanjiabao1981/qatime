@@ -8,6 +8,8 @@ cn:
     models:
       payment/order: 订单
       payment/change_record: 资金流水
+      payment/consumption_record: 消费记录
+      payment/earning_record: 收入记录
       payment/billing: 结算记录
       payment/recharge: 充值记录
       payment/cash_account: 资金账户
@@ -28,6 +30,14 @@ cn:
         target: 结算对象
         summary: 描述
         created_at: 结算时间
+        amount: 金额
+      payment/consumption_record:
+        amount: 金额
+        target_type: 消费类型
+        created_at: 时间
+        link: 链接
+      payment/earning_record:
+        amount: 金额
       payment/billing:
         total_money: 收支
         summary: 描述

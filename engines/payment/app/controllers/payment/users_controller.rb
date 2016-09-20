@@ -9,7 +9,7 @@ module Payment
         if params[:fee].nil?
           @deposits = @current_resource.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
         else
-          @consumption_records = @current_resource.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+          @consumption_records = @current_resource.cash_account.consumption_records.order(created_at: :desc).paginate(page: params[:page])
         end
       elsif @current_resource.teacher?
         @teacher = @current_resource

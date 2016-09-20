@@ -59,10 +59,25 @@
   <%= render layout: "/students/account_operation_record_layout" do %>
 
     <% if params[:fee] == 'y' %>
-      <%= render partial: '/shared/consumption_records/index',locals:{consumption_records: @consumption_records} %>
+      <div class="qa_big_cell">
+	<h2><%= Payment::ConsumptionRecord.model_name.human %></h2>
+      </div>
+
+      <div class="qa_cell">
+	<table class="table table-bordered">
+	  <tr>
+	    <th><%= Payment::ConsumptionRecord.human_attribute_name(:amount) %></th>
+	    <th><%= Payment::ConsumptionRecord.human_attribute_name(:target_type) %></th>
+	    <th><%= Payment::ConsumptionRecord.human_attribute_name(:created_at) %></th>
+	    <th><%= Payment::ConsumptionRecord.human_attribute_name(:link) %></th>
+	  </tr>
+	  <%= render @consumption_records %>
+	</table>
+	<%= will_paginate @consumption_records %>
+      </div>
     <% else %>
       <div class="qa_big_cell">
-	<h2><%= Payment::Recharge.model_name.human%></h2>
+	<h2><%= Payment::Recharge.model_name.human %></h2>
       </div>
 
       <div class="qa_cell">

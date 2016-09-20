@@ -61,8 +61,6 @@ module Payment
       event :pay, after_commit: :touch_pay_at do
         before do
           order_billing!
-          change_cash!
-          increase_cash_admin_account
         end
         transitions from: :unpaid, to: :paid
       end
@@ -208,11 +206,6 @@ module Payment
       self.order_no = Time.now.to_s(:number) + num
     end
 
-    # 支付以后cash_admin账户增加金额
-    def increase_cash_admin_account
-      billing = billings.create(total_money: total_money, summary: "用户支付, 订单编号：#{order_no} 系统进账: #{total_money}")
-    end
-
     # 记录支付时间
     def touch_pay_at
       touch(:pay_at)
@@ -229,9 +222,10 @@ module Payment
 
     def order_billing!
       Order.transaction do
-        billing = billings.create(total_money: total_money, summary: "用户支付, 订单编号：#{order_no} 系统进账: #{total_money}")
-        user.cash_account.consumption(total_money, self, billing, "订单支付", change_type: pay_type)
-        CashAdmin.increase_cash_account(total_money, billing, '用户充值消费')
+        summary = "订单支付, 订单编号：#{order_no} 订单金额: #{total_money}"
+        billing = billings.create(total_money: total_money, summary: summary)
+        user.cash_account.consumption(total_money, self, billing, summary, change_type: pay_type)
+        CashAdmin.increase_cash_account(total_money, billing, summary)
       end
     end
   end

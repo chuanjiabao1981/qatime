@@ -55,7 +55,7 @@ module LiveService
     def im_fee!(money, billing)
       im_money = LiveStudio::Course::IM_FEE * @lesson.live_count
       im_money = money if im_money > money
-      increase_cash_admin_account(im_money, billing, msg = :im_fee)
+      increase_cash_admin_account(im_money, billing, :im_fee)
       im_money
     end
 
@@ -63,7 +63,7 @@ module LiveService
     def system_fee!(money, billing)
       system_money = LiveStudio::Course::SYSTEM_FEE * @lesson.live_count * @lesson.real_time
       system_money = money if system_money > money
-      increase_cash_admin_account(system_money, billing, msg = :system_fee)
+      increase_cash_admin_account(system_money, billing, :system_fee)
       system_money
     end
 

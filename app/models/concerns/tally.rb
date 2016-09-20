@@ -46,12 +46,8 @@ module Tally
     ##扣款
     def __charge_fee(fee)
       customized_course           = CustomizedCourse.find(self.customized_course_id)
-      consumption_account         = Student.find(customized_course.student_id).account
-      consumption_account.lock!
-      consumption_account.money   = consumption_account.money - fee.value
-      consumption_account.total_expenditure = consumption_account.total_expenditure + fee.value
-      consumption_account.consumption_records.create!(fee: fee,value: fee.value)
-      consumption_account.save!
+      cash_account = customized_course.student.cash_account
+      cash_account.consumption(fee.value, self, nil, self.class.model_name.human)
     end
 
     def __split_fee_to_relative_account(relative_account, fee, value, price)

@@ -14,39 +14,44 @@ module Payment
 
     # 充值
     def recharge(amount, target)
-      change(:recharge_records, -amount.abs, target, nil, "账户提现")
+      change(:recharge_records, amount.abs, target: target, billing: nil, summary: "账户充值")
     end
 
     # 提现
     def withdraw(amount, target)
-      change(:withdraw_records, amount.abs, target, nil, "账户提现")
+      change(:withdraw_records, -amount.abs, target: target, billing: nil, summary: "账户提现")
     end
 
     # 收入
     def earning(amount, target, billing, summary)
-      change(:earning_records, amount.abs, target, billing, summary)
+      change(:earning_records, amount.abs, target: target, billing: billing, summary: summary)
+      lock!
+      self.total_income += amount.abs
+      save!
     end
 
     # 支出
-    def consumption(amount, target, billing, summary)
-      change(:consumption_records, -amount.abs, target, billing, summary)
+    def consumption(amount, target, billing, summary, options = {})
+      options ||= {}
+      change(:consumption_records, -amount.abs, options.merge(target: target, billing: billing, summary: summary))
+      lock!
+      self.total_expenditure -= amount.abs
+      save!
     end
 
     private
 
-    def change(records_chain, amount, target, billing, summary)
+    def change(records_chain, amount, attrs)
       return if amount == 0
       with_lock do
         after = balance + amount
         change_record = send(records_chain).create!(
-          before: balance,
-          after: after,
-          amount: amount,
-          different: amount,
-          billing: billing,
-          summary: summary,
-          owner: owner,
-          target: target)
+          attrs.merge(
+            before: balance,
+            after: after,
+            amount: amount,
+            different: amount,
+            owner: owner))
         self.balance += change_record.different
         save!
       end

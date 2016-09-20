@@ -1,4 +1,5 @@
 module Payment
+  # 账户充值
   class Recharge < Transaction
     extend Enumerize
     include AASM
@@ -10,14 +11,14 @@ module Payment
     enumerize :pay_type, in: { alipay: 0, weixin: 1, offline: 10 }
 
     enum status: {
-           unpaid: 0, # 等待支付
-           paid: 1, # 已支付
-           shipped: 2, # 已发货
-           received: 3, # 已收货,充值成功
-           closed: 94, # 已关闭
-           canceled: 95, # 已取消
-           refunded: 98, # 已退款
-         }
+      unpaid: 0, # 等待支付
+      paid: 1, # 已支付
+      shipped: 2, # 已发货
+      received: 3, # 已收货,充值成功
+      closed: 94, # 已关闭
+      canceled: 95, # 已取消
+      refunded: 98 # 已退款
+    }
 
     aasm column: :status, enum: true do
       state :unpaid, initial: true
@@ -32,9 +33,9 @@ module Payment
       end
 
       # 充值
-      event :deliver do |recharge|
+      event :deliver do
         before do
-          change_cash!
+          recharge_cash!
         end
         transitions from: [:paid, :shipped], to: :received
       end
@@ -51,9 +52,10 @@ module Payment
     end
 
     private
+
     # 充值成功后资金变动
-    def change_cash!
-      user.cash_account!.increase(amount, nil, "账户充值")
+    def recharge_cash!
+      user.cash_account!.recharge(amount, self)
     end
 
     # 生成流水号
@@ -61,6 +63,5 @@ module Payment
     def generate_transaction_no
       self.transaction_no = Util.random_order_no unless transaction_no
     end
-
   end
 end

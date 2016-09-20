@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920022258) do
+ActiveRecord::Schema.define(version: 20160920031744) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -662,21 +662,27 @@ ActiveRecord::Schema.define(version: 20160920022258) do
 
   create_table "payment_change_records", force: :cascade do |t|
     t.integer  "cash_account_id"
-    t.decimal  "different",       precision: 8, scale: 2, default: 0.0
-    t.decimal  "before",          precision: 8, scale: 2, default: 0.0
-    t.decimal  "after",           precision: 8, scale: 2, default: 0.0
+    t.decimal  "different",                   precision: 8, scale: 2, default: 0.0
+    t.decimal  "before",                      precision: 8, scale: 2, default: 0.0
+    t.decimal  "after",                       precision: 8, scale: 2, default: 0.0
     t.integer  "billing_id"
     t.string   "summary"
     t.datetime "deleted_at"
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.datetime "created_at",                                                                            null: false
+    t.datetime "updated_at",                                                                            null: false
     t.integer  "owner_id"
     t.string   "owner_type"
+    t.string   "type",            limit: 128,                         default: "Payment::ChangeRecord"
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.integer  "change_type"
+    t.decimal  "amount",                      precision: 8, scale: 2, default: 0.0
   end
 
   add_index "payment_change_records", ["billing_id"], name: "index_payment_change_records_on_billing_id", using: :btree
   add_index "payment_change_records", ["cash_account_id"], name: "index_payment_change_records_on_cash_account_id", using: :btree
   add_index "payment_change_records", ["owner_type", "owner_id"], name: "index_payment_change_records_on_owner_type_and_owner_id", using: :btree
+  add_index "payment_change_records", ["target_type", "target_id"], name: "index_payment_change_records_on_target_type_and_target_id", using: :btree
 
   create_table "payment_orders", force: :cascade do |t|
     t.string   "order_no",     limit: 64,                                            null: false

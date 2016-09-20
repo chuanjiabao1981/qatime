@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <%= Payment::CashAccount.human_attribute_name(:balance) %>:
-    <%= format("%.2f",@current_resource.cash_account!.balance) %>
+    <%= number_to_currency(@current_resource.cash_account!.balance, locale: :cn) %>
 
     <% if @current_resource.student? %>
       <%= link_to new_user_recharge_path(@current_resource) do %>

@@ -4,7 +4,7 @@ module Payment
     has_soft_delete
 
     extend Enumerize
-    enumerize :change_type, in: { account: 0, weixin: 1, alipay: 2 }, default: :account
+    enumerize :change_type, in: { account: 0, alipay: 1, weixin: 2 }, default: :account
 
     belongs_to :cash_account
     belongs_to :billing

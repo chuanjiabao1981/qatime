@@ -1,5 +1,7 @@
 module Payment
   class Order < ActiveRecord::Base
+    extend Enumerize
+
     has_soft_delete
 
     RESULT_SUCCESS = "SUCCESS".freeze
@@ -8,6 +10,12 @@ module Payment
       #alipay: 0,
       weixin: 1
     }.freeze
+
+    enumerize :pay_type, in: {
+      account: 0, # 余额支付
+      alipay: 1,
+      weixin: 2
+    }
 
     CATE_UNPAID =%w(unpaid).freeze
     CATE_PAID =%w(paid shipped completed).freeze
@@ -52,15 +60,14 @@ module Payment
 
       event :pay, after_commit: :touch_pay_at do
         before do
+          order_billing!
+          change_cash!
           increase_cash_admin_account
         end
         transitions from: :unpaid, to: :paid
       end
 
       event :cancel do
-        before do
-          increase_cash_admin_account
-        end
         transitions from: :unpaid, to: :canceled
       end
 
@@ -204,7 +211,6 @@ module Payment
     # 支付以后cash_admin账户增加金额
     def increase_cash_admin_account
       billing = billings.create(total_money: total_money, summary: "用户支付, 订单编号：#{order_no} 系统进账: #{total_money}")
-      CashAdmin.increase_cash_account(total_money, billing, '用户充值消费')
     end
 
     # 记录支付时间
@@ -219,6 +225,14 @@ module Payment
         create_qr_code(code: file)
       end
       File.delete(tmp_path)
+    end
+
+    def order_billing!
+      Order.transaction do
+        billing = billings.create(total_money: total_money, summary: "用户支付, 订单编号：#{order_no} 系统进账: #{total_money}")
+        user.cash_account.consumption(total_money, self, billing, "订单支付", change_type: pay_type)
+        CashAdmin.increase_cash_account(total_money, billing, '用户充值消费')
+      end
     end
   end
 end

@@ -51,6 +51,10 @@ module Payment
       "#{WECHAT_CONFIG['domain_name']}/payment/notify"
     end
 
+    def pay_and_ship!
+      pay!
+    end
+
     private
 
     # 充值成功后资金变动

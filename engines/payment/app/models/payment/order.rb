@@ -57,9 +57,6 @@ module Payment
       state :failed
 
       event :pay, after_commit: :touch_pay_at do
-        before do
-          order_billing!
-        end
         transitions from: :unpaid, to: :paid
       end
 
@@ -101,7 +98,10 @@ module Payment
 
     # 支付并发货
     def pay_and_ship!
-      pay!
+      Payment::Order.transaction do
+        order_billing!
+        pay!
+      end
       ship!
     end
 
@@ -193,7 +193,6 @@ module Payment
     end
 
     def order_billing!
-      p '---------->>>>>>>'
       summary = "订单支付, 订单编号：#{order_no} 订单金额: #{amount}"
       billing = billings.create(total_money: amount, summary: summary)
       user.cash_account.consumption(amount, self, billing, summary, change_type: pay_type)
@@ -202,9 +201,7 @@ module Payment
 
     def auto_paid!
       return unless pay_type.account?
-      Order.transaction do
-        pay_and_ship!
-      end
+      pay_and_ship!
     rescue
       fail!
     end

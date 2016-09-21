@@ -106,8 +106,7 @@ module Payment
     end
 
     def check_change!(amount)
-      raise Payment::BalanceNotEnough.new("可用资金不足") if available_balance < amount
-      true
+      raise Payment::BalanceNotEnough, "可用资金不足" if available_balance < amount
     end
   end
 end

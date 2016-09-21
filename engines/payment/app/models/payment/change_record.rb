@@ -11,15 +11,21 @@ module Payment
     belongs_to :target, polymorphic: true
     belongs_to :owner, polymorphic: true
 
+    validate :check_cash
+
     private
 
     # 在创建记录以前矫正资金
     # 外部消费不影响账户余额
-    before_create :correct_different
+    before_validation :correct_different, on: :create
     def correct_different
       return if change_type.account?
       self.after = before
       self.different = 0
+    end
+
+    def check_cash
+      cash_account.available_balance if change_type.account?
     end
   end
 end

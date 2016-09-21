@@ -80,7 +80,7 @@ module LiveStudio
     end
 
     def order_params
-      { total_money: price, product: self }
+      { amount: price, product: self }
     end
 
     def status_text

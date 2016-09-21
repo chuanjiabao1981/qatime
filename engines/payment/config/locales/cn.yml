@@ -26,6 +26,9 @@ cn:
         created_at: 下单时间
         status: 订单状态
         pay_type: 支付方式
+        pay_type/account: 余额支付
+        pay_type/alipay: 支付宝
+        pay_type/weixin: 微信支付
         course_name: 课程名称
         course_teacher: 任课教师
         course_description: 课程描述
@@ -41,6 +44,7 @@ cn:
         target_type: 消费类型
         created_at: 时间
         link: 链接
+        change_type: 消费方式
       payment/earning_record:
         amount: 金额
       payment/billing:

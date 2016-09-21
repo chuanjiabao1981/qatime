@@ -96,7 +96,8 @@ module LiveService
     def self.create_order(user, course, params)
       order = Payment::Order.new(params.merge(course.order_params))
       order.user = user
-      order.save && LiveService::ChatAccountFromUser.new(order.user).instance_account
+      order.save
+      # LiveService::ChatAccountFromUser.new(order.user).instance_account
       order
     end
 

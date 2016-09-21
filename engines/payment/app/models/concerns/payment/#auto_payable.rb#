@@ -1,0 +1,16 @@
+module Payment
+  module AutoPayable
+    extend ActiveSupport::Concern
+    included do
+      has_one :remote_order, as: :order, class_name: Payment::WeixinOrder
+      after_create :auto_paid!
+    end
+
+    protected
+    def auto_paid!
+      return unless pay_type.account?
+      pay!
+    rescue 
+    end
+  end
+end

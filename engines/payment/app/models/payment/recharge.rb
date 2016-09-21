@@ -57,11 +57,5 @@ module Payment
     def recharge_cash!
       user.cash_account!.recharge(amount, self)
     end
-
-    # 生成流水号
-    before_create :generate_transaction_no
-    def generate_transaction_no
-      self.transaction_no = Util.random_order_no unless transaction_no
-    end
   end
 end

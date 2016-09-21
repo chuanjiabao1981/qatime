@@ -42,7 +42,7 @@ module Payment
     end
 
     def remote_result(r)
-      return log_error unless r["return_code"] == Payment::WeixinOrder::RESULT_SUCCESS
+      return log_error(r) unless r["return_code"] == Payment::WeixinOrder::RESULT_SUCCESS
       assign_attributes(pay_url: r['code_url'], prepay_id: r['prepay_id'], nonce_str: r['nonce_str'])
       save
     end
@@ -57,7 +57,7 @@ module Payment
       File.delete(tmp_path)
     end
 
-    def log_error
+    def log_error(r)
       logger.error '===== PAYMENT ERROR START ====='
       logger.error r
       logger.error remote_params

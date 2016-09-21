@@ -1,6 +1,1 @@
-<tr>
-  <td><%= number_to_currency(consumption_record.amount, locale: :cn) %></td>
-  <td><%= consumption_record.target.class.model_name.human %></td>
-  <td><%= localize(consumption_record.created_at,:format => :long) %></td>
-  <td><%= link_to "查看", "" %></td>
-</tr>
+<%= render partial: "/payment/consumption_records/#{consumption_record.target.model_name.singular}", locals: { consumption_record: consumption_record } %>

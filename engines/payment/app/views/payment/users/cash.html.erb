@@ -1,14 +1,13 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <%= Account.human_attribute_name(:money) %>:
-    <%= format("%.2f",@current_resource.account.money) %>
+    <%= Payment::CashAccount.human_attribute_name(:balance) %>:
+    <%= number_to_currency(@current_resource.cash_account!.balance, locale: :cn) %>
 
     <% if @current_resource.student? %>
-      <% if allow? :deposits,:new ,@current_resource.account%>
-        <%= link_to new_account_deposit_path(@current_resource.account) do %>
-          <span><%= Deposit.model_name.human %></span>
-        <% end %>
+      <%= link_to new_user_recharge_path(@current_resource) do %>
+        <span><%= Deposit.model_name.human %></span>
       <% end %>
+
     <% elsif @current_resource.teacher? %>
       <% if allow? :withdraws, :new, @current_resource.account%>
         <%= link_to new_account_withdraw_path(@current_resource.account) do %>
@@ -59,19 +58,51 @@
 <% if @current_resource.student? %>
   <%= render layout: "/students/account_operation_record_layout" do %>
 
-    <%if params[:fee].nil? %>
-      <%= render partial: '/deposits/index',locals: {deposits:@deposits} %>
+    <% if params[:fee] == 'y' %>
+      <div class="qa_big_cell">
+	<h2><%= Payment::ConsumptionRecord.model_name.human %></h2>
+      </div>
+
+      <div class="qa_cell">
+	<table class="table table-bordered">
+	  <tr>
+	    <th><%= Payment::ConsumptionRecord.human_attribute_name(:amount) %></th>
+	    <th><%= Payment::ConsumptionRecord.human_attribute_name(:target_type) %></th>
+	    <th><%= Payment::ConsumptionRecord.human_attribute_name(:created_at) %></th>
+	    <th><%= Payment::ConsumptionRecord.human_attribute_name(:link) %></th>
+	  </tr>
+	  <%= render @consumption_records %>
+	</table>
+	<%= will_paginate @consumption_records %>
+      </div>
     <% else %>
-      <%= render partial: '/shared/consumption_records/index',locals:{consumption_records: @consumption_records} %>
+      <div class="qa_big_cell">
+	<h2><%= Payment::Recharge.model_name.human %></h2>
+      </div>
+
+      <div class="qa_cell">
+	<table class="table table-bordered">
+	  <tr>
+	    <th><%= Payment::Recharge.human_attribute_name(:amount)%></th>
+	    <th width="30%"><%= Payment::Recharge.human_attribute_name(:transaction_no)%></th>
+	    <th><%= Payment::Recharge.human_attribute_name(:pay_type)%></th>
+	    <th><%= Payment::Recharge.human_attribute_name(:created_at)%></th>
+	    <th><%= Payment::Recharge.human_attribute_name(:status)%></th>
+	  </tr>
+	  <%= render @recharges %>
+	</table>
+	<%= will_paginate @recharges %>
+      </div>
+
     <% end %>
   <% end %>
 <% elsif  @current_resource.teacher? %>
   <%= render layout: "/teachers/account_operation_record_layout" do %>
 
-    <%if params[:fee].nil? %>
-        <%= render partial: '/withdraws/index',locals: {withdraws:@withdraws} %>
-    <% else %>
+    <% if params[:fee] == 'y' %>
         <%= render partial: '/shared/earning_records/index',locals:{earning_records: @earning_records} %>
+    <% else %>
+        <%= render partial: '/withdraws/index',locals: {withdraws:@withdraws} %>
     <% end %>
   <% end %>
 <% end %>

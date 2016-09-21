@@ -1,5 +1,7 @@
 module Payment
   class Order < ActiveRecord::Base
+    extend Enumerize
+
     has_soft_delete
 
     RESULT_SUCCESS = "SUCCESS".freeze
@@ -8,6 +10,12 @@ module Payment
       #alipay: 0,
       weixin: 1
     }.freeze
+
+    enumerize :pay_type, in: {
+      account: 0, # 余额支付
+      alipay: 1,
+      weixin: 2
+    }
 
     CATE_UNPAID =%w(unpaid).freeze
     CATE_PAID =%w(paid shipped completed).freeze
@@ -34,6 +42,7 @@ module Payment
 
     has_many :billings, as: :target
     has_one :qr_code, as: :qr_codeable
+    has_many :remote_orders, as: :order
 
     validate do |record|
       record.product.validate_order(record) if new_record? && record.product
@@ -51,15 +60,12 @@ module Payment
 
       event :pay, after_commit: :touch_pay_at do
         before do
-          increase_cash_admin_account
+          order_billing!
         end
         transitions from: :unpaid, to: :paid
       end
 
       event :cancel do
-        before do
-          increase_cash_admin_account
-        end
         transitions from: :unpaid, to: :canceled
       end
 
@@ -200,12 +206,6 @@ module Payment
       self.order_no = Time.now.to_s(:number) + num
     end
 
-    # 支付以后cash_admin账户增加金额
-    def increase_cash_admin_account
-      billing = billings.create(total_money: total_money, summary: "用户支付, 订单编号：#{order_no} 系统进账: #{total_money}")
-      CashAdmin.increase_cash_account(total_money, billing, '用户充值消费')
-    end
-
     # 记录支付时间
     def touch_pay_at
       touch(:pay_at)
@@ -218,6 +218,15 @@ module Payment
         create_qr_code(code: file)
       end
       File.delete(tmp_path)
+    end
+
+    def order_billing!
+      Order.transaction do
+        summary = "订单支付, 订单编号：#{order_no} 订单金额: #{total_money}"
+        billing = billings.create(total_money: total_money, summary: summary)
+        user.cash_account.consumption(total_money, self, billing, summary, change_type: pay_type)
+        CashAdmin.increase_cash_account(total_money, billing, summary)
+      end
     end
   end
 end

@@ -1,0 +1,7 @@
+<tr>
+  <td><%= number_to_currency(recharge.amount, locale: :cn) %></td>
+  <td><%= recharge.transaction_no %></td>
+  <td><%= recharge.pay_type_text %></td>
+  <td><%= localize(recharge.created_at,:format => :long) %></td>
+  <td><%= recharge.aasm.human_state %></td>
+</tr>

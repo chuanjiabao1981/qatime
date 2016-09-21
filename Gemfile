@@ -96,7 +96,9 @@ gem 'chosen-rails'
 # runs HTTP requests
 gem 'typhoeus'
 
+# 支付
 gem 'wx_pay'
+gem 'alipay', '~> 0.12.0'
 
 # 监控
 # gem 'oneapm_rpm'

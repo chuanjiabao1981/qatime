@@ -15,7 +15,7 @@ module Payment
       @order = @user.orders.find_by!(order_no: params[:id])
       @order.init_order_for_test if Rails.env.test?
       @order.init_remote_order unless @order.qr_code.try(:code_url)
-      @course = @order.product
+      @product = @order.product
     end
 
     def cancel_order
@@ -64,7 +64,11 @@ module Payment
     private
 
     def set_user
-      @user = Student.find(params[:user_id])
+      @user = if params[:user_id]
+                Student.find(params[:user_id])
+              else
+                Order.find_by!(order_no: params[:id]).user
+              end
       @student = @user
     end
 

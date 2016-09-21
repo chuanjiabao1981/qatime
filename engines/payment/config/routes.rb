@@ -9,9 +9,21 @@ Payment::Engine.routes.draw do
       end
     end
 
+    resources :recharges, only: [:new, :show, :edit, :create], shallow: true do
+      member do
+        get :pay
+      end
+    end
+
     get :cash, on: :member
 
     resources :change_records, only: [:index]
+  end
+
+  resources :orders, only: [] do
+    member do
+      get :pay
+    end
   end
 
   resources :live_studio_lessons, only: [] do

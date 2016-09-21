@@ -1,0 +1,11 @@
+cn:
+  enumerize:
+    payment/transaction:
+      source:
+        web: 网页
+        app: 手机应用
+    payment/recharge:
+      pay_type:
+        weixin: 微信支付
+        alipay: 支付宝支付
+        offline: 线下充值

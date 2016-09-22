@@ -57,8 +57,9 @@ cn:
         amount: 金额
         created_at: 时间
         link: 链接
-        details: 每小时单价*时长
-        target_type: 类型
+        detail: 每小时单价*时长
+        target_type: 收益类型
+        operate: 操作
       payment/billing:
         total_money: 收支
         summary: 描述

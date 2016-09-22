@@ -27,8 +27,8 @@
 <% if @current_resource.teacher? %>
 <div class="panel panel-default">
   <div class="panel-heading">
-    <%= Account.human_attribute_name(:total_income) %>:
-    <%= format("%.2f",@teacher.account.total_income) %>元
+    <%= Payment::CashAccount.human_attribute_name(:total_income) %>:
+    <%= number_to_currency(@teacher.cash_account.total_income, locals: :cn) %>
   </div>
 </div>
 <% end %>
@@ -101,7 +101,23 @@
   <%= render layout: "/teachers/account_operation_record_layout" do %>
 
     <% if params[:fee] == 'y' %>
-        <%= render partial: '/shared/earning_records/index',locals:{earning_records: @earning_records} %>
+      <div class="qa_big_cell">
+	<h2><%=EarningRecord.model_name.human%></h2>
+      </div>
+
+      <div class="qa_cell">
+	<table class="table table-bordered">
+	  <tr>
+	    <th><%= Payment::EarningRecord.human_attribute_name(:amount)%></th>
+	    <th><%= Fee.human_attribute_name(:video_duration)%></th>
+	    <th><%= Fee.human_attribute_name(:type)%></th>
+	    <th><%= Payment::EarningRecord.human_attribute_name(:created_at) %></th>
+	    <th><%= Fee.human_attribute_name(:link) %></th>
+	  </tr>
+	  <%= render @earning_records %>
+	</table>
+	<%= will_paginate @earning_records %>
+      </div>
     <% else %>
         <%= render partial: '/withdraws/index',locals: {withdraws:@withdraws} %>
     <% end %>

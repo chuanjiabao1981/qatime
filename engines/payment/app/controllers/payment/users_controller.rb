@@ -16,7 +16,7 @@ module Payment
         if params[:fee].nil?
           @withdraws = @teacher.account.withdraws.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
         else
-          @earning_records      = @teacher.account.earning_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+          @earning_records = @current_resource.cash_account.earning_records.order(id: :desc).paginate(page: params[:page])
         end
       end
 

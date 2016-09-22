@@ -2,6 +2,8 @@ cn:
   view:
     payment/consumption_record:
       view: 查看
+    payment/earning_record:
+      view: 查看
 
   activerecord:
     view:
@@ -47,6 +49,8 @@ cn:
         change_type: 消费方式
       payment/earning_record:
         amount: 金额
+        created_at: 时间
+        link: 链接
       payment/billing:
         total_money: 收支
         summary: 描述
@@ -67,6 +71,8 @@ cn:
         created_at: 充值时间
       payment/cash_account:
         balance: 余额
+        total_income: 总收入
+        total_expenditure: 总消费
 
     status:
       order:

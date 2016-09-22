@@ -1,0 +1,7 @@
+<tr>
+  <td><%= number_to_currency(earning_record.amount, locale: :cn) %></td>
+  <td><%= earning_record.change_type_text %></td>
+  <td><%= earning_record.target.course.model_name.human %></td>
+  <td><%= localize(earning_record.created_at,:format => :long) %></td>
+  <td><%= link_to t("view.payment/earning_record.view"), live_studio.teacher_course_path(@current_resource, earning_record.target.course_id) %></td>
+</tr>

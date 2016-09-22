@@ -50,9 +50,9 @@ module Payment
     end
 
     private
-    def pay_order!
-      order.pay!
-    end
 
+    def pay_order!
+      order.pay_and_ship!
+    end
   end
 end

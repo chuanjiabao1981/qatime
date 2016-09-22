@@ -24,9 +24,9 @@
       </thead>
       <tbody>
       <tr>
-        <td class="price" rowspan="3"><%= format '￥%0.2f',@order.total_money %></td>
+        <td class="price" rowspan="3"><%= number_to_currency(@order.amount, locals: :cn) %></td>
         <td colspan="2">
-          <%= t('view.payment_show.order_no') % @order.order_no %>
+          <%= t('view.payment_show.order_no') % @order.transaction_no %>
         </td>
       </tr>
       <tr>
@@ -36,7 +36,7 @@
       </tr>
       <tr>
         <td>
-          <%= t('view.payment_show.order_pay_type') % t("view.payment_show.#{::Payment::Order::PAY_TYPE.key(@order.pay_type)}_pay") %>
+          <%= t('view.payment_show.order_pay_type') % @order.pay_type_text %>
         </td>
         <td class="tips">
           <%= t('view.payment_show.order_tips') %>
@@ -45,22 +45,7 @@
       </tbody>
     </table>
     <div class="payment-body">
-      <div class="qrcode-div">
-        <div>
-          <%= image_tag(@order.qr_code.try(:code_url), id: 'wechat_qrcode') %>
-        </div>
-        <div>
-          <%= t('view.payment_show.weixin_tips_text1') %>
-        </div>
-        <div>
-          <%= t('view.payment_show.weixin_tips_text2') %>
-        </div>
-      </div>
-      <div class="tips-div">
-        <div>
-          <%= image_tag('/imgs/pay_tips.png', id: 'pay_tips_img') %>
-        </div>
-      </div>
+      <%= render @order.pay_type %>
     </div>
   </div>
   <p class="text-center"><%= t "activerecord.view.pay_view_phone" %></p>
@@ -72,7 +57,7 @@
   function showUnreadNews() {
     $.ajax({
       type: "GET",
-      url: "result?order_no="+$('#order_no').val(),
+      url: "result?transaction_no="+$('#order_no').val(),
       success: function(msg) {
         if( 'paid,shipped,completed'.indexOf(msg)!=-1 ){
           location.href="<%= live_studio.student_courses_path(@order.user) %>";

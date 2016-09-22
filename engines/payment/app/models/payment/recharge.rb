@@ -51,17 +51,15 @@ module Payment
       "#{WECHAT_CONFIG['domain_name']}/payment/notify"
     end
 
+    def pay_and_ship!
+      pay!
+    end
+
     private
 
     # 充值成功后资金变动
     def recharge_cash!
       user.cash_account!.recharge(amount, self)
-    end
-
-    # 生成流水号
-    before_create :generate_transaction_no
-    def generate_transaction_no
-      self.transaction_no = Util.random_order_no unless transaction_no
     end
   end
 end

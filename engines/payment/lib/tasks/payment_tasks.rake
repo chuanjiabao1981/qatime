@@ -37,4 +37,30 @@ namespace :payment do
       puts "完成记录: #{count}条" if count % 100 == 0
     end
   end
+
+  desc "收益记录迁移"
+  task migrate_to_change_records: :environment do
+    raise "不能重复导入" if Payment::Billing.where(target_type: 'Correction').count > 0
+    count = 0
+    puts "开始迁移"
+    Fee.includes(:feeable, :customized_course).find_each(batch_size: 500) do |fee|
+      billing = Payment::Billing.create(target: fee.feeable, total_money: fee.sale_price, created_at: fee.created_at, updated_at: fee.updated_at, summary: "#{fee.feeable.model_name.human} - #{fee.feeable.id}结算")
+      fee.earning_records.each do |record|
+        accountable = record.account.accountable
+        next if accountable.nil?
+        cash_account = accountable.cash_account!
+        cash_account.earning_records.create(different: record.value, billing: billing, summary: billing.summary,
+                                            created_at: record.created_at, updated_at: record.updated_at, owner: accountable, target: billing.target, amount: record.value)
+      end
+      fee.consumption_records.each do |record|
+        accountable = record.account.accountable
+        next if accountable.nil?
+        cash_account = accountable.cash_account!
+        cash_account.consumption_records.create(different: -record.value.abs, billing: billing, summary: billing.summary,
+                                            created_at: record.created_at, updated_at: record.updated_at, owner: accountable, target: billing.target, amount: -record.value.abs)
+      end
+      count += 1
+      puts "完成记录: #{count}条" if count % 100 == 0
+    end
+  end
 end

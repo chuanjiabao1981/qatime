@@ -34,8 +34,8 @@
             <%= format('￥%0.2f', @course.price) %>
           </td>
           <td rowspan="5" class="order-pay-type">
-            <% ::Payment::Order::PAY_TYPE.each do |k ,v| %>
-              <%= link_to t("view.payment_show.#{k}_pay"),'javascript:void(0);',rel: v,class: 'btn btn-default btn-pay' %>
+            <% ::Payment::Order.pay_type.options.each do |k, v| %>
+              <%= link_to k, 'javascript:void(0);', rel: v, class: 'btn btn-default btn-pay' %>
             <% end %>
           </td>
         </tr>
@@ -61,7 +61,7 @@
         <%= simple_form_for [:course, @order] do |f|%>
           <div>
             <%= content_tag :span, t('view.payment_show.actual_price'),class: 'font-big' %>
-            <%= content_tag :span, format('￥%0.2f', @course.price), class: 'font-red font-max weight' %>
+            <%= content_tag :span, number_to_currency(@course.price, locale: :cn), class: 'font-red font-max weight' %>
           </div>
           <%= f.input :pay_type, as: :hidden %>
           <%= f.button :submit,t('activerecord.view.pay_now'), class: "btn btn-default float-right" %>

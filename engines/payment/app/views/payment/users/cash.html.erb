@@ -26,10 +26,10 @@
 
 <% if @current_resource.teacher? %>
 	<div class="panel panel-default">
-		<div class="panel-heading">
-			<%= Account.human_attribute_name(:total_income) %>:
-			<%= format("%.2f",@teacher.account.total_income) %>元
-		</div>
+	  <div class="panel-heading">
+	    <%= Payment::CashAccount.human_attribute_name(:total_income) %>:
+	    <%= number_to_currency(@teacher.cash_account.total_income, locals: :cn) %>
+	  </div>
 	</div>
 <% end %>
 
@@ -40,19 +40,21 @@
 			<div class="qa_big_cell">
 				<h2><%= Payment::ConsumptionRecord.model_name.human %></h2>
 			</div>
-
 			<div class="qa_cell">
 				<table class="table table-bordered">
 					<tr>
 						<th><%= Payment::ConsumptionRecord.human_attribute_name(:amount) %></th>
-						<th><%= Payment::ConsumptionRecord.human_attribute_name(:target_type) %></th>
-						<th><%= Payment::ConsumptionRecord.human_attribute_name(:created_at) %></th>
-						<th><%= Payment::ConsumptionRecord.human_attribute_name(:link) %></th>
+				    <th><%= Payment::ConsumptionRecord.human_attribute_name(:target_type) %></th>
+				    <th><%= Payment::ConsumptionRecord.human_attribute_name(:change_type) %></th>
+				    <th><%= Payment::ConsumptionRecord.human_attribute_name(:created_at) %></th>
+				    <th><%= Payment::ConsumptionRecord.human_attribute_name(:link) %></th>
 					</tr>
 					<%= render @consumption_records %>
 				</table>
 				<%= will_paginate @consumption_records %>
 			</div>
+
+
 		<% else %>
 			<div class="qa_big_cell">
 				<h2><%= Payment::Recharge.model_name.human %></h2>
@@ -77,10 +79,26 @@
 <% elsif  @current_resource.teacher? %>
 	<%= render layout: "/teachers/account_operation_record_layout" do %>
 
-		<% if params[:fee] == 'y' %>
-			<%= render partial: '/shared/earning_records/index',locals:{earning_records: @earning_records} %>
-		<% else %>
-			<%= render partial: '/payment/withdraws/index',locals: {withdraws:@withdraws} %>
-		<% end %>
-	<% end %>
+    <% if params[:fee] == 'y' %>
+      <div class="qa_big_cell">
+				<h2><%= Payment::EarningRecord.model_name.human%></h2>
+      </div>
+
+      <div class="qa_cell">
+				<table class="table table-bordered">
+				  <tr>
+				    <th><%= Payment::EarningRecord.human_attribute_name(:amount)%></th>
+				    <th><%= Payment::EarningRecord.human_attribute_name(:details)%></th>
+				    <th><%= Payment::EarningRecord.human_attribute_name(:target_type)%></th>
+				    <th><%= Payment::EarningRecord.human_attribute_name(:created_at) %></th>
+				    <th><%= Fee.human_attribute_name(:link) %></th>
+				  </tr>
+				  <%= render @earning_records %>
+				</table>
+				<%= will_paginate @earning_records %>
+      </div>
+    <% else %>
+        <%= render partial: '/withdraws/index',locals: {withdraws:@withdraws} %>
+    <% end %>
+  <% end %>
 <% end %>

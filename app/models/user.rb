@@ -42,6 +42,8 @@ class User < ActiveRecord::Base
   has_one  :account, as: :accountable
 
   has_many :payment_recharges, class_name: Payment::Recharge # 通知记录
+  has_many :payment_withdraws, class_name: Payment::Withdraw # 提现申请记录
+
 
   has_many :notifications, ->{ order 'created_at desc'}, foreign_key: :receiver_id
   has_many :customized_course_action_notifications,->{ order 'created_at desc'},foreign_key: :receiver_id

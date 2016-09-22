@@ -58,7 +58,12 @@ cn:
         created_at: 充值时间
       payment/cash_account:
         balance: 余额
-
+      payment/withdraw:
+        amount: 金额
+        transaction_no: 编号
+        pay_type: 提现方式
+        created_at: 时间
+        status: 状态
     status:
       order:
         unpaid: 待付款
@@ -70,6 +75,11 @@ cn:
         failed: 下单失败
         refunded: 已退款
         waste: 无效订单
+      withdraw:
+        init: 审核中
+        allowed: 通过审核
+        refused: 提现失败
+        paid: 提现成功
     cate_text:
       order:
         unpaid: 等待付款

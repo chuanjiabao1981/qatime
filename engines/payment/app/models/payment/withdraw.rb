@@ -1,10 +1,19 @@
 module Payment
-  class Withdraw < CashOperationRecord
+  class Withdraw < Transaction
 
-    enum status: %w(init allowed refused paid)
+    enum status: %w(init allowed refused paid cancel)
+    enum pay_type: %w(cash bank wechat alipay)
 
     attr_accessor :account_money_snap_shot
     validate :validate_withdraw_amount
+
+    def status_text
+      I18n.t("activerecord.status.withdraw.#{status}")
+    end
+
+    def pay_type_text
+      I18n.t("enum.payment/withdraw.pay_type.#{pay_type}")
+    end
 
     def change_money
       return self.value * -1
@@ -12,9 +21,9 @@ module Payment
 
     private
     def validate_withdraw_amount
-      v = parse_raw_value_as_a_number(self.value)
+      v = parse_raw_value_as_a_number(self.amount)
       if self.account_money_snap_shot.nil?
-        self.account_money_snap_shot = self.account.money
+        self.account_money_snap_shot = self.user.account.money
       end
       if v
         if v > 0

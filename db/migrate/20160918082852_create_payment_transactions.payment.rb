@@ -13,5 +13,33 @@ class CreatePaymentTransactions < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    # 数据导入
+    Withdraw.find_each(:batch_size => 500) do |w|
+      values = %w(user_id amount transaction_no remote_ip pay_type status source type created_at updated_at).map do |col|
+        case col
+          when 'user_id'
+            w.account.accountable.id
+          when 'amount'
+            w.value
+          when 'transaction_no'
+            "'#{Util.random_order_no}'"
+          when 'remote_ip'
+            "''"
+          when 'pay_type'
+            0
+          when 'status'
+            3
+          when 'source'
+            0
+          when 'type'
+            "'Payment::Withdraw'"
+          when 'created_at', 'updated_at'
+            "'#{w.send(col).to_s[0,19]}'"
+        end
+      end
+      sql = "insert into payment_transactions (user_id,amount,transaction_no,remote_ip,pay_type,status,source,type,created_at,updated_at) values (#{values.join(",")})"
+      ActiveRecord::Base.connection.execute(sql)
+    end
   end
 end

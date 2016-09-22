@@ -9,3 +9,8 @@ cn:
         weixin: 微信支付
         alipay: 支付宝支付
         offline: 线下充值
+  enum:
+    payment/withdraw:
+      pay_type:
+        weixin: 微信支付
+        alipay: 支付宝支付

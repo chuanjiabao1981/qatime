@@ -52,7 +52,7 @@ module Tally
     def __charge_fee(billing)
       customized_course           = CustomizedCourse.find(self.customized_course_id)
       cash_account = customized_course.student.cash_account
-      cash_account.consumption(billing.total_income, self, billing, self.class.model_name.human)
+      cash_account.consumption(billing.total_money, self, billing, self.class.model_name.human)
     end
 
     def __split_fee_to_relative_account(relative_account, fee, value, price)
@@ -83,7 +83,7 @@ module Tally
     end
 
     def keep_account(teacher_id, &block)
-      return if video.nil? || video.duration.to_i < 0
+      return if video.nil? || video.duration.to_i <= 0
       self.class.transaction do
         lock!
         video.lock!
@@ -124,7 +124,7 @@ module Tally
     end
 
     def hours
-      @hours ||= Float(video.duration) / 60 / 60
+      @hours ||= video.duration.to_f / 60 / 60
     end
 
     def total_money

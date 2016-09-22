@@ -7,10 +7,12 @@
   background-color: white;
   outline: none;
 }
-.row-th,.table{
+
+.row-th, .table{
   width: 98%;
   margin-left: 1%;
 }
+
 .row-th {
   margin-top: 1rem;
   line-height: 3rem;
@@ -24,6 +26,10 @@
   text-align: center;
   border-top: none !important;
   color: #666666;
+}
+
+.table-fix {
+  width: 98%!important;
 }
 #tr-row1 {
   background-color: #F2F2F2;
@@ -136,4 +142,8 @@ a {
   position: relative;
   right: 0.5rem;
   color: #666666;
+}
+
+.pagination-fix {
+  margin-left: 1%;
 }

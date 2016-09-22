@@ -22,7 +22,7 @@
   </div>
 </div>
 
-<div class="row row-th">
+<div class="panel-row row-th">
   <div class="col-md-4">
     <%= link_to payment.cash_user_path(@current_resource), class: "record#{' active-1' if params[:fee] != 'y'}"  do%>
       <%= Payment::Withdraw.model_name.human %>
@@ -48,7 +48,7 @@
 
 <div class="con show">
   <% if params[:fee] != 'y' -%>
-    <table class="table">
+    <table class="table table-fix">
       <tbody>
         <tr id="tr-row1">
           <td><%= Payment::Withdraw.human_attribute_name(:amount) %></td>
@@ -58,11 +58,11 @@
           <td><%= Payment::Withdraw.human_attribute_name(:status) %></td>
         </tr>
       </tbody>
-      <%#= render @recharges %>
+      <%#= render @withdraws %>
     </table>
-    <%#= will_paginate @recharges %>
+    <div class="pagination-fix"><%#= will_paginate @withdraws %></div>
   <% else %>
-    <table class="table">
+    <table class="table table-fix">
       <tbody>
         <tr id="tr-row1">
           <td><%= Payment::EarningRecord.human_attribute_name(:amount) %></td>
@@ -74,6 +74,6 @@
       </tbody>
       <%= render @earning_records %>
     </table>
-    <%= will_paginate @earning_records %>
+    <div class="pagination-fix"><%= will_paginate @earning_records %></div>
   <% end %>
 </div>

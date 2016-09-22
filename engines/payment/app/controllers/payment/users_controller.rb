@@ -3,14 +3,13 @@ require_dependency "payment/application_controller"
 module Payment
   class UsersController < ApplicationController
     def cash
+      @cash_account = @current_resource.cash_account!
       if @current_resource.student?
-        @recharges = @current_resource.payment_recharges.paginate(page: params[:page])
         @student = @current_resource
-        @cash_account = @current_resource.cash_account!
         if params[:fee].nil?
-          @deposits = @current_resource.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
+          @recharges = @current_resource.payment_recharges.paginate(page: params[:page])
         else
-          @consumption_records = @current_resource.cash_account.consumption_records.order(created_at: :desc).paginate(page: params[:page])
+          @consumption_records = @current_resource.cash_account.consumption_records.includes(:target).order(created_at: :desc).paginate(page: params[:page])
         end
       elsif @current_resource.teacher?
         @teacher = @current_resource

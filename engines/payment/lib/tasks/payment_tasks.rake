@@ -40,10 +40,12 @@ namespace :payment do
 
   desc "收益记录迁移"
   task migrate_to_change_records: :environment do
-    raise "不能重复导入" if Payment::Billing.where(target_type: 'Correction').count > 0
+    # raise "不能重复导入" if Payment::Billing.where(target_type: 'Correction').count > 0
     count = 0
     puts "开始迁移"
     Fee.includes(:feeable, :customized_course).find_each(batch_size: 500) do |fee|
+      next if fee.feeable.nil?
+      next if Payment::Billing.where(target_id: fee.feeable_id, target_type: fee.feeable_type).count > 0
       billing = Payment::Billing.create(target: fee.feeable, total_money: fee.sale_price, created_at: fee.created_at, updated_at: fee.updated_at, summary: "#{fee.feeable.model_name.human} - #{fee.feeable.id}结算")
       fee.earning_records.each do |record|
         accountable = record.account.accountable

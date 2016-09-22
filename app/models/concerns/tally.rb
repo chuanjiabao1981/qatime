@@ -113,6 +113,10 @@ module Tally
       self.status = "closed"
     end
 
+    def total_price
+      teacher_price + platform_price
+    end
+
     protected
 
     def teacher_amount

@@ -6,6 +6,7 @@ cn:
       view: 查看
     payment/cash_account:
       recharge: 充值
+      withdraw: 提现
 
   activerecord:
     view:
@@ -21,6 +22,7 @@ cn:
       payment/earning_record: 收入记录
       payment/billing: 结算记录
       payment/recharge: 充值记录
+      payment/withdraw: 提现记录
       payment/cash_account: 资金账户
     attributes:
       payment/order:
@@ -75,11 +77,14 @@ cn:
         status/refunded: 已退款
         pay_type: 支付方式
         created_at: 充值时间
+      payment/withdraw:
+        amount: 金额
       payment/cash_account:
         balance: 余额
         total_income: 总收入
         total_expenditure: 累计消费
         recharge: 充值
+        withdraw: 提现
       payment/withdraw:
         amount: 金额
         transaction_no: 编号

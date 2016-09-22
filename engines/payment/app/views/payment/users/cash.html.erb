@@ -1,4 +1,4 @@
 <div class="panel panel-default">
   <%= render "student_cash" if @current_resource.student? -%>
-  <%= render "teacher_cash" if @current_resource.student? -%>
+  <%= render "teacher_cash" if @current_resource.teacher? -%>
 </div>

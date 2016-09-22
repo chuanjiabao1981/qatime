@@ -5,7 +5,7 @@
 <div class="panel-row std-row">
   <div class="std-row-1">
     <%= Payment::CashAccount.human_attribute_name(:balance) %>
-    <span><strong><%= number_to_currency(@cash_account.balance, unit: '', separator: '') %></strong></span>
+    <span><strong><%= number_to_currency(@cash_account.balance, unit: '') %></strong></span>
     <%= t('currency.cn') %>
   </div>
   <div class="std-row-3"><%= @cash_account.try(:status) %></div>
@@ -13,7 +13,7 @@
     <em>
       <%= Payment::CashAccount.human_attribute_name(:total_expenditure) %>
       <span>
-        <%= number_to_currency(@cash_account.total_expenditure, unit: '', separator: '') %>
+        <%= number_to_currency(@cash_account.total_expenditure, unit: '') %>
       </span>
       <%= t('currency.cn') %>
     </em>
@@ -78,7 +78,4 @@
     <%= will_paginate @consumption_records %>
   <% end %>
 </div>
-
-
-
 

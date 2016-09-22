@@ -109,8 +109,8 @@
 	<table class="table table-bordered">
 	  <tr>
 	    <th><%= Payment::EarningRecord.human_attribute_name(:amount)%></th>
-	    <th><%= Fee.human_attribute_name(:video_duration)%></th>
-	    <th><%= Fee.human_attribute_name(:type)%></th>
+	    <th><%= Payment::EarningRecord.human_attribute_name(:details)%></th>
+	    <th><%= Payment::EarningRecord.human_attribute_name(:target_type)%></th>
 	    <th><%= Payment::EarningRecord.human_attribute_name(:created_at) %></th>
 	    <th><%= Fee.human_attribute_name(:link) %></th>
 	  </tr>

@@ -51,6 +51,8 @@ cn:
         amount: 金额
         created_at: 时间
         link: 链接
+        details: 每小时单价*时长
+        target_type: 类型
       payment/billing:
         total_money: 收支
         summary: 描述

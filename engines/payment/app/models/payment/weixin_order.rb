@@ -19,7 +19,7 @@ module Payment
     private
     after_create :remote_sync
     def remote_sync
-      return if Rails.env.test?
+      return if Rails.env.test? || order.created_at < 3.hours.ago
       r = WxPay::Service.invoke_unifiedorder(remote_params)
       remote_result(r)
     end

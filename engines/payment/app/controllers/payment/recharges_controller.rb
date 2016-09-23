@@ -17,6 +17,7 @@ module Payment
     # GET /recharges/new
     def new
       @recharge = Recharge.new
+      render :new, layout: 'payment'
     end
 
     # GET /recharges/1/edit
@@ -30,7 +31,7 @@ module Payment
       if @recharge.save
         redirect_to payment.pay_recharge_path(@recharge.transaction_no), notice: 'Recharge was successfully created.'
       else
-        render :new
+        render :new, layout: 'payment'
       end
     end
 

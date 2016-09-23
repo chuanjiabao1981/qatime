@@ -22,13 +22,17 @@
     </div>
   </div>
   <ul class="row-apply">
+    <% @recharge.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end if @recharge.errors.present? %>
+
     <li><%= t("simple_form.labels.payment/recharge.confirm") %></li>
     <li>
       <em><%= t("simple_form.labels.payment/recharge.confirm_amount") %>:</em>
       <span><strong id="confirm_amount"><%= number_to_currency(@recharge.amount, unit: '¥') %></strong></span>
     </li>
     <li>
-      <%= f.submit t("simple_form.actions.payment/recharge.submit") %>
+      <%= f.submit t("simple_form.actions.payment/recharge.submit"), class: 'btn-suc' %>
     </li>
   </ul>
   <% end %>

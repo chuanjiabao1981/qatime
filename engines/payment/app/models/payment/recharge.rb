@@ -6,6 +6,9 @@ module Payment
 
     attr_accessor :remote_ip, :trade_type
 
+    validates :pay_type, presence: true
+    validates :amount, presence: true
+
     has_one :remote_order, as: :order, class_name: Payment::WeixinOrder
 
     enumerize :pay_type, in: { alipay: 1, weixin: 2, offline: 10 }

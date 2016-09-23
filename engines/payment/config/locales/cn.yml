@@ -10,6 +10,7 @@ cn:
     payment/recharge:
       new_title: 账户充值
       amount: 充值金额
+      weixin_tips: 请使用微信扫一扫<br>扫描二维码支付
 
   activerecord:
     view:

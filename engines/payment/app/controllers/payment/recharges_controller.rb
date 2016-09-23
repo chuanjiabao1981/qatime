@@ -16,7 +16,8 @@ module Payment
 
     # GET /recharges/new
     def new
-      @recharge = Recharge.new
+      @cash_account = @resource_user.cash_account
+      @recharge = Recharge.new(amount: params[:amount])
       render :new, layout: 'payment'
     end
 
@@ -27,6 +28,7 @@ module Payment
     # POST /recharges
     def create
       @recharge = @resource_user.payment_recharges.new(recharge_params.merge(remote_ip: request.remote_ip, source: :web))
+      @cash_account = @resource_user.cash_account
 
       if @recharge.save
         redirect_to payment.pay_recharge_path(@recharge.transaction_no), notice: 'Recharge was successfully created.'

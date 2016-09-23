@@ -1,7 +1,16 @@
 /*学生界面*/
-.btn-add {
-  width: 120px !important;
-  height: 34px !important;
+ em {
+  font-style: normal;
+ }
+.btn-add,.btn-suc,.btn-withdrawal,.btn-sure {
+  display: inline-block;
+  width: 120px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  border: 1px solid gray;
+  border-radius: 5px;
+  color: #333333;
 }
 
 .row-th, .table{
@@ -10,10 +19,9 @@
 }
 
 .row-th {
-  margin-top: 1rem;
+ padding-top: 10px;
   line-height: 3rem;
   border-bottom: 0.1rem solid gray;
-  margin-bottom: 0.5rem;
 }
 .table {
   font-size: 1.4rem;
@@ -126,13 +134,13 @@ a {
   padding-left: 1rem;
 }
 .btn-search {
-  width: 4.4rem;
-  height: 2rem;
-  border-radius: 0.5rem;
-  background-color: white;
+  width: 44px !important;
+  height: 20px !important;
+  border: 1px solid groove;
   font-size: 1.2rem;
-  line-height: 1.5rem;
-  margin-top: 0.5rem;
+  line-height: 15px;
+  margin-top: 5px;
+    display:block
 }
 .glyphicon {
   position: relative;
@@ -145,9 +153,14 @@ a {
 }
 
 
-.navbar,.tec-apply {
+
+/*充值页面*/
+
+
+
+/*.navbar,.tec-apply {
   font-size: 14px;
-}
+}*/
 
 .recharge-title p {
   font-size: 1.4rem;
@@ -163,15 +176,28 @@ a {
   line-height: 5rem;
   border-bottom: 0.1rem solid gainsboro;
 }
+#col-md-nav-1 {
+  padding-left: 15px !important;
+}
+#col-md-nav-2 {
+  padding-right: 15px !important;
+}
+
+@media only screen  and (max-width: 990px) {
+  #col-md-nav-1 {
+  padding-right: 15px !important;
+}
+#col-md-nav-2 {
+  padding-left: 15px !important;
+}
+}
 .col-md-row {
-  background-color: #F2F2F2;
   padding: 0px !important;
   border-bottom: 0.1rem solid gainsboro;
   }
   .col-md-title {
+    background-color: #F2F2F2;
     height: 36px ;
-    margin: 0;
-    padding: 0;
   }
   .col-md-title p {
     line-height: 3.6rem;
@@ -212,7 +238,7 @@ a {
 }
 .row-apply {
   width: 100%;
-  height: 10rem;
+  height: 100px;
   list-style-type: none;
   font-size: 1.4rem;
 }
@@ -232,10 +258,13 @@ a {
   color: red;
 }
 
-
-
-
-
+@font-face {font-family: 'iconfont';
+    src: url('../fonts/iconfont.eot'); 
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), 
+    url('../fonts/iconfont.woff') format('woff'), 
+    url('../fonts/iconfont.ttf') format('truetype'), 
+    url('../fonts/iconfont.svg#iconfont') format('svg'); 
+}
 .iconfont{
     font-family:"iconfont" !important;
     font-size:3rem;font-style:normal;
@@ -243,20 +272,17 @@ a {
     -webkit-text-stroke-width: 0.2px;
     -moz-osx-font-smoothing: grayscale;
     }
+
 .iconfont-1 {
   color: dodgerblue;
 }
-.btn-suc {
-  width: 12rem;
-  font-size: 1.4rem;
-  height: 3.4rem;
-}
+
 
 /*充值支付*/
 
-.stu-apply {
+/*.stu-apply {
   display: none;
-}
+}*/
 .col-md-apply-2 {
   height: 150px;
 }
@@ -302,3 +328,150 @@ a {
   color: #666666;
 }
 
+
+
+
+/*老師提現申請*/
+
+input[type=text],input[type=button] {
+  margin: 0;
+  padding: 0;
+  height: 26px;
+}
+.recharge-title p {
+  font-size: 1.4rem;
+}
+
+.wraning {
+  height: 5rem;
+  line-height: 5rem;
+  text-align: center;
+  color: red;
+  font-size: 1.4rem;
+}
+
+  .col-md-title {
+    height: 36px ;
+    margin: 0 auto;
+    padding: 0;
+  }
+  .col-md-title p {
+    line-height: 3.6rem;
+    text-align: center;
+  }
+  
+  
+.col-md-apply-2,.col-md-apply-3 {
+  position: relative;
+  height: 150px;
+  background-color: white;
+}
+.col-md-apply-3 table {
+  position: absolute;
+  left: 50%;
+  top: 15px;
+  height: 120px;
+  font-size: 1.4rem;
+  margin-left: -14rem;
+  color: #666666;
+}
+.td-msg,.td-msg-1,.td-msg-2,.td-msg-3 {
+  display: none;
+}
+.td-msg span {
+  float: left;
+  font-size: 1rem;
+  color: #999999;
+  padding-left: 0.8rem;
+}
+.td-card {
+  font-size: 1.4rem;
+  color: #999999;
+}
+.col-md-apply-3 table tr td {
+  padding-left: 1rem;
+}
+.col-md-apply-3 {
+  border-left: 0.1rem solid gainsboro;
+}
+.tech-phone {
+  height: 10rem;
+  position: relative;
+  font-size: 1.4rem;
+}
+.tech-phone-num {
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  margin-left: -25rem;
+  font-size: 1.4rem;
+  top: 3.7rem;
+}
+.tech-phone-num span,.tech-phone-num input {
+  float: left;
+  color: #999999;
+}
+.tech-phone-num span {
+  color: #666666;
+}
+.tech-phone-num span:first-child {
+  margin-right: 1rem;
+}
+.tech-phone-num span:last-child {
+  margin-left: 1rem;
+}
+.btn-code {
+  background-color: white;
+  font-size: 1.4rem;
+  color: #333333 !important;
+  border: 0.1px solid darkgray;
+}
+.btn-withdrawal {
+  position: absolute;
+  top: 3.1rem;
+  right: 1rem;
+  width: 12rem;
+  height: 3.4rem !important;
+  line-height: 3.4rem;
+  border-radius: 0.8rem;
+  background-color: white;
+  outline: none;
+  color: #333333;
+}
+.text-2 {
+  width: 100%;
+}
+#text {
+  width: 10rem;
+  float: left;
+}
+
+
+/*提现确认*/
+.col-md-apply-3 {
+  position: relative;
+}
+#tab-apply {
+  font-size: 1.4rem;
+  color: #666666;
+  position: absolute;
+  left: 18rem;
+}
+.tech-phone p {
+  text-align: center;
+  padding-top: 1.5rem;
+  font-size: 1.4rem;
+  color: #666666;
+}
+.btn-sure {
+  position: absolute;
+  left: 50%;
+  top: 5rem;
+  width: 12rem;
+  height: 3.4rem !important;
+  margin-left: -6rem !important;
+  border-radius: 0.8rem;
+  outline: none;
+  background-color: white;
+  color: #333333;
+}

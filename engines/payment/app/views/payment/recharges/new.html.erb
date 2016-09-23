@@ -1,33 +1,45 @@
 <div class="panel panel-default">
-          <div class="recharge-title"><p>账户充值</p></div>
-             <div class="row">
-             <div class="col-md-7 col-md-row">
-              <div class="col-md-title"><p>充值金额</p></div>
-                <div class="col-md-apply">
-                  <div class="txt-num">
-                    <input type="text" placeholder="输入金额不小于100元" class="num">
-                    <span>(当前余额2345.33元)</span>
-                  </div>
-                </div>
-             </div>
-             <div class="col-md-5 col-md-row">
-              <div class="col-md-title"><p>支付方式</p></div>
-              <div class="col-md-apply-1">
-                <div class="txt-radio">
-                <input type="radio" name="circle" class="check">
-                <span class="iconfont"></span><em>微信支付</em><br>
-                <input type="radio" name="circle" class="check">
-                <span class="iconfont iconfont-1"></span><em>支付宝支付</em>
-                </div>
-              </div>
-             </div>
-             </div>
-             <ul class="row-apply">
-              <li>请输入并核对信息后再提交充值确认</li>
-              <li><em>应付金额:</em><span><strong>￥1400.00</strong></span></li>
-              <li>
-                <!--<input type="button" class="btn-suc" value="立即充值" />-->
-                <button type="button" class="btn btn-default btn-suc">立即充值</button>
-              </li>
-             </ul>  
+  <div class="recharge-title"><p><%= t("simple_form.labels.payment/recharge.title") %></p></div>
+
+  <%= simple_form_for(@recharge, url: user_recharges_path(@resource_user, @recharge)) do |f| %>
+  <div class="row row-title">
+    <div class="col-md-7 col-md-row" id="col-md-nav-1">
+      <div class="col-md-title"><p><%= t("simple_form.labels.payment/recharge.amount") %></p></div>
+      <div class="col-md-apply">
+        <div class="txt-num">
+          <%= f.input_field :amount, class: "num", placeholder: t("simple_form.placeholders.payment/recharge.amount", min_amount: 100), boolean_style: :inline %>
+          <span><%= t("simple_form.hints.payment/recharge.amount", blance: number_to_currency(@cash_account.balance, unit: '¥') ) %></span>
+        </div>
       </div>
+    </div>
+    <div class="col-md-5 col-md-row" id="col-md-nav-2">
+      <div class="col-md-title"><p><%= t("simple_form.labels.payment/recharge.pay_type") %></p></div>
+      <div class="col-md-apply-1">
+        <div class="txt-radio">
+          <%= f.input_field :pay_type, as: :radio_buttons, collection: @recharge.class.pay_type.options %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul class="row-apply">
+    <li><%= t("simple_form.labels.payment/recharge.confirm") %></li>
+    <li>
+      <em><%= t("simple_form.labels.payment/recharge.confirm_amount") %>:</em>
+      <span><strong id="confirm_amount"><%= number_to_currency(@recharge.amount, unit: '¥') %></strong></span>
+    </li>
+    <li>
+      <%= f.submit t("simple_form.actions.payment/recharge.submit") %>
+    </li>
+  </ul>
+  <% end %>
+</div>
+
+<%= content_for :javascript do %>
+<script type="text/javascript">
+$(function() {
+  $("#recharge_amount").blur(function() {
+    $("#confirm_amount").text("￥" + $("#recharge_amount").val());
+  });
+});
+</script>
+<% end %>

@@ -18,7 +18,9 @@
       <%= t('currency.cn') %>
     </em>
     <!--<button type="button" class="btn btn-default btn-add">充值</button>-->
-    <input type="button" name="" class="btn btn-default btn-add" value="<%= Payment::CashAccount.human_attribute_name(:recharge) %>">
+    <%= link_to payment.new_user_recharge_path(@current_resource), class: 'btn-add' do %>
+      <%= Payment::CashAccount.human_attribute_name(:recharge) %>
+    <% end %>
   </div>
 </div>
 

@@ -7,6 +7,9 @@ cn:
     payment/cash_account:
       recharge: 充值
       withdraw: 提现
+    payment/recharge:
+      new_title: 账户充值
+      amount: 充值金额
 
   activerecord:
     view:
@@ -66,7 +69,7 @@ cn:
         details: 明细
         created_at: 结算时间
       payment/recharge:
-        transaction_no: 流水号
+        transaction_no: 编号
         amount: 金额
         source: 来源
         status: 充值状态
@@ -78,6 +81,13 @@ cn:
         status/refunded: 已退款
         pay_type: 支付方式
         created_at: 充值时间
+        order_time: 时间
+        transaction_type: 交易类型
+        transaction_type/recharge: 账户储值
+        transaction_method: 交易方式
+        transaction_info: 交易信息
+        reset_pay_type: 重选支付方式
+        tips: 请核对充值信息后再进行付款操作
       payment/withdraw:
         amount: 金额
       payment/cash_account:

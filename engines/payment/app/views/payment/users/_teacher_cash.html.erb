@@ -9,6 +9,7 @@
     <%= t('currency.cn') %>
   </div>
   <div class="std-row-3"><%= @cash_account.try(:status) %></div>
+
   <div class="std-row-2">
     <em>
       <%= Payment::CashAccount.human_attribute_name(:total_income) %>
@@ -18,7 +19,10 @@
       <%= t('currency.cn') %>
     </em>
     <!--<button type="button" class="btn btn-default btn-add">充值</button>-->
-    <input type="button" name="" class="btn-add" value="<%= Payment::CashAccount.human_attribute_name(:withdraw) %>">
+    <input type="button" name="" class="btn-add" value="">
+    <%= link_to payment.new_user_recharge_path do %>
+      <%= Payment::CashAccount.human_attribute_name(:withdraw) %>
+    <% end %>
   </div>
 </div>
 

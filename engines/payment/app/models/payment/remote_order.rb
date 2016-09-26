@@ -15,6 +15,7 @@ module Payment
     aasm column: :status, enum: true do
       state :unpaid, initial: true
       state :paid
+      state :failed
       state :refunded
       state :closed
 

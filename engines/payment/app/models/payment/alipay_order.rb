@@ -12,7 +12,7 @@ module Payment
       self.trade_no = notify_params[:trade_no]
       self.notify_time = notify_params[:notify_time]
       save!
-      notify_params[:is_success] ? pay! : fail!
+      notify_params[:is_success] == "T" ? pay! : fail!
     end
 
     private

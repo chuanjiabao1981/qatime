@@ -25,6 +25,7 @@
 /config/wechat.yml
 /config/vcloud.yml
 /config/netease.yml
+/config/alipay.yml
 
 *.sqlite3
 *.log

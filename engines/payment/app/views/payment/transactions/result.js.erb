@@ -1,0 +1,6 @@
+<% if @transaction.unpaid? -%>
+<% else %>
+  <% if @transaction.is_a? Payment::Recharge%>
+    location.href = "<%= payment.cash_user_path(@transaction.user) %>";
+  <% end %>
+<% end %>

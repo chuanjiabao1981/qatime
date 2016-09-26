@@ -7,8 +7,9 @@ module Payment
     enum status: {
            unpaid: 0, # 等待支付
            paid: 1, # 已支付
+           failed: 97, # 失败
            refunded: 98, # 已退款
-           closed: 99, # 已关闭
+           closed: 99 # 已关闭
          }
 
     aasm column: :status, enum: true do
@@ -16,6 +17,7 @@ module Payment
       state :paid
       state :refunded
       state :closed
+
 
       # 支付
       event :pay do
@@ -35,6 +37,10 @@ module Payment
       event :close do
         transitions from: :unpaid, to: :closed
       end
+
+      event :fail do
+        transitions from: :unpaid, to: :failed
+      end
     end
 
     # 应该支付金额
@@ -42,11 +48,6 @@ module Payment
       # 测试环境支付一分钱
       return 0.01 if Rails.env.testing? || Rails.env.development?
       amount
-    end
-
-    # 支付通知地址
-    def notify_url
-      order.try(:notify_url)
     end
 
     private

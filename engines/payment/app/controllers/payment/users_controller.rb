@@ -7,7 +7,7 @@ module Payment
       if @current_resource.student?
         @student = @current_resource
         if params[:fee].nil?
-          @recharges = @current_resource.payment_recharges.paginate(page: params[:page])
+          @recharges = @current_resource.payment_recharges.order(created_at: :desc).paginate(page: params[:page])
         else
           @consumption_records = @current_resource.cash_account.consumption_records.includes(:target).order(created_at: :desc).paginate(page: params[:page])
         end

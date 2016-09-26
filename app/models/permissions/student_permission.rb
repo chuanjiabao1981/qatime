@@ -169,6 +169,9 @@ module Permissions
       allow 'payment/recharges', [:new, :create, :pay] do |resource|
         resource.id == user.id
       end
+      allow 'payment/transactions', [:show, :result] do |resource|
+        resource.id == user.id
+      end
       # payment permission
 
       ## begin api permission

@@ -1,6 +1,6 @@
 default: &default
-  pid: pid
-  key: key
+  pid: 2088421285762922
+  key: tniq0gjgwtep8ud8czvhorxwt90swjnh
 
 development:
   <<: *default
@@ -16,3 +16,5 @@ production:
 
 testing:
   <<: *default
+  pid: 2016072300103002
+  

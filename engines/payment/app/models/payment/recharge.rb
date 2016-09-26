@@ -3,13 +3,14 @@ module Payment
   class Recharge < Transaction
     extend Enumerize
     include AASM
+    include Payment::Payable
 
     attr_accessor :remote_ip, :trade_type
 
     validates :pay_type, presence: true
     validates :amount, presence: true
 
-    has_one :remote_order, as: :order, class_name: Payment::WeixinOrder
+    has_one :remote_order, as: :order
 
     enumerize :pay_type, in: { alipay: 1, weixin: 2, offline: 10 }
 
@@ -44,18 +45,21 @@ module Payment
       end
     end
 
-    after_save :instance_remote_order, if: :pay_type_changed?
-    def instance_remote_order
-      return unless pay_type == 'weixin'
-      create_remote_order(amount: amount, remote_ip: remote_ip, order_no: transaction_no, trade_type: Payment::WeixinOrder::TRADE_TYPES[source.to_sym])
+    def notify_url
+      "#{$host_name}/payment/transactions/#{transaction_no}/notify"
     end
 
-    def notify_url
-      "#{WECHAT_CONFIG['domain_name']}/payment/notify"
+    def return_url
+      "#{$host_name}/payment/transactions/#{transaction_no}/result"
     end
 
     def pay_and_ship!
       pay!
+    end
+
+    # 第三方订单subject
+    def subject
+      "账户充值"
     end
 
     private

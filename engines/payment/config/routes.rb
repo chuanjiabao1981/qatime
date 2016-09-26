@@ -26,6 +26,13 @@ Payment::Engine.routes.draw do
     end
   end
 
+  resources :transactions, only: [:show] do
+    member do
+      get :result
+      match :notify, via: [:get, :post]
+    end
+  end
+
   resources :live_studio_lessons, only: [] do
     resources :billings, only: [:index]
   end

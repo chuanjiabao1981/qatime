@@ -9,6 +9,13 @@ module Payment
 
     has_one :qr_code, as: :qr_codeable
 
+    def proccess_notify(result)
+      return unless unpaid?
+      check_result(result)
+      self.pay_at = result['time_end']
+      result["result_code"] == RESULT_SUCCESS ? pay! : fail!
+    end
+
     def payment_url(size = nil)
       # APP支付不需要支付地址
       return unless trade_type == TRADE_TYPES[:web]
@@ -30,7 +37,7 @@ module Payment
         out_trade_no: order_no,
         total_fee: pay_money,
         spbill_create_ip: remote_ip,
-        notify_url: notify_url,
+        notify_url: order.notify_url,
         trade_type: trade_type,
         fee_type: 'CNY'
       }
@@ -65,5 +72,11 @@ module Payment
       fail!
     end
 
+    def check_result(result)
+      raise Payment::InvalidNotify, '通知签名不正确' unless WxPay::Sign.verify?(result)
+      raise Payment::IncorrectAmount, '金额不正确' unless result['total_fee'] == pay_money
+      raise Payment::InvalidNotify, '非法通知' unless result["appid"] == WxPay.appid
+      raise Payment::InvalidNotify, '非法通知' unless result["mch_id"] == WxPay.mch_id
+    end
   end
 end

@@ -4,6 +4,8 @@ module Payment
   class TransactionsController < ApplicationController
     layout 'payment'
 
+    skip_before_action :verify_authenticity_token, only: :notify
+
     before_action :set_transaction
 
     def show
@@ -17,9 +19,9 @@ module Payment
       proccess_result if params[:notify_type] == "trade_status_sync"
       unless request.xhr?
         if @transaction.is_a? Payment::Recharge
-          redirect_to payment.cash_user_path(@transaction.user) and return
+          redirect_to payment.cash_user_path(@transaction.user) && return
         else
-          redirect_to live_studio.student_courses_path(@transaction.user) and return
+          redirect_to live_studio.student_courses_path(@transaction.user) && return
         end
       end
     end

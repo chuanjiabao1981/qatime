@@ -2,3 +2,11 @@
   <%= render "student_cash" if @current_resource.student? -%>
   <%= render "teacher_cash" if @current_resource.teacher? -%>
 </div>
+
+<%= content_for :javascript do %>
+<script type="text/javascript">
+$(function() {
+  $(".datepicker").DatePicker();
+});
+</script>
+<% end %>

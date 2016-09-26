@@ -5,3 +5,5 @@ cn:
       no_bound_mobile: 还未绑定手机
       no_bound_email: 还未绑定邮箱
       no_bound_parent_phone: 还未绑定家长手机
+      query: 查询
+      to: 至

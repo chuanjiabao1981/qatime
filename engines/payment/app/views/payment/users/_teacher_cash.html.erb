@@ -37,16 +37,20 @@
     <% end %>
   </div>
   <div class="col-md-8">
-    <div class="search">
-      <div class="date">
-        <input type="text" placeholder="Date picker" id="singleDateRange">
-        <label for="singleDateRange" class="glyphicon glyphicon-calendar"></label>
-        <span>至</span>
-        <input type="text" placeholder="Date picker" id="singleDateRange-1">
-        <label for="singleDateRange-1" class="glyphicon glyphicon-calendar"></label>
+    <%= form_tag '', method: 'GET' do |f| %>
+      <%= hidden_field_tag :fee, params[:fee] %>
+      <div class="search">
+        <div class="date">
+            <!-- <input type="text" placeholder="Date picker" id="singleDateRange"> -->
+            <%= text_field_tag :start_date, params[:start_date], class: 'datepicker', placeholder: "Date picker", id: "start_date" %>
+            <label for="start_date" class="glyphicon glyphicon-calendar"></label>
+            <span><%= t("view.common.to") %></span>
+            <%= text_field_tag :end_date, params[:end_date], class: 'datepicker', placeholder: "Date picker", id: "end_date" %>
+            <label for="end_date" class="glyphicon glyphicon-calendar"></label>
+          </div>
+          <%= submit_tag t("view.common.query"), class: "btn-search" %>
       </div>
-      <input type="button" class="btn-search" value="查询" />
-    </div>
+    <% end %>
   </div>
 </div>
 

@@ -13,6 +13,12 @@ module Payment
 
     def notify
       proccess_result
+      render '' && return unless @transaction.remote_order.paid?
+      if @transaction.pay_type.weixin?
+        render xml: { return_code: "SUCCESS" }.to_xml(root: 'xml', dasherize: false)
+      elsif @transaction.pay_type.alipay?
+        render text: 'success'
+      end
     end
 
     def result

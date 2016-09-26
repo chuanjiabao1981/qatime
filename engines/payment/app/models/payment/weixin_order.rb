@@ -74,9 +74,9 @@ module Payment
 
     def check_result(result)
       raise Payment::InvalidNotify, '通知签名不正确' unless WxPay::Sign.verify?(result)
-      raise Payment::IncorrectAmount, '金额不正确' unless result['total_fee'] == pay_money
-      raise Payment::InvalidNotify, '非法通知' unless result["appid"] == WxPay.appid
-      raise Payment::InvalidNotify, '非法通知' unless result["mch_id"] == WxPay.mch_id
+      raise Payment::IncorrectAmount, '金额不正确' unless result['total_fee'].to_f == pay_money.to_f
+      raise Payment::InvalidNotify, '非法通知' unless result["appid"] == WxPay.appid.to_s
+      raise Payment::InvalidNotify, '非法通知' unless result["mch_id"] == WxPay.mch_id.to_s
     end
   end
 end

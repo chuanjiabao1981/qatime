@@ -52,7 +52,10 @@
   margin-left: 2rem;
   color: #666666;
 }
-
+.std-row-1 {
+  position: relative;
+  left: -80px;
+}
 .std-row-3 {
   margin-left: 20%;
   color: red;
@@ -79,7 +82,7 @@
   margin-left: 1rem;
 }
 .std-row {
-  width: 100%;
+  /*width: 100%;*/
   height: 6rem;
   border-top: 0.1rem solid gainsboro;
   border-bottom: 0.1rem solid gainsboro;
@@ -144,6 +147,7 @@ a {
 .glyphicon {
   position: relative;
   right: 0.5rem;
+  /*color: #666666;*/
 }
 
 .pagination-fix {
@@ -356,16 +360,9 @@ figcaption p {
 .img-2 {
   width: 240px;
 }
-/*.row-list-img img {
-width: 240px;
-}*/
-
-
-
 
 .row-list li:last-child p{
   text-align: center;
-  /*margin-top: 1rem;*/
   font-size: 1.4rem;
   color: #666666;
 }
@@ -520,12 +517,13 @@ input[type=text],input[type=button] {
 
 
 
+
+
 /*审核页面*/
 
 /*未审核*/
-.panel-title1 {
-  border-bottom: 1px solid gainsboro;
-  height: 5rem;
+.panel-title-1 {
+  height: 50px;
   color: #666666;
 }
 .panel-title1 p {
@@ -534,10 +532,13 @@ input[type=text],input[type=button] {
     font-size: 1.4rem;
 }
 .panel-title-2 {
+  margin-left:15px;
+  margin-right:15px;
+  position: relative;
   height: 60px;
-  border: 1px solid red;
+  border-bottom: 1px solid gainsboro;
 }
-.panel-title-2 a {
+.btn-con {
   color: #333333;
 }
 .btn-active {
@@ -550,12 +551,36 @@ input[type=text],input[type=button] {
   display: inline-block;
   margin-right: 2rem;
 }
-/*.input {
-  position: relative;
-  left: 50%;
-  bottom: 10px;
-  margin-left: -100px;
-}
-.input input{
+.panel-center input {
   float: left;
-}*/
+}
+.panel-left,.panel-center,.panel-right {
+  position: absolute;
+  bottom: 5px;
+}
+.panel-left {
+  left:0px;
+}
+.panel-center {
+  left: 50%;
+  margin-left: -90px;
+}
+.panel-right {
+  right: 0px;
+}
+.panel-title-3 table {
+  width: 100%;
+  margin-top: -10px;
+  font-size: 1.4rem;
+  color: #666666;
+}
+.panel-title-3 table tr td {
+  height: 30px;
+  text-align: center;
+  border: 1px solid gainsboro;
+}
+.all {
+  float: right;
+}
+/*.not_all*/ 
+

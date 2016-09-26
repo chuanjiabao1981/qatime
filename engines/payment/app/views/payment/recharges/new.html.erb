@@ -7,7 +7,7 @@
       <div class="col-md-title"><p><%= t("simple_form.labels.payment/recharge.amount") %></p></div>
       <div class="col-md-apply">
         <div class="txt-num">
-          <%= f.input_field :amount, class: "num", placeholder: t("simple_form.placeholders.payment/recharge.amount", min_amount: 100), boolean_style: :inline %>
+          <%= f.text_field :amount, class: "num", placeholder: t("simple_form.placeholders.payment/recharge.amount", min_amount: 100) %>
           <span><%= t("simple_form.hints.payment/recharge.amount", blance: number_to_currency(@cash_account.balance, unit: '¥') ) %></span>
         </div>
       </div>
@@ -42,7 +42,7 @@
 <script type="text/javascript">
 $(function() {
   $("#recharge_amount").blur(function() {
-    $("#confirm_amount").text("￥" + $("#recharge_amount").val());
+    $("#confirm_amount").text("￥" + parseFloat($("#recharge_amount").val()));
   });
 });
 </script>

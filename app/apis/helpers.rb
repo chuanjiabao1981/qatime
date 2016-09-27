@@ -21,7 +21,7 @@ module APIHelpers
   # 根据日期查询记录
   def query_by_date(chain)
     chain = chain.where("created_at > ?", params[:start_date]) if params[:start_date].present?
-    chain = chain.where("created_at > ?", params[:end_date]) if params[:end_date].present?
+    chain = chain.where("created_at <= ?", params[:end_date]) if params[:end_date].present?
     chain
   end
 

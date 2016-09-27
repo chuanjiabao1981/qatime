@@ -18,7 +18,7 @@ module V1
             requires :id, type: String, desc: '订单ID'
           end
           get ':id/result' do
-            order = ::Payment::Order.find_by(order_no: params[:id])
+            order = Payment::Transaction.find_by!(transaction_no: params[:id])
             order.status
           end
 

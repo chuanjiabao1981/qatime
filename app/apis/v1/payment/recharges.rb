@@ -38,6 +38,22 @@ module V1
               recharges = query_by_date(recharges).order(created_at: :desc).paginate(page: params[:page])
               present recharges, with: Entities::Payment::Recharge
             end
+
+            desc '充值下单' do
+              headers 'Remember-Token' => {
+                description: 'RememberToken',
+                required: true
+              }
+            end
+            params do
+              requires :amount, type: Float, desc: '充值金额'
+              requires :pay_type, type: String, values: ::Payment::Recharge.pay_type.values, desc: '支付方式'
+            end
+            post 'recharges' do
+              recharge = @user.payment_recharges.new(amount: params[:amount], pay_type: params[:pay_type], remote_ip: client_ip, source: :app)
+              raise ActiveRecord::RecordInvalid, recharge unless recharge.save
+              present recharge, with: Entities::Payment::Recharge
+            end
           end
         end
       end

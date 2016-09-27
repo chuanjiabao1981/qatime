@@ -14,6 +14,10 @@ module APIHelpers
     raise APIErrors::NoVisitPermission unless allow?
   end
 
+  def client_ip
+    headers['X-Real-Ip'] || env["REMOTE_ADDR"]
+  end
+
   # 检查客户端
   # TODO 未实现
   def check_client!

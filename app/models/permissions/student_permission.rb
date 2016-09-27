@@ -213,6 +213,8 @@ module Permissions
       api_allow :GET, "/api/v1/payment/orders/[\\w-]+/result"
       api_allow :GET, "/api/v1/payment/orders"
       api_allow :PUT, "/api/v1/payment/orders/[\\w-]+/cancel"
+      api_allow :GET, "/api/v1/payment/users/[\\w-]+/recharges"
+      api_allow :POST, "/api/v1/payment/users/[\\w-]+/recharges"
       ## end api permission
     end
 private

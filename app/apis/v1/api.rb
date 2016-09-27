@@ -12,6 +12,7 @@ module V1
     mount V1::Teachers
     mount V1::AppConstants
     mount V1::Payment::Orders
+    mount V1::Payment::Recharges
     mount V1::Register
     mount V1::Captcha
     mount V1::Users

@@ -11,6 +11,7 @@
   border: 1px solid gray;
   border-radius: 5px;
   color: #333333;
+  background-color: white;
 }
 
 .row-th, .table{
@@ -59,7 +60,6 @@
 .std-row-3 {
   margin-left: 20%;
   color: red;
-  display: none;
 }
 .std-row-1 span {
   font-size: 2.8rem;
@@ -82,7 +82,6 @@
   margin-left: 1rem;
 }
 .std-row {
-  /*width: 100%;*/
   height: 6rem;
   border-top: 0.1rem solid gainsboro;
   border-bottom: 0.1rem solid gainsboro;
@@ -120,25 +119,35 @@ a {
   overflow: hidden;
 }
 
-#singleDateRange,#singleDateRange-1 {
+.datepicker-1 {
       height: 2rem;
       width: 8rem;
+      padding-top: 1rem !important;
       text-align: center;
       font-size: 1.4rem;
+      float: left;
       color: #666666;
-      outline: none;
+    outline: none;
       border: none;
+    }
+    .date span,.label {
+      float: left;
+    }
+    .date {
+      width: 23rem;
     }
    .btn-search,.date {
     float: left;
    }
 .date span {
-  padding-left: 1rem;
+  margin-left: 2rem;
 }
 .btn-search {
   width: 44px !important;
   height: 20px !important;
-  border: 1px solid groove;
+  border-radius: 3px;
+  border: 1px solid gray;
+  background-color: white;
   font-size: 1.2rem;
   line-height: 15px;
   margin-top: 5px;
@@ -146,10 +155,12 @@ a {
 }
 .glyphicon {
   position: relative;
-  right: 0.5rem;
-  /*color: #666666;*/
+  right: 10.7rem;
 }
-
+.glyphicon-1 {
+  position: relative;
+  right: 1.5rem;
+}
 .pagination-fix {
   margin-left: 1%;
 }
@@ -160,9 +171,6 @@ a {
 
 
 
-/*.navbar,.tec-apply {
-  font-size: 14px;
-}*/
 
 .recharge-title p {
   font-size: 1.4rem;
@@ -286,9 +294,7 @@ a {
 
 /*充值支付*/
 
-/*.stu-apply {
-  display: none;
-}*/
+
 .col-md-apply-2 {
   height: 150px;
 }
@@ -524,7 +530,7 @@ input[type=text],input[type=button] {
 /*未审核*/
 .panel-title-1 {
   height: 50px;
-  color: #666666;
+  /*color: #666666;*/
 }
 .panel-title1 p {
   margin-top: -15px;
@@ -534,6 +540,7 @@ input[type=text],input[type=button] {
 .panel-title-2 {
   margin-left:15px;
   margin-right:15px;
+  font-size: 1.4rem;
   position: relative;
   height: 60px;
   border-bottom: 1px solid gainsboro;
@@ -541,46 +548,131 @@ input[type=text],input[type=button] {
 .btn-con {
   color: #333333;
 }
+.btn-submit {
+  width: 60px;
+  height: 26px;
+  background-color: white;
+  border: 1px solid gray;
+  border-radius: 3px;
+  float: right;
+}
+.btn-txt {
+  float: left;
+}
 .btn-active {
      width: 6rem;
      height: 2rem;
-     background-color: chartreuse;
+     background-color: gainsboro;
+     font-size: 1.4rem;
      color: white;
      text-align: center;
      line-height: 2rem;
   display: inline-block;
   margin-right: 2rem;
 }
+.btn-active1 {
+  margin-left: 2rem;
+}
 .panel-center input {
   float: left;
 }
 .panel-left,.panel-center,.panel-right {
   position: absolute;
-  bottom: 5px;
+  bottom: 0.5rem;
+  font-size: 1.4rem;
 }
 .panel-left {
   left:0px;
 }
 .panel-center {
   left: 50%;
-  margin-left: -90px;
+  margin-left: -9rem;
 }
 .panel-right {
   right: 0px;
 }
 .panel-title-3 table {
   width: 100%;
-  margin-top: -10px;
-  font-size: 1.4rem;
+  margin-top: -1rem;
   color: #666666;
 }
 .panel-title-3 table tr td {
-  height: 30px;
+  height: 34px;
+  font-size: 1.2rem;
   text-align: center;
   border: 1px solid gainsboro;
 }
-.all {
+.tab-all td{
+  border-left: none !important;
+  border-right: none !important;
+}
+.all,.btn-reject,.btn-pass {
   float: right;
 }
-/*.not_all*/ 
+.btn-reject,.btn-pass {
+  width: 6rem;
+  height: 28px;
+  font-size: 1.4rem;
+  display: inline-block;
+  border: 1px solid gainsboro;
+  text-align: center;
+  line-height: 27px;
+  border-radius: 5px;
+  color: #666666;
+}
+.btn-pass {
+  margin-right: 1rem;
+}
+.tab-btn {
+  height: 5rem;
+}
+.tab-btn td {
+  border: none !important;
+}
+
+
+
+/*已审核*/
+.panel-title-txt {
+  font-size: 2rem;
+  color: #333333;
+}
+.date-center {
+  position: absolute;
+  left: 18rem;
+  bottom: 0.5rem;
+}
+.date-center span {
+  color: #666666;
+}
+
+
+/*账户冻结页面*/
+.btn-freeze {
+  float: right;
+  /*margin-right: 4.5rem;*/
+  margin-right: 20px;
+  margin-top: 20px;
+}
+.btn-account {
+  float: right;
+  margin-top: 20px;
+  margin-right: 1rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

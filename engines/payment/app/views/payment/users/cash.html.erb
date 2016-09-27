@@ -6,7 +6,12 @@
 <%= content_for :javascript do %>
 <script type="text/javascript">
 $(function() {
-  $(".datepicker").DatePicker();
+  $("#start_date").DatePicker({
+    modalMode: false
+  });
+  $("#end_date").DatePicker({
+    modalMode: false
+  });
 });
 </script>
 <% end %>

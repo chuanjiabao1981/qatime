@@ -231,12 +231,11 @@ module V1
             requires :pay_type, type: Integer, desc: '支付方式 0: 支付宝; 1: 微信', values: Payment::Order::PAY_TYPE.values
           end
           post '/:id/orders' do
-            course = ::LiveStudio::Course.find(params[:id])
             order_params = {
-              trade_type: "APP", pay_type: params[:pay_type], remote_ip: headers['X-Real-Ip'] || env["REMOTE_ADDR"]
+              pay_type: params[:pay_type], remote_ip: client_ip, source: :app
             }
             order = LiveService::CourseDirector.create_order(current_user, course, order_params)
-            order.init_remote_order if order.unpaid? && order.prepay_id.blank?
+            raise ActiveRecord::RecordInvalid, order unless order.save
             present order, with: Entities::Payment::Order
           end
 

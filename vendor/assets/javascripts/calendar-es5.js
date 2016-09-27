@@ -224,7 +224,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     firstDayOfWeek = date.clone().startOf('month').weekday();
 
                 if (this.params.firstDayOfWeek === 1) {
-                    weekShortDays = ['пн', 'вт', 'ср', 'чт', 'пт', 'cб', 'вс'];
+                    // weekShortDays = ['пн', 'вт', 'ср', 'чт', 'пт', 'cб', 'вс'];
+                    weekShortDays = ['一', '二', '三', '四', '五', '六','七'];
                 }
 
                 html += '<div class="dt__calendar dt__' + type + '">';

@@ -130,7 +130,7 @@ a {
     outline: none;
       border: none;
     }
-    .date span,.label {
+    .txt,.label {
       float: left;
     }
     .date {
@@ -548,6 +548,7 @@ input[type=text],input[type=button] {
 .btn-con {
   color: #333333;
 }
+
 .btn-submit {
   width: 60px;
   height: 26px;
@@ -637,20 +638,27 @@ input[type=text],input[type=button] {
   font-size: 2rem;
   color: #333333;
 }
+.date-span {
+  float: left;  
+}
 .date-center {
+  width: 30rem;
   position: absolute;
   left: 18rem;
-  bottom: 0.5rem;
+  bottom: 0px;
 }
 .date-center span {
   color: #666666;
+}
+.datepicker-input {
+  position: relative;
+  bottom: 8px;
 }
 
 
 /*账户冻结页面*/
 .btn-freeze {
   float: right;
-  /*margin-right: 4.5rem;*/
   margin-right: 20px;
   margin-top: 20px;
 }
@@ -669,9 +677,13 @@ input[type=text],input[type=button] {
 
 
 
+/*系统消息*/
 
-
-
+.system-msg {
+  width: 320px;
+  height: 460px;
+  border: 1px solid gray;
+}
 
 
 

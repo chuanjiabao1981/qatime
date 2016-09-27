@@ -7,10 +7,14 @@
 <script type="text/javascript">
 $(function() {
   $("#start_date").DatePicker({
-    modalMode: false
+    modalMode: false,
+    maxDate: moment(),
+    endDate: moment()
   });
   $("#end_date").DatePicker({
-    modalMode: false
+    modalMode: false,
+    maxDate: moment(),
+    endDate: moment()
   });
 });
 </script>

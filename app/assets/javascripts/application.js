@@ -31,4 +31,4 @@
 //= require defaults-zh_CN
 //= require moment.min
 //= require calendar-zh-cn.js
-//= require calendar-es6
+//= require calendar-es5

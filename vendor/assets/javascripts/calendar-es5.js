@@ -38,7 +38,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
             this.initEvents();
 
-            this.setValue();
+            // 取消默认今日
+            // this.setValue();
 
             return this;
         }

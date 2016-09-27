@@ -1,5 +1,5 @@
 # required
-WxPay.appid = WECHAT_CONFIG['appid']
+WxPay.appid = WECHAT_CONFIG['pay_appid']
 WxPay.key = WECHAT_CONFIG['key']
 WxPay.mch_id = WECHAT_CONFIG['mch_id']
 

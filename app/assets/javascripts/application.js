@@ -29,3 +29,4 @@
 //= require editable/rails
 //= require bootstrap-select.min
 //= require defaults-zh_CN
+//= require es5

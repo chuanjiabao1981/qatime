@@ -53,6 +53,7 @@ Qatime::Application.routes.draw do
         get :run
       end
     end
+    resources :withdraws
   end
 
   namespace :managers do

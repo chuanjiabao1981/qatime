@@ -6,9 +6,12 @@ module Payment
 
     attr_accessor :account_money_snap_shot
     validate :validate_withdraw_amount
+    scope :filter, ->(keyword){keyword.blank? ? nil : where('transaction_no ~* ?', keyword).presence ||
+      where(user: User.where('name ~* ?',keyword).presence || User.where('login_mobile ~* ?',keyword))}
 
-    def status_text
-      I18n.t("activerecord.status.withdraw.#{status}")
+    def status_text(role)
+      role = role.present? && role == 'admin' ? 'admin' : 'teacher'
+      I18n.t("activerecord.status.withdraw.#{role}.#{status}")
     end
 
     def pay_type_text
@@ -17,6 +20,10 @@ module Payment
 
     def change_money
       return self.value * -1
+    end
+
+    def self.i18n_options_statuses
+      statuses.slice(:allowed,:refused).map{|k,_| [I18n.t("activerecord.status.withdraw.admin.#{k}"), k]}
     end
 
     private

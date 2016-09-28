@@ -582,5 +582,40 @@ input[type=text],input[type=button] {
 .all {
   float: right;
 }
+.btn-search, .date {
+  float: left;
+}
+.date-center {
+  width: 30rem;
+  position: absolute;
+  left: 18rem;
+  bottom: 0px;
+}
+.datepicker-1 {
+  height: 2rem;
+  width: 8rem;
+  padding-top: 1rem !important;
+  text-align: center;
+  font-size: 1.4rem;
+  float: left;
+  color: #666666;
+  outline: none;
+  border: none;
+}
+
+.btn-txt {
+  float: left;
+}
+
+.panel-right {
+  right: 0px;
+}
+
+.panel-title-txt {
+  font-size: 2rem;
+  color: #333333;
+}
+
+
 /*.not_all*/ 
 

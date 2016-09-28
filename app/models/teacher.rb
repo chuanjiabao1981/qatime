@@ -27,6 +27,7 @@ class Teacher < User
   #has_many :corrections
   #has_many :replies
 
+  belongs_to :workstation
   belongs_to :school
   attr_reader :teacher_columns_required
 

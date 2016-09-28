@@ -14,6 +14,7 @@ class Workstation < ActiveRecord::Base
 
   has_many :waiters
   has_many :sellers
+  has_many :teachers
 
   def cash_account!
     cash_account || ::Payment::CashAccount.create(owner: self)

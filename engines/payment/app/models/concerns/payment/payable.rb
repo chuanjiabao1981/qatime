@@ -2,7 +2,7 @@ module Payment
   module Payable
     extend ActiveSupport::Concern
     included do
-      has_one :remote_order, as: :order, class_name: Payment::WeixinOrder
+      has_one :remote_order, as: :order
       after_save :instance_remote_order, if: :pay_type_changed?
     end
 

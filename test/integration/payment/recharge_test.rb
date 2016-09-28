@@ -53,13 +53,9 @@ module Payment
 
       assert_difference "@student.cash_account.reload.balance", 30.0, '充值到账金额不正确' do
         post payment.notify_transaction_path(recharge.transaction_no, params: notify)
-        p @response.body
         assert_response :success, "支付宝支付通知响应失败"
         assert_equal 'success', @response.body, "支付宝支付通知响应格式不正确"
-
-        sleep(10)
       end
-        sleep(10)
       assert recharge.reload.received?, "支付成功充值失败"
     end
 

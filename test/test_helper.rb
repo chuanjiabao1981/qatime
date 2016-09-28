@@ -129,7 +129,8 @@ class ActiveSupport::TestCase
     when "admin"
       admins_home_path
     when "student"
-      students_home_path
+      # students_home_path
+      '/students/home'
     when "manager"
       managers_home_path
     else

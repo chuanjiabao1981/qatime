@@ -130,6 +130,10 @@ group :development,:test do
   gem 'pry'
 end
 
+group :test do
+  gem 'fakeweb'
+end
+
 gem 'test_after_commit', :group => :test
 
 

@@ -23,6 +23,10 @@ module Payment
       qr_code.code_url(size)
     end
 
+    def app_pay_params
+      WxPay::Service.generate_app_pay_req(prepayid: prepay_id, noncestr: nonce_str)
+    end
+
     private
     after_create :remote_sync
     def remote_sync

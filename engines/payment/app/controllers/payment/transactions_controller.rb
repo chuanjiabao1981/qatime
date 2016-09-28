@@ -12,17 +12,19 @@ module Payment
     end
 
     def notify
-      proccess_result
-      render '' && return unless @transaction.remote_order.paid?
+      proccess_notify
+      render text: 'fail' && return unless @transaction.remote_order.paid?
       if @transaction.pay_type.weixin?
         render xml: { return_code: "SUCCESS" }.to_xml(root: 'xml', dasherize: false)
       elsif @transaction.pay_type.alipay?
         render text: 'success'
+      else
+        render text: "unknown notify"
       end
     end
 
     def result
-      proccess_result if params[:notify_type] == "trade_status_sync"
+      proccess_notify if params[:notify_type] == "trade_status_sync"
       unless request.xhr?
         if @transaction.is_a? Payment::Recharge
           redirect_to payment.cash_user_path(@transaction.user) && return
@@ -42,7 +44,7 @@ module Payment
       @current_resource ||= set_transaction.user
     end
 
-    def proccess_result
+    def proccess_notify
       return false unless @transaction.remote_order
       notify_params = if @transaction.pay_type.alipay?
                         alipay_params

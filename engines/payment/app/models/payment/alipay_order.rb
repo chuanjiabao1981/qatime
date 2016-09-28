@@ -12,7 +12,7 @@ module Payment
       self.trade_no = notify_params[:trade_no]
       self.notify_time = notify_params[:notify_time]
       save!
-      notify_params[:is_success] == "T" ? pay! : fail!
+      notify_params[:trade_status] == "TRADE_FINISHED" ? pay! : fail!
     end
 
     private
@@ -38,7 +38,6 @@ module Payment
     def check_notify(notify_params)
       raise Payment::InvalidNotify, '无效通知' unless Alipay::Notify.verify?(notify_params)
       raise Payment::IncorrectAmount, '金额不正确' unless notify_params[:total_fee].to_f == amount.to_f
-      raise Payment::InvalidNotify, '无效通知' unless notify_params[:seller_id] == Alipay.pid.to_s
     end
   end
 end

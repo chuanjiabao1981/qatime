@@ -12,10 +12,10 @@ module Entities
       end
       expose :pay_type
       expose :pay_at do |order|
-        order.pay_at.try(:strftime,"%Y-%m-%d %H:%M:%S")
+        order.pay_at.try(:strftime, "%Y-%m-%d %H:%M:%S")
       end
       expose :created_at do |order|
-        order.created_at.try(:strftime,"%Y-%m-%d %H:%M:%S")
+        order.created_at.try(:strftime, "%Y-%m-%d %H:%M:%S")
       end
       expose :product, using: Entities::LiveStudio::Course, if: { type: :product }
     end

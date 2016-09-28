@@ -1,0 +1,41 @@
+# 充值记录
+student_recharge_of_1:
+  transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student_recharge
+  amount: 30
+  remote_ip: '127.0.0.1'
+  pay_type: account
+  status: 0
+  source: web
+  type: Payment::Recharge
+
+# 充值记录
+student_recharge_of_2:
+  transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student_recharge
+  amount: 30
+  remote_ip: '127.0.0.1'
+  pay_type: account
+  status: 0
+  source: web
+  type: Payment::Recharge
+# 充值记录
+student_recharge_of_3:
+  transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student_recharge
+  amount: 30
+  remote_ip: '127.0.0.1'
+  pay_type: account
+  status: 1
+  source: web
+  type: Payment::Recharge
+# 充值记录
+student_recharge_of_4:
+  transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student_one
+  amount: 30
+  remote_ip: '127.0.0.1'
+  pay_type: account
+  status: 1
+  source: web
+  type: Payment::Recharge

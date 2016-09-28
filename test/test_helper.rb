@@ -117,23 +117,24 @@ class ActiveSupport::TestCase
          client_type: client_type,
          client_cate: client_cate
     assert_response :success
-    assert_equal 1, JSON.parse( )['status'], '状态码不对' if flag
+    assert_equal 1, JSON.parse(response.body)['status'], '状态码不对' if flag
+    JSON.parse(response.body)['data']['remember_token']
   end
 
   def get_home_url(user)
-      case user.role
-        when "teacher"
-          #teachers_home_path
-          solutions_teacher_path(user.id)
-        when "admin"
-          admins_home_path
-        when "student"
-          students_home_path
-        when "manager"
-          managers_home_path
-        else
-          root_path
-      end
+    case user.role
+    when "teacher"
+      #teachers_home_path
+      solutions_teacher_path(user.id)
+    when "admin"
+      admins_home_path
+    when "student"
+      students_home_path
+    when "manager"
+      managers_home_path
+    else
+      root_path
+    end
   end
 
 

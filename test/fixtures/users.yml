@@ -509,3 +509,17 @@ seller:
   workstation: workstation1
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   type: Seller
+
+# student for test recharge
+student_recharge:
+  login_mobile: 15100000001
+  name: student_recharge
+  role: student
+  email: 15100000001@qatime.cn
+  parent_phone: 15910676326
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
+  school: school2
+  

@@ -17,7 +17,7 @@ module Entities
       expose :nonce_str do |recharge|
         recharge.remote_order.try(&:nonce_str)
       end
-      expose :app_pay_params do |order|
+      expose :app_pay_params do |recharge|
         recharge.remote_order.try(&:app_pay_params)
       end
     end

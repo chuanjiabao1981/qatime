@@ -42,21 +42,6 @@
   </div>
   <ul class="row-list">
     <li>
-      <a href="student_recharge.html" class="btn-reelect"></a>
-      <%= link_to payment.new_user_recharge_path(@current_resource, amount: @transaction.amount) do %>
-        &lt;<%= Payment::Recharge.human_attribute_name(:reset_pay_type) %>
-      <% end %>
-
-      <div class="row-list-img">
-        <figure>
-          <%= image_tag @transaction.remote_order.payment_url, size: "180x180" %>
-          <figcaption><p><%= raw t("view.payment/recharge.weixin_tips") %></p></figcaption>
-        </figure>
-        <figure>
-          <%= image_tag "pay_tips.png", size: "240x240" %>
-        </figure>
-         
-      </div>
     </li>
     <li><p><%= t "activerecord.view.pay_view_phone" %></p></li>
   </ul>  

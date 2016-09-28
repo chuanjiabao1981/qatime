@@ -89,6 +89,26 @@ cn:
         transaction_info: 交易信息
         reset_pay_type: 重选支付方式
         tips: 请核对充值信息后再进行付款操作
+      payment/order:
+        transaction_no: 订单编号
+        amount: 金额
+        source: 来源
+        status: 充值状态
+        status/unpaid: 未支付
+        status/paid: 支付成功
+        status/shipped: 支付成功
+        status/received: 充值成功
+        status/refunding: 等待退款
+        status/refunded: 已退款
+        pay_type: 支付方式
+        created_at: 创建时间
+        order_time: 创建时间
+        transaction_type: 交易类型
+        transaction_type/recharge: 账户储值
+        transaction_method: 交易方式
+        transaction_info: 订单信息
+        reset_pay_type: 重选支付方式
+        tips: 请核对充值信息后再进行付款操作
       payment/withdraw:
         amount: 金额
       payment/cash_account:

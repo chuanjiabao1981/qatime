@@ -185,6 +185,11 @@ module Payment
       "#{$host_name}/payment/transactions/#{transaction_no}/notify"
     end
 
+    # 支付通知地址
+    def return_url
+      "#{$host_name}/payment/transactions/#{transaction_no}/result"
+    end
+
     private
 
     # 记录支付时间

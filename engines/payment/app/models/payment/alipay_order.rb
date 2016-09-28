@@ -15,6 +15,15 @@ module Payment
       notify_params[:trade_status] == "TRADE_FINISHED" ? pay! : fail!
     end
 
+    def app_pay_params
+      Alipay::Mobile::Service.mobile_securitypay_pay_string(
+        out_trade_no: order_no,
+        notify_url: order.notify_url,
+        subject: order.subject,
+        total_fee: amount
+      )
+    end
+
     private
 
     after_create :remote_sync

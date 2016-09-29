@@ -36,3 +36,8 @@
 screenshots/*.png
 config/oneapm.yml
 config/newrelic.yml
+
+# 忽略私钥证书文件
+/config/qatime_rsa_private_key.pem
+# 忽略支付宝公钥证书文件
+/config/alipay_rsa_public_key.pem

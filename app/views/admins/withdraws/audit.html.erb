@@ -10,11 +10,12 @@
       </div>
       <div class="panel-center">
         <%= hidden_field_tag :init, params[:init] %>
+        <%= hidden_field_tag :handle, params[:handle] %>
         <input type="text" placeholder="请输入编号/姓名/电话" name="keyword" value="<%= params[:keyword] %>">
         <input type="submit" class="btn-submit" value="查询">
       </div>
     <% end %>
-    <a href="not_audit_batch.html" class="panel-right">批量操作</a>
+    <%= link_to '批量操作','javascript:void(0);',id: 'batch', class: 'panel-right' if params[:handle] != 'batch' && params[:init] != 'audit' %>
   </div>
   <div class="panel-body panel-title-3">
     <table>
@@ -39,8 +40,10 @@
             <% if params[:init] == 'audit' %>
               <%= withdraw.init? ? '未通过审核' : '已通过审核' %>
             <% else %>
-              <%= link_to '通过·',pass_admins_withdraw_path(withdraw),method: :put, data:{confirm: '确认'} %>
-              <%= link_to '驳回',unpass_admins_withdraw_path(withdraw),method: :put,data:{confirm: '确认'}  %>
+              <div class="operater">
+                <%= link_to '通过·',pass_admins_withdraw_path(withdraw),method: :put, data:{confirm: '确认'} %>
+                <%= link_to '驳回',unpass_admins_withdraw_path(withdraw),method: :put,data:{confirm: '确认'}  %>
+              </div>
             <% end %>
           </td>
         </tr>
@@ -52,6 +55,10 @@
 <script type="text/javascript" charset="utf-8">
   $('#audit,#no_audit').click(function(){
     $("#init").val($(this).attr('id'));
+    $('#filter_form').submit();
+  });
+  $('#batch').click(function(){
+    $("#handle").val($(this).attr('id'));
     $('#filter_form').submit();
   });
 </script>

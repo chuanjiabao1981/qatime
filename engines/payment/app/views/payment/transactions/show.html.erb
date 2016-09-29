@@ -1,9 +1,9 @@
 <div class="panel panel-default">
-  <div class="recharge-title"><p><%= t("simple_form.labels.payment/order.title") %></p></div>
+  <div class="recharge-title"><p><%= t("simple_form.labels.#{Payment::Transaction.last.model_name.i18n_key}.title") %></p></div>
   <div class="row row-title">
     <div class="col-md-2 col-md-row" id="col-md-nav-1">
       <div class="col-md-title">
-        <p><%= t("simple_form.labels.payment/order.amount") %></p>
+        <p><%= t("simple_form.labels.#{Payment::Transaction.last.model_name.i18n_key}.amount") %></p>
       </div>
       <div class="col-md-apply col-md-apply-2">
         <p class="col-md-money"><%= number_to_currency(@transaction.amount, unit: '￥') %></p>
@@ -27,7 +27,7 @@
           <% unless @transaction.is_a? Payment::Order %>
           <tr>
             <td><%= @transaction.class.human_attribute_name(:transaction_type) %></td>
-            <td class="col-md-apply-td"><%= @transaction.class.human_attribute_name("transaction_type/order") %></td>
+            <td class="col-md-apply-td"><%= @transaction.class.human_attribute_name("transaction_type/recharge") %></td>
             <td></td>
           </tr>
           <% end %>

@@ -31,7 +31,7 @@ module Payment
       @cash_account = @resource_user.cash_account
 
       if @recharge.save
-        redirect_to payment.transaction_path(@recharge.transaction_no), notice: 'Recharge was successfully created.'
+        redirect_to payment.transaction_path(@recharge.transaction_no)
       else
         render :new, layout: 'payment'
       end

@@ -16,12 +16,13 @@ module Payment
     end
 
     def app_pay_params
-      Alipay::Mobile::Service.mobile_securitypay_pay_string(
-        out_trade_no: order_no,
-        notify_url: order.notify_url,
-        subject: order.subject,
-        total_fee: amount
-      )
+      Alipay::Mobile::Service.mobile_securitypay_pay_string({ out_trade_no: order_no,
+                                                              notify_url: order.notify_url,
+                                                              subject: order.subject,
+                                                              total_fee: amount
+                                                            },
+                                                            sign_type: 'RSA',
+                                                            key: $qatime_key)
     end
 
     private

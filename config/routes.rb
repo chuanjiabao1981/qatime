@@ -53,7 +53,15 @@ Qatime::Application.routes.draw do
         get :run
       end
     end
-    resources :withdraws
+    resources :withdraws do
+      collection do
+        get :audit
+      end
+      member do
+        put :pass
+        put :unpass
+      end
+    end
   end
 
   namespace :managers do

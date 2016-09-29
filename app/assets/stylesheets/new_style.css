@@ -542,14 +542,18 @@ input[type=text],input[type=button] {
   color: #333333;
 }
 .btn-active {
-     width: 6rem;
-     height: 2rem;
-     background-color: chartreuse;
-     color: white;
-     text-align: center;
-     line-height: 2rem;
+  width: 6rem;
+  height: 2rem;
+  background-color: gainsboro;
+  font-size: 1.4rem;
+  color: white;
+  text-align: center;
+  line-height: 2rem;
   display: inline-block;
   margin-right: 2rem;
+}
+.btn-active1 {
+  margin-left: 2rem;
 }
 .panel-center input {
   float: left;

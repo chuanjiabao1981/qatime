@@ -14,4 +14,22 @@ class Admins::WithdrawsController < ApplicationController
     @withdraws = @withdraws.filter(params[:keyword])
     @withdraws = @withdraws.page(params[:page])
   end
+
+  def audit
+    @withdraws = params[:init] == 'audit' ? Payment::Withdraw.where.not(status: Payment::Withdraw.statuses['init']) :  Payment::Withdraw.init
+    @withdraws = @withdraws.filter(params[:keyword])
+    @withdraws = @withdraws.page(params[:page])
+  end
+
+  def pass
+    @withdraw = Payment::Withdraw.find(params[:id])
+    @withdraw.allowed!
+    redirect_to action: :audit
+  end
+
+  def unpass
+    @withdraw = Payment::Withdraw.find(params[:id])
+    @withdraw.refused!
+    redirect_to action: :audit
+  end
 end

@@ -254,6 +254,42 @@ module V1
             present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user,size: :info
           end
         end
+
+
+        namespace :courses do
+
+          route_param :course_id do
+            helpers do
+              def auth_params
+                @course = ::LiveStudio::Course.find(params[:course_id])
+                @course.teacher
+              end
+            end
+
+            desc '辅导班发布公告' do
+              headers 'Remember-Token' => {
+                description: 'RememberToken',
+                required: true
+              }
+            end
+            params do
+              requires :content, type: String, desc: "公告内容"
+            end
+            post 'announcements' do
+              unless @course.chat_team
+                ::LiveService::ChatTeamManager.new(nil).instance_team(@course)
+                @course.reload
+              end
+              team = @course.chat_team
+              team.team_announcements.create(announcement: params[:content], edit_at: Time.now)
+              team.reload
+              Chat::IM.team_update(tid: team.team_id, owner: team.owner, announcement: team.announcement)
+              # 发送通知消息
+              LiveService::CourseNotificationSender.new(@course).notice(LiveStudioCourseNotification::ACTION_NOTICE_CREATE)
+              "ok"
+            end
+          end
+        end
       end
     end
   end

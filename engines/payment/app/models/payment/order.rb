@@ -190,6 +190,11 @@ module Payment
       "#{$host_name}/payment/transactions/#{transaction_no}/result"
     end
 
+    # 第三方订单subject
+    def subject
+      product.name
+    end
+
     private
 
     # 记录支付时间

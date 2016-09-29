@@ -8,7 +8,7 @@ module Payment
     attr_accessor :remote_ip, :trade_type
 
     validates :pay_type, presence: true
-    validates :amount, presence: true
+    validates :amount, presence: true, numericality: { greater_than: 0.0 }
 
     has_one :remote_order, as: :order
 

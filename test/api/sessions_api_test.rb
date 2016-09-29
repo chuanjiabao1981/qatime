@@ -42,7 +42,10 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
 
   test "POST /api/v1/sessions as student login for teacher's client raise error 2002" do
     teacher = users(:teacher_update_password)
-    api_login_by_pc(teacher, 'student_client')
+    post '/api/v1/sessions', login_account: teacher.login_account,
+         password: 'password',
+         client_type: "pc",
+         client_cate: "student_client"
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 0, res['status'], '状态码不对'

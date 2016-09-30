@@ -117,7 +117,7 @@ a {
 .show {
   display: block;
 }
-.search {
+.search-record {
   float: right;
   margin-right: -0.8rem;
   font-size: 1.4rem;
@@ -383,7 +383,8 @@ figcaption p {
 
 /*老師提現申請*/
 
-input[type=text],input[type=button] {
+
+.btn-num,.btn-code {
   margin: 0;
   padding: 0;
   height: 26px;
@@ -970,7 +971,7 @@ input[type=text],input[type=button] {
 
 /*辅导班live*/
 
-.remedial-nav {
+.remedial-nav,.remedial-textbook {
   margin: 8px;
   border: 1px solid gainsboro;
   padding: 10px;
@@ -1082,4 +1083,29 @@ input[type=text],input[type=button] {
 }
 .up-conditions {
   display: none;
+}
+
+.remedial-textbook {
+  /*height: 200px;*/
+  padding: 8px;
+  }
+
+.textbook-next {
+  width: 100%;
+  height: 240px;
+  list-style-type: none;
+  padding-left: 0 !important;
+}
+.textbook-next li {
+  width: 32%;
+  float: left;
+  border: 1px solid gray;
+  height: 240px;
+  margin: 6.2px;
+}
+/*.textbook-next-img {
+  height: 143px;
+}*/
+.textbook-next-img img {
+  width: 100%;
 }

@@ -2,7 +2,7 @@ module Payment
   class Withdraw < Transaction
 
     enum status: %w(init allowed refused paid cancel)
-    enum pay_type: %w(cash bank wechat alipay)
+    enum pay_type: %w(cash bank alipay)
 
     attr_accessor :account_money_snap_shot
     validate :validate_withdraw_amount

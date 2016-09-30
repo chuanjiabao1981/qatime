@@ -698,9 +698,17 @@ input[type=text],input[type=button] {
   margin-right: 1rem;
 }
 
-
-
-
+.btn-add, .btn-suc, .btn-withdrawal, .btn-sure {
+  display: inline-block;
+  width: 120px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  border: 1px solid gray;
+  border-radius: 5px;
+  color: #333333;
+  background-color: white;
+}
 
 
 

@@ -1,0 +1,119 @@
+<div class="panel panel-default">
+  <div class="recharge-title"><p>提现申请</p></div>
+  <div class="wraning">
+    <p>提示：同时只能存在一笔申请，完成后方可进行下一次提现！</p>
+  </div>
+  <div class="row row-title">
+    <div class="col-md-5 col-md-row" id="col-md-nav-1">
+      <div class="col-md-title">
+        <p>提现金额</p>
+      </div>
+      <div class="col-md-apply-2">
+        <div class="txt-num">
+          <input type="text" placeholder="输入金额不小于100元" class="num">
+          <span>(当前余额<%= @cash_account.balance %>元)</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7 col-md-row" id="col-md-nav-2">
+      <div class="col-md-title">
+        <p>提现方式</p>
+      </div>
+      <div class="col-md-apply-3">
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tbody><tr>
+            <td><input type="radio" name="one" class="check-1">支付宝<br>(推荐)</td>
+            <td>
+              <div class="td-msg-1">
+                <input type="text" placeholder="输入支付宝账号" class="alipay"><br>
+                <input type="text" placeholder="输入真实姓名" class="username">
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="radio" name="one" class="check-1">转账</td>
+            <td>
+              <div class="td-msg">
+                <input type="number" placeholder="输入银行卡号" class="card-num"><br>
+                <input id="text" type="text" placeholder="输入真实姓名" class="car-name">
+                <span>注意：<br>确保此姓名为该银行卡所有人</span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><input type="radio" name="one" class="check-1">现金</td>
+            <td class="td-card">（需本人携带身份证提取）</td>
+          </tr>
+          </tbody></table>
+      </div>
+    </div>
+  </div>
+  <div class="tech-phone">
+    <%= content_tag :div, class: 'tech-phone-num' do %>
+      <span>安全手机校验</span>
+      <input type="text" placeholder="输入校验码">
+      <input type="button" value="发送校验码" class="btn-code">
+      <span>(已绑定手机<%= @current_resource.login_mobile[0,2] %>)****<%= @current_resource.login_mobile[6,10] %></span>
+    <% end if @current_resource.login_mobile.present? %>
+    <a href="javascript:void(0);" class="btn-withdrawal">申请提现</a>
+  </div>
+</div>
+<script type="text/javascript">
+
+  $(function  () {
+    //点击支付宝
+    $(".check-1").click(function  () {
+      var index = $(".check-1").index($(this));
+      if (index == 0) {
+        $(".td-msg-1").show();
+      }else{
+        $(".td-msg-1").hide();
+      }
+      if (index == 1) {
+        $(".td-msg").show();
+      }else{
+        $(".td-msg").hide();
+      }
+    })
+
+    //点击申请提现
+    $(".btn-withdrawal").click(function  () {
+
+      if ($(".num").val()-0 < 100) {
+        alert("请输入金额不小于100元");
+        return false;
+      }
+
+      if(!$(".check-1").is(":checked")){
+        alert('请选择支付方式');
+        return false;
+      }
+      if ($(".check-1").eq(0).is(":checked")) {
+        if ($(".alipay").val().length <= 0) {
+          alert("请输入支付宝账号");
+          return false;
+        }
+
+        if ($(".username").val().length <= 0) {
+          alert("请输入姓名");
+          return false;
+        }
+      }
+
+      if ($(".check-1").eq(1).is(":checked")) {
+        if ($(".card-num").val().length <= 0) {
+          alert("请输入银行卡号");
+          return false;
+        }
+
+        if ($(".car-name").val().length <= 0) {
+          alert("请输入姓名");
+          return false;
+        }
+      }
+      location.href = "teacher_complete.html";
+    })
+
+  })
+
+</script>

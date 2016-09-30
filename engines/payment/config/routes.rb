@@ -18,6 +18,7 @@ Payment::Engine.routes.draw do
     get :cash, on: :member
 
     resources :change_records, only: [:index]
+    resources :withdraws, only: [:new]
   end
 
   resources :orders, only: [] do

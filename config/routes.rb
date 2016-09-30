@@ -3,6 +3,9 @@ Qatime::Application.routes.draw do
 
   get 'welcome/download'
   get 'welcome/courses'
+  resources :softwares, only: [:index, :show] do
+    get :download, on: :member
+  end
   get "topics/node:id"      => "topics#node",           as: 'node_topics'
   get "courses/node:id"     => "courses#node",          as: 'node_courses'
   get "teachers/home"       => "teachers/home#main",    as: 'teachers_home'

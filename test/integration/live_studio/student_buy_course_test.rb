@@ -67,5 +67,17 @@ module LiveStudio
         click_on '立即付款'
       end
     end
+
+    # 余额支付购买辅导班
+    test "buy course with account balance" do
+      visit live_studio.courses_index_path(student_id: @student)
+      course_preview = live_studio_courses(:course_preview)
+      assert_difference '@student.orders.count', 1, "辅导班下单失败" do
+        click_on("buy-course-#{course_preview.id}")
+        choose('pay_type', option: 'account')
+        click_on '立即付款'
+        page.has_content? "提示：如支付遇到问题，请拨打电话 010-58442007"
+      end
+    end
   end
 end

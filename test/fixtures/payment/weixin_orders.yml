@@ -1,0 +1,4 @@
+weixin_remote_order:
+  order: weixin_order
+  amount: 30
+  status: unpaid

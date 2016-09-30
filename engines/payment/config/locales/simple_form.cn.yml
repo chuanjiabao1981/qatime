@@ -7,6 +7,12 @@ cn:
         pay_type: '支付方式'
         confirm: '请输入并核对信息后再提交充值确认'
         confirm_amount: '应付金额'
+      payment/order:
+        title: '订单支付'
+        amount: '支付金额'
+        pay_type: '支付方式'
+        confirm: '请输入并核对信息后再提交充值确认'
+        confirm_amount: '应付金额'
     hints:
       payment/recharge:
         amount: '(当前余额%{blance})'

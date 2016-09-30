@@ -169,6 +169,9 @@ module Permissions
       allow 'payment/recharges', [:new, :create, :pay] do |resource|
         resource.id == user.id
       end
+      allow 'payment/transactions', [:show, :result] do |resource|
+        resource.id == user.id
+      end
       # payment permission
 
       ## begin api permission
@@ -205,11 +208,19 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/students/[\\w-]+/schedule" do |student|
         student && student.id == user.id
       end
+      # 消息通知
+      api_allow :GET, "/api/v1/users/[\\w-]+/notifications"
+      api_allow :PUT, "/api/v1/notifications/[\\w-]+/read"
+      # 消息通知结束
 
       # payment
       api_allow :GET, "/api/v1/payment/orders/[\\w-]+/result"
       api_allow :GET, "/api/v1/payment/orders"
       api_allow :PUT, "/api/v1/payment/orders/[\\w-]+/cancel"
+      api_allow :GET, "/api/v1/payment/users/[\\w-]+/recharges"
+      api_allow :POST, "/api/v1/payment/users/[\\w-]+/recharges"
+      api_allow :GET, "/api/v1/payment/users/[\\w-]+/cash"
+      api_allow :GET, "/api/v1/payment/users/[\\w-]+/consumption_records"
       ## end api permission
     end
 private

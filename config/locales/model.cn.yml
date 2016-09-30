@@ -110,6 +110,7 @@ cn:
         logo: Logo
         description: 更新说明
         download_links: 下载地址
+        cdn_url: 实际下载地址
         qr_code: 二维码
         enforce: 是否强制升级
         status: 状态

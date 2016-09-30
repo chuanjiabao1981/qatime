@@ -9,6 +9,11 @@ cn:
         weixin: 微信支付
         alipay: 支付宝支付
         offline: 线下充值
+    payment/order:
+      pay_type:
+        weixin: 微信支付
+        alipay: 支付宝支付
+        account: 余额支付
     payment/change_record:
       change_type:
         account: 余额

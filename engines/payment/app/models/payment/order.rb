@@ -15,7 +15,7 @@ module Payment
 
     enumerize :pay_type, in: {
       account: 0, # 余额支付
-      # alipay: 1,
+      alipay: 1,
       weixin: 2
     }
 
@@ -182,7 +182,17 @@ module Payment
 
     # 支付通知地址
     def notify_url
-      "#{WECHAT_CONFIG['domain_name']}/payment/notify"
+      "#{$host_name}/payment/transactions/#{transaction_no}/notify"
+    end
+
+    # 支付通知地址
+    def return_url
+      "#{$host_name}/payment/transactions/#{transaction_no}/result"
+    end
+
+    # 第三方订单subject
+    def subject
+      product.name
     end
 
     private

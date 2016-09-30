@@ -7,17 +7,20 @@ module Payment
     # GET /recharges/new
     def new
       @cash_account = @resource_user.cash_account
-      @recharge = Payment::Withdraw.new
+      @withdraw = Payment::Withdraw.new
       render :new, layout: 'payment'
     end
 
     # POST /recharges
     def create
-      #
+      binding.pry
     end
 
 
     private
+    def withdraw_params
+      params.require(:withdraw).permit(:amount, :pay_type)
+    end
 
     def set_resource_user
       @resource_user ||= if params[:user_id]
@@ -31,5 +34,6 @@ module Payment
     def current_resource
       @current_resource ||= set_resource_user
     end
+
   end
 end

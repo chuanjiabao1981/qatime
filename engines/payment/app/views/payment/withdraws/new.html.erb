@@ -3,60 +3,73 @@
   <div class="wraning">
     <p>提示：同时只能存在一笔申请，完成后方可进行下一次提现！</p>
   </div>
-  <div class="row row-title">
-    <div class="col-md-5 col-md-row" id="col-md-nav-1">
-      <div class="col-md-title">
-        <p>提现金额</p>
+  <%= form_for @withdraw, url: user_withdraws_path(@current_resource) do |f| %>
+    <div class="row row-title">
+      <div class="col-md-5 col-md-row" id="col-md-nav-1">
+        <div class="col-md-title">
+          <p>提现金额</p>
+        </div>
+        <div class="col-md-apply-2">
+          <div class="txt-num">
+            <%= f.text_field :amount, class: 'num', placeholder: '输入金额不小于100元' %>
+            <span>(当前余额<%= @cash_account.balance %>元)</span>
+          </div>
+        </div>
       </div>
-      <div class="col-md-apply-2">
-        <div class="txt-num">
-          <input type="text" placeholder="输入金额不小于100元" class="num">
-          <span>(当前余额<%= @cash_account.balance %>元)</span>
+      <div class="col-md-7 col-md-row" id="col-md-nav-2">
+        <div class="col-md-title">
+          <p>提现方式</p>
+        </div>
+        <div class="col-md-apply-3">
+          <table border="0" cellspacing="0" cellpadding="0">
+            <tbody><tr>
+              <td>
+                <%= f.radio_button :pay_type, Payment::Withdraw.pay_types['alipay'], class: 'check-1' %>
+                支付宝<br>(推荐)</td>
+              <td>
+                <div class="td-msg-1">
+                  <input type="text" placeholder="输入支付宝账号" class="alipay"><br>
+                  <input type="text" placeholder="输入真实姓名" class="username">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= f.radio_button :pay_type, Payment::Withdraw.pay_types['bank'], class: 'check-1' %>
+                转账
+              </td>
+              <td>
+                <div class="td-msg">
+                  <input type="number" placeholder="输入银行卡号" class="card-num"><br>
+                  <input id="text" type="text" placeholder="输入真实姓名" class="car-name">
+                  <span>注意：<br>确保此姓名为该银行卡所有人</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= f.radio_button :pay_type, Payment::Withdraw.pay_types['cash'], class: 'check-1' %>
+                现金
+              </td>
+              <td class="td-card">（需本人携带身份证提取）</td>
+            </tr>
+            </tbody></table>
         </div>
       </div>
     </div>
-    <div class="col-md-7 col-md-row" id="col-md-nav-2">
-      <div class="col-md-title">
-        <p>提现方式</p>
-      </div>
-      <div class="col-md-apply-3">
-        <table border="0" cellspacing="0" cellpadding="0">
-          <tbody><tr>
-            <td><input type="radio" name="one" class="check-1">支付宝<br>(推荐)</td>
-            <td>
-              <div class="td-msg-1">
-                <input type="text" placeholder="输入支付宝账号" class="alipay"><br>
-                <input type="text" placeholder="输入真实姓名" class="username">
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td><input type="radio" name="one" class="check-1">转账</td>
-            <td>
-              <div class="td-msg">
-                <input type="number" placeholder="输入银行卡号" class="card-num"><br>
-                <input id="text" type="text" placeholder="输入真实姓名" class="car-name">
-                <span>注意：<br>确保此姓名为该银行卡所有人</span>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td><input type="radio" name="one" class="check-1">现金</td>
-            <td class="td-card">（需本人携带身份证提取）</td>
-          </tr>
-          </tbody></table>
-      </div>
+    <div class="tech-phone">
+      <%= content_tag :div, class: 'tech-phone-num' do %>
+        <span>安全手机校验</span>
+        <input type="text" id="verify" placeholder="输入校验码" class="btn-num">
+        <span>
+          <input class="btn-code" type="button" data-send-captcha-btn data-send-to-input="#login_mobile" data-send-url="<%= ajax_captchas_url %>" data-key="withdraw_cash" value="获取验证码">
+        </span>
+        <span>(已绑定手机<%= @current_resource.login_mobile[0,3] %>****<%= @current_resource.login_mobile[7,4] %>)</span>
+      <% end if @current_resource.login_mobile.present? %>
+      <button class="btn-withdrawal">申请提现</button>
     </div>
-  </div>
-  <div class="tech-phone">
-    <%= content_tag :div, class: 'tech-phone-num' do %>
-      <span>安全手机校验</span>
-      <input type="text" placeholder="输入校验码">
-      <input type="button" value="发送校验码" class="btn-code">
-      <span>(已绑定手机<%= @current_resource.login_mobile[0,2] %>)****<%= @current_resource.login_mobile[6,10] %></span>
-    <% end if @current_resource.login_mobile.present? %>
-    <a href="javascript:void(0);" class="btn-withdrawal">申请提现</a>
-  </div>
+    <%= hidden_field_tag :login_mobile, @current_resource.login_mobile %>
+  <% end %>
 </div>
 <script type="text/javascript">
 
@@ -85,7 +98,7 @@
       }
 
       if(!$(".check-1").is(":checked")){
-        alert('请选择支付方式');
+        alert('请选择提现方式');
         return false;
       }
       if ($(".check-1").eq(0).is(":checked")) {
@@ -111,7 +124,11 @@
           return false;
         }
       }
-      location.href = "teacher_complete.html";
+      if($('#verify').val().length <= 0){
+        alert("请输入验证码");
+        return false;
+      }
+      $('#new_withdraw').submit();
     })
 
   })

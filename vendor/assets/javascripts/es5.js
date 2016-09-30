@@ -49,8 +49,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 var type = arguments.length <= 1 || arguments[1] === undefined ? 'start' : arguments[1];
 
                 var el = event.currentTarget,
-                    dayNum = parseInt(el.innerHTML, 10),
-                    vd = type === 'start' ? this.viewStartDate : this.viewEndDate;
+                  dayNum = parseInt(el.innerHTML, 10),
+                  vd = type === 'start' ? this.viewStartDate : this.viewEndDate;
 
                 if (String(dayNum).length === 1) dayNum = '0' + dayNum;
 
@@ -121,7 +121,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: 'setActiveRange',
             value: function setActiveRange(event) {
                 var range = parseInt(event.currentTarget.getAttribute('data-range'), 10),
-                    rangeParam = this.params.ranges[range];
+                  rangeParam = this.params.ranges[range];
                 if (rangeParam) {
 //                  this.dateStart = rangeParam.startDate;
 //                  this.viewStartDate = rangeParam.startDate;
@@ -188,9 +188,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 var type = arguments.length <= 1 || arguments[1] === undefined ? 'start' : arguments[1];
 
                 var html = '',
-                    daysInMonth = date.daysInMonth(),
-                    sameDate = type === 'start' ? this.dateStart : this.dateEnd,
-                    dayClass = '';
+                  daysInMonth = date.daysInMonth(),
+                  sameDate = type === 'start' ? this.dateStart : this.dateEnd,
+                  dayClass = '';
 
                 for (var i = 0; i < daysInMonth; i++) {
                     var forDate = moment(new Date(date.format('YYYY MM') + ' ' + (i + 1)));
@@ -217,10 +217,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 var type = arguments.length <= 1 || arguments[1] === undefined ? 'start' : arguments[1];
 
                 var html = '',
-                    navClass = type,
-                    selectDate = type === 'start' ? this.dateStart : this.dateEnd,
-                    weekShortDays = moment.weekdaysShort(),
-                    firstDayOfWeek = date.clone().startOf('month').weekday();
+                  navClass = type,
+                  selectDate = type === 'start' ? this.dateStart : this.dateEnd,
+                  weekShortDays = moment.weekdaysShort(),
+                  firstDayOfWeek = date.clone().startOf('month').weekday();
 
                 if (this.params.firstDayOfWeek === 1) {
                     weekShortDays = ['一', '二', '三', '四', '五', '六','七'];
@@ -231,7 +231,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 html += '<div class="dt__calendar_head_wday">' + selectDate.format('dddd') + '</div>';
                 html += '<div class="dt__calendar_head_month"><span class="prev"><</span>' + selectDate.format('M') + '<span class="next">></span></div>';
                 html += '<div class="dt__calendar_head_day">' + selectDate.format('D') + '</div>';
-                html += '<div class="dt__calendar_head_year"><span class="prev"><</span>' + selectDate.format('Y') + '<span class="next">></span></div>';
+                html += '<div class="dt__calendar_head_year"><span class="prev"></span>' + selectDate.format('Y') + '<span class="next"></span></div>';
                 html += '</div>';
                 html += '<div class="dt__calendar_nav">';
                 html += '<div class="dt__calendar_nav_title">' + date.format('MMM YYYY') + '</div>';
@@ -241,7 +241,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 html += '<div class="dt__calendar_m_w">';
                 for (var wi = 0; wi < weekShortDays.length; wi++) {
                     html += '<div class="dt__calendar_m_w_n">' + weekShortDays[wi] + '</div>';
-                   
+
                 };
                 html += '</div>';
 
@@ -260,7 +260,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             key: 'renderRanges',
             value: function renderRanges() {
                 var html = '',
-                    ranges = this.params.ranges;
+                  ranges = this.params.ranges;
 
                 html += '<div class="dt__rages">';
                 for (var i = 0, l = ranges.length; i < l; i++) {

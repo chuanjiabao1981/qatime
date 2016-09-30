@@ -9,16 +9,16 @@
         <%= select_tag :status,options_for_select(Payment::Withdraw.i18n_options_statuses,params[:status]) %>
       </div>
       <!--<div class="panel-center">-->
+
       <div class="date date-center">
-        <span>审核时间</span>
-        <input type="text" placeholder="Date picker" id="singleDateRange" name="start_time" value="<%= params[:start_time] %>">
-        <div class="dt"><div class="dt__wrapper"><div class="dt__calendar dt__start"><div class="dt__calendar_head"><div class="dt__calendar_head_wday">星期一</div><div class="dt__calendar_head_month"><span class="prev">&lt;</span>九月<span class="next">&gt;</span></div><div class="dt__calendar_head_day">26</div><div class="dt__calendar_head_year"><span class="prev">&lt;</span>2016<span class="next">&gt;</span></div></div><div class="dt__calendar_nav"><div class="dt__calendar_nav_title">9月 2016</div></div><div class="dt__calendar_start"><div class="dt__calendar_m"><div class="dt__calendar_m_w"><div class="dt__calendar_m_w_n">一</div><div class="dt__calendar_m_w_n">二</div><div class="dt__calendar_m_w_n">三</div><div class="dt__calendar_m_w_n">四</div><div class="dt__calendar_m_w_n">五</div><div class="dt__calendar_m_w_n">六</div><div class="dt__calendar_m_w_n">七</div></div><div class="dt__calendar_m_d_e"></div><div class="dt__calendar_m_d_e"></div><div class="dt__calendar_m_d_e"></div><div class="dt__calendar_m_d ">1</div><div class="dt__calendar_m_d ">2</div><div class="dt__calendar_m_d ">3</div><div class="dt__calendar_m_d ">4</div><div class="dt__calendar_m_d ">5</div><div class="dt__calendar_m_d ">6</div><div class="dt__calendar_m_d ">7</div><div class="dt__calendar_m_d ">8</div><div class="dt__calendar_m_d ">9</div><div class="dt__calendar_m_d ">10</div><div class="dt__calendar_m_d ">11</div><div class="dt__calendar_m_d ">12</div><div class="dt__calendar_m_d ">13</div><div class="dt__calendar_m_d ">14</div><div class="dt__calendar_m_d ">15</div><div class="dt__calendar_m_d ">16</div><div class="dt__calendar_m_d ">17</div><div class="dt__calendar_m_d ">18</div><div class="dt__calendar_m_d ">19</div><div class="dt__calendar_m_d ">20</div><div class="dt__calendar_m_d ">21</div><div class="dt__calendar_m_d ">22</div><div class="dt__calendar_m_d ">23</div><div class="dt__calendar_m_d ">24</div><div class="dt__calendar_m_d ">25</div><div class="dt__calendar_m_d active">26</div><div class="dt__calendar_m_d ">27</div><div class="dt__calendar_m_d ">28</div><div class="dt__calendar_m_d ">29</div><div class="dt__calendar_m_d ">30</div></div></div></div></div></div>
-        <label for="singleDateRange" class="glyphicon glyphicon-calendar"></label>
-        <span>至</span>
-        <input type="text" placeholder="Date picker" id="singleDateRange-1" name="end_time" value="<%= params[:end_time] %>">
-        <div class="dt"><div class="dt__wrapper"><div class="dt__calendar dt__start"><div class="dt__calendar_head"><div class="dt__calendar_head_wday">星期一</div><div class="dt__calendar_head_month"><span class="prev">&lt;</span>九月<span class="next">&gt;</span></div><div class="dt__calendar_head_day">26</div><div class="dt__calendar_head_year"><span class="prev">&lt;</span>2016<span class="next">&gt;</span></div></div><div class="dt__calendar_nav"><div class="dt__calendar_nav_title">9月 2016</div></div><div class="dt__calendar_start"><div class="dt__calendar_m"><div class="dt__calendar_m_w"><div class="dt__calendar_m_w_n">一</div><div class="dt__calendar_m_w_n">二</div><div class="dt__calendar_m_w_n">三</div><div class="dt__calendar_m_w_n">四</div><div class="dt__calendar_m_w_n">五</div><div class="dt__calendar_m_w_n">六</div><div class="dt__calendar_m_w_n">七</div></div><div class="dt__calendar_m_d_e"></div><div class="dt__calendar_m_d_e"></div><div class="dt__calendar_m_d_e"></div><div class="dt__calendar_m_d ">1</div><div class="dt__calendar_m_d ">2</div><div class="dt__calendar_m_d ">3</div><div class="dt__calendar_m_d ">4</div><div class="dt__calendar_m_d ">5</div><div class="dt__calendar_m_d ">6</div><div class="dt__calendar_m_d ">7</div><div class="dt__calendar_m_d ">8</div><div class="dt__calendar_m_d ">9</div><div class="dt__calendar_m_d ">10</div><div class="dt__calendar_m_d ">11</div><div class="dt__calendar_m_d ">12</div><div class="dt__calendar_m_d ">13</div><div class="dt__calendar_m_d ">14</div><div class="dt__calendar_m_d ">15</div><div class="dt__calendar_m_d ">16</div><div class="dt__calendar_m_d ">17</div><div class="dt__calendar_m_d ">18</div><div class="dt__calendar_m_d ">19</div><div class="dt__calendar_m_d ">20</div><div class="dt__calendar_m_d ">21</div><div class="dt__calendar_m_d ">22</div><div class="dt__calendar_m_d ">23</div><div class="dt__calendar_m_d ">24</div><div class="dt__calendar_m_d ">25</div><div class="dt__calendar_m_d active">26</div><div class="dt__calendar_m_d ">27</div><div class="dt__calendar_m_d ">28</div><div class="dt__calendar_m_d ">29</div><div class="dt__calendar_m_d ">30</div></div></div></div></div></div>
-        <label for="singleDateRange-1" class="glyphicon glyphicon-calendar"></label>
+        <span class="date-span">审核时间</span>
+        <%= text_field_tag :start_time, params[:start_time], class: 'datepicker-1 datepicker-input', placeholder: t("view.common.start_date"), id: "start_date" %>
+        <label for="start_date" class="glyphicon glyphicon-calendar glyphicon-1"></label>
+        <span class="txt"><%= t("view.common.to") %></span>
+        <%= text_field_tag :end_time, params[:end_time], class: 'datepicker-1 datepicker-input', placeholder: t("view.common.end_date"), id: "end_date" %>
+        <label for="end_date" class="glyphicon glyphicon-calendar glyphicon-2"></label>
       </div>
+
       <!--</div>-->
       <div class="panel-right">
         <input type="text" placeholder="请输入编号/姓名/电话" class="btn-txt" name="keyword" value="<%= params[:keyword] %>">
@@ -55,86 +55,17 @@
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
 <script type="text/javascript">
-  'use strict';
 
   $(function () {
-    'use strict';
-
-    $('#singleDateRange').DatePicker({
-      startDate: moment()
+    $("#start_date").DatePicker({
+      modalMode: false,
+      maxDate: moment(),
+      endDate: moment()
     });
-
-    $('#rangedate').DatePicker({
-      type: 'rangedate',
-      startDate: moment().subtract(1, 'week'),
-      endDate: moment(),
-      ranges: [{
-        label: "昨天",
-        startDate: moment().subtract(1, 'day'),
-        endDate: moment().subtract(1, 'day')
-      }, {
-        label: '星期天',
-        startDate: moment().startOf('week'),
-        endDate: moment()
-      }, {
-        label: '2个星期',
-        startDate: moment().startOf('week').subtract(1, 'week'),
-        endDate: moment()
-      }, {
-        label: '这个月',
-        startDate: moment().startOf('month'),
-        endDate: moment()
-      }, {
-        label: '下个月',
-        startDate: moment().startOf('month').subtract(1, 'month'),
-        endDate: moment().startOf('month')
-      }, {
-        label: '今年',
-        startDate: moment().startOf('year'),
-        endDate: moment().startOf('moth')
-      }]
-    });
-  });
-
-
-  'use strict';
-
-  $(function () {
-    'use strict';
-
-    $('#singleDateRange-1').DatePicker({
-      startDate: moment()
-    });
-
-    $('#rangedate').DatePicker({
-      type: 'rangedate',
-      startDate: moment().subtract(1, 'week'),
-      endDate: moment(),
-      ranges: [{
-        label: "昨天",
-        startDate: moment().subtract(1, 'day'),
-        endDate: moment().subtract(1, 'day')
-      }, {
-        label: '星期天',
-        startDate: moment().startOf('week'),
-        endDate: moment()
-      }, {
-        label: '2个星期',
-        startDate: moment().startOf('week').subtract(1, 'week'),
-        endDate: moment()
-      }, {
-        label: '这个月',
-        startDate: moment().startOf('month'),
-        endDate: moment()
-      }, {
-        label: '下个月',
-        startDate: moment().startOf('month').subtract(1, 'month'),
-        endDate: moment().startOf('month')
-      }, {
-        label: '今年',
-        startDate: moment().startOf('year'),
-        endDate: moment().startOf('moth')
-      }]
+    $("#end_date").DatePicker({
+      modalMode: false,
+      maxDate: moment(),
+      endDate: moment()
     });
   });
 

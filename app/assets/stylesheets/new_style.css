@@ -14,7 +14,7 @@
   background-color: white;
 }
 
-.row-th, .table{
+.row-th{
   width: 98%;
   margin-left: 1%;
 }
@@ -24,17 +24,15 @@
   line-height: 3rem;
   border-bottom: 0.1rem solid gray;
 }
-.table {
-  font-size: 1.4rem;
-}
-.table td{
-  text-align: center;
-  border-top: none !important;
-  color: #666666;
-}
-
 .table-fix {
   width: 98%!important;
+  margin-left: 1% !important;
+  text-align: center;
+  font-size: 1.4rem;
+  color: #666666;
+}
+.table-fix td {
+  border-top: none !important;
 }
 #tr-row1 {
   background-color: #F2F2F2;
@@ -112,12 +110,13 @@ a {
 .show {
   display: block;
 }
-.search {
+.search-record {
   float: right;
   margin-right: -0.8rem;
   font-size: 1.4rem;
   overflow: hidden;
 }
+
 
 .datepicker-1 {
       height: 2rem;
@@ -378,11 +377,6 @@ figcaption p {
 
 /*老師提現申請*/
 
-input[type=text],input[type=button] {
-  margin: 0;
-  padding: 0;
-  height: 26px;
-}
 .recharge-title p {
   font-size: 1.4rem;
 }
@@ -465,11 +459,18 @@ input[type=text],input[type=button] {
 .tech-phone-num span:last-child {
   margin-left: 1rem;
 }
+.btn-num, .btn-code {
+  margin: 0;
+  padding: 0;
+  height: 26px;
+}
 .btn-code {
   background-color: white;
   font-size: 1.4rem;
   color: #333333 !important;
   border: 0.1px solid darkgray;
+  line-height: 26px;
+  display: inline-block;
 }
 .btn-withdrawal {
   position: absolute;
@@ -709,7 +710,6 @@ input[type=text],input[type=button] {
   color: #333333;
   background-color: white;
 }
-
 
 
 

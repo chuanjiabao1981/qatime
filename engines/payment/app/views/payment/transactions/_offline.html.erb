@@ -1,0 +1,5 @@
+<div class="row-list-img">
+  <% if @transaction.unpaid? && @transaction.pay_type.offline? && allow?("payment/recharges", "pay", @transaction) %>
+    <%= link_to t("activerecord.view.pay"), payment.pay_recharge_path(@transaction.transaction_no), method: "PUT" %>
+  <% end %>
+</div>

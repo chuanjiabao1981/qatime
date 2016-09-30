@@ -38,7 +38,6 @@ module Payment
         action_record.to = @recharge.status
         action_record.save!
       end if current_user.admin? && @recharge.pay_type.offline? # 为了防止权限配置疏忽这里只有管理员才能授权线下支付
-      p '-------------->'
       redirect_to payment.cash_user_path(@recharge.user_id)
     end
 

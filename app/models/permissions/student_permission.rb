@@ -166,7 +166,7 @@ module Permissions
       allow 'payment/change_records', [:index] do |resource|
         resource.id == user.id
       end
-      allow 'payment/recharges', [:new, :create, :pay] do |resource|
+      allow 'payment/recharges', [:new, :create] do |resource|
         resource.id == user.id
       end
       allow 'payment/transactions', [:show, :result] do |resource|

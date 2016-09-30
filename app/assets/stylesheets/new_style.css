@@ -24,14 +24,6 @@
   line-height: 3rem;
   border-bottom: 0.1rem solid gray;
 }
-.table {
-  font-size: 1.4rem;
-}
-.table td{
-  text-align: center;
-  border-top: none !important;
-  color: #666666;
-}
 
 .table-fix {
   width: 98%!important;
@@ -668,15 +660,6 @@ input[type=text],input[type=button] {
   margin-right: 1rem;
 }
 
-
-
-
-
-
-
-
-
-
 /*系统消息*/
 
 .system-msg {
@@ -684,7 +667,3 @@ input[type=text],input[type=button] {
   height: 460px;
   border: 1px solid gray;
 }
-
-
-
-

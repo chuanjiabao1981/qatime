@@ -31,7 +31,7 @@
     <%= link_to payment.cash_user_path(@current_resource), class: "record#{' active-1' if params[:fee] != 'y'}"  do%>
       <%= Payment::Withdraw.model_name.human %>
     <% end %>
-    <span class="line"><strong>|</strong></span>
+    <span class="record-line"><strong>|</strong></span>
     <%= link_to payment.cash_user_path(@current_resource, fee: 'y'), class: "record#{' active-1' if params[:fee] == 'y'}"  do%>
       <%= Payment::EarningRecord.model_name.human %>
     <% end %>

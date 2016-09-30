@@ -82,7 +82,7 @@ order6:
   pay_type: 2
   type: Payment::Order
 
-order6:
+order7:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: student_with_order2
   product: course_with_order2

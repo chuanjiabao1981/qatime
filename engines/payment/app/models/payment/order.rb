@@ -125,9 +125,6 @@ module Payment
 
     def init_order_for_test
       raise 'Only For Test' unless Rails.env.test?
-      self.pay_url = 'http://localhost/'
-      save
-      pay_and_ship!
     end
 
     # 支付是否超时微信两小时过期
@@ -205,14 +202,15 @@ module Payment
     def order_billing!
       summary = "订单支付, 订单编号：#{order_no} 订单金额: #{amount}"
       billing = billings.create(total_money: amount, summary: summary)
-      user.cash_account.consumption(amount, self, billing, summary, change_type: pay_type)
+      user.cash_account!.consumption(amount, self, billing, summary, change_type: pay_type)
       CashAdmin.increase_cash_account(amount, billing, summary)
     end
 
     def auto_paid!
       return unless pay_type.account?
       pay_and_ship!
-    rescue
+    rescue => e
+      p e
       fail!
     end
   end

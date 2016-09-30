@@ -181,7 +181,6 @@ student_one_with_course:
   school: school2
 
 student_with_order:
-  id: 12
   name: student1
   role: student
   email: student_with_order@baidu.com
@@ -522,4 +521,18 @@ student_recharge:
   grade: 高一
   type: Student
   school: school2
+
+# 测试余额学生
+student_balance:
+  login_mobile: 15100000002
+  name: student_balance
+  role: student
+  email: 15100000002@qatime.cn
+  parent_phone: 15100000002
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
+  school: school2
+
   

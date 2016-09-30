@@ -57,7 +57,7 @@ module Payment
       Payment::CashAccount.transaction do
         with_lock do
           change(:consumption_records, -amount.abs, options.merge(target: target, billing: billing, summary: summary))
-          self.total_expenditure -= amount.abs
+          self.total_expenditure += amount.abs
           save!
         end
       end

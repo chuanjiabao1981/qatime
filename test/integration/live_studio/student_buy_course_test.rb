@@ -31,17 +31,17 @@ module LiveStudio
       course_preview = live_studio_courses(:course_preview)
       assert_difference '@student.orders.count', 1, "辅导班下单失败" do
         click_on("buy-course-#{course_preview.id}")
-        click_link '微信支付'
+        choose "order_pay_type_weixin"
         click_on '立即付款'
         page.has_content? "提示：如支付遇到问题，请拨打电话 010-58442007"
       end
     end
 
     test "student pay order" do
-      @order = payment_orders(:order5)
-      visit payment.pay_user_order_path(@student,@order.order_no)
-      assert has_selector?('img#wechat_qrcode')
-      assert_difference "CashAdmin.current_cash", @order.total_money.to_f, "订单支付完成系统收入不正确" do
+      @order = payment_transactions(:order5)
+      visit payment.transaction_path(@order.transaction_no)
+      assert has_selector?('.row-list-img img'), "验证码显示不正确"
+      assert_difference "CashAdmin.current_cash", @order.amount.to_f, "订单支付完成系统收入不正确" do
         @order.pay_and_ship!
       end
     end
@@ -49,34 +49,42 @@ module LiveStudio
     test "student taste and buy course" do
       course = live_studio_courses(:course_with_lessons)
       visit live_studio.courses_index_path(student_id: @student)
-      count = @student.live_studio_courses.count
-      taste_count = course.reload.taste_tickets.count
-      click_on("taste-course-#{course.id}")
-      sleep 2
-      assert_equal @student.reload.live_studio_courses.count, count+1, "不能正确试听辅导班"
-      assert_equal course.reload.taste_tickets.count, taste_count+1, "不能正确生成试听证"
+      assert_difference "@student.reload.live_studio_courses.count", 1, "不能正确试听辅导班" do
+        assert_difference "@student.reload.live_studio_taste_tickets.count", 1, "不能正确生成试听证" do
+          click_on("taste-course-#{course.id}")
+          sleep 2
+        end
+      end
     end
 
     test "student buy tasting course" do
       course = live_studio_courses(:tasting_course)
       visit live_studio.courses_index_path(student_id: @student)
       assert_difference "@student.reload.orders.count", 1, "正在试听的辅导班下单失败" do
-        #visit live_studio.new_course_order_path(course)
+        # visit live_studio.new_course_order_path(course)
         click_on("buy-course-#{course.id}")
-        click_link '微信支付'
+        choose "order_pay_type_weixin"
         click_on '立即付款'
       end
     end
 
     # 余额支付购买辅导班
     test "buy course with account balance" do
-      visit live_studio.courses_index_path(student_id: @student)
-      course_preview = live_studio_courses(:course_preview)
-      assert_difference '@student.orders.count', 1, "辅导班下单失败" do
-        click_on("buy-course-#{course_preview.id}")
-        choose('pay_type', option: 'account')
-        click_on '立即付款'
-        page.has_content? "提示：如支付遇到问题，请拨打电话 010-58442007"
+      @student_balance = users(:student_balance)
+      new_log_in_as(@student_balance)
+      visit live_studio.courses_index_path(student_id: @student_balance)
+      course = live_studio_courses(:course_preview_three)
+      assert_difference "@student_balance.cash_account!.reload.balance.to_f", -50, "没有正确扣除余额" do
+        assert_difference "@student_balance.cash_account!.reload.total_expenditure.to_f", 50, "总消费计算不正确" do
+          assert_difference "Payment::ConsumptionRecord.count", 1, "没有生成消费记录" do
+            assert_difference '@student_balance.reload.orders.count', 1, "辅导班下单失败" do
+              click_on("buy-course-#{course.id}")
+              choose "order_pay_type_account"
+              click_on '立即付款'
+              page.has_content? "提示：如支付遇到问题，请拨打电话 010-58442007"
+            end
+          end
+        end
       end
     end
   end

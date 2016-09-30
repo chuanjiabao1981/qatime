@@ -27,7 +27,7 @@ module LiveStudio
       if @order.save && !@order.failed?
         redirect_to payment.transaction_path(@order.transaction_no)
       elsif @order.failed?
-        redirect_to transaction_path(@order.transaction_no), alert: t("flash.alert.order_failed")
+        redirect_to payment.transaction_path(@order.transaction_no), alert: t("flash.alert.order_failed")
       else
         p @order.errors
         p '--------------'

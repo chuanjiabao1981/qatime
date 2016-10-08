@@ -511,6 +511,16 @@
           console.log(err.errCode);
           console.log(err.errMsg);
         });
+
+        myPlayer.onPlayState(1,function(){
+          console.log('play');
+        });
+        myPlayer.onPlayState(2,function(){
+          console.log('pause');
+        });
+        myPlayer.onPlayState(3,function(){
+          console.log('ended');
+        });
       }
       else{
         $("#no-flash-area").show() //提示div

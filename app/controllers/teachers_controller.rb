@@ -152,7 +152,8 @@ class TeachersController < ApplicationController
   def keep_account
     KeepAccountWorker.perform_async(@teacher.id)
     flash[:success] = "#{Account.human_attribute_name(:keep_account)}进行中"
-    redirect_to info_teacher_path(@teacher)
+    # 结账完成以后跳转到收入记录页面
+    redirect_to payment.cash_user_path(@teacher, fee: 'y')
   end
   def destroy
     @teacher.destroy

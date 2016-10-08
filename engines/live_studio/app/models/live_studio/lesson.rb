@@ -62,9 +62,7 @@ module LiveStudio
         #     lesson.finish! unless lesson.id == id
         #   end
         # end
-        transitions from: :ready, to: :teaching
-        transitions from: :paused, to: :teaching
-        transitions from: :closed, to: :teaching
+        transitions from: [:ready, :paused, :closed], to: :teaching
       end
 
       event :pause do
@@ -72,18 +70,15 @@ module LiveStudio
       end
 
       event :close do
-        transitions from: :teaching, to: :closed
-        transitions from: :paused, to: :closed
+        transitions from: [:teaching, :paused], to: :closed
       end
 
       event :finish do
-        transitions from: :paused, to: :finished
-        transitions from: :closed, to: :finished
+        transitions from: [:paused, :closed], to: :finished
       end
 
       event :complete do
-        transitions from: :finished, to: :completed
-        transitions from: :billing, to: :completed
+        transitions from: [:finished, :billing], to: :completed
       end
     end
 

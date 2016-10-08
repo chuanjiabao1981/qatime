@@ -25,7 +25,7 @@
       <%= t('currency.cn') %>
     </em>
     <!--<button type="button" class="btn btn-default btn-add">充值</button>-->
-    <%= link_to Payment::CashAccount.human_attribute_name(:withdraw), new_user_withdraw_path(@current_resource),
+    <%= link_to Payment::CashAccount.human_attribute_name(:withdraw), payment.new_user_withdraw_path(@current_resource),
                 class: "btn-add" unless @cash_account.balance < 100%>
   </div>
 </div>

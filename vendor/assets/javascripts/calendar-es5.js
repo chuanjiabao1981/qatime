@@ -168,10 +168,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     event.stopPropagation();
                 });
 
-//              $(document).on('click', function (event) {
-//                  return _this.hideCalendar();
-//              });
-                $(".col-md-8").find("div").on('click',(".dt__calendar_m_d"),function (event) {
+                $(document).on('click', function (event) {
                     return _this.hideCalendar();
                 });
             }
@@ -234,7 +231,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 html += '<div class="dt__calendar_head_wday">' + selectDate.format('dddd') + '</div>';
                 html += '<div class="dt__calendar_head_month"><span class="prev"><</span>' + selectDate.format('M') + '<span class="next">></span></div>';
                 html += '<div class="dt__calendar_head_day">' + selectDate.format('D') + '</div>';
-                html += '<div class="dt__calendar_head_year"><span></span>' + selectDate.format('Y') + '<span></span></div>';
+                html += '<div class="dt__calendar_head_year"><span class="prev"></span>' + selectDate.format('Y') + '<span class="next"></span></div>';
                 html += '</div>';
                 html += '<div class="dt__calendar_nav">';
                 html += '<div class="dt__calendar_nav_title">' + date.format('MMM YYYY') + '</div>';

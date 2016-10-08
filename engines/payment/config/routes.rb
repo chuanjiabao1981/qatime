@@ -11,7 +11,7 @@ Payment::Engine.routes.draw do
 
     resources :recharges, only: [:new, :show, :edit, :create], shallow: true do
       member do
-        get :pay
+        put :pay
       end
     end
 

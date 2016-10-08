@@ -11,3 +11,9 @@ two:
   owner_type: Owner
   balance: 9.99
   deleted_at: 
+
+student_balance_account:
+  owner: student_balance (User)
+  balance: 999999
+  total_income: 0
+  total_expenditure: 300

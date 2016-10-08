@@ -268,6 +268,10 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/live_start"
       api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/live_end"
 
+      api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/announcements" do |teacher|
+        teacher && teacher.id == user.id
+      end
+
       # 老师个人信息接口
       api_allow :GET, "/api/v1/teachers/[\\w-]+/info" do |teacher|
         teacher && teacher.id == user.id

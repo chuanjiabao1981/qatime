@@ -59,6 +59,10 @@ module Payment
     end
 
     def instance_qr_code
+      if Rails.env.test? && pay_url.blank?
+        self.pay_url = "http://localhost"
+        save
+      end
       return if pay_url.blank?
       relative_path = QrCode.generate_tmp(pay_url)
       tmp_path = Rails.root.join(relative_path)

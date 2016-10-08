@@ -66,6 +66,16 @@ course_preview_two:
   grade: 六年级
   subject: 语文
 
+course_preview_three:
+  name: 招生中的辅导班3
+  teacher: teacher1
+  workstation: workstation
+  status: 1
+  price: 50
+  preset_lesson_count: 10
+  grade: 六年级
+  subject: 语文
+
 course_teaching:
   name: 上课中的辅导班
   teacher: users(:teacher1)
@@ -124,7 +134,6 @@ course_with_lesson:
   subject: 语文
 
 course_with_order:
-  id: 6
   name: 辅导班4
   teacher: 1
   workstation: workstation(:workstation1)

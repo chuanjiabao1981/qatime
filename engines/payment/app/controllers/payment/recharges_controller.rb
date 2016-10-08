@@ -25,6 +25,22 @@ module Payment
     def edit
     end
 
+    def pay
+      Payment::Recharge.transaction do
+        action_record = Payment::RechargeActionRecord.create(
+          actionable: @recharge,
+          operator: current_user,
+          from: @recharge.status,
+          event: "pay",
+          name: "pay"
+        )
+        @recharge.pay!
+        action_record.to = @recharge.status
+        action_record.save!
+      end if current_user.admin? && @recharge.pay_type.offline? # 为了防止权限配置疏忽这里只有管理员才能授权线下支付
+      redirect_to payment.cash_user_path(@recharge.user_id)
+    end
+
     # POST /recharges
     def create
       @recharge = @resource_user.payment_recharges.new(recharge_params.merge(remote_ip: request.remote_ip, source: :web))
@@ -50,10 +66,6 @@ module Payment
     def destroy
       @recharge.destroy
       redirect_to recharges_url, notice: 'Recharge was successfully destroyed.'
-    end
-
-    def pay
-      render layout: 'payment'
     end
 
     private

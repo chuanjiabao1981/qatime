@@ -2,11 +2,11 @@
  em {
   font-style: normal;
  }
-.btn-add,.btn-suc,.btn-withdrawal,.btn-sure {
+.btn-add,.btn-suc,.btn-withdrawal,.btn-sure,.btn-confirm  {
   display: inline-block;
   width: 120px;
   height: 34px;
-  line-height: 34px;
+  line-height: 30px;
   text-align: center;
   border: 1px solid gray;
   border-radius: 5px;
@@ -24,6 +24,13 @@
   line-height: 3rem;
   border-bottom: 0.1rem solid gray;
 }
+/*.table {
+  font-size: 1.4rem;
+}*/
+/*.table-fix{
+  
+}*/
+
 .table-fix {
   width: 98%!important;
   margin-left: 1% !important;
@@ -85,7 +92,7 @@
   border-bottom: 0.1rem solid gainsboro;
   background-color: #E4E4E4;
 }
-.record,.line {
+.record,.record-line {
   float: left;
   font-size: 1.2rem;
 }
@@ -95,7 +102,7 @@
 a {
   text-decoration: none !important;
 }
-.line {
+.record-line {
   padding-left: 1rem;
   padding-right: 1rem;
 }
@@ -116,7 +123,6 @@ a {
   font-size: 1.4rem;
   overflow: hidden;
 }
-
 
 .datepicker-1 {
       height: 2rem;
@@ -228,7 +234,7 @@ a {
 .txt-radio {
   font-size: 1.4rem;
   margin-left: -6.4rem;
-  margin-top: -4.1rem;
+  margin-top: -2.8rem;
 }
 .txt-radio em,.row-apply em {
   color: #666666;
@@ -241,7 +247,14 @@ a {
   font-size: 1.4rem;
   color: #999999;
 }
+ .txt-num input {
+  height: 36px;
+ }
  
+ .alert-msg1,.alert-msg2 {
+  color: red !important;
+  /*display: none;*/
+ }
 .col-md-apply-1 {
   border-left: 0.1rem solid gainsboro;
 }
@@ -270,8 +283,10 @@ a {
   font-size: 2.4rem;
   color: red;
 }
-
-@font-face {font-family: 'iconfont';
+.check {
+  margin-right: 10px;
+}
+/*@font-face {font-family: 'iconfont';
     src: url('../fonts/iconfont.eot'); 
     src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), 
     url('../fonts/iconfont.woff') format('woff'), 
@@ -288,7 +303,7 @@ a {
 
 .iconfont-1 {
   color: dodgerblue;
-}
+}*/
 
 
 /*充值支付*/
@@ -326,7 +341,7 @@ a {
 .row-apply-1 {
   text-align: center;
 }
-.row-list {
+.row-list,.row-list-1 {
   list-style-type: none;
   position: relative;
 }
@@ -347,6 +362,7 @@ a {
   top: 30px;
   margin-left: -210px;
 }
+
 figure {
   float: left;
 }
@@ -373,10 +389,33 @@ figcaption p {
 }
 
 
-
-
+.row-list-1 {
+  list-style-type: none;
+  overflow: hidden;
+  position: relative;
+}
+.row-list-1 li {
+  float: left;
+  height: 100px;
+  line-height: 100px;
+}
+.row-list-1 li:nth-child(2) {
+  position: absolute;
+  left: 50%;
+  margin-left: -312px;
+}
+.row-list-1 li:last-child {
+  position: absolute;
+  right: 15px;
+}
 /*老師提現申請*/
 
+
+.btn-num,.btn-code {
+  margin: 0;
+  padding: 0;
+  height: 26px;
+}
 .recharge-title p {
   font-size: 1.4rem;
 }
@@ -459,18 +498,11 @@ figcaption p {
 .tech-phone-num span:last-child {
   margin-left: 1rem;
 }
-.btn-num, .btn-code {
-  margin: 0;
-  padding: 0;
-  height: 26px;
-}
 .btn-code {
   background-color: white;
   font-size: 1.4rem;
   color: #333333 !important;
   border: 0.1px solid darkgray;
-  line-height: 26px;
-  display: inline-block;
 }
 .btn-withdrawal {
   position: absolute;
@@ -562,13 +594,13 @@ figcaption p {
   float: left;
 }
 .btn-active {
-  width: 6rem;
-  height: 2rem;
-  background-color: gainsboro;
-  font-size: 1.4rem;
-  color: white;
-  text-align: center;
-  line-height: 2rem;
+     width: 6rem;
+     height: 2rem;
+     background-color: gainsboro;
+     font-size: 1.4rem;
+     color: white;
+     text-align: center;
+     line-height: 2rem;
   display: inline-block;
   margin-right: 2rem;
 }
@@ -611,9 +643,6 @@ figcaption p {
 .all,.btn-reject,.btn-pass {
   float: right;
 }
-.btn-search, .date {
-          float: left;
-        }
 .btn-reject,.btn-pass {
   width: 6rem;
   height: 28px;
@@ -651,33 +680,6 @@ figcaption p {
   left: 18rem;
   bottom: 0px;
 }
-.datepicker-1 {
-  height: 2rem;
-  width: 8rem;
-  padding-top: 1rem !important;
-  text-align: center;
-  font-size: 1.4rem;
-  float: left;
-  color: #666666;
-  outline: none;
-  border: none;
-}
-
-.btn-txt {
-  float: left;
-}
-
-.panel-right {
-  right: 0px;
-}
-
-.panel-title-txt {
-  font-size: 2rem;
-  color: #333333;
-}
-
-
-/*.not_all*/ 
 .date-center span {
   color: #666666;
 }
@@ -699,17 +701,10 @@ figcaption p {
   margin-right: 1rem;
 }
 
-.btn-add, .btn-suc, .btn-withdrawal, .btn-sure {
-  display: inline-block;
-  width: 120px;
-  height: 34px;
-  line-height: 34px;
-  text-align: center;
-  border: 1px solid gray;
-  border-radius: 5px;
-  color: #333333;
-  background-color: white;
-}
+
+
+
+
 
 
 
@@ -719,9 +714,478 @@ figcaption p {
 
 .system-msg {
   width: 320px;
-  height: 460px;
-  border: 1px solid gray;
+  border: 1px solid gainsboro;
+  background-color: white;
+  position: absolute;
+  right: 30px;
+  top: -20px;
+  z-index: 10000;
+  padding-top: 8px;
+  display: none;
+}
+.notice-msg {
+  display: inline-block;
+  font-size: 1.2rem;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 8px;
+}
+.notice-time {
+  margin-bottom: 3px !important;
+}
+.system-msg p {
+  color: #666666;
+}
+.remind-msg {
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  vertical-align: top;
+  float: left;
+  color: red;
+}
+.remind-system {
+  width: 33px;
+  height: 33px;
+  border: 1px solid gainsboro;
+}
+.remind-class {
+  background-color: lightseagreen;
+}
+.remind-class,.remind-openclass,.remind-Remedial,.remind-classes {
+  color: white;
+}
+.remind-openclass {
+  background-color: seagreen;
+  }
+.remind-classes {
+  background-color: orange;
+}
+.remind-Remedial {
+  background-color: palevioletred;
+} 
+  
+.remind-txt {
+  width: 255px;
+  float: left;
+  color: #666666;
+  margin-left: 10px;  
+}
+.remind-txt span {
+  line-height: 18px;
+  font-size: 1.2rem;
+  color: #666666;
+  }
+.remind-more {
+  clear: both;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 1.4rem;
+  border-top: 1px solid gainsboro;
+  padding: 0 !important;
+}
+@font-face {font-family: 'iconfont';
+    src: url('../fonts/font/iconfont.eot'); /* IE9*/
+    src: url('../fonts/font/iconfont.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('../fonts/font/iconfont.woff') format('woff'), /* chrome、firefox */
+    url('../fonts/font/iconfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('../fonts/font/iconfont.svg#iconfont') format('svg'); /* iOS 4.1- */
+}
+.iconfont-2{
+    font-family:"iconfont" !important;
+    font-size:10px;font-style:normal;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-stroke-width: 0.2px;
+    -moz-osx-font-smoothing: grayscale;
+    color: white;
+    }
+ .icon {
+  position: absolute;
+  top: -12px;
+  left: 145px;
+ }
+
+
+
+
+/*老师的课程表*/
+.teacher-schedule {
+  width: 290px;
+  border: 1px solid gainsboro;
+  background-color: white;
+  font-size: 1.2rem;
+  position: absolute;
+  top: -20px;
+  right: 140px;
+  z-index: 10000;
+  display: none;
+}
+.teacher-schedule-1 {
+  display: inline-block;
+  height: 50px;
+  border-bottom: 1px solid gainsboro;
+  float: left;
+}
+.schedule-img {
+  width: 80px;
+  height: 50px;
+  float: left;
+}
+.schedule-img-2 {
+  padding: 6px;
+}
+.schedule-img img {
+  width: 100%;
+  height: 100%;
+}
+.schedule-text {
+  width: 205px;
+  float: left;
+  margin-left: 3px;
+  font-size: 1.2rem;
+  color: #666666; 
+}
+.schedule-text p {
+  margin-bottom: 0 !important;
+}
+.state-text-1 {
+  padding-top: 6px;
+}
+.state-time {
+  font-size: 1.2rem;
+  margin-left: 11px;
+}
+.state-text {
+  overflow:hidden;
+  text-overflow:ellipsis;
+   -o-text-overflow:ellipsis;
+   white-space:nowrap;
+   width:100%;
+   font-size: 1.2rem;
+   color: #666666;
+}
+.state-text em {
+  font-size: 1.2rem;
+}
+.schedule-text p span {
+  display: inline-block;
+  margin-right: 10px;
+}
+.state {
+  background-color: #999999;
+  color: white;
+}
+.remind-more-1 {
+  clear: both;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+}
+.icon-1 {
+  position: absolute;
+  top: -10px;
+    right: 125px;
+}
+
+
+/*学生的课程表*/
+.teacher-schedule-2 {
+  height: 60px !important;
+}
+.teacher-schedule-2 p {
+  margin-bottom: 0px !important;
+}
+.schedule-img-1 {
+  width: 60px;
+  height: 60px;
+  padding: 6px;
+}
+.schedule-img-1 img {
+  border-radius: 50%;
+}
+.state-subject em {
+  margin-left: 50px;
+}
+.schedule-text-1 {
+  width: 225px;
+  padding-right: 6px;
+  padding-top: 6px !important;
 }
 
 
 
+
+
+
+
+
+
+
+/*学生的我的消息详情*/
+
+.student-msg {
+  margin: 10px;
+  border: 1px solid gainsboro;
+  font-size: 1.4rem;
+}
+.msg-title {
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 1px solid gainsboro;
+}
+.msg-con {
+  position: relative;
+  font-size: 1.2rem;
+  padding: 8px;
+  border-bottom: 1px solid gainsboro;
+  overflow: hidden;
+}
+.my-notice {
+  color: #666666;
+  padding-left: 8px;
+}
+.remind-text {
+  margin-left: 8px;
+  width: 70%;
+  float: left;
+  color: #666666;
+}
+.remind-text a {
+  float: right;
+}
+.remind-text span {
+  line-height: 18px;
+}
+.remind-date {
+  float: right;
+  height: 100%;
+   display:table;
+   text-align: center;
+   color: #666666;
+}
+.remind-date span {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  margin-top: -8px;
+}
+.unread  {
+  float: none !important;
+  display: inline-block;
+  width: 40px;
+  text-align: center;
+  background-color: red;
+  color: white;
+}
+.classroom {
+  width: 60px;
+  display: inline-block;
+  background-color: #999999;
+  float: none !important;
+  text-align: center;
+  color: #666666;
+}
+
+
+
+
+
+
+
+
+/*辅导班live*/
+
+.remedial-nav,.remedial-textbook {
+  margin: 8px;
+  border: 1px solid gainsboro;
+  padding: 10px;
+  font-size: 1.4rem;
+  color: #666666;
+}
+.remedial-nav ul {
+  list-style-type: none;
+  padding: 0 !important;
+  overflow: hidden;
+  clear: both;
+  margin-top: 20px;
+}
+.remedial-sort {
+  margin-top: 0 !important;
+}
+.remedial-nav ul li {
+  float: left;
+}
+.remedial-nav ul li:first-child {
+  width: 70px;
+}
+.remedial-nav ul li:nth-child(2) {
+  margin-left: 10px;
+}
+.remedial-sort li:nth-child(2),.remedial-subjects li:nth-child(2),.remedial-grade li:nth-child(2),.remedial-state li:nth-child(2) {
+  margin-right: 10px;
+  width: 40px;
+  background-color: lightseagreen;
+  text-align: center;
+}
+.remedial-sort li:nth-child(2) a,.remedial-subjects li:nth-child(2) a,.remedial-grade li:nth-child(2) a {
+  color: white;
+}
+.remedial-sort-1 {
+  margin-right: 20px;
+}
+.remedial-sort-1 a,.remedial-subjects-1 a,.remedial-grade-1 a,.remedial-state-1 a {
+  color: #666666;
+}
+
+/*.remedial-subjects,.remedial-grade,.remedial-scope,.remedial-start,.remedial-state {
+  clear: both;
+  margin-top: 20px;
+}*/
+.remedial-grade {
+  margin-bottom: 0;
+}
+.remedial-subjects-1,.remedial-grade-1,.remedial-state-1 {
+  margin-right: 15px;
+}
+.remedial-drop-down {
+  text-align: center;
+}
+.remedial-price input,.remedial-scope input {
+  width: 76px;
+  border: 1px solid lightseagreen;
+}
+.price-line {
+  margin: 0 10px;
+}
+.remedial-hidden {
+  margin-top: 20px;
+  display: none;
+}
+.date-1 {
+  width: 100%;
+}
+.remedial-date {
+  width: 176px;
+  border: 1px solid gray;
+  padding-top: 0 !important;
+  border: 1px solid lightseagreen;
+}
+.remedial-txt-1 {
+  margin-left: 0 !important;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.label-icon-1,.label-icon-2 {
+  position: relative;
+  top: 5px !important;
+  clear: both;
+}
+.label-icon-1 {
+  right: 220px;
+}
+.label-icon-2 {
+  right: 37px;
+}
+
+.remedial-conditions {
+  margin-top: 20px;
+  overflow: hidden;
+}
+.remedial-conditions a {
+  float: right;
+}
+.btn-screen {
+  display: inline-block;
+  width: 90px;
+  height: 25px;
+  background-color: springgreen;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 25px;
+  color: white;
+  margin-right: 15px;
+}
+.up-conditions {
+  display: none;
+}
+
+.remedial-textbook {
+  padding: 8px;
+  }
+
+.textbook-1 {
+  width: 100%;
+  list-style-type: none;
+  padding-left: 0 !important;
+  overflow: hidden;
+}
+.textbook-1 li {
+  width: 32%;
+  float: left;
+  border: 1px solid gray;
+  margin: 6.2px;
+}
+
+.textbook-img img {
+  width: 100%;
+}
+.textbook-msg {
+  border-top: 1px solid #999999;
+  border-bottom: 1px solid #999999;
+  font-size: 1.2rem;
+  overflow: hidden;
+}
+.book-money {
+  float: left;
+  color: red;
+}
+.book-num {
+  float: right;
+}
+.textbook-teacher {
+  clear: both;
+  font-size: 1.2rem;
+  margin-bottom: 0;
+}
+.teacher-msg-1 img {
+  width: 20px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 10px;
+}
+.teacher-course {
+  float: right;
+  line-height: 20px;
+}
+.teacher-name {
+  line-height: 20px;
+}
+.class-time,.class-State,.class-img {
+  float: right;
+}
+.class-img {
+  width: 10px;
+  padding-top: 3px;
+  }
+.class-State {
+  width: 40px;
+  text-align: center;
+  background-color: deepskyblue;
+  color: white;
+}
+.teacher-con {
+  clear: both;
+  padding-top: 10px;
+  text-indent: 20px;
+  font-size: 1.2rem;
+  height: 45px;
+  text-overflow: -o-ellipsis-lastline;
+overflow: hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 2;
+-webkit-box-orient: vertical;
+}

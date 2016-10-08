@@ -1,1 +1,20 @@
-<%= render partial: "/payment/earning_records/#{earning_record.target.model_name.singular}", locals: { earning_record: earning_record } %>
+<% if earning_record.is_a?(LiveStudio::Lesson) %>
+  <tr>
+    <td><%= number_to_currency(earning_record.amount, locale: :cn, unit: "￥", precision: 1) %></td>
+    <td></td>
+    <td><%= earning_record.target.course.model_name.human %></td>
+    <td><%= localize(earning_record.created_at,:format => :long) %></td>
+    <td><%= link_to t("view.payment/earning_record.view"), live_studio.teacher_course_path(@current_resource, earning_record.target.course_id) %></td>
+  </tr>
+<% else %>
+  <tr>
+    <td><%= number_to_currency(earning_record.amount, locale: :cn, unit: "￥", precision: 1) %></td>
+    <td>
+      <%= number_to_currency(earning_record.target.teacher_price, unit: "￥", precision: 1)%>
+      *
+      <%= second_to_minutes earning_record.target.video.duration %></td>
+    <td><%= earning_record.target.model_name.human %></td>
+    <td><%= localize(earning_record.created_at,:format => :long) %></td>
+    <td><%= feeble_link(earning_record.target, text: t("view.payment/earning_record.view")) %></td>
+  </tr>
+<% end %>

@@ -38,8 +38,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
             this.initEvents();
 
-            // 取消默认今日
-            // this.setValue();
+//          this.setValue();
 
             return this;
         }
@@ -124,11 +123,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 var range = parseInt(event.currentTarget.getAttribute('data-range'), 10),
                     rangeParam = this.params.ranges[range];
                 if (rangeParam) {
-                    this.dateStart = rangeParam.startDate;
-                    this.viewStartDate = rangeParam.startDate;
-                    this.dateEnd = rangeParam.endDate;
-                    this.viewEndDate = rangeParam.endDate;
-                    this.render();
+//                  this.dateStart = rangeParam.startDate;
+//                  this.viewStartDate = rangeParam.startDate;
+//                  this.dateEnd = rangeParam.endDate;
+//                  this.viewEndDate = rangeParam.endDate;
+//                  this.render();
                 }
             }
         }, {
@@ -169,7 +168,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     event.stopPropagation();
                 });
 
-                $(document).on('click', function (event) {
+//              $(document).on('click', function (event) {
+//                  return _this.hideCalendar();
+//              });
+                $(".col-md-8").find("div").on('click',(".dt__calendar_m_d"),function (event) {
                     return _this.hideCalendar();
                 });
             }
@@ -224,16 +226,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     firstDayOfWeek = date.clone().startOf('month').weekday();
 
                 if (this.params.firstDayOfWeek === 1) {
-                    // weekShortDays = ['пн', 'вт', 'ср', 'чт', 'пт', 'cб', 'вс'];
                     weekShortDays = ['一', '二', '三', '四', '五', '六','七'];
                 }
 
                 html += '<div class="dt__calendar dt__' + type + '">';
                 html += '<div class="dt__calendar_head">';
                 html += '<div class="dt__calendar_head_wday">' + selectDate.format('dddd') + '</div>';
-                html += '<div class="dt__calendar_head_month"><span class="prev"><</span>' + selectDate.format('MMMM') + '<span class="next">></span></div>';
+                html += '<div class="dt__calendar_head_month"><span class="prev"><</span>' + selectDate.format('M') + '<span class="next">></span></div>';
                 html += '<div class="dt__calendar_head_day">' + selectDate.format('D') + '</div>';
-                html += '<div class="dt__calendar_head_year"><span class="prev"><</span>' + selectDate.format('Y') + '<span class="next">></span></div>';
+                html += '<div class="dt__calendar_head_year"><span></span>' + selectDate.format('Y') + '<span></span></div>';
                 html += '</div>';
                 html += '<div class="dt__calendar_nav">';
                 html += '<div class="dt__calendar_nav_title">' + date.format('MMM YYYY') + '</div>';
@@ -243,6 +244,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 html += '<div class="dt__calendar_m_w">';
                 for (var wi = 0; wi < weekShortDays.length; wi++) {
                     html += '<div class="dt__calendar_m_w_n">' + weekShortDays[wi] + '</div>';
+                   
                 };
                 html += '</div>';
 
@@ -309,7 +311,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     this.$el.find('.dt__wrapper').addClass('rangedate');
                 }
             }
-        }]);
+        }
+        ]);
 
         return DatePicker;
     }();

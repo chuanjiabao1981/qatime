@@ -1,5 +1,11 @@
 <div class="panel-row">
   <p><%= t("teachers.common.my_wallet") %></p>
+
+  <% if allow? :teachers, :keep_account, @current_resource%>
+    <%= link_to keep_account_teacher_path(@current_resource), class: "btn-account" do %>
+      <%= Account.human_attribute_name(:keep_account)%>
+    <% end %>
+  <% end %>
 </div>
 
 <div class="panel-row std-row">
@@ -21,10 +27,6 @@
     <!--<button type="button" class="btn btn-default btn-add">充值</button>-->
     <%= link_to Payment::CashAccount.human_attribute_name(:withdraw), new_user_withdraw_path(@current_resource),
                 class: "btn-add" unless @cash_account.balance < 100%>
-
-    <%= link_to payment.new_user_recharge_path(@current_resource) do %>
-      <%= Payment::CashAccount.human_attribute_name(:recharge) %>
-    <% end %>
   </div>
 </div>
 
@@ -33,7 +35,7 @@
     <%= link_to payment.cash_user_path(@current_resource), class: "record#{' active-1' if params[:fee] != 'y'}"  do%>
       <%= Payment::Withdraw.model_name.human %>
     <% end %>
-    <span class="line"><strong>|</strong></span>
+    <span class="record-line"><strong>|</strong></span>
     <%= link_to payment.cash_user_path(@current_resource, fee: 'y'), class: "record#{' active-1' if params[:fee] == 'y'}"  do%>
       <%= Payment::EarningRecord.model_name.human %>
     <% end %>

@@ -15,7 +15,7 @@
         <input type="submit" class="btn-submit" value="查询">
       </div>
     <% end %>
-    <%= link_to '批量操作','javascript:void(0);',id: 'batch', class: 'panel-right' if params[:handle] != 'batch' && params[:init] != 'audit' %>
+    <%#= link_to '批量操作','javascript:void(0);',id: 'batch', class: 'panel-right' if params[:handle] != 'batch' && params[:init] != 'audit' %>
   </div>
   <div class="panel-body panel-title-3">
     <table>
@@ -31,14 +31,17 @@
       <% @withdraws.each_with_index do |withdraw,index| %>
         <tr>
           <td><%= index+1 %></td>
-          <td><%= number_to_currency(withdraw.amount,locale: :cn) %></td>
+          <td><%= number_to_currency(withdraw.amount,locale: :cn) %><%= t 'currency.cn' %></td>
           <td><%= link_to withdraw.user.name,teacher_path(withdraw.user) %>(<%= withdraw.user.login_mobile %>)</td>
           <td><%= withdraw.transaction_no %></td>
-          <td><%= withdraw.pay_type_text %></td>
+          <td>
+            <%= withdraw.pay_type_text %><%= "(#{withdraw.withdraw_record.try(:account)} #{withdraw.withdraw_record.try(:name)})" \
+                                             unless withdraw.cash?%>
+          </td>
           <td><%= localize(withdraw.created_at,format: :short) %></td>
           <td>
             <% if params[:init] == 'audit' %>
-              <%= withdraw.init? ? '未通过审核' : '已通过审核' %>
+              <%= withdraw.status_text('admin') %>
             <% else %>
               <div class="operater">
                 <%= link_to '通过·',pass_admins_withdraw_path(withdraw),method: :put, data:{confirm: '确认'} %>

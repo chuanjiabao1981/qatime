@@ -1,72 +1,83 @@
 <div class="panel panel-default">
-  <div class="recharge-title"><p>提现申请</p></div>
+  <div class="recharge-title"><p><%= t('view.withdraw.common.audit') %></p></div>
   <div class="wraning">
-    <p>提示：同时只能存在一笔申请，完成后方可进行下一次提现！</p>
+    <p>
+      <%= t 'view.withdraw.audit_warn' %>
+    </p>
   </div>
   <%= form_for @withdraw, url: user_withdraws_path(@current_resource) do |f| %>
     <div class="row row-title">
       <div class="col-md-5 col-md-row" id="col-md-nav-1">
         <div class="col-md-title">
-          <p>提现金额</p>
+          <p><%= t 'view.withdraw.amount' %></p>
         </div>
         <div class="col-md-apply-2">
           <div class="txt-num">
-            <%= f.text_field :amount, class: 'num', placeholder: '输入金额不小于100元' %>
-            <span>(当前余额<%= @cash_account.balance %>元)</span>
+            <%= f.text_field :amount, class: 'num', placeholder: t('view.withdraw.amount_tips') %>
+            <span>(<%= t 'view.withdraw.balance' %><%= @cash_account.balance %><%= t('currency.cn') %>)</span>
           </div>
         </div>
       </div>
       <div class="col-md-7 col-md-row" id="col-md-nav-2">
         <div class="col-md-title">
-          <p>提现方式</p>
+          <p><%= Payment::Withdraw.human_attribute_name(:pay_type) %></p>
         </div>
         <div class="col-md-apply-3">
           <table border="0" cellspacing="0" cellpadding="0">
             <tbody><tr>
               <td>
-                <%= f.radio_button :pay_type, Payment::Withdraw.pay_types['alipay'], class: 'check-1' %>
+                <%= f.radio_button :pay_type, 'alipay', class: 'check-1' %>
                 支付宝<br>(推荐)</td>
               <td>
                 <div class="td-msg-1">
-                  <input type="text" placeholder="输入支付宝账号" class="alipay"><br>
-                  <input type="text" placeholder="输入真实姓名" class="username">
+                  <input type="text" placeholder="<%= t('view.withdraw.alipay_input_holder') %>" name="alipay_account" class="alipay"><br>
+                  <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="alipay_name" class="username">
                 </div>
               </td>
             </tr>
             <tr>
               <td>
-                <%= f.radio_button :pay_type, Payment::Withdraw.pay_types['bank'], class: 'check-1' %>
+                <%= f.radio_button :pay_type, 'bank', class: 'check-1' %>
                 转账
               </td>
               <td>
                 <div class="td-msg">
-                  <input type="number" placeholder="输入银行卡号" class="card-num"><br>
-                  <input id="text" type="text" placeholder="输入真实姓名" class="car-name">
-                  <span>注意：<br>确保此姓名为该银行卡所有人</span>
+                  <input type="number" placeholder="<%= t('view.withdraw.bank_input_holder') %>" name="bank_account" class="card-num"><br>
+                  <input id="text" type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="bank_name" class="car-name">
+                  <span><%= t 'view.withdraw.warn_cn' %>:<br><%= t('view.withdraw.bank_name_tips') %></span>
                 </div>
               </td>
             </tr>
             <tr>
               <td>
-                <%= f.radio_button :pay_type, Payment::Withdraw.pay_types['cash'], class: 'check-1' %>
-                现金
+                <%= f.radio_button :pay_type, 'cash', class: 'check-1' %>
+                <%= t 'view.withdraw.cash_cn' %>
               </td>
-              <td class="td-card">（需本人携带身份证提取）</td>
+              <td class="td-card"><%= t 'view.withdraw.cash_tips' %></td>
             </tr>
             </tbody></table>
         </div>
       </div>
     </div>
+    <%= content_tag :div,class: 'alert-warning text-center' do %>
+      <% @errors.each do |er| %>
+        <%= er %>
+        <br/>
+      <% end %>
+      <%= link_to t('view.withdraw.common.cancel_withdraw'), cash_user_path(@current_resource) %>
+    <% end if @errors.present?%>
     <div class="tech-phone">
       <%= content_tag :div, class: 'tech-phone-num' do %>
-        <span>安全手机校验</span>
-        <input type="text" id="verify" placeholder="输入校验码" class="btn-num">
+        <span><%= t 'view.withdraw.common.verify_mobile' %></span>
+        <%= text_field_tag :verify,params[:verify], html: {class: 'btn-num', placeholder: t('view.withdraw.common.verify_holder')} %>
         <span>
-          <input class="btn-code" type="button" data-send-captcha-btn data-send-to-input="#login_mobile" data-send-url="<%= ajax_captchas_url %>" data-key="withdraw_cash" value="获取验证码">
+          <input class="btn-code" type="button" data-send-captcha-btn data-send-to-input="#login_mobile" data-send-url="<%= ajax_captchas_url %>"
+                 data-key="withdraw_cash" value="<%= t 'view.withdraw.common.get_verify' %>">
         </span>
-        <span>(已绑定手机<%= @current_resource.login_mobile[0,3] %>****<%= @current_resource.login_mobile[7,4] %>)</span>
+        <span>(<%= t 'view.withdraw.common.bind_mobile' %><%= @current_resource.login_mobile[0,3] %>****<%= @current_resource.login_mobile[7,4] %>)</span>
       <% end if @current_resource.login_mobile.present? %>
-      <button class="btn-withdrawal">申请提现</button>
+      <button class="btn-withdrawal"><%= t 'view.withdraw.audit_withdraw' %></button>
+
     </div>
     <%= hidden_field_tag :login_mobile, @current_resource.login_mobile %>
   <% end %>
@@ -74,6 +85,13 @@
 <script type="text/javascript">
 
   $(function  () {
+    var pay_type = '<%= @withdraw.pay_type %>';
+    if(pay_type!='nil'){
+      if(pay_type=='alipay')
+        $(".td-msg-1").show();
+      if(pay_type=='bank')
+        $(".td-msg").show();
+    }
     //点击支付宝
     $(".check-1").click(function  () {
       var index = $(".check-1").index($(this));
@@ -130,7 +148,6 @@
       }
       $('#new_withdraw').submit();
     })
-
   })
 
 </script>

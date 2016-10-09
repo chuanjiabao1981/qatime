@@ -324,6 +324,7 @@ cn:
         end_live_studio: "%{model}已结束直播"
         closed: "%{model}已结束"
         lesson_can_not_play: 该课程不能播放或已经结束!
+        cancel: "%{model}已取消"
     failed:
       messages:
         today_has_no_lesson: "%{model}今日没有课程!"

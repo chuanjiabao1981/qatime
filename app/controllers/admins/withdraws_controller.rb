@@ -23,7 +23,7 @@ class Admins::WithdrawsController < ApplicationController
 
   def pass
     @withdraw = Payment::Withdraw.find(params[:id])
-    @withdraw.allowed!
+    @withdraw.allow
     redirect_to action: :audit
   end
 

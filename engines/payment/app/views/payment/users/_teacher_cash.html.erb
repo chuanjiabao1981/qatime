@@ -70,9 +70,9 @@
           <td><%= Payment::Withdraw.human_attribute_name(:status) %></td>
         </tr>
       </tbody>
-      <%#= render @withdraws %>
+      <%= render @withdraws %>
     </table>
-    <div class="pagination-fix"><%#= will_paginate @withdraws %></div>
+    <div class="pagination-fix"><%= will_paginate @withdraws %></div>
   <% else %>
     <table class="table table-fix">
       <tbody>

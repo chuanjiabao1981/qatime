@@ -52,19 +52,7 @@ module LiveStudio
       state :completed
 
       event :teach do
-        # before do
-        #   # 开始上课之前把辅导班设置为已开课
-        #   course.teaching! if course.preview?
-        #   # 记录上课开始时间
-        #   self.live_start_at = Time.now if live_start_at.nil?
-        #   # 开始上课之前把上一节未结束的课程设置为结束,并切不能继续直播
-        #   course.lessons.waiting_finish.each do |lesson|
-        #     lesson.finish! unless lesson.id == id
-        #   end
-        # end
-        transitions from: :ready, to: :teaching
-        transitions from: :paused, to: :teaching
-        transitions from: :closed, to: :teaching
+        transitions from: [:ready, :paused, :closed], to: :teaching
       end
 
       event :pause do
@@ -72,22 +60,22 @@ module LiveStudio
       end
 
       event :close do
-        transitions from: :teaching, to: :closed
-        transitions from: :paused, to: :closed
+        transitions from: [:teaching, :paused], to: :closed
       end
 
-      event :finish do
-        transitions from: :paused, to: :finished
-        transitions from: :closed, to: :finished
+      event :finish, after_commit: :instance_play_records do
+        before do
+          self.live_end_at ||= last_heartbeat_at || Time.now
+        end
+        transitions from: [:paused, :closed], to: :finished
       end
 
       event :complete do
-        transitions from: :finished, to: :completed
-        transitions from: :billing, to: :completed
+        transitions from: [:finished, :billing], to: :completed
       end
     end
 
-    def status_text(role = nil,outer = true)
+    def status_text(role = nil, outer = true)
       role == 'teacher' || role = 'student'
       I18n.t("lesson_status.#{role}.#{status}#{!outer && status == 'paused' ? '_inner' : ''}")
     end
@@ -148,6 +136,24 @@ module LiveStudio
       %w(closed finished billing completed).include?(status)
     end
 
+    # 记录播放记录
+    # TODO 由于没有找到好的准确记录播放记录的方案，暂时假定所有的ticket都观看了直播
+    def instance_play_records
+      # 防止重复记录
+      user_ids = play_records.map(&:user_id)
+      # 查询所有的可用听课证
+      course.tickets.available.find_each(batch_size: 50) do |ticket|
+        next if user_ids.include?(ticket.student_id)
+        ticket.record_play(play_records_params.merge(user_id: ticket.student_id, ticket_id: ticket.id))
+      end
+    end
+
+    def instance_play_records_with_job(immediately = false)
+      return instance_play_records_without_job if immediately
+      LiveStudio::LessonPlayRecordJob.perform_later(id)
+    end
+    alias_method_chain :instance_play_records, :job
+
     private
 
     # 过期试听证
@@ -190,20 +196,31 @@ module LiveStudio
 
     def new_live_session
       live_sessions.create(
-        token: ::Encryption.md5("#{self.id}#{Time.now}").downcase,
+        token: ::Encryption.md5("#{id}#{Time.now}").downcase,
         heartbeat_count: 0,
         duration: 0, # 单位(分钟)
         heartbeat_at: Time.now
       )
     end
 
+    # 今日课程立即是ready状态
     def data_preview
-      self.status = self.class_date == Date.today ? 1 : 0
+      self.status = class_date == Date.today ? 1 : 0
     end
 
     def update_course
       first_class_date = course.lessons.order(:class_date).first.class_date
       course.update(class_date: first_class_date)
+    end
+
+    def play_records_params
+      {
+        course_id: course_id,
+        lesson_id: id,
+        start_time_at: live_start_at,
+        end_time_at: live_end_at,
+        tp: 'student'
+      }
     end
   end
 end

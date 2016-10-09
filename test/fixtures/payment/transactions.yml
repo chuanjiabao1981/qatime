@@ -99,7 +99,7 @@ student_recharge_of_1:
   user: student_recharge
   amount: 30
   remote_ip: '127.0.0.1'
-  pay_type: account
+  pay_type: 10
   status: 0
   source: web
   type: Payment::Recharge
@@ -110,7 +110,7 @@ student_recharge_of_2:
   user: student_recharge
   amount: 30
   remote_ip: '127.0.0.1'
-  pay_type: account
+  pay_type: 10
   status: 0
   source: web
   type: Payment::Recharge
@@ -120,7 +120,7 @@ student_recharge_of_3:
   user: student_recharge
   amount: 30
   remote_ip: '127.0.0.1'
-  pay_type: account
+  pay_type: 10
   status: 3
   source: web
   type: Payment::Recharge
@@ -130,7 +130,7 @@ student_recharge_of_4:
   user: student_one
   amount: 30
   remote_ip: '127.0.0.1'
-  pay_type: account
+  pay_type: 10
   status: 1
   source: web
   type: Payment::Recharge

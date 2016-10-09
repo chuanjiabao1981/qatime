@@ -10,6 +10,12 @@ module AccountsHelper
     link_to "连接", send("#{fee.feeable.model_name.singular_route_key}_path",fee.feeable) if fee.feeable
   end
 
+  def feeble_link(fee, options = {})
+    return unless fee
+    options[:text] ||= "连接"
+    link_to options[:text], send("#{fee.model_name.singular_route_key}_path", fee)
+  end
+
   def videoable_object_stauts(o, dotter=false)
     if o.video
       if o.status == "closed"

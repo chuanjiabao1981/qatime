@@ -121,4 +121,11 @@ video_solution_template_for_tally:
   name: video_solution_template_for_tally name
   author: teacher_tally
   duration: 100
+
+video_homework_correction_for_tally:
+  name: video_homework_correction_for_tally
+  videoable: homework_correction_for_fee_view (Correction)
+  author: teacher_tally
+  duration: 100
+
 ##end

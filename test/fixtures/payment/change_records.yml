@@ -1,0 +1,70 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+customized_tutorial_teacher_earning_record_1:
+  owner: physics_teacher1 (User)
+  cash_account: physics_teacher1_account
+  target: customized_tutorial_teacher_earnings_1 (CustomizedTutorial)
+  amount: 1.5
+  different: 1.5
+  type: "Payment::EarningRecord"
+
+correction_one_fee_erning_record:
+  owner: physics_teacher1 (User)
+  cash_account: physics_teacher1_account
+  target: exercise_fee_correction_one (Correction)
+  amount: 2
+  different: 2
+  type: "Payment::EarningRecord"
+
+homework_solution_correction_earning_record:
+  owner: physics_teacher1 (User)
+  cash_account: physics_teacher1_account
+  target: correction_fee_correction_one (Correction)
+  amount: 3
+  different: 3
+  type: "Payment::EarningRecord"
+
+earning_record_for_course_issue_reply:
+  owner: physics_teacher1 (User)
+  cash_account: physics_teacher1_account
+  target: course_issue_reply_for_fee_view (Reply)
+  amount: 2.5
+  different: 2.5
+  type: "Payment::EarningRecord"
+
+earning_record_for_tutorial_issue_reply:
+  owner: physics_teacher1 (User)
+  cash_account: physics_teacher1_account
+  target: exercise_correction_for_fee_view (Correction)
+  amount: 4
+  different: 4
+  type: "Payment::EarningRecord"
+
+earning_record_for_exercise_correction:
+  owner: physics_teacher1 (User)
+  cash_account: physics_teacher1_account
+  target: exercise_correction_for_fee_view (Correction)
+  amount: 4.5
+  different: 4.5
+  type: "Payment::EarningRecord"
+
+earning_record_for_homework_correction:
+  owner: physics_teacher1 (User)
+  cash_account: physics_teacher1_account
+  target: homework_correction_for_fee_view (Correction)
+  amount: 5
+  different: 5
+  type: "Payment::EarningRecord"
+
+earning_record_for_teacher:
+  owner: account_for_teacher (User)
+  cash_account: account_for_teacher_tally
+  target: homework_correction_for_fee_view (Correction)
+  different: 5
+  amount: 5
+  type: "Payment::EarningRecord"
+

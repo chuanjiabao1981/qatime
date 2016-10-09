@@ -18,12 +18,12 @@ module Payment
       Capybara.use_default_driver
     end
 
-
     test 'teacher account total_income test' do
       visit payment.cash_user_path(@teacher)
-      assert page.has_content?(@teacher.account.total_income)
+      assert page.has_content?(@teacher.cash_account!.total_income)
     end
 
+    # TODO 提现集成测试跑不通
     test 'teacher account withdraws test' do
       visit payment.cash_user_path(@teacher)
       assert page.has_content?(@teacher.account.withdraws.last.operator.name)
@@ -31,9 +31,8 @@ module Payment
 
     test 'teacher account earning_records test' do
       visit payment.cash_user_path(@teacher)
-      click_on '收益记录'
+      click_on '收入记录'
       assert page.has_content?('家庭作业批改')
     end
-
   end
 end

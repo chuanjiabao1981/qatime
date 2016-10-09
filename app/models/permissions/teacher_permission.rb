@@ -240,12 +240,19 @@ module Permissions
       allow 'live_studio/courses', [:update_notice,:publish] do |course|
         course.teacher_id == user.id
       end
+      allow 'live_studio/helps', [:course]
+      ## end live studio permission
+
+
+      ## begin payment permission
+
       allow 'payment/change_records', [:index] do |resource|
         resource.id == user.id
       end
       allow 'payment/billings', [:index]
-      allow 'live_studio/helps', [:course]
-      ## end live studio permission
+      allow 'payment/withdraws', [:new, :create, :complete, :cancel]
+      ## end payment permission
+
 
       ## begin api permission
       api_allow :DELETE, "/api/v1/sessions"

@@ -44,7 +44,7 @@
               <%= withdraw.status_text('admin') %>
             <% else %>
               <div class="operater">
-                <%= link_to '通过·',pass_admins_withdraw_path(withdraw),method: :put, data:{confirm: '确认'} %>
+                <%= link_to '通过',pass_admins_withdraw_path(withdraw),method: :put, data:{confirm: '确认'} %>·
                 <%= link_to '驳回',unpass_admins_withdraw_path(withdraw),method: :put,data:{confirm: '确认'}  %>
               </div>
             <% end %>

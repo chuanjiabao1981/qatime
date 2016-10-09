@@ -45,7 +45,7 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
   end
 
   test 'Admin edit student' do
-    log_in_as(@admin)
+    new_log_in_as(@admin)
 
     student = users(:admin_edit_student)
     click_on '学生'

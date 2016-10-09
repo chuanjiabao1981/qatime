@@ -73,7 +73,7 @@
             <%= t('view.payment_show.order_actual_price') %>
           </p>
           <p>
-            <%= number_to_currency(@order.amount, locals: :cn) %>
+            <%= format '￥%0.2f',@order.total_money %>
           </p>
         </td>
         <td colspan="2">
@@ -118,7 +118,7 @@
       </tr>
       <tr>
         <td colspan="2">
-          <%= t('view.payment_show.order_pay_type') % @order.pay_type_text %>
+          <%= t('view.payment_show.order_pay_type') % t("view.payment_show.#{::Payment::Order::PAY_TYPE.key(@order.pay_type)}_pay") %>
         </td>
       </tr>
       </tbody>

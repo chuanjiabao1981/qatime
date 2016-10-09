@@ -27,20 +27,10 @@ class LiveStudio::TeacherLessonTest < ActionDispatch::IntegrationTest
 
   test 'service lesson start course teaching?' do
     preview_course = live_studio_courses(:course_preview)
-    teacher = preview_course.teacher
-    student = preview_course.students.first
     ready_lesson = live_studio_lessons(:ready_lesson_today2)
     LiveService::LessonDirector.new(ready_lesson).lesson_start
-    teacher.reload
-    student.reload
     preview_course.reload
     ready_lesson.reload
-
-    # 辅导班开课，学生提醒
-    assert "您购买的辅导招生中的辅导班已于#{Date.today}开课。", student.course_action_notifications.last.notificationable.content
-    # 辅导班开课，老师提醒
-    assert "您的辅导班招生中的辅导班于#{Date.today}开课。", student.course_action_notifications.last.notificationable.content
-
     assert preview_course.teaching? ,'辅导班应改为上课中'
     assert ready_lesson.live_start_at.present?, '课程直播开始时间为空'
     assert preview_course.lessons.waiting_finish.blank?, 'closed paused 的数据不为空'
@@ -54,19 +44,8 @@ class LiveStudio::TeacherLessonTest < ActionDispatch::IntegrationTest
   end
 
   test 'service ready_today_lessons status change' do
-    lesson = live_studio_lessons(:init_lesson_change_ready)
-    course = lesson.course
-    student = course.students.first
-    teacher = course.teacher
-
     LiveService::LessonDirector.ready_today_lessons
-
-    lesson.reload
     assert LiveStudio::Lesson.today.init.blank?, '错误存在今日的初始化课程'
-
-    # 课程ready,学生老师消息提醒
-    assert "您的课程英语辅导班-第二节将于#{Date.today} 10:20开始上课，请准时参加学习。", student.course_action_notifications.last.notificationable.content
-    assert "您的课程英语辅导班-第二节将于#{Date.today} 10:20开始上课，请准时授课。",teacher.course_action_notifications.last.notificationable.content
   end
 
   test 'service clean_lessons status change' do

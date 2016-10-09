@@ -29,6 +29,3 @@
 //= require editable/rails
 //= require bootstrap-select.min
 //= require defaults-zh_CN
-//= require moment.min
-//= require calendar-zh-cn.js
-//= require calendar-es5

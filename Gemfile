@@ -96,9 +96,7 @@ gem 'chosen-rails'
 # runs HTTP requests
 gem 'typhoeus'
 
-# 支付
 gem 'wx_pay'
-gem 'alipay', '~> 0.12.0'
 
 # 监控
 # gem 'oneapm_rpm'
@@ -128,10 +126,6 @@ group :development,:test do
   gem 'puma'
   gem 'thin'
   gem 'pry'
-end
-
-group :test do
-  gem 'fakeweb'
 end
 
 gem 'test_after_commit', :group => :test

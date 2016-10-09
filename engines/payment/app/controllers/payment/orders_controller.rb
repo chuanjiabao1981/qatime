@@ -12,23 +12,24 @@ module Payment
 
     # 生成微信支付二维码
     def pay
-      @order = @user.orders.find_by!(transaction_no: params[:id])
+      @order = @user.orders.find_by!(order_no: params[:id])
       @order.init_order_for_test if Rails.env.test?
-      @product = @order.product
+      @order.init_remote_order unless @order.qr_code.try(:code_url)
+      @course = @order.product
     end
 
     def cancel_order
-      @order = @user.orders.find_by!(transaction_no: params[:id])
+      @order = @user.orders.find_by!(order_no: params[:id])
       if @order.canceled!
-        redirect_to user_order_path(@user, @order.transaction_no), notice: t("flash.notice.canel_order_success") if params[:cate] == "show"
+        redirect_to user_order_path(@user, @order.order_no), notice: t("flash.notice.canel_order_success") if params[:cate] == "show"
         redirect_to user_orders_path(@user, cate: :unpaid), notice: t("flash.notice.canel_order_success") if params[:cate] == "index"
       else
-        redirect_to user_order_path(@user, @order.transaction_no), alert: t("flash.alert.canel_order_failed")
+        redirect_to user_order_path(@user, @order.order_no), alert: t("flash.alert.canel_order_failed")
       end
     end
 
     def show
-      @order = @user.orders.find_by!(transaction_no: params[:id])
+      @order = @user.orders.find_by!(order_no: params[:id])
       @course = @order.product
     end
 
@@ -46,7 +47,7 @@ module Payment
         flag = false
       end
       if flag
-        @order = Order.find_by(transaction_no: @result['out_trade_no'])
+        @order = Order.find_by(order_no: @result['out_trade_no'])
         @order.pay_and_ship! if @order.unpaid?
         render :xml => {return_code: "SUCCESS"}.to_xml(root: 'xml', dasherize: false)
       else
@@ -56,18 +57,14 @@ module Payment
 
     # 支付结果
     def result
-      @order = @user.orders.find_by(transaction_no: params[:transaction_no])
+      @order = @user.orders.find_by(order_no: params[:order_no])
       render text: @order.status
     end
 
     private
 
     def set_user
-      @user = if params[:user_id]
-                Student.find(params[:user_id])
-              else
-                Order.find_by!(transaction_no: params[:id]).user
-              end
+      @user = Student.find(params[:user_id])
       @student = @user
     end
 

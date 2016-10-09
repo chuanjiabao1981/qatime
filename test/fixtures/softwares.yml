@@ -61,16 +61,3 @@ four:
   logo: test
   platform: 1
   category: 0
-student_client1:
-  title: 学生app
-  version: 0.1.0
-  sub_title: 学生安卓客户端
-  desc: 学生安卓客户端
-  description: 学生安卓客户端
-  download_links: test_url
-  status: 1
-  enforce: false
-  role: student
-  logo: test
-  platform: 2
-  category: 1

@@ -14,19 +14,6 @@ module APIHelpers
     raise APIErrors::NoVisitPermission unless allow?
   end
 
-  def client_ip
-    headers['X-Real-Ip'] || env["REMOTE_ADDR"]
-  end
-
-  # 根据日期查询记录
-  def query_by_date(chain)
-    chain = chain.where("created_at > ?", params[:start_date].to_date) if params[:start_date].present?
-    chain = chain.where("created_at <= ?", params[:end_date].to_date + 1) if params[:end_date].present?
-    chain
-  rescue
-    chain
-  end
-
   # 检查客户端
   # TODO 未实现
   def check_client!

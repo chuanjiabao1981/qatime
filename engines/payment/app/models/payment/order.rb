@@ -1,39 +1,31 @@
 module Payment
-  class Order < Transaction
-    extend Enumerize
-    include AASM
-
-    include Payment::Payable
-    include Payment::AutoPayable
+  class Order < ActiveRecord::Base
+    has_soft_delete
 
     RESULT_SUCCESS = "SUCCESS".freeze
 
     PAY_TYPE = {
-      # alipay: 0,
+      #alipay: 0,
       weixin: 1
     }.freeze
 
-    enumerize :pay_type, in: {
-      account: 0, # 余额支付
-      alipay: 1,
-      weixin: 2
-    }
+    CATE_UNPAID =%w(unpaid).freeze
+    CATE_PAID =%w(paid shipped completed).freeze
+    CATE_CANCELED =%w(canceled expired refunded).freeze
 
-    CATE_UNPAID = %w(unpaid).freeze
-    CATE_PAID = %w(paid shipped completed).freeze
-    CATE_CANCELED = %w(canceled expired refunded).freeze
+    include AASM
 
     enum status: {
-      unpaid: 0, # 未支付
-      paid: 1, # 已支付
-      shipped: 2, # 已发货
-      completed: 3, # 已完成
-      canceled: 95, # 已取消
-      expired: 96, # 过期订单
-      failed: 97, # 下单失败
-      refunded: 98, # 已退款
-      waste: 99 # 无效订单
-    }
+           unpaid: 0, # 未支付
+           paid: 1, # 已支付
+           shipped: 2, # 已发货
+           completed: 3, # 已完成
+           canceled: 95, # 已取消
+           expired: 96, # 过期订单
+           failed: 97, # 下单失败
+           refunded: 98, # 已退款
+           waste: 99 # 无效订单
+         }
 
     belongs_to :user
     belongs_to :product, polymorphic: true
@@ -41,13 +33,14 @@ module Payment
     validates :user, :product, presence: true
 
     has_many :billings, as: :target
+    has_one :qr_code, as: :qr_codeable
 
     validate do |record|
       record.product.validate_order(record) if new_record? && record.product
     end
 
-    aasm column: :status, enum: true do
-      state :unpaid, initial: true
+    aasm :column => :status, :enum => true do
+      state :unpaid, :initial => true
       state :paid
       state :canceled
       state :shipped
@@ -57,10 +50,16 @@ module Payment
       state :failed
 
       event :pay, after_commit: :touch_pay_at do
+        before do
+          increase_cash_admin_account
+        end
         transitions from: :unpaid, to: :paid
       end
 
       event :cancel do
+        before do
+          increase_cash_admin_account
+        end
         transitions from: :unpaid, to: :canceled
       end
 
@@ -98,17 +97,14 @@ module Payment
 
     # 支付并发货
     def pay_and_ship!
-      Payment::Order.transaction do
-        order_billing!
-        pay!
-      end
+      pay!
       ship!
     end
 
     # 应该支付金额
     def pay_money
       return 1 if Rails.env.testing? || Rails.env.development?
-      (amount * 100).to_i
+      (total_money * 100).to_i
     end
 
     # 订单状态
@@ -123,8 +119,30 @@ module Payment
       end
     end
 
+    after_create :init_remote_order
+    def init_remote_order
+      return if Rails.env.test?
+      r = WxPay::Service.invoke_unifiedorder(remote_params)
+      if r["return_code"] == Payment::Order::RESULT_SUCCESS
+        self.pay_url = r['code_url']
+        assign_qr_code(r['code_url']) if r['code_url'].is_a?(String)
+        self.prepay_id = r['prepay_id']
+        self.nonce_str = r['nonce_str']
+        save
+      else
+        logger.error '===== PAYMENT ERROR START ====='
+        logger.error r
+        logger.error remote_params
+        logger.error '===== PAYMENT ERROR END ====='
+        fail!
+      end
+    end
+
     def init_order_for_test
       raise 'Only For Test' unless Rails.env.test?
+      self.pay_url = 'http://localhost/'
+      save
+      pay_and_ship!
     end
 
     # 支付是否超时微信两小时过期
@@ -143,10 +161,6 @@ module Payment
         trade_type: trade_type,
         fee_type: 'CNY'
       }
-    end
-
-    def order_no
-      transaction_no
     end
 
     def app_pay_params
@@ -177,41 +191,33 @@ module Payment
       end
     end
 
-    # 支付通知地址
-    def notify_url
-      "#{$host_name}/payment/transactions/#{transaction_no}/notify"
-    end
-
-    # 支付通知地址
-    def return_url
-      "#{$host_name}/payment/transactions/#{transaction_no}/result"
-    end
-
-    # 第三方订单subject
-    def subject
-      product.name
-    end
-
     private
+
+    before_create :generate_order_no
+
+    def generate_order_no
+      num = '%04d' % rand(1000)
+      self.order_no = Time.now.to_s(:number) + num
+    end
+
+    # 支付以后cash_admin账户增加金额
+    def increase_cash_admin_account
+      billing = billings.create(total_money: total_money, summary: "用户支付, 订单编号：#{order_no} 系统进账: #{total_money}")
+      CashAdmin.increase_cash_account(total_money, billing, '用户充值消费')
+    end
 
     # 记录支付时间
     def touch_pay_at
       touch(:pay_at)
     end
 
-    def order_billing!
-      summary = "订单支付, 订单编号：#{order_no} 订单金额: #{amount}"
-      billing = billings.create(total_money: amount, summary: summary)
-      user.cash_account!.consumption(amount, self, billing, summary, change_type: pay_type)
-      CashAdmin.increase_cash_account(amount, billing, summary)
-    end
-
-    def auto_paid!
-      return unless pay_type.account?
-      pay_and_ship!
-    rescue => e
-      p e
-      fail!
+    def assign_qr_code(url)
+      relative_path = QrCode.generate_tmp(url)
+      tmp_path = Rails.root.join(relative_path)
+      File.open(tmp_path) do |file|
+        create_qr_code(code: file)
+      end
+      File.delete(tmp_path)
     end
   end
 end

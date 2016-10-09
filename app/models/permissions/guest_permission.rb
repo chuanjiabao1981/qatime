@@ -13,7 +13,6 @@ module Permissions
 
       # wechat payment callback url
       allow 'payment/orders', [:notify]
-      allow 'payment/transactions', [:notify]
       allow 'ajax/captchas', [:create, :verify]
       allow 'passwords', [:edit, :update]
 

@@ -134,8 +134,6 @@ cn:
       create: 新增%{model}
       submit: 储存%{model}
       update: 更新%{model}
-  currency:
-    cn: 元
   number:
     currency:
       format:
@@ -205,5 +203,4 @@ cn:
   simple_form:
     error_notification:
       default_message: "请检查以下问题"
-
 

@@ -3,9 +3,6 @@ Qatime::Application.routes.draw do
 
   get 'welcome/download'
   get 'welcome/courses'
-  resources :softwares, only: [:index, :show] do
-    get :download, on: :member
-  end
   get "topics/node:id"      => "topics#node",           as: 'node_topics'
   get "courses/node:id"     => "courses#node",          as: 'node_courses'
   get "teachers/home"       => "teachers/home#main",    as: 'teachers_home'
@@ -279,10 +276,6 @@ Qatime::Application.routes.draw do
     resources :withdraws
   end
 
-  resources :users do
-    resources :notifications, only: [:index, :show], shallow: true
-  end
-
   resources :comments
 
   resources :videos do
@@ -300,6 +293,8 @@ Qatime::Application.routes.draw do
 
   resources :qa_files
   resources :action_records
+  resources :notifications
+
 
   resources :customized_course_message_boards do
     resources :customized_course_messages

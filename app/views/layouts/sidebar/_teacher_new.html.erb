@@ -22,7 +22,7 @@
       <% end %>
     </li>
     <li>
-      <%= link_to user_notifications_path(@teacher) do %>
+      <%= link_to notifications_teacher_path(@teacher) do %>
         <span class="fa fa-bell"></span>
         <span class="qa_f18"><%= t "view.teacher_bars.notification" %></span>
         <span class="glyphicon arraw-span <%= teacher_sidebar_nav_is?(:notification) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>

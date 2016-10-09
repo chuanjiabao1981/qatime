@@ -87,16 +87,31 @@ class StudentHomePageTest < ActionDispatch::IntegrationTest
     assert customized_course_action_notification_customized_course_message1_create.valid?
     assert customized_course_action_notification_solution_state_change.valid?
 
-    @student1_session.get notifications_student_path(@student1)
+    @student1_session.get user_notifications_path(@student1)
     @student1_session.assert_response :success
-    @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_tutorial_create),1
-    @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_exercise_create),1
-    @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_tutorial_issue_reply_create),1
-    @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_homework_create),1
-    @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_exercise_correction_create),1
-    @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_homework_correction_create),1
-    @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_customized_course_message1_create),1
-    @student1_session.assert_select 'a[href=?]',notification_path(customized_course_action_notification_solution_state_change),1
-
+    rt = main_app.send("#{customized_course_action_notification_tutorial_create.notificationable.actionable.model_name.singular_route_key}_path",
+                       customized_course_action_notification_tutorial_create.notificationable.actionable)
+    @student1_session.assert_select 'a[href=?]', notification_path(customized_course_action_notification_tutorial_create, rt: rt), 1
+    rt = main_app.send("#{customized_course_action_notification_exercise_create.notificationable.actionable.model_name.singular_route_key}_path",
+                       customized_course_action_notification_exercise_create.notificationable.actionable)
+    @student1_session.assert_select 'a[href=?]', notification_path(customized_course_action_notification_exercise_create, rt: rt), 1
+    rt = main_app.send("#{customized_course_action_notification_tutorial_issue_reply_create.notificationable.actionable.model_name.singular_route_key}_path",
+                       customized_course_action_notification_tutorial_issue_reply_create.notificationable.actionable)
+    @student1_session.assert_select 'a[href=?]', notification_path(customized_course_action_notification_tutorial_issue_reply_create, rt: rt), 1
+    rt = main_app.send("#{customized_course_action_notification_homework_create.notificationable.actionable.model_name.singular_route_key}_path",
+                       customized_course_action_notification_homework_create.notificationable.actionable)
+    @student1_session.assert_select 'a[href=?]', notification_path(customized_course_action_notification_homework_create, rt: rt), 1
+    rt = main_app.send("#{customized_course_action_notification_exercise_correction_create.notificationable.actionable.model_name.singular_route_key}_path",
+                       customized_course_action_notification_exercise_correction_create.notificationable.actionable)
+    @student1_session.assert_select 'a[href=?]', notification_path(customized_course_action_notification_exercise_correction_create, rt: rt), 1
+    rt = main_app.send("#{customized_course_action_notification_homework_correction_create.notificationable.actionable.model_name.singular_route_key}_path",
+                       customized_course_action_notification_homework_correction_create.notificationable.actionable)
+    @student1_session.assert_select 'a[href=?]', notification_path(customized_course_action_notification_homework_correction_create, rt: rt), 1
+    rt = main_app.send("#{customized_course_action_notification_customized_course_message1_create.notificationable.actionable.model_name.singular_route_key}_path",
+                       customized_course_action_notification_customized_course_message1_create.notificationable.actionable)
+    @student1_session.assert_select 'a[href=?]', notification_path(customized_course_action_notification_customized_course_message1_create, rt: rt), 1
+    rt = main_app.send("#{customized_course_action_notification_solution_state_change.notificationable.actionable.model_name.singular_route_key}_path",
+                       customized_course_action_notification_solution_state_change.notificationable.actionable)
+    @student1_session.assert_select 'a[href=?]', notification_path(customized_course_action_notification_solution_state_change, rt: rt), 1
   end
 end

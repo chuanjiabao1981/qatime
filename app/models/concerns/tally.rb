@@ -137,19 +137,19 @@ module Tally
     protected
 
     def teacher_amount
-      @teacher_amount ||= teacher_price * hours
+      @teacher_amount ||= float_format(teacher_price * hours)
     end
 
     def workstation_amount
-      @workstation_amount ||= platform_price * hours
+      @workstation_amount ||= float_format(platform_price * hours)
     end
 
     def hours
-      @hours ||= video.duration.to_f / 60 / 60
+      @hours ||= Float(video.duration) / 60 / 60
     end
 
     def total_money
-      teacher_amount + workstation_amount
+      float_format(teacher_amount + workstation_amount)
     end
   end
 end

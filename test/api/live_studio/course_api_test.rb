@@ -15,7 +15,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     res = JSON.parse(response.body)
 
     assert_equal 1, res['status']
-    assert_equal 4, res['data'].size
+    assert_equal 5, res['data'].size
   end
 
   test "get teacher courses list return error of student" do
@@ -36,7 +36,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     res = JSON.parse(response.body)
 
     assert_equal 1, res['status']
-    assert_equal 4, res['data'].size
+    assert_equal 5, res['data'].size
     assert_equal true, res['data'].first.has_key?('lessons')
   end
 

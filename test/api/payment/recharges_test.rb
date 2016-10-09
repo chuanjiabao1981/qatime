@@ -12,7 +12,7 @@ class RechargeApiTest < ActionDispatch::IntegrationTest
     assert_equal 1, res['status']
     assert_equal 3, res['data'].count
     assert_includes res['data'].map {|recharge| recharge['status']}, 'unpaid', "没有正确显示未支付充值记录"
-    assert_includes res['data'].map {|recharge| recharge['status']}, 'paid', "没有正确显示已支付充值记录"
+    assert_includes res['data'].map {|recharge| recharge['status']}, 'received', "没有正确显示已到账充值记录"
   end
 
   test 'user alipay recharge' do

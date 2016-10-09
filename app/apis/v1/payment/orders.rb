@@ -52,7 +52,7 @@ module V1
           end
 
           put ':id/cancel' do
-            order = ::Payment::Order.find_by(order_no: params[:id])
+            order = ::Payment::Order.find_by(transaction_no: params[:id])
             if order.canceled!
               present order, with: Entities::Payment::Order, type: :product
             else

@@ -1,77 +1,21 @@
 <div class="panel panel-default">
-  <div class="panel-heading">
-    <%= Account.human_attribute_name(:money) %>:
-    <%= format("%.2f",@current_resource.account.money) %>
-
-    <% if @current_resource.student? %>
-      <% if allow? :deposits,:new ,@current_resource.account%>
-        <%= link_to new_account_deposit_path(@current_resource.account) do %>
-          <span><%= Deposit.model_name.human %></span>
-        <% end %>
-      <% end %>
-    <% elsif @current_resource.teacher? %>
-      <% if allow? :withdraws, :new, @current_resource.account%>
-        <%= link_to new_account_withdraw_path(@current_resource.account) do %>
-          <span><%= Withdraw.model_name.human %></span>
-        <% end %>
-      <% end %>
-
-      <% if allow? :teachers, :keep_account, @current_resource%>
-        <%= link_to keep_account_teacher_path(@current_resource) do %>
-          <span><%= Account.human_attribute_name(:keep_account)%></span>
-        <% end %>
-      <% end %>
-    <% end %>
-  </div>
+  <%= render "student_cash" if @current_resource.student? -%>
+  <%= render "teacher_cash" if @current_resource.teacher? -%>
 </div>
 
-<% if @current_resource.teacher? %>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <%= Account.human_attribute_name(:total_income) %>:
-    <%= format("%.2f",@teacher.account.total_income) %>元
-  </div>
-</div>
-<% end %>
-
-<!-- <div class="panel panel-default">
-  <div class="panel-heading">
-    <%#= Payment::ChangeRecord.model_name.human %>
-  </div>
-  <div>
-    <table class="table">
-      <tr>
-        <th>#</th>
-        <%# %w(different after summary created_at).each do |attr| -%>
-          <th><%#= Payment::ChangeRecord.human_attribute_name(attr) %></th>
-        <%# end %>
-      </tr>
-
-      <%#= render @change_records %>
-    </table>
-
-    <div class="panel-footer">
-      <%#= will_paginate @change_records %>
-    </div>
-  </div>
-</div> -->
-
-<% if @current_resource.student? %>
-  <%= render layout: "/students/account_operation_record_layout" do %>
-
-    <%if params[:fee].nil? %>
-      <%= render partial: '/deposits/index',locals: {deposits:@deposits} %>
-    <% else %>
-      <%= render partial: '/shared/consumption_records/index',locals:{consumption_records: @consumption_records} %>
-    <% end %>
-  <% end %>
-<% elsif  @current_resource.teacher? %>
-  <%= render layout: "/teachers/account_operation_record_layout" do %>
-
-    <%if params[:fee].nil? %>
-        <%= render partial: '/withdraws/index',locals: {withdraws:@withdraws} %>
-    <% else %>
-        <%= render partial: '/shared/earning_records/index',locals:{earning_records: @earning_records} %>
-    <% end %>
-  <% end %>
+<%= content_for :javascript do %>
+<script type="text/javascript">
+$(function() {
+  $("#start_date").DatePicker({
+    modalMode: false,
+    maxDate: moment(),
+    endDate: moment()
+  });
+  $("#end_date").DatePicker({
+    modalMode: false,
+    maxDate: moment(),
+    endDate: moment()
+  });
+});
+</script>
 <% end %>

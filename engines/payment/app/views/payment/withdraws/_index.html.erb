@@ -1,0 +1,17 @@
+<div class="qa_big_cell">
+  <h2><%=Account.human_attribute_name(:withdraw_record)%></h2>
+</div>
+
+<div class="qa_cell">
+  <table class="table table-bordered">
+    <tr>
+      <th><%= Payment::Withdraw.human_attribute_name(:amount)%></th>
+      <th><%= Payment::Withdraw.human_attribute_name(:transaction_no)%></th>
+      <th><%= Payment::Withdraw.human_attribute_name(:pay_type)%></th>
+      <th><%= Payment::Withdraw.human_attribute_name(:created_at)%></th>
+      <th><%= Payment::Withdraw.human_attribute_name(:status)%></th>
+    </tr>
+    <%= render partial: '/payment/withdraws/withdraw',collection: withdraws %>
+  </table>
+  <%= will_paginate withdraws ,renderer: BootstrapPagination::Rails %>
+</div>

@@ -23,3 +23,10 @@ workstation_invalid:
   tel: 1
   email: MyString
 
+workstation_another:
+  name: 又一个工作站
+  city: changping
+  address: MyString
+  tel: 1
+  email: MyString
+  manager: manager

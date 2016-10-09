@@ -49,8 +49,11 @@
           <% end %>
         </li>
         <li>
-          <%= link_to notifications_teacher_path(@teacher) do %>
+          <%= link_to user_notifications_path(@teacher) do %>
               <span class="fa fa-bell"></span>
+
+
+
               <span class="qa_f18">我的消息
                 <% if @teacher.unread_notifications_count >0 %>
                     <span class="badge"><%= @teacher.unread_notifications_count%></span>

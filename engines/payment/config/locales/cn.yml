@@ -1,14 +1,33 @@
 cn:
+  view:
+    payment/consumption_record:
+      view: 查看
+    payment/earning_record:
+      view: 查看
+    payment/cash_account:
+      recharge: 充值
+      withdraw: 提现
+    payment/recharge:
+      new_title: 账户充值
+      amount: 充值金额
+      weixin_tips: 请使用微信扫一扫<br>扫描二维码支付
+
   activerecord:
     view:
       order: 我的订单
       pay: 立即支付
       timeout: 已超时
       pay_view_phone: 提示：如支付遇到问题，请拨打电话 010-58442007
+
     models:
       payment/order: 订单
       payment/change_record: 资金流水
+      payment/consumption_record: 消费记录
+      payment/earning_record: 收入记录
       payment/billing: 结算记录
+      payment/recharge: 充值记录
+      payment/withdraw: 提现记录
+      payment/cash_account: 资金账户
     attributes:
       payment/order:
         order_no: 订单编号
@@ -17,6 +36,9 @@ cn:
         created_at: 下单时间
         status: 订单状态
         pay_type: 支付方式
+        pay_type/account: 余额支付
+        pay_type/alipay: 支付宝
+        pay_type/weixin: 微信支付
         course_name: 课程名称
         course_teacher: 任课教师
         course_description: 课程描述
@@ -26,11 +48,81 @@ cn:
         target: 结算对象
         summary: 描述
         created_at: 结算时间
+        amount: 金额
+      payment/consumption_record:
+        amount: 金额
+        target_type: 消费类型
+        created_at: 时间
+        link: 链接
+        change_type: 消费方式
+        operate: 操作
+        detail: 每小时单价*时长
+      payment/earning_record:
+        amount: 金额
+        created_at: 时间
+        link: 链接
+        detail: 每小时单价*时长
+        target_type: 收益类型
+        operate: 操作
       payment/billing:
         total_money: 收支
         summary: 描述
         details: 明细
         created_at: 结算时间
+      payment/recharge:
+        transaction_no: 编号
+        amount: 金额
+        source: 来源
+        status: 充值状态
+        status/unpaid: 未支付
+        status/paid: 支付成功
+        status/shipped: 支付成功
+        status/received: 充值成功
+        status/refunding: 等待退款
+        status/refunded: 已退款
+        pay_type: 支付方式
+        created_at: 充值时间
+        order_time: 时间
+        transaction_type: 交易类型
+        transaction_type/recharge: 账户储值
+        transaction_method: 交易方式
+        transaction_info: 交易信息
+        reset_pay_type: 重选支付方式
+        tips: 请核对充值信息后再进行付款操作
+      payment/order:
+        transaction_no: 订单编号
+        amount: 金额
+        source: 来源
+        status: 充值状态
+        status/unpaid: 未支付
+        status/paid: 支付成功
+        status/shipped: 支付成功
+        status/received: 充值成功
+        status/refunding: 等待退款
+        status/refunded: 已退款
+        pay_type: 支付方式
+        created_at: 创建时间
+        order_time: 创建时间
+        transaction_type: 交易类型
+        transaction_type/recharge: 账户储值
+        transaction_method: 交易方式
+        transaction_info: 订单信息
+        reset_pay_type: 重选支付方式
+        tips: 请核对充值信息后再进行付款操作
+      payment/withdraw:
+        amount: 金额
+      payment/cash_account:
+        balance: 余额
+        total_income: 总收入
+        total_expenditure: 累计消费
+        recharge: 充值
+        withdraw: 提现
+      payment/withdraw:
+        amount: 金额
+        transaction_no: 编号
+        pay_type: 提现方式
+        created_at: 时间
+        status: 状态
     status:
       order:
         unpaid: 待付款
@@ -42,6 +134,11 @@ cn:
         failed: 下单失败
         refunded: 已退款
         waste: 无效订单
+      withdraw:
+        init: 审核中
+        allowed: 通过审核
+        refused: 提现失败
+        paid: 提现成功
     cate_text:
       order:
         unpaid: 等待付款

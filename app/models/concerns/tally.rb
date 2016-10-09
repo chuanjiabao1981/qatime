@@ -43,15 +43,16 @@ module Tally
       fee
     end
 
+    # 结账
+    def _billing
+      Payment::Billing.create(target: self, total_money: total_money, summary: "#{model_name.human} - #{id} 结算")
+    end
+
     ##扣款
-    def __charge_fee(fee)
+    def __charge_fee(billing)
       customized_course           = CustomizedCourse.find(self.customized_course_id)
-      consumption_account         = Student.find(customized_course.student_id).account
-      consumption_account.lock!
-      consumption_account.money   = consumption_account.money - fee.value
-      consumption_account.total_expenditure = consumption_account.total_expenditure + fee.value
-      consumption_account.consumption_records.create!(fee: fee,value: fee.value)
-      consumption_account.save!
+      cash_account = customized_course.student.cash_account
+      cash_account.consumption(billing.total_money, self, billing, self.class.model_name.human)
     end
 
     def __split_fee_to_relative_account(relative_account, fee, value, price)
@@ -63,7 +64,7 @@ module Tally
     end
 
     ## 计算分配比例
-    def __calculate_split_value(fee, teacher_account, workstation_account)
+    def __calculate_split_value(billing, teacher_account, workstation_account)
       teacher_percent = fee.teacher_price / (fee.teacher_price + fee.platform_price)
       workstation_percent = 1 - teacher_percent
       teacher_value = float_format(fee.value * teacher_percent)
@@ -72,32 +73,32 @@ module Tally
     end
 
     ##分账
-    def __split_fee(teacher_id,fee)
-      teacher_account = Teacher.find(teacher_id).account
-      customized_course = CustomizedCourse.find(self.customized_course_id)
-      workstation_account = Workstation.find(customized_course.workstation_id).account
-      __calculate_split_value(fee, teacher_account, workstation_account).each do |account, value, price|
+    def __split_fee(teacher_id, billing)
+      customized_course = CustomizedCourse.find(customized_course_id)
+      teacher_account = Teacher.find(teacher_id).cash_account!
+      workstation_account = Workstation.find(customized_course.workstation_id).cash_account!
+      __calculate_split_value(billing, teacher_account, workstation_account).each do |account, value, price|
         __split_fee_to_relative_account(account, fee, value, price)
       end
     end
 
-
     def keep_account(teacher_id, &block)
-      return unless self.video and self.video.duration and self.video.duration > 0
-      self.transaction do
-        self.lock!
-        self.video.lock!
+      return if video.nil? || video.duration.to_i <= 0
+      self.class.transaction do
+        lock!
+        video.lock!
         begin
-            fee = __create_fee(self.video)
-            return unless fee and fee.value > 0
-            __charge_fee(fee)
-            __split_fee(teacher_id,fee)
-            self.status = "closed"
-            self.save!
-            ##这里是为了注入异常，测试回滚用，对整个流程没有什么帮助
-            if block_given?
-              yield
-            end
+          billing = _billing
+          return if billing.nil? || billing.total_money <= 0
+          __charge_fee(billing)
+          teacher_account = Teacher.find(teacher_id).cash_account!
+          workstation_account = Workstation.find(customized_course.workstation_id).cash_account!
+          teacher_account.earning(teacher_amount, self, billing, "#{model_name.human} - #{id} 结账, 单价: #{teacher_price}")
+          workstation_account.earning(workstation_amount, self, billing, "#{model_name.human} - #{id} 结账, 单价: #{platform_price}")
+          self.status = "closed"
+          save!
+          # 这里是为了注入异常，测试回滚用，对整个流程没有什么帮助
+          yield if block_given?
         rescue Exception => e
           Rails.logger.error("#{e.to_s} \n #{self.model_name.to_s} \n #{self.to_json}")
           raise ActiveRecord::StatementInvalid, "#{e.to_s} \n #{self.model_name.to_s} \n #{self.to_json}"
@@ -110,6 +111,28 @@ module Tally
     end
     def set_charged
       self.status = "closed"
+    end
+
+    def total_price
+      teacher_price + platform_price
+    end
+
+    protected
+
+    def teacher_amount
+      @teacher_amount ||= teacher_price * hours
+    end
+
+    def workstation_amount
+      @workstation_amount ||= platform_price * hours
+    end
+
+    def hours
+      @hours ||= video.duration.to_f / 60 / 60
+    end
+
+    def total_money
+      teacher_amount + workstation_amount
     end
   end
 end

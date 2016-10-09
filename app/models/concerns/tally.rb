@@ -48,23 +48,35 @@ module Tally
       Payment::Billing.create(target: self, total_money: total_money, summary: "#{model_name.human} - #{id} 结算")
     end
 
-    ##扣款
-    def __charge_fee(billing)
+    # 扣款
+    def __charge_fee(fee)
       customized_course           = CustomizedCourse.find(self.customized_course_id)
-      cash_account = customized_course.student.cash_account
+      consumption_account         = Student.find(customized_course.student_id).account
+
+      consumption_account.lock!
+      consumption_account.money   = consumption_account.money - fee.value
+      consumption_account.total_expenditure = consumption_account.total_expenditure + fee.value
+      consumption_account.consumption_records.create!(fee: fee,value: fee.value)
+      consumption_account.save!
+    end
+
+    # 新的扣款
+    def __charge_billing(billing)
+      customized_course           = CustomizedCourse.find(self.customized_course_id)
+      cash_account = customized_course.student.cash_account!
       cash_account.consumption(billing.total_money, self, billing, self.class.model_name.human)
     end
 
     def __split_fee_to_relative_account(relative_account, fee, value, price)
       relative_account.lock!
-      relative_account.money      = relative_account.money + value
+      relative_account.money = relative_account.money + value
       relative_account.total_income = relative_account.total_income + value
       relative_account.earning_records.create!(fee: fee, price: price, value: value)
       relative_account.save!
     end
 
-    ## 计算分配比例
-    def __calculate_split_value(billing, teacher_account, workstation_account)
+    # 计算分配比例
+    def __calculate_split_value(fee, teacher_account, workstation_account)
       teacher_percent = fee.teacher_price / (fee.teacher_price + fee.platform_price)
       workstation_percent = 1 - teacher_percent
       teacher_value = float_format(fee.value * teacher_percent)
@@ -72,12 +84,12 @@ module Tally
       [[teacher_account, teacher_value, fee.teacher_price], [workstation_account, workstation_value, fee.platform_price]]
     end
 
-    ##分账
-    def __split_fee(teacher_id, billing)
+    # 分账
+    def __split_fee(teacher_id, fee)
+      teacher_account = Teacher.find(teacher_id).account
       customized_course = CustomizedCourse.find(customized_course_id)
-      teacher_account = Teacher.find(teacher_id).cash_account!
-      workstation_account = Workstation.find(customized_course.workstation_id).cash_account!
-      __calculate_split_value(billing, teacher_account, workstation_account).each do |account, value, price|
+      workstation_account = Workstation.find(customized_course.workstation_id).account
+      __calculate_split_value(fee, teacher_account, workstation_account).each do |account, value, price|
         __split_fee_to_relative_account(account, fee, value, price)
       end
     end
@@ -88,18 +100,23 @@ module Tally
         lock!
         video.lock!
         begin
+          fee = __create_fee(video)
           billing = _billing
           return if billing.nil? || billing.total_money <= 0
-          __charge_fee(billing)
-          teacher_account = Teacher.find(teacher_id).cash_account!
-          workstation_account = Workstation.find(customized_course.workstation_id).cash_account!
-          teacher_account.earning(teacher_amount, self, billing, "#{model_name.human} - #{id} 结账, 单价: #{teacher_price}")
-          workstation_account.earning(workstation_amount, self, billing, "#{model_name.human} - #{id} 结账, 单价: #{platform_price}")
+          __charge_fee(fee)
+          __split_fee(teacher_id, fee)
+          __charge_billing(billing)
+
+          teacher_cash_account = Teacher.find(teacher_id).cash_account!
+          workstation_cash_account = Workstation.find(customized_course.workstation_id).cash_account!
+          teacher_cash_account.earning(teacher_amount, self, billing, "#{model_name.human} - #{id} 结账, 单价: #{teacher_price}")
+          workstation_cash_account.earning(workstation_amount, self, billing, "#{model_name.human} - #{id} 结账, 单价: #{platform_price}")
+
           self.status = "closed"
           save!
           # 这里是为了注入异常，测试回滚用，对整个流程没有什么帮助
           yield if block_given?
-        rescue Exception => e
+        rescue StandardError => e
           Rails.logger.error("#{e.to_s} \n #{self.model_name.to_s} \n #{self.to_json}")
           raise ActiveRecord::StatementInvalid, "#{e.to_s} \n #{self.model_name.to_s} \n #{self.to_json}"
         end

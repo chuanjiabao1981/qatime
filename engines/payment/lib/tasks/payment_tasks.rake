@@ -68,7 +68,7 @@ namespace :payment do
 
   desc '提现记录迁移'
   task migrate_to_withdraw: :environment do
-    #raise "不能重复导入" if Payment::Withdraw.count > 0
+    raise "不能重复导入" if Payment::Withdraw.count > 0
     count = 0
     puts "开始迁移"
     # 数据导入

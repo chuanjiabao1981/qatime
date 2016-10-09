@@ -172,3 +172,14 @@
     * feature
         * [QT-204](https://qatime.atlassian.net/browse/QT-204)
         * [QT-221](https://qatime.atlassian.net/browse/QT-221)
+
+* 0.9.0
+    * feature
+        * [QT-237](https://qatime.atlassian.net/browse/QT-237)
+        * [QT-245](https://qatime.atlassian.net/browse/QT-245)
+        * [QT-274](https://qatime.atlassian.net/browse/QT-274)
+        * [QT-332](https://qatime.atlassian.net/browse/QT-332)
+        * [QT-333](https://qatime.atlassian.net/browse/QT-333)
+        * [QT-334](https://qatime.atlassian.net/browse/QT-334)
+        * [QT-336](https://qatime.atlassian.net/browse/QT-336)
+        * [QT-342](https://qatime.atlassian.net/browse/QT-342)

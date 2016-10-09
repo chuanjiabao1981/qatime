@@ -32,6 +32,7 @@ class SmsWorker
   SEND_CAPTCHA                 = :send_captcha
   REGISTER_CAPTCHA             = :register_captcha
   GET_PASSWORD_BACK            = :get_password_back
+  WITHDRAW_CASH                = :withdraw_cash
 
   include Sidekiq::Worker
   include SmsUtil
@@ -222,6 +223,18 @@ class SmsWorker
     begin
       send_message(mobile,
        "【答疑时间】您好，您正在注册答疑时间，验证码: #{captcha}，如果不是您本人操作，请忽略")
+    rescue Exception => e
+      logger.info e.message
+      logger.info e.backtrace.inspect
+    end
+  end
+
+  def withdraw_cash(options)
+    mobile  = options["mobile"]
+    captcha = options["captcha"]
+    begin
+      send_message(mobile,
+                   "【答疑时间】您好，您的账户正在申请提现，验证码: #{captcha}，请勿透露给他人。")
     rescue Exception => e
       logger.info e.message
       logger.info e.backtrace.inspect

@@ -1,5 +1,11 @@
 <div class="panel-row">
   <p><%= t("teachers.common.my_wallet") %></p>
+
+  <% if allow? :teachers, :keep_account, @current_resource%>
+    <%= link_to keep_account_teacher_path(@current_resource), class: "btn-account" do %>
+      <%= Account.human_attribute_name(:keep_account)%>
+    <% end %>
+  <% end %>
 </div>
 
 <div class="panel-row std-row">
@@ -19,9 +25,8 @@
       <%= t('currency.cn') %>
     </em>
     <!--<button type="button" class="btn btn-default btn-add">充值</button>-->
-    <%= link_to payment.new_user_recharge_path(@current_resource), class: 'btn-add' do %>
-      <%= Payment::CashAccount.human_attribute_name(:withdraw) %>
-    <% end %>
+    <%= link_to Payment::CashAccount.human_attribute_name(:withdraw), payment.new_user_withdraw_path(@current_resource),
+                class: "btn-add" unless @cash_account.balance < 100%>
   </div>
 </div>
 
@@ -65,9 +70,9 @@
           <td><%= Payment::Withdraw.human_attribute_name(:status) %></td>
         </tr>
       </tbody>
-      <%#= render @withdraws %>
+      <%= render @withdraws %>
     </table>
-    <div class="pagination-fix"><%#= will_paginate @withdraws %></div>
+    <div class="pagination-fix"><%= will_paginate @withdraws %></div>
   <% else %>
     <table class="table table-fix">
       <tbody>

@@ -1,0 +1,43 @@
+<div class="container stu-apply-1">
+  <div class="panel panel-default">
+    <div class="recharge-title"><p><%= t('view.withdraw_cn') %></p></div>
+
+    <div class="row row-title">
+      <div class="col-md-4 col-md-row" id="col-md-nav-1">
+        <div class="col-md-title"><p><%= t('view.withdraw.amount') %></p></div>
+        <div class="col-md-apply-2">
+          <div class="col-md-money"><p><%= number_to_currency(@withdraw.amount,locale: :cn) %><%= t('currency.cn') %></p></div>
+        </div>
+      </div>
+      <div class="col-md-8 col-md-row" id="col-md-nav-2">
+        <div class="col-md-title"><p><%= t('view.withdraw.business_info') %></p></div>
+        <div class="col-md-apply-3">
+          <table border="0" cellspacing="0" cellpadding="0" id="tab-apply">
+            <tbody><tr>
+              <td><%= sanitize t('view.withdraw.transaction_no') %></td>
+              <td><%= @withdraw.transaction_no %></td>
+            </tr>
+            <tr>
+              <td><%= sanitize t 'view.withdraw.created_at' %></td>
+              <td><%= localize(@withdraw.created_at,:format => :exact)  %></td>
+            </tr>
+            <tr>
+              <td><%= t 'view.withdraw.type' %></td>
+              <td><%= t 'view.withdraw_cn' %></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td><%= t 'view.withdraw.pay_type' %></td>
+              <td><%= @withdraw.pay_type_text %><%= " (#{@withdraw.withdraw_record.account}  #{@withdraw.withdraw_record.name})" unless @withdraw.cash? %></td>
+            </tr>
+            </tbody></table>
+        </div>
+      </div>
+    </div>
+    <div class="tech-phone">
+      <p><%= sanitize(t('view.withdraw.complete_tips') % link_to(Payment::Withdraw.model_name.human,cash_user_path(@current_resource))) %></p>
+      <%= link_to t('view.withdraw.common.ok'),cash_user_path(@current_resource), class: 'btn-sure' %>
+    </div>
+
+  </div>
+</div>

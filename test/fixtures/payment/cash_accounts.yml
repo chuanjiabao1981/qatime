@@ -17,3 +17,9 @@ student_balance_account:
   balance: 999999
   total_income: 0
   total_expenditure: 300
+
+teahcer_balance_account:
+  owner: teacher_tally (User)
+  balance: 100000
+  total_income: 0
+  total_expenditure: 0

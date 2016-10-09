@@ -82,6 +82,8 @@ module UserService
         SmsWorker::SEND_CAPTCHA
       when :get_password_back
         SmsWorker::GET_PASSWORD_BACK
+      when :withdraw_cash
+        SmsWorker::WITHDRAW_CASH
       end
     end
   end

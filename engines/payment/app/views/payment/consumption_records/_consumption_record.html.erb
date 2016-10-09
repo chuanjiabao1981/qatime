@@ -1,1 +1,22 @@
-<%= render partial: "/payment/consumption_records/#{consumption_record.target.model_name.singular}", locals: { consumption_record: consumption_record } if consumption_record.target %>
+<% if consumption_record.is_a?(Payment::Order) %>
+  <tr>
+    <td><%= number_to_currency(consumption_record.amount, locale: :cn, unit: "￥", precision: 1) %></td>
+    <td><%= consumption_record.target.product.model_name.human %></td>
+    <td><%= consumption_record.change_type_text %></td>
+    <td><%= localize(consumption_record.created_at,:format => :long) %></td>
+    <td><%= link_to t("view.payment/consumption_record.view"), payment.user_order_path(@current_resource, consumption_record.target.transaction_no) if consumption_record.target %></td>
+  </tr>
+<% else %>
+  <tr>
+    <td><%= number_to_currency(consumption_record.amount, locale: :cn, unit: "￥", precision: 1) %></td>
+    <td>
+      <%= number_to_currency(consumption_record.target.total_price, unit: "￥", precision: 1)%>
+      *
+      <%= second_to_minutes consumption_record.target.video.duration %>
+    </td>
+    <td><%= consumption_record.target.model_name.human %></td>
+    <td><%= consumption_record.change_type_text %></td>
+    <td><%= localize(consumption_record.created_at,:format => :long) %></td>
+    <td><%= feeble_link(earning_record.target, text: t("view.payment/consumption_record.view")) if consumption_record.target %></td>
+  </tr>
+<% end %>

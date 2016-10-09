@@ -16,11 +16,6 @@ VCLOUD_CONFIG = YAML.load(File.read(File.expand_path('../vcloud.yml', __FILE__))
 # 网易云信配置
 Chat::IM.config(YAML.load(File.read(File.expand_path('../netease.yml', __FILE__)))[Rails.env])
 
-$host_name = APP_CONFIG[Rails.env.to_sym]["host_name"] if APP_CONFIG[Rails.env.to_sym]
-
-$qatime_key = OpenSSL::PKey::RSA.new(File.read(File.expand_path('../qatime_rsa_private_key.pem', __FILE__)))
-$alipay_key = OpenSSL::PKey::RSA.new(File.read(File.expand_path('../alipay_rsa_public_key.pem', __FILE__)))
-
 module Qatime
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -52,7 +47,7 @@ module Qatime
       authentication: "login"
     }
     # config.paths.add File.join('app', 'apis'), glob: File.join('**', '*.rb')
-    config.autoload_paths << "#{Rails.root}/app/models/notifications"
+    # config.autoload_paths += Dir[Rails.root.join('app', 'apis', '*')]
 
   end
 end

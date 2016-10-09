@@ -2,7 +2,10 @@ require 'test_helper'
 class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
   def setup
     @student = users(:student_one_with_course)
-    @student_remember_token = api_login(@student, :app)
+    post '/api/v1/sessions', email: @student.email,
+                             password: 'password',
+                             client_type: 'pc'
+    @student_remember_token = JSON.parse(response.body)['data']['remember_token']
   end
 
   def app
@@ -15,7 +18,11 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
 
   def get_url(url, params)
     @teacher = users(:teacher1)
-    @remember_token = api_login_by_pc(@teacher, :teacher_live)
+    post '/api/v1/sessions', email: @teacher.email,
+         password: 'password',
+         client_type: 'pc'
+    @remember_token = JSON.parse(response.body)['data']['remember_token']
+
     get url, params, 'Remember-Token' => @remember_token
   end
 

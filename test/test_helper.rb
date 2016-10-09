@@ -105,37 +105,20 @@ class ActiveSupport::TestCase
     sess.delete signout_path
   end
 
-  def api_login_by_pc(user,client_cate=nil)
-    api_login(user, 'pc', client_cate)
-  end
-
-  def api_login(user,client_type,client_cate=nil)
-    flag = client_cate.blank? ? true : false
-    client_cate ||= user.role == 'teacher' ? 'teacher_live' : 'student_client'
-    post '/api/v1/sessions', login_account: user.login_account,
-         password: 'password',
-         client_type: client_type,
-         client_cate: client_cate
-    assert_response :success
-    assert_equal 1, JSON.parse(response.body)['status'], '状态码不对' if flag
-    JSON.parse(response.body)['data']['remember_token']
-  end
-
   def get_home_url(user)
-    case user.role
-    when "teacher"
-      #teachers_home_path
-      solutions_teacher_path(user.id)
-    when "admin"
-      admins_home_path
-    when "student"
-      # students_home_path
-      '/students/home'
-    when "manager"
-      managers_home_path
-    else
-      root_path
-    end
+      case user.role
+        when "teacher"
+          #teachers_home_path
+          solutions_teacher_path(user.id)
+        when "admin"
+          admins_home_path
+        when "student"
+          students_home_path
+        when "manager"
+          managers_home_path
+        else
+          root_path
+      end
   end
 
 

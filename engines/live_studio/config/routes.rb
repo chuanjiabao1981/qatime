@@ -96,7 +96,7 @@ LiveStudio::Engine.routes.draw do
   #   resources :courses, only: [:index, :show]
   # end
   scope module: :student do
-    resources :students, only: [] do
+    resources :students do
       member do
         get :schedules
       end

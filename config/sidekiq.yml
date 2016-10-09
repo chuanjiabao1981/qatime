@@ -12,4 +12,3 @@ production:
   - live_studio
   - chat
   - email
-  - notification

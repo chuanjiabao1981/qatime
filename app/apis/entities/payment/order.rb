@@ -2,26 +2,20 @@ module Entities
   module Payment
     class Order < Grape::Entity
       expose :id do |order|
-        order.transaction_no
+        order.order_no
       end
-      expose :amount
-      expose :pay_type
       expose :status
-      expose :source
-      expose :created_at
-      expose :updated_at
-      expose :pay_at
-      expose :prepay_id do |recharge|
-        recharge.remote_order.try(:prepay_id)
+      expose :prepay_id
+      expose :nonce_str
+      expose :app_pay_params do |order|
+        order.app_pay_params
       end
-      expose :nonce_str do |recharge|
-        recharge.remote_order.try(:nonce_str)
+      expose :pay_type
+      expose :pay_at do |order|
+        order.pay_at.try(:strftime,"%Y-%m-%d %H:%M:%S")
       end
-      expose :app_pay_params do |recharge|
-        recharge.remote_order.try(:app_pay_params)
-      end
-      expose :app_pay_str do |recharge|
-        recharge.remote_order.try(:app_pay_str)
+      expose :created_at do |order|
+        order.created_at.try(:strftime,"%Y-%m-%d %H:%M:%S")
       end
       expose :product, using: Entities::LiveStudio::Course, if: { type: :product }
     end

@@ -146,17 +146,6 @@ student1:
   type: Student
   school: school2
 
-student3:
-  name: student3
-  role: student
-  email: student3@qatime.cn
-  login_mobile: 15910676327
-  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
-  avatar: "test"
-  grade: 高一
-  type: Student
-  school: school2
-
 student2:
   name: student2
   role: student
@@ -181,6 +170,7 @@ student_one_with_course:
   school: school2
 
 student_with_order:
+  id: 12
   name: student1
   role: student
   email: student_with_order@baidu.com
@@ -509,30 +499,5 @@ seller:
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   type: Seller
 
-# student for test recharge
-student_recharge:
-  login_mobile: 15100000001
-  name: student_recharge
-  role: student
-  email: 15100000001@qatime.cn
-  parent_phone: 15910676326
-  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
-  avatar: "test"
-  grade: 高一
-  type: Student
-  school: school2
 
-# 测试余额学生
-student_balance:
-  login_mobile: 15100000002
-  name: student_balance
-  role: student
-  email: 15100000002@qatime.cn
-  parent_phone: 15100000002
-  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
-  avatar: "test"
-  grade: 高一
-  type: Student
-  school: school2
 
-  

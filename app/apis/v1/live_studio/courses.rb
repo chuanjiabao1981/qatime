@@ -217,7 +217,7 @@ module V1
                 members: course.chat_team.try(:join_records).try(:map,&:account),
                 current_lesson_status: course.current_lesson.try(:status)
               }
-            present realtime, with: Entities::CourseRealtime
+            present realtime,with: Entities::CourseRealtime
           end
 
           desc '创建辅导班订单接口' do
@@ -228,15 +228,15 @@ module V1
           end
           params do
             requires :id, desc: '辅导班ID'
-            requires :pay_type, type: String, values: ::Payment::Order.pay_type.values, desc: '支付方式'
+            requires :pay_type, type: Integer, desc: '支付方式 0: 支付宝; 1: 微信', values: Payment::Order::PAY_TYPE.values
           end
           post '/:id/orders' do
             course = ::LiveStudio::Course.find(params[:id])
             order_params = {
-              pay_type: params[:pay_type], remote_ip: client_ip, source: :app
+              trade_type: "APP", pay_type: params[:pay_type], remote_ip: headers['X-Real-Ip'] || env["REMOTE_ADDR"]
             }
             order = LiveService::CourseDirector.create_order(current_user, course, order_params)
-            raise ActiveRecord::RecordInvalid, order unless order.save
+            order.init_remote_order if order.unpaid? && order.prepay_id.blank?
             present order, with: Entities::Payment::Order
           end
 
@@ -252,42 +252,6 @@ module V1
           get '/:id/play_info' do
             course = ::LiveStudio::Course.find(params[:id])
             present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user,size: :info
-          end
-        end
-
-
-        namespace :courses do
-
-          route_param :course_id do
-            helpers do
-              def auth_params
-                @course = ::LiveStudio::Course.find(params[:course_id])
-                @course.teacher
-              end
-            end
-
-            desc '辅导班发布公告' do
-              headers 'Remember-Token' => {
-                description: 'RememberToken',
-                required: true
-              }
-            end
-            params do
-              requires :content, type: String, desc: "公告内容"
-            end
-            post 'announcements' do
-              unless @course.chat_team
-                ::LiveService::ChatTeamManager.new(nil).instance_team(@course)
-                @course.reload
-              end
-              team = @course.chat_team
-              team.team_announcements.create(announcement: params[:content], edit_at: Time.now)
-              team.reload
-              Chat::IM.team_update(tid: team.team_id, owner: team.owner, announcement: team.announcement)
-              # 发送通知消息
-              LiveService::CourseNotificationSender.new(@course).notice(LiveStudioCourseNotification::ACTION_NOTICE_CREATE)
-              "ok"
-            end
           end
         end
       end

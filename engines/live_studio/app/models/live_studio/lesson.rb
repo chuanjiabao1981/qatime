@@ -101,15 +101,6 @@ module LiveStudio
       "#{start_time}~#{end_time}"
     end
 
-    def live_begin_time
-      "#{class_date} #{start_time}"
-    end
-
-    # 开始时间
-    def start_at
-      Time.parse("#{class_date} #{start_time}")
-    end
-
     # 心跳
     def heartbeats(token = nil)
       @live_session = token.blank? ? new_live_session : current_live_session
@@ -172,14 +163,14 @@ module LiveStudio
     # 教师分成
     def teacher_fee!(money, billing)
       teacher_money = money * course.teacher_percentage.to_f / 100
-      teacher.cash_account!.earning(teacher_money, billing.target, billing, "课程完成 - #{id} - #{name} - #{teacher_money}/#{money}")
+      teacher.cash_account!.increase(teacher_money, billing, "课程完成 - #{id} - #{name} - #{teacher_money}/#{money}")
       teacher_money
     end
 
     # 代理商分成
     # 代理商的分成打入workstation账户下
     def manager_fee!(money, billing)
-      course.workstation.cash_account!.earning(money, billing.target, billing, "课程完成 - #{id} - #{name}")
+      course.workstation.cash_account!.increase(money, billing, "课程完成 - #{id} - #{name}")
     end
 
     # 结算完成后

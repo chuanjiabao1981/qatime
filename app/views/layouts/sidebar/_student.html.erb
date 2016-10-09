@@ -16,7 +16,7 @@
     <% end %>
   </li>
   <li>
-    <%= link_to user_notifications_path(@student) do %>
+    <%= link_to notifications_student_path(@student) do %>
     <span class="fa fa-bell"></span>
     <span class="qa_f18">我的消息
       <% if @student.unread_notifications_count >0 %>

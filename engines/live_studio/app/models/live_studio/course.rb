@@ -1,6 +1,5 @@
 module LiveStudio
   class Course < ActiveRecord::Base
-    # include LiveStudio::QaCourseActionRecord
     has_soft_delete
 
     SYSTEM_FEE = 0.1.freeze # 系统每个人每分钟收费
@@ -45,9 +44,6 @@ module LiveStudio
     has_one :chat_team, foreign_key: 'live_studio_course_id', class_name: '::Chat::Team'
 
     has_many :billings, through: :lessons, class_name: 'Payment::Billing' # 结算记录
-
-    has_many :course_action_records,->{ order 'created_at desc' }, dependent: :destroy, foreign_key: :live_studio_course_id
-
     scope :month, -> (month){where('live_studio_courses.class_date >= ? and live_studio_courses.class_date <= ?',month.beginning_of_month.to_date,month.end_of_month.to_date)}
     scope :by_status, ->(status){status.blank? || status == 'all' ? nil : where(status: statuses[status.to_sym])}
     scope :by_subject, ->(subject){ subject.blank? || subject == 'all' ? nil : where(subject: subject)}
@@ -80,7 +76,7 @@ module LiveStudio
     end
 
     def order_params
-      { amount: price, product: self }
+      { total_money: price, product: self }
     end
 
     def status_text
@@ -232,12 +228,6 @@ module LiveStudio
     def init_channel_job
       init_channel
       # ChannelCreateJob.perform_later(id)
-    end
-
-    # 辅导班创建通知指定教师
-    after_commit :notice_teacher_for_assign, on: :create
-    def notice_teacher_for_assign
-      ::LiveStudioCourseNotification.create(from: workstation, receiver: teacher, notificationable: self, action_name: :assign)
     end
 
     def lower_price

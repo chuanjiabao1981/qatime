@@ -4,15 +4,13 @@ class Qatime::UsersAPITest < ActionDispatch::IntegrationTest
     @student = users(:student1)
     post '/api/v1/sessions', email: @student.email,
                              password: 'password',
-                             client_type: 'pc',
-                             client_cate: 'student_client'
+                             client_type: 'pc'
     @student_remember_token = JSON.parse(response.body)['data']['remember_token']
 
     @teacher = users(:teacher1)
     post '/api/v1/sessions', email: @teacher.email,
                              password: 'password',
-                             client_type: 'pc',
-                             client_cate: 'teacher_live'
+                             client_type: 'pc'
     @teacher_remember_token = JSON.parse(response.body)['data']['remember_token']
   end
 

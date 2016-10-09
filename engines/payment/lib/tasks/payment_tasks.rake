@@ -68,23 +68,28 @@ namespace :payment do
 
   desc '提现记录迁移'
   task migrate_to_withdraw: :environment do
-    raise "不能重复导入" if Payment::Withdraw.count > 0
+    #raise "不能重复导入" if Payment::Withdraw.count > 0
+    count = 0
+    puts "开始迁移"
     # 数据导入
     ::Withdraw.find_each(:batch_size => 500) do |w|
-      values = [
-        w.account.accountable.id,
-        w.value,
-        "'#{Util.random_order_no}'",
-        "''",
-        0,
-        1,
-        0,
-        "'Payment::Withdraw'",
-        "'#{w.created_at.to_s[0,19]}'",
-        "'#{w.updated_at.to_s[0,19]}'"
-      ]
-      sql = "insert into payment_transactions (user_id,amount,transaction_no,remote_ip,pay_type,status,source,type,created_at,updated_at) values (#{values.join(",")})"
-      ActiveRecord::Base.connection.execute(sql)
+      withdraw =
+        Payment::Withdraw.new(
+          user: w.account.accountable,
+          amount: w.value,
+          transaction_no: Util.random_order_no,
+          remote_ip: '',
+          pay_type: :cash,
+          status: :allowed,
+          source: 0,
+          created_at: w.created_at,
+          updated_at: w.updated_at
+        )
+       if !withdraw.save(validate: false)
+         binding.pry
+       end
+      count += 1
+      puts "完成记录: #{count}条" if count % 100 == 0
     end
   end
 end

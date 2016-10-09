@@ -20,17 +20,17 @@ module Payment
     end
 
     test "cate text" do
-      unpid_order = payment_orders(:order_one)
-      assert unpid_order.cate_text == "等待付款"
+      unpid_order = payment_transactions(:order_one)
+      assert_equal "等待付款", unpid_order.cate_text, "未付款订单显示不正确"
 
-      paid_order = payment_orders(:order2)
-      assert paid_order.cate_text == "正在交易"
+      paid_order = payment_transactions(:order2)
+      assert_equal "正在交易", paid_order.cate_text, "交易订单显示不正确"
 
-      canceled_order = payment_orders(:order4)
-      assert canceled_order.cate_text == "交易关闭"
+      canceled_order = payment_transactions(:order4)
+      assert_equal "交易关闭", canceled_order.cate_text, "关闭订单显示不正确"
 
-      completed_order = payment_orders(:order6)
-      assert completed_order.cate_text == "交易完成"
+      completed_order = payment_transactions(:order6)
+      assert_equal "无效订单", completed_order.cate_text, "无效订单状态显示不正确"
     end
   end
 end

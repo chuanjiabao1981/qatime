@@ -88,7 +88,7 @@ class TeacherTest < ActiveSupport::TestCase
     end
 
     customized_course     = customized_courses(:customized_course_tally)
-    assert customized_course.fees.size == 25
+    assert_equal 25, customized_course.fees.size, "生成收费记录不正确"
     customized_course.fees.each do |f|
       assert f.consumption_records.length           == 1
       assert f.consumption_records.first.account_id == student.account.id

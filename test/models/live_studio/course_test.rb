@@ -8,37 +8,36 @@ module LiveStudio
 
     setup do
       @create_response_body1 = {
-        "code": 200,
-        "msg": '',
-        "ret": {
-          "cid": "bfca60cef2eb464fbf0f05c3fafacef1",
-          "ctime": "rtmp://p2e95df8c.live.126.net/live/19419193f30441a",
-          "pushUrl": "rtmp://p2e95df8c.live.126.net/live/19419193f3044b",
-          "httpPullUrl": "rtmp://p2e95df8c.live.126.net/live/19419193f3044c",
-          "hlsPullUrl": "rtmp://p2e95df8c.live.126.net/live/19419193f3044d",
-          "rtmpPullUrl": "rtmp://p2e95df8c.live.126.net/live/19419193f3044e"
+        code: 200,
+        msg: '',
+        ret: {
+          cid: "bfca60cef2eb464fbf0f05c3fafacef1",
+          ctime: "rtmp://p2e95df8c.live.126.net/live/19419193f30441a",
+          pushUrl: "rtmp://p2e95df8c.live.126.net/live/19419193f3044b",
+          httpPullUrl: "rtmp://p2e95df8c.live.126.net/live/19419193f3044c",
+          hlsPullUrl: "rtmp://p2e95df8c.live.126.net/live/19419193f3044d",
+          rtmpPullUrl: "rtmp://p2e95df8c.live.126.net/live/19419193f3044e"
         }
       }.to_json
 
       @create_response_body2 = {
-        "code": 200,
-        "msg": '',
-        "ret": {
-          "cid": "bfca60cef2eb464fbf0f05c3fafacef2",
-          "ctime": "rtmp://p2e95df8c.live.126.net/live/19419193f30441aa",
-          "pushUrl": "rtmp://p2e95df8c.live.126.net/live/19419193f3044bb",
-          "httpPullUrl": "rtmp://p2e95df8c.live.126.net/live/19419193f3044cv",
-          "hlsPullUrl": "rtmp://p2e95df8c.live.126.net/live/19419193f3044dd",
-          "rtmpPullUrl": "rtmp://p2e95df8c.live.126.net/live/19419193f3044ee"
+        code: 200,
+        msg: '',
+        ret: {
+          cid: "bfca60cef2eb464fbf0f05c3fafacef2",
+          ctime: "rtmp://p2e95df8c.live.126.net/live/19419193f30441aa",
+          pushUrl: "rtmp://p2e95df8c.live.126.net/live/19419193f3044bb",
+          httpPullUrl: "rtmp://p2e95df8c.live.126.net/live/19419193f3044cv",
+          hlsPullUrl: "rtmp://p2e95df8c.live.126.net/live/19419193f3044dd",
+          rtmpPullUrl: "rtmp://p2e95df8c.live.126.net/live/19419193f3044ee"
         }
       }.to_json
 
       @delete_response_body = {
-        "code": 200,
-        "msg": "",
-        "ret": {}
+        code: 200,
+        msg: "",
+        ret: {}
       }.to_json
-
     end
 
     test "course must has a teacher name or blank" do
@@ -81,8 +80,8 @@ module LiveStudio
 
       channel = course.init_channel
 
-      streams1 = channel.streams.first
-      streams2 = channel.streams.last
+      streams1 = channel.push_streams.first
+      streams2 = channel.pull_streams.last
 
       assert_equal("bfca60cef2eb464fbf0f05c3fafacef1", channel.remote_id, '频道remote_id不正确')
 
@@ -108,8 +107,8 @@ module LiveStudio
 
       channel.sync_streams
 
-      streams1 = channel.streams.first
-      streams2 = channel.streams.last
+      streams1 = channel.push_streams.first
+      streams2 = channel.pull_streams.last
       assert_equal("bfca60cef2eb464fbf0f05c3fafacef2", channel.remote_id, '频道remote_id不正确')
 
       assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044bb", streams1.address, '推流地址不正确')

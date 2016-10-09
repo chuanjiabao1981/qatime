@@ -86,6 +86,7 @@ teacher_tally:
   avatar: "test"
   school: school1
   type: Teacher
+  login_mobile: 13439338326
 
 teacher_update_password:
   login_mobile: 13439338002
@@ -353,6 +354,7 @@ admin:
   avatar: "test"
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   type: Admin
+  login_mobile: 13131249233
 
 manager:
   name: manager

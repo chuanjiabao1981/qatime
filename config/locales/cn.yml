@@ -194,6 +194,7 @@ cn:
       default: ! '%Y年%b%d日 %A %H:%M:%S %Z'
       long: ! '%Y年%b%d日 %H:%M'
       short: ! '%b%d日 %H:%M'
+      exact: ! '%Y年%b%d日 %H:%M:%S'
     pm: 下午
   # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:

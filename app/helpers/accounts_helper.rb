@@ -1,5 +1,4 @@
 module AccountsHelper
-
   def consumption_type(fee)
     return unless fee and fee.feeable
     fee.feeable.model_name.human

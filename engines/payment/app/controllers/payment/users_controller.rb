@@ -19,7 +19,8 @@ module Payment
           @earning_records = @current_resource.cash_account.earning_records.includes(:target)
           @earning_records = query_by_date(@earning_records).order(created_at: :desc).paginate(page: params[:page])
         else
-          @withdraws = @teacher.payment_withdraws.order(created_at: :desc).paginate(page: params[:page])
+          @withdraws = @teacher.payment_withdraws
+          @withdraws = query_by_date(@withdraws).order(created_at: :desc).paginate(page: params[:page])
         end
       end
 

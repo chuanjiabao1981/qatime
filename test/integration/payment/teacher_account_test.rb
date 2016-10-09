@@ -9,8 +9,7 @@ module Payment
       Capybara.current_driver = :selenium_chrome
 
       @teacher = users(:teacher_tally)
-
-      new_log_in_as(@teacher)
+      new_log2_in_as(@teacher)
     end
 
     def teardown
@@ -23,16 +22,27 @@ module Payment
       assert page.has_content?(@teacher.cash_account!.total_income)
     end
 
-    # TODO 提现集成测试跑不通
-    test 'teacher account withdraws test' do
-      visit payment.cash_user_path(@teacher)
-      assert page.has_content?(@teacher.account.withdraws.last.operator.name)
-    end
-
     test 'teacher account earning_records test' do
       visit payment.cash_user_path(@teacher)
       click_on '收入记录'
       assert page.has_content?('家庭作业批改')
+    end
+
+    test 'teacher withdraw operator test' do
+      visit payment.cash_user_path(@teacher)
+      withdraw_count = Payment::Withdraw.count
+      click_link '提现'
+      fill_in 'withdraw_amount', with: 1000
+      choose 'withdraw_pay_type_cash'
+      click_on '获取验证码'
+      captcha_manager = UserService::CaptchaManager.new(@teacher.login_mobile)
+      captcha = captcha_manager.captcha_of(:withdraw_cash)
+      fill_in 'verify',with: captcha
+      click_on '申请提现'
+      assert page.has_content?('交易信息')
+      assert Payment::Withdraw.count == withdraw_count+1
+      click_link '提现记录'
+      assert page.has_content?(Payment::Withdraw.last.transaction_no)
     end
   end
 end

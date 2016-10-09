@@ -27,6 +27,8 @@ cn:
   enum:
     payment/withdraw:
       pay_type:
+        cash: 现金支付
+        bank: 银行转账
         weixin: 微信支付
         alipay: 支付宝支付
     payment/order:

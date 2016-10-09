@@ -1,0 +1,153 @@
+<div class="panel panel-default">
+  <div class="recharge-title"><p><%= t('view.withdraw.common.audit') %></p></div>
+  <div class="wraning">
+    <p>
+      <%= t 'view.withdraw.audit_warn' %>
+    </p>
+  </div>
+  <%= form_for @withdraw, url: user_withdraws_path(@current_resource) do |f| %>
+    <div class="row row-title">
+      <div class="col-md-5 col-md-row" id="col-md-nav-1">
+        <div class="col-md-title">
+          <p><%= t 'view.withdraw.amount' %></p>
+        </div>
+        <div class="col-md-apply-2">
+          <div class="txt-num">
+            <%= f.text_field :amount, class: 'num', placeholder: t('view.withdraw.amount_tips') %>
+            <span>(<%= t 'view.withdraw.balance' %><%= @cash_account.balance %><%= t('currency.cn') %>)</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-7 col-md-row" id="col-md-nav-2">
+        <div class="col-md-title">
+          <p><%= Payment::Withdraw.human_attribute_name(:pay_type) %></p>
+        </div>
+        <div class="col-md-apply-3">
+          <table border="0" cellspacing="0" cellpadding="0">
+            <tbody><tr>
+              <td>
+                <%= f.radio_button :pay_type, 'alipay', class: 'check-1' %>
+                支付宝<br>(推荐)</td>
+              <td>
+                <div class="td-msg-1">
+                  <input type="text" placeholder="<%= t('view.withdraw.alipay_input_holder') %>" name="alipay_account" class="alipay"><br>
+                  <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="alipay_name" class="username">
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= f.radio_button :pay_type, 'bank', class: 'check-1' %>
+                转账
+              </td>
+              <td>
+                <div class="td-msg">
+                  <input type="number" placeholder="<%= t('view.withdraw.bank_input_holder') %>" name="bank_account" class="card-num"><br>
+                  <input id="text" type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="bank_name" class="car-name">
+                  <span><%= t 'view.withdraw.warn_cn' %>:<br><%= t('view.withdraw.bank_name_tips') %></span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= f.radio_button :pay_type, 'cash', class: 'check-1' %>
+                <%= t 'view.withdraw.cash_cn' %>
+              </td>
+              <td class="td-card"><%= t 'view.withdraw.cash_tips' %></td>
+            </tr>
+            </tbody></table>
+        </div>
+      </div>
+    </div>
+    <%= content_tag :div,class: 'alert-warning text-center' do %>
+      <% @errors.each do |er| %>
+        <%= er %>
+        <br/>
+      <% end %>
+      <%= link_to t('view.withdraw.common.cancel_withdraw'), cash_user_path(@current_resource) %>
+    <% end if @errors.present?%>
+    <div class="tech-phone">
+      <%= content_tag :div, class: 'tech-phone-num' do %>
+        <span><%= t 'view.withdraw.common.verify_mobile' %></span>
+        <%= text_field_tag :verify,params[:verify], html: {class: 'btn-num', placeholder: t('view.withdraw.common.verify_holder')} %>
+        <span>
+          <input class="btn-code" type="button" data-send-captcha-btn data-send-to-input="#login_mobile" data-send-url="<%= ajax_captchas_url %>"
+                 data-key="withdraw_cash" value="<%= t 'view.withdraw.common.get_verify' %>">
+        </span>
+        <span>(<%= t 'view.withdraw.common.bind_mobile' %><%= @current_resource.login_mobile[0,3] %>****<%= @current_resource.login_mobile[7,4] %>)</span>
+      <% end if @current_resource.login_mobile.present? %>
+      <button class="btn-withdrawal"><%= t 'view.withdraw.audit_withdraw' %></button>
+
+    </div>
+    <%= hidden_field_tag :login_mobile, @current_resource.login_mobile %>
+  <% end %>
+</div>
+<script type="text/javascript">
+
+  $(function  () {
+    var pay_type = '<%= @withdraw.pay_type %>';
+    if(pay_type!='nil'){
+      if(pay_type=='alipay')
+        $(".td-msg-1").show();
+      if(pay_type=='bank')
+        $(".td-msg").show();
+    }
+    //点击支付宝
+    $(".check-1").click(function  () {
+      var index = $(".check-1").index($(this));
+      if (index == 0) {
+        $(".td-msg-1").show();
+      }else{
+        $(".td-msg-1").hide();
+      }
+      if (index == 1) {
+        $(".td-msg").show();
+      }else{
+        $(".td-msg").hide();
+      }
+    })
+
+    //点击申请提现
+    $(".btn-withdrawal").click(function  () {
+
+      if ($(".num").val()-0 < 100) {
+        alert("请输入金额不小于100元");
+        return false;
+      }
+
+      if(!$(".check-1").is(":checked")){
+        alert('请选择提现方式');
+        return false;
+      }
+      if ($(".check-1").eq(0).is(":checked")) {
+        if ($(".alipay").val().length <= 0) {
+          alert("请输入支付宝账号");
+          return false;
+        }
+
+        if ($(".username").val().length <= 0) {
+          alert("请输入姓名");
+          return false;
+        }
+      }
+
+      if ($(".check-1").eq(1).is(":checked")) {
+        if ($(".card-num").val().length <= 0) {
+          alert("请输入银行卡号");
+          return false;
+        }
+
+        if ($(".car-name").val().length <= 0) {
+          alert("请输入姓名");
+          return false;
+        }
+      }
+      if($('#verify').val().length <= 0){
+        alert("请输入验证码");
+        return false;
+      }
+      $('#new_withdraw').submit();
+    })
+  })
+
+</script>

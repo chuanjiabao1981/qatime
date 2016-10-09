@@ -13,5 +13,6 @@
   </td>
   <td>
     <%= withdraw.status_text %>
+    <%= link_to "/ #{t('teachers.common.cancel')}",cancel_user_withdraw_path(@current_resource,withdraw),method: :put if withdraw.init? %>
   </td>
 </tr>

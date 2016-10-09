@@ -1,14 +1,19 @@
 module Payment
   class Withdraw < Transaction
+    has_one :withdraw_record, foreign_key: 'payment_transaction_id', class_name: 'Payment::WithdrawRecord'
 
-    enum status: %w(init allowed refused paid cancel)
-    enum pay_type: %w(cash bank wechat alipay)
+    enum status: %w(init allowed refused cancel)
+    enum pay_type: %w(cash bank alipay)
 
     attr_accessor :account_money_snap_shot
-    validate :validate_withdraw_amount
+    validate :validate_withdraw_amount, on: :create
 
-    def status_text
-      I18n.t("activerecord.status.withdraw.#{status}")
+    scope :filter, ->(keyword){keyword.blank? ? nil : where('transaction_no ~* ?', keyword).presence ||
+      where(user: User.where('name ~* ?',keyword).presence || User.where('login_mobile ~* ?',keyword))}
+
+    def status_text(role=nil)
+      role = role.present? && role == 'admin' ? 'admin' : 'teacher'
+      I18n.t("activerecord.status.withdraw.#{role}.#{status}")
     end
 
     def pay_type_text
@@ -19,11 +24,21 @@ module Payment
       return self.value * -1
     end
 
+    def self.i18n_options_statuses
+      statuses.slice(:allowed,:refused).map{|k,_| [I18n.t("activerecord.status.withdraw.admin.#{k}"), k]}
+    end
+
+    # 通过审核
+    def allow
+      allowed!
+      user.cash_account.update(balance: user.cash_account.balance - amount)
+    end
+
     private
     def validate_withdraw_amount
       v = parse_raw_value_as_a_number(self.amount)
       if self.account_money_snap_shot.nil?
-        self.account_money_snap_shot = self.user.account.money
+        self.account_money_snap_shot = self.user.cash_account.balance
       end
       if v
         if v > 0

@@ -1,0 +1,12 @@
+<tr>
+  <td><%= number_to_currency(recharge.amount, locale: :cn) %></td>
+  <td><%= recharge.transaction_no %></td>
+  <td><%= recharge.pay_type_text %></td>
+  <td><%= localize(recharge.created_at,:format => :long) %></td>
+  <td>
+    <%= recharge.aasm.human_state %>
+    <% if recharge.unpaid? && recharge.pay_type.offline? && allow?("payment/recharges", "pay", recharge) %>
+      <%= link_to t("activerecord.view.pay"), payment.pay_recharge_path(recharge.transaction_no), method: "PUT" %>
+    <% end %>
+  </td>
+</tr>

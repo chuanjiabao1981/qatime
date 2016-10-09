@@ -1,0 +1,12 @@
+<tr>
+  <td><%= number_to_currency(consumption_record.amount, locale: :cn) %></td>
+  <td>
+    <%= number_to_currency(consumption_record.target.total_price, unit: "￥", precision: 1)%>
+    *
+    <%= second_to_minutes consumption_record.target.video.duration %>
+  </td>
+  <td><%= consumption_record.target.model_name.human %></td>
+  <td><%= consumption_record.change_type_text %></td>
+  <td><%= localize(consumption_record.created_at,:format => :long) %></td>
+  <td><%= link_to t("view.payment/consumption_record.view"), "" %></td>
+</tr>

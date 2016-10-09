@@ -38,6 +38,10 @@
     <br/><%= @software.description %>
   </div>
   <div class="qa_big_cell">
+    <%= Software.human_attribute_name(:cdn_url) %>
+    <br/><%= @software.cdn_url %>
+  </div>
+  <div class="qa_big_cell">
     <%= Software.human_attribute_name(:download_links) %>
     <br/><%= @software.download_links %>
   </div>

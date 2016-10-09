@@ -32,16 +32,33 @@ module LiveService
     # 准备上课
     # 上课时间为今天的设置为ready状态, init => ready
     def self.ready_today_lessons
-      LiveStudio::Lesson.today.init.find_each(batch_size: 500).map(&:ready!)
+      LiveStudio::Lesson.today.init.find_each(batch_size: 500).each do |lesson|
+        lesson.ready!
+        # 课程上课提醒，没有准确的定时任务的时候临时解决方案
+        # 每天定时任务发送
+        LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_START_FOR_TEACHER)
+        LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_START_FOR_TEACHER)
+        course = lesson.course
+        if course.preview?
+          course.teaching!
+          LiveService::CourseNotificationSender.new(course).notice(LiveStudioCourseNotification::ACTION_START)
+        end
+      end
     end
 
     # 清理未完成课程
     # 1. 昨天(包括)以前paused, closed状态下的课程finish
     # 2. 上课时间在前天(包括)以前并且状态为teaching的课程finish
+    # 3. 错过的昨日课程发送通知
     def self.clean_lessons
       LiveStudio::Lesson.waiting_finish.where('class_date <= ?',Date.yesterday).find_each(batch_size: 500).map(&:finish!)
       LiveStudio::Lesson.teaching.where('class_date < ?', Date.yesterday).find_each(batch_size: 500).each do |lesson|
         lesson.close! && lesson.finish!
+      end
+
+      # 未上课提醒
+      LiveStudio::Lesson.ready.where('class_date = ?', Date.yesterday).find_each(batch_size: 500).each do |lesson|
+        LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_MISS_FOR_TEACHER)
       end
     end
 
@@ -70,7 +87,29 @@ module LiveService
             LiveStudio::Lesson.find(id).destroy
           end
           (all_ids - delete_ids).each do |id|
-            LiveStudio::Lesson.find(id).update(edit_lesson_params(id,params))
+            update_params = edit_lesson_params(id,params)
+            lesson = LiveStudio::Lesson.find(id)
+            _old_lesson_date = lesson.class_date.to_s + " " + lesson.live_time.to_s
+            lesson.update(update_params)
+            lesson.reload
+            _new_lesson_date = lesson.class_date.to_s + " " + lesson.live_time.to_s
+            # 如果没有name，则为调课，给学生发送调课消息
+            if !update_params.has_key?(:name) && update_params[:class_date]
+              course_action_record = course.course_action_records.new(
+                content: I18n.t(
+                  "activerecord.view.course_action_record.content.lesson_change_class_date_for_students",
+                  lesson_name: lesson.name,
+                  teacher_name: course.teacher.name,
+                  old_lesson_date: _old_lesson_date,
+                  new_lesson_date: _new_lesson_date
+                ),
+                category: :lesson_change_class_date_for_students,
+                live_studio_course_id: course.id,
+                live_studio_lesson_id: id
+              )
+              course_action_record.save(validate: false)
+              LiveService::CourseActionRecordDirector.new(course_action_record).create_action_notification
+            end
           end
         end
         create_lessons(course,params)

@@ -71,6 +71,14 @@ module Permissions
         teacher and teacher.id == user.id
       end
 
+      allow :notifications, [:index] do |resource_user|
+        resource_user && user.id == resource_user.id
+      end
+
+      allow :notifications, [:show] do |notification|
+        notification && notification.receiver_id == user.id
+      end
+
       allow :replies,[:create] do |topic|
         topic and topic.topicable and topicable_permission(topic.topicable,user)
       end
@@ -259,6 +267,10 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/teachers/[\\w-]+/schedules"
       api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/live_start"
       api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/live_end"
+
+      api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/announcements" do |teacher|
+        teacher && teacher.id == user.id
+      end
 
       # 老师个人信息接口
       api_allow :GET, "/api/v1/teachers/[\\w-]+/info" do |teacher|

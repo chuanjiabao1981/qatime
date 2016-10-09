@@ -11,6 +11,7 @@ cn:
       ok: 确定
       get_captcha: 获取验证码
       try_get_captcha_again: 秒后重试
+      my_wallet: 我的钱包
     new:
       title: 学生注册
       captcha: 验证码

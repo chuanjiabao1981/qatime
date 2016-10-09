@@ -15,7 +15,7 @@ module LiveStudio
 
     test "student visit schedules view" do
       user = users(:student_one_with_course)
-      log_in_as(user)
+      new_log_in_as(user)
       click_on '课程表'
       page.find("#wait_lesson_ceil").click
       assert page.has_content?(user.live_studio_lessons.unclosed.first.name)
@@ -47,7 +47,8 @@ module LiveStudio
       click_on '课程表'
       assert today.to_s == find("#calendar").find(".active")[:rel], "没有默认选中今日"
       find(".cell-#{today.month}-1").click
-      find(".#{today.to_s}").click
+      find(".cell-#{today.month}-#{today.day}").click
+      sleep(3)
       assert all(".schedules-tb").size == 2, '数据没有出现'
       assert page.has_content?("课程日历")
       assert page.has_content?("未上课")
@@ -56,8 +57,9 @@ module LiveStudio
       click_on '课程表'
       assert today.to_s == find("#calendar").find(".active")[:rel], "没有默认选中今日"
       find(".cell-#{today.month}-1").click
-      find(".#{today.to_s}").click
-      assert all(".schedules-tb").size == 2, '数据没有出现'
+      find(".cell-#{today.month}-#{today.day}").click
+      sleep(3)
+      assert all(".schedules-tb").size == 1, '数据没有出现'
       assert page.has_content?("课程日历")
       assert page.has_content?("未上课")
       assert page.has_content?("已上课")

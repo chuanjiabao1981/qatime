@@ -1,6 +1,6 @@
 class Software < ActiveRecord::Base
   extend Enumerize
-  validates_presence_of :title, :sub_title, :platform, :version, :role, :desc, :description, :download_links, :logo, :category
+  validates_presence_of :title, :sub_title, :platform, :version, :role, :desc, :description, :cdn_url, :logo, :category
 
   mount_uploader :logo, SoftwareLogoUploader
   has_one :qr_code, as: :qr_codeable
@@ -19,6 +19,7 @@ class Software < ActiveRecord::Base
             i18n_scope: "enums.software.platform",
             scope: true,
             predicates: { prefix: true }
+  before_save
   before_update :assign_qr_code
 
   def published!
@@ -35,12 +36,19 @@ class Software < ActiveRecord::Base
   end
 
   def assign_qr_code
-    relative_path = QrCode.generate_tmp(self.download_links)
+    relative_path = QrCode.generate_tmp(download_links)
     tmp_path = Rails.root.join(relative_path)
     File.open(tmp_path) do |file|
       self.create_qr_code(code: file)
     end
     File.delete(tmp_path)
+  end
+
+  private
+
+  before_save :generate_download_links
+  def generate_download_links
+    self.download_links = "#{$host_name}/softwares/#{id}/download" if download_links.blank?
   end
 
   class << self

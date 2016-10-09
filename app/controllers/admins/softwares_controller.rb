@@ -42,6 +42,6 @@ class Admins::SoftwaresController < ApplicationController
 
   private
   def software_params
-    params.require(:software).permit(:title, :sub_title, :platform, :version, :role, :category, :desc, :description, :download_links, :enforce, :logo)
+    params.require(:software).permit(:title, :sub_title, :platform, :version, :role, :category, :desc, :description, :cdn_url, :enforce, :logo)
   end
 end

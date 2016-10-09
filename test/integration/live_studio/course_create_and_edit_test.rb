@@ -32,8 +32,15 @@ module LiveStudio
         select workstation.name, from: 'course_workstation_id'
         select '语文', from: 'course_subject'
         select '六年级', from: 'course_grade'
-        click_on '新增辅导班'
+
+        assert_difference 'teacher.course_action_notifications.count', 1 do
+          click_on '新增辅导班'
+        end
       end
+
+      teacher.reload
+      # 教师消息提醒
+      assert_equal("您有新的辅导班任务：测试英语辅导课程，请尽快设置内容及课程后进行招生发布。",teacher.course_action_notifications.last.notificationable.content, "消息发送错误")
 
       course = Course.last
       assert_equal(teacher.id, course.teacher_id, '辅导班老师指定错误')

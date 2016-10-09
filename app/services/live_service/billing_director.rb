@@ -55,7 +55,7 @@ module LiveService
     def im_fee!(money, billing)
       im_money = LiveStudio::Course::IM_FEE * @lesson.live_count
       im_money = money if im_money > money
-      increase_cash_admin_account(im_money, billing, msg = :im_fee)
+      increase_cash_admin_account(im_money, billing, :im_fee)
       im_money
     end
 
@@ -63,21 +63,21 @@ module LiveService
     def system_fee!(money, billing)
       system_money = LiveStudio::Course::SYSTEM_FEE * @lesson.live_count * @lesson.real_time
       system_money = money if system_money > money
-      increase_cash_admin_account(system_money, billing, msg = :system_fee)
+      increase_cash_admin_account(system_money, billing, :system_fee)
       system_money
     end
 
     # 教师分成
     def teacher_fee!(money, billing)
       teacher_money = money * @course.teacher_percentage.to_f / 100
-      @lesson.teacher.cash_account!.increase(teacher_money, billing, "课程完成 - #{@lesson.id} - #{@lesson.name} - #{teacher_money}/#{money}")
+      @lesson.teacher.cash_account!.earning(teacher_money, billing.target, billing, "课程完成 - #{@lesson.id} - #{@lesson.name} - #{teacher_money}/#{money}")
       teacher_money
     end
 
     # 代理商分成
     # 代理商的分成打入workstation账户下
     def manager_fee!(money, billing)
-      @course.workstation.cash_account!.increase(money, billing, "课程完成 - #{@lesson.id} - #{@lesson.name}")
+      @course.workstation.cash_account!.earning(money, billing.target, billing, "课程完成 - #{@lesson.id} - #{@lesson.name}")
     end
 
     # 结算完成后

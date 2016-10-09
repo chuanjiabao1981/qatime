@@ -137,8 +137,7 @@ class TeachersController < ApplicationController
   end
 
   def notifications
-    @action_notifications = @teacher.customized_course_action_notifications.paginate(page: params[:page])
-    # @action_notifiactions =
+    @action_notifications = @teacher.notifications.paginate(page: params[:page])
     render layout: 'teacher_home_new'
   end
 

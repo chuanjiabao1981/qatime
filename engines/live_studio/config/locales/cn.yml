@@ -306,7 +306,15 @@ cn:
         no_customized_course_available: 没有可使用此大纲课程的专属课程
         is_same: 是否一致
         operation: 操作
-
+      course_action_record:
+        content:
+          lesson_teach_for_students: "您的课程%{lesson_name}将于%{lesson_live_begin_time}开始上课，请准时参加学习。"
+          course_teaching_for_students: "您购买的辅导%{course_name}已于%{course_class_date}开课。"
+          lesson_change_class_date_for_students: "您的课程%{lesson_name}已调课（调课人：%{teacher_name} 老师），上课时间由%{old_lesson_date}调整为%{new_lesson_date};请合理安排时间。"
+          notice_update_for_students: "%{course_name}辅导班更新了新公告！"
+          course_create_for_teacher: "您有新的辅导班任务：%{course_name}，请尽快设置内容及课程后进行招生发布。"
+          course_teaching_for_teacher: "您的辅导班%{course_name}于%{course_class_date}开课。"
+          lesson_teach_for_teacher: "您的课程%{lesson_name}将于%{lesson_live_begin_time}开始上课，请准时授课。"
     successful:
       messages:
         created: "%{model}已创建"

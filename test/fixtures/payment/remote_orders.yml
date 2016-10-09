@@ -1,0 +1,13 @@
+weixin_remote_order:
+  order: weixin_order
+  amount: 30
+  status: unpaid
+
+order5_remote:
+  order: order5 (Payment::Transaction)
+  amount: 1000
+  pay_url: "http://localhost"
+  remote_ip: '127.0.0.4'
+  status: 0
+  trade_type: NATIVE
+  type: Payment::WeixinOrder

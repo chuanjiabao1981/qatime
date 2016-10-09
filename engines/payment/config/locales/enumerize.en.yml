@@ -1,0 +1,6 @@
+en:
+  enumerize:
+    payment/recharge:
+      pay_type:
+        weixin: Weixin
+        alipay: Alipay

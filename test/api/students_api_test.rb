@@ -2,16 +2,10 @@ require 'test_helper'
 class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
   def setup
     @student = users(:student1)
-    post '/api/v1/sessions', email: @student.email,
-                             password: 'password',
-                             client_type: 'pc'
-    @remember_token = JSON.parse(response.body)['data']['remember_token']
+    @remember_token = api_login(@student, :app)
 
     @teacher = users(:teacher1)
-    post '/api/v1/sessions', email: @teacher.email,
-                             password: 'password',
-                             client_type: 'pc'
-    @teacher_remember_token = JSON.parse(response.body)['data']['remember_token']
+    @teacher_remember_token = api_login_by_pc(@teacher, :teacher_live)
   end
 
   def app
@@ -73,10 +67,7 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
 
   test 'GET /api/v1/live_studio/student/schedule no params by student' do
     @student = users(:student_one_with_course)
-    post '/api/v1/sessions', email: @student.email,
-         password: 'password',
-         client_type: 'app'
-    @remember_token = JSON.parse(response.body)['data']['remember_token']
+    @remember_token = api_login(@student, :app)
 
     get "/api/v1/live_studio/students/#{@student.id}/schedule", {}, 'Remember-Token' => @remember_token
     data = JSON.parse(response.body)['data']
@@ -99,10 +90,7 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
 
   test 'GET /api/v1/live_studio/student/:id/schedule has params by student' do
     @student = users(:student_one_with_course)
-    post '/api/v1/sessions', email: @student.email,
-         password: 'password',
-         client_type: 'app'
-    @remember_token = JSON.parse(response.body)['data']['remember_token']
+    @remember_token = api_login(@student, :app)
 
     get "/api/v1/live_studio/students/#{@student.id}/schedule", {month: Time.now.to_date.to_s}, 'Remember-Token' => @remember_token
     data = JSON.parse(response.body)['data']

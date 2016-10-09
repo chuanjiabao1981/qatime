@@ -79,28 +79,3 @@ ticket_for_cant_delete:
   student: student_tally
   course: course_for_tasting_for_delete
   type: LiveStudio::BuyTicket
-
-ticket_for_course_notice_student1:
-  student: student1
-  course: update_course_by_physics_teacher1
-  type: LiveStudio::BuyTicket
-
-ticket_for_course_notice_student2:
-  student: student2
-  course: course_preview
-  type: LiveStudio::BuyTicket
-
-ticket_for_course_start_at_today_1:
-  student: student1
-  course: course_start_at_today
-  type: LiveStudio::BuyTicket
-
-ticket_for_course_start_at_today_2:
-  student: student2
-  course: course_start_at_today
-  type: LiveStudio::TasteTicket
-
-ticket_for_course_start_at_today_3:
-  student: student3
-  course: course_start_at_today
-  type: LiveStudio::BuyTicket

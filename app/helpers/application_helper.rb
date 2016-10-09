@@ -93,7 +93,7 @@ module ApplicationHelper
 
   def user_notification_path
     return unless signed_in?
-    user_notifications_path(current_user)
+    send "notifications_#{current_user.model_name.singular_route_key}_path",current_user
   end
 
   def render_qa_object_avatar(qa_object)

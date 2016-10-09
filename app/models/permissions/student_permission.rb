@@ -60,15 +60,6 @@ module Permissions
                        :notifications] do |student|
         student and student.id == user.id
       end
-
-      allow :notifications, [:index] do |resource_user|
-        resource_user && user.id == resource_user.id
-      end
-
-      allow :notifications, [:show] do |notification|
-        notification && notification.receiver_id == user.id
-      end
-
       allow :customized_courses,[:show,:topics,:homeworks,:solutions,:action_records] do |customized_course|
         customized_course and customized_course.student_id == user.id
       end

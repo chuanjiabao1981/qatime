@@ -146,17 +146,6 @@ student1:
   type: Student
   school: school2
 
-student3:
-  name: student3
-  role: student
-  email: student3@qatime.cn
-  login_mobile: 15910676327
-  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
-  avatar: "test"
-  grade: 高一
-  type: Student
-  school: school2
-
 student2:
   name: student2
   role: student
@@ -509,3 +498,6 @@ seller:
   workstation: workstation1
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   type: Seller
+
+
+

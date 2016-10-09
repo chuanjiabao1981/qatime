@@ -27,8 +27,10 @@ module LiveStudio
     # POST /manager/courses
     def create
       @course = @manager.live_studio_courses.new(course_params)
+
       if @course.save
         LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
+
         redirect_to manager_course_path(@current_user, @course), notice: i18n_notice('created', @course)
       else
         @workstations = workstations

@@ -311,6 +311,9 @@ footer .copyright
   margin-left: 58px;
 }
 
+
+
+
 .qa_objects .qa_object_item .reply_count
 {
 
@@ -473,62 +476,3 @@ span.alert_red_span{
 span.current_lesson_paused{
   color: red;
 }
-
-// 通知样式start
-#notifications-list .logo {
-  height: 50px;
-  width: 50px;
-  color: #fff;
-  margin: 0px;
-  padding: 2px;
-  font-size: 16px;
-  text-align: center;
-}
-#notifications-list .live_studio_lesson_start_for_student {
-  background-color: #66CCCC;
-}
-#notifications-list .live_studio_lesson_start_for_teacher {
-  background-color: #66CCCC;
-}
-
-#notifications-list .live_studio_course_assign {
-  background-color: #FFCCCC;
-}
-
-#notifications-list .live_studio_course_start {
-  background-color: #669966;
-}
-
-// 公告提醒样式
-#notifications-list .live_studio_course_notice {
-  background-color: #FFCCCC;
-}
-
-// 系统消息样式
-#notifications-list .system {
-  background-color: #FFFFFF;
-  color: read;
-}
-
-// 有课未上
-#notifications-list .live_studio_lesson_miss_for_teacher {
-  background-color: #FF9900;
-}
-
-// 调课提醒
-#notifications-list .live_studio_lesson_change_time {
-  background-color: #FF9900;
-}
-
-// 公告提醒
-#notifications-list .live_studio_course_notice_create {
-  background-color: #FFCCCC;
-}
-
-// 公告提醒
-#notifications-list .live_studio_course_notice_update {
-  background-color: #FFCCCC;
-}
-
-
-// 通知样式end

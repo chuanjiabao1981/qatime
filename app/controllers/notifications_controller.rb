@@ -1,33 +1,19 @@
 class NotificationsController < ApplicationController
-  before_action :load_user, only: [:index]
-  before_action :load_notification, only: [:show]
-
-  def index
-    @notifications = @receiver.notifications.includes([:notificationable, :from]).paginate(page: params[:page])
-  end
-
   def show
-    # 默认都是action notification
-    if !@notification.read && @notification.receiver_id == current_user.id
+    #默认都是action notification
+    if not @notification.read and @notification.receiver_id == current_user.id
       @notification.read = true
       @notification.save
     end
-    redirect_to(params[:rt] || user_home_path)
-  rescue
-    redirect_to user_home_path
+    begin
+      # 可以重定向到customized_course_action_record_path 然后再次重定向，不过这样重定向次数太多
+      redirect_to send "#{@notification.notificationable.actionable.model_name.singular_route_key}_path",@notification.notificationable.actionable
+    rescue
+      redirect_to user_home_path
+    end
   end
-
   private
-
-  def load_user
-    @receiver ||= User.find(params[:user_id])
-  end
-
-  def load_notification
-    @notification ||= Notification.find(params[:id])
-  end
-
   def current_resource
-    params[:user_id].present? ? load_user : load_notification
+    @notification = Notification.find(params[:id])
   end
 end

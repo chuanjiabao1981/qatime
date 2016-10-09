@@ -6,7 +6,7 @@ module Payment
 
     PAY_TYPE = {
       #alipay: 0,
-      weixin: 1
+      wechat: 1
     }.freeze
 
     CATE_UNPAID =%w(unpaid).freeze
@@ -156,7 +156,7 @@ module Payment
         body: "购买辅导班：#{product.name}",
         out_trade_no: order_no,
         total_fee: pay_money,
-        spbill_create_ip: remote_ip,
+        spbill_create_ip: '127.0.0.1',# remote_ip,
         notify_url:  "#{WECHAT_CONFIG['domain_name']}/payment/notify",
         trade_type: trade_type,
         fee_type: 'CNY'

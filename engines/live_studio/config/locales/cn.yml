@@ -82,7 +82,7 @@ cn:
       product_info: 商品详情
       order_info: 订单信息
       pay_total: 支付金额
-      weixin_pay: 微信支付
+      wechat_pay: 微信支付
       alipay_pay: 支付宝支付
       pay: 支付
       weixin_tips_text1: 请使用微信扫一扫
@@ -103,6 +103,8 @@ cn:
       order_created_at: '创建时间:  %s'
       order_pay_type: '支付方式:  %s'
       order_tips: '提示: 请您在提交订单后24小时内完成支付，否则订单会自动取消。'
+      order_tips_2: 请核对订单并选择支付方式后再提交支付。
+      go_back_tips: '&lt;&nbsp;重新选择支付方式'
     teacher_course:
       price: 价格：%.2f￥
       teacher_percentage: 分成比例：%d%
@@ -245,7 +247,7 @@ cn:
       teacher: 辅导老师
       subject: 科目
       alipay: 支付宝
-      weixin: 微信
+      wechat: 微信
       buy: 购买
       taste: 试听
       buy_now: 立即购买

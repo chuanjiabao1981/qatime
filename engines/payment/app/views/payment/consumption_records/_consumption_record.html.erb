@@ -1,4 +1,4 @@
-<% if consumption_record.is_a?(Payment::Order) %>
+<% if consumption_record.target && consumption_record.target.is_a?(Payment::Order) %>
   <tr>
     <td><%= number_to_currency(consumption_record.amount, locale: :cn, unit: "￥", precision: 1) %></td>
     <td><%= consumption_record.target.product.model_name.human %></td>
@@ -6,7 +6,7 @@
     <td><%= localize(consumption_record.created_at,:format => :long) %></td>
     <td><%= link_to t("view.payment/consumption_record.view"), payment.user_order_path(@current_resource, consumption_record.target.transaction_no) if consumption_record.target %></td>
   </tr>
-<% else %>
+<% elsif consumption_record.target %>
   <tr>
     <td><%= number_to_currency(consumption_record.amount, locale: :cn, unit: "￥", precision: 1) %></td>
     <td>

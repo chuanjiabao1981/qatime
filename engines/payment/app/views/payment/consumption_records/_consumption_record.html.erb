@@ -17,6 +17,6 @@
     <td><%= consumption_record.target.model_name.human %></td>
     <td><%= consumption_record.change_type_text %></td>
     <td><%= localize(consumption_record.created_at,:format => :long) %></td>
-    <td><%= feeble_link(earning_record.target, text: t("view.payment/consumption_record.view")) if consumption_record.target %></td>
+    <td><%= feeble_link(consumption_record.target, text: t("view.payment/consumption_record.view")) if consumption_record.target %></td>
   </tr>
 <% end %>

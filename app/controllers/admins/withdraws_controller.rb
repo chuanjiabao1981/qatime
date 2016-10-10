@@ -23,13 +23,13 @@ class Admins::WithdrawsController < ApplicationController
 
   def pass
     @withdraw = Payment::Withdraw.find(params[:id])
-    @withdraw.allow
+    @withdraw.allow!(current_user)
     redirect_to action: :audit
   end
 
   def unpass
     @withdraw = Payment::Withdraw.find(params[:id])
-    @withdraw.refused!
+    @withdraw.refuse!(current_user)
     redirect_to action: :audit
   end
 end

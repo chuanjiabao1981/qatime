@@ -15,6 +15,17 @@ module Payment
       %w(TRADE_SUCCESS TRADE_FINISHED).include?(notify_params[:trade_status]) ? pay! : fail!
     end
 
+    def proccess_result(result_params)
+      return if !unpaid? || result_params[:is_success] != "T"
+      check_notify(result_params)
+      lock!
+      self.notify_id = result_params[:notify_id]
+      self.trade_no = result_params[:trade_no]
+      self.notify_time = result_params[:notify_time]
+      pay
+      save!
+    end
+
     def app_pay_str
       Alipay::Mobile::Service.mobile_securitypay_pay_string({ out_trade_no: order_no,
                                                               notify_url: order.notify_url,

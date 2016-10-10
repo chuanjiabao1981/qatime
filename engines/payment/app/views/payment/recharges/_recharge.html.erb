@@ -1,5 +1,5 @@
 <tr>
-  <td><%= number_to_currency(recharge.amount, locale: :cn) %></td>
+  <td><%= number_to_currency(recharge.amount, locale: :cn, unit: "￥", precision: 1) %></td>
   <td><%= recharge.transaction_no %></td>
   <td><%= recharge.pay_type_text %></td>
   <td><%= localize(recharge.created_at,:format => :long) %></td>

@@ -1,7 +1,5 @@
 <tr>
-  <td>
-    <%= withdraw.amount %>
-  </td>
+  <td><%= number_to_currency(-withdraw.amount, locale: :cn, unit: "￥", precision: 1) %></td>
   <td>
     <%= withdraw.transaction_no %>
   </td>

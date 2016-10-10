@@ -12,7 +12,7 @@ module Payment
       self.trade_no = notify_params[:trade_no]
       self.notify_time = notify_params[:notify_time]
       save!
-      notify_params[:trade_status] == "TRADE_FINISHED" ? pay! : fail!
+      %w(TRADE_SUCCESS TRADE_FINISHED).include?(notify_params[:trade_status]) ? pay! : fail!
     end
 
     def app_pay_str

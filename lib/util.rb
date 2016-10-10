@@ -5,8 +5,9 @@ class Util
     code
   end
 
-  def self.random_order_no
+  def self.random_order_no(time=nil)
+    time ||= Time.now
     num = '%04d' % rand(1000)
-    Time.now.to_s(:number) + num
+    time.to_s(:number) + num
   end
 end

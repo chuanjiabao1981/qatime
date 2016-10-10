@@ -73,11 +73,12 @@ namespace :payment do
     puts "开始迁移"
     # 数据导入
     ::Withdraw.find_each(:batch_size => 500) do |w|
+
       withdraw =
         Payment::Withdraw.new(
           user: w.account.accountable,
           amount: w.value,
-          transaction_no: Util.random_order_no,
+          transaction_no: Util.random_order_no(w.created_at),
           remote_ip: '',
           pay_type: :cash,
           status: :allowed,

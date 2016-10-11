@@ -1,5 +1,7 @@
 module Payment
   class Withdraw < Transaction
+    include AASM
+
     has_one :withdraw_record, foreign_key: 'payment_transaction_id', class_name: 'Payment::WithdrawRecord'
 
     enum status: %w(init allowed refused cancel)
@@ -10,6 +12,21 @@ module Payment
 
     scope :filter, ->(keyword){keyword.blank? ? nil : where('transaction_no ~* ?', keyword).presence ||
       where(user: User.where('name ~* ?',keyword).presence || User.where('login_mobile ~* ?',keyword))}
+
+    aasm column: :status, enum: true do
+      state :init, initial: true
+      state :allowed
+      state :refused
+      state :cancel
+
+      event :allow, before: :allow_operator do
+        transitions from: [:init, :refused], to: :allowed
+      end
+
+      event :refuse, before: :refuse_operator do
+        transitions from: [:init], to: :refused
+      end
+    end
 
     def status_text(role=nil)
       role = role.present? && role == 'admin' ? 'admin' : 'teacher'
@@ -28,13 +45,34 @@ module Payment
       statuses.slice(:allowed,:refused).map{|k,_| [I18n.t("activerecord.status.withdraw.admin.#{k}"), k]}
     end
 
-    # 通过审核
-    def allow
-      allowed!
-      user.cash_account.update(balance: user.cash_account.balance - amount)
+    private
+
+    def allow_operator(current_user)
+      operator_record(status,'allowed',current_user)
+      withdraw_cash!
     end
 
-    private
+    def refuse_operator(current_user)
+      operator_record(status,'refused',current_user)
+    end
+
+    # 操作记录
+    def operator_record(from, to, current_user)
+      Payment::WithdrawActionRecord.create(
+        actionable: self,
+        operator: current_user,
+        from: from,
+        to: to,
+        event: "withdraw",
+        name: "withdraw"
+      )
+    end
+
+    # 变动余额
+    def withdraw_cash!
+      user.cash_account!.withdraw(amount, self)
+    end
+
     def validate_withdraw_amount
       v = parse_raw_value_as_a_number(self.amount)
       if self.account_money_snap_shot.nil?

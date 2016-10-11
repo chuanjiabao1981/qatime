@@ -6,7 +6,7 @@ module Payment
     belongs_to :owner, polymorphic: true
     has_many :change_records
     has_many :recharge_records
-    has_many :withdraw_records
+    has_many :withdraw_change_records
     has_many :earning_records
     has_many :consumption_records
 
@@ -33,7 +33,7 @@ module Payment
     def withdraw(amount, target)
       Payment::CashAccount.transaction do
         with_lock do
-          change(:withdraw_records, -amount.abs, target: target, billing: nil, summary: "账户提现")
+          change(:withdraw_change_records, -amount.abs, target: target, billing: nil, summary: "账户提现")
           # self.frozen_balance -= amount
           save!
         end

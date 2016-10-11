@@ -60,6 +60,9 @@ module LiveStudio
       end
 
       event :close do
+        before do
+          self.live_end_at = Time.now
+        end
         transitions from: [:teaching, :paused], to: :closed
       end
 

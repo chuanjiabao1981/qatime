@@ -22,7 +22,7 @@ module LiveService
         @lesson.live_start_at = Time.now if @lesson.live_start_at.nil?
         # 开始上课之前把上一节未结束(pause, closed)的课程设置为结束(finished)，finished状态下的课程不能继续直播
         @course.lessons.waiting_finish.each do |lesson|
-          lesson.finish! unless lesson.id == @lesson.id
+          LiveService::LessonDirector.new(lesson).finish unless lesson.id == @lesson.id
         end
         @lesson.teach!
         @lesson.current_live_session
@@ -66,7 +66,8 @@ module LiveService
     def self.clean_lessons
       LiveStudio::Lesson.waiting_finish.where('class_date <= ?',Date.yesterday).find_each(batch_size: 500).map(&:finish!)
       LiveStudio::Lesson.teaching.where('class_date < ?', Date.yesterday).find_each(batch_size: 500).each do |lesson|
-        lesson.close! && lesson.finish!
+        lesson.close! if lesson.teaching? || lesson.paused?
+        LiveService::LessonDirector.new(lesson).finish
       end
 
       # 未上课提醒

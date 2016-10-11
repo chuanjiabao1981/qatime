@@ -64,9 +64,6 @@ module LiveStudio
       end
 
       event :finish, after_commit: :instance_play_records do
-        before do
-          self.live_end_at ||= last_heartbeat_at || Time.now
-        end
         transitions from: [:paused, :closed], to: :finished
       end
 

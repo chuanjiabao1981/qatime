@@ -14,7 +14,7 @@ module LiveService
     def lesson_start
       @course = @lesson.course
       # 如果辅导班已经有状态为teaching的课程,则返回false
-      return false if !@course.lessons.teaching.blank?
+      return false unless @course.lessons.teaching.blank?
       # 第一节课开始上课之前把辅导班设置为已开课
       @course.teaching! if @course.preview?
       LiveStudio::Lesson.transaction do
@@ -27,6 +27,16 @@ module LiveService
         @lesson.teach!
         @lesson.current_live_session
       end
+    end
+
+    # 完成课程
+    def finish
+      @course = @lesson.course
+      @lesson.teacher_id = @course.teacher_id
+      @lesson.live_count = @course.buy_tickets_count # 听课人数
+      @lesson.live_end_at ||= Time.now
+      @lesson.real_time = @lesson.live_sessions.map(&:to_i).sum # 实际直播时间单位分钟
+      @lesson.finish!
     end
 
     # 准备上课

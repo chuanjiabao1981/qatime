@@ -35,7 +35,7 @@ module LiveService
       @lesson.teacher_id = @course.teacher_id
       @lesson.live_count = @course.buy_tickets_count # 听课人数
       @lesson.live_end_at ||= Time.now
-      @lesson.real_time = @lesson.live_sessions.map(&:to_i).sum # 实际直播时间单位分钟
+      @lesson.real_time = @lesson.live_sessions.sum(:duration) # 实际直播时间单位分钟
       # 更新辅导课程完成数量
       @course.completed_lesson_count += 1
       @course.save!

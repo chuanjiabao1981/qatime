@@ -1,2 +1,3 @@
 app_key: app_key
 app_master_secret: app_master_secret
+push_url: push_url

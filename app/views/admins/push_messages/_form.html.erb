@@ -1,0 +1,25 @@
+
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h2><%=@message.class.model_name.human%></h2>
+  </div>
+  <div class="qa_big_cell">
+    <%= simple_form_for [:admins,@message] do |f|%>
+      <%= f.input :push_type, as: :select, collection: PushMessage.i18n_options_push_types %>
+      <%= f.input :display_type, as: :select, collection: PushMessage.i18n_options_display_types %>
+      <%= f.input :alias_type, as: :select, collection: PushMessage.i18n_options_alias_types %>
+      <%= f.input :ticker %>
+      <%= f.input :title %>
+      <%= f.input :text %>
+      <%= f.input :after_open, as: :select, collection: PushMessage.i18n_options_after_opens %>
+      <%= f.input :url %>
+      <%= f.input :activity %>
+      <%= f.input :custom %>
+      <%= f.input :start_time, as: :string %>
+      <%= f.input :expire_time, as: :string %>
+      <%= f.input :production_mode, as: :boolean %>
+
+      <%= f.button :submit, class: "btn btn-default" %>
+    <% end %>
+  </div>
+</div>

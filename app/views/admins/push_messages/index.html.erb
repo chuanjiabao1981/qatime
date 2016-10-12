@@ -1,0 +1,39 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <div>
+      <h2>
+        <%= PushMessage.model_name.human %>
+        <%=link_to new_admins_push_message_path do %>
+          <button type="button" class="btn btn-xs btn-success">新增</button>
+        <% end %>
+      </h2>
+    </div>
+
+  </div>
+  <div class="row qa_big_cell">
+    <div class="col-md-1">
+      序号
+    </div>
+    <div class="col-md-1">
+      <%= PushMessage.human_attribute_name(:push_type) %>
+    </div>
+    <div class="col-md-1">
+      <%= PushMessage.human_attribute_name(:display_type) %>
+    </div>
+    <div class="col-md-2">
+      <%= PushMessage.human_attribute_name(:title) %>
+    </div>
+    <div class="col-md-2">
+      <%= PushMessage.human_attribute_name(:created_at) %>
+    </div>
+    <div class="col-md-2">
+      <%= PushMessage.human_attribute_name(:start_time) %>
+    </div>
+    <div class="col-md-1">
+      <%= PushMessage.human_attribute_name(:status) %>
+    </div>
+  </div>
+  <div>
+    <%= render @messages %>
+  </div>
+</div>

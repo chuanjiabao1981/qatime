@@ -70,7 +70,7 @@ module V1
           put ':id/finish' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
             raise_change_error_for(@lesson.teaching? || @lesson.paused? || @lesson.closed?)
-            LiveService::LessonDirector.new(lesson).finish
+            LiveService::LessonDirector.new(@lesson).finish
             present @lesson, with: Entities::LiveStudio::Lesson
           end
         end

@@ -274,6 +274,7 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/teachers/[\\w-]+/schedules"
       api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/live_start"
       api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/live_end"
+      api_allow :PUT, "/api/v1/live_studio/lessons/[\\w-]+/finish"
 
       api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/announcements" do |teacher|
         teacher && teacher.id == user.id

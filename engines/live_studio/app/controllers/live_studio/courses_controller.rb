@@ -84,7 +84,7 @@ module LiveStudio
 
     # 直播授权
     def play_authorize
-      redirect_to @course, alert: i18n_failed('have not bought', @course) unless @course.play_authorize(current_user, nil)
+      redirect_to @course, alert: i18n_failed('have_not_bought', @course) unless @course.play_authorize(current_user, nil)
     end
 
     def set_student

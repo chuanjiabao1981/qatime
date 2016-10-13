@@ -7,9 +7,6 @@ module UserService
         result = send_push
         status = result[:ret] == 'SUCCESS' ? :success : :failed
         message.update(sign: sign,result: result, status: status)
-        logger.info '## push work ## '
-        logger.info result
-        logger.info '## push work ## '
       end
 
       private

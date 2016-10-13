@@ -4,43 +4,52 @@ module UserService
 
       def push(message)
         push_params(message)
+        remove_nil @push_params
         result = send_push
         status = result[:ret] == 'SUCCESS' ? :success : :failed
         message.update(sign: sign,result: result, status: status)
       end
 
       private
-
-
       def push_params message
         @push_params ||=
-          {
+        {
             appkey: app_key,
-            timestamp: timestamp,
-            type: message.push_type.presence || 'broadcast',
-            device_tokens: message.device_tokens,
-            alias_type: message.alias_type,
-            alias: message.alias,
-            filter: message.filter,
+            timestamp: "#{timestamp}",
+            device_tokens: message.device_tokens.presence,
+            type: message.push_type.presence,
+            alias_type: message.alias_type.presence,
+            alias: message.alias.presence,
+            filter: message.filter.presence,
             payload: {
-              display_type: message.display_type,
               body: {
-                ticker: message.ticker,
-                title: message.title,
-                text: message.text,
-                after_open: message.after_open,
-                url: message.url,
-                activity: message.activity,
-                custom: message.custom
-              }
+                ticker: message.ticker.presence,
+                title: message.title.presence,
+                text: message.text.presence,
+                after_open: message.after_open.presence,
+                url: message.url.presence,
+                activity: message.activity.presence,
+                custom: message.custom.presence
+              },
+              display_type: message.display_type.presence
             },
             policy:{
-              start_time: message.start_time,
-              expire_time: message.expire_time,
-              out_biz_no: message.out_biz_no
+              start_time: message.start_time.presence,
+              expire_time: message.expire_time.presence,
+              out_biz_no: message.out_biz_no.presence
             },
-            production_mode: message.production_mode
+            production_mode: "#{message.production_mode == '1'}"
           }
+      end
+
+      def remove_nil push_params
+        push_params.each do |k,v|
+          if(v.class == Hash)
+            remove_nil v
+          elsif v.blank?
+            push_params.delete(k)
+          end
+        end
       end
 
       def send_url
@@ -48,7 +57,7 @@ module UserService
       end
 
       def sign
-        @sign_str ||= Digest::MD5.hexdigest('%s%s%s%s' % ['POST', push_url, JSON.parse(@push_params.to_json), app_master_secret])
+        @sign_str ||= Digest::MD5.hexdigest('%s%s%s%s' % ['POST', push_url, @push_params.to_json, app_master_secret])
       end
 
       def app_key

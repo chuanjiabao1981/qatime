@@ -19,10 +19,8 @@ module V1
           end
           get ':id/live_start' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
-            if @lesson.ready? || @lesson.paused? || @lesson.closed?
-              # raise_change_error_for(@lesson.ready? || @lesson.paused? || @lesson.closed?)
-              LiveService::LessonDirector.new(@lesson).lesson_start
-            end
+            raise_change_error_for(@lesson.ready? || @lesson.paused? || @lesson.closed?)
+            LiveService::LessonDirector.new(@lesson).lesson_start
             @lesson.current_live_session.token
             present @lesson, with: Entities::LiveStudio::Lesson, type: :live_start
           end
@@ -58,6 +56,22 @@ module V1
             raise_change_error_for(@lesson.teaching? || @lesson.paused?)
             @lesson.close!
             present @lesson, with: Entities::LiveStudio::Lesson, type: :live_start
+          end
+
+          desc '直播完成接口 - 不可继续直播' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, type: Integer, desc: '课程ID'
+          end
+          put ':id/finish' do
+            @lesson = ::LiveStudio::Lesson.find(params[:id])
+            raise_change_error_for(@lesson.teaching? || @lesson.paused? || @lesson.closed?)
+            LiveService::LessonDirector.new(lesson).finish
+            present @lesson, with: Entities::LiveStudio::Lesson
           end
         end
       end

@@ -36,6 +36,20 @@ module V1
         enforce = softwares.select{|soft| true if soft.enforce}.present?
         present software,with: Entities::Software, enforce: enforce
       end
+
+      desc '上传用户设备信息'
+      params do
+        optional :user_id, type: Integer, desc: '用户id'
+        optional :device_token, type: String, desc: '设备编号'
+        optional :device_model, type: String, desc: '设备型号'
+        optional :app_name, type: String, desc: '应用名称'
+        optional :app_version, type: String, desc: '应用版本号'
+      end
+      post 'device_info' do
+        @user_device = UserDevice.find_or_create_by!(token: params[:device_token],app_name: params[:app_name])
+        @user_device.update(user_id: params[:user_id],model: params[:device_model],app_version: params[:app_version])
+        'ok'
+      end
     end
   end
 end

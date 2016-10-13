@@ -13,7 +13,7 @@ module UserService
       private
       def push_params message
         @push_params ||=
-        {
+          {
             appkey: app_key,
             timestamp: "#{timestamp}",
             device_tokens: message.device_tokens.presence,
@@ -22,6 +22,7 @@ module UserService
             alias: message.alias.presence,
             filter: message.filter.presence,
             payload: {
+              display_type: message.display_type.presence,
               body: {
                 ticker: message.ticker.presence,
                 title: message.title.presence,
@@ -29,16 +30,16 @@ module UserService
                 after_open: message.after_open.presence,
                 url: message.url.presence,
                 activity: message.activity.presence,
-                custom: message.custom.presence
-              },
-              display_type: message.display_type.presence
+                custom: message.custom.presence || '{}'
+              }
             },
             policy:{
-              start_time: message.start_time.presence,
-              expire_time: message.expire_time.presence,
-              out_biz_no: message.out_biz_no.presence
+              start_time: message.start_time.try(:strftime,'%Y-%m-%d %H:%M:%S'),
+              expire_time: message.expire_time.try(:strftime,'%Y-%m-%d %H:%M:%S')
+              #out_biz_no: message.out_biz_no.presence
             },
-            production_mode: "#{message.production_mode == '1'}"
+            production_mode: "#{message.production_mode == '1'}",
+            description: "push message #{message.id}"
           }
       end
 
@@ -57,7 +58,7 @@ module UserService
       end
 
       def sign
-        @sign_str ||= Digest::MD5.hexdigest('%s%s%s%s' % ['POST', push_url, @push_params.to_json, app_master_secret])
+        @sign_str ||= Digest::MD5.hexdigest('%s%s%s%s' % ['POST', push_url, JSON.parse(@push_params.to_json), app_master_secret])
       end
 
       def app_key

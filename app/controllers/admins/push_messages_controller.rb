@@ -36,7 +36,7 @@ class Admins::PushMessagesController < ApplicationController
 
   def push
     @message = PushMessage.find params[:id]
-    PushWorker.perform_async(@message)
+    PushWorker.perform_async(@message.id)
     @message.pushing!
     redirect_to admins_push_messages_path
   end

@@ -39,7 +39,7 @@ module UserService
               #out_biz_no: message.out_biz_no.presence
             },
             production_mode: "#{message.production_mode == '1'}",
-            description: "push message #{message.id}"
+            description: "#{message.description}"
           }
       end
 

@@ -1,1 +1,143 @@
-<%= render 'form' %>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="new-msg">
+      <div class="new-msg-title">
+        <a href="" class="msg-new">新建消息</a>
+        <a href="">消息记录</a>
+      </div>
+      <div class="new-msg-content">
+        <%= simple_form_for [:admins,@message] do |f|%>
+          <table border="0" cellspacing="0" cellpadding="0">
+            <tbody><tr>
+              <td><span>消息描述：</span></td>
+              <td>
+                <%= f.text_field :description, class: 'text-msg', placeholder: '输入消息描述以便于管理' %>
+              </td>
+            </tr>
+            <tr>
+              <td><span>通知提示：</span></td>
+              <td>
+                <%= f.text_field :ticker, class: 'text-msg', placeholder: '输入通知栏提示' %>
+              </td>
+            </tr>
+            <tr>
+              <td><span>标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 题：</span></td>
+              <td>
+                <%= f.text_field :title, class: 'text-msg', placeholder: '输入消息标题' %>
+              </td>
+            </tr>
+            <tr>
+              <td><span>内&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 容：</span></td>
+              <td>
+                <%= f.text_area :text, class: 'msg-content', placeholder: '输入消息内容' %>
+              </td>
+            </tr>
+            <tr>
+              <td><span>提醒方式：</span></td>
+              <td>
+                <span class="msg-check">
+                  <input type="checkbox" name="checkbox" value="">声音</span>
+                <span class="msg-check"><input type="checkbox" name="checkbox" value="">震动</span>
+                <span><input type="checkbox" name="" id="" value="checkbox">呼吸灯</span>
+              </td>
+            </tr>
+            <tr>
+              <td><span>用户范围：</span></td>
+              <td>
+                <span class="msg-check"><input type="radio" name="person" value="">所有人</span>
+                <span class="msg-check"><input type="radio" name="person" value="">老师</span>
+                <span class="msg-check"><input type="radio" name="person" value="">学生</span>
+                <span><input type="radio" name="person" value="">指定人</span>
+                <input type="text" name="" value="" class="msg-num" placeholder="输入制定人员的邮箱或手机号">
+              </td>
+            </tr>
+            <tr>
+              <td><span>后续动作：</span></td>
+              <td>
+                <span class="msg-application"><input type="radio" name="page" id="" value="">打开应用</span>
+                <span><input type="radio" name="page" id="" value="">打开制定页面</span>
+                <input type="text" name="" class="msg-page" value="" placeholder="请输入制定页面的名称">
+              </td>
+            </tr>
+            <tr>
+              <td><span>发送时间：</span></td>
+              <td>
+
+                <span class="msg-radio"><input type="radio" name="send" id="" value="" class="msg-send">立即发送</span>
+                <div class="send-time">
+ 						<span class="datep">
+ 							<input class="datainp" id="dateinfo-1" type="text" placeholder="请选择" readonly="">
+ 						<label for="dateinfo-2" class="glyphicon-clock glyphicon glyphicon-time"></label>
+ 						</span>
+                  <em>(5.2小时内可以接收到消息)</em>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><span>定时发送</span></td>
+              <td>
+
+                <span class="msg-radio"><input type="radio" name="send" id="" value="" class="msg-send">定时发送</span>
+                <div class="send-time">
+ 						<span class="datep">
+ 							<input class="datainp" id="dateinfo-2" type="text" placeholder="请选择" readonly="">
+ 						<label for="dateinfo-2" class="glyphicon-clock glyphicon glyphicon-time"></label>
+ 						</span>
+                  <span style="margin-right: 15px;">至</span>
+ 						<span class="datep">
+ 							<input class="datainp" id="dateinfo-3" type="text" placeholder="请选择" readonly="">
+ 						  <label for="dateinfo-3" class="glyphicon-clock glyphicon glyphicon-time"></label>
+ 						</span>
+                  <em>(5.2小时内可以接收到消息)</em>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2"><a href="" class="btn-send">提交</a></td>
+            </tr>
+            </tbody></table>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(".msg-send").click(function  () {
+    var index = $(".msg-send").index($(this));
+    if (index == 0) {
+      $(".send-time").eq(0).show();
+    }else{
+      $(".send-time").eq(0).hide();
+    }
+    if (index == 1) {
+      $(".send-time").eq(1).show();
+    }else{
+      $(".send-time").eq(1).hide();
+    }
+  })
+
+
+  jeDate({
+    dateCell:"#dateinfo-1",
+    format:"YYYY-MM-DD hh:mm:ss",
+    isinitVal:true,
+    isTime:true, //isClear:false,
+    minDate:"2014-09-19 00:00:00"
+  })
+
+  jeDate({
+    dateCell:"#dateinfo-2",
+    format:"YYYY-MM-DD hh:mm:ss",
+    isinitVal:true,
+    isTime:true, //isClear:false,
+    minDate:jeDate.now(0)
+  })
+  jeDate({
+    dateCell:"#dateinfo-3",
+    format:"YYYY-MM-DD hh:mm:ss",
+    isinitVal:true,
+    isTime:true, //isClear:false,
+    minDate:jeDate.now(0)
+  })
+
+</script>

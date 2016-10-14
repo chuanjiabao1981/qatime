@@ -1109,3 +1109,88 @@ figcaption p {
 .textbook-next-img img {
   width: 100%;
 }
+.new-msg {
+  width: 100%;
+}
+.new-msg-title {
+  height: 50px;
+  border-bottom: 1px solid #666666;
+  line-height: 50px;
+}
+.msg-new {
+  color: #000000 !important;
+  margin-right: 10px;
+}
+.new-msg-title a {
+  font-size: 2.2rem;
+  color: #666666;
+}
+.new-msg-content {
+  padding: 10px;
+}
+.new-msg-content table {
+  width: 100%;
+  font-size: 1.4rem;
+}
+.new-msg-content table tr td:first-child {
+  width: 80px;
+}
+.new-msg-content table tr td:last-child {
+  padding: 7.5px 0px 7.5px 10px;
+}
+.text-msg {
+  width: 100%;
+  height: 40px;
+}
+.new-msg-content table tr td:first-child span {
+  height: 40px;
+  line-height: 40px;
+}
+.msg-content {
+  width: 100%;
+}
+.msg-check {
+  display: inline-block;
+  width: 60px;
+  margin-right: 10%;
+}
+.msg-application {
+  display: inline-block;
+  width: 70px;
+  margin-right: 8.7%;
+}
+.msg-page {
+  width: 69%;
+  height: 40px;
+  margin-left: 4px;
+}
+.msg-radio {
+  float: left;
+  line-height: 40px;
+  margin-right: 10px;
+}
+.btn-send {
+  display: inline-block;
+  width: 120px;
+  height: 40px;
+  position: relative;
+  left: 50%;
+  margin-left: -60px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 4px;
+  background-color: #999999;
+  color: white;
+}
+#dateinfo-1, #dateinfo-2, #dateinfo-3 {
+  width: 185px;
+  height: 40px;
+}
+.glyphicon-clock {
+  position: relative;
+  right: 20px;
+}
+.send-time {
+  float: left;
+  display: none;
+}

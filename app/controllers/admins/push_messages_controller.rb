@@ -44,7 +44,7 @@ class Admins::PushMessagesController < ApplicationController
   private
   def message_params
     params.require(:push_message).permit(
-      %w(push_type alias_type alias filter display_type ticker title text after_open url activity custom start_time expire_time production_mode)
+      %w(push_type alias_type alias filter display_type ticker title text after_open url activity custom start_time expire_time production_mode description)
     )
   end
 end

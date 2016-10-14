@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161012040719) do
+ActiveRecord::Schema.define(version: 20161014084106) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -833,8 +833,9 @@ ActiveRecord::Schema.define(version: 20161012040719) do
     t.string   "production_mode"
     t.integer  "status"
     t.text     "result"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "description",     default: ""
   end
 
   add_index "push_messages", ["creator_type", "creator_id"], name: "index_push_messages_on_creator_type_and_creator_id", using: :btree

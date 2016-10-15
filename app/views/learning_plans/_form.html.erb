@@ -24,7 +24,7 @@
       <label class="check_boxes required control-label"><abbr title="required">*</abbr> 专属讲师</label>
       <div id="the_teacher_of_learning_plan">
         <%= f.association :teachers ,
-                          collection: Teacher.by_vip_class(@learning_plan.vip_class).map {|t| ["【#{t.school.name}】#{t.name}", t.id]},
+                          collection: Teacher.by_vip_class(@learning_plan.vip_class).map {|t| ["【#{t.school.try(:name)}】#{t.name}", t.id]},
                           as: :check_boxes,label:false,
                           item_wrapper_tag: :div, item_wrapper_class:"col-md-4"
         %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161014084106) do
+ActiveRecord::Schema.define(version: 20161017110118) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -816,7 +816,7 @@ ActiveRecord::Schema.define(version: 20161014084106) do
     t.string   "sign"
     t.integer  "push_type"
     t.text     "device_tokens"
-    t.integer  "alias_type"
+    t.string   "alias_type"
     t.text     "alias"
     t.string   "filter"
     t.integer  "display_type"
@@ -833,9 +833,12 @@ ActiveRecord::Schema.define(version: 20161014084106) do
     t.string   "production_mode"
     t.integer  "status"
     t.text     "result"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "description",     default: ""
+    t.boolean  "play_vibrate",    default: true
+    t.boolean  "play_lights",     default: true
+    t.boolean  "play_sound",      default: true
   end
 
   add_index "push_messages", ["creator_type", "creator_id"], name: "index_push_messages_on_creator_type_and_creator_id", using: :btree

@@ -65,9 +65,7 @@ Qatime::Application.routes.draw do
         put :unpass
       end
     end
-    resources :push_messages do
-      put :push, on: :member
-    end
+    resources :push_messages
   end
 
   namespace :managers do

@@ -1148,6 +1148,7 @@ figcaption p {
 }
 .msg-content {
   width: 100%;
+  padding: 8px;
 }
 .msg-check {
   display: inline-block;
@@ -1156,11 +1157,11 @@ figcaption p {
 }
 .msg-application {
   display: inline-block;
-  width: 70px;
-  margin-right: 8.7%;
+  width: 72px;
+  margin-right: 8.6%;
 }
 .msg-page {
-  width: 69%;
+  width: 68%;
   height: 40px;
   margin-left: 4px;
 }
@@ -1182,7 +1183,7 @@ figcaption p {
   background-color: #999999;
   color: white;
 }
-#dateinfo-1, #dateinfo-2, #dateinfo-3 {
+.datainp {
   width: 185px;
   height: 40px;
 }
@@ -1193,4 +1194,9 @@ figcaption p {
 .send-time {
   float: left;
   display: none;
+}
+.msg-num {
+  width: 38%;
+  height: 40px;
+  margin-left: 5.8px;
 }

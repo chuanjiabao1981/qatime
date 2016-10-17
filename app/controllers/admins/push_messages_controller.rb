@@ -16,7 +16,7 @@ class Admins::PushMessagesController < ApplicationController
   end
 
   def create
-    @message = PushMessage.new(message_params.merge(status: :init))
+    @message = PushMessage.new(message_params.merge(status: :init,display_type: :notification))
     @message.creator = current_user
     if @message.save
       redirect_to admins_push_messages_path
@@ -34,17 +34,10 @@ class Admins::PushMessagesController < ApplicationController
     end
   end
 
-  def push
-    @message = PushMessage.find params[:id]
-    PushWorker.perform_async(@message.id)
-    @message.pushing!
-    redirect_to admins_push_messages_path
-  end
-
   private
   def message_params
     params.require(:push_message).permit(
-      %w(push_type alias_type alias filter display_type ticker title text after_open url activity custom start_time expire_time production_mode description)
+      %w(ticker title text after_open url activity custom start_time expire_time later_expire_time description play_vibrate play_lights send_type play_sound customer assign_value)
     )
   end
 end

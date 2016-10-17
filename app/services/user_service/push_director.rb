@@ -30,7 +30,10 @@ module UserService
                 after_open: message.after_open.presence,
                 url: message.url.presence,
                 activity: message.activity.presence,
-                custom: message.custom.presence || '{}'
+                custom: message.custom.presence,
+                play_vibrate: message.play_vibrate.presence,
+                play_lights: message.play_lights.presence,
+                play_sound: message.play_sound.presence
               }
             },
             policy:{
@@ -58,7 +61,7 @@ module UserService
       end
 
       def sign
-        @sign_str ||= Digest::MD5.hexdigest('%s%s%s%s' % ['POST', push_url, JSON.parse(@push_params.to_json), app_master_secret])
+        @sign_str ||= Digest::MD5.hexdigest('%s%s%s%s' % ['POST', push_url, @push_params.to_json, app_master_secret])
       end
 
       def app_key
@@ -80,7 +83,7 @@ module UserService
       def send_push
         return if Rails.env.test?
         uri = URI.parse(send_url)
-        result = Net::HTTP.post_form(uri,@push_params)
+        result = Typhoeus.post(uri,body: @push_params.to_json)
         JSON.parse(result.body)
       end
     end

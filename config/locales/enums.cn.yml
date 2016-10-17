@@ -39,10 +39,15 @@ cn:
         go_custom: 自定义内容
       alias_type:
         student: 学生
+      customer:
+        anyone: 所有人
+        teacher: 老师
+        student: 学生
+        assign: 指定人
       status:
         init: 初始化
-        pushing: 推送中
-        success: 推送成功
-        failed: 推送失败
+        pushing: 发送中
+        success: 发送成功
+        failed: 发送失败
 
 

@@ -7,6 +7,12 @@
       </div>
       <div class="new-msg-content">
         <%= simple_form_for [:admins,@message] do |f|%>
+          <%= content_tag :div, '请检查以下字段:' unless @message.errors.blank?  %>
+          <%= content_tag :div, class: 'alert-alert' do%>
+            <% @message.errors.messages.each do |msg| %>
+              <%= content_tag :div, ::PushMessage.human_attribute_name(msg.first)%>
+            <% end %>
+          <% end unless @message.errors.blank? %>
           <table border="0" cellspacing="0" cellpadding="0">
             <tbody><tr>
               <td><span>消息描述：</span></td>
@@ -36,39 +42,52 @@
               <td><span>提醒方式：</span></td>
               <td>
                 <span class="msg-check">
-                  <input type="checkbox" name="checkbox" value="">声音</span>
-                <span class="msg-check"><input type="checkbox" name="checkbox" value="">震动</span>
-                <span><input type="checkbox" name="" id="" value="checkbox">呼吸灯</span>
+                  <%= f.check_box :play_sound %>声音
+                </span>
+                <span class="msg-check">
+                  <%= f.check_box :play_vibrate %>震动
+                </span>
+                <span>
+                  <%= f.check_box :play_lights %>呼吸灯
+                </span>
               </td>
             </tr>
             <tr>
               <td><span>用户范围：</span></td>
               <td>
-                <span class="msg-check"><input type="radio" name="person" value="">所有人</span>
-                <span class="msg-check"><input type="radio" name="person" value="">老师</span>
-                <span class="msg-check"><input type="radio" name="person" value="">学生</span>
-                <span><input type="radio" name="person" value="">指定人</span>
-                <input type="text" name="" value="" class="msg-num" placeholder="输入制定人员的邮箱或手机号">
+                <% ::PushMessage.customers.each do |k, _| %>
+                  <%= content_tag :span, class: k == 'assign' ? '' : 'msg-check' do %>
+                    <%= f.radio_button :customer, k  %><%= t("enums.push_message.customer.#{k}") %>
+                  <% end %>
+                <% end %>
+                <%= f.text_field :assign_value, class: 'msg-num', placeholder: '输入制定人员的邮箱或手机号' %>
               </td>
             </tr>
             <tr>
               <td><span>后续动作：</span></td>
               <td>
-                <span class="msg-application"><input type="radio" name="page" id="" value="">打开应用</span>
-                <span><input type="radio" name="page" id="" value="">打开制定页面</span>
-                <input type="text" name="" class="msg-page" value="" placeholder="请输入制定页面的名称">
+                <span class="msg-application">
+                  <%= f.radio_button :after_open, 'go_app' %>
+                  打开应用
+                </span>
+                <span>
+                  <%= f.radio_button :after_open, 'go_activity' %>
+                  打开制定页面
+                </span>
+                <%= f.text_field :activity, class: 'msg-page', placeholder: '请输入制定页面的名称' %>
               </td>
             </tr>
             <tr>
               <td><span>发送时间：</span></td>
               <td>
-
-                <span class="msg-radio"><input type="radio" name="send" id="" value="" class="msg-send">立即发送</span>
+                <span class="msg-radio">
+                  <%= f.radio_button :send_type, 'now',class: 'msg-send' %>立即发送
+                </span>
                 <div class="send-time">
- 						<span class="datep">
- 							<input class="datainp" id="dateinfo-1" type="text" placeholder="请选择" readonly="">
- 						<label for="dateinfo-2" class="glyphicon-clock glyphicon glyphicon-time"></label>
- 						</span>
+                  <span class="datep">
+                    <%= f.text_field :expire_time, class: 'datainp', placeholder: '请选择' %>
+                    <label for="dateinfo-2" class="glyphicon-clock glyphicon glyphicon-time"></label>
+                  </span>
                   <em>(5.2小时内可以接收到消息)</em>
                 </div>
               </td>
@@ -76,24 +95,27 @@
             <tr>
               <td><span>定时发送</span></td>
               <td>
-
-                <span class="msg-radio"><input type="radio" name="send" id="" value="" class="msg-send">定时发送</span>
+                <span class="msg-radio">
+                  <%= f.radio_button :send_type, 'later',class: 'msg-send' %>定时发送
+                </span>
                 <div class="send-time">
- 						<span class="datep">
- 							<input class="datainp" id="dateinfo-2" type="text" placeholder="请选择" readonly="">
- 						<label for="dateinfo-2" class="glyphicon-clock glyphicon glyphicon-time"></label>
- 						</span>
+                  <span class="datep">
+                    <%= f.text_field :start_time, class: 'datainp', placeholder: '请选择' %>
+                    <label for="dateinfo-2" class="glyphicon-clock glyphicon glyphicon-time"></label>
+                  </span>
                   <span style="margin-right: 15px;">至</span>
- 						<span class="datep">
- 							<input class="datainp" id="dateinfo-3" type="text" placeholder="请选择" readonly="">
- 						  <label for="dateinfo-3" class="glyphicon-clock glyphicon glyphicon-time"></label>
- 						</span>
+                  <span class="datep">
+                    <%= f.text_field :later_expire_time, class: 'datainp', placeholder: '请选择' %>
+                    <label for="dateinfo-3" class="glyphicon-clock glyphicon glyphicon-time"></label>
+                  </span>
                   <em>(5.2小时内可以接收到消息)</em>
                 </div>
               </td>
             </tr>
             <tr>
-              <td colspan="2"><a href="" class="btn-send">提交</a></td>
+              <td colspan="2">
+                <%= f.submit '提交', class: 'btn-send' %>
+              </td>
             </tr>
             </tbody></table>
         <% end %>
@@ -118,7 +140,7 @@
 
 
   jeDate({
-    dateCell:"#dateinfo-1",
+    dateCell:"#push_message_expire_time",
     format:"YYYY-MM-DD hh:mm:ss",
     isinitVal:true,
     isTime:true, //isClear:false,
@@ -126,14 +148,14 @@
   })
 
   jeDate({
-    dateCell:"#dateinfo-2",
+    dateCell:"#push_message_start_time",
     format:"YYYY-MM-DD hh:mm:ss",
     isinitVal:true,
     isTime:true, //isClear:false,
     minDate:jeDate.now(0)
   })
   jeDate({
-    dateCell:"#dateinfo-3",
+    dateCell:"#push_message_later_expire_time",
     format:"YYYY-MM-DD hh:mm:ss",
     isinitVal:true,
     isTime:true, //isClear:false,

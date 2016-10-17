@@ -3,7 +3,7 @@
     <div class="new-msg">
       <div class="new-msg-title">
         <a href="" class="msg-new">新建消息</a>
-        <a href="">消息记录</a>
+        <%= link_to '消息记录', admins_push_messages_path %>
       </div>
       <div class="new-msg-content">
         <%= simple_form_for [:admins,@message] do |f|%>

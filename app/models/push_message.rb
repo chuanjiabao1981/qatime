@@ -4,7 +4,7 @@ class PushMessage < ActiveRecord::Base
   belongs_to :creator, polymorphic: true
   attr_accessor :customer, :assign_value, :send_type, :later_expire_time
 
-  validates_presence_of :description, :ticker, :title, :text, :customer, :send_type, :after_open
+  validates_presence_of :description, :ticker, :title, :text, :customer, :send_type, :after_open, on: :create
 
   # 单播(unicast): device_tokens 指定单个设备号
   # 列播(listcast): device_tokens 指定多个设备号
@@ -61,6 +61,14 @@ class PushMessage < ActiveRecord::Base
 
     def i18n_options_alias_types
       [] || alias_types.map{|k,_| [I18n.t("enums.push_message.alias_type.#{k}"), k]}
+    end
+
+    def i18n_options_statuses
+      statuses.map{|k,_| [I18n.t("enums.push_message.status.#{k}"), k]}
+    end
+
+    def i18n_options_customers
+      customers.map{|k,_| [I18n.t("enums.push_message.customer.#{k}"), k]}
     end
   end
 

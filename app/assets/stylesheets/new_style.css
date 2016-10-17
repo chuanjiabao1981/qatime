@@ -1200,3 +1200,73 @@ figcaption p {
   height: 40px;
   margin-left: 5.8px;
 }
+.record-content-title {
+  height: 50px;
+  font-size: 1.4rem;
+  padding-top: 15px;
+}
+.record-status {
+  float: left;
+  margin-right: 24px;
+}
+.record-content-title select {
+  height: 26px;
+}
+.record-num {
+  width: 135px;
+}
+.record-con {
+  width: 200px;
+}
+.msg-empty {
+  position: relative;
+  top: 3px;
+}
+.btn-record {
+  width: 70px;
+  height: 26px;
+  float: right;
+  display: inline-block;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 23.5px;
+  color: #000000;
+}
+.new-msg-content table {
+  width: 100%;
+  font-size: 1.4rem;
+}
+.new-msg-content table tr td:first-child {
+  width: 80px;
+}
+.record-content-msg table td {
+  text-align: center;
+  border-color: #666666;
+  font-size: 1.4rem;
+  color: #666666;
+}
+.msg-details {
+  background-color: gainsboro;
+  display: none;
+}
+.msg-describe {
+  text-align: left !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+.msg-details {
+  background-color: gainsboro;
+  display: none;
+}
+.msg-number {
+  border-right: 0px !important;
+}
+.msg-number-1 {
+  border-left: 0px !important;
+}
+.msg-describe {
+  text-align: left !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}

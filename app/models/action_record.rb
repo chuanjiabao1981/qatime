@@ -5,4 +5,8 @@ class ActionRecord < ActiveRecord::Base
   validates_presence_of :operator
 
   self.per_page     = 20
+
+  def desc
+    actionable.model_name.human
+  end
 end

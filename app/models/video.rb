@@ -15,6 +15,13 @@ class Video < ActiveRecord::Base
   has_many :video_quoters
   accepts_nested_attributes_for :video_quoters
 
+  # 从网络获取视频时长
+  def sync_duration!
+    result = %x(ffprobe -i #{name_url} -show_entries format=duration -v quiet -of csv="p=0")
+    self.duration = result.to_i
+    save!
+  end
+
 end
 
 

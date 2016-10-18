@@ -1,0 +1,24 @@
+<%
+   @user = @student || @teacher
+%>
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <div class="row">
+      <div>
+        <span>
+          <%= link_to t("view.student_bars.schedules"), live_studio.schedules_student_path(@user) %>
+          &gt;
+          <%= t("view.settings.notice") %>
+        </span>
+      </div>
+      <div class="">
+        <%= simple_form_for(@setting, as: :setting, url: settings_path) do |f| %>
+          <%= f.input :notice, as: :boolean %>
+          <%= f.input :email, as: :boolean %>
+          <%= f.input :message, as: :boolean %>
+          <%= f.input :ext %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

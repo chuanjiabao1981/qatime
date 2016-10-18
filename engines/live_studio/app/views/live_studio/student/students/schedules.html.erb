@@ -9,6 +9,9 @@
         <span>
           <%= t("view.student_bars.schedules") %>
         </span>
+        <span style="float: right;">
+          <%= link_to t("view.settings.notice"), live_studio.student_settings_path(@user) %>
+        </span>
       </div>
       <div class="">
         <a href='#schedules_div' data-toggle="tab">

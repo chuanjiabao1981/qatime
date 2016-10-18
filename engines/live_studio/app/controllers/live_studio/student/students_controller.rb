@@ -6,5 +6,9 @@ module LiveStudio
       @wait_lessons = @student.live_studio_lessons.unclosed
       @close_lessons = @student.live_studio_lessons.already_closed
     end
+
+    def settings
+      @setting = NotificationSetting.find_or_initialize_by(owner: @student)
+    end
   end
 end

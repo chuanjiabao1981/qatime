@@ -101,6 +101,8 @@ LiveStudio::Engine.routes.draw do
         get :schedules
       end
       resources :courses, only: [:index, :show]
+
+      get :settings
     end
   end
 

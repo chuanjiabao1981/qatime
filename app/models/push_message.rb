@@ -17,7 +17,7 @@ class PushMessage < ActiveRecord::Base
   # go_url: 跳转到URL
   # go_activity: 打开特定的activity
   # go_custom: 用户自定义内容
-  enum after_open: %w(go_app go_url go_activity) # go_url go_custom
+  enum after_open: %w(go_app go_url go_custom) #
   enum customer: %w(anyone student assign)
   enum status: %w(init pushing success failed)
   enum send_type: %w(now later)
@@ -126,10 +126,10 @@ class PushMessage < ActiveRecord::Base
   end
 
   def after_open_logic
-    if self.activity[0,4] == 'http'
+    if self.custom[0,4] == 'http'
       self.after_open = 'go_url'
-      self.url = self.activity
-      self.activity = nil
+      self.url = self.custom
+      self.custom = nil
     end
   end
 

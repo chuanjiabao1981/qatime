@@ -830,7 +830,6 @@ ActiveRecord::Schema.define(version: 20161017110118) do
     t.datetime "start_time"
     t.datetime "expire_time"
     t.string   "out_biz_no"
-    t.string   "production_mode"
     t.integer  "status"
     t.text     "result"
     t.datetime "created_at",                     null: false
@@ -839,6 +838,7 @@ ActiveRecord::Schema.define(version: 20161017110118) do
     t.boolean  "play_vibrate",    default: true
     t.boolean  "play_lights",     default: true
     t.boolean  "play_sound",      default: true
+    t.boolean  "production_mode", default: true
   end
 
   add_index "push_messages", ["creator_type", "creator_id"], name: "index_push_messages_on_creator_type_and_creator_id", using: :btree

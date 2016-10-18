@@ -38,7 +38,7 @@ class Admins::PushMessagesController < ApplicationController
   private
   def message_params
     params.require(:push_message).permit(
-      %w(ticker title text after_open url activity custom start_time expire_time later_expire_time description play_vibrate play_lights send_type play_sound customer assign_value)
+      %w(ticker title text after_open url custom custom start_time expire_time later_expire_time description play_vibrate play_lights send_type play_sound customer assign_value)
     )
   end
 end

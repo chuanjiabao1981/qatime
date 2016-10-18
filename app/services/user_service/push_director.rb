@@ -6,7 +6,7 @@ module UserService
         push_params(message)
         remove_nil @push_params
         result = send_push
-        status = result[:ret] == 'SUCCESS' ? :success : :failed
+        status = result['ret'] == 'SUCCESS' ? :success : :failed
         message.update(sign: sign,result: result, status: status)
       end
 
@@ -41,7 +41,7 @@ module UserService
               expire_time: message.expire_time.try(:strftime,'%Y-%m-%d %H:%M:%S')
               #out_biz_no: message.out_biz_no.presence
             },
-            production_mode: "#{message.production_mode == '1'}",
+            production_mode: "#{message.production_mode}",
             description: "#{message.description}"
           }
       end

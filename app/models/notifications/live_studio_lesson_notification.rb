@@ -7,6 +7,9 @@ class LiveStudioLessonNotification < ::Notification
 
   # 通知内容
   def notice_content
-    I18n.t("view.notification.#{notificationable.model_name.i18n_key}.action_name", lesson: notificationable)
+    I18n.t("view.notification.#{notificationable.model_name.i18n_key}.#{action_name}",
+           lesson_name: notificationable.name,
+           start_time: notificationable.start_time
+          )
   end
 end

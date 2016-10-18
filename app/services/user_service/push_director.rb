@@ -3,16 +3,15 @@ module UserService
     class << self
 
       def push(message)
-        push_params(message)
-        remove_nil @push_params
-        result = send_push
+        params = remove_nil(push_params(message))
+        gena_sign = sign(params)
+        result = send_push(send_url(gena_sign), params)
         status = result['ret'] == 'SUCCESS' ? :success : :failed
-        message.update(sign: sign,result: result, status: status)
+        message.update(sign: gena_sign,result: result, status: status)
       end
 
       private
       def push_params message
-        @push_params ||=
           {
             appkey: app_key,
             timestamp: "#{timestamp}",
@@ -38,8 +37,8 @@ module UserService
             },
             policy:{
               start_time: message.start_time.try(:strftime,'%Y-%m-%d %H:%M:%S'),
-              expire_time: message.expire_time.try(:strftime,'%Y-%m-%d %H:%M:%S')
-              #out_biz_no: message.out_biz_no.presence
+              expire_time: message.expire_time.try(:strftime,'%Y-%m-%d %H:%M:%S'),
+              out_biz_no: message.out_biz_no.presence
             },
             production_mode: "#{message.production_mode}",
             description: "#{message.description}"
@@ -56,12 +55,12 @@ module UserService
         end
       end
 
-      def send_url
-        push_url + "?sign=#{sign}"
+      def send_url(gena_sign)
+        push_url + "?sign=#{gena_sign}"
       end
 
-      def sign
-        @sign_str ||= Digest::MD5.hexdigest('%s%s%s%s' % ['POST', push_url, @push_params.to_json, app_master_secret])
+      def sign(push_params)
+        Digest::MD5.hexdigest('%s%s%s%s' % ['POST', push_url, push_params.to_json, app_master_secret])
       end
 
       def app_key
@@ -77,13 +76,13 @@ module UserService
       end
 
       def timestamp
-        @timestamp ||= Time.now.to_i
+        Time.now.to_i
       end
 
-      def send_push
+      def send_push(url, push_params)
         return if Rails.env.test?
-        uri = URI.parse(send_url)
-        result = Typhoeus.post(uri,body: @push_params.to_json)
+        uri = URI.parse(url)
+        result = Typhoeus.post(uri,body: push_params.to_json)
         JSON.parse(result.body)
       end
     end

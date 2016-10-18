@@ -19,7 +19,7 @@ module UserService
             type: message.push_type.presence,
             alias_type: message.alias_type.presence,
             alias: message.alias.presence,
-            filter: message.filter.presence,
+            filter: message.filter.blank? ? nil : JSON.parse(message.filter),
             payload: {
               display_type: message.display_type.presence,
               body: {

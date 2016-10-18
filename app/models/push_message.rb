@@ -102,7 +102,7 @@ class PushMessage < ActiveRecord::Base
         self.push_type = 'broadcast'
       when 'student'
         self.push_type = 'groupcast'
-        self.filter = {where: {and: {tag: 'student'}} }.to_json
+        self.filter = {where: {and: [{tag: 'student'}]} }.to_json
       when 'assign'
         self.push_type = 'listcast'
         user = User.where('email = ? or login_mobile = ?', assign_value, assign_value).first

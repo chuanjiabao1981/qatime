@@ -18,9 +18,6 @@
       <%= t("view.notification.live_studio_course.#{notification.action_name}", course_name: notification.notificationable.name, day: notification.notificationable.class_date) %>
     <% end %>
 
-
-
-
     <% if @receiver.student? -%>
       <%= link_to t("view.course_show.info"), notification_path(notification, rt: live_studio.student_course_path(@receiver, notification.notificationable)) %>
     <% elsif @receiver.teacher? -%>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161006035619) do
+ActiveRecord::Schema.define(version: 20161018062001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -485,6 +485,7 @@ ActiveRecord::Schema.define(version: 20161006035619) do
     t.integer  "buy_tickets_count",                                          default: 0
     t.date     "class_date"
     t.datetime "published_at"
+    t.string   "announcement"
   end
 
   add_index "live_studio_courses", ["class_date"], name: "index_live_studio_courses_on_class_date", using: :btree
@@ -1012,6 +1013,13 @@ ActiveRecord::Schema.define(version: 20161006035619) do
     t.datetime "last_redone_at"
     t.string   "state",                               default: "new"
     t.integer  "comments_count",                      default: 0
+  end
+
+  create_table "user_devices", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "device_token"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   create_table "users", force: :cascade do |t|

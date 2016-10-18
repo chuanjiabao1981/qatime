@@ -22,13 +22,15 @@ class CustomizedCourseActionRecord < ActionRecord
     self.send_wechat_notification = true
   end
 
-
-
   def desc
     I18n.t "action.#{self.actionable.model_name.singular_route_key}.#{self.name}.desc",
                           user: self.operator.view_name
   end
 
+  # 通知内容
+  def notice_content
+    desc
+  end
 
   def __create_action_notification
     #如果没有customized_course就不创建这个消息

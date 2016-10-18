@@ -26,6 +26,25 @@ class PushMessage < ActiveRecord::Base
   before_create :generate_attribute
   after_create :push_now!
 
+  def customer
+    case push_type
+      when 'broadcast'
+        'anyone'
+      when 'customizedcast'
+        'student'
+      when 'listcast'
+        'assign'
+    end
+  end
+
+  def start_time_text
+    start_time || created_at
+  end
+
+  def customer_text
+    I18n.t("enums.push_message.customer.#{customer}")
+  end
+
   def push_type_text
     I18n.t("enums.push_message.push_type.#{push_type}")
   end
@@ -57,10 +76,6 @@ class PushMessage < ActiveRecord::Base
 
     def i18n_options_after_opens
       after_opens.map{|k,_| [I18n.t("enums.push_message.after_open.#{k}"), k]}
-    end
-
-    def i18n_options_alias_types
-      [] || alias_types.map{|k,_| [I18n.t("enums.push_message.alias_type.#{k}"), k]}
     end
 
     def i18n_options_statuses

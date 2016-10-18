@@ -7,26 +7,12 @@
       </div>
       <div class="new-msg-content">
         <div class="record-content-title">
-          <%= form_tag method: :get do %>
+          <%= form_tag '', method: :get do %>
             <div class="record-status">
               <span>当前状态</span>
-              <%= select_tag :status, options_for_select(PushMessage.i18n_options_statuses, params[:status]) %>
+              <%= select_tag :status, options_for_select(PushMessage.i18n_options_statuses.insert(0,['请选择',nil]), params[:status]) %>
             </div>
-            <div class="record-status">
-              <span>用户范围</span>
-              <%= select_tag :customer, options_for_select(PushMessage.i18n_options_customers, params[:customer]) %>
-            </div>
-            <div class="record-status">
-              <span>指定用户</span>
-              <%= text_field_tag :customer_value, params[:customer_value], placeholder: '输入手机号' %>
-            </div>
-            <div class="record-status">
-              <span>描述</span>
-              <input type="text" name="" class="record-con" value="" placeholder="输入描述内容关键字">
-            </div>
-            <%=  %>
-            <a href="" class="msg-empty">清空</a>
-            <a href="" class="btn-record">查询</a>
+            <%= submit_tag '查询',class: 'btn-record' %>
           <% end %>
         </div>
         <div class="record-content-msg">
@@ -36,107 +22,37 @@
               <td>描述</td>
               <td>用户范围</td>
               <td>发送时间</td>
-              <td>总数</td>
-              <td>发送数</td>
               <td>当前状态</td>
               <td>操作</td>
             </tr>
+            <% @messages.each_with_index do |msg, index| %>
             <tr>
-              <td>1</td>
-              <td class="msg-describe">学生定期讲座-第五次群发</td>
-              <td>所有人</td>
-              <td>2016-01-05 15:00</td>
-              <td>5000</td>
-              <td>1251</td>
-              <td>未发送</td>
-              <td><a href="javascript:void(0);" class="msg-view">查看</a><a href="" class="msg-cancel">/取消</a></td>
+              <td><%= index+1 %></td>
+              <td class="msg-describe">
+                <%= msg.description %>
+              </td>
+              <td>
+                <%= msg.customer_text %>
+              </td>
+              <td><%= msg.start_time_text.strftime('%Y-%m-%d %H:%M') %></td>
+              <td><%= msg.status_text %></td>
+              <td>
+                <a href="javascript:void(0);" class="msg-view">查看</a>
+                <!--<a href="" class="msg-cancel">/取消</a>-->
+              </td>
             </tr>
             <tr class="msg-details">
               <td class="msg-number"></td>
               <td colspan="7" class="msg-describe msg-number-1">
-                <p>2016高三语文精品讲座-王玉文老师主讲（第二期）</p>
+                <p><%= msg.title %></p>
                 <p>
-                  2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）
+                  <%= msg.text %>
                 </p>
               </td>
             </tr>
-            <tr>
-              <td>2</td>
-              <td class="msg-describe">学生定期讲座-第四次群发</td>
-              <td>所有人</td>
-              <td>2016-01-05 15:00</td>
-              <td>11</td>
-              <td>122</td>
-              <td>未发送</td>
-              <td><a href="javascript:void(0);" class="msg-view">查看</a><a href="javascript:void(0);" class="msg-cancel">/取消</a></td>
-            </tr>
-            <tr class="msg-details">
-              <td class="msg-number"></td>
-              <td colspan="7" class="msg-describe msg-number-1">
-                <p>2016高三语文精品讲座-王玉文老师主讲（第二期）</p>
-                <p>
-                  2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td class="msg-describe">学生定期讲座-第三次群发</td>
-              <td>老师</td>
-              <td>2016-01-05 15:00</td>
-              <td>2244</td>
-              <td>555544</td>
-              <td>已发送</td>
-              <td><a href="javascript:void(0);" class="msg-view">收起查看</a></td>
-            </tr>
-            <tr class="msg-details" style="display: table-row;">
-              <td class="msg-number"></td>
-              <td colspan="7" class="msg-describe msg-number-1">
-                <p>2016高三语文精品讲座-王玉文老师主讲（第二期）</p>
-                <p>
-                  2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td class="msg-describe">学生定期讲座-第一次群发</td>
-              <td>13426387741</td>
-              <td>2016-01-05 15:00</td>
-              <td>44444</td>
-              <td>221</td>
-              <td>已发送</td>
-              <td><a href="javascript:void(0);" class="msg-view">查看</a></td>
-            </tr>
-            <tr class="msg-details">
-              <td class="msg-number"></td>
-              <td colspan="7" class="msg-describe msg-number-1">
-                <p>2016高三语文精品讲座-王玉文老师主讲（第二期）</p>
-                <p>
-                  2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td class="msg-describe">精品活动推荐群发老师和学生</td>
-              <td>13426387741</td>
-              <td>2016-01-05 15:00</td>
-              <td>784</td>
-              <td>1</td>
-              <td>已发送</td>
-              <td><a href="javascript:void(0);" class="msg-view">查看</a></td>
-            </tr>
-            <tr class="msg-details">
-              <td class="msg-number"></td>
-              <td colspan="7" class="msg-describe msg-number-1">
-                <p>2016高三语文精品讲座-王玉文老师主讲（第二期）</p>
-                <p>
-                  2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）2016高三语文精品讲座-王玉文老师主讲（第二期）
-                </p>
-              </td>
-            </tr>
-            </tbody></table>
+              <% end %>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

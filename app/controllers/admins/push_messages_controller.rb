@@ -4,7 +4,8 @@ class Admins::PushMessagesController < ApplicationController
   layout "admin_home"
 
   def index
-    @messages = PushMessage.all.order(id: :desc).page(params[:page])
+    @messages = params[:status].blank? ? PushMessage.all : PushMessage.where(status: PushMessage.statuses[params[:status]])
+    @messages = @messages.order(id: :desc).page(params[:page])
   end
 
   def new

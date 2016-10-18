@@ -7,10 +7,10 @@
       </div>
       <div class="new-msg-content">
         <%= simple_form_for [:admins,@message] do |f|%>
-          <%= content_tag :div, '请检查以下字段:' unless @message.errors.blank?  %>
+          <%= content_tag :div, '请检查以下字段:' unless @message.errors.blank? %>
           <%= content_tag :div, class: 'alert-alert' do%>
             <% @message.errors.messages.each do |msg| %>
-              <%= content_tag :div, ::PushMessage.human_attribute_name(msg.first)%>
+              <%= content_tag :div, ::PushMessage.human_attribute_name(msg.first) %>
             <% end %>
           <% end unless @message.errors.blank? %>
           <table border="0" cellspacing="0" cellpadding="0">

@@ -57,7 +57,7 @@
               <td>
                 <% ::PushMessage.customers.each do |k, _| %>
                   <%= content_tag :span, class: k == 'assign' ? '' : 'msg-check' do %>
-                    <%= f.radio_button :customer, k  %><%= t("enums.push_message.customer.#{k}") %>
+                    <%= f.radio_button :customer, k, class: 'customer' %><%= t("enums.push_message.customer.#{k}") %>
                   <% end %>
                 <% end %>
                 <%= f.text_field :assign_value, class: 'msg-num', placeholder: '输入制定人员的邮箱或手机号' %>
@@ -67,11 +67,11 @@
               <td><span>后续动作：</span></td>
               <td>
                 <span class="msg-application">
-                  <%= f.radio_button :after_open, 'go_app' %>
+                  <%= f.radio_button :after_open, 'go_app',class: 'after_open' %>
                   打开应用
                 </span>
                 <span>
-                  <%= f.radio_button :after_open, 'go_activity' %>
+                  <%= f.radio_button :after_open, 'go_activity', class: 'after_open' %>
                   打开制定页面
                 </span>
                 <%= f.text_field :activity, class: 'msg-page', placeholder: '请输入制定页面的名称' %>
@@ -85,10 +85,10 @@
                 </span>
                 <div class="send-time">
                   <span class="datep">
-                    <%= f.text_field :expire_time, class: 'datainp', placeholder: '请选择' %>
+                    <%= f.text_field :expire_time, class: 'datainp dateinfo-1', placeholder: '请选择' %>
                     <label for="dateinfo-2" class="glyphicon-clock glyphicon glyphicon-time"></label>
                   </span>
-                  <em>(5.2小时内可以接收到消息)</em>
+                  <em class="countdown">(5.2小时内可以接收到消息)</em>
                 </div>
               </td>
             </tr>
@@ -100,15 +100,15 @@
                 </span>
                 <div class="send-time">
                   <span class="datep">
-                    <%= f.text_field :start_time, class: 'datainp', placeholder: '请选择' %>
+                    <%= f.text_field :start_time, class: 'datainp dateinfo-2', placeholder: '请选择' %>
                     <label for="dateinfo-2" class="glyphicon-clock glyphicon glyphicon-time"></label>
                   </span>
                   <span style="margin-right: 15px;">至</span>
                   <span class="datep">
-                    <%= f.text_field :later_expire_time, class: 'datainp', placeholder: '请选择' %>
+                    <%= f.text_field :later_expire_time, class: 'datainp dateinfo-3', placeholder: '请选择' %>
                     <label for="dateinfo-3" class="glyphicon-clock glyphicon glyphicon-time"></label>
                   </span>
-                  <em>(5.2小时内可以接收到消息)</em>
+                  <em class="overdue">(5.2小时内可以接收到消息)</em>
                 </div>
               </td>
             </tr>
@@ -138,28 +138,87 @@
     }
   })
 
-
   jeDate({
-    dateCell:"#push_message_expire_time",
+    dateCell:".dateinfo-1",
     format:"YYYY-MM-DD hh:mm:ss",
     isinitVal:true,
     isTime:true, //isClear:false,
-    minDate:"2014-09-19 00:00:00"
+    minDate:jeDate.now(0),
+    choosefun:function(val) {
+      var EndTime= new Date(val);
+      var NowTime = new Date();
+      var t =EndTime.getTime() - NowTime.getTime();
+      timedown (t);
+      timeId = setInterval(function () {
+        t -= 1000;
+        timedown (t)
+      }, 1000)
+    }
   })
 
+  function timedown (t) {
+    var h = (t/1000/60/60).toFixed(1);
+    $(".countdown").html(h+"小时内可以接受到消息")
+  }
+
+  var data1,data2,timeId;
   jeDate({
-    dateCell:"#push_message_start_time",
+    dateCell:".dateinfo-2",
     format:"YYYY-MM-DD hh:mm:ss",
     isinitVal:true,
-    isTime:true, //isClear:false,
-    minDate:jeDate.now(0)
+    isTime:true,
+    minDate:"2014-09-19 00:00:00",
+    choosefun:function(val) {
+      data1 = new Date(val)
+    }
   })
   jeDate({
-    dateCell:"#push_message_later_expire_time",
+    dateCell:".dateinfo-3",
     format:"YYYY-MM-DD hh:mm:ss",
     isinitVal:true,
-    isTime:true, //isClear:false,
-    minDate:jeDate.now(0)
+    isTime:true,
+    minDate:"2014-09-19 00:00:00",
+    choosefun:function(val) {
+      clearInterval(timeId);
+      data2 = new Date(val);
+      var time = data2 - data1;
+      parseTime(time);
+      timeId = setInterval(function () {
+        time -= 1000;
+        parseTime(time);
+      }, 1000)
+    }
   })
+
+  function parseTime (time) {
+    var h = (time  / 3600000).toFixed(1);
+    $('.overdue').text( h + '小时内可以接受到消息' )
+  }
+
+  $(".after_open").click(function  () {
+    var index = $(".after_open").index($(this));
+    if (index != 1) {
+      $(".msg-page").val("")
+    }else if (index == 1){
+      $(".msg-page").focus();
+    }
+  })
+  $(".msg-page").click(function  () {
+    $(".after_open").eq(1).attr("checked","checked");
+  })
+
+
+  $(".customer").click(function  () {
+    var index = $(".customer").index($(this));
+    if (index != 2) {
+      $(".msg-num").val("")
+    }else if (index == 2){
+      $(".msg-num").focus();
+    }
+  })
+  $(".msg-num").click(function  () {
+    $(".customer").eq(2).attr("checked","checked");
+  })
+
 
 </script>

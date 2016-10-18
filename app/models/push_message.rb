@@ -27,6 +27,7 @@ class PushMessage < ActiveRecord::Base
   after_create :push_now!
 
   def customer
+    return @customer if new_record?
     case push_type
       when 'broadcast'
         'anyone'

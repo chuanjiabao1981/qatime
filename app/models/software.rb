@@ -19,8 +19,6 @@ class Software < ActiveRecord::Base
             i18n_scope: "enums.software.platform",
             scope: true,
             predicates: { prefix: true }
-  before_save
-  before_update :assign_qr_code
 
   def published!
     self.published_at = Time.now
@@ -46,9 +44,10 @@ class Software < ActiveRecord::Base
 
   private
 
-  before_save :generate_download_links
+  before_update :generate_download_links
   def generate_download_links
     self.download_links = "#{$host_name}/softwares/#{id}/download" if download_links.blank?
+    assign_qr_code
   end
 
   class << self

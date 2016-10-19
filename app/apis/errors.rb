@@ -11,6 +11,7 @@ module APIErrors
   AuthenticateFail      = Class.new StandardError
   VersionOldError       = Class.new StandardError
   ClientInvalid         = Class.new StandardError
+  StatusChangeError     = Class.new StandardError
 
   module ClassMethods
     def include_errors

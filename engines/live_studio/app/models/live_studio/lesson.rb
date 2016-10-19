@@ -20,12 +20,12 @@ module LiveStudio
     scope :already_closed, -> { where('live_studio_lessons.status >= ?', Lesson.statuses[:closed]) } # 已关闭的课程
     scope :unstart, -> { where('status < ?', Lesson.statuses[:teaching]) } # 未开始的课程
     scope :should_complete, -> { where(status: [statuses[:finished], statuses[:billing]]).where("class_date < ?", Date.yesterday)} # 可以completed的课程
-    scope :teached, -> { where("status > ?", Lesson.statuses[:teaching]) } # 已经完成上课
+    scope :teached, -> { where("status > ?", Lesson.statuses[:closed]) } # 已经完成上课, 不可以继续直播的课程才算完成上课
     scope :today, -> { where(class_date: Date.today) }
     scope :since_today, -> {where('class_date > ?',Date.today)}
     scope :include_today, -> {where('class_date >= ?',Date.today)}
     scope :waiting_finish, -> { where(status: [statuses[:paused], statuses[:closed]])}
-    scope :month, -> (month){where('live_studio_lessons.class_date >= ? and live_studio_lessons.class_date <= ?',month.beginning_of_month.to_date,month.end_of_month.to_date)}
+    scope :month, -> (month){where('live_studio_lessons.class_date >= ? and live_studio_lessons.class_date <= ?', month.beginning_of_month.to_date,month.end_of_month.to_date)}
 
     belongs_to :course
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
@@ -60,13 +60,13 @@ module LiveStudio
       end
 
       event :close do
+        before do
+          self.live_end_at = Time.now
+        end
         transitions from: [:teaching, :paused], to: :closed
       end
 
       event :finish, after_commit: :instance_play_records do
-        before do
-          self.live_end_at ||= last_heartbeat_at || Time.now
-        end
         transitions from: [:paused, :closed], to: :finished
       end
 

@@ -2,11 +2,11 @@
  em {
   font-style: normal;
  }
-.btn-add,.btn-suc,.btn-withdrawal,.btn-sure {
+.btn-add,.btn-suc,.btn-withdrawal,.btn-sure,.btn-confirm  {
   display: inline-block;
   width: 120px;
   height: 34px;
-  line-height: 34px;
+  line-height: 30px;
   text-align: center;
   border: 1px solid gray;
   border-radius: 5px;
@@ -24,12 +24,7 @@
   line-height: 3rem;
   border-bottom: 0.1rem solid gray;
 }
-/*.table {
-  font-size: 1.4rem;
-}*/
-/*.table-fix{
-  
-}*/
+
 
 .table-fix {
   width: 98%!important;
@@ -127,7 +122,7 @@ a {
 .datepicker-1 {
       height: 2rem;
       width: 8rem;
-      padding-top: 1rem !important;
+      padding-top: 0.8rem !important;
       text-align: center;
       font-size: 1.4rem;
       float: left;
@@ -229,25 +224,43 @@ a {
   top: 50%;
 }
 .txt-radio input {
-  margin-right: 1rem;
+  margin-right: 20px !important;
 }
 .txt-radio {
   font-size: 1.4rem;
-  margin-left: -6.4rem;
-  margin-top: -4.1rem;
+  margin-left: -59px;
+  margin-top: -32px;
 }
+.txt-offline {
+  margin-top: -40px;
+  margin-left: -66px;
+   color: #999999;
+   font-size: 1.4rem;
+}
+.txt-offline img {
+  width: 26px;
+}
+
 .txt-radio em,.row-apply em {
   color: #666666;
 }
 .txt-num  {
-  margin-top: -1.3rem;
-  margin-left: -13.3rem;
+  margin-top: -18px;
+  margin-left: -149px;
 }
 .txt-num input,.txt-num span {
   font-size: 1.4rem;
   color: #999999;
 }
+ .txt-num input {
+  height: 36px;
+  padding: 8px;
+ }
  
+ .alert-msg1,.alert-msg2 {
+  color: red !important;
+  /*display: none;*/
+ }
 .col-md-apply-1 {
   border-left: 0.1rem solid gainsboro;
 }
@@ -276,8 +289,10 @@ a {
   font-size: 2.4rem;
   color: red;
 }
-
-@font-face {font-family: 'iconfont';
+.check {
+  margin-right: 10px;
+}
+/*@font-face {font-family: 'iconfont';
     src: url('../fonts/iconfont.eot'); 
     src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), 
     url('../fonts/iconfont.woff') format('woff'), 
@@ -294,7 +309,7 @@ a {
 
 .iconfont-1 {
   color: dodgerblue;
-}
+}*/
 
 
 /*充值支付*/
@@ -304,13 +319,13 @@ a {
   height: 150px;
 }
 .col-md-apply-2 p {
-  line-height: 15rem;
+  line-height: 150px;
   font-size: 1.4rem;
   color: #666666;
 }
 .col-md-apply-2 table {
   position: relative;
-  top: 1.5rem;
+  top: 15px;
   height: 120px;
   margin-left: 4rem;
   font-size: 1.4rem;
@@ -332,7 +347,7 @@ a {
 .row-apply-1 {
   text-align: center;
 }
-.row-list {
+.row-list,.row-list-1 {
   list-style-type: none;
   position: relative;
 }
@@ -353,6 +368,7 @@ a {
   top: 30px;
   margin-left: -210px;
 }
+
 figure {
   float: left;
 }
@@ -377,10 +393,26 @@ figcaption p {
   font-size: 1.4rem;
   color: #666666;
 }
-
-
-
-
+.row-list-1 {
+  list-style-type: none;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 0;
+}
+.row-list-1 li {
+  float: left;
+  height: 64px;
+  line-height: 64px;
+}
+.row-list-1 li:nth-child(2) {
+  position: absolute;
+  left: 50%;
+  margin-left: -312px;
+}
+.row-list-1 li:last-child {
+  position: absolute;
+  right: 15px;
+}
 /*老師提現申請*/
 
 
@@ -407,7 +439,7 @@ figcaption p {
     padding: 0;
   }
   .col-md-title p {
-    line-height: 3.6rem;
+    line-height: 36px;
     text-align: center;
   }
   
@@ -714,6 +746,7 @@ figcaption p {
   height: 32px;
   text-align: center;
   vertical-align: top;
+  line-height: 16px;
   float: left;
   color: red;
 }
@@ -985,6 +1018,13 @@ figcaption p {
   clear: both;
   margin-top: 20px;
 }
+.remedial-sort li,.remedial-subjects li,.remedial-grade li,.remedial-state li {
+  height: 35px;
+  line-height: 35px;
+}
+.remedial-price li,.remedial-scope li,.remedial-start li {
+  height: 35px;
+}
 .remedial-sort {
   margin-top: 0 !important;
 }
@@ -995,43 +1035,59 @@ figcaption p {
   width: 70px;
 }
 .remedial-nav ul li:nth-child(2) {
-  margin-left: 10px;
+  margin-left: 30px;
 }
 .remedial-sort li:nth-child(2),.remedial-subjects li:nth-child(2),.remedial-grade li:nth-child(2),.remedial-state li:nth-child(2) {
-  margin-right: 10px;
-  width: 40px;
+  margin-right: 15px;
+  width: 60px;
+  height: 35px;
+  line-height: 35px;
   background-color: lightseagreen;
   text-align: center;
 }
-.remedial-sort li:nth-child(2) a,.remedial-subjects li:nth-child(2) a,.remedial-grade li:nth-child(2) a {
+.remedial-sort li:nth-child(2) a,.remedial-subjects li:nth-child(2) a,.remedial-grade li:nth-child(2) a,.remedial-state li:nth-child(2) a{
   color: white;
 }
-.remedial-sort-1 {
-  margin-right: 20px;
-}
+
 .remedial-sort-1 a,.remedial-subjects-1 a,.remedial-grade-1 a,.remedial-state-1 a {
   color: #666666;
 }
 
-/*.remedial-subjects,.remedial-grade,.remedial-scope,.remedial-start,.remedial-state {
-  clear: both;
-  margin-top: 20px;
-}*/
+.remedial-start {
+  margin-left: -15px;
+}
+.col-md-time {
+  margin-top: -10px;
+    margin-bottom: 10px;
+}
 .remedial-grade {
   margin-bottom: 0;
 }
+.remedial-sort-1 {
+  margin-right: 45px;
+}
 .remedial-subjects-1,.remedial-grade-1,.remedial-state-1 {
-  margin-right: 15px;
+  margin-right: 30px;
 }
 .remedial-drop-down {
   text-align: center;
+  margin-top: -5px;
 }
+.remedial-drop-down a {
+  color: lightseagreen;
+}
+.remedial-price li:first-child,.remedial-scope li:first-child,.remedial-start li:first-child{
+  line-height: 35px;
+  }
 .remedial-price input,.remedial-scope input {
-  width: 76px;
+  width: 100px;
+  height: 34px;
   border: 1px solid lightseagreen;
+  text-align: center;
 }
 .price-line {
   margin: 0 10px;
+  line-height: 35px;
 }
 .remedial-hidden {
   margin-top: 20px;
@@ -1041,23 +1097,25 @@ figcaption p {
   width: 100%;
 }
 .remedial-date {
-  width: 176px;
+  width: 224px;
+  height: 34px;
   border: 1px solid gray;
   padding-top: 0 !important;
   border: 1px solid lightseagreen;
 }
 .remedial-txt-1 {
   margin-left: 0 !important;
+  line-height: 35px;
   padding-left: 10px;
   padding-right: 10px;
 }
 .label-icon-1,.label-icon-2 {
   position: relative;
-  top: 5px !important;
+  top: 9px !important;
   clear: both;
 }
 .label-icon-1 {
-  right: 220px;
+  right: 270px;
 }
 .label-icon-2 {
   right: 37px;
@@ -1070,45 +1128,470 @@ figcaption p {
 .remedial-conditions a {
   float: right;
 }
+.btn-reset {
+  line-height: 34px;
+}
 .btn-screen {
   display: inline-block;
-  width: 90px;
-  height: 25px;
+  width: 120px;
+  height: 34px;
   background-color: springgreen;
   border-radius: 5px;
   text-align: center;
-  line-height: 25px;
+  line-height: 34px;
   color: white;
   margin-right: 15px;
 }
 .up-conditions {
   display: none;
 }
-
 .remedial-textbook {
-  /*height: 200px;*/
   padding: 8px;
   }
 
-.textbook-next {
+.textbook-1 {
   width: 100%;
-  height: 240px;
   list-style-type: none;
   padding-left: 0 !important;
+  overflow: hidden;
+  margin-bottom: 0px;
+  padding-bottom: 8px;
+  padding-top: 7px;
 }
-.textbook-next li {
+.textbook-1 li {
   width: 32%;
   float: left;
-  border: 1px solid gray;
-  height: 240px;
-  margin: 6.2px;
+  border: 1px solid gainsboro;
+  margin: 0 0.66%;
 }
-/*.textbook-next-img {
-  height: 143px;
-}*/
-.textbook-next-img img {
+
+.textbook-img img {
   width: 100%;
 }
+.textbook-msg {
+  padding-right: 5px;
+  border-top: 1px solid gainsboro;
+  border-bottom: 1px solid gainsboro;
+  font-size: 1.2rem;
+  overflow: hidden;
+}
+.book-money {
+  float: left;
+  font-size: 1.6rem;
+  color: red;
+}
+.book-num {
+  float: right;
+  line-height: 22px;
+}
+.textbook-teacher {
+  clear: both;
+  font-size: 1.2rem;
+  margin-bottom: 0;
+}
+.teacher-msg-1 img {
+  width: 20px;
+  border-radius: 50%;
+  float: left;
+  margin-right: 10px;
+}
+.teacher-course {
+  float: right;
+  line-height: 20px;
+}
+.teacher-name {
+  line-height: 20px;
+}
+.teacher-book-nav {
+  text-align: center;
+  padding-top: 8px;
+  padding-bottom: 5px;
+  font-size: 1.2rem;
+  display: none;
+}
+.class-time,.class-State,.class-img {
+  float: right;
+}
+.class-img {
+  width: 10px;
+  padding-top: 3px;
+  }
+.class-State {
+  width: 40px;
+  text-align: center;
+  background-color: deepskyblue;
+  color: white;
+}
+.class-admissions {
+  background-color: greenyellow;
+}
+.teacher-con {
+  clear: both;
+  padding-top: 10px;
+  text-indent: 20px;
+  font-size: 1.2rem;
+  height: 45px;
+  text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+
+
+
+/*试听购买*/
+.col-md-6-right,.col-md-6-left {
+  padding: 0 !important;
+  color: #666666;
+}
+.live-online {
+  width: 60px;
+  display: inline-block;
+  text-align: center;
+  background-color: deepskyblue;
+  margin-left: 10px;
+  color: white;
+  font-size: 1.4rem;
+}
+.live-title {
+  font-size: 1.6rem;
+  color: #000000;
+}
+.subject-img {
+  width: 480px;
+  height: 300px;
+}
+.col-md-6-right img {
+  width: 10px;
+  margin-right: 10px;
+}
+.dd-msg {
+  overflow: hidden;
+}
+.dd-msg-subject,.dd-msg-grade,.dd-msg-count,.dd-money,.dd-audition,.dd-buynow {
+  float: left;
+}
+.dd-msg-grade {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+.col-md-6-right dl dd:first-child {
+  padding-top: 0 !important;
+}
+.col-md-6-right dl dd {
+  padding-top: 24px;
+}
+.col-md-6-right dl dd:last-child {
+  padding-top: 58px;
+}
+.dd-title {
+  padding-right: 10px;
+}
+.dd-money-num {
+  font-size: 1.8rem;
+  color: red;
+}
+.dd-money-count {
+  font-size: 1.2rem;
+}
+.dd-money {
+  width: 93px;
+}
+.dd-audition {
+  background-color: forestgreen;
+  width: 40px;
+  line-height: 21px;
+}
+.dd-buynow {
+  width: 130px;
+  line-height: 42px;
+  background-color: orange;
+}
+.dd-audition,.dd-buynow {
+  height: 42px;
+  color: white;
+  text-align: center;
+}
+.introduction {
+  clear: both;
+  padding-top: 10px;
+  color: #666666;
+}
+.introduction img {
+  width: 10px;
+}
+.remedial-textbook-msg {
+  padding: 0 !important;
+}
+.teacher-information {
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+  text-align: center;
+  border-bottom: 1px solid gainsboro;
+  font-size: 1.6rem;
+  color: lightseagreen;
+}
+.teacher-school-msg {
+  padding: 10px;
+}
+.teacher-school-msg table {
+  width: 100%;
+  color: #666666;
+}
+.school-msg-1 {
+  width: 7%;
+}
+.teacher-introduction {
+  position: relative;
+  top: -20px;
+}
+.school-msg-2 {
+  width: 84%;
+}
+.teacher-figcaption {
+  width: 100% !important;
+}
+.teacher-school-msg table td {
+  height: 30px;
+}
+.figure-img {
+  float: right;
+  margin-left: 20px;
+}
+.figure-img img {
+  width: 121px;
+  height: 121px;
+}
+.course-list {
+  padding: 0 10px;
+}
+.course-list table {
+  width: 100%;
+  color: #666666;
+}
+.course-list table td {
+  height: 50px;
+  border-top: 1px solid gainsboro;
+}
+.course-list table tr:first-child td {
+  border-top: 0px;
+}
+.course-list table tr td:last-child span{
+  float: right;
+}
+.course-list table td img {
+  width: 10px;
+}
+
+
+
+
+
+
+/*教师注册*/
+.tec-register-title {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 0 !important;
+}
+.form-input {
+  width: 100%;
+}
+.btn-obtain {
+  color: #999999 !important; 
+  width: 110px;
+}
+.round {
+  border-radius: 4px !important;
+  height: 40px !important;
+}
+.input-box {
+  margin-top: 20px;
+  font-weight: normal;
+  color: #999999;
+}
+.btn-next {
+  background-color: gainsboro !important;
+  color: white !important;
+}
+.help-error {
+  color: red;
+  display: block;
+}
+.auth-code,.btn-obtain {
+  height: 40px !important;
+}
+.container-wrap {
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+}
+
+
+
+
+
+
+/*教师信息*/
+
+.tec-information table {
+  width: 100%;
+  font-size: 1.4rem;
+}
+.tec-information table tr td:first-child {
+  width: 70px;
+}
+.tec-information table tr td:first-child span{
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+}
+.tec-title {
+  margin-left: 5px;
+}
+.tec-information table tr td:nth-child(2) {
+  padding-left: 36px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+.mandatory {
+  color: red;
+}
+.tec-information table tr:last-child {
+  height: 50px;
+}
+.tec-text {
+  width: 420px;
+}
+.tec-school {
+  width: 100%;
+}
+.tec-text,.tec-school {
+  height: 40px;
+  padding: 8px;
+}
+.gender {
+  margin-right: 100px !important;
+}
+
+.date-2 {
+  height: 40px;
+}
+.label-icon-3 {
+  position: relative;
+  left: 400px;
+  top: -28px !important;
+}
+.remedial-date-1 {
+  width: 420px;
+  height: 40px;
+  padding-top: 0 !important;
+  border: 1px solid #999999;
+  text-align: start !important;
+  padding-left: 8px;
+  font-size: 1.4rem;
+}
+.birth-date {
+  padding-left: 0 !important;
+}
+.subject-radio {
+  width: 420px;
+  border: 1px solid #999999;
+  padding: 8px;
+  display: none;
+}
+.subject-radio span {
+  margin-right: 20px;
+  color: #666666;
+}
+.td-line {
+  width: 420px;
+  height: 40px;
+}
+.drop-down-img {
+  position: relative;
+  left:395px;
+  top: -30px;
+}
+.tec-introduce {
+  width: 100%;
+}
+.td-information {
+  width: 20%;
+  position: relative;
+}
+.information-img {
+  width: 88%;
+  height: 62%;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.information-img img {
+  width: 100%;
+}
+.information-img figcaption {
+  width: 100%;
+  text-align: center;
+}
+.btn-register {
+  height: 40px;
+  width: 340px;
+  line-height: 40px;
+  margin-left: -170px;
+  background-color: #999999;
+  border: 1px solid #999999;
+}
+.btn-stu-register {
+   width: 120px; 
+   height: 30px;
+   margin-left: -60px;
+   line-height: 30px;
+   background-color: mediumseagreen;
+}
+.btn-register,.btn-stu-register {
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  border-radius: 3px;
+  text-align: center;
+  color: white;
+}
+
+
+/*登录*/
+
+.input-line {
+  height: 50px !important;
+}
+.input-heigh {
+  margin-top: 20px;
+}
+.search-pwd {
+  float: right;
+}
+.btn-enter {
+  background-color: gray !important;
+  color: white !important;
+  border-radius: 4px !important;
+  font-size: 20px !important;
+}
+.container-login {
+  margin-top: 30px;
+  margin-bottom: 50px;
+}
+.btn-sub {
+  background-color: mediumseagreen !important;
+  color: white !important;
+}
+
+
+
+
+/*消息推送*/
 .new-msg {
   width: 100%;
 }
@@ -1117,13 +1600,17 @@ figcaption p {
   border-bottom: 1px solid #666666;
   line-height: 50px;
 }
+.new-msg-title a {
+  font-size: 2.2rem;
+  color: #666666;
+}
 .msg-new {
   color: #000000 !important;
   margin-right: 10px;
 }
-.new-msg-title a {
-  font-size: 2.2rem;
-  color: #666666;
+.msg-record {
+  color: #000000 !important;
+  margin-left: 10px;
 }
 .new-msg-content {
   padding: 10px;
@@ -1135,16 +1622,19 @@ figcaption p {
 .new-msg-content table tr td:first-child {
   width: 80px;
 }
+.new-msg-content table tr td:first-child span{
+  height: 40px;
+  line-height: 40px;
+}
 .new-msg-content table tr td:last-child {
-  padding: 7.5px 0px 7.5px 10px;
+  padding: 7.5px 0px 7.5px 10px;  
+}
+.new-msg-content input[type='text'] {
+  padding-left: 8px;
 }
 .text-msg {
   width: 100%;
   height: 40px;
-}
-.new-msg-content table tr td:first-child span {
-  height: 40px;
-  line-height: 40px;
 }
 .msg-content {
   width: 100%;
@@ -1155,20 +1645,20 @@ figcaption p {
   width: 60px;
   margin-right: 10%;
 }
+.msg-num {
+  width: 38%;
+  height: 40px;
+    margin-left: 5.8px;
+}
 .msg-application {
   display: inline-block;
-  width: 72px;
-  margin-right: 8.6%;
+  width: 70px;
+  margin-right: 8.7%;
 }
 .msg-page {
-  width: 68%;
+  width: 69%;
   height: 40px;
   margin-left: 4px;
-}
-.msg-radio {
-  float: left;
-  line-height: 40px;
-  margin-right: 10px;
 }
 .btn-send {
   display: inline-block;
@@ -1176,51 +1666,49 @@ figcaption p {
   height: 40px;
   position: relative;
   left: 50%;
-  margin-left: -60px;
+  margin-left: -65px;
   line-height: 40px;
   text-align: center;
   border-radius: 4px;
   background-color: #999999;
   color: white;
 }
-.datainp {
-  width: 185px;
-  height: 40px;
-}
-.glyphicon-clock {
-  position: relative;
-  right: 20px;
+.msg-radio {
+  float: left;
+  line-height: 40px;
+  margin-right: 10px;
 }
 .send-time {
   float: left;
   display: none;
 }
-.msg-num {
-  width: 38%;
+.dateinfo-1,.dateinfo-2,.dateinfo-3 {
+  width: 185px;
   height: 40px;
-  margin-left: 5.8px;
 }
+.glyphicon-clock {
+position: relative; 
+right: 25px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*新消息记录*/
 .record-content-title {
   height: 50px;
   font-size: 1.4rem;
   padding-top: 15px;
 }
-.record-status {
-  float: left;
-  margin-right: 24px;
-}
 .record-content-title select {
   height: 26px;
-}
-.record-num {
-  width: 135px;
-}
-.record-con {
-  width: 200px;
-}
-.msg-empty {
-  position: relative;
-  top: 3px;
 }
 .btn-record {
   width: 70px;
@@ -1233,40 +1721,104 @@ figcaption p {
   line-height: 23.5px;
   color: #000000;
 }
-.new-msg-content table {
-  width: 100%;
-  font-size: 1.4rem;
+.msg-empty {
+  position: relative;
+  top: 3px;
 }
-.new-msg-content table tr td:first-child {
-  width: 80px;
+.record-status {
+  float: left;
+  margin-right: 24px;
 }
 .record-content-msg table td {
   text-align: center;
-  border-color: #666666;
+  border-color: #999999;
   font-size: 1.4rem;
   color: #666666;
 }
-.msg-details {
-  background-color: gainsboro;
-  display: none;
+.record-content-msg table {
+  border: 1px solid #999999;
+}
+.record-num {
+  width: 135px;
+}
+.record-con {
+  width: 200px;
 }
 .msg-describe {
   text-align: left !important;
   padding-left: 10px !important;
   padding-right: 10px !important;
-}
-.msg-details {
-  background-color: gainsboro;
-  display: none;
 }
 .msg-number {
   border-right: 0px !important;
 }
 .msg-number-1 {
   border-left: 0px !important;
+  padding-left: 0 !important;
 }
-.msg-describe {
-  text-align: left !important;
-  padding-left: 10px !important;
-  padding-right: 10px !important;
+.msg-details {
+  background-color: #F2F2F2;
+  display: none;
+}
+
+
+
+
+
+
+/*提醒*/
+.class-remind {
+  width: 100%;
+  border: 1px solid #999999;
+}
+.remind-title {
+  height: 40px;
+  border-bottom: 1px solid #999999;
+  line-height: 40px;
+  padding: 0 10px;
+}
+.title-setup {
+  float: right;
+}
+.remind-con {
+  margin: 10px;
+  background-color: #F2F2F2;
+}
+.remind-set {
+  color: #000000;
+}
+.con-remindtime select {
+  border: 0px;
+  background-color: #F2F2F2;
+}
+.remindway-msg,.remindtime-me {
+  margin-left: 25px;
+  margin-right: 125px;
+}
+.remindway-msg,.remindway-system,.remindtime-me em {
+  color: #666666;
+}
+.con-remindway {
+  padding: 40px 0;
+}
+.con-remindtime {
+  padding-bottom: 40px;
+}
+.remind-con-msg {
+  position: relative;
+  left: 50%;
+  margin-left: -215px;
+}
+.btn-save {
+  display: inline-block;
+  width: 120px;
+  height: 34px;
+  border: 1px solid #000000;
+  color: #000000;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 34px;
+  position: relative;
+  left: 50%;
+  margin: 10px 0 30px -60px;
 }

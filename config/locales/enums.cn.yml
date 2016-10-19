@@ -22,3 +22,32 @@ cn:
       category:
         teacher_live: 教师直播端
         student_client: 学生客户端
+    push_message:
+      push_type:
+        unicast: 单播
+        listcast: 列播
+        broadcast: 广播
+        groupcast: 组播
+        customizedcast: 自定义播
+      display_type:
+        notification: 通知
+        message: 消息
+      after_open:
+        go_app: 打开应用
+        go_url: 跳转到url
+        go_activity: 打开特定的activity
+        go_custom: 自定义内容
+      alias_type:
+        student: 学生
+      customer:
+        anyone: 所有人
+        teacher: 老师
+        student: 学生
+        assign: 指定人
+      status:
+        init: 初始化
+        pushing: 发送中
+        success: 发送成功
+        failed: 发送失败
+
+

@@ -23,6 +23,7 @@
  *= require bootstrap-select.min
  *= require jquery-calendar
  *= require calendar
+ *= require jedate
  */
 
 @import 'bootstrap';
@@ -508,7 +509,7 @@ span.current_lesson_paused{
 // 系统消息样式
 #notifications-list .system {
   background-color: #FFFFFF;
-  color: read;
+  color: red;
 }
 
 // 有课未上

@@ -1,0 +1,77 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="new-msg">
+      <div class="new-msg-title">
+        <%= link_to '新建消息', new_admins_push_message_path %>
+        <a href="" class="msg-record">消息记录</a>
+      </div>
+      <div class="new-msg-content">
+        <div class="record-content-title">
+          <%= form_tag '', method: :get do %>
+            <div class="record-status">
+              <span>当前状态</span>
+              <%= select_tag :status, options_for_select(PushMessage.i18n_options_statuses.insert(0,['请选择',nil]), params[:status]) %>
+            </div>
+            <%= submit_tag '查询',class: 'btn-record' %>
+          <% end %>
+        </div>
+        <div class="record-content-msg">
+          <table border="1" cellspacing="1" cellpadding="1">
+            <tbody><tr>
+              <td>序号</td>
+              <td>描述</td>
+              <td>用户范围</td>
+              <td>发送时间</td>
+              <td>当前状态</td>
+              <td>操作</td>
+            </tr>
+            <% @messages.each_with_index do |msg, index| %>
+            <tr>
+              <td><%= index+1 %></td>
+              <td class="msg-describe">
+                <%= msg.description %>
+              </td>
+              <td>
+                <%= msg.customer_text %>
+              </td>
+              <td><%= msg.start_time_text.strftime('%Y-%m-%d %H:%M') %></td>
+              <td><%= msg.status_text %></td>
+              <td>
+                <a href="javascript:void(0);" class="msg-view">查看</a>
+                <!--<a href="" class="msg-cancel">/取消</a>-->
+              </td>
+            </tr>
+            <tr class="msg-details">
+              <td class="msg-number"></td>
+              <td colspan="7" class="msg-describe msg-number-1">
+                <p><%= msg.title %></p>
+                <p>
+                  <%= msg.text %>
+                </p>
+              </td>
+            </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+<script type="text/javascript">
+  var flag = true;
+  $(".msg-view").click(function  () {
+    var index = $(".msg-view").index($(this));
+    if (flag) {
+      $(".msg-details").eq(index).slideDown(200);
+      $(".msg-view").eq(index).html("收起查看");
+    }else{
+      $(".msg-details").eq(index).slideUp(200);
+      $(".msg-view").eq(index).html("查看");
+    }
+    flag = !flag;
+  })
+</script>

@@ -1,0 +1,19 @@
+production:
+  app_key: app_key
+  app_master_secret: app_master_secret
+  push_url: push_url
+
+development:
+  app_key: app_key
+  app_master_secret: app_master_secret
+  push_url: push_url
+
+testing:
+  app_key: app_key
+  app_master_secret: app_master_secret
+  push_url: push_url
+
+test:
+  app_key: app_key
+  app_master_secret: app_master_secret
+  push_url: push_url

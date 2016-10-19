@@ -16,6 +16,7 @@ cn:
       recharge_code: 充值码
       video: 视频
       software: 软件
+      push_message: 消息推送
     attributes:
       group:
         subject: 科目
@@ -116,5 +117,22 @@ cn:
         status: 状态
         published_at: 发布时间
         category: 软件分类
-
-
+      push_message:
+        push_type: 类型
+        display_type: 形式
+        description: 消息描述
+        customer: 用户范围
+        send_type: 发送时间
+        ticker: 通知提示文字
+        title: 通知标题
+        text: 通知文字描述
+        after_open: 后续动作
+        url: 打开的链接
+        activity: 客户端定义activitry
+        custom: 自定义内容
+        start_time: 推送时间
+        expire_time: 过期时间
+        production_mode: 正式推送
+        created_at: 创建时间
+        alias_type: 自定义对象(自定义播)
+        status: 状态

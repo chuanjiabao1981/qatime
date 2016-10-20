@@ -14,17 +14,18 @@ class Notification < ActiveRecord::Base
 
   # 目前只支持辅导班
   # 如果需要支持其它类型的通知需要使用key区分setting
-  def notify_by(channel)
-    send("notify_by_#{channel}")
+  # 放到子类发送
+  def notify_by(_channel)
+    # send("notify_by_#{channel}")
   end
 
   private
 
   def notify_by_email
-    SmsWorker.perform_async(SmsWorker::LIVE_STUDIO_LESSON_START_NOTIFICATION, id: id)
+    EmailWorker.perform_async(EmailWorker::LIVE_STUDIO_LESSON_START_NOTIFICATION, email: receiver.email, id: id) if receiver.email
   end
 
   def notify_by_message
-    SmsWorker.perform_async(SmsWorker::LIVE_STUDIO_LESSON_START_NOTIFICATION, id: id)
+    SmsWorker.perform_async(SmsWorker::LIVE_STUDIO_LESSON_START_NOTIFICATION, mobile: receiver.login_mobile, id: id)
   end
 end

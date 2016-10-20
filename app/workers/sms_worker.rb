@@ -246,11 +246,12 @@ class SmsWorker
   end
 
   def live_studio_lesson_start(options)
-    mobile  = options["mobile"]
-    content = options["content"]
+    mobile = options["mobile"]
+    notification = Notification.find(options["id"])
     begin
+      p "【答疑时间】#{notification.notice_content}"
       send_message(mobile,
-                   "【答疑时间】#{content}")
+                   "【答疑时间】#{notification.notice_content}")
     rescue Exception => e
       logger.info e.message
       logger.info e.backtrace.inspect

@@ -22,8 +22,6 @@
     <%= link_to payment.new_user_recharge_path(@current_resource), class: 'btn-add' do %>
       <%= Payment::CashAccount.human_attribute_name(:recharge) %>
     <% end %>
-    <%= link_to Payment::CashAccount.human_attribute_name(:withdraw), payment.new_user_withdraw_path(@current_resource),
-                class: "btn-add" unless @cash_account.balance < 100%>
   </div>
 </div>
 

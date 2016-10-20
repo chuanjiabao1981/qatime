@@ -24,12 +24,7 @@
   line-height: 3rem;
   border-bottom: 0.1rem solid gray;
 }
-/*.table {
-  font-size: 1.4rem;
-}*/
-/*.table-fix{
-  
-}*/
+
 
 .table-fix {
   width: 98%!important;
@@ -751,6 +746,7 @@ figcaption p {
   height: 32px;
   text-align: center;
   vertical-align: top;
+  line-height: 16px;
   float: left;
   color: red;
 }
@@ -1022,6 +1018,13 @@ figcaption p {
   clear: both;
   margin-top: 20px;
 }
+.remedial-sort li,.remedial-subjects li,.remedial-grade li,.remedial-state li {
+  height: 35px;
+  line-height: 35px;
+}
+.remedial-price li,.remedial-scope li,.remedial-start li {
+  height: 35px;
+}
 .remedial-sort {
   margin-top: 0 !important;
 }
@@ -1032,28 +1035,24 @@ figcaption p {
   width: 70px;
 }
 .remedial-nav ul li:nth-child(2) {
-  margin-left: 10px;
+  margin-left: 30px;
 }
 .remedial-sort li:nth-child(2),.remedial-subjects li:nth-child(2),.remedial-grade li:nth-child(2),.remedial-state li:nth-child(2) {
-  margin-right: 10px;
-  width: 40px;
+  margin-right: 15px;
+  width: 60px;
+  height: 35px;
+  line-height: 35px;
   background-color: lightseagreen;
   text-align: center;
 }
-.remedial-sort li:nth-child(2) a,.remedial-subjects li:nth-child(2) a,.remedial-grade li:nth-child(2) a {
+.remedial-sort li:nth-child(2) a,.remedial-subjects li:nth-child(2) a,.remedial-grade li:nth-child(2) a,.remedial-state li:nth-child(2) a{
   color: white;
 }
-.remedial-sort-1 {
-  margin-right: 20px;
-}
+
 .remedial-sort-1 a,.remedial-subjects-1 a,.remedial-grade-1 a,.remedial-state-1 a {
   color: #666666;
 }
 
-/*.remedial-subjects,.remedial-grade,.remedial-scope,.remedial-start,.remedial-state {
-  clear: both;
-  margin-top: 20px;
-}*/
 .remedial-start {
   margin-left: -15px;
 }
@@ -1064,23 +1063,31 @@ figcaption p {
 .remedial-grade {
   margin-bottom: 0;
 }
+.remedial-sort-1 {
+  margin-right: 45px;
+}
 .remedial-subjects-1,.remedial-grade-1,.remedial-state-1 {
-  margin-right: 15px;
+  margin-right: 30px;
 }
 .remedial-drop-down {
   text-align: center;
-  margin-top: -8px;
+  margin-top: -5px;
 }
 .remedial-drop-down a {
   color: lightseagreen;
 }
+.remedial-price li:first-child,.remedial-scope li:first-child,.remedial-start li:first-child{
+  line-height: 35px;
+  }
 .remedial-price input,.remedial-scope input {
-  width: 76px;
+  width: 100px;
+  height: 34px;
   border: 1px solid lightseagreen;
   text-align: center;
 }
 .price-line {
   margin: 0 10px;
+  line-height: 35px;
 }
 .remedial-hidden {
   margin-top: 20px;
@@ -1090,24 +1097,25 @@ figcaption p {
   width: 100%;
 }
 .remedial-date {
-  width: 176px;
-  height: 24px;
+  width: 224px;
+  height: 34px;
   border: 1px solid gray;
   padding-top: 0 !important;
   border: 1px solid lightseagreen;
 }
 .remedial-txt-1 {
   margin-left: 0 !important;
+  line-height: 35px;
   padding-left: 10px;
   padding-right: 10px;
 }
 .label-icon-1,.label-icon-2 {
   position: relative;
-  top: 3px !important;
+  top: 9px !important;
   clear: both;
 }
 .label-icon-1 {
-  right: 220px;
+  right: 270px;
 }
 .label-icon-2 {
   right: 37px;
@@ -1120,14 +1128,17 @@ figcaption p {
 .remedial-conditions a {
   float: right;
 }
+.btn-reset {
+  line-height: 34px;
+}
 .btn-screen {
   display: inline-block;
-  width: 90px;
-  height: 25px;
+  width: 120px;
+  height: 34px;
   background-color: springgreen;
   border-radius: 5px;
   text-align: center;
-  line-height: 25px;
+  line-height: 34px;
   color: white;
   margin-right: 15px;
 }
@@ -1158,6 +1169,7 @@ figcaption p {
   width: 100%;
 }
 .textbook-msg {
+  padding-right: 5px;
   border-top: 1px solid gainsboro;
   border-bottom: 1px solid gainsboro;
   font-size: 1.2rem;
@@ -1210,6 +1222,9 @@ figcaption p {
   background-color: deepskyblue;
   color: white;
 }
+.class-admissions {
+  background-color: greenyellow;
+}
 .teacher-con {
   clear: both;
   padding-top: 10px;
@@ -1239,7 +1254,11 @@ figcaption p {
   background-color: deepskyblue;
   margin-left: 10px;
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+}
+.live-title {
+  font-size: 1.6rem;
+  color: #000000;
 }
 .subject-img {
   width: 480px;
@@ -1263,16 +1282,10 @@ figcaption p {
   padding-top: 0 !important;
 }
 .col-md-6-right dl dd {
-  /*line-height: 40px;*/
-  /*padding-top: 5px;*/
-  padding-top: 30px;
-  font-size: 1.2rem;
-}
-.col-md-6-right dl dd:first-child {
-  font-size: 1.4rem;
+  padding-top: 24px;
 }
 .col-md-6-right dl dd:last-child {
-  padding-top: 50px;
+  padding-top: 58px;
 }
 .dd-title {
   padding-right: 10px;
@@ -1288,13 +1301,12 @@ figcaption p {
   width: 93px;
 }
 .dd-audition {
-  background-color: darkgreen;
-  width: 35px;
-  padding-top: 4px;
-  margin-left: 10px;
+  background-color: forestgreen;
+  width: 40px;
+  line-height: 21px;
 }
 .dd-buynow {
-  width: 100px;
+  width: 130px;
   line-height: 42px;
   background-color: orange;
 }
@@ -1302,29 +1314,25 @@ figcaption p {
   height: 42px;
   color: white;
   text-align: center;
-  font-size: 1.2rem;
 }
 .introduction {
   clear: both;
   padding-top: 10px;
   color: #666666;
-  font-size: 1.2rem;
 }
 .introduction img {
   width: 10px;
 }
-
-
-
 .remedial-textbook-msg {
   padding: 0 !important;
 }
 .teacher-information {
-  height: 36px;
-  border-bottom: 1px solid gainsboro;
+  height: 50px;
+  line-height: 50px;
   padding-left: 10px;
-  line-height: 36px;
   text-align: center;
+  border-bottom: 1px solid gainsboro;
+  font-size: 1.6rem;
   color: lightseagreen;
 }
 .teacher-school-msg {
@@ -1332,11 +1340,14 @@ figcaption p {
 }
 .teacher-school-msg table {
   width: 100%;
-  font-size: 1.2rem;
   color: #666666;
 }
 .school-msg-1 {
   width: 7%;
+}
+.teacher-introduction {
+  position: relative;
+  top: -20px;
 }
 .school-msg-2 {
   width: 84%;
@@ -1349,25 +1360,25 @@ figcaption p {
 }
 .figure-img {
   float: right;
+  margin-left: 20px;
 }
 .figure-img img {
-  width: 70px;
-  height: 70px;
+  width: 121px;
+  height: 121px;
 }
 .course-list {
   padding: 0 10px;
 }
 .course-list table {
   width: 100%;
-  font-size: 1.2rem;
   color: #666666;
 }
 .course-list table td {
-  height: 37px;
+  height: 50px;
   border-top: 1px solid gainsboro;
 }
 .course-list table tr:first-child td {
-  border-top: 0;
+  border-top: 0px;
 }
 .course-list table tr td:last-child span{
   float: right;
@@ -1382,9 +1393,6 @@ figcaption p {
 
 
 /*教师注册*/
-/*.tec-register {
-   padding: 0px 36px 10px 36px;
-}*/
 .tec-register-title {
   text-align: center;
   font-size: 20px;
@@ -1408,6 +1416,7 @@ figcaption p {
 }
 .btn-next {
   background-color: gainsboro !important;
+  color: white !important;
 }
 .help-error {
   color: red;
@@ -1433,7 +1442,7 @@ figcaption p {
   font-size: 1.4rem;
 }
 .tec-information table tr td:first-child {
-  width: 62px;
+  width: 70px;
 }
 .tec-information table tr td:first-child span{
   display: inline-block;
@@ -1479,9 +1488,8 @@ figcaption p {
 .remedial-date-1 {
   width: 420px;
   height: 40px;
-  border: 1px solid gray;
   padding-top: 0 !important;
-  border: 1px solid #666666;
+  border: 1px solid #999999;
   text-align: start !important;
   padding-left: 8px;
   font-size: 1.4rem;
@@ -1491,12 +1499,13 @@ figcaption p {
 }
 .subject-radio {
   width: 420px;
-  border: 1px solid #666666;
+  border: 1px solid #999999;
   padding: 8px;
-  /*display: none;*/
+  display: none;
 }
 .subject-radio span {
   margin-right: 20px;
+  color: #666666;
 }
 .td-line {
   width: 420px;
@@ -1504,8 +1513,8 @@ figcaption p {
 }
 .drop-down-img {
   position: relative;
-  left:390px;
-  top: -35px;
+  left:395px;
+  top: -30px;
 }
 .tec-introduce {
   width: 100%;
@@ -1528,21 +1537,30 @@ figcaption p {
   width: 100%;
   text-align: center;
 }
-
 .btn-register {
-  position: relative;
-  left: 50%;
-  margin-left: -170px;
-  display: inline-block;
   height: 40px;
   width: 340px;
-  border: 1px solid #999999;
-  border-radius: 3px;
-  background-color: #999999;
-  color: white;
   line-height: 40px;
-  text-align: center;
+  margin-left: -170px;
+  background-color: #999999;
+  border: 1px solid #999999;
 }
+.btn-stu-register {
+   width: 120px; 
+   height: 30px;
+   margin-left: -60px;
+   line-height: 30px;
+   background-color: mediumseagreen;
+}
+.btn-register,.btn-stu-register {
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  border-radius: 3px;
+  text-align: center;
+  color: white;
+}
+
 
 /*登录*/
 
@@ -1555,12 +1573,251 @@ figcaption p {
 .search-pwd {
   float: right;
 }
-.btn-login {
-  background-color: gainsboro !important;
+.btn-enter {
+  background-color: gray !important;
   color: white !important;
   border-radius: 4px !important;
+  font-size: 20px !important;
 }
 .container-login {
   margin-top: 30px;
   margin-bottom: 50px;
+}
+.btn-sub {
+  background-color: mediumseagreen !important;
+  color: white !important;
+}
+
+
+
+
+/*消息推送*/
+.new-msg {
+  width: 100%;
+}
+.new-msg-title {
+  height: 50px;
+  border-bottom: 1px solid #666666;
+  line-height: 50px;
+}
+.new-msg-title a {
+  font-size: 2.2rem;
+  color: #666666;
+}
+.msg-new {
+  color: #000000 !important;
+  margin-right: 10px;
+}
+.msg-record {
+  color: #000000 !important;
+  margin-left: 10px;
+}
+.new-msg-content {
+  padding: 10px;
+}
+.new-msg-content table {
+  width: 100%;
+  font-size: 1.4rem;
+}
+.new-msg-content table tr td:first-child {
+  width: 80px;
+}
+.new-msg-content table tr td:first-child span{
+  height: 40px;
+  line-height: 40px;
+}
+.new-msg-content table tr td:last-child {
+  padding: 7.5px 0px 7.5px 10px;  
+}
+.new-msg-content input[type='text'] {
+  padding-left: 8px;
+}
+.text-msg {
+  width: 100%;
+  height: 40px;
+}
+.msg-content {
+  width: 100%;
+  padding: 8px;
+}
+.msg-check {
+  display: inline-block;
+  width: 60px;
+  margin-right: 10%;
+}
+.msg-num {
+  width: 38%;
+  height: 40px;
+    margin-left: 5.8px;
+}
+.msg-application {
+  display: inline-block;
+  width: 70px;
+  margin-right: 8.7%;
+}
+.msg-page {
+  width: 69%;
+  height: 40px;
+  margin-left: 4px;
+}
+.btn-send {
+  display: inline-block;
+  width: 120px;
+  height: 40px;
+  position: relative;
+  left: 50%;
+  margin-left: -65px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 4px;
+  background-color: #999999;
+  color: white;
+}
+.msg-radio {
+  float: left;
+  line-height: 40px;
+  margin-right: 10px;
+}
+.send-time {
+  float: left;
+  display: none;
+}
+.dateinfo-1,.dateinfo-2,.dateinfo-3 {
+  width: 185px;
+  height: 40px;
+}
+.glyphicon-clock {
+position: relative; 
+right: 25px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*新消息记录*/
+.record-content-title {
+  height: 50px;
+  font-size: 1.4rem;
+  padding-top: 15px;
+}
+.record-content-title select {
+  height: 26px;
+}
+.btn-record {
+  width: 70px;
+  height: 26px;
+  float: right;
+  display: inline-block;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 23.5px;
+  color: #000000;
+}
+.msg-empty {
+  position: relative;
+  top: 3px;
+}
+.record-status {
+  float: left;
+  margin-right: 24px;
+}
+.record-content-msg table td {
+  text-align: center;
+  border-color: #999999;
+  font-size: 1.4rem;
+  color: #666666;
+}
+.record-content-msg table {
+  border: 1px solid #999999;
+}
+.record-num {
+  width: 135px;
+}
+.record-con {
+  width: 200px;
+}
+.msg-describe {
+  text-align: left !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+.msg-number {
+  border-right: 0px !important;
+}
+.msg-number-1 {
+  border-left: 0px !important;
+  padding-left: 0 !important;
+}
+.msg-details {
+  background-color: #F2F2F2;
+  display: none;
+}
+
+
+
+
+
+
+/*提醒*/
+.class-remind {
+  width: 100%;
+  border: 1px solid #999999;
+}
+.remind-title {
+  height: 40px;
+  border-bottom: 1px solid #999999;
+  line-height: 40px;
+  padding: 0 10px;
+}
+.title-setup {
+  float: right;
+}
+.remind-con {
+  margin: 10px;
+  background-color: #F2F2F2;
+}
+/*.remind-set {
+  color: #000000;
+}*/
+.con-remindtime select {
+  border: 0px;
+  background-color: #F2F2F2;
+}
+.remindway-msg,.remindtime-me {
+  margin-left: 25px;
+  margin-right: 125px;
+}
+.remindway-msg,.remindway-system,.remindtime-me em {
+  color: #666666;
+}
+.con-remindway {
+  padding: 40px 0;
+}
+.con-remindtime {
+  padding-bottom: 40px;
+}
+.remind-con-msg {
+  position: relative;
+  left: 50%;
+  margin-left: -215px;
+}
+.btn-save {
+  width: 120px;
+  height: 34px;
+  border: 1px solid #000000;
+  background-color: white;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 31px;
+  position: relative;
+  left: 50%;
+  margin: 10px 0 30px -60px;
 }

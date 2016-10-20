@@ -54,6 +54,7 @@ LiveStudio::Engine.routes.draw do
     resources :teachers, only: [] do
       member do
         get :schedules
+        get :settings
       end
       resources :courses, only: [:index, :show, :edit, :update, :create] do
         member do
@@ -99,10 +100,9 @@ LiveStudio::Engine.routes.draw do
     resources :students, only: [] do
       member do
         get :schedules
+        get :settings
       end
       resources :courses, only: [:index, :show]
-
-      get :settings
     end
   end
 

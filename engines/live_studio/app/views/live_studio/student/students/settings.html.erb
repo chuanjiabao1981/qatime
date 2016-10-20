@@ -1,24 +1,42 @@
 <%
    @user = @student || @teacher
 %>
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <div class="row">
-      <div>
-        <span>
-          <%= link_to t("view.student_bars.schedules"), live_studio.schedules_student_path(@user) %>
-          &gt;
-          <%= t("view.settings.notice") %>
-        </span>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= simple_form_for(@setting, as: :setting, url: settings_path) do |f| %>
+    <div class="class-remind">
+      <div class="remind-title">
+        <%= link_to t("view.student_bars.schedules"), live_studio.schedules_student_path(@user) %>
+        <span>&gt;</span>
+        <span class="remind-set"><%= t("view.settings.notice") %></span>
       </div>
-      <div class="">
-        <%= simple_form_for(@setting, as: :setting, url: settings_path) do |f| %>
-          <%= f.input :notice, as: :boolean %>
-          <%= f.input :email, as: :boolean %>
-          <%= f.input :message, as: :boolean %>
-          <%= f.input :ext %>
-        <% end %>
+      <div class="remind-con">
+        <div class="remind-con-msg">
+          <div class="con-remindway">
+            <span><%= NotificationSetting.human_attribute_name(:value) %>：</span>
+            <span class="remindway-msg">
+              <%= f.check_box :message %>
+              <%= f.label :message %>
+            </span>
+            <span class="remindway-system">
+              <%= f.check_box :notice %>
+              <%= f.label :notice %>
+            </span>
+          </div>
+
+          <div class="con-remindtime">
+            <span><%= NotificationSetting.human_attribute_name(:ext) %>：</span>
+            <span class="remindtime-me">
+              <em><%= NotificationSetting.human_attribute_name(:before) %></em>
+              <%= f.select(:before_hours, options_for_select((0..12).map {|i| ["#{i} #{t('datetime.prompts.hour')}", i]})) %>
+              <%= f.select(:before_minutes, options_for_select((0..1).map {|i| ["#{i * 30} #{t('datetime.prompts.minute')}", i * 30]})) %>
+            </span>
+          </div>
+        </div>
       </div>
+      <%= f.submit :save %>
     </div>
+    <% end %>
   </div>
 </div>

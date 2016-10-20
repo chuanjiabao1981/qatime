@@ -7,6 +7,7 @@
     <%= Payment::CashAccount.human_attribute_name(:balance) %>
     <span><strong><%= number_to_currency(@cash_account.balance, unit: '') %></strong></span>
     <%= t('currency.cn') %>
+    <%= link_to Payment::CashAccount.human_attribute_name(:withdraw), payment.new_user_withdraw_path(@current_resource) unless @cash_account.balance < 100%>
   </div>
   <div class="std-row-3"><%= @cash_account.try(:status) %></div>
   <div class="std-row-2">
@@ -21,13 +22,19 @@
     <%= link_to payment.new_user_recharge_path(@current_resource), class: 'btn-add' do %>
       <%= Payment::CashAccount.human_attribute_name(:recharge) %>
     <% end %>
+    <%= link_to Payment::CashAccount.human_attribute_name(:withdraw), payment.new_user_withdraw_path(@current_resource),
+                class: "btn-add" unless @cash_account.balance < 100%>
   </div>
 </div>
 
 <div class="panel-row row-th">
   <div class="col-md-4">
-    <%= link_to payment.cash_user_path(@current_resource), class: "record#{' active-1' if params[:fee] != 'y'}"  do%>
+    <%= link_to payment.cash_user_path(@current_resource), class: "record#{' active-1' unless %w(x y).include?(params[:fee])}"  do%>
       <%= Payment::Recharge.model_name.human %>
+    <% end %>
+    <span class="record-line"><strong>|</strong></span>
+    <%= link_to payment.cash_user_path(@current_resource, fee: 'x'), class: "record#{' active-1' if params[:fee] == 'x'}"  do%>
+      <%= Payment::Withdraw.model_name.human %>
     <% end %>
     <span class="record-line"><strong>|</strong></span>
     <%= link_to payment.cash_user_path(@current_resource, fee: 'y'), class: "record#{' active-1' if params[:fee] == 'y'}"  do%>
@@ -53,7 +60,7 @@
 </div>
 
 <div class="con show">
-  <% if params[:fee] != 'y' -%>
+  <% if !%w(x y).include?(params[:fee]) -%>
     <table class="table table-fix">
       <tbody>
         <tr id="tr-row1">
@@ -67,7 +74,7 @@
       <%= render @recharges %>
     </table>
     <div class="pagination-fix"><%= will_paginate @recharges %></div>
-  <% else %>
+    <% elsif params[:fee] == 'y' %>
     <table class="table table-fix">
       <tbody>
         <tr id="tr-row1">
@@ -82,6 +89,20 @@
       <%= render @consumption_records %>
     </table>
     <div class="pagination-fix"><%= will_paginate @consumption_records %></div>
+  <% elsif params[:fee] == 'x' %>
+    <table class="table table-fix">
+      <tbody>
+      <tr id="tr-row1">
+        <td><%= Payment::Withdraw.human_attribute_name(:amount) %></td>
+        <td><%= Payment::Withdraw.human_attribute_name(:transaction_no) %></td>
+        <td><%= Payment::Withdraw.human_attribute_name(:pay_type) %></td>
+        <td><%= Payment::Withdraw.human_attribute_name(:created_at) %></td>
+        <td><%= Payment::Withdraw.human_attribute_name(:status) %></td>
+      </tr>
+      </tbody>
+      <%= render @withdraws %>
+    </table>
+    <div class="pagination-fix"><%= will_paginate @withdraws %></div>
   <% end %>
 </div>
 

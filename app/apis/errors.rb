@@ -12,6 +12,9 @@ module APIErrors
   VersionOldError       = Class.new StandardError
   ClientInvalid         = Class.new StandardError
   StatusChangeError     = Class.new StandardError
+  CaptchaError          = Class.new StandardError
+  ValueOverflow         = Class.new StandardError
+  WithdrawExisted       = Class.new StandardError
 
   module ClassMethods
     def include_errors
@@ -44,12 +47,24 @@ module APIErrors
         out_error(code: 2002, msg: "不支持的客户端")
       end
 
+      rescue_from CaptchaError do |e|
+        out_error(code: 2003, msg: e.message || "无效的验证码")
+      end
+
+      rescue_from ValueOverflow do |e|
+        out_error(code: 2004, msg: e.message || "数值溢出")
+      end
+
       rescue_from Grape::Exceptions::ValidationErrors do |e|
         out_error(code: 3001, msg: e.message || "输入内容格式有误")
       end
 
       rescue_from ActiveRecord::RecordInvalid do |e|
         out_error(code: 3002, msg: e.message)
+      end
+
+      rescue_from WithdrawExisted do |e|
+        out_error(code: 3003, msg: e.message || '当前有未完成的提现申请')
       end
     end
   end

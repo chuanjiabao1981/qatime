@@ -1784,9 +1784,9 @@ right: 25px;
   margin: 10px;
   background-color: #F2F2F2;
 }
-.remind-set {
+/*.remind-set {
   color: #000000;
-}
+}*/
 .con-remindtime select {
   border: 0px;
   background-color: #F2F2F2;
@@ -1810,14 +1810,13 @@ right: 25px;
   margin-left: -215px;
 }
 .btn-save {
-  display: inline-block;
   width: 120px;
   height: 34px;
   border: 1px solid #000000;
-  color: #000000;
+  background-color: white;
   border-radius: 5px;
   text-align: center;
-  line-height: 34px;
+  line-height: 31px;
   position: relative;
   left: 50%;
   margin: 10px 0 30px -60px;

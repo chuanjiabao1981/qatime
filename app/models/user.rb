@@ -47,14 +47,13 @@ class User < ActiveRecord::Base
   has_many :payment_recharges, class_name: Payment::Recharge # 通知记录
   has_many :payment_withdraws, class_name: Payment::Withdraw # 提现申请记录
 
-
-  has_many :notifications, ->{ order 'created_at desc'}, foreign_key: :receiver_id
-  has_many :customized_course_action_notifications,->{ order 'created_at desc'},foreign_key: :receiver_id
+  has_many :notifications, -> { order 'created_at desc'}, foreign_key: :receiver_id
+  has_many :customized_course_action_notifications, -> { order 'created_at desc'}, foreign_key: :receiver_id
   has_many :course_action_notifications, class_name: '::LiveStudio::CourseActionNotification', foreign_key: :receiver_id
 
   has_one :cash_account, as: :owner, class_name: '::Payment::CashAccount'
 
-  has_many :comments,foreign_key: :author_id
+  has_many :comments, foreign_key: :author_id
 
   has_many :wechat_users, class_name: Qawechat::WechatUser, :dependent => :destroy
 
@@ -68,6 +67,8 @@ class User < ActiveRecord::Base
   belongs_to :city
 
   has_many :login_tokens
+
+  has_one :notification_setting, as: :owner
 
   GENDER_HASH = {
     male: 1, # 男

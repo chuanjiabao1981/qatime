@@ -16,6 +16,7 @@ Qatime::Application.routes.draw do
   get "waiters/home"        => "waiters/home#main",     as: 'waiters_home'
 
   resources :curriculums
+  resources :settings, only: [:create, :update]
   resources :qa_faqs do
     collection do
       get 'courses'

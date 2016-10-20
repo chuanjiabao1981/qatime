@@ -9,6 +9,10 @@
         <span>
           <%= t("view.student_bars.schedules") %>
         </span>
+        <span style="float: right;">
+          <%= link_to t("view.notification_setting.notice"), live_studio.settings_student_path(@user) if @user.student? %>
+          <%= link_to t("view.notification_setting.notice"), live_studio.settings_teacher_path(@user) if @user.teacher? %>
+        </span>
       </div>
       <div class="">
         <a href='#schedules_div' data-toggle="tab">

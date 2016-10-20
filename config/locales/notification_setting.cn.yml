@@ -1,0 +1,24 @@
+cn:
+  helpers:
+    submit:
+      notification_setting:
+        create: "保存"
+        update: "保存"
+      setting:
+        create: "保存"
+        update: "保存"
+  activerecord:
+    models:
+      notification_setting: 通知设置
+    attributes:
+      notification_setting:
+        notice: 系统通知
+        email: 邮件通知
+        message: 短信通知
+        value: 通知方式
+        ext: 提醒时间
+        before: 提前
+  view:
+    notification_setting:
+      notice: 通知设置
+

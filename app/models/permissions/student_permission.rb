@@ -172,6 +172,7 @@ module Permissions
       allow 'payment/transactions', [:show, :result] do |resource|
         resource.id == user.id
       end
+      allow 'payment/withdraws', [:new, :create, :complete, :cancel]
       # payment permission
 
       ## begin api permission

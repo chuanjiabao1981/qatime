@@ -38,7 +38,7 @@ module Payment
     def cancel
       @withdraw = Payment::Withdraw.find params[:id]
       @withdraw.cancel!
-      redirect_to cash_user_path(@resource_user),notice: i18n_notice('cancel',Payment::Withdraw)
+      redirect_to cash_user_path(@resource_user),notice: i18n_notice('cancel',@withdraw)
     end
 
     private

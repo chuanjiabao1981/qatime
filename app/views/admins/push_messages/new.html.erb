@@ -1,0 +1,224 @@
+<div class="panel panel-default">
+  <div class="panel-body">
+    <div class="new-msg">
+      <div class="new-msg-title">
+        <a href="" class="msg-new">新建消息</a>
+        <%= link_to '消息记录', admins_push_messages_path %>
+      </div>
+      <div class="new-msg-content">
+        <%= simple_form_for [:admins,@message] do |f|%>
+          <%= content_tag :div, '请检查以下字段:' unless @message.errors.blank? %>
+          <%= content_tag :div, class: 'alert-alert' do%>
+            <% @message.errors.messages.each do |msg| %>
+              <%= content_tag :div, ::PushMessage.human_attribute_name(msg.first) %>
+            <% end %>
+          <% end unless @message.errors.blank? %>
+          <table border="0" cellspacing="0" cellpadding="0">
+            <tbody><tr>
+              <td><span>消息描述：</span></td>
+              <td>
+                <%= f.text_field :description, class: 'text-msg', placeholder: '输入消息描述以便于管理' %>
+              </td>
+            </tr>
+            <tr>
+              <td><span>通知提示：</span></td>
+              <td>
+                <%= f.text_field :ticker, class: 'text-msg', placeholder: '输入通知栏提示' %>
+              </td>
+            </tr>
+            <tr>
+              <td><span>标&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 题：</span></td>
+              <td>
+                <%= f.text_field :title, class: 'text-msg', placeholder: '输入消息标题' %>
+              </td>
+            </tr>
+            <tr>
+              <td><span>内&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 容：</span></td>
+              <td>
+                <%= f.text_area :text, class: 'msg-content', placeholder: '输入消息内容' %>
+              </td>
+            </tr>
+            <tr>
+              <td><span>提醒方式：</span></td>
+              <td>
+                <span class="msg-check">
+                  <%= f.check_box :play_sound %>声音
+                </span>
+                <span class="msg-check">
+                  <%= f.check_box :play_vibrate %>震动
+                </span>
+                <span>
+                  <%= f.check_box :play_lights %>呼吸灯
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td><span>用户范围：</span></td>
+              <td>
+                <% ::PushMessage.customers.each do |k, _| %>
+                  <%= content_tag :span, class: k == 'assign' ? '' : 'msg-check' do %>
+                    <%= f.radio_button :customer, k, class: 'customer' %><%= t("enums.push_message.customer.#{k}") %>
+                  <% end %>
+                <% end %>
+                <%= f.text_field :assign_value, class: 'msg-num', placeholder: '输入制定人员的邮箱或手机号' %>
+              </td>
+            </tr>
+            <tr>
+              <td><span>后续动作：</span></td>
+              <td>
+                <span class="msg-application">
+                  <%= f.radio_button :after_open, 'go_app',class: 'after_open' %>
+                  打开应用
+                </span>
+                <span>
+                  <%= f.radio_button :after_open, 'go_custom', class: 'after_open' %>
+                  打开制定页面
+                </span>
+                <%= f.text_field :custom, class: 'msg-page', placeholder: '请输入制定页面的名称' %>
+              </td>
+            </tr>
+            <tr>
+              <td><span>发送时间：</span></td>
+              <td>
+                <span class="msg-radio">
+                  <%= f.radio_button :send_type, 'now',class: 'msg-send' %>立即发送
+                </span>
+                <div class="send-time">
+                  <span class="datep">
+                    <%= f.text_field :expire_time, class: 'datainp dateinfo-1', placeholder: '请选择' %>
+                    <label for="dateinfo-2" class="glyphicon-clock glyphicon glyphicon-time"></label>
+                  </span>
+                  <em class="countdown">(5.2小时内可以接收到消息)</em>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><span>定时发送</span></td>
+              <td>
+                <span class="msg-radio">
+                  <%= f.radio_button :send_type, 'later',class: 'msg-send' %>定时发送
+                </span>
+                <div class="send-time">
+                  <span class="datep">
+                    <%= f.text_field :start_time, class: 'datainp dateinfo-2', placeholder: '请选择' %>
+                    <label for="dateinfo-2" class="glyphicon-clock glyphicon glyphicon-time"></label>
+                  </span>
+                  <span style="margin-right: 15px;">至</span>
+                  <span class="datep">
+                    <%= f.text_field :later_expire_time, class: 'datainp dateinfo-3', placeholder: '请选择' %>
+                    <label for="dateinfo-3" class="glyphicon-clock glyphicon glyphicon-time"></label>
+                  </span>
+                  <em class="overdue">(5.2小时内可以接收到消息)</em>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <%= f.submit '提交', class: 'btn-send' %>
+              </td>
+            </tr>
+            </tbody></table>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(".msg-send").click(function  () {
+    var index = $(".msg-send").index($(this));
+    if (index == 0) {
+      $(".send-time").eq(0).show();
+    }else{
+      $(".send-time").eq(0).hide();
+    }
+    if (index == 1) {
+      $(".send-time").eq(1).show();
+    }else{
+      $(".send-time").eq(1).hide();
+    }
+  })
+
+  jeDate({
+    dateCell:".dateinfo-1",
+    format:"YYYY-MM-DD hh:mm:ss",
+    isinitVal:true,
+    isTime:true, //isClear:false,
+    minDate:jeDate.now(0),
+    choosefun:function(val) {
+      var EndTime= new Date(val);
+      var NowTime = new Date();
+      var t =EndTime.getTime() - NowTime.getTime();
+      timedown (t);
+      timeId = setInterval(function () {
+        t -= 1000;
+        timedown (t)
+      }, 1000)
+    }
+  })
+
+  function timedown (t) {
+    var h = (t/1000/60/60).toFixed(1);
+    $(".countdown").html(h+"小时内可以接受到消息")
+  }
+
+  var data1,data2,timeId;
+  jeDate({
+    dateCell:".dateinfo-2",
+    format:"YYYY-MM-DD hh:mm:ss",
+    isinitVal:true,
+    isTime:true,
+    minDate:"2014-09-19 00:00:00",
+    choosefun:function(val) {
+      data1 = new Date(val)
+    }
+  })
+  jeDate({
+    dateCell:".dateinfo-3",
+    format:"YYYY-MM-DD hh:mm:ss",
+    isinitVal:true,
+    isTime:true,
+    minDate:"2014-09-19 00:00:00",
+    choosefun:function(val) {
+      clearInterval(timeId);
+      data2 = new Date(val);
+      var time = data2 - data1;
+      parseTime(time);
+      timeId = setInterval(function () {
+        time -= 1000;
+        parseTime(time);
+      }, 1000)
+    }
+  })
+
+  function parseTime (time) {
+    var h = (time  / 3600000).toFixed(1);
+    $('.overdue').text( h + '小时内可以接受到消息' )
+  }
+
+  $(".after_open").click(function  () {
+    var index = $(".after_open").index($(this));
+    if (index != 1) {
+      $(".msg-page").val("")
+    }else if (index == 1){
+      $(".msg-page").focus();
+    }
+  })
+  $(".msg-page").click(function  () {
+    $(".after_open").eq(1).attr("checked","checked");
+  })
+
+
+  $(".customer").click(function  () {
+    var index = $(".customer").index($(this));
+    if (index != 2) {
+      $(".msg-num").val("")
+    }else if (index == 2){
+      $(".msg-num").focus();
+    }
+  })
+  $(".msg-num").click(function  () {
+    $(".customer").eq(2).attr("checked","checked");
+  })
+
+
+</script>

@@ -26,6 +26,7 @@
 /config/vcloud.yml
 /config/netease.yml
 /config/alipay.yml
+/config/push.yml
 
 *.sqlite3
 *.log

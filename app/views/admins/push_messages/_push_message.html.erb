@@ -1,0 +1,26 @@
+<div class="row qa_big_cell">
+  <div class="col-md-1">
+    <%= push_message_counter + 1 %>
+  </div>
+  <div class="col-md-1">
+    <%= push_message.push_type_text %>
+  </div>
+  <div class="col-md-1">
+    <%= push_message.display_type_text %>
+  </div>
+  <div class="col-md-2">
+    <%= push_message.title %>
+  </div>
+  <div class="col-md-2">
+    <%= localize(push_message.created_at,:format => :short)%>
+  </div>
+  <div class="col-md-2">
+    <%= push_message.start_time %>
+  </div>
+  <div class="col-md-1">
+    <%= push_message.status_text %>
+  </div>
+  <div class="col-md-1">
+
+  </div>
+</div>

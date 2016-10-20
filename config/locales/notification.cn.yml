@@ -20,6 +20,18 @@ cn:
         start_for_student: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时参加学习"
         miss_for_teacher: "您的课程 \"%{lesson_name}\" 未能准时授课, 请尽快进行调课并补上, 以免影响您的教学安排"
         miss_for_student: "您的课程 \"%{lesson_name}\" 未能学习"
+      live_studio/course:
+        assign: "您有新的辅导班任务【%{notificationable.name}】, 请设置后发布招生"
+        start: "您的辅导班【%{course_name}】已于今日(%{day})开课"
+        notice_create: "公告: \"%{announcement}\" -- %{teacher_name} 老师"
+        notice_update: "公告: \"%{announcement}\" -- %{teacher_name} 老师"
+      live_studio/lesson:
+        start_for_teacher: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时授课"
+        start_for_student: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时参加学习"
+        miss_for_teacher: "您的课程 \"%{lesson_name}\" 未能准时授课, 请尽快进行调课并补上, 以免影响您的教学安排"
+        miss_for_student: "您的课程 \"%{lesson_name}\" 未能学习"
+      customized_course_action_record:
+
       label:
         live_studio_course:
           assign: 辅导任务

@@ -15,6 +15,8 @@ WECHAT_CONFIG = YAML.load(File.read(File.expand_path('../wechat.yml', __FILE__))
 VCLOUD_CONFIG = YAML.load(File.read(File.expand_path('../vcloud.yml', __FILE__)))[Rails.env]
 # 网易云信配置
 Chat::IM.config(YAML.load(File.read(File.expand_path('../netease.yml', __FILE__)))[Rails.env])
+# 推送配置
+PUSH_CONFIG = YAML.load(File.read(File.expand_path('../push.yml', __FILE__)))[Rails.env]
 
 $host_name = APP_CONFIG[Rails.env.to_sym]["host_name"] if APP_CONFIG[Rails.env.to_sym]
 

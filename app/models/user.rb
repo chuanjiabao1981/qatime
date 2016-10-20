@@ -32,6 +32,8 @@ class User < ActiveRecord::Base
   validates_presence_of :avatar, :name, if: :teacher_or_student_columns_required?, on: :update
 
   validates_presence_of :name, :email, if: :not_teacher_or_student?, on: [:create, :update]
+  # 邮箱必填
+  # validates :email, presence: true, on: :update, if: ->(u) { u.name_was.nil? || u.email_was.present? }
 
   has_many :orders, class_name: ::Payment::Order
   has_many :topics, :dependent => :destroy,foreign_key: :author_id

@@ -249,7 +249,6 @@ class SmsWorker
     mobile = options["mobile"]
     notification = Notification.find(options["id"])
     begin
-      p "【答疑时间】#{notification.notice_content}"
       send_message(mobile,
                    "【答疑时间】#{notification.notice_content}")
     rescue Exception => e

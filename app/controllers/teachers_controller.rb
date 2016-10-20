@@ -204,7 +204,7 @@ class TeachersController < ApplicationController
   end
 
   def register_params
-    params.require(:teacher).permit(:name, :nick_name, :gender, :subject, :category, :desc, :email, :email_confirmation, :crop_x, :crop_y, :crop_w, :crop_h, :avatar)
+    params.require(:teacher).permit(:name, :nick_name, :gender, :subject, :category, :school_id, :desc, :email, :email_confirmation, :crop_x, :crop_y, :crop_w, :crop_h, :avatar)
   end
 
   # 根据跟新内容判断是否需要密码更新

@@ -19,7 +19,6 @@ module V1
           end
           get ':id/live_start' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
-            raise_change_error_for(@lesson.ready? || @lesson.paused? || @lesson.closed?)
             if @lesson.ready? || @lesson.paused? || @lesson.closed?
               LiveService::LessonDirector.new(@lesson).lesson_start
             end

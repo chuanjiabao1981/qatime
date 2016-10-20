@@ -5,7 +5,7 @@ module V1
       desc 'create.'
       params do
         requires :send_to, type: String, desc: '发送对象'
-        requires :key, type: Symbol, values: [:register_captcha, :send_captcha, :get_password_back, :change_email_captcha], desc: '验证码用途'
+        requires :key, type: Symbol, values: [:register_captcha, :send_captcha, :get_password_back, :change_email_captcha, :withdraw_cash], desc: '验证码用途'
       end
 
       post do

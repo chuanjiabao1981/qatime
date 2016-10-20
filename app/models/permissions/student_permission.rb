@@ -222,6 +222,8 @@ module Permissions
       api_allow :POST, "/api/v1/payment/users/[\\w-]+/recharges"
       api_allow :GET, "/api/v1/payment/users/[\\w-]+/cash"
       api_allow :GET, "/api/v1/payment/users/[\\w-]+/consumption_records"
+      api_allow :GET, "/api/v1/payment/users/[\\w-]+/withdraws"
+      api_allow :POST, "/api/v1/payment/users/[\\w-]+/withdraws"
       ## end api permission
     end
 private

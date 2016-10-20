@@ -5,10 +5,10 @@ module Entities
       expose :pay_type
       expose :status
       expose :account do |withdraw|
-        withdraw.withdraw_record.account
+        withdraw.withdraw_record.try(:account)
       end
       expose :name do |withdraw|
-        withdraw.withdraw_record.name
+        withdraw.withdraw_record.try(:name)
       end
     end
   end

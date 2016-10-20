@@ -34,7 +34,11 @@ module V1
               raise(APIErrors::CaptchaError) if params[:verify] != captcha
               raise(APIErrors::WithdrawExisted) if @user.payment_withdraws.init.present?
               withdraw = @user.payment_withdraws.new({amount: params[:amount], pay_type: params[:pay_type]}.merge(status: :init))
-              raise ActiveRecord::RecordInvalid, withdraw unless withdraw.save
+              unless withdraw.save
+                raise ActiveRecord::RecordInvalid, withdraw
+              else
+                withdraw.create_withdraw_record(account: params[:account], name: params[:name])
+              end
               present withdraw, with: Entities::Payment::Withdraw
             end
 

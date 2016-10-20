@@ -8,7 +8,7 @@ module LiveStudio
     end
 
     def settings
-      @setting = NotificationSetting.find_or_initialize_by(owner: @teacher)
+      @setting = NotificationSetting.find_by(owner: @teacher) || NotificationSetting.default
     end
   end
 end

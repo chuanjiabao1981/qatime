@@ -42,6 +42,11 @@ class NotificationSetting < Setting
     @before_minutes = minutes.to_i
   end
 
+  def self.default
+    # 默认邮件、短信都通知
+    new(value: 7, ext: 30)
+  end
+
   private
 
   before_validation :update_value

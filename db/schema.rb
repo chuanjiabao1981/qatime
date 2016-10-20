@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017110118) do
+ActiveRecord::Schema.define(version: 20161018062001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -510,6 +510,7 @@ ActiveRecord::Schema.define(version: 20161017110118) do
     t.integer  "buy_tickets_count",                                          default: 0
     t.date     "class_date"
     t.datetime "published_at"
+    t.string   "announcement"
   end
 
   add_index "live_studio_courses", ["class_date"], name: "index_live_studio_courses_on_class_date", using: :btree

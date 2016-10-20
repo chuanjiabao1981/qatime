@@ -48,13 +48,15 @@
                 </div>
               </td>
             </tr>
-            <tr>
-              <td>
-                <%= f.radio_button :pay_type, 'cash', class: 'check-1' %>
-                <%= t 'view.withdraw.cash_cn' %>
-              </td>
-              <td class="td-card"><%= t 'view.withdraw.cash_tips' %></td>
-            </tr>
+            <% unless @current_resource.student? %>
+              <tr>
+                <td>
+                  <%= f.radio_button :pay_type, 'cash', class: 'check-1' %>
+                  <%= t 'view.withdraw.cash_cn' %>
+                </td>
+                <td class="td-card"><%= t 'view.withdraw.cash_tips' %></td>
+              </tr>
+            <% end %>
             </tbody></table>
         </div>
       </div>

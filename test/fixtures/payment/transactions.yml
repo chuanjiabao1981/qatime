@@ -134,7 +134,7 @@ student_recharge_of_4:
   status: 1
   source: web
   type: Payment::Recharge
-# 提现记录
+# 老师-提现记录
 withdraws:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: teacher_tally
@@ -142,11 +142,28 @@ withdraws:
   pay_type: 0
   status: 0
   type: Payment::Withdraw
-# 提现记录
+# 老师-提现记录
 withdraw_one:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: teacher_tally
   amount: 200
   pay_type: 0
   status: 0
+  type: Payment::Withdraw
+
+# 学生-提现记录
+withdraws:
+  transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student_balance
+  amount: 200
+  pay_type: 0
+  status: 3
+  type: Payment::Withdraw
+# 学生-提现记录
+withdraw_one:
+  transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student_balance
+  amount: 200
+  pay_type: 0
+  status: 2
   type: Payment::Withdraw

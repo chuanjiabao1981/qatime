@@ -9,6 +9,9 @@ module Payment
         if params[:fee] == 'y'
           @consumption_records = @current_resource.cash_account.consumption_records.includes(:target)
           @consumption_records = query_by_date(@consumption_records).order(created_at: :desc).paginate(page: params[:page])
+        elsif params[:fee] == 'x'
+          @withdraws = @student.payment_withdraws
+          @withdraws = query_by_date(@withdraws).order(created_at: :desc).paginate(page: params[:page])
         else
           @recharges = @current_resource.payment_recharges
           @recharges = query_by_date(@recharges).order(created_at: :desc).paginate(page: params[:page])

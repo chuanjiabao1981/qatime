@@ -34,7 +34,7 @@ module Payment
     end
 
     def pay_type_text
-      I18n.t("enum.payment/withdraw.pay_type.#{pay_type}")
+      I18n.t("enum.payment/withdraw.pay_type.#{pay_type}") + " #{cash? ? nil : "(#{withdraw_record.account} #{withdraw_record.name})"}"
     end
 
     def change_money

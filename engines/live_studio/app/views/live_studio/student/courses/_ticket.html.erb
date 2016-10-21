@@ -39,7 +39,7 @@
       <%= content_tag(:div, class: 'course-operator-btn') do %>
         <%= link_to t('view.course_show.info'),student_course_path(@student,course), class: 'btn btn-default operator-btn' %>
         <%= link_to t('view.course_show.lessons'),student_course_path(@student,course,index: 'list'), class: 'btn btn-default operator-btn' %>
-        <%= link_to t('view.course_show.study_link'), play_course_path(course),
+        <%= link_to t('view.course_show.study_link'), play_course_path(course), target: '_blank',
                     class: "btn btn-default operator-btn #{course.lessons.blank? || course.completed? ? 'disabled' : nil}" %>
       <% end %>
     <% end %>

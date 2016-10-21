@@ -56,7 +56,7 @@ module LiveStudio
     test "get order parmas" do
       course = live_studio_courses(:course_one)
       assert_equal([:amount, :product], course.order_params.keys, "订单参数格式不对")
-      assert_equal(course.price, course.order_params[:total_money], "订单金额不正确")
+      assert_equal(course.price, course.order_params[:amount], "订单金额不正确")
       assert_equal(course, course.order_params[:product], "购买错误商品")
     end
 
@@ -76,7 +76,6 @@ module LiveStudio
 
       response = Typhoeus::Response.new(code: 200, body: @create_response_body1)
       Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)
-      Typhoeus.get("https://vcloud.163.com/app/channel/create") == response
 
       channel = course.init_channel
 
@@ -94,16 +93,13 @@ module LiveStudio
 
       response = Typhoeus::Response.new(code: 200, body: @create_response_body1)
       Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)
-      Typhoeus.get("https://vcloud.163.com/app/channel/create") == response
 
       channel = course.init_channel
       response = Typhoeus::Response.new(code: 200, body: @delete_response_body)
       Typhoeus.stub('https://vcloud.163.com/app/channel/delete').and_return(response)
-      Typhoeus.get("https://vcloud.163.com/app/channel/delete") == response
 
       response = Typhoeus::Response.new(code: 200, body: @create_response_body2)
       Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)
-      Typhoeus.get("https://vcloud.163.com/app/channel/create") == response
 
       channel.sync_streams
 
@@ -111,8 +107,8 @@ module LiveStudio
       streams2 = channel.pull_streams.last
       assert_equal("bfca60cef2eb464fbf0f05c3fafacef2", channel.remote_id, '频道remote_id不正确')
 
-      assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044bb", streams1.address, '推流地址不正确')
+      assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044b", streams1.address, '推流地址不正确')
       assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044ee", streams2.address, 'rtmp拉流地址不正确')
-      end
+    end
   end
 end

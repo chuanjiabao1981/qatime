@@ -19,7 +19,7 @@ module LiveStudio
     after_destroy :delete_remote_channel
 
     def create_remote_channel
-      build_streams && return unless Rails.env.production?
+      return build_streams if Rails.env.development? || Rails.env.testing?
       res = ::Typhoeus.post(
         "#{VCLOUD_HOST}/app/channel/create",
         headers: vcloud_headers,
@@ -28,13 +28,16 @@ module LiveStudio
           type: 0
         }.to_json
       )
+
       return unless res.success?
       result = JSON.parse(res.body).symbolize_keys
       build_streams(result[:ret]) if result[:code] == 200
+      self.remote_id = result[:ret]["cid"]
+      save!
     end
 
     def build_streams(result={})
-      if Rails.env.production?
+      if Rails.env.production? || Rails.env.test?
         push_streams.create(address: result['pushUrl'], protocol: 'rtmp')
         pull_streams.create(address: result['rtmpPullUrl'], protocol: 'rtmp')
       else

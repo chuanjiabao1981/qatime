@@ -144,11 +144,21 @@
     isinitVal:true,
     isTime:true, //isClear:false,
     minDate:jeDate.now(0),
-    choosefun:function(val) {
+    okfun:function(val) {
+      clearInterval(timeId);
       var EndTime= new Date(val);
       var NowTime = new Date();
       var t =EndTime.getTime() - NowTime.getTime();
-      timedown (t);
+      timeId = setInterval(function () {
+        t -= 1000;
+        timedown (t)
+      }, 1000)
+    },
+    choosefun:function(val) {
+      clearInterval(timeId);
+      var EndTime= new Date(val);
+      var NowTime = new Date();
+      var t =EndTime.getTime() - NowTime.getTime();
       timeId = setInterval(function () {
         t -= 1000;
         timedown (t)
@@ -157,19 +167,26 @@
   })
 
   function timedown (t) {
-    var h = (t/1000/60/60).toFixed(1);
-    $(".countdown").html(h+"小时内可以接受到消息")
+    var h = (t/3600000).toFixed(1);
+    $(".countdown").html(h+"小时内可以接收到消息")
   }
 
   var data1,data2,timeId;
+  var flag = false;
   jeDate({
     dateCell:".dateinfo-2",
     format:"YYYY-MM-DD hh:mm:ss",
     isinitVal:true,
     isTime:true,
-    minDate:"2014-09-19 00:00:00",
+    okfun:function(val) {
+      data1 = new Date(val);
+      flag = true;
+    },
+    minDate:jeDate.now(0),
+    maxDate:jeDate.now(7),
     choosefun:function(val) {
-      data1 = new Date(val)
+      data1 = new Date(val);
+      flag = true;
     }
   })
   jeDate({
@@ -177,22 +194,43 @@
     format:"YYYY-MM-DD hh:mm:ss",
     isinitVal:true,
     isTime:true,
-    minDate:"2014-09-19 00:00:00",
-    choosefun:function(val) {
-      clearInterval(timeId);
-      data2 = new Date(val);
-      var time = data2 - data1;
-      parseTime(time);
-      timeId = setInterval(function () {
-        time -= 1000;
+    minDate:jeDate.now(0),
+    maxDate:jeDate.now(7),
+    okfun:function(val) {
+      if (flag) {
+        clearInterval(timeId);
+        data2 = new Date(val);
+        var time = data2 - data1;
         parseTime(time);
-      }, 1000)
+        timeId = setInterval(function () {
+          time -= 1000;
+          parseTime(time);
+        }, 1000)
+      } else{
+        alert("请先选择定时发送时间");
+        flag = false;
+      }
+    },
+    choosefun:function(val) {
+      if (flag) {
+        clearInterval(timeId);
+        data2 = new Date(val);
+        var time = data2 - data1;
+        parseTime(time);
+        timeId = setInterval(function () {
+          time -= 1000;
+          parseTime(time);
+        }, 1000)
+      } else{
+        alert("请先选择定时发送时间");
+        flag = false;
+      }
     }
   })
 
   function parseTime (time) {
     var h = (time  / 3600000).toFixed(1);
-    $('.overdue').text( h + '小时内可以接受到消息' )
+    $('.overdue').text( h + '小时内可以接收到消息' );
   }
 
   $(".after_open").click(function  () {

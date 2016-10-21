@@ -37,9 +37,10 @@ class LiveStudio::TeacherLessonTest < ActionDispatch::IntegrationTest
     ready_lesson.reload
 
     # 辅导班开课，学生提醒
-    assert "您购买的辅导招生中的辅导班已于#{Date.today}开课。", student.course_action_notifications.last.notificationable.content
+    # 提醒在后台任务中做
+    # assert "您购买的辅导招生中的辅导班已于#{Date.today}开课。", student.course_action_notifications.last.notificationable.content
     # 辅导班开课，老师提醒
-    assert "您的辅导班招生中的辅导班于#{Date.today}开课。", student.course_action_notifications.last.notificationable.content
+    # assert "您的辅导班招生中的辅导班于#{Date.today}开课。", student.course_action_notifications.last.notificationable.content
 
     assert preview_course.teaching? ,'辅导班应改为上课中'
     assert ready_lesson.live_start_at.present?, '课程直播开始时间为空'
@@ -65,8 +66,10 @@ class LiveStudio::TeacherLessonTest < ActionDispatch::IntegrationTest
     assert LiveStudio::Lesson.today.init.blank?, '错误存在今日的初始化课程'
 
     # 课程ready,学生老师消息提醒
-    assert "您的课程英语辅导班-第二节将于#{Date.today} 10:20开始上课，请准时参加学习。", student.course_action_notifications.last.notificationable.content
-    assert "您的课程英语辅导班-第二节将于#{Date.today} 10:20开始上课，请准时授课。",teacher.course_action_notifications.last.notificationable.content
+
+    # 异步提醒任务
+    # assert "您的课程英语辅导班-第二节将于#{Date.today} 10:20开始上课，请准时参加学习。", student.notifications.last.notice_content
+    # assert "您的课程英语辅导班-第二节将于#{Date.today} 10:20开始上课，请准时授课。", teacher.notifications.last.notice_content
   end
 
   test 'service clean_lessons status change' do

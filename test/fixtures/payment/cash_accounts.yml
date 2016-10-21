@@ -50,7 +50,7 @@ student2_account:
 
 account_for_teacher_tally:
   owner: teacher_tally (User)
-  balance: 0
+  balance: 10000
 
 account_for_student_tally:
   owner: student_tally (User)

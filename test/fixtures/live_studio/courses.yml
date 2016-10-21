@@ -7,6 +7,9 @@ course_one:
   status: 1
   grade: 六年级
   subject: 语文
+  teacher_percentage: 10
+  preset_lesson_count: 2
+  price: 999
 
 course_two:
   name: 测试辅导2班
@@ -15,6 +18,9 @@ course_two:
   status: 1
   grade: 六年级
   subject: 语文
+  teacher_percentage: 10
+  preset_lesson_count: 2
+  price: 999
 
 course_no_teacher:
   name: 测试辅导3班
@@ -23,6 +29,9 @@ course_no_teacher:
   status: 1
   grade: 六年级
   subject: 语文
+  teacher_percentage: 10
+  preset_lesson_count: 2
+  price: 999
 
 course_destroy_teacher:
   name: 测试辅导3班
@@ -31,6 +40,9 @@ course_destroy_teacher:
   status: 1
   grade: 六年级
   subject: 语文
+  teacher_percentage: 10
+  preset_lesson_count: 2
+  price: 999
 
 course_init:
   name: 初始化辅导班
@@ -65,6 +77,7 @@ course_preview_two:
   preset_lesson_count: 10
   grade: 六年级
   subject: 语文
+  teacher_percentage: 10
 
 course_preview_three:
   name: 招生中的辅导班3
@@ -75,6 +88,7 @@ course_preview_three:
   preset_lesson_count: 10
   grade: 六年级
   subject: 语文
+  teacher_percentage: 10
 
 course_teaching:
   name: 上课中的辅导班
@@ -83,6 +97,9 @@ course_teaching:
   status: 2
   grade: 六年级
   subject: 语文
+  teacher_percentage: 10
+  price: 999
+  preset_lesson_count: 2
 
 course_without_channel:
   name: 没有初始化的辅导班
@@ -91,6 +108,9 @@ course_without_channel:
   status: 2
   grade: 六年级
   subject: 语文
+  preset_lesson_count: 2
+  teacher_percentage: 10
+  price: 999
 
 course_one_of_teacher_one:
   name: teacher_one_course_one
@@ -123,15 +143,21 @@ course_teach_2:
   status: 2
   grade: 六年级
   subject: 语文
+  teacher_percentage: 10
+  preset_lesson_count: 2
+  price: 999
 
 course_with_lesson:
   id: 3
   name: 辅导班3
   teacher_id: 1
-  workstation: workstation(:workstation1)
+  workstation_id: 1
   status: 2
   grade: 六年级
+  teacher_percentage: 10
   subject: 语文
+  preset_lesson_count: 2
+  price: 999
 
 course_with_order:
   name: 辅导班4
@@ -140,6 +166,9 @@ course_with_order:
   status: 2
   grade: 六年级
   subject: 语文
+  teacher_percentage: 10
+  preset_lesson_count: 2
+  price: 999
 
 course_with_order2:
   name: 辅导班4
@@ -147,7 +176,10 @@ course_with_order2:
   workstation: workstation(:workstation1)
   status: 2
   grade: 六年级
+  teacher_percentage: 10
   subject: 语文
+  preset_lesson_count: 2
+  price: 999
 
 course_with_lessons:
   id: 4
@@ -202,7 +234,7 @@ course_with_junior_teacher:
 course_for_taste:
   name: 试听辅导班
   teacher: teacher_for_taste_course
-  workstation_id: workstation1
+  workstation_id: 1
   status: 1
   teacher_percentage: 20
   preset_lesson_count: 10
@@ -214,7 +246,7 @@ course_for_taste:
 course_for_tasting:
   name: 正在试听辅导班
   teacher: teacher_for_taste_course
-  workstation_id: workstation1
+  workstation_id: 1
   status: 1
   teacher_percentage: 20
   preset_lesson_count: 10

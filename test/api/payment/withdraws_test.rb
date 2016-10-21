@@ -25,4 +25,12 @@ class WithdrawsTest < ActionDispatch::IntegrationTest
     assert_equal 'init', res['data']["status"]
     assert_equal 'bank', res['data']["pay_type"], "支付方式不正确"
   end
+
+  test 'user cancel withdraw' do
+    init_withdraw = @student.payment_withdraws.create(amount: 100, pay_type: 0, status: 0)
+    put "/api/v1/payment/users/#{@student.id}/withdraws/#{init_withdraw.transaction_no}/cancel", {}, 'Remember-Token' => @student_token
+    init_withdraw.reload
+    assert_response :success
+    assert init_withdraw.cancel?
+  end
 end

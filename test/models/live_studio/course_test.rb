@@ -55,7 +55,7 @@ module LiveStudio
 
     test "get order parmas" do
       course = live_studio_courses(:course_one)
-      assert_equal([:total_money, :product], course.order_params.keys, "订单参数格式不对")
+      assert_equal([:amount, :product], course.order_params.keys, "订单参数格式不对")
       assert_equal(course.price, course.order_params[:total_money], "订单金额不正确")
       assert_equal(course, course.order_params[:product], "购买错误商品")
     end

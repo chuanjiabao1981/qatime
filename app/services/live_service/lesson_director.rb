@@ -50,7 +50,7 @@ module LiveService
         # 课程上课提醒，没有准确的定时任务的时候临时解决方案
         # 每天定时任务发送
         LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_START_FOR_TEACHER)
-        LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_START_FOR_TEACHER)
+        LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_START_FOR_STUDENT)
         course = lesson.course
         if course.preview?
           course.teaching!

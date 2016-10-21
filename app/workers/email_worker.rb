@@ -14,15 +14,15 @@ class EmailWorker
 
   private
 
-  def change_email_captcha
+  def change_email_captcha(options)
     UserMailer.send(:change_email_captcha, options).deliver_now!
   end
 
-  def get_password_back
+  def get_password_back(options)
     UserMailer.send(:get_password_back, options).deliver_now!
   end
 
-  def live_studio_lesson_start
+  def live_studio_lesson_start(options)
     NotificationMailer.send(:live_studio_lesson_start, options).deliver_now!
   end
 end

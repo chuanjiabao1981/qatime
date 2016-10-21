@@ -63,6 +63,7 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     attach_file("teacher_avatar","#{Rails.root}/test/integration/avatar.jpg")
     select '高中', from: :teacher_category
     select '数学', from: :teacher_subject
+    select '阳泉一中', from: :teacher_school_id
 
     click_on "完成注册", match: :first
     assert_equal('teacher_name_test', ::Teacher.last.name, '学生完善信息错误')

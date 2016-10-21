@@ -23,7 +23,7 @@ module LiveStudio
     end
 
     def teardown
-      new_logout_as(@student)
+      logout_as(@student)
       Capybara.use_default_driver
     end
 

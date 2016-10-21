@@ -10,7 +10,7 @@ module LiveStudio
 
       @manager = users(:manager)
       @workstation = @manager.workstations.sample
-      log_in_as(@manager)
+      new_log_in_as(@manager)
     end
 
     def teardown

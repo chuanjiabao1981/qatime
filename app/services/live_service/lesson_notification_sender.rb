@@ -4,7 +4,7 @@ module LiveService
       @lesson = lesson
     end
 
-    def notice(action_name, action_time)
+    def notice(action_name)
       receivers_of(action_name).each do |receiver|
         setting = receiver.notification_setting || NotificationSetting.default
         n = ::LiveStudioLessonNotification.create(receiver: receiver, notificationable: @lesson, action_name: action_name)
@@ -14,7 +14,7 @@ module LiveService
     end
 
     # 异步发送通知
-    def notice_with_asyn(action_name, action_time, immediately = false)
+    def notice_with_asyn(action_name, immediately = false)
       return notice_without_asyn(action_name, action_time) if immediately
       NotificationSenderJob.perform_later(self.class.name, action_name.to_s, @lesson)
     end

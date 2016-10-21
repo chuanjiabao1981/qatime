@@ -58,6 +58,21 @@ module V1
               withdraws = query_by_date(withdraws).order(created_at: :desc).paginate(page: params[:page])
               present withdraws, with: Entities::Payment::Withdraw
             end
+
+            desc '提现取消' do
+              headers 'Remember-Token' => {
+                description: 'RememberToken',
+                required: true
+              }
+            end
+            params do
+              requires :id, type: Integer, desc: '订单号'
+            end
+            put 'withdraws/:id/cancel' do
+              withdraw = @user.payment_withdraws.find_by(transaction_no: params[:id])
+              withdraw.cancel!
+              present withdraw, with: Entities::Payment::Withdraw
+            end
           end
         end
       end

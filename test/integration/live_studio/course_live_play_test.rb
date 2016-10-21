@@ -12,7 +12,7 @@ module LiveStudio
       @course = live_studio_courses(:course_with_junior_teacher)
 
       LiveService::ChatAccountFromUser.new(@student).instance_account(true)
-      log_in_as(@student)
+      new_log_in_as(@student)
     end
 
     def logout_as(user)
@@ -23,7 +23,7 @@ module LiveStudio
     end
 
     def teardown
-      logout_as(@student)
+      new_logout_as(@student)
       Capybara.use_default_driver
     end
 

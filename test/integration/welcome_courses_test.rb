@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class SoftwareTest < ActionDispatch::IntegrationTest
+class WelcomeCoursesTest < ActionDispatch::IntegrationTest
   def setup
     @headless = Headless.new
     @headless.start

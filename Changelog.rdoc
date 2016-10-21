@@ -183,3 +183,11 @@
         * [QT-334](https://qatime.atlassian.net/browse/QT-334)
         * [QT-336](https://qatime.atlassian.net/browse/QT-336)
         * [QT-342](https://qatime.atlassian.net/browse/QT-342)
+* 1.0.0
+    * feature
+        * [QT-341](https://qatime.atlassian.net/browse/QT-341)
+        * [QT-351](https://qatime.atlassian.net/browse/QT-351)
+        * [QT-374](https://qatime.atlassian.net/browse/QT-374)
+        * [QT-352](https://qatime.atlassian.net/browse/QT-352)
+        * [QT-354](https://qatime.atlassian.net/browse/QT-354)
+        * [QT-353](https://qatime.atlassian.net/browse/QT-353)

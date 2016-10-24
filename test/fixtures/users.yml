@@ -21,6 +21,8 @@ teacher_one:
   avatar: test
   school: school1
   type: Teacher
+  city: yangquan
+  province: shanxi
 
 teacher_two:
   id: 2
@@ -47,6 +49,8 @@ teacher1:
   avatar: test
   school: school1
   type: Teacher
+  city: yangquan
+  province: shanxi
 
 teacher2:
   name: teacher2

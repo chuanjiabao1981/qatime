@@ -6,7 +6,7 @@ cn:
       live_studio/course:
         name: 名称
         description: 简介
-        taste_cout: 试听数
+        taste_count: 试听数
 
 
 

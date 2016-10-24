@@ -9,7 +9,7 @@
     <%= f.input :subject, type: :select, collection: APP_CONSTANT['subjects'] %>
     <%= f.input :grade, type: :select, collection: APP_CONSTANT['grades_in_menu'] %>
     <%= f.input :price, input_html: {class: 'lesson_price_item'}, hint: "#{LiveStudio::Course.human_attribute_name(:lesson_price)}: #{@course.lesson_price}" %>
-    <%= f.input :taste_cout %>
+    <%= f.input :taste_count %>
     <%= f.association :workstation, collection: current_user.workstations, required: true if current_user.manager? %>
     <%= f.input :description, type: :text %>
   </div>

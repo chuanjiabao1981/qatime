@@ -5,6 +5,7 @@ module Entities
       expose :amount
       expose :pay_type
       expose :status
+      expose :created_at
       expose :account do |withdraw|
         withdraw.withdraw_record.try(:account)
       end

@@ -173,12 +173,12 @@ cn:
           init: 审核中
           allowed: 通过审核
           refused: 提现失败
-          cancel: 已取消
+          canceled: 已取消
         admin:
           init: 等待审核
           allowed: 通过
           refused: 驳回
-          cancel: 用户取消
+          canceled: 用户取消
       withdraw_record:
         unpaid: 未付款
         paid: 已付款

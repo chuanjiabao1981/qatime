@@ -3,8 +3,9 @@ module LiveStudio
     # include LiveStudio::QaCourseActionRecord
     has_soft_delete
 
-    SYSTEM_FEE = 0.1.freeze # 系统每个人每分钟收费
-    IM_FEE = 1.freeze # im聊天系统的费用
+    SYSTEM_FEE = 0.5 # 系统每个人每分钟收费0.5元
+    WORKSTATION_PERCENT = 0.6 # 基础服务费代理商分成
+
 
     USER_STATUS_BOUGHT = :bought # 已购买
     USER_STATUS_TASTING = :tasting # 正在试听

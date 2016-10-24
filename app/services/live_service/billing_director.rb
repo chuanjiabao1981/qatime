@@ -13,15 +13,10 @@ module LiveService
       Payment::CashAccount.transaction do
         # 系统支出
         decrease_cash_admin_account(money, billing)
-        # 每节课IM费用
-        money -= im_fee!(money, billing)
-        # 系统收取佣金
-        money -= system_fee!(money, billing)
-        # 教师分成
-        money -= teacher_fee!(money, billing)
-        # 代理商分成
-        manager_fee!(money, billing)
-        # 改变课程状态
+        # 服务费结账
+        money = service_fee_billing(money)
+        # 教师收入结账
+        teacher_fee_billing(money)
         @lesson.close! && @lesson.finish! if @lesson.teaching?
         @lesson.complete!
       end
@@ -31,6 +26,13 @@ module LiveService
 
     def total_money
       @course.buy_tickets.sum(:lesson_price)
+    end
+
+    def service_fee_billing(money)
+
+    end
+
+    def teacher_fee_billing(money)
     end
 
     #IM聊天人头费

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161024024617) do
+ActiveRecord::Schema.define(version: 20161024055156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -490,6 +490,7 @@ ActiveRecord::Schema.define(version: 20161024024617) do
     t.integer  "city_id"
     t.integer  "author_id"
     t.string   "author_type"
+    t.integer  "taste_cout",                                                 default: 0
   end
 
   add_index "live_studio_courses", ["author_type", "author_id"], name: "index_live_studio_courses_on_author_type_and_author_id", using: :btree

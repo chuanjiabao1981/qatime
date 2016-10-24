@@ -1,0 +1,12 @@
+cn:
+  activerecord:
+    models:
+      live_studio/course: 辅导班
+    attributes:
+      live_studio/course:
+        name: 名称
+        description: 简介
+        taste_cout: 试听数
+
+
+

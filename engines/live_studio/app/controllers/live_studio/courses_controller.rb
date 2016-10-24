@@ -17,9 +17,12 @@ module LiveStudio
 
     def new
       @course = Course.new
+      render layout: current_user_layout
     end
 
     def edit
+      @course = Course.find(params[:id])
+      render layout: current_user_layout
     end
 
     def create

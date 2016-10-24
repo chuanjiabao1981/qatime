@@ -13,11 +13,27 @@ module Payment
     validates :owner, presence: true
 
     # 可用资金
-    # TODO
-    # 申请提现的时候冻结资金
     def available_balance
-      # balance - frozen_balance
-      balance
+      balance - frozen_balance
+      # balance
+    end
+
+    # 申请提现的时候冻结资金
+    def frozen(amount)
+      Payment::CashAccount.transaction do
+        self.balance -= amount
+        self.frozen_balance += amount
+        save!
+      end
+    end
+
+    # 取消冻结资金
+    def cancel_frozen(amount)
+      Payment::CashAccount.transaction do
+        self.balance += amount
+        self.frozen_balance -= amount
+        save!
+      end
     end
 
     # 充值
@@ -34,7 +50,7 @@ module Payment
       Payment::CashAccount.transaction do
         with_lock do
           change(:withdraw_change_records, -amount.abs, target: target, billing: nil, summary: "账户提现")
-          # self.frozen_balance -= amount
+          self.frozen_balance -= amount
           save!
         end
       end

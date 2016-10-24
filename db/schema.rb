@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161018080020) do
+ActiveRecord::Schema.define(version: 20161024040406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -686,6 +686,7 @@ ActiveRecord::Schema.define(version: 20161018080020) do
     t.decimal  "total_income",      precision: 8, scale: 2, default: 0.0
     t.decimal  "total_expenditure", precision: 8, scale: 2, default: 0.0
     t.boolean  "migrated",                                  default: false
+    t.decimal  "frozen_balance",    precision: 8, scale: 2, default: 0.0
   end
 
   add_index "payment_cash_accounts", ["owner_type", "owner_id"], name: "index_payment_cash_accounts_on_owner_type_and_owner_id", using: :btree

@@ -99,12 +99,16 @@
   <div class="col-md-8">
     <!-- 根据flash是否安装，来显示 -->
     <video id="my-video" class="video-js" controls poster="<%= image_url('publish-bg.png') %>" preload="auto" width="800" height="480" data-setup='{}' style="display:none;">
-      <source "src"="/imgs/MY_VIDEO.mp4" type="video/mp4">
+      <source src="/imgs/MY_VIDEO.mp4" type="video/mp4">
     </video>
 
     <div style="display:none; height: 480px; width: 800px; background-color: #FFF; padding-top: 50px" id="no-flash-area">
       <p align="center">
-        <%= t("activerecord.view.flash_can_not_call_msg.flash_uninstall_or_too_old_msg") %><a href="https://get.adobe.com/cn/flashplayer/"><%= t("activerecord.view.flash_can_not_call_msg.click_here_msg") %></a><%= t("activerecord.view.flash_can_not_call_msg.install_flash_msg") %>
+        <%= t("activerecord.view.flash_can_not_call_msg.flash_uninstall_or_too_old_msg") %>
+        <a href="https://get.adobe.com/cn/flashplayer/">
+          <%= t("activerecord.view.flash_can_not_call_msg.click_here_msg") %>
+        </a>
+        <%= t("activerecord.view.flash_can_not_call_msg.install_flash_msg") %>
       </p>
     </div>
   </div>

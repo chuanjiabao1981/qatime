@@ -4,11 +4,12 @@ module Payment
 
     has_one :withdraw_record, foreign_key: 'payment_transaction_id', class_name: 'Payment::WithdrawRecord'
 
-    enum status: %w(init allowed refused cancel)
+    enum status: %w(init allowed refused canceled)
     enum pay_type: %w(cash bank alipay)
 
     attr_accessor :account_money_snap_shot
     validate :validate_withdraw_amount, on: :create
+    after_create :frozen_balance
 
     scope :filter, ->(keyword){keyword.blank? ? nil : where('transaction_no ~* ?', keyword).presence ||
       where(user: User.where('name ~* ?',keyword).presence || User.where('login_mobile ~* ?',keyword))}
@@ -17,14 +18,18 @@ module Payment
       state :init, initial: true
       state :allowed
       state :refused
-      state :cancel
+      state :canceled
 
       event :allow, before: :allow_operator do
-        transitions from: [:init, :refused], to: :allowed
+        transitions from: [:init], to: :allowed
       end
 
       event :refuse, before: :refuse_operator do
         transitions from: [:init], to: :refused
+      end
+
+      event :cancel, after: :cancel_frozen! do
+        transitions from: [:init], to: :canceled
       end
     end
 
@@ -46,6 +51,9 @@ module Payment
     end
 
     private
+    def frozen_balance
+      user.cash_account!.frozen(amount)
+    end
 
     def allow_operator(current_user)
       operator_record(status,'allowed',current_user)
@@ -54,6 +62,7 @@ module Payment
 
     def refuse_operator(current_user)
       operator_record(status,'refused',current_user)
+      cancel_frozen!
     end
 
     # 操作记录
@@ -71,6 +80,11 @@ module Payment
     # 变动余额
     def withdraw_cash!
       user.cash_account!.withdraw(amount, self)
+    end
+
+    # 取消冻结资金
+    def cancel_frozen!
+      user.cash_account!.cancel_frozen(amount)
     end
 
     def validate_withdraw_amount

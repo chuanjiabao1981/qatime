@@ -18,11 +18,12 @@ module LiveStudio
     }
 
     validates :name, :price, :subject, :grade, presence: true
-    validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than: 0, less_than: 100 }
-    validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than: 200 }
-    validates :price, numericality: {greater_than: :lower_price, less_than_or_equal_to: 999999}
+    validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 100 }
+    validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
+    validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999999 }
 
-    validates :workstation, :teacher, presence: true
+    validates :teacher, presence: true
+    validates :workstation, presence: true, unless: "author.teacher?"
 
     mount_uploader :publicize, ::PublicizeUploader
 
@@ -47,6 +48,10 @@ module LiveStudio
     has_many :billings, through: :lessons, class_name: 'Payment::Billing' # 结算记录
 
     has_many :course_action_records,->{ order 'created_at desc' }, dependent: :destroy, foreign_key: :live_studio_course_id
+
+    belongs_to :province
+    belongs_to :city
+    belongs_to :author, class_name: User
 
     scope :month, -> (month){where('live_studio_courses.class_date >= ? and live_studio_courses.class_date <= ?',month.beginning_of_month.to_date,month.end_of_month.to_date)}
     scope :by_status, ->(status){status.blank? || status == 'all' ? nil : where(status: statuses[status.to_sym])}
@@ -210,6 +215,13 @@ module LiveStudio
     end
 
     private
+
+    before_create :copy_city
+    def copy_city
+      self.city = author.teacher? ? author.city : workstation.city
+      self.province = city.try(:province)
+      self.workstation = city.workstations.first if workstation.nil? && city
+    end
 
     before_create :set_lesson_price
     def set_lesson_price

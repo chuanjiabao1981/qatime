@@ -11,8 +11,34 @@ module LiveStudio
       if @student && @student.student?
         @tickets = @student.live_studio_tickets.includes(course: :lesson).where(course_id: @courses.map(&:id)) if @student
       else
-        @tickets = Array.new
+        @tickets = []
       end
+    end
+
+    def new
+      @course = Course.new
+      render layout: current_user_layout
+    end
+
+    def edit
+      @course = Course.find(params[:id])
+      render layout: current_user_layout
+    end
+
+    def create
+      @course = Course.new(courses_params.merge(author: current_user))
+      if current_user.teacher?
+        @course.teacher = current_user
+        @course.teacher_percentage = 100
+      end
+      if @course.save
+        redirect_to live_studio.course_path(@course)
+      else
+        render :new
+      end
+    end
+
+    def update
     end
 
     # 开始招生
@@ -100,13 +126,12 @@ module LiveStudio
         :subject, :grade, :sort_by, :status, :price_floor,
         :price_ceil,:class_date_floor,:class_date_ceil,:preset_lesson_count_floor,:preset_lesson_count_ceil
       )
-      # flag_sort = []
-      # %w(class_date_sort price_sort lesson_count_sort).each do |sort|
-      #   flag_params[sort].present? && flag_sort << "#{sort.gsub('_sort','')}.#{flag_params[sort]}"
-      #   flag_params.delete(sort)
-      # end
-      # flag_params[:sort_by] = flag_sort.join('-')
-      # flag_params
+    end
+
+    def courses_params(role = nil)
+      role_params = [:name, :price, :preset_lesson_count, :subject, :grade, :publicize, :description]
+      role_params = role_params << [:teacher_percentage, :workstation_id, :teacher_id] unless role == :teacher
+      params.require(:course).permit(role_params)
     end
   end
 end

@@ -86,7 +86,7 @@ module Permissions
       #######end course library permission##################
 
       ## begin live studio permission
-      allow 'live_studio/manager/courses', [:index, :show, :new, :create, :edit, :update, :destroy] do |manager,course,action|
+      allow 'live_studio/manager/courses', [:index, :show, :new, :create, :edit, :update, :destroy] do |manager, course,action|
         # manager操作辅导班权限细分
         # 根据辅导班状态
         # 初始化: 增删改查
@@ -110,7 +110,10 @@ module Permissions
       end
       allow 'live_studio/teacher/courses', [:index, :show]
       allow 'live_studio/student/courses', [:index, :show]
-      allow 'live_studio/courses', [:index]
+      allow 'live_studio/courses', [:index, :new, :create]
+      allow 'live_studio/courses', [:edit, :update, :destroy] do |course|
+        course.author_id == user.id
+      end
       ## end live studio permission
       allow 'chat/teams', [:finish, :members, :member_visit]
       allow 'welcome', [:download]

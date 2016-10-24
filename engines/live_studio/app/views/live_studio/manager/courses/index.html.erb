@@ -2,8 +2,8 @@
   <!-- Default panel contents -->
   <div class="panel-heading">
     <%= LiveStudio::Course.model_name.human %>
-    <% if allow?("live_studio/manager/courses", "create", @manager) %>
-      <%=link_to new_manager_course_path(@manager) do %>
+    <% if allow?("live_studio/courses", "create", current_user) %>
+      <%=link_to new_course_path do %>
       <button type="button" class="btn btn-xs btn-success">
         <%= t("activerecord.view.create") %><%= LiveStudio::Course.model_name.human %>
       </button>

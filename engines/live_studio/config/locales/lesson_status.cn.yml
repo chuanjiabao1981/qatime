@@ -2,8 +2,8 @@ cn:
   lesson_status:
     teacher:
       init: 未开始
-      ready: 进行中
-      teaching: 进行中
+      ready: 待上课
+      teaching: 直播中
       paused: 进行中
       closed: 已结束
       finished: 已结束

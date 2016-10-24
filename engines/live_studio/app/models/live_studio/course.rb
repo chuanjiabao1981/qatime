@@ -220,6 +220,7 @@ module LiveStudio
     def copy_city
       self.city = author.teacher? ? author.city : workstation.city
       self.province = city.try(:province)
+      self.workstation = city.workstations.first if workstation.nil? && city
     end
 
     before_create :set_lesson_price

@@ -22,6 +22,8 @@ module LiveStudio
     validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
     validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999999 }
 
+    validates :taste_count, numericality: { less_than_or_equal_to: ->(record) { record.preset_lesson_count.to_i } }
+
     validates :teacher, presence: true
     validates :workstation, presence: true, unless: "author.teacher?"
 

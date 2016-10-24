@@ -34,5 +34,21 @@ module LiveStudio
         end
       end
     end
+
+    test "teacher create a course with taste" do
+      visit live_studio.teacher_courses_path(@teacher)
+      city = @teacher.city
+      @workstation = city.workstations.first
+      click_link "创建辅导班"
+      fill_in :course_name, with: '测试英语辅导课程'
+      fill_in :course_description, with: 'new course description'
+      fill_in :course_price, with: 100
+      fill_in :course_preset_lesson_count, with: 2
+      fill_in :course_taste_count, with: 3
+      select '语文', from: 'course_subject'
+      select '六年级', from: 'course_grade'
+      click_on '新增辅导班'
+      assert page.has_content?('必须小于或等于 2')
+    end
   end
 end

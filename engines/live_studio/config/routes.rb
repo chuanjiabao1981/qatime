@@ -5,7 +5,7 @@ LiveStudio::Engine.routes.draw do
 
   get 'courses_controller/index'
 
-  resources :courses, only: [:index, :show] do
+  resources :courses, only: [:index, :new, :create, :edit, :update, :show] do
     resources :orders, only: [:new, :create, :pay, :show] # 下单
 
     collection do

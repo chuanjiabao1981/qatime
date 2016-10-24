@@ -11,8 +11,31 @@ module LiveStudio
       if @student && @student.student?
         @tickets = @student.live_studio_tickets.includes(course: :lesson).where(course_id: @courses.map(&:id)) if @student
       else
-        @tickets = Array.new
+        @tickets = []
       end
+    end
+
+    def new
+      @course = Course.new
+    end
+
+    def edit
+    end
+
+    def create
+      @course = Course.new(courses_params.merge(author: current_user))
+      if current_user.teacher?
+        @course.teacher = current_user
+        @course.teacher_percentage = 100
+      end
+      if @course.save
+        redirect_to live_studio.course_path(@course)
+      else
+        render :new
+      end
+    end
+
+    def update
     end
 
     # 开始招生
@@ -107,6 +130,12 @@ module LiveStudio
       # end
       # flag_params[:sort_by] = flag_sort.join('-')
       # flag_params
+    end
+
+    def courses_params(role = nil)
+      role_params = [:name, :price, :preset_lesson_count, :subject, :grade, :publicize, :description]
+      role_params = role_params << [:teacher_percentage, :workstation_id, :teacher_id] unless role == :teacher
+      params.require(:course).permit(role_params)
     end
   end
 end

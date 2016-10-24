@@ -1,0 +1,37 @@
+<%= simple_form_for @course do |f|%>
+  <%= f.error_notification %>
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :publicize, as: :file %>
+    <%= f.association :teacher, input_html: {class: 'selectpicker', "data-live-search" => true} unless current_user.teacher? %>
+    <%= f.input :teacher_percentage unless current_user.teacher? %>
+    <%= f.input :preset_lesson_count, input_html: {class: 'lesson_price_item'} %>
+    <%= f.input :subject, type: :select, collection: APP_CONSTANT['subjects'] %>
+    <%= f.input :grade, type: :select, collection: APP_CONSTANT['grades_in_menu'] %>
+    <%= f.input :price, input_html: {class: 'lesson_price_item'}, hint: "#{LiveStudio::Course.human_attribute_name(:lesson_price)}: #{@course.lesson_price}" %>
+    <%= f.association :workstation, collection: current_user.workstations if current_user.manager? %>
+    <%= f.input :description, type: :text %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: "btn btn-default" %>
+  </div>
+<% end %>
+
+<script>
+  $('.selectpicker').selectpicker({
+    style: 'btn-default show-tick',
+    size: 4,
+    'data-live-search': "true"
+  });
+
+  $(function(){
+    $(".lesson_price_item").change(function(){
+      var price = parseInt($("#course_price").val());
+      var lesson_count = parseInt($("#course_preset_lesson_count").val());
+      var lesson_price = lesson_count === 0 ? 0 : price / lesson_count;
+      lesson_price = Math.floor(lesson_price);
+      $("#course_price").siblings(".help-block").text("<%= LiveStudio::Course.human_attribute_name(:lesson_price) %>" + lesson_price);
+    });
+  });
+</script>

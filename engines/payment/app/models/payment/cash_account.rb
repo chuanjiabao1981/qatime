@@ -15,13 +15,12 @@ module Payment
     # 可用资金
     def available_balance
       balance - frozen_balance
-      # balance
+      #balance
     end
 
     # 申请提现的时候冻结资金
     def frozen(amount)
       Payment::CashAccount.transaction do
-        self.balance -= amount
         self.frozen_balance += amount
         save!
       end
@@ -30,7 +29,6 @@ module Payment
     # 取消冻结资金
     def cancel_frozen(amount)
       Payment::CashAccount.transaction do
-        self.balance += amount
         self.frozen_balance -= amount
         save!
       end

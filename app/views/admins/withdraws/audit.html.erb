@@ -35,8 +35,7 @@
           <td><%= link_to withdraw.user.name,teacher_path(withdraw.user) %>(<%= withdraw.user.login_mobile %>)</td>
           <td><%= withdraw.transaction_no %></td>
           <td>
-            <%= withdraw.pay_type_text %><%= "(#{withdraw.withdraw_record.try(:account)} #{withdraw.withdraw_record.try(:name)})" \
-                                             unless withdraw.cash?%>
+            <%= withdraw.pay_type_text %>
           </td>
           <td><%= localize(withdraw.created_at,format: :short) %></td>
           <td>

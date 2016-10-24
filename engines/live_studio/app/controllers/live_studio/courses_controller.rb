@@ -129,7 +129,7 @@ module LiveStudio
     end
 
     def courses_params(role = nil)
-      role_params = [:name, :price, :preset_lesson_count, :subject, :grade, :publicize, :description]
+      role_params = [:name, :price, :preset_lesson_count, :subject, :grade, :publicize, :taste_count, :description]
       role_params = role_params << [:teacher_percentage, :workstation_id, :teacher_id] unless role == :teacher
       params.require(:course).permit(role_params)
     end

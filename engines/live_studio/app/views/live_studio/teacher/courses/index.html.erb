@@ -1,6 +1,17 @@
 <%= content_tag(:div, class: 'qa_box panel panel-default panel-support') do %>
   <%= content_tag(:div, class: 'course-header-div') do%>
-    <%= content_tag(:div, t("activerecord.view.course"), class: 'title') %>
+    <%= content_tag(:div, class: 'title') do %>
+      <%= t("activerecord.view.course") %>
+      <% if allow?("live_studio/courses", "create", current_user) %>
+        <%=link_to new_course_path do %>
+        <button type="button" class="btn btn-xs btn-success">
+          <%= t("activerecord.view.create") %><%= LiveStudio::Course.model_name.human %>
+        </button>
+        <% end %>
+      <% end -%>
+    <% end %>
+
+
     <%= content_tag(:div, class: 'search-link') do %>
       <%= link_to courses_qa_faqs_path do %>
         <%= t('activerecord.view.helps_course') %>

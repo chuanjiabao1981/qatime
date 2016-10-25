@@ -349,5 +349,11 @@ Qatime::Application.routes.draw do
     resource :captchas, only: [:create] do
       post :verify, on: :member
     end
+    resource :data, only: [] do
+      collection do
+        get 'option_cities'
+        get 'option_schools'
+      end
+    end
   end
 end

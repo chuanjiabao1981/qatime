@@ -46,6 +46,8 @@ cn:
         subject: 授课科目
         grade_range: 可授年级
         teaching_years: 执教年龄
+        province: 省份
+        city: 城市
       school:
         name: 名称
         city: 城市

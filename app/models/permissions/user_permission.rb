@@ -39,6 +39,7 @@ module Permissions
       allow 'live_studio/courses', [:index, :taste, :play, :show, :refresh_current_lesson,:schedule_sources]
       allow 'chat/teams', [:finish, :members, :member_visit]
       allow 'ajax/captchas', [:create, :verify]
+      allow 'ajax/data', [:option_cities, :option_schools]
       allow 'welcome', [:download]
 
       allow 'payment/users', [:cash] do |resource|

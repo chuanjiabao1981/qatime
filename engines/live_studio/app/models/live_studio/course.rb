@@ -6,7 +6,6 @@ module LiveStudio
     SYSTEM_FEE = 0.5 # 系统每个人每分钟收费0.5元
     WORKSTATION_PERCENT = 0.6 # 基础服务费代理商分成
 
-
     USER_STATUS_BOUGHT = :bought # 已购买
     USER_STATUS_TASTING = :tasting # 正在试听
     USER_STATUS_TASTED = :tasted # 已经试听
@@ -19,9 +18,9 @@ module LiveStudio
     }
 
     validates :name, :price, :subject, :grade, presence: true
-    validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 100 }
+    validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than: 20, less_than_or_equal_to: 100 }
     validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
-    validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999999 }
+    validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
 
     validates :taste_count, numericality: { less_than_or_equal_to: ->(record) { record.preset_lesson_count.to_i } }
 

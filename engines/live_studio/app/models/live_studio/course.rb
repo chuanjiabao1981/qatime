@@ -3,8 +3,8 @@ module LiveStudio
     # include LiveStudio::QaCourseActionRecord
     has_soft_delete
 
-    SYSTEM_FEE = 0.1.freeze # 系统每个人每分钟收费
-    IM_FEE = 1.freeze # im聊天系统的费用
+    SYSTEM_FEE = 0.5 # 系统每个人每分钟收费0.5元
+    WORKSTATION_PERCENT = 0.6 # 基础服务费代理商分成
 
     USER_STATUS_BOUGHT = :bought # 已购买
     USER_STATUS_TASTING = :tasting # 正在试听
@@ -18,14 +18,14 @@ module LiveStudio
     }
 
     validates :name, :price, :subject, :grade, presence: true
-    validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 100 }
+    validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than: 20, less_than_or_equal_to: 100 }
     validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
-    validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999999 }
+    validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
 
     validates :taste_count, numericality: { less_than_or_equal_to: ->(record) { record.preset_lesson_count.to_i } }
 
     validates :teacher, presence: true
-    validates :workstation, presence: true, unless: "author.teacher?"
+    validates :workstation, presence: true, unless: :require_workstation?
 
     mount_uploader :publicize, ::PublicizeUploader
 
@@ -217,6 +217,10 @@ module LiveStudio
     end
 
     private
+
+    def require_workstation?
+      author && author.teacher?
+    end
 
     before_create :copy_city
     def copy_city

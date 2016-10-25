@@ -25,7 +25,7 @@ module LiveStudio
     validates :taste_count, numericality: { less_than_or_equal_to: ->(record) { record.preset_lesson_count.to_i } }
 
     validates :teacher, presence: true
-    validates :workstation, presence: true, unless: "author.teacher?"
+    validates :workstation, presence: true, unless: :require_workstation?
 
     mount_uploader :publicize, ::PublicizeUploader
 
@@ -217,6 +217,10 @@ module LiveStudio
     end
 
     private
+
+    def require_workstation?
+      author && author.teacher?
+    end
 
     before_create :copy_city
     def copy_city

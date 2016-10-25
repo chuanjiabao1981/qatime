@@ -330,3 +330,49 @@ init_course1:
   grade: 六年级
   subject: 语文
   class_date: <%= Date.yesterday %>
+
+course_for_billing_one:
+  name: 结账测试辅导班1
+  workstation: workstation1
+  status: 2
+  teacher: teacher_for_billing
+  teacher_percentage: 100
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 六年级
+  subject: 语文
+  class_date: <%= Date.yesterday %>
+  province: shanxi
+  city: yangquan
+
+course_for_billing_two:
+  name: 结账测试辅导班2
+  workstation: workstation1
+  status: 2
+  teacher: teacher_for_billing
+  teacher_percentage: 80
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 六年级
+  subject: 语文
+  class_date: <%= Date.yesterday %>
+  province: shanxi
+  city: yangquan
+
+course_for_billing_three:
+  name: 结账测试辅导班1
+  workstation: xxxxxxxxx
+  status: 2
+  teacher: teacher_for_billing
+  teacher_percentage: 100
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 六年级
+  subject: 语文
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+

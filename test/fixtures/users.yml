@@ -553,3 +553,15 @@ teacher_balance:
   grade: 高一
   type: teacher
   school: school2
+
+teacher_for_billing:
+  login_mobile: 15100000006
+  name: teacher_for_billing
+  role: teacher
+  email: 15100000006@qatime.cn
+  parent_phone: 15100000006
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Teacher
+  school: school2

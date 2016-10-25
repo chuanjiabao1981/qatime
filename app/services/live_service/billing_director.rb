@@ -15,8 +15,8 @@ module LiveService
         decrease_cash_admin_account(money, billing)
         # 服务费结账
         money -= service_fee_billing(money, billing)
-        # 教师收入结账
-        teacher_fee_billing(money, billing)
+        # 授课收入结账
+        teach_fee_billing(money, billing)
         @lesson.close! && @lesson.finish! if @lesson.teaching?
         @lesson.complete!
       end
@@ -49,15 +49,15 @@ module LiveService
       workstation_money = service_money * LiveStudio::Course::WORKSTATION_PERCENT
       workstation_money = service_money if workstation_money > service_money
       workstation_account = @course.workstation.cash_account!
-      workstation_account.earning(workstation_account, @lesson, billing,
-                                  "辅导班: #{@course.name} 的课程: #{lesson.name} 结束. 获得基础服务费分成: #{workstation_money}(#{LiveStudio::Course::WORKSTATION_PERCENT})")
+      workstation_account.earning(workstation_money, @lesson, billing,
+                                  "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得基础服务费分成: #{workstation_money}(#{LiveStudio::Course::WORKSTATION_PERCENT})")
       workstation_money
     end
 
     # 服务费系统收入
     def system_service_fee!(system_money, billing)
       increase_cash_admin_account(system_money, billing,
-                                  "辅导班: #{@course.name} 的课程: #{lesson.name} 结束. 获得基础服务费分成: #{system_money}")
+                                  "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得基础服务费分成: #{system_money}")
     end
 
     # 教课收入结账
@@ -74,7 +74,7 @@ module LiveService
       teacher_money = teacher_money * @course.teacher_percentage.to_f / 100 if @course.teacher_percentage < 100
       teacher_account = @lesson.teacher.cash_account!
       teacher_account.earning(teacher_money, @lesson, billing,
-                              "辅导班: #{@course.name} 的课程: #{lesson.name} 结束. 获得授课收入: #{teacher_money}")
+                              "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得授课收入: #{teacher_money}")
       teacher_money
     end
 
@@ -84,7 +84,7 @@ module LiveService
       return 0 if money <= 0 || @course.workstation.blank?
       workstation_account = @course.workstation.cash_account!
       workstation_account.earning(money, @lesson, billing,
-                                  "辅导班: #{@course.name} 的课程: #{lesson.name} 结束. 获得授课收入: #{money}")
+                                  "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得授课收入: #{money}")
       money
     end
 

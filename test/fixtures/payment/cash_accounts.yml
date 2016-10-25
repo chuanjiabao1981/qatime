@@ -65,3 +65,10 @@ teahcer_balance_account:
   balance: 100000
   total_income: 0
   total_expenditure: 0
+
+teacher_for_billing_account:
+  owner: teacher_for_billing (User)
+  balance: 10
+  total_income: 0
+  total_expenditure: 0
+

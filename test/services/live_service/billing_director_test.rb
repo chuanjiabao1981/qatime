@@ -18,6 +18,7 @@ module LiveServiceTest
           end
         end
       end
+      assert @lesson.completed?, "课程结账状态不正确"
     end
 
     # 代理商创建的辅导班结账

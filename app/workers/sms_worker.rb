@@ -238,7 +238,7 @@ class SmsWorker
     captcha = options["captcha"]
     begin
       send_message(mobile,
-                   "【答疑时间】您好，您的账户正在申请提现，验证码: #{captcha}，请勿透露给他人。")
+                   "【答疑时间】您好，您的账户正在申请提现，验证码: #{captcha}，请勿透露给他人")
     rescue Exception => e
       logger.info e.message
       logger.info e.backtrace.inspect

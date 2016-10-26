@@ -4,4 +4,6 @@ cn:
       schedules: 课程日历
       wait: 未上课
       close: 已上课
+      schedule: 我的课表
+      read_all: 查看全部
 

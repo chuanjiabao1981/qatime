@@ -58,15 +58,17 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     assert_difference 'User.count', 1 do
       click_on "下一步", match: :first
     end
-
     fill_in :teacher_name, with: 'teacher_name_test'
     attach_file("teacher_avatar","#{Rails.root}/test/integration/avatar.jpg")
     select '高中', from: :teacher_category
     select '数学', from: :teacher_subject
-    select '阳泉一中', from: :teacher_school_id
+    select '山西', from: :teacher_province_id
+    select '阳泉', from: :teacher_city_id
+    fill_in :teacher_school, with: '阳泉一中'
 
     click_on "完成注册", match: :first
     assert_equal('teacher_name_test', ::Teacher.last.name, '学生完善信息错误')
+    assert_equal '阳泉一中', ::Teacher.last.school.name
     new_logout_as(::Teacher.last)
   end
 end

@@ -77,7 +77,7 @@
           <div class="row">
             <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:school) %><abbr title="required">*</abbr></div>
             <div class="col-md-9">
-              <%= f.input :school, label: false, input_html: {value: @teacher.school.try(:name), list: 'search_school', placeholder: '双击可选'}%>
+              <%= f.input :school, label: false, input_html: {value: @teacher.school.try(:name), list: 'search_school', placeholder: t('teachers.teacher.double_click_selected')}%>
               <%= content_tag :datalist, id: 'search_school', class: 'data-third' do%>
                 <% School.all.each do |school| %>
                   <option value="<%= school.name %>">
@@ -108,18 +108,10 @@
         </div>
 
         <div class="row text-center">
-          <%= f.submit '完成注册', class: "btn btn-default" %>
+          <%= f.submit t('teachers.teacher.register_done'), class: "btn btn-default" %>
         </div>
       </div>
       <% end %>
     </div>
   </div>
 </div>
-<script>
-  $('.selectpicker').selectpicker({
-    style: 'btn-default show-tick',
-    size: 4,
-    'data-live-search': "true"
-  });
-</script>
-

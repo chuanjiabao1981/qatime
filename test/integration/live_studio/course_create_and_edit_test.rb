@@ -23,16 +23,15 @@ module LiveStudio
       assert_difference '@manager.live_studio_courses.count', 1 do
         visit live_studio.new_course_path
         fill_in :course_name, with: '测试英语辅导课程'
-        fill_in :course_description, with: 'new course description'
         find('button[data-id="course_teacher_id"]').click
         find("ul.dropdown-menu.inner > li > a > span.text", text: teacher.name).click
+        fill_in :course_description, with: 'new course description'
         fill_in :course_price, with: 300.0
         fill_in :course_teacher_percentage, with: 90
         fill_in :course_preset_lesson_count, with: 15
         select workstation.name, from: 'course_workstation_id'
         select '语文', from: 'course_subject'
         select '六年级', from: 'course_grade'
-
         assert_difference 'teacher.course_action_notifications.count', 1 do
           click_on '新增辅导班'
         end
@@ -71,9 +70,8 @@ module LiveStudio
     end
 
     test "manager update a course" do
-      course = Course.last
+      course = live_studio_courses(:course_one_of_teacher_one)
       teacher2 = users(:teacher_without_chat_account)
-
       visit live_studio.edit_manager_course_path(@manager, course)
       fill_in :course_name, with: '测试英语辅导课程更新'
       fill_in :course_description, with: 'edit course description'

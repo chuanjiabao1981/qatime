@@ -32,6 +32,7 @@ module LiveStudio
         @course.teacher_percentage = 100
       end
       if @course.save
+        LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
         redirect_to live_studio.course_path(@course)
       else
         render :new

@@ -256,7 +256,17 @@ module LiveStudio
     # 辅导班创建通知指定教师
     after_commit :notice_teacher_for_assign, on: :create
     def notice_teacher_for_assign
-      ::LiveStudioCourseNotification.create(from: workstation, receiver: teacher, notificationable: self, action_name: :assign)
+      course_action_record = course_action_records.create(
+        content: I18n.t(
+          "activerecord.view.course_action_record.content.course_create_for_teacher",
+          course_name: name
+        ),
+        category: :course_create_for_teacher,
+        live_studio_course_id: id
+      )
+      LiveService::CourseActionRecordDirector.new(course_action_record).course_create_for_teacher
+      teacher.course_action_notifications.create(from: workstation,notificationable: course_action_record, action_name: :assign)
+      # ::LiveStudioCourseNotification.create(from: workstation, receiver: teacher, notificationable: self, action_name: :assign)
     end
 
     def lower_price

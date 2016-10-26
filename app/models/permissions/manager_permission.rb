@@ -110,7 +110,7 @@ module Permissions
       end
       allow 'live_studio/teacher/courses', [:index, :show]
       allow 'live_studio/student/courses', [:index, :show]
-      allow 'live_studio/courses', [:index, :new, :create]
+      allow 'live_studio/courses', [:index, :new, :create, :show]
       allow 'live_studio/courses', [:edit, :update, :destroy] do |course|
         course.author_id == user.id
       end

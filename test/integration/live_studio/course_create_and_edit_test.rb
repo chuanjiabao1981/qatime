@@ -70,7 +70,7 @@ module LiveStudio
     end
 
     test "manager update a course" do
-      course = live_studio_courses(:course_one_of_teacher_one)
+      course = @manager.live_studio_courses.init.last
       teacher2 = users(:teacher_without_chat_account)
       visit live_studio.edit_manager_course_path(@manager, course)
       fill_in :course_name, with: '测试英语辅导课程更新'

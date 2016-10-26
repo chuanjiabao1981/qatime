@@ -39,6 +39,7 @@ module UserService
       code = ::Util.random_code
       Rails.logger.debug("The Code Is: #{code}") unless Rails.env.production?
       Redis.current.setex("#{key}:#{@send_to}", 10.minutes, code)
+      return code if @send_to[0,3] == '110' # 110开头不发短信
       send(notice_type, code, key)
       code
     end

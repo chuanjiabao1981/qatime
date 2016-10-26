@@ -42,6 +42,7 @@
               <%= f.input :subject, label: false, :collection => APP_CONSTANT["subjects"], include_blank: false %>
             </div>
           </div>
+
           <div class="row">
             <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:category) %><abbr title="required">*</abbr></div>
             <div class="col-md-9">
@@ -50,9 +51,38 @@
           </div>
 
           <div class="row">
+            <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:province) %><abbr title="required">*</abbr></div>
+            <div class="col-md-9">
+              <div class="form-group select optional teacher_province">
+                <%= f.input :province_id,collection: Province.all.map{|p| [p.name, p.id]}, include_blank: false, label: false,
+                            input_html: {
+                              'data-remote': true,
+                              'data-url': url_for(controller: 'ajax/data', action: 'option_cities', second: 'data-second', third: 'data-third')
+                            } %>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:city) %><abbr title="required">*</abbr></div>
+            <div class="col-md-9">
+              <%= f.input :city_id, label: false, collection: Province.first.cities.map{|c| [c.name, c.id]}, include_blank: false,
+                          input_html: {
+                            class: 'data-second',
+                            'data-remote': true,
+                            'data-url': url_for(controller: 'ajax/data', action: 'option_schools', third: 'data-third')
+                          } %>
+            </div>
+          </div>
+
+          <div class="row">
             <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:school) %><abbr title="required">*</abbr></div>
             <div class="col-md-9">
-              <%= f.association :school, label: false %>
+              <%= f.input :school_name, label: false, input_html: {list: 'search_school', placeholder: t('teachers.teacher.double_click_selected')}%>
+              <%= content_tag :datalist, id: 'search_school', class: 'data-third' do%>
+                <% School.all.each do |school| %>
+                  <option value="<%= school.name %>">
+                <% end %>
+              <% end %>
             </div>
           </div>
 
@@ -78,7 +108,7 @@
         </div>
 
         <div class="row text-center">
-          <%= f.submit '完成注册', class: "btn btn-default" %>
+          <%= f.submit t('teachers.teacher.register_done'), class: "btn btn-default" %>
         </div>
       </div>
       <% end %>

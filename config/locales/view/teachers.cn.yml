@@ -64,6 +64,8 @@ cn:
       edit_teacher: 修改安全信息
       delete: 删除
       delete_confirm: '你确定删除此老师么?'
+      double_click_selected: 双击可选
+      register_done: 完成注册
     admin_edit_form:
       edit_teacher: 修改安全信息
       password_label: 修改登录密码

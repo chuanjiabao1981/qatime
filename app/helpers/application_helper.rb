@@ -258,8 +258,6 @@ module ApplicationHelper
     when :my_courses
       r = controller_name == 'courses' && action_name == 'index'
     when :schedule
-      p controller_name
-      p action_name
       r = controller_name == 'teachers' && action_name == 'schedules'
     when :teacher_students
       r = controller_name == 'teachers' && action_name == 'students'

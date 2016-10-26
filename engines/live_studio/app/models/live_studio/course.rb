@@ -96,7 +96,7 @@ module LiveStudio
 
     def init_channel
       return unless channels.blank?
-      channels.create(name: "#{name} - 直播室 - #{id} - 白板", course_id: id, use_for: :borad)
+      channels.create(name: "#{name} - 直播室 - #{id} - 白板", course_id: id, use_for: :board)
       channels.create(name: "#{name} - 直播室 - #{id} - 摄像头", course_id: id, use_for: :camera)
     end
 

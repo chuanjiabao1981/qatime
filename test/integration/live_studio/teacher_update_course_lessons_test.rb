@@ -35,7 +35,7 @@ module LiveStudio
 
       student.reload
       # 调课，学生消息提醒
-      assert "您的课程英语辅导班-第二节已调课（调课人：physics_teacher1 老师），上课时间由#{Date.today} 10:20~12:30调整为#{Date.today} #{time_begin}:00~#{time_begin}:30;请合理安排时间。", student.course_action_notifications.last.notificationable.content
+      assert "您的课程英语辅导班-第二节已调课（调课人：physics_teacher1 老师），上课时间由#{Date.today} 10:20~12:30调整为#{Date.today} #{time_begin}:00~#{time_begin}:30;请合理安排时间。", student.notifications.last.notificationable.content
       assert_match '课程已更新', page.text, '没有更新课程'
 
       new_logout_as(teacher)

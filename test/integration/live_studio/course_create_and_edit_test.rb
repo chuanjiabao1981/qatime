@@ -21,7 +21,7 @@ module LiveStudio
       workstation = @manager.workstations.sample
 
       assert_difference '@manager.live_studio_courses.count', 1 do
-        visit live_studio.new_manager_course_path(@manager)
+        visit live_studio.new_course_path
         fill_in :course_name, with: '测试英语辅导课程'
         fill_in :course_description, with: 'new course description'
         find('button[data-id="course_teacher_id"]').click

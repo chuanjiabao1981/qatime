@@ -62,7 +62,7 @@ module LiveStudio
 
     test "initialize channel for course" do
       course = live_studio_courses(:course_without_channel)
-      assert_difference('course.channels.count', 1, "channel 初始化失败") do
+      assert_difference('course.channels.count', 2, "channel 初始化失败") do
         course.init_channel
       end
 

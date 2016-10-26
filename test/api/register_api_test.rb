@@ -9,21 +9,21 @@ class Qatime::RegisterAPITest < ActionDispatch::IntegrationTest
     get "/api/v1/user/register_code_valid", {type: "Student"}
     assert_response :success
     res = JSON.parse(response.body)
-    assert_equal 1, res['status']
+    assert_equal 1, res['status'], "响应不正确 #{res['data']}"
     student_register_code = res['data']
 
     # 发送手机验证码
     post "/api/v1/captcha", {send_to: "13892920103", key: :register_captcha}
     assert_response :success
     res = JSON.parse(response.body)
-    assert_equal 1, res['status']
+    assert_equal 1, res['status'], "响应不正确 #{res}"
 
     # 提交注册表单
     post "/api/v1/user/register", {login_mobile: "13892920103", captcha_confirmation: "1234", password: "pa123456", password_confirmation: "pa123456", register_code_value: student_register_code, accept: "1", type: "Student", client_type: "app"}
 
     assert_response :success
     res = JSON.parse(response.body)
-    assert_equal 1, res['status']
+    assert_equal 1, res['status'], "响应不正确 #{res['data']}"
 
     student = ::Student.find_by(login_mobile: res['data']['user']['login_mobile'])
     remember_token = res['data']['remember_token']
@@ -35,7 +35,7 @@ class Qatime::RegisterAPITest < ActionDispatch::IntegrationTest
 
     assert_response :success
     res = JSON.parse(response.body)
-    assert_equal 1, res['status']
+    assert_equal 1, res['status'], "响应不正确 #{res['data']}"
     assert_equal 16, res['data'].size
 
     student.reload

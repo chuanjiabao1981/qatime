@@ -18,7 +18,7 @@ module LiveStudio
     }
 
     validates :name, :price, :subject, :grade, presence: true
-    validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than: 20, less_than_or_equal_to: 100 }
+    validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 70, less_than_or_equal_to: 100 }
     validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
     validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
 

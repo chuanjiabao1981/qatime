@@ -4,7 +4,7 @@ lesson_one:
   description: 测试描述
   start_time: 10:20
   end_time: 05:30
-  class_date: 2016-10-01
+  class_date: <%= 5.days.since.to_date %>
 
 lesson_two:
   name: 测试课程2
@@ -12,7 +12,7 @@ lesson_two:
   description: 测试描述
   start_time: 10:20
   end_time: 05:30
-  class_date: 2016-10-01
+  class_date: <%= 5.days.since.to_date %>
 
 lesson_three:
   name: 测试课程3
@@ -20,7 +20,7 @@ lesson_three:
   description: 测试描述
   start_time: 10:20
   end_time: 05:30
-  class_date: 2016-10-01
+  class_date: <%= 5.days.since.to_date %>
   status: 2
 
 english_lesson_today:

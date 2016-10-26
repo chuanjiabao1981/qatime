@@ -107,7 +107,7 @@ class Teacher < User
   before_validation :clone_city
   def clone_city
     return if city_id || school.blank?
-    self.city_id = school.city_id
-    self.province_id = school.city.province_id
+    self.city = school.city
+    self.province = city.province if city
   end
 end

@@ -16,7 +16,7 @@ teacher_account_2000:
 
 total_income_teacher:
   id: 1000
-  accountable: teacher_tally (User)
+  accountable: teacher_income (User)
   money: 2000
   total_income: 3000
 

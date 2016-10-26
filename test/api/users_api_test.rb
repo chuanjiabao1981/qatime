@@ -105,7 +105,7 @@ class Qatime::UsersAPITest < ActionDispatch::IntegrationTest
     post "/api/v1/captcha", {send_to: @teacher.login_mobile, key: :send_captcha}
     assert_response :success
     res = JSON.parse(response.body)
-    assert_equal 1, res['status']
+    assert_equal 1, res['status'], "响应不正确 #{res}"
     assert_equal nil, res['data']
 
     post "/api/v1/captcha/verify", {send_to: @teacher.login_mobile, captcha: '1234'}

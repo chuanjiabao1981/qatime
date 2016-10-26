@@ -31,10 +31,7 @@ module LiveStudio
         select('09:00', from: "end_time_#{lesson.id}")
       end
       select("#{time_begin}:30", from: "end_time_#{lesson.id}")
-
-      assert_difference 'student.course_action_notifications.count', 1 do
-        click_on '保存'
-      end
+      click_on '保存'
 
       student.reload
       # 调课，学生消息提醒

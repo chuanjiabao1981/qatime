@@ -27,7 +27,7 @@ module LiveStudio
         find('button[data-id="course_teacher_id"]').click
         find("ul.dropdown-menu.inner > li > a > span.text", text: teacher.name).click
         fill_in :course_price, with: 300.0
-        fill_in :course_teacher_percentage, with: 10
+        fill_in :course_teacher_percentage, with: 90
         fill_in :course_preset_lesson_count, with: 15
         select workstation.name, from: 'course_workstation_id'
         select '语文', from: 'course_subject'

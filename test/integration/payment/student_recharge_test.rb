@@ -42,6 +42,7 @@ module Payment
       assert_difference "Payment::Recharge.count", 1, '支付宝充值下单失败' do
         assert_difference "Payment::AlipayOrder.count", 1, '没有生成支付宝订单' do
           click_on "立即充值"
+          sleep(3)
         end
       end
 

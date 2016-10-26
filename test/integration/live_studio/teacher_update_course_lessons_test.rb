@@ -31,6 +31,9 @@ module LiveStudio
         select('09:00', from: "end_time_#{lesson.id}")
       end
       select("#{time_begin}:30", from: "end_time_#{lesson.id}")
+      (course.lessons.init + course.lessons.ready).each do |l|
+        fill_in "class_date_#{l.id}", with: (Date.today + 1).strftime('%Y/%m/%d')
+      end
       click_on '保存'
 
       student.reload

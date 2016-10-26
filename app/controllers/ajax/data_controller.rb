@@ -1,5 +1,6 @@
 class Ajax::DataController < ApplicationController
   before_action :set_variable
+  skip_before_action :authorize
 
   def option_cities
     respond_to do |format|

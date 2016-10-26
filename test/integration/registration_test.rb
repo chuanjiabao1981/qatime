@@ -64,7 +64,7 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     select '数学', from: :teacher_subject
     select '山西', from: :teacher_province_id
     select '阳泉', from: :teacher_city_id
-    fill_in :teacher_school, with: '阳泉一中'
+    fill_in :teacher_school_name, with: '阳泉一中'
 
     click_on "完成注册", match: :first
     assert_equal('teacher_name_test', ::Teacher.last.name, '学生完善信息错误')

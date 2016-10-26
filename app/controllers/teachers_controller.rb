@@ -205,7 +205,7 @@ class TeachersController < ApplicationController
 
   def register_params
     params.require(:teacher).permit(:name, :nick_name, :gender, :subject, :category, :school_id, :desc, :email, :email_confirmation, :crop_x, :crop_y, :crop_w, :crop_h, :avatar, \
-    :province_id, :city_id, :school)
+    :province_id, :city_id, :school_name)
   end
 
   # 根据跟新内容判断是否需要密码更新
@@ -227,8 +227,8 @@ class TeachersController < ApplicationController
         return @teacher.update_with_password(update_params)
       end
 
-      if update_params[:school].present?
-        school = School.find_or_create_by(city_id: update_params[:city_id],name: update_params[:school])
+      if update_params[:school_name].present?
+        school = School.find_or_create_by(city_id: update_params[:city_id],name: update_params[:school_name])
         update_params[:school] = school
       end
 

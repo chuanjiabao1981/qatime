@@ -77,7 +77,7 @@
           <div class="row">
             <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:school) %><abbr title="required">*</abbr></div>
             <div class="col-md-9">
-              <%= f.input :school, label: false, input_html: {value: @teacher.school.try(:name), list: 'search_school', placeholder: t('teachers.teacher.double_click_selected')}%>
+              <%= f.input :school_name, label: false, input_html: {list: 'search_school', placeholder: t('teachers.teacher.double_click_selected')}%>
               <%= content_tag :datalist, id: 'search_school', class: 'data-third' do%>
                 <% School.all.each do |school| %>
                   <option value="<%= school.name %>">

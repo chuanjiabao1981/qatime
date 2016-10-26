@@ -43,6 +43,8 @@ module Chat
         click_link("buy-course-#{course.id}")
         choose('微信支付')
         click_on '立即付款'
+        # TODO 不能正确模拟支付通知
+        # post payment.notify_transaction(Payment::Order.last.transaction_no, )
         Chat::TeamMemberCreatorJob.perform_now(course.id, @student.id)
         @student.reload
         course.reload

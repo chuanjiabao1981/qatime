@@ -8,6 +8,8 @@ module LiveStudio
     has_many :push_streams, dependent: :destroy
     has_many :pull_streams, dependent: :destroy
 
+    enum use_for: { board: 0, camera: 1 }
+
     def sync_streams
       delete_remote_channel
       create_remote_channel
@@ -40,9 +42,14 @@ module LiveStudio
       if Rails.env.production? || Rails.env.test?
         push_streams.create(address: result['pushUrl'], protocol: 'rtmp')
         pull_streams.create(address: result['rtmpPullUrl'], protocol: 'rtmp')
-      else
+      elsif use_for == 'board'
         push = 'rtmp://pa0a19f55.live.126.net/live/2794c854398f4d05934157e05e2fe419?wsSecret=a3c84d0ecfdeb7434ffaa534607b9e8f&wsTime=1471330308'
         pull = 'rtmp://va0a19f55.live.126.net/live/2794c854398f4d05934157e05e2fe419'
+        push_streams.create(address: push, protocol: 'rtmp')
+        pull_streams.create(address: pull, protocol: 'rtmp')
+      else
+        push = 'rtmp://pa0a19f55.live.126.net/live/0ca7943afaa340c9a7c1a8baa5afac97?wsSecret=74c57894244754864cd0f07cc25ba4be&wsTime=1477448251'
+        pull = 'rtmp://va0a19f55.live.126.net/live/0ca7943afaa340c9a7c1a8baa5afac97'
         push_streams.create(address: push, protocol: 'rtmp')
         pull_streams.create(address: pull, protocol: 'rtmp')
       end

@@ -3,5 +3,9 @@ module LiveStudio
     has_soft_delete
 
     belongs_to :channel
+
+    def use_for
+      channel.use_for
+    end
   end
 end

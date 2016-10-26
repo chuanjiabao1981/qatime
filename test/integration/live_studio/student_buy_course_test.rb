@@ -65,6 +65,7 @@ module LiveStudio
         click_on("buy-course-#{course.id}")
         choose "order_pay_type_weixin"
         click_on '立即付款'
+        sleep(1)
       end
     end
 

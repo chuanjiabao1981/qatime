@@ -231,6 +231,8 @@ module ApplicationHelper
       r = controller_name == 'courses' && (
             action_name == 'index' || action_name == 'show'
           )
+    when :schedules
+      r = controller_name == 'students' && action_name == 'schedules'
     when :homeworks
       r = controller_name == 'students' && action_name == 'homeworks'
     when :teachers
@@ -255,6 +257,10 @@ module ApplicationHelper
       r = controller_name == 'users' && action_name == 'cash'
     when :my_courses
       r = controller_name == 'courses' && action_name == 'index'
+    when :schedule
+      p controller_name
+      p action_name
+      r = controller_name == 'teachers' && action_name == 'schedules'
     when :teacher_students
       r = controller_name == 'teachers' && action_name == 'students'
     when :notification

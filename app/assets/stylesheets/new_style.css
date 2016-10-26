@@ -55,7 +55,7 @@
 }
 .std-row-1 {
   position: relative;
-  left: -80px;
+  /*left: -80px;*/
 }
 .std-row-3 {
   margin-left: 20%;
@@ -269,6 +269,9 @@ a {
   height: 100px;
   list-style-type: none;
   font-size: 1.4rem;
+}
+.row-apply-fix {
+  height: 120px;
 }
 .row-apply li {
   padding-top: 0.5rem;
@@ -1441,6 +1444,9 @@ figcaption p {
   width: 100%;
   font-size: 1.4rem;
 }
+.tec-information table label {
+  font-weight: normal;
+}
 .tec-information table tr td:first-child {
   width: 70px;
 }
@@ -1514,7 +1520,8 @@ figcaption p {
 .drop-down-img {
   position: relative;
   left:395px;
-  top: -30px;
+  top: -25px !important;
+  font-size: 16px;
 }
 .tec-introduce {
   width: 100%;
@@ -1619,6 +1626,9 @@ figcaption p {
   width: 100%;
   font-size: 1.4rem;
 }
+.new-msg-content table label {
+  font-weight: normal;
+}
 .new-msg-content table tr td:first-child {
   width: 80px;
 }
@@ -1646,17 +1656,19 @@ figcaption p {
   margin-right: 10%;
 }
 .msg-num {
-  width: 38%;
+  width: 37.5%;
   height: 40px;
     margin-left: 5.8px;
 }
 .msg-application {
   display: inline-block;
-  width: 70px;
-  margin-right: 8.7%;
+  /*width: 70px;*/
+  width: 80px;
+  margin-right: 7.5%;
 }
 .msg-page {
-  width: 69%;
+  /*width: 69%;*/
+  width: 68.4%;
   height: 40px;
   margin-left: 4px;
 }

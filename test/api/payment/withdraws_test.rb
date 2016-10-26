@@ -31,6 +31,6 @@ class WithdrawsTest < ActionDispatch::IntegrationTest
     put "/api/v1/payment/users/#{@student.id}/withdraws/#{init_withdraw.transaction_no}/cancel", {}, 'Remember-Token' => @student_token
     init_withdraw.reload
     assert_response :success
-    assert init_withdraw.cancel?
+    assert init_withdraw.canceled?
   end
 end

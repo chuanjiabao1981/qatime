@@ -6,11 +6,11 @@ module Entities
       end
 
       expose :board do |course|
-        course.push_streams.find {|stream| stream.use_for == :borad }.try(:address)
+        course.push_streams.find {|stream| stream.use_for == 'board' }.try(:address)
       end
 
       expose :camera do |course|
-        course.push_streams.find {|stream| stream.use_for == :camera }.try(:address)
+        course.push_streams.find {|stream| stream.use_for == 'camera' }.try(:address)
       end
     end
   end

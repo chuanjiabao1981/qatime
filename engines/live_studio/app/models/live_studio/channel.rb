@@ -42,7 +42,7 @@ module LiveStudio
       if Rails.env.production? || Rails.env.test?
         push_streams.create(address: result['pushUrl'], protocol: 'rtmp')
         pull_streams.create(address: result['rtmpPullUrl'], protocol: 'rtmp')
-      elsif use_for == :board
+      elsif use_for == 'board'
         push = 'rtmp://pa0a19f55.live.126.net/live/2794c854398f4d05934157e05e2fe419?wsSecret=a3c84d0ecfdeb7434ffaa534607b9e8f&wsTime=1471330308'
         pull = 'rtmp://va0a19f55.live.126.net/live/2794c854398f4d05934157e05e2fe419'
         push_streams.create(address: push, protocol: 'rtmp')

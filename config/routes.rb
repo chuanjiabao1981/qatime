@@ -339,6 +339,7 @@ Qatime::Application.routes.draw do
   mount Payment::Engine, at: '/payment'
   # 聊天
   mount Chat::Engine, at: '/chat'
+  mount Recommend::Engine, at: 'recommend'
   # API
   mount Qatime::API => '/'
 

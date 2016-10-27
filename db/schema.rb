@@ -926,6 +926,7 @@ ActiveRecord::Schema.define(version: 20161027073652) do
     t.string   "owner_type"
     t.string   "logo"
     t.integer  "index"
+    t.string   "type"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

@@ -8,6 +8,7 @@ class CreateRecommendItems < ActiveRecord::Migration
       t.references :owner, polymorphic: true, index: true
       t.string :logo
       t.integer :index
+      t.string :type
 
       t.timestamps null: false
     end

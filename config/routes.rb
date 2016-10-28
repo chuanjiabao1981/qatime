@@ -146,6 +146,7 @@ Qatime::Application.routes.draw do
       get 'notifications'
       get :admin_edit
       patch :admin_update
+      get :profile
     end
   end
   resources :students do

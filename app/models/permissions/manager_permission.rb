@@ -20,7 +20,8 @@ module Permissions
       allow :register_codes, [:index, :new, :downloads, :create]
       allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,
                        :students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,
-                       :exercises,:keep_account,:solutions,:customized_tutorial_topics,:notifications, :admin_edit, :admin_update, :customized_courses]
+                       :exercises,:keep_account,:solutions,:customized_tutorial_topics,:notifications,
+                       :admin_edit, :admin_update, :customized_courses,:profile]
       allow :curriculums,[:index,:show]
       allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
       allow :courses,[:show]

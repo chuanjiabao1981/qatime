@@ -169,6 +169,11 @@ class TeachersController < ApplicationController
     @customized_courses = @teacher.customized_courses.paginate(page: params[:page],per_page: 10)
     render layout: 'teacher_home_new'
   end
+
+  def profile
+    render layout: 'application'
+  end
+
   private
 
   def current_resource

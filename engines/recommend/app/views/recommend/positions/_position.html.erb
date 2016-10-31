@@ -1,0 +1,10 @@
+<div class="row qa_big_cell">
+  <div class="col-md-2"><%= link_to position.name, [:admin, position] %></div>
+  <div class="col-md-3"><%= position.kee %></div>
+  <div class="col-md-2"><%= position.klass_name.constantize.model_name.human %></div>
+  <div class="col-md-2"><%= position.status %></div>
+  <div class="col-md-2">
+    <%= link_to 'Edit', edit_admin_position_path(position) %>
+    <%= link_to 'Destroy', [:admin, position], method: :delete, data: { confirm: 'Are you sure?' } %>
+  </div>
+</div>

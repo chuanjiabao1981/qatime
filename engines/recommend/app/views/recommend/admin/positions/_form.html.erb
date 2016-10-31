@@ -1,0 +1,19 @@
+<%= simple_form_for([:admin, @position]) do |f| %>
+  <% if @position.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@position.errors.count, "error") %> prohibited this admin_position from being saved:</h2>
+
+      <ul>
+      <% @position.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.input :name %>
+  <%= f.input :kee %>
+  <%= f.input :klass_name, collection: Recommend::Item.subclasses.map{|c| [c.model_name.human, c.model_name.name] }  %>
+
+  <%= f.submit %>
+<% end %>

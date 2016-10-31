@@ -46,6 +46,10 @@ module Permissions
       # captcha
       api_allow :POST, "/api/v1/captcha"
       api_allow :POST, "/api/v1/captcha/verify"
+
+      # 公开信息
+      api_allow :GET, "/api/v1/teachers/[\\w-]+/profile"
+
       ## end api permission
     end
   end

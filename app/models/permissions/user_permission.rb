@@ -67,8 +67,6 @@ module Permissions
         resource.id == user.id
       end
 
-      # 公开信息
-      api_allow :GET, "/api/v1/teachers/[\\w-]+/profile"
       ## end api permission
     end
   end

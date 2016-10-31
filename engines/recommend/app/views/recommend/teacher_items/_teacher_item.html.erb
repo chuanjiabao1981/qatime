@@ -1,0 +1,9 @@
+<div class="row qa_big_cell">
+  <div class="col-md-2"><%= teacher_item.title %></div>
+  <div class="col-md-2"><%= image_tag teacher_item.logo, size: '16x16' %></div>
+  <div class="col-md-2"><%= link_to teacher_item.target.name, main_app.teacher_path(teacher_item.target) %></div>
+  <div class="col-md-2"><%= teacher_item.owner.try(&:name) %></div>
+  <div class="col-md-2"><%= teacher_item.target.try(:index) %></div>
+  <div class="col-md-2">
+  </div>
+</div>

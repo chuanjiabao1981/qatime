@@ -3,6 +3,7 @@ require_dependency "recommend/application_controller"
 module Recommend
   class Admin::TeacherItemsController < Admin::ItemsController
     def new
+      @item = @position.items.build(type: @position.klass_name)
     end
 
     # GET /admin/items/1/edit

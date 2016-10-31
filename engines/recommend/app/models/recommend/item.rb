@@ -1,5 +1,6 @@
 module Recommend
   class Item < ActiveRecord::Base
+    has_soft_delete
     belongs_to :position
     belongs_to :target, polymorphic: true
     belongs_to :owner, polymorphic: true

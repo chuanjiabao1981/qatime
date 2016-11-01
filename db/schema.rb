@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161031112512) do
+ActiveRecord::Schema.define(version: 20161101071815) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -960,6 +960,7 @@ ActiveRecord::Schema.define(version: 20161031112512) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.datetime "deleted_at"
+    t.integer  "reason"
   end
 
   add_index "recommend_items", ["owner_type", "owner_id"], name: "index_recommend_items_on_owner_type_and_owner_id", using: :btree

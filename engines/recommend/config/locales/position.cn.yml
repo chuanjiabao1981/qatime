@@ -2,7 +2,6 @@ cn:
   activerecord:
     models:
       recommend/position: 推荐位
-      recommend/teacher_item: 教师推荐
     attributes:
       recommend/position:
         name: 推荐位名称
@@ -10,14 +9,3 @@ cn:
         kee: 查询标识
         status: 状态
         items: 推荐列表
-      recommend/teacher_item:
-        title: 推荐标题
-        logo: 图像
-        position: 推荐位
-        target: 教师姓名
-        owner: 所在区域
-        index: 排序
-        status: 状态
-
-
-

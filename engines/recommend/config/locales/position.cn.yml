@@ -10,7 +10,6 @@ cn:
   activerecord:
     models:
       recommend/position: 推荐位
-      recommend/teacher_item: 教师推荐
     attributes:
       recommend/position:
         name: 推荐位名称
@@ -38,6 +37,4 @@ cn:
         index: 排序
         status: 状态
         reason: 推荐理由
-
-
 

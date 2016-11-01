@@ -6,7 +6,7 @@ module Recommend
     enum status: %w(disable enable)
 
     def status_text
-      I18n.t("enums.recommend.#{status}")
+      I18n.t("enums.recommend.status.#{status}")
     end
   end
 end

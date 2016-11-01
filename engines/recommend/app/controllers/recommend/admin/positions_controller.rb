@@ -49,6 +49,12 @@ module Recommend
       redirect_to admin_positions_url, notice: 'Position was successfully destroyed.'
     end
 
+    def change_status
+      position = Recommend::Position.find(params[:id])
+      position.disable? ? position.enable! : position.disable!
+      redirect_to admin_positions_url, notice: 'Position was successfully changed.'
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_position

@@ -1,0 +1,10 @@
+index_teacher_recommend:
+  name: 首页名师推荐
+  klass_name: Recommend::TeacherItem
+  kee: index_teacher_recommend
+  status: 1
+index_live_studio_course_recommend:
+  name: 首页辅导班推荐
+  klass_name: Recommend::LiveStudioCourseItem
+  kee: index_live_studio_course_recommend
+  status: 1

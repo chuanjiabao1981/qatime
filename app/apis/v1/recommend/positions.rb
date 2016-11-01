@@ -28,7 +28,7 @@ module V1
           get ':kee/items' do
             position = ::Recommend::Position.find_by!(kee: params[:kee])
             items = position.items.all.paginate(page: params[:page], per_page: params[:per_page])
-            present items, with: "Entities::#{position.klass_name}".constantize
+            present items, with: "::Entities::#{position.klass_name}".constantize
           end
 
           desc '推荐列表批量接口'
@@ -42,7 +42,7 @@ module V1
             result = {}
             positions = ::Recommend::Position.where(kee: kees).includes(:items)
             positions.each do |position|
-              present position.items, with: "Entities::#{position.klass_name}".constantize, root: position.kee
+              present position.items, with: "::Entities::#{position.klass_name}".constantize, root: position.kee
             end
           end
         end

@@ -4,7 +4,7 @@ module LiveStudio
     has_soft_delete
 
     def to_param
-      "#{id}-#{name}"
+      "#{id} #{name}".parameterize
     end
 
     SYSTEM_FEE = 0.5 # 系统每个人每分钟收费0.5元

@@ -1,0 +1,31 @@
+/*
+ *= require application
+ *= require bootstrap_and_overide
+ *= require comments
+ *= require courses
+ *= require customized_courses
+ *= require customized_tutorials
+ *= require faq_topics
+ *= require groups
+ *= require homeworks
+ *= require lessons
+ *= require new_style
+ *= require pictures
+ *= require qa_faqs
+ *= require questions
+ *= require replies
+ *= require students
+ *= require topics
+ *= require videos
+ *= require_self
+ */
+
+.home_head
+{
+  background-image: image-path("home-head-bg.png");
+  background-repeat: repeat-x, repeat;
+}
+.home_head h1 {
+  font-size: 48px;
+  color: #3b4249;
+}

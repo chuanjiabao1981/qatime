@@ -280,116 +280,31 @@
           </div>
           <div class="tutoring-tec-con">
             <ul class="list-tec">
-              <li class="tec-li">
-                <div class="li-introduce">
-                  <center>
-                    <dl class="tec-msgs">
-                      <dd><img src="../img/tec_record-1.png"></dd>
-                      <dd>清华大学-田浩然</dd>
-                      <dd>拥有近10年软件开发和培训管理经验</dd>
-                    </dl>
-                  </center>
-                </div>
-                <div class="li-detailed">
-                  <center>
-                    <ul class="detailed-list">
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li class="detailed-more"><a href="">更多</a></li>
-                    </ul>
-                  </center>
-                </div>
-              </li>
-              <li class="tec-li">
-                <div class="li-introduce">
-                  <center>
-                    <dl class="tec-msgs">
-                      <dd><img src="../img/tec_record-1.png"></dd>
-                      <dd>清华大学-田浩然</dd>
-                      <dd>拥有近10年软件开发和培训管理经验</dd>
-                    </dl>
-                  </center>
-                </div>
-                <div class="li-detailed">
-                  <center>
-                    <ul class="detailed-list">
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li class="detailed-more"><a href="">更多</a></li>
-                    </ul>
-                  </center>
-                </div>
-              </li>
-              <li class="tec-li">
-                <div class="li-introduce">
-                  <center>
-                    <dl class="tec-msgs">
-                      <dd><img src="../img/tec_record-1.png"></dd>
-                      <dd>清华大学-田浩然</dd>
-                      <dd>拥有近10年软件开发和培训管理经验</dd>
-                    </dl>
-                  </center>
-                </div>
-                <div class="li-detailed">
-                  <center>
-                    <ul class="detailed-list">
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li class="detailed-more"><a href="">更多</a></li>
-                    </ul>
-                  </center>
-                </div>
-              </li>
-              <li class="tec-li">
-                <div class="li-introduce">
-                  <center>
-                    <dl class="tec-msgs">
-                      <dd><img src="../img/tec_record-2.png"></dd>
-                      <dd>清华大学-田浩然</dd>
-                      <dd>拥有近10年软件开发和培训管理经验</dd>
-                    </dl>
-                  </center>
-                </div>
-                <div class="li-detailed">
-                  <center>
-                    <ul class="detailed-list">
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li class="detailed-more"><a href="">更多</a></li>
-                    </ul>
-                  </center>
-                </div>
-              </li>
-              <li class="tec-li">
-                <div class="li-introduce">
-                  <center>
-                    <dl class="tec-msgs">
-                      <dd><img src="../img/tec_record-2.png"></dd>
-                      <dd>清华大学-田浩然</dd>
-                      <dd>拥有近10年软件开发和培训管理经验</dd>
-                    </dl>
-                  </center>
-                </div>
-                <div class="li-detailed">
-                  <center>
-                    <ul class="detailed-list">
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li>高中数学2年级微积分2年级微积积分分精讲</li>
-                      <li class="detailed-more"><a href="">更多</a></li>
-                    </ul>
-                  </center>
-                </div>
-              </li>
+              <% @recommend_teachers.each do |r_teacher| %>
+                <li class="tec-li">
+                  <div class="li-introduce">
+                    <center>
+                      <dl class="tec-msgs">
+                        <dd><img src="../img/tec_record-1.png"></dd>
+                        <dd><%= r_teacher.target.name %></dd>
+                        <dd><%= r_teacher.title %></dd>
+                      </dl>
+                    </center>
+                  </div>
+                  <% if r_teacher.target.present? && r_teacher.target.live_studio_courses.count > 0 %>
+                    <div class="li-detailed">
+                      <center>
+                        <ul class="detailed-list">
+                          <% r_teacher.target.live_studio_courses.each do |course| %>
+                            <li><%= course.name %></li>
+                          <% end %>
+                          <li class="detailed-more"><a href="">更多</a></li>
+                        </ul>
+                      </center>
+                    </div>
+                  <% end %>
+                </li>
+              <% end %>
             </ul>
           </div>
         </div>
@@ -405,42 +320,42 @@
         <div class="row">
           <div class="col-md-2 col-sm-2 col-advantage">
             <ul>
-              <li><img src="../img/advantage_1.png"></li>
+              <li><img src="/imgs/advantage_1.png"></li>
               <li><span>名师</span></li>
               <li><p>名师授课和专业讲解保证让学生学到最优质的内容</p></li>
             </ul>
           </div>
           <div class="col-md-2 col-sm-2 col-advantage">
             <ul>
-              <li><img src="../img/advantage_2.png"></li>
+              <li><img src="/imgs/advantage_2.png"></li>
               <li><span>多种学习模式</span></li>
               <li><p>提供四种学习模式和海量课程供学生选取最适合自己的。</p></li>
             </ul>
           </div>
           <div class="col-md-2 col-sm-2 col-advantage">
             <ul>
-              <li><img src="../img/advantage_3.png"></li>
+              <li><img src="/imgs/advantage_3.png"></li>
               <li><span>直播+互动+视频</span></li>
               <li><p>直播授课体验真实互动拒绝枯燥视频讲解一看就懂</p></li>
             </ul>
           </div>
           <div class="col-md-2 col-sm-2 col-advantage">
             <ul>
-              <li><img src="../img/advantage_4.png"></li>
+              <li><img src="/imgs/advantage_4.png"></li>
               <li><span>量身定制</span></li>
               <li><p>为学生量身定制课程专属课程，杜绝模板化教学。</p></li>
             </ul>
           </div>
           <div class="col-md-2 col-sm-2 col-advantage">
             <ul>
-              <li><img src="../img/advantage_5.png"></li>
+              <li><img src="/imgs/advantage_5.png"></li>
               <li><span>Web/App/直播器</span></li>
               <li><p>支持网页端和手机端多种使用方式，随时随地进行学习；为老师定制开发主播助</p></li>
             </ul>
           </div>
           <div class="col-md-2 col-sm-2 col-advantage">
             <ul>
-              <li><img src="../img/advantage_6.png"></li>
+              <li><img src="/imgs/advantage_6.png"></li>
               <li><span>工作站模式</span></li>
               <li><p>工作站管理模式提供更具特色的本地化服务，服务全国600+城市</p></li>
             </ul>

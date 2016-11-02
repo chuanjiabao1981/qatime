@@ -14,6 +14,5 @@ module Entities
       s.school_id
     end
     expose :desc
-    expose :chat_account, using: Entities::LiveStudio::ChatAccount
   end
 end

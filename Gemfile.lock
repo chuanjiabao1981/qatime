@@ -42,12 +42,6 @@ PATH
       rails (~> 4.2.5)
       wechat (~> 0.7.5)
 
-PATH
-  remote: engines/recommend
-  specs:
-    recommend (0.0.1)
-      rails (~> 4.2.5.1)
-
 GEM
   remote: https://ruby.taobao.org/
   specs:
@@ -474,7 +468,6 @@ DEPENDENCIES
   qawechat!
   quiet_assets
   rails (= 4.2.5.1)
-  recommend!
   redis
   responders (~> 2.0)
   rest-client

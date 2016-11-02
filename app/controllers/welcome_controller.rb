@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
-  layout "front"
+  layout "application"
 
   def download
     render && return unless current_user

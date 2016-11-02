@@ -4,10 +4,9 @@ module Recommend
     belongs_to :position
     belongs_to :target, polymorphic: true
     belongs_to :owner, polymorphic: true
-    mount_uploader :logo, ::PublicizeUploader
     class_attribute :recomend_for
 
-    enum reason: %w(fast hot)
+    enum reason: %w(latest hottest)
 
     def reason_text
       reason.blank? ? '无' : I18n.t("enums.recommend.reason.#{reason}")

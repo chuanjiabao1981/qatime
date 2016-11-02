@@ -5,8 +5,8 @@ cn:
         disable: 禁用
         enable: 启用
       reason:
-        fast: 最新
-        hot: 最热
+        latest: 最新
+        hottest: 最热
   activerecord:
     models:
       recommend/position: 推荐位

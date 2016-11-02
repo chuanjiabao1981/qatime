@@ -46,6 +46,7 @@ module Permissions
       # captcha
       api_allow :POST, "/api/v1/captcha"
       api_allow :POST, "/api/v1/captcha/verify"
+
       ## end api permission
     end
   end

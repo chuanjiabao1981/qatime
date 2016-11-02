@@ -1,0 +1,40 @@
+cn:
+  enums:
+    recommend:
+      status:
+        disable: 禁用
+        enable: 启用
+      reason:
+        latest: 最新
+        hottest: 最热
+  activerecord:
+    models:
+      recommend/position: 推荐位
+    attributes:
+      recommend/position:
+        name: 推荐位名称
+        klass_name: 推荐类型
+        kee: 查询标识
+        status: 状态
+        items: 推荐列表
+      recommend/teacher_item:
+        title: 推荐标题
+        logo: 图片
+        position: 推荐位
+        target: 教师姓名
+        target_id: 教师姓名
+        owner: 所在区域
+        index: 排序
+        status: 状态
+        reason: 推荐理由
+      recommend/live_studio_course_item:
+        title: 推荐标题
+        logo: 图片
+        position: 推荐位
+        target: 辅导班
+        target_id: 辅导班
+        owner: 所在区域
+        index: 排序
+        status: 状态
+        reason: 推荐理由
+

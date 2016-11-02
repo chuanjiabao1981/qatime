@@ -4,7 +4,7 @@
   <meta name="renderer" content="webkit">
 
   <title>Qatime</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => false %>
+  <%= stylesheet_link_tag    "home", media: "all", "data-turbolinks-track" => false %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
 
   <%= csrf_meta_tags %>
@@ -22,37 +22,42 @@
     <div class='col-md-2'>
       <ul class="menu" style="color: white">
         <!--<li>-->
-          <!--<%= link_to admins_withdraws_path do %>-->
+          <!--<%#= link_to admins_withdraws_path do %>-->
             <!--<span class="glyphicon glyphicon-user"></span> <span class="qa_f18">审核记录</span>-->
-          <!--<% end %>-->
+          <!--<%# end %>-->
         <!--</li>-->
         <li>
-          <%= link_to admins_push_messages_path do %>
+          <%= link_to main_app.admins_push_messages_path do %>
             <span class="glyphicon glyphicon-user"></span> <span class="qa_f18">消息推送</span>
           <% end %>
         </li>
         <li>
-          <%= link_to audit_admins_withdraws_path do %>
+          <%= link_to recommend.admin_positions_path do %>
+            <span class="glyphicon glyphicon-user"></span> <span class="qa_f18">推荐管理</span>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to main_app.audit_admins_withdraws_path do %>
             <span class="glyphicon glyphicon-user"></span> <span class="qa_f18">提现审核</span>
           <% end %>
         </li>
         <li>
-          <%= link_to teachers_path do %>
+          <%= link_to main_app.teachers_path do %>
               <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 教师</span>
           <% end %>
         </li>
         <li>
-          <%= link_to admins_cities_path do %>
+          <%= link_to main_app.admins_cities_path do %>
               <span class="glyphicon glyphicon-map-marker"></span> <span class="qa_f18"> 城市</span>
           <% end %>
         </li>
         <li>
-          <%= link_to admins_workstations_path do %>
+          <%= link_to main_app.admins_workstations_path do %>
               <span class="glyphicon glyphicon-hand-up"></span> <span class="qa_f18"> <%= Workstation.model_name.human %></span>
           <% end %>
         </li>
         <li>
-          <%= link_to admins_softwares_path do %>
+          <%= link_to main_app.admins_softwares_path do %>
             <span class="glyphicon glyphicon-home"></span>
               <span class="qa_f18">
                 下载管理
@@ -60,17 +65,17 @@
           <% end %>
         </li>
         <li>
-          <%= link_to schools_path do %>
+          <%= link_to main_app.schools_path do %>
               <span class="glyphicon glyphicon-home"></span> <span class="qa_f18"> 学校</span>
           <% end %>
         </li>
         <li>
-          <%= link_to questions_path do %>
+          <%= link_to main_app.questions_path do %>
               <span class="fa fa-university"></span> <span class="qa_f18"><%= VipClass.model_name.human %></span>
           <% end %>
         </li>
         <li>
-          <%= link_to action_records_path do %>
+          <%= link_to main_app.action_records_path do %>
               <span class="fa fa-cogs"></span> <span class="qa_f18"><%= ActionRecord.model_name.human %></span>
           <% end %>
         </li>
@@ -81,7 +86,7 @@
           <% end %>
         </li>
         <li>
-          <%= link_to admins_recharge_codes_path do %>
+          <%= link_to main_app.admins_recharge_codes_path do %>
               <span class="glyphicon glyphicon-credit-card"></span> <span class="qa_f18"> 充值</span>
           <% end %>
         </li>
@@ -90,7 +95,7 @@
         </li>
 
         <li>
-          <%= link_to qa_faqs_path do %>
+          <%= link_to main_app.qa_faqs_path do %>
             <span class="glyphicon glyphicon-question-sign"></span><span class="qa_f18"> <%= QaFaq.model_name.human %></span>
           <% end %>
         </li>
@@ -98,7 +103,7 @@
 
 
         <li>
-          <%= link_to admins_teaching_programs_path do %>
+          <%= link_to main_app.admins_teaching_programs_path do %>
               <span class="glyphicon glyphicon-question-sign"></span>
               <span class="qa_f18">
                    <%=TeachingProgram.model_name.human%>
@@ -106,7 +111,7 @@
           <% end %>
         </li>
         <li>
-          <%= link_to admins_managers_path do %>
+          <%= link_to main_app.admins_managers_path do %>
               <span class="glyphicon glyphicon-question-sign"></span>
               <span class="qa_f18">
                 人员
@@ -115,7 +120,7 @@
         </li>
 
         <li>
-          <%= link_to managers_register_codes_path do %>
+          <%= link_to main_app.managers_register_codes_path do %>
               <span class="glyphicon glyphicon-question-sign"></span>
               <span class="qa_f18">
                 <%= RegisterCode.model_name.human%>
@@ -123,7 +128,7 @@
           <% end %>
         </li>
         <li>
-          <%= link_to sidekiq_web_path do %>
+          <%= link_to main_app.sidekiq_web_path do %>
               <span class="glyphicon glyphicon-question-sign"></span>
               <span class="qa_f18">
                 队列
@@ -131,7 +136,7 @@
           <% end %>
         </li>
         <li>
-          <%= link_to signout_path, :method=>'delete'  do %>
+          <%= link_to main_app.signout_path, :method=>'delete'  do %>
               <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18">退出系统</span>
           <% end %>
         </li>

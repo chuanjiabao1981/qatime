@@ -34,105 +34,25 @@
           </div>
           <div class="tutoring-con">
             <ul class="ul-list">
+              <% @recommend_courses.each do |item| %>
               <li>
-                <img src="../img/tutoring_1.png">
+                <%= image_tag item.logo_url %>
                 <dl class="dl-list">
-                  <dd>初中语言专题辅导班-精讲3天</dd>
+                  <dd><%= item.title %></dd>
                   <dd>
     		 					<span class="dd-left">
     		 					<i class="glyphicon glyphicon-time icon-color"></i>
-    		 					<i class="num-class">15</i>课时
+    		 					<i class="num-class"><%= item.target.try(:preset_lesson_count) %></i>课时
     		 					</span>
     		 					<span class="dd-right">
     		 						<i class="glyphicon glyphicon-user icon-color"></i>
-    		 						<i class="num-buy">10.3</i>万人已购
+    		 						<i class="num-buy"><%= item.traget.try(:buy_tickets_count) %></i>万人已购
     		 					</span>
                   </dd>
                 </dl>
               </li>
-              <li>
-                <img src="../img/tutoring_2.png">
-                <dl class="dl-list">
-                  <dd>初中语言专题辅导班-精讲3天</dd>
-                  <dd>
-    		 					<span class="dd-left">
-    		 					<i class="glyphicon glyphicon-time icon-color"></i>
-    		 					<i class="num-class">15</i>课时
-    		 					</span>
-    		 					<span class="dd-right">
-    		 						<i class="glyphicon glyphicon-user icon-color"></i>
-    		 						<i class="num-buy">10.3</i>万人已购
-    		 					</span>
-                  </dd>
-                </dl>
-              </li>
-              <li>
-                <img src="../img/tutoring_3.png">
-                <dl class="dl-list">
-                  <dd>初中语言专题辅导班-精讲3天</dd>
-                  <dd>
-    		 					<span class="dd-left">
-    		 					<i class="glyphicon glyphicon-time icon-color"></i>
-    		 					<i class="num-class">15</i>课时
-    		 					</span>
-    		 					<span class="dd-right">
-    		 						<i class="glyphicon glyphicon-user icon-color"></i>
-    		 						<i class="num-buy">10.3</i>万人已购
-    		 					</span>
-                  </dd>
-                </dl>
-              </li>
-            </ul>
+              <% end %>
 
-            <ul class="ul-list">
-              <li>
-                <img src="../img/tutoring_4.png">
-                <dl class="dl-list">
-                  <dd>初中语言专题辅导班-精讲3天</dd>
-                  <dd>
-    		 					<span class="dd-left">
-    		 					<i class="glyphicon glyphicon-time icon-color"></i>
-    		 					<i class="num-class">15</i>课时
-    		 					</span>
-    		 					<span class="dd-right">
-    		 						<i class="glyphicon glyphicon-user icon-color"></i>
-    		 						<i class="num-buy">10.3</i>万人已购
-    		 					</span>
-                  </dd>
-                </dl>
-              </li>
-              <li>
-                <img src="../img/tutoring_5.png">
-                <dl class="dl-list">
-                  <dd>初中语言专题辅导班-精讲3天</dd>
-                  <dd>
-    		 					<span class="dd-left">
-    		 					<i class="glyphicon glyphicon-time icon-color"></i>
-    		 					<i class="num-class">15</i>课时
-    		 					</span>
-    		 					<span class="dd-right">
-    		 						<i class="glyphicon glyphicon-user icon-color"></i>
-    		 						<i class="num-buy">10.3</i>万人已购
-    		 					</span>
-                  </dd>
-                </dl>
-              </li>
-              <li>
-                <img src="../img/tutoring_6.png">
-                <dl class="dl-list">
-                  <dd>初中语言专题辅导班-精讲3天</dd>
-                  <dd>
-    		 					<span class="dd-left">
-    		 					<i class="glyphicon glyphicon-time icon-color"></i>
-    		 					<i class="num-class">15</i>课时
-    		 					</span>
-    		 					<span class="dd-right">
-    		 						<i class="glyphicon glyphicon-user icon-color"></i>
-    		 						<i class="num-buy">10.3</i>万人已购
-    		 					</span>
-                  </dd>
-                </dl>
-              </li>
             </ul>
           </div>
         </div>
@@ -479,7 +399,7 @@
 </div>
 <div class="container">
   <div class="row">
-    <div class="panel panel-default">
+    <div class="panel panel-default panel-profile">
       <div class="recommended-profile">
         <div class="profile-title">答疑时间6大优势</div>
         <div class="row">
@@ -527,52 +447,6 @@
           </div>
         </div>
       </div>
-
-      <footer class="recommended-link">
-        <div class="link-content">
-          <div class="row">
-            <div class="col-md-6 link-left">
-              <table border="0" cellspacing="0" cellpadding="0">
-                <tbody><tr>
-                  <td><p>关于我们</p></td>
-                  <td><img src="../img/code.png"></td>
-                  <td><p>扫描左侧二维码关注"答疑时间"官方公众号，随时随地了解最新的学习信息</p></td>
-                  <td></td>
-                </tr>
-                </tbody></table>
-            </div>
-            <div class="col-md-6 link-right">
-              <table border="0" cellspacing="0" cellpadding="0">
-                <tbody><tr>
-                  <td>客服电话</td>
-                  <td class="link-phonenum">010-58442007</td>
-                  <td class="link-td">周一至周五<br>9:00-16:00</td>
-                </tr>
-                <tr>
-                  <td>客服QQ</td>
-                  <td colspan="2">263548456韩老师   / 3202005932关老师</td>
-                </tr>
-                <tr>
-                  <td>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 址</td>
-                  <td colspan="2">阳泉市荷藕镇ononetime小树村西天使203号</td>
-                </tr>
-                </tbody></table>
-            </div>
-          </div>
-          <div class="link-city">
-            <p>
-              <span class="city-cooperation">合作城市</span>
-              <a href="" class="city-name">诸暨</a>
-              <a href="">阳泉</a>
-              <a href="" class="city-feedback">意见反馈</a>
-            </p>
-          </div>
-          <div class="copyright" style="text-align: center; padding-top: 20px;">
-            <div>Copyright © 2013-2015 QaTime.</div>
-            <div>京ICP备12031445号-3</div>
-          </div>
-        </div>
-      </footer>
     </div>
   </div>
 </div>

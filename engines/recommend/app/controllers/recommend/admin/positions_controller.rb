@@ -25,7 +25,7 @@ module Recommend
 
     # POST /admin/positions
     def create
-      @position = Position.new(position_params)
+      @position = Position.new(position_params.merge(status: 0))
 
       if @position.save
         redirect_to [:admin, @position], notice: 'Position was successfully created.'
@@ -47,6 +47,12 @@ module Recommend
     def destroy
       @position.destroy
       redirect_to admin_positions_url, notice: 'Position was successfully destroyed.'
+    end
+
+    def change_status
+      position = Recommend::Position.find(params[:id])
+      position.disable? ? position.enable! : position.disable!
+      redirect_to admin_positions_url, notice: 'Position was successfully changed.'
     end
 
     private

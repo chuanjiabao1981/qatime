@@ -8,11 +8,12 @@ module Recommend
 
     # GET /admin/items/1/edit
     def edit
+      @position = @item.position
     end
 
     # POST /admin/items
     def create
-      @item = @position.items.build(teacher_item_params.merge(target_type: Teacher, type: @position.klass_name))
+      @item = @position.items.build(item_params.merge(target_type: Teacher, type: @position.klass_name))
 
       if @item.save
         redirect_to [:admin, @position], notice: 'Item was successfully created.'
@@ -23,8 +24,8 @@ module Recommend
 
     # PATCH/PUT /admin/items/1
     def update
-      if @admin_item.update(admin_item_params)
-        redirect_to @admin_item, notice: 'Item was successfully updated.'
+      if @item.update(item_params)
+        redirect_to [:admin, @item.position], notice: 'Item was successfully updated.'
       else
         render :edit
       end
@@ -32,14 +33,14 @@ module Recommend
 
     # DELETE /admin/items/1
     def destroy
-      @admin_item.destroy
-      redirect_to admin_items_url, notice: 'Item was successfully destroyed.'
+      @item.destroy
+      redirect_to [:admin, @item.position], notice: 'Item was successfully destroyed.'
     end
 
     private
 
     def item_params
-      params.require(:teacher_item).permit(:title, :logo, :target_id)
+      params.require(:teacher_item).permit(:title, :logo, :target_id, :reason, :index)
     end
   end
 end

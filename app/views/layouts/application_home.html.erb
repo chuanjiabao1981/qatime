@@ -9,9 +9,90 @@
   <!--link href="http://vjs.zencdn.net/4.4/video-js.css" rel="stylesheet"-->
   <!--script src="http://vjs.zencdn.net/4.4/video-js.js"></script-->
   <%= csrf_meta_tags %>
+
+  <style type="text/css">
+    .fancybox-margin{margin-right:17px;}
+    .video-js {
+      width: 300px;
+      height: 150px;
+    }
+
+    .vjs-fluid {
+      padding-top: 56.25%
+    }
+    .navbar {
+      position: fixed;
+      top: 36px !important;
+      background-color: rgb(190,11,11);
+    }
+
+    .nav li a {
+      color: white !important;
+      font-size: 20px;
+    }
+    .container {
+      padding: 0 15px;
+    }
+    body {
+      padding-top: 86px;
+    }
+    .navbar-inverse {
+      border-color: rgb(190,11,11) !important;
+    }
+  </style>
 </head>
 <body>
-<%= render partial:'layouts/top_bar_new' ,locals:{fixed:true}%>
+<header>
+  <div class="container">
+    <div class="header-content">
+      <div class="header-logo"><img src="/imgs/logo.png"></div>
+      <div class="header-nav">
+  			<span>
+  				<i class="glyphicon glyphicon-user"></i>
+          <% if signed_in? %>
+              <%= content_tag(:span, link_to(t('view.student_bars.schedules'), live_studio.send("schedules_#{current_user.role}_path",current_user))) if @user.prenset? && (@user.student? || @user.teacher?) %>
+            <span>
+              <%= link_to t("view.common_bars.notice"), user_notification_path %>
+            </span>
+          <% else %>
+            <%= link_to t("view.common_bars.sing_in"), signin_path %>
+            <i>/</i>
+            <%= link_to t("view.common_bars.teacher_register"), new_teacher_path %>
+            <i>/</i>
+            <%= link_to t("view.common_bars.student_register"), new_student_path %>
+          <% end %>
+  			</span>
+        <span><%= link_to t("view.common_bars.download"), main_app.welcome_download_path %></span>
+        <span><%= link_to t("view.common_bars.common_problem"), main_app.qa_faqs_path %></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+
+    <div class="navbar-collapse collapse" style="height: 1px;">
+      <ul class="nav navbar-nav">
+        <li><%= link_to t("view.common_bars.home_page"), root_path %></li>
+        <li><%= link_to t("view.common_bars.live_studio_courses"), live_studio.courses_path %></li>
+        <%= content_tag :li, link_to(t("view.common_bars.customized_courses"), @user.blank? ?
+          signin_path : (@user.student? || @user.teacher? ? customized_courses_student_path(@user) : '')) %>
+        <li><%= link_to t("view.common_bars.curriculums"), curriculums_path %></li>
+        <li><%= link_to t("view.common_bars.questions"), questions_path %></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
 
 <%= yield %>
 

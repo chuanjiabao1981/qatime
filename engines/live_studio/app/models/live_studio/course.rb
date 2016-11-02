@@ -3,10 +3,6 @@ module LiveStudio
     # include LiveStudio::QaCourseActionRecord
     has_soft_delete
 
-    def to_param
-      "#{id} #{name}".parameterize
-    end
-
     SYSTEM_FEE = 0.5 # 系统每个人每分钟收费0.5元
     WORKSTATION_PERCENT = 0.6 # 基础服务费代理商分成
 

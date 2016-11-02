@@ -1,25 +1,6 @@
-/*
- *= require application
- *= require bootstrap_and_overide
- *= require comments
- *= require courses
- *= require customized_courses
- *= require customized_tutorials
- *= require faq_topics
- *= require groups
- *= require homeworks
- *= require lessons
- *= require new_style
- *= require pictures
- *= require qa_faqs
- *= require questions
- *= require replies
- *= require students
- *= require topics
- *= require videos
- *= require_self
- */
-
+// Place all the styles related to the Home controller here.
+// They will automatically be included in application.scss.
+// You can use Sass (SCSS) here: http://sass-lang.com/
 .home_head
 {
   background-image: image-path("home-head-bg.png");

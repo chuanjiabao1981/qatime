@@ -22,7 +22,6 @@ module V1
     mount V1::Payment::Recharges
     mount V1::Payment::Users
     mount V1::Payment::Withdraws
-    mount V1::Recommend::Positions
 
     add_swagger_documentation mount_path: "/api-doc", api_version: "v1", hide_documentation_path: true, hide_format: false,
                               info: { title: "答疑时间API接口", description: "v1.0" }

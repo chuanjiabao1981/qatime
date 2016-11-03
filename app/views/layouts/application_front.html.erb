@@ -48,8 +48,8 @@
 
     <div class="navbar-collapse collapse" style="height: 1px;">
       <ul class="nav navbar-nav">
-        <li><%= link_to t("view.common_bars.home_page"), root_path %></li>
-        <li><%= link_to t("view.common_bars.live_studio_courses"), live_studio.courses_path %></li>
+        <li><%= link_to t("view.common_bars.home_page"), main_app.root_path %></li>
+        <li><%= link_to t("view.common_bars.live_studio_courses"), live_studio.root_path %></li>
         <%= content_tag :li, link_to(t("view.common_bars.customized_courses"), @user.blank? ?
           signin_path : (@user.student? || @user.teacher? ? customized_courses_student_path(@user) : '')) %>
         <li><%= link_to t("view.common_bars.curriculums"), curriculums_path %></li>

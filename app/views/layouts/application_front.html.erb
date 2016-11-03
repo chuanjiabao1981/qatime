@@ -11,7 +11,7 @@
 <header>
   <div class="container">
     <div class="header-content">
-      <div class="header-logo"><img src="/imgs/logo.png"></div>
+      <div class="header-logo"><%= image_tag 'logo.png' %></div>
       <div class="header-nav">
   			<span>
   				<i class="glyphicon glyphicon-user"></i>
@@ -70,7 +70,9 @@
             <table border="0" cellspacing="0" cellpadding="0">
               <tbody><tr>
                 <td><p>关于我们</p></td>
-                <td><img style='width: 121px;height: 121px;' src="/imgs/wechat_qrcode.png"></td>
+                <td>
+                  <%= image_tag 'wechat_qrcode.png', style: 'width: 121px;height: 121px;' %>
+                </td>
                 <td><p>扫描左侧二维码关注"答疑时间"官方公众号，随时随地了解最新的学习信息</p></td>
                 <td></td>
               </tr>

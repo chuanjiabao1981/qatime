@@ -10,7 +10,7 @@
         <span>评论：<%= q.comments.length %>条</span>
       </td>
       <td>
-        <%= image_tag q.student.avatar_url %>
+        <%= image_tag q.student.avatar_url(:small) %>
         <span><%= q.student.name %></span><br>
         <span>发表时间：</span>
         <span><%= I18n.l q.created_at %></span>

@@ -477,3 +477,7 @@ color: rgb(190,11,11);
 .class-msg a {
 	color: #000000 !important;
 }
+
+.container-details {
+	margin-top: 10px;
+}

@@ -3,7 +3,7 @@ module Recommend
     self.recomend_for = LiveStudio::Course
 
     def logo_url
-      target.publicize_url
+      target.publicize_url(:list)
     end
   end
 end

@@ -13,6 +13,7 @@ module LiveStudio
       else
         @tickets = []
       end
+      render layout: 'application_front'
     end
 
     def new

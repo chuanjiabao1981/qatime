@@ -20,6 +20,7 @@
             <span>
               <%= link_to t("view.common_bars.notice"), user_notification_path %>
             </span>
+            <%= content_tag :span, link_to(t("view.common_bars.sign_out"), signout_path, method: :delete ) %>
           <% else %>
             <%= link_to t("view.common_bars.sing_in"), signin_path %>
             <i>/</i>
@@ -50,8 +51,7 @@
       <ul class="nav navbar-nav">
         <li><%= link_to t("view.common_bars.home_page"), root_path %></li>
         <li><%= link_to t("view.common_bars.live_studio_courses"), live_studio.courses_path %></li>
-        <%= content_tag :li, link_to(t("view.common_bars.customized_courses"), @user.blank? ?
-          signin_path : (@user.student? || @user.teacher? ? customized_courses_student_path(@user) : '')) %>
+        <%= content_tag :li, link_to(t("view.common_bars.customized_courses"), @user_path || customized_courses_student_path(@user)) %>
         <li><%= link_to t("view.common_bars.curriculums"), curriculums_path %></li>
         <li><%= link_to t("view.common_bars.questions"), questions_path %></li>
       </ul>

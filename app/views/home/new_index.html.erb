@@ -1,13 +1,13 @@
-<div class="container">
+<div class="container container-details">
   <div class="row">
     <div class="panel panel-default">
 
       <div class="home-banner">
         <ul class="banner-show" style="left: -128.846%;">
-          <li><a href=""><img src="../img/banner.png" alt=""></a></li>
-          <li><a href=""><img src="../img/banner.png" alt=""></a></li>
-          <li><a href=""><img src="../img/banner.png" alt=""></a></li>
-          <li><a href=""><img src="../img/banner.png" alt=""></a></li>
+          <li><a href=""><img src="/imgs/banner.png" alt=""></a></li>
+          <li><a href=""><img src="/imgs/banner.png" alt=""></a></li>
+          <li><a href=""><img src="/imgs/banner.png" alt=""></a></li>
+          <li><a href=""><img src="/imgs/banner.png" alt=""></a></li>
         </ul>
         <ul class="banner-dot">
           <li style="background-color: white;"></li>
@@ -28,7 +28,7 @@
               <span class="fa fa-tasks title-color"></span>
               <span class="title-size">辅导推荐</span>
             </div>
-            <a href="" class="tutoring-title-right">
+            <a href="<%= live_studio.courses_path %>" class="tutoring-title-right">
               <span>全部</span>
             </a>
           </div>
@@ -46,20 +46,16 @@
                     </span>
                     <span class="dd-right">
                       <i class="glyphicon glyphicon-user icon-color"></i>
-                      <i class="num-buy"><%= item.target.try(:buy_tickets_count) %></i>万人已购
+                      <i class="num-buy"><%= item.target.try(:buy_tickets_count) %></i>人已购
                     </span>
                     </dd>
                   </dl>
                 </li>
               <% end %>
-
             </ul>
           </div>
         </div>
       </div>
-
-
-
       <div class="panel panel-default">
         <div class="recommended-class">
           <div class="class-title">
@@ -67,11 +63,15 @@
               <i class="fa fa-archive title-color"></i>
               <a href="javascript:void(0);" class="btn-tab active-tab">专属课程</a>
               <span class="separator">|</span>
-              <a href="javascript:void(0);" class="btn-tab">公共课程</a>
+              <a href="javascript:void(0);" class="btn-tab" rel=".curriculums-more">公开课程</a>
               <span class="separator">|</span>
-              <a href="javascript:void(0);" class="btn-tab">问答社区</a>
+              <a href="javascript:void(0);" class="btn-tab" rel=".questions-more">问答社区</a>
             </div>
-            <a href="" class="class-title-right">
+            <a href="<%= curriculums_path %>" class="curriculums-more class-title-right">
+              <span>更多</span>
+              <span>&gt;</span>
+            </a>
+            <a href="<%= questions_path %>" class="questions-more class-title-right">
               <span>更多</span>
               <span>&gt;</span>
             </a>
@@ -116,150 +116,19 @@
                 </tbody></table>
 
               <div class="application">
-                <div class="apply-course">
-                  <span class="fa fa-edit icon-write"></span>
-                  <span class="apply-class">申请我的专属课程</span>
-                </div>
+                <%= link_to @user_path || send("customized_courses_#{@user.role}_path",@user) do %>
+                  <div class="apply-course">
+                    <span class="fa fa-edit icon-write"></span>
+                    <span class="apply-class">申请我的专属课程</span>
+                  </div>
+                <% end %>
               </div>
             </div>
             <div class="class-course">
-              <ul class="course-list-2">
-                <li class="active-li">全部</li>
-                <li>数学</li>
-                <li>语文</li>
-                <li>英语</li>
-                <li>物理</li>
-                <li>化学</li>
-                <li>生物</li>
-                <li>历史</li>
-                <li>政治</li>
-                <li>地理</li>
-                <li>科学</li>
-              </ul>
-
-              <table border="0" cellspacing="0" cellpadding="0" class="table-subject">
-                <tbody><tr>
-                  <td>
-                    <a href="">
-                      <i class="fa fa-book icon1-color"></i>
-                      <span class="subject-msg">初二/3章2小节/王永/阳泉市第十一中学</span>
-                    </a>
-                  </td>
-                  <td>
-                    <a href="">
-                      <i class="fa fa-book icon1-color"></i>
-                      <span class="subject-msg">初二/3章2小节/王永/阳泉市第十一中学</span>
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="">
-                      <i class="fa fa-book icon1-color"></i>
-                      <span class="subject-msg">初二/3章2小节/王永/阳泉市第十一中学</span>
-                    </a>
-                  </td>
-                  <td>
-                    <a href="">
-                      <i class="fa fa-book icon1-color"></i>
-                      <span class="subject-msg">初二/3章2小节/王永/阳泉市第十一中学</span>
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="">
-                      <i class="fa fa-book icon1-color"></i>
-                      <span class="subject-msg">初二/3章2小节/王永/阳泉市第十一中学</span>
-                    </a>
-                  </td>
-                  <td>
-                    <a href="">
-                      <i class="fa fa-book icon1-color"></i>
-                      <span class="subject-msg">初二/3章2小节/王永/阳泉市第十一中学</span>
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <a href="">
-                      <i class="fa fa-book icon1-color"></i>
-                      <span class="subject-msg">初二/3章2小节/王永/阳泉市第十一中学</span>
-                    </a>
-                  </td>
-                  <td>
-                    <a href="">
-                      <i class="fa fa-book icon1-color"></i>
-                      <span class="subject-msg">初二/3章2小节/王永/阳泉市第十一中学</span>
-                    </a>
-                  </td>
-                </tr>
-                </tbody></table>
-
+              <%= render 'curriculums' %>
             </div>
             <div class="class-course class-course-tab">
-              <table border="0" cellspacing="0" cellpadding="0">
-                <tbody><tr>
-                  <td>
-                    <span class="news-question">老师您好第三小题我不太会做，另外为什么在中国儿子不能和爸爸同名同姓？</span>
-                    <span class="news-ask">最新提问</span><br>
-                    <span>高中化学</span>
-                    <span class="answer">答案：1740次</span>
-                    <span>评论：2412条</span>
-                  </td>
-                  <td>
-                    <img src="../img/head.png">
-                    <span>田浩然</span><br>
-                    <span>发表时间：</span>
-                    <span>2016-08-18 17:09:13</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="news-question">老师您好第三小题我不太会做，另外为什么在中国儿子不能和爸爸同名同姓？</span>
-                    <span class="news-ask">最新提问</span><br>
-                    <span>高中化学</span>
-                    <span class="answer">答案：1740次</span>
-                    <span>评论：2412条</span>
-                  </td>
-                  <td>
-                    <img src="../img/head.png">
-                    <span>田浩然</span><br>
-                    <span>发表时间：</span>
-                    <span>2016-08-18 17:09:13</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="news-question">老师您好第三小题我不太会做，另外为什么在中国儿子不能和爸爸同名同姓？</span>
-                    <span class="news-ask">最新提问</span><br>
-                    <span>高中化学</span>
-                    <span class="answer">答案：1740次</span>
-                    <span>评论：2412条</span>
-                  </td>
-                  <td>
-                    <img src="../img/head.png">
-                    <span>田浩然</span><br>
-                    <span>发表时间：</span>
-                    <span>2016-08-18 17:09:13</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="news-question">老师您好第三小题我不太会做，另外为什么在中国儿子不能和爸爸同名同姓？</span>
-                    <span class="news-ask">最新提问</span><br>
-                    <span>高中化学</span>
-                    <span class="answer">答案：1740次</span>
-                    <span>评论：2412条</span>
-                  </td>
-                  <td>
-                    <img src="../img/head.png">
-                    <span>田浩然</span><br>
-                    <span>发表时间：</span>
-                    <span>2016-08-18 17:09:13</span>
-                  </td>
-                </tr>
-                </tbody></table>
+              <%= render 'questions' %>
             </div>
           </div>
         </div>
@@ -273,10 +142,10 @@
               <span class="glyphicon glyphicon-user title-color"></span>
               <span class="title-size">名师推荐</span>
             </div>
-            <a href="" class="teacher-title-right">
-              <span>换一批</span>
-              <span class="fa fa-refresh"></span>
-            </a>
+            <!--<a href="" class="teacher-title-right">-->
+              <!--<span>换一批</span>-->
+              <!--<span class="fa fa-refresh"></span>-->
+            <!--</a>-->
           </div>
           <div class="tutoring-tec-con">
             <ul class="list-tec">
@@ -285,7 +154,9 @@
                   <div class="li-introduce">
                     <center>
                       <dl class="tec-msgs">
-                        <dd><img src="../img/tec_record-1.png"></dd>
+                        <dd>
+                          <%= image_tag r_teacher.logo_url %>
+                        </dd>
                         <dd><%= r_teacher.target.name %></dd>
                         <dd><%= r_teacher.title %></dd>
                       </dl>
@@ -295,8 +166,8 @@
                     <div class="li-detailed">
                       <center>
                         <ul class="detailed-list">
-                          <% r_teacher.target.live_studio_courses.each do |course| %>
-                            <li><%= course.name %></li>
+                          <% r_teacher.target.live_studio_courses.preview.limit(4).each do |course| %>
+                            <li><%= link_to course.name, live_studio.course_path(course.id) %></li>
                           <% end %>
                           <li class="detailed-more"><a href="">更多</a></li>
                         </ul>
@@ -389,6 +260,7 @@
         $(".banner-dot li").eq(index).css("background-color", "rgb(255,153,102)");
       }
     }
+
     var timerID = setInterval(autoscroll,1000);
     $(".banner-show").mouseover(function  () {
       clearInterval(timerID);
@@ -397,24 +269,25 @@
       timerID = setInterval(autoscroll,1000);
     })
 
-
-
     $(".btn-tab").click(function  () {
       var index = $(".btn-tab").index($(this));
+      var more = $(this).attr('rel');
       $(this).addClass('active-tab').siblings().removeClass('active-tab');
       $('.class-course').eq(index).show().siblings().hide();
+      $(".questions-more,.curriculums-more").hide();
+      $(more).show();
     })
-
 
     $(".tec-li").mouseenter(function  () {
       var index = $(".tec-li").index($(this));
       $(".li-introduce").eq(index).hide();
       $(".li-detailed").eq(index).show();
     })
-    $(".tec-li").mouseleave (function  () {
+
+    $(".tec-li").mouseleave(function  () {
       $(".li-detailed").hide();
       $(".li-introduce").show();
     })
-
   })
+
 </script>

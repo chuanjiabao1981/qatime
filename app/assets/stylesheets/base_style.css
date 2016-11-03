@@ -60,3 +60,11 @@ body {
 .questions-more,.curriculums-more{
   display: none;
 }
+.dl-list dd a {
+  color: #000000 !important;
+}
+.tec-msgs dd img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}

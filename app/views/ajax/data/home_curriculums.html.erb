@@ -1,0 +1,31 @@
+<ul class="course-list-2">
+  <%= content_tag :li, link_to('全部', home_curriculums_ajax_data_path, remote: true, class: 'curriculums-remote'), class: params[:subject].blank? ? 'active-li' : '' %>
+  <% APP_CONSTANT["subjects"].each do |subject| %>
+    <%= content_tag(:li, link_to(subject, home_curriculums_ajax_data_path(subject: subject), remote: true, class: 'curriculums-remote'),
+                    class: params[:subject] == subject ? 'active-li' : '')%>
+  <% end %>
+</ul>
+<div>
+  <%
+     if @curriculums.present?
+  %>
+    <%= content_tag :ul, class: 'li-msg',style: 'display: block;' do %>
+      <%
+         @curriculums.each do |c|
+           pro = c.teaching_program
+      %>
+        <%= content_tag :li do %>
+          <%= link_to curriculum_path(c) do %>
+            <%= content_tag :i,'', class: 'fa fa-book icon1-color' %>
+            <%= content_tag :span, '%s/%s/%s/%s' % [pro.try(:grade), pro.try(:name), c.teacher.name, c.teacher.try(:school).try(:name)], class: 'subject-msg' %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
+<script type="text/javascript" charset="utf-8">
+  $('.curriculums-remote').bind('ajax:complete', function(event, data) {
+    $('#home_curriculums_replaced').html(data.responseText);
+  });
+</script>

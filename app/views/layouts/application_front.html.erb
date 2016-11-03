@@ -11,52 +11,14 @@
 <header>
   <div class="container">
     <div class="header-content">
-      <div class="header-logo"><%= image_tag 'logo.png' %></div>
-      <div class="header-nav">
-  			<span>
-  				<i class="glyphicon glyphicon-user"></i>
-          <% if signed_in? %>
-              <%= content_tag(:span, link_to(t('view.student_bars.schedules'), live_studio.send("schedules_#{current_user.role}_path",current_user))) if @user.present? && (@user.student? || @user.teacher?) %>
-            <span>
-              <%= link_to t("view.common_bars.notice"), user_notification_path %>
-            </span>
-            <%= content_tag :span, link_to(t("view.common_bars.sign_out"), signout_path, method: :delete ) %>
-          <% else %>
-            <%= link_to t("view.common_bars.sing_in"), signin_path %>
-            <i>/</i>
-            <%= link_to t("view.common_bars.teacher_register"), new_teacher_path %>
-            <i>/</i>
-            <%= link_to t("view.common_bars.student_register"), new_student_path %>
-          <% end %>
-  			</span>
-        <span><%= link_to t("view.common_bars.download"), main_app.welcome_download_path %></span>
-        <span><%= link_to t("view.common_bars.common_problem"), main_app.qa_faqs_path %></span>
-      </div>
+     <%= render 'layouts/header' %>
     </div>
   </div>
 </header>
 
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-    </div>
-
-    <div class="navbar-collapse collapse" style="height: 1px;">
-      <ul class="nav navbar-nav">
-        <li><%= link_to t("view.common_bars.home_page"), main_app.root_path %></li>
-        <li><%= link_to t("view.common_bars.live_studio_courses"), live_studio.root_path %></li>
-        <%= content_tag :li, link_to(t("view.common_bars.customized_courses"), @user_path || customized_courses_student_path(@user)) %>
-        <li><%= link_to t("view.common_bars.curriculums"), curriculums_path %></li>
-        <li><%= link_to t("view.common_bars.questions"), questions_path %></li>
-      </ul>
-    </div>
-
+    <%= render 'layouts/nav' %>
   </div>
 </div>
 

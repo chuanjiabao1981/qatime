@@ -1,0 +1,18 @@
+<div class="navbar-header">
+  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+</div>
+
+<div class="navbar-collapse collapse" style="height: 1px;">
+  <ul class="nav navbar-nav">
+    <li><%= link_to t("view.common_bars.home_page"), main_app.root_path %></li>
+    <li><%= link_to t("view.common_bars.live_studio_courses"), live_studio.root_path %></li>
+    <li><%= link_to t("view.common_bars.customized_courses"), main_app.customized_courses_student_path(current_user) if current_user && (current_user.teacher? || current_user.student?) %></li>
+    <li><%= link_to t("view.common_bars.curriculums"), main_app.curriculums_path %></li>
+    <li><%= link_to t("view.common_bars.questions"), main_app.questions_path %></li>
+  </ul>
+</div>

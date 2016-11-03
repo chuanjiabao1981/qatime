@@ -2381,6 +2381,7 @@ i {
   margin: 0;
   overflow: hidden;
   width: 100%;
+  margin-bottom: 20px !important;
 }
 .list-screening li {
   width: 24.4%;

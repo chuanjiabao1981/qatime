@@ -11,7 +11,6 @@ $(function(){
 
   if($(".btn-screen").length > 0){
     $(".btn-screen").click(function(){
-      assign_filter();
       submit_form('#search-form');
     })
   }
@@ -80,18 +79,6 @@ function init_filter(){
     ]
   $(filter_arr).each(function(_,el){
     $(el[0]).val(el[1]);
-  })
-}
-
-function assign_filter(){
-  $('.active-color').each(function(_,el){
-    var tag = $(el).attr('rel');
-    var value = $(el).attr('data');
-    if(tag.indexOf('_sort') > 0){
-      $("#sort_by").val(tag.replace('_sort','') +"."+value);
-    }else{
-      $("#"+tag).val(value);
-    }
   })
 }
 

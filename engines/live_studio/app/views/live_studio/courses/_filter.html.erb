@@ -7,40 +7,56 @@
     <%= hidden_field_tag :student_id, params[:student_id] %>
     <ul class="list-sort">
       <li>排&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;序：</li>
-      <li class="list-sort-1 <%= ['all',nil].include?(params[:sort_by]) ? 'active-color' : '' %>" rel="sort" data="all">
-        <%= t('activerecord.view.filter.all') %>
+      <li class="list-sort-1">
+        <a href="javascript:void(0);" class="search-link-submit <%= ['all',nil].include?(params[:sort_by]) ? 'active-color' : '' %>" rel="sort" data="all">
+          <%= t('activerecord.view.filter.all') %>
+        </a>
       </li>
-      <li class="list-sort-1 <%= params[:sort_by] == 'price.desc' ? 'active-color' : '' %>" rel="price_sort" data="desc">
-        <%= t('view.course_search_show.price') %><%= t('view.course_search_show.price_desc') %>
+      <li class="list-sort-1">
+        <a href="javascript:void(0);" class="search-link-submit <%= params[:sort_by] == 'price.desc' ? 'active-color' : '' %>" rel="price_sort" data="desc">
+          <%= t('view.course_search_show.price') %><%= t('view.course_search_show.price_desc') %>
+        </a>
       </li>
-      <li class="list-sort-1 <%= params[:sort_by] == 'price.asc' ? 'active-color' : '' %>" rel="price_sort" data="asc">
-        <%= t('view.course_search_show.price') %><%= t('view.course_search_show.price_asc') %>
+      <li class="list-sort-1">
+        <a href="javascript:void(0);" class="search-link-submit <%= params[:sort_by] == 'price.asc' ? 'active-color' : '' %>" rel="price_sort" data="asc">
+          <%= t('view.course_search_show.price') %><%= t('view.course_search_show.price_asc') %>
+        </a>
       </li>
-      <li class="list-sort-1 <%= params[:sort_by] == 'buy_tickets_count.desc' ? 'active-color' : '' %>" rel="buy_tickets_count_sort" data="desc">
-        <%= t('view.course_search_show.purchase_number') %>
+      <li class="list-sort-1">
+        <a href="javascript:void(0);" class="search-link-submit <%= params[:sort_by] == 'buy_tickets_count.desc' ? 'active-color' : '' %>" rel="buy_tickets_count_sort" data="desc">
+          <%= t('view.course_search_show.purchase_number') %>
+        </a>
       </li>
     </ul>
 
     <ul class="list-course">
       <li>科&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目：</li>
-      <li class="list-course-1 <%= ['all',nil].include?(params[:subject]) ? 'active-color' : '' %>" rel="subject" data="all">
-        <%= t('activerecord.view.filter.all') %>
+      <li class="list-course-1">
+        <a href="javascript:void(0);" class="search-link-submit <%= ['all',nil].include?(params[:subject]) ? 'active-color' : '' %>" rel="subject" data="all">
+          <%= t('activerecord.view.filter.all') %>
+        </a>
       </li>
       <% APP_CONSTANT['subjects'].each do |sub| %>
-        <li class="list-course-1 <%= params[:subject] == sub ? 'active-color' : ''%>" rel="subject" data="<%= sub %>">
-          <%= sub %>
+        <li class="list-course-1">
+          <a href="javascript:void(0);" class="search-link-submit <%= params[:subject] == sub ? 'active-color' : ''%>" rel="subject" data="<%= sub %>">
+            <%= sub %>
+          </a>
         </li>
       <% end %>
     </ul>
 
     <ul class="list-grade">
       <li>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级：</li>
-      <li class="list-grade-1 <%= ['all',nil].include?(params[:grade]) ? 'active-color' : '' %>" rel="grade" data="all">
-        <%= t('activerecord.view.filter.all') %>
+      <li class="list-grade-1">
+        <a href="javascript:void(0);" class="search-link-submit <%= ['all',nil].include?(params[:grade]) ? 'active-color' : '' %>" rel="grade" data="all">
+          <%= t('activerecord.view.filter.all') %>
+        </a>
       </li>
       <% APP_CONSTANT['grades_in_menu'].each do |grade| %>
-        <li class="list-grade-1 <%= params[:grade] == grade ? 'active-color' : ''%>" rel="grade" data="<%= grade %>">
-          <%= grade %>
+        <li class="list-grade-1">
+          <a href="javascript:void(0);" class="search-link-submit <%= params[:grade] == grade ? 'active-color' : ''%>" rel="grade" data="<%= grade %>">
+            <%= grade %>
+          </a>
         </li>
       <% end %>
     </ul>
@@ -74,14 +90,20 @@
 
       <ul class="list-state">
         <li>当前状态：</li>
-        <li class="list-state-1 <%= ['all',nil].include?(params[:status]) ? 'active-color' : '' %>" rel="status" data="all">
-          <%= t('activerecord.view.filter.all') %>
+        <li class="list-state-1">
+          <a href="javascript:void(0);" class="search-link-submit <%= ['all',nil].include?(params[:status]) ? 'active-color' : '' %>" rel="status" data="all">
+            <%= t('activerecord.view.filter.all') %>
+          </a>
         </li>
-        <li class="list-state-1 <%= params[:status] == 'preview' ? 'active-color' : '' %>" rel="status" data="preview">
-          <%= t('status.preview') %>
+        <li class="list-state-1">
+          <a href="javascript:void(0);" class="search-link-submit <%= params[:status] == 'preview' ? 'active-color' : '' %>" rel="status" data="preview">
+            <%= t('status.preview') %>
+          </a>
         </li>
-        <li class="list-state-1 <%= params[:status] == 'teaching' ? 'active-color' : '' %>" rel="status" data="teaching">
-          <%= t('status.teaching') %>
+        <li class="list-state-1">
+          <a href="javascript:void(0);" class="search-link-submit <%= params[:status] == 'teaching' ? 'active-color' : '' %>" rel="status" data="teaching">
+            <%= t('status.teaching') %>
+          </a>
         </li>
       </ul>
 
@@ -96,3 +118,19 @@
     </p>
   </form>
 </div>
+
+
+
+
+<script>
+  $(".search-link-submit").click(function(){
+    var tag = $(this).attr('rel');
+    var value = $(this).attr('data');
+    if(tag.indexOf('_sort') > 0){
+      $("#sort_by").val(tag.replace('_sort','') +"."+value);
+    }else{
+      $("#"+tag).val(value);
+    }
+    $("#search-form").submit();
+  });
+</script>

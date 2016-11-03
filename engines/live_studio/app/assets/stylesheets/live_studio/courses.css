@@ -474,8 +474,12 @@ color: rgb(190,11,11);
 	margin-bottom: 20px !important;
 }
 
-.class-msg a {
-	color: #000000 !important;
+.list-sort-1 a, .list-course-1 a, .list-grade-1 a, .list-state-1 a, .class-msg a {
+	color: #000000;
+}
+
+.list-sort-1 a:hover, .list-course-1 a:hover, .list-grade-1 a:hover, .list-state-1 a:hover, .class-msg a:hover {
+	color: #000000;
 }
 
 .container-details {

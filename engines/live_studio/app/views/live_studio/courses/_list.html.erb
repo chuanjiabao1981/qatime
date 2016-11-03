@@ -5,7 +5,7 @@
         <% if course.present? %>
           <li>
             <%=link_to live_studio.course_path(course) do %>
-              <%= content_tag(:div, image_tag(course.publicize_url(:list))) %>
+              <%= content_tag(:div, image_tag(course.publicize_url(:list), style: 'width: 286px;height: 168px;')) %>
             <% end %>
             <div class="dl-con">
               <dl class="dl-screening">

@@ -29,7 +29,8 @@ i,em{font-style:normal}
 .jedateym .prev:before{width: 0;height: 0; display:inline-block;border-width: 7px; border-style: dashed;border-color: transparent;overflow: hidden;border-right-style:solid; border-right-color:#fff;content: "";margin: 0 9px 0 0;}
 .jedateym .next:before{width: 0;height: 0; display:inline-block;border-width: 7px; border-style: dashed;border-color: transparent;overflow: hidden;border-left-style:solid; border-left-color:#fff;content: "";margin: 0 0 0 6px;}
 .jedateym .pndrop{width:14px;height:14px; overflow:hidden;display: inline-block;position:relative;vertical-align: middle;}
-.jedateym .pndrop:before{width: 0;height: 0; display:inline-block;border-width:5px; border-style: dashed;border-color: transparent;overflow: hidden;border-top-style:solid; border-top-color:#fff;content: ""; position:absolute; top:4px; left:2px;}
+/* .jedateym .pndrop:before 样式去掉了 border-style: dashed */
+.jedateym .pndrop:before{width: 0;height: 0; display:inline-block;border-width:5px;border-color: transparent;overflow: hidden;border-top-style:solid; border-top-color:#fff;content: ""; position:absolute; top:4px; left:2px;}
 
 .jedatesety,.jedatesetm{width: 100%; position:absolute;left:0; top:40px; bottom:0;background-color: #fff;}
 .jedatesety .ymdropul,.jedatesetm .ymdropul{width:100%;height:210px;overflow:auto;}
@@ -68,4 +69,3 @@ i,em{font-style:normal}
 .jedatems p{width:10%;float:left;text-align: center;height:32px; line-height:32px;}
 .jedateh p.action,.jedatems p.action{background: #00A1CB;color:#fff;}
 .jedatehmsclose{width:30px; height:30px; line-height:26px; text-align:center;position: absolute;top:50%;right:4px; margin-top:-15px;z-index:150;font-size:24px;}
-

@@ -1,0 +1,62 @@
+.fancybox-margin{margin-right:17px;}
+.video-js {
+  width: 300px;
+  height: 150px;
+}
+
+.vjs-fluid {
+  padding-top: 56.25%
+}
+.navbar {
+  position: fixed;
+  top: 36px !important;
+  background-color: rgb(190,11,11);
+}
+
+.nav li a {
+  color: white !important;
+  font-size: 20px;
+}
+.container {
+  padding: 0 15px;
+}
+body {
+  padding-top: 86px;
+}
+.navbar-inverse {
+  border-color: rgb(190,11,11) !important;
+}
+.container-footer {
+  position: relative;
+  top: -20px;
+}
+.panel-profile {
+  border-radius: 0px !important;
+}
+.li-msg {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  display: none;
+}
+.course-list-2 {
+  margin-left: 17px;
+  overflow: hidden;
+}
+.course-list-1, .course-list-2, .list-tec {
+  list-style-type: none;
+  padding-left: 0px;
+  color: rgb(139,139,139);
+}
+.li-msg li {
+  width: 50%;
+  height: 55px;
+  float: left;
+}
+.container-details {
+  margin-top: 10px;
+}
+.questions-more,.curriculums-more{
+  display: none;
+}

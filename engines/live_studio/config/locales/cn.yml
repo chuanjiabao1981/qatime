@@ -78,6 +78,7 @@ cn:
       lesson_count: 课时总数
       class_date: 开课日期
       status: 当前状态
+      purchase_number: 购买人数
     payment_show:
       product_info: 商品详情
       order_info: 订单信息

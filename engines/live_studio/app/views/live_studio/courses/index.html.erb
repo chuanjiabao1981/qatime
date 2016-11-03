@@ -1,32 +1,8 @@
-<div class="panel panel-default course-page">
-  <%= content_tag(:div, class: 'course-header-div') do%>
-    <%= content_tag(:div, t("activerecord.models.live_studio/course"), class: 'title') %>
-    <%= content_tag(:div, class: 'search-link') do %>
-      <%= content_tag(:a, href: student_courses_path(current_user)) do %>
-        <%= t('activerecord.view.course') %>
-      <% end %>
-    <% end if current_user.student? %>
-  <% end %>
-
-  <div class="filter-box">
-    <%= render partial: 'filter' %>
-  </div>
-  <div>
-    <%= render @courses %>
-    <%= will_paginate @courses %>
+<div class="container container-details">
+  <div class="row">
+    <div class="panel panel-default panel-profile">
+      <%= render partial: 'filter' %>
+      <%= render partial: 'list' %>
+    </div>
   </div>
 </div>
-<script>
-  $(function(){
-    $(document).on('click','._menu',function(e) {
-      if( $(e.target).is('a') && $(e.target).attr('class') != 'dropdown-toggle' ) {
-        $(this).collapse('hide');
-        $(this).css('height','auto');
-      }
-      if($(e.target).is('input')){
-        e.preventDefault();
-        return false;
-      }
-    });
-  });
-</script>

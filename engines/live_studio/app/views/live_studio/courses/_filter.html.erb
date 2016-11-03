@@ -1,147 +1,98 @@
-<form id="search-form">
+<div class="screening-nav">
+  <form id="search-form">
+    <%= hidden_field_tag :sort_by, params[:sort_by] %>
+    <%= hidden_field_tag :subject, params[:subject] %>
+    <%= hidden_field_tag :grade, params[:grade] %>
+    <%= hidden_field_tag :status, params[:status] %>
+    <%= hidden_field_tag :student_id, params[:student_id] %>
+    <ul class="list-sort">
+      <li>排&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;序：</li>
+      <li class="list-sort-1 <%= ['all',nil].include?(params[:sort_by]) ? 'active-color' : '' %>" rel="sort" data="all">
+        <%= t('activerecord.view.filter.all') %>
+      </li>
+      <li class="list-sort-1 <%= params[:sort_by] == 'price.desc' ? 'active-color' : '' %>" rel="price_sort" data="desc">
+        <%= t('view.course_search_show.price') %><%= t('view.course_search_show.price_desc') %>
+      </li>
+      <li class="list-sort-1 <%= params[:sort_by] == 'price.asc' ? 'active-color' : '' %>" rel="price_sort" data="asc">
+        <%= t('view.course_search_show.price') %><%= t('view.course_search_show.price_asc') %>
+      </li>
+      <li class="list-sort-1 <%= params[:sort_by] == 'buy_tickets_count.desc' ? 'active-color' : '' %>" rel="buy_tickets_count_sort" data="desc">
+        <%= t('view.course_search_show.purchase_number') %>
+      </li>
+    </ul>
 
-  <%= hidden_field_tag :sort_by, params[:sort_by] %>
-  <%= hidden_field_tag :subject, params[:subject] %>
-  <%= hidden_field_tag :grade, params[:grade] %>
-  <%= hidden_field_tag :status, params[:status] %>
-  <%= hidden_field_tag :student_id, params[:student_id] %>
-  <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-      <%= t('view.course_search_show.subject') %><%= search_value_show_word('subject') %><span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-      <li><a href="javascript:void(0);" class="search-link-submit" rel="subject" data="all"><%= t('activerecord.view.filter.all') %></a></li>
+    <ul class="list-course">
+      <li>科&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目：</li>
+      <li class="list-course-1 <%= ['all',nil].include?(params[:subject]) ? 'active-color' : '' %>" rel="subject" data="all">
+        <%= t('activerecord.view.filter.all') %>
+      </li>
       <% APP_CONSTANT['subjects'].each do |sub| %>
-        <li><a href="javascript:void(0);" class="search-link-submit" rel="subject" data="<%= sub %>"><%= sub %></a></li>
+        <li class="list-course-1 <%= params[:subject] == sub ? 'active-color' : ''%>" rel="subject" data="<%= sub %>">
+          <%= sub %>
+        </li>
       <% end %>
     </ul>
-  </div>
-  <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-      <%= t('view.course_search_show.grade') %><%= search_value_show_word('grade') %><span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-      <li><a href="javascript:void(0);" class="search-link-submit" rel="grade" data="all"><%= t('activerecord.view.filter.all') %></a></li>
-      <% APP_CONSTANT['grades_in_menu'].each do |grade| %>
-        <li><a href="javascript:void(0);" class="search-link-submit" rel="grade" data="<%= grade %>"><%= grade %></a></li>
-      <% end %>
-    </ul>
-  </div>
-  <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-      <%= t('view.course_search_show.price') %><%= search_value_show('price') %><span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu _menu">
-      <li>
-        <a href="javascript:void(0);" class="search-link-submit" rel="price_sort" data="asc">
-          <%= t('view.course_search_show.price_asc') %>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:void(0);" class="search-link-submit" rel="price_sort" data="desc">
-          <%= t('view.course_search_show.price_desc') %>
-        </a>
-      </li>
-      <li class="divider"></li>
-      <li class="dropdown-submenu pull-right">
-        <a tabindex="-1" href="#"><%= self_settings %></a>
-        <ul class="dropdown-menu">
-          <li>
-            <div class="search-form-div">
-              <%= text_field_tag :price_floor, params[:price_floor], class: 'search-input' %>~
-              <%= text_field_tag :price_ceil, params[:price_ceil], class: 'search-input' %>
-              <%= search_submit %>
-            </div>
-            <div class="text-center">
-              <%= link_to t('view.course_search_show.clear_range_btn'), 'javascript:void(0);', class: 'clear-range', rel: 'price' %>
-            </div>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-  <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-      <%= t('view.course_search_show.lesson_count') %><%= search_value_show('preset_lesson_count') %><span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu _menu">
-      <li>
-        <a href="javascript:void(0);" class="search-link-submit" rel="preset_lesson_count_sort" data="asc">
-          <%= t('view.course_search_show.preset_lesson_count_asc') %>
-        </a>
-      </li>
-      <li>
-        <a href="javascript:void(0);" class="search-link-submit" rel="preset_lesson_count_sort" data="desc">
-          <%= t('view.course_search_show.preset_lesson_count_desc') %>
-        </a>
-      </li>
-      <li class="divider"></li>
-      <li class="dropdown-submenu pull-right">
-        <a tabindex="-1" href="#"><%= self_settings %></a>
-        <ul class="dropdown-menu">
-          <li>
-            <div class="search-form-div">
-              <%= text_field_tag :preset_lesson_count_floor, params[:preset_lesson_count_floor], class: 'search-input' %>~
-              <%= text_field_tag :preset_lesson_count_ceil, params[:preset_lesson_count_ceil], class: 'search-input' %>
-              <%= search_submit %>
-            </div>
-            <div class="text-center">
-              <%= link_to t('view.course_search_show.clear_range_btn'), 'javascript:void(0);', class: 'clear-range', rel: 'preset_lesson_count' %>
-            </div>
-          </li>
-        </ul>
-      </li>
-    </ul>
-  </div>
-  <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-      <%= t('view.course_search_show.class_date') %><%= search_value_show('class_date') %><span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu _menu">
-      <li><a href="javascript:void(0);" class="search-link-submit" rel="class_date_sort" data="asc"><%= t('view.course_search_show.class_date_asc') %></a></li>
-      <li><a href="javascript:void(0);" class="search-link-submit" rel="class_date_sort" data="desc"><%= t('view.course_search_show.class_date_desc') %></a></li>
-      <!--<li class="divider"></li>-->
-      <!--<li class="dropdown-submenu pull-right">-->
-        <!--<a tabindex="-1"  href="#"><%= self_settings %></a>-->
-        <!--<ul class="dropdown-menu">-->
-          <!--<li>-->
-            <!--<div class="search-form-div">-->
-              <!--<%#= text_field_tag :class_date_floor, params[:class_date_floor],type: :date, class: 'search-input date' %>-->
-              <!--<%#= text_field_tag :class_date_ceil, params[:class_date_ceil],type: :date, class: 'search-input date' %>-->
-              <!--<%#= search_submit %>-->
-            <!--</div>-->
-          <!--</li>-->
-        <!--</ul>-->
-      <!--</li>-->
-    </ul>
-  </div>
-  <div class="dropdown">
-    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-      <%= t('view.course_search_show.status') %><%= search_value_show_word('status') %><span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu">
-      <li><a href="javascript:void(0);" class="search-link-submit" rel="status" data="all"><%= t('activerecord.view.filter.all') %></a></li>
-      <li><a href="javascript:void(0);" class="search-link-submit" rel="status" data="preview"><%= t('status.preview') %></a></li>
-      <li><a href="javascript:void(0);" class="search-link-submit" rel="status" data="teaching"><%= t('status.teaching') %></a></li>
-    </ul>
-  </div>
-</form>
-<script>
-  $('.clear-range').click(function(){
-    var tag = $(this).attr('rel');
-    $('#'+tag+'_floor').val('');
-    $('#'+tag+'_ceil').val('');
-    $('#search-form').submit();
-  });
 
-  $(".search-link-submit").click(function(){
-    var tag = $(this).attr('rel');
-    var value = $(this).attr('data');
-    if(tag.indexOf('_sort') > 0){
-      $("#sort_by").val(tag.replace('_sort','') +"."+value);
-    }else{
-      $("#"+tag).val(value);
-    }
-    $("#search-form").submit();
-  });
-</script>
+    <ul class="list-grade">
+      <li>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级：</li>
+      <li class="list-grade-1 <%= ['all',nil].include?(params[:grade]) ? 'active-color' : '' %>" rel="grade" data="all">
+        <%= t('activerecord.view.filter.all') %>
+      </li>
+      <% APP_CONSTANT['grades_in_menu'].each do |grade| %>
+        <li class="list-grade-1 <%= params[:grade] == grade ? 'active-color' : ''%>" rel="grade" data="<%= grade %>">
+          <%= grade %>
+        </li>
+      <% end %>
+    </ul>
+
+    <div class="screening-hidden">
+      <ul class="list-price">
+        <li>价格范围：</li>
+        <li><%= text_field_tag :price_floor, params[:price_floor], class: 'search-input' %></li>
+        <li class="price-segmentation">-</li>
+        <li><%= text_field_tag :price_ceil, params[:price_ceil], class: 'search-input' %></li>
+        <li>元</li>
+      </ul>
+
+      <ul class="list-scope">
+        <li>课时范围：</li>
+        <li><%= text_field_tag :preset_lesson_count_floor, params[:preset_lesson_count_floor], class: 'search-input' %></li>
+        <li class="price-segmentation">-</li>
+        <li><%= text_field_tag :preset_lesson_count_ceil, params[:preset_lesson_count_ceil], class: 'search-input' %></li>
+      </ul>
+
+      <ul class="list-remedial">
+        <li>开课时间：</li>
+        <li>
+           <%= text_field_tag :class_date_floor, params[:class_date_floor],type: :text, class: 'datainp remedial-date', id: 'dateinfo', placeholder: '请选择', readonly: true%>
+           <label for="dateinfo" class="glyphicon glyphicon-calendar glyphicon-1" style="position: relative; left: -25px;"></label>
+           <span class="price-line-1">-</span>
+           <%= text_field_tag :class_date_ceil, params[:class_date_ceil],type: :text, class: 'datainp remedial-date', id: 'dateinfo_2', placeholder: '请选择', readonly: true%>
+           <label for="dateinfo_2" class="glyphicon glyphicon-calendar glyphicon-2" style="position: relative; left: -25px;" ></label>
+        </li>
+      </ul>
+
+      <ul class="list-state">
+        <li>当前状态：</li>
+        <li class="list-state-1 <%= ['all',nil].include?(params[:status]) ? 'active-color' : '' %>" rel="status" data="all">
+          <%= t('activerecord.view.filter.all') %>
+        </li>
+        <li class="list-state-1 <%= params[:status] == 'preview' ? 'active-color' : '' %>" rel="status" data="preview">
+          <%= t('status.preview') %>
+        </li>
+        <li class="list-state-1 <%= params[:status] == 'teaching' ? 'active-color' : '' %>" rel="status" data="teaching">
+          <%= t('status.teaching') %>
+        </li>
+      </ul>
+
+      <div class="remedial-conditions">
+        <a href="javascript:void(0);" class="btn-reset">重置条件</a>
+        <a href="javascript:void(0);" class="btn-screen">筛选</a>
+      </div>
+    </div>
+    <p class="remedial-drop-down">
+      <a href="javascript:void(0);" class="more-conditions">更多条件<span class="glyphicon glyphicon-chevron-down"></span></a>
+      <a href="javascript:void(0);" class="up-conditions">收起条件<span class="glyphicon glyphicon-chevron-up"></span></a>
+    </p>
+  </form>
+</div>

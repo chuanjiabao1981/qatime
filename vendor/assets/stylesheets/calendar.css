@@ -1,18 +1,18 @@
-.dt { 
+.dt {
   /*width: 280px;
   height: 300px;*/
   position: absolute;
-   background-color: #fff; 
+   background-color: #fff;
    top: 50px;
-    right: 0; 
+    right: 0;
     z-index: 100;
-     transition: all 0.3s ease; 
-     opacity: 0.5; 
+     transition: all 0.3s ease;
+     opacity: 0.5;
      max-height: 0px;
-      max-width: 0px; 
-      overflow: hidden; 
+      max-width: 0px;
+      overflow: hidden;
       border-radius: 50%;
-       box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.15); 
+       box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.15);
        }
        .dt-1 {
         width: 280px !important;
@@ -22,12 +22,12 @@
         
        }
 
-.dt.show { 
+.dt.show {
   overflow: inherit;
-   max-width: 600px; 
-   max-height: 520px; 
-   opacity: 1; 
-   display: block; 
+   max-width: 600px;
+   max-height: 520px;
+   opacity: 1;
+   display: block;
    border-radius: 0; }
 
 .dt__head { background: #27ae60; color: #fff; padding: 0 10px; }
@@ -75,96 +75,96 @@
 .dt__calendar_nav_prev_start:hover, .dt__calendar_nav_prev_end:hover, .dt__calendar_nav_next_start:hover, .dt__calendar_nav_next_end:hover { background: rgba(0, 0, 0, 0.15); }
 
 .dt__calendar_nav_title {
-   font-size: 18px; 
+   font-size: 18px;
    font-weight: 200;
-    display: none; 
+    display: none;
     }
 
-.dt__calendar_head { 
+.dt__calendar_head {
   width: 100%;
   height: 30px;
-  font-size: 14px; 
+  font-size: 14px;
   background-color: #3498db;
-   text-align: center; 
-   padding-bottom: 10px; 
+   text-align: center;
+   padding-bottom: 10px;
    }
 
-.dt__calendar_head_wday { 
-  line-height: 25px; 
-  color: #fff; 
-  display:none; 
-  width: 100%; 
-  font-size: 12px; 
+.dt__calendar_head_wday {
+  line-height: 25px;
+  color: #fff;
+  display:none;
+  width: 100%;
+  font-size: 12px;
   background: rgba(0, 0, 0, 0.2);
-   text-transform: uppercase; 
-   font-weight: 300; 
+   text-transform: uppercase;
+   font-weight: 300;
    }
 
 .dt__calendar_head_month {
-   color: #fff; 
-   font-size: 14px; 
+   color: #fff;
+   font-size: 14px;
    display: block;
-    height: 20px; 
-    /*font-weight: 300;*/ 
+    height: 20px;
+    /*font-weight: 300;*/
     opacity: 0.8;
-     line-height: 20px; 
+     line-height: 20px;
      position: absolute;
      left: 120px;
      top: 5px;
      }
 
 .dt__calendar_head_day {
-   color: #fff; 
+   color: #fff;
    font-size: 14px;
-    display: block; 
-    height: 50px; 
+    display: block;
+    height: 50px;
     line-height: 20px;
     position: absolute;
     right: 30px;
    top: 5px;
      }
 
-.dt__calendar_head_year { 
+.dt__calendar_head_year {
   color: #fff;
    font-size: 14px;
-    display: block; 
-    height: 20px; 
+    display: block;
+    height: 20px;
     line-height: 20px;
      position: absolute;
      left: 0px;
      top: 5px;
      }
 
-.dt__calendar_head .next { 
+.dt__calendar_head .next {
   display: inline-block;
-   width: 20px; 
+   width: 20px;
    height: 20px;
     margin: 0 10px;
-     color: #fff; 
+     color: #fff;
      border-radius: 50%;
-      vertical-align: middle; 
+      vertical-align: middle;
       font-size: 14px;
-       line-height: 20px; 
+       line-height: 20px;
        background: transparent;
         font-weight: 300;
-         opacity: 0.7; 
+         opacity: 0.7;
          cursor: pointer;
           transition: all 0.3 ease;
            }
-.dt__calendar_head .prev { 
+.dt__calendar_head .prev {
   display: inline-block;
   /*display: none;*/
-   width: 20px; 
+   width: 20px;
    height: 20px;
     margin: 0 15px;
-     color: #fff; 
+     color: #fff;
      border-radius: 50%;
-      vertical-align: middle; 
+      vertical-align: middle;
       font-size: 14px;
-       line-height: 20px; 
+       line-height: 20px;
        background: transparent;
         font-weight: 300;
-         opacity: 0.7; 
+         opacity: 0.7;
          cursor: pointer;
           transition: all 0.3 ease;
            }
@@ -176,14 +176,14 @@
 
 .dt__calendar_m_w_n { width: 40px; height: 40px; line-height: 40px; font-size: 14px; text-align: center; color: #888; display: inline-block; border-radius: 50%; }
 
-.dt__calendar_m_d { 
+.dt__calendar_m_d {
   transition: all 0.3s ease;
    border-radius: 50%;
     position: relative;
      vertical-align: top;
-      display: inline-block; 
+      display: inline-block;
       line-height: 34px;
-       margin: 3px; 
+       margin: 3px;
        width: 34px;
         text-align: center;
          height: 34px;

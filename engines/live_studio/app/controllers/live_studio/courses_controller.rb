@@ -7,7 +7,7 @@ module LiveStudio
     before_action :play_authorize, only: [:play]
 
     def index
-      @courses = LiveService::CourseDirector.courses_search(search_params).paginate(page: params[:page])
+      @courses = LiveService::CourseDirector.courses_search(search_params).paginate(page: params[:page], per_page: 8)
       if @student && @student.student?
         @tickets = @student.live_studio_tickets.includes(course: :lesson).where(course_id: @courses.map(&:id)) if @student
       else

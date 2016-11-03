@@ -1,4 +1,5 @@
 LiveStudio::Engine.routes.draw do
+  root to: "courses#index"
   get 'courses/index'
   get 'courses/teate'
 

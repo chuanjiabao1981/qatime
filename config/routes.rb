@@ -1,6 +1,7 @@
 Qatime::Application.routes.draw do
   root :to => "home#index"
 
+  get 'home' => 'home#new_index'
   get 'welcome/download'
   get 'welcome/courses'
   resources :softwares, only: [:index, :show] do

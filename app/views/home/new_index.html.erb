@@ -1,0 +1,420 @@
+<div class="container">
+  <div class="row">
+    <div class="panel panel-default">
+
+      <div class="home-banner">
+        <ul class="banner-show" style="left: -128.846%;">
+          <li><a href=""><img src="../img/banner.png" alt=""></a></li>
+          <li><a href=""><img src="../img/banner.png" alt=""></a></li>
+          <li><a href=""><img src="../img/banner.png" alt=""></a></li>
+          <li><a href=""><img src="../img/banner.png" alt=""></a></li>
+        </ul>
+        <ul class="banner-dot">
+          <li style="background-color: white;"></li>
+          <li style="background-color: white;"></li>
+          <li style="background-color: rgb(255, 153, 102);"></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-9 col-md-left">
+      <div class="panel panel-default">
+        <div class="recommended-tutoring">
+          <div class="tutoring-title">
+            <div class="tutoring-title-left">
+              <span class="fa fa-tasks title-color"></span>
+              <span class="title-size">辅导推荐</span>
+            </div>
+            <a href="" class="tutoring-title-right">
+              <span>全部</span>
+            </a>
+          </div>
+          <div class="tutoring-con">
+            <ul class="ul-list">
+              <% @recommend_courses.each do |item| %>
+                <li>
+                  <%= image_tag item.logo_url %>
+                  <dl class="dl-list">
+                    <dd><%= item.title %></dd>
+                    <dd>
+                    <span class="dd-left">
+                      <i class="glyphicon glyphicon-time icon-color"></i>
+                      <i class="num-class"><%= item.target.try(:preset_lesson_count) %></i>课时
+                    </span>
+                    <span class="dd-right">
+                      <i class="glyphicon glyphicon-user icon-color"></i>
+                      <i class="num-buy"><%= item.target.try(:buy_tickets_count) %></i>万人已购
+                    </span>
+                    </dd>
+                  </dl>
+                </li>
+              <% end %>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="panel panel-default">
+        <div class="recommended-class">
+          <div class="class-title">
+            <div class="class-title-left">
+              <i class="fa fa-archive title-color"></i>
+              <a href="javascript:void(0);" class="btn-tab active-tab">专属课程</a>
+              <span class="separator">|</span>
+              <a href="javascript:void(0);" class="btn-tab">公共课程</a>
+              <span class="separator">|</span>
+              <a href="javascript:void(0);" class="btn-tab">问答社区</a>
+            </div>
+            <a href="" class="class-title-right">
+              <span>更多</span>
+              <span>&gt;</span>
+            </a>
+          </div>
+          <div>
+            <div class="class-course">
+              <table border="0" cellspacing="0" cellpadding="0" class="table-exclusive">
+                <tbody><tr>
+                  <td class="td-circle">
+                    <i class="fa fa-circle course-circle"></i>
+                  </td>
+                  <td>
+                 <span>专属课程是一种在线一对一辅导的学习方式。他的特点在于学生和老师在足不出户的情况下就可以完成学习，提问，作业批改；
+                  并且对于难点、重点可以反复体会，同时对于不懂的问题可以随时提问，老师都会通过视频进行讲解。</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="td-circle">
+                    <i class="fa fa-circle course-circle"></i>
+                  </td>
+                  <td>
+                    <span>首先，老师会对根据学生的学习情况进行评估，根据评估的结果制定学习大纲</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="td-circle">
+                    <i class="fa fa-circle course-circle"></i>
+                  </td>
+                  <td>
+                    <span> 然后，老师会根据学习大纲，制作教学视频，以及布置相应的作业。</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="td-circle">
+                    <i class="fa fa-circle course-circle"></i>
+                  </td>
+                  <td>
+                    最后，同学在家中就可以根据教学视频进行学习；学习过程中可以针对重点难点在线提问，老师会对问题做相应的视频
+                    进行讲解；完成老师的布置的作业后，把作业上传至网站，老师进行视频批改。
+                  </td>
+                </tr>
+                </tbody></table>
+
+              <div class="application">
+                <div class="apply-course">
+                  <span class="fa fa-edit icon-write"></span>
+                  <span class="apply-class">申请我的专属课程</span>
+                </div>
+              </div>
+            </div>
+            <div class="class-course">
+              <ul class="course-list-2">
+                <li class="active-li">全部</li>
+                <li>数学</li>
+                <li>语文</li>
+                <li>英语</li>
+                <li>物理</li>
+                <li>化学</li>
+                <li>生物</li>
+                <li>历史</li>
+                <li>政治</li>
+                <li>地理</li>
+                <li>科学</li>
+              </ul>
+
+              <table border="0" cellspacing="0" cellpadding="0" class="table-subject">
+                <tbody><tr>
+                  <td>
+                    <a href="">
+                      <i class="fa fa-book icon1-color"></i>
+                      <span class="subject-msg">初二/3章2小节/王永/阳泉市第十一中学</span>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="">
+                      <i class="fa fa-book icon1-color"></i>
+                      <span class="subject-msg">初二/3章2小节/王永/阳泉市第十一中学</span>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="">
+                      <i class="fa fa-book icon1-color"></i>
+                      <span class="subject-msg">初二/3章2小节/王永/阳泉市第十一中学</span>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="">
+                      <i class="fa fa-book icon1-color"></i>
+                      <span class="subject-msg">初二/3章2小节/王永/阳泉市第十一中学</span>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="">
+                      <i class="fa fa-book icon1-color"></i>
+                      <span class="subject-msg">初二/3章2小节/王永/阳泉市第十一中学</span>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="">
+                      <i class="fa fa-book icon1-color"></i>
+                      <span class="subject-msg">初二/3章2小节/王永/阳泉市第十一中学</span>
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a href="">
+                      <i class="fa fa-book icon1-color"></i>
+                      <span class="subject-msg">初二/3章2小节/王永/阳泉市第十一中学</span>
+                    </a>
+                  </td>
+                  <td>
+                    <a href="">
+                      <i class="fa fa-book icon1-color"></i>
+                      <span class="subject-msg">初二/3章2小节/王永/阳泉市第十一中学</span>
+                    </a>
+                  </td>
+                </tr>
+                </tbody></table>
+
+            </div>
+            <div class="class-course class-course-tab">
+              <table border="0" cellspacing="0" cellpadding="0">
+                <tbody><tr>
+                  <td>
+                    <span class="news-question">老师您好第三小题我不太会做，另外为什么在中国儿子不能和爸爸同名同姓？</span>
+                    <span class="news-ask">最新提问</span><br>
+                    <span>高中化学</span>
+                    <span class="answer">答案：1740次</span>
+                    <span>评论：2412条</span>
+                  </td>
+                  <td>
+                    <img src="../img/head.png">
+                    <span>田浩然</span><br>
+                    <span>发表时间：</span>
+                    <span>2016-08-18 17:09:13</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="news-question">老师您好第三小题我不太会做，另外为什么在中国儿子不能和爸爸同名同姓？</span>
+                    <span class="news-ask">最新提问</span><br>
+                    <span>高中化学</span>
+                    <span class="answer">答案：1740次</span>
+                    <span>评论：2412条</span>
+                  </td>
+                  <td>
+                    <img src="../img/head.png">
+                    <span>田浩然</span><br>
+                    <span>发表时间：</span>
+                    <span>2016-08-18 17:09:13</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="news-question">老师您好第三小题我不太会做，另外为什么在中国儿子不能和爸爸同名同姓？</span>
+                    <span class="news-ask">最新提问</span><br>
+                    <span>高中化学</span>
+                    <span class="answer">答案：1740次</span>
+                    <span>评论：2412条</span>
+                  </td>
+                  <td>
+                    <img src="../img/head.png">
+                    <span>田浩然</span><br>
+                    <span>发表时间：</span>
+                    <span>2016-08-18 17:09:13</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="news-question">老师您好第三小题我不太会做，另外为什么在中国儿子不能和爸爸同名同姓？</span>
+                    <span class="news-ask">最新提问</span><br>
+                    <span>高中化学</span>
+                    <span class="answer">答案：1740次</span>
+                    <span>评论：2412条</span>
+                  </td>
+                  <td>
+                    <img src="../img/head.png">
+                    <span>田浩然</span><br>
+                    <span>发表时间：</span>
+                    <span>2016-08-18 17:09:13</span>
+                  </td>
+                </tr>
+                </tbody></table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-md-right">
+      <div class="panel panel-default">
+        <div class="recommended-tec">
+          <div class="tutoring-tec-title">
+            <div class="teacher-title-left">
+              <span class="glyphicon glyphicon-user title-color"></span>
+              <span class="title-size">名师推荐</span>
+            </div>
+            <a href="" class="teacher-title-right">
+              <span>换一批</span>
+              <span class="fa fa-refresh"></span>
+            </a>
+          </div>
+          <div class="tutoring-tec-con">
+            <ul class="list-tec">
+              <% @recommend_teachers.each do |r_teacher| %>
+                <li class="tec-li">
+                  <div class="li-introduce">
+                    <center>
+                      <dl class="tec-msgs">
+                        <dd><img src="../img/tec_record-1.png"></dd>
+                        <dd><%= r_teacher.target.name %></dd>
+                        <dd><%= r_teacher.title %></dd>
+                      </dl>
+                    </center>
+                  </div>
+                  <% if r_teacher.target.present? && r_teacher.target.live_studio_courses.count > 0 %>
+                    <div class="li-detailed">
+                      <center>
+                        <ul class="detailed-list">
+                          <% r_teacher.target.live_studio_courses.each do |course| %>
+                            <li><%= course.name %></li>
+                          <% end %>
+                          <li class="detailed-more"><a href="">更多</a></li>
+                        </ul>
+                      </center>
+                    </div>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="panel panel-default panel-profile">
+      <div class="recommended-profile">
+        <div class="profile-title">答疑时间6大优势</div>
+        <div class="row">
+          <div class="col-md-2 col-sm-2 col-advantage">
+            <ul>
+              <li><img src="/imgs/advantage_1.png"></li>
+              <li><span>名师</span></li>
+              <li><p>名师授课和专业讲解保证让学生学到最优质的内容</p></li>
+            </ul>
+          </div>
+          <div class="col-md-2 col-sm-2 col-advantage">
+            <ul>
+              <li><img src="/imgs/advantage_2.png"></li>
+              <li><span>多种学习模式</span></li>
+              <li><p>提供四种学习模式和海量课程供学生选取最适合自己的。</p></li>
+            </ul>
+          </div>
+          <div class="col-md-2 col-sm-2 col-advantage">
+            <ul>
+              <li><img src="/imgs/advantage_3.png"></li>
+              <li><span>直播+互动+视频</span></li>
+              <li><p>直播授课体验真实互动拒绝枯燥视频讲解一看就懂</p></li>
+            </ul>
+          </div>
+          <div class="col-md-2 col-sm-2 col-advantage">
+            <ul>
+              <li><img src="/imgs/advantage_4.png"></li>
+              <li><span>量身定制</span></li>
+              <li><p>为学生量身定制课程专属课程，杜绝模板化教学。</p></li>
+            </ul>
+          </div>
+          <div class="col-md-2 col-sm-2 col-advantage">
+            <ul>
+              <li><img src="/imgs/advantage_5.png"></li>
+              <li><span>Web/App/直播器</span></li>
+              <li><p>支持网页端和手机端多种使用方式，随时随地进行学习；为老师定制开发主播助</p></li>
+            </ul>
+          </div>
+          <div class="col-md-2 col-sm-2 col-advantage">
+            <ul>
+              <li><img src="/imgs/advantage_6.png"></li>
+              <li><span>工作站模式</span></li>
+              <li><p>工作站管理模式提供更具特色的本地化服务，服务全国600+城市</p></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(function  () {
+    var index = 0;
+    function autoscroll () {
+      index++;
+      changecolor(index);
+      $(".banner-show").animate({
+        left: "-" + 100 * index + "%"
+      },500,function  () {
+        if (index == 3) {
+          index = 0;
+          $(".banner-show").css("left","0");
+        }
+      })
+    }
+
+    function changecolor(index) {
+      $(".banner-dot li").css("background-color", "white");
+      if(index == 3) {
+        $(".banner-dot li").eq(0).css("background-color", "rgb(255,153,102)");
+      } else {
+        $(".banner-dot li").eq(index).css("background-color", "rgb(255,153,102)");
+      }
+    }
+    var timerID = setInterval(autoscroll,1000);
+    $(".banner-show").mouseover(function  () {
+      clearInterval(timerID);
+    })
+    $(".banner-show").mouseout(function  () {
+      timerID = setInterval(autoscroll,1000);
+    })
+
+
+
+    $(".btn-tab").click(function  () {
+      var index = $(".btn-tab").index($(this));
+      $(this).addClass('active-tab').siblings().removeClass('active-tab');
+      $('.class-course').eq(index).show().siblings().hide();
+    })
+
+
+    $(".tec-li").mouseenter(function  () {
+      var index = $(".tec-li").index($(this));
+      $(".li-introduce").eq(index).hide();
+      $(".li-detailed").eq(index).show();
+    })
+    $(".tec-li").mouseleave (function  () {
+      $(".li-detailed").hide();
+      $(".li-introduce").show();
+    })
+
+  })
+</script>

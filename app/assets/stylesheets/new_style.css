@@ -2218,7 +2218,7 @@ i {
 }
 .link-right table td:first-child {
   /*padding-right: 20px;*/
-  font-size: 18px;
+  font-size: 16px;
 }
 .link-right table tr td:nth-child(2) {
   padding-left: 20px;
@@ -2314,10 +2314,6 @@ i {
   font-size: 16px;
   cursor: pointer;
 }
-.list-sort-1 a, .list-course-1 a, .list-grade-1 a, .list-state-1 a, .class-msg a {
-  color: #000000;
-}
-
 .list-sort,.list-course,.list-grade,.list-price ,.list-remedial,.list-scope,.lsit-state{
   overflow: hidden;
   margin-bottom: 30px !important;
@@ -2344,7 +2340,7 @@ i {
   color: rgb(0,0,0) !important;
 }
 .active-color {
-  color: red !important;
+  color: red;
 }
 .remedial-conditions {
   margin-top: 20px;
@@ -2389,66 +2385,35 @@ i {
   color: rgb(190,11,11) !important;
 }
 .screening-con {
+  border: 1px solid green;
   padding: 10px;
   margin-top: 20px;
-}
 
-.list-screening,.list-live {
+}
+.list-screening {
   padding: 0;
   margin: 0;
+  overflow: hidden;
   width: 100%;
   margin-bottom: 20px !important;
 }
-.list-screening li,.list-live li {
+.list-screening li {
   width: 24.4%;
   float: left;
   margin-right: 0.75%;
-  margin-bottom: 20px;
+  border: 1px solid gray;
 }
-.list-screening li img,.list-live li img {
+.list-screening li img {
   width: 100%;
-  height: 168px;
-}
-.dl-con {
-  height: 40px;
-  position: relative;
-  z-index: 1;
 }
 .list-screening li:last-child {
   margin-right: 0 !important;
 }
-
 .dl-screening {
-  width: 100%;
   margin-bottom: 0px !important;
-  background-color: rgb(243,243,243);
-  position: absolute;
-  z-index: 10000;
-}
-.dl-screening dd:nth-child(2) {
-  color: rgb(153,153,153);
-}
-.dd-num-msg {
-  display: none;
-}
-.dd-num-msg p{
-  overflow: hidden;
-  height: 25px;
-  margin-bottom: 0px;
-  line-height: 25px;
-}
-.dd-date {
-  padding-top: 6px;
 }
 .class-msg {
   font-size: 16px;
-  display: inline-block;
-  width: 70%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-.class-msg a {
   color: #000000;
 }
 .class-open {
@@ -2463,7 +2428,6 @@ i {
   color: rgb(209,209,209);
   font-size: 12px;
   float: right;
-  line-height: 20px;
 }
 .money-num {
   font-size: 18px;

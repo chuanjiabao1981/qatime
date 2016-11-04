@@ -98,3 +98,9 @@
     </div>
   </div>
 </div>
+
+<script>
+  $("#taste-course-<%= @course.id %>").bind('ajax:success', function() {
+    window.location.reload();
+  });
+</script>

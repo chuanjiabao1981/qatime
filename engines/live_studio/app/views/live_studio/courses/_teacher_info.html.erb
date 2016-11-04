@@ -12,22 +12,27 @@
         <ul>
           <li>
             <center>
-              <%= image_tag teacher.avatar ,class:"details-img"%>
+              <%=link_to profile_teacher_path(teacher.id) do %>
+                <%= image_tag teacher.avatar ,class:"details-img"%>
+              <% end %>
             </center>
           </li>
           <li>
+
             <p class="tec-name">
-              <span><%= teacher.try(:name)%></span>
+              <%=link_to profile_teacher_path(teacher.id) do %>
+                <span><%= teacher.try(:name)%></span>
+              <% end %>
               <%= image_tag 'man.png' if teacher.male?%>
               <%= image_tag 'girl.png' if teacher.female?%>
             </p>
           </li>
           <li>
             <div class="details-con">
-              <p><span class="con-title title-color"><%= t('view.course_info_show.teaching_years')%>:</span><span><%= teacher.teaching_years_text%></span></p>
-              <p><span class="con-title title-color"><%= t('view.course_info_show.school')%>:</span><span><%= teacher.school.try(:name)%></span></p>
+              <p><span class="con-title title-color"><%= t('view.course_info_show.teaching_years')%></span><span><%= teacher.teaching_years_text%></span></p>
+              <p><span class="con-title title-color"><%= t('view.course_info_show.school')%></span><span><%= teacher.school.try(:name)%></span></p>
               <p>
-                <span class="con-title title-color"><%= t('view.course_info_show.teacher_desc')%>:</span>
+                <span class="con-title title-color"><%= t('view.course_info_show.teacher_desc')%></span>
                 <span><%= teacher.desc %></span>
               </p>
             </div>

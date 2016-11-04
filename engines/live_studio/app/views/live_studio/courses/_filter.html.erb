@@ -8,7 +8,7 @@
     <ul class="list-sort">
       <li>排&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;序：</li>
       <li class="list-sort-1">
-        <a href="javascript:void(0);" class="search-link-submit <%= ['all',nil].include?(params[:sort_by]) ? 'active-color' : '' %>" rel="sort" data="all">
+        <a href="javascript:void(0);" class="search-link-submit <%= ['all',nil,''].include?(params[:sort_by]) ? 'active-color' : '' %>" rel="sort" data="all">
           <%= t('activerecord.view.filter.all') %>
         </a>
       </li>
@@ -32,7 +32,7 @@
     <ul class="list-course">
       <li>科&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目：</li>
       <li class="list-course-1">
-        <a href="javascript:void(0);" class="search-link-submit <%= ['all',nil].include?(params[:subject]) ? 'active-color' : '' %>" rel="subject" data="all">
+        <a href="javascript:void(0);" class="search-link-submit <%= ['all',nil,''].include?(params[:subject]) ? 'active-color' : '' %>" rel="subject" data="all">
           <%= t('activerecord.view.filter.all') %>
         </a>
       </li>
@@ -48,7 +48,7 @@
     <ul class="list-grade">
       <li>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级：</li>
       <li class="list-grade-1">
-        <a href="javascript:void(0);" class="search-link-submit <%= ['all',nil].include?(params[:grade]) ? 'active-color' : '' %>" rel="grade" data="all">
+        <a href="javascript:void(0);" class="search-link-submit <%= ['all',nil,''].include?(params[:grade]) ? 'active-color' : '' %>" rel="grade" data="all">
           <%= t('activerecord.view.filter.all') %>
         </a>
       </li>
@@ -59,6 +59,25 @@
           </a>
         </li>
       <% end %>
+    </ul>
+
+    <ul class="list-state">
+      <li>当前状态：</li>
+      <li class="list-state-1">
+        <a href="javascript:void(0);" class="search-link-submit <%= ['all',nil,''].include?(params[:status]) ? 'active-color' : '' %>" rel="status" data="all">
+          <%= t('activerecord.view.filter.all') %>
+        </a>
+      </li>
+      <li class="list-state-1">
+        <a href="javascript:void(0);" class="search-link-submit <%= params[:status] == 'preview' ? 'active-color' : '' %>" rel="status" data="preview">
+          <%= t('status.preview') %>
+        </a>
+      </li>
+      <li class="list-state-1">
+        <a href="javascript:void(0);" class="search-link-submit <%= params[:status] == 'teaching' ? 'active-color' : '' %>" rel="status" data="teaching">
+          <%= t('status.teaching') %>
+        </a>
+      </li>
     </ul>
 
     <div class="screening-hidden">
@@ -85,25 +104,6 @@
            <span class="price-line-1">-</span>
            <%= text_field_tag :class_date_ceil, params[:class_date_ceil],type: :text, class: 'datainp remedial-date', id: 'dateinfo_2', placeholder: '请选择', readonly: true%>
            <label for="dateinfo_2" class="glyphicon glyphicon-calendar glyphicon-2" style="position: relative; left: -25px;" ></label>
-        </li>
-      </ul>
-
-      <ul class="list-state">
-        <li>当前状态：</li>
-        <li class="list-state-1">
-          <a href="javascript:void(0);" class="search-link-submit <%= ['all',nil].include?(params[:status]) ? 'active-color' : '' %>" rel="status" data="all">
-            <%= t('activerecord.view.filter.all') %>
-          </a>
-        </li>
-        <li class="list-state-1">
-          <a href="javascript:void(0);" class="search-link-submit <%= params[:status] == 'preview' ? 'active-color' : '' %>" rel="status" data="preview">
-            <%= t('status.preview') %>
-          </a>
-        </li>
-        <li class="list-state-1">
-          <a href="javascript:void(0);" class="search-link-submit <%= params[:status] == 'teaching' ? 'active-color' : '' %>" rel="status" data="teaching">
-            <%= t('status.teaching') %>
-          </a>
         </li>
       </ul>
 

@@ -356,6 +356,8 @@ Qatime::Application.routes.draw do
       collection do
         get 'option_cities'
         get 'option_schools'
+        get 'home_curriculums'
+        get 'home_questions'
       end
     end
   end

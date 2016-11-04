@@ -57,6 +57,14 @@ header {
   width: 22.6%;
   float: right;
 }
+.dl-list dd a {
+  color: #000000 !important;
+}
+.tec-msgs dd img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
 .navbar-inverse{
   border-color: rgb(190,11,11) !important;
 }

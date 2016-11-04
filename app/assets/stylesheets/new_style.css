@@ -256,7 +256,7 @@ a {
  	height: 36px;
  	padding: 8px;
  }
-
+ 
  .alert-msg1,.alert-msg2 {
  	color: red !important;
  	/*display: none;*/
@@ -296,11 +296,11 @@ a {
 	margin-right: 10px;
 }
 /*@font-face {font-family: 'iconfont';
-    src: url('../fonts/iconfont.eot');
-    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/iconfont.woff') format('woff'),
-    url('../fonts/iconfont.ttf') format('truetype'),
-    url('../fonts/iconfont.svg#iconfont') format('svg');
+    src: url('../fonts/iconfont.eot'); 
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), 
+    url('../fonts/iconfont.woff') format('woff'), 
+    url('../fonts/iconfont.ttf') format('truetype'), 
+    url('../fonts/iconfont.svg#iconfont') format('svg'); 
 }
 .iconfont{
     font-family:"iconfont" !important;
@@ -445,8 +445,8 @@ figcaption p {
 		line-height: 36px;
 		text-align: center;
 	}
-
-
+	
+	
 .col-md-apply-2,.col-md-apply-3 {
 	position: relative;
 	height: 150px;
@@ -680,7 +680,7 @@ figcaption p {
 	color: #333333;
 }
 .date-span {
-	float: left;
+	float: left;	
 }
 .date-center {
 	width: 30rem;
@@ -772,13 +772,13 @@ figcaption p {
 }
 .remind-Remedial {
 	background-color: palevioletred;
-}
-
+}	
+	
 .remind-txt {
 	width: 255px;
 	float: left;
 	color: #666666;
-	margin-left: 10px;
+	margin-left: 10px;	
 }
 .remind-txt span {
 	line-height: 18px;
@@ -797,11 +797,11 @@ figcaption p {
 }
 
 /*@font-face {font-family: 'iconfont';
-    src: url('../fonts/font/iconfont.eot');
-    src: url('../fonts/font/iconfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/font/iconfont.woff') format('woff'),
-    url('../fonts/font/iconfont.ttf') format('truetype'),
-    url('../fonts/font/iconfont.svg#iconfont') format('svg');
+    src: url('../fonts/font/iconfont.eot'); 
+    src: url('../fonts/font/iconfont.eot?#iefix') format('embedded-opentype'), 
+    url('../fonts/font/iconfont.woff') format('woff'), 
+    url('../fonts/font/iconfont.ttf') format('truetype'), 
+    url('../fonts/font/iconfont.svg#iconfont') format('svg'); 
 }
 .iconfont-2{
     font-family:"iconfont" !important;
@@ -820,7 +820,7 @@ figcaption p {
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 15px solid white;
-
+ 	
  }
 .triangle-icon-1 {
 	/*left: 150px;*/
@@ -867,7 +867,7 @@ figcaption p {
 	float: left;
 	margin-left: 3px;
 	font-size: 1.2rem;
-	color: #666666;
+	color: #666666;	
 }
 .schedule-text p {
 	margin-bottom: 0 !important;
@@ -1382,7 +1382,7 @@ figcaption p {
 	width: 100%;
 }
 .btn-obtain {
-	color: #999999 !important;
+	color: #999999 !important; 
 	width: 110px;
 }
 .round {
@@ -1530,7 +1530,7 @@ figcaption p {
 	border: 1px solid #999999;
 }
 .btn-stu-register {
-	 width: 120px;
+	 width: 120px; 
 	 height: 30px;
 	 margin-left: -60px;
 	 line-height: 30px;
@@ -1614,7 +1614,7 @@ figcaption p {
 	line-height: 40px;
 }
 .new-msg-content table tr td:last-child {
-  padding: 7.5px 0px 7.5px 10px;
+  padding: 7.5px 0px 7.5px 10px;	
 }
 .new-msg-content input[type='text'] {
 	padding-left: 8px;
@@ -1676,7 +1676,7 @@ figcaption p {
 	height: 40px;
 }
 .glyphicon-clock {
-position: relative;
+position: relative; 
 right: 25px;
 }
 
@@ -1814,10 +1814,10 @@ right: 25px;
 
 
    /*web首页*/
-
-
-
-
+  
+  
+  
+  
   .home-banner {
   	width: 100%;
   	height: 316px;
@@ -1875,7 +1875,7 @@ right: 25px;
 }
 .tutoring-title-left,.class-title-left,.teacher-title-left {
 	float: left;
-
+	
 }
 .tutoring-title-right,.class-title-right,.teacher-title-right {
 	float: right;
@@ -1920,7 +1920,7 @@ right: 25px;
 	margin-bottom: 10px;
 }
 .dl-list dd a {
-	color: #000000 !important;
+	color: #000000 !important; 
 }
 .dl-list dd:last-child {
 	color: rgb(174,174,174);
@@ -1993,7 +1993,7 @@ i {
 .icon-write {
 	font-size: 36px !important;
 	color: rgb(190,11,11);
-}
+} 
 .apply-class {
 	display: inline-block;
 	font-size: 18px;
@@ -2022,7 +2022,7 @@ i {
 
 .course-grade {
 	width: 100%;
-
+	
 }
 
 .li-msg {
@@ -2117,7 +2117,7 @@ i {
    padding: 10px;
    width: 100%;
    height: 100%;
-   background-color: #F9F9F9;
+   background-color: #F9F9F9;	
 }
 .detailed-list li {
 	line-height: 32px;
@@ -2219,7 +2219,7 @@ i {
 }
 .link-right table tr td:nth-child(2) {
 	padding-left: 20px;
-
+	
 }
 .link-td {
 	text-align: right;
@@ -2325,7 +2325,7 @@ i {
 	float: left;
 	margin-right: 30px;
 	color: rgb(153,153,153);
-}
+} 
 .list-price li,.list-remedial li,.list-scope li{
 	float: left;
 }
@@ -2347,7 +2347,7 @@ i {
 .remedial-conditions {
 	margin-top: 20px;
 	overflow: hidden;
-
+	
 }
 .remedial-conditions a {
 	float: right;
@@ -2391,7 +2391,7 @@ i {
 	margin-top: 20px;
 	overflow: hidden;
 	padding-bottom: 40px;
-
+	
 }
 
 .list-screening,.list-live {
@@ -2413,11 +2413,11 @@ i {
 }
 .list-screening li img,.list-live li img {
 	width: 100%;
-
+	
 	height: 168px;
 }
 .dl-con {
-	height: 40px;
+	height: 40px; 
 	position: relative;
 	z-index: 1;
 }
@@ -2477,7 +2477,7 @@ i {
 	color: rgb(190,11,11);
 }
 .person-num {
-color: rgb(190,11,11);
+color: rgb(190,11,11);	
 }
 .person-buy {
 	float: right;
@@ -2507,7 +2507,7 @@ color: rgb(190,11,11);
 .course_paginate .pagination{
   position: relative;
   top: 40px;
-
+  
   padding-bottom: 10px;
 }
 
@@ -2655,7 +2655,7 @@ color: rgb(190,11,11);
 }
 .tec-name {
 	position: relative;
-	 left: 50%;
+	 left: 50%; 
 	 margin-left: -25px;
 }
 .tec-details ul {
@@ -2774,7 +2774,7 @@ color: rgb(190,11,11);
 	color: white;
 	line-height: 39px;
 	background-color: rgb(32,173,101);
-	border: none;
+	border: none;	
 }
 .btn-listen {
 	background-color: rgb(32,173,101);
@@ -2804,12 +2804,15 @@ color: rgb(190,11,11);
 	height: 53px;
 	border-bottom: 1px solid rgb(241,241,241);
 }
+.arrange-con table tr td:first-child {
+	width: 10%;
+}
 .arrange-con table tr td:first-child span{
 	color: rgb(190,11,11);
 }
-.arrange-con table tr td:nth-child(2),.arrange-con table tr td:nth-child(3),.arrange-con table tr td:nth-child(4) {
+/*.arrange-con table tr td:nth-child(2),.arrange-con table tr td:nth-child(3),.arrange-con table tr td:nth-child(4) {
 	text-align: center;
-}
+}*/
 .arrange-con table tr td:last-child {
 	text-align: right;
 }
@@ -3076,7 +3079,7 @@ ul {
 
 .remedial-live {
 	border: 1px solid #999999;
-
+	
 }
 .live-title {
 	height: 54px;
@@ -3088,7 +3091,7 @@ ul {
 	width: 100%;
 	padding: 10px;
 	overflow: hidden;
-}
+}    
  .live-left {
  	width: 480px;
  	height: 300px;

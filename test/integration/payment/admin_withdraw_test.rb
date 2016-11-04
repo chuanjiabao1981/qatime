@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Payment
-  class TeacherAccountTest < ActionDispatch::IntegrationTest
+  class AdminWithdrawTest < ActionDispatch::IntegrationTest
     def setup
       @routes = Engine.routes
       @headless = Headless.new
@@ -19,11 +19,12 @@ module Payment
 
     test 'admin pass audit withdraw test' do
       click_link '提现审核'
-      @teacher = users(:teacher_tally)
+      @teacher = users(:teacher_balance)
       balance = @teacher.cash_account.balance
       accept_prompt(with: "确认") do
         click_link '通过', match: :first
       end
+      sleep 2
       @teacher.reload
       click_link '已审核'
       assert page.has_content?('通过')
@@ -32,7 +33,7 @@ module Payment
 
     test 'admin unpass audit withdraw test' do
       click_link '提现审核'
-      @teacher = users(:teacher_tally)
+      @teacher = users(:teacher_balance)
       balance = @teacher.cash_account.balance
       accept_prompt(with: "确认") do
         click_link '驳回', match: :first

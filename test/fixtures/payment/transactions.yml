@@ -137,7 +137,7 @@ student_recharge_of_4:
 # 老师-提现记录
 admin_withdraws:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
-  user: teacher_tally
+  user: teacher_balance
   amount: 200
   pay_type: 0
   status: 0
@@ -145,7 +145,7 @@ admin_withdraws:
 # 老师-提现记录
 admin_withdraw_one:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
-  user: teacher_tally
+  user: teacher_balance
   amount: 200
   pay_type: 0
   status: 0

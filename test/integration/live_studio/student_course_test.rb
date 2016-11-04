@@ -35,10 +35,12 @@ module LiveStudio
 
     test 'student course filter' do
       click_on '辅导班'
-      click_on '价格'
-      page.find('.dropdown-submenu').hover
+      click_link '价格由高到低'
+      click_link '更多条件'
+      # page.find('.dropdown-submenu').hover
       fill_in :price_floor, with: '100'
-      click_on '清除范围'
+      click_link '重置条件'
+      # click_on '清除范围'
       assert_equal page.find("#price_floor", :visible => false).value, '', '没有清空范围'
     end
   end

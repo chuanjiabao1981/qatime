@@ -551,7 +551,7 @@ teacher_balance:
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   avatar: "test"
   grade: 高一
-  type: teacher
+  type: Teacher
   school: school2
 
 teacher_for_billing:

@@ -35,10 +35,10 @@ module Payment
       fill_in 'withdraw_amount', with: 1000
       choose 'withdraw_pay_type_cash'
       click_on '获取验证码'
+      sleep 3
       captcha_manager = UserService::CaptchaManager.new(@teacher.login_mobile)
       captcha = captcha_manager.captcha_of(:withdraw_cash)
       fill_in 'verify',with: captcha
-      sleep 2
       click_on '申请提现'
       assert page.has_content?('交易信息')
       assert Payment::Withdraw.count == withdraw_count+1

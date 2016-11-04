@@ -32,5 +32,5 @@
       <% end %>
     </ul>
   <% end %>
-  <%= render partial: 'shared/will_paginate',locals: {list: @courses} %>
+  <center class="course_paginate"><%= will_paginate @courses %></center>
 </div>

@@ -26,7 +26,7 @@
             </td>
             <td>
               <span class="<%= lesson.is_over? || lesson.ready? ? 'td-color' : nil %>">
-                <%= lesson.status_text(current_user.role) %>
+                <%= lesson.status_text(current_user.try(:role)) %>
                 <% if allow?(:lessons, :completed, lesson) && lesson.finished?  %>
                   <%= link_to t('view.course_info_show.completed_lesson'), completed_course_lesson_path(@course, lesson), method: :patch %>
                 <% end  %>

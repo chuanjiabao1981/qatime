@@ -19,6 +19,7 @@ module Permissions
 
       allow 'welcome', [:download, :courses]
       allow 'passwords', [:new, :create]
+      allow 'live_studio/courses', [:index, :show]
 
       ## begin api permission
       # system

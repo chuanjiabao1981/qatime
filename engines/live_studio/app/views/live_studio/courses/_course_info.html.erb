@@ -48,7 +48,7 @@
                          <div class="listen-class">
                            <%= content_tag(:div,class: 'btn-audition') do %>
                              <%= link_to(t('view.course_info_show.join_taste'),
-                                         live_studio.taste_course_path(@course, student_id: @student.id),
+                                         live_studio.taste_course_path(@course, student_id: @student.try(:id)),
                                          id: "taste-course-#{@course.id}", method: :post, remote: true) %>
                            <% end %>
                            <%= content_tag(:div, link_to(t('activerecord.view.enroll_now'), new_course_order_path(@course)), class: 'btn-sign')%>
@@ -62,7 +62,7 @@
                                          "javascript:void()", onclick:"alert('辅导班开课后才可试听')") %>
                              <% else %>
                                <%= link_to(t('view.course_info_show.start_taste'),
-                                           live_studio.taste_course_path(@course, student_id: @student.id),
+                                           live_studio.taste_course_path(@course, student_id: @student.try(:id)),
                                            id: "taste-course-#{@course.id}", method: :post, remote: true) %>
                              <% end %>
                            <% end%>
@@ -75,7 +75,7 @@
                             <%= link_to(t('view.course_info_show.start_learning'),
                                         "javascript:void()", onclick:"alert('辅导班开课后才可学习')")%>
                           <% else %>
-                            <%= t('view.course_info_show.start_learning')%>
+                            <%= link_to(t('view.course_info_show.start_learning'), play_course_path(@course)) %>
                           <% end %>
                         </div>
                       <% end %>

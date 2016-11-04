@@ -206,3 +206,14 @@
     * bugfix
         * [QT-328](https://qatime.atlassian.net/browse/QT-328)
         * [QT-388](https://qatime.atlassian.net/browse/QT-388)
+* 1.2.0
+    * feature
+        * [QT-308](https://qatime.atlassian.net/browse/QT-308)
+        * [QT-375](https://qatime.atlassian.net/browse/QT-375)
+        * [QT-376](https://qatime.atlassian.net/browse/QT-376)
+        * [QT-377](https://qatime.atlassian.net/browse/QT-377)
+        * [QT-380](https://qatime.atlassian.net/browse/QT-380)
+        * [QT-381](https://qatime.atlassian.net/browse/QT-381)
+        * [QT-398](https://qatime.atlassian.net/browse/QT-398)
+        * [QT-399](https://qatime.atlassian.net/browse/QT-399)
+        * [QT-400](https://qatime.atlassian.net/browse/QT-400)

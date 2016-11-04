@@ -44,19 +44,41 @@
                   </div>
                   <% if current_user.blank? || !current_user.teacher? %>
                     <div>
-                       <div class="listen-class">
-                        <div class="btn-audition">加入试听</div>
-                        <div class="btn-sign">立即报名</div>
-                       </div>
-
-                       <div class="listen-class">
-                        <div class="btn-listen">开始试听</div>
-                        <div class="btn-signnow">立即报名</div>
-                       </div>
-
-                       <div class="listen-class btn-start">
-                        开始学习
-                       </div>
+                      <% if current_user.blank? || (!@course.tasting?(current_user) && !@course.bought_by?(current_user)) %>
+                         <div class="listen-class">
+                           <%= content_tag(:div,class: 'btn-audition') do %>
+                             <%= link_to(t('view.course_info_show.join_taste'),
+                                         live_studio.taste_course_path(@course, student_id: @student.id),
+                                         id: "taste-course-#{@course.id}", method: :post, remote: true) %>
+                           <% end %>
+                           <%= content_tag(:div, link_to(t('activerecord.view.enroll_now'), new_course_order_path(@course)), class: 'btn-sign')%>
+                         </div>
+                      <% end %>
+                      <% if current_user.present? && @course.tasting?(current_user) && !@course.bought_by?(current_user) %>
+                         <div class="listen-class">
+                           <%= content_tag(:div,class: 'btn-listen') do%>
+                             <% if  LiveStudio::Course.statuses[@course.status] < LiveStudio::Course.statuses['teaching'] %>
+                                <%= link_to(t('view.course_info_show.start_taste'),
+                                         "javascript:void()", onclick:"alert('辅导班开课后才可试听')") %>
+                             <% else %>
+                               <%= link_to(t('view.course_info_show.start_taste'),
+                                           live_studio.taste_course_path(@course, student_id: @student.id),
+                                           id: "taste-course-#{@course.id}", method: :post, remote: true) %>
+                             <% end %>
+                           <% end%>
+                           <%= content_tag(:div, link_to(t('activerecord.view.enroll_now'), new_course_order_path(@course)), class: 'btn-signnow')%>
+                         </div>
+                      <% end %>
+                      <% if current_user.present? && @course.bought_by?(current_user) %>
+                        <div class="listen-class btn-start">
+                          <%if  LiveStudio::Course.statuses[@course.status] < LiveStudio::Course.statuses['teaching'] %>
+                            <%= link_to(t('view.course_info_show.start_learning'),
+                                        "javascript:void()", onclick:"alert('辅导班开课后才可学习')")%>
+                          <% else %>
+                            <%= t('view.course_info_show.start_learning')%>
+                          <% end %>
+                        </div>
+                      <% end %>
                     </div>
                   <% end %>
                 </div>

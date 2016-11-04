@@ -64,6 +64,7 @@ module Permissions
       end
 
       allow "teachers/home",[:main]
+      allow :teachers, [:profile]
 
       allow :teachers,[:edit,:update,:show,:lessons_state,:students,:curriculums,
                        :info,:questions,:topics,:customized_courses,

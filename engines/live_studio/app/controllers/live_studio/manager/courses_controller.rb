@@ -38,7 +38,7 @@ module LiveStudio
 
     # PATCH/PUT /manager/courses/1
     def update
-      if @course.update(manager_course_params)
+      if @course.update(course_params)
         redirect_to manager_course_path(@manager, @course), notice: i18n_notice('updated', @course)
       else
         render :edit

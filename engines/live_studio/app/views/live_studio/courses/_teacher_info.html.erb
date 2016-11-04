@@ -12,12 +12,17 @@
         <ul>
           <li>
             <center>
-              <%= image_tag teacher.avatar ,class:"details-img"%>
+              <%=link_to profile_teacher_path(teacher.id) do %>
+                <%= image_tag teacher.avatar ,class:"details-img"%>
+              <% end %>
             </center>
           </li>
           <li>
+
             <p class="tec-name">
-              <span><%= teacher.try(:name)%></span>
+              <%=link_to profile_teacher_path(teacher.id) do %>
+                <span><%= teacher.try(:name)%></span>
+              <% end %>
               <%= image_tag 'man.png' if teacher.male?%>
               <%= image_tag 'girl.png' if teacher.female?%>
             </p>

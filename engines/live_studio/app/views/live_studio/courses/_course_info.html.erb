@@ -59,7 +59,7 @@
                            <%= content_tag(:div,class: 'btn-listen') do%>
                              <% if  LiveStudio::Course.statuses[@course.status] < LiveStudio::Course.statuses['teaching'] %>
                                 <%= link_to(t('view.course_info_show.start_taste'),
-                                         "javascript:void()", onclick:"alert('辅导班开课后才可试听')") %>
+                                         "javascript:void(0)", onclick:"alert('辅导班开课后才可试听')") %>
                              <% else %>
                                <%= link_to(t('view.course_info_show.start_taste'),
                                            live_studio.taste_course_path(@course, student_id: @student.try(:id)),
@@ -73,7 +73,7 @@
                         <div class="listen-class btn-start">
                           <%if  LiveStudio::Course.statuses[@course.status] < LiveStudio::Course.statuses['teaching'] %>
                             <%= link_to(t('view.course_info_show.start_learning'),
-                                        "javascript:void()", onclick:"alert('辅导班开课后才可学习')")%>
+                                        "javascript:void(0)", onclick:"alert('辅导班开课后才可学习')")%>
                           <% else %>
                             <%= link_to(t('view.course_info_show.start_learning'), play_course_path(@course)) %>
                           <% end %>

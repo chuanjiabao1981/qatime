@@ -14,7 +14,6 @@
             <tbody><tr>
               <td rowspan="4" class="msg-header">
                 <%= image_tag @teacher.avatar_url %>
-                <%=  %>
               </td>
               <td class="td-year"><i class="fa fa-clock-o icon-color-1"></i><span><%= @teacher.teaching_years_text %></span></td>
               <td class="td-region"><i class="fa fa-university icon-color-1"></i><span><%= @teacher.province.try(:name) %>&nbsp;&nbsp;<%= @teacher.try(:city).try(:name) %></span></td>

@@ -177,7 +177,9 @@
                           <% r_teacher.target.live_studio_courses.preview.limit(4).each do |course| %>
                             <li><%= link_to course.name, live_studio.course_path(course.id) %></li>
                           <% end %>
-                          <li class="detailed-more"><a href="">更多</a></li>
+                          <li class="detailed-more">
+                            <%= link_to '更多', profile_teacher_path(r_teacher.target)%>
+                          </li>
                         </ul>
                       </center>
                     </div>

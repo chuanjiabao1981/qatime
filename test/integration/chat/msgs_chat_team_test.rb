@@ -28,10 +28,9 @@ module Chat
         @course.reload
         visit live_studio.play_course_path(@course)
 
-        sleep 5
         fill_in "message-area", with: "同学们，大家好呀"
         click_on "发送"
-
+        sleep 5
         assert page.has_content?("同学们，大家好呀"), "消息发送失败"
         assert page.has_content?("在线人数: 1"), "在线人数显示错误"
       end

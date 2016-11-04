@@ -37,6 +37,7 @@ module Chat
       visit live_studio.play_course_path(@course)
       click_on '成员', match: :first
       assert page.has_content?(@student.name)
+      sleep 2
       assert page.find(".online").has_content?(@student.name)
       @living = true
     end

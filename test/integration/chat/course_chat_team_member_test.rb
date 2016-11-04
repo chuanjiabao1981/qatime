@@ -26,6 +26,7 @@ module Chat
       course = live_studio_courses(:course_for_taste)
       visit live_studio.courses_path
       assert_difference "course.taste_tickets.count", 1, "试听失败" do
+        visit live_studio.course_path(course)
         click_link("taste-course-#{course.id}")
         Chat::TeamMemberCreatorJob.perform_now(course.id, @student.id)
         @student.reload
@@ -40,7 +41,9 @@ module Chat
       course = live_studio_courses(:course_for_tasting)
       visit live_studio.courses_path
       assert_difference "course.buy_tickets.count", 1, "购买失败" do
-        click_link("buy-course-#{course.id}")
+        visit live_studio.course_path(course)
+        click_link '立即报名'
+        # click_link("buy-course-#{course.id}")
         choose('微信支付')
         click_on '立即付款'
         # TODO 不能正确模拟支付通知

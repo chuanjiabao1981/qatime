@@ -485,3 +485,11 @@ color: rgb(190,11,11);
 .container-details {
 	margin-top: 10px;
 }
+
+.btn-audition a, .btn-audition a:hover, .btn-start a, .btn-start a:hover{
+  color: #000;
+}
+
+.btn-sign a, .btn-sign a:hover, .btn-signnow a, .btn-signnow a:hover, .btn-listen a, .btn-listen a:hover{
+  color: #fff;
+}

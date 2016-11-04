@@ -59,6 +59,7 @@ module LiveStudio
     def show
       @course = Course.find(params[:id])
       @lessons = @course.lessons.paginate(page: params[:page])
+      render layout: 'application_front'
     end
 
     def live

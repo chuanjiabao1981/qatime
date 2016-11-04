@@ -27,6 +27,7 @@ cn:
       preview_lesson: 课程还未开始
       complete_lesson: 全部课程已完成
       teach_type: 授课方式：在线直播
+      online: 在线直播
     course_info_show:
       subject: 科目类型：
       grade: 年级类型：
@@ -55,6 +56,10 @@ cn:
       lesson_status: 课程状态
       time_tips: 设置课程后系统将自动生成此时间
       completed_lesson: 结算课程
+      course_label: 辅导详情
+      join_taste: 加入试听
+      start_taste: 开始试听
+      start_learning: 开始学习
     course_search_show:
       clear_range_btn: 清除范围
       buy_tickets_count: 已购人数：%d
@@ -250,6 +255,7 @@ cn:
       buy: 购买
       taste: 试听
       buy_now: 立即购买
+      enroll_now: 立即报名
       buy_new_course: 购买新辅导
       none_tips: 当前列表没有发现辅导班，%s。
       taste_now: 立即试听

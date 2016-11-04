@@ -91,6 +91,21 @@ unless LiveStudio::Course.exists?
           grade: '初三',
           preset_lesson_count: 2
       )
+  # 12.times.each do |time|
+  #   LiveStudio::Lesson.new(
+  #     name: "课程#{time+1}",
+  #     course_id: @course.try(:id),
+  #     teacher_id: Teacher.first.id,
+  #     description: 'this is a lesson description',
+  #     status: LiveStudio::Lesson.statuses.values.sample,
+  #     # start_time: Time.now - 5.days,
+  #     # end_time: Time.now + 5.days,
+  #     class_date: Time.now,
+  #     live_count: 20,
+  #     live_start_at: Time.now - 3.days,
+  #     live_end_at: Time.now + 3.days
+  #   )
+  # end
  # LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
 end
 

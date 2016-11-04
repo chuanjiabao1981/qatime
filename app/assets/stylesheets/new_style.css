@@ -1859,7 +1859,8 @@ figcaption p {
 .recommended-tutoring,.recommended-tec {
   width: 100%;
 }
-.tutoring-title,.class-title,.tutoring-tec-title,.arrange-title {
+
+.tutoring-title,.class-title,.tutoring-tec-title, .arrange-title{
   height: 40px;
   padding-left: 10px;
   line-height: 40px;
@@ -2985,9 +2986,3 @@ ul {
 .grade-radio span {
   margin-right: 20px;
 }
-
-
-
-
-
-

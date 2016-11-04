@@ -1,0 +1,39 @@
+<% teacher = @course.teacher %>
+<div class="col-md-3 col-md-aside">
+  <div class="panel panel-default">
+    <div class="recommended-tec">
+      <div class="tutoring-tec-title">
+        <div class="teacher-title-left">
+          <%= image_tag 'icon.png'%>
+          <span class="title-size"><%= t('view.course_info_show.teacher_label')%></span>
+        </div>
+      </div>
+      <div class="tec-details">
+        <ul>
+          <li>
+            <center>
+              <%= image_tag teacher.avatar ,class:"details-img"%>
+            </center>
+          </li>
+          <li>
+            <p class="tec-name">
+              <span><%= teacher.try(:name)%></span>
+              <%= image_tag 'man.png' if teacher.male?%>
+              <%= image_tag 'girl.png' if teacher.female?%>
+            </p>
+          </li>
+          <li>
+            <div class="details-con">
+              <p><span class="con-title title-color"><%= t('view.course_info_show.teaching_years')%>:</span><span><%= teacher.teaching_years_text%></span></p>
+              <p><span class="con-title title-color"><%= t('view.course_info_show.school')%>:</span><span><%= teacher.school.try(:name)%></span></p>
+              <p>
+                <span class="con-title title-color"><%= t('view.course_info_show.teacher_desc')%>:</span>
+                <span><%= teacher.desc %></span>
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+ </div>

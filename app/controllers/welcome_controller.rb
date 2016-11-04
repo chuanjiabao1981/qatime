@@ -1,5 +1,6 @@
 class WelcomeController < ApplicationController
   layout "application"
+
   def download
     render && return unless current_user
     @softwares = Software.auto_sort(current_user)
@@ -18,5 +19,8 @@ class WelcomeController < ApplicationController
       @courses = LiveStudio::Course.first(6)
     end
     render layout: false
+  end
+
+  def index
   end
 end

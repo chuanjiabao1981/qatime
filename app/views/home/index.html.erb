@@ -1,4 +1,7 @@
-<div style="padding:128px;height: 330px" class="home_head">
+<div class="container">
+  <div class="row">
+    <div class="panel panel-default">
+
 
   <div class="container">
     <div>
@@ -10,11 +13,10 @@
           <i class="fa fa-sign-in fa-lg"></i> 登 录</a>
         <% end %>
       </div>
-
     </div>
   </div>
-
 </div>
+
 
 
 <div style="background-color: #ffffff !important;">
@@ -66,12 +68,50 @@
           和所谓'看不见摸不着的远程讲师'相比，我们的讲师都来自于学生的身边，教学的口碑和质量都更加真实可信。
         </p>
       </div>
-      <div class="col-md-4">
-        <div class="glyphicon glyphicon glyphicon glyphicon-refresh pull-left" style="font-size:32px;color:#32ac4e"></div>
-        <p style="color: #07141e;margin-left: 48px">
-          我们的课程不是一成不变的。
-          讲师会根据所有学生的反馈和提问,持续的更新知识点和课程,增加新的解题思路和方法。
-        </p>
+    </div>
+    <div class="col-md-3 col-md-right">
+      <div class="panel panel-default">
+        <div class="recommended-tec">
+          <div class="tutoring-tec-title">
+            <div class="teacher-title-left">
+              <span class="glyphicon glyphicon-user title-color"></span>
+              <span class="title-size">名师推荐</span>
+            </div>
+            <a href="" class="teacher-title-right">
+              <span>换一批</span>
+              <span class="fa fa-refresh"></span>
+            </a>
+          </div>
+          <div class="tutoring-tec-con">
+            <ul class="list-tec">
+              <% @recommend_teachers.each do |r_teacher| %>
+                <li class="tec-li">
+                  <div class="li-introduce">
+                    <center>
+                      <dl class="tec-msgs">
+                        <dd><img src="../img/tec_record-1.png"></dd>
+                        <dd><%= r_teacher.target.name %></dd>
+                        <dd><%= r_teacher.title %></dd>
+                      </dl>
+                    </center>
+                  </div>
+                  <% if r_teacher.target.present? && r_teacher.target.live_studio_courses.count > 0 %>
+                    <div class="li-detailed">
+                      <center>
+                        <ul class="detailed-list">
+                          <% r_teacher.target.live_studio_courses.each do |course| %>
+                            <li><%= course.name %></li>
+                          <% end %>
+                          <li class="detailed-more"><a href="">更多</a></li>
+                        </ul>
+                      </center>
+                    </div>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
       </div>
       <div class="col-md-4">
         <div class="glyphicon glyphicon glyphicon glyphicon-question-sign pull-left" style="font-size:32px;color:#32ac4e"></div>

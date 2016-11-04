@@ -16,4 +16,3 @@
   <%= f.input :target_id, collection: @item.recomend_for.all.map{|t| [t.name, t.id]} %>
   <%= f.input :reason, collection: Recommend::Item.i18n_options_reasons %>
   <%= f.submit %>
-

@@ -27,6 +27,7 @@ cn:
       preview_lesson: 课程还未开始
       complete_lesson: 全部课程已完成
       teach_type: 授课方式：在线直播
+      online: 在线直播
     course_info_show:
       subject: 科目类型：
       grade: 年级类型：

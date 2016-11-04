@@ -217,6 +217,18 @@ module LiveStudio
         "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:end_time)}"
     end
 
+    def live_start_date
+      lesson = lessons.order('class_date asc,id').first
+      lesson.try(:live_start_at).try(:strftime,'%Y年%m月%d日') ||
+        "#{lesson.try(:class_date).try(:strftime, '%Y年%m月%d日')}"
+    end
+
+    def live_end_date
+      lesson = lessons.order('class_date asc,id').last
+      lesson.try(:live_end_at).try(:strftime,'%Y年%m月%d日') ||
+        "#{lesson.try(:class_date).try(:strftime, '%Y年%m月%d日')}"
+    end
+
     def order_lessons
       lessons.except(:order).order(:class_date, :live_start_at, :live_end_at)
     end

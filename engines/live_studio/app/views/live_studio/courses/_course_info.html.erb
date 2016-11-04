@@ -4,7 +4,7 @@
     <div class="recommended-tutoring">
        <div class="tutoring-title">
          <div class="tutoring-title-left">
-           <span class="fa fa-tasks title-color"></span>
+           <%= image_tag 'icon.png'%>
            <span class="title-size"><%= t('view.course_info_show.course_label')%></span>
          </div>
        </div>
@@ -17,7 +17,7 @@
               </td>
               <td colspan="3">
                 <div class="subject-title">
-                <span><%= @course.name%></span><span>在线直播</span>
+                <span><%= @course.name%></span><span><%= t('view.course_show.online')%></span>
                 </div>
               </td>
             </tr>
@@ -27,13 +27,13 @@
             <tr>
               <td><span class="headline-color"><%= t('view.course_info_show.subject')%></span><span class="title-color interval"><%= teacher.subject%></span></td>
               <td><span class="headline-color"><%= t('view.course_info_show.category')%></span> <span class="title-color interval"><%= teacher.category%></span></td>
-              <td><span class="headline-color">课时</span> <span class="title-color interval">共<%= @course.preset_lesson_count%>课</span></td>
+              <td><span class="headline-color"><%= t("view.course_show.lesson_time") %></span> <span class="title-color interval">共<%= @course.preset_lesson_count%>课</span></td>
             </tr>
             <tr>
-              <td colspan="3"><span class="headline-color">日期</span><span class="title-color interval"><%= @course.live_start_time%>至<%= @course.live_end_time%></span></td>
+              <td colspan="3"><span class="headline-color"><%= t("activerecord.view.date") %></span><span class="title-color interval"><%= @course.live_start_date%>-<%= @course.live_end_date%></span></td>
             </tr>
             <tr>
-              <td colspan="3"><span class="headline-color">状态</span><span class="title-color interval"><%= @course.status_text%></span><span>(<%= "#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>)</span></td>
+              <td colspan="3"><span class="headline-color"><%= t("activerecord.view.status") %></span><span class="title-color interval"><%= @course.status_text%></span><span>(<%= "#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>)</span></td>
             </tr>
             <tr>
               <td colspan="3">

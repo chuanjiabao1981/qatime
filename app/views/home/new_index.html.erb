@@ -5,16 +5,16 @@
       <div class="home-banner">
         <ul class="banner-show" style="left: -100%;">
           <li>
-            <a href=""><%= image_tag 'banner.jpg' %></a>
+            <%= link_to image_tag('banner.jpg'), welcome_download_path %>
           </li>
           <li>
-            <a href=""><%= image_tag 'banner2.jpg' %></a>
+            <%= link_to image_tag('banner2.jpg'),@user_path || send("customized_courses_#{@user.role}_path",@user) %>
           </li>
           <li>
-            <a href=""><%= image_tag 'banner.jpg' %></a>
+            <%= link_to image_tag('banner3.jpg'), live_studio.courses_path %>
           </li>
           <li>
-            <a href=""><%= image_tag 'banner.jpg' %></a>
+            <%= link_to image_tag('banner.jpg'), welcome_download_path %>
           </li>
         </ul>
         <ul class="banner-dot">

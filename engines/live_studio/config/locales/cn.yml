@@ -55,6 +55,7 @@ cn:
       lesson_status: 课程状态
       time_tips: 设置课程后系统将自动生成此时间
       completed_lesson: 结算课程
+      course_label: 辅导详情
     course_search_show:
       clear_range_btn: 清除范围
       buy_tickets_count: 已购人数：%d

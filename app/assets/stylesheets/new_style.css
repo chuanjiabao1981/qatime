@@ -2661,3 +2661,190 @@ ul {
 .grade-radio span {
   margin-right: 20px;
 }
+
+
+/*辅导班详情页*/
+.container-details {
+	margin-top: 10px;
+}
+.col-md-aside {
+	padding-left: 0 !important;
+}
+.tec-details,.tec-data {
+	width: 100%;
+	padding: 20px 10px;
+}
+.details-img {
+	width: 158px;
+	height: 158px;
+	border-radius: 50%;
+}
+.gender-img {
+	position: relative;
+	left: -10px;
+	top: -3px;
+	height: 27px;
+}
+.tec-name {
+	position: relative;
+	 left: 50%;
+	 margin-left: -25px;
+}
+.tec-details ul {
+	list-style-type: none;
+	padding-left: 0;
+	margin-bottom: 0;
+}
+.tec-details ul li:nth-child(2) span {
+	color: #000000;
+	font-size: 18px;
+	margin-right: 5px;
+}
+.tec-details ul li:nth-child(2) {
+	margin: 10px 0;
+}
+.details-con p {
+	margin-bottom: 0;
+	font-size: 14px;
+}
+.details-con p span:nth-child(2) {
+	color: rgb(160,160,160);
+}
+.con-title {
+	margin-right: 10px;
+}
+
+.data-con {
+	overflow: hidden;
+}
+
+.data-con table {
+	width: 100%;
+}
+.data-con table img {
+	width: 376px;
+	height: 234px;
+}
+.data-con table tr:first-child td:first-child {
+	width: 46%;
+}
+.subject-title {
+	margin-top: -7px;
+}
+.subject-title span:first-child {
+	font-size: 18px;
+	margin-right: 10px;
+	color: #000000;
+}
+.subject-title span:last-child {
+	background-color: rgb(3,203,253);
+	color: white;
+}
+.headline-color {
+	color: rgb(102,102,102);
+}
+.interval {
+	margin-left: 20px;
+}
+.unit-price {
+	width: 139px;
+	position: relative;
+	float: left;
+}
+.listen-class {
+	position: relative;
+	top: 10px;
+	float: left;
+	width: 120px;
+	height: 39px;
+	overflow: hidden;
+	margin-left: 20px;
+	border-radius: 4px;
+	display: none;
+}
+.listen-class:first-child {
+	display: block !important;
+}
+.price-num {
+	font-size: 30px;
+}
+.sign-up {
+	font-size: 12px;
+	color: rgb(224,224,224);
+	position: absolute;
+	right: 0;
+	bottom: -10px;
+}
+.btn-audition {
+	color: rgb(102,102,102);
+	border: 1px solid #999999;
+	border-right: 0px;
+	border-radius: 4px 0 0 4px;
+
+}
+.btn-audition,.btn-signnow {
+	width: 34px;
+	font-size: 14px;
+	line-height: 18px;
+}
+.btn-signnow,.btn-sign {
+	border-radius: 0 4px 4px 0;
+	background-color: rgb(253,168,21);
+	color: white;
+}
+.btn-audition,.btn-sign,.btn-start,.btn-listen,.btn-signnow {
+	text-align: center;
+	height: 39px;
+	float: left;
+}
+.btn-sign,.btn-listen {
+	width: 84px;
+	line-height: 39px;
+	color: white;
+}
+.btn-start {
+	color: white;
+	line-height: 39px;
+	background-color: rgb(32,173,101);
+	border: none;
+}
+.btn-listen {
+	background-color: rgb(32,173,101);
+}
+.price-details {
+	position: relative;
+	top: 3px;
+}
+.data-introduction {
+	margin-top: 20px;
+}
+.introduction-con p {
+	text-indent: 2em;
+	margin-bottom: 0;
+	color: rgb(85,85,85);
+}
+.introduction-title p,.details-con p span:nth-child(2) {
+	color: rgb(85,85,85);
+}
+.arrange-con {
+	padding: 0px 44px;
+}
+.arrange-con table {
+	width: 100%;
+}
+.arrange-con table tr td {
+	height: 53px;
+	border-bottom: 1px solid rgb(241,241,241);
+}
+.arrange-con table tr td:first-child span{
+	color: rgb(190,11,11);
+}
+.arrange-con table tr td:nth-child(2),.arrange-con table tr td:nth-child(3),.arrange-con table tr td:nth-child(4) {
+	text-align: center;
+}
+.arrange-con table tr td:last-child {
+	text-align: right;
+}
+.td-color {
+	color: rgb(181,181,181);
+}

@@ -180,6 +180,14 @@ class User < ActiveRecord::Base
     !student_or_teacher? && !password_required?
   end
 
+  def male?
+    gender == 'male'
+  end
+
+  def female?
+    gender == 'female'
+  end
+
   private
 
   def register_code_valid

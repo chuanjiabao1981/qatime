@@ -1,0 +1,40 @@
+<div class="panel panel-default panel-profile">
+  <div class="data-arrange">
+    <div class="arrange-title">
+      <div class="teacher-title-left">
+       <span class="fa fa-archive title-color"></span>
+       <span class="title-size">课程安排</span>
+      </div>
+    </div>
+    <div class="arrange-con">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <% @course.order_lessons.each_with_index do |lesson,i| %>
+          <tr>
+            <td>
+              <span><%= i+1 %></span>
+            </td>
+            <td>
+              <span class="<%= lesson.is_over? || lesson.ready? ? 'td-color' : nil %>">
+                <%= lesson.class_date %>
+                <%= lesson.live_start_at.try(:strftime, '%H:%M') || lesson.start_time %>-<%= lesson.live_end_at.try(:strftime, '%H:%M') || lesson.end_time %>
+              </span>
+            </td>
+            <td>
+              <span class="<%= lesson.is_over? || lesson.ready? ? 'td-color' : nil %>">
+                <%= lesson.name %>
+              </span>
+            </td>
+            <td>
+              <span class="<%= lesson.is_over? || lesson.ready? ? 'td-color' : nil %>">
+                <%= lesson.status_text(current_user.role) %>
+                <% if allow?(:lessons, :completed, lesson) && lesson.finished?  %>
+                  <%= link_to t('view.course_info_show.completed_lesson'), completed_course_lesson_path(@course, lesson), method: :patch %>
+                <% end  %>
+              </span>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

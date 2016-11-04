@@ -1,0 +1,78 @@
+<% teacher = @course.teacher %>
+<div class="col-md-9 col-md-left">
+  <div class="panel panel-default">
+    <div class="recommended-tutoring">
+       <div class="tutoring-title">
+         <div class="tutoring-title-left">
+           <span class="fa fa-tasks title-color"></span>
+           <span class="title-size"><%= t('view.course_info_show.course_label')%></span>
+         </div>
+       </div>
+       <div class="tec-data">
+         <div class="data-con">
+           <table border="0" cellspacing="0" cellpadding="0">
+           <tr>
+              <td rowspan="6">
+                <%= image_tag @course.publicize_url(:info) %>
+              </td>
+              <td colspan="3">
+                <div class="subject-title">
+                <span><%= @course.name%></span><span>在线直播</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3"><span class="headline-color"><%= t('view.course_show.teacher')%></span><span class="title-color interval"><%= teacher.name%></span></td>
+            </tr>
+            <tr>
+              <td><span class="headline-color"><%= t('view.course_info_show.subject')%></span><span class="title-color interval"><%= teacher.subject%></span></td>
+              <td><span class="headline-color"><%= t('view.course_info_show.category')%></span> <span class="title-color interval"><%= teacher.category%></span></td>
+              <td><span class="headline-color">课时</span> <span class="title-color interval">共<%= @course.preset_lesson_count%>课</span></td>
+            </tr>
+            <tr>
+              <td colspan="3"><span class="headline-color">日期</span><span class="title-color interval"><%= @course.live_start_time%>至<%= @course.live_end_time%></span></td>
+            </tr>
+            <tr>
+              <td colspan="3"><span class="headline-color">状态</span><span class="title-color interval"><%= @course.status_text%></span><span>(<%= "#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>)</span></td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <div class="price-details">
+                  <div class="unit-price">
+                    <span class="title-color price-num">￥<%= @course.price %></span>
+                    <span class="sign-up"><%= t('view.course_search_show.purchase_number') %><%= @course.buy_tickets_count%></span>
+                  </div>
+                  <% if current_user.blank? || !current_user.teacher? %>
+                    <div>
+                       <div class="listen-class">
+                        <div class="btn-audition">加入试听</div>
+                        <div class="btn-sign">立即报名</div>
+                       </div>
+
+                       <div class="listen-class">
+                        <div class="btn-listen">开始试听</div>
+                        <div class="btn-signnow">立即报名</div>
+                       </div>
+
+                       <div class="listen-class btn-start">
+                        开始学习
+                       </div>
+                    </div>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <div class="data-introduction">
+            <div class="introduction-title">
+              <p><%= t('view.play.course_description')%></p>
+            </div>
+            <div class="introduction-con">
+              <p><%= @course.description%></p>
+            </div>
+          </div>
+        </div>
+       </div>
+    </div>
+  </div>
+</div>

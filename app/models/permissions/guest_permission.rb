@@ -4,7 +4,7 @@ module Permissions
       allow :home,[:index,:new_index]
       allow :sessions,[:new,:create]
       allow :students,[:new,:create]
-      allow :teachers,[:new,:create]
+      allow :teachers,[:new,:create,:profile]
       allow :teaching_videos,[:show]
       allow :qa_faqs,[:index,:courses,:show]
       allow :qa_faqs,[:show] do |faq|

@@ -12,7 +12,6 @@ class HomeController < ApplicationController
     @recommend_courses = Recommend::LiveStudioCourseItem.limit(6)
     @recommend_teachers = Recommend::TeacherItem.limit(5)
     @user_path = @user.blank? ? signin_path : (!@user.student? && !@user.teacher? && 'javascript:void(0);')
-    @questions = Question.all.includes({learning_plan: :teachers},:vip_class,:student).order("created_at desc").limit(4)
     render layout: 'application_front'
   end
 

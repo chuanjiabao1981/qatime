@@ -169,6 +169,14 @@ class TeachersController < ApplicationController
     @customized_courses = @teacher.customized_courses.paginate(page: params[:page],per_page: 10)
     render layout: 'teacher_home_new'
   end
+
+  def profile
+    @user = @current_resource
+    @user_path = @user.blank? ? signin_path : (!@user.student? && !@user.teacher? && 'javascript:void(0);')
+    @courses = @teacher.live_studio_courses.where('status > ?', LiveStudio::Course.statuses[:init])
+    render layout: 'application_front'
+  end
+
   private
 
   def current_resource

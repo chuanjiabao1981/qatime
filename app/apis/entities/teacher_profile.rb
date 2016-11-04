@@ -5,6 +5,12 @@ module Entities
     expose :desc
     expose :teaching_years
     expose :gender
+    expose :province do |teacher|
+      teacher.province.try(:name)
+    end
+    expose :city do |teacher|
+      teacher.city.try(:name)
+    end
     expose :avatar_url do |user,options|
       options[:size] == :info ? user.avatar_url(:ex_big) : user.avatar_url
     end

@@ -20,7 +20,8 @@ module Permissions
       allow :register_codes, [:index, :new, :downloads, :create]
       allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,
                        :students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,
-                       :exercises,:keep_account,:solutions,:customized_tutorial_topics,:notifications, :admin_edit, :admin_update, :customized_courses]
+                       :exercises,:keep_account,:solutions,:customized_tutorial_topics,:notifications,
+                       :admin_edit, :admin_update, :customized_courses,:profile]
       allow :curriculums,[:index,:show]
       allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
       allow :courses,[:show]
@@ -111,8 +112,21 @@ module Permissions
       allow 'live_studio/teacher/courses', [:index, :show]
       allow 'live_studio/student/courses', [:index, :show]
       allow 'live_studio/courses', [:index, :new, :create, :show]
-      allow 'live_studio/courses', [:edit, :update, :destroy] do |course|
-        course.author_id == user.id
+      allow 'live_studio/courses', [:edit, :update, :destroy] do |manager,course,action|
+        permission =
+          case course.try(:status)
+            when 'init'
+              true
+            when 'preview','teaching'
+              action == 'show' || (action == 'destroy' && course.tickets.blank?)
+            when 'completed'
+              action == 'show'
+            when nil
+              true
+            else
+              false
+          end
+        course.author_id == manager.id && permission
       end
       ## end live studio permission
       allow 'chat/teams', [:finish, :members, :member_visit]

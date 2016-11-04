@@ -14,6 +14,20 @@ class Ajax::DataController < ApplicationController
     end
   end
 
+  def home_curriculums
+    @curriculums = Curriculum.by_subject(params[:subject]).limit(10)
+    respond_to do |format|
+      format.html{ render layout: false}
+    end
+  end
+
+  def home_questions
+    @questions = Question.all.includes({learning_plan: :teachers},:vip_class,:student).order("created_at desc").limit(4)
+    respond_to do |format|
+      format.html{ render layout: false}
+    end
+  end
+
   private
   def set_variable
     set_cities if params[:second]

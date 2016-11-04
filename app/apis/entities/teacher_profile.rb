@@ -5,6 +5,9 @@ module Entities
     expose :desc
     expose :teaching_years
     expose :gender
+    expose :grade
+    expose :subject
+    expose :category
     expose :province do |teacher|
       teacher.province.try(:name)
     end

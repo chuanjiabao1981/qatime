@@ -171,7 +171,10 @@ class TeachersController < ApplicationController
   end
 
   def profile
-    render layout: 'application'
+    @user = @current_resource
+    @user_path = @user.blank? ? signin_path : (!@user.student? && !@user.teacher? && 'javascript:void(0);')
+    @courses = @teacher.live_studio_courses.where('status > ?', LiveStudio::Course.statuses[:init])
+    render layout: 'application_front'
   end
 
   private

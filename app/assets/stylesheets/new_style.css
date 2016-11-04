@@ -1816,47 +1816,7 @@ figcaption p {
 /*web首页*/
 
 
-header {
-  width: 100%;
-  background-color: #d8d8d8;
-  position: fixed;
-  top: 0;
-  z-index: 100;
-}
-.header-content {
-  height: 36px;
-  max-width: 1190px;
-  margin: 0 auto;
-}
-.header-logo {
-  float: left;
-  margin-left: -10px !important;
-}
-.header-nav {
-  line-height: 36px;
-  float: right;
-}
-.header-nav span {
-  margin-right: 30px;
-  color: rgb(143,143,143);
-}
-.header-nav span a {
-  color: rgb(143,143,143);
-}
-.nav-city {
-  font-size: 20px;
-  color: white;
-  line-height: 50px;
-}
-.home-recom-left {
-  width: 75.8%;
-  height: 40px;
-  float: left;
-}
-.home-recom-right {
-  width: 22.6%;
-  float: right;
-}
+
 
 .home-banner {
   width: 100%;
@@ -1899,7 +1859,7 @@ header {
 .recommended-tutoring,.recommended-tec {
   width: 100%;
 }
-.tutoring-title,.class-title,.tutoring-tec-title {
+.tutoring-title,.class-title,.tutoring-tec-title,.arrange-title {
   height: 40px;
   padding-left: 10px;
   line-height: 40px;
@@ -1944,12 +1904,10 @@ header {
 }
 .ul-list li img {
   width: 100%;
-  height: 168px;
 }
-.ul-list li:first-child,.ul-list li:nth-child(2),.ul-list li:nth-child(4),.ul-list li:nth-child(5){
-
-  margin-right: 1.21%;
-}
+/*.ul-list li:first-child,.ul-list li:nth-child(2){
+	margin-right: 1.21%;
+}*/
 .icon-color {
   color: rgb(153,153,153);
 }
@@ -1960,6 +1918,9 @@ header {
 }
 .dl-list dd {
   margin-bottom: 10px;
+}
+.dl-list dd a {
+  color: #000000 !important;
 }
 .dl-list dd:last-child {
   color: rgb(174,174,174);
@@ -2058,10 +2019,34 @@ i {
   border: 1px solid rgb(190,11,11);
   color: rgb(190,11,11) !important;
 }
-.table-subject {
-  margin-top: 20px;
+
+.course-grade {
   width: 100%;
+
 }
+
+.li-msg {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  display: none;
+}
+.li-msg:first-child {
+  display: block;
+}
+.li-msg li {
+  width: 50%;
+  height: 55px;
+  float: left;
+}
+.li-msg li a {
+  color: rgb(85,85,85);
+}
+
+
+
+
 .news-question {
   color: rgb(85,85,85);
 }
@@ -2119,6 +2104,11 @@ i {
 .tec-msgs dd {
   margin-bottom: 9px;
 }
+.tec-msgs dd img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
 .li-detailed {
   display: none;
   height: 183px;
@@ -2147,6 +2137,10 @@ i {
   }
   .col-advantage ul li:last-child p {
     text-align: center;
+  }
+  .col-md-aside {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
   }
 }
 
@@ -2275,6 +2269,24 @@ i {
 .city-feedback {
   float: right;
 }
+.container-footer {
+  position: relative;
+  top: -20px;
+}
+.panel-profile {
+  border-radius: 0px !important;
+}
+.questions-more,.curriculums-more{
+  display: none;
+}
+.ul-list li:first-child,.ul-list li:nth-child(2),.ul-list li:nth-child(4),.ul-list li:nth-child(5){
+  margin-right: 1.21%;
+}
+
+
+
+
+
 
 
 
@@ -2300,6 +2312,10 @@ i {
   font-size: 16px;
   cursor: pointer;
 }
+.list-sort-1 a, .list-course-1 a, .list-grade-1 a, .list-state-1 a, .class-msg a {
+  color: #000000;
+}
+
 .list-sort,.list-course,.list-grade,.list-price ,.list-remedial,.list-scope,.lsit-state{
   overflow: hidden;
   margin-bottom: 30px !important;
@@ -2326,7 +2342,7 @@ i {
   color: rgb(0,0,0) !important;
 }
 .active-color {
-  color: red;
+  color: red !important;
 }
 .remedial-conditions {
   margin-top: 20px;
@@ -2371,35 +2387,66 @@ i {
   color: rgb(190,11,11) !important;
 }
 .screening-con {
-  border: 1px solid green;
   padding: 10px;
   margin-top: 20px;
-
 }
-.list-screening {
+
+.list-screening,.list-live {
   padding: 0;
   margin: 0;
-  overflow: hidden;
   width: 100%;
   margin-bottom: 20px !important;
 }
-.list-screening li {
+.list-screening li,.list-live li {
   width: 24.4%;
   float: left;
   margin-right: 0.75%;
-  border: 1px solid gray;
+  margin-bottom: 20px;
 }
-.list-screening li img {
+.list-screening li img,.list-live li img {
   width: 100%;
+  height: 168px;
+}
+.dl-con {
+  height: 40px;
+  position: relative;
+  z-index: 1;
 }
 .list-screening li:last-child {
   margin-right: 0 !important;
 }
+
 .dl-screening {
+  width: 100%;
   margin-bottom: 0px !important;
+  background-color: rgb(243,243,243);
+  position: absolute;
+  z-index: 10000;
+}
+.dl-screening dd:nth-child(2) {
+  color: rgb(153,153,153);
+}
+.dd-num-msg {
+  display: none;
+}
+.dd-num-msg p{
+  overflow: hidden;
+  height: 25px;
+  margin-bottom: 0px;
+  line-height: 25px;
+}
+.dd-date {
+  padding-top: 6px;
 }
 .class-msg {
   font-size: 16px;
+  display: inline-block;
+  width: 70%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.class-msg a {
   color: #000000;
 }
 .class-open {
@@ -2414,52 +2461,311 @@ i {
   color: rgb(209,209,209);
   font-size: 12px;
   float: right;
+  line-height: 20px;
 }
 .money-num {
   font-size: 18px;
   color: rgb(190,11,11);
 }
+.person-num {
+  color: rgb(190,11,11);
+}
+.person-buy {
+  float: right;
+}
+
+
+
+/*教师个人主页*/
+.homepage-title,.homepage-live-title {
+  height: 40px;
+  background-color: rgb(241,241,241);
+  line-height: 40px;
+}
+.homepage-title-left {
+  float: left;
+  margin-left: 70px;
+  color: #000000;
+  font-size: 20px;
+}
+.homepage-title-right {
+  float: right;
+  color: #000000;
+  font-size: 16px;
+  margin-right: 30px;
+}
+.homepage-title-right span i {
+  margin-right: 5px;
+  color: rgb(83,212,43);
+}
+.checkbox-homepage {
+  margin-left: 50px;
+}
+.homepage-tec-msg {
+  padding: 20px 10px;
+}
+.td-year {
+  padding-left: 2%;
+  padding-bottom: 20px;
+}
+.td-region {
+  width: 30%;
+  padding-bottom: 20px;
+}
+.td-year:last-child {
+  line-height: 23px;
+}
+.homepage-tec-msg table {
+  width: 100%;
+  color: rgb(102,102,102);
+}
+.msg-header {
+  width: 183px;
+}
+.homepage-tec-msg table tr td img{
+  width: 183px;
+  height: 216px;
+}
+.icon-color-1 {
+  color: rgb(190,11,11);
+  margin-right: 5px;
+}
+.homepage-live-title p {
+  text-align: center;
+  font-size: 16px;
+  color: #000000;
+}
+.list-live {
+  margin-bottom: 0px;
+}
+.list-live li:nth-child(4),.list-live li:nth-child(8) {
+  margin-right: 0px !important;
+}
+.dl-list-1 {
+  margin-top: 10px;
+}
+.dl-list-1:first-child {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.homepage-elscon {
+  width: 100%;
+  padding-bottom: 30px;
+}
+.homepage-elscon table {
+  width: 80%;
+  margin: 0 auto;
+}
+.homepage-elscon table tr td {
+  text-align: center;
+  line-height: 32px;
+}
+.homepage-elscon table tr:first-child td {
+  font-size: 18px;
+  color: #000000;
+  padding-bottom: 10px;
+}
+.homepage-elscon table tr:nth-child(2) td {
+  font-size: 16px;
+  color: #000000;
+}
+
+.page-num {
+  position: relative;
+  top: 20px !important;
+  margin-bottom: 20px !important;
+}
 
 
 
 
 
+/*辅导班详情页*/
+.container-details {
+  margin-top: 10px;
+}
+.col-md-aside {
+  padding-left: 0 !important;
+}
+.tec-details,.tec-data {
+  width: 100%;
+  padding: 20px 10px;
+}
+.details-img {
+  width: 158px;
+  height: 158px;
+  border-radius: 50%;
+}
+.gender-img {
+  position: relative;
+  left: -10px;
+  top: -3px;
+  height: 27px;
+}
+.tec-name {
+  position: relative;
+  left: 50%;
+  margin-left: -25px;
+}
+.tec-details ul {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+.tec-details ul li:nth-child(2) span {
+  color: #000000;
+  font-size: 18px;
+  margin-right: 5px;
+}
+.tec-details ul li:nth-child(2) {
+  margin: 10px 0;
+}
+.details-con p {
+  margin-bottom: 0;
+  font-size: 14px;
+}
+.details-con p span:nth-child(2) {
+  color: rgb(160,160,160);
+}
+.con-title {
+  margin-right: 10px;
+}
 
+.data-con {
+  overflow: hidden;
+}
 
+.data-con table {
+  width: 100%;
+}
+.data-con table img {
+  width: 376px;
+  height: 234px;
+}
+.data-con table tr:first-child td:first-child {
+  width: 46%;
+}
+.subject-title {
+  margin-top: -7px;
+}
+.subject-title span:first-child {
+  font-size: 18px;
+  margin-right: 10px;
+  color: #000000;
+}
+.subject-title span:last-child {
+  background-color: rgb(3,203,253);
+  color: white;
+}
+.headline-color {
+  color: rgb(102,102,102);
+}
+.interval {
+  margin-left: 20px;
+}
+.unit-price {
+  width: 139px;
+  position: relative;
+  float: left;
+}
+.listen-class {
+  position: relative;
+  top: 10px;
+  float: left;
+  width: 120px;
+  height: 39px;
+  overflow: hidden;
+  margin-left: 20px;
+  border-radius: 4px;
+  display: none;
+}
+.listen-class:first-child {
+  display: block !important;
+}
+.price-num {
+  font-size: 30px;
+}
+.sign-up {
+  font-size: 12px;
+  color: rgb(224,224,224);
+  position: absolute;
+  right: 0;
+  bottom: -10px;
+}
+.btn-audition {
+  color: rgb(102,102,102);
+  border: 1px solid #999999;
+  border-right: 0px;
+  border-radius: 4px 0 0 4px;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
+.btn-audition,.btn-signnow {
+  width: 34px;
+  font-size: 14px;
+  line-height: 18px;
+}
+.btn-signnow,.btn-sign {
+  border-radius: 0 4px 4px 0;
+  background-color: rgb(253,168,21);
+  color: white;
+}
+.btn-audition,.btn-sign,.btn-start,.btn-listen,.btn-signnow {
+  text-align: center;
+  height: 39px;
+  float: left;
+}
+.btn-sign,.btn-listen {
+  width: 84px;
+  line-height: 39px;
+  color: white;
+}
+.btn-start {
+  color: white;
+  line-height: 39px;
+  background-color: rgb(32,173,101);
+  border: none;
+}
+.btn-listen {
+  background-color: rgb(32,173,101);
+}
+.price-details {
+  position: relative;
+  top: 3px;
+}
+.data-introduction {
+  margin-top: 20px;
+}
+.introduction-con p {
+  text-indent: 2em;
+  margin-bottom: 0;
+  color: rgb(85,85,85);
+}
+.introduction-title p,.details-con p span:nth-child(2) {
+  color: rgb(85,85,85);
+}
+.arrange-con {
+  padding: 0px 44px;
+}
+.arrange-con table {
+  width: 100%;
+}
+.arrange-con table tr td {
+  height: 53px;
+  border-bottom: 1px solid rgb(241,241,241);
+}
+.arrange-con table tr td:first-child span{
+  color: rgb(190,11,11);
+}
+.arrange-con table tr td:nth-child(2),.arrange-con table tr td:nth-child(3),.arrange-con table tr td:nth-child(4) {
+  text-align: center;
+}
+.arrange-con table tr td:last-child {
+  text-align: right;
+}
+.td-color {
+  color: rgb(181,181,181);
+}
 
 
 
@@ -2589,6 +2895,23 @@ ul {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*辅导班编辑*/
 .newclass-editor {
   padding: 10px;
@@ -2661,3 +2984,9 @@ ul {
 .grade-radio span {
   margin-right: 20px;
 }
+
+
+
+
+
+

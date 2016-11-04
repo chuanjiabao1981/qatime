@@ -1,0 +1,24 @@
+index_teacher_recommend_one:
+  title: 首页名师推荐1
+  position: index_teacher_recommend
+  target: teacher1 (Teacher)
+  type: Recommend::TeacherItem
+  index: 1
+index_teacher_recommend_two:
+  title: 首页名师推荐2
+  position: index_teacher_recommend
+  target: teacher2 (Teacher)
+  type: Recommend::TeacherItem
+  index: 2
+index_live_studio_course_recommend_one:
+  title: 首页辅导班推荐1
+  position: index_live_studio_course_recommend
+  target: course_one (LiveStudio::Course)
+  type: Recommend::LiveStudioCourseItem
+  index: 1
+index_live_studio_course_recommend_two:
+  title: 首页辅导班推荐2
+  position: index_live_studio_course_recommend
+  target: course_two (LiveStudio::Course)
+  type: Recommend::LiveStudioCourseItem
+  index: 2

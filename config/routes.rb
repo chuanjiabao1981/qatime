@@ -1,6 +1,7 @@
 Qatime::Application.routes.draw do
   root :to => "home#index"
 
+  get 'home' => 'home#new_index'
   get 'welcome/download'
   get 'welcome/courses'
   resources :softwares, only: [:index, :show] do
@@ -340,6 +341,7 @@ Qatime::Application.routes.draw do
   mount Payment::Engine, at: '/payment'
   # 聊天
   mount Chat::Engine, at: '/chat'
+  mount Recommend::Engine, at: 'recommend'
   # API
   mount Qatime::API => '/'
 

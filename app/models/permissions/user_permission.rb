@@ -38,6 +38,7 @@ module Permissions
       end
 
       allow 'live_studio/courses', [:index, :taste, :play, :show, :refresh_current_lesson,:schedule_sources]
+      allow 'home', [:index, :new_index]
       allow 'chat/teams', [:finish, :members, :member_visit]
       allow 'ajax/captchas', [:create, :verify]
       allow 'ajax/data', [:option_cities, :option_schools]
@@ -67,6 +68,7 @@ module Permissions
       api_allow :PUT, "/api/v1/users/[\\w-]+/password" do |resource|
         resource.id == user.id
       end
+
       ## end api permission
     end
   end

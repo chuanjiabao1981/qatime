@@ -13,8 +13,8 @@
     <div class="navbar-collapse collapse" style="height: 1px;">
       <ul class="nav navbar-nav">
           <li><%= link_to t("view.common_bars.home_page"), user_home_path %></li>
-          <li><%= link_to t("view.common_bars.download"), welcome_download_path %></li>
-          <li><%= link_to t("view.common_bars.common_problem"), qa_faqs_path %></li>
+          <li><%= link_to t("view.common_bars.download"), main_app.welcome_download_path %></li>
+          <li><%= link_to t("view.common_bars.common_problem"), main_app.qa_faqs_path %></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -23,7 +23,7 @@
           <% end %>
         </li>
         <li>
-          <%= link_to t("view.common_bars.sign_out"), signout_path, :method=>'delete' %>
+          <%= link_to t("view.common_bars.sign_out"), main_app.signout_path, :method=>'delete' %>
         </li>
       </ul>
     </div>

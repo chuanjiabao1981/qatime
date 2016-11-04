@@ -33,3 +33,4 @@
 //= require calendar-zh-cn.js
 //= require calendar-es5
 //= require jedate
+//= require live_studio/application

@@ -85,7 +85,8 @@ unless LiveStudio::Course.exists?
           status: 1,
           description: 'this is description',
           price: 200,
-          teacher_percentage: 50,
+          teacher_percentage: 70,
+          author_id: User.first.id,
           subject: '自然',
           grade: '初三',
           preset_lesson_count: 2

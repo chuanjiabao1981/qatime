@@ -8,8 +8,6 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
- *= require_self
- *= require_tree .
  *= require font-awesome
  *= require jquery.Jcrop
  *= require summernote
@@ -19,11 +17,13 @@
  *= require animate
  *= require fancybox
  *= require course_library/application
+ *= require live_studio/application
  *= require editable/bootstrap-editable
  *= require bootstrap-select.min
  *= require jquery-calendar
  *= require calendar
  *= require jedate
+ *= require_self
  */
 
 @import 'bootstrap';

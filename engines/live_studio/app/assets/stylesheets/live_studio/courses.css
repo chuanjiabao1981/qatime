@@ -77,3 +77,411 @@
 span.active{
     color: #1a0dab;
 }
+
+
+/*辅导班筛选*/
+
+.active-focus {
+	background-color: rgb(242,16,16);
+}
+.screening-nav {
+	margin: 10px;
+	border: 1px solid gainsboro;
+	padding: 10px;
+	font-size: 1.4rem;
+	color: #666666;
+}
+.screening-nav ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	font-size: 16px;
+	cursor: pointer;
+}
+.list-sort,.list-course,.list-grade,.list-price ,.list-remedial,.list-scope,.list-state{
+	overflow: hidden;
+	margin-bottom: 30px !important;
+	color: rgb(153,153,153);
+}
+.list-sort li,.list-course li,.list-grade li,.list-state li {
+	float: left;
+	margin-right: 30px;
+	color: rgb(153,153,153);
+}
+.list-price li,.list-remedial li,.list-scope li{
+	float: left;
+}
+.list-price input,.list-scope input{
+	width: 108px;
+	height: 28px;
+	border: 1px solid rgb(190,11,11);
+}
+.price-segmentation {
+	margin: 0 10px;
+}
+.screening-nav ul li:first-child {
+	margin-right: 20px !important;
+	color: rgb(0,0,0) !important;
+}
+.active-color {
+	color: red !important;
+}
+.remedial-conditions {
+	margin-top: 20px;
+	overflow: hidden;
+
+}
+.remedial-conditions a {
+	float: right;
+	margin-right: 40px;
+}
+.btn-reset {
+	line-height: 34px;
+	color: rgb(153,153,153) !important;
+	font-size: 16px;
+}
+.btn-screen {
+	display: inline-block;
+	width: 104px;
+	height: 34px;
+	font-size: 16px;
+	background-color: rgb(242,16,16);
+    border-radius: 4px;
+	text-align: center;
+	line-height: 34px;
+	color: white;
+	margin-right: 40px;
+}
+.screening-hidden {
+	display: none;
+}
+.remedial-drop-down {
+	text-align: center;
+	margin-bottom: 0px;
+}
+.remedial-drop-down a {
+	color: lightseagreen;
+}
+.price-line-1 {
+	margin: 0px 5px 0px -15px;
+}
+.more-conditions,.up-conditions {
+	color: rgb(190,11,11) !important;
+}
+.screening-con {
+	padding: 10px;
+	margin-top: 20px;
+}
+.list-screening {
+
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	width: 100%;
+	margin-bottom: 20px;
+}
+.list-screening li {
+	position: relative;
+	width: 24.4%;
+	float: left;
+	margin-right: 0.75%;
+}
+.list-screening li img {
+	width: 100%;
+}
+.list-screening li:last-child {
+	margin-right: 0 !important;
+}
+
+.dl-screening {
+	width: 100%;
+	margin-bottom: 0px !important;
+	background-color: rgb(243,243,243);
+}
+.dl-screening dd:nth-child(2) {
+	color: rgb(153,153,153);
+}
+.dd-num-msg {
+	display: none;
+}
+.dd-num-msg p{
+	overflow: hidden;
+	height: 25px;
+	margin-bottom: 0px;
+	line-height: 25px;
+}
+.dd-date {
+	padding-top: 6px;
+}
+.class-msg {
+	font-size: 16px;
+	color: #000000;
+}
+.class-open {
+	float: right;
+	font-size: 16px;
+	color: rgb(0,160,233);
+}
+.tea-name {
+	float: right;
+}
+.dd-date {
+	color: rgb(209,209,209);
+	font-size: 12px;
+	float: right;
+	line-height: 20px;
+}
+.money-num {
+	font-size: 18px;
+	color: rgb(190,11,11);
+}
+.person-num {
+color: rgb(190,11,11);
+}
+.person-buy {
+	float: right;
+}
+
+.list-page {
+	overflow: hidden;
+}
+.list-page li {
+	width: 38px;
+	height: 36px;
+	border: 1px solid gray;
+	margin-right: 3px;
+	text-align: center;
+	line-height: 36px;
+	background-color: rgb(243,243,243);
+	float: left;
+}
+.list-page li:first-child,.list-page li:last-child-child {
+	width: 85px;
+}
+
+
+
+
+
+
+
+
+/*辅导班live*/
+
+.remedial-nav,.remedial-textbook {
+	margin: 8px;
+	border: 1px solid gainsboro;
+	padding: 10px;
+	font-size: 1.4rem;
+	color: #666666;
+}
+.remedial-nav ul {
+	list-style-type: none;
+	padding: 0 !important;
+	overflow: hidden;
+	clear: both;
+	margin-top: 20px;
+}
+.remedial-sort li,.remedial-subjects li,.remedial-grade li,.remedial-state li {
+	height: 35px;
+	line-height: 35px;
+}
+.remedial-price li,.remedial-scope li,.remedial-start li {
+	height: 35px;
+}
+.remedial-sort {
+	margin-top: 0 !important;
+}
+.remedial-nav ul li {
+	float: left;
+}
+.remedial-nav ul li:first-child {
+	width: 70px;
+}
+.remedial-nav ul li:nth-child(2) {
+	margin-left: 30px;
+}
+.remedial-sort li:nth-child(2),.remedial-subjects li:nth-child(2),.remedial-grade li:nth-child(2),.remedial-state li:nth-child(2) {
+	margin-right: 15px;
+	width: 60px;
+	height: 35px;
+	line-height: 35px;
+	text-align: center;
+}
+
+.remedial-start {
+	margin-left: -15px;
+}
+.col-md-time {
+	margin-top: -10px;
+    margin-bottom: 10px;
+}
+.remedial-grade {
+	margin-bottom: 0;
+}
+.remedial-sort-1 {
+	margin-right: 45px;
+}
+.remedial-subjects-1,.remedial-grade-1,.remedial-state-1 {
+	margin-right: 30px;
+}
+
+.remedial-price li:first-child,.remedial-scope li:first-child,.remedial-start li:first-child{
+	line-height: 35px;
+	}
+.remedial-price input,.remedial-scope input {
+	width: 100px;
+	height: 34px;
+	border: 1px solid lightseagreen;
+	text-align: center;
+}
+.price-line {
+	margin: 0 10px;
+	line-height: 35px;
+}
+.remedial-hidden {
+	margin-top: 20px;
+	display: none;
+}
+.date-1 {
+	width: 100%;
+}
+.remedial-date {
+	width: 249px;
+	height: 28px;
+	padding-top: 0 !important;
+	border: 1px solid rgb(190,11,11);
+}
+.remedial-txt-1 {
+	margin-left: 0 !important;
+	/*line-height: 35px;*/
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.label-icon-1,.label-icon-2 {
+	position: relative;
+	top: 6px !important;
+	clear: both;
+}
+.label-icon-1 {
+	right: 293px;
+}
+.label-icon-2 {
+	right: 40px;
+}
+
+
+.up-conditions {
+	display: none;
+}
+.remedial-textbook {
+	padding: 8px;
+	}
+
+.textbook-1 {
+	width: 100%;
+	list-style-type: none;
+	padding-left: 0 !important;
+	overflow: hidden;
+	margin-bottom: 0px;
+	padding-bottom: 8px;
+	padding-top: 7px;
+}
+.textbook-1 li {
+	width: 32%;
+	float: left;
+	border: 1px solid gainsboro;
+	margin: 0 0.66%;
+}
+
+.textbook-img img {
+	width: 100%;
+}
+.textbook-msg {
+	padding-right: 5px;
+	border-top: 1px solid gainsboro;
+	border-bottom: 1px solid gainsboro;
+	font-size: 1.2rem;
+	overflow: hidden;
+}
+.book-money {
+	float: left;
+	font-size: 1.6rem;
+	color: red;
+}
+.book-num {
+	float: right;
+	line-height: 22px;
+}
+.textbook-teacher {
+	clear: both;
+	font-size: 1.2rem;
+	margin-bottom: 0;
+}
+.teacher-msg-1 img {
+	width: 20px;
+	border-radius: 50%;
+	float: left;
+	margin-right: 10px;
+}
+.teacher-course {
+	float: right;
+	line-height: 20px;
+}
+.teacher-name {
+	line-height: 20px;
+}
+.teacher-book-nav {
+	text-align: center;
+	padding-top: 8px;
+	padding-bottom: 5px;
+	font-size: 1.2rem;
+	display: none;
+}
+.class-time,.class-State,.class-img {
+	float: right;
+}
+.class-img {
+	width: 10px;
+	padding-top: 3px;
+	}
+.class-State {
+	width: 40px;
+	text-align: center;
+	background-color: deepskyblue;
+	color: white;
+}
+.class-admissions {
+	background-color: greenyellow;
+}
+.teacher-con {
+	clear: both;
+	padding-top: 10px;
+	text-indent: 20px;
+	font-size: 1.2rem;
+	height: 45px;
+	text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.page-num {
+	position: relative;
+	top: 20px !important;
+	margin-bottom: 20px !important;
+}
+
+.list-sort-1 a, .list-course-1 a, .list-grade-1 a, .list-state-1 a, .class-msg a {
+	color: #000000;
+}
+
+.list-sort-1 a:hover, .list-course-1 a:hover, .list-grade-1 a:hover, .list-state-1 a:hover, .class-msg a:hover {
+	color: #000000;
+}
+
+.container-details {
+	margin-top: 10px;
+}

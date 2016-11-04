@@ -1,0 +1,18 @@
+  <% if @item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@item.errors.count, "error") %> prohibited this admin_item from being saved:</h2>
+
+      <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.input :title %>
+  <%= f.input :index %>
+  <%#= f.input :logo, as: :file %>
+  <%= f.input :target_id, collection: @item.recomend_for.all.map{|t| [t.name, t.id]} %>
+  <%= f.input :reason, collection: Recommend::Item.i18n_options_reasons %>
+  <%= f.submit %>

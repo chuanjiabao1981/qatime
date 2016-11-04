@@ -1,7 +1,7 @@
 module Permissions
   class GuestPermission < BasePermission
     def initialize
-      allow :home,[:index]
+      allow :home,[:index,:new_index]
       allow :sessions,[:new,:create]
       allow :students,[:new,:create]
       allow :teachers,[:new,:create,:profile]
@@ -46,6 +46,7 @@ module Permissions
       # captcha
       api_allow :POST, "/api/v1/captcha"
       api_allow :POST, "/api/v1/captcha/verify"
+
       ## end api permission
     end
   end

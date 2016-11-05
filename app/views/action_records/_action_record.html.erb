@@ -1,4 +1,6 @@
-<% unless action_record.is_a? Payment::RechargeActionRecord %>
+<% if action_record.is_a? Payment::RechargeActionRecord %>
+<% elsif action_record.is_a? Payment::Withdraw %>
+<% else %>
 <div class="qa_object_item">
   <div style="float:left">
     <%=image_tag action_record.operator.avatar.normal.url %>

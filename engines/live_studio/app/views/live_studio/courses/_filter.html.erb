@@ -122,15 +122,19 @@
 
 
 
-<script>
-  $(".search-link-submit").click(function(){
-    var tag = $(this).attr('rel');
-    var value = $(this).attr('data');
-    if(tag.indexOf('_sort') > 0){
-      $("#sort_by").val(tag.replace('_sort','') +"."+value);
-    }else{
-      $("#"+tag).val(value);
-    }
-    $("#search-form").submit();
-  });
-</script>
+<% content_for :javascript do %>
+  <script>
+    $(document).ready(function(){
+      $(".search-link-submit").click(function(){
+        var tag = $(this).attr('rel');
+        var value = $(this).attr('data');
+        if(tag.indexOf('_sort') > 0){
+          $("#sort_by").val(tag.replace('_sort','') +"."+value);
+        }else{
+          $("#"+tag).val(value);
+        }
+        $("#search-form").submit();
+      });
+    })
+  </script>
+<% end %>

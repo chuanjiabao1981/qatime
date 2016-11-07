@@ -32,4 +32,3 @@
 //= require moment.min
 //= require calendar-zh-cn.js
 //= require calendar-es5
-//= require jedate

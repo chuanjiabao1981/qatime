@@ -3111,3 +3111,24 @@ ul {
 .live-right dl dd {
 	margin-bottom: 33px;
 }
+
+.hottest {
+  background-color: rgb(246,139,0);
+}
+.newest {
+  background-color: rgb(0,139,202);
+}
+.newest, .hottest {
+  width: 40px;
+  height: 20px;
+  display: inline-block;
+  color: white;
+  text-align: center;
+  line-height: 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.li-new {
+  position: relative;
+}

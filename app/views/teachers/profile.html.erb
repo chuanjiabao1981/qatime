@@ -41,9 +41,11 @@
             <ul class="list-live">
               <% @courses.each do |course| %>
                 <li>
-                  <%= link_to image_tag(course.publicize_url(:list)),live_studio.courses_path(course) %>
+                  <%= link_to image_tag(course.publicize_url(:list)),live_studio.course_path(course) %>
                   <dl class="dl-list dl-list-1">
-                    <dd><a href=""><%= course.name %></a></dd>
+                    <dd>
+                      <%= link_to course.name, live_studio.course_path(course) %>
+                    </dd>
                     <dd>
     		 					<span class="dd-left">
     		 					<i class="glyphicon glyphicon-time icon-color"></i>

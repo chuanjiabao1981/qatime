@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161101071815) do
+ActiveRecord::Schema.define(version: 20161107083149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -412,6 +412,24 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.float    "sale_price"
   end
 
+  create_table "inviations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "inviter_id"
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.datetime "expited_at"
+    t.integer  "teacher_percent"
+    t.integer  "status"
+    t.text     "remark"
+    t.string   "type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "inviations", ["inviter_id"], name: "index_inviations_on_inviter_id", using: :btree
+  add_index "inviations", ["target_type", "target_id"], name: "index_inviations_on_target_type_and_target_id", using: :btree
+  add_index "inviations", ["user_id"], name: "index_inviations_on_user_id", using: :btree
+
   create_table "learning_plan_assignments", force: :cascade do |t|
     t.integer  "learning_plan_id"
     t.integer  "teacher_id"
@@ -503,6 +521,20 @@ ActiveRecord::Schema.define(version: 20161101071815) do
   add_index "live_studio_courses", ["teacher_id"], name: "index_live_studio_courses_on_teacher_id", using: :btree
   add_index "live_studio_courses", ["workstation_id"], name: "index_live_studio_courses_on_workstation_id", using: :btree
 
+  create_table "live_studio_invitations", force: :cascade do |t|
+    t.integer  "manager_id"
+    t.integer  "teacher_id"
+    t.decimal  "profit_percent", precision: 8, scale: 2, default: 0.0
+    t.integer  "valid_day"
+    t.integer  "status",                                 default: 0
+    t.datetime "deleted_at"
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+  end
+
+  add_index "live_studio_invitations", ["manager_id"], name: "index_live_studio_invitations_on_manager_id", using: :btree
+  add_index "live_studio_invitations", ["teacher_id"], name: "index_live_studio_invitations_on_teacher_id", using: :btree
+
   create_table "live_studio_lessons", force: :cascade do |t|
     t.string   "name",           limit: 100
     t.integer  "course_id"
@@ -537,6 +569,20 @@ ActiveRecord::Schema.define(version: 20161101071815) do
   end
 
   add_index "live_studio_live_sessions", ["lesson_id"], name: "index_live_studio_live_sessions_on_lesson_id", using: :btree
+
+  create_table "live_studio_manger_invites", force: :cascade do |t|
+    t.integer  "manger_id"
+    t.integer  "teacher_id"
+    t.decimal  "profit_percent", precision: 8, scale: 2, default: 0.0
+    t.integer  "valid_day"
+    t.integer  "status",                                 default: 0
+    t.datetime "deleted_at"
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
+  end
+
+  add_index "live_studio_manger_invites", ["manger_id"], name: "index_live_studio_manger_invites_on_manger_id", using: :btree
+  add_index "live_studio_manger_invites", ["teacher_id"], name: "index_live_studio_manger_invites_on_teacher_id", using: :btree
 
   create_table "live_studio_play_records", force: :cascade do |t|
     t.integer  "user_id"
@@ -1194,5 +1240,6 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.integer  "manager_id"
   end
 
+  add_foreign_key "inviations", "users"
   add_foreign_key "payment_transactions", "users"
 end

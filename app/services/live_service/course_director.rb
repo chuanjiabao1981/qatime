@@ -136,7 +136,7 @@ module LiveService
           }.join(',')
         courses = courses.order(order_str)
       end
-      courses.order(published_at: :desc).order(id: :desc)
+      courses.order(id: :desc).order(published_at: :desc)
     end
 
     def instance_studio

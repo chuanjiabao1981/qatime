@@ -8,6 +8,8 @@ class Manager < User
 
   has_many :live_studio_courses, through: :workstations
 
+  has_many :manager_inviations, foreign_key: :inviter_id
+
   def initialize(attributes = {})
     super(attributes)
     self.role = "manager"

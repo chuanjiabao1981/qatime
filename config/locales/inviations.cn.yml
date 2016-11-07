@@ -1,0 +1,8 @@
+cn:
+  inviations:
+    status:
+      sent: 已发送
+      accepted: 已接受
+      refused: 已拒绝
+      overdue: 已过期
+      cancelled: 已取消

@@ -1,0 +1,32 @@
+<div class="panel panel-default">
+  <!-- <div class="panel-heading">
+    <%= LiveStudio::Course.model_name.human %>
+    <% if allow?("live_studio/courses", "create", current_user) %>
+      <%=link_to new_course_path do %>
+      <button type="button" class="btn btn-xs btn-success">
+        <%= t("activerecord.view.create") %><%= LiveStudio::Course.model_name.human %>
+      </button>
+      <% end %>
+    <% end -%>
+  </div> -->
+
+  <table class="table">
+    <tr>
+      <th><%= t('view.inviation.inviation_teacher')%></th>
+      <th><%= t('view.inviation.subject')%></th>
+      <th><%= t('view.inviation.teacher_percent')%></th>
+      <th><%= t('view.inviation.inviation_sent_date')%></th>
+      <th><%= t('view.inviation.valid_date')%></th>
+      <th><%= t('view.inviation.status')%></th>
+      <th><%= t('view.inviation.operation')%></th>
+    </tr>
+    <%= render partial: 'inviation', collection: @inviations %>
+  </table>
+
+  <div class="panel-footer">
+    <center>
+      <%= will_paginate @inviations %>
+    </center>
+  </div>
+
+</div>

@@ -34,14 +34,14 @@
   }
   .header-logo {
   	float: left;
-  	margin-left: -10px !important;
+  	/*margin-left: -10px !important;*/
   }
   .header-nav {
   	line-height: 36px;
   	float: right;
   }
   .header-nav span {
-  	margin-right: 30px;
+  	margin-left: 30px;
   	color: #000000;
   }
   .header-nav span a {

@@ -29,7 +29,11 @@ LiveStudio::Engine.routes.draw do
   scope module: 'manager' do
     resources :managers, only: [] do
       resources :courses
-      resources :inviations, only: [:index]
+      resources :inviations do
+        member do
+          patch :cancel
+        end
+      end
     end
   end
 

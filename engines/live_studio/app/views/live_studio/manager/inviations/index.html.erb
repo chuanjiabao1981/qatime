@@ -1,14 +1,13 @@
 <div class="panel panel-default">
-  <!-- <div class="panel-heading">
-    <%= LiveStudio::Course.model_name.human %>
+  <div class="panel-heading">
     <% if allow?("live_studio/courses", "create", current_user) %>
-      <%=link_to new_course_path do %>
-      <button type="button" class="btn btn-xs btn-success">
-        <%= t("activerecord.view.create") %><%= LiveStudio::Course.model_name.human %>
-      </button>
+      <%=link_to new_manager_inviation_path do %>
+        <button type="button" class="btn btn-xs btn-success">
+          <%= t("activerecord.view.create") %>新邀请
+        </button>
       <% end %>
     <% end -%>
-  </div> -->
+  </div>
 
   <table class="table">
     <tr>

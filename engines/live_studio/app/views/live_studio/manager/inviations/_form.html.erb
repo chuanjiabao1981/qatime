@@ -1,0 +1,15 @@
+<%= simple_form_for(@inviation) do |f|%>
+  <%= f.error_notification %>
+  <div class="form-inputs">
+    <%= f.input :parent_phone, input_html: {value: @old_inviation.try(:parent_phone)}%>
+    <%= f.input :teacher_percent, input_html: {min: 0, max: 100, value: @old_inviation.try(:teacher_percent)} %>
+    <%= f.input :expited_day, input_html: {min: 0, value: @old_inviation.try(:expited_day)} %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, class: "btn btn-default" %>
+
+    <!-- <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#mobile_captcha_for_change_mobile_form"><%= t ".to_bind_mobile" %></button>
+    <button type="button" class="col-md-offset-1 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#mobile_captcha_for_change_mobile_form" ><%= t "teachers.common.cancel" %></button> -->
+  </div>
+<% end %>

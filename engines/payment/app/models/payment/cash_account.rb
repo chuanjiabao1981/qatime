@@ -9,8 +9,21 @@ module Payment
     has_many :withdraw_change_records
     has_many :earning_records
     has_many :consumption_records
+    attr_accessor :create_or_update_password
 
     validates :owner, presence: true
+    with_options if: "create_or_update_password" do
+      validates :password, :confirmation => true,
+                :length => {is: 6},
+                :on => :update
+      validates :password_confirmation, presence: true
+      before_update :encrypt_password
+    end
+
+    # 验证支付密码
+    def authenticate(password)
+      self.password == Encryption.encrypt(password) && self
+    end
 
     # 可用资金
     def available_balance
@@ -121,6 +134,10 @@ module Payment
 
     def check_change!(amount)
       raise Payment::BalanceNotEnough, "可用资金不足" if available_balance < amount
+    end
+
+    def encrypt_password
+      self.password = Encryption.encrypt(self.password)
     end
   end
 end

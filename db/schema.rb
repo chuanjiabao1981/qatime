@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161101071815) do
+ActiveRecord::Schema.define(version: 20161108074537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -54,6 +54,17 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.integer  "comments_count", default: 0
   end
 
+  create_table "cash_accounts", force: :cascade do |t|
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.decimal  "balance",    precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+    t.datetime "deleted_at"
+  end
+
+  add_index "cash_accounts", ["owner_type", "owner_id"], name: "index_cash_accounts_on_owner_type_and_owner_id", using: :btree
+
   create_table "cash_operation_records", force: :cascade do |t|
     t.integer  "operator_id"
     t.integer  "account_id"
@@ -62,6 +73,22 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  create_table "change_records", force: :cascade do |t|
+    t.integer  "cash_account_id"
+    t.decimal  "before",          precision: 8, scale: 2
+    t.decimal  "after",           precision: 8, scale: 2
+    t.decimal  "different",       precision: 8, scale: 2
+    t.integer  "ref_id"
+    t.string   "ref_type"
+    t.string   "summary"
+    t.datetime "deleted_at"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
+
+  add_index "change_records", ["cash_account_id"], name: "index_change_records_on_cash_account_id", using: :btree
+  add_index "change_records", ["ref_type", "ref_id"], name: "index_change_records_on_ref_type_and_ref_id", using: :btree
 
   create_table "chat_accounts", force: :cascade do |t|
     t.integer  "user_id"
@@ -73,7 +100,6 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.datetime "updated_at",             null: false
   end
 
-  add_index "chat_accounts", ["user_id"], name: "chat_accounts_user_id_unique", unique: true, using: :btree
   add_index "chat_accounts", ["user_id"], name: "index_chat_accounts_on_user_id", using: :btree
 
   create_table "chat_join_records", force: :cascade do |t|
@@ -105,7 +131,6 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.datetime "updated_at",                       null: false
   end
 
-  add_index "chat_teams", ["live_studio_course_id"], name: "chat_teams_course_id_unique", unique: true, using: :btree
   add_index "chat_teams", ["live_studio_course_id"], name: "index_chat_teams_on_live_studio_course_id", using: :btree
 
   create_table "cities", force: :cascade do |t|
@@ -490,10 +515,11 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.integer  "province_id"
     t.integer  "city_id"
     t.integer  "author_id"
+    t.string   "author_type"
     t.integer  "taste_count",                                                default: 0
   end
 
-  add_index "live_studio_courses", ["author_id"], name: "index_live_studio_courses_on_author_id", using: :btree
+  add_index "live_studio_courses", ["author_type", "author_id"], name: "index_live_studio_courses_on_author_type_and_author_id", using: :btree
   add_index "live_studio_courses", ["city_id"], name: "index_live_studio_courses_on_city_id", using: :btree
   add_index "live_studio_courses", ["class_date"], name: "index_live_studio_courses_on_class_date", using: :btree
   add_index "live_studio_courses", ["preset_lesson_count"], name: "index_live_studio_courses_on_preset_lesson_count", using: :btree
@@ -633,6 +659,20 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.string   "from_type"
   end
 
+  create_table "payment_billing_items", force: :cascade do |t|
+    t.integer  "billing_id"
+    t.integer  "account_id"
+    t.string   "account_type"
+    t.decimal  "total_money",  precision: 8, scale: 2
+    t.datetime "deleted_at"
+    t.string   "summary"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
+
+  add_index "payment_billing_items", ["account_type", "account_id"], name: "index_payment_billing_items_on_account_type_and_account_id", using: :btree
+  add_index "payment_billing_items", ["billing_id"], name: "index_payment_billing_items_on_billing_id", using: :btree
+
   create_table "payment_billings", force: :cascade do |t|
     t.integer  "target_id"
     t.string   "target_type"
@@ -657,6 +697,7 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.decimal  "total_expenditure", precision: 8, scale: 2, default: 0.0
     t.boolean  "migrated",                                  default: false
     t.decimal  "frozen_balance",    precision: 8, scale: 2, default: 0.0
+    t.string   "password"
   end
 
   add_index "payment_cash_accounts", ["owner_type", "owner_id"], name: "index_payment_cash_accounts_on_owner_type_and_owner_id", using: :btree
@@ -1136,13 +1177,17 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.string   "parent_phone"
     t.integer  "workstation_id"
     t.string   "type",                          limit: 100
+    t.integer  "sex",                                       default: 0
+    t.integer  "province"
+    t.integer  "city"
+    t.text     "description"
+    t.string   "highest_education"
+    t.integer  "teaching_years"
+    t.string   "grade_range"
     t.integer  "province_id"
     t.integer  "city_id"
     t.integer  "gender",                                    default: 0
     t.date     "birthday"
-    t.string   "highest_education"
-    t.integer  "teaching_years"
-    t.string   "grade_range"
     t.string   "login_mobile"
   end
 
@@ -1194,5 +1239,6 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.integer  "manager_id"
   end
 
+  add_foreign_key "change_records", "cash_accounts"
   add_foreign_key "payment_transactions", "users"
 end

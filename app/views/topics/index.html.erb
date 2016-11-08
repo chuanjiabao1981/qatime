@@ -13,13 +13,12 @@
       </div>
     </div>
 <% else %>
-    <%=render_cell :section,:topics_head_nav ,:selected_section_id=>@section_id.to_i%>
+    <%= cell(:section).(:topics_head_nav, selected_section_id: @section_id.to_i) %>
 <% end %>
 
 
 <div class="qa_box qa_topics">
   <%= render @topics %>
 </div>
-<% if @node.blank? %>
-    <%=render_cell :section,:topics_bottom_nav %>
-<% end %>
+
+<%= cell(:section).(:topics_bottom_nav) if @node.present? %>

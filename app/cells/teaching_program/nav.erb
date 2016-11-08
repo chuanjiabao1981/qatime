@@ -7,6 +7,6 @@
     <% end %>
   </li>
   <% APP_CONSTANT["subjects"].each do |subject| %>
-      <%= render partial: 'sub_menu' ,:locals => { :sub => APP_CONSTANT["english"][subject].capitalize, :sub_cn => subject} %>
+      <%= render view: '_sub_menu' ,:locals => { :sub => APP_CONSTANT["english"][subject].capitalize, :sub_cn => subject} %>
   <% end %>
 </ul>

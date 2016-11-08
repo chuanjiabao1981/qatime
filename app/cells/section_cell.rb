@@ -1,4 +1,4 @@
-class SectionCell < Cell::Rails
+class SectionCell < Cell::ViewModel
 
   def topics_head_nav(args)
     @selected_section_id         = args[:selected_section_id]

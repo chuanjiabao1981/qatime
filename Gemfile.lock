@@ -147,6 +147,12 @@ GEM
     cells (4.1.3)
       tilt (>= 1.4, < 3)
       uber (>= 0.0.9)
+    cells-erb (0.0.7)
+      cells (~> 4.0)
+      erbse (>= 0.0.2)
+    cells-rails (0.0.6)
+      actionpack (>= 3.0)
+      cells (>= 4.1)
     childprocess (0.5.9)
       ffi (~> 1.0, >= 1.0.11)
     chosen-rails (1.5.2)
@@ -178,6 +184,7 @@ GEM
     enumerize (2.0.1)
       activesupport (>= 3.2)
     equalizer (0.0.11)
+    erbse (0.0.2)
     erubis (2.7.0)
     ethon (0.9.1)
       ffi (>= 1.3.0)
@@ -465,6 +472,8 @@ DEPENDENCIES
   carrierwave
   carrierwave-aliyun (= 0.3.4)
   cells
+  cells-erb
+  cells-rails
   chat!
   chosen-rails
   coffee-rails

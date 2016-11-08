@@ -1,6 +1,10 @@
-require File.expand_path('../boot', __FILE__)
-require 'csv'
+require_relative 'boot'
+
 require 'rails/all'
+
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+Bundler.require(*Rails.groups)
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -19,9 +23,6 @@ Chat::IM.config(YAML.load(File.read(File.expand_path('../netease.yml', __FILE__)
 PUSH_CONFIG = YAML.load(File.read(File.expand_path('../push.yml', __FILE__)))[Rails.env]
 
 $host_name = APP_CONFIG[Rails.env.to_sym]["host_name"] if APP_CONFIG[Rails.env.to_sym]
-
-# $qatime_key = OpenSSL::PKey::RSA.new(File.read(File.expand_path('../qatime_rsa_private_key.pem', __FILE__)))
-# $alipay_key = OpenSSL::PKey::RSA.new(File.read(File.expand_path('../alipay_rsa_public_key.pem', __FILE__)))
 
 module Qatime
   class Application < Rails::Application

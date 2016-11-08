@@ -79,6 +79,8 @@ gem "font-awesome-rails"
 #gem 'summernote-rails'
 
 gem 'cells'
+gem 'cells-rails'
+gem 'cells-erb'
 
 gem 'jcrop-rails-v2','0.9.12.3'
 

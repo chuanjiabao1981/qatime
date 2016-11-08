@@ -7,9 +7,12 @@
         </button>
       <% end %>
     <% end -%>
+    <div style="float:right">
+      <%= render 'filter'%>
+    </div>
   </div>
 
-  <table class="table">
+  <table class="table table-bordered">
     <tr>
       <th><%= t('view.inviation.inviation_teacher')%></th>
       <th><%= t('view.inviation.subject')%></th>

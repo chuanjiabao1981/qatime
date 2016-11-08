@@ -1,0 +1,62 @@
+<form id="search-form">
+  <%= hidden_field_tag :status, params[:status] %>
+  <%= hidden_field_tag :subject, params[:subject] %>
+  <div class="btn-group">
+    <div class="dropdown">
+      当前状态：
+      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+        <% if ManagerInviation.statuses[params[:status]].present? %>
+          <%= I18n.t("inviations.status.#{params[:status]}") %>
+        <% else %>
+          <%= t('activerecord.view.filter.all') %>
+        <% end %>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="javascript:void(0);" class="search-link-submit" rel="status" data="all"><%= t('activerecord.view.filter.all') %></a></li>
+        <% ManagerInviation.statuses.keys.each do |status| %>
+          <li><a href="javascript:void(0);" class="search-link-submit" rel="status" data="<%= status %>"><%= I18n.t("inviations.status.#{status}") %></a></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="btn-group">
+    <div class="dropdown">
+      科目：
+      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+        <% if params[:subject].present? && params[:subject] != 'all'%>
+          <%= params[:subject] %>
+        <% else %>
+          <%= t('activerecord.view.filter.all') %>
+        <% end %>
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href="javascript:void(0);" class="search-link-submit" rel="subject" data="all"><%= t('activerecord.view.filter.all') %></a></li>
+        <% APP_CONSTANT['subjects'].each do |subject| %>
+          <li><a href="javascript:void(0);" class="search-link-submit" rel="subject" data="<%= subject %>"><%= subject %></a></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <%= link_to t('view.course_search_show.clear_range_btn'), 'javascript:void(0);', class:'btn btn-default clear-range'%>
+</form>
+
+<%= content_for :javascript do %>
+  <script>
+    $(document).ready(function(){
+      $('.clear-range').click(function(){
+        $('#status').val('');
+        $('#subject').val('');
+        $('#search-form').submit();
+      });
+
+      $(".search-link-submit").click(function(){
+        var tag = $(this).attr('rel');
+        var value = $(this).attr('data');
+        $("#"+tag).val(value);
+        $("#search-form").submit();
+      });
+    })
+  </script>
+<% end %>

@@ -15,7 +15,6 @@ class Inviation < ActiveRecord::Base
     I18n.t("inviations.status.#{status}")
   end
 
-
   def expited_at_display
     second = expited_at.to_i - Time.now.to_i
     case
@@ -25,6 +24,11 @@ class Inviation < ActiveRecord::Base
     when second < 1.minutes && second >= 0 then "#{second}秒"
     else "已过期"
     end
+  end
+
+
+  def update_overdue_inviation
+    update(status: 'overdue') if(!overdue? && Time.now.to_i > expited_at.to_i)
   end
 
 end

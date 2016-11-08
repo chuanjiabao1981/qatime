@@ -1,6 +1,7 @@
+<% inviation.update_overdue_inviation %>
 <tr>
   <td>
-    <%= inviation.user.try(:name) %>(<%= inviation.user.try(:parent_phone)%>)
+    <%= inviation.user.try(:name) %>(<%= inviation.user_phone%>)
   </td>
   <td>
     <%= inviation.user.try(:subject)%>

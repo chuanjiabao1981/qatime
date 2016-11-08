@@ -4,9 +4,11 @@ module LiveStudio
   class Manager::InviationsController < Manager::BaseController
     before_action :set_manager
 
-
     def index
-      @inviations = @manager.manager_inviations.paginate(page: params[:page], per_page: 10)
+      inviations = @manager.manager_inviations
+      inviations = inviations.includes(:user).where("users.subject"=>params[:subject]) if params[:subject].present? && params[:subject] != 'all'
+      inviations = inviations.where(status: ManagerInviation.statuses[params[:status]]) if params[:status].present? && params[:status] != 'all'
+      @inviations = inviations.paginate(page: params[:page], per_page: 10)
     end
 
     def show
@@ -18,9 +20,7 @@ module LiveStudio
       @inviation = ::ManagerInviation.new
     end
 
-    def edit
-
-    end
+    def edit; end
 
     def create
       @inviation = @manager.manager_inviations.new(inviation_params)
@@ -32,13 +32,9 @@ module LiveStudio
       end
     end
 
-    def update
+    def update; end
 
-    end
-
-    def destroy
-
-    end
+    def destroy; end
 
     def cancel
       inviation = @manager.manager_inviations.find(params[:id])

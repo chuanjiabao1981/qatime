@@ -1,15 +1,44 @@
-<%= simple_form_for(@inviation) do |f|%>
-  <%= f.error_notification %>
-  <div class="form-inputs">
-    <%= f.input :parent_phone, input_html: {value: @old_inviation.try(:parent_phone)}%>
-    <%= f.input :teacher_percent, input_html: {min: 0, max: 100, value: @old_inviation.try(:teacher_percent)} %>
-    <%= f.input :expited_day, input_html: {min: 0, value: @old_inviation.try(:expited_day)} %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>创建新邀请</h4>
   </div>
+  <div class="panel-body">
+    <%= simple_form_for(@inviation) do |f|%>
+      <%= f.error_notification %>
+      <div class="form-inputs">
+        <div class="col-md-3 text-right">
+          填写被邀请人:
+        </div>
+        <div class="col-md-7">
+          <%= f.input :parent_phone, label: false, placeholder:'填写想要邀请的老师的手机号', input_html: {value: @old_inviation.try(:user_phone)}%>
+        </div>
+        <div class="col-md-1"></div>
 
-  <div class="form-actions">
-    <%= f.button :submit, class: "btn btn-default" %>
+        <div class="col-md-3 text-right">
+          设置老师分成:
+        </div>
+        <div class="col-md-7">
+          <%= f.input :teacher_percent, label: false, placeholder:'请填入老师获得的分成比例', input_html: {min: 0, max: 100, value: @old_inviation.try(:teacher_percent)} %>
+        </div>
+        <div class="col-md-1">%</div>
 
-    <!-- <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#mobile_captcha_for_change_mobile_form"><%= t ".to_bind_mobile" %></button>
-    <button type="button" class="col-md-offset-1 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#mobile_captcha_for_change_mobile_form" ><%= t "teachers.common.cancel" %></button> -->
+        <div class="col-md-3 text-right">
+          设置有效期限:
+        </div>
+        <div class="col-md-7">
+          <%= f.input :expited_day, label: false, placeholder:'请设置邀请的有效期限,逾期后将自动失效', input_html: {min: 0, value: @old_inviation.try(:expited_day_display)} %>
+        </div>
+        <div class="col-md-1">天</div>
+
+        <div class="col-md-3"></div>
+        <div class="col-md-7">
+          <div class="form-actions">
+            <%= f.button :submit, '立即发送', class: "btn btn-default" %>
+            <%=link_to '取消', manager_inviations_path, class: 'btn btn-default'%>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
   </div>
-<% end %>
+</div>

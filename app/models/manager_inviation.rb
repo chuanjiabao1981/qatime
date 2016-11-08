@@ -17,7 +17,7 @@ class ManagerInviation < Inviation
 
   def expited_day_display
     second = expited_at.to_i - Time.now.to_i
-    second >= 24.hours ? second/24.hours+1 : 1
+    second >= 24.hours ? second/24.hours : 1
   end
 
   def generate_attribute(params)

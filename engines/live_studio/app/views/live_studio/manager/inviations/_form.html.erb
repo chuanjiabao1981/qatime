@@ -1,34 +1,39 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h4>创建新邀请</h4>
+    <h4><%= t("activerecord.view.create") %>新邀请</h4>
   </div>
   <div class="panel-body">
     <%= simple_form_for(@inviation) do |f|%>
       <%= f.error_notification %>
       <div class="form-inputs">
         <div class="col-md-3 text-right">
-          填写被邀请人:
+          <%= t('view.inviation.fill_user') %>:
         </div>
+
         <div class="col-md-7">
-          <%= f.input :parent_phone, label: false, placeholder:'填写想要邀请的老师的手机号', input_html: {value: @old_inviation.try(:user_phone)}%>
+          <%= f.input :parent_phone, label: false, placeholder: t('view.inviation.fill_user_placeholder'), input_html: {value: @old_inviation.try(:user_phone)}%>
         </div>
         <div class="col-md-1"></div>
 
         <div class="col-md-3 text-right">
-          设置老师分成:
+          <%= t('view.inviation.set_teacher_percent') %>:
         </div>
         <div class="col-md-7">
-          <%= f.input :teacher_percent, label: false, placeholder:'请填入老师获得的分成比例', input_html: {min: 0, max: 100, value: @old_inviation.try(:teacher_percent)} %>
+          <div class="input-group">
+            <%= f.input :teacher_percent, label: false, placeholder: t('view.inviation.set_teacher_percent_placeholder'), input_html: {min: 0, max: 100, value: @old_inviation.try(:teacher_percent)} %>
+            <span class="input-group-addon">%</span>
+          </div>
         </div>
-        <div class="col-md-1">%</div>
 
         <div class="col-md-3 text-right">
-          设置有效期限:
+          <%= t('view.inviation.set_expited_day') %>:
         </div>
         <div class="col-md-7">
-          <%= f.input :expited_day, label: false, placeholder:'请设置邀请的有效期限,逾期后将自动失效', input_html: {min: 0, value: @old_inviation.try(:expited_day_display)} %>
+          <div class="input-group">
+            <%= f.input :expited_day, label: false, placeholder: t('view.inviation.set_expited_day_placeholder'), input_html: {min: 0, value: @old_inviation.try(:expited_day_display)} %>
+            <span class="input-group-addon">天</span>
+          </div>
         </div>
-        <div class="col-md-1">天</div>
 
         <div class="col-md-3"></div>
         <div class="col-md-7">
@@ -38,7 +43,17 @@
           </div>
         </div>
       </div>
-
     <% end %>
   </div>
 </div>
+
+
+<style>
+  /*simple_form使用Bootstrap的input-group属性*/
+  .simple_form .input-group{
+    margin-bottom: 15px;
+  }
+  .simple_form .input-group .form-group{
+    margin-bottom: 0 !important;
+  }
+</style>

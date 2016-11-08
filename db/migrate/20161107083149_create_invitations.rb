@@ -1,6 +1,6 @@
-class CreateInviations < ActiveRecord::Migration
+class CreateInvitations < ActiveRecord::Migration
   def change
-    create_table :inviations do |t|
+    create_table :invitations do |t|
       t.references :user, index: true, foreign_key: true
       t.references :inviter, index: true
       t.references :target, polymorphic: true, index: true

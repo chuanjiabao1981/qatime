@@ -159,7 +159,7 @@ customized_course_senior_high_common_prices:
     teacher_price: 90
     platform_price: 21
 
-inviation_statuses:
+invitation_statuses:
   - 已发送
   - 已接受
   - 已拒绝

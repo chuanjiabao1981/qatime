@@ -16,7 +16,7 @@ class Workstation < ActiveRecord::Base
   has_many :sellers
   has_many :teachers
 
-  has_many :inviations, as: :target
+  has_many :invitations, as: :target
 
   def cash_account!
     cash_account || ::Payment::CashAccount.create(owner: self)

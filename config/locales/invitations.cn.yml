@@ -1,8 +1,10 @@
 cn:
-  inviations:
+  invitations:
     status:
       sent: 已发送
       accepted: 已接受
       refused: 已拒绝
-      overdue: 已过期
+      expired: 已过期
       cancelled: 已取消
+    reset: 重发
+    cancel: 取消

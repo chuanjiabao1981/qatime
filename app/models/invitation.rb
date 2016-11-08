@@ -1,4 +1,4 @@
-class Inviation < ActiveRecord::Base
+class Invitation < ActiveRecord::Base
   belongs_to :user
   belongs_to :inviter, class_name: User
   belongs_to :target, polymorphic: true
@@ -7,12 +7,12 @@ class Inviation < ActiveRecord::Base
     sent: 0, # 已发送
     accepted: 1, # 已接受
     refused: 2, # 已拒绝
-    overdue: 3, # 已过期
+    expired: 3, # 已过期
     cancelled: 4 # 已取消
   }
 
   def status_text
-    I18n.t("inviations.status.#{status}")
+    I18n.t("invitations.status.#{status}")
   end
 
   def expited_at_display
@@ -27,8 +27,8 @@ class Inviation < ActiveRecord::Base
   end
 
 
-  def update_overdue_inviation
-    update(status: 'overdue') if(!overdue? && Time.now.to_i > expited_at.to_i)
+  def update_expired_invitation
+    update(status: 'expired') if(!expired? && Time.now.to_i > expited_at.to_i)
   end
 
 end

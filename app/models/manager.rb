@@ -8,7 +8,8 @@ class Manager < User
 
   has_many :live_studio_courses, through: :workstations
 
-  has_many :manager_inviations, foreign_key: :inviter_id
+  has_many :invitations, foreign_key: :inviter_id, class_name: LiveStudio::CourseInvitation
+
 
   def initialize(attributes = {})
     super(attributes)

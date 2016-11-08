@@ -1,0 +1,11 @@
+<% case invitation.status %>
+<% when 'sent' %>
+  <% if allow?("live_studio/manager/course_invitations", "cancel", current_user) %>
+    <%= link_to t("invitations.cancel"), cancel_manager_course_invitation_path(@manager.id, invitation.id), method: :patch%>
+  <% end %>
+<% when 'accepted' %>
+<% else %>
+  <% if allow?("live_studio/manager/course_invitations", "show", current_user) %>
+    <%= link_to t("invitations.reset"), manager_course_invitation_path(@manager.id, invitation.id)%>
+  <% end -%>
+<% end %>

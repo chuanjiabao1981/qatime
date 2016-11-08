@@ -70,7 +70,7 @@
     <% end if @errors.present?%>
     <div class="tech-phone">
       <div class="tech-payment-password">
-        <span>用户支付密码</span>
+        <span><%= t 'view.payment_password_label' %></span>
         <%= text_field_tag :payment_password,params[:payment_password],class: 'btn-num', onfocus: '$(this).attr("type","password")' %>
       </div>
 

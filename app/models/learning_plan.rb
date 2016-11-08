@@ -1,4 +1,4 @@
-class LearningPlan < ActiveRecord::Base
+class LearningPlan < ApplicationRecord
   belongs_to :student
   belongs_to :vip_class
 

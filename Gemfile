@@ -1,10 +1,10 @@
 # coding: utf-8
 
-source 'https://ruby.taobao.org/'
-# source 'https://gems.ruby-china.org/'
+# source 'https://ruby.taobao.org/'
+source 'https://gems.ruby-china.org/'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5.1'
+gem 'rails', '~> 5.0.0'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
@@ -17,13 +17,13 @@ gem 'grape-entity'
 gem 'grape-swagger'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 5.0'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails'
 
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -33,10 +33,10 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+gem 'turbolinks', '~> 5'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder', '~> 2.5'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -64,7 +64,7 @@ gem 'bcrypt-ruby', '3.1.5'
 gem 'simple_form'
 
 # 分页
-gem 'will_paginate', '3.0.5'
+gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 #Bootstrap
 gem 'bootstrap-sass','3.0.2.0'
@@ -78,7 +78,7 @@ gem "font-awesome-rails"
 
 #gem 'summernote-rails'
 
-gem 'cells','3.10.0'
+gem 'cells'
 
 gem 'jcrop-rails-v2','0.9.12.3'
 
@@ -111,9 +111,14 @@ gem 'soft_delete_rails'
 gem 'enumerize'
 
 group :development,:test do
+  gem 'web-console'
+  gem 'listen', '~> 3.0.5'
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+
   # 状态机做图
   gem 'ruby-graphviz', :require => 'graphviz'
-  gem 'quiet_assets'
+  # gem 'quiet_assets'
   gem "minitest"
   gem 'test-unit'
   gem 'capistrano'
@@ -136,7 +141,6 @@ end
 
 gem 'test_after_commit', :group => :test
 
-
 gem 'rest-client'
 gem 'carrierwave-aliyun','0.3.4'
 gem 'unicorn'
@@ -146,11 +150,11 @@ gem 'sidekiq-failures'
 gem 'sinatra', require: false
 gem 'slim'
 
-gem 'fancybox2-rails', '~> 0.2.8'
+gem 'fancybox2-rails'
 
 gem 'x-editable-rails'
 
-gem 'whenever',:require => false
+gem 'whenever', require: false
 
 gem 'course_library', path: 'engines/course_library'
 gem 'qawechat', path: 'engines/qawechat'
@@ -158,3 +162,5 @@ gem 'live_studio', path: 'engines/live_studio'
 gem 'payment', path: 'engines/payment'
 gem 'chat', path: 'engines/chat'
 gem 'recommend', path: 'engines/recommend'
+
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

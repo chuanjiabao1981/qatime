@@ -1,4 +1,4 @@
-class ConsumptionRecord < ActiveRecord::Base
+class ConsumptionRecord < ApplicationRecord
   belongs_to :fee
   belongs_to :account
 end

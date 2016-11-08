@@ -1,4 +1,4 @@
-class Examination < ActiveRecord::Base
+class Examination < ApplicationRecord
 
   include ActiveModel::Dirty
 

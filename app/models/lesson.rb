@@ -1,4 +1,4 @@
-class Lesson < ActiveRecord::Base
+class Lesson < ApplicationRecord
   include QaToken
 
   #attr_accessible :name, :desc, :token, :tags, :qa_files_attributes, :state_event, :teacher_id

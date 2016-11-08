@@ -1,4 +1,4 @@
-class CustomizedCourse < ActiveRecord::Base
+class CustomizedCourse < ApplicationRecord
   belongs_to :student
   belongs_to :workstation
   belongs_to :creator, :class_name => "User"

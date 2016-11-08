@@ -1,4 +1,4 @@
-class CustomizedTutorial < ActiveRecord::Base
+class CustomizedTutorial < ApplicationRecord
 
   include QaToken
   include QaCommon

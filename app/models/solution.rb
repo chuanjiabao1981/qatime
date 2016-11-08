@@ -1,4 +1,4 @@
-class Solution < ActiveRecord::Base
+class Solution < ApplicationRecord
   include QaToken
   include ContentValidate
   include QaHandle

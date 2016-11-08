@@ -1,4 +1,4 @@
-class TeachingVideo < ActiveRecord::Base
+class TeachingVideo < ApplicationRecord
   require 'carrierwave/orm/activerecord'
   include ActiveModel::Dirty
 

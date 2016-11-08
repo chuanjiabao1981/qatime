@@ -1,4 +1,4 @@
-class ActionRecord < ActiveRecord::Base
+class ActionRecord < ApplicationRecord
   belongs_to :operator,class_name: User
   belongs_to :actionable, polymorphic: true
 

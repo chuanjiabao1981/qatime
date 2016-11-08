@@ -1,4 +1,4 @@
-class PushMessage < ActiveRecord::Base
+class PushMessage < ApplicationRecord
   serialize :result, Hash
 
   belongs_to :creator, polymorphic: true

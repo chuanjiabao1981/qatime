@@ -1,4 +1,4 @@
-class RechargeCode < ActiveRecord::Base
+class RechargeCode < ApplicationRecord
   validates :money, numericality: { only_integer: true,greater_than: 0 }
   validates_presence_of :admin
   belongs_to :admin

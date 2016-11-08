@@ -1,3 +1,3 @@
-class UserDevice < ActiveRecord::Base
+class UserDevice < ApplicationRecord
   belongs_to :user
 end

@@ -1,4 +1,4 @@
-class Curriculum < ActiveRecord::Base
+class Curriculum < ApplicationRecord
   belongs_to :teacher
   belongs_to :teaching_program
   has_many :courses, -> {order 'position'}, :dependent => :destroy

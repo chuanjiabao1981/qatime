@@ -1,4 +1,4 @@
-class RechargeRecord < ActiveRecord::Base
+class RechargeRecord < ApplicationRecord
   belongs_to :student
   belongs_to :recharge_code
 

@@ -1,4 +1,4 @@
-class Question < ActiveRecord::Base
+class Question < ApplicationRecord
   include QaToken
   include ActiveModel::Dirty
 

@@ -1,4 +1,4 @@
-class CashOperationRecord < ActiveRecord::Base
+class CashOperationRecord < ApplicationRecord
   belongs_to :operator,:class_name => User
   belongs_to :account
 

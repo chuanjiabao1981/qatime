@@ -1,4 +1,4 @@
-class Video < ActiveRecord::Base
+class Video < ApplicationRecord
   require 'carrierwave/orm/activerecord'
   belongs_to :videoable, polymorphic: true
   belongs_to :author, class_name: "User"

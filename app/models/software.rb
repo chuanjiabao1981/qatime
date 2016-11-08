@@ -1,4 +1,4 @@
-class Software < ActiveRecord::Base
+class Software < ApplicationRecord
   extend Enumerize
   validates_presence_of :title, :sub_title, :platform, :version, :role, :desc, :description, :cdn_url, :logo, :category
 

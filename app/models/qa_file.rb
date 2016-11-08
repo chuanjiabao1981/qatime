@@ -1,4 +1,4 @@
-class QaFile < ActiveRecord::Base
+class QaFile < ApplicationRecord
   require 'carrierwave/orm/activerecord'
   mount_uploader :name, QaFileUploader
   belongs_to :qa_fileable,polymorphic: true

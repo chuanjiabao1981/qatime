@@ -1,3 +1,3 @@
-class ReviewRecord < ActiveRecord::Base
+class ReviewRecord < ApplicationRecord
   belongs_to :lesson
 end

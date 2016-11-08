@@ -1,4 +1,4 @@
-class Reply < ActiveRecord::Base
+class Reply < ApplicationRecord
 
   include QaCommon
   include QaToken

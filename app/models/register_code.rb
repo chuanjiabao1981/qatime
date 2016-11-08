@@ -1,4 +1,4 @@
-class RegisterCode < ActiveRecord::Base
+class RegisterCode < ApplicationRecord
   scope :able_code, ->{ where(state: 'available')}
 
   attr_accessor :number

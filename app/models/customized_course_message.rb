@@ -1,4 +1,4 @@
-class CustomizedCourseMessage < ActiveRecord::Base
+class CustomizedCourseMessage < ApplicationRecord
 
   include QaToken
   include QaCustomizedCourseActionRecord

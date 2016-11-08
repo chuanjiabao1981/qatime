@@ -1,4 +1,4 @@
-class Correction < ActiveRecord::Base
+class Correction < ApplicationRecord
 
   include QaCommon
   include QaToken

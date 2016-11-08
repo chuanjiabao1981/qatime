@@ -1,4 +1,4 @@
-class Workstation < ActiveRecord::Base
+class Workstation < ApplicationRecord
   validates_length_of :name, maximum: 20, minimum: 2
 
   validates_presence_of :name, :manager

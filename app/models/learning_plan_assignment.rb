@@ -1,4 +1,4 @@
-class LearningPlanAssignment < ActiveRecord::Base
+class LearningPlanAssignment < ApplicationRecord
   belongs_to :teacher
   belongs_to :learning_plan
 

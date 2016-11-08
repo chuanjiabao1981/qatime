@@ -1,4 +1,4 @@
-class Course < ActiveRecord::Base
+class Course < ApplicationRecord
   belongs_to :teacher    #,:class_name => "User"
   belongs_to :curriculum      ,:counter_cache => true, :inverse_of => :courses
 

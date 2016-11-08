@@ -1,4 +1,4 @@
-class QrCode < ActiveRecord::Base
+class QrCode < ApplicationRecord
 
   belongs_to :qr_codeable, :polymorphic => true
   mount_uploader :code, QrCodeUploader

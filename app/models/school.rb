@@ -1,4 +1,4 @@
-class School < ActiveRecord::Base
+class School < ApplicationRecord
   validates_presence_of :name
   validates_presence_of :city
   validates :name,length:{maximum: 20}

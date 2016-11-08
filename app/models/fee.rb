@@ -1,4 +1,4 @@
-class Fee < ActiveRecord::Base
+class Fee < ApplicationRecord
   belongs_to :customized_course
   belongs_to :feeable, polymorphic: true
 

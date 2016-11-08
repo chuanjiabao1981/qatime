@@ -1,4 +1,4 @@
-class Notification < ActiveRecord::Base
+class Notification < ApplicationRecord
   scope :unread, -> { where(read: false) }
 
   belongs_to :receiver, class_name: User

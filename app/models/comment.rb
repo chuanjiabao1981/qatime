@@ -1,4 +1,4 @@
-class Comment < ActiveRecord::Base
+class Comment < ApplicationRecord
 
 
   has_many :customized_course_comment_records ,as: :actionable,dependent: :destroy do

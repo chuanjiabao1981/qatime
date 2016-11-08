@@ -1,4 +1,4 @@
-class Faq < ActiveRecord::Base
+class Faq < ApplicationRecord
   belongs_to :user
   belongs_to :faq_topic
 

@@ -1,4 +1,4 @@
-class ExerciseTmp < ActiveRecord::Base
+class ExerciseTmp < ApplicationRecord
 
   self.table_name = "exercises"
 

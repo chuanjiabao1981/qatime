@@ -1,4 +1,4 @@
-class LoginToken < ActiveRecord::Base
+class LoginToken < ApplicationRecord
   belongs_to :user
 
   enum client_type: {

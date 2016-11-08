@@ -1,4 +1,4 @@
-class CustomizedCourseMessageBoard < ActiveRecord::Base
+class CustomizedCourseMessageBoard < ApplicationRecord
 
   include QaCustomizedCourseMessage
 

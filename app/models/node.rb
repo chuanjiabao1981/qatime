@@ -1,4 +1,4 @@
-class Node < ActiveRecord::Base
+class Node < ApplicationRecord
 
   has_many   :topics  ,:dependent => :destroy
   has_many   :courses ,:dependent => :destroy

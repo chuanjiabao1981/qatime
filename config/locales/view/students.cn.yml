@@ -26,12 +26,9 @@ cn:
       edit_avatar_title: 更换头像
     security_setting:
       login_password: 登录密码
-      payment_password: 支付密码
-      required_payment_password: 余额支付时需要输入支付密码。
       this_password_is_not_visible: 此密码不可见
       required_authentication_password: 登录答疑时间需要输入密码验证。
       modify_login_password: 修改登录密码
-      modify_payment_password: 修改支付密码
       bound_mobile: 绑定手机
       bound_mobile_desc: 注意！修改绑定手机，用户登录手机号将一起改变；需要同时对新旧手机进行验证。
       modified_binding_mobile: 修改绑定手机

@@ -184,8 +184,6 @@ cn:
       live_studio/course: 辅导班
       live_studio/lesson: 课程
     attributes:
-      payment/order:
-        payment_password: 支付密码
       live_studio/lesson:
         name: 课程名称
         description: 课程简介

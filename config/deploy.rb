@@ -2,7 +2,7 @@
 load "config/recipes/nginx.rb"
 load "config/recipes/qtfaststart.rb"
 # config valid only for Capistrano 3.1
-lock '3.4.0'
+lock '3.6.1'
 
 set :application, 'qatime'
 

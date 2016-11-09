@@ -177,8 +177,8 @@ class User < ActiveRecord::Base
   # 更新支付密码
   def update_payment_pwd(params, *options)
     @payment_captcha_required = true
-    if update_attributes(params, *options)
-      cash_account!.update_attributes(create_or_update_password: true, password: payment_password, password_confirmation: payment_password_confirmation)
+    if update(params, *options)
+      cash_account!.update(password: payment_password)
     end
   end
 

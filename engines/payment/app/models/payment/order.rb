@@ -14,11 +14,13 @@ module Payment
       weixin: 1
     }.freeze
 
-    enumerize :pay_type, in: {
-      account: 0, # 余额支付
-      alipay: 1,
-      weixin: 2
-    }
+    enumerize :pay_type,
+              predicates: true,
+              in: {
+                account: 0, # 余额支付
+                alipay: 1,
+                weixin: 2
+              }
 
     CATE_UNPAID = %w(unpaid).freeze
     CATE_PAID = %w(paid shipped completed).freeze

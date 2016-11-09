@@ -29,7 +29,7 @@ cn:
       login_password: 登录密码
       this_password_is_not_visible: 此密码不可见
       required_authentication_password: 登录答疑时间需要输入密码验证。
-      required_payment_password: 余额支付及账户提现时需要输入支付密码。
+      required_payment_password: 账户提现时需要输入支付密码。
       modify_login_password: 修改登录密码
       modify_payment_password: 修改支付密码
       bound_mobile: 绑定手机

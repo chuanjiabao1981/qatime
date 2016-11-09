@@ -101,7 +101,7 @@
 
 <script>
   $("#taste-course-<%= @course.id %>").bind('ajax:success', function() {
-    if("<%= current_user.present? %>"){
+    if(<%= current_user.present? %>){
       window.location.reload();
     }else{
       window.location.href="/signin"

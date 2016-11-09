@@ -3,7 +3,7 @@
     <% if allow?("live_studio/courses", "create", current_user) %>
       <%=link_to new_manager_course_invitation_path do %>
         <button type="button" class="btn btn-xs btn-success">
-          <%= t("activerecord.view.create") %>新邀请
+          <%= t("activerecord.view.create") %><%= t("view.invitation.new_invitation")%>
         </button>
       <% end %>
     <% end -%>

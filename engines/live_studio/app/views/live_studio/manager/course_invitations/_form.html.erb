@@ -1,6 +1,6 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h4><%= t("activerecord.view.create") %>新邀请</h4>
+    <h4><%= t("activerecord.view.create") %><%= t("view.invitation.new_invitation")%></h4>
   </div>
   <div class="panel-body">
     <%= simple_form_for(@invitation, url: manager_course_invitations_path) do |f|%>
@@ -11,7 +11,7 @@
         </div>
 
         <div class="col-md-7">
-          <%= f.input :login_mobile, label: false, placeholder: t('view.invitation.fill_user_placeholder'), input_html: {value: @old_invitation.try(:login_mobile)}%>
+          <%= f.input :login_mobile, label: false, placeholder: t('view.invitation.fill_user_placeholder'), input_html: {value: @old_invitation.try(:user).try(:login_mobile)}%>
         </div>
         <div class="col-md-1"></div>
 

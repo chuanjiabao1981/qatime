@@ -1,4 +1,4 @@
-set :deploy_user, 'deploy'
+set :deploy_user, 'qatime'
 server 'testing.qatime.cn', user: 'qatime', roles: %w{web app db}, primary: true
 
 set :branch, 'preview'

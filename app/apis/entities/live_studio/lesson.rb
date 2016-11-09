@@ -22,6 +22,15 @@ module Entities
         ticket = ::LiveStudio::Ticket.where(student: options[:current_user],course: lesson.course).authorizable.last
         ticket.present? ? course.pull_stream.try(:address) : ''
       end
+      expose :board, if: {type: :schedule} do |lesson|
+        lesson.course.pull_streams.find {|stream| stream.use_for == 'board' }.try(:address)
+      end
+      expose :camera, if: {type: :schedule} do |lesson|
+        lesson.course.pull_streams.find {|stream| stream.use_for == 'camera' }.try(:address)
+      end
+      expose :chat_team_id, if: {type: :schedule} do |lesson|
+        lesson.course.try(:chat_team).try(:team_id).to_s
+      end
       expose :teacher_name, if: {type: :schedule} do |lesson|
         lesson.course.teacher.try(:name).to_s
       end

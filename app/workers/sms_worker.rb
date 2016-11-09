@@ -33,7 +33,6 @@ class SmsWorker
   REGISTER_CAPTCHA             = :register_captcha
   GET_PASSWORD_BACK            = :get_password_back
   WITHDRAW_CASH                = :withdraw_cash
-  PAYMENT_PASSWORD             = :payment_password
 
   # 上课提醒短信
   LIVE_STUDIO_LESSON_START_NOTIFICATION = :live_studio_lesson_start
@@ -240,18 +239,6 @@ class SmsWorker
     begin
       send_message(mobile,
                    "【答疑时间】您好，您的账户正在申请提现，验证码: #{captcha}，请勿透露给他人")
-    rescue Exception => e
-      logger.info e.message
-      logger.info e.backtrace.inspect
-    end
-  end
-
-  def payment_password(options)
-    mobile  = options["mobile"]
-    captcha = options["captcha"]
-    begin
-      send_message(mobile,
-                   "【答疑时间】您好，您的账户正在修改支付密码，验证码: #{captcha}，请勿透露给他人")
     rescue Exception => e
       logger.info e.message
       logger.info e.backtrace.inspect

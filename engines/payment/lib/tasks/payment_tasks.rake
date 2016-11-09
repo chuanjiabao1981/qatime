@@ -87,7 +87,7 @@ namespace :payment do
           updated_at: w.updated_at
         )
        if !withdraw.save(validate: false)
-         raise ScriptError.new('保存出错了')
+         binding.pry
        end
       count += 1
       puts "完成记录: #{count}条" if count % 100 == 0

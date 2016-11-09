@@ -177,10 +177,6 @@ class StudentsController < ApplicationController
     params.require(:student).permit(:crop_x, :crop_y, :crop_w, :crop_h, :avatar)
   end
 
-  def payment_password_params
-    params.require(:student).permit(:payment_password, :payment_password_confirmation, :payment_captcha_confirmation)
-  end
-
   def update_params(update_by)
     send("#{update_by}_params")
   end
@@ -200,8 +196,6 @@ class StudentsController < ApplicationController
       return update_login_mobile
     when "email"
       return update_email
-    when 'payment_password'
-      return update_payment_password
     when "parent_phone"
       return update_parent_phone
     else
@@ -248,16 +242,6 @@ class StudentsController < ApplicationController
     if @student.errors.blank?
       captcha_manager.expire_captch(:change_email_captcha)
       session.delete("change-email-#{@student.login_mobile}")
-    end
-  end
-
-  def update_payment_password
-    captcha_manager = UserService::CaptchaManager.new(@student.login_mobile)
-    @student.payment_captcha = captcha_manager.captcha_of(:payment_password)
-    @student.update_payment_pwd(payment_password_params)
-  ensure
-    if @student.errors.blank?
-      captcha_manager.expire_captch(:payment_password)
     end
   end
 

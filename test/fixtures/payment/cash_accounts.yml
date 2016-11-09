@@ -39,7 +39,6 @@ total_income_teacher:
   owner: teacher_tally (Teacher)
   balance: 2000
   total_income: 3000
-  password_digest: <%= BCrypt::Password.create("111111", cost: 4) %>
 
 physics_teacher1_account:
   owner: physics_teacher1 (User)
@@ -52,7 +51,6 @@ student2_account:
 account_for_teacher_tally:
   owner: teacher_tally (User)
   balance: 10000
-  password_digest: <%= BCrypt::Password.create("111111", cost: 4) %>
 
 account_for_student_tally:
   owner: student_tally (User)
@@ -67,7 +65,6 @@ teahcer_balance_account:
   balance: 100000
   total_income: 0
   total_expenditure: 0
-  password_digest: <%= BCrypt::Password.create("111111", cost: 4) %>
 
 teacher_for_billing_account:
   owner: teacher_for_billing (User)

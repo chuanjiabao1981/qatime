@@ -9,11 +9,8 @@ module Payment
     has_many :withdraw_change_records
     has_many :earning_records
     has_many :consumption_records
-    attr_accessor :create_or_update_password
 
     validates :owner, presence: true
-
-    has_secure_password validations: false
 
     # 可用资金
     def available_balance
@@ -125,6 +122,5 @@ module Payment
     def check_change!(amount)
       raise Payment::BalanceNotEnough, "可用资金不足" if available_balance < amount
     end
-
   end
 end

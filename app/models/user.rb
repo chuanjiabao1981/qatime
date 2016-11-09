@@ -15,8 +15,6 @@ class User < ActiveRecord::Base
   attr_reader :captcha_required
   attr_reader :password_required
   attr_reader :teacher_or_student_columns_required
-  # 支付密码
-  attr_accessor :payment_captcha_required, :payment_captcha, :payment_password
 
   has_secure_password
 
@@ -26,11 +24,6 @@ class User < ActiveRecord::Base
   validates :login_mobile, uniqueness: true, allow_blank: true
   # 验证码验证
   validates :captcha, confirmation: { case_sensitive: false }, if: :captcha_required?
-  # 支付密码
-  with_options if: :payment_captcha_required do
-    validates :payment_captcha, confirmation: { case_sensitive: false }
-    validates :payment_password, confirmation: true, length: { minimum: 6 }
-  end
 
   # 个人安全信息修改
   validates :password, length: { minimum: 6 }, if: :password_required?, on: :update
@@ -132,10 +125,6 @@ class User < ActiveRecord::Base
     @captcha_required == true
   end
 
-  def payment_pwd_captcha_required?
-    @payment_pwd_captcha_required == true
-  end
-
   # 手动强制调用验证码验证
   def captcha_required!
     @captcha_required = true
@@ -172,14 +161,6 @@ class User < ActiveRecord::Base
   def update_with_captcha(params, *options)
     @captcha_required = true
     update_attributes(params, *options)
-  end
-
-  # 更新支付密码
-  def update_payment_pwd(params, *options)
-    @payment_captcha_required = true
-    if update(params, *options)
-      cash_account!.update(password: payment_password)
-    end
   end
 
   def add_error_for_login_account

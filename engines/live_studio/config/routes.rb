@@ -29,7 +29,7 @@ LiveStudio::Engine.routes.draw do
   scope module: 'manager' do
     resources :managers, only: [] do
       resources :courses
-      resources :course_invitations do
+      resources :course_invitations, only: [:index, :new, :create] do
         member do
           patch :cancel
         end

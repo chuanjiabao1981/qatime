@@ -11,13 +11,9 @@ module LiveStudio
       @invitations = @invitations.paginate(page: params[:page], per_page: 10)
     end
 
-    def show; end
-
     def new
-      @invitation = params[:template_id].present? ? Invitation.find(params[:template_id]).dup : Invitation.new
+      @invitation = params[:template_id].present? ? LiveStudio::CourseInvitation.find(params[:template_id]).dup : LiveStudio::CourseInvitation.new
     end
-
-    def edit; end
 
     def create
       @invitation = @manager.invitations.new(invitation_params)
@@ -29,10 +25,6 @@ module LiveStudio
         render :new
       end
     end
-
-    def update; end
-
-    def destroy; end
 
     def cancel
       invitation = @manager.invitations.find(params[:id])

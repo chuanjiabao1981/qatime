@@ -8,3 +8,7 @@ cn:
       cancelled: 已取消
     reset: 重发
     cancel: 取消
+    day: 天
+    hour: 小时
+    minute: 分
+    second: 秒

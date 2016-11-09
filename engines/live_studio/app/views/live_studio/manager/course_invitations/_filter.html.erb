@@ -1,4 +1,4 @@
-<form id="search-form">
+<%= form_tag '',method: :get, id: 'search-form' do %>
   <%= hidden_field_tag :status, params[:status] %>
   <%= hidden_field_tag :subject, params[:subject] %>
   <div class="btn-group">
@@ -40,7 +40,7 @@
     </div>
   </div>
   <%= link_to t('view.invitation.clear_filter'), 'javascript:void(0);', class:'btn btn-default clear-range'%>
-</form>
+<% end %>
 
 <%= content_for :javascript do %>
   <script>

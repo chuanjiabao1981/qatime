@@ -18,15 +18,15 @@ module LiveStudio
       teacher = ::Teacher.find_by(login_mobile: params[:login_mobile])
       self.user_id = teacher.try(:id)
       self.expited_at = Time.now+ params[:expited_day].to_i.days
-      self.target_type = ::Workstation.name
-      self.target_id = self.inviter.try(:workstations).try(:sample).try(:id)
+      self.target = inviter.workstations.first
       self.status = CourseInvitation.statuses['sent']
     end
 
     private
-    
+
     def presence_user
       errors.add(:login_mobile, '用户不存在') if self.user.blank?
     end
+
   end
 end

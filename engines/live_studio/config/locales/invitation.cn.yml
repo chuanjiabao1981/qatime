@@ -16,3 +16,6 @@ cn:
       set_teacher_percent_placeholder: 请填入老师获得的分成比例
       set_expited_day_placeholder: 请设置邀请的有效期限,逾期后将自动失效
       new_invitation: 新邀请
+      day: 天
+      sent_now: 立即发送
+      cancel: 取消

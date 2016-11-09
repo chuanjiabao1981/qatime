@@ -6,6 +6,6 @@
 <% when 'accepted' %>
 <% else %>
   <% if allow?("live_studio/manager/course_invitations", "show", current_user) %>
-    <%= link_to t("invitations.reset"), manager_course_invitation_path(@manager.id, invitation.id)%>
+    <%= link_to t("invitations.reset"), new_manager_course_invitation_path(@manager.id, template_id: invitation.id) %>
   <% end -%>
 <% end %>

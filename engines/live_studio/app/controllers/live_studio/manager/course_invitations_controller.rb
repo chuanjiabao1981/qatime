@@ -5,19 +5,16 @@ module LiveStudio
     before_action :set_manager
 
     def index
-      invitations = @manager.invitations
-      invitations = invitations.includes(:user).where("users.subject"=>params[:subject]) if params[:subject].present?
-      invitations = invitations.where(status: LiveStudio::CourseInvitation.statuses[params[:status]]) if params[:status].present?
-      @invitations = invitations.paginate(page: params[:page], per_page: 10)
+      @invitations = @manager.invitations
+      @invitations = @invitations.includes(:user).where("users.subject"=>params[:subject]) if params[:subject].present?
+      @invitations = @invitations.where(status: LiveStudio::CourseInvitation.statuses[params[:status]]) if params[:status].present?
+      @invitations = @invitations.paginate(page: params[:page], per_page: 10)
     end
 
-    def show
-      @old_invitation = @manager.invitations.find(params[:id])
-      @invitation = @manager.invitations.new
-    end
+    def show; end
 
     def new
-      @invitation = @manager.invitations.new
+      @invitation = params[:template_id].present? ? Invitation.find(params[:template_id]).dup : Invitation.new
     end
 
     def edit; end

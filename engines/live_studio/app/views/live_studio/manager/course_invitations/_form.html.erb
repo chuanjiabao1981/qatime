@@ -11,7 +11,7 @@
         </div>
 
         <div class="col-md-7">
-          <%= f.input :login_mobile, label: false, placeholder: t('view.invitation.fill_user_placeholder'), input_html: {value: @old_invitation.try(:user).try(:login_mobile)}%>
+          <%= f.input :login_mobile, label: false, placeholder: t('view.invitation.fill_user_placeholder'), input_html: {value: @invitation.try(:user).try(:login_mobile)}%>
         </div>
         <div class="col-md-1"></div>
 
@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-7">
           <div class="input-group">
-            <%= f.input :teacher_percent, label: false, placeholder: t('view.invitation.set_teacher_percent_placeholder'), input_html: {min: 0, max: 100, value: @old_invitation.try(:teacher_percent)} %>
+            <%= f.input :teacher_percent, label: false, placeholder: t('view.invitation.set_teacher_percent_placeholder'), input_html: {min: 0, max: 100, value: @invitation.try(:teacher_percent)} %>
             <span class="input-group-addon">%</span>
           </div>
         </div>
@@ -30,23 +30,22 @@
         </div>
         <div class="col-md-7">
           <div class="input-group">
-            <%= f.input :expited_day, label: false, placeholder: t('view.invitation.set_expited_day_placeholder'), input_html: {min: 0, value: @old_invitation.try(:expited_day_display)} %>
-            <span class="input-group-addon">天</span>
+            <%= f.input :expited_day, label: false, placeholder: t('view.invitation.set_expited_day_placeholder'), input_html: {min: 0, value: @invitation.try(:expited_day_display)} %>
+            <span class="input-group-addon"><%= t('view.invitation.day')%></span>
           </div>
         </div>
 
         <div class="col-md-3"></div>
         <div class="col-md-7">
           <div class="form-actions">
-            <%= f.button :submit, '立即发送', class: "btn btn-default" %>
-            <%=link_to '取消', manager_course_invitations_path, class: 'btn btn-default'%>
+            <%= f.button :submit, t('view.invitation.sent_now'), class: "btn btn-default" %>
+            <%=link_to t('view.invitation.cancel'), manager_course_invitations_path, class: 'btn btn-default'%>
           </div>
         </div>
       </div>
     <% end %>
   </div>
 </div>
-
 
 <style>
   /*simple_form使用Bootstrap的input-group属性*/

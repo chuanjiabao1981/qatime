@@ -2980,7 +2980,7 @@ ul {
 	margin-top: 20px;
 	overflow: hidden;
 }
-.file {
+.editor-file {
 	margin-left: 10px;
 	float: left;
 	position: relative;
@@ -2989,7 +2989,7 @@ ul {
 .editor-con-img {
 	float: right;
 }
-.file span {
+.editor-file span {
 	color: red;
 }
 .editor-msg {

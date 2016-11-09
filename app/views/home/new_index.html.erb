@@ -149,8 +149,8 @@
               <span class="title-size">名师推荐</span>
             </div>
             <!--<a href="" class="teacher-title-right">-->
-              <!--<span>换一批</span>-->
-              <!--<span class="fa fa-refresh"></span>-->
+            <!--<span>换一批</span>-->
+            <!--<span class="fa fa-refresh"></span>-->
             <!--</a>-->
           </div>
           <div class="tutoring-tec-con">
@@ -168,20 +168,20 @@
                       </dl>
                     </center>
                   </div>
-                  <% if r_teacher.target.present? && r_teacher.target.live_studio_courses.count > 0 %>
-                    <div class="li-detailed">
-                      <center>
-                        <ul class="detailed-list">
+                  <div class="li-detailed">
+                    <center>
+                      <ul class="detailed-list">
+                        <% if r_teacher.target.present? && r_teacher.target.live_studio_courses.count > 0 %>
                           <% r_teacher.target.live_studio_courses.preview.limit(4).each do |course| %>
                             <li><%= link_to course.name, live_studio.course_path(course.id) %></li>
                           <% end %>
-                          <li class="detailed-more">
-                            <%= link_to '更多', profile_teacher_path(r_teacher.target)%>
-                          </li>
-                        </ul>
-                      </center>
-                    </div>
-                  <% end %>
+                        <% end %>
+                        <li class="detailed-more">
+                          <%= link_to 'TA的主页', profile_teacher_path(r_teacher.target)%>
+                        </li>
+                      </ul>
+                    </center>
+                  </div>
                 </li>
               <% end %>
             </ul>

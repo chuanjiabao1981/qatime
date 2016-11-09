@@ -99,12 +99,16 @@
   </div>
 </div>
 
-<script>
-  $("#taste-course-<%= @course.id %>").bind('ajax:success', function() {
-    if(<%= current_user.present? %>){
-      window.location.reload();
-    }else{
-      window.location.href="/signin"
-    }
-  });
-</script>
+<% content_for :javascript do %>
+  <script>
+    $(document).ready(function(){
+      $("#taste-course-<%= @course.id %>").bind('ajax:success', function() {
+        if(<%= current_user.present? %>){
+          window.location.reload();
+        }else{
+          window.location.href="/signin"
+        }
+      });
+    })
+  </script>
+<% end %>

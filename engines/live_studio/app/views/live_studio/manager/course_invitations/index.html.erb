@@ -1,0 +1,34 @@
+<div class="panel panel-default">
+  <div class="panel-heading" style="height:50px;">
+    <% if allow?("live_studio/courses", "create", current_user) %>
+      <%=link_to new_manager_course_invitation_path do %>
+        <button type="button" class="btn btn-xs btn-success">
+          <%= t("activerecord.view.create") %><%= t("view.invitation.new_invitation")%>
+        </button>
+      <% end %>
+    <% end -%>
+    <div style="float:right">
+      <%= render 'filter'%>
+    </div>
+  </div>
+
+  <table class="table table-bordered">
+    <tr>
+      <th><%= t('view.invitation.invitation_teacher')%></th>
+      <th><%= t('view.invitation.subject')%></th>
+      <th><%= t('view.invitation.teacher_percent')%></th>
+      <th><%= t('view.invitation.invitation_sent_date')%></th>
+      <th><%= t('view.invitation.valid_date')%></th>
+      <th><%= t('view.invitation.status')%></th>
+      <th><%= t('view.invitation.operation')%></th>
+    </tr>
+    <%= render partial: 'invitation', collection: @invitations %>
+  </table>
+
+  <div class="panel-footer">
+    <center>
+      <%= will_paginate @invitations %>
+    </center>
+  </div>
+
+</div>

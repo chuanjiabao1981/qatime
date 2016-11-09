@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  inviter_id: 
+  target_id: 
+  target_type: Target
+  expited_at: 2016-11-07 16:31:49
+  teacher_percent: 1
+  status: 1
+  remark: MyText
+  type: 
+
+two:
+  user_id: 
+  inviter_id: 
+  target_id: 
+  target_type: Target
+  expited_at: 2016-11-07 16:31:49
+  teacher_percent: 1
+  status: 1
+  remark: MyText
+  type: 

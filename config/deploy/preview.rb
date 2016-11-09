@@ -1,10 +1,8 @@
-
-server 'testing.qatime.cn', user: 'deploy', roles: %w{web app db}, primary: true
-
+set :deploy_user, 'deploy'
+server 'testing.qatime.cn', user: 'qatime', roles: %w{web app db}, primary: true
 
 set :branch, 'preview'
 
-set :deploy_user, 'deploy'
 set :rvm_ruby_version, '2.3.1@qatime'
 
 set :deploy_to, "/home/#{fetch(:deploy_user)}/apps/preview"

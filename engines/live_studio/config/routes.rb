@@ -75,6 +75,7 @@ LiveStudio::Engine.routes.draw do
         end
       end
 
+      resources :course_invitations
     end
   end
 

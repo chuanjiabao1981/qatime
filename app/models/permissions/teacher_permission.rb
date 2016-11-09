@@ -245,6 +245,8 @@ module Permissions
         course.teacher_id == user.id
       end
       allow 'live_studio/helps', [:course]
+
+      allow 'live_studio/teacher/course_invitations', [:index]
       ## end live studio permission
 
 

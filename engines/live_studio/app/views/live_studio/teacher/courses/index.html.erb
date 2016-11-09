@@ -12,11 +12,19 @@
     <% end %>
 
 
-    <%= content_tag(:div, class: 'search-link') do %>
+    <!-- <%= content_tag(:div, class: 'search-link') do %>
       <%= link_to courses_qa_faqs_path do %>
         <%= t('activerecord.view.helps_course') %>
       <% end %>
+    <% end %> -->
+
+    <%= content_tag(:div, class: 'search-link') do %>
+      <%= link_to teacher_course_invitations_path do %>
+        新辅导班
+      <% end %>
     <% end %>
+
+
   <% end %>
   <%= content_tag(:div, class: 'course-taxon-list') do %>
     <%= link_to content_tag(:div, t("activerecord.view.filter.all"),

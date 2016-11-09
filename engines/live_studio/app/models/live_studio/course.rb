@@ -75,12 +75,24 @@ module LiveStudio
       super
     end
 
-    def push_stream
-      push_streams.last
+    # 白板推流地址
+    def board_push_stream
+      push_streams.find {|stream| stream.use_for == 'board' }.try(:address)
     end
 
-    def pull_stream
-      pull_streams.last
+    # 白板拉流地址
+    def board_pull_stream
+      pull_streams.find {|stream| stream.use_for == 'board' }.try(:address)
+    end
+
+    # 摄像头推流地址
+    def camera_push_stream
+      push_streams.find {|stream| stream.use_for == 'camera' }.try(:address)
+    end
+
+    # 摄像头拉流地址
+    def camera_pull_stream
+      pull_streams.find {|stream| stream.use_for == 'camera' }.try(:address)
     end
 
     scope :for_sell, -> { where(status: [Course.statuses[:preview], Course.statuses[:teaching]]) }

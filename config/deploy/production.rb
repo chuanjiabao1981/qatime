@@ -24,8 +24,9 @@ set :rails_env, :production
 # number of unicorn workers, this will be reflected in
 # the unicorn.rb and the monit configs
 set :unicorn_worker_count, 5
-set :unicorn_env , :production
-set :unicorn_rack_env,:production
+set :unicorn_env, :production
+set :unicorn_rack_env, :production
+set :unicorn_config_path, -> {"#{fetch(:deploy_to)}/current/config/unicorn/production.rb"}
 
 # whether we're using ssl or not, used for building nginx
 # config file

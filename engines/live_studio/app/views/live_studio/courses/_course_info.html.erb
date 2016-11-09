@@ -62,9 +62,7 @@
                                 <%= link_to(t('view.course_info_show.start_taste'),
                                          "javascript:void(0)", onclick:"alert('辅导班开课后才可试听')") %>
                              <% else %>
-                               <%= link_to(t('view.course_info_show.start_taste'),
-                                           live_studio.taste_course_path(@course, student_id: @student.try(:id)),
-                                           id: "taste-course-#{@course.id}", method: :post, remote: true) %>
+                                <%= link_to(t('view.course_info_show.start_taste'), play_course_path(@course)) %>
                              <% end %>
                            <% end%>
                            <%= content_tag(:div, link_to(t('activerecord.view.enroll_now'), new_course_order_path(@course)), class: 'btn-signnow')%>

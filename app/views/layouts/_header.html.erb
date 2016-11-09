@@ -1,9 +1,11 @@
 <div class="header-logo"><%= image_tag 'logo.png' %></div>
 <div class="header-nav">
   <span>
-    <i class="glyphicon glyphicon-user"></i>
     <% if signed_in? %>
-        <%= content_tag(:span, link_to(t('view.student_bars.schedules'), live_studio.send("schedules_#{current_user.role}_path",current_user))) if current_user.present? && (current_user.student? || current_user.teacher?) %>
+      <%= link_to send("info_#{current_user.role}_path",current_user) do %>
+      <i class="glyphicon glyphicon-user"></i> <%= t('view.common_bars.personal_center') %>
+      <% end %>
+      <%= content_tag(:span, link_to(t('view.student_bars.schedules'), live_studio.send("schedules_#{current_user.role}_path",current_user))) if current_user.present? && (current_user.student? || current_user.teacher?) %>
       <span>
         <%= link_to t("view.common_bars.notice"), main_app.user_notifications_path(current_user) %>
       </span>

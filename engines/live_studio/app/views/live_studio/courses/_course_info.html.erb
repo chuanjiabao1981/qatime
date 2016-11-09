@@ -44,7 +44,7 @@
                   </div>
                   <% if current_user.blank? || !current_user.teacher? %>
                     <div>
-                      <% if current_user.blank? || (!@course.tasting?(current_user) && !@course.bought_by?(current_user)) %>
+                      <% if current_user.blank? || !current_user.student? || (!@course.tasting?(current_user) && !@course.bought_by?(current_user)) %>
                          <div class="listen-class">
                            <%= content_tag(:div,class: 'btn-audition') do %>
                              <%= link_to(t('view.course_info_show.join_taste'),
@@ -54,7 +54,8 @@
                            <%= content_tag(:div, link_to(t('activerecord.view.enroll_now'), new_course_order_path(@course)), class: 'btn-sign')%>
                          </div>
                       <% end %>
-                      <% if current_user.present? && @course.tasting?(current_user) && !@course.bought_by?(current_user) %>
+
+                      <% if current_user.present? && ((@course.tasting?(current_user) && !@course.bought_by?(current_user)) || !current_user.student?) %>
                          <div class="listen-class">
                            <%= content_tag(:div,class: 'btn-listen') do%>
                              <% if  LiveStudio::Course.statuses[@course.status] < LiveStudio::Course.statuses['teaching'] %>
@@ -69,7 +70,8 @@
                            <%= content_tag(:div, link_to(t('activerecord.view.enroll_now'), new_course_order_path(@course)), class: 'btn-signnow')%>
                          </div>
                       <% end %>
-                      <% if current_user.present? && @course.bought_by?(current_user) %>
+
+                      <% if current_user.present? && (@course.bought_by?(current_user) || !current_user.student?) %>
                         <div class="listen-class btn-start">
                           <%if  LiveStudio::Course.statuses[@course.status] < LiveStudio::Course.statuses['teaching'] %>
                             <%= link_to(t('view.course_info_show.start_learning'),
@@ -79,6 +81,7 @@
                           <% end %>
                         </div>
                       <% end %>
+
                     </div>
                   <% end %>
                 </div>

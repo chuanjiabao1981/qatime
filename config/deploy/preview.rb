@@ -1,5 +1,5 @@
 
-server '182.92.149.46', user: 'deploy', roles: %w{web app db}, primary: true
+server 'testing.qatime.cn', user: 'deploy', roles: %w{web app db}, primary: true
 
 
 set :branch, 'preview'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161101071815) do
+ActiveRecord::Schema.define(version: 20161107083149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -411,6 +411,24 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.float    "teacher_price"
     t.float    "sale_price"
   end
+
+  create_table "invitations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "inviter_id"
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.datetime "expited_at"
+    t.integer  "teacher_percent"
+    t.integer  "status",          default: 0
+    t.text     "remark"
+    t.string   "type"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "invitations", ["inviter_id"], name: "index_invitations_on_inviter_id", using: :btree
+  add_index "invitations", ["target_type", "target_id"], name: "index_invitations_on_target_type_and_target_id", using: :btree
+  add_index "invitations", ["user_id"], name: "index_invitations_on_user_id", using: :btree
 
   create_table "learning_plan_assignments", force: :cascade do |t|
     t.integer  "learning_plan_id"
@@ -1194,5 +1212,6 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.integer  "manager_id"
   end
 
+  add_foreign_key "invitations", "users"
   add_foreign_key "payment_transactions", "users"
 end

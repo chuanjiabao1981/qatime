@@ -78,4 +78,17 @@ class StudentInfoShowAndEditTest < ActionDispatch::IntegrationTest
     @student.reload
     assert_equal("13811110000", @student.parent_phone, '更新家长手机错误')
   end
+
+  test 'student update payment password' do
+    visit info_student_path(@student)
+    click_on "安全设置"
+    click_on '修改支付密码'
+    fill_in 'student_payment_password', with: '111111'
+    fill_in 'student_payment_password_confirmation', with: '111111'
+    click_on '获取验证码'
+    fill_in "student_payment_captcha_confirmation", with: "1234"
+    click_on '保存'
+    sleep 2
+    assert @student.cash_account!.authenticate('111111')
+  end
 end

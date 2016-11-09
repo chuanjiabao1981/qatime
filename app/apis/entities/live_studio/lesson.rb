@@ -20,7 +20,13 @@ module Entities
       end
       expose :pull_address, if: {type: :schedule} do |lesson|
         ticket = ::LiveStudio::Ticket.where(student: options[:current_user],course: lesson.course).authorizable.last
-        ticket.present? ? course.pull_stream.try(:address) : ''
+        ticket.present? ? course.board_pull_stream : ''
+      end
+
+      expose :board_pull_stream
+      expose :camera_pull_stream
+      expose :chat_team_id, if: {type: :schedule} do |lesson|
+        lesson.course.try(:chat_team).try(:team_id).to_s
       end
       expose :teacher_name, if: {type: :schedule} do |lesson|
         lesson.course.teacher.try(:name).to_s

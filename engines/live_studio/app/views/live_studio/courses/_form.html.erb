@@ -8,7 +8,6 @@
   </div>
 
   <h4>二、课程安排</h4>
-  <%= @lessons = @course.lessons.build%>
   <div class="form-inputs">
     <table class="lesson_table">
       <%= f.fields_for :lessons do |lesson| %>

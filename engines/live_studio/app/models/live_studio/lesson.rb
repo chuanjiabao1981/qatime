@@ -35,7 +35,8 @@ module LiveStudio
 
     has_many :live_sessions # 直播 心跳记录
 
-    validates :name, :course_id, :start_time, :end_time, :class_date, presence: true
+    validates :name, :start_time, :end_time, :class_date, presence: true
+
     before_create :data_preview
     after_commit :update_course
 

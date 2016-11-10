@@ -3,13 +3,12 @@
   <% @questions.each do |q| %>
     <tr>
       <td>
-        <span class="news-question"><%= q.title %></span>
-        <span class="news-ask">最新提问</span>
-        <%= content_tag :span, '最新提问', class: 'news_ask' if q == @questions.first %>
+        <span class="news-question"><%= link_to q.title, question_path(q) %></span>
+        <%= content_tag :span, '最新提问', class: 'news-ask' if q == @questions.first %>
         <br>
-        <span><%= "#{q.vip_class.category}#{q.vip_class.subject}" %></span>
-        <span class="answer">答案：<%= q.answers_count %></span>
-        <span>评论：<%= q.comments.length %></span>
+        <span class="grade-suject"><%= link_to "#{q.vip_class.category}#{q.vip_class.subject}", vip_class_path(q.vip_class.id) %></span>
+        <span class="answer">答案<%= q.answers_count %></span>
+        <span>评论<%= q.comments.length %></span>
       </td>
       <td>
         <%= image_tag q.student.avatar_url(:small) %>

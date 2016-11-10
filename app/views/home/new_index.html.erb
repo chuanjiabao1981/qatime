@@ -34,10 +34,10 @@
           <div class="tutoring-title">
             <div class="tutoring-title-left">
               <%= image_tag 'home_page_icon.png' %>
-              <span class="title-size">辅导推荐</span>
+              <span class="title-size">直播课程</span>
             </div>
             <a href="<%= live_studio.courses_path %>" class="tutoring-title-right">
-              <span>全部</span>
+              <span>全部 ></span>
             </a>
           </div>
           <div class="tutoring-con">
@@ -70,7 +70,7 @@
               <%= image_tag 'home_page_icon.png' %>
               <a href="javascript:void(0);" class="btn-tab active-tab">专属课程</a>
               <span class="separator">|</span>
-              <%= link_to '公开课程', home_curriculums_ajax_data_path, class: 'btn-tab', rel: '.curriculums-more', remote: true, id: 'home_curriculums' %>
+              <%= link_to '公共课程', home_curriculums_ajax_data_path, class: 'btn-tab', rel: '.curriculums-more', remote: true, id: 'home_curriculums' %>
               <span class="separator">|</span>
               <%= link_to '问答社区', home_questions_ajax_data_path, class: 'btn-tab', rel: '.questions-more',remote: true, id: 'home_questions' %>
             </div>
@@ -229,7 +229,7 @@
                 <%= image_tag 'advantage_5.png' %>
               </li>
               <li><span>Web/App/直播器</span></li>
-              <li><p>支持网页端和手机端多种使用方式，随时随地进行学习；为老师定制开发主播助</p></li>
+              <li><p>支持网页端和手机端多种使用方式,量身定制教师直播助手。</p></li>
             </ul>
           </div>
           <div class="col-md-2 col-sm-2 col-advantage">

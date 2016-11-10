@@ -18,7 +18,7 @@
           <i class="glyphicon glyphicon-user"></i><%= t('view.common_bars.personal_center') %>
         <% end %>
       </span>
-      <%= content_tag :span, link_to(t("view.common_bars.sign_out"), main_app.signout_path, method: :delete ) %>
+      <%= content_tag :span, link_to(t("view.common_bars.sign_out"), main_app.signout_path, method: :delete,class: 'exit' ) %>
     </div>
   <% else %>
     <div class="not-login">

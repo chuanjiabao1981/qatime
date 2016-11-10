@@ -2096,9 +2096,11 @@ i {
   color: #555555;
 }
 
+.grade-suject a {
+  color: #666666;
+}
 
-
-.news-question {
+.news-question a{
   color: #000000;
 }
 .student-name {
@@ -2123,7 +2125,7 @@ i {
 }
 .class-course-tab {
   padding-bottom: 0px !important;
-  padding-left: 20px;
+  padding-left: 40px;
 }
 .class-course-tab table {
   width: 100%;
@@ -2254,7 +2256,7 @@ i {
   color: #000000;
 }
 .col-advantage ul li:nth-child(2) span {
-  font-size: 20px;
+  font-size: 18px;
 }
 .col-advantage ul li:last-child {
   text-align:left;
@@ -3295,4 +3297,7 @@ ul {
 }
 .live-list table tr td:last-child {
   text-align: right;
+}
+.dl-list {
+  -webkit-margin-before: 0em;
 }

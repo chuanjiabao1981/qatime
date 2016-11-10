@@ -4,7 +4,9 @@
     <tr>
       <td>
         <span class="news-question"><%= q.title %></span>
-        <span class="news-ask">最新提问</span><br>
+        <span class="news-ask">最新提问</span>
+        <%= content_tag :span, '最新提问', class: 'news_ask' if q == @questions.first %>
+        <br>
         <span><%= "#{q.vip_class.category}#{q.vip_class.subject}" %></span>
         <span class="answer">答案：<%= q.answers_count %></span>
         <span>评论：<%= q.comments.length %></span>
@@ -12,8 +14,7 @@
       <td>
         <%= image_tag q.student.avatar_url(:small) %>
         <span><%= q.student.name %></span><br>
-        <span>发表时间：</span>
-        <span><%= q.created_at.try(:strftime,'%Y-%m-%d %H:%M:%S') %></span>
+        <span class="creation-time"><%= q.created_at.try(:strftime,'%Y-%m-%d %H:%M:%S') %></span>
       </td>
     </tr>
   <%end %>

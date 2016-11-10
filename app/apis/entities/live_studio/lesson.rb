@@ -19,15 +19,15 @@ module Entities
         lesson.course.subject.to_s
       end
       expose :pull_address, if: {type: :schedule} do |lesson|
-        ticket = ::LiveStudio::Ticket.where(student: options[:current_user],course: lesson.course).authorizable.last
-        ticket.present? ? course.board_pull_stream : ''
+        ticket = ::LiveStudio::Ticket.where(student: options[:current_user], course: lesson.course).authorizable.last
+        ticket.present? ? lesson.course.board_pull_stream : ''
       end
 
       expose :board_pull_stream do |lesson|
-        lesson.board_pull_stream
+        lesson.course.try(:board_pull_stream)
       end
       expose :camera_pull_stream do |lesson|
-        lesson.camera_pull_stream
+        lesson.course.try(:camera_pull_stream)
       end
       expose :chat_team_id, if: {type: :schedule} do |lesson|
         lesson.course.try(:chat_team).try(:team_id).to_s

@@ -5,7 +5,7 @@ require 'models/shared/utils/qa_test_factory'
 class SolutionTest < ActiveSupport::TestCase
 
   include QaCommonStateTest
-  self.use_transactional_fixtures = true
+  self.use_transactional_tests = true
 
   test 'state 1' do
     solution= solutions(:homework_solution_four)

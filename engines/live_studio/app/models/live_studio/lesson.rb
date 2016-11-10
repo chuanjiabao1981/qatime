@@ -66,7 +66,7 @@ module LiveStudio
         transitions from: [:teaching, :paused], to: :closed
       end
 
-      event :finish, after_commit: :instance_play_records do
+      event :finish, after_commit: :instance_play_records_with_job do
         transitions from: [:paused, :closed], to: :finished
       end
 
@@ -152,7 +152,6 @@ module LiveStudio
       return instance_play_records_without_job if immediately
       LiveStudio::LessonPlayRecordJob.perform_later(id)
     end
-    alias_method_chain :instance_play_records, :job
 
     private
 

@@ -5,7 +5,7 @@ require 'sidekiq/testing'
 Sidekiq::Testing.inline!
 
 class TutorialIssueReplyIntegrateTest < LoginTestBase
-  self.use_transactional_fixtures = true
+  self.use_transactional_tests = true
 
   def setup
     @tutorial_issue         = topics(:tutorial_issue_one)

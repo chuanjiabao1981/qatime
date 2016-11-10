@@ -9,7 +9,7 @@ Sidekiq::Testing.inline!
 class TutorialIssueIntegrateTest < LoginTestBase
   include QaCommonStateTest
 
-  self.use_transactional_fixtures = true
+  self.use_transactional_tests = true
 
   def setup
     @customized_tutorial = customized_tutorials(:customized_tutorial1)

@@ -3,7 +3,7 @@ require 'tally_test_helper'
 require 'models/shared/utils/qa_test_factory'
 
 class CourseIssueReplyModelTest < ActiveSupport::TestCase
-  self.use_transactional_fixtures = true
+  self.use_transactional_tests = true
 
   include TallyTestHelper
 

@@ -6,7 +6,7 @@ class CorrectionTest < ActiveSupport::TestCase
  include TallyTestHelper
 
 
- self.use_transactional_fixtures = true
+ self.use_transactional_tests = true
 
  def setup
     @old =     APP_CONSTANT["price_per_minute"]

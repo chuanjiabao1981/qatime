@@ -7,7 +7,7 @@ class ExcerciseTest < ActiveSupport::TestCase
 
   include QaCommonStateTest
   include QaExaminationTest
-  self.use_transactional_fixtures = true
+  self.use_transactional_tests = true
 
   test "build" do
     @customized_tutorial    = customized_tutorials(:customized_tutorial1)

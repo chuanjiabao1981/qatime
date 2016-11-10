@@ -1,18 +1,16 @@
 require 'test_helper'
 
 class CashOperationRecordTest < ActiveSupport::TestCase
-
-
   def setup
     @teacher_account = accounts(:teacher_account)
     @operator        = users(:manager)
   end
+
   test 'value valid' do
     a           = build_a_record
     a.value     = 10
 
-    assert a.valid?
-
+    assert a.valid?, a.errors.full_messages
   end
 
   test 'value not a number' do
@@ -20,20 +18,19 @@ class CashOperationRecordTest < ActiveSupport::TestCase
     a.value     = "asdfasdfas"
     assert_not a.valid?
     a.value     = 23
-    assert     a.valid?
+    assert     a.valid?, a.errors.full_messages
   end
-
 
   test 'value num < 0' do
     a           = build_a_record
     a.value     = -10
     assert_not a.valid?
     a.value     = 2
-    assert      a.valid?
-
+    assert      a.valid?, a.errors.full_messages
   end
 
   private
+
   def build_a_record
     a = CashOperationRecord.new
     a.operator  = @operator

@@ -17,7 +17,7 @@ class AccountTest < ActiveSupport::TestCase
 
     assert account.money == 2000
     assert_difference "Withdraw.count" ,1 do
-      cash_operation_record  =        account.withdraw({value: "1234"},@operator.id)
+      cash_operation_record  =        account.withdraw({value: 1234},@operator.id)
       assert       cash_operation_record.valid?,cash_operation_record.errors.full_messages
     end
     assert account.money == 766
@@ -27,12 +27,12 @@ class AccountTest < ActiveSupport::TestCase
     account       = accounts(:teacher_account_2000)
     assert account.valid?
     assert_difference "Withdraw.count" ,0 do
-      cash_operation_record = account.withdraw({value: "30000"},@operator.id)
+      cash_operation_record = account.withdraw({value: 30000}, @operator.id)
       assert_not cash_operation_record.valid?
     end
     assert account.money == 2000
     assert_difference "Withdraw.count" ,1 do
-      assert     account.withdraw({value: "10"},@operator.id).valid?
+      assert     account.withdraw({value: 10},@operator.id).valid?
     end
     assert account.money == 1990
   end
@@ -41,7 +41,7 @@ class AccountTest < ActiveSupport::TestCase
     account       = accounts(:teacher_account_2000)
     assert account.valid?
     assert_difference "Withdraw.count" ,0 do
-      assert_not account.withdraw({value: "-100"},@operator.id).valid?
+      assert_not account.withdraw({value: -100},@operator.id).valid?
     end
     assert account.money == 2000
   end
@@ -56,7 +56,7 @@ class AccountTest < ActiveSupport::TestCase
     end
     assert account.money == 2000
     assert_difference "Deposit.count" ,1 do
-      assert       account.deposit({value: "1234"},@operator.id).valid?
+      assert       account.deposit({value: 1234},@operator.id).valid?
     end
     assert account.money == 3234
   end
@@ -65,7 +65,7 @@ class AccountTest < ActiveSupport::TestCase
     account       = accounts(:teacher_account_2000)
     assert account.valid?
     assert_difference "Deposit.count" ,0 do
-      assert_not account.deposit({value: "-100"},@operator.id).valid?
+      assert_not account.deposit({value: -100},@operator.id).valid?
     end
     assert account.money == 2000
 

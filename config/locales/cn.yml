@@ -115,6 +115,7 @@ cn:
       less_than_or_equal_to: 必须小于或等于 %{count}
       not_a_number: 不是数字
       not_an_integer: 必须是整数
+      not_enough: 不足
       odd: 必须为单数
       record_invalid: ! '验证失败: %{errors}'
       taken: 已经被使用

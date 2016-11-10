@@ -3,7 +3,7 @@ require 'reply_test_helper'
 
 
 class CourseIssueReplyWithVideo  < ActionDispatch::IntegrationTest
-  self.use_transactional_fixtures = true
+  self.use_transactional_tests = true
 
   include ReplyTestHelper
   def setup

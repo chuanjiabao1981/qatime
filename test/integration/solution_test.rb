@@ -8,7 +8,7 @@ Sidekiq::Testing.inline!
 class SolutionIntegrateTest < LoginTestBase
   include QaCommonStateTest
 
-  self.use_transactional_fixtures = true
+  self.use_transactional_tests = true
 
 
   def setup

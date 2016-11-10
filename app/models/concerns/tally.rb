@@ -64,7 +64,9 @@ module Tally
     def __charge_billing(billing)
       customized_course           = CustomizedCourse.find(self.customized_course_id)
       cash_account = customized_course.student.cash_account!
-      cash_account.consumption(billing.total_money, self, billing, self.class.model_name.human)
+      # 强制消费
+      # 余额不足则为负数
+      cash_account.force_consumption(billing.total_money, self, billing, self.class.model_name.human)
     end
 
     def __split_fee_to_relative_account(relative_account, fee, value, price)

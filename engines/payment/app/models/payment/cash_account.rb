@@ -15,7 +15,18 @@ module Payment
     # 可用资金
     def available_balance
       balance - frozen_balance
-      #balance
+    end
+
+    # 冻结资金
+    def freeze_cash!(amount)
+      amount = amount.abs
+      Payment::CashAccount.transaction do
+        with_lock do
+          check_change!(amount)
+          self.frozen_balance += amount
+          save!
+        end
+      end
     end
 
     # 申请提现的时候冻结资金
@@ -67,9 +78,9 @@ module Payment
 
     # 支出
     def consumption(amount, target, billing, summary, options = {})
-      options ||= {}
       Payment::CashAccount.transaction do
         with_lock do
+          check_value!(amount.abs) # 不可透支消费
           change(:consumption_records, -amount.abs, options.merge(target: target, billing: billing, summary: summary))
           self.total_expenditure += amount.abs
           save!
@@ -77,25 +88,12 @@ module Payment
       end
     end
 
-    # 支出之前检查可用资金
-    def consumption_with_check(amount, target, billing, summary, options = {})
-      options ||= {}
+    # 预支消费
+    def preconsumption(amount, target, billing, summary, options = {})
       Payment::CashAccount.transaction do
         with_lock do
-          check_change!(amount.abs) if options[:change_type].to_s == 'account' # 余额支出需要检查可用资金
-          consumption_without_check(amount, target, billing, summary, options)
-        end
-      end
-    end
-    alias_method_chain :consumption, :check
-
-    # 冻结资金
-    def freeze_cash(amount)
-      amount = amount.abs
-      Payment::CashAccount.transaction do
-        with_lock do
-          check_change!(amount)
-          # self.frozen_balance += amount
+          change(:consumption_records, -amount.abs, options.merge(target: target, billing: billing, summary: summary))
+          self.total_expenditure += amount.abs
           save!
         end
       end
@@ -119,8 +117,14 @@ module Payment
       save!
     end
 
-    def check_change!(amount)
-      raise Payment::BalanceNotEnough, "可用资金不足" if available_balance < amount
+    def check_value(amount)
+      return true unless available_balance < amount
+      errors.add(:available_balance, 'not_enough')
+      false
+    end
+
+    def check_value!(amount)
+      raise Payment::BalanceNotEnough unless check_value(amount)
     end
   end
 end

@@ -13,8 +13,6 @@ class Course < ActiveRecord::Base
   validates :desc, length: { minimum: 30 }
   validates :position, numericality: { only_integer: true }
 
-  accepts_nested_attributes_for :lessons
-
   def can_be_purchased
     self.state == "published"
   end

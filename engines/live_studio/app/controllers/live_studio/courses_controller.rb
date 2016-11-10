@@ -27,16 +27,22 @@ module LiveStudio
     end
 
     def create
-      @course = Course.new(courses_params.merge(author: current_user))
+      p '---------'
+      p course_and_lessons_params
+
+      @course = Course.new(course_and_lessons_params.merge(author: current_user))
       if current_user.teacher?
         @course.teacher = current_user
         @course.teacher_percentage = 100
       end
+      course_and_lessons_params[:lessons_attributes].each do |lesson_params|
+        @course.lessons.new(lesson_params)
+      end
       if @course.save
-        LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
+        # LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
         redirect_to live_studio.course_path(@course)
       else
-        render :new
+        render :new, layout: current_user_layout
       end
     end
 
@@ -135,6 +141,14 @@ module LiveStudio
       role_params = [:name, :price, :preset_lesson_count, :subject, :grade, :publicize, :taste_count, :description]
       role_params = role_params << [:teacher_percentage, :workstation_id, :teacher_id] unless role == :teacher
       params.require(:course).permit(role_params)
+    end
+
+    def course_and_lessons_params
+      params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map{|key, val| val}
+
+      params.require(:course).permit(:publicize, :name, :grade, :price, :lessons,
+          lessons_attributes: [:name, :class_date, :start_time, :end_time])
+
     end
   end
 end

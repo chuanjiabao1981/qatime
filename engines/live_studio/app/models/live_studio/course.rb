@@ -21,15 +21,15 @@ module LiveStudio
       completed: 3 # 已结束
     }
 
-    validates :name, :price, :subject, :grade, presence: true
-    validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 70, less_than_or_equal_to: 100 }
-    validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
-    validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
-
-    validates :taste_count, numericality: { less_than_or_equal_to: ->(record) { record.preset_lesson_count.to_i } }
-
-    validates :teacher, presence: true
-    validates :workstation, presence: true, unless: :require_workstation?
+    # validates :name, :price, :subject, :grade, presence: true
+    # validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 70, less_than_or_equal_to: 100 }
+    # validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
+    # validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
+    #
+    # validates :taste_count, numericality: { less_than_or_equal_to: ->(record) { record.preset_lesson_count.to_i } }
+    #
+    # validates :teacher, presence: true
+    # validates :workstation, presence: true, unless: :require_workstation?
 
     mount_uploader :publicize, ::PublicizeUploader
 
@@ -41,6 +41,8 @@ module LiveStudio
     has_many :buy_tickets   # 普通听课证
     has_many :taste_tickets # 试听证
     has_many :lessons, -> { order('id asc') } # 课时
+
+    accepts_nested_attributes_for :lessons
 
     has_many :students, through: :buy_tickets
 

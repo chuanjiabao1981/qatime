@@ -4,87 +4,26 @@
   <h4>一、辅导概况</h4>
 
   <div class="form-inputs">
-
-    <div class="row">
-      <div class="col-md-3 text-right"><%= Teacher.human_attribute_name(:avatar)%><span class="text-danger">*</span></div>
-      <div class="col-md-8">
-        <%= f.input :publicize, as: :file,  label: false, input_html:{onchange:"showimagepreview(this)"}%>
-        <div style="width: 242px;height: 242px; border: 1px dashed;">
-          <img id="user_avatar_preview" style="width: 100%;">
-        </div>
-      </div>
-    </div>
-    <br />
-
-    <div class="row">
-      <div class="col-md-3 text-right">
-        名称<span class="text-danger">*</span>:
-      </div>
-      <div class="col-md-8">
-        <%= f.input :name, label: false, input_html: {value: @course.name}%>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-3 text-right">
-        辅导介绍<span class="text-danger">*</span>:
-      </div>
-      <div class="col-md-8">
-        <%= f.input :name, as: :text, label: false, input_html: {value: @course.name}%>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-3 text-right">
-        年级类型<span class="text-danger">*</span>:
-      </div>
-      <div class="col-md-8">
-        <%= f.input :grade, label: false, type: :select, collection: APP_CONSTANT['grades_in_menu'] %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-3 text-right">
-        价格(元)<span class="text-danger">*</span>:
-      </div>
-      <div class="col-md-8">
-        <%= f.input :price, label: false %>
-      </div>
-    </div>
+    <%=render 'course_fields', f: f%>
   </div>
 
   <h4>二、课程安排</h4>
-
+  <%= @lessons = @course.lessons.build%>
   <div class="form-inputs">
     <table class="lesson_table">
       <%= f.fields_for :lessons do |lesson| %>
-        <tr class="lesson_template">
-          <td>1</td>
-          <td>
-            <%= lesson.input :name, label: false, type: :text, input_html: {class: 'datainp remedial-date', id: 'dateinfo', placeholder: '请选择开始时间', readonly: true}%>
-            <label for="dateinfo" class="glyphicon glyphicon-calendar glyphicon-1" style="position: relative; left: -25px;"></label>
-
-            <%= lesson.input :name, label: false, input_html: {class: 'datainp remedial-date', id: 'dateinfo_2', placeholder: '请选择结束时间', readonly: true}%>
-            <label for="dateinfo_2" class="glyphicon glyphicon-calendar glyphicon-2" style="position: relative; left: -25px;" ></label>
-          </td>
-          <td>
-            <%= f.input :name, label: false, placeholder: '请输入课程名称, 格式: 第X课+空格+课程标题'%>
-          </td>
-          <td>
-            <a class="remove_lesson">删除</a>
-          </td>
-        </tr>
+        <%= render 'lesson_fields', f: lesson%>
       <% end%>
-      <tr>
-        <td colspan="3"></td>
-        <td>
-          <span class="glyphicon glyphicon-plus"></span>
-        </td>
-      </tr>
     </table>
+  </div>
+  <div class="pull-right">
+    <p><%= raw link_to_add_fields("增加一条新规则", f, :lessons, 'live_studio/courses/') %></p>
   </div>
 
   <div class="form-actions">
     <center>
       <a class="btn btn-primary">预览</a>
-      <a class="btn btn-primary">发布</a>
+      <a class="btn btn-primary submit">发布</a>
     </center>
   </div>
 <% end %>
@@ -95,22 +34,6 @@
       $('.remedial-date').each(function(_, el){
         $(el).click(function(){
           show_calendar(this)
-        })
-      })
-
-      $(".glyphicon-plus").click(function(){
-        var new_lesson =  $('.lesson_template').last().clone(true);
-        $('.lesson_template').last().after(new_lesson);
-      })
-
-      $('.remove_lesson').each(function(_, el){
-        $(el).click(function(){
-          alert('123')
-          if($('.lesson_template').length <= 1){
-            alert('至少保留一节课');
-          }else{
-            $(el).parent().parent().remove();
-          }
         })
       })
 
@@ -125,6 +48,10 @@
           //最大日期
         });
       }
+
+      $('.submit').click(function(){
+        $('form').submit();
+      })
 
     })
   </script>

@@ -2061,8 +2061,10 @@ i {
   font-size: 16px;
   text-align: center;
   line-height: 24px;
-  color: #000000;
   cursor: pointer;
+}
+.course-list-2 li a{
+  color: #000000;
 }
 .active-li {
   border: 1px solid rgb(190,11,11);

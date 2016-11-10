@@ -1,65 +1,113 @@
 .navbar {
+  min-height: 55px !important;
   position: fixed;
-  top: 36px !important;
+  top: 38px !important;
   background-color: rgb(190,11,11) !important;
+  border: 0px !important;
 }
 
 .nav li a {
+  display: inline-block;
+  height: 55px !important;
+  margin-right: 30px !important;
   color: white !important;
   font-size: 20px;
 }
-.navbar-inverse{
+.navbar-right {
+  margin-right: -45px !important;
+}
+.navbar-right li a {
+  font-size: 16px !important;
+}
+.navbar-inverse,.navbar-collapse{
   border-color: rgb(190,11,11) !important;
 }
-
-.container {
-  width: 1190px !important;
-  padding-left: 0;
-  padding-right: 0;
-}
-body {
-  padding-top: 86px !important;
-  font-family: "微软雅黑"!important;
-}
-
-header {
-  width: 100%;
-  background-color: #d8d8d8;
-  position: fixed;
-  top: 0;
-  z-index: 100;
-}
-.header-content {
-  height: 36px;
-  max-width: 1190px;
-  margin: 0 auto;
-}
-.header-logo {
+.header-logo img,.city {
   float: left;
-  /*margin-left: -10px !important;*/
 }
-.header-nav {
-  line-height: 36px;
-  float: right;
+.city {
+  line-height: 37.5px;
 }
-.header-nav span {
-  margin-left: 30px;
+.location-city {
   color: #000000;
+  /*margin-right: 15px;*/
+  margin-left: 15px;
 }
-.header-nav span a {
-  color: #000000;
+.switch-city {
+  color: #999999;
 }
-.nav-city {
-  font-size: 20px;
+.location-city,.switch-city {
+  font-size: 16px;
+}
+.help {
+  position: absolute;
+  top: 15px;
+  right: 105px;
   color: white;
-  line-height: 50px;
 }
-.home-recom-left {
-  width: 75.8%;
-  height: 40px;
-  float: left;
+.upward {
+  position: absolute;
+  top: 40px !important;
+  left: 50%;
+  margin-left: -11px;
 }
-.home-recom-right {
-  width: 22.6%;
-  float: right;
+@media (min-width: 1200px){
+  .container {
+    width: 1190px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  body {
+    padding-top: 93px !important;
+    font-family: "微软雅黑"!important;
+  }
+  header {
+    width: 100%;
+    background-color: #e1e1e1;
+    position: fixed;
+    top: 0;
+    z-index: 100;
+  }
+  .header-content {
+    height: 38px;
+    max-width: 1190px;
+    margin: 0 auto;
+  }
+  .header-logo {
+    float: left;
+  }
+  .header-nav {
+    line-height: 38px;
+    float: right;
+  }
+  .exit {
+    color: #666666 !important;
+  }
+  .not-login span a,.login span a {
+    margin-left: 20px;
+  }
+  .login span a i {
+    color: rgb(190,11,11);
+  }
+  .header-nav span {
+    margin-left: 10px;
+    color: #000000;
+  }
+  .header-nav span a {
+    color: #000000;
+  }
+  .nav-city {
+    font-size: 20px;
+    color: white;
+    line-height: 50px;
+  }
+  .home-recom-left {
+    width: 75.8%;
+    height: 40px;
+    float: left;
+  }
+  .home-recom-right {
+    width: 22.6%;
+    float: right;
+  }
 }

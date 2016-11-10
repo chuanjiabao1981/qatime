@@ -42,7 +42,8 @@
                     <span class="title-color price-num">￥<%= @course.price %></span>
                     <span class="sign-up"><%= t('view.course_search_show.purchase_number') %><%= @course.buy_tickets_count%></span>
                   </div>
-                  <% if current_user.blank? || !current_user.teacher? %>
+
+                  <% if current_user.blank? || current_user.student? %>
                     <div>
                       <% if current_user.blank? || !current_user.student? || (!@course.tasting?(current_user) && !@course.bought_by?(current_user)) %>
                          <div class="listen-class">
@@ -55,7 +56,7 @@
                          </div>
                       <% end %>
 
-                      <% if current_user.present? && ((@course.tasting?(current_user) && !@course.bought_by?(current_user)) || !current_user.student?) %>
+                      <% if current_user.present? && @course.tasting?(current_user) && !@course.bought_by?(current_user) %>
                          <div class="listen-class">
                            <%= content_tag(:div,class: 'btn-listen') do%>
                              <% if  LiveStudio::Course.statuses[@course.status] < LiveStudio::Course.statuses['teaching'] %>
@@ -69,7 +70,7 @@
                          </div>
                       <% end %>
 
-                      <% if current_user.present? && (@course.bought_by?(current_user) || !current_user.student?) %>
+                      <% if current_user.present? && @course.bought_by?(current_user) %>
                         <div class="listen-class btn-start">
                           <%if  LiveStudio::Course.statuses[@course.status] < LiveStudio::Course.statuses['teaching'] %>
                             <%= link_to(t('view.course_info_show.start_learning'),
@@ -82,6 +83,7 @@
 
                     </div>
                   <% end %>
+
                 </div>
               </td>
             </tr>

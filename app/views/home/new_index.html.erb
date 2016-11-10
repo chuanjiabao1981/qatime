@@ -46,7 +46,7 @@
                 <li class="li-new">
                   <%= link_to image_tag(item.logo_url), live_studio.course_path(item.target) %>
                   <dl class="dl-list">
-                    <dd><%= link_to item.title,live_studio.course_path(item.target) %></dd>
+                    <dd><%= link_to truncate(item.target.name, length: 17,omission: '...'),live_studio.course_path(item.target) %></dd>
                     <dd>
                     <span class="dd-left">
                       <i class="glyphicon glyphicon-time icon-color"></i>
@@ -165,7 +165,7 @@
                           <%= image_tag r_teacher.logo_url %>
                         </dd>
                         <dd><%= r_teacher.target.name %></dd>
-                        <dd><%= r_teacher.title %></dd>
+                        <dd><%= truncate(r_teacher.target.desc, length: 17,omission: '...') %></dd>
                       </dl>
                     </center>
                   </div>

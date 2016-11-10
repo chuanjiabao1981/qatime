@@ -3,16 +3,11 @@ module Entities
     class StudentCourse < Entities::LiveStudio::Course
       expose :pull_address do |course, options|
         ticket = ::LiveStudio::Ticket.where(student: options[:current_user],course: course).authorizable.last
-        ticket.present? ? course.pull_stream.try(:address) : ''
+        ticket.present? ? course.board_pull_stream : ''
       end
 
-      expose :board do |course|
-        course.pull_streams.find {|stream| stream.use_for == 'board' }.try(:address)
-      end
-
-      expose :camera do |course|
-        course.pull_streams.find {|stream| stream.use_for == 'camera' }.try(:address)
-      end
+      expose :board_pull_stream
+      expose :camera_pull_stream
 
       expose :preview_time do |course|
         lesson = course.current_lesson

@@ -491,19 +491,27 @@ figcaption p {
 	left: 50%;
 	margin-left: -25rem;
 	font-size: 1.4rem;
-	top: 3.7rem;
+	top: 6rem;
 }
-.tech-phone-num span,.tech-phone-num input {
+.tech-payment-password{
+  overflow: hidden;
+  position: absolute;
+  left: 50%;
+  margin-left: -25rem;
+  font-size: 1.4rem;
+  top: 3rem;
+}
+.tech-phone-num span,.tech-phone-num input,.tech-payment-password span,.tech-payment-password input {
 	float: left;
 	color: #999999;
 }
-.tech-phone-num span {
+.tech-phone-num span,.tech-payment-password span {
 	color: #666666;
 }
-.tech-phone-num span:first-child {
+.tech-phone-num span:first-child,.tech-payment-password span:first-child {
 	margin-right: 1rem;
 }
-.tech-phone-num span:last-child {
+.tech-phone-num span:last-child,.tech-payment-password span:last-child {
 	margin-left: 1rem;
 }
 .btn-code {

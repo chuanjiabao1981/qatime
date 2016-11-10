@@ -17,6 +17,7 @@ module Payment
       @errors = []
       @errors << t('view.verify_error') if params[:verify] != captcha
       @errors << t('view.withdraw.wait_audit') if @resource_user.payment_withdraws.init.present?
+      @errors << t('view.password_error') if !@resource_user.cash_account!.authenticate(params[:payment_password])
       @withdraw = @resource_user.payment_withdraws.new(withdraw_params.merge(status: :init))
       if @errors.blank?
         if @withdraw.save

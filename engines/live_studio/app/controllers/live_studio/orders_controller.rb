@@ -23,11 +23,13 @@ module LiveStudio
       # 用户之前的未支付订单 更新为无效订单
       waste_orders = Payment::Order.where(user: current_user, status: 0, product: @course)
       waste_orders.update_all(status: 99) if waste_orders.present?
+
       @order = LiveService::CourseDirector.create_order(current_user, @course, order_params.merge(remote_ip: request.remote_ip))
-      if @order.save && !@order.failed?
+      if @order.errors.blank? && @order.save
+        LiveService::ChatAccountFromUser.new(@order.user).instance_account
         redirect_to payment.transaction_path(@order.transaction_no)
-      elsif @order.failed?
-        redirect_to payment.transaction_path(@order.transaction_no), alert: t("flash.alert.order_failed")
+      # elsif @order.failed?
+      #   redirect_to payment.transaction_path(@order.transaction_no), alert: t("flash.alert.order_failed")
       else
         p @order.errors
         p '--------------'
@@ -56,7 +58,7 @@ module LiveStudio
 
       # Only allow a trusted parameter "white list" through.
       def order_params
-        params.require(:order).permit(:pay_type)
+        params.require(:order).permit(:pay_type, :payment_password)
       end
   end
 end

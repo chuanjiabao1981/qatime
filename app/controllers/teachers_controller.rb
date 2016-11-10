@@ -183,6 +183,10 @@ class TeachersController < ApplicationController
     @current_resource = @teacher = Teacher.find(params[:id]) if params[:id]
   end
 
+  def payment_password_params
+    params.require(:teacher).permit(:payment_password, :payment_password_confirmation, :payment_captcha_confirmation)
+  end
+
   def password_params
     params.require(:teacher).permit(:current_password, :password, :password_confirmation)
   end
@@ -223,6 +227,8 @@ class TeachersController < ApplicationController
       return update_login_mobile
     when "email"
       return update_email
+    when 'payment_password'
+      return update_payment_password
     else
       update_params = update_params(update_by)
       if update_params[:email] == ""
@@ -233,6 +239,10 @@ class TeachersController < ApplicationController
       if %w(password).include?(update_by)
         @teacher.password_required!
         return @teacher.update_with_password(update_params)
+      end
+
+      if %w(password).include?(update_by)
+
       end
 
       if update_params[:school_name].present?
@@ -255,6 +265,16 @@ class TeachersController < ApplicationController
     if @teacher.errors.blank?
       captcha_manager.expire_captch(:send_captcha)
       session.delete("change-login_mobile-#{send_to_was}") if send_to_was
+    end
+  end
+
+  def update_payment_password
+    captcha_manager = UserService::CaptchaManager.new(@teacher.login_mobile)
+    @teacher.payment_captcha = captcha_manager.captcha_of(:payment_password)
+    @teacher.update_payment_pwd(payment_password_params)
+  ensure
+    if @teacher.errors.blank?
+      captcha_manager.expire_captch(:payment_password)
     end
   end
 

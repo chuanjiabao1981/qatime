@@ -23,8 +23,8 @@ module Recommend
 
     # PATCH/PUT /admin/items/1
     def update
-      if @admin_item.update(admin_item_params)
-        redirect_to @admin_item, notice: 'Item was successfully updated.'
+      if @item.update(item_params)
+        redirect_to [:admin, @item.position], notice: 'Item was successfully updated.'
       else
         render :edit
       end
@@ -32,14 +32,14 @@ module Recommend
 
     # DELETE /admin/items/1
     def destroy
-      @admin_item.destroy
-      redirect_to admin_items_url, notice: 'Item was successfully destroyed.'
+      @item.destroy
+      redirect_to [:admin, @item.position], notice: 'Item was successfully destroyed.'
     end
 
     private
 
     def item_params
-      params.require(:live_studio_course_item).permit(:title, :logo, :target_id)
+      params.require(:live_studio_course_item).permit(:title, :logo, :target_id, :reason, :index)
     end
   end
 end

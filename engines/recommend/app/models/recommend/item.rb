@@ -6,7 +6,7 @@ module Recommend
     belongs_to :owner, polymorphic: true
     class_attribute :recomend_for
 
-    enum reason: %w(latest hottest)
+    enum reason: %w(newest hottest)
 
     def reason_text
       reason.blank? ? '无' : I18n.t("enums.recommend.reason.#{reason}")

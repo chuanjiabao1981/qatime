@@ -43,7 +43,7 @@
           <div class="tutoring-con">
             <ul class="ul-list">
               <% @recommend_courses.each do |item| %>
-                <li>
+                <li class="li-new">
                   <%= link_to image_tag(item.logo_url), live_studio.course_path(item.target) %>
                   <dl class="dl-list">
                     <dd><%= link_to item.title,live_studio.course_path(item.target) %></dd>
@@ -58,6 +58,7 @@
                     </span>
                     </dd>
                   </dl>
+                  <%= content_tag :span, item.reason_text, class: item.reason if item.reason.present?%>
                 </li>
               <% end %>
             </ul>

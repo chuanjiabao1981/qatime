@@ -13,7 +13,7 @@ cn:
       set_teacher_percent:  设置老师分成
       set_expited_day: 设置有效期限
       fill_user_placeholder: 填写想要邀请的老师的手机号
-      set_teacher_percent_placeholder: 请填入老师获得的分成比例
+      set_teacher_percent_placeholder: 请填入老师获得的分成比例(必须>=70%)
       set_expited_day_placeholder: 请设置邀请的有效期限,逾期后将自动失效
       new_invitation: 新邀请
       day: 天

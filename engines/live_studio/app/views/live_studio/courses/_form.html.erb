@@ -1,5 +1,6 @@
 <%= simple_form_for @course do |f|%>
   <%= f.error_notification %>
+  <%= hidden_field_tag :course_invitation_id, params[:course_invitation_id] %>
 
   <h4>一、辅导概况</h4>
 
@@ -9,15 +10,14 @@
 
   <h4>二、课程安排</h4>
   <div class="form-inputs">
-    <table class="lesson_table">
+    <table>
       <%= f.fields_for :lessons do |lesson| %>
         <%= render 'lesson_fields', f: lesson%>
       <% end%>
     </table>
   </div>
-  <div class="pull-right">
-    <p><%= raw link_to_add_fields("增加一条新规则", f, :lessons, 'live_studio/courses/') %></p>
-  </div>
+
+  <p><%= raw link_to_add_fields("增加一条新课程", f, :lessons, 'live_studio/courses/') %></p>
 
   <div class="form-actions">
     <center>
@@ -55,23 +55,3 @@
     })
   </script>
 <% end %>
-
-
-
-<script>
-  $('.selectpicker').selectpicker({
-    style: 'btn-default show-tick',
-    size: 4,
-    'data-live-search': "true"
-  });
-
-  $(function(){
-    $(".lesson_price_item").change(function(){
-      var price = parseInt($("#course_price").val());
-      var lesson_count = parseInt($("#course_preset_lesson_count").val());
-      var lesson_price = lesson_count === 0 ? 0 : price / lesson_count;
-      lesson_price = Math.floor(lesson_price);
-      $("#course_price").siblings(".help-block").text("<%= LiveStudio::Course.human_attribute_name(:lesson_price) %>" + lesson_price);
-    });
-  });
-</script>

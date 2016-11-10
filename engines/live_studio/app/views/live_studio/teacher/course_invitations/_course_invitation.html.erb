@@ -8,7 +8,9 @@
   <td><%= course_invitation.created_at.strftime('%F %T')%></td>
   <td><%= distance_of_expited_at(course_invitation.expited_at) %></td>
   <td>
-    <span class="glyphicon glyphicon-ok"></span>
+    <%=link_to new_course_path(course_invitation_id: course_invitation) do %>
+      <span class="glyphicon glyphicon-ok"></span>
+    <% end%>
     <span class="glyphicon glyphicon-remove-circle"></span>
   </td>
 </tr>

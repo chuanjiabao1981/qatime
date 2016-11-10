@@ -29,8 +29,15 @@ module LiveStudio
     def create
       @course = Course.new(course_and_lessons_params.merge(author: current_user))
       @course.teacher = current_user
-      @course.teacher_percentage = 100
       @course.subject = current_user.subject
+      if params[:course_invitation_id].present?
+        course_invitation = LiveStudio::CourseInvitation.find(params[:course_invitation_id])
+        @course.workstation = course_invitation.target
+        @course.teacher_percentage = course_invitation.teacher_percent
+      else
+        @course.workstation = current_user.workstation_id
+        @course.teacher_percentage = 100
+      end
 
       if @course.save
         LiveService::ChatAccountFromUser.new(@course.teacher).instance_account

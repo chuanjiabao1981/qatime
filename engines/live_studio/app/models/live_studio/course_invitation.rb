@@ -2,7 +2,7 @@ module LiveStudio
   class CourseInvitation < ::Invitation
     attr_accessor :expited_day, :login_mobile
 
-    validates :teacher_percent, presence: true, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 100}, on: :create
+    validates :teacher_percent, presence: true, numericality: {greater_than_or_equal_to: 70, less_than_or_equal_to: 100}, on: :create
     validates :expited_at, presence: true, on: :create
     validates :login_mobile, presence: true, length: { is: 11 }, numericality: { only_integer: true }, on: :create
     validates :expited_day, presence: true, numericality: {only_integer:true}, on: :create

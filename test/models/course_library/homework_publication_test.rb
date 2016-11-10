@@ -53,18 +53,12 @@ module CourseLibrary
 
       correction = QaTest::Shared::ExerciseCorrection::CourseLibrary::CreatePayedCorrectionFromTemplate.new(exercise).call
 
-
       homework_publication.reload
-      assert_difference "Exercise.count",0 do
-        assert_difference "CourseLibrary::HomeworkPublication.count",0 do
-          assert_not homework_publication.destroy
+      assert_difference "Exercise.count", 0 do
+        assert_difference "CourseLibrary::HomeworkPublication.count", 0 do
+          homework_publication.destroy
         end
       end
-
     end
-
-
-
-
   end
 end

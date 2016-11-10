@@ -108,35 +108,42 @@ gem 'soft_delete_rails'
 gem 'enumerize'
 
 group :development, :test do
+  # 状态机做图
+  gem 'ruby-graphviz', require: 'graphviz'
+  gem 'pry'
+end
+
+group :development do
+  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console'
   gem 'listen', '~> 3.0.5'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
-  # 状态机做图
-  gem 'ruby-graphviz', require: 'graphviz'
-  # gem 'quiet_assets'
-  gem "minitest"
-  gem 'test-unit'
+  # deploy tools
   gem 'capistrano'
   gem 'capistrano-rails'
   gem 'capistrano-bundler'
   gem 'capistrano-rvm'
   gem 'capistrano3-unicorn'
   gem 'capistrano-sidekiq'
-  gem 'capybara'
-  gem 'selenium-webdriver'
-  gem 'headless'
+
+  # application server
   gem 'puma'
   gem 'thin'
-  gem 'pry'
 end
 
 group :test do
   gem 'fakeweb'
+  gem "minitest"
+  gem 'test-unit'
+  gem 'capybara'
+  gem 'selenium-webdriver'
+  gem 'headless'
 end
 
-gem 'test_after_commit', group: :test
+# gem 'test_after_commit', group: :test
 
 gem 'rest-client'
 gem 'carrierwave-aliyun', '0.3.4'

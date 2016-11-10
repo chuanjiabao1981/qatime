@@ -42,9 +42,10 @@
                     <span class="title-color price-num">￥<%= @course.price %></span>
                     <span class="sign-up"><%= t('view.course_search_show.purchase_number') %><%= @course.buy_tickets_count%></span>
                   </div>
-                  <% if current_user.blank? || !current_user.teacher? %>
+
+                  <% if current_user.blank? || current_user.student? %>
                     <div>
-                      <% if current_user.blank? || (!@course.tasting?(current_user) && !@course.bought_by?(current_user)) %>
+                      <% if current_user.blank? || !current_user.student? || (!@course.tasting?(current_user) && !@course.bought_by?(current_user)) %>
                          <div class="listen-class">
                            <%= content_tag(:div,class: 'btn-audition') do %>
                              <%= link_to(t('view.course_info_show.join_taste'),
@@ -54,6 +55,7 @@
                            <%= content_tag(:div, link_to(t('activerecord.view.enroll_now'), new_course_order_path(@course)), class: 'btn-sign')%>
                          </div>
                       <% end %>
+
                       <% if current_user.present? && @course.tasting?(current_user) && !@course.bought_by?(current_user) %>
                          <div class="listen-class">
                            <%= content_tag(:div,class: 'btn-listen') do%>
@@ -61,14 +63,13 @@
                                 <%= link_to(t('view.course_info_show.start_taste'),
                                          "javascript:void(0)", onclick:"alert('辅导班开课后才可试听')") %>
                              <% else %>
-                               <%= link_to(t('view.course_info_show.start_taste'),
-                                           live_studio.taste_course_path(@course, student_id: @student.try(:id)),
-                                           id: "taste-course-#{@course.id}", method: :post, remote: true) %>
+                                <%= link_to(t('view.course_info_show.start_taste'), play_course_path(@course)) %>
                              <% end %>
                            <% end%>
                            <%= content_tag(:div, link_to(t('activerecord.view.enroll_now'), new_course_order_path(@course)), class: 'btn-signnow')%>
                          </div>
                       <% end %>
+
                       <% if current_user.present? && @course.bought_by?(current_user) %>
                         <div class="listen-class btn-start">
                           <%if  LiveStudio::Course.statuses[@course.status] < LiveStudio::Course.statuses['teaching'] %>
@@ -79,8 +80,10 @@
                           <% end %>
                         </div>
                       <% end %>
+
                     </div>
                   <% end %>
+
                 </div>
               </td>
             </tr>

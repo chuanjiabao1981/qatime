@@ -48,12 +48,10 @@
                     </dd>
                     <dd>
     		 					<span class="dd-left">
-    		 					<i class="glyphicon glyphicon-time icon-color"></i>
-    		 					<i class="num-class"><%= course.preset_lesson_count %></i>课时
+                    <%= "#{course.grade}#{course.subject}/共#{course.try(:preset_lesson_count)}课" %>
     		 					</span>
-    		 					<span class="dd-right">
-    		 						<i class="glyphicon glyphicon-user icon-color"></i>
-    		 						<i class="num-buy"><%= course.buy_tickets_count %></i>人已购
+    		 					<span class="dd-right active-tab">
+    		 						<%= number_to_currency(course.price, unit: '￥', locale: :cn) %>
     		 					</span>
                     </dd>
                   </dl>

@@ -1,8 +1,8 @@
 class CustomizedCourseStateChangeRecord  < CustomizedCourseActionRecord
 
 
-  def initialize(attributes = nil, options = {})
-    super(attributes,options)
+  def initialize(attributes = {})
+    super(attributes)
     self.send_sms_notification = false
   end
   def desc

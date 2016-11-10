@@ -16,8 +16,8 @@ class CustomizedCourseActionRecord < ActionRecord
   attr_accessor :send_sms_notification,:send_wechat_notification
 
 
-  def initialize(attributes = nil, options = {})
-    super(attributes,options)
+  def initialize(attributes = {})
+    super(attributes)
     self.send_sms_notification = true
     self.send_wechat_notification = true
   end

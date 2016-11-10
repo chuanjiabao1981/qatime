@@ -23,8 +23,12 @@ module Entities
         ticket.present? ? course.board_pull_stream : ''
       end
 
-      expose :board_pull_stream
-      expose :camera_pull_stream
+      expose :board_pull_stream do |lesson|
+        lesson.board_pull_stream
+      end
+      expose :camera_pull_stream do |lesson|
+        lesson.camera_pull_stream
+      end
       expose :chat_team_id, if: {type: :schedule} do |lesson|
         lesson.course.try(:chat_team).try(:team_id).to_s
       end

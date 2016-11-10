@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
-  before_filter 'already_signin' ,only: [:new]
+  before_action :already_signin, only: [:new]
+
   def new
     @user = User.new
   end

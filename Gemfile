@@ -25,7 +25,6 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails'
 
-
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
@@ -43,7 +42,6 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
@@ -56,35 +54,32 @@ end
 # gem 'debugger', group: [:development, :test]
 
 # 权限相关
-#gem 'devise', '3.0.1'
+# gem 'devise', '3.0.1'
 
 gem 'bcrypt'
 
-#表单
+# 表单
 gem 'simple_form'
 
 # 分页
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
-#Bootstrap
-gem 'bootstrap-sass','3.0.2.0'
+# Bootstrap
+gem 'bootstrap-sass', '3.0.2.0'
 
-
-#文件上传
+# 文件上传
 gem 'carrierwave'
-gem 'mini_magick','3.3'
+gem 'mini_magick', '3.3'
 
 gem "font-awesome-rails"
 
-#gem 'summernote-rails'
+# gem 'summernote-rails'
 
 gem 'cells'
 gem 'cells-rails'
 gem 'cells-erb'
 
-gem 'jcrop-rails-v2','0.9.12.3'
-
-gem 'net-ssh', '~> 2.9.1'
+gem 'jcrop-rails-v2', '0.9.12.3'
 
 # 这个为了支持controller 级别的respond_to
 gem 'responders', '~> 2.0'
@@ -112,14 +107,14 @@ gem 'soft_delete_rails'
 # 枚举
 gem 'enumerize'
 
-group :development,:test do
+group :development, :test do
   gem 'web-console'
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   # 状态机做图
-  gem 'ruby-graphviz', :require => 'graphviz'
+  gem 'ruby-graphviz', require: 'graphviz'
   # gem 'quiet_assets'
   gem "minitest"
   gem 'test-unit'
@@ -141,10 +136,10 @@ group :test do
   gem 'fakeweb'
 end
 
-gem 'test_after_commit', :group => :test
+gem 'test_after_commit', group: :test
 
 gem 'rest-client'
-gem 'carrierwave-aliyun','0.3.4'
+gem 'carrierwave-aliyun', '0.3.4'
 gem 'unicorn'
 
 gem 'sidekiq'

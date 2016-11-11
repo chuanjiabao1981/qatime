@@ -1,0 +1,20 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <div>
+      <h3>
+        <%= Recommend::Position.human_attribute_name(:items) %>
+        <%= link_to :new, new_admin_position_teacher_item_path(@position) %>
+      </h3>
+    </div>
+  </div>
+  <div class="row qa_big_cell">
+    <div class="col-md-2"><%= Recommend::BannerItem.human_attribute_name(:title) %></div>
+    <div class="col-md-2"><%= Recommend::BannerItem.human_attribute_name(:logo) %></div>
+    <div class="col-md-2"><%= Recommend::BannerItem.human_attribute_name(:index) %></div>
+    <div class="col-md-2"><%= "" %></div>
+  </div>
+
+  <%= render @items %>
+
+  <%= will_paginate @items %>
+</div>

@@ -46,24 +46,34 @@
           $(this).addClass('active-color').siblings().removeClass('active-color');
         })
       })
-
-      $(".list-screening li").each(function(index, _){
-        $(".list-screening li").eq(index).hover(function(){
-          $(".dd-num-msg").eq(index).show();
-        }, function(){
-          $(".dd-num-msg").eq(index).hide();
-        })
-      })
-
-      $(".list-screening li").each(function(index, el) {
+      $(".list-screening li").each(function (i,e) {
         var _this=$(this).find(".dd-num-msg");
         $(this).mouseenter(function () {
           $(_this).show();
+          $(_this).parents(".dl-screening").css("background-color","#F2F2F2");
         })
         $(this).mouseleave(function () {
           $(_this).hide();
+          $(_this).parents(".dl-screening").css("background-color","white")
         })
       })
+//      $(".list-screening li").each(function(index, _){
+//        $(".list-screening li").eq(index).hover(function(){
+//          $(".dd-num-msg").eq(index).show();
+//        }, function(){
+//          $(".dd-num-msg").eq(index).hide();
+//        })
+//      })
+//
+//      $(".list-screening li").each(function(index, el) {
+//        var _this=$(this).find(".dd-num-msg");
+//        $(this).mouseenter(function () {
+//          $(_this).show();
+//        })
+//        $(this).mouseleave(function () {
+//          $(_this).hide();
+//        })
+//      })
 
 
       function init_filter(){

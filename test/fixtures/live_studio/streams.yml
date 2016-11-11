@@ -21,3 +21,27 @@ pull_stream_for_channel:
   channel: channel_for_course_with_junior_teacher
   address: "rtmp://v587def8c.live.126.net/live/70a0ea6744944496825f068a5c98c528"
   type: LiveStudio::PullStream
+
+board_push_stream_one:
+  protocol: rtmp
+  channel: board_channel
+  address: board_push_stream_address
+  type: LiveStudio::PushStream
+
+board_pull_stream_one:
+  protocol: rtmp
+  channel: board_channel
+  address: board_pull_stream_address
+  type: LiveStudio::PullStream
+
+camera_push_stream_one:
+  protocol: rtmp
+  channel: camera_channel
+  address: camera_push_stream_address
+  type: LiveStudio::PushStream
+
+camera_pull_stream_one:
+  protocol: rtmp
+  channel: camera_channel
+  address: camera_pull_stream_address
+  type: LiveStudio::PullStream

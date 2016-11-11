@@ -11,10 +11,7 @@
   <ul class="nav navbar-nav">
     <li><%= link_to t("view.common_bars.home_page"), main_app.root_path %></li>
     <li><%= link_to t("view.common_bars.live_studio_courses"), live_studio.root_path %></li>
-    <%
-       customized_path = current_user.blank? ? signin_path : (!current_user.student? && !current_user.teacher? && 'javascript:void(0);')
-    %>
-    <li><%= link_to t("view.common_bars.customized_courses"), customized_path || main_app.customized_courses_student_path(current_user) %></li>
+    <li><%= link_to t("view.common_bars.customized_courses"), @none_path || main_app.customized_courses_student_path(current_user) %></li>
     <li><%= link_to t("view.common_bars.curriculums"), main_app.curriculums_path %></li>
     <li><%= link_to t("view.common_bars.questions"), main_app.questions_path %></li>
   </ul>

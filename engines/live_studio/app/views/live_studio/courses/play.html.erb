@@ -502,7 +502,7 @@
         });
         myPlayer.setDataSource({
           type: "rtmp/flv",
-          src: "<%= channel.pull_streams.last.try(:address) %>"
+          src: "<%= @course.board_push_stream %>"
         });
 
         myPlayer.play();

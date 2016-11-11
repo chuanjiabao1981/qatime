@@ -2,10 +2,10 @@
 <div class="header-nav">
   <span>
     <% if signed_in? %>
-      <%= link_to send("info_#{current_user.role}_path",current_user) do %>
+      <%= link_to @none_path || send("info_#{current_user.role}_path",current_user) do %>
       <i class="glyphicon glyphicon-user"></i> <%= t('view.common_bars.personal_center') %>
       <% end %>
-      <%= content_tag(:span, link_to(t('view.student_bars.schedules'), live_studio.send("schedules_#{current_user.role}_path",current_user))) if current_user.present? && (current_user.student? || current_user.teacher?) %>
+      <%= content_tag(:span, link_to(t('view.student_bars.schedules'), @none_path || live_studio.send("schedules_#{current_user.role}_path",current_user))) %>
       <span>
         <%= link_to t("view.common_bars.notice"), main_app.user_notifications_path(current_user) %>
       </span>

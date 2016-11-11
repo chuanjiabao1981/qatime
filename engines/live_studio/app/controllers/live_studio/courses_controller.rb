@@ -39,6 +39,18 @@ module LiveStudio
       end
     end
 
+    # 预览
+    def preview
+      @course = Course.new(courses_params)
+      @course.teacher ||= current_user
+      @course.lessons_count = params[:course][:lessons_attributes].count
+      class_dates = params[:course][:lessons_attributes].map{|a| a[:class_date] }.reject {|d| d.blank? }
+      @live_start_date = class_dates.min
+      @live_end_date = class_dates.max
+      @course.subject = current_user.subject
+      render layout: 'application_front'
+    end
+
     def update
     end
 

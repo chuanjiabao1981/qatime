@@ -240,7 +240,7 @@ module Permissions
         teacher && teacher == user && permission
       end
 
-      allow 'live_studio/courses', [:new, :create]
+      allow 'live_studio/courses', [:new, :create, :preview]
       allow 'live_studio/courses', [:update_notice, :publish, :edit, :update] do |course|
         course.teacher_id == user.id
       end

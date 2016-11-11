@@ -21,7 +21,7 @@
 
   <div class="form-actions">
     <center>
-      <a class="btn btn-primary">预览</a>
+      <a class="btn btn-primary" id="course_preview">预览</a>
       <a class="btn btn-primary submit">发布</a>
     </center>
   </div>
@@ -50,7 +50,17 @@
 
       $('.submit').click(function(){
         $('form').submit();
-      })
+      });
+
+
+
+      $("#course_preview").click(function() {
+        $(this).parents("form").attr('action', "<%= live_studio.preview_courses_path %>");
+        $(this).parents("form").attr('target', '_blank');
+        $(this).parents("form").submit();
+        $(this).parents("form").attr('action', "<% live_studio.courses_path %>")
+        $(this).parents("form").removeAttr('target')
+      });
 
     })
   </script>

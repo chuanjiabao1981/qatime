@@ -13,7 +13,7 @@ cn:
       status: 状态：
       taste: (试听)
       subject: 科目：
-      teacher: 老师：
+      teacher: 老师
       schedule: 进度：
       surplus: 剩余：
       lesson_time: 课时
@@ -29,9 +29,8 @@ cn:
       teach_type: 授课方式：在线直播
       online: 在线直播
     course_info_show:
-      subject: 科目类型：
-      grade: 年级类型：
-      category: 年级类型：
+      grade: 年级
+      category: 年级
       teacher: 授课老师：
       lesson_count: 课时总数：
       schedule: 课程进度：
@@ -44,11 +43,11 @@ cn:
       teacher_label: 教师资料
       teacher_name: 老师姓名：
       highest_education: 最高学历：
-      teaching_years: 执教年龄：
-      subject: 科目类型：
+      teaching_years: 执教年龄
+      subject: 科目
       grade_range: 年级范围：
-      school: 所在学校：
-      teacher_desc: 自我介绍：
+      school: 所在学校
+      teacher_desc: 自我介绍
       lesson_plan: "%s开课~%s结课"
       number: 序号
       lesson_start_at: 上课时间

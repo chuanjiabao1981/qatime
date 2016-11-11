@@ -9,10 +9,10 @@
     
     <div class="arrange-con">
       <table border="0" cellspacing="0" cellpadding="0">
-        <% @course.order_lessons.each_with_index do |lesson, i| %>
+        <% @course.lessons.each_with_index do |lesson, i| %>
           <tr>
             <td>
-              <span><%= i+1 %></span>
+              <span><%= format('%02d', i+1) %></span>
             </td>
             <td>
               <span class="<%= lesson.is_over? || lesson.ready? ? 'td-color' : nil %>">

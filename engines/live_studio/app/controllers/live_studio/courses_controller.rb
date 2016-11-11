@@ -33,7 +33,7 @@ module LiveStudio
 
       if @course.save
         LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
-        redirect_to live_studio.course_path(@course)
+        redirect_to live_studio.send("#{@course.author.role}_courses_path", @course.author)
       else
         render :new, layout: current_user_layout
       end

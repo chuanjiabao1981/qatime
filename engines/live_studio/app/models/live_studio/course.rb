@@ -14,6 +14,8 @@ module LiveStudio
     USER_STATUS_TASTING = :tasting # 正在试听
     USER_STATUS_TASTED = :tasted # 已经试听
 
+    belongs_to :invitation
+
     enum status: {
       init: 0, # 初始化
       preview: 1, # 招生中
@@ -23,13 +25,12 @@ module LiveStudio
 
     validates :name, :price, :subject, :grade, presence: true
     validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 70, less_than_or_equal_to: 100 }
-    validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
+    # validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
     validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
 
     validates :taste_count, numericality: { less_than_or_equal_to: ->(record) { record.preset_lesson_count.to_i } }
 
     validates :teacher, presence: true
-    validates :workstation, presence: true, unless: :require_workstation?
 
     mount_uploader :publicize, ::PublicizeUploader
 
@@ -42,7 +43,7 @@ module LiveStudio
     has_many :taste_tickets # 试听证
     has_many :lessons, -> { order('id asc') } # 课时
 
-    accepts_nested_attributes_for :lessons
+    accepts_nested_attributes_for :lessons, allow_destroy: true
 
     has_many :students, through: :buy_tickets
 
@@ -235,23 +236,50 @@ module LiveStudio
       lessons.except(:order).order(:class_date, :live_start_at, :live_end_at)
     end
 
+    # 课程单价
+    def lesson_price
+      return 0 unless lessons_count.to_i > 0
+      price / lessons_count
+    end
+
     private
 
-    def require_workstation?
-      author && author.teacher?
-    end
-
-    before_create :copy_city
-    def copy_city
-      self.city = author.teacher? ? author.city : workstation.city
+    # 处理邀请信息
+    before_validation :execute_invitation, on: :create
+    def execute_invitation
+      return unless invitation
+      self.workstation = invitation.target
+      self.city = invitation.target.city
       self.province = city.try(:province)
-      self.workstation = city.workstations.first if workstation.nil? && city
+      self.teacher_percentage = invitation.teacher_percent
     end
 
-    before_create :set_lesson_price
-    def set_lesson_price
-      self.lesson_price = (price / preset_lesson_count).to_i if preset_lesson_count.to_i > 0
+    # 非邀请辅导班使用默认工作站
+    before_validation :copy_city, on: :create
+    def copy_city
+      return if invitation
+      self.workstation = default_workstation
+      self.city = workstation.city
+      self.province = city.try(:province)
+      self.teacher_percentage = 100
     end
+
+    # 从教师记录复制辅导班信息
+    before_validation :copy_info, on: :create
+    def copy_info
+      self.teacher = author unless teacher_id
+      self.subject = teacher.try(:subject)
+    end
+
+    # 默认工作站
+    def default_workstation
+      author.city.try(:workstations).first
+    end
+
+    # before_validation :calculate_lesson_price, on: :create
+    # def calculate_lesson_price
+    #   self.lesson_price = (price / lessons.count).to_i if lessons.count > 0
+    # end
 
     # 学生授权播放
     def student_authorize(user)

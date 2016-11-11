@@ -27,7 +27,7 @@ module LiveStudio
     scope :waiting_finish, -> { where(status: [statuses[:paused], statuses[:closed]])}
     scope :month, -> (month){where('live_studio_lessons.class_date >= ? and live_studio_lessons.class_date <= ?', month.beginning_of_month.to_date,month.end_of_month.to_date)}
 
-    belongs_to :course
+    belongs_to :course, counter_cache: true
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
 
     has_many :play_records # 听课记录

@@ -1,0 +1,760 @@
+Searching 11130 files for "lesson_count"
+
+/Users/heart/wwtd-code/qatime/app/apis/entities/live_studio/course.rb:
+   22        expose :status, if: { type: :full }
+   23        expose :description, if: { type: :full }
+   24:       expose :lesson_count, if: { type: :full }
+   24:       expose :lessons_count, if: { type: :full }
+   25:       expose :preset_lesson_count
+   26:       expose :completed_lesson_count
+   27        expose :live_start_time
+   28        expose :live_end_time
+
+/Users/heart/wwtd-code/qatime/app/apis/v1/live_studio/courses.rb:
+  161              optional :class_date_floor, type: String, desc: '开课日期结束区间'
+  162              optional :class_date_ceil, type: String, desc: '开课日期结束区间'
+  163:             optional :preset_lesson_count_floor, type: Integer, desc: '课时总数开始区间'
+  164:             optional :preset_lesson_count_ceil, type: Integer, desc: '课时总数结束区间'
+  165              optional :status, type: String, desc: '辅导班状态 all: 全部; preview: 招生中; teaching: 已开课', values: %w(all preview teaching)
+  166            end
+
+/Users/heart/wwtd-code/qatime/app/services/live_service/course_director.rb:
+  123          end
+  124        end
+  125:       [["price_floor","price_ceil"], ["class_date_floor","class_date_ceil"], ["preset_lesson_count_floor", "preset_lesson_count_ceil"]].each do |i|
+  126          column = i.first.gsub('_floor', '')
+  127          courses = courses.where("#{column} >= ?",params[i.first]) if params[i.first].present?
+
+/Users/heart/wwtd-code/qatime/app/services/live_service/lesson_director.rb:
+   38        @lesson.real_time = @lesson.live_sessions.sum(:duration) # 实际直播时间单位分钟
+   39        # 更新辅导课程完成数量
+   40:       @course.completed_lesson_count += 1
+   41        @course.save!
+   42        @lesson.finish!
+
+/Users/heart/wwtd-code/qatime/app/views/home/new_index.html.erb:
+   51                      <span class="dd-left">
+   52                        <i class="glyphicon glyphicon-time icon-color"></i>
+   53:                       <i class="num-class"><%= item.target.try(:preset_lesson_count) %></i>课时
+   54                      </span>
+   55                      <span class="dd-right">
+
+/Users/heart/wwtd-code/qatime/app/views/managers/lessons/_lesson.html.erb:
+    1  <tr>
+    2:   <td><%=lesson_counter+1%></td>
+    3    <td>
+    4      <%= link_to lesson.name ,course_path(lesson.course, lesson_id:lesson.id)%>
+
+/Users/heart/wwtd-code/qatime/app/views/teachers/lessons/_lesson.html.erb:
+    1  <tr>
+    2:   <td><%=lesson_counter+1%></td>
+    3    <td>
+    4      <%= link_to lesson.name ,course_path(lesson.course, lesson_id:lesson.id)%>
+
+/Users/heart/wwtd-code/qatime/app/views/teachers/profile.html.erb:
+   50      		 					<span class="dd-left">
+   51      		 					<i class="glyphicon glyphicon-time icon-color"></i>
+   52:     		 					<i class="num-class"><%= course.preset_lesson_count %></i>课时
+   53      		 					</span>
+   54      		 					<span class="dd-right">
+
+/Users/heart/wwtd-code/qatime/app/views/welcome/courses.html.erb:
+   66                    <%= teacher.try(:name) %>
+   67                    <span class="teacher_span"><%= t ".teacher" %></span>
+   68:                   <span class="course_lessons"><%= course.grade %><%= course.subject %>/<%= t ".lesson_count", count: course.preset_lesson_count %></span>
+   69                  </div>
+   70                  <div class="div_bottom">
+
+/Users/heart/wwtd-code/qatime/config/locales/view/welcome.cn.yml:
+    8        all_courses: 全部课程
+    9        teacher: 老师
+   10:       lesson_count: "共%{count}课"
+   11        buy_now: 立即购买
+   12        taste_now1: 加入
+
+/Users/heart/wwtd-code/qatime/db/migrate/20160615070712_create_live_studio_courses.live_studio.rb:
+   11        t.decimal :lesson_price, precision: 8, scale: 2, default: 0.0 # 课程单价
+   12        t.integer :teacher_percentage, limit: 4, default: 0 # 教师分成
+   13:       t.integer :lesson_count, limit: 4, default: 0 # 课程数量
+   14:       t.integer :preset_lesson_count, limit: 4, default: 0 # 预设课程数量
+   15:       t.integer :completed_lesson_count, limit: 4, default: 0 # 完成课程数量
+   16  
+   17        t.datetime :deleted_at
+
+/Users/heart/wwtd-code/qatime/db/migrate/20160830071235_add_index_to_courses.live_studio.rb:
+    4      add_index :live_studio_courses, :published_at
+    5      add_index :live_studio_courses, :price
+    6:     add_index :live_studio_courses, :preset_lesson_count
+    7      add_index :live_studio_courses, :class_date
+    8    end
+
+/Users/heart/wwtd-code/qatime/db/schema.rb:
+  493      t.decimal  "lesson_price",                       precision: 8, scale: 2, default: 0.0
+  494      t.integer  "teacher_percentage",                                         default: 0
+  495:     t.integer  "lesson_count",                                               default: 0
+  496:     t.integer  "preset_lesson_count",                                        default: 0
+  497:     t.integer  "completed_lesson_count",                                     default: 0
+  498      t.datetime "deleted_at"
+  499      t.datetime "created_at",                                                               null: false
+  ...
+  518    add_index "live_studio_courses", ["class_date"], name: "index_live_studio_courses_on_class_date", using: :btree
+  519    add_index "live_studio_courses", ["invitation_id"], name: "index_live_studio_courses_on_invitation_id", using: :btree
+  520:   add_index "live_studio_courses", ["preset_lesson_count"], name: "index_live_studio_courses_on_preset_lesson_count", using: :btree
+  521    add_index "live_studio_courses", ["price"], name: "index_live_studio_courses_on_price", using: :btree
+  522    add_index "live_studio_courses", ["province_id"], name: "index_live_studio_courses_on_province_id", using: :btree
+
+/Users/heart/wwtd-code/qatime/db/seeds.rb:
+   90            subject: '自然',
+   91            grade: '初三',
+   92:           preset_lesson_count: 2
+   93        )
+   94    # 12.times.each do |time|
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/controllers/live_studio/courses_controller.rb:
+  126        params.permit(
+  127          :subject, :grade, :sort_by, :status, :price_floor,
+  128:         :price_ceil,:class_date_floor,:class_date_ceil,:preset_lesson_count_floor,:preset_lesson_count_ceil
+  129        )
+  130      end
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/controllers/live_studio/manager/courses_controller.rb:
+   73        params.require(:course).permit(
+   74            :name, :teacher_id, :description, :workstation_id, :price, :teacher_percentage,
+   75:           :preset_lesson_count, :subject, :grade
+   76        )
+   77      end
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/controllers/live_studio/seller/courses_controller.rb:
+   67      # Only allow a trusted parameter "white list" through.
+   68      def course_params
+   69:       params.require(:course).permit(:name, :teacher_id, :description, :workstation_id, :price, :teacher_percentage, :preset_lesson_count)
+   70      end
+   71  
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/controllers/live_studio/teacher/courses_controller.rb:
+   54      # Only allow a trusted parameter "white list" through for update.
+   55      def teacher_course_params
+   56:       params.require(:course).permit(:name, :preset_lesson_count,:description,:publicize, :price)
+   57      end
+   58  
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/controllers/live_studio/teacher/lessons_controller.rb:
+   30      def create
+   31        LiveService::LessonDirector.edit_lessons(@course, params)
+   32:       @course.update(lesson_count: @course.lessons.count)
+   33        redirect_to teacher_course_path(@teacher,params[:course_id],index: 'list'),
+   34                    notice: t("activerecord.successful.messages.updated", model: LiveStudio::Lesson.model_name.human)
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/controllers/live_studio/waiter/courses_controller.rb:
+   67      # Only allow a trusted parameter "white list" through.
+   68      def course_params
+   69:       params.require(:course).permit(:name, :teacher_id, :description, :workstation_id, :price, :teacher_percentage, :preset_lesson_count)
+   70      end
+   71  
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/models/live_studio/course.rb:
+   24      validates :name, :price, :subject, :grade, presence: true
+   25      validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 70, less_than_or_equal_to: 100 }
+   26:     validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
+   27      validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
+   28  
+   29:     validates :taste_count, numericality: { less_than_or_equal_to: ->(record) { record.preset_lesson_count.to_i } }
+   30  
+   31      validates :teacher, presence: true
+   ..
+   70  
+   71      def cant_publish?
+   72:       !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank? || lesson_count != preset_lesson_count
+   73      end
+   74  
+   ..
+  107      end
+  108  
+  109:     def lesson_count_left
+  110:       preset_lesson_count - completed_lesson_count
+  111      end
+  112  
+  113      # 当前价格
+  114      def current_price
+  115:       lesson_price * (preset_lesson_count - completed_lesson_count)
+  116      end
+  117  
+  ...
+  124      def deliver(order)
+  125        taste_tickets.where(student_id: order.user_id).available.map(&:replaced!) # 替换正在使用的试听券
+  126:       ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: lesson_price, buy_count: lesson_count_left)
+  127        ticket.active!
+  128      end
+  ...
+  183  
+  184      # 更新完成课程数量
+  185:     def reset_completed_lesson_count!
+  186:       update_attributes!(completed_lesson_count: lessons.teached.count)
+  187      end
+  188  
+  189      # 是否可以结课
+  190      def ready_for_close?
+  191:       teaching? && completed_lesson_count >= preset_lesson_count
+  192      end
+  193  
+  ...
+  251      before_validation :set_lesson_price
+  252      def set_lesson_price
+  253:       self.lesson_price = (price / preset_lesson_count).to_i if preset_lesson_count.to_i > 0
+  254      end
+  255  
+  ...
+  288      def lower_price
+  289        lp = 0
+  290:       lp = preset_lesson_count.to_i * 5 if preset_lesson_count.to_i > 0
+  291        lp
+  292      end
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/courses/_course.html.erb:
+   12        <%= content_tag(:div, "#{t('view.course_info_show.grade')}#{course.grade}", class: 'content-ceil') %>
+   13        <%= content_tag(:div, "#{t('view.course_info_show.teacher')}#{course.teacher.try(:name)}", class: 'content-ceil') %>
+   14:       <%= content_tag(:div, "#{t('view.course_info_show.lesson_count')}#{course.preset_lesson_count} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
+   15        <%= content_tag(:div, "#{t('view.course_show.start_time')}#{course.live_start_time}", class: 'content-ceil') %>
+   16        <%= content_tag(:div, "#{t('view.course_show.end_time')}#{course.live_end_time}", class: 'content-ceil') %>
+   17:       <%= content_tag(:div, "#{t('view.course_search_show.current_status')}#{course.status_text} #{course.completed_lesson_count}/#{course.preset_lesson_count}", class: 'content-ceil') %>
+   18        <%= content_tag(:div, "#{t('view.course_show.teach_type')}", class: 'content-ceil') %>
+   19        <%= content_tag(:div, content_tag(:strong, "￥ #{course.price}")) %>
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/courses/_course_info.html.erb:
+   28                <td><span class="headline-color"><%= t('view.course_info_show.subject')%></span><span class="title-color interval"><%= teacher.subject%></span></td>
+   29                <td><span class="headline-color"><%= t('view.course_info_show.category')%></span> <span class="title-color interval"><%= teacher.category%></span></td>
+   30:               <td><span class="headline-color"><%= t("view.course_show.lesson_time") %></span> <span class="title-color interval">共<%= @course.preset_lesson_count%>课</span></td>
+   31              </tr>
+   32              <tr>
+   ..
+   34              </tr>
+   35              <tr>
+   36:               <td colspan="3"><span class="headline-color"><%= t("activerecord.view.status") %></span><span class="title-color interval"><%= @course.status_text%></span><span>(<%= "#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>)</span></td>
+   37              </tr>
+   38              <tr>
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/courses/_filter.html.erb:
+   92        <ul class="list-scope">
+   93          <li>课时范围：</li>
+   94:         <li><%= text_field_tag :preset_lesson_count_floor, params[:preset_lesson_count_floor], class: 'search-input' %></li>
+   95          <li class="price-segmentation">-</li>
+   96:         <li><%= text_field_tag :preset_lesson_count_ceil, params[:preset_lesson_count_ceil], class: 'search-input' %></li>
+   97        </ul>
+   98  
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/courses/_list.html.erb:
+   19                  </dd>
+   20                  <dd>
+   21:                   <span><%= course.grade%><%= course.subject %>/<%= course.preset_lesson_count%><%= t('view.course_show.lesson_time') %></span>
+   22                    <span class="tea-name"><i class="glyphicon glyphicon-user"></i><%= course.teacher.try(:name) %></span>
+   23                  </dd>
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/courses/index.html.erb:
+   70          var filter_arr = [
+   71              ['#sort_by','all'], ['#subject','all'], ['#grade','all'], ['#status','all'],
+   72:             ['#price_floor',''],['#price_ceil',''], ['#preset_lesson_count_floor',''],
+   73:             ['#preset_lesson_count_ceil',''],['#dateinfo',''], ['#dateinfo_2','']
+   74            ]
+   75          $(filter_arr).each(function(_,el){
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/manager/courses/_form.html.erb:
+    5      <%= f.association :teacher, input_html:{class: 'selectpicker',"data-live-search" => true} %>
+    6      <%= f.input :teacher_percentage %>
+    7:     <%= f.input :preset_lesson_count, input_html: {class: 'lesson_price_item'} %>
+    8      <%= f.input :description, type: :text %>
+    9      <%= f.input :subject, type: :select, collection: APP_CONSTANT['subjects'] %>
+   ..
+   28      $(".lesson_price_item").change(function(){
+   29        var price = parseInt($("#course_price").val());
+   30:       var lesson_count = parseInt($("#course_preset_lesson_count").val());
+   31:       var lesson_price = lesson_count === 0 ? 0 : price / lesson_count;
+   32        lesson_price = Math.floor(lesson_price);
+   33        console.log(lesson_price);
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/orders/new.html.erb:
+   45          <tr>
+   46            <td><%= t('view.course_info_show.teacher') %><%= @course.teacher.try(:name) %></td>
+   47:           <td><%= t('view.course_info_show.lesson_count') %><%= @course.preset_lesson_count %></td>
+   48          </tr>
+   49          <tr>
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/seller/courses/_form.html.erb:
+    5      <%= f.association :teacher %>
+    6      <%= f.input :teacher_percentage %>
+    7:     <%= f.input :preset_lesson_count, input_html: {class: 'lesson_price_item'} %>
+    8      <%= f.input :description, type: :text %>
+    9      <%= f.association :workstation, collection: @workstations if @course.new_record? %>
+   ..
+   20      $(".lesson_price_item").change(function(){
+   21        var price = parseInt($("#course_price").val());
+   22:       var lesson_count = parseInt($("#course_preset_lesson_count").val());
+   23:       var lesson_price = lesson_count === 0 ? 0 : price / lesson_count;
+   24        lesson_price = Math.floor(lesson_price);
+   25        console.log(lesson_price);
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/student/courses/_course_info.html.erb:
+   15        </tr>
+   16        <tr>
+   17:         <td><%= t('view.course_info_show.lesson_count') %><%= @course.preset_lesson_count %></td>
+   18:         <td><%= t('view.course_info_show.schedule') %><%= "#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %></td>
+   19        </tr>
+   20        <tr>
+   21          <td colspan="2">
+   22:           <%= t('view.course_info_show.surplus') %><%= @course.lesson_count_left %>
+   23          </td>
+   24        </tr>
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/student/courses/_ticket.html.erb:
+   30        <%= content_tag(:div, "#{t('view.course_show.subject')}#{course.subject}", class: 'content-ceil') %>
+   31        <%= content_tag(:div, "#{t('view.course_show.teacher')}#{course.teacher.try(:name)}", class: 'content-ceil') %>
+   32:       <%= content_tag(:div, "#{t('view.course_show.schedule')}#{course.completed_lesson_count}/#{course.preset_lesson_count}", class: 'content-ceil') %>
+   33:       <%= content_tag(:div, "#{t('view.course_show.surplus')}#{course.lesson_count_left} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
+   34        <%= content_tag(:div, "#{t('view.course_show.current')}#{course.current_lesson_name}") %>
+   35      <%end %>
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/student/courses/show.html.erb:
+   38        </div>
+   39        <div>
+   40:         <%= "#{t('view.course_info_show.schedule')}#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>
+   41        </div>
+   42      <% end %>
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/teacher/courses/_course.html.erb:
+   17        <%= content_tag(:div, "#{t('view.teacher_course.subject') % course.subject}", class: 'content-ceil-small') %>
+   18        <%= content_tag(:div, "#{t('view.teacher_course.grade') % course.grade}", class: 'content-ceil-small') %>
+   19:       <%= content_tag(:div, "#{t('view.course_show.schedule')}#{course.completed_lesson_count}/#{course.preset_lesson_count}", class: 'content-ceil-small') %>
+   20        <%= content_tag(:div, "#{t('view.teacher_course.next_live_time') % course.live_next_time}") %>
+   21      <%end %>
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/teacher/courses/_course_info.html.erb:
+   42        <tr>
+   43          <td>
+   44:           <%= t('view.course_info_show.lesson_count') %>
+   45:           <%= @course.preset_lesson_count if action_name != 'edit'%>
+   46:           <%= f.text_field :preset_lesson_count ,class: 'lesson_price_item' if action_name == 'edit'%>
+   47          </td>
+   48          <td><%= t("view.course_info_show.#{action_name == 'edit' ? 'setup_lesson' : 'schedule'}") %>
+   49:           <%= action_name == 'edit' ? @course.lesson_count : @course.completed_lesson_count %>/<span class="lesson-count-set"><%= @course.preset_lesson_count %></span>
+   50          </td>
+   51        </tr>
+   ..
+   53          <td colspan="2">
+   54            <%= t('view.course_info_show.surplus') %>
+   55:           <span class="lesson-count-set"><%= @course.lesson_count_left %></span>
+   56          </td>
+   57        <% end if action_name == 'show'%>
+   ..
+   78          <td>
+   79            <%= t('view.teacher_course.avg_price')%>
+   80:           <span class="price-set"><%= (@course.price / @course.preset_lesson_count).round(2) %></span>
+   81          </td>
+   82        </tr>
+   ..
+  118      $(".lesson_price_item").change(function(){
+  119        var price = parseInt($("#course_price").val());
+  120:       var lesson_count = parseInt($("#course_preset_lesson_count").val());
+  121:       var lesson_price = lesson_count === 0 ? 0 : price / lesson_count;
+  122        lesson_price = Math.floor(lesson_price);
+  123        console.log(lesson_price);
+  124        console.log("<%= LiveStudio::Course.human_attribute_name(:lesson_price) %>" + lesson_price);
+  125:       $('.lesson-count-set').text(lesson_count);
+  126        $('.price-set').text(lesson_price);
+  127      });
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/teacher/courses/_edit_lesson.html.erb:
+   71  
+   72  <script type="text/javascript" charset="utf-8">
+   73:   var lesson_count = <%= @course.lessons.count %>;
+   74    var insert_lesson_list = new Array();
+   75    var delete_lesson_list = new Array();
+   ..
+  104    // 添加tr
+  105    $('#insert_lesson').click(function(){
+  106:     lesson_count += 1;
+  107      var copy = $('#lesson-copy').clone();
+  108      copy.css('display', 'table-row');
+  109      copy.attr('id', '');
+  110:     copy.addClass('lesson-'+lesson_count);
+  111:     copy.find('.lesson-no').html(lesson_count);
+  112:     insert_lesson_list.push(lesson_count);
+  113      $('#insert_lesson_list').val(insert_lesson_list.join(','));
+  114:     $("#lesson_body").append(set_attr(copy, lesson_count));
+  115    });
+  116  
+  117    // 删除新添tr
+  118    function delete_self(obj){
+  119:     lesson_count -= 1;
+  120      var lesson_no = parseInt($(obj).attr('rel'));
+  121      var index = insert_lesson_list.indexOf(lesson_no);
+  ...
+  127    // 删除动态tr
+  128    function delete_default(lesson_id){
+  129:     lesson_count -= 1;
+  130      if(confirm('<%= t('activerecord.view.message.confirm') %>')){
+  131        delete_lesson_list.push(lesson_id);
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/teacher/courses/edit.html.erb:
+   33        </div>
+   34        <div>
+   35:         <%= "#{t('view.course_info_show.schedule')}#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>
+   36        </div>
+   37      <% end %>
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/teacher/courses/show.html.erb:
+   45        </div>
+   46        <div>
+   47:         <%= "#{t('view.course_info_show.schedule')}#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>
+   48        </div>
+   49      <% end %>
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/teacher/courses/update_class_date.html.erb:
+    8          </span>
+    9          <span>
+   10:           <%= "#{t('view.course_info_show.schedule')}#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>
+   11          </span>
+   12        </p>
+   ..
+   73  
+   74  <script type="text/javascript" charset="utf-8">
+   75:   var lesson_count = <%= @course.lessons.count %>;
+   76  
+   77    $('#edit_less_form').submit(function(){
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/app/views/live_studio/waiter/courses/_form.html.erb:
+    5      <%= f.association :teacher %>
+    6      <%= f.input :teacher_percentage %>
+    7:     <%= f.input :preset_lesson_count, input_html: {class: 'lesson_price_item'} %>
+    8      <%= f.input :description, type: :text %>
+    9      <%= f.association :workstation, collection: @workstations if @course.new_record? %>
+   ..
+   20      $(".lesson_price_item").change(function(){
+   21        var price = parseInt($("#course_price").val());
+   22:       var lesson_count = parseInt($("#course_preset_lesson_count").val());
+   23:       var lesson_price = lesson_count === 0 ? 0 : price / lesson_count;
+   24        lesson_price = Math.floor(lesson_price);
+   25        console.log(lesson_price);
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/config/locales/cn.yml:
+   34        category: 年级类型：
+   35        teacher: 授课老师：
+   36:       lesson_count: 课时总数：
+   37        schedule: 课程进度：
+   38        setup_lesson: 已设课程：
+   ..
+   74        price_asc: 由低到高
+   75        price_desc: 由高到低
+   76:       preset_lesson_count_asc: 由少到多
+   77:       preset_lesson_count_desc: 由多到少
+   78        class_date_asc: 升序排列
+   79        class_date_desc: 降序排列
+   ..
+   81        grade: 年级
+   82        price: 价格
+   83:       lesson_count: 课时总数
+   84        class_date: 开课日期
+   85        status: 当前状态
+   ..
+  204          type_name: 类型
+  205          teacher_percentage: 教师分成百分比
+  206:         preset_lesson_count: 课程数
+  207          lesson_price: 单节课程价格
+  208          address: 上课地址
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/db/migrate/20160615055512_create_live_studio_courses.rb:
+   10        t.decimal :lesson_price, precision: 8, scale: 2, default: 0.0 # 课程单价
+   11        t.integer :teacher_percentage, limit: 4, default: 0 # 教师分成
+   12:       t.integer :lesson_count, limit: 4, default: 0 # 课程数量
+   13:       t.integer :preset_lesson_count, limit: 4, default: 0 # 预设课程数量
+   14:       t.integer :completed_lesson_count, limit: 4, default: 0 # 完成课程数量
+   15  
+   16        t.datetime :deleted_at
+
+/Users/heart/wwtd-code/qatime/engines/live_studio/db/migrate/20160830065144_add_index_to_courses.rb:
+    3      add_index :live_studio_courses, :published_at
+    4      add_index :live_studio_courses, :price
+    5:     add_index :live_studio_courses, :preset_lesson_count
+    6      add_index :live_studio_courses, :class_date
+    7    end
+
+/Users/heart/wwtd-code/qatime/engines/payment/app/views/payment/orders/_order.html.erb:
+   14        <%= content_tag(:div, "#{t('view.course_show.subject')}#{course.subject}", class: 'content-ceil') %>
+   15        <%= content_tag(:div, "#{t('view.course_show.teacher')}#{course.teacher.name}", class: 'content-ceil') %>
+   16:       <%= content_tag(:div, "#{t('view.course_show.schedule')}#{course.completed_lesson_count}/#{course.preset_lesson_count}", class: 'content-ceil') %>
+   17:       <%= content_tag(:div, "#{t('view.course_show.surplus')}#{course.lesson_count_left} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
+   18        <%= content_tag(:div, "#{t('view.course_show.current')}#{course.current_lesson_name}") %>
+   19      <%end %>
+
+/Users/heart/wwtd-code/qatime/engines/payment/app/views/payment/orders/show.html.erb:
+   46          </td>
+   47          <td>
+   48:           <%= LiveStudio::Course.human_attribute_name(:preset_lesson_count) %>：
+   49:           <%= @course.preset_lesson_count %>
+   50          </td>
+   51        </tr>
+
+/Users/heart/wwtd-code/qatime/log/capistrano.log:
+    <binary>
+
+/Users/heart/wwtd-code/qatime/log/cron.log:
+ 486933  	from bin/rails:4:in `<main>'
+ 486934  WARNING: Nokogiri was built against LibXML version 2.9.2, but has dynamically loaded 2.9.4
+ 486935: /Users/heart/.gem/ruby/2.2.1/gems/activerecord-4.2.5.1/lib/active_record/dynamic_matchers.rb:26:in `method_missing': undefined local variable or method `preset_lesson_count' for #<Class:0x007fb2390583c0> (NameError)
+ 486936  	from /Users/heart/wwtd-code/qatime/engines/live_studio/app/models/live_studio/course.rb:25:in `<class:Course>'
+ 486937  	from /Users/heart/wwtd-code/qatime/engines/live_studio/app/models/live_studio/course.rb:2:in `<module:LiveStudio>'
+
+/Users/heart/wwtd-code/qatime/log/development.log:
+    <binary>
+
+/Users/heart/wwtd-code/qatime/log/test.log:
+    File too large, skipping
+
+/Users/heart/wwtd-code/qatime/test/fixtures/live_studio/courses.yml:
+    9    subject: 语文
+   10    teacher_percentage: 90
+   11:   preset_lesson_count: 2
+   12    price: 999
+   13  
+   ..
+   20    subject: 语文
+   21    teacher_percentage: 90
+   22:   preset_lesson_count: 2
+   23    price: 999
+   24  
+   ..
+   31    subject: 语文
+   32    teacher_percentage: 90
+   33:   preset_lesson_count: 2
+   34    price: 999
+   35  
+   ..
+   42    subject: 语文
+   43    teacher_percentage: 90
+   44:   preset_lesson_count: 2
+   45    price: 999
+   46  
+   ..
+   50    workstation: workstation1
+   51    teacher_percentage: 70
+   52:   preset_lesson_count: 10
+   53    price: 1000
+   54    status: 0
+   ..
+   63    status: 1
+   64    price: 1000
+   65:   preset_lesson_count: 2
+   66    grade: 六年级
+   67    subject: 语文
+   ..
+   75    status: 1
+   76    price: 1000
+   77:   preset_lesson_count: 10
+   78    grade: 六年级
+   79    subject: 语文
+   ..
+   86    status: 1
+   87    price: 50
+   88:   preset_lesson_count: 10
+   89    grade: 六年级
+   90    subject: 语文
+   ..
+  100    teacher_percentage: 90
+  101    price: 999
+  102:   preset_lesson_count: 2
+  103  
+  104  course_without_channel:
+  ...
+  109    grade: 六年级
+  110    subject: 语文
+  111:   preset_lesson_count: 2
+  112    teacher_percentage: 90
+  113    price: 999
+  ...
+  120    status: 0
+  121    teacher_percentage: 80
+  122:   preset_lesson_count: 10
+  123    lesson_price: 20
+  124    grade: 六年级
+  ...
+  131    status: 0
+  132    teacher_percentage: 80
+  133:   preset_lesson_count: 10
+  134    lesson_price: 20
+  135    grade: 六年级
+  ...
+  145    subject: 语文
+  146    teacher_percentage: 90
+  147:   preset_lesson_count: 2
+  148    price: 999
+  149  
+  ...
+  157    teacher_percentage: 90
+  158    subject: 语文
+  159:   preset_lesson_count: 2
+  160    price: 999
+  161  
+  ...
+  168    subject: 语文
+  169    teacher_percentage: 90
+  170:   preset_lesson_count: 2
+  171    price: 999
+  172  
+  ...
+  179    teacher_percentage: 90
+  180    subject: 语文
+  181:   preset_lesson_count: 2
+  182    price: 999
+  183  
+  ...
+  189    status: 1
+  190    teacher_percentage: 80
+  191:   preset_lesson_count: 10
+  192    lesson_price: 20
+  193    price: 200
+  ...
+  202    status: 1
+  203    teacher_percentage: 80
+  204:   preset_lesson_count: 10
+  205    lesson_price: 20
+  206    price: 200
+  ...
+  214    status: 0
+  215    teacher_percentage: 80
+  216:   preset_lesson_count: 10
+  217    lesson_price: 20
+  218    price: 200
+  ...
+  226    status: 0
+  227    teacher_percentage: 80
+  228:   preset_lesson_count: 10
+  229    lesson_price: 20
+  230    price: 200
+  ...
+  238    status: 1
+  239    teacher_percentage: 80
+  240:   preset_lesson_count: 10
+  241    lesson_price: 20
+  242    price: 200
+  ...
+  250    status: 1
+  251    teacher_percentage: 80
+  252:   preset_lesson_count: 10
+  253    lesson_price: 20
+  254    price: 200
+  ...
+  262    status: 1
+  263    teacher_percentage: 80
+  264:   preset_lesson_count: 10
+  265    lesson_price: 20
+  266    price: 200
+  ...
+  274    status: 1
+  275    teacher_percentage: 80
+  276:   preset_lesson_count: 10
+  277    lesson_price: 20
+  278    price: 200
+  ...
+  287    status: 2
+  288    teacher_percentage: 80
+  289:   preset_lesson_count: 10
+  290    lesson_price: 20
+  291    price: 200
+  ...
+  300    status: 0
+  301    teacher_percentage: 80
+  302:   preset_lesson_count: 10
+  303    lesson_price: 20
+  304    price: 200
+  ...
+  312    status: 0
+  313    teacher_percentage: 80
+  314:   preset_lesson_count: 10
+  315    lesson_price: 20
+  316    price: 200
+  ...
+  325    status: 0
+  326    teacher_percentage: 80
+  327:   preset_lesson_count: 10
+  328    lesson_price: 20
+  329    price: 200
+  ...
+  338    teacher: teacher_for_billing
+  339    teacher_percentage: 100
+  340:   preset_lesson_count: 10
+  341    lesson_price: 50
+  342    price: 500
+  ...
+  353    teacher: teacher_for_billing
+  354    teacher_percentage: 80
+  355:   preset_lesson_count: 10
+  356    lesson_price: 50
+  357    price: 500
+  ...
+  368    teacher: teacher_for_billing
+  369    teacher_percentage: 100
+  370:   preset_lesson_count: 10
+  371    lesson_price: 50
+  372    price: 500
+
+/Users/heart/wwtd-code/qatime/test/integration/live_studio/course_create_and_edit_test.rb:
+   29          fill_in :course_price, with: 300.0
+   30          fill_in :course_teacher_percentage, with: 90
+   31:         fill_in :course_preset_lesson_count, with: 15
+   32          select workstation.name, from: 'course_workstation_id'
+   33          select '语文', from: 'course_subject'
+   ..
+   61          fill_in :course_price, with: 2.0
+   62          fill_in :course_teacher_percentage, with: 10
+   63:         fill_in :course_preset_lesson_count, with: 15
+   64          select workstation.name, from: 'course_workstation_id'
+   65          select '语文', from: 'course_subject'
+
+/Users/heart/wwtd-code/qatime/test/integration/live_studio/teacher_create_and_edit_course.rb:
+   27            fill_in :course_description, with: 'new course description'
+   28            fill_in :course_price, with: 100
+   29:           fill_in :course_preset_lesson_count, with: 15
+   30            fill_in :course_taste_count, with: 2
+   31            select '语文', from: 'course_subject'
+   ..
+   44        fill_in :course_description, with: 'new course description'
+   45        fill_in :course_price, with: 100
+   46:       fill_in :course_preset_lesson_count, with: 2
+   47        fill_in :course_taste_count, with: 3
+   48        select '语文', from: 'course_subject'
+
+/Users/heart/wwtd-code/qatime/tmp/cache/assets/development/sprockets/b5e7b73804e48dc70cc890d3a21631a0:
+    <binary>
+
+/Users/heart/wwtd-code/qatime/tmp/cache/assets/production/sprockets/2f5173deea6c795b8fdde723bb4b63af:
+    <binary>
+
+/Users/heart/wwtd-code/qatime/tmp/cache/assets/production/sprockets/788b4068c4bbffd6959ee87407ba3dbb:
+    <binary>
+
+/Users/heart/wwtd-code/qatime/tmp/cache/assets/production/sprockets/7b72a552fc8334d6194ab1b6326dcd9d:
+    <binary>
+
+/Users/heart/wwtd-code/qatime/tmp/cache/assets/production/sprockets/b5e7b73804e48dc70cc890d3a21631a0:
+    <binary>
+
+/Users/heart/wwtd-code/qatime/tmp/cache/assets/production/sprockets/c7bcb5c8b007a99cd3426aecaef13982:
+    <binary>
+
+/Users/heart/wwtd-code/qatime/tmp/cache/assets/production/sprockets/cffd775d018f68ce5dba1ee0d951a994:
+    <binary>
+
+/Users/heart/wwtd-code/qatime/tmp/cache/assets/production/sprockets/f7e1f0a5d82894181d2bf44ba69d29fb:
+    <binary>
+
+/Users/heart/wwtd-code/qatime/tmp/cache/assets/test/sprockets/7b72a552fc8334d6194ab1b6326dcd9d:
+    <binary>
+
+/Users/heart/wwtd-code/qatime/tmp/cache/assets/test/sprockets/b5e7b73804e48dc70cc890d3a21631a0:
+    <binary>
+
+/Users/heart/wwtd-code/qatime/tmp/cache/assets/test/sprockets/c7bcb5c8b007a99cd3426aecaef13982:
+    <binary>
+
+/Users/heart/wwtd-code/qatime/tmp/cache/assets/test/sprockets/f7e1f0a5d82894181d2bf44ba69d29fb:
+    <binary>
+
+465 matches across 62 files

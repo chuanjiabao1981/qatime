@@ -17,7 +17,9 @@ module LiveStudio
     end
 
     def new
-      @course = Course.new
+      @invitation = CourseInvitation.find(params[:invitation_id])
+      @course = Course.new(invitation: @invitation)
+      5.times { @course.lessons.build }
       render layout: current_user_layout
     end
 
@@ -27,17 +29,7 @@ module LiveStudio
     end
 
     def create
-      @course = Course.new(course_and_lessons_params.merge(author: current_user))
-      @course.teacher = current_user
-      @course.subject = current_user.subject
-      if params[:course_invitation_id].present?
-        course_invitation = LiveStudio::CourseInvitation.find(params[:course_invitation_id])
-        @course.workstation = course_invitation.target
-        @course.teacher_percentage = course_invitation.teacher_percent
-      else
-        @course.workstation = current_user.workstation_id
-        @course.teacher_percentage = 100
-      end
+      @course = Course.new(courses_params.merge(author: current_user))
 
       if @course.save
         LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
@@ -138,19 +130,10 @@ module LiveStudio
       )
     end
 
-    def courses_params(role = nil)
-      role_params = [:name, :price, :preset_lesson_count, :subject, :grade, :publicize, :taste_count, :description]
-      role_params = role_params << [:teacher_percentage, :workstation_id, :teacher_id] unless role == :teacher
-      params.require(:course).permit(role_params)
-    end
-
-    def course_and_lessons_params
-      params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map{|key, val| val}
-      params[:course].merge!({preset_lesson_count: params[:course][:lessons_attributes].length})
-
-      params.require(:course).permit(:publicize, :name, :grade, :price, :lessons, :preset_lesson_count,
+    def courses_params
+      params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map(&:second)
+      params.require(:course).permit(:publicize, :name, :grade, :price,
           lessons_attributes: [:name, :class_date, :start_time, :end_time])
-
     end
   end
 end

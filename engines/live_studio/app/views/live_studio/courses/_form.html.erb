@@ -1,6 +1,6 @@
 <%= simple_form_for @course do |f|%>
   <%= f.error_notification %>
-  <%= hidden_field_tag :course_invitation_id, params[:course_invitation_id] %>
+  <%= f.input :invitation_id, as: :hidden %>
 
   <h4>一、辅导概况</h4>
 

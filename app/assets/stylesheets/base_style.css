@@ -9,6 +9,7 @@
 .nav li a {
   display: inline-block;
   height: 55px !important;
+  line-height: 24px !important;
   margin-right: 30px !important;
   color: white !important;
   font-size: 20px;

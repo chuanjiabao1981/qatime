@@ -2011,7 +2011,7 @@ i {
   color: rgb(190,11,11);
 }
 .table-exclusive {
-  margin-top: 13px;
+  margin-top: 12px;
   margin-left: 20px;
 }
 .table-exclusive tr td {
@@ -2076,6 +2076,7 @@ i {
 .li-msg {
   list-style-type: none;
   padding: 0;
+  height: 254px;
   margin: 0 0 0 20px;
   overflow: hidden;
   display: none;
@@ -2124,7 +2125,7 @@ i {
   padding-bottom: 33px;
 }
 .class-course-tab {
-  padding-bottom: 0px !important;
+  padding-bottom: 1px !important;
   padding-left: 40px;
 }
 .class-course-tab table {
@@ -2153,7 +2154,7 @@ i {
   padding-bottom: 0;
 }
 .tutoring-tec-con {
-  padding: 0px 15px 32px 24px;
+  padding: 0px 19.5px 32px 19.5px;
 }
 .tec-li {
   height: 171px;
@@ -2201,7 +2202,7 @@ i {
   margin-bottom: 15px;
 }
 .msg-tecyear,.msg-address {
-  color: rgb(174,174,174);
+  color: #999999;
 }
 .msg-address {
   width: 130px;
@@ -2699,7 +2700,7 @@ i {
 }
 .homepage-title-right {
   float: right;
-  color: #000000;
+  color: #999999;
   font-size: 16px;
   margin-right: 30px;
 }
@@ -3300,4 +3301,28 @@ ul {
 }
 .dl-list {
   -webkit-margin-before: 0em;
+}
+.icon-size {
+  font-size: 20px !important;
+  padding-right: 5px;
+}
+.nocourse {
+  padding: 0 10px;
+}
+.nocourse-msg{
+  height: 210px;
+}
+.nocourse-msg img {
+  margin-top: 83px;
+}
+.nocourse-msg p {
+  margin-top: 20px;
+  font-size: 18px;
+  color: rgb(227,229,237);
+  text-align: center;
+}
+.nocourse-con-title {
+  height: 40px;
+  font-size: 16px;
+  color: rgb(190,11,11);
 }

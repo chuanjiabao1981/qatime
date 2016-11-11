@@ -8,7 +8,7 @@
         <br>
         <span class="grade-suject"><%= link_to "#{q.vip_class.category}#{q.vip_class.subject}", vip_class_path(q.vip_class.id) %></span>
         <span class="answer">答案<%= q.answers_count %></span>
-        <span>评论<%= q.comments.length %></span>
+        <span class="comments-msg">评论<%= q.comments.length %></span>
       </td>
       <td>
         <%= image_tag q.student.avatar_url(:small) %>

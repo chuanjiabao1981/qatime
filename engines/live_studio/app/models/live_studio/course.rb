@@ -44,6 +44,7 @@ module LiveStudio
     has_many :lessons, -> { order('id asc') } # 课时
 
     accepts_nested_attributes_for :lessons, allow_destroy: true
+    validates_associated :lessons
 
     has_many :students, through: :buy_tickets
 

@@ -9,6 +9,8 @@ module LiveStudio
 
     validate :presence_user, on: :create
 
+    has_one :course, foreign_key: :invitation_id
+
     def expited_day_display
       second = expited_at.to_i - Time.now.to_i
       second >= 24.hours ? second/24.hours : 1

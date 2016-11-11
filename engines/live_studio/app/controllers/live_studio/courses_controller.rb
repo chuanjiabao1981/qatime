@@ -17,7 +17,7 @@ module LiveStudio
     end
 
     def new
-      @invitation = CourseInvitation.find(params[:invitation_id])
+      @invitation = CourseInvitation.sent.find_by(id: params[:invitation_id]) if params[:invitation_id]
       @course = Course.new(invitation: @invitation)
       5.times { @course.lessons.build }
       render layout: current_user_layout
@@ -132,7 +132,7 @@ module LiveStudio
 
     def courses_params
       params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map(&:second)
-      params.require(:course).permit(:publicize, :name, :grade, :price,
+      params.require(:course).permit(:publicize, :name, :grade, :price, :invitation_id,
           lessons_attributes: [:name, :class_date, :start_time, :end_time])
     end
   end

@@ -255,6 +255,12 @@ module LiveStudio
       self.teacher_percentage = invitation.teacher_percent
     end
 
+    after_commit :finish_invitation, on: :create
+    def finish_invitation
+      return unless invitation
+      invitation.accepted!
+    end
+
     # 非邀请辅导班使用默认工作站
     before_validation :copy_city, on: :create
     def copy_city

@@ -6,11 +6,11 @@ class SessionsController < ApplicationController
 
   def create
     # @user = User.find_by(email: params[:user][:email])
-     @user = User.find_by_login_account(params[:user][:login_account])
+    @user = User.find_by_login_account(params[:user][:login_account])
     if @user && @user.authenticate(params[:user][:password])
       sign_in(@user)
       flash[:info] = "欢迎登录!"
-      redirect_to user_home_path
+      redirect_to params[:course_id].blank? ? user_home_path : live_studio.course_path(params[:course_id])
     else
       # @user = User.new(email: @user.try(:email))
        @user = User.new(login_mobile: @user.try(:login_account))

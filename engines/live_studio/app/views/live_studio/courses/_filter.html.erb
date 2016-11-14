@@ -10,9 +10,9 @@
     <ul class="list-sort">
       <li class="list-headline"><%= LiveStudio::Course.human_attribute_name(:sort)  %>: </li>
       <li class="list-sort-1">
-        <%= link_to(t('view.sort.live_studio/course.id'), "javascript: void(0);",
-                    "data-key" => "sort_by", "data-value" => "id.desc",
-                    class: "search-link-submit #{'active-color' if params[:sort_by].blank? || params[:sort_by] == 'id.desc' }") %>
+        <%= link_to(t('view.sort.live_studio/course.published_at'), "javascript: void(0);",
+                    "data-key" => "sort_by", "data-value" => "published_at.desc",
+                    class: "search-link-submit #{'active-color' if params[:sort_by].blank? || params[:sort_by] == 'published_at.desc' }") %>
       </li>
       <li class="list-sort-1">
         <%= link_to(t('view.sort.live_studio/course.price/desc'), "javascript: void(0);",

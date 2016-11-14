@@ -1,7 +1,7 @@
 /*学生界面*/
-em {
+ em {
   font-style: normal;
-}
+ }
 .btn-add,.btn-suc,.btn-withdrawal,.btn-sure,.btn-confirm  {
   display: inline-block;
   width: 120px;
@@ -20,7 +20,7 @@ em {
 }
 
 .row-th {
-  padding-top: 10px;
+ padding-top: 10px;
   line-height: 3rem;
   border-bottom: 0.1rem solid gray;
 }
@@ -120,25 +120,25 @@ a {
 }
 
 .datepicker-1 {
-  height: 2rem;
-  width: 8rem;
-  padding-top: 0.8rem !important;
-  text-align: center;
-  font-size: 1.4rem;
-  float: left;
-  color: #666666;
-  outline: none;
-  border: none;
-}
-.txt,.label {
-  float: left;
-}
-.date {
-  width: 23rem;
-}
-.btn-search,.date {
-  float: left;
-}
+      height: 2rem;
+      width: 8rem;
+      padding-top: 0.8rem !important;
+      text-align: center;
+      font-size: 1.4rem;
+      float: left;
+      color: #666666;
+    outline: none;
+      border: none;
+    }
+    .txt,.label {
+      float: left;
+    }
+    .date {
+      width: 23rem;
+    }
+   .btn-search,.date {
+    float: left;
+   }
 .date span {
   margin-left: 2rem;
 }
@@ -151,7 +151,7 @@ a {
   font-size: 1.2rem;
   line-height: 15px;
   margin-top: 5px;
-  display:block
+    display:block
 }
 .glyphicon-1 {
   position: relative;
@@ -191,24 +191,24 @@ a {
 
 @media only screen  and (max-width: 990px) {
   #col-md-nav-1 {
-    padding-right: 15px !important;
-  }
-  #col-md-nav-2 {
-    padding-left: 15px !important;
-  }
+  padding-right: 15px !important;
+}
+#col-md-nav-2 {
+  padding-left: 15px !important;
+}
 }
 .col-md-row {
   padding: 0px !important;
   border-bottom: 0.1rem solid gainsboro;
-}
-.col-md-title {
-  background-color: #F2F2F2;
-  height: 36px ;
-}
-.col-md-title p {
-  line-height: 3.6rem;
-  text-align: center;
-}
+  }
+  .col-md-title {
+    background-color: #F2F2F2;
+    height: 36px ;
+  }
+  .col-md-title p {
+    line-height: 3.6rem;
+    text-align: center;
+  }
 .col-md-apply,.col-md-apply-1 {
   position: relative;
   height: 100px;
@@ -230,8 +230,8 @@ a {
 .txt-offline {
   margin-top: -40px;
   margin-left: -66px;
-  color: #999999;
-  font-size: 1.4rem;
+   color: #999999;
+   font-size: 1.4rem;
 }
 .txt-offline img {
   width: 26px;
@@ -248,15 +248,15 @@ a {
   font-size: 1.4rem;
   color: #999999;
 }
-.txt-num input {
+ .txt-num input {
   height: 36px;
   padding: 8px;
-}
-
-.alert-msg1,.alert-msg2 {
+ }
+ 
+ .alert-msg1,.alert-msg2 {
   color: red !important;
   /*display: none;*/
-}
+ }
 .col-md-apply-1 {
   border-left: 0.1rem solid gainsboro;
 }
@@ -292,11 +292,11 @@ a {
   margin-right: 10px;
 }
 /*@font-face {font-family: 'iconfont';
-    src: url('../fonts/iconfont.eot');
-    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/iconfont.woff') format('woff'),
-    url('../fonts/iconfont.ttf') format('truetype'),
-    url('../fonts/iconfont.svg#iconfont') format('svg');
+    src: url('../fonts/iconfont.eot'); 
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), 
+    url('../fonts/iconfont.woff') format('woff'), 
+    url('../fonts/iconfont.ttf') format('truetype'), 
+    url('../fonts/iconfont.svg#iconfont') format('svg'); 
 }
 .iconfont{
     font-family:"iconfont" !important;
@@ -432,17 +432,17 @@ figcaption p {
   font-size: 1.4rem;
 }
 
-.col-md-title {
-  height: 36px ;
-  margin: 0 auto;
-  padding: 0;
-}
-.col-md-title p {
-  line-height: 36px;
-  text-align: center;
-}
-
-
+  .col-md-title {
+    height: 36px ;
+    margin: 0 auto;
+    padding: 0;
+  }
+  .col-md-title p {
+    line-height: 36px;
+    text-align: center;
+  }
+  
+  
 .col-md-apply-2,.col-md-apply-3 {
   position: relative;
   height: 150px;
@@ -572,7 +572,7 @@ figcaption p {
 .panel-title1 p {
   margin-top: -15px;
   line-height: 5rem;
-  font-size: 1.4rem;
+    font-size: 1.4rem;
 }
 .panel-title-2 {
   margin-left:15px;
@@ -598,13 +598,13 @@ figcaption p {
   float: left;
 }
 .btn-active {
-  width: 6rem;
-  height: 2rem;
-  background-color: gainsboro;
-  font-size: 1.4rem;
-  color: white;
-  text-align: center;
-  line-height: 2rem;
+     width: 6rem;
+     height: 2rem;
+     background-color: gainsboro;
+     font-size: 1.4rem;
+     color: white;
+     text-align: center;
+     line-height: 2rem;
   display: inline-block;
   margin-right: 2rem;
 }
@@ -676,7 +676,7 @@ figcaption p {
   color: #333333;
 }
 .date-span {
-  float: left;
+  float: left;  
 }
 .date-center {
   width: 30rem;
@@ -762,25 +762,25 @@ figcaption p {
 }
 .remind-openclass {
   background-color: seagreen;
-}
+  }
 .remind-classes {
   background-color: orange;
 }
 .remind-Remedial {
   background-color: palevioletred;
-}
-
+} 
+  
 .remind-txt {
   width: 255px;
   float: left;
   color: #666666;
-  margin-left: 10px;
+  margin-left: 10px;  
 }
 .remind-txt span {
   line-height: 18px;
   font-size: 1.2rem;
   color: #666666;
-}
+  }
 .remind-more {
   clear: both;
   width: 100%;
@@ -793,11 +793,11 @@ figcaption p {
 }
 
 /*@font-face {font-family: 'iconfont';
-    src: url('../fonts/font/iconfont.eot');
-    src: url('../fonts/font/iconfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/font/iconfont.woff') format('woff'),
-    url('../fonts/font/iconfont.ttf') format('truetype'),
-    url('../fonts/font/iconfont.svg#iconfont') format('svg');
+    src: url('../fonts/font/iconfont.eot'); 
+    src: url('../fonts/font/iconfont.eot?#iefix') format('embedded-opentype'), 
+    url('../fonts/font/iconfont.woff') format('woff'), 
+    url('../fonts/font/iconfont.ttf') format('truetype'), 
+    url('../fonts/font/iconfont.svg#iconfont') format('svg'); 
 }
 .iconfont-2{
     font-family:"iconfont" !important;
@@ -807,18 +807,16 @@ figcaption p {
     -moz-osx-font-smoothing: grayscale;
     color: white;
     }*/
-.triangle-icon-1,.triangle-icon-2{
-  position: absolute;
-  top: -15px;
-  left: 0px;
-  width: 0;
-  height: 0;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 15px solid white;
-
-}
-
+ .triangle-icon-1,.triangle-icon-2{
+   position: absolute;
+   top: 50px !important;
+   /*top: -15px !important;*/
+   width: 0;
+   height: 0;
+   border-left: 10px solid transparent;
+   border-right: 10px solid transparent;
+   border-bottom: 15px solid white;
+ }
 .triangle-icon-1 {
   left: 150px;
 }
@@ -828,6 +826,9 @@ figcaption p {
 }
 
 /*老师的课程表*/
+.positioning {
+  position: relative;
+}
 .teacher-schedule {
   width: 290px;
   border: 1px solid gainsboro;
@@ -865,7 +866,7 @@ figcaption p {
   float: left;
   margin-left: 3px;
   font-size: 1.2rem;
-  color: #666666;
+  color: #666666; 
 }
 .schedule-text p {
   margin-bottom: 0 !important;
@@ -880,11 +881,11 @@ figcaption p {
 .state-text {
   overflow:hidden;
   text-overflow:ellipsis;
-  -o-text-overflow:ellipsis;
-  white-space:nowrap;
-  width:100%;
-  font-size: 1.2rem;
-  color: #666666;
+   -o-text-overflow:ellipsis;
+   white-space:nowrap;
+   width:100%;
+   font-size: 1.2rem;
+   color: #666666;
 }
 .state-text em {
   font-size: 1.2rem;
@@ -907,7 +908,7 @@ figcaption p {
 .icon-1 {
   position: absolute;
   top: -10px;
-  right: 125px;
+    right: 125px;
 }
 
 
@@ -982,9 +983,9 @@ figcaption p {
 .remind-date {
   float: right;
   height: 100%;
-  display:table;
-  text-align: center;
-  color: #666666;
+   display:table;
+   text-align: center;
+   color: #666666;
 }
 .remind-date span {
   position: absolute;
@@ -1064,7 +1065,7 @@ figcaption p {
 }
 .col-md-time {
   margin-top: -10px;
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 .remedial-grade {
   margin-bottom: 0;
@@ -1078,7 +1079,7 @@ figcaption p {
 
 .remedial-price li:first-child,.remedial-scope li:first-child,.remedial-start li:first-child{
   line-height: 35px;
-}
+  }
 .remedial-price input,.remedial-scope input {
   width: 100px;
   height: 34px;
@@ -1126,7 +1127,7 @@ figcaption p {
 }
 .remedial-textbook {
   padding: 8px;
-}
+  }
 
 .textbook-1 {
   width: 100%;
@@ -1194,7 +1195,7 @@ figcaption p {
 .class-img {
   width: 10px;
   padding-top: 3px;
-}
+  }
 .class-State {
   width: 40px;
   text-align: center;
@@ -1211,11 +1212,11 @@ figcaption p {
   font-size: 1.2rem;
   height: 45px;
   text-overflow: -o-ellipsis-lastline;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 
@@ -1380,7 +1381,7 @@ figcaption p {
   width: 100%;
 }
 .btn-obtain {
-  color: #999999 !important;
+  color: #999999 !important; 
   width: 110px;
 }
 .round {
@@ -1528,11 +1529,11 @@ figcaption p {
   border: 1px solid #999999;
 }
 .btn-stu-register {
-  width: 120px;
-  height: 30px;
-  margin-left: -60px;
-  line-height: 30px;
-  background-color: mediumseagreen;
+   width: 120px; 
+   height: 30px;
+   margin-left: -60px;
+   line-height: 30px;
+   background-color: mediumseagreen;
 }
 .btn-register,.btn-stu-register {
   display: inline-block;
@@ -1612,7 +1613,7 @@ figcaption p {
   line-height: 40px;
 }
 .new-msg-content table tr td:last-child {
-  padding: 7.5px 0px 7.5px 10px;
+  padding: 7.5px 0px 7.5px 10px;  
 }
 .new-msg-content input[type='text'] {
   padding-left: 8px;
@@ -1633,7 +1634,7 @@ figcaption p {
 .msg-num {
   width: 37.5%;
   height: 40px;
-  margin-left: 5.8px;
+    margin-left: 5.8px;
 }
 .msg-application {
   display: inline-block;
@@ -1674,8 +1675,8 @@ figcaption p {
   height: 40px;
 }
 .glyphicon-clock {
-  position: relative;
-  right: 25px;
+position: relative; 
+right: 25px;
 }
 
 
@@ -1811,30 +1812,30 @@ figcaption p {
 
 
 
-/*web首页*/
-
-
-
-
-.home-banner {
-  width: 100%;
-  height: 316px;
-  position: relative;
-  overflow: hidden;
-}
-.banner-show {
-  width: 400%;
-  height: 316px;
-  padding: 0;
-  overflow: hidden;
-  list-style-type: none;
-  position: absolute;
-}
-.banner-show li {
-  width: 25%;
-  height: 316px;
-  float: left;
-}
+   /*web首页*/
+  
+  
+  
+  
+  .home-banner {
+    width: 100%;
+    height: 316px;
+    position: relative;
+    overflow: hidden;
+  }
+  .banner-show {
+    width: 400%;
+    height: 316px;
+    padding: 0;
+    overflow: hidden;
+    list-style-type: none;
+    position: absolute;
+  }
+  .banner-show li {
+    width: 25%;
+    height: 316px;
+    float: left;
+  }
 .banner-show li a img{
   width: 100%;
   height: 316px;
@@ -1878,7 +1879,7 @@ figcaption p {
 }
 
 .tutoring-title-left,.class-title-left,.teacher-title-left {
-  float: left;
+  float: left;  
 }
 .tutoring-title-left img,.class-title-left img,.teacher-title-left img {
   margin-right: 10px;
@@ -1904,10 +1905,10 @@ figcaption p {
 .ul-list,.detailed-list {
   padding: 0;
   margin: 0;
-}
-.detailed-list {
-  overflow: hidden;
-}
+  }
+  .detailed-list {
+    overflow: hidden;
+  }
 .ul-list li {
   width: 32.5%;
   float: left;
@@ -1933,7 +1934,7 @@ figcaption p {
   right: 0;
 }
 .newest {
-  background-color: #006cbf;
+   background-color: #006cbf; 
 }
 .hottest {
   background-color: #f21010;
@@ -1959,7 +1960,7 @@ figcaption p {
   margin-bottom: 5px;
 }
 .dl-list dd a {
-  color: #000000 !important;
+  color: #000000 !important; 
 }
 
 .dd-left {
@@ -2040,7 +2041,7 @@ i {
 .icon-write {
   font-size: 36px !important;
   color: rgb(190,11,11);
-}
+} 
 .apply-class {
   display: inline-block;
   font-size: 18px;
@@ -2314,7 +2315,7 @@ i {
 }
 .link-right table tr td:nth-child(2) {
   padding-left: 20px;
-
+  
 }
 .link-td {
   text-align: right;
@@ -2343,8 +2344,8 @@ i {
     margin-left: -15px;
   }
   .col-advantage ul li:last-child {
-    text-align:center;
-  }
+      text-align:center;
+}
 }
 .link-city p {
   margin-top: 10px;
@@ -2453,9 +2454,11 @@ i {
   cursor: pointer;
 }
 /*.list-sort-1 a, .list-course-1 a, .list-grade-1 a, .list-state-1 a, .class-msg a {
-	color: #000000;
+  color: #000000;
 }*/
-
+.list-headline {
+  width: 80px;
+}
 .list-sort,.list-course,.list-grade,.list-price ,.list-remedial,.list-scope,.list-state{
   overflow: hidden;
   margin-bottom: 30px !important;
@@ -2465,7 +2468,7 @@ i {
   float: left;
   margin-right: 30px;
   color: #000000;
-}
+} 
 .list-price li,.list-remedial li,.list-scope li{
   float: left;
 }
@@ -2485,7 +2488,7 @@ i {
 .remedial-conditions {
   margin-top: 20px;
   overflow: hidden;
-
+  
 }
 .remedial-conditions a {
   float: right;
@@ -2501,12 +2504,14 @@ i {
   width: 104px;
   height: 34px;
   font-size: 16px;
+  border: 1px solid rgb(242,16,16);
   background-color: rgb(242,16,16);
-  border-radius: 4px;
+    border-radius: 4px;
   text-align: center;
   line-height: 34px;
   color: white;
   margin-right: 40px;
+  float: right;
 }
 .screening-hidden {
   display: none;
@@ -2532,7 +2537,7 @@ i {
   margin-top: 20px;
   overflow: hidden;
   padding-bottom: 40px;
-
+  
 }
 
 .list-screening,.list-live {
@@ -2557,11 +2562,11 @@ i {
 }
 .list-screening li img,.list-live li img {
   width: 100%;
-
+  
   height: 168px;
 }
 .dl-con {
-  height: 40px;
+  height: 40px; 
   position: relative;
   z-index: 1;
 }
@@ -2640,7 +2645,7 @@ i {
   color: rgb(190,11,11);
 }
 .person-num,.person-buy {
-  color: #999999;
+color: #999999; 
 }
 .person-buy {
   float: right;
@@ -2654,7 +2659,7 @@ i {
   color: #000000;
 }
 
-.btn-audition a, .btn-audition a:hover, .btn-start a, .btn-start a:hover{
+.btn-audition a, .btn-audition a:hover, .btn-start a, .btn-start a:hover,.btn-applynow a .btn-applynow a:hover{
   color: #000;
 }
 
@@ -2677,6 +2682,7 @@ i {
 
 .notfound {
   height: 517px;
+  display: none;
 }
 .notfound img {
   margin-top: 200px;
@@ -2704,7 +2710,7 @@ i {
 
 /*教师个人主页*/
 /*.tec-homepage {
-	margin-top: 10px;
+  margin-top: 10px;
 }*/
 .homepage-title,.homepage-live-title {
   height: 40px;
@@ -2781,12 +2787,12 @@ i {
   margin-right: 0px !important;
 }
 /*.dl-list-1 {
-	margin-top: 10px;
+  margin-top: 10px;
 }
 .dl-list-1:first-child {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }*/
 .homepage-elscon {
   width: 100%;
@@ -2811,6 +2817,7 @@ i {
 }
 
 .nocourse {
+  display: none;
   padding: 0 10px;
 }
 .nocourse-msg {
@@ -2845,7 +2852,7 @@ i {
 
 
 
-/*辅导班详情页*/
+ /*辅导班详情页*/
 .container-details {
   margin-top: 10px;
 }
@@ -2870,8 +2877,8 @@ i {
 }
 .tec-name {
   position: relative;
-  left: 50%;
-  margin-left: -25px;
+   left: 50%; 
+   margin-left: -25px;
 }
 .tec-details ul {
   list-style-type: none;
@@ -2955,7 +2962,7 @@ i {
   font-size: 12px;
   color: rgb(224,224,224);
   position: absolute;
-  right: 0;
+  left: 10px;
   bottom: -10px;
 }
 .btn-audition {
@@ -2975,7 +2982,7 @@ i {
   background-color: rgb(253,168,21);
   color: white;
 }
-.btn-audition,.btn-sign,.btn-start,.btn-listen,.btn-signnow {
+.btn-audition,.btn-sign,.btn-start,.btn-listen,.btn-signnow,.btn-applynow {
   text-align: center;
   height: 39px;
   float: left;
@@ -2985,11 +2992,11 @@ i {
   line-height: 39px;
   color: white;
 }
-.btn-start {
+.btn-start,.btn-applynow {
   color: white;
   line-height: 39px;
   background-color: rgb(32,173,101);
-  border: none;
+  border: none; 
 }
 .btn-listen {
   background-color: rgb(32,173,101);
@@ -3020,7 +3027,8 @@ i {
 .arrange-con table tr td {
   height: 53px;
   border-bottom: 1px solid rgb(241,241,241);
-}
+  color: #666666;
+  }
 .arrange-con table tr td:first-child {
   width: 10%;
 }
@@ -3028,7 +3036,7 @@ i {
   color: rgb(190,11,11);
 }
 /*.arrange-con table tr td:nth-child(2),.arrange-con table tr td:nth-child(3),.arrange-con table tr td:nth-child(4) {
-	text-align: center;
+  text-align: center;
 }*/
 .arrange-con table tr td:last-child {
   text-align: right;
@@ -3055,7 +3063,7 @@ i {
   padding: 0px !important;
 }
 ul {
-  list-style-type: none;
+ list-style-type: none;
 }
 .newclass-tec {
   width: 100%;
@@ -3140,7 +3148,7 @@ ul {
   margin-right: 10px;
 }
 .tab-view {
-  height: 54px;
+  height: 57px;
 }
 .msg-content-details:last-child {
   border-bottom: 0px;
@@ -3187,6 +3195,7 @@ ul {
 .newclass-editor {
   width: 100%;
   border: 1px solid gray;
+  padding-bottom: 10px;
 }
 .editor-title {
   height: 50px;
@@ -3237,16 +3246,22 @@ ul {
 }
 .editor-msg table tr td {
   padding: 10px 0px;
+  color: #666666;
 }
 .editor-msg table tr td:first-child {
   width: 100px;
 }
-.editor-msg table,.input-editor {
+.editor-msg table,.input-editor,.editor-msg textarea {
   width: 100%;
 }
-.input-text {
+
+ .input-editor {
   height: 32px;
-}
+  border: 1px solid #999999;
+ }
+ .editor-msg textarea {
+ border: 1px solid #999999; 
+ }
 .title-editor {
   color: red;
 }
@@ -3255,11 +3270,93 @@ ul {
 }
 .introduce-editor {
   position: absolute;
-  top: 5px;
+  top: 15px;
 }
 .grade-editor {
   height: 32px;
 }
+.grade-check {
+  width: 100%;
+  height: 50px;
+  padding: 10px;
+  border: 1px solid gray;
+  display: none;
+}
+.grade-check span {
+  margin-right: 20px;
+}
+.grade-check span label {
+  font-weight: 100;
+}
+.editor-down {
+  position: relative;
+  top: -23px !important;
+  left: 97% ;
+  cursor: pointer;
+}
+.editor-arrange {
+  margin-top: 50px;
+  padding: 10px;
+}
+.class-arrtitle {
+  height: 50px;
+  line-height: 50px;
+}
+.class-con table {
+  width: 100%;
+}
+.class-con table tr td {
+  padding: 5px 0;
+}
+.class-con table tr td:first-child {
+  padding-right: 20px;
+}
+.class-con table tr td:last-child {
+  text-align: right;
+}
+.class-con table tr td:nth-child(2) input {
+  width: 82%;
+  height: 18px;
+  border: 1px solid #999999;
+  text-align: center;
+}
+
+.calendar {
+  position: relative;
+  left: -8%;
+}
+.class-con table tr td:last-child a {
+  color: rgb(0,153,204);
+}
+.add-file i {
+  font-size: 30px;
+  float: right;
+  margin-right: -20px;
+  color: rgb(0,153,204);
+}
+.present {
+  margin-top: 60px;
+}
+.present a {
+  width: 120px;
+  height: 34px;
+  display: inline-block;
+  color: white;
+  line-height: 34px;
+  text-align: center;
+  border-radius: 4px;
+  background-color: rgb(102,204,153);
+  margin: 0 10px;
+}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -3271,30 +3368,30 @@ ul {
 
 /*视频播放页*/
 /*.tec-live {
-	width: 100%;
-	border: 1px solid #999999;
+  width: 100%;
+  border: 1px solid #999999;
 }
 
 .live-content {
-	padding: 10px;
+  padding: 10px;
 }
 .live-content table {
-	width: 100%;
+  width: 100%;
 }
 .live-content table td {
-	height: 50px;
+  height: 50px;
 }
 .live-img {
-	width: 44%;
+  width: 44%;
 }
 .live-img img {
-	width: 480px;
-	height: 300px;
+  width: 480px;
+  height: 300px;
 }
  .img-title {
- 	width: 10px;
- 	height: 10px;
- 	margin-right: 10px;
+  width: 10px;
+  height: 10px;
+  margin-right: 10px;
  }*/
 
 
@@ -3303,7 +3400,7 @@ ul {
 
 .remedial-live,.remedial-teclive {
   border: 1px solid #999999;
-
+  
 }
 .remedial-teclive {
   margin-top: 20px;
@@ -3319,13 +3416,13 @@ ul {
   width: 100%;
   padding: 10px;
   overflow: hidden;
-}
-.live-left {
+}    
+ .live-left {
   width: 480px;
   height: 300px;
   float: left;
   margin-right: 26px;
-}
+ }
 .live-right {
   width: 660px;
   height: 300px;
@@ -3415,7 +3512,7 @@ ul {
   background-color: rgb(242,16,16);
   color: white;
   margin-left: 10px;
-}
+} 
 .prompt-con {
   font-size: 14px;
   color: #999999;
@@ -3434,10 +3531,10 @@ ul {
   display: inline-block;
   vertical-align: top;
   font-family: "微软雅黑";
-  font-size: 16px;
-  margin: 0 3% 0 0;
-  margin-top: 0;
-  margin-bottom: 0;
+    font-size: 16px;
+    margin: 0 3% 0 0;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 .city-list p {
   width: 89%;
@@ -3457,9 +3554,9 @@ ul {
 .citieslist h2 {
   padding-left: 23px;
   font-family: "微软雅黑";
-  font-size: 16px;
-  margin-top: 0;
-  margin-bottom: 16px;
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 16px;
 }
 .hasallcity-num {
   display: inline-block;
@@ -3492,8 +3589,8 @@ ul {
 }
 .hasallcity-name {
   display: inline-block;
-  width: 95%;
-  vertical-align: top;
+    width: 95%;
+    vertical-align: top;
 }
 .city-prompt {
   margin: 42px auto 0;
@@ -3503,4 +3600,161 @@ ul {
   color: rgb(215,215,215);
   text-align: center;
   line-height: 80px;
+}
+
+
+
+
+
+
+
+
+/*辅导班后台admin*/
+
+.admin {
+  width: 100%;
+  padding: 0 10px 10px;
+}
+.admin-title {
+  height: 54px;
+  border-bottom: 1px solid gray;
+  line-height: 54px;
+  overflow: hidden;
+}
+.admin-title-left a {
+  color: #999999;
+  font-size: 18px;
+  margin-right: 30px;
+}
+.active-admin {
+  color: #000000 !important;
+}
+.admin-title-left {
+  float: left;
+}
+.admin-title-right {
+  padding-top: 10px;
+  float: right;
+  color: #999999;
+}
+.condition {
+  float: left;
+  margin-right: 40px;
+}
+.condition span {
+  color: #999999;
+}
+.condition select {
+  width: 87px;
+  height: 26px;
+  border: 1px solid #666666;
+}
+.condition-right {
+  float: right;
+}
+.admin-empty {
+  color: rgb(0,153,254);
+}
+.condition-right input {
+  width: 73px;
+  height: 26px;
+  border-radius: 4px;
+  border: 1px solid #666666;
+  background-color: white;
+  margin-left: 16px;
+}
+.admin-list-title {
+  margin-top: 27px;
+  overflow: hidden;
+}
+.admin-list-con {
+  margin-top: 10px;
+}
+.admin-list-con table {
+  width: 100%;
+}
+.admin-list-con table tr:first-child td {
+  height: 40px;
+}
+.admin-list-con table tr:first-child td span {
+  text-align: center !important;
+}
+.admin-list-con table tr td {
+  height: 60px;
+  text-align: center;
+  border: 1px solid #F2F2F2;
+  color: #666666;
+}
+
+.admin-list-con table tr td:first-child span {
+  display: inline-block;
+  width: 150px;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+
+
+
+
+/*邀请记录*/
+
+.admin-invite {
+  margin-top: 10px;
+}
+.admin-invite table {
+  width: 100%;
+}
+.admin-invite table tr td {
+  text-align: center;
+}
+.admin-invite table tr:first-child td {
+  height: 40px;
+  text-align: center !important;
+  color: #666666;
+}
+.admin-invite table tr td {
+  height: 60px;
+  border: 1px solid #F2F2F2;
+}
+.admin-invite table tr td:first-child {
+  text-align: left;
+}
+
+/*未审核*/
+.condition-left {
+  float: left;
+}
+.admin-notaudit,.admin-hasaudit {
+  float: left;
+  width: 100px;
+  height: 30px;
+  border: 1px solid #999999;
+  line-height: 30px;
+  text-align: center;
+}
+.active-audit {
+  background-color: rgb(102,204,0);
+  color: white;
+  border: 0px;
+}
+.audit-status span{
+  color: #999999;
+}
+.condition-result {
+  float: left;
+  margin-right: 15px;
+}
+.admin-msg {
+  display: none;
+}
+
+.admin-list {
+  display: none;
+}
+.active-show {
+  display: block;
 }

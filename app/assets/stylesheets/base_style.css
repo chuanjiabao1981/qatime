@@ -91,6 +91,12 @@ header {
 .login span a i {
   color: rgb(190,11,11);
 }
+.login {
+  display: none;
+}
+.login-show {
+  display: block;
+}
 .header-nav span {
   margin-left: 10px;
   color: #000000;

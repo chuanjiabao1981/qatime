@@ -110,7 +110,7 @@
             </tr>
             <tr>
               <td class="icon1-color">
-                <%= link_to @user_path || send("customized_courses_#{@user.role}_path",@user) do %>
+                <%= link_to @user_path || send("customized_courses_#{current_user.role}_path",current_user) do %>
                   <i class="glyphicon glyphicon-user"></i><span>申请购买</span>
                 <%end %>
               </td>

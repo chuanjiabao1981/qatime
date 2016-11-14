@@ -52,11 +52,9 @@
   left: 50%;
   margin-left: -11px;
 }
-@media (min-width: 1200px){
+@media (min-width: 1200px) {
   .container {
-    width: 1160px !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    width: 1190px !important;
   }
 }
 body {
@@ -77,10 +75,12 @@ header {
 }
 .header-logo {
   float: left;
+  margin-left: -15px;
 }
 .header-nav {
   line-height: 38px;
   float: right;
+  margin-right: -15px;
 }
 .exit {
   color: #666666 !important;

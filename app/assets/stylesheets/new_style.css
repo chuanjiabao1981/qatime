@@ -2657,11 +2657,7 @@ color: #999999;
   color: #000000;
 }
 
-<<<<<<< HEAD
-.btn-audition a, .btn-audition a:hover, .btn-start a, .btn-start a:hover,.btn-applynow a .btn-applynow a:hover{
-=======
 .btn-audition a, .btn-audition a:hover, .btn-applynow a, .btn-applynow a:hover{
->>>>>>> QT-496
   color: #000;
 }
 
@@ -2966,11 +2962,7 @@ color: #999999;
   font-size: 12px;
   color: rgb(224,224,224);
   position: absolute;
-<<<<<<< HEAD
   left: 10px;
-=======
-  left: 0;
->>>>>>> QT-496
   bottom: -10px;
 }
 .btn-audition {

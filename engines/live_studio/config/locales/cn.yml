@@ -2,6 +2,19 @@ cn:
   view:
     tips:
       none_lessons: 当前无课程
+    search:
+      all: 全部
+      live_studio/course:
+        subject: 
+    sort:
+      live_studio/course:
+        id: 按时间
+        id/asc: 时间正序
+        id/desc: 时间倒序
+        price: 按时间
+        price/asc: 价格由低到高
+        price/desc: 价格由高到低
+        buy_tickets_count: 按报名人数
     columns:
       tickets_count: 人数
     save_btn: 保存

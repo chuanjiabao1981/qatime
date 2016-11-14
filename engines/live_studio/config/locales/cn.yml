@@ -9,8 +9,10 @@ cn:
     sort:
       live_studio/course:
         id: 按时间
+        published_at: 按时间
         id/asc: 时间正序
         id/desc: 时间倒序
+        published_at/desc: 时间倒序
         price: 按时间
         price/asc: 价格由低到高
         price/desc: 价格由高到低

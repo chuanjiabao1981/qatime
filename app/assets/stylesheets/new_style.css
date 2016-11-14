@@ -2652,16 +2652,18 @@ i {
   color: #000000;
 }
 
-.btn-audition a, .btn-audition a:hover, .btn-start a, .btn-start a:hover{
+.btn-audition a, .btn-audition a:hover, .btn-applynow a, .btn-applynow a:hover{
   color: #000;
 }
 
-.btn-sign a, .btn-sign a:hover, .btn-signnow a, .btn-signnow a:hover, .btn-listen a, .btn-listen a:hover{
+.btn-sign a, .btn-sign a:hover, .btn-signnow a, .btn-signnow a:hover, .btn-listen a, .btn-listen a:hover,.btn-start a, .btn-start a:hover{
   color: #fff;
 }
+
 .active-color {
   color: red !important;
 }
+
 .course_paginate{
   display: block;
   clear: both;

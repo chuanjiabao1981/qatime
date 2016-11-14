@@ -14,7 +14,7 @@ cn:
         price: 按时间
         price/asc: 价格由低到高
         price/desc: 价格由高到低
-        buy_tickets_count: 报名人数
+        buy_tickets_count: 按报名人数
     columns:
       tickets_count: 人数
     save_btn: 保存

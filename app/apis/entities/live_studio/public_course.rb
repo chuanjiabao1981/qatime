@@ -4,6 +4,8 @@ module Entities
     class PublicCourse < Grape::Entity
       expose :id
       expose :name
+      expose :grade
+      expose :price
       expose :subject do |course|
         course.subject.to_s
       end

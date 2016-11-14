@@ -95,7 +95,7 @@
               <p><%= t('view.play.course_description')%></p>
             </div>
             <div class="introduction-con">
-              <p><%= @course.description%></p>
+              <p><%= truncate(@course.description, length: 370, omission: '...') %></p>
             </div>
           </div>
         </div>

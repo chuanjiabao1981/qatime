@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
 
   def create
     # @user = User.find_by(email: params[:user][:email])
-     @user = User.find_by_login_account(params[:user][:login_account])
+    @user = User.find_by_login_account(params[:user][:login_account])
     if @user && @user.authenticate(params[:user][:password])
       sign_in(@user)
       flash[:info] = "欢迎登录!"

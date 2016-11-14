@@ -23,8 +23,7 @@
               <%=link_to profile_teacher_path(teacher.id) do %>
                 <span><%= teacher.try(:name)%></span>
               <% end %>
-              <%= image_tag 'man.png' if teacher.male?%>
-              <%= image_tag 'girl.png' if teacher.female?%>
+              <%= image_tag "#{teacher.gender || 'male'}.png", class: 'gender-img' %>
             </p>
           </li>
           <li>

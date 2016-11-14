@@ -9,10 +9,39 @@
 
 <div class="navbar-collapse collapse" style="height: 1px;">
   <ul class="nav navbar-nav">
-    <li><%= link_to t("view.common_bars.home_page"), main_app.root_path %></li>
-    <li><%= link_to t("view.common_bars.live_studio_courses"), live_studio.root_path %></li>
-    <li><%= link_to t("view.common_bars.customized_courses"), @none_path || main_app.customized_courses_student_path(current_user) %></li>
-    <li><%= link_to t("view.common_bars.curriculums"), main_app.curriculums_path %></li>
-    <li><%= link_to t("view.common_bars.questions"), main_app.questions_path %></li>
+    <li>
+      <%= link_to home_path do %>
+        <%= content_tag :span, '', class: 'fa fa-angle-up upward' if current_page?(home_path) %>
+        <%= t("view.common_bars.home_page") %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to live_studio.root_path do %>
+        <%= content_tag :span, '', class: 'fa fa-angle-up upward' if current_page?(live_studio.root_path) %>
+        <%= t("view.common_bars.live_studio_courses") %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to @none_path || main_app.customized_courses_student_path(current_user) do %>
+        <%= content_tag :span, '', class: 'fa fa-angle-up upward' if @none_path.blank? && current_page?(main_app.customized_courses_student_path(current_user)) %>
+        <%= t("view.common_bars.customized_courses") %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to main_app.curriculums_path do %>
+        <%= content_tag :span, '', class: 'fa fa-angle-up upward' if current_page?(main_app.curriculums_path) %>
+        <%= t("view.common_bars.curriculums") %>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to main_app.questions_path do %>
+        <%= content_tag :span, '', class: 'fa fa-angle-up upward' if current_page?(main_app.questions_path) %>
+        <%= t("view.common_bars.questions") %>
+      <% end %>
+    </li>
+  </ul>
+  <ul class="nav navbar-nav navbar-right visible-md visible-lg visible-xs">
+    <li><%= link_to t("view.common_bars.download"), main_app.welcome_download_path %></li>
+    <li><span class="help">|</span><%= link_to t("view.common_bars.common_problem"), main_app.qa_faqs_path %></li>
   </ul>
 </div>

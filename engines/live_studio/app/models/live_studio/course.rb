@@ -65,6 +65,7 @@ module LiveStudio
     scope :by_grade, ->(grade){ grade.blank? || grade == 'all' ? nil : where(grade: grade)}
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
     scope :uncompleted, -> { where('status < ?', Course.statuses[:completed]) }
+    scope :opening, ->{ where('status < ? and status > ?', Course.statuses[:completed], statuses[:init]) }
 
     def cant_publish?
       !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank? || lesson_count != preset_lesson_count

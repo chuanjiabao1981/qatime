@@ -33,13 +33,18 @@
               <td colspan="3"><span class="headline-color"><%= t("activerecord.view.date") %></span><span class="title-color interval"><%= @course.live_start_date%>-<%= @course.live_end_date%></span></td>
             </tr>
             <tr>
-              <td colspan="3"><span class="headline-color"><%= t("activerecord.view.status") %></span><span class="title-color interval"><%= @course.status_text%></span><span>(<%= "#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>)</span></td>
+              <td colspan="3"><span class="headline-color"><%= t("activerecord.view.status") %></span>
+                <span class="<%= @course.completed? ? 'separator' : 'title-color' %> interval">
+                  <%= @course.status_text%>
+                  (<%= @course.preview? ? (t('view.course_show.distance_text1') % @course.distance_days) : "#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>)
+                </span>
+              </td>
             </tr>
             <tr>
               <td colspan="3">
                 <div class="price-details">
                   <div class="unit-price">
-                    <span class="title-color price-num">￥<%= @course.price %></span>
+                    <span class="title-color price-num">￥<%= '%0.2f' % @course.price %></span>
                     <span class="sign-up"><%= t('view.course_search_show.purchase_number') %><%= @course.buy_tickets_count%></span>
                   </div>
                   <% if current_user.blank? || !current_user.teacher? %>

@@ -22,7 +22,7 @@ cn:
       info: 查看详情
       lessons: 课程列表
       study_link: 立即学习
-      distance_text1: (距开课 %d天)
+      distance_text1: 距开课 %d天
       distance_text2: 距离开课还有%d天
       nil_data: 暂无
       preview_lesson: 课程还未开始

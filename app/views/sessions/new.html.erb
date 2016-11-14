@@ -25,7 +25,9 @@
             <%= link_to t("passwords.common.find_password"), new_password_path, class: 'btn' %>
           </div>
         </div>
-
+        <% params.except('controller','action').each do |k ,v| %>
+          <%= hidden_field_tag k, v %>
+        <% end %>
         <div class="row text-center">
           <%= f.submit t(".sign_in"), class: "btn btn-default" %>
         </div>

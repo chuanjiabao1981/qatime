@@ -2953,7 +2953,7 @@ i {
   font-size: 12px;
   color: rgb(224,224,224);
   position: absolute;
-  right: 0;
+  left: 0;
   bottom: -10px;
 }
 .btn-audition {

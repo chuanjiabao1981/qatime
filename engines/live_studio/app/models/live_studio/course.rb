@@ -103,6 +103,11 @@ module LiveStudio
       teacher.try(:name)
     end
 
+    def distance_days
+      return 0 if class_date.blank?
+      -(DateTime.parse(Date.today.to_s) - class_date.to_datetime)
+    end
+
     def order_params
       { amount: price, product: self }
     end

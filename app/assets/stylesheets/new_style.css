@@ -809,8 +809,8 @@ figcaption p {
     }*/
 .triangle-icon-1,.triangle-icon-2{
   position: absolute;
-  top: 50px !important;
-  /*top: -15px !important;*/
+  top: -15px;
+  left: 0px;
   width: 0;
   height: 0;
   border-left: 10px solid transparent;
@@ -818,15 +818,14 @@ figcaption p {
   border-bottom: 15px solid white;
 
 }
+
 .triangle-icon-1 {
-  /*left: 150px;*/
-  left: 300px;
-}
-.triangle-icon-2 {
-  /*left: 130px;*/
-  left: 300px;
+  left: 150px;
 }
 
+.triangle-icon-2 {
+  left: 130px;
+}
 
 /*老师的课程表*/
 .teacher-schedule {
@@ -835,10 +834,13 @@ figcaption p {
   background-color: white;
   font-size: 1.2rem;
   position: absolute;
-  top: -20px;
-  right: 140px;
+  top: 50px;
+  right: 150px;
   z-index: 10000;
   display: none;
+}
+.positioning {
+  position: relative;
 }
 .teacher-schedule-1 {
   display: inline-block;

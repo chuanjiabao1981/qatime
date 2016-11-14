@@ -808,23 +808,21 @@ figcaption p {
     color: white;
     }*/
  .triangle-icon-1,.triangle-icon-2{
-  position: absolute;
-  top: 50px !important;
-  /*top: -15px !important;*/
+   position: absolute;
+   top: -15px !important;
    width: 0;
-    height: 0;
-    border-left: 10px solid transparent;
-    border-right: 10px solid transparent;
-    border-bottom: 15px solid white;
-  
+   height: 0;
+   border-left: 10px solid transparent;
+   border-right: 10px solid transparent;
+   border-bottom: 15px solid white;
  }
 .triangle-icon-1 {
   left: 150px;
 }
+
 .triangle-icon-2 {
   left: 130px;
 }
-
 
 /*老师的课程表*/
 .positioning {
@@ -840,6 +838,9 @@ figcaption p {
   right: 150px;
   z-index: 10000;
   display: none;
+}
+.positioning {
+  position: relative;
 }
 .teacher-schedule-1 {
   display: inline-block;
@@ -2657,16 +2658,18 @@ color: #999999;
   color: #000000;
 }
 
-.btn-audition a, .btn-audition a:hover, .btn-start a, .btn-start a:hover,.btn-applynow a .btn-applynow a:hover{
+.btn-audition a, .btn-audition a:hover, .btn-applynow a, .btn-applynow a:hover{
   color: #000;
 }
 
-.btn-sign a, .btn-sign a:hover, .btn-signnow a, .btn-signnow a:hover, .btn-listen a, .btn-listen a:hover{
+.btn-sign a, .btn-sign a:hover, .btn-signnow a, .btn-signnow a:hover, .btn-listen a, .btn-listen a:hover,.btn-start a, .btn-start a:hover{
   color: #fff;
 }
+
 .active-color {
   color: red !important;
 }
+
 .course_paginate{
   display: block;
   clear: both;

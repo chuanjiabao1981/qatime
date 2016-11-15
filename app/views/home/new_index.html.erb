@@ -4,17 +4,13 @@
 
       <div class="home-banner">
         <ul class="banner-show" style="left: -100%;">
+          <% @recommend_banners.each do |banner| %>
+            <li>
+              <%= link_to image_tag(banner.logo_url(:home)), banner.link %>
+            </li>
+          <% end %>
           <li>
-            <%= link_to image_tag('banner.jpg'), welcome_download_path %>
-          </li>
-          <li>
-            <%= link_to image_tag('banner2.jpg'),@user_path || send("customized_courses_#{@user.role}_path",@user) %>
-          </li>
-          <li>
-            <%= link_to image_tag('banner3.jpg'), live_studio.courses_path %>
-          </li>
-          <li>
-            <%= link_to image_tag('banner.jpg'), welcome_download_path %>
+            <%= link_to image_tag(@recommend_banners.first.logo_url(:home)), @recommend_banners.first.link %>
           </li>
         </ul>
         <ul class="banner-dot">

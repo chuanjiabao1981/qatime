@@ -11,6 +11,7 @@ class HomeController < ApplicationController
   def new_index
     @recommend_courses = Recommend::LiveStudioCourseItem.order(index: :asc).limit(6)
     @recommend_teachers = Recommend::TeacherItem.order(index: :asc).limit(5)
+    @recommend_banners = Recommend::BannerItem.order(index: :asc).limit(3)
     @user_path = @user.blank? ? signin_path : (!@user.student? && !@user.teacher? && 'javascript:void(0);')
     render layout: 'application_front'
   end

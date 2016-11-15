@@ -6,6 +6,7 @@ module Recommend
     belongs_to :owner, polymorphic: true
     class_attribute :recomend_for
     serialize :platforms, Array
+    belongs_to :city
 
     enum reason: %w(newest hottest)
 

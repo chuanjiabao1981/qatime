@@ -17,9 +17,14 @@ class BannerLogoUploader < CarrierWave::Uploader::Base
   def store_dir
     "banners/logo/"
   end
-  process :resize_to_fit => [1190,316]
+  version :home do
+    process :resize_to_fill => [1190,316]
+  end
   version :mobile do
     process :resize_to_fill => [595,158]
+  end
+  version :list do
+    process :resize_to_fill => [148,39]
   end
 
   #

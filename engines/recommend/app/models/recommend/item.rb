@@ -9,6 +9,11 @@ module Recommend
     belongs_to :city
 
     enum reason: %w(newest hottest)
+    PLATFORMS = {
+      'pc': '0',
+      'android': '1',
+      'ios': '2'
+    }
 
     def reason_text
       reason.blank? ? '无' : I18n.t("enums.recommend.reason.#{reason}")

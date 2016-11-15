@@ -11,6 +11,5 @@ cn:
         index: 排序
         status: 状态
         link: 跳转链接
-
-
-
+        city: 城市
+        platforms: 平台

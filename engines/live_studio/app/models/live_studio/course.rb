@@ -224,13 +224,13 @@ module LiveStudio
     end
 
     def live_start_time
-      lesson = lessons.order('class_date asc,id').first
+      lesson = lessons.reorder('class_date asc,id').first
       lesson.try(:live_start_at).try(:strftime,'%Y-%m-%d %H:%M') ||
         "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:start_time)}"
     end
 
     def live_end_time
-      lesson = lessons.order('class_date asc,id').last
+      lesson = lessons.reorder('class_date asc,id').last
       lesson.try(:live_end_at).try(:strftime,'%Y-%m-%d %H:%M') ||
         "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:end_time)}"
     end

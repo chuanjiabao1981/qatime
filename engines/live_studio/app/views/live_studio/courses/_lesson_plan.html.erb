@@ -6,13 +6,13 @@
        <span class="title-size">课程安排</span>
       </div>
     </div>
-    
+
     <div class="arrange-con">
       <table border="0" cellspacing="0" cellpadding="0">
         <% @course.order_lessons.each_with_index do |lesson,i| %>
           <tr class="<%= lesson.is_over? ? 'prompt-con' : '' %>">
             <td>
-              <span><%= i+1 %></span>
+              <span><%= beautify_index(i) %></span>
             </td>
             <td>
               <span>

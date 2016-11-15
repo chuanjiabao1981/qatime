@@ -7,6 +7,8 @@ cn:
         name: 名称
         description: 简介
         taste_count: 试听数
-
-
-
+        price_region: 价格范围
+        preset_lesson_count_region: 课时范围
+        lessons_count_region: 课时范围
+        class_date_region: 开课时间
+        sort: 排序

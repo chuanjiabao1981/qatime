@@ -8,6 +8,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<%
+   @none_path = current_user.blank? ? signin_path : (!current_user.student? && !current_user.teacher? && 'javascript:void(0);')
+%>
 <header>
   <div class="container">
     <div class="header-content">
@@ -22,7 +25,16 @@
   </div>
 </div>
 
+<div class="container message-nav">
+  <div class="row">
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
+  </div>
+</div>
+
 <%= yield %>
+
 <div class="container container-footer">
   <div class="row">
     <footer class="recommended-link">

@@ -6,7 +6,7 @@ module Permissions
       super(user)
 
       allow :curriculums,[:index,:show]
-      allow :home,[:index]
+      allow :home,[:index, :new_index]
       allow :pictures,[:new,:create]
       allow :pictures,[:destroy] do |picture|
         picture and picture.author and picture.author_id == user.id

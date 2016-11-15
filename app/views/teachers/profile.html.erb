@@ -3,7 +3,10 @@
     <div class="panel panel-default">
       <div class="tec-homepage">
         <div class="homepage-title">
-          <div class="homepage-title-left"><span><%= @teacher.name %></span></div>
+          <div class="homepage-title-left">
+            <span><%= @teacher.name %></span>
+            <%= image_tag "#{@teacher.gender || 'male'}.png", size: '25x27', alt: :gender %>
+          </div>
           <div class="homepage-title-right">
             <span><i class="fa fa-check-square"></i>在线授课</span>
             <span class="checkbox-homepage"><i class="fa fa-check-square"></i>资料已审核</span>
@@ -20,7 +23,7 @@
             </tr>
             <tr>
               <td class="td-year"><i class="glyphicon glyphicon-calendar icon-color-1"></i><span><%= "#{@teacher.category}#{@teacher.subject}" %></span></td>
-              <td class="td-region"><i class="fa fa-map-marker icon-color-1"></i><span><%= @teacher.school.try(:name) %></span></td>
+              <td class="td-region"><i class="fa fa-map-marker icon-color-1 icon-size"></i><span><%= @teacher.school.try(:name) %></span></td>
             </tr>
             <tr>
               <td colspan="2" class="td-year"><i class="glyphicon glyphicon-user icon-color-1"></i><span>自我介绍</span></td>
@@ -37,7 +40,7 @@
             <p>TA的直播课</p>
           </div>
 
-          <div class="screening-con">
+          <%= content_tag :div, class: 'screening-con' do %>
             <ul class="list-live">
               <% @courses.each do |course| %>
                 <li>
@@ -48,19 +51,50 @@
                     </dd>
                     <dd>
     		 					<span class="dd-left">
-    		 					<i class="glyphicon glyphicon-time icon-color"></i>
-    		 					<i class="num-class"><%= course.preset_lesson_count %></i>课时
+                    <%= "#{course.grade}#{course.subject}/共#{course.try(:preset_lesson_count)}课" %>
     		 					</span>
-    		 					<span class="dd-right">
-    		 						<i class="glyphicon glyphicon-user icon-color"></i>
-    		 						<i class="num-buy"><%= course.buy_tickets_count %></i>人已购
+    		 					<span class="dd-right active-tab">
+    		 						<%= number_to_currency(course.price, unit: '￥', locale: :cn) %>
     		 					</span>
                     </dd>
                   </dl>
                 </li>
               <% end %>
             </ul>
-          </div>
+          <% end if @courses.present?%>
+          <%= content_tag :div, class: 'nocourse' do %>
+            <div class="nocourse-msg">
+              <center>
+                <%= image_tag 'no-course.png' %>
+              </center>
+              <p>暂无课程</p>
+            </div>
+              <%= content_tag :div, class: 'nocourse-con' do %>
+              <div class="nocourse-con-title">相似课程推荐</div>
+              <ul class="list-live">
+                <% @similar_courses.each do |course| %>
+                  <li>
+                    <%= link_to image_tag(course.publicize_url(:list)), live_studio.course_path(course) %>
+                    <dl class="dl-list">
+                      <dd>
+                        <%= link_to course.name, live_studio.course_path(course) %>
+                      </dd>
+                      <dd>
+                        <span class="dd-left">
+                          <%= "#{course.grade}#{course.subject}/共#{course.try(:preset_lesson_count)}课" %>
+                        </span>
+                        <span class="dd-right active-tab">
+    		 						      <%= number_to_currency(course.price, unit: '￥', locale: :cn) %>
+                        </span>
+                      </dd>
+                    </dl>
+                  </li>
+                <% end %>
+              </ul>
+            <% end if @similar_courses.present?%>
+          <% end if @courses.blank? %>
+
+
         </div>
         <div class="homepage-elscon">
           <table border="0" cellspacing="0" cellpadding="0">

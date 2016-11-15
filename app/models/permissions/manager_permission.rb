@@ -73,7 +73,9 @@ module Permissions
       allow :course_issue_replies,[:show]
       allow :comments,[:show]
       allow :corrections,[:show]
-
+      allow :notifications, [:index] do |resource_user|
+        resource_user && user.id == resource_user.id
+      end
 
       allow 'managers/sellers', [:new, :create, :edit, :update, :destroy]
       allow 'managers/waiters', [:new, :create, :edit, :update, :destroy]

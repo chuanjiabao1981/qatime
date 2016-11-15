@@ -4,7 +4,7 @@ module Permissions
       super(user)
 
       allow :sessions, [:destroy]
-      allow :home, [:index]
+      allow :home, [:index, :new_index]
       allow "waiters/home", [:main]
 
       ## begin live studio permission

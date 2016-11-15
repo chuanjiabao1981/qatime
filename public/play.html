@@ -1,0 +1,54 @@
+<link href="//nos.netease.com/vod163/nep.min.css" rel="stylesheet">
+
+<video id="my-video" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="poster.png" preload="auto" width="640" height="360" data-setup="{}">
+    <source src="MY_VIDEO.mp4" type="video/mp4">
+</video>
+
+<script src="//nos.netease.com/vod163/nep.min.js"></script>
+<script>
+function queryParams(name, url) {
+  if (!url) {
+    url = window.location.href;
+  }
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+var width = queryParams('width') || 640;
+var height = queryParams('height') || 480;
+var address = queryParams("address");
+
+var myPlayer = neplayer("my-video", {
+  "autoplay": true, //是否自动播放(ios不支持自动播放)
+  /*预加载选项*/
+  "preload": "auto",
+  "width": 640, //设置播放器宽度
+  "height": 480//设置播放器高度
+}, function() {
+  console.log("Ready......");
+});
+
+myPlayer.setDataSource({
+  type: "rtmp/flv",
+  src: address
+});
+
+myPlayer.onError(function(err){
+  console.log(err.errCode);
+  console.log(err.errMsg);
+});
+
+myPlayer.onPlayState(1,function(){
+  console.log('play');
+});
+myPlayer.onPlayState(2,function(){
+  console.log('pause');
+});
+myPlayer.onPlayState(3,function(){
+  console.log('ended');
+}); 
+</script>

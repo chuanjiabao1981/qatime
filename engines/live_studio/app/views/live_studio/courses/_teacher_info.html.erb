@@ -32,7 +32,7 @@
               <p><span class="con-title title-color"><%= t('view.course_info_show.school')%></span><span><%= teacher.school.try(:name)%></span></p>
               <p>
                 <span class="con-title title-color"><%= t('view.course_info_show.teacher_desc')%></span>
-                <span><%= teacher.desc %></span>
+                <span><%= truncate(teacher.desc, length: 145, omission: '...') %></span>
               </p>
             </div>
           </li>

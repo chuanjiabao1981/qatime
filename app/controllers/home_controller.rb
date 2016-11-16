@@ -12,8 +12,7 @@ class HomeController < ApplicationController
 
   def new_index
     set_city
-    @recommend_courses = Recommend::LiveStudioCourseItem.limit(6)
-    @recommend_teachers = Recommend::TeacherItem.limit(5)
+    @recommend_courses, @recommend_teachers, @recommend_banners = DataService::HomeData.home_data_by_city(@city.try(:id))
     @user_path = @user.blank? ? signin_path : (!@user.student? && !@user.teacher? && 'javascript:void(0);')
   end
 

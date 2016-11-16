@@ -19,7 +19,7 @@ class HomeController < ApplicationController
 
   def switch_city
     @hash_cities = ::Util.group_cities
-    @selected_cities = cookies[:selected_cities].try(:split, '-').try(:sort){ |x,y| y <=> x }
+    @selected_cities = cookies[:selected_cities].try(:split, '-')
   end
 
   private
@@ -28,10 +28,12 @@ class HomeController < ApplicationController
   end
 
   def set_city
-    @city = City.find_by(id: params[:city_id]) || City.find_by(name: params[:city_name])
+    cookie_city = cookies[:selected_cities].try(:split, '-').try(:first)
+    @city = City.find_by(id: params[:city_id]) || City.find_by(name: params[:city_name] || cookie_city)
     return if @city.blank?
-    selected_cities = cookies[:selected_cities].try(:split, '-').try(:sort){ |x,y| y <=> x } || []
-    selected_cities = selected_cities.insert(0, @city.name).sort
+    selected_cities = cookies[:selected_cities].try(:split, '-') || []
+    selected_cities.delete(@city.name) if selected_cities.include?(@city.name)
+    selected_cities = selected_cities.insert(0, @city.name)
     cookies[:selected_cities] = selected_cities.uniq.try(:join, '-')
     @city
   end

@@ -72,6 +72,7 @@ module LiveStudio
     scope :by_grade, ->(grade){ grade.blank? || grade == 'all' ? nil : where(grade: grade)}
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
     scope :uncompleted, -> { where('status < ?', Course.statuses[:completed]) }
+    scope :opening, ->{ where('status < ? and status > ?', Course.statuses[:completed], statuses[:init]) }
 
     def cant_publish?
       !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank? || lesson_count != preset_lesson_count
@@ -82,12 +83,24 @@ module LiveStudio
       super
     end
 
-    def push_stream
-      push_streams.last
+    # 白板推流地址
+    def board_push_stream
+      push_streams.find {|stream| stream.use_for == 'board' }.try(:address)
     end
 
-    def pull_stream
-      pull_streams.last
+    # 白板拉流地址
+    def board_pull_stream
+      pull_streams.find {|stream| stream.use_for == 'board' }.try(:address)
+    end
+
+    # 摄像头推流地址
+    def camera_push_stream
+      push_streams.find {|stream| stream.use_for == 'camera' }.try(:address)
+    end
+
+    # 摄像头拉流地址
+    def camera_pull_stream
+      pull_streams.find {|stream| stream.use_for == 'camera' }.try(:address)
     end
 
     scope :for_sell, -> { where(status: [Course.statuses[:preview], Course.statuses[:teaching]]) }
@@ -95,6 +108,11 @@ module LiveStudio
     # teacher's name. return blank when teacher is missiong
     def teacher_name
       teacher.try(:name)
+    end
+
+    def distance_days
+      return 0 if class_date.blank?
+      -(DateTime.parse(Date.today.to_s) - class_date.to_datetime)
     end
 
     def order_params
@@ -226,14 +244,14 @@ module LiveStudio
 
     def live_start_date
       lesson = lessons.order('class_date asc,id').first
-      lesson.try(:live_start_at).try(:strftime,'%Y年%m月%d日') ||
-        "#{lesson.try(:class_date).try(:strftime, '%Y年%m月%d日')}"
+      lesson.try(:live_start_at).try(:strftime,'%Y-%m-%d') ||
+        "#{lesson.try(:class_date).try(:strftime, '%Y-%m-%d')}"
     end
 
     def live_end_date
       lesson = lessons.order('class_date asc,id').last
-      lesson.try(:live_end_at).try(:strftime,'%Y年%m月%d日') ||
-        "#{lesson.try(:class_date).try(:strftime, '%Y年%m月%d日')}"
+      lesson.try(:live_end_at).try(:strftime,'%Y-%m-%d') ||
+        "#{lesson.try(:class_date).try(:strftime, '%Y-%m-%d')}"
     end
 
     def order_lessons

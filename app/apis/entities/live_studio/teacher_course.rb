@@ -2,15 +2,18 @@ module Entities
   module LiveStudio
     class TeacherCourse < Entities::LiveStudio::Course
       expose :push_address do |course|
-        course.push_stream.try(:address)
+        course.board_push_stream
       end
 
+      expose :board_push_stream
+      expose :camera_push_stream
+
       expose :board do |course|
-        course.push_streams.find {|stream| stream.use_for == 'board' }.try(:address)
+        course.board_push_stream
       end
 
       expose :camera do |course|
-        course.push_streams.find {|stream| stream.use_for == 'camera' }.try(:address)
+        course.camera_push_stream
       end
     end
   end

@@ -5,7 +5,7 @@ cn:
         disable: 禁用
         enable: 启用
       reason:
-        latest: 最新
+        newest: 最新
         hottest: 最热
   activerecord:
     models:

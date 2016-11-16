@@ -15,7 +15,7 @@ class Ajax::DataController < ApplicationController
   end
 
   def home_curriculums
-    @curriculums = Curriculum.by_subject(params[:subject]).limit(10)
+    @curriculums = Curriculum.by_subject(params[:subject]).limit(8)
     respond_to do |format|
       format.html{ render layout: false}
     end

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  course_id: 
+  workstation_id: 
+  status: 1
+  handled_at: 2016-11-16 10:50:33
+
+two:
+  course_id: 
+  workstation_id: 
+  status: 1
+  handled_at: 2016-11-16 10:50:33

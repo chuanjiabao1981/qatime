@@ -1,0 +1,19 @@
+<div class="admin-title-left">
+  <%= link_to t("live_studio.menu.courses"),
+              live_studio.manager_courses_path(@manager),
+              class: "#{'active-admin' if 'live_studio/manager/courses' == params[:controller]}" %>
+  <%= link_to t("live_studio.menu.course_requests"),
+              live_studio.manager_course_requests_path(@manager),
+              class: "#{'active-admin' if 'live_studio/manager/course_requests' == params[:controller]}" %>
+  <%= link_to t("live_studio.menu.course_invitations"),
+              live_studio.manager_course_invitations_path(@manager),
+              class: "#{'active-admin' if 'live_studio/manager/course_invitations' == params[:controller]}" %>
+</div>
+<div class="admin-title-right">
+  <span><%= t("live_studio.city") %></span>
+  <select name="">
+    <% @manager.workstations.includes(city: :province).each do |workstation| -%>
+      <option value="<%= workstation.city.name_with_province %>"><%= workstation.city.name_with_province %></option>
+    <% end -%>
+  </select>
+</div>

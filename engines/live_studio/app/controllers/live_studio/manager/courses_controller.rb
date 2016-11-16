@@ -6,7 +6,13 @@ module LiveStudio
 
     # GET /manager/courses
     def index
-      @courses = @manager.live_studio_courses.paginate(page: params[:page])
+      @courses = @manager.live_studio_courses
+      @courses = if params[:status].blank?
+                   @courses.where("status > ?", LiveStudio::Course.status.init.value)
+                 else
+                   @courses.where(status: params[:status])
+                 end
+      @courses = @courses.paginate(page: params[:page])
     end
 
     # GET /manager/courses/1

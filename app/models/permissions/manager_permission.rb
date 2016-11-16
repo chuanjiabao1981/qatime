@@ -112,6 +112,7 @@ module Permissions
       allow 'live_studio/teacher/courses', [:index, :show]
       allow 'live_studio/student/courses', [:index, :show]
       allow 'live_studio/manager/course_invitations', [:index, :new, :create, :cancel]
+      allow 'live_studio/manager/course_requests', [:index, :accept, :reject]
       allow 'live_studio/courses', [:index, :new, :create, :show]
       allow 'live_studio/courses', [:edit, :update, :destroy] do |manager,course,action|
         permission =

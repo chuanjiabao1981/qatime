@@ -3,6 +3,8 @@ module LiveStudio
     # include LiveStudio::QaCourseActionRecord
     has_soft_delete
 
+    extend Enumerize
+
     def to_param
       "#{id} #{name}".parameterize
     end
@@ -16,9 +18,9 @@ module LiveStudio
 
     belongs_to :invitation
 
-    enum status: {
+    enumerize :status, in: {
       init: 0, # 初始化
-      preview: 1, # 招生中
+      published: 1, # 招生中
       teaching: 2, # 已开课
       completed: 3 # 已结束
     }
@@ -42,6 +44,7 @@ module LiveStudio
     has_many :buy_tickets   # 普通听课证
     has_many :taste_tickets # 试听证
     has_many :lessons, -> { order('id asc') } # 课时
+    has_many :course_requests
 
     accepts_nested_attributes_for :lessons, allow_destroy: true
     validates_associated :lessons
@@ -259,6 +262,12 @@ module LiveStudio
     def finish_invitation
       return unless invitation
       invitation.accepted!
+    end
+
+    # 招生申请 提交审核
+    after_commit :apply_publish, on: :create
+    def apply_publish
+      course_requests.create(user: teacher, workstation: workstation)
     end
 
     # 非邀请辅导班使用默认工作站

@@ -1,0 +1,21 @@
+cn:
+  live_studio:
+    menu:
+      course_requests: 招生审核
+      course_invitations: 开班邀请
+      courses: 辅导班列表
+    course_request:
+      menu:
+        unhandled: 未审核
+        handled: 已审核
+        reset: 清空
+        query: 查询
+        all: 全部
+  activerecord:
+    models:
+      live_studio/course: 辅导班
+    attributes:
+      live_studio/course:
+        name: 名称
+        description: 简介
+        taste_count: 试听数

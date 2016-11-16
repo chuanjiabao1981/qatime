@@ -35,6 +35,12 @@ LiveStudio::Engine.routes.draw do
           patch :cancel
         end
       end
+      resources :course_requests, only: [:index] do
+        member do
+          patch :accept
+          patch :reject
+        end
+      end
     end
   end
 

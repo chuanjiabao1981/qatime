@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161111060440) do
+ActiveRecord::Schema.define(version: 20161116030309) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -483,6 +483,20 @@ ActiveRecord::Schema.define(version: 20161111060440) do
 
   add_index "live_studio_channels", ["course_id"], name: "index_live_studio_channels_on_course_id", using: :btree
 
+  create_table "live_studio_course_requests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "course_id"
+    t.integer  "workstation_id"
+    t.integer  "status"
+    t.datetime "handled_at"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "live_studio_course_requests", ["course_id"], name: "index_live_studio_course_requests_on_course_id", using: :btree
+  add_index "live_studio_course_requests", ["user_id"], name: "index_live_studio_course_requests_on_user_id", using: :btree
+  add_index "live_studio_course_requests", ["workstation_id"], name: "index_live_studio_course_requests_on_workstation_id", using: :btree
+
   create_table "live_studio_courses", force: :cascade do |t|
     t.string   "name",                   limit: 100,                                       null: false
     t.integer  "teacher_id"
@@ -689,6 +703,7 @@ ActiveRecord::Schema.define(version: 20161111060440) do
     t.decimal  "total_expenditure", precision: 8, scale: 2, default: 0.0
     t.boolean  "migrated",                                  default: false
     t.decimal  "frozen_balance",    precision: 8, scale: 2, default: 0.0
+    t.string   "password_digest"
   end
 
   add_index "payment_cash_accounts", ["owner_type", "owner_id"], name: "index_payment_cash_accounts_on_owner_type_and_owner_id", using: :btree

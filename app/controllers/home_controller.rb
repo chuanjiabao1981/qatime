@@ -1,5 +1,7 @@
 class HomeController < ApplicationController
   before_action :set_user
+  layout 'application_front'
+
   def index
     # if signed_in?
     redirect_to action: :new_index
@@ -12,7 +14,10 @@ class HomeController < ApplicationController
     @recommend_courses = Recommend::LiveStudioCourseItem.limit(6)
     @recommend_teachers = Recommend::TeacherItem.limit(5)
     @user_path = @user.blank? ? signin_path : (!@user.student? && !@user.teacher? && 'javascript:void(0);')
-    render layout: 'application_front'
+  end
+
+  def switch_city
+    @all_cities = City.all
   end
 
   private

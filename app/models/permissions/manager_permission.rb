@@ -15,7 +15,7 @@ module Permissions
       allow :students,[:index,:search,:show,:edit,:create,:update,
                        :info,:teachers,:customized_courses,:homeworks,
                        :solutions,:account,:customized_tutorial_topics,:questions,:notifications, :admin_edit, :admin_update]
-      allow :home,[:index]
+      allow :home,[:index,:new_index,:switch_city]
       allow :schools,[:index,:new,:create,:show,:edit,:update]
       allow :register_codes, [:index, :new, :downloads, :create]
       allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,

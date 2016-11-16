@@ -1,4 +1,10 @@
-<div class="header-logo"><%= image_tag 'logo.png' %></div>
+<div class="header-logo">
+  <%= image_tag 'logo.png' %>
+  <div class="city">
+    <span class="location-city"><%= t('view.common_bars.nationwide') %></span>
+    <%= link_to_unless_current "[#{t('view.common_bars.switch_city')}]", switch_city_home_index_path, class: 'switch-city' %>
+  </div>
+</div>
 <div class="header-nav">
   <% if signed_in? %>
     <div class="login">
@@ -9,7 +15,7 @@
         <% end %>
       </span>
       <span>
-        <%= link_to main_app.user_notifications_path(current_user) do%>
+        <%= link_to main_app.user_notifications_path(current_user) do %>
           <i class="fa fa-envelope-o"></i><%=  t("view.common_bars.notice") %>
         <% end %>
       </span>

@@ -7,7 +7,7 @@ module LiveStudio
     before_action :play_authorize, only: [:play]
 
     def index
-      @courses = LiveService::CourseDirector.courses_search(search_params).paginate(page: params[:page], per_page: 12)
+      @courses = LiveService::CourseDirector.courses_search(search_params).paginate(page: params[:page], per_page: 8)
       if @student && @student.student?
         @tickets = @student.live_studio_tickets.includes(course: :lesson).where(course_id: @courses.map(&:id)) if @student
       else
@@ -81,6 +81,7 @@ module LiveStudio
       @current_lesson = @course.current_lesson
       # @tickets = @course.tickets.available.includes(:student)
       @teacher = @course.teacher
+      @pull_stream = @course.pull_stream
       @chat_account = current_user.chat_account
       @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) if @chat_team && @chat_account
       render layout: 'play'
@@ -135,9 +136,9 @@ module LiveStudio
     end
 
     def search_params
-      @search_params = params.permit(
-        :subject, :grade, :sort_by, :status, :price_floor, :price_ceil, :class_date_floor, :class_date_ceil,
-        :preset_lesson_count_floor, :preset_lesson_count_ceil
+      params.permit(
+        :subject, :grade, :sort_by, :status, :price_floor,
+        :price_ceil,:class_date_floor,:class_date_ceil,:preset_lesson_count_floor,:preset_lesson_count_ceil
       )
     end
 

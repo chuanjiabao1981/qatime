@@ -20,7 +20,7 @@
       <%= link_to t("live_studio/course_request.accept"), accept_manager_course_request_path(@manager, course_request), method: :patch %>
       <%= link_to t("live_studio/course_request.reject"), reject_manager_course_request_path(@manager, course_request), method: :patch %>
     <% else %>
-      <%= course_request.status %>
+      <%= course_request.status.text %>
     <% end %>
   </td>
 </tr>

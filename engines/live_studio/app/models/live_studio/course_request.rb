@@ -7,9 +7,10 @@ module LiveStudio
 
     scope :handled, -> { where(status: [1, 2]) }
 
+    extend Enumerize
     include AASM
 
-    enum status: {
+    enumerize :status, in: {
       submitted: 0, # 已提交
       accepted: 1, # 审核通过
       rejected: 2 # 已拒绝
@@ -31,7 +32,7 @@ module LiveStudio
 
     def publish_course
       return unless course.init?
-      course.preview!
+      course.publish!
       LiveService::CourseDirector.new(course).instance_for_course
     end
   end

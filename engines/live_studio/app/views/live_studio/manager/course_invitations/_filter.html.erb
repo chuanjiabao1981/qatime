@@ -1,62 +1,17 @@
-<%= form_tag '',method: :get, id: 'search-form' do %>
-  <%= hidden_field_tag :status, params[:status] %>
-  <%= hidden_field_tag :subject, params[:subject] %>
-  <div class="btn-group">
-    <div class="dropdown">
-      <%= t('view.invitation.status')%>:
-      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-        <% if LiveStudio::CourseInvitation.statuses[params[:status]].present? %>
-          <%= I18n.t("invitations.status.#{params[:status]}") %>
-        <% else %>
-          <%= t('activerecord.view.filter.all') %>
-        <% end %>
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li><a href="javascript:void(0);" class="search-link-submit" rel="status" data=""><%= t('activerecord.view.filter.all') %></a></li>
-        <% LiveStudio::CourseInvitation.statuses.keys.each do |status| %>
-          <li><a href="javascript:void(0);" class="search-link-submit" rel="status" data="<%= status %>"><%= I18n.t("invitations.status.#{status}") %></a></li>
-        <% end %>
-      </ul>
-    </div>
+<%= form_tag '', method: :get do -%>
+  <div class="condition">
+    <span><%= LiveStudio::CourseInvitation.human_attribute_name(:status) %></span>
+    <%= select_tag :status, options_for_select(LiveStudio::CourseInvitation.status.options, params[:status]),
+      prompt: t("live_studio.course.menu.all") %>
   </div>
-  <div class="btn-group">
-    <div class="dropdown">
-      <%= t('view.invitation.subject')%>:
-      <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-        <% if params[:subject].present? && params[:subject] != 'all'%>
-          <%= params[:subject] %>
-        <% else %>
-          <%= t('activerecord.view.filter.all') %>
-        <% end %>
-        <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu">
-        <li><a href="javascript:void(0);" class="search-link-submit" rel="subject" data=""><%= t('activerecord.view.filter.all') %></a></li>
-        <% APP_CONSTANT['subjects'].each do |subject| %>
-          <li><a href="javascript:void(0);" class="search-link-submit" rel="subject" data="<%= subject %>"><%= subject %></a></li>
-        <% end %>
-      </ul>
-    </div>
+
+  <div class="condition">
+    <span><%= LiveStudio::CourseInvitation.human_attribute_name(:user_subject) %></span>
+    <%= select_tag :subject, options_for_select(APP_CONSTANT['subjects'], params[:subject]), prompt: t("live_studio.course_request.menu.all") %>
   </div>
-  <%= link_to t('view.invitation.clear_filter'), 'javascript:void(0);', class:'btn btn-default clear-range'%>
-<% end %>
 
-<%= content_for :javascript do %>
-  <script>
-    $(document).ready(function(){
-      $('.clear-range').click(function(){
-        $('#status').val('');
-        $('#subject').val('');
-        $('#search-form').submit();
-      });
-
-      $(".search-link-submit").click(function(){
-        var tag = $(this).attr('rel');
-        var value = $(this).attr('data');
-        $("#"+tag).val(value);
-        $("#search-form").submit();
-      });
-    })
-  </script>
+  <div class="condition-right">
+    <%= link_to t("live_studio.course.menu.reset"), live_studio.manager_courses_path(@manager) %>
+    <%= submit_tag t("live_studio.course.menu.query") %>
+  </div>
 <% end %>

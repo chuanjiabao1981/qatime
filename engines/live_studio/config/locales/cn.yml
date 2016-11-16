@@ -251,6 +251,14 @@ cn:
         teacher_percentage: 老师分成
         created_at: 提交时间
         review: 审核
+      live_studio/course_invitation:
+        user_name: 受邀老师
+        user_subject: 科目
+        teacher_percent: 老师分成
+        created_at: 邀请发送时间
+        left_time: 剩余有效期
+        status: 当前状态
+        operation: 操作
     status:
       live_studio/lesson:
         init: 初始化

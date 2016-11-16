@@ -19,3 +19,12 @@ cn:
         name: 名称
         description: 简介
         taste_count: 试听数
+        aasm_state/init: 审核中
+        aasm_state/published: 招生中
+        aasm_state/teaching: 已开课
+        aasm_state/completed: 已结束
+        aasm_state:
+          init: 审核中
+          published: 招生中
+          teaching: 已开课
+          completed: 已结束

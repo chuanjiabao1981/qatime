@@ -3,6 +3,7 @@ module LiveStudio
     # include LiveStudio::QaCourseActionRecord
     has_soft_delete
 
+    include AASM
     extend Enumerize
 
     def to_param
@@ -18,12 +19,37 @@ module LiveStudio
 
     belongs_to :invitation
 
+    enum status: {
+      init: 0, # 初始化
+      published: 1, # 招生中
+      teaching: 2, # 已开课
+      completed: 3 # 已结束
+    }
     enumerize :status, in: {
       init: 0, # 初始化
       published: 1, # 招生中
       teaching: 2, # 已开课
       completed: 3 # 已结束
     }
+
+    aasm column: :status, enum: true do
+      state :init, initial: true
+      state :published
+      state :teaching
+      state :completed
+
+      event :publish do
+        transitions from: :init, to: :published
+      end
+
+      event :teach do
+        transitions from: :published, to: :teaching
+      end
+
+      event :comple do
+        transitions from: :teaching, to: :completed
+      end
+    end
 
     validates :name, :price, :subject, :grade, presence: true
     validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 70, less_than_or_equal_to: 100 }
@@ -60,19 +86,22 @@ module LiveStudio
 
     has_many :billings, through: :lessons, class_name: 'Payment::Billing' # 结算记录
 
-    has_many :course_action_records,->{ order 'created_at desc' }, dependent: :destroy, foreign_key: :live_studio_course_id
+    has_many :course_action_records, ->{ order 'created_at desc' }, dependent: :destroy, foreign_key: :live_studio_course_id
 
     belongs_to :province
     belongs_to :city
     belongs_to :author, class_name: User
 
-    scope :month, -> (month){where('live_studio_courses.class_date >= ? and live_studio_courses.class_date <= ?',month.beginning_of_month.to_date,month.end_of_month.to_date)}
-    scope :by_status, ->(status){status.blank? || status == 'all' ? nil : where(status: statuses[status.to_sym])}
+    scope :month, ->(month) {where('live_studio_courses.class_date >= ? and live_studio_courses.class_date <= ?',
+      month.beginning_of_month.to_date,
+      month.end_of_month.to_date) }
+    scope :by_status, ->(status) {status.blank? || status == 'all' ? nil : where(status: status.to_sym)}
     scope :by_subject, ->(subject){ subject.blank? || subject == 'all' ? nil : where(subject: subject)}
     scope :by_grade, ->(grade){ grade.blank? || grade == 'all' ? nil : where(grade: grade)}
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
-    scope :uncompleted, -> { where('status < ?', Course.statuses[:completed]) }
-    scope :opening, ->{ where('status < ? and status > ?', Course.statuses[:completed], statuses[:init]) }
+    scope :uncompleted, -> { where('status < ?', :completed) }
+    scope :opening, ->{ where(status: [:teaching, :completed]) }
+    scope :for_sell, -> { where(status: [:published, :teaching]) }
 
     def cant_publish?
       !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank? || lesson_count != preset_lesson_count
@@ -102,8 +131,6 @@ module LiveStudio
     def camera_pull_stream
       pull_streams.find {|stream| stream.use_for == 'camera' }.try(:address)
     end
-
-    scope :for_sell, -> { where(status: [Course.statuses[:preview], Course.statuses[:teaching]]) }
 
     # teacher's name. return blank when teacher is missiong
     def teacher_name
@@ -262,6 +289,10 @@ module LiveStudio
     def lesson_price
       return 0 unless lessons_count.to_i > 0
       price / lessons_count
+    end
+
+    def self.status_options
+      statuses.map {|k, v| [LiveStudio::Course.human_attribute_name("aasm_state/#{k}"), v] }
     end
 
     private

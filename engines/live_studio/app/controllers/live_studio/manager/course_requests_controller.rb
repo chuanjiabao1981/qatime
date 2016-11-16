@@ -15,10 +15,12 @@ module LiveStudio
 
     def accept
       @course_request.accept!
+      redirect_to live_studio.manager_course_requests_path(@manager)
     end
 
     def reject
       @course_request.reject!
+      redirect_to live_studio.manager_course_requests_path(@manager)
     end
 
     private

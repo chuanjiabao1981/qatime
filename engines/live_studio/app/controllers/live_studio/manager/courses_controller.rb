@@ -8,9 +8,9 @@ module LiveStudio
     def index
       @courses = @manager.live_studio_courses
       @courses = if params[:status].blank?
-                   @courses.where("status > ?", LiveStudio::Course.status.init.value)
+                   @courses.where("status > ?", LiveStudio::Course.statuses[:init])
                  else
-                   @courses.where(status: params[:status])
+                   @courses.where(status: LiveStudio::Course.statuses[params[:status]])
                  end
       @courses = @courses.paginate(page: params[:page])
     end

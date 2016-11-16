@@ -6,11 +6,11 @@
         <ul class="banner-show" style="left: -100%;">
           <% @recommend_banners.each do |banner| %>
             <li>
-              <%= link_to image_tag(banner.logo_url(:home)), banner.link %>
+              <%= link_to(image_tag(banner.logo_url(:home), alt: 'banner'), banner.link) %>
             </li>
           <% end %>
           <li>
-            <%= link_to image_tag(@recommend_banners.first.logo_url(:home)), @recommend_banners.first.link %>
+            <%= link_to(image_tag(@recommend_banners.first.try(:logo_url,:home),alt: 'banner'), @recommend_banners.first.try(:link)) %>
           </li>
         </ul>
         <ul class="banner-dot">

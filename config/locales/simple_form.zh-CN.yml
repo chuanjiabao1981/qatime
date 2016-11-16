@@ -1,4 +1,4 @@
-en:
+zh-CN:
   simple_form:
     "yes": 'Yes'
     "no": 'No'
@@ -10,20 +10,7 @@ en:
       # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: "Please review the problems below:"
-    labels:
-      live_studio/course_invitation:
-        user_mobile: 填写被邀请人
-        teacher_percent: 设置老师分成
-        expited_day: 设置有效期限
-      course_invitation:
-        user_mobile: 填写被邀请人
-        teacher_percent: 设置老师分成
-        expited_day: 设置有效期限
-      invitation:
-        user_mobile: 填写被邀请人
-        teacher_percent: 设置老师分成
-        expited_day: 设置有效期限
-    # Examples
+    # Labels and hints examples
     # labels:
     #   defaults:
     #     password: 'Password'
@@ -36,9 +23,3 @@ en:
     #   defaults:
     #     username: 'User name to sign in.'
     #     password: 'No special characters, please.'
-    # include_blanks:
-    #   defaults:
-    #     age: 'Rather not say'
-    # prompts:
-    #   defaults:
-    #     age: 'Select your age'

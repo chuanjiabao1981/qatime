@@ -1,58 +1,46 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h4><%= t("activerecord.view.create") %><%= t("view.invitation.new_invitation")%></h4>
-  </div>
-  <div class="panel-body">
+<div class="admin-list active-show">
+  <p class="new-openclass"><%= t("view.invitation.create_invitation") %></p>
+
+  <div class="manager-list-con">
     <%= simple_form_for(@invitation, url: manager_course_invitations_path) do |f|%>
-      <%= f.error_notification %>
-      <div class="form-inputs">
-        <div class="col-md-3 text-right">
-          <%= t('view.invitation.fill_user') %>:
+      <div class="row">
+        <div class="col-md-2">
+          <%= f.label :user_mobile %>
         </div>
+        <div class="col-md-10">
+          <%= f.input_field :user_mobile %>
+          <%= f.error :user_mobile %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <%= f.label :teacher_percent %>
+        </div>
+        <div class="col-md-10">
+          <%= f.input_field :teacher_percent %>
+          <span class="manager-scale">%</span>
+          <%= f.error :teacher_percent %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <%= f.label :expited_day %>
+        </div>
+        <div class="col-md-10">
+          <%= f.input_field :expited_day %>
+          <span class="manager-scale">天</span>
+          <%= f.error :expited_day %>
+        </div>
+      </div>
 
-        <div class="col-md-7">
-          <%= f.input :login_mobile, label: false, placeholder: t('view.invitation.fill_user_placeholder'), input_html: {value: @invitation.try(:user).try(:login_mobile)}%>
-        </div>
-        <div class="col-md-1"></div>
-
-        <div class="col-md-3 text-right">
-          <%= t('view.invitation.set_teacher_percent') %>:
-        </div>
-        <div class="col-md-7">
-          <div class="input-group">
-            <%= f.input :teacher_percent, label: false, placeholder: t('view.invitation.set_teacher_percent_placeholder'), input_html: {min: 0, max: 100, value: @invitation.try(:teacher_percent)} %>
-            <span class="input-group-addon">%</span>
-          </div>
-        </div>
-
-        <div class="col-md-3 text-right">
-          <%= t('view.invitation.set_expited_day') %>:
-        </div>
-        <div class="col-md-7">
-          <div class="input-group">
-            <%= f.input :expited_day, label: false, placeholder: t('view.invitation.set_expited_day_placeholder'), input_html: {min: 0, value: @invitation.try(:expited_day_display)} %>
-            <span class="input-group-addon"><%= t('view.invitation.day')%></span>
-          </div>
-        </div>
-
-        <div class="col-md-3"></div>
-        <div class="col-md-7">
-          <div class="form-actions">
-            <%= f.button :submit, t('view.invitation.sent_now'), class: "btn btn-default" %>
-            <%=link_to t('view.invitation.cancel'), manager_course_invitations_path, class: 'btn btn-default'%>
-          </div>
-        </div>
+      <div class="manager-btn">
+        <center>
+          <%= f.button :button do %>
+            <%= link_to t("simple_form.buttons.course_invitation.cancel"), live_studio.manager_course_invitations_path(@manager) %>
+          <% end %>
+          <%= f.button :submit, t("simple_form.buttons.course_invitation.submit") %>
+        </center>
       </div>
     <% end %>
   </div>
 </div>
-
-<style>
-  /*simple_form使用Bootstrap的input-group属性*/
-  .simple_form .input-group{
-    margin-bottom: 15px;
-  }
-  .simple_form .input-group .form-group{
-    margin-bottom: 0 !important;
-  }
-</style>

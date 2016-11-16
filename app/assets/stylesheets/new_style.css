@@ -3239,7 +3239,7 @@ ul {
 
 
 .remedial-live,.remedial-teclive {
-  border: 1px solid #999999;
+  border: 1px solid #F2F2F2;
   
 }
 .remedial-teclive {
@@ -3249,7 +3249,7 @@ ul {
   height: 54px;
   text-align: center;
   line-height: 54px;
-  border-bottom: 1px solid #999999;
+  border-bottom: 1px solid #F2F2F2;
   color: rgb(118,209,209);
 }
 .live-con {
@@ -3500,6 +3500,7 @@ ul {
 }
 .admin-empty {
   color: rgb(0,153,254);
+  cursor: pointer;
 }
 .condition-right input {
   width: 73px;
@@ -3549,6 +3550,42 @@ ul {
 }
 
 
+/*辅导班后台预览页面*/
+.recommended-preview {
+  padding: 10px;
+}
+.admin-preview {
+  width: 36% !important;
+}
+.tec-preview {
+  height: 100% !important;
+  border: 1px solid #F2F2F2;
+}
+.admin-tec-img {
+  width: 121px;
+  height: 121px;
+}
+.prompt-preview {
+  position: fixed;
+  top: 0;
+  z-index: 10000;
+  width: 100%;
+  height: 80px;
+  background-color: #000000;
+  opacity: 0.5;
+  font-size: 22px;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 80px;
+}
+
+
+
+
+
+
+
+
 
 
 /*邀请记录*/
@@ -3572,9 +3609,10 @@ ul {
   height: 60px;
   border: 1px solid #F2F2F2;
 }
-.admin-invite table tr td:first-child {
-  text-align: left;
+.admin-invite table tr td:first-child a {
+  color: #666666;
 }
+
 
 /*未审核*/
 .condition-left {
@@ -3604,6 +3642,7 @@ ul {
   margin-right: 15px;
 }
 
+
 .active-show {
   display: block;
 }
@@ -3621,6 +3660,10 @@ ul {
   padding-right: 0px !important;
 }
 }
+
+
+
+
 
 /*创建邀请页面*/
 .invitation {
@@ -3673,20 +3716,35 @@ ul {
 .manager-list-con table td label {
   font-weight: 100;
 }
-.manager-btn a {
+.manager-btn a,.manager-btn input {
   display: inline-block;
   width: 120px;
   height: 40px;
   background-color: rgb(153,153,153);
   text-align: center;
   color: white;
-  line-height: 40px;
+  line-height: 36px;
   margin-left: 20px;
   border-radius: 4px;
 }
 
+.manager-list-con label {
+  float: right;
+  margin-right: 10px;
+  margin-top: 8px;
+} 
+.manager-list-con .col-md-10 {
+  position: relative;
+}
 
-
+.manager-scale {
+  position: absolute;
+  top: 8px;
+  left: 95%;
+}
+.has-error {
+  color: red !important;
+}
 
 
 
@@ -3696,7 +3754,7 @@ ul {
   margin-bottom: 15px;
 }
 .addinvite {
-  min-height: 807px;
+  min-height: 587px;
 }
 .addinvite-title {
   /*padding: 0 10px;*/
@@ -3855,10 +3913,11 @@ ul {
 }
 .grade-check {
   width: 100%;
-  height: 50px;
+  height: 80px;
   padding: 10px;
   border: 1px solid gray;
   display: none;
+  margin-top: -5px;
 }
 .grade-check span {
   margin-right: 20px;
@@ -3945,10 +4004,10 @@ ul {
   display: inline-block;
   color: white;
   font-size: 16px;
-  line-height: 28px;
+  line-height: 32px;
   text-align: center;
   border-radius: 4px;
-  background-color: rgb(190,11,11);
+  background-color: #999999;
   margin: 0 10px;
 }
 
@@ -3999,4 +4058,36 @@ ul {
 }
 .adjust-con table tr:last-child td {
   border: 0px;
+}
+
+
+
+
+
+/*公告*/
+
+.notice-con textarea{
+  margin-top: 5px;
+  width: 100%;
+  padding: 8px 8px 0px;
+}
+.notice-news {
+  padding-bottom: 20px;
+}
+.notice-news table {
+  width: 100%;
+}
+.notice-news table tr td {
+  padding: 10px 0;
+  color: #666666;
+}
+.notice-news table tr td:first-child {
+  width: 155px;
+}
+.notice-td {
+  position: relative;
+}
+.notice-time {
+  position: absolute;
+  top: 10px;
 }

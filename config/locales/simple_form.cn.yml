@@ -15,6 +15,10 @@ en:
         user_mobile: 填写被邀请人
         teacher_percent: 设置老师分成
         expited_day: 设置有效期限
+      live_studio_course_invitation:
+        user_mobile: 填写被邀请人
+        teacher_percent: 设置老师分成
+        expited_day: 设置有效期限
       course_invitation:
         user_mobile: 填写被邀请人
         teacher_percent: 设置老师分成
@@ -23,7 +27,16 @@ en:
         user_mobile: 填写被邀请人
         teacher_percent: 设置老师分成
         expited_day: 设置有效期限
-    # Examples
+    placeholders:
+      live_studio/course_invitation:
+        user_mobile: 填写被邀请人
+        teacher_percent: 设置老师分成
+        expited_day: 设置有效期限
+      live_studio_course_invitation:
+        user_mobile: 填写被邀请人
+        teacher_percent: 设置老师分成
+        expited_day: 设置有效期限
+    # Labels and hints examples
     # labels:
     #   defaults:
     #     password: 'Password'
@@ -36,9 +49,3 @@ en:
     #   defaults:
     #     username: 'User name to sign in.'
     #     password: 'No special characters, please.'
-    # include_blanks:
-    #   defaults:
-    #     age: 'Rather not say'
-    # prompts:
-    #   defaults:
-    #     age: 'Select your age'

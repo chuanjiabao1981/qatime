@@ -1,6 +1,6 @@
 module LiveStudio
   class CourseInvitation < ::Invitation
-    attr_accessor :expited_day, :login_mobile
+    attr_accessor :expited_day, :login_mobile, :user_mobile
 
     extend Enumerize
 
@@ -14,10 +14,12 @@ module LiveStudio
 
     validates :teacher_percent, presence: true, numericality: { greater_than_or_equal_to: 70, less_than_or_equal_to: 100}, on: :create
     validates :expited_at, presence: true, on: :create
-    validates :login_mobile, presence: true, length: { is: 11 }, numericality: { only_integer: true }, on: :create
     validates :expited_day, presence: true, numericality: {only_integer:true}, on: :create
+    validates :user_mobile, presence: true, length: { is: 11 }, numericality: { only_integer: true }, on: :create
 
-    validate :presence_user, on: :create
+    validate :user_mobile_exist
+
+    validates :user, presence: true
 
     has_one :course, foreign_key: :invitation_id
 
@@ -36,9 +38,13 @@ module LiveStudio
 
     private
 
-    def presence_user
-      errors.add(:login_mobile, '用户不存在') if self.user.blank?
+    before_validation :find_user
+    def find_user
+      self.user = ::Teacher.find_by(login_mobile: user_mobile) if user_mobile
     end
 
+    def user_mobile_exist
+      errors.add(:user_mobile, I18n.t(:"validations.live_studio/course_invitation.user_mobile_not_exist"))
+    end
   end
 end

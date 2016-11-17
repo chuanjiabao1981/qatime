@@ -41,6 +41,10 @@ module LiveStudio
       state :teaching
       state :completed
 
+      event :reject do
+        transitions from: :init, to: :rejected
+      end
+
       event :publish do
         transitions from: :init, to: :published
       end

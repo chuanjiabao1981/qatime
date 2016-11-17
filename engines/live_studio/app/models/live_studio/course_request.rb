@@ -25,7 +25,7 @@ module LiveStudio
         transitions from: :submitted, to: :accepted
       end
 
-      event :reject do
+      event :reject, after: :reject_course do
         transitions from: :submitted, to: :rejected
       end
     end
@@ -34,6 +34,10 @@ module LiveStudio
       return unless course.init?
       course.publish!
       LiveService::CourseDirector.new(course).instance_for_course
+    end
+
+    def reject_course
+      course.reject! if course.init?
     end
   end
 end

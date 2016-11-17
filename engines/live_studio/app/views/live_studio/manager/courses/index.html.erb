@@ -1,36 +1,39 @@
 <div class="panel panel-default">
-  <!-- Default panel contents -->
-  <div class="panel-heading">
-    <%= LiveStudio::Course.model_name.human %>
-    <% if allow?("live_studio/courses", "create", current_user) %>
-      <%=link_to new_course_path do %>
-      <button type="button" class="btn btn-xs btn-success">
-        <%= t("activerecord.view.create") %><%= LiveStudio::Course.model_name.human %>
-      </button>
-      <% end %>
-    <% end -%>
-  </div>
-  <!--
-  <div class="panel-body">
-  </div>
-  -->
+  <div class="admin">
+    <div class="admin-title">
+      <%= render 'live_studio/manager/tab' %>
+    </div>
 
-  <!-- Table -->
-  <table class="table">
-    <tr>
-      <tr>
-        <th>#</th>
-	<% %w(name teacher description status).each do |attr| -%>
-        <th><%= LiveStudio::Course.human_attribute_name(attr) %></th>
-	<% end %>
-        <th><%= t("activerecord.view.operate") %></th>
-      </tr>
+    <div>
+      <div class="admin-list">
+        <div class="admin-list-title">
+          <%= render 'filter' %>
+        </div>
+        <div class="admin-list-con">
+          <table border="1" cellspacing="1" cellpadding="1">
+            <tr>
+              <td><span><%= LiveStudio::Course.human_attribute_name(:name) %></span></td>
+              <td><span><%= LiveStudio::Course.human_attribute_name(:teacher_name) %></span></td>
+              <td><span><%= LiveStudio::Course.human_attribute_name(:subject) %></span></td>
+              <td><span><%= LiveStudio::Course.human_attribute_name(:grade) %></span></td>
+              <td><span><%= LiveStudio::Course.human_attribute_name(:lessons_count) %></span></td>
+              <td><span><%= LiveStudio::Course.human_attribute_name(:price) %></span></td>
+              <td><span><%= LiveStudio::Course.human_attribute_name(:buy_tickets_count) %></span></td>
+              <td><span><%= LiveStudio::Course.human_attribute_name(:teacher_percentage) %></span></td>
+              <td><span><%= LiveStudio::Course.human_attribute_name(:published_at) %></span></td>
+              <td><span><%= LiveStudio::Course.human_attribute_name(:status) %></span></td>
+            </tr>
+            <%= render partial: 'course', collection: @courses %>
+          </table>
+        </div>
 
-    </tr>
-    <%= render partial: 'course', collection: @courses %>
-  </table>
+        <center>
+          <div class="pagination-fix">
+            <%= will_paginate @courses %>
+          </div>
+        </center>
 
-  <div class="panel-footer">
-    <%= will_paginate @courses %>
+      </div>
+    </div>
   </div>
 </div>

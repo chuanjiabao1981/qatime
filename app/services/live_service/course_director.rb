@@ -66,7 +66,7 @@ module LiveService
         # status: today今日上课辅导班
         @courses = @courses.includes(:lessons).where(live_studio_lessons: { class_date: Date.today })
       end
-      @courses
+      @courses.order("id desc")
     end
 
     def self.courses_for_student_index(user,params)

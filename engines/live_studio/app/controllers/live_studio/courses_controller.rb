@@ -7,7 +7,7 @@ module LiveStudio
     before_action :play_authorize, only: [:play]
 
     def index
-      @courses = LiveService::CourseDirector.courses_search(search_params).paginate(page: params[:page], per_page: 12)
+      @courses = LiveService::CourseDirector.courses_search(search_params).paginate(page: params[:page], per_page: 8)
       if @student && @student.student?
         @tickets = @student.live_studio_tickets.includes(course: :lesson).where(course_id: @courses.map(&:id)) if @student
       else
@@ -17,7 +17,9 @@ module LiveStudio
     end
 
     def new
-      @course = Course.new
+      @invitation = CourseInvitation.sent.find_by(id: params[:invitation_id]) if params[:invitation_id]
+      @course = Course.new(invitation: @invitation)
+      5.times { @course.lessons.build }
       render layout: current_user_layout
     end
 
@@ -28,16 +30,25 @@ module LiveStudio
 
     def create
       @course = Course.new(courses_params.merge(author: current_user))
-      if current_user.teacher?
-        @course.teacher = current_user
-        @course.teacher_percentage = 100
-      end
+
       if @course.save
         LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
-        redirect_to live_studio.course_path(@course)
+        redirect_to live_studio.send("#{@course.author.role}_courses_path", @course.author)
       else
-        render :new
+        render :new, layout: current_user_layout
       end
+    end
+
+    # 预览
+    def preview
+      @course = Course.new(courses_params)
+      @course.teacher ||= current_user
+      @course.lessons_count = params[:course][:lessons_attributes].count
+      class_dates = params[:course][:lessons_attributes].map{|a| a[:class_date] }.reject {|d| d.blank? }
+      @live_start_date = class_dates.min
+      @live_end_date = class_dates.max
+      @course.subject = current_user.subject
+      render layout: 'application_front'
     end
 
     def update
@@ -46,7 +57,7 @@ module LiveStudio
     # 开始招生
     def publish
       if @course.init?
-        @course.preview!
+        @course.publish!
         LiveService::CourseDirector.new(@course).instance_for_course
       end
     end
@@ -70,6 +81,7 @@ module LiveStudio
       @current_lesson = @course.current_lesson
       # @tickets = @course.tickets.available.includes(:student)
       @teacher = @course.teacher
+      @pull_stream = @course.pull_stream
       @chat_account = current_user.chat_account
       @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) if @chat_team && @chat_account
       render layout: 'play'
@@ -124,16 +136,16 @@ module LiveStudio
     end
 
     def search_params
-      @search_params = params.permit(
-        :subject, :grade, :sort_by, :status, :price_floor, :price_ceil, :class_date_floor, :class_date_ceil,
-        :preset_lesson_count_floor, :preset_lesson_count_ceil
+      params.permit(
+        :subject, :grade, :sort_by, :status, :price_floor,
+        :price_ceil,:class_date_floor,:class_date_ceil,:preset_lesson_count_floor,:preset_lesson_count_ceil
       )
     end
 
-    def courses_params(role = nil)
-      role_params = [:name, :price, :preset_lesson_count, :subject, :grade, :publicize, :taste_count, :description]
-      role_params = role_params << [:teacher_percentage, :workstation_id, :teacher_id] unless role == :teacher
-      params.require(:course).permit(role_params)
+    def courses_params
+      params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map(&:second)
+      params.require(:course).permit(:publicize, :name, :grade, :price, :invitation_id,
+          lessons_attributes: [:name, :class_date, :start_time, :end_time])
     end
   end
 end

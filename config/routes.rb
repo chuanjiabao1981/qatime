@@ -18,6 +18,11 @@ Qatime::Application.routes.draw do
 
   resources :curriculums
   resources :settings, only: [:create, :update]
+
+  resources :home, only: [:index] do
+    get :switch_city, on: :collection
+  end
+
   resources :qa_faqs do
     collection do
       get 'courses'

@@ -236,7 +236,7 @@ module Permissions
           :begin_live_studio, :end_live_studio, :ready, :complete
       ] do |teacher, course, action|
         # 课程的辅导班初始化状态可以变新增 编辑 删除 | 招生中状态可以编辑 | 上课中状态可以调课
-        permission = (%w(new create edit update destroy).include?(action) ? course.init? : true) || (%w(edit update).include?(action) ? course.preview? : true) || (%w(create update).include?(action) ? course.teaching? : true)
+        permission = (%w(new create edit update destroy).include?(action) ? course.init? : true) || (%w(edit update).include?(action) ? course.published? : true) || (%w(create update).include?(action) ? course.teaching? : true)
         teacher && teacher == user && permission
       end
 

@@ -95,13 +95,13 @@ module LiveStudio
     scope :month, ->(month) {where('live_studio_courses.class_date >= ? and live_studio_courses.class_date <= ?',
       month.beginning_of_month.to_date,
       month.end_of_month.to_date) }
-    scope :by_status, ->(status) {status.blank? || status == 'all' ? nil : where(status: status.to_s)}
+    scope :by_status, ->(status) {status.blank? || status == 'all' ? nil : where(status: statuses[status.to_sym])}
     scope :by_subject, ->(subject){ subject.blank? || subject == 'all' ? nil : where(subject: subject)}
     scope :by_grade, ->(grade){ grade.blank? || grade == 'all' ? nil : where(grade: grade)}
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
-    scope :uncompleted, -> { where('status < ?', 'completed') }
-    scope :opening, ->{ where(status: %w(teaching, completed)) }
-    scope :for_sell, -> { where(status: %w(published teaching)) }
+    scope :uncompleted, -> { where('status < ?', statuses[:completed]) }
+    scope :opening, ->{ where(status: [statuses[:teaching], statuses[:completed]]) }
+    scope :for_sell, -> { where(status: [statuses[:teaching], statuses[:published]]) }
 
     def cant_publish?
       !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank? || lesson_count != preset_lesson_count

@@ -1,70 +1,35 @@
-<%= content_tag(:div, class: 'qa_box panel panel-default panel-support') do %>
-  <%= content_tag(:div, class: 'course-header-div') do%>
-    <%= content_tag(:div, class: 'title') do %>
-      <%= t("activerecord.view.course") %>
-      <% if allow?("live_studio/courses", "create", current_user) %>
-        <%=link_to new_course_path do %>
-        <button type="button" class="btn btn-xs btn-success">
-          <%= t("activerecord.view.create") %><%= LiveStudio::Course.model_name.human %>
-        </button>
-        <% end %>
-      <% end -%>
-    <% end %>
+<div class="panel panel-default">
+  <div class="my-tutorial">
+    <div class="tutorial-title">
+      <span><%= t("live_studio.menu.teacher.my_courses") %></span>
+      <%=link_to t("live_studio.menu.teacher.my_course_invitations"), live_studio.teacher_course_invitations_path %>
+    </div>
+    <div class="tutorial-nav">
+      <center>
+        <%= link_to t("live_studio.menu.teacher.course.all"),
+                    live_studio.teacher_courses_path(@teacher),
+                    class: "#{ 'active' if params[:cate].blank? }" %>
+        <%= link_to t("live_studio.menu.teacher.course.waiting"),
+                    live_studio.teacher_courses_path(@teacher, cate: 'waiting'),
+                    class: "#{ 'active' if 'waiting' == params[:cate] }" %>
+        <%= link_to t("live_studio.menu.teacher.course.teaching"),
+                    live_studio.teacher_courses_path(@teacher, cate: 'teaching'),
+                    class: "#{ 'active' if 'teaching' == params[:cate] }" %>
+        <%= link_to t("live_studio.menu.teacher.course.finished"),
+                    live_studio.teacher_courses_path(@teacher, cate: 'finished'),
+                    class: "#{ 'active' if 'finished' == params[:cate] }" %>
+      </center>
+    </div>
+    <div>
+      <div class="tutorial-details">
+        <%= render partial: 'course', collection: @courses %>
+      </div>
+    </div>
 
-
-    <%= content_tag(:div, class: 'search-link') do %>
-      <%= link_to courses_qa_faqs_path do %>
-        <%= t('activerecord.view.helps_course') %>
-      <% end %>
-    <% end %>
-  <% end %>
-  <%= content_tag(:div, class: 'course-taxon-list') do %>
-    <%= link_to content_tag(:div, t("activerecord.view.filter.all"),
-                                   class: "course-taxon-div #{params[:status].blank? ? 'active' : nil}"), teacher_courses_path(@teacher) %>
-    <% %w(today init preview teaching completed).each do |status| %>
-      <%= link_to content_tag(:div, t("activerecord.view.filter.#{status}"),
-                                     class: "course-taxon-div #{params[:status]==status ? 'active' : nil}"), "?status=#{status}" %>
-    <% end %>
-  <% end %>
-  <%= content_tag(:div, class: 'course-list') do %>
-    <%= render partial: 'course', collection: @courses %>
-    <%= will_paginate @courses %>
-  <% end %>
-  <%= content_tag(:div, class: 'none-list') do %>
-    <%= t('view.teacher_course.teacher_course_none_tips') %>
-  <% end if @courses.blank? %>
-<% end %>
-
-<%= render partial: '/live_studio/courses/publish_tips' %>
-
-<!--<div class="panel panel-default">-->
-  <!--&lt;!&ndash; Default panel contents &ndash;&gt;-->
-  <!--<div class="panel-heading">-->
-    <!--<%= LiveStudio::Course.model_name.human %>-->
-    <!--<%=link_to helps_courses_path do %>-->
-      <!--<button type="button" class="btn btn-xs btn-success">-->
-        <!--<%= t("activerecord.view.helps_course") %>-->
-      <!--</button>-->
-    <!--<% end %>-->
-  <!--</div>-->
-  <!--&lt;!&ndash;-->
-  <!--<div class="panel-body">-->
-    <!--<p>...</p>-->
-  <!--</div>-->
-  <!--&ndash;&gt;-->
-  <!--&lt;!&ndash; Table &ndash;&gt;-->
-  <!--<table class="table">-->
-    <!--<tr>-->
-      <!--<th>#</th>-->
-      <!--<th>辅导班名称</th>-->
-      <!--<th>简介</th>-->
-      <!--<th>状态</th>-->
-      <!--<th>操作</th>-->
-    <!--</tr>-->
-    <!--<%= render partial: 'course', collection: @courses %>-->
-  <!--</table>-->
-
-  <!--<div class="panel-footer">-->
-    <!--<%= will_paginate @courses %>-->
-  <!--</div>-->
-<!--</div>-->
+    <center>
+      <div class="pagination-fix">
+        <%= will_paginate @courses %>
+      </div>
+    </center>
+  </div>
+</div>

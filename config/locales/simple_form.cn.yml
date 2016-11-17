@@ -1,0 +1,51 @@
+en:
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+    required:
+      text: 'required'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "Please review the problems below:"
+    labels:
+      live_studio/course_invitation:
+        user_mobile: 填写被邀请人
+        teacher_percent: 设置老师分成
+        expited_day: 设置有效期限
+      live_studio_course_invitation:
+        user_mobile: 填写被邀请人
+        teacher_percent: 设置老师分成
+        expited_day: 设置有效期限
+      course_invitation:
+        user_mobile: 填写被邀请人
+        teacher_percent: 设置老师分成
+        expited_day: 设置有效期限
+      invitation:
+        user_mobile: 填写被邀请人
+        teacher_percent: 设置老师分成
+        expited_day: 设置有效期限
+    placeholders:
+      live_studio/course_invitation:
+        user_mobile: 填写被邀请人
+        teacher_percent: 设置老师分成
+        expited_day: 设置有效期限
+      live_studio_course_invitation:
+        user_mobile: 填写被邀请人
+        teacher_percent: 设置老师分成
+        expited_day: 设置有效期限
+    # Labels and hints examples
+    # labels:
+    #   defaults:
+    #     password: 'Password'
+    #   user:
+    #     new:
+    #       email: 'E-mail to sign in.'
+    #     edit:
+    #       email: 'E-mail.'
+    # hints:
+    #   defaults:
+    #     username: 'User name to sign in.'
+    #     password: 'No special characters, please.'

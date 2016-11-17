@@ -73,8 +73,8 @@
       </li>
       <li class="list-state-1">
         <%= link_to(t('status.preview'), "javascript: void(0);",
-                    "data-key" => "status", "data-value" => "preview",
-                    class: "search-link-submit #{'active-color' if params[:status] == 'preview' }") %>
+                    "data-key" => "status", "data-value" => "published",
+                    class: "search-link-submit #{'active-color' if params[:status] == 'published' }") %>
       </li>
       <li class="list-state-1">
         <%= link_to(t('status.teaching'), "javascript: void(0);",

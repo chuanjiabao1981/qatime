@@ -9,7 +9,7 @@
 
     <div class="arrange-con">
       <table border="0" cellspacing="0" cellpadding="0">
-        <% @course.order_lessons.each_with_index do |lesson,i| %>
+        <% @course.order_lessons.each_with_index do |lesson, i| %>
           <tr class="<%= lesson.is_over? ? 'prompt-con' : '' %>">
             <td>
               <span><%= beautify_index(i) %></span>

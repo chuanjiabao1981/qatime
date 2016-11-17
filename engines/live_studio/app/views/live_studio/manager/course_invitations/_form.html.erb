@@ -35,9 +35,7 @@
 
       <div class="manager-btn">
         <center>
-          <%= f.button :button do %>
-            <%= link_to t("simple_form.buttons.course_invitation.cancel"), live_studio.manager_course_invitations_path(@manager) %>
-          <% end %>
+          <%= link_to t("simple_form.buttons.course_invitation.cancel"), live_studio.manager_course_invitations_path(@manager) %>
           <%= f.button :submit, t("simple_form.buttons.course_invitation.submit") %>
         </center>
       </div>

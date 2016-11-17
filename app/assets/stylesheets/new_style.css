@@ -3721,13 +3721,16 @@ ul {
   width: 120px;
   height: 40px;
   background-color: rgb(153,153,153);
+  border: 1px solid rgb(153,153,153);
   text-align: center;
   color: white;
-  line-height: 36px;
+  line-height: 38px;
   margin-left: 20px;
   border-radius: 4px;
 }
-
+.manager-btn input {
+  line-height: 26px;
+}
 .manager-list-con label {
   float: right;
   margin-right: 10px;
@@ -3745,6 +3748,31 @@ ul {
 .has-error {
   color: red !important;
 }
+.manager-list-con .row {
+  margin-bottom: 20px;
+}
+@media only screen  and (max-width: 990px) {
+.manager-list-con label {
+  float: left;
+} 
+
+.manager-list-con .col-md-10 {
+  position: relative;
+}
+
+.manager-scale {
+  position: absolute;
+  top: 40px;
+  left: 95%;
+}
+}
+
+
+
+
+
+
+
 
 
 
@@ -4012,6 +4040,29 @@ ul {
 }
 
 
+.modal-img {
+  width: 242px;
+  height: 242px; 
+  border: 1px dashed;
+}
+
+.modal-img img {
+  width: 100%;
+}
+.modal-avatar {
+  width: 128px;
+  height: 128px;
+  overflow: hidden;
+}
+.modal-avatar img {
+  width: 128px;
+  height: 128px;
+}
+
+
+
+
+
 
 
 
@@ -4090,4 +4141,69 @@ ul {
 .notice-time {
   position: absolute;
   top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+/*我的辅导班*/
+
+.tutorial-title {
+  height: 40px;
+  line-height: 40px;
+  color: #000000;
+  margin: 0 15px 0 10px;
+}
+.tutorial-title a {
+  float: right;
+  color: #000000;
+  font-size: 16px;
+}
+.tutorial-nav {
+  height: 51px;
+  line-height: 51px;
+}
+.tutorial-nav span {
+  color: #000000;
+  margin: 0 20px;
+  cursor: pointer;
+}
+.tutorial-nav span:first-child {
+  color: #be0b0b;
+}
+.tutorial-con {
+  height: 144px;
+  padding: 13px 15px 13px 10px;
+  border: 1px solid rgb(241,241,241);
+}
+.tutorial-con table {
+  width: 100%;
+}
+.tutorial-con table img {
+  width: 200px;
+  height: 118px;
+}
+.tutorial-con-td {
+  width: 214px;
+}
+.tutorial-con-new {
+  width: 25%;
+}
+.tutorial-con-msg {
+  position: relative;
+  top: -5px;
+}
+.tutorial-con-audit {
+  display: inline-block;
+  width: 64px;
+  height: 24px;
+  color: #be0b0b;
+  background-color: rgb(249,249,249);
+  border-ra
 }

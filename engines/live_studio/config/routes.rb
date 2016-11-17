@@ -3,6 +3,11 @@ LiveStudio::Engine.routes.draw do
   get 'courses/index'
   get 'courses/teate'
 
+  namespace :admin do
+    resources :courses, only: [:index]
+    resources :course_requests, only: [:index]
+  end
+
   resources :courses, only: [:index, :new, :create, :edit, :update, :show] do
     resources :orders, only: [:new, :create, :pay, :show] # 下单
 

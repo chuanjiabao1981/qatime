@@ -7,11 +7,8 @@ module LiveStudio
     # GET /manager/courses
     def index
       @courses = @manager.live_studio_courses
-      @courses = if params[:status].blank?
-                   @courses.where("status > ?", LiveStudio::Course.statuses[:init])
-                 else
-                   @courses.where(status: LiveStudio::Course.statuses[params[:status]])
-                 end
+      @courses = @courses.where(course_search_params) if course_search_params.present?
+      @courses = @courses.where("status > ?", LiveStudio::Course.statuses[:init]) if params[:status].blank?
       @courses = @courses.paginate(page: params[:page])
     end
 
@@ -64,27 +61,19 @@ module LiveStudio
       params.require(:course).permit(:name, :teacher_id, :description, :workstation_id, :price)
     end
 
-    # Only allow a trusted parameter "white list" through for update.
-    def manager_course_params
-      params.require(:course).permit(:name, :teacher_id, :description, :workstation_id, :price)
-    end
-
     # Use callbacks to share common setup or constraints between actions.
     def set_course
       @course = Course.find(params[:id])
-    end
-
-    # Only allow a trusted parameter "white list" through.
-    def course_params
-      params.require(:course).permit(
-          :name, :teacher_id, :description, :workstation_id, :price, :teacher_percentage,
-          :preset_lesson_count, :subject, :grade
-      )
     end
 
     def workstations
       @manager.workstations.select(:id, :name).map {|w| [w.name, w.id] }
     end
 
+    def course_search_params
+      @course_search_params = params.permit(:status, :subject, :grade).select {|_k, v| v.present? }
+      @course_search_params[:status] = LiveStudio::Course.statuses[params[:status]] if params[:status].present?
+      @course_search_params
+    end
   end
 end

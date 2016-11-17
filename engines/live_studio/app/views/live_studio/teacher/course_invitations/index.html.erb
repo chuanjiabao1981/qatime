@@ -1,0 +1,37 @@
+<%= content_tag(:div, class: 'qa_box panel panel-default panel-support') do %>
+  <%= content_tag(:div, class: 'course-header-div') do%>
+    <%= content_tag(:div, class: 'title') do %>
+      <ol class="breadcrumb">
+        <li>我的辅导</a></li>
+        <li class="active">新辅导班</li>
+      </ol>
+    <% end %>
+
+    <%= content_tag(:div, class: 'search-link') do %>
+    <% if allow?("live_studio/courses", "create", current_user) %>
+      <%=link_to new_course_path do %>
+      <button type="button" class="btn btn-xs btn-success">
+        <%= t("activerecord.view.create") %><%= LiveStudio::Course.model_name.human %>
+      </button>
+      <% end %>
+    <% end -%>
+    <% end %>
+
+  <% end %>
+
+  <center><h4>已收到的开班邀请</h4></center>
+
+  <table class="table table-bordered">
+    <tr>
+      <th>邀请发起者</th>
+      <th>地区</th>
+      <th>分成比例</th>
+      <th>接收时间</th>
+      <th>有效期剩余</th>
+      <th>操作</th>
+    </tr>
+    <%= render partial: 'course_invitation', collection: @course_invitations %>
+  </table>
+
+
+<% end %>

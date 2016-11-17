@@ -12,3 +12,11 @@ cn:
         lessons_count_region: 课时范围
         class_date_region: 开课时间
         sort: 排序
+  live_studio:
+    course:
+      menu:
+        reset: 清空
+        query: 查询
+        all: 全部
+
+

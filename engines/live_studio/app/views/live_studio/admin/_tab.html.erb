@@ -1,0 +1,16 @@
+<div class="admin-title-left">
+  <%= link_to t("live_studio.menu.courses"),
+              live_studio.admin_courses_path,
+              class: "#{'active-admin' if 'live_studio/admin/courses' == params[:controller]}" %>
+  <%= link_to t("live_studio.menu.course_requests"),
+              live_studio.admin_course_requests_path,
+              class: "#{'active-admin' if 'live_studio/admin/course_requests' == params[:controller]}" %>
+</div>
+<div class="admin-title-right">
+  <span><%= t("live_studio.city") %></span>
+  <select name="">
+    <% City.includes(:province).each do |city| -%>
+      <option value="<%= city.name_with_province %>"><%= city.name_with_province %></option>
+    <% end -%>
+  </select>
+</div>

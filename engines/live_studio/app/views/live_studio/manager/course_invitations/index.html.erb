@@ -1,34 +1,45 @@
 <div class="panel panel-default">
-  <div class="panel-heading" style="height:50px;">
-    <% if allow?("live_studio/courses", "create", current_user) %>
-      <%=link_to new_manager_course_invitation_path do %>
-        <button type="button" class="btn btn-xs btn-success">
-          <%= t("activerecord.view.create") %><%= t("view.invitation.new_invitation")%>
-        </button>
-      <% end %>
-    <% end -%>
-    <div style="float:right">
-      <%= render 'filter'%>
+  <div class="admin">
+    <div class="admin-title">
+      <%= render 'live_studio/manager/tab' %>
+    </div>
+
+    <div>
+      <div class="admin-list">
+        <div class="admin-list-title">
+          <div class="condition-left">
+            <%=link_to new_manager_course_invitation_path, class: "invitation" do %>
+              <%= t("view.invitation.new_invitation")%>
+            <% end if allow?("live_studio/courses", "create", current_user) %>
+          </div>
+          <div class="condition-right">
+            <%= render 'filter' %>
+          </div>
+        </div>
+        <div class="admin-list-con">
+          <table border="1" cellspacing="1" cellpadding="1">
+            <tr>
+              <td><span><%= LiveStudio::CourseInvitation.human_attribute_name(:user_name) %></span></td>
+              <td><span><%= LiveStudio::CourseInvitation.human_attribute_name(:user_subject) %></span></td>
+              <td><span><%= LiveStudio::CourseInvitation.human_attribute_name(:teacher_percent) %></span></td>
+              <td><span><%= LiveStudio::CourseInvitation.human_attribute_name(:created_at) %></span></td>
+              <td><span><%= LiveStudio::CourseInvitation.human_attribute_name(:left_time) %></span></td>
+              <td><span><%= LiveStudio::CourseInvitation.human_attribute_name(:status) %></span></td>
+              <td><span><%= LiveStudio::CourseInvitation.human_attribute_name(:operation) %></span></td>
+            </tr>
+            <%= render @invitations %>
+          </table>
+        </div>
+
+        <center>
+          <div class="pagination-fix">
+            <%= will_paginate @invitations %>
+          </div>
+        </center>
+
+      </div>
     </div>
   </div>
-
-  <table class="table table-bordered">
-    <tr>
-      <th><%= t('view.invitation.invitation_teacher')%></th>
-      <th><%= t('view.invitation.subject')%></th>
-      <th><%= t('view.invitation.teacher_percent')%></th>
-      <th><%= t('view.invitation.invitation_sent_date')%></th>
-      <th><%= t('view.invitation.valid_date')%></th>
-      <th><%= t('view.invitation.status')%></th>
-      <th><%= t('view.invitation.operation')%></th>
-    </tr>
-    <%= render partial: 'invitation', collection: @invitations %>
-  </table>
-
-  <div class="panel-footer">
-    <center>
-      <%= will_paginate @invitations %>
-    </center>
-  </div>
-
 </div>
+
+

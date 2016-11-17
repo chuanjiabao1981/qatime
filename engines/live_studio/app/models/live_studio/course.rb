@@ -20,12 +20,14 @@ module LiveStudio
     belongs_to :invitation
 
     enum status: {
+      rejected: -1, # 被拒绝
       init: 0, # 初始化
       published: 1, # 招生中
       teaching: 2, # 已开课
       completed: 3 # 已结束
     }
     enumerize :status, in: {
+      rejected: -1, # 被拒绝
       init: 0, # 初始化
       published: 1, # 招生中
       teaching: 2, # 已开课
@@ -33,6 +35,7 @@ module LiveStudio
     }
 
     aasm column: :status, enum: true do
+      state :rejected
       state :init, initial: true
       state :published
       state :teaching

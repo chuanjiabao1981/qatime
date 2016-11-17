@@ -71,7 +71,7 @@ LiveStudio::Engine.routes.draw do
         get :schedules
         get :settings
       end
-      resources :courses, only: [:index, :show, :edit, :update, :create] do
+      resources :courses, only: [:index, :show, :edit, :update, :create, :destroy] do
         member do
           patch :close
           patch :channel

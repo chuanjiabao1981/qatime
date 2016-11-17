@@ -232,6 +232,9 @@ cn:
         lessons_count: 课时数
         buy_tickets_count: 购买人数
         published_at: 发布时间
+        students_count: 学生人数
+        percentage: 分成
+        lessons_progress: 课程进度
       live_studio/push_stream:
         address: 直播地址
       live_studio/pull_stream:

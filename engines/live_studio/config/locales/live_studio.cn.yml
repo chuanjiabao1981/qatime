@@ -4,6 +4,14 @@ cn:
       course_requests: 招生审核
       course_invitations: 开班邀请
       courses: 辅导班列表
+      teacher:
+        my_courses: 我的辅导
+        my_course_invitations: 邀请和创建
+        course:
+          all: 全部
+          waiting: 待开始
+          teaching: 进行中
+          finished: 已结束
     course_request:
       menu:
         unhandled: 未审核

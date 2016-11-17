@@ -3922,10 +3922,10 @@ ul {
   padding-bottom: 4px;
   border: 1px solid #999999;
  }
- .editor-msg textarea {
+ /*.editor-msg textarea {
  border: 1px solid #999999; 
  padding: 6px 8px 0px;
- }
+ }*/
 .title-editor {
   color: red;
 }
@@ -4038,6 +4038,32 @@ ul {
   background-color: #999999;
   margin: 0 10px;
 }
+
+.editor-msg .col-md-10 {
+  padding-left: 0px;
+}
+.editor-msg label {
+  padding-left: 10px;
+  margin-top: 5px;
+  font-weight: 100;
+}
+.editor-text {
+  position: relative;
+}
+@media only screen and (max-width: 990px) {
+.editor-msg .col-md-10 {
+  padding-left: 15px;
+}
+.editor-msg label {
+  padding-left: 0px;
+  
+}
+}
+
+
+
+
+
 
 
 .modal-img {
@@ -4153,12 +4179,15 @@ ul {
 
 
 /*我的辅导班*/
-
+.my-tutorial {
+  min-height: 565px;
+}
 .tutorial-title {
   height: 40px;
   line-height: 40px;
   color: #000000;
   margin: 0 15px 0 10px;
+  border-bottom: 1px solid rgb(241,241,241);
 }
 .tutorial-title a {
   float: right;
@@ -4169,22 +4198,25 @@ ul {
   height: 51px;
   line-height: 51px;
 }
-.tutorial-nav span {
+.tutorial-nav a {
   color: #000000;
+  font-size: 16px;
   margin: 0 20px;
   cursor: pointer;
 }
-.tutorial-nav span:first-child {
-  color: #be0b0b;
+.tutorial-nav .active {
+  color: #be0b0b !important;
 }
 .tutorial-con {
   height: 144px;
   padding: 13px 15px 13px 10px;
-  border: 1px solid rgb(241,241,241);
+  border-bottom: 1px solid rgb(241,241,241);
 }
 .tutorial-con table {
   width: 100%;
+  color: #666666;
 }
+
 .tutorial-con table img {
   width: 200px;
   height: 118px;
@@ -4194,16 +4226,50 @@ ul {
 }
 .tutorial-con-new {
   width: 25%;
+  height: 30px;
+}
+.tutorial-con-new i {
+  color: #999999;
 }
 .tutorial-con-msg {
   position: relative;
-  top: -5px;
+  top: -3px;
+  font-size: 16px;
+  color: #000;
 }
 .tutorial-con-audit {
+  position: relative;
+  top: 4px;
   display: inline-block;
   width: 64px;
   height: 24px;
   color: #be0b0b;
   background-color: rgb(249,249,249);
-  border-ra
+  border-radius: 4px;
+  text-align: center;
+  line-height: 24px;
 }
+.tutorial-con table tr:last-child td:last-child {
+  width: 194px;
+}
+.tutorial-con-edit {
+  position: relative;
+  top: 6px;
+}
+.tutorial-con-edit span {
+  display: inline-block;
+  float: right;
+}
+.tutorial-con-edit a {
+  margin-left: 25px;
+}
+.tutorial-con-head {
+  margin-right: 10px;
+}
+
+/*.tutorial-details {
+  display: none;
+}
+.tutorial-details:first-child {
+  display: block;
+}*/

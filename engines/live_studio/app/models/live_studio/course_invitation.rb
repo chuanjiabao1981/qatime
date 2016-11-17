@@ -29,9 +29,7 @@ module LiveStudio
     end
 
     def generate_attribute(params)
-      teacher = ::Teacher.find_by(login_mobile: params[:login_mobile])
-      self.user_id = teacher.try(:id)
-      self.expited_at = Time.now+ params[:expited_day].to_i.days
+      self.expited_at = params[:expited_day].to_i.days.since
       self.target = inviter.workstations.first
       self.status = CourseInvitation.statuses['sent']
     end
@@ -44,7 +42,7 @@ module LiveStudio
     end
 
     def user_mobile_exist
-      errors.add(:user_mobile, I18n.t(:"validations.live_studio/course_invitation.user_mobile_not_exist"))
+      errors.add(:user_mobile, I18n.t(:"validations.live_studio/course_invitation.user_mobile_not_exist")) unless user.present?
     end
   end
 end

@@ -968,6 +968,9 @@ ActiveRecord::Schema.define(version: 20161116030309) do
     t.datetime "updated_at",  null: false
     t.datetime "deleted_at"
     t.integer  "reason"
+    t.text     "platforms"
+    t.integer  "city_id"
+    t.string   "link"
   end
 
   add_index "recommend_items", ["owner_type", "owner_id"], name: "index_recommend_items_on_owner_type_and_owner_id", using: :btree

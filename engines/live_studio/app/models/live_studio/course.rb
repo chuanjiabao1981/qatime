@@ -186,8 +186,19 @@ module LiveStudio
       user.live_studio_tickets.map(&:course_id).include?(id)
     end
 
+    # 已经购买
     def bought_by?(user)
       buy_tickets.where(student_id: user.id).exists?
+    end
+
+    # 试听结束
+    def tasted?(user)
+      taste_tickets.unavailable.where(student_id: user.id).exists?
+    end
+
+    # 正在试听
+    def tasting?(user)
+      taste_tickets.available.where(student_id: user.id).exists?
     end
 
     # 用户购买状态
@@ -202,10 +213,6 @@ module LiveStudio
       return false unless user.student?
       return false if buy_tickets.where(student_id: user.id).exists?
       !taste_tickets.where(student_id: user.id).exists?
-    end
-
-    def tasting?(user)
-      taste_tickets.where(student_id: user.id).exists?
     end
 
     # 是否卖给用户
@@ -258,27 +265,27 @@ module LiveStudio
     end
 
     def live_start_time
-      lesson = lessons.order('class_date asc,id').first
+      lesson = lessons.reorder('class_date asc,id').first
       lesson.try(:live_start_at).try(:strftime,'%Y-%m-%d %H:%M') ||
         "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:start_time)}"
     end
 
     def live_end_time
-      lesson = lessons.order('class_date asc,id').last
+      lesson = lessons.reorder('class_date asc,id').last
       lesson.try(:live_end_at).try(:strftime,'%Y-%m-%d %H:%M') ||
         "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:end_time)}"
     end
 
     def live_start_date
-      lesson = lessons.order('class_date asc,id').first
-      lesson.try(:live_start_at).try(:strftime,'%Y-%m-%d') ||
-        "#{lesson.try(:class_date).try(:strftime, '%Y-%m-%d')}"
+      lesson = lessons.reorder('class_date asc,id').first
+      lesson.try(:live_start_at).try(:strftime,'%Y年%m月%d日') ||
+        "#{lesson.try(:class_date).try(:strftime, '%Y年%m月%d日')}"
     end
 
     def live_end_date
-      lesson = lessons.order('class_date asc,id').last
-      lesson.try(:live_end_at).try(:strftime,'%Y-%m-%d') ||
-        "#{lesson.try(:class_date).try(:strftime, '%Y-%m-%d')}"
+      lesson = lessons.reorder('class_date asc,id').last
+      lesson.try(:live_end_at).try(:strftime,'%Y年%m月%d日') ||
+        "#{lesson.try(:class_date).try(:strftime, '%Y年%m月%d日')}"
     end
 
     def order_lessons

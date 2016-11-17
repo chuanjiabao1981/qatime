@@ -29,7 +29,7 @@
                   <span class="tea-name"><%= course.teacher.try(:name) %></span>
                 </dd>
                 <dd class="dd-num-msg">
-                  <p><i class="glyphicon glyphicon-time dd-date"><%= course.live_start_date%>至<%= course.live_end_date%></i></p>
+                  <p><i class="glyphicon glyphicon-time dd-date"><%= localize @course.live_start_date, format: :short %>至<%= localize @course.live_end_date, format: :short %></i></p>
                   <p><i class="money-num">￥ <%= '%0.2f' % course.price %></i><i class="person-buy"><%= t "view.course_search_show.purchase_number" %><em class="person-num"><%= course.buy_tickets_count %></em></i></p>
                 </dd>
               </dl>

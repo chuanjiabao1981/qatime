@@ -1,6 +1,9 @@
 $el = $('.<%= params[:second] %>');
 $el.empty();
-<% @cities.each do |city| %>
+<% @cities.try(:each) do |city| %>
 $el.append($("<option></option>").attr("value", '<%= city.id %>').text('<%= city.name %>'));
+<% end %>
+<% if @cities.blank? %>
+$el.append($("<option></option>").attr("value", '').text('<%= t('view.common.option_city') %>'));
 <% end %>
 <%= render file: 'ajax/data/option_schools.js.erb' if @schools.present? %>

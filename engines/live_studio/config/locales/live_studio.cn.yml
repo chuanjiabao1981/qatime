@@ -19,6 +19,7 @@ cn:
         reset: 清空
         query: 查询
         all: 全部
+        all_city: 全国
   activerecord:
     models:
       live_studio/course: 辅导班

@@ -22,4 +22,8 @@ class Workstation < ActiveRecord::Base
   def cash_account!
     cash_account || ::Payment::CashAccount.create(owner: self)
   end
+
+  def city_name
+    city.try(:name)
+  end
 end

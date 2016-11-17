@@ -1,4 +1,5 @@
 <%= form_tag '', method: :get do -%>
+  <%= hidden_field_tag :city_id, params[:city_id] %>
   <div class="condition">
     <span><%= LiveStudio::Course.human_attribute_name(:current_status) %></span>
     <%= select_tag :status, options_for_select(LiveStudio::Course.status.options.select{|item| 'init' != item.last }, params[:status]),

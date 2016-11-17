@@ -29,7 +29,6 @@ module LiveStudio
       def course_search_params
         @course_search_params = params.permit(:subject, :grade).select {|_k, v| v.present? }
         @course_search_params[:city_id] = @city.id if @city.present?
-        @course_search_params[:workstation_id] = nil
         @course_search_params
       end
     end

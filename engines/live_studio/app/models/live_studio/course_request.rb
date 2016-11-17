@@ -10,6 +10,12 @@ module LiveStudio
     extend Enumerize
     include AASM
 
+    enum status: {
+      submitted: 0, # 已提交
+      accepted: 1, # 审核通过
+      rejected: 2 # 已拒绝
+    }
+
     enumerize :status, in: {
       submitted: 0, # 已提交
       accepted: 1, # 审核通过

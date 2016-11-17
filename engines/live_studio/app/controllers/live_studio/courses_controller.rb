@@ -46,6 +46,14 @@ module LiveStudio
     end
 
     def update
+      @course = Course.find(params[:id])
+
+      if @course.save
+        LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
+        redirect_to live_studio.send("#{@course.author.role}_courses_path", @course.author)
+      else
+        render :new, layout: current_user_layout
+      end
     end
 
     # 开始招生
@@ -150,7 +158,6 @@ module LiveStudio
       class_dates = params[:course][:lessons_attributes].map {|a| a[:class_date] }.reject(&:blank?)
       @live_start_date = class_dates.min
       @live_end_date = class_dates.max
-      p course
     end
   end
 end

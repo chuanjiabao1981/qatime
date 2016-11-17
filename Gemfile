@@ -16,6 +16,9 @@ gem 'grape'
 gem 'grape-entity'
 gem 'grape-swagger'
 
+# chinese
+gem 'spinying','~> 0.9'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 

@@ -35,7 +35,7 @@ class Ajax::DataController < ApplicationController
   end
 
   def set_cities
-    @cities = Province.find(params[:teacher][:province_id]).cities
+    @cities = Province.find_by(id: params[:teacher][:province_id]).try(:cities)
   end
 
   def set_schools

@@ -3570,13 +3570,13 @@ ul {
   top: 0;
   z-index: 10000;
   width: 100%;
-  height: 80px;
+  height: 100px;
   background-color: #000000;
-  opacity: 0.5;
+  opacity: 0.8;
   font-size: 22px;
   color: #FFFFFF;
   text-align: center;
-  line-height: 80px;
+  line-height: 100px;
 }
 
 
@@ -3943,12 +3943,12 @@ ul {
   width: 100%;
   height: 80px;
   padding: 10px;
-  border: 1px solid gray;
+  border: 1px solid gainsboro;
   display: none;
-  margin-top: -5px;
+  color: #666666;
 }
 .grade-check span {
-  margin-right: 20px;
+  margin-right: 25px;
 }
 .grade-check span label {
   font-weight: 100;
@@ -4049,6 +4049,12 @@ ul {
 }
 .editor-text {
   position: relative;
+}
+.pull-down {
+  position: absolute;
+  top: 2px !important;
+  font-size: 30px !important;
+  left: 94%;
 }
 @media only screen and (max-width: 990px) {
 .editor-msg .col-md-10 {
@@ -4181,13 +4187,12 @@ ul {
 /*我的辅导班*/
 .my-tutorial {
   min-height: 565px;
+  padding: 0 10px;
 }
 .tutorial-title {
   height: 40px;
   line-height: 40px;
   color: #000000;
-  margin: 0 15px 0 10px;
-  border-bottom: 1px solid rgb(241,241,241);
 }
 .tutorial-title a {
   float: right;
@@ -4197,20 +4202,26 @@ ul {
 .tutorial-nav {
   height: 51px;
   line-height: 51px;
+  margin-bottom: 15px;
+  border: 1px solid rgb(204,204,204);
 }
 .tutorial-nav a {
-  color: #000000;
+  display: inline-block;
+  width: 25%;
+  height: 50px;
+  float: left;
   font-size: 16px;
-  margin: 0 20px;
+  color: #000000;
   cursor: pointer;
 }
 .tutorial-nav .active {
-  color: #be0b0b !important;
+  background-color: rgb(204,204,204) !important;
 }
 .tutorial-con {
-  height: 144px;
-  padding: 13px 15px 13px 10px;
-  border-bottom: 1px solid rgb(241,241,241);
+  height: 103px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid rgb(241,241,241);
 }
 .tutorial-con table {
   width: 100%;
@@ -4218,11 +4229,11 @@ ul {
 }
 
 .tutorial-con table img {
-  width: 200px;
-  height: 118px;
+  width: 132px;
+  height: 83px;
 }
 .tutorial-con-td {
-  width: 214px;
+  width: 156px;
 }
 .tutorial-con-new {
   width: 25%;
@@ -4237,21 +4248,13 @@ ul {
   font-size: 16px;
   color: #000;
 }
+.tutorial-con table tr td:last-child {
+  width: 22%;
+}
 .tutorial-con-audit {
-  position: relative;
-  top: 4px;
-  display: inline-block;
-  width: 64px;
-  height: 24px;
-  color: #be0b0b;
-  background-color: rgb(249,249,249);
-  border-radius: 4px;
   text-align: center;
-  line-height: 24px;
 }
-.tutorial-con table tr:last-child td:last-child {
-  width: 194px;
-}
+
 .tutorial-con-edit {
   position: relative;
   top: 6px;
@@ -4261,7 +4264,7 @@ ul {
   float: right;
 }
 .tutorial-con-edit a {
-  margin-left: 25px;
+  margin-left: 24px;
 }
 .tutorial-con-head {
   margin-right: 10px;

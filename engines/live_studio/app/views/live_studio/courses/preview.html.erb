@@ -111,3 +111,9 @@
     <%= render partial: 'lesson_plan_preview' %>
   </div>
 </div>
+
+<%= content_for :mask do %>
+<div class="prompt-preview">
+  <span><%= t("view.tips.course_preview") %></span>
+</div>
+<% end %>

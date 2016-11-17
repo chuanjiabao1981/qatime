@@ -37,7 +37,7 @@ module LiveStudio
     # 开始招生
     def publish
       if @course.init?
-        @course.preview!
+        @course.publish!
         LiveService::CourseDirector.new(@course).instance_for_course
       end
     end

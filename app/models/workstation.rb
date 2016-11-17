@@ -17,6 +17,7 @@ class Workstation < ActiveRecord::Base
   has_many :teachers
 
   has_many :invitations, as: :target
+  has_many :course_requests, class_name: LiveStudio::CourseRequest # 招生请求，用于审核
 
   def cash_account!
     cash_account || ::Payment::CashAccount.create(owner: self)

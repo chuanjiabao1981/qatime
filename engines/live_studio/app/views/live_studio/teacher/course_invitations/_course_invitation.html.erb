@@ -1,0 +1,16 @@
+<tr>
+  <td><%= course_invitation.target.name%></td>
+  <td>
+    <%= course_invitation.target.try(:city).try(:province).try(:name)%>/
+    <%= course_invitation.target.try(:city).try(:name)%>
+  </td>
+  <td><%= course_invitation.teacher_percent%>%</td>
+  <td><%= course_invitation.created_at.strftime('%F %T')%></td>
+  <td><%= distance_of_expited_at(course_invitation.expited_at) %></td>
+  <td>
+    <%=link_to new_course_path(invitation_id: course_invitation) do %>
+      <span class="glyphicon glyphicon-ok"></span>
+    <% end%>
+    <span class="glyphicon glyphicon-remove-circle"></span>
+  </td>
+</tr>

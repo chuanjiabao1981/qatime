@@ -1,13 +1,27 @@
 module LiveStudio
   class CourseInvitation < ::Invitation
-    attr_accessor :expited_day, :login_mobile
+    attr_accessor :expited_day, :login_mobile, :user_mobile
 
-    validates :teacher_percent, presence: true, numericality: {greater_than_or_equal_to: 0, less_than_or_equal_to: 100}, on: :create
+    extend Enumerize
+
+    enumerize :status, in: {
+      sent: 0, # 已发送
+      accepted: 1, # 已接受
+      refused: 2, # 已拒绝
+      expired: 3, # 已过期
+      cancelled: 4 # 已取消
+    }
+
+    validates :teacher_percent, presence: true, numericality: { greater_than_or_equal_to: 70, less_than_or_equal_to: 100}, on: :create
     validates :expited_at, presence: true, on: :create
-    validates :login_mobile, presence: true, length: { is: 11 }, numericality: { only_integer: true }, on: :create
     validates :expited_day, presence: true, numericality: {only_integer:true}, on: :create
+    validates :user_mobile, presence: true, length: { is: 11 }, numericality: { only_integer: true }, on: :create
 
-    validate :presence_user, on: :create
+    validate :user_mobile_exist
+
+    validates :user, presence: true
+
+    has_one :course, foreign_key: :invitation_id
 
     def expited_day_display
       second = expited_at.to_i - Time.now.to_i
@@ -15,18 +29,20 @@ module LiveStudio
     end
 
     def generate_attribute(params)
-      teacher = ::Teacher.find_by(login_mobile: params[:login_mobile])
-      self.user_id = teacher.try(:id)
-      self.expited_at = Time.now+ params[:expited_day].to_i.days
+      self.expited_at = params[:expited_day].to_i.days.since
       self.target = inviter.workstations.first
       self.status = CourseInvitation.statuses['sent']
     end
 
     private
 
-    def presence_user
-      errors.add(:login_mobile, '用户不存在') if self.user.blank?
+    before_validation :find_user
+    def find_user
+      self.user = ::Teacher.find_by(login_mobile: user_mobile) if user_mobile
     end
 
+    def user_mobile_exist
+      errors.add(:user_mobile, I18n.t(:"validations.live_studio/course_invitation.user_mobile_not_exist")) unless user.present?
+    end
   end
 end

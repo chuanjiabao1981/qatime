@@ -16,7 +16,7 @@ module LiveService
       # 如果辅导班已经有状态为teaching的课程,则返回false
       return false unless @course.lessons.teaching.blank?
       # 第一节课开始上课之前把辅导班设置为已开课
-      @course.teaching! if @course.preview?
+      @course.teaching! if @course.published?
       LiveStudio::Lesson.transaction do
         # 记录上课开始时间
         @lesson.live_start_at = Time.now if @lesson.live_start_at.nil?
@@ -52,7 +52,7 @@ module LiveService
         LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_START_FOR_TEACHER)
         LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_START_FOR_STUDENT)
         course = lesson.course
-        if course.preview?
+        if course.published?
           course.teaching!
           LiveService::CourseNotificationSender.new(course).notice(LiveStudioCourseNotification::ACTION_START)
         end

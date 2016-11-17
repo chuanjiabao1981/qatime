@@ -32,14 +32,14 @@
             <tr>
               <td colspan="3">
                 <span class="headline-color"><%= t("activerecord.view.date") %></span>
-                <span class="title-color interval"><%= localize @course.live_start_date, format: :short %>-<%= localize @course.live_end_date, format: :short %></span>
+                <span class="title-color interval"><%= localize(@course.live_start_date, format: :short) %>-<%= localize(@course.live_end_date, format: :short) %></span>
               </td>
             </tr>
             <tr>
               <td colspan="3"><span class="headline-color"><%= t("activerecord.view.status") %></span>
                 <span class="<%= @course.completed? ? 'separator' : 'title-color' %> interval">
                   <%= @course.status_text%>
-                  (<%= @course.preview? ? (t('view.course_show.distance_text1') % @course.distance_days) : "#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>)
+                  (<%= @course.published? ? (t('view.course_show.distance_text1') % @course.distance_days) : "#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>)
                 </span>
               </td>
             </tr>

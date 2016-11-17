@@ -1,38 +1,67 @@
 <%= simple_form_for @course do |f|%>
   <%= f.error_notification %>
+  <%= f.input :invitation_id, as: :hidden %>
+
+  <h4>一、辅导概况</h4>
+
   <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :publicize, as: :file %>
-    <%= f.association :teacher, input_html: {class: 'selectpicker', "data-live-search" => true} unless current_user.teacher? %>
-    <%= f.input :teacher_percentage unless current_user.teacher? %>
-    <%= f.input :preset_lesson_count, input_html: {class: 'lesson_price_item'} %>
-    <%= f.input :subject, type: :select, collection: APP_CONSTANT['subjects'] %>
-    <%= f.input :grade, type: :select, collection: APP_CONSTANT['grades_in_menu'] %>
-    <%= f.input :price, input_html: {class: 'lesson_price_item'}, hint: "#{LiveStudio::Course.human_attribute_name(:lesson_price)}: #{@course.lesson_price}" %>
-    <%= f.input :taste_count %>
-    <%= f.association :workstation, collection: current_user.workstations, required: true if current_user.manager? %>
-    <%= f.input :description, type: :text %>
+    <%=render 'course_fields', f: f%>
   </div>
 
+  <h4>二、课程安排</h4>
+  <div class="form-inputs">
+    <table>
+      <%= f.fields_for :lessons do |lesson| %>
+        <%= render 'lesson_fields', f: lesson%>
+      <% end%>
+    </table>
+  </div>
+
+  <p><%= raw link_to_add_fields("增加一条新课程", f, :lessons, 'live_studio/courses/') %></p>
+
   <div class="form-actions">
-    <%= f.button :submit, class: "btn btn-default" %>
+    <center>
+      <a class="btn btn-primary" id="course_preview">预览</a>
+      <a class="btn btn-primary submit">发布</a>
+    </center>
   </div>
 <% end %>
 
-<script>
-  $('.selectpicker').selectpicker({
-    style: 'btn-default show-tick',
-    size: 4,
-    'data-live-search': "true"
-  });
+<% content_for :javascript do %>
+  <script>
+    $(document).ready(function(){
+      $('.remedial-date').each(function(_, el){
+        $(el).click(function(){
+          show_calendar(this)
+        })
+      })
 
-  $(function(){
-    $(".lesson_price_item").change(function(){
-      var price = parseInt($("#course_price").val());
-      var lesson_count = parseInt($("#course_preset_lesson_count").val());
-      var lesson_price = lesson_count === 0 ? 0 : price / lesson_count;
-      lesson_price = Math.floor(lesson_price);
-      $("#course_price").siblings(".help-block").text("<%= LiveStudio::Course.human_attribute_name(:lesson_price) %>" + lesson_price);
-    });
-  });
-</script>
+      function show_calendar(el){
+        $.jeDate(el, {
+          insTrigger:false,
+          //isinitVal:true,
+          format:"YYYY-MM-DD", // 分隔符可以任意定义，该例子表示只显示年月
+          isClear:false,
+          festival: true, //显示节日
+          minDate: '2000-06-01', //设定最小日期为当前日期
+          //最大日期
+        });
+      }
+
+      $('.submit').click(function(){
+        $('form').submit();
+      });
+
+
+
+      $("#course_preview").click(function() {
+        $(this).parents("form").attr('action', "<%= live_studio.preview_courses_path %>");
+        $(this).parents("form").attr('target', '_blank');
+        $(this).parents("form").submit();
+        $(this).parents("form").attr('action', "<% live_studio.courses_path %>")
+        $(this).parents("form").removeAttr('target')
+      });
+
+    })
+  </script>
+<% end %>

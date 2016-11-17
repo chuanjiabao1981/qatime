@@ -1,0 +1,26 @@
+<tr>
+  <td>
+    <%= link_to live_studio.course_path(course_request.course) do %>
+      <span><%= course_request.course.try(:name) %></span>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to profile_teacher_path(course_request.user) do %>
+      <span><%= course_request.user.name %></span>
+    <% end %>
+  </td>
+  <td><span><%= course_request.course.try(:subject) %></span></td>
+  <td><span><%= course_request.course.try(:grade) %></span></td>
+  <td><span><%= course_request.course.try(:lessons_count) %></span></td>
+  <td><span><%= course_request.course.try(:price) %></span></td>
+  <td><span><%= course_request.course.try(:teacher_percentage) %></span></td>
+  <td><span><%= localize(course_request.created_at, format: :long) %></span></td>
+  <td>
+    <% if course_request.submitted? -%>
+      <%= link_to t("live_studio/course_request.accept"), accept_manager_course_request_path(@manager, course_request), method: :patch %>
+      <%= link_to t("live_studio/course_request.reject"), reject_manager_course_request_path(@manager, course_request), method: :patch %>
+    <% else %>
+      <%= course_request.status.text %>
+    <% end %>
+  </td>
+</tr>

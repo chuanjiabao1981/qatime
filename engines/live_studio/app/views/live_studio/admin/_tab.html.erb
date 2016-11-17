@@ -17,13 +17,3 @@
                    class: 'immediately' %>
   </div>
 <% end -%>
-
-<%= content_for :javascript do %>
-<script>
-$(function() {
-  $(".immediately").change(function() {
-    $(this).parents("form").submit();
-  });
-});
-</script>
-<% end %>

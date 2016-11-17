@@ -12,11 +12,17 @@
   <%= hidden_field_tag :status, params[:status] %>
   <div class="condition">
     <span><%= LiveStudio::CourseRequest.human_attribute_name(:course_subject) %></span>
-    <%= select_tag :subject, options_for_select(APP_CONSTANT['subjects'], params[:subject]), prompt: t("live_studio.course_request.menu.all") %>
+    <%= select_tag :subject,
+                   options_for_select(APP_CONSTANT['subjects'], params[:subject]),
+                   prompt: t("live_studio.course_request.menu.all"),
+                   class: 'immediately' %>
   </div>
   <div class="condition">
     <span><%= LiveStudio::CourseRequest.human_attribute_name(:course_grade) %></span>
-    <%= select_tag :grade, options_for_select(APP_CONSTANT['grades_in_menu'], params[:grade]), prompt: t("live_studio.course_request.menu.all") %>
+    <%= select_tag :grade,
+                   options_for_select(APP_CONSTANT['grades_in_menu'], params[:grade]),
+                   prompt: t("live_studio.course_request.menu.all"),
+                   class: 'immediately' %>
   </div>
 
   <%= link_to t("live_studio.course_request.menu.reset"), live_studio.admin_course_requests_path(status: params[:status]) %>

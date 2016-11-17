@@ -1,0 +1,21 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <div>
+      <h3>
+        <%= Recommend::Position.model_name.human %>
+        <%= link_to :new, new_admin_position_path if current_user.admin? %>
+      </h3>
+    </div>
+  </div>
+  <div class="row qa_big_cell">
+    <div class="col-md-2"><%= Recommend::Position.human_attribute_name(:name) %></div>
+    <div class="col-md-3"><%= Recommend::Position.human_attribute_name(:kee) %></div>
+    <div class="col-md-2"><%= Recommend::Position.human_attribute_name(:klass_name) %></div>
+    <div class="col-md-1"><%= Recommend::Position.human_attribute_name(:status) %></div>
+    <div class="col-md-2"><%= "" %></div>
+  </div>
+
+  <%= render @positions %>
+
+  <%= will_paginate @positions %>
+</div>

@@ -1,0 +1,29 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h3>
+      <%= link_to Recommend::Position.model_name.human, recommend.manager_positions_path %> &gt;
+      <%= @position.name %>
+    </h3>
+  </div>
+  <div class="row qa_cell">
+    <div class="col-md-2 col-md-offset-1"><%= Recommend::Position.human_attribute_name(:name) %></div>
+    <div><%= @position.name %></div>
+  </div>
+  <div class="row qa_cell">
+    <div class="col-md-2 col-md-offset-1"><%= Recommend::Position.human_attribute_name(:kee) %></div>
+    <div><%= @position.kee %></div>
+  </div>
+  <div class="row qa_cell">
+    <div class="col-md-2 col-md-offset-1"><%= Recommend::Position.human_attribute_name(:klass_name) %></div>
+    <div><%= @position.klass_name.constantize.model_name.human %></div>
+  </div>
+  <div class="row qa_cell">
+    <div class="col-md-2 col-md-offset-1"><%= Recommend::Position.human_attribute_name(:status) %></div>
+    <div><%= @position.status_text %></div>
+  </div>
+
+
+  <div>
+    <%= render "#{@position.klass_name.constantize.model_name.route_key}" %>
+  </div>
+</div>

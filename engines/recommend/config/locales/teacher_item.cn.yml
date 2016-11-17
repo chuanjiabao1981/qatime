@@ -11,3 +11,4 @@ cn:
         owner: 所在区域
         index: 排序
         status: 状态
+        city: 城市

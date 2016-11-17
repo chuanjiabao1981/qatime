@@ -277,15 +277,11 @@ module LiveStudio
     end
 
     def live_start_date
-      lesson = lessons.reorder('class_date asc,id').first
-      lesson.try(:live_start_at).try(:strftime,'%Y年%m月%d日') ||
-        "#{lesson.try(:class_date).try(:strftime, '%Y年%m月%d日')}"
+      lessons.map(&:class_date).min
     end
 
     def live_end_date
-      lesson = lessons.reorder('class_date asc,id').last
-      lesson.try(:live_end_at).try(:strftime,'%Y年%m月%d日') ||
-        "#{lesson.try(:class_date).try(:strftime, '%Y年%m月%d日')}"
+      lessons.map(&:class_date).max
     end
 
     def order_lessons

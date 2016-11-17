@@ -16,7 +16,10 @@ module LiveStudio
       waste: 99      # 不可用
     }
 
+    # 可用
     scope :available, -> { where("live_studio_tickets.status < ?", statuses[:used]) }
+    # 不可用
+    scope :unavailable, -> { where("live_studio_tickets.status >= ?", statuses[:used]) }
     scope :visiable, -> { where("live_studio_tickets.status <= ?", statuses[:used]) }
     scope :authorizable, -> { where("live_studio_tickets.status < ?", statuses[:pre_used]) }
 

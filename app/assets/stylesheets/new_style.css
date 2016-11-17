@@ -176,6 +176,7 @@ a {
   font-size: 1.4rem;
   color: #333333;
 }
+
 .recharge-title {
   text-align: center;
   height: 5rem;
@@ -792,37 +793,24 @@ figcaption p {
   padding: 0 !important;
 }
 
-/*@font-face {font-family: 'iconfont';
-    src: url('../fonts/font/iconfont.eot'); 
-    src: url('../fonts/font/iconfont.eot?#iefix') format('embedded-opentype'), 
-    url('../fonts/font/iconfont.woff') format('woff'), 
-    url('../fonts/font/iconfont.ttf') format('truetype'), 
-    url('../fonts/font/iconfont.svg#iconfont') format('svg'); 
-}
-.iconfont-2{
-    font-family:"iconfont" !important;
-    font-size:10px;font-style:normal;
-    -webkit-font-smoothing: antialiased;
-    -webkit-text-stroke-width: 0.2px;
-    -moz-osx-font-smoothing: grayscale;
-    color: white;
-    }*/
+
  .triangle-icon-1,.triangle-icon-2{
-   position: absolute;
-   top: -15px !important;
-   width: 0;
-   height: 0;
-   border-left: 10px solid transparent;
-   border-right: 10px solid transparent;
-   border-bottom: 15px solid white;
+  position: absolute;
+  top: -15px !important;
+  width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 15px solid white;
+  
  }
 .triangle-icon-1 {
   left: 150px;
 }
-
 .triangle-icon-2 {
   left: 130px;
 }
+
 
 /*老师的课程表*/
 .positioning {
@@ -838,9 +826,6 @@ figcaption p {
   right: 150px;
   z-index: 10000;
   display: none;
-}
-.positioning {
-  position: relative;
 }
 .teacher-schedule-1 {
   display: inline-block;
@@ -1097,7 +1082,7 @@ figcaption p {
   width: 100%;
 }
 .remedial-date {
-  width: 249px;
+  width: 298px;
   height: 28px;
   padding-top: 0 !important;
   border: 1px solid rgb(190,11,11);
@@ -2662,14 +2647,12 @@ color: #999999;
   color: #000;
 }
 
-.btn-sign a, .btn-sign a:hover, .btn-signnow a, .btn-signnow a:hover, .btn-listen a, .btn-listen a:hover,.btn-start a, .btn-start a:hover{
+.btn-sign a, .btn-sign a:hover, .btn-signnow a, .btn-signnow a:hover, .btn-listen a, .btn-listen a:hover,.btn-start a, .btn-start a:hover {
   color: #fff;
 }
-
 .active-color {
   color: red !important;
 }
-
 .course_paginate{
   display: block;
   clear: both;
@@ -2683,7 +2666,7 @@ color: #999999;
 
 .notfound {
   height: 517px;
-  display: none;
+  /*display: none;*/
 }
 .notfound img {
   margin-top: 200px;
@@ -2988,6 +2971,7 @@ color: #999999;
   height: 39px;
   float: left;
 }
+
 .btn-sign,.btn-listen {
   width: 84px;
   line-height: 39px;
@@ -3028,7 +3012,6 @@ color: #999999;
 .arrange-con table tr td {
   height: 53px;
   border-bottom: 1px solid rgb(241,241,241);
-  color: #666666;
   }
 .arrange-con table tr td:first-child {
   width: 10%;
@@ -3204,151 +3187,7 @@ ul {
   line-height: 50px;
   padding: 0 10px;
 }
-.editor-con {
-  padding: 0 10px;
-}
-.file-title {
-  height: 50px;
-  line-height: 50px;
-  font-size: 16px;
-}
-.file-con {
-  overflow: hidden;
-  padding-bottom: 30px;
-}
-.file-con-msg {
-  width: 660px;
-  height: 300px;
-  float: right;
-}
-.file-con-msg img {
-  float: left;
-  width: 480px;
-  height: 300px;
-  margin-right: 10px;
-}
-.file-new {
-  position: relative;
-  top: 150px;
-}
-.file-new span {
-  color: red;
-}
-.file-new a {
-  font-size: 16px;
-}
-.file-new p {
-  color: #999999;
-}
 
-.editor-msg {
-  width: 100%;
-  clear: both;
-}
-.editor-msg table tr td {
-  padding: 10px 0px;
-  color: #666666;
-}
-.editor-msg table tr td:first-child {
-  width: 100px;
-}
-.editor-msg table,.input-editor,.editor-msg textarea {
-  width: 100%;
-}
-
- .input-editor {
-  height: 32px;
-  border: 1px solid #999999;
- }
- .editor-msg textarea {
- border: 1px solid #999999; 
- }
-.title-editor {
-  color: red;
-}
-.td-editor {
-  position: relative;
-}
-.introduce-editor {
-  position: absolute;
-  top: 15px;
-}
-.grade-editor {
-  height: 32px;
-}
-.grade-check {
-  width: 100%;
-  height: 50px;
-  padding: 10px;
-  border: 1px solid gray;
-  display: none;
-}
-.grade-check span {
-  margin-right: 20px;
-}
-.grade-check span label {
-  font-weight: 100;
-}
-.editor-down {
-  position: relative;
-  top: -23px !important;
-  left: 97% ;
-  cursor: pointer;
-}
-.editor-arrange {
-  margin-top: 50px;
-  padding: 10px;
-}
-.class-arrtitle {
-  height: 50px;
-  line-height: 50px;
-}
-.class-con table {
-  width: 100%;
-}
-.class-con table tr td {
-  padding: 5px 0;
-}
-.class-con table tr td:first-child {
-  padding-right: 20px;
-}
-.class-con table tr td:last-child {
-  text-align: right;
-}
-.class-con table tr td:nth-child(2) input {
-  width: 82%;
-  height: 18px;
-  border: 1px solid #999999;
-  text-align: center;
-}
-
-.calendar {
-  position: relative;
-  left: -8%;
-}
-.class-con table tr td:last-child a {
-  color: rgb(0,153,204);
-}
-.add-file i {
-  font-size: 30px;
-  float: right;
-  margin-right: -20px;
-  color: rgb(0,153,204);
-}
-.present {
-  margin-top: 60px;
-}
-.present a {
-  width: 120px;
-  height: 34px;
-  display: inline-block;
-  color: white;
-  line-height: 34px;
-  text-align: center;
-  border-radius: 4px;
-  background-color: rgb(102,204,153);
-  margin: 0 10px;
-}
 
 
 
@@ -3400,7 +3239,7 @@ ul {
 
 
 .remedial-live,.remedial-teclive {
-  border: 1px solid #999999;
+  border: 1px solid #F2F2F2;
   
 }
 .remedial-teclive {
@@ -3410,7 +3249,7 @@ ul {
   height: 54px;
   text-align: center;
   line-height: 54px;
-  border-bottom: 1px solid #999999;
+  border-bottom: 1px solid #F2F2F2;
   color: rgb(118,209,209);
 }
 .live-con {
@@ -3615,6 +3454,10 @@ ul {
 .admin {
   width: 100%;
   padding: 0 10px 10px;
+  min-height: 870px;
+}
+.active-navside {
+  background-color: #0065bd !important;
 }
 .admin-title {
   height: 54px;
@@ -3624,7 +3467,7 @@ ul {
 }
 .admin-title-left a {
   color: #999999;
-  font-size: 18px;
+  font-size: 20px;
   margin-right: 30px;
 }
 .active-admin {
@@ -3638,6 +3481,9 @@ ul {
   float: right;
   color: #999999;
 }
+.admin-title-right select {
+  height: 26px;
+}
 .condition {
   float: left;
   margin-right: 40px;
@@ -3648,13 +3494,13 @@ ul {
 .condition select {
   width: 87px;
   height: 26px;
-  border: 1px solid #666666;
 }
 .condition-right {
   float: right;
 }
 .admin-empty {
   color: rgb(0,153,254);
+  cursor: pointer;
 }
 .condition-right input {
   width: 73px;
@@ -3676,6 +3522,7 @@ ul {
 }
 .admin-list-con table tr:first-child td {
   height: 40px;
+  color: #999999;
 }
 .admin-list-con table tr:first-child td span {
   text-align: center !important;
@@ -3695,6 +3542,46 @@ ul {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+.admin-list-con table tr td a {
+  color: #666;
+}
+.admin-list-con table tr td:last-child a {
+  color: #999;
+}
+
+
+/*辅导班后台预览页面*/
+.recommended-preview {
+  padding: 10px;
+}
+.admin-preview {
+  width: 36% !important;
+}
+.tec-preview {
+  height: 100% !important;
+  border: 1px solid #F2F2F2;
+}
+.admin-tec-img {
+  width: 121px;
+  height: 121px;
+}
+.prompt-preview {
+  position: fixed;
+  top: 0;
+  z-index: 10000;
+  width: 100%;
+  height: 80px;
+  background-color: #000000;
+  opacity: 0.5;
+  font-size: 22px;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 80px;
+}
+
+
+
+
 
 
 
@@ -3711,19 +3598,21 @@ ul {
 }
 .admin-invite table tr td {
   text-align: center;
+  color: #666666;
 }
 .admin-invite table tr:first-child td {
   height: 40px;
   text-align: center !important;
-  color: #666666;
+  color: #999;
 }
 .admin-invite table tr td {
   height: 60px;
   border: 1px solid #F2F2F2;
 }
-.admin-invite table tr td:first-child {
-  text-align: left;
+.admin-invite table tr td:first-child a {
+  color: #666666;
 }
+
 
 /*未审核*/
 .condition-left {
@@ -3731,31 +3620,656 @@ ul {
 }
 .admin-notaudit,.admin-hasaudit {
   float: left;
+  display: inline-block;
   width: 100px;
   height: 30px;
   border: 1px solid #999999;
   line-height: 30px;
   text-align: center;
+  color: #000000;
+  cursor: pointer;
 }
 .active-audit {
   background-color: rgb(102,204,0);
   color: white;
   border: 0px;
 }
-.audit-status span{
+.audit-status a {
   color: #999999;
 }
 .condition-result {
   float: left;
   margin-right: 15px;
 }
-.admin-msg {
-  display: none;
-}
 
-.admin-list {
-  display: none;
-}
+
 .active-show {
   display: block;
 }
+.col-left {
+  padding-left: 0px !important;
+  padding-right: 15px;
+}
+.col-right {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+@media only screen  and (max-width: 990px) {
+  .col-left {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+}
+
+
+
+
+
+/*创建邀请页面*/
+.invitation {
+  display: inline-block;
+  width: 100px;
+  height: 28px;
+  color: white;
+  text-align: center;
+  line-height: 26px;
+  background-color: rgb(102,204,153);
+  border-radius: 4px;
+}
+
+
+
+/*新开班邀请*/
+.new-openclass {
+  margin-top: 36px;
+  font-size: 16px;
+  text-align: center;
+}
+.manager {
+  min-height: 641px;
+}
+.manager-list-con {
+  padding: 0 10px;
+}
+
+.manager-list-con table {
+  width: 100%;
+}
+.manager-list-con table tr td {
+  padding: 10px 0;
+}
+.manager-list-con table tr td:first-child {
+  width: 15%;
+}
+.manager-list-con table tr td:last-child input {
+  width: 100%;
+  height: 40px;
+}
+.manager-td {
+  position: relative;
+}
+.manager-td span {
+  position: absolute;
+  top: 20px;
+  right: 1%;
+}
+.manager-list-con table td label {
+  font-weight: 100;
+}
+.manager-btn a,.manager-btn input {
+  display: inline-block;
+  width: 120px;
+  height: 40px;
+  background-color: rgb(153,153,153);
+  border: 1px solid rgb(153,153,153);
+  text-align: center;
+  color: white;
+  line-height: 38px;
+  margin-left: 20px;
+  border-radius: 4px;
+}
+.manager-btn input {
+  line-height: 26px;
+}
+.manager-list-con label {
+  float: right;
+  margin-right: 10px;
+  margin-top: 8px;
+} 
+.manager-list-con .col-md-10 {
+  position: relative;
+}
+
+.manager-scale {
+  position: absolute;
+  top: 8px;
+  left: 95%;
+}
+.has-error {
+  color: red !important;
+}
+.manager-list-con .row {
+  margin-bottom: 20px;
+}
+@media only screen  and (max-width: 990px) {
+.manager-list-con label {
+  float: left;
+} 
+
+.manager-list-con .col-md-10 {
+  position: relative;
+}
+
+.manager-scale {
+  position: absolute;
+  top: 40px;
+  left: 95%;
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+/*创建新的辅导班*/
+.container-bottom {
+  margin-bottom: 15px;
+}
+.addinvite {
+  min-height: 587px;
+}
+.addinvite-title {
+  /*padding: 0 10px;*/
+  margin: 0 10px;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #F1F1F1;
+  overflow: hidden;
+}
+.addinvite-title a {
+  color: #666666;
+}
+.addinvite-title-left {
+  float: left;
+}
+.addinvite-title-right {
+  float: right;
+}
+.addinvite-title-right a {
+  color: #000;
+}
+.addinvite-con-title {
+  height: 36px;
+  line-height: 36px;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.addinvite-con table {
+  width: 100%;
+  font-size: 16px;
+}
+.addinvite-con table td {
+  text-align: center;
+  color: #333333;
+}
+.addinvite-con table tr:first-child td span{
+  display: inline-block;
+  width: 100%;
+  height: 34px;
+  line-height: 34px;
+  background-color: #F1F1F1;
+  color: #999999;
+}
+.addinvite-con table tr td {
+  height: 72px;
+  border-bottom: 1px solid #F1F1F1;
+}
+.addinvite-con table tr td:first-child {
+  padding-left: 20px;
+}
+.addinvite-con table tr td:last-child {
+  padding-right: 20px;
+}
+.addinvite-con table tr:first-child td {
+  height: 34px;
+  border-bottom: 0px;
+}
+
+
+
+
+/*创建新辅导班编辑*/
+.create-title {
+  margin: 0 10px;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #F1F1F1;
+}
+
+
+
+.editor-con {
+  padding: 0 10px;
+}
+.file-title {
+  height: 56px;
+  line-height: 56px;
+  font-size: 16px;
+  color: #000000;
+}
+.file-con {
+  overflow: hidden;
+  padding-bottom: 25px;
+}
+.file-con-msg {
+  width: 650px;
+  height: 300px;
+  float: right;
+}
+.file-con-msg img {
+  float: left;
+  width: 480px;
+  height: 300px;
+  margin-right: 10px;
+}
+.file-new {
+  position: relative;
+  top: 124px;
+}
+.file-new span {
+  color: red;
+}
+.file-new a {
+  font-size: 16px;
+  display: inline-block;
+  margin-bottom: 5px;
+  color: #0b74be;
+}
+.create-advice {
+  margin-bottom: 32px !important;
+}
+.file-new p {
+  font-size: 14px;
+  color: #999999;
+  margin-bottom: 0px;
+}
+
+.editor-msg {
+  width: 100%;
+  clear: both;
+}
+.editor-msg table tr td {
+  padding: 5px 0px;
+  color: #666666;
+}
+.editor-msg table tr td:first-child {
+  width: 90px;
+}
+.editor-msg table,.input-editor,.editor-msg textarea {
+  width: 100%;
+}
+
+ .input-editor {
+  height: 31px;
+  padding-left: 8px;
+  padding-bottom: 4px;
+  border: 1px solid #999999;
+ }
+ /*.editor-msg textarea {
+ border: 1px solid #999999; 
+ padding: 6px 8px 0px;
+ }*/
+.title-editor {
+  color: red;
+}
+.td-editor {
+  position: relative;
+}
+.introduce-editor {
+  position: absolute;
+  top: 10px;
+}
+.grade-editor {
+  height: 32px;
+}
+.grade-check {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+  border: 1px solid gray;
+  display: none;
+  margin-top: -5px;
+}
+.grade-check span {
+  margin-right: 20px;
+}
+.grade-check span label {
+  font-weight: 100;
+}
+.editor-down {
+  position: relative;
+  top: -23px !important;
+  left: 97% ;
+  cursor: pointer;
+}
+.editor-arrange {
+  margin-top: 10px;
+  padding: 10px;
+}
+.class-arrtitle {
+  height: 50px;
+  line-height: 50px;
+  font-size: 16px;
+  color: #000000;
+}
+.class-con table tr td:nth-child(3) {
+  width: 64.5%;
+}
+.class-con table,.adjust-con table {
+  width: 100%;
+}
+.class-con table td textarea {
+  width: 100%;
+  padding: 5px 8px 0px;
+  color: #666666;
+  border: 1px solid #666666;
+}
+.class-con table tr td,.adjust-con table tr td {
+  padding: 5px 0;
+}
+.class-con table tr td:first-child,.adjust-con table tr td:first-child {
+  width: 5%;
+  color: #666666;
+}
+.class-con table tr td:nth-child(2),.adjust-con table tr td:nth-child(2) {
+  width: 25.5% !important;
+}
+.class-con table tr td:last-child,.adjust-con table tr td:last-child {
+  text-align: right;
+}
+
+.create-td {
+  position: relative;
+  padding-top: 10px !important;
+}
+.create-td input {
+  width: 94.5%;
+  height: 30px !important;
+  margin-bottom: 5px;
+  color: #999999;
+  text-align: center;
+  border: 1px solid #999999 !important;
+}
+.calendar {
+  position: absolute;
+  margin-top: 8px;
+  right: 8%;
+}
+.class-con table tr td:last-child a {
+  color: #00a2ee;
+  display: inline-block;
+}
+.add-file i {
+  font-size: 30px;
+  float: right;
+  margin-right: -20px;
+  color: rgb(0,153,204);
+}
+.present {
+  margin-top: 57px;
+  padding-bottom: 77px;
+}
+.present a {
+  width: 110px;
+  height: 30px;
+  display: inline-block;
+  color: white;
+  font-size: 16px;
+  line-height: 32px;
+  text-align: center;
+  border-radius: 4px;
+  background-color: #999999;
+  margin: 0 10px;
+}
+
+.editor-msg .col-md-10 {
+  padding-left: 0px;
+}
+.editor-msg label {
+  padding-left: 10px;
+  margin-top: 5px;
+  font-weight: 100;
+}
+.editor-text {
+  position: relative;
+}
+@media only screen and (max-width: 990px) {
+.editor-msg .col-md-10 {
+  padding-left: 15px;
+}
+.editor-msg label {
+  padding-left: 0px;
+  
+}
+}
+
+
+
+
+
+
+
+.modal-img {
+  width: 242px;
+  height: 242px; 
+  border: 1px dashed;
+}
+
+.modal-img img {
+  width: 100%;
+}
+.modal-avatar {
+  width: 128px;
+  height: 128px;
+  overflow: hidden;
+}
+.modal-avatar img {
+  width: 128px;
+  height: 128px;
+}
+
+
+
+
+
+
+
+
+
+/*调课*/
+.adjust-lesson {
+  padding: 0 10px;
+}
+.adjust-title {
+  font-size: 16px;
+  color: #333333;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  margin-bottom: 7px;
+}
+.adjust-con {
+  padding: 0 10px;
+}
+.adjust-con-title {
+  height: 35px;
+  background-color: rgb(241,241,241);
+  font-size: 16px;
+  line-height: 35px;
+  color: #555555;
+  text-align: center;
+  margin-bottom: 5px;
+}
+.adjust-con-title span:nth-child(2) {
+  margin: 0 10px;
+}
+.adjust-td {
+  padding-left: 10px !important;
+}
+.adjust-td span {
+  font-size: 14px;
+  color: #333333;
+}
+.adjust-btn {
+  margin-top: 50px !important;
+}
+.adjust-con table tr td {
+  border-bottom: 1px solid #F1F1F1;
+}
+.adjust-con table tr:last-child td {
+  border: 0px;
+}
+
+
+
+
+
+/*公告*/
+
+.notice-con textarea{
+  margin-top: 5px;
+  width: 100%;
+  padding: 8px 8px 0px;
+}
+.notice-news {
+  padding-bottom: 20px;
+}
+.notice-news table {
+  width: 100%;
+}
+.notice-news table tr td {
+  padding: 10px 0;
+  color: #666666;
+}
+.notice-news table tr td:first-child {
+  width: 155px;
+}
+.notice-td {
+  position: relative;
+}
+.notice-time {
+  position: absolute;
+  top: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+/*我的辅导班*/
+.my-tutorial {
+  min-height: 565px;
+}
+.tutorial-title {
+  height: 40px;
+  line-height: 40px;
+  color: #000000;
+  margin: 0 15px 0 10px;
+  border-bottom: 1px solid rgb(241,241,241);
+}
+.tutorial-title a {
+  float: right;
+  color: #000000;
+  font-size: 16px;
+}
+.tutorial-nav {
+  height: 51px;
+  line-height: 51px;
+}
+.tutorial-nav a {
+  color: #000000;
+  font-size: 16px;
+  margin: 0 20px;
+  cursor: pointer;
+}
+.tutorial-nav .active {
+  color: #be0b0b !important;
+}
+.tutorial-con {
+  height: 144px;
+  padding: 13px 15px 13px 10px;
+  border-bottom: 1px solid rgb(241,241,241);
+}
+.tutorial-con table {
+  width: 100%;
+  color: #666666;
+}
+
+.tutorial-con table img {
+  width: 200px;
+  height: 118px;
+}
+.tutorial-con-td {
+  width: 214px;
+}
+.tutorial-con-new {
+  width: 25%;
+  height: 30px;
+}
+.tutorial-con-new i {
+  color: #999999;
+}
+.tutorial-con-msg {
+  position: relative;
+  top: -3px;
+  font-size: 16px;
+  color: #000;
+}
+.tutorial-con-audit {
+  position: relative;
+  top: 4px;
+  display: inline-block;
+  width: 64px;
+  height: 24px;
+  color: #be0b0b;
+  background-color: rgb(249,249,249);
+  border-radius: 4px;
+  text-align: center;
+  line-height: 24px;
+}
+.tutorial-con table tr:last-child td:last-child {
+  width: 194px;
+}
+.tutorial-con-edit {
+  position: relative;
+  top: 6px;
+}
+.tutorial-con-edit span {
+  display: inline-block;
+  float: right;
+}
+.tutorial-con-edit a {
+  margin-left: 25px;
+}
+.tutorial-con-head {
+  margin-right: 10px;
+}
+
+/*.tutorial-details {
+  display: none;
+}
+.tutorial-details:first-child {
+  display: block;
+}*/

@@ -2,6 +2,7 @@ class Manager < User
   default_scope {where(role: 'manager')}
 
   has_many :workstations
+  has_many :cities, through: :workstations
 
   has_many :sellers, through: :workstations
   has_many :waiters, through: :workstations

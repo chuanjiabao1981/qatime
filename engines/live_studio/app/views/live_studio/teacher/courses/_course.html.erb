@@ -2,35 +2,37 @@
   <table border="0" cellspacing="0" cellpadding="0">
     <tbody>
       <tr>
-        <td rowspan="4" class="tutorial-con-td"><%= image_tag(course.publicize_url(:list)) %></td>
+        <td rowspan="3" class="tutorial-con-td">
+          <%= image_tag(course.publicize_url(:list)) %>
+        </td>
         <td colspan="3">
           <span class="tutorial-con-msg"><%= course.name %></span>
         </td>
+        
       </tr>
       <tr>
-        <td><span class="tutorial-con-head"><%= LiveStudio::Course.human_attribute_name(:grade) %></span><span><%= course.grade %></span></td>
-        <td colspan="2">
+        <td>
+          <span class="tutorial-con-head"><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
+          <span><%= course.grade %></span>
+        </td>
+        <td>
           <span class="tutorial-con-head"><%= LiveStudio::Course.human_attribute_name(:students_count) %></span>
           <span><%= course.buy_tickets_count %></span>
         </td>
+        <td class="tutorial-con-audit"><span><%= course.status.text %></span></td>
       </tr>
       <tr>
         <td class="tutorial-con-new">
-          <span class="tutorial-con-head"><%= LiveStudio::Course.human_attribute_name(:price) %></span>
-          <span>
+          <span class="tutorial-con-head tutorial-con-edit"><%= LiveStudio::Course.human_attribute_name(:price) %></span>
+          <span class="tutorial-con-edit">
             <%= number_to_currency(course.price, unit: "￥", precision: 2) %>
             <i>(<%= number_to_percentage(course.teacher_percentage, precision: 0) %><%= LiveStudio::Course.human_attribute_name(:percentage) %>)</i>
           </span>
         </td>
-        <td colspan="2">
-          <span class="tutorial-con-head">
-            <%= LiveStudio::Course.human_attribute_name(:lessons_progress) %>
-          </span>
-          <span><%= course.finished_lessons_count %>/<%= course.lessons_count %></span>
+        <td>
+          <span class="tutorial-con-head tutorial-con-edit"><%= LiveStudio::Course.human_attribute_name(:lessons_progress) %></span>
+          <span class="tutorial-con-edit"><%= course.finished_lessons_count %>/<%= course.lessons_count %></span>
         </td>
-      </tr>
-      <tr>
-        <td colspan="2"><span class="tutorial-con-audit"><%= course.status.text %></span></td>
         <td>
           <span class="tutorial-con-edit">
             <%= link_to live_studio.course_path(course) do %>

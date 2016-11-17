@@ -24,4 +24,6 @@ jQuery ->
   $("form").on "ajax:complete", ->
     $(this).removeClass("submiting")
 
+  $(".immediately").change ->
+    $(this).parents("form").submit()
 

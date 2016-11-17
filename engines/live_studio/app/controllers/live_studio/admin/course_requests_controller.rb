@@ -1,6 +1,7 @@
 module LiveStudio
   module Admin
     class CourseRequestsController < Admin::ApplicationController
+      before_action :set_city, only: [:index]
       def index
         # 只有一个工作站
         @course_requests = LiveStudio::CourseRequest.includes(:course)
@@ -27,6 +28,8 @@ module LiveStudio
 
       def course_search_params
         @course_search_params = params.permit(:subject, :grade).select {|_k, v| v.present? }
+        @course_search_params[:city_id] = @city.id if @city.present?
+        @course_search_params
       end
     end
   end

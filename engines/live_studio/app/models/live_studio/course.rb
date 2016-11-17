@@ -41,7 +41,14 @@ module LiveStudio
       state :teaching
       state :completed
 
+      event :reject do
+        transitions from: :init, to: :rejected
+      end
+
       event :publish do
+        before do
+          self.published_at = Time.now
+        end
         transitions from: :init, to: :published
       end
 
@@ -98,13 +105,13 @@ module LiveStudio
     scope :month, ->(month) {where('live_studio_courses.class_date >= ? and live_studio_courses.class_date <= ?',
       month.beginning_of_month.to_date,
       month.end_of_month.to_date) }
-    scope :by_status, ->(status) {status.blank? || status == 'all' ? nil : where(status: statuses[status.to_sym])}
+    scope :by_status, ->(status) {status.blank? || status == 'all' ? nil : where(status: Course.statuses[status.to_sym])}
     scope :by_subject, ->(subject){ subject.blank? || subject == 'all' ? nil : where(subject: subject)}
     scope :by_grade, ->(grade){ grade.blank? || grade == 'all' ? nil : where(grade: grade)}
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
-    scope :uncompleted, -> { where('status < ?', statuses[:completed]) }
-    scope :opening, ->{ where(status: [statuses[:teaching], statuses[:completed]]) }
-    scope :for_sell, -> { where(status: [statuses[:teaching], statuses[:published]]) }
+    scope :uncompleted, -> { where('status < ?', Course.statuses[:completed]) }
+    scope :opening, ->{ where(status: [Course.statuses[:teaching], Course.statuses[:completed]]) }
+    scope :for_sell, -> { where(status: [Course.statuses[:teaching], Course.statuses[:published]]) }
 
     def cant_publish?
       !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank? || lesson_count != preset_lesson_count
@@ -298,7 +305,13 @@ module LiveStudio
     end
 
     def self.status_options
-      statuses.map {|k, v| [LiveStudio::Course.human_attribute_name("aasm_state/#{k}"), v] }
+      Course.statuses.map {|k, v| [LiveStudio::Course.human_attribute_name("aasm_state/#{k}"), v] }
+    end
+
+    # 招生申请 提交审核
+    after_commit :apply_publish, on: :create
+    def apply_publish
+      course_requests.create(user: teacher, workstation: workstation)
     end
 
     private
@@ -317,12 +330,6 @@ module LiveStudio
     def finish_invitation
       return unless invitation
       invitation.accepted!
-    end
-
-    # 招生申请 提交审核
-    after_commit :apply_publish, on: :create
-    def apply_publish
-      course_requests.create(user: teacher, workstation: workstation)
     end
 
     # 非邀请辅导班使用默认工作站

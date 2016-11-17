@@ -1,4 +1,3 @@
 <% if @course.tasting?(current_user) -%>
-$("#taste-course-<%= @course.id %>").text("<%= j(t('view.course_search_show.tasted')) %>");
-$("#taste-course-<%= @course.id %>").addClass('disabled');
+$(".listen-class").replaceWith("<%= j(render 'buy_or_taste') %>");
 <% end %>

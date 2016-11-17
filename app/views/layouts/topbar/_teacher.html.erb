@@ -1,5 +1,33 @@
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-  <div class="container">
+  <div class="container positioning">
+    <%
+       if current_user.teacher?
+         schedule_lessons = current_user.live_studio_lessons.unclosed.limit(3)
+    %>
+      <div class="teacher-schedule">
+        <div class="triangle-icon-2"></div>
+        <% schedule_lessons.each do |lesson| %>
+          <%= link_to live_studio.teacher_course_path(current_user, lesson.course), class: 'teacher-schedule-1' do %>
+            <div class="schedule-img schedule-img-2">
+              <%= image_tag lesson.course.publicize_url(:small) %>
+            </div>
+            <div class="schedule-text">
+              <p class="state-text state-text-1">
+                <span class="state"><%= lesson.status_text(current_user.role) %></span>
+                <em><%= lesson.name %></em>
+              </p>
+              <p class="state-text-1">
+                <span><%= lesson.course.grade %></span>
+                <em class="state-time"><%= "#{lesson.class_date} #{lesson.start_time}-#{lesson.end_time}" %></em>
+              </p>
+            </div>
+          <% end %>
+        <% end %>
+        <div class="remind-more-1">
+          <%= link_to t('schedules.tab.read_all'), live_studio.schedules_teacher_path(current_user) %>
+        </div>
+      </div>
+    <% end %>
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="sr-only">Toggle navigation</span>
@@ -27,35 +55,6 @@
             <%= t('schedules.tab.schedule') %>
           </a>
         </li>
-        <%
-           if current_user.teacher?
-             schedule_lessons = current_user.live_studio_lessons.unclosed.limit(3)
-        %>
-          <div class="teacher-schedule">
-            <div class="triangle-icon-2"></div>
-            <% schedule_lessons.each do |lesson| %>
-              <%= link_to live_studio.teacher_course_path(current_user, lesson.course), class: 'teacher-schedule-1' do %>
-                <div class="schedule-img schedule-img-2">
-                  <%= image_tag lesson.course.publicize_url(:small) %>
-                </div>
-                <div class="schedule-text">
-                  <p class="state-text state-text-1">
-                    <span class="state"><%= lesson.status_text(current_user.role) %></span>
-                    <em><%= lesson.name %></em>
-                  </p>
-                  <p class="state-text-1">
-                    <span><%= lesson.course.grade %></span>
-                    <em class="state-time"><%= "#{lesson.class_date} #{lesson.start_time}-#{lesson.end_time}" %></em>
-                  </p>
-                </div>
-              <% end %>
-            <% end %>
-            <div class="remind-more-1">
-              <%= link_to t('schedules.tab.read_all'), live_studio.schedules_teacher_path(current_user) %>
-            </div>
-          </div>
-        <% end %>
-
         <li>
           <%= link_to user_notification_path do %>
             <span class="glyphicon glyphicon-envelope"></span>

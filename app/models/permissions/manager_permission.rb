@@ -15,7 +15,7 @@ module Permissions
       allow :students,[:index,:search,:show,:edit,:create,:update,
                        :info,:teachers,:customized_courses,:homeworks,
                        :solutions,:account,:customized_tutorial_topics,:questions,:notifications, :admin_edit, :admin_update]
-      allow :home,[:index]
+      allow :home,[:index, :new_index]
       allow :schools,[:index,:new,:create,:show,:edit,:update]
       allow :register_codes, [:index, :new, :downloads, :create]
       allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,
@@ -73,7 +73,9 @@ module Permissions
       allow :course_issue_replies,[:show]
       allow :comments,[:show]
       allow :corrections,[:show]
-
+      allow :notifications, [:index] do |resource_user|
+        resource_user && user.id == resource_user.id
+      end
 
       allow 'managers/sellers', [:new, :create, :edit, :update, :destroy]
       allow 'managers/waiters', [:new, :create, :edit, :update, :destroy]

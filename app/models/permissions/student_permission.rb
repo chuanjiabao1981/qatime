@@ -2,7 +2,7 @@ module Permissions
   class StudentPermission < UserPermission
     def initialize(user)
       super(user)
-      allow :home,[:index]
+      allow :home,[:index, :new_index]
       allow :curriculums,[:index,:show]
       allow :courses,[:show]
       allow :sessions,[:destroy]

@@ -91,9 +91,6 @@ header {
 .login span a i {
   color: rgb(190,11,11);
 }
-.login {
-  display: none;
-}
 .login-show {
   display: block;
 }

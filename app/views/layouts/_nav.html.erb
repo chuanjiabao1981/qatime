@@ -22,8 +22,11 @@
       <% end %>
     </li>
     <li>
-      <%= link_to @none_path || main_app.customized_courses_student_path(current_user) do %>
-        <%= content_tag :span, '', class: 'fa fa-angle-up upward' if @none_path.blank? && current_page?(main_app.customized_courses_student_path(current_user)) %>
+      <%
+         @none_path = current_user && current_user.manager? ? nil : @none_path
+      %>
+      <%= link_to @none_path || main_app.send("customized_courses_#{current_user.role}_path",current_user) do %>
+          <%= content_tag :span, '', class: 'fa fa-angle-up upward' if @none_path.blank? && current_page?(main_app.customized_courses_student_path(current_user)) %>
         <%= t("view.common_bars.customized_courses") %>
       <% end %>
     </li>

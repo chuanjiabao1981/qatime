@@ -2,7 +2,7 @@
   <center>
     <%= image_tag 'no-course.png' %>
   </center>
-  <p>为找到符合条件的辅导课程</p>
+  <p><%= t('view.course_show.nofound') %></p>
 <% end if @courses.blank? %>
 
 <div class="screening-con">
@@ -29,8 +29,8 @@
                   <span class="tea-name"><%= course.teacher.try(:name) %></span>
                 </dd>
                 <dd class="dd-num-msg">
-                  <p><i class="glyphicon glyphicon-time dd-date"><%= course.live_start_time%>至<%= course.live_end_time%></i></p>
-                  <p><i class="money-num">￥ <%= course.price %></i><i class="person-buy"><%= t "view.course_search_show.purchase_number" %><em class="person-num"><%= course.buy_tickets_count %></em></i></p>
+                  <p><i class="glyphicon glyphicon-time dd-date"><%= localize @course.live_start_date, format: :short %>至<%= localize @course.live_end_date, format: :short %></i></p>
+                  <p><i class="money-num">￥ <%= '%0.2f' % course.price %></i><i class="person-buy"><%= t "view.course_search_show.purchase_number" %><em class="person-num"><%= course.buy_tickets_count %></em></i></p>
                 </dd>
               </dl>
             </div>

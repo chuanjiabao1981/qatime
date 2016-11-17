@@ -103,6 +103,11 @@ module LiveStudio
       teacher.try(:name)
     end
 
+    def distance_days
+      return 0 if class_date.blank?
+      -(DateTime.parse(Date.today.to_s) - class_date.to_datetime)
+    end
+
     def order_params
       { amount: price, product: self }
     end
@@ -147,8 +152,19 @@ module LiveStudio
       user.live_studio_tickets.map(&:course_id).include?(id)
     end
 
+    # 已经购买
     def bought_by?(user)
       buy_tickets.where(student_id: user.id).exists?
+    end
+
+    # 试听结束
+    def tasted?(user)
+      taste_tickets.unavailable.where(student_id: user.id).exists?
+    end
+
+    # 正在试听
+    def tasting?(user)
+      taste_tickets.available.where(student_id: user.id).exists?
     end
 
     # 用户购买状态
@@ -163,10 +179,6 @@ module LiveStudio
       return false unless user.student?
       return false if buy_tickets.where(student_id: user.id).exists?
       !taste_tickets.where(student_id: user.id).exists?
-    end
-
-    def tasting?(user)
-      taste_tickets.where(student_id: user.id).exists?
     end
 
     # 是否卖给用户

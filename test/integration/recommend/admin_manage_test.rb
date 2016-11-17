@@ -45,6 +45,7 @@ module Recommend
       fill_in :teacher_item_index, with: '1'
       select 'teacher_one', from: :teacher_item_target_id
       select '最热', from: :teacher_item_reason
+      select '阳泉', from: :teacher_item_city_id
       click_on '新增教师推荐'
       assert page.has_content?('Item was successfully created.')
     end

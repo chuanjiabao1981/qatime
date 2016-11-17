@@ -9,8 +9,7 @@ class HomeController < ApplicationController
   end
 
   def new_index
-    @recommend_courses = Recommend::LiveStudioCourseItem.order(index: :asc).limit(6)
-    @recommend_teachers = Recommend::TeacherItem.order(index: :asc).limit(5)
+    @recommend_courses, @recommend_teachers, @recommend_banners = DataService::HomeData.home_data_by_city(params[:city_id])
     @user_path = @user.blank? ? signin_path : (!@user.student? && !@user.teacher? && !@user.manager? && 'javascript:void(0);')
     render layout: 'application_front'
   end

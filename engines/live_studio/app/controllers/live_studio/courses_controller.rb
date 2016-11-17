@@ -41,13 +41,7 @@ module LiveStudio
 
     # 预览
     def preview
-      @course = Course.new(courses_params)
-      @course.teacher ||= current_user
-      @course.lessons_count = params[:course][:lessons_attributes].count
-      class_dates = params[:course][:lessons_attributes].map{|a| a[:class_date] }.reject {|d| d.blank? }
-      @live_start_date = class_dates.min
-      @live_end_date = class_dates.max
-      @course.subject = current_user.subject
+      @course = build_preview_course
       render layout: 'application_front'
     end
 
@@ -143,9 +137,20 @@ module LiveStudio
     end
 
     def courses_params
-      params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map(&:second)
-      params.require(:course).permit(:publicize, :name, :grade, :price, :invitation_id,
+      params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map(&:second) if params[:course] && params[:course][:lessons_attributes]
+      params.require(:course).permit(:publicize, :name, :grade, :price, :invitation_id, :description,
           lessons_attributes: [:name, :class_date, :start_time, :end_time])
+    end
+
+    def build_preview_course
+      return Course.find(params[:id]) if params[:id].present?
+      course = Course.new(courses_params.merge(author: current_user))
+      course.valid?
+      course.lessons_count = params[:course][:lessons_attributes].count
+      class_dates = params[:course][:lessons_attributes].map {|a| a[:class_date] }.reject(&:blank?)
+      @live_start_date = class_dates.min
+      @live_end_date = class_dates.max
+      p course
     end
   end
 end

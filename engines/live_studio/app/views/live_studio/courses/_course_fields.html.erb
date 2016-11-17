@@ -14,7 +14,7 @@
     名称<span class="text-danger">*</span>:
   </div>
   <div class="col-md-8">
-    <%= f.input :name, label: false, input_html: {value: @course.name}%>
+    <%= f.input :name, label: false %>
   </div>
 </div>
 <div class="row">
@@ -22,7 +22,7 @@
     辅导介绍<span class="text-danger">*</span>:
   </div>
   <div class="col-md-8">
-    <%= f.input :name, as: :text, label: false, input_html: {value: @course.name}%>
+    <%= f.input :description, as: :text, label: false %>
   </div>
 </div>
 <div class="row">

@@ -1,7 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>视频直播</title>
 <link href="//nos.netease.com/vod163/nep.min.css" rel="stylesheet">
 <script src="//nos.netease.com/vod163/nep.min.js"></script>
+</head>
+<body style="margin: 0px;">
 
-<video id="my-video" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="poster.png" preload="auto" width="640" height="360" data-setup="{}">
+<video id="my-video" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="poster.png" preload="auto" data-setup="{}">
     <source src="MY_VIDEO.mp4" type="video/mp4">
 </video>
 
@@ -33,15 +39,10 @@ if("http" === address.substring(0, 4)) {
   }
 }
 
-console.log(address);
-console.log(type);
-
 var myPlayer = neplayer("my-video", {
   "autoplay": true, //是否自动播放(ios不支持自动播放)
   /*预加载选项*/
-  "preload": "auto",
-  "width": width, //设置播放器宽度
-  "height": height//设置播放器高度
+  "preload": "auto"
 }, function() {
   console.log("Ready......");
 });
@@ -66,3 +67,6 @@ myPlayer.onPlayState(3,function(){
   console.log('ended');
 }); 
 </script>
+
+</body>
+</html>

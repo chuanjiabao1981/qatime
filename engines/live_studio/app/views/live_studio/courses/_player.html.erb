@@ -21,8 +21,9 @@
       </div>
       <div class="area-right-con">
         <video id="small-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="//nos.netease.com/vod163/poster.png" preload="auto" width="" height="" data-setup="{}">
-          <source src="/imgs/MY_VIDEO.mp4" type="video/mp4">
+            <source src="//nos.netease.com/vod163/demo.mp4" type="video/mp4">
         </video>
+
       </div>
       <%= render 'play_chat' %>
     </div>
@@ -45,10 +46,11 @@ $(function() {
   var cameraPlayer = neplayer("small-video", {}, function() {
   });
 
-  boardPlayer.setDataSource({
+  cameraPlayer.setDataSource({
     type: "rtmp/flv",
     src: "<%= @course.camera_pull_stream %>"
   });
+  cameraPlayer.play();
 });
 </script>>
 

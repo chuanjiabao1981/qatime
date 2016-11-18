@@ -1,22 +1,15 @@
 <tr>
-  <td class="col-md-1"></td>
-  <td class="col-md-6">
-    <%
-       start_arr = (0..23).to_a.map{|r| ["%02d:00" % r,"%02d:30" % r]}.flatten
-       end_arr = start_arr.clone
-       end_arr.shift
-       end_arr.push('00:00')
-    %>
-
-    <%= f.input :class_date, label:false, as: :date, html5: true, input_html: {min: Date.today, max: '2055-01-01'}%>
-    <%= f.input :start_time, label: false, collection: start_arr, input_html: {min: Date.today, max: '2055-01-01'}%>
-    <%= f.input :end_time, label: false, collection: end_arr, input_html: {min: Date.today, max: '2055-01-01'}%>
+  <td><%= f.index.to_i+1 %></td>
+  <td class="create-td">
+    <%= f.input_field :start_time, placeholder: '请选择开始时间', onclick: 'testShow(this);' %>
+    <i class="fa fa-calendar calendar"></i><br>
+    <%= f.input_field :end_time, placeholder: '请选择结束时间', onclick: 'testShow(this);' %>
+    <i class="fa fa-calendar calendar"></i>
   </td>
-  <td class="col-md-4">
-    <%= f.input :name, label: false, placeholder: '请输入课程名称, 格式: 第X课+空格+课程标题'%>
+  <td>
+    <%= f.input_field :name, as: :text, placeholder: '请输入课程名称，格式：第X课+空格+课程标题', rows: 3 %>
   </td>
-  <td class="col-md-1">
-    <%= link_to '', "javascript:void(0)", class: 'remove_lesson'%>
-    
+  <td>
+    <%= link_to t("activerecord.view.delete"), 'javascript:void(0);',class: 'remove-lesson' %>
   </td>
 </tr>

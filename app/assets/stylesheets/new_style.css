@@ -4160,6 +4160,7 @@ padding: 6px 8px 0px;
   color: #999999;
   text-align: center;
   border: 1px solid #999999 !important;
+  display: inline;
 }
 .calendar {
   position: absolute;

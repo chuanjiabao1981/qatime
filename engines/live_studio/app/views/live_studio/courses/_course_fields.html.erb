@@ -1,43 +1,104 @@
-<div class="row">
-  <div class="col-md-3 text-right"><%= Teacher.human_attribute_name(:avatar)%><span class="text-danger">*</span></div>
-  <div class="col-md-8">
-    <%= f.input :publicize, as: :file,  label: false, input_html:{onchange:"showimagepreview(this)"}%>
-    <div style="width: 242px;height: 242px; border: 1px dashed;">
-      <img id="user_avatar_preview" style="width: 100%;">
+<div class="file-con">
+  <div class="file-con-msg">
+    <%= image_tag @course.publicize_url %>
+    <div class="file-new">
+      <span>*</span>
+      <a href="javascript:void(0);" data-toggle="modal" data-target="#edit_avatar">点此更换图片</a>
+      <%= f.input :publicize, as: :file,  label: false, input_html:{onchange:"showimagepreview(this)",style: 'display: none;'}%>
+      <p class="create-advice">
+        建议：<br>
+        图片像素480*300，<br>
+        图片格式jpeg或png,<br>
+        图片文件不大于500k,<br></p>
+      <p>
+        禁止使用非法图片作为海<br>
+        报!
+      </p>
     </div>
   </div>
 </div>
-<br />
+<div class="editor-msg">
+  <div class="row">
+    <div class="col-md-2">
+      <label class="string optional control-label" for="course_invitation_user_mobile"><abbr title="required">*</abbr>名称</label>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :name, label: false, placeholder: '请输入辅导班名称，最多支持20字', input_html: {maxlength: 20} %>
+      <span class="help-block has-error"></span>
+    </div>
+  </div>
 
-<div class="row">
-  <div class="col-md-3 text-right">
-    名称<span class="text-danger">*</span>:
+  <div class="row">
+    <div class="col-md-2">
+      <label class="integer required control-label" for="course_invitation_teacher_percent"><abbr title="required">*</abbr>辅导介绍</label>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :description, as: :text, label: false, placeholder: '请输入辅导班介绍', input_html: {min: 70, max: 100} %>
+      <span class="help-block has-error"></span>
+    </div>
+
   </div>
-  <div class="col-md-8">
-    <%= f.input :name, label: false %>
+
+  <div class="row">
+    <div class="col-md-2">
+      <label class="integer required control-label" for="course_invitation_teacher_grade"><abbr title="required">*</abbr>年级类型</label>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :grade, label: false, input_html:{class: 'pull-down-input disabled'} %>
+      <i class="fa fa-angle-down pull-down"></i>
+      <div class="grade-check">
+        <% APP_CONSTANT['grades_in_menu'].each do |grade| %>
+            <span>
+              <input type="radio" name="radio" id="heightsc-three" value="<%= grade %>">
+               <label for="heightsc-three"><%= grade %></label>
+             </span>
+        <% end %>
+      </div>
+      <span class="help-block has-error"></span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <label class="integer required control-label" for="course_invitation_teacher_money"><abbr title="required">*</abbr>价格(元)</label>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :price, label: false %>
+      <span class="help-block has-error"></span>
+    </div>
   </div>
 </div>
-<div class="row">
-  <div class="col-md-3 text-right">
-    辅导介绍<span class="text-danger">*</span>:
-  </div>
-  <div class="col-md-8">
-    <%= f.input :description, as: :text, label: false %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-3 text-right">
-    年级类型<span class="text-danger">*</span>:
-  </div>
-  <div class="col-md-8">
-    <%= f.input :grade, label: false, type: :select, collection: APP_CONSTANT['grades_in_menu'] %>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-3 text-right">
-    价格(元)<span class="text-danger">*</span>:
-  </div>
-  <div class="col-md-8">
-    <%= f.input :price, label: false %>
-  </div>
-</div>
+<script type="text/javascript">
+  function testShow(elem){
+    $.jeDate(elem,{
+      skinCell:"jedateblue",
+      festival:false,
+      insTrigger:false,
+      //isinitVal:true,
+      format:"YYYY-MM-DD hh:mm", // 分隔符可以任意定义，该例子表示只显示年月
+      isClear:false,
+      minDate: '<%= Date.today.to_s %>', //设定最小日期为当前日期
+      //最大日期
+    });
+  }
+
+  $(function  () {
+    var flag = true;
+    $(".pull-down,.pull-down-input").click(function  () {
+      if (flag) {
+        $(".grade-check").slideDown(200);
+      }else{
+        $(".grade-check").slideUp(200);
+      }
+      flag = !flag;
+    })
+
+    $("input[name='radio']").click(function  () {
+      if($("input[name='radio']").is(":checked")){
+        $("input[name='course[grade]']").val($(this).val());
+        $("input[name='radio']").parents(".grade-check").slideUp(200);
+      }
+      flag = true;
+    })
+  })
+</script>

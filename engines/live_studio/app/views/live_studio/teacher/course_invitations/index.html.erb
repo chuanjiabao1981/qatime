@@ -2,7 +2,7 @@
   <%= content_tag(:div, class: 'course-header-div') do%>
     <%= content_tag(:div, class: 'title') do %>
       <ol class="breadcrumb">
-        <li>我的辅导</a></li>
+        <li><%= link_to '我的辅导', live_studio.teacher_courses_path(@teacher) %></li>
         <li class="active">新辅导班</li>
       </ol>
     <% end %>

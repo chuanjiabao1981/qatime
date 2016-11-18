@@ -1,19 +1,17 @@
-<div class="qa_box">
-  <%= content_tag(:div, class: 'qa_box panel panel-default panel-support') do %>
-    <%= content_tag(:div, class: 'course-header-div') do%>
-      <%= content_tag(:div, class: 'title') do %>
-        <ol class="breadcrumb">
-          <li>我的辅导</a></li>
-          <li>新辅导班</li>
-          <li class="active">创建新辅导</li>
-        </ol>
-      <% end %>
-    <% end%>
-  <% end %>
-</div>
+<div class="panel panel-default">
+  <div class="addinvite">
+    <div class="create-title">
+      <div class="addinvite-title-left">
+        <%= link_to '我的辅导', live_studio.teacher_courses_path(@teacher) %>
+        <span>&gt;</span>
+        <%= link_to '新辅导班', live_studio.teacher_course_invitations_path(@teacher) %>
+        <span>&gt;</span>
+        <span>创建新辅导班</span>
+      </div>
+    </div>
 
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <%= render 'form' %>
+    <div class="editor-con">
+      <%= render 'form' %>
+    </div>
   </div>
 </div>

@@ -2,19 +2,54 @@
   <%= f.error_notification %>
   <%= f.input :invitation_id, as: :hidden %>
 
-  <h4>一、辅导概况</h4>
+  <p class="file-title">一、辅导概况</p>
 
-  <div class="form-inputs">
-    <%=render 'course_fields', f: f%>
+  <%=render 'course_fields', f: f%>
+
+  <div class="editor-arrange">
+    <div class="class-arrtitle">
+      二、课程安排
+    </div>
   </div>
 
-  <h4>二、课程安排</h4>
-  <div class="form-inputs">
-    <table>
-      <%= f.fields_for :lessons do |lesson| %>
-        <%= render 'lesson_fields', f: lesson%>
-      <% end%>
+  <div class="class-con">
+    <table border="0" cellspacing="0" cellpadding="0">
+      <tbody id="lesson_body">
+      <tr id="lesson-copy">
+        <td class="lesson-no"></td>
+        <td class="create-td">
+          <%= text_field_tag "start_time_",'', class: 'datainp', placeholder: '请选择开始时间', onclick: 'testShow(this)', readonly: true %>
+          <i class="fa fa-calendar calendar"></i><br>
+          <%= text_field_tag "end_time_",'', class: 'datainp', placeholder: '请选择开始时间', onclick: 'testShow(this)', readonly: true %>
+          <i class="fa fa-calendar calendar"></i>
+        </td>
+        <td>
+          <%= text_area_tag :name_,'', rows: 3, placeholder: '请输入课程名称，格式：第X课+空格+课程标题' %>
+        </td>
+        <td><a href="javascript:void(0);" onclick="delete_self(this)" class="delete-link"><%= t("activerecord.view.delete") %></a></td>
+      </tr>
+      <% @course.lessons.each_with_index do |lesson,i| %>
+        <tr class="lesson-<%= lesson.id %>">
+          <td><%= i + 1 %></td>
+          <td class="create-td">
+            <%= text_field_tag "start_time_",'', class: 'datainp', placeholder: '请选择开始时间', onclick: 'testShow(this)', readonly: true %>
+            <i class="fa fa-calendar calendar"></i><br>
+            <%= text_field_tag "end_time_",'', class: 'datainp', placeholder: '请选择开始时间', onclick: 'testShow(this)', readonly: true %>
+            <i class="fa fa-calendar calendar"></i>
+          </td>
+          <td>
+            <%= text_area_tag :name_,'', rows: 3, placeholder: '请输入课程名称，格式：第X课+空格+课程标题' %>
+          </td>
+          <td>
+            <%= link_to(t("activerecord.view.delete"), "javascript:delete_default(#{lesson.id})") if lesson.init? && @course.init? %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
     </table>
+    <%= hidden_field_tag :insert_lesson_list, '' %>
+    <%= hidden_field_tag :delete_lesson_list, '' %>
+    <%= hidden_field_tag :default_lesson_list, @course.lessons.map(&:id).join(',') %>
   </div>
 
   <p><%= raw link_to_add_fields("增加一条新课程", f, :lessons, 'live_studio/courses/') %></p>
@@ -52,8 +87,6 @@
         $('form').submit();
       });
 
-
-
       $("#course_preview").click(function() {
         $(this).parents("form").attr('action', "<%= live_studio.preview_courses_path %>");
         $(this).parents("form").attr('target', '_blank');
@@ -61,7 +94,88 @@
         $(this).parents("form").attr('action', "<% live_studio.courses_path %>")
         $(this).parents("form").removeAttr('target')
       });
-
     })
+
+
+    var lesson_count = <%= @course.lessons.count %>;
+    var insert_lesson_list = new Array();
+    var delete_lesson_list = new Array();
+
+    $('#edit_less_form').submit(function(){
+      var return_flag = true;
+      $('#edit_less_form').find('tr[class^=lesson]').find('input').map(function(index,doc){
+        if($(doc).val().replace(/(^\s*)|(\s*$)/g, "").length==0){
+          return_flag = false;
+        }
+      });
+      var default_lessons = $('#default_lesson_list').val().split(',');
+      if(delete_lesson_list.length > 0){
+        delete_lesson_list.each(function(i,v){
+          default_lessons.splice(default_lessons.indexOf(v),1);
+        });
+      }
+      $(default_lessons).each(function(i,v){
+        if(undefined != $('#start_time_'+v).val() && $('#start_time_'+v).val() == $('#end_time_'+v).val())
+          return_flag = false;
+      });
+      $(insert_lesson_list).each(function(i,v){
+        if(undefined != $('#start_time_'+v).val() && $('#new_start_time_'+v).val() == $('#new_end_time_'+v).val())
+          return_flag = false;
+      });
+      if(!return_flag){
+        alert('<%= t('view.teacher_course.data_holder') %>');
+      }
+      return return_flag;
+    });
+
+    // 添加tr
+    $('#insert_lesson').click(function(){
+      lesson_count += 1;
+      var copy = $('#lesson-copy').clone();
+      copy.css('display', 'table-row');
+      copy.attr('id', '');
+      copy.addClass('lesson-'+lesson_count);
+      copy.find('.lesson-no').html(lesson_count);
+      insert_lesson_list.push(lesson_count);
+      $('#insert_lesson_list').val(insert_lesson_list.join(','));
+      $("#lesson_body").append(set_attr(copy, lesson_count));
+    });
+
+    // 删除新添tr
+    function delete_self(obj){
+      lesson_count -= 1;
+      var lesson_no = parseInt($(obj).attr('rel'));
+      var index = insert_lesson_list.indexOf(lesson_no);
+      insert_lesson_list.splice(index, 1);
+      $('#insert_lesson_list').val(insert_lesson_list.join(','));
+      $(obj).closest('tr').remove();
+    }
+
+    // 删除动态tr
+    function delete_default(lesson_id){
+      lesson_count -= 1;
+      if(confirm('<%= t('activerecord.view.message.confirm') %>')){
+        delete_lesson_list.push(lesson_id);
+        $('#delete_lesson_list').val(delete_lesson_list.join(','));
+        $('.lesson-'+lesson_id).closest('tr').remove();
+      }
+    }
+
+    // 为新tr创建属性
+    function set_attr(obj, no){
+      var attrs = new Array('new_class_date_', 'new_start_time_', 'new_end_time_', 'new_name_');
+      for(var i=0; i < attrs.length; i++){
+        $(obj).find('#'+attrs[i]).attr('name', attrs[i]+no);
+        $(obj).find('#'+attrs[i]).attr('id', attrs[i]+no);
+      }
+      $(obj).find('a.delete-link').attr('rel', no);
+      $(obj).find('#new_start_time_'+no).bind('change', function(){
+        set_end_time(this,no);
+      });
+      $(obj).find('#new_end_time_'+no).bind('change', function(){
+        set_start_time(this,no);
+      });
+      return obj;
+    }
   </script>
 <% end %>

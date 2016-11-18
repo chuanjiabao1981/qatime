@@ -2,7 +2,7 @@ require_dependency "live_studio/application_controller"
 
 module LiveStudio
   class CoursesController < ApplicationController
-    before_action :set_student
+    before_action :set_user
     before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson]
     before_action :play_authorize, only: [:play]
 
@@ -129,7 +129,8 @@ module LiveStudio
       redirect_to @course, alert: i18n_failed('have_not_bought', @course) unless @course.play_authorize(current_user, nil)
     end
 
-    def set_student
+    def set_user
+      @teacher = ::Teacher.find_by(id: params[:teacher_id]) || current_user
       @student = ::Student.find_by(id: params[:student_id]) || current_user
     end
 

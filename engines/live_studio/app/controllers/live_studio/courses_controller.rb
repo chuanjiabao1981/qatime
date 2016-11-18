@@ -85,7 +85,7 @@ module LiveStudio
       @teacher = @course.teacher
       @chat_account = current_user.chat_account
       @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) if @chat_team && @chat_account
-      render layout: 'application_front'
+      render layout: 'live'
     end
 
     def refresh_current_lesson

@@ -3,15 +3,12 @@
     <div class="panel panel-default">
 
       <div class="home-banner">
-        <ul class="banner-show" style="left: -100%;">
+        <ul class="banner-show" id="banner-list" style="left: -100%;">
           <% @recommend_banners.each do |banner| %>
             <li>
               <%= link_to(image_tag(banner.logo_url(:home), alt: 'banner'), banner.link) %>
             </li>
           <% end %>
-          <li>
-            <%= link_to(image_tag(@recommend_banners.first.try(:logo_url,:home),alt: 'banner'), @recommend_banners.first.try(:link)) %>
-          </li>
         </ul>
         <ul class="banner-dot">
           <li style="background-color: white;"></li>
@@ -244,6 +241,8 @@
 </div>
 <script type="text/javascript">
   $(function  () {
+    $("#banner-list").rotate();
+    console.log($("#banner-list").children().size());
     var index = 0;
     function autoscroll () {
       index++;

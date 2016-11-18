@@ -18,6 +18,12 @@
       str = $.replaceTag(str)
       str = $.replaceFaceEm(str)
       str = $.replaceBR(str)
+
+  # 广告轮播
+  $.fn.rotate = (options) ->
+    console.log $(this).children().size() 
+    return if $(this).children().size() <= 1
+    console.log('xxxxxxxxxxx')
 )(jQuery)
 
 jQuery ->

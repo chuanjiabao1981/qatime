@@ -5,7 +5,12 @@ LiveStudio::Engine.routes.draw do
 
   namespace :admin do
     resources :courses, only: [:index]
-    resources :course_requests, only: [:index]
+    resources :course_requests, only: [:index] do
+      member do
+        patch :accept
+        patch :reject
+      end
+    end
   end
 
   resources :courses, only: [:index, :new, :create, :edit, :update, :show] do

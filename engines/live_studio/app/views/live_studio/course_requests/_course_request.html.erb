@@ -16,16 +16,6 @@
   <td><span><%= course_request.course.try(:teacher_percentage) %></span></td>
   <td><span><%= localize(course_request.created_at, format: :long) %></span></td>
   <td>
-    <% if course_request.submitted? -%>
-      <%= link_to t("live_studio/course_request.accept"),
-                  accept_manager_course_request_path(@manager, course_request),
-                  method: :patch if current_user.manager? || course_request.workstation.blank? %>
-      <%= link_to t("live_studio/course_request.reject"),
-                  reject_manager_course_request_path(@manager, course_request),
-                  method: :patch if current_user.manager? || course_request.workstation.blank? %>
-      <%= course_request.status.text if current_user.admin? && course_request.workstation.present? %>
-    <% else %>
-      <%= course_request.status.text %>
-    <% end %>
+    <%= render "action", course_request: course_request %>
   </td>
 </tr>

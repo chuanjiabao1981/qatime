@@ -17,15 +17,22 @@ module LiveStudio
       Capybara.use_default_driver
     end
 
-    test "admin completed a lesson" do
-      teacher = users(:english_teacher)
-      course = live_studio_courses(:course_with_lessons)
-      lesson = live_studio_lessons(:english_lesson2_finished)
-      visit live_studio.teacher_course_path(teacher, course, index: :list)
-      click_on "结算课程"
-
-      lesson.reload
-      assert_equal('completed', lesson.status, '结算课程错误')
+    test "admin view course request list" do
+      click_on "辅导班"
+      click_on "招生审核"
+      assert page.find(".admin-list-con").has_content?("未审核"), "有工作站的请求没有正确显示状态"
+      assert page.has_css?('div.condition-left'), "状态选择按钮不存在"
+      assert_equal 4, page.all(".admin-list-con tr").size, "未审核请求数量不正确"
+      assert_equal 4, page.all(".admin-list-con tr").size, "未审核请求数量不正确"
+      click_on "已审核"
+      assert_equal 4, page.all(".admin-list-con tr").size, "已审核请求数量不正确"
+      click_on "未审核"
+      request_to_accept = live_studio_course_requests(:request_two)
+      request_to_reject = live_studio_course_requests(:request_three)
+      find_link("通过", href: live_studio.accept_admin_course_request_path(request_to_accept)).click
+      assert request_to_accept.reload.accepted?, "通过失败"
+      find_link("驳回", href: live_studio.reject_admin_course_request_path(request_to_reject)).click
+      assert request_to_reject.reload.rejected?, "驳回失败"
     end
   end
 end

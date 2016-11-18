@@ -2,6 +2,7 @@ module LiveStudio
   module Admin
     class CourseRequestsController < Admin::ApplicationController
       before_action :set_city, only: [:index]
+      before_action :set_course_request, only: [:accept, :reject]
       def index
         # 只有一个工作站
         @course_requests = LiveStudio::CourseRequest.includes(:course)

@@ -7,7 +7,7 @@
   <td>
     <%= link_to main_app.profile_teacher_path(course.teacher) do %>
       <span><%= course.teacher.name %></span>
-    <% end %>
+    <% end if course.teacher %>
   </td>
   <td><span><%= course.subject %></span></td>
   <td><span><%= course.grade %></span></td>

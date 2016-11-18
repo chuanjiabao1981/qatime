@@ -1,9 +1,9 @@
 <% if course_request.submitted? -%>
   <%= link_to t("live_studio/course_request.accept"),
-              accept_admin_course_request_path(course_request),
+              accept_manager_course_request_path(@manager, course_request),
               method: :patch %>
   <%= link_to t("live_studio/course_request.reject"),
-              reject_admin_course_request_path(course_request),
+              reject_manager_course_request_path(@manager, course_request),
               method: :patch %>
 <% else %>
   <%= course_request.status.text %>

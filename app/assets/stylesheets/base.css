@@ -3434,6 +3434,19 @@ ul {
   height: 28px;
   border-radius: 50%;
 }
+.information-user {
+  color: #333333;
+}
+.information-category {
+  float: right;
+  margin-right: 10px;
+}
+.screen {
+  height: 38px;
+  text-align: center;
+  line-height: 38px;
+  color: #000000;
+}
 .information-time {
   color: #999999;
 }
@@ -3447,9 +3460,12 @@ ul {
 }
 .information-face {
   height: 28px;
+  /*padding-left: 10px;*/
+  padding: 1.5px 0 0px 10px;
 }
 .information-face img {
   float: left;
+  margin-right: 5px;
 }
 .information-send {
   height:50px !important;
@@ -4208,6 +4224,7 @@ ul {
   color: #999999;
   text-align: center;
   border: 1px solid #999999 !important;
+  display: inline;
 }
 .calendar {
   position: absolute;

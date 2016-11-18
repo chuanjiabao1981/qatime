@@ -1,0 +1,35 @@
+<% content_for :stylesheet do %>
+ <link href="//nos.netease.com/vod163/nep.min.css" rel="stylesheet">
+<% end %>
+
+<div class="row">
+  <div class="video-area">
+    <div class="area-left">
+      <div class="area-left-title"><%= @course.name %></div>
+      <div class="area-left-con">
+        <video id="my-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="//nos.netease.com/vod163/poster.png" preload="auto" width="" height="" data-setup="{}">
+          <source src="//nos.netease.com/vod163/demo.mp4" type="video/mp4">
+        </video>
+
+      </div>
+    </div>
+        
+    <div class="area-right">
+      <div class="area-right-title">
+        观看人数30
+      </div>
+      <div class="area-right-con">
+        <video id="small-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="//nos.netease.com/vod163/poster.png" preload="auto" width="" height="" data-setup="{}">
+            <source src="//nos.netease.com/vod163/demo.mp4" type="video/mp4">
+        </video>
+      </div>
+      <%= render 'play_chat' %>
+    </div>
+  </div>
+</div>
+
+
+<%= content_for :javascript do %>
+
+
+<% end %>

@@ -1,0 +1,11 @@
+cn:
+  view:
+    common:
+      province_by: 按省市选择
+      option_province: ----省----
+      option_city: ----市----
+      switch_country: 选择全国
+      city_tips: 城市已精确到县级单位
+      recent_selected: 最近选择
+      pinyin_by: 按拼音首字母
+      city_none_tips: 如果没有您要找的城市，则该城市暂未加盟

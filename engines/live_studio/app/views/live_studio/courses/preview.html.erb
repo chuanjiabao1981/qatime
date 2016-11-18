@@ -20,7 +20,8 @@
                   </td>
                   <td colspan="3">
                     <div class="subject-title">
-                    <span><%= @course.name%></span><span><%= t('view.course_show.online')%></span>
+                      <span><%= @course.name %></span>
+                      <span><%= t('view.course_show.online')%></span>
                     </div>
                   </td>
                 </tr>
@@ -95,7 +96,7 @@
                   <p><%= t('view.play.course_description')%></p>
                 </div>
                 <div class="introduction-con">
-                  <p><%= @course.description%></p>
+                  <p><%= @course.description %></p>
                 </div>
               </div>
             </div>
@@ -111,3 +112,9 @@
     <%= render partial: 'lesson_plan_preview' %>
   </div>
 </div>
+
+<%= content_for :mask do %>
+<div class="prompt-preview">
+  <span><%= t("view.tips.course_preview") %></span>
+</div>
+<% end %>

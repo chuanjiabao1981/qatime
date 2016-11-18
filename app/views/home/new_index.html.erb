@@ -1,20 +1,16 @@
-<div class="container">
+<div class="container container-details">
   <div class="row">
     <div class="panel panel-default">
 
       <div class="home-banner">
         <ul class="banner-show" style="left: -100%;">
+          <% @recommend_banners.each do |banner| %>
+            <li>
+              <%= link_to(image_tag(banner.logo_url(:home), alt: 'banner'), banner.link) %>
+            </li>
+          <% end %>
           <li>
-            <%= link_to image_tag('banner.jpg'), welcome_download_path %>
-          </li>
-          <li>
-            <%= link_to image_tag('banner2.jpg'),@user_path || send("customized_courses_#{@user.role}_path",@user) %>
-          </li>
-          <li>
-            <%= link_to image_tag('banner3.jpg'), live_studio.courses_path %>
-          </li>
-          <li>
-            <%= link_to image_tag('banner.jpg'), welcome_download_path %>
+            <%= link_to(image_tag(@recommend_banners.first.try(:logo_url,:home),alt: 'banner'), @recommend_banners.first.try(:link)) %>
           </li>
         </ul>
         <ul class="banner-dot">

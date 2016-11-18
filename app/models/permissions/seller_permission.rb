@@ -4,7 +4,7 @@ module Permissions
       super(user)
 
       allow :sessions,[:destroy]
-      allow :home, [:index, :new_index]
+      allow :home,[:index,:new_index,:switch_city]
       allow "sellers/home", [:main]
 
       ## begin live studio permission

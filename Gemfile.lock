@@ -357,6 +357,7 @@ GEM
       tilt (>= 1.3.3, < 2.1)
     slop (3.6.0)
     soft_delete_rails (0.0.2)
+    spinying (0.9)
     sprockets (2.12.4)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -486,6 +487,7 @@ DEPENDENCIES
   sinatra
   slim
   soft_delete_rails
+  spinying (~> 0.9)
   state_machine
   test-unit
   test_after_commit

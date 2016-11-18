@@ -1,0 +1,11 @@
+<div class="row qa_big_cell">
+  <div class="col-md-2"><%= banner_item.title %></div>
+  <div class="col-md-2"><%= image_tag banner_item.logo_url(:list) %></div>
+  <div class="col-md-2"><%= banner_item.try(:index) %></div>
+  <div class="col-md-2"><%= link_to banner_item.link, banner_item.link %></div>
+  <div class="col-md-2"><%= banner_item.city.try(:name) %></div>
+  <div class="col-md-2">
+    <%= link_to '编辑', edit_admin_banner_item_path(banner_item) %>
+    <%= link_to '删除', [:admin, banner_item], method: :delete, data: {confirm: 'Are you sure?'}%>
+  </div>
+</div>

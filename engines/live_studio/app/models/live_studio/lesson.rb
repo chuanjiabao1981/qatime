@@ -19,12 +19,12 @@ module LiveStudio
     scope :unclosed, -> { where('live_studio_lessons.status < ?', Lesson.statuses[:closed]) } # 未关闭的课程
     scope :already_closed, -> { where('live_studio_lessons.status >= ?', Lesson.statuses[:closed]) } # 已关闭的课程
     scope :unstart, -> { where('status < ?', Lesson.statuses[:teaching]) } # 未开始的课程
-    scope :should_complete, -> { where(status: [statuses[:finished], statuses[:billing]]).where("class_date < ?", Date.yesterday)} # 可以completed的课程
+    scope :should_complete, -> { where(status: [Lesson.statuses[:finished], Lesson.statuses[:billing]]).where("class_date < ?", Date.yesterday)} # 可以completed的课程
     scope :teached, -> { where("status > ?", Lesson.statuses[:closed]) } # 已经完成上课, 不可以继续直播的课程才算完成上课
     scope :today, -> { where(class_date: Date.today) }
     scope :since_today, -> {where('class_date > ?',Date.today)}
     scope :include_today, -> {where('class_date >= ?',Date.today)}
-    scope :waiting_finish, -> { where(status: [statuses[:paused], statuses[:closed]])}
+    scope :waiting_finish, -> { where(status: [Lesson.statuses[:paused], Lesson.statuses[:closed]])}
     scope :month, -> (month){where('live_studio_lessons.class_date >= ? and live_studio_lessons.class_date <= ?', month.beginning_of_month.to_date,month.end_of_month.to_date)}
 
     belongs_to :course, counter_cache: true

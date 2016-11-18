@@ -11,4 +11,14 @@ class Util
     num = '%04d' % rand(1000)
     time.to_s(:number) + num
   end
+
+  def self.group_cities
+    cities = City.all
+    result = {}
+    cities.each do |city|
+      result[Spinying.parse(word: city.name).first] ||= []
+      result[Spinying.parse(word: city.name).first] << city.name
+    end
+    result
+  end
 end

@@ -1,0 +1,19 @@
+<div class="qa_box">
+  <%= content_tag(:div, class: 'qa_box panel panel-default panel-support') do %>
+    <%= content_tag(:div, class: 'course-header-div') do%>
+      <%= content_tag(:div, class: 'title') do %>
+        <ol class="breadcrumb">
+          <li>我的辅导</a></li>
+          <li>邀请和创建</li>
+          <li class="active">编辑辅导</li>
+        </ol>
+      <% end %>
+    <% end%>
+  <% end %>
+</div>
+
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <%= render 'form' %>
+  </div>
+</div>

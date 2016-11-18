@@ -22,3 +22,20 @@ index_live_studio_course_recommend_two:
   target: course_two (LiveStudio::Course)
   type: Recommend::LiveStudioCourseItem
   index: 2
+index_live_studio_course_recommend_three:
+  title: 根据城市首页辅导班推荐3
+  position: index_live_studio_course_recommend
+  target: course_one (LiveStudio::Course)
+  type: Recommend::LiveStudioCourseItem
+  index: 1
+  city_id: <%=City.find_by(name: '阳泉').id %>
+index_banner_recommend_one:
+  title: 首页banner推荐1
+  position: index_live_studio_course_recommend
+  type: Recommend::BannerItem
+  index: 1
+index_banner_recommend_two:
+  title: 首页banner推荐2
+  position: index_live_studio_course_recommend
+  type: Recommend::BannerItem
+  index: 2

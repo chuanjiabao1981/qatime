@@ -35,6 +35,8 @@ cn:
       surplus: 剩余：
       lesson_time: 课时
       lesson_count: 共%d课
+      lessons_count: 课时
+      lessons_count_of: 共%{lessons_count}课
       current: 当前课程：
       info: 查看详情
       lessons: 课程列表

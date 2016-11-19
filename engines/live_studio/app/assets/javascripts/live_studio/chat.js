@@ -1,8 +1,9 @@
+window.currentTeam = {};
+
 (function(e) {
 
   var data = {};
   var nim;
-  var currentTeam = {};
 
   function onConnect(fn) {
     console.log('连接成功');

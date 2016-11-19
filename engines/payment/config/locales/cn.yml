@@ -2,6 +2,8 @@ cn:
   view:
     withdraw_cn: 账户提现
     verify_error: 安全手机校验码不正确
+    password_error: 支付密码不正确
+    payment_password_label: 输入支付密码
     payment/consumption_record:
       view: 查看
     payment/earning_record:

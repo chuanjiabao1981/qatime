@@ -5,7 +5,7 @@
       <%= t 'view.withdraw.audit_warn' %>
     </p>
   </div>
-  <%= form_for @withdraw, url: user_withdraws_path(@current_resource) do |f| %>
+  <%= form_for @withdraw, url: user_withdraws_path(@current_resource),html: {autocomplete: "off"} do |f| %>
     <div class="row row-title">
       <div class="col-md-5 col-md-row" id="col-md-nav-1">
         <div class="col-md-title">
@@ -69,9 +69,14 @@
       <%= link_to t('view.withdraw.common.cancel_withdraw'), cash_user_path(@current_resource) %>
     <% end if @errors.present?%>
     <div class="tech-phone">
+      <div class="tech-payment-password">
+        <span><%= t 'view.payment_password_label' %></span>
+        <%= text_field_tag :payment_password,params[:payment_password],class: 'btn-num', onfocus: '$(this).attr("type","password")' %>
+      </div>
+
       <%= content_tag :div, class: 'tech-phone-num' do %>
         <span><%= t 'view.withdraw.common.verify_mobile' %></span>
-        <%= text_field_tag :verify,params[:verify], html: {class: 'btn-num', placeholder: t('view.withdraw.common.verify_holder')} %>
+        <%= text_field_tag :verify,params[:verify], class: 'btn-num', placeholder: t('view.withdraw.common.verify_holder') %>
         <span>
           <input class="btn-code" type="button" data-send-captcha-btn data-send-to-input="#login_mobile" data-send-url="<%= ajax_captchas_url %>"
                  data-key="withdraw_cash" value="<%= t 'view.withdraw.common.get_verify' %>">

@@ -128,8 +128,8 @@ module LiveStudio
     end
 
     # 白板拉流地址
-    def board_pull_stream
-      pull_streams.find {|stream| stream.use_for == 'board' }.try(:address)
+    def board_pull_stream(protocol = 'rtmp')
+      pull_streams.find {|stream| stream.use_for == 'board' && stream.protocol == protocol }.try(:address)
     end
 
     # 摄像头推流地址
@@ -138,8 +138,8 @@ module LiveStudio
     end
 
     # 摄像头拉流地址
-    def camera_pull_stream
-      pull_streams.find {|stream| stream.use_for == 'camera' }.try(:address)
+    def camera_pull_stream(protocol = 'rtmp')
+      pull_streams.find {|stream| stream.use_for == 'camera' && stream.protocol == protocol }.try(:address)
     end
 
     # teacher's name. return blank when teacher is missiong

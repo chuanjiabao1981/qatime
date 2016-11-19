@@ -20,10 +20,58 @@
       str = $.replaceBR(str)
 
   # 广告轮播
-  $.fn.rotate = (options) ->
-    console.log $(this).children().size() 
-    return if $(this).children().size() <= 1
-    console.log('xxxxxxxxxxx')
+  $.fn.rotate = (options = {}) ->
+    options['speed'] ||= 1000
+    options['interval'] ||= 5000
+    obj = $(this);
+    count = obj.children().size()
+    return if count <= 1
+    step = parseFloat(obj.children(":first").css("width"))
+    obj.append($(obj.children(":first").clone()))
+
+    # 指示圆点
+    dots = $("<ul class=\"banner-dot\"></ul>")
+    dots.append("<li></li>") for i in [1..count]
+    obj.after(dots)
+
+    # 设置圆点选中
+    obj.setDots = ->
+      index = Math.abs(parseFloat(obj.css("left"))) / step
+      obj.next(".banner-dot").children().removeClass("active").eq(index).addClass("active")
+    
+    # 开始轮播
+    obj.start = ->
+      obj.timer = setInterval ->
+        obj.animate({
+          left: "-=" + step
+        },
+        options['speed'],
+        ->
+          left = parseFloat(obj.css("left"))
+          obj.css("left", 0) if left + count * step <= 0
+          obj.setDots()
+        )
+      , options['interval']
+    # 结束轮播
+    obj.stop = ->
+      clearInterval(obj.timer)
+    obj.mouseover ->
+      obj.stop()
+    obj.mouseout ->
+      obj.start()
+    dots.mouseover ->
+      obj.stop()
+    dots.mouseout ->
+      obj.start()
+    # 点击圆点显示对应位置
+    dots.click (event)->
+      index = $(event.target).index()
+      obj.css("left", -index * step)
+      obj.next(".banner-dot").children().removeClass("active").eq(index).addClass("active")
+    # 自动开始
+    obj.setDots()
+    obj.start()
+
 )(jQuery)
 
 jQuery ->

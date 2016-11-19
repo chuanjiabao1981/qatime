@@ -11,9 +11,9 @@
     <div class="col-md-2"><%= Recommend::LiveStudioCourseItem.human_attribute_name(:title) %></div>
     <div class="col-md-2"><%= Recommend::LiveStudioCourseItem.human_attribute_name(:logo) %></div>
     <div class="col-md-2"><%= Recommend::LiveStudioCourseItem.human_attribute_name(:target) %></div>
-    <div class="col-md-2"><%= Recommend::LiveStudioCourseItem.human_attribute_name(:index) %></div>
+    <div class="col-md-1"><%= Recommend::LiveStudioCourseItem.human_attribute_name(:index) %></div>
     <div class="col-md-2"><%= Recommend::LiveStudioCourseItem.human_attribute_name(:reason) %></div>
-    <div class="col-md-2"><%= City.model_name.human %></div>
+    <div class="col-md-1"><%= City.model_name.human %></div>
     <div class="col-md-2"><%= "" %></div>
   </div>
   <%= render @items %>

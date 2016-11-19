@@ -1,13 +1,13 @@
 <tr>
   <td>
-    <%= link_to live_studio.course_path(course) do %>
-      <span><%= course.name %></span>
+    <%= link_to live_studio.preview_courses_path(id: course), method: :post, target: '_blank' do %>
+      <span><%= course.try(:name) %></span>
     <% end %>
   </td>
   <td>
     <%= link_to main_app.profile_teacher_path(course.teacher) do %>
       <span><%= course.teacher.name %></span>
-    <% end %>
+    <% end if course.teacher %>
   </td>
   <td><span><%= course.subject %></span></td>
   <td><span><%= course.grade %></span></td>

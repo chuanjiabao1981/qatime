@@ -1,22 +1,62 @@
-<tr>
-  <td class="col-md-1"></td>
-  <td class="col-md-6">
-    <%
-       start_arr = (0..23).to_a.map{|r| ["%02d:00" % r,"%02d:30" % r]}.flatten
-       end_arr = start_arr.clone
-       end_arr.shift
-       end_arr.push('00:00')
-    %>
+<%
+   lesson = f.object
+   unless lesson.class_date.blank?
+     lesson.start_time = "#{lesson.class_date} #{lesson.start_time}"
+     lesson.end_time = "#{lesson.class_date} #{lesson.end_time}"
+   end
+%>
+  <table border="0" cellspacing="0" cellpadding="0" class="<%= f.object._destroy ? 'hidden' : '' %>">
+    <tr>
+      <td>
+        <%= f.index.to_i+1 %>
+        <%= f.input :id, as: :hidden %>
+      </td>
+      <td class="create-td">
+        <%= f.input_field :start_time, placeholder: '请选择开始时间'%>
+        <i class="fa fa-calendar calendar"></i>
+        <%= f.input_field :end_time, placeholder: '请选择结束时间' %>
+        <i class="fa fa-calendar calendar"></i>
+      </td>
+      <td>
+        <%= f.input_field :name, as: :text, placeholder: '请输入课程名称，格式：第X课+空格+课程标题', rows: 3 %>
+      </td>
+      <td>
+        <%= link_to t("activerecord.view.delete"), 'javascript:void(0)',class: 'remove-lesson', onclick: 'remove_lesson(this);',
+                    rel: Nokogiri::XML::DocumentFragment.parse(f.input(:_destroy)).at_css('input').attributes['id'].value %>
+      </td>
+    </tr>
+  </table>
+  <%= f.input_field :_destroy, as: :boolean, boolean_style: :inline, class: 'hidden'%>
+<%
+   start_time_id =  Nokogiri::XML::DocumentFragment.parse(f.input(:start_time)).at_css('input').attributes['id'].value
+   end_time_id = Nokogiri::XML::DocumentFragment.parse(f.input(:end_time)).at_css('input').attributes['id'].value
+%>
+<script type="text/javascript">
+  $(document).ready(function(){
 
-    <%= f.input :class_date, label:false, as: :date, html5: true, input_html: {min: Date.today, max: '2055-01-01'}%>
-    <%= f.input :start_time, label: false, collection: start_arr, input_html: {min: Date.today, max: '2055-01-01'}%>
-    <%= f.input :end_time, label: false, collection: end_arr, input_html: {min: Date.today, max: '2055-01-01'}%>
-  </td>
-  <td class="col-md-4">
-    <%= f.input :name, label: false, placeholder: '请输入课程名称, 格式: 第X课+空格+课程标题'%>
-  </td>
-  <td class="col-md-1">
-    <%= link_to '', "javascript:void(0)", class: 'remove_lesson'%>
-    
-  </td>
-</tr>
+    var <%= start_time_id %> = {
+      format: 'YYYY-MM-DD hh:mm',
+        festival: false,
+        minDate: '<%= Date.tomorrow.to_s %>',
+        maxDate: '2099-06-30 23:59',
+        isToday: false,
+        choosefun: function(elem,datas){
+        <%= end_time_id %>.minDate = datas;
+        <%= end_time_id %>.maxDate = datas;
+      }
+    };
+    var <%= end_time_id %> = {
+      format: 'YYYY-MM-DD hh:mm',
+        festival: false,
+        maxDate: '2099-06-16 23:59',
+        minDate: '<%= Date.tomorrow.to_s %>',
+        isToday: false,
+        choosefun: function(elem,datas){
+        <%= start_time_id %>.maxDate = datas;
+        <%= start_time_id %>.minDate = datas;
+      }
+    };
+    $('#<%= start_time_id %>').jeDate(<%= start_time_id %>);
+    $('#<%= end_time_id%>').jeDate(<%= end_time_id %>);
+  });
+</script>

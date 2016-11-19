@@ -31,6 +31,7 @@
     create_item: "中发起"
     read_times: "次阅读"
     confirm_delete: "确定要删除么？"
+    confirm_refuse: "确定拒绝么？"
     search: "搜索"
     public: "公开"
     create_success: "创建成功."

@@ -12,4 +12,5 @@ cn:
         status: 状态
         link: 跳转链接
         city: 城市
+        city_id: 城市
         platforms: 平台

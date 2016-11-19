@@ -88,6 +88,12 @@ module Permissions
       allow "course_library/syllabuses",[:index, :show]
       #######end course library permission##################
 
+
+      ## begin recommend permission
+      allow 'recommend/manager/positions', [:index, :show]
+      allow 'recommend/manager/items', [:new, :edit, :update, :create, :destroy]
+      ## end   recommend permission
+
       ## begin live studio permission
       allow 'live_studio/manager/courses', [:index, :show, :new, :create, :edit, :update, :destroy] do |manager, course,action|
         # manager操作辅导班权限细分
@@ -115,8 +121,8 @@ module Permissions
       allow 'live_studio/student/courses', [:index, :show]
       allow 'live_studio/manager/course_invitations', [:index, :new, :create, :cancel]
       allow 'live_studio/manager/course_requests', [:index, :accept, :reject]
-      allow 'live_studio/courses', [:index, :new, :create, :show]
-      allow 'live_studio/courses', [:edit, :update, :destroy] do |manager,course,action|
+      allow 'live_studio/courses', [:index, :new, :create, :show, :preview]
+      allow 'live_studio/courses', [:edit, :update, :destroy] do |course|
         permission =
           case course.try(:status)
             when 'init'
@@ -130,7 +136,7 @@ module Permissions
             else
               false
           end
-        course.author_id == manager.id && permission
+        user.workstations.map(&:id).include?(course.workstation_id) && permission
       end
       ## end live studio permission
       allow 'chat/teams', [:finish, :members, :member_visit]

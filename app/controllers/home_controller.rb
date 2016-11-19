@@ -29,10 +29,10 @@ class HomeController < ApplicationController
   def set_city
     cookie_city = cookies[:selected_cities].try(:split, '-').try(:first)
     @city = City.find_by(id: params[:city_id]) || City.find_by(name: params[:city_name] || cookie_city)
-    return if @city.blank?
+    # return if @city.blank?
     selected_cities = cookies[:selected_cities].try(:split, '-') || []
-    selected_cities.delete(@city.name) if selected_cities.include?(@city.name)
-    selected_cities = selected_cities.insert(0, @city.name)
+    selected_cities.delete(@city.name) if @city && selected_cities.include?(@city.name)
+    selected_cities = selected_cities.insert(0, @city.try(:name) || 'country')
     cookies[:selected_cities] = selected_cities.uniq.try(:join, '-')
     @city
   end

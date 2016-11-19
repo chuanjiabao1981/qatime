@@ -8,8 +8,8 @@ module LiveStudio
       @headless.start
       Capybara.current_driver = :selenium_chrome
 
-      @manager = users(:manager)
-      new_log_in_as(@manager)
+      @manager = users(:manager_zhuji)
+      log_in_as(@manager)
     end
 
     def teardown
@@ -17,32 +17,18 @@ module LiveStudio
       Capybara.use_default_driver
     end
 
-    test 'visit course invitation page' do
-      click_on '辅导班'
-      visit live_studio.manager_course_invitations_path(@manager)
-      assert page.has_content?('创建新邀请')
-    end
-
-    test 'create new invitation page success' do
-      click_on '辅导班'
-      click_on '创建新邀请', match: :first
-      fill_in :course_invitation_login_mobile, with: '13439338326'
-      fill_in :course_invitation_teacher_percent, with: '10'
-      fill_in :course_invitation_expited_day, with: '10'
-      click_on '立即发送'
-      assert_match('Course invitation已创建', page.text, 'Course invitation创建失败')
-    end
-
-    test 'create new invitation page fail' do
-      click_on '辅导班'
-      click_on '创建新邀请', match: :first
-      fill_in :course_invitation_login_mobile, with: '11111111111'
-      fill_in :course_invitation_teacher_percent, with: '101'
-      fill_in :course_invitation_expited_day, with: 'test'
-      click_on '立即发送'
-      assert_match('用户不存在', page.text, 'Course invitation创建失败')
-      assert_match('必须小于或等于 100', page.text, 'Course invitation创建失败')
-      assert_match('不是数字', page.text, 'Course invitation创建失败')
+    test "manager view course request list" do
+      click_on "辅导班"
+      click_on "招生审核"
+      assert page.find(".admin-list-con").has_no_content?("未审核"), "未审核请求没有正确显示操作按钮"
+      assert_equal 2, page.all(".admin-list-con tr").size, "未审核请求数量不正确"
+      click_on "已审核"
+      assert_equal 4, page.all(".admin-list-con tr").size, "已审核请求数量不正确"
+      click_on "未审核"
+      request_to_accept = live_studio_course_requests(:request_one)
+      find_link("通过", href: live_studio.accept_manager_course_request_path(@manager, request_to_accept)).click
+      assert request_to_accept.reload.accepted?, "通过失败"
+      assert request_to_accept.reload.course.published?, "通过后辅导班状态不正确"
     end
   end
 end

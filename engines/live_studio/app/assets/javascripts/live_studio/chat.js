@@ -242,10 +242,11 @@ window.currentTeam = {};
     appendMsg(msg);
   }
 
-  function refreshTeamMembersUI(teamId) {
+  function refreshTeamMembersUI(teamId, fn) {
     if(teamId != currentTeam.id) return;
     $.get('/chat/teams/' + teamId + '/members',function(data){
       $("#members-panel").html(data);
+      if(fn) fn();
     });
     //var members = data.teamMembers[teamId];
     //$.each(members, function(index){
@@ -328,10 +329,11 @@ function sendMessageTime(msg, type){
 function appendMsg(msg, messageClass) {
   if(!messageClass) messageClass = '';
   // 处理自定义消息
-  var messageItem = $("<div class='new-information" + messageClass + "'></div>");
+  var messageItem = $("<div class='new-information" + messageClass + "' id='msg-" + msg.idClient + "'></div>");
   // 消息标题 老师 发送时间
   var messageTitle = $("<div class='information-title'></div>");
-  // messageTitle.append("<img src='../img/person-center.png' class='information-title-img'>");
+  messageTitle.append("<img src='' class='information-title-img'>");
+
   messageTitle.append("<span class='information-name'>" + msg.fromNick + "</span>");
   messageTitle.append("<span class='information-time'>" + sendMessageTime(msg) + "</span>");
   messageItem.append(messageTitle);
@@ -340,6 +342,14 @@ function appendMsg(msg, messageClass) {
   messageItem.append(messageContent);
   $("#messages").append(messageItem);
   $("#messages").scrollTop($("#messages").prop('scrollHeight'));
+
+  if($("#member-icons").find("img.icon-" + msg.from).size() > 0) {
+    $("#msg-msg.idClient").find("img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
+  } else {
+    refreshTeamMembersUI( , function() {
+      $("#msg-msg.idClient").find("img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
+    })
+  }
 }
 
 $(function() {
@@ -389,7 +399,7 @@ $(function() {
 
   // 消息发送回调
   function sendMsgDone(error, msg) {
-    appendMsg(msg, ' right');
+    appendMsg(msg, ' new-information-stu');
     live_chat.pushMsg(msg);
   }
 });

@@ -15,7 +15,8 @@
         
     <div class="area-right">
       <div class="area-right-title">
-        观看人数30
+        <%= t "activerecord.view.chat.chat_team_members_count" %>
+        <span id="team_online_count">0</span>
       </div>
       <div class="area-right-con">
         <video id="small-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'loading.png' %>" preload="auto" width="" height="" data-setup="{}">

@@ -5,7 +5,8 @@ module LiveStudio
     layout 'teacher_home_new'
 
     def index
-      @course_invitations = @teacher.invitations.paginate(page: params[:page], per_page: 10)
+      sent_status = LiveStudio::CourseInvitation.statuses[:sent]
+      @course_invitations = @teacher.invitations.where(status: sent_status).order(id: :desc).paginate(page: params[:page], per_page: 10)
     end
 
     # 拒绝邀请

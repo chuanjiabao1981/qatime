@@ -8,7 +8,7 @@ module LiveStudio
       @invitations = @manager.invitations
       @invitations = @invitations.includes(:user).where("users.subject"=>params[:subject]) if params[:subject].present?
       @invitations = @invitations.where(status: LiveStudio::CourseInvitation.statuses[params[:status]]) if params[:status].present?
-      @invitations = @invitations.paginate(page: params[:page], per_page: 10)
+      @invitations = @invitations.order(id: :desc).paginate(page: params[:page], per_page: 10)
     end
 
     def new

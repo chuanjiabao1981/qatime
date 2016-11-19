@@ -59,7 +59,7 @@ module LiveStudio
       end
 
       event :teach do
-        transitions from: [:ready, :paused, :closed], to: :teaching
+        transitions from: [:ready, :paused, :closed, :missed], to: :teaching
       end
 
       event :pause do

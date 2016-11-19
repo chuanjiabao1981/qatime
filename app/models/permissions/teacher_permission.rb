@@ -246,7 +246,7 @@ module Permissions
       end
       allow 'live_studio/helps', [:course]
 
-      allow 'live_studio/teacher/course_invitations', [:index]
+      allow 'live_studio/teacher/course_invitations', [:index, :destroy]
       ## end live studio permission
 
 

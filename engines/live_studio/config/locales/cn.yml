@@ -186,6 +186,7 @@ cn:
     published: 招生中
     teaching: 已开课
     completed: 已结束
+    rejected: 已拒绝
   live_studio/ticket:
     type_name:
       buy_inactive: 已购买

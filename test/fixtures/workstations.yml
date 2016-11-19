@@ -30,3 +30,11 @@ workstation_another:
   tel: 1
   email: MyString
   manager: manager
+
+workstation_zhuji:
+  name: 诸暨工作站
+  city: zhuji
+  address: 浙江诸暨
+  tel: 1
+  email: MyString
+  manager: manager_zhuji

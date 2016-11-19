@@ -25,7 +25,7 @@
                   </span>
                 </dd>
                 <dd>
-                  <span><%= course.grade%><%= course.subject %>/<%= t('view.course_show.lesson_count') % course.preset_lesson_count%></span>
+                  <span><%= course.grade%><%= course.subject %>/<%= t('view.course_show.lesson_count') % course.lessons_count %></span>
                   <span class="tea-name"><%= course.teacher.try(:name) %></span>
                 </dd>
                 <dd class="dd-num-msg">

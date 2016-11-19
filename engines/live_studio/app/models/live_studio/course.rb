@@ -66,7 +66,7 @@ module LiveStudio
     # validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
     validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
 
-    validates :taste_count, numericality: { less_than_or_equal_to: ->(record) { record.preset_lesson_count.to_i } }
+    validates :taste_count, numericality: { less_than_or_equal_to: ->(record) { record.lessons_count.to_i } }
 
     validates :teacher, presence: true
 
@@ -114,7 +114,7 @@ module LiveStudio
     scope :for_sell, -> { where(status: [Course.statuses[:teaching], Course.statuses[:published]]) }
 
     def cant_publish?
-      !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank? || lesson_count != preset_lesson_count
+      !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank?
     end
 
     def preview!
@@ -168,12 +168,12 @@ module LiveStudio
     end
 
     def lesson_count_left
-      preset_lesson_count - completed_lesson_count
+      lessons_count - finished_lessons_count
     end
 
     # 当前价格
     def current_price
-      lesson_price * (preset_lesson_count - completed_lesson_count)
+      lesson_price * (lessons_count - finished_lessons_count)
     end
 
     def live_next_time
@@ -256,7 +256,7 @@ module LiveStudio
 
     # 是否可以结课
     def ready_for_close?
-      teaching? && completed_lesson_count >= preset_lesson_count
+      teaching? && finished_lessons_count >= lessons_count
     end
 
     # 当前直播课程
@@ -386,7 +386,7 @@ module LiveStudio
 
     def lower_price
       lp = 0
-      lp = preset_lesson_count.to_i * 5 if preset_lesson_count.to_i > 0
+      lp = lessons_count.to_i * 5 if lessons_count.to_i > 0
       lp
     end
   end

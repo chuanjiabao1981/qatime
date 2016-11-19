@@ -51,7 +51,7 @@
                     </dd>
                     <dd>
     		 					<span class="dd-left">
-                    <%= "#{course.grade}#{course.subject}/共#{course.try(:preset_lesson_count)}课" %>
+                    <%= "#{course.grade}#{course.subject}/共#{course.try(:lessons_count)}课" %>
     		 					</span>
     		 					<span class="dd-right active-tab">
     		 						<%= number_to_currency(course.price, unit: '￥', locale: :cn) %>
@@ -81,7 +81,7 @@
                       </dd>
                       <dd>
                         <span class="dd-left">
-                          <%= "#{course.grade}#{course.subject}/共#{course.try(:preset_lesson_count)}课" %>
+                          <%= "#{course.grade}#{course.subject}/共#{course.try(:lessons_count)}课" %>
                         </span>
                         <span class="dd-right active-tab">
     		 						      <%= number_to_currency(course.price, unit: '￥', locale: :cn) %>

@@ -46,7 +46,7 @@
           <%= f.text_field :preset_lesson_count ,class: 'lesson_price_item' if action_name == 'edit'%>
         </td>
         <td><%= t("view.course_info_show.#{action_name == 'edit' ? 'setup_lesson' : 'schedule'}") %>
-          <%= action_name == 'edit' ? @course.lesson_count : @course.completed_lesson_count %>/<span class="lesson-count-set"><%= @course.preset_lesson_count %></span>
+          <%= action_name == 'edit' ? @course.lessons_count : @course.finished_lessons_count %>/<span class="lesson-count-set"><%= @course.lessons_count %></span>
         </td>
       </tr>
       <%= content_tag(:tr) do %>
@@ -77,7 +77,7 @@
         </td>
         <td>
           <%= t('view.teacher_course.avg_price')%>
-          <span class="price-set"><%= (@course.price / @course.preset_lesson_count).round(2) %></span>
+          <span class="price-set"><%= (@course.price / @course.lessons_count).round(2) %></span>
         </td>
       </tr>
       <tr>

@@ -37,7 +37,7 @@
                     <dd><%= link_to item.target.name,live_studio.course_path(item.target) %></dd>
                     <dd>
                     <span class="dd-left">
-                      <%= "#{item.target.grade}#{item.target.subject}/共#{item.target.try(:preset_lesson_count)}课" %>
+                      <%= "#{item.target.grade}#{item.target.subject}/共#{item.target.try(:lessons_count)}课" %>
                     </span>
                     <span class="dd-right">
                       <%= "报名人数#{item.target.try(:buy_tickets_count)}" %>

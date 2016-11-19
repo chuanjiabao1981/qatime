@@ -1,0 +1,14 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <h3>
+      <%= link_to Recommend::Position.model_name.human, recommend.manager_positions_path %> &gt;
+      <%= link_to @position.name, recommend.manager_position_path(@position) %> &gt;
+      增加推荐
+    </h3>
+  </div>
+  <div class="qa_big_cell">
+    <%= simple_form_for @item,url: manager_position_items_path(@position) do |f| %>
+      <%= render partial: "form", locals: {f: f} %>
+    <% end %>
+  </div>
+</div>

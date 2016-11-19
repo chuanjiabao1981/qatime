@@ -70,6 +70,7 @@ module LiveStudio
 
     validates :teacher, presence: true
 
+    require 'carrierwave/orm/activerecord'
     mount_uploader :publicize, ::PublicizeUploader
 
     belongs_to :teacher, class_name: '::Teacher'
@@ -83,6 +84,7 @@ module LiveStudio
     has_many :course_requests
 
     accepts_nested_attributes_for :lessons, allow_destroy: true
+    attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
     validates_associated :lessons
 
     has_many :students, through: :buy_tickets
@@ -316,6 +318,11 @@ module LiveStudio
 
     private
 
+    before_save :check_lessons
+    def check_lessons
+      return if new_record?
+    end
+
     # 处理邀请信息
     before_validation :execute_invitation, on: :create
     def execute_invitation
@@ -337,7 +344,7 @@ module LiveStudio
     def copy_city
       return if invitation
       self.workstation = default_workstation
-      self.city = workstation.city
+      self.city = workstation.try(:city)
       self.province = city.try(:province)
       self.teacher_percentage = 100
     end
@@ -351,7 +358,7 @@ module LiveStudio
 
     # 默认工作站
     def default_workstation
-      author.city.try(:workstations).first
+      author.city.try(:workstations).try(:first)
     end
 
     # before_validation :calculate_lesson_price, on: :create

@@ -29,6 +29,7 @@ cn:
     cancel_btn: 取消
     insert_btn: 新增%s
     course_show:
+      edit_publicize_title: 更换图片
       nofound: 未找到符合条件的辅导课程
       start_time: 开课时间：
       end_time: 结课时间：

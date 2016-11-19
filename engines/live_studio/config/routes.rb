@@ -19,6 +19,7 @@ LiveStudio::Engine.routes.draw do
     collection do
       get :schedule_sources
       post :preview
+      patch :preview
     end
 
     member do
@@ -27,6 +28,7 @@ LiveStudio::Engine.routes.draw do
       post :update_notice
       patch :publish
       get :refresh_current_lesson
+
     end
 
     resources :lessons, only: [:show] do

@@ -17,10 +17,6 @@
     <div class="col-md-2 col-md-offset-1"><%= Recommend::Position.human_attribute_name(:klass_name) %></div>
     <div><%= @position.klass_name.constantize.model_name.human %></div>
   </div>
-  <div class="row qa_cell">
-    <div class="col-md-2 col-md-offset-1"><%= Recommend::Position.human_attribute_name(:status) %></div>
-    <div><%= @position.status_text %></div>
-  </div>
 
 
   <div>

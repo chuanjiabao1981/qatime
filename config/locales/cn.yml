@@ -134,6 +134,11 @@ cn:
       create: 新增%{model}
       submit: 储存%{model}
       update: 更新%{model}
+    search:
+      submit: 筛选
+      reset: 重置条件
+      more: 更多条件
+      hide: 收起条件
   currency:
     cn: 元
   number:
@@ -145,7 +150,7 @@ cn:
         separator: .
         significant: false
         strip_insignificant_zeros: false
-        unit: CN¥
+        unit: ¥
     format:
       delimiter: ! ','
       precision: 3

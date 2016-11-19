@@ -1,0 +1,57 @@
+<div>
+  <% if current_user.blank? %>
+  <div class="listen-class">
+    <div class="btn-audition">
+      <%= link_to t('view.course_info_show.join_taste'),
+                  live_studio.taste_course_path(@course), method: :post %>
+    </div>
+    <div class="btn-sign">
+      <%= link_to t('activerecord.view.enroll_now'), live_studio.new_course_order_path(@course) %>
+    </div>
+  </div>
+  <% else %>
+    <% if @course.bought_by?(current_user) %>
+      <div class="listen-class btn-start">
+        <%= link_to(t('view.course_info_show.start_learning'),
+                    "javascript:void(0)", onclick:"alert('辅导班开课后才可学习')") if @course.published? %>
+        <%= link_to(t('view.course_info_show.start_learning'), play_course_path(@course)) unless @course.published? %>
+      </div>
+    <% elsif @course.tasted?(current_user) %>
+      <!-- 购买按钮 -->
+      <div class="btn-sign">
+        <%= link_to t('activerecord.view.enroll_now'), live_studio.new_course_order_path(@course) %>
+      </div>
+    <% elsif @course.tasting?(current_user) %>
+      <!-- 开始试听和购买按钮 -->
+      <div class="listen-class">
+        <div class="btn-listen">
+          <%= link_to(t('view.course_info_show.start_taste'),
+                      live_studio.play_course_path(@course)) unless @course.published? %>
+          <%= link_to(t('view.course_info_show.start_taste'),
+                      "javascript:void(0)", onclick:"alert('辅导班开课后才可学习')") if @course.published? %>
+        </div>
+        <div class="btn-signnow">
+          <%= link_to t('activerecord.view.enroll_now'), live_studio.new_course_order_path(@course) %>
+        </div>
+      </div>
+    <% elsif @course.taste_count <= 0 %>
+      <div class="btn-sign">
+        <%= link_to t('activerecord.view.enroll_now'), live_studio.new_course_order_path(@course) %>
+      </div>
+    <% else %>
+      <!-- 试听和购买按钮 -->
+      <div class="listen-class">
+        <div class="btn-audition">
+          <%= link_to(t('view.course_info_show.join_taste'),
+                      live_studio.taste_course_path(@course),
+                      id: "taste-course-#{@course.id}", method: :post, remote: true) %>
+        </div>
+        <div class="btn-sign">
+          <%= link_to t('activerecord.view.enroll_now'), live_studio.new_course_order_path(@course) %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+

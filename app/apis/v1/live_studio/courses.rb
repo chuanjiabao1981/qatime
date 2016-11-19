@@ -162,6 +162,8 @@ module V1
             optional :class_date_ceil, type: String, desc: '开课日期结束区间'
             optional :preset_lesson_count_floor, type: Integer, desc: '课时总数开始区间'
             optional :preset_lesson_count_ceil, type: Integer, desc: '课时总数结束区间'
+            optional :lessons_count_floor, type: Integer, desc: '课时总数开始区间'
+            optional :lessons_count_ceil, type: Integer, desc: '课时总数结束区间'
             optional :status, type: String, desc: '辅导班状态 all: 全部; preview: 招生中; teaching: 已开课', values: %w(all preview teaching)
           end
           get do

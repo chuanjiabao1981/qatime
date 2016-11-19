@@ -144,7 +144,7 @@ cn:
         transaction_method: 交易方式
         transaction_info: 订单信息
         reset_pay_type: 重选支付方式
-        tips: 请核对充值信息后再进行付款操作
+        tips: 请核对信息后再进行付款操作
       payment/withdraw:
         amount: 金额
       payment/cash_account:

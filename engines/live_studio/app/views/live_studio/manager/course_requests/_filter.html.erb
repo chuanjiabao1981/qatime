@@ -1,0 +1,28 @@
+<div class="condition-left">
+  <%= link_to t("live_studio.course_request.menu.unhandled"),
+              live_studio.manager_course_requests_path(@manager, @course_search_params.merge(status: 'unhandled')),
+              class: "admin-notaudit #{'active-audit' unless 'handled' == params[:status]}" %>
+  <%= link_to t("live_studio.course_request.menu.handled"),
+              live_studio.manager_course_requests_path(@manager, @course_search_params.merge(status: 'handled')),
+              class: "admin-notaudit #{'active-audit' if 'handled' == params[:status]}" %>
+</div>
+<div class="condition-right">
+  <%= form_tag '', method: :get do -%>
+  <%= hidden_field_tag :status, params[:status] %>
+  <div class="condition">
+    <span><%= LiveStudio::CourseRequest.human_attribute_name(:course_subject) %></span>
+    <%= select_tag :subject, options_for_select(APP_CONSTANT['subjects'], params[:subject]),
+                   prompt: t("live_studio.course_request.menu.all"),
+                   class: 'immediately' %>
+  </div>
+  <div class="condition">
+    <span><%= LiveStudio::CourseRequest.human_attribute_name(:course_grade) %></span>
+    <%= select_tag :grade, options_for_select(APP_CONSTANT['grades_in_menu'], params[:grade]),
+                   prompt: t("live_studio.course_request.menu.all"),
+                   class: 'immediately' %>
+  </div>
+
+  <%= link_to t("live_studio.course_request.menu.reset"), live_studio.manager_course_requests_path(@manager, status: params[:status]) %>
+  <%= submit_tag t("live_studio.course_request.menu.query") %>
+  <% end -%>
+</div>

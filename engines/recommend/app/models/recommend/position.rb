@@ -4,6 +4,8 @@ module Recommend
     has_many :items
 
     enum status: %w(disable enable)
+    enum platforms: %w(pc android ios)
+
 
     def status_text
       I18n.t("enums.recommend.status.#{status}")

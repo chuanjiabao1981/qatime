@@ -1,6 +1,6 @@
 module ApplicationHelper
   def user_home_path
-    return main_app.signin_path unless signed_in?
+    return main_app.signin_path(redirect_url: request.original_url) unless signed_in?
 
     case current_user.role
       when "teacher"
@@ -41,7 +41,7 @@ module ApplicationHelper
     fields = f.fields_for(association, new_object, :child_index => "new_#{association}_#{id}") do |builder|
       render(shared_dir + association.to_s.singularize + "_fields", :f => builder)
     end
-    link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
+    link_to(name, '###', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
   def _get_super_model_name(o_class)

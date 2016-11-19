@@ -1,3 +1,10 @@
+<%= content_tag :div, class: 'notfound' do %>
+  <center>
+    <%= image_tag 'no-course.png' %>
+  </center>
+  <p><%= t('view.course_show.nofound') %></p>
+<% end if @courses.blank? %>
+
 <div class="screening-con">
   <% @courses.in_groups_of(4).each do |course_group| %>
     <ul class="list-screening">
@@ -10,20 +17,20 @@
             <div class="dl-con">
               <dl class="dl-screening">
                 <dd>
+                  <span class="class-open <%= 'admissions' if course.published? %>"><%= course.status_text %></span>
                   <span class="class-msg">
                     <%=link_to live_studio.course_path(course) do %>
                       <%= course.name %>
                     <% end %>
                   </span>
-                  <span class="class-open"><%= course.status_text %></span>
                 </dd>
                 <dd>
-                  <span><%= course.grade%><%= course.subject %>/<%= course.preset_lesson_count%><%= t('view.course_show.lesson_time') %></span>
-                  <span class="tea-name"><i class="glyphicon glyphicon-user"></i><%= course.teacher.try(:name) %></span>
+                  <span><%= course.grade%><%= course.subject %>/<%= t('view.course_show.lesson_count') % course.lessons_count %></span>
+                  <span class="tea-name"><%= course.teacher.try(:name) %></span>
                 </dd>
                 <dd class="dd-num-msg">
-                  <p><i class="glyphicon glyphicon-time dd-date"><%= course.live_start_time%>至<%= course.live_end_time%></i></p>
-                  <p><i class="money-num">￥ <%= course.price %></i><i class="person-buy"><%= t "welcome.courses.buy_count" %><em class="person-num"><%= course.buy_tickets_count %></em></i></p>
+                  <p><i class="glyphicon glyphicon-time dd-date"><%= localize(course.live_start_date, format: :short) %>至<%= localize(course.live_end_date, format: :short) %></i></p>
+                  <p><i class="money-num">￥ <%= '%0.2f' % course.price %></i><i class="person-buy"><%= t "view.course_search_show.purchase_number" %><em class="person-num"><%= course.buy_tickets_count %></em></i></p>
                 </dd>
               </dl>
             </div>

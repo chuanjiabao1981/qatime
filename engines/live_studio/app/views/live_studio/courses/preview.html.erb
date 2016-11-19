@@ -1,0 +1,18 @@
+<div class="container container-details">
+  <div class="row">
+    <%= render partial: 'preview_teacher_info' %>
+    <%= render partial: 'preview_course_info' %>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <%= render partial: 'lesson_plan_preview' %>
+  </div>
+</div>
+
+<%= content_for :mask do %>
+<div class="prompt-preview">
+  <span><%= t("view.tips.course_preview") %></span>
+</div>
+<% end %>

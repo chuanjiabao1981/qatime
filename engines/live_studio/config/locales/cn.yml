@@ -2,26 +2,52 @@ cn:
   view:
     tips:
       none_lessons: 当前无课程
+      course_preview: 提示：此页面仅供查看和预览，不能进行操作哦！
+    search:
+      all: 全部
+      live_studio/course:
+        subject: 
+    sort:
+      live_studio/course:
+        id: 按时间
+        published_at: 按时间
+        id/asc: 时间正序
+        id/desc: 时间倒序
+        published_at/desc: 时间倒序
+        price: 按时间
+        price/asc: 价格由低到高
+        price/desc: 价格由高到低
+        buy_tickets_count: 按报名人数
     columns:
       tickets_count: 人数
+    role:
+      student: 学生
+      teacher: 老师
+      manager: 管理员
+      admin: 管理员
     save_btn: 保存
     cancel_btn: 取消
     insert_btn: 新增%s
     course_show:
+      edit_publicize_title: 更换图片
+      nofound: 未找到符合条件的辅导课程
       start_time: 开课时间：
       end_time: 结课时间：
       status: 状态：
       taste: (试听)
       subject: 科目：
-      teacher: 老师：
+      teacher: 老师
       schedule: 进度：
       surplus: 剩余：
       lesson_time: 课时
+      lesson_count: 共%d课
+      lessons_count: 课时
+      lessons_count_of: 共%{lessons_count}课
       current: 当前课程：
       info: 查看详情
       lessons: 课程列表
       study_link: 立即学习
-      distance_text1: (距开课 %d天)
+      distance_text1: 距开课 %d天
       distance_text2: 距离开课还有%d天
       nil_data: 暂无
       preview_lesson: 课程还未开始
@@ -29,9 +55,8 @@ cn:
       teach_type: 授课方式：在线直播
       online: 在线直播
     course_info_show:
-      subject: 科目类型：
-      grade: 年级类型：
-      category: 年级类型：
+      grade: 年级
+      category: 年级
       teacher: 授课老师：
       lesson_count: 课时总数：
       schedule: 课程进度：
@@ -44,11 +69,11 @@ cn:
       teacher_label: 教师资料
       teacher_name: 老师姓名：
       highest_education: 最高学历：
-      teaching_years: 执教年龄：
-      subject: 科目类型：
+      teaching_years: 执教年龄
+      subject: 科目
       grade_range: 年级范围：
-      school: 所在学校：
-      teacher_desc: 自我介绍：
+      school: 所在学校
+      teacher_desc: 自我介绍
       lesson_plan: "%s开课~%s结课"
       number: 序号
       lesson_start_at: 上课时间
@@ -83,7 +108,7 @@ cn:
       lesson_count: 课时总数
       class_date: 开课日期
       status: 当前状态
-      purchase_number: 购买人数
+      purchase_number: 报名人数
     payment_show:
       product_info: 商品详情
       order_info: 订单信息
@@ -138,6 +163,7 @@ cn:
       base_info: 辅导概况
       teacher_info: 教师资料
       lessons_list: 课程列表
+      lessons_plan: 课程安排
       course_name: 辅导班名：
       current_lesson_name: 课程进度：
       live_start_time: 开课时间：
@@ -149,16 +175,19 @@ cn:
       teacher_name: 主讲老师：
       class_date: 直播时间：
       course_description: 辅导简介：
-      teaching_years_text: 执教年龄：
-      teacher_subject: 授课科目：
-      teacher_category: 授课年级：
-      teacher_school_name: 所在学校：
-      teacher_desc: 自我介绍：
+      teaching_years_text: 执教年龄
+      teacher_subject: 授课科目
+      teacher_category: 授课年级
+      teacher_school_name: 所在学校
+      teacher_desc: 自我介绍
+      teacher_summary: 教师简介
   status:
     init: 初始化
     preview: 招生中
+    published: 招生中
     teaching: 已开课
     completed: 已结束
+    rejected: 已拒绝
   live_studio/ticket:
     type_name:
       buy_inactive: 已购买
@@ -183,6 +212,8 @@ cn:
       payment/order: 订单
       live_studio/course: 辅导班
       live_studio/lesson: 课程
+      live_studio/course_request: 招生审核
+      live_studio/course_invitation: 开班邀请
     attributes:
       payment/order:
         payment_password: 支付密码
@@ -195,6 +226,7 @@ cn:
         status_event: 是否通过审核
         status: 状态
       live_studio/course:
+        current_status: 当前状态
         name: 名称
         teacher: 辅导老师
         short_description: 摘要
@@ -210,6 +242,13 @@ cn:
         address: 上课地址
         grade: 年级
         subject: 科目
+        teacher_name: 老师
+        lessons_count: 课时数
+        buy_tickets_count: 购买人数
+        published_at: 发布时间
+        students_count: 学生人数
+        percentage: 分成
+        lessons_progress: 课程进度
       live_studio/push_stream:
         address: 直播地址
       live_studio/pull_stream:
@@ -220,6 +259,24 @@ cn:
         student: 学生
         status: 状态
         type_name: 听课类型
+      live_studio/course_request:
+        user_name: 老师
+        course_name: 名辅导班名称
+        course_subject: 科目
+        course_grade: 年级
+        course_lessons_count: 课时数
+        course_price: 价格
+        teacher_percentage: 老师分成
+        created_at: 提交时间
+        review: 审核
+      live_studio/course_invitation:
+        user_name: 受邀老师
+        user_subject: 科目
+        teacher_percent: 老师分成
+        created_at: 邀请发送时间
+        left_time: 剩余有效期
+        status: 当前状态
+        operation: 操作
     status:
       live_studio/lesson:
         init: 初始化
@@ -236,6 +293,7 @@ cn:
           teaching: 正在直播
           suspended: 暂停直播
           closed: 直播结束
+          missed: 待补课
 #          finished: 已完成
 #          billing: 已结算
 #          completed: 已完成
@@ -249,6 +307,8 @@ cn:
         completed: 已结束
         tasted: 试听
         init: 未开始
+        time_by: 按时间
+        purchase_number_by: 按报名人数
       category: 类型
       teacher: 辅导老师
       subject: 科目

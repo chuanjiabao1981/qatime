@@ -3,24 +3,12 @@
     <div class="panel panel-default">
 
       <div class="home-banner">
-        <ul class="banner-show" style="left: -100%;">
-          <li>
-            <%= link_to image_tag('banner.jpg'), welcome_download_path %>
-          </li>
-          <li>
-            <%= link_to image_tag('banner2.jpg'),@user_path || send("customized_courses_#{@user.role}_path",@user) %>
-          </li>
-          <li>
-            <%= link_to image_tag('banner3.jpg'), live_studio.courses_path %>
-          </li>
-          <li>
-            <%= link_to image_tag('banner.jpg'), welcome_download_path %>
-          </li>
-        </ul>
-        <ul class="banner-dot">
-          <li style="background-color: white;"></li>
-          <li style="background-color: white;"></li>
-          <li style="background-color: rgb(255, 153, 102);"></li>
+        <ul class="banner-show" id="banner-list">
+          <% @recommend_banners.each do |banner| %>
+            <li>
+              <%= link_to(image_tag(banner.logo_url(:home), alt: 'banner'), banner.link) %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>
@@ -34,10 +22,10 @@
           <div class="tutoring-title">
             <div class="tutoring-title-left">
               <%= image_tag 'home_page_icon.png' %>
-              <span class="title-size">辅导推荐</span>
+              <span class="title-size">直播课程</span>
             </div>
             <a href="<%= live_studio.courses_path %>" class="tutoring-title-right">
-              <span>全部</span>
+              <span>全部 ></span>
             </a>
           </div>
           <div class="tutoring-con">
@@ -46,15 +34,13 @@
                 <li class="li-new">
                   <%= link_to image_tag(item.logo_url), live_studio.course_path(item.target) %>
                   <dl class="dl-list">
-                    <dd><%= link_to item.title,live_studio.course_path(item.target) %></dd>
+                    <dd><%= link_to item.target.name,live_studio.course_path(item.target) %></dd>
                     <dd>
                     <span class="dd-left">
-                      <i class="glyphicon glyphicon-time icon-color"></i>
-                      <i class="num-class"><%= item.target.try(:preset_lesson_count) %></i>课时
+                      <%= "#{item.target.grade}#{item.target.subject}/共#{item.target.try(:lessons_count)}课" %>
                     </span>
                     <span class="dd-right">
-                      <i class="glyphicon glyphicon-user icon-color"></i>
-                      <i class="num-buy"><%= item.target.try(:buy_tickets_count) %></i>人已购
+                      <%= "报名人数#{item.target.try(:buy_tickets_count)}" %>
                     </span>
                     </dd>
                   </dl>
@@ -72,7 +58,7 @@
               <%= image_tag 'home_page_icon.png' %>
               <a href="javascript:void(0);" class="btn-tab active-tab">专属课程</a>
               <span class="separator">|</span>
-              <%= link_to '公开课程', home_curriculums_ajax_data_path, class: 'btn-tab', rel: '.curriculums-more', remote: true, id: 'home_curriculums' %>
+              <%= link_to '公共课程', home_curriculums_ajax_data_path, class: 'btn-tab', rel: '.curriculums-more', remote: true, id: 'home_curriculums' %>
               <span class="separator">|</span>
               <%= link_to '问答社区', home_questions_ajax_data_path, class: 'btn-tab', rel: '.questions-more',remote: true, id: 'home_questions' %>
             </div>
@@ -142,7 +128,7 @@
       </div>
     </div>
     <div class="col-md-3 col-md-right">
-      <div class="panel panel-default">
+      <div class="panel panel-default panel-bottom">
         <div class="recommended-tec">
           <div class="tutoring-tec-title">
             <div class="teacher-title-left">
@@ -159,29 +145,20 @@
               <% @recommend_teachers.each do |r_teacher| %>
                 <li class="tec-li">
                   <div class="li-introduce">
-                    <center>
-                      <dl class="tec-msgs">
-                        <dd>
-                          <%= image_tag r_teacher.logo_url %>
-                        </dd>
-                        <dd><%= r_teacher.target.name %></dd>
-                        <dd><%= r_teacher.title %></dd>
-                      </dl>
-                    </center>
-                  </div>
-                  <div class="li-detailed">
-                    <center>
-                      <ul class="detailed-list">
-                        <% if r_teacher.target.present? && r_teacher.target.live_studio_courses.count > 0 %>
-                          <% r_teacher.target.live_studio_courses.preview.limit(4).each do |course| %>
-                            <li><%= link_to course.name, live_studio.course_path(course.id) %></li>
-                          <% end %>
+                    <div class="introduce-img">
+                      <%= link_to image_tag(r_teacher.logo_url), profile_teacher_path(r_teacher.target) %>
+                      <center><span><%= "#{r_teacher.target.category}#{r_teacher.target.subject}" %></span></center>
+                    </div>
+                    <div class="introduce-msg">
+                      <div class="msg-name">
+                        <%= link_to profile_teacher_path(r_teacher.target) do %>
+                          <%= content_tag(:span, r_teacher.target.name) %>
+                          <%= image_tag "#{r_teacher.target.gender || 'male'}.png", size: '20x20', alt: 'gender' %>
                         <% end %>
-                        <li class="detailed-more">
-                          <%= link_to 'TA的主页', profile_teacher_path(r_teacher.target)%>
-                        </li>
-                      </ul>
-                    </center>
+                      </div>
+                      <div class="msg-tecyear"><%= r_teacher.target.teaching_years_text %></div>
+                      <div class="msg-address"><%= "#{r_teacher.target.province.try(:name)}#{r_teacher.target.city.try(:name)}" %></div>
+                    </div>
                   </div>
                 </li>
               <% end %>
@@ -240,7 +217,7 @@
                 <%= image_tag 'advantage_5.png' %>
               </li>
               <li><span>Web/App/直播器</span></li>
-              <li><p>支持网页端和手机端多种使用方式，随时随地进行学习；为老师定制开发主播助</p></li>
+              <li><p>支持网页端和手机端多种使用方式,量身定制教师直播助手。</p></li>
             </ul>
           </div>
           <div class="col-md-2 col-sm-2 col-advantage">
@@ -259,51 +236,8 @@
 </div>
 <script type="text/javascript">
   $(function  () {
-    var index = 0;
-    function autoscroll () {
-      index++;
-      changecolor(index);
-      $(".banner-show").animate({
-        left: "-" + 100 * index + "%"
-      },500,function  () {
-        if (index == 3) {
-          index = 0;
-          $(".banner-show").css("left","0");
-        }
-      })
-    }
-    $('.banner-dot li').click(function  () {
-      index = $(this).index();
-      $('.banner-show').css('left', "-" + 100 * index + "%");
-      $("#content").stop().animate({
-        left: "-" + 100 * index + "%",
-      }, 500)
-      changecolor(index);
-    })
-
-    $(".banner-dot li").mouseover(function  () {
-      clearInterval(timerID);
-    })
-    $(".banner-dot li").mouseout(function  () {
-      timerID = setInterval(autoscroll,2000);
-    })
-
-    function changecolor(index) {
-      $(".banner-dot li").css("background-color", "white");
-      if(index == 3) {
-        $(".banner-dot li").eq(0).css("background-color", "rgb(255,153,102)");
-      } else {
-        $(".banner-dot li").eq(index).css("background-color", "rgb(255,153,102)");
-      }
-    }
-
-    var timerID = setInterval(autoscroll,2000);
-    $(".banner-show").mouseover(function  () {
-      clearInterval(timerID);
-    })
-    $(".banner-show").mouseout(function  () {
-      timerID = setInterval(autoscroll,2000);
-    })
+    // 广告位轮播
+    $("#banner-list").rotate();
 
     $(".btn-tab").click(function  () {
       var more = $(this).attr('rel');
@@ -325,17 +259,17 @@
       $('#home_questions_replaced').html(data.responseText);
       $('#home_questions_replaced').show().siblings().hide();
     });
-
-    $(".tec-li").mouseenter(function  () {
-      var index = $(".tec-li").index($(this));
-      $(".li-introduce").eq(index).hide();
-      $(".li-detailed").eq(index).show();
-    })
-
-    $(".tec-li").mouseleave(function  () {
-      $(".li-detailed").hide();
-      $(".li-introduce").show();
-    })
+//
+//    $(".tec-li").mouseenter(function  () {
+//      var index = $(".tec-li").index($(this));
+//      $(".li-introduce").eq(index).hide();
+//      $(".li-detailed").eq(index).show();
+//    })
+//
+//    $(".tec-li").mouseleave(function  () {
+//      $(".li-detailed").hide();
+//      $(".li-introduce").show();
+//    })
   })
 
 </script>

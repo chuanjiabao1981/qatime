@@ -15,7 +15,7 @@ class Ajax::DataController < ApplicationController
   end
 
   def home_curriculums
-    @curriculums = Curriculum.by_subject(params[:subject]).limit(10)
+    @curriculums = Curriculum.by_subject(params[:subject]).limit(8)
     respond_to do |format|
       format.html{ render layout: false}
     end
@@ -35,7 +35,7 @@ class Ajax::DataController < ApplicationController
   end
 
   def set_cities
-    @cities = Province.find(params[:teacher][:province_id]).cities
+    @cities = Province.find_by(id: params[:teacher][:province_id]).try(:cities)
   end
 
   def set_schools

@@ -29,7 +29,7 @@
       <% end %>
       <%= content_tag(:div, "#{t('view.course_show.subject')}#{course.subject}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.teacher')}#{course.teacher.try(:name)}", class: 'content-ceil') %>
-      <%= content_tag(:div, "#{t('view.course_show.schedule')}#{course.completed_lesson_count}/#{course.preset_lesson_count}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.schedule')}#{course.completed_lesson_count}/#{course.lessons_count}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.surplus')}#{course.lesson_count_left} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.current')}#{course.current_lesson_name}") %>
     <%end %>
@@ -40,7 +40,7 @@
         <%= link_to t('view.course_show.info'),student_course_path(@student,course), class: 'btn btn-default operator-btn' %>
         <%= link_to t('view.course_show.lessons'),student_course_path(@student,course,index: 'list'), class: 'btn btn-default operator-btn' %>
         <%= link_to t('view.course_show.study_link'), play_course_path(course), target: '_blank',
-                    class: "btn btn-default operator-btn #{course.lessons.blank? || course.completed? ? 'disabled' : nil}" %>
+                    class: "btn btn-default operator-btn #{course.lessons.blank? || course.completed? ? 'disabled' : nil}" if course.bought_by?(current_user) || course.tasting?(current_user) %>
       <% end %>
     <% end %>
   <% end %>

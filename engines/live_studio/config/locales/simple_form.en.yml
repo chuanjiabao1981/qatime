@@ -10,6 +10,19 @@ en:
       # html: '<abbr title="required">*</abbr>'
     error_notification:
       default_message: "Please review the problems below:"
+    labels:
+      live_studio/course_invitation:
+        user_mobile: 填写被邀请人
+        teacher_percent: 设置老师分成
+        expited_day: 设置有效期限
+      course_invitation:
+        user_mobile: 填写被邀请人
+        teacher_percent: 设置老师分成
+        expited_day: 设置有效期限
+      invitation:
+        user_mobile: 填写被邀请人
+        teacher_percent: 设置老师分成
+        expited_day: 设置有效期限
     # Examples
     # labels:
     #   defaults:

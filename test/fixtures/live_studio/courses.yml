@@ -376,3 +376,184 @@ course_for_billing_three:
   province: zhejiang
   city: zhuji
 
+course_for_channel:
+  name: course_for_channel
+  workstation: xxxxxxxxx
+  status: 2
+  teacher: teacher_for_billing
+  teacher_percentage: 100
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 六年级
+  subject: 语文
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+
+course_english_one:
+  name: course_for_channel
+  workstation: xxxxxxxxx
+  status: 2
+  teacher: teacher_for_billing
+  teacher_percentage: 100
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 六年级
+  subject: 英语
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+
+
+course_english_two:
+  name: course_for_channel
+  workstation: xxxxxxxxx
+  status: 2
+  teacher: teacher_for_billing
+  teacher_percentage: 100
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 六年级
+  subject: 英语
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+
+
+course_english_three:
+  name: course_for_channel
+  workstation: xxxxxxxxx
+  status: 2
+  teacher: teacher_for_billing
+  teacher_percentage: 100
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 高一
+  subject: 英语
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+
+course_english_four:
+  name: course_for_channel
+  workstation: xxxxxxxxx
+  status: 1
+  teacher: teacher_for_billing
+  teacher_percentage: 100
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 高一
+  subject: 英语
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+
+course_english_five:
+  name: course_for_channel
+  workstation: xxxxxxxxx
+  status: 1
+  teacher: teacher_for_billing
+  teacher_percentage: 100
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 高一
+  subject: 英语
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+
+course_maths_one:
+  name: 数学辅导班1
+  workstation: workstation_zhuji
+  status: 0
+  teacher: teacher1
+  teacher_percentage: 90
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+
+course_maths_two:
+  name: 数学辅导班2
+  workstation: workstation_zhuji
+  status: 0
+  teacher: teacher1
+  teacher_percentage: 90
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+
+course_maths_three:
+  name: 数学辅导班3
+  workstation: workstation_zhuji
+  status: 0
+  teacher: teacher1
+  teacher_percentage: 90
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+
+course_maths_four:
+  name: 数学辅导班4
+  workstation: workstation_zhuji
+  status: 1
+  teacher: teacher1
+  teacher_percentage: 90
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+
+course_maths_five:
+  name: 数学辅导班5
+  workstation: workstation_zhuji
+  status: 1
+  teacher: teacher1
+  teacher_percentage: 90
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+
+course_maths_six:
+  name: 数学辅导班6
+  workstation: workstation_zhuji
+  status: -1
+  teacher: teacher1
+  teacher_percentage: 90
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji

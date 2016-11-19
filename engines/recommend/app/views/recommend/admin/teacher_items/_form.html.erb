@@ -14,5 +14,12 @@
   <%= f.input :index %>
   <%#= f.input :logo, as: :file %>
   <%= f.input :target_id, collection: @item.recomend_for.all.map{|t| [t.name, t.id]} %>
-  <%= f.input :reason, collection: Recommend::Item.i18n_options_reasons %>
+  <%= f.input :reason, collection: Recommend::Item.i18n_options_reasons if @position.klass_name.include?('LiveStudioCourseItem') %>
+  <%= f.association :city %>
+  <%= content_tag(:div,content_tag(:label, Recommend::BannerItem.human_attribute_name(:platforms))) %>
+  <div>
+    <% Recommend::Item::PLATFORMS.each do |k,v| %>
+      <%= check_box_tag "platforms[]", v, @item.platforms.try(:include?,v)%> <%= k %>
+    <% end %>
+  </div>
   <%= f.submit %>

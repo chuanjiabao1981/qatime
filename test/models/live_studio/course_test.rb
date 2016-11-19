@@ -110,5 +110,25 @@ module LiveStudio
       assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044b", streams1.address, '推流地址不正确')
       assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044ee", streams2.address, 'rtmp拉流地址不正确')
     end
+
+    test "board push stream address" do
+      course = live_studio_courses(:course_for_channel)
+      assert_equal "board_push_stream_address", course.board_push_stream, "白板推流地址不正确"
+    end
+
+    test "board pull stream address" do
+      course = live_studio_courses(:course_for_channel)
+      assert_equal "board_pull_stream_address", course.board_pull_stream, "白板拉流地址不正确"
+    end
+
+    test "camera push stream address" do
+      course = live_studio_courses(:course_for_channel)
+      assert_equal "camera_push_stream_address", course.camera_push_stream, "摄像头推流地址不正确"
+    end
+
+    test "camera pull stream address" do
+      course = live_studio_courses(:course_for_channel)
+      assert_equal "camera_pull_stream_address", course.camera_pull_stream, "摄像头拉流地址不正确"
+    end
   end
 end

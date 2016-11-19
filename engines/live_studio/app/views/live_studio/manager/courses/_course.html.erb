@@ -1,21 +1,20 @@
 <tr>
-  <td><%= course_counter + 1 %></td>
   <td>
-    <%= link_to course.name, manager_course_path(@manager, course) %>
+    <%= link_to live_studio.preview_courses_path(id: course), method: :post, target: '_blank' do %>
+      <span><%= course.try(:name) %></span>
+    <% end %>
   </td>
   <td>
-    <%= course.teacher_name %>
+    <%= link_to main_app.profile_teacher_path(course.teacher) do %>
+      <span><%= course.teacher.name %></span>
+    <% end %>
   </td>
-  <td>
-    <%= course.short_description %>
-  </td>
-  <td><%= course.status_text %></td>
-  <td>
-    <%= allow_link_to({action: 'edit', url: edit_manager_course_path(@manager, course), variable: course }) {t("activerecord.view.edit")} %>
-    <%= allow_link_to({action: 'destroy', url: manager_course_path(@manager, course), variable: course,
-                       sub: {method: :delete, id: "delete_#{course.id}", 'data-confirm' => t('activerecord.view.message.confirm')}}) {t("activerecord.view.delete")} %>
-    <%# =link_to t("activerecord.view.edit"), edit_manager_course_path(@manager, course) if allow?("live_studio/manager/courses", "update", @manager) %>
-    <%# =link_to t("activerecord.view.delete"), manager_course_path(@manager, course), method: :delete,
-               'data-confirm' => t('activerecord.view.message.confirm') if allow?("live_studio/manager/courses", "destroy", @manager) %>
-  </td>
+  <td><span><%= course.subject %></span></td>
+  <td><span><%= course.grade %></span></td>
+  <td><span><%= course.lessons_count %></span></td>
+  <td><span><%= number_to_currency(course.price, unit: "￥", precision: 2) %></span></td>
+  <td><span><%= course.buy_tickets_count %></span></td>
+  <td><span><%= number_to_percentage(course.teacher_percentage, precision: 0) %></span></td>
+  <td><span><%= localize(course.published_at, format: :long) if course.published_at %></span></td>
+  <td><span><%= course.status.text %></span></td>
 </tr>

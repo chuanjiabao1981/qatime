@@ -1,0 +1,56 @@
+<% content_for :stylesheet do %>
+  <script src="//nos.netease.com/vod163/nep.min.js"></script>
+<% end %>
+
+<div class="row">
+  <div class="video-area">
+    <div class="area-left">
+      <div class="area-left-title"><%= @course.name %></div>
+      <div class="area-left-con">
+        <video id="my-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'loading.png' %>" preload="auto" width="" height="" data-setup="{}">
+          <source src="/imgs/MY_VIDEO.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+        
+    <div class="area-right">
+      <div class="area-right-title">
+        <%= t "activerecord.view.chat.chat_team_members_count" %>
+        <span id="team_online_count">0</span>
+      </div>
+      <div class="area-right-con">
+        <video id="small-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'loading.png' %>" preload="auto" width="" height="" data-setup="{}">
+            <source src="//nos.netease.com/vod163/demo.mp4" type="video/mp4">
+        </video>
+
+      </div>
+      <%= render 'play_chat' %>
+    </div>
+  </div>
+</div>
+
+
+<%= content_for :javascript do %>
+<script>
+$(function() {
+  var boardPlayer = neplayer("my-video", {}, function() {
+  });
+
+  boardPlayer.setDataSource({
+    type: "rtmp/flv",
+    src: "<%= @course.board_pull_stream %>"
+  });
+
+  boardPlayer.play();
+  var cameraPlayer = neplayer("small-video", {}, function() {
+  });
+
+  cameraPlayer.setDataSource({
+    type: "rtmp/flv",
+    src: "<%= @course.camera_pull_stream %>"
+  });
+  cameraPlayer.play();
+});
+</script>
+
+<% end %>

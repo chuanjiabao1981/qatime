@@ -13,7 +13,7 @@ LiveStudio::Engine.routes.draw do
 
     collection do
       get :schedule_sources
-      post :preview
+      get :preview
     end
 
     member do

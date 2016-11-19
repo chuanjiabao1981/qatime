@@ -31,5 +31,9 @@ module LiveStudio
       flag = variable == 'status' ? t("status.#{params[variable]}") : params[variable]
       params[variable].blank? || params[variable] == 'all' ? '' : " [#{flag}]"
     end
+
+    def beautify_index index
+      "%02d"%(index+1)
+    end
   end
 end

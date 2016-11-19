@@ -4,6 +4,7 @@ module LiveStudio
     has_soft_delete
 
     enum status: {
+      missed: -1, # 已错过
       init: 0, # 初始化
       ready: 1, # 等待上课
       teaching: 2, # 上课中
@@ -19,15 +20,15 @@ module LiveStudio
     scope :unclosed, -> { where('live_studio_lessons.status < ?', Lesson.statuses[:closed]) } # 未关闭的课程
     scope :already_closed, -> { where('live_studio_lessons.status >= ?', Lesson.statuses[:closed]) } # 已关闭的课程
     scope :unstart, -> { where('status < ?', Lesson.statuses[:teaching]) } # 未开始的课程
-    scope :should_complete, -> { where(status: [statuses[:finished], statuses[:billing]]).where("class_date < ?", Date.yesterday)} # 可以completed的课程
+    scope :should_complete, -> { where(status: [Lesson.statuses[:finished], Lesson.statuses[:billing]]).where("class_date < ?", Date.yesterday)} # 可以completed的课程
     scope :teached, -> { where("status > ?", Lesson.statuses[:closed]) } # 已经完成上课, 不可以继续直播的课程才算完成上课
     scope :today, -> { where(class_date: Date.today) }
     scope :since_today, -> {where('class_date > ?',Date.today)}
     scope :include_today, -> {where('class_date >= ?',Date.today)}
-    scope :waiting_finish, -> { where(status: [statuses[:paused], statuses[:closed]])}
+    scope :waiting_finish, -> { where(status: [Lesson.statuses[:paused], Lesson.statuses[:closed]])}
     scope :month, -> (month){where('live_studio_lessons.class_date >= ? and live_studio_lessons.class_date <= ?', month.beginning_of_month.to_date,month.end_of_month.to_date)}
 
-    belongs_to :course
+    belongs_to :course, counter_cache: true
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
 
     has_many :play_records # 听课记录
@@ -35,7 +36,8 @@ module LiveStudio
 
     has_many :live_sessions # 直播 心跳记录
 
-    validates :name, :course_id, :start_time, :end_time, :class_date, presence: true
+    validates :name, :start_time, :end_time, :class_date, presence: true
+
     before_create :data_preview
     after_commit :update_course
 
@@ -43,6 +45,7 @@ module LiveStudio
 
     aasm column: :status, enum: true do
       state :init, initial: true
+      state :missed
       state :ready
       state :teaching
       state :paused
@@ -51,8 +54,12 @@ module LiveStudio
       state :billing
       state :completed
 
+      event :miss do
+        transitions from: [:ready, :init], to: :missed
+      end
+
       event :teach do
-        transitions from: [:ready, :paused, :closed], to: :teaching
+        transitions from: [:ready, :paused, :closed, :missed], to: :teaching
       end
 
       event :pause do

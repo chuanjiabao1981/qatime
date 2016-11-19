@@ -2,14 +2,7 @@
   Place all the styles related to the matching controller here.
   They will automatically be included in application.css.
 */
-#messages{
-    height: 266px;
-    overflow-y: scroll;
-}
-#members-panel{
-    height: 405px;
-    overflow-y: scroll;
-}
+
 .talk-div{
     /*background-color: #f0f0f0;*/
     font-size: 14px;

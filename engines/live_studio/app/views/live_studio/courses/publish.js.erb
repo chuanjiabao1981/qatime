@@ -1,4 +1,4 @@
-<% if @course.preview? -%>
+<% if @course.published? -%>
 $('#publish_tips').modal('show');
 $('#tips_live_start_at').text('<%= @course.live_start_time %>');
 $("#course_publish_btn_<%= @course.id %>").addClass('disabled');

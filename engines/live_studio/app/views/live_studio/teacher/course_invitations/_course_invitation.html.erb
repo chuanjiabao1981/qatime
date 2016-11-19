@@ -1,0 +1,22 @@
+<tr>
+  <td><%= course_invitation.target.name%></td>
+  <td>
+    <%= course_invitation.target.try(:city).try(:province).try(:name)%>/
+    <%= course_invitation.target.try(:city).try(:name)%>
+  </td>
+  <td><%= number_to_percentage(course_invitation.teacher_percent, precision: 0) %></td>
+  <td><%= localize(course_invitation.created_at, format: :long) %></td>
+  <td><%= distance_of_expited_at(course_invitation.expited_at) %></td>
+  <td>
+    <% if course_invitation.sent? %>
+      <%=link_to new_course_path(invitation_id: course_invitation) do %>
+        <span class="glyphicon glyphicon-ok"></span>
+      <% end %>
+      <%=link_to teacher_course_invitation_path(@teacher, course_invitation), method: :delete, "data-confirm" => t("common.confirm_refuse") do %>
+        <span class="glyphicon glyphicon-remove-circle"></span>
+      <% end %>
+    <% else %>
+      <%= course_invitation.status.text %>
+    <% end %>
+  </td>
+</tr>

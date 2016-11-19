@@ -3,11 +3,22 @@ LiveStudio::Engine.routes.draw do
   get 'courses/index'
   get 'courses/teate'
 
+  namespace :admin do
+    resources :courses, only: [:index]
+    resources :course_requests, only: [:index] do
+      member do
+        patch :accept
+        patch :reject
+      end
+    end
+  end
+
   resources :courses, only: [:index, :new, :create, :edit, :update, :show] do
     resources :orders, only: [:new, :create, :pay, :show] # 下单
 
     collection do
       get :schedule_sources
+      post :preview
     end
 
     member do
@@ -29,6 +40,17 @@ LiveStudio::Engine.routes.draw do
   scope module: 'manager' do
     resources :managers, only: [] do
       resources :courses
+      resources :course_invitations, only: [:index, :new, :create] do
+        member do
+          patch :cancel
+        end
+      end
+      resources :course_requests, only: [:index] do
+        member do
+          patch :accept
+          patch :reject
+        end
+      end
     end
   end
 
@@ -54,7 +76,7 @@ LiveStudio::Engine.routes.draw do
         get :schedules
         get :settings
       end
-      resources :courses, only: [:index, :show, :edit, :update, :create] do
+      resources :courses, only: [:index, :show, :edit, :update, :create, :destroy] do
         member do
           patch :close
           patch :channel
@@ -70,6 +92,7 @@ LiveStudio::Engine.routes.draw do
         end
       end
 
+      resources :course_invitations, only: [:index, :destroy]
     end
   end
 

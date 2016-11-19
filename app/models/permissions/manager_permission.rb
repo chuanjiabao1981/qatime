@@ -15,7 +15,7 @@ module Permissions
       allow :students,[:index,:search,:show,:edit,:create,:update,
                        :info,:teachers,:customized_courses,:homeworks,
                        :solutions,:account,:customized_tutorial_topics,:questions,:notifications, :admin_edit, :admin_update]
-      allow :home,[:index, :new_index]
+      allow :home,[:index,:new_index,:switch_city]
       allow :schools,[:index,:new,:create,:show,:edit,:update]
       allow :register_codes, [:index, :new, :downloads, :create]
       allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,
@@ -113,7 +113,9 @@ module Permissions
       end
       allow 'live_studio/teacher/courses', [:index, :show]
       allow 'live_studio/student/courses', [:index, :show]
-      allow 'live_studio/courses', [:index, :new, :create, :show]
+      allow 'live_studio/manager/course_invitations', [:index, :new, :create, :cancel]
+      allow 'live_studio/manager/course_requests', [:index, :accept, :reject]
+      allow 'live_studio/courses', [:index, :new, :create, :show, :preview]
       allow 'live_studio/courses', [:edit, :update, :destroy] do |manager,course,action|
         permission =
           case course.try(:status)

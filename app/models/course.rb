@@ -13,9 +13,6 @@ class Course < ActiveRecord::Base
   validates :desc, length: { minimum: 30 }
   validates :position, numericality: { only_integer: true }
 
-
-
-
   def can_be_purchased
     self.state == "published"
   end
@@ -50,4 +47,3 @@ class Course < ActiveRecord::Base
   end
 
 end
-

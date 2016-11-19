@@ -3,6 +3,9 @@ module LiveStudio
     # include LiveStudio::QaCourseActionRecord
     has_soft_delete
 
+    include AASM
+    extend Enumerize
+
     def to_param
       "#{id} #{name}".parameterize
     end
@@ -14,22 +17,58 @@ module LiveStudio
     USER_STATUS_TASTING = :tasting # 正在试听
     USER_STATUS_TASTED = :tasted # 已经试听
 
+    belongs_to :invitation
+
     enum status: {
+      rejected: -1, # 被拒绝
       init: 0, # 初始化
-      preview: 1, # 招生中
+      published: 1, # 招生中
+      teaching: 2, # 已开课
+      completed: 3 # 已结束
+    }
+    enumerize :status, in: {
+      rejected: -1, # 被拒绝
+      init: 0, # 初始化
+      published: 1, # 招生中
       teaching: 2, # 已开课
       completed: 3 # 已结束
     }
 
+    aasm column: :status, enum: true do
+      state :rejected
+      state :init, initial: true
+      state :published
+      state :teaching
+      state :completed
+
+      event :reject do
+        transitions from: :init, to: :rejected
+      end
+
+      event :publish do
+        before do
+          self.published_at = Time.now
+        end
+        transitions from: :init, to: :published
+      end
+
+      event :teach do
+        transitions from: :published, to: :teaching
+      end
+
+      event :comple do
+        transitions from: :teaching, to: :completed
+      end
+    end
+
     validates :name, :price, :subject, :grade, presence: true
     validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 70, less_than_or_equal_to: 100 }
-    validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
+    # validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
     validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
 
     validates :taste_count, numericality: { less_than_or_equal_to: ->(record) { record.preset_lesson_count.to_i } }
 
     validates :teacher, presence: true
-    validates :workstation, presence: true, unless: :require_workstation?
 
     mount_uploader :publicize, ::PublicizeUploader
 
@@ -41,6 +80,10 @@ module LiveStudio
     has_many :buy_tickets   # 普通听课证
     has_many :taste_tickets # 试听证
     has_many :lessons, -> { order('id asc') } # 课时
+    has_many :course_requests
+
+    accepts_nested_attributes_for :lessons, allow_destroy: true
+    validates_associated :lessons
 
     has_many :students, through: :buy_tickets
 
@@ -53,19 +96,22 @@ module LiveStudio
 
     has_many :billings, through: :lessons, class_name: 'Payment::Billing' # 结算记录
 
-    has_many :course_action_records,->{ order 'created_at desc' }, dependent: :destroy, foreign_key: :live_studio_course_id
+    has_many :course_action_records, ->{ order 'created_at desc' }, dependent: :destroy, foreign_key: :live_studio_course_id
 
     belongs_to :province
     belongs_to :city
     belongs_to :author, class_name: User
 
-    scope :month, -> (month){where('live_studio_courses.class_date >= ? and live_studio_courses.class_date <= ?',month.beginning_of_month.to_date,month.end_of_month.to_date)}
-    scope :by_status, ->(status){status.blank? || status == 'all' ? nil : where(status: statuses[status.to_sym])}
+    scope :month, ->(month) {where('live_studio_courses.class_date >= ? and live_studio_courses.class_date <= ?',
+      month.beginning_of_month.to_date,
+      month.end_of_month.to_date) }
+    scope :by_status, ->(status) {status.blank? || status == 'all' ? nil : where(status: Course.statuses[status.to_sym])}
     scope :by_subject, ->(subject){ subject.blank? || subject == 'all' ? nil : where(subject: subject)}
     scope :by_grade, ->(grade){ grade.blank? || grade == 'all' ? nil : where(grade: grade)}
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
     scope :uncompleted, -> { where('status < ?', Course.statuses[:completed]) }
-    scope :opening, ->{ where('status < ? and status > ?', Course.statuses[:completed], statuses[:init]) }
+    scope :opening, ->{ where(status: [Course.statuses[:teaching], Course.statuses[:completed]]) }
+    scope :for_sell, -> { where(status: [Course.statuses[:teaching], Course.statuses[:published]]) }
 
     def cant_publish?
       !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank? || lesson_count != preset_lesson_count
@@ -82,8 +128,8 @@ module LiveStudio
     end
 
     # 白板拉流地址
-    def board_pull_stream
-      pull_streams.find {|stream| stream.use_for == 'board' }.try(:address)
+    def board_pull_stream(protocol = 'rtmp')
+      pull_streams.find {|stream| stream.use_for == 'board' && stream.protocol == protocol }.try(:address)
     end
 
     # 摄像头推流地址
@@ -92,11 +138,9 @@ module LiveStudio
     end
 
     # 摄像头拉流地址
-    def camera_pull_stream
-      pull_streams.find {|stream| stream.use_for == 'camera' }.try(:address)
+    def camera_pull_stream(protocol = 'rtmp')
+      pull_streams.find {|stream| stream.use_for == 'camera' && stream.protocol == protocol }.try(:address)
     end
-
-    scope :for_sell, -> { where(status: [Course.statuses[:preview], Course.statuses[:teaching]]) }
 
     # teacher's name. return blank when teacher is missiong
     def teacher_name
@@ -144,7 +188,7 @@ module LiveStudio
     end
 
     def for_sell?
-      preview? || teaching?
+      published? || teaching?
     end
 
     # 用户是否已经购买
@@ -231,50 +275,89 @@ module LiveStudio
     end
 
     def live_start_time
-      lesson = lessons.order('class_date asc,id').first
+      lesson = lessons.reorder('class_date asc,id').first
       lesson.try(:live_start_at).try(:strftime,'%Y-%m-%d %H:%M') ||
         "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:start_time)}"
     end
 
     def live_end_time
-      lesson = lessons.order('class_date asc,id').last
+      lesson = lessons.reorder('class_date asc,id').last
       lesson.try(:live_end_at).try(:strftime,'%Y-%m-%d %H:%M') ||
         "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:end_time)}"
     end
 
     def live_start_date
-      lesson = lessons.order('class_date asc,id').first
-      lesson.try(:live_start_at).try(:strftime,'%Y-%m-%d') ||
-        "#{lesson.try(:class_date).try(:strftime, '%Y-%m-%d')}"
+      lessons.map(&:class_date).min
     end
 
     def live_end_date
-      lesson = lessons.order('class_date asc,id').last
-      lesson.try(:live_end_at).try(:strftime,'%Y-%m-%d') ||
-        "#{lesson.try(:class_date).try(:strftime, '%Y-%m-%d')}"
+      lessons.map(&:class_date).max
     end
 
     def order_lessons
       lessons.except(:order).order(:class_date, :live_start_at, :live_end_at)
     end
 
+    # 课程单价
+    def lesson_price
+      return 0 unless lessons_count.to_i > 0
+      price / lessons_count
+    end
+
+    def self.status_options
+      Course.statuses.map {|k, v| [LiveStudio::Course.human_attribute_name("aasm_state/#{k}"), v] }
+    end
+
+    # 招生申请 提交审核
+    after_commit :apply_publish, on: :create
+    def apply_publish
+      course_requests.create(user: teacher, workstation: workstation)
+    end
+
     private
 
-    def require_workstation?
-      author && author.teacher?
-    end
-
-    before_create :copy_city
-    def copy_city
-      self.city = author.teacher? ? author.city : workstation.city
+    # 处理邀请信息
+    before_validation :execute_invitation, on: :create
+    def execute_invitation
+      return unless invitation
+      self.workstation = invitation.target
+      self.city = invitation.target.city
       self.province = city.try(:province)
-      self.workstation = city.workstations.first if workstation.nil? && city
+      self.teacher_percentage = invitation.teacher_percent
     end
 
-    before_create :set_lesson_price
-    def set_lesson_price
-      self.lesson_price = (price / preset_lesson_count).to_i if preset_lesson_count.to_i > 0
+    after_commit :finish_invitation, on: :create
+    def finish_invitation
+      return unless invitation
+      invitation.accepted!
     end
+
+    # 非邀请辅导班使用默认工作站
+    before_validation :copy_city, on: :create
+    def copy_city
+      return if invitation
+      self.workstation = default_workstation
+      self.city = workstation.city
+      self.province = city.try(:province)
+      self.teacher_percentage = 100
+    end
+
+    # 从教师记录复制辅导班信息
+    before_validation :copy_info, on: :create
+    def copy_info
+      self.teacher = author unless teacher_id
+      self.subject = teacher.try(:subject)
+    end
+
+    # 默认工作站
+    def default_workstation
+      author.city.try(:workstations).first
+    end
+
+    # before_validation :calculate_lesson_price, on: :create
+    # def calculate_lesson_price
+    #   self.lesson_price = (price / lessons.count).to_i if lessons.count > 0
+    # end
 
     # 学生授权播放
     def student_authorize(user)

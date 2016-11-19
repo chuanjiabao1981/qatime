@@ -368,6 +368,15 @@ manager:
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   type: Manager
 
+manager_zhuji:
+  name: manager_zhuji
+  role: manager
+  email: manager_zhuji@qatime.cn
+  avatar: test
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  type: Manager
+  
+
 
 english_teacher:
   id: 10

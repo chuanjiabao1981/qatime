@@ -19,7 +19,7 @@ module LiveStudio
     def new
       @invitation = CourseInvitation.sent.find_by(id: params[:invitation_id]) if params[:invitation_id]
       @course = Course.new(invitation: @invitation)
-      5.times { @course.lessons.build }
+      1.times { @course.lessons.build }
       render layout: current_user_layout
     end
 
@@ -47,7 +47,7 @@ module LiveStudio
     def update
       @course = Course.find(params[:id])
 
-      if @course.save
+      if @course.update(courses_params)
         LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
         redirect_to live_studio.send("#{@course.author.role}_courses_path", @course.author)
       else
@@ -145,8 +145,15 @@ module LiveStudio
     end
 
     def courses_params
-      params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map(&:second) if params[:course] && params[:course][:lessons_attributes]
-      params.require(:course).permit(:publicize, :name, :grade, :price, :invitation_id, :description,
+      # params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map(&:second) if params[:course] && params[:course][:lessons_attributes]
+      if params[:course] && params[:course][:lessons_attributes]
+        params[:course][:lessons_attributes].map do |_, attr|
+          attr['class_date'] = attr['start_time'][0,10]
+          attr['start_time'] = attr['start_time'][11,8]
+          attr['end_time'] = attr['end_time'][11,8]
+        end
+      end
+      params.require(:course).permit(:name, :grade, :price, :invitation_id, :description, :publicize,
           lessons_attributes: [:name, :class_date, :start_time, :end_time])
     end
 
@@ -155,9 +162,11 @@ module LiveStudio
       course = Course.new(courses_params.merge(author: current_user))
       course.valid?
       course.lessons_count = params[:course][:lessons_attributes].count
-      class_dates = params[:course][:lessons_attributes].map {|a| a[:class_date] }.reject(&:blank?)
+      class_dates = params[:course][:lessons_attributes].map {|a| a.second[:class_date]}.reject(&:blank?)
       @live_start_date = class_dates.min
       @live_end_date = class_dates.max
+      course
     end
+
   end
 end

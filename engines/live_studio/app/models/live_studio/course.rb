@@ -70,6 +70,7 @@ module LiveStudio
 
     validates :teacher, presence: true
 
+    require 'carrierwave/orm/activerecord'
     mount_uploader :publicize, ::PublicizeUploader
 
     belongs_to :teacher, class_name: '::Teacher'

@@ -1,3 +1,10 @@
+<%
+   lesson = f.object
+   unless lesson.class_date.blank?
+     lesson.start_time = "#{lesson.class_date} #{lesson.start_time}"
+     lesson.end_time = "#{lesson.class_date} #{lesson.end_time}"
+   end
+%>
 <table border="0" cellspacing="0" cellpadding="0">
   <tr>
     <td><%= f.index.to_i+1 %></td>

@@ -1,4 +1,5 @@
 <%= simple_form_for @course do |f|%>
+
   <%= f.error_notification %>
   <%= f.input :invitation_id, as: :hidden %>
   <p class="file-title">一、辅导概况</p>
@@ -9,6 +10,7 @@
     </div>
   </div>
   <div class="class-con">
+    <%= f.input :lessons, label: false, input_html: {style: 'display: none;'} %>
     <%= f.fields_for :lessons do |lesson| %>
       <%= render 'lesson_fields', f: lesson%>
     <% end%>

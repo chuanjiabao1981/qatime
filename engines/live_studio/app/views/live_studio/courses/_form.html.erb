@@ -27,23 +27,23 @@
 <% content_for :javascript do %>
   <script>
     $(document).ready(function(){
-      $('.remedial-date').each(function(_, el){
-        $(el).click(function(){
-          show_calendar(this)
-        })
-      })
-
-      function show_calendar(el){
-        $.jeDate(el, {
-          insTrigger:false,
-          //isinitVal:true,
-          format:"YYYY-MM-DD", // 分隔符可以任意定义，该例子表示只显示年月
-          isClear:false,
-          festival: true, //显示节日
-          minDate: '2000-06-01', //设定最小日期为当前日期
-          //最大日期
-        });
-      }
+//      $('.remedial-date').each(function(_, el){
+//        $(el).click(function(){
+//          show_calendar(this)
+//        })
+//      })
+//
+//      function show_calendar(el){
+//        $.jeDate(el, {
+//          insTrigger:false,
+//          //isinitVal:true,
+//          format:"YYYY-MM-DD", // 分隔符可以任意定义，该例子表示只显示年月
+//          isClear:false,
+//          festival: true, //显示节日
+//          minDate: '2000-06-01', //设定最小日期为当前日期
+//          //最大日期
+//        });
+//      }
 
       $('.submit').click(function(){
         $('form').submit();
@@ -60,9 +60,12 @@
         $(this).parents("form").removeAttr('target');
       });
 
-      $(".remove-lesson").click(function(){
-        $(this).parents("tr").remove();
-      });
+//      $(".remove-lesson").click(function(){
+        //$(this).parents("tr").remove();
+//       var a=  $(this).parents('td').find('attributes[type="checkbox"]');
+//        console.log(a);
+//        console.log(a.attr('class'))
+//      });
     })
   </script>
 <% end %>

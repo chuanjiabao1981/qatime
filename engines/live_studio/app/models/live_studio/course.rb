@@ -318,6 +318,11 @@ module LiveStudio
 
     private
 
+    before_save :check_lessons
+    def check_lessons
+      return if new_record?
+    end
+
     # 处理邀请信息
     before_validation :execute_invitation, on: :create
     def execute_invitation

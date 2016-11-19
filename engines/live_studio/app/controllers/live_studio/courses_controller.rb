@@ -145,7 +145,6 @@ module LiveStudio
     end
 
     def courses_params
-      # params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map(&:second) if params[:course] && params[:course][:lessons_attributes]
       if params[:course] && params[:course][:lessons_attributes]
         params[:course][:lessons_attributes].map do |_, attr|
           attr['class_date'] = attr['start_time'][0,10]
@@ -153,8 +152,9 @@ module LiveStudio
           attr['end_time'] = attr['end_time'][11,8]
         end
       end
+      params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map(&:second) if params[:course] && params[:course][:lessons_attributes]
       params.require(:course).permit(:name, :grade, :price, :invitation_id, :description, :publicize,
-          lessons_attributes: [:name, :class_date, :start_time, :end_time])
+          lessons_attributes: [:id, :name, :class_date, :start_time, :end_time, :_destroy])
     end
 
     def build_preview_course
@@ -162,7 +162,7 @@ module LiveStudio
       course = Course.new(courses_params.merge(author: current_user))
       course.valid?
       course.lessons_count = params[:course][:lessons_attributes].count
-      class_dates = params[:course][:lessons_attributes].map {|a| a.second[:class_date]}.reject(&:blank?)
+      class_dates = params[:course][:lessons_attributes].map {|a| a[:class_date]}.reject(&:blank?)
       @live_start_date = class_dates.min
       @live_end_date = class_dates.max
       course

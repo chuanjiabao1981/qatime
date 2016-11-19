@@ -44,7 +44,7 @@
         </tr>
         <tr>
           <td><%= t('view.course_info_show.teacher') %><%= @course.teacher.try(:name) %></td>
-          <td><%= t('view.course_info_show.lesson_count') %><%= @course.preset_lesson_count %></td>
+          <td><%= t('view.course_info_show.lesson_count') %><%= @course.lessons_count %></td>
         </tr>
         <tr>
           <td><%= t('view.course_info_show.start_time') %><%= @course.live_start_time %></td>

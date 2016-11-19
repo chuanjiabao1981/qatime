@@ -25,7 +25,9 @@ module Entities
         course.lessons_count
       end
       expose :lessons_count, if: { type: :full }
-      expose :preset_lesson_count
+      expose :preset_lesson_count do |course|
+        course.lessons_count
+      end
       expose :completed_lesson_count
       expose :live_start_time
       expose :live_end_time

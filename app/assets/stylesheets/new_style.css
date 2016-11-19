@@ -1839,9 +1839,11 @@ figcaption p {
   border-radius: 50%;
   background-color: white;
 }
-.banner-dot li:first-child {
+
+.banner-dot .active {
   background-color: rgb(255,153,102);
 }
+
 .panel-bottom {
   margin-bottom: 15px !important;
 }

@@ -70,9 +70,12 @@ module LiveService
         LiveService::LessonDirector.new(lesson).finish
       end
 
-      # 未上课提醒
-      LiveStudio::Lesson.ready.where('class_date = ?', Date.yesterday).find_each(batch_size: 500).each do |lesson|
-        LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_MISS_FOR_TEACHER)
+      # 未上课提示补课
+      LiveStudio::Lesson.ready.where('class_date < ?', Date.today).find_each(batch_size: 500).each do |lesson|
+        if lesson.ready? || lesson.init?
+          lesson.miss!
+          LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_MISS_FOR_TEACHER)
+        end
       end
     end
 

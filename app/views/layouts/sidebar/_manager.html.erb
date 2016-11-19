@@ -1,13 +1,19 @@
 <% @manager ||= current_user -%>
 <ul class="menu" style="color: white">
   <li>
-    <%= link_to teachers_path do %>
+    <%= link_to main_app.teachers_path do %>
         <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 教师</span>
     <% end %>
   </li>
   <li>
-    <%= link_to schools_path do %>
+    <%= link_to main_app.schools_path do %>
         <span class="glyphicon glyphicon-home"></span> <span class="qa_f18"> 学校</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to recommend.manager_positions_path do %>
+      <span class="glyphicon glyphicon-tags"></span>
+      <span class="qa_f18"> <%= Recommend::Position.model_name.human %> </span>
     <% end %>
   </li>
   <li>
@@ -17,41 +23,41 @@
     <% end %>
   </li>
   <li>
-    <%= link_to sellers_manager_path(@manager) do %>
+    <%= link_to main_app.sellers_manager_path(@manager) do %>
         <span class="glyphicon glyphicon-hdd"></span>
         <span class="qa_f18"> <%= Seller.model_name.human %> </span>
     <% end %>
   </li>
   <li>
-    <%= link_to waiters_manager_path(@manager) do %>
+    <%= link_to main_app.waiters_manager_path(@manager) do %>
         <span class="glyphicon glyphicon-headphones"></span>
         <span class="qa_f18"> <%= Waiter.model_name.human %> </span>
     <% end %>
   </li>
   <li>
-    <%= link_to action_records_manager_path(@manager) do %>
+    <%= link_to main_app.action_records_manager_path(@manager) do %>
         <span class="fa fa-cogs"></span> <span class="qa_f18"><%= ActionRecord.model_name.human %></span>
     <% end %>
   </li>
   <li>
-    <%= link_to questions_path do %>
+    <%= link_to main_app.questions_path do %>
         <span class="fa fa-university"></span> <span class="qa_f18"><%= VipClass.model_name.human %></span>
     <% end %>
   </li>
   <li>
-    <%= link_to customized_courses_manager_path(@manager) do %>
+    <%= link_to main_app.customized_courses_manager_path(@manager) do %>
         <span class="glyphicon glyphicon-book"></span> <span class="qa_f18"> <%= CustomizedCourse.model_name.human%></span>
     <% end %>
   </li>
   <li>
-    <%= link_to payment_manager_path(@manager) do %>
+    <%= link_to main_app.payment_manager_path(@manager) do %>
         <span class="fa fa-credit-card"></span> <span class="qa_f18">
           收款二维码
         </span>
     <% end %>
   </li>
   <li>
-    <%= link_to managers_register_codes_path do %>
+    <%= link_to main_app.managers_register_codes_path do %>
         <span class="glyphicon glyphicon-question-sign"></span>
         <span class="qa_f18">
           <%= RegisterCode.model_name.human%>
@@ -59,7 +65,7 @@
     <% end %>
   </li>
   <li>
-    <%= link_to state_managers_lessons_path(@manager) do %>
+    <%= link_to main_app.state_managers_lessons_path(@manager) do %>
         <span class="fa fa-line-chart"></span> <span class="qa_f18"> 状态</span>
     <% end %>
   </li>
@@ -70,13 +76,13 @@
   </li>
 
   <li>
-    <%= link_to curriculums_path do %>
+    <%= link_to main_app.curriculums_path do %>
       <span class="fa fa-folder-open-o"></span> <span class="qa_f18"><%= t("view.common_bars.curriculums") %></span>
     <% end %>
   </li>
 
   <li>
-    <%= link_to signout_path, :method=>'delete'  do %>
+    <%= link_to main_app.signout_path, :method=>'delete'  do %>
         <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18">退出系统</span>
     <% end %>
   </li>

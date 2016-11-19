@@ -12,3 +12,4 @@ cn:
         index: 排序
         status: 状态
         city: 城市
+        city_id: 城市

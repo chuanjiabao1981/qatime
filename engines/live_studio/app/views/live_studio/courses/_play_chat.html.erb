@@ -1,0 +1,102 @@
+<div class="live-message">
+  <div class="message-title">
+    <a href="javascript:void(0);" class="active">讨论</a>
+    <a href="javascript:void(0);">公告</a>
+    <a href="javascript:void(0);">成员</a>
+  </div>
+  <div class="message-content">
+    <div class="message-con active">
+      <div class="message-new" id="messages">
+      </div>
+
+      <div class="information-face">
+        <%= image_tag 'face-2.png', id: "emotion-btn" %>
+        <%= image_tag 'face-1.png', id: "clear-btn" %>
+      </div>
+
+
+      <div class="information-send">
+        <%= form_tag '', id: 'message-form', remote: true do -%>
+        <div class="send-msg">
+          <%= text_area_tag "message-area" %>
+          <%= submit_tag "发送" %>
+        </div>
+        <% end -%>
+      </div>
+    </div>
+
+    <div class="message-con">
+      <div class="message-new affiche" id="notice-panel">
+      </div>
+    </div>
+
+    <div class="message-con">
+      <div class="message-new affiche" id="members-panel">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<%= content_for :javascript do %>
+<script>
+var chatInited = false;
+
+function chatInitCallback() {
+  chatInited = true;
+  visit();
+};
+
+function visit(){
+  var team_id = "<%= @chat_team.try(:team_id) %>";
+  var params = {
+    acc_id: "<%= @chat_account.try(:accid) %>",
+    token: $("#online_token").val()
+  }
+  $.get('/chat/teams/' + team_id + '/member_visit', params,function(data){
+    if(data == 'nothing'){
+      console.log(data);
+    }else{
+      $("#members-panel").html(data);
+    }
+  });
+}
+setInterval(visit,30000);
+
+<% if @current_lesson %>
+  setInterval(function(){
+    $.getScript( "refresh_current_lesson", function( data, textStatus, jqxhr ) {});
+  }, 1 * 60 * 1000);
+<% end %>
+
+$(function() {
+  var accid = "<%= @chat_account.try(:accid) %>";
+  var token = "<%= @chat_account.try(:token) %>";
+  var team_role = "<%= @join_record.try(:role) %>";
+  var chat_team_id = "<%= @chat_team.try(:team_id) %>";
+
+  // 关闭页面前提示
+  $( window ).bind( "beforeunload", function() {
+    return "是否离开直播页面";
+  });
+
+  window.live_chat = new LiveChat("<%= Chat::IM.app_key %>");
+
+  if(accid == "" || chat_team_id == "" || team_role == "") {
+    $.getJSON("<%= chat.finish_live_studio_course_teams_path(@course) %>", function(data) {
+      accid = data.accid;
+      token = data.token;
+      chat_team_id = data.team_id;
+      live_chat.config(accid, token, chat_team_id);
+      live_chat.init(chatInitCallback);
+    });
+  } else {
+    live_chat.config(accid, token, chat_team_id);
+    live_chat.init(chatInitCallback);
+  }
+
+  // 聊天表情
+  $("#emotion-btn").qqFace({ assign: "message-area", path: "<%= asset_path('assets/face/') %>" });
+});
+</script>
+<% end %>

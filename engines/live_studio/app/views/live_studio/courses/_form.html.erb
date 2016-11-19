@@ -13,8 +13,8 @@
     <%= f.input :lessons, label: false, input_html: {style: 'display: none;'} %>
     <%= f.fields_for :lessons do |lesson| %>
       <%= render 'lesson_fields', f: lesson%>
-    <% end%>
-    <%= raw link_to_add_fields("增加一条新课程", f, :lessons, 'live_studio/courses/') %>
+    <% end %>
+    <%= raw link_to_add_fields("新增", f, :lessons, 'live_studio/courses/') %>
   </div>
   <div class="present">
     <center>

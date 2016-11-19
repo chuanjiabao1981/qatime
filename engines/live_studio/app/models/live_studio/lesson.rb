@@ -4,6 +4,7 @@ module LiveStudio
     has_soft_delete
 
     enum status: {
+      missed: -1, # 已错过
       init: 0, # 初始化
       ready: 1, # 等待上课
       teaching: 2, # 上课中
@@ -44,6 +45,7 @@ module LiveStudio
 
     aasm column: :status, enum: true do
       state :init, initial: true
+      state :missed
       state :ready
       state :teaching
       state :paused
@@ -51,6 +53,10 @@ module LiveStudio
       state :finished
       state :billing
       state :completed
+
+      event :miss do
+        transitions from: [:ready, :init], to: :missed
+      end
 
       event :teach do
         transitions from: [:ready, :paused, :closed], to: :teaching

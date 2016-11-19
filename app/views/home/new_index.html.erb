@@ -236,58 +236,8 @@
 </div>
 <script type="text/javascript">
   $(function  () {
-<<<<<<< HEAD
-    $("#banner-list").rotate();
-    console.log($("#banner-list").children().size());
-    var index = 0;
-    function autoscroll () {
-      index++;
-      changecolor(index);
-      $(".banner-show").animate({
-        left: "-" + 100 * index + "%"
-      },500,function  () {
-        if (index == 3) {
-          index = 0;
-          $(".banner-show").css("left","0");
-        }
-      })
-    }
-    $('.banner-dot li').click(function  () {
-      index = $(this).index();
-      $('.banner-show').css('left', "-" + 100 * index + "%");
-      $("#content").stop().animate({
-        left: "-" + 100 * index + "%",
-      }, 500)
-      changecolor(index);
-    })
-
-    $(".banner-dot li").mouseover(function  () {
-      clearInterval(timerID);
-    })
-    $(".banner-dot li").mouseout(function  () {
-      timerID = setInterval(autoscroll,2000);
-    })
-
-    function changecolor(index) {
-      $(".banner-dot li").css("background-color", "white");
-      if(index == 3) {
-        $(".banner-dot li").eq(0).css("background-color", "rgb(255,153,102)");
-      } else {
-        $(".banner-dot li").eq(index).css("background-color", "rgb(255,153,102)");
-      }
-    }
-
-    var timerID = setInterval(autoscroll,2000);
-    $(".banner-show").mouseover(function  () {
-      clearInterval(timerID);
-    })
-    $(".banner-show").mouseout(function  () {
-      timerID = setInterval(autoscroll,2000);
-    })
-=======
     // 广告位轮播
     $("#banner-list").rotate();
->>>>>>> development
 
     $(".btn-tab").click(function  () {
       var more = $(this).attr('rel');

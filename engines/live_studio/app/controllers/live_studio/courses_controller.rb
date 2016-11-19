@@ -156,9 +156,17 @@ module LiveStudio
           lessons_attributes: [:id, :name, :class_date, :start_time, :end_time, :_destroy])
     end
 
+    def preview_courses_params
+      preview = courses_params
+      preview['lessons_attributes'].each do |lesson|
+        lesson.delete('id')
+      end
+      preview
+    end
+
     def build_preview_course
       return Course.find(params[:id]) if params[:id].present?
-      course = Course.new(courses_params.merge(author: current_user))
+      course = Course.new(preview_courses_params.merge(author: current_user))
       course.valid?
       course.lessons_count = params[:course][:lessons_attributes].count
       class_dates = params[:course][:lessons_attributes].map {|a| a[:class_date]}.reject(&:blank?)

@@ -344,7 +344,7 @@ module LiveStudio
     def copy_city
       return if invitation
       self.workstation = default_workstation
-      self.city = workstation.city
+      self.city = workstation.try(:city)
       self.province = city.try(:province)
       self.teacher_percentage = 100
     end
@@ -358,7 +358,7 @@ module LiveStudio
 
     # 默认工作站
     def default_workstation
-      author.city.try(:workstations).first
+      author.city.try(:workstations).try(:first)
     end
 
     # before_validation :calculate_lesson_price, on: :create

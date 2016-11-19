@@ -116,7 +116,7 @@ module Permissions
       allow 'live_studio/manager/course_invitations', [:index, :new, :create, :cancel]
       allow 'live_studio/manager/course_requests', [:index, :accept, :reject]
       allow 'live_studio/courses', [:index, :new, :create, :show]
-      allow 'live_studio/courses', [:edit, :update, :destroy] do |manager,course,action|
+      allow 'live_studio/courses', [:edit, :update, :destroy] do |course|
         permission =
           case course.try(:status)
             when 'init'
@@ -130,7 +130,7 @@ module Permissions
             else
               false
           end
-        course.author_id == manager.id && permission
+        user.workstations.map(&:id).include?(course.workstation_id) && permission
       end
       ## end live studio permission
       allow 'chat/teams', [:finish, :members, :member_visit]

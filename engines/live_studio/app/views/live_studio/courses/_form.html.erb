@@ -53,9 +53,7 @@
         var action = $(this).parents("form").attr('action');
         $(this).parents("form").attr('action', "<%= live_studio.preview_courses_path %>");
         $(this).parents("form").attr('target', '_blank');
-        $(this).parents("form").attr('method', 'get');
         $(this).parents("form").submit();
-        $(this).parents("form").attr('method', 'post');
         $(this).parents("form").attr('action', action);
         $(this).parents("form").removeAttr('target');
       });

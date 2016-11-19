@@ -45,8 +45,10 @@ module LiveService
     # 准备上课
     # 上课时间为今天的设置为ready状态, init => ready
     def self.ready_today_lessons
-      LiveStudio::Lesson.today.init.find_each(batch_size: 500).each do |lesson|
+      LiveStudio::Lesson.today.init.includes(:course).find_each(batch_size: 500).each do |lesson|
         lesson.ready!
+        lesson.course.teaching! if lesson.course.published?
+
         # 课程上课提醒，没有准确的定时任务的时候临时解决方案
         # 每天定时任务发送
         LiveService::LessonNotificationSender.new(lesson).notice(LiveStudioLessonNotification::ACTION_START_FOR_TEACHER)

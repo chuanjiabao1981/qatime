@@ -148,8 +148,9 @@ module LiveStudio
     end
 
     def distance_days
-      return 0 if class_date.blank?
-      -(DateTime.parse(Date.today.to_s) - class_date.to_datetime)
+      today = Date.today
+      return 0 if class_date.blank? || class_date < today
+      (class_date.to_time - today.to_time) / 60 /60 / 24
     end
 
     def order_params

@@ -242,25 +242,6 @@ window.currentTeam = {};
     appendMsg(msg);
   }
 
-  function refreshTeamMembersUI(teamId, fn) {
-    if(teamId != currentTeam.id) return;
-    $.get('/chat/teams/' + teamId + '/members',function(data){
-      $("#members-panel").html(data);
-      if(fn) fn();
-    });
-    //var members = data.teamMembers[teamId];
-    //$.each(members, function(index){
-    //    var member = members[index];
-    //    console.log(member);
-    //    var media = $("#media-template .media").clone();
-    //    media.find("img").attr("src", "https://ruby-china-files.b0.upaiyun.com/user/big_avatar/2110.jpg");
-    //    media.find(".media-body").text(member.account);
-    //    console.log(media);
-    //
-    //    $("#members-panel").append(media);
-    //});
-  }
-
   function teamAnnouncement(announcement) {
     if(!announcement || announcement == '') announcement = "管理员很懒什么也没有留下"
     $("#notice-panel").html("<p>" + announcement + "</p>")
@@ -310,6 +291,16 @@ window.currentTeam = {};
 })(this);
 
 
+
+function refreshTeamMembersUI(teamId, fn) {
+  if(teamId != currentTeam.id) return;
+  $.get('/chat/teams/' + teamId + '/members',function(data){
+    $("#members-panel").html(data);
+    if(fn) fn();
+  });
+}
+
+
 function sendMessageTime(msg, type){
   var date = new Date(msg.time);
   var hours = date.getHours();
@@ -344,10 +335,10 @@ function appendMsg(msg, messageClass) {
   $("#messages").scrollTop($("#messages").prop('scrollHeight'));
 
   if($("#member-icons").find("img.icon-" + msg.from).size() > 0) {
-    $("#msg-msg.idClient").find("img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
+    $("#msg-" + msg.idClient).find("img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
   } else {
     refreshTeamMembersUI(currentTeam.id, function() {
-      $("#msg-msg.idClient").find("img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
+      $("#msg-" + msg.idClient).find("img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
     });
   }
 }

@@ -9,6 +9,12 @@
 <% end if @accounts.present? %>
 <%= hidden_field_tag :online_token, @token %>
 
+<div id="member-icons" style="display: none;">
+  <% @accounts.each do |account|%>
+    <%= image_tag(account.icon_url, class: "information-title-img icon-#{account.accid}")%>
+  <% end %>
+</div>
+
 <% if @online_accounts %>
   <script type="text/javascript">
     if($("#team_online_count")){

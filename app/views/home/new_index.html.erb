@@ -3,24 +3,12 @@
     <div class="panel panel-default">
 
       <div class="home-banner">
-<<<<<<< HEAD
-        <ul class="banner-show" id="banner-list" style="left: -100%;">
-=======
         <ul class="banner-show" id="banner-list">
->>>>>>> development
           <% @recommend_banners.each do |banner| %>
             <li>
               <%= link_to(image_tag(banner.logo_url(:home), alt: 'banner'), banner.link) %>
             </li>
           <% end %>
-<<<<<<< HEAD
-        </ul>
-        <ul class="banner-dot">
-          <li style="background-color: white;"></li>
-          <li style="background-color: white;"></li>
-          <li style="background-color: rgb(255, 153, 102);"></li>
-=======
->>>>>>> development
         </ul>
       </div>
     </div>

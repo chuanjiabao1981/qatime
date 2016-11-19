@@ -10,4 +10,10 @@ Recommend::Engine.routes.draw do
       end
     end
   end
+
+  namespace :manager do
+    resources :positions, only: [:index, :show] do
+      resources :items, shallow: true
+    end
+  end
 end

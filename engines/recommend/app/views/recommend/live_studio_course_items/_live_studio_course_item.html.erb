@@ -2,11 +2,11 @@
   <div class="col-md-2"><%= live_studio_course_item.title %></div>
   <div class="col-md-2"><%= image_tag live_studio_course_item.logo, size: '16x16' %></div>
   <div class="col-md-2"><%= link_to live_studio_course_item.target.name, live_studio.course_path(live_studio_course_item.target) %></div>
-  <div class="col-md-2"><%= live_studio_course_item.try(:index) %></div>
+  <div class="col-md-1"><%= live_studio_course_item.try(:index) %></div>
   <div class="col-md-2"><%= live_studio_course_item.reason_text %></div>
-  <div class="col-md-2"><%= live_studio_course_item.city.try(:name) %></div>
+  <div class="col-md-1"><%= live_studio_course_item.city.try(:name) %></div>
   <div class="col-md-2">
-    <%= link_to '编辑', edit_admin_teacher_item_path(live_studio_course_item) %>
-    <%= link_to '删除', [:admin, live_studio_course_item], method: :delete, data: {confirm: 'Are you sure?'}%>
+    <%= link_to '编辑', send(current_user.admin? ? "edit_admin_teacher_item_path" : "edit_manager_item_path", live_studio_course_item) %>
+    <%= link_to '删除', send(current_user.admin? ? "admin_teacher_item_path" : "manager_item_path", live_studio_course_item), method: :delete, data: {confirm: 'Are you sure?'}%>
   </div>
 </div>

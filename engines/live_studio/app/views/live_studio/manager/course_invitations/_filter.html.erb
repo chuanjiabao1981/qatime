@@ -2,12 +2,15 @@
   <div class="condition">
     <span><%= LiveStudio::CourseInvitation.human_attribute_name(:status) %></span>
     <%= select_tag :status, options_for_select(LiveStudio::CourseInvitation.status.options, params[:status]),
-      prompt: t("live_studio.course.menu.all") %>
+                   prompt: t("live_studio.course.menu.all"),
+                   class: 'immediately' %>
   </div>
 
   <div class="condition">
     <span><%= LiveStudio::CourseInvitation.human_attribute_name(:user_subject) %></span>
-    <%= select_tag :subject, options_for_select(APP_CONSTANT['subjects'], params[:subject]), prompt: t("live_studio.course_request.menu.all") %>
+    <%= select_tag :subject, options_for_select(APP_CONSTANT['subjects'], params[:subject]),
+                   prompt: t("live_studio.course_request.menu.all"),
+                   class: 'immediately' %>
   </div>
 
   <div class="condition-right">

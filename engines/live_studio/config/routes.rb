@@ -92,7 +92,7 @@ LiveStudio::Engine.routes.draw do
         end
       end
 
-      resources :course_invitations
+      resources :course_invitations, only: [:index, :destroy]
     end
   end
 

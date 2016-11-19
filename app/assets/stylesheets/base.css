@@ -3470,6 +3470,32 @@ ul {
   color: rgb(190,11,11);
   display: inline;
 }
+
+.message-logging {
+  width: 640px;
+  height: 640px;
+  border: 1px solid gray;
+}
+.logging-title {
+  height: 40px;
+  background-color: rgb(222,222,222);
+  line-height: 40px;
+  padding: 0 10px;
+}
+.logging-left {
+  float: left;
+  color: #333333;
+}
+.logging-left i {
+  display: inline-block;
+  font-size: 18px;
+  position: relative;
+  top: 4px;
+}
+.logging-right {
+  float: right;
+  margin-top: -40px;
+}
 .screen {
   height: 38px;
   text-align: center;
@@ -3478,13 +3504,15 @@ ul {
 }
 .information-time,.new-information-stu .information-time {
   color: #999999;
+  font-size: 12px;
 }
 .information-name {
   color: #BE0B0B;
   margin-left: -1px;
+  font-size: 14px;
 }
 .new-information-else .information-name {
-  color: #ff7700;
+  color: #87c3ed;
 }
 .information-con {
   padding-left: 30px;
@@ -3518,7 +3546,7 @@ ul {
   line-height: 24px;
   margin-right: 5px;
   font-size: 12px;
-  color: #6d7d97;
+  color: #00a2ee;
 }
 /*.information-send {
 	height:50px !important;

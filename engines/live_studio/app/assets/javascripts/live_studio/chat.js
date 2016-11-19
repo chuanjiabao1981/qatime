@@ -346,9 +346,9 @@ function appendMsg(msg, messageClass) {
   if($("#member-icons").find("img.icon-" + msg.from).size() > 0) {
     $("#msg-msg.idClient").find("img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
   } else {
-    refreshTeamMembersUI( , function() {
+    refreshTeamMembersUI(currentTeam.id, function() {
       $("#msg-msg.idClient").find("img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
-    })
+    });
   }
 }
 

@@ -2,7 +2,7 @@
   <div class="col-md-2"><%= banner_item.title %></div>
   <div class="col-md-2"><%= image_tag banner_item.logo_url(:list) %></div>
   <div class="col-md-2"><%= banner_item.try(:index) %></div>
-  <div class="col-md-2"><%= banner_item.try(:link) %></div>
+  <div class="col-md-2"><%= link_to banner_item.link, banner_item.link %></div>
   <div class="col-md-2"><%= banner_item.city.try(:name) %></div>
   <div class="col-md-2">
     <%= link_to '编辑', send(current_user.admin? ? "edit_admin_teacher_item_path" : "edit_manager_item_path",banner_item) %>

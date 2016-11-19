@@ -3,6 +3,8 @@ require_dependency "live_studio/manager/base_controller"
 module LiveStudio
   module Admin
     class CoursesController < Admin::ApplicationController
+      before_action :set_city, only: [:index]
+
       def index
         @courses = LiveStudio::Course.includes(:teacher)
         @courses = @courses.where(@course_search_params) if course_search_params.present?
@@ -15,6 +17,7 @@ module LiveStudio
       def course_search_params
         @course_search_params = params.permit(:status, :subject, :grade).select {|_k, v| v.present? }
         @course_search_params[:status] = LiveStudio::Course.statuses[params[:status]] if params[:status].present?
+        @course_search_params[:city_id] = @city.id if @city.present?
         @course_search_params
       end
     end

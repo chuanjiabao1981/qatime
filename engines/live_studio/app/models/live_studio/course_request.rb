@@ -10,6 +10,12 @@ module LiveStudio
     extend Enumerize
     include AASM
 
+    enum status: {
+      submitted: 0, # 已提交
+      accepted: 1, # 审核通过
+      rejected: 2 # 已拒绝
+    }
+
     enumerize :status, in: {
       submitted: 0, # 已提交
       accepted: 1, # 审核通过
@@ -25,7 +31,7 @@ module LiveStudio
         transitions from: :submitted, to: :accepted
       end
 
-      event :reject do
+      event :reject, after: :reject_course do
         transitions from: :submitted, to: :rejected
       end
     end
@@ -34,6 +40,10 @@ module LiveStudio
       return unless course.init?
       course.publish!
       LiveService::CourseDirector.new(course).instance_for_course
+    end
+
+    def reject_course
+      course.reject! if course.init?
     end
   end
 end

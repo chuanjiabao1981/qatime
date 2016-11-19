@@ -25,6 +25,7 @@
   </div>
 </div>
 
+<% if flash.any? %>
 <div class="container message-nav">
   <div class="row">
     <% flash.each do |key, value| %>
@@ -32,6 +33,8 @@
     <% end %>
   </div>
 </div>
+<% end %>
+
 
 <%= yield %>
 
@@ -87,6 +90,7 @@
     </footer>
   </div>
 </div>
+<%= yield :mask %>
 <%= yield :javascript %>
 </body>
 </html>

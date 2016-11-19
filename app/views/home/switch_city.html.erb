@@ -4,32 +4,32 @@
       <div class="city-content">
         <div class="city-title">
             <%= form_tag home_path, method: :get, class: 'form-city' do %>
-              <span class="province">按省份选择：</span>
+              <span class="province"><%= t('view.common.province_by') %>:</span>
               <span>
-                <%= select_tag 'teacher[province_id]', options_for_select(Province.all.map{|p| [ p.name, p.id]}.insert(0,["----省----", nil])),
+                <%= select_tag 'teacher[province_id]', options_for_select(Province.all.map{|p| [ p.name, p.id]}.insert(0,[t('view.common.option_province'), nil])),
                                'data-remote': true,
                                'data-url': url_for(controller: 'ajax/data', action: 'option_cities', second: 'data-second')
                 %>
                 &nbsp;&nbsp;
-                <%= select_tag :city_id, options_for_select([["----市----", nil]]), class: 'data-second' %>
+                <%= select_tag :city_id, options_for_select([[t('view.common.option_city'), nil]]), class: 'data-second' %>
               </span>
-              <input type="submit" name="" id="" value="确定" class="btn-switch">
+              <input type="submit" name="" id="" value="<%= t('students.common.ok') %>" class="btn-switch">
             <% end %>
-            <span class="prompt-con">(城市已精确到县级单位)</span>
-          <%= link_to '选择全国', home_path, class: 'change-city' %>
+            <span class="prompt-con">(<%= t('view.common.city_tips') %>)</span>
+          <%= link_to t('view.common.switch_country'), home_path(city_name: 'country'), class: 'change-city' %>
         </div>
         <div class="city-details">
           <div class="city-list">
-            <h3>最近选择：</h3>
+            <h3><%= t('view.common.recent_selected') %>:</h3>
             <p>
               <% @selected_cities.each do |i| %>
                 <%= link_to i, home_path(city_name: i) %>
               <% end if @selected_cities %>
-              <%= link_to '全国', home_path if @selected_cities.blank? %>
+              <%= link_to t('view.common_bars.nationwide'), home_path(city_name: 'country') if @selected_cities.blank? %>
             </p>
           </div>
           <div class="citieslist">
-            <h2>按拼音字母：</h2>
+            <h2><%= t('view.common.pinyin_by') %>：</h2>
             <ol class="hasallcity">
               <% @hash_cities.map do |k,cities| %>
                 <li style="background-color: white;">
@@ -49,7 +49,7 @@
           </div>
         </div>
         <div class="city-prompt">
-          如果没有您要找的城市，则该城市暂未加盟
+          <%= t('view.common.city_none_tips') %>
         </div>
       </div>
     </div>

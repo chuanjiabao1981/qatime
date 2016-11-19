@@ -19,7 +19,7 @@ module LiveStudio
     def new
       @invitation = CourseInvitation.sent.find_by(id: params[:invitation_id]) if params[:invitation_id]
       @course = Course.new(invitation: @invitation)
-      1.times { @course.lessons.build }
+      5.times { @course.lessons.build }
       render layout: current_user_layout
     end
 

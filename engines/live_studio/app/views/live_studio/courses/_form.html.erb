@@ -59,11 +59,18 @@
       });
 
 //      $(".remove-lesson").click(function(){
-        //$(this).parents("tr").remove();
-//       var a=  $(this).parents('td').find('attributes[type="checkbox"]');
-//        console.log(a);
-//        console.log(a.attr('class'))
+//        $(this).parents("table").hide();
+//        var b = $(this).attr('rel');
+//        console.log(b);
+//        console.log($('#'+b));
+//        $('#'+b).attr('checked', true);
 //      });
     })
+    function remove_lesson(obj){
+      $(obj).parents("table").hide();
+      var b = $(obj).attr('rel');
+      $('#'+b).attr('checked', true);
+    }
+
   </script>
 <% end %>

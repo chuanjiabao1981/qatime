@@ -20,6 +20,11 @@ cn:
         buy_tickets_count: 按报名人数
     columns:
       tickets_count: 人数
+    role:
+      student: 学生
+      teacher: 老师
+      manager: 管理员
+      admin: 管理员
     save_btn: 保存
     cancel_btn: 取消
     insert_btn: 新增%s
@@ -35,6 +40,8 @@ cn:
       surplus: 剩余：
       lesson_time: 课时
       lesson_count: 共%d课
+      lessons_count: 课时
+      lessons_count_of: 共%{lessons_count}课
       current: 当前课程：
       info: 查看详情
       lessons: 课程列表
@@ -155,6 +162,7 @@ cn:
       base_info: 辅导概况
       teacher_info: 教师资料
       lessons_list: 课程列表
+      lessons_plan: 课程安排
       course_name: 辅导班名：
       current_lesson_name: 课程进度：
       live_start_time: 开课时间：
@@ -166,11 +174,12 @@ cn:
       teacher_name: 主讲老师：
       class_date: 直播时间：
       course_description: 辅导简介：
-      teaching_years_text: 执教年龄：
-      teacher_subject: 授课科目：
-      teacher_category: 授课年级：
-      teacher_school_name: 所在学校：
-      teacher_desc: 自我介绍：
+      teaching_years_text: 执教年龄
+      teacher_subject: 授课科目
+      teacher_category: 授课年级
+      teacher_school_name: 所在学校
+      teacher_desc: 自我介绍
+      teacher_summary: 教师简介
   status:
     init: 初始化
     preview: 招生中
@@ -280,6 +289,7 @@ cn:
           teaching: 正在直播
           suspended: 暂停直播
           closed: 直播结束
+          missed: 待补课
 #          finished: 已完成
 #          billing: 已结算
 #          completed: 已完成

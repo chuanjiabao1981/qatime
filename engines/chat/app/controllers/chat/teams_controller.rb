@@ -21,9 +21,9 @@ module Chat
     # 返回群成员列表
     def members
       chat_team = Chat::Team.find_by(team_id: params[:id])
-      @accounts = chat_team.try(:accounts).to_a
+      @accounts = chat_team.accounts.includes(:user).to_a if chat_team
 
-      if !@accounts.blank?
+      if @accounts.present?
         owner = Account.find_by(accid: chat_team.owner)
         members = Chat::Team.online_members(chat_team.team_id)
         @online_accounts = Account.where(accid: members).to_a

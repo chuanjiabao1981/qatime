@@ -238,11 +238,7 @@
   }
 
   function onNormalMsg(msg) {
-    // 处理自定义消息
-    $("#messages").append("<div class='talk-div'>" + msg.fromNick + " 说: " + $.replaceChatMsg(msg.text) +
-      "<div class='talk-time-div'>" + sendMessageTime(msg) + "</div>" +
-      "</div>");
-    $("#messages").scrollTop($("#messages").prop('scrollHeight'));
+    appendMsg(msg);
   }
 
   function refreshTeamMembersUI(teamId) {
@@ -267,6 +263,7 @@
     if(!announcement || announcement == '') announcement = "管理员很懒什么也没有留下"
     $("#notice-panel").html("<p>" + announcement + "</p>")
   }
+
   window.LiveChat = function(appKey) {
     this.appKey = appKey;
     this.config = function(account, token, teamId) {
@@ -309,3 +306,89 @@
     };
   }
 })(this);
+
+
+function sendMessageTime(msg, type){
+  var date = new Date(msg.time);
+  var hours = date.getHours();
+  var minutes = "0" + date.getMinutes();
+  var seconds = "0" + date.getSeconds();
+  if(type == "long"){
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    var date = date.getDate();
+    return year + "-" + month + "-" + date + " " + hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)
+  }
+  else{
+    return hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2)
+  }
+}
+
+function appendMsg(msg, messageClass) {
+  if(!messageClass) messageClass = '';
+  // 处理自定义消息
+  var messageItem = $("<div class='new-information" + messageClass + "'></div>");
+  // 消息标题 老师 发送时间
+  var messageTitle = $("<div class='information-title'></div>");
+  // messageTitle.append("<img src='../img/person-center.png' class='information-title-img'>");
+  messageTitle.append("<span class='information-name'>" + msg.fromNick + "</span>");
+  messageTitle.append("<span class='information-time'>" + sendMessageTime(msg) + "</span>");
+  messageItem.append(messageTitle);
+  // 消息内容
+  var messageContent = $("<div class='information-con'>" + $.replaceChatMsg(msg.text) + "</div>");
+  messageItem.append(messageContent);
+  $("#messages").append(messageItem);
+  $("#messages").scrollTop($("#messages").prop('scrollHeight'));
+}
+
+$(function() {
+  // 聊天tab切换
+  $(".message-title a").click(function  () {
+    var index = $(".message-title a").index($(this));
+    $(this).addClass('message-content active').siblings().removeClass('message-content active');
+    $('.message-con').eq(index).show().siblings().hide();
+  });
+
+  // 清空聊天消息
+  $("#clear-btn").click(function() {
+    $("#messages").empty();
+  });
+
+  // 聊天输入区域
+  $("#message-form").submit(function() {
+    if(!chatInited) return false;
+    msg = $("#message-area").val().trim().replace(/\</g, '&lt;').replace(/\>/g, '&gt;');;
+
+    if(msg == '') return false;
+    var msg = live_chat.nim.sendText({
+      scene: 'team',
+      to: live_chat.teamId,
+      text: msg,
+      done: sendMsgDone
+    });
+    console.log('正在发送p2p text消息, id=' + msg.idClient);
+    $("#message-area").val("");
+    live_chat.pushMsg(msg);
+    return false;
+  });
+
+  // 输入换行
+  $('#message-area').keydown(function() {
+    var message = $(this).val();
+    if (event.keyCode == 13) {
+      if (message == "") {
+        // alert("Enter Some Text In Textarea");
+      } else {
+        $('#message-form').submit();
+      }
+      $("#message-area").val('');
+      return false;
+    }
+  });
+
+  // 消息发送回调
+  function sendMsgDone(error, msg) {
+    appendMsg(msg, ' right');
+    live_chat.pushMsg(msg);
+  }
+});

@@ -3346,13 +3346,14 @@ ul {
   padding: 0 10px;
   height: 40px;
   line-height: 40px;
-  font-size: 20px;
+  font-size: 16px;
   background-color: rgb(40,40,40);
   color: #FFFFFF;
 }
 .area-right-title {
   width: 335px;
   text-align: right;
+  color: #999999;
 }
 .area-left-con {
   position: relative;
@@ -3428,6 +3429,7 @@ ul {
 }
 .information-title {
   padding-left: 5px;
+  line-height: 28px;
 }
 .information-title-img {
   width: 28px;
@@ -3440,7 +3442,15 @@ ul {
 .information-category {
   float: right;
   margin-right: 10px;
-}
+  color: #999999;
+  }
+  .new-information {
+    margin-bottom: 10px;
+  }
+  .information-title .active {
+    color: rgb(190,11,11);
+    display: inline;
+  }
 .screen {
   height: 38px;
   text-align: center;
@@ -3481,7 +3491,7 @@ ul {
 .send-msg {
   overflow: hidden;
 }
-.send-msg input:first-child {
+.send-msg textarea {
   height: 42px;
   width: 270px;
   float: left;
@@ -3489,6 +3499,7 @@ ul {
   padding: 10px;
   border: 1px solid rgb(255,119,0);
   border-radius: 4px 0px 0px 4px;
+  resize: none;
 }
 .send-msg input:last-child {
   width: 42px;
@@ -3531,6 +3542,39 @@ ul {
   padding: 20px !important;
   height: 100%;
 }
+
+/*.video-js .vjs-fullscreen-control {
+    position: absolute !important;
+    right: 0px;
+      }
+   .video-js .vjs-menu-button-inline {
+        position: absolute !important;
+        right: 35%;
+  }
+  #my-video .refresh {
+        margin-top: 8px;
+        margin-left: 6%;
+        width: 16px;
+        height: 14px;
+      }
+  #my-video .barrage {
+    margin-top: 8px;
+    width: 16px;
+    height: 14px;
+    margin-left: 60%;
+  }*/
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

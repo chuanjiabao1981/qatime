@@ -3,7 +3,9 @@
 <head>
   <title>Qatime</title>
   <meta name="renderer" content="webkit">
-  <%= stylesheet_link_tag    "front", media: "all", "data-turbolinks-track" => false %>
+  <%= stylesheet_link_tag "front", media: "all", "data-turbolinks-track" => false %>
+  <%= stylesheet_link_tag "live_studio/application", media: "all", "data-turbolinks-track" => false %>
+  
   <%= javascript_include_tag "live_studio/application", "data-turbolinks-track" => false %>
   <%= csrf_meta_tags %>
   <%= yield :stylesheet %>

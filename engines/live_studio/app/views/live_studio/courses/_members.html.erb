@@ -1,11 +1,12 @@
 <% @accounts.each do |account|%>
-    <%= content_tag(:div, class: 'media') do %>
-        <%= content_tag(:div, class: 'media_left') do %>
-            <%= image_tag(account.icon_url,class: 'media-object img-circle')%>
-        <% end %>
-        <%= content_tag(:div, account.name, class: "media-body #{@online_accounts.try(:include?,account) ? 'online' : nil}") %>
-    <% end %>
-<% end if @accounts %>
+    <div class="new-information">
+      <div class="information-title">
+        <%= image_tag(account.icon_url,class: 'information-title-img')%>
+        <span class="information-user"><%= truncate(account.name, length: 14) %></span>
+        <span class="information-category"><%= t("view.role.#{account.user.role}") %></span>
+      </div>
+    </div>
+<% end if @accounts.present? %>
 <%= hidden_field_tag :online_token, @token %>
 
 <% if @online_accounts %>

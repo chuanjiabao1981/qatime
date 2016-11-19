@@ -20,6 +20,11 @@ cn:
         buy_tickets_count: 按报名人数
     columns:
       tickets_count: 人数
+    role:
+      student: 学生
+      teacher: 老师
+      manager: 管理员
+      admin: 管理员
     save_btn: 保存
     cancel_btn: 取消
     insert_btn: 新增%s

@@ -83,6 +83,7 @@ module LiveStudio
     has_many :course_requests
 
     accepts_nested_attributes_for :lessons, allow_destroy: true
+    attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
     validates_associated :lessons
 
     has_many :students, through: :buy_tickets

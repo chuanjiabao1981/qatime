@@ -1,15 +1,17 @@
-<tr>
-  <td><%= f.index.to_i+1 %></td>
-  <td class="create-td">
-    <%= f.input_field :start_time, placeholder: '请选择开始时间', onclick: 'testShow(this);' %>
-    <i class="fa fa-calendar calendar"></i><br>
-    <%= f.input_field :end_time, placeholder: '请选择结束时间', onclick: 'testShow(this);' %>
-    <i class="fa fa-calendar calendar"></i>
-  </td>
-  <td>
-    <%= f.input_field :name, as: :text, placeholder: '请输入课程名称，格式：第X课+空格+课程标题', rows: 3 %>
-  </td>
-  <td>
-    <%= link_to t("activerecord.view.delete"), 'javascript:void(0);',class: 'remove-lesson' %>
-  </td>
-</tr>
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td><%= f.index.to_i+1 %></td>
+    <td class="create-td">
+      <%= f.input_field :start_time, placeholder: '请选择开始时间', onclick: 'testShow(this);' %>
+      <i class="fa fa-calendar calendar"></i><br>
+      <%= f.input_field :end_time, placeholder: '请选择结束时间', onclick: 'testShow(this);' %>
+      <i class="fa fa-calendar calendar"></i>
+    </td>
+    <td>
+      <%= f.input_field :name, as: :text, placeholder: '请输入课程名称，格式：第X课+空格+课程标题', rows: 3 %>
+    </td>
+    <td>
+      <%= link_to t("activerecord.view.delete"), 'javascript:void(0);',class: 'remove-lesson' %>
+    </td>
+  </tr>
+</table>

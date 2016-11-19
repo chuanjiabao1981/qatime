@@ -1,10 +1,9 @@
 <div class="file-con">
   <div class="file-con-msg">
-    <%= image_tag @course.publicize_url %>
+    <%= image_tag @course.publicize_url, id: 'course_publicize_preview3' %>
     <div class="file-new">
       <span>*</span>
-      <a href="javascript:void(0);" data-toggle="modal" data-target="#edit_avatar">点此更换图片</a>
-      <%= f.input :publicize, as: :file,  label: false, input_html:{onchange:"showimagepreview(this)",style: 'display: none;'}%>
+      <a href="###" data-toggle="modal" data-target="#edit_publicize">点此更换图片</a>
       <p class="create-advice">
         建议：<br>
         图片像素480*300，<br>
@@ -68,6 +67,47 @@
     </div>
   </div>
 </div>
+
+<!-- edit publicize Modal -->
+<div class="modal fade" id="edit_publicize" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"><%= t("view.course_show.edit_publicize_title") %></h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-8">
+            <div style="width: 242px;height: 242px; border: 1px dashed;">
+              <img id="course_publicize_preview" style="width: 100%;">
+            </div>
+          </div>
+          <div class="col-md-4">
+            <p>
+            <div style="width: 128px;height: 128px;overflow: hidden;">
+              <img id="course_publicize_preview2" style="width: 128px;height: 128px;">
+            </div>
+            </p>
+            <p>
+              <% %w[x y w h].each do |attribute| %>
+                <%= f.hidden_field "crop_#{attribute}"%>
+              <% end %>
+              <%= f.input :publicize, label: false, input_html:{onchange:"showimagepreviewarea(this)", style: "display:none;"} %>
+            </p>
+            <p>
+              <button type="button" class="btn btn-default" id="select_avatar_btn"><%= t "teachers.common.select" %></button>
+            </p>
+            <p>
+              <%= link_to t("view.play.close"),'javascript:void(0)','data-dismiss': "modal", class: "btn btn-default",'aria-label': "Close" %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
   function testShow(elem){
     $.jeDate(elem,{
@@ -80,6 +120,64 @@
       minDate: '<%= Date.today.to_s %>', //设定最小日期为当前日期
       //最大日期
     });
+  }
+
+  var jcrop_api, boundx, boundy;
+
+  function showimagepreviewarea(input) {
+    if (input.files && input.files[0]) {
+      var filerdr = new FileReader();
+
+      filerdr.onload = function(e) {
+        $('#course_publicize_preview').attr('src', e.target.result);
+        $("#course_publicize_preview2").attr('src', e.target.result);
+        $("#course_publicize_preview3").attr('src', e.target.result);
+
+        var course_publicize_preview_height = $('#course_publicize_preview').height()
+        console.log(course_publicize_preview_height)
+        $('#course_publicize_preview').parent().css({
+          paddingTop : Math.round((240 - course_publicize_preview_height) / 2) + 'px'
+        });
+      }
+      if (jcrop_api){
+        jcrop_api.destroy();
+      }
+      filerdr.readAsDataURL(input.files[0]);
+      filerdr.onloadend = function(e){
+        console.log(111);
+        $('#course_publicize_preview').Jcrop({
+          bgFade:     true,
+          bgOpacity: .4,
+          aspectRatio: 1 ,
+          setSelect: [ 0, 0, 240, 240 ],
+          onSelect: selectCoords,
+          onChange: selectCoords
+        },function(){
+          var bounds = this.getBounds();
+          boundx = bounds[0];
+          boundy = bounds[1];
+          jcrop_api = this;
+        });
+      }
+    }
+  }
+  function selectCoords(coords) {
+    if (parseInt(coords.w) > 0) {
+      var rx = 128 / coords.w;
+      var ry = 128 / coords.h;
+
+      $('#course_publicize_preview2').css({
+        width : Math.round(rx * boundx) + 'px',
+        height : Math.round(ry * boundy) + 'px',
+        marginLeft : '-' + Math.round(rx * coords.x) + 'px',
+        marginTop : '-' + Math.round(ry * coords.y) + 'px'
+      });
+    }
+
+    $('#course_crop_x').val(coords.x)
+    $('#course_crop_y').val(coords.y)
+    $('#course_crop_w').val(coords.w)
+    $('#course_crop_h').val(coords.h)
   }
 
   $(function  () {
@@ -100,5 +198,34 @@
       }
       flag = true;
     })
+
+    $("#select_avatar_btn").on('click',function(event){
+      $("#course_publicize").click()
+    })
+
+    $("button.close").on('click',function(event){
+      $("#course_publicize").value = ''
+      $('#course_publicize_preview').attr('src', '');
+      $("#course_publicize_preview2").attr('src', '');
+
+      $('#course_publicize_preview').parent().css({
+        paddingTop: '0px'
+      });
+      $('#course_publicize_preview').css({
+        height: 'auto',
+        width: '100%'
+      });
+      $("#course_publicize_preview2").css({
+        height: '128px',
+        width: '128px',
+        marginTop: '0px',
+        marginLeft: '0px'
+      })
+
+      if (jcrop_api){
+        jcrop_api.destroy();
+      }
+    })
   })
+
 </script>

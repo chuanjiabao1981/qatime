@@ -2,69 +2,24 @@
   <%= f.error_notification %>
   <%= f.input :invitation_id, as: :hidden %>
   <p class="file-title">一、辅导概况</p>
-  <%=render 'course_fields', f: f%>
+  <%= render 'course_fields', f: f%>
   <div class="editor-arrange">
     <div class="class-arrtitle">
       二、课程安排
     </div>
   </div>
   <div class="class-con">
-    <table border="0" cellspacing="0" cellpadding="0">
-      <%= f.fields_for :lessons do |lesson| %>
-        <%= render 'lesson_fields', f: lesson%>
-      <% end%>
-    </table>
+    <%= f.fields_for :lessons do |lesson| %>
+      <%= render 'lesson_fields', f: lesson%>
+    <% end%>
+    <%= raw link_to_add_fields("增加一条新课程", f, :lessons, 'live_studio/courses/') %>
   </div>
-  <p><%= raw link_to_add_fields("增加一条新课程", f, :lessons, 'live_studio/courses/') %></p>
   <div class="present">
     <center>
       <%= link_to '预览', 'javascript: void(0);', id: 'course_preview' %>
       <%= link_to '发布招生', 'javascript: void(0);', class: 'submit' %>
     </center>
   </div>
-
-  <div class="modal fade" id="edit_avatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-          <h4 class="modal-title" id="myModalLabel">更换图片</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <form novalidate="novalidate" class="simple_form edit_teacher" id="edit_teacher_2877" enctype="multipart/form-data" action="/teachers/2877?by=avatar&amp;cate=edit_profile" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="_method" value="patch"><input type="hidden" name="authenticity_token" value="v6HwT8g+KFBa8QUaZkfnD9fj81ti5/LG3dbdaX+4Q+xM2jmvkTny5wz+Nd09AU7La3jq/hV6kJR76iEPnv5k9Q==">
-              <div class="col-md-8">
-                <div class="modal-img">
-                  <img id="teacher_avatar_preview">
-                </div>
-              </div>
-              <div class="col-md-4">
-                <p>
-                </p><div class="modal-avatar">
-                <img id="teacher_avatar_preview2">
-              </div>
-                <p></p>
-                <p>
-                  <input type="hidden" name="teacher[crop_x]" id="teacher_crop_x">
-                  <input type="hidden" name="teacher[crop_y]" id="teacher_crop_y">
-                  <input type="hidden" name="teacher[crop_w]" id="teacher_crop_w">
-                  <input type="hidden" name="teacher[crop_h]" id="teacher_crop_h">
-                </p><div class="form-group file optional teacher_avatar"><input onchange="showimagepreviewarea(this)" style="display:none;" class="file optional form-control" type="file" name="teacher[avatar]" id="teacher_avatar"></div>
-                <p></p>
-                <p>
-                  <button type="button" class="btn btn-default" id="select_avatar_btn">选择</button>
-                </p>
-                <p>
-                  <input type="submit" name="commit" value="保存" class="btn btn-default">
-                </p>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
 
 <% end %>
 <% content_for :javascript do %>

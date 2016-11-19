@@ -1,6 +1,6 @@
 <tr>
   <td>
-    <%= link_to live_studio.course_path(course_request.course) do %>
+    <%= link_to live_studio.preview_courses_path(id: course_request.course), method: :post, target: '_blank' do %>
       <span><%= course_request.course.try(:name) %></span>
     <% end %>
   </td>

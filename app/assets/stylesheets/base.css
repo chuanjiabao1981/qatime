@@ -2934,7 +2934,7 @@ color: #999999;
   overflow: hidden;
   margin-left: 20px;
   border-radius: 4px;
-  display: none;
+  /*display: none;*/
 }
 .listen-class:first-child {
   display: block !important;
@@ -3333,13 +3333,13 @@ ul {
 }
 .video-area {
   width: 100%;
-  height: 710px;
-  background-color: rgb(40,40,40);
+  height: 720px;
+  background-color: rgb(241,241,241);
   
 }
 
 .area-left {
-  width: 840px;
+  width: 851px;
   float: left;
 }
 .area-left-title,.area-right-title {
@@ -3347,8 +3347,8 @@ ul {
   height: 40px;
   line-height: 40px;
   font-size: 16px;
-  background-color: rgb(40,40,40);
-  color: #FFFFFF;
+  background-color: rgb(241,241,241);
+  color: #333;
 }
 .area-right-title {
   width: 335px;
@@ -3357,8 +3357,8 @@ ul {
 }
 .area-left-con {
   position: relative;
-  width: 840px;
-  height: 670px;
+  width: 851px;
+  height: 681px;
     padding-bottom:56.25%; 
 }
 .area-right-con {
@@ -3376,9 +3376,9 @@ ul {
 }
 .area-right {
   width: 335px;
-  height: 300px;
-  margin-left: 13px;
-  float: left;
+  height: 721px;
+  /*margin-left: 13px;*/
+  float: right;
   background-color: #FFFFFF;
 }
 .vjs-big-play-button {
@@ -3390,51 +3390,70 @@ ul {
 }
 .live-message {
   width: 100%;
-  height: 481px;
-  border: 1px solid gray;
+  height: 491px;
+  /*border: 1px solid gray;*/
 }
 .message-con {
   background-color: #FFFFFF;
   display: none;
 }
 .affiche {
-  height: 446px !important;
+  height: 458px !important;
 }
 .message-content .active {
   display: block;
 }
 .message-title {
+  width: 100%;
   height: 30px;
   line-height: 30px;
   margin-bottom: 4px;
-  background-color: rgb(153,153,153);
   overflow: hidden;
+  background-color: rgb(153,153,153);
 }
 .message-title a {
   display: inline-block;
-  width: 33.3%;
+  width: 33%;
   float: left;
   color: #FFFFFF;
+  /*background-color: rgb(153,153,153);*/
   font-size: 16px;
   text-align: center;
+}
+.message-title a:last-child {
+  width: 34% !important;
 }
 .message-title .active {
   background-color: #FFFFFF;
   color: #000000;
 }
 .message-new {
-  height: 368px;
+  height: 387px;
   border-bottom: 1px solid rgb(241,241,241);
   overflow-y: scroll;
 }
 .information-title {
   padding-left: 5px;
   line-height: 28px;
+  overflow: hidden;
 }
-.information-title-img {
-  width: 28px;
-  height: 28px;
+.information-title-img,.new-information-stu .information-title-img{
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
+}
+.new-information-stu .information-title-img {
+  float: right;
+  margin-right: 5px;
+}
+.new-information-stu .information-time {
+  float: right;
+  /*margin-right: 4px;*/
+}
+.new-information-stu .information-con {
+  padding-right: 29px;
+  color: #555555;
+  padding-left: 30px;
 }
 .information-user {
   color: #333333;
@@ -3457,35 +3476,59 @@ ul {
   line-height: 38px;
   color: #000000;
 }
-.information-time {
+.information-time,.new-information-stu .information-time {
   color: #999999;
 }
 .information-name {
+  color: #BE0B0B;
+  margin-left: -1px;
+}
+.new-information-else .information-name {
   color: #ff7700;
 }
 .information-con {
-  padding-left: 35px;
-  padding-right: 10px;
+  padding-left: 30px;
+  padding-right: 29px;
   color: #555555;
 }
 .information-face {
-  height: 28px;
-  /*padding-left: 10px;*/
+  height: 29px;
   padding: 1.5px 0 0px 10px;
+  position: relative;
+}
+.face-con {
+  width: 335px;
+  height: 200px;
+  border: 1px solid #F2F2F2;
+  position: absolute;
+  top: -200px;
+  z-index: 100;
+  left: 0px;
+  background-color: #FFFFFF;
+  overflow-y: scroll;
+  display: none;
 }
 .information-face img {
   float: left;
   margin-right: 5px;
 }
-.information-send {
-  height:50px !important;
-  background-color: rgb(153,153,153);
-  padding: 4px 10px;
+.information-face a {
+  display: inline-block;
+  float: right;
+  line-height: 24px;
+  margin-right: 5px;
+  font-size: 12px;
+  color: #6d7d97;
 }
+/*.information-send {
+  height:50px !important;
+  background-color: rgb(153,153,153);*/
+  /*padding: 4px 10px;*/
+/*}*/
 
 .live-head {
   width: 100%;
-  background-color: rgb(40,40,40);
+  /*background-color: rgb(40,40,40);*/
   margin-bottom: 15px;
 }
 .send-msg {
@@ -3493,12 +3536,12 @@ ul {
 }
 .send-msg textarea {
   height: 42px;
-  width: 270px;
+  width: 293px;
   float: left;
   outline: none;
   padding: 10px;
   border: 1px solid rgb(255,119,0);
-  border-radius: 4px 0px 0px 4px;
+  /*border-radius: 4px 0px 0px 4px;*/
   resize: none;
 }
 .send-msg input:last-child {
@@ -3509,7 +3552,7 @@ ul {
   outline: none;
   color: #FFFFFF;
   border: 1px solid rgb(255,119,0);
-  border-radius: 0 4px 4px 0;
+  /*border-radius: 0 4px 4px 0;*/
   background-color: rgb(255,119,0);
 }
 
@@ -3521,7 +3564,7 @@ ul {
     height: 1420px;
   }
   .area-right {
-    margin-left: 0px;
+    float: left;
   }
 }
 
@@ -4241,7 +4284,8 @@ ul {
   width: 100%;
   padding: 5px 8px 0px;
   color: #666666;
-  border: 1px solid #666666;
+  border: 1px solid #999999;
+  border-radius: 4px;
 }
 .class-con table tr td,.adjust-con table tr td {
   padding: 5px 0;
@@ -4269,6 +4313,10 @@ ul {
   text-align: center;
   border: 1px solid #999999 !important;
   display: inline;
+  border-radius: 4px;
+}
+.add-msg {
+  float: right;
 }
 .calendar {
   position: absolute;

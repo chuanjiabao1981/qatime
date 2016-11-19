@@ -27,19 +27,26 @@
             <tr>
               <td><span class="headline-color"><%= t('view.course_info_show.subject')%></span><span class="title-color interval"><%= teacher.subject%></span></td>
               <td><span class="headline-color"><%= t('view.course_info_show.category')%></span> <span class="title-color interval"><%= teacher.category%></span></td>
-              <td><span class="headline-color"><%= t("view.course_show.lesson_time") %></span> <span class="title-color interval">共<%= @course.lessons_count%>课</span></td>
+              <td><span class="headline-color"><%= t("view.course_show.lesson_time") %></span> <span class="title-color interval">共<%= @course.lessons_count %>课</span></td>
             </tr>
             <tr>
               <td colspan="3">
                 <span class="headline-color"><%= t("activerecord.view.date") %></span>
-                <span class="title-color interval"><%= localize(@course.live_start_date, format: :short) %>-<%= localize(@course.live_end_date, format: :short) %></span>
+                <span class="title-color interval">
+                  <% if @live_start_date %>
+                    <%= @live_start_date %>-<%= @live_end_date %>
+                  <% else %>
+                    <%= localize(@course.live_start_date, format: :short) %>-<%= localize(@course.live_end_date, format: :short) %>
+                  <% end %>
+                  
+                </span>
               </td>
             </tr>
             <tr>
               <td colspan="3"><span class="headline-color"><%= t("activerecord.view.status") %></span>
                 <span class="<%= @course.completed? ? 'separator' : 'title-color' %> interval">
                   <%= @course.status_text%>
-                  (<%= @course.published? ? (t('view.course_show.distance_text1') % @course.distance_days) : "#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>)
+                  (<%= @course.published? ? (t('view.course_show.distance_text1') % @course.distance_days) : "#{@course.finished_lessons_count}/#{@course.lessons_count}" %>)
                 </span>
               </td>
             </tr>
@@ -50,7 +57,15 @@
                     <span class="title-color price-num">￥<%= '%0.2f' % @course.price %></span>
                     <span class="sign-up"><%= t('view.course_search_show.purchase_number') %><%= @course.buy_tickets_count%></span>
                   </div>
-                  <%= render "buy_or_taste" if current_user.blank? || current_user.student? %>
+
+                  <div class="listen-class">
+                    <div class="btn-audition">
+                      <%= link_to t('view.course_info_show.join_taste'), "javascript: void(0);" %>
+                    </div>
+                    <div class="btn-sign">
+                      <%= link_to t('activerecord.view.enroll_now'), "javascript: void(0);" %>
+                    </div>
+                  </div>
                 </div>
               </td>
             </tr>
@@ -68,17 +83,3 @@
     </div>
   </div>
 </div>
-
-<% content_for :javascript do %>
-  <script>
-    $(document).ready(function(){
-      $("#taste-course-<%= @course.id %>").bind('ajax:success', function() {
-        <% if current_user.present?%>
-          window.location.reload();
-        <% else %>
-          window.location.href="/signin"
-        <% end %>
-      });
-    })
-  </script>
-<% end %>

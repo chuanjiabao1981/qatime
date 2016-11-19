@@ -251,7 +251,8 @@ module LiveStudio
 
     # 更新完成课程数量
     def reset_completed_lesson_count!
-      update_attributes!(completed_lesson_count: lessons.teached.count)
+      teached_count = lessons.teached.count
+      update_attributes!(finished_lessons_count: teached_count, completed_lesson_count: teached_count)
     end
 
     # 是否可以结课

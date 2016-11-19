@@ -23,7 +23,7 @@
             <h3><%= t('view.common.recent_selected') %>:</h3>
             <p>
               <% @selected_cities.each do |i| %>
-                <%= link_to i, home_path(city_name: i) %>
+                <%= link_to(i == 'country' ? t('view.common_bars.nationwide') : i, home_path(city_name: i)) %>
               <% end if @selected_cities %>
               <%= link_to t('view.common_bars.nationwide'), home_path(city_name: 'country') if @selected_cities.blank? %>
             </p>

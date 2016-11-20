@@ -114,15 +114,15 @@ module LiveService
       user.live_studio_tickets.visiable.includes(course: [:teacher, :lessons]).where(live_studio_lessons: { class_date: Date.today })
     end
 
-
     def self.query_by_params(courses, params)
       %w(subject grade status).each do |i|
         if params[i].present? && params[i] != 'all'
           courses = courses.where(i => i == 'status' ? LiveStudio::Course.statuses[params[i]] : params[i])
         end
       end
-      [["price_floor","price_ceil"], ["class_date_floor","class_date_ceil"], ["preset_lesson_count_floor", "preset_lesson_count_ceil"]].each do |i|
+      [["price_floor","price_ceil"], ["class_date_floor","class_date_ceil"], ["lessons_count_floor", "lessons_count_ceil"], ["preset_lesson_count_floor", "preset_lesson_count_ceil"]].each do |i|
         column = i.first.gsub('_floor', '')
+        column = 'lessons_count' if column == 'preset_lesson_count'
         courses = courses.where("#{column} >= ?",params[i.first]) if params[i.first].present?
         courses = courses.where("#{column} <= ?",params[i.last]) if params[i.last].present?
       end

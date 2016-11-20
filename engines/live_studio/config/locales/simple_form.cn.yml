@@ -11,6 +11,8 @@ cn:
     error_notification:
       default_message: "Please review the problems below:"
     labels:
+      course:
+        price: 价格(元)
       course_invitation:
         user_mobile: 填写被邀请人
         teacher_percent: 设置老师分成

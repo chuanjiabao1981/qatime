@@ -67,7 +67,7 @@ module LiveStudio
     validates :grade, presence: true, if: :grade_changed?
     validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 70, less_than_or_equal_to: 100 }
     # validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
-    validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
+    validates :price, presence: true, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
 
     validates :taste_count, numericality: { less_than_or_equal_to: ->(record) { record.lessons_count.to_i } }
 
@@ -118,6 +118,12 @@ module LiveStudio
     scope :uncompleted, -> { where('status < ?', Course.statuses[:completed]) }
     scope :opening, ->{ where(status: [Course.statuses[:teaching], Course.statuses[:completed]]) }
     scope :for_sell, -> { where(status: [Course.statuses[:teaching], Course.statuses[:published]]) }
+
+    # 目前价格只能是整数
+    # 为了在表单中不显示小数部分做方法覆盖
+    def price
+      @price.to_i
+    end
 
     def cant_publish?
       !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank?

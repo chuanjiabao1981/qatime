@@ -1,6 +1,8 @@
 <div class="file-con">
   <div class="file-con-msg">
-    <%= image_tag @course.publicize_url, id: 'course_publicize_preview3' %>
+    <div style="width:480px; height: 300px; overflow: hidden; float:left;">
+      <%= image_tag @course.publicize_url, id: 'course_publicize_preview3' %>
+    </div>
 
     <div class="file-new">
       <span>*</span>
@@ -48,9 +50,10 @@
     </div>
   </div>
 
+
   <div class="row">
     <div class="col-md-2">
-      <label class="integer required control-label" for="course_invitation_teacher_money"><abbr title="required">*</abbr>价格(元)</label>
+      <%= f.label :price %>
     </div>
     <div class="col-md-10">
       <%= f.input :price, label: false %>
@@ -121,12 +124,11 @@
       }
       filerdr.readAsDataURL(input.files[0]);
       filerdr.onloadend = function(e){
-        console.log(111);
         $('#course_publicize_preview').Jcrop({
           bgFade:     true,
           bgOpacity: .4,
-          aspectRatio: 1 ,
-          setSelect: [ 0, 0, 240, 240 ],
+          aspectRatio: 16/9 ,
+          setSelect: [ 0, 0, 240, 150 ],
           onSelect: selectCoords,
           onChange: selectCoords
         },function(){
@@ -142,12 +144,21 @@
     if (parseInt(coords.w) > 0) {
       var rx = 128 / coords.w;
       var ry = 128 / coords.h;
+      var zx = 480 / coords.w;
+      var zy = 300 / coords.h;
 
       $('#course_publicize_preview2').css({
         width : Math.round(rx * boundx) + 'px',
         height : Math.round(ry * boundy) + 'px',
         marginLeft : '-' + Math.round(rx * coords.x) + 'px',
         marginTop : '-' + Math.round(ry * coords.y) + 'px'
+      });
+
+      $('#course_publicize_preview3').css({
+        width : Math.round(zx * boundx) + 'px',
+        height : Math.round(zy * boundy) + 'px',
+        marginLeft : '-' + Math.round(zx * coords.x) + 'px',
+        marginTop : '-' + Math.round(zy * coords.y) + 'px'
       });
     }
 

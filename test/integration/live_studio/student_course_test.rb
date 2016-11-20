@@ -35,7 +35,6 @@ module LiveStudio
 
     test 'student course filter' do
       click_on '辅导班'
-      binding.pry
       click_link '价格由高到低'
       click_link '更多条件'
       # page.find('.dropdown-submenu').hover

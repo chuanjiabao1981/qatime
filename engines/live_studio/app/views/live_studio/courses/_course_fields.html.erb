@@ -73,7 +73,7 @@
         <div class="row">
           <div class="col-md-8">
             <div style="width: 242px;height: 242px; border: 1px dashed;">
-              <img id="course_publicize_preview" style="width: 100%;">
+              <img id="course_publicize_preview" style="width: 100%;max-height: 240px;">
             </div>
           </div>
           <div class="col-md-4">
@@ -113,10 +113,14 @@
         $("#course_publicize_preview2").attr('src', e.target.result);
         $("#course_publicize_preview3").attr('src', e.target.result);
 
-        var course_publicize_preview_height = $('#course_publicize_preview').height()
-        console.log(course_publicize_preview_height)
+        var course_publicize_preview_height = $('#course_publicize_preview').height();
+        var course_publicize_preview_width = $('#course_publicize_preview').width();
+        console.log(course_publicize_preview_height);
+        console.log(course_publicize_preview_width);
+
         $('#course_publicize_preview').parent().css({
-          paddingTop : Math.round((240 - course_publicize_preview_height) / 2) + 'px'
+          paddingTop : Math.round((240 - course_publicize_preview_height) / 2) + 'px',
+          paddingLeft :  Math.round((150 - course_publicize_preview_width) / 2) + 'px'
         });
       }
       if (jcrop_api){

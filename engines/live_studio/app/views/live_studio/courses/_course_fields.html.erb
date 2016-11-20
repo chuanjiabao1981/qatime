@@ -1,9 +1,12 @@
 <div class="file-con">
   <div class="file-con-msg">
     <%= image_tag @course.publicize_url, id: 'course_publicize_preview3' %>
+
     <div class="file-new">
       <span>*</span>
       <a href="###" data-toggle="modal" data-target="#edit_publicize">点此更换图片</a>
+
+      <%= f.error :publicize, id: 'course_publicize_error' %>
       <p class="create-advice">
         建议：<br>
         图片像素480*300，<br>
@@ -23,7 +26,6 @@
     </div>
     <div class="col-md-10">
       <%= f.input :name, label: false, placeholder: '请输入辅导班名称，最多支持20字', input_html: {maxlength: 20} %>
-      <span class="help-block has-error"></span>
     </div>
   </div>
 
@@ -33,7 +35,6 @@
     </div>
     <div class="col-md-10">
       <%= f.input :description, as: :text, label: false, placeholder: '请输入辅导班介绍', input_html: {min: 70, max: 100} %>
-      <span class="help-block has-error"></span>
     </div>
 
   </div>
@@ -43,17 +44,7 @@
       <label class="integer required control-label" for="course_invitation_teacher_grade"><abbr title="required">*</abbr>年级类型</label>
     </div>
     <div class="col-md-10">
-      <%= f.input :grade, label: false, input_html:{class: 'pull-down-input disabled'} %>
-      <i class="fa fa-angle-down pull-down"></i>
-      <div class="grade-check">
-        <% APP_CONSTANT['grades_in_menu'].each do |grade| %>
-            <span>
-              <input type="radio" name="radio" id="heightsc-three" value="<%= grade %>">
-               <label for="heightsc-three"><%= grade %></label>
-             </span>
-        <% end %>
-      </div>
-      <span class="help-block has-error"></span>
+      <%= f.input :grade, collection: APP_CONSTANT['grades_in_menu'], label: false %>
     </div>
   </div>
 
@@ -63,7 +54,6 @@
     </div>
     <div class="col-md-10">
       <%= f.input :price, label: false %>
-      <span class="help-block has-error"></span>
     </div>
   </div>
 </div>

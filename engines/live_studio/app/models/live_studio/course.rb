@@ -26,6 +26,7 @@ module LiveStudio
       teaching: 2, # 已开课
       completed: 3 # 已结束
     }
+
     enumerize :status, in: {
       rejected: -1, # 被拒绝
       init: 0, # 初始化
@@ -61,7 +62,9 @@ module LiveStudio
       end
     end
 
-    validates :name, :price, :subject, :grade, presence: true
+    validates :name, length: { in: 2..20 }, if: :name_changed?
+    validates :description, length: { minimum: 6 }, presence: true, if: :description_changed?
+    validates :grade, presence: true, if: :grade_changed?
     validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 70, less_than_or_equal_to: 100 }
     # validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
     validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
@@ -72,6 +75,7 @@ module LiveStudio
 
     require 'carrierwave/orm/activerecord'
     mount_uploader :publicize, ::PublicizeUploader
+    validates :publicize, presence: true, on: :create
 
     belongs_to :teacher, class_name: '::Teacher'
 
@@ -239,6 +243,8 @@ module LiveStudio
       description.try(:truncate, len)
     end
 
+
+
     def validate_order(order)
       user = order.user
       order.errors[:product] << '课程目前不对外招生' unless for_sell?
@@ -323,6 +329,13 @@ module LiveStudio
     before_save :check_lessons
     def check_lessons
       return if new_record?
+    end
+
+    # 空格过滤
+    before_validation :strip_text!
+    def strip_text!
+      name.strip!
+      description.strip!
     end
 
     # 处理邀请信息

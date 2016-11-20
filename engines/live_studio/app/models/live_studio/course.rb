@@ -119,12 +119,6 @@ module LiveStudio
     scope :opening, ->{ where(status: [Course.statuses[:teaching], Course.statuses[:completed]]) }
     scope :for_sell, -> { where(status: [Course.statuses[:teaching], Course.statuses[:published]]) }
 
-    # 目前价格只能是整数
-    # 为了在表单中不显示小数部分做方法覆盖
-    def price
-      @price.to_i
-    end
-
     def cant_publish?
       !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank?
     end

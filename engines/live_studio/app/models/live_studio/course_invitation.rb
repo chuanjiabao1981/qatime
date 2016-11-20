@@ -9,7 +9,8 @@ module LiveStudio
       accepted: 1, # 已接受
       refused: 2, # 已拒绝
       expired: 3, # 已过期
-      cancelled: 4 # 已取消
+      cancelled: 4, # 已取消
+      hidden: 5 # 不显示
     }
 
     validates :teacher_percent, presence: true, numericality: { greater_than_or_equal_to: 70, less_than_or_equal_to: 100}, on: :create
@@ -32,6 +33,11 @@ module LiveStudio
       self.expited_at = params[:expited_day].to_i.days.since
       self.target = inviter.workstations.first
       self.status = CourseInvitation.statuses['sent']
+    end
+
+    # 是否可以手动隐藏
+    def can_hide?
+      false
     end
 
     private

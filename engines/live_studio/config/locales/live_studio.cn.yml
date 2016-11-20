@@ -6,7 +6,10 @@ cn:
       courses: 辅导班列表
       teacher:
         my_courses: 我的辅导
+        new_course: 新辅导
+        create_course: 创建辅导班
         my_course_invitations: 邀请和创建
+        current_course_invitations: 已收到的开班邀请
         course:
           all: 全部
           waiting: 待开始

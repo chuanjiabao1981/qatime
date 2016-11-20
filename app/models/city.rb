@@ -7,7 +7,7 @@ class City < ActiveRecord::Base
 
   belongs_to :province
 
-  def name_with_province
-    "#{province.try(:name)}#{name}"
+  def name_with_province(delimiter = '')
+    "#{province.try(:name)}#{delimiter}#{name}"
   end
 end

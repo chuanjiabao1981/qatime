@@ -34,17 +34,19 @@
           <span class="tutorial-con-edit"><%= course.finished_lessons_count %>/<%= course.lessons_count %></span>
         </td>
         <td>
-          <span class="tutorial-con-edit">
-            <%= link_to live_studio.preview_courses_path(id: course), method: :post, target: '_blank' do %>
-              [<%= t("common.preview") %>]
-            <% end %>
-            <%= link_to live_studio.edit_course_path(course) do %>
-              [<%= t("common.edit") %>]
-            <% end if course.init? || course.rejected? %>
-            <%= link_to live_studio.teacher_course_path(@teacher, course), method: :delete, data: { confirm: t("common.confirm_delete") } do %>
-              [<%= t("common.delete") %>]
-            <% end if course.init? || course.rejected? %>
-          </span>
+          <center>
+            <span class="tutorial-con-edit">
+              <%= link_to live_studio.preview_courses_path(id: course), method: :post, target: '_blank' do %>
+                [<%= t("common.preview") %>]
+              <% end %>
+              <%= link_to live_studio.edit_course_path(course) do %>
+                [<%= t("common.edit") %>]
+              <% end if course.init? || course.rejected? %>
+              <%= link_to live_studio.teacher_course_path(@teacher, course), method: :delete, data: { confirm: t("common.confirm_delete") } do %>
+                [<%= t("common.delete") %>]
+              <% end if course.init? || course.rejected? %>
+            </span>
+          </center>
         </td>
       </tr>
     </tbody>

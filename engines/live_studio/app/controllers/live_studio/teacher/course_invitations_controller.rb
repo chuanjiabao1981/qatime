@@ -14,10 +14,17 @@ module LiveStudio
       @course_invitation = @teacher.invitations.find(params[:id])
       if @course_invitation.sent?
         @course_invitation.refused!
-        redirect_to live_studio.teacher_course_invitations_path(@teacher), notice: I18n.t("messages.common.success")
+        redirect_to live_studio.teacher_course_invitations_path(@teacher), notice: I18n.t("common.operate_success")
       else
-        redirect_to live_studio.teacher_course_invitations_path(@teacher), error: I18n.t("messages.common.failed")
+        redirect_to live_studio.teacher_course_invitations_path(@teacher), error: I18n.t("common.operate_failed")
       end
+    end
+
+    # 隐藏
+    def hide
+      @course_invitation = @teacher.invitations.find(params[:id])
+      @course_invitation.hidden! if @course_invitation.can_hide?
+      redirect_to live_studio.teacher_course_invitations_path(@teacher), notice: I18n.t("messages.common.success")
     end
   end
 end

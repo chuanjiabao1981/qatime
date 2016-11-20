@@ -24,7 +24,7 @@
 <div class="editor-msg">
   <div class="row">
     <div class="col-md-2">
-      <label class="string optional control-label" for="course_invitation_user_mobile"><abbr title="required">*</abbr>名称</label>
+      <%= f.label :name %>
     </div>
     <div class="col-md-10">
       <%= f.input :name, label: false, placeholder: '请输入辅导班名称，最多支持20字', input_html: {maxlength: 20} %>
@@ -33,7 +33,7 @@
 
   <div class="row">
     <div class="col-md-2">
-      <label class="integer required control-label" for="course_invitation_teacher_percent"><abbr title="required">*</abbr>辅导介绍</label>
+      <%= f.label :description %>
     </div>
     <div class="col-md-10">
       <%= f.input :description, as: :text, label: false, placeholder: '请输入辅导班介绍', input_html: {min: 70, max: 100} %>
@@ -43,7 +43,7 @@
 
   <div class="row">
     <div class="col-md-2">
-      <label class="integer required control-label" for="course_invitation_teacher_grade"><abbr title="required">*</abbr>年级类型</label>
+      <%= f.label :grade %>
     </div>
     <div class="col-md-10">
       <%= f.input :grade, collection: APP_CONSTANT['grades_in_menu'], label: false %>

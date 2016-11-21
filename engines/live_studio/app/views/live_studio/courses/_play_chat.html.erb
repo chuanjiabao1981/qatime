@@ -14,25 +14,6 @@
         <%= image_tag 'face-1.png', id: "clear-btn" %>
         <%= link_to t("common.message_history"), "javascript: void(0);", id: "history-btn",
                     "data-toggle" => "modal", "data-target" => "#history-modal", style: "float: right;" %>
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="history-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel"><%= t 'view.play.chat_history' %></h4>
-              </div>
-              <div class="modal-body" id="history-area" style="height: 300px; overflow: auto;">
-
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><%= t 'view.play.close' %></button>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
 
@@ -55,6 +36,31 @@
       <div class="message-new affiche" id="members-panel">
       </div>
     </div>
+  </div>
+</div>
+
+<div id="histories" class="message-logging">
+  <div class="logging-title">
+    <div class="logging-left">
+      <i class="glyphicon glyphicon-time"></i>
+      <span><%= t("common.message_history") %></span>
+    </div>
+    <div class="logging-center">
+      <span class="glyphicon glyphicon-chevron-left subtract-jedate"></span>
+      <input type="text" class="workinput wicon mr25" id="inpstart" />
+      <span class="glyphicon glyphicon-chevron-right add-jedate"></span>
+      <label for="inpstart" class="glyphicon glyphicon-calendar date-icon"></label>
+    </div>
+
+    <div class="logging-right">
+      <span class="fa fa-times"></span>
+    </div>
+  </div>
+
+  <div class="logging-more" id="logging-more">查看更多</div>
+
+  <div class="message-con active" id="messages-group">
+    
   </div>
 </div>
 
@@ -95,6 +101,7 @@ $(function() {
   var token = "<%= @chat_account.try(:token) %>";
   var team_role = "<%= @join_record.try(:role) %>";
   var chat_team_id = "<%= @chat_team.try(:team_id) %>";
+  var owner_id = "<%= @chat_team.try(:owner) %>";
 
   // 关闭页面前提示
   $( window ).bind( "beforeunload", function() {
@@ -108,11 +115,12 @@ $(function() {
       accid = data.accid;
       token = data.token;
       chat_team_id = data.team_id;
+      owner_id = data.owner;
       live_chat.config(accid, token, chat_team_id);
       live_chat.init(chatInitCallback);
     });
   } else {
-    live_chat.config(accid, token, chat_team_id);
+    live_chat.config(accid, token, chat_team_id, owner_id);
     live_chat.init(chatInitCallback);
   }
 
@@ -121,12 +129,16 @@ $(function() {
 
 
   // 历史消息
-
-  var time_str = Date.parse(new Date())
   $('#history-btn').click(function(event) {
-    console.log("时间" + time_str);
-    time_str = Date.parse(new Date())
-    appendHistoryMsgs(event,time_str,0);
+    $("#histories").show();
+    var lastMsgId = $("#messages-group div:first").attr("last-msg-id");
+    messageHistory($("#inpstart").val(), lastMsgId);
+  });
+
+  // 加载更多历史消息
+  $("#logging-more").click(function() {
+    var lastMsgId = $("#messages-group div:first").attr("last-msg-id");
+    messageHistory($("#inpstart").val(), lastMsgId);
   });
 
   $("#history-area").scroll(function() {
@@ -166,40 +178,173 @@ $(function() {
   }
 
   function getHistoryMsgsDone(error, obj) {
-    console.log('获取p2p历史消息' + (!error?'成功':'失败'));
-    console.log(error);
+    console.log('获取p2p历史消息' + (!error ? '成功' : '失败'));
     console.log(obj.msgs);
     if (!error) {
-      var append_msgs = ''
+      $("#messages-group div:first").attr("last-msg-id", obj.lastMsgId).empty();
       obj.msgs.forEach(function(msg){
         if(msg.type != "notification"){
-          if(msg.from == accid){
-            append_msgs = append_msgs + "<div class='talk-div'>" + msg.fromNick + "（我）说: " + $.replaceChatMsg(msg.text) +
-              "<div class='talk-time-div'>" + sendMessageTime(msg, 'long') + "</div>" +
-              "</div>"
-          }
-          else{
-            append_msgs = append_msgs + "<div class='talk-div'>" + msg.fromNick + " 说: " + $.replaceChatMsg(msg.text) +
-              "<div class='talk-time-div'>" + sendMessageTime(msg, 'long') + "</div>" +
-              "</div>"
-          }
-        }
-      })
+          var messageNode = $("<div class='new-information'></div>");
+          var messageTitle = $("<div class='information-title'></div>");
+          messageTitle.append("<img src='" + $("#member-icons").find("img.icon-" + msg.from).attr("src") + "' />");
 
-      if (obj.msgs.length == 20){
-        time_str = obj.msgs[0].time
-        $("#history-area").prepend(append_msgs);
-        console.log("开始" + time_str);
-      }else {
-        if(time_str != 0){
-          $("#history-area").prepend(append_msgs);
+          if(msg.from != accid){ 
+            messageTitle.append("<span class='information-name'>" + msg.fromNick + "</span>");
+          }
+          messageTitle.append("<span class='information-time'>" + sendMessageTime(msg) + "</span>");
+          messageNode.append(messageTitle);
+
+          if(msg.from == accid){
+            messageNode.addClass("new-information-stu");
+          } else if(msg.from != owner_id) {
+            messageNode.addClass("new-information-else");
+          }
+          messageNode.append("<div class='information-con'>" + $.replaceChatMsg(msg.text) + "</div>");
+          $("#messages-group div:first").append(messageNode);
+
         }
-        time_str = 0
-        console.log("没有更多了");
-      }
-      $("#history-area").removeClass("loading");
+      });
+      if(obj.msgs.length >= 100) $("#logging-more").show();
     }
   }
+
+  function messageHistory(messageDate, lastMsgId) {
+    messageDate = messageDate.replace(/年/, '-').replace(/月/, '-').replace(/日/, '');
+    beginTime = new Date(messageDate).getTime();
+    endTime = beginTime + 24 * 60 * 60 * 1000;
+    // 聊天窗口群组没有初始化不能加载聊天新记录
+    if(!chatInited) return false;
+    // 显示加载状态
+    var historyParams = {
+      scene: 'team',
+      to: live_chat.teamId,
+      beginTime: beginTime,
+      endTime: endTime,
+      asc: true,
+      done: getHistoryMsgsDone
+    }
+
+    // 第一次加载清空数据
+    if(lastMsgId) {
+      // historyParams.lastMsgId = lastMsgId;
+    } else {
+      $("#messages-group").empty();
+    }
+    $("#logging-more").hide();
+    $("#messages-group").prepend("<div class='logging-con'><center>加载中......</center></div>");
+    live_chat.nim.getHistoryMsgs(historyParams);
+  }
+
+
+  // 日历插件
+
+  var start = {
+    skinCell:"jedatered",
+    clearRestore:false,
+    format: 'YYYY年MM月DD',
+    minDate: '2016-06-11 00:00:00', //设定最小日期为当前日期
+    isinitVal:true,
+    isClear:false, 
+    festival:false,
+    ishmsVal:false,
+    maxDate: '2099-06-30 23:59:59', //最大日期
+    choosefun: function() {
+      // 加载当天数据
+      messageHistory($("#inpstart").val());
+    }
+  };
+
+  $('#inpstart').jeDate(start);
+
+  function addByTransDate(dateParameter, num) {
+    var translateDate = "", dateString = "", monthString = "", dayString = "";
+    translateDate = dateParameter.replace("年", "/").replace("月", "/");
+    var newDate = new Date(translateDate);
+    newDate = newDate.valueOf();
+    newDate = newDate + num * 24 * 60 * 60 * 1000;
+    newDate = new Date(newDate);
+    //如果月份长度少于2，则前加 0 补位  
+    if ((newDate.getMonth() + 1).toString().length == 1) {
+      monthString = 0 + "" + (newDate.getMonth() + 1).toString();
+    } else {
+      monthString = (newDate.getMonth() + 1).toString();
+    }
+    //如果天数长度少于2，则前加 0 补位  
+    if (newDate.getDate().toString().length == 1) {
+      dayString = 0 + "" + newDate.getDate().toString();
+    } else {
+      dayString = newDate.getDate().toString();
+    }
+    dateString = newDate.getFullYear() + "年" + monthString + "月" + dayString;
+    return dateString;
+  }
+   
+  function reduceByTransDate(dateParameter, num) {
+  
+    var translateDate = "", dateString = "", monthString = "", dayString = "";
+    translateDate = dateParameter.replace("年", "/").replace("月", "/");
+    var newDate = new Date(translateDate);
+    newDate = newDate.valueOf();
+    newDate = newDate - num * 24 * 60 * 60 * 1000;
+    newDate = new Date(newDate);
+    //如果月份长度少于2，则前加 0 补位  
+    if ((newDate.getMonth() + 1).toString().length == 1) {
+      monthString = 0 + "" + (newDate.getMonth() + 1).toString();
+    } else {
+      monthString = (newDate.getMonth() + 1).toString();
+    }
+    //如果天数长度少于2，则前加 0 补位  
+    if (newDate.getDate().toString().length == 1) {
+      dayString = 0 + "" + newDate.getDate().toString();
+    } else {
+      dayString = newDate.getDate().toString();
+    }
+    dateString = newDate.getFullYear() + "年" + monthString + "月" + dayString;
+    return dateString;
+  }
+ 
+  //得到日期  主方法
+  function showTime(pdVal) {
+    var trans_day = "";
+    var cur_date = new Date($("#inpstart").val().replace("年", "/").replace("月", "/"));
+    var cur_year = new Date($("#inpstart").val().replace("年", "/").replace("月", "/")).getFullYear();
+    var cur_month = cur_date.getMonth() + 1;
+    var real_date = cur_date.getDate();
+    cur_month = cur_month > 9 ? cur_month : ("0" + cur_month);
+    real_date = real_date > 9 ? real_date : ("0" + real_date);
+    eT = cur_year + "年" + cur_month + "月" + real_date;
+    if (pdVal == 1) {
+      trans_day = addByTransDate(eT, 1);
+    }
+    else if (pdVal == -1) {
+      trans_day = reduceByTransDate(eT, 1);
+    }
+    else {
+      trans_day = eT;
+    }
+   //处理
+    return trans_day;
+  }
+
+  function date() {
+    tqyt=showTime(-1);
+    thyt=showTime(1);
+  }
+  var tqyt;
+  var thyt;
+  $(".subtract-jedate").click(function  () {
+    date ();
+    $("#inpstart").val(tqyt);
+    // 加载当天数据
+    messageHistory($("#inpstart").val());
+  });
+  $(".add-jedate").click(function  () {
+    date ();
+    $("#inpstart").val(thyt);
+    // 加载当天数据
+    messageHistory($("#inpstart").val());
+  });
+
 });
 </script>
 <% end %>

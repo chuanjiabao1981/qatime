@@ -3334,7 +3334,7 @@ ul {
   width: 100%;
   height: 720px;
   background-color: rgb(241,241,241);
-  
+  position: relative;
 }
 
 .area-left {
@@ -3399,6 +3399,10 @@ ul {
 .affiche {
   height: 458px !important;
 }
+.affiche img {
+  width: 18px !important;
+  height: 15px !important;
+}
 .message-content .active {
   display: block;
 }
@@ -3436,18 +3440,17 @@ ul {
   line-height: 28px;
   overflow: hidden;
 }
-.information-title-img,.new-information-stu .information-title-img{
+.new-information img {
   width: 24px;
   height: 24px;
   border-radius: 50%;
 }
-.new-information-stu .information-title-img {
+.new-information-stu img {
   float: right;
   margin-right: 5px;
 }
 .new-information-stu .information-time {
   float: right;
-  /*margin-right: 4px;*/
 }
 .new-information-stu .information-con {
   padding-right: 29px;
@@ -3473,38 +3476,69 @@ ul {
   .message-logging {
     width: 640px;
     height: 640px;
-    border: 1px solid gray;
+    position: absolute;
+    top: 40px;
+    left: 100px;
+    z-index: 10;
+    display: none;
+  }
+  .message-logging .active {
+    display: block;
+    height: 600px;
+  }
+  .message-logging .active  {
+    
+    height: 570px;
+    overflow-y: scroll;
+    border-bottom: 0px;
   }
   .logging-title {
     height: 40px;
     background-color: rgb(222,222,222);
-    line-height: 40px;
-    padding: 0 10px;
+    padding: 0px 10px;
     position: relative;
   }
   .logging-left {
     float: left;
+    line-height: 40px;
     color: #333333;
   }
   .logging-left i {
     display: inline-block;
     font-size: 18px;
     position: relative;
-    top: 4px;
   }
   .logging-center {
     float: left;
     position: absolute;
     left: 50%;
-    
+    top: 10px;
+    margin-left: -85px; 
   }
-  .logging-center span:nth-child(2) {
-    display: inline-block;
-    margin: 0 20px;
+  .date-icon {
+    position: relative;
+    left: -160px;
+      }
+  .logging-center input {
+    border: 0px;
+    width: 135px;
+    margin: 0 5px;
+    text-align: center;
+    color: #666666;
+    background-color: rgb(222,222,222);
   }
   .logging-right {
     float: right;
-    
+    line-height: 40px;
+  }
+  .logging-more {
+    background-color: #FFFFFF;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    cursor: pointer;
+    color: rgb(3,203,253);
+    display: none;
   }
 .screen {
   height: 38px;
@@ -3512,7 +3546,7 @@ ul {
   line-height: 38px;
   color: #000000;
 }
-.information-time,.new-information-stu .information-time {
+.information-time {
   color: #999999;
   font-size: 12px;
 }
@@ -3560,15 +3594,10 @@ ul {
   font-size: 12px;
   color: #00a2ee;
 }
-/*.information-send {
-  height:50px !important;
-  background-color: rgb(153,153,153);*/
-  /*padding: 4px 10px;*/
-/*}*/
+
 
 .live-head {
   width: 100%;
-  /*background-color: rgb(40,40,40);*/
   margin-bottom: 15px;
 }
 .send-msg {
@@ -3581,7 +3610,6 @@ ul {
   outline: none;
   padding: 10px;
   border: 1px solid rgb(255,119,0);
-  /*border-radius: 4px 0px 0px 4px;*/
   resize: none;
 }
 .send-msg input:last-child {
@@ -3592,7 +3620,6 @@ ul {
   outline: none;
   color: #FFFFFF;
   border: 1px solid rgb(255,119,0);
-  /*border-radius: 0 4px 4px 0;*/
   background-color: rgb(255,119,0);
 }
 
@@ -4192,7 +4219,7 @@ ul {
 
 /*创建新辅导班编辑*/
 .create-title {
-  margin: 0 10px;
+  margin: 0 20px;
   height: 40px;
   line-height: 40px;
   border-bottom: 1px solid #F1F1F1;
@@ -4201,7 +4228,7 @@ ul {
 
 
 .editor-con {
-  padding: 0 10px;
+  padding: 0 20px;
 }
 .file-title {
   height: 56px;
@@ -4355,8 +4382,10 @@ ul {
   display: inline;
   border-radius: 4px;
 }
-.add_fields {
-  float: right;
+.add_fields img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }
 .calendar {
   position: absolute;

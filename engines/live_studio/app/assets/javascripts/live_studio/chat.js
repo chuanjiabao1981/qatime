@@ -255,6 +255,7 @@ window.currentTeam = {};
       this.token = token;
       currentTeam.id = this.teamId;
       currentTeam.owner = owner;
+      currentTeam.account = account;
     };
     this.init = function(fn) {
       nim = this.nim = NIM.getInstance({
@@ -352,6 +353,7 @@ function appendMsg(msg, messageClass) {
   var messageTitle = $("<div class='information-title'></div>");
   messageTitle.append("<img src='' class='information-title-img'>");
 
+
   if(msg.from != currentTeam.account){
     messageTitle.append("<span class='information-name'>" + msg.fromNick + "</span>");
   }
@@ -362,6 +364,9 @@ function appendMsg(msg, messageClass) {
   messageItem.append(messageContent);
 
 
+  console.log('xxxxxxxxxxxxxx');
+  console.log(currentTeam.account);
+  console.log(msg.from);
   if(msg.from == currentTeam.account){
     messageItem.addClass("new-information-stu");
   } else if(msg.from != currentTeam.owner) {

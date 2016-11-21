@@ -32,7 +32,7 @@
             <tr>
               <td colspan="3">
                 <span class="headline-color"><%= t("activerecord.view.date") %></span>
-                <span class="title-color interval"><%= localize(@course.live_start_date, format: :short) %>-<%= localize(@course.live_end_date, format: :short) %></span>
+                <span class="title-color interval"><%= localize(@course.live_start_date, format: :short) if @course.live_start_date%>-<%= localize(@course.live_end_date, format: :short) if @course.live_end_date%></span>
               </td>
             </tr>
             <tr>

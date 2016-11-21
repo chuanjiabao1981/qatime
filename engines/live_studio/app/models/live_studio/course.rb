@@ -334,8 +334,8 @@ module LiveStudio
     # 空格过滤
     before_validation :strip_text!
     def strip_text!
-      name.strip!
-      description.strip!
+      name.try(:strip!)
+      description.try(:strip!)
     end
 
     # 处理邀请信息

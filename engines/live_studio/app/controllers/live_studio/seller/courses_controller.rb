@@ -24,7 +24,7 @@ module LiveStudio
 
     # POST /manager/courses
     def create
-      @course = @current_user.live_studio_courses.new(course_params)
+      @course = @current_user.live_studio_courses.new(course_params.merge(author: current_user))
 
       if @course.save
         redirect_to seller_course_path(@seller, @course), notice: i18n_notice('created', @course)

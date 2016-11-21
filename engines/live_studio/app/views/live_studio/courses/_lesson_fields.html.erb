@@ -12,9 +12,9 @@
         <%= f.input :id, as: :hidden %>
       </td>
       <td class="create-td">
-        <%= f.input_field :start_time, placeholder: '请选择开始时间'%>
+        <%= f.input_field :start_time, placeholder: "#{t('helpers.select.prompt')}#{LiveStudio::Lesson.human_attribute_name(:start_time)}"%>
         <i class="fa fa-calendar calendar"></i>
-        <%= f.input_field :end_time, placeholder: '请选择结束时间' %>
+        <%= f.input_field :end_time, placeholder: "#{t('helpers.select.prompt')}#{LiveStudio::Lesson.human_attribute_name(:end_time)}" %>
         <i class="fa fa-calendar calendar"></i>
       </td>
       <td>

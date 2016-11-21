@@ -12,7 +12,7 @@
         <div class="col-md-2 col-md-offset-3 text-right">
           <%= t ".binding_mobile" %>:
         </div>
-        <div class="col-md-3 form_lable">
+        <div class="col-md-3">
           <%= @student.login_mobile %>
         </div>
       </div>
@@ -21,12 +21,10 @@
           <%= t ".mobile_captcha" %>:
         </div>
         <div class="col-md-7">
-          <div class="row">
             <div class="verify-code">
               <div class="form-group string optional student_captcha"><input maxlength="4" id="login_mobile-captcha-input" class="string optional form-control" size="4" type="text" name="captcha"></div>
             </div>
             <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_login_mobile_for_change_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-key="send_captcha" value="<%= t ".get_captcha" %>">
-          </div>
         </div>
       </div>
       <div class="row">
@@ -52,12 +50,10 @@
           <%= t ".mobile_captcha" %>:
         </div>
         <div class="col-md-7">
-          <div class="row">
-            <div class="verify-code">
-              <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 } %>
-            </div>
-            <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-key="send_captcha" value="<%= t ".get_captcha" %>">
+          <div class="verify-code">
+            <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 } %>
           </div>
+          <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-key="send_captcha" value="<%= t ".get_captcha" %>">
         </div>
       </div>
       <div class="row">

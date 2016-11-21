@@ -12,6 +12,27 @@
       <div class="information-face">
         <%= image_tag 'face-2.png', id: "emotion-btn" %>
         <%= image_tag 'face-1.png', id: "clear-btn" %>
+        <%= link_to t("common.message_history"), "javascript: void(0);", id: "history-btn",
+                    "data-toggle" => "modal", "data-target" => "#history-modal", style: "float: right;" %>
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="history-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"><%= t 'view.play.chat_history' %></h4>
+              </div>
+              <div class="modal-body" id="history-area" style="height: 300px; overflow: auto;">
+
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><%= t 'view.play.close' %></button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
 
@@ -97,6 +118,88 @@ $(function() {
 
   // 聊天表情
   $("#emotion-btn").qqFace({ assign: "message-area", path: "<%= asset_path('assets/face/') %>" });
+
+
+  // 历史消息
+
+  var time_str = Date.parse(new Date())
+  $('#history-btn').click(function(event) {
+    console.log("时间" + time_str);
+    time_str = Date.parse(new Date())
+    appendHistoryMsgs(event,time_str,0);
+  });
+
+  $("#history-area").scroll(function() {
+    if(!$(this).hasClass( "loading" ) && time_str != 0){
+      if ($("#history-area").scrollTop() < 150){
+        appendHistoryMsgs(event,time_str,1);
+      }
+    }
+  });
+
+  function appendHistoryMsgs(event,end_time,type) {
+    if(!chatInited) return false;
+    $("#history-area").addClass("loading")
+    if (type == 0) $("#history-area").empty();
+    var msg = live_chat.nim.getHistoryMsgs({
+      scene: 'team',
+      to: live_chat.teamId,
+      endTime: end_time,
+      asc: true,
+      limit: 20,
+      done: getHistoryMsgsDone
+    });
+
+    if (type == 0) {
+      var scrolled = false;
+      function updateScroll(){
+        if(!scrolled){
+          var element = document.getElementById("history-area");
+          element.scrollTop = element.scrollHeight;
+        }
+      }
+      $("#history-area").on('scroll', function(){
+        scrolled=true;
+      });
+      window.setInterval(updateScroll);
+    }
+  }
+
+  function getHistoryMsgsDone(error, obj) {
+    console.log('获取p2p历史消息' + (!error?'成功':'失败'));
+    console.log(error);
+    console.log(obj.msgs);
+    if (!error) {
+      var append_msgs = ''
+      obj.msgs.forEach(function(msg){
+        if(msg.type != "notification"){
+          if(msg.from == accid){
+            append_msgs = append_msgs + "<div class='talk-div'>" + msg.fromNick + "（我）说: " + $.replaceChatMsg(msg.text) +
+              "<div class='talk-time-div'>" + sendMessageTime(msg, 'long') + "</div>" +
+              "</div>"
+          }
+          else{
+            append_msgs = append_msgs + "<div class='talk-div'>" + msg.fromNick + " 说: " + $.replaceChatMsg(msg.text) +
+              "<div class='talk-time-div'>" + sendMessageTime(msg, 'long') + "</div>" +
+              "</div>"
+          }
+        }
+      })
+
+      if (obj.msgs.length == 20){
+        time_str = obj.msgs[0].time
+        $("#history-area").prepend(append_msgs);
+        console.log("开始" + time_str);
+      }else {
+        if(time_str != 0){
+          $("#history-area").prepend(append_msgs);
+        }
+        time_str = 0
+        console.log("没有更多了");
+      }
+      $("#history-area").removeClass("loading");
+    }
+  }
 });
 </script>
 <% end %>

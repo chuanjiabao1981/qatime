@@ -14,7 +14,7 @@
               <td rowspan="3" class="td-pic">
                 <div class="tec-pic">
                   <%= image_tag @course.teacher.avatar_url, class: "live-header" %>
-                  <center><span><%= @course.teacher.name  %></span><%= image_tag @course.teacher.gender, class: "live-user" if @course.teacher.gender %></center>
+                  <center><span><%= @course.teacher.name  %></span><%= image_tag "#{@course.teacher.gender}.png", class: "live-user" if @course.teacher.gender %></center>
                 </div>
               </td>
             </tr>

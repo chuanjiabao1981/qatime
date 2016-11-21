@@ -249,11 +249,12 @@ window.currentTeam = {};
 
   window.LiveChat = function(appKey) {
     this.appKey = appKey;
-    this.config = function(account, token, teamId) {
+    this.config = function(account, token, teamId, owner) {
       this.teamId = teamId;
       this.account = account;
       this.token = token;
       currentTeam.id = this.teamId;
+      currentTeam.owner = owner;
     };
     this.init = function(fn) {
       nim = this.nim = NIM.getInstance({
@@ -351,13 +352,25 @@ function appendMsg(msg, messageClass) {
   var messageTitle = $("<div class='information-title'></div>");
   messageTitle.append("<img src='' class='information-title-img'>");
 
-  messageTitle.append("<span class='information-name'>" + msg.fromNick + "</span>");
+  if(msg.from != currentTeam.account){
+    messageTitle.append("<span class='information-name'>" + msg.fromNick + "</span>");
+  }
   messageTitle.append("<span class='information-time'>" + sendMessageTime(msg) + "</span>");
   messageItem.append(messageTitle);
   // 消息内容
   var messageContent = $("<div class='information-con'>" + $.replaceChatMsg(msg.text) + "</div>");
   messageItem.append(messageContent);
+
+
+  if(msg.from == currentTeam.account){
+    messageItem.addClass("new-information-stu");
+  } else if(msg.from != currentTeam.owner) {
+    messageItem.addClass("new-information-else");
+  }
   $("#messages").append(messageItem);
+
+
+
   $("#messages").scrollTop($("#messages").prop('scrollHeight'));
 
   if($("#member-icons").find("img.icon-" + msg.from).size() > 0) {

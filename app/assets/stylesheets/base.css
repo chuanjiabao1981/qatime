@@ -3399,6 +3399,10 @@ ul {
 .affiche {
   height: 458px !important;
 }
+.affiche img {
+  width: 18px !important;
+  height: 15px !important;
+}
 .message-content .active {
   display: block;
 }
@@ -3436,12 +3440,12 @@ ul {
   line-height: 28px;
   overflow: hidden;
 }
-.information-title-img,.new-information-stu .information-title-img{
+.new-information img {
   width: 24px;
   height: 24px;
   border-radius: 50%;
 }
-.new-information-stu .information-title-img {
+.new-information-stu img {
   float: right;
   margin-right: 5px;
 }
@@ -3503,19 +3507,22 @@ ul {
     display: inline-block;
     font-size: 18px;
     position: relative;
-    /*top: 3px;*/
   }
   .logging-center {
     float: left;
     position: absolute;
     left: 50%;
     top: 10px;
-    margin-left: -85px;
-    
+    margin-left: -85px; 
   }
+  .date-icon {
+    position: relative;
+    left: -160px;
+      }
   .logging-center input {
     border: 0px;
-    margin: 0 20px;
+    width: 135px;
+    margin: 0 5px;
     text-align: center;
     color: #666666;
     background-color: rgb(222,222,222);
@@ -3531,6 +3538,7 @@ ul {
     line-height: 30px;
     cursor: pointer;
     color: rgb(3,203,253);
+    display: none;
   }
 .screen {
   height: 38px;
@@ -3538,7 +3546,7 @@ ul {
   line-height: 38px;
   color: #000000;
 }
-.information-time,.new-information-stu .information-time {
+.information-time {
   color: #999999;
   font-size: 12px;
 }
@@ -4211,7 +4219,7 @@ ul {
 
 /*创建新辅导班编辑*/
 .create-title {
-  margin: 0 10px;
+  margin: 0 20px;
   height: 40px;
   line-height: 40px;
   border-bottom: 1px solid #F1F1F1;
@@ -4220,7 +4228,7 @@ ul {
 
 
 .editor-con {
-  padding: 0 10px;
+  padding: 0 20px;
 }
 .file-title {
   height: 56px;
@@ -4374,8 +4382,10 @@ ul {
   display: inline;
   border-radius: 4px;
 }
-.add_fields {
-  float: right;
+.add_fields img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }
 .calendar {
   position: absolute;

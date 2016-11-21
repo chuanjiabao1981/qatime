@@ -101,6 +101,7 @@ $(function() {
   var token = "<%= @chat_account.try(:token) %>";
   var team_role = "<%= @join_record.try(:role) %>";
   var chat_team_id = "<%= @chat_team.try(:team_id) %>";
+  var owner_id = "<%= @chat_team.try(:owner) %>";
 
   // 关闭页面前提示
   $( window ).bind( "beforeunload", function() {
@@ -114,11 +115,12 @@ $(function() {
       accid = data.accid;
       token = data.token;
       chat_team_id = data.team_id;
+      owner_id = data.owner;
       live_chat.config(accid, token, chat_team_id);
       live_chat.init(chatInitCallback);
     });
   } else {
-    live_chat.config(accid, token, chat_team_id);
+    live_chat.config(accid, token, chat_team_id, owner_id);
     live_chat.init(chatInitCallback);
   }
 
@@ -194,7 +196,7 @@ $(function() {
 
           if(msg.from == accid){
             messageNode.addClass("new-information-stu");
-          } else if(msg.from == accid) {
+          } else if(msg.from != owner_id) {
             messageNode.addClass("new-information-else");
           }
           messageNode.append("<div class='information-con'>" + $.replaceChatMsg(msg.text) + "</div>");
@@ -207,7 +209,6 @@ $(function() {
   }
 
   function messageHistory(messageDate, lastMsgId) {
-    console.log('-------------');
     messageDate = messageDate.replace(/年/, '-').replace(/月/, '-').replace(/日/, '');
     beginTime = new Date(messageDate).getTime();
     endTime = beginTime + 24 * 60 * 60 * 1000;
@@ -223,7 +224,6 @@ $(function() {
       done: getHistoryMsgsDone
     }
 
-    console.log(historyParams);
     // 第一次加载清空数据
     if(lastMsgId) {
       // historyParams.lastMsgId = lastMsgId;
@@ -232,7 +232,6 @@ $(function() {
     }
     $("#logging-more").hide();
     $("#messages-group").prepend("<div class='logging-con'><center>加载中......</center></div>");
-    console.log(historyParams);
     live_chat.nim.getHistoryMsgs(historyParams);
   }
 

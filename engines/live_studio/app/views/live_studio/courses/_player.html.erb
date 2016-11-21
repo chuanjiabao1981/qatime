@@ -3,12 +3,11 @@
 <% end %>
 
 <div class="row">
-  <div class="video-area">
+  <div class="video-area" id="player-and-chat">
     <div class="area-left">
       <div class="area-left-title"><%= @course.name %></div>
       <div class="area-left-con">
         <video id="my-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'loading.png' %>" preload="auto" width="" height="" data-setup="{}">
-          <source src="/imgs/MY_VIDEO.mp4" type="video/mp4">
         </video>
       </div>
     </div>
@@ -20,12 +19,19 @@
       </div>
       <div class="area-right-con">
         <video id="small-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'loading.png' %>" preload="auto" width="" height="" data-setup="{}">
-            <source src="//nos.netease.com/vod163/demo.mp4" type="video/mp4">
         </video>
 
       </div>
       <%= render 'play_chat' %>
     </div>
+  </div>
+
+  <div id="no-flash-area" style="display: none;">
+    <p align="center">
+      <%= t("activerecord.view.flash_can_not_call_msg.flash_uninstall_or_too_old_msg") %>
+      <%= link_to t("activerecord.view.flash_can_not_call_msg.click_here_msg"), "https://get.adobe.com/cn/flashplayer/"  %>
+      <%= t("activerecord.view.flash_can_not_call_msg.install_flash_msg") %>
+    </p>
   </div>
 </div>
 
@@ -33,23 +39,36 @@
 <%= content_for :javascript do %>
 <script>
 $(function() {
-  var boardPlayer = neplayer("my-video", {}, function() {
-  });
+  var boardPlayer, cameraPlayer;
 
-  boardPlayer.setDataSource({
-    type: "rtmp/flv",
-    src: "<%= @course.board_pull_stream %>"
-  });
+  var loadingPlayer = function() {
+    // 白板播放器
+    boardPlayer = neplayer("my-video", {}, function() {
+    });
+    boardPlayer.setDataSource({
+      type: "rtmp/flv",
+      src: "<%= @course.board_pull_stream %>"
+    });
+    boardPlayer = boardPlayer.play();
 
-  boardPlayer.play();
-  var cameraPlayer = neplayer("small-video", {}, function() {
-  });
+    // 摄像头
+    neplayer("small-video", {}, function() {
+    });
+    cameraPlayer.setDataSource({
+      type: "rtmp/flv",
+      src: "<%= @course.camera_pull_stream %>"
+    });
+    cameraPlayer.play();
+  };
 
-  cameraPlayer.setDataSource({
-    type: "rtmp/flv",
-    src: "<%= @course.camera_pull_stream %>"
-  });
-  cameraPlayer.play();
+  //判断flash是否安装
+  if(flashChecker().f) {
+    console.log('xxxxxxxxxxxx');
+    loadingPlayer();
+  } else{
+    $("#player-and-chat").hide();
+    $("#no-flash-area").show() //提示div
+  }
 });
 </script>
 

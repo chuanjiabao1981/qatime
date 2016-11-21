@@ -18,7 +18,7 @@
         <i class="fa fa-calendar calendar"></i>
       </td>
       <td>
-        <%= f.input_field :name, as: :text, placeholder: '请输入课程名称，格式：第X课+空格+课程标题', rows: 3 %>
+        <%= f.input_field :name, as: :text, placeholder: '请输入课程名称，格式：第X课+空格+课程标题', rows: 3, maxlength: 20 %>
       </td>
       <td>
         <%= link_to t("activerecord.view.delete"), 'javascript:void(0)',class: 'remove-lesson', onclick: 'remove_lesson(this);',

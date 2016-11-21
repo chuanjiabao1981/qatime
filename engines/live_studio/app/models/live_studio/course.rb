@@ -72,9 +72,6 @@ module LiveStudio
     validates :taste_count, numericality: { less_than_or_equal_to: ->(record) { record.lessons_count.to_i } }
 
     validates :teacher, presence: true
-
-    require 'carrierwave/orm/activerecord'
-    mount_uploader :publicize, ::PublicizeUploader
     validates :publicize, presence: true, on: :create
 
     belongs_to :teacher, class_name: '::Teacher'
@@ -107,6 +104,9 @@ module LiveStudio
     belongs_to :province
     belongs_to :city
     belongs_to :author, class_name: User
+
+    require 'carrierwave/orm/activerecord'
+    mount_uploader :publicize, ::PublicizeUploader
 
     scope :month, ->(month) {where('live_studio_courses.class_date >= ? and live_studio_courses.class_date <= ?',
       month.beginning_of_month.to_date,

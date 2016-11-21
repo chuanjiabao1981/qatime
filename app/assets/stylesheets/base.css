@@ -3534,18 +3534,20 @@ ul {
   padding: 1.5px 0 0px 10px;
   position: relative;
 }
-.face-con {
+.qqFace {
   width: 335px;
-  height: 200px;
+  height: 184px;
   border: 1px solid #F2F2F2;
   position: absolute;
-  top: -200px;
+  top: -184px;
   z-index: 100;
   left: 0px;
   background-color: #FFFFFF;
   overflow-y: scroll;
   display: none;
+  padding: 6px 8px;
 }
+
 .information-face img {
   float: left;
   margin-right: 5px;

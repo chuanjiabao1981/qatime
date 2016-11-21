@@ -13,6 +13,9 @@ cn:
     labels:
       course:
         price: 价格(元)
+        grade: 年级类型
+        description: 辅导介绍
+        name: 名称
       course_invitation:
         user_mobile: 填写被邀请人
         teacher_percent: 设置老师分成

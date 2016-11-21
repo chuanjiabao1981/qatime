@@ -361,7 +361,7 @@ function appendMsg(msg, messageClass) {
   $("#messages").scrollTop($("#messages").prop('scrollHeight'));
 
   if($("#member-icons").find("img.icon-" + msg.from).size() > 0) {
-    $("#msg-" + msg.idClient).find("img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
+    $("#msg-" + msg.idClient).find(".information-title img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
   } else {
     refreshTeamMembersUI(currentTeam.id, function() {
       $("#msg-" + msg.idClient).find("img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));

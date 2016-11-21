@@ -69,10 +69,10 @@
       <%= link_to t('view.withdraw.common.cancel_withdraw'), cash_user_path(@current_resource) %>
     <% end if @errors.present?%>
     <div class="tech-phone">
-      <div class="tech-payment-password">
-        <span><%= t 'view.payment_password_label' %></span>
-        <%= text_field_tag :payment_password,params[:payment_password],class: 'btn-num', onfocus: '$(this).attr("type","password")' %>
-      </div>
+      <!--<div class="tech-payment-password">-->
+        <!--<span><%#= t 'view.payment_password_label' %></span>-->
+        <!--<%#= text_field_tag :payment_password,params[:payment_password],class: 'btn-num', onfocus: '$(this).attr("type","password")' %>-->
+      <!--</div>-->
 
       <%= content_tag :div, class: 'tech-phone-num' do %>
         <span><%= t 'view.withdraw.common.verify_mobile' %></span>

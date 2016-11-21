@@ -58,7 +58,7 @@ module LiveStudio
 
       # Only allow a trusted parameter "white list" through.
       def order_params
-        params.require(:order).permit(:pay_type, :payment_password)
+        params.require(:order).permit(:pay_type)#, :payment_password
       end
   end
 end

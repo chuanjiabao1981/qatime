@@ -22,7 +22,6 @@ module LiveStudio
     #   course_preview_two = live_studio_courses(:course_preview_two)
     #   course_teaching = live_studio_courses(:course_teaching)
     #   assert(page.has_no_link?("buy-course-#{course_init.id}"), "购买链接错误显示")
-    #   binding.pry
     #   assert(page.has_link?("buy-course-#{course_preview_two.id}"), "不能正常购买辅导班")
     #   assert(page.has_link?("buy-course-#{course_teaching.id}"), "不能正常购买辅导班")
     # end

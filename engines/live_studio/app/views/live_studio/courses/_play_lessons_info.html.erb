@@ -15,7 +15,7 @@
                 <td><span class="fa fa-circle"></span></td>
                 <td><span><%= localize(lesson.class_date, format: :long) %> <%= lesson.start_time %>-<%= lesson.end_time %></span></td>
                 <td><span><%= lesson.name %></span></td>
-                <td><span><%= lesson.status_text %></span></td>
+                <td><span><%= lesson.status_text('student', false) %></span></td>
               </tr>
             <% end -%>
           </tbody>

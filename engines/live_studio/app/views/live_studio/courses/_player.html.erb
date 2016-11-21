@@ -1,7 +1,3 @@
-<% content_for :stylesheet do %>
-  <script src="//nos.netease.com/vod163/nep.min.js"></script>
-<% end %>
-
 <div class="row">
   <div class="video-area" id="player-and-chat">
     <div class="area-left">
@@ -15,7 +11,7 @@
     <div class="area-right">
       <div class="area-right-title">
         <%= t "activerecord.view.chat.chat_team_members_count" %>
-        <span id="team_online_count">0</span>
+        <span id="team_online_count" class="online">0</span>
       </div>
       <div class="area-right-con">
         <video id="small-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'loading.png' %>" preload="auto" width="" height="" data-setup="{}">

@@ -28,7 +28,7 @@ index_live_studio_course_recommend_three:
   target: course_one (LiveStudio::Course)
   type: Recommend::LiveStudioCourseItem
   index: 1
-  city_id: <%=City.find_by(name: '阳泉').id %>
+  city_id: cities(:yangquan)
 index_banner_recommend_one:
   title: 首页banner推荐1
   position: index_live_studio_course_recommend

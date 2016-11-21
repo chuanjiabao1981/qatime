@@ -9,10 +9,10 @@
   <% if signed_in? %>
     <div class="login">
       <span>
-        <%= link_to @none_path || live_studio.send("schedules_#{current_user.role}_path",current_user) do %>
+        <%= link_to live_studio.send("schedules_#{current_user.role}_path",current_user) do %>
           <i class="fa fa-calendar"></i>
           <%= t('view.student_bars.schedules') %>
-        <% end %>
+        <% end if current_user.teacher? || current_user.student? %>
       </span>
       <span>
         <%= link_to main_app.user_notifications_path(current_user) do %>
@@ -20,9 +20,9 @@
         <% end %>
       </span>
       <span>
-        <%= link_to @none_path || send("info_#{current_user.role}_path",current_user) do %>
+        <%= link_to main_app.send("info_#{current_user.role}_path",current_user) do %>
           <i class="glyphicon glyphicon-user"></i><%= t('view.common_bars.personal_center') %>
-        <% end %>
+        <% end if current_user.teacher? || current_user.student? %>
       </span>
       <%= content_tag :span, link_to(t("view.common_bars.sign_out"), main_app.signout_path, method: :delete,class: 'exit' ) %>
     </div>

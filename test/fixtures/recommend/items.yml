@@ -28,14 +28,14 @@ index_live_studio_course_recommend_three:
   target: course_one (LiveStudio::Course)
   type: Recommend::LiveStudioCourseItem
   index: 1
-  city_id: cities(:yangquan)
+  city: yangquan
 index_banner_recommend_one:
   title: 首页banner推荐1
-  position: index_live_studio_course_recommend
+  position: index_banner_recommend
   type: Recommend::BannerItem
   index: 1
 index_banner_recommend_two:
   title: 首页banner推荐2
-  position: index_live_studio_course_recommend
+  position: index_banner_recommend
   type: Recommend::BannerItem
   index: 2

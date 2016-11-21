@@ -8,3 +8,8 @@ index_live_studio_course_recommend:
   klass_name: Recommend::LiveStudioCourseItem
   kee: index_live_studio_course_recommend
   status: 1
+index_banner_recommend:
+  name: 首页banner推荐
+  klass_name: Recommend::BannerItem
+  kee: index_banner_recommend
+  status: 1

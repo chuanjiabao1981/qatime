@@ -15,7 +15,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     res = JSON.parse(response.body)
 
     assert_equal 1, res['status']
-    assert_equal 5, res['data'].size
+    assert_equal 10, res['data'].size
   end
 
   test "get teacher courses list return error of student" do
@@ -36,7 +36,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     res = JSON.parse(response.body)
 
     assert_equal 1, res['status']
-    assert_equal 5, res['data'].size
+    assert_equal 10, res['data'].size
     assert_equal true, res['data'].first.has_key?('lessons')
   end
 
@@ -172,7 +172,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     student = users(:student_one_with_course)
     @remember_token = api_login(student, :app)
     @remember_token = JSON.parse(response.body)['data']['remember_token']
-    course = LiveStudio::Course.preview.last
+    course = LiveStudio::Course.published.last
 
     get "/api/v1/live_studio/courses/#{course.id}/taste", {}, { 'Remember-Token' => @remember_token }
 
@@ -185,7 +185,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
   test 'get play info for course by teacher' do
     student = users(:student_one_with_course)
     @remember_token = api_login(student, :app)
-    course = LiveStudio::Course.preview.last
+    course = LiveStudio::Course.published.last
     get "/api/v1/live_studio/courses/#{course.id}/play_info", {}, { 'Remember-Token' => @remember_token }
     assert_response :success
     res = JSON.parse(response.body)
@@ -194,7 +194,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
   end
 
   test 'get play info for course by student' do
-    course = LiveStudio::Course.preview.last
+    course = LiveStudio::Course.published.last
     get "/api/v1/live_studio/courses/#{course.id}/play_info", {}, { 'Remember-Token' => @student_remember_token }
     assert_response :success
     res = JSON.parse(response.body)
@@ -205,7 +205,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
   test 'create course order by student' do
     student = users(:student_one_with_course)
     @remember_token = api_login(student, :app)
-    course = LiveStudio::Course.preview.last
+    course = LiveStudio::Course.published.last
     assert_difference "Payment::Order.count", 1, "辅导班下单失败" do
       post "/api/v1/live_studio/courses/#{course.id}/orders", {pay_type: :weixin}, {'Remember-Token' => @remember_token}
       assert_response :success, "接口响应错误#{JSON.parse(response.body)}"
@@ -213,7 +213,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
   end
 
   test 'create course order return by teacher' do
-    course = LiveStudio::Course.preview.last
+    course = LiveStudio::Course.published.last
 
     assert_difference "Payment::Order.count", 1, "辅导班下单失败" do
       post "/api/v1/live_studio/courses/#{course.id}/orders", {pay_type: :weixin}, {'Remember-Token' => @student_remember_token}

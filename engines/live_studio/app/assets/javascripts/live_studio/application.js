@@ -31,3 +31,5 @@
 //= require live_studio/chat
 //= require live_studio/courses
 //= require util
+//= require jedate
+//= require jquery.jedate

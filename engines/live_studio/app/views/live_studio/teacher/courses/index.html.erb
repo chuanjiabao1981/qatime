@@ -23,6 +23,9 @@
     <div>
       <div class="tutorial-details">
         <%= render partial: 'course', collection: @courses %>
+        <%= content_tag :div, class: 'no-course' do %>
+          <p>未找到任何辅导班</p>
+        <% end %>
       </div>
     </div>
 

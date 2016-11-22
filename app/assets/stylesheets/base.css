@@ -4184,7 +4184,7 @@ ul {
   float: right;
 }
 .addinvite-title-right a {
-  color: #000;
+  color: #00A2EE;
 }
 .addinvite-title-right a img {
   margin-right: 10px;
@@ -4222,6 +4222,7 @@ ul {
 }
 .addinvite-con table tr td:last-child {
   padding-right: 20px;
+  font-size: 14px;
 }
 .addinvite-con table tr:first-child td {
   height: 34px;
@@ -4393,6 +4394,7 @@ ul {
 }
 .create-time span:first-child,.create-name span:first-child {
   color: #999999;
+
 }
 .create-name span:first-child {
   margin-right: 15px;
@@ -4499,7 +4501,7 @@ ul {
 .date-class input,.start-length select {
   width: 140px;
   height: 32px;
-  color: #999999;
+  color: #999;
 }
 .date-class input {
   padding-left: 5px;
@@ -4525,6 +4527,7 @@ ul {
   margin-right: 20px;
   color: #999999;
 }
+
 .popup-date .has-error,.notice-content .has-error,.now-date .has-error {
   display: inline-block;
   width: 150px;
@@ -4792,7 +4795,7 @@ ul {
 
 /*我的辅导班*/
 .my-tutorial {
-  min-height: 565px;
+  min-height: 560px;
   padding: 0 10px;
 }
 .tutorial-title {
@@ -4802,7 +4805,7 @@ ul {
 }
 .tutorial-title a {
   float: right;
-  color: #000000;
+  color: #00A2EE;
   font-size: 16px;
 }
 .tutorial-nav {
@@ -4848,6 +4851,12 @@ ul {
 }
 .tutorial-con-new i {
   color: #999999;
+}
+.no-course p {
+  font-size: 18px;
+  color: #CCCCCC;
+  text-align: center;
+  line-height: 450px;
 }
 .tutorial-con-msg {
   position: relative;

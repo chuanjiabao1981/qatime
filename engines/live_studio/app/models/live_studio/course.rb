@@ -88,6 +88,7 @@ module LiveStudio
     accepts_nested_attributes_for :lessons, allow_destroy: true
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
     validates_associated :lessons
+    validates :lessons, presence: {message: '请添加至少一节课程'}
 
     has_many :students, through: :buy_tickets
 

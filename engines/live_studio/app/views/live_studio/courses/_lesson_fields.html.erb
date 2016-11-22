@@ -138,8 +138,6 @@
       var hour = $(start_time_hour_id).val();
       var minutes = $(start_time_minute_id).val();
       var duration = $(duration_id).val();
-      if(hour < 10)
-        hour = '0' + hour;
       var start_time = hour + ':' + minutes;
       var end_time = _get_time(hour, minutes, duration);
       var class_date = $(class_date_id).val();
@@ -158,22 +156,32 @@
       if(name.trim() == ''){
         return_flag = false;
         $('.name-error-'+id).html('请输入课程名称');
+      }else{
+        $('.name-error-'+id).html('');
       }
       if(class_date.trim() == '' || class_date.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) == null){
         return_flag = false;
         $('.class_date-error-'+id).html('请选择上课日期');
+      }else{
+        $('.class_date-error-'+id).html('');
       }
       if(hour.trim() == '' || minutes.trim() == ''){
         return_flag = false;
         $('.start_time-error-'+id).html('请选择开始时间');
-      }
-      if(duration.trim() == ''){
-        return_flag = false;
-        $('.duration-error-' + id).html('请选择上课时长');
+      }else{
+        $('.start_time-error-'+id).html('');
       }
       if(end_time < start_time){
         return_flag = false;
         $('.duration-error-' + id).html('上课时长不能跨天');
+      }else{
+        $('.duration-error-' + id).html('');
+      }
+      if(duration.trim() == '' || duration == null){
+        return_flag = false;
+        $('.duration-error-' + id).html('请选择上课时长');
+      }else{
+        $('.duration-error-' + id).html('');
       }
       return return_flag;
     }

@@ -3,7 +3,7 @@
       <div class="information-title">
         <%= image_tag(account.icon_url, class: 'information-title-img')%>
         <span class="information-user<%= ' online' if @online_accounts.try(:include?, account) %>"><%= truncate(account.name, length: 14) %></span>
-        <span class="information-category"><%= t("view.role.#{account.user.role}") %></span>
+        <span class="information-category"><%= t("view.role.#{account.user.try(:role)}") %></span>
       </div>
     </div>
 <% end if @accounts.present? %>

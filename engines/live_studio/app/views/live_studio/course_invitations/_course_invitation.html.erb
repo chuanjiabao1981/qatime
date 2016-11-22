@@ -6,7 +6,7 @@
   </td>
   <td><span><%= course_invitation.user.subject %></span></td>
   <td><span><%= number_to_percentage(course_invitation.teacher_percent, precision: 0) %></span></td>
-  <td><span><%= localize(course_invitation.created_at, format: :long) %></span></td>
+  <td><span><%= course_invitation.created_at.to_s(:db) %></span></td>
   <td><span><%= distance_of_expited_at(course_invitation.expited_at)%></span></td>
   <td><span><%= course_invitation.status.text %></span></td>
   <td>

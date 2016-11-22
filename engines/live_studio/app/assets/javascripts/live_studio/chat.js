@@ -364,9 +364,6 @@ function appendMsg(msg, messageClass) {
   messageItem.append(messageContent);
 
 
-  console.log('xxxxxxxxxxxxxx');
-  console.log(currentTeam.account);
-  console.log(msg.from);
   if(msg.from == currentTeam.account){
     messageItem.addClass("new-information-stu");
   } else if(msg.from != currentTeam.owner) {

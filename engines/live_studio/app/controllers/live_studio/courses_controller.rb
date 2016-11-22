@@ -138,8 +138,7 @@ module LiveStudio
 
     def search_params
       params.permit(
-        :subject, :grade, :sort_by, :status, :price_floor, :lessons_count_floor, :lessons_count_ceil,
-        :price_ceil, :class_date_floor, :class_date_ceil, :preset_lesson_count_floor,:preset_lesson_count_ceil
+        :subject, :grade, :sort_by, :status, :price_floor, :price_ceil, :class_date_floor, :class_date_ceil
       )
     end
 

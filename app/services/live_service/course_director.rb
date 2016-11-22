@@ -100,6 +100,11 @@ module LiveService
       order
     end
 
+    # 清理全部完成的辅导班
+    def self.clean_courses
+      LiveStudio::Course.teaching.where("completed_lesson_count >= lessons_count").find_each(batch_size: 200).map(&:complete!)
+    end
+
     private
 
     # 分类查询辅导班

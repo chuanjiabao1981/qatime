@@ -11,7 +11,7 @@ module LiveStudio
     end
 
     SYSTEM_FEE = 0.5 # 系统每个人每分钟收费0.5元
-    WORKSTATION_PERCENT = 0.6 # 基础服务费代理商分成
+    WORKSTATION_PERCENT = 0.6 # 基础服务费代理商分成 60%
 
     USER_STATUS_BOUGHT = :bought # 已购买
     USER_STATUS_TASTING = :tasting # 正在试听
@@ -57,7 +57,7 @@ module LiveStudio
         transitions from: :published, to: :teaching
       end
 
-      event :comple do
+      event :complete do
         transitions from: :teaching, to: :completed
       end
     end

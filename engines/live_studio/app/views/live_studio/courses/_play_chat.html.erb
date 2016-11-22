@@ -134,8 +134,7 @@ $(function() {
   // 历史消息
   $('#history-btn').click(function(event) {
     $("#histories").show();
-    var lastMsgId = $("#messages-group div:first").attr("last-msg-id");
-    messageHistory($("#inpstart").val(), lastMsgId);
+    messageHistory($("#inpstart").val());
   });
 
   $("#history-close").click(function() {
@@ -223,7 +222,7 @@ $(function() {
 
   function messageHistory(messageDate, lastMsgId) {
     messageDate = messageDate.replace(/年/, '-').replace(/月/, '-').replace(/日/, '');
-    beginTime = new Date(messageDate).getTime();
+    beginTime = new Date(messageDate + " 00:00:00").getTime();
     endTime = beginTime + 24 * 60 * 60 * 1000;
     // 聊天窗口群组没有初始化不能加载聊天新记录
     if(!chatInited) return false;

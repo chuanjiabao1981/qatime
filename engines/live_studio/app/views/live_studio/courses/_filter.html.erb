@@ -92,13 +92,6 @@
         <li>元</li>
       </ul>
 
-      <ul class="list-scope">
-        <li class="list-headline"><%= LiveStudio::Course.human_attribute_name(:lessons_count_region) %>: </li>
-        <li><%= text_field_tag :lessons_count_floor, params[:lessons_count_floor], class: 'search-input' %></li>
-        <li class="price-segmentation">-</li>
-        <li><%= text_field_tag :lessons_count_ceil, params[:lessons_count_ceil], class: 'search-input' %></li>
-      </ul>
-
       <ul class="list-remedial">
         <li class="list-headline"><%= LiveStudio::Course.human_attribute_name(:class_date_region) %>: </li>
         <li>

@@ -34,7 +34,7 @@
             </tr>
             <tr>
               <td colspan="3">
-                <span class="headline-color"><%= t("activerecord.view.date") %></span><span class="title-color interval"><%= localize(@course.live_start_date, format: :long) %>-<%= localize(@course.live_end_date, format: :long) %></span>
+                <span class="headline-color"><%= t("activerecord.view.date") %></span><span class="title-color interval"><%= @course.live_start_date.try(:to_s) %>至<%= @course.live_end_date.to_s(:db) %></span>
               </td>
             </tr>
             <tr>

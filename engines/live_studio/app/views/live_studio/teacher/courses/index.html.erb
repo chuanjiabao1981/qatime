@@ -25,7 +25,7 @@
         <%= render partial: 'course', collection: @courses %>
         <%= content_tag :div, class: 'no-course' do %>
           <p>未找到任何辅导班</p>
-        <% end %>
+        <% end if @courses.blank? %>
       </div>
     </div>
 

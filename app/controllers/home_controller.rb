@@ -11,8 +11,7 @@ class HomeController < ApplicationController
   end
 
   def new_index
-    set_city
-    @recommend_courses, @recommend_teachers, @recommend_banners = DataService::HomeData.home_data_by_city(@city.try(:id))
+    @recommend_courses, @recommend_teachers, @recommend_banners = DataService::HomeData.home_data_by_city(@location_city.try(:id))
     @user_path = @user.blank? ? signin_path : (!@user.student? && !@user.teacher? && !@user.manager? && 'javascript:void(0);')
   end
 
@@ -26,14 +25,4 @@ class HomeController < ApplicationController
     @user = current_user
   end
 
-  def set_city
-    cookie_city = cookies[:selected_cities].try(:split, '-').try(:first)
-    @city = City.find_by(id: params[:city_id]) || City.find_by(name: params[:city_name] || cookie_city)
-    # return if @city.blank?
-    selected_cities = cookies[:selected_cities].try(:split, '-') || []
-    selected_cities.delete(@city.name) if @city && selected_cities.include?(@city.name)
-    selected_cities = selected_cities.insert(0, @city.try(:name) || 'country')
-    cookies[:selected_cities] = selected_cities.uniq.try(:join, '-')
-    @city
-  end
 end

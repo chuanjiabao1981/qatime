@@ -2,6 +2,9 @@ require 'encryption'
 module LiveStudio
   class Lesson < ActiveRecord::Base
     has_soft_delete
+    extend Enumerize
+
+    attr_accessor :start_time_hour, :start_time_minute
 
     enum status: {
       missed: -1, # 已错过
@@ -14,6 +17,18 @@ module LiveStudio
       billing: 6, # 结算中
       completed: 7 # 已结算
     }
+
+    enumerize :duration, in: {
+      minutes_30: 30,
+      minutes_45: 45,
+      hours_1: 60,
+      hours_half_90: 90,
+      hours_2: 120,
+      hours_half_150: 150,
+      hours_3: 180,
+      hours_half_210: 210,
+      hours_4: 240
+    }, i18n_scope: "enumerize.live_studio/lessons.durations", scope: true, predicates: { prefix: true }
 
     # default_scope { order("id asc") }
     scope :unfinish, -> { where("status < ?", Lesson.statuses[:finished]) } # 未完成的课程
@@ -36,9 +51,10 @@ module LiveStudio
 
     has_many :live_sessions # 直播 心跳记录
 
-    validates :name, :start_time, :end_time, :class_date, presence: true
+    validates :name, :class_date, presence: true
 
     before_create :data_preview
+    before_save :data_confirm
     after_commit :update_course
 
     include AASM
@@ -79,6 +95,27 @@ module LiveStudio
 
       event :complete do
         transitions from: [:finished, :billing], to: :completed
+      end
+    end
+
+    def start_time_hour
+      start_time.try(:split,':').try(:first)
+    end
+
+    def start_time_minute
+      start_time.try(:split,':').try(:last)
+    end
+
+    def start_time
+      return "#{start_time_hour}:#{start_time_minute}" if new_record? && errors.present?
+      super
+    end
+
+    def end_time
+      if new_record? && errors.present?
+        "#{(start_time_hour.to_i + (start_time_minute.to_i + duration_value.to_i) / 60)}:#{(start_time_minute.to_i + duration_value.to_i) % 60}"
+      else
+        super
       end
     end
 
@@ -213,6 +250,13 @@ module LiveStudio
     # 今日课程立即是ready状态
     def data_preview
       self.status = class_date == Date.today ? 1 : 0
+    end
+
+    def data_confirm
+      if start_time_hour || start_time_minute
+        self.start_time = "#{start_time_hour}:#{start_time_minute}"
+        self.end_time =  "#{(start_time_hour.to_i + (start_time_minute.to_i + duration_value.to_i) / 60)}:#{(start_time_minute.to_i + duration_value.to_i) % 60}"
+      end
     end
 
     def update_course

@@ -36,7 +36,7 @@
       <%= f.label :description %>
     </div>
     <div class="col-md-10">
-      <%= f.input :description, as: :text, label: false, placeholder: '请输入辅导班介绍', input_html: {min: 70, max: 100} %>
+      <%= f.input :description, as: :text, label: false, placeholder: '请输入辅导班介绍（最多300字）', input_html: {min: 70, max: 300, rows: 5} %>
     </div>
 
   </div>
@@ -46,17 +46,24 @@
       <%= f.label :grade %>
     </div>
     <div class="col-md-10">
-      <%= f.input :grade, collection: APP_CONSTANT['grades_in_menu'], label: false %>
+      <%= f.input :grade, collection: APP_CONSTANT['grades_in_menu'], label: false, prompt: '请选择年级' %>
     </div>
   </div>
-
 
   <div class="row">
     <div class="col-md-2">
       <%= f.label :price %>
     </div>
     <div class="col-md-10">
-      <%= f.input :price, label: false %>
+      <%= f.input :price, label: false, placeholder: '请输入正整数'%>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :taste_count %>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :taste_count, label: false, placeholder: '请选择允许试听的课程数量（正整数）,不选择默认为0' %>
     </div>
   </div>
 </div>

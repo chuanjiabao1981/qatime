@@ -62,12 +62,13 @@ module LiveStudio
       end
     end
 
+    validates_presence_of :name, :description, :grade, :price
     validates :name, length: { in: 2..20 }, if: :name_changed?
     validates :description, length: { minimum: 6 }, presence: true, if: :description_changed?
     validates :grade, presence: true, if: :grade_changed?
     validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 70, less_than_or_equal_to: 100 }
     # validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
-    validates :price, presence: true, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
+    validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
 
     validates :taste_count, numericality: { less_than_or_equal_to: ->(record) { record.lessons_count.to_i } }
 

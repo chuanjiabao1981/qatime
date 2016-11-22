@@ -18,8 +18,8 @@ module LiveStudio
 
     def new
       @invitation = CourseInvitation.sent.find_by(id: params[:invitation_id]) if params[:invitation_id]
-      @course = Course.new(invitation: @invitation)
-      5.times { @course.lessons.build }
+      @course = Course.new(invitation: @invitation,price: nil, taste_count: nil)
+      1.times { @course.lessons.build }
       render layout: current_user_layout
     end
 
@@ -143,16 +143,16 @@ module LiveStudio
     end
 
     def courses_params
-      if params[:course] && params[:course][:lessons_attributes]
-        params[:course][:lessons_attributes].map do |_, attr|
-          attr['class_date'] = attr['start_time'][0,10]
-          attr['start_time'] = attr['start_time'][11,8]
-          attr['end_time'] = attr['end_time'][11,8]
-        end
-      end
+      # if params[:course] && params[:course][:lessons_attributes]
+      #   params[:course][:lessons_attributes].map do |_, attr|
+      #     attr['class_date'] = attr['start_time'][0,10]
+      #     attr['start_time'] = attr['start_time'][11,8]
+      #     attr['end_time'] = attr['end_time'][11,8]
+      #   end
+      # end
       params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map(&:second) if params[:course] && params[:course][:lessons_attributes]
-      params.require(:course).permit(:name, :grade, :price, :invitation_id, :description, :crop_x, :crop_y, :crop_w, :crop_h, :publicize,
-          lessons_attributes: [:id, :name, :class_date, :start_time, :end_time, :_destroy])
+      params.require(:course).permit(:name, :grade, :price, :invitation_id, :description, :taste_count, :crop_x, :crop_y, :crop_w, :crop_h, :publicize,
+          lessons_attributes: [:id, :name, :class_date, :start_time_hour, :start_time_minute,:duration, :_destroy])
     end
 
     def preview_courses_params

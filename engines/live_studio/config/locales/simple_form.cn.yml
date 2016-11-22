@@ -16,6 +16,7 @@ cn:
         grade: 年级类型
         description: 辅导介绍
         name: 名称
+        taste_count: 试听(节)
       course_invitation:
         user_mobile: 填写被邀请人
         teacher_percent: 设置老师分成

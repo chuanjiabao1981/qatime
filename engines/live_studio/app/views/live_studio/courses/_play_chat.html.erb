@@ -134,8 +134,7 @@ $(function() {
   // 历史消息
   $('#history-btn').click(function(event) {
     $("#histories").show();
-    var lastMsgId = $("#messages-group div:first").attr("last-msg-id");
-    messageHistory($("#inpstart").val(), lastMsgId);
+    messageHistory($("#inpstart").val());
   });
 
   $("#history-close").click(function() {

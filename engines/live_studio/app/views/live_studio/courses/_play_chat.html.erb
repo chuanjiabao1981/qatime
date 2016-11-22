@@ -57,11 +57,12 @@
       <%= link_to "", "javascript: void(o);", id: "history-close", class: "fa fa-times" %>
     </div>
   </div>
+  <div class="history-content">
+    <div class="logging-more" id="logging-more"><%= t("view.play.more") %></div>
+    <div class="logging-nomore" id="logging-nomore"><%= t("view.play.nomore") %></div>
 
-  <div class="logging-more" id="logging-more"><%= t("view.play.more") %></div>
-  <div class="logging-nomore" id="logging-nomore"><%= t("view.play.nomore") %></div>
-
-  <div class="message-con active" id="messages-group">
+    <div class="message-con active" id="messages-group">
+    </div>
   </div>
 </div>
 <% end %>
@@ -232,6 +233,7 @@ $(function() {
       to: live_chat.teamId,
       beginTime: beginTime,
       endTime: endTime,
+      limit: 100,
       asc: true,
       done: getHistoryMsgsDone
     }

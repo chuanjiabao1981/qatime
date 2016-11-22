@@ -3484,17 +3484,17 @@ ul {
     border: 1px solid #dedede;
     background-color: #ffffff;
   }
+  .history-content {
+    height: 578px;
+    overflow-y: scroll;
+  }
   .message-logging .active {
     display: block;
-    height: 578px;
+    height: 548px;
          padding: 12px 5px;
-    overflow-y: scroll;
     border-bottom: 0px
   }
-  /*.message-logging .active  {
-    
-    ;
-  }*/
+  
   .logging-title {
     height: 40px;
     background-color: rgb(222,222,222);

@@ -80,7 +80,7 @@ module LiveStudio
       channel = course.init_channel
 
       streams1 = channel.push_streams.first
-      streams2 = channel.pull_streams.last
+      streams2 = channel.pull_streams.first
 
       assert_equal("bfca60cef2eb464fbf0f05c3fafacef1", channel.remote_id, '频道remote_id不正确')
 
@@ -93,22 +93,25 @@ module LiveStudio
 
       response = Typhoeus::Response.new(code: 200, body: @create_response_body1)
       Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)
+      Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)
 
       channel = course.init_channel
       response = Typhoeus::Response.new(code: 200, body: @delete_response_body)
       Typhoeus.stub('https://vcloud.163.com/app/channel/delete').and_return(response)
+      Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)
 
       response = Typhoeus::Response.new(code: 200, body: @create_response_body2)
+      Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)
       Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)
 
       channel.sync_streams
 
       streams1 = channel.push_streams.first
-      streams2 = channel.pull_streams.last
+      streams2 = channel.pull_streams.first
       assert_equal("bfca60cef2eb464fbf0f05c3fafacef2", channel.remote_id, '频道remote_id不正确')
 
       assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044b", streams1.address, '推流地址不正确')
-      assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044ee", streams2.address, 'rtmp拉流地址不正确')
+      assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044e", streams2.address, 'rtmp拉流地址不正确')
     end
 
     test "board push stream address" do

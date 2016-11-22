@@ -53,14 +53,13 @@
     </div>
 
     <div class="logging-right">
-      <span class="fa fa-times"></span>
+      <%= link_to "", "javascript: void(o);", id: "history-close", class: "fa fa-times" %>
     </div>
   </div>
 
   <div class="logging-more" id="logging-more">查看更多</div>
 
   <div class="message-con active" id="messages-group">
-    
   </div>
 </div>
 
@@ -133,6 +132,10 @@ $(function() {
     $("#histories").show();
     var lastMsgId = $("#messages-group div:first").attr("last-msg-id");
     messageHistory($("#inpstart").val(), lastMsgId);
+  });
+
+  $("#history-close").click(function() {
+    $("#histories").hide();
   });
 
   // 加载更多历史消息

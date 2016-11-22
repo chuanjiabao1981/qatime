@@ -15,7 +15,7 @@ module Chat
       # 当前用户没有加入群组立即加入群组
       @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id)
       @join_record ||= LiveService::ChatTeamManager.new(@chat_team).add_to_team([@chat_account], 'normal')
-      render json: { team_id: @chat_team.team_id, token: @chat_account.token, accid: @chat_account.accid, owner: @chat_account.owner }
+      render json: { team_id: @chat_team.team_id, token: @chat_account.token, accid: @chat_account.accid, owner: @chat_team.owner }
     end
 
     # 返回群成员列表

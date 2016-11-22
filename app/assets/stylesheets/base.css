@@ -3524,12 +3524,16 @@ ul {
     width: 135px;
     margin: 0 5px;
     text-align: center;
+    padding-left: 27px;
     color: #666666;
     background-color: rgb(222,222,222);
   }
   .logging-right {
     float: right;
     line-height: 40px;
+  }
+  .logging-right a {
+    color: #333;
   }
   .logging-more {
     background-color: #FFFFFF;
@@ -4231,10 +4235,12 @@ ul {
   padding: 0 20px;
 }
 .file-title {
-  height: 56px;
-  line-height: 56px;
+  height: 30px;
+  line-height: 30px;
+  margin: 10px 0px 20px;
   font-size: 16px;
   color: #000000;
+  background-color: #f1f1f1;
 }
 .file-con {
   overflow: hidden;
@@ -4294,10 +4300,11 @@ ul {
   padding-bottom: 4px;
   border: 1px solid #999999;
  }
- /*.editor-msg textarea {
- border: 1px solid #999999; 
+ .editor-msg textarea {
+ border: 1px solid #CCCCCC; 
  padding: 6px 8px 0px;
- }*/
+ border-radius: 4px;
+ }
 .title-editor {
   color: red;
 }

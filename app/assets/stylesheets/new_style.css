@@ -4,6 +4,7 @@
     top: 38px !important;
     background-color: rgb(190,11,11) !important;
     border: 0px !important;
+    z-index: 10 !important;
 }
 
 .nav li a {
@@ -68,7 +69,7 @@ header {
     background-color: #e1e1e1;
     position: fixed;
     top: 0;
-    z-index: 100;
+    z-index: 10;
 }
 .header-content {
     height: 38px;

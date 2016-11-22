@@ -39,6 +39,8 @@
   </div>
 </div>
 
+
+<%= content_for :mask do %>
 <div id="histories" class="message-logging">
   <div class="logging-title">
     <div class="logging-left">
@@ -58,11 +60,12 @@
   </div>
 
   <div class="logging-more" id="logging-more"><%= t("view.play.more") %></div>
+  <div class="logging-nomore" id="logging-nomore"><%= t("view.play.nomore") %></div>
 
   <div class="message-con active" id="messages-group">
   </div>
 </div>
-
+<% end %>
 
 <%= content_for :javascript do %>
 <script>
@@ -208,7 +211,13 @@ $(function() {
 
         }
       });
-      if(obj.msgs.length >= 100) $("#logging-more").show();
+      if(obj.msgs.length >= 100) {
+        // 加载更多消息按钮
+        $("#logging-more").show();
+      } else {
+        // 没有更多消息
+        $("#logging-nomore").show();
+      }
     }
   }
 
@@ -347,6 +356,22 @@ $(function() {
     $("#inpstart").val(thyt);
     // 加载当天数据
     messageHistory($("#inpstart").val());
+  });
+
+
+  $(".logging-title").mousedown(function(){
+    var abs_x = event.clientX - $('.message-logging').offset().left;
+    var abs_y = event.clientY - $('.message-logging').offset().top;
+    $(document).mousemove(function (e) {
+      var xPos = (e.clientX - abs_x)  + "px";
+      var yPos = (e.clientY - abs_y) + "px";
+      $(".message-logging").css("left", xPos);  
+      $(".message-logging").css("top", yPos);  
+    }); 
+  });
+
+  $(document).mouseup(function(){
+    $(document).unbind('mousemove');
   });
 
 });

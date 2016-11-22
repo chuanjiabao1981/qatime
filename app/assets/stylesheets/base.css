@@ -3537,14 +3537,19 @@ ul {
   .logging-right a {
     color: #333;
   }
-  .logging-more {
+  .logging-more,.logging-nomore {
     background-color: #FFFFFF;
     height: 30px;
     text-align: center;
     line-height: 30px;
     cursor: pointer;
-    color: rgb(3,203,253);
     display: none;
+  }
+  .logging-more {
+    color: rgb(3,203,253);
+  }
+  .logging-nomore {
+    color: #CCCCCC;
   }
 .screen {
   height: 38px;
@@ -4523,6 +4528,9 @@ ul {
   color: red;
   line-height: 30px;
 }
+.now-date .has-error {
+  margin-left: 8px;
+}
 .popup-date .has-error {
   position: relative;
   left: 80px;
@@ -4555,6 +4563,11 @@ ul {
   margin: 20px 0px 20px 110px;
   color: #666666;
 }
+.now-date {
+  position: relative;
+  top: 20px;
+  margin-bottom: 35px;
+}
 .original-date i {
   margin-left: 15px;
 }
@@ -4566,13 +4579,16 @@ ul {
   color: #666666;
   margin-right: 15px;
 }
-.new-date {
-  margin-right: 72px;
-}
+
 .new-date input {
   width: 214px;
   height: 32px;
   color: #999999;
+}
+.newstart-time {
+  position: absolute;
+  top: 0px !important;
+  left: 380px;
 }
 .newstart-time select{
   width: 70px;

@@ -244,6 +244,7 @@ $(function() {
       $("#messages-group").empty();
     }
     $("#logging-more").hide();
+    $("#logging-nomore").hide();
     $("#messages-group").prepend("<div class='logging-con'><center>加载中......</center></div>");
     live_chat.nim.getHistoryMsgs(historyParams);
   }

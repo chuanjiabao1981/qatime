@@ -34,9 +34,9 @@
                 <span class="headline-color"><%= t("activerecord.view.date") %></span>
                 <span class="title-color interval">
                   <% if @live_start_date %>
-                    <%= @live_start_date %>-<%= @live_end_date %>
+                    <%= @live_start_date %>至<%= @live_end_date %>
                   <% else %>
-                    <%= localize(@course.live_start_date, format: :short) %>-<%= localize(@course.live_end_date, format: :short) %>
+                    <%= @course.live_start_date.try(:to_s) %>至<%= @course.live_end_date.try(:to_s) %>
                   <% end %>
                   
                 </span>

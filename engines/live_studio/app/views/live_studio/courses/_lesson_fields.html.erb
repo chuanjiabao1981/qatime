@@ -116,7 +116,7 @@
         }
       }else{
         $('#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:_destroy)).at_css('input').attributes['id'].value %>').attr('checked', true);
-        $(this).parents("table").remove();
+        $(this).parents("table").hide();
       }
     });
 
@@ -157,7 +157,7 @@
       }
       if(class_date.trim() == '' || class_date.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) == null){
         return_flag = false;
-        $('.class_date-error-'+id).html('请输入上课日期');
+        $('.class_date-error-'+id).html('请选择上课日期');
       }
       if(hour.trim() == '' || minutes.trim() == ''){
         return_flag = false;

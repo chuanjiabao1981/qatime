@@ -62,18 +62,17 @@ module LiveStudio
       end
     end
 
-    validates_presence_of :name, :description, :grade, :price
-    validates :name, length: { in: 2..20 }, if: :name_changed?
-    validates :description, length: { minimum: 6 }, presence: true, if: :description_changed?
-    validates :grade, presence: true, if: :grade_changed?
+    validates :name, presence: { message: "请输入辅导班名称" }, length: { in: 2..20 }, if: :name_changed?
+    validates :description, presence: { message: "请输入辅导班介绍" }, length: { in: 5..300 }, if: :description_changed?
+    validates :grade, presence: { message: "请选择年级" }, if: :grade_changed?
     validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 70, less_than_or_equal_to: 100 }
     # validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
-    validates :price, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
+    validates :price, presence: { message: "请输入价格" }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
 
-    validates :taste_count, numericality: { less_than_or_equal_to: ->(record) { record.lessons_count.to_i } }
+    validates :taste_count, numericality: { less_than: ->(record) { record.lessons.size }, message: "必须小于课程总数" }
 
     validates :teacher, presence: true
-    validates :publicize, presence: true, on: :create
+    validates :publicize, presence: { message: "请添加图片" }, on: :create
 
     belongs_to :teacher, class_name: '::Teacher'
 
@@ -161,7 +160,7 @@ module LiveStudio
     end
 
     def order_params
-      { amount: price, product: self }
+      { amount: current_price, product: self }
     end
 
     def status_text
@@ -408,7 +407,7 @@ module LiveStudio
 
     def lower_price
       lp = 0
-      lp = lessons_count.to_i * 5 if lessons_count.to_i > 0
+      lp = lessons.size * 5 if lessons.size > 0
       lp
     end
   end

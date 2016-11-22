@@ -54,7 +54,7 @@ module LiveStudio
     validates :name, :class_date, presence: true
 
     before_create :data_preview
-    before_save :data_confirm
+    # before_save :data_confirm
     after_commit :update_course
 
     include AASM
@@ -98,16 +98,17 @@ module LiveStudio
       end
     end
 
-    def start_time
-      return "#{start_time_hour}:#{start_time_minute}" if new_record?
-      super
+    after_find do |lesson|
+      lesson.start_time_hour, lesson.start_time_minute = lesson.start_time.split(":") if lesson.start_time.present?
     end
 
-    def end_time
-      if new_record?
-        "#{(start_time_hour.to_i + (start_time_minute.to_i + duration_value.to_i) / 60)}:#{(start_time_minute.to_i + duration_value.to_i) % 60}"
-      else
-        super
+    before_validation :calculate_start_and_end_time
+    def calculate_start_and_end_time
+      self.start_time = "#{start_time_hour}:#{start_time_minute}" if start_time_hour.present? && start_time_minute.present?
+      if start_time_changed? || duration_changed?
+        end_hour = format("%02d", start_time_hour.to_i + duration_value / 60)
+        end_minute = format("%02d", (duration_value % 60) + start_time_minute.to_i)
+        self.end_time = "#{end_hour}:#{end_minute}"
       end
     end
 

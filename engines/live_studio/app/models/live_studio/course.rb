@@ -160,7 +160,7 @@ module LiveStudio
     end
 
     def order_params
-      { amount: price, product: self }
+      { amount: current_price, product: self }
     end
 
     def status_text

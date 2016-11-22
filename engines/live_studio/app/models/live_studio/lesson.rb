@@ -98,21 +98,13 @@ module LiveStudio
       end
     end
 
-    def start_time_hour
-      start_time.try(:split,':').try(:first)
-    end
-
-    def start_time_minute
-      start_time.try(:split,':').try(:last)
-    end
-
     def start_time
-      return "#{start_time_hour}:#{start_time_minute}" if new_record? && errors.present?
+      return "#{start_time_hour}:#{start_time_minute}" if new_record?
       super
     end
 
     def end_time
-      if new_record? && errors.present?
+      if new_record?
         "#{(start_time_hour.to_i + (start_time_minute.to_i + duration_value.to_i) / 60)}:#{(start_time_minute.to_i + duration_value.to_i) % 60}"
       else
         super

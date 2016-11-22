@@ -15,8 +15,7 @@
         图片格式jpeg或png,<br>
         图片文件不大于500k,<br></p>
       <p>
-        禁止使用非法图片作为海<br>
-        报!
+        禁止使用非法图片作为海报!
       </p>
     </div>
   </div>
@@ -27,7 +26,7 @@
       <%= f.label :name %>
     </div>
     <div class="col-md-10">
-      <%= f.input :name, label: false, placeholder: '请输入辅导班名称，最多支持20字', input_html: {maxlength: 20} %>
+      <%= f.input :name, label: false, placeholder: '请输入辅导班名称（最多20字）', input_html: {maxlength: 20} %>
     </div>
   </div>
 
@@ -60,7 +59,7 @@
   </div>
   <div class="row">
     <div class="col-md-2">
-      <%= f.label :taste_count %>
+      <%= f.label :taste_count, class: 'listen' %>
     </div>
     <div class="col-md-10">
       <%= f.input :taste_count, label: false, placeholder: '请选择允许试听的课程数量（正整数）,不选择默认为0' %>

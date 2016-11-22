@@ -12,11 +12,11 @@ cn:
       default_message: "Please review the problems below:"
     labels:
       course:
-        price: 价格(元)
+        price: 价格 (元)
         grade: 年级类型
         description: 辅导介绍
-        name: 名称
-        taste_count: 试听(节)
+        name: 辅导名称
+        taste_count: 试听 (节)
       course_invitation:
         user_mobile: 填写被邀请人
         teacher_percent: 设置老师分成

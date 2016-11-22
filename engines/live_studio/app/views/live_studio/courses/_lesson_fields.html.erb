@@ -23,7 +23,7 @@
       </p>
     </td>
     <td>
-      <a href="javascript:void(0);" data-toggle="modal" data-target="#edit_<%= object_id %>">编辑</a><br>
+      <a href="javascript:void(0);" data-toggle="modal" data-target="#edit_<%= object_id %>" id="edit_button_<%= object_id %>">编辑</a><br>
       <a href="javascript:void(0);" data-toggle="modal" data-target="#delete_<%= object_id %>" class="btn-delete"><%= t("activerecord.view.delete") %></a>
       <div class="modal fade" id="edit_<%= object_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -31,11 +31,11 @@
             <div class="popup-title">
               <span>编辑课程</span>
 
-              <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
+              <span class="close fa fa-times" data-dismiss="modal" data-enforce="true" aria-label="Close"></span>
             </div>
             <div class="popup-date">
               <div class="date-class">
- 	        						<span>
+                    <span>
  	        						<label for="">上课日期</label>
                         <%= f.text_field :class_date,as: :string, placeholder: '选择上课日期', onclick: 'testShow(this)' %>
                         <br>
@@ -64,7 +64,8 @@
               <div class="date-btn">
                 <center>
                   <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close">取消</a>
-                  <a href="javascript:void(0);" class="btn-datesave" data-dismiss="modal" aria-label="Close">保存</a>
+                  <a href="javascript:void(0);" class="btn-datesave save-<%= object_id %>">保存</a>
+                  <%= hidden_field_tag "modal_click_btn_#{object_id}" %>
                 </center>
               </div>
             </div>
@@ -75,7 +76,7 @@
       <div class="modal fade" id="delete_<%= object_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="editor-delete">
-            <div class="editor-delete-title">
+            <div class="editor-delete-title" style="text-align: left;">
               <span>提示</span>
             </div>
             <div class="editor-delete-con">
@@ -101,11 +102,30 @@
 <script type="text/javascript">
   $(function () {
     var o_id = '<%= object_id %>';
-    $('#edit_'+o_id).on('hide.bs.modal', function () {
-      return set_change(o_id);
+    var new_page = <%= f.object.new_record? %>;
+    if(new_page && $('#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:name)).at_css('input').attributes['id'].value %>').val().trim() == ''){
+      $('#edit_button_'+o_id).click();
+    }
+
+    $('#edit_'+o_id).on('hide.bs.modal', function() {
+      if($('#modal_click_btn_'+o_id).val() == 'save'){
+        if(change_save()){
+        }else{
+          $('#modal_click_btn_'+o_id).val('cancel');
+          return false;
+        }
+      }else{
+        $('#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:_destroy)).at_css('input').attributes['id'].value %>').attr('checked', true);
+        $(this).parents("table").remove();
+      }
     });
 
-    function set_change(id){
+    $('.save-'+o_id).click(function(){
+      $('#modal_click_btn_'+o_id).val('save');
+      $('#edit_'+o_id).modal('hide');
+    });
+
+    function change_save(){
       var class_date_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.text_field(:class_date)).at_css('input').attributes['id'].value %>';
       var start_time_hour_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:start_time_hour)).at_css('input').attributes['id'].value %>';
       var start_time_minute_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:start_time_minute)).at_css('input').attributes['id'].value %>';
@@ -120,10 +140,13 @@
       var end_time = _get_time(hour, minutes, duration);
       var class_date = $(class_date_id).val();
       var name = $(name_id).val();
-      $('#class_date_'+id).html(class_date);
-      $('#start_time_'+id).html(start_time + '-' + end_time);
-      $('#name_'+id).html(name);
-      return set_errors(id, name, class_date, hour, minutes, start_time, duration, end_time)
+      var flag = set_errors(o_id, name, class_date, hour, minutes, start_time, duration, end_time);
+      if(flag){
+        $('#class_date_'+o_id).html(class_date);
+        $('#start_time_'+o_id).html(start_time + '-' + end_time);
+        $('#name_'+o_id).html(name);
+      }
+      return flag;
     }
 
     function set_errors(id, name, class_date, hour, minutes, start_time, duration, end_time){
@@ -151,7 +174,5 @@
       return return_flag;
     }
   });
-
-
 
 </script>

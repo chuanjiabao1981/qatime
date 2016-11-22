@@ -54,7 +54,9 @@
               <td colspan="3">
                 <div class="price-details">
                   <div class="unit-price">
-                    <span class="title-color price-num">￥<%= '%0.2f' % @course.price %></span>
+                    <span class="title-color price-num">
+                      <%= number_to_currency(@course.price.to_f,unit: '￥') %>
+                    </span>
                     <span class="sign-up"><%= t('view.course_search_show.purchase_number') %><%= @course.buy_tickets_count%></span>
                   </div>
 

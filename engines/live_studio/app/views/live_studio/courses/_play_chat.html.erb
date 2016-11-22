@@ -185,7 +185,8 @@ $(function() {
   function getHistoryMsgsDone(error, obj) {
     console.log('获取p2p历史消息' + (!error ? '成功' : '失败'));
     if (!error) {
-      if(obj.msgs.length > 0) $("#messages-group div:first").attr("last-msg-id", obj.msgs[0].idServer).empty();
+      $("#messages-group div:first").empty();
+      if(obj.msgs.length > 0) $("#messages-group div:first").attr("last-msg-id", obj.msgs[0].idServer);
       obj.msgs.forEach(function(msg){
         if(msg.type != "notification"){
           var messageNode = $("<div class='new-information'></div>");
@@ -237,7 +238,7 @@ $(function() {
 
     // 第一次加载清空数据
     if(lastMsgId) {
-      // historyParams.lastMsgId = lastMsgId;
+      historyParams.lastMsgId = lastMsgId;
     } else {
       $("#messages-group").empty();
     }

@@ -2,6 +2,7 @@ require 'encryption'
 module LiveStudio
   class Lesson < ActiveRecord::Base
     has_soft_delete
+    extend Enumerize
 
     enum status: {
       missed: -1, # 已错过
@@ -14,6 +15,18 @@ module LiveStudio
       billing: 6, # 结算中
       completed: 7 # 已结算
     }
+
+    enumerize :durations, in: {
+      minutes_30: 30,
+      minutes_45: 45,
+      hours_1: 60,
+      hours_half_90: 90,
+      hours_2: 120,
+      hours_half_150: 150,
+      hours_3: 180,
+      hours_half_210: 210,
+      hours_4: 240
+    }, i18n_scope: "enumerize.live_studio/lessons.durations", scope: true, predicates: { prefix: true }
 
     # default_scope { order("id asc") }
     scope :unfinish, -> { where("status < ?", Lesson.statuses[:finished]) } # 未完成的课程

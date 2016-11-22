@@ -1,4 +1,16 @@
 module ApplicationHelper
+
+  def set_city
+    cookie_city = cookies[:selected_cities].try(:split, '-').try(:first)
+    @location_city = City.find_by(id: params[:city_id]) || City.find_by(name: params[:city_name] || cookie_city)
+    # return if @city.blank?
+    selected_cities = cookies[:selected_cities].try(:split, '-') || []
+    selected_cities.delete(@location_city.name) if @location_city && selected_cities.include?(@location_city.name)
+    selected_cities = selected_cities.insert(0, @location_city.try(:name) || 'country')
+    cookies[:selected_cities] = selected_cities.uniq.try(:join, '-')
+    @location_city
+  end
+
   def user_home_path
     return main_app.signin_path(redirect_url: request.original_url) unless signed_in?
 

@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
 
   before_action :authorize
+  before_action :set_city
 
   delegate :allow?, to: :current_permission
   helper_method :allow?

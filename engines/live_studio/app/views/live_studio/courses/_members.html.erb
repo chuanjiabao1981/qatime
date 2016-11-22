@@ -2,7 +2,7 @@
     <div class="new-information">
       <div class="information-title">
         <%= image_tag(account.icon_url, class: 'information-title-img')%>
-        <span class="information-user"><%= truncate(account.name, length: 14) %></span>
+        <span class="information-user<%= ' online' if @online_accounts.try(:include?, account) %>"><%= truncate(account.name, length: 14) %></span>
         <span class="information-category"><%= t("view.role.#{account.user.role}") %></span>
       </div>
     </div>

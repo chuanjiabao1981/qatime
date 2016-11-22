@@ -14,7 +14,7 @@
   <td><span><%= course_request.course.try(:lessons_count) %></span></td>
   <td><span><%= course_request.course.try(:price) %></span></td>
   <td><span><%= course_request.course.try(:teacher_percentage) %></span></td>
-  <td><span><%= localize(course_request.created_at, format: :long) %></span></td>
+  <td><span><%= course_request.created_at.to_s(:db) %></span></td>
   <td>
     <%= render "action", course_request: course_request %>
   </td>

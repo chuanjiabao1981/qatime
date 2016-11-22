@@ -11,15 +11,12 @@
   </div>
 
   <div class="class-con">
-    <%= f.input :lessons, label: false, input_html: {style: 'display: none;'} %>
     <%= f.fields_for :lessons do |lesson| %>
       <%= render 'lesson_fields', f: lesson%>
     <% end %>
     <center>
       <%= raw link_to_add_fields(image_tag('add.png', size: '18x18') + "添加新课程", f, :lessons, 'live_studio/courses/') %>
-      <a href="javascript:void(0);" data-toggle="modal" data-target="#edit" class="add_fields">
-        <%#=  %>
-      </a>
+      <%= f.input :lessons, label: false, input_html: {style: 'display: none;'} %>
     </center>
   </div>
 

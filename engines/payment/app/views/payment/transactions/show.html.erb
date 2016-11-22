@@ -17,7 +17,7 @@
         <table border="0" cellspacing="0" cellpadding="0">
           <tbody><tr>
             <td><%= @transaction.class.human_attribute_name(:transaction_no) %></td>
-            <td class="col-md-apply-td"><%= @transaction.transaction_no %></td>
+            <td class="col-md-apply-td" id="transaction_no"><%= @transaction.transaction_no %></td>
           </tr>
           <tr>
             <td><%= @transaction.class.human_attribute_name(:order_time) %></td>

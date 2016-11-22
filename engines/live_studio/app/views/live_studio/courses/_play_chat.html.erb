@@ -1,8 +1,8 @@
 <div class="live-message">
   <div class="message-title">
-    <a href="javascript:void(0);" class="active">讨论</a>
-    <a href="javascript:void(0);">公告</a>
-    <a href="javascript:void(0);">成员</a>
+    <%= link_to t("view.play.talk"), "javascript:void(0);", class: "active" %>
+    <%= link_to t("view.play.announcement"), "javascript:void(0);" %>
+    <%= link_to t("view.play.members"), "javascript:void(0);" %>
   </div>
   <div class="message-content">
     <div class="message-con active">
@@ -12,7 +12,7 @@
       <div class="information-face">
         <%= image_tag 'face-2.png', id: "emotion-btn" %>
         <%= image_tag 'face-1.png', id: "clear-btn" %>
-        <%= link_to t("common.message_history"), "javascript: void(0);", id: "history-btn",
+        <%= link_to t("view.play.chat_history"), "javascript: void(0);", id: "history-btn",
                     "data-toggle" => "modal", "data-target" => "#history-modal", style: "float: right;" %>
       </div>
 
@@ -21,7 +21,7 @@
         <%= form_tag '', id: 'message-form', remote: true do -%>
         <div class="send-msg">
           <%= text_area_tag "message-area" %>
-          <%= submit_tag "发送" %>
+          <%= submit_tag t("view.play.send_msg") %>
         </div>
         <% end -%>
       </div>
@@ -57,7 +57,7 @@
     </div>
   </div>
 
-  <div class="logging-more" id="logging-more">查看更多</div>
+  <div class="logging-more" id="logging-more"><%= t("view.play.more") %></div>
 
   <div class="message-con active" id="messages-group">
   </div>

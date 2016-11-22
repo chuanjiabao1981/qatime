@@ -38,6 +38,38 @@ module Chat
     end
 
     test 'student buy course join team' do
+      order_response =
+        "<xml>
+          <return_code><![CDATA[SUCCESS]]></return_code>
+          <return_msg><![CDATA[OK]]></return_msg>
+          <appid><![CDATA[#{WxPay.appid}]]></appid>
+          <mch_id><![CDATA[#{WxPay.mch_id}]]></mch_id>
+          <nonce_str><![CDATA[IITRi8Iabbblz1Jc]]></nonce_str>
+          <sign><![CDATA[7921E432F65EB8ED0CE9755F0E86D72F]]></sign>
+          <result_code><![CDATA[SUCCESS]]></result_code>
+          <prepay_id><![CDATA[wx201411101639507cbf6ffd8b0779950874]]></prepay_id>
+          <trade_type><![CDATA[NATIVE]]></trade_type>
+          </xml>"
+
+      FakeWeb.register_uri(:post, "https://api.mch.weixin.qq.com/pay/unifiedorder", body: order_response)
+
+      notify_body = {
+        appid: WxPay.appid, 
+        attach: "支付测试",
+        bank_type: "CFT",
+        fee_type: "CNY",
+        is_subscribe: "Y",
+        mch_id: WxPay.mch_id,
+        nonce_str: "5d2b6c2a8db53831f7eda20af46e531c",
+        openid: "oUpF8uMEb4qRXf22hE3X68TekukE",
+        result_code: "SUCCESS",
+        return_code: "SUCCESS",
+        time_end: Time.now.to_i,
+        total_fee: "20000",
+        trade_type: "NATIVE",
+        transaction_id: "1004400740201409030005092168"
+      }
+
       course = live_studio_courses(:course_for_tasting)
       visit live_studio.courses_path
       assert_difference "course.buy_tickets.count", 1, "购买失败" do
@@ -46,8 +78,11 @@ module Chat
         # click_link("buy-course-#{course.id}")
         choose('微信支付')
         click_on '立即付款'
-        # TODO 不能正确模拟支付通知
-        # post payment.notify_transaction(Payment::Order.last.transaction_no, )
+        transaction_no = page.find('#transaction_no').text
+        notify_body[:out_trade_no] = transaction_no
+        notify_body[:sign] = WxPay::Sign.generate(notify_body)
+
+        post payment.notify_transaction_path(transaction_no), notify_body.to_xml(root: 'xml', dasherize: false)
         Chat::TeamMemberCreatorJob.perform_now(course.id, @student.id)
         @student.reload
         course.reload

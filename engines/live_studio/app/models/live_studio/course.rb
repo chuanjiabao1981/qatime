@@ -57,7 +57,7 @@ module LiveStudio
         transitions from: :published, to: :teaching
       end
 
-      event :comple do
+      event :complete do
         transitions from: :teaching, to: :completed
       end
     end

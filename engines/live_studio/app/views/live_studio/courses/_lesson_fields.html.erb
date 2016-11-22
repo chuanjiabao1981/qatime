@@ -23,8 +23,12 @@
       </p>
     </td>
     <td>
-      <a href="javascript:void(0);" data-toggle="modal" data-target="#edit_<%= object_id %>" id="edit_button_<%= object_id %>">编辑</a><br>
-      <a href="javascript:void(0);" data-toggle="modal" data-target="#delete_<%= object_id %>" class="btn-delete"><%= t("activerecord.view.delete") %></a>
+      <p>
+        <a href="javascript:void(0);" data-toggle="modal" data-target="#edit_<%= object_id %>" id="edit_button_<%= object_id %>">编辑</a>
+      </p>
+      <p>
+        <a href="javascript:void(0);" data-toggle="modal" data-target="#delete_<%= object_id %>" class="btn-delete"><%= t("activerecord.view.delete") %></a>
+      </p>
       <div class="modal fade" id="edit_<%= object_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="add-popup" style="text-align: left;">
@@ -43,7 +47,7 @@
  	        					</span>
  	        					<span class="start-time">
  	        						<label for="">开始时间</label>
-                      <%= f.select :start_time_hour, (0..23).to_a.insert(0,['时',nil]) %>
+                      <%= f.select :start_time_hour, (0..23).to_a.map{|i| i > 9 ? i : "0#{i}"}.insert(0,['时',nil]) %>
                       <%= f.select :start_time_minute, %w(00 05 10 15 20 25 30 35 40 45 50 55).insert(0, ['分', nil]) %>
                       <br>
                       <i class="has-error start_time-error-<%= object_id %>"></i>

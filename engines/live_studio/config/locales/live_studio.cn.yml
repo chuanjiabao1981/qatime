@@ -7,7 +7,7 @@ cn:
       teacher:
         my_courses: 我的辅导
         new_course: 邀请和创建
-        create_course: 创建辅导班
+        create_course: 创建新辅导
         my_course_invitations: 邀请和创建
         current_course_invitations: 已收到的开班邀请
         course:

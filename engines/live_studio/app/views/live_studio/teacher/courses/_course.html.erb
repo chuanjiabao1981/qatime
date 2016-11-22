@@ -42,9 +42,28 @@
               <%= link_to live_studio.edit_course_path(course) do %>
                 [<%= t("common.edit") %>]
               <% end if course.init? || course.rejected? %>
-              <%= link_to live_studio.teacher_course_path(@teacher, course), method: :delete, data: { confirm: t("common.confirm_delete") } do %>
+              <%= link_to 'javascript:void(0);', data: {toggle: 'modal', target: "#delete_#{course.id}" } do %>
                 [<%= t("common.delete") %>]
               <% end if course.init? || course.rejected? %>
+
+              <div class="modal fade in" id="delete_<%= course.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+                  <div class="modal-dialog" role="document">
+                    <div class="editor-delete">
+                      <div class="editor-delete-title">
+                        <span style="float: left;">提示</span>
+                      </div>
+                      <div class="editor-delete-con">
+                        <p>是否确认删除此课程？</p>
+                      </div>
+                      <div class="editor-delete-btn">
+                        <center>
+                          <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close">取消</a>
+                          <%= link_to '确认', live_studio.teacher_course_path(@teacher, course), method: :delete %>
+                        </center>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </span>
           </center>
         </td>

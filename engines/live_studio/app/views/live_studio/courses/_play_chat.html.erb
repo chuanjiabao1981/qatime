@@ -193,17 +193,18 @@ $(function() {
           var messageTitle = $("<div class='information-title'></div>");
           messageTitle.append("<img src='" + $("#member-icons").find("img.icon-" + msg.from).attr("src") + "' />");
 
-          if(msg.from != accid){ 
+          if(msg.from == accid){
+            messageTitle.append("<span class='information-name'>" + msg.fromNick + "(我)</span>");
+            messageNode.addClass("new-information-stu");
+          } else if(msg.from == owner_id) {
+            messageTitle.append("<span class='information-name'>" + msg.fromNick + "(老师)</span>");
+          } else {
             messageTitle.append("<span class='information-name'>" + msg.fromNick + "</span>");
+            messageNode.addClass("new-information-else");
           }
           messageTitle.append("<span class='information-time'>" + sendMessageTime(msg) + "</span>");
           messageNode.append(messageTitle);
 
-          if(msg.from == accid){
-            messageNode.addClass("new-information-stu");
-          } else if(msg.from != owner_id) {
-            messageNode.addClass("new-information-else");
-          }
           messageNode.append("<div class='information-con'>" + $.replaceChatMsg(msg.text) + "</div>");
           $("#messages-group div:first").append(messageNode);
 

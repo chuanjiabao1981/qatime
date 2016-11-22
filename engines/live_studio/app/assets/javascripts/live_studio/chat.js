@@ -354,8 +354,14 @@ function appendMsg(msg, messageClass) {
   messageTitle.append("<img src='' class='information-title-img'>");
 
 
-  if(msg.from != currentTeam.account){
+  if(msg.from == currentTeam.account){
+    messageTitle.append("<span class='information-name'>" + msg.fromNick + "(我)</span>");
+    messageItem.addClass("new-information-stu");
+  } else if(msg.from == currentTeam.owner) {
+    messageTitle.append("<span class='information-name'>" + msg.fromNick + "(老师)</span>");
+  } else {
     messageTitle.append("<span class='information-name'>" + msg.fromNick + "</span>");
+    messageItem.addClass("new-information-else");
   }
   messageTitle.append("<span class='information-time'>" + sendMessageTime(msg) + "</span>");
   messageItem.append(messageTitle);
@@ -364,11 +370,6 @@ function appendMsg(msg, messageClass) {
   messageItem.append(messageContent);
 
 
-  if(msg.from == currentTeam.account){
-    messageItem.addClass("new-information-stu");
-  } else if(msg.from != currentTeam.owner) {
-    messageItem.addClass("new-information-else");
-  }
   $("#messages").append(messageItem);
 
 

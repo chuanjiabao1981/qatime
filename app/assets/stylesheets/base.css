@@ -3505,18 +3505,20 @@ ul {
     float: left;
     line-height: 40px;
     color: #333333;
+    font-size: 18px;
   }
-  .logging-left i {
+  /*.logging-left i {
     display: inline-block;
     font-size: 18px;
     position: relative;
-  }
+  }*/
   .logging-center {
     float: left;
     position: absolute;
     left: 50%;
     top: 10px;
-    margin-left: -85px; 
+    margin-left: -85px;
+    color: #999;  
   }
   .date-icon {
     position: relative;
@@ -3525,7 +3527,7 @@ ul {
   .logging-center input {
     border: 0px;
     width: 120px;
-    margin: 0 4px 0 5px;
+    margin: 0 4px;
     text-align: center;
     padding-left: 18px;
     color: #666666;
@@ -3534,9 +3536,10 @@ ul {
   .logging-right {
     float: right;
     line-height: 40px;
+    font-size: 18px;
   }
   .logging-right a {
-    color: #333;
+    color: #999999;
   }
   .logging-more,.logging-nomore {
     background-color: #FFFFFF;
@@ -3559,7 +3562,7 @@ ul {
   color: #000000;
 }
 .information-time {
-  color: #999999;
+  color: #CCCCCC;
   font-size: 12px;
 }
 .information-name {

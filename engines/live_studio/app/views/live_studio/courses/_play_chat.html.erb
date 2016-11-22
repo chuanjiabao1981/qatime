@@ -185,9 +185,8 @@ $(function() {
 
   function getHistoryMsgsDone(error, obj) {
     console.log('获取p2p历史消息' + (!error ? '成功' : '失败'));
-    console.log(obj.msgs);
     if (!error) {
-      $("#messages-group div:first").attr("last-msg-id", obj.lastMsgId).empty();
+      if(obj.msgs.length > 0) $("#messages-group div:first").attr("last-msg-id", obj.msgs[0].idServer).empty();
       obj.msgs.forEach(function(msg){
         if(msg.type != "notification"){
           var messageNode = $("<div class='new-information'></div>");

@@ -25,8 +25,8 @@ module V1
               params do
                 optional :page, type: Integer, desc: '当前页面'
                 optional :per_page, type: Integer, desc: '每页记录数'
-                optional :status, type: String,desc: '过滤条件 init:初始化; preview: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班',
-                         values: %w(init preview teaching completed today)
+                optional :status, type: String,desc: '过滤条件 init:初始化; published: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班',
+                         values: %w(init published teaching completed today)
               end
               get do
                 courses = LiveService::CourseDirector.courses_for_teacher_index(current_user, params).
@@ -43,8 +43,8 @@ module V1
               params do
                 optional :page, type: Integer, desc: '当前页面'
                 optional :per_page, type: Integer, desc: '每页记录数'
-                optional :status, type: String,desc: '过滤条件 init:初始化; preview: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班',
-                         values: %w(init preview teaching completed today)
+                optional :status, type: String,desc: '过滤条件 init:初始化; published: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班',
+                         values: %w(init published teaching completed today)
               end
               get :full do
                 courses = LiveService::CourseDirector.courses_for_teacher_index(current_user, params).
@@ -103,7 +103,7 @@ module V1
                 optional :page, type: Integer, desc: '当前页面'
                 optional :per_page, type: Integer, desc: '每页记录数'
                 optional :cate, type: String, desc: '分类 today: 今日; taste: 试听', values: %w(today taste)
-                optional :status, type: String, desc: '辅导班状态 preview: 待开课; teaching: 已开课; completed: 已结束', values: %w(preview teaching completed)
+                optional :status, type: String, desc: '辅导班状态 published: 待开课; teaching: 已开课; completed: 已结束', values: %w(published teaching completed)
               end
               get do
                 tickets = LiveService::CourseDirector.courses_for_student_index(current_user,params).paginate(page: params[:page], per_page: params[:per_page])
@@ -164,7 +164,7 @@ module V1
             optional :preset_lesson_count_ceil, type: Integer, desc: '课时总数结束区间'
             optional :lessons_count_floor, type: Integer, desc: '课时总数开始区间'
             optional :lessons_count_ceil, type: Integer, desc: '课时总数结束区间'
-            optional :status, type: String, desc: '辅导班状态 all: 全部; preview: 招生中; teaching: 已开课', values: %w(all preview teaching)
+            optional :status, type: String, desc: '辅导班状态 all: 全部; published: 招生中; teaching: 已开课', values: %w(all published teaching)
           end
           get do
             courses = LiveService::CourseDirector.courses_search(params).paginate(page: params[:page], per_page: params[:per_page])

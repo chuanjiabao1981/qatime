@@ -143,8 +143,8 @@ $(function() {
 
   // 加载更多历史消息
   $("#logging-more").click(function() {
-    var lastMsgId = $("#messages-group div:first").attr("last-msg-id");
-    messageHistory($("#inpstart").val(), lastMsgId);
+    var endTime = parseInt($("#messages-group div:first").attr("end-time"));
+    messageHistory($("#inpstart").val(), endTime);
   });
 
   $("#history-area").scroll(function() {
@@ -187,7 +187,7 @@ $(function() {
     console.log('获取p2p历史消息' + (!error ? '成功' : '失败'));
     if (!error) {
       $("#messages-group div:first").empty();
-      if(obj.msgs.length > 0) $("#messages-group div:first").attr("last-msg-id", obj.msgs[0].idServer);
+      if(obj.msgs.length > 0) $("#messages-group div:first").attr("end-time", obj.msgs[0].time);
       obj.msgs.forEach(function(msg){
         if(msg.type != "notification"){
           var messageNode = $("<div class='new-information'></div>");
@@ -221,10 +221,14 @@ $(function() {
     }
   }
 
-  function messageHistory(messageDate, lastMsgId) {
+  function messageHistory(messageDate, endTime) {
     messageDate = messageDate.replace(/年/, '-').replace(/月/, '-').replace(/日/, '');
     beginTime = new Date(messageDate + " 00:00:00").getTime();
-    endTime = beginTime + 24 * 60 * 60 * 1000;
+    if(!endTime) {
+      // 第一次加载时清空数据
+      $("#messages-group").empty();
+      endTime = beginTime + 24 * 60 * 60 * 1000;
+    }
     // 聊天窗口群组没有初始化不能加载聊天新记录
     if(!chatInited) return false;
     // 显示加载状态
@@ -233,17 +237,10 @@ $(function() {
       to: live_chat.teamId,
       beginTime: beginTime,
       endTime: endTime,
-      limit: 100,
       asc: true,
       done: getHistoryMsgsDone
     }
 
-    // 第一次加载清空数据
-    if(lastMsgId) {
-      historyParams.lastMsgId = lastMsgId;
-    } else {
-      $("#messages-group").empty();
-    }
     $("#logging-more").hide();
     $("#logging-nomore").hide();
     $("#messages-group").prepend("<div class='logging-con'><center>加载中......</center></div>");

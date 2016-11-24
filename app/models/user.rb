@@ -209,12 +209,12 @@ class User < ActiveRecord::Base
 
   private
 
-  def register_code_valid
-    # 这里虽然设置了true使得验证成功后此注册码过期，但是由于如果整体teacher不成成功会rollback，
-    # 所以一个正确验证码在user其他字段不成功的情况下，同样还是有效的
-    self.tmp_register_code = RegisterCode.verification(register_code_value, true)
-    errors.add("register_code_value", "注册码不正确") unless tmp_register_code
-  end
+  # def register_code_valid
+  #   # 这里虽然设置了true使得验证成功后此注册码过期，但是由于如果整体teacher不成成功会rollback，
+  #   # 所以一个正确验证码在user其他字段不成功的情况下，同样还是有效的
+  #   self.tmp_register_code = RegisterCode.verification(register_code_value, true)
+  #   errors.add("register_code_value", "注册码不正确") unless tmp_register_code
+  # end
 
   after_commit :sync_chat_account, on: :update, if: :chat_account_changed?
   def sync_chat_account

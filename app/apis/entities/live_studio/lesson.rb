@@ -18,6 +18,9 @@ module Entities
       expose :subject, if: {type: :schedule} do |lesson|
         lesson.course.subject.to_s
       end
+      expose :grade, if: {type: :schedule} do |lesson|
+        lesson.course.grade.to_s
+      end
       expose :pull_address, if: {type: :schedule} do |lesson|
         ticket = ::LiveStudio::Ticket.where(student: options[:current_user], course: lesson.course).authorizable.last
         ticket.present? ? lesson.course.board_pull_stream : ''

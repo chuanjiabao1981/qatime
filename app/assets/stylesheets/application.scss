@@ -545,3 +545,26 @@ span.current_lesson_paused{
 
 
 // 通知样式end
+
+// download
+.relative{
+  position: relative;
+}
+.download-desc-div{
+  height: 120px;
+  padding: 0 39px;
+  color: #CCCCCC;
+  float: right;
+  button{
+    width: 100px;
+    margin-top: 15px;
+  }
+}
+.download-qrcode{
+  position: absolute;
+  right: 0;
+  top: 0;
+  button{
+    margin-top: 5px;
+  }
+}

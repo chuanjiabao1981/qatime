@@ -223,7 +223,7 @@ module V1
           end
         end
 
-        resource :course do
+        resource :courses do
           desc '检索辅导班列表接口'
           params do
             optional :page, type: Integer, desc: '当前页面'

@@ -239,8 +239,7 @@ module V1
           end
           get do
             courses = LiveService::CourseDirector.courses_search(params).paginate(page: params[:page], per_page: params[:per_page])
-            entity = current_user.student? ? Entities::LiveStudio::StudentCourse : Entities::LiveStudio::Course
-            present courses, with: entity, type: :default, current_user: current_user
+            present courses, with: Entities::LiveStudio::StudentCourse, type: :default, current_user: current_user
           end
 
           desc '检索辅导班详情接口'
@@ -249,8 +248,7 @@ module V1
           end
           get '/:id' do
             course = ::LiveStudio::Course.find(params[:id])
-            entity = current_user.student? ? Entities::LiveStudio::StudentCourse : Entities::LiveStudio::Course
-            present course, with: entity, type: :full, current_user: current_user, size: :info
+            present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user, size: :info
           end
         end
 

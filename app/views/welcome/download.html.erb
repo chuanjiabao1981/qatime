@@ -10,15 +10,15 @@
           <p><%= software.desc %></p>
         </div>
         <% if software.platform_windows? %>
-          <div class="col-md-2 download-desc-div">
+          <div class="download-desc-div">
             <%= "现支持 Windows 系统大部分版本（除 Win-XP）。" %>
             <%= link_to software.download_links do %>
               <button class="btn btn-default" type="button"><%= t ".download" %></button>
             <% end %>
           </div>
         <% else %>
-          <%= image_tag software.qr_code.code_url, size: "120x120", alt: software.title %>
-          <div class="col-md-2 download-desc-div download-qrcode">
+          <%= image_tag software.qr_code.code_url, size: "120x120", alt: software.title, class: 'download-img' %>
+          <div class="download-desc-div download-qrcode">
             <%= "手机扫描右侧二维码即可下载仅支持 Android 4.0 以上版本。" %>
             <%= link_to software.download_links do %>
               <button class="btn btn-default" type="button"><%= t ".download" %></button>

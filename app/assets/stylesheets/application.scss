@@ -552,11 +552,11 @@ span.current_lesson_paused{
 }
 .download-desc-div{
   height: 120px;
-  padding: 0 39px;
   color: #CCCCCC;
   float: right;
+  width: 10%;
   button{
-    width: 100px;
+    width: 100%;
     margin-top: 15px;
   }
 }
@@ -567,4 +567,7 @@ span.current_lesson_paused{
   button{
     margin-top: 5px;
   }
+}
+.download-img{
+  margin-left: 3%;
 }

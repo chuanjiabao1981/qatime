@@ -3,7 +3,7 @@ module Entities
     class TeamAnnouncement < Grape::Entity
       expose :announcement
       expose :edit_at do |announcement|
-        edit_at.to_s(:db)
+        announcement.edit_at.try(:to_s, :db)
       end
     end
   end

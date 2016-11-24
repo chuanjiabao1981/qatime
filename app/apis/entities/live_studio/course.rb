@@ -19,7 +19,7 @@ module Entities
         course.try(:chat_team).try(:team_id).to_s
       end
       expose :buy_tickets_count
-      expose :status, if: { type: :full }
+      expose :status
       expose :description, if: { type: :full }
       expose :lesson_count, if: { type: :full } do |course|
         course.lessons_count

@@ -46,7 +46,7 @@ module LiveStudio
         transitions from: :init, to: :rejected
       end
 
-      event :publish do
+      event :publish, after_commit: :ready_lessons do
         before do
           self.published_at = Time.now
         end
@@ -327,6 +327,12 @@ module LiveStudio
     end
 
     private
+
+    def ready_lessons
+      return unless class_date <= Date.today
+      teaching!
+      lessons.where('class_date <= ?', Date.today).map(&:ready!)
+    end
 
     before_save :check_lessons
     def check_lessons

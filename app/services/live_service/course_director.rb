@@ -64,7 +64,7 @@ module LiveService
       else
         # 根据状态过滤辅导班
         statuses = params[:status].split(',')
-        @courses = @courses.where(status: LiveStudio::Course.statuses.slice(statuses).values)
+        @courses = @courses.where(status: LiveStudio::Course.statuses.slice(*statuses).values)
       end
       @courses.order("id desc")
     end

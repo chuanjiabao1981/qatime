@@ -2,6 +2,8 @@ module LiveStudio
   class Ticket < ActiveRecord::Base
     has_soft_delete
 
+    default_scope { order('id DESC') }
+
     belongs_to :course
     belongs_to :student, class_name: "::Student"
     belongs_to :lesson

@@ -331,7 +331,7 @@ module LiveStudio
     def ready_lessons
       return unless class_date <= Date.today
       teaching!
-      lessons.where('class_date <= ?', Date.today).map(&:ready!)
+      lessons.init.where('class_date <= ?', Date.today).map(&:ready!)
     end
 
     before_save :check_lessons

@@ -61,7 +61,7 @@ module LiveService
         # 根据分类过滤辅导班
         # status: today今日上课辅导班
         @courses = @courses.includes(:lessons).where(live_studio_lessons: { class_date: Date.today })
-      else
+      elsif params[:status].present?
         # 根据状态过滤辅导班
         statuses = params[:status].split(',')
         @courses = @courses.where(status: LiveStudio::Course.statuses.slice(*statuses).values)

@@ -11,7 +11,7 @@
         </div>
         <% if software.platform_windows? %>
           <div class="download-desc-div">
-            <%= "现支持 Windows 系统大部分版本（除 Win-XP）。" %>
+            <%= content_tag :p, "现仅支持win7以上版本。", class: 'margin-top-ten'%>
             <%= link_to software.download_links do %>
               <button class="btn btn-default" type="button"><%= t ".download" %></button>
             <% end %>

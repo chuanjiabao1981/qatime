@@ -179,7 +179,7 @@ module V1
             course = ::LiveStudio::Course.find(params[:id])
             realtime =
               {
-                announcements: course.chat_team.try(:team_announcements).try(:order, created_at: :desc),
+                announcements: course.announcements.all.order(id: :desc),
                 members: course.chat_team.try(:join_records).try(:map,&:account),
                 current_lesson_status: course.current_lesson.try(:status)
               }

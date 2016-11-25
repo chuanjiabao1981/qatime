@@ -247,6 +247,10 @@ module Permissions
       allow 'live_studio/helps', [:course]
 
       allow 'live_studio/teacher/course_invitations', [:index, :destroy]
+
+      allow 'live_studio/announcements', [:index, :create, :update] do |course|
+        course && course.teacher_id = user.id
+      end
       ## end live studio permission
 
 

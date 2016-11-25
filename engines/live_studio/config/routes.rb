@@ -3,6 +3,9 @@ LiveStudio::Engine.routes.draw do
   get 'courses/index'
   get 'courses/teate'
 
+  get ':course_id/realtime/announcements', to: 'realtime#announcements'
+  get ':course_id/realtime/members', to: 'realtime#members'
+
   namespace :admin do
     resources :courses, only: [:index]
     resources :course_requests, only: [:index] do
@@ -15,6 +18,7 @@ LiveStudio::Engine.routes.draw do
 
   resources :courses, only: [:index, :new, :create, :edit, :update, :show] do
     resources :orders, only: [:new, :create, :pay, :show] # 下单
+    resources :announcements, only: [:index, :update, :create], shallow: true
 
     collection do
       get :schedule_sources
@@ -28,7 +32,6 @@ LiveStudio::Engine.routes.draw do
       post :update_notice
       patch :publish
       get :refresh_current_lesson
-
     end
 
     resources :lessons, only: [:show] do

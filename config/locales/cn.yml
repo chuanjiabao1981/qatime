@@ -127,6 +127,15 @@ cn:
       header:
         one: 有 1 个错误发生导致「%{model}」无法被保存。
         other: 有 %{count} 个错误发生导致「%{model}」无法被保存。
+    live_sutdio/announcement:
+      content:
+        blank: 请输入公告内容
+        too_long: 公告内容太长
+        too_short: 公告内容太短
+  placeholders:
+    live_sutdio/announcement:
+      content: 请输入公告内容（最多100字）
+
   helpers:
     select:
       prompt: 请选择

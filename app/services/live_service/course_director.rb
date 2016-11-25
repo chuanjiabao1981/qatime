@@ -55,16 +55,16 @@ module LiveService
       query_by_params(@courses, search_params)
     end
 
-    def self.courses_for_teacher_index(user,params)
+    def self.courses_for_teacher_index(user, params)
       @courses = user.live_studio_courses
-      if LiveStudio::Course.statuses.include?(params[:status])
-        # 根据状态过滤辅导班
-        status = LiveStudio::Course.statuses[params[:status]]
-        @courses = @courses.where(status: status)
-      elsif params[:status] == 'today'
+      if params[:status] == 'today'
         # 根据分类过滤辅导班
         # status: today今日上课辅导班
         @courses = @courses.includes(:lessons).where(live_studio_lessons: { class_date: Date.today })
+      elsif params[:status].present?
+        # 根据状态过滤辅导班
+        statuses = params[:status].split(',')
+        @courses = @courses.where(status: LiveStudio::Course.statuses.slice(*statuses).values)
       end
       @courses.order("id desc")
     end
@@ -116,7 +116,7 @@ module LiveService
       return user.live_studio_taste_tickets.includes(course: :teacher) if 'taste' == cate
       # 今日辅导班
       # TODO 查询逻辑有点复杂，可以考虑通过增加冗余字段来简化查询
-      user.live_studio_tickets.visiable.includes(course: [:teacher, :lessons]).where(live_studio_lessons: { class_date: Date.today })
+      user.live_studio_tickets.visiable.includes(course: [:teacher, :lessons]).where(live_studio_lessons: { class_date: Date.today }).uniq
     end
 
     def self.query_by_params(courses, params)

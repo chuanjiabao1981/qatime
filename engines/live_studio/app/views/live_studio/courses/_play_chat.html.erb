@@ -372,7 +372,28 @@ $(function() {
   $(document).mouseup(function(){
     $(document).unbind('mousemove');
   });
-
 });
+
+// 加载公告
+function refreshNotice() {
+  console.log(chatInited);
+  $.getJSON("/live_studio/<%= @course.id %>/realtime/announcements", function(data) {
+    $("#notice-panel").empty();
+    data.forEach(function(announcement) {
+      var item = $('<div class="new-information"></div>');
+      var itemTitle = $('<div class="information-title"></div>');
+      if(announcement.lastest) {
+        itemTitle.append('<%= image_tag("livenotice.png") %>');
+      } else {
+        itemTitle.append('<%= image_tag("livenotice-1.png") %>');
+      }
+      itemTitle.append('<span class="information-time">' + announcement.create_time + '</span>');
+      item.append(itemTitle);
+      item.append('<div class="information-con">' + announcement.content + '</div>');
+      $("#notice-panel").append(item);
+    });
+  });
+}
+refreshNotice();
 </script>
 <% end %>

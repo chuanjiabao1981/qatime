@@ -46,7 +46,7 @@ module LiveStudio
         transitions from: :init, to: :rejected
       end
 
-      event :publish do
+      event :publish, after_commit: :ready_lessons do
         before do
           self.published_at = Time.now
         end
@@ -96,6 +96,7 @@ module LiveStudio
     has_many :push_streams, through: :channels
     has_many :pull_streams, through: :channels
     has_many :play_records # 听课记录
+    has_many :announcements
 
     has_one :chat_team, foreign_key: 'live_studio_course_id', class_name: '::Chat::Team'
 
@@ -202,21 +203,25 @@ module LiveStudio
 
     # 用户是否已经购买
     def own_by?(user)
+      return false unless user.present?
       user.live_studio_tickets.map(&:course_id).include?(id)
     end
 
     # 已经购买
     def bought_by?(user)
+      return false unless user.present?
       buy_tickets.where(student_id: user.id).exists?
     end
 
     # 试听结束
     def tasted?(user)
+      return false unless user.present?
       taste_tickets.unavailable.where(student_id: user.id).exists?
     end
 
     # 正在试听
     def tasting?(user)
+      return false unless user.present?
       taste_tickets.available.where(student_id: user.id).exists?
     end
 
@@ -327,6 +332,12 @@ module LiveStudio
     end
 
     private
+
+    def ready_lessons
+      return unless class_date <= Date.today
+      teaching!
+      lessons.init.where('class_date <= ?', Date.today).map(&:ready!)
+    end
 
     before_save :check_lessons
     def check_lessons

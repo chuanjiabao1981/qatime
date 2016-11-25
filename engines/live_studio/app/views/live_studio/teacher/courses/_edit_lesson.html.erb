@@ -2,6 +2,8 @@
    lesson = f.object
    object_id = f.object.object_id
    index = f.index + 1
+   lesson.start_time_hour = nil
+   lesson.start_time_minute = nil
 %>
 <tr>
   <td class="class-num"><span><%= index < 10 ? "0#{index}" : index%></span></td>
@@ -31,7 +33,7 @@
         </div>
         <div class="popup-date">
           <div class="original-date">
-            <span>原上课日期<i><%= localize lesson.class_date, format: :long %></i></span>
+            <span>原上课日期<i><%= lesson.class_date.to_s %></i></span>
             <span>原开始时间<i><%= lesson.start_time %></i></span>
             <%= f.hidden_field :id %>
             <%= f.hidden_field :duration %>
@@ -40,7 +42,7 @@
           <div class="now-date">
  	        						<span class="new-date">
  	        						<label for="">新上课日期</label>
-                        <%= f.text_field :class_date,as: :string, placeholder: '选择上课日期', onclick: 'testShow(this)' %>
+                        <%= f.text_field :class_date,as: :string, placeholder: '选择上课日期', onclick: 'testShow(this)',value: '' %>
                         <br>
  	        						<i class="has-error class_date-error-<%= object_id %>"></i>
  	        					</span>
@@ -70,10 +72,12 @@
   $(function () {
     var o_id = '<%= object_id %>';
     var update_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:_update)).at_css('input').attributes['id'].value %>';
+    $('.active').hide();
 
     $('#adjust_edit_' + o_id).on('hide.bs.modal', function() {
       if($('#modal_click_btn_'+o_id).val() == 'save'){
         if(change_save()){
+          $('.active').show();
         }else{
           $('#modal_click_btn_'+o_id).val('cancel');
           $(update_id).attr('checked', false);

@@ -1,9 +1,10 @@
 <%
    lesson = f.object
    object_id = f.object.object_id
+   index = f.index + 1
 %>
 <tr>
-  <td class="class-num"><span>01</span></td>
+  <td class="class-num"><span><%= index < 10 ? "0#{index}" : index%></span></td>
   <td class="create-td">
     <p class="create-time">
       <span>上课时间：</span><span><%= lesson.class_date %></span><span><%= "#{lesson.start_time}-#{lesson.end_time}" %></span>

@@ -187,7 +187,7 @@ cn:
       teacher_desc: 自我介绍
       teacher_summary: 教师简介
   status:
-    init: 初始化
+    init: 审核中
     preview: 招生中
     published: 招生中
     teaching: 已开课

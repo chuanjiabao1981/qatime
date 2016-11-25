@@ -15,31 +15,33 @@
     <p class="create-name"><span>课程名称：</span><span><%= truncate(lesson.name, length: 40) %></span></p>
   </td>
   <td>
-    <p class="adjust-redact"><a href="javascript:void(0);" data-toggle="modal" data-target="#adjust_edit_<%= object_id %>"><%= t('activerecord.view.edit') %></a></p>
+    <p class="adjust-redact">
+      <%= link_to t('activerecord.view.edit'), 'javascript:void(0);', data: {toggle: 'modal',target: "#adjust_edit_#{object_id}"} if lesson.unstart?%>
+    </p>
   </td>
 </tr>
+<% if lesson.unstart? %>
+  <div class="modal fade" id="adjust_edit_<%= object_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="add-popup">
+        <div class="popup-title">
+          <span>课程名称：<%= truncate(lesson.name, length: 21) %></span>
 
-<div class="modal fade" id="adjust_edit_<%= object_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="add-popup">
-      <div class="popup-title">
-        <span>课程名称：<%= truncate(lesson.name, length: 21) %></span>
-
-        <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
-      </div>
-      <div class="popup-date">
-        <div class="original-date">
-          <span>原上课日期<i><%= localize lesson.class_date, format: :long %></i></span>
-          <span>原开始时间<i><%= lesson.start_time %></i></span>
-          <%= f.hidden_field :id %>
-          <%= f.hidden_field :duration %>
-          <%= f.hidden_field :end_time %>
+          <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
         </div>
-        <div class="now-date">
+        <div class="popup-date">
+          <div class="original-date">
+            <span>原上课日期<i><%= localize lesson.class_date, format: :long %></i></span>
+            <span>原开始时间<i><%= lesson.start_time %></i></span>
+            <%= f.hidden_field :id %>
+            <%= f.hidden_field :duration %>
+            <%= f.hidden_field :end_time %>
+          </div>
+          <div class="now-date">
  	        						<span class="new-date">
  	        						<label for="">新上课日期</label>
                         <%= f.text_field :class_date,as: :string, placeholder: '选择上课日期', onclick: 'testShow(this)' %>
- 	        						<br>
+                        <br>
  	        						<i class="has-error class_date-error-<%= object_id %>"></i>
  	        					</span>
  	        					<span class="newstart-time">
@@ -48,21 +50,22 @@
                       <%= f.select :start_time_minute, %w(00 05 10 15 20 25 30 35 40 45 50 55).insert(0, ['分', nil]) %>
                       <i class="has-error start_time-error-<%= object_id %>"></i>
  	        					</span>
-        </div>
+          </div>
 
 
-        <div class="date-btn">
-          <center>
-            <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close">取消</a>
-            <a href="javascript:void(0);" class="btn-datesave save-<%= object_id %>">保存</a>
-            <%= hidden_field_tag "modal_click_btn_#{object_id}" %>
-            <%= f.input_field :_update, as: :boolean, class: 'hidden' %>
-          </center>
+          <div class="date-btn">
+            <center>
+              <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close">取消</a>
+              <a href="javascript:void(0);" class="btn-datesave save-<%= object_id %>">保存</a>
+              <%= hidden_field_tag "modal_click_btn_#{object_id}" %>
+              <%= f.input_field :_update, as: :boolean, class: 'hidden' %>
+            </center>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
 <script type="text/javascript">
   $(function () {
     var o_id = '<%= object_id %>';

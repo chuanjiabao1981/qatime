@@ -173,6 +173,11 @@ module LiveStudio
       %w(closed finished billing completed).include?(status)
     end
 
+    def unstart?
+      # 判断课程是否未开始
+      %w(missed init ready).include?(status)
+    end
+
     # 记录播放记录
     # TODO 由于没有找到好的准确记录播放记录的方案，暂时假定所有的ticket都观看了直播
     def instance_play_records

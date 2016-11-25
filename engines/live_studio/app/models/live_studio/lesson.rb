@@ -4,7 +4,7 @@ module LiveStudio
     has_soft_delete
     extend Enumerize
 
-    attr_accessor :start_time_hour, :start_time_minute
+    attr_accessor :start_time_hour, :start_time_minute, :_update
 
     enum status: {
       missed: -1, # 已错过

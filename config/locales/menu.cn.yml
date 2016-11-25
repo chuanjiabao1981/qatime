@@ -12,6 +12,8 @@
     operate: "操作"
     delete: "删除"
     preview: "预览"
+    alert_lesson: 调课
+    announcement: 公告
     hide: "隐藏"
     accept: "接受"
     refuse: "拒绝"

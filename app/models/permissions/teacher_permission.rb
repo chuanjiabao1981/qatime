@@ -222,7 +222,7 @@ module Permissions
       allow :qa_file_quoters,[:index, :new, :edit, :update, :create, :show, :destroy]
 
       ## begin live studio permission
-      allow 'live_studio/teacher/courses', [:index, :show, :edit, :update, :sync_channel_streams, :channel, :close, :update_class_date, :destroy] do |teacher, course, action|
+      allow 'live_studio/teacher/courses', [:index, :show, :edit, :update, :sync_channel_streams, :channel, :close, :update_class_date, :update_lessons, :destroy] do |teacher, course, action|
         # 只有初始化的辅导班可以编辑
         permission = %w(edit update).include?(action) ? course.init? : true
         teacher && teacher == user && permission

@@ -39,6 +39,9 @@
               <%= link_to live_studio.preview_courses_path(id: course), method: :post, target: '_blank' do %>
                 [<%= t("common.preview") %>]
               <% end %>
+              <%= link_to update_class_date_teacher_course_path(@teacher, course) do %>
+                [<%= t('common.alert_lesson') %>]
+              <% end if course.teaching? %>
               <%= link_to live_studio.edit_course_path(course) do %>
                 [<%= t("common.edit") %>]
               <% end if course.init? || course.rejected? %>

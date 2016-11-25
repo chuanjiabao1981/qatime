@@ -17,7 +17,10 @@
         <%= link_to(t('view.course_info_show.start_learning'), play_course_path(@course)) unless @course.published? %>
       </div>
     <% elsif @course.tasted?(current_user) %>
-      <!-- 购买按钮 -->
+      <!-- 试听结束和购买按钮 -->
+      <div class="btn-taste-end">
+        <%= link_to(t('view.course_info_show.taste_end'), "javascript: void:(0);", disabled: true ) %>
+      </div>
       <div class="btn-sign">
         <%= link_to t('activerecord.view.enroll_now'), live_studio.new_course_order_path(@course) %>
       </div>

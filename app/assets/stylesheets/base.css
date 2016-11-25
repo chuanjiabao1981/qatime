@@ -2801,7 +2801,7 @@ color: #999999;
 }
 
 .nocourse {
-  display: none;
+  /*display: none;*/
   padding: 0 10px;
 }
 .nocourse-msg {
@@ -2935,6 +2935,14 @@ color: #999999;
   border-radius: 4px;
   /*display: none;*/
 }
+.btn-taste-end {
+  width: 120px;
+  height: 39px;
+  border: 0px !important;
+  line-height: 20px !important;
+  background-color: #CCCCCC;
+  color: #FFFFFF !important;
+}
 .listen-class:first-child {
   display: block !important;
 }
@@ -2948,14 +2956,14 @@ color: #999999;
   left: 10px;
   bottom: -10px;
 }
-.btn-audition {
+.btn-audition,.btn-taste-end {
   color: rgb(102,102,102);
   border: 1px solid #999999;
   border-right: 0px;
   border-radius: 4px 0 0 4px;
 
 }
-.btn-audition,.btn-signnow {
+.btn-audition,.btn-signnow,.btn-taste-end {
   width: 34px;
   font-size: 14px;
   line-height: 18px;
@@ -2965,13 +2973,14 @@ color: #999999;
   background-color: rgb(253,168,21);
   color: white;
 }
-.btn-audition,.btn-sign,.btn-start,.btn-listen,.btn-signnow,.btn-applynow {
+.btn-audition,.btn-sign,.btn-start,.btn-listen,.btn-signnow,.btn-applynow,.btn-taste-end {
   text-align: center;
   height: 39px;
   float: left;
 }
 
 .btn-sign,.btn-listen {
+  display: inline-block;
   width: 84px;
   line-height: 39px;
   color: white;
@@ -2979,8 +2988,13 @@ color: #999999;
 .btn-start,.btn-applynow {
   color: white;
   line-height: 39px;
-  background-color: rgb(32,173,101);
   border: none; 
+}
+.btn-start {
+  background-color: rgb(32,173,101);
+}
+.btn-applynow {
+  background-color: rgb(253,168,21);
 }
 .btn-listen {
   background-color: rgb(32,173,101);
@@ -3491,7 +3505,7 @@ ul {
   .message-logging .active {
     display: block;
     height: 548px;
-         padding: 12px 5px;
+         padding: 12px 5px; 
     border-bottom: 0px
   }
   
@@ -3507,11 +3521,6 @@ ul {
     color: #333333;
     font-size: 18px;
   }
-  /*.logging-left i {
-    display: inline-block;
-    font-size: 18px;
-    position: relative;
-  }*/
   .logging-center {
     float: left;
     position: absolute;
@@ -3668,26 +3677,30 @@ ul {
   height: 100%;
 }
 
-/*.video-js .vjs-fullscreen-control {
-    position: absolute !important;
-    right: 0px;
-      }
-   .video-js .vjs-menu-button-inline {
-        position: absolute !important;
-        right: 35%;
-  }
-  #my-video .refresh {
-        margin-top: 8px;
-        margin-left: 6%;
-        width: 16px;
-        height: 14px;
-      }
-  #my-video .barrage {
-    margin-top: 8px;
-    width: 16px;
-    height: 14px;
-    margin-left: 60%;
-  }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

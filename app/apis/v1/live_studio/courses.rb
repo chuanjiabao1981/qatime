@@ -222,7 +222,12 @@ module V1
         end
 
         resource :courses do
-          desc '检索辅导班列表接口'
+          desc '检索辅导班列表接口' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: false
+            }
+          end
           params do
             optional :page, type: Integer, desc: '当前页面'
             optional :per_page, type: Integer, desc: '每页记录数'
@@ -237,10 +242,15 @@ module V1
           end
           get do
             courses = LiveService::CourseDirector.courses_search(params).paginate(page: params[:page], per_page: params[:per_page])
-            present courses, with: Entities::LiveStudio::StudentCourse, type: :default, current_user: current_user
+            present courses, with: Entities::LiveStudio::SearchCourse, type: :default, current_user: current_user
           end
 
-          desc '检索辅导班详情接口'
+          desc '检索辅导班详情接口' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: false
+            }
+          end
           params do
             requires :id, desc: '辅导班ID'
           end

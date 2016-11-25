@@ -134,7 +134,7 @@ cn:
         too_short: 公告内容太短
   placeholders:
     live_sutdio/announcement:
-      content: 请输入公告内容（最多100字）
+      content: 请输入公告内容（最多%{count}字）
 
   helpers:
     select:

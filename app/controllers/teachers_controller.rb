@@ -10,10 +10,10 @@ class TeachersController < ApplicationController
 
   def new
     @teacher = Teacher.new
-    if Rails.env.testing? || Rails.env.development?
-      RegisterCode.able_code.last.try(:value) || RegisterCode.batch_make("20", School.last)
-      @teacher.register_code_value = RegisterCode.able_code.last.value
-    end
+    # if Rails.env.testing? || Rails.env.development?
+    #   RegisterCode.able_code.last.try(:value) || RegisterCode.batch_make("20", School.last)
+    #   @teacher.register_code_value = RegisterCode.able_code.last.value
+    # end
   end
 
   def create
@@ -213,7 +213,8 @@ class TeachersController < ApplicationController
   end
 
   def create_params
-    params.require(:teacher).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :register_code_value, :accept)
+    # params.require(:teacher).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :register_code_value, :accept)
+    params.require(:teacher).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :accept)
   end
 
   def register_params

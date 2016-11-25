@@ -3,11 +3,12 @@ module V1
   module LiveStudio
     class Courses < V1::Base
       namespace "live_studio" do
-        before do
-          authenticate!
-        end
 
         namespace :teachers do
+          before do
+            authenticate!
+          end
+
           route_param :teacher_id do
             helpers do
               def auth_params
@@ -18,44 +19,42 @@ module V1
             resource :courses do
               desc '教师辅导班列表接口' do
                 headers 'Remember-Token' => {
-                    description: 'RememberToken',
-                    required: true
+                  description: 'RememberToken',
+                  required: true
                 }
               end
               params do
                 optional :page, type: Integer, desc: '当前页面'
                 optional :per_page, type: Integer, desc: '每页记录数'
-                optional :status, type: String,desc: '过滤条件 init:初始化; published: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班',
-                         values: %w(init published teaching completed today)
+                optional :status, type: String, desc: '过滤条件 init:初始化; published: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班. 多个状态用英文逗号分隔'
               end
               get do
-                courses = LiveService::CourseDirector.courses_for_teacher_index(current_user, params).
-                  paginate(page: params[:page], per_page: params[:per_page])
+                courses = LiveService::CourseDirector.courses_for_teacher_index(current_user, params)
+                                                     .paginate(page: params[:page], per_page: params[:per_page])
                 present courses, with: Entities::LiveStudio::TeacherCourse, type: :default
               end
 
               desc '教师辅导班全信息接口' do
                 headers 'Remember-Token' => {
-                    description: 'RememberToken',
-                    required: true
+                  description: 'RememberToken',
+                  required: true
                 }
               end
               params do
                 optional :page, type: Integer, desc: '当前页面'
                 optional :per_page, type: Integer, desc: '每页记录数'
-                optional :status, type: String,desc: '过滤条件 init:初始化; published: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班',
-                         values: %w(init published teaching completed today)
+                optional :status, type: String, desc: '过滤条件 init:初始化; published: 待开课; teaching: 已开课; completed: 已结束; today: 今日有课的辅导班. 多个状态用英文逗号分隔'
               end
               get :full do
-                courses = LiveService::CourseDirector.courses_for_teacher_index(current_user, params).
-                  paginate(page: params[:page], per_page: params[:per_page])
+                courses = LiveService::CourseDirector.courses_for_teacher_index(current_user, params)
+                                                     .paginate(page: params[:page], per_page: params[:per_page])
                 present courses, with: Entities::LiveStudio::TeacherCourse, type: :full
               end
 
               desc '教师辅导班详情接口' do
                 headers 'Remember-Token' => {
-                    description: 'RememberToken',
-                    required: true
+                  description: 'RememberToken',
+                  required: true
                 }
               end
               params do
@@ -85,6 +84,10 @@ module V1
         end
 
         namespace :students do
+          before do
+            authenticate!
+          end
+          
           route_param :student_id do
             helpers do
               def auth_params
@@ -144,47 +147,8 @@ module V1
         end
 
         resource :courses do
-          desc '检索辅导班列表接口' do
-            headers 'Remember-Token' => {
-                description: 'RememberToken',
-                required: true
-            }
-          end
-          params do
-            optional :page, type: Integer, desc: '当前页面'
-            optional :per_page, type: Integer, desc: '每页记录数'
-            optional :sort_by, type: String, desc: '排序方式,多个排序字段用-隔开,默认倒序,需要正序加上.asc后缀 例如: created_at-price.asc-buy_count.asc'
-            optional :subject, type: String, desc: '科目', values: APP_CONSTANT['subjects']
-            optional :grade, type: String, desc: '年级', values: APP_CONSTANT['grades_in_menu']
-            optional :price_floor, type: Integer, desc: '价格开始区间'
-            optional :price_ceil, type: Integer, desc: '价格结束区间'
-            optional :class_date_floor, type: String, desc: '开课日期结束区间'
-            optional :class_date_ceil, type: String, desc: '开课日期结束区间'
-            optional :preset_lesson_count_floor, type: Integer, desc: '课时总数开始区间'
-            optional :preset_lesson_count_ceil, type: Integer, desc: '课时总数结束区间'
-            optional :lessons_count_floor, type: Integer, desc: '课时总数开始区间'
-            optional :lessons_count_ceil, type: Integer, desc: '课时总数结束区间'
-            optional :status, type: String, desc: '辅导班状态 all: 全部; published: 招生中; teaching: 已开课', values: %w(all published teaching)
-          end
-          get do
-            courses = LiveService::CourseDirector.courses_search(params).paginate(page: params[:page], per_page: params[:per_page])
-            entity = current_user.student? ? Entities::LiveStudio::StudentCourse : Entities::LiveStudio::Course
-            present courses, with: entity, type: :default, current_user: current_user
-          end
-
-          desc '检索辅导班详情接口' do
-            headers 'Remember-Token' => {
-              description: 'RememberToken',
-              required: true
-            }
-          end
-          params do
-            requires :id, desc: '辅导班ID'
-          end
-          get '/:id' do
-            course = ::LiveStudio::Course.find(params[:id])
-            entity = current_user.student? ? Entities::LiveStudio::StudentCourse : Entities::LiveStudio::Course
-            present course, with: entity, type: :full, current_user: current_user, size: :info
+          before do
+            authenticate!
           end
 
           desc '试听辅导班接口' do
@@ -257,8 +221,49 @@ module V1
           end
         end
 
+        resource :courses do
+          desc '检索辅导班列表接口' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: false
+            }
+          end
+          params do
+            optional :page, type: Integer, desc: '当前页面'
+            optional :per_page, type: Integer, desc: '每页记录数'
+            optional :sort_by, type: String, desc: '排序方式,多个排序字段用-隔开,默认倒序,需要正序加上.asc后缀 例如: created_at-price.asc-buy_count.asc'
+            optional :subject, type: String, desc: '科目', values: APP_CONSTANT['subjects']
+            optional :grade, type: String, desc: '年级', values: APP_CONSTANT['grades_in_menu']
+            optional :price_floor, type: Integer, desc: '价格开始区间'
+            optional :price_ceil, type: Integer, desc: '价格结束区间'
+            optional :status, type: String, desc: '辅导班状态 all: 全部; published: 招生中; teaching: 已开课', values: %w(all published teaching)
+            optional :class_date_floor, type: String, desc: '开课日期开始时间'
+            optional :class_date_ceil, type: String, desc: '开课日期结束时间'
+          end
+          get do
+            courses = LiveService::CourseDirector.courses_search(params).paginate(page: params[:page], per_page: params[:per_page])
+            present courses, with: Entities::LiveStudio::SearchCourse, type: :default, current_user: current_user
+          end
+
+          desc '检索辅导班详情接口' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: false
+            }
+          end
+          params do
+            requires :id, desc: '辅导班ID'
+          end
+          get '/:id' do
+            course = ::LiveStudio::Course.find(params[:id])
+            present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user, size: :info
+          end
+        end
 
         namespace :courses do
+          before do
+            authenticate!
+          end
 
           route_param :course_id do
             helpers do

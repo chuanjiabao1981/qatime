@@ -4586,16 +4586,20 @@ ul {
   margin: 20px 0px 20px 110px;
   color: #666666;
 }
+.original-date {
+  position: relative;
+}
 .now-date {
   position: relative;
   top: 20px;
-  margin-bottom: 35px;
+  margin-bottom: 25px;
 }
 .original-date i {
   margin-left: 15px;
 }
-.original-date span:first-child {
-  margin-right:180px ;
+.original-date span:nth-child(2) {
+  position: absolute;
+  left: 380px;
 }
 .now-date label {
   font-weight: 100;

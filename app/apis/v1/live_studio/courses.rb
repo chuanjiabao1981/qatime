@@ -287,7 +287,7 @@ module V1
                 ::LiveService::ChatTeamManager.new(nil).instance_team(@course)
                 @course.reload
               end
-              @announcement = @course.announcements.new(announcement_params.merge(lastest: true, creator: @course.teacher))
+              @announcement = @course.announcements.new(content: params[:content], lastest: true, creator: @course.teacher)
               if @announcement.save
                 @course.announcements.where(lastest: true).where("id <> ?", @announcement).update_all(lastest: false)
               end

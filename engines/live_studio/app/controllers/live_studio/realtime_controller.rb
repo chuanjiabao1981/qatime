@@ -7,7 +7,6 @@ module LiveStudio
     # 公告
     def announcements
       @announcements = @course.announcements.order(id: :desc)
-      @announcements = Announcement.order(id: :desc)
       render json: @announcements.as_json(only: [:id, :content, :lastest], methods: [:create_time])
     end
 

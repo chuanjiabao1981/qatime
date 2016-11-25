@@ -18,9 +18,9 @@
       </div>
     <% elsif @course.tasted?(current_user) %>
       <!-- 试听结束和购买按钮 -->
-      <div class="btn-taste-end"><%= t('view.course_info_show.taste_end') %></div>
-      <div class="btn-sign">
-        <%= link_to t('activerecord.view.enroll_now'), live_studio.new_course_order_path(@course) %>
+      <div class="listen-class">
+        <div class="btn-taste-end"><%= t('view.course_info_show.taste_end') %></div>
+          <%= link_to t('activerecord.view.enroll_now'), live_studio.new_course_order_path(@course) %>
       </div>
     <% elsif @course.tasting?(current_user) %>
       <!-- 开始试听和购买按钮 -->

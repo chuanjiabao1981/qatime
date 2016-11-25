@@ -202,21 +202,25 @@ module LiveStudio
 
     # 用户是否已经购买
     def own_by?(user)
+      return false unless user.present?
       user.live_studio_tickets.map(&:course_id).include?(id)
     end
 
     # 已经购买
     def bought_by?(user)
+      return false unless user.present?
       buy_tickets.where(student_id: user.id).exists?
     end
 
     # 试听结束
     def tasted?(user)
+      return false unless user.present?
       taste_tickets.unavailable.where(student_id: user.id).exists?
     end
 
     # 正在试听
     def tasting?(user)
+      return false unless user.present?
       taste_tickets.available.where(student_id: user.id).exists?
     end
 

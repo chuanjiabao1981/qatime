@@ -7,10 +7,10 @@ module Entities
         a.content
       end
       expose :edit_at do |a|
-        a.created_at.try(:to_s, :db)
+        a.create_time
       end
       expose :created_at do |a|
-        a.created_at.try(:to_s, :db)
+        a.create_time
       end
     end
   end

@@ -234,6 +234,7 @@ module V1
             optional :status, type: String, desc: '辅导班状态 all: 全部; published: 招生中; teaching: 已开课', values: %w(all published teaching)
             optional :class_date_floor, type: String, desc: '开课日期开始时间'
             optional :class_date_ceil, type: String, desc: '开课日期结束时间'
+            optional :city_name, type: String, desc: '限定城市名称'
           end
           get do
             courses = LiveService::CourseDirector.courses_search(params).paginate(page: params[:page], per_page: params[:per_page])

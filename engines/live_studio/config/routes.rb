@@ -3,6 +3,9 @@ LiveStudio::Engine.routes.draw do
   get 'courses/index'
   get 'courses/teate'
 
+  get ':course_id/realtime/announcements', to: 'realtime#announcements'
+  get ':course_id/realtime/members', to: 'realtime#members'
+
   namespace :admin do
     resources :courses, only: [:index]
     resources :course_requests, only: [:index] do

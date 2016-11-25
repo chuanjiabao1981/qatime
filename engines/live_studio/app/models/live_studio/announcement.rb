@@ -11,5 +11,9 @@ module LiveStudio
       # 发送通知消息
       LiveService::CourseNotificationSender.new(course).notice(LiveStudioCourseNotification::ACTION_NOTICE_CREATE)
     end
+
+    def create_time
+      created_at.to_s(:local).gsub(/\+0800/, '')
+    end
   end
 end

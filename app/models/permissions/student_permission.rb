@@ -157,6 +157,7 @@ module Permissions
       allow 'live_studio/student/students', [:schedules, :settings]
       allow 'settings', [:create, :update]
       allow 'live_studio/student/courses', [:index, :show]
+      allow 'live_studio/courses', [:index, :show]
       allow 'live_studio/lessons', [:show, :play]
       ## end live studio permission
 

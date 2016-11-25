@@ -38,8 +38,8 @@
                       <strong><%= k.upcase %></strong>
                     </span>
     							<span class="hasallcity-name">
-                    <% cities.each do |city_name| %>
-                      <%= link_to city_name, home_path(city_name: city_name) %>
+                    <% cities.each do |city| %>
+                      <%= link_to city.name, home_path(city_name: city.name) %>
                     <% end %>
     							</span>
                   </p>

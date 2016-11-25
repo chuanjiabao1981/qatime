@@ -16,13 +16,13 @@ class HomeController < ApplicationController
   end
 
   def switch_city
-    @hash_cities = ::Util.group_cities
+    @hash_cities = City.all.to_a.group_by {|city| Spinying.parse(word: city.name).first }.sort.to_h
     @selected_cities = cookies[:selected_cities].try(:split, '-')
   end
 
   private
+
   def set_user
     @user = current_user
   end
-
 end

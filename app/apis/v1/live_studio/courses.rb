@@ -287,12 +287,10 @@ module V1
                 ::LiveService::ChatTeamManager.new(nil).instance_team(@course)
                 @course.reload
               end
-              team = @course.chat_team
-              team.team_announcements.create(announcement: params[:content], edit_at: Time.now)
-              team.reload
-              Chat::IM.team_update(tid: team.team_id, owner: team.owner, announcement: team.announcement)
-              # 发送通知消息
-              LiveService::CourseNotificationSender.new(@course).notice(LiveStudioCourseNotification::ACTION_NOTICE_CREATE)
+              @announcement = @course.announcements.new(announcement_params.merge(lastest: true, creator: @course.teacher))
+              if @announcement.save
+                @course.announcements.where(lastest: true).where("id <> ?", @announcement).update_all(lastest: false)
+              end
               "ok"
             end
           end

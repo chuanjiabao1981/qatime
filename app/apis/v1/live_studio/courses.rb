@@ -179,7 +179,7 @@ module V1
             course = ::LiveStudio::Course.find(params[:id])
             realtime =
               {
-                announcements: course.chat_team.try(:team_announcements).try(:order, created_at: :desc),
+                announcements: course.announcements.all.order(id: :desc),
                 members: course.chat_team.try(:join_records).try(:map,&:account),
                 current_lesson_status: course.current_lesson.try(:status)
               }
@@ -222,7 +222,12 @@ module V1
         end
 
         resource :courses do
-          desc '检索辅导班列表接口'
+          desc '检索辅导班列表接口' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: false
+            }
+          end
           params do
             optional :page, type: Integer, desc: '当前页面'
             optional :per_page, type: Integer, desc: '每页记录数'
@@ -237,10 +242,15 @@ module V1
           end
           get do
             courses = LiveService::CourseDirector.courses_search(params).paginate(page: params[:page], per_page: params[:per_page])
-            present courses, with: Entities::LiveStudio::StudentCourse, type: :default, current_user: current_user
+            present courses, with: Entities::LiveStudio::SearchCourse, type: :default, current_user: current_user
           end
 
-          desc '检索辅导班详情接口'
+          desc '检索辅导班详情接口' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: false
+            }
+          end
           params do
             requires :id, desc: '辅导班ID'
           end
@@ -277,12 +287,10 @@ module V1
                 ::LiveService::ChatTeamManager.new(nil).instance_team(@course)
                 @course.reload
               end
-              team = @course.chat_team
-              team.team_announcements.create(announcement: params[:content], edit_at: Time.now)
-              team.reload
-              Chat::IM.team_update(tid: team.team_id, owner: team.owner, announcement: team.announcement)
-              # 发送通知消息
-              LiveService::CourseNotificationSender.new(@course).notice(LiveStudioCourseNotification::ACTION_NOTICE_CREATE)
+              @announcement = @course.announcements.new(content: params[:content], lastest: true, creator: @course.teacher)
+              if @announcement.save
+                @course.announcements.where(lastest: true).where("id <> ?", @announcement).update_all(lastest: false)
+              end
               "ok"
             end
           end

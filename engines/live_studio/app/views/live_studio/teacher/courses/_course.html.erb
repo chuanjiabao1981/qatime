@@ -48,6 +48,9 @@
               <%= link_to 'javascript:void(0);', data: {toggle: 'modal', target: "#delete_#{course.id}" } do %>
                 [<%= t("common.delete") %>]
               <% end if course.init? || course.rejected? %>
+              <%= link_to live_studio.course_announcements_path(course) do %>
+                [<%= t("common.announcement") %>]
+              <% end if course.teaching? %>
 
               <div class="modal fade in" id="delete_<%= course.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
                   <div class="modal-dialog" role="document">

@@ -10,10 +10,10 @@ class StudentsController < ApplicationController
 
   def new
     @student = Student.new
-    if Rails.env.testing? || Rails.env.development?
-      RegisterCode.able_code.last.try(:value) || RegisterCode.batch_make("20", School.last)
-      @student.register_code_value = RegisterCode.able_code.last.value
-    end
+    # if Rails.env.testing? || Rails.env.development?
+    #   RegisterCode.able_code.last.try(:value) || RegisterCode.batch_make("20", School.last)
+    #   @student.register_code_value = RegisterCode.able_code.last.value
+    # end
   end
 
   def create
@@ -21,6 +21,7 @@ class StudentsController < ApplicationController
     captcha_manager = UserService::CaptchaManager.new(create_params[:login_mobile])
     @student.captcha = captcha_manager.captcha_of(:register_captcha)
     @student.build_account
+    binding.pry
     if @student.save
       session.delete("captcha-#{create_params[:login_mobile]}")
       sign_in(@student) unless signed_in?
@@ -186,7 +187,8 @@ class StudentsController < ApplicationController
   end
 
   def create_params
-    params.require(:student).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :register_code_value, :accept)
+    # params.require(:student).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :register_code_value, :accept)
+    params.require(:student).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :accept)
   end
 
   def register_params

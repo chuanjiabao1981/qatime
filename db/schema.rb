@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161122044323) do
+ActiveRecord::Schema.define(version: 20161125094247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -494,6 +494,18 @@ ActiveRecord::Schema.define(version: 20161122044323) do
   end
 
   add_index "lessons", ["tags"], name: "index_lessons_on_tags", using: :gin
+
+  create_table "live_studio_announcements", force: :cascade do |t|
+    t.integer  "course_id"
+    t.integer  "creator_id"
+    t.string   "creator_type"
+    t.string   "content"
+    t.boolean  "lastest"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "live_studio_announcements", ["course_id"], name: "index_live_studio_announcements_on_course_id", using: :btree
 
   create_table "live_studio_channels", force: :cascade do |t|
     t.string   "name",       limit: 255

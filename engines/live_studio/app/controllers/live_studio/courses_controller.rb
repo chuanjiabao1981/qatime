@@ -51,7 +51,7 @@ module LiveStudio
 
       if @course.update(courses_params)
         LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
-        redirect_to live_studio.send("#{@course.author.role}_courses_path", @course.author)
+        redirect_to live_studio.send("#{@course.teacher.role}_courses_path", @course.teacher)
       else
         render :new, layout: current_user_layout
       end

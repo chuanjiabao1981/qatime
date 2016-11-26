@@ -9,6 +9,7 @@ course_one:
   subject: 语文
   teacher_percentage: 90
   preset_lesson_count: 2
+  lessons_count: 2
   price: 999
 
 course_two:
@@ -21,6 +22,7 @@ course_two:
   teacher_percentage: 90
   preset_lesson_count: 2
   price: 999
+  lessons_count: 2
 
 course_no_teacher:
   name: 测试辅导3班
@@ -32,6 +34,7 @@ course_no_teacher:
   teacher_percentage: 90
   preset_lesson_count: 2
   price: 999
+  lessons_count: 2
 
 course_destroy_teacher:
   name: 测试辅导3班
@@ -43,6 +46,7 @@ course_destroy_teacher:
   teacher_percentage: 90
   preset_lesson_count: 2
   price: 999
+  lessons_count: 2
 
 course_init:
   name: 初始化辅导班
@@ -54,6 +58,7 @@ course_init:
   status: 0
   grade: 六年级
   subject: 语文
+  lessons_count: 2
 
 course_preview:
   id: 5
@@ -67,6 +72,7 @@ course_preview:
   subject: 语文
   teacher_percentage: 80
   class_date: <%= Date.today %>
+  lessons_count: 2
 
 course_preview_two:
   name: 招生中的辅导班2
@@ -78,6 +84,7 @@ course_preview_two:
   grade: 六年级
   subject: 语文
   teacher_percentage: 90
+  lessons_count: 2
 
 course_preview_three:
   name: 招生中的辅导班3
@@ -89,6 +96,7 @@ course_preview_three:
   grade: 六年级
   subject: 语文
   teacher_percentage: 90
+  lessons_count: 2
 
 course_teaching:
   name: 上课中的辅导班
@@ -100,6 +108,7 @@ course_teaching:
   teacher_percentage: 90
   price: 999
   preset_lesson_count: 2
+  lessons_count: 2
 
 course_without_channel:
   name: 没有初始化的辅导班
@@ -111,10 +120,12 @@ course_without_channel:
   preset_lesson_count: 2
   teacher_percentage: 90
   price: 999
+  lessons_count: 2
 
 course_one_of_teacher_one:
   name: teacher_one_course_one
-  teacher_id: 1
+  teacher: teacher_for_billing
+  author: teacher_for_billing (User)
   workstation_id: 1
   price: 100
   status: 0
@@ -123,6 +134,7 @@ course_one_of_teacher_one:
   lesson_price: 20
   grade: 六年级
   subject: 语文
+  lessons_count: 2
 
 update_course_by_physics_teacher1:
   teacher: physics_teacher1
@@ -135,6 +147,7 @@ update_course_by_physics_teacher1:
   grade: 六年级
   subject: 语文
   workstation: workstation_invalid
+  lessons_count: 2
 
 course_teach_2:
   name: 上课中的辅导班2
@@ -146,6 +159,7 @@ course_teach_2:
   teacher_percentage: 90
   preset_lesson_count: 2
   price: 999
+  lessons_count: 2
 
 course_with_lesson:
   id: 3
@@ -158,6 +172,7 @@ course_with_lesson:
   subject: 语文
   preset_lesson_count: 2
   price: 999
+  lessons_count: 2
 
 course_with_order:
   name: 辅导班4
@@ -169,6 +184,7 @@ course_with_order:
   teacher_percentage: 90
   preset_lesson_count: 2
   price: 999
+  lessons_count: 2
 
 course_with_order2:
   name: 辅导班4
@@ -180,6 +196,7 @@ course_with_order2:
   subject: 语文
   preset_lesson_count: 2
   price: 999
+  lessons_count: 2
 
 course_with_lessons:
   id: 4
@@ -193,6 +210,7 @@ course_with_lessons:
   price: 200
   grade: 六年级
   subject: 语文
+  lessons_count: 2
 
 tasting_course:
   id: 10
@@ -206,6 +224,7 @@ tasting_course:
   price: 200
   grade: 六年级
   subject: 语文
+  lessons_count: 2
 
 course_without_chat_team:
   name: 没有聊天群组的辅导班
@@ -218,6 +237,7 @@ course_without_chat_team:
   price: 200
   grade: 六年级
   subject: 语文
+  lessons_count: 2
 
 course_with_junior_teacher:
   name: 教师有云信ID的聊天室
@@ -230,6 +250,7 @@ course_with_junior_teacher:
   price: 200
   grade: 六年级
   subject: 语文
+  lessons_count: 2
 
 course_for_taste:
   name: 试听辅导班
@@ -242,6 +263,7 @@ course_for_taste:
   price: 200
   grade: 六年级
   subject: 语文
+  lessons_count: 2
 
 course_for_tasting:
   name: 正在试听辅导班
@@ -254,6 +276,7 @@ course_for_tasting:
   price: 200
   grade: 六年级
   subject: 语文
+  lessons_count: 2
 
 course_for_tasting_for_delete:
   name: s辅导班
@@ -266,6 +289,7 @@ course_for_tasting_for_delete:
   price: 200
   grade: 六年级
   subject: 语文
+  lessons_count: 2
 
 course_for_edit:
   name: 辅导班
@@ -278,6 +302,7 @@ course_for_edit:
   price: 200
   grade: 六年级
   subject: 语文
+  lessons_count: 2
 
 course_for_teaching:
   id: 10000
@@ -291,6 +316,7 @@ course_for_teaching:
   price: 200
   grade: 六年级
   subject: 语文
+  lessons_count: 2
 
 course_for_init:
   id: 10001
@@ -304,6 +330,7 @@ course_for_init:
   price: 200
   grade: 六年级
   subject: 语文
+  lessons_count: 2
 
 course_start_at_today:
   name: 今天开课辅导班
@@ -317,6 +344,7 @@ course_start_at_today:
   grade: 六年级
   subject: 语文
   class_date: <%= Date.today %>
+  lessons_count: 2
 
 init_course1:
   name: 准备中的辅导班1
@@ -330,6 +358,7 @@ init_course1:
   grade: 六年级
   subject: 语文
   class_date: <%= Date.yesterday %>
+  lessons_count: 2
 
 course_for_billing_one:
   name: 结账测试辅导班1
@@ -345,6 +374,7 @@ course_for_billing_one:
   class_date: <%= Date.yesterday %>
   province: shanxi
   city: yangquan
+  lessons_count: 2
 
 course_for_billing_two:
   name: 结账测试辅导班2
@@ -360,6 +390,7 @@ course_for_billing_two:
   class_date: <%= Date.yesterday %>
   province: shanxi
   city: yangquan
+  lessons_count: 2
 
 course_for_billing_three:
   name: 结账测试辅导班1
@@ -375,6 +406,7 @@ course_for_billing_three:
   class_date: <%= Date.yesterday %>
   province: zhejiang
   city: zhuji
+  lessons_count: 2
 
 course_for_channel:
   name: course_for_channel
@@ -390,6 +422,7 @@ course_for_channel:
   class_date: <%= Date.yesterday %>
   province: zhejiang
   city: zhuji
+  lessons_count: 2
 
 course_english_one:
   name: course_for_channel
@@ -405,6 +438,7 @@ course_english_one:
   class_date: <%= Date.yesterday %>
   province: zhejiang
   city: zhuji
+  lessons_count: 2
 
 
 course_english_two:
@@ -421,6 +455,7 @@ course_english_two:
   class_date: <%= Date.yesterday %>
   province: zhejiang
   city: zhuji
+  lessons_count: 2
 
 
 course_english_three:
@@ -437,6 +472,7 @@ course_english_three:
   class_date: <%= Date.yesterday %>
   province: zhejiang
   city: zhuji
+  lessons_count: 2
 
 course_english_four:
   name: course_for_channel
@@ -452,6 +488,7 @@ course_english_four:
   class_date: <%= Date.yesterday %>
   province: zhejiang
   city: zhuji
+  lessons_count: 2
 
 course_english_five:
   name: course_for_channel
@@ -467,6 +504,7 @@ course_english_five:
   class_date: <%= Date.yesterday %>
   province: zhejiang
   city: zhuji
+  lessons_count: 2
 
 course_maths_one:
   name: 数学辅导班1
@@ -482,6 +520,7 @@ course_maths_one:
   class_date: <%= Date.yesterday %>
   province: zhejiang
   city: zhuji
+  lessons_count: 2
 
 course_maths_two:
   name: 数学辅导班2
@@ -497,6 +536,7 @@ course_maths_two:
   class_date: <%= Date.yesterday %>
   province: zhejiang
   city: zhuji
+  lessons_count: 2
 
 course_maths_three:
   name: 数学辅导班3
@@ -512,6 +552,7 @@ course_maths_three:
   class_date: <%= Date.yesterday %>
   province: zhejiang
   city: zhuji
+  lessons_count: 2
 
 course_maths_four:
   name: 数学辅导班4
@@ -527,6 +568,7 @@ course_maths_four:
   class_date: <%= Date.yesterday %>
   province: zhejiang
   city: zhuji
+  lessons_count: 2
 
 course_maths_five:
   name: 数学辅导班5
@@ -542,6 +584,7 @@ course_maths_five:
   class_date: <%= Date.yesterday %>
   province: zhejiang
   city: zhuji
+  lessons_count: 2
 
 course_maths_six:
   name: 数学辅导班6
@@ -557,3 +600,4 @@ course_maths_six:
   class_date: <%= Date.yesterday %>
   province: zhejiang
   city: zhuji
+  lessons_count: 2

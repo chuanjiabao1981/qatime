@@ -2,24 +2,27 @@ lesson_one:
   name: 测试课程1
   course: courses(:course_teach_2)
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   class_date: <%= 5.days.since.to_date %>
 
 lesson_two:
   name: 测试课程2
   course: courses(:course_teach_2)
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   class_date: <%= 5.days.since.to_date %>
 
 lesson_three:
   name: 测试课程3
   course_id: 3
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   class_date: <%= 5.days.since.to_date %>
   status: 2
 
@@ -27,24 +30,27 @@ english_lesson_today:
   name: 英语辅导班-第一节
   course_id: 4
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   class_date: <%= Date.today %>
 
 english_lesson_tomorrow:
   name: 英语辅导班-第二节
   course_id: 4
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   class_date: <%= Date.tomorrow %>
 
 english_lesson_onlive:
   name: 英语辅导班-正在直播课程
   course_id: 4
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   status: 2
   live_start_at: <%= 1.hours.ago %>
   class_date: <%= Date.today %>
@@ -54,8 +60,9 @@ english_lesson_finished:
   teacher_id: 10
   course_id: 4
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   status: 3
   live_start_at: <%= 1.hours.ago %>
   live_end_at: <%= Time.now %>
@@ -68,8 +75,9 @@ english_lesson2_finished:
   teacher_id: 10
   course_id: 4
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   status: 5
   live_start_at: <%= 1.hours.ago %>
   live_end_at: <%= Time.now %>
@@ -81,8 +89,9 @@ ready_lessoncourses_today:
   name: 英语辅导班-第二节
   course_id: courses(:course_teach_2)
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   class_date: <%= Date.today %>
   status: 1
 
@@ -90,8 +99,9 @@ lesson_for_course_with_junior_teacher:
   name: 英语辅导班-第二节
   course: course_with_junior_teacher
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   class_date: <%= Date.today %>
   status: 1
 
@@ -272,5 +282,51 @@ lesson_one_of_course_for_billing_three:
   real_time: 30
   live_count: 3
 
+lesson_test_course_request1:
+  name: 第一节课
+  course: course_maths_one
+  teacher: teacher_for_billing
+  description: 用于测试结账，没有工作站结账
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
 
+lesson_test_course_request2:
+  name: 第二节课
+  course: course_maths_one
+  teacher: teacher_for_billing
+  description: 用于测试结账，没有工作站结账
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.tomorrow %>
+  status: 5
+  real_time: 30
+  live_count: 3
 
+lesson_test_course_reject:
+  name: 第一节课
+  course: course_maths_three
+  teacher: teacher_for_billing
+  description: 用于测试结账，没有工作站结账
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+
+lesson_of_course_one_of_teacher_one:
+  name: 第一节课
+  course: course_one_of_teacher_one
+  teacher: teacher_for_billing
+  description: 用于测试结账，没有工作站结账
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+  

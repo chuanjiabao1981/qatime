@@ -38,6 +38,7 @@ module LiveService
       @lesson.real_time = @lesson.live_sessions.sum(:duration) # 实际直播时间单位分钟
       # 更新辅导课程完成数量
       @course.completed_lesson_count += 1
+      @course.finished_lessons_count += 1
       @course.save!
       @lesson.finish!
     end
@@ -66,7 +67,7 @@ module LiveService
     # 2. 上课时间在前天(包括)以前并且状态为teaching的课程finish
     # 3. 错过的昨日课程发送通知
     def self.clean_lessons
-      LiveStudio::Lesson.waiting_finish.where('class_date <= ?',Date.yesterday).find_each(batch_size: 500).map(&:finish!)
+      LiveStudio::Lesson.waiting_finish.where('class_date <= ?', Date.yesterday).find_each(batch_size: 500).map(&:finish!)
       LiveStudio::Lesson.teaching.where('class_date < ?', Date.yesterday).find_each(batch_size: 500).each do |lesson|
         lesson.close! if lesson.teaching? || lesson.paused?
         LiveService::LessonDirector.new(lesson).finish

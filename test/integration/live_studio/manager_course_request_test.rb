@@ -28,7 +28,7 @@ module LiveStudio
       request_to_accept = live_studio_course_requests(:request_one)
       find_link("通过", href: live_studio.accept_manager_course_request_path(@manager, request_to_accept)).click
       assert request_to_accept.reload.accepted?, "通过失败"
-      assert request_to_accept.reload.course.published?, "通过后辅导班状态不正确"
+      assert request_to_accept.reload.course.teaching?, "通过后辅导班状态不正确"
     end
   end
 end

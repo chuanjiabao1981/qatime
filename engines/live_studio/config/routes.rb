@@ -86,6 +86,7 @@ LiveStudio::Engine.routes.draw do
           patch :close
           patch :channel
           get :update_class_date
+          patch :update_lessons
         end
       end
       resources :lessons do

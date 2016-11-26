@@ -85,7 +85,7 @@ module LiveStudio
     has_many :course_requests, dependent: :destroy
     has_many :live_studio_course_notifications, as: :notificationable, dependent: :destroy
 
-    accepts_nested_attributes_for :lessons, allow_destroy: true
+    accepts_nested_attributes_for :lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
     validates_associated :lessons
     validates :lessons, presence: {message: '请添加至少一节课程'}

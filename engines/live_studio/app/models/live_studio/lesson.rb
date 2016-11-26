@@ -135,7 +135,7 @@ module LiveStudio
     end
 
     def live_time
-      "#{start_time}~#{end_time}"
+      "#{start_time}-#{end_time}"
     end
 
     def live_begin_time

@@ -85,7 +85,7 @@ module LiveStudio
     has_many :course_requests, dependent: :destroy
     has_many :live_studio_course_notifications, as: :notificationable, dependent: :destroy
 
-    accepts_nested_attributes_for :lessons, allow_destroy: true
+    accepts_nested_attributes_for :lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
     validates_associated :lessons
     validates :lessons, presence: {message: '请添加至少一节课程'}
@@ -96,6 +96,7 @@ module LiveStudio
     has_many :push_streams, through: :channels
     has_many :pull_streams, through: :channels
     has_many :play_records # 听课记录
+    has_many :announcements
 
     has_one :chat_team, foreign_key: 'live_studio_course_id', class_name: '::Chat::Team'
 
@@ -202,21 +203,25 @@ module LiveStudio
 
     # 用户是否已经购买
     def own_by?(user)
+      return false unless user.present?
       user.live_studio_tickets.map(&:course_id).include?(id)
     end
 
     # 已经购买
     def bought_by?(user)
+      return false unless user.present?
       buy_tickets.where(student_id: user.id).exists?
     end
 
     # 试听结束
     def tasted?(user)
+      return false unless user.present?
       taste_tickets.unavailable.where(student_id: user.id).exists?
     end
 
     # 正在试听
     def tasting?(user)
+      return false unless user.present?
       taste_tickets.available.where(student_id: user.id).exists?
     end
 

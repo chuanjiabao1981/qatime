@@ -178,8 +178,8 @@ cn:
           canceled: 已取消
         admin:
           init: 等待审核
-          allowed: 通过
-          refused: 驳回
+          allowed: 已通过
+          refused: 已驳回
           canceled: 用户取消
       withdraw_record:
         unpaid: 未付款

@@ -131,6 +131,11 @@ module LiveService
         courses = courses.where("#{column} >= ?",params[i.first]) if params[i.first].present?
         courses = courses.where("#{column} <= ?",params[i.last]) if params[i.last].present?
       end
+      if params[:city_name].present?
+        city =  City.find_by(name: params[:city_name])
+        courses = courses.where(city_id: city.id) if city.present?
+      end
+
       if params[:sort_by].present?
         # 排序方式,多个排序字段用-隔开,默认倒序,需要正序加上.asc后缀 例如: created_at-price.asc-buy_tickets_count.asc
         order_str =

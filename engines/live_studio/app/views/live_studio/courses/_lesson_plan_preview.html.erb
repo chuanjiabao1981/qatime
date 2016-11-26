@@ -22,7 +22,7 @@
             </td>
             <td>
               <span class="<%= lesson.is_over? || lesson.ready? ? 'td-color' : nil %>">
-                <%= lesson.name %>
+                <%= truncate(lesson.name, length: 50, omission: '...') %>
               </span>
             </td>
             <td>

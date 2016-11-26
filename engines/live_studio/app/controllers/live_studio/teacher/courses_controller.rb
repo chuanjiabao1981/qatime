@@ -4,7 +4,7 @@ module LiveStudio
   class Teacher::CoursesController < Teacher::BaseController
     layout 'teacher_home_new'
 
-    before_action :set_course, only: [:show, :edit, :update, :destroy, :channel, :close, :update_class_date, :desrtoy]
+    before_action :set_course, only: [:show, :edit, :update, :destroy, :channel, :close, :update_class_date, :desrtoy, :update_lessons]
 
     def index
       @courses = @teacher.live_studio_courses
@@ -52,6 +52,14 @@ module LiveStudio
       end
     end
 
+    def update_lessons
+      if @course.update(lessons_params)
+        redirect_to live_studio.teacher_courses_path(@teacher), notice: i18n_notice('updated', @course)
+      else
+        render :update_class_date
+      end
+    end
+
     private
 
     def courses_chain
@@ -78,6 +86,10 @@ module LiveStudio
           LiveStudio::Course.statuses[:completed]
         end
       { status: course_search_status }.compact
+    end
+
+    def lessons_params
+      params.require(:course).permit(lessons_attributes: [:id, :duration, :class_date, :start_time_hour, :start_time_minute, :_update])
     end
   end
 end

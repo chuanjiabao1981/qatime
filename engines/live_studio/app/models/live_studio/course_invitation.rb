@@ -8,7 +8,7 @@ module LiveStudio
       sent: 0, # 已发送
       accepted: 1, # 已接受
       refused: 2, # 已拒绝
-      expired: 3, # 已过期
+      # expired: 3, # 已过期
       cancelled: 4, # 已取消
       hidden: 5 # 不显示
     }
@@ -38,6 +38,11 @@ module LiveStudio
     # 是否可以手动隐藏
     def can_hide?
       false
+    end
+
+    # 是否已经过期
+    def expired?
+      expited_at < Date.today?
     end
 
     private

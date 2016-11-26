@@ -35,7 +35,7 @@ class Teacher < User
   attr_accessor :school_name
 
   # 第二步注册，教师更新验证
-  validates_presence_of :subject, :category, if: :teacher_columns_required?, on: :update
+  validates_presence_of :subject, :category, :city_id, if: :teacher_columns_required?, on: :update
 
   # 学校不能为空
   validates :school, presence: true, on: :update

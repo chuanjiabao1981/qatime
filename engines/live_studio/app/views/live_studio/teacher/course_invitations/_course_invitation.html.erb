@@ -13,9 +13,7 @@
                    method: :delete,
                   "data-confirm" => t("common.confirm_refuse") %>
       <% elsif course_invitation.expired? %>
-        <%=link_to t("common.hide"), hide_teacher_course_invitation_path(invitation_id: course_invitation),
-                   method: :patch,
-                   "data-confirm" => t("common.confirm_hide") %>
+        
       <% end %>
     </span>
   </td>

@@ -179,7 +179,7 @@ module V1
             course = ::LiveStudio::Course.find(params[:id])
             realtime =
               {
-                announcements: course.chat_team.try(:team_announcements).try(:order, created_at: :desc),
+                announcements: course.announcements.all.order(id: :desc),
                 members: course.chat_team.try(:join_records).try(:map,&:account),
                 current_lesson_status: course.current_lesson.try(:status)
               }
@@ -239,6 +239,7 @@ module V1
             optional :status, type: String, desc: '辅导班状态 all: 全部; published: 招生中; teaching: 已开课', values: %w(all published teaching)
             optional :class_date_floor, type: String, desc: '开课日期开始时间'
             optional :class_date_ceil, type: String, desc: '开课日期结束时间'
+            optional :city_name, type: String, desc: '限定城市名称'
           end
           get do
             courses = LiveService::CourseDirector.courses_search(params).paginate(page: params[:page], per_page: params[:per_page])
@@ -287,12 +288,10 @@ module V1
                 ::LiveService::ChatTeamManager.new(nil).instance_team(@course)
                 @course.reload
               end
-              team = @course.chat_team
-              team.team_announcements.create(announcement: params[:content], edit_at: Time.now)
-              team.reload
-              Chat::IM.team_update(tid: team.team_id, owner: team.owner, announcement: team.announcement)
-              # 发送通知消息
-              LiveService::CourseNotificationSender.new(@course).notice(LiveStudioCourseNotification::ACTION_NOTICE_CREATE)
+              @announcement = @course.announcements.new(content: params[:content], lastest: true, creator: @course.teacher)
+              if @announcement.save
+                @course.announcements.where(lastest: true).where("id <> ?", @announcement).update_all(lastest: false)
+              end
               "ok"
             end
           end

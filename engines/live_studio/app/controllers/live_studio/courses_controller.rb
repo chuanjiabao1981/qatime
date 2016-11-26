@@ -5,20 +5,23 @@ module LiveStudio
     before_action :set_user
     before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson]
     before_action :play_authorize, only: [:play]
+    before_action :set_city, only: [:index]
 
     def index
-      @courses = LiveService::CourseDirector.courses_search(search_params).paginate(page: params[:page], per_page: 8)
+      @courses = LiveService::CourseDirector.courses_search(search_params)
       if @student && @student.student?
         @tickets = @student.live_studio_tickets.includes(course: :lesson).where(course_id: @courses.map(&:id)) if @student
       else
         @tickets = []
       end
+      @courses = @courses.where(city_id: @location_city.id) if @location_city
+      @courses = @courses.paginate(page: params[:page], per_page: 8)
       render layout: 'application_front'
     end
 
     def new
       @invitation = CourseInvitation.sent.find_by(id: params[:invitation_id]) if params[:invitation_id]
-      @course = Course.new(invitation: @invitation,price: nil, taste_count: nil)
+      @course = Course.new(invitation: @invitation, price: nil, taste_count: nil)
       render layout: current_user_layout
     end
 
@@ -29,7 +32,6 @@ module LiveStudio
 
     def create
       @course = Course.new(courses_params.merge(author: current_user))
-      p @course.lessons
       if @course.save
         LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
         redirect_to live_studio.send("#{@course.author.role}_courses_path", @course.author)

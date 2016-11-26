@@ -4,7 +4,7 @@ module LiveStudio
     has_soft_delete
     extend Enumerize
 
-    attr_accessor :start_time_hour, :start_time_minute
+    attr_accessor :start_time_hour, :start_time_minute, :_update
 
     enum status: {
       missed: -1, # 已错过
@@ -171,6 +171,11 @@ module LiveStudio
     def is_over?
       # 判断课程是否已经结束
       %w(closed finished billing completed).include?(status)
+    end
+
+    def unstart?
+      # 判断课程是否未开始
+      %w(missed init ready).include?(status)
     end
 
     # 记录播放记录

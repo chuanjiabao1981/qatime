@@ -96,6 +96,7 @@ module LiveStudio
     has_many :push_streams, through: :channels
     has_many :pull_streams, through: :channels
     has_many :play_records # 听课记录
+    has_many :announcements
 
     has_one :chat_team, foreign_key: 'live_studio_course_id', class_name: '::Chat::Team'
 

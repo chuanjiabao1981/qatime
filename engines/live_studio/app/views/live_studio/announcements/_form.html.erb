@@ -13,7 +13,7 @@
 
 
   <div class="notice-content">
-    <%= f.text_area :content, as: :text, maxlength: 100, placeholder: t("placeholders.live_sutdio/announcement.content") %>
+    <%= f.text_area :content, as: :text, maxlength: 100, placeholder: t("placeholders.live_sutdio/announcement.content", count: 200) %>
     <br>
     <i class="has-error" id="announcement_content_error"></i>
   </div>
@@ -32,7 +32,7 @@ $(function() {
     console.log($("#announcement_content").val().length);
     if($("#announcement_content").val() === "") {
       $("#announcement_content_error").text('<%= t("errors.live_sutdio/announcement.content.blank") %>');
-    } else if($("#announcement_content").val().length > 100) {
+    } else if($("#announcement_content").val().length > 200) {
       $("#announcement_content_error").text('<%= t("errors.live_sutdio/announcement.content.too_long") %>');
     } else if($("#announcement_content").val().length < 7) {
       $("#announcement_content_error").text('<%= t("errors.live_sutdio/announcement.content.too_short") %>');

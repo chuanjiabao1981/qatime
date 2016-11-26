@@ -19,9 +19,6 @@
   <td>
     <p class="adjust-redact">
       <%= link_to t('activerecord.view.edit'), 'javascript:void(0);', data: {toggle: 'modal',target: "#adjust_edit_#{object_id}"} if lesson.unstart?%>
-
-      <%= lesson.unstart? %>
-      <%= lesson.status? %>
     </p>
   </td>
 </tr>

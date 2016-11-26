@@ -133,6 +133,7 @@ group :development,:test do
   gem 'thin'
   gem 'pry'
 end
+gem 'roo'
 
 group :test do
   gem 'fakeweb'

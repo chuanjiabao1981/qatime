@@ -42,7 +42,7 @@ module LiveStudio
 
     # 是否已经过期
     def expired?
-      expited_at < Date.today?
+      expited_at && expited_at < Date.today
     end
 
     private

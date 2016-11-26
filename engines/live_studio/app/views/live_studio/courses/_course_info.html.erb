@@ -32,7 +32,7 @@
             <tr>
               <td colspan="3">
                 <span class="headline-color"><%= t("activerecord.view.date") %></span>
-                <span class="title-color interval"><%= @course.live_start_date.try(:to_s) %> 至 <%= @course.live_end_date.to_s(:db) %></span>
+                <span class="title-color interval"><%= @course.live_start_date.try(:to_s) %> 至 <%= @course.live_end_date.try(:to_s) %></span>
               </td>
             </tr>
             <tr>

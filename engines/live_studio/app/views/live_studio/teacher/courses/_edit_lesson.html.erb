@@ -33,7 +33,10 @@
         </div>
         <div class="popup-date">
           <div class="original-date">
-            <span>原上课日期<i><%= lesson.class_date.to_s %></i></span>
+            <span>
+              原上课日期
+              <i><%= lesson.class_date.to_s %></i>
+            </span>
             <span>原开始时间<i><%= lesson.start_time %></i></span>
             <%= f.hidden_field :id %>
             <%= f.hidden_field :duration %>

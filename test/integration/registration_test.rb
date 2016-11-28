@@ -18,7 +18,6 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     visit root_path
 
     click_on "学生注册"
-    student_register_code = register_codes(:student_register_code)
 
     fill_in :student_login_mobile, with: '13800001111'
     click_on "获取验证码", match: :first
@@ -26,7 +25,6 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     fill_in :student_password, with: 'pa123456'
     fill_in :student_password_confirmation, with: 'pa123456'
     find(:css, "#student_accept").set(true)
-    fill_in :student_register_code_value, with: student_register_code.value
 
     assert_difference 'User.count', 1 do
       click_on "下一步", match: :first
@@ -45,7 +43,6 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     visit root_path
 
     click_on "教师注册"
-    teacher_register_code = register_codes(:teacher_register_code)
 
     fill_in :teacher_login_mobile, with: '13811112222'
     click_on "获取验证码", match: :first
@@ -53,7 +50,6 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     fill_in :teacher_password, with: 'pa123456'
     fill_in :teacher_password_confirmation, with: 'pa123456'
     find(:css, "#teacher_accept").set(true)
-    fill_in :teacher_register_code_value, with: teacher_register_code.value
 
     assert_difference 'User.count', 1 do
       click_on "下一步", match: :first

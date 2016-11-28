@@ -98,7 +98,7 @@
       var minutes = $(start_time_minute_id).val();
       var duration = $(duration_id).val();
       var class_date = $(class_date_id).val();
-      var flag = set_errors(class_date, hour, minutes);
+      var flag = set_errors(class_date, hour, minutes, duration);
       var start_time = hour + ':' + minutes;
       var end_time = _get_time(hour, minutes, duration)
       if(end_time == false){
@@ -111,7 +111,15 @@
       return flag;
     }
 
-    function set_errors(class_date, hour, minutes){
+    function set_errors(class_date, hour, minutes, duration){
+      var end_time = $.getLessonTime(hour, minutes, duration);
+      var start_time = hour + ':' + minutes;
+      console.log(hour);
+      console.log(minutes);
+      console.log(duration);
+      console.log(end_time);
+      console.log(start_time);
+
       var return_flag = true;
       if(class_date.trim() == '' || class_date.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) == null){
         return_flag = false;
@@ -122,6 +130,9 @@
       if(hour.trim() == '' || minutes.trim() == ''){
         return_flag = false;
         $('.start_time-error-'+o_id).html('请选择开始时间');
+      }else if(end_time < start_time){
+        return_flag = false;
+        $('.start_time-error-'+o_id).html('上课时长不能跨天');
       }else{
         $('.start_time-error-'+o_id).html('');
       }

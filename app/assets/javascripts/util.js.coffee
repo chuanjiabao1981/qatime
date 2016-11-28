@@ -72,6 +72,39 @@
     obj.setDots()
     obj.start()
 
+  $.extend
+    getLessonTime: (hour, minutes, duration) ->
+      hour = parseInt(hour)
+      minutes = parseInt(minutes)
+      switch duration
+        when 'minutes_30'
+          duration_value = 30
+        when 'minutes_45'
+          duration_value = 45
+        when 'hours_1'
+          duration_value = 60
+        when 'hours_half_90'
+          duration_value = 90
+        when 'hours_2'
+          duration_value = 120
+        when 'hours_half_150'
+          duration_value = 150
+        when 'hours_3'
+          duration_value = 180
+        when 'hours_half_210'
+          duration_value = 210
+        when 'hours_4'
+          duration_value = 240
+      end_hour = hour + parseInt((minutes+duration_value)/60)
+      end_minutes = minutes+duration_value % 60
+      if end_hour > 23
+        end_hour = end_hour % 24
+      if end_hour < 10
+        end_hour = "0" + end_hour
+      if end_minutes < 10
+        end_minutes = "0" + end_minutes
+      end_hour + ':' + end_minutes
+
 )(jQuery)
 
 jQuery ->

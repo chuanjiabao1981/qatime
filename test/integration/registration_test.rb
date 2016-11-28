@@ -26,6 +26,7 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     fill_in :student_password_confirmation, with: 'pa123456'
     find(:css, "#student_accept").set(true)
 
+    sleep(2)
     assert_difference 'User.count', 1 do
       click_on "下一步", match: :first
     end
@@ -51,6 +52,7 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     fill_in :teacher_password_confirmation, with: 'pa123456'
     find(:css, "#teacher_accept").set(true)
 
+    sleep(2)
     assert_difference 'User.count', 1 do
       click_on "下一步", match: :first
     end

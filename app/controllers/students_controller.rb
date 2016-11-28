@@ -21,7 +21,6 @@ class StudentsController < ApplicationController
     captcha_manager = UserService::CaptchaManager.new(create_params[:login_mobile])
     @student.captcha = captcha_manager.captcha_of(:register_captcha)
     @student.build_account
-    binding.pry
     if @student.save
       session.delete("captcha-#{create_params[:login_mobile]}")
       sign_in(@student) unless signed_in?

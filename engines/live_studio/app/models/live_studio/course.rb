@@ -334,7 +334,7 @@ module LiveStudio
     def ready_lessons
       return unless class_date <= Date.today
       teaching! if published?
-      lessons.init.where('class_date <= ?', Date.today).map(&:ready!)
+      lessons.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
     end
 
     private

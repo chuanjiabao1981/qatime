@@ -47,8 +47,8 @@ module LiveStudio
       elsif use_for == 'board'
         push = 'rtmp://pa0a19f55.live.126.net/live/2794c854398f4d05934157e05e2fe419?wsSecret=a3c84d0ecfdeb7434ffaa534607b9e8f&wsTime=1471330308'
         pull = 'rtmp://va0a19f55.live.126.net/live/2794c854398f4d05934157e05e2fe419'
-        hls_pull = ''
-        http_pull = ''
+        hls_pull = 'http://pullhlsa0a19f55.live.126.net/live/0ca7943afaa340c9a7c1a8baa5afac97/playlist.m3u8'
+        http_pull = 'http://va0a19f55.live.126.net/live/0ca7943afaa340c9a7c1a8baa5afac97.flv?netease=va0a19f55.live.126.net'
         push_streams.create(address: push, protocol: 'rtmp')
         pull_streams.create(address: pull, protocol: 'rtmp')
         pull_streams.create(address: hls_pull, protocol: 'hls')

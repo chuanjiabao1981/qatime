@@ -42,8 +42,24 @@ $(function() {
     boardPlayer = neplayer("my-video", {}, function() {
     });
     boardPlayer.setDataSource({
-      type: "rtmp/flv",
-      src: "<%= @course.board_pull_stream %>"
+      type: "video/x-flv",
+      src: "<%= @course.board_pull_stream('http') %>"
+    });
+
+
+    boardPlayer.onError(function(err){
+      console.log(err.errCode);
+      console.log(err.errMsg);
+    });
+
+    boardPlayer.onPlayState(1,function(){
+      console.log('play');
+    });
+    boardPlayer.onPlayState(2,function(){
+      console.log('pause');
+    });
+    boardPlayer.onPlayState(3,function(){
+      console.log('ended');
     });
     boardPlayer = boardPlayer.play();
 
@@ -51,10 +67,26 @@ $(function() {
     cameraPlayer = neplayer("small-video", {}, function() {
     });
     cameraPlayer.setDataSource({
-      type: "rtmp/flv",
-      src: "<%= @course.camera_pull_stream %>"
+      type: "video/x-flv",
+      src: "<%= @course.camera_pull_stream('http') %>"
     });
     cameraPlayer.play();
+
+
+    cameraPlayer.onError(function(err){
+      console.log(err.errCode);
+      console.log(err.errMsg);
+    });
+
+    cameraPlayer.onPlayState(1,function(){
+      console.log('play');
+    });
+    cameraPlayer.onPlayState(2,function(){
+      console.log('pause');
+    });
+    cameraPlayer.onPlayState(3,function(){
+      console.log('ended');
+    });
   };
 
   //判断flash是否安装

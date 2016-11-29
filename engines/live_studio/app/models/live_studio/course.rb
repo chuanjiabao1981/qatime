@@ -331,13 +331,13 @@ module LiveStudio
       course_requests.create(user: teacher, workstation: workstation)
     end
 
-    private
-
     def ready_lessons
       return unless class_date <= Date.today
-      teaching!
+      teaching! if published?
       lessons.init.where('class_date <= ?', Date.today).map(&:ready!)
     end
+
+    private
 
     before_save :check_lessons
     def check_lessons

@@ -54,6 +54,7 @@ module LiveStudio
 
     def update_lessons
       if @course.update(lessons_params)
+        @course.ready_lessons
         redirect_to live_studio.teacher_courses_path(@teacher), notice: i18n_notice('updated', @course)
       else
         render :update_class_date

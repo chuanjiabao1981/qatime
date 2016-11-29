@@ -1,4 +1,6 @@
-window.currentTeam = {};
+window.currentTeam = {
+  members: {}
+};
 
 (function(e) {
 
@@ -56,10 +58,17 @@ window.currentTeam = {};
   function onTeamMembers(obj) {
     var teamId = obj.teamId;
     var members = obj.members;
+    if(teamId !== currentTeam.id) return false;
     console.log('群id', teamId, '群成员', members);
     data.teamMembers = data.teamMembers || {};
     data.teamMembers[teamId] = nim.mergeTeamMembers(data.teamMembers[teamId], members);
     data.teamMembers[teamId] = nim.cutTeamMembers(data.teamMembers[teamId], members.invalid);
+    $.each(members, function(index, member) {
+      if(member.account === currentTeam.account && member.mute) {
+        currentTeam.mute = true;
+        $("#message-area").empty().attr("placeholder", "您被禁言了").attr("disabled", true);
+      }
+    });
     refreshTeamMembersUI(teamId);
   }
   function onSyncTeamMembersDone() {
@@ -152,7 +161,7 @@ window.currentTeam = {};
 
     $.each(members, function(index, member) {
       if(accounts.indexOf(member.account) >= 0) {
-        $("#messages").append("<div class='notice-div'>" + member.nick +  " 加入了聊天组</div>")
+        $("#messages").append("<div class='notice-div'>" + member.nick +  " 加入了聊天组</div>");
       }
     });
 
@@ -203,6 +212,7 @@ window.currentTeam = {};
       accounts = msg.attach.accounts,
       members = msg.attach.users || msg.attach.members;
 
+    console.log(type);
     switch (type) {
       case 'updateTeam':
         team.updateTime = timetag;
@@ -235,6 +245,22 @@ window.currentTeam = {};
       case 'transferTeam':
         transferTeam(team, members);
         break;
+      case 'updateTeamMute':
+        updateTeamMute(msg.attach);
+        break;
+    }
+  }
+
+  function updateTeamMute(obj) {
+    if(obj.account !== currentTeam.account) return false;  
+    if(obj.mute) {
+      $("#messages").append("<div class='notice-div'>您被禁言了</div>");
+      currentTeam.mute = true;
+      $("#message-area").empty().attr("placeholder", "您被禁言了").attr("disabled", true);
+    } else {
+      $("#messages").append("<div class='notice-div'>管理员取消了您的禁言</div>");
+      currentTeam.mute = false;
+      $("#message-area").attr("placeholder", "输入聊天消息").removeAttr("disabled");
     }
   }
 
@@ -401,6 +427,9 @@ $(function() {
   // 聊天输入区域
   $("#message-form").submit(function() {
     if(!chatInited) return false;
+    if(currentTeam.mute) {
+      return false;
+    }
     msg = $("#message-area").val().trim().replace(/\</g, '&lt;').replace(/\>/g, '&gt;');;
 
     if(msg == '') return false;

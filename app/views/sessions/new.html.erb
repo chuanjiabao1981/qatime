@@ -1,38 +1,85 @@
-<div class="col-md-6 col-md-offset-3">
-  <div class="qa_box row">
-    <div class="qa_big_cell ">
-      <h2 class="text-center"><%= t ".sign_in" %></h2>
-      <%= simple_form_for @user, url: sessions_path, method: :post do |f| %>
-      <div class="form-inputs">
-        <div class="row">
-          <div class="col-md-offset-3 col-md-6">
-            <div class="input-group form-group string optional user_login_account">
-              <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-              <input class="form-control string optional form-control" autofocus="autofocus" placeholder="<%= t '.login_account_placeholder'%>" type="text" name="user[login_account]" id="user_login_account">
+<body class="login-body" gtools_scp_screen_capture_injected="true">
+<header class="head">
+  <div class="container">
+    <div class="login-header">
+      <div class="login-left">
+        <%= image_tag 'logo_login.png' %>
+      </div>
+      <div class="login-right">
+        <span><a href="">下载</a></span>
+        <span><a href="">帮助</a></span>
+   				<span>
+            <%= image_tag 'phone.png' %>
+   					0353-xxxxxxx
+   				</span>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="login-content">
+  <div class="container">
+    <div class="row">
+      <div class="panel panel-default">
+        <div class="login-msg">
+          <div class="login-account">
+            <div class="account-left">
+              账号登陆
+            </div>
+            <div class="account-right">
+              <span>没有账号？</span>
+              <span><a href="">学生注册</a></span>
+              <span><a href="">老师注册</a></span>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-offset-3 col-md-6">
-            <div class="input-group form-group string optional user_password">
-              <span class="input-group-addon" id="basic-addon1"><i class="fa fa-key" aria-hidden="true"></i></span>
-              <input class="password optional form-control" placeholder="<%= t '.password_placeholder' %>" type="password" name="user[password]" id="user_password">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-offset-3 col-md-6">
-            <%= link_to t("passwords.common.find_password"), new_password_path, class: 'btn' %>
-          </div>
-        </div>
-        <% params.slice('redirect_url').each do |k,v| %>
-          <%= hidden_field_tag k, v %>
-        <% end %>
-        <div class="row text-center">
-          <%= f.submit t(".sign_in"), class: "btn btn-default" %>
+          <div class="login-account-con">
+            <form novalidate="novalidate" class="simple_form new_user" id="new_user" action="/sessions" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="v6HwT8g+KFBa8QUaZkfnD9fj81ti5/LG3dbdaX+4Q+xM2jmvkTny5wz+Nd09AU7La3jq/hV6kJR76iEPnv5k9Q==">
+              <div class="input-group form-group string optional user_login_account">
+                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
+                <input class="form-control string optional form-control" autofocus="autofocus" placeholder="手机号/邮箱帐号" type="text" name="user[login_account]" id="user_login_account">
+              </div>
+              <span class="help-block has-error"></span>
+              <div class="input-group form-group string optional user_password">
+                <span class="input-group-addon" id="basic-addon1"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                <input class="password optional form-control" placeholder="登陆密码" type="password" name="user[password]" id="user_password">
+              </div>
+              <span class="help-block has-error"></span>
+              <div class="input-password">
+                <span><input type="checkbox" name="" id="password" value=""><label for="password">记住密码</label></span>
+                <span><a href="">忘记密码</a></span>
+              </div>
+              <span class="help-block has-error"></span>
+
+              <input class="login-send" type="submit" name="" id="" value="立即登录">
+              <div class="login-other">
+                <%= image_tag 'login_line.png' %>
+                <span>其他登录方式</span>
+                <%= image_tag 'login_line.png' %>
+              </div>
+              <div class="login-weixin">
+                <center>
+                  <a href="">
+                    <%= image_tag 'login-weixin.png' %>
+                  </a>
+                </center>
+              </div>
+            </form></div>
         </div>
       </div>
-      <% end %>
     </div>
   </div>
 </div>
+
+<footer>
+  <div class="qa_sep_15"></div>
+  <div class="qa_sep_15"></div>
+
+  <div class="copyright">
+    <div>Copyright © 2013-2015 QaTime.</div>
+    <div>京ICP备12031445号-3</div>
+  </div>
+</footer>
+
+
+</body>
+
+

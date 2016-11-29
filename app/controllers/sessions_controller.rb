@@ -2,6 +2,7 @@ class SessionsController < ApplicationController
   before_filter 'already_signin' ,only: [:new]
   def new
     @user = User.new
+    render layout: false
   end
 
   def create

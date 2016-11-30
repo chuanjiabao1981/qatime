@@ -13,5 +13,10 @@ module Qawechat
         redirect_to wechat_user_path(@wechat_user)
       end
     end
+
+    def login_callback
+      code = params[:code]
+
+    end
   end
 end

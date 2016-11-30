@@ -9,6 +9,11 @@ module LiveService
     def billing
       # 结算金额
       money = total_money
+      if @lesson.teacher.blank?
+        @lesson.teacher = @course.teacher
+        @lesson.save
+      end
+
       billing = @lesson.billings.create(total_money: money, summary: "课程完成结算, 结算金额: #{money}")
       Payment::CashAccount.transaction do
         # 系统支出
@@ -72,7 +77,7 @@ module LiveService
     def teacher_teach_fee!(money, billing)
       teacher_money = money
       teacher_money = teacher_money * @course.teacher_percentage.to_f / 100 if @course.teacher_percentage < 100
-      teacher_account = @lesson.teacher.cash_account!
+      teacher_account = @course.teacher.cash_account!
       teacher_account.earning(teacher_money, @lesson, billing,
                               "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得授课收入: #{teacher_money}")
       teacher_money

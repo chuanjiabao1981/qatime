@@ -81,7 +81,7 @@ module LiveStudio
     has_many :tickets       # 听课证
     has_many :buy_tickets   # 普通听课证
     has_many :taste_tickets # 试听证
-    has_many :lessons, -> { order('id asc') } # 课时
+    has_many :lessons, -> { order('id asc') }, dependent: :destroy # 课时
     has_many :course_requests, dependent: :destroy
     has_many :live_studio_course_notifications, as: :notificationable, dependent: :destroy
 

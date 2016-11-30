@@ -47,6 +47,7 @@ module LiveService
     # 上课时间为今天的设置为ready状态, init => ready
     def self.ready_today_lessons
       LiveStudio::Lesson.today.init.includes(:course).find_each(batch_size: 500).each do |lesson|
+        next unless lesson.course
         lesson.ready!
         lesson.course.teaching! if lesson.course.published?
 

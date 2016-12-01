@@ -74,6 +74,10 @@ module LiveStudio
         transitions from: [:ready, :init], to: :missed
       end
 
+      event :ready do
+        transitions from: [:init, :missed], to: :ready
+      end
+
       event :teach do
         before do
           # 第一次开始直播增加开始数量

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201101741) do
+ActiveRecord::Schema.define(version: 20161201104452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -510,34 +510,35 @@ ActiveRecord::Schema.define(version: 20161201101741) do
   add_index "live_studio_course_requests", ["workstation_id"], name: "index_live_studio_course_requests_on_workstation_id", using: :btree
 
   create_table "live_studio_courses", force: :cascade do |t|
-    t.string   "name",                   limit: 100,                                       null: false
+    t.string   "name",                    limit: 100,                                       null: false
     t.integer  "teacher_id"
     t.integer  "workstation_id"
-    t.integer  "status",                                                     default: 0
+    t.integer  "status",                                                      default: 0
     t.text     "description"
-    t.decimal  "price",                              precision: 8, scale: 2, default: 0.0
-    t.decimal  "lesson_price",                       precision: 8, scale: 2, default: 0.0
-    t.integer  "teacher_percentage",                                         default: 0
-    t.integer  "lesson_count",                                               default: 0
-    t.integer  "preset_lesson_count",                                        default: 0
-    t.integer  "completed_lesson_count",                                     default: 0
+    t.decimal  "price",                               precision: 8, scale: 2, default: 0.0
+    t.decimal  "lesson_price",                        precision: 8, scale: 2, default: 0.0
+    t.integer  "teacher_percentage",                                          default: 0
+    t.integer  "lesson_count",                                                default: 0
+    t.integer  "preset_lesson_count",                                         default: 0
+    t.integer  "completed_lessons_count",                                     default: 0
     t.datetime "deleted_at"
-    t.datetime "created_at",                                                               null: false
-    t.datetime "updated_at",                                                               null: false
+    t.datetime "created_at",                                                                null: false
+    t.datetime "updated_at",                                                                null: false
     t.string   "subject"
     t.string   "grade"
     t.string   "publicize"
-    t.integer  "buy_tickets_count",                                          default: 0
+    t.integer  "buy_tickets_count",                                           default: 0
     t.date     "class_date"
     t.datetime "published_at"
     t.string   "announcement"
-    t.integer  "taste_count",                                                default: 0
+    t.integer  "taste_count",                                                 default: 0
     t.integer  "province_id"
     t.integer  "city_id"
     t.integer  "author_id"
     t.integer  "invitation_id"
-    t.integer  "lessons_count",                                              default: 0
-    t.integer  "finished_lessons_count",                                     default: 0
+    t.integer  "lessons_count",                                               default: 0
+    t.integer  "finished_lessons_count",                                      default: 0
+    t.integer  "started_lessons_count",                                       default: 0
   end
 
   add_index "live_studio_courses", ["author_id"], name: "index_live_studio_courses_on_author_id", using: :btree

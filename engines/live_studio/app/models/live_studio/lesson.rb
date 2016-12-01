@@ -148,10 +148,11 @@ module LiveStudio
     end
 
     # 心跳
-    def heartbeats(token = nil)
+    def heartbeats(timestamp, token = nil)
       @live_session = token.blank? ? new_live_session : current_live_session
+      return @live_session.token if @live_session.timestamp && @live_session.timestamp >= timestamp
       @live_session.heartbeat_count += 1
-      @live_session.duration += 5
+      @live_session.duration += beat_step
       @live_session.heartbeat_at = Time.now
       @live_session.save
       self.heartbeat_time = Time.now
@@ -240,7 +241,7 @@ module LiveStudio
       live_sessions.create(
         token: ::Encryption.md5("#{id}#{Time.now}").downcase,
         heartbeat_count: 0,
-        duration: 0, # 单位(分钟)
+        duration: 0, # 单位(秒)
         heartbeat_at: Time.now
       )
     end

@@ -29,6 +29,11 @@ module LiveService
       end
     end
 
+    def self.live_status_change(course, board, camera)
+      course.channels.board.last.update(live_status: board) rescue nil
+      course.channels.camera.last.update(live_status: camera) rescue nil
+    end
+
     # 完成课程
     def finish
       @course = @lesson.course

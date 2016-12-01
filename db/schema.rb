@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201050134) do
+ActiveRecord::Schema.define(version: 20161201081947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -513,11 +513,10 @@ ActiveRecord::Schema.define(version: 20161201050134) do
     t.string   "remote_id",   limit: 100
     t.integer  "status",                  default: 0
     t.datetime "deleted_at"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.integer  "use_for",                 default: 0
     t.integer  "live_status",             default: 0
-    t.integer  "beat_step",               default: 60
   end
 
   add_index "live_studio_channels", ["course_id"], name: "index_live_studio_channels_on_course_id", using: :btree
@@ -594,10 +593,11 @@ ActiveRecord::Schema.define(version: 20161201050134) do
     t.integer  "real_time",                  default: 0
     t.integer  "pos",                        default: 0
     t.datetime "deleted_at"
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.datetime "heartbeat_time"
     t.integer  "duration"
+    t.integer  "beat_step",                  default: 60
   end
 
   add_index "live_studio_lessons", ["course_id"], name: "index_live_studio_lessons_on_course_id", using: :btree
@@ -611,6 +611,7 @@ ActiveRecord::Schema.define(version: 20161201050134) do
     t.datetime "heartbeat_at"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "timestamp"
   end
 
   add_index "live_studio_live_sessions", ["lesson_id"], name: "index_live_studio_live_sessions_on_lesson_id", using: :btree

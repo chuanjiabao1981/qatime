@@ -56,7 +56,7 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/realtime"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/play_info"
-      api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/heartbeat"
+      api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/heart_beat"
 
       # 安全设置
       api_allow :PUT, "/api/v1/users/[\\w-]+/email" do |resource|

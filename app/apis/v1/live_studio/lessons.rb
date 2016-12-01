@@ -45,7 +45,8 @@ module V1
             LiveService::LessonDirector.live_status_change(@lesson.course,params[:board],params[:camera])
             {
               status: @lesson.status,
-              live_token: @lesson.current_live_session.token
+              live_token: @lesson.current_live_session.token,
+              beat_step: @lesson.beat_step
             }
           end
 

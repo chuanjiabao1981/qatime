@@ -294,6 +294,23 @@ module V1
               end
               "ok"
             end
+
+            desc '直播状态查询' do
+              headers 'Remember-Token' => {
+                description: 'RememberToken',
+                required: true
+              }
+            end
+            params do
+              requires :id, type: Integer, desc: '辅导班ID'
+            end
+            get ':id/live_status' do
+              @course = ::LiveStudio::Course.find(params[:id])
+              {
+                board: @course.try(:channels).try(:board).try(:last).try(:live_status).to_i,
+                camera: @course.try(:channels).try(:camera).try(:last).try(:live_status).to_i
+              }
+            end
           end
         end
       end

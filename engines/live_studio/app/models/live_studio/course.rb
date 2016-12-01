@@ -123,7 +123,7 @@ module LiveStudio
     scope :for_sell, -> { where(status: [Course.statuses[:teaching], Course.statuses[:published]]) }
 
     def cant_publish?
-      !init? || preset_lesson_count <= 0 || publicize.blank? || name.blank? || description.blank?
+      !init? || lessons_count <= 0 || publicize.blank? || name.blank? || description.blank?
     end
 
     def preview!
@@ -265,9 +265,9 @@ module LiveStudio
     end
 
     # 更新完成课程数量
-    def reset_completed_lesson_count!
+    def reset_completed_lessons_count!
       teached_count = lessons.teached.count
-      update_attributes!(finished_lessons_count: teached_count, completed_lesson_count: teached_count)
+      update_attributes!(finished_lessons_count: teached_count, completed_lessons_count: teached_count)
     end
 
     # 是否可以结课

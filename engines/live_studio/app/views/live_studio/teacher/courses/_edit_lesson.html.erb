@@ -114,7 +114,6 @@
     function set_errors(class_date, hour, minutes, duration){
       var end_time = $.getLessonTime(hour, minutes, duration);
       var start_time = hour + ':' + minutes;
-      var nowTime = new Date().toTimeString().slice(0, 5);
 
       var return_flag = true;
       if(class_date.trim() == '' || class_date.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) == null){
@@ -123,13 +122,16 @@
       }else{
         $('.class_date-error-'+o_id).html('');
       }
+
+      var nowTime = new Date();
+      var startAt = new Date(class_date + " " + start_time);
       if(hour.trim() == '' || minutes.trim() == ''){
         return_flag = false;
         $('.start_time-error-'+o_id).html('请选择开始时间');
       }else if(end_time < start_time){
         return_flag = false;
         $('.start_time-error-'+o_id).html('上课时长不能跨天');
-      }else if(start_time < nowTime){
+      }else if(startAt < nowTime){
         return_flag = false;
         $('.start_time-error-'+o_id).html('不能早于当前时间');
       }else{

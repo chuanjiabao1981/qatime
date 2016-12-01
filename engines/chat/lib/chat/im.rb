@@ -80,6 +80,14 @@ module Chat
       end
     end
 
+    # 禁言群成员
+    def self.mute_tlist(tid, owner, accid, mute = 1)
+      params = { tid: tid, owner: owner, accid: accid, mute: mute }
+
+      result = post_request("/team/muteTlist.action", params)
+      result['code'] == 200
+    end
+
     private_class_method
 
     def self.post_request(uri, body)

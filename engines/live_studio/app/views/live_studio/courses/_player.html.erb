@@ -61,7 +61,7 @@ $(function() {
     boardPlayer.onPlayState(3,function(){
       console.log('ended');
     });
-    boardPlayer = boardPlayer.play();
+    // boardPlayer = boardPlayer.play();
 
     // 摄像头
     cameraPlayer = neplayer("small-video", {}, function() {
@@ -70,7 +70,8 @@ $(function() {
       type: "video/x-flv",
       src: "<%= @course.camera_pull_stream('http') %>"
     });
-    cameraPlayer.play();
+    // cameraPlayer.play();
+
 
 
     cameraPlayer.onError(function(err){
@@ -87,6 +88,18 @@ $(function() {
     cameraPlayer.onPlayState(3,function(){
       console.log('ended');
     });
+
+    function player_status(){
+      $.get("/live_studio/courses/<%= @course.id %>/live_status", {}, function (data, status){
+        if(status == 'success'){
+          if(data['board'] == 1){
+            boardPlayer.play();
+          }
+          if(data['camera'] == 1){
+            cameraPlayer.play();
+          }
+        }
+      });
   };
 
   //判断flash是否安装

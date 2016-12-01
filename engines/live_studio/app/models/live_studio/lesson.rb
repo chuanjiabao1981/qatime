@@ -74,6 +74,10 @@ module LiveStudio
         transitions from: [:ready, :init], to: :missed
       end
 
+      event :ready do
+        transitions from: [:init, :missed], to: :ready
+      end
+
       event :teach do
         transitions from: [:ready, :paused, :closed, :missed], to: :teaching
       end

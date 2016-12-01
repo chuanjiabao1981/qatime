@@ -32,7 +32,7 @@
         <%= t('view.course_info_show.lesson_plan') % [@course.live_start_time ,@course.live_end_time] %>
       </div>
       <div>
-        <%= "#{t('view.course_info_show.schedule')}#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>
+        <%= "#{t('view.course_info_show.schedule')}#{@course.finished_lessons_count}/#{@course.lessons_count}" %>
       </div>
     <% end %>
   </div>

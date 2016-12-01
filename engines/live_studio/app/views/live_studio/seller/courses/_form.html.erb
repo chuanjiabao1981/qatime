@@ -4,7 +4,7 @@
     <%= f.input :name %>
     <%= f.association :teacher %>
     <%= f.input :teacher_percentage %>
-    <%= f.input :preset_lesson_count, input_html: {class: 'lesson_price_item'} %>
+    <%= f.input :lessons_count, input_html: {class: 'lesson_price_item'} %>
     <%= f.input :description, type: :text %>
     <%= f.association :workstation, collection: @workstations if @course.new_record? %>
     <%= f.input :price, input_html: {class: 'lesson_price_item'}, hint: "#{LiveStudio::Course.human_attribute_name(:lesson_price)}: #{@course.lesson_price}" %>
@@ -19,7 +19,7 @@
   $(function(){
     $(".lesson_price_item").change(function(){
       var price = parseInt($("#course_price").val());
-      var lesson_count = parseInt($("#course_preset_lesson_count").val());
+      var lesson_count = parseInt($("#lessons_count").val());
       var lesson_price = lesson_count === 0 ? 0 : price / lesson_count;
       lesson_price = Math.floor(lesson_price);
       console.log(lesson_price);

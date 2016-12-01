@@ -15,7 +15,7 @@
           <span><%= @course.grade %></span>
           <span>|</span>
           <span><%= LiveStudio::Course.human_attribute_name(:lessons_progress) %></span>
-          <span><%= "#{@course.completed_lesson_count}/#{@course.lessons_count }" %></span>
+          <span><%= "#{@course.finished_lessons_count}/#{@course.lessons_count }" %></span>
         </div>
         <%= simple_form_for @course, url: update_lessons_teacher_course_path do |f|%>
           <div class="class-con">

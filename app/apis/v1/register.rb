@@ -22,14 +22,14 @@ module V1
         requires :captcha_confirmation, type: String, desc: '手机验证码'
         requires :password, type: String, desc: '密码'
         requires :password_confirmation, type: String, desc: '密码确认'
-        requires :register_code_value, type: String, desc: '注册码'
+        # requires :register_code_value, type: String, desc: '注册码'
         requires :accept, type: String, desc: '接受服务协议'
         requires :type, type: String, values: ['Student'], desc: '注册用户类型'
         requires :client_type, type: String, desc: '登陆方式.'
       end
       post :register do
         client_type = params[:client_type].to_sym
-        create_params_with_type = ActionController::Parameters.new(params).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :register_code_value, :accept, :type)
+        create_params_with_type = ActionController::Parameters.new(params).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :accept, :type)
 
         user = User.new(create_params_with_type).register_columns_required!.captcha_required!
 

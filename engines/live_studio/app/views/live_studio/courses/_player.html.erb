@@ -86,14 +86,14 @@
         if (status == 'success') {
           console.log('player_status');
           console.log(data);
-          if (data['board'] == 1) {
+          if (data['board'] == 1 && boardPlayer.getPlayState() != 1) {
             boardPlayer.setDataSource({
               type: "video/x-flv",
               src: "<%= @course.board_pull_stream('http') %>"
             });
             boardPlayer.play();
           }
-          if (data['camera'] == 1) {
+          if (data['camera'] == 1 && cameraPlayer.getPlayState() != 1) {
             cameraPlayer.setDataSource({
               type: "video/x-flv",
               src: "<%= @course.camera_pull_stream('http') %>"
@@ -103,9 +103,9 @@
           if( data['board'] == 1 && data['camera'] == 1){
             state = 'live';
             clearInterval(timer);
+            timer = -1;
           }else{
             state = 'init';
-            timer = -1;
           }
         }
       });

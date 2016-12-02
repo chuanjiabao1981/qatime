@@ -173,13 +173,17 @@
       }else{
         $('.start_time-error-'+id).html('');
       }
-      if(end_time < start_time){
+
+
+      var nowTime = new Date();
+      var startAt = new Date(class_date + " " + start_time);
+      if(startAt < nowTime){
+        return_flag = false;
+        $('.duration-error-' + id).html('不能早于当前时间');
+      } else if(end_time < start_time){
         return_flag = false;
         $('.duration-error-' + id).html('上课时长不能跨天');
-      }else{
-        $('.duration-error-' + id).html('');
-      }
-      if(duration.trim() == '' || duration == null){
+      }else if(duration.trim() == '' || duration == null){
         return_flag = false;
         $('.duration-error-' + id).html('请选择上课时长');
       }else{

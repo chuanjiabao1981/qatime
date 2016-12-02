@@ -34,64 +34,66 @@
 
 <%= content_for :javascript do %>
 <script>
-$(function() {
-  var boardPlayer, cameraPlayer;
-
-  var loadingPlayer = function() {
-    // 白板播放器
-    boardPlayer = neplayer("my-video", {}, function() {
-    });
-    boardPlayer.setDataSource({
-      type: "video/x-flv",
-      src: "<%= @course.board_pull_stream('http') %>"
-    });
-
-
-    boardPlayer.onError(function(err){
-      console.log(err.errCode);
-      console.log(err.errMsg);
-    });
-
-    boardPlayer.onPlayState(1,function(){
-      console.log('play');
-    });
-    boardPlayer.onPlayState(2,function(){
-      console.log('pause');
-    });
-    boardPlayer.onPlayState(3,function(){
-      console.log('ended');
-    });
-    // boardPlayer = boardPlayer.play();
-
-    // 摄像头
-    cameraPlayer = neplayer("small-video", {}, function() {
-    });
-    cameraPlayer.setDataSource({
-      type: "video/x-flv",
-      src: "<%= @course.camera_pull_stream('http') %>"
-    });
-    // cameraPlayer.play();
+  $(function() {
+    var boardPlayer, cameraPlayer;
+    var loadingPlayer = function() {
+      // 白板播放器
+      boardPlayer = neplayer("my-video", {}, function() {
+      });
+      boardPlayer.setDataSource({
+        type: "video/x-flv",
+        src: "<%= @course.board_pull_stream('http') %>"
+      });
 
 
+      boardPlayer.onError(function(err){
+        console.log(err.errCode);
+        console.log(err.errMsg);
+      });
 
-    cameraPlayer.onError(function(err){
-      console.log(err.errCode);
-      console.log(err.errMsg);
-    });
+      boardPlayer.onPlayState(1,function(){
+        console.log('board play');
+        boardPlayer.play();
+      });
+      boardPlayer.onPlayState(2,function(){
+        console.log('board pause');
+      });
+      boardPlayer.onPlayState(3,function(){
+        console.log('board ended');
+      });
+      // boardPlayer = boardPlayer.play();
 
-    cameraPlayer.onPlayState(1,function(){
-      console.log('play');
-    });
-    cameraPlayer.onPlayState(2,function(){
-      console.log('pause');
-    });
-    cameraPlayer.onPlayState(3,function(){
-      console.log('ended');
-    });
+
+      // 摄像头
+      cameraPlayer = neplayer("small-video", {}, function() {
+      });
+      cameraPlayer.setDataSource({
+        type: "video/x-flv",
+        src: "<%= @course.camera_pull_stream('http') %>"
+      });
+      // cameraPlayer.play();
+      cameraPlayer.onError(function(err){
+        console.log(err.errCode);
+        console.log(err.errMsg);
+      });
+
+      cameraPlayer.onPlayState(1,function(){
+        console.log('camera play');
+      });
+      cameraPlayer.onPlayState(2,function(){
+        console.log('camera pause');
+      });
+      cameraPlayer.onPlayState(3,function(){
+        console.log('camera ended');
+      });
+
+    }
 
     function player_status(){
       $.get("/live_studio/courses/<%= @course.id %>/live_status", {}, function (data, status){
         if(status == 'success'){
+          console.log('player_status');
+          console.log(data);
           if(data['board'] == 1){
             boardPlayer.play();
           }
@@ -100,16 +102,17 @@ $(function() {
           }
         }
       });
-  };
+    }
 
-  //判断flash是否安装
-  if(flashChecker().f) {
-    loadingPlayer();
-  } else{
-    $("#player-and-chat").hide();
-    $("#no-flash-area").show() //提示div
-  }
-});
+    //判断flash是否安装
+    if(flashChecker().f) {
+      loadingPlayer();
+      window.setTimeout(player_status,3000);
+    } else{
+      $("#player-and-chat").hide();
+      $("#no-flash-area").show() //提示div
+    }
+  });
 </script>
 
 <% end %>

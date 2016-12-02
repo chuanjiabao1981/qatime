@@ -3,7 +3,7 @@ require_dependency "live_studio/application_controller"
 module LiveStudio
   class CoursesController < ApplicationController
     before_action :set_user
-    before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson]
+    before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson, :live_status]
     before_action :play_authorize, only: [:play]
     before_action :set_city, only: [:index]
 
@@ -116,6 +116,10 @@ module LiveStudio
       lesson_map = arr.select{|data| data[:date].to_time == moment}.first
       @lessons = lesson_map[:lessons] if lesson_map.present?
       render partial: 'live_studio/student/students/lesson'
+    end
+
+    def live_status
+      render json: LiveService::CourseDirector.new(@course).stream_status
     end
 
     private

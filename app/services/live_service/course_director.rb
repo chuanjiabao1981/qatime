@@ -26,6 +26,15 @@ module LiveService
     def deliver_ticket
     end
 
+    # 辅导班直播流状态查询
+    # 心跳时差大于15秒把直播状态设置为未开始
+    def stream_status
+      time_diff = @course.live_sessions.last.try(:heartbeat_at) && (Time.now - @course.live_sessions.last.try(:heartbeat_at))
+      board = time_diff.to_i > 15 ? 0 : @course.try(:channels).try(:board).try(:last).try(:live_status).to_i
+      camera = time_diff.to_i > 15 ? 0 : @course.try(:channels).try(:camera).try(:last).try(:live_status).to_i
+      {board: board, camera: camera}
+    end
+
     # 根据参数查询当月课程安排
     def self.courses_by_month(user, month=nil, state=nil)
       month = month.blank? ? Time.now : month.to_time

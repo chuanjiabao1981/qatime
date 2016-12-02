@@ -5,6 +5,7 @@ module LiveStudio
     extend Enumerize
 
     attr_accessor :start_time_hour, :start_time_minute, :_update
+    BEAT_STEP = 10 # 心跳频率/秒
 
     enum status: {
       missed: -1, # 已错过
@@ -164,11 +165,14 @@ module LiveStudio
     end
 
     # 心跳
-    def heartbeats(token = nil)
+    def heartbeats(timestamp, beat_step, token = nil)
       @live_session = token.blank? ? new_live_session : current_live_session
+      return @live_session.token if @live_session.timestamp && @live_session.timestamp >= timestamp
       @live_session.heartbeat_count += 1
-      @live_session.duration += 5
+      @live_session.duration += beat_step
       @live_session.heartbeat_at = Time.now
+      @live_session.timestamp = timestamp
+      @live_session.beat_step = beat_step
       @live_session.save
       self.heartbeat_time = Time.now
       teach if ready? || paused? || closed?
@@ -256,8 +260,9 @@ module LiveStudio
       live_sessions.create(
         token: ::Encryption.md5("#{id}#{Time.now}").downcase,
         heartbeat_count: 0,
-        duration: 0, # 单位(分钟)
-        heartbeat_at: Time.now
+        duration: 0, # 单位(秒)
+        heartbeat_at: Time.now,
+        beat_step: BEAT_STEP
       )
     end
 

@@ -4,7 +4,6 @@ module Entities
       expose :title
       expose :index
       expose :type
-      expose :reason
     end
   end
 end

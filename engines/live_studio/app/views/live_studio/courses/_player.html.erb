@@ -53,13 +53,14 @@
 
       boardPlayer.onPlayState(1,function(){
         console.log('board play');
-        boardPlayer.play();
       });
       boardPlayer.onPlayState(2,function(){
         console.log('board pause');
+        boardPlayer.pause();
       });
       boardPlayer.onPlayState(3,function(){
         console.log('board ended');
+        boardPlayer.release();
       });
       // boardPlayer = boardPlayer.play();
 
@@ -82,32 +83,40 @@
       });
       cameraPlayer.onPlayState(2,function(){
         console.log('camera pause');
+        cameraPlayer.pause();
       });
       cameraPlayer.onPlayState(3,function(){
         console.log('camera ended');
+        cameraPlayer.reset();
       });
 
-    }
-
-    function player_status(){
-      $.get("/live_studio/courses/<%= @course.id %>/live_status", {}, function (data, status){
-        if(status == 'success'){
-          console.log('player_status');
-          console.log(data);
-          if(data['board'] == 1){
-            boardPlayer.play();
-          }
-          if(data['camera'] == 1){
-            cameraPlayer.play();
-          }
+      player_status();
+      setInterval(player_status, 30000);
+      function player_status(){
+        if(boardPlayer.getPlayState() == 1 && cameraPlayer.getPlayState() == 1){
+          console.log('skip');
+          return false;
         }
-      });
+        $.get("/live_studio/courses/<%= @course.id %>/live_status", {}, function (data, status) {
+          if (status == 'success') {
+            console.log('player_status');
+            console.log(data);
+            if (data['board'] == 1) {
+              boardPlayer.play();
+            }
+            if (data['camera'] == 1) {
+              cameraPlayer.play();
+            }
+          }
+        });
+      }
     }
+
+
 
     //判断flash是否安装
     if(flashChecker().f) {
       loadingPlayer();
-      window.setTimeout(player_status,3000);
     } else{
       $("#player-and-chat").hide();
       $("#no-flash-area").show() //提示div

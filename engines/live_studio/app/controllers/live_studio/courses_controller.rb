@@ -121,7 +121,7 @@ module LiveStudio
     def live_status
       render json: {
         board: @course.channels.board.try(:first).try(:live_status).to_i,
-        camera: @course.channels.board.try(:camera).try(:live_status).to_i
+        camera: @course.channels.camera.try(:first).try(:live_status).to_i
       }
     end
 

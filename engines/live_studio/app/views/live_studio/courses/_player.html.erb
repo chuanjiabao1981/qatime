@@ -40,7 +40,7 @@
     var state = 'init';
 
     // 白板播放器
-    boardPlayer = neplayer("my-video", {}, function() {
+    boardPlayer = neplayer("my-video", {bigPlayButton: false}, function() {
     });
 
     boardPlayer.onError(function(err){
@@ -61,7 +61,7 @@
     });
 
     // 摄像头
-    cameraPlayer = neplayer("small-video", {}, function() {
+    cameraPlayer = neplayer("small-video", {bigPlayButton: false}, function() {
     });
     // cameraPlayer.play();
     cameraPlayer.onError(function(err){

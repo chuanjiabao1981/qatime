@@ -37,7 +37,7 @@ module Permissions
         notification and notification.receiver_id == user.id
       end
 
-      allow 'live_studio/courses', [:index, :taste, :play, :show, :refresh_current_lesson,:schedule_sources]
+      allow 'live_studio/courses', [:index, :taste, :play, :show, :refresh_current_lesson,:schedule_sources, :live_status]
       allow :home,[:index,:new_index,:switch_city]
       allow 'chat/teams', [:finish, :members, :member_visit]
       allow 'ajax/captchas', [:create, :verify]
@@ -56,7 +56,9 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/realtime"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/play_info"
-      api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/heart_beat"
+      api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/live_status"
+
+
 
       # 安全设置
       api_allow :PUT, "/api/v1/users/[\\w-]+/email" do |resource|

@@ -282,9 +282,12 @@ module Permissions
       end
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/taste"
       api_allow :GET, "/api/v1/live_studio/teachers/[\\w-]+/schedules"
-      api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/live_start"
-      api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/live_end"
       api_allow :PUT, "/api/v1/live_studio/lessons/[\\w-]+/finish"
+      api_allow :POST, "/api/v1/live_studio/lessons/[\\w-]+/live_start"
+      api_allow :POST, "/api/v1/live_studio/lessons/[\\w-]+/live_end"
+      api_allow :POST, "/api/v1/live_studio/lessons/[\\w-]+/live_info"
+      api_allow :POST, "/api/v1/live_studio/lessons/[\\w-]+/heart_beat"
+      api_allow :POST, "/api/v1/live_studio/lessons/[\\w-]+/live_switch"
 
       api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/announcements" do |teacher|
         teacher && teacher.id == user.id

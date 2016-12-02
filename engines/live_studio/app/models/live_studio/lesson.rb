@@ -74,7 +74,15 @@ module LiveStudio
         transitions from: [:ready, :init], to: :missed
       end
 
+      event :ready do
+        transitions from: [:init, :missed], to: :ready
+      end
+
       event :teach do
+        before do
+          # 第一次开始直播增加开始数量
+          increment_course_counter(:started_lessons_count) if ready? || missed? || init?
+        end
         transitions from: [:ready, :paused, :closed, :missed], to: :teaching
       end
 
@@ -90,10 +98,18 @@ module LiveStudio
       end
 
       event :finish, after_commit: :instance_play_records do
+        after do
+          # 课程完成增加辅导班完成课程数量
+          increment_course_counter(:finished_lessons_count)
+        end
         transitions from: [:paused, :closed], to: :finished
       end
 
       event :complete do
+        after do
+          # 结算后增加辅导班结算数量
+          increment_course_counter(:completed_lessons_count)
+        end
         transitions from: [:finished, :billing], to: :completed
       end
     end
@@ -270,6 +286,12 @@ module LiveStudio
         end_time_at: live_end_at,
         tp: 'student'
       }
+    end
+
+
+    # 增加计数器
+    def increment_course_counter(attribute)
+      course.increment(attribute)
     end
   end
 end

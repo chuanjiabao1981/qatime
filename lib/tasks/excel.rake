@@ -14,9 +14,9 @@ namespace :excel do
 
     Province.create(name: '山西省')
     City.create(name: '阳泉市', province_id: 1)
-    City.create(name: '太原市', province_id: 1)
     Province.create(name: '浙江省')
     City.create(name: '诸暨市', province_id: 2)
+    City.create(name: '太原市', province_id: 1)
 
     xlsx.each_with_pagename do |name, sheet|
       next unless sheet.first_row

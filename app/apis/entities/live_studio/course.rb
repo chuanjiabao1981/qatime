@@ -28,7 +28,10 @@ module Entities
       expose :preset_lesson_count do |course|
         course.lessons_count
       end
-      expose :completed_lesson_count
+      expose :completed_lesson_count do |course|
+        course.completed_lessons_count
+      end
+      expose :completed_lessons_count
       expose :live_start_time
       expose :live_end_time
       expose :publicize do |course|

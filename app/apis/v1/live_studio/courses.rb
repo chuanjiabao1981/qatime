@@ -294,6 +294,7 @@ module V1
               end
               "ok"
             end
+
             desc '直播状态查询' do
               headers 'Remember-Token' => {
                 description: 'RememberToken',
@@ -305,11 +306,7 @@ module V1
             end
             get 'live_status' do
               @course = ::LiveStudio::Course.find(params[:course_id])
-              {
-                board: @course.try(:channels).try(:board).try(:last).try(:live_status).to_i,
-                camera: @course.try(:channels).try(:camera).try(:last).try(:live_status).to_i,
-                time_diff: @course.live_sessions.last.try(:heartbeat_time) && (Time.now - @course.live_sessions.last.try(:heartbeat_time))
-              }
+              LiveService::CourseDirector.new(@course).stream_status
             end
           end
         end

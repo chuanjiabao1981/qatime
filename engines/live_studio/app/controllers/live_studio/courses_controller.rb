@@ -119,10 +119,7 @@ module LiveStudio
     end
 
     def live_status
-      render json: {
-        board: @course.channels.board.try(:first).try(:live_status).to_i,
-        camera: @course.channels.camera.try(:first).try(:live_status).to_i
-      }
+      render json: LiveService::CourseDirector.new(@course).stream_status
     end
 
     private

@@ -36,87 +36,91 @@
 <script>
   $(function() {
     var boardPlayer, cameraPlayer;
-    var loadingPlayer = function() {
-      // 白板播放器
-      boardPlayer = neplayer("my-video", {}, function() {
-      });
-      boardPlayer.setDataSource({
-        type: "video/x-flv",
-        src: "<%= @course.board_pull_stream('http') %>"
-      });
+    var timer = -1;
+    var state = 'init';
 
+    // 白板播放器
+    boardPlayer = neplayer("my-video", {}, function() {
+    });
 
-      boardPlayer.onError(function(err){
-        console.log(err.errCode);
-        console.log(err.errMsg);
-      });
+    boardPlayer.onError(function(err){
+      console.log(err.errCode);
+      console.log(err.errMsg);
+    });
 
-      boardPlayer.onPlayState(1,function(){
-        console.log('board play');
-      });
-      boardPlayer.onPlayState(2,function(){
-        console.log('board pause');
-        boardPlayer.pause();
-      });
-      boardPlayer.onPlayState(3,function(){
-        console.log('board ended');
-        boardPlayer.release();
-      });
-      // boardPlayer = boardPlayer.play();
+    boardPlayer.onPlayState(1,function(){
+      console.log('board play');
+    });
+    boardPlayer.onPlayState(2,function(){
+      console.log('board pause');
+    });
+    boardPlayer.onPlayState(3,function(){
+      console.log('board ended');
+      boardPlayer.reset();
+      set_timer();
+    });
 
+    // 摄像头
+    cameraPlayer = neplayer("small-video", {}, function() {
+    });
+    // cameraPlayer.play();
+    cameraPlayer.onError(function(err){
+      console.log(err.errCode);
+      console.log(err.errMsg);
+    });
 
-      // 摄像头
-      cameraPlayer = neplayer("small-video", {}, function() {
-      });
-      cameraPlayer.setDataSource({
-        type: "video/x-flv",
-        src: "<%= @course.camera_pull_stream('http') %>"
-      });
-      // cameraPlayer.play();
-      cameraPlayer.onError(function(err){
-        console.log(err.errCode);
-        console.log(err.errMsg);
-      });
+    cameraPlayer.onPlayState(1,function(){
+      console.log('camera play');
+    });
+    cameraPlayer.onPlayState(2,function(){
+      console.log('camera pause');
+    });
+    cameraPlayer.onPlayState(3,function(){
+      console.log('camera ended');
+      cameraPlayer.reset();
+      set_timer();
+    });
 
-      cameraPlayer.onPlayState(1,function(){
-        console.log('camera play');
-      });
-      cameraPlayer.onPlayState(2,function(){
-        console.log('camera pause');
-        cameraPlayer.pause();
-      });
-      cameraPlayer.onPlayState(3,function(){
-        console.log('camera ended');
-        cameraPlayer.reset();
-      });
-
-      player_status();
-      setInterval(player_status, 30000);
-      function player_status(){
-        if(boardPlayer.getPlayState() == 1 && cameraPlayer.getPlayState() == 1){
-          console.log('skip');
-          return false;
-        }
-        $.get("/live_studio/courses/<%= @course.id %>/live_status", {}, function (data, status) {
-          if (status == 'success') {
-            console.log('player_status');
-            console.log(data);
-            if (data['board'] == 1) {
-              boardPlayer.play();
-            }
-            if (data['camera'] == 1) {
-              cameraPlayer.play();
-            }
+    function player_status(){
+      $.get("/live_studio/courses/<%= @course.id %>/live_status", {}, function (data, status) {
+        if (status == 'success') {
+          console.log('player_status');
+          console.log(data);
+          if (data['board'] == 1) {
+            boardPlayer.setDataSource({
+              type: "video/x-flv",
+              src: "<%= @course.board_pull_stream('http') %>"
+            });
+            boardPlayer.play();
           }
-        });
+          if (data['camera'] == 1) {
+            cameraPlayer.setDataSource({
+              type: "video/x-flv",
+              src: "<%= @course.camera_pull_stream('http') %>"
+            });
+            cameraPlayer.play();
+          }
+          if( data['board'] == 1 && data['camera'] == 1){
+            state = 'live';
+            clearTimeout(timer);
+          }else{
+            state = 'init';
+            timer = -1;
+          }
+        }
+      });
+    }
+
+    function set_timer(){
+      player_status();
+      if(state == 'init' && timer == -1){
+        timer = setInterval(player_status, 10000);
       }
     }
 
-
-
     //判断flash是否安装
     if(flashChecker().f) {
-      loadingPlayer();
+      set_timer();
     } else{
       $("#player-and-chat").hide();
       $("#no-flash-area").show() //提示div

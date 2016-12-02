@@ -5,6 +5,7 @@ module LiveStudio
     extend Enumerize
 
     attr_accessor :start_time_hour, :start_time_minute, :_update
+    BEAT_STEP = 10 # 心跳频率/秒
 
     enum status: {
       missed: -1, # 已错过
@@ -249,6 +250,7 @@ module LiveStudio
     # 今日课程立即是ready状态
     def data_preview
       self.status = class_date == Date.today ? 1 : 0
+      self.beat_step = BEAT_STEP
     end
 
     def data_confirm

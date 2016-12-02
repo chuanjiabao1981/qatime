@@ -307,7 +307,8 @@ module V1
               @course = ::LiveStudio::Course.find(params[:course_id])
               {
                 board: @course.try(:channels).try(:board).try(:last).try(:live_status).to_i,
-                camera: @course.try(:channels).try(:camera).try(:last).try(:live_status).to_i
+                camera: @course.try(:channels).try(:camera).try(:last).try(:live_status).to_i,
+                time_diff: @course.live_sessions.last.try(:heartbeat_time) && (Time.now - @course.live_sessions.last.try(:heartbeat_time))
               }
             end
           end

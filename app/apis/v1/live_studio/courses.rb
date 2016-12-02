@@ -181,7 +181,8 @@ module V1
               {
                 announcements: course.announcements.all.order(id: :desc),
                 members: course.chat_team.try(:join_records).try(:map,&:account),
-                current_lesson_status: course.current_lesson.try(:status)
+                current_lesson_status: course.current_lesson.try(:status),
+                owner: course.chat_team.try(:owner).to_s
               }
             present realtime, with: Entities::CourseRealtime
           end

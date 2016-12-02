@@ -102,7 +102,7 @@
           }
           if( data['board'] == 1 && data['camera'] == 1){
             state = 'live';
-            clearTimeout(timer);
+            clearInterval(timer);
           }else{
             state = 'init';
             timer = -1;

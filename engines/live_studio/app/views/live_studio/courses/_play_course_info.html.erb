@@ -39,7 +39,7 @@
             </tr>
             <tr>
               <td colspan="3">
-                <span class="headline-color"><%= t("activerecord.view.status") %></span><span class="title-color interval"><%= @course.status.text %>(<%= "#{@course.completed_lesson_count}/#{@course.lessons_count}" %>)</span>
+                <span class="headline-color"><%= t("activerecord.view.status") %></span><span class="title-color interval"><%= @course.status.text %>(<%= "#{@course.finished_lessons_count}/#{@course.lessons_count}" %>)</span>
               </td>
             </tr>
             <tr>

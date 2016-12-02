@@ -22,7 +22,7 @@ module V1
             {
               board_push_stream: @lesson.course.pull_streams.find {|stream| stream.use_for == 'board' }.try(:address),
               camera_push_stream: @lesson.course.pull_streams.find {|stream| stream.use_for == 'camera' }.try(:address),
-              beat_step: @lesson.beat_step
+              beat_step: LiveStudio::Lesson::BEAT_STEP
             }
           end
 
@@ -46,7 +46,7 @@ module V1
             {
               status: @lesson.status,
               live_token: @lesson.current_live_session.token,
-              beat_step: @lesson.beat_step
+              beat_step: LiveStudio::Lesson::BEAT_STEP
             }
           end
 
@@ -84,7 +84,7 @@ module V1
             # raise_change_error_for(@lesson.teaching? || @lesson.paused?)
             {
               result: 'ok',
-              live_token: @lesson.heartbeats(params[:timestamp], params[:live_token])
+              live_token: @lesson.heartbeats(params[:timestamp], params[:beat_step], params[:live_token])
             }
           end
 

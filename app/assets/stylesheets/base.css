@@ -290,11 +290,11 @@ a {
   margin-right: 10px;
 }
 /*@font-face {font-family: 'iconfont';
-    src: url('../fonts/iconfont.eot'); 
-    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), 
-    url('../fonts/iconfont.woff') format('woff'), 
-    url('../fonts/iconfont.ttf') format('truetype'), 
-    url('../fonts/iconfont.svg#iconfont') format('svg'); 
+    src: url('../fonts/iconfont.eot');
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/iconfont.woff') format('woff'),
+    url('../fonts/iconfont.ttf') format('truetype'),
+    url('../fonts/iconfont.svg#iconfont') format('svg');
 }
 .iconfont{
     font-family:"iconfont" !important;
@@ -4938,22 +4938,25 @@ ul {
   font-size: 16px;
   color: #000000;
 }
+
 .tecmsg-con .row {
-  padding: 0 25px;
+  /*padding: 0 25px;*/
+
+
 }
 .tecmsg-con label {
   float: left;
   margin-right: 30px;
   font-weight: 100;
   margin-top: 8px;
-  width: 65px;
+  /*width: 65px;*/
 }
 .tecmsg-con .has-error{
   clear: both;
   margin-left: 95px;
 }
 .tecmsg-con .form-control {
-  width: 37.7%;
+  width: 300px;
   float: left;
 }
 .tecmsg-gender {
@@ -5456,15 +5459,72 @@ ul {
   color: #000000;
 }
 .wechat-msg .has-error {
-  /*margin-top: 0px;
-  margin-bottom: 0;
-  margin-left: 125px;*/
   margin: 0px 0px 0px 125px;
 }
 .wechat-msg .auth-code {
   height: 42px !important;
   border-radius: 0px;
 }
+
+@media only screen and (max-width: 670px) {
+  .wechat-msg .form-group {
+    position: relative;
+    left: 124px;
+    padding-bottom: 20px !important;
+  }
+  .wechat-msg .form-group label {
+    position: absolute;
+    top: -30px;
+    right: -28px;
+  }
+  .wechat-msg .has-error {
+    margin-left: 0px;
+  }
+  .input-button {
+    margin-left: 0px;
+  }
+}
+
+
+
+.wechat-choose {
+  width: 388px;
+  height: 202px;
+  margin: 40% 0 0 10%;
+  background-color: #FFFFFF;
+}
+.choose-title {
+  height: 40px;
+  font-size: 18px;
+  color: #333333;
+  background-color: rgb(222,222,222);
+  padding-left: 10px;
+  line-height: 40px;
+}
+.choose-content a {
+  display: inline-block;
+  width: 100px;
+  margin-top: 15px;
+}
+.choose-content a:first-child {
+  margin-right: 68px;
+}
+.choose-content a span {
+  display: inline-block;
+  width: 100px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #666666;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -5594,6 +5654,8 @@ ul {
 .retrieve-password {
   border-right: 0px;
   float: none;
+  padding-right: 0px;
+  margin-left: 22%;
 }
 .retrieve-password .btn-submit {
   margin-top: 12px;
@@ -5604,4 +5666,22 @@ ul {
 .login-wechat #btn-obtain {
   display: inline-block;
   width: 113px;
+}
+
+
+
+
+
+
+
+/*注册详情*/
+.detail-title {
+  font-size: 30px;
+  color: #333333;
+  text-align: center;
+  margin-top: 50px;
+}
+.detail-content {
+  width: 946px;
+  margin-left: 6.13%;
 }

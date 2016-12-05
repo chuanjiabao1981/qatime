@@ -10,7 +10,7 @@ cn:
       save: 保存
       ok: 确定
       get_captcha: 获取验证码
-      try_get_captcha_again: 秒后重试
+      try_get_captcha_again: 重新获取
       my_wallet: 我的钱包
     new:
       title: 学生注册

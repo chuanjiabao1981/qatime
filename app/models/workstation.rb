@@ -5,7 +5,7 @@ class Workstation < ActiveRecord::Base
   belongs_to :manager, class_name: "Manager"
 
   has_one :cash_account, as: :owner, class_name: '::Payment::CashAccount'
-  belongs_to :city
+  belongs_to :city, counter_cache: true
   has_one  :account, as: :accountable
   has_many :customized_courses
   scope :by_manager_id, lambda {|t| where(manager_id: t) if t}

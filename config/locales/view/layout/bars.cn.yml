@@ -18,6 +18,7 @@ cn:
       notice: 消息
       nationwide: 全国
       switch_city: 切换
+      phone: 0353-xxxxxxx
     qa_bars:
       courses: 辅导班流程
       teacher: 老师使用说明
@@ -43,5 +44,8 @@ cn:
       video_manage: 视频管理
       notification: 消息中心
       teacher_syllabuses: 备课中心
+    footer:
+      copyright: Copyright © 2013-2015 QaTime.
+      record: 京ICP备12031445号-3
 
 

@@ -13,18 +13,15 @@ em {
   color: #333333;
   background-color: white;
 }
-
 .row-th{
   width: 98%;
   margin-left: 1%;
 }
-
 .row-th {
   padding-top: 10px;
   line-height: 3rem;
   border-bottom: 0.1rem solid gray;
 }
-
 
 .table-fix {
   width: 98%!important;
@@ -293,11 +290,11 @@ a {
   margin-right: 10px;
 }
 /*@font-face {font-family: 'iconfont';
-    src: url('../fonts/iconfont.eot');
-    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/iconfont.woff') format('woff'),
-    url('../fonts/iconfont.ttf') format('truetype'),
-    url('../fonts/iconfont.svg#iconfont') format('svg');
+    src: url('../fonts/iconfont.eot'); 
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), 
+    url('../fonts/iconfont.woff') format('woff'), 
+    url('../fonts/iconfont.ttf') format('truetype'), 
+    url('../fonts/iconfont.svg#iconfont') format('svg'); 
 }
 .iconfont{
     font-family:"iconfont" !important;
@@ -4865,11 +4862,14 @@ ul {
 }
 
 .tutorial-con table img {
-  width: 132px;
-  height: 83px;
+  /*width: 132px;
+  height: 83px;*/
+  width: 100%;
+  height: 100%;
 }
 .tutorial-con-td {
   width: 156px;
+  padding-right: 24px;
 }
 .tutorial-con-new {
   width: 25%;
@@ -5097,14 +5097,12 @@ ul {
   color: #000000;
 }
 
-/*.down-msg-right {
-	float: right;
-}*/
 .down-msg-right img {
   float: right;
 }
 .down-msg-new {
   width: 120px;
+  height: 118px;
   float: right;
   margin-left: 10px;
   font-size: 14px;
@@ -5123,7 +5121,7 @@ ul {
   line-height: 38px;
   text-align: center;
   border-radius: 4px;
-  margin-top: 10px;
+  /*margin-top: 10px;*/
 }
 .down-load .col-md-4 {
   overflow: hidden;
@@ -5146,4 +5144,464 @@ ul {
   .down-msg-new {
     margin-left: 30px;
   }
+}
+
+
+
+
+/*登录页面*/
+.login-body {
+  background-image:none!important;
+  padding-top: 90px !important;
+  background-color: #F1F1F1;
+}
+.login-body .head {
+  width: 100%;
+  height: 90px;
+  background-color: rgb(241,241,241);
+  position: absolute;
+  top: 0;
+}
+.login-header {
+  max-height: 1190px;
+}
+.login-left {
+  float: left;
+  margin-top: 22px;
+  margin-left: -15px;
+}
+.login-right {
+  float: right;
+  margin-right: -5px;
+  margin-top: 34px;
+  font-size: 16px;
+  height: 22px;
+}
+.login-right span {
+  display: inline-block;
+  margin-left: 24px;
+  color: #be0b0b;
+}
+.login-right span a {
+  color: #be0b0b;
+}
+.login-right span:nth-child(2) {
+  display: inline-block;
+  width: 84px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  border-left: 2px solid rgb(153,153,153);
+  border-right: 2px solid rgb(153,153,153);
+}
+.login-right span img {
+  margin-bottom: 5px;
+}
+.login-content {
+  width: 100%;
+  min-height: 600px;
+  background: url(../img/login-bg.jpg);
+}
+.login-content .row .panel {
+  width: 350px;
+  margin-top: 114px;
+  float: right;
+  margin-right: 10px;
+}
+.login-msg {
+  width: 350px;
+  min-height: 374px;
+  padding: 25px;
+  background-color: rgb(251,251,251);
+}
+.account-left {
+  float: left;
+  font-size: 16px;
+  color: #333333;
+}
+.account-right {
+  float: right;
+  font-size: 12px;
+  margin-top: 5px;
+}
+.account-right span:first-child {
+  color: #999999;
+}
+.account-right span a {
+  color: #00a2ee;
+}
+.account-right span:nth-child(2) {
+  display: inline-block;
+  width: 54px;
+  height: 14px;
+  line-height: 14px;
+  text-align: left;
+  border-right: 1px solid #00a2ee;
+}
+.login-account {
+  overflow: hidden;
+}
+.login-account-con {
+  margin-top: 8px;
+}
+.login-account-con .input-group {
+  width: 100%;
+  margin-bottom: 0px;
+  padding-top: 20px;
+}
+.login-account-con .input-group input {
+  height: 42px;
+  border-radius: 0px;
+}
+
+.login-account-con .input-group .input-group-addon {
+  background-color: #DDDDDD;
+  border-radius: 0px;
+  border: 1px solid #CCCCCC;
+  border-right: 0px;
+}
+.login-account-con .input-group i {
+  font-size: 20px;
+  color: #FFFFFF;
+}
+.login-account-con .fa-lock {
+  font-size: 22px !important;
+}
+.login-account-con .has-error {
+  margin: 0px;
+}
+.login-remember {
+  margin-top: -8px !important;
+}
+.input-password {
+  padding: 8px 0 3px;
+  font-size: 12px;
+  position: relative;
+}
+.login-msg .has-error:last-child {
+  margin-top: -4px;
+}
+.input-password label{
+  font-weight: 100;
+  margin-left: 5px;
+  position: absolute;
+  top: 10px;
+  color: #666666;
+}
+.input-password a {
+  display: inline-block;
+  margin-top: 2px;
+  float: right;
+  color: #00a2ee;
+}
+
+.login-send {
+  width: 100%;
+  height: 42px;
+  border: 2px solid #be0b0b;
+  margin-top: 5px;
+  background-color: rgb(251,251,251);
+  border-radius: 4px;
+  color: #be0b0b;
+  font-size: 20px;
+  padding-bottom: 3px;
+  margin-bottom: 30px;
+}
+.login-other span {
+  display: inline-block;
+  margin: 0 8.5px;
+  color: #333333;
+}
+.login-other img {
+  position: relative;
+  top: -2px;
+}
+.login-weixin {
+  margin-top: 15px;
+}
+
+.securitycode {
+  padding-top: 5px !important;
+}
+.securitycode input {
+  width: 187px !important;
+  padding-left: 52px !important;
+}
+.securitycode .input-group-addon {
+  display: inline-block;
+  width: 113px;
+  height: 42px;
+  padding: 0px !important;
+  background-color: #FFFFFF !important;
+  border-left: 0px !important;
+  border-right: 1px solid #ccc !important;
+}
+.securitycode .input-group-addon img {
+  width: 112px;
+  height: 40px;
+  float: left;
+}
+.securitycode .has-error {
+  float: left;
+}
+.securitycode a {
+  font-size: 12px;
+  display: inline-block;
+  margin: 8px 0px 3px;
+  color: #00a2ee;
+  float: right;
+}
+.login-body footer {
+  padding-top: 28px;
+  color: #666666;
+}
+
+
+
+
+
+/*微信登陆页*/
+.login-wechat {
+  width: 100%;
+  min-height: 600px;
+  background-color: #FFFFFF;
+}
+.wechat-title {
+  margin-top: 120px;
+}
+.wechat-title p {
+  text-align: center;
+  padding-left: 10px;
+  margin-bottom: 0px;
+}
+.wechat-title p:first-child {
+  font-size: 20px;
+  color: #14d212;
+}
+.wechat-title p:first-child img {
+  margin-right: 10px;
+}
+.wechat-title p:last-child {
+  color: #CCCCCC;
+}
+.wechat-title p:last-child span:first-child {
+  margin-right: 10px;
+}
+.wechat-msg {
+  margin-top: 30px;
+}
+.wechat-msg label,.wechat-msg .form-control {
+  float: left;
+}
+.wechat-con {
+  min-height: 400px;
+  position: relative;
+}
+.wechat-msg {
+  position: absolute;
+  left: 50%;
+  margin-left: -273px;
+}
+.wechat-msg label {
+  width: 100px;
+  font-weight: 100;
+  margin-right: 24px;
+  padding-top: 8px;
+  text-align: right;
+  font-size: 16px;
+  color: #333333;
+}
+.wechat-msg .form-group {
+  margin-bottom: 20px;
+}
+.wechat-msg .input-group{
+  width: 300px;
+}
+.wechat-con input {
+  height: 42px;
+}
+.input-button {
+  margin-left: 124px;
+  padding-top: 11px;
+}
+.input-button input,.input-button a {
+  width: 144px;
+  font-size: 20px;
+  color: #333;
+  float: left;
+  background-color: #FFFFFF;
+  border: 2px solid #666666;
+  border-radius: 4px;
+}
+.input-button a {
+  text-align: center;
+  line-height: 36px;
+  display: inline-block;
+  height: 42px;
+}
+.input-button input {
+  outline: none;
+  line-height: 36px;
+  margin-left: 12px;
+  color: #be0b0b;
+  border: 2px solid #be0b0b;
+}
+.wechat-msg #btn-obtain,.tea-register-left #btn-obtain {
+  outline: none !important;
+  border-radius: 0px;
+  border-color: #999999;
+  font-size: 14px;
+  height: 42px !important;
+  background-color: #eff3f5;
+  color: #000000;
+}
+.wechat-msg .has-error {
+  /*margin-top: 0px;
+  margin-bottom: 0;
+  margin-left: 125px;*/
+  margin: 0px 0px 0px 125px;
+}
+.wechat-msg .auth-code {
+  height: 42px !important;
+  border-radius: 0px;
+}
+
+
+
+
+
+/*教师注册*/
+.login-wechat .col-md-6 {
+  padding-right: 0px;
+  overflow: hidden;
+}
+.tea-register {
+  float: right;
+  margin-top: 50px;
+  padding-top: 15px;
+  padding-right: 54px;
+  border-right: 1px dashed #999999;
+}
+.tea-register-title {
+  font-size: 30px;
+  color: #333333;
+  margin-bottom: 28px;
+}
+.tea-register-left .form-group {
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.tea-register-left .has-error {
+  margin-bottom: 0;
+}
+.tea-register-left .form-group .has-error {
+  clear: both;
+}
+.tea-register-left .input-group {
+  width: 300px;
+  float: left;
+}
+.tea-register-left .form-control {
+  height: 42px !important;
+  border-radius: 0px;
+}
+.tea-register-left img {
+  float: left;
+  margin-left: 15px;
+  padding-top: 11px;
+}
+
+.tea-register-left .accept label {
+  font-size: 14px;
+  font-weight: 100;
+  color: #333333;
+}
+.tea-register-left .accept #checkbox {
+  position: relative;
+  top: 2px;
+}
+.tea-register-left .accept a {
+  display: inline-block;
+  font-size: 14px;
+  color: #00a2ee;
+}
+.tea-register-left .form-bottom,.tea-register-left .form-receive {
+  margin-bottom: 0px;
+}
+.tea-register-left .accept {
+  margin-top: 6px;
+}
+.tea-register-left .form-receive .has-error {
+  position: relative;
+  top: -8px;
+}
+.tea-register-left .btn-submit {
+  margin-top: 3px;
+  width: 300px;
+  height: 42px;
+  border-radius: 4px;
+  padding-bottom: 4px;
+  font-size: 20px;
+  color: #be0b0b;
+  border: 2px solid #be0b0b;
+}
+.tea-register-right {
+  margin-top: 100px;
+  margin-left: 77px;
+  width: 250px;
+}
+.register-right-title {
+  font-size: 18px;
+  color: #333333;
+}
+.tea-register-right img {
+  width: 250px;
+  height: 250px;
+  margin-top: 10px;
+}
+.register-right-title span:first-child {
+  margin-right: 15px;
+}
+.register-right-msg {
+  margin-top: 12px;
+  color: #CCCCCC;
+}
+
+@media only screen and (max-width: 990px) {
+  .login-wechat .col-md-6:first-child {
+    padding-right: 15px;
+  }
+  .login-wechat .col-md-6:last-child {
+    padding-left: 0px;
+    padding-right: 39px;
+  }
+  .tea-register {
+    padding-right: 0px;
+    width: 336px;
+    float: none;
+    margin: 70px auto 0;
+    border-right: 0px;
+  }
+  .tea-register-right {
+    width: 250px;
+    margin: 0 auto;
+    padding-bottom: 20px;
+  }
+}
+
+
+/*找回密码*/
+.retrieve-password {
+  border-right: 0px;
+  float: none;
+}
+.retrieve-password .btn-submit {
+  margin-top: 12px;
+}
+.login-wechat .auth-code {
+  width: 187px;
+}
+.login-wechat #btn-obtain {
+  display: inline-block;
+  width: 113px;
 }

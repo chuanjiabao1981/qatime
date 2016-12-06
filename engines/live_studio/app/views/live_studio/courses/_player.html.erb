@@ -3,7 +3,7 @@
     <div class="area-left">
       <div class="area-left-title"><%= @course.name %></div>
       <div class="area-left-con">
-        <video id="my-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'loading.png' %>" preload="auto" width="" height="" data-setup="{}">
+        <video id="my-video" style="overflow: hidden;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'loading.png' %>" preload="auto" width="" height="" data-setup="{}">
         </video>
       </div>
     </div>
@@ -40,8 +40,44 @@
     var state = 'init';
 
     // 白板播放器
-    boardPlayer = neplayer("my-video", {bigPlayButton: false}, function() {
+    boardPlayer = neplayer("my-video", {
+      bigPlayButton: false,
+      controlBar: {
+        progressControl: false
+      }
+    }, function() {
+      var barrageButton = $('<button class="vjs-barrage-control vjs-control vjs-button vjs-playing" type="button" aria-live="polite"></button>');
+      barrageButton.html('<span class="vjs-control-text">弹幕</span>');
+      $("#my-video .vjs-control-bar").append(barrageButton);
     });
+
+    var barrageTimer = null;
+    $("#my-video .vjs-control-bar").on('click', '.vjs-barrage-control', function() {
+      if(barrageTimer !== null) {
+        clearInterval(barrageTimer);
+        barrageTimer = null;
+      } else {
+        console.log(2222222);
+        barrageTimer = setInterval(function() {
+          var videoWidth = $("#my-video").width();
+          var videoHeight = $("#my-video").height();
+          var barrageTop = (videoHeight * Math.random()).toFixed(4);
+          var barrageColor = 'rgb('+Math.floor(Math.random()*256)+','+Math.floor(Math.random()*256)+','+Math.floor(Math.random()*256)+')';
+
+          var barrageNode = $('<div style="position: absolute; color: ' + barrageColor + '; display: none;">大家好嗷嗷哦</div>');
+          $("#my-video").append(barrageNode);
+          barrageNode.css("top", barrageTop);
+          var barrageWidth = barrageNode.width();
+          barrageNode.css("left", videoWidth - barrageWidth);
+          barrageNode.show().css("top", barrageTop + "px").animate({
+            left: "-=" + videoWidth,
+          }, 5000, function() {
+            barrageNode.remove();
+          });
+        }, 3000);
+      }
+    });
+
 
     boardPlayer.onError(function(err){
       console.log(err.errCode);

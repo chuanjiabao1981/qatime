@@ -291,6 +291,9 @@ window.currentTeam = {
       currentTeam.owner = owner;
       currentTeam.account = account;
     };
+    this.setBarrage = function(barrage) {
+      currentTeam.barrage = barrage;
+    };
     this.init = function(fn) {
       nim = this.nim = NIM.getInstance({
         db: false,
@@ -406,7 +409,8 @@ function appendMsg(msg, messageClass) {
 
   $("#messages").append(messageItem);
 
-
+  // 显示弹幕
+  if(currentTeam.barrage.active) currentTeam.barrage.show($.replaceChatMsg(msg.text));
 
   $("#messages").scrollTop($("#messages").prop('scrollHeight'));
 

@@ -26,6 +26,15 @@ module LiveService
     def deliver_ticket
     end
 
+    # 辅导班直播流状态查询
+    # 心跳时差大于15秒把直播状态设置为未开始
+    def stream_status
+      time_diff = @course.live_sessions.last.try(:heartbeat_at) && (Time.now - @course.live_sessions.last.try(:heartbeat_at))
+      board = time_diff.to_i > 15 ? 0 : @course.try(:channels).try(:board).try(:last).try(:live_status).to_i
+      camera = time_diff.to_i > 15 ? 0 : @course.try(:channels).try(:camera).try(:last).try(:live_status).to_i
+      {board: board, camera: camera}
+    end
+
     # 根据参数查询当月课程安排
     def self.courses_by_month(user, month=nil, state=nil)
       month = month.blank? ? Time.now : month.to_time
@@ -116,7 +125,9 @@ module LiveService
       return user.live_studio_taste_tickets.includes(course: :teacher) if 'taste' == cate
       # 今日辅导班
       # TODO 查询逻辑有点复杂，可以考虑通过增加冗余字段来简化查询
-      user.live_studio_tickets.visiable.includes(course: [:teacher, :lessons]).where(live_studio_lessons: { class_date: Date.today }).uniq
+      course_ids = user.live_studio_tickets.visiable.map(&:course_id)
+      today_course_ids = LiveStudio::Lesson.where(course_id: course_ids, class_date: Date.today).map(&:course_id).uniq
+      user.live_studio_tickets.visiable.includes(course: [:teacher, :lessons]).where(course_id: today_course_ids)
     end
 
     def self.query_by_params(courses, params)

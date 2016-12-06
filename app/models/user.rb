@@ -224,6 +224,7 @@ class User < ActiveRecord::Base
   # chat account是否需要同步
   def chat_account_changed?
     return false unless chat_account
+    return true unless chat_account.icon == avatar_url(:small)
     chat_account.name != (nick_name || name)
   end
 

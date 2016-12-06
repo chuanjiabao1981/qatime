@@ -3673,8 +3673,14 @@ ul {
   height: 100%;
 }
 
-
-
+.area-left-con .vjs-refresh-control img{
+  width:16px;
+  margin-top:-8px;
+}
+.area-left-con .vjs-barrage-control img {
+  width:14px;
+  margin-top:-8px;
+}
 
 
 
@@ -4915,13 +4921,6 @@ ul {
   margin-right: 10px;
 }
 
-/*.tutorial-details {
-	display: none;
-}
-.tutorial-details:first-child {
-	display: block;
-}*/
-
 
 
 
@@ -4976,7 +4975,7 @@ ul {
   padding-left: 0;
   margin-bottom: 0;
   list-style-type: none;
-  margin-left: 90px;
+  margin-left: 100px;
   display: none;
 }
 .tecmsg-subject li:hover,.tecmsg-grade li:hover,.tecmsg-year li:hover {
@@ -5222,7 +5221,7 @@ ul {
   width: 600px;
   min-height: 600px;
   float: left;
-  background: url(bg_session_new.jpg);
+  background: url(../img/bg-1.jpg);
   background-size: 100% 100%;
 }
 @media only screen and (max-width: 990px) {
@@ -5236,6 +5235,7 @@ ul {
   .login-content {
     height: 750px;
   }
+
 }
 
 
@@ -5441,7 +5441,7 @@ ul {
 .wechat-msg {
   margin-top: 30px;
 }
-.wechat-msg label,.wechat-msg .form-control {
+.wechat-msg label,.wechat-msg .form-control,.upload-msg label,.upload-msg .form-control {
   float: left;
 }
 .wechat-con {
@@ -5453,7 +5453,7 @@ ul {
   left: 50%;
   margin-left: -273px;
 }
-.wechat-msg label {
+.wechat-msg label,.upload-msg label {
   width: 100px;
   font-weight: 100;
   margin-right: 24px;
@@ -5462,16 +5462,17 @@ ul {
   font-size: 16px;
   color: #333333;
 }
-.wechat-msg .form-group {
+.wechat-msg .form-group,.upload-msg .form-group {
   margin-bottom: 20px;
 }
-.wechat-msg .input-group{
+.wechat-msg .input-group,.upload-msg .input-group{
   width: 300px;
 }
-.wechat-con input {
+.wechat-con input,.upload-msg input {
   height: 42px;
 }
 .input-button {
+  height: 42px;
   margin-left: 124px;
   padding-top: 11px;
 }
@@ -5531,6 +5532,7 @@ ul {
   .input-button {
     margin-left: 0px;
   }
+
 }
 
 
@@ -5730,7 +5732,6 @@ ul {
   margin-top: 50px;
 }
 .detail-content {
-  /*width: 946px;*/
   width: 79.5%;
   margin-left: 6.13%;
 }
@@ -5769,6 +5770,7 @@ ul {
   .tecmsg-img {
     right: 30px;
   }
+
 }
 
 
@@ -5780,5 +5782,66 @@ ul {
   text-align: center;
   font-size: 30px;
   color: #333333;
-  margin-top: 116px;
+  margin-top: 50px;
+}
+.upload-head img {
+  width: 240px;
+  height: 240px;
+}
+.upload-head .input-group {
+  width: 240px !important;
+  padding-left: 30px !important;
+}
+.upload-head .input-group span {
+  width: 240px;
+  margin-top: 5px;
+  color: #CCCCCC;
+  text-align: center;
+  display: inline-block;
+}
+.upload-head label {
+  padding-top: 80px;
+}
+.upload-head .input-group {
+  position: relative;
+}
+.drop-grade {
+  position: absolute !important;
+  top: 15px !important;
+  margin-left: -20px;
+  z-index: 10;
+  cursor: pointer;
+}
+.upload-msg {
+  width: 544px;
+  padding-right: 120px;
+  margin: 30px auto 0px;
+}
+.upload-msg .tecmsg-subject {
+  width: 300px;
+  margin-left: 124px !important;
+}
+@media only screen and (max-width: 700px) {
+  .upload-msg {
+    width: 424px;
+    padding-left: 40px;
+    padding-right: 0px;
+    margin: 30px auto 0px;
+  }
+  .upload-msg .form-group {
+    position: relative;
+    padding-bottom: 20px;
+  }
+  .upload-con .form-group label {
+    position: absolute;
+    top: -30px;
+    left: -20px;
+  }
+
+  .upload-msg .input-button {
+    margin-left: 0px !important;
+  }
+  .upload-msg .tecmsg-subject {
+    margin-left: 0px !important;
+  }
 }

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161201104452) do
+ActiveRecord::Schema.define(version: 20161205062623) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,10 +109,11 @@ ActiveRecord::Schema.define(version: 20161201104452) do
   add_index "chat_teams", ["live_studio_course_id"], name: "index_chat_teams_on_live_studio_course_id", using: :btree
 
   create_table "cities", force: :cascade do |t|
-    t.string   "name",        limit: 255
+    t.string   "name",               limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "province_id"
+    t.integer  "workstations_count",             default: 0
   end
 
   create_table "comments", force: :cascade do |t|
@@ -483,14 +484,15 @@ ActiveRecord::Schema.define(version: 20161201104452) do
   add_index "live_studio_announcements", ["course_id"], name: "index_live_studio_announcements_on_course_id", using: :btree
 
   create_table "live_studio_channels", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name",        limit: 255
     t.integer  "course_id"
-    t.string   "remote_id",  limit: 100
-    t.integer  "status",                 default: 0
+    t.string   "remote_id",   limit: 100
+    t.integer  "status",                  default: 0
     t.datetime "deleted_at"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "use_for",                default: 0
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.integer  "use_for",                 default: 0
+    t.integer  "live_status",             default: 0
   end
 
   add_index "live_studio_channels", ["course_id"], name: "index_live_studio_channels_on_course_id", using: :btree
@@ -584,6 +586,8 @@ ActiveRecord::Schema.define(version: 20161201104452) do
     t.datetime "heartbeat_at"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "timestamp"
+    t.integer  "beat_step"
   end
 
   add_index "live_studio_live_sessions", ["lesson_id"], name: "index_live_studio_live_sessions_on_lesson_id", using: :btree

@@ -18,6 +18,9 @@ module Entities
       expose :chat_team_id do |course|
         course.try(:chat_team).try(:team_id).to_s
       end
+      expose :chat_team_owner do |course|
+        course.try(:chat_team).try(:owner).to_s
+      end
       expose :buy_tickets_count
       expose :status
       expose :description, if: { type: :full }

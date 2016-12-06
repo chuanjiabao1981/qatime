@@ -25,7 +25,7 @@ module LiveService
       Chat::IM.update_uinfo(chat_account.accid, account_name, @user.avatar_url(:small))
       uinfo = Chat::IM.get_uinfo(chat_account.accid)
 
-      chat_account.update_columns(uinfo)
+      chat_account.update_columns(uinfo.merge("icon" => @user.avatar_url(:small)))
     end
 
     def init_account_for_live

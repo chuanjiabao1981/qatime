@@ -10,6 +10,7 @@ class WelcomeController < ApplicationController
       flag_hash["#{soft.category}#{soft.platform}"] || flag_hash["#{soft.category}#{soft.platform}"] = soft
     end
     @softwares = flag_hash.values
+    render layout: 'application_front'
   end
 
   def courses

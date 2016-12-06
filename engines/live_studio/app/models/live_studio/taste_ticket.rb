@@ -11,8 +11,7 @@ module LiveStudio
     private
 
     def set_buy_count
-      self.buy_count = TASTE_COUNT
+      self.buy_count = course.try(:taste_count).to_i
     end
-
   end
 end

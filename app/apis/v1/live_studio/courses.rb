@@ -181,7 +181,8 @@ module V1
               {
                 announcements: course.announcements.all.order(id: :desc),
                 members: course.chat_team.try(:join_records).try(:map,&:account),
-                current_lesson_status: course.current_lesson.try(:status)
+                current_lesson_status: course.current_lesson.try(:status),
+                owner: course.chat_team.try(:owner).to_s
               }
             present realtime, with: Entities::CourseRealtime
           end
@@ -293,6 +294,20 @@ module V1
                 @course.announcements.where(lastest: true).where("id <> ?", @announcement).update_all(lastest: false)
               end
               "ok"
+            end
+
+            desc '直播状态查询' do
+              headers 'Remember-Token' => {
+                description: 'RememberToken',
+                required: true
+              }
+            end
+            params do
+              requires :course_id, type: Integer, desc: '辅导班ID'
+            end
+            get 'live_status' do
+              @course = ::LiveStudio::Course.find(params[:course_id])
+              LiveService::CourseDirector.new(@course).stream_status
             end
           end
         end

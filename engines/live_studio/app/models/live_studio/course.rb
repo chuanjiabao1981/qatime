@@ -67,9 +67,11 @@ module LiveStudio
     validates :grade, presence: { message: "请选择年级" }, if: :grade_changed?
     validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 70, less_than_or_equal_to: 100 }
     # validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
+    validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: "必须大于等于0" }
     validates :price, presence: { message: "请输入价格" }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
 
-    validates :taste_count, numericality: { less_than: ->(record) { record.lessons.size }, message: "必须小于课程总数" }
+    validates :taste_count, numericality: { greater_than_or_equal_to: 0, message: "必须大于等于0" }
+    validates :taste_count, numericality: { less_than: ->(record) { record.lessons.size }, message: '必须小于课程总数'}
 
     validates :teacher, presence: true
     validates :publicize, presence: { message: "请添加图片" }, on: :create
@@ -82,6 +84,7 @@ module LiveStudio
     has_many :buy_tickets   # 普通听课证
     has_many :taste_tickets # 试听证
     has_many :lessons, -> { order('id asc') }, dependent: :destroy # 课时
+    has_many :live_sessions, through: :lessons
     has_many :course_requests, dependent: :destroy
     has_many :live_studio_course_notifications, as: :notificationable, dependent: :destroy
 

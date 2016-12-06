@@ -13,7 +13,7 @@
                   <div class="input-group">
                     <%= f.text_field :login_account,class: 'form-control', placeholder: '请输入登录的手机号或邮箱', maxlength: 11 %>
                   </div>
-                  <%= image_tag("status_#{@user.errors.messages[:login_account].present? ? 'error' : 'ok'}.png") if @user.login_account.present?%>
+                  <%= image_tag("status_#{@user.errors.messages[:login_account].present? ? 'error' : 'ok'}.png") %>
                   <%= f.error :login_account %>
                 </div>
                 <div class="form-group">

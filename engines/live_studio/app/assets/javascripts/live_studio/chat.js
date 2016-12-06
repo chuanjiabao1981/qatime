@@ -410,7 +410,10 @@ function appendMsg(msg, messageClass) {
   $("#messages").append(messageItem);
 
   // 显示弹幕
-  if(currentTeam.barrage.active) currentTeam.barrage.show($.replaceChatMsg(msg.text));
+  var now = new Date().getTime();
+  if(currentTeam.barrage.active && now - msg.time < 5000) {
+    currentTeam.barrage.show($.replaceChatMsg(msg.text));
+  }
 
   $("#messages").scrollTop($("#messages").prop('scrollHeight'));
 

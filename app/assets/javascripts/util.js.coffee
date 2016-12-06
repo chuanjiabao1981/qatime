@@ -1,3 +1,5 @@
+"use strict";
+
 (($)->
   # 阻止表单重复提交
   # 如果表单需要重复提交添加class="duplicate"
@@ -114,3 +116,50 @@ jQuery ->
   $(".immediately").change ->
     $(this).parents("form").submit()
 
+
+# 弹幕
+window.Barrage = (id, options) ->
+  id = "#" + id if 0 != id.indexOf("#")
+  this.node = $(id)
+  this.active = true
+  # 显示消息
+  this.show = (msg)->
+    return false unless this.active
+    # 视频宽度
+    videoWidth = this.node.width()
+    # 视频高度
+    videoHeight = this.node.height()
+    # 弹幕显示顶部位置
+    # 视频区域上部1/3区域
+    barrageTop = (videoHeight / 3 * Math.random()).toFixed(4)
+    # 弹幕文字颜色
+    barrageColor = 'rgb('+Math.floor(Math.random()*256)+','+Math.floor(Math.random()*256)+','+Math.floor(Math.random()*256)+')'
+    # 创建弹幕节点
+    barrageNode = $('<div class="barrage-node" style="position: absolute; color: ' + barrageColor + '; display: none;">' + msg + '</div>')
+    $("#my-video").append(barrageNode)
+    console.log(barrageNode);
+    barrageNode.css("top", barrageTop)
+    barrageWidth = barrageNode.width()
+    barrageNode.css("left", videoWidth - barrageWidth)
+    # 设置弹幕动画
+    barrageNode.show().css("top", barrageTop + "px").animate({
+      left: "-=" + videoWidth,
+    },
+    5000,
+    ->
+      # barrageNode.remove()
+    )
+
+  # 清楚屏幕
+  this.clear = ->
+    this.node.children(".barrage-node").remove();
+
+  # 打开弹幕
+  this.turnOn = ->
+    this.active = true
+
+  # 关闭弹幕
+  this.turnOff = ->
+    this.active = false
+    this.clear()
+  this

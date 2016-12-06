@@ -19,7 +19,8 @@ module Qawechat
       wechat_api = UserService::WechatApi.new(code)
       @wechat_user = wechat_api.web_access_token
       if @wechat_user.user.blank?
-        redirect_to new_wechat_user_path
+        cookie[:openid] = @wechat_user.openid
+        redirect_to new_user_path(open_id: params[:openid])
       else
         redirect_to user_path(@wechat_user.user)
       end

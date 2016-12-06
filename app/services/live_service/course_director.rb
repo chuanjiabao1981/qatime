@@ -125,7 +125,9 @@ module LiveService
       return user.live_studio_taste_tickets.includes(course: :teacher) if 'taste' == cate
       # 今日辅导班
       # TODO 查询逻辑有点复杂，可以考虑通过增加冗余字段来简化查询
-      user.live_studio_tickets.visiable.includes(course: [:teacher, :lessons]).where(live_studio_lessons: { class_date: Date.today }).uniq
+      course_ids = user.live_studio_tickets.visiable.map(&:course_id)
+      today_course_ids = LiveStudio::Lesson.where(course_id: course_ids, class_date: Date.today).map(&:course_id).uniq
+      user.live_studio_tickets.visiable.includes(course: [:teacher, :lessons]).where(course_id: today_course_ids)
     end
 
     def self.query_by_params(courses, params)

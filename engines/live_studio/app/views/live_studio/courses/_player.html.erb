@@ -3,7 +3,7 @@
     <div class="area-left">
       <div class="area-left-title"><%= @course.name %></div>
       <div class="area-left-con">
-        <video id="my-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'loading.png' %>" preload="auto" width="" height="" data-setup="{}">
+        <video id="my-video" style="overflow: hidden;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'loading.png' %>" preload="auto" width="" height="" data-setup="{}">
         </video>
       </div>
     </div>
@@ -40,7 +40,42 @@
     var state = 'init';
 
     // 白板播放器
-    boardPlayer = neplayer("my-video", {bigPlayButton: false}, function() {
+    boardPlayer = neplayer("my-video", {
+      bigPlayButton: false,
+      controlBar: {
+        progressControl: false,
+        remainingTimeDisplay: false
+      }
+    }, function() {
+      var barrageButton = $('<button class="vjs-barrage-control vjs-control vjs-button vjs-playing" type="button" aria-live="polite"></button>');
+      barrageButton.html('<%= image_tag "barrage.png" %>');
+      var refreshButton = $('<button class="vjs-refresh-control vjs-control vjs-button vjs-playing" type="button" aria-live="polite"></button>');
+      refreshButton.html('<%= image_tag "refresh.png" %>');
+      $("#my-video .vjs-control-bar").children(":eq( 2 )").after(barrageButton);
+      $("#my-video .vjs-control-bar").children(":first").after(refreshButton);
+
+      // 弹幕
+      var barrage = new Barrage("my-video");
+      $("#my-video .vjs-control-bar").on('click', '.vjs-barrage-control', function() {
+        if(barrage.active) {
+          barrage.turnOff();
+          $("#my-video .vjs-barrage-control img").attr("src", '<%= image_url "barrage-ban.png" %>');
+        } else {
+          barrage.turnOn();
+          $("#my-video .vjs-barrage-control img").attr("src", '<%= image_url "barrage.png" %>');
+        }
+      });
+      if(window.live_chat) live_chat.setBarrage(barrage);
+
+
+      // 重置
+      $("#my-video .vjs-control-bar").on('click', '.vjs-refresh-control', function() {
+        boardPlayer.reset();
+        if(cameraPlayer) cameraPlayer.reset();
+        state = 'init';
+        set_timer();
+      });
+
     });
 
     boardPlayer.onError(function(err){
@@ -62,7 +97,10 @@
     });
 
     // 摄像头
-    cameraPlayer = neplayer("small-video", {bigPlayButton: false}, function() {
+    cameraPlayer = neplayer("small-video", {
+      bigPlayButton: false,
+      controlBar: false
+    }, function() {
     });
     // cameraPlayer.play();
     cameraPlayer.onError(function(err){

@@ -15,7 +15,7 @@ cn:
       ready: 待上课
       teaching: 直播中
       paused: 直播中
-      closed: 已结束
+      closed: 已直播
       finished: 已结束
       billing: 已结束
       completed: 已结束

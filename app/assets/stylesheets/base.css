@@ -5147,3 +5147,12 @@ ul {
     margin-left: 30px;
   }
 }
+
+.area-left-con .vjs-refresh-control img{
+  width:16px;
+  margin-top:-8px;
+}
+.area-left-con .vjs-barrage-control img {
+  width:14px;
+  margin-top:-8px;
+}

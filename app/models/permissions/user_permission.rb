@@ -70,6 +70,12 @@ module Permissions
       api_allow :PUT, "/api/v1/users/[\\w-]+/password" do |resource|
         resource.id == user.id
       end
+      api_allow :post, "/api/v1/users/[\\w-]+/wechat" do |resource|
+        resource.id == user.id
+      end
+      api_allow :delete, "/api/v1/users/[\\w-]+/wechat" do |resource|
+        resource.id == user.id
+      end
 
       ## end api permission
     end

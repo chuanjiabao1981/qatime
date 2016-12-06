@@ -50,6 +50,7 @@ class User < ActiveRecord::Base
   has_many :messages
   has_many :user_devices
   has_one  :account, as: :accountable
+  has_one  :wechat_user, class_name: Qawechat::Qawechat # 微信账户
 
   has_many :payment_recharges, class_name: Payment::Recharge # 通知记录
   has_many :payment_withdraws, class_name: Payment::Withdraw # 提现申请记录

@@ -16,7 +16,7 @@ module UserService
       flag = JSON.parse request.run.body
       if flag["openid"].present?
         openid = flag["openid"]
-        @wechat_user = WechatUser.find_or_create_by(openid)
+        @wechat_user = ::Qawechat::WechatUser.find_or_create_by(openid: openid)
         @wechat_user.update(remember_token: flag["refresh_token"])
       end
       @wechat_user

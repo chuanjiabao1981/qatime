@@ -190,7 +190,7 @@ module LiveStudio
 
     def is_over?
       # 判断课程是否已经结束
-      %w(closed finished billing completed).include?(status)
+      %w(finished billing completed).include?(status)
     end
 
     def unstart?

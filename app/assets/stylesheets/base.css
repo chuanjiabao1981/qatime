@@ -3673,8 +3673,14 @@ ul {
   height: 100%;
 }
 
-
-
+.area-left-con .vjs-refresh-control img{
+  width:16px;
+  margin-top:-8px;
+}
+.area-left-con .vjs-barrage-control img {
+  width:14px;
+  margin-top:-8px;
+}
 
 
 
@@ -4915,13 +4921,6 @@ ul {
   margin-right: 10px;
 }
 
-/*.tutorial-details {
-	display: none;
-}
-.tutorial-details:first-child {
-	display: block;
-}*/
-
 
 
 
@@ -4938,22 +4937,26 @@ ul {
   font-size: 16px;
   color: #000000;
 }
-.tecmsg-con .row {
-  padding: 0 25px;
+.tecmsg-con {
+  margin-top: 20px;
+  padding-left: 15px;
 }
 .tecmsg-con label {
   float: left;
-  margin-right: 30px;
+  font-size: 16px;
+  color: #333333;
+  margin-right: 20px;
   font-weight: 100;
   margin-top: 8px;
-  width: 65px;
 }
 .tecmsg-con .has-error{
   clear: both;
-  margin-left: 95px;
+  margin: 0px 0px 0px 90px;
 }
 .tecmsg-con .form-control {
-  width: 37.7%;
+  width: 300px;
+  height: 42px;
+  border-radius: 0px;
   float: left;
 }
 .tecmsg-gender {
@@ -4962,17 +4965,17 @@ ul {
 }
 .tecmsg-date,.tecmsg-drop,.tecmsg-down,.tecmsg-under {
   margin-left: -20px;
-  margin-top: 9px;
+  margin-top: 15px;
   cursor: pointer;
 }
 .tecmsg-subject,.tecmsg-grade,.tecmsg-year {
   clear: both;
-  width: 37.7%;
+  width: 300px;
   border: 1px solid #CCCCCC;
   padding-left: 0;
   margin-bottom: 0;
   list-style-type: none;
-  margin-left: 95px;
+  margin-left: 100px;
   display: none;
 }
 .tecmsg-subject li:hover,.tecmsg-grade li:hover,.tecmsg-year li:hover {
@@ -4989,55 +4992,60 @@ ul {
   width: 91% !important;
 }
 .tecmsg-con select{
-  width: 200px;
-  height: 30px;
-  color: #666;
-  border-radius: 4px;
+  width: 145px;
+  height: 42px;
+  color: #999;
   border: 1px solid #CCCCCC;
   padding-left: 8px;
 }
 .tecmsg-con select:first-child {
-  margin-right: 15px;
+  margin-right: 5px;
+}
+.tecmsg-con .form-group {
+  margin-bottom: 20px;
 }
 .tecmsg-city {
   color: #999999;
 }
 .tecmsg-con ::-webkit-input-placeholder{
-  color:#666666 !important;
+  color:#999 !important;
 }
 .tecmsg-con textarea {
-  width: 91%;
+  width: 87% !important;
+  height: 165px;
   border: 1px solid #CCCCCC;
-  border-radius: 4px;
   resize: none;
   padding-left: 13px;
 }
-@media only screen  and (max-width: 1200px) {
-  .tecmsg-school input,.tecmsg-con textarea {
-    width: 86% !important;
-  }
-}
-@media only screen  and (max-width: 750px) {
-  .tecmsg-school input,.tecmsg-con textarea {
-    width: 80% !important;
-  }
-}
+
 .tecmsg-send {
-  margin: 25px 0 40px;
+  margin: 15px 0 40px;
+}
+.tecmsg-send a {
+  display: inline-block;
+  line-height: 40px;
+  border: 2px solid rgb(102,102,102);
   text-align: center;
+  color: #333333;
+  margin-right: 10px;
+}
+.tecmsg-send input,.tecmsg-send a {
+  width: 142px;
+  height: 42px;
+  font-size: 20px;
+  border-radius: 4px;
 }
 .tecmsg-send input {
-  width: 120px;
-  height: 40px;
-  color: #FFFFFF;
-  background-color: #666666;
-  border: 0px;
-  border-radius: 4px;
+  border: 2px solid rgb(190,11,11);
+  background-color: #FFFFFF;
+  color: rgb(190,11,11);
+  padding-top: 3px;
 }
 .tecmsg-con {
   position: relative;
 }
 .tecmsg-img {
+  width: 31.712%;
   position: absolute;
   right: 10px;
   top: 0;
@@ -5048,11 +5056,21 @@ ul {
   margin-top: 10px;
 }
 .tecmsg-img img {
-  width: 241px;
-  height: 241px;
+  width: 100%;
+  height: 100%;
+}
+.up-img {
+  display: inline-block;
+  width: 100%;
+  text-align: right;
+}
+.up-img a {
+  color: #CCCCCC;
 }
 .tecmsg-img .has-error {
   margin-left: 0px !important;
+  position: relative;
+  top: -20px;
 }
 .modal-header button {
   float: right;
@@ -5063,12 +5081,7 @@ ul {
 .tecmsg-title {
   padding-left: 4px;
 }
-/*@media only screen  and (max-width: 978px) {
-	.tecmsg-img img {
-	width: 121px;
-	height: 121px;
-}
-}*/
+
 
 
 
@@ -5200,8 +5213,42 @@ ul {
 .login-content {
   width: 100%;
   min-height: 600px;
-  background: url(../img/login-bg.jpg);
+  float: left;
+  background-color: #ded2c6 !important;
 }
+
+.login-bg {
+  width: 600px;
+  min-height: 600px;
+  float: left;
+  background: url(../img/bg-1.jpg);
+  background-size: 100% 100%;
+}
+@media only screen and (max-width: 990px) {
+  .login-content .row {
+    position: relative;
+  }
+  .login-msg {
+    position: absolute;
+    right: 0;
+  }
+  .login-content {
+    height: 750px;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 .login-content .row .panel {
   width: 350px;
   margin-top: 114px;
@@ -5211,7 +5258,10 @@ ul {
 .login-msg {
   width: 350px;
   min-height: 374px;
+  margin-top: 120px;
   padding: 25px;
+  float: right;
+  margin-bottom: 120px;
   background-color: rgb(251,251,251);
 }
 .account-left {
@@ -5352,6 +5402,7 @@ ul {
   float: right;
 }
 .login-body footer {
+  clear: both;
   padding-top: 28px;
   color: #666666;
 }
@@ -5390,7 +5441,7 @@ ul {
 .wechat-msg {
   margin-top: 30px;
 }
-.wechat-msg label,.wechat-msg .form-control {
+.wechat-msg label,.wechat-msg .form-control,.upload-msg label,.upload-msg .form-control {
   float: left;
 }
 .wechat-con {
@@ -5402,7 +5453,7 @@ ul {
   left: 50%;
   margin-left: -273px;
 }
-.wechat-msg label {
+.wechat-msg label,.upload-msg label {
   width: 100px;
   font-weight: 100;
   margin-right: 24px;
@@ -5411,16 +5462,17 @@ ul {
   font-size: 16px;
   color: #333333;
 }
-.wechat-msg .form-group {
+.wechat-msg .form-group,.upload-msg .form-group {
   margin-bottom: 20px;
 }
-.wechat-msg .input-group{
+.wechat-msg .input-group,.upload-msg .input-group{
   width: 300px;
 }
-.wechat-con input {
+.wechat-con input,.upload-msg input {
   height: 42px;
 }
 .input-button {
+  height: 42px;
   margin-left: 124px;
   padding-top: 11px;
 }
@@ -5456,15 +5508,73 @@ ul {
   color: #000000;
 }
 .wechat-msg .has-error {
-  /*margin-top: 0px;
-  margin-bottom: 0;
-  margin-left: 125px;*/
   margin: 0px 0px 0px 125px;
 }
 .wechat-msg .auth-code {
   height: 42px !important;
   border-radius: 0px;
 }
+
+@media only screen and (max-width: 670px) {
+  .wechat-msg .form-group {
+    position: relative;
+    left: 124px;
+    padding-bottom: 20px !important;
+  }
+  .wechat-msg .form-group label {
+    position: absolute;
+    top: -30px;
+    right: -28px;
+  }
+  .wechat-msg .has-error {
+    margin-left: 0px;
+  }
+  .input-button {
+    margin-left: 0px;
+  }
+
+}
+
+
+
+.wechat-choose {
+  width: 388px;
+  height: 202px;
+  margin: 40% 0 0 10%;
+  background-color: #FFFFFF;
+}
+.choose-title {
+  height: 40px;
+  font-size: 18px;
+  color: #333333;
+  background-color: rgb(222,222,222);
+  padding-left: 10px;
+  line-height: 40px;
+}
+.choose-content a {
+  display: inline-block;
+  width: 100px;
+  margin-top: 15px;
+}
+.choose-content a:first-child {
+  margin-right: 66px;
+}
+.choose-content a span {
+  display: inline-block;
+  width: 100px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #666666;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
 
 
 
@@ -5593,6 +5703,9 @@ ul {
 /*找回密码*/
 .retrieve-password {
   border-right: 0px;
+  float: none;
+  padding-right: 0px;
+  margin-left: 22%;
 }
 .retrieve-password .btn-submit {
   margin-top: 12px;
@@ -5603,4 +5716,132 @@ ul {
 .login-wechat #btn-obtain {
   display: inline-block;
   width: 113px;
+}
+
+
+
+
+
+
+
+/*注册详情*/
+.detail-title {
+  font-size: 30px;
+  color: #333333;
+  text-align: center;
+  margin-top: 50px;
+}
+.detail-content {
+  width: 79.5%;
+  margin-left: 6.13%;
+}
+@media only screen and (max-width: 1000px) {
+  .detail-content {
+    width: 100%;
+  }
+  .tecmsg-con .row {
+    margin-right: 30px !important;
+  }
+  .detail-content .form-group {
+    position: relative;
+    padding-bottom: 20px !important;
+  }
+  .detail-content label {
+    position: absolute;
+    top: -30px;
+    left: 0px;
+  }
+  .tecmsg-con .form-control {
+    width: 50%;
+  }
+  .tecmsg-subject,.tecmsg-grade,.tecmsg-year {
+    clear: both;
+    width: 50%;
+    border: 1px solid #CCCCCC;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+    margin-left: 0px;
+    display: none;
+  }
+  .tecmsg-con textarea {
+    width: 100% !important;
+  }
+  .tecmsg-img {
+    right: 30px;
+  }
+
+}
+
+
+
+
+
+/*学生上传头像*/
+.upload-title {
+  text-align: center;
+  font-size: 30px;
+  color: #333333;
+  margin-top: 50px;
+}
+.upload-head img {
+  width: 240px;
+  height: 240px;
+}
+.upload-head .input-group {
+  width: 240px !important;
+  padding-left: 30px !important;
+}
+.upload-head .input-group span {
+  width: 240px;
+  margin-top: 5px;
+  color: #CCCCCC;
+  text-align: center;
+  display: inline-block;
+}
+.upload-head label {
+  padding-top: 80px;
+}
+.upload-head .input-group {
+  position: relative;
+}
+.drop-grade {
+  position: absolute !important;
+  top: 15px !important;
+  margin-left: -20px;
+  z-index: 10;
+  cursor: pointer;
+}
+.upload-msg {
+  width: 544px;
+  padding-right: 120px;
+  margin: 30px auto 0px;
+}
+.upload-msg .tecmsg-subject {
+  width: 300px;
+  margin-left: 124px !important;
+}
+@media only screen and (max-width: 700px) {
+  .upload-msg {
+    width: 424px;
+    padding-left: 40px;
+    padding-right: 0px;
+    margin: 30px auto 0px;
+  }
+  .upload-msg .form-group {
+    position: relative;
+    padding-bottom: 20px;
+  }
+  .upload-con .form-group label {
+    position: absolute;
+    top: -30px;
+    left: -20px;
+  }
+
+  .upload-msg .input-button {
+    margin-left: 0px !important;
+  }
+  .upload-msg .tecmsg-subject {
+    margin-left: 0px !important;
+  }
 }

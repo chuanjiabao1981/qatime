@@ -16,7 +16,13 @@ module Qawechat
 
     def login_callback
       code = params[:code]
-
+      wechat_api = UserService::WechatApi.new(code)
+      @wechat_user = wechat_api.web_access_token
+      if @wechat_user.user.blank?
+        redirect_to new_wechat_user_path
+      else
+        redirect_to user_path(@wechat_user.user)
+      end
     end
   end
 end

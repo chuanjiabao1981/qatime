@@ -12,5 +12,8 @@ module Entities
     expose :login_mobile
     expose :email
     expose :chat_account, using: Entities::LiveStudio::ChatAccount
+    expose :openid do |user|
+      user.wechat.try(:openid)
+    end
   end
 end

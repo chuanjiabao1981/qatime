@@ -43,16 +43,6 @@ module Qawechat
       return nil
     end
 
-    def get_login_href(redirect_uri)
-      return if redirect_uri.blank? || WECHAT_CONFIG['web_appid'].blank?
-      host = "https://open.weixin.qq.com/connect/qrconnect"
-      "#{host}?appid=#{WECHAT_CONFIG['web_appid']}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_login&state=wwtd"
-    end
-
-    def auth
-
-    end
-
     private
     def get_href(url, openid, text)
       params = {

@@ -28,8 +28,9 @@ module APIHelpers
   end
 
   # 检查客户端
-  # TODO 未实现
-  def check_client!
+  def check_client!(user, client_cate)
+    soft = ::Software.published.where(category: ::Software.categories[client_cate]).last
+    raise APIErrors::ClientInvalid unless soft.present? && soft.role == user.role
   end
 
   def current_permission

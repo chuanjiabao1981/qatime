@@ -216,6 +216,10 @@ module LiveStudio
     end
     alias_method_chain :instance_play_records, :job
 
+    def self.beat_step
+      APP_CONFIG[:live_beat_step] || 10
+    end
+
     private
 
     # 过期试听证
@@ -262,7 +266,7 @@ module LiveStudio
         heartbeat_count: 0,
         duration: 0, # 单位(秒)
         heartbeat_at: Time.now,
-        beat_step: BEAT_STEP
+        beat_step: LiveStudio::Lesson.beat_step
       )
     end
 

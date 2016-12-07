@@ -5224,6 +5224,7 @@ ul {
   background: url(bg_session_new.jpg);
   background-size: 100% 100%;
 }
+
 @media only screen and (max-width: 990px) {
   .login-content .row {
     position: relative;

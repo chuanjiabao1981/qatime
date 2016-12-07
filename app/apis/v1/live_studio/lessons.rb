@@ -22,7 +22,7 @@ module V1
             {
               board_push_stream: @lesson.course.pull_streams.find {|stream| stream.use_for == 'board' }.try(:address),
               camera_push_stream: @lesson.course.pull_streams.find {|stream| stream.use_for == 'camera' }.try(:address),
-              beat_step: ::LiveStudio::Lesson::BEAT_STEP
+              beat_step: ::LiveStudio::Lesson.beat_step
             }
           end
 
@@ -46,7 +46,7 @@ module V1
             {
               status: @lesson.status,
               live_token: @lesson.current_live_session.token,
-              beat_step: ::LiveStudio::Lesson::BEAT_STEP
+              beat_step: ::LiveStudio::Lesson.beat_step
             }
           end
 

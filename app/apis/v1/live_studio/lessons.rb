@@ -42,11 +42,10 @@ module V1
             if @lesson.ready? || @lesson.paused? || @lesson.closed?
               LiveService::LessonDirector.new(@lesson).lesson_start
             end
-            live_session = @lesson.new_live_session
             LiveService::LessonDirector.live_status_change(@lesson.course, params[:board], params[:camera])
             {
               status: @lesson.status,
-              live_token: live_session.token,
+              live_token: @lesson.start_live_session.token,
               beat_step: ::LiveStudio::Lesson.beat_step
             }
           end

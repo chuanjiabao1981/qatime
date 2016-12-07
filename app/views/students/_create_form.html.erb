@@ -3,17 +3,17 @@
     <%= f.text_field :login_mobile, class: 'form-control phone-num', maxlength: 11, placeholder: '请输入大陆地区11位手机号码' %>
   </div>
   <%= f.error :login_mobile %>
-  <%= content_tag(:span, '', class: 'help-block has-error') if @student.errors.messages[:login_mobile].blank? %>
+  <%= content_tag(:span, '', class: 'help-block has-error') if user.errors.messages[:login_mobile].blank? %>
 </div>
 <div class="form-group">
   <div class="input-group">
     <%= f.text_field :captcha_confirmation, class: 'form-control auth-code', maxlength: 4, placeholder: '请输入校验码' %>
     <span class="input-group-btn">
-                  <input class="btn btn-default" id="btn-obtain" type="button" data-send-captcha-btn data-send-to-input="#student_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-key="register_captcha" value="<%= t "students.common.get_captcha" %>">
+                  <input class="btn btn-default" id="btn-obtain" type="button" data-send-captcha-btn data-send-to-input="#<%= user.type.downcase %>_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-key="register_captcha" value="<%= t "students.common.get_captcha" %>">
                 </span>
   </div>
   <%= f.error :captcha_confirmation %>
-  <%= content_tag(:span, '', class: 'help-block has-error') if @student.errors.messages[:captcha_confirmation].blank? %>
+  <%= content_tag(:span, '', class: 'help-block has-error') if user.errors.messages[:captcha_confirmation].blank? %>
 </div>
 
 <div class="form-group">
@@ -21,7 +21,7 @@
     <%= f.password_field :password, class: 'form-control pwd-1', placeholder: '请输入登录密码（最少6位）'%>
   </div>
   <%= f.error :password %>
-  <%= content_tag(:span, '', class: 'help-block has-error') if @student.errors.messages[:password].blank? %>
+  <%= content_tag(:span, '', class: 'help-block has-error') if user.errors.messages[:password].blank? %>
 </div>
 
 <div class="form-group form-bottom">
@@ -29,7 +29,7 @@
     <%= f.password_field :password_confirmation, class: 'form-control pwd-2', placeholder: '再输入一次密码' %>
   </div>
   <%= f.error :password_confirmation %>
-  <%= content_tag(:span, '', class: 'help-block has-error') if @student.errors.messages[:password_confirmation].blank? %>
+  <%= content_tag(:span, '', class: 'help-block has-error') if user.errors.messages[:password_confirmation].blank? %>
 </div>
 
 
@@ -45,7 +45,7 @@
 </div>
 <div class="form-group">
   <div class="input-group">
-    <%= button_tag '提交',type: :button, class: "btn-submit #{@student.accept ? 'active' : ''}", disabled: !@student.accept %>
+    <%= button_tag '提交',type: :button, class: "btn-submit #{user.accept ? 'active' : ''}", disabled: !user.accept %>
   </div>
 </div>
 <script type="text/javascript">

@@ -8,7 +8,7 @@
           </div>
           <div class="tea-register-left">
             <%= simple_form_for(@teacher, url: teachers_path(@teacher, cate: :register, by: :create) ) do |f| %>
-              <%= render partial: 'students/create_form', locals: {f: f}%>
+              <%= render partial: 'students/create_form', locals: {f: f, user: @teacher}%>
             <% end %>
           </div>
         </div>

@@ -6081,3 +6081,7 @@ ul {
 .process-right-msg {
   padding: 0px 20px 0 10px;
 }
+#login_container iframe{
+  width: 246px;
+  height: 180px;
+}

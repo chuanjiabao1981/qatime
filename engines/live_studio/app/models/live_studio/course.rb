@@ -322,7 +322,7 @@ module LiveStudio
     # 课程单价
     def lesson_price
       return 0 unless lessons_count.to_i > 0
-      price / lessons_count
+      (price.to_f / lessons_count).round(2)
     end
 
     def self.status_options

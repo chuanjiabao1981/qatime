@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <title>Qatime</title>
+  <meta name="renderer" content="webkit">
+  <%= stylesheet_link_tag    "front", media: "all", "data-turbolinks-track" => false %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
+  <%= csrf_meta_tags %>
+  <%= yield :stylesheet %>
+</head>
+<body class="login-body" gtools_scp_screen_capture_injected="true">
+<header class="head">
+  <div class="container">
+    <div class="login-header">
+      <div class="login-left">
+        <%= link_to image_tag('logo_login.png'), main_app.root_path %>
+      </div>
+      <div class="login-right">
+        <span>
+          <%= link_to t('view.common_bars.download'), main_app.welcome_download_path %>
+        </span>
+        <span>
+          <%= link_to t('view.common_bars.common_problem'), main_app.qa_faqs_path %>
+        </span>
+   				<span>
+            <%= image_tag 'phone.png' %>
+            <%= t('view.common_bars.phone') %>
+   				</span>
+      </div>
+    </div>
+  </div>
+</header>
+<%= yield %>
+<footer>
+  <div class="qa_sep_15"></div>
+  <div class="qa_sep_15"></div>
+  <div class="copyright">
+    <div><%= t('view.footer.copyright') %></div>
+    <div><%= t('view.footer.record') %></div>
+  </div>
+</footer>
+</body>

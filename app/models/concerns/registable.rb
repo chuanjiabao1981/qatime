@@ -3,7 +3,7 @@ module Registable
 
   included do
     attr_accessor :register_code_value, :tmp_register_code
-    attr_reader :register_columns_required
+    attr_reader :register_columns_required, :skip_accept_required
     attr_accessor :accept
 
     validates_confirmation_of :email
@@ -16,7 +16,7 @@ module Registable
 
     # validates_presence_of :register_code_value, on: :create
     # validate :register_code_valid, on: :create
-    validates :accept, acceptance: true
+    validates :accept, acceptance: true, unless: :skip_accept_required?
 
     # 第二步注册更新验证
     validates_presence_of :avatar, :name, if: :register_columns_required?, on: :update
@@ -34,6 +34,17 @@ module Registable
   # 手动强制调用验证注册信息
   def register_columns_required!
     @register_columns_required = true
+    self
+  end
+
+  # 是否跳过accept验证
+  def skip_accept_required?
+    @skip_accept_required
+  end
+
+  # 强制跳过accept验证
+  def skip_accept_required!
+    @skip_accept_required = true
     self
   end
 

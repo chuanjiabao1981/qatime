@@ -43,6 +43,23 @@ module Qawechat
       return nil
     end
 
+    def wechat_login_href
+      return if WECHAT_CONFIG['web_appid'].blank?
+      redirect_uri = "#{WECHAT_CONFIG['domain_name']}/wechat/login_callback"
+      host = "https://open.weixin.qq.com/connect/qrconnect"
+      "#{host}?appid=#{WECHAT_CONFIG['web_appid']}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_login&state=wwtd"
+    end
+
+    def sign_in_by_wechat(wechat_user)
+      #delete website cookies
+      cookies.delete(:remember_token)
+      cookies.delete(:remember_user_type)
+      #set wechat cookies
+      remember_token = User.new_remember_token
+      cookies.permanent[:remember_token_wechat]      = remember_token
+      wechat_user.update_attribute(:remember_token, User.digest(remember_token))
+    end
+
     private
     def get_href(url, openid, text)
       params = {
@@ -67,18 +84,8 @@ module Qawechat
       return sig
     end
 
-    def sign_in_by_wechat(wechat_user)
-      #delete website cookies
-      cookies.delete(:remember_token)
-      cookies.delete(:remember_user_type)
-      #set wechat cookies
-      remember_token = User.new_remember_token
-      cookies.permanent[:remember_token_wechat]      = remember_token
-      wechat_user.update_attribute(:remember_token, User.digest(remember_token))
-    end
-
     def get_user_by_wechat_user(wechat_user)
-      unless wechat_user.nil?
+      unless wechat_user.nil? || wechat_user.user.nil?
         user = User.find(wechat_user.user_id)
         unless user.nil?
           #只支持老师和学生
@@ -90,5 +97,8 @@ module Qawechat
       return nil
     end
 
+    def access_token
+      url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{WECHAT_CONFIG['web_appid']}&secret=#{}"
+    end
   end
 end

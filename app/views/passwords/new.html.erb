@@ -1,52 +1,149 @@
-<div class="col-md-10 col-md-offset-1">
-  <div class="qa_box row">
-    <div class="qa_big_cell ">
-      <h2 class="text-center"><%= t ".title" %></h2>
-      <%= simple_form_for(@user, as: :user, url: passwords_path, html: { method: :post }) do |f| %>
-      <div class="form-inputs">
-        <div class="row">
-          <div class="col-md-3 text-right"><%= Student.human_attribute_name(:login_account)%></div>
-          <% if signed_in? %>
-            <div class="col-md-6">
-              <%= current_user.login_account %>
-              <%= f.input :login_account, as: :hidden, input_html: {value: current_user.login_account} %>
+<% unless signed_in? %>
+  <div class="login-wechat">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="tea-register retrieve-password">
+            <div class="tea-register-title">
+              <%= t ".title" %>
             </div>
-          <% else %>
-            <div class="col-md-6">
-              <%= f.input :login_account, label: false, input_html: { placeholder: t('.login_account_hd') } %>
-            </div>
-          <% end %>
-        </div>
-        <div class="row">
-          <div class="col-md-3 text-right form_lable"><%= t ".captcha" %></div>
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-7">
-                <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 ,placeholder: t('.captcha_hd')} %>
-              </div>
-              <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#user_login_account" data-send-url="<%= ajax_captchas_url %>" data-key="get_password_back" value="<%= t "students.common.get_captcha" %>">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 text-right form_lable"><%= Student.human_attribute_name(:password) %></div>
-          <div class="col-md-6">
-            <%= f.input :password, label: false, :autocomplete => "off", input_html:{placeholder: t('.passwd_hd')} %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 text-right"><%= Student.human_attribute_name(:password_confirmation)%></div>
-          <div class="col-md-6">
-            <%= f.input :password_confirmation, label: false, input_html: {placeholder: t('.passwd_confirm_hd')} %>
-          </div>
-        </div>
+            <div class="tea-register-left">
+              <%= simple_form_for(@user, as: :user, url: passwords_path, html: { method: :post }) do |f| %>
+                <div class="form-group">
+                  <div class="input-group">
+                    <%= f.text_field :login_account,class: 'form-control', placeholder: '请输入登录的手机号或邮箱'%>
+                  </div>
+                  <%= image_tag("status_#{@user.errors.messages[:login_account].present? ? 'error' : 'ok'}.png") if @user.login_account.present?  %>
+                  <%= f.error :login_account %>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <%= f.text_field :captcha_confirmation, class: 'auth-code form-control', maxlength: 4 ,placeholder: '请输入校验码' %>
+                    <span class="input-group-btn">
+                      <input class="btn btn-default" id="btn-obtain" type="button" data-send-captcha-btn data-send-to-input="#user_login_account"
+                         data-send-url="<%= ajax_captchas_url %>" data-key="get_password_back" value="<%= t "students.common.get_captcha" %>">
+                    </span>
+                  </div>
+                  <%= f.error :captcha_confirmation %>
+                </div>
 
-        <div class="row text-center">
-          <%= f.submit t('.submit'), class: "btn btn-default" %>
+                <div class="form-group">
+                  <div class="input-group">
+                    <%= f.password_field :password, class: 'form-control', :autocomplete => "off", placeholder: '请输入新密码（最少6位）' %>
+                  </div>
+                  <%= image_tag("status_#{@user.errors.messages[:password].present? ? 'error' : 'ok'}.png") if @user.password.present? || @user.errors.messages[:password].present?%>
+                  <%= f.error :password %>
+                </div>
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <%= f.password_field :password_confirmation,class: 'form-control', placeholder: t('.passwd_confirm_hd') %>
+                  </div>
+                  <%= image_tag("status_#{@user.errors.messages[:password_confirmation].present? ? 'error' : 'ok'}.png") if @user.password_confirmation.present? || @user.errors.messages[:password_confirmation].present? %>
+                  <%= f.error :password_confirmation %>
+                </div>
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <%= f.submit t('.submit'), class: "btn btn-submit" %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
-      <% end %>
     </div>
   </div>
-</div>
+
+<% else %>
+
+  <div class="col-md-10 col-md-offset-1">
+    <div class="qa_box row">
+      <div class="qa_big_cell ">
+        <h2 class="text-center"><%= t ".title" %></h2>
+        <%= simple_form_for(@user, as: :user, url: passwords_path, html: { method: :post }) do |f| %>
+          <div class="form-inputs">
+            <div class="row">
+              <div class="col-md-3 text-right"><%= Student.human_attribute_name(:login_account)%></div>
+              <div class="col-md-6">
+                <%= current_user.login_account %>
+                <%= f.input :login_account, as: :hidden, input_html: {value: current_user.login_account} %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-3 text-right form_lable"><%= t ".captcha" %></div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-7">
+                    <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 ,placeholder: t('.captcha_hd')} %>
+                  </div>
+                  <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#user_login_account" data-send-url="<%= ajax_captchas_url %>" data-key="get_password_back" value="<%= t "students.common.get_captcha" %>">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 text-right form_lable"><%= Student.human_attribute_name(:password) %></div>
+            <div class="col-md-6">
+              <%= f.input :password, label: false, :autocomplete => "off", input_html:{placeholder: t('.passwd_hd')} %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-3 text-right"><%= Student.human_attribute_name(:password_confirmation)%></div>
+            <div class="col-md-6">
+              <%= f.input :password_confirmation, label: false, input_html: {placeholder: t('.passwd_confirm_hd')} %>
+            </div>
+          </div>
+
+          <div class="row text-center">
+            <%= f.submit t('.submit'), class: "btn btn-default" %>
+          </div>
+          </div>
+        <% end %>
+        </div>
+  </div>
+  </div>
+<% end %>
+<script type="text/javascript">
+  $(function  () {
+//    $("#btn-obtain").click(function  () {
+//      $(this).css({
+//        backgroundColor: "#f7f7f7",
+//        color: "#ccc"
+//      });
+//      settime(this);
+//    })
+//    var countdown=60;
+//    function settime(obj) {
+//      if (countdown == 0) {
+//        obj.removeAttribute("disabled");
+//        obj.value="获取校验码";
+//        obj.style.color = "#000";
+//        obj.style.backgroundColor = "#eff3f5";
+//        obj.style.border = "1px solid #999"
+//        countdown = 60;
+//        return;
+//      } else {
+//        obj.setAttribute("disabled", true);
+//        obj.value="重新获取(" + countdown + ")";
+//        countdown--;
+//      }
+//      setTimeout(function() {
+//          settime(obj)}
+//        ,1000)
+//    }
+
+    $(".auth-code").focus(function  () {
+      console.log('adfasd');
+      $("#btn-obtain").css({
+        borderLeft: "1px solid rgba(0,162,238,0.6)"
+      })
+    })
+    $(".auth-code").blur(function  () {
+      $("#btn-obtain").css({
+        borderLeft: "1px solid #ccc"
+      })
+    })
+  })
+</script>

@@ -6,6 +6,10 @@ default: &default
   jsapi_ticket: jsapi_ticket
   domain_name: "qatime.cn"
   key: key
+  web_appid: web_appid
+  web_secret: web_secret
+  mobile_appid: mobile_appid
+  mobile_secret: mobile_secret
 
 production:
   <<: *default

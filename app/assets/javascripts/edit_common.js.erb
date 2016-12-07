@@ -39,7 +39,10 @@ $(document).ready(function(){
     var send_data = ''
     var send_url = $node.data('send-url')
     var key = $node.data('key')
-
+    if(send_to_input.value.trim() == ''){
+      alert('请填写账号');
+      return
+    }
     if(send_to_input){
       var pattern = /\[(.*)\]/;
       var input_name = send_to_input.name;
@@ -69,7 +72,7 @@ $(document).ready(function(){
             clearInterval(timer);
             send.disabled=false;
           }else{
-            send.value=times+'<%= I18n.t("students.common.try_get_captcha_again")%>'
+            send.value='<%= I18n.t("students.common.try_get_captcha_again")%>'+'('+times+')';
             send.disabled=true;
           }
         },1000)

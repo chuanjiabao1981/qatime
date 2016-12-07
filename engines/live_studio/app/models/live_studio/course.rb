@@ -83,7 +83,7 @@ module LiveStudio
     has_many :tickets       # 听课证
     has_many :buy_tickets   # 普通听课证
     has_many :taste_tickets # 试听证
-    has_many :lessons, -> { order('id asc') }, dependent: :destroy # 课时
+    has_many :lessons, -> { order('id asc') }
     has_many :live_sessions, through: :lessons
     has_many :course_requests, dependent: :destroy
     has_many :live_studio_course_notifications, as: :notificationable, dependent: :destroy
@@ -341,6 +341,12 @@ module LiveStudio
     end
 
     private
+
+    # 辅导班删除以后同时删除课程
+    after_commit :clear_lessons
+    def clear_lessons
+      lessons.map(&:destroy) unless deleted_at.blank?
+    end
 
     before_save :check_lessons
     def check_lessons

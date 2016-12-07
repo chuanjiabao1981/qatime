@@ -50,6 +50,16 @@ module Qawechat
       "#{host}?appid=#{WECHAT_CONFIG['web_appid']}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_login&state=wwtd"
     end
 
+    def sign_in_by_wechat(wechat_user)
+      #delete website cookies
+      cookies.delete(:remember_token)
+      cookies.delete(:remember_user_type)
+      #set wechat cookies
+      remember_token = User.new_remember_token
+      cookies.permanent[:remember_token_wechat]      = remember_token
+      wechat_user.update_attribute(:remember_token, User.digest(remember_token))
+    end
+
     private
     def get_href(url, openid, text)
       params = {
@@ -72,16 +82,6 @@ module Qawechat
       end
       sig = Digest::SHA1.hexdigest pairs.join('&')
       return sig
-    end
-
-    def sign_in_by_wechat(wechat_user)
-      #delete website cookies
-      cookies.delete(:remember_token)
-      cookies.delete(:remember_user_type)
-      #set wechat cookies
-      remember_token = User.new_remember_token
-      cookies.permanent[:remember_token_wechat]      = remember_token
-      wechat_user.update_attribute(:remember_token, User.digest(remember_token))
     end
 
     def get_user_by_wechat_user(wechat_user)

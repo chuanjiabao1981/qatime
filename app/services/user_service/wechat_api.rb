@@ -9,15 +9,16 @@ module UserService
     # 获取token
     # 返回微信用户
     def web_access_token
-      request = Typhoeus::Request.new(
+      req = Typhoeus::Request.new(
         web_access_token_url,
         method: :get,
       )
-      flag = JSON.parse request.run.body
+      flag = JSON.parse req.run.body
       if flag["openid"].present?
         openid = flag["openid"]
         @wechat_user = ::Qawechat::WechatUser.find_or_create_by(openid: openid)
-        @wechat_user.update(remember_token: flag["refresh_token"])
+        info = UserService::WechatApi.wechat_userinfo(flag["access_token"], openid)
+        @wechat_user.update(userinfo: userinfo(flag, info))
       end
       @wechat_user
     end
@@ -32,9 +33,26 @@ module UserService
           # todo
         end
       end
+
+      # 获取微信用户基本信息
+      def wechat_userinfo(access_token, openid)
+        req = Typhoeus::Request.new(
+          "https://api.weixin.qq.com/sns/userinfo?access_token=#{access_token}&openid=#{openid}",
+          method: :get,
+        )
+        JSON.parse req.run.body
+      end
     end
 
     private
+    def userinfo(credentials, info)
+      {
+        provider: 'wechat',
+        uid: info["openid"],
+        credentials: credentials,
+        info: info
+      }
+    end
 
     def web_access_token_url
       "https://api.weixin.qq.com/sns/oauth2/access_token?appid=#{app_id}&secret=#{secret}&code=#{@code}&grant_type=authorization_code"

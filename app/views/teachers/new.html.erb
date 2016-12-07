@@ -12,7 +12,8 @@
                 <div class="input-group">
                   <%= f.text_field :login_mobile, class: 'form-control phone-num', maxlength: 11, placeholder: '请输入大陆地区11位手机号码' %>
                 </div>
-                <span class="help-block has-error"></span>
+                <%= f.error :login_mobile %>
+                <%= content_tag(:span, '', class: 'help-block has-error') if @teacher.errors.messages[:login_mobile].blank? %>
               </div>
               <div class="form-group">
                 <div class="input-group">
@@ -21,21 +22,24 @@
                   <input class="btn btn-default" id="btn-obtain" type="button" data-send-captcha-btn data-send-to-input="#teacher_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-key="register_captcha" value="<%= t "teachers.common.get_captcha" %>">
                 </span>
                 </div>
-                <span class="help-block has-error"></span>
+                <%= f.error :captcha_confirmation %>
+                <%= content_tag(:span, '', class: 'help-block has-error') if @teacher.errors.messages[:captcha_confirmation].blank? %>
               </div>
 
               <div class="form-group">
                 <div class="input-group">
                   <%= f.password_field :password, class: 'form-control pwd-1', placeholder: '请输入登录密码（最少6位）'%>
                 </div>
-                <span class="help-block has-error"></span>
+                <%= f.error :password %>
+                <%= content_tag(:span, '', class: 'help-block has-error') if @teacher.errors.messages[:password].blank? %>
               </div>
 
               <div class="form-group form-bottom">
                 <div class="input-group">
                   <%= f.password_field :password_confirmation, class: 'form-control pwd-2', placeholder: '再输入一次密码' %>
                 </div>
-                <span class="help-block has-error"></span>
+                <%= f.error :password_confirmation %>
+                <%= content_tag(:span, '', class: 'help-block has-error') if @teacher.errors.messages[:password_confirmation].blank? %>
               </div>
 
 
@@ -51,7 +55,8 @@
               </div>
               <div class="form-group">
                 <div class="input-group">
-                  <input type="button" class="btn-submit" disabled="disabled" name="" id="" value="提交">
+                  <%= button_tag '提交',type: :button, class: "btn-submit #{@teacher.accept ? 'active' : ''}", disabled: !@teacher.accept %>
+                  <!--<input type="button" class="btn-submit" <%#= @teacher.accept ? '' : 'disabled="disabled"' %>name="" id="" value="">-->
                 </div>
               </div>
             <% end %>
@@ -143,7 +148,9 @@
     }else{
       $(".has-error").eq(3).html("");
     }
-
+    if(flag){
+      document.forms[0].submit();
+    }
   })
   $(".ckb").click(function  () {
 

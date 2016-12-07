@@ -53,6 +53,12 @@
     </div>
     <div class="qa_cell">
       <div class="row">
+        <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:city)%></div>
+        <div class="col-md-9"><%= @student.city.try(:name_with_province) %></div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
         <div class="col-md-3" style="padding-left:40px"><%=Student.human_attribute_name(:desc)%></div>
         <div class="col-md-9"><%= @student.desc %></div>
       </div>

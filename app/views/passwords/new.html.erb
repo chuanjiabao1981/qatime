@@ -11,9 +11,9 @@
               <%= simple_form_for(@user, as: :user, url: passwords_path, html: { method: :post }) do |f| %>
                 <div class="form-group">
                   <div class="input-group">
-                    <%= f.text_field :login_account,class: 'form-control', placeholder: '请输入登录的手机号或邮箱', maxlength: 11 %>
+                    <%= f.text_field :login_account,class: 'form-control', placeholder: '请输入登录的手机号或邮箱'%>
                   </div>
-                  <%= image_tag("status_#{@user.errors.messages[:login_account].present? ? 'error' : 'ok'}.png") %>
+                  <%= image_tag("status_#{@user.errors.messages[:login_account].present? ? 'error' : 'ok'}.png")  %>
                   <%= f.error :login_account %>
                 </div>
                 <div class="form-group">

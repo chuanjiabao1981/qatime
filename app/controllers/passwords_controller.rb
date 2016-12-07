@@ -1,4 +1,5 @@
 class PasswordsController < ApplicationController
+  layout 'application_login'
   def new
     @user = User.new
   end

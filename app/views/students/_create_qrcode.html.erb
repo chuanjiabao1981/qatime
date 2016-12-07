@@ -1,0 +1,31 @@
+<div class="col-md-6">
+  <div class="tea-register-right">
+    <div class="register-right-title">
+      <center>
+        <span>轻松扫码</span><span>快速注册</span>
+      </center>
+    </div>
+    <div id="login_container">
+    </div>
+    <div class="register-right-msg">
+      <center>
+        <span>使用微信扫描二维码进行注册只需三步</span>
+      </center>
+      <center>
+        <span>(扫码&gt;绑定&gt;填写信息)</span>
+      </center>
+    </div>
+  </div>
+</div>
+<script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+<script type="text/javascript" charset="utf-8">
+  var obj = new WxLogin({
+    id:"login_container",
+    appid: '<%= WECHAT_CONFIG['web_appid'] %>',
+    scope: 'snsapi_login',
+    redirect_uri: "<%= "#{WECHAT_CONFIG['domain_name']}/wechat/login_callback" %>",
+    state: 'wwtd',
+    style: "black",
+    href: "https://www.genshuixue.com/asset/css/common/component/wechatQrcode.css"
+  });
+</script>

@@ -5292,9 +5292,6 @@ ul {
 .login-account {
   overflow: hidden;
 }
-/*.login-account-con {
-	margin-top: 8px;
-}*/
 .login-account-con .input-group {
   width: 100%;
   margin-bottom: 0px;
@@ -5637,7 +5634,7 @@ ul {
   font-weight: 100;
   color: #333333;
 }
-.tea-register-left .accept #checkbox {
+.tea-register-left .accept input {
   position: relative;
   top: 2px;
 }
@@ -5921,6 +5918,17 @@ ul {
   border: 1px solid #FFFFFF !important;
   overflow:hidden;
 }
+.pre-2 {
+  width: 240px;
+  height: 240px;
+  overflow:hidden;
+
+}
+.pre-2 img {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0px !important;
+}
 .upload-preview {
   color: #666666;
   font-size: 12px;
@@ -5990,22 +5998,90 @@ ul {
 
 
 /*辅导班流程页面*/
-.wrap-remedial {
-  min-width: 1190px;
-  height: 100px;
-  margin-left: -15px;
-  margin-top: 10px;
-  background-color: red;
+.process-list {
+  padding-left: 0px;
+  margin-bottom: 0px;
 }
-.wrap-remedial-left {
-  width: 269px;
-  height: 249px;
-  background-color: #FFFFFF;
+.process-list li {
+  margin: 0 10px;
+  height: 53px;
+  line-height: 53px;
+  border-bottom: 1px solid rgb(241,241,241);
+  text-align: center;
+}
+.process-con {
+  margin-top: 30px;
+  width: 100%;
+  overflow: hidden;
+}
+.process-left,.process-right {
+  width: 50%;
   float: left;
 }
-.wrap-remedial-right {
-  width: 907px;
-  height: 300px;
-  background-color: #FFFFFF;
+.process-left {
+  border: 1px solid gray;
+}
+.process-student,.process-teacher {
+  width: 80px;
+}
+.process-student span,.process-teacher span {
+  display: inline-block;
+  margin-top: 18px;
+  color: #666666;
+}
+.process-left-con {
+  margin-top: 120px;
+}
+.process-left-msg {
+  padding-right: 10px;
+  overflow: hidden;
+}
+.left-msg-num,.right-msg-num  {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  font-size: 16px;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 25px;
+  background-color: rgb(190,11,11);
+  border-radius: 50%;
+}
+.right-msg-num {
+  background-color: rgb(6,157,213);
+}
+.left-msg-title {
   float: right;
+}
+.left-msg-title span:first-child,.right-msg-title span:last-child {
+  font-size: 16px;
+  color: #000000;
+  margin-right: 10px;
+}
+.right-msg-title span:last-child  {
+  margin-left: 10px;
+}
+.left-msg-con {
+  clear: both;
+  float: right;
+  margin-right: 30px;
+  padding-left: 20px;
+}
+.left-msg-con,.right-msg-con {
+  font-size: 14px;
+  color: #666666;
+}
+.right-msg-con {
+  margin-left: 39px;
+}
+.process-right {
+  height: 500px;
+  border: 1px solid gray;
+}
+.process-right-msg {
+  padding: 0px 20px 0 10px;
+}
+#login_container iframe{
+  width: 246px;
+  height: 180px;
 }

@@ -4,83 +4,18 @@
       <div class="col-md-6">
         <div class="tea-register">
           <div class="tea-register-title">
-            学生注册
+            <%= t('.title') %>
           </div>
-
           <div class="tea-register-left">
-            <form novalidate="novalidate" class="simple_form new_student" id="" action="" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="✓"><input type="hidden" name="authenticity_token" value="v6HwT8g+KFBa8QUaZkfnD9fj81ti5/LG3dbdaX+4Q+xM2jmvkTny5wz+Nd09AU7La3jq/hV6kJR76iEPnv5k9Q==">
-              <div class="form-group">
-                <div class="input-group">
-                  <input class="form-control phone-num" type="text" maxlength="11" id="course_invitation_user_phone" placeholder="请输入大陆地区11位手机号码">
-                </div>
-                <span class="help-block has-error"></span>
-              </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <input type="text" class="form-control auth-code" maxlength="4" id="course_invitation_user_code" placeholder="请输入校验码">
-                <span class="input-group-btn">
-                <input type="button" id="btn-obtain" class="btn btn-default" value="获取校验码">
-                </span>
-                </div>
-                <span class="help-block has-error"></span>
-              </div>
-
-              <div class="form-group">
-                <div class="input-group">
-                  <input class="form-control pwd-1" type="password" id="course_invitation_user_password" placeholder="请输入登录密码（最少6位）">
-                </div>
-                <span class="help-block has-error"></span>
-              </div>
-
-              <div class="form-group form-bottom">
-                <div class="input-group">
-                  <input class="form-control pwd-2" type="password" id="course_invitation_user_password" placeholder="再输入一次密码">
-                </div>
-                <span class="help-block has-error"></span>
-              </div>
-
-
-              <div class="form-group form-receive">
-                <div class="input-group">
-                  <div class="accept">
-                    <input type="checkbox" name="" id="checkbox" value="">
-                    <label for="checkbox">接受</label>
-                    <a data-toggle="modal" data-target="#acceptModal" href="#">【答疑时间用户协议】</a>
-                  </div>
-                </div>
-                <span class="help-block has-error"></span>
-              </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <input type="button" class="btn-submit" disabled="disabled" name="" id="" value="提交">
-                </div>
-              </div>
-            </form>
-
+            <%= simple_form_for(@student, url: students_path(@student, cate: :register, by: :create) ) do |f| %>
+              <%= render partial: 'create_form', locals: {f: f} %>
+            <% end %>
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="tea-register-right">
-          <div class="register-right-title">
-            <center>
-              <span>轻松扫码</span><span>快速注册</span>
-            </center>
-          </div>
-          <img src="../img/weixin-code.png">
-          <div class="register-right-msg">
-            <center>
-              <span>使用微信扫描二维码进行注册只需三步</span>
-            </center>
-            <center>
-              <span>(扫码&gt;绑定&gt;填写信息)</span>
-            </center>
-          </div>
-        </div>
-      </div>
-
+      <%= render partial: 'create_qrcode', locals: {type: @student.type} %>
     </div>
-
     <%= render partial: 'shared/modal_agreement_student' %>
   </div>
 </div>
+

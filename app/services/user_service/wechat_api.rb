@@ -11,7 +11,7 @@ module UserService
     def web_access_token
       req = Typhoeus::Request.new(
         web_access_token_url,
-        method: :get,
+        method: :get
       )
       flag = JSON.parse req.run.body
       if flag["openid"].present?
@@ -41,6 +41,14 @@ module UserService
           method: :get,
         )
         JSON.parse req.run.body
+      end
+
+      # 微信登陆链接
+      def wechat_url(state='wwtd')
+        return if WECHAT_CONFIG['web_appid'].blank?
+        redirect_uri = "#{WECHAT_CONFIG['domain_name']}/wechat/login_callback"
+        host = "https://open.weixin.qq.com/connect/oauth2/authorize"
+        "#{host}?appid=#{WECHAT_CONFIG['web_appid']}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_login&state=#{state}"
       end
     end
 

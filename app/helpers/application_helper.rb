@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include SessionsHelper
 
   def set_city
     cookie_city = cookies[:selected_cities].try(:split, '-').try(:first)

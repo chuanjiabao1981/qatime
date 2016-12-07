@@ -85,7 +85,7 @@ module Qawechat
     end
 
     def get_user_by_wechat_user(wechat_user)
-      unless wechat_user.nil?
+      unless wechat_user.nil? || wechat_user.user.nil?
         user = User.find(wechat_user.user_id)
         unless user.nil?
           #只支持老师和学生

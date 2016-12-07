@@ -6,7 +6,13 @@
                   live_studio.taste_course_path(@course), method: :post %>
     </div>
     <div class="btn-sign">
-      <%= link_to t('activerecord.view.enroll_now'), live_studio.new_course_order_path(@course) %>
+      <% if @course.started_lessons_count > 0 -%>
+        <%= link_to t('activerecord.view.enroll_now'),
+                    live_studio.new_course_order_path(@course),
+                    data: { confirm: t("view.course_info_show.buy_teaching_course_tips") } %>
+      <% else -%>
+        <%= link_to t('activerecord.view.enroll_now'), live_studio.new_course_order_path(@course) %>
+      <% end %>
     </div>
   </div>
   <% else %>
@@ -21,7 +27,13 @@
       <div class="listen-class">
         <div class="btn-taste-end"><%= t('view.course_info_show.taste_end') %></div>
         <div class="btn-sign">
-          <%= link_to t('activerecord.view.enroll_now'), live_studio.new_course_order_path(@course) %>
+          <% if @course.started_lessons_count > 0 -%>
+            <%= link_to t('activerecord.view.enroll_now'),
+                        live_studio.new_course_order_path(@course),
+                        data: { confirm: t("view.course_info_show.buy_teaching_course_tips") } %>
+          <% else -%>
+            <%= link_to t('activerecord.view.enroll_now'), live_studio.new_course_order_path(@course) %>
+          <% end %>
         </div>
       </div>
     <% elsif @course.tasting?(current_user) %>
@@ -50,7 +62,13 @@
                       id: "taste-course-#{@course.id}", method: :post, remote: true) %>
         </div>
         <div class="btn-sign">
-          <%= link_to t('activerecord.view.enroll_now'), live_studio.new_course_order_path(@course) %>
+          <% if @course.started_lessons_count > 0 -%>
+            <%= link_to t('activerecord.view.enroll_now'),
+                        live_studio.new_course_order_path(@course),
+                        data: { confirm: t("view.course_info_show.buy_teaching_course_tips") } %>
+          <% else -%>
+            <%= link_to t('activerecord.view.enroll_now'), live_studio.new_course_order_path(@course) %>
+          <% end %>
         </div>
       </div>
     <% end %>

@@ -15,6 +15,7 @@ module Entities
       expose :price do |course|
         course.price.to_f.round(2)
       end
+      expose :current_price
       expose :chat_team_id do |course|
         course.try(:chat_team).try(:team_id).to_s
       end

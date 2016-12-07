@@ -5292,13 +5292,21 @@ ul {
 .login-account {
   overflow: hidden;
 }
-.login-account-con {
-  margin-top: 8px;
-}
+/*.login-account-con {
+	margin-top: 8px;
+}*/
 .login-account-con .input-group {
   width: 100%;
   margin-bottom: 0px;
   padding-top: 20px;
+}
+.login-msg .user_login_account {
+  padding-top: 0px !important;
+}
+.login-msg .has-error {
+  margin: 0;
+  padding-top: 10px;
+  min-height: 20px;
 }
 .login-account-con .input-group input {
   height: 42px;
@@ -5328,9 +5336,6 @@ ul {
   padding: 8px 0 3px;
   font-size: 12px;
   position: relative;
-}
-.login-msg .has-error:last-child {
-  margin-top: -4px;
 }
 .input-password label{
   font-weight: 100;
@@ -5543,6 +5548,10 @@ ul {
   height: 202px;
   margin: 40% 0 0 10%;
   background-color: #FFFFFF;
+  position: absolute;
+  top: -45%;
+  left: 50%;
+  margin-left: -194px;
 }
 .choose-title {
   height: 40px;

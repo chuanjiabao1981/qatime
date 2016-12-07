@@ -15,6 +15,7 @@ module Qawechat
       @user.captcha = captcha_manager.captcha_of(:register_captcha)
       if @user.save
         sign_in(@user) unless signed_in?
+        @wechat_user.update(user: @user)
         redirect_to user_home_path
       else
         render 'new'

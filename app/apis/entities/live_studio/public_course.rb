@@ -6,6 +6,7 @@ module Entities
       expose :name
       expose :grade
       expose :price
+      expose :current_price
       expose :subject do |course|
         course.subject.to_s
       end

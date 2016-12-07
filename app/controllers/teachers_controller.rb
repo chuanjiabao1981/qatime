@@ -10,6 +10,7 @@ class TeachersController < ApplicationController
 
   def new
     @teacher = Teacher.new
+    render layout: 'application_login'
     # if Rails.env.testing? || Rails.env.development?
     #   RegisterCode.able_code.last.try(:value) || RegisterCode.batch_make("20", School.last)
     #   @teacher.register_code_value = RegisterCode.able_code.last.value

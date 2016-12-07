@@ -6021,10 +6021,10 @@ ul {
 .process-left {
   border: 1px solid gray;
 }
-.process-student {
+.process-student,.process-teacher {
   width: 80px;
 }
-.process-student span {
+.process-student span,.process-teacher span {
   display: inline-block;
   margin-top: 18px;
   color: #666666;
@@ -6036,7 +6036,7 @@ ul {
   padding-right: 10px;
   overflow: hidden;
 }
-.left-msg-num {
+.left-msg-num,.right-msg-num  {
   display: inline-block;
   width: 25px;
   height: 25px;
@@ -6047,19 +6047,37 @@ ul {
   background-color: rgb(190,11,11);
   border-radius: 50%;
 }
+.right-msg-num {
+  background-color: rgb(6,157,213);
+}
 .left-msg-title {
   float: right;
 }
-.left-msg-title span:first-child {
+.left-msg-title span:first-child,.right-msg-title span:last-child {
   font-size: 16px;
   color: #000000;
   margin-right: 10px;
 }
+.right-msg-title span:last-child  {
+  margin-left: 10px;
+}
 .left-msg-con {
   clear: both;
   float: right;
-  font-size: 14px;
-  color: #666666;
   margin-right: 30px;
   padding-left: 20px;
+}
+.left-msg-con,.right-msg-con {
+  font-size: 14px;
+  color: #666666;
+}
+.right-msg-con {
+  margin-left: 39px;
+}
+.process-right {
+  height: 500px;
+  border: 1px solid gray;
+}
+.process-right-msg {
+  padding: 0px 20px 0 10px;
 }

@@ -3673,8 +3673,14 @@ ul {
   height: 100%;
 }
 
-
-
+.area-left-con .vjs-refresh-control img{
+  width:16px;
+  margin-top:-8px;
+}
+.area-left-con .vjs-barrage-control img {
+  width:14px;
+  margin-top:-8px;
+}
 
 
 
@@ -4863,7 +4869,7 @@ ul {
 
 .tutorial-con table img {
   /*width: 132px;
-  height: 83px;*/
+	height: 83px;*/
   width: 100%;
   height: 100%;
 }
@@ -4915,13 +4921,6 @@ ul {
   margin-right: 10px;
 }
 
-/*.tutorial-details {
-	display: none;
-}
-.tutorial-details:first-child {
-	display: block;
-}*/
-
 
 
 
@@ -4938,25 +4937,26 @@ ul {
   font-size: 16px;
   color: #000000;
 }
-
-.tecmsg-con .row {
-  /*padding: 0 25px;*/
-
-
+.tecmsg-con {
+  margin-top: 20px;
+  padding-left: 15px;
 }
 .tecmsg-con label {
   float: left;
-  margin-right: 30px;
+  font-size: 16px;
+  color: #333333;
+  margin-right: 20px;
   font-weight: 100;
   margin-top: 8px;
-  /*width: 65px;*/
 }
 .tecmsg-con .has-error{
   clear: both;
-  margin-left: 95px;
+  margin: 0px 0px 0px 90px;
 }
 .tecmsg-con .form-control {
   width: 300px;
+  height: 42px;
+  border-radius: 0px;
   float: left;
 }
 .tecmsg-gender {
@@ -4965,17 +4965,17 @@ ul {
 }
 .tecmsg-date,.tecmsg-drop,.tecmsg-down,.tecmsg-under {
   margin-left: -20px;
-  margin-top: 9px;
+  margin-top: 15px;
   cursor: pointer;
 }
 .tecmsg-subject,.tecmsg-grade,.tecmsg-year {
   clear: both;
-  width: 37.7%;
+  width: 300px;
   border: 1px solid #CCCCCC;
   padding-left: 0;
   margin-bottom: 0;
   list-style-type: none;
-  margin-left: 95px;
+  margin-left: 100px;
   display: none;
 }
 .tecmsg-subject li:hover,.tecmsg-grade li:hover,.tecmsg-year li:hover {
@@ -4992,55 +4992,60 @@ ul {
   width: 91% !important;
 }
 .tecmsg-con select{
-  width: 200px;
-  height: 30px;
-  color: #666;
-  border-radius: 4px;
+  width: 145px;
+  height: 42px;
+  color: #999;
   border: 1px solid #CCCCCC;
   padding-left: 8px;
 }
 .tecmsg-con select:first-child {
-  margin-right: 15px;
+  margin-right: 5px;
+}
+.tecmsg-con .form-group {
+  margin-bottom: 20px;
 }
 .tecmsg-city {
   color: #999999;
 }
 .tecmsg-con ::-webkit-input-placeholder{
-  color:#666666 !important;
+  color:#999 !important;
 }
 .tecmsg-con textarea {
-  width: 91%;
+  width: 87% !important;
+  height: 165px;
   border: 1px solid #CCCCCC;
-  border-radius: 4px;
   resize: none;
   padding-left: 13px;
 }
-@media only screen  and (max-width: 1200px) {
-  .tecmsg-school input,.tecmsg-con textarea {
-    width: 86% !important;
-  }
-}
-@media only screen  and (max-width: 750px) {
-  .tecmsg-school input,.tecmsg-con textarea {
-    width: 80% !important;
-  }
-}
+
 .tecmsg-send {
-  margin: 25px 0 40px;
+  margin: 15px 0 40px;
+}
+.tecmsg-send a {
+  display: inline-block;
+  line-height: 40px;
+  border: 2px solid rgb(102,102,102);
   text-align: center;
+  color: #333333;
+  margin-right: 10px;
+}
+.tecmsg-send input,.tecmsg-send a {
+  width: 142px;
+  height: 42px;
+  font-size: 20px;
+  border-radius: 4px;
 }
 .tecmsg-send input {
-  width: 120px;
-  height: 40px;
-  color: #FFFFFF;
-  background-color: #666666;
-  border: 0px;
-  border-radius: 4px;
+  border: 2px solid rgb(190,11,11);
+  background-color: #FFFFFF;
+  color: rgb(190,11,11);
+  padding-top: 3px;
 }
 .tecmsg-con {
   position: relative;
 }
 .tecmsg-img {
+  width: 31.712%;
   position: absolute;
   right: 10px;
   top: 0;
@@ -5051,11 +5056,21 @@ ul {
   margin-top: 10px;
 }
 .tecmsg-img img {
-  width: 241px;
-  height: 241px;
+  width: 100%;
+  height: 100%;
+}
+.up-img {
+  display: inline-block;
+  width: 100%;
+  text-align: right;
+}
+.up-img a {
+  color: #CCCCCC;
 }
 .tecmsg-img .has-error {
   margin-left: 0px !important;
+  position: relative;
+  top: -20px;
 }
 .modal-header button {
   float: right;
@@ -5066,12 +5081,7 @@ ul {
 .tecmsg-title {
   padding-left: 4px;
 }
-/*@media only screen  and (max-width: 978px) {
-	.tecmsg-img img {
-	width: 121px;
-	height: 121px;
-}
-}*/
+
 
 
 
@@ -5203,8 +5213,43 @@ ul {
 .login-content {
   width: 100%;
   min-height: 600px;
-  background: url(../img/login-bg.jpg);
+  float: left;
+  background-color: #ded2c6 !important;
 }
+
+.login-bg {
+  width: 600px;
+  min-height: 600px;
+  float: left;
+  background: url(bg_session_new.jpg);
+  background-size: 100% 100%;
+}
+
+@media only screen and (max-width: 990px) {
+  .login-content .row {
+    position: relative;
+  }
+  .login-msg {
+    position: absolute;
+    right: 0;
+  }
+  .login-content {
+    height: 750px;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 .login-content .row .panel {
   width: 350px;
   margin-top: 114px;
@@ -5214,7 +5259,10 @@ ul {
 .login-msg {
   width: 350px;
   min-height: 374px;
+  margin-top: 120px;
   padding: 25px;
+  float: right;
+  margin-bottom: 120px;
   background-color: rgb(251,251,251);
 }
 .account-left {
@@ -5244,13 +5292,18 @@ ul {
 .login-account {
   overflow: hidden;
 }
-.login-account-con {
-  margin-top: 8px;
-}
 .login-account-con .input-group {
   width: 100%;
   margin-bottom: 0px;
   padding-top: 20px;
+}
+.login-msg .user_login_account {
+  padding-top: 0px !important;
+}
+.login-msg .has-error {
+  margin: 0;
+  padding-top: 10px;
+  min-height: 20px;
 }
 .login-account-con .input-group input {
   height: 42px;
@@ -5280,9 +5333,6 @@ ul {
   padding: 8px 0 3px;
   font-size: 12px;
   position: relative;
-}
-.login-msg .has-error:last-child {
-  margin-top: -4px;
 }
 .input-password label{
   font-weight: 100;
@@ -5355,6 +5405,7 @@ ul {
   float: right;
 }
 .login-body footer {
+  clear: both;
   padding-top: 28px;
   color: #666666;
 }
@@ -5393,7 +5444,7 @@ ul {
 .wechat-msg {
   margin-top: 30px;
 }
-.wechat-msg label,.wechat-msg .form-control {
+.wechat-msg label,.wechat-msg .form-control,.upload-msg label,.upload-msg .form-control {
   float: left;
 }
 .wechat-con {
@@ -5405,7 +5456,7 @@ ul {
   left: 50%;
   margin-left: -273px;
 }
-.wechat-msg label {
+.wechat-msg label,.upload-msg label {
   width: 100px;
   font-weight: 100;
   margin-right: 24px;
@@ -5414,16 +5465,17 @@ ul {
   font-size: 16px;
   color: #333333;
 }
-.wechat-msg .form-group {
+.wechat-msg .form-group,.upload-msg .form-group {
   margin-bottom: 20px;
 }
-.wechat-msg .input-group{
+.wechat-msg .input-group,.upload-msg .input-group{
   width: 300px;
 }
-.wechat-con input {
+.wechat-con input,.upload-msg input {
   height: 42px;
 }
 .input-button {
+  height: 42px;
   margin-left: 124px;
   padding-top: 11px;
 }
@@ -5483,6 +5535,7 @@ ul {
   .input-button {
     margin-left: 0px;
   }
+
 }
 
 
@@ -5492,6 +5545,10 @@ ul {
   height: 202px;
   margin: 40% 0 0 10%;
   background-color: #FFFFFF;
+  position: absolute;
+  top: -45%;
+  left: 50%;
+  margin-left: -194px;
 }
 .choose-title {
   height: 40px;
@@ -5507,7 +5564,7 @@ ul {
   margin-top: 15px;
 }
 .choose-content a:first-child {
-  margin-right: 68px;
+  margin-right: 66px;
 }
 .choose-content a span {
   display: inline-block;
@@ -5539,9 +5596,10 @@ ul {
   float: right;
   margin-top: 50px;
   padding-top: 15px;
-  padding-right: 54px;
+  padding-right: 90px;
   border-right: 1px dashed #999999;
 }
+
 .tea-register-title {
   font-size: 30px;
   color: #333333;
@@ -5602,6 +5660,11 @@ ul {
   border-radius: 4px;
   padding-bottom: 4px;
   font-size: 20px;
+  color: #999999;
+  border: 2px solid #999;
+  outline: none;
+}
+.tea-register-left .active {
   color: #be0b0b;
   border: 2px solid #be0b0b;
 }
@@ -5655,7 +5718,7 @@ ul {
   border-right: 0px;
   float: none;
   padding-right: 0px;
-  margin-left: 22%;
+  margin-left: 23%;
 }
 .retrieve-password .btn-submit {
   margin-top: 12px;
@@ -5682,6 +5745,288 @@ ul {
   margin-top: 50px;
 }
 .detail-content {
-  width: 946px;
+  width: 79.5%;
   margin-left: 6.13%;
+}
+@media only screen and (max-width: 1000px) {
+  .detail-content {
+    width: 100%;
+  }
+  .tecmsg-con .row {
+    margin-right: 30px !important;
+  }
+  .detail-content .form-group {
+    position: relative;
+    padding-bottom: 20px !important;
+  }
+  .detail-content label {
+    position: absolute;
+    top: -30px;
+    left: 0px;
+  }
+  .tecmsg-con .form-control {
+    width: 50%;
+  }
+  .tecmsg-subject,.tecmsg-grade,.tecmsg-year {
+    clear: both;
+    width: 50%;
+    border: 1px solid #CCCCCC;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+    margin-left: 0px;
+    display: none;
+  }
+  .tecmsg-con textarea {
+    width: 100% !important;
+  }
+  .tecmsg-img {
+    right: 30px;
+  }
+
+}
+
+
+
+
+
+/*学生上传头像*/
+.upload-title {
+  text-align: center;
+  font-size: 30px;
+  color: #333333;
+  margin-top: 50px;
+}
+.upload-head img {
+  width: 240px;
+  height: 240px;
+}
+.upload-head .input-group {
+  width: 240px !important;
+  padding-left: 30px !important;
+}
+.upload-head .input-group span {
+  width: 240px;
+  margin-top: 5px;
+  color: #CCCCCC;
+  text-align: center;
+  display: inline-block;
+}
+.upload-head label {
+  padding-top: 80px;
+}
+.upload-head .input-group {
+  position: relative;
+}
+.drop-grade {
+  position: absolute !important;
+  top: 15px !important;
+  margin-left: -20px;
+  z-index: 10;
+  cursor: pointer;
+}
+.upload-msg {
+  width: 544px;
+  padding-right: 120px;
+  margin: 30px auto 0px;
+}
+.upload-msg .tecmsg-subject {
+  width: 300px;
+  margin-left: 124px !important;
+}
+@media only screen and (max-width: 700px) {
+  .upload-msg {
+    width: 424px;
+    padding-left: 40px;
+    padding-right: 0px;
+    margin: 30px auto 0px;
+  }
+  .upload-msg .form-group {
+    position: relative;
+    padding-bottom: 20px;
+  }
+  .upload-con .form-group label {
+    position: absolute;
+    top: -30px;
+    left: -20px;
+  }
+
+  .upload-msg .input-button {
+    margin-left: 0px !important;
+  }
+  .upload-msg .tecmsg-subject {
+    margin-left: 0px !important;
+  }
+}
+
+/*上传弹窗*/
+.wrap{
+  width: 404px;
+  height: 367px;
+  margin-top: 30%;
+  margin-left: 15%;
+  background-color: #FFFFFF;
+  border: 3px solid rgb(222,222,222);
+}
+.jcrop-title {
+  height: 40px;
+  font-size: 18px;
+  color: #333333;
+  line-height: 40px;
+  padding: 0px 10px;
+  background-color: rgb(222,222,222)
+}
+.jcrop-title span:nth-child(2) {
+  padding-top: 10px;
+  float: right;
+  font-size: 20px;
+}
+.wl{
+  float:left;
+  width: 240px;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding: 20px 20px 0px 20px !important;
+}
+.wr{
+  float:left;
+  width: 104px;
+  height: 240px;
+  background-color: rgb(242,242,242);
+  margin-top: 20px;
+  margin-left: 40px !important;
+  display: inline;
+}
+.jy-up-ch{ position: relative; width: 240px;}
+
+.jc-demo-box{
+  position: relative;
+  width: 240px;
+  height: 240px;
+  overflow: hidden;
+  border: 1px solid rgb(242,242,242);
+}
+.jcrop_w{
+  width: 240px;
+  height: 240px;
+  overflow: hidden; }
+.pre-1{
+  margin-left: 6px;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: 1px solid #FFFFFF !important;
+  overflow:hidden;
+}
+.pre-2 {
+  width: 240px;
+  height: 240px;
+  overflow:hidden;
+
+}
+.pre-2 img {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0px !important;
+}
+.upload-preview {
+  color: #666666;
+  font-size: 12px;
+  margin: 8px auto;
+}
+.upload-size {
+  color: #999999;
+  font-size: 12px;
+}
+.preview-container {
+  position: relative;
+}
+.input-append {
+  position: absolute;
+  left: 20px;
+  top: 169px;
+}
+.input-append a {
+  display: inline-block;
+  padding: 0px;
+  border-radius: 0px;
+  border: 1px solid gray;
+
+}
+.input-append a,.jy-up-ch .bch4 {
+  width: 64px;
+  height: 18px;
+  line-height: 14px;
+  font-size: 12px;
+  color: #666666;
+  border: 1px solid rgb(187,187,187);
+}
+.jy-up-ch .bch4{
+  position: absolute;
+  text-align: center;
+  left: 280px;
+  top: -90px;
+}
+.wrap .btn-up {
+  position: absolute;
+  right: 20px;
+  top: 200px;
+  width: 64px;
+  height: 18px;
+  font-size: 12px;
+  line-height: 12px;
+  border: 1px solid rgb(187,187,187);
+  background-color: rgb(242,242,242);
+}
+.wrap p {
+  clear: both;
+  padding: 10px 20px 0px;
+  margin-bottom: 0px;
+  color: #999999;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*辅导班流程页面*/
+.process-list {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.process-list li {
+  margin: 0 10px;
+  height: 53px;
+  line-height: 53px;
+  border-bottom: 1px solid rgb(241,241,241);
+  text-align: center;
+}
+.process-con {
+  margin-top: 30px;
+  width: 100%;
+  height: 500px;
+}
+.process-left,.process-right {
+  width: 50%;
+  float: left;
+}
+.process-left {
+  height: 500px;
+  border: 1px solid gray;
+}
+.process-student {
+  width: 80px;
+}
+.process-student span {
+  display: inline-block;
+  margin-top: 18px;
+  color: #666666;
 }

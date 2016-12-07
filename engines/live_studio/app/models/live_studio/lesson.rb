@@ -180,6 +180,10 @@ module LiveStudio
       @live_session.token
     end
 
+    def start_live_session
+      new_live_session
+    end
+
     def current_live_session
       live_sessions.last || new_live_session
     end
@@ -190,7 +194,7 @@ module LiveStudio
 
     def is_over?
       # 判断课程是否已经结束
-      %w(closed finished billing completed).include?(status)
+      %w(finished billing completed).include?(status)
     end
 
     def unstart?
@@ -215,6 +219,10 @@ module LiveStudio
       LiveStudio::LessonPlayRecordJob.perform_later(id)
     end
     alias_method_chain :instance_play_records, :job
+
+    def self.beat_step
+      APP_CONFIG[:live_beat_step] || 10
+    end
 
     private
 
@@ -261,8 +269,8 @@ module LiveStudio
         token: ::Encryption.md5("#{id}#{Time.now}").downcase,
         heartbeat_count: 0,
         duration: 0, # 单位(秒)
-        heartbeat_at: Time.now,
-        beat_step: BEAT_STEP
+        heartbeat_at: 1,
+        beat_step: LiveStudio::Lesson.beat_step
       )
     end
 

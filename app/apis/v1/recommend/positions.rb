@@ -24,7 +24,7 @@ module V1
           params do
             optional :page, type: Integer, desc: '当前页面'
             optional :per_page, type: Integer, desc: '每页记录数'
-            optional :city_name, type: Integer, desc: '城市名称, 不填不限定城市'
+            optional :city_name, type: String, desc: '城市名称, 不填不限定城市'
           end
           get ':kee/items' do
             position = ::Recommend::Position.find_by!(kee: params[:kee])
@@ -36,7 +36,7 @@ module V1
           params do
             optional :page, type: Integer, desc: '当前页面'
             optional :per_page, type: Integer, desc: '每页记录数'
-            optional :city_name, type: Integer, desc: '城市名称, 不填不限定城市'
+            optional :city_name, type: String, desc: '城市名称, 不填不限定城市'
             requires :kees, type: String, desc: '多个kee使用中横线分割'
           end
           get ':kees/items/batch' do

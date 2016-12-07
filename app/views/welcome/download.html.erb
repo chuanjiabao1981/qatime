@@ -25,7 +25,7 @@
                       </span>
                     <%= link_to t(".download"),software.download_links %>
                   </div>
-                  <%= image_tag software.qr_code.code_url, size: "120x120", alt: software.title, class: 'download-img' unless software.platform_windows? %>
+                  <%= image_tag software.qr_code.code_url, size: "120x120", alt: software.title unless software.platform_windows? %>
                 </div>
               </div>
             </div>

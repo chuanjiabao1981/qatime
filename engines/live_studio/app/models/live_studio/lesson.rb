@@ -180,6 +180,10 @@ module LiveStudio
       @live_session.token
     end
 
+    def start_live_session
+      new_live_session
+    end
+
     def current_live_session
       live_sessions.last || new_live_session
     end
@@ -265,7 +269,7 @@ module LiveStudio
         token: ::Encryption.md5("#{id}#{Time.now}").downcase,
         heartbeat_count: 0,
         duration: 0, # 单位(秒)
-        heartbeat_at: Time.now,
+        heartbeat_at: 1,
         beat_step: LiveStudio::Lesson.beat_step
       )
     end

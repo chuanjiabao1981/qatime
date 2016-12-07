@@ -253,6 +253,7 @@ class TeachersController < ApplicationController
       end
 
       @teacher.teacher_columns_required!
+      @teacher.context = :edit_profile if params[:cate] == 'edit_profile'
       @teacher.update(update_params)
     end
   end

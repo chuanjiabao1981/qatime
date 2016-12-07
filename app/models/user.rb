@@ -18,6 +18,9 @@ class User < ActiveRecord::Base
   # 支付密码
   attr_accessor :payment_captcha_required, :payment_captcha, :payment_password
 
+  # 编辑上下文 用于条件验证
+  attr_accessor :context
+
   has_secure_password
 
   validates :nick_name, allow_nil: true, allow_blank:true, uniqueness: true,
@@ -205,6 +208,11 @@ class User < ActiveRecord::Base
 
   def female?
     gender == 'female'
+  end
+
+  # 编辑资料
+  def context_edit_profile?
+    context == :edit_profile
   end
 
   private

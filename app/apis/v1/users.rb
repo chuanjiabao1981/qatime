@@ -85,6 +85,46 @@ module V1
           raise(ActiveRecord::RecordInvalid.new(user))
         end
       end
+
+      desc '绑定微信' do
+        headers 'Remember-Token' => {
+          description: 'RememberToken',
+          required: true
+        }
+      end
+      params do
+        requires :id, type: Integer, desc: 'ID'
+        requires :code, type: String, desc: '微信授权code'
+      end
+      post "/:id/wechat" do
+        user = ::User.find(params[:id])
+        # todo 待实现
+        if user
+          'ok'
+        else
+          'error'
+        end
+      end
+
+      desc '解绑微信' do
+        headers 'Remember-Token' => {
+          description: 'RememberToken',
+          required: true
+        }
+      end
+      params do
+        requires :id, type: Integer, desc: 'ID'
+        requires :openid, type: String, desc: '微信openid'
+      end
+      delete "/:id/wechat" do
+        user = ::User.find(params[:id])
+        # todo 待实现
+        if user
+          'ok'
+        else
+          'error'
+        end
+      end
     end
   end
 end

@@ -343,9 +343,9 @@ module LiveStudio
     private
 
     # 辅导班删除以后同时删除课程
-    after_commit :clear_lessons, on: :destroy
+    after_commit :clear_lessons
     def clear_lessons
-      lessons.map(&:destroy)
+      lessons.map(&:destroy) unless deleted_at.blank?
     end
 
     before_save :check_lessons

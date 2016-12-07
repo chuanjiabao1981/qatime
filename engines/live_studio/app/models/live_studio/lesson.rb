@@ -279,6 +279,7 @@ module LiveStudio
     end
 
     def update_course
+      return unless course.present?
       first_class_date = course.lessons.order(:class_date).first.class_date
       course.update(class_date: first_class_date)
     end

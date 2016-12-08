@@ -5495,6 +5495,7 @@ ul {
   border-radius: 4px;
 }
 .input-button a {
+  margin-right: 12px;
   text-align: center;
   line-height: 36px;
   display: inline-block;
@@ -5522,7 +5523,8 @@ ul {
   background-color: #eff3f5;
   color: #999;
 }
-.wechat-msg .has-error {
+.wechat-msg .has-error,.upload-con .has-error{
+  height: 20px;
   margin: 0px 0px 0px 125px;
 }
 .wechat-msg .auth-code {
@@ -5541,7 +5543,7 @@ ul {
   top: -30px;
   right: -28px;
 }
-.wechat-msg .has-error {
+.wechat-msg .has-error,.upload-con .has-error {
   margin-left: 0px;
 }
 .input-button {
@@ -5618,13 +5620,11 @@ ul {
   margin-bottom: 28px;
 }
 .tea-register-left .form-group {
-  /*margin-bottom: 20px;*/
-  margin-bottom: 0px;
+  margin-bottom: 20px;
   overflow: hidden;
 }
 .tea-register-left .has-error {
-  /*margin-bottom: 0;*/
-  height: 20px;
+  margin-bottom: 0;
 }
 .tea-register-left .form-group .has-error {
   clear: both;
@@ -5831,6 +5831,9 @@ ul {
   text-align: center;
   display: inline-block;
 }
+.upload-head .input-group .has-error {
+  margin-left: 0px;
+}
 .upload-head label {
   padding-top: 80px;
 }
@@ -5849,11 +5852,26 @@ ul {
   padding-right: 120px;
   margin: 30px auto 0px;
 }
-.upload-msg .tecmsg-subject {
-  width: 300px;
-  margin-left: 124px !important;
+.upload-msg .form-group {
+  position: relative;
 }
-@media only screen and (max-width: 700px) {
+.upload-msg .tecmsg-subject {
+  position: absolute;
+  width: 300px;
+  left: 24px;
+  z-index: 10;
+  height: 150px;
+  overflow: scroll;
+  background-color: #FFFFFF;
+  /*margin-left: 124px !important;*/
+}
+@media only screen and (max-width: 1000px) {
+  .upload-msg .tecmsg-subject {
+  /*margin-left: 0px !important;*/
+  margin-left: 100px;
+}
+}
+@media only screen and (max-width: 800px) {
 .upload-msg {
   width: 424px;
   padding-left: 40px;
@@ -5869,12 +5887,14 @@ ul {
   top: -30px;
   left: -20px;
 }
-
+.upload-msg .has-error {
+  margin-left: 0px;
+}
 .upload-msg .input-button {
   margin-left: 0px !important;
 }
 .upload-msg .tecmsg-subject {
-  margin-left: 0px !important;
+  left: -100px;
 }
 }
 

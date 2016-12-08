@@ -6,4 +6,7 @@ $el.append($("<option></option>").attr("value", '<%= city.id %>').text('<%= city
 <% if @cities.blank? %>
 $el.append($("<option></option>").attr("value", '').text('<%= t('view.common.option_city') %>'));
 <% end %>
+<% if params[:third].present? %>
+  $('.<%= params[:third] %>').empty();
+<% end %>
 <%= render file: 'ajax/data/option_schools.js.erb' if @schools.present? %>

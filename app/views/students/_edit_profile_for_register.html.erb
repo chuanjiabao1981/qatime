@@ -8,7 +8,7 @@
     <div class="wechat-con upload-con">
       <div class="upload-msg">
         <%= simple_form_for(@student, url: student_path(@student, cate: :register, by: :register) ) do |f| %>
-          <%= hidden_field_tag :return_to %>
+          <%= hidden_field_tag :return_to, "", id: "return-to-field" %>
           <% %w[x y w h].each do |attribute| %>
             <%= f.hidden_field "crop_#{attribute}" %>
           <% end %>
@@ -51,7 +51,7 @@
           </div>
           <div class="form-group">
             <div class="input-button">
-              <input type="button" value='<%= t("students.edit_profile_for_register.edit_more_profile") %>' />
+              <input type="button" id="edit-more-profile" value='<%= t("students.edit_profile_for_register.edit_more_profile") %>' />
               <%= f.submit t("students.edit_profile_for_register.submit_profile") %>
             </div>
           </div>
@@ -127,7 +127,6 @@ $(function() {
     return url;
   }
 
-
   //触发事件
   $('input[id=lefile]').change(function() {
     var objUrl = getObjectURL(this.files[0]);
@@ -137,10 +136,12 @@ $(function() {
       $(".pre-2 img").attr("src", objUrl);
     }
   });
+
+  // 完善更多提交
+  $("#edit-more-profile").click(function() {
+    $("#return-to-field").val("<%= raw main_app.edit_student_path(@student, by: 'profile', cate: 'edit_profile') %>");
+    $(this).parents("form").submit();
+  });
 });
 </script>
 <% end %>
-
-
-
-

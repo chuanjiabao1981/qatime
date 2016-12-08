@@ -102,6 +102,8 @@
     nodes: "节点"
     sites: "酷站"
     jobs: "招聘"
+    help: "帮助"
+    question: "问题"
     my_home_page: "我的主页"
     edit_account_path: "个人资料设置"
     likes: "我的收藏"

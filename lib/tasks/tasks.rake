@@ -8,4 +8,9 @@ task 'assets:precompile' do
     nondigest = file.sub fingerprint, '.'
     FileUtils.copy_entry file, nondigest, remove_destination: true
   end
+  Dir['public/assets/font/*.woff'].each do |file|
+    next unless file =~ fingerprint
+    nondigest = file.sub fingerprint, '.'
+    FileUtils.copy_entry file, nondigest, remove_destination: true
+  end
 end

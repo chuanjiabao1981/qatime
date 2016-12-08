@@ -56,7 +56,7 @@ module V1
         requires :grade, type: String, desc: '年级'
         requires :openid, type: String, desc: '微信openid'
       end
-      post :wechat_regsiter do
+      post :wechat_register do
         client_type = params[:client_type].to_sym
         create_params_with_type = ActionController::Parameters.new(params).permit(:login_mobile, :captcha_confirmation, :password, :accept, :type, :grade)
         user = User.new(create_params_with_type).register_columns_required!.captcha_required!

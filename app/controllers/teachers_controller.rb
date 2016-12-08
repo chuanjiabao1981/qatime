@@ -51,7 +51,7 @@ class TeachersController < ApplicationController
         redirect_to info_teacher_path(@teacher, cate:  params[:cate]), notice: t("flash.notice.update_success")
       elsif params[:cate] == "register"
         SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @teacher.id)
-        redirect_to user_home_path, notice: t("flash.notice.register_success")
+        redirect_to params[:more_alter].present? ? info_teacher_path(@teacher) : user_home_path, notice: t("flash.notice.register_success")
       else
         session.delete("change-#{update_by}-#{send_to}")
         redirect_to edit_teacher_path(@teacher, cate:  params[:cate]), notice: t("flash.notice.update_success")

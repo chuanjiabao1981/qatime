@@ -39,7 +39,8 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }, if: :password_required?, on: :update
   validates :email, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, if: :email_changed?, on: :update
 
-  validates_presence_of :avatar, :name, if: :teacher_or_student_columns_required?, on: :update
+  validates_presence_of :name, if: :teacher_or_student_columns_required?, on: :update
+  validates_presence_of :avatar, message: '请上传头像', if: :teacher_or_student_columns_required?, on: :update
 
   validates_presence_of :name, :email, if: :not_teacher_or_student?, on: [:create, :update]
   # 邮箱必填

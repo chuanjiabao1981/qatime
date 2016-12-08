@@ -84,10 +84,10 @@
                 <%= content_tag :span, '', class: 'help-block has-error' if @teacher.errors[:city_id].blank? %>
                 <%= f.error :city_id %>
               </div>
-              <div class="form-group">
+              <div class="form-group tecmsg-textarea">
                 <label class="control-label" for="course_invitation_user_introduce">自我介绍：</label>
                 <%= f.text_area :desc, rows: 5, placeholder: '请详细介绍下自己，方便学生了解您，如：任教经历、教学特色、荣誉和奖项等；最多300字（必填）' %>
-                <span class="tecmsg-text">还可输入100/300</span>
+                <span class="tecmsg-text">还可输入 <span id="surplus">0</span>/300</span>
                 <%= f.error :desc %>
                 <%= content_tag :span, '', class: 'help-block has-error' if @teacher.errors[:desc].blank? %>
               </div>
@@ -98,11 +98,13 @@
                 <br>
                 <span class="up-img"><a href="javascript:void(0);">点击头像上传(必填)</a></span>
                 <span class="help-block has-error"></span>
+                <%= f.error :avatar %>
               </div>
             </div>
             <div class="tecmsg-send">
               <center>
-                <a href="">完善更多</a>
+                <%= hidden_field_tag :more_alter %>
+                <a href="javascript:void(0);" id="more_info">完善更多</a>
                 <input type="submit" name="" id="" value="立即进入">
               </center>
             </div>
@@ -133,8 +135,7 @@
                           <%= f.hidden_field "crop_#{attribute}"%>
                         <% end %>
                       </p>
-                      <%= f.input :avatar, as: :file, input_html:{onchange:"showimagepreviewarea(this)",style: 'display: none;'} %>
-
+                      <%= f.input :avatar, as: :file, label: false, error: false, input_html:{onchange:"showimagepreviewarea(this)",style: 'display: none;'} %>
                       <p></p>
                       <p>
                         <button type="button" class="btn btn-default" id="select_avatar_btn">选择</button>
@@ -156,6 +157,11 @@
 
 <script type="text/javascript">
   $(function  () {
+
+    $("#more_info").click(function(){
+      $("#more_alter").val('true');
+      document.forms[0].submit();
+    });
     $(".tecmsg-drop").click(function  () {
       $(".tecmsg-subject").toggle();
     })
@@ -282,4 +288,8 @@
     $('#teacher_crop_w').val(coords.w)
     $('#teacher_crop_h').val(coords.h)
   }
+
+  $("#teacher_desc").keyup(function(){
+    $('#surplus').html($(this).val().length);
+  });
 </script>

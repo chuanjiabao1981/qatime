@@ -19,8 +19,8 @@ module Qawechat
 
     def login_callback
       code = params[:code]
-      # wechat_api = UserService::WechatApi.new(code)
-      @wechat_user = Qawechat::WechatUser.last #wechat_api.web_access_token
+      wechat_api = UserService::WechatApi.new(code)
+      @wechat_user = wechat_api.web_access_token
       if @wechat_user.blank?
         redirect_to '/sessions/new'
       else

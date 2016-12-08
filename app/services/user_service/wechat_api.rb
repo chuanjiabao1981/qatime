@@ -14,6 +14,8 @@ module UserService
         method: :get
       )
       flag = JSON.parse req.run.body
+      Rails.logger.info '*****微信返回结果****'
+      Rails.logger.info flag
       if flag["openid"].present?
         openid = flag["openid"]
         @wechat_user = ::Qawechat::WechatUser.find_or_create_by(openid: openid)

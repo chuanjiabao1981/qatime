@@ -6277,10 +6277,12 @@ ul {
 .student-help {
   position: fixed;
   width: 280px;
-  height: 252px;
   background-color: #FFFFFF
 }
 @media only screen and (max-width: 1000px) {
+.col-study {
+  padding-right: 0px !important; 
+}
 .student-help {
   width: 100%;
   position: static !important;

@@ -35,7 +35,10 @@ class Teacher < User
   attr_accessor :school_name
 
   # 第二步注册，教师更新验证
-  validates_presence_of :subject, :category, :city_id, if: :teacher_columns_required?, on: :update
+  with_options if: :teacher_columns_required?, on: :update do
+    validates_presence_of :subject, :category, :city_id, :teaching_years, message: '必选'
+    validates :desc, length: { minimum: 6, maximum: 300 }
+  end
 
   # 资料编辑验证
   validates_presence_of :subject, :category, :city_id, :school_id, :desc, :teaching_years, if: :context_edit_profile?
@@ -44,7 +47,7 @@ class Teacher < User
   validates :name, length: { in: 1..7 }
 
   # 学校不能为空
-  validates :school, presence: true, on: :update
+  validates :school, presence: {message: '必填'}, on: :update
 
   scope :by_category, ->(c) { where(category: c) if c}
   scope :by_subject, ->(s) { where(subject: s) if s}

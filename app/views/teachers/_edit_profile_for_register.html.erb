@@ -1,117 +1,285 @@
-<div class="col-md-10 col-md-offset-1">
-  <div class="qa_box row">
-    <div class="qa_big_cell ">
-      <h2 class="text-center"><%= t ".title" %></h2>
-
-      <%= simple_form_for(@teacher, url: teacher_path(@teacher, cate: :register, by: :register) ) do |f| %>
-      <div class="form-inputs">
-        <div class="row">
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:name)%><abbr title="required">*</abbr></div>
-            <div class="col-md-9">
-              <%= f.input :name, label: false, placeholder: t('.name_ph') %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:nick_name)%></div>
-            <div class="col-md-9">
-              <%= f.input :nick_name, label: false, placeholder: t('.nick_name_ph') %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:gender)%></div>
-            <div class="col-md-9">
-              <%= f.input :gender, as: :radio_buttons, label: false %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:avatar)%><abbr title="required">*</abbr></div>
-            <div class="col-md-9">
-              <% %w[x y w h].each do |attribute| %>
-                <%= f.hidden_field "crop_#{attribute}"%>
-              <% end %>
-              <%= f.input :avatar, label: false, input_html:{onchange:"showimagepreview(this)"}, :hint => "用户头像不可为空。" %>
-              <div style="width: 242px;height: 242px; border: 1px dashed;">
-                <img id="user_avatar_preview" style="width: 100%;">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:subject) %><abbr title="required">*</abbr></div>
-            <div class="col-md-9">
-              <%= f.input :subject, label: false, :collection => APP_CONSTANT["subjects"], include_blank: false %>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:category) %><abbr title="required">*</abbr></div>
-            <div class="col-md-9">
-              <%= f.input :category, label: false, :collection => APP_CONSTANT["categories"], include_blank:false %>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:province) %><abbr title="required">*</abbr></div>
-            <div class="col-md-9">
-              <div class="form-group select optional teacher_province">
-                <%= f.input :province_id,collection: Province.all.map{|p| [p.name, p.id]}, include_blank: false, label: false,
-                            input_html: {
-                              'data-remote': true,
-                              'data-url': url_for(controller: 'ajax/data', action: 'option_cities', second: 'data-second', third: 'data-third')
-                            } %>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:city) %><abbr title="required">*</abbr></div>
-            <div class="col-md-9">
-              <%= f.input :city_id, label: false, collection: Province.first.cities.map{|c| [c.name, c.id]}, include_blank: false,
-                          input_html: {
-                            class: 'data-second',
-                            'data-remote': true,
-                            'data-url': url_for(controller: 'ajax/data', action: 'option_schools', third: 'data-third')
-                          } %>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:school) %><abbr title="required">*</abbr></div>
-            <div class="col-md-9">
-              <%= f.input :school_name, label: false, input_html: {list: 'search_school', placeholder: t('teachers.teacher.double_click_selected')}%>
-              <%= content_tag :datalist, id: 'search_school', class: 'data-third' do%>
-                <% School.all.each do |school| %>
-                  <option value="<%= school.name %>">
-                <% end %>
-              <% end %>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:desc) %></div>
-            <div class="col-md-9">
-              <%= f.input :desc, label: false, as: :text, placeholder: t('.desc_ph') %>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:email) %></div>
-            <div class="col-md-9">
-              <%= f.input :email, label: false, placeholder: t('.email_ph') %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-9">
-              <%= f.input :email_confirmation, label: false, placeholder: t('.email_confirmation_ph') %>
-            </div>
-          </div>
-        </div>
-
-        <div class="row text-center">
-          <%= f.submit t('teachers.teacher.register_done'), class: "btn btn-default" %>
-        </div>
+<div class="login-wechat">
+  <div class="container">
+    <div class="row">
+      <div class="detail-title">
+        欢迎使用答疑时间，完成最后一步即可开始学习。
       </div>
-      <% end %>
+      <div class="detail-content">
+        <%= simple_form_for(@teacher, url: teacher_path(@teacher, cate: :register, by: :register) ) do |f| %>
+
+          <div class="tecmsg-con">
+            <div class="row">
+              <div class="form-group">
+                <label class="control-label" for="course_invitation_user_mobile">设置姓名：</label>
+                <%= f.text_field :name, placeholder: '请输入真实姓名（必填）', class: 'form-control' %>
+                <%= f.error :name %>
+                <%= content_tag :span, '', class: 'help-block has-error' if @teacher.errors[:name].blank? %>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label" for="course_invitation_user_grade">授课类型：</label>
+                <%= f.text_field :category, placeholder: '选择可授年级范围（必选）', readonly: 'readonly', class: 'form-control'%>
+                <span class="glyphicon glyphicon-chevron-down tecmsg-down"></span>
+                <ul class="tecmsg-grade">
+                  <% APP_CONSTANT["categories"].each do |cat| %>
+                    <li><%= cat %></li>
+                  <% end %>
+                </ul>
+                <%= f.error :category %>
+                <%= content_tag :span, '', class: 'help-block has-error' if @teacher.errors[:category].blank? %>
+
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="course_invitation_user_subject">授课科目：</label>
+                <%= f.text_field :subject, readonly: "readonly", placeholder: '选择授课科目（必选）', class: 'form-control' %>
+                <span class="glyphicon glyphicon-chevron-down tecmsg-drop"></span>
+                <ul class="tecmsg-subject">
+                  <% APP_CONSTANT["subjects"].each do |sub| %>
+                    <li><%= sub %></li>
+                  <% end %>
+                </ul>
+                <%= f.error :subject %>
+                <%= content_tag :span, '', class: 'help-block has-error' if @teacher.errors[:subject].blank? %>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label" for="course_invitation_user_year">执教年龄：</label>
+                <%= f.text_field :teaching_years, class: 'form-control', readonly: 'readonly', placeholder: '选择教龄（必选）', value: @teacher.teaching_years.text %>
+                <span class="glyphicon glyphicon-chevron-down tecmsg-under"></span>
+                <ul class="tecmsg-year">
+                  <% Teacher.teaching_years.options.map(&:first).each do |years| %>
+                    <li><%= years %></li>
+                  <% end %>
+                </ul>
+                <%= content_tag :span, '', class: 'help-block has-error' if @teacher.errors[:teaching_years].blank? %>
+                <%= f.error :teaching_years %>
+              </div>
+
+              <div class="form-group">
+                <label class="control-label" for="course_invitation_user_mobile">所在学校：</label>
+                <%= f.text_field :school_name, class: 'form-control', placeholder: '请填写真实的学校完整名称（必填）', value: "#{@teacher.school.try(:name)}" %>
+                <%= content_tag :datalist, id: 'search_school', class: 'data-third' do%>
+                  <% School.all.each do |school| %>
+                    <option value="<%= school.name %>">
+                  <% end %>
+                <% end %>
+                <%= f.error :school %>
+                <%= content_tag :span, '', class: 'help-block has-error' if @teacher.errors[:school].blank? %>
+                <span class="help-block has-error"></span>
+              </div>
+              <div class="form-group">
+                <label class="control-label">所在城市：</label>
+  		          <span>
+                  <%= f.input_field :province_id,collection: Province.all.map{|p| [p.name, p.id]}, include_blank: '选择省',
+                                'data-remote': true,
+                                'data-url': url_for(controller: 'ajax/data', action: 'option_cities', second: 'data-second', third: 'data-third')
+                               %>
+                  <%= f.input_field :city_id,collection: (@teacher.province || Province.first).cities.map{|c| [c.name, c.id]}, include_blank: '选择市',
+                                class: 'data-second',
+                                'data-remote': true,
+                                'data-url': url_for(controller: 'ajax/data', action: 'option_schools', third: 'data-third')
+                               %>
+                </span>
+                <span class="tecmsg-city">（已精确到县级市；必选）</span>
+                <%= content_tag :span, '', class: 'help-block has-error' if @teacher.errors[:city_id].blank? %>
+                <%= f.error :city_id %>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="course_invitation_user_introduce">自我介绍：</label>
+                <%= f.text_area :desc, rows: 5, placeholder: '请详细介绍下自己，方便学生了解您，如：任教经历、教学特色、荣誉和奖项等；最多300字（必填）' %>
+                <span class="tecmsg-text">还可输入100/300</span>
+                <%= f.error :desc %>
+                <%= content_tag :span, '', class: 'help-block has-error' if @teacher.errors[:desc].blank? %>
+              </div>
+              <div class="tecmsg-img">
+                <div style="width:300px; height: 300px; overflow: hidden; float:left;">
+                  <%= image_tag('head-title.png',id: 'teacher_avatar_preview3', data: {toggle: 'modal', target: '#edit_avatar'}) %>
+                </div>
+                <br>
+                <span class="up-img"><a href="javascript:void(0);">点击头像上传(必填)</a></span>
+                <span class="help-block has-error"></span>
+              </div>
+            </div>
+            <div class="tecmsg-send">
+              <center>
+                <a href="">完善更多</a>
+                <input type="submit" name="" id="" value="立即进入">
+              </center>
+            </div>
+          </div>
+
+          <div class="modal fade" id="edit_avatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                  <h4 class="modal-title" id="myModalLabel">更换图片</h4>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div class="modal-img">
+                        <img id="teacher_avatar_preview">
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <p>
+                      </p><div class="modal-avatar">
+                      <img id="teacher_avatar_preview2">
+                    </div>
+                      <p></p>
+                      <p>
+                        <% %w[x y w h].each do |attribute| %>
+                          <%= f.hidden_field "crop_#{attribute}"%>
+                        <% end %>
+                      </p>
+                      <%= f.input :avatar, as: :file, input_html:{onchange:"showimagepreviewarea(this)",style: 'display: none;'} %>
+
+                      <p></p>
+                      <p>
+                        <button type="button" class="btn btn-default" id="select_avatar_btn">选择</button>
+                      </p>
+                      <p>
+                        <input type="button" data-dismiss="modal" aria-label="Close" value="保存" class="btn btn-default">
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(function  () {
+    $(".tecmsg-drop").click(function  () {
+      $(".tecmsg-subject").toggle();
+    })
+    $(".tecmsg-subject li").click(function  () {
+      $("#teacher_subject").val($(this).html());
+      $(".tecmsg-subject").hide();
+    })
+    $(".tecmsg-down").click(function  () {
+      $(".tecmsg-grade").toggle();
+    })
+    $(".tecmsg-grade li").click(function  () {
+      $("#teacher_category").val($(this).html());
+      $(".tecmsg-grade").hide();
+    })
+    $(".tecmsg-under").click(function  () {
+      $(".tecmsg-year").toggle();
+    })
+    $(".tecmsg-year li").click(function  () {
+      $("#teacher_teaching_years").val($(this).html());
+      $(".tecmsg-year").hide();
+    })
+
+    $("#select_avatar_btn").on('click',function(event){
+      $("#teacher_avatar").click();
+    })
+
+    $("button.close").on('click',function(event){
+      $("#teacher_avatar").value = ''
+      $('#teacher_avatar_preview').attr('src', '');
+      $("#teacher_avatar_preview2").attr('src', '');
+      $("#teacher_avatar_preview3").attr('src', '');
+
+      $('#teacher_avatar_preview').parent().css({
+        paddingTop: '0px'
+      });
+      $('#teacher_avatar_preview').css({
+        height: 'auto',
+        width: '100%'
+      });
+      $("#teacher_avatar_preview2").css({
+        height: '128px',
+        width: '128px',
+        marginTop: '0px',
+        marginLeft: '0px'
+      })
+      $("#teacher_avatar_preview3").css({
+        height: '300px',
+        width: '300px',
+        marginTop: '0px',
+        marginLeft: '0px'
+      })
+
+      if (jcrop_api){
+        jcrop_api.destroy();
+      }
+    });
+  });
+
+
+  var jcrop_api,
+    boundx,
+    boundy;
+
+  function showimagepreviewarea(input) {
+    if (input.files && input.files[0]) {
+      var filerdr = new FileReader();
+
+      filerdr.onload = function(e) {
+        $('#teacher_avatar_preview').attr('src', e.target.result);
+        $("#teacher_avatar_preview2").attr('src', e.target.result);
+        $("#teacher_avatar_preview3").attr('src', e.target.result);
+
+        var teacher_avatar_preview_height = $('#teacher_avatar_preview').height()
+        console.log(teacher_avatar_preview_height)
+        $('#teacher_avatar_preview').parent().css({
+          paddingTop : Math.round((240 - teacher_avatar_preview_height) / 2) + 'px'
+        });
+      }
+      if (jcrop_api){
+        jcrop_api.destroy();
+      }
+      filerdr.readAsDataURL(input.files[0]);
+      filerdr.onloadend = function(e){
+        $('#teacher_avatar_preview').Jcrop({
+          bgFade:     true,
+          bgOpacity: .4,
+          aspectRatio: 1 ,
+          setSelect: [ 0, 0, 240, 240 ],
+          onSelect: selectCoords,
+          onChange: selectCoords
+        },function(){
+          var bounds = this.getBounds();
+          boundx = bounds[0];
+          boundy = bounds[1];
+          jcrop_api = this;
+        });
+      }
+    }
+  }
+  function selectCoords(coords)
+  {
+    if (parseInt(coords.w) > 0) {
+      var rx = 128 / coords.w;
+      var ry = 128 / coords.h;
+      var rxx = 300 / coords.w;
+      var rxy = 300 / coords.h;
+
+      $('#teacher_avatar_preview2').css({
+        width : Math.round(rx * boundx) + 'px',
+        height : Math.round(ry * boundy) + 'px',
+        marginLeft : '-' + Math.round(rx * coords.x) + 'px',
+        marginTop : '-' + Math.round(ry * coords.y) + 'px'
+      });
+      $('#teacher_avatar_preview3').css({
+        width : Math.round(rxx * boundx) + 'px',
+        height : Math.round(rxy * boundy) + 'px',
+        marginLeft : '-' + Math.round(rxx * coords.x) + 'px',
+        marginTop : '-' + Math.round(rxy * coords.y) + 'px'
+      });
+    }
+
+    $('#teacher_crop_x').val(coords.x)
+    $('#teacher_crop_y').val(coords.y)
+    $('#teacher_crop_w').val(coords.w)
+    $('#teacher_crop_h').val(coords.h)
+  }
+</script>

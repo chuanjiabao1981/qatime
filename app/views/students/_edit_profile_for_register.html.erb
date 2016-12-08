@@ -1,80 +1,73 @@
-<div class="col-md-10 col-md-offset-1">
-  <div class="qa_box">
-    <div class="qa_big_cell ">
-      <h2 class="text-center"><%= t ".title" %></h2>
-
-      <%= simple_form_for(@student, url: student_path(@student, cate: :register, by: :register) ) do |f| %>
-      <div class="form-inputs">
-        <div class="row">
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:name)%><abbr title="required">*</abbr></div>
-            <div class="col-md-9">
-              <%= f.input :name, label: false, placeholder: t('.name_ph') %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:gender)%></div>
-            <div class="col-md-9">
-              <%= f.input :gender, as: :radio_buttons, label: false %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:avatar)%><abbr title="required">*</abbr></div>
-            <div class="col-md-9">
-              <% %w[x y w h].each do |attribute| %>
-                <%= f.hidden_field "crop_#{attribute}"%>
-              <% end %>
-              <%= f.input :avatar, label: false, input_html:{onchange:"showimagepreview(this)"},:hint => "用户头像不可为空。" %>
-              <div style="width: 242px;height: 242px; border: 1px dashed;">
-                <img id="user_avatar_preview" style="width: 100%;">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:grade) %></div>
-            <div class="col-md-9">
-              <%= f.input :grade, label: false,:collection => APP_CONSTANT["grades_in_menu"], include_blank:false %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:desc) %></div>
-            <div class="col-md-9">
-              <%= f.input :desc, label: false, as: :text, placeholder: t(".desc_ph") %>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:parent_phone) %></div>
-            <div class="col-md-9">
-              <%= f.input :parent_phone, label: false, placeholder: t(".parent_phone_ph") %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-9">
-              <%= f.input :parent_phone_confirmation, label: false, placeholder: t(".parent_phone_confirmation_ph") %>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:email) %></div>
-            <div class="col-md-9">
-              <%= f.input :email, label: false, placeholder: t('.email_ph') %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-9">
-              <%= f.input :email_confirmation, label: false, placeholder: t('.email_confirmation_ph') %>
-            </div>
-          </div>
-        </div>
-
-        <div class="row text-center">
-          <%= f.submit '完成注册', class: "btn btn-default" %>
-        </div>
+<div class="login-wechat">
+  <div class="container">
+    <div class="row">
+      <div class="upload-title">
+        <%= t("view.register.student.welcome") %>
       </div>
-      <% end %>
+    </div>
+    <div class="wechat-con upload-con">
+      <div class="upload-msg">
+        <%= simple_form_for(@student, url: student_path(@student, cate: :register, by: :register) ) do |f| %>
+          <div class="form-group upload-head">
+            <label class="control-label tecmsg-title" for="course_invitation_user_phone"></label>
+            <div class="input-group">
+              <div class="up-head pre-2">
+                <%= image_tag "head-title.png",
+                              class: "jcrop-preview jcrop_preview_s",
+                              "data-toggle" => "modal",
+                              "data-target" => "#acceptModal",
+                              size: "240x240" %>
+                <br> 
+              </div>
+              <span>点击头像上传(必填)</span>
+          </div>
+            <span class="help-block has-error"></span>
+           </div>
+          
+          <div class="form-group">
+            <%= f.label :name %>
+            <div class="input-group">
+              <%= f.input_field :name %>
+            </div>
+            <span class="help-block has-error"></span>
+          </div>
+          <div class="form-group">
+            <%= f.label :grade %>
+            <div class="input-group">
+              <%= f.input_field :grade %>
+              <i class="glyphicon glyphicon-chevron-down drop-grade"></i>
+            </div>
+             
+            <ul class="tecmsg-subject"> 
+           <li>高三</li>
+           <li>高二</li>
+           <li>高一</li>
+           <li>初三</li>
+           <li>初二</li>
+           <li>初一</li>
+           <li>六年级</li>
+           <li>五年级</li>
+           <li>四年级</li>
+           <li>三年级</li>
+           <li>二年级</li>
+           <li>一年级</li>
+            </ul>
+            <span class="help-block has-error"></span>
+          </div>
+          <div class="form-group">
+            <div class="input-button">
+              <input type="button" value="完善更多" />
+              <%= f.submit '立即进入' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
+
+
+
+
+
+

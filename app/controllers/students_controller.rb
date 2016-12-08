@@ -27,22 +27,18 @@ class StudentsController < ApplicationController
       sign_in(@student) unless signed_in?
       redirect_to edit_student_path(@student, cate: :register, by: :register)
     else
+      p @student.errors
       render 'new', layout: 'application_login'
     end
   end
 
   def show
-    # if params[:fee].nil?
-    #   @deposits = @student.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-    # else
-    #   @consumption_records      = @student.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-    # end
     render layout: 'student_home_new'
   end
 
   def edit
     if params[:cate] == "register"
-      render layout: 'application'
+      render layout: 'application_login'
     else
       render layout: 'student_home_new'
     end

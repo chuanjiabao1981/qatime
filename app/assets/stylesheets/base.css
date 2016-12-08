@@ -6226,8 +6226,11 @@ ul {
   color: #666666;
 }
 .study-search-msg p {
-  padding-bottom: 5px;
+  padding-bottom: 10px;
   margin-bottom: 0px;
+}
+.study-search-list p {
+  padding-bottom: 5px;
 }
 .study-search-msg img {
   width: 100%;
@@ -6286,3 +6289,14 @@ ul {
   margin-left: 47px;
 }
 }
+.teacher-study-msg {
+  color: #999999;
+  display: inline-block;
+  margin: 20px 0;
+}
+.teacher-study-msg.active {
+  margin-top: 0px;
+}
+ .teacher-study-img {
+  margin-bottom: 20px;
+ }

@@ -11,7 +11,7 @@ module UserService
     def web_access_token
       req = Typhoeus::Request.new(
         web_access_token_url,
-        method: :get,
+        method: :get
       )
       flag = JSON.parse req.run.body
       if flag["openid"].present?
@@ -25,12 +25,21 @@ module UserService
 
     class << self
 
-      def binding_user(openid, user, info_update = true)
+      # 根据openid 绑定用户
+      def binding_user(openid, user, info_update = false)
         wechat_user = ::Qawechat::WechatUser.find_by(openid: openid)
-        wechat_user.update(user: user)
+        wechat_user.update(user_id: user.id)
         # 使用微信用户资料更新用户信息
-        if info_update
-          # todo
+        if info_update && wechat_user.userinfo['info'].present?
+          wechat_info = wechat_user.userinfo['info']
+          user.name = wechat_info['nickname']
+          user.sex = wechat_info['sex']
+          relative_path = Util.img_url_save_to_tmp(wechat_info['headimgurl'])
+          tmp_path = Rails.root.join(relative_path)
+          File.open(tmp_path) do |file|
+            user.avatar = file
+          end
+          user.save
         end
       end
 
@@ -41,6 +50,14 @@ module UserService
           method: :get,
         )
         JSON.parse req.run.body
+      end
+
+      # 微信登陆链接
+      def wechat_url(state='wwtd')
+        return if WECHAT_CONFIG['web_appid'].blank?
+        redirect_uri = "#{WECHAT_CONFIG['domain_name']}/wechat/login_callback"
+        host = "https://open.weixin.qq.com/connect/oauth2/authorize"
+        "#{host}?appid=#{WECHAT_CONFIG['web_appid']}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_login&state=#{state}"
       end
     end
 

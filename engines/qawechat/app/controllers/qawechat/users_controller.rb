@@ -6,7 +6,7 @@ module Qawechat
     skip_before_action :authorize
     before_action :set_wechat_user
     def new
-      @user = User.new
+      @user = User.new(type: params[:register_type])
     end
 
     def create

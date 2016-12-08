@@ -9,7 +9,7 @@ cn:
       select: 选择
       save: 保存
       ok: 确定
-      get_captcha: 获取验证码
+      get_captcha: 获取校验码
       try_get_captcha_again: 重新获取
       my_wallet: 我的钱包
     new:

@@ -3,6 +3,7 @@ require_dependency "qawechat/application_controller"
 module Qawechat
   class OmniauthCallbacksController < ApplicationController
     include Qawechat::WechatHelper
+    include ::SessionsHelper
 
     def wechat
       @user_info  = request.env["omniauth.auth"]
@@ -24,9 +25,10 @@ module Qawechat
         redirect_to '/sessions/new'
       else
         if @wechat_user.user.blank?
-          redirect_to qawechat.new_user_path(openid: @wechat_user.openid)
+          redirect_to qawechat.new_user_path(openid: @wechat_user.openid, register_type: params[:register_type])
         else
-          redirect_to user_path(@wechat_user.user)
+          sign_in(@wechat_user.user)
+          redirect_to main_app.root_path
         end
       end
     end

@@ -27,7 +27,7 @@ class StudentsController < ApplicationController
       sign_in(@student) unless signed_in?
       redirect_to edit_student_path(@student, cate: :register, by: :register)
     else
-      render 'new'
+      render 'new', layout: 'application_login'
     end
   end
 

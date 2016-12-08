@@ -98,12 +98,9 @@ module V1
       end
       post "/:id/wechat" do
         user = ::User.find(params[:id])
-        # todo 待实现
-        if user
-          'ok'
-        else
-          'error'
-        end
+        wechat_user = UserService::WechatApi.new(params[:code], 'mobile').web_access_token
+        UserService::WechatApi.binding_user(wechat_user, user)
+        'ok'
       end
 
       desc '解绑微信' do
@@ -118,12 +115,11 @@ module V1
       end
       delete "/:id/wechat" do
         user = ::User.find(params[:id])
-        # todo 待实现
-        if user
-          'ok'
-        else
-          'error'
+        wechat_user = ::Qawechat::WechatUser.find_by(openid: params[:openid])
+        if user == wechat_user.user
+          wechat_user.update(user: nil)
         end
+        'ok'
       end
     end
   end

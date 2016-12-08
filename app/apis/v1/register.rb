@@ -66,7 +66,7 @@ module V1
         if user.save
           SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: user.id)
           login_token = sign_in(user, client_type)
-          UserService::WechatApi.binding_user(params[:openid], user)
+          UserService::WechatApi.binding_user(params[:openid], user, true)
           present login_token, with: Entities::LoginToken
         else
           raise(ActiveRecord::RecordInvalid.new(user))

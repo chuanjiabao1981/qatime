@@ -41,7 +41,7 @@ class Teacher < User
   validates_presence_of :subject, :category, :city_id, :school_id, :desc, :teaching_years, if: :context_edit_profile?
 
   validates :desc, length: { in: 6..400 }, if: :context_edit_profile?
-  validates :name, length: { in: 1..7 }
+  validates :name, length: { in: 1..7 }, on: :update
 
   # 学校不能为空
   validates :school, presence: true, on: :update

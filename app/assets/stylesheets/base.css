@@ -1958,7 +1958,7 @@ i {
   color: rgb(207,106,106);
 }
 .recommended-class {
-  padding-bottom: 5px;
+  padding-bottom: 10px;
 }
 .class-course {
   padding: 23px 10px 36px 10px;
@@ -4868,10 +4868,8 @@ ul {
 }
 
 .tutorial-con table img {
-  /*width: 132px;
-	height: 83px;*/
-  width: 100%;
-  height: 100%;
+  width: 132px;
+  height: 83px;
 }
 .tutorial-con-td {
   width: 156px;
@@ -4951,7 +4949,7 @@ ul {
 }
 .tecmsg-con .has-error{
   clear: both;
-  margin: 0px 0px 0px 90px;
+  margin: 0px 0px 0px 98px;
 }
 .tecmsg-con .form-control {
   width: 300px;
@@ -4969,6 +4967,8 @@ ul {
   cursor: pointer;
 }
 .tecmsg-subject,.tecmsg-grade,.tecmsg-year {
+  position: absolute;
+  z-index: 10;
   clear: both;
   width: 300px;
   border: 1px solid #CCCCCC;
@@ -4977,6 +4977,7 @@ ul {
   list-style-type: none;
   margin-left: 100px;
   display: none;
+  background-color: #FFFFFF;
 }
 .tecmsg-subject li:hover,.tecmsg-grade li:hover,.tecmsg-year li:hover {
   background-color: cornflowerblue;
@@ -4985,13 +4986,14 @@ ul {
   height: 30px;
   line-height: 30px;
   padding-left: 15px;
-  border-bottom: 1px solid #CCCCCC;
+  /*border-bottom: 1px solid #CCCCCC;*/
+  background-color: #FFFFFF
   cursor: pointer;
 }
 .tecmsg-school input {
   width: 91% !important;
 }
-.tecmsg-con select{
+.tecmsg-con .form-group select{
   width: 145px;
   height: 42px;
   color: #999;
@@ -5002,10 +5004,20 @@ ul {
   margin-right: 5px;
 }
 .tecmsg-con .form-group {
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
+  margin-bottom: 0px;
+}
+.tecmsg-con .form-group .has-error {
+  height: 20px;
 }
 .tecmsg-city {
   color: #999999;
+  position: relative;
+  top: 12px;
+}
+.tecmsg-text {
+  color: #999999;
+  margin-left: 100px;
 }
 .tecmsg-con ::-webkit-input-placeholder{
   color:#999 !important;
@@ -5221,13 +5233,17 @@ ul {
   width: 600px;
   min-height: 600px;
   float: left;
-  background: url(bg_session_new.jpg);
-  background-size: 100% 100%;
 }
-
+.login-bg img {
+  width: 100%;
+  min-height: 600px;
+}
 @media only screen and (max-width: 990px) {
   .login-content .row {
     position: relative;
+  }
+  .login-bg {
+    width: 100% !important;
   }
   .login-msg {
     position: absolute;
@@ -5466,7 +5482,8 @@ ul {
   color: #333333;
 }
 .wechat-msg .form-group,.upload-msg .form-group {
-  margin-bottom: 20px;
+  /*margin-bottom: 20px;*/
+  margin-bottom: 0px;
 }
 .wechat-msg .input-group,.upload-msg .input-group{
   width: 300px;
@@ -5477,7 +5494,7 @@ ul {
 .input-button {
   height: 42px;
   margin-left: 124px;
-  padding-top: 11px;
+  /*padding-top: 11px;*/
 }
 .input-button input,.input-button a {
   width: 144px;
@@ -5489,28 +5506,36 @@ ul {
   border-radius: 4px;
 }
 .input-button a {
+  margin-right: 12px;
   text-align: center;
   line-height: 36px;
   display: inline-block;
   height: 42px;
 }
+.input-button input:first-child {
+  color: #333;
+  background-color: #FFFFFF;
+  border: 2px solid #666666;
+  margin-right: 12px;
+}
 .input-button input {
   outline: none;
+  float: left;
   line-height: 36px;
-  margin-left: 12px;
   color: #be0b0b;
   border: 2px solid #be0b0b;
 }
 .wechat-msg #btn-obtain,.tea-register-left #btn-obtain {
   outline: none !important;
   border-radius: 0px;
-  border-color: #999999;
+  border-color: #CCCCCC;
   font-size: 14px;
   height: 42px !important;
   background-color: #eff3f5;
-  color: #000000;
+  color: #999;
 }
-.wechat-msg .has-error {
+.wechat-msg .has-error,.upload-con .has-error{
+  height: 20px;
   margin: 0px 0px 0px 125px;
 }
 .wechat-msg .auth-code {
@@ -5529,7 +5554,7 @@ ul {
     top: -30px;
     right: -28px;
   }
-  .wechat-msg .has-error {
+  .wechat-msg .has-error,.upload-con .has-error {
     margin-left: 0px;
   }
   .input-button {
@@ -5606,11 +5631,14 @@ ul {
   margin-bottom: 28px;
 }
 .tea-register-left .form-group {
-  margin-bottom: 20px;
+  margin-bottom: 0px;
   overflow: hidden;
 }
 .tea-register-left .has-error {
   margin-bottom: 0;
+  height: 20px;
+  line-height: 20px;
+  margin-top: 0px;
 }
 .tea-register-left .form-group .has-error {
   clear: both;
@@ -5634,7 +5662,7 @@ ul {
   font-weight: 100;
   color: #333333;
 }
-.tea-register-left .accept #checkbox {
+.tea-register-left .accept input {
   position: relative;
   top: 2px;
 }
@@ -5649,9 +5677,10 @@ ul {
 .tea-register-left .accept {
   margin-top: 6px;
 }
-.tea-register-left .form-receive .has-error {
+.tea-register-left .form-receive {
+  height: 30px !important;
   position: relative;
-  top: -8px;
+  top: -13px;
 }
 .tea-register-left .btn-submit {
   margin-top: 3px;
@@ -5660,8 +5689,8 @@ ul {
   border-radius: 4px;
   padding-bottom: 4px;
   font-size: 20px;
-  color: #999999;
-  border: 2px solid #999;
+  color: #AAAAAA;
+  border: 2px solid #AAAAAA;
   outline: none;
 }
 .tea-register-left .active {
@@ -5777,13 +5806,19 @@ ul {
     margin-left: 0px;
     display: none;
   }
+
   .tecmsg-con textarea {
     width: 100% !important;
   }
   .tecmsg-img {
     right: 30px;
   }
-
+  .tecmsg-text {
+    margin-left: 0px;
+  }
+  .tecmsg-con .has-error {
+    margin: 0px;
+  }
 }
 
 
@@ -5812,6 +5847,9 @@ ul {
   text-align: center;
   display: inline-block;
 }
+.upload-head .input-group .has-error {
+  margin-left: 0px;
+}
 .upload-head label {
   padding-top: 80px;
 }
@@ -5830,11 +5868,24 @@ ul {
   padding-right: 120px;
   margin: 30px auto 0px;
 }
-.upload-msg .tecmsg-subject {
-  width: 300px;
-  margin-left: 124px !important;
+.upload-msg .form-group {
+  position: relative;
 }
-@media only screen and (max-width: 700px) {
+.upload-msg .tecmsg-subject {
+  position: absolute;
+  width: 300px;
+  left: 24px;
+  z-index: 10;
+  height: 150px;
+  overflow: scroll;
+  background-color: #FFFFFF;
+}
+@media only screen and (max-width: 1000px) {
+  .upload-msg .tecmsg-subject {
+    margin-left: 100px;
+  }
+}
+@media only screen and (max-width: 800px) {
   .upload-msg {
     width: 424px;
     padding-left: 40px;
@@ -5850,23 +5901,23 @@ ul {
     top: -30px;
     left: -20px;
   }
-
+  .upload-msg .has-error {
+    margin-left: 0px;
+  }
   .upload-msg .input-button {
     margin-left: 0px !important;
   }
   .upload-msg .tecmsg-subject {
-    margin-left: 0px !important;
+    left: -100px;
   }
 }
 
 /*上传弹窗*/
 .wrap{
-  width: 404px;
-  height: 367px;
-  margin-top: 30%;
-  margin-left: 15%;
+  width: 550px;
+  height: 490px;
+  margin-top: 20%;
   background-color: #FFFFFF;
-  border: 3px solid rgb(222,222,222);
 }
 .jcrop-title {
   height: 40px;
@@ -5883,7 +5934,7 @@ ul {
 }
 .wl{
   float:left;
-  width: 240px;
+  width: 386px;
   padding-left: 20px;
   padding-top: 20px;
   padding: 20px 20px 0px 20px !important;
@@ -5891,25 +5942,26 @@ ul {
 .wr{
   float:left;
   width: 104px;
-  height: 240px;
+  height: 386px;
   background-color: rgb(242,242,242);
   margin-top: 20px;
   margin-left: 40px !important;
   display: inline;
 }
-.jy-up-ch{ position: relative; width: 240px;}
+.jy-up-ch{ position: relative; width: 386px;}
 
 .jc-demo-box{
   position: relative;
-  width: 240px;
-  height: 240px;
+  width: 386px;
+  height: 386px;
   overflow: hidden;
   border: 1px solid rgb(242,242,242);
 }
 .jcrop_w{
-  width: 240px;
-  height: 240px;
-  overflow: hidden; }
+  width: 386px;
+  height: 386px;
+  overflow: hidden;
+}
 .pre-1{
   margin-left: 6px;
   width: 90px;
@@ -5944,7 +5996,7 @@ ul {
 .input-append {
   position: absolute;
   left: 20px;
-  top: 169px;
+  top: 303px;
 }
 .input-append a {
   display: inline-block;
@@ -5964,13 +6016,13 @@ ul {
 .jy-up-ch .bch4{
   position: absolute;
   text-align: center;
-  left: 280px;
-  top: -90px;
+  left: 426px;
+  top: -105px;
 }
 .wrap .btn-up {
   position: absolute;
   right: 20px;
-  top: 200px;
+  top: 340px;
   width: 64px;
   height: 18px;
   font-size: 12px;
@@ -5998,6 +6050,11 @@ ul {
 
 
 /*辅导班流程页面*/
+#login_container iframe{
+  width: 246px;
+  height: 180px;
+}
+
 .process-list {
   padding-left: 0px;
   margin-bottom: 0px;
@@ -6009,24 +6066,283 @@ ul {
   border-bottom: 1px solid rgb(241,241,241);
   text-align: center;
 }
+.process-list li a {
+  font-size: 16px;
+  color: #666666;
+}
+.process-list li .active {
+  color: rgb(190,11,11);
+}
 .process-con {
   margin-top: 30px;
   width: 100%;
-  height: 500px;
+  padding: 20px;
+  overflow: hidden;
 }
 .process-left,.process-right {
   width: 50%;
   float: left;
 }
-.process-left {
-  height: 500px;
-  border: 1px solid gray;
-}
-.process-student {
+
+.process-student,.process-teacher {
   width: 80px;
 }
-.process-student span {
+.process-student span,.process-teacher span {
   display: inline-block;
   margin-top: 18px;
   color: #666666;
+}
+.process-left-con {
+  margin-top: 120px;
+}
+.process-left-msg {
+  min-height: 45px;
+  margin-bottom: 25px;
+  padding-right: 10px;
+  overflow: hidden;
+}
+.left-msg-num,.right-msg-num  {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  font-size: 16px;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 25px;
+  background-color: rgb(190,11,11);
+  border-radius: 50%;
+}
+.right-msg-num {
+  background-color: rgb(6,157,213);
+}
+.left-msg-title {
+  float: right;
+}
+.left-msg-title span:first-child,.right-msg-title span:last-child {
+  font-size: 16px;
+  color: #000000;
+  margin-right: 10px;
+}
+.right-msg-title span:last-child  {
+  margin-left: 10px;
+}
+.left-msg-con {
+  clear: both;
+  float: right;
+  margin-right: 30px;
+  padding-left: 20px;
+}
+.left-msg-con,.right-msg-con {
+  font-size: 14px;
+  color: #666666;
+}
+.right-msg-con {
+  margin-left: 39px;
+}
+.process-right-msg {
+  min-height: 65px;
+  padding: 0px 20px 0 10px;
+  margin-bottom: 30px;
+}
+.process-left-msg:first-child {
+  margin-bottom: 55px;
+}
+.process-left-msg:last-child {
+  margin-top: 45px;
+}
+.process-right-con {
+  padding-top: 25px;
+  border-left: 1px dashed #666666;
+}
+.process-right-msg:nth-child(2) {
+  margin-bottom: 105px;
+}
+.process-right-msg:nth-child(3),.process-right-msg:nth-child(4) {
+  margin-bottom: 25px;
+}
+
+.process-right-msg:last-child {
+  padding-bottom: 90px;
+}
+.process-right {
+  position: relative;
+}
+.process-start,.process-end {
+  position: absolute;
+  color: #666666;
+  left: -16px;
+  top: 100px;
+}
+.process-end {
+  left: -12px;
+  top: 765px;
+}
+
+
+
+
+/*常见问题*/
+.process-ask {
+  width: 100%;
+  min-height: 800px;
+}
+.ask-title,.study-title {
+  margin: 0 10px;
+  height: 40px;
+  color: #000000;
+  border-bottom: 1px solid rgb(241,241,241);
+}
+.ask-title {
+  line-height: 40px;
+}
+.process-content {
+  padding: 0 34px;
+  margin-top: 20px;
+  color: #666666;
+}
+
+.process-ask ul {
+  padding-left: 34px;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+.process-ask ul li {
+  height: 20px;
+  margin-bottom: 20px;
+}
+.process-ask ul li span {
+  color: #666666;
+  margin-right: 20px;
+}
+.process-ask ul li a {
+  color: #58cff9;
+}
+.ask-title a {
+  color: #666666;
+}
+.ask-question {
+  color: #666666;
+}
+.ask-question span:first-child {
+  color: #be0b0b;
+}
+.ask-response {
+  color: #999999;
+}
+.ask-response span:first-child {
+  color: #069dd5;
+}
+
+
+
+/*帮助学生*/
+.student-study {
+  width: 100%;
+  padding-bottom: 20px;
+}
+.study-nav {
+  padding-top: 10px;
+}
+.study-nav span {
+  margin-right: -10px;
+}
+.study-nav a {
+  display: inline-block;
+  width: 100px;
+  height: 14px;
+  color: #00a2ee;
+  line-height: 14px;
+  border-right: 1px solid rgb(73,73,73);
+}
+.study-nav a:last-child {
+  border-right: 0px;
+}
+.study-search {
+  padding-left: 10px;
+}
+.study-search-title {
+  margin: 15px 0px;
+  font-size: 16px;
+  color: #000000;
+}
+.study-search-msg {
+  padding: 0 15px 0 5px;
+  color: #666666;
+}
+.study-search-msg p {
+  padding-bottom: 10px;
+  margin-bottom: 0px;
+}
+.study-search-list p {
+  padding-bottom: 5px;
+}
+.study-search-msg img {
+  width: 100%;
+}
+.study-search-img {
+  padding-top: 25px;
+}
+.study-search-btn img {
+  width: 89px;
+  height: 29px;
+}
+
+.study-search-new img {
+  width: 440px;
+  height: 458px;
+}
+.search-new-msg {
+  overflow: hidden;
+}
+.search-nolive {
+  width: 336px;
+  float: left;
+  margin-left: 47px;
+}
+.search-nolive img {
+  width: 336px;
+  height: 249px;
+}
+.search-nocaream {
+  width: 360px;
+  float: left;
+  margin-top: 51px;
+  margin-left: 82px;
+}
+.search-nocaream img {
+  width: 360px;
+  height: 197px;
+}
+.search-new-msg span {
+  display: inline-block;
+  margin-top: 20px;
+  color: #666666;
+}
+.student-help {
+  position: fixed;
+  width: 280px;
+  background-color: #FFFFFF
+}
+@media only screen and (max-width: 1000px) {
+  .col-study {
+    padding-right: 0px !important;
+  }
+  .student-help {
+    width: 100%;
+    position: static !important;
+  }
+  .search-nocaream {
+    margin-left: 47px;
+  }
+}
+.teacher-study-msg {
+  color: #999999;
+  display: inline-block;
+  margin: 20px 0;
+}
+.teacher-study-msg.active {
+  margin-top: 0px;
+}
+.teacher-study-img {
+  margin-bottom: 20px;
 }

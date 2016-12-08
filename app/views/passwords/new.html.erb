@@ -11,9 +11,10 @@
               <%= simple_form_for(@user, as: :user, url: passwords_path, html: { method: :post }) do |f| %>
                 <div class="form-group">
                   <div class="input-group">
-                    <%= f.text_field :login_account,class: 'form-control', placeholder: '请输入登录的手机号或邮箱'%>
+                    <%= f.text_field :login_account,class: 'form-control phone-num', placeholder: '请输入登录的手机号或邮箱'%>
                   </div>
                   <%= f.error :login_account %>
+                  <%= content_tag :span, '', class: 'help-block has-error' if @user.errors[:login_account].blank? %>
                 </div>
                 <div class="form-group">
                   <div class="input-group">
@@ -24,25 +25,28 @@
                     </span>
                   </div>
                   <%= f.error :captcha_confirmation %>
+                  <%= content_tag :span, '', class: 'help-block has-error' if @user.errors[:captcha_confirmation].blank? %>
                 </div>
 
                 <div class="form-group">
                   <div class="input-group">
-                    <%= f.password_field :password, class: 'form-control', :autocomplete => "off", placeholder: '请输入新密码（最少6位）' %>
+                    <%= f.password_field :password, class: 'form-control pwd-1', :autocomplete => "off", placeholder: '请输入新密码（最少6位）' %>
                   </div>
                   <%= f.error :password %>
+                  <%= content_tag :span, '', class: 'help-block has-error' if @user.errors[:password].blank? %>
                 </div>
 
                 <div class="form-group">
                   <div class="input-group">
-                    <%= f.password_field :password_confirmation,class: 'form-control', placeholder: t('.passwd_confirm_hd') %>
+                    <%= f.password_field :password_confirmation,class: 'form-control pwd-2', placeholder: t('.passwd_confirm_hd') %>
                   </div>
                   <%= f.error :password_confirmation %>
+                  <%= content_tag :span, '', class: 'help-block has-error' if @user.errors[:password_confirmation].blank? %>
                 </div>
 
                 <div class="form-group">
                   <div class="input-group">
-                    <%= f.submit t('.submit'), class: "btn btn-submit" %>
+                    <input type="button" class="btn-submit active" name="" id="" value="提交">
                   </div>
                 </div>
               <% end %>
@@ -103,44 +107,58 @@
   </div>
 <% end %>
 <script type="text/javascript">
-  $(function  () {
-//    $("#btn-obtain").click(function  () {
-//      $(this).css({
-//        backgroundColor: "#f7f7f7",
-//        color: "#ccc"
-//      });
-//      settime(this);
-//    })
-//    var countdown=60;
-//    function settime(obj) {
-//      if (countdown == 0) {
-//        obj.removeAttribute("disabled");
-//        obj.value="获取校验码";
-//        obj.style.color = "#000";
-//        obj.style.backgroundColor = "#eff3f5";
-//        obj.style.border = "1px solid #999"
-//        countdown = 60;
-//        return;
-//      } else {
-//        obj.setAttribute("disabled", true);
-//        obj.value="重新获取(" + countdown + ")";
-//        countdown--;
-//      }
-//      setTimeout(function() {
-//          settime(obj)}
-//        ,1000)
-//    }
 
-    $(".auth-code").focus(function  () {
-      console.log('adfasd');
-      $("#btn-obtain").css({
-        borderLeft: "1px solid rgba(0,162,238,0.6)"
-      })
-    })
-    $(".auth-code").blur(function  () {
-      $("#btn-obtain").css({
-        borderLeft: "1px solid #ccc"
-      })
-    })
+  var flag = true;
+  $(".phone-num").blur(function  () {
+    var phone = $(".phone-num").val();
+    var reg = /^1[3|4|5|7|8]\d{9}$/;
+    var reg1 = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+    if (phone.length <= 0) {
+      $(".has-error").eq(0).html("请输入手机号");
+      flag=false;
+    }else if (!reg.test(phone)) {
+      $(".has-error").eq(0).html("请输入手机号");
+      flag=false;
+    }else{
+      $(".has-error").eq(0).html("");
+      $(".btn-code").removeAttr("disabled");
+    }
+  })
+
+  $(".btn-submit").click(function  () {
+    var authcode = $(".auth-code").val();
+    var pwd1 = $(".pwd-1").val();
+    var pwd2 = $(".pwd-2").val();
+    var reg1 = /((?=[\x21-\x7e]+)[^A-Za-z0-9])/;
+    if (authcode.length <= 0) {
+      $(".has-error").eq(1).html("请输入校验码");
+      flag=false;
+    }else if (authcode.length < 4) {
+      $(".has-error").eq(1).html("校验码不正确");
+      flag=false;
+    }else{
+      $(".has-error").eq(1).html("");
+    }
+
+    if (pwd1.length <= 0) {
+      $(".has-error").eq(2).html("请输入密码");
+      flag=false;
+    } else if (pwd1.length < 6||reg1.test(pwd1)) {
+      $(".has-error").eq(2).html("最少输入6位（不支持特殊字符）");
+      flag=false;
+    }else{
+      $(".has-error").eq(2).html("");
+    }
+
+    if (pwd2.length <= 0) {
+      $(".has-error").eq(3).html("请输入确认密码");
+      flag=false;
+    }else if (pwd1 != pwd2) {
+      $(".has-error").eq(3).html("两次密码不一致");
+      flag=false;
+    }else{
+      $(".has-error").eq(3).html("");
+    }
+
   })
 </script>

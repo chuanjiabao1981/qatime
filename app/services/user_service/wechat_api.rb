@@ -30,6 +30,7 @@ module UserService
       # 根据openid 绑定用户
       def binding_user(openid, user, info_update = false)
         wechat_user = ::Qawechat::WechatUser.find_by(openid: openid)
+        return if wechat_user.blank?
         wechat_user.update(user_id: user.id)
         # 使用微信用户资料更新用户信息
         if info_update && wechat_user.userinfo['info'].present?

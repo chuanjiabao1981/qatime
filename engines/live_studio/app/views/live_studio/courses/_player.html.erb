@@ -81,6 +81,9 @@
     boardPlayer.onError(function(err){
       console.log(err.errCode);
       console.log(err.errMsg);
+      boardPlayer.reset();
+      state = 'init';
+      set_timer();
     });
 
     boardPlayer.onPlayState(1,function(){
@@ -106,6 +109,9 @@
     cameraPlayer.onError(function(err){
       console.log(err.errCode);
       console.log(err.errMsg);
+      cameraPlayer.reset();
+      state = 'init';
+      set_timer();
     });
 
     cameraPlayer.onPlayState(1,function(){

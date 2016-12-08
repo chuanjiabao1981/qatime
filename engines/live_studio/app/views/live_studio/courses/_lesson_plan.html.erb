@@ -17,7 +17,7 @@
             <td>
               <span>
                 <%= lesson.class_date %>
-                <%= lesson.live_start_at.try(:strftime, '%H:%M') || lesson.start_time %>-<%= lesson.live_end_at.try(:strftime, '%H:%M') || lesson.end_time %>
+                <%= lesson.start_time %>-<%= lesson.end_time %>
               </span>
             </td>
             <td>

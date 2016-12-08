@@ -9,6 +9,13 @@
               <%= link_to(image_tag(banner.logo_url(:home), alt: 'banner'), banner.link) %>
             </li>
           <% end %>
+
+
+          <% if @recommend_banners.blank? %>
+            <li>
+              <%= link_to(image_tag("banner-nocon.png", alt: 'banner'), "javascript: vodi(0);") %>
+            </li>
+          <% end %>
         </ul>
       </div>
     </div>
@@ -47,6 +54,26 @@
                   <%= content_tag :span, item.reason_text, class: item.reason if item.reason.present?%>
                 </li>
               <% end %>
+
+              <% 6.times do %>
+                <li class="li-new">
+                  <%= link_to "javascript:void(0);" do %>
+                    <%= image_tag "web-nocon-1.png" %>
+                  <% end %>
+                  <dl class="dl-list">
+                    <dd><%= link_to "此标题内容仅供演示", "javascript:void(0);" %></dd>
+                    <dd>
+                      <span class="dd-left">
+                      年级科目/共X课
+                      </span>
+                      <span class="dd-right">
+                        报名人数XXX
+                      </span>
+                    </dd>
+                  </dl>
+                  
+                </li>
+              <% end if @recommend_courses.blank? %>
             </ul>
           </div>
         </div>
@@ -162,6 +189,28 @@
                   </div>
                 </li>
               <% end %>
+
+              <% 5.times do %>
+                <li class="tec-li">
+                  <div class="li-introduce">
+                    <div class="introduce-img">
+                      <%= link_to "javascript:void(0);" do -%>
+                        <%= image_tag("webright-nocon-1.png") -%>
+                      <% end -%>
+                      <center><span>年级科目</span></center>
+                    </div>
+                    <div class="introduce-msg">
+                    <div class="msg-name">
+                      <%= link_to "javascript:void(0);" do -%>
+                        <span>教师名</span><%= image_tag("girl.png") -%>
+                      <% end -%>
+                    </div>
+                    <div class="msg-tecyear">XXX年教龄</div>
+                    <div class="msg-address">XX省XX市</div>
+                    </div>
+                  </div>
+                </li>
+              <% end if @recommend_teachers.blank? %>
             </ul>
           </div>
         </div>

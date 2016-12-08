@@ -40,6 +40,7 @@ $(document).ready(function(){
     var send_url = $node.data('send-url')
     var key = $node.data('key')
     var input_value = send_to_input.value.trim()
+
     if(input_value == ''){
       alert('请填写账号');
       return
@@ -48,6 +49,10 @@ $(document).ready(function(){
     var isEmail = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test(input_value);
     if(!isMobile && !isEmail){
       alert('账号输入不正确');
+      return
+    }
+    if(!isMobile && send_to_input.id.indexOf('mobile') > 0){
+      alert('请输入正确的手机号');
       return
     }
     if(send_to_input){

@@ -42,7 +42,7 @@
                 <%= f.input :type,as: :hidden %>
                 <%= hidden_field_tag :openid, params[:openid] || @openid %>
                 <%= link_to '放弃', main_app.new_session_path %>
-                <input data-toggle="modal" data-target="#acceptModal" type="submit" name="" id="" value="确认绑定">
+                <input type="button" class="confirm-binding" value="确认绑定">
               </div>
             </div>
 
@@ -73,6 +73,14 @@
 </div>
 <script type="text/javascript" charset="utf-8">
   $(function(){
+    $('.confirm-binding').click(function(){
+      if($('#<%= user_type %>_type').val().trim() == ''){
+        $('#acceptModal').modal();
+        return;
+      }
+      document.forms[0].submit();
+    });
+
     $('.submit-img').click(function(){
       $('#<%= user_type %>_type').val($(this).attr('alt'));
       document.forms[0].submit();

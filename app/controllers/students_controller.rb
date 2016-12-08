@@ -114,17 +114,17 @@ class StudentsController < ApplicationController
   def update
     if excute_update(update_by)
       if params[:cate] == "edit_profile"
-        redirect_to info_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
+        redirect_to info_student_path(@student, cate: params[:cate]), notice: t("flash.notice.update_success")
       elsif params[:cate] == "register"
         SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @student.id)
         redirect_to user_home_path, notice: t("flash.notice.register_success")
       else
         session.delete("change-#{update_by}-#{send_to}")
-        redirect_to edit_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
+        redirect_to edit_student_path(@student, cate: params[:cate]), notice: t("flash.notice.update_success")
       end
     else
       if params[:cate] == "register"
-        render :edit, layout: 'application'
+        render :edit, layout: 'application_login'
       else
         render :edit, layout: 'student_home_new'
       end

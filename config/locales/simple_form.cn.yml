@@ -1,4 +1,4 @@
-en:
+cn:
   simple_form:
     "yes": 'Yes'
     "no": 'No'
@@ -27,6 +27,12 @@ en:
         user_mobile: 填写被邀请人
         teacher_percent: 设置老师分成
         expited_day: 设置有效期限
+      student:
+        name: 设置姓名：
+        grade: 选择年级：
+      user:
+        name: 设置姓名：
+        grade: 选择年级：
     placeholders:
       live_studio/course_invitation:
         user_mobile: 填写被邀请人
@@ -36,6 +42,13 @@ en:
         user_mobile: 填写被邀请人
         teacher_percent: 设置老师分成
         expited_day: 设置有效期限
+      student:
+        name: 请输入真实姓名（必填）
+        grade: 请选择所在年级（必填）
+      user:
+        name: 请输入真实姓名（必填）
+        grade: 请选择所在年级（必填）
+
     # Labels and hints examples
     # labels:
     #   defaults:

@@ -6286,3 +6286,14 @@ ul {
     margin-left: 47px;
   }
 }
+.teacher-study-msg {
+  color: #999999;
+  display: inline-block;
+  margin: 20px 0;
+}
+.teacher-study-msg.active {
+  margin-top: 0px;
+}
+.teacher-study-img {
+  margin-bottom: 20px;
+}

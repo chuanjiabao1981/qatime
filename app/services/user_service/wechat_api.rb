@@ -35,7 +35,7 @@ module UserService
         if info_update && wechat_user.userinfo['info'].present?
           wechat_info = wechat_user.userinfo['info']
           user.name = wechat_info['nickname']
-          user.sex = wechat_info['sex']
+          user.gender = wechat_info['sex']
           relative_path = Util.img_url_save_to_tmp(wechat_info['headimgurl'])
           tmp_path = Rails.root.join(relative_path)
           File.open(tmp_path) do |file|

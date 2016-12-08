@@ -21,4 +21,16 @@ class Util
     end
     result
   end
+
+  def self.img_url_save_to_tmp(img_url)
+    req = Typhoeus::Request.new(
+      img_url,
+      method: :get,
+    )
+    img_stream = req.run.body
+    path = "tmp/#{rand(10000)}_#{Time.now.to_i}.png"
+    IO.write("#{path}", img_stream.to_s.force_encoding('UTF-8'))
+    path
+  end
+
 end

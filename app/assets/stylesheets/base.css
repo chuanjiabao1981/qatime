@@ -5220,13 +5220,14 @@ ul {
 }
 
 .login-bg {
-  width: 600px;
+ width: 600px;
   min-height: 600px;
   float: left;
-  background: url(bg_session_new.jpg);
-  background-size: 100% 100%;
 }
-
+.login-bg img {
+  width: 100%;
+  min-height: 600px;
+}
 @media only screen and (max-width: 990px) {
 .login-content .row {
     position: relative;
@@ -6193,6 +6194,7 @@ ul {
 /*帮助学生*/
 .student-study {
   width: 100%;
+  padding-bottom: 20px;
 }
 .study-nav {
   padding-top: 10px;
@@ -6228,7 +6230,7 @@ ul {
   margin-bottom: 0px;
 }
 .study-search-msg img {
-  width: 860px;
+  width: 100%;
 }
 .study-search-img {
   padding-top: 25px;
@@ -6237,7 +6239,50 @@ ul {
   width: 89px;
   height: 29px;
 }
+
 .study-search-new img {
   width: 440px;
   height: 458px;
+}
+.search-new-msg {
+  overflow: hidden;
+}
+.search-nolive {
+  width: 336px;
+  float: left;
+  margin-left: 47px;
+}
+.search-nolive img {
+  width: 336px;
+  height: 249px;
+}
+.search-nocaream {
+  width: 360px;
+  float: left;
+  margin-top: 51px;
+  margin-left: 82px;
+}
+.search-nocaream img {
+  width: 360px;
+  height: 197px;
+}
+.search-new-msg span {
+  display: inline-block;
+  margin-top: 20px;
+  color: #666666;
+}
+.student-help {
+  position: fixed;
+  width: 280px;
+  height: 252px;
+  background-color: #FFFFFF
+}
+@media only screen and (max-width: 1000px) {
+.student-help {
+  width: 100%;
+  position: static !important;
+}
+.search-nocaream {
+  margin-left: 47px;
+}
 }

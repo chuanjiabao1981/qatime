@@ -6005,6 +6005,11 @@ ul {
 
 
 /*辅导班流程页面*/
+#login_container iframe{
+  width: 246px;
+  height: 180px;
+}
+
 .process-list {
   padding-left: 0px;
   margin-bottom: 0px;
@@ -6145,6 +6150,12 @@ ul {
 .ask-title {
   line-height: 40px;
 }
+.process-content {
+  padding: 0 34px;
+  margin-top: 20px;
+  color: #666666;
+}
+
 .process-ask ul {
   padding-left: 34px;
   margin-top: 20px;
@@ -6182,7 +6193,6 @@ ul {
 /*帮助学生*/
 .student-study {
   width: 100%;
-  height: 500px;
 }
 .study-nav {
   padding-top: 10px;
@@ -6205,7 +6215,29 @@ ul {
   padding-left: 10px;
 }
 .study-search-title {
-  margin-top: 20px;
+  margin: 15px 0px;
   font-size: 16px;
   color: #000000;
+}
+.study-search-msg {
+  padding: 0 15px 0 5px;
+  color: #666666;
+}
+.study-search-msg p {
+  padding-bottom: 5px;
+  margin-bottom: 0px;
+}
+.study-search-msg img {
+  width: 860px;
+}
+.study-search-img {
+  padding-top: 25px;
+}
+.study-search-btn img {
+  width: 89px;
+  height: 29px;
+}
+.study-search-new img {
+  width: 440px;
+  height: 458px;
 }

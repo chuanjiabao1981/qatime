@@ -9,17 +9,18 @@
             <span>&gt;</span>
             <span><%= "【#{t("activerecord.attributes.qa_faq.qa_faq_type_enum.#{@qa_faq.qa_faq_type}")}】#{@qa_faq.title}" %></span>
           </div>
-          <div class="content">
 
-            <%= raw @qa_faq.content %>
-            <%= render partial: 'pictures/gallery',locals:{pictures: @qa_faq.pictures,show_operation: false,gallery_id: @qa_faq.token} %>
-
-          </div>
-          <div class="op">
+          <div class="process-content">
+            <div class="process-news">
+              <%= raw @qa_faq.content %>
+              <%= render partial: 'pictures/gallery',locals:{pictures: @qa_faq.pictures,show_operation: false,gallery_id: @qa_faq.token} %>
+            </div>
+            <hr />
             <% if allow? 'qa_faq','edit' %>
               <%= link_to '编辑' , edit_qa_faq_path(@qa_faq) %>
             <% end %>
           </div>
+
         </div>
       </div>
     </div>

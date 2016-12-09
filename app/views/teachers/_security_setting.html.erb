@@ -87,3 +87,34 @@
   </div>
   <%= render "edit_email" %>
 </div>
+
+
+<!-- 绑定微信 -->
+<div class="qa_cell">
+  <div class="row">
+    <div class="col-md-3" style="padding-left:40px"><%= t(".wechat_bind") %>
+      <div style="padding-left:20px">
+        <% if @teacher.wechat_users.blank? %>
+          <span class="alert_red_span"><%= t("view.common.no_bound_wechat") %></span>
+        <% else %>
+          <%= @teacher.wechat_users.last.try(:userinfo)['info']['nickname'] %>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-md-6" style="padding-left:40px">
+      <%= t(".required_wechat") %>
+    </div>
+    <div class="col-md-2 col-md-offset-1 pull-right">
+      <br/>
+      <% if @teacher.wechat_users.blank? %>
+        <%= link_to wechat_login_href do %>
+          <button type="button" class="btn btn-default" ><%= t(".wechat_bind_click") %></button>
+        <% end %>
+      <% else %>
+        <%= link_to remove_wechat_user(@teacher), method: :put, data: {confirm: '解除绑定微信将不能使用部分功能,是否解除?'} do %>
+          <button type="button" class="btn btn-default" ><%= t(".wechat_unbind") %></button>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

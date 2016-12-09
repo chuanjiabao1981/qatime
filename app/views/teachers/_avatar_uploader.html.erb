@@ -104,10 +104,6 @@
       $('#<%= user_type %>_crop_h').val(parseInt(coords.h * 240.0 / 386));
     }
 
-    $("#<%= user_type %>_avatar_preview2").click(function() {
-      $("#<%= user_type %>_avatar").click();
-    });
-
     $("#<%= user_type %>_avatar").change(function() {
       var input = this;
       if (input.files && input.files[0]) {

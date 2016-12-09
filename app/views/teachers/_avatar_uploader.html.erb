@@ -12,9 +12,9 @@
             <img class="big-img" src="<%= asset_path('up-img1.png') %>" width="386" height="386" />
           </div>
         </div>
-        <div class="jy-up-ch">
-          <a id="idRight" href="" class="bch bch4"> 90°旋转</a>
-        </div>
+        <!--<div class="jy-up-ch">-->
+          <!--<a id="idRight" href="javascript:void(0);" class="bch bch4"> 90°旋转</a>-->
+        <!--</div>-->
       </div>
       <div class="wr" id="preview-pane">
         <div class="preview-container">
@@ -31,7 +31,7 @@
           <div class="input-append">
             <a class="btn" onclick="$('input[id=<%= user_type %>_avatar]').click();">选择图片</a>
           </div>
-          <input type="submit" value="保存使用" class="btn-up">
+          <input type="button" class="btn-up" data-dismiss="modal" value="保存使用">
         </div>
       </div>
       <p>
@@ -139,8 +139,8 @@
       oh = Math.floor((386 - fih) / 2),
       cx = $("#small").position().left,
       cy = $("#small").position().top,
-      rx = 110 / $("#small").width(),
-      ry = 110 / $("#small").height(),
+      rx = 90 / $("#small").width(),
+      ry = 90 / $("#small").height(),
       rx1 = 110 / $("#small").width(),
       ry1 = 110 / $("#small").height(),
       rx2 = 300 / $("#small").width(),
@@ -199,8 +199,8 @@
       oh = (386 - fih) / 2,
       cx = $("#small").position().left,
       cy = $("#small").position().top,
-      rx = 110 / $("#small").width(),
-      ry = 110 / $("#small").height(),
+      rx = 90 / $("#small").width(),
+      ry = 90 / $("#small").height(),
       rx1 = 73 / $("#small").width(),
       ry1 = 90 / $("#small").height(),
       rx2 = 300 / $("#small").width(),
@@ -281,17 +281,23 @@
     }
   }
   function showPreview(c){
+    var flag = '#<%= user_type %>_crop';
+    $(flag+'_x').val(c.x);
+    $(flag+'_y').val(c.y);
+    $(flag+'_w').val(c.w);
+    $(flag+'_h').val(c.h);
     var iw = $('.jcrop_w>img').width(),
       ih = $('.jcrop_w>img').height(),
       ow = (386 - iw) / 2,
       oh = (386 - ih) / 2,
-      rx = 99 / c.w,
-      ry = 99 / c.h,
-      rx1 = 73 / c.w,
-      ry1 = 90 / c.h,
-      rx2 = 330 / c.w,
-      ry2 = 330 / c.h,
+      rx = 90 / c.w,
+      ry = 90 / c.h,
+      rx1 = 240 / c.w,
+      ry1 = 240 / c.h,
+      rx2 = 300 / c.w,
+      ry2 = 300 / c.h,
       _data = $(".jc-demo-box").attr("data");
+    console.log(rx);
     if((!$.support.leadingWhitespace) && (_data == 90 || _data == 270)){
       pre_img2($('.pre-1 img'), rx, ih, ry, iw, c.x, c.y, ow, oh);
       pre_img2($('.pre-2 img'), rx1, ih, ry1, iw, c.x, c.y, ow, oh);
@@ -301,10 +307,5 @@
       pre_img2($('.pre-2 img'), rx1, iw, ry1, ih, c.x, c.y, ow, oh);
       pre_img2($('.pre-3 img'), rx2, iw, ry2, ih, c.x, c.y, ow, oh);
     }
-    var flag = '#<%= user_type %>_crop';
-    $(flag+'_x').val(c.x);
-    $(flag+'_y').val(c.y);
-    $(flag+'_w').val(c.w);
-    $(flag+'_h').val(c.h);
   }
 </script>

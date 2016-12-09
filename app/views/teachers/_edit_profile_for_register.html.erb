@@ -93,13 +93,12 @@
               </div>
               <div class="tecmsg-img">
                 <div class="pre-3">
-                  <%= image_tag('head-title.png',id: 'teacher_avatar_preview3', data: {toggle: 'modal', target: '#edit_avatar'}) %>
+                  <%= image_tag('', data: {toggle: 'modal', target: '#edit_avatar'}) %>
                 </div>
                 <br>
                 <span class="up-img"><a href="javascript:void(0);">点击头像上传(必填)</a></span>
                 <span class="help-block has-error"></span>
                 <%= f.error :avatar %>
-                <%= render partial: 'avatar_uploader', locals: {f: f} %>
               </div>
             </div>
             <div class="tecmsg-send">
@@ -110,7 +109,8 @@
               </center>
             </div>
           </div>
-        <% end %>
+          <%= render partial: 'avatar_uploader', locals: {f: f} %>
+      <% end %>
       </div>
     </div>
   </div>

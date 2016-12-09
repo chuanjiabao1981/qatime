@@ -5958,19 +5958,26 @@ ul {
   height: 90px;
   border-radius: 50%;
   border: 1px solid #FFFFFF !important;
+  background-size: 100% 100%;
   overflow:hidden;
 }
 .pre-2 {
   width: 240px;
   height: 240px;
+  background-size: 100% 100%;
   overflow:hidden;
-
 }
-.pre-2 img {
-  width: 100% !important;
-  height: 100% !important;
-  margin: 0px !important;
+.pre-3{
+  width: 300px;
+  height: 300px;
+  background-size: 100% 100%;
+  overflow:hidden;
 }
+/*.pre-2 img {
+	width: 100% !important;
+	height: 100% !important;
+	margin: 0px !important;
+}*/
 .upload-preview {
   color: #666666;
   font-size: 12px;

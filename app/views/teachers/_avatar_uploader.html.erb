@@ -9,7 +9,7 @@
       <div class="wl">
         <div class="jc-demo-box" data="0">
           <div id="target" class="jcrop_w">
-            <img id="<%= user_type %>_avatar_preview" class="big-img" src="<%= asset_path('up-img1.png') %>" style="width: 100%;" />
+            <img id="<%= user_type %>_avatar_preview" class="big-img" src="<%= asset_path('up-img1.png') %>" style="max-width: 386px; max-height: 386px;" />
           </div>
         </div>
         <!--<div class="jy-up-ch">-->
@@ -29,7 +29,7 @@
           </center>
           <input id="lefile" type="file" style="display:none">
           <div class="input-append">
-            <a class="btn" onclick="$('input[id=<%= user_type %>_avatar]').click();">选择图片</a>
+            <%= link_to "选择图片", "javascript: void(0);", class: "btn", id: "select_image" -%>
           </div>
           <input type="button" class="btn-up" data-dismiss="modal" value="保存使用">
         </div>
@@ -104,6 +104,10 @@
       $('#<%= user_type %>_crop_h').val(parseInt(coords.h * 240.0 / 386));
     }
 
+    $("#select_image").click(function() {
+      $("#<%= user_type %>_avatar").click();
+    });
+
     $("#<%= user_type %>_avatar").change(function() {
       var input = this;
       if (input.files && input.files[0]) {
@@ -111,6 +115,17 @@
         var min;
 
         filerdr.onload = function(e) {
+          $('#<%= user_type %>_avatar_preview').parent().css({
+            paddingLeft: "0px",
+            paddingTop: "0px"
+          });
+
+          $('#<%= user_type %>_avatar_preview').css({
+            width: '',
+            height: ''
+          });
+
+
           $('#<%= user_type %>_avatar_preview').attr('src', e.target.result);
           $("#<%= user_type %>_avatar_preview2").attr('src', e.target.result);
           $("#<%= user_type %>_avatar_preview3").attr('src', e.target.result);

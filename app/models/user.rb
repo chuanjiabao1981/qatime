@@ -28,7 +28,7 @@ class User < ActiveRecord::Base
 
   validates :login_mobile, uniqueness: true, allow_blank: true
   # 验证码验证
-  validates :captcha, confirmation: { case_sensitive: false }, if: :captcha_required?
+  validates :captcha, confirmation: { case_sensitive: false , message: '校验码不正确'}, if: :captcha_required?
   # 支付密码
   with_options if: :payment_captcha_required do
     validates :payment_captcha, confirmation: { case_sensitive: false }
@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   end
 
   # 个人安全信息修改
-  validates :password, length: { minimum: 6 }, if: :password_required?, on: :update
+  validates :password, length: { minimum: 6, message: '最少输入6位（不支持特殊字符）' }, if: :password_required?, on: :update
   validates :email, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, if: :email_changed?, on: :update
 
   validates_presence_of :avatar, :name, if: :teacher_or_student_columns_required?, on: :update

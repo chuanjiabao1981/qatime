@@ -1,4 +1,5 @@
 class Ajax::CaptchasController < ApplicationController
+  skip_before_action :authorize
   # 生成验证码，并发送邮件或者短信
   def create
     # Util.random_code

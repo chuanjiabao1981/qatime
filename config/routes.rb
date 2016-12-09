@@ -339,6 +339,7 @@ Qatime::Application.routes.draw do
 
   mount Qawechat::Engine, at: '/qawechat'
   get 'auth/wechat/callback' => 'qawechat/omniauth_callbacks#wechat'
+  get 'wechat/login_callback' => 'qawechat/omniauth_callbacks#login_callback'
 
   # 直播
   mount LiveStudio::Engine, at: '/live_studio'

@@ -43,5 +43,5 @@ config/newrelic.yml
 # 忽略支付宝公钥证书文件
 /config/alipay_rsa_public_key.pem
 
-# 备份文件
+# 忽略备份文件
 *_bk

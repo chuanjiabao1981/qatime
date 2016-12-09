@@ -38,11 +38,13 @@ module Permissions
 
       # sessions
       api_allow :POST, "/api/v1/sessions"
+      api_allow :POST, "/api/v1/sessions/wechat"
 
       api_allow :PUT, "/api/v1/password"
 
       api_allow :GET, "/api/v1/user/register_code_valid"
       api_allow :POST, "/api/v1/user/register"
+      api_allow :POST, "/api/v1/user/wechat_regsiter"
 
       # captcha
       api_allow :POST, "/api/v1/captcha"

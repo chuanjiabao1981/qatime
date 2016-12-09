@@ -1,3 +1,4 @@
-<div class="item">
-    <%=link_to "#{qa_faq_counter+1}. 【#{t("activerecord.attributes.qa_faq.qa_faq_type_enum.#{qa_faq.qa_faq_type}")}】#{qa_faq.title}" ,  qa_faq_path(qa_faq)%>
-</div>
+<li>
+  <span><%= t("menu.question") %><%= format("%02d", qa_faq_counter+1) %></span>
+  <%= link_to "【#{t("activerecord.attributes.qa_faq.qa_faq_type_enum.#{qa_faq.qa_faq_type}")}】#{qa_faq.title}", qa_faq_path(qa_faq) %>
+</li>

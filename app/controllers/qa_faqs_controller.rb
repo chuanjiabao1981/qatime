@@ -3,7 +3,7 @@ class QaFaqsController < ApplicationController
 
   def index
     @qa_faqs = QaFaq.all.order(:created_at)
-    render layout: "faqs"
+    render layout: "application_front"
   end
 
   def new
@@ -18,7 +18,7 @@ class QaFaqsController < ApplicationController
   end
 
   def show
-    render layout: "faqs"
+    render layout: "application_front"
   end
 
   def edit
@@ -32,22 +32,20 @@ class QaFaqsController < ApplicationController
   end
 
   def courses
-    render layout: "faqs"
+    render layout: "application_front"
   end
 
   def teacher
-    render layout: "faqs"
+    render layout: "application_front"
   end
 
   def student
-    render layout: "faqs"
+    render layout: "application_front"
   end
 
-
   private
+
   def current_resource
-    if params[:id]
-      @qa_faq = QaFaq.find(params[:id])
-    end
+    @qa_faq = QaFaq.find(params[:id]) if params[:id]
   end
 end

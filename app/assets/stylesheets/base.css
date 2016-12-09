@@ -4986,7 +4986,6 @@ ul {
   height: 30px;
   line-height: 30px;
   padding-left: 15px;
-  /*border-bottom: 1px solid #CCCCCC;*/
   background-color: #FFFFFF;
   cursor: pointer;
 }
@@ -5004,7 +5003,6 @@ ul {
   margin-right: 5px;
 }
 .tecmsg-con .form-group {
-  /*margin-bottom: 20px;*/
   margin-bottom: 0px;
   height: 62px;
 }
@@ -5102,6 +5100,9 @@ ul {
 
 
 /*下载*/
+.download-page {
+  min-height: 610px;
+}
 .down-load {
   padding: 30px 20px;
   color: #666;
@@ -5250,22 +5251,7 @@ ul {
     position: absolute;
     right: 0;
   }
-  .login-content {
-    height: 750px;
-  }
-
 }
-
-
-
-
-
-
-
-
-
-
-
 
 .login-content .row .panel {
   width: 350px;
@@ -5941,8 +5927,6 @@ ul {
 .wl{
   float:left;
   width: 386px;
-  padding-left: 20px;
-  padding-top: 20px;
   padding: 20px 20px 0px 20px !important;
 }
 .wr{
@@ -5964,8 +5948,8 @@ ul {
   border: 1px solid rgb(242,242,242);
 }
 .jcrop_w{
-  width: 386px;
-  height: 386px;
+  width: 386px !important;
+  height: 386px !important;
   overflow: hidden;
 }
 .pre-1{
@@ -5980,12 +5964,7 @@ ul {
   width: 240px;
   height: 240px;
   overflow:hidden;
-}
-.pre-3{
-  width:300px;
-  height: 300px;
-  overflow: hidden;
-  float:left;
+
 }
 .pre-2 img {
   width: 100% !important;
@@ -6223,7 +6202,7 @@ ul {
 }
 .process-ask ul li span {
   color: #666666;
-  margin-right: 20px;
+  margin-right: 5px;
 }
 .process-ask ul li a {
   color: #58cff9;
@@ -6353,10 +6332,17 @@ ul {
 }
 .teacher-study-msg.active {
   margin-top: 0px;
+  color: #999999;
 }
 .teacher-study-img {
   margin-bottom: 20px;
 }
 .tecmsg-textarea {
   height: 205px !important;
+}
+.login-wechat .form-control[readonly] {
+  background-color: #FFFFFF;
+}
+.row-width-fix {
+  margin-right: 0px;
 }

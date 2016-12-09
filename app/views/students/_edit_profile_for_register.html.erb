@@ -1,80 +1,147 @@
-<div class="col-md-10 col-md-offset-1">
-  <div class="qa_box">
-    <div class="qa_big_cell ">
-      <h2 class="text-center"><%= t ".title" %></h2>
-
-      <%= simple_form_for(@student, url: student_path(@student, cate: :register, by: :register) ) do |f| %>
-      <div class="form-inputs">
-        <div class="row">
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:name)%><abbr title="required">*</abbr></div>
-            <div class="col-md-9">
-              <%= f.input :name, label: false, placeholder: t('.name_ph') %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:gender)%></div>
-            <div class="col-md-9">
-              <%= f.input :gender, as: :radio_buttons, label: false %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:avatar)%><abbr title="required">*</abbr></div>
-            <div class="col-md-9">
-              <% %w[x y w h].each do |attribute| %>
-                <%= f.hidden_field "crop_#{attribute}"%>
-              <% end %>
-              <%= f.input :avatar, label: false, input_html:{onchange:"showimagepreview(this)"},:hint => "用户头像不可为空。" %>
-              <div style="width: 242px;height: 242px; border: 1px dashed;">
-                <img id="user_avatar_preview" style="width: 100%;">
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:grade) %></div>
-            <div class="col-md-9">
-              <%= f.input :grade, label: false,:collection => APP_CONSTANT["grades_in_menu"], include_blank:false %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:desc) %></div>
-            <div class="col-md-9">
-              <%= f.input :desc, label: false, as: :text, placeholder: t(".desc_ph") %>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:parent_phone) %></div>
-            <div class="col-md-9">
-              <%= f.input :parent_phone, label: false, placeholder: t(".parent_phone_ph") %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-9">
-              <%= f.input :parent_phone_confirmation, label: false, placeholder: t(".parent_phone_confirmation_ph") %>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-2 text-right form_lable"><%= Student.human_attribute_name(:email) %></div>
-            <div class="col-md-9">
-              <%= f.input :email, label: false, placeholder: t('.email_ph') %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-9">
-              <%= f.input :email_confirmation, label: false, placeholder: t('.email_confirmation_ph') %>
-            </div>
-          </div>
-        </div>
-
-        <div class="row text-center">
-          <%= f.submit '完成注册', class: "btn btn-default" %>
-        </div>
+<div class="login-wechat">
+  <div class="container">
+    <div class="row">
+      <div class="upload-title">
+        <%= t("students.edit_profile_for_register.welcome") %>
       </div>
-      <% end %>
+    </div>
+    <div class="wechat-con upload-con">
+      <div class="upload-msg">
+        <%= simple_form_for(@student, url: student_path(@student, cate: :register, by: :register) ) do |f| %>
+          <%= hidden_field_tag :return_to, "", id: "return-to-field" %>
+          <% %w[x y w h].each do |attribute| %>
+            <%= f.hidden_field "crop_#{attribute}" %>
+          <% end %>
+          <div class="form-group upload-head">
+            <label class="control-label tecmsg-title" for="course_invitation_user_phone"></label>
+            <div class="input-group">
+              <div class="up-head pre-2">
+                <%= image_tag @student.avatar_url || "head-title.png",
+                              class: "jcrop-preview jcrop_preview_s",
+                              "data-toggle" => "modal",
+                              "data-target" => "#avatar-upload",
+                              size: "240x240" %>
+                <br> 
+              </div>
+              <span><%= t("students.edit_profile_for_register.avatar_tips") %></span>
+              <%= f.error :avatar %>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <%= f.label :name, class: "tecmsg-title" %>
+            <div class="input-group">
+              <%= f.input_field :name %>
+              <%= f.error :name %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :grade, class: "tecmsg-title" %>
+            <div class="input-group">
+              <%= f.input_field :grade %>
+              <i class="glyphicon glyphicon-chevron-down drop-grade"></i>
+              <%= f.error :grade %>
+            </div>
+             
+            <ul class="tecmsg-subject"> 
+              <% APP_CONSTANT["grades_in_menu"].each do |grade| %>
+                <li><%= grade %></li>
+              <% end %>
+            </ul>
+          </div>
+          <div class="form-group">
+            <div class="input-button">
+              <input type="button" id="edit-more-profile" value='<%= t("students.edit_profile_for_register.edit_more_profile") %>' />
+              <%= f.submit t("students.edit_profile_for_register.submit_profile") %>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
+
+<%= content_for :modal do %>
+<div class="modal fade" id="avatar-upload" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="wrap" id="jcropdiv">
+      <div class="jcrop-title">
+        <span><%= t("students.edit_profile_for_register.select_avatar") %></span>
+        <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
+      </div>
+      <div class="wl">
+          <div class="jc-demo-box" data="0">
+            <div id="target" class="jcrop_w">
+              <%= image_tag @student.avatar_url || "head-title.png", size: "240x240" %>
+            </div>
+          </div>
+          <div class="jy-up-ch">
+            <a id="idRight" href="" class="bch bch4"> <%= t("students.edit_profile_for_register.twirled_avatar") %></a>
+          </div>
+      </div>
+      <div class="wr" id="preview-pane">
+        <div class="preview-container">
+          <center>
+            <div class="upload-preview"><%= t("students.edit_profile_for_register.preview_avatar") %></div>
+          </center>
+          <div class="pre-1">
+            <%= image_tag "", class: "jcrop-preview jcrop_preview_s small-img" %>
+          </div>
+          <center>
+            <span class="upload-size">90px × 90px</span>
+          </center>
+          <input id="lefile" type="file" style="display:none">
+          <div class="input-append">
+            <a class="btn" onclick="$('input[id=lefile]').click();">上传</a>
+          </div>
+          <input type="submit" value="保存使用" class="btn-up">
+        </div>
+      </div>
+      <p>
+        <%= t("students.edit_profile_for_register.avatar_select_tips") %>
+      </p>
+    </div>
+  </div> 
+</div>
+<% end %>
+<%= content_for :javascript do %>
+<script>
+$(function() {
+  $(".drop-grade").click(function() {
+    $(".tecmsg-subject").toggle();
+  });
+  $(".tecmsg-subject li").click(function  () {
+    $("#student_grade").val($(this).text());
+    $(".tecmsg-subject").hide();
+  });
+
+  function getObjectURL(file) {
+    var url = null;
+    if (window.createObjectURL != undefined) { 
+      url = window.createObjectURL(file);
+    } else if (window.URL != undefined) { 
+      url = window.URL.createObjectURL(file);
+    } else if (window.webkitURL != undefined) {
+      url = window.webkitURL.createObjectURL(file);
+    }
+    return url;
+  }
+
+  //触发事件
+  $('input[id=lefile]').change(function() {
+    var objUrl = getObjectURL(this.files[0]);
+    if (objUrl) {
+      $(".big-img").attr("src", objUrl);
+      $(".small-img").attr("src", objUrl);
+      $(".pre-2 img").attr("src", objUrl);
+    }
+  });
+
+  // 完善更多提交
+  $("#edit-more-profile").click(function() {
+    $("#return-to-field").val("<%= raw main_app.edit_student_path(@student, by: 'profile', cate: 'edit_profile') %>");
+    $(this).parents("form").submit();
+  });
+});
+</script>
+<% end %>

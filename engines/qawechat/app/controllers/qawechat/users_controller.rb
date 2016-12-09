@@ -25,7 +25,7 @@ module Qawechat
     def remove_wechat
       @user = ::User.find(params[:id])
       @user.wechat_users.map(&:destroy!)
-      redirect_to main_app.send("edit_#{@user.type.downcase}_path", {cate: security_setting}), notice: '解除绑定成功'
+      redirect_to main_app.send("edit_#{@user.type.downcase}_path", @user, {cate: security_setting}), notice: '解除绑定成功'
     end
 
     private

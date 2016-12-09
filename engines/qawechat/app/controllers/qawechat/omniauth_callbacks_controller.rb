@@ -27,8 +27,7 @@ module Qawechat
         if @wechat_user.user.blank?
           if current_user.present?
             UserService::WechatApi.binding_user(@wechat_user.openid, current_user)
-            flash.now[:success] = '绑定微信成功'
-            redirect_to main_app.send("edit_#{current_user.type.downcase}_path", {cate: 'security_setting'})
+            redirect_to main_app.send("edit_#{current_user.type.downcase}_path",current_user, {cate: 'security_setting'}), notice: '绑定微信成功'
           else
             redirect_to qawechat.new_user_path(openid: @wechat_user.openid, register_type: params[:register_type])
           end

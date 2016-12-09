@@ -111,7 +111,7 @@
           <button type="button" class="btn btn-default" ><%= t(".wechat_bind_click") %></button>
         <% end %>
       <% else %>
-        <%= link_to remove_wechat_user(@teacher), method: :put, data: {confirm: '解除绑定微信将不能使用部分功能,是否解除?'} do %>
+        <%= link_to remove_wechat_user_path(@teacher), method: :put, data: {confirm: '解除绑定微信将不能使用部分功能,是否解除?'} do %>
           <button type="button" class="btn btn-default" ><%= t(".wechat_unbind") %></button>
         <% end %>
       <% end %>

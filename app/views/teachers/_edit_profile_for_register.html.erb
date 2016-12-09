@@ -92,13 +92,14 @@
                 <%= content_tag :span, '', class: 'help-block has-error' if @teacher.errors[:desc].blank? %>
               </div>
               <div class="tecmsg-img">
-                <div style="width:300px; height: 300px; overflow: hidden; float:left;">
+                <div class="pre-3">
                   <%= image_tag('head-title.png',id: 'teacher_avatar_preview3', data: {toggle: 'modal', target: '#edit_avatar'}) %>
                 </div>
                 <br>
                 <span class="up-img"><a href="javascript:void(0);">点击头像上传(必填)</a></span>
                 <span class="help-block has-error"></span>
                 <%= f.error :avatar %>
+                <%= render partial: 'avatar_uploader', locals: {f: f} %>
               </div>
             </div>
             <div class="tecmsg-send">
@@ -107,46 +108,6 @@
                 <a href="javascript:void(0);" id="more_info">完善更多</a>
                 <input type="submit" name="" id="" value="立即进入">
               </center>
-            </div>
-          </div>
-
-          <div class="modal fade" id="edit_avatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-                  <h4 class="modal-title" id="myModalLabel">更换图片</h4>
-                </div>
-                <div class="modal-body">
-                  <div class="row">
-                    <div class="col-md-8">
-                      <div class="modal-img">
-                        <img id="teacher_avatar_preview">
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <p>
-                      </p><div class="modal-avatar">
-                      <img id="teacher_avatar_preview2">
-                    </div>
-                      <p></p>
-                      <p>
-                        <% %w[x y w h].each do |attribute| %>
-                          <%= f.hidden_field "crop_#{attribute}"%>
-                        <% end %>
-                      </p>
-                      <%= f.input :avatar, as: :file, label: false, error: false, input_html:{onchange:"showimagepreviewarea(this)",style: 'display: none;'} %>
-                      <p></p>
-                      <p>
-                        <button type="button" class="btn btn-default" id="select_avatar_btn">选择</button>
-                      </p>
-                      <p>
-                        <input type="button" data-dismiss="modal" aria-label="Close" value="保存" class="btn btn-default">
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         <% end %>
@@ -183,113 +144,13 @@
       $("#teacher_teaching_years").val($(this).html());
       $(".tecmsg-year").hide();
     })
-
-    $("#select_avatar_btn").on('click',function(event){
-      $("#teacher_avatar").click();
-    })
-
-    $("button.close").on('click',function(event){
-      $("#teacher_avatar").value = ''
-      $('#teacher_avatar_preview').attr('src', '');
-      $("#teacher_avatar_preview2").attr('src', '');
-      $("#teacher_avatar_preview3").attr('src', '');
-
-      $('#teacher_avatar_preview').parent().css({
-        paddingTop: '0px'
-      });
-      $('#teacher_avatar_preview').css({
-        height: 'auto',
-        width: '100%'
-      });
-      $("#teacher_avatar_preview2").css({
-        height: '128px',
-        width: '128px',
-        marginTop: '0px',
-        marginLeft: '0px'
-      })
-      $("#teacher_avatar_preview3").css({
-        height: '300px',
-        width: '300px',
-        marginTop: '0px',
-        marginLeft: '0px'
-      })
-
-      if (jcrop_api){
-        jcrop_api.destroy();
-      }
-    });
   });
 
-
-  var jcrop_api,
-    boundx,
-    boundy;
-
-  function showimagepreviewarea(input) {
-    if (input.files && input.files[0]) {
-      var filerdr = new FileReader();
-
-      filerdr.onload = function(e) {
-        $('#teacher_avatar_preview').attr('src', e.target.result);
-        $("#teacher_avatar_preview2").attr('src', e.target.result);
-        $("#teacher_avatar_preview3").attr('src', e.target.result);
-
-        var teacher_avatar_preview_height = $('#teacher_avatar_preview').height()
-        console.log(teacher_avatar_preview_height)
-        $('#teacher_avatar_preview').parent().css({
-          paddingTop : Math.round((240 - teacher_avatar_preview_height) / 2) + 'px'
-        });
-      }
-      if (jcrop_api){
-        jcrop_api.destroy();
-      }
-      filerdr.readAsDataURL(input.files[0]);
-      filerdr.onloadend = function(e){
-        $('#teacher_avatar_preview').Jcrop({
-          bgFade:     true,
-          bgOpacity: .4,
-          aspectRatio: 1 ,
-          setSelect: [ 0, 0, 240, 240 ],
-          onSelect: selectCoords,
-          onChange: selectCoords
-        },function(){
-          var bounds = this.getBounds();
-          boundx = bounds[0];
-          boundy = bounds[1];
-          jcrop_api = this;
-        });
-      }
-    }
-  }
-  function selectCoords(coords)
-  {
-    if (parseInt(coords.w) > 0) {
-      var rx = 128 / coords.w;
-      var ry = 128 / coords.h;
-      var rxx = 300 / coords.w;
-      var rxy = 300 / coords.h;
-
-      $('#teacher_avatar_preview2').css({
-        width : Math.round(rx * boundx) + 'px',
-        height : Math.round(ry * boundy) + 'px',
-        marginLeft : '-' + Math.round(rx * coords.x) + 'px',
-        marginTop : '-' + Math.round(ry * coords.y) + 'px'
-      });
-      $('#teacher_avatar_preview3').css({
-        width : Math.round(rxx * boundx) + 'px',
-        height : Math.round(rxy * boundy) + 'px',
-        marginLeft : '-' + Math.round(rxx * coords.x) + 'px',
-        marginTop : '-' + Math.round(rxy * coords.y) + 'px'
-      });
-    }
-
-    $('#teacher_crop_x').val(coords.x)
-    $('#teacher_crop_y').val(coords.y)
-    $('#teacher_crop_w').val(coords.w)
-    $('#teacher_crop_h').val(coords.h)
-  }
-
   $("#teacher_desc").keyup(function(){
+    var iv = $(this).val();
+    if (iv.length >= 300) {
+      $(this).val(iv.substring(0,300));
+    }
     $('#surplus').html($(this).val().length);
   });
 </script>

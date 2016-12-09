@@ -9,7 +9,7 @@
       <div class="wl">
         <div class="jc-demo-box" data="0">
           <div id="target" class="jcrop_w">
-            <img class="big-img" src="<%= asset_path('up-img1.png') %>" width="386" height="386" />
+            <img id="<%= user_type %>_avatar_preview" class="big-img" src="<%= asset_path('up-img1.png') %>" style="width: 100%;" />
           </div>
         </div>
         <!--<div class="jy-up-ch">-->
@@ -22,7 +22,7 @@
             <div class="upload-preview">预览</div>
           </center>
           <div class="pre-1">
-            <img src="" class="jcrop-preview jcrop_preview_s small-img" style="width: 386px; height: 386px; margin-left: -140px; margin-top: -131px;">
+            <img src="" id="<%= user_type %>_avatar_preview3" class="jcrop-preview jcrop_preview_s small-img" style="width: 386px; height: 386px; margin-left: -140px; margin-top: -131px;">
           </div>
           <center>
             <span class="upload-size">90px × 90px</span>
@@ -59,45 +59,132 @@
     return url;
   }
   //触发事件
-  $('input[id=<%= user_type %>_avatar]').change(function() {
-    var objUrl = getObjectURL(this.files[0]);
+  // $('input[id=<%= user_type %>_avatar]').change(function() {
+  //   var objUrl = getObjectURL(this.files[0]);
 
-    if (objUrl) {
-      $(".big-img").attr("src", objUrl);
-      $(".small-img").attr("src", objUrl);
-      $(".pre-2 img").attr("src", objUrl);
-      $(".pre-3 img").attr("src", objUrl);
-    }
-  });
+  //   if (objUrl) {
+  //     $(".big-img").attr("src", objUrl);
+  //     $(".small-img").attr("src", objUrl);
+  //     $(".pre-2 img").attr("src", objUrl);
+  //     $(".pre-3 img").attr("src", objUrl);
+  //   }
+  // });
 
 </script>
 <script type="text/javascript" charset="utf-8">
   $(function(){
-    //默认图像居中显示
-    cutImage($(".jcrop_w>img"));
+    var boundx, boundy, jcrop_api;
+    function selectCoords(coords){
+      if (parseInt(coords.w) > 0) {
+        var rx = 300 / coords.w;
+        var ry = 300 / coords.h;
 
-    var _Jw = ($("#target").width() - 110) / 2 ,
-      _Jh = ($("#target").height() - 110) / 2 ,
-      _Jw2 = _Jw + 110,
-      _Jh2 = _Jh + 110;
 
-    $('#target').Jcrop({
-      setSelect: [_Jw, _Jh, _Jw2, _Jh2],
-      onChange: showPreview,
-      onSelect: showPreview,
-      bgFade: true,
-      bgColor: "white",
-      aspectRatio: 110/110,
-      bgOpacity: .5
+        var rx_3 = 90 / coords.w;
+        var ry_3 = 90 / coords.h;
+
+        $('#<%= user_type %>_avatar_preview2').css({
+          width : Math.round(rx * boundx) + 'px',
+          height : Math.round(ry * boundy) + 'px',
+          marginLeft : '-' + Math.round(rx * coords.x) + 'px',
+          marginTop : '-' + Math.round(ry * coords.y) + 'px'
+        });
+
+        $('#<%= user_type %>_avatar_preview3').css({
+          width : Math.round(rx_3 * boundx) + 'px',
+          height : Math.round(ry_3 * boundy) + 'px',
+          marginLeft : '-' + Math.round(rx_3 * coords.x) + 'px',
+          marginTop : '-' + Math.round(ry_3 * coords.y) + 'px'
+        });
+      }
+
+      $('#<%= user_type %>_crop_x').val(parseInt(coords.x * 240.0 / 386));
+      $('#<%= user_type %>_crop_y').val(parseInt(coords.y * 240.0 / 386));
+      $('#<%= user_type %>_crop_w').val(parseInt(coords.w * 240.0 / 386));
+      $('#<%= user_type %>_crop_h').val(parseInt(coords.h * 240.0 / 386));
+    }
+
+    $("#<%= user_type %>_avatar_preview2").click(function() {
+      $("#<%= user_type %>_avatar").click();
     });
-//    $("#idLeft").click(function(e){
-//      imgRotate(-90);
-//      return false;
-//    });
-    $("#idRight").click(function(e){
-      imgRotate(90);
-      return false;
+
+    $("#<%= user_type %>_avatar").change(function() {
+      var input = this;
+      if (input.files && input.files[0]) {
+        var filerdr = new FileReader();
+        var min;
+
+        filerdr.onload = function(e) {
+          $('#<%= user_type %>_avatar_preview').attr('src', e.target.result);
+          $("#<%= user_type %>_avatar_preview2").attr('src', e.target.result);
+          $("#<%= user_type %>_avatar_preview3").attr('src', e.target.result);
+
+          var preview_height = $('#<%= user_type %>_avatar_preview').height();
+          var preview_width = $('#<%= user_type %>_avatar_preview').width();
+          if(preview_height > preview_width) {
+            $('#<%= user_type %>_avatar_preview').parent().css({
+              paddingLeft: Math.round((386 - preview_width) / 2) + 'px',
+              paddingTop: "0px"
+            });
+            min = preview_width;
+          } else {
+            $('#<%= user_type %>_avatar_preview').parent().css({
+              paddingTop: Math.round((386 - preview_height) / 2) + 'px',
+              paddingLeft: "0px"
+            });
+            min = preview_height;
+          }
+          console.log($('#<%= user_type %>_avatar_preview').parent().attr("style"));
+          
+        }
+        if (jcrop_api){
+          jcrop_api.destroy();
+        }
+        filerdr.readAsDataURL(input.files[0]);
+        filerdr.onloadend = function(e){
+          $('#<%= user_type %>_avatar_preview').Jcrop({
+            bgFade:     true,
+            bgOpacity: .4,
+            aspectRatio: 1 ,
+            setSelect: [ 0, 0, 386, 386],
+            onSelect: selectCoords,
+            onChange: selectCoords
+          },function(){
+            var bounds = this.getBounds();
+            boundx = bounds[0];
+            boundy = bounds[1];
+            jcrop_api = this;
+          });
+          selectCoords({x: 0, y: 0, w: min, h: min});
+        }
+      }
     });
+
+//     //默认图像居中显示
+//     cutImage($(".jcrop_w>img"));
+
+//     var _Jw = ($("#target").width() - 110) / 2 ,
+//       _Jh = ($("#target").height() - 110) / 2 ,
+//       _Jw2 = _Jw + 110,
+//       _Jh2 = _Jh + 110;
+
+//     $('#target').Jcrop({
+//       setSelect: [_Jw, _Jh, _Jw2, _Jh2],
+//       onChange: showPreview,
+//       onSelect: showPreview,
+//       bgFade: true,
+//       bgColor: "white",
+//       aspectRatio: 110/110,
+//       bgOpacity: .5
+//     });
+// //    $("#idLeft").click(function(e){
+// //      imgRotate(-90);
+// //      return false;
+// //    });
+//     $("#idRight").click(function(e){
+//       imgRotate(90);
+//       return false;
+//     });
   });
   //图片旋转
   function imgRotate(deg){

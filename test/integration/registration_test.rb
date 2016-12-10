@@ -28,14 +28,14 @@ class RegistrationTest < ActionDispatch::IntegrationTest
 
     sleep(2)
     assert_difference 'User.count', 1 do
-      click_on "下一步", match: :first
+      click_on "提交", match: :first
     end
 
     fill_in :student_name, with: 'student_name_test'
     attach_file("student_avatar","#{Rails.root}/test/integration/avatar.jpg")
     select '高二', from: :student_grade
 
-    click_on "完成注册", match: :first
+    click_on "立即进入", match: :first
     assert_equal('student_name_test', ::Student.last.name, '学生完善信息错误')
     new_logout_as(::Student.last)
   end
@@ -54,7 +54,7 @@ class RegistrationTest < ActionDispatch::IntegrationTest
 
     sleep(2)
     assert_difference 'User.count', 1 do
-      click_on "下一步", match: :first
+      click_on "提交", match: :first
     end
     fill_in :teacher_name, with: 'teacher_name_test'
     attach_file("teacher_avatar","#{Rails.root}/test/integration/avatar.jpg")

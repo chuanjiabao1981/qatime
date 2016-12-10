@@ -25,7 +25,12 @@ module Qawechat
         redirect_to '/sessions/new'
       else
         if @wechat_user.user.blank?
-          redirect_to qawechat.new_user_path(openid: @wechat_user.openid, register_type: params[:register_type])
+          if current_user.present?
+            UserService::WechatApi.binding_user(@wechat_user.openid, current_user)
+            redirect_to main_app.send("edit_#{current_user.type.downcase}_path",current_user, {cate: 'security_setting'}), notice: '绑定微信成功'
+          else
+            redirect_to qawechat.new_user_path(openid: @wechat_user.openid, register_type: params[:register_type])
+          end
         else
           sign_in(@wechat_user.user)
           redirect_to main_app.root_path

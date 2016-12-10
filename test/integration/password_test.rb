@@ -15,10 +15,10 @@ class PasswordTest < ActionDispatch::IntegrationTest
     user = users(:find_password_student1)
     visit root_path
     click_on "登录", match: :first
-    click_on "找回密码", match: :first
+    click_on "忘记密码", match: :first
 
     fill_in :user_login_account, with: user.login_mobile
-    click_on "获取验证码", match: :first
+    click_on "获取校验码", match: :first
     fill_in :user_captcha_confirmation, with: "1234"
 
     fill_in :user_password, with: "pa123456"
@@ -32,10 +32,10 @@ class PasswordTest < ActionDispatch::IntegrationTest
     user = users(:find_password_student2)
     visit root_path
     click_on "登录", match: :first
-    click_on "找回密码", match: :first
+    click_on "忘记密码", match: :first
 
     fill_in :user_login_account, with: user.email
-    click_on "获取验证码", match: :first
+    click_on "获取校验码", match: :first
     fill_in :user_captcha_confirmation, with: "1234"
 
     fill_in :user_password, with: "pa123456"

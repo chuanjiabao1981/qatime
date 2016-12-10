@@ -38,6 +38,8 @@
     var boardPlayer, cameraPlayer;
     var timer = -1;
     var state = 'init';
+    var camera_stream = '<%= @course.camera_pull_stream('http') %>';
+    var board_stream = '<%= @course.board_pull_stream('http') %>';
 
     // 白板播放器
     boardPlayer = neplayer("my-video", {
@@ -135,14 +137,14 @@
           if (data['board'] == 1 && boardPlayer.getPlayState() != 1) {
             boardPlayer.setDataSource({
               type: "video/x-flv",
-              src: "<%= @course.board_pull_stream('http') %>"
+              src: board_stream
             });
             boardPlayer.play();
           }
           if (data['camera'] == 1 && cameraPlayer.getPlayState() != 1) {
             cameraPlayer.setDataSource({
               type: "video/x-flv",
-              src: "<%= @course.camera_pull_stream('http') %>"
+              src: camera_stream
             });
             cameraPlayer.play();
           }
@@ -156,6 +158,7 @@
     }
 
     function set_timer(){
+      if(camera_stream.trim() == '' || board_stream.trim() == '') return
       player_status();
       if(state == 'init' && timer == -1){
         timer = setInterval(player_status, 20 * 1000);

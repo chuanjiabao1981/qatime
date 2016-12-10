@@ -20,7 +20,7 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     click_on "学生注册"
 
     fill_in :student_login_mobile, with: '13800001111'
-    click_on "获取验证码", match: :first
+    click_on "获取校验码", match: :first
     fill_in :student_captcha_confirmation, with: '1234'
     fill_in :student_password, with: 'pa123456'
     fill_in :student_password_confirmation, with: 'pa123456'
@@ -46,7 +46,7 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     click_on "教师注册"
 
     fill_in :teacher_login_mobile, with: '13811112222'
-    click_on "获取验证码", match: :first
+    click_on "获取校验码", match: :first
     fill_in :teacher_captcha_confirmation, with: '1234'
     fill_in :teacher_password, with: 'pa123456'
     fill_in :teacher_password_confirmation, with: 'pa123456'

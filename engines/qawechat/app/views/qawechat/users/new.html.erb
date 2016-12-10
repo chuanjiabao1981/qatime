@@ -16,14 +16,14 @@
             <div class="form-group">
               <label class="control-label tecmsg-title" for="course_invitation_user_phone">输入手机号：</label>
               <div class="input-group">
-                <%= f.input_field :login_mobile, class: 'form-control', maxlength: 11, placeholder: '必填' %>
+                <%= f.input_field :login_mobile, class: 'form-control', maxlength: 11, placeholder: '仅支持大陆地区11位手机号' %>
               </div>
               <%= f.error :login_mobile %>
             </div>
             <div class="form-group">
               <label class="control-label tecmsg-title" for="course_invitation_user_code">输入校验码：</label>
               <div class="input-group">
-                <%= f.input_field :captcha_confirmation, class: 'form-control auth-code', maxlength: 4, placeholder: '必填' %>
+                <%= f.input_field :captcha_confirmation, class: 'form-control auth-code', maxlength: 4, placeholder: '查看手机后输入' %>
                 <span class="input-group-btn">
                   <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#<%= user_type %>_login_mobile" data-send-url="<%= main_app.ajax_captchas_url %>" data-key="register_captcha" value="<%= t "students.common.get_captcha" %>">
                 </span>
@@ -33,7 +33,7 @@
             <div class="form-group">
               <label class="control-label tecmsg-title" for="course_invitation_user_password">设置密码：</label>
               <div class="input-group">
-                <%= f.input_field :password, class: 'form-control', placeholder: '必填' %>
+                <%= f.input_field :password, class: 'form-control', placeholder: '请输入密码（最少6位）' %>
               </div>
               <%= f.error :password %>
             </div>

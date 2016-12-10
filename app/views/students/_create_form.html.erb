@@ -37,7 +37,7 @@
   <div class="input-group">
     <div class="accept">
       <%= f.check_box :accept, class: 'ckb' %>
-      <label for="checkbox">接受</label>
+      <label for="<%= user.type.downcase %>_accept">接受</label>
       <a data-toggle="modal" data-target="#acceptModal" href="#">【答疑时间用户协议】</a>
     </div>
   </div>
@@ -116,8 +116,7 @@
     }
   })
   $(".ckb").click(function  () {
-
-    var check = $(".ckb").prop("checked");
+    var check = $("#<%= user.type.downcase %>_accept").prop("checked");
     if (check) {
       $(".tea-register .btn-submit").addClass("active")
       $(".tea-register .btn-submit").removeAttr("disabled");

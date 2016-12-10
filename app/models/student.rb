@@ -24,7 +24,7 @@ class Student < User
 
   validates_confirmation_of :parent_phone
 
-  validates :name, length: { in: 1..7 }, on: :update
+  validates :name, length: { in: 1..30 }, on: :update
 
   # 第二步注册，学生更新验证
   validates_presence_of :grade, if: :student_columns_required?, on: :update

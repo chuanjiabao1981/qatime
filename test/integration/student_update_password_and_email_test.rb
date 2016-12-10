@@ -61,7 +61,7 @@ class StudentUpdatePasswordAndEmailTest < ActionDispatch::IntegrationTest
     click_on "修改登录密码", match: :first
     click_on "找回密码", match: :first
 
-    click_on "获取验证码", match: :first
+    click_on "获取校验码", match: :first
 
     fill_in "user_captcha_confirmation", with: "1234"
 
@@ -157,8 +157,6 @@ class StudentUpdatePasswordAndEmailTest < ActionDispatch::IntegrationTest
     assert page.has_content?('还未绑定家长手机'), '还未绑定家长手机显示错误'
 
     click_on "修改家长手机", match: :first
-    click_on "获取验证码", match: :first
-
     fill_in "student_current_password", with: "password"
     fill_in "student_parent_phone", with: "13892930006"
     click_on "获取验证码"

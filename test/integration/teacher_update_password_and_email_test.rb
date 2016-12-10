@@ -60,7 +60,7 @@ class TeacherUpdatePasswordAndEmailTest < ActionDispatch::IntegrationTest
     click_on "修改登录密码", match: :first
     click_on "找回密码", match: :first
 
-    click_on "获取验证码", match: :first
+    click_on "获取校验码", match: :first
 
     fill_in "user_captcha_confirmation", with: "1234"
 

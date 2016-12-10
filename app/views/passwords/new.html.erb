@@ -1,111 +1,66 @@
-<% unless signed_in? %>
-  <div class="login-wechat">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <div class="tea-register retrieve-password">
-            <div class="tea-register-title">
-              <%= t ".title" %>
-            </div>
-            <div class="tea-register-left">
-              <%= simple_form_for(@user, as: :user, url: passwords_path, html: { method: :post }) do |f| %>
-                <div class="form-group">
-                  <div class="input-group">
+<div class="login-wechat">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="tea-register retrieve-password">
+          <div class="tea-register-title">
+            <%= t ".title" %>
+          </div>
+          <div class="tea-register-left">
+            <%= simple_form_for(@user, as: :user, url: passwords_path, html: { method: :post }) do |f| %>
+              <div class="form-group">
+                <div class="input-group">
+                  <% unless signed_in? %>
                     <%= f.text_field :login_account,class: 'form-control phone-num', placeholder: '请输入登录的手机号或邮箱'%>
-                  </div>
-                  <%= f.error :login_account %>
-                  <%= content_tag :span, '', class: 'help-block has-error' if @user.errors[:login_account].blank? %>
+                  <% else %>
+                    <%= f.input :login_account, as: :hidden, input_html: {value: current_user.login_account} %>
+                    <%= current_user.login_account %>
+                  <% end %>
+
                 </div>
-                <div class="form-group">
-                  <div class="input-group">
-                    <%= f.text_field :captcha_confirmation, class: 'auth-code form-control', maxlength: 4 ,placeholder: '请输入校验码' %>
-                    <span class="input-group-btn">
+                <%= f.error :login_account %>
+                <%= content_tag :span, '', class: 'help-block has-error' if @user.errors[:login_account].blank? %>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <%= f.text_field :captcha_confirmation, class: 'auth-code form-control', maxlength: 4 ,placeholder: '请输入校验码' %>
+                  <span class="input-group-btn">
                       <input class="btn btn-default" id="btn-obtain" type="button" data-send-captcha-btn data-send-to-input="#user_login_account"
-                         data-send-url="<%= ajax_captchas_url %>" data-key="get_password_back" value="<%= t "students.common.get_captcha" %>">
+                             data-send-url="<%= ajax_captchas_url %>" data-key="get_password_back" value="<%= t "students.common.get_captcha" %>">
                     </span>
-                  </div>
-                  <%= f.error :captcha_confirmation %>
-                  <%= content_tag :span, '', class: 'help-block has-error' if @user.errors[:captcha_confirmation].blank? %>
                 </div>
+                <%= f.error :captcha_confirmation %>
+                <%= content_tag :span, '', class: 'help-block has-error' if @user.errors[:captcha_confirmation].blank? %>
+              </div>
 
-                <div class="form-group">
-                  <div class="input-group">
-                    <%= f.password_field :password, class: 'form-control pwd-1', :autocomplete => "off", placeholder: '请输入新密码（最少6位）' %>
-                  </div>
-                  <%= f.error :password %>
-                  <%= content_tag :span, '', class: 'help-block has-error' if @user.errors[:password].blank? %>
+              <div class="form-group">
+                <div class="input-group">
+                  <%= f.password_field :password, class: 'form-control pwd-1', :autocomplete => "off", placeholder: '请输入新密码（最少6位）' %>
                 </div>
+                <%= f.error :password %>
+                <%= content_tag :span, '', class: 'help-block has-error' if @user.errors[:password].blank? %>
+              </div>
 
-                <div class="form-group">
-                  <div class="input-group">
-                    <%= f.password_field :password_confirmation,class: 'form-control pwd-2', placeholder: t('.passwd_confirm_hd') %>
-                  </div>
-                  <%= f.error :password_confirmation %>
-                  <%= content_tag :span, '', class: 'help-block has-error' if @user.errors[:password_confirmation].blank? %>
+              <div class="form-group">
+                <div class="input-group">
+                  <%= f.password_field :password_confirmation,class: 'form-control pwd-2', placeholder: t('.passwd_confirm_hd') %>
                 </div>
+                <%= f.error :password_confirmation %>
+                <%= content_tag :span, '', class: 'help-block has-error' if @user.errors[:password_confirmation].blank? %>
+              </div>
 
-                <div class="form-group">
-                  <div class="input-group">
-                    <input type="button" class="btn-submit active" name="" id="" value="提交">
-                  </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="button" class="btn-submit active" name="" id="" value="提交">
                 </div>
-              <% end %>
-            </div>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>
     </div>
   </div>
-
-<% else %>
-
-  <div class="col-md-10 col-md-offset-1">
-    <div class="qa_box row">
-      <div class="qa_big_cell ">
-        <h2 class="text-center"><%= t ".title" %></h2>
-        <%= simple_form_for(@user, as: :user, url: passwords_path, html: { method: :post }) do |f| %>
-          <div class="form-inputs">
-            <div class="row">
-              <div class="col-md-3 text-right"><%= Student.human_attribute_name(:login_account)%></div>
-              <div class="col-md-6">
-                <%= current_user.login_account %>
-                <%= f.input :login_account, as: :hidden, input_html: {value: current_user.login_account} %>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-3 text-right form_lable"><%= t ".captcha" %></div>
-              <div class="col-md-6">
-                <div class="row">
-                  <div class="col-md-7">
-                    <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 ,placeholder: t('.captcha_hd')} %>
-                  </div>
-                  <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#user_login_account" data-send-url="<%= ajax_captchas_url %>" data-key="get_password_back" value="<%= t "students.common.get_captcha" %>">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 text-right form_lable"><%= Student.human_attribute_name(:password) %></div>
-            <div class="col-md-6">
-              <%= f.input :password, label: false, :autocomplete => "off", input_html:{placeholder: t('.passwd_hd')} %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-3 text-right"><%= Student.human_attribute_name(:password_confirmation)%></div>
-            <div class="col-md-6">
-              <%= f.input :password_confirmation, label: false, input_html: {placeholder: t('.passwd_confirm_hd')} %>
-            </div>
-          </div>
-
-          <div class="row text-center">
-            <%= f.submit t('.submit'), class: "btn btn-default" %>
-          </div>
-          </div>
-        <% end %>
-        </div>
-  </div>
-  </div>
-<% end %>
+</div>
 <script type="text/javascript">
 
   var flag = true;

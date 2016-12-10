@@ -42,6 +42,8 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
     choose("男")
     fill_in :teacher_birthday, with: Time.local(1995, 7, 8).strftime('%Y/%m/%d')
     select '小学', from: :teacher_category
+    select '山西', from: :teacher_province_id
+    select '阳泉', from: :teacher_city_id
     select '阳泉二中', from: :teacher_school_id
     select '英语', from: :teacher_subject
     select '20年以上', from: :teacher_teaching_years

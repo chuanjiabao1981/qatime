@@ -39,7 +39,7 @@ class TeachersController < ApplicationController
 
   def edit
     if params[:cate] == "register"
-      render layout: 'application'
+      render layout: 'application_login'
     else
       render layout: 'teacher_home_new'
     end
@@ -51,14 +51,14 @@ class TeachersController < ApplicationController
         redirect_to info_teacher_path(@teacher, cate:  params[:cate]), notice: t("flash.notice.update_success")
       elsif params[:cate] == "register"
         SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @teacher.id)
-        redirect_to user_home_path, notice: t("flash.notice.register_success")
+        redirect_to params[:more_alter].present? ? info_teacher_path(@teacher) : user_home_path, notice: t("flash.notice.register_success")
       else
         session.delete("change-#{update_by}-#{send_to}")
         redirect_to edit_teacher_path(@teacher, cate:  params[:cate]), notice: t("flash.notice.update_success")
       end
     else
       if params[:cate] == "register"
-        render :edit, layout: 'application'
+        render :edit, layout: 'application_login'
       else
         render :edit, layout: 'teacher_home_new'
       end
@@ -220,7 +220,7 @@ class TeachersController < ApplicationController
 
   def register_params
     params.require(:teacher).permit(:name, :nick_name, :gender, :subject, :category, :school_id, :desc, :email, :email_confirmation, :crop_x, :crop_y, :crop_w, :crop_h, :avatar, \
-    :province_id, :city_id, :school_name)
+    :province_id, :city_id, :school_name, :teaching_years)
   end
 
   # 根据跟新内容判断是否需要密码更新
@@ -244,13 +244,14 @@ class TeachersController < ApplicationController
         return @teacher.update_with_password(update_params)
       end
 
-      if %w(password).include?(update_by)
-
-      end
-
       if update_params[:school_name].present?
         school = School.find_or_create_by(city_id: update_params[:city_id],name: update_params[:school_name])
         update_params[:school] = school
+      end
+
+      teaching_years_flag = Teacher.teaching_years.options.find{|years| years.first == update_params[:teaching_years]}
+      if teaching_years_flag.present?
+        update_params[:teaching_years] = teaching_years_flag.last
       end
 
       @teacher.teacher_columns_required!

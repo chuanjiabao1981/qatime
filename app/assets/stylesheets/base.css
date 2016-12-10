@@ -4986,8 +4986,7 @@ ul {
   height: 30px;
   line-height: 30px;
   padding-left: 15px;
-  /*border-bottom: 1px solid #CCCCCC;*/
-  background-color: #FFFFFF
+  background-color: #FFFFFF;
   cursor: pointer;
 }
 .tecmsg-school input {
@@ -5004,8 +5003,8 @@ ul {
   margin-right: 5px;
 }
 .tecmsg-con .form-group {
-  /*margin-bottom: 20px;*/
   margin-bottom: 0px;
+  height: 62px;
 }
 .tecmsg-con .form-group .has-error {
   height: 20px;
@@ -5014,10 +5013,6 @@ ul {
   color: #999999;
   position: relative;
   top: 12px;
-}
-.tecmsg-text {
-  color: #999999;
-  margin-left: 100px;
 }
 .tecmsg-text {
   color: #999999;
@@ -5105,6 +5100,9 @@ ul {
 
 
 /*下载*/
+.download-page {
+  min-height: 610px;
+}
 .down-load {
   padding: 30px 20px;
   color: #666;
@@ -5253,22 +5251,7 @@ ul {
     position: absolute;
     right: 0;
   }
-  .login-content {
-    height: 750px;
-  }
-
 }
-
-
-
-
-
-
-
-
-
-
-
 
 .login-content .row .panel {
   width: 350px;
@@ -5487,6 +5470,7 @@ ul {
 }
 .wechat-msg .form-group,.upload-msg .form-group {
   /*margin-bottom: 20px;*/
+  height: 62px;
   margin-bottom: 0px;
 }
 .wechat-msg .input-group,.upload-msg .input-group{
@@ -5637,6 +5621,7 @@ ul {
 .tea-register-left .form-group {
   margin-bottom: 0px;
   overflow: hidden;
+  height: 62px;
 }
 .tea-register-left .has-error {
   margin-bottom: 0;
@@ -5836,6 +5821,9 @@ ul {
   color: #333333;
   margin-top: 50px;
 }
+.upload-head {
+  height: 290px !important;
+}
 .upload-head img {
   width: 240px;
   height: 240px;
@@ -5939,8 +5927,6 @@ ul {
 .wl{
   float:left;
   width: 386px;
-  padding-left: 20px;
-  padding-top: 20px;
   padding: 20px 20px 0px 20px !important;
 }
 .wr{
@@ -5962,8 +5948,8 @@ ul {
   border: 1px solid rgb(242,242,242);
 }
 .jcrop_w{
-  width: 386px;
-  height: 386px;
+  width: 386px !important;
+  height: 386px !important;
   overflow: hidden;
 }
 .pre-1{
@@ -5972,19 +5958,26 @@ ul {
   height: 90px;
   border-radius: 50%;
   border: 1px solid #FFFFFF !important;
+  background-size: 100% 100%;
   overflow:hidden;
 }
 .pre-2 {
   width: 240px;
   height: 240px;
+  background-size: 100% 100%;
   overflow:hidden;
-
 }
-.pre-2 img {
-  width: 100% !important;
-  height: 100% !important;
-  margin: 0px !important;
+.pre-3{
+  width: 300px;
+  height: 300px;
+  background-size: 100% 100%;
+  overflow:hidden;
 }
+/*.pre-2 img {
+	width: 100% !important;
+	height: 100% !important;
+	margin: 0px !important;
+}*/
 .upload-preview {
   color: #666666;
   font-size: 12px;
@@ -6216,7 +6209,7 @@ ul {
 }
 .process-ask ul li span {
   color: #666666;
-  margin-right: 20px;
+  margin-right: 5px;
 }
 .process-ask ul li a {
   color: #58cff9;
@@ -6346,7 +6339,17 @@ ul {
 }
 .teacher-study-msg.active {
   margin-top: 0px;
+  color: #999999;
 }
 .teacher-study-img {
   margin-bottom: 20px;
+}
+.tecmsg-textarea {
+  height: 205px !important;
+}
+.login-wechat .form-control[readonly] {
+  background-color: #FFFFFF;
+}
+.row-width-fix {
+  margin-right: 0px;
 }

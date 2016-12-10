@@ -27,22 +27,18 @@ class StudentsController < ApplicationController
       sign_in(@student) unless signed_in?
       redirect_to edit_student_path(@student, cate: :register, by: :register)
     else
+      p @student.errors
       render 'new', layout: 'application_login'
     end
   end
 
   def show
-    # if params[:fee].nil?
-    #   @deposits = @student.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-    # else
-    #   @consumption_records      = @student.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-    # end
     render layout: 'student_home_new'
   end
 
   def edit
     if params[:cate] == "register"
-      render layout: 'application'
+      render layout: 'application_login'
     else
       render layout: 'student_home_new'
     end
@@ -118,17 +114,18 @@ class StudentsController < ApplicationController
   def update
     if excute_update(update_by)
       if params[:cate] == "edit_profile"
-        redirect_to info_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
+        redirect_to info_student_path(@student, cate: params[:cate]), notice: t("flash.notice.update_success")
       elsif params[:cate] == "register"
         SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @student.id)
-        redirect_to user_home_path, notice: t("flash.notice.register_success")
+        return_to = params[:return_to].blank? ? user_home_path : params[:return_to]
+        redirect_to return_to, notice: t("flash.notice.register_success")
       else
         session.delete("change-#{update_by}-#{send_to}")
-        redirect_to edit_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
+        redirect_to edit_student_path(@student, cate: params[:cate]), notice: t("flash.notice.update_success")
       end
     else
       if params[:cate] == "register"
-        render :edit, layout: 'application'
+        render :edit, layout: 'application_login'
       else
         render :edit, layout: 'student_home_new'
       end

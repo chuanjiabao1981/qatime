@@ -28,7 +28,8 @@ function showimagepreview(input) {
                 aspectRatio: 1 ,
                 setSelect: [ 0, 0, 240, 240 ],
                 onSelect: updateCoords,
-                onChange: updateCoords
+                onChange: updateCoords,
+                keySupport : false
             },function(){
                 jcrop_api = this;
             });

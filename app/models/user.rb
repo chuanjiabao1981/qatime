@@ -216,6 +216,10 @@ class User < ActiveRecord::Base
     context == :edit_profile
   end
 
+  def mobile
+    login_mobile || super
+  end
+
   private
 
   # def register_code_valid

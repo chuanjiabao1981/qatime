@@ -26,7 +26,7 @@
                   <%= f.text_field :captcha_confirmation, class: 'auth-code form-control', maxlength: 4 ,placeholder: '请输入校验码' %>
                   <span class="input-group-btn">
                       <input class="btn btn-default" id="btn-obtain" type="button" data-send-captcha-btn data-send-to-input="#user_login_account"
-                             data-send-url="<%= ajax_captchas_url %>" data-key="get_password_back" value="<%= t "students.common.get_captcha" %>">
+                             data-send-url="<%= ajax_captchas_path %>" data-key="get_password_back" value="<%= t "students.common.get_captcha" %>">
                     </span>
                 </div>
                 <%= f.error :captcha_confirmation %>

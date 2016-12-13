@@ -9,7 +9,7 @@
   <div class="input-group">
     <%= f.text_field :captcha_confirmation, class: 'form-control auth-code', maxlength: 4, placeholder: '请输入校验码' %>
     <span class="input-group-btn">
-                  <input class="btn btn-default" id="btn-obtain" type="button" data-send-captcha-btn data-send-to-input="#<%= user.type.downcase %>_login_mobile" data-send-url="<%= ajax_captchas_url %>" data-key="register_captcha" value="<%= t "students.common.get_captcha" %>">
+                  <input class="btn btn-default" id="btn-obtain" type="button" data-send-captcha-btn data-send-to-input="#<%= user.type.downcase %>_login_mobile" data-send-url="<%= ajax_captchas_path %>" data-key="register_captcha" value="<%= t "students.common.get_captcha" %>">
                 </span>
   </div>
   <%= f.error :captcha_confirmation %>

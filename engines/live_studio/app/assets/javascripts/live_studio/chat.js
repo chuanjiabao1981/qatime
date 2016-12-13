@@ -357,15 +357,6 @@ function flashChecker(){
   return {f:hasFlash,v:flashVersion};
 }
 
-function refreshTeamMembersUI(teamId, fn) {
-  if(teamId != currentTeam.id) return;
-  $.get('/chat/teams/' + teamId + '/members',function(data){
-    $("#members-panel").html(data);
-    if(fn) fn();
-  });
-}
-
-
 function sendMessageTime(msg, type){
   var date = new Date(msg.time);
   var hours = date.getHours();

@@ -71,6 +71,16 @@
 <script>
 var chatInited = false;
 
+
+
+function refreshTeamMembersUI(teamId, fn) {
+  if(teamId != currentTeam.id) return;
+  $.get('/chat/teams/' + teamId + '/members',function(data){
+    $("#members-panel").html(data);
+    if(fn) fn();
+  });
+}
+
 function chatInitCallback() {
   chatInited = true;
   visit();

@@ -80,3 +80,23 @@ teacher_balance_account:
   balance: 100000
   total_income: 0
   total_expenditure: 0
+
+student_set_payment_password:
+  owner: student_set_payment_password (User)
+  balance: 100
+  total_income: 0
+  total_expenditure: 0
+
+student_update_payment_password:
+  owner: student_update_payment_password (User)
+  balance: 100
+  total_income: 0
+  total_expenditure: 0
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+
+teacher_get_back_payment_password:
+  owner: teacher_get_back_payment_password (User)
+  balance: 100
+  total_income: 0
+  total_expenditure: 0
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>

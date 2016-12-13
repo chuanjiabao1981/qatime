@@ -82,7 +82,7 @@ module V1
                 if params[:current_pament_password].present?
                   cash_account.update_with_password(current_password: params[:current_pament_password], password: params[:pament_password])
                 else
-                  cash_account.update_with_token(:update_password, ticket_token: params[:ticket_token], password: params[:pament_password])
+                  cash_account.update_with_token(:set_password, ticket_token: params[:ticket_token], password: params[:pament_password])
                 end
               raise ActiveRecord::RecordInvalid, cash_account unless result
               'ok'

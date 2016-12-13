@@ -402,7 +402,7 @@ function appendMsg(msg, messageClass) {
 
   // 显示弹幕
   var now = new Date().getTime();
-  if(currentTeam.barrage.active && now - msg.time < 5000) {
+  if(currentTeam.barrage && currentTeam.barrage.active && now - msg.time < 5000) {
     currentTeam.barrage.show($.replaceChatMsg(msg.text));
   }
 

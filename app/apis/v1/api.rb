@@ -14,6 +14,7 @@ module V1
     mount V1::Users
     mount V1::Password
     mount V1::Notifications
+    mount V1::TicketTokens
 
     mount V1::LiveStudio::Courses
     mount V1::LiveStudio::Lessons

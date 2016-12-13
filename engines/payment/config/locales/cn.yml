@@ -153,6 +153,8 @@ cn:
         total_expenditure: 累计消费
         recharge: 充值
         withdraw: 提现
+        current_password: 当前支付密码
+        password: 支付密码
       payment/withdraw:
         amount: 金额
         transaction_no: 编号

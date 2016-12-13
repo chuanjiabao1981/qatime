@@ -14,6 +14,8 @@ module UserService
     #   code
     # end
 
+    KEYS = [:register_captcha, :send_captcha, :get_password_back, :change_email_captcha, :withdraw_cash, :update_payment_pwd].freeze
+
     def self.verify(obj, code)
       obj[:captcha] == code && obj[:expire_at] > Time.now.to_i
     end
@@ -50,6 +52,10 @@ module UserService
 
     def expire_captch(key)
       Redis.current.del("#{key}:#{@send_to}") if captcha_of(key)
+    end
+
+    def verify(key, code)
+      captcha_of(key) == code
     end
 
     private

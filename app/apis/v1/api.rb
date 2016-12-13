@@ -22,6 +22,7 @@ module V1
     mount V1::Payment::Recharges
     mount V1::Payment::Users
     mount V1::Payment::Withdraws
+    mount V1::Payment::CashAccounts
     mount V1::Recommend::Positions
 
     add_swagger_documentation mount_path: "/api-doc", api_version: "v1", hide_documentation_path: true, hide_format: false,

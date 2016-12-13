@@ -574,3 +574,42 @@ teacher_for_billing:
   grade: 高一
   type: Teacher
   school: school2
+
+student_set_payment_password:
+  login_mobile: 15100000007
+  name: set_payment_password
+  role: student
+  email: 15100000007@qatime.cn
+  parent_phone: 15100000007
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
+  school: school2
+
+student_update_payment_password:
+  login_mobile: 15100000008
+  name: update_payment_password
+  role: student
+  email: 15100000008@qatime.cn
+  parent_phone: 15100000008
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
+  school: school2
+
+teacher_get_back_payment_password:
+  login_mobile: 15100000009
+  name: get_back_payment_password
+  role: teacher
+  email: 15100000009@qatime.cn
+  parent_phone: 15100000009
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Teacher
+  school: school2
+  city: yangquan
+
+

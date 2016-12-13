@@ -9,7 +9,7 @@ module Payment
     has_many :withdraw_change_records
     has_many :earning_records
     has_many :consumption_records
-    attr_accessor :create_or_update_password
+    attr_accessor :create_or_update_password, :current_password, :ticket_token
 
     validates :owner, presence: true
 
@@ -18,7 +18,7 @@ module Payment
     # 可用资金
     def available_balance
       balance - frozen_balance
-      #balance
+      # balance
     end
 
     # 申请提现的时候冻结资金
@@ -104,12 +104,50 @@ module Payment
       end
     end
 
+    # 是否设置了支付密码, 用户接口
+    def password?
+      password_digest.present?
+    end
+
+    # 使用支付密码更新
+    def update_with_password(params, *options)
+      current_password = params.delete(:current_password)
+      result = if authenticate(current_password)
+                 update_attributes(params, *options)
+               else
+                 assign_attributes(params, *options)
+                 valid?
+                 errors.add(:current_password, current_password.blank? ? :blank : :invalid)
+                 false
+               end
+      self.password = nil
+      result
+    end
+
+    # 使用授权token更新
+    def update_with_token(cate, params, *options)
+      ticket_token = params.delete(:ticket_token)
+      result =
+        if ticket_token == Redis.current.get("#{model_name.cache_key}/#{id}/#{cate}")
+          update_attributes(params, *options)
+        else
+          assign_attributes(params, *options)
+          valid?
+          errors.add(:ticket_token, ticket_token.blank? ? :blank : :invalid)
+          false
+        end
+      self.ticket_token = nil
+      result
+    ensure
+      Redis.current.del("#{model_name.cache_key}/#{id}/#{cate}")
+    end
+
     private
 
     # 资金变动
     # force可以透支消费
     def change(records_chain, amount, attrs)
-      return if amount == 0
+      return if amount.zero?
       after = balance + amount
       change_record = send(records_chain).create!(
         attrs.merge(
@@ -117,7 +155,9 @@ module Payment
           after: after,
           amount: amount,
           different: amount,
-          owner: owner))
+          owner: owner
+        )
+      )
       self.balance += change_record.different
       save!
     end
@@ -125,6 +165,5 @@ module Payment
     def check_change!(amount)
       raise Payment::BalanceNotEnough, "可用资金不足" if available_balance < amount
     end
-
   end
 end

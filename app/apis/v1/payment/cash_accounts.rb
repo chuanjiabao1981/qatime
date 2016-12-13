@@ -18,7 +18,7 @@ module V1
             requires :pament_password, type: String, desc: '支付密码'
           end
           post ':user_id/password' do
-            cash_account = ::User.find(params[:user_id]).cash_account1
+            cash_account = ::User.find(params[:user_id]).cash_account!
             password_params = { ticket_token: params[:ticket_token], password: params[:pament_password] }
             raise APIErrors::TokenInvalid, "授权Token无效" unless cash_account.update_with_token(:set_password, password_params)
             'ok'
@@ -36,7 +36,7 @@ module V1
             optional :captcha_confirmation, type: String, desc: '手机验证码'
           end
           post ':user_id/password/ticket_token' do
-            cash_account = ::User.find(params[:user_id]).cash_account1
+            cash_account = ::User.find(params[:user_id]).cash_account!
             if params[:current_pament_password].present?
               raise APIErrors::PasswordInvalid, "密码验证失败" unless cash_account.authenticate(params[:current_pament_password])
             else

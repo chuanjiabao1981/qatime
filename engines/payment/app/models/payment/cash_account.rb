@@ -138,6 +138,8 @@ module Payment
         end
       self.ticket_token = nil
       result
+    ensure
+      Redis.current.del("#{model_name.cache_key}/#{id}/#{cate}")
     end
 
     private

@@ -17,6 +17,7 @@ module APIErrors
   WithdrawExisted       = Class.new StandardError
   PasswordInvalid       = Class.new StandardError
   PaymentPasswordBlank  = Class.new StandardError
+  TokenInvalid          = Class.new StandardError
 
   module ClassMethods
     def include_errors
@@ -63,6 +64,10 @@ module APIErrors
 
       rescue_from PaymentPasswordBlank do |e|
         out_error(code: 2006, msg: e.message || "当前没有设置支付密码")
+      end
+
+      rescue_from TokenInvalid do |e|
+        out_error(code: 2007, msg: e.message || "授权Token无效")
       end
 
       rescue_from Grape::Exceptions::ValidationErrors do |e|

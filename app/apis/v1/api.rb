@@ -14,7 +14,6 @@ module V1
     mount V1::Users
     mount V1::Password
     mount V1::Notifications
-    mount V1::TicketTokens
 
     mount V1::LiveStudio::Courses
     mount V1::LiveStudio::Lessons
@@ -23,6 +22,7 @@ module V1
     mount V1::Payment::Recharges
     mount V1::Payment::Users
     mount V1::Payment::Withdraws
+    mount V1::Payment::CashAccounts
     mount V1::Recommend::Positions
 
     add_swagger_documentation mount_path: "/api-doc", api_version: "v1", hide_documentation_path: true, hide_format: false,

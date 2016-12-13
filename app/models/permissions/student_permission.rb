@@ -232,10 +232,11 @@ module Permissions
       ## 获取授权token
       api_allow :POST, "/api/v1/ticket_tokens/cash_accounts/update_password"
       ## end 获取授权token
+      
 
       ### 修改支付密码
-      api_allow :POST, "/api/v1/payment/users/[\\w-]+/payment_password" # 设置支付密码
-      api_allow :PUT, "/api/v1/payment/users/[\\w-]+/payment_password" # 修改支付密码
+      api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password" # 设置支付密码
+      api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password/ticket_token" # 修改支付密码
       ## end 修改支付密码
     end
 private

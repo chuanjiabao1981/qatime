@@ -136,6 +136,7 @@ window.Barrage = (id, options) ->
     barrageColor = 'rgb('+Math.floor(Math.random()*256)+','+Math.floor(Math.random()*256)+','+Math.floor(Math.random()*256)+')'
     # 创建弹幕节点
     barrageNode = $('<div class="barrage-node" style="position: absolute; color: ' + barrageColor + '; display: none;">' + msg + '</div>')
+    barrageNode.css('font-size', "18px");
     $("#my-video").append(barrageNode)
     console.log(barrageNode);
     barrageNode.css("top", barrageTop)

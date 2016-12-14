@@ -41,6 +41,7 @@ module Payment
 
     def pay_and_ship!
       pay!
+      cash_admin_billing!
     end
 
     def status_text(role=nil)
@@ -133,6 +134,13 @@ module Payment
       Kernel.Float(raw_value) if raw_value !~ /\A0[xX]/
     rescue ArgumentError, TypeError
       nil
+    end
+
+    # 系统账户结算
+    def cash_admin_billing!
+      summary = "系统支付提现, 订单编号：#{transaction_no} 订单金额: #{amount}"
+      billing = billings.create(total_money: amount, summary: summary)
+      CashAdmin.decrease_cash_account(amount, billing, summary)
     end
   end
 end

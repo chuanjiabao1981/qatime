@@ -2,7 +2,11 @@ module Payment
   class RemoteOrder < ActiveRecord::Base
     include AASM
 
+    serialize :remote_params_hash, Hash
+    serialize :result_params_hash, Hash
+
     belongs_to :order, polymorphic: true
+
 
     enum status: {
            unpaid: 0, # 等待支付
@@ -11,6 +15,11 @@ module Payment
            refunded: 98, # 已退款
            closed: 99 # 已关闭
          }
+
+    enum transaction_type: {
+      user_pay: 0, # 用户支付
+      system_transfer: 1 # 系统转账
+    }
 
     aasm column: :status, enum: true do
       state :unpaid, initial: true

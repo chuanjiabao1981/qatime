@@ -2,8 +2,8 @@ module Payment
   class RemoteOrder < ActiveRecord::Base
     include AASM
 
-    serialize :remote_params_hash, Hash
-    serialize :result_params_hash, Hash
+    serialize :hold_remotes, Hash
+    serialize :hold_results, Hash
 
     belongs_to :order, polymorphic: true
 
@@ -61,6 +61,10 @@ module Payment
     end
 
     private
+    before_create :generate_order_no
+    def generate_order_no
+      self.order_no = Util.random_order_no unless order_no
+    end
 
     def pay_order!
       order.pay_and_ship!

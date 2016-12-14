@@ -28,10 +28,12 @@ module Payment
     end
 
     def remote_transfer
-      return if Rails.env.test? || user_pay?
+      return fail! if Rails.env.test? || user_pay?
       r = WxPay::Service.invoke_transfer(transfer_remote_params)
-      r["return_code"] == RESULT_SUCCESS && r["result_code"] == RESULT_SUCCESS ? pay! : fail!
-      update(remote_params_hash: transfer_remote_params, result_params_hash: r)
+      result = WxPay::Result.new(r)
+      self.hold_results = JSON.parse(result[:xml].to_json)
+      self.hold_remotes = transfer_remote_params
+      result.success? ? pay! : fail!
     end
 
     private

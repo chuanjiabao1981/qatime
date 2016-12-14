@@ -31,6 +31,14 @@ module Payment
       assert @teacher.cash_account.balance == balance - 200
     end
 
+    test 'weixin_order test' do
+      sleep 2
+      assert Payment::WeixinOrder.last.amount == 200
+      assert Payment::WeixinOrder.last.system_transfer?
+      Payment::WeixinOrder.last.remote_transfer
+      assert Payment::WeixinOrder.last.failed?
+    end
+
     test 'admin unpass audit withdraw test' do
       click_link '提现审核'
       @teacher = users(:teacher_balance)

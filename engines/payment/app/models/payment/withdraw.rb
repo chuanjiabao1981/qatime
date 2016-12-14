@@ -97,7 +97,6 @@ module Payment
       wechat? && weixin_orders.create(
         amount: amount,
         remote_ip: TCPSocket.gethostbyname(Socket.gethostname).last,
-        pay_type: :wechat,
         status: :unpaid,
         transaction_type: :system_transfer
       )

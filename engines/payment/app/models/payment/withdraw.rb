@@ -3,7 +3,7 @@ module Payment
     include AASM
 
     has_one :withdraw_record, foreign_key: 'payment_transaction_id', class_name: 'Payment::WithdrawRecord'
-    has_many :weixin_orders, as: :order
+    has_many :weixin_transfers, as: :order
 
     enum status: %w(init allowed refused canceled paid)
     enum pay_type: %w(cash bank alipay wechat)
@@ -94,11 +94,11 @@ module Payment
     def withdraw_cash!
       user.cash_account!.withdraw(amount, self)
       # 提现类型是微信时 创建自动转账数据
-      wechat? && weixin_orders.create(
+      wechat? && weixin_transfers.create(
         amount: amount,
         remote_ip: TCPSocket.gethostbyname(Socket.gethostname).last,
         status: :unpaid,
-        transaction_type: :system_transfer
+        order_no: transaction_no
       )
     end
 

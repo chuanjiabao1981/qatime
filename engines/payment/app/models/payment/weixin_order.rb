@@ -27,18 +27,10 @@ module Payment
       WxPay::Service.generate_app_pay_req(prepayid: prepay_id, noncestr: nonce_str)
     end
 
-    def remote_transfer
-      return fail! if Rails.env.test? || user_pay?
-      r = WxPay::Service.invoke_transfer(transfer_remote_params)
-      self.hold_results = JSON.parse(r.to_json)
-      self.hold_remotes = transfer_remote_params
-      r['return_code'] == RESULT_SUCCESS && r['result_code'] == RESULT_SUCCESS ? pay! : fail!
-    end
-
     private
     after_create :remote_sync
     def remote_sync
-      return if Rails.env.test? || order.created_at < 3.hours.ago || system_transfer?
+      return if Rails.env.test? || order.created_at < 3.hours.ago
       r = WxPay::Service.invoke_unifiedorder(remote_params)
       remote_result(r)
     end

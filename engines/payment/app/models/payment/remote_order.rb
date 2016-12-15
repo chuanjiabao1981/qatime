@@ -16,11 +16,6 @@ module Payment
            closed: 99 # 已关闭
          }
 
-    enum transaction_type: {
-      user_pay: 0, # 用户支付
-      system_transfer: 1 # 系统转账
-    }
-
     aasm column: :status, enum: true do
       state :unpaid, initial: true
       state :paid

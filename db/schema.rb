@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161214122619) do
+ActiveRecord::Schema.define(version: 20161215090949) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -805,25 +805,24 @@ ActiveRecord::Schema.define(version: 20161214122619) do
   create_table "payment_remote_orders", force: :cascade do |t|
     t.integer  "order_id"
     t.string   "order_type"
-    t.string   "order_no",         limit: 64
-    t.decimal  "amount",                       precision: 8, scale: 2
-    t.string   "remote_ip",        limit: 64
-    t.string   "trade_type",       limit: 32
+    t.string   "order_no",     limit: 64
+    t.decimal  "amount",                   precision: 8, scale: 2
+    t.string   "remote_ip",    limit: 64
+    t.string   "trade_type",   limit: 32
     t.string   "pay_url"
-    t.string   "type",             limit: 128
+    t.string   "type",         limit: 128
     t.integer  "status"
     t.string   "prepay_id"
     t.text     "nonce_str"
     t.datetime "pay_at"
     t.datetime "deleted_at"
-    t.datetime "created_at",                                                       null: false
-    t.datetime "updated_at",                                                       null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.string   "notify_id"
     t.string   "trade_no"
     t.datetime "notify_time"
     t.text     "hold_remotes"
     t.text     "hold_results"
-    t.integer  "transaction_type",                                     default: 0
   end
 
   add_index "payment_remote_orders", ["order_type", "order_id"], name: "index_payment_remote_orders_on_order_type_and_order_id", using: :btree

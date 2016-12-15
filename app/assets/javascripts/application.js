@@ -32,5 +32,6 @@
 //= require moment.min
 //= require calendar-zh-cn.js
 //= require calendar-es5
+//= require jquery.fancybox-1.3.1
 //= require jedate
 //= require jquery.jedate

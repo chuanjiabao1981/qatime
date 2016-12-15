@@ -500,5 +500,4 @@ $(function() {
     live_chat.pushMsg(msg);
   }
 
-  $('.fancybox').fancybox();
 });

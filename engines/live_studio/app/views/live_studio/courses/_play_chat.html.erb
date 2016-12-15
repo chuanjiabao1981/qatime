@@ -111,6 +111,7 @@ setInterval(visit,30000);
 <% end %>
 
 $(function() {
+  $('.fancybox').fancybox();
 
   var accid = "<%= @chat_account.try(:accid) %>";
   var token = "<%= @chat_account.try(:token) %>";

@@ -111,7 +111,7 @@ setInterval(visit,30000);
 <% end %>
 
 $(function() {
-  $(".fancybox").fancybox({type: 'ajax'});
+  //$(".fancybox").fancybox({type: 'ajax'});
 
   var accid = "<%= @chat_account.try(:accid) %>";
   var token = "<%= @chat_account.try(:token) %>";
@@ -221,7 +221,7 @@ $(function() {
 
           var messageContent = $("<div class='information-con'></div>");
           if(msg.type == 'image'){
-            messageContent.append($('<a rel="group" href="'+ msg.file.url+'" class="fancybox"><img class="accept-img" alt="" src="' + msg.file.url + '"> </a>'));
+            messageContent.append($('<a rel="group" href="javascript:void(0);" class="fancybox"><img class="accept-img" alt="" src="' + msg.file.url + '"> </a>'));
           }else{
             messageContent.append($.replaceChatMsg(msg.text));
           }

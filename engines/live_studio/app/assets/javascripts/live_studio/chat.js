@@ -127,7 +127,7 @@ window.currentTeam = {
         break;
       case 'image':
         console.log(msg);
-        console.log(msg.text);
+        console.log(msg.file.url);
         console.log('asdafadsf');
         onImageMsg(msg);
         break;
@@ -417,7 +417,8 @@ function appendMsg(msg, messageClass) {
   // 消息内容
   var messageContent = $("<div class='information-con'></div>");
   if(messageClass == 'Image'){
-    messageContent.append($('<a rel="example_group" href="' + msg.text + '"><img class="accept-img" alt="" src="' + msg.text + '"> </a>'));
+    var img_url = msg.file.url
+    messageContent.append($('<a rel="example_group" href="' + img_url + '"><img class="accept-img" alt="" src="' + img_url + '"> </a>'));
   }else{
     messageContent.append($.replaceChatMsg(msg.text));
   }

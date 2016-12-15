@@ -417,8 +417,7 @@ function appendMsg(msg, messageClass) {
   // 消息内容
   var messageContent = $("<div class='information-con'></div>");
   if(messageClass == 'Image'){
-    var img_url = msg.file.url
-    messageContent.append($('<a rel="example_group" href="' + img_url + '"><img class="accept-img" alt="" src="' + img_url + '"> </a>'));
+    messageContent.append($('<a rel="example_group" href><img class="accept-img" alt="" src="' + msg.file.url + '"> </a>'));
   }else{
     messageContent.append($.replaceChatMsg(msg.text));
   }
@@ -435,6 +434,9 @@ function appendMsg(msg, messageClass) {
 
   $("#messages").scrollTop($("#messages").prop('scrollHeight'));
 
+
+  console.log($("#member-icons").find("img.icon-" + msg.from).size());
+  console.log('头像显示');
   if($("#member-icons").find("img.icon-" + msg.from).size() > 0) {
     $("#msg-" + msg.idClient).find(".information-title img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
   } else {

@@ -417,8 +417,8 @@ function appendMsg(msg, messageClass) {
   // 消息内容
   var messageContent = $("<div class='information-con'></div>");
   if(messageClass == 'Image'){
-    var url = msg.file.url;
-    messageContent.append($('<a class="fancybox" rel="group" href="'+ url +'"><img class="accept-img" alt="" src="' + url + '"> </a>'));
+    var url = 'http://nim.nos.netease.com/NDExNDAwNQ==/bmltYV85ODEzNzMyOF8xNDgxODA5MDIwMjI1XzBmZjFjMDkxLTk1YjUtNDUyZC1hMTYzLTFiYjcyYWViNWE3MQ=='; //msg.file.url;
+    messageContent.append($('<a class="fancybox.ajax" rel="group" href="'+ url +'"><img class="accept-img" alt="" src="' + url + '"> </a>'));
   }else{
     messageContent.append($.replaceChatMsg(msg.text));
   }

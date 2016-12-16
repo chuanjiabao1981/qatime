@@ -76,15 +76,16 @@ module V1
           params do
             requires :id, type: Integer, desc: '课程ID'
             optional :live_token, type: String, desc: '心跳token'
-            optional :beat_step, type: Integer, desc: '心跳间隔 单位:秒'
+            optional :beat_step, type: String, desc: '心跳间隔 单位:秒'
             optional :timestamp, type: Integer, desc: '心跳间隔 单位:秒'
           end
           post ':id/heart_beat' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
+            beat_step = params[:beat_step].blank? ? ::LiveStudio::Lesson.beat_step : params[:beat_step].to_i
             # raise_change_error_for(@lesson.teaching? || @lesson.paused?)
             {
               result: 'ok',
-              live_token: @lesson.heartbeats(params[:timestamp], params[:beat_step], params[:live_token])
+              live_token: @lesson.heartbeats(params[:timestamp], beat_step, params[:live_token])
             }
           end
 

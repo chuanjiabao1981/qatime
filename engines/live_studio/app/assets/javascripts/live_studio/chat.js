@@ -125,7 +125,14 @@ window.currentTeam = {
         // 处理群通知消息
         onTeamNotificationMsg(msg);
         break;
+      case 'image':
+        console.log(msg);
+        console.log(msg.file.url);
+        console.log('asdafadsf');
+        onImageMsg(msg);
+        break;
       default:
+
         onNormalMsg(msg)
         break;
     }
@@ -273,7 +280,12 @@ window.currentTeam = {
   }
 
   function onNormalMsg(msg) {
+    console.log('asdfasdsaf');
     appendMsg(msg);
+  }
+
+  function onImageMsg(msg) {
+    appendMsg(msg, 'Image');
   }
 
   function teamAnnouncement(announcement) {
@@ -357,6 +369,15 @@ function flashChecker(){
   return {f:hasFlash,v:flashVersion};
 }
 
+function refreshTeamMembersUI(teamId, fn) {
+  if(teamId != currentTeam.id) return;
+  $.get('/chat/teams/' + teamId + '/members',function(data){
+    $("#members-panel").html(data);
+    if(fn) fn();
+  });
+}
+
+
 function sendMessageTime(msg, type){
   var date = new Date(msg.time);
   var hours = date.getHours();
@@ -394,7 +415,13 @@ function appendMsg(msg, messageClass) {
   messageTitle.append("<span class='information-time'>" + sendMessageTime(msg) + "</span>");
   messageItem.append(messageTitle);
   // 消息内容
-  var messageContent = $("<div class='information-con'>" + $.replaceChatMsg(msg.text) + "</div>");
+  var messageContent = $("<div class='information-con'></div>");
+  if(messageClass == 'Image'){
+    var url = msg.file.url;
+    messageContent.append($('<a class="fancybox.ajax" rel="group" href="javascript:void(0);"><img class="accept-img" alt="" src="' + url + '"> </a>'));
+  }else{
+    messageContent.append($.replaceChatMsg(msg.text));
+  }
   messageItem.append(messageContent);
 
 
@@ -402,11 +429,12 @@ function appendMsg(msg, messageClass) {
 
   // 显示弹幕
   var now = new Date().getTime();
-  if(currentTeam.barrage && currentTeam.barrage.active && now - msg.time < 5000) {
+  if(messageClass != 'Image' && currentTeam.barrage.active && now - msg.time < 5000) {
     currentTeam.barrage.show($.replaceChatMsg(msg.text));
   }
 
   $("#messages").scrollTop($("#messages").prop('scrollHeight'));
+
 
   if($("#member-icons").find("img.icon-" + msg.from).size() > 0) {
     $("#msg-" + msg.idClient).find(".information-title img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
@@ -471,4 +499,5 @@ $(function() {
     appendMsg(msg, ' new-information-stu');
     live_chat.pushMsg(msg);
   }
+
 });

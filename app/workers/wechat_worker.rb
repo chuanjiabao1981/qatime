@@ -24,6 +24,22 @@ class WechatWorker
 
 
   private
+
+  def transfer
+    Payment::WeixinOrder.system_transfer.find_in_batches(batch_size: 50) do |group|
+      group.each do |wx_order|
+        wx_order.remote_transfer
+        if wx_order.order.paid?
+          notify2({
+            to: '尊敬的用户',
+            message: '最近的账户提现已转账到微信账户，请至『钱包-零钱』中查看',
+            openid: wx_order.order.user.wechat_users.last.openid
+          })
+        end
+      end
+    end
+  end
+
   def notify2(options)
     to        = options["to"]
     message   = options["message"]

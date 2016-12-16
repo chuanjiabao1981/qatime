@@ -35,6 +35,7 @@ module Payment
       remote_result(r)
     end
 
+    # 用户支付参数
     def remote_params
       {
         body: "账户充值",
@@ -44,6 +45,18 @@ module Payment
         notify_url: order.notify_url,
         trade_type: trade_type,
         fee_type: 'CNY'
+      }
+    end
+
+    # 企业支付参数
+    def transfer_remote_params
+      {
+        partner_trade_no: order_no,
+        amount: pay_money,
+        spbill_create_ip: remote_ip,
+        check_name: 'NO_CHECK',
+        openid: order.try(:user).try(:wechat_users).try(:last).try(:openid),
+        desc: "用户提现"
       }
     end
 

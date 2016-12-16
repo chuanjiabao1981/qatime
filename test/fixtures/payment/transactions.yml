@@ -139,7 +139,7 @@ admin_withdraws:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: teacher_balance
   amount: 200
-  pay_type: 0
+  pay_type: 3
   status: 0
   type: Payment::Withdraw
 # 老师-提现记录

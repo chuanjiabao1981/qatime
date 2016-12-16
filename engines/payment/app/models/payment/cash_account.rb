@@ -22,20 +22,20 @@ module Payment
     end
 
     # 申请提现的时候冻结资金
-    def frozen(amount)
-      Payment::CashAccount.transaction do
-        self.frozen_balance += amount
-        save!
-      end
-    end
-
-    # 取消冻结资金
-    def cancel_frozen(amount)
-      Payment::CashAccount.transaction do
-        self.frozen_balance -= amount
-        save!
-      end
-    end
+    # def frozen(amount)
+    #   Payment::CashAccount.transaction do
+    #     self.frozen_balance += amount
+    #     save!
+    #   end
+    # end
+    #
+    # # 取消冻结资金
+    # def cancel_frozen(amount)
+    #   Payment::CashAccount.transaction do
+    #     self.frozen_balance -= amount
+    #     save!
+    #   end
+    # end
 
     # 充值
     def recharge(amount, target)
@@ -94,11 +94,11 @@ module Payment
 
     # 冻结资金
     def freeze_cash(amount)
-      amount = amount.abs
+      # amount = amount.abs
       Payment::CashAccount.transaction do
         with_lock do
           check_change!(amount)
-          # self.frozen_balance += amount
+          self.frozen_balance += amount
           save!
         end
       end

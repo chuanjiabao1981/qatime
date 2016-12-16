@@ -55,3 +55,7 @@ end
 every 5.minutes do
   runner "LessonPauseWorker.perform_async"
 end
+
+every [5, 15, 25].map { |d| "0 0 #{d} * *" } do
+  runner 'WechatWorker.perform_async("transfer")'
+end

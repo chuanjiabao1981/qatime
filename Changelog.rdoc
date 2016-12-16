@@ -296,3 +296,13 @@
         * [QT-607](https://qatime.atlassian.net/browse/QT-607)
         * [QT-620](https://qatime.atlassian.net/browse/QT-620)
         * [QT-608](https://qatime.atlassian.net/browse/QT-608)
+* 1.5.0
+    * feature
+        * [QT-652](https://qatime.atlassian.net/browse/QT-652)
+        * [QT-389](https://qatime.atlassian.net/browse/QT-389)
+        * [QT-668](https://qatime.atlassian.net/browse/QT-668)
+        * [QT-656](https://qatime.atlassian.net/browse/QT-656)
+    * bugfix
+        * [QT-508](https://qatime.atlassian.net/browse/QT-508)
+        * [QT-633](https://qatime.atlassian.net/browse/QT-633)
+        * [QT-634](https://qatime.atlassian.net/browse/QT-634)

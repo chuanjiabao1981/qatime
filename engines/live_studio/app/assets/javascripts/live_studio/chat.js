@@ -440,7 +440,7 @@ function appendMsg(msg, messageClass) {
     $("#msg-" + msg.idClient).find(".information-title img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
   } else {
     refreshTeamMembersUI(currentTeam.id, function() {
-      $("#msg-" + msg.idClient).find("img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
+      $("#msg-" + msg.idClient).find(".information-title img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));
     });
   }
 }
@@ -465,7 +465,7 @@ $(function() {
       $("#message-area").val("").attr("placeholder", "您被禁言了").attr("disabled", true);
       return false;
     }
-    msg = $("#message-area").val().trim().replace(/\</g, '&lt;').replace(/\>/g, '&gt;');;
+    msg = $("#message-area").val().trim().replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
 
     if(msg == '') return false;
     var msg = live_chat.nim.sendText({

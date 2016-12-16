@@ -148,7 +148,7 @@ window.Barrage = (id, options) ->
     },
     5000,
     ->
-      # barrageNode.remove()
+      barrageNode.remove()
     )
 
   # 清楚屏幕

@@ -5,7 +5,7 @@ module Payment
 
     include Payment::Payable
     include Payment::AutoPayable
-    # attr_accessor :payment_password
+    attr_accessor :payment_password
 
     RESULT_SUCCESS = "SUCCESS".freeze
 

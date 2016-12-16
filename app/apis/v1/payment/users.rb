@@ -11,7 +11,7 @@ module V1
           route_param :id do
             helpers do
               def auth_params
-                @user = ::User.find(params[:user_id])
+                @user = ::User.find(params[:id])
               end
             end
 

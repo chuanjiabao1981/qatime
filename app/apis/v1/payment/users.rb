@@ -7,8 +7,8 @@ module V1
           authenticate!
         end
 
-        resource :cash_accounts do
-          route_param :id do
+        namespace :users do
+          route_param :user_id do
             helpers do
               def auth_params
                 @user = ::User.find(params[:user_id])

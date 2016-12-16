@@ -104,7 +104,7 @@ module LiveService
     # 返回 order
     def self.create_order(user, course, params)
       order = Payment::Order.new(params.merge(course.order_params))
-      order.errors.add(:payment_password, :invalid) unless order.account? && user.cash_account!.password_digest.present? && user.cash_account!.authenticate(params[:payment_password])
+      order.errors.add(:payment_password, :invalid) if order.account? && user.cash_account!.password_digest.present? && !user.cash_account!.authenticate(params[:payment_password])
       order.user = user
       order
     end

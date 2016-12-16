@@ -25,6 +25,7 @@ module LiveStudio
       waste_orders.update_all(status: 99) if waste_orders.present?
 
       @order = LiveService::CourseDirector.create_order(current_user, @course, order_params.merge(remote_ip: request.remote_ip))
+      binding.pry
       if @order.errors.blank? && @order.save
         LiveService::ChatAccountFromUser.new(@order.user).instance_account
         redirect_to payment.transaction_path(@order.transaction_no)

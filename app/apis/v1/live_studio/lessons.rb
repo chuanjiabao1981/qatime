@@ -81,11 +81,12 @@ module V1
           end
           post ':id/heart_beat' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
-            beat_step = params[:beat_step].blank? ? ::LiveStudio::Lesson.beat_step : params[:beat_step].to_i
+            live_token = params[:beat_step].blank? ? @lesson.current_live_session.token :
+              @lesson.heartbeats(params[:timestamp], params[:beat_step].to_i, params[:live_token])
             # raise_change_error_for(@lesson.teaching? || @lesson.paused?)
             {
               result: 'ok',
-              live_token: @lesson.heartbeats(params[:timestamp], beat_step, params[:live_token])
+              live_token: live_token
             }
           end
 

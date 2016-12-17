@@ -46,7 +46,7 @@
           <div class="verify-code">
             <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 } %>
           </div>
-          <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_parent_phone" data-send-url="<%= ajax_captchas_url %>" data-key="send_captcha" value="<%= t ".get_captcha" %>">
+          <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_parent_phone" data-send-url="<%= ajax_captchas_path %>" data-key="send_captcha" value="<%= t ".get_captcha" %>">
         </div>
       </div>
       <div class="row">

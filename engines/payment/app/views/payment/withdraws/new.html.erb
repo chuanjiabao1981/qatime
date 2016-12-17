@@ -78,7 +78,7 @@
         <span><%= t 'view.withdraw.common.verify_mobile' %></span>
         <%= text_field_tag :verify,params[:verify], class: 'btn-num', placeholder: t('view.withdraw.common.verify_holder') %>
         <span>
-          <input class="btn-code" type="button" data-send-captcha-btn data-send-to-input="#login_mobile" data-send-url="<%= ajax_captchas_url %>"
+          <input class="btn-code" type="button" data-send-captcha-btn data-send-to-input="#login_mobile" data-send-url="<%= ajax_captchas_path %>"
                  data-key="withdraw_cash" value="<%= t 'view.withdraw.common.get_verify' %>">
         </span>
         <span>(<%= t 'view.withdraw.common.bind_mobile' %><%= @current_resource.login_mobile[0,3] %>****<%= @current_resource.login_mobile[7,4] %>)</span>

@@ -15,6 +15,7 @@ class Video < ActiveRecord::Base
 
   # 从网络获取视频时长
   def sync_duration!
+    return if name_url.blank?
     real_url = name_url.gsub(/^https/, "http")
     result = `ffprobe -i #{real_url} -show_entries format=duration -v quiet -of csv="p=0"`
     self.duration = result.to_i

@@ -58,7 +58,7 @@ module UserService
       # 微信登陆链接
       def wechat_url(state='wwtd')
         return if WECHAT_CONFIG['web_appid'].blank?
-        redirect_uri = "#{WECHAT_CONFIG['domain_name']}/wechat/login_callback"
+        redirect_uri = "#{WECHAT_CONFIG['host']}/wechat/login_callback"
         host = "https://open.weixin.qq.com/connect/oauth2/authorize"
         "#{host}?appid=#{WECHAT_CONFIG['web_appid']}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_login&state=#{state}"
       end

@@ -23,7 +23,7 @@
     id:"login_container",
     appid: '<%= WECHAT_CONFIG['web_appid'] %>',
     scope: 'snsapi_login',
-    redirect_uri: "<%= "#{WECHAT_CONFIG['domain_name']}/wechat/login_callback?register_type=#{type}" %>",
+    redirect_uri: "<%= "#{WECHAT_CONFIG['host']}/wechat/login_callback?register_type=#{type}" %>",
     state: 'wwtd',
     style: "black",
     href: "https://www.genshuixue.com/asset/css/common/component/wechatQrcode.css"

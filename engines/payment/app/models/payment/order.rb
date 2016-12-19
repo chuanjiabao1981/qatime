@@ -142,7 +142,7 @@ module Payment
         out_trade_no: order_no,
         total_fee: pay_money,
         spbill_create_ip: remote_ip,
-        notify_url:  "#{WECHAT_CONFIG['domain_name']}/payment/notify",
+        notify_url:  "#{WECHAT_CONFIG['host']}/payment/notify",
         trade_type: trade_type,
         fee_type: 'CNY'
       }

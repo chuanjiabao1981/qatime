@@ -141,7 +141,9 @@ $(function() {
   }
 
   // 聊天表情
-  $("#emotion-btn").qqFace({ assign: "message-area", path: "<%= asset_path('assets/face/') %>" });
+  $("#emotion-btn").qqFace({ assign: "message-area", path: "<%= asset_path('assets/face/') %>" }, function() {
+    $("#message-area").focus();
+  });
 
 
   // 历史消息

@@ -1,6 +1,10 @@
 // QQ表情插件
 (function($){  
-  $.fn.qqFace = function(options){
+  $.fn.qqFace = function(options, cb){
+    if(typeof(options) === "function") {
+      cb = options;
+      options = {};
+    }
     var defaults = {
       id : 'facebox',
       path : 'face/',
@@ -25,7 +29,7 @@
                 '<table border="0" cellspacing="0" cellpadding="0"><tr>';
         for(var i=1; i<=75; i++){
           labFace = '['+tip+i+']';
-          strFace += '<td><img src="'+path+i+'.gif" onclick="$(\'#'+option.assign+'\').setCaret();$(\'#'+option.assign+'\').insertAtCaret(\'' + labFace + '\');" /></td>';
+          strFace += '<td><img src="'+path+i+'.gif" data-face="' + labFace + '" /></td>';
           if( i % 11 == 0 ) strFace += '</tr><tr>';
         }
         strFace += '</tr></table></div>';
@@ -36,6 +40,11 @@
       // $('#'+id).css('top',top);
       // $('#'+id).css('left',offset.left);
       $('#'+id).show();
+      $('#'+id).click(function(e) {
+        $('#' + option.assign).setCaret();
+        $('#' + option.assign).insertAtCaret($(e.target).attr("data-face"));
+        if(cb) cb();
+      });
       e.stopPropagation();
     });
 

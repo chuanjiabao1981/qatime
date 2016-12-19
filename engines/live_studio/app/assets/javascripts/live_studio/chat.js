@@ -465,9 +465,19 @@ $(function() {
       $("#message-area").val("").attr("placeholder", "您被禁言了").attr("disabled", true);
       return false;
     }
+    if($(this).hasClass('pendding')){
+      console.log("发言过于频繁");
+      return false;
+    } else {
+      $(this).addClass("pendding");
+      setTimeout(function() {
+        $("#message-form").removeClass();
+      }, 2 * 1000);
+    }
+
     msg = $("#message-area").val().trim().replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
 
-    if(msg == '') return false;
+    if(msg === '') return false;
     var msg = live_chat.nim.sendText({
       scene: 'team',
       to: live_chat.teamId,
@@ -480,16 +490,10 @@ $(function() {
     return false;
   });
 
-  // 输入换行
-  $('#message-area').keydown(function() {
-    var message = $(this).val();
-    if (event.keyCode == 13) {
-      if (message == "") {
-        // alert("Enter Some Text In Textarea");
-      } else {
-        $('#message-form').submit();
-      }
-      $("#message-area").val('');
+  // 回车提交表单
+  $('#message-area').keydown(function(event) {
+    if (event.keyCode === 13 && !event.shiftKey) {
+      $('#message-form').submit();
       return false;
     }
   });

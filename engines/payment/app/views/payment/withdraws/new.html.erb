@@ -84,8 +84,8 @@
                     <%= image_tag('card.png') %>
                     <%= t('view.withdraw.bank') %>
                   </span>
-                  <input type="text" placeholder="<%= t('view.withdraw.bank_input_holder') %>" name="bank_account" class="alipay td-msg" style="width: 29%;">
-                  <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="bank_name" class="username td-msg" style="width: 29%;">
+                  <input type="text" placeholder="<%= t('view.withdraw.bank_input_holder') %>" name="bank_account" class="card-num td-msg" style="width: 29%;">
+                  <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="bank_name" class="card-name td-msg" style="width: 29%;">
                 </div>
               </div>
 
@@ -147,9 +147,10 @@
           return false;
         }
 
-        if ($(".car-name").val().length <= 0) {
+        if ($(".card-name").val().length <= 0) {
           return false;
         }
+        console.log('11');
       }
       $('#submit_withdraw').removeAttr('disabled');
       $('#submit_withdraw').addClass('active');

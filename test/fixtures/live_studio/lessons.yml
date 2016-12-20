@@ -329,4 +329,28 @@ lesson_of_course_one_of_teacher_one:
   status: 5
   real_time: 30
   live_count: 3
-  
+
+lesson_of_course_seven_one:
+  name: 第一节课
+  course: course_maths_seven
+  teacher: teacher1
+  description: 用于结算测试
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 1
+  live_count: 1
+  real_time: 30
+
+lesson_of_course_seven_two:
+  name: 第二节课
+  course: course_maths_seven
+  teacher: teacher1
+  description: 用于结算测试
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 1
+  live_count: 1
+  real_time: 30
+

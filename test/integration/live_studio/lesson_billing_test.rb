@@ -8,15 +8,40 @@ module LiveStudio
       @headless = Headless.new
       @headless.start
       Capybara.current_driver = :selenium_chrome
-      @teacher = users(:english_teacher)
-
-      log_in_as(@teacher)
+      @teacher = users(:teacher1)
+      @course = live_studio_courses(:course_maths_seven)
     end
 
     def teardown
-      new_logout_as(@teacher)
       Capybara.use_default_driver
     end
+
+    test "student buy course and lesson billing " do
+      student = users(:student_balance)
+      new_log_in_as(student)
+      visit live_studio.course_path(@course)
+      click_on '立即报名'
+      choose('order_pay_type_account')
+      fill_in :order_payment_password, with: 'password'
+      click_on '立即付款'
+      new_logout_as(student)
+      # 票据准确性
+      assert_equal @course.buy_tickets.count, 1
+      assert_equal @course.buy_tickets.first.got_lesson_ids.count, 2
+
+      lesson = @course.lessons.first
+      lesson.teach!
+
+      LiveService::BillingDirector.new(lesson).billing
+      sleep 2
+      # todo 完善测试结果
+      assert_equal @teacher.cash_account!.balance, (@course.lesson_price * @course.teacher_percentage.to_f / 100)
+      # 系统账户收支
+      assert_equal CashAdmin.first.cash_account.consumption_records.last.different, @course.lesson_price
+      assert_equal CashAdmin.first.cash_account.earning_records.last.different, @course.price
+    end
+
+
 
     # test "teacher start live" do
     #   course = live_studio_courses(:course_with_lessons)

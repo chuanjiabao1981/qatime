@@ -5,7 +5,7 @@
     <%= link_to t("view.play.members"), "javascript:void(0);" %>
   </div>
   <div class="message-content">
-    <div class="message-con active">
+    <div class="message-con active" id="chat">
       <div class="message-new" id="messages">
         <%=  %>
       </div>
@@ -28,12 +28,12 @@
       </div>
     </div>
 
-    <div class="message-con">
+    <div class="message-con" id="announcements">
       <div class="message-new affiche" id="notice-panel">
       </div>
     </div>
 
-    <div class="message-con">
+    <div class="message-con" id="members">
       <div class="message-new affiche" id="members-panel">
       </div>
     </div>

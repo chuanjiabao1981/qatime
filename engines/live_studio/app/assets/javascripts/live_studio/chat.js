@@ -458,6 +458,23 @@ $(function() {
     $("#messages").empty();
   });
 
+
+  function submitCounter() {
+    var counter = 2;
+    var submitText = $("#message-form :submit").val();
+    $("#message-form :submit").val("(" + counter + "s)");
+    var chatTimer = setInterval(function() {
+      counter = counter - 1;
+      $("#message-form :submit").val("(" + counter + "s)");
+      if(counter <= 0) {
+        clearInterval(chatTimer);
+        $("#message-form :submit").removeClass("pendding");
+        $("#message-form :submit").removeAttr("disabled");
+        $("#message-form :submit").val(submitText);
+      }
+    }, 1000);
+  }
+
   // 聊天输入区域
   $("#message-form").submit(function() {
     if(!chatInited) return false;
@@ -465,9 +482,13 @@ $(function() {
       $("#message-area").val("").attr("placeholder", "您被禁言了").attr("disabled", true);
       return false;
     }
+    if($("#message-form :submit").hasClass('pendding')) return false;
+    $("#message-form :submit").addClass("pendding");
+    $("#message-form :submit").attr("disabled", true);
+    submitCounter();
     msg = $("#message-area").val().trim().replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
 
-    if(msg == '') return false;
+    if(msg === '') return false;
     var msg = live_chat.nim.sendText({
       scene: 'team',
       to: live_chat.teamId,
@@ -480,16 +501,10 @@ $(function() {
     return false;
   });
 
-  // 输入换行
-  $('#message-area').keydown(function() {
-    var message = $(this).val();
-    if (event.keyCode == 13) {
-      if (message == "") {
-        // alert("Enter Some Text In Textarea");
-      } else {
-        $('#message-form').submit();
-      }
-      $("#message-area").val('');
+  // 回车提交表单
+  $('#message-area').keydown(function(event) {
+    if (event.keyCode === 13 && !event.shiftKey) {
+      $('#message-form').submit();
       return false;
     }
   });

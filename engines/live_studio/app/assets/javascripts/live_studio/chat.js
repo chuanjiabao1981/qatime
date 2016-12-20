@@ -458,6 +458,23 @@ $(function() {
     $("#messages").empty();
   });
 
+
+  function submitCounter() {
+    var counter = 2;
+    var submitText = $("#message-form :submit").val();
+    $("#message-form :submit").val("(" + counter + "s)");
+    var chatTimer = setInterval(function() {
+      counter = counter - 1;
+      $("#message-form :submit").val("(" + counter + "s)");
+      if(counter <= 0) {
+        clearInterval(chatTimer);
+        $("#message-form :submit").removeClass("pendding");
+        $("#message-form :submit").removeAttr("disabled");
+        $("#message-form :submit").val(submitText);
+      }
+    }, 1000);
+  }
+
   // 聊天输入区域
   $("#message-form").submit(function() {
     if(!chatInited) return false;
@@ -465,16 +482,10 @@ $(function() {
       $("#message-area").val("").attr("placeholder", "您被禁言了").attr("disabled", true);
       return false;
     }
-    if($(this).hasClass('pendding')){
-      console.log("发言过于频繁");
-      return false;
-    } else {
-      $(this).addClass("pendding");
-      setTimeout(function() {
-        $("#message-form").removeClass();
-      }, 2 * 1000);
-    }
-
+    if($("#message-form :submit").hasClass('pendding')) return false;
+    $("#message-form :submit").addClass("pendding");
+    $("#message-form :submit").attr("disabled", true);
+    submitCounter();
     msg = $("#message-area").val().trim().replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
 
     if(msg === '') return false;

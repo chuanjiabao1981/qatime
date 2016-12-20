@@ -157,7 +157,7 @@ module LiveStudio
       #   end
       # end
       params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map(&:second) if params[:course] && params[:course][:lessons_attributes]
-      params.require(:course).permit(:name, :grade, :price, :invitation_id, :description, :taste_count, :crop_x, :crop_y, :crop_w, :crop_h, :publicize,
+      params.require(:course).permit(:name, :grade, :price, :invitation_id, :description, :taste_count, :crop_x, :crop_y, :crop_w, :crop_h, :publicize, :workstation_id,
           lessons_attributes: [:id, :name, :class_date, :start_time_hour, :start_time_minute,:duration, :_destroy])
     end
 

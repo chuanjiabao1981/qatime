@@ -39,16 +39,16 @@
                     <%= text_field_tag :payment_password,'',class: 'form-control tec-pwd', onfocus: '$(this).attr("type","password")', placeholder: t('view.payment_password_hd') %>
                   </div>
                   <%= link_to t('view.find_password'), send("edit_#{@resource_user.role}_path", @resource_user, {cate: 'security_setting'}), target: '_blank' %>
-                  <span class="help-block has-error"></span>
+                  <%= content_tag :div do %>
+                    <% @errors.each do |er| %>
+                      <%= content_tag :span, er, class: 'help-block has-error' %>
+                      <br/>
+                    <% end %>
+                    <%= link_to t('view.withdraw.common.cancel_withdraw'), cash_user_path(@current_resource) %>
+                  <% end if @errors.present?%>
                 </div>
               </div>
-              <%= content_tag :div do %>
-                <% @errors.each do |er| %>
-                  <%= content_tag :span, er, class: 'help-block has-error' %>
-                  <br/>
-                <% end %>
-                <%= link_to t('view.withdraw.common.cancel_withdraw'), cash_user_path(@current_resource) %>
-              <% end if @errors.present?%>
+
             </div>
             <div class="apply-tea-right">
               <div class="tea-right-title">
@@ -152,6 +152,7 @@
         }
       }
       $('#submit_withdraw').removeAttr('disabled');
+      $('#submit_withdraw').addClass('active');
     });
   })
 

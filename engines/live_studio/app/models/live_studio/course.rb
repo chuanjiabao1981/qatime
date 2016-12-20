@@ -70,7 +70,7 @@ module LiveStudio
     validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: "必须大于等于0" }
     validates :price, presence: { message: "请输入价格" }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
 
-    # validates :taste_count, numericality: { greater_than_or_equal_to: 0, message: "必须大于等于0" }
+    validates :taste_count, numericality: { greater_than_or_equal_to: 0, message: "必须大于等于0" }
     validates :taste_count, numericality: { less_than: ->(record) { record.lessons.size }, message: '必须小于课程总数'}
 
     validates :teacher, presence: true

@@ -52,7 +52,7 @@
       <%= f.label :workstation, style: 'margin-left: 15px;' %>
     </div>
     <div class="col-md-10">
-      <%= f.association :workstation, collection: @teacher.city.workstations.map{|ws| [ws.name, ws.id]}, label: false, placeholder: '请输入正整数', prompt: false%>
+      <%= f.association :workstation, collection: @teacher.city.workstations.map{|ws| [ws.name, ws.id]}, label: false, prompt: false%>
     </div>
   <% end if @teacher.city.workstations.count > 1%>
 
@@ -70,7 +70,7 @@
       <%= f.label :taste_count, class: 'listen' %>
     </div>
     <div class="col-md-10">
-      <%= f.input :taste_count, label: false, placeholder: '请选择允许试听的课程数量（正整数）,不选择默认为0', input_html: {min: 0, max: @course.lessons.count} %>
+      <%= f.input :taste_count, label: false, placeholder: '请选择允许试听的课程数量（正整数）,不选择默认为0', input_html: {min: 0} %>
     </div>
   </div>
 </div>

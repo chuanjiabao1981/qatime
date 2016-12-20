@@ -1,6 +1,7 @@
 module LiveStudio
   class Ticket < ActiveRecord::Base
     has_soft_delete
+    serialize :got_lesson_ids, Array
 
     default_scope { order('id DESC') }
 

@@ -1,4 +1,4 @@
-<% if earning_record.is_a?(LiveStudio::Lesson) && earning_record.target %>
+<% if earning_record.target && earning_record.target.is_a?(LiveStudio::Lesson) && %>
   <tr>
     <td><%= number_to_currency(earning_record.amount, locale: :cn, unit: "￥", precision: 1) %></td>
     <td></td>

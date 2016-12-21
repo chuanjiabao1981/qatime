@@ -604,7 +604,7 @@ course_maths_six:
 
 course_maths_seven:
   name: 数学辅导班7
-  workstation: workstation_invalid
+  workstation: workstation1
   status: 1
   teacher: teacher1
   teacher_percentage: 90

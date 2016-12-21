@@ -28,42 +28,39 @@ module LiveStudio
       # 票据准确性
       assert_equal @course.buy_tickets.count, 1
       assert_equal @course.buy_tickets.first.got_lesson_ids.count, 2
+      assert_equal @course.buy_tickets.first.status, 'active'
 
       lesson = @course.lessons.first
       lesson.teach!
-
       LiveService::BillingDirector.new(lesson).billing
       sleep 2
-      # todo 完善测试结果
-      assert_equal @teacher.cash_account!.balance, (@course.lesson_price * @course.teacher_percentage.to_f / 100)
-      # 系统账户收支
-      assert_equal CashAdmin.first.cash_account.consumption_records.last.different, @course.lesson_price
-      assert_equal CashAdmin.first.cash_account.earning_records.last.different, @course.price
+      money = @course.buy_tickets.where('got_lesson_ids like ?', "% #{lesson.id}\n%").sum(:lesson_price)
+      system_money = service_money = LiveStudio::Course::SYSTEM_FEE * lesson.live_count * lesson.real_time
+      workstation_money = service_money * LiveStudio::Course::WORKSTATION_PERCENT
+      teacher_money = money - system_money
+      teacher_percentage_money = (teacher_money * @course.teacher_percentage.to_f / 100)
+      system_money -= workstation_money
+      # 系统收入 - 学生购买
+      assert_equal CashAdmin.first.cash_account.earning_records.first.different.abs, @course.price
+      # 系统支出 - 课程结算
+      assert_equal CashAdmin.first.cash_account.consumption_records.first.different, -@course.lesson_price
+      # 系统收入 - 课程结算 - 服务费
+      assert_equal CashAdmin.first.cash_account.earning_records.last.different.abs, system_money.round(2)
+      # 系统账户余额 : 购买收入 - 课程单价 + 系统服务费
+      assert_equal CashAdmin.first.cash_account.balance, @course.price - @course.lesson_price + system_money.round(2)
+      # 工作站收入 - 系统分成
+      assert_equal @course.workstation.cash_account.earning_records.first.different, workstation_money.round(2)
+      # 工作站收入 - 教师分成
+      assert_equal @course.workstation.cash_account.earning_records.last.different, teacher_money - teacher_percentage_money
+      # 工作站账户余额
+      assert_equal @course.workstation.cash_account.balance, workstation_money + teacher_money - teacher_percentage_money
+      # 教师账户余额
+      assert_equal @teacher.cash_account.balance, teacher_percentage_money
+      # 教师收入
+      assert_equal @teacher.cash_account.earning_records.first.different, teacher_percentage_money
+      # 课程状态
+      assert_equal lesson.status, 'completed'
     end
 
-
-
-    # test "teacher start live" do
-    #   course = live_studio_courses(:course_with_lessons)
-    #   lesson = live_studio_lessons(:english_lesson_today)
-    #   visit live_studio.teacher_course_path(@teacher,course)
-    #   click_on("准备上课")
-    #   page.assert_selector("a.live")
-    #   lesson.reload
-    #   assert_equal("ready", lesson.status)
-    #   click_on("开始直播")
-    #   page.assert_selector("a.finish")
-    #   lesson.reload
-    #   assert_equal("teaching", lesson.status)
-    # end
-
-    # test "lesson finish and billing" do
-    #   course = live_studio_courses(:course_with_lessons)
-    #   lesson = live_studio_lessons(:english_lesson_onlive)
-    #   visit live_studio.teacher_course_path(@teacher, course)
-    #   click_on("结束直播")
-    #   lesson.reload
-    #   assert_equal("closed", lesson.status)
-    # end
   end
 end

@@ -8,16 +8,17 @@ module Payment
     # GET /recharges/new
     def new
       @withdraw = Payment::Withdraw.new(pay_type: :alipay)
+      render layout: 'application_front'
     end
 
     # POST /recharges
     def create
-      captcha_manager = UserService::CaptchaManager.new(@resource_user.login_mobile)
-      captcha = captcha_manager.captcha_of(:withdraw_cash)
       @errors = []
-      @errors << t('view.verify_error') if params[:verify] != captcha
+      # captcha_manager = UserService::CaptchaManager.new(@resource_user.login_mobile)
+      # captcha = captcha_manager.captcha_of(:withdraw_cash)
+      # @errors << t('view.verify_error') if params[:verify] != captcha
       @errors << t('view.withdraw.wait_audit') if @resource_user.payment_withdraws.init.present?
-      @errors << t('view.password_error') if !@resource_user.cash_account!.authenticate(params[:payment_password])
+      @errors << t('view.password_error') unless @resource_user.cash_account!.password_digest.present? && @resource_user.cash_account!.authenticate(params[:payment_password])
       @withdraw = @resource_user.payment_withdraws.new(withdraw_params.merge(status: :init))
       if @errors.blank?
         if @withdraw.save
@@ -25,15 +26,16 @@ module Payment
           redirect_to action: :complete, transaction: @withdraw.transaction_no
         else
           @errors += @withdraw.errors.messages.values.flatten
-          render :new
+          render :new, layout: 'application_front'
         end
       else
-        render :new
+        render :new, layout: 'application_front'
       end
     end
 
     def complete
       @withdraw = Payment::Withdraw.find_by!(transaction_no: params[:transaction])
+      render layout: 'application_front'
     end
 
     def cancel

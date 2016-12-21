@@ -4,6 +4,9 @@ cn:
     verify_error: 安全手机校验码不正确
     password_error: 支付密码不正确
     payment_password_label: 输入支付密码
+    payment_password_hd: 输入支付密码验证身份
+    find_password: 找回支付密码
+    able: 可用
     payment/consumption_record:
       view: 查看
     payment/earning_record:
@@ -21,7 +24,7 @@ cn:
       offline_tips: 请联系管理员确认付款 0353-2135828
     withdraw:
       common:
-        ok: 确认
+        ok: 确定
         audit: 提现申请
         cancel_withdraw: 取消申请
         verify_mobile: 安全手机校验
@@ -29,6 +32,7 @@ cn:
         get_verify: 获取验证码
         bind_mobile: 已绑定手机
       amount: 提现金额
+      amount_hd: 输入想要提现的金额
       balance: 当前余额
       out_balance: 提现金额超出余额
       wait_audit: 当前有未完成的提现申请，请耐心等待审核完成
@@ -48,6 +52,8 @@ cn:
       cash_cn: 现金
       cash_tips: （需本人携带身份证提取）
       audit_withdraw: 申请提现
+      alipay: 支付宝转账
+      bank: 银行转账
   activerecord:
     view:
       order: 我的订单

@@ -3421,6 +3421,16 @@ ul {
   background-color: #FFFFFF;
   display: none;
 }
+.message-con:nth-child(2) .information-con {
+  color: #999;
+}
+.message-con:nth-child(3) .information-title-img {
+  width: 25px !important;
+  height: 25px !important;
+}
+#announcements,#members {
+  color: #555555 !important;
+}
 .affiche {
   height: 263px !important;
 }
@@ -3435,7 +3445,6 @@ ul {
   width: 100%;
   height: 28px;
   line-height: 28px;
-  /*margin-bottom: 4px;*/
   overflow: hidden;
   background-color: rgb(153,153,153);
 }
@@ -3576,7 +3585,7 @@ ul {
   color: #000000;
 }
 .information-time {
-  color: #CCCCCC;
+  color: #999;
   font-size: 12px;
 }
 .information-name {
@@ -3629,6 +3638,7 @@ ul {
 
 .live-head {
   width: 100%;
+  background-color: rgb(41,41,41);
   margin-bottom: 15px;
 }
 .send-msg {
@@ -3644,8 +3654,8 @@ ul {
   resize: none;
 
 }
-.send-msg input:last-child {
-  width: 16.5%;
+.send-msg input {
+  width: 17%;
   height: 42px;
   float: left;
   border: 0px;
@@ -3654,7 +3664,10 @@ ul {
   border: 1px solid rgb(255,119,0);
   background-color: rgb(255,119,0);
 }
-
+.send-msg .pendding {
+  background-color: #999999;
+  border-color: #999999;
+}
 
 
 
@@ -5766,7 +5779,7 @@ ul {
   }
   .login-wechat .col-md-6:last-child {
     padding-left: 0px;
-    padding-right: 39px;
+    padding-right: 40px;
   }
   .tea-register {
     padding-right: 0px;
@@ -6523,12 +6536,12 @@ ul {
   margin-bottom: 0px;
 }
 .tea-right-con .form-group:first-child {
-  padding-top: 18px;
+  padding-top: 15px;
   padding-bottom: 10px;
 }
 .tea-right-con .input-group {
   display: inline-block;
-  margin: 0px 15px 0 20px;
+  margin: 0px 10px 0 20px;
 }
 .tea-right-con .form-group img {
   height: 22px;
@@ -6753,4 +6766,32 @@ ul {
 }
 .down-content img {
   width: 100%;
+}
+
+
+@media only screen and (min-width: 1400px)  {
+  .live-big {
+    width: 1376px !important;
+  }
+  .video-area {
+    height: 610px;
+  }
+  .area-left {
+    width: 75.3%;
+  }
+  .area-right {
+    width: 24.3%;
+  }
+  .area-left-con {
+    height: 583px;
+  }
+  .live-message {
+    height: 394px;
+  }
+  .message-new {
+    height: 295px;
+  }
+  .affiche {
+    height: 366px !important;
+  }
 }

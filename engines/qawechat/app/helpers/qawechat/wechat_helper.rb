@@ -3,14 +3,14 @@ require 'digest/sha1'
 module Qawechat
   module WechatHelper
     def get_notification_href(id, openid)
-      host = WECHAT_CONFIG['domain_name']
-      url = "http://#{host}/notifications/#{id}"
+      host = WECHAT_CONFIG['host']
+      url = "#{host}/notifications/#{id}"
       return get_href(url, openid, '点击查看')
     end
 
     def get_customized_course_href(id, openid, text)
-      host = WECHAT_CONFIG['domain_name']
-      url = "http://#{host}/customized_courses/#{id}"
+      host = WECHAT_CONFIG['host']
+      url = "#{host}/customized_courses/#{id}"
       return get_href(url, openid, text)
     end
 
@@ -45,7 +45,7 @@ module Qawechat
 
     def wechat_login_href
       return if WECHAT_CONFIG['web_appid'].blank?
-      redirect_uri = "#{WECHAT_CONFIG['domain_name']}/wechat/login_callback"
+      redirect_uri = "#{WECHAT_CONFIG['host']}/wechat/login_callback"
       host = "https://open.weixin.qq.com/connect/qrconnect"
       "#{host}?appid=#{WECHAT_CONFIG['web_appid']}&redirect_uri=#{redirect_uri}&response_type=code&scope=snsapi_login&state=wwtd"
     end

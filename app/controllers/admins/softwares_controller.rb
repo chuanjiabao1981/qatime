@@ -18,12 +18,9 @@ class Admins::SoftwaresController < ApplicationController
 
   def create
     @software = Software.new(software_params)
-    p software_params
     if @software.save
       respond_with :admins, @software
     else
-      p @software
-      p @software.errors
       render :new
     end
   end

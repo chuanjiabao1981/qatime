@@ -40,7 +40,7 @@
     var state = 'init';
     var camera_stream = '<%= @course.camera_pull_stream('http') %>';
     var board_stream = '<%= @course.board_pull_stream('http') %>';
-    var liveStatusStep = '<%= LiveStudio::Lesson.beat_step.to_i * 3 %>';
+    var liveStatusStep = '<%= LiveStudio::Lesson.beat_step.to_i * 3 * 1000 %>';
 
     // 白板播放器
     boardPlayer = neplayer("my-video", {

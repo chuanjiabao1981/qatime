@@ -40,6 +40,7 @@
     var state = 'init';
     var camera_stream = '<%= @course.camera_pull_stream('http') %>';
     var board_stream = '<%= @course.board_pull_stream('http') %>';
+    var liveStatusStep = '<%= LiveStudio::Lesson.beat_step.to_i * 3 %>';
 
     // 白板播放器
     boardPlayer = neplayer("my-video", {
@@ -161,7 +162,7 @@
       if(camera_stream.trim() == '' || board_stream.trim() == '') return
       player_status();
       if(state == 'init' && timer == -1){
-        timer = setInterval(player_status, 20 * 1000);
+        timer = setInterval(player_status, liveStatusStep);
       }
     }
 

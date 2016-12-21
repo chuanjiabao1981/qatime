@@ -1,9 +1,13 @@
 class Software < ActiveRecord::Base
   extend Enumerize
-  validates_presence_of :title, :sub_title, :platform, :version, :role, :desc, :description, :cdn_url, :logo, :category
+  validates_presence_of :title, :sub_title, :platform, :version, :role, :desc, :description, :cdn_url, :logo
 
   mount_uploader :logo, SoftwareLogoUploader
   has_one :qr_code, as: :qr_codeable
+
+  belongs_to :software_category
+
+  validates :software_category, presence: true
 
   PLATFORM_HASH = {
     windows: 1,
@@ -11,7 +15,7 @@ class Software < ActiveRecord::Base
     ios: 3
   }
 
-  enum status: %w(init published expired)
+  enum status: %w(init published expired offline)
   enum role: { teacher: 'teacher', student: 'student' }
   enum category: %w(teacher_live student_client)
 
@@ -48,6 +52,19 @@ class Software < ActiveRecord::Base
   def generate_download_links
     self.download_links = "#{$host_name}/softwares/#{id}/download" if download_links.blank?
     assign_qr_code
+  end
+
+  before_validation :copy_attr_from_category, on: :create
+  def copy_attr_from_category
+    return unless software_category
+    self.role = software_category.role
+    self.platform = software_category.platform
+    self.logo = software_category.logo
+    self.title = software_category.title
+    self.sub_title = software_category.sub_title
+    self.desc = software_category.desc
+    self.download_description = software_category.download_description
+    self.category = software_category.category
   end
 
   class << self

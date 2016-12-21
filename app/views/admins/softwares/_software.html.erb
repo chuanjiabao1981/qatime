@@ -18,9 +18,10 @@
     <%= software.status_text %>
   </div>
   <div class="col-md-1">
-    <%= link_to 'edit',edit_admins_software_path(software) %>
+    <%= link_to '编辑',edit_admins_software_path(software) %>
   </div>
   <div class="col-md-1">
-    <%= link_to '发布',run_admins_software_path(software),'data-confirm' => '请确认!' if software.init? %>
+    <%= link_to '发布', run_admins_software_path(software), 'data-confirm' => '请确认!' if software.init? %>
+    <%= link_to '下架', offline_admins_software_path(software), method: :patch, 'data-confirm' => '请确认!' if software.published? %>
   </div>
 </div>

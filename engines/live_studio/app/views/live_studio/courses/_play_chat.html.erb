@@ -238,7 +238,7 @@ $(function() {
 
           var messageContent = $("<div class='information-con'></div>");
           if(msg.type == 'image'){
-            messageContent.append($('<img class="accept-img" alt="" src="' + msg.file.url + '" onclick="accept_img_click(this)">>'));
+            messageContent.append($('<img class="accept-img" src="' + msg.file.url + '" onclick="accept_img_click(this)">'));
           }else{
             messageContent.append($.replaceChatMsg(msg.text));
           }
@@ -433,6 +433,7 @@ refreshNotice();
 
 
 function accept_img_click(obj){
+  console.log('image click');
   event.stopPropagation();
   var _this = $(obj);
   imgShow(".outerdiv", ".innerdiv", ".bigimg", _this);

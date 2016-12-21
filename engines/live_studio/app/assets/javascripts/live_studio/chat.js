@@ -280,7 +280,6 @@ window.currentTeam = {
   }
 
   function onNormalMsg(msg) {
-    console.log('asdfasdsaf');
     appendMsg(msg);
   }
 

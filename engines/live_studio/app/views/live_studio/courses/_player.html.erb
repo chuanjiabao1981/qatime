@@ -101,6 +101,13 @@
       set_timer();
     });
 
+    boardPlayer.on('ended', function(){
+      console.log('board ended');
+      boardPlayer.reset();
+      state = 'init';
+      set_timer();
+    });
+
     // 摄像头
     cameraPlayer = neplayer("small-video", {
       bigPlayButton: false,
@@ -123,6 +130,12 @@
       console.log('camera pause');
     });
     cameraPlayer.onPlayState(3,function(){
+      console.log('camera ended');
+      cameraPlayer.reset();
+      state = 'init';
+      set_timer();
+    });
+    cameraPlayer.on('ended', function(){
       console.log('camera ended');
       cameraPlayer.reset();
       state = 'init';

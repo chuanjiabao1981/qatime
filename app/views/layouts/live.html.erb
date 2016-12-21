@@ -6,7 +6,8 @@
   <%= stylesheet_link_tag "front_live", media: "all", "data-turbolinks-track" => false %>
   
   <%= javascript_include_tag "live_studio/application", "data-turbolinks-track" => false %>
-  <%= csrf_meta_tags %>
+  <%= javascript_include_tag "//nos.netease.com/vod163/nep.min.js", "data-turbolinks-track" => false %>
+  <%= stylesheet_link_tag "//nos.netease.com/vod163/nep.min.css", media: "all", "data-turbolinks-track" => false %>
   <%= yield :stylesheet %>
 </head>
 <body>

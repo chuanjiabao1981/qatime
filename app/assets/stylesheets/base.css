@@ -6831,6 +6831,7 @@ ul {
 .buy-left-con {
   border-left: 0px;
   padding: 20px 0px;
+  overflow: hidden;
 }
 .buy-center-con {
   border-left: 0px;
@@ -6846,11 +6847,9 @@ ul {
   line-height: 34px;
   color: #999999;
 }
-.buy-left-con table tr:first-child td {
-  width: 33.8%;
-}
+
 .buy-left-con img {
-  width: 92.8%;
+  width: 31%;
   height: 120px;
   vertical-align: top;
   float: left;
@@ -6860,8 +6859,9 @@ ul {
   margin-left: 30px;
 }
 .buy-left-con table {
-  width: 100%;
+  width: 66%;
   color: #999;
+  float: right;
 }
 .buy-left-con table td span:nth-child(2) {
   color: #666666;
@@ -7041,7 +7041,12 @@ ul {
 
 
 @media only screen and (max-width: 680px) {
-
+  .buy-left-con table {
+    width: 100% !important;
+  }
+  .buy-left-con img {
+    width: 206px !important;
+  }
   .alipay-con .complete-prompt-left,.alipay-con .complete-prompt-center,.alipay-con .complete-btn {
     position: relative !important;
     width: 100% !important;

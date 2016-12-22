@@ -7,7 +7,6 @@
   <div class="message-content">
     <div class="message-con active" id="chat">
       <div class="message-new" id="messages">
-        <%=  %>
       </div>
 
       <div class="information-face">
@@ -42,30 +41,37 @@
 
 
 <%= content_for :mask do %>
-<div id="histories" class="message-logging">
-  <div class="logging-title">
-    <div class="logging-left">
-      <span><%= t("common.message_history") %></span>
-    </div>
-    <div class="logging-center">
-      <span class="glyphicon glyphicon-chevron-left subtract-jedate"></span>
-      <input type="text" class="workinput wicon mr25" id="inpstart" />
-      <span class="glyphicon glyphicon-chevron-right add-jedate"></span>
-      <label for="inpstart" class="glyphicon glyphicon-calendar date-icon"></label>
-    </div>
+  <div id="histories" class="message-logging">
+    <div class="logging-title">
+      <div class="logging-left">
+        <span><%= t("common.message_history") %></span>
+      </div>
+      <div class="logging-center">
+        <span class="glyphicon glyphicon-chevron-left subtract-jedate"></span>
+        <input type="text" class="workinput wicon mr25" id="inpstart" />
+        <span class="glyphicon glyphicon-chevron-right add-jedate"></span>
+        <label for="inpstart" class="glyphicon glyphicon-calendar date-icon"></label>
+      </div>
 
-    <div class="logging-right">
-      <%= link_to "", "javascript: void(o);", id: "history-close", class: "fa fa-times" %>
+      <div class="logging-right">
+        <%= link_to "", "javascript: void(o);", id: "history-close", class: "fa fa-times" %>
+      </div>
+    </div>
+    <div class="history-content">
+      <div class="logging-more" id="logging-more"><%= t("view.play.more") %></div>
+      <div class="logging-nomore" id="logging-nomore"><%= t("view.play.nomore") %></div>
+
+      <div class="message-con active" id="messages-group">
+      </div>
     </div>
   </div>
-  <div class="history-content">
-    <div class="logging-more" id="logging-more"><%= t("view.play.more") %></div>
-    <div class="logging-nomore" id="logging-nomore"><%= t("view.play.nomore") %></div>
 
-    <div class="message-con active" id="messages-group">
+  <div class="outerdiv">
+    <div class="innerdiv">
+      <div class="accept-down"></div>
+      <img class="bigimg" src="" >
     </div>
   </div>
-</div>
 <% end %>
 
 <%= content_for :javascript do %>
@@ -111,6 +117,15 @@ setInterval(visit,30000);
 <% end %>
 
 $(function() {
+
+  $(document).click(function (event) {
+    $('.outerdiv').hide();
+  });
+  $(".innerdiv").click(function  () {
+    event.stopPropagation();
+    $(this).show();
+  })
+
   //$(".fancybox").fancybox({type: 'ajax'});
 
   var accid = "<%= @chat_account.try(:accid) %>";
@@ -223,7 +238,7 @@ $(function() {
 
           var messageContent = $("<div class='information-con'></div>");
           if(msg.type == 'image'){
-            messageContent.append($('<a rel="group" href="javascript:void(0);" class="fancybox"><img class="accept-img" alt="" src="' + msg.file.url + '"> </a>'));
+            messageContent.append($('<img class="accept-img" src="' + msg.file.url + '" onclick="accept_img_click(this)">'));
           }else{
             messageContent.append($.replaceChatMsg(msg.text));
           }
@@ -415,5 +430,59 @@ function refreshNotice() {
   });
 }
 refreshNotice();
+
+
+function accept_img_click(obj){
+  console.log('image click');
+  event.stopPropagation();
+  var _this = $(obj);
+  imgShow(".outerdiv", ".innerdiv", ".bigimg", _this);
+}
+
+function imgShow(outerdiv, innerdiv, bigimg, _this){
+  var src = _this.attr("src");
+  console.log(src);
+  console.log(bigimg);
+  $(bigimg).attr("src", src);
+  $("<img/>").attr("src", src).load(function(){
+    var windowW = $(window).width();
+    var windowH = $(window).height();
+    var realWidth = this.width;
+    var realHeight = this.height;
+    var imgWidth, imgHeight;
+    var scale = 0.8;
+    if(realHeight>windowH*scale) {
+      imgHeight = windowH*scale;
+      imgWidth = imgHeight/realHeight*realWidth;
+      if(imgWidth>windowW*scale) {
+        imgWidth = windowW*scale;
+      }
+    } else if(realWidth>windowW*scale) {
+      imgWidth = windowW*scale;
+      imgHeight = imgWidth/realWidth*realHeight;
+    } else {
+      imgWidth = realWidth;
+      imgHeight = realHeight;
+    }
+    $(bigimg).css("width",imgWidth);
+    var w = (windowW-imgWidth)/2;
+    var h = (windowH-imgHeight)/2;
+    $(innerdiv).css({"top":h, "left":w});
+    $(outerdiv).fadeIn("fast");
+  });
+  $(innerdiv).mousedown(function(){
+    var abs_x = event.clientX - $(innerdiv).offset().left;
+    var abs_y = event.clientY - $(innerdiv).offset().top;
+    $(document).mousemove(function (e) {
+      var xPos = (e.clientX-abs_x)  + "px";
+      var yPos = (e.clientY -abs_y) + "px";
+      $(innerdiv).css("left", xPos);
+      $(innerdiv).css("top", yPos);
+    });
+  })
+  $(document).mouseup(function(){
+    $(document).unbind('mousemove');
+  })
+}
 </script>
 <% end %>

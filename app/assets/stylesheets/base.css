@@ -6777,7 +6777,7 @@ ul {
 
 
 @media only screen and (min-width: 1400px)  {
-  .live-big {
+  div.live-big {
     width: 1376px !important;
   }
   .video-area {

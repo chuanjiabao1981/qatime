@@ -602,6 +602,17 @@ course_maths_six:
   city: zhuji
   lessons_count: 2
 
+course_maths_seven:
+  name: 数学辅导班7
+  workstation: workstation1
+  status: 1
+  teacher: teacher1
+  teacher_percentage: 90
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  city: yangquan
+  lessons_count: 2
 course_for_destroy:
   name: 将要删除的辅导班
   workstation: workstation_zhuji
@@ -617,4 +628,3 @@ course_for_destroy:
   province: zhejiang
   city: zhuji
   lessons_count: 2
-

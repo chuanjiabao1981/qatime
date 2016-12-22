@@ -10,7 +10,7 @@ module LiveStudio
       "#{id} #{name}".parameterize
     end
 
-    SYSTEM_FEE = 0.5 # 系统每个人每分钟收费0.5元
+    SYSTEM_FEE = 0.6 # 系统每个人每分钟收费0.6元
     WORKSTATION_PERCENT = 0.6 # 基础服务费代理商分成 60%
 
     USER_STATUS_BOUGHT = :bought # 已购买

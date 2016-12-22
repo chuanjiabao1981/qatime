@@ -4,6 +4,11 @@ class SoftwareTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
+  test 'offline course test' do
+    software = softwares(:five)
+    software.offline!
+    assert software.reload.offline?
+  end
 
   test 'running! after set running_at' do
     software = softwares(:four)

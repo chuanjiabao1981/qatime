@@ -21,6 +21,7 @@ class Admins::SoftwaresController < ApplicationController
     if @software.save
       respond_with :admins, @software
     else
+      p @software.errors
       render :new
     end
   end

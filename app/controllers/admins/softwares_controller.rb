@@ -19,8 +19,9 @@ class Admins::SoftwaresController < ApplicationController
   def create
     @software = Software.new(software_params)
     if @software.save
-      respond_with :admins,@software
+      respond_with :admins, @software
     else
+      p @software.errors
       render :new
     end
   end
@@ -40,8 +41,16 @@ class Admins::SoftwaresController < ApplicationController
     redirect_to action: :index
   end
 
+  # 下架
+  def offline
+    @software = Software.find params[:id]
+    @software.offline!
+    redirect_to action: :index
+  end
+
   private
+
   def software_params
-    params.require(:software).permit(:title, :sub_title, :platform, :version, :role, :category, :desc, :description, :cdn_url, :enforce, :logo)
+    params.require(:software).permit(:software_category_id, :sub_title, :platform, :version, :role, :category, :desc, :description, :cdn_url, :enforce, :logo)
   end
 end

@@ -379,11 +379,11 @@ module LiveStudio
       invitation.accepted!
     end
 
-    # 非邀请辅导班使用默认工作站
+    # 非邀请辅导班未选择工作站则使用默认工作站
     before_validation :copy_city, on: :create
     def copy_city
       return if invitation
-      self.workstation = default_workstation
+      self.workstation ||= default_workstation
       self.city = workstation.try(:city)
       self.province = city.try(:province)
       self.teacher_percentage = 100

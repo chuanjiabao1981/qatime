@@ -75,19 +75,23 @@ $(document).ready(function(){
       },
 
       success: function(responseText, statusText, xhr, $form){
-        times=60,
-        timer=null;
-        timer=setInterval(function(){
-          times--;
-          if(times<=0){
-            send.value='<%= I18n.t("students.common.get_captcha")%>';
-            clearInterval(timer);
-            send.disabled=false;
-          }else{
-            send.value='<%= I18n.t("students.common.try_get_captcha_again")%>'+'('+times+')';
-            send.disabled=true;
-          }
-        },1000)
+        if(responseText == 405){
+          alert('您已经注册过了, 请直接登陆');
+        }else{
+          times=60,
+            timer=null;
+          timer=setInterval(function(){
+            times--;
+            if(times<=0){
+              send.value='<%= I18n.t("students.common.get_captcha")%>';
+              clearInterval(timer);
+              send.disabled=false;
+            }else{
+              send.value='<%= I18n.t("students.common.try_get_captcha_again")%>'+'('+times+')';
+              send.disabled=true;
+            }
+          },1000)
+        }
       }
     });
   });

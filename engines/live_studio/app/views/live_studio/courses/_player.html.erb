@@ -38,28 +38,21 @@
     var boardPlayer, cameraPlayer;
     var timer = -1;
     var state = 'init';
-    // var camera_stream = '<%= @course.camera_pull_stream('http') %>';
-    // var board_stream = '<%= @course.board_pull_stream('http') %>';
+    var camera_stream = '<%= @course.camera_pull_stream('http') %>';
+    var board_stream = '<%= @course.board_pull_stream('http') %>';
+    var initStatus = 0;
 
-    var camera_stream = 'http://va0a19f55.live.126.net/live/d681ee6de6c24ae7b9f00d863bf806e1.flv?netease=va0a19f55.live.126.net';
-    var board_stream = 'http://va0a19f55.live.126.net/live/74cecd22f8e34e6f95a8863042d3ba76.flv?netease=va0a19f55.live.126.net';
-
-
-    // 白板播放器
-    boardPlayer = neplayer("my-video", {
-      bigPlayButton: false,
-      controlBar: {
-        progressControl: false,
-        remainingTimeDisplay: false
-      }
-    }, function() {
+    // 自定义播放器按钮
+    function addButton() {
       var barrageButton = $('<button class="vjs-barrage-control vjs-control vjs-button vjs-playing" type="button" aria-live="polite"></button>');
       barrageButton.html('<%= image_tag "barrage.png" %>');
       var refreshButton = $('<button class="vjs-refresh-control vjs-control vjs-button vjs-playing" type="button" aria-live="polite"></button>');
       refreshButton.html('<%= image_tag "refresh.png" %>');
       $("#my-video .vjs-control-bar").children(":eq( 2 )").after(barrageButton);
       $("#my-video .vjs-control-bar").children(":first").after(refreshButton);
-
+    }
+    // 弹幕初始化
+    function damu() {
       // 弹幕
       var barrage = new Barrage("my-video");
       $("#my-video .vjs-control-bar").on('click', '.vjs-barrage-control', function() {
@@ -72,8 +65,6 @@
         }
       });
       if(window.live_chat) live_chat.setBarrage(barrage);
-
-
       // 重置
       $("#my-video .vjs-control-bar").on('click', '.vjs-refresh-control', function() {
         boardPlayer.reset();
@@ -81,7 +72,20 @@
         state = 'init';
         set_timer();
       });
+    }
 
+    // 白板播放器
+    boardPlayer = neplayer("my-video", {
+      bigPlayButton: false,
+      controlBar: {
+        progressControl: false,
+        remainingTimeDisplay: false
+      }
+    }, function() {
+      addButton();
+      damu();
+      initStatus = initStatus + 1;
+      player_status();
     });
 
     boardPlayer.onError(function(err){
@@ -90,6 +94,7 @@
       boardPlayer.reset();
       state = 'init';
       set_timer();
+      player_status();
     });
 
     boardPlayer.onPlayState(1,function(){
@@ -105,24 +110,12 @@
       set_timer();
     });
 
-    boardPlayer.on('ended', function(){
-      console.log('board ended');
-      boardPlayer.reset();
-      state = 'init';
-      set_timer();
-    });
-
-    boardPlayer.setDataSource({
-      type: "video/x-flv",
-      src: board_stream
-    });
-    boardPlayer.play();
-
     // 摄像头
     cameraPlayer = neplayer("small-video", {
       bigPlayButton: false,
       controlBar: false
     }, function() {
+      initStatus = initStatus + 1;
     });
     // cameraPlayer.play();
     cameraPlayer.onError(function(err){
@@ -145,22 +138,9 @@
       state = 'init';
       set_timer();
     });
-    cameraPlayer.on('ended', function(){
-      console.log('camera ended');
-      cameraPlayer.reset();
-      state = 'init';
-      set_timer();
-    });
-
-    
-
-    cameraPlayer.setDataSource({
-      type: "video/x-flv",
-      src: board_stream
-    });
-    cameraPlayer.play();
 
     function player_status(){
+      if(initStatus <= 1) return false;
       $.get("/live_studio/courses/<%= @course.id %>/live_status", {}, function (data, status) {
         if (status == 'success') {
           console.log('player_status');
@@ -197,12 +177,12 @@
     }
 
     //判断flash是否安装
-    // if(flashChecker().f) {
-    //   set_timer();
-    // } else{
-    //   $("#player-and-chat").hide();
-    //   $("#no-flash-area").show() //提示div
-    // }
+    if(flashChecker().f) {
+      set_timer();
+    } else{
+      $("#player-and-chat").hide();
+      $("#no-flash-area").show() //提示div
+    }
   });
 </script>
 

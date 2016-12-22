@@ -29,8 +29,8 @@ cn:
       pay_type:
         cash: 现金支付
         bank: 银行转账
-        wechat: 微信支付
-        alipay: 支付宝支付
+        wechat: 微信转账
+        alipay: 支付宝转账
     payment/order:
       pay_type:
         account: 余额支付

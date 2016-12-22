@@ -1,15 +1,28 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  logo: MyString
-  description: MyText
-  platform: MyString
-  user_role: MyString
+  title: “答疑时间” 直播助手
+  sub_title: 在线直播教育专用
+  category: teacher_live
+  desc: 答疑时间官方开发的直播软件，功能强大，操作容易，为辅导班直播量身定制，登录后选择课程即刻开启直播。
+  download_description: 现仅支持win7以上版本。
+  platform: 1
+  role: teacher
 
 two:
-  name: MyString
-  logo: MyString
-  description: MyText
-  platform: MyString
-  user_role: MyString
+  title: “答疑时间” 学生版 app
+  sub_title: 把辅导变成一件快乐有趣的事
+  category: student_client
+  desc: 答疑时间学生版是一款为广大K12学生提供优质的辅导教师资源，通过直播方式进行授课，在线答疑解惑、实时互动；让线上学习不再枯燥。
+  download_description: 手机扫描右侧二维码即可下载仅支持 Android 4.0 以上版本。
+  platform: 2
+  role: student
+
+three:
+  title: “答疑时间” 学生版 iOS app
+  sub_title: 把辅导变成一件快乐有趣的事
+  category: student_client
+  desc: 答疑时间学生版是一款为广大K12学生提供优质的辅导教师资源，通过直播方式进行授课，在线答疑解惑、实时互动；让线上学习不再枯燥。
+  download_description: 手机扫描右侧二维码即可下载仅支持 IOS 10 以上版本。
+  platform: 3
+  role: student

@@ -12,21 +12,19 @@ module LiveStudio
     end
 
     def teardown
-      logout_as(@teacher)
+      new_logout_as(@teacher)
       Capybara.use_default_driver
     end
 
     test 'course destroy notification test' do
       course = live_studio_courses(:course_for_destroy)
-      visit user_notifications_path(@teacher)
-      sleep(20)
+      click_on "消息中心"
       click_on "我的辅导"
-      sleep(20)
-      assert_difference '@teacher.notifications.unread.count', 2 do
+      assert_difference '@teacher.notifications.unread.count', -2 do
         click_link "delete-#{course.id}"
-        click_on "确定"
+        click_on "确认"
       end
-      click_on "我的消息"
+      click_on "消息中心"
     end
   end
 end

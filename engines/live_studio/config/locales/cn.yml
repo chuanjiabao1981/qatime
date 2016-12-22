@@ -3,6 +3,7 @@ cn:
     tips:
       none_lessons: 当前无课程
       course_preview: 提示：此页面仅供查看和预览，不能进行操作哦！
+      download: 下载APP
     search:
       all: 全部
       live_studio/course:

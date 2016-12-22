@@ -3421,6 +3421,16 @@ ul {
   background-color: #FFFFFF;
   display: none;
 }
+.message-con:nth-child(2) .information-con {
+  color: #999;
+}
+.message-con:nth-child(3) .information-title-img {
+  width: 25px !important;
+  height: 25px !important;
+}
+#announcements,#members {
+  color: #555555 !important;
+}
 .affiche {
   height: 263px !important;
 }
@@ -3435,7 +3445,6 @@ ul {
   width: 100%;
   height: 28px;
   line-height: 28px;
-  /*margin-bottom: 4px;*/
   overflow: hidden;
   background-color: rgb(153,153,153);
 }
@@ -3576,7 +3585,7 @@ ul {
   color: #000000;
 }
 .information-time {
-  color: #CCCCCC;
+  color: #999;
   font-size: 12px;
 }
 .information-name {
@@ -3629,6 +3638,7 @@ ul {
 
 .live-head {
   width: 100%;
+  background-color: rgb(41,41,41);
   margin-bottom: 15px;
 }
 .send-msg {
@@ -3644,8 +3654,8 @@ ul {
   resize: none;
 
 }
-.send-msg input:last-child {
-  width: 16.5%;
+.send-msg input {
+  width: 17%;
   height: 42px;
   float: left;
   border: 0px;
@@ -3654,7 +3664,10 @@ ul {
   border: 1px solid rgb(255,119,0);
   background-color: rgb(255,119,0);
 }
-
+.send-msg .pendding {
+  background-color: #999999;
+  border-color: #999999;
+}
 
 
 
@@ -5519,7 +5532,6 @@ ul {
 .input-button {
   height: 42px;
   margin-left: 124px;
-  /*padding-top: 11px;*/
 }
 .input-button input,.input-button a {
   width: 144px;
@@ -5529,6 +5541,14 @@ ul {
   background-color: #FFFFFF;
   border: 2px solid #666666;
   border-radius: 4px;
+}
+.wechat-msg .input-button .active {
+  color: rgb(190,11,11);
+  border-color: rgb(190,11,11);
+}
+.wechat-msg .input-button input {
+  color: #333333;
+  border-color: #666666;
 }
 .input-button a {
   margin-right: 12px;
@@ -5654,6 +5674,21 @@ ul {
   font-size: 30px;
   color: #333333;
   margin-bottom: 28px;
+  overflow: hidden;
+}
+.register-title-left {
+  float: left;
+}
+.register-title-right {
+  float: right;
+  padding-top: 20px;
+  font-size: 14px;
+  color: #999999;
+}
+.register-title-right a {
+  display: inline-block;
+  margin-left: 5px;
+  color: #00a2ee;
 }
 .tea-register-left .form-group {
   margin-bottom: 0px;
@@ -5751,7 +5786,7 @@ ul {
   }
   .login-wechat .col-md-6:last-child {
     padding-left: 0px;
-    padding-right: 39px;
+    padding-right: 40px;
   }
   .tea-register {
     padding-right: 0px;
@@ -5759,6 +5794,9 @@ ul {
     float: none;
     margin: 70px auto 0;
     border-right: 0px;
+  }
+  .register-title-right {
+    margin-right: 36px;
   }
   .tea-register-right {
     width: 250px;
@@ -6463,7 +6501,7 @@ ul {
 }
 
 .tea-left-con,.tea-right-con {
-  height: 73px;
+  height: 93px;
   border: 1px solid rgb(241,241,241);
 }
 .tea-left-con {
@@ -6494,7 +6532,7 @@ ul {
   z-index: 10;
 }
 .tea-left-con .form-group {
-  padding-top: 8px;
+  padding-top: 18px;
   color: #666666;
 }
 .apply-tea-con label {
@@ -6502,10 +6540,18 @@ ul {
 }
 .tea-right-con .form-group {
   color: #666666;
+  margin-bottom: 0px;
+}
+.tea-right-con .form-group:first-child {
+  padding-top: 15px;
+  padding-bottom: 10px;
 }
 .tea-right-con .input-group {
   display: inline-block;
-  margin: 25px 15px 0 20px;
+  margin: 0px 10px 0 20px;
+}
+.tea-right-con .form-group img {
+  height: 22px;
 }
 .tea-right-con .form-group i {
   color: #999999;
@@ -6514,7 +6560,7 @@ ul {
   border-left: 0px;
   overflow: hidden;
 }
-.tea-right-send input,.complete-btn a {
+.tea-right-send input,.complete-btn a,.buy-footer-btn a {
   float: right;
   background-color: #FFFFFF;
   display: inline-block;
@@ -6527,6 +6573,9 @@ ul {
   color: #999999;
   border: 2px solid rgb(153,153,153);
   border-radius: 4px;
+}
+.tea-right-send input {
+  margin-top: 25px;
 }
 .complete-btn a {
   display: inline-block;
@@ -6626,7 +6675,7 @@ ul {
   padding-left: 0px;
 }
 .complete-con-left,.complete-con-right {
-  min-height: 135px;
+  height: 135px;
   border-bottom: 1px solid rgb(241,241,241);
 }
 .complete-con-left span {
@@ -6675,19 +6724,353 @@ ul {
   max-height: 120px !important;
   border-radius: 0 !important;
 }
-.accept {
-  position: relative;
-  top: -10px;
+.accept-down {
   width: 100%;
   height: 20px;
-  padding: 0 10px;
   background-color: rgb(241,241,241);
-  margin-left: 20px;
 }
-.accept a {
+.accept-down a {
   color: #333;
   float: right;
 }
-.accept a img {
+.accept-down a img {
   margin-left: 5px;
+}
+.outerdiv {
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:101;
+  width:100%;
+  height:100%;
+  display:none;
+}
+.innerdiv {
+  position:absolute;
+  cursor: pointer;
+}
+/*视频手机下载页面*/
+
+.down-content {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.down-app {
+  display: inline-block;
+  width: 71.2%;
+  height: 40px;
+  background-color: rgb(255,255,255);
+  border-radius: 20px;
+  position: absolute;
+  left: 14.4%;
+  bottom: 20%;
+  z-index: 10;
+  font-size: 17px;
+  color: #be0b0b;
+  text-align: center;
+  line-height: 40px;
+}
+.down-content img {
+  width: 100%;
+}
+
+
+@media only screen and (min-width: 1400px)  {
+  div.live-big {
+    width: 1376px !important;
+  }
+  .video-area {
+    height: 610px;
+  }
+  .area-left {
+    width: 75.3%;
+  }
+  .area-right {
+    width: 24.3%;
+  }
+  .area-left-con {
+    height: 583px;
+  }
+  .live-message {
+    height: 394px;
+  }
+  .message-new {
+    height: 295px;
+  }
+  .affiche {
+    height: 366px !important;
+  }
+}
+
+
+
+
+/*订单确认*/
+.student-buy {
+  width: 100%;
+  padding: 0 10px;
+  overflow: hidden;
+}
+.student-buy-left {
+  width: 57%;
+}
+.student-buy-center {
+  width: 15%;
+}
+.student-buy-right {
+  width: 28%;
+}
+.student-buy-left,.student-buy-center,.student-buy-right {
+  float: left;
+}
+.buy-left-con,.buy-center-con,.buy-right-con {
+  border: 1px solid #CCCCCC;
+  min-height: 164px;
+}
+.buy-left-con {
+  border-left: 0px;
+  padding: 20px 0px;
+}
+.buy-center-con {
+  border-left: 0px;
+  border-right: 0px;
+}
+.buy-right-con {
+  border-right: 0px;
+}
+.buy-left-title,.buy-center-title,.buy-right-title {
+  text-align: center;
+  height: 34px;
+  font-size: 16px;
+  line-height: 34px;
+  color: #999999;
+}
+.buy-left-con table tr:first-child td {
+  width: 33.8%;
+}
+.buy-left-con img {
+  width: 92.8%;
+  height: 120px;
+  vertical-align: top;
+  float: left;
+}
+.buy-left-msg {
+  float: left;
+  margin-left: 30px;
+}
+.buy-left-con table {
+  width: 100%;
+  color: #999;
+}
+.buy-left-con table td span:nth-child(2) {
+  color: #666666;
+}
+.buy-center-con span {
+  display: inline-block;
+  line-height: 162px;
+  color: #000;
+  font-size: 20px;
+}
+.buy-right-con {
+  padding: 29px 0px;
+  position: relative;
+  color: #666666;
+}
+.buy-right-con img {
+  margin: 0 5px 0 20px;
+}
+.buy-right-con .form-group {
+  margin-bottom: 17px;
+}
+.buy-right-con .form-group:last-child {
+  margin-bottom: 0px;
+}
+.buy-right-way {
+  position: absolute;
+  width: 140px;
+  margin-left: -70px;
+  left: 50%;
+}
+
+.buy-right-con .input-group {
+  float: left;
+}
+.msg-line-left,.msg-line-right {
+  float: left;
+}
+.student-buy-footer {
+  clear: both;
+}
+.student-buy-footer p {
+  color: #999999;
+  padding-top: 10px;
+}
+.buy-footer-msg {
+  float: right;
+  font-size: 16px;
+  color: #000000;
+}
+.buy-footer-msg span:last-child {
+  font-size: 30px;
+  color: #be0b0b;
+}
+.buy-footer-msg span:first-child {
+  display: inline-block;
+  position: relative;
+  top: -6px;
+}
+.buy-footer-btn {
+  clear: both;
+  border-bottom: 1px solid #CCCCCC;
+  overflow: hidden;
+  padding-bottom: 20px;
+
+}
+.buy-footer-btn a {
+  display: inline-block;
+  line-height: 36px;
+  color: #be0b0b;
+  border-color: #be0b0b;
+}
+
+
+
+
+/*支付宝支付*/
+.alipay-con .complete-con-left,.alipay-con .complete-con-right {
+  height: 108px !important;
+}
+.alipay-con .complete-con-left span {
+  line-height: 100px;
+}
+.alipay-con .complete-con-right {
+  padding-top: 10px;
+}
+.alipay-con .complete-prompt {
+  position: relative;
+}
+.alipay-con .complete-prompt-left,.alipay-con .complete-prompt-center,.alipay-con .complete-btn {
+  float: left;
+  position: absolute;
+}
+.alipay-con .complete-btn {
+  right: 0px;
+  top: -15px;
+}
+.alipay-con .complete-prompt-center {
+  left: 50%;
+  top: 10px;
+  margin-left: -182px;
+}
+.alipay-con .complete-prompt-left {
+  top: 10px;
+}
+
+
+@media only screen and (max-width: 990px) {
+  .student-buy-left,.student-buy-center,.student-buy-right {
+    width: 100%;
+  }
+  .buy-left-con {
+    border-right: 0px;
+  }
+  .buy-right-con {
+    border-left: 0px;
+  }
+  .student-buy-footer {
+    padding-bottom: 20px;
+  }
+}
+.alipay-con .complete-prompt {
+  top: 0px;
+  border-bottom: 1px solid rgb(241,241,241);
+  min-height: 53px;
+}
+.apply-tea {
+  position: relative;
+}
+.alipay-prompt {
+  position: absolute;
+  left: 50%;
+  margin-left: -134px;
+  margin-bottom: 0px;
+  bottom: 10px;
+  color: #999999;
+}
+.alipay-prompt i {
+  font-weight: bold;
+}
+
+
+/*微信支付*/
+.wechat-pay {
+  margin-top: 30px;
+}
+.wechat-pay .col-md-6 {
+  overflow: hidden;
+}
+.wechat-pay-left {
+  float: right;
+  margin-right: 45px;
+}
+.wechat-pay-left p {
+  margin-bottom: 0px;
+  color: #999999;
+}
+.wechat-pay-left img {
+  width: 226px;
+  height: 226px;
+}
+.wechat-pay-right {
+  margin-left: 45px;
+}
+.wechat-pay-right img {
+  width: 311px;
+  height: 270px;
+}
+.wechat-content .complete-prompt {
+  border-bottom: 0px;
+}
+
+
+/*余额支付*/
+
+
+
+
+
+@media only screen and (max-width: 680px) {
+
+  .alipay-con .complete-prompt-left,.alipay-con .complete-prompt-center,.alipay-con .complete-btn {
+    position: relative !important;
+    width: 100% !important;
+  }
+  .alipay-con .complete-prompt-center {
+    left: 0px;
+    margin-left: 0px;
+  }
+  .alipay-con .complete-btn {
+    top: 0px;
+    left: 50%;
+    margin-left: -77px;
+  }
+  .alipay-con .complete-prompt {
+    height: 120px;
+  }
+  .wechat-content .complete-prompt {
+    height: 60px !important;
+  }
+}
+@media only screen and (max-width: 990px) {
+  .wechat-pay-left {
+    width: 226px;
+    float: none;
+    margin: 0 auto !important;
+  }
+  .wechat-pay-right {
+    width: 311px;
+    margin: 0 auto 50px;
+    overflow: hidden;
+  }
 }

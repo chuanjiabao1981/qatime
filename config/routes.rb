@@ -61,6 +61,7 @@ Qatime::Application.routes.draw do
     resources :softwares do
       member do
         get :run
+        patch :offline
       end
     end
     resources :withdraws do

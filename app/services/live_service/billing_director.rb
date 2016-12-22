@@ -30,7 +30,7 @@ module LiveService
     private
 
     def total_money
-      @course.buy_tickets.sum(:lesson_price)
+      @course.buy_tickets.where('got_lesson_ids like ?', "% #{@lesson.id}\n%").sum(:lesson_price)
     end
 
     def service_fee(money)

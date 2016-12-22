@@ -85,6 +85,7 @@
       addButton();
       damu();
       initStatus = initStatus + 1;
+      console.info('board finished ' + initStatus);
       player_status();
     });
 
@@ -116,6 +117,8 @@
       controlBar: false
     }, function() {
       initStatus = initStatus + 1;
+      console.info('board finished ' + initStatus);
+      player_status();
     });
     // cameraPlayer.play();
     cameraPlayer.onError(function(err){

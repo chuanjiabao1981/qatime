@@ -1,6 +1,6 @@
 class Software < ActiveRecord::Base
   extend Enumerize
-  validates_presence_of :title, :sub_title, :platform, :version, :role, :desc, :description, :cdn_url, :logo
+  validates_presence_of :title, :sub_title, :platform, :version, :role, :desc, :description, :cdn_url, :logo, :category
 
   mount_uploader :logo, SoftwareLogoUploader
   has_one :qr_code, as: :qr_codeable

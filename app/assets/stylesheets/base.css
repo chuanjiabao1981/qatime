@@ -3421,16 +3421,6 @@ ul {
   background-color: #FFFFFF;
   display: none;
 }
-.message-con:nth-child(2) .information-con {
-  color: #999;
-}
-.message-con:nth-child(3) .information-title-img {
-  width: 25px !important;
-  height: 25px !important;
-}
-#announcements,#members {
-  color: #555555 !important;
-}
 .affiche {
   height: 263px !important;
 }
@@ -3445,6 +3435,7 @@ ul {
   width: 100%;
   height: 28px;
   line-height: 28px;
+  /*margin-bottom: 4px;*/
   overflow: hidden;
   background-color: rgb(153,153,153);
 }
@@ -3585,7 +3576,7 @@ ul {
   color: #000000;
 }
 .information-time {
-  color: #999;
+  color: #CCCCCC;
   font-size: 12px;
 }
 .information-name {
@@ -3638,7 +3629,6 @@ ul {
 
 .live-head {
   width: 100%;
-  background-color: rgb(41,41,41);
   margin-bottom: 15px;
 }
 .send-msg {
@@ -3654,8 +3644,8 @@ ul {
   resize: none;
 
 }
-.send-msg input {
-  width: 17%;
+.send-msg input:last-child {
+  width: 16.5%;
   height: 42px;
   float: left;
   border: 0px;
@@ -3664,10 +3654,7 @@ ul {
   border: 1px solid rgb(255,119,0);
   background-color: rgb(255,119,0);
 }
-.send-msg .pendding {
-  background-color: #999999;
-  border-color: #999999;
-}
+
 
 
 
@@ -5667,21 +5654,6 @@ ul {
   font-size: 30px;
   color: #333333;
   margin-bottom: 28px;
-  overflow: hidden;
-}
-.register-title-left {
-  float: left;
-}
-.register-title-right {
-  float: right;
-  padding-top: 20px;
-  font-size: 14px;
-  color: #999999;
-}
-.register-title-right a {
-  display: inline-block;
-  margin-left: 5px;
-  color: #00a2ee;
 }
 .tea-register-left .form-group {
   margin-bottom: 0px;
@@ -5779,7 +5751,7 @@ ul {
   }
   .login-wechat .col-md-6:last-child {
     padding-left: 0px;
-    padding-right: 40px;
+    padding-right: 39px;
   }
   .tea-register {
     padding-right: 0px;
@@ -5787,9 +5759,6 @@ ul {
     float: none;
     margin: 70px auto 0;
     border-right: 0px;
-  }
-  .register-title-right {
-    margin-right: 36px;
   }
   .tea-register-right {
     width: 250px;
@@ -6494,7 +6463,7 @@ ul {
 }
 
 .tea-left-con,.tea-right-con {
-  height: 93px;
+  height: 73px;
   border: 1px solid rgb(241,241,241);
 }
 .tea-left-con {
@@ -6525,7 +6494,7 @@ ul {
   z-index: 10;
 }
 .tea-left-con .form-group {
-  padding-top: 18px;
+  padding-top: 8px;
   color: #666666;
 }
 .apply-tea-con label {
@@ -6533,18 +6502,10 @@ ul {
 }
 .tea-right-con .form-group {
   color: #666666;
-  margin-bottom: 0px;
-}
-.tea-right-con .form-group:first-child {
-  padding-top: 15px;
-  padding-bottom: 10px;
 }
 .tea-right-con .input-group {
   display: inline-block;
-  margin: 0px 10px 0 20px;
-}
-.tea-right-con .form-group img {
-  height: 22px;
+  margin: 25px 15px 0 20px;
 }
 .tea-right-con .form-group i {
   color: #999999;
@@ -6566,9 +6527,6 @@ ul {
   color: #999999;
   border: 2px solid rgb(153,153,153);
   border-radius: 4px;
-}
-.tea-right-send input {
-  margin-top: 25px;
 }
 .complete-btn a {
   display: inline-block;
@@ -6766,32 +6724,4 @@ ul {
 }
 .down-content img {
   width: 100%;
-}
-
-
-@media only screen and (min-width: 1400px)  {
-  .live-big {
-    width: 1376px !important;
-  }
-  .video-area {
-    height: 610px;
-  }
-  .area-left {
-    width: 75.3%;
-  }
-  .area-right {
-    width: 24.3%;
-  }
-  .area-left-con {
-    height: 583px;
-  }
-  .live-message {
-    height: 394px;
-  }
-  .message-new {
-    height: 295px;
-  }
-  .affiche {
-    height: 366px !important;
-  }
 }

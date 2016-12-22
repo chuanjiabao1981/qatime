@@ -40,7 +40,7 @@ class SoftwaresTest < ActionDispatch::IntegrationTest
   test 'view software not signin' do
     visit root_path
     click_on '下载'
-    assert page.has_content?('答疑时间” 直播助手'), '直播器软件无法下载'
-    assert page.has_content?('“答疑时间” 学生版 app'), '安卓应用无法下载'
+    assert page.has_content?('教师问答社区'), '直播器软件无法下载'
+    assert page.has_content?('学生app'), '安卓应用无法下载'
   end
 end

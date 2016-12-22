@@ -143,4 +143,13 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
 
     logout_as(@manager)
   end
+
+  test 'manager cant billing' do
+    log_in_as(@manager)
+    teacher = users(:teacher_two)
+    click_on '教师'
+    click_link teacher.name
+    click_link '财产管理'
+    assert !page.has_content?('结账')
+  end
 end

@@ -4,7 +4,12 @@
       <div class="col-md-6">
         <div class="tea-register">
           <div class="tea-register-title">
-            <%= t('.title') %>
+            <div class="register-title-left">
+              <%= t('.title') %></div>
+            <div class="register-title-right">
+              <span><%= t('.login_tips') %></span>
+              <%= link_to t('.login_link'), new_session_path %>
+            </div>
           </div>
           <div class="tea-register-left">
             <%= simple_form_for(@teacher, url: teachers_path(@teacher, cate: :register, by: :create) ) do |f| %>

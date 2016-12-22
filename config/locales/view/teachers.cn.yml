@@ -13,12 +13,14 @@ cn:
       try_get_captcha_again: 秒后重试
       my_wallet: 财产管理
     new:
-      title: 老师注册
+      title: 教师注册
       captcha: 验证码
       login_mobile_ph: 请输入大陆十一位手机号码
       captcha_confirmation_ph: 手机验证码
       password_ph: 请输入密码
       password_confirmation_ph: 再输入一次密码
+      login_tips: 已有账户?
+      login_link: 登录
     info:
       edit_information: 编辑信息
     edit_profile:

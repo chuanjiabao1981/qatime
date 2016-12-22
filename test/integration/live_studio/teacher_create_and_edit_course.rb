@@ -16,21 +16,49 @@ module LiveStudio
       Capybara.use_default_driver
     end
 
-    test 'teacher create a course' do
-      visit live_studio.new_course_path
+    def upload_publicize
       click_on '点此更换图片'
       execute_script("$('#course_publicize').removeAttr('style');")
       attach_file("course_publicize","#{Rails.root}/test/integration/avatar.jpg")
       click_on '关闭'
+    end
+
+    test 'teacher create a course' do
+      visit live_studio.new_course_path
+      upload_publicize
       fill_in :course_name, with: 'test name'
       fill_in :course_description, with: 'test description'
       select '高一', from: 'course_grade'
       fill_in :course_price, with: '110'
       click_on '添加新课程'
-      click_on '取消'
+      find('.class_date', match: :first).set(Time.now.tomorrow.to_s[0,10])
+      find('.start_time_hour', match: :first).find(:xpath, 'option[11]').select_option
+      find('.start_time_minute', match: :first).find(:xpath, 'option[8]').select_option
+      find('.duration', match: :first).find(:xpath, 'option[5]').select_option
+      find('.lesson_name', match: :first).set('测试课程名称')
+      click_on '保存'
+      count = @teacher.live_studio_courses.count
       click_on '发布招生'
-      assert_equal page.has_content?('请添加至少一节课程'), true
-      assert_equal page.has_content?('工作站'),true
+      assert_equal @teacher.live_studio_courses.count, count + 1, '辅导班创建失败'
+    end
+
+    test 'teacher edit a course' do
+      visit live_studio.edit_course_path(@teacher.live_studio_courses.init.first)
+      upload_publicize
+      fill_in :course_name, with: 'test name'
+      fill_in :course_description, with: 'test description'
+      select '高一', from: 'course_grade'
+      fill_in :course_price, with: '110'
+      click_on '添加新课程'
+      find('.class_date', match: :first).set(Time.now.tomorrow.to_s[0,10])
+      find('.start_time_hour', match: :first).find(:xpath, 'option[11]').select_option
+      find('.start_time_minute', match: :first).find(:xpath, 'option[8]').select_option
+      find('.duration', match: :first).find(:xpath, 'option[5]').select_option
+      find('.lesson_name', match: :first).set('测试课程名称')
+      click_on '保存'
+      count = @teacher.live_studio_courses.count
+      click_on '发布招生'
+      assert_equal @teacher.live_studio_courses.count, count, '辅导班保存失败'
     end
 
     # test "teacher create a course" do

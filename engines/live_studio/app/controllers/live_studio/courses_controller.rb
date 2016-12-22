@@ -32,6 +32,7 @@ module LiveStudio
 
     def create
       @course = Course.new(courses_params.merge(author: current_user))
+      @course.taste_count ||= 0
       if @course.save
         LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
         redirect_to live_studio.send("#{@course.author.role}_courses_path", @course.author)

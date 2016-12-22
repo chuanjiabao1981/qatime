@@ -54,7 +54,7 @@
     <div class="col-md-10">
       <%= f.association :workstation, collection: @teacher.city.workstations.map{|ws| [ws.name, ws.id]}, label: false, prompt: false%>
     </div>
-  <% end if @course.workstation.blank? && @teacher.city.workstations.count > 1%>
+  <% end if @course.invitation.blank? && @teacher.city.workstations.count > 1%>
 
   <div class="row">
     <div class="col-md-2">

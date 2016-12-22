@@ -6,9 +6,10 @@ class Ajax::CaptchasController < ApplicationController
     # code = UserService::CaptchaManager.instance_and_notice(params[:send_type], params[:send_to], params[:edit_type])
     # captcha_key = "captcha-#{params[:send_to]}"
     # session[captcha_key] = { send_to: params[:send_to], captcha: code, expire_at: 15.minutes.since.to_i }
-    UserService::CaptchaManager.new(params[:send_to]).generate_and_notice(params[:key])
+    register_mobile_valid
+    UserService::CaptchaManager.new(params[:send_to]).generate_and_notice(params[:key]) unless @status
     respond_to do |format|
-      format.json { render json: status }
+      format.json { render json: @status || status }
     end
   end
 
@@ -32,5 +33,11 @@ class Ajax::CaptchasController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  private
+  def register_mobile_valid
+    return unless params[:key] == 'register_captcha'
+    @status = 405 if User.find_by(login_mobile: params[:send_to]).present?
   end
 end

@@ -126,9 +126,6 @@ window.currentTeam = {
         onTeamNotificationMsg(msg);
         break;
       case 'image':
-        console.log(msg);
-        console.log(msg.file.url);
-        console.log('asdafadsf');
         onImageMsg(msg);
         break;
       default:
@@ -418,7 +415,7 @@ function appendMsg(msg, messageClass) {
   var messageContent = $("<div class='information-con'></div>");
   if(messageClass == 'Image'){
     var url = msg.file.url;
-    messageContent.append($('<a class="fancybox.ajax" rel="group" href="javascript:void(0);"><img class="accept-img" alt="" src="' + url + '"> </a>'));
+    messageContent.append($('<img class="accept-img" src="' + url + '" onclick="accept_img_click(this)">'));
   }else{
     messageContent.append($.replaceChatMsg(msg.text));
   }

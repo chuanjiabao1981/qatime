@@ -41,27 +41,27 @@
               <div class="date-class">
                     <span>
  	        						<label for="">上课日期</label>
-                        <%= f.text_field :class_date,as: :string, placeholder: '选择上课日期', onclick: 'testShow(this)' %>
+                        <%= f.text_field :class_date,as: :string, class: 'class_date', placeholder: '选择上课日期', onclick: 'testShow(this)' %>
                         <br>
                         <i class="has-error class_date-error-<%= object_id %>"></i>
  	        					</span>
  	        					<span class="start-time">
  	        						<label for="">开始时间</label>
-                      <%= f.select :start_time_hour, (0..23).to_a.map{|i| i > 9 ? i : "0#{i}"}.insert(0,['时',nil]) %>
-                      <%= f.select :start_time_minute, %w(00 05 10 15 20 25 30 35 40 45 50 55).insert(0, ['分', nil]) %>
+                      <%= f.select :start_time_hour, (0..23).to_a.map{|i| i > 9 ? i : "0#{i}"}.insert(0,['时',nil]),{}, class: 'start_time_hour' %>
+                      <%= f.select :start_time_minute, %w(00 05 10 15 20 25 30 35 40 45 50 55).insert(0, ['分', nil]),{}, class: 'start_time_minute' %>
                       <br>
                       <i class="has-error start_time-error-<%= object_id %>"></i>
  	        					</span>
  	        					<span class="start-length">
  	        						<label for="">上课时长</label>
-                      <%= f.select :duration, LiveStudio::Lesson.duration.options.insert(0, ['时长', nil]) %>
+                      <%= f.select :duration, LiveStudio::Lesson.duration.options.insert(0, ['时长', nil]),{}, class: 'duration' %>
                       <br>
                       <i class="has-error duration-error-<%= object_id %>"></i>
  	        					</span>
               </div>
               <div class="date-grade">
                 <label for="">课程名称</label>
-                <%= f.text_field :name, placeholder: '输入课程名称（最多20字）', maxlength: 20%>
+                <%= f.text_field :name, placeholder: '输入课程名称（最多20字）', maxlength: 20, class: 'lesson_name'%>
                 <br>
                 <i class="has-error name-error-<%= object_id %>"></i>
               </div>

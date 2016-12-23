@@ -19,6 +19,8 @@ cn:
       captcha_confirmation_ph: 手机验证码
       password_ph: 请输入密码
       password_confirmation_ph: 再输入一次密码
+      login_tips: 已有账户?
+      login_link: 登录
     info:
       edit_information: 编辑信息
     edit_profile:

@@ -17,6 +17,7 @@ student_balance_account:
   balance: 999999
   total_income: 0
   total_expenditure: 300
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
 
 teacher_account:
   owner: teacher1 (User)

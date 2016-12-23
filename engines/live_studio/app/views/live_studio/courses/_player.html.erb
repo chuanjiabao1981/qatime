@@ -1,20 +1,33 @@
 <div class="row">
   <div class="video-area" id="player-and-chat">
     <div class="area-left">
-      <div class="area-left-title"><%= @course.name %></div>
+      <div class="area-left-title">
+        <span><%= @course.name %></span>
+  					<span>
+              <%= image_tag('person-1.png') %>
+              <span id="team_online_count">0</span>
+  					</span>
+      </div>
+
+
       <div class="area-left-con">
-        <video id="my-video" style="overflow: hidden;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'loading.png' %>" preload="auto" width="" height="" data-setup="{}">
+        <video id="my-video" style="overflow: hidden;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'big_loading.png' %>" preload="auto" width="" height="" data-setup="{}">
         </video>
       </div>
     </div>
         
     <div class="area-right">
+
       <div class="area-right-title">
-        <%= t "activerecord.view.chat.chat_team_members_count" %>
-        <span id="team_online_count" class="online">0</span>
+        <%= link_to welcome_download_path, target: '_blank' do %>
+          <%= image_tag('download.png') %>
+          <span><%= t('view.tips.download') %></span>
+        <% end %>
       </div>
+
+
       <div class="area-right-con">
-        <video id="small-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'loading.png' %>" preload="auto" width="" height="" data-setup="{}">
+        <video id="small-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'small_loading.png' %>" preload="auto" width="" height="" data-setup="{}">
         </video>
 
       </div>
@@ -40,6 +53,7 @@
     var state = 'init';
     var camera_stream = '<%= @course.camera_pull_stream('http') %>';
     var board_stream = '<%= @course.board_pull_stream('http') %>';
+    var liveStatusStep = '<%= LiveStudio::Lesson.beat_step.to_i * 3 * 1000 %>';
 
     // 白板播放器
     boardPlayer = neplayer("my-video", {
@@ -161,7 +175,7 @@
       if(camera_stream.trim() == '' || board_stream.trim() == '') return
       player_status();
       if(state == 'init' && timer == -1){
-        timer = setInterval(player_status, 20 * 1000);
+        timer = setInterval(player_status, liveStatusStep);
       }
     }
 

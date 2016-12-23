@@ -151,5 +151,8 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     click_link teacher.name
     click_link '财产管理'
     assert !page.has_content?('结账')
+
+    visit keep_account_teacher_path(teacher)
+    assert page.has_content?('您没有权限进行这个操作!')
   end
 end

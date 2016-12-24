@@ -10,7 +10,7 @@ module LiveStudio
       "#{id} #{name}".parameterize
     end
 
-    SYSTEM_FEE = 0.5 # 系统每个人每分钟收费0.5元
+    SYSTEM_FEE = 0.6 # 系统每个人每分钟收费0.6元
     WORKSTATION_PERCENT = 0.6 # 基础服务费代理商分成 60%
 
     USER_STATUS_BOUGHT = :bought # 已购买
@@ -199,6 +199,7 @@ module LiveStudio
     def deliver(order)
       taste_tickets.where(student_id: order.user_id).available.map(&:replaced!) # 替换正在使用的试听券
       ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: lesson_price, buy_count: lesson_count_left)
+      ticket.got_lesson_ids = lessons.unstart.map(&:id)
       ticket.active!
     end
 
@@ -378,11 +379,11 @@ module LiveStudio
       invitation.accepted!
     end
 
-    # 非邀请辅导班使用默认工作站
+    # 非邀请辅导班未选择工作站则使用默认工作站
     before_validation :copy_city, on: :create
     def copy_city
       return if invitation
-      self.workstation = default_workstation
+      self.workstation ||= default_workstation
       self.city = workstation.try(:city)
       self.province = city.try(:province)
       self.teacher_percentage = 100

@@ -81,11 +81,34 @@
       if(window.live_chat) live_chat.setBarrage(barrage);
       // 重置
       $("#my-video .vjs-control-bar").on('click', '.vjs-refresh-control', function() {
-        boardPlayer.reset();
-        if(cameraPlayer) cameraPlayer.reset();
-        state = 'init';
-        set_timer();
+        boardPlayer.refresh();
+        if(cameraPlayer) cameraPlayer.refresh();
+        // state = 'init';
+        // set_timer();
       });
+    }
+
+    function getDatasource(stream) {
+      var url = stream,
+          lowUrl = url.toLowerCase(),
+          urlType = lowUrl.substring(0, 4),
+          type;
+      if (url === '') return;
+      switch (urlType) {
+        case 'http':
+          if (lowUrl.indexOf('mp4') !== -1) {
+              type = 'video/mp4';
+          } else if (lowUrl.indexOf('flv') !== -1) {
+              type = 'video/x-flv';
+          } else if (lowUrl.indexOf('m3u8') !== -1) {
+              type = 'application/x-mpegURL';
+          }
+          break;
+        case 'rtmp':
+          type = 'rtmp/flv';
+          break;
+      }
+      return { type: type, src: url };
     }
 
     // 白板播放器
@@ -121,9 +144,11 @@
     });
     boardPlayer.onPlayState(3,function(){
       console.log('board ended');
-      boardPlayer.reset();
-      state = 'init';
-      set_timer();
+      setTimeout(function() {
+        boardPlayer.refresh();
+        state = 'init';
+        set_timer();
+      });
     });
 
     // 摄像头
@@ -152,9 +177,12 @@
     });
     cameraPlayer.onPlayState(3,function(){
       console.log('camera ended');
-      cameraPlayer.reset();
-      state = 'init';
-      set_timer();
+      setTimeout(function() {
+        cameraPlayer.refresh();
+        state = 'init';
+        set_timer();
+      });
+      
     });
 
     function player_status(){
@@ -164,17 +192,11 @@
           console.log('player_status');
           console.log(data);
           if (data['board'] == 1 && boardPlayer.getPlayState() != 1) {
-            boardPlayer.setDataSource({
-              type: "video/x-flv",
-              src: board_stream
-            });
+            boardPlayer.setDataSource(getDatasource(board_stream));
             boardPlayer.play();
           }
           if (data['camera'] == 1 && cameraPlayer.getPlayState() != 1) {
-            cameraPlayer.setDataSource({
-              type: "video/x-flv",
-              src: camera_stream
-            });
+            cameraPlayer.setDataSource(getDatasource(camera_stream));
             cameraPlayer.play();
           }
           if( data['board'] == 1 && data['camera'] == 1){

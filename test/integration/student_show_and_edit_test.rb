@@ -76,6 +76,7 @@ class StudentInfoShowAndEditTest < ActionDispatch::IntegrationTest
     click_on "绑定家长手机"
 
     @student.reload
+    sleep 2
     assert_equal("13811110000", @student.parent_phone, '更新家长手机错误')
   end
 

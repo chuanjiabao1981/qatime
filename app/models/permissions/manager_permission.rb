@@ -18,10 +18,10 @@ module Permissions
       allow :home,[:index,:new_index,:switch_city]
       allow :schools,[:index,:new,:create,:show,:edit,:update]
       allow :register_codes, [:index, :new, :downloads, :create]
-      allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,
+      allow :teachers,[:index,:show,:search,:pass,:unpass,
                        :students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,
                        :exercises,:solutions,:customized_tutorial_topics,:notifications,
-                       :admin_edit, :admin_update, :customized_courses,:profile]
+                       :customized_courses,:profile]
       allow :curriculums,[:index,:show]
       allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
       allow :courses,[:show]
@@ -37,7 +37,7 @@ module Permissions
       end
 
       allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks,:solutions, :get_sale_price] do |customized_course|
-        user and customized_course
+        user && customized_course && user.customized_courses.include?(customized_course)
       end
 
       allow :customized_courses ,[:new,:create] do |student|
@@ -81,11 +81,11 @@ module Permissions
       allow 'managers/waiters', [:new, :create, :edit, :update, :destroy]
 
       #######begine course library permission###############
-      allow "course_library/solutions",[:index, :show]
-      allow "course_library/homeworks",[:index, :show]
-      allow "course_library/courses",[:index, :show]
-      allow "course_library/directories",[:index, :show]
-      allow "course_library/syllabuses",[:index, :show]
+      # allow "course_library/solutions",[:index, :show]
+      # allow "course_library/homeworks",[:index, :show]
+      # allow "course_library/courses",[:index, :show]
+      # allow "course_library/directories",[:index, :show]
+      # allow "course_library/syllabuses",[:index, :show]
       #######end course library permission##################
 
 

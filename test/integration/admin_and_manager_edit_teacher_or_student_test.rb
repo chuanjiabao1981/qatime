@@ -155,4 +155,38 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     visit keep_account_teacher_path(teacher)
     assert page.has_content?('您没有权限进行这个操作!')
   end
+
+  test 'manager cant modify teacher info' do
+    log_in_as(@manager)
+    teacher = users(:teacher_two)
+    click_on '教师'
+    assert_not page.has_content?('增加讲师')
+    assert_not page.has_content?('修改安全信息')
+    visit new_teacher_path
+    assert page.has_content?('您没有权限进行这个操作!')
+    visit admin_edit_teacher_path(teacher)
+    assert page.has_content?('您没有权限进行这个操作!')
+  end
+
+  test 'manager cant modify course_library' do
+    log_in_as(@manager)
+    teacher = users(:teacher_two)
+    click_on '教师'
+    click_link teacher.name
+    click_link '备课中心'
+    assert page.has_content?('您没有权限进行这个操作!')
+    visit course_library.teacher_syllabuses_path(teacher)
+    assert page.has_content?('您没有权限进行这个操作!')
+  end
+
+  test 'manager cant read not belong myself customized_courses' do
+    log_in_as(@manager)
+    teacher = users(:teacher2)
+    click_on '教师'
+    click_link teacher.name
+    click_on '专属课程'
+    customized_course = teacher.customized_courses.where(workstation: @manager.workstations).first
+    assert page.has_content?("#{customized_course.category}-#{customized_course.subject}")
+    assert page.has_content?(customized_course.student.name)
+  end
 end

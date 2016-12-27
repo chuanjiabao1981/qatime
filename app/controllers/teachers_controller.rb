@@ -168,6 +168,7 @@ class TeachersController < ApplicationController
 
   def customized_courses
     @customized_courses = @teacher.customized_courses.paginate(page: params[:page],per_page: 10)
+    @customized_courses = @customized_courses.where(workstation: current_user.workstations) if current_user.manager?
     render layout: 'teacher_home_new'
   end
 

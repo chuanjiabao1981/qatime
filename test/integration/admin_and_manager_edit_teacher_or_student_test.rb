@@ -189,4 +189,14 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     assert page.has_content?("#{customized_course.category}-#{customized_course.subject}")
     assert page.has_content?(customized_course.student.name)
   end
+
+  test 'manager manage school' do
+    log_in_as(@manager)
+    click_on '学校'
+    school = schools(:school3)
+    assert_not_equal school.city, @manager.city
+    assert_not page.has_content?(school.name)
+    visit edit_school_path(school)
+    assert page.has_content?('您没有权限进行这个操作!')
+  end
 end

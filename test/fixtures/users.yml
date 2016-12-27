@@ -367,6 +367,7 @@ manager:
   avatar: test
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   type: Manager
+  city: yangquan
 
 manager_zhuji:
   name: manager_zhuji

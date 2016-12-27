@@ -16,7 +16,10 @@ module Permissions
                        :info,:teachers,:customized_courses,:homeworks,
                        :solutions,:account,:customized_tutorial_topics,:questions,:notifications, :admin_edit, :admin_update]
       allow :home,[:index,:new_index,:switch_city]
-      allow :schools,[:index,:new,:create,:show,:edit,:update]
+      allow :schools,[:index,:new,:create]
+      allow :schools,[:show,:edit,:update] do |school|
+        user.city == school.city
+      end
       allow :register_codes, [:index, :new, :downloads, :create]
       allow :teachers,[:index,:show,:search,:pass,:unpass,
                        :students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,

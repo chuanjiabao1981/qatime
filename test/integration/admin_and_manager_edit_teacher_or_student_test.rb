@@ -203,6 +203,8 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     customized_course = student.customized_courses.where(workstation: @manager.workstations).first
     assert page.has_content?("#{customized_course.category}-#{customized_course.subject}")
     assert page.has_content?(customized_course.student.name)
+    visit new_student_path
+    assert page.has_content?('您没有权限进行这个操作!')
     logout_as(@manager)
   end
 

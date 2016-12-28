@@ -12,9 +12,9 @@ module Permissions
       allow :vip_classes,[:show]
       allow :questions,[:index,:show,:student,:teacher,:teachers]
       allow :teaching_videos,[:show]
-      allow :students,[:index,:search,:show,:edit,:create,:update,
+      allow :students,[:index,:search,:show,
                        :info,:teachers,:customized_courses,:homeworks,
-                       :solutions,:account,:customized_tutorial_topics,:questions,:notifications, :admin_edit, :admin_update]
+                       :solutions,:account,:customized_tutorial_topics,:questions,:notifications]
       allow :home,[:index,:new_index,:switch_city]
       allow :schools,[:index,:new,:create]
       allow :schools,[:show,:edit,:update] do |school|

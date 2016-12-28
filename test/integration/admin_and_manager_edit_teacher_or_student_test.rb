@@ -154,6 +154,7 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
 
     visit keep_account_teacher_path(teacher)
     assert page.has_content?('您没有权限进行这个操作!')
+    logout_as(@manager)
   end
 
   test 'manager cant modify teacher info' do
@@ -166,6 +167,7 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     assert page.has_content?('您没有权限进行这个操作!')
     visit admin_edit_teacher_path(teacher)
     assert page.has_content?('您没有权限进行这个操作!')
+    logout_as(@manager)
   end
 
   test 'manager cant modify course_library' do
@@ -177,9 +179,10 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     assert page.has_content?('您没有权限进行这个操作!')
     visit course_library.teacher_syllabuses_path(teacher)
     assert page.has_content?('您没有权限进行这个操作!')
+    logout_as(@manager)
   end
 
-  test 'manager cant read not belong myself customized_courses' do
+  test 'manager cant read not belong himself teacher customized_courses' do
     log_in_as(@manager)
     teacher = users(:teacher2)
     click_on '教师'
@@ -188,6 +191,19 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     customized_course = teacher.customized_courses.where(workstation: @manager.workstations).first
     assert page.has_content?("#{customized_course.category}-#{customized_course.subject}")
     assert page.has_content?(customized_course.student.name)
+    logout_as(@manager)
+  end
+
+  test 'manager cant read not belong himself student customized_courses' do
+    log_in_as(@manager)
+    student = users(:student1)
+    click_on '学生'
+    click_link student.name, match: :first
+    click_on '专属课程'
+    customized_course = student.customized_courses.where(workstation: @manager.workstations).first
+    assert page.has_content?("#{customized_course.category}-#{customized_course.subject}")
+    assert page.has_content?(customized_course.student.name)
+    logout_as(@manager)
   end
 
   test 'manager manage school' do
@@ -198,5 +214,6 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     assert_not page.has_content?(school.name)
     visit edit_school_path(school)
     assert page.has_content?('您没有权限进行这个操作!')
+    logout_as(@manager)
   end
 end

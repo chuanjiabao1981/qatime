@@ -154,5 +154,68 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
 
     visit keep_account_teacher_path(teacher)
     assert page.has_content?('您没有权限进行这个操作!')
+    logout_as(@manager)
+  end
+
+  test 'manager cant modify teacher info' do
+    log_in_as(@manager)
+    teacher = users(:teacher_two)
+    click_on '教师'
+    assert_not page.has_content?('增加讲师')
+    assert_not page.has_content?('修改安全信息')
+    visit new_teacher_path
+    assert page.has_content?('您没有权限进行这个操作!')
+    visit admin_edit_teacher_path(teacher)
+    assert page.has_content?('您没有权限进行这个操作!')
+    logout_as(@manager)
+  end
+
+  test 'manager cant modify course_library' do
+    log_in_as(@manager)
+    teacher = users(:teacher_two)
+    click_on '教师'
+    click_link teacher.name
+    click_link '备课中心'
+    assert page.has_content?('您没有权限进行这个操作!')
+    visit course_library.teacher_syllabuses_path(teacher)
+    assert page.has_content?('您没有权限进行这个操作!')
+    logout_as(@manager)
+  end
+
+  test 'manager cant read not belong himself teacher customized_courses' do
+    log_in_as(@manager)
+    teacher = users(:teacher2)
+    click_on '教师'
+    click_link teacher.name
+    click_on '专属课程'
+    customized_course = teacher.customized_courses.where(workstation: @manager.workstations).first
+    assert page.has_content?("#{customized_course.category}-#{customized_course.subject}")
+    assert page.has_content?(customized_course.student.name)
+    logout_as(@manager)
+  end
+
+  test 'manager cant read not belong himself student customized_courses' do
+    log_in_as(@manager)
+    student = users(:student1)
+    click_on '学生'
+    click_link student.name, match: :first
+    click_on '专属课程'
+    customized_course = student.customized_courses.where(workstation: @manager.workstations).first
+    assert page.has_content?("#{customized_course.category}-#{customized_course.subject}")
+    assert page.has_content?(customized_course.student.name)
+    visit new_student_path
+    assert page.has_content?('您没有权限进行这个操作!')
+    logout_as(@manager)
+  end
+
+  test 'manager manage school' do
+    log_in_as(@manager)
+    click_on '学校'
+    school = schools(:school3)
+    assert_not_equal school.city, @manager.city
+    assert_not page.has_content?(school.name)
+    visit edit_school_path(school)
+    assert page.has_content?('您没有权限进行这个操作!')
+    logout_as(@manager)
   end
 end

@@ -194,6 +194,15 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     logout_as(@manager)
   end
 
+  test 'manager cant read other workstation customized_courses' do
+    log_in_as(@manager)
+    customized_course = customized_courses(:customized_course_other_workstation)
+    visit customized_course_path(customized_course)
+    assert page.has_content?('您没有权限进行这个操作!')
+    assert_not_includes @manager.customized_courses, customized_course
+    logout_as(@manager)
+  end
+
   test 'manager cant read not belong himself student customized_courses' do
     log_in_as(@manager)
     student = users(:student1)

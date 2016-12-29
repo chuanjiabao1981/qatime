@@ -56,6 +56,30 @@
     var initStatus = 0;
     var liveStatusStep = '<%= LiveStudio::Lesson.beat_step.to_i * 3 * 1000 %>';
 
+    function playNow(player, stream) {
+      var url = stream,
+          lowUrl = url.toLowerCase(),
+          urlType = lowUrl.substring(0, 4),
+          type;
+      if (url === '') return;
+      switch (urlType) {
+        case 'http':
+          if (lowUrl.indexOf('mp4') !== -1) {
+              type = 'video/mp4';
+          } else if (lowUrl.indexOf('flv') !== -1) {
+              type = 'video/x-flv';
+          } else if (lowUrl.indexOf('m3u8') !== -1) {
+              type = 'application/x-mpegURL';
+          }
+          break;
+        case 'rtmp':
+          type = 'rtmp/flv';
+          break;
+      }
+      player.setDataSource({ type: type, src: url });
+      player.play();
+    }
+
     // 自定义播放器按钮
     function addButton() {
       var barrageButton = $('<button class="vjs-barrage-control vjs-control vjs-button vjs-playing" type="button" aria-live="polite"></button>');

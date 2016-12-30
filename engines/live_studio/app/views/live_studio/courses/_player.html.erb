@@ -84,6 +84,7 @@ $(function() {
 
     if(initStatus <= 1) return false;
     $.get("<%= live_studio.live_status_course_path(@course) %>", function (data) {
+      console.log(data);
       if (data['board'] == 1 && boardPlayer.getPlayState() != 1) {
         console.log("start play board");
         playNow(boardPlayer, boardStream);
@@ -199,11 +200,19 @@ $(function() {
     boardPlayer.onPlayState(3, function(){
       setTimer();
     });
+    boardPlayer.onError(function(error){
+      console.log(error.errCode);
+    });
+
+
 
     // 摄像头结束直播
     cameraPlayer.onPlayState(3, function(){
       setTimer();
     });
+    cameraPlayer.onError(function(error){
+      console.log(error.errCode);
+    });;
     // 初始化设置定时器
     setTimer();
   } else{

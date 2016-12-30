@@ -5,7 +5,7 @@
         <span><%= @course.name %></span>
   					<span>
               <%= image_tag('person-1.png') %>
-              <span id="team_online_count">0</span>
+              <i id="team_online_count">0</i>
   					</span>
       </div>
 
@@ -163,7 +163,6 @@ $(function() {
       }
     }, function() {
       addButton();
-      // damu();
       initStatus = initStatus + 1;
       console.log("board init end " + initStatus);
       playerStatus();
@@ -203,8 +202,6 @@ $(function() {
     boardPlayer.onError(function(error){
       console.log(error.errCode);
     });
-
-
 
     // 摄像头结束直播
     cameraPlayer.onPlayState(3, function(){

@@ -78,6 +78,14 @@ module LiveStudio
     end
 
     def live
+      @course = Course.find(params[:id])
+      @chat_team = @course.chat_team
+      @current_lesson = @course.current_lesson
+      # @tickets = @course.tickets.available.includes(:student)
+      @teacher = @course.teacher
+      @chat_account = current_user.chat_account
+      @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) if @chat_team && @chat_account
+      render layout: false
     end
 
     def play

@@ -29,6 +29,7 @@ LiveStudio::Engine.routes.draw do
     member do
       post 'taste' # 试听
       get :play # 观看直播
+      get :live # 测试观看直播
       post :update_notice
       patch :publish
       get :refresh_current_lesson

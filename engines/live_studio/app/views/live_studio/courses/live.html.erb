@@ -1,51 +1,59 @@
-<div class="row">
-  <div class="video-area" id="player-and-chat">
-    <div class="area-left">
-      <div class="area-left-title">
-        <span><%= @course.name %></span>
-  					<span>
-              <%= image_tag('person-1.png') %>
-              <span id="team_online_count">0</span>
-  					</span>
-      </div>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="renderer" content="webkit">
+<title>答疑时间</title>
+<%= stylesheet_link_tag "front_live", media: "all", "data-turbolinks-track" => false %>
 
-
-      <div class="area-left-con">
-        <video id="my-video" style="overflow: hidden;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'big_loading.png' %>" preload="auto" width="" height="" data-setup="{}">
-        </video>
-      </div>
-    </div>
+<%= javascript_include_tag "live_studio/application", "data-turbolinks-track" => false %>
+<%= javascript_include_tag "//nos.netease.com/vod163/nep.min.js", "data-turbolinks-track" => false %>
+<%= stylesheet_link_tag "//nos.netease.com/vod163/nep.min.css", media: "all", "data-turbolinks-track" => false %>
+</head>
+<body class="live-body">
+    
+<%= render 'layouts/live_header' %>
+<div class="live-head">
+ <div class="container live-big">
+  <div class="row">
+      <div class="video-area">
+        <div class="area-left">
+          <div class="area-left-title">
+            <span>北京高级急速冲刺训练班专业讲解-数学辅导班</span>
+            <span>
+              <%= image_tag "person-1.png" %>
+              30
+            </span>
+          </div>
+          <div class="area-left-con">
+            <video id="my-video" style="overflow: hidden;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'big_loading.png' %>" preload="auto" width="" height="" data-setup="{}">
+            </video>
+         </div>
+        </div>
         
-    <div class="area-right">
-
-      <div class="area-right-title">
-        <%= link_to welcome_download_path, target: '_blank' do %>
-          <%= image_tag('download.png') %>
-          <span><%= t('view.tips.download') %></span>
-        <% end %>
+        <div class="area-right">
+          <div class="area-right-title">
+            <%= link_to root_path do -%>
+              <%= image_tag "download.png" %>
+              <span>下载APP</span>
+            <% end -%>
+          </div>
+          <div class="area-right-con">
+            <video id="small-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'small_loading.png' %>" preload="auto" width="" height="" data-setup="{}">
+            </video>
+          </div>
       </div>
-
-
-      <div class="area-right-con">
-        <video id="small-video" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'small_loading.png' %>" preload="auto" width="" height="" data-setup="{}">
-        </video>
-
-      </div>
-      <%= render 'play_chat' %>
     </div>
+   </div>
+   </div> 
   </div>
+  
+ 
 
-  <div id="no-flash-area" style="display: none;">
-    <p align="center">
-      <%= t("activerecord.view.flash_can_not_call_msg.flash_uninstall_or_too_old_msg") %>
-      <%= link_to t("activerecord.view.flash_can_not_call_msg.click_here_msg"), "https://get.adobe.com/cn/flashplayer/"  %>
-      <%= t("activerecord.view.flash_can_not_call_msg.install_flash_msg") %>
-    </p>
-  </div>
-</div>
+ 
+     
 
 
-<%= content_for :javascript do %>
+
 <script>
 $(function() {
   var boardPlayer, cameraPlayer;
@@ -104,7 +112,6 @@ $(function() {
   var RefreshComponent = neplayer.extend(Component, {
     createEl: function(){
       var button = document.createElement("button");
-      button.className = "vjs-refresh-control vjs-control vjs-button vjs-playing";
       button.innerHTML = '<%= image_tag "refresh.png" %>';
       return button;
     }
@@ -122,7 +129,6 @@ $(function() {
   var BarrageComponent = neplayer.extend(Component, {
     createEl: function(){
       var button = document.createElement("button");
-      button.className = "vjs-barrage-control vjs-control vjs-button vjs-playing";
       button.innerHTML = '<%= image_tag "barrage.png", id: "barrage-btn" %>';
       return button;
     }
@@ -189,28 +195,19 @@ $(function() {
     }
   }
 
-  //判断flash是否安装
-  if(flashChecker().f) {
-    // 初始化白板
-    initBoard();
-    // 初始化摄像头
-    initCamera();
-    // 白板结束直播
-    boardPlayer.onPlayState(3, function(){
-      setTimer();
-    });
+  initBoard();
+  initCamera();
 
-    // 摄像头结束直播
-    cameraPlayer.onPlayState(3, function(){
-      setTimer();
-    });
-    // 初始化设置定时器
+  boardPlayer.onPlayState(3, function(){
     setTimer();
-  } else{
-    $("#player-and-chat").hide();
-    $("#no-flash-area").show() //提示div
-  }
-});
-</script>
+  });
 
-<% end %>
+  cameraPlayer.onPlayState(3, function(){
+    setTimer();
+  });
+
+  setTimer();
+});
+</script>>
+</body>
+</html>

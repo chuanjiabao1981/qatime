@@ -126,9 +126,9 @@ window.Barrage = (id, options) ->
   this.show = (msg)->
     return false unless this.active
     # 视频宽度
-    videoWidth = this.node.width()
+    videoWidth = $(id).width()
     # 视频高度
-    videoHeight = this.node.height()
+    videoHeight = $(id).height()
     # 弹幕显示顶部位置
     # 视频区域上部1/3区域
     barrageTop = (videoHeight / 3 * Math.random()).toFixed(4)
@@ -138,7 +138,6 @@ window.Barrage = (id, options) ->
     barrageNode = $('<div class="barrage-node" style="position: absolute; color: ' + barrageColor + '; display: none;">' + msg + '</div>')
     barrageNode.css('font-size', "18px");
     $("#my-video").append(barrageNode)
-    console.log(barrageNode);
     barrageNode.css("top", barrageTop)
     barrageWidth = barrageNode.width()
     barrageNode.css("left", videoWidth - barrageWidth)

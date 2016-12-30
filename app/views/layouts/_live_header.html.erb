@@ -7,27 +7,33 @@
     <% end -%>
   </div>
   <div class="header-nav">
-    <span>
-      <%= link_to home_path do -%>
-        <%= image_tag "curriculum.png" %>
-        课程表
-      <% end -%>
-    </span>
-    <span>
-      <%= link_to home_path do -%>
-        <%= image_tag "msg.png" %>
-        消息
-      <% end -%>
-    </span>
-    <span>
-      <%= link_to home_path do -%>
-        <%= image_tag "person.png" %>
-        个人中心
-      <% end -%>
-    </span>
-    <span>
-      <%= link_to "退出", home_path-%>
-    </span>
+    <% if signed_in? -%>
+      <span>
+        <%= link_to live_studio.send("schedules_#{current_user.role}_path", current_user) do -%>
+          <%= image_tag "curriculum.png" %>
+          <%= t("nav.schedules") %>
+        <% end  if current_user.student? || current_user.teacher? -%>
+      </span>
+      <span>
+        <%= link_to user_notifications_path(current_user) do -%>
+          <%= image_tag "msg.png" %>
+          <%= t("nav.messages") %>
+        <% end -%>
+      </span>
+      <span>
+        <%= link_to user_notifications_path(current_user) do -%>
+          <%= image_tag "person.png" %>
+          <%= t("nav.user_center") %>
+        <% end if (current_user.student? || current_user.teacher? ) -%>
+      </span>
+      <span>
+        <%= link_to t("nav.signout"), signout_path, method: :delete -%>
+      </span>
+    <% else -%>
+      <span>
+        <%= link_to t("nav.signin"), signin_path -%>
+      </span>
+    <% end -%>
   </div>
   </div>
   </div>

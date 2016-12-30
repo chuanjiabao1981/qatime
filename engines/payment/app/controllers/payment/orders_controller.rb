@@ -3,7 +3,7 @@ require_dependency "payment/application_controller"
 module Payment
   class OrdersController < ApplicationController
     skip_before_action :verify_authenticity_token, :only => :notify
-    before_action :set_user, only: [:index, :pay, :cancel_order, :show, :result, :refund_apply, :refund_apply_create]
+    before_action :set_user, only: [:index, :pay, :cancel_order, :show, :result, :refund_apply, :refund_apply_create, :cancel_refund]
     layout :layout_no_nav
 
     def index
@@ -26,13 +26,19 @@ module Payment
       @order = @user.orders.find_by!(transaction_no: params[:id])
       @consumed_amount = LiveService::OrderDirector.new(@order).consumed_amount
       refund_amount = @order.amount - @consumed_amount
-      @refund_apply = Payment::RefundApply.new(user: @user,amount: refund_amount, pay_type: @order.pay_type,status: :init, product: @order.product)
+      @refund_apply = Payment::RefundApply.new(user: @user,amount: refund_amount, pay_type: @order.pay_type,status: :init, product: @order.product, transaction_no: @order.transaction_no)
       if @refund_apply.save
         @refund_apply.create_refund_reason(reason:  params[:reason])
         redirect_to payment.user_orders_path(@user), notice: i18n_notice('created', @refund_apply)
       else
         render :refund_apply, layout: 'payment/layouts/payment'
       end
+    end
+
+    def cancel_refund
+      @refund_apply = Payment::RefundApply.find_by(transaction_no: params[:id])
+      @refund_apply.cancel!
+      redirect_to payment.user_orders_path(@user), notice: i18n_notice('canceled', @refund_apply)
     end
 
     def cancel_order

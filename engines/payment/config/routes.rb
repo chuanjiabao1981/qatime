@@ -8,6 +8,7 @@ Payment::Engine.routes.draw do
         patch :cancel_order
         get :refund_apply
         post :refund_apply_create
+        put :cancel_refund
       end
     end
 

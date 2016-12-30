@@ -39,13 +39,15 @@
 
     <%= content_tag(:div, class: 'course-operator-div') do%>
       <%= content_tag(:div, class: 'course-operator-btn') do %>
+        <%= order_operating(order, class: 'btn btn-default operator-btn') %>
         <%= link_to t('view.course_show.info'), user_order_path(@user,order.order_no), class: 'btn btn-default operator-btn' %>
       <% end %>
     <% end if Payment::Order::CATE_PAID.include?(order.status) %>
 
     <%= content_tag(:div, class: 'course-operator-div') do%>
       <%= content_tag(:div, class: 'course-operator-btn') do %>
-        <%= link_to t('view.payment_show.new_order'), live_studio.student_course_path(@user, course), class: 'btn btn-default operator-btn' %>
+        <%= order_operating(order, class: 'btn btn-default operator-btn') %>
+        <%= link_to t('view.payment_show.new_order'), live_studio.student_course_path(@user, course), class: 'btn btn-default operator-btn' unless order.refunding? %>
         <%= link_to t('view.course_show.info'), user_order_path(@user,order.order_no), class: 'btn btn-default operator-btn' %>
       <% end %>
     <% end if Payment::Order::CATE_CANCELED.include?(order.status) %>

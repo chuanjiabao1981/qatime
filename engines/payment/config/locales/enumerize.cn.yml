@@ -57,3 +57,16 @@ cn:
         submitted: 未审核
         accepted: 审核通过
         rejected: 已拒绝
+    payment/refund_apply:
+      pay_type:
+        cash: 现金
+        bank: 银行卡
+        alipay: 支付宝
+        wechat: 微信
+        account: 余额
+      status:
+        init: 等待审核
+        success: 审核通过
+        ignored: 已忽略
+        cancel: 已取消
+        refunded: 已退款

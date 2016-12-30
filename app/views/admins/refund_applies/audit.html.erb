@@ -1,0 +1,71 @@
+<div class="panel panel-default">
+  <div class="panel-body panel-title-1">
+    <p class="panel-title-txt">退款审核</p>
+  </div>
+  <div class="panel-body panel-title-2">
+    <%= form_tag '',method: :get,id: 'filter_form' do %>
+      <div class="panel-left">
+        <%= link_to '未审核', 'javascript:void(0);',id: 'no_audit', class: params[:init] == 'no_audit' || params[:init].blank? ? 'btn-active' : 'btn-con' %>
+        <%= link_to '已审核', 'javascript:void(0);',id: 'audit', class: params[:init] == 'audit' ? 'btn-active btn-active1' : 'btn-con' %>
+      </div>
+      <div class="panel-center">
+        <%= hidden_field_tag :init, params[:init] %>
+        <%= hidden_field_tag :handle, params[:handle] %>
+        <input type="text" placeholder="请输入编号/姓名/电话" name="keyword" value="<%= params[:keyword] %>">
+        <input type="submit" class="btn-submit" value="查询">
+      </div>
+    <% end %>
+    <%#= link_to '批量操作','javascript:void(0);',id: 'batch', class: 'panel-right' if params[:handle] != 'batch' && params[:init] != 'audit' %>
+  </div>
+  <div class="panel-body panel-title-3">
+    <table>
+      <tbody><tr>
+        <td>序号</td>
+        <td>退款金额</td>
+        <td>退款人</td>
+        <td>订单交易编号</td>
+        <td>退款至</td>
+        <td>退款原因</td>
+        <td>时间</td>
+        <td><%= params[:init] == 'audit' ? '状态' : '操作' %></td>
+      </tr>
+      <% @refund_applies.each_with_index do |refund_apply,index| %>
+        <tr>
+          <td><%= index+1 %></td>
+          <td><%= number_to_currency(refund_apply.amount,locale: :cn) %><%= t 'currency.cn' %></td>
+          <td><%= link_to refund_apply.user.name,payment.cash_user_path(refund_apply.user) %>(<%= refund_apply.user.login_mobile %>)</td>
+          <td><%= refund_apply.transaction_no %></td>
+          <td>
+            <%= refund_apply.pay_type_text %>
+          </td>
+          <td>
+            <%= refund_apply.refund_reason.try(:reason) %>
+          </td>
+          <td><%= localize(refund_apply.created_at,format: :short) %></td>
+          <td>
+            <% if params[:init] == 'audit' %>
+              <%= refund_apply.status_text %>
+            <% else %>
+              <div class="operater">
+                <%= link_to '通过',pass_admins_refund_apply_path(refund_apply),method: :put, data:{confirm: '确认'} %>·
+                <%= link_to '驳回',unpass_admins_refund_apply_path(refund_apply),method: :put,data:{confirm: '确认'}  %>
+              </div>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    <%= will_paginate @refund_applies %>
+  </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+  $('#audit,#no_audit').click(function(){
+    $("#init").val($(this).attr('id'));
+    $('#filter_form').submit();
+  });
+  $('#batch').click(function(){
+    $("#handle").val($(this).attr('id'));
+    $('#filter_form').submit();
+  });
+</script>

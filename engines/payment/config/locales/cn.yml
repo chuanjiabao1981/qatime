@@ -76,9 +76,9 @@ cn:
       payment/refund_apply:
         order_no: 退款编号
         product: 商品名称
-        amount: 申请退款金额
+        amount: 退款金额
         created_at: 退款时间
-        status: 审核状态
+        status: 订单状态
       payment/order:
         order_no: 订单编号
         product: 商品名称
@@ -201,12 +201,6 @@ cn:
         unpaid: 未付款
         paid: 已付款
         error: 支付失败
-      refund_apply:
-        cash: 现金
-        bank: 银行卡
-        alipay: 支付宝
-        wechat: 微信
-        account: 余额
     cate_text:
       order:
         unpaid: 等待付款

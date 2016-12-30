@@ -5,8 +5,12 @@ module Payment
     validate :validate_refund, on: :create
 
     # has_many :refund, as: :order
-    has_one :refund_reason
+    has_one :refund_reason, foreign_key: 'payment_refund_apply_id', class_name: '::Payment::RefundReason'
     belongs_to :product, polymorphic: true
+    belongs_to :user
+    scope :filter, ->(keyword){keyword.blank? ? nil : where('transaction_no ~* ?', keyword).presence ||
+      where(user: User.where('name ~* ?',keyword).presence || User.where('login_mobile ~* ?',keyword))}
+
     enum status: %w(init success ignored cancel refunded)
     enum pay_type: %w(cash bank alipay wechat account)
 
@@ -34,8 +38,16 @@ module Payment
       end
     end
 
+    def status_text
+      I18n.t("enum.payment/refund_apply.status.#{status_text}")
+    end
+
+    def pay_type_text
+      I18n.t("enum.payment/refund_apply.pay_type.#{pay_type}")
+    end
+
     def self.pay_type_text(pay_type)
-      I18n.t("activerecord.status.refund_apply.#{pay_type}")
+      I18n.t("enum.payment/refund_apply.pay_type.#{pay_type}")
     end
 
     private

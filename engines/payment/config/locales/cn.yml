@@ -201,6 +201,12 @@ cn:
         unpaid: 未付款
         paid: 已付款
         error: 支付失败
+      refund_apply:
+        cash: 现金
+        bank: 银行卡
+        alipay: 支付宝
+        wechat: 微信
+        account: 余额
     cate_text:
       order:
         unpaid: 等待付款

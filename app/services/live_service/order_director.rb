@@ -23,5 +23,15 @@ module LiveService
 
       @orders
     end
+
+    # 已消费金额
+    # 学生所购买的课程已结算的费用总额
+    def consumed_amount
+      student = @order.user
+      course = @order.product
+      ticket = student.live_studio_buy_tickets.where(course: course).active.last
+      complete_lesson_ids = Payment::Billing.where(target_id: ticket.got_lesson_ids).map(&:target_id).uniq
+      LiveStudio::Lesson.where(id: complete_lesson_ids).map{|lesson| lesson.course.lesson_price}.sum
+    end
   end
 end

@@ -162,7 +162,7 @@ module Permissions
       ## end live studio permission
 
       # payment permission
-      allow 'payment/orders', [:index, :show, :destroy, :result, :pay, :cancel_order] do |resource|
+      allow 'payment/orders', [:index, :show, :destroy, :result, :pay, :cancel_order, :refund_apply, :refund_apply_create] do |resource|
         resource.id == user.id
       end
       allow 'payment/change_records', [:index] do |resource|

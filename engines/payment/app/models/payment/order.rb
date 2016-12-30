@@ -31,6 +31,7 @@ module Payment
       paid: 1, # 已支付
       shipped: 2, # 已发货
       completed: 3, # 已完成
+      refunding: 94, # 退款中
       canceled: 95, # 已取消
       expired: 96, # 过期订单
       failed: 97, # 下单失败

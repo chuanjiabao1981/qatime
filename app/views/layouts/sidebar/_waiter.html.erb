@@ -6,8 +6,13 @@
     <% end %>
   </li>
   <li>
-    <%= link_to "##" do %>
-      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">账号管理</span>
+    <%= link_to main_app.students_path do %>
+      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">学生</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to main_app.teachers_path do %>
+      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">教师</span>
     <% end %>
   </li>
   <li>

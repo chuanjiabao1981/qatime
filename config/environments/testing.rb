@@ -28,8 +28,8 @@ Qatime::Application.configure do
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = true
-  config.assets.precompile += %w(*.js)
-  config.assets.precompile += %w(web_home.css front.css front_live.css)
+  config.assets.precompile += %w(*.js live_studio/nep.min.js)
+  config.assets.precompile += %w(web_home.css front.css front_live.css live_studio/nep.min.css)
   config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
   # Generate digests for assets URLs.

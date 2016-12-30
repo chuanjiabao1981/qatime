@@ -216,7 +216,7 @@ module LiveStudio
     # 已经购买
     def bought_by?(user)
       return false unless user.present?
-      buy_tickets.where(student_id: user.id).exists?
+      buy_tickets.where(student_id: user.id).where.not(status: LiveStudio::Ticket.statuses[:refunded]).exists?
     end
 
     # 试听结束

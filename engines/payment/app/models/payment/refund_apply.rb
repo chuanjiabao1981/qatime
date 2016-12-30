@@ -27,8 +27,8 @@ module Payment
         transitions from: [:init], to: :success
       end
 
-      event :ignored, before: :ignored_operator do
-        transitions from: [:init], to: :refused
+      event :refuse, before: :ignored_operator do
+        transitions from: [:init], to: :ignored
       end
 
       event :cancel, after: :cancel_apply do
@@ -56,22 +56,25 @@ module Payment
 
     def allow_operator(current_user)
       Payment::RefundApply.transaction do
-        # todo
         # buy_ticket 变更为已退款（refunded）
-        # 辅导班购买人数-1
+        # order 变更为已退款
         # 退出云信群组
-        # 创建退款记录
-        # 退款申请状态变更为success
         # 创建管理员审核操作记录
+        user.live_studio_buy_tickets.where(course: product).active.first.try(:refunded!)
+        order.allow_refund!
+        leave_chat_team
+        operator_record('init', 'success', current_user)
       end
     end
 
     def ignored_operator(current_user)
       Payment::RefundApply.transaction do
-        # todo
         # buy_ticket 变更为可用（active）
-        # 退款申请状态变更为忽略（ignored）
         # 创建管理员审核操作记录
+        # 订单状态变更
+        user.live_studio_buy_tickets.where(course: product).active.first.try(:active!)
+        order.try(:refuse_refund!)
+        operator_record('init', 'ignored', current_user)
       end
     end
 
@@ -81,15 +84,37 @@ module Payment
     end
 
     def init_apply
-      # todo
       # buy_ticket 变更为退款中（rufunding），无法继续查看直播。
-
+      # order 状态变更为退款中（rufunding）
+      user.live_studio_buy_tickets.where(course: product).active.first.try(:refunding!)
+      order.try(:refund!)
     end
 
     def cancel_apply
-      # todo
       # buy_ticket 变更为可用（active）
-      # 退款申请状态变更为取消（cancel）
+      # 订单状态 变更
+      user.live_studio_buy_tickets.where(course: product).active.first.try(:active!)
+      order.try(:refuse_refund!)
+    end
+
+    # 操作记录
+    def operator_record(from, to, current_user)
+      ActionRecord.create(
+        actionable: self,
+        operator: current_user,
+        from: from,
+        to: to,
+        event: "refund_apply",
+        name: "refund_apply"
+      )
+    end
+
+    # 离开群组
+    def leave_chat_team
+      chat_team = product.try(:chat_team)
+      user_account = user.try(:chat_account)
+      return if chat_team.blank? || user_account.blank?
+      LiveService::ChatTeamManager.new(chat_team).remove_members([user_account])
     end
   end
 end

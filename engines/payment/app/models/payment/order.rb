@@ -56,6 +56,7 @@ module Payment
       state :canceled
       state :shipped
       state :completed
+      state :refunding
       state :refunded
       state :waste
       state :failed
@@ -80,7 +81,15 @@ module Payment
       end
 
       event :refund do
-        transitions from: [:paid, :shipped, :completed], to: :refunded
+        transitions from: [:paid, :shipped, :completed], to: :refunding
+      end
+
+      event :allow_refund do
+        transitions from: [:refunding], to: :refunded
+      end
+
+      event :refuse_refund do
+        transitions from: [:refunding], to: :completed
       end
 
       event :trash do

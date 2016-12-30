@@ -203,6 +203,10 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     logout_as(@manager)
   end
 
+  test 'manager read customized_courses list' do
+    # todo
+  end
+
   test 'manager cant read not belong himself student customized_courses' do
     log_in_as(@manager)
     student = users(:student1)

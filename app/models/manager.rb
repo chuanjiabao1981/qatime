@@ -3,6 +3,7 @@ class Manager < User
 
   has_many :workstations
   has_many :cities, through: :workstations
+  has_many :schools, through: :cities
 
   has_many :sellers, through: :workstations
   has_many :waiters, through: :workstations

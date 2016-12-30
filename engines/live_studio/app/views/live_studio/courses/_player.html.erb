@@ -55,8 +55,7 @@ $(function() {
   var initStatus = 0;
   var liveStatusStep = '<%= LiveStudio::Lesson.beat_step.to_i * 3 * 1000 %>';
 
-  // 立即播放
-  function playNow(player, url) {
+  function setDataSource(player, url) {
     var lowUrl = url.toLowerCase(),
         urlType = lowUrl.substring(0, 4),
         type;
@@ -76,6 +75,11 @@ $(function() {
         break;
     }
     player.setDataSource({ type: type, src: url });
+  }
+
+  // 立即播放
+  function playNow(player, url) {
+    setDataSource(player, url);
     player.play();
   }
 
@@ -197,18 +201,29 @@ $(function() {
     initCamera();
     // 白板结束直播
     boardPlayer.onPlayState(3, function(){
+      boardPlayer.stop();
       setTimer();
     });
     boardPlayer.onError(function(error){
       console.log(error.errCode);
+      setTimerout(function() {
+        boardPlayer.refresh();
+        setDataSource(boardPlayer, boardStream);
+      }, 3000);
     });
 
     // 摄像头结束直播
     cameraPlayer.onPlayState(3, function(){
+      cameraPlayer.stop();
       setTimer();
     });
     cameraPlayer.onError(function(error){
       console.log(error.errCode);
+      setTimerout(function() {
+        cameraPlayer.refresh();
+        setDataSource(cameraPlayer, cameraStream);
+      }, 3000);
+      
     });;
     // 初始化设置定时器
     setTimer();

@@ -101,3 +101,12 @@ teacher_get_back_payment_password:
   total_income: 0
   total_expenditure: 0
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+
+student_order_for_refund_account:
+  owner: student_order_for_refund (User)
+  balance: 1000
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+
+cash_admin_account:
+  owner: cash_admin (User)
+  balance: 20000

@@ -23,7 +23,7 @@ module Payment
       state :cancel
       state :refunded
 
-      event :allow, before: :allow_operator do
+      event :allow, before: :allow_operator, after: :account_auto_pay do
         transitions from: [:init], to: :success
       end
 
@@ -41,7 +41,7 @@ module Payment
     end
 
     def status_text
-      I18n.t("enum.payment/refund_apply.status.#{status_text}")
+      I18n.t("enum.payment/refund_apply.status.#{status}")
     end
 
     def pay_type_text
@@ -52,7 +52,15 @@ module Payment
       I18n.t("enum.payment/refund_apply.pay_type.#{pay_type}")
     end
 
+    def pay_and_ship!
+      pay!
+    end
+
     private
+    def account_auto_pay
+      # 如果退款是支付到余额中,则用户余额变动,退款订单状态变更为已付款
+      account? && user.cash_account!.receive(amount, self) && refunds.last.pay!
+    end
 
     def allow_operator(current_user)
       Payment::RefundApply.transaction do
@@ -62,19 +70,17 @@ module Payment
         # 创建管理员审核操作记录
         # 系统财务账户资金变动
         # 创建退款订单
-        # 如果退款是支付到余额中,则用户余额变动,退款订单状态变更为已付款
-        user.live_studio_buy_tickets.where(course: product).active.first.try(:refunded!)
+        user.live_studio_buy_tickets.where(course: product).refunding.first.try(:refunded!)
         order.allow_refund!
         leave_chat_team
         operator_record('init', 'success', current_user)
         CashAdmin.current!.cash_account!.refund(amount, self)
-        refund = refunds.create(
+        refunds.create(
           amount: amount,
           remote_ip: TCPSocket.gethostbyname(Socket.gethostname).last,
           status: :unpaid,
           order_no: transaction_no
         )
-        account? && user.cash_account!.receive(amount, self) && refund.pay!
       end
     end
 
@@ -83,7 +89,7 @@ module Payment
         # buy_ticket 变更为可用（active）
         # 创建管理员审核操作记录
         # 订单状态变更
-        user.live_studio_buy_tickets.where(course: product).active.first.try(:active!)
+        user.live_studio_buy_tickets.where(course: product).refunding.first.try(:active!)
         order.try(:refuse_refund!)
         operator_record('init', 'ignored', current_user)
       end

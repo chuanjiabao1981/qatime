@@ -628,3 +628,49 @@ course_for_destroy:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+
+course_for_refund:
+  name: 退款申请的辅导班
+  workstation: workstation_zhuji
+  status: 2
+  teacher: teacher1
+  teacher_percentage: 80
+  preset_lesson_count: 2
+  lesson_price: 200
+  price: 400
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+  lessons_count: 2
+course_for_refund1:
+  name: 退款申请的辅导班1
+  workstation: workstation_zhuji
+  status: 2
+  teacher: teacher1
+  teacher_percentage: 80
+  preset_lesson_count: 2
+  lesson_price: 200
+  price: 400
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+  lessons_count: 2
+course_for_refund2:
+  name: 退款申请的辅导班2
+  workstation: workstation_zhuji
+  status: 2
+  teacher: teacher1
+  teacher_percentage: 80
+  preset_lesson_count: 2
+  lesson_price: 200
+  price: 400
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+  lessons_count: 2

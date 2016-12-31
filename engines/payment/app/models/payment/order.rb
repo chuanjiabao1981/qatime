@@ -207,8 +207,9 @@ module Payment
 
     private
 
+    # 如果不是余额支付, 则改变remote_order状态为已退款
     def remote_order_refund
-      remote_order.refund!
+      remote_order.refund! unless account?
     end
 
     # 记录支付时间

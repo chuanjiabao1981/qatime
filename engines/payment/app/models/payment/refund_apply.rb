@@ -5,7 +5,7 @@ module Payment
     validate :validate_refund, on: :create
     after_create :init_apply
 
-    # has_many :refund, as: :order
+    has_many :refunds, as: :order
     has_one :refund_reason, foreign_key: 'payment_refund_apply_id', class_name: '::Payment::RefundReason'
     belongs_to :product, polymorphic: true
     belongs_to :user
@@ -60,10 +60,21 @@ module Payment
         # order 变更为已退款
         # 退出云信群组
         # 创建管理员审核操作记录
+        # 系统财务账户资金变动
+        # 创建退款订单
+        # 如果退款是支付到余额中,则用户余额变动,退款订单状态变更为已付款
         user.live_studio_buy_tickets.where(course: product).active.first.try(:refunded!)
         order.allow_refund!
         leave_chat_team
         operator_record('init', 'success', current_user)
+        CashAdmin.current!.cash_account!.refund(amount, self)
+        refund = refunds.create(
+          amount: amount,
+          remote_ip: TCPSocket.gethostbyname(Socket.gethostname).last,
+          status: :unpaid,
+          order_no: transaction_no
+        )
+        account? && user.cash_account!.receive(amount, self) && refund.pay!
       end
     end
 

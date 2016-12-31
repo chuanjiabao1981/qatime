@@ -84,7 +84,7 @@ module Payment
         transitions from: [:paid, :shipped, :completed], to: :refunding
       end
 
-      event :allow_refund do
+      event :allow_refund, after: :remote_order_refund do
         transitions from: [:refunding], to: :refunded
       end
 
@@ -206,6 +206,10 @@ module Payment
     end
 
     private
+
+    def remote_order_refund
+      remote_order.refund!
+    end
 
     # 记录支付时间
     def touch_pay_at

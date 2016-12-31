@@ -90,3 +90,23 @@ customized_course_other_workstation:
   workstation: workstation_zhuji
   customized_course_type: 0
   creator_id: <%= ActiveRecord::FixtureSet.identify(:manager) %>
+
+customized_course_haidian_workstation:
+  student: student2
+  category: 高中
+  subject: 数学
+  platform_price: 0
+  teacher_price: 54
+  workstation: workstation_hd
+  customized_course_type: 0
+  creator_id: <%= ActiveRecord::FixtureSet.identify(:customized_courses_manager) %>
+
+customized_course_haidian_workstation1:
+  student: student1
+  category: 高中
+  subject: 数学
+  platform_price: 0
+  teacher_price: 54
+  workstation: workstation_hd
+  customized_course_type: 0
+  creator_id: <%= ActiveRecord::FixtureSet.identify(:customized_courses_manager) %>

@@ -38,3 +38,11 @@ workstation_zhuji:
   tel: 1
   email: MyString
   manager: manager_zhuji
+
+workstation_hd:
+  name: 海淀工作站
+  city: 海淀
+  address: 北京海淀
+  tel: 1
+  email: MyString
+  manager: customized_courses_manager

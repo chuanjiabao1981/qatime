@@ -37,7 +37,7 @@ class WorkstationIntegrateTest < LoginTestBase
     end
     user_session.assert_response :success
     user_session.assert_select "form[action=?]",admins_workstations_path,1
-    user_session.assert_select "option", 9
+    user_session.assert_select "option", 11
   end
 
   def show_page(user, user_session, show_path)

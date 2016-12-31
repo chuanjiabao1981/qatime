@@ -19,6 +19,7 @@ module LiveStudio
     test "student buy course and lesson billing " do
       student = users(:student_balance)
       new_log_in_as(student)
+      admin_account = CashAdmin.first.cash_account.balance
       visit live_studio.course_path(@course)
       click_on '立即报名'
       choose('order_pay_type_account')
@@ -40,6 +41,7 @@ module LiveStudio
       teacher_money = money - system_money
       teacher_percentage_money = (teacher_money * @course.teacher_percentage.to_f / 100)
       system_money -= workstation_money
+
       # 系统收入 - 学生购买
       assert_equal CashAdmin.first.cash_account.earning_records.first.different.abs, @course.price
       # 系统支出 - 课程结算
@@ -47,7 +49,7 @@ module LiveStudio
       # 系统收入 - 课程结算 - 服务费
       assert_equal CashAdmin.first.cash_account.earning_records.last.different.abs, system_money.round(2)
       # 系统账户余额 : 购买收入 - 课程单价 + 系统服务费
-      assert_equal CashAdmin.first.cash_account.balance, @course.price - @course.lesson_price + system_money.round(2)
+      assert_equal CashAdmin.first.cash_account.balance, admin_account + @course.price - @course.lesson_price + system_money.round(2)
       # 工作站收入 - 系统分成
       assert_equal @course.workstation.cash_account.earning_records.first.different, workstation_money.round(2)
       # 工作站收入 - 教师分成

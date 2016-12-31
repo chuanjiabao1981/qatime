@@ -110,7 +110,7 @@ module Payment
     def cancel_apply
       # buy_ticket 变更为可用（active）
       # 订单状态 变更
-      user.live_studio_buy_tickets.where(course: product).active.first.try(:active!)
+      user.live_studio_buy_tickets.where(course: product).refunding.first.try(:active!)
       order.try(:refuse_refund!)
     end
 

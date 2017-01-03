@@ -65,7 +65,7 @@ module Payment
         amount: amount,
         status: :unpaid,
         order_no: transaction_no
-      ).remote_transfer
+      ).remote_refund
     end
 
     def allow_operator(current_user)

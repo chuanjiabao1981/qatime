@@ -186,3 +186,10 @@ ticket_for_refund2:
   course: course_for_refund2
   type: LiveStudio::BuyTicket
   status: 1
+ticket_for_refund3:
+  student: student_order_for_refund
+  course: course_for_refund3
+  type: LiveStudio::BuyTicket
+  status: 1
+  lesson_price: 200
+  got_lesson_ids: <%= [ActiveRecord::FixtureSet.identify(:lesson1_for_refund_course3), ActiveRecord::FixtureSet.identify(:lesson2_for_refund_course3)]%>

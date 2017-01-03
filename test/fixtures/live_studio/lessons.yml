@@ -398,3 +398,25 @@ lesson_for_refund_course2:
   status: 0
   real_time: 30
   live_count: 1
+lesson1_for_refund_course3:
+  name: 第2节课
+  course: course_for_refund3
+  teacher: teacher1
+  description: Mystring
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 1
+lesson2_for_refund_course3:
+  name: 第2节课
+  course: course_for_refund3
+  teacher: teacher1
+  description: Mystring
+  start_time: '13:20'
+  end_time: '04:30'
+  class_date: <%= Date.today %>
+  status: 0
+  real_time: 30
+  live_count: 1

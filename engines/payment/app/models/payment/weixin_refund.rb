@@ -3,8 +3,8 @@ module Payment
     belongs_to :refund
     RESULT_SUCCESS = "SUCCESS".freeze
 
-    def remote_transfer
-      return fail! if Rails.env.test?
+    def remote_refund
+      return if Rails.env.test?
       r = WxPay::Service.invoke_refund(refund_remote_params)
       self.hold_results = JSON.parse(r.to_json)
       self.hold_remotes = refund_remote_params

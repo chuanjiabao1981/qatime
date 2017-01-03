@@ -1,0 +1,4 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  target: lesson1_for_refund_course3 (LiveStudio::Lesson)

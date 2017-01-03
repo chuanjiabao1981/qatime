@@ -1,13 +1,12 @@
 require 'test_helper'
 
 module Payment
-  class RefundTest < ActionDispatch::IntegrationTest
+  class StudentRefundTest < ActionDispatch::IntegrationTest
     def setup
       @routes = Engine.routes
       @headless = Headless.new
       @headless.start
       Capybara.current_driver = :selenium_chrome
-
     end
 
     def teardown
@@ -26,7 +25,7 @@ module Payment
       click_link '申请退款', match: :first
       fill_in 'reason', with: 'test refund'
       click_on '提交'
-      assert has_content?('退款申请已创建'), '退款申请未创建成功'
+      assert has_content?('退款已创建'), '退款申请未创建成功'
 
       assert_equal Payment::Refund.last.user, @student, '没有创建退款申请'
       assert_equal @student.live_studio_buy_tickets.first.status, 'refunding', '票据状态未更新'
@@ -47,23 +46,27 @@ module Payment
       # assert admin operating record
       # assert refund create
       # assert course can sell to student
-      admin_balance = CashAdmin.current!.cash_account!.available_balance
       @admin = users(:admin)
       new_log_in_as(@admin)
       click_on '退款审核'
-      accept_prompt(with: "确认") do
-        click_link '通过', match: :first
+      ra = Payment::Refund.init.first
+      user_account = ra.user.cash_account
+      assert_difference 'user_account.balance', +ra.amount, '未退款至学生账户' do
+        assert_difference 'CashAdmin.current!.cash_account.balance', -ra.amount, '管理员资金未变动' do
+          accept_prompt(with: "确认") do
+            find(:xpath, "//a[@href='#{pass_admins_refund_path(ra)}']").click
+          end
+          sleep 3
+        end
+        user_account.reload
       end
       click_on '已审核'
-      assert has_content?('已退款')
-      ra = Payment::Refund.refunded.first
+      assert has_content?('审核通过')
       assert ra.status, 'refunded'
       assert_equal ra.user.live_studio_buy_tickets.where(course: ra.product).first.status, 'refunded'
       assert_equal ra.order.status, 'refunded'
-      assert_equal CashAdmin.current!.cash_account.available_balance, admin_balance - ra.amount, '管理员资金未变动'
       assert_equal ActionRecord.last.actionable, ra, '管理员操作记录没有创建'
-      assert_equal Payment::Refund.last, ra.refunds.last, '退款订单未创建'
-      assert !ra.product.bought_by?(ra.user), '无法再次购买'
+      assert_not ra.product.bought_by?(ra.user), '无法再次购买'
       new_logout_as(@admin)
     end
 
@@ -71,18 +74,40 @@ module Payment
       # assert buy ticket status active
       # assert order status complete
       # assert admin operating record
+      # 退款状态
       @admin = users(:admin)
       new_log_in_as(@admin)
       click_on '退款审核'
+      ra = Payment::Refund.init.last
       accept_prompt(with: "确认") do
-        click_link '驳回', match: :first
+        find(:xpath, "//a[@href='#{unpass_admins_refund_path(ra)}']").click
       end
       sleep 2
-      ra = Payment::Refund.ignored.last
       assert_equal ra.user.live_studio_buy_tickets.where(course: ra.product).first.status, 'active'
       assert_equal ra.order.status, 'completed', '订单状态未恢复'
       assert_equal ActionRecord.last.actionable, ra, '管理员操作记录没有创建'
       new_logout_as(@admin)
+    end
+
+    test 'billed lesson refund test' do
+      # 测试辅导班已结算的费用是否扣除
+      buy_ticket = live_studio_tickets(:ticket_for_refund3)
+      order = payment_transactions(:order_for_refund3)
+      new_log_in_as(order.user)
+      visit payment.refund_user_order_path(order.user, order.transaction_no)
+      fill_in 'reason', with: 'test refund'
+      click_on '提交'
+      ra = Payment::Refund.find_by(order: order)
+      assert_equal ra.amount, buy_ticket.lesson_price, '退款金额未扣除已结算课程'
+      new_logout_as(order.user)
+    end
+
+    test 'remote order status test' do
+      remote_order = payment_remote_orders(:weixin_refund_remote_order)
+      refund = payment_transactions(:weixin_refund)
+      refund.allow!(users(:admin))
+      remote_order.reload
+      assert_equal remote_order.status, 'refunded', '原微信支付订单状态没有改变'
     end
   end
 end

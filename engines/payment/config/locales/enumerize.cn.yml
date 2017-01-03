@@ -57,7 +57,7 @@ cn:
         submitted: 未审核
         accepted: 审核通过
         rejected: 已拒绝
-    payment/refund_apply:
+    payment/refund:
       pay_type:
         cash: 现金
         bank: 银行卡

@@ -1,5 +1,5 @@
 module Payment
   class RefundReason < ActiveRecord::Base
-    belongs_to :refund_apply
+    belongs_to :refund
   end
 end

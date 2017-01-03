@@ -206,8 +206,8 @@ order_for_refund2:
   type: Payment::Order
   product: course_for_refund (LiveStudio::Course)
 
-refund_apply:
-  type: Payment::RefundApply
+refund:
+  type: Payment::Refund
   product: course_for_refund1 (LiveStudio::Course)
   user: student_order_for_refund
   transaction_no: <%= @transaction ||= Time.now.to_s(:number) + '%04d' % rand(1000) %>
@@ -215,8 +215,8 @@ refund_apply:
   status: 0
   pay_type: 4
 
-refund_apply2:
-  type: Payment::RefundApply
+refund2:
+  type: Payment::Refund
   product: course_for_refund2 (LiveStudio::Course)
   user: student_order_for_refund
   transaction_no: <%= @transaction2 ||= Time.now.to_s(:number) + '%04d' % rand(1000) %>

@@ -23,8 +23,8 @@ module Payment
               }
 
     CATE_UNPAID = %w(unpaid).freeze
-    CATE_PAID = %w(paid shipped completed).freeze
-    CATE_CANCELED = %w(canceled expired refunded refunding).freeze
+    CATE_PAID = %w(paid shipped completed refunding).freeze
+    CATE_CANCELED = %w(canceled expired refunded).freeze
 
     enum status: {
       unpaid: 0, # 未支付

@@ -15,7 +15,7 @@ module Payment
     end
 
     test 'student apply refund order test' do
-      # assert refund_apply create and status init
+      # assert refund create and status init
       # assert buy_ticket refunding
       # assert order refunding
       # assert course cant for_sell for student
@@ -28,7 +28,7 @@ module Payment
       click_on '提交'
       assert has_content?('退款申请已创建'), '退款申请未创建成功'
 
-      assert_equal Payment::RefundApply.last.user, @student, '没有创建退款申请'
+      assert_equal Payment::Refund.last.user, @student, '没有创建退款申请'
       assert_equal @student.live_studio_buy_tickets.first.status, 'refunding', '票据状态未更新'
       assert_equal @student.orders.last.status, 'refunding', '订单状态未更新'
       visit live_studio.course_path(@student.orders.last.product)
@@ -38,8 +38,8 @@ module Payment
       new_logout_as(@student)
     end
 
-    test 'admin pass refund_apply test' do
-      # assert refund_apply status success
+    test 'admin pass refund test' do
+      # assert refund status success
       # assert buy_tickets status refunded
       # assert buy_ticket status refunded
       # assert order status refunded
@@ -56,7 +56,7 @@ module Payment
       end
       click_on '已审核'
       assert has_content?('已退款')
-      ra = Payment::RefundApply.refunded.first
+      ra = Payment::Refund.refunded.first
       assert ra.status, 'refunded'
       assert_equal ra.user.live_studio_buy_tickets.where(course: ra.product).first.status, 'refunded'
       assert_equal ra.order.status, 'refunded'
@@ -67,7 +67,7 @@ module Payment
       new_logout_as(@admin)
     end
 
-    test 'admin unpass refund_apply test' do
+    test 'admin unpass refund test' do
       # assert buy ticket status active
       # assert order status complete
       # assert admin operating record
@@ -78,7 +78,7 @@ module Payment
         click_link '驳回', match: :first
       end
       sleep 2
-      ra = Payment::RefundApply.ignored.last
+      ra = Payment::Refund.ignored.last
       assert_equal ra.user.live_studio_buy_tickets.where(course: ra.product).first.status, 'active'
       assert_equal ra.order.status, 'completed', '订单状态未恢复'
       assert_equal ActionRecord.last.actionable, ra, '管理员操作记录没有创建'

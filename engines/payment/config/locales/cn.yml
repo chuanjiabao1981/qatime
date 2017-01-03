@@ -186,6 +186,7 @@ cn:
         failed: 下单失败
         refunded: 已退款
         waste: 无效订单
+        refunding: 等待退款
       withdraw:
         teacher:
           init: 审核中

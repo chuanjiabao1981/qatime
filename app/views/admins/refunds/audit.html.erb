@@ -29,26 +29,26 @@
         <td>时间</td>
         <td><%= params[:init] == 'audit' ? '状态' : '操作' %></td>
       </tr>
-      <% @refund_applies.each_with_index do |refund_apply,index| %>
+      <% @refunds.each_with_index do |refund,index| %>
         <tr>
           <td><%= index+1 %></td>
-          <td><%= number_to_currency(refund_apply.amount,locale: :cn) %><%= t 'currency.cn' %></td>
-          <td><%= link_to refund_apply.user.name,payment.cash_user_path(refund_apply.user) %>(<%= refund_apply.user.login_mobile %>)</td>
-          <td><%= refund_apply.transaction_no %></td>
+          <td><%= number_to_currency(refund.amount,locale: :cn) %><%= t 'currency.cn' %></td>
+          <td><%= link_to refund.user.name,payment.cash_user_path(refund.user) %>(<%= refund.user.login_mobile %>)</td>
+          <td><%= refund.transaction_no %></td>
           <td>
-            <%= refund_apply.pay_type_text %>
+            <%= refund.pay_type_text %>
           </td>
           <td>
-            <%= refund_apply.refund_reason.try(:reason) %>
+            <%= refund.refund_reason.try(:reason) %>
           </td>
-          <td><%= localize(refund_apply.created_at,format: :short) %></td>
+          <td><%= localize(refund.created_at,format: :short) %></td>
           <td>
             <% if params[:init] == 'audit' %>
-              <%= refund_apply.status_text %>
+              <%= refund.status_text %>
             <% else %>
               <div class="operater">
-                <%= link_to '通过',pass_admins_refund_apply_path(refund_apply),method: :put, data:{confirm: '确认'} %>·
-                <%= link_to '驳回',unpass_admins_refund_apply_path(refund_apply),method: :put,data:{confirm: '确认'}  %>
+                <%= link_to '通过',pass_admins_refund_path(refund),method: :put, data:{confirm: '确认'} %>·
+                <%= link_to '驳回',unpass_admins_refund_path(refund),method: :put,data:{confirm: '确认'}  %>
               </div>
             <% end %>
           </td>
@@ -56,7 +56,7 @@
       <% end %>
       </tbody>
     </table>
-    <%= will_paginate @refund_applies %>
+    <%= will_paginate @refunds %>
   </div>
 </div>
 <script type="text/javascript" charset="utf-8">

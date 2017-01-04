@@ -415,7 +415,11 @@ function appendMsg(msg, messageClass) {
   var messageContent = $("<div class='information-con'></div>");
   if(messageClass == 'Image'){
     var url = msg.file.url;
-    messageContent.append($('<img class="accept-img" src="' + url + '" onclick="accept_img_click(this)">'));
+    var imgMsg = $('<img class="accept-img" src="' + url + '" onclick="accept_img_click(this)">');
+    imgMsg.one("load", function() {
+      $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
+    });
+    messageContent.append(imgMsg);
   }else{
     messageContent.append($.replaceChatMsg(msg.text));
   }
@@ -430,8 +434,7 @@ function appendMsg(msg, messageClass) {
     currentTeam.barrage.show($.replaceChatMsg(msg.text));
   }
 
-  $("#messages").scrollTop($("#messages").prop('scrollHeight'));
-
+  $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
 
   if($("#member-icons").find("img.icon-" + msg.from).size() > 0) {
     $("#msg-" + msg.idClient).find(".information-title img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));

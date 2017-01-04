@@ -109,5 +109,14 @@ module Payment
       remote_order.reload
       assert_equal remote_order.status, 'refunded', '原微信支付订单状态没有改变'
     end
+
+    test 'refunded lesson billing test' do
+      course = live_studio_courses(:course_for_refund3)
+      refunded_ticket = live_studio_tickets(:refund_ticket)
+
+      LiveService::BillingDirector.new(course.lessons.finished.first).billing
+      assert_not_includes course.buy_tickets, refunded_ticket
+      assert_equal Billing.last.parent.total_money, course.lesson_price, '课程结算只有一节课的费用200元'
+    end
   end
 end

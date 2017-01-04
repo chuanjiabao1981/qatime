@@ -3,7 +3,7 @@ require_dependency "payment/application_controller"
 module Payment
   class OrdersController < ApplicationController
     skip_before_action :verify_authenticity_token, :only => :notify
-    before_action :set_user, only: [:index, :pay, :cancel_order, :show, :result]
+    before_action :set_user, only: [:index, :pay, :cancel_order, :show, :result, :refund, :refund_create, :cancel_refund]
     layout :layout_no_nav
 
     def index
@@ -15,6 +15,30 @@ module Payment
       @order = @user.orders.find_by!(transaction_no: params[:id])
       @order.init_order_for_test if Rails.env.test?
       @product = @order.product
+    end
+
+    def refund
+      @order = @user.orders.find_by!(transaction_no: params[:id])
+      @consumed_amount = LiveService::OrderDirector.new(@order).consumed_amount
+    end
+
+    def refund_create
+      @order = @user.orders.find_by!(transaction_no: params[:id])
+      @consumed_amount = LiveService::OrderDirector.new(@order).consumed_amount
+      refund_amount = @order.amount - @consumed_amount
+      @refund = Payment::Refund.new(user: @user,amount: refund_amount, pay_type: @order.pay_type,status: :init, product: @order.product, transaction_no: @order.transaction_no)
+      if @refund.save
+        @refund.create_refund_reason(reason:  params[:reason])
+        redirect_to payment.user_orders_path(@user), notice: i18n_notice('created', @refund)
+      else
+        render :refund, layout: 'payment/layouts/payment'
+      end
+    end
+
+    def cancel_refund
+      @refund = Payment::Refund.where(transaction_no: params[:id]).init.first
+      @refund.cancel!
+      redirect_to payment.user_orders_path(@user), notice: i18n_notice('cancel', @refund)
     end
 
     def cancel_order
@@ -72,9 +96,9 @@ module Payment
     end
 
     def layout_no_nav
-      no_nav_arys = %w(show)
+      no_nav_arys = %w(show refund)
       if @student
-        'student_home_new'
+        no_nav_arys.include?(action_name) ? 'payment/layouts/payment' : 'student_home_new'
       else
         "payment/layouts/#{no_nav_arys.include?(action_name) ? 'payment' : 'application'}"
       end

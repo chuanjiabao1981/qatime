@@ -73,6 +73,15 @@ Qatime::Application.routes.draw do
         put :unpass
       end
     end
+    resources :refunds do
+      collection do
+        get :audit
+      end
+      member do
+        put :pass
+        put :unpass
+      end
+    end
     resources :push_messages
   end
 
@@ -190,6 +199,18 @@ Qatime::Application.routes.draw do
       get 'action_records'
       get :waiters
       get :sellers
+    end
+  end
+
+  resources :sellers do
+    member do
+      get :customized_courses
+    end
+  end
+
+  resources :waiters do
+    member do
+      get :customized_courses
     end
   end
 

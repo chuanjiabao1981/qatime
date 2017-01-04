@@ -31,5 +31,10 @@ module LiveServiceTest
         assert Payment::Order::CATE_CANCELED.include?(order.status)
       end
     end
+
+    test 'return consumed_amount' do
+      order = payment_transactions(:order_for_refund3)
+      assert_equal LiveService::OrderDirector.new(order).consumed_amount, order.product.lesson_price, '没有正确返回已消费金额'
+    end
   end
 end

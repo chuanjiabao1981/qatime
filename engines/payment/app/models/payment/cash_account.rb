@@ -9,6 +9,7 @@ module Payment
     has_many :withdraw_change_records
     has_many :earning_records
     has_many :consumption_records
+    has_many :refund_records
     attr_accessor :create_or_update_password, :current_password, :ticket_token
 
     validates :owner, presence: true
@@ -52,6 +53,27 @@ module Payment
         with_lock do
           change(:withdraw_change_records, -amount.abs, target: target, billing: nil, summary: "账户提现")
           self.frozen_balance -= amount
+          save!
+        end
+      end
+    end
+
+    # 退款
+    def refund(amount, target)
+      Payment::CashAccount.transaction do
+        with_lock do
+          change(:refund_records, -amount.abs, target: target, billing: nil, summary: "用户申请退款")
+          self.total_expenditure += amount.abs
+          save!
+        end
+      end
+    end
+
+    # 收到退款
+    def receive(amount, target)
+      Payment::CashAccount.transaction do
+        with_lock do
+          change(:earning_records, amount.abs, target: target, billing: nil, summary: "系统退款")
           save!
         end
       end

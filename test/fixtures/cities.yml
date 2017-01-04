@@ -13,4 +13,6 @@ taiyuan:
 datong:
   province: shanxi
   name: 大同
-
+haidian:
+  province: beijing
+  name: 海淀

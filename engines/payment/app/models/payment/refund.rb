@@ -61,7 +61,7 @@ module Payment
       # 如果退款是支付到余额中,则用户余额变动
       # 如果微信支付,则创建微信退款订单, 并调用微信退款接口
       account? && user.cash_account!.receive(amount, self)
-      wechat? && weixin_refunds.create(
+      weixin? && weixin_refunds.create(
         amount: amount,
         status: :unpaid,
         order_no: transaction_no

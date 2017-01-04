@@ -17,6 +17,8 @@ VCLOUD_CONFIG = YAML.load(File.read(File.expand_path('../vcloud.yml', __FILE__))
 Chat::IM.config(YAML.load(File.read(File.expand_path('../netease.yml', __FILE__)))[Rails.env])
 # 推送配置
 PUSH_CONFIG = YAML.load(File.read(File.expand_path('../push.yml', __FILE__)))[Rails.env]
+# 微信退款证书
+WX_CERT = File.read(File.expand_path("../apiclient_cert.p12",__FILE__))
 
 $host_name = APP_CONFIG[Rails.env.to_sym]["host_name"] if APP_CONFIG[Rails.env.to_sym]
 

@@ -14,7 +14,7 @@ module Payment
       where(user: User.where('name ~* ?',keyword).presence || User.where('login_mobile ~* ?',keyword))}
 
     enum status: %w(init success ignored cancel refunded)
-    enum pay_type: %w(cash bank alipay wechat account)
+    enum pay_type: %w(cash bank alipay weixin account)
 
     aasm column: :status, enum: true do
       state :init, initial: true

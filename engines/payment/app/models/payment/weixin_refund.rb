@@ -1,6 +1,6 @@
 module Payment
   class WeixinRefund < RemoteOrder
-    belongs_to :refund, polymorphic: :order
+    belongs_to :order, polymorphic: true
     RESULT_SUCCESS = "SUCCESS".freeze
 
     def remote_refund
@@ -18,7 +18,7 @@ module Payment
       {
         out_trade_no: order_no,
         out_refund_no: order_no,
-        total_fee: refund.order.pay_money,
+        total_fee: order.order.pay_money,
         refund_fee: pay_money,
         op_user_id: WxPay.mch_id,
         desc: "用户提现"

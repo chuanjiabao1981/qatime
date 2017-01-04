@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module LiveServiceTest
-  class TemplateTest < ActiveSupport::TestCase
+  class OrderDirectorTest < ActiveSupport::TestCase
     test 'return different cate orders for user' do
       user = users(:student_with_order2)
       assert_equal 5, user.orders.size

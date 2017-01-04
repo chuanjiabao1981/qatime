@@ -82,64 +82,65 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
   test 'Manager edit teacher' do
     log_in_as(@manager)
 
-    teacher = users(:admin_edit_teacher)
+    # teacher = users(:admin_edit_teacher)
     click_on '教师'
-
-    while !page.has_css?("#teacher_#{teacher.id}") do
-      click_on "下一页"
-    end
-
-    find(:css, "#teacher_#{teacher.id}").click
-
-    fill_in "teacher_password", with: "password002"
-    find(:css, "#submit_password_#{teacher.id}").click
-
-    fill_in "teacher_email", with: "edit_test_teacher2@teacher.com"
-    find(:css, "#submit_email_#{teacher.id}").click
-
-    fill_in "teacher_login_mobile", with: "13892940001"
-    find(:css, "#submit_login_mobile_#{teacher.id}").click
-
-    sleep 1
-    teacher.reload
-
-    assert_equal(true, teacher.authenticate('password002').present?, '更新密码错误')
-    assert_equal("edit_test_teacher2@teacher.com", teacher.email, '更新邮箱错误')
-    assert_equal("13892940001", teacher.login_mobile, '更新手机号错误')
+    assert !has_content?('修改安全信息'), 'manager没有修改教师信息权限'
+    # while !page.has_css?("#teacher_#{teacher.id}") do
+    #   click_on "下一页"
+    # end
+    #
+    # find(:css, "#teacher_#{teacher.id}").click
+    #
+    # fill_in "teacher_password", with: "password002"
+    # find(:css, "#submit_password_#{teacher.id}").click
+    #
+    # fill_in "teacher_email", with: "edit_test_teacher2@teacher.com"
+    # find(:css, "#submit_email_#{teacher.id}").click
+    #
+    # fill_in "teacher_login_mobile", with: "13892940001"
+    # find(:css, "#submit_login_mobile_#{teacher.id}").click
+    #
+    # sleep 1
+    # teacher.reload
+    #
+    # assert_equal(true, teacher.authenticate('password002').present?, '更新密码错误')
+    # assert_equal("edit_test_teacher2@teacher.com", teacher.email, '更新邮箱错误')
+    # assert_equal("13892940001", teacher.login_mobile, '更新手机号错误')
 
     logout_as(@manager)
   end
 
   test 'Manager edit student' do
     log_in_as(@manager)
-    student = users(:admin_edit_student)
+    #student = users(:admin_edit_student)
     click_on '学生'
+    assert !has_content?('修改安全信息'), 'manager没有修改学生信息权限'
 
-    while !page.has_css?("#student_#{student.id}") do
-      click_on "下一页"
-    end
-
-    find(:css, "#student_#{student.id}").click
-
-    fill_in "student_password", with: "password002"
-    find(:css, "#submit_password_#{student.id}").click
-
-    fill_in "student_email", with: "edit_test_student2@student.com"
-    find(:css, "#submit_email_#{student.id}").click
-
-    fill_in "student_login_mobile", with: "13892940002"
-    find(:css, "#submit_login_mobile_#{student.id}").click
-
-    fill_in "student_parent_phone", with: "13892940003"
-    find(:css, "#submit_parent_phone_#{student.id}").click
-
-    sleep 1
-    student.reload
-
-    assert_equal(true, student.authenticate('password002').present?, '更新密码错误')
-    assert_equal("edit_test_student2@student.com", student.email, '更新邮箱错误')
-    assert_equal("13892940002", student.login_mobile, '更新手机号错误')
-    assert_equal("13892940003", student.parent_phone, '更新家长手机错误')
+    # while !page.has_css?("#student_#{student.id}") do
+    #   click_on "下一页"
+    # end
+    #
+    # find(:css, "#student_#{student.id}").click
+    #
+    # fill_in "student_password", with: "password002"
+    # find(:css, "#submit_password_#{student.id}").click
+    #
+    # fill_in "student_email", with: "edit_test_student2@student.com"
+    # find(:css, "#submit_email_#{student.id}").click
+    #
+    # fill_in "student_login_mobile", with: "13892940002"
+    # find(:css, "#submit_login_mobile_#{student.id}").click
+    #
+    # fill_in "student_parent_phone", with: "13892940003"
+    # find(:css, "#submit_parent_phone_#{student.id}").click
+    #
+    # sleep 1
+    # student.reload
+    #
+    # assert_equal(true, student.authenticate('password002').present?, '更新密码错误')
+    # assert_equal("edit_test_student2@student.com", student.email, '更新邮箱错误')
+    # assert_equal("13892940002", student.login_mobile, '更新手机号错误')
+    # assert_equal("13892940003", student.parent_phone, '更新家长手机错误')
 
     logout_as(@manager)
   end
@@ -194,6 +195,23 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     logout_as(@manager)
   end
 
+  test 'manager cant read other workstation customized_courses' do
+    log_in_as(@manager)
+    customized_course = customized_courses(:customized_course_other_workstation)
+    visit customized_course_path(customized_course)
+    assert page.has_content?('您没有权限进行这个操作!')
+    assert_not_includes @manager.customized_courses, customized_course
+    logout_as(@manager)
+  end
+
+  test 'manager only read self-customized_courses list' do
+    @manager1 = users(:customized_courses_manager)
+    log_in_as(@manager1)
+    click_on '专属课程'
+    assert_equal all('a', text: '高中-数学').count, 2, '只能看见两个专属课程'
+    logout_as(@manager1)
+  end
+
   test 'manager cant read not belong himself student customized_courses' do
     log_in_as(@manager)
     student = users(:student1)
@@ -211,7 +229,7 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
   test 'manager manage school' do
     log_in_as(@manager)
     click_on '学校'
-    school = schools(:school3)
+    school = schools(:school4)
     assert_not_equal school.city, @manager.city
     assert_not page.has_content?(school.name)
     visit edit_school_path(school)

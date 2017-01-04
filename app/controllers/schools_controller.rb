@@ -2,7 +2,7 @@ class SchoolsController < ApplicationController
   respond_to :html
 
   def index
-    @schools = current_user.manager? ? current_user.city.try(:schools) : School.all.order(:created_at)
+    @schools = current_user.manager? ? current_user.schools : School.all.order(:created_at)
   end
 
   def new
@@ -11,7 +11,6 @@ class SchoolsController < ApplicationController
 
   def create
     @school = School.new(params[:school].permit!)
-    @school.city = current_user.city if current_user.manager?
     if @school.save
       redirect_to schools_path
     else

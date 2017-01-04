@@ -202,6 +202,18 @@ Qatime::Application.routes.draw do
     end
   end
 
+  resources :sellers do
+    member do
+      get :customized_courses
+    end
+  end
+
+  resources :waiters do
+    member do
+      get :customized_courses
+    end
+  end
+
   resources :customized_courses,only:[:show,:edit,:update] do
     resources :customized_tutorials
     member do

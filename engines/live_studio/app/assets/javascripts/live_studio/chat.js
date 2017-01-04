@@ -102,12 +102,14 @@ window.currentTeam = {
     if(obj.sessionId != "team-" + currentTeam.id) return false;
 
     $.each(obj.msgs, function(index, msg) {
-      onMsg(msg, false);
+      onMsg(msg, false, true);
     });
     nim.markMsgRead(obj.msgs);
   }
   // 消息处理
-  function onMsg(msg, mark) {
+  // mark是否标记为已读
+  // offline是否离线消息
+  function onMsg(msg, mark, offline) {
     console.log('收到消息', msg.scene, msg.type, msg);
     // 不是该聊天组消息
     if(msg.scene != "team" || msg.to != currentTeam.id ) {
@@ -130,13 +132,12 @@ window.currentTeam = {
         onImageMsg(msg);
         break;
       default:
-        onNormalMsg(msg)
+        onNormalMsg(msg, offline)
         break;
     }
     if(mark) nim.markMsgRead(msg);
   }
   function pushMsg(msgs) {
-    console.log(msgs);
     if (!Array.isArray(msgs)) { msgs = [msgs]; }
     var sessionId = msgs[0].sessionId;
     data.msgs = data.msgs || {};
@@ -276,8 +277,8 @@ window.currentTeam = {
     if(obj.account === currentTeam.account) muteMessage(obj.mute);
   }
 
-  function onNormalMsg(msg) {
-    appendMsg(msg);
+  function onNormalMsg(msg, offline) {
+    appendMsg(msg, null, offline);
   }
 
   function onImageMsg(msg) {
@@ -391,7 +392,7 @@ function sendMessageTime(msg, type){
   }
 }
 
-function appendMsg(msg, messageClass) {
+function appendMsg(msg, messageClass, offline) {
   if(!messageClass) messageClass = '';
   // 处理自定义消息
   var messageItem = $("<div class='new-information" + messageClass + "' id='msg-" + msg.idClient + "'></div>");
@@ -429,8 +430,7 @@ function appendMsg(msg, messageClass) {
   $("#messages").append(messageItem);
 
   // 显示弹幕
-  var now = new Date().getTime();
-  if(messageClass != 'Image' && currentTeam.barrage.active && now - msg.time < 5000) {
+  if(messageClass != 'Image' && currentTeam.barrage.active && !offline) {
     currentTeam.barrage.show($.replaceChatMsg(msg.text));
   }
 

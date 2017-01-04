@@ -31,7 +31,7 @@ set :repo_url, 'git@github.com:chuanjiabao1981/qatime.git'
 
 # Default value for :linked_files is []
 set :linked_files, %w{config/wechat.yml config/database.yml config/application.yml config/push.yml
-                      config/vcloud.yml config/netease.yml config/oneapm.yml config/newrelic.yml
+                      config/vcloud.yml config/netease.yml config/oneapm.yml config/newrelic.yml config/apiclient_cert.p12
                       config/alipay.yml config/alipay_rsa_public_key.pem config/qatime_rsa_private_key.pem }
 
 # Default value for linked_dirs is []

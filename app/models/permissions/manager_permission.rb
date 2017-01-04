@@ -39,7 +39,7 @@ module Permissions
         reply and reply.author_id == user.id
       end
 
-      allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks,:solutions] do |customized_course|
+      allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks,:solutions,:action_records] do |customized_course|
         user && customized_course && user.customized_courses.include?(customized_course)
       end
 

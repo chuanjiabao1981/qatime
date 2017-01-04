@@ -617,4 +617,11 @@ teacher_get_back_payment_password:
   school: school2
   city: yangquan
 
-
+customized_courses_manager:
+  name: manager1
+  role: manager
+  email: manager1@qatime.cn
+  avatar: test
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  type: Manager
+  city: haidian

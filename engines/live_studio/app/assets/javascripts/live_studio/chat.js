@@ -277,12 +277,12 @@ window.currentTeam = {
   }
 
   function onNormalMsg(msg) {
-    console.log('asdfasdsaf');
     appendMsg(msg);
   }
 
   function onImageMsg(msg) {
     appendMsg(msg, 'Image');
+    $("#messages").scrollTop($("#messages").prop('scrollHeight')+180);
   }
 
   function teamAnnouncement(announcement) {

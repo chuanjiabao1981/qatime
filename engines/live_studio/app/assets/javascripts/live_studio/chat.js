@@ -430,7 +430,7 @@ function appendMsg(msg, messageClass) {
     currentTeam.barrage.show($.replaceChatMsg(msg.text));
   }
 
-  $("#messages").scrollTop($("#messages").prop('scrollHeight'));
+  $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
 
 
   if($("#member-icons").find("img.icon-" + msg.from).size() > 0) {

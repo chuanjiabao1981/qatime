@@ -324,3 +324,10 @@
         * [QT-678](https://qatime.atlassian.net/browse/QT-678)
         * [QT-701](https://qatime.atlassian.net/browse/QT-701)
         * [QT-685](https://qatime.atlassian.net/browse/QT-685)
+* 1.5.2
+    * feature
+        * [QT-716](https://qatime.atlassian.net/browse/QT-716)
+        * [QT-310](https://qatime.atlassian.net/browse/QT-310)
+    * bugfix
+        * [QT-661](https://qatime.atlassian.net/browse/QT-661)
+        * [QT-722](https://qatime.atlassian.net/browse/QT-722)

@@ -501,7 +501,6 @@ search_teacher_3:
   type: Teacher
 
 cash_admin:
-  id: 11
   name: 系统财务账户
   role: cash_admin
   mobile: 15910676326
@@ -614,6 +613,19 @@ teacher_get_back_payment_password:
   avatar: "test"
   grade: 高一
   type: Teacher
+  school: school2
+  city: yangquan
+
+student_order_for_refund:
+  login_mobile: 15100000010
+  name: refund_student
+  role: student
+  email: 15100000010@qatime.cn
+  parent_phone: 15100000010
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
   school: school2
   city: yangquan
 

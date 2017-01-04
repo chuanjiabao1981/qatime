@@ -6,6 +6,9 @@ Payment::Engine.routes.draw do
         get :result
         get :pay
         patch :cancel_order
+        get :refund
+        post :refund_create
+        put :cancel_refund
       end
     end
 

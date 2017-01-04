@@ -2323,7 +2323,7 @@ i {
     border-left: 0px;
   }
   .link-city {
-    width: 106%;
+    width: 104.5%;
     margin-left: -15px;
   }
   .col-advantage ul li:last-child {
@@ -3600,6 +3600,7 @@ ul {
   padding-left: 30px;
   padding-right: 29px;
   color: #555555;
+  word-wrap : break-word;
 }
 .information-face {
   width: 100%;
@@ -3608,7 +3609,6 @@ ul {
   position: relative;
 }
 .qqFace {
-  /*width: 335px;*/
   width: 100%;
   height: 184px;
   border: 1px solid #F2F2F2;
@@ -3625,6 +3625,9 @@ ul {
 .information-face img {
   float: left;
   margin-right: 5px;
+}
+.information-face .qqFace img {
+  margin-right: 3px;
 }
 .qqmsg {
   display: inline-block;
@@ -3878,8 +3881,13 @@ ul {
 .live-body {
   padding-top: 38px !important;
 }
-
-
+.live-body .header-logo img {
+  margin-top: 1.5px;
+}
+.live-body .header-nav span:first-child img {
+  width: 20px;
+  height: 16px;
+}
 
 
 
@@ -3910,7 +3918,7 @@ ul {
   min-height: 870px;
 }
 .active-navside {
-  background-color: #0065bd !important;
+  background-color: #428bca !important;
 }
 .admin-title {
   height: 54px;
@@ -6860,11 +6868,28 @@ ul {
 }
 .buy-left-con table {
   width: 66%;
+  height: 120px;
   color: #999;
   float: right;
 }
 .buy-left-con table td span:nth-child(2) {
   color: #666666;
+}
+.buy-left-con table tr:first-child span {
+  position: relative;
+  top: -5px;
+}
+.buy-left-con table tr:last-child span {
+  position: relative;
+  top: 5px;
+}
+.buy-left-con table tr:nth-child(2) td{
+  display:table-cell;
+  vertical-align:top;
+}
+.buy-left-con table tr:nth-child(4) td {
+  display:table-cell;
+  vertical-align:bottom;
 }
 .buy-center-con span {
   display: inline-block;
@@ -7157,4 +7182,336 @@ ul {
   .balance-con .input-group {
     width: 65%;
   }
+}
+
+
+
+/*工作站收入记录*/
+.container-workstation .menu li:first-child a span.fa {
+  font-size: 20px;
+}
+.container-workstation .menu li a span:first-child {
+  display: inline-block;
+  text-align: left;
+  width: 15px;
+}
+.container-workstation .col-md-10 {
+  padding-left: 0px;
+}
+.workstation {
+  min-height: 732px;
+  padding: 0 10px;
+}
+.workstation-title {
+  height: 40px;
+}
+.workstation-title-left {
+  float: left;
+  padding-top: 12px;
+  font-size: 22px;
+}
+.workstation-title-right {
+  float: right;
+  color: #999;
+  padding-top: 15px;
+}
+.workstation-title-right span:last-child {
+  color: red;
+  font-size: 18px;
+}
+.workstation-nav {
+  min-height: 30px;
+  margin-top: 15px;
+  border-bottom: 1px solid #ccc;
+  overflow: hidden;
+}
+.workstation-nav-left select {
+  width: 104px;
+  height: 26px;
+  border: 1px solid #CCCCCC;
+  color: #666;
+}
+.workstation-nav-left span {
+  color: #999999;
+  font-size: 12px;
+}
+.workstation-nav-left {
+  float: left;
+}
+.workstation-nav-right {
+  float: right;
+}
+.workstation-nav-right input {
+  float: right;
+  height: 26px;
+  outline: none;
+  border: 1px solid #CCCCCC;
+}
+.workstation-nav-right input:last-child {
+  width: 200px;
+  padding-left: 5px;
+  margin-right: 3px;
+}
+.workstation-nav-right input:first-child {
+  width: 70px;
+  height: 26px;
+  line-height: 16px;
+  border-radius: 4px;
+  border-color: #666666;
+  background-color: #FFFFFF;
+}
+.workstation-con {
+  margin-top: 3px;
+}
+.workstation-con table {
+  width: 100%;
+}
+.workstation-con table a {
+  color: #428bca;
+}
+.workstation-con table td {
+  text-align: center;
+  color: #333333;
+  height: 37px !important;
+  border: 1px solid #F2F2F2;
+  font-size: 12px;
+  word-break: break-word;
+}
+.workstation-prompt {
+  text-align: center;
+  font-size: 16px;
+}
+@media only screen and (max-width: 990px) {
+  .container-workstation .col-md-10 {
+    padding-left: 15px;
+  }
+}
+
+
+
+
+/*退款申请*/
+
+.refund-title {
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  border-bottom: 1px solid #CCCCCC;
+}
+.refund-con {
+  overflow: hidden;
+}
+.refund-con-left,.refund-con-center,.refund-con-right,.goods-con-left,.goods-con-center,.goods-con-right,.order-con-left,.order-con-center,.order-con-right {
+  float: left;
+}
+.refund-title-left,.refund-title-center,.refund-title-right {
+  height: 36px;
+  text-align: center;
+  line-height: 36px;
+  color: #666666;
+  background-color: #F2F2F2;
+}
+.refund-con-left {
+  width: 18%;
+}
+.refund-con-center {
+  width: 41%;
+}
+.refund-con-right {
+  width: 41%;
+}
+.refund-msg-left,.refund-msg-center,.refund-msg-right {
+  min-height: 183px;
+}
+.refund-msg-center {
+  padding: 10px 0px 10px 15px;
+  border-left: 1px solid #CCCCCC;
+  border-right: 1px solid #CCCCCC;
+}
+.refund-msg-left {
+  text-align: center;
+  line-height: 183px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.refund-msg-center table {
+  width: 100%;
+  height: 163px;
+}
+.refund-msg-center table tr td:first-child {
+  width: 70px;
+}
+.refund-msg-right {
+  padding: 15px;
+}
+.refund-msg-right textarea {
+  width: 100%;
+  padding-left: 10px;
+  border: 1px solid #CCCCCC;
+  resize: none;
+}
+.refund-prompt {
+  width: 100%;
+  height: 60px;
+  border-top: 1px solid #CCCCCC;
+}
+.refund-prompt span {
+  display: inline-block;
+  margin-top: 20px;
+}
+.refund-prompt input {
+  float: right;
+  margin-top: -28px;
+  margin-right: 15px;
+  width: 120px;
+  height: 34px;
+  line-height: 30px;
+  text-align: center;
+  border: 1px solid gray;
+  border-radius: 4px;
+  color: #333333;
+  background-color: white;
+}
+
+
+
+
+/*订单详情*/
+.goods-con {
+  overflow: hidden;
+  padding: 5px 10px;
+  border-bottom: 1px solid #CCCCCC;
+  margin-bottom: 20px;
+}
+.goods-title,.order-title {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 10px;
+  border-bottom: 1px solid #CCCCCC;
+}
+.goods-con-left {
+  width: 262px;
+}
+.goods-con-center {
+  padding-left: 30px;
+  width: 60%;
+}
+.goods-con-left,.goods-con-center,.goods-con-right {
+  height: 166px;
+}
+.goods-con-left img {
+  width: 262px;
+  height: 166px;
+}
+.goods-con-center table {
+  width: 100%;
+  height: 166px;
+}
+.goods-con-center table tr td:first-child {
+  width: 38%;
+}
+.goods-con-right {
+  width: 15%;
+  float: right;
+  text-align: center;
+  line-height: 166px;
+}
+.order {
+  margin-bottom: 20px;
+}
+.order-con {
+  overflow: hidden;
+}
+.order-title {
+  border-top: 1px solid #CCCCCC;
+}
+.order-con-left,.order-con-center,.order-con-right {
+  height: 130px;
+  border-bottom: 1px solid #CCCCCC;
+}
+.order-con-left {
+  width: 56%;
+}
+.order-con-left table {
+  width: 100%;
+  height: 130px;
+}
+.order-con-left table tr td:first-child {
+  width: 50%;
+  text-align: center;
+}
+.order-con-center {
+  width: 27%;
+  line-height: 130px;
+  text-align: center;
+  border-left: 1px solid #CCCCCC;
+  border-right: 1px solid #CCCCCC;
+}
+.order-con-right {
+  width: 17%;
+  padding-top: 60px;
+}
+.order-money {
+  color: red;
+  font-weight: bold;
+}
+.order-con-right a {
+  display: block;
+  text-align: center;
+}
+
+
+@media only screen  and (max-width: 1200px) {
+  .goods-con-center {
+    width: 55%;
+  }
+  .goods-con-center table tr td:first-child {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 990px) {
+  .refund-con-left,.refund-con-center,.refund-con-right,.goods-con-left,.goods-con-center,.goods-con-right,.order-con-left,.order-con-center,.order-con-right {
+    width: 100%;
+  }
+  .goods-con-center {
+    padding-left: 0px;
+  }
+  .goods-con-center table {
+    width: 100%;
+  }
+  .goods-con-center table tr td:first-child {
+    width: 50%;
+  }
+  .refund-msg-center {
+    border: 0px;
+  }
+  .order-con-center {
+    border-left: 0px;
+    border-right: 0px;
+  }
+  .order-con-left table tr td:first-child {
+    width: 30%;
+  }
+}
+
+
+
+/*退款审核*/
+.moneyback {
+  min-height: 687px;
+}
+.moneyback .admin-list-title {
+  margin-top: 10px;
+}
+.moneyback .workstation-nav-right {
+  margin-top: 2px;
+}
+.moneyback .admin-list-con table tr td {
+  word-break: break-word;
+  color: #333333;
+  font-size: 12px;
+}
+.moneyback .admin-list-con table tr td a,.moneyback .admin-list-con table tr td:last-child span {
+  color: #428bca;
 }

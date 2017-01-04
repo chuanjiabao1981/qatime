@@ -73,6 +73,15 @@ Qatime::Application.routes.draw do
         put :unpass
       end
     end
+    resources :refunds do
+      collection do
+        get :audit
+      end
+      member do
+        put :pass
+        put :unpass
+      end
+    end
     resources :push_messages
   end
 

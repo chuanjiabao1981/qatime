@@ -20,8 +20,7 @@ module Payment
         out_refund_no: order_no,
         total_fee: order.order.pay_money,
         refund_fee: pay_money,
-        op_user_id: WxPay.mch_id,
-        desc: "用户提现"
+        op_user_id: WxPay.mch_id
       }
     end
 

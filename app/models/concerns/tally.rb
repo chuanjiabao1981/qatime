@@ -96,7 +96,7 @@ module Tally
 
     def keep_account(teacher_id, &block)
       return if video.nil?
-      video.sync_duration! if video.duration.blank?
+      video.sync_duration! if video.duration.blank? || video.duration == 0
       return if video.duration.to_i <= 0
       self.class.transaction do
         lock!

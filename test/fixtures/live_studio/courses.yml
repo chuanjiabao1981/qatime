@@ -199,7 +199,6 @@ course_with_order2:
   lessons_count: 2
 
 course_with_lessons:
-  id: 4
   name: 可直播辅导班
   teacher_id: 10
   workstation_id: 1
@@ -211,6 +210,7 @@ course_with_lessons:
   grade: 六年级
   subject: 语文
   lessons_count: 2
+  taste_count: 1
 
 tasting_course:
   id: 10
@@ -628,3 +628,20 @@ course_for_destroy:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+
+course_zero_taste:
+  name: 不可以试听辅导班
+  workstation: workstation_zhuji
+  status: 1
+  teacher: teacher1
+  teacher_percentage: 100
+  preset_lesson_count: 2
+  lesson_price: 50
+  price: 100
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+  lessons_count: 1
+  taste_count: 0

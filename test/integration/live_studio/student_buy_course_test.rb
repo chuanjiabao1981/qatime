@@ -96,5 +96,12 @@ module LiveStudio
         end
       end
     end
+
+    # 不能试听辅导班
+    test "taste count zero" do
+      course = live_studio_courses(:course_zero_taste)
+      visit live_studio.course_path(course)
+      assert_not page.has_content?("加入试听")
+    end
   end
 end

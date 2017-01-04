@@ -95,6 +95,7 @@ namespace :qatime do
       upload! "config/newrelic.yml","#{shared_path}/config/newrelic.yml"
       upload! "config/newrelic.yml","#{shared_path}/config/alipay.yml"
       upload! "config/push.yml","#{shared_path}/config/push.yml"
+      upload! "config/apiclient_cert.p12","#{shared_path}/config/apiclient_cert.p12"
     end
   end
 end

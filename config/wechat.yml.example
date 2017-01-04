@@ -10,6 +10,8 @@ default: &default
   web_secret: web_secret
   mobile_appid: mobile_appid
   mobile_secret: mobile_secret
+  cert_path: /config/apiclient_cert.p12
+
 
 production:
   <<: *default

@@ -512,4 +512,9 @@ $(function() {
     live_chat.pushMsg(msg);
   }
 
+  // 聊天图片加载以后滚动
+  $("#messages").on("load", "img.accept-img", function() {
+    $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
+  });
+
 });

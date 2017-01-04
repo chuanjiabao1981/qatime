@@ -124,12 +124,12 @@ window.currentTeam = {
       case 'notification':
         // 处理群通知消息
         onTeamNotificationMsg(msg);
+        $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
         break;
       case 'image':
         onImageMsg(msg);
         break;
       default:
-
         onNormalMsg(msg)
         break;
     }

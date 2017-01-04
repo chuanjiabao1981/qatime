@@ -1,6 +1,6 @@
 module Payment
   class WeixinRefund < RemoteOrder
-    belongs_to :refund, as: :order
+    belongs_to :refund, polymorphic: :order
     RESULT_SUCCESS = "SUCCESS".freeze
 
     def remote_refund

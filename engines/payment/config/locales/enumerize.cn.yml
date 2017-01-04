@@ -63,6 +63,7 @@ cn:
         bank: 银行卡
         alipay: 支付宝
         wechat: 微信
+        weixin: 微信
         account: 余额
       status:
         init: 等待审核

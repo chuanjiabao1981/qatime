@@ -42,6 +42,8 @@ config/newrelic.yml
 /config/qatime_rsa_private_key.pem
 # 忽略支付宝公钥证书文件
 /config/alipay_rsa_public_key.pem
+# 忽略微信退款证书
+/config/apiclient_cert.p12
 
 # 忽略备份文件
 *_bk

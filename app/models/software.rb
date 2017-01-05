@@ -38,7 +38,7 @@ class Software < ActiveRecord::Base
   end
 
   def assign_qr_code
-    relative_path = QrCode.generate_tmp(download_links)
+    relative_path = QrCode.generate_tmp(cdn_url)
     tmp_path = Rails.root.join(relative_path)
     File.open(tmp_path) do |file|
       self.create_qr_code(code: file)
@@ -51,7 +51,7 @@ class Software < ActiveRecord::Base
   before_update :generate_download_links
   def generate_download_links
     self.download_links = "#{$host_name}/softwares/#{id}/download" if download_links.blank?
-    assign_qr_code
+    assign_qr_code if cdn_url_changed?
   end
 
   before_validation :copy_attr_from_category, on: :create

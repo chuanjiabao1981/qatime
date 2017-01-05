@@ -12,7 +12,7 @@ class  FooterTest < ActionDispatch::IntegrationTest
 
   test "home page data" do
     visit home_path
-    assert find('.link-phonenum').has_content?('0353-2135828')
+    assert find('.link-phonenum').has_content?('400-838-8010')
     assert page.has_content?('769051099 韩老师')
     assert page.has_content?('819178240 关老师')
     assert page.has_content?('阳泉市开发区大连路36号远东大厦 809')

@@ -31,7 +31,7 @@ module LiveService
       course = @order.product
       ticket = student.live_studio_buy_tickets.where(course: course).active.last
       return 0 if ticket.blank?
-      complete_lesson_ids = Payment::Billing.where(target_id: ticket.got_lesson_ids).map(&:target_id).uniq
+      complete_lesson_ids = Payment::Billing.where(target_id: ticket.got_lesson_ids, target_type: 'LiveStudio::Lesson').map(&:target_id).uniq
       LiveStudio::Lesson.where(id: complete_lesson_ids).map{|lesson| lesson.course.lesson_price}.sum
     end
 

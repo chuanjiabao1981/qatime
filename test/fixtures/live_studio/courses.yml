@@ -710,14 +710,19 @@ course_for_refund4:
   completed_lessons_count: 1
   finished_lessons_count: 1
 
-lesson_for_taste_zero:
-  name: 第二节课
-  course: course_zero_taste
+course_zero_taste:
+  name: 不可以试听辅导班
+  workstation: workstation_zhuji
+  status: 1
   teacher: teacher1
-  description: 第一节课
-  start_time: '10:20'
-  end_time: '05:30'
-  class_date: <%= Date.today %>
-  status: 5
-  real_time: 30
-  live_count: 3
+  teacher_percentage: 100
+  preset_lesson_count: 2
+  lesson_price: 50
+  price: 100
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+  lessons_count: 1
+  taste_count: 0

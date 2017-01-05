@@ -22,7 +22,7 @@ module V1
               }
             end
             params do
-              requires :order_id, type: Float, desc: '订单id'
+              requires :order_id, type: String, desc: '订单id'
             end
             get 'refunds/info' do
               order = @user.orders.find_by!(transaction_no: params[:order_id])
@@ -37,7 +37,7 @@ module V1
               }
             end
             params do
-              requires :order_id, type: Float, desc: '订单id'
+              requires :order_id, type: String, desc: '订单id'
               requires :reason, type: String, desc: '退款原因'
             end
             post 'refunds' do
@@ -75,10 +75,10 @@ module V1
               }
             end
             params do
-              requires :id, type: Integer, desc: '订单号'
+              requires :id, type: Integer, desc: '退款ID'
             end
             put 'refunds/:id/cancel' do
-              refund = @user.payment_refunds.find_by(transaction_no: params[:id])
+              refund = @user.payment_refunds.find(params[:id])
               refund.cancel!
               present refund, with: Entities::Payment::Withdraw
             end

@@ -1,10 +1,13 @@
 module Entities
   module Payment
     class Refund < Grape::Entity
+      expose :id
       expose :transaction_no
       expose :pay_type
       expose :status
-      expose :created_at
+      expose :created_at do |refund|
+        refund.order.try(:created_at)
+      end
       expose :amount do |refund|
         refund.order.try(:amount)
       end

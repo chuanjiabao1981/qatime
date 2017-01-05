@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module LiveServiceTest
-  class TemplateTest < ActiveSupport::TestCase
+  class OrderDirectorTest < ActiveSupport::TestCase
     test 'return different cate orders for user' do
       user = users(:student_with_order2)
       assert_equal 5, user.orders.size
@@ -30,6 +30,11 @@ module LiveServiceTest
       canceled_orders.each do |order|
         assert Payment::Order::CATE_CANCELED.include?(order.status)
       end
+    end
+
+    test 'return consumed_amount' do
+      order = payment_transactions(:order_for_refund3)
+      assert_equal LiveService::OrderDirector.new(order).consumed_amount, order.product.lesson_price, '没有正确返回已消费金额'
     end
   end
 end

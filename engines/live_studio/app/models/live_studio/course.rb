@@ -81,7 +81,7 @@ module LiveStudio
     belongs_to :workstation
 
     has_many :tickets       # 听课证
-    has_many :buy_tickets   # 普通听课证
+    has_many :buy_tickets, -> { where.not(status: LiveStudio::Ticket.statuses[:refunded]) }  # 普通听课证
     has_many :taste_tickets # 试听证
     has_many :lessons, -> { order('id asc') }
     has_many :live_sessions, through: :lessons

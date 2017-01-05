@@ -11,3 +11,9 @@ order5_remote:
   status: 0
   trade_type: NATIVE
   type: Payment::WeixinOrder
+
+weixin_refund_remote_order:
+  order: weixin_order_for_refund (Payment::Transaction)
+  amount: 30
+  status: 1
+  type: Payment::WeixinOrder

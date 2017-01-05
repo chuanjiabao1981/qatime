@@ -170,3 +170,34 @@ ticket_for_billing_33:
   course: course_for_billing_three
   type: LiveStudio::BuyTicket
   lesson_price: 50
+
+ticket_for_refund:
+  student: student_order_for_refund
+  course: course_for_refund
+  type: LiveStudio::BuyTicket
+  status: 1
+ticket_for_refund1:
+  student: student_order_for_refund
+  course: course_for_refund1
+  type: LiveStudio::BuyTicket
+  status: 95
+ticket_for_refund2:
+  student: student_order_for_refund
+  course: course_for_refund2
+  type: LiveStudio::BuyTicket
+  status: 1
+ticket_for_refund3:
+  student: student_order_for_refund
+  course: course_for_refund3
+  type: LiveStudio::BuyTicket
+  status: 1
+  lesson_price: 200
+  got_lesson_ids: <%= [ActiveRecord::FixtureSet.identify(:lesson1_for_refund_course3), ActiveRecord::FixtureSet.identify(:lesson2_for_refund_course3)]%>
+refund_ticket:
+  student: student1
+  course: course_for_refund3
+  type: LiveStudio::BuyTicket
+  status: 96
+  lesson_price: 200
+  got_lesson_ids: <%= [ActiveRecord::FixtureSet.identify(:lesson1_for_refund_course3), ActiveRecord::FixtureSet.identify(:lesson2_for_refund_course3)]%>
+

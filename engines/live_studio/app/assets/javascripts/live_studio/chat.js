@@ -102,12 +102,14 @@ window.currentTeam = {
     if(obj.sessionId != "team-" + currentTeam.id) return false;
 
     $.each(obj.msgs, function(index, msg) {
-      onMsg(msg, false);
+      onMsg(msg, false, true);
     });
     nim.markMsgRead(obj.msgs);
   }
   // 消息处理
-  function onMsg(msg, mark) {
+  // mark是否标记为已读
+  // offline是否离线消息
+  function onMsg(msg, mark, offline) {
     console.log('收到消息', msg.scene, msg.type, msg);
     // 不是该聊天组消息
     if(msg.scene != "team" || msg.to != currentTeam.id ) {
@@ -124,19 +126,18 @@ window.currentTeam = {
       case 'notification':
         // 处理群通知消息
         onTeamNotificationMsg(msg);
+        $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
         break;
       case 'image':
         onImageMsg(msg);
         break;
       default:
-
-        onNormalMsg(msg)
+        onNormalMsg(msg, offline)
         break;
     }
     if(mark) nim.markMsgRead(msg);
   }
   function pushMsg(msgs) {
-    console.log(msgs);
     if (!Array.isArray(msgs)) { msgs = [msgs]; }
     var sessionId = msgs[0].sessionId;
     data.msgs = data.msgs || {};
@@ -276,12 +277,13 @@ window.currentTeam = {
     if(obj.account === currentTeam.account) muteMessage(obj.mute);
   }
 
-  function onNormalMsg(msg) {
-    appendMsg(msg);
+  function onNormalMsg(msg, offline) {
+    appendMsg(msg, null, offline);
   }
 
   function onImageMsg(msg) {
     appendMsg(msg, 'Image');
+    $("#messages").scrollTop($("#messages").prop('scrollHeight')+180);
   }
 
   function teamAnnouncement(announcement) {
@@ -390,7 +392,7 @@ function sendMessageTime(msg, type){
   }
 }
 
-function appendMsg(msg, messageClass) {
+function appendMsg(msg, messageClass, offline) {
   if(!messageClass) messageClass = '';
   // 处理自定义消息
   var messageItem = $("<div class='new-information" + messageClass + "' id='msg-" + msg.idClient + "'></div>");
@@ -414,7 +416,11 @@ function appendMsg(msg, messageClass) {
   var messageContent = $("<div class='information-con'></div>");
   if(messageClass == 'Image'){
     var url = msg.file.url;
-    messageContent.append($('<img class="accept-img" src="' + url + '" onclick="accept_img_click(this)">'));
+    var imgMsg = $('<img class="accept-img" src="' + url + '" onclick="accept_img_click(this)">');
+    imgMsg.one("load", function() {
+      $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
+    });
+    messageContent.append(imgMsg);
   }else{
     messageContent.append($.replaceChatMsg(msg.text));
   }
@@ -424,13 +430,11 @@ function appendMsg(msg, messageClass) {
   $("#messages").append(messageItem);
 
   // 显示弹幕
-  var now = new Date().getTime();
-  if(messageClass != 'Image' && currentTeam.barrage.active && now - msg.time < 5000) {
+  if(messageClass != 'Image' && currentTeam.barrage.active && !offline) {
     currentTeam.barrage.show($.replaceChatMsg(msg.text));
   }
 
-  $("#messages").scrollTop($("#messages").prop('scrollHeight'));
-
+  $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
 
   if($("#member-icons").find("img.icon-" + msg.from).size() > 0) {
     $("#msg-" + msg.idClient).find(".information-title img").attr("src", $("#member-icons").find("img.icon-" + msg.from).attr("src"));

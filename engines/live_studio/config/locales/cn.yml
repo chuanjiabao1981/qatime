@@ -406,5 +406,5 @@ cn:
     failed:
       messages:
         today_has_no_lesson: "%{model}今日没有课程!"
-        have_not_bought: "%{model}未购买!"
+        have_not_bought: "%{model}无授权!"
         can_not_play: "%{model}不能播放!"

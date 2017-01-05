@@ -70,7 +70,15 @@ cn:
       payment/recharge: 充值记录
       payment/withdraw: 提现记录
       payment/cash_account: 资金账户
+      payment/refund_apply: 退款申请
+      payment/refund: 退款
     attributes:
+      payment/refund_apply:
+        order_no: 退款编号
+        product: 商品名称
+        amount: 退款金额
+        created_at: 退款时间
+        status: 订单状态
       payment/order:
         order_no: 订单编号
         product: 商品名称
@@ -178,6 +186,7 @@ cn:
         failed: 下单失败
         refunded: 已退款
         waste: 无效订单
+        refunding: 等待退款
       withdraw:
         teacher:
           init: 审核中

@@ -33,10 +33,9 @@ module Payment
 
     test 'weixin_order test' do
       sleep 2
-      assert Payment::WeixinOrder.last.amount == 200
-      assert Payment::WeixinOrder.last.system_transfer?
-      Payment::WeixinOrder.last.remote_transfer
-      assert Payment::WeixinOrder.last.failed?
+      assert Payment::WeixinTransfer.last.amount == 200
+      Payment::WeixinTransfer.last.remote_transfer
+      assert Payment::WeixinTransfer.last.failed?
     end
 
     test 'admin unpass audit withdraw test' do

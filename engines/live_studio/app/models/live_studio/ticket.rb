@@ -14,6 +14,8 @@ module LiveStudio
       active: 1,     # 可用
       pre_used: 2,   # 已经用完最后课程没有结束
       used: 3,       # 已经用完
+      refunding: 95, # 退款中
+      refunded: 96,  # 已退款,不可用
       replaced: 97,  # 试听证被正式听课证替换
       expired: 98,   # 未使用过期
       waste: 99      # 不可用

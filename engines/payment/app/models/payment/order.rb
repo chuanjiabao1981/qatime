@@ -23,7 +23,7 @@ module Payment
               }
 
     CATE_UNPAID = %w(unpaid).freeze
-    CATE_PAID = %w(paid shipped completed).freeze
+    CATE_PAID = %w(paid shipped completed refunding).freeze
     CATE_CANCELED = %w(canceled expired refunded).freeze
 
     enum status: {
@@ -31,6 +31,7 @@ module Payment
       paid: 1, # 已支付
       shipped: 2, # 已发货
       completed: 3, # 已完成
+      refunding: 94, # 退款中
       canceled: 95, # 已取消
       expired: 96, # 过期订单
       failed: 97, # 下单失败
@@ -55,6 +56,7 @@ module Payment
       state :canceled
       state :shipped
       state :completed
+      state :refunding
       state :refunded
       state :waste
       state :failed
@@ -79,7 +81,15 @@ module Payment
       end
 
       event :refund do
-        transitions from: [:paid, :shipped, :completed], to: :refunded
+        transitions from: [:paid, :shipped, :completed], to: :refunding
+      end
+
+      event :allow_refund, after: :remote_order_refund do
+        transitions from: [:refunding], to: :refunded
+      end
+
+      event :refuse_refund do
+        transitions from: [:refunding], to: :completed
       end
 
       event :trash do
@@ -196,6 +206,11 @@ module Payment
     end
 
     private
+
+    # 如果不是余额支付, 则改变remote_order状态为已退款
+    def remote_order_refund
+      remote_order.refund! unless account?
+    end
 
     # 记录支付时间
     def touch_pay_at

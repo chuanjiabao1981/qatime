@@ -1,0 +1,80 @@
+<div class="panel panel-default">
+  <div class="panel-body panel-title-1">
+    <p class="panel-title-txt">审核记录</p>
+  </div>
+  <%= form_tag '',method: :get do %>
+    <div class="panel-body panel-title-2">
+      <div class="panel-left">
+        <a href="" class="btn-con">审核结果</a>
+        <%= select_tag :status,options_for_select(Payment::Withdraw.i18n_options_statuses,params[:status]) %>
+      </div>
+      <!--<div class="panel-center">-->
+
+      <div class="date date-center">
+        <span class="date-span">审核时间</span>
+        <%= text_field_tag :start_time, params[:start_time], class: 'datepicker-1 datepicker-input', placeholder: t("view.common.start_date"), id: "start_date" %>
+        <label for="start_date" class="glyphicon glyphicon-calendar glyphicon-1"></label>
+        <span class="txt"><%= t("view.common.to") %></span>
+        <%= text_field_tag :end_time, params[:end_time], class: 'datepicker-1 datepicker-input', placeholder: t("view.common.end_date"), id: "end_date" %>
+        <label for="end_date" class="glyphicon glyphicon-calendar glyphicon-2"></label>
+      </div>
+
+      <!--</div>-->
+      <div class="panel-right">
+        <input type="text" placeholder="请输入编号/姓名/电话" class="btn-txt" name="keyword" value="<%= params[:keyword] %>">
+        <input type="submit" class="btn-submit" value="查询">
+      </div>
+  <% end %>
+  </div>
+  <div class="panel-body panel-title-3">
+    <table>
+      <tbody><tr>
+        <td>序号</td>
+        <td>提现金额</td>
+        <td>老师</td>
+        <td>编号</td>
+        <td>工作站</td>
+        <td>审核人</td>
+        <td>审核时间</td>
+        <td>审核结果</td>
+      </tr>
+      <% @withdraws.each_with_index do |withdraw,index| %>
+        <tr>
+          <td><%= index+1 %></td>
+          <td><%= number_to_currency(withdraw.amount,locale: :cn) %></td>
+          <td><%= link_to withdraw.user.name,teacher_path(withdraw.user) %>(<%= withdraw.user.login_mobile %>)</td>
+          <td><%= withdraw.transaction_no %></td>
+          <td><%= withdraw.user.try(:workstation).try(:name) %></td>
+          <td><%= @current_user.name %></td>
+          <td><%= localize(withdraw.updated_at,format: :short) %></td>
+          <td><%= withdraw.status_text(@current_user.role) %></td>
+        </tr>
+      <% end %>
+      </tbody></table>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+<script type="text/javascript">
+
+  $(function () {
+    $("#start_date").DatePicker({
+      modalMode: false,
+      maxDate: moment(),
+      endDate: moment()
+    });
+    $("#end_date").DatePicker({
+      modalMode: false,
+      maxDate: moment(),
+      endDate: moment()
+    });
+  });
+
+  $(".btn-submit").click(function  () {
+    var beginDate = $("#singleDateRange").val().replace(".","").replace(".","");
+    var endDate = $("#singleDateRange-1").val().replace(".","").replace(".","");
+    if (beginDate>=endDate) {
+      alert("结束时间必须大于开始时间");
+      return false;
+    }
+  })
+</script>

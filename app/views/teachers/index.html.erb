@@ -2,11 +2,7 @@
   <div class="qa_big_cell">
     <div class="row">
         <div class="col-md-4">
-            <h2><%=link_to '讲师列表', teachers_path %>
-              <%=link_to new_teacher_path do %>
-                  <button type="button" class="btn btn-xs btn-success">增加讲师</button>
-              <% end %>
-            </h2>
+            <h2><%=link_to '讲师列表', teachers_path %></h2>
         </div>
         <div class="col-md-8" style="padding-top:20px">
           <%= simple_form_for :search  ,url: search_teachers_path , :method => :get do |f|%>

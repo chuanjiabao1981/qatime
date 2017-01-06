@@ -43,7 +43,7 @@ module Permissions
         user && customized_course && user.customized_courses.include?(customized_course)
       end
 
-      allow :customized_courses ,[:new,:create,:get_sale_price] do |student|
+      allow :customized_courses ,[:new,:create,:get_sale_price,:teachers] do |student|
         user and student
       end
 

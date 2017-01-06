@@ -313,6 +313,11 @@ module Permissions
       api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password" # 设置支付密码
       api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password/ticket_token" # 修改支付密码
       ## end 修改支付密码
+
+      ## 通知设置
+      api_allow :GET, "/api/v1/users/[\\w-]+/notifications/settings" # 查询通知设置
+      api_allow :PUT, "/api/v1/users/[\\w-]+/notifications/settings" # 修改通知设置
+      ## end 通知设置
     end
     private
 

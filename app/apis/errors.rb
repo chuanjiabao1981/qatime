@@ -18,6 +18,9 @@ module APIErrors
   PasswordInvalid       = Class.new StandardError
   PaymentPasswordBlank  = Class.new StandardError
   TokenInvalid          = Class.new StandardError
+  CourseTasteLimit      = Class.new StandardError
+  PasswordDissatisfy    = Class.new StandardError
+
 
   module ClassMethods
     def include_errors
@@ -70,6 +73,10 @@ module APIErrors
         out_error(code: 2007, msg: e.message || "授权Token无效")
       end
 
+      rescue_from PasswordDissatisfy do |e|
+        out_error(code: 2008, msg: e.message || "支付密码设置时间不足24小时")
+      end
+
       rescue_from Grape::Exceptions::ValidationErrors do |e|
         out_error(code: 3001, msg: e.message || "输入内容格式有误")
       end
@@ -80,6 +87,10 @@ module APIErrors
 
       rescue_from WithdrawExisted do |e|
         out_error(code: 3003, msg: e.message || '当前有未完成的提现申请')
+      end
+
+      rescue_from CourseTasteLimit do |e|
+        out_error(code: 3004, msg: e.message || '无法试听')
       end
     end
   end

@@ -15,6 +15,20 @@ module V1
               end
             end
 
+            desc '提现token' do
+              headers 'Remember-Token' => {
+                description: 'RememberToken',
+                required: true
+              }
+            end
+            params do
+              requires :password, type: String, desc: '支付密码'
+            end
+            get 'withdraws/ticket_token' do
+              UserService::CashAccountManager.new(@user).check_password(params[:password])
+              ::TicketToken.instance_token(@user.cash_account!, :withdraw)
+            end
+
             desc '提交提现申请' do
               headers 'Remember-Token' => {
                 description: 'RememberToken',
@@ -26,14 +40,16 @@ module V1
               requires :pay_type, type: String, desc: '提现方式', values: %w(bank alipay)
               requires :account, type: String, desc: '账号'
               requires :name, type: String, desc: '姓名'
-              requires :verify, type: String, desc: '验证码'
+              requires :ticket_token, type: String, desc: '验证token'
             end
             post 'withdraws' do
-              captcha_manager = UserService::CaptchaManager.new(@user.login_mobile)
-              captcha = captcha_manager.captcha_of(:withdraw_cash)
-              raise(APIErrors::CaptchaError) if params[:verify] != captcha
+              # captcha_manager = UserService::CaptchaManager.new(@user.login_mobile)
+              # captcha = captcha_manager.captcha_of(:withdraw_cash)
+              # raise(APIErrors::CaptchaError) if params[:verify] != captcha
               raise(APIErrors::WithdrawExisted) if @user.payment_withdraws.init.present?
-              withdraw = @user.payment_withdraws.new({amount: params[:amount], pay_type: params[:pay_type]}.merge(status: :init))
+              UserService::CashAccountManager.new(@user).check_token(:withdraw, params[:ticket_token])
+              withdraw_params = {amount: params[:amount], pay_type: params[:pay_type], status: :init}
+              withdraw = @user.payment_withdraws.new(withdraw_params)
               unless withdraw.save
                 raise ActiveRecord::RecordInvalid, withdraw
               else

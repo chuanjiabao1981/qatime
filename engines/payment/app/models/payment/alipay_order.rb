@@ -37,7 +37,7 @@ module Payment
       }.to_json
       Alipay::App::Service.alipay_trade_app_pay(
         {
-          app_id: Alipay.pid,
+          app_id: ALIPAY_CONFIG['appid'],
           notify_url: order.notify_url,
           biz_content: biz_content
         },

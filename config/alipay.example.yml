@@ -1,6 +1,7 @@
 default: &default
   pid: pid
   key: key
+  appid: appid
 
 development:
   <<: *default

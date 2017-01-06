@@ -26,6 +26,10 @@ module Entities
       expose :tasted do |course, options|
         course.tasted?(options[:current_user])
       end
+
+      expose :current_lesson_name ,if: { type: :full } do |course|
+        course.current_lesson_name
+      end
     end
   end
 end

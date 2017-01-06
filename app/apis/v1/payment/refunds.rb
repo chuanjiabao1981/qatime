@@ -75,12 +75,12 @@ module V1
               }
             end
             params do
-              requires :id, type: Integer, desc: '退款ID'
+              requires :order_id, type: String, desc: '订单ID'
             end
-            put 'refunds/:id/cancel' do
-              refund = @user.payment_refunds.find(params[:id])
+            put 'refunds/:order_id/cancel' do
+              refund = @user.payment_refunds.init.find_by(transaction_no: params[:order_id])
               refund.cancel!
-              present refund, with: Entities::Payment::Withdraw
+              present refund, with: Entities::Payment::Refund
             end
           end
         end

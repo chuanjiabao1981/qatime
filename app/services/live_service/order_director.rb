@@ -34,5 +34,11 @@ module LiveService
       complete_lesson_ids = Payment::Billing.where(target_id: ticket.got_lesson_ids, target_type: 'LiveStudio::Lesson').map(&:target_id).uniq
       LiveStudio::Lesson.where(id: complete_lesson_ids).map{|lesson| lesson.course.lesson_price}.sum
     end
+
+    def generate_refund
+      refund_amount = @order.amount - consumed_amount
+      Payment::Refund.new(user: @order.user,amount: refund_amount, pay_type: @order.pay_type,status: :init,
+                          product: @order.product, transaction_no: @order.transaction_no)
+    end
   end
 end

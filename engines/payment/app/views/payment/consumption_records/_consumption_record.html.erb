@@ -3,7 +3,7 @@
     <td><%= number_to_currency(consumption_record.amount, locale: :cn, unit: "￥", precision: 1) %></td>
     <td><%= consumption_record.target.product.model_name.human %></td>
     <td><%= consumption_record.change_type_text %></td>
-    <td><%= localize(consumption_record.created_at,:format => :long) %></td>
+    <td><%= consumption_record.created_at.strftime('%Y-%m-%d %H:%M') %></td>
     <td><%= link_to t("view.payment/consumption_record.view"), payment.user_order_path(@current_resource, consumption_record.target.transaction_no) if consumption_record.target %></td>
   </tr>
 <% elsif consumption_record.target %>
@@ -16,7 +16,7 @@
     </td>
     <td><%= consumption_record.target.model_name.human %></td>
     <td><%= consumption_record.change_type_text %></td>
-    <td><%= localize(consumption_record.created_at,:format => :long) %></td>
+    <td><%= consumption_record.created_at.strftime('%Y-%m-%d %H:%M') %></td>
     <td><%= feeble_link(consumption_record.target, text: t("view.payment/consumption_record.view")) if consumption_record.target %></td>
   </tr>
 <% end %>

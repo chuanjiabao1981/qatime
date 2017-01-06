@@ -7,7 +7,7 @@
     <%= withdraw.pay_type_text %>
   </td>
   <td>
-    <%= localize(withdraw.created_at,:format => :long) %>
+    <%= withdraw.created_at.strftime('%Y-%m-%d %H:%M') %>
   </td>
   <td>
     <%= withdraw.status_text %>

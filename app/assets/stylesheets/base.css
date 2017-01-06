@@ -20,6 +20,7 @@ em {
 .row-th {
   padding-top: 10px;
   line-height: 3rem;
+  clear: both;
   border-bottom: 0.1rem solid gray;
 }
 
@@ -164,6 +165,40 @@ a {
 .pagination-fix {
   margin-left: 1%;
 }
+
+
+@media only screen and (max-width: 680px) {
+  .std-row {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .std-row-1,.std-row-2,.std-row-3 {
+    width: 100%;
+    padding-left: 20px;
+  }
+
+  .std-row-1 {
+    margin-left: 81px;
+    padding-left: 20px;
+  }
+  .std-row-2,.std-row-3 {
+    margin: 0px;
+  }
+  .row-th {
+    border-bottom: 0px;
+  }
+  .row-th .col-md-5,.row-th .col-md-7 {
+    width: 100% !important;
+  }
+}
+
+
+
+
+
+
+
 
 
 
@@ -743,6 +778,7 @@ figcaption p {
 .remind-msg {
   width: 32px;
   height: 32px;
+  font-size: 12px;
   text-align: center;
   vertical-align: top;
   line-height: 16px;
@@ -769,7 +805,10 @@ figcaption p {
 .remind-Remedial {
   background-color: palevioletred;
 }
-
+.msg-con img {
+  width: 32px;
+  height: 32px;
+}
 .remind-txt {
   width: 255px;
   float: left;
@@ -780,6 +819,10 @@ figcaption p {
   line-height: 18px;
   font-size: 1.2rem;
   color: #666666;
+}
+.msg-prompt .remind-text span {
+  /*font-size: 14px;*/
+  color: #333333;
 }
 .remind-more {
   clear: both;
@@ -942,13 +985,12 @@ figcaption p {
 }
 .msg-con {
   position: relative;
-  font-size: 1.2rem;
+  /*font-size: 1.2rem;*/
   padding: 8px;
   border-bottom: 1px solid gainsboro;
   overflow: hidden;
 }
 .my-notice {
-  color: #666666;
   padding-left: 8px;
 }
 .remind-text {
@@ -963,6 +1005,7 @@ figcaption p {
 .remind-text span {
   line-height: 18px;
 }
+
 .remind-date {
   float: right;
   height: 100%;
@@ -985,17 +1028,37 @@ figcaption p {
   color: white;
 }
 .classroom {
+  font-size: 12px;
+  color: #999999;
+}
+.classroom a{
   width: 60px;
+  font-size: 12px;
   display: inline-block;
-  background-color: #999999;
+  background-color: #F2F2F2;
   float: none !important;
   text-align: center;
-  color: #666666;
+  color: #666;
 }
 
 
-
-
+@media only screen and (max-width: 640px) {
+  .remind-date {
+    float: left;
+    margin-left: 40px;
+  }
+  .remind-text {
+    width: 90%;
+  }
+  .remind-date span {
+    position: static;
+  }
+}
+@media only screen and (max-width: 500px) {
+  .remind-text {
+    width: 82%;
+  }
+}
 
 
 
@@ -2850,6 +2913,14 @@ i {
   padding: 20px 10px;
   height: 497px;
 }
+@media only screen and (max-width: 990px) {
+  .tec-data {
+    height: 100% !important;
+  }
+  .data-con table img {
+    width: 100% !important;
+  }
+}
 .details-img {
   width: 158px;
   height: 158px;
@@ -2904,8 +2975,17 @@ i {
 .data-con table tr:first-child td:first-child {
   width: 46%;
 }
+.data-con table tr td {
+  padding: 7px 0px;
+}
+.data-con table tr:first-child td {
+  padding: 0px !important;
+}
+.data-con table tr:last-child td:last-child {
+  padding-top: 15px;
+}
 .subject-title {
-  margin-top: -7px;
+  margin-top: 0px;
 }
 .subject-title span:first-child {
   font-size: 18px;
@@ -2922,13 +3002,15 @@ i {
 .interval {
   margin-left: 20px;
 }
+
 .unit-price {
   position: relative;
   float: left;
 }
+
 .listen-class {
   position: relative;
-  top: 10px;
+  top: 11px;
   float: left;
   width: 120px;
   height: 39px;
@@ -3000,10 +3082,7 @@ i {
 .btn-listen {
   background-color: rgb(32,173,101);
 }
-.price-details {
-  position: relative;
-  top: 3px;
-}
+
 .data-introduction {
   margin-top: 20px;
 }
@@ -3306,12 +3385,7 @@ ul {
   height: 25px;
   margin-bottom: 5px;
 }
-/*.live-status {
-	color: rgb(153,153,153);
-}
-.live-status .active {
-	color: rgb(190,11,11);
-}*/
+
 .live-teccon table tr:last-child td:first-child,.td-pic {
   position: relative;
 }
@@ -3427,6 +3501,9 @@ ul {
 .message-con:nth-child(3) .information-title-img {
   width: 25px !important;
   height: 25px !important;
+}
+.message-con:nth-child(3) .new-information:first-child .information-category,.message-con:nth-child(3) .new-information:first-child .information-user{
+  color: #BE0B0B !important;
 }
 #announcements,#members {
   color: #555555 !important;
@@ -4634,7 +4711,7 @@ ul {
 .notice-btn {
   margin-top: -15px;
 }
-.date-btn a,.editor-delete-btn a,.notice-btn a {
+.date-btn a,.editor-delete-btn a,.notice-btn a,.buying-tips a {
   display: inline-block;
   width: 110px;
   height: 30px;
@@ -7374,7 +7451,21 @@ ul {
 }
 
 
+@media only screen and (max-width: 680px) {
+  .refund-prompt {
+    height: 100%;
+    padding-bottom: 40px;
+  }
+  .refund-prompt input {
+    position: relative;
+    left: 50%;
+    top: 20px;
+    margin-left: -60px;
+    float: none;
 
+
+  }
+}
 
 /*订单详情*/
 .goods-con {
@@ -7514,4 +7605,43 @@ ul {
 }
 .moneyback .admin-list-con table tr td a,.moneyback .admin-list-con table tr td:last-child span {
   color: #428bca;
+}
+
+
+
+/*退款记录*/
+.recordmsg .col-md-5 {
+  padding-right: 0px;
+}
+.recordmsg .show {
+  min-height: 320px;
+}
+
+
+/*退款消息*/
+.refund-notice {
+  background-color: #03cbfd;
+  color: #FFFFFF;
+}
+
+/*播放页面未购买提示*/
+.buying-tips {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 110px;
+  color: #333333;
+  padding-top: 20px;
+  margin-left: -150px;
+  margin-top: -55px;
+  background-color: #FFFFFF;
+}
+.tips-msg {
+  font-size: 16px;
+}
+.buying-tips a {
+  margin-top: 20px;
+  color: #be0b0b !important;
+  border-color: #be0b0b;
 }

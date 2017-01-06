@@ -225,6 +225,7 @@ tasting_course:
   grade: 六年级
   subject: 语文
   lessons_count: 2
+  taste_count: 1
 
 course_without_chat_team:
   name: 没有聊天群组的辅导班

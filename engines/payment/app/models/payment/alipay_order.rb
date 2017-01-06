@@ -36,8 +36,12 @@ module Payment
         total_amount: amount
       }.to_json
       Alipay::App::Service.alipay_trade_app_pay(
-        notify_url: order.notify_url,
-        biz_content: biz_content
+        {
+          notify_url: order.notify_url,
+          biz_content: biz_content
+        },
+        sign_type: 'RSA',
+        key: $qatime_key
       )
     end
 

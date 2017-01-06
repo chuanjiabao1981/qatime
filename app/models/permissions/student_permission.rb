@@ -227,6 +227,10 @@ module Permissions
       api_allow :GET, "/api/v1/payment/users/[\\w-]+/withdraws"
       api_allow :POST, "/api/v1/payment/users/[\\w-]+/withdraws"
       api_allow :PUT, "/api/v1/payment/users/[\\w-]+/withdraws/:id/cancel"
+      api_allow :GET, "/api/v1/payment/users/[\\w-]+/refunds/info"
+      api_allow :POST, "/api/v1/payment/users/[\\w-]+/refunds"
+      api_allow :GET, "/api/v1/payment/users/[\\w-]+/refunds"
+      api_allow :PUT, "/api/v1/payment/users/[\\w-]+/refunds/:id/cancel"
       ## end api permission
 
       ## 获取授权token

@@ -57,7 +57,7 @@ class User < ActiveRecord::Base
 
   has_many :payment_recharges, class_name: Payment::Recharge # 通知记录
   has_many :payment_withdraws, class_name: Payment::Withdraw # 提现申请记录
-  has_many :payment_refunds, foreign_key: 'user_id', class_name: Payment::Refund # 退款申请记录
+  has_many :payment_refunds, class_name: Payment::Refund # 退款记录
 
   has_many :notifications, -> { order 'created_at desc'}, foreign_key: :receiver_id
   has_many :customized_course_action_notifications, -> { order 'created_at desc'}, foreign_key: :receiver_id
@@ -183,7 +183,7 @@ class User < ActiveRecord::Base
   def update_payment_pwd(params, *options)
     @payment_captcha_required = true
     if update(params, *options)
-      cash_account!.update(password: payment_password)
+      cash_account!.update(password: payment_password, password_set_at: Time.now)
     end
   end
 

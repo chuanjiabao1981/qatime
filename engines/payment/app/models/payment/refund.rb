@@ -75,11 +75,13 @@ module Payment
         # 退出云信群组
         # 创建管理员审核操作记录
         # 系统财务账户资金变动
+        # 创建系统通知
         user.live_studio_buy_tickets.where(course: product).refunding.first.try(:refunded!)
         order.allow_refund!
         leave_chat_team
         operator_record('init', 'success', current_user)
         CashAdmin.current!.cash_account!.refund(amount, self)
+        LiveService::OrderNotificationSender.new(order).notice(PaymentOrderNotification::ACTION_REFUND_SUCCESS)
       end
     end
 
@@ -88,9 +90,11 @@ module Payment
         # buy_ticket 变更为可用（active）
         # 创建管理员审核操作记录
         # 订单状态变更
+        # 创建系统通知
         user.live_studio_buy_tickets.where(course: product).refunding.first.try(:active!)
         order.try(:refuse_refund!)
         operator_record('init', 'ignored', current_user)
+        LiveService::OrderNotificationSender.new(order).notice(PaymentOrderNotification::ACTION_REFUND_FAIL)
       end
     end
 

@@ -33,14 +33,11 @@ module Payment
       withdraw_count = Payment::Withdraw.count
       click_link '提现'
       fill_in 'withdraw_amount', with: 1000
-      choose 'withdraw_pay_type_cash'
-      click_on '获取验证码'
-      sleep 3
-      captcha_manager = UserService::CaptchaManager.new(@teacher.login_mobile)
-      captcha = captcha_manager.captcha_of(:withdraw_cash)
-      fill_in 'verify',with: captcha
-      # fill_in 'payment_password', with: '111111'
-      click_on '申请提现'
+      choose 'withdraw_pay_type_bank'
+      fill_in 'payment_password', with: '111111'
+      fill_in 'bank_account', with: 'test'
+      fill_in 'bank_name', with: 'test'
+      click_on '提现申请'
       assert page.has_content?('交易信息')
       assert Payment::Withdraw.count == withdraw_count+1
       click_link '提现记录'

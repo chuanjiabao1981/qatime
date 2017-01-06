@@ -24,9 +24,7 @@ module Payment
 
     def refund_create
       @order = @user.orders.find_by!(transaction_no: params[:id])
-      @consumed_amount = LiveService::OrderDirector.new(@order).consumed_amount
-      refund_amount = @order.amount - @consumed_amount
-      @refund = Payment::Refund.new(user: @user,amount: refund_amount, pay_type: @order.pay_type,status: :init, product: @order.product, transaction_no: @order.transaction_no)
+      @refund = LiveService::OrderDirector.new(@order).generate_refund
       if @refund.save
         @refund.create_refund_reason(reason:  params[:reason])
         redirect_to payment.user_orders_path(@user), notice: i18n_notice('created', @refund)

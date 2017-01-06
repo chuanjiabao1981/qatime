@@ -19,7 +19,7 @@ module V1
           end
           post ':user_id/password' do
             cash_account = ::User.find(params[:user_id]).cash_account!
-            password_params = { ticket_token: params[:ticket_token], password: params[:pament_password] }
+            password_params = { ticket_token: params[:ticket_token], password: params[:pament_password], password_set_at: Time.now}
             raise APIErrors::TokenInvalid, "授权Token无效" unless cash_account.update_with_token(:set_password, password_params)
             'ok'
           end

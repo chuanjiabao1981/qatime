@@ -20,8 +20,8 @@ cn:
       weixin_tips: 请使用微信扫一扫<br>扫描二维码支付
     payment/transaction:
       weixin_tips: 请使用微信扫一扫<br>扫描二维码支付
-      alipay_tips: 提示：核对信息后再点击确认访问支付宝页面进行支付，遇到问题请拨打客服电话 0353-2135828
-      offline_tips: 请联系管理员确认付款 0353-2135828
+      alipay_tips: 提示：核对信息后再点击确认访问支付宝页面进行支付，遇到问题请拨打客服电话 400-838-8010
+      offline_tips: 请联系管理员确认付款 400-838-8010
     withdraw:
       common:
         ok: 确定
@@ -72,13 +72,14 @@ cn:
       payment/cash_account: 资金账户
       payment/refund_apply: 退款申请
       payment/refund: 退款
+      payment/refund_record: 退款记录
     attributes:
-      payment/refund_apply:
-        order_no: 退款编号
-        product: 商品名称
-        amount: 退款金额
-        created_at: 退款时间
-        status: 订单状态
+      payment/refund:
+        transaction_no: 订单编号
+        amount: 金额
+        pay_type: 退款方式
+        created_at: 时间
+        status: 状态
       payment/order:
         order_no: 订单编号
         product: 商品名称

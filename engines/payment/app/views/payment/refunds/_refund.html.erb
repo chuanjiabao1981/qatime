@@ -1,0 +1,16 @@
+<tr>
+  <td><%= number_to_currency(refund.amount, locale: :cn, unit: "￥", precision: 1) %></td>
+  <td>
+    <%= refund.transaction_no %>
+  </td>
+  <td>
+    <%= refund.pay_type_text %>
+  </td>
+  <td>
+    <%= refund.created_at.strftime('%Y-%m-%d %H:%M') %>
+  </td>
+  <td>
+    <%= refund.status_text %>
+    <%= link_to "/ #{t('teachers.common.cancel')}",cancel_refund_user_order_path(@current_resource,refund.transaction_no),method: :put if refund.init? %>
+  </td>
+</tr>

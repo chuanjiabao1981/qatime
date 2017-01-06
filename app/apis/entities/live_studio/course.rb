@@ -35,6 +35,7 @@ module Entities
       expose :completed_lesson_count do |course|
         course.completed_lessons_count
       end
+      expose :taste_count
       expose :completed_lessons_count
       expose :live_start_time
       expose :live_end_time

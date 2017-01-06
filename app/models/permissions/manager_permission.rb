@@ -18,7 +18,7 @@ module Permissions
       allow :home,[:index,:new_index,:switch_city]
       allow :schools,[:index,:new,:create]
       allow :schools,[:show,:edit,:update] do |school|
-        user.city == school.city
+        user.cities.include? school.city
       end
       allow :register_codes, [:index, :new, :downloads, :create]
       allow :teachers,[:index,:show,:search,:pass,:unpass,
@@ -43,7 +43,7 @@ module Permissions
         user && customized_course && user.customized_courses.include?(customized_course)
       end
 
-      allow :customized_courses ,[:new,:create,:get_sale_price] do |student|
+      allow :customized_courses ,[:new,:create,:get_sale_price,:teachers] do |student|
         user and student
       end
 

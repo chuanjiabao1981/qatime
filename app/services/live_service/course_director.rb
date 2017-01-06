@@ -95,7 +95,7 @@ module LiveService
     end
 
     def self.taste_course_ticket(user, course)
-      return unless course.taste_count.to_i > 0
+      raise APIErrors::CourseTasteLimit unless course.taste_count.to_i > 0
       LiveService::ChatAccountFromUser.new(user).instance_account
       course.taste_tickets.find_or_create_by(student: user)
     end

@@ -6,7 +6,7 @@ module Entities
       expose :pay_type
       expose :status
       expose :created_at do |refund|
-        refund.order.try(:created_at)
+        refund.try(:created_at)
       end
       expose :amount do |refund|
         refund.order.try(:amount)

@@ -43,11 +43,8 @@ module V1
             post 'refunds' do
               order = @user.orders.find_by!(transaction_no: params[:order_id])
               refund = LiveService::OrderDirector.new(order).generate_refund
-              unless refund.save
-                raise ActiveRecord::RecordInvalid, refund
-              else
-                refund.create_refund_reason(reason:  params[:reason])
-              end
+              raise ActiveRecord::RecordInvalid, refund unless refund.save
+              refund.create_refund_reason(reason:  params[:reason])
               present refund, with: Entities::Payment::Refund
             end
 

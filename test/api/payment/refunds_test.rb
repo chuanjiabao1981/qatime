@@ -16,14 +16,15 @@ class RefundsTest < ActionDispatch::IntegrationTest
 
   test 'create refund test ' do
     order = payment_transactions(:order_for_refund)
-    refunds_count = Payment::Refund.count
-    post "/api/v1/payment/users/#{@student.id}/refunds", {order_id: order.transaction_no, reason: 'reason test'}, 'Remember-Token' => @student_token
+    assert_difference 'Payment::Refund.count', +1 do
+      post "/api/v1/payment/users/#{@student.id}/refunds", {order_id: order.transaction_no, reason: 'reason test'}, 'Remember-Token' => @student_token
+    end
     res = JSON.parse(response.body)
     assert_response :success
     assert_equal 1, res['status']
     assert_equal 'init', res['data']['status']
     assert_equal 'reason test', res['data']['reason']
-    assert_equal refunds_count+1, Payment::Refund.count
+    assert_equal Payment::Refund.last.amount, LiveService::OrderDirector.new(order).consumed_amount
   end
 
   test 'refund list test ' do

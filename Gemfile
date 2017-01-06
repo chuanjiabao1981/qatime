@@ -102,7 +102,7 @@ gem 'typhoeus'
 
 # 支付
 gem 'wx_pay'
-gem 'alipay', '~> 0.12.0'
+gem 'alipay', '~> 0.14.0'
 
 # 监控
 # gem 'oneapm_rpm'

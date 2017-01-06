@@ -90,7 +90,7 @@ GEM
     acts_as_list (0.7.2)
       activerecord (>= 3.0)
     addressable (2.4.0)
-    alipay (0.12.0)
+    alipay (0.14.0)
     arel (6.0.3)
     axiom-types (0.1.1)
       descendants_tracker (~> 0.0.4)
@@ -436,7 +436,7 @@ PLATFORMS
 
 DEPENDENCIES
   aasm
-  alipay (~> 0.12.0)
+  alipay (~> 0.14.0)
   bcrypt
   bootstrap-sass (= 3.0.2.0)
   capistrano

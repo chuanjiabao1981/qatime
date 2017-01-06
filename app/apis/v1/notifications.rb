@@ -34,6 +34,44 @@ module V1
           notifications = @user.notifications.includes([:notificationable, :from]).paginate(page: params[:page])
           present notifications, with: Entities::Notification
         end
+
+        desc '通知设置信息' do
+          headers 'Remember-Token' => {
+            description: 'RememberToken',
+            required: true
+          }
+        end
+        params do
+          requires :user_id, type: Integer, desc: 'ID'
+        end
+        get 'notifications/settings' do
+          @setting = NotificationSetting.find_by(owner: @user) || NotificationSetting.default
+          present @setting, with: Entities::NotificationSetting
+        end
+
+        desc '更新通知设置' do
+          headers 'Remember-Token' => {
+            description: 'RememberToken',
+            required: true
+          }
+        end
+        params do
+          requires :user_id, type: Integer, desc: 'ID'
+          requires :notice, type: Integer, desc: '是否接收系统通知', values: [0, 1]
+          requires :email, type: Integer, desc: '是否接收邮件通知', values: [0, 1]
+          requires :message, type: Integer, desc: '是否接收短信通知', values: [0, 1]
+          requires :before_hours, type: Integer, desc: '提前时间 小时'
+          requires :before_minutes, type: Integer, desc: '提前时间 分钟'
+        end
+        post 'notifications/settings' do
+          @setting = NotificationSetting.find_or_create_by(owner: @user, key: 'live_studio/course')
+          @setting.update_attributes(notice: params[:notice],
+                                     email: params[:email],
+                                     message: params[:message],
+                                     before_hours: params[:before_hours],
+                                     before_minutes: params[:before_minutes])
+          present @setting, with: Entities::NotificationSetting
+        end
       end
     end
 

@@ -216,6 +216,11 @@ module Permissions
       api_allow :PUT, "/api/v1/notifications/[\\w-]+/read"
       # 消息通知结束
 
+      ## 通知设置
+      api_allow :GET, "/api/v1/users/[\\w-]+/notifications/settings" # 查询通知设置
+      api_allow :PUT, "/api/v1/users/[\\w-]+/notifications/settings" # 修改通知设置
+      ## end 通知设置
+
       # payment
       api_allow :GET, "/api/v1/payment/orders/[\\w-]+/result"
       api_allow :GET, "/api/v1/payment/orders"

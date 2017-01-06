@@ -27,13 +27,18 @@ module Payment
     end
 
     def app_pay_str
-      Alipay::Mobile::Service.mobile_securitypay_pay_string({ out_trade_no: order_no,
-                                                              notify_url: order.notify_url,
-                                                              subject: order.subject,
-                                                              total_fee: amount
-                                                            },
-                                                            sign_type: 'RSA',
-                                                            key: $qatime_key)
+      biz_content = {
+        body: order.remote_body,
+        out_trade_no: order_no,
+        passback_params: '',
+        product_code: 'QUICK_MSECURITY_PAY',
+        subject: order.subject,
+        total_amount: amount
+      }.to_json
+      Alipay::App::Service.alipay_trade_app_pay(
+        notify_url: order.notify_url,
+        biz_content: biz_content
+      )
     end
 
     private

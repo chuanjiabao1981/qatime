@@ -158,6 +158,10 @@ module Payment
       }
     end
 
+    def remote_body
+      "购买辅导班：#{product.name}"
+    end
+
     def order_no
       transaction_no
     end

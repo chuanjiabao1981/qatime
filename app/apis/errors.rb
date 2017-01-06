@@ -18,6 +18,7 @@ module APIErrors
   PasswordInvalid       = Class.new StandardError
   PaymentPasswordBlank  = Class.new StandardError
   TokenInvalid          = Class.new StandardError
+  CourseTasteLimit      = Class.new StandardError
   PasswordDissatisfy    = Class.new StandardError
 
 
@@ -86,6 +87,10 @@ module APIErrors
 
       rescue_from WithdrawExisted do |e|
         out_error(code: 3003, msg: e.message || '当前有未完成的提现申请')
+      end
+
+      rescue_from CourseTasteLimit do |e|
+        out_error(code: 3004, msg: e.message || '无法试听')
       end
     end
   end

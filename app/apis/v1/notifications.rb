@@ -63,7 +63,7 @@ module V1
           requires :before_hours, type: Integer, desc: '提前时间 小时'
           requires :before_minutes, type: Integer, desc: '提前时间 分钟'
         end
-        post 'notifications/settings' do
+        put 'notifications/settings' do
           @setting = NotificationSetting.find_or_create_by(owner: @user, key: 'live_studio/course')
           @setting.update_attributes(notice: params[:notice],
                                      email: params[:email],

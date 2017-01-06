@@ -23,4 +23,36 @@ class Qatime::NotificationsAPITest < ActionDispatch::IntegrationTest
     assert_includes contents, "您的辅导班【今天开课辅导班】已于今日(#{Date.today})开课", "辅导班开课通知不正确"
     assert_includes contents, "您的课程 \"今日开课辅导班-第一节课\" 将于10:20开始上课，请准时参加学习", "课程上课提醒不正确"
   end
+
+  # 通知设置接口测试 查询当前设置
+  test "get current notification setting" do
+    @student = users(:student1)
+    @remember_token = api_login(@student, :app)
+    get "/api/v1/users/#{@student.id}/notifications/settings", {}, 'Remember-Token' => @remember_token
+
+    assert_response :success, "没有正确返回 #{JSON.parse(response.body)}"
+    res = JSON.parse(response.body)
+    assert_includes res['data'].keys, 'message', "设置信息不完整"
+    assert_includes res['data'].keys, 'email', "设置信息不完整"
+    assert_includes res['data'].keys, 'notice', "设置信息不完整"
+    assert_includes res['data'].keys, 'before_hours', "设置信息不完整"
+    assert_includes res['data'].keys, 'before_minutes', "设置信息不完整"
+  end
+
+  # 通知设置接口测试 更新设置
+  test "update notification setting" do
+    @student = users(:student1)
+    @remember_token = api_login(@student, :app)
+    put "/api/v1/users/#{@student.id}/notifications/settings",
+        { message: 1, email: 0, notice: 0, before_hours: 2, before_minutes: 30 },
+        'Remember-Token' => @remember_token
+
+    assert_response :success, "没有正确返回 #{JSON.parse(response.body)}"
+    res = JSON.parse(response.body)
+    assert res['data']['message'], "短信通知设置错误"
+    assert_not res['data']['email'], "邮件通知设置错误"
+    assert_not res['data']['notice'], "系统通知设置错误"
+    assert_equal 2, res['data']['before_hours'], "提前时间设置错误"
+    assert_equal 30, res['data']['before_minutes'], "提前时间设置错误"
+  end
 end

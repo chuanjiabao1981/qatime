@@ -14,12 +14,11 @@ class WithdrawsTest < ActionDispatch::IntegrationTest
   end
 
   test 'user create withdraws' do
-    post "/api/v1/captcha", {send_to: @student.login_mobile, key: :withdraw_cash}
+    get "/api/v1/payment/users/#{@student.id}/withdraws/ticket_token", {password: 'password'}, 'Remember-Token' => @student_token
     assert_response :success
-    captcha_manager = UserService::CaptchaManager.new(@student.login_mobile)
-    captcha = captcha_manager.captcha_of(:withdraw_cash)
-
-    post "/api/v1/payment/users/#{@student.id}/withdraws", { amount: 100, pay_type: :bank, account: 'test', name: 'test', verify: captcha}, 'Remember-Token' => @student_token
+    ticket = JSON.parse(response.body)['data']
+    post "/api/v1/payment/users/#{@student.id}/withdraws",
+         {amount: 100, pay_type: :bank, account: 'test', name: 'test', ticket_token: ticket}, 'Remember-Token' => @student_token
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 'init', res['data']["status"]

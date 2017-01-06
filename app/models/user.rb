@@ -182,7 +182,7 @@ class User < ActiveRecord::Base
   def update_payment_pwd(params, *options)
     @payment_captcha_required = true
     if update(params, *options)
-      cash_account!.update(password: payment_password)
+      cash_account!.update(password: payment_password, password_set_at: Time.now)
     end
   end
 

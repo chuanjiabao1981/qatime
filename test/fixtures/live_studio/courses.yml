@@ -265,6 +265,7 @@ course_for_taste:
   grade: 六年级
   subject: 语文
   lessons_count: 2
+  taste_count: 1
 
 course_for_tasting:
   name: 正在试听辅导班

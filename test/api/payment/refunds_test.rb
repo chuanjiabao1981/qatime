@@ -24,7 +24,7 @@ class RefundsTest < ActionDispatch::IntegrationTest
     assert_equal 1, res['status']
     assert_equal 'init', res['data']['status']
     assert_equal 'reason test', res['data']['reason']
-    assert_equal Payment::Refund.last.amount, LiveService::OrderDirector.new(order).consumed_amount
+    assert_equal Payment::Refund.last.amount, order.amount-LiveService::OrderDirector.new(order).consumed_amount
   end
 
   test 'refund list test ' do

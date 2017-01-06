@@ -18,7 +18,7 @@ module Payment
               predicates: true,
               in: {
                 account: 0, # 余额支付
-                # alipay: 1,
+                alipay: 1,
                 weixin: 2
               }
 

@@ -24,7 +24,7 @@ class CustomizedCourseCreateTest < ActionDispatch::IntegrationTest
     select '物理', from: :s_subject
 
     options = {from: 'customized-courses-teachers'}
-    item_text = 'physics_teacher1'
+    item_text = 'teacher_one'
     select_from_chosen(item_text,options)
     teacher = Teacher.find_by_name(item_text)
     assert_difference 'teacher.customized_courses.count',1 do

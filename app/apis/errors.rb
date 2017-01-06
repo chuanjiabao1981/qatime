@@ -19,6 +19,8 @@ module APIErrors
   PaymentPasswordBlank  = Class.new StandardError
   TokenInvalid          = Class.new StandardError
   CourseTasteLimit      = Class.new StandardError
+  PasswordDissatisfy    = Class.new StandardError
+
 
   module ClassMethods
     def include_errors
@@ -69,6 +71,10 @@ module APIErrors
 
       rescue_from TokenInvalid do |e|
         out_error(code: 2007, msg: e.message || "授权Token无效")
+      end
+
+      rescue_from PasswordDissatisfy do |e|
+        out_error(code: 2008, msg: e.message || "支付密码设置时间不足24小时")
       end
 
       rescue_from Grape::Exceptions::ValidationErrors do |e|

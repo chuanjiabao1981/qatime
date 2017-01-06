@@ -16,6 +16,23 @@ class WithdrawsTest < ActionDispatch::IntegrationTest
   test 'user create withdraws' do
     get "/api/v1/payment/users/#{@student.id}/withdraws/ticket_token", {password: 'password'}, 'Remember-Token' => @student_token
     assert_response :success
+    assert_equal 1, JSON.parse(response.body)['status']
+    ticket = JSON.parse(response.body)['data']
+    post "/api/v1/payment/users/#{@student.id}/withdraws",
+         {amount: 100, pay_type: :bank, account: 'test', name: 'test', ticket_token: ticket}, 'Remember-Token' => @student_token
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 'init', res['data']["status"]
+    assert_equal 'bank', res['data']["pay_type"], "支付方式不正确"
+  end
+
+  test 'user create withdraws error test' do
+    get "/api/v1/payment/users/#{@student.id}/withdraws/ticket_token", {password: 'error_password'}, 'Remember-Token' => @student_token
+    assert_response :success
+    assert_equal 0, JSON.parse(response.body)['status']
+    assert_equal 2005, JSON.parse(response.body)['error']['code']
+    get "/api/v1/payment/users/#{@student.id}/withdraws/ticket_token", {password: 'password'}, 'Remember-Token' => @student_token
+    assert_equal 1, JSON.parse(response.body)['status']
     ticket = JSON.parse(response.body)['data']
     post "/api/v1/payment/users/#{@student.id}/withdraws",
          {amount: 100, pay_type: :bank, account: 'test', name: 'test', ticket_token: ticket}, 'Remember-Token' => @student_token

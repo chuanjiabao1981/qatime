@@ -51,7 +51,7 @@ class Software < ActiveRecord::Base
   before_update :generate_download_links
   def generate_download_links
     self.download_links = "#{$host_name}/softwares/#{id}/download" if download_links.blank?
-    assign_qr_code if cdn_url_changed?
+    assign_qr_code if qr_code.nil? || cdn_url_changed?
   end
 
   before_validation :copy_attr_from_category, on: :create

@@ -41,6 +41,7 @@
       // $('#'+id).css('left',offset.left);
       $('#'+id).show();
       $('#'+id).click(function(e) {
+        if(typeof($(e.target).attr("data-face")) === "undefined") return false;
         $('#' + option.assign).setCaret();
         $('#' + option.assign).insertAtCaret($(e.target).attr("data-face"));
         if(cb) cb();

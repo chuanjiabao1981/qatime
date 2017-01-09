@@ -141,10 +141,11 @@ window.Barrage = (id, options) ->
     console.log(barrageNode);
     barrageNode.css("top", barrageTop)
     barrageWidth = barrageNode.width()
-    barrageNode.css("left", videoWidth - barrageWidth)
+    totalWidth = barrageWidth + videoWidth
+    barrageNode.css("left", videoWidth)
     # 设置弹幕动画
     barrageNode.show().css("top", barrageTop + "px").animate({
-      left: "-=" + videoWidth,
+      left: "-=" + totalWidth,
     },
     5000,
     ->

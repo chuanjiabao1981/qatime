@@ -103,6 +103,7 @@ module LiveStudio
         after do
           # 课程完成增加辅导班完成课程数量
           increment_course_counter(:finished_lessons_count)
+          update_channel_videos
         end
         transitions from: [:paused, :closed], to: :finished
       end
@@ -307,6 +308,13 @@ module LiveStudio
     # 增加计数器
     def increment_course_counter(attribute)
       course.increment(attribute)
+    end
+
+    # 更新辅导班录制视频列表
+    def update_channel_videos
+      course.channels.each do |channel|
+        channel.update_video_list
+      end
     end
   end
 end

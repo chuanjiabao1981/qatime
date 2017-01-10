@@ -16,6 +16,23 @@ module LiveStudio
       create_remote_channel
     end
 
+    def update_video_list
+      return if remote_id.blank?
+      res = ::Typhoeus.post(
+        "#{VCLOUD_HOST}/app/videolist",
+        headers: vcloud_headers,
+        body: {
+          cid: remote_id
+        }.to_json
+      )
+      return unless res.success?
+      result = JSON.parse(res.body).symbolize_keys
+      result[:ret][:videoList].each do |rt|
+        video = channel_videos.find_or_create_by(vid: rt[:vid])
+        video.update(name: rt[:video_name], key: rt[:orig_video_key])
+      end
+    end
+
     private
 
     after_create :create_remote_channel

@@ -60,7 +60,7 @@ namespace :deploy do
   task :restart do
     invoke 'unicorn:duplicate'
     # 直接停掉sidekiq, 依赖守护进程启动新的sidekiq
-    invoke "sidekiqctl stop #{shared_path/tmp/pids/sidekiq.pid}"
+    invoke "sidekiqctl stop #{shared_path}/tmp/pids/sidekiq.pid"
   end
   # desc "Copy static swf files"
   # task :copy_jwplayer do

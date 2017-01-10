@@ -33,6 +33,11 @@ module LiveStudio
         }
       }.to_json
 
+      @set_record_response_body = {
+        code: 200,
+        msg: '',
+      }.to_json
+
       @delete_response_body = {
         code: 200,
         msg: "",
@@ -86,6 +91,17 @@ module LiveStudio
 
       assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044b", streams1.address, '推流地址不正确')
       assert_equal("rtmp://p2e95df8c.live.126.net/live/19419193f3044e", streams2.address, 'rtmp拉流地址不正确')
+    end
+
+    test "create channel set record status" do
+      course = live_studio_courses(:course_without_channel)
+      response = Typhoeus::Response.new(code: 200, body: @create_response_body1)
+      response_record = Typhoeus::Response.new(code: 200, body: @set_record_response_body)
+      Typhoeus.stub('https://vcloud.163.com/app/channel/create').and_return(response)
+      Typhoeus.stub('https://vcloud.163.com/app/channel/setAlwaysRecord').and_return(response_record)
+
+      channel = course.init_channel
+      assert_equal true, channel.set_always_recorded, '频道未设置录制功能'
     end
 
     test "sync channel streams for course" do

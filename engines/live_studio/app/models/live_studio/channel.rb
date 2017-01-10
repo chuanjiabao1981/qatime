@@ -5,6 +5,7 @@ module LiveStudio
     VCLOUD_HOST = 'https://vcloud.163.com'.freeze
 
     belongs_to :course
+    has_many :channel_videos, dependent: :destroy
     has_many :push_streams, dependent: :destroy
     has_many :pull_streams, dependent: :destroy
 
@@ -35,7 +36,28 @@ module LiveStudio
       result = JSON.parse(res.body).symbolize_keys
       build_streams(result[:ret]) if result[:code] == 200
       self.remote_id = result[:ret]["cid"]
+
+      set_always_record
       save!
+    end
+
+    # 设置录播
+    def set_always_record
+      return unless remote_id.present?
+      res = ::Typhoeus.post(
+        "#{VCLOUD_HOST}/app/channel/setAlwaysRecord",
+        headers: vcloud_headers,
+        body: {
+          cid: remote_id,
+          needRecord: 1,
+          format: 0,
+          duration: 90,   # minutes
+          filename: "#{course.name}-#{Time.now.to_i}"
+        }.to_json
+      )
+
+      return unless res.success?
+      self.set_always_recorded = true
     end
 
     def build_streams(result={})

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170106015347) do
+ActiveRecord::Schema.define(version: 20170110092420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -508,16 +508,26 @@ ActiveRecord::Schema.define(version: 20170106015347) do
 
   add_index "live_studio_announcements", ["course_id"], name: "index_live_studio_announcements_on_course_id", using: :btree
 
+  create_table "live_studio_channel_videos", force: :cascade do |t|
+    t.integer  "channel_id"
+    t.integer  "vid"
+    t.string   "name"
+    t.string   "key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "live_studio_channels", force: :cascade do |t|
-    t.string   "name",        limit: 255
+    t.string   "name",                limit: 255
     t.integer  "course_id"
-    t.string   "remote_id",   limit: 100
-    t.integer  "status",                  default: 0
+    t.string   "remote_id",           limit: 100
+    t.integer  "status",                          default: 0
     t.datetime "deleted_at"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.integer  "use_for",                 default: 0
-    t.integer  "live_status",             default: 0
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.integer  "use_for",                         default: 0
+    t.integer  "live_status",                     default: 0
+    t.boolean  "set_always_recorded",             default: false
   end
 
   add_index "live_studio_channels", ["course_id"], name: "index_live_studio_channels_on_course_id", using: :btree

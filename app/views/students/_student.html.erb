@@ -1,11 +1,12 @@
 <div class="qa_cell">
   <div class="row" style="padding-left: 10px">
     <div class="col-md-1"><%=   student_counter+1  %></div>
-    <div class="col-md-2"><%=link_to student.name , student_path(student)%></div>
-    <div class="col-md-2"><%= student.email %></div>
-    <div class="col-md-3"><%= student.created_at.to_date%></div>
+    <div class="col-md-1"><%=link_to student.name , student_path(student)%></div>
+    <div class="col-md-3"><%= student.email %></div>
+    <div class="col-md-2"><%= student.created_at.to_date%></div>
+    <div class="col-md-2"><%= student.login_mobile %></div>
     <% if allow? :students,:destroy %>
-    <div class="col-md-2">
+    <div class="col-md-1">
       <%=link_to t('.delete'), student_path(student), method: :delete, 'data-confirm'=> t('.delete_confirm')%>
     </div>
     <% end %>

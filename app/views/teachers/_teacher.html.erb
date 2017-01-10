@@ -8,8 +8,11 @@
   <div class="col-md-2">
     <%= "#{teacher.category}#{teacher.subject}"%>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-1">
     <%= teacher.school.try(:name) %>
+  </div>
+  <div class="col-md-2">
+    <%= teacher.try(:login_mobile) %>
   </div>
 
   <% if allow? :teachers,:destroy %>
@@ -18,7 +21,7 @@
     </div>
   <% end %>
   <% if allow? :teachers,:pass %>
-    <div class="col-md-2">
+    <div class="col-md-1">
       <%= render partial: 'teacher_status',locals: {teacher: teacher}%>
     </div>
   <% end %>

@@ -220,6 +220,23 @@ module V1
             course = ::LiveStudio::Course.find(params[:id])
             present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user,size: :info
           end
+
+          desc '录制视频列表' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, desc: '辅导班ID'
+          end
+          get '/:id/videos' do
+            @course = ::LiveStudio::Course.find(params[:id])
+            {
+              board: @course.channels.board.map{|cl| cl.channel_videos if cl.set_always_recorded }.compact.first.to_a,
+              camera: @course.channels.camera.map{|cl| cl.channel_videos if cl.set_always_recorded }.compact.first.to_a
+            }
+          end
         end
 
         resource :courses do
@@ -308,23 +325,6 @@ module V1
             get 'live_status' do
               @course = ::LiveStudio::Course.find(params[:course_id])
               LiveService::CourseDirector.new(@course).stream_status
-            end
-
-            desc '录制视频列表' do
-              headers 'Remember-Token' => {
-                description: 'RememberToken',
-                required: true
-              }
-            end
-            params do
-              requires :course_id, type: Integer, desc: '辅导班ID'
-            end
-            get 'videos' do
-              @course = ::LiveStudio::Course.find(params[:course_id])
-              {
-                board: @course.channels.board.map{|cl| cl.channel_videos if cl.set_always_recorded }.compact.first.to_a,
-                camera: @course.channels.camera.map{|cl| cl.channel_videos if cl.set_always_recorded }.compact.first.to_a
-              }
             end
           end
         end

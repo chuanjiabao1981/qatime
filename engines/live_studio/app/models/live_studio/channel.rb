@@ -1,8 +1,7 @@
 module LiveStudio
   class Channel < ActiveRecord::Base
+    include LiveStudio::Channelable
     has_soft_delete
-
-    VCLOUD_HOST = 'https://vcloud.163.com'.freeze
 
     belongs_to :course
     has_many :channel_videos, dependent: :destroy
@@ -16,7 +15,8 @@ module LiveStudio
       create_remote_channel
     end
 
-    def update_video_list
+    # 更新录制视频列表 (是否强制更新所有视频信息)
+    def update_video_list(enforce = false)
       return if remote_id.blank?
       res = ::Typhoeus.post(
         "#{VCLOUD_HOST}/app/videolist",
@@ -27,9 +27,13 @@ module LiveStudio
       )
       return unless res.success?
       result = JSON.parse(res.body).symbolize_keys
-      result[:ret]['videoList'].each do |rt|
-        video = channel_videos.find_or_create_by(vid: rt['vid'])
-        video.update(name: rt['video_name'], key: rt['orig_video_key'])
+      ChannelVideo.transaction do
+        result[:ret]['videoList'].each do |rt|
+          video = channel_videos.find_or_initialize_by(vid: rt['vid'])
+
+          video.update_video_info if video.new_record? || enforce
+          video.update(name: rt['video_name'], key: rt['orig_video_key'])
+        end
       end
     end
 
@@ -117,20 +121,5 @@ module LiveStudio
       )
     end
 
-    def vcloud_headers
-      app_secret = VCLOUD_CONFIG['AppSecret']
-      nonce = SecureRandom.hex 32
-      cur_time = Time.now.utc.to_i.to_s
-
-      check_sum = Digest::SHA1.hexdigest(app_secret + nonce + cur_time)
-
-      {
-        AppKey: VCLOUD_CONFIG['AppKey'],
-        Nonce: nonce,
-        CurTime: cur_time,
-        CheckSum: check_sum,
-        'Content-Type' => "application/json;charset=utf-8"
-      }
-    end
   end
 end

@@ -2,6 +2,7 @@ module LiveService
   class OrderDirector
     def initialize(order)
       @order = order
+      @product = @order.product
     end
 
     # 过滤订单
@@ -27,18 +28,38 @@ module LiveService
     # 已消费金额
     # 学生所购买的课程已结算的费用总额
     def consumed_amount
-      student = @order.user
-      course = @order.product
-      ticket = student.live_studio_buy_tickets.where(course: course).active.last
-      return 0 if ticket.blank?
-      complete_lesson_ids = Payment::Billing.where(target_id: ticket.got_lesson_ids, target_type: 'LiveStudio::Lesson').map(&:target_id).uniq
-      LiveStudio::Lesson.where(id: complete_lesson_ids).map{|lesson| lesson.course.lesson_price}.sum
+      @order.amount - remaining_amount
     end
 
-    def generate_refund
-      refund_amount = @order.amount - consumed_amount
-      Payment::Refund.new(user: @order.user,amount: refund_amount, pay_type: @order.pay_type,status: :init,
-                          product: @order.product, transaction_no: @order.transaction_no)
+    # 未消费金额
+    def remaining_amount
+      return 0 unless @order.paid? || @order.shipped? || @order.completed?
+      amount = unstart_lesson_ids.count * ticket.lesson_price
+      [amount, @order.amount].min
+    end
+
+    def refund
+      Payment::Refund.transaction do
+        Payment::Refund.create(user: @order.user, amount: remaining_amount, pay_type: @order.pay_type,
+                               product: @order.product, transaction_no: @order.transaction_no)
+        ticket.items.where(lesson_id: unstart_lesson_ids).map(&:refund!)
+      end
+    end
+
+    private
+
+    def ticket
+      p '--------'
+      p 
+      @ticket ||= @product.buy_tickets.find_by(payment_order_id: @order.id)
+    end
+
+    def product
+      @product ||= @order.product
+    end
+
+    def unstart_lesson_ids
+      @unstart_lesson_ids ||= product.lessons.unstart.map(&:id)
     end
   end
 end

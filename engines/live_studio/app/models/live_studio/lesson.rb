@@ -14,9 +14,11 @@ module LiveStudio
       teaching: 2, # 上课中
       paused: 3, # 暂停中 意外中断可以继续直播
       closed: 4, # 直播结束 可以继续直播
-      finished: 5, # 已完成 不可继续直播
-      billing: 6, # 结算中
-      completed: 7 # 已结算
+      reteaching: 5, # 重新直播
+      repaused: 6, # 重开后暂停
+      finished: 7, # 已完成 不可继续直播
+      billing: 8, # 结算中
+      completed: 9 # 已结算
     }
 
     enumerize :duration, in: {
@@ -83,20 +85,24 @@ module LiveStudio
       event :teach do
         before do
           # 第一次开始直播增加开始数量
-          increment_course_counter(:started_lessons_count) if ready? || missed? || init?
+          increment_course_counter(:started_lessons_count) if unstart?
         end
-        transitions from: [:ready, :paused, :closed, :missed], to: :teaching
+        transitions from: [:ready, :paused, :missed], to: :teaching
+        transitions from: [:repaused, :closed], to: :reteaching
       end
 
       event :pause do
         transitions from: :teaching, to: :paused
+        transitions from: [:reteaching], to: :repaused
       end
 
       event :close do
         before do
           self.live_end_at = Time.now
+          # 第一次结束直播增加结束数量
+          increment_course_counter(:closed_lessons_count) if unclosed?
         end
-        transitions from: [:teaching, :paused], to: :closed
+        transitions from: [:teaching, :paused, :reteaching, :repaused], to: :closed
       end
 
       event :finish, after_commit: :instance_play_records do
@@ -104,7 +110,7 @@ module LiveStudio
           # 课程完成增加辅导班完成课程数量
           increment_course_counter(:finished_lessons_count)
         end
-        transitions from: [:paused, :closed], to: :finished
+        transitions from: [:closed], to: :finished
       end
 
       event :complete do
@@ -137,10 +143,6 @@ module LiveStudio
 
     def can_play?
       ready? || teaching?
-    end
-
-    def has_finished?
-      self[:status] > Lesson.statuses[:teaching]
     end
 
     # 是否可以准备上课
@@ -198,9 +200,23 @@ module LiveStudio
       %w(finished billing completed).include?(status)
     end
 
+    # 判断课程是否未开始
+    # 待补课, 初始化, 待上课算作没开始
     def unstart?
-      # 判断课程是否未开始
       %w(missed init ready).include?(status)
+    end
+
+    # 没开始课程算作没有结束
+    # 暂停中或者上课中算作没有结束
+    # 结束以后重新开始算作已经结束
+    # 结束以后重新开始然后暂停算作已结束
+    def unclosed?
+      unstart? || %w(teaching paused).include?(status)
+    end
+
+    # 是否已经结束
+    def lesson_finished?
+      %w(finished billing completed).include?(status)
     end
 
     # 记录播放记录

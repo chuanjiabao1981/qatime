@@ -9,6 +9,8 @@ module LiveStudio
     belongs_to :student, class_name: "::Student"
     belongs_to :lesson
 
+    has_many :ticket_items
+
     enum status: {
       inactive: 0,   # 准备试听
       active: 1,     # 可用
@@ -68,6 +70,11 @@ module LiveStudio
     after_create :add_to_team
     def add_to_team
       ::Chat::TeamMemberCreatorJob.perform_later(course.id, student_id)
+    end
+
+    after_create :instance_items
+    def instance_items
+      ticket_items.create(course.lessons.unclosed.map { |l| { lesson_id: l.id } })
     end
   end
 end

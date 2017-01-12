@@ -140,7 +140,7 @@ module V1
           end
           get ':id/replay' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
-            present @lesson, with: Entities::LiveStudio::VideoLesson, type: :full
+            present @lesson, with: Entities::LiveStudio::VideoLesson
           end
         end
       end

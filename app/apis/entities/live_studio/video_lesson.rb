@@ -16,7 +16,7 @@ module Entities
       expose :user_play_times do |lesson|
         0
       end
-      expose :replays, using: Entities::LiveStudio::ChannelVideo, if: { type: :full } do |lesson|
+      expose :replays, using: Entities::LiveStudio::ChannelVideo do |lesson|
         lesson.channel_videos
       end
     end

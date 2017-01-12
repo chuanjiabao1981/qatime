@@ -198,9 +198,10 @@ module LiveStudio
     # 发货
     def deliver(order)
       taste_tickets.where(student_id: order.user_id).available.map(&:replaced!) # 替换正在使用的试听券
+
       ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: lesson_price,
                                              payment_order_id: order.id, buy_count: lesson_count_left)
-      ticket.got_lesson_ids = lessons.unstart.map(&:id)
+      ticket.got_lesson_ids = lessons.where(live_end_at: nil).map(&:id)
       ticket.active!
     end
 

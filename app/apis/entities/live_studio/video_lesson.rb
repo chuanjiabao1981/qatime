@@ -7,16 +7,14 @@ module Entities
       expose :playable do |lesson|
         lesson.try(:channel_videos).present?
       end
-      expose :total_play_times do |lesson|
-        0
+      expose :total_play_times
+      expose :user_playable do |lesson, options|
+        lesson.play_records.replay.where(user: options[:current_user]).count < 20
       end
-      expose :user_playable do |lesson|
-        true
+      expose :user_play_times do |lesson, options|
+        lesson.play_records.replay.where(user: options[:current_user]).count
       end
-      expose :user_play_times do |lesson|
-        0
-      end
-      expose :replays, using: Entities::LiveStudio::ChannelVideo do |lesson|
+      expose :replays, using: Entities::LiveStudio::ChannelVideo, if: { type: :full } do |lesson|
         lesson.channel_videos
       end
     end

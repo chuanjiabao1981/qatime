@@ -236,7 +236,7 @@ module V1
               id: @course.id,
               lessons: @course.lessons
             }
-            present info, with: Entities::LiveStudio::CourseReplay
+            present info, with: Entities::LiveStudio::CourseReplay, current_user: current_user
           end
         end
 

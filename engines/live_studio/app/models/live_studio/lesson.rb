@@ -227,6 +227,11 @@ module LiveStudio
       APP_CONFIG[:live_beat_step] || 10
     end
 
+    # 点播次数
+    def total_play_times
+      play_records.replay.count
+    end
+
     private
 
     # 过期试听证

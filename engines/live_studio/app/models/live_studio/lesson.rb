@@ -71,6 +71,8 @@ module LiveStudio
       state :teaching
       state :paused
       state :closed
+      state :reteaching
+      state :repaused
       state :finished
       state :billing
       state :completed

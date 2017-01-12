@@ -185,9 +185,9 @@ module LiveStudio
 
     # 当前价格
     def current_price
-      return 0 if lessons_count <= started_lessons_count
-      return price.to_f if started_lessons_count.zero?
-      lesson_price * (lessons_count - started_lessons_count)
+      return 0 if lessons_count <= closed_lessons_count
+      return price.to_f if closed_lessons_count.zero?
+      lesson_price * (lessons_count - closed_lessons_count)
     end
 
     def live_next_time

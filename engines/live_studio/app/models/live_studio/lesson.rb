@@ -14,11 +14,9 @@ module LiveStudio
       teaching: 2, # 上课中
       paused: 3, # 暂停中 意外中断可以继续直播
       closed: 4, # 直播结束 可以继续直播
-      reteaching: 5, # 重新直播
-      repaused: 6, # 重开后暂停
-      finished: 7, # 已完成 不可继续直播
-      billing: 8, # 结算中
-      completed: 9 # 已结算
+      finished: 5, # 已完成 不可继续直播
+      billing: 6, # 结算中
+      completed: 7 # 已结算
     }
 
     enumerize :duration, in: {
@@ -45,12 +43,14 @@ module LiveStudio
     scope :include_today, -> {where('class_date >= ?',Date.today)}
     scope :waiting_finish, -> { where(status: [Lesson.statuses[:paused], Lesson.statuses[:closed]])}
     scope :month, -> (month){where('live_studio_lessons.class_date >= ? and live_studio_lessons.class_date <= ?', month.beginning_of_month.to_date,month.end_of_month.to_date)}
+    scope :started, -> { where("status >= ?", Lesson.statuses[:teaching])} # 已开始
 
     belongs_to :course, counter_cache: true
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
 
     has_many :play_records # 听课记录
     has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
+    has_many :channel_videos
 
     has_many :live_sessions # 直播 心跳记录
     has_many :live_studio_lesson_notifications, as: :notificationable, dependent: :destroy
@@ -71,8 +71,6 @@ module LiveStudio
       state :teaching
       state :paused
       state :closed
-      state :reteaching
-      state :repaused
       state :finished
       state :billing
       state :completed
@@ -90,28 +88,27 @@ module LiveStudio
           # 第一次开始直播增加开始数量
           increment_course_counter(:started_lessons_count) if unstart?
         end
-        transitions from: [:ready, :paused, :missed], to: :teaching
-        transitions from: [:repaused, :closed], to: :reteaching
+        transitions from: [:ready, :paused, :missed, :closed], to: :teaching
       end
 
       event :pause do
         transitions from: :teaching, to: :paused
-        transitions from: [:reteaching], to: :repaused
       end
 
       event :close do
         before do
-          self.live_end_at = Time.now
           # 第一次结束直播增加结束数量
-          increment_course_counter(:closed_lessons_count) if unclosed?
+          increment_course_counter(:closed_lessons_count) if live_end_at.nil?
+          self.live_end_at = Time.now
         end
-        transitions from: [:teaching, :paused, :reteaching, :repaused], to: :closed
+        transitions from: [:teaching, :paused], to: :closed
       end
 
       event :finish, after_commit: :instance_play_records do
         after do
-          # 课程完成增加辅导班完成课程数量
+          # 课程完成增加辅导班完成课程数量 & 异步更新录制视频列表
           increment_course_counter(:finished_lessons_count)
+          ChannelWorkder.perform_async(course)
         end
         transitions from: [:closed], to: :finished
       end

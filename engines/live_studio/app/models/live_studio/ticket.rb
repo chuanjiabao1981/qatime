@@ -71,10 +71,5 @@ module LiveStudio
     def add_to_team
       ::Chat::TeamMemberCreatorJob.perform_later(course.id, student_id)
     end
-
-    after_create :instance_items
-    def instance_items
-      ticket_items.create(course.lessons.unclosed.map { |l| { lesson_id: l.id } })
-    end
   end
 end

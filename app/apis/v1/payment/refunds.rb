@@ -3,7 +3,6 @@ module V1
   module Payment
     class Refunds < V1::Base
       namespace "payment" do
-
         before do
           authenticate!
         end
@@ -29,7 +28,6 @@ module V1
               present LiveService::OrderDirector.new(order).generate_refund, with: Entities::Payment::Refund
             end
 
-
             desc '提交退款申请' do
               headers 'Remember-Token' => {
                 description: 'RememberToken',
@@ -42,9 +40,9 @@ module V1
             end
             post 'refunds' do
               order = @user.orders.find_by!(transaction_no: params[:order_id])
-              refund = LiveService::OrderDirector.new(order).generate_refund
-              raise ActiveRecord::RecordInvalid, refund unless refund.save
-              refund.create_refund_reason(reason:  params[:reason])
+              refund = LiveService::OrderDirector.new(order).refund!
+              raise ActiveRecord::RecordInvalid, refund if refund.errors.any?
+              refund.create_refund_reason(reason: params[:reason])
               present refund, with: Entities::Payment::Refund
             end
 

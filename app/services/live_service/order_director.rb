@@ -38,12 +38,18 @@ module LiveService
       [amount, @order.amount].min
     end
 
-    def refund
+    def refund!
+      refund = generate_refund
       Payment::Refund.transaction do
-        Payment::Refund.create(user: @order.user, amount: remaining_amount, pay_type: @order.pay_type,
-                               product: @order.product, transaction_no: @order.transaction_no)
         ticket.items.where(lesson_id: unstart_lesson_ids).map(&:refund!)
+        refund.save
       end
+      refund
+    end
+
+    def generate_refund
+      Payment::Refund.new(user: @order.user, amount: remaining_amount, pay_type: @order.pay_type,
+                          product: @order.product, transaction_no: @order.transaction_no)
     end
 
     private

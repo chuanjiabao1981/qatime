@@ -49,6 +49,7 @@ module LiveStudio
 
     has_many :play_records # 听课记录
     has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
+    has_many :channel_videos
 
     has_many :live_sessions # 直播 心跳记录
     has_many :live_studio_lesson_notifications, as: :notificationable, dependent: :destroy

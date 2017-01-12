@@ -230,12 +230,13 @@ module V1
           params do
             requires :id, desc: '辅导班ID'
           end
-          get '/:id/videos' do
+          get '/:id/replays' do
             @course = ::LiveStudio::Course.find(params[:id])
-            {
-              board: @course.channels.board.map{|cl| cl.channel_videos if cl.set_always_recorded }.compact.first.to_a,
-              camera: @course.channels.camera.map{|cl| cl.channel_videos if cl.set_always_recorded }.compact.first.to_a
+            info = {
+              id: @course.id,
+              lessons: @course.lessons
             }
+            present info, with: Entities::LiveStudio::CourseReplay
           end
         end
 

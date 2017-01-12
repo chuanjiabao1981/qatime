@@ -70,4 +70,15 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
     assert_equal 1003, res['error']['code']
     assert_equal "无访问权限", res['error']['msg']
   end
+
+  test 'student get replay' do
+    @student = users(:student_one_with_course)
+    @remember_token = api_login(@student, :app)
+    @lesson = live_studio_lessons(:lesson_for_taste_zero)
+    get "/api/v1/live_studio/lessons/#{@lesson.id}/replay", {}, 'Remember-Token' => @remember_token
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status']
+    assert_equal res['data'].size, 6
+  end
 end

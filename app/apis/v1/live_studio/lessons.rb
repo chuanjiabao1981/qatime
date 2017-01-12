@@ -129,6 +129,19 @@ module V1
             present @lesson, with: Entities::LiveStudio::Lesson
           end
 
+          desc '回放视频信息接口' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, type: Integer, desc: '课程ID'
+          end
+          get ':id/replay' do
+            @lesson = ::LiveStudio::Lesson.find(params[:id])
+            present @lesson, with: Entities::LiveStudio::VideoLesson, type: :full
+          end
         end
       end
     end

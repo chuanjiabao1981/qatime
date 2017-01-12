@@ -191,7 +191,9 @@ module Permissions
         student && student.id == user.id
       end
       api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/orders"
-      api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/videos"
+      api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/replays"
+      api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/replay"
+
 
 
       # 学生个人信息接口

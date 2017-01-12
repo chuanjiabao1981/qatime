@@ -49,8 +49,6 @@ module LiveService
     private
 
     def ticket
-      p '--------'
-      p 
       @ticket ||= @product.buy_tickets.find_by(payment_order_id: @order.id)
     end
 

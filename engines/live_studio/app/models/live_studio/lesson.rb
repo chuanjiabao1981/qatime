@@ -241,6 +241,10 @@ module LiveStudio
       APP_CONFIG[:live_beat_step] || 10
     end
 
+    def billing_amount
+      @billing_amount ||= ticket_items.billingable.includes(:ticket).map(&:ticket).sum(&:lesson_price)
+    end
+
     private
 
     # 过期试听证

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170112062746) do
+ActiveRecord::Schema.define(version: 20170113103535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -712,15 +712,39 @@ ActiveRecord::Schema.define(version: 20170112062746) do
     t.string   "from_type"
   end
 
+  create_table "payment_billing_items", force: :cascade do |t|
+    t.integer  "billing_id"
+    t.integer  "cash_account_id"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.decimal  "amount",          precision: 8
+    t.integer  "quantity"
+    t.integer  "duration"
+    t.integer  "percent"
+    t.decimal  "price",           precision: 8
+    t.integer  "parent_id"
+    t.string   "type"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "payment_billing_items", ["billing_id"], name: "index_payment_billing_items_on_billing_id", using: :btree
+  add_index "payment_billing_items", ["cash_account_id"], name: "index_payment_billing_items_on_cash_account_id", using: :btree
+  add_index "payment_billing_items", ["owner_type", "owner_id"], name: "index_payment_billing_items_on_owner_type_and_owner_id", using: :btree
+
   create_table "payment_billings", force: :cascade do |t|
     t.integer  "target_id"
     t.string   "target_type"
     t.decimal  "total_money", precision: 8, scale: 2
     t.datetime "deleted_at"
     t.string   "summary"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.integer  "parent_id"
+    t.string   "type"
+    t.integer  "percent",                             default: 0
+    t.integer  "quantity",                            default: 0
+    t.decimal  "price",       precision: 8, scale: 2, default: 0.0
   end
 
   add_index "payment_billings", ["target_type", "target_id"], name: "index_payment_billings_on_target_type_and_target_id", using: :btree

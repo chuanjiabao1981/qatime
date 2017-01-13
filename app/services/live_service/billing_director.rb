@@ -33,24 +33,24 @@ module LiveService
 
     # 总金额
     def total_money
-      @total_money ||= @lesson.ticket_items.billingable.includes(:ticket).map(&:ticket).sum(&:lesson_price)
+      @total_money ||= @lesson.ticket_items.billingable.includes(:ticket).map(&:ticket).sum(&:lesson_price).round(2)
     end
 
     # 基础服务费
     def base_fee
       return @base_fee if @base_fee.present?
       fee = LiveStudio::Course::SYSTEM_FEE * @lesson.ticket_items.billingable.count * @lesson.real_time / 100
-      @base_fee = [total_money, fee].min
+      @base_fee = [total_money, fee].min.round(2)
     end
 
     # 分成费用
     def percent_fee
-      @percent_fee ||= total_money * teacher_money
+      @percent_fee ||= total_money - teacher_money
     end
 
     # 工作站收入
     def workstation_percent_fee
-      @workstation_percent_fee ||= percent_fee * 0.8
+      @workstation_percent_fee ||= (percent_fee * 0.8).round(2)
     end
 
     # 系统分成
@@ -62,7 +62,7 @@ module LiveService
     def teacher_money
       return @teacher_money if @teacher_money.present?
       money = (total_money - base_fee) * @course.teacher_percentage.to_f / 100
-      @teacher_money = [money, total_money - base_fee].min
+      @teacher_money = [money, total_money - base_fee].min.round(2)
     end
 
     private

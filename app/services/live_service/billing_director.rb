@@ -8,10 +8,10 @@ module LiveService
     # 课程结算
     def billing
       check_lesson
-      billing = @lesson.billings.create(total_money: total_money, summary: "课程完成结算, 结算金额: #{money}")
+      billing = @lesson.billings.create(total_money: total_money, summary: "课程完成结算, 结算金额: #{total_money}")
       Payment::CashAccount.transaction do
         # 系统支出
-        decrease_cash_admin_account(money, billing)
+        decrease_cash_admin_account(total_money, billing)
         # 基础服务费
         increase_cash_admin_account(base_fee,
                                     billing,
@@ -39,7 +39,7 @@ module LiveService
     # 基础服务费
     def base_fee
       return @base_fee if @base_fee.present?
-      fee = LiveStudio::Course::SYSTEM_FEE * @lesson.ticket_items.billingable.count * @lesson.real_time
+      fee = LiveStudio::Course::SYSTEM_FEE * @lesson.ticket_items.billingable.count * @lesson.real_time / 100
       @base_fee = [total_money, fee].min
     end
 
@@ -89,8 +89,10 @@ module LiveService
     end
 
     def check_lesson
-      return if @lesson.teacher.present?
-      @lesson.teacher = @course.teacher
+      # 检查课程老师信息
+      @lesson.teacher = @course.teacher unless @lesson.teacher.present?
+      # 检查课程时长
+      @lesson.real_time = @lesson.live_sessions.sum(:duration) unless @lesson.real_time.to_i > 0
       @lesson.save
     end
   end

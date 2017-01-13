@@ -78,7 +78,7 @@ module LiveService
     # 结算完成后
     # 系统账户 支出结算金额
     def decrease_cash_admin_account(money, billing)
-      CashAdmin.decrease_cash_account(money, billing, '课程完成 - 支出结算')
+      CashAdmin.decrease_cash_account(money, billing, '课程 #{@course.id}-#{@lesson.id}完成系统支出结算, 结算金额: #{money}')
     end
 
     # 结算完成后

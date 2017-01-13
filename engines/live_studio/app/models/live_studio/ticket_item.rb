@@ -8,5 +8,8 @@ module LiveStudio
     }
 
     belongs_to :lesson
+    belongs_to :ticket
+
+    scope :billingable, -> { where(status: LiveStudio::TicketItem.statuses.slice(:unused, :used).values) }
   end
 end

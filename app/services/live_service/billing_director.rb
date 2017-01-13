@@ -7,90 +7,72 @@ module LiveService
 
     # 课程结算
     def billing
-      # 结算金额
-      money = total_money
-      if @lesson.teacher.blank?
-        @lesson.teacher = @course.teacher
-        @lesson.save
-      end
-
+      check_lesson
       billing = @lesson.billings.create(total_money: money, summary: "课程完成结算, 结算金额: #{money}")
       Payment::CashAccount.transaction do
         # 系统支出
         decrease_cash_admin_account(money, billing)
+        # 基础服务费
+        increase_cash_admin_account(base_fee,
+                                    billing,
+                                    "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得基础服务费分成: #{base_fee}")
+        # 代理商分成费用
+        workstation_account.earning(workstation_percent_fee, @lesson, billing,
+                                    "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得授课收入: #{workstation_percent_fee}")
+        # 系统分成费用
+        increase_cash_admin_account(system_percent_fee,
+                                    billing,
+                                    "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得基础服务费分成: #{system_percent_fee}")
+        # 教师收入
+        teacher_account.earning(teacher_money, @lesson, billing,
+                                "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得授课收入: #{teacher_money}")
         # 服务费结账
-        money -= service_fee_billing(money, billing)
-        # 授课收入结账
-        teach_fee_billing(money, billing)
-        @lesson.close! && @lesson.finish! if @lesson.teaching?
         @lesson.complete!
       end
     end
 
+    # 总金额
+    def total_money
+      @total_money ||= @lesson.ticket_items.billingable.includes(:ticket).map(&:ticket).sum(&:lesson_price)
+    end
+
+    # 基础服务费
+    def base_fee
+      return @base_fee if @base_fee.present?
+      fee = LiveStudio::Course::SYSTEM_FEE * @lesson.ticket_items.billingable.count * @lesson.real_time
+      @base_fee = [total_money, fee].min
+    end
+
+    # 分成费用
+    def percent_fee
+      @percent_fee ||= total_money * teacher_money
+    end
+
+    # 工作站收入
+    def workstation_percent_fee
+      @workstation_percent_fee ||= percent_fee * 0.8
+    end
+
+    # 系统分成
+    def system_percent_fee
+      @system_percent_fee ||= percent_fee - workstation_percent_fee
+    end
+
+    # 教师收入
+    def teacher_money
+      return @teacher_money if @teacher_money.present?
+      money = (total_money - base_fee) * @course.teacher_percentage.to_f / 100
+      @teacher_money = [money, total_money - base_fee].min
+    end
+
     private
 
-    def total_money
-      @course.buy_tickets.where('got_lesson_ids like ?', "% #{@lesson.id}\n%").sum(:lesson_price)
+    def workstation_account
+      @workstation_account ||= @course.workstation.cash_account!
     end
 
-    def service_fee(money)
-      service_money = LiveStudio::Course::SYSTEM_FEE * @lesson.live_count * @lesson.real_time
-      [money, service_money].min
-    end
-
-    # 系统服务费账单
-    def service_fee_billing(money, billing)
-      system_money = service_money = service_fee(money)
-      if @course.workstation
-        sub_billing = billing.sub_billings.create(total_money: service_money, summary: "课程完成系统服务费结算, 结算金额: #{service_money}")
-        system_money -= workstation_service_fee!(service_money, sub_billing)
-      end
-      system_service_fee!(system_money, sub_billing || billing)
-      service_money
-    end
-
-    # 系统服务费代理商分成
-    def workstation_service_fee!(service_money, billing)
-      workstation_money = service_money * LiveStudio::Course::WORKSTATION_PERCENT
-      workstation_money = service_money if workstation_money > service_money
-      workstation_account = @course.workstation.cash_account!
-      workstation_account.earning(workstation_money, @lesson, billing,
-                                  "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得基础服务费分成: #{workstation_money}(#{LiveStudio::Course::WORKSTATION_PERCENT})")
-      workstation_money
-    end
-
-    # 服务费系统收入
-    def system_service_fee!(system_money, billing)
-      increase_cash_admin_account(system_money, billing,
-                                  "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得基础服务费分成: #{system_money}")
-    end
-
-    # 教课收入结账
-    def teach_fee_billing(money, billing)
-      sub_billing = billing.sub_billings.create(total_money: money, summary: "课程完成授课收入结算, 结算金额: #{money}") if @course.teacher_percentage < 100
-      teacher_money = teacher_teach_fee!(money, sub_billing || billing)
-      workstation_teach_fee!(money - teacher_money, sub_billing)
-      money
-    end
-
-    # 教师授课收入
-    def teacher_teach_fee!(money, billing)
-      teacher_money = money
-      teacher_money = teacher_money * @course.teacher_percentage.to_f / 100 if @course.teacher_percentage < 100
-      teacher_account = @course.teacher.cash_account!
-      teacher_account.earning(teacher_money, @lesson, billing,
-                              "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得授课收入: #{teacher_money}")
-      teacher_money
-    end
-
-    # 授课收入工作站分成
-    def workstation_teach_fee!(money, billing)
-      # 工作站不存在或者工作站金额小于等于0没有收入
-      return 0 if money <= 0 || @course.workstation.blank?
-      workstation_account = @course.workstation.cash_account!
-      workstation_account.earning(money, @lesson, billing,
-                                  "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得授课收入: #{money}")
-      money
+    def teacher_account
+      @teacher_account = @course.teacher.cash_account!
     end
 
     # 结算完成后
@@ -104,6 +86,12 @@ module LiveService
     def increase_cash_admin_account(money, billing, summary = nil)
       summary ||= '课程完成 - 系统服务费'
       CashAdmin.increase_cash_account(money, billing, summary)
+    end
+
+    def check_lesson
+      return if @lesson.teacher.present?
+      @lesson.teacher = @course.teacher
+      @lesson.save
     end
   end
 end

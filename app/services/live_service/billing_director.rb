@@ -8,7 +8,7 @@ module LiveService
     # 课程结算
     def billing
       check_lesson
-      billing = @lesson.billings.create(total_money: money, summary: "课程完成结算, 结算金额: #{money}")
+      billing = @lesson.billings.create(total_money: total_money, summary: "课程完成结算, 结算金额: #{money}")
       Payment::CashAccount.transaction do
         # 系统支出
         decrease_cash_admin_account(money, billing)

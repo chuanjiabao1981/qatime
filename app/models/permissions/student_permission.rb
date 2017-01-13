@@ -158,7 +158,7 @@ module Permissions
       allow 'settings', [:create, :update]
       allow 'live_studio/student/courses', [:index, :show]
       allow 'live_studio/courses', [:index, :show]
-      allow 'live_studio/lessons', [:show, :play]
+      allow 'live_studio/lessons', [:show, :play, :videos]
       ## end live studio permission
 
       # payment permission

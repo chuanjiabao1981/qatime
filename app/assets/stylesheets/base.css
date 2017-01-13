@@ -177,7 +177,6 @@ a {
     width: 100%;
     padding-left: 20px;
   }
-
   .std-row-1 {
     margin-left: 81px;
     padding-left: 20px;
@@ -3037,7 +3036,7 @@ i {
   font-size: 12px;
   color: rgb(224,224,224);
   position: absolute;
-  left: 10px;
+  left: 0px;
   bottom: -10px;
 }
 .btn-audition,.btn-taste-end {
@@ -6886,6 +6885,10 @@ ul {
   .affiche {
     height: 366px !important;
   }
+  .playback,.playback .video-area,.playback .area-right {
+    height: 583px !important;
+  }
+
 }
 
 
@@ -7644,4 +7647,82 @@ ul {
   margin-top: 20px;
   color: #be0b0b !important;
   border-color: #be0b0b;
+}
+
+
+
+
+
+/*视频回放*/
+
+.playback .area-right,.playback .video-area {
+  height: 480px;
+}
+.playback .area-right {
+  overflow-y: scroll;
+}
+.playback-title {
+  height: 28px;
+  line-height: 25px;
+  color: #BE0B0B;
+  border-bottom: 1px solid #CCCCCC;
+  text-align: center;
+}
+.playback-con {
+  margin-bottom: 0px;
+  padding-left: 0px;
+}
+.playback-con li a {
+  display: block;
+}
+.playback-con-title span:first-child,.playback-con-time span:first-child{
+  display: inline-block;
+  width: 30px;
+}
+.playback-con-title,.playback-con-time {
+  width: 100%;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  -o-text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.playback-con-title {
+  color: #555555;
+}
+.playback-con-time {
+  color: #CCCCCC;
+}
+.playback-con li {
+  height: 50px;
+  padding: 4px 10px 0px 10px;
+  border-bottom: 1px solid rgb(247,247,247);
+}
+.playback-con .active {
+  color: #be0b0b;
+}
+.arrange-con table tr td:last-child span {
+  text-align: left;
+  float: left;
+}
+.arrange-con table tr td:last-child a img {
+  margin-top: -5px;
+}
+.arrange-con table tr td:last-child {
+  overflow: hidden;
+}
+.vjs-control-definition {
+  height: 45px !important;
+  position: relative;
+  right: -15px;
+  bottom: 45px;
+  background-color: rgba(43,51,63,0.7);
+  visibility: hidden;
+}
+.vjs-control-definition label {
+  position: relative;
+  top: -2px;
+}
+.vjs-clarity-control {
+  position: relative;
+  left: -20px;
 }

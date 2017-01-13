@@ -41,7 +41,7 @@ module LiveService
     def refund!
       refund = generate_refund
       Payment::Refund.transaction do
-        ticket.ticket_items.where(lesson_id: unstart_lesson_ids).map(&:refunded!)
+        ticket.ticket_items.where(lesson_id: unstart_lesson_ids).map(&:refunding!)
         refund.save
       end
       refund

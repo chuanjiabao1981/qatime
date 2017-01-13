@@ -62,7 +62,7 @@ module LiveService
     def teacher_money
       return @teacher_money if @teacher_money.present?
       money = (total_money - base_fee) * @course.teacher_percentage.to_f / 100
-      @teacher_money = [money, total_money - base_fee].min.round(2)
+      @teacher_money = [money, total_money - base_fee].min
     end
 
     private

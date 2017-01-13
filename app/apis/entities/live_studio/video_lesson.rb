@@ -4,6 +4,8 @@ module Entities
       expose :id do |lesson|
         lesson.id
       end
+      expose :name
+      expose :duration
       expose :playable do |lesson|
         lesson.try(:channel_videos).present?
       end

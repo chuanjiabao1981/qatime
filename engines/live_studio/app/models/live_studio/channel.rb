@@ -30,7 +30,6 @@ module LiveStudio
       ChannelVideo.transaction do
         result[:ret]['videoList'].each do |rt|
           video = channel_videos.find_or_initialize_by(vid: rt['vid'])
-
           video.update_video_info if video.new_record? || enforce
           video.update(name: rt['video_name'], key: rt['orig_video_key'])
         end
@@ -76,8 +75,14 @@ module LiveStudio
           filename: "#{course.name}-#{Time.now.to_i}"
         }.to_json
       )
-
-      return unless res.success?
+      res_back = ::Typhoeus.post(
+        "#{VCLOUD_HOST}/app/record/setcallback",
+        headers: vcloud_headers,
+        body: {
+          recordClk: "#{$host_name}/v1/live_studio/channels/#{id}/callback"
+        }.to_json
+      )
+      return unless res.success? && res_back.success?
       self.set_always_recorded = true
     end
 

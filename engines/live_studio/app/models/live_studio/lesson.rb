@@ -104,7 +104,7 @@ module LiveStudio
         after do
           # 课程完成增加辅导班完成课程数量 & 异步更新录制视频列表
           increment_course_counter(:finished_lessons_count)
-          ChannelWorkder.perform_async(course)
+          ChannelWorkder.perform_async(course.id)
         end
         transitions from: [:paused, :closed], to: :finished
       end

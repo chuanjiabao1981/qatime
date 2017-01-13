@@ -1,8 +1,6 @@
 module Payment
-  class LiveCourseBilling < ActiveRecord::Base
+  class LiveCourseBilling < Billing
     WORKSTATION_PERCENT = 0.8
-
-    has_many :billing_items
 
     # 计算账单
     def calculate
@@ -52,6 +50,22 @@ module Payment
 
     private
 
+    def system_account
+      @system_account ||= CashAdmin.current!.cash_account!
+    end
+
+    def workstation_account
+      workstation.cash_account!
+    end
+
+    def workstation
+      @workstation ||= target.course.workstation || Workstation.default
+    end
+
+    def teacher_account
+      target.teacher.cash_account!
+    end
+
     # 总金额
     def calculate_total_money
       self.total_money = target.billing_amount
@@ -73,12 +87,14 @@ module Payment
     def system_pay_item!
       SystemPayItem.create!(billing: self,
                             cash_account: system_account,
+                            owner: CashAdmin.current!,
                             amount: -total_money)
     end
 
     def system_fee_item!
       SystemFeeItem.create!(billing: self,
                             cash_account: system_account,
+                            owner: CashAdmin.current!,
                             amount: base_fee,
                             quantity: quantity,
                             price: LiveStudio::Course::SYSTEM_FEE,
@@ -98,15 +114,18 @@ module Payment
 
     def system_percent_item!(item)
       SystemPercentItem.create!(parent: item,
+                                billing: self,
                                 cash_account: system_account,
+                                owner: CashAdmin.current!,
                                 amount: system_percent_money,
-                                percent: (1 - WORKSTATION_PERCENT) * 100)
+                                percent: 100 - WORKSTATION_PERCENT * 100)
     end
 
     def workstation_percent_item!(item)
       WorkstationPercentItem.create!(parent: item,
+                                     billing: self,
                                      cash_account: workstation_account,
-                                     owner: target.course.workstation,
+                                     owner: workstation,
                                      amount: workstation_percent_money,
                                      percent: WORKSTATION_PERCENT * 100)
     end

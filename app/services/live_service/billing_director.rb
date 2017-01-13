@@ -15,14 +15,14 @@ module LiveService
         # 基础服务费
         increase_cash_admin_account(base_fee,
                                     billing,
-                                    "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得基础服务费分成: #{base_fee}")
+                                    "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得基础服务费: #{base_fee}")
         # 代理商分成费用
         workstation_account.earning(workstation_percent_fee, @lesson, billing,
-                                    "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得授课收入: #{workstation_percent_fee}")
+                                    "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得服务分成: #{workstation_percent_fee}")
         # 系统分成费用
         increase_cash_admin_account(system_percent_fee,
                                     billing,
-                                    "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得基础服务费分成: #{system_percent_fee}")
+                                    "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得服务分成: #{system_percent_fee}")
         # 教师收入
         teacher_account.earning(teacher_money, @lesson, billing,
                                 "辅导班: #{@course.name} 的课程: #{@lesson.name} 结束. 获得授课收入: #{teacher_money}")
@@ -45,7 +45,7 @@ module LiveService
 
     # 分成费用
     def percent_fee
-      @percent_fee ||= total_money - teacher_money
+      @percent_fee ||= total_money - base_fee - teacher_money
     end
 
     # 工作站收入
@@ -78,7 +78,7 @@ module LiveService
     # 结算完成后
     # 系统账户 支出结算金额
     def decrease_cash_admin_account(money, billing)
-      CashAdmin.decrease_cash_account(money, billing, '课程 #{@course.id}-#{@lesson.id}完成系统支出结算, 结算金额: #{money}')
+      CashAdmin.decrease_cash_account(money, billing, "课程 #{@course.id}-#{@lesson.id}完成系统支出结算, 结算金额: #{money}")
     end
 
     # 结算完成后

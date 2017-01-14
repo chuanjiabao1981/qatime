@@ -4,7 +4,7 @@
     <%= content_tag(:div, class: 'course-content-div support') do %>
       <%= content_tag(:div,class: 'course-info-col') do %>
         <%= content_tag(:div, course.name, class: 'course-name') %>
-        <%= content_tag(:div, t('view.course_search_show.buy_tickets_count') % course.buy_tickets_count,
+        <%= content_tag(:div, t('view.course_search_show.buy_tickets_count') % course.buy_user_count,
                         class: 'course-buy-count')%>
       <% end %>
       <%= content_tag(:div, "#{t('view.course_info_show.desc')}#{truncate(course.description,length: 112)}") %>

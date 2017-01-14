@@ -13,7 +13,7 @@
   <td><span><%= course.grade %></span></td>
   <td><span><%= course.lessons_count %></span></td>
   <td><span><%= number_to_currency(course.price, unit: "￥", precision: 2) %></span></td>
-  <td><span><%= course.buy_tickets_count %></span></td>
+  <td><span><%= course.buy_user_count %></span></td>
   <td><span><%= number_to_percentage(course.teacher_percentage, precision: 0) %></span></td>
   <td><span><%= localize(course.published_at, format: :long) if course.published_at %></span></td>
   <td><span><%= course.status.text %></span></td>

@@ -22,7 +22,9 @@ module Entities
       expose :chat_team_owner do |course|
         course.try(:chat_team).try(:owner).to_s
       end
-      expose :buy_tickets_count
+      expose :buy_tickets_count do |course|
+        course.buy_user_count
+      end
       expose :status
       expose :description, if: { type: :full }
       expose :lesson_count, if: { type: :full } do |course|

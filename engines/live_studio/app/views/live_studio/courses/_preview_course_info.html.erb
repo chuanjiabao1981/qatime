@@ -56,7 +56,7 @@
                     <span class="title-color price-num">
                       <%= number_to_currency(@course.price.to_f,unit: '￥') %>
                     </span>
-                    <span class="sign-up"><%= t('view.course_search_show.purchase_number') %><%= @course.buy_tickets_count%></span>
+                    <span class="sign-up"><%= t('view.course_search_show.purchase_number') %><%= @course.buy_user_count %></span>
                   </div>
 
                   <div class="listen-class">

@@ -343,6 +343,11 @@ module LiveStudio
       lessons.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
     end
 
+    # 购买人数
+    def buy_user_count
+      buy_tickets_count + adjust_buy_count
+    end
+
     private
 
     # 辅导班删除以后同时删除课程

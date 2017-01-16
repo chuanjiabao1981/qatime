@@ -38,7 +38,7 @@ module LiveService
     def finish
       @course = @lesson.course
       @lesson.teacher_id = @course.teacher_id
-      @lesson.live_count = @course.buy_tickets_count # 听课人数
+      @lesson.live_count = @course.buy_tickets.count # 听课人数
       @lesson.live_end_at ||= Time.now
       @lesson.real_time = @lesson.live_sessions.sum(:duration) # 实际直播时间单位分钟
       @course.save!
@@ -72,7 +72,8 @@ module LiveService
     def self.clean_lessons
       LiveStudio::Lesson.waiting_finish.where('class_date <= ?', Date.yesterday).find_each(batch_size: 500) do |l|
         next unless l.course
-        l.finish!
+        l.close! if l.teaching? || l.paused?
+        LiveService::LessonDirector.new(l).finish
       end
       LiveStudio::Lesson.teaching.where('class_date < ?', Date.yesterday).find_each(batch_size: 500).each do |lesson|
         next unless lesson.course

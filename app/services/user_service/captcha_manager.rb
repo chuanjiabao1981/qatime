@@ -93,6 +93,8 @@ module UserService
         SmsWorker::WITHDRAW_CASH
       when :update_payment_pwd
         SmsWorker::PAYMENT_PASSWORD
+      when :payment_password
+        SmsWorker::PAYMENT_PASSWORD
       end
     end
   end

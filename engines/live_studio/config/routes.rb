@@ -35,7 +35,7 @@ LiveStudio::Engine.routes.draw do
       get :live_status
     end
 
-    resources :lessons, only: [:show] do
+    resources :lessons, only: [:show], shallow: true do
       member do
         get :play
         patch :completed

@@ -268,6 +268,13 @@ module LiveStudio
       synced?
     end
 
+    # 是否可观看回放
+    def replayable_for?(user)
+      return false unless course.play_authorize(user, nil)
+      play_records.where(play_type: LiveStudio::PlayRecord.play_types[:replay],
+                         user_id: user.id).where('created_at < ?', Date.today).count < LiveStudio::ChannelVideo::TOTAL_REPLAY
+    end
+
     private
 
     # 过期试听证

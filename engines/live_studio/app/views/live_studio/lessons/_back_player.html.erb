@@ -13,15 +13,28 @@
       <ul class="playback-con">
         <% @lessons.each_with_index do |lesson, index| %>
         <li>
-          <%= link_to live_studio.videos_course_lesson_path(@course, lesson), class: 'link-play' do -%>
-            <div class="playback-con-title">
-              <span><%= format('%02d', index + 1) %></span>
-              <span><%= lesson.name %></span>
-            </div>
-            <div class="playback-con-time">
-              <span></span>
-              <span>剩余回放次数：<%= [LiveStudio::ChannelVideo::TOTAL_REPLAY - lesson.replay_times, 0].max %></span>
-            </div>
+          <% if allow?("live_studio/lessons", "replay", lesson) -%>
+            <%= link_to live_studio.replay_lesson_path(lesson), class: 'link-play' do -%>
+              <div class="playback-con-title">
+                <span><%= format('%02d', index + 1) %></span>
+                <span><%= lesson.name %></span>
+              </div>
+              <div class="playback-con-time">
+                <span></span>
+                <span>剩余回放次数：<%= lesson.left_replay_times %></span>
+              </div>
+            <% end -%>
+          <% elsif lesson.left_replay_times <= 0 %>
+            <%= link_to 'javascript: void(0);', class: 'link-play', "data-toggle"=>"modal", "data-target"=>"#failure" do -%>
+              <div class="playback-con-title">
+                <span><%= format('%02d', index + 1) %></span>
+                <span><%= lesson.name %></span>
+              </div>
+              <div class="playback-con-time">
+                <span></span>
+                <span>剩余回放次数：<%= lesson.left_replay_times %></span>
+              </div>
+            <% end -%>
           <% end -%>
         </li>
         <% end %>
@@ -37,6 +50,24 @@
     </p>
   </div>
 </div>
+
+<%= content_for :mask do  %>
+  <div class="modal fade" id="failure" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="prompt-pwd">
+        <div class="prompt-pwd-title"><%= t("common.tips") %></div>
+        <div class="prompt-pwd-con">
+            <center>
+              <p><%= t("tips.replay_used_up") %></p>
+            </center>
+            <center>
+              <p>
+              <a href="javascript:void(0);" class="apply-change" data-dismiss="modal" aria-label="Close"><%= t("common.confirm") %></a>
+            </p>
+            </center>
+        </div>
+      </div>
+  </div> 
+<% end %>
 
 
 <%= content_for :javascript do %>

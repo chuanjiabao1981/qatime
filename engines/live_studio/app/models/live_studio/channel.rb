@@ -42,7 +42,13 @@ module LiveStudio
                                            endTime: lesson.replays_end_at)
       result = JSON.parse(res.body).symbolize_keys[:ret]
       result['videoList'].each do |v|
-        p v
+        next if channel_videos.find_by(vid: v['vid'])
+        channel_videos.create(name: v['name'],
+                              url: v['url'],
+                              vid: v['vid'],
+                              begin_time: v['beginTime'],
+                              end_time: v['endTime'],
+                              lesson_id: lesson.id)
       end
     end
 

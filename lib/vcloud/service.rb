@@ -28,7 +28,6 @@ module VCloud
 
     # 请求服务
     def self.request_service(uri, params, options)
-      p params
       Typhoeus.post(
         "#{GATEWAY_URL}#{uri}",
         headers: request_headers(options),

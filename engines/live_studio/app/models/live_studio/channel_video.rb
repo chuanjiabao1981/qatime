@@ -13,7 +13,7 @@ module LiveStudio
         }.to_json
       )
       return unless res.success?
-      result = res.body.symbolize_keys[:ret]
+      result = JSON.parse(res.body).symbolize_keys[:ret]
       update(
         duration: result[:duration],
         type_id: result[:typeId],

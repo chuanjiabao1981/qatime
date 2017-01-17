@@ -1,6 +1,6 @@
 module LiveStudio
   class Channel < ActiveRecord::Base
-    include LiveStudio::Channelable
+  include LiveStudio::Channelable
     has_soft_delete
 
     belongs_to :course
@@ -101,6 +101,8 @@ module LiveStudio
         pull_streams.create(address: pull, protocol: 'rtmp')
         pull_streams.create(address: hls_pull, protocol: 'hls')
         pull_streams.create(address: http_pull, protocol: 'http')
+        self.remote_id = "1f92e6ab46ab476b869c846335f58277"
+        save
       else
         push = 'rtmp://pa0a19f55.live.126.net/live/0ca7943afaa340c9a7c1a8baa5afac97?wsSecret=f49d13a6ab68601884b5b71487ff51e1&wsTime=1480648749'
         pull = 'rtmp://va0a19f55.live.126.net/live/0ca7943afaa340c9a7c1a8baa5afac97'
@@ -110,6 +112,8 @@ module LiveStudio
         pull_streams.create(address: pull, protocol: 'rtmp')
         pull_streams.create(address: hls_pull, protocol: 'hls')
         pull_streams.create(address: http_pull, protocol: 'http')
+        self.remote_id = "6cbc214cec444ce5b5c5f975bf748ff8"
+        save
       end
     end
 
@@ -125,6 +129,5 @@ module LiveStudio
         }.to_json
       )
     end
-
   end
 end

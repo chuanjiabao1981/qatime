@@ -20,7 +20,7 @@
             </div>
             <div class="playback-con-time">
               <span></span>
-              <span>剩余回放次数：20</span>
+              <span>剩余回放次数：<%= [LiveStudio::ChannelVideo::TOTAL_REPLAY - lesson.replay_times, 0].max %></span>
             </div>
           <% end -%>
         </li>

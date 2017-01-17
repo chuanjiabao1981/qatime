@@ -2,6 +2,8 @@ module LiveStudio
   class ChannelVideo < ActiveRecord::Base
     include LiveStudio::Channelable
 
+    TOTAL_REPLAY = 10
+
     enum video_for: { board: 0, camera: 1 }
 
     belongs_to :channel

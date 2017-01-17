@@ -33,6 +33,12 @@ module LiveStudio
       @video = @lesson.channel_videos.where(video_for: 0).first
       @lessons = Lesson.where(course_id: @lesson.course_id, replay_status: LiveStudio::Lesson.replay_statuses[:synced])
       LiveStudio::PlayRecord.init_play(current_user, @lesson.course, @lesson)
+      @paly_records = LiveStudio::PlayRecord.where(lesson_id: @lessons.map(&:id),
+                                                   play_type: LiveStudio::PlayRecord.play_types[:replay],
+                                                   user_id: current_user.id).to_a
+      @lessons.each do |l|
+        l.replay_times = @paly_records.select {|record| record.lesson_id == l.id }.count
+      end
       render layout: 'live'
     end
 

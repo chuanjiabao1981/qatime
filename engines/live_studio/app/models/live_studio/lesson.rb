@@ -4,6 +4,7 @@ module LiveStudio
     has_soft_delete
     extend Enumerize
 
+    attr_accessor :replay_times
     attr_accessor :start_time_hour, :start_time_minute, :_update
     BEAT_STEP = 10 # 心跳频率/秒
 

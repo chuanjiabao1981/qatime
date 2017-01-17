@@ -275,6 +275,14 @@ module LiveStudio
                          user_id: user.id).where('created_at < ?', Date.today).count < LiveStudio::ChannelVideo::TOTAL_REPLAY
     end
 
+    # 用户剩余播放次数
+    def user_left_times(user)
+      c = play_records.where(play_type: LiveStudio::PlayRecord.play_types[:replay],
+                         user_id: user.id).where('created_at < ?', Date.today).count
+      p c
+      [LiveStudio::ChannelVideo::TOTAL_REPLAY - c, 0].max
+    end
+
     private
 
     # 过期试听证

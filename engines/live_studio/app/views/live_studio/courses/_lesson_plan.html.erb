@@ -21,9 +21,26 @@
               </span>
             </td>
             <td>
-              <span>
-                <%= lesson.name %>
-              </span>
+              <span><%= lesson.name %></span>
+              <% if lesson.replayable -%>
+                <% if allow?("live_studio/lessons", "replay", lesson) -%>
+                  <span class="playback-entrance">
+                    <%= link_to live_studio.replay_lesson_path(lesson), class: 'link-play' do -%>
+                      <%= image_tag 'play.png' %>
+                      <%= LiveStudio::Lesson.human_attribute_name(:replay) %>
+                    <% end -%>
+                    <i><%= t("view.replay.left_replay_times", count: lesson.user_left_times(current_user)) %></i>
+                  </span>
+                <% elsif %>
+                  <span class="playback-entrance">
+                    <%= link_to live_studio.replay_lesson_path(lesson), class: 'link-play' do -%>
+                      <%= image_tag 'play.png' %>
+                      <%= LiveStudio::Lesson.human_attribute_name(:replay) %>
+                    <% end -%>
+                    <i><%= t("view.replay.left_replay_times", count: lesson.user_left_times(current_user)) %></i>
+                  </span>
+                <% end %>
+              <% end -%>
             </td>
             <td>
               <span>

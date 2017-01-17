@@ -28,11 +28,11 @@ module LiveStudio
     end
 
     def videos
-      @course = Course.find(params[:course_id])
-      @lesson = @course.lessons.find(params[:id])
-      @videos = @lesson.channel_videos.where(video_for: 0)
-      @video = @videos.first
-      LiveStudio::PlayRecord.init_play(current_user, @course, @lesson)
+      @lesson = Lesson.find(params[:id])
+      @course = @lesson.course
+      @video = @lesson.channel_videos.where(video_for: 0).first
+      @lessons = Lesson.where(course_id: @lesson.course_id)
+      LiveStudio::PlayRecord.init_play(current_user, @lesson.course, @lesson)
       render layout: 'live'
     end
 

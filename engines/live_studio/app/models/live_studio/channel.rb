@@ -36,6 +36,7 @@ module LiveStudio
       end
     end
 
+    # 同步视频
     def sync_video_for(lesson)
       res = VCloud::Service.vod_video_list(cid: remote_id,
                                            beginTime: lesson.replays_start_at,

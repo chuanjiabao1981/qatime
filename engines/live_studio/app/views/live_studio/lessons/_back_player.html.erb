@@ -3,6 +3,7 @@
     <div class="area-left">
       <div class="area-left-con">
         <video id="my-video" style="overflow: hidden; white-space: nowrap;" class="video-js"  x-webkit-airplay="allow" webkit-playsinline controls poster="<%= image_url 'big_loading.png' %>" preload="auto" width="" height="" type="video/mp4" data-setup="{}">
+          <source src="<%= @video.orig_url %>" type="video/mp4">
         </video>
       </div>
     </div>
@@ -10,12 +11,12 @@
     <div class="area-right">
       <div class="playback-title">回放目录</div>
       <ul class="playback-con">
-        <% @videos.each_with_index do |video, index| %>
+        <% @lessons.each_with_index do |lesson, index| %>
         <li>
-          <a href="javascript:void(0);" class="link-play" ref="<%= video.sd_mp4_url %>">
+          <a href="javascript:void(0);" class="link-play">
             <div class="playback-con-title">
               <span><%= "#{index < 9 ? '0' : nil}#{index+1}" %></span>
-              <span><%= video.name %></span>
+              <span><%= lesson.name %></span>
             </div>
             <div class="playback-con-time">
               <span></span>
@@ -41,67 +42,48 @@
 <%= content_for :javascript do %>
   <script>
     $(function() {
-      var boardPlayer;
-      var playSource;
-
-      // 白板播放器
-      boardPlayer = neplayer("my-video", {
-        bigPlayButton: false,
-        controlBar: {
-          progressControl: false,
-          remainingTimeDisplay: false
-        }
-      }, function() {
-        var barrageButton = $('<button class="vjs-barrage-control vjs-control vjs-button vjs-playing" type="button" aria-live="polite"></button>');
-        barrageButton.html('<%= image_tag "barrage.png" %>');
-        var refreshButton = $('<button class="vjs-refresh-control vjs-control vjs-button vjs-playing" type="button" aria-live="polite"></button>');
-        refreshButton.html('<%= image_tag "refresh.png" %>');
-        $("#my-video .vjs-control-bar").children(":eq( 2 )").after(barrageButton);
-        $("#my-video .vjs-control-bar").children(":first").after(refreshButton);
-
-
-        // 重置
-        $("#my-video .vjs-control-bar").on('click', '.vjs-refresh-control', function() {
-          boardPlayer.reset();
-        });
-
+      var myPlayer = neplayer('my-video', {
+          controlBar: {
+          'currentTimeDisplay':true,
+          'timeDivider':true,
+          'durationDisplay':true,
+          'remainingTimeDisplay':false
+             }
+      },function  () {
+           myPlayer.corePlayer.controlBar.addChild(clarityComponent,{},6);
+           myPlayer.corePlayer.controlBar.addChild(definitionComponent,{},6);
+         });
+       
+      var Component = neplayer.getComponent("Component");
+      var ClarityComponent = neplayer.extend(Component,{
+          createEl:function(){
+              var button = document.createElement("button");
+              button.className = "vjs-clarity-control vjs-control vjs-button vjs-playing";
+              button.innerHTML = "高清";
+              return button;
+          }
       });
+      var clarityComponent = new ClarityComponent();
+      var DefinitionComponent = neplayer.extend(Component,{
+          createEl:function(){
+              var div = document.createElement("div");
+              div.className = "vjs-control-definition vjs-control vjs-button vjs-playing";
+              div.innerHTML = '<input type="radio"  name="clarity" id="clarity1" value="高清" /><label for="clarity1">高清</label><br /><input type="radio"  name="clarity" id="clarity2" value="标清" /><label for="clarity2">标清</label>';
+              return div;
+          }
+      });
+      var definitionComponent = new DefinitionComponent();
+      $("#my-video .vjs-control-bar").on('click', ".vjs-clarity-control", function  () {
+        $(".vjs-control-definition").css("visibility","visible");
+      })
+      $("#my-video .vjs-control-bar").on('click', ".vjs-control-definition input", function  () {
+        $(".vjs-clarity-control").html($(this).val());     
+        $(".vjs-control-definition").css("visibility","hidden");
+      })
 
-      boardPlayer.onError(function(err){
-        console.log(err.errCode);
-        console.log(err.errMsg);
-        boardPlayer.reset();
-      });
-
-      boardPlayer.onPlayState(1,function(){
-        console.log('board play');
-      });
-      boardPlayer.onPlayState(2,function(){
-        console.log('board pause');
-      });
-      boardPlayer.onPlayState(3,function(){
-        console.log('board ended');
-        boardPlayer.reset();
-      });
-
-      $('.link-play').click(function(){
-        playSource = $(this).attr('ref');
-        set_source();
-      });
-
-      function set_source(){
-        boardPlayer.setDataSource({
-          type: "video/mp4",
-          src: playSource
-        });
-        boardPlayer.play();
-      }
 
       //判断flash是否安装
-      if(flashChecker().f) {
-        playSource = '<%= @videos.first.sd_mp4_url %>';
-        set_source();
-      } else{
+      if(!flashChecker().f) {
         $("#player-and-chat").hide();
         $("#no-flash-area").show() //提示div
       }

@@ -9,7 +9,7 @@
     </div>
 
     <div class="area-right">
-      <div class="playback-title">回放目录</div>
+      <div class="playback-title"><%= t("view.replay.directory") %></div>
       <ul class="playback-con">
         <% @lessons.each_with_index do |lesson, index| %>
         <li>
@@ -21,7 +21,7 @@
               </div>
               <div class="playback-con-time">
                 <span></span>
-                <span>剩余回放次数：<%= lesson.left_replay_times %></span>
+                <span><%= t("view.replay.left_replay_times2", count: @lesson.user_left_times(current_user)) %></span>
               </div>
             <% end -%>
           <% elsif lesson.left_replay_times <= 0 %>
@@ -32,7 +32,7 @@
               </div>
               <div class="playback-con-time">
                 <span></span>
-                <span>剩余回放次数：<%= lesson.left_replay_times %></span>
+                <span><%= t("view.replay.left_replay_times2", count: @lesson.user_left_times(current_user)) %></span>
               </div>
             <% end -%>
           <% end -%>

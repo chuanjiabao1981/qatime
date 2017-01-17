@@ -2,7 +2,7 @@ require_dependency "live_studio/application_controller"
 
 module LiveStudio
   class LessonsController < ApplicationController
-    before_action :set_lession, only: [:play]
+    before_action :set_lesson, only: [:play]
 
     def show
       @course = Course.find(params[:course_id])
@@ -27,9 +27,17 @@ module LiveStudio
       end
     end
 
+    def videos
+      @course = Course.find(params[:course_id])
+      @lesson = @course.lessons.find(params[:id])
+      @videos = @lesson.channel_videos.select{|video| video.channel.use_for == 'board'}.compact
+      LiveStudio::PlayRecord.init_play(current_user, @course, @lesson)
+      render layout: 'live'
+    end
+
     private
 
-    def set_lession
+    def set_lesson
       @student = current_user
 
       @course = @student.live_studio_courses.find(params[:course_id])

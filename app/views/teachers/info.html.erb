@@ -47,6 +47,12 @@
     </div>
     <div class="qa_cell">
       <div class="row">
+        <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:login_mobile)%></div>
+        <div class="col-md-9"><%= @teacher.login_mobile %></div>
+      </div>
+    </div>
+    <div class="qa_cell">
+      <div class="row">
         <div class="col-md-3" style="padding-left:40px"><%= Teacher.human_attribute_name(:category)%></div>
         <div class="col-md-9"><%= @teacher.category %></div>
       </div>

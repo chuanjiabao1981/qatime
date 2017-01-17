@@ -39,6 +39,7 @@ LiveStudio::Engine.routes.draw do
       member do
         get :play
         patch :completed
+        get :videos
       end
     end
   end

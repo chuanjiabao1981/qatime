@@ -7,6 +7,12 @@ module LiveStudio
     attr_accessor :start_time_hour, :start_time_minute, :_update
     BEAT_STEP = 10 # 心跳频率/秒
 
+    enum replay_status: {
+      unsync: 0, # 未同步
+      synced: 1, # 已同步
+      merged: 2 # 已合并
+    }
+
     enum status: {
       missed: -1, # 已错过
       init: 0, # 初始化
@@ -104,7 +110,7 @@ module LiveStudio
         after do
           # 课程完成增加辅导班完成课程数量 & 异步更新录制视频列表
           increment_course_counter(:finished_lessons_count)
-          ReplaysSyncWorkder.perform_async(id)
+          ReplaysSyncWorker.perform_async(id)
         end
         transitions from: [:paused, :closed], to: :finished
       end
@@ -235,8 +241,9 @@ module LiveStudio
     # 获取直播录像
     def sync_replays
       course.channels.each do |c|
-        c.sync_video_for(self)
+        return false unless c.sync_video_for(self)
       end
+      true
     end
 
     # 视频回放开始时间

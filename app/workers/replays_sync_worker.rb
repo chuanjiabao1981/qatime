@@ -5,6 +5,6 @@ class ReplaysSyncWorker
   # 更新辅导班录制视频列表
   def perform(lesson_id)
     lesson = LiveStudio::Lesson.find(lesson_id)
-    lesson.sync_replays
+    lesson.synced! if lesson.sync_replays
   end
 end

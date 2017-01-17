@@ -13,16 +13,16 @@
       <ul class="playback-con">
         <% @lessons.each_with_index do |lesson, index| %>
         <li>
-          <a href="javascript:void(0);" class="link-play">
+          <%= link_to live_studio.videos_course_lesson_path(@course, lesson), class: 'link-play' do -%>
             <div class="playback-con-title">
-              <span><%= "#{index < 9 ? '0' : nil}#{index+1}" %></span>
+              <span><%= format('%02d', index + 1) %></span>
               <span><%= lesson.name %></span>
             </div>
             <div class="playback-con-time">
               <span></span>
-              <span>视频时长：<%= Util.duration_in_words(44244) %></span>
+              <span>剩余回放次数：20</span>
             </div>
-          </a>
+          <% end -%>
         </li>
         <% end %>
       </ul>

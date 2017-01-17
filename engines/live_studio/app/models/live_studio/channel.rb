@@ -52,6 +52,7 @@ module LiveStudio
                               lesson_id: lesson.id,
                               video_for: use_for)
       end
+      true
     end
 
     private

@@ -31,7 +31,7 @@ module LiveStudio
       @lesson = Lesson.find(params[:id])
       @course = @lesson.course
       @video = @lesson.channel_videos.where(video_for: 0).first
-      @lessons = Lesson.where(course_id: @lesson.course_id)
+      @lessons = Lesson.where(course_id: @lesson.course_id, replay_status: LiveStudio::Lesson.replay_statuses[:synced])
       LiveStudio::PlayRecord.init_play(current_user, @lesson.course, @lesson)
       render layout: 'live'
     end

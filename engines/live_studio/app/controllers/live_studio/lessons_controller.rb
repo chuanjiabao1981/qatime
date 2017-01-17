@@ -36,7 +36,7 @@ module LiveStudio
       # 临时解决方案
       @paly_records = LiveStudio::PlayRecord.where(lesson_id: @lessons.map(&:id),
                                                    play_type: LiveStudio::PlayRecord.play_types[:replay],
-                                                   user_id: current_user.id).where('created_at < ?', Date.tody).to_a
+                                                   user_id: current_user.id).where('created_at < ?', Date.today).to_a
       @lessons.each do |l|
         l.replay_times = @paly_records.select {|record| record.lesson_id == l.id }.count
       end

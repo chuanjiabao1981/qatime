@@ -17,6 +17,7 @@ module Entities
       expose :shd_url do |video|
         video.shd_mp4_url
       end
+      expose :orig_url
     end
   end
 end

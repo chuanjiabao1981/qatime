@@ -257,6 +257,17 @@ module LiveStudio
       live_end_at.nil? ? Time.now.to_i * 1000 : live_end_at.to_i * 1000
     end
 
+    # 剩余回放时间
+    def left_replay_times
+      return 0 unless replay_times
+      [LiveStudio::ChannelVideo::TOTAL_REPLAY - replay_times, 0].max
+    end
+
+    # 是否可以回放
+    def replayable
+      synced?
+    end
+
     private
 
     # 过期试听证

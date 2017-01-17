@@ -1,23 +1,19 @@
 module Entities
   module LiveStudio
     class VideoLesson < Grape::Entity
-      expose :id do |lesson|
-        lesson.id
-      end
+      expose :id
       expose :name
       expose :duration
-      expose :playable do |lesson|
-        lesson.try(:channel_videos).present?
+      expose :replayable
+      expose :user_playable do |lesson|
+        lesson.left_replay_times > 0
       end
-      expose :total_play_times
-      expose :user_playable do |lesson, options|
-        lesson.play_records.replay.where(user: options[:current_user]).count < 20
+      expose :user_play_times do |lesson|
+        lesson.replay_times
       end
-      expose :user_play_times do |lesson, options|
-        lesson.play_records.replay.where(user: options[:current_user]).count
-      end
-      expose :replays, using: Entities::LiveStudio::ChannelVideo, if: { type: :full } do |lesson|
-        lesson.channel_videos
+      expose :left_replay_times
+      expose :replay, using: Entities::LiveStudio::ChannelVideo, if: { type: :full } do |lesson|
+        lesson.channel_videos.first
       end
     end
   end

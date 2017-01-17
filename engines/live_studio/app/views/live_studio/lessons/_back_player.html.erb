@@ -14,20 +14,20 @@
         <% @lessons.each_with_index do |lesson, index| %>
         <li>
           <% if allow?("live_studio/lessons", "replay", lesson) -%>
-            <% link = lesson.id == @lesson.id ? live_studio.replay_lesson_path(lesson) : 'javascript: void(0);' %>
-            <%= link_to link, class: "link-play #{lesson.id == @lesson.id ? 'active' : ''}" do -%>
+            <% link = lesson.id == @lesson.id ? 'javascript: void(0);' : live_studio.replay_lesson_path(lesson) -%>
+            <%= link_to link, class: "link-play" do -%>
               <div class="playback-con-title">
                 <span><%= format('%02d', index + 1) %></span>
                 <span><%= lesson.name %></span>
               </div>
-              <div class="playback-con-time">
+              <div class="playback-con-time <%= 'active' if lesson.id == @lesson.id %>">
                 <span></span>
                 <span><%= t("view.replay.left_replay_times2", count: @lesson.user_left_times(current_user)) %></span>
               </div>
             <% end -%>
           <% elsif lesson.left_replay_times <= 0 %>
             <%= link_to 'javascript: void(0);', class: 'link-play', "data-toggle"=>"modal", "data-target"=>"#failure" do -%>
-              <div class="playback-con-title">
+              <div class="playback-con-time <%= 'active' if lesson.id == @lesson.id %>">
                 <span><%= format('%02d', index + 1) %></span>
                 <span><%= lesson.name %></span>
               </div>

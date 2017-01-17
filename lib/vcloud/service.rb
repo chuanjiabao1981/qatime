@@ -44,7 +44,7 @@ module VCloud
 
     # 录制设置
     APP_CHANNEL_SET_ALWAYS_RECORD_REQUIRED_PARAMS = %w(cid needRecord format duration).freeze
-    def sef.app_channel_set_always_record(params, options = {})
+    def self.app_channel_set_always_record(params, options = {})
       params.stringify_keys!
       required_params!(params, APP_CHANNEL_SET_ALWAYS_RECORD_REQUIRED_PARAMS)
       request_service("/app/channel/setAlwaysRecord", params, options)

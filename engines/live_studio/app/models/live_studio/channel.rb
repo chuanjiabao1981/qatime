@@ -36,6 +36,16 @@ module LiveStudio
       end
     end
 
+    def sync_video_for(lesson)
+      res = VCloud::Service.vod_video_list(cid: remote_id,
+                                           beginTime: lesson.replays_start_at,
+                                           endTime: lesson.replays_end_at)
+      result = JSON.parse(res.body).symbolize_keys[:ret]
+      result['videoList'].each do |v|
+        p v
+      end
+    end
+
     private
 
     after_create :create_remote_channel

@@ -6,12 +6,14 @@ module VCloud
     # 获取时间段内录制视频列表
     VOD_VIDEO_LIST_REQUIRED_PARAMS = %w(cid beginTime endTime).freeze
     def self.vod_video_list(params, options = {})
+      params.stringify_keys!
       required_params!(params, VOD_VIDEO_LIST_REQUIRED_PARAMS)
       request_service("/app/vodvideolist", params, options)
     end
 
     VIDEO_LIST_REQUIRED_PARAMS = %w(cid).freeze
     def self.video_list(params, options = {})
+      params.stringify_keys!
       required_params!(params, VIDEO_LIST_REQUIRED_PARAMS)
       request_service("/app/videolist", params, options)
     end
@@ -26,6 +28,7 @@ module VCloud
 
     # 请求服务
     def self.request_service(uri, params, options)
+      p params
       Typhoeus.post(
         "#{GATEWAY_URL}#{uri}",
         headers: request_headers(options),

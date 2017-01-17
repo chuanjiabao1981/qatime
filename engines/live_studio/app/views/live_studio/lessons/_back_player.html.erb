@@ -14,7 +14,8 @@
         <% @lessons.each_with_index do |lesson, index| %>
         <li>
           <% if allow?("live_studio/lessons", "replay", lesson) -%>
-            <%= link_to live_studio.replay_lesson_path(lesson), class: 'link-play' do -%>
+            <% link = lesson.id == @lesson.id ? live_studio.replay_lesson_path(lesson) : 'javascript: void(0);' %>
+            <%= link_to link, class: "link-play #{lesson.id == @lesson.id ? 'active' : ''}" do -%>
               <div class="playback-con-title">
                 <span><%= format('%02d', index + 1) %></span>
                 <span><%= lesson.name %></span>

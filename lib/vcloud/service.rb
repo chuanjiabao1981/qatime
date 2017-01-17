@@ -26,6 +26,30 @@ module VCloud
       request_service("/app/vod/video/get", params, options)
     end
 
+    # 视频文件合并
+    APP_VIDEO_MERGE_REQUIRED_PARAMS = %w(outputName vidList).freeze
+    def self.app_video_merge(params, options = {})
+      params.stringify_keys!
+      required_params!(params, APP_VIDEO_MERGE_REQUIRED_PARAMS)
+      request_service("/app/video/merge", params, options)
+    end
+
+    # 设置视频回调地址
+    APP_RECORD_SETCALLBACK_REQUIRED_PARAMS = %w(recordClk).freeze
+    def self.app_record_setcallback(params, options = {})
+      params.stringify_keys!
+      required_params!(params, APP_RECORD_SETCALLBACK_REQUIRED_PARAMS)
+      request_service("/app/record/setcallback", params, options)
+    end
+
+    # 录制设置
+    APP_CHANNEL_SET_ALWAYS_RECORD_REQUIRED_PARAMS = %w(cid needRecord format duration).freeze
+    def sef.app_channel_set_always_record(params, options = {})
+      params.stringify_keys!
+      required_params!(params, APP_CHANNEL_SET_ALWAYS_RECORD_REQUIRED_PARAMS)
+      request_service("/app/channel/setAlwaysRecord", params, options)
+    end
+
     # 检查必须参数
     def self.required_params!(params, names)
       return unless VCloud.debug_mode?

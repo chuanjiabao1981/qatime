@@ -282,6 +282,10 @@ module LiveStudio
       [LiveStudio::ChannelVideo::TOTAL_REPLAY - c, 0].max
     end
 
+    # 合并视频
+    def merge_replays
+    end
+
     private
 
     # 过期试听证

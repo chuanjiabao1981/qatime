@@ -83,26 +83,7 @@ module LiveStudio
     # 设置录播
     def set_always_record
       return unless remote_id.present?
-      res = ::Typhoeus.post(
-        "#{VCLOUD_HOST}/app/channel/setAlwaysRecord",
-        headers: vcloud_headers,
-        body: {
-          cid: remote_id,
-          needRecord: 1,
-          format: 0,
-          duration: 90,   # minutes
-          filename: "#{course.name}-#{Time.now.to_i}"
-        }.to_json
-      )
-      res_back = ::Typhoeus.post(
-        "#{VCLOUD_HOST}/app/record/setcallback",
-        headers: vcloud_headers,
-        body: {
-          recordClk: "#{$host_name}/v1/live_studio/channels/#{id}/callback"
-        }.to_json
-      )
-      return unless res.success? && res_back.success?
-      self.set_always_recorded = true
+      self.set_always_recorded = always_record && set_callback
     end
 
     def build_streams(result={})
@@ -147,6 +128,22 @@ module LiveStudio
           type: 0
         }.to_json
       )
+    end
+
+    private
+
+    def always_record
+      VCloud::Service.app_channel_set_always_record(
+        cid: remote_id,
+        needRecord: 1,
+        format: 0,
+        duration: 90, # minutes
+        filename: "#{course.name}#{id}#{use_for}"
+      ).success?
+    end
+
+    def set_callback
+      VCloud::Service.app_record_set_setcallback(recordClk: "#{$host_name}/v1/live_studio/channels/#{id}/callback").success?
     end
   end
 end

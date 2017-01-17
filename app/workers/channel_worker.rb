@@ -1,4 +1,4 @@
-class ChannelWorkder
+class ChannelWorker
   include Sidekiq::Worker
 
   # 更新辅导班录制视频列表

@@ -18,6 +18,14 @@ module VCloud
       request_service("/app/videolist", params, options)
     end
 
+    # 获取视频文件信息
+    APP_VOD_VIDEO_GET_REQUIRED_PARAMS = %w(vid).freeze
+    def self.app_vod_video_get(params, options = {})
+      params.stringify_keys!
+      required_params!(params, APP_VOD_VIDEO_GET_REQUIRED_PARAMS)
+      request_service("/app/vod/video/get", params, options)
+    end
+
     # 检查必须参数
     def self.required_params!(params, names)
       return unless VCloud.debug_mode?

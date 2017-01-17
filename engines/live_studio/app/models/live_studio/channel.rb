@@ -31,7 +31,7 @@ module LiveStudio
         result[:ret]['videoList'].each do |rt|
           video = channel_videos.find_or_initialize_by(vid: rt['vid'])
           video.update_video_info if video.new_record? || enforce
-          video.update(name: rt['video_name'], key: rt['orig_video_key'])
+          video.update(name: rt['video_name'], key: rt['orig_video_key'], video_for: use_for)
         end
       end
     end
@@ -48,7 +48,8 @@ module LiveStudio
                               vid: v['vid'],
                               begin_time: v['beginTime'],
                               end_time: v['endTime'],
-                              lesson_id: lesson.id)
+                              lesson_id: lesson.id,
+                              video_for: use_for)
       end
     end
 

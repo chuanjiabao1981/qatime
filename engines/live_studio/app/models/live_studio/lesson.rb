@@ -104,7 +104,7 @@ module LiveStudio
         after do
           # 课程完成增加辅导班完成课程数量 & 异步更新录制视频列表
           increment_course_counter(:finished_lessons_count)
-          ReplaysWorker.perform_async(id)
+          ReplaysSyncWorkder.perform_async(id)
         end
         transitions from: [:paused, :closed], to: :finished
       end
@@ -233,7 +233,7 @@ module LiveStudio
     end
 
     # 获取直播录像
-    def pull_replays
+    def sync_replays
       course.channels.each do |c|
         c.sync_video_for(self)
       end

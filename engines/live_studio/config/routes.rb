@@ -40,6 +40,7 @@ LiveStudio::Engine.routes.draw do
         get :play
         patch :completed
         get :videos
+        get :replay
       end
     end
   end

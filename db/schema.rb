@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170114130221) do
+ActiveRecord::Schema.define(version: 20170117063649) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -488,8 +488,8 @@ ActiveRecord::Schema.define(version: 20170114130221) do
     t.integer  "vid"
     t.string   "name"
     t.string   "key"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.string   "duration"
     t.string   "type_id"
     t.string   "snapshot_url"
@@ -508,6 +508,10 @@ ActiveRecord::Schema.define(version: 20170114130221) do
     t.string   "create_time"
     t.integer  "lesson_id"
     t.string   "nid"
+    t.integer  "video_for",            default: 0
+    t.string   "url"
+    t.string   "begin_time"
+    t.string   "end_time"
   end
 
   create_table "live_studio_channels", force: :cascade do |t|

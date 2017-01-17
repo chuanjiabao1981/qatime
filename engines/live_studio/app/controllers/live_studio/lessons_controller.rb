@@ -30,8 +30,14 @@ module LiveStudio
     def videos
       @course = Course.find(params[:course_id])
       @lesson = @course.lessons.find(params[:id])
-      @videos = @lesson.channel_videos.select{|video| video.channel.use_for == 'board'}.compact
+      @videos = @lesson.channel_videos.where(video_for: 0)
+      @video = @videos.first
       LiveStudio::PlayRecord.init_play(current_user, @course, @lesson)
+      render layout: 'live'
+    end
+
+    def replay
+      @lesson = Lesson.find(params[:id])
       render layout: 'live'
     end
 

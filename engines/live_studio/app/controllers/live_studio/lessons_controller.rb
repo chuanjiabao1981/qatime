@@ -48,6 +48,7 @@ module LiveStudio
       @course = @lesson.course
       @video = @lesson.channel_videos.where(video_for: 0).first
       @lessons = Lesson.where(course_id: @lesson.course_id, replay_status: LiveStudio::Lesson.replay_statuses[:synced])
+      @lessons = @lessons.order(:class_date, :live_start_at, :live_end_at)
       LiveStudio::PlayRecord.init_play(current_user, @lesson.course, @lesson)
       # 临时解决方案
       @paly_records = LiveStudio::PlayRecord.where(lesson_id: @lessons.map(&:id),

@@ -4,8 +4,18 @@ module LiveStudio
     has_soft_delete
     extend Enumerize
 
+    attr_accessor :replay_times
     attr_accessor :start_time_hour, :start_time_minute, :_update
     BEAT_STEP = 10 # 心跳频率/秒
+
+    enum replay_status: {
+      unsync: 0, # 未同步
+      synced: 1, # 已同步
+      merging: 2, # 正在合并
+      merged: 3, # 已合并
+      sync_error: 98, # 同步失败
+      merge_error: 99 # 合并失败
+    }
 
     enum status: {
       missed: -1, # 已错过
@@ -49,6 +59,8 @@ module LiveStudio
 
     has_many :play_records # 听课记录
     has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
+    has_many :channel_videos
+    has_many :replays
 
     has_many :live_sessions # 直播 心跳记录
     has_many :live_studio_lesson_notifications, as: :notificationable, dependent: :destroy
@@ -101,8 +113,9 @@ module LiveStudio
 
       event :finish, after_commit: :instance_play_records do
         after do
-          # 课程完成增加辅导班完成课程数量
+          # 课程完成增加辅导班完成课程数量 & 异步更新录制视频列表
           increment_course_counter(:finished_lessons_count)
+          ReplaysSyncWorker.perform_async(id)
         end
         transitions from: [:paused, :closed], to: :finished
       end
@@ -225,7 +238,95 @@ module LiveStudio
       APP_CONFIG[:live_beat_step] || 10
     end
 
+    # 点播次数
+    def total_play_times
+      play_records.replay.count
+    end
+
+    # 获取直播录像
+    def sync_replays
+      course.channels.each do |c|
+        c.sync_video_for(self) if c.board?
+      end
+      synced! if channel_videos.count > 0
+      # 设置合并任务
+      ReplaysMergeWorker.perform_async(id) if synced?
+    end
+
+    # 视频回放开始时间
+    def replays_start_at
+      (live_start_at.to_i - 2.minutes) * 1000
+    end
+
+    # 视频回放结束时间
+    def replays_end_at
+      live_end_at.nil? ? Time.now.to_i * 1000 : (live_end_at.to_i + 2.minutes) * 1000
+    end
+
+    # 剩余回放时间
+    def left_replay_times
+      return 0 unless replay_times
+      [LiveStudio::ChannelVideo::TOTAL_REPLAY - replay_times, 0].max
+    end
+
+    # 是否可以回放
+    def replayable
+      merged?
+    end
+
+    # 是否可观看回放
+    def replayable_for?(user)
+      return true if user.admin?
+      return false unless course.buy_tickets.where(student_id: user.id).available.exists?
+      return false unless course.play_authorize(user, nil)
+      play_records.where(play_type: LiveStudio::PlayRecord.play_types[:replay],
+                         user_id: user.id).where('created_at < ?', Date.today).count < LiveStudio::ChannelVideo::TOTAL_REPLAY
+    end
+
+    # 用户剩余播放次数
+    def user_left_times(user)
+      c = play_records.where(play_type: LiveStudio::PlayRecord.play_types[:replay],
+                         user_id: user.id).where('created_at < ?', Date.today).count
+      [LiveStudio::ChannelVideo::TOTAL_REPLAY - c, 0].max
+    end
+
+    # 合并视频
+    def merge_replays
+      # 摄像头视频合并
+      # replays.create(video_for: ChannelVideo.video_fors['camera'],
+      #                name: camera_replay_name,
+      #                vids: camera_video_vids,
+      #                channel: course.channels.find_by(use_for: Channel.use_fors['camera']))
+      # 白板视频合并
+      replays.create(video_for: ChannelVideo.video_fors['board'],
+                     name: board_replay_name,
+                     vids: board_video_vids,
+                     channel: course.channels.find_by(use_for: Channel.use_fors['board']))
+    end
+
+    def replay_name(video_for)
+      "#{Rails.env}_lesson_#{id}_#{video_for}_replay"
+    end
+
     private
+
+    def camera_replay_name
+      "#{Rails.env}_lesson_#{id}_camera_replay"
+    end
+
+    def board_replay_name
+      "#{Rails.env}_lesson_#{id}_board_replay"
+    end
+
+    # 摄像头视频id
+    def camera_video_vids
+      channel_videos.where(video_for: ChannelVideo.video_fors['camera']).map(&:vid)
+    end
+
+    # 白板视频id
+    def board_video_vids
+      channel_videos.where(video_for: ChannelVideo.video_fors['board']).map(&:vid)
+    end
 
     # 过期试听证
     def used_taste_tickets

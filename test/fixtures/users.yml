@@ -637,3 +637,29 @@ customized_courses_manager:
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   type: Manager
   city: haidian
+
+student_for_replays:
+  login_mobile: 15100000011
+  name: student_for_replays
+  role: student
+  email: 15100000011@qatime.cn
+  parent_phone: 15100000011
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
+  school: school2
+  city: yangquan
+
+student_can_no_replays:
+  login_mobile: 15100000012
+  name: student_can_no_replays
+  role: student
+  email: 15100000012@qatime.cn
+  parent_phone: 15100000012
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
+  school: school2
+  city: yangquan

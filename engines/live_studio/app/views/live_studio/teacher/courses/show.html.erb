@@ -36,7 +36,7 @@
         <%= preview_time(@course,{text2: true}) %>
       </div>
       <div>
-        <%= "#{t('view.course_info_show.ticket_count')}#{@course.buy_tickets_count}" %>
+        <%= "#{t('view.course_info_show.ticket_count')}#{@course.buy_user_count}" %>
       </div>
     <% end %>
     <%= content_tag :div, class: "info-list-subtitle #{params[:index] == 'list' ? nil : 'hide'}" do %>

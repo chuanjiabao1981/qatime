@@ -34,7 +34,7 @@ module LiveStudio
         click_link '立即报名'
         choose "order_pay_type_weixin"
         click_on '立即付款'
-        page.has_content? "提示：如支付遇到问题，请拨打电话 010-58442007"
+        page.has_content? "提示：如支付遇到问题，请拨打电话 400-838-8010"
       end
     end
 
@@ -90,7 +90,7 @@ module LiveStudio
               fill_in :order_payment_password, with: 'password'
               click_on '立即付款'
               sleep 2
-              #page.has_content? "提示：如支付遇到问题，请拨打电话 010-58442007"
+              #page.has_content? "提示：如支付遇到问题，请拨打电话 400-838-8010"
             end
           end
         end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118040108) do
+ActiveRecord::Schema.define(version: 20170118061032) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -659,8 +659,24 @@ ActiveRecord::Schema.define(version: 20170118040108) do
     t.string   "uid"
     t.string   "n_id"
     t.integer  "status"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "duration",             default: 0
+    t.string   "type_id"
+    t.string   "snapshot_url"
+    t.string   "orig_url"
+    t.string   "download_orig_url"
+    t.string   "initial_size"
+    t.string   "sd_mp4_url"
+    t.string   "download_sd_mp4_url"
+    t.string   "sd_mp4_size"
+    t.string   "hd_mp4_url"
+    t.string   "download_hd_mp4_url"
+    t.string   "hd_mp4_size"
+    t.string   "shd_mp4_url"
+    t.string   "download_shd_mp4_url"
+    t.string   "shd_mp4_size"
+    t.string   "create_time"
   end
 
   create_table "live_studio_streams", force: :cascade do |t|

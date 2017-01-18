@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170117074450) do
+ActiveRecord::Schema.define(version: 20170118021458) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -645,6 +645,15 @@ ActiveRecord::Schema.define(version: 20170117074450) do
   add_index "live_studio_play_records", ["lesson_id"], name: "index_live_studio_play_records_on_lesson_id", using: :btree
   add_index "live_studio_play_records", ["ticket_id"], name: "index_live_studio_play_records_on_ticket_id", using: :btree
   add_index "live_studio_play_records", ["user_id"], name: "index_live_studio_play_records_on_user_id", using: :btree
+
+  create_table "live_studio_replays", force: :cascade do |t|
+    t.integer  "lesson_id"
+    t.string   "name"
+    t.string   "vids"
+    t.integer  "video_for"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "live_studio_streams", force: :cascade do |t|
     t.string   "protocol",   limit: 20

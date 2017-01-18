@@ -11,7 +11,10 @@ module LiveStudio
     enum replay_status: {
       unsync: 0, # 未同步
       synced: 1, # 已同步
-      merged: 2 # 已合并
+      merging: 2, # 正在合并
+      merged: 3, # 已合并
+      sync_error: 98, # 同步失败
+      merge_error: 99 # 合并失败
     }
 
     enum status: {
@@ -57,6 +60,7 @@ module LiveStudio
     has_many :play_records # 听课记录
     has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
     has_many :channel_videos
+    has_many :replays
 
     has_many :live_sessions # 直播 心跳记录
     has_many :live_studio_lesson_notifications, as: :notificationable, dependent: :destroy
@@ -242,9 +246,11 @@ module LiveStudio
     # 获取直播录像
     def sync_replays
       course.channels.each do |c|
-        return false unless c.sync_video_for(self)
+        c.sync_video_for(self)
       end
-      true
+      synced! if channel_videos.count > 0
+      # 设置合并任务
+      ReplaysMergeWorker.perform_async(id) if synced?
     end
 
     # 视频回放开始时间
@@ -284,9 +290,31 @@ module LiveStudio
 
     # 合并视频
     def merge_replays
+      # 摄像头视频合并
+      replays.create(video_for: ChannelVideo.video_fors['camera'], name: camera_replay_name, vids: camera_video_vids)
+      # 白板视频合并
+      replays.create(video_for: ChannelVideo.video_fors['board'], name: board_replay_name, vids: board_video_vids)
     end
 
     private
+
+    def camera_replay_name
+      "#{Rails.env}_lesson_#{id}_camera_replay"
+    end
+
+    def board_replay_name
+      "#{Rails.env}_lesson_#{id}_board_replay"
+    end
+
+    # 摄像头视频id
+    def camera_video_vids
+      channel_videos.where(video_for: ChannelVideo.video_fors['camera']).map(&:vid)
+    end
+
+    # 白板视频id
+    def board_video_vids
+      channel_videos.where(video_for: ChannelVideo.video_fors['board']).map(&:vid)
+    end
 
     # 过期试听证
     def used_taste_tickets

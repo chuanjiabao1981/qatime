@@ -83,7 +83,7 @@ module LiveStudio
     # 设置录播
     def set_always_record
       return unless remote_id.present?
-      self.set_always_recorded = always_record && set_callback
+      self.set_always_recorded = always_record
     end
 
     def build_streams(result={})
@@ -140,10 +140,6 @@ module LiveStudio
         duration: 90, # minutes
         filename: "#{course.name}#{id}#{use_for}"
       ).success?
-    end
-
-    def set_callback
-      VCloud::Service.app_record_set_setcallback(recordClk: "#{$host_name}/v1/live_studio/channels/#{id}/callback").success?
     end
   end
 end

@@ -20,7 +20,7 @@ module LiveStudio
     end
 
     def video_get
-      return unless vid.present? && merged?
+      return unless vid.present? && merging?
       res = VCloud::Service.app_vod_video_get(vid: vid)
       result = JSON.parse(res.body).symbolize_keys[:ret].symbolize_keys
       update(

@@ -31,9 +31,9 @@
                     <% end -%>
                     <i><%= t("view.replay.left_replay_times", count: lesson.user_left_times(current_user)) %></i>
                   </span>
-                <% elsif %>
+                <% elsif lesson.user_left_times(current_user) <= 0 %>
                   <span class="playback-entrance">
-                    <%= link_to live_studio.replay_lesson_path(lesson), class: 'link-play' do -%>
+                    <%= link_to 'javascript: void(0);', class: 'link-play', "data-toggle"=>"modal", "data-target"=>"#failure" do -%>
                       <%= image_tag 'play.png' %>
                       <%= LiveStudio::Lesson.human_attribute_name(:replay) %>
                     <% end -%>
@@ -56,3 +56,21 @@
     </div>
   </div>
 </div>
+
+<%= content_for :mask do  %>
+  <div class="modal fade" id="failure" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="prompt-pwd">
+        <div class="prompt-pwd-title"><%= t("common.tips") %></div>
+        <div class="prompt-pwd-con">
+            <center>
+              <p><%= t("tips.replay_used_up") %></p>
+            </center>
+            <center>
+              <p>
+              <a href="javascript:void(0);" class="apply-change" data-dismiss="modal" aria-label="Close"><%= t("common.confirm") %></a>
+            </p>
+            </center>
+        </div>
+      </div>
+  </div> 
+<% end %>

@@ -271,7 +271,7 @@ module LiveStudio
 
     # 是否可以回放
     def replayable
-      synced?
+      merged?
     end
 
     # 是否可观看回放

@@ -10,6 +10,7 @@ class CreateLiveStudioReplays < ActiveRecord::Migration
       t.string :orig_video_key
       t.string :uid
       t.string :n_id
+      t.integer :status
       t.timestamps null: false
     end
   end

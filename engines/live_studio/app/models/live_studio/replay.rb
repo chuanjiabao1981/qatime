@@ -29,6 +29,7 @@ module LiveStudio
       video = ChannelVideo.find_by(vid: vids.first)
       update(video.slice(:vid, :orig_video_key, :uid))
       merged!
+      lesson.merged!
     end
   end
 end

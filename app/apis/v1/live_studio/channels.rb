@@ -41,6 +41,7 @@ module V1
                                n_id: params[:nID])
 
                 replay.merged!
+                lesson.merged!
                 code = 200
               end
             end

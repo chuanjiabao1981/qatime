@@ -283,6 +283,12 @@ module LiveStudio
                          user_id: user.id).where('created_at < ?', Date.today).count < LiveStudio::ChannelVideo::TOTAL_REPLAY
     end
 
+    # 是否显示剩余次数
+    def replays_for(user)
+      return true if user.admin?
+      course.buy_tickets.where(student_id: user.id).available.exists?
+    end
+
     # 用户剩余播放次数
     def user_left_times(user)
       c = play_records.where(play_type: LiveStudio::PlayRecord.play_types[:replay],

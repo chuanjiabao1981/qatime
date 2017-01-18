@@ -206,3 +206,10 @@ replay_ticket:
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
+
+replay_ticket2:
+  student: student_with_order2
+  course: course_for_replay
+  status: 2
+  lesson_price: 50
+  type: LiveStudio::BuyTicket

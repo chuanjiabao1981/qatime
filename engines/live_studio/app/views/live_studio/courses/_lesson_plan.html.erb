@@ -31,7 +31,7 @@
                     <% end -%>
                     <i><%= t("view.replay.left_replay_times", count: lesson.user_left_times(current_user)) %></i>
                   </span>
-                <% elsif lesson.user_left_times(current_user) <= 0 %>
+                <% elsif lesson.replays_for(current_user) %>
                   <span class="playback-entrance">
                     <%= link_to 'javascript: void(0);', class: 'link-play', "data-toggle"=>"modal", "data-target"=>"#failure", id: "replay-#{lesson.id}" do -%>
                       <%= image_tag 'play.png' %>

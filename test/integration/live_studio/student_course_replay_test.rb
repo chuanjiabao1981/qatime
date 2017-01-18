@@ -20,17 +20,12 @@ module LiveStudio
 
     test 'student visit replays' do
       visit live_studio.course_path(@course)
-      click_on "加入试听"
-      lesson = live_studio_lessons(:replay_lessons_1)
-      lesson2 = live_studio_lessons(:replay_lessons_2)
-      visit live_studio.course_path(@course)
       assert page.has_content?("观看回放"), "辅导班详情页没有回放链接"
       visit live_studio.play_course_path(@course)
       assert page.has_content?("观看回放"), "辅导班观看页没有回放链接"
-      assert page.has_content?("剩余（0次）")
-      assert page.has_content?("剩余（1次）")
-      assert page.has_content?("剩余（2次）")
-      visit live_studio.replay_lesson_path(lesson2)
+      assert page.has_content?("0次"), "剩余播放次数显示不正确"
+      assert page.has_content?("1次"), "剩余播放次数显示不正确"
+      assert page.has_content?("2次"), "剩余播放次数显示不正确"
       click_on '退出'
     end
   end

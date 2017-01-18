@@ -9,6 +9,8 @@ module LiveStudio
     belongs_to :student, class_name: "::Student"
     belongs_to :lesson
 
+    has_many :ticket_items
+
     enum status: {
       inactive: 0,   # 准备试听
       active: 1,     # 可用
@@ -47,7 +49,7 @@ module LiveStudio
 
     # 增加使用次数
     def inc_used_count!(_urgent = false)
-      return if course.finished_lessons_count >= course.lessons_count
+      return if !taste? && course.finished_lessons_count >= course.lessons_count
       lock!
       self.used_count += 1
       used! if used_count >= buy_count

@@ -28,6 +28,5 @@ module Payment
       money = super
       (money * 100).to_i
     end
-
   end
 end

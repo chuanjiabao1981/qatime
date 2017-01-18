@@ -96,7 +96,7 @@ module Payment
       # 提现类型是微信时 创建自动转账数据
       wechat? && weixin_transfers.create(
         amount: amount,
-        remote_ip: TCPSocket.gethostbyname(Socket.gethostname).last,
+        remote_ip: remote_ip,
         status: :unpaid,
         order_no: transaction_no
       )

@@ -433,3 +433,135 @@ lesson_for_taste_zero:
   status: 5
   real_time: 30
   live_count: 3
+
+replay_lessons_1:
+  name: 第1节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+  replay_status: 3
+
+replay_lessons_2:
+  name: 第2节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+  replay_status: 3
+
+replay_lessons_3:
+  name: 第3节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+  replay_status: 3
+
+replay_lessons_4:
+  name: 第4节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+  replay_status: 3
+
+replay_lessons_5:
+  name: 第5节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+  replay_status: 2
+
+replay_lessons_6:
+  name: 第6节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+  replay_status: 2
+
+replay_lessons_7:
+  name: 第7节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+  replay_status: 1
+
+replay_lessons_8:
+  name: 第8节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 4
+  real_time: 30
+  live_count: 3
+  replay_status: 1
+
+replay_lessons_9:
+  name: 第9节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 1
+  real_time: 30
+  live_count: 3
+  replay_status: 0
+
+replay_lessons_10:
+  name: 第10节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 1
+  real_time: 30
+  live_count: 3
+  replay_status: 0
+
+

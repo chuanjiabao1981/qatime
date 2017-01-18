@@ -17,6 +17,7 @@ module V1
 
     mount V1::LiveStudio::Courses
     mount V1::LiveStudio::Lessons
+    mount V1::LiveStudio::Channels
 
     mount V1::Payment::Orders
     mount V1::Payment::Recharges

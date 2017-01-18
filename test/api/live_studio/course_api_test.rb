@@ -274,4 +274,15 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_equal 1, res['status']
     assert_equal 4, res['data'].size
   end
+
+  test 'student get replays list' do
+    @student = users(:student_one_with_course)
+    @remember_token = api_login(@student, :app)
+    @course = live_studio_courses(:course_for_channel)
+    get "/api/v1/live_studio/courses/#{@course.id}/replays", {}, 'Remember-Token' => @remember_token
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status']
+    assert_equal Array, res['data']['lessons'].class
+  end
 end

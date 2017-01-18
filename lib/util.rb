@@ -33,4 +33,17 @@ class Util
     path
   end
 
+  def self.duration_in_words(seconds_diff)
+    hours = seconds_diff / 3600
+    seconds_diff -= hours * 3600
+    minutes = seconds_diff / 60
+    seconds_diff -= minutes * 60
+    seconds = seconds_diff
+    word = ''
+    word += "#{hours}时" if hours > 0
+    word += "#{minutes}分" if minutes > 0
+    word += "#{seconds}秒" if seconds > 0
+    word
+  end
+
 end

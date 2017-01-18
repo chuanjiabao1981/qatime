@@ -648,11 +648,16 @@ ActiveRecord::Schema.define(version: 20170118021458) do
 
   create_table "live_studio_replays", force: :cascade do |t|
     t.integer  "lesson_id"
+    t.integer  "channel_id"
     t.string   "name"
     t.string   "vids"
     t.integer  "video_for"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "vid"
+    t.string   "orig_video_key"
+    t.string   "uid"
+    t.string   "n_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "live_studio_streams", force: :cascade do |t|

@@ -36,10 +36,9 @@ module V1
             else
               replay = ::LiveStudio::Replay.find_by(name: params[:video_name])
               if replay.update(vid: params['vid'],
-                            name: params['video_name'],
-                            orig_video_key: params[:orig_video_key],
-                            uid: params[:uid],
-                            n_id: params[:nID])
+                               orig_video_key: params[:orig_video_key],
+                               uid: params[:uid],
+                               n_id: params[:nID])
 
                 replay.merged!
                 code = 200

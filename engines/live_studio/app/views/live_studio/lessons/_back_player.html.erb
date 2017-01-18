@@ -75,15 +75,16 @@
   <script>
     $(function() {
       var myPlayer = neplayer('my-video', {
-          controlBar: {
+        "autoplay": true,
+        controlBar: {
           'currentTimeDisplay':true,
           'timeDivider':true,
           'durationDisplay':true,
           'remainingTimeDisplay':false
-             }
+        }
       },function  () {
-           myPlayer.corePlayer.controlBar.addChild(clarityComponent,{},6);
-           myPlayer.corePlayer.controlBar.addChild(definitionComponent,{},6);
+           // myPlayer.corePlayer.controlBar.addChild(clarityComponent,{},6);
+           // myPlayer.corePlayer.controlBar.addChild(definitionComponent,{},6);
          });
        
       var Component = neplayer.getComponent("Component");

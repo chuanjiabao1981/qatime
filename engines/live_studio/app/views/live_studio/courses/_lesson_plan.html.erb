@@ -25,7 +25,7 @@
               <% if lesson.replayable -%>
                 <% if allow?("live_studio/lessons", "replay", lesson) -%>
                   <span class="playback-entrance">
-                    <%= link_to live_studio.replay_lesson_path(lesson), class: 'link-play' do -%>
+                    <%= link_to live_studio.replay_lesson_path(lesson), class: 'link-play', id: "replay-#{lesson.id}" do -%>
                       <%= image_tag 'play.png' %>
                       <%= LiveStudio::Lesson.human_attribute_name(:replay) %>
                     <% end -%>
@@ -33,7 +33,7 @@
                   </span>
                 <% elsif lesson.user_left_times(current_user) <= 0 %>
                   <span class="playback-entrance">
-                    <%= link_to 'javascript: void(0);', class: 'link-play', "data-toggle"=>"modal", "data-target"=>"#failure" do -%>
+                    <%= link_to 'javascript: void(0);', class: 'link-play', "data-toggle"=>"modal", "data-target"=>"#failure", id: "replay-#{lesson.id}" do -%>
                       <%= image_tag 'play.png' %>
                       <%= LiveStudio::Lesson.human_attribute_name(:replay) %>
                     <% end -%>
@@ -46,7 +46,7 @@
               <span>
                 <%= lesson.status_text(current_user.try(:role)) %>
                 <% if allow?(:lessons, :completed, lesson) && lesson.finished?  %>
-                  <%= link_to t('view.course_info_show.completed_lesson'), live_studio.completed_course_lesson_path(@course, lesson), method: :patch %>
+                  <%= link_to t('view.course_info_show.completed_lesson'), live_studio.completed_lesson_path(lesson), method: :patch %>
                 <% end  %>
               </span>
             </td>
@@ -67,7 +67,7 @@
             </center>
             <center>
               <p>
-              <a href="javascript:void(0);" class="apply-change" data-dismiss="modal" aria-label="Close"><%= t("common.confirm") %></a>
+              <a href="javascript:void(0);" class="apply-change" id="confirm-failure", data-dismiss="modal" aria-label="Close"><%= t("common.confirm") %></a>
             </p>
             </center>
         </div>

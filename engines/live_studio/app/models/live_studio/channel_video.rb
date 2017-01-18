@@ -2,7 +2,7 @@ module LiveStudio
   class ChannelVideo < ActiveRecord::Base
     include LiveStudio::Channelable
 
-    TOTAL_REPLAY = 10
+    TOTAL_REPLAY = Rails.env.test? ? 2 : 10
 
     enum video_for: { board: 0, camera: 1 }
 

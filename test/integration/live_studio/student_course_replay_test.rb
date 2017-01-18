@@ -30,7 +30,7 @@ module LiveStudio
       assert page.has_content?("剩余（0次）")
       assert page.has_content?("剩余（1次）")
       assert page.has_content?("剩余（2次）")
-      click_link("replay-#{lesson2.id}")
+      visit live_studio.replay_lesson_path(lesson2)
       click_on '退出'
     end
   end

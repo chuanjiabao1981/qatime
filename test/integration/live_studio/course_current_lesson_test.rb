@@ -2,7 +2,7 @@ require 'test_helper'
 
 module LiveStudio
   class CourseCurrentLessonTest < ActionDispatch::IntegrationTest
-    self.use_transactional_fixtures = true
+    self.use_transactional_fixtures = false
     def setup
       @routes = Engine.routes
       @headless = Headless.new
@@ -37,9 +37,9 @@ module LiveStudio
 
       course.current_lesson.pause!
       sleep 3
+      p course.current_lesson.status
       visit live_studio.play_course_path(course)
       page.execute_script("$.getScript( 'refresh_current_lesson', function( data, textStatus, jqxhr ) {});")
-
       assert page.has_content?('暂停中'), '直播状态显示不正确'
     end
   end

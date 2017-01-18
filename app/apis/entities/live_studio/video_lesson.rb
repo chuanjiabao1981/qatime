@@ -13,7 +13,7 @@ module Entities
       end
       expose :left_replay_times
       expose :replay, using: Entities::LiveStudio::ChannelVideo, if: { type: :full } do |lesson|
-        lesson.channel_videos.first
+        lesson.replays.merged.last
       end
     end
   end

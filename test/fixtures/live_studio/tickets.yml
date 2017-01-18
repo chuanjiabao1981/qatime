@@ -205,3 +205,4 @@ replay_ticket:
   course: course_for_replay
   status: 2
   lesson_price: 50
+  type: LiveStudio::BuyTicket

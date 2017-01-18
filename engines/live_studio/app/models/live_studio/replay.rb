@@ -19,20 +19,6 @@ module LiveStudio
       end
     end
 
-    private
-
-    def merge_task
-      VCloud::Service.app_video_merge(outputName: lesson.replay_name(video_for), vidList: vids)
-    end
-
-    def single_merge
-      video = ChannelVideo.find_by(vid: vids.first)
-      update(video.slice(:vid, :orig_video_key, :uid))
-      merged!
-      lesson.merged!
-    end
-
-    after_update :video_get
     def video_get
       return unless vid.present? && merged?
       res = VCloud::Service.app_vod_video_get(vid: vid)
@@ -55,6 +41,20 @@ module LiveStudio
         shd_mp4_size: result[:shdMp4Size],
         create_time: result[:createTime]
       )
+    end
+
+    private
+
+    def merge_task
+      VCloud::Service.app_video_merge(outputName: lesson.replay_name(video_for), vidList: vids)
+    end
+
+    def single_merge
+      video = ChannelVideo.find_by(vid: vids.first)
+      update(video.slice(:vid, :orig_video_key, :uid))
+      video_get
+      merged!
+      lesson.merged!
     end
   end
 end

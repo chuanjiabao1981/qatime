@@ -39,7 +39,7 @@ module V1
                                orig_video_key: params[:orig_video_key],
                                uid: params[:uid],
                                n_id: params[:nID])
-
+                replay.video_get
                 replay.merged!
                 replay.lesson.merged!
                 code = 200

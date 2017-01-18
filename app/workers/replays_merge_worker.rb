@@ -5,8 +5,8 @@ class ReplaysMergeWorker
   # 更新辅导班录制视频列表
   def perform(lesson_id)
     lesson = LiveStudio::Lesson.find(lesson_id)
-    return unless lesson.synced?
+    return unless lesson.reload.synced?
     lesson.merge_replays
-    lesson.merging!
+    lesson.merging! if lesson.reload.synced?
   end
 end

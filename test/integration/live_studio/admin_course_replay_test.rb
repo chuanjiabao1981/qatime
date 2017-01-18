@@ -26,9 +26,7 @@ module LiveStudio
       visit live_studio.play_course_path(@course)
       assert page.has_content?("观看回放"), "辅导班观看页没有回放链接"
       assert_difference "LiveStudio::PlayRecord.where(user_id: @admin.id, play_type: 1).count", 3, "生成观看记录数量不正确" do
-        accept_prompt(with: "是否离开直播页面") do
-          click_link("replay-#{lesson.id}")
-        end
+        click_link("replay-#{lesson.id}")
         click_on "第2节"
         click_on "第4节"
       end

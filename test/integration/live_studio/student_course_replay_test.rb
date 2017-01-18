@@ -30,9 +30,7 @@ module LiveStudio
       assert page.has_content?("剩余（0次）")
       assert page.has_content?("剩余（1次）")
       assert page.has_content?("剩余（2次）")
-      accept_prompt(with: "是否离开直播页面") do
-        click_link("replay-#{lesson2.id}")
-      end
+      click_link("replay-#{lesson2.id}")
       click_on '退出'
     end
   end

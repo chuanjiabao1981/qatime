@@ -2,7 +2,7 @@ require 'test_helper'
 
 module LiveStudio
   class CourseCurrentLessonTest < ActionDispatch::IntegrationTest
-    self.use_transactional_fixtures = false
+    self.use_transactional_fixtures = true
     def setup
       @routes = Engine.routes
       @headless = Headless.new

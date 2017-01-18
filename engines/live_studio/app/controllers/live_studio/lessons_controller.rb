@@ -16,8 +16,7 @@ module LiveStudio
     end
 
     def completed
-      @course = Course.find(params[:course_id])
-      @lesson = @course.lessons.find(params[:id])
+      @lesson = Lesson.find(params[:id])
 
       if @lesson.finished? && LiveService::BillingDirector.new(@lesson).billing
         @lesson.billing? && @lesson.complete!

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118061032) do
+ActiveRecord::Schema.define(version: 20170118063446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -820,14 +820,14 @@ ActiveRecord::Schema.define(version: 20170118061032) do
   create_table "payment_cash_accounts", force: :cascade do |t|
     t.integer  "owner_id"
     t.string   "owner_type"
-    t.decimal  "balance",           precision: 8, scale: 2, default: 0.0
+    t.decimal  "balance",           precision: 12, scale: 2, default: 0.0
     t.datetime "deleted_at"
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
-    t.decimal  "total_income",      precision: 8, scale: 2, default: 0.0
-    t.decimal  "total_expenditure", precision: 8, scale: 2, default: 0.0
-    t.boolean  "migrated",                                  default: false
-    t.decimal  "frozen_balance",    precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
+    t.decimal  "total_income",      precision: 12, scale: 2, default: 0.0
+    t.decimal  "total_expenditure", precision: 12, scale: 2, default: 0.0
+    t.boolean  "migrated",                                   default: false
+    t.decimal  "frozen_balance",    precision: 12, scale: 2, default: 0.0
     t.string   "password_digest"
     t.datetime "password_set_at"
   end

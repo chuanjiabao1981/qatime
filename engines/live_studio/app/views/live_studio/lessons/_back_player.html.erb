@@ -22,7 +22,7 @@
               </div>
               <div class="playback-con-time <%= 'active' if lesson.id == @lesson.id %>">
                 <span></span>
-                <span><%= t("view.replay.left_replay_times2", count: @lesson.user_left_times(current_user)) %></span>
+                <span><%= t("view.replay.left_replay_times2", count: lesson.user_left_times(current_user)) %></span>
               </div>
             <% end -%>
           <% elsif lesson.left_replay_times <= 0 %>
@@ -33,7 +33,7 @@
               </div>
               <div class="playback-con-time">
                 <span></span>
-                <span><%= t("view.replay.left_replay_times2", count: @lesson.user_left_times(current_user)) %></span>
+                <span><%= t("view.replay.left_replay_times2", count: lesson.user_left_times(current_user)) %></span>
               </div>
             <% end -%>
           <% end -%>

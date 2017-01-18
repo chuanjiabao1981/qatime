@@ -7,6 +7,7 @@ module LiveStudio
     enum video_for: { board: 0, camera: 1 }
 
     belongs_to :channel
+    belongs_to :lesson
 
     def update_video_info
       res = ::Typhoeus.post(

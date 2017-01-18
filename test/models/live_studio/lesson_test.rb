@@ -64,5 +64,29 @@ module LiveStudio
       assert_not lesson.replayable_for?(student2), "回放权限控制失效"
     end
 
+    test 'merge replays' do
+      lesson = live_studio_lessons(:replay_lessons_7)
+      assert_difference "lesson.reload.replays.merging.count", 1, "视频合并失败" do
+        lesson.merge_replays
+      end
+      assert lesson.reload.replays.first.merging?, "提交合并任务后状态不正确"
+    end
+
+    test 'need not mrege replays' do
+      video_res = {
+        code: 200,
+        msg: '',
+        ret: {
+          duration: 20,
+          orig_url: 'http://baidu.com'
+        }
+      }.to_json
+      Typhoeus.stub('https://vcloud.163.com/app/vod/video/get').and_return(Typhoeus::Response.new(code: 200, body: video_res))
+      lesson = live_studio_lessons(:replay_lessons_8)
+      assert_difference "lesson.reload.replays.merged.count", 1, "视频合并失败" do
+        lesson.merge_replays
+      end
+      assert lesson.reload.merged?, "合并完成后课程状态不正确"
+    end
   end
 end

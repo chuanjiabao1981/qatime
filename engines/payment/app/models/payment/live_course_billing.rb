@@ -73,7 +73,7 @@ module Payment
 
     # 结算人数
     def quantity
-      @quantity ||= target.live_count
+      @quantity ||= target.ticket_items.billingable.count
     end
 
     def duration_minutes

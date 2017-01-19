@@ -202,7 +202,7 @@ module Payment
 
     # 第三方订单subject
     def subject
-      product.name
+      "购买#{product.model_name.human}: #{product.name}"
     end
 
     private

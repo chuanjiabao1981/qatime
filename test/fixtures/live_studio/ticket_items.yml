@@ -38,3 +38,33 @@ item8:
   ticket: ticket_for_billing_23
   lesson: lesson_one_of_course_for_billing_two
   status: 0
+  status: 0
+
+item9:
+  ticket: ticket_for_billing_31
+  lesson: lesson_one_of_course_for_billing_three
+  status: 0
+
+item10:
+  ticket: ticket_for_billing_32
+  lesson: lesson_one_of_course_for_billing_three
+  status: 0
+
+item11:
+  ticket: ticket_for_billing_33
+  lesson: lesson_one_of_course_for_billing_three
+  status: 0
+
+# 退款中
+item12:
+  ticket: ticket_for_billing_34
+  lesson: lesson_one_of_course_for_billing_three
+  status: 2
+
+# 已经退款
+item13:
+  ticket: ticket_for_billing_35
+  lesson: lesson_one_of_course_for_billing_three
+  status: 3
+
+

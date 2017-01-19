@@ -40,14 +40,15 @@ module LiveServiceTest
     end
 
     # 没有工作站的地区课程结账
+    # 结账逻辑调整
     test 'billing a lesson without workstation' do
       @lesson = live_studio_lessons(:lesson_one_of_course_for_billing_three)
       @course = @lesson.course
-      @workstation = workstation(:workstation_default)
+      @workstation = workstations(:workstation_default)
       @teacher = @lesson.teacher
-      assert_difference "@teacher.cash_account!.total_income.to_f", 124.2, "课程结账教师收入不正确" do
-        assert_difference "@workstation.cash_account!.total_income.to_f", 11.04, "课程结账工作站收入不正确" do
-          assert_difference "CashAdmin.current!.cash_account!.total_income.to_f", 14.76, "课程结账系统收入不正确" do
+      assert_difference "@teacher.cash_account!.total_income.to_f", 110.4, "课程结账教师收入不正确" do
+        assert_difference "@workstation.cash_account!.reload.total_income.to_f", 22.08, "课程结账工作站收入不正确" do
+          assert_difference "CashAdmin.current!.cash_account!.total_income.to_f", 17.52, "课程结账系统收入不正确" do
             assert_difference "CashAdmin.current!.cash_account!.total_expenditure.to_f", 150, "课程结账系统支出不正确" do
               LiveService::BillingDirector.new(@lesson).billing
             end

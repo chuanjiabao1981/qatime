@@ -279,7 +279,7 @@ lesson_one_of_course_for_billing_three:
   end_time: '05:30'
   class_date: <%= Date.yesterday %>
   status: 5
-  real_time: 30
+  real_time: 2400
   live_count: 3
 
 lesson_test_course_request1:

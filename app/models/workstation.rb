@@ -27,7 +27,7 @@ class Workstation < ActiveRecord::Base
     city.try(:name)
   end
 
-  def default_workstation
+  def self.default
     Workstation.find_or_create_by(email: 'admin@qatime.cn')
   end
 end

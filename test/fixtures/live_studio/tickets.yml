@@ -171,6 +171,20 @@ ticket_for_billing_33:
   type: LiveStudio::BuyTicket
   lesson_price: 50
 
+ticket_for_billing_34:
+  student: student4
+  course: course_for_billing_three
+  type: LiveStudio::BuyTicket
+  lesson_price: 50
+  status: 95
+
+ticket_for_billing_35:
+  student: student5
+  course: course_for_billing_three
+  type: LiveStudio::BuyTicket
+  lesson_price: 50
+  status: 96
+
 ticket_for_refund:
   student: student_order_for_refund
   course: course_for_refund

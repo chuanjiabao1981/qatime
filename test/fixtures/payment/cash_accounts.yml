@@ -111,3 +111,7 @@ student_order_for_refund_account:
 cash_admin_account:
   owner: cash_admin (User)
   balance: 20000
+
+cash_default_workstation:
+  owner: workstation_default(Workstation)
+  balance: 20000

@@ -91,8 +91,6 @@ module Payment
     end
 
     def system_pay_item!
-      puts 'total_money: '
-      puts total_money.to_f
       SystemPayItem.create!(billing: self,
                             cash_account: system_account,
                             owner: CashAdmin.current!,
@@ -100,8 +98,6 @@ module Payment
     end
 
     def system_fee_item!
-      puts 'system_fee_item ----->>>'
-      puts base_fee.to_f
       SystemFeeItem.create!(billing: self,
                             cash_account: system_account,
                             owner: CashAdmin.current!,
@@ -112,8 +108,6 @@ module Payment
     end
 
     def percent_item!
-      puts 'percent_item ----->>>'
-      puts percent_money.to_f
       item = PercentItem.create!(billing: self,
                                  amount: percent_money,
                                  percent: 100 - (teacher_percent * 100).to_i)
@@ -125,8 +119,6 @@ module Payment
     end
 
     def system_percent_item!(item)
-      puts 'system_percent_item ----->>>'
-      puts system_percent_money.to_f
       SystemPercentItem.create!(parent: item,
                                 billing: self,
                                 cash_account: system_account,
@@ -136,8 +128,6 @@ module Payment
     end
 
     def workstation_percent_item!(item)
-      puts 'workstation_percent_money ----->>>'
-      puts workstation_percent_money.to_f
       WorkstationPercentItem.create!(parent: item,
                                      billing: self,
                                      cash_account: workstation_account,
@@ -147,8 +137,6 @@ module Payment
     end
 
     def teacher_money_item!
-      puts 'teacher_money_item ----->>>'
-      puts teacher_money.to_f
       TeacherMoneyItem.create(billing: self,
                               cash_account: teacher_account,
                               owner: target.teacher,

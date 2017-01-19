@@ -38,7 +38,7 @@ module Payment
     # 用户支付参数
     def remote_params
       {
-        body: "账户充值",
+        body: order.subject,
         out_trade_no: order_no,
         total_fee: pay_money,
         spbill_create_ip: remote_ip,

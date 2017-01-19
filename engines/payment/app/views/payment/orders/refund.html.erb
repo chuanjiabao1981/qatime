@@ -36,6 +36,10 @@
                 <td><%= number_to_currency(@order.product.price, unit: '¥') %></td>
               </tr>
               <tr>
+                <td><%= Payment::Refund.human_attribute_name(:amount) %></td>
+                <td><%= number_to_currency(@order.amount, unit: '¥') %></td>
+              </tr>
+              <tr>
                 <td>已消费额</td>
                 <td><%= number_to_currency(@consumed_amount, unit: '¥') %></td>
               </tr>

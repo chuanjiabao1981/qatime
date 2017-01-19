@@ -6,5 +6,7 @@ module Payment
 
     belongs_to :parent, class_name: Billing
     has_many :sub_billings, class_name: Billing, foreign_key: "parent_id"
+
+    has_many :billing_items
   end
 end

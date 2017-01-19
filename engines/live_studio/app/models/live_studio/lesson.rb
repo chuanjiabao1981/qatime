@@ -53,6 +53,7 @@ module LiveStudio
     scope :include_today, -> {where('class_date >= ?',Date.today)}
     scope :waiting_finish, -> { where(status: [Lesson.statuses[:paused], Lesson.statuses[:closed]])}
     scope :month, -> (month){where('live_studio_lessons.class_date >= ? and live_studio_lessons.class_date <= ?', month.beginning_of_month.to_date,month.end_of_month.to_date)}
+    scope :started, -> { where("status >= ?", Lesson.statuses[:teaching])} # 已开始
 
     belongs_to :course, counter_cache: true
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
@@ -64,6 +65,7 @@ module LiveStudio
 
     has_many :live_sessions # 直播 心跳记录
     has_many :live_studio_lesson_notifications, as: :notificationable, dependent: :destroy
+    has_many :ticket_items
 
     validates :name, :class_date, presence: true
 
@@ -95,9 +97,9 @@ module LiveStudio
       event :teach do
         before do
           # 第一次开始直播增加开始数量
-          increment_course_counter(:started_lessons_count) if ready? || missed? || init?
+          increment_course_counter(:started_lessons_count) if unstart?
         end
-        transitions from: [:ready, :paused, :closed, :missed], to: :teaching
+        transitions from: [:ready, :paused, :missed, :closed], to: :teaching
       end
 
       event :pause do
@@ -106,6 +108,8 @@ module LiveStudio
 
       event :close do
         before do
+          # 第一次结束直播增加结束数量
+          increment_course_counter(:closed_lessons_count) if live_end_at.nil?
           self.live_end_at = Time.now
         end
         transitions from: [:teaching, :paused], to: :closed
@@ -117,7 +121,7 @@ module LiveStudio
           increment_course_counter(:finished_lessons_count)
           ReplaysSyncWorker.perform_async(id)
         end
-        transitions from: [:paused, :closed], to: :finished
+        transitions from: [:closed], to: :finished
       end
 
       event :complete do
@@ -150,10 +154,6 @@ module LiveStudio
 
     def can_play?
       ready? || teaching?
-    end
-
-    def has_finished?
-      self[:status] > Lesson.statuses[:teaching]
     end
 
     # 是否可以准备上课
@@ -211,9 +211,23 @@ module LiveStudio
       %w(finished billing completed).include?(status)
     end
 
+    # 判断课程是否未开始
+    # 待补课, 初始化, 待上课算作没开始
     def unstart?
-      # 判断课程是否未开始
       %w(missed init ready).include?(status)
+    end
+
+    # 没开始课程算作没有结束
+    # 暂停中或者上课中算作没有结束
+    # 结束以后重新开始算作已经结束
+    # 结束以后重新开始然后暂停算作已结束
+    def unclosed?
+      unstart? || %w(teaching paused).include?(status)
+    end
+
+    # 是否已经结束
+    def lesson_finished?
+      %w(finished billing completed).include?(status)
     end
 
     # 记录播放记录
@@ -236,6 +250,10 @@ module LiveStudio
 
     def self.beat_step
       APP_CONFIG[:live_beat_step] || 10
+    end
+
+    def billing_amount
+      @billing_amount ||= ticket_items.billingable.includes(:ticket).map(&:ticket).sum(&:lesson_price)
     end
 
     # 点播次数

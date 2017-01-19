@@ -11,7 +11,7 @@
         <table border="0" cellspacing="0" cellpadding="0">
           <tbody>
             <% @course.lessons.each do |lesson| -%>
-              <tr class="<%= 'finished' if lesson.has_finished? %>">
+              <tr class="<%= 'finished' if lesson.lesson_finished? %>">
                 <td><span class="fa fa-circle"></span></td>
                 <td><span><%= localize(lesson.class_date, format: :long) %> <%= lesson.start_time %>-<%= lesson.end_time %></span></td>
                 <td><span><%= lesson.name %></span></td>

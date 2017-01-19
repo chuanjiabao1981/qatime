@@ -1,10 +1,13 @@
 module Payment
   class LiveCourseBilling < Billing
     WORKSTATION_PERCENT = 0.8
+    SYSTEM_FEE_PRICE = 0.1 # 系统服务费设置0.1元
+    TEACHER_DEFAULT_PERCENT = 80
 
     # 计算账单
     def calculate
       calculate_total_money
+      self
     end
 
     # 执行结账
@@ -25,7 +28,7 @@ module Payment
 
     # 基础服务费
     def base_fee
-      @base_fee ||= [LiveStudio::Course::SYSTEM_FEE * quantity * duration_minutes, total_money].min
+      @base_fee ||= [SYSTEM_FEE_PRICE * quantity * duration_minutes, total_money].min
     end
 
     # 教师收入
@@ -81,7 +84,10 @@ module Payment
     end
 
     def teacher_percent
-      @teacher_percent ||= [target.course.teacher_percentage.to_f / 100, 1].min
+      @teacher_percent ||= target.course.teacher_percentage.to_f / 100
+      # 非邀请辅导班教师分成比例使用默认分成比例
+      @teacher_percent = TEACHER_DEFAULT_PERCENT.to_f / 100 if @teacher_percent >= 1
+      @teacher_percent
     end
 
     def system_pay_item!
@@ -97,7 +103,7 @@ module Payment
                             owner: CashAdmin.current!,
                             amount: base_fee,
                             quantity: quantity,
-                            price: LiveStudio::Course::SYSTEM_FEE,
+                            price: SYSTEM_FEE_PRICE,
                             duration: duration_minutes)
     end
 

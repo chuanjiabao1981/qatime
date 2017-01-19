@@ -7,8 +7,11 @@ module LiveService
 
     # 课程结算
     def billing
-      check_lesson
-      LiveCourseBilling.new(lesson).calculate.billing
+      return unless check_lesson
+      Payment::LiveCourseBilling.transaction do
+        Payment::LiveCourseBilling.new(target: @lesson).calculate.billing
+        @lesson.complete!
+      end
     end
 
     private
@@ -19,6 +22,7 @@ module LiveService
       # 检查课程时长
       @lesson.real_time = @lesson.live_sessions.sum(:duration) unless @lesson.real_time.to_i > 0
       @lesson.save
+      @lesson.finished? || @lesson.billing?
     end
   end
 end

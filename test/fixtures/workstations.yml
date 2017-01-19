@@ -46,3 +46,10 @@ workstation_hd:
   tel: 1
   email: MyString
   manager: customized_courses_manager
+workstation_default:
+  name: 默认工作站
+  city:
+  address:
+  tel:
+  email: admin@qatime.cn
+  manager: admin

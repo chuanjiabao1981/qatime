@@ -200,4 +200,16 @@ refund_ticket:
   status: 96
   lesson_price: 200
   got_lesson_ids: <%= [ActiveRecord::FixtureSet.identify(:lesson1_for_refund_course3), ActiveRecord::FixtureSet.identify(:lesson2_for_refund_course3)]%>
+replay_ticket:
+  student: student_for_replays
+  course: course_for_replay
+  status: 2
+  lesson_price: 50
+  type: LiveStudio::BuyTicket
 
+replay_ticket2:
+  student: student_with_order2
+  course: course_for_replay
+  status: 2
+  lesson_price: 50
+  type: LiveStudio::BuyTicket

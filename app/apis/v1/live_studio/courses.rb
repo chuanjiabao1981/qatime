@@ -220,6 +220,24 @@ module V1
             course = ::LiveStudio::Course.find(params[:id])
             present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user,size: :info
           end
+
+          desc '录制视频列表' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, desc: '辅导班ID'
+          end
+          get '/:id/replays' do
+            @course = ::LiveStudio::Course.find(params[:id])
+            info = {
+              id: @course.id,
+              lessons: @course.lessons
+            }
+            present info, with: Entities::LiveStudio::CourseReplay, current_user: current_user
+          end
         end
 
         resource :courses do
@@ -258,6 +276,15 @@ module V1
           end
           get '/:id' do
             course = ::LiveStudio::Course.find(params[:id])
+
+            # 临时解决方案
+            @paly_records = current_user ? [] : LiveStudio::PlayRecord.where(lesson_id: course.lessons.map(&:id),
+                                                                             play_type: LiveStudio::PlayRecord.play_types[:replay],
+                                                                             user_id: current_user.id).to_a
+            course.lessons.each do |l|
+              l.replay_times = @paly_records.select {|record| record.lesson_id == l.id }.count
+            end
+
             present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user, size: :info
           end
         end

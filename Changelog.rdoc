@@ -343,3 +343,11 @@
         * [QT-761](https://qatime.atlassian.net/browse/QT-761)
     * bugfix
         * [QT-762](https://qatime.atlassian.net/browse/QT-762)
+* 1.6.0
+    * feature
+        * [QT-769](https://qatime.atlassian.net/browse/QT-769)
+        * [QT-773](https://qatime.atlassian.net/browse/QT-773)
+        * [QT-775](https://qatime.atlassian.net/browse/QT-775)
+        * [QT-774](https://qatime.atlassian.net/browse/QT-774)
+        * [QT-776](https://qatime.atlassian.net/browse/QT-776)
+        * [QT-783](https://qatime.atlassian.net/browse/QT-783)

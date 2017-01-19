@@ -45,7 +45,7 @@ module Payment
         notify_url: order.notify_url,
         trade_type: trade_type,
         fee_type: 'CNY'
-      }.merge(order.remote_params)
+      }
     end
 
     # 企业支付参数

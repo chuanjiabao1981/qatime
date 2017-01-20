@@ -15,8 +15,8 @@ module LiveStudio
     scope :of, ->(tp) { where(tp: tp) }
     scope :today, -> {where('created_at > ? and created_at <= ?', Date.today.beginning_of_day, Date.today.end_of_day)}
 
-    def self.init_play(user, course, lesson, play_type='live')
-      replay.today.find_or_create_by(user: user, course: course, lesson: lesson, play_type: play_type)
+    def self.init_play(user, course, lesson)
+      replay.today.find_or_create_by(user: user, course: course, lesson: lesson)
     end
   end
 end

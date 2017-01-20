@@ -23,8 +23,8 @@ module V1
             if params[:beginTime].present?
               start_at = Time.at(params[:beginTime].to_f / 1000) - 2.minutes
               end_at = Time.at(params[:endTime].to_f / 1000) + 2.minutes
-              lesson = ::LiveStudio::Lesson.where("live_start_at > ? and live_end_at < ?", start_at, end_at)
               channel = ::LiveStudio::Channel.find_by(remote_id: params[:cid])
+              lesson = ::LiveStudio::Lesson.where(course_id: channel.course_id).where("live_start_at > ? and live_end_at < ?", start_at, end_at)
               result = lesson.channel_videos.create(name: params['video_name'],
                                     # url: params['url'],
                                     vid: params['vid'],

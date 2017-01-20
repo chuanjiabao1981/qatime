@@ -278,8 +278,8 @@ module V1
             course = ::LiveStudio::Course.find(params[:id])
 
             # 临时解决方案
-            @paly_records = current_user ? [] : LiveStudio::PlayRecord.where(lesson_id: course.lessons.map(&:id),
-                                                                             play_type: LiveStudio::PlayRecord.play_types[:replay],
+            @paly_records = current_user.nil? ? [] : ::LiveStudio::PlayRecord.where(lesson_id: course.lessons.map(&:id),
+                                                                             play_type: ::LiveStudio::PlayRecord.play_types[:replay],
                                                                              user_id: current_user.id).to_a
             course.lessons.each do |l|
               l.replay_times = @paly_records.select {|record| record.lesson_id == l.id }.count

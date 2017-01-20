@@ -102,6 +102,11 @@ module Payment
       end
     end
 
+    # 验证token
+    def validate_ticket_token(cate, token, object)
+      token && token == Redis.current.get("#{object.model_name.cache_key}/#{object.id}/#{cate}")
+    end
+
     # 支出之前检查可用资金
     def consumption_with_check(amount, target, billing, summary, options = {})
       options ||= {}
@@ -180,8 +185,6 @@ module Payment
           owner: owner
         )
       )
-      p '-------->>>>'
-      p change_record
       self.balance += change_record.different
       save!
     end

@@ -31,7 +31,7 @@ module V1
                                     begin_time: params['beginTime'],
                                     end_time: params['endTime'],
                                     channel_id: channel.id,
-                                    video_for: channel.use_for) unless channel_videos.find_by(vid: params['vid'])
+                                    video_for: channel.use_for) unless lesson.channel_videos.find_by(vid: params['vid'])
               code = 200 if result
             else
               replay = ::LiveStudio::Replay.find_by(name: params[:video_name])

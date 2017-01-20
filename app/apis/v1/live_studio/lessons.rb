@@ -141,7 +141,7 @@ module V1
           get ':id/replay' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
             @course = @lesson.course
-            ::LiveStudio::PlayRecord.init_play(current_user, @lesson.course, @lesson, 'replay')
+            ::LiveStudio::PlayRecord.init_play(current_user, @lesson.course, @lesson)
             @paly_records = ::LiveStudio::PlayRecord.where(lesson_id: @lesson.id,
                                                            play_type: ::LiveStudio::PlayRecord.play_types[:replay],
                                                            user_id: current_user.id).where('created_at < ?', Date.today).to_a

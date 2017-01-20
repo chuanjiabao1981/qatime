@@ -347,12 +347,12 @@ module LiveStudio
 
     # 摄像头视频id
     def camera_video_vids
-      channel_videos.where(video_for: ChannelVideo.video_fors['camera']).map(&:vid)
+      channel_videos.where(video_for: ChannelVideo.video_fors['camera']).order(:begin_time).map(&:vid)
     end
 
     # 白板视频id
     def board_video_vids
-      channel_videos.where(video_for: ChannelVideo.video_fors['board']).map(&:vid)
+      channel_videos.where(video_for: ChannelVideo.video_fors['board']).order(:begin_time).map(&:vid)
     end
 
     # 过期试听证

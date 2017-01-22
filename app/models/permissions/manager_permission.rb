@@ -23,7 +23,7 @@ module Permissions
       allow :register_codes, [:index, :new, :downloads, :create]
       allow :teachers,[:index,:show,:search,:pass,:unpass,
                        :students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,
-                       :exercises,:solutions,:customized_tutorial_topics,:notifications,
+                       :exercises, :keep_account, :solutions,:customized_tutorial_topics,:notifications,
                        :customized_courses,:profile]
       allow :curriculums,[:index,:show]
       allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]

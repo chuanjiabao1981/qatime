@@ -20,15 +20,17 @@ module Permissions
         user && customized_course && user.customized_courses.include?(customized_course)
       end
 
-      allow :customized_courses ,[:new,:create] do |student|
-        user and student
-      end
+      allow :customized_courses, [:new, :create, :get_sale_price, :teachers]
 
       ## begin live studio permission
       allow 'live_studio/waiter/courses', [:index, :show] do |resource|
         resource == user
       end
       ## end live studio permission
+
+      allow 'payment/users', [:cash]
+
+      allow :teachers, [:keep_account]
     end
   end
 end

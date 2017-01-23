@@ -47,47 +47,7 @@
       });
     })
     function _get_time(hour, minutes, duration){
-      var duration_value = 0;
-      var hour = parseInt(hour);
-      var minutes = parseInt(minutes);
-      switch(duration){
-        case 'minutes_30':
-          duration_value = 30;
-          break;
-        case 'minutes_45':
-          duration_value = 45;
-          break;
-        case 'hours_1':
-          duration_value = 60;
-          break;
-        case 'hours_half_90':
-          duration_value = 90;
-          break;
-        case 'hours_2':
-          duration_value = 120;
-          break;
-        case 'hours_half_150':
-          duration_value = 150;
-          break;
-        case 'hours_3':
-          duration_value = 180;
-          break;
-        case 'hours_half_210':
-          duration_value = 210;
-          break;
-        case 'hours_4':
-          duration_value = 240;
-          break;
-      }
-      end_hour = hour + parseInt((minutes+duration_value)/60);
-      end_minutes = minutes+duration_value % 60;
-      if(end_hour > 23)
-        end_hour = end_hour % 24
-      if(end_hour < 10)
-        end_hour = "0" + end_hour;
-      if(end_minutes < 10)
-        end_minutes = "0" + end_minutes;
-      return end_hour + ':' + end_minutes;
+      return $.getLessonTime(hour, minutes, duration);
     }
     function remove_lesson(obj){
       $(obj).parents("table").hide();

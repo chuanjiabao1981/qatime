@@ -180,6 +180,8 @@ module Payment
           owner: owner
         )
       )
+      p '-------->>>>'
+      p change_record
       self.balance += change_record.different
       save!
     end

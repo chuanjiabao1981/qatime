@@ -37,8 +37,7 @@
       <%= content_tag(:div, link_to(t('activerecord.view.buy'), new_course_order_path(course), id: "buy-course-#{course.id}",class: 'btn btn-default font-red'),
                       class: 'course-buy-btn') if ticket.taste? && current_user == @student%>
       <%= content_tag(:div, class: 'course-operator-btn') do %>
-        <%= link_to t('view.course_show.info'),student_course_path(@student,course), class: 'btn btn-default operator-btn' %>
-        <%= link_to t('view.course_show.lessons'),student_course_path(@student,course,index: 'list'), class: 'btn btn-default operator-btn' %>
+        <%= link_to t('view.course_show.info'), live_studio.course_path(course), class: 'btn btn-default operator-btn' %>
         <%= link_to t('view.course_show.study_link'), play_course_path(course), target: '_blank',
                     class: "btn btn-default operator-btn #{course.lessons.blank? || course.completed? ? 'disabled' : nil}" if course.bought_by?(current_user) || course.tasting?(current_user) %>
       <% end %>

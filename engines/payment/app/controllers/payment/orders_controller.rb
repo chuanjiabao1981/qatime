@@ -24,12 +24,12 @@ module Payment
 
     def refund_create
       @order = @user.orders.find_by!(transaction_no: params[:id])
-      @refund = LiveService::OrderDirector.new(@order).generate_refund
-      if @refund.save
-        @refund.create_refund_reason(reason:  params[:reason])
-        redirect_to payment.user_orders_path(@user), notice: i18n_notice('created', @refund)
-      else
+      @refund = LiveService::OrderDirector.new(@order).refund!
+      if @refund.errors.any?
         render :refund, layout: 'payment/layouts/payment'
+      else
+        @refund.create_refund_reason(reason: params[:reason])
+        redirect_to payment.user_orders_path(@user), notice: i18n_notice('created', @refund)
       end
     end
 

@@ -4,8 +4,18 @@ module LiveStudio
     has_soft_delete
     extend Enumerize
 
+    attr_accessor :replay_times
     attr_accessor :start_time_hour, :start_time_minute, :_update
     BEAT_STEP = 10 # 心跳频率/秒
+
+    enum replay_status: {
+      unsync: 0, # 未同步
+      synced: 1, # 已同步
+      merging: 2, # 正在合并
+      merged: 3, # 已合并
+      sync_error: 98, # 同步失败
+      merge_error: 99 # 合并失败
+    }
 
     enum status: {
       missed: -1, # 已错过
@@ -43,15 +53,19 @@ module LiveStudio
     scope :include_today, -> {where('class_date >= ?',Date.today)}
     scope :waiting_finish, -> { where(status: [Lesson.statuses[:paused], Lesson.statuses[:closed]])}
     scope :month, -> (month){where('live_studio_lessons.class_date >= ? and live_studio_lessons.class_date <= ?', month.beginning_of_month.to_date,month.end_of_month.to_date)}
+    scope :started, -> { where("status >= ?", Lesson.statuses[:teaching])} # 已开始
 
     belongs_to :course, counter_cache: true
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
 
     has_many :play_records # 听课记录
     has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
+    has_many :channel_videos
+    has_many :replays
 
     has_many :live_sessions # 直播 心跳记录
     has_many :live_studio_lesson_notifications, as: :notificationable, dependent: :destroy
+    has_many :ticket_items
 
     validates :name, :class_date, presence: true
 
@@ -83,9 +97,9 @@ module LiveStudio
       event :teach do
         before do
           # 第一次开始直播增加开始数量
-          increment_course_counter(:started_lessons_count) if ready? || missed? || init?
+          increment_course_counter(:started_lessons_count) if unstart?
         end
-        transitions from: [:ready, :paused, :closed, :missed], to: :teaching
+        transitions from: [:ready, :paused, :missed, :closed], to: :teaching
       end
 
       event :pause do
@@ -94,6 +108,8 @@ module LiveStudio
 
       event :close do
         before do
+          # 第一次结束直播增加结束数量
+          increment_course_counter(:closed_lessons_count) if live_end_at.nil?
           self.live_end_at = Time.now
         end
         transitions from: [:teaching, :paused], to: :closed
@@ -101,10 +117,11 @@ module LiveStudio
 
       event :finish, after_commit: :instance_play_records do
         after do
-          # 课程完成增加辅导班完成课程数量
+          # 课程完成增加辅导班完成课程数量 & 异步更新录制视频列表
           increment_course_counter(:finished_lessons_count)
+          ReplaysSyncWorker.perform_async(id)
         end
-        transitions from: [:paused, :closed], to: :finished
+        transitions from: [:closed], to: :finished
       end
 
       event :complete do
@@ -137,10 +154,6 @@ module LiveStudio
 
     def can_play?
       ready? || teaching?
-    end
-
-    def has_finished?
-      self[:status] > Lesson.statuses[:teaching]
     end
 
     # 是否可以准备上课
@@ -198,9 +211,23 @@ module LiveStudio
       %w(finished billing completed).include?(status)
     end
 
+    # 判断课程是否未开始
+    # 待补课, 初始化, 待上课算作没开始
     def unstart?
-      # 判断课程是否未开始
       %w(missed init ready).include?(status)
+    end
+
+    # 没开始课程算作没有结束
+    # 暂停中或者上课中算作没有结束
+    # 结束以后重新开始算作已经结束
+    # 结束以后重新开始然后暂停算作已结束
+    def unclosed?
+      unstart? || %w(teaching paused).include?(status)
+    end
+
+    # 是否已经结束
+    def lesson_finished?
+      %w(finished billing completed).include?(status)
     end
 
     # 记录播放记录
@@ -225,7 +252,108 @@ module LiveStudio
       APP_CONFIG[:live_beat_step] || 10
     end
 
+    def billing_amount
+      @billing_amount ||= ticket_items.billingable.includes(:ticket).map(&:ticket).sum(&:lesson_price)
+    end
+
+    # 点播次数
+    def total_play_times
+      play_records.replay.count
+    end
+
+    # 获取直播录像
+    def sync_replays
+      course.channels.each do |c|
+        c.sync_video_for(self) if c.board?
+      end
+      synced! if channel_videos.count > 0
+      # 设置合并任务
+      ReplaysMergeWorker.perform_async(id) if synced?
+    end
+
+    # 视频回放开始时间
+    def replays_start_at
+      (live_start_at.to_i - 2.minutes) * 1000
+    end
+
+    # 视频回放结束时间
+    def replays_end_at
+      live_end_at.nil? ? Time.now.to_i * 1000 : (live_end_at.to_i + 2.minutes) * 1000
+    end
+
+    # 剩余回放时间
+    def left_replay_times
+      return 0 unless replay_times
+      [LiveStudio::ChannelVideo::TOTAL_REPLAY - replay_times, 0].max
+    end
+
+    # 是否可以回放
+    def replayable
+      merged?
+    end
+
+    # 是否可观看回放
+    def replayable_for?(user)
+      return false if user.nil?
+      return true if user.admin?
+      return false unless course.buy_tickets.where(student_id: user.id).available.exists?
+      return false unless course.play_authorize(user, nil)
+      play_records.where(play_type: LiveStudio::PlayRecord.play_types[:replay],
+                         user_id: user.id).where('created_at < ?', Date.today).count < LiveStudio::ChannelVideo::TOTAL_REPLAY
+    end
+
+    # 是否显示剩余次数
+    def replays_for(user)
+      return false if user.nil?
+      return true if user.admin?
+      course.buy_tickets.where(student_id: user.id).available.exists?
+    end
+
+    # 用户剩余播放次数
+    def user_left_times(user)
+      return 0 if user.nil?
+      c = play_records.where(play_type: LiveStudio::PlayRecord.play_types[:replay],
+                         user_id: user.id).where('created_at < ?', Date.today).count
+      [LiveStudio::ChannelVideo::TOTAL_REPLAY - c, 0].max
+    end
+
+    # 合并视频
+    def merge_replays
+      # 摄像头视频合并
+      # replays.create(video_for: ChannelVideo.video_fors['camera'],
+      #                name: camera_replay_name,
+      #                vids: camera_video_vids,
+      #                channel: course.channels.find_by(use_for: Channel.use_fors['camera']))
+      # 白板视频合并
+      replays.create(video_for: ChannelVideo.video_fors['board'],
+                     name: board_replay_name,
+                     vids: board_video_vids,
+                     channel: course.channels.find_by(use_for: Channel.use_fors['board']))
+    end
+
+    def replay_name(video_for)
+      "#{Rails.env}_lesson_#{id}_#{video_for}_replay"
+    end
+
     private
+
+    def camera_replay_name
+      "#{Rails.env}_lesson_#{id}_camera_replay"
+    end
+
+    def board_replay_name
+      "#{Rails.env}_lesson_#{id}_board_replay"
+    end
+
+    # 摄像头视频id
+    def camera_video_vids
+      channel_videos.where(video_for: ChannelVideo.video_fors['camera']).order(:begin_time).map(&:vid)
+    end
+
+    # 白板视频id
+    def board_video_vids
+      channel_videos.where(video_for: ChannelVideo.video_fors['board']).order(:begin_time).map(&:vid)
+    end
 
     # 过期试听证
     def used_taste_tickets

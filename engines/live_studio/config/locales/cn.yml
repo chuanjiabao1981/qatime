@@ -189,6 +189,10 @@ cn:
       teacher_school_name: 所在学校
       teacher_desc: 自我介绍
       teacher_summary: 教师简介
+    replay:
+      left_replay_times: '剩余（%{count}次）'
+      left_replay_times2: '剩余回放次数：%{count}'
+      directory: 回放目录
   status:
     init: 审核中
     preview: 招生中
@@ -234,6 +238,7 @@ cn:
         class_date: 课程日期
         status_event: 是否通过审核
         status: 状态
+        replay: 观看回放
       live_studio/course:
         current_status: 当前状态
         name: 名称

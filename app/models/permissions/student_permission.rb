@@ -158,7 +158,11 @@ module Permissions
       allow 'settings', [:create, :update]
       allow 'live_studio/student/courses', [:index, :show]
       allow 'live_studio/courses', [:index, :show]
-      allow 'live_studio/lessons', [:show, :play]
+      allow 'live_studio/lessons', [:show, :play, :videos]
+
+      allow 'live_studio/lessons', [:replay] do |lesson|
+        lesson.replayable && lesson.replayable_for?(user)
+      end
       ## end live studio permission
 
       # payment permission
@@ -191,6 +195,10 @@ module Permissions
         student && student.id == user.id
       end
       api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/orders"
+      api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/replays"
+      api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/replay"
+
+
 
       # 学生个人信息接口
       api_allow :GET, "/api/v1/students/[\\w-]+/info" do |student|

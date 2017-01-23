@@ -21,15 +21,32 @@
               </span>
             </td>
             <td>
-              <span>
-                <%= lesson.name %>
-              </span>
+              <span><%= lesson.name %></span>
+              <% if lesson.replayable -%>
+                <% if allow?("live_studio/lessons", "replay", lesson) -%>
+                  <span class="playback-entrance">
+                    <%= link_to live_studio.replay_lesson_path(lesson), class: 'link-play', id: "replay-#{lesson.id}", target: '_blank' do -%>
+                      <%= image_tag 'play.png' %>
+                      <%= LiveStudio::Lesson.human_attribute_name(:replay) %>
+                    <% end -%>
+                    <i><%= t("view.replay.left_replay_times", count: lesson.user_left_times(current_user)) %></i>
+                  </span>
+                <% elsif lesson.replays_for(current_user) %>
+                  <span class="playback-entrance">
+                    <%= link_to 'javascript: void(0);', class: 'link-play', "data-toggle"=>"modal", "data-target"=>"#failure", id: "replay-#{lesson.id}" do -%>
+                      <%= image_tag 'play.png' %>
+                      <%= LiveStudio::Lesson.human_attribute_name(:replay) %>
+                    <% end -%>
+                    <i><%= t("view.replay.left_replay_times", count: lesson.user_left_times(current_user)) %></i>
+                  </span>
+                <% end %>
+              <% end -%>
             </td>
             <td>
               <span>
                 <%= lesson.status_text(current_user.try(:role)) %>
                 <% if allow?(:lessons, :completed, lesson) && lesson.finished?  %>
-                  <%= link_to t('view.course_info_show.completed_lesson'), completed_course_lesson_path(@course, lesson), method: :patch %>
+                  <%= link_to t('view.course_info_show.completed_lesson'), live_studio.completed_lesson_path(lesson), method: :patch %>
                 <% end  %>
               </span>
             </td>
@@ -39,3 +56,21 @@
     </div>
   </div>
 </div>
+
+<%= content_for :mask do  %>
+  <div class="modal fade" id="failure" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="prompt-pwd">
+        <div class="prompt-pwd-title"><%= t("common.tips") %></div>
+        <div class="prompt-pwd-con">
+            <center>
+              <p><%= t("tips.replay_used_up") %></p>
+            </center>
+            <center>
+              <p>
+              <a href="javascript:void(0);" class="apply-change" id="confirm-failure", data-dismiss="modal" aria-label="Close"><%= t("common.confirm") %></a>
+            </p>
+            </center>
+        </div>
+      </div>
+  </div> 
+<% end %>

@@ -39,7 +39,7 @@
               <td colspan="3"><span class="headline-color"><%= t("activerecord.view.status") %></span>
                 <span class="<%= @course.completed? ? 'separator' : 'title-color' %> interval">
                   <%= @course.status_text%>
-                  (<%= @course.published? ? (t('view.course_show.distance_text1') % @course.distance_days) : "#{@course.finished_lessons_count}/#{@course.lessons_count }" %>)
+                  (<%= @course.published? ? (t('view.course_show.distance_text1') % @course.distance_days) : "#{@course.closed_lessons_count}/#{@course.lessons_count }" %>)
                 </span>
               </td>
             </tr>
@@ -48,7 +48,7 @@
                 <div class="price-details">
                   <div class="unit-price">
                     <span class="title-color price-num"><%= number_to_currency(@course.current_price, locale: :cn) %></span>
-                    <span class="sign-up"><%= t('view.course_search_show.purchase_number') %><%= @course.buy_tickets_count%></span>
+                    <span class="sign-up"><%= t('view.course_search_show.purchase_number') %><%= @course.buy_user_count %></span>
                   </div>
                   <%= render "buy_or_taste" if (current_user.blank? || current_user.student?) && @course.for_sell? %>
                 </div>

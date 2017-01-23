@@ -129,6 +129,25 @@ module V1
             present @lesson, with: Entities::LiveStudio::Lesson
           end
 
+          desc '回放视频信息接口' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, type: Integer, desc: '课程ID'
+          end
+          get ':id/replay' do
+            @lesson = ::LiveStudio::Lesson.find(params[:id])
+            @course = @lesson.course
+            ::LiveStudio::PlayRecord.init_play(current_user, @lesson.course, @lesson)
+            @paly_records = ::LiveStudio::PlayRecord.where(lesson_id: @lesson.id,
+                                                           play_type: ::LiveStudio::PlayRecord.play_types[:replay],
+                                                           user_id: current_user.id).where('created_at < ?', Date.today).to_a
+            @lesson.replay_times = @paly_records.count
+            present @lesson, with: Entities::LiveStudio::VideoLesson, type: :full, current_user: current_user
+          end
         end
       end
     end

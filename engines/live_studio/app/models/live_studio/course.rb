@@ -185,9 +185,9 @@ module LiveStudio
 
     # 当前价格
     def current_price
-      return 0 if lessons_count <= started_lessons_count
-      return price.to_f if started_lessons_count.zero?
-      lesson_price * (lessons_count - started_lessons_count)
+      return 0 if lessons_count <= closed_lessons_count
+      return price.to_f if closed_lessons_count.zero?
+      lesson_price * (lessons_count - closed_lessons_count)
     end
 
     def live_next_time
@@ -198,8 +198,10 @@ module LiveStudio
     # 发货
     def deliver(order)
       taste_tickets.where(student_id: order.user_id).available.map(&:replaced!) # 替换正在使用的试听券
-      ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: lesson_price, buy_count: lesson_count_left)
-      ticket.got_lesson_ids = lessons.unstart.map(&:id)
+
+      ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: lesson_price,
+                                             payment_order_id: order.id, buy_count: lesson_count_left)
+      ticket.got_lesson_ids = lessons.where(live_end_at: nil).map(&:id)
       ticket.active!
     end
 
@@ -341,6 +343,11 @@ module LiveStudio
       return unless class_date <= Date.today
       teaching! if published?
       lessons.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
+    end
+
+    # 购买人数
+    def buy_user_count
+      buy_tickets_count + adjust_buy_count
     end
 
     private

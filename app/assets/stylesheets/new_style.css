@@ -30,6 +30,7 @@
 .header-logo img {
   margin-top: 3px;
 }
+
 .city {
   line-height: 37.5px;
 }
@@ -76,6 +77,9 @@ header {
     max-width: 1190px;
     margin: 0 auto;
 }
+.live-big .header-content {
+  max-width: 1376px;
+}
 .header-logo {
     float: left;
     margin-left: -15px;
@@ -94,13 +98,16 @@ header {
 .login span a i {
   color: rgb(190,11,11);
 }
-
  .login-show {
   display: block;
  }
 .header-nav span {
+  display: inline-block;
     margin-left: 10px;
     color: #000000;
+}
+.live-big .header-nav span {
+  margin-left: 30px;
 }
 .header-nav span a {
     color: #000000;
@@ -198,3 +205,4 @@ header {
 .active-left {
   background-color: rgb(190,11,11);
 }
+

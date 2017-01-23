@@ -294,6 +294,7 @@ module LiveStudio
 
     # 是否可观看回放
     def replayable_for?(user)
+      return false if user.nil?
       return true if user.admin?
       return false unless course.buy_tickets.where(student_id: user.id).available.exists?
       return false unless course.play_authorize(user, nil)
@@ -303,12 +304,14 @@ module LiveStudio
 
     # 是否显示剩余次数
     def replays_for(user)
+      return false if user.nil?
       return true if user.admin?
       course.buy_tickets.where(student_id: user.id).available.exists?
     end
 
     # 用户剩余播放次数
     def user_left_times(user)
+      return 0 if user.nil?
       c = play_records.where(play_type: LiveStudio::PlayRecord.play_types[:replay],
                          user_id: user.id).where('created_at < ?', Date.today).count
       [LiveStudio::ChannelVideo::TOTAL_REPLAY - c, 0].max
@@ -344,12 +347,12 @@ module LiveStudio
 
     # 摄像头视频id
     def camera_video_vids
-      channel_videos.where(video_for: ChannelVideo.video_fors['camera']).map(&:vid)
+      channel_videos.where(video_for: ChannelVideo.video_fors['camera']).order(:begin_time).map(&:vid)
     end
 
     # 白板视频id
     def board_video_vids
-      channel_videos.where(video_for: ChannelVideo.video_fors['board']).map(&:vid)
+      channel_videos.where(video_for: ChannelVideo.video_fors['board']).order(:begin_time).map(&:vid)
     end
 
     # 过期试听证

@@ -20,7 +20,8 @@ module APIErrors
   TokenInvalid          = Class.new StandardError
   CourseTasteLimit      = Class.new StandardError
   PasswordDissatisfy    = Class.new StandardError
-
+  TryManyTimes          = Class.new StandardError
+  BalanceNotEnough      = Class.new StandardError
 
   module ClassMethods
     def include_errors
@@ -75,6 +76,14 @@ module APIErrors
 
       rescue_from PasswordDissatisfy do |e|
         out_error(code: 2008, msg: e.message || "支付密码设置时间不足24小时")
+      end
+
+      rescue_from TryManyTimes do |e|
+        out_error(code: 2009, msg: e.message || "超过重试次数")
+      end
+
+      rescue_from BalanceNotEnough do |e|
+        out_error(code: 2010, msg: e.message || "余额不足")
       end
 
       rescue_from Grape::Exceptions::ValidationErrors do |e|

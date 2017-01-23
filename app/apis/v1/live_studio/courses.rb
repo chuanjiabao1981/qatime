@@ -199,11 +199,8 @@ module V1
           end
           post '/:id/orders' do
             course = ::LiveStudio::Course.find(params[:id])
-            order_params = {
-              pay_type: params[:pay_type], remote_ip: client_ip, source: :app
-            }
-            order = LiveService::CourseDirector.create_order(current_user, course, order_params)
-            raise ActiveRecord::RecordInvalid, order unless order.save
+            order = ::Payment::Order.create(course.order_params.merge(pay_type: params[:pay_type], remote_ip: client_ip, source: :app, user: current_user))
+            raise ActiveRecord::RecordInvalid, order if order.errors.any?
             present order, with: Entities::Payment::Order
           end
 

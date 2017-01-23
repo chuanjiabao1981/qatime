@@ -98,7 +98,7 @@
         when 'hours_4'
           duration_value = 240
       end_hour = hour + parseInt((minutes+duration_value)/60)
-      end_minutes = minutes+duration_value % 60
+      end_minutes = (minutes+duration_value) % 60
       if end_hour > 23
         end_hour = end_hour % 24
       if end_hour < 10

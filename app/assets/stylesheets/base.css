@@ -2357,6 +2357,7 @@ i {
 }
 .link-right table td:first-child {
   font-size: 16px;
+  width: 70px;
 }
 .link-right table tr td:nth-child(2) {
   padding-left: 20px;
@@ -2374,6 +2375,11 @@ i {
   /*height: 20px;*/
   border-top: 1px dotted white;
   margin-bottom: 10px;
+}
+@media only screen and (max-width: 1200px) {
+  .recommended-link {
+    padding: 15px 40px 10px;
+  }
 }
 @media only screen  and (max-width: 990px) {
   .link-left {
@@ -3430,7 +3436,7 @@ ul {
   float: left;
 }
 .area-left-title,.area-right-title {
-  padding: 0 10px;
+  /*padding: 0 10px;*/
   height: 27px;
   line-height: 27px;
   font-size: 14px;
@@ -3750,7 +3756,7 @@ ul {
 
 
 
-@media only screen  and (max-width: 1199px) {
+@media only screen  and (max-width: 1200px) {
   .area-right {
     float: left;
   }
@@ -3997,7 +4003,7 @@ ul {
   background-color: #428bca !important;
 }
 .admin-title {
-  height: 54px;
+  min-height: 54px;
   border-bottom: 1px solid gray;
   line-height: 54px;
   overflow: hidden;
@@ -4007,7 +4013,7 @@ ul {
   font-size: 20px;
   margin-right: 30px;
 }
-.active-admin {
+.active-admin,.admin .active {
   color: #000000 !important;
 }
 .admin-title-left {
@@ -4051,20 +4057,20 @@ ul {
   margin-top: 27px;
   overflow: hidden;
 }
-.admin-list-con {
+.admin-list-con,.admin-recharge {
   margin-top: 10px;
 }
-.admin-list-con table {
+.admin-list-con table,.admin-recharge table {
   width: 100%;
 }
-.admin-list-con table tr:first-child td {
+.admin-list-con table tr:first-child td,.admin-recharge table tr:first-child td {
   height: 40px;
   color: #999999;
 }
 .admin-list-con table tr:first-child td span {
   text-align: center !important;
 }
-.admin-list-con table tr td {
+.admin-list-con table tr td,.admin-recharge table tr td {
   height: 60px;
   text-align: center;
   border: 1px solid #F2F2F2;
@@ -4602,16 +4608,7 @@ ul {
   position: relative;
   padding-top: 10px !important;
 }
-/*.create-td input {
-  width: 94.5%;
-  height: 30px !important;
-  margin-bottom: 5px;
-  color: #999999;
-  text-align: center;
-  border: 1px solid #999999 !important;
-  display: inline;
-  border-radius: 4px;
-}*/
+
 .add_fields {
   display: inline-block;
   font-size: 16px;
@@ -4766,11 +4763,6 @@ ul {
   margin-right: 20px;
   color: #999999;
 }
-
-
-
-
-
 .calendar {
   position: absolute;
   margin-top: 8px;
@@ -4802,7 +4794,6 @@ ul {
   background-color: rgb(190,11,11);
   margin: 0 10px;
 }
-
 .editor-msg .col-md-10 {
   padding-left: 0px;
 }
@@ -4832,19 +4823,11 @@ ul {
   
 }
 }
-
-
-
-
-
-
-
 .modal-img {
   width: 242px;
   height: 242px; 
   border: 1px dashed;
 }
-
 .modal-img img {
   width: 100%;
 }
@@ -5000,7 +4983,6 @@ ul {
   height: 83px;
   color: #666666;
 }
-
 .tutorial-con table img {
   width: 132px;
   height: 83px;
@@ -5036,7 +5018,6 @@ ul {
   color: #333333;
   text-align: center;
 }
-
 .tutorial-con-edit {
   width: 140px;
   position: relative;
@@ -5162,7 +5143,6 @@ ul {
   resize: none;
   padding-left: 13px;
 } 
-
 .tecmsg-send {
   margin: 15px 0 40px;
 }
@@ -5282,7 +5262,6 @@ ul {
   line-height: 38px;
   text-align: center;
   border-radius: 4px;
-  /*margin-top: 10px;*/
 }
 .down-load .col-md-4 {
   overflow: hidden;
@@ -5364,7 +5343,6 @@ ul {
   float: left;  
   background-color: #ded2c6 !important;
 }
-
 .login-bg {
  width: 600px;
   min-height: 600px;
@@ -5386,7 +5364,6 @@ ul {
   right: 0;
 }
 }
-
 .login-content .row .panel {
   width: 350px;
   margin-top: 114px;
@@ -5446,7 +5423,6 @@ ul {
   height: 42px;
   border-radius: 0px;
 }
-
 .login-account-con .input-group .input-group-addon {
   background-color: #DDDDDD;
   border-radius: 0px;
@@ -5484,7 +5460,6 @@ ul {
   float: right;
   color: #00a2ee;
 }
-
 .login-send {
   width: 100%;
   height: 42px;
@@ -5603,7 +5578,6 @@ ul {
   color: #333333;
 }
 .wechat-msg .form-group,.upload-msg .form-group {
-  /*margin-bottom: 20px;*/
   height: 62px;
   margin-bottom: 0px;
 }
@@ -5691,9 +5665,6 @@ ul {
 }
 
 }
-
-
-
 .wechat-choose {
   width: 388px;
   height: 202px;
@@ -5753,7 +5724,6 @@ ul {
   padding-right: 90px;
   border-right: 1px dashed #999999;
 }
-
 .tea-register-title {
   font-size: 30px;
   color: #333333;
@@ -5801,7 +5771,6 @@ ul {
   margin-left: 15px;
   padding-top: 11px;
 }
-
 .tea-register-left .accept label {
   font-size: 14px;
   font-weight: 100;
@@ -5863,7 +5832,6 @@ ul {
   margin-top: 12px;
   color: #CCCCCC;
 }
-
 @media only screen and (max-width: 990px) {
 .login-wechat .col-md-6:first-child {
   padding-right: 15px;
@@ -5954,7 +5922,6 @@ ul {
   margin-left: 0px;
   display: none;
 }
-
 .tecmsg-con textarea {
   width: 100% !important;
 } 
@@ -6111,7 +6078,6 @@ ul {
     height: 386px !important;
      overflow: hidden; 
 }
-
 .pre-1{
   margin-left: 6px;
   width: 90px;
@@ -6121,7 +6087,6 @@ ul {
   background-size: 100% 100%;
   overflow:hidden;
 }
-
 .pre-2 {
   width: 240px;
   height: 240px;
@@ -6242,7 +6207,6 @@ ul {
   width: 50%;
   float: left;
 }
-
 .process-student,.process-teacher {
   width: 80px;
 }
@@ -6319,7 +6283,6 @@ ul {
 .process-right-msg:nth-child(3),.process-right-msg:nth-child(4) {
   margin-bottom: 25px;
 }
-
 .process-right-msg:last-child {
   padding-bottom: 90px;
 }
@@ -6359,7 +6322,6 @@ ul {
   margin-top: 20px;
   color: #666666;
 }
-
 .process-ask ul {
   padding-left: 34px;
   margin-top: 20px;
@@ -6445,7 +6407,6 @@ ul {
   width: 89px;
   height: 29px;
 }
-
 .study-search-new img {
   width: 440px;
   height: 458px;
@@ -6561,7 +6522,6 @@ ul {
 .apply-tea .title-size {
   color: #000000;
 }
-
 .apply-tea-con {
   margin: 0 10px;
   overflow: hidden;
@@ -6583,7 +6543,6 @@ ul {
   text-align: center;
   border-bottom: 1px solid rgb(241,241,241);
 }
-
 .tea-left-con,.tea-right-con {
   height: 93px;
   border: 1px solid rgb(241,241,241);
@@ -6644,7 +6603,7 @@ border-left: 0px;
   border-left: 0px;
   overflow: hidden;
 }
-.tea-right-send input,.complete-btn a,.buy-footer-btn a {
+.tea-right-send input,.complete-btn a,.buy-footer-btn a,.buy-footer-btn input {
   float: right;
   background-color: #FFFFFF;
   display: inline-block;
@@ -6815,7 +6774,11 @@ border-left: 0px;
 }
 .accept-down a {
   color: #333;
+}
+.accept-down span {
   float: right;
+  font-size: 18px;
+  margin-top: 1px;
 }
 .accept-down a img {
   margin-left: 5px;
@@ -6858,8 +6821,6 @@ border-left: 0px;
 .down-content img {
   width: 100%;
 }
-
-
 @media only screen and (min-width: 1400px)  {
   div.live-big {
     width: 1376px !important;
@@ -6935,7 +6896,6 @@ border-left: 0px;
   line-height: 34px;
   color: #999999;
 }
-
 .buy-left-con img {
   width: 31%;
   height: 120px;
@@ -6993,11 +6953,15 @@ border-left: 0px;
 }
 .buy-right-way {
   position: absolute;
-  width: 140px;
-  margin-left: -70px;
+  margin-left: -90px;
   left: 50%;
 }
-
+.buy-right-way em {
+  color: #999;
+}
+.buy-right-way label {
+  font-weight: normal;
+}
 .buy-right-con .input-group {
   float: left;
 }
@@ -7029,12 +6993,11 @@ border-left: 0px;
   clear: both;
   border-bottom: 1px solid #CCCCCC;
   overflow: hidden;
-  padding-bottom: 20px;
-  
+  padding-bottom: 20px; 
 }
-.buy-footer-btn a {
+.buy-footer-btn a,.buy-footer-btn input {
   display: inline-block;
-  line-height: 36px;
+  line-height: 34px;
   color: #be0b0b;
   border-color: #be0b0b;
 }
@@ -7071,8 +7034,6 @@ border-left: 0px;
 .alipay-con .complete-prompt-left {
   top: 30px;
 }
-
-
 @media only screen and (max-width: 990px) {
   .student-buy-left,.student-buy-center,.student-buy-right {
   width: 100%;
@@ -7109,9 +7070,6 @@ border-left: 0px;
 
 
 /*微信支付*/
-/*.wechat-pay {
-  margin-top: 30px;
-}*/
 .wechat-pay .col-md-6 {
   overflow: hidden;
 }
@@ -7195,8 +7153,6 @@ border-left: 0px;
   border: 1px solid #be0b0b !important;
   box-shadow: inset 0 3px 5px #FFFFFF;
 }
-
-
 @media only screen and (max-width: 680px) {
 .buy-left-con table {
     width: 100% !important;
@@ -7452,8 +7408,6 @@ border-left: 0px;
     color: #333333;
     background-color: white;
 }
-
-
 @media only screen and (max-width: 680px) {
 .refund-prompt {
   height: 100%;
@@ -7465,8 +7419,6 @@ border-left: 0px;
   top: 20px;
   margin-left: -60px;
   float: none;
-  
-  
 }
 }
 
@@ -7553,8 +7505,6 @@ border-left: 0px;
   display: block;
   text-align: center;
 }
-
-
 @media only screen  and (max-width: 1200px) {
 .goods-con-center {
     width: 55%;
@@ -7563,7 +7513,6 @@ border-left: 0px;
   width: 50%;
 }
 }
-
 @media only screen and (max-width: 990px) {
 .refund-con-left,.refund-con-center,.refund-con-right,.goods-con-left,.goods-con-center,.goods-con-right,.order-con-left,.order-con-center,.order-con-right {
   width: 100%;
@@ -7722,14 +7671,54 @@ border-left: 0px;
   display: block;
 }
 .playback-entrance a {
-  color: rgb(190,11,11);
+  color: rgb(190,11,11);  
+  font-size: 12px;
 }
 .playback-entrance a img {
-  margin-right: 10px;
-  margin-top: -2px;
+  margin-right: 5px;
+  margin-top: -3px;
 }
 .playback-entrance i {
   color: #CCCCCC;
   font-size: 12px;
   margin-left: 20px;
 }
+
+
+
+/*admin订单查询*/
+.manager-account .admin-list-title {
+  margin-top: 10px;
+}
+.admin-order .workstation-nav-left span {
+  margin-right: 10px;
+}
+.admin-order .workstation-nav-left select {
+  width: 84px;
+  height: 26px;
+}
+.admin-order .admin-recharge table {
+  table-layout: fixed;
+}
+.admin-order .admin-recharge table tr td:nth-child(3){
+  width: 20%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -o-text-overflow:ellipsis;
+}
+.admin-recharge table tr td {
+  word-break: break-word;
+}
+.admin-order .admin-recharge table tr td:nth-child(2),.admin-order .admin-recharge table tr td:nth-child(7) {
+  width: 18%;
+}
+.admin-order .admin-recharge table tr td:nth-child(6){
+  width: 15%;
+}
+.manager-account {
+  min-height: 1010px;
+}
+
+
+

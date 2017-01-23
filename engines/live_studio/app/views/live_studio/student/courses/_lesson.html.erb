@@ -21,7 +21,7 @@
         <%= lesson.status_text(current_user.role) %>
 
         <% if allow?(:lessons, :completed, lesson) && lesson.finished?  %>
-          <%= link_to t('view.course_info_show.completed_lesson'), completed_course_lesson_path(@course, lesson), method: :patch %>
+          <%= link_to t('view.course_info_show.completed_lesson'), live_studio.completed_lesson_path(lesson), method: :patch %>
         <% end  %>
       </td>
       <%= content_tag :td do  %>

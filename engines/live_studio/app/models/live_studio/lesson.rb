@@ -141,8 +141,8 @@ module LiveStudio
     def calculate_start_and_end_time
       self.start_time = "#{start_time_hour}:#{start_time_minute}" if start_time_hour.present? && start_time_minute.present?
       if start_time_changed? || duration_changed?
-        end_hour = format("%02d", start_time_hour.to_i + duration_value / 60)
-        end_minute = format("%02d", (duration_value % 60) + start_time_minute.to_i)
+        end_hour = format("%02d", start_time_hour.to_i + (start_time_minute + duration_value) / 60)
+        end_minute = format("%02d", (duration_value + start_time_minute.to_i) % 60)
         self.end_time = "#{end_hour}:#{end_minute}"
       end
     end

@@ -1,0 +1,22 @@
+<div class="complete-prompt">
+  <div class="complete-prompt-left">
+    <%= link_to payment.new_user_recharge_path(@current_resource, amount: @transaction.amount) do %>
+      &lt;<%= Payment::Recharge.human_attribute_name(:reset_pay_type) %>
+    <% end if  @transaction.is_a? Payment::Recharge %>
+    <%= link_to live_studio.new_course_order_path(@transaction.product) do %>
+      &lt;<%= Payment::Order.human_attribute_name(:reset_pay_type) %>
+    <% end unless @transaction.is_a? Payment::Recharge %>
+  </div>
+  <div class="complete-prompt-center"><span><%= t("view.payment_show.alipay_confirm") %></span></div>
+
+  <div class="complete-btn">
+    <%= link_to t("view.payment_show.confirm"), @transaction.remote_order.payment_url, target: "_blank" %>
+  </div>
+</div>
+
+
+
+
+    
+
+    

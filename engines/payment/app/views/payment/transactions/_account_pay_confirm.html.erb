@@ -1,0 +1,40 @@
+<div class="complete-prompt">
+  <div class="complete-prompt-left">
+    <%= link_to payment.new_user_recharge_path(@current_resource, amount: @transaction.amount) do %>
+      &lt;<%= Payment::Recharge.human_attribute_name(:reset_pay_type) %>
+    <% end if  @transaction.is_a? Payment::Recharge %>
+    <%= link_to live_studio.new_course_order_path(@transaction.product) do %>
+      &lt;<%= Payment::Order.human_attribute_name(:reset_pay_type) %>
+    <% end unless @transaction.is_a? Payment::Recharge %>
+  </div>
+  <div class="form-group">
+    <%= form_tag payment.pay_transaction_path(@transaction.transaction_no), id: "pay_form" do %>
+    <label for="course_invitation_pwd"><%= t("view.payment_show.payment_password") %></label>
+    <div class="input-group">
+      <input type="text" class="form-control pwd" maxlength="6" name="payment_password" id="course_invitation_pwd" placeholder="<%= t('view.payment_show.placeholder') %>">
+      <span class="input-group-btn">
+        <input type="submit" id="btn-obtain" class="btn btn-default" disabled="disabled" value="<%= t('view.payment_show.confirm_pay') %>">
+      </span>
+    </div>
+    <%= link_to t("view.payment_show.password_back"), edit_student_path(current_user, cate: 'security_setting') if current_user.student? %>
+    <%= link_to t("view.payment_show.password_back"), edit_teacher_path(current_user, cate: 'security_setting') if current_user.teacher? %>
+    <span class="help-block has-error"></span>
+    <% end %>
+  </div>
+</div>
+<script>
+$(function() {
+  $("#course_invitation_pwd").change(function() {
+    if($(this).val().match(/^\d{6}$/)) {
+      $("#btn-obtain").prop('disabled', false);
+      $("#btn-obtain").addClass('active');
+    } else {
+      $("#btn-obtain").prop('disabled', true);
+      $("#btn-obtain").removeClass('active');
+    }
+  });
+  $("#pay_form").submit(function() {
+    if(!$("#course_invitation_pwd").match(/^\d{6}$/)) return false;
+  });
+});
+</script>

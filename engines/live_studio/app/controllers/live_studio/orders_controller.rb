@@ -25,8 +25,10 @@ module LiveStudio
       # 用户之前的未支付订单 更新为无效订单
       waste_orders = Payment::Order.where(user: current_user, status: 0, product: @course)
       waste_orders.update_all(status: 99) if waste_orders.present?
-      order = Payment::Order.new(course.order_params.merge(pay_type: params[:pay_type], remote_ip: client_ip, source: :app))
-      if order
+      buy_params = @course.order_params.merge(order_params)
+      @order = Payment::Order.new(buy_params.merge(user: current_user,
+                                                   remote_ip: request.remote_ip))
+      if @order.save
         redirect_to payment.transaction_path(@order.transaction_no)
       else
         render :new

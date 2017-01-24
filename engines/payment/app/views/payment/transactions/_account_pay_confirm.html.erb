@@ -18,7 +18,7 @@
     </div>
     <%= link_to t("view.payment_show.password_back"), edit_student_path(current_user, cate: 'security_setting') if current_user.student? %>
     <%= link_to t("view.payment_show.password_back"), edit_teacher_path(current_user, cate: 'security_setting') if current_user.teacher? %>
-    <span class="help-block has-error"></span>
+    <span class="help-block has-error"><%= @error %></span>
     <% end %>
   </div>
 </div>

@@ -39,6 +39,19 @@ module Payment
 
     # 确认支付
     def pay
+      cash_account = current_user.cash_account!
+      @error = nil
+      @error = "支付密码未设置" unless cash_account.password?
+      @error = "支付密码验证失败" unless cash_account.authenticate(params[:password])
+      @ticket_token = ::TicketToken.instance_token(@transaction, :pay) if @error.nil?
+      begin
+        @transaction.pay_with_ticket_token!(@ticket_token) if @error.nil? && @transaction.account?
+      rescue ::Payment::BalanceNotEnough
+        @error = "余额不足"
+      rescue ::Payment::TokenInvalid
+        puts @error
+      end
+      render 'show', layout: 'application_front'
     end
 
     private

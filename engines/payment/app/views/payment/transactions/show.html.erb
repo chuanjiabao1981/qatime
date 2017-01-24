@@ -1,57 +1,6 @@
-<div class="panel panel-default">
-  <div class="recharge-title"><p><%= t("simple_form.labels.#{Payment::Transaction.last.model_name.i18n_key}.title") %></p></div>
-  <div class="row row-title">
-    <div class="col-md-2 col-md-row" id="col-md-nav-1">
-      <div class="col-md-title">
-        <p><%= t("simple_form.labels.#{Payment::Transaction.last.model_name.i18n_key}.amount") %></p>
-      </div>
-      <div class="col-md-apply col-md-apply-2">
-        <p class="col-md-money"><%= number_to_currency(@transaction.amount, unit: '￥') %></p>
-      </div>
-    </div>
-    <div class="col-md-10 col-md-row" id="col-md-nav-2">
-      <div class="col-md-title">
-        <p><%= @transaction.class.human_attribute_name(:transaction_info) %></p>
-      </div>
-      <div class="col-md-apply-1 col-md-apply-2">
-        <table border="0" cellspacing="0" cellpadding="0">
-          <tbody><tr>
-            <td><%= @transaction.class.human_attribute_name(:transaction_no) %></td>
-            <td class="col-md-apply-td" id="transaction_no"><%= @transaction.transaction_no %></td>
-          </tr>
-          <tr>
-            <td><%= @transaction.class.human_attribute_name(:order_time) %></td>
-            <td class="col-md-apply-td"><%= localize(@transaction.created_at, :format => :long) %></td>
-            <td rowspan="2" class="td"><%= @transaction.class.human_attribute_name(:tips) %></td>
-          </tr>
-          <% unless @transaction.is_a? Payment::Order %>
-          <tr>
-            <td><%= @transaction.class.human_attribute_name(:transaction_type) %></td>
-            <td class="col-md-apply-td"><%= @transaction.class.human_attribute_name("transaction_type/recharge") %></td>
-            <td></td>
-          </tr>
-          <% end %>
-          <tr>
-            <td><%= @transaction.class.human_attribute_name(:pay_type) %></td>
-            <td class="col-md-apply-td"><%= @transaction.pay_type_text %></td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+<div class="container container-details">
+  <div class="row">
+    <%= render @transaction.model_name.singular_route_key %>
   </div>
-
-  <%= render "#{@transaction.pay_type}" %>
-
 </div>
 
-
-<%= content_for :javascript do %>
-<script>
-$(function() {
-  setInterval(function() {
-    $.getScript("<%= payment.result_transaction_path(@transaction.transaction_no) %>");
-  }, 2000);
-});
-</script>
-<% end %>

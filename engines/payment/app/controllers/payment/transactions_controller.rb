@@ -9,6 +9,7 @@ module Payment
     before_action :set_transaction
 
     def show
+      render layout: 'application_front'
     end
 
     def notify
@@ -34,6 +35,10 @@ module Payment
           redirect_to live_studio.student_courses_path(@transaction.user)
         end
       end
+    end
+
+    # 确认支付
+    def pay
     end
 
     private

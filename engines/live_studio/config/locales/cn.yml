@@ -139,6 +139,23 @@ cn:
       order_tips: '提示: 请您在提交订单后24小时内完成支付，否则订单会自动取消。'
       order_tips_2: 请核对订单并选择支付方式后再提交支付。
       go_back_tips: '&lt;&nbsp;重新选择支付方式'
+      total_amount: 支付金额
+      transaction_no: 订单编号
+      created_at: 创建时间
+      pay_tips: 遇到支付问题，请拨打电话
+      pay_tips_tel: 400-838-8010
+      recharge: 账户充值
+      recharge_info: 交易信息
+      recharge_no: 交易编号
+      weixin_tips1: 请使用微信扫一扫
+      weixin_tips2: 扫描二维码支付
+      alipay_confirm: 提示：核对信息后再点击确认访问支付宝支付页面进行支付
+      confirm: 确定
+      order: 订单支付
+      payment_password: 支付密码
+      placeholder: 请在此输入支付密码（6位纯数字）
+      confirm_pay: 确认支付
+      password_back: 找回支付密码
     course_order_new:
       pay: 立即支付
       current_price: 价格

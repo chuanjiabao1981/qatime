@@ -39,6 +39,7 @@ Payment::Engine.routes.draw do
     member do
       get :result
       match :notify, via: [:get, :post]
+      post :pay
     end
   end
 

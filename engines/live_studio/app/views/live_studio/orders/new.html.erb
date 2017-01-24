@@ -84,7 +84,7 @@
                   <% @order.class.pay_type.options.each do |item| -%>
                     <div class="form-group">  
                       <div class="input-group">
-                        <%= f.radio_button(:pay_type, item.last) %>
+                        <%= f.radio_button(:pay_type, item.last, class: 'order_pay_type') %>
                       </div>
                       <span>
                         <label for="order_pay_type_<%= item.last %>">
@@ -121,17 +121,14 @@
 
 <script type="text/javascript" charset="utf-8">
   $('#new_order').submit(function(){
-    if($('.order_pay_type input:checked').size() == 0){
+    if($('input.order_pay_type:checked').size() == 0){
       alert('请选择支付方式');
       return false;
-    }
-    $(this).submit();
-  });
-
-  $('.radio_buttons').change(function(){
-    $('#payment_password_area').hide();
-    if($('.order_pay_type input:checked').val() == 'account'){
-      $('#payment_password_area').show();
+    } else if ($('.order_pay_type input:checked').val() === 'account' ) {
+      <% if current_user.cash_account!.available_balance < @course.current_price -%>
+        alert('余额不足');
+        return false;
+      <% end -%>
     }
   });
 </script>

@@ -4,3 +4,12 @@
   </div>
 </div>
 
+<%= content_for :javascript do %>
+<script>
+$(function() {
+  setInterval(function() {
+    $.getScript("<%= payment.result_transaction_path(@transaction.transaction_no) %>");
+  }, 2000);
+});
+</script>
+<% end %>

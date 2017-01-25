@@ -1,22 +1,18 @@
-<ul class="row-list">
-  <li>
-    <%= link_to payment.new_user_recharge_path(@current_resource, amount: @transaction.amount) do %>
-      &lt;<%= Payment::Recharge.human_attribute_name(:reset_pay_type) %>
-    <% end if  @transaction.is_a? Payment::Recharge %>
-
-    <%= link_to live_studio.new_course_order_path(@transaction.product) do %>
-      &lt;<%= Payment::Order.human_attribute_name(:reset_pay_type) %>
-    <% end if  @transaction.is_a? Payment::Order %>
-
-    <div class="row-list-img">
-      <figure>
-        <%= image_tag @transaction.remote_order.payment_url, size: "180x180" if @transaction.remote_order %>
-        <figcaption><p><%= raw t("view.payment/recharge.weixin_tips") %></p></figcaption>
-      </figure>
-      <figure>
-        <%= image_tag "pay_tips.png", size: "240x240" %>
-      </figure>
+<div class="wechat-pay">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="wechat-pay-left">
+        <%= image_tag @transaction.remote_order.payment_url, size: "226x226" if @transaction.remote_order %>
+        <center>
+          <%= raw t("view.payment_show.weixin_tips1") %></p>
+          <%= raw t("view.payment_show.weixin_tips2") %></p>
+        </center>
+      </div>
     </div>
-  </li>
-  <li><p><%= t "activerecord.view.pay_view_phone" %></p></li>
-</ul>
+    <div class="col-md-6">
+      <div class="wechat-pay-right">
+        <%= image_tag "scan.png" %>
+      </div>
+    </div>
+  </div>
+</div>

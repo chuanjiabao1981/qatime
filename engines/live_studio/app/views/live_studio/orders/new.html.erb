@@ -1,90 +1,134 @@
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <%= link_to LiveStudio::Course.model_name.human, live_studio.courses_path(student_id: @student.try(:id)) %> &gt;
-    <strong><%= @course.name %></strong>
-  </div>
-  <div class="panel-body">
-    <div class="text-center">
-      <h4>
-        <%= t('view.payment_show.order_confirm') %>
-      </h4>
-    </div>
-    <div class="order-info">
-      <%= simple_form_for [:course, @order] do |f|%>
-        <table class="table table-white table-condensed border-grey">
-          <thead>
-          <tr>
-            <td colspan="3" class="order-info-td">
-              <%= t('view.payment_show.product_info') %>
-            </td>
-            <td>
-              <%= t('view.course_search_show.price') %>
-            </td>
-            <td>
-              <%= t('helpers.label.payment/order.pay_type') %>
-            </td>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td class="order-img-td" rowspan="5">
-              <%= image_tag @course.publicize_url(:small), class: 'order-img' %>
-            </td>
-            <td class='order-name-td' colspan="2"><%= t('view.payment_show.order_product_name') %><%= @course.name %></td>
-            <td class='order-price-td' rowspan="5">
-              <%= format('￥%0.2f', @course.price) %>
-            </td>
-            <td rowspan="5" class="order-pay-type">
-              <%= f.input :pay_type, label: false, as: :radio_buttons, collection: @order.class.pay_type.options %>
-            </td>
-          </tr>
-          <tr>
-            <td><%= t('view.course_info_show.subject') %><%= @course.subject %></td>
-            <td><%= t('view.course_info_show.grade') %><%= @course.grade %></td>
-          </tr>
-          <tr>
-            <td><%= t('view.course_info_show.teacher') %><%= @course.teacher.try(:name) %></td>
-            <td><%= t('view.course_info_show.lesson_count') %><%= @course.lessons_count %></td>
-          </tr>
-          <tr>
-            <td><%= t('view.course_info_show.start_time') %><%= @course.live_start_time %></td>
-            <td><%= t('view.course_info_show.end_time') %><%= @course.live_end_time %></td>
-          </tr>
-          <tr>
-            <td><%= "#{t('view.course_search_show.current_status')}#{@course.status_text}" %></td>
-            <td><%= t('view.course_show.teach_type') %></td>
-          </tr>
-          </tbody>
-        </table>
-        <div class="float-right">
-          <div>
-            <%= content_tag :span, t('view.payment_show.actual_price'),class: 'font-big' %>
-            <%= content_tag :span, number_to_currency(@course.price, locale: :cn), class: 'font-red font-max weight' %>
+<div class="container container-details">
+  <div class="row">
+    <div class="panel panel-default panel-profile">
+       <div class="apply-tea">
+        <div class="tutoring-title">
+          <div class="tutoring-title-left">
+            <%= image_tag 'icon.png' %>
+            <span class="title-size"><%= t('view.payment_show.order_confirm') %></span>
           </div>
-          <div id="payment_password_area" style="<%= 'display: none;' if @order.pay_type != 'account'%>">
-            <%= f.input :payment_password,class: 'btn-num',type: :password %>
-          </div>
-          <%= f.button :submit,t('activerecord.view.pay_now'), class: "btn btn-default float-right" %>
-        </div>
-      <% end %>
-    </div>
+         </div>
+        <div class="student-buy">
 
+          <%= simple_form_for [:course, @order] do |f| -%>
+            <div class="student-buy-left">
+              <div class="buy-left-title">
+                <%= t('view.payment_show.product_info') %>
+              </div>
+              <div class="buy-left-con">
+                <%= image_tag @order.product.publicize_url(:list) %>
+                <table border="0" cellspacing="0" cellpadding="0">
+                  <tbody>
+                    <tr>
+                      <td colspan="2">
+                      <span><%= t('view.course_order_new.product_name') %>：</span>
+                      <span><%= @order.product.name %></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span><%= t('view.course_order_new.subject') %>：</span>
+                        <span><%= @order.product.subject %></span>
+                      </td>
+                      <td>
+                        <span><%= t('view.course_order_new.grade') %>：</span>
+                        <span><%= @order.product.grade %></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span><%= t('view.course_order_new.teacher_name') %>：</span>
+                        <span><%= @order.product.teacher.try(:name) %></span>
+                      </td>
+                      <td>
+                        <span><%= t('view.course_order_new.lessons_count') %>：</span>
+                        <span><%= t('view.course_order_new.lessons_count_value', count: @order.product.lessons_count ) %></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span><%= t('view.course_order_new.live_start_date') %>：</span>
+                        <span><%= @order.product.live_start_date %></span>
+                      </td>
+                      <td>
+                        <span><%= t('view.course_order_new.live_end_date') %>：</span>
+                        <span><%= @order.product.live_end_date %></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <span><%= t('view.course_order_new.status') %>：</span>
+                        <span><i><%= @order.product.closed_lessons_count %>/<%= @order.product.lessons_count %></i></span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="student-buy-center">
+              <div class="buy-center-title">
+                <%= t('view.course_order_new.current_price') %>
+              </div>
+              <div class="buy-center-con">
+                <center>
+                  <span><%= number_to_currency(@course.current_price, locale: :cn) %></span>
+                </center>
+              </div>
+            </div>
+            <div class="student-buy-right">
+              <div class="buy-right-title">
+                <%= t('view.course_order_new.pay_type') %>
+              </div>
+              <div class="buy-right-con">
+                <div class="buy-right-way">
+                  <% @order.class.pay_type.options.each do |item| -%>
+                    <div class="form-group">  
+                      <div class="input-group">
+                        <%= f.radio_button(:pay_type, item.last, class: 'order_pay_type') %>
+                      </div>
+                      <span>
+                        <label for="order_pay_type_<%= item.last %>">
+                          <%= image_tag "pay_type_#{item.last}.png" %>
+                          <i><%= item.first %></i>
+                       </label>
+                       <% if item.last == 'account' -%>
+                         <em>(<%= number_to_currency(current_user.cash_account!.available_balance) %>)</em>
+                       <% end -%>
+                      </span>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+            <div class="student-buy-footer">
+              <center>
+                <p><%= t("view.course_order_new.tips") %></p>
+              </center>
+              <div class="buy-footer-msg">
+                <span><%= t("view.course_order_new.total_money") %>：</span>
+                <span><%= number_to_currency(@course.current_price, locale: :cn) %></span>
+              </div>
+              <div class="buy-footer-btn">
+                <input type="submit" name="" id="" value="<%= t("view.course_order_new.pay") %>">
+              </div>
+            </div>
+          <% end -%>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
 <script type="text/javascript" charset="utf-8">
   $('#new_order').submit(function(){
-    if($('.order_pay_type input:checked').size() == 0){
+    if($('input.order_pay_type:checked').size() == 0){
       alert('请选择支付方式');
       return false;
-    }
-    $(this).submit();
-  });
-
-  $('.radio_buttons').change(function(){
-    $('#payment_password_area').hide();
-    if($('.order_pay_type input:checked').val() == 'account'){
-      $('#payment_password_area').show();
+    } else if ($('.order_pay_type input:checked').val() === 'account' ) {
+      <% if current_user.cash_account!.available_balance < @course.current_price -%>
+        alert('余额不足');
+        return false;
+      <% end -%>
     }
   });
 </script>

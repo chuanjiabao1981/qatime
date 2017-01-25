@@ -112,6 +112,7 @@ module Payment
     # 支付并发货
     def pay_and_ship!
       Payment::Order.transaction do
+        raise Payment::BalanceNotEnough, "订单未支付" if !account? && !remote_order.paid?
         order_billing!
         pay!
       end
@@ -205,6 +206,11 @@ module Payment
       "购买#{product.model_name.human}: #{product.name}"
     end
 
+    def pay_with_ticket_token!(ticket_token)
+      raise Payment::TokenInvalid, "无效token" if account? && !user.cash_account!.validate_ticket_token('pay', ticket_token, self)
+      pay_and_ship!
+    end
+
     private
 
     # 如果不是余额支付, 则改变remote_order状态为已退款
@@ -225,11 +231,6 @@ module Payment
     end
 
     def auto_paid!
-      return unless pay_type.account?
-      pay_and_ship!
-    rescue => e
-      p e
-      fail!
     end
   end
 end

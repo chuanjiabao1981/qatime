@@ -261,8 +261,8 @@ module Permissions
       end
       allow 'payment/billings', [:index]
       allow 'payment/withdraws', [:new, :create, :complete, :cancel]
+      allow 'payment/transactions', [:pay]
       ## end payment permission
-
 
       ## begin api permission
       api_allow :DELETE, "/api/v1/sessions"

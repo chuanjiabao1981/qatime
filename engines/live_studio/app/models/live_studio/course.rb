@@ -258,8 +258,6 @@ module LiveStudio
       description.try(:truncate, len)
     end
 
-
-
     def validate_order(order)
       user = order.user
       order.errors[:product] << '课程目前不对外招生' unless for_sell?

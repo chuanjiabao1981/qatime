@@ -51,7 +51,13 @@ module Payment
       rescue ::Payment::TokenInvalid
         puts @error
       end
-      render 'show', layout: 'application_front'
+      if(@error)
+        render 'show', layout: 'application_front'
+      elsif @transaction.is_a? Payment::Recharge
+        redirect_to payment.cash_user_path(@transaction.user)
+      else
+        redirect_to live_studio.student_courses_path(@transaction.user)
+      end
     end
 
     private

@@ -31,6 +31,11 @@ module Permissions
       allow 'payment/users', [:cash]
 
       allow :teachers, [:keep_account]
+      allow :schools, [:index]
+
+      ## 推荐管理
+      allow 'recommend/positions', [:index, :show]
+      ## 推荐管理
     end
   end
 end

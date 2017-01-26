@@ -5,7 +5,7 @@
   <div class="col-md-2"><%= link_to banner_item.link, banner_item.link %></div>
   <div class="col-md-2"><%= banner_item.city.try(:name) %></div>
   <div class="col-md-2">
-    <%= link_to '编辑', send(current_user.admin? ? "edit_admin_teacher_item_path" : "edit_manager_item_path",banner_item) %>
-    <%= link_to '删除', send(current_user.admin? ? "admin_teacher_item_path" : "manager_item_path", banner_item), method: :delete, data: {confirm: 'Are you sure?'}%>
+    <%= link_to '编辑', recommend.edit_banner_item_path(banner_item) if allow?("recommend/banner_items", 'edit')  %>
+    <%= link_to '删除', recommend.banner_item_path(banner_item), method: :delete, data: {confirm: '确定删除?'} if allow?("recommend/banner_items", 'destroy')  %>
   </div>
 </div>

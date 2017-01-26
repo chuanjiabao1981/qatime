@@ -1,0 +1,20 @@
+<% if @item.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@item.errors.count, "error") %> prohibited this admin_item from being saved:</h2>
+
+    <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= f.input :title %>
+<%= f.input :index %>
+<%= f.input :city_id, as: :select, collection: @option_cities, include_blank: false %>
+<%= f.input :link if @position.klass_name.include?('Recommend::BannerItem') %>
+<%= f.input :target_id, collection: @item.recomend_for.all.map{|t| [t.name, t.id]} unless @position.klass_name.include?('BannerItem') %>
+<%= f.input :reason, collection: Recommend::Item.i18n_options_reasons if @position.klass_name.include?('LiveStudioCourseItem') %>
+<%= f.input :logo, as: :file if @position.klass_name.include?('Recommend::BannerItem') %>
+<%= f.submit %>

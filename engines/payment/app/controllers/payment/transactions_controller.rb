@@ -42,7 +42,7 @@ module Payment
       cash_account = current_user.cash_account!
       @error = nil
       @error = "支付密码未设置" unless cash_account.password?
-      @error = "支付密码验证失败" unless cash_account.authenticate(params[:password])
+      @error = "支付密码验证失败" unless cash_account.authenticate(params[:payment_password])
       @ticket_token = ::TicketToken.instance_token(@transaction, :pay) if @error.nil?
       begin
         @transaction.pay_with_ticket_token!(@ticket_token) if @error.nil? && @transaction.account?

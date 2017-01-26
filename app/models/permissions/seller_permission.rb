@@ -31,6 +31,20 @@ module Permissions
         resource.id == user.id && (course.try(:init?) || %w(index show new create).include?(action))
       end
       ## end live studio permission
+
+      ## 推荐管理
+      allow 'recommend/positions', [:index, :show]
+      allow 'recommend/teacher_items', [:edit, :destroy, :update]
+      allow 'recommend/live_studio_course_items', [:edit, :destroy, :update]
+      allow 'recommend/banner_items', [:edit, :destroy, :update]
+      allow 'recommend/items', [:new, :create]
+      ## 推荐管理
+
+
+      allow :schools,[:index,:new,:create]
+      allow :schools,[:show,:edit,:update] do |school|
+        user.cities.include? school.city
+      end
     end
   end
 end

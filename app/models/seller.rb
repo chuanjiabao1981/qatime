@@ -4,6 +4,7 @@ class Seller < User
   belongs_to :workstation
   has_many :customized_courses, through: :workstation
   has_many :live_studio_courses, through: :workstation
+  has_many :cities, through: :workstation
 
   validates :workstation_id, presence: true
 

@@ -29,8 +29,11 @@ module Permissions
       ## end live studio permission
 
       allow 'payment/users', [:cash]
+      allow :schools, [:index]
 
-      allow :teachers, [:keep_account]
+      ## 推荐管理
+      allow 'recommend/positions', [:index, :show]
+      ## 推荐管理
     end
   end
 end

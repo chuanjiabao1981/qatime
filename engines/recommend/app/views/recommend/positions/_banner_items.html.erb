@@ -3,7 +3,7 @@
     <div>
       <h3>
         <%= Recommend::Position.human_attribute_name(:items) %>
-        <%= link_to "新建", new_position_item_path(@position) %>
+        <%= link_to "新建", new_position_item_path(@position) if allow?('recommend/items', 'new', current_user) %>
       </h3>
     </div>
   </div>

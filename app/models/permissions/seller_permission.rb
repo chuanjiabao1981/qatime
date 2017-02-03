@@ -11,7 +11,7 @@ module Permissions
       allow :teachers,[:index,:show,:search,:pass,:unpass,
                        :students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,
                        :exercises,:solutions,:customized_tutorial_topics,:notifications,
-                       :customized_courses,:profile]
+                       :customized_courses,:profile, :keep_account]
       allow :students,[:index,:search,:show,
                        :info,:teachers,:customized_courses,:homeworks,
                        :solutions,:account,:customized_tutorial_topics,:questions,:notifications]

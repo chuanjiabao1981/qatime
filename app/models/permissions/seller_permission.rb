@@ -40,9 +40,10 @@ module Permissions
       allow 'recommend/items', [:new, :create]
       ## 推荐管理
 
+      allow 'payment/users', [:cash]
 
-      allow :schools,[:index,:new,:create]
-      allow :schools,[:show,:edit,:update] do |school|
+      allow :schools, [:index, :new, :create]
+      allow :schools, [:show, :edit, :update] do |school|
         user.cities.include? school.city
       end
     end

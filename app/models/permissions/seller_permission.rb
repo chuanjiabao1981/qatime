@@ -59,7 +59,7 @@ module Permissions
         owner && (owner == user || owner.workstation == user.workstation)
       end
 
-      allow 'live_studio/course_requests', [:accept, :reject] do |owner|
+      allow 'live_studio/workstation/course_requests', [:accept, :reject] do |owner|
         owner && (owner == user || owner.workstation == user.workstation)
       end
       # 招生请求

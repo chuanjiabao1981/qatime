@@ -48,7 +48,12 @@ LiveStudio::Engine.routes.draw do
   scope module: 'workstation' do
     resources :users, only: [] do
       resources :courses, only: [:index]
-      resources :course_requests, only: [:index]
+      resources :course_requests, only: [:index] do
+        member do
+          patch :accept
+          patch :reject
+        end
+      end
       resources :course_invitations, only: [:index, :new, :create] do
         member do
           patch :cancel
@@ -59,17 +64,6 @@ LiveStudio::Engine.routes.draw do
       resources :course_requests, only: [:index]
       resources :course_invitations, only: [:index]
     end
-  end
-
-  resources :course_requests, only: [] do
-    member do
-      patch :accept
-      patch :reject
-    end
-  end
-
-  resources :course_invitations, only: [:new, :edit, :update, :create, :destroy] do
-
   end
 
   scope module: 'manager' do

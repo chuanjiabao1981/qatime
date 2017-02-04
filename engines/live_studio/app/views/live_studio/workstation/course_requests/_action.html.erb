@@ -1,10 +1,10 @@
 <% if course_request.submitted? -%>
   <%= link_to t("live_studio/course_request.accept"),
-              accept_course_request_path(course_request),
-              method: :patch if allow?('live_studio/course_requests', 'accept', course_request) %>
+              accept_user_course_request_path(@current_resource, course_request),
+              method: :patch if allow?('live_studio/workstation/course_requests', 'accept', @current_resource) %>
   <%= link_to t("live_studio/course_request.reject"),
-              reject_course_request_path(course_request),
-              method: :patch if allow?('live_studio/course_requests', 'reject', course_request) %>
+              reject_user_course_request_path(@current_resource, course_request),
+              method: :patch if allow?('live_studio/workstation/course_requests', 'reject', @current_resource) %>
 <% else %>
   <%= course_request.status.text %>
 <% end %>

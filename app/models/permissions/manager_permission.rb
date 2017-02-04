@@ -147,17 +147,26 @@ module Permissions
       allow 'payment/users', [:cash]
       allow 'payment/orders', [:index, :show]
 
-      allow 'live_studio/workstation/courses', [:index] do |workstation|
-        workstation && workstation.manager == user
+      allow 'live_studio/workstation/courses', [:index] do |owner|
+        # manager可以查看自己的页面和自己工作站员工的页面
+        owner && (owner == user || owner.workstation.manager == user)
       end
 
-      allow 'live_studio/workstation/course_requests', [:index] do |workstation|
-        workstation && workstation.manager == user
+      # 招生请求
+      allow 'live_studio/workstation/course_requests', [:index] do |owner|
+        owner && (owner == user || owner.workstation.manager == user)
       end
 
-      allow 'live_studio/workstation/course_invitations', [:index] do |workstation|
-        workstation && workstation.manager == user
+      allow 'live_studio/course_requests', [:accept, :reject] do |owner|
+        owner && (owner == user || owner.workstation.manager == user)
       end
+      # 招生请求
+
+      # 开班邀请
+      allow 'live_studio/workstation/course_invitations', [:index, :new, :create, :cancel] do |owner|
+        owner && (owner == user || owner.workstation.manager == user)
+      end
+      # 开班邀请
     end
   end
 end

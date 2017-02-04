@@ -4,19 +4,21 @@ module LiveStudio
   class Workstation::CoursesController < ApplicationController
     layout :current_user_layout
 
-    before_action :set_workstation
+    before_action :set_owner
 
     def index
       @courses = @workstation.live_studio_courses.includes(:teacher).where(course_search_params).paginate(page: params[:page])
     end
 
     private
-    def set_workstation
-      @workstation ||= ::Workstation.find(params[:workstation_id])
+    def set_owner
+      @owner ||= User.find(params[:user_id])
+      @workstation ||= @owner.manager? ? @owner.workstations.first : @owner.workstation
+      @owner
     end
 
     def current_resource
-      set_workstation
+      @current_resource ||= set_owner
     end
 
     def course_search_params

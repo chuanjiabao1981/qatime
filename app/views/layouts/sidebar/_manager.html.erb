@@ -1,4 +1,5 @@
-<% @manager ||= current_user -%>
+<% @current_resource ||= current_user -%>
+<% @manager ||= @current_resource -%>
 <ul class="menu" style="color: white">
   <li>
     <%= link_to main_app.teachers_path do %>
@@ -70,7 +71,7 @@
     <% end %>
   </li>
   <li>
-    <%= link_to live_studio.workstation_courses_path(@manager.workstations.first) do %>
+    <%= link_to live_studio.user_courses_path(@current_resource) do %>
       <span class="glyphicon glyphicon-list-alt"></span>
       <span class="qa_f18"><%= LiveStudio::Course.model_name.human %></span>
     <% end %>

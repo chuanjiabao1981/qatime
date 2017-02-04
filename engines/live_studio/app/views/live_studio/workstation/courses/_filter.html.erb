@@ -19,7 +19,7 @@
   </div>
 
   <div class="condition-right">
-    <%= link_to t("live_studio.course.menu.reset"), live_studio.workstation_courses_path(@workstation) %>
+    <%= link_to t("live_studio.course.menu.reset"), live_studio.user_courses_path(@current_resource) %>
     <%= submit_tag t("live_studio.course.menu.query") %>
   </div>
 <% end %>

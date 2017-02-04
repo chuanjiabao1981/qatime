@@ -31,7 +31,7 @@ module LiveStudio
 
     def generate_attribute(params)
       self.expited_at = params[:expited_day].to_i.days.since
-      self.target = inviter.workstations.first
+      self.target = inviter.workstations.first if target.blank?
       self.status = CourseInvitation.statuses['sent']
     end
 

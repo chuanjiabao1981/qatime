@@ -70,8 +70,9 @@
     <% end %>
   </li>
   <li>
-    <%= link_to live_studio.manager_courses_path(@manager) do %>
-      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">辅导班</span>
+    <%= link_to live_studio.workstation_courses_path(@manager.workstations.first) do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      <span class="qa_f18"><%= LiveStudio::Course.model_name.human %></span>
     <% end %>
   </li>
 

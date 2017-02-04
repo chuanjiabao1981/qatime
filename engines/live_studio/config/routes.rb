@@ -45,6 +45,14 @@ LiveStudio::Engine.routes.draw do
     end
   end
 
+  scope module: 'workstation' do
+    resources :workstations, only: [] do
+      resources :courses, only: [:index]
+      resources :course_requests, only: [:index]
+      resources :course_invitations, only: [:index]
+    end
+  end
+
   scope module: 'manager' do
     resources :managers, only: [] do
       resources :courses

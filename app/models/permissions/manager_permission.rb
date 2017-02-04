@@ -146,6 +146,18 @@ module Permissions
       allow 'welcome', [:download]
       allow 'payment/users', [:cash]
       allow 'payment/orders', [:index, :show]
+
+      allow 'live_studio/workstation/courses', [:index] do |workstation|
+        workstation && workstation.manager == user
+      end
+
+      allow 'live_studio/workstation/course_requests', [:index] do |workstation|
+        workstation && workstation.manager == user
+      end
+
+      allow 'live_studio/workstation/course_invitations', [:index] do |workstation|
+        workstation && workstation.manager == user
+      end
     end
   end
 end

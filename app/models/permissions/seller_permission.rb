@@ -47,28 +47,33 @@ module Permissions
         user.cities.include? school.city
       end
 
+      allow :curriculums,[:index,:show]
+      allow :questions,[:index,:show,:student,:teacher,:teachers]
+
+      # 专属课程
+      allow 'workstation/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+      # 专属课程
+
       # 辅导班管理
-      allow 'live_studio/workstation/courses', [:index] do |owner|
-        # manager可以查看自己的页面和自己工作站员工的页面
-        owner && (owner == user || owner.workstation == user.workstation)
+      allow 'live_studio/workstation/courses', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
       end
       # 辅导班管理
 
       # 招生请求
-      allow 'live_studio/workstation/course_requests', [:index] do |owner|
-        owner && (owner == user || owner.workstation == user.workstation)
-      end
-
-      allow 'live_studio/workstation/course_requests', [:accept, :reject] do |owner|
-        owner && (owner == user || owner.workstation == user.workstation)
+      allow 'live_studio/workstation/course_requests', [:index, :accept, :reject] do |workstation|
+        workstation && workstation.id == user.workstation_id
       end
       # 招生请求
 
       # 开班邀请
-      allow 'live_studio/workstation/course_invitations', [:index, :new, :create, :cancel] do |owner|
-        owner && (owner == user || owner.workstation == user.workstation)
+      allow 'live_studio/workstation/course_invitations', [:index, :new, :create, :cancel] do |workstation|
+        workstation && workstation.id == user.workstation_id
       end
       # 开班邀请
+
     end
   end
 end

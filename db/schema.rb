@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118081601) do
+ActiveRecord::Schema.define(version: 20170205074954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,7 +42,10 @@ ActiveRecord::Schema.define(version: 20170118081601) do
     t.integer  "live_studio_lesson_id"
     t.text     "content"
     t.string   "category"
+    t.integer  "workstation_id"
   end
+
+  add_index "action_records", ["workstation_id"], name: "index_action_records_on_workstation_id", using: :btree
 
   create_table "answers", force: :cascade do |t|
     t.integer  "question_id"
@@ -836,21 +839,21 @@ ActiveRecord::Schema.define(version: 20170118081601) do
 
   create_table "payment_change_records", force: :cascade do |t|
     t.integer  "cash_account_id"
-    t.decimal  "different",                   precision: 8, scale: 2, default: 0.0
-    t.decimal  "before",                      precision: 8, scale: 2, default: 0.0
-    t.decimal  "after",                       precision: 8, scale: 2, default: 0.0
+    t.decimal  "different",                   precision: 16, scale: 2, default: 0.0
+    t.decimal  "before",                      precision: 16, scale: 2, default: 0.0
+    t.decimal  "after",                       precision: 16, scale: 2, default: 0.0
     t.integer  "billing_id"
     t.string   "summary"
     t.datetime "deleted_at"
-    t.datetime "created_at",                                                                            null: false
-    t.datetime "updated_at",                                                                            null: false
+    t.datetime "created_at",                                                                             null: false
+    t.datetime "updated_at",                                                                             null: false
     t.integer  "owner_id"
     t.string   "owner_type"
-    t.string   "type",            limit: 128,                         default: "Payment::ChangeRecord"
+    t.string   "type",            limit: 128,                          default: "Payment::ChangeRecord"
     t.integer  "target_id"
     t.string   "target_type"
     t.integer  "change_type"
-    t.decimal  "amount",                      precision: 8, scale: 2, default: 0.0
+    t.decimal  "amount",                      precision: 16, scale: 2, default: 0.0
   end
 
   add_index "payment_change_records", ["billing_id"], name: "index_payment_change_records_on_billing_id", using: :btree

@@ -1,6 +1,7 @@
 class CustomizedCourseActionRecord < ActionRecord
   include Qawechat::WechatHelper
   belongs_to :customized_course
+  belongs_to :workstation
 
   has_many    :customized_course_action_notifications,as: :notificationable ,:dependent => :destroy do
     def build(attributes={})
@@ -88,4 +89,10 @@ class CustomizedCourseActionRecord < ActionRecord
     end
   end
 
+  private
+
+  before_create :set_workstation
+  def set_workstation
+    self.workstation = customized_course.try(:workstation) if workstation.blank?
+  end
 end

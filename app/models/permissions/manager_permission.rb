@@ -59,6 +59,11 @@ module Permissions
       allow :managers,[:customized_courses,:action_records, :waiters, :sellers] do |manager|
         manager.id == user.id
       end
+      # 专属课程
+      allow 'workstation/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+      # 专属课程
       allow :exercises,[:show]
       allow :sessions,[:destroy]
 
@@ -80,9 +85,6 @@ module Permissions
         resource_user && user.id == resource_user.id
       end
 
-      allow 'managers/sellers', [:new, :create, :edit, :update, :destroy]
-      allow 'managers/waiters', [:new, :create, :edit, :update, :destroy]
-
       #######begine course library permission###############
       # allow "course_library/solutions",[:index, :show]
       # allow "course_library/homeworks",[:index, :show]
@@ -94,6 +96,7 @@ module Permissions
 
       ## begin recommend permission
       allow 'recommend/manager/positions', [:index, :show]
+      allow 'recommend/positions', [:index, :show]
       allow 'recommend/manager/items', [:new, :edit, :update, :create, :destroy]
       ## end   recommend permission
 
@@ -147,26 +150,31 @@ module Permissions
       allow 'payment/users', [:cash]
       allow 'payment/orders', [:index, :show]
 
-      allow 'live_studio/workstation/courses', [:index] do |owner|
-        # manager可以查看自己的页面和自己工作站员工的页面
-        owner && (owner == user || owner.workstation.manager == user)
+      allow 'live_studio/workstation/courses', [:index] do |workstation|
+        workstation && workstation.manager_id == user.id
       end
 
       # 招生请求
-      allow 'live_studio/workstation/course_requests', [:index] do |owner|
-        owner && (owner == user || owner.workstation.manager == user)
-      end
-
-      allow 'live_studio/workstation/course_requests', [:accept, :reject] do |owner|
-        owner && (owner == user || owner.workstation.manager == user)
+      allow 'live_studio/workstation/course_requests', [:index, :accept, :reject] do |workstation|
+        workstation && workstation.manager_id == user.id
       end
       # 招生请求
 
       # 开班邀请
-      allow 'live_studio/workstation/course_invitations', [:index, :new, :create, :cancel] do |owner|
-        owner && (owner == user || owner.workstation.manager == user)
+      allow 'live_studio/workstation/course_invitations', [:index, :new, :create, :cancel] do |workstation|
+        workstation && workstation.manager_id == user.id
       end
       # 开班邀请
+
+      # 员工
+      allow 'workstation/sellers', [:new, :create, :edit, :update, :destroy] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+      allow 'workstation/waiters', [:new, :create, :edit, :update, :destroy] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+      # 员工
+
     end
   end
 end

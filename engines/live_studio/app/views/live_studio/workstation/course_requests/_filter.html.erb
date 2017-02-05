@@ -1,9 +1,9 @@
 <div class="condition-left">
   <%= link_to t("live_studio.course_request.menu.unhandled"),
-              live_studio.user_course_requests_path(@current_resource, @course_search_params.merge(status: 'unhandled')),
+              live_studio.workstation_workstation_course_requests_path(@workstation, @course_search_params.merge(status: 'unhandled')),
               class: "admin-notaudit #{'active-audit' unless 'handled' == params[:status]}" %>
   <%= link_to t("live_studio.course_request.menu.handled"),
-              live_studio.user_course_requests_path(@current_resource, @course_search_params.merge(status: 'handled')),
+              live_studio.workstation_workstation_course_requests_path(@workstation, @course_search_params.merge(status: 'handled')),
               class: "admin-notaudit #{'active-audit' if 'handled' == params[:status]}" %>
 </div>
 <div class="condition-right">
@@ -22,7 +22,7 @@
                    class: 'immediately' %>
   </div>
 
-  <%= link_to t("live_studio.course_request.menu.reset"), live_studio.user_course_requests_path(@current_resource, status: params[:status]) %>
+  <%= link_to t("live_studio.course_request.menu.reset"), live_studio.workstation_workstation_course_requests_path(@workstation, status: params[:status]) %>
   <%= submit_tag t("live_studio.course_request.menu.query") %>
   <% end -%>
 </div>

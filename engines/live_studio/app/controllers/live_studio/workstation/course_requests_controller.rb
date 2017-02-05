@@ -1,10 +1,7 @@
 require_dependency "live_studio/application_controller"
 
 module LiveStudio
-  class Workstation::CourseRequestsController < ApplicationController
-    layout :current_user_layout
-
-    before_action :set_owner
+  class Workstation::CourseRequestsController < Workstation::ApplicationController
     before_action :set_course_request, only: [:accept, :reject]
 
     def index
@@ -16,24 +13,15 @@ module LiveStudio
 
     def accept
       @course_request.accept!
-      redirect_to live_studio.user_course_requests_path(@current_resource)
+      redirect_to live_studio.workstation_workstation_course_requests_path(@workstation)
     end
 
     def reject
       @course_request.reject!
-      redirect_to live_studio.user_course_requests_path(@current_resource)
+      redirect_to live_studio.workstation_workstation_course_requests_path(@workstation)
     end
 
     private
-    def set_owner
-      @owner ||= User.find(params[:user_id])
-      @workstation ||= @owner.manager? ? @owner.workstations.first : @owner.workstation
-      @owner
-    end
-
-    def current_resource
-      @current_resource ||= set_owner
-    end
 
     def course_search_params
       @course_search_params = params.permit(:subject, :grade).select {|_k, v| v.present? }

@@ -11,9 +11,9 @@
   <td><span><%= course_invitation.status.text %></span></td>
   <td>
     <%= link_to t("invitations.cancel"),
-                cancel_user_course_invitation_path(@current_resource, course_invitation),
-                method: :patch if course_invitation.sent? && allow?('live_studio/workstation/course_invitations', 'cancel', current_user)  %>
+                cancel_workstation_workstation_course_invitation_path(@workstation, course_invitation),
+                method: :patch if course_invitation.sent? && allow?('live_studio/workstation/course_invitations', 'cancel', @workstation)  %>
     <%= link_to t("invitations.reset"),
-                new_user_course_invitation_path(@current_resource, template_id: course_invitation.id) if !course_invitation.accepted? && allow?('live_studio/workstation/course_invitations', 'new', @current_user)  %>
+                new_workstation_workstation_course_invitation_path(@workstation, template_id: course_invitation.id) if !course_invitation.accepted? && allow?('live_studio/workstation/course_invitations', 'new', @workstation)  %>
   </td>
 </tr>

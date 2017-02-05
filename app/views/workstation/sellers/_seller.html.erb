@@ -4,7 +4,7 @@
   <div class="col-md-3"><%= seller.email %></div>
   <div class="col-md-3"><%= seller.login_mobile %></div>
   <div class="col-md-2">
-    <%= link_to "编辑", edit_seller_path(seller) if allow?('sellers', 'edit', seller) %>
-    <%= link_to "删除", edit_seller_path(seller), method: 'delete', confirm: '确定删除?' if allow?('sellers', 'destroy', seller) %>
+    <%= link_to "编辑", edit_workstation_workstation_seller_path(@workstation, seller) if allow?('workstation/sellers', 'edit', @workstation) %>
+    <%= link_to "删除", workstation_workstation_seller_path(@workstation, seller), method: 'delete', data: { confirm: '确定删除?'} if allow?('workstation/sellers', 'destroy', @workstation) %>
   </div>
 </div>

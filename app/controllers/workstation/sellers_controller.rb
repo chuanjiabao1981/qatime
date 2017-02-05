@@ -35,8 +35,8 @@ class Workstation::SellersController < Workstation::ApplicationController
   # PATCH/PUT /workstation/sellers/1.json
   def update
     respond_to do |format|
-      if @seller.update(seller)
-        format.html { redirect_to workstation_workstation_sellers_path(@workstation), notice: '销售创建成功.' }
+      if @seller.update(seller_params)
+        format.html { redirect_to workstation_workstation_sellers_path(@workstation), notice: '销售更新成功.' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
@@ -50,7 +50,7 @@ class Workstation::SellersController < Workstation::ApplicationController
   def destroy
     @seller.destroy
     respond_to do |format|
-      format.html { redirect_to workstation_workstation_sellers_path(@workstation), notice: '销售创建成功.' }
+      format.html { redirect_to workstation_workstation_sellers_path(@workstation), notice: '销售删除成功.' }
       format.json { head :no_content }
     end
   end

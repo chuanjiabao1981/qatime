@@ -22,7 +22,6 @@ module LiveStudio
       lesson = live_studio_lessons(:english_lesson2_finished)
 
       visit live_studio.course_path(course)
-      sleep(100)
       click_on "结算课程"
 
       lesson.reload

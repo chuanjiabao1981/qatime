@@ -26,7 +26,7 @@ module LiveStudio
       assert_equal 4, page.all(".admin-list-con tr").size, "已审核请求数量不正确"
       click_on "未审核"
       request_to_accept = live_studio_course_requests(:request_one)
-      find_link("通过", href: live_studio.accept_manager_course_request_path(@manager, request_to_accept)).click
+      find_link("通过", href: live_studio.accept_station_workstation_course_request_path(request_to_accept.workstation, request_to_accept)).click
       assert request_to_accept.reload.accepted?, "通过失败"
       assert request_to_accept.reload.course.teaching?, "通过后辅导班状态不正确"
     end

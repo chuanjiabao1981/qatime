@@ -3,9 +3,9 @@
     <div>
       <h2>
         <%= Waiter.model_name.human %>
-        <%= link_to new_workstation_workstation_waiter_path(@workstation) do %>
+        <%= link_to new_station_workstation_waiter_path(@workstation) do %>
           <button type="button" class="btn btn-xs btn-success">新增客服</button>
-        <% end if allow?('workstation/waiters', 'create', @workstation) %>
+        <% end if allow?('station/waiters', 'create', @workstation) %>
       </h2>
     </div>
   </div>

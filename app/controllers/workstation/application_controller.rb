@@ -1,4 +1,4 @@
-class Workstation::ApplicationController < ApplicationController
+class Workstation::ApplicationController < ::ApplicationController
   layout 'workstation_home'
 
   before_action :set_workstation

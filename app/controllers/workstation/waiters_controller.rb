@@ -1,4 +1,4 @@
-class Workstation::WaitersController < Workstation::ApplicationController
+class Workstation::WaitersController < Workstation::BaseController
   before_action :set_waiter, only: [:edit, :update, :destroy]
   # GET /workstation/waiters
   # GET /workstation/waiters.json

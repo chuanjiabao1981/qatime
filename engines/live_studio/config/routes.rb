@@ -45,7 +45,7 @@ LiveStudio::Engine.routes.draw do
     end
   end
 
-  namespace :workstation do
+  namespace :station do
     resources :workstations, only: [] do
       resources :courses, only: [:index]
       resources :course_requests, only: [:index] do

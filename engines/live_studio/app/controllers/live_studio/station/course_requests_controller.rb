@@ -1,7 +1,7 @@
 require_dependency "live_studio/application_controller"
 
 module LiveStudio
-  class Workstation::CourseRequestsController < Workstation::ApplicationController
+  class Station::CourseRequestsController < Station::ApplicationController
     before_action :set_course_request, only: [:accept, :reject]
 
     def index
@@ -13,12 +13,12 @@ module LiveStudio
 
     def accept
       @course_request.accept!
-      redirect_to live_studio.workstation_workstation_course_requests_path(@workstation)
+      redirect_to live_studio.station_workstation_course_requests_path(@workstation)
     end
 
     def reject
       @course_request.reject!
-      redirect_to live_studio.workstation_workstation_course_requests_path(@workstation)
+      redirect_to live_studio.station_workstation_course_requests_path(@workstation)
     end
 
     private

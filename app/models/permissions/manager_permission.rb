@@ -152,18 +152,18 @@ module Permissions
       allow 'payment/users', [:cash]
       allow 'payment/orders', [:index, :show]
 
-      allow 'live_studio/workstation/courses', [:index] do |workstation|
+      allow 'live_studio/station/courses', [:index] do |workstation|
         workstation && workstation.manager_id == user.id
       end
 
       # 招生请求
-      allow 'live_studio/workstation/course_requests', [:index, :accept, :reject] do |workstation|
+      allow 'live_studio/station/course_requests', [:index, :accept, :reject] do |workstation|
         workstation && workstation.manager_id == user.id
       end
       # 招生请求
 
       # 开班邀请
-      allow 'live_studio/workstation/course_invitations', [:index, :new, :create, :cancel] do |workstation|
+      allow 'live_studio/station/course_invitations', [:index, :new, :create, :cancel] do |workstation|
         workstation && workstation.manager_id == user.id
       end
       # 开班邀请

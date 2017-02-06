@@ -1,7 +1,7 @@
 require_dependency "live_studio/application_controller"
 
 module LiveStudio
-  class Workstation::CourseInvitationsController < Workstation::ApplicationController
+  class Station::CourseInvitationsController < Station::ApplicationController
     def index
       @invitations = @workstation.invitations.includes(:user)
       @invitations = @invitations.includes(:user).where("users.subject" => params[:subject]) if params[:subject].present?
@@ -24,7 +24,7 @@ module LiveStudio
 
       @invitation.generate_attribute(invitation_params)
       if @invitation.save
-        redirect_to workstation_workstation_course_invitations_path(@workstation), notice: i18n_notice('created', @invitation)
+        redirect_to station_workstation_course_invitations_path(@workstation), notice: i18n_notice('created', @invitation)
       else
         render :new
       end
@@ -33,7 +33,7 @@ module LiveStudio
     def cancel
       @invitation = @workstation.invitations.find(params[:id])
       if @invitation.update(status: 'cancelled')
-        redirect_to workstation_workstation_course_invitations_path(@workstation), notice: i18n_notice('created', @invitation)
+        redirect_to station_workstation_course_invitations_path(@workstation), notice: i18n_notice('created', @invitation)
       end
     end
 

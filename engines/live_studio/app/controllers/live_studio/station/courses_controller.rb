@@ -1,7 +1,7 @@
-require_dependency "live_studio/workstation/application_controller"
+require_dependency "live_studio/station/application_controller"
 
 module LiveStudio
-  class Workstation::CoursesController < Workstation::ApplicationController
+  class Station::CoursesController < Station::ApplicationController
     def index
       @courses = @workstation.live_studio_courses.includes(:teacher).where(course_search_params).paginate(page: params[:page])
     end

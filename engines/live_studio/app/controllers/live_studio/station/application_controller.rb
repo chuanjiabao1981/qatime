@@ -9,7 +9,7 @@ module LiveStudio
     private
 
     def set_workstation
-      @workstation ||= ::Workstation.find(params[:workstation_id])
+      @workstation ||= Workstation.find(params[:workstation_id])
     end
 
     def current_resource

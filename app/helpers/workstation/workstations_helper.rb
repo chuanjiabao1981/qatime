@@ -1,0 +1,2 @@
+module Workstation::WorkstationsHelper
+end

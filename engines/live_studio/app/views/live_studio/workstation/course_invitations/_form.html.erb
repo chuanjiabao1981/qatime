@@ -1,0 +1,44 @@
+<div class="admin-list active-show">
+  <p class="new-openclass"><%= t("view.invitation.create_invitation") %></p>
+
+  <div class="manager-list-con">
+    <%= simple_form_for([:workstation, @workstation, @invitation]) do |f|%>
+      <div class="row">
+        <div class="col-md-2">
+          <%= f.label :user_mobile %>
+        </div>
+        <div class="col-md-10">
+          <%= f.input_field :user_mobile %>
+          <%= f.error :user_mobile %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <%= f.label :teacher_percent %>
+        </div>
+        <div class="col-md-10">
+          <%= f.input_field :teacher_percent %>
+          <span class="manager-scale">%</span>
+          <%= f.error :teacher_percent %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <%= f.label :expited_day %>
+        </div>
+        <div class="col-md-10">
+          <%= f.input_field :expited_day %>
+          <span class="manager-scale">天</span>
+          <%= f.error :expited_day %>
+        </div>
+      </div>
+
+      <div class="manager-btn">
+        <center>
+          <%= link_to t("simple_form.buttons.course_invitation.cancel"), live_studio.workstation_workstation_course_invitations_path(@workstation) %>
+          <%= f.button :submit, t("simple_form.buttons.course_invitation.submit") %>
+        </center>
+      </div>
+    <% end %>
+  </div>
+</div>

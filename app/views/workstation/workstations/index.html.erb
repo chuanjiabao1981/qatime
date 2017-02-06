@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Workstation Workstations</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @workstation_workstations.each do |workstation_workstation| %>
+      <tr>
+        <td><%= link_to 'Show', workstation_workstation %></td>
+        <td><%= link_to 'Edit', edit_workstation_workstation_path(workstation_workstation) %></td>
+        <td><%= link_to 'Destroy', workstation_workstation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Workstation', new_workstation_workstation_path %>

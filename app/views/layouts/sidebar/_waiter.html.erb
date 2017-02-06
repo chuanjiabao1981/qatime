@@ -1,36 +1,3 @@
-<% @current_resource ||= @current_user %>
-<ul class="menu" style="color: white">
-  <li>
-    <%= link_to live_studio.waiter_courses_path(@current_resource) do %>
-      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">辅导班</span>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to main_app.students_path do %>
-      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">学生</span>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to main_app.teachers_path do %>
-      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">教师</span>
-    <% end %>
-  </li>
-  <li>
-    <%= link_to main_app.customized_courses_waiter_path(current_user) do %>
-      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18">专属课程</span>
-    <% end %>
-  </li>
-  <% if allow?('recommend/positions', 'index', current_user) -%>
-    <li>
-      <%= link_to recommend.positions_path do %>
-        <span class="glyphicon glyphicon-list-alt"></span>
-        <span class="qa_f18"><%= Recommend::Position.model_name.human %></span>
-      <% end %>
-    </li>
-  <% end %>
-  <li>
-    <%= link_to main_app.signout_path, :method=>'delete'  do %>
-        <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18">退出系统</span>
-    <% end %>
-  </li>
-</ul>
+<% @workstation = current_user.workstation %>
+<% @city = @workstation.city %>
+<%= render 'layouts/sidebar/workstation' %>

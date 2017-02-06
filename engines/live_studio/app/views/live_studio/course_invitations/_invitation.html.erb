@@ -1,0 +1,24 @@
+<% invitation.update_expired_invitation %>
+<tr>
+  <td>
+    <%= invitation.user.try(:name) %>(<%= invitation.user.try(:login_mobile) %>)
+  </td>
+  <td>
+    <%= invitation.user.try(:subject)%>
+  </td>
+  <td>
+    <%= invitation.teacher_percent%>%
+  </td>
+  <td>
+    <%= invitation.created_at.strftime('%F %T')%>
+  </td>
+  <td>
+    <%= distance_of_expited_at(invitation.expited_at)%>
+  </td>
+  <td>
+    <%= invitation.status_text%>
+  </td>
+  <td>
+    <%= render partial: 'operate' ,locals: {invitation: invitation} %>
+  </td>
+</tr>

@@ -1,6 +1,7 @@
 <div class="row qa_big_cell">
   <div class="col-md-4"><%= link_to position.name, position %></div>
   <div class="col-md-4"><%= position.klass_name.constantize.model_name.human %></div>
+  <div class="col-md-4"><%= position.status_text %></div>
   <div class="col-md-4">
     <% if current_user.admin? %>
       <%= link_to '编辑', edit_position_path(position) if allow?('recommend/positions', 'edit', current_user) %>

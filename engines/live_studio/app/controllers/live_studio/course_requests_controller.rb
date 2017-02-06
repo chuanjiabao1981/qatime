@@ -1,7 +1,5 @@
-require_dependency "live_studio/manager/base_controller"
-
 module LiveStudio
-  class Manager::CourseRequestsController < Manager::BaseController
+  class CourseRequestsController < ApplicationController
     before_action :set_manager
 
     def index
@@ -9,6 +7,12 @@ module LiveStudio
       @course_requests = @manager.course_requests.includes(:course)
       @course_requests = @course_requests.where(search_params) if search_params.present?
       @course_requests = @course_requests.paginate(page: params[:page])
+    end
+
+    def accept
+    end
+
+    def reject
     end
 
     private

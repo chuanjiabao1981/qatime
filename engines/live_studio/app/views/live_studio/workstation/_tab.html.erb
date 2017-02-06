@@ -1,0 +1,11 @@
+<div class="admin-title-left">
+  <%= link_to t("live_studio.menu.courses"),
+              live_studio.workstation_workstation_courses_path(@workstation),
+              class: "#{'active-admin' if 'live_studio/workstation/courses' == params[:controller]}" if allow?('live_studio/workstation/courses', 'index', @workstation) %>
+  <%= link_to t("live_studio.menu.course_requests"),
+              live_studio.workstation_workstation_course_requests_path(@workstation),
+              class: "#{'active-admin' if 'live_studio/workstation/course_requests' == params[:controller]}" if allow?('live_studio/workstation/course_requests', 'index', @workstation) %>
+  <%= link_to t("live_studio.menu.course_invitations"),
+              live_studio.workstation_workstation_course_invitations_path(@workstation),
+              class: "#{'active-admin' if 'live_studio/workstation/course_invitations' == params[:controller]}" if allow?('live_studio/workstation/course_invitations', 'index', @workstation) %>
+</div>

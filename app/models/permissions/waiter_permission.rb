@@ -30,25 +30,25 @@ module Permissions
       allow 'recommend/positions', [:index, :show]
 
       # 专属课程
-      allow 'workstation/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records] do |workstation|
+      allow 'station/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
       # 专属课程
 
       # 辅导班管理
-      allow 'live_studio/workstation/courses', [:index] do |workstation|
+      allow 'live_studio/station/courses', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
       # 辅导班管理
 
       # 招生请求
-      allow 'live_studio/workstation/course_requests', [:index] do |workstation|
+      allow 'live_studio/station/course_requests', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
       # 招生请求
 
       # 开班邀请
-      allow 'live_studio/workstation/course_invitations', [:index] do |workstation|
+      allow 'live_studio/station/course_invitations', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
       # 开班邀请

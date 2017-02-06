@@ -33,17 +33,8 @@ module LiveStudio
         visit live_studio.course_path(course_preview)
         click_link '立即报名'
         choose "order_pay_type_weixin"
-        click_on '立即付款'
-        page.has_content? "提示：如支付遇到问题，请拨打电话: 0353-2135828 手机: 18535328283"
-      end
-    end
-
-    test "student pay order" do
-      @order = payment_transactions(:order5)
-      visit payment.transaction_path(@order.transaction_no)
-      assert has_selector?('.row-list-img img'), "验证码显示不正确"
-      assert_difference "CashAdmin.current_cash", @order.amount.to_f, "订单支付完成系统收入不正确" do
-        @order.pay_and_ship!
+        click_on '立即支付'
+        page.has_content? "遇到支付问题，请拨打电话400-838-8010"
       end
     end
 
@@ -68,7 +59,7 @@ module LiveStudio
         visit live_studio.course_path(course)
         click_link '立即报名'
         choose "order_pay_type_weixin"
-        click_on '立即付款'
+        click_on '立即支付'
         sleep(1)
       end
     end
@@ -86,11 +77,9 @@ module LiveStudio
               visit live_studio.course_path(course)
               click_link '立即报名'
               choose "order_pay_type_account"
-              click_on '立即付款'
-              fill_in :order_payment_password, with: 'password'
-              click_on '立即付款'
-              sleep 2
-              #page.has_content? "提示：如支付遇到问题，请拨打电话 0353-2135828 手机: 18535328283"
+              click_on '立即支付'
+              fill_in :payment_password, with: '123123'
+              click_on '确认支付'
             end
           end
         end

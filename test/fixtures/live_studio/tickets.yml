@@ -188,7 +188,9 @@ ticket_for_billing_35:
 ticket_for_refund:
   student: student_order_for_refund
   course: course_for_refund
+  payment_order: order_for_refund
   type: LiveStudio::BuyTicket
+  lesson_price: 200
   status: 1
 ticket_for_refund1:
   student: student_order_for_refund
@@ -204,12 +206,14 @@ ticket_for_refund3:
   student: student_order_for_refund
   course: course_for_refund3
   type: LiveStudio::BuyTicket
+  payment_order: order_for_refund3
   status: 1
   lesson_price: 200
   got_lesson_ids: <%= [ActiveRecord::FixtureSet.identify(:lesson1_for_refund_course3), ActiveRecord::FixtureSet.identify(:lesson2_for_refund_course3)]%>
 refund_ticket:
   student: student1
   course: course_for_refund3
+  payment_order: order_for_refund3
   type: LiveStudio::BuyTicket
   status: 96
   lesson_price: 200

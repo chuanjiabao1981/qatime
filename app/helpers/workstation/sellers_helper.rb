@@ -1,2 +1,0 @@
-module Workstation::SellersHelper
-end

@@ -3,9 +3,9 @@
     <div>
       <h2>
 	<%= Seller.model_name.human %>
-	<%= link_to new_workstation_workstation_seller_path(@workstation) do %>
+	<%= link_to new_station_workstation_seller_path(@workstation) do %>
           <button type="button" class="btn btn-xs btn-success">新增销售</button>
-	<% end if allow?('workstation/sellers', 'create', @workstation) %>
+	<% end if allow?('station/sellers', 'create', @workstation) %>
       </h2>
     </div>
   </div>

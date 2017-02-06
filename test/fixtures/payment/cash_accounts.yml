@@ -17,7 +17,7 @@ student_balance_account:
   balance: 999999
   total_income: 0
   total_expenditure: 300
-  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  password_digest: <%= BCrypt::Password.create("123123", cost: 4) %>
   password_set_at: <%= 2.day.ago%>
 
 teacher_account:

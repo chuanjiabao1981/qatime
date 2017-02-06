@@ -62,7 +62,7 @@ module Payment
     end
 
     def workstation
-      @workstation ||= target.course.workstation || Workstation.default
+      @workstation ||= target.course.workstation || ::Workstation.default
     end
 
     def teacher_account

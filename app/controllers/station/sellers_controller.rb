@@ -1,4 +1,4 @@
-class Workstation::SellersController < Workstation::BaseController
+class Station::SellersController < Station::BaseController
   before_action :set_seller, only: [:edit, :update, :destroy]
   # GET /workstation/sellers
   # GET /workstation/sellers.json

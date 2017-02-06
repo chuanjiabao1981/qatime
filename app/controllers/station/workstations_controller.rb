@@ -1,4 +1,4 @@
-class Workstation::WorkstationsController < Workstation::BaseController
+class Station::WorkstationsController < Station::BaseController
   before_action :set_city
 
   def customized_courses

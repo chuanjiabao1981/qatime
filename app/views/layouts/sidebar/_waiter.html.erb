@@ -23,7 +23,7 @@
   <% if allow?('recommend/positions', 'index', current_user) -%>
     <li>
       <%= link_to recommend.positions_path do %>
-        <span class="glyphicon glyphicon-log-out"></span>
+        <span class="glyphicon glyphicon-list-alt"></span>
         <span class="qa_f18"><%= Recommend::Position.model_name.human %></span>
       <% end %>
     </li>

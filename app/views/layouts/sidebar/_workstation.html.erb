@@ -6,7 +6,7 @@
   <% end if allow?('schools', 'index') %>
   <%= content_tag :li do %>
     <%= link_to main_app.teachers_path do %>
-      <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> <%= Teacher.model_name.human%></span>
+      <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 教师</span>
     <% end %>
   <% end if allow?('teachers', 'index') %>
   <%= content_tag :li do %>

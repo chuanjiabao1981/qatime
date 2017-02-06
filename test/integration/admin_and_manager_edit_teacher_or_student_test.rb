@@ -145,16 +145,15 @@ class AdminAndManagerEditTeacherOrStudentTest < ActionDispatch::IntegrationTest
     logout_as(@manager)
   end
 
-  test 'manager cant billing' do
+  test 'manager can billing' do
     log_in_as(@manager)
     teacher = users(:teacher_two)
     click_on '教师'
     click_link teacher.name
     click_link '财产管理'
-    assert !page.has_content?('结账')
-
+    assert page.has_content?('结账')
     visit keep_account_teacher_path(teacher)
-    assert page.has_content?('您没有权限进行这个操作!')
+    assert page.has_content?('结账进行中')
     logout_as(@manager)
   end
 

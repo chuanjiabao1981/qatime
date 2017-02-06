@@ -24,7 +24,7 @@
 </div>
 <script>
 $(function() {
-  $("#course_invitation_pwd").change(function() {
+  $("#course_invitation_pwd").bind('input propertychange', function() {
     if($(this).val().match(/^\d{6}$/)) {
       $("#btn-obtain").prop('disabled', false);
       $("#btn-obtain").addClass('active');

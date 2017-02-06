@@ -1,16 +1,16 @@
 <div class="panel panel-default">
   <div class="admin">
     <div class="admin-title">
-      <%= render 'live_studio/workstation/tab' %>
+      <%= render 'live_studio/station/tab' %>
     </div>
 
     <div>
       <div class="admin-list">
         <div class="admin-list-title">
           <div class="condition-left">
-            <%=link_to new_workstation_workstation_course_invitation_path(@workstation), class: "invitation" do %>
+            <%=link_to new_station_workstation_course_invitation_path(@workstation), class: "invitation" do %>
               <%= t("view.invitation.new_invitation")%>
-            <% end if allow?("live_studio/workstation/course_invitations", "new", @workstation) %>
+            <% end if allow?("live_studio/station/course_invitations", "new", @workstation) %>
           </div>
           <div class="condition-right">
             <%= render 'filter' %>

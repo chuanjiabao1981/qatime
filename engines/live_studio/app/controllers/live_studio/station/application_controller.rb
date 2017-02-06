@@ -1,7 +1,7 @@
 require_dependency "live_studio/application_controller"
 
 module LiveStudio
-  class Workstation::ApplicationController < ApplicationController
+  class Station::ApplicationController < ApplicationController
     layout 'workstation_home'
 
     before_action :set_workstation

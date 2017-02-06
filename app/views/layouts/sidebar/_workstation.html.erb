@@ -30,10 +30,10 @@
     <% end %>
   <% end if allow?('recommend/positions', 'index') %>
   <%= content_tag :li do %>
-    <%= link_to live_studio.workstation_workstation_courses_path(@workstation) do %>
+    <%= link_to live_studio.station_workstation_courses_path(@workstation) do %>
       <span class="glyphicon glyphicon-film"></span> <span class="qa_f18"> <%= LiveStudio::Course.model_name.human%></span>
     <% end %>
-  <% end if allow?('live_studio/workstation/courses', 'index', @workstation) %>
+  <% end if allow?('live_studio/station/courses', 'index', @workstation) %>
   <%= content_tag :li do %>
     <%= link_to main_app.customized_courses_workstation_workstation_path(@workstation) do %>
       <span class="glyphicon glyphicon-book"></span> <span class="qa_f18"> <%= CustomizedCourse.model_name.human%></span>

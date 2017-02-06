@@ -1,0 +1,27 @@
+<div class="qa_box">
+  <div class="qa_big_cell">
+    <div class="row">
+        <div class="col-md-4">
+            <h2><%=link_to '讲师列表', teachers_path %></h2>
+        </div>
+        <div class="col-md-8" style="padding-top:20px">
+          <%= simple_form_for :search  ,url: search_teachers_path , :method => :get do |f|%>
+              <div class="row">
+                <%= f.input :name,
+                            placeholder: params[:search].nil? ? "老师名字或者邮箱":"",
+                            input_html: { value: params[:search].nil? ? "": params[:search][:name]  },
+                            :label => false,wrapper_html: { class: 'col-md-6 col-md-offset-4' }%>
+                <%= f.submit "search", wrapper_html: { class: 'col-md-2' },class: "btn btn-default"%>
+              </div>
+          <%end %>
+        </div>
+    </div>
+  </div>
+
+  <div>
+    <%= render @teachers %>
+  </div>
+  <div class="qa_cell">
+    <%= will_paginate @teachers,renderer: BootstrapPagination::Rails %>
+  </div>
+</div>

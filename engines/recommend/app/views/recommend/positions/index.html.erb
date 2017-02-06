@@ -8,10 +8,10 @@
     </div>
   </div>
   <div class="row qa_big_cell">
-    <div class="col-md-2"><%= Recommend::Position.human_attribute_name(:name) %></div>
-    <div class="col-md-2"><%= Recommend::Position.human_attribute_name(:klass_name) %></div>
-    <div class="col-md-1"><%= Recommend::Position.human_attribute_name(:status) %></div>
-    <div class="col-md-2"><%= "" %></div>
+    <div class="col-md-4"><%= Recommend::Position.human_attribute_name(:name) %></div>
+    <div class="col-md-4"><%= Recommend::Position.human_attribute_name(:klass_name) %></div>
+    <div class="col-md-4"><%= Recommend::Position.human_attribute_name(:status) %></div>
+    <div class="col-md-4"><%= "" %></div>
   </div>
 
   <%= render @positions %>

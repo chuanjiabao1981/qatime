@@ -23,8 +23,10 @@ module LiveStudio
       visit live_studio.course_path(@course)
       click_on '立即报名'
       choose('order_pay_type_account')
-      fill_in :order_payment_password, with: 'password'
-      click_on '立即付款'
+      click_on '立即支付'
+      fill_in 'payment_password', with: '123123'
+      click_on '确认支付'
+
       new_logout_as(student)
       # 票据准确性
       assert_equal @course.buy_tickets.count, 1

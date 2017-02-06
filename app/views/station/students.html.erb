@@ -1,0 +1,8 @@
+<%= render layout: "students" do  %>
+    <div>
+      <%= render @students %>
+    </div>
+    <div class="qa_cell">
+      <%= will_paginate @lessons,renderer: BootstrapPagination::Rails %>
+    </div>
+<% end %>

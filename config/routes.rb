@@ -96,6 +96,22 @@ Qatime::Application.routes.draw do
     resources :waiters, except: [:index, :show]
   end
 
+  namespace :station do
+    resources :workstations, only: [:show] do
+      member do
+        get :customized_courses
+        get :schools
+        get :teachers
+        get :students
+        get :sellers
+        get :waiters
+        get :action_records
+      end
+      resources :sellers, except: [:index]
+      resources :waiters, except: [:index]
+    end
+  end
+
   namespace :teachers do
     resources :groups do
       resources :courses

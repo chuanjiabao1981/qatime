@@ -11,6 +11,8 @@ Recommend::Engine.routes.draw do
     end
   end
 
+  resources :positions, only: [:index, :show]
+
   namespace :manager do
     resources :positions, only: [:index, :show] do
       resources :items, shallow: true

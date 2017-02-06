@@ -19,7 +19,7 @@ module LiveStudio
 
     test 'visit course invitation page' do
       click_on '辅导班'
-      visit live_studio.manager_course_invitations_path(@manager)
+      visit live_studio.station_workstation_course_invitations_path(@manager.workstations.first)
       assert page.has_content?('创建新邀请')
     end
 

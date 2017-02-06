@@ -15,8 +15,8 @@ class  FooterTest < ActionDispatch::IntegrationTest
     assert find('.link-phonenum').has_content?('400-838-8010')
     assert page.has_content?('769051099 韩老师')
     assert page.has_content?('819178240 关老师')
-    assert page.has_content?('阳泉市开发区大连路36号远东大厦 809')
-    assert page.has_content?('Copyright © 2013-2015 QaTime')
+    assert page.has_content?('北京市朝阳区东三环中路甲10号万科大都会805')
+    assert page.has_content?('Copyright © 2015-2017 QaTime')
     assert page.has_content?('京ICP备12031445号-3')
   end
 

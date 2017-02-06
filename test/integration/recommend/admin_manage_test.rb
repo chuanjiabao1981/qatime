@@ -30,10 +30,10 @@ module Recommend
       #   click_link '启用', match: :first
       # end
       # assert page.has_content?('Position was successfully changed.')
-      accept_prompt(with: "Are you sure?") do
-        click_link '删除', match: :first
-      end
-      assert page.has_content?('Position was successfully destroyed.')
+      # accept_prompt(with: "Are you sure?") do
+      #   click_link '删除', match: :first
+      # end
+      # assert page.has_content?('Position was successfully destroyed.')
     end
 
     test 'admin manage items' do

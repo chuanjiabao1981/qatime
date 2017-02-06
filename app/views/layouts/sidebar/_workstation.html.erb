@@ -1,0 +1,62 @@
+<ul class="menu" style="color: white">
+  <%= content_tag :li do %>
+    <%= link_to main_app.schools_path do %>
+      <span class="glyphicon glyphicon-home"></span> <span class="qa_f18"> <%= School.model_name.human%></span>
+    <% end %>
+  <% end if allow?('schools', 'index') %>
+  <%= content_tag :li do %>
+    <%= link_to main_app.teachers_path do %>
+      <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 教师</span>
+    <% end %>
+  <% end if allow?('teachers', 'index') %>
+  <%= content_tag :li do %>
+    <%= link_to main_app.students_path do %>
+      <span class="glyphicon glyphicon-tags"></span> <span class="qa_f18"> <%= Student.model_name.human%></span>
+    <% end %>
+  <% end if allow?('students', 'index') %>
+  <%= content_tag :li do %>
+    <%= link_to main_app.sellers_station_workstation_path(@workstation) do %>
+      <span class="glyphicon glyphicon-phone"></span> <span class="qa_f18"> <%= Seller.model_name.human%></span>
+    <% end %>
+  <% end if allow?('station/workstations', 'sellers', @workstation) %>
+  <%= content_tag :li do %>
+    <%= link_to main_app.waiters_station_workstation_path(@workstation) do %>
+      <span class="glyphicon glyphicon-headphones"></span> <span class="qa_f18"> <%= Waiter.model_name.human%></span>
+    <% end %>
+  <% end if allow?('station/workstations', 'waiters', @workstation) %>
+  <%= content_tag :li do %>
+    <%= link_to recommend.positions_path do %>
+      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"> <%= Recommend::Position.model_name.human%></span>
+    <% end %>
+  <% end if allow?('recommend/positions', 'index') %>
+  <%= content_tag :li do %>
+    <%= link_to live_studio.station_workstation_courses_path(@workstation) do %>
+      <span class="glyphicon glyphicon-film"></span> <span class="qa_f18"> <%= LiveStudio::Course.model_name.human%></span>
+    <% end %>
+  <% end if allow?('live_studio/station/courses', 'index', @workstation) %>
+  <%= content_tag :li do %>
+    <%= link_to main_app.customized_courses_station_workstation_path(@workstation) do %>
+      <span class="glyphicon glyphicon-book"></span> <span class="qa_f18"> <%= CustomizedCourse.model_name.human%></span>
+    <% end %>
+  <% end if allow?('station/workstations', 'customized_courses', @workstation) %>
+  <%= content_tag :li do %>
+    <%= link_to main_app.action_records_station_workstation_path(@workstation) do %>
+      <span class="fa fa-cogs"></span> <span class="qa_f18"> <%= ActionRecord.model_name.human%></span>
+    <% end %>
+  <% end if allow?('station/workstations', 'action_records', @workstation) %>
+  <li>
+    <%= link_to main_app.curriculums_path, target: '_blank' do %>
+      <span class="fa fa-folder-open-o"></span> <span class="qa_f18"> <%= Curriculum.model_name.human%></span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to main_app.questions_path, target: '_blank' do %>
+      <span class="fa fa-university"></span> <span class="qa_f18"> 问答社区</span>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to main_app.signout_path, method: :delete do %>
+      <span class="glyphicon glyphicon-log-out"></span> <span class="qa_f18">退出系统</span>
+    <% end %>
+  </li>
+</ul>

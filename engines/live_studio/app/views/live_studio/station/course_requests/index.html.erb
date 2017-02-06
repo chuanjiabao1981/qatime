@@ -1,0 +1,38 @@
+<div class="panel panel-default">
+  <div class="admin">
+    <div class="admin-title">
+      <%= render 'live_studio/station/tab' %>
+    </div>
+
+    <div>
+      <div class="admin-list">
+        <div class="admin-list-title">
+          <%= render 'filter' %>
+        </div>
+        <div class="admin-list-con">
+          <table border="1" cellspacing="1" cellpadding="1">
+            <tr>
+              <td><span><%= LiveStudio::CourseRequest.human_attribute_name(:course_name) %></span></td>
+              <td><span><%= LiveStudio::CourseRequest.human_attribute_name(:user_name) %></span></td>
+              <td><span><%= LiveStudio::CourseRequest.human_attribute_name(:course_subject) %></span></td>
+              <td><span><%= LiveStudio::CourseRequest.human_attribute_name(:course_grade) %></span></td>
+              <td><span><%= LiveStudio::CourseRequest.human_attribute_name(:course_lessons_count) %></span></td>
+              <td><span><%= LiveStudio::CourseRequest.human_attribute_name(:course_price) %></span></td>
+              <td><span><%= LiveStudio::CourseRequest.human_attribute_name(:teacher_percentage) %></span></td>
+              <td><span><%= LiveStudio::CourseRequest.human_attribute_name(:created_at) %></span></td>
+              <td><span><%= LiveStudio::CourseRequest.human_attribute_name(:review) %></span></td>
+            </tr>
+            <%= render @course_requests %>
+          </table>
+        </div>
+
+        <center>
+          <div class="pagination-fix">
+            <%= will_paginate @course_requests %>
+          </div>
+        </center>
+
+      </div>
+    </div>
+  </div>
+</div>

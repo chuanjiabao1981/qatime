@@ -273,12 +273,12 @@ module LiveStudio
 
     # 视频回放开始时间
     def replays_start_at
-      (live_start_at.to_i - 2.minutes) * 1000
+      (live_start_at.to_i - 6.minutes) * 1000
     end
 
     # 视频回放结束时间
     def replays_end_at
-      live_end_at.nil? ? Time.now.to_i * 1000 : (live_end_at.to_i + 2.minutes) * 1000
+      live_end_at.nil? ? Time.now.to_i * 1000 : (live_end_at.to_i + 6.minutes) * 1000
     end
 
     # 剩余回放时间

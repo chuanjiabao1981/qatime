@@ -20,15 +20,15 @@ module Recommend
 
     test 'admin manage items' do
       position = recommend_positions(:index_teacher_recommend)
-      visit recommend.manager_position_path(position)
-      click_link 'new'
+      visit recommend.position_path(position)
+      click_link '新建'
       fill_in :teacher_item_title, with: 'test'
       fill_in :teacher_item_index, with: '1'
       select 'teacher_one', from: :teacher_item_target_id
       select '阳泉', from: :teacher_item_city_id
       click_on '新增教师推荐'
-      assert page.has_content?('Item was successfully created.')
-      assert page.has_content?('test')
+      assert page.has_content?('推荐创建成功.')
+      assert page.has_content?('teacher_one')
     end
   end
 end

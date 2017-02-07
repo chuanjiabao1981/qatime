@@ -177,6 +177,9 @@ module Permissions
       end
       # 员工
 
+      allow 'station/lessons', [:state, :update] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
     end
   end
 end

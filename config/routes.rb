@@ -109,6 +109,11 @@ Qatime::Application.routes.draw do
       end
       resources :sellers, except: [:index]
       resources :waiters, except: [:index]
+      resources :lessons, only: [:update] do
+        collection do
+          get 'state'
+        end
+      end
     end
   end
 

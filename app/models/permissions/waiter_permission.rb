@@ -52,6 +52,10 @@ module Permissions
         workstation && workstation.id == user.workstation_id
       end
       # 开班邀请
+
+      allow 'station/lessons', [:state, :update] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
     end
   end
 end

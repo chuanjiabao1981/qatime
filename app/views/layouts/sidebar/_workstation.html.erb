@@ -26,7 +26,7 @@
   <% end if allow?('station/workstations', 'waiters', @workstation) %>
   <%= content_tag :li do %>
     <%= link_to main_app.state_station_workstation_lessons_path(@workstation) do %>
-      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"> 状态 </span>
+      <span class="fa fa-line-chart"></span> <span class="qa_f18"> 状态 </span>
     <% end %>
   <% end if allow?('station/lessons', 'state', @workstation) %>
   <%= content_tag :li do %>

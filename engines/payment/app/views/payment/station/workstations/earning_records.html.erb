@@ -12,8 +12,8 @@
           <span><%= t("view.payment/earning_records.list.total_value", amount: number_to_currency(@amount, locale: :cn, unit: "￥", precision: 1)) %></span>
         </div>
         <div class="workstation-nav-right">
-          <%= submit_tag "查询" %>
-          <%= text_field_tag :q, params[:q], placeholder: "请输入姓名/电话" %>
+          <%= submit_tag t("view.common.query") %>
+          <%= text_field_tag :q, params[:q], placeholder: t("view.query.name_or_mobile") %>
         </div>
       <% end -%>
     </div>
@@ -21,16 +21,15 @@
       <table border="1" cellspacing="1" cellpadding="1" class="earnings-tab">
         <tbody>
           <tr>
-            <td>序号</td>
+            <td><%= Payment::EarningRecord.human_attribute_name(:counter) %></td>
             <td><%= Payment::EarningRecord.human_attribute_name(:amount) %></td>
             <td><%= Payment::EarningRecord.human_attribute_name(:created_at) %></td>
-            <td>收入来源</td>
-            <td>参与人</td>
+            <td><%= Payment::EarningRecord.human_attribute_name(:target) %></td>
+            <td><%= Payment::EarningRecord.human_attribute_name(:from_user) %></td>
             <td><%= Payment::EarningRecord.human_attribute_name(:target_type) %></td>
             <td><%= Payment::EarningRecord.human_attribute_name(:operate) %></td>
           </tr>
           <%= render partial: "earning_record", collection: @earning_records %>
-          
         </tbody>
       </table>
       <center><div class="pagination-fix"><%= will_paginate @earning_records %></div></center>

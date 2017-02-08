@@ -6709,6 +6709,7 @@ border-left: 0px;
   .tea-right-con {
     border-left: 0px;
   }
+  
 }
 @media only screen  and (max-width: 400px) {
   .tea-left-con .input-group  {
@@ -7281,7 +7282,7 @@ border-left: 0px;
   border-bottom: 1px solid #ccc;
   overflow: hidden;
 }
-.workstation-nav-left select {
+.workstation-nav-left select,.workstation-title-right select {
   width: 104px;
   height: 26px;
   border: 1px solid #CCCCCC;
@@ -7772,7 +7773,6 @@ border-left: 0px;
   text-align: left;
 }
 .earnings-detail {
-  height: 186px !important;
   background-color: #f2f2f2;
   display: none;
 }
@@ -7780,7 +7780,7 @@ border-left: 0px;
   height: 31px !important;
 }
 
-.earnings-tab tr td span i {
+.earnings-tab tr td a i {
   font-size: 20px;
   position: relative;
   top: 2px;
@@ -7801,4 +7801,23 @@ border-left: 0px;
 .workstation-title-left h2 {
   margin: 0px;
   font-size: 26px;
+}
+.tea-wechat .form-group {
+  padding-top: 34px !important;
+  padding-left: 10px;
+}
+.tea-wechat .form-group .has-error {
+  padding-left: 0px;
+}
+.tea-wechat .form-group span:nth-child(2) {
+  color: #999999;
+  margin-left: 10px;
+}
+.tea-wechat .form-group span i {
+  color: #666666;
+}
+@media only screen and (max-width: 990px) {
+.tea-wechat .form-group {
+  padding-left: 0px !important;
+} 
 }

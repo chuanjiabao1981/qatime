@@ -41,3 +41,14 @@
     </div>
   </div>
 </div>
+
+<%= content_for :javascript do %>
+<script>
+$(function() {
+  $(".view-msg").click(function  () {
+    var index = $(".view-msg").index($(this));
+    $(".earnings-detail").eq(index).toggle();
+  });
+});
+</script>
+<% end %>

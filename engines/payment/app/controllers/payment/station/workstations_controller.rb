@@ -9,7 +9,7 @@ module Payment
     end
 
     def earning_records
-      @earning_records = @cash_account.earning_records.includes(:billing)
+      @earning_records = @cash_account.earning_records.includes(billing: [:from_user, :billing_items])
       @earning_records = query_by_date(@earning_records)
       unless params[:q].blank?
         @from_user = User.where("login_mobile = ? or name = ?", params[:q], params[:q]).last

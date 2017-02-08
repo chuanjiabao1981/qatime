@@ -6,7 +6,46 @@
     <td><%= link_to earning_record.target.name, live_studio.course_path(earning_record.target.course_id) %></td>
     <td><%= earning_record.billing.from_user.try(&:name) %>(<%= earning_record.billing.from_user.try(&:login_mobile) %>)</td>
     <td><%= LiveStudio::Course.model_name.human %></td>
-    <td><span class="view-msg">查看明细 <i class="fa fa-caret-down"></i></span></td>
+    <td>
+      <a href="javascript:void(0);" class="view-msg">
+        <%= Payment::EarningRecord.human_attribute_name(:operate_detail) %>
+        <i class="fa fa-caret-down"></i>
+      </a>
+    </td>
+  </tr>
+
+  <tr class="earnings-detail">
+    <td colspan="7">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <% system_fee_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::SystemFeeItem } %>
+          <% teacher_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::TeacherMoneyItem } %>
+          <% percent_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::PercentItem } %>
+          <% system_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::SystemPercentItem } %>
+          <% workstation_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::WorkstationPercentItem } %>
+          <tr>
+            <td><span>课程单价：</span><span><%= number_to_currency earning_record.target.course.lesson_price, locale: :cn, unit: "￥", precision: 1  %></span></td>
+            <td><span>服务时长：</span><span><%= second_to_minutes(earning_record.target.real_time) %></span></td>
+          </tr>
+          <tr>
+            <td><span>服务费标准：</span><span><%= number_to_currency system_fee_item.price, locale: :cn, unit: "￥", precision: 1 %>/分钟</span></td>
+            <td><span>服务费扣费：</span><span><%= number_to_currency system_fee_item.amount, locale: :cn, unit: "￥", precision: 1 %></span></td>
+          </tr>
+          <tr>
+            <td><span>教师分成：</span><span><%= number_to_percentage teacher_item.percent, precision: 0 %></span></td>
+            <td><span>教师收入：</span><span><%= number_to_currency teacher_item.amount, locale: :cn, unit: "￥", precision: 1 %></span></td>
+          </tr>
+          <tr>
+            <td><span>系统分成：</span><span><%= number_to_percentage percent_item.percent, precision: 0 %> x <%= number_to_percentage system_item.percent, precision: 0 %></span></td>
+            <td><span>系统收入：</span><span><%= number_to_currency system_item.amount, locale: :cn, unit: "￥", precision: 1 %></span></td>
+          </tr>
+          <tr>
+            <td><span>工作站分成：</span><span><%= number_to_percentage percent_item.percent, precision: 0 %> x <%= number_to_percentage workstation_item.percent, precision: 0 %></span></td>
+            <td><span>工作站收入：</span><span><%= number_to_currency workstation_item.amount, locale: :cn, unit: "￥", precision: 1 %></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
   </tr>
 <% else -%>
   <tr>
@@ -19,6 +58,33 @@
     </td>
     <td><%= earning_record.billing.from_user.try(&:name) %>(<%= earning_record.billing.from_user.try(&:login_mobile) %>)</td>
     <td><%= earning_record.target.model_name.human %></td>
-    <td><span class="view-msg">查看明细 <i class="fa fa-caret-down"></i></span></td>
+    <td>
+      <a href="javascript:void(0);" class="view-msg">
+        <%= Payment::EarningRecord.human_attribute_name(:operate_detail) %>
+        <i class="fa fa-caret-down"></i>
+      </a>
+    </td>
+  </tr>
+
+  <tr class="earnings-detail">
+    <td colspan="7">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <td><span>课程收费标准：</span><span><%= number_to_currency(earning_record.target.teacher_price + earning_record.target.platform_price, unit: "￥", precision: 1)%>/小时</span>
+            </td>
+            <td><span>服务时长：</span><span><%= second_to_minutes earning_record.target.video.duration %></span></td>
+          </tr>
+          <tr>
+            <td><span>教师收费标准：</span><span><%= number_to_currency(earning_record.target.teacher_price, unit: "￥", precision: 1) %>/小时</span></td>
+            <td><span>教师收入：</span><span><%= number_to_currency(earning_record.target.teacher_price * earning_record.target.video.duration / 3600.0, unit: "￥", precision: 1) %></span></td>
+          </tr>
+          <tr>
+            <td><span>工作站收费标准：</span><span><%= number_to_currency(earning_record.target.platform_price, unit: "￥", precision: 1) %>/小时</span></td>
+            <td><span>工作站收入：</span><span><%= number_to_currency(earning_record.amount, unit: "￥", precision: 1) %></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </td>
   </tr>
 <% end -%>

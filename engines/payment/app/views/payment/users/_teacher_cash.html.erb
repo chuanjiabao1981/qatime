@@ -3,7 +3,7 @@
 
   <% if allow? :teachers, :keep_account, @current_resource%>
     <%= link_to keep_account_teacher_path(@current_resource), class: "btn-account" do %>
-      <%= Account.human_attribute_name(:keep_account)%>
+      <%= Account.human_attribute_name(:keep_account) %>
     <% end %>
   <% end %>
 </div>

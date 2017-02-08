@@ -44,8 +44,8 @@ module Tally
     end
 
     # 结账
-    def _billing
-      Payment::Billing.create(target: self, total_money: total_money, summary: "#{model_name.human} - #{id} 结算")
+    def _billing(teacher_id)
+      Payment::Billing.create(target: self, total_money: total_money, from_user_id: teacher_id, summary: "#{model_name.human} - #{id} 结算")
     end
 
     # 扣款
@@ -103,7 +103,7 @@ module Tally
         video.lock!
         begin
           fee = __create_fee(video)
-          billing = _billing
+          billing = _billing(teacher_id)
           return if billing.nil? || billing.total_money <= 0
           __charge_fee(fee)
           __split_fee(teacher_id, fee)

@@ -10,3 +10,5 @@ cn:
       to: 至
       start_date: 开始时间
       end_date: 结束时间
+    query:
+      name_or_mobile: 请输入姓名/电话

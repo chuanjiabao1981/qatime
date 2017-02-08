@@ -180,6 +180,11 @@ module Permissions
       allow 'station/lessons', [:state, :update] do |workstation|
         workstation && workstation.manager_id == user.id
       end
+
+      allow 'payment/station/workstations', [:show, :cash, :earning_records, :withdraws] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+
     end
   end
 end

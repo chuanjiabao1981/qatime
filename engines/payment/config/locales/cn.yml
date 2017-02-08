@@ -11,6 +11,19 @@ cn:
       view: 查看
     payment/earning_record:
       view: 查看
+    payment/earning_records:
+      search:
+        category:
+          total: 总收入
+          daily: 今日收入
+          three_day: 近三天收入
+          weekly: 最近1周
+          monthly: 最近30天
+          quarterly: 最近90天
+          half_yearly: 最近180天
+          yearly: 最近一年
+      list:
+        total_value: "(共计 %{amount})"
     payment/cash_account:
       recharge: 充值
       withdraw: 提现
@@ -115,6 +128,10 @@ cn:
         detail: 每小时单价*时长
         target_type: 收益类型
         operate: 操作
+        target: 收入来源
+        from_user: 参与人
+        counter: 序号
+        operate_detail: 查看明细
       payment/billing:
         total_money: 收支
         summary: 描述

@@ -1,5 +1,15 @@
 Payment::Engine.routes.draw do
 
+  namespace :station do
+    resources :workstations, only: [:show] do
+      member do
+        get :cash, action: :earning_records
+        get :earning_records
+        get :withdraws
+      end
+    end
+  end
+
   resources :users, only: [] do
     resources :orders, only: [:index, :show, :destroy] do
       member do

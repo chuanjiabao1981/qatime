@@ -287,6 +287,17 @@ cn:
         teacher_percentage: 教师分成百分比
         preset_lesson_count: 课程数
         lesson_price: 单节课程价格
+        billing_price: 课程单价
+        billing_duration: 服务时长
+        billing_system_price: 服务费标准
+        billing_system_price_value: "%{amount}/分钟"
+        billing_system_fee: 服务费扣费
+        billing_teacher_percent: 教师分成
+        billing_teacher_amount: 教师收入
+        billing_system_percent: 系统分成
+        billing_system_amount: 系统收入
+        billing_workstation_percent: 工作站分成
+        billing_workstation_amount: 工作站收入
         address: 上课地址
         grade: 年级
         subject: 科目

@@ -8,5 +8,7 @@ module Payment
     has_many :sub_billings, class_name: Billing, foreign_key: "parent_id"
 
     has_many :billing_items
+
+    belongs_to :from_user, class_name: User
   end
 end

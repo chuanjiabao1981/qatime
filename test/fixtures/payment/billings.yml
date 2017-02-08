@@ -2,3 +2,19 @@
 
 one:
   target: lesson1_for_refund_course3 (LiveStudio::Lesson)
+workstation_billing1:
+  target: replay_lessons_10 (LiveStudio::Lesson)
+  from_user: teacher1
+workstation_billing2:
+  target: customized_tutorial_teacher_earnings_1 (CustomizedTutorial)
+  from_user: physics_teacher1
+workstation_billing3:
+  target: exercise_fee_correction_one (Correction)
+  from_user: physics_teacher1
+workstation_billing4:
+  target: course_issue_reply_for_fee_view (Reply)
+  from_user: physics_teacher1
+workstation_billing5:
+  target: homework_correction_for_fee_view (Correction)
+  from_user: physics_teacher1
+  

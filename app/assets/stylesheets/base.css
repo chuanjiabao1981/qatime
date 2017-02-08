@@ -2044,7 +2044,8 @@ i {
 }
 
 .td-circle {
-  width: 2.5%;
+  /*width: 2.5%;*/
+  width: 20px;
   position: relative;
   color: rgb(190,11,11);
 }
@@ -2265,7 +2266,15 @@ i {
 .tec-li:last-child {
   border-bottom: 0px;
 }
-
+@media only screen  and (max-width: 1200px) {
+.tutoring-tec-con {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.msg-address {
+  width: 95px;
+} 
+}
 @media only screen  and (max-width: 990px) {
   .col-md-right {
     padding-left: 0 !important;
@@ -2277,8 +2286,15 @@ i {
     padding-right: 0 !important;
     padding-left: 0 !important;
   }
+  .msg-address {
+  width: 100%;
 }
-
+}
+@media only screen and (max-width: 400px) {
+  .msg-address {
+    width: 130px;
+  }
+}
 .recommended-profile {
   padding-top: 20px;
   padding-bottom: 50px;
@@ -2391,7 +2407,7 @@ i {
     border-left: 0px;
   }
   .link-city {
-    width: 104.5%;
+    width: 105.3%;
     margin-left: -15px;
   }
   .col-advantage ul li:last-child {
@@ -2400,7 +2416,11 @@ i {
 .recommended-link {
   padding: 15px 30px 10px;
 }
+.link-left table tr td:last-child {
+    width: 0px;
+  }
 }
+
 .link-city p {
   margin-top: 10px;
 }
@@ -4010,7 +4030,7 @@ ul {
 }
 .admin-title-left a {
   color: #999999;
-  font-size: 20px;
+  font-size: 24px;
   margin-right: 30px;
 }
 .active-admin,.admin .active {
@@ -4973,7 +4993,7 @@ ul {
   background-color: rgb(204,204,204) !important;
 }
 .tutorial-con {
-  height: 103px;
+  min-height: 103px;
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid rgb(241,241,241);
@@ -6689,6 +6709,7 @@ border-left: 0px;
   .tea-right-con {
     border-left: 0px;
   }
+  
 }
 @media only screen  and (max-width: 400px) {
   .tea-left-con .input-group  {
@@ -7261,7 +7282,7 @@ border-left: 0px;
   border-bottom: 1px solid #ccc;
   overflow: hidden;
 }
-.workstation-nav-left select {
+.workstation-nav-left select,.workstation-title-right select {
   width: 104px;
   height: 26px;
   border: 1px solid #CCCCCC;
@@ -7722,3 +7743,81 @@ border-left: 0px;
 
 
 
+/*收益记录*/
+.earnings .workstation-title-left {
+  padding-top: 13px;
+}
+.earnings .workstation-nav-left span {
+  font-size: 14px;
+  color: #333333;
+}
+.earnings-tab {
+  table-layout: fixed;
+}
+.earnings-tab tr td:first-child {
+  width: 5%;
+}
+.earnings-tab tr td:nth-child(4) {
+  width: 20%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+.earnings-tab tr td {
+    word-break: break-word;
+}
+.earnings-detail table tr td {
+  padding-left: 10px;
+  width: 50% !important;
+  text-align: left;
+}
+.earnings-detail {
+  background-color: #f2f2f2;
+  display: none;
+}
+.earnings-detail table tr td {
+  height: 31px !important;
+}
+
+.earnings-tab tr td a i {
+  font-size: 20px;
+  position: relative;
+  top: 2px;
+  color: #333333;
+}
+.earnings-tab tr td:last-child span {
+  color: #428bca;
+}
+.earnings-detail table td{
+  border: none;
+}
+.earnings-detail table tr td span {
+  color: #333333 !important;
+}
+.view-msg {
+  cursor: pointer;
+}
+.workstation-title-left h2 {
+  margin: 0px;
+  font-size: 26px;
+}
+.tea-wechat .form-group {
+  padding-top: 34px !important;
+  padding-left: 10px;
+}
+.tea-wechat .form-group .has-error {
+  padding-left: 0px;
+}
+.tea-wechat .form-group span:nth-child(2) {
+  color: #999999;
+  margin-left: 10px;
+}
+.tea-wechat .form-group span i {
+  color: #666666;
+}
+@media only screen and (max-width: 990px) {
+.tea-wechat .form-group {
+  padding-left: 0px !important;
+} 
+}

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170205074954) do
+ActiveRecord::Schema.define(version: 20170208054954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -578,8 +578,8 @@ ActiveRecord::Schema.define(version: 20170205074954) do
     t.integer  "lessons_count",                                               default: 0
     t.integer  "finished_lessons_count",                                      default: 0
     t.integer  "started_lessons_count",                                       default: 0
-    t.integer  "closed_lessons_count",                                        default: 0
     t.integer  "adjust_buy_count",                                            default: 0
+    t.integer  "closed_lessons_count",                                        default: 0
   end
 
   add_index "live_studio_courses", ["author_id"], name: "index_live_studio_courses_on_author_id", using: :btree
@@ -806,18 +806,20 @@ ActiveRecord::Schema.define(version: 20170205074954) do
   create_table "payment_billings", force: :cascade do |t|
     t.integer  "target_id"
     t.string   "target_type"
-    t.decimal  "total_money", precision: 8, scale: 2
+    t.decimal  "total_money",  precision: 8, scale: 2
     t.datetime "deleted_at"
     t.string   "summary"
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.integer  "parent_id"
     t.string   "type"
-    t.integer  "percent",                             default: 0
-    t.integer  "quantity",                            default: 0
-    t.decimal  "price",       precision: 8, scale: 2, default: 0.0
+    t.integer  "percent",                              default: 0
+    t.integer  "quantity",                             default: 0
+    t.decimal  "price",        precision: 8, scale: 2, default: 0.0
+    t.integer  "from_user_id"
   end
 
+  add_index "payment_billings", ["from_user_id"], name: "index_payment_billings_on_from_user_id", using: :btree
   add_index "payment_billings", ["target_type", "target_id"], name: "index_payment_billings_on_target_type_and_target_id", using: :btree
 
   create_table "payment_cash_accounts", force: :cascade do |t|

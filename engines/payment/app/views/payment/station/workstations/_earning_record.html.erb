@@ -1,5 +1,5 @@
 <% if earning_record.target && earning_record.target.is_a?(LiveStudio::Lesson) %>
-  <tr>
+  <tr id="item-<%= earning_record.id %>">
     <td><%= earning_record_counter + 1 %></td>
     <td><%= number_to_currency(earning_record.amount, locale: :cn, unit: "￥", precision: 1) %></td>
     <td><%= localize(earning_record.created_at, format: :long) %></td>
@@ -75,7 +75,7 @@
     </td>
   </tr>
 <% else -%>
-  <tr>
+  <tr  id="item-<%= earning_record.id %>">
     <td><%= earning_record_counter + 1 %></td>
     <td><%= number_to_currency(earning_record.amount, locale: :cn, unit: "￥", precision: 1) %></td>
     <td><%= localize(earning_record.created_at, format: :long) %></td>

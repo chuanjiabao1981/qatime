@@ -9,8 +9,14 @@ module Payment
     end
 
     def earning_records
-      @earning_records = @cash_account.earning_records.paginate(page: params[:page])
+      @earning_records = @cash_account.earning_records.includes(:billing)
       @earning_records = query_by_date(@earning_records)
+      unless params[:q].blank?
+        @from_user = User.where("login_mobile = ? or name = ?", params[:q], params[:q]).last
+        @earning_records = @from_user.nil? ? @earning_records.where(id: nil) : @earning_records.where(payment_billings: { from_user_id: @from_user.id })
+      end
+      @amount = @earning_records.sum(:amount)
+      @earning_records = @earning_records.order(id: :desc).paginate(page: params[:page])
     end
 
     def withdraws
@@ -29,9 +35,25 @@ module Payment
     end
 
     def query_by_date(chain)
-      chain = chain.where("created_at > ?", params[:start_date].to_date) if params[:start_date].present?
-      chain = chain.where("created_at <= ?", params[:end_date].to_date + 1) if params[:end_date].present?
-      chain
+      return chain if params[:category].blank? || 'total' == params[:category]
+      start_at =
+        case params[:category]
+        when 'daily'
+          Time.now.beginning_of_day
+        when 'three_day'
+          3.days.ago.beginning_of_day
+        when 'weekly'
+          7.days.ago.beginning_of_day
+        when 'monthly'
+          30.days.ago.beginning_of_day
+        when 'quarterly'
+          90.days.ago.beginning_of_day
+        when 'half_yearly'
+          180.days.ago.beginning_of_day
+        when 'yearly'
+          1.years.ago.beginning_of_day
+        end
+      chain.where("payment_change_records.created_at > ?", start_at)
     rescue
       chain
     end

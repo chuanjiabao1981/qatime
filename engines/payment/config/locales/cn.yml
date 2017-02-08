@@ -11,6 +11,19 @@ cn:
       view: 查看
     payment/earning_record:
       view: 查看
+    payment/earning_records:
+      search:
+        category:
+          total: 总收入
+          daily: 今日收入
+          three_day: 近三天收入
+          weekly: 最近1周
+          monthly: 最近30天
+          quarterly: 最近90天
+          half_yearly: 最近180天
+          yearly: 最近一年
+      list:
+        total_value: "(共计 %{amount})"
     payment/cash_account:
       recharge: 充值
       withdraw: 提现

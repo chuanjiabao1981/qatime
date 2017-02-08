@@ -68,6 +68,7 @@
     message_history: "消息记录"
     comments: "条评论"
     no_search_result: "没有搜索到相关内容。"
+    no_match_result: "未找到匹配的结果"
     access_denied: "访问被拒绝，你可能没有权限或未登录。"
     editor_toolbar_edit: "编辑"
     editor_toolbar_preview: "预览"

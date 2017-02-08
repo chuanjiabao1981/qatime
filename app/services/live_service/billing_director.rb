@@ -9,7 +9,7 @@ module LiveService
     def billing
       return unless check_lesson
       Payment::LiveCourseBilling.transaction do
-        Payment::LiveCourseBilling.new(target: @lesson).calculate.billing
+        Payment::LiveCourseBilling.new(target: @lesson, from_user: @lesson.teacher).calculate.billing
         @lesson.complete!
       end
     end

@@ -1,46 +1,44 @@
-<div class="panel panel-default recordmsg">
-
-  <div class="panel-row">
-    <p><%= t("teachers.common.my_wallet") %></p>
-  </div>
-
-  <div class="panel-row std-row">
-    <div class="std-row-1">
-      <%= Payment::CashAccount.human_attribute_name(:balance) %>
-      <span><strong><%= number_to_currency(@cash_account.available_balance, unit: '') %></strong></span>
-      <%= t('currency.cn') %>
+<div class="panel panel-default">
+  <div class="workstation earnings">
+    <div class="workstation-title">
+      <div class="workstation-title-left">
+        <h2><%= Payment::EarningRecord.model_name.human %></h2>
+      </div>
     </div>
-    <div class="std-row-3"><%= @cash_account.try(:status) %></div>
-
-    <div class="std-row-2">
-      <em>
-	<%= Payment::CashAccount.human_attribute_name(:total_income) %>
-	<span>
-          <%= number_to_currency(@cash_account.total_income, unit: '') %>
-	</span>
-	<%= t('currency.cn') %>
-      </em>
+    <div class="workstation-nav">
+      <%= form_tag "", method: :get do -%>
+        <div class="workstation-nav-left">
+          <%= select_tag "category", options_for_select(earning_records_category_options, params[:category]) %>
+          <span><%= t("view.payment/earning_records.list.total_value", amount: number_to_currency(@amount, locale: :cn, unit: "￥", precision: 1)) %></span>
+        </div>
+        <div class="workstation-nav-right">
+          <%= submit_tag "查询" %>
+          <%= text_field_tag :q, params[:q], placeholder: "请输入姓名/电话" %>
+        </div>
+      <% end -%>
+    </div>
+    <div class="workstation-con">
+      <table border="1" cellspacing="1" cellpadding="1" class="earnings-tab">
+        <tbody>
+          <tr>
+            <td>序号</td>
+            <td><%= Payment::EarningRecord.human_attribute_name(:amount) %></td>
+            <td><%= Payment::EarningRecord.human_attribute_name(:created_at) %></td>
+            <td>收入来源</td>
+            <td>参与人</td>
+            <td><%= Payment::EarningRecord.human_attribute_name(:target_type) %></td>
+            <td><%= Payment::EarningRecord.human_attribute_name(:operate) %></td>
+          </tr>
+          <%= render partial: "earning_record", collection: @earning_records %>
+          
+        </tbody>
+      </table>
+      <center><div class="pagination-fix"><%= will_paginate @earning_records %></div></center>
+      <% if @earning_records.blank? -%>
+        <div class="workstation-prompt">
+          <span><%= t("common.no_match_result") %></span>
+        </div>
+      <% end %>
     </div>
   </div>
-
-  <div class="panel-row row-th">
-    <%= render 'filter' %>
-  </div>
-
-  <div class="con show">
-    <table class="table table-fix">
-      <tbody>
-	<tr id="tr-row1">
-          <td><%= Payment::EarningRecord.human_attribute_name(:amount) %></td>
-          <td><%= Payment::EarningRecord.human_attribute_name(:detail) %></td>
-          <td><%= Payment::EarningRecord.human_attribute_name(:target_type) %></td>
-          <td><%= Payment::EarningRecord.human_attribute_name(:created_at) %></td>
-          <td><%= Payment::EarningRecord.human_attribute_name(:operate) %></td>
-	</tr>
-      </tbody>
-      <%= render @earning_records %>
-    </table>
-    <div class="pagination-fix"><%= will_paginate @earning_records %></div>
-  </div>
-
 </div>

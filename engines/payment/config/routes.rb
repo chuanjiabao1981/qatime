@@ -3,7 +3,7 @@ Payment::Engine.routes.draw do
   namespace :station do
     resources :workstations, only: [:show] do
       member do
-        get :cash, to: :earning_records
+        get :cash, action: :earning_records
         get :earning_records
         get :withdraws
       end

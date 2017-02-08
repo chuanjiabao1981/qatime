@@ -128,3 +128,15 @@ exercise_correction_for_test_is_charged:
   platform_price: 0
   type: ExerciseCorrection
   last_operator: teacher1
+
+exercise_fee_correction_one:
+  content: exercise_correction_for_testis_charged content
+  teacher: teacher1
+  solution: exercise_solution_for_test_is_charged
+  customized_course: customized_course1
+  token: exercise_correction_for_test_is_charged
+  status: open
+  teacher_price: 54
+  platform_price: 0
+  type: ExerciseCorrection
+  last_operator: teacher1

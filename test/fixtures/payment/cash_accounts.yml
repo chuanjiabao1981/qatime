@@ -115,3 +115,7 @@ cash_admin_account:
 cash_default_workstation:
   owner: workstation_default(Workstation)
   balance: 20000
+
+cash_workstation_zhuji:
+  owner: workstation_zhuji(Workstation)
+  balance: 20000

@@ -62,11 +62,12 @@ module Payment
     end
 
     def workstation
-      @workstation ||=  ::Workstation.default
+      @workstation ||= target.course.workstation || Workstation.default
     end
 
     def teacher_account
       target.teacher.cash_account!
+
     end
 
     # 总金额

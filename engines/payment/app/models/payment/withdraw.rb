@@ -3,14 +3,21 @@ module Payment
     include AASM
 
     has_one :withdraw_record, foreign_key: 'payment_transaction_id', class_name: 'Payment::WithdrawRecord'
-    has_many :weixin_transfers, as: :order
+    has_one :weixin_transfer, as: :order
 
     enum status: %w(init allowed refused canceled paid)
     enum pay_type: %w(cash bank alipay wechat)
 
-    attr_accessor :account_money_snap_shot
+    attr_accessor :account_money_snap_shot, :payment_password, :ticket_token
     validate :validate_withdraw_amount, :validate_wechat, on: :create
+    validate :check_password_or_token!, on: :create
+    validates :amount, presence: true, numericality: { greater_than: 0, only_integer: true }
     after_create :frozen_balance
+
+    belongs_to :wechat_user, class_name: 'Qawechat::WechatUser'
+
+    validates :wechat_user_id, presence: { message: '未绑定微信账户' }
+    validates :wechat_user, presence: { message: '绑定账户不存在' }
 
     scope :filter, ->(keyword){keyword.blank? ? nil : where('transaction_no ~* ?', keyword).presence ||
       where(user: User.where('name ~* ?',keyword).presence || User.where('login_mobile ~* ?',keyword))}
@@ -62,19 +69,53 @@ module Payment
     end
 
     private
+
+    # 提现验证支付密码或者token
+    def check_password_or_token!
+      ticket_token.present? ? check_token! : check_password!
+    end
+
+    def check_token!
+      errors.add('ticket_token', "无效的token") unless UserService::CashAccountManager.new(user).check_token(:withdraw, ticket_token)
+    end
+
+    def check_password!
+      if payment_password.blank?
+        errors.add(:payment_password, '支付密码不能为空')
+      elsif cash_account.password_set_at.blank?
+        errors.add(:payment_password, '还未设置支付密码')
+      elsif cash_account.password_set_at > 24.hours.ago
+        errors.add(:payment_password, '修改或者设置支付密码24小时内不可用')
+      elsif !cash_account.authenticate(payment_password)
+        errors.add(:payment_password, '支付密码不正确')
+      end
+    end
+
     def frozen_balance
       user.cash_account!.freeze_cash(amount)
     end
 
+    after_create :instance_remote_order
+    def instance_remote_order
+      return if !wechat? || weixin_transfer
+      WeixinTransfer.create(
+        amount: amount,
+        remote_ip: remote_ip,
+        status: :unpaid,
+        order_no: transaction_no,
+        order: self
+      )
+    end
+
     def allow_operator(current_user)
       Payment::Withdraw.transaction do
-        operator_record(status,'allowed',current_user)
+        operator_record(status, 'allowed', current_user)
         withdraw_cash!
       end
     end
 
     def refuse_operator(current_user)
-      operator_record(status,'refused',current_user)
+      operator_record(status, 'refused', current_user)
       cancel_frozen!
     end
 
@@ -94,12 +135,7 @@ module Payment
     def withdraw_cash!
       user.cash_account!.withdraw(amount, self)
       # 提现类型是微信时 创建自动转账数据
-      wechat? && weixin_transfers.create(
-        amount: amount,
-        remote_ip: remote_ip,
-        status: :unpaid,
-        order_no: transaction_no
-      )
+      wechat? && weixin_transfer.remote_transfer
     end
 
     # 取消冻结资金
@@ -108,21 +144,7 @@ module Payment
     end
 
     def validate_withdraw_amount
-      v = parse_raw_value_as_a_number(self.amount)
-      if self.account_money_snap_shot.nil?
-        self.account_money_snap_shot = self.user.cash_account!.balance
-      end
-      if v
-        if v > 0
-          if self.account_money_snap_shot < v
-            self.errors.add(:value,"账户资金不足，无法提取!")
-          end
-        else
-          self.errors.add(:value,"请输大于0的数字")
-        end
-      else
-        self.errors.add(:value,"请输入数字")
-      end
+      errors.add(:amount, "余额不足") unless cash_account.available_balance > amount.to_f
     end
 
     def validate_wechat
@@ -140,6 +162,10 @@ module Payment
       summary = "系统支付提现, 订单编号：#{transaction_no} 订单金额: #{amount}"
       billing = billings.create(total_money: amount, summary: summary)
       CashAdmin.decrease_cash_account(amount, billing, summary)
+    end
+
+    def cash_account
+      @cash_account ||= user.cash_account! if user
     end
   end
 end

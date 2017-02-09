@@ -70,6 +70,11 @@ module Payment
 
     private
 
+    before_validation :ensure_amount_integer
+    def ensure_amount_integer
+      self.amount = amount.to_i if amount.to_i == amount
+    end
+
     # 提现验证支付密码或者token
     def check_password_or_token!
       ticket_token.present? ? check_token! : check_password!

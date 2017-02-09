@@ -15,7 +15,7 @@ module Payment
 
     # POST /recharges
     def create
-      @withdraw = @resource_user.payment_withdraws.new(withdraw_params.merge(status: :init))
+      @withdraw = @resource_user.payment_withdraws.new(withdraw_params.merge(status: :init, remote_ip: request.remote_ip))
       if @withdraw.save
         redirect_to action: :complete, transaction: @withdraw.transaction_no
       else

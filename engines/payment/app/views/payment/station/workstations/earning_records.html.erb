@@ -48,6 +48,13 @@ $(function() {
   $(".view-msg").click(function  () {
     var index = $(".view-msg").index($(this));
     $(".earnings-detail").eq(index).toggle();
+     if ($(this).find("i").attr("class") == "fa fa-caret-down") {
+      $(this).find("span").html("<%= Payment::EarningRecord.human_attribute_name(:operate_hide) %>");
+       $(this).find("i").attr("class","fa fa-caret-up");
+     } else{
+      $(this).find("span").html("<%= Payment::EarningRecord.human_attribute_name(:operate_detail) %>");
+     $(this).find("i").attr("class","fa fa-caret-down");
+     }
   });
 });
 </script>

@@ -40,9 +40,16 @@ module Payment
     # 确认支付
     def pay
       cash_account = current_user.cash_account!
-      @error = nil
-      @error = "支付密码未设置" unless cash_account.password?
-      @error = "支付密码验证失败" unless cash_account.authenticate(params[:payment_password])
+
+      if params[:payment_password].blank?
+        @error = '支付密码不能为空'
+      elsif cash_account.password_set_at.blank?
+        @error = "支付密码未设置"
+      elsif cash_account.password_set_at > 24.hours.ago
+        @error = '修改或者设置支付密码24小时内不可用'
+      elsif !cash_account.authenticate(params[:payment_password])
+        @error = "支付密码验证失败"
+      end
       @ticket_token = ::TicketToken.instance_token(@transaction, :pay) if @error.nil?
       begin
         @transaction.pay_with_ticket_token!(@ticket_token) if @error.nil? && @transaction.account?

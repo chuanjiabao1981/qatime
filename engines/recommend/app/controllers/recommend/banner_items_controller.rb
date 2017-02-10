@@ -2,8 +2,6 @@ require_dependency "recommend/application_controller"
 
 module Recommend
   class BannerItemsController < ItemsController
-    before_action :set_item
-
     def new
       @item = @position.items.build(type: @position.klass_name)
     end
@@ -40,10 +38,6 @@ module Recommend
     end
 
     private
-
-    def set_item
-      @item = Recommend::BannerItem.find(params[:id])
-    end
 
     def item_params
       params.require(:banner_item).permit(:title, :logo, :target_id, :reason, :city_id, :index)

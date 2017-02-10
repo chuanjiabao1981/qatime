@@ -3,9 +3,5 @@
   <div class="col-md-4"><%= position.klass_name.constantize.model_name.human %></div>
   <div class="col-md-4"><%= position.status_text %></div>
   <div class="col-md-4">
-    <% if current_user.admin? %>
-      <%= link_to '编辑', edit_position_path(position) if allow?('recommend/positions', 'edit', current_user) %>
-      <%= link_to '删除', position_path(position), method: :delete, data: { confirm: '确定删除?' } if allow?('recommend/positions', 'delete', current_user) %>
-    <% end %>
   </div>
 </div>

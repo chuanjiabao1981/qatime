@@ -2,7 +2,6 @@ require_dependency "recommend/application_controller"
 
 module Recommend
   class LiveStudioCourseItemsController < ItemsController
-    before_action :set_item
 
     def new
       @item = @position.items.build(type: @position.klass_name)
@@ -40,10 +39,6 @@ module Recommend
     end
 
     private
-
-    def set_item
-      @item = Recommend::LiveStudioCourseItem.find(params[:id])
-    end
 
     def item_params
       params.require(:live_studio_course_item).permit(:title, :logo, :target_id, :reason, :city_id, :index)

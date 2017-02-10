@@ -140,9 +140,11 @@ cn:
       order_tips_2: 请核对订单并选择支付方式后再提交支付。
       go_back_tips: '&lt;&nbsp;重新选择支付方式'
       total_amount: 支付金额
+      recharge_total_amount: 充值金额
       transaction_no: 订单编号
       created_at: 创建时间
       pay_tips: 遇到支付问题，请拨打电话
+      weixin_pay_tips: 提示：请在您提交订单后24小时内完成支付否则订单会自动取消。
       pay_tips_tel: 400-838-8010
       recharge: 账户充值
       recharge_info: 交易信息

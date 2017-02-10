@@ -1,4 +1,4 @@
-<div class="complete-prompt">
+<div class="complete-prompt weixin">
   <div class="complete-prompt-left">
     <%= link_to payment.new_user_recharge_path(@current_resource, amount: @transaction.amount) do %>
       &lt;<%= Payment::Recharge.human_attribute_name(:reset_pay_type) %>
@@ -8,11 +8,8 @@
     <% end unless @transaction.is_a? Payment::Recharge %>
   </div>
   <!-- <div class="complete-prompt-center"><span>提示：核对信息后支付</span></div>    -->
+
+  <div class="complete-prompt-center">
+    <span><%= t('view.payment_show.weixin_pay_tips') %></span>
+  </div> 
 </div>
-
-
-
-
-    
-
-    

@@ -1,7 +1,5 @@
 <div class="panel panel-default panel-profile">
-  <% class_special = @transaction.pay_type == 'weixin' ? "wechat-content" : "alipay-con" %>
-  <% class_special = "balance-con" if @transaction.pay_type == 'account' %>
-  <div class="apply-tea <%= class_special %>">
+  <div class="apply-tea">
     <div class="tutoring-title">
       <div class="tutoring-title-left">
         <%= image_tag "icon.png" %>
@@ -38,7 +36,7 @@
       </div>
       <%= render "#{@transaction.pay_type}_pay_confirm" %>
     </div>
-    <%= render @transaction.pay_type %>
+    <%= render @transaction.pay_type if @transaction.weixin? %>
     <p class="alipay-prompt"><%= t('view.payment_show.pay_tips') %><i><%= t('view.payment_show.pay_tips_tel') %></i></p>
   </div>
 </div>

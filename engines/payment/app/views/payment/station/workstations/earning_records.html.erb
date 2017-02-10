@@ -8,7 +8,7 @@
     <div class="workstation-nav">
       <%= form_tag "", method: :get do -%>
         <div class="workstation-nav-left">
-          <%= select_tag "category", options_for_select(earning_records_category_options, params[:category]) %>
+          <%= select_tag "category", options_for_select(earning_records_category_options, params[:category]), class: 'immediately' %>
           <span><%= t("view.payment/earning_records.list.total_value", amount: number_to_currency(@amount, locale: :cn, unit: "￥", precision: 1)) %></span>
         </div>
         <div class="workstation-nav-right">

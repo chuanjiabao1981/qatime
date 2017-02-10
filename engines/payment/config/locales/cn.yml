@@ -132,6 +132,7 @@ cn:
         from_user: 参与人
         counter: 序号
         operate_detail: 查看明细
+        operate_hide: 收起
       payment/billing:
         total_money: 收支
         summary: 描述

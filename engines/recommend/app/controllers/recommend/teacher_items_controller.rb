@@ -2,7 +2,6 @@ require_dependency "recommend/application_controller"
 
 module Recommend
   class TeacherItemsController < ItemsController
-    before_action :set_item
 
     def new
       @item = @position.items.build(type: @position.klass_name)
@@ -40,10 +39,6 @@ module Recommend
     end
 
     private
-
-    def set_item
-      @item = Recommend::TeacherItem.find(params[:id])
-    end
 
     def item_params
       params.require(:teacher_item).permit(:title, :logo, :target_id, :reason, :city_id, :index)

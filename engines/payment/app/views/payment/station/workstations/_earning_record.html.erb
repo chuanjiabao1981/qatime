@@ -8,7 +8,7 @@
     <td><%= LiveStudio::Course.model_name.human %></td>
     <td>
       <a href="javascript:void(0);" class="view-msg">
-        <%= Payment::EarningRecord.human_attribute_name(:operate_detail) %>
+        <span><%= Payment::EarningRecord.human_attribute_name(:operate_detail) %></span>
         <i class="fa fa-caret-down"></i>
       </a>
     </td>
@@ -89,7 +89,7 @@
     <td><%= earning_record.target.model_name.human %></td>
     <td>
       <a href="javascript:void(0);" class="view-msg">
-        <%= Payment::EarningRecord.human_attribute_name(:operate_detail) %>
+        <span><%= Payment::EarningRecord.human_attribute_name(:operate_detail) %></span>
         <i class="fa fa-caret-down"></i>
       </a>
     </td>

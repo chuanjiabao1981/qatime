@@ -23,6 +23,7 @@
           <% percent_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::PercentItem } %>
           <% system_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::SystemPercentItem } %>
           <% workstation_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::WorkstationPercentItem } %>
+          <% if system_fee_item -%>
           <tr>
             <td>
               <span><%= LiveStudio::Course.human_attribute_name(:billing_price) %>：</span>
@@ -70,6 +71,7 @@
               <span><%= number_to_currency workstation_item.amount, locale: :cn, unit: "￥", precision: 1 %></span>
             </td>
           </tr>
+          <% end -%>
         </tbody>
       </table>
     </td>

@@ -3,7 +3,7 @@
     <div>
       <h3>
         <%= Recommend::LiveStudioCourseItem.model_name.human %>
-        <%= link_to "新建", new_position_live_studio_course_item_path(@position) if allow?('recommend/live_studio_courses', 'new', current_user) %>
+        <%= link_to "新建", new_position_live_studio_course_item_path(@position) if allow?('recommend/live_studio_course_items', 'new', current_user) %>
       </h3>
     </div>
   </div>

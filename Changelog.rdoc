@@ -351,3 +351,8 @@
         * [QT-774](https://qatime.atlassian.net/browse/QT-774)
         * [QT-776](https://qatime.atlassian.net/browse/QT-776)
         * [QT-783](https://qatime.atlassian.net/browse/QT-783)
+* 1.7.0
+    * feature
+        * [QT-738](https://qatime.atlassian.net/browse/QT-738)
+        * [QT-782](https://qatime.atlassian.net/browse/QT-782)
+        * [QT-791](https://qatime.atlassian.net/browse/QT-791)

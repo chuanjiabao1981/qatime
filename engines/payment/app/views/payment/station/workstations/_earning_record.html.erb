@@ -8,7 +8,7 @@
     <td><%= LiveStudio::Course.model_name.human %></td>
     <td>
       <a href="javascript:void(0);" class="view-msg">
-        <%= Payment::EarningRecord.human_attribute_name(:operate_detail) %>
+        <span><%= Payment::EarningRecord.human_attribute_name(:operate_detail) %></span>
         <i class="fa fa-caret-down"></i>
       </a>
     </td>
@@ -56,7 +56,7 @@
           <tr>
             <td>
               <span><%= LiveStudio::Course.human_attribute_name(:billing_system_percent) %>：</span>
-              <span><%= number_to_percentage percent_item.percent, precision: 0 %> x <%= number_to_percentage system_item.percent, precision: 0 %></span></td>
+              <span><%= number_to_percentage (percent_item.percent / 100.0) * (system_item.percent / 100.0) * 100, precision: 0 %></span></td>
             <td>
               <span><%= LiveStudio::Course.human_attribute_name(:billing_system_amount) %>：</span>
               <span><%= number_to_currency system_item.amount, locale: :cn, unit: "￥", precision: 1 %></span>
@@ -65,7 +65,7 @@
           <tr>
             <td>
               <span><%= LiveStudio::Course.human_attribute_name(:billing_workstation_percent) %>：</span>
-              <span><%= number_to_percentage percent_item.percent, precision: 0 %> x <%= number_to_percentage workstation_item.percent, precision: 0 %></span></td>
+              <span><%= number_to_percentage (percent_item.percent / 100.0) * (workstation_item.percent / 100.0) * 100, precision: 0 %></span></td>
             <td>
               <span><%= LiveStudio::Course.human_attribute_name(:billing_workstation_amount) %>：</span>
               <span><%= number_to_currency workstation_item.amount, locale: :cn, unit: "￥", precision: 1 %></span>
@@ -89,7 +89,7 @@
     <td><%= earning_record.target.model_name.human %></td>
     <td>
       <a href="javascript:void(0);" class="view-msg">
-        <%= Payment::EarningRecord.human_attribute_name(:operate_detail) %>
+        <span><%= Payment::EarningRecord.human_attribute_name(:operate_detail) %></span>
         <i class="fa fa-caret-down"></i>
       </a>
     </td>

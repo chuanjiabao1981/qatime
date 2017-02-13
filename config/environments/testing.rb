@@ -32,6 +32,12 @@ Qatime::Application.configure do
   config.assets.precompile += %w(web_home.css front.css front_live.css)
   config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
 
+  config.assets.precompile << Proc.new { |path|
+    if path =~ /\.(eot|svg|ttf|woff)\z/
+      true
+    end
+  }
+
   # Generate digests for assets URLs.
   config.assets.digest = true
 

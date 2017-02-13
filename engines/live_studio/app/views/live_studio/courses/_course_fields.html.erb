@@ -193,6 +193,7 @@
       var zx = 480 / coords.w;
       var zy = 300 / coords.h;
 
+      // 小图预览设置
       $('#course_publicize_preview2').css({
         width : Math.round(rx * boundx) + 'px',
         height : Math.round(ry * boundy) + 'px',
@@ -200,6 +201,7 @@
         marginTop : '-' + Math.round(ry * coords.y) + 'px'
       });
 
+      // 大图预览设置
       $('#course_publicize_preview3').css({
         width : Math.round(zx * boundx) + 'px',
         height : Math.round(zy * boundy) + 'px',
@@ -208,6 +210,8 @@
       });
     }
 
+    // 图片预览框的大小是240 x 240
+    // 服务端图片最大尺寸是 480 x 300 为了保证图片不被缩小后重新放大 服务端图片缩放为480 x 480以后进行裁剪
     $('#course_crop_x').val(parseInt(coords.x) * 2);
     $('#course_crop_y').val(parseInt(coords.y) * 2);
     $('#course_crop_w').val(parseInt(coords.w) * 2);

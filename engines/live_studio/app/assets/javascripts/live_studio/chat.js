@@ -92,7 +92,7 @@ window.currentTeam = {
     });
 
     $.each(currentTeamMsgs, function(index, msg) {
-      onMsg(msg, false);
+      onMsg(msg, false, 'roaming');
     });
     nim.markMsgRead(currentTeamMsgs);
   }
@@ -102,14 +102,15 @@ window.currentTeam = {
     if(obj.sessionId != "team-" + currentTeam.id) return false;
 
     $.each(obj.msgs, function(index, msg) {
-      onMsg(msg, false, true);
+      onMsg(msg, false, 'offline');
     });
     nim.markMsgRead(obj.msgs);
   }
   // 消息处理
   // mark是否标记为已读
-  // offline是否离线消息
-  function onMsg(msg, mark, offline) {
+  // fromType 消息来源 offline: 离线消息, roaming: 漫游消息, immediate: 即时消息
+  function onMsg(msg, mark, fromType) {
+    if(!fromType) fromType = 'immediate'; 
     console.log('收到消息', msg.scene, msg.type, msg);
     // 不是该聊天组消息
     if(msg.scene != "team" || msg.to != currentTeam.id ) {
@@ -125,14 +126,17 @@ window.currentTeam = {
         break;
       case 'notification':
         // 处理群通知消息
-        onTeamNotificationMsg(msg);
+        onTeamNotificationMsg(msg, fromType);
         $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
         break;
       case 'image':
-        onImageMsg(msg);
+        onImageMsg(msg, fromType);
+        break;
+      case 'audio':
+        onAudioMsg(msg, fromType);
         break;
       default:
-        onNormalMsg(msg, offline)
+        onNormalMsg(msg, fromType);
         break;
     }
     if(mark) nim.markMsgRead(msg);
@@ -277,12 +281,17 @@ window.currentTeam = {
     if(obj.account === currentTeam.account) muteMessage(obj.mute);
   }
 
-  function onNormalMsg(msg, offline) {
-    appendMsg(msg, null, offline);
+  function onNormalMsg(msg, fromType) {
+    appendMsg(msg, null, fromType);
   }
 
   function onImageMsg(msg) {
     appendMsg(msg, 'Image');
+    $("#messages").scrollTop($("#messages").prop('scrollHeight')+180);
+  }
+
+  function onAudioMsg(msg) {
+    appendMsg(msg, 'Audio');
     $("#messages").scrollTop($("#messages").prop('scrollHeight')+180);
   }
 
@@ -392,14 +401,54 @@ function sendMessageTime(msg, type){
   }
 }
 
-function appendMsg(msg, messageClass, offline) {
+// 消息标签
+function messageTag(msg, fromType) {
+  var messageNode = $("<div class='information-con'></div>");
+  switch (msg.type) {
+    // 通知消息
+    case 'notification':
+      messageNode.append($.replaceChatMsg(msg.text));
+      break;
+    // 图片消息
+    case 'image':
+      var imageNode = $('<img class="accept-img" src="' + msg.file.url + '" onclick="accept_img_click(this)">');
+      imageNode.one("load", function() {
+        $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
+      });
+      messageNode.append(imgMsg);
+      break;
+    // 音频消息
+    case 'audio':
+      var audioNode = $('<p class="weixinAudio"></p>');
+      audioNode.append('<audio src="' + msg.file.url + '" class="media"></audio>');
+      var audioSpan = '<span  class="db audio_area">';
+      audioSpan = audioSpan + '<span class="audio_wrp db">';
+      audioSpan = audioSpan + '<span class="audio_play_area">';
+      audioSpan = audioSpan + '<i class="icon_audio_default"></i>';
+      audioSpan = audioSpan + '<i class="icon_audio_playing"></i>';
+      audioSpan = audioSpan + '</span>';
+      audioSpan = audioSpan + '</span>';
+      audioSpan = audioSpan + '<span class="audio_length tips_global"></span>';
+      // 本地消息和漫游消息不显示未读标记
+      if(fromType !== 'roaming' && fromType !== 'local') audioSpan = audioSpan + '<span class="unlisten"></span>';
+      audioSpan = audioSpan + '</span>';
+      audioNode.append(audioSpan);
+      messageNode.append(audioNode);
+      messageNode.weixinAudio();
+      break;
+    default:
+      messageNode.append($.replaceChatMsg(msg.text));
+      break;
+  }
+}
+
+function appendMsg(msg, messageClass, fromType) {
   if(!messageClass) messageClass = '';
   // 处理自定义消息
   var messageItem = $("<div class='new-information" + messageClass + "' id='msg-" + msg.idClient + "'></div>");
   // 消息标题 老师 发送时间
   var messageTitle = $("<div class='information-title'></div>");
   messageTitle.append("<img src='' class='information-title-img'>");
-
 
   if(msg.from == currentTeam.account){
     messageTitle.append("<span class='information-name'>" + msg.fromNick + "(我)</span>");
@@ -412,25 +461,14 @@ function appendMsg(msg, messageClass, offline) {
   }
   messageTitle.append("<span class='information-time'>" + sendMessageTime(msg) + "</span>");
   messageItem.append(messageTitle);
-  // 消息内容
-  var messageContent = $("<div class='information-con'></div>");
-  if(messageClass == 'Image'){
-    var url = msg.file.url;
-    var imgMsg = $('<img class="accept-img" src="' + url + '" onclick="accept_img_click(this)">');
-    imgMsg.one("load", function() {
-      $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
-    });
-    messageContent.append(imgMsg);
-  }else{
-    messageContent.append($.replaceChatMsg(msg.text));
-  }
+  // 消息内容标签
+  var messageContent = messageTag(msg, fromType);
   messageItem.append(messageContent);
-
 
   $("#messages").append(messageItem);
 
   // 显示弹幕
-  if(messageClass != 'Image' && currentTeam.barrage.active && !offline) {
+  if(messageClass != 'Image' && currentTeam.barrage.active && fromType != 'offline') {
     currentTeam.barrage.show($.replaceChatMsg(msg.text));
   }
 
@@ -511,8 +549,17 @@ $(function() {
 
   // 消息发送回调
   function sendMsgDone(error, msg) {
-    appendMsg(msg, ' new-information-stu');
+    appendMsg(msg, ' new-information-stu', 'local');
     live_chat.pushMsg(msg);
   }
 
+  // 音频播放
+  $("#messages").on("click", ".weixinAudio", function() {
+    var currentIndex = $('.weixinAudio').index($(this));
+    $.each(weixinAudioObj,function(i, el) {
+      if(i != 'weixinAudio'+ currentIndex){
+        el.pause();
+      }
+    });
+  });
 });

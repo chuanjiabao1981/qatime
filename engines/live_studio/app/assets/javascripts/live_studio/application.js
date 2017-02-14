@@ -33,3 +33,4 @@
 //= require util
 //= require jedate
 //= require jquery.jedate
+//= require weixin-audio

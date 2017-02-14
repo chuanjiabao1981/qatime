@@ -440,6 +440,7 @@ function messageTag(msg, fromType) {
       messageNode.append($.replaceChatMsg(msg.text));
       break;
   }
+  return messageNode;
 }
 
 function appendMsg(msg, messageClass, fromType) {

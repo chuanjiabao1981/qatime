@@ -98,7 +98,7 @@
 				$(this.Audio).on("canplay", function() {
                     audioTime = parseFloat(self.Audio.duration).toFixed(0)+'"';
 					self.$audio_length.text(audioTime);
-					percentage = parseFloat(self.Audio.duration).toFixed(0)*4;
+					percentage = parseFloat(self.Audio.duration).toFixed(0)*4 + percentage;
 					if(percentage > 240) percentage = 240;
 					var styles = {
 					"width": percentage

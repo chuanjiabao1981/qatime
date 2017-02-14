@@ -1,0 +1,1 @@
+Settings = Qatime::Application.config_for(:settings).deep_symbolize_keys

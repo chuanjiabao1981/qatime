@@ -27,6 +27,10 @@ module Permissions
 
       allow :schools, [:index]
 
+      allow :notifications, [:index] do |resource_user|
+        resource_user && (user.id == resource_user.id || resource_user.student_or_teacher?)
+      end
+
       allow 'recommend/positions', [:index, :show]
 
       # 专属课程
@@ -35,10 +39,18 @@ module Permissions
       end
       # 专属课程
 
+      allow 'live_studio/teacher/courses', [:index, :show]
+      allow 'live_studio/teacher/course_invitations', [:index]
+      allow 'live_studio/student/courses', [:index, :show]
+
       # 辅导班管理
       allow 'live_studio/station/courses', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
+
+      allow 'live_studio/teacher/teachers', [:schedules]
+      allow 'live_studio/student/students', [:schedules]
+      allow 'live_studio/courses', [:schedule_sources]
       # 辅导班管理
 
       # 招生请求

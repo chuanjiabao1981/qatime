@@ -27,6 +27,7 @@
 /config/netease.yml
 /config/alipay.yml
 /config/push.yml
+/config/settings.yml
 
 *.sqlite3
 *.log

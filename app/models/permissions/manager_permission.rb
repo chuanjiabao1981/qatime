@@ -96,9 +96,9 @@ module Permissions
 
       ## begin recommend permission
       allow 'recommend/positions', [:index, :show]
-      allow 'recommend/teacher_items', [:edit, :destroy, :update]
-      allow 'recommend/live_studio_course_items', [:edit, :destroy, :update]
-      allow 'recommend/banner_items', [:edit, :destroy, :update]
+      allow 'recommend/teacher_items', [:new, :create, :edit, :destroy, :update]
+      allow 'recommend/live_studio_course_items', [:new, :create, :edit, :destroy, :update]
+      allow 'recommend/banner_items', [:new, :create, :edit, :destroy, :update]
       allow 'recommend/items', [:new, :create]
       ## end   recommend permission
 

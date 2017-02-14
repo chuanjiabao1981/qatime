@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
   validates :nick_name, allow_nil: true, allow_blank:true, uniqueness: true,
             format: {with: /\A[\p{Han}\p{Alnum}\-_]{3,10}\z/,message:"只可以是中文、英文或者下划线，最短3个字符最长10个字符，不可包含空格。"}
 
-  validates :login_mobile, uniqueness: true, allow_blank: true
+  validates :login_mobile, :email, uniqueness: true, allow_nil: true
   # 验证码验证
   validates :captcha, confirmation: { case_sensitive: false , message: '校验码不正确'}, if: :captcha_required?
   # 支付密码
@@ -222,6 +222,12 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  before_validation :convert_blank_field
+  def convert_blank_field
+    self.email = nil if email == ''
+    self.login_mobile = nil if login_mobile == ''
+  end
 
   # def register_code_valid
   #   # 这里虽然设置了true使得验证成功后此注册码过期，但是由于如果整体teacher不成成功会rollback，

@@ -19,11 +19,19 @@ module Permissions
       allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks,:solutions, :get_sale_price] do |customized_course|
         user && customized_course && user.customized_courses.include?(customized_course)
       end
+      allow :customized_tutorials, [:show]
 
       allow :customized_courses ,[:new,:create] do |student|
         user and student
       end
 
+      allow :homeworks,[:show] do |homework|
+        homework
+      end
+      allow :solutions,[:show] do |solution|
+        solution
+      end
+      allow :exercises, [:show]
 
       ## begin live studio permission
       allow 'live_studio/seller/courses', [:index, :show, :new, :create, :edit, :update] do |resource, course, action|

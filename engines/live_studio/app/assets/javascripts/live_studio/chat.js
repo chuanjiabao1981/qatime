@@ -469,7 +469,7 @@ function appendMsg(msg, messageClass, fromType) {
 
   // 显示弹幕
   if(messageClass != 'Image' && currentTeam.barrage.active && fromType != 'offline') {
-    currentTeam.barrage.show($.replaceChatMsg(msg.text));
+    if(msg.type !== 'audio') currentTeam.barrage.show($.replaceChatMsg(msg.text));
   }
 
   $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);

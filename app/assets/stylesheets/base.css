@@ -7886,19 +7886,19 @@ border-left: 0px;
   height: 25px;
   vertical-align: middle;
   display: inline-block;
-  -webkit-background-size: 54px 25px;
-  background-size: 54px 25px;
-  background-position: -36px center;  
+  -webkit-background-size: 54px 25px !important;
+  background-size: 54px 25px !important;
+  background-position: -36px center !important;
 }
 .audio_play_area .icon_audio_playing {
   width: 18px;
   height: 25px;
   vertical-align: middle;
   display: inline-block;
-  -webkit-background-size: 54px 25px;
-  background-size: 54px 25px;
+  -webkit-background-size: 54px 25px !important;
+  background-size: 54px 25px !important;
   -webkit-animation: audio_playing 1s infinite;
-  background-position: 0px center;
+  background-position: 0px center !important;
   display: none;
 }
 .audio_area .pic_audio_default {

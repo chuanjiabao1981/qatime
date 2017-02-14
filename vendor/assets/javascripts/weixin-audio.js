@@ -98,7 +98,8 @@
 				$(this.Audio).on("canplay", function() {
                     audioTime = parseFloat(self.Audio.duration).toFixed(0)+'"';
 					self.$audio_length.text(audioTime);
-					percentage = parseFloat(self.Audio.duration).toFixed(0)*3;
+					percentage = parseFloat(self.Audio.duration).toFixed(0)*4;
+					if(percentage > 240) percentage = 240;
 					var styles = {
 					"width": percentage
 				};
@@ -114,12 +115,12 @@
 				callback();
 			},
 		};
-		var obj = {};
+		// var obj = {};
 		
-		$this.each(function(index,element){
-			obj['weixinAudio'+index] = new Plugin($(this));
-		}); //多个执行返回对象
+		// $this.each(function(index,element){
+		// 	obj['weixinAudio'+index] = new Plugin($(this));
+		// }); //多个执行返回对象
 
-		return obj
+		return new Plugin($(this));
 	}
 })(jQuery)

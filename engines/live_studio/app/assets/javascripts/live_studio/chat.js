@@ -434,7 +434,7 @@ function messageTag(msg, fromType) {
       audioSpan = audioSpan + '</span>';
       audioNode.append(audioSpan);
       messageNode.append(audioNode);
-      var audio = messageNode.weixinAudio();
+      var audio = audioNode.weixinAudio();
       audio.updateTotalTime();
       break;
     default:
@@ -560,5 +560,6 @@ $(function() {
   $("#messages").on("click", ".weixinAudio", function() {
     if(currentAudio) currentAudio.pause();
     currentAudio = $(this).weixinAudio();
+    currentAudio.play();
   });
 });

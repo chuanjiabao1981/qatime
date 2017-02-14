@@ -15,6 +15,7 @@ module Permissions
       allow :students,[:index,:search,:show,
                        :info,:teachers,:customized_courses,:homeworks,
                        :solutions,:account,:customized_tutorial_topics,:questions,:notifications]
+
       allow :home,[:index,:new_index,:switch_city]
       allow :schools,[:index,:new,:create]
       allow :schools,[:show,:edit,:update] do |school|
@@ -82,7 +83,7 @@ module Permissions
       allow :comments,[:show]
       allow :corrections,[:show]
       allow :notifications, [:index] do |resource_user|
-        resource_user && user.id == resource_user.id
+        resource_user && (user.id == resource_user.id || resource_user.student_or_teacher?)
       end
 
       #######begine course library permission###############
@@ -155,6 +156,9 @@ module Permissions
       allow 'live_studio/station/courses', [:index] do |workstation|
         workstation && workstation.manager_id == user.id
       end
+      allow 'live_studio/teacher/teachers', [:schedules]
+      allow 'live_studio/student/students', [:schedules]
+      allow 'live_studio/courses', [:schedule_sources]
 
       # 招生请求
       allow 'live_studio/station/course_requests', [:index, :accept, :reject] do |workstation|

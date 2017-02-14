@@ -50,16 +50,27 @@ module Permissions
       allow :curriculums,[:index,:show]
       allow :questions,[:index,:show,:student,:teacher,:teachers]
 
+      allow :notifications, [:index] do |resource_user|
+        resource_user && (user.id == resource_user.id || resource_user.student_or_teacher?)
+      end
+
       # 专属课程
       allow 'station/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
       # 专属课程
 
+      allow 'live_studio/teacher/courses', [:index, :show]
+      allow 'live_studio/teacher/course_invitations', [:index]
+      allow 'live_studio/student/courses', [:index, :show]
+
       # 辅导班管理
       allow 'live_studio/station/courses', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
+      allow 'live_studio/teacher/teachers', [:schedules]
+      allow 'live_studio/student/students', [:schedules]
+      allow 'live_studio/courses', [:schedule_sources]
       # 辅导班管理
 
       # 招生请求

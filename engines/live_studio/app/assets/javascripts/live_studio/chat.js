@@ -434,7 +434,8 @@ function messageTag(msg, fromType) {
       audioSpan = audioSpan + '</span>';
       audioNode.append(audioSpan);
       messageNode.append(audioNode);
-      messageNode.weixinAudio();
+      var audio = messageNode.weixinAudio();
+      audio.updateTotalTime();
       break;
     default:
       messageNode.append($.replaceChatMsg(msg.text));
@@ -554,13 +555,10 @@ $(function() {
     live_chat.pushMsg(msg);
   }
 
+  var currentAudio;
   // 音频播放
   $("#messages").on("click", ".weixinAudio", function() {
-    var currentIndex = $('.weixinAudio').index($(this));
-    $.each(weixinAudioObj,function(i, el) {
-      if(i != 'weixinAudio'+ currentIndex){
-        el.pause();
-      }
-    });
+    if(currentAudio) currentAudio.pause();
+    currentAudio = $(this).weixinAudio();
   });
 });

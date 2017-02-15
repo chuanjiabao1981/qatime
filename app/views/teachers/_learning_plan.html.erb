@@ -17,7 +17,7 @@
 
 
   <div class="col-md-3">
-    <%= link_to '查看全部问题',teacher_questions_path(learning_plan_id: learning_plan.id) %>
+    <%= link_to '查看全部问题',teacher_questions_path(learning_plan_id: learning_plan.id, teacher_id: @teacher.id) %>
   </div>
 </div>
 

@@ -29,6 +29,7 @@ module Permissions
       allow :curriculums,[:index,:show]
       allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
       allow :courses,[:show]
+      allow :lessons,[:show]
       allow :comments,[:create,:show]
       allow :comments,[:edit,:update] do |comment|
         comment
@@ -78,7 +79,6 @@ module Permissions
       allow :tutorial_issues,[:show]
       allow :course_issues, [:show]
       allow :tutorial_issue_replies,[:show]
-      allow :course_issues,[:show]
       allow :course_issue_replies,[:show]
       allow :comments,[:show]
       allow :corrections,[:show]

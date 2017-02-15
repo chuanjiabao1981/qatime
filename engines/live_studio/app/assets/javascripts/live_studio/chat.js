@@ -562,4 +562,12 @@ $(function() {
     currentAudio = $(this).weixinAudio();
     currentAudio.play();
   });
+
+  // 历史消息音频播放
+  $("#histories").on("click", ".weixinAudio", function() {
+    if(currentAudio) currentAudio.pause();
+    currentAudio = $(this).weixinAudio();
+    currentAudio.play();
+  });
+
 });

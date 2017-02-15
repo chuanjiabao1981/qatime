@@ -3,6 +3,10 @@ module Permissions
     def initialize(user)
       super(user)
 
+
+      allow :questions,[:index,:show,:student,:teacher,:teachers]
+      allow :vip_classes,[:show]
+
       allow :sessions,[:destroy]
       allow :home,[:index,:new_index,:switch_city]
       allow "sellers/home", [:main]
@@ -16,7 +20,7 @@ module Permissions
                        :info,:teachers,:customized_courses,:homeworks,
                        :solutions,:account,:customized_tutorial_topics,:questions,:notifications]
 
-      allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks,:solutions, :get_sale_price] do |customized_course|
+      allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks,:solutions, :get_sale_price, :action_records] do |customized_course|
         user && customized_course && user.customized_courses.include?(customized_course)
       end
       allow :customized_tutorials, [:show]
@@ -32,6 +36,10 @@ module Permissions
         solution
       end
       allow :exercises, [:show]
+
+      allow :courses,[:show]
+      allow :lessons,[:show]
+      allow 'welcome', [:download]
 
       ## begin live studio permission
       allow 'live_studio/seller/courses', [:index, :show, :new, :create, :edit, :update] do |resource, course, action|
@@ -49,6 +57,7 @@ module Permissions
       ## 推荐管理
 
       allow 'payment/users', [:cash]
+      allow 'payment/orders', [:index, :show]
 
       allow :schools, [:index, :new, :create]
       allow :schools, [:show, :edit, :update] do |school|
@@ -56,8 +65,13 @@ module Permissions
       end
 
       allow :curriculums,[:index,:show]
-      allow :questions,[:index,:show,:student,:teacher,:teachers]
 
+      allow :tutorial_issues,[:show]
+      allow :course_issues, [:show]
+      allow :tutorial_issue_replies,[:show]
+      allow :course_issue_replies,[:show]
+      allow :comments,[:show]
+      allow :corrections,[:show]
       allow :notifications, [:index] do |resource_user|
         resource_user && (user.id == resource_user.id || resource_user.student_or_teacher?)
       end

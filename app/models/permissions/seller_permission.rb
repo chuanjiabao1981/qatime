@@ -64,7 +64,8 @@ module Permissions
         user.cities.include? school.city
       end
 
-      allow :curriculums,[:index,:show]
+      allow :curriculums, [:index, :show]
+      allow :learning_plans, [:new, :teachers, :create, :index, :edit, :update]
 
       allow :tutorial_issues,[:show]
       allow :course_issues, [:show]

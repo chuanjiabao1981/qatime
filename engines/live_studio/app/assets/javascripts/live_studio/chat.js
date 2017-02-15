@@ -92,7 +92,7 @@ window.currentTeam = {
     });
 
     $.each(currentTeamMsgs, function(index, msg) {
-      onMsg(msg, false, 'roaming');
+      onMsg(msg, true, 'roaming');
     });
     nim.markMsgRead(currentTeamMsgs);
   }
@@ -102,14 +102,14 @@ window.currentTeam = {
     if(obj.sessionId != "team-" + currentTeam.id) return false;
 
     $.each(obj.msgs, function(index, msg) {
-      onMsg(msg, false, 'offline');
+      onMsg(msg, true, 'offline');
     });
     nim.markMsgRead(obj.msgs);
   }
   // 消息处理
-  // mark是否标记为已读
+  // marked是否已经标记为已读
   // fromType 消息来源 offline: 离线消息, roaming: 漫游消息, immediate: 即时消息
-  function onMsg(msg, mark, fromType) {
+  function onMsg(msg, marked, fromType) {
     if(!fromType) fromType = 'immediate'; 
     console.log('收到消息', msg.scene, msg.type, msg);
     // 不是该聊天组消息
@@ -139,7 +139,7 @@ window.currentTeam = {
         onNormalMsg(msg, fromType);
         break;
     }
-    if(mark) nim.markMsgRead(msg);
+    if(!marked) nim.markMsgRead(msg);
   }
   function pushMsg(msgs) {
     if (!Array.isArray(msgs)) { msgs = [msgs]; }

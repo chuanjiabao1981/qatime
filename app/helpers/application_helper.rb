@@ -9,6 +9,7 @@ module ApplicationHelper
     selected_cities.delete(@location_city.name) if @location_city && selected_cities.include?(@location_city.name)
     selected_cities = selected_cities.insert(0, @location_city.try(:name) || 'country')
     cookies[:selected_cities] = selected_cities.uniq.try(:join, '-')
+    @location_workstation = @location_city.workstations.first if @location_city
     @location_city
   end
 

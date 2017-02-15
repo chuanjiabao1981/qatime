@@ -4840,7 +4840,6 @@ ul {
 }
 .editor-msg label {
   padding-left: 0px;
-  
 }
 }
 .modal-img {
@@ -4855,9 +4854,18 @@ ul {
 .modal-avatar {
   width: 205px;
   height: 128px;
-  border: 1px solid #F2F2F2;
+  border: 1px solid #f2f2f2;
   overflow: hidden;
 }
+/*.modal-avatar img {
+  width: 100%;
+  height: 100%;
+}*/
+
+
+
+
+
 
 
 
@@ -7831,4 +7839,125 @@ border-left: 0px;
 .tea-wechat .form-group {
   padding-left: 0px !important;
 } 
+}
+
+
+/*语音*/
+.db {
+    display: block;
+}
+.weixinAudio {
+  overflow: hidden;
+}
+.audio_area {
+  float: left;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0px 1px 0px 0;
+  font-size: 0;
+  position: relative;
+  font-weight: 400;
+  text-decoration: none;
+  -ms-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  overflow: hidden;
+}
+.audio_wrp {
+  min-width: 30px ;
+  padding: 5px;
+  border: 1px solid #ebebeb;
+  background-color: #fcfcfc;
+  overflow: hidden;
+  float: left;
+  border-radius: 3px;
+}
+.audio_play_area {
+  float: left;
+  font-size: 0;
+  width: 18px;
+  height: 25px;
+}
+.playing .audio_play_area .icon_audio_default {
+  display: block;
+}
+.audio_play_area .icon_audio_default {
+  width: 18px;
+  height: 25px;
+  vertical-align: middle;
+  display: inline-block;
+  -webkit-background-size: 54px 25px !important;
+  background-size: 54px 25px !important;
+  background-position: -36px center !important;
+}
+.audio_play_area .icon_audio_playing {
+  width: 18px;
+  height: 25px;
+  vertical-align: middle;
+  display: inline-block;
+  -webkit-background-size: 54px 25px !important;
+  background-size: 54px 25px !important;
+  -webkit-animation: audio_playing 1s infinite;
+  background-position: 0px center !important;
+  display: none;
+}
+.audio_area .pic_audio_default {
+  display: none;
+  width: 18px;
+}
+.tips_global {
+  color: #8c8c8c;
+}
+.audio_area .audio_length {
+  float: left;
+  font-size: 14px;
+  line-height: 37px;
+  margin-left: 5px;
+}
+.audio_info_area {
+  overflow: hidden;
+}
+.audio_area .audio_title {
+  font-weight: 400;
+  font-size: 17px;
+  margin-top: -2px;
+  margin-bottom: -3px;
+  width: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+.audio_area .audio_source {
+  font-size: 14px;
+}
+.playing .audio_play_area .icon_audio_default {
+  display: none;
+}
+.playing .audio_play_area .icon_audio_playing {
+  display: inline-block;
+}
+@-webkit-keyframes audio_playing {
+ 30% {
+  background-position: 0px center;
+}
+ 31% {
+  background-position: -18px center;
+}
+ 61% {
+  background-position: -18px center;
+}
+ 61.5% {
+  background-position: -36px center;
+}
+ 100% {
+    background-position: -36px center;
+}
+}
+.unlisten {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: red;
 }

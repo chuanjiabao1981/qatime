@@ -28,12 +28,12 @@ module Recommend
     end
 
     def set_option_cities
-      @option_cities = City.all.map{|city| [city.try(:name), city.try(:id)]} if current_user.admin?
-      @option_cities ||= current_user.workstations.map{|w| [w.city.try(:name), w.city.try(:id)]}
+      @option_cities = City.all.map {|city| [city.try(:name), city.try(:id)]}.unshift(['全国', nil]) if current_user.admin?
+      @option_cities ||= current_user.workstations.map {|w| [w.city.try(:name), w.city.try(:id)]}
     end
 
     def item_params
-      key = params.keys.select{|key| /_item/.match(key)}.first
+      key = params.keys.select {|key| /_item/.match(key)}.first
       params.require(key).permit(:index, :link, :city_id, :logo, :target_id, :reason)
     end
 

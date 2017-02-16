@@ -28,7 +28,7 @@
               </tr>
               <tr>
                 <td><%= t('view.footer.address') %></td>
-                <td colspan="2"><%= t('view.footer.address_value') %></td>
+                <td colspan="2"><%= @location_workstation.present? ? @location_workstation.address : t('view.footer.address_value') %></td>
               </tr>
             </tbody>
           </table>

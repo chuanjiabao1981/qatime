@@ -16,18 +16,44 @@ module Permissions
                        :info,:teachers,:customized_courses,:homeworks,
                        :solutions,:account,:customized_tutorial_topics,:questions,:notifications]
 
-      allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks,:solutions, :get_sale_price] do |customized_course|
+      allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks,:solutions, :get_sale_price, :action_records] do |customized_course|
         user && customized_course && user.customized_courses.include?(customized_course)
       end
+      allow :customized_tutorials, [:show]
+
+      allow :homeworks,[:show] do |homework|
+        homework
+      end
+      allow :solutions,[:show] do |solution|
+        solution
+      end
+      allow :exercises, [:show]
 
       allow :customized_courses, [:new, :create, :get_sale_price, :teachers]
 
       allow :curriculums,[:index,:show]
       allow :questions,[:index,:show,:student,:teacher,:teachers]
+      allow :vip_classes,[:show]
 
       allow :schools, [:index]
 
+      allow :tutorial_issues,[:show]
+      allow :course_issues, [:show]
+      allow :tutorial_issue_replies,[:show]
+      allow :course_issue_replies,[:show]
+      allow :comments,[:show]
+      allow :corrections,[:show]
+      allow :notifications, [:index] do |resource_user|
+        resource_user && (user.id == resource_user.id || resource_user.student_or_teacher?)
+      end
+      allow 'welcome', [:download]
+
       allow 'recommend/positions', [:index, :show]
+      allow 'payment/users', [:cash]
+      allow 'payment/orders', [:index, :show]
+
+      allow :courses,[:show]
+      allow :lessons,[:show]
 
       # 专属课程
       allow 'station/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records] do |workstation|
@@ -35,10 +61,18 @@ module Permissions
       end
       # 专属课程
 
+      allow 'live_studio/teacher/courses', [:index, :show]
+      allow 'live_studio/teacher/course_invitations', [:index]
+      allow 'live_studio/student/courses', [:index, :show]
+
       # 辅导班管理
       allow 'live_studio/station/courses', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
+
+      allow 'live_studio/teacher/teachers', [:schedules]
+      allow 'live_studio/student/students', [:schedules]
+      allow 'live_studio/courses', [:schedule_sources]
       # 辅导班管理
 
       # 招生请求

@@ -4,3 +4,5 @@ class AddFromUserToPaymentBillings < ActiveRecord::Migration
     add_reference :payment_billings, :from_user, index: true
   end
 end
+
+

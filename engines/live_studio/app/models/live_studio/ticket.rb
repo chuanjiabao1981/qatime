@@ -10,6 +10,8 @@ module LiveStudio
     belongs_to :lesson
 
     has_many :ticket_items
+    belongs_to :sell_channel
+    belongs_to :channel_owner, polymorphic: true
 
     enum status: {
       inactive: 0,   # 准备试听

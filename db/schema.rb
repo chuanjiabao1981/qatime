@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170216103537) do
+ActiveRecord::Schema.define(version: 20170217074422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -581,6 +581,7 @@ ActiveRecord::Schema.define(version: 20170216103537) do
     t.integer  "adjust_buy_count",                                            default: 0
     t.integer  "closed_lessons_count",                                        default: 0
     t.string   "token"
+    t.string   "billing_type"
   end
 
   add_index "live_studio_courses", ["author_id"], name: "index_live_studio_courses_on_author_id", using: :btree
@@ -736,7 +737,6 @@ ActiveRecord::Schema.define(version: 20170216103537) do
     t.text     "got_lesson_ids"
     t.integer  "payment_order_id"
     t.integer  "sell_channel_id"
-    t.string   "sell_channel_type"
     t.integer  "channel_owner_id"
     t.string   "channel_owner_type"
   end
@@ -835,6 +835,8 @@ ActiveRecord::Schema.define(version: 20170216103537) do
     t.integer  "quantity",                             default: 0
     t.decimal  "price",        precision: 8, scale: 2, default: 0.0
     t.integer  "from_user_id"
+    t.integer  "ticket_id"
+    t.string   "ticket_type"
   end
 
   add_index "payment_billings", ["from_user_id"], name: "index_payment_billings_on_from_user_id", using: :btree

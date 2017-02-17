@@ -46,7 +46,7 @@ english_lesson_tomorrow:
 
 english_lesson_onlive:
   name: 英语辅导班-正在直播课程
-  course_id: 4
+  course: course_with_order
   description: 测试描述
   start_time: 16:30
   end_time: 17:30

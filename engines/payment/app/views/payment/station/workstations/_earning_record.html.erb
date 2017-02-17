@@ -1,7 +1,7 @@
 <% if earning_record.target && earning_record.target.is_a?(LiveStudio::Lesson) %>
   <tr id="item-<%= earning_record.id %>">
     <td><%= earning_record_counter + 1 %></td>
-    <td><%= number_to_currency(earning_record.amount, locale: :cn, unit: "￥", precision: 1) %></td>
+    <td><%= number_to_currency(earning_record.amount, locale: :cn, unit: "￥", precision: 2) %></td>
     <td><%= localize(earning_record.created_at, format: :long) %></td>
     <td><%= link_to earning_record.target.name, live_studio.course_path(earning_record.target.course_id) %></td>
     <td><%= earning_record.billing.from_user.try(&:name) %>(<%= earning_record.billing.from_user.try(&:login_mobile) %>)</td>
@@ -27,7 +27,7 @@
           <tr>
             <td>
               <span><%= LiveStudio::Course.human_attribute_name(:billing_price) %>：</span>
-              <span><%= number_to_currency earning_record.target.course.lesson_price, locale: :cn, unit: "￥", precision: 1  %></span>
+              <span><%= number_to_currency earning_record.target.course.lesson_price, locale: :cn, unit: "￥", precision: 2  %></span>
             </td>
             <td>
               <span><%= LiveStudio::Course.human_attribute_name(:billing_duration) %>：</span>
@@ -37,11 +37,11 @@
           <tr>
             <td>
               <span><%= LiveStudio::Course.human_attribute_name(:billing_system_price) %>：</span>
-              <span><%= LiveStudio::Course.human_attribute_name(:billing_system_price_value, amount: number_to_currency(system_fee_item.price, locale: :cn, unit: "￥", precision: 1)) %></span>
+              <span><%= LiveStudio::Course.human_attribute_name(:billing_system_price_value, amount: number_to_currency(system_fee_item.price, locale: :cn, unit: "￥", precision: 2)) %></span>
             </td>
             <td>
               <span><%= LiveStudio::Course.human_attribute_name(:billing_system_fee) %>：</span>
-              <span><%= number_to_currency system_fee_item.amount, locale: :cn, unit: "￥", precision: 1 %></span></td>
+              <span><%= number_to_currency system_fee_item.amount, locale: :cn, unit: "￥", precision: 2 %></span></td>
           </tr>
           <tr>
             <td>
@@ -50,7 +50,7 @@
             </td>
             <td>
               <span><%= LiveStudio::Course.human_attribute_name(:billing_teacher_amount) %>：</span>
-              <span><%= number_to_currency teacher_item.amount, locale: :cn, unit: "￥", precision: 1 %></span>
+              <span><%= number_to_currency teacher_item.amount, locale: :cn, unit: "￥", precision: 2 %></span>
             </td>
           </tr>
           <tr>
@@ -59,7 +59,7 @@
               <span><%= number_to_percentage (percent_item.percent / 100.0) * (system_item.percent / 100.0) * 100, precision: 0 %></span></td>
             <td>
               <span><%= LiveStudio::Course.human_attribute_name(:billing_system_amount) %>：</span>
-              <span><%= number_to_currency system_item.amount, locale: :cn, unit: "￥", precision: 1 %></span>
+              <span><%= number_to_currency system_item.amount, locale: :cn, unit: "￥", precision: 2 %></span>
             </td>
           </tr>
           <tr>
@@ -68,7 +68,7 @@
               <span><%= number_to_percentage (percent_item.percent / 100.0) * (workstation_item.percent / 100.0) * 100, precision: 0 %></span></td>
             <td>
               <span><%= LiveStudio::Course.human_attribute_name(:billing_workstation_amount) %>：</span>
-              <span><%= number_to_currency workstation_item.amount, locale: :cn, unit: "￥", precision: 1 %></span>
+              <span><%= number_to_currency workstation_item.amount, locale: :cn, unit: "￥", precision: 2 %></span>
             </td>
           </tr>
           <% end -%>
@@ -79,7 +79,7 @@
 <% else -%>
   <tr  id="item-<%= earning_record.id %>">
     <td><%= earning_record_counter + 1 %></td>
-    <td><%= number_to_currency(earning_record.amount, locale: :cn, unit: "￥", precision: 1) %></td>
+    <td><%= number_to_currency(earning_record.amount, locale: :cn, unit: "￥", precision: 2) %></td>
     <td><%= localize(earning_record.created_at, format: :long) %></td>
     <td>
       <%= feeble_link(earning_record.target, text: earning_record.target.title) if earning_record.target.is_a?(CustomizedTutorial)  %>
@@ -102,7 +102,7 @@
           <tr>
             <td>
               <span><%= CustomizedCourse.human_attribute_name(:billing_price) %>：</span>
-              <span><%= CustomizedCourse.human_attribute_name(:billing_price_value, amount: number_to_currency(earning_record.target.teacher_price + earning_record.target.platform_price, unit: "￥", precision: 1)) %></span>
+              <span><%= CustomizedCourse.human_attribute_name(:billing_price_value, amount: number_to_currency(earning_record.target.teacher_price + earning_record.target.platform_price, unit: "￥", precision: 2)) %></span>
             </td>
             <td>
               <span><%= CustomizedCourse.human_attribute_name(:billing_duration) %>：</span>
@@ -112,21 +112,21 @@
           <tr>
             <td>
               <span><%= CustomizedCourse.human_attribute_name(:billing_teacher_price) %>：</span>
-              <span><%= CustomizedCourse.human_attribute_name(:billing_teacher_price_value, amount: number_to_currency(earning_record.target.teacher_price, unit: "￥", precision: 1)) %></span>
+              <span><%= CustomizedCourse.human_attribute_name(:billing_teacher_price_value, amount: number_to_currency(earning_record.target.teacher_price, unit: "￥", precision: 2)) %></span>
             </td>
             <td>
               <span><%= CustomizedCourse.human_attribute_name(:billing_teacher_amount) %>：</span>
-              <span><%= number_to_currency(earning_record.target.teacher_price * earning_record.target.video.duration / 3600.0, unit: "￥", precision: 1) %></span>
+              <span><%= number_to_currency(earning_record.target.teacher_price * earning_record.target.video.duration / 3600.0, unit: "￥", precision: 2) %></span>
             </td>
           </tr>
           <tr>
             <td>
               <span><%= CustomizedCourse.human_attribute_name(:billing_workstation_price) %>：</span>
-              <span><%= CustomizedCourse.human_attribute_name(:billing_workstation_price_value, amount: number_to_currency(earning_record.target.platform_price, unit: "￥", precision: 1)) %></span>
+              <span><%= CustomizedCourse.human_attribute_name(:billing_workstation_price_value, amount: number_to_currency(earning_record.target.platform_price, unit: "￥", precision: 2)) %></span>
             </td>
             <td>
               <span><%= CustomizedCourse.human_attribute_name(:billing_workstation_amount) %>：</span>
-              <span><%= number_to_currency(earning_record.amount, unit: "￥", precision: 1) %></span>
+              <span><%= number_to_currency(earning_record.amount, unit: "￥", precision: 2) %></span>
             </td>
           </tr>
         </tbody>

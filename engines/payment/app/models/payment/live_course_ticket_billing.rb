@@ -8,6 +8,8 @@ module Payment
     TEACHER_DEFAULT_PERCENT = 80
     SELL_DEFAULT_PERCENT = 0.2
 
+    SYSTEM_FEE_PRICE = 0.1 # 系统服务费设置0.1元
+
     # 计算总金额
     def calculate
       self.total_money = ticket.lesson_price
@@ -22,7 +24,6 @@ module Payment
       percent_item!
       # 教师收入
       teacher_money_item!
-      target.complete!
     end
 
     def base_fee
@@ -52,7 +53,7 @@ module Payment
 
     # 发行商分成收入
     def workstation_percent_money
-      @workstation_percent_money ||= [percent_money - system_percent_money - sell_percent_money]
+      @workstation_percent_money ||= percent_money - system_percent_money - sell_percent_money
     end
 
     private
@@ -79,7 +80,7 @@ module Payment
     def percent_item!
       item = PercentItem.create!(billing: self,
                                  amount: percent_money,
-                                 percent: 100 - (teacher_percent * 100).to_i)
+                                 percent: 100 - (teacher_percentage * 100).to_i)
 
       # 系统分成收入
       system_percent_item!(item)
@@ -99,21 +100,23 @@ module Payment
     end
 
     def sell_percent_item!(item)
-      WorkstationPercentItem.create!(parent: item,
-                                     billing: self,
-                                     cash_account: sell_account,
-                                     owner: channel_seller,
-                                     amount: sell_percent_money,
-                                     percent:  sell_percentage * 100) if ticket.channel_owner.present?
+      SellPercentItem.create!(parent: item,
+                              billing: self,
+                              cash_account: sell_account,
+                              owner: channel_seller,
+                              amount: sell_percent_money,
+                              percent:  sell_percentage * 100) if channel_seller
     end
 
     def workstation_percent_item!(item)
-      SellPercentItem.create!(parent: item,
-                              billing: self,
-                              cash_account: workstation_account,
-                              owner: workstation,
-                              amount: workstation_percent_money,
-                              percent: workstation_percentage * 100)
+      p workstation_percentage
+      p workstation_percent_money
+      WorkstationPercentItem.create!(parent: item,
+                                     billing: self,
+                                     cash_account: workstation_account,
+                                     owner: workstation,
+                                     amount: workstation_percent_money,
+                                     percent: workstation_percentage * 100)
     end
 
     def teacher_money_item!
@@ -143,7 +146,7 @@ module Payment
 
     # 发行商分成比例
     def workstation_percentage
-      @workstation_percentage ||= [1 - SYSTEM_PERCENT - sell_percentage]
+      @workstation_percentage ||= 1 - SYSTEM_PERCENT - sell_percentage
     end
 
     # 教师分成比例

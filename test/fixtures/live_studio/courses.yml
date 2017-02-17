@@ -3,7 +3,7 @@
 course_one:
   name: 测试辅导1班
   teacher: users(:teacher1)
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   grade: 六年级
   subject: 语文
@@ -15,7 +15,7 @@ course_one:
 course_two:
   name: 测试辅导2班
   teacher: users(:teacher1)
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   grade: 六年级
   subject: 语文
@@ -27,7 +27,7 @@ course_two:
 course_no_teacher:
   name: 测试辅导3班
   teacher:
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   grade: 六年级
   subject: 语文
@@ -39,7 +39,7 @@ course_no_teacher:
 course_destroy_teacher:
   name: 测试辅导3班
   teacher_id: 99999
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   grade: 六年级
   subject: 语文
@@ -64,7 +64,7 @@ course_preview:
   id: 5
   name: 招生中的辅导班
   teacher_id: 1
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   price: 1000
   preset_lesson_count: 2
@@ -126,7 +126,7 @@ course_one_of_teacher_one:
   name: teacher_one_course_one
   teacher: teacher_for_billing
   author: teacher_for_billing (User)
-  workstation_id: 1
+  workstation: workstation_one
   price: 100
   status: 0
   teacher_percentage: 80
@@ -165,7 +165,7 @@ course_with_lesson:
   id: 3
   name: 辅导班3
   teacher_id: 1
-  workstation_id: 1
+  workstation: workstation_one
   status: 2
   grade: 六年级
   teacher_percentage: 90
@@ -201,7 +201,7 @@ course_with_order2:
 course_with_lessons:
   name: 可直播辅导班
   teacher_id: 10
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -216,7 +216,7 @@ tasting_course:
   id: 10
   name: 试听中的辅导班
   teacher_id: 10
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -256,7 +256,7 @@ course_with_junior_teacher:
 course_for_taste:
   name: 试听辅导班
   teacher: teacher_for_taste_course
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -270,7 +270,7 @@ course_for_taste:
 course_for_tasting:
   name: 正在试听辅导班
   teacher: teacher_for_taste_course
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -283,7 +283,7 @@ course_for_tasting:
 course_for_tasting_for_delete:
   name: s辅导班
   teacher: teacher_for_taste_course
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -296,7 +296,7 @@ course_for_tasting_for_delete:
 course_for_edit:
   name: 辅导班
   teacher: teacher_for_taste_course
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -310,7 +310,7 @@ course_for_teaching:
   id: 10000
   name: 已经有直播中的课程的辅导班
   teacher: teacher_for_taste_course
-  workstation_id: 1
+  workstation: workstation_one
   status: 2
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -324,7 +324,7 @@ course_for_init:
   id: 10001
   name: 准备中的辅导班
   teacher: teacher_one
-  workstation_id: 1
+  workstation: workstation_one
   status: 0
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -337,7 +337,7 @@ course_for_init:
 course_start_at_today:
   name: 今天开课辅导班
   teacher: teacher1
-  workstation_id: 1
+  workstation: workstation_one
   status: 0
   teacher_percentage: 80
   preset_lesson_count: 10

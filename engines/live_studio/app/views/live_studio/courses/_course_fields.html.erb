@@ -34,7 +34,8 @@
       <%= f.label :description %>
     </div>
     <div class="col-md-10">
-      <%= f.input :description, as: :text, label: false, placeholder: '请输入辅导班介绍（最多300字）', input_html: {min: 70, max: 300, rows: 5} %>
+      <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
+      <%= f.input :description, label: false  %>
     </div>
 
   </div>
@@ -263,7 +264,22 @@
       if (jcrop_api){
         jcrop_api.destroy();
       }
-    })
-  })
+    });
+
+    // 富文本区域
+    $('#course_description').summernote({
+      placeholder: '请输入辅导班介绍（最多300字）',
+      disableDragAndDrop: true,
+      height: 200,
+      toolbar: [
+        // [groupName, [list of button]]
+        ['style', ['bold', 'italic', 'underline', 'clear']],
+        ['fontsize', ['fontsize']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['height', ['height']]
+      ]
+    });
+  });
 
 </script>

@@ -67,4 +67,13 @@ item13:
   lesson: lesson_one_of_course_for_billing_three
   status: 3
 
+items14:
+  ticket: ticket_for_refund3
+  lesson: lesson1_for_refund_course3
+  status: 0
+
+items15:
+  ticket: ticket_for_refund3
+  lesson: lesson2_for_refund_course3
+  status: 0
 

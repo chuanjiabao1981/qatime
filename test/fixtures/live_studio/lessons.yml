@@ -400,7 +400,7 @@ lesson_for_refund_course2:
   real_time: 30
   live_count: 1
 lesson1_for_refund_course3:
-  name: 第2节课
+  name: 第1节课
   course: course_for_refund3
   teacher: teacher1
   description: Mystring

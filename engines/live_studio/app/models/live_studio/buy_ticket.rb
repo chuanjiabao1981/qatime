@@ -2,6 +2,8 @@ module LiveStudio
   class BuyTicket < Ticket
     belongs_to :course, counter_cache: true
     belongs_to :payment_order, class_name: 'Payment::Order'
+    belongs_to :sell_channel
+    belongs_to :channel_owner, polymorphic: true
 
     private
 

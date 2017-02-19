@@ -564,4 +564,44 @@ replay_lessons_10:
   live_count: 3
   replay_status: 0
 
+lesson_one_of_channel_course_one:
+  name: 第1节
+  course: channel_course_one
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.yesterday %>
+  status: 1
+  real_time: 1800
+  live_count: 3
+  replay_status: 0
+
+lesson_one_of_channel_course_two:
+  name: 第1节
+  course: channel_course_two
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.yesterday %>
+  status: 5
+  real_time: 6000
+  live_count: 3
+  replay_status: 0
+
+lesson_two_of_channel_course_two:
+  name: 第2节
+  course: channel_course_two
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= 3.days.ago.to_date %>
+  status: 5
+  real_time: 5400
+  live_count: 3
+  replay_status: 0
+
+
 

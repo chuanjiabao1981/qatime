@@ -23,6 +23,7 @@
           <% percent_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::PercentItem } %>
           <% system_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::SystemPercentItem } %>
           <% workstation_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::WorkstationPercentItem } %>
+          <% sell_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::SellPercentItem } %>
           <% if system_fee_item -%>
           <tr>
             <td>
@@ -65,12 +66,23 @@
           <tr>
             <td>
               <span><%= LiveStudio::Course.human_attribute_name(:billing_workstation_percent) %>：</span>
-              <span><%= number_to_percentage (percent_item.percent / 100.0) * (workstation_item.percent / 100.0) * 100, precision: 0 %></span></td>
+              <span><%= number_to_percentage (percent_item.percent.to_f / 100.0) * (workstation_item.percent.to_f / 100.0) * 100, precision: 0 %></span></td>
             <td>
               <span><%= LiveStudio::Course.human_attribute_name(:billing_workstation_amount) %>：</span>
               <span><%= number_to_currency workstation_item.amount, locale: :cn, unit: "￥", precision: 2 %></span>
             </td>
           </tr>
+          <% if sell_item -%>
+            <tr>
+              <td>
+                <span><%= LiveStudio::Course.human_attribute_name(:billing_sell_percent) %>：</span>
+                <span><%= number_to_percentage (percent_item.percent.to_f / 100.0) * (workstation_item.percent.to_f / 100.0) * 100, precision: 0 %></span></td>
+              <td>
+                <span><%= LiveStudio::Course.human_attribute_name(:billing_sell_amount) %>：</span>
+                <span><%= number_to_currency sell_item.amount, locale: :cn, unit: "￥", precision: 2 %></span>
+              </td>
+            </tr>
+          <% end -%>
           <% end -%>
         </tbody>
       </table>

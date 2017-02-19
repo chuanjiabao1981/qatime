@@ -6,6 +6,8 @@
 # 获取当前项目路径
 APP_PATH = File.expand_path('../../current', File.dirname(__FILE__))
 
+puts APP_PATH
+
 # worker 数
 worker_processes 4
 

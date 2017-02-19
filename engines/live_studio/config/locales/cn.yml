@@ -300,6 +300,8 @@ cn:
         billing_system_amount: 系统收入
         billing_workstation_percent: 工作站分成
         billing_workstation_amount: 工作站收入
+        billing_sell_percent: 分销商分成
+        billing_sell_amount: 分销商收入
         address: 上课地址
         grade: 年级
         subject: 科目

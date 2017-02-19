@@ -17,4 +17,8 @@ class WelcomeController < ApplicationController
 
   def index
   end
+
+  def ping
+    render text: 'xxxxxxx'
+  end
 end

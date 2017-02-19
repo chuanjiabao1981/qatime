@@ -17,7 +17,6 @@ module LiveServiceTest
             end
           end
         end
-        
       end
       assert @lesson.completed?, "课程结账状态不正确"
     end
@@ -58,7 +57,6 @@ module LiveServiceTest
       end
     end
 
-    
     # 渠道商结账
     test 'billing a lesson with channel' do
       @workstation_account = workstations(:workstation_one).cash_account # 发行商

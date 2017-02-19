@@ -18,4 +18,10 @@ channel_course_two_channel_one:
 channel_course_two_channel_two:
   owner: workstation_zhuji (Workstation)
   target: channel_course_two (LiveStudio::Course)
-  percentage: 20
+  percentage: 40
+
+channel_course_two_channel_three:
+  owner: workstation_hd (Workstation)
+  target: channel_course_two (LiveStudio::Course)
+  percentage: 50
+

@@ -2,74 +2,38 @@ require 'test_helper'
 
 module Payment
   class LiveCourseChannelBillingTest < ActiveSupport::TestCase
-    test 'test total money calculate' do
-      lesson = live_studio_lessons(:lesson_one_of_course_for_billing_one)
-      assert_equal 250.0, Payment::LiveCourseBilling.new(target: lesson).calculate.total_money.to_f, "结账金额不正确"
-    end
+    # 单个学生结账
+    test 'test billing a lesson with multiple channel ' do
+      @workstation_account = workstations(:workstation_one).cash_account # 发行商
+      @sell1_account = workstations(:workstation1).cash_account # 渠道商1
+      @sell2_account = workstations(:workstation_zhuji).cash_account # 渠道商2
+      @sell3_account = workstations(:workstation_hd).cash_account # 渠道商3
+      @teacher_account = users(:teacher1).cash_account
+      @system_account = CashAdmin.current!.cash_account!
 
-    # 基础服务费计算
-    test 'test base fee calculate' do
-      lesson = live_studio_lessons(:lesson_one_of_course_for_billing_one)
-      billing = Payment::LiveCourseBilling.new(target: lesson).calculate
-      assert_equal 15.0, billing.base_fee.to_f, "基础服务费计算错误"
-    end
-
-    # 教师收入计算
-    test 'test teacher money calculate' do
-      lesson = live_studio_lessons(:lesson_one_of_course_for_billing_one)
-      billing = Payment::LiveCourseBilling.new(target: lesson).calculate
-      assert_equal 188.0, billing.teacher_money.to_f, "教师收入计算错误"
-    end
-
-    # 总分成计算
-    test 'test total percent money calculate' do
-      lesson = live_studio_lessons(:lesson_one_of_course_for_billing_one)
-      billing = Payment::LiveCourseBilling.new(target: lesson).calculate
-      assert_equal 47.0, billing.percent_money.to_f, "分成金额计算错误"
-    end
-
-    # 工作站收入计算
-    test 'test workstation percent money calculate' do
-      lesson = live_studio_lessons(:lesson_one_of_course_for_billing_one)
-      billing = Payment::LiveCourseBilling.new(target: lesson).calculate
-      assert_equal 37.6, billing.workstation_percent_money.to_f, "工作站收入计算计算错误"
-    end
-
-    # 系统分成收入计算
-    test 'test system percent money calculate' do
-      lesson = live_studio_lessons(:lesson_one_of_course_for_billing_one)
-      billing = Payment::LiveCourseBilling.new(target: lesson).calculate
-      assert_equal 9.4, billing.system_percent_money.to_f, "系统分成收入计算错误"
-    end
-
-    # 结账测试
-    test 'test billing a lesson' do
-      @workstation = workstations(:workstation1)
-      @teacher = users(:teacher_for_billing)
-      @lesson = live_studio_lessons(:lesson_one_of_course_for_billing_one)
-      assert_difference "@teacher.cash_account!.reload.balance.to_f", 188.0, "教师收入不正确" do
-        assert_difference "@workstation.cash_account!.reload.balance.to_f", 37.6, "工作站收入不正确" do
-          assert_difference "CashAdmin.current!.cash_account!.balance.to_f", -225.6, "系统资金变动错误" do
-            assert_difference "Payment::BillingItem.count", 6, "账单条目不正确" do
-              Payment::LiveCourseBilling.new(target: @lesson).calculate.billing
+      lesson = live_studio_lessons(:lesson_one_of_channel_course_two)
+      assert_difference "Payment::LiveCourseChannelBilling.count", 1, "账单创建失败" do
+        Payment::LiveCourseChannelBilling.create(target: lesson, from_user: lesson.teacher)
+      end
+      b = Payment::LiveCourseChannelBilling.last
+      assert_equal 380.0, b.total_money.to_f, "账单金额不正确"
+      assert_equal lesson.course.teacher.id, b.from_user.id, "账单参与者记录错误"
+      assert_difference "Payment::LiveCourseChannelBilling.last.sub_billings.count", 7, '结账数量不正确' do
+        assert_difference "@system_account.reload.balance.to_f", -297.6, "系统收入不正确" do
+          assert_difference "@workstation_account.reload.balance.to_f", 28.4, "工作站收入不正确" do
+            assert_difference "@sell1_account.reload.balance.to_f", 7.2, "经销商1收入不正确" do
+              assert_difference "@sell2_account.reload.balance.to_f", 8.0, "经销商2收入不正确" do
+                assert_difference "@sell3_account.reload.balance.to_f", 6.0, "经销商3收入不正确" do
+                  assert_difference "@teacher_account.reload.balance.to_f", 248.0, "教师收入不正确" do
+                    b.billing
+                  end
+                end
+              end
             end
           end
         end
       end
-    end
-
-    # 邀请辅导班结账测试test 'test billing a lesson' do
-    test 'test billing a  invite lesson' do
-      @workstation = workstations(:workstation1)
-      @teacher = users(:teacher_for_billing)
-      @lesson = live_studio_lessons(:lesson_one_of_course_for_billing_two)
-      assert_difference "@teacher.cash_account!.reload.balance.to_f", 100.8, "教师收入不正确" do
-        assert_difference "@workstation.cash_account!.reload.balance.to_f", 34.56, "工作站收入不正确" do
-          assert_difference "CashAdmin.current!.cash_account!.balance.to_f", -135.36, "系统资金变动错误" do
-            Payment::LiveCourseBilling.new(target: @lesson).calculate.billing
-          end
-        end
-      end
+      assert lesson.reload.completed?, "课程结账状态不正确"
     end
   end
 end

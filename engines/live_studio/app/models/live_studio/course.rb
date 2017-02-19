@@ -45,6 +45,7 @@ module LiveStudio
       event :publish, after_commit: :ready_lessons do
         before do
           self.published_at = Time.now
+          self.Billing_type = 'Payment::LiveCourseChannelBilling'
         end
         transitions from: :init, to: :published
       end

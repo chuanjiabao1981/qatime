@@ -11,7 +11,7 @@ module LiveService
       billing_class.create(target: @lesson, from_user: @lesson.teacher).billing
     rescue StandardError => e
       Rails.logger.error "#{e.message}\n\n#{e.backtrace.join("\n")}"
-      SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message: "辅导班结账失败")
+      SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message: "辅导班结账失败-#{@lessons.id}")
     end
 
     private

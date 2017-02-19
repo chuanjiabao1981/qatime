@@ -119,3 +119,7 @@ cash_default_workstation:
 cash_workstation_zhuji:
   owner: workstation_zhuji(Workstation)
   balance: 20000
+
+cash_workstation_beijing:
+  owner: workstation_one(Workstation)
+  balance: 100

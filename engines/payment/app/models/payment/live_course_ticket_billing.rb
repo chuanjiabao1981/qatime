@@ -48,7 +48,7 @@ module Payment
     # 经销商分成收入
     # 先按照分成比例计算，如果计算结果大于剩余金额使用剩余金额
     def sell_percent_money
-      @system_percent_money ||= [(percent_money - sell_percentage).round(2), percent_money - system_percent_money].min
+      @sell_percent_money ||= [(percent_money * sell_percentage).round(2), percent_money - system_percent_money].min
     end
 
     # 发行商分成收入
@@ -100,17 +100,16 @@ module Payment
     end
 
     def sell_percent_item!(item)
+      return if channel_seller.blank?
       SellPercentItem.create!(parent: item,
                               billing: self,
                               cash_account: sell_account,
                               owner: channel_seller,
                               amount: sell_percent_money,
-                              percent:  sell_percentage * 100) if channel_seller
+                              percent:  sell_percentage * 100)
     end
 
     def workstation_percent_item!(item)
-      p workstation_percentage
-      p workstation_percent_money
       WorkstationPercentItem.create!(parent: item,
                                      billing: self,
                                      cash_account: workstation_account,

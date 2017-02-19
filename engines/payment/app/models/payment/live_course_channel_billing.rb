@@ -10,10 +10,10 @@ module Payment
       target.ticket_items.billingable.includes(ticket: [:channel_owner, :sell_channel]).each do |item|
         item.with_lock do
           LiveCourseTicketBilling.create(target: target, from_user: from_user, parent: self, ticket: item.ticket).billing
-          # item.billed!
+          item.settled!
         end
       end
-      target.complete!
+      target.complete! if target.ticket_items.billingable.blank?
     end
   end
 end

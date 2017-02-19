@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+channel_course_one_channel_one:
+  owner: workstation1 (Workstation)
+  target: channel_course_one (LiveStudio::Course)
+  percentage: 30
+
+channel_course_one_channel_two:
+  owner: workstation_zhuji (Workstation)
+  target: channel_course_one (LiveStudio::Course)
+  percentage: 20
+
+channel_course_two_channel_one:
+  owner: workstation1 (Workstation)
+  target: channel_course_two (LiveStudio::Course)
+  percentage: 30
+
+channel_course_two_channel_two:
+  owner: workstation_zhuji (Workstation)
+  target: channel_course_two (LiveStudio::Course)
+  percentage: 20

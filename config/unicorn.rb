@@ -40,6 +40,7 @@ stdout_path APP_PATH + "/log/unicorn.stdout.log"
 preload_app true
 
 before_fork do |server, worker|
+  puts Rails.root
   ActiveRecord::Base.connection.disconnect! if defined?(ActiveRecord::Base)
   sleep(2)
   old_pid = "#{APP_PATH}/tmp/pids/unicorn.pid.oldbin"

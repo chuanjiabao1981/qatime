@@ -19,6 +19,6 @@ class WelcomeController < ApplicationController
   end
 
   def ping
-    render text: 'xxxxxxx'
+    render text: 'yyyyyyyyyyyyy'
   end
 end

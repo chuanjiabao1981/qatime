@@ -135,6 +135,7 @@ course_one_of_teacher_one:
   grade: 六年级
   subject: 语文
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 
 update_course_by_physics_teacher1:
   teacher: physics_teacher1
@@ -376,6 +377,7 @@ course_for_billing_one:
   province: shanxi
   city: yangquan
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 
 course_for_billing_two:
   name: 结账测试辅导班2
@@ -392,6 +394,7 @@ course_for_billing_two:
   province: shanxi
   city: yangquan
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 
 course_for_billing_three:
   name: 结账测试辅导班1
@@ -408,6 +411,7 @@ course_for_billing_three:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 
 course_for_channel:
   name: course_for_channel
@@ -424,6 +428,7 @@ course_for_channel:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 
 course_english_one:
   name: course_for_channel
@@ -440,6 +445,7 @@ course_english_one:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 
 
 course_english_two:
@@ -457,6 +463,7 @@ course_english_two:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 
 
 course_english_three:
@@ -614,6 +621,7 @@ course_maths_seven:
   price: 500
   city: yangquan
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 course_for_destroy:
   name: 将要删除的辅导班
   workstation: workstation_zhuji
@@ -629,6 +637,7 @@ course_for_destroy:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 
 
 course_for_refund:
@@ -646,6 +655,7 @@ course_for_refund:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 course_for_refund1:
   name: 退款申请的辅导班1
   workstation: workstation_zhuji
@@ -661,6 +671,7 @@ course_for_refund1:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 course_for_refund2:
   name: 退款申请的辅导班2
   workstation: workstation_zhuji
@@ -676,6 +687,7 @@ course_for_refund2:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 course_for_refund3:
   name: 退款申请的辅导班3
   workstation: workstation_zhuji
@@ -693,6 +705,7 @@ course_for_refund3:
   lessons_count: 2
   completed_lessons_count: 1
   finished_lessons_count: 1
+  billing_type: Payment::LiveCourseBilling
 course_for_refund4:
   name: 退款申请的辅导班4
   workstation: workstation_zhuji
@@ -710,6 +723,7 @@ course_for_refund4:
   lessons_count: 2
   completed_lessons_count: 1
   finished_lessons_count: 1
+  billing_type: Payment::LiveCourseBilling
 
 course_zero_taste:
   name: 不可以试听辅导班
@@ -727,6 +741,7 @@ course_zero_taste:
   city: zhuji
   lessons_count: 1
   taste_count: 0
+  billing_type: Payment::LiveCourseBilling
 course_for_replay:
   name: 回放测试辅导班
   workstation: workstation_zhuji
@@ -742,4 +757,40 @@ course_for_replay:
   city: zhuji
   lessons_count: 10
   taste_count: 5
+  billing_type: Payment::LiveCourseBilling
+
+channel_course_one:
+  name: 渠道结账辅导班1
+  workstation: workstation_one
+  status: 2
+  teacher: teacher1
+  teacher_percentage: 70
+  lesson_price: 50
+  price: 500
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: beijing
+  city: zhuji
+  lessons_count: 10
+  taste_count: 5
+  billing_type: Payment::LiveCourseChannelBilling
+
+channel_course_two:
+  name: 渠道结账辅导班2
+  workstation: workstation_one
+  status: 2
+  teacher: teacher1
+  teacher_percentage: 80
+  lesson_price: 50
+  price: 500
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: beijing
+  city: zhuji
+  lessons_count: 10
+  taste_count: 5
+  billing_type: Payment::LiveCourseChannelBilling
+
 

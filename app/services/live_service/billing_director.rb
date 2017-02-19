@@ -8,10 +8,10 @@ module LiveService
     # 课程结算
     def billing
       return unless check_lesson
-      billing_class.create(target: @lesson, from_user: @lesson.teacher).billing
+      billing_class.create!(target: @lesson, from_user: @lesson.teacher).billing
     rescue StandardError => e
       Rails.logger.error "#{e.message}\n\n#{e.backtrace.join("\n")}"
-      SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message: "辅导班结账失败-#{@lessons.id}")
+      SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message: "辅导班结账失败-#{@lesson.id}")
     end
 
     private

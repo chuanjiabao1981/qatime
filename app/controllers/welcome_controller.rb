@@ -19,6 +19,7 @@ class WelcomeController < ApplicationController
   end
 
   def ping
+    puts Rails.root
     render text: 'yyyyyyyyyyyyy'
   end
 end

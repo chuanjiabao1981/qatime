@@ -153,11 +153,16 @@ module LiveService
         order_str =
           params[:sort_by].split('-').map{ |i|
             column = i.split('.')[0]
-            "#{column} #{i.split('.')[1] || 'desc'}" if LiveStudio::Course.column_names.include?(column)
+            order_sort = i.split('.')[1].downcase == 'desc' ? 'DESC NULLS LAST' : 'ASC'
+            "#{column} #{order_sort}" if LiveStudio::Course.column_names.include?(column)
           }.join(',')
         courses = courses.order(order_str)
+      else
+        # 初始搜索,没有参数, 默认审核通过时间降序显示 null值排在后面
+        courses = courses.order("published_at desc NULLS LAST")
       end
-      courses.order(published_at: :desc).order(id: :desc)
+
+      courses.order(id: :desc)
     end
 
     def instance_studio

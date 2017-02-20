@@ -80,7 +80,13 @@ class Teacher < User
     s
   end
 
-  def keep_account
+  def keep_account(model_name = nil, model_id = nil)
+    # 单独结账
+    if model_name.present? && model_id.present?
+      model_name.constantize.valid_tally_unit.find_by(id: model_id.to_i).keep_account(self.id)
+      return true
+    end
+
     [CustomizedTutorial, HomeworkCorrection,ExerciseCorrection].each do |s|
       s.by_teacher_id(self.id).valid_tally_unit.each do |object|
         object.keep_account(self.id)

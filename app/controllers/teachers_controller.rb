@@ -151,7 +151,7 @@ class TeachersController < ApplicationController
     render 'pass'
   end
   def keep_account
-    KeepAccountWorker.perform_async(@teacher.id)
+    KeepAccountWorker.perform_async(@teacher.id, params[:model_name].presence, params[:model_id].presence)
     flash[:success] = "#{Account.human_attribute_name(:keep_account)}进行中"
     # 结账完成以后跳转到收入记录页面
     redirect_to payment.cash_user_path(@teacher, fee: 'y')

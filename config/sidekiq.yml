@@ -3,6 +3,8 @@ staging:
   :concurrency: 3
 production:
   :concurrency: 2
+development:
+  :concurrency: 3
 :queues:
   - default
   - video_convert

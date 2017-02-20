@@ -6,8 +6,6 @@ module LiveStudio
     include AASM
     extend Enumerize
 
-    include QaToken
-
     SYSTEM_FEE = 0.6 # 系统每个人每分钟收费0.6元
     WORKSTATION_PERCENT = 0.6 # 基础服务费代理商分成 60%
 
@@ -47,6 +45,7 @@ module LiveStudio
       event :publish, after_commit: :ready_lessons do
         before do
           self.published_at = Time.now
+          self.Billing_type = 'Payment::LiveCourseChannelBilling'
         end
         transitions from: :init, to: :published
       end

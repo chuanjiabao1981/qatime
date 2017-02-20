@@ -6,6 +6,8 @@
 # 获取当前项目路径
 APP_PATH = File.expand_path('../../current', File.dirname(__FILE__))
 
+puts APP_PATH
+
 # worker 数
 worker_processes 4
 
@@ -38,6 +40,7 @@ stdout_path APP_PATH + "/log/unicorn.stdout.log"
 preload_app true
 
 before_fork do |server, worker|
+  puts Rails.root
   ActiveRecord::Base.connection.disconnect! if defined?(ActiveRecord::Base)
   sleep(2)
   old_pid = "#{APP_PATH}/tmp/pids/unicorn.pid.oldbin"

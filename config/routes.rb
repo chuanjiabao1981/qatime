@@ -3,6 +3,7 @@ Qatime::Application.routes.draw do
 
   get 'home' => 'home#new_index'
   get 'welcome/download'
+  get 'welcome/ping'
   get 'welcome/courses'
   resources :softwares, only: [:index, :show] do
     get :download, on: :member

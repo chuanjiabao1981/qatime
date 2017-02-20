@@ -10,7 +10,8 @@
             </span>
           </div>
         </div>
-        <%= form_for @withdraw, url: user_withdraws_path(@current_resource),html: {autocomplete: "off"} do |f| %>
+        <%= simple_form_for [User.new(id: @current_resource.id), @withdraw], html: {autocomplete: "off"} do |f| %>
+          <%= f.hidden_field :pay_type %>
           <div class="apply-tea-con">
             <div class="apply-tea-left">
               <div class="tea-left-title">
@@ -26,7 +27,7 @@
                     <span><%= t('currency.cn')  %></span>
                   </div>
                   <span>(<%= number_to_currency(@resource_user.cash_account!.available_balance.to_f,unit: '￥') %><%= t('view.able') %>)</span>
-                  <span class="help-block has-error"></span>
+                  <%= f.error :amount %>
                 </div>
               </div>
 
@@ -36,16 +37,10 @@
                     <%= Payment::CashAccount.human_attribute_name(:password) %>
                   </label>
                   <div class="input-group">
-                    <%= text_field_tag :payment_password,'',class: 'form-control tec-pwd', onfocus: '$(this).attr("type","password")', placeholder: t('view.payment_password_hd') %>
+                    <%= f.text_field :payment_password, class: 'form-control tec-pwd', onfocus: '$(this).attr("type","password")', placeholder: t('view.payment_password_hd') %>
                   </div>
                   <%= link_to t('view.find_password'), send("edit_#{@resource_user.role}_path", @resource_user, {cate: 'security_setting'}), target: '_blank' %>
-                  <%= content_tag :div do %>
-                    <% @errors.each do |er| %>
-                      <%= content_tag :span, er, class: 'help-block has-error' %>
-                      <br/>
-                    <% end %>
-                    <%= link_to t('view.withdraw.common.cancel_withdraw'), cash_user_path(@current_resource) %>
-                  <% end if @errors.present?%>
+                  <%= f.error :payment_password %>
                 </div>
               </div>
 
@@ -54,43 +49,25 @@
               <div class="tea-right-title">
                 <%= Payment::Withdraw.human_attribute_name(:pay_type) %>
               </div>
-              <div class="tea-right-con">
-                <!--<div class="form-group">-->
-                <!--<div class="input-group">-->
-                <!--<input type="radio" class="check" checked="checked" name="" id="" value="">-->
-                <!--</div>-->
-                <!--<span>-->
-                <!--<%#= image_tag('weixin-1.png') %>-->
-                <!--微信钱包-->
-                <!--<i>（已支持自动转帐）</i>-->
-                <!--</span>-->
-                <!--</div>-->
-                <div class="form-group">
-                  <div class="input-group">
-                    <%= f.radio_button :pay_type, 'alipay', class: 'check-1' %>
-                  </div>
+              <div class="tea-right-con tea-wechat">
+                <div class="form-group">  
                   <span>
-                    <%= image_tag('alipay.png') %>
-                    <%= t('view.withdraw.alipay') %>
+                    <i>提现至</i>
+                    <%= image_tag "login-weixin.png" %>
+                    <i>微信钱包</i>
                   </span>
-                  <input type="text" placeholder="<%= t('view.withdraw.alipay_input_holder') %>" name="alipay_account" class="alipay td-msg-1" style="width: 29%;">
-                  <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="alipay_name" class="username td-msg-1" style="width: 29%;">
-                </div>
-                <div class="form-group">
-                  <div class="input-group">
-                    <%= f.radio_button :pay_type, 'bank', class: 'check-1' %>
-                  </div>
-                  <span>
-                    <%= image_tag('card.png') %>
-                    <%= t('view.withdraw.bank') %>
-                  </span>
-                  <input type="text" placeholder="<%= t('view.withdraw.bank_input_holder') %>" name="bank_account" class="card-num td-msg" style="width: 29%;">
-                  <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="bank_name" class="card-name td-msg" style="width: 29%;">
+                  <% if @withdraw.wechat_user -%>
+                    <span>(当前绑定：<%= @withdraw.wechat_user.userinfo['info']['nickname'] %>)</span>
+                    <%= f.hidden_field :wechat_user_id %>
+                  <% else %>
+                    <span>(尚未绑定 <%= link_to "点击立即绑定", "##" %>)</span>
+                  <% end %>
+                  <%= f.error :wechat_user_id %>
                 </div>
               </div>
 
               <div class="tea-right-con tea-right-send">
-                <input type="submit" disabled="disabled" name="" id="submit_withdraw" value="<%= t 'view.withdraw.common.audit' %>">
+                <%= f.submit t('view.withdraw.common.audit'), id: "submit_withdraw", class: 'active' %>
               </div>
             </div>
           </div>
@@ -99,62 +76,3 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
-
-  $(function  () {
-    var pay_type = '<%= @withdraw.pay_type %>';
-    if(pay_type!='nil'){
-      if(pay_type=='alipay')
-        $(".td-msg-1").show();
-      if(pay_type=='bank')
-        $(".td-msg").show();
-    }
-    //点击支付宝
-    $(".check-1").click(function  () {
-      var index = $(".check-1").index($(this));
-      if (index == 0) {
-        $(".td-msg-1").show();
-      }else{
-        $(".td-msg-1").hide();
-      }
-      if (index == 1) {
-        $(".td-msg").show();
-      }else{
-        $(".td-msg").hide();
-      }
-    })
-
-    $("input").bind('keyup', function(){
-      if ($(".num").val()-0 < 100) {
-        return false;
-      }
-
-      if(!$(".check-1").is(":checked")){
-        return false;
-      }
-      if ($(".check-1").eq(0).is(":checked")) {
-        if ($(".alipay").val().length <= 0) {
-          return false;
-        }
-
-        if ($(".username").val().length <= 0) {
-          return false;
-        }
-      }
-
-      if ($(".check-1").eq(1).is(":checked")) {
-        if ($(".card-num").val().length <= 0) {
-          return false;
-        }
-
-        if ($(".card-name").val().length <= 0) {
-          return false;
-        }
-        console.log('11');
-      }
-      $('#submit_withdraw').removeAttr('disabled');
-      $('#submit_withdraw').addClass('active');
-    });
-  })
-
-</script>

@@ -22,7 +22,9 @@
             <table border="0" cellspacing="0" cellpadding="01">
               <tbody>
               <%= f.fields_for :lessons do |lesson| %>
-                <%= render 'edit_lesson', f: lesson%>
+                <% if lesson.object.unstart? %>
+                  <%= render 'edit_lesson', f: lesson %>
+                <% end %>
               <% end %>
               </tbody>
             </table>

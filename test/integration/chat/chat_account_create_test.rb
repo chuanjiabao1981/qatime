@@ -47,12 +47,12 @@ module Chat
         # click_on("buy-course-#{course_preview.id}")
         choose('微信支付')
         click_on '立即付款'
+        sleep(3)
 
         @student.reload
         assert_not_nil @student.chat_account
         @student.chat_account.destroy
       end
     end
-
   end
 end

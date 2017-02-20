@@ -26,8 +26,8 @@
 </div>
 
 <div class="panel-row row-th">
-  <div class="col-md-4">
-    <%= link_to payment.cash_user_path(@current_resource), class: "record#{' active-1' unless %w(x y).include?(params[:fee])}"  do%>
+  <div class="col-md-5">
+    <%= link_to payment.cash_user_path(@current_resource), class: "record#{' active-1' unless %w(x y z).include?(params[:fee])}"  do%>
       <%= Payment::Recharge.model_name.human %>
     <% end %>
     <span class="record-line"><strong>|</strong></span>
@@ -38,8 +38,12 @@
     <%= link_to payment.cash_user_path(@current_resource, fee: 'y'), class: "record#{' active-1' if params[:fee] == 'y'}"  do%>
       <%= Payment::ConsumptionRecord.model_name.human %>
     <% end %>
+    <span class="record-line"><strong>|</strong></span>
+    <%= link_to payment.cash_user_path(@current_resource, fee: 'z'), class: "record#{' active-1' if params[:fee] == 'z'}"  do%>
+      <%= Payment::RefundRecord.model_name.human %>
+    <% end %>
   </div>
-  <div class="col-md-8">
+  <div class="col-md-7">
     <%= form_tag '', method: 'GET' do |f| %>
       <%= hidden_field_tag :fee, params[:fee] %>
       <div class="search-record">
@@ -58,7 +62,7 @@
 </div>
 
 <div class="con show">
-  <% if !%w(x y).include?(params[:fee]) -%>
+  <% if !%w(x y z).include?(params[:fee]) -%>
     <table class="table table-fix">
       <tbody>
         <tr id="tr-row1">
@@ -101,6 +105,20 @@
       <%= render @withdraws %>
     </table>
     <div class="pagination-fix"><%= will_paginate @withdraws %></div>
-  <% end %>
+  <% elsif params[:fee] == 'z' %>
+    <table class="table table-fix">
+      <tbody>
+      <tr id="tr-row1">
+        <td><%= Payment::Refund.human_attribute_name(:amount) %></td>
+        <td><%= Payment::Refund.human_attribute_name(:transaction_no) %></td>
+        <td><%= Payment::Refund.human_attribute_name(:pay_type) %></td>
+        <td><%= Payment::Refund.human_attribute_name(:created_at) %></td>
+        <td><%= Payment::Refund.human_attribute_name(:status) %></td>
+      </tr>
+      </tbody>
+      <%= render @refunds %>
+    </table>
+    <div class="pagination-fix"><%= will_paginate @refunds %></div>
+<% end %>
 </div>
 

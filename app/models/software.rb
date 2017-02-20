@@ -5,13 +5,17 @@ class Software < ApplicationRecord
   mount_uploader :logo, SoftwareLogoUploader
   has_one :qr_code, as: :qr_codeable
 
+  belongs_to :software_category
+
+  validates :software_category, presence: true
+
   PLATFORM_HASH = {
     windows: 1,
     android: 2,
     ios: 3
   }
 
-  enum status: %w(init published expired)
+  enum status: %w(init published expired offline)
   enum role: { teacher: 'teacher', student: 'student' }
   enum category: %w(teacher_live student_client)
 
@@ -34,7 +38,7 @@ class Software < ApplicationRecord
   end
 
   def assign_qr_code
-    relative_path = QrCode.generate_tmp(download_links)
+    relative_path = QrCode.generate_tmp(cdn_url)
     tmp_path = Rails.root.join(relative_path)
     File.open(tmp_path) do |file|
       self.create_qr_code(code: file)
@@ -47,7 +51,20 @@ class Software < ApplicationRecord
   before_update :generate_download_links
   def generate_download_links
     self.download_links = "#{$host_name}/softwares/#{id}/download" if download_links.blank?
-    assign_qr_code
+    assign_qr_code if qr_code.nil? || cdn_url_changed?
+  end
+
+  before_validation :copy_attr_from_category, on: :create
+  def copy_attr_from_category
+    return unless software_category
+    self.role = software_category.role
+    self.platform = software_category.platform
+    self.logo = software_category.logo
+    self.title = software_category.title
+    self.sub_title = software_category.sub_title
+    self.desc = software_category.desc
+    self.download_description = software_category.download_description
+    self.category = software_category.category
   end
 
   class << self

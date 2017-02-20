@@ -1,27 +1,40 @@
-<div class="qa_box">
-  <% @softwares.each do |software| %>
-    <div class="qa_big_cell">
-      <div class="row">
-        <div class="col-md-2 text-left">
-          <%= image_tag software.logo_url(:big), size: "120x120", alt: software.title %>
+<div class="container container-details">
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="download-page">
+      <% @softwares.each do |software| %>
+        <div class="down-load">
+          <div class="down-load-con">
+            <div class="row">
+              <div class="col-md-8">
+                <%= image_tag software.logo_url(:big), size: "120x120", alt: software.title %>
+                <div class="down-msg">
+                  <div class="down-msg-title">
+                    <span><%= software.title %></span>
+                    <span>-<%= software.sub_title %></span>
+                  </div>
+                  <div class="down-msg-con">
+                    <%= software.desc %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="down-msg-right">
+                  <div class="down-msg-new">
+                      <span>
+                        <%= t(software.platform_windows? ? '.win_desc' : '.android_desc')%>
+                      </span>
+                    <%= link_to t(".download"),software.download_links %>
+                  </div>
+                  <%= image_tag software.qr_code.code_url, size: "120x120", alt: software.title unless software.platform_windows? %>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="col-md-8">
-          <p><span style="font-size: 23px;font-weight: 500;line-height: 1.1;"><%= software.title %></span>-<%= software.sub_title %></p>
-          <p><%= software.desc %></p>
-        </div>
-        <div class="col-md-2 text-right">
-          <% if software.platform_windows? %>
-            <%= link_to software.download_links do %>
-              <br><br>
-              <button class="btn btn-default btn-lg" type="button"><%= t ".download" %></button>
-            <% end %>
-          <% else %>
-            <%= image_tag software.qr_code.code_url, size: "120x120", alt: software.title %>
-          <% end %>
-        </div>
+      <% end if @softwares %>
       </div>
     </div>
-  <% end if @softwares %>
+  </div>
 </div>
-
 

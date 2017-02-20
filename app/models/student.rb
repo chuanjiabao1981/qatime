@@ -18,11 +18,14 @@ class Student < User
   has_many :live_studio_tickets, class_name: LiveStudio::Ticket
   has_many :live_studio_courses, class_name: LiveStudio::Course, through: :live_studio_tickets, source: :course
   has_many :live_studio_lessons, class_name: LiveStudio::Lesson, through: :live_studio_courses, source: :lessons
+  has_many :live_studio_buy_tickets, class_name: LiveStudio::BuyTicket
   has_many :live_studio_taste_tickets, class_name: LiveStudio::TasteTicket
 
   attr_reader :student_columns_required
 
   validates_confirmation_of :parent_phone
+
+  validates :name, length: { in: 1..30 }, on: :update
 
   # 第二步注册，学生更新验证
   validates_presence_of :grade, if: :student_columns_required?, on: :update

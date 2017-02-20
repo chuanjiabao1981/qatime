@@ -13,3 +13,30 @@ two:
   lesson_id: 
   start_time: 2016-06-24 17:22:32
   end_time_at: 2016-06-24 17:22:32
+
+pr1:
+  student: student_with_order2
+  course: course_for_replay
+  lesson: replay_lessons_1
+  play_type: 1 
+  start_time: 2016-06-24 17:22:32
+  end_time_at: 2016-06-24 17:22:32
+  created_at: <%= 2.days.ago %>
+
+pr2:
+  student: student_with_order2
+  course: course_for_replay
+  lesson: replay_lessons_1
+  play_type: 1 
+  start_time: 2016-06-24 17:22:32
+  end_time_at: 2016-06-24 17:22:32
+  created_at: <%= 1.days.ago %>
+
+pr3:
+  student: student_with_order2
+  course: course_for_replay
+  lesson: replay_lessons_2
+  play_type: 1 
+  start_time: 2016-06-24 17:22:32
+  end_time_at: 2016-06-24 17:22:32
+  created_at: <%= 1.days.ago %>

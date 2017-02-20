@@ -1,201 +1,105 @@
-<div class="qa_box panel panel-default panel-support">
-  <div class="info-header">
-    <h4 class="text-center"><%= @course.name %></h4>
-    <%= content_tag :div, class: "info-list-subtitle #{params[:index] == 'list' ? nil : 'hide'}" do %>
-      <p style="color: gray;">
-        <span style="padding-right: 20px;">
-          <%= t('view.course_info_show.lesson_plan') % [@course.live_start_time ,@course.live_end_time] %>
-        </span>
-        <span>
-          <%= "#{t('view.course_info_show.schedule')}#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>
-        </span>
-      </p>
-    <% end %>
-  </div>
-  <div class="tab-content">
-    <div id="lesson_list" class="tab-pane fade<%= params[:index] == 'list' ? ' in active' : nil %>">
+<div class="panel panel-default">
+  <div class="addinvite">
+    <div class="addinvite-title">
+      <div class="addinvite-title-left">
+        <%= link_to t('live_studio.menu.teacher.my_courses'), live_studio.teacher_courses_path(@teacher.id) %>
+        <span>&gt;</span>
+        <span><%= t('common.alert_lesson') %></span>
+      </div>
+    </div>
+    <div class="adjust-lesson">
+      <div class="adjust-title"><%= @course.name %></div>
 
-      <%= form_tag teacher_lessons_path(course_id: @course),method: :post, id: 'edit_less_form',class: 'duplicate' do %>
-      <table class="table">
-        <thead>
-          <tr style="background: #eee">
-            <td><%= t('view.course_info_show.number') %></td>
-            <td width="40%" style="text-align: center;"><%= t('view.course_info_show.lesson_start_at') %></td>
-            <td style="text-align: center;"><%= t('view.course_info_show.lesson_name') %></td>
-            <td>&nbsp;</td>
-          </tr>
-        </thead>
-        <tbody id="lesson_body">
-          <%
-             start_arr = (0..23).to_a.map{|r| ["%02d:00" % r,"%02d:30" % r]}.flatten
-             end_arr = start_arr.clone
-             end_arr.shift
-             end_arr.push('00:00')
-          %>
-          <% @course.order_lessons.each_with_index do |lesson,i| %>
-          <% can_edit = lesson.init? || lesson.ready? %>
-          <tr class="lesson-<%= lesson.id %>">
-            <td><%= i+1 %></td>
-            <td>
-              <div>
-                <%= text_field_tag "class_date_#{lesson.id}", lesson.class_date, type: :date,class: 'form-control lesson-class-date',
-                  placeholder: t('view.teacher_course.date_holder'), min: Date.today,max: '2055-01-01', onchange: "set_start_time_by_date(this,#{lesson.id})", disabled: !can_edit %>
-                <%= select_tag "start_time_#{lesson.id}", options_for_select(start_arr, time_fmt(lesson.start_time)),
-                  class: 'form-control lesson-time', onchange: "set_end_time(this,#{lesson.id})", disabled: !can_edit %>
-                ~
-                <%= select_tag "end_time_#{lesson.id}", options_for_select(end_arr, time_fmt(lesson.end_time)),
-                class: 'form-control lesson-time', onchange: "set_start_time(this,#{lesson.id})", disabled: !can_edit %>
-              </div>
-            </td>
-            <td>
-              <%= text_field_tag "name_#{lesson.id}", lesson.name, class: 'form-control',  placeholder: t('view.teacher_course.lesson_name_holder'), disabled: true %>
-            </td>
-            <td>
-              <span style="<%= 'color: gray;' if !can_edit %>">
-                <%= lesson.status_text %>
-              </span>
-            </td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
-        <%= content_tag :div,class: 'text-center info-submit-btn' do %>
-        <%= link_to t('view.cancel_btn'), teacher_course_path(@teacher,@course), class: 'btn btn-default' %>
-        <%= button_tag t('view.save_btn'), class: 'btn btn-default btn-primary' %>
+      <div class="adjust-con">
+        <div class="adjust-con-title">
+          <span><%= @course.grade %></span>
+          <span>|</span>
+          <span><%= LiveStudio::Course.human_attribute_name(:lessons_progress) %></span>
+          <span><%= "#{@course.finished_lessons_count}/#{@course.lessons_count }" %></span>
+        </div>
+        <%= simple_form_for @course, url: update_lessons_teacher_course_path do |f|%>
+          <div class="class-con">
+            <table border="0" cellspacing="0" cellpadding="01">
+              <tbody>
+              <%= f.fields_for :lessons do |lesson| %>
+                <%= render 'edit_lesson', f: lesson%>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="present adjust-btn">
+            <center>
+              <%= link_to '取消', _back_url %>
+              <%= link_to '保存调课', 'javascript:void(0);', class: 'submit' %>
+            </center>
+          </div>
         <% end %>
-        <%= hidden_field_tag :insert_lesson_list, '' %>
-        <%= hidden_field_tag :delete_lesson_list, '' %>
-        <%= hidden_field_tag :default_lesson_list, @course.lessons.map(&:id).join(',') %>
-      <% end %>
+      </div>
     </div>
   </div>
 </div>
-
-<script type="text/javascript" charset="utf-8">
-  var lesson_count = <%= @course.lessons.count %>;
-
-  $('#edit_less_form').submit(function(){
-    var return_flag = true;
-    var error_input_count = 0;
-    var blank_input_count = 0;
-
-    $('#edit_less_form').find('tr[class^=lesson]').find('input').map(function(index,doc){
-      if($(doc).val().replace(/(^\s*)|(\s*$)/g, "").length==0){
-        blank_input_count += 1;
-      }
+<script type="text/javascript">
+  function testShow(elem){
+    $.jeDate(elem,{
+      skinCell:"jedateblue",
+      festival:false,
+      insTrigger:false,
+      format:"YYYY-MM-DD",
+      isClear:false,
+      minDate: '<%= Date.today.to_s %>',
     });
-    var default_lessons = $('#default_lesson_list').val().split(',');
-    if(delete_lesson_list.length > 0){
-      delete_lesson_list.each(function(i,v){
-        default_lessons.splice(default_lessons.indexOf(v),1);
-      });
-    }
-    $(default_lessons).each(function(i,v){
-      if((undefined != $('#start_time_'+v).val() && $('#start_time_'+v).val() == $('#end_time_'+v).val()) || $('#start_time_'+v).val() > $('#end_time_'+v).val()){
-        error_input_count += 1;
-      }
+  }
 
-      if($('#class_date_'+v).val() == '<%= Date.today %>' && ($('#start_time_'+v).val() < '<%= "%02i:%02i" % [Time.zone.now.hour, Time.zone.now.min] %>')){
-        error_input_count += 1
-      }
+  function _get_time(hour, minutes, duration){
+    if(duration == '' || duration == null){
+      return false;
+    }
+    var duration_value = 0;
+    var hour = parseInt(hour);
+    var minutes = parseInt(minutes);
+    switch(duration){
+      case 'minutes_30':
+        duration_value = 30;
+        break;
+      case 'minutes_45':
+        duration_value = 45;
+        break;
+      case 'hours_1':
+        duration_value = 60;
+        break;
+      case 'hours_half_90':
+        duration_value = 90;
+        break;
+      case 'hours_2':
+        duration_value = 120;
+        break;
+      case 'hours_half_150':
+        duration_value = 150;
+        break;
+      case 'hours_3':
+        duration_value = 180;
+        break;
+      case 'hours_half_210':
+        duration_value = 210;
+        break;
+      case 'hours_4':
+        duration_value = 240;
+        break;
+    }
+    end_hour = hour + parseInt((minutes+duration_value)/60);
+    end_minutes = minutes+duration_value % 60;
+    if(end_hour > 23)
+      end_hour = end_hour % 24
+    if(end_hour < 10)
+      end_hour = "0" + end_hour;
+    if(end_minutes < 10)
+      end_minutes = "0" + end_minutes;
+    return end_hour + ':' + end_minutes;
+  }
+
+  $(document).ready(function() {
+    $('.submit').click(function(){
+      $('form').submit();
     });
-
-    if(blank_input_count!=0){
-      alert('<%= t('view.teacher_course.data_holder') %>');
-      return_flag = false;
-    }else if(error_input_count!=0){
-      alert('<%= t('view.teacher_course.data_error_holder') %>');
-      return_flag = false;
-    }
-
-    return return_flag;
   });
-
-  var time_arr = new Array(<%= ('"'+(0..23).to_a.map{|r| ["%02d:00" % r,"%02d:30" % r]}.flatten.join('","') + '"').html_safe %>);
-  var end_time_arr = time_arr.slice();
-  end_time_arr.shift();
-  end_time_arr.push('00:00');
-
-  function set_end_time(obj,no){
-    var start_time = $(obj).val();
-    var end_arr = end_time_arr;
-    var end_time_id = '#';
-    if($(obj).attr('id').split('_')[0] == 'new')
-      end_time_id+='new_';
-    end_time_id+='end_time_'+no;
-    if($(obj).val() != '00:00')
-      end_arr = end_time_arr.slice(end_time_arr.indexOf(start_time)+1);
-    append_select(end_time_id,end_arr);
-  }
-
-  function set_start_time_by_date(obj,no){
-    var date_time = $(obj).val();
-
-    if(date_time == '<%= Date.today %>'){
-      var hour_now = '<%= Time.zone.now.min > 30 ? "#{"%02i" % [(Time.zone.now.hour == 23 ? 23 : Time.zone.now.hour) + 1]}:00" : "#{"%02i" % [Time.zone.now.hour]}:30" %>'
-
-      var start_arr = end_time_arr;
-      var start_time_id = '#';
-      if($(obj).attr('id').split('_')[0] == 'new')
-        start_time_id+='new_';
-      start_time_id+='start_time_'+no;
-      end_arr = end_time_arr.slice(end_time_arr.indexOf(hour_now)+1, end_time_arr.length);
-
-      var optionsAsString = "";
-      $(end_arr).each(function(i,v){
-        var option_value = hour_now
-        if(option_value == v){
-          optionsAsString += "<option value='" + v + "' selected>" + v + "</option>";
-        }else{
-          optionsAsString += "<option value='" + v + "'>" + v + "</option>";
-        }
-      });
-
-      $(start_time_id).html(optionsAsString);
-    }
-  }
-
-  function set_start_time(obj,no){
-    var end_time = $(obj).val();
-    var start_arr = time_arr.slice(0,time_arr.indexOf(end_time));
-
-    if(is_today(obj,no)){
-      var hour_now = '<%= Time.zone.now.min > 30 ? "#{"%02i" % [(Time.zone.now.hour == 23 ? 23 : Time.zone.now.hour) + 1]}:00" : "#{Time.zone.now.hour}:30" %>'
-      start_arr = start_arr.slice(start_arr.indexOf(hour_now), start_arr.length);
-    }
-
-    var start_time_id = '#';
-    if($(obj).attr('id').split('_')[0] == 'new')
-      start_time_id+='new_';
-    start_time_id+='start_time_'+no;
-    if($(obj).val() != '00:00')
-      append_select(start_time_id,start_arr);
-  }
-
-  function append_select(obj,arr){
-    var optionsAsString = "";
-    $(arr).each(function(i,v){
-      var option_value = $(obj).val();
-      if(option_value == v){
-        optionsAsString += "<option value='" + v + "' selected>" + v + "</option>";
-      }else{
-        optionsAsString += "<option value='" + v + "'>" + v + "</option>";
-      }
-    });
-    $(obj).html(optionsAsString);
-  }
-
-  function is_today(obj,no){
-    var class_date_id = "#"
-    if($(obj).attr('id').split('_')[0] == 'new')
-      class_date_id+='new_';
-    class_date_id+='class_date_'+no;
-
-    if($(class_date_id).val() == '<%= Date.today %>'){
-      return true
-    }else{
-      return false
-    }
-  }
-
 </script>

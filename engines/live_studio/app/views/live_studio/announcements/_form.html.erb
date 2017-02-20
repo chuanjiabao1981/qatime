@@ -1,0 +1,49 @@
+<%= simple_form_for [@course, @announcement] do |f| %>
+  <% if @announcement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@announcement.errors.count, "error") %> prohibited this announcement from being saved:</h2>
+
+      <ul>
+      <% @announcement.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="notice-content">
+    <%= f.text_area :content, as: :text, maxlength: 100, placeholder: t("placeholders.live_sutdio/announcement.content", count: 200) %>
+    <br>
+    <i class="has-error" id="announcement_content_error"></i>
+  </div>
+  <div class="notice-btn">
+    <center>
+      <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close"><%= t("common.cancel") %></a>
+      <a href="javascript:void(0);" id="btn-announcement-create"><%= t("common.publish") %></a>
+    </center>
+  </div>
+<% end %>
+
+<%= content_for :javascript do %>
+<script>
+$(function() {
+  $("#btn-announcement-create").click(function() {
+    console.log($("#announcement_content").val().length);
+    if($("#announcement_content").val() === "") {
+      $("#announcement_content_error").text('<%= t("errors.live_sutdio/announcement.content.blank") %>');
+    } else if($("#announcement_content").val().length > 200) {
+      $("#announcement_content_error").text('<%= t("errors.live_sutdio/announcement.content.too_long") %>');
+    } else if($("#announcement_content").val().length < 7) {
+      $("#announcement_content_error").text('<%= t("errors.live_sutdio/announcement.content.too_short") %>');
+    } else {
+      $(this).parents("form").submit();
+    }
+  });
+
+  $('#announcement-form').on('hidden.bs.modal', function (e) {
+    $("#announcement_content_error").text("");
+  });
+});
+</script>
+<% end %>

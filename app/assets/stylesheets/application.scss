@@ -11,17 +11,19 @@
  *= require font-awesome
  *= require jquery.Jcrop
  *= require summernote
- *= require video-js
  *= require bootstrap-chosen-variables
  *= require bootstrap-chosen
  *= require animate
  *= require fancybox
  *= require course_library/application
  *= require editable/bootstrap-editable
+ *= require live_studio/application
  *= require bootstrap-select.min
  *= require jquery-calendar
  *= require calendar
  *= require jedate
+ *= require base
+ *= require background
  *= require_self
  */
 
@@ -466,6 +468,9 @@ span.fa{
 div.form_lable{
   margin-top: 5px;
 }
+form div.verify-code{
+  width: 100px;float:left;padding-right: 5px;
+}
 
 span.alert_red_span{
   color: red;
@@ -531,5 +536,42 @@ span.current_lesson_paused{
   background-color: #FFCCCC;
 }
 
+.message-nav {
+  margin-top: 15px;
+}
+
+.message-nav .alert-alert {
+  margin-bottom: 0px;
+}
+
 
 // 通知样式end
+
+// download
+.relative{
+  position: relative;
+}
+.download-desc-div{
+  height: 120px;
+  color: #CCCCCC;
+  float: right;
+  width: 10%;
+  button{
+    width: 100%;
+    margin-top: 15px;
+  }
+}
+.download-qrcode{
+  position: absolute;
+  right: 0;
+  top: 0;
+  button{
+    margin-top: 5px;
+  }
+}
+.download-img{
+  margin-left: 3%;
+}
+.margin-top-ten{
+  margin-top: 10px;
+}

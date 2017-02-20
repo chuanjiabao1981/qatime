@@ -13,7 +13,7 @@
       <% end %>
       <%= content_tag(:div, "#{t('view.course_show.subject')}#{course.subject}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.teacher')}#{course.teacher.name}", class: 'content-ceil') %>
-      <%= content_tag(:div, "#{t('view.course_show.schedule')}#{course.completed_lesson_count}/#{course.preset_lesson_count}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.schedule')}#{course.finished_lessons_count }/#{course.lessons_count }", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.surplus')}#{course.lesson_count_left} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.current')}#{course.current_lesson_name}") %>
     <%end %>
@@ -24,7 +24,7 @@
             <%= t('view.payment_show.order_actual_price2') %>
           </p>
           <p>
-            <span class="alert_red_span"><%= format '￥%0.2f', order.total_money %></span>
+            <span class="alert_red_span"><%= format '￥%0.2f', order.amount %></span>
           </p>
       <% end %>
     <% end %>
@@ -39,13 +39,15 @@
 
     <%= content_tag(:div, class: 'course-operator-div') do%>
       <%= content_tag(:div, class: 'course-operator-btn') do %>
+        <%= order_operating(order, class: 'btn btn-default operator-btn') %>
         <%= link_to t('view.course_show.info'), user_order_path(@user,order.order_no), class: 'btn btn-default operator-btn' %>
       <% end %>
     <% end if Payment::Order::CATE_PAID.include?(order.status) %>
 
     <%= content_tag(:div, class: 'course-operator-div') do%>
       <%= content_tag(:div, class: 'course-operator-btn') do %>
-        <%= link_to t('view.payment_show.new_order'), live_studio.student_course_path(@user, course), class: 'btn btn-default operator-btn' %>
+        <%= order_operating(order, class: 'btn btn-default operator-btn') %>
+        <%= link_to t('view.payment_show.new_order'), live_studio.new_course_order_path(course), class: 'btn btn-default operator-btn' %>
         <%= link_to t('view.course_show.info'), user_order_path(@user,order.order_no), class: 'btn btn-default operator-btn' %>
       <% end %>
     <% end if Payment::Order::CATE_CANCELED.include?(order.status) %>

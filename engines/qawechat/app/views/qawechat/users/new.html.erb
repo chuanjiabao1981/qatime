@@ -1,0 +1,89 @@
+<div class="login-wechat">
+  <div class="container">
+    <div class="row">
+      <div class="wechat-title">
+        <p>
+          <%= image_tag('binding.png') %>
+          已成功关联微信账号
+          <span><%= @wechat_user.userinfo['info']['nickname'] %></span>,请输入手机完成绑定！</p>
+        <p><span>提示：</span><span>绑定手机后可体验更多功能。</span></p>
+      </div>
+      <div class="wechat-con">
+
+        <% user_type = @user.type.try(:downcase) || 'user' %>
+        <div class="wechat-msg">
+          <%= simple_form_for @user, url: users_path do |f|%>
+            <div class="form-group">
+              <label class="control-label tecmsg-title" for="course_invitation_user_phone">输入手机号：</label>
+              <div class="input-group">
+                <%= f.input_field :login_mobile, class: 'form-control', maxlength: 11, placeholder: '仅支持大陆地区11位手机号' %>
+              </div>
+              <%= f.error :login_mobile %>
+            </div>
+            <div class="form-group">
+              <label class="control-label tecmsg-title" for="course_invitation_user_code">输入校验码：</label>
+              <div class="input-group">
+                <%= f.input_field :captcha_confirmation, class: 'form-control auth-code', maxlength: 4, placeholder: '查看手机后输入' %>
+                <span class="input-group-btn">
+                  <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#<%= user_type %>_login_mobile" data-send-url="<%= main_app.ajax_captchas_path %>" data-key="register_captcha" value="<%= t "students.common.get_captcha" %>">
+                </span>
+              </div>
+              <%= f.error :captcha_confirmation %>
+            </div>
+            <div class="form-group">
+              <label class="control-label tecmsg-title" for="course_invitation_user_password">设置密码：</label>
+              <div class="input-group">
+                <%= f.input_field :password, class: 'form-control', placeholder: '请输入密码（最少6位）' %>
+              </div>
+              <%= f.error :password %>
+            </div>
+            <div class="form-group">
+              <div class="input-group input-button">
+                <%= f.input :type,as: :hidden %>
+                <%= hidden_field_tag :openid, params[:openid] || @openid %>
+                <%= link_to '放弃', main_app.new_session_path %>
+                <input type="button" class="confirm-binding" value="确认绑定">
+              </div>
+            </div>
+
+            <div class="modal fade" id="acceptModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="wechat-choose">
+                <div class="choose-title">
+                  请选择
+                </div>
+                <div class="choose-content">
+                  <center>
+                    <a href="javascript:void(0);" alt="Teacher" class="submit-img">
+                      <%= image_tag 'teacher.png' %>
+                      <span>我是老师</span>
+                    </a>
+                    <a href="javascript:void(0);" alt="Student" class="submit-img">
+                      <%= image_tag 'student.png' %>
+                      <span>我是学生</span>
+                    </a>
+                  </center>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    $('.confirm-binding').click(function(){
+      if($('#<%= user_type %>_type').val().trim() == ''){
+        $('#acceptModal').modal();
+        return;
+      }
+      document.forms[0].submit();
+    });
+
+    $('.submit-img').click(function(){
+      $('#<%= user_type %>_type').val($(this).attr('alt'));
+      document.forms[0].submit();
+    });
+  })
+</script>

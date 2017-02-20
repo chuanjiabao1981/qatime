@@ -1,11 +1,24 @@
 Payment::Engine.routes.draw do
 
+  namespace :station do
+    resources :workstations, only: [:show] do
+      member do
+        get :cash, action: :earning_records
+        get :earning_records
+        get :withdraws
+      end
+    end
+  end
+
   resources :users, only: [] do
     resources :orders, only: [:index, :show, :destroy] do
       member do
         get :result
         get :pay
         patch :cancel_order
+        get :refund
+        post :refund_create
+        put :cancel_refund
       end
     end
 
@@ -36,6 +49,7 @@ Payment::Engine.routes.draw do
     member do
       get :result
       match :notify, via: [:get, :post]
+      post :pay
     end
   end
 

@@ -8,7 +8,7 @@ cn:
       sing_in: 登录
       user_setting: 用户设置
       home_page: 首页
-      curriculums: 公开课程
+      curriculums: 公共课程
       customized_courses: 专属课程
       questions: 问答社区
       live_studio_courses: 辅导班
@@ -16,6 +16,9 @@ cn:
       common_problem: 帮助
       personal_center: 个人中心
       notice: 消息
+      nationwide: 全国
+      switch_city: 切换
+      phone: 400-838-8010
     qa_bars:
       courses: 辅导班流程
       teacher: 老师使用说明
@@ -41,5 +44,16 @@ cn:
       video_manage: 视频管理
       notification: 消息中心
       teacher_syllabuses: 备课中心
+    footer:
+      copyright: Copyright © 2015-2017 QaTime.
+      record: 京ICP备12031445号-3
+      address: 联系地址
+      address_value: '北京市朝阳区东三环中路甲10号万科大都会805'
+      qq: 客服QQ
+      qq_value: '769051099 韩老师   / 819178240 关老师'
+      tel: 客服电话
+      tel_value: 400-838-8010
+      code_tips: 扫描左侧二维码关注"答疑时间"官方公众号，随时随地了解最新的学习信息
+      about_us: 关于我们
 
 

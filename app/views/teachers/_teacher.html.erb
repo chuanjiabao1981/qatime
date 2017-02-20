@@ -2,7 +2,7 @@
   <div class="col-md-1">
     <%= teacher_counter + 1 %>
   </div>
-  <div class="col-md-2">
+  <div class="col-md-3">
     <%= link_to "#{teacher.name}[昵称:#{teacher.nick_name}]" , teacher_path(teacher) %>
   </div>
   <div class="col-md-2">
@@ -18,7 +18,7 @@
     </div>
   <% end %>
   <% if allow? :teachers,:pass %>
-    <div class="col-md-2">
+    <div class="col-md-1">
       <%= render partial: 'teacher_status',locals: {teacher: teacher}%>
     </div>
   <% end %>

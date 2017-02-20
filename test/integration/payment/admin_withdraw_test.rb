@@ -20,15 +20,22 @@ module Payment
     test 'admin pass audit withdraw test' do
       click_link '提现审核'
       @teacher = users(:teacher_balance)
-      balance = @teacher.cash_account.balance
-      accept_prompt(with: "确认") do
-        click_link '通过', match: :first
+
+      assert_difference "@teacher.cash_account.reload.balance.to_f", -200 do
+        accept_prompt(with: "确认") do
+          click_link '通过', match: :first
+        end
+        sleep 2
       end
-      sleep 2
-      @teacher.reload
       click_link '已审核'
       assert page.has_content?('通过')
-      assert @teacher.cash_account.balance == balance - 200
+    end
+
+    test 'weixin_order test' do
+      sleep 2
+      assert Payment::WeixinTransfer.last.amount == 200
+      Payment::WeixinTransfer.last.remote_transfer
+      assert Payment::WeixinTransfer.last.failed?
     end
 
     test 'admin unpass audit withdraw test' do

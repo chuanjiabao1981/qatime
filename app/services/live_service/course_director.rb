@@ -26,6 +26,15 @@ module LiveService
     def deliver_ticket
     end
 
+    # 辅导班直播流状态查询
+    # 心跳时差大于15秒把直播状态设置为未开始
+    def stream_status
+      time_diff = @course.live_sessions.last.try(:heartbeat_at) && (Time.now - @course.live_sessions.last.try(:heartbeat_at))
+      board = time_diff.to_i > 15 ? 0 : @course.try(:channels).try(:board).try(:last).try(:live_status).to_i
+      camera = time_diff.to_i > 15 ? 0 : @course.try(:channels).try(:camera).try(:last).try(:live_status).to_i
+      {board: board, camera: camera}
+    end
+
     # 根据参数查询当月课程安排
     def self.courses_by_month(user, month=nil, state=nil)
       month = month.blank? ? Time.now : month.to_time
@@ -55,18 +64,18 @@ module LiveService
       query_by_params(@courses, search_params)
     end
 
-    def self.courses_for_teacher_index(user,params)
+    def self.courses_for_teacher_index(user, params)
       @courses = user.live_studio_courses
-      if LiveStudio::Course.statuses.include?(params[:status])
-        # 根据状态过滤辅导班
-        status = LiveStudio::Course.statuses[params[:status]]
-        @courses = @courses.where(status: status)
-      elsif params[:status] == 'today'
+      if params[:status] == 'today'
         # 根据分类过滤辅导班
         # status: today今日上课辅导班
         @courses = @courses.includes(:lessons).where(live_studio_lessons: { class_date: Date.today })
+      elsif params[:status].present?
+        # 根据状态过滤辅导班
+        statuses = params[:status].split(',')
+        @courses = @courses.where(status: LiveStudio::Course.statuses.slice(*statuses).values)
       end
-      @courses
+      @courses.order("id desc")
     end
 
     def self.courses_for_student_index(user,params)
@@ -86,6 +95,7 @@ module LiveService
     end
 
     def self.taste_course_ticket(user, course)
+      raise APIErrors::CourseTasteLimit unless course.taste_count.to_i > 0
       LiveService::ChatAccountFromUser.new(user).instance_account
       course.taste_tickets.find_or_create_by(student: user)
     end
@@ -95,10 +105,14 @@ module LiveService
     # 返回 order
     def self.create_order(user, course, params)
       order = Payment::Order.new(params.merge(course.order_params))
+      order.errors.add(:payment_password, :invalid) if order.account? && user.cash_account!.password_digest.present? && !user.cash_account!.authenticate(params[:payment_password])
       order.user = user
-      order.save
-      LiveService::ChatAccountFromUser.new(order.user).instance_account
       order
+    end
+
+    # 清理全部完成的辅导班
+    def self.clean_courses
+      LiveStudio::Course.teaching.where("completed_lessons_count >= lessons_count").find_each(batch_size: 200).map(&:complete!)
     end
 
     private
@@ -112,9 +126,10 @@ module LiveService
       return user.live_studio_taste_tickets.includes(course: :teacher) if 'taste' == cate
       # 今日辅导班
       # TODO 查询逻辑有点复杂，可以考虑通过增加冗余字段来简化查询
-      user.live_studio_tickets.visiable.includes(course: [:teacher, :lessons]).where(live_studio_lessons: { class_date: Date.today })
+      course_ids = user.live_studio_tickets.visiable.map(&:course_id)
+      today_course_ids = LiveStudio::Lesson.where(course_id: course_ids, class_date: Date.today).map(&:course_id).uniq
+      user.live_studio_tickets.visiable.includes(course: [:teacher, :lessons]).where(course_id: today_course_ids)
     end
-
 
     def self.query_by_params(courses, params)
       %w(subject grade status).each do |i|
@@ -122,21 +137,32 @@ module LiveService
           courses = courses.where(i => i == 'status' ? LiveStudio::Course.statuses[params[i]] : params[i])
         end
       end
-      [["price_floor","price_ceil"], ["class_date_floor","class_date_ceil"], ["preset_lesson_count_floor", "preset_lesson_count_ceil"]].each do |i|
+      [["price_floor","price_ceil"], ["class_date_floor","class_date_ceil"], ["lessons_count_floor", "lessons_count_ceil"], ["preset_lesson_count_floor", "preset_lesson_count_ceil"]].each do |i|
         column = i.first.gsub('_floor', '')
+        column = 'lessons_count' if column == 'preset_lesson_count'
         courses = courses.where("#{column} >= ?",params[i.first]) if params[i.first].present?
         courses = courses.where("#{column} <= ?",params[i.last]) if params[i.last].present?
       end
+      if params[:city_name].present?
+        city =  City.find_by(name: params[:city_name])
+        courses = courses.where(city_id: city.id) if city.present?
+      end
+
       if params[:sort_by].present?
         # 排序方式,多个排序字段用-隔开,默认倒序,需要正序加上.asc后缀 例如: created_at-price.asc-buy_tickets_count.asc
         order_str =
           params[:sort_by].split('-').map{ |i|
             column = i.split('.')[0]
-            "#{column} #{i.split('.')[1] || 'desc'}" if LiveStudio::Course.column_names.include?(column)
+            order_sort = i.split('.')[1].downcase == 'desc' ? 'DESC NULLS LAST' : 'ASC'
+            "#{column} #{order_sort}" if LiveStudio::Course.column_names.include?(column)
           }.join(',')
         courses = courses.order(order_str)
+      else
+        # 初始搜索,没有参数, 默认审核通过时间降序显示 null值排在后面
+        courses = courses.order("published_at desc NULLS LAST")
       end
-      courses.order(published_at: :desc).order(id: :desc)
+
+      courses.order(id: :desc)
     end
 
     def instance_studio

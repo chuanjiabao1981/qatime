@@ -42,6 +42,8 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
     choose("男")
     fill_in :teacher_birthday, with: Time.local(1995, 7, 8).strftime('%Y/%m/%d')
     select '小学', from: :teacher_category
+    select '山西', from: :teacher_province_id
+    select '阳泉', from: :teacher_city_id
     select '阳泉二中', from: :teacher_school_id
     select '英语', from: :teacher_subject
     select '20年以上', from: :teacher_teaching_years
@@ -67,5 +69,18 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
     attach_file("teacher_avatar", "#{Rails.root}/test/integration/avatar.jpg")
 
     click_on '保存', match: :first
+  end
+
+  test 'teacher update payment password' do
+    visit info_teacher_path(@teacher)
+    click_on "安全设置"
+    click_on '修改支付密码'
+    fill_in 'teacher_payment_password', with: '111111'
+    fill_in 'teacher_payment_password_confirmation', with: '111111'
+    click_on '获取验证码'
+    fill_in "teacher_payment_captcha_confirmation", with: "1234"
+    click_on '保存'
+    sleep 2
+    assert @teacher.cash_account!.authenticate('111111')
   end
 end

@@ -1,194 +1,149 @@
-<%= form_tag teacher_lessons_path(course_id: @course),method: :post, id: 'edit_less_form',class: 'duplicate' do %>
-  <table class="table table-hover">
-    <thead>
-    <tr>
-      <td><%= t('view.course_info_show.number') %></td>
-      <td width="40%" style="text-align: center;"><%= t('view.course_info_show.lesson_start_at') %></td>
-      <td style="text-align: center;"><%= t('view.course_info_show.lesson_name') %></td>
-      <td>&nbsp;</td>
-    </tr>
-    </thead>
-    <tbody id="lesson_body">
-    <tr id="lesson-copy">
-      <td class="lesson-no"></td>
-      <td>
-        <div>
-          <%
-             start_arr = (0..23).to_a.map{|r| ["%02d:00" % r,"%02d:30" % r]}.flatten
-             end_arr = start_arr.clone
-             end_arr.shift
-             end_arr.push('00:00')
-          %>
-          <%= text_field_tag "new_class_date_", '', type: :date,class: 'form-control lesson-class-date',
-                             placeholder: t('view.teacher_course.date_holder'), min: Date.today, max: '2055-01-01' %>
-          <%= select_tag "new_start_time_", options_for_select(start_arr,''),
-                         class: 'form-control lesson-time' %>
-          ~
-          <%= select_tag "new_end_time_", options_for_select(end_arr,''), min: Date.today, max: '2055-01-01',
-                         class: 'form-control lesson-time' %>
+<%
+   lesson = f.object
+   object_id = f.object.object_id
+   index = f.index + 1
+   lesson.start_time_hour = nil
+   lesson.start_time_minute = nil
+%>
+<tr>
+  <td class="class-num"><span><%= index < 10 ? "0#{index}" : index%></span></td>
+  <td class="create-td">
+    <p class="create-time">
+      <span>上课时间：</span><span><%= lesson.class_date %></span><span><%= "#{lesson.start_time}-#{lesson.end_time}" %></span>
+      <span class="active">&lt;修改为&gt;</span>
+      <span class="active" id="class_date_<%= object_id %>"><%= lesson.class_date %></span>
+      <span class="active" id="start_time_<%= object_id %>"><%= "#{lesson.start_time}-#{lesson.end_time}" %></span>
+    </p>
+    <p class="create-name"><span>课程名称：</span><span><%= truncate(lesson.name, length: 40) %></span></p>
+  </td>
+  <td>
+    <p class="adjust-redact">
+      <%= link_to t('activerecord.view.edit'), 'javascript:void(0);', data: {toggle: 'modal',target: "#adjust_edit_#{object_id}"} if lesson.unstart?%>
+    </p>
+  </td>
+</tr>
+<% if lesson.unstart? %>
+  <div class="modal fade" id="adjust_edit_<%= object_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="add-popup">
+        <div class="popup-title">
+          <span>课程名称：<%= truncate(lesson.name, length: 21) %></span>
+
+          <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
         </div>
-      </td>
-      <td>
-        <%= text_field_tag "new_name_", '', class: 'form-control', placeholder: t('view.teacher_course.lesson_name_holder')%>
-      </td>
-      <td><a href="javascript:void(0);" onclick="delete_self(this)" class="delete-link"><%= t("activerecord.view.delete") %></a></td>
-    </tr>
-    <% @course.lessons.each_with_index do |lesson,i| %>
-      <tr class="lesson-<%= lesson.id %>">
-        <td><%= i+1 %></td>
-        <td>
-          <div>
-            <%= text_field_tag "class_date_#{lesson.id}", lesson.class_date, type: :date,class: 'form-control lesson-class-date',
-                               placeholder: t('view.teacher_course.date_holder'), min: Date.today,max: '2055-01-01' %>
-            <%= select_tag "start_time_#{lesson.id}", options_for_select(start_arr,time_fmt(lesson.start_time)),
-                           class: 'form-control lesson-time', onchange: "set_end_time(this,#{lesson.id})" %>
-            ~
-            <%= select_tag "end_time_#{lesson.id}", options_for_select(end_arr,time_fmt(lesson.end_time)),
-                           class: 'form-control lesson-time', onchange: "set_start_time(this,#{lesson.id})" %>
+        <div class="popup-date">
+          <div class="original-date">
+            <span>
+              原上课日期
+              <i><%= lesson.class_date.to_s %></i>
+            </span>
+            <span>原开始时间<i><%= lesson.start_time %></i></span>
+            <%= f.hidden_field :id %>
+            <%= f.hidden_field :duration %>
+            <%= f.hidden_field :end_time %>
           </div>
-        </td>
-        <td>
-          <%= text_field_tag "name_#{lesson.id}", lesson.name, class: 'form-control',  placeholder: t('view.teacher_course.lesson_name_holder')%>
-        </td>
-        <td>
-          <%= link_to(t("activerecord.view.delete"), "javascript:delete_default(#{lesson.id})") if lesson.init? && @course.init? %>
-        </td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-  <div class="insert-lesson">
-    <%= link_to t('view.insert_btn') % Lesson.model_name.human, 'javascript:void(0);', id: 'insert_lesson' %>
+          <div class="now-date">
+ 	        						<span class="new-date">
+ 	        						<label for="">新上课日期</label>
+                        <%= f.text_field :class_date,as: :string, placeholder: '选择上课日期', onclick: 'testShow(this)',value: '' %>
+                        <br>
+ 	        						<i class="has-error class_date-error-<%= object_id %>"></i>
+ 	        					</span>
+ 	        					<span class="newstart-time">
+ 	        						<label for="">新开始时间</label>
+                      <%= f.select :start_time_hour, (0..23).to_a.map{|i| i > 9 ? i : "0#{i}"}.insert(0,['时',nil]) %>
+                      <%= f.select :start_time_minute, %w(00 05 10 15 20 25 30 35 40 45 50 55).insert(0, ['分', nil]) %>
+                      <i class="has-error start_time-error-<%= object_id %>"></i>
+ 	        					</span>
+          </div>
+
+
+          <div class="date-btn">
+            <center>
+              <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close">取消</a>
+              <a href="javascript:void(0);" class="btn-datesave save-<%= object_id %>">保存</a>
+              <%= hidden_field_tag "modal_click_btn_#{object_id}" %>
+              <%= f.input_field :_update, as: :boolean, class: 'hidden' %>
+            </center>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <%= content_tag :div,class: 'text-center info-submit-btn' do %>
-    <%= link_to t('view.cancel_btn'), teacher_course_path(@teacher,@course), class: 'btn btn-default' %>
-    <%= button_tag t('view.save_btn'), class: 'btn btn-default btn-primary' %>
-  <% end %>
-  <%= hidden_field_tag :insert_lesson_list, '' %>
-  <%= hidden_field_tag :delete_lesson_list, '' %>
-  <%= hidden_field_tag :default_lesson_list, @course.lessons.map(&:id).join(',') %>
 <% end %>
+<script type="text/javascript">
+  $(function () {
+    var o_id = '<%= object_id %>';
+    var update_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:_update)).at_css('input').attributes['id'].value %>';
+    $('.active').hide();
 
-<script type="text/javascript" charset="utf-8">
-  var lesson_count = <%= @course.lessons.count %>;
-  var insert_lesson_list = new Array();
-  var delete_lesson_list = new Array();
-
-  $('#edit_less_form').submit(function(){
-    var return_flag = true;
-    $('#edit_less_form').find('tr[class^=lesson]').find('input').map(function(index,doc){
-      if($(doc).val().replace(/(^\s*)|(\s*$)/g, "").length==0){
-        return_flag = false;
+    $('#adjust_edit_' + o_id).on('hide.bs.modal', function() {
+      if($('#modal_click_btn_'+o_id).val() == 'save'){
+        if(change_save()){
+          $('.active').show();
+        }else{
+          $('#modal_click_btn_'+o_id).val('cancel');
+          $(update_id).attr('checked', false);
+          return false;
+        }
       }
     });
-    var default_lessons = $('#default_lesson_list').val().split(',');
-    if(delete_lesson_list.length > 0){
-      delete_lesson_list.each(function(i,v){
-        default_lessons.splice(default_lessons.indexOf(v),1);
-      });
+
+    function change_save(){
+      var class_date_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.text_field(:class_date)).at_css('input').attributes['id'].value %>';
+      var start_time_hour_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:start_time_hour)).at_css('input').attributes['id'].value %>';
+      var start_time_minute_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:start_time_minute)).at_css('input').attributes['id'].value %>';
+      var duration_id = '#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:duration)).at_css('select').attributes['id'].value %>';
+      var hour = $(start_time_hour_id).val();
+      var minutes = $(start_time_minute_id).val();
+      var duration = $(duration_id).val();
+      var class_date = $(class_date_id).val();
+      var flag = set_errors(class_date, hour, minutes, duration);
+      var start_time = hour + ':' + minutes;
+      var end_time = _get_time(hour, minutes, duration)
+      if(end_time == false){
+        end_time = $('#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:duration)).at_css('select').attributes['id'].value %>').val();
+      }
+      if(flag){
+        $('#class_date_'+o_id).html(class_date);
+        $('#start_time_'+o_id).html(start_time + '-' + end_time);
+      }
+      return flag;
     }
-    $(default_lessons).each(function(i,v){
-      if(undefined != $('#start_time_'+v).val() && $('#start_time_'+v).val() == $('#end_time_'+v).val())
+
+    function set_errors(class_date, hour, minutes, duration){
+      var end_time = $.getLessonTime(hour, minutes, duration);
+      var start_time = hour + ':' + minutes;
+
+      var return_flag = true;
+      if(class_date.trim() == '' || class_date.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) == null){
         return_flag = false;
-    });
-    $(insert_lesson_list).each(function(i,v){
-      if(undefined != $('#start_time_'+v).val() && $('#new_start_time_'+v).val() == $('#new_end_time_'+v).val())
-        return_flag = false;
-    });
-    if(!return_flag){
-      alert('<%= t('view.teacher_course.data_holder') %>');
-    }
-    return return_flag;
-  });
-
-  // 添加tr
-  $('#insert_lesson').click(function(){
-    lesson_count += 1;
-    var copy = $('#lesson-copy').clone();
-    copy.css('display', 'table-row');
-    copy.attr('id', '');
-    copy.addClass('lesson-'+lesson_count);
-    copy.find('.lesson-no').html(lesson_count);
-    insert_lesson_list.push(lesson_count);
-    $('#insert_lesson_list').val(insert_lesson_list.join(','));
-    $("#lesson_body").append(set_attr(copy, lesson_count));
-  });
-
-  // 删除新添tr
-  function delete_self(obj){
-    lesson_count -= 1;
-    var lesson_no = parseInt($(obj).attr('rel'));
-    var index = insert_lesson_list.indexOf(lesson_no);
-    insert_lesson_list.splice(index, 1);
-    $('#insert_lesson_list').val(insert_lesson_list.join(','));
-    $(obj).closest('tr').remove();
-  }
-
-  // 删除动态tr
-  function delete_default(lesson_id){
-    lesson_count -= 1;
-    if(confirm('<%= t('activerecord.view.message.confirm') %>')){
-      delete_lesson_list.push(lesson_id);
-      $('#delete_lesson_list').val(delete_lesson_list.join(','));
-      $('.lesson-'+lesson_id).closest('tr').remove();
-    }
-  }
-
-  // 为新tr创建属性
-  function set_attr(obj, no){
-    var attrs = new Array('new_class_date_', 'new_start_time_', 'new_end_time_', 'new_name_');
-    for(var i=0; i < attrs.length; i++){
-      $(obj).find('#'+attrs[i]).attr('name', attrs[i]+no);
-      $(obj).find('#'+attrs[i]).attr('id', attrs[i]+no);
-    }
-    $(obj).find('a.delete-link').attr('rel', no);
-    $(obj).find('#new_start_time_'+no).bind('change', function(){
-      set_end_time(this,no);
-    });
-    $(obj).find('#new_end_time_'+no).bind('change', function(){
-      set_start_time(this,no);
-    });
-    return obj;
-  }
-  var time_arr = new Array(<%= ('"'+(0..23).to_a.map{|r| ["%02d:00" % r,"%02d:30" % r]}.flatten.join('","') + '"').html_safe %>);
-  var end_time_arr = time_arr.slice();
-  end_time_arr.shift();
-  end_time_arr.push('00:00');
-  function set_end_time(obj,no){
-    var start_time = $(obj).val();
-    var end_arr = end_time_arr;
-    var end_time_id = '#';
-    if($(obj).attr('id').split('_')[0] == 'new')
-      end_time_id+='new_';
-    end_time_id+='end_time_'+no;
-    console.log($(obj).val());
-    if($(obj).val() != '00:00')
-      end_arr = end_time_arr.slice(end_time_arr.indexOf(start_time)+1);
-    append_select(end_time_id,end_arr);
-  }
-
-  function set_start_time(obj,no){
-    var end_time = $(obj).val();
-    var start_arr = time_arr.slice(0,time_arr.indexOf(end_time));
-    var start_time_id = '#';
-    if($(obj).attr('id').split('_')[0] == 'new')
-      start_time_id+='new_';
-    start_time_id+='start_time_'+no;
-    if($(obj).val() != '00:00')
-      append_select(start_time_id,start_arr);
-  }
-
-  function append_select(obj,arr){
-    var optionsAsString = "";
-    $(arr).each(function(i,v){
-      var option_value = $(obj).val();
-      if(option_value == v){
-        optionsAsString += "<option value='" + v + "' selected>" + v + "</option>";
+        $('.class_date-error-'+o_id).html('请选择上课日期');
       }else{
-        optionsAsString += "<option value='" + v + "'>" + v + "</option>";
+        $('.class_date-error-'+o_id).html('');
       }
-    });
-    $(obj).html(optionsAsString);
-  }
 
+      var nowTime = new Date();
+      var startAt = new Date(class_date + " " + start_time);
+      if(hour.trim() == '' || minutes.trim() == ''){
+        return_flag = false;
+        $('.start_time-error-'+o_id).html('请选择开始时间');
+      }else if(end_time < start_time){
+        return_flag = false;
+        $('.start_time-error-'+o_id).html('上课时长不能跨天');
+      }else if(startAt < nowTime){
+        return_flag = false;
+        $('.start_time-error-'+o_id).html('不能早于当前时间');
+      }else{
+        $('.start_time-error-'+o_id).html('');
+      }
+      return return_flag;
+    }
+
+    $('.save-'+o_id).click(function(){
+      $('#modal_click_btn_'+o_id).val('save');
+      $(update_id).attr('checked', true);
+      $('#adjust_edit_'+o_id).modal('hide');
+    });
+  });
 </script>

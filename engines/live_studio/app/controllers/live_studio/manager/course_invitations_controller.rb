@@ -8,11 +8,17 @@ module LiveStudio
       @invitations = @manager.invitations
       @invitations = @invitations.includes(:user).where("users.subject"=>params[:subject]) if params[:subject].present?
       @invitations = @invitations.where(status: LiveStudio::CourseInvitation.statuses[params[:status]]) if params[:status].present?
-      @invitations = @invitations.paginate(page: params[:page], per_page: 10)
+      @invitations = @invitations.order(id: :desc).paginate(page: params[:page], per_page: 10)
     end
 
     def new
-      @invitation = params[:template_id].present? ? LiveStudio::CourseInvitation.find(params[:template_id]).dup : LiveStudio::CourseInvitation.new
+      @invitation = if params[:template_id].present?
+                      invitation = @manager.invitations.find(params[:template_id])
+                      invitation.user_mobile = invitation.user.login_mobile
+                      invitation.dup
+                    else
+                      LiveStudio::CourseInvitation.new
+                    end
     end
 
     def create
@@ -28,7 +34,6 @@ module LiveStudio
 
     def cancel
       invitation = @manager.invitations.find(params[:id])
-
       if invitation.update(status: 'cancelled')
         redirect_to manager_course_invitations_path(@manager)
       end
@@ -42,9 +47,8 @@ module LiveStudio
 
     def invitation_params
       params.require(:course_invitation).permit(
-        :login_mobile, :teacher_percent, :expited_day
+        :user_mobile, :teacher_percent, :expited_day
       )
     end
-
   end
 end

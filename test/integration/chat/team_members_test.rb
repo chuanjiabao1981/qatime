@@ -26,19 +26,19 @@ module Chat
     test 'team members' do
       visit chat.members_team_path(@course.chat_team.team_id)
       assert page.has_content?(@student.name)
+      @living = false
     end
 
     test 'team member visit online' do
       visit chat.member_visit_team_path(@course.chat_team.team_id, acc_id: @student.chat_account.accid, token: @student.chat_account.token)
-      assert page.find(".online").has_content?(@student.name)
+      assert_includes page.all(".online").map(&:text), @student.name, "没有正确显示在线状态"
+      @living = false
     end
 
     test 'team member list page' do
       visit live_studio.play_course_path(@course)
       click_on '成员', match: :first
-      assert page.has_content?(@student.name)
-      sleep 2
-      assert page.find(".online").has_content?(@student.name)
+      assert_includes page.all(".online").map(&:text), @student.name, "没有正确显示在线状态"
       @living = true
     end
   end

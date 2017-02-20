@@ -7,6 +7,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
 
   before_action :authorize
+  before_action :set_city
 
   delegate :allow?, to: :current_permission
   helper_method :allow?
@@ -76,6 +77,10 @@ class ApplicationController < ActionController::Base
       "teacher_home_new"
     elsif current_user.student?
       'student_home_new'
+    elsif current_user.seller?
+      'seller_home'
+    elsif current_user.waiter?
+      'waiter_home'
     end
   end
 

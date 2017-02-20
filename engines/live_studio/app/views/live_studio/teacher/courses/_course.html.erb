@@ -1,33 +1,79 @@
-<%= content_tag(:div, class: 'course-box-div') do %>
-  <%= content_tag(:div, class: 'course-describe-div') do%>
-    <%= content_tag(:div,"#{t('view.course_show.start_time')}#{course.live_start_time}",class: 'describe-ceil') %>
-    <%= content_tag(:div,"#{t('view.course_show.end_time')}#{course.live_end_time}",class: 'describe-ceil') %>
-    <%= content_tag(:div,"#{t('view.course_show.status')}#{course.status_text}",class: 'describe-ceil') %>
-  <% end %>
-  <%= content_tag(:div, class: 'course-info-div') do %>
-    <%= content_tag(:div, image_tag(course.publicize_url(:list)),class: 'publicize') %>
-    <%= content_tag(:div, class: 'course-content-div') do %>
-      <%= content_tag(:div,class: 'course-info-col') do %>
-        <%= content_tag(:div, course.name, class: 'course-name') %>
-        <%= preview_time(course) %>
-      <% end %>
-      <%= content_tag(:div, "#{t('view.teacher_course.price') % course.price}", class: 'content-ceil-small') %>
-      <%= content_tag(:div, "#{t('view.teacher_course.teacher_percentage') % course.teacher_percentage}", class: 'content-ceil-small') %>
-      <%= content_tag(:div, "#{t('view.teacher_course.buy_tickets_count') % course.buy_tickets_count}", class: 'content-ceil-small') %>
-      <%= content_tag(:div, "#{t('view.teacher_course.subject') % course.subject}", class: 'content-ceil-small') %>
-      <%= content_tag(:div, "#{t('view.teacher_course.grade') % course.grade}", class: 'content-ceil-small') %>
-      <%= content_tag(:div, "#{t('view.course_show.schedule')}#{course.completed_lesson_count}/#{course.preset_lesson_count}", class: 'content-ceil-small') %>
-      <%= content_tag(:div, "#{t('view.teacher_course.next_live_time') % course.live_next_time}") %>
-    <%end %>
-    <%= content_tag(:div, class: 'course-operator-div') do%>
-      <%= content_tag(:div, class: 'course-operator-btn') do %>
-        <%= link_to t('view.course_show.info'),teacher_course_path(@teacher,course), class: 'btn btn-default operator-btn' %>
-        <%= link_to t('view.course_show.lessons'),teacher_course_path(@teacher,course,index: 'list'), class: 'btn btn-default operator-btn' %>
-        <%= link_to t("activerecord.view.course_publish"), publish_course_path(course), method: :patch,
-                    class: "btn btn-default operator-btn #{course.cant_publish? ? 'disabled' : nil}",
-                    remote: true, 'data-confirm' => t("view.teacher_course.publish_confirm"),
-                    id: "course_publish_btn_#{course.id}" if course.init?%>
-      <% end %>
-    <% end %>
-  <% end %>
-<% end %>
+<div class="tutorial-con">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+      <tr>
+        <td rowspan="3" class="tutorial-con-td">
+          <%= image_tag(course.publicize_url(:list)) %>
+        </td>
+        <td colspan="3">
+          <span class="tutorial-con-msg"><%= course.name %></span>
+        </td>
+        
+      </tr>
+      <tr>
+        <td>
+          <span class="tutorial-con-head"><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
+          <span><%= course.grade %></span>
+        </td>
+        <td>
+          <span class="tutorial-con-head"><%= LiveStudio::Course.human_attribute_name(:students_count) %></span>
+          <span><%= course.buy_user_count %></span>
+        </td>
+        <td class="tutorial-con-audit"><span><%= course.status.text %></span></td>
+      </tr>
+      <tr>
+        <td class="tutorial-con-new">
+          <span class="tutorial-con-head tutorial-con-edit"><%= LiveStudio::Course.human_attribute_name(:price) %></span>
+          <span class="tutorial-con-edit">
+            <%= number_to_currency(course.price, unit: "￥", precision: 2) %>
+            <i>(<%= number_to_percentage(course.teacher_percentage, precision: 0) %><%= LiveStudio::Course.human_attribute_name(:percentage) %>)</i>
+          </span>
+        </td>
+        <td>
+          <span class="tutorial-con-head tutorial-con-edit"><%= LiveStudio::Course.human_attribute_name(:lessons_progress) %></span>
+          <span class="tutorial-con-edit"><%= course.finished_lessons_count %>/<%= course.lessons_count %></span>
+        </td>
+        <td>
+          <center>
+            <span class="tutorial-con-edit">
+              <%= link_to live_studio.preview_courses_path(id: course), method: :post, target: '_blank' do %>
+                [<%= t("common.preview") %>]
+              <% end %>
+              <%= link_to update_class_date_teacher_course_path(@teacher, course) do %>
+                [<%= t('common.alert_lesson') %>]
+              <% end if course.teaching? %>
+              <%= link_to live_studio.edit_course_path(course) do %>
+                [<%= t("common.edit") %>]
+              <% end if course.init? || course.rejected? %>
+              <%= link_to 'javascript:void(0);', id: "delete-#{course.id}", data: {toggle: 'modal', target: "#delete_#{course.id}" } do %>
+                [<%= t("common.delete") %>]
+              <% end if course.init? || course.rejected? %>
+              <%= link_to live_studio.course_announcements_path(course) do %>
+                [<%= t("common.announcement") %>]
+              <% end if course.teaching? %>
+
+              <div class="modal fade in" id="delete_<%= course.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+                  <div class="modal-dialog" role="document">
+                    <div class="editor-delete">
+                      <div class="editor-delete-title">
+                        <span style="float: left;">提示</span>
+                      </div>
+                      <div class="editor-delete-con">
+                        <p>是否确认删除此课程？</p>
+                      </div>
+                      <div class="editor-delete-btn">
+                        <center>
+                          <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close">取消</a>
+                          <%= link_to '确认', live_studio.teacher_course_path(@teacher, course), method: :delete %>
+                        </center>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </span>
+          </center>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

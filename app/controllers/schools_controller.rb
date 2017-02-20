@@ -2,7 +2,7 @@ class SchoolsController < ApplicationController
   respond_to :html
 
   def index
-    @schools = School.all.order(:created_at)
+    @schools = current_user.manager? ? current_user.schools : School.all.order(:created_at)
   end
 
   def new
@@ -40,5 +40,8 @@ class SchoolsController < ApplicationController
     redirect_to schools_path
   end
 
-
+  private
+  def current_resource
+    @school = School.find(params[:id]) if params[:id]
+  end
 end

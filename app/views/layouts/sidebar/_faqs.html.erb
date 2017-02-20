@@ -1,24 +1,33 @@
 <% @current_resource ||= @current_user %>
-
-<ul class="faq-menu">
-  <%= content_tag :li, class: current_page?(action: :courses) ? 'active' : '' do%>
-    <%= link_to courses_qa_faqs_path do %>
-      <span class="qa_f18"><%= t('view.qa_bars.courses') %></span>
-    <% end %>
-  <% end %>
-  <%= content_tag :li, class: current_page?(action: :teacher) ? 'active' : '' do%>
-    <%= link_to teacher_qa_faqs_path do %>
-      <span class="qa_f18"><%= t('view.qa_bars.teacher') %></span>
-    <% end %>
-  <% end if current_user && !current_user.student? %>
-  <%= content_tag :li, class: current_page?(action: :student) ? 'active' : '' do%>
-    <%= link_to student_qa_faqs_path do %>
-      <span class="qa_f18"><%= t('view.qa_bars.student') %></span>
-    <% end %>
-  <% end if current_user && !current_user.teacher? %>
-  <%= content_tag :li, class: current_page?('/qa_faqs') || params[:action] == 'show' ? 'active' : '' do%>
-    <%= link_to qa_faqs_path do %>
-      <span class="qa_f18"><%= t('view.qa_bars.faqs') %></span>
-    <% end %>
-  <% end %>
-</ul>
+<div class="col-md-3 col-left col-study">
+  <div class="panel panel-default">
+    <div class="student-help">
+      <div class="nav-side">
+        <%= image_tag 'icon.png' %>
+        <span><%= t("menu.help") %></span>
+      </div>
+      <ul class="process-list">
+        <%= content_tag :li do -%>
+          <%= link_to courses_qa_faqs_path, class: "#{'active' if current_page?(action: :courses)}" do %>
+            <%= t('view.qa_bars.courses') %>
+          <% end %>
+        <% end %>
+        <%= content_tag :li do -%>
+          <%= link_to teacher_qa_faqs_path, class: "#{'active' if current_page?(action: :teacher)}" do %>
+            <%= t('view.qa_bars.teacher') %>
+          <% end %>
+        <% end if current_user && !current_user.student? %>
+        <%= content_tag :li do -%>
+          <%= link_to student_qa_faqs_path, class: "#{'active' if current_page?(action: :student)}" do %>
+            <%= t('view.qa_bars.student') %>
+          <% end %>
+        <% end if current_user && !current_user.teacher? %>
+        <%= content_tag :li do%>
+          <%= link_to qa_faqs_path, class: "#{'active' if current_page?('/qa_faqs') || params[:action] == 'show' }" do %>
+            <%= t('view.qa_bars.faqs') %>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -39,49 +39,49 @@ module LiveStudio
       assert_match @course.name, page.text, '--'
       page.go_back
       visit live_studio.courses_index_path
-      assert_match(LiveStudio::Course.preview.last.name, page.text, '没有正确跳转到辅导班搜索页')
+      assert_match(LiveStudio::Course.published.last.name, page.text, '没有正确跳转到辅导班搜索页')
     end
 
     test 'new & create seller' do
       click_on '销售'
-      click_on '增加销售',match: :first
+      click_on '新增销售',match: :first
       fill_in :seller_name, with: 'seller'
       fill_in :seller_email, with: "#{('a'..'z').to_a.sample(5).join}@qatime.cn"
+      fill_in :seller_login_mobile, with: "15911534521"
       fill_in :seller_password, with: 'password'
       fill_in :seller_password_confirmation, with: 'password'
-      select @workstation.name, from: :seller_workstation_id
       click_on '新增销售'
-      assert_match('销售已创建', page.text, '销售创建失败')
+      assert_match('销售创建成功', page.text, '销售创建失败')
     end
 
     test 'edit & update seller' do
       @seller = users(:seller)
       click_on '销售'
-      visit edit_managers_seller_path(@seller)
-      fill_in :seller_mobile, with: '13121249326'
+      visit main_app.edit_station_workstation_seller_path(@seller.workstation, @seller)
+      fill_in :seller_login_mobile, with: '13121246326'
       click_on '更新销售', match: :first
-      assert_match('销售已更新', page.text, '销售更新失败')
+      assert_match('销售更新成功', page.text, '销售更新失败')
     end
 
     test 'new & create waiter' do
       click_on '客服'
-      click_on '增加客服',match: :first
+      click_on '新增客服', match: :first
       fill_in :waiter_name, with: 'seller'
       fill_in :waiter_email, with: "#{('a'..'z').to_a.sample(5).join}@qatime.cn"
+      fill_in :waiter_login_mobile, with: "15911534520"
       fill_in :waiter_password, with: 'password'
       fill_in :waiter_password_confirmation, with: 'password'
-      select @workstation.name, from: :waiter_workstation_id
       click_on '新增客服'
-      assert_match('客服已创建', page.text, '客服创建失败')
+      assert_match('客服创建成功', page.text, '客服创建失败')
     end
 
     test 'edit & update waiter' do
       @waiter = users(:waiter)
       click_on '客服'
-      visit edit_managers_waiter_path(@waiter)
-      fill_in :waiter_mobile, with: '13121249326'
+      visit main_app.edit_station_workstation_waiter_path(@waiter.workstation, @waiter)
+      fill_in :waiter_login_mobile, with: '13121246328'
       click_on '更新客服', match: :first
-      assert_match('客服已更新', page.text, '客服更新失败')
+      assert_match('客服更新成功', page.text, '客服更新失败')
     end
   end
 end

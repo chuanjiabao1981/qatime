@@ -17,11 +17,8 @@ class QaFaqTest < ActionDispatch::IntegrationTest
     click_link '帮助',match: :first
     assert page.has_content?(QaFaq.last.title)
     click_link '辅导班流程'
-    assert find(:xpath, "//img[@alt='Course help' and @src='/imgs/course_help.jpg']"), '没找到图片'
-    click_link '老师使用说明'
-    assert page.has_content?('第一步：设置辅导班')
-    click_link '学生使用说明'
-    assert page.has_content?('第一/二步：搜索和购买辅导班')
+    has_content?('观看直播')
+    has_content?('进行直播')
     new_logout_as(@user)
   end
 

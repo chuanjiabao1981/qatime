@@ -80,6 +80,8 @@ cn:
         grade: 年级
         desc: 简介
         accept: 接受服务协议
+        city: 地区
+        school: 所在学校
       topic:
         title: 标题
         content: 内容

@@ -1,0 +1,22 @@
+<% if @item.errors.any? %>
+  <div id="error_explanation" class="has-error">
+    <ul>
+      <% @item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= f.input :title %>
+<%= f.input :index %>
+<%= f.input :link %>
+<%= f.association :city %>
+<%= f.input :logo, as: :file %>
+<%= content_tag(:div,content_tag(:label, Recommend::BannerItem.human_attribute_name(:platforms))) %>
+<div>
+  <% Recommend::Item::PLATFORMS.each do |k,v| %>
+    <%= check_box_tag "platforms[]", v, @item.platforms.try(:include?,v)%> <%= k %>
+  <% end %>
+</div>
+<%= f.submit %>

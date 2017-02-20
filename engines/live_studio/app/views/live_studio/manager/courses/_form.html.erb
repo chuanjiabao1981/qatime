@@ -4,7 +4,7 @@
     <%= f.input :name %>
     <%= f.association :teacher, input_html:{class: 'selectpicker',"data-live-search" => true} %>
     <%= f.input :teacher_percentage %>
-    <%= f.input :preset_lesson_count, input_html: {class: 'lesson_price_item'} %>
+    <%= f.input :lessons_count, input_html: {class: 'lesson_price_item'} %>
     <%= f.input :description, type: :text %>
     <%= f.input :subject, type: :select, collection: APP_CONSTANT['subjects'] %>
     <%= f.input :grade, type: :select, collection: APP_CONSTANT['grades_in_menu'] %>
@@ -27,7 +27,7 @@
   $(function(){
     $(".lesson_price_item").change(function(){
       var price = parseInt($("#course_price").val());
-      var lesson_count = parseInt($("#course_preset_lesson_count").val());
+      var lesson_count = parseInt($("#course_lessons_count").val());
       var lesson_price = lesson_count === 0 ? 0 : price / lesson_count;
       lesson_price = Math.floor(lesson_price);
       console.log(lesson_price);

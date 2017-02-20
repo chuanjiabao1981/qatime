@@ -14,8 +14,8 @@
         </td>
       </tr>
       <tr>
-        <td><%= t('view.course_info_show.lesson_count') %><%= @course.preset_lesson_count %></td>
-        <td><%= t('view.course_info_show.schedule') %><%= "#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %></td>
+        <td><%= t('view.course_info_show.lesson_count') %><%= @course.lessons_count %></td>
+        <td><%= t('view.course_info_show.schedule') %><%= "#{@course.finished_lessons_count}/#{@course.lessons_count}" %></td>
       </tr>
       <tr>
         <td colspan="2">
@@ -34,7 +34,7 @@
       </tr>
       <tr>
         <td colspan="2">
-          <%= t('view.course_info_show.ticket_count') %><%= @course.buy_tickets_count %>
+          <%= t('view.course_info_show.ticket_count') %><%= @course.buy_user_count %>
         </td>
       </tr>
     </table>

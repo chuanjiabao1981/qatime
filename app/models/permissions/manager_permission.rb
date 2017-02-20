@@ -12,19 +12,24 @@ module Permissions
       allow :vip_classes,[:show]
       allow :questions,[:index,:show,:student,:teacher,:teachers]
       allow :teaching_videos,[:show]
-      allow :students,[:index,:search,:show,:edit,:create,:update,
+      allow :students,[:index,:search,:show,
                        :info,:teachers,:customized_courses,:homeworks,
-                       :solutions,:account,:customized_tutorial_topics,:questions,:notifications, :admin_edit, :admin_update]
-      allow :home,[:index]
-      allow :schools,[:index,:new,:create,:show,:edit,:update]
+                       :solutions,:account,:customized_tutorial_topics,:questions,:notifications]
+
+      allow :home,[:index,:new_index,:switch_city]
+      allow :schools,[:index,:new,:create]
+      allow :schools,[:show,:edit,:update] do |school|
+        user.cities.include? school.city
+      end
       allow :register_codes, [:index, :new, :downloads, :create]
-      allow :teachers,[:index,:new,:create,:show,:edit,:update,:search,:pass,:unpass,
+      allow :teachers,[:index,:show,:search,:pass,:unpass,
                        :students,:curriculums,:info,:questions,:topics,:lessons_state,:homeworks,
-                       :exercises,:keep_account,:solutions,:customized_tutorial_topics,:notifications,
-                       :admin_edit, :admin_update, :customized_courses,:profile]
+                       :exercises, :keep_account, :solutions,:customized_tutorial_topics,:notifications,
+                       :customized_courses,:profile]
       allow :curriculums,[:index,:show]
       allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
       allow :courses,[:show]
+      allow :lessons,[:show]
       allow :comments,[:create,:show]
       allow :comments,[:edit,:update] do |comment|
         comment
@@ -36,11 +41,11 @@ module Permissions
         reply and reply.author_id == user.id
       end
 
-      allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks,:solutions, :get_sale_price] do |customized_course|
-        user and customized_course
+      allow :customized_courses, [:show,:edit,:update,:teachers,:topics,:homeworks,:solutions,:action_records] do |customized_course|
+        user && customized_course && user.customized_courses.include?(customized_course)
       end
 
-      allow :customized_courses ,[:new,:create] do |student|
+      allow :customized_courses ,[:new,:create,:get_sale_price,:teachers] do |student|
         user and student
       end
 
@@ -56,6 +61,11 @@ module Permissions
       allow :managers,[:customized_courses,:action_records, :waiters, :sellers] do |manager|
         manager.id == user.id
       end
+      # 专属课程
+      allow 'station/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+      # 专属课程
       allow :exercises,[:show]
       allow :sessions,[:destroy]
 
@@ -69,22 +79,29 @@ module Permissions
       allow :tutorial_issues,[:show]
       allow :course_issues, [:show]
       allow :tutorial_issue_replies,[:show]
-      allow :course_issues,[:show]
       allow :course_issue_replies,[:show]
       allow :comments,[:show]
       allow :corrections,[:show]
-
-
-      allow 'managers/sellers', [:new, :create, :edit, :update, :destroy]
-      allow 'managers/waiters', [:new, :create, :edit, :update, :destroy]
+      allow :notifications, [:index] do |resource_user|
+        resource_user && (user.id == resource_user.id || resource_user.student_or_teacher?)
+      end
 
       #######begine course library permission###############
-      allow "course_library/solutions",[:index, :show]
-      allow "course_library/homeworks",[:index, :show]
-      allow "course_library/courses",[:index, :show]
-      allow "course_library/directories",[:index, :show]
-      allow "course_library/syllabuses",[:index, :show]
+      # allow "course_library/solutions",[:index, :show]
+      # allow "course_library/homeworks",[:index, :show]
+      # allow "course_library/courses",[:index, :show]
+      # allow "course_library/directories",[:index, :show]
+      # allow "course_library/syllabuses",[:index, :show]
       #######end course library permission##################
+
+
+      ## begin recommend permission
+      allow 'recommend/positions', [:index, :show]
+      allow 'recommend/teacher_items', [:new, :create, :edit, :destroy, :update]
+      allow 'recommend/live_studio_course_items', [:new, :create, :edit, :destroy, :update]
+      allow 'recommend/banner_items', [:new, :create, :edit, :destroy, :update]
+      allow 'recommend/items', [:new, :create]
+      ## end   recommend permission
 
       ## begin live studio permission
       allow 'live_studio/manager/courses', [:index, :show, :new, :create, :edit, :update, :destroy] do |manager, course,action|
@@ -112,8 +129,9 @@ module Permissions
       allow 'live_studio/teacher/courses', [:index, :show]
       allow 'live_studio/student/courses', [:index, :show]
       allow 'live_studio/manager/course_invitations', [:index, :new, :create, :cancel]
-      allow 'live_studio/courses', [:index, :new, :create, :show]
-      allow 'live_studio/courses', [:edit, :update, :destroy] do |manager,course,action|
+      allow 'live_studio/manager/course_requests', [:index, :accept, :reject]
+      allow 'live_studio/courses', [:index, :new, :create, :show, :preview]
+      allow 'live_studio/courses', [:edit, :update, :destroy] do |course|
         permission =
           case course.try(:status)
             when 'init'
@@ -127,13 +145,50 @@ module Permissions
             else
               false
           end
-        course.author_id == manager.id && permission
+        user.workstations.map(&:id).include?(course.workstation_id) && permission
       end
       ## end live studio permission
       allow 'chat/teams', [:finish, :members, :member_visit]
       allow 'welcome', [:download]
       allow 'payment/users', [:cash]
       allow 'payment/orders', [:index, :show]
+
+      allow 'live_studio/station/courses', [:index] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+      allow 'live_studio/teacher/teachers', [:schedules]
+      allow 'live_studio/student/students', [:schedules]
+      allow 'live_studio/courses', [:schedule_sources]
+
+      # 招生请求
+      allow 'live_studio/station/course_requests', [:index, :accept, :reject] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+      # 招生请求
+
+      # 开班邀请
+      allow 'live_studio/station/course_invitations', [:index, :new, :create, :cancel] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+      # 开班邀请
+
+      # 员工
+      allow 'station/sellers', [:new, :create, :edit, :update, :destroy] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+      allow 'station/waiters', [:new, :create, :edit, :update, :destroy] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+      # 员工
+
+      allow 'station/lessons', [:state, :update] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+
+      allow 'payment/station/workstations', [:show, :cash, :earning_records, :withdraws] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+
     end
   end
 end

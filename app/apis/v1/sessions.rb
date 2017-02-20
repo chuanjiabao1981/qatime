@@ -17,9 +17,7 @@ module V1
         user = login_account.include?("@") ? User.find_by(email: login_account) : User.find_by(login_mobile: login_account)
         client_type = params['client_type'].to_sym
         if user && user.authenticate(params[:password])
-          # 判断客户端类型是否可以登陆
-          soft = ::Software.published.where(category: ::Software.categories[params[:client_cate]]).last
-          raise APIErrors::ClientInvalid unless soft.present? && soft.role == user.role
+          check_client!(user, params[:client_cate])
           login_token = sign_in(user, client_type)
           present login_token, with: Entities::LoginToken
         else
@@ -36,6 +34,26 @@ module V1
       delete do
         sign_out
       end
+
+      desc 'User Wechat Signup.' do
+      end
+      params do
+        requires :code, type: String, desc: '微信授权code'
+        requires :client_cate, type: String, values: %w(teacher_live student_client), desc: '客户端类型'
+        requires :client_type, type: String, desc: '登陆方式.'
+      end
+      post 'wechat' do
+        wechat_user = UserService::WechatApi.new(params[:code], 'mobile').web_access_token
+        user = wechat_user.try(:user)
+        if user.present?
+          check_client!(user, params[:client_cate])
+          login_token = sign_in(user, params['client_type'].to_sym)
+          present login_token, with: Entities::LoginToken
+        else
+          {openid: wechat_user.try(:openid)}
+        end
+      end
+
     end
   end
 end

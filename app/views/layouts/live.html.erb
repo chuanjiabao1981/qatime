@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <title>Qatime</title>
+  <meta name="renderer" content="webkit">
+  <%= stylesheet_link_tag "front_live", media: "all", "data-turbolinks-track" => false %>
+  
+  <%= javascript_include_tag "live_studio/application", "data-turbolinks-track" => false %>
+  <%= csrf_meta_tags %>
+  <%= yield :stylesheet %>
+</head>
+<body class="live-body">
+
+
+<%= render 'layouts/live_header' %>
+
+<%= render 'layouts/notice' %>
+
+<%= yield %>
+
+<div class="container container-footer">
+  <%= render 'layouts/front_footer' %>
+</div>
+<%= yield :mask %>
+<%= yield :javascript %>
+</body>
+</html>

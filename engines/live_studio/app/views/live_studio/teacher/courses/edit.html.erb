@@ -24,7 +24,7 @@
         <%= preview_time(@course,{text2: true}) %>
       </div>
       <div>
-        <%= "#{t('view.course_info_show.ticket_count')}#{@course.buy_tickets_count}" %>
+        <%= "#{t('view.course_info_show.ticket_count')}#{@course.buy_user_count}" %>
       </div>
     <% end %>
     <%= content_tag :div, class: "info-list-subtitle font-grey #{params[:index] == 'list' ? nil : 'hide'}" do %>
@@ -32,7 +32,7 @@
         <%= t('view.course_info_show.lesson_plan') % [@course.live_start_time ,@course.live_end_time] %>
       </div>
       <div>
-        <%= "#{t('view.course_info_show.schedule')}#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>
+        <%= "#{t('view.course_info_show.schedule')}#{@course.finished_lessons_count}/#{@course.lessons_count}" %>
       </div>
     <% end %>
   </div>

@@ -42,6 +42,11 @@
           <% end %>
         </li>
         <li>
+          <%= link_to main_app.audit_admins_refunds_path do %>
+            <span class="glyphicon glyphicon-user"></span> <span class="qa_f18">退款审核</span>
+          <% end %>
+        </li>
+        <li>
           <%= link_to main_app.teachers_path do %>
               <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 教师</span>
           <% end %>
@@ -99,8 +104,12 @@
             <span class="glyphicon glyphicon-question-sign"></span><span class="qa_f18"> <%= QaFaq.model_name.human %></span>
           <% end %>
         </li>
-
-
+        <li>
+          <%= link_to live_studio.admin_courses_path do %>
+            <span class="glyphicon glyphicon-list-alt"></span>
+            <span class="qa_f18"><%= LiveStudio::Course.model_name.human %></span>
+          <% end %>
+        </li>
 
         <li>
           <%= link_to main_app.admins_teaching_programs_path do %>
@@ -149,12 +158,7 @@
   <%= debug(params) if Rails.env.development? %>
 </div>
 <%= render 'layouts/footer' %>
-
-<script>
-  $(function() {
-    $("form").preventDup();
-  });
-</script>
+<%= yield :javascript %>
 
 </body>
 </html>

@@ -39,7 +39,22 @@ $(document).ready(function(){
     var send_data = ''
     var send_url = $node.data('send-url')
     var key = $node.data('key')
+    var input_value = send_to_input.value.trim()
 
+    if(input_value == ''){
+      alert('请填写账号');
+      return
+    }
+    var isMobile = /^1[3|4|5|7|8|9][0-9]\d{8}$/.test(input_value);
+    var isEmail = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.test(input_value);
+    if(!isMobile && !isEmail){
+      alert('账号输入不正确');
+      return
+    }
+    if(!isMobile && send_to_input.id.indexOf('mobile') > 0){
+      alert('请输入正确的手机号');
+      return
+    }
     if(send_to_input){
       var pattern = /\[(.*)\]/;
       var input_name = send_to_input.name;
@@ -60,19 +75,23 @@ $(document).ready(function(){
       },
 
       success: function(responseText, statusText, xhr, $form){
-        times=60,
-        timer=null;
-        timer=setInterval(function(){
-          times--;
-          if(times<=0){
-            send.value='<%= I18n.t("students.common.get_captcha")%>';
-            clearInterval(timer);
-            send.disabled=false;
-          }else{
-            send.value=times+'<%= I18n.t("students.common.try_get_captcha_again")%>'
-            send.disabled=true;
-          }
-        },1000)
+        if(responseText == 405){
+          alert('您已经注册过了, 请直接登陆');
+        }else{
+          times=60,
+            timer=null;
+          timer=setInterval(function(){
+            times--;
+            if(times<=0){
+              send.value='<%= I18n.t("students.common.get_captcha")%>';
+              clearInterval(timer);
+              send.disabled=false;
+            }else{
+              send.value='<%= I18n.t("students.common.try_get_captcha_again")%>'+'('+times+')';
+              send.disabled=true;
+            }
+          },1000)
+        }
       }
     });
   });

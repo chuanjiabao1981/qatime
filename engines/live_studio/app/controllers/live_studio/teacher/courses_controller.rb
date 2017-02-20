@@ -4,10 +4,12 @@ module LiveStudio
   class Teacher::CoursesController < Teacher::BaseController
     layout 'teacher_home_new'
 
-    before_action :set_course, only: [:show, :edit, :update, :destroy, :channel, :close, :update_class_date]
+    before_action :set_course, only: [:show, :edit, :update, :destroy, :channel, :close, :update_class_date, :desrtoy, :update_lessons]
 
     def index
-      @courses = LiveService::CourseDirector.courses_for_teacher_index(@teacher, params).paginate(page: params[:page])
+      @courses = @teacher.live_studio_courses
+      @courses = @courses.where(course_search_params) if course_search_params.present?
+      @courses = @courses.order(id: :desc).paginate(page: params[:page])
     end
 
     def show
@@ -41,6 +43,24 @@ module LiveStudio
     def update_class_date
     end
 
+    def destroy
+      if @course.init? || @course.rejected?
+        @course.destroy
+        redirect_to live_studio.teacher_courses_path(@teacher), notice: 'delete successfully'
+      else
+        redirect_to live_studio.teacher_courses_path(@teacher), alert: 'delete failed'
+      end
+    end
+
+    def update_lessons
+      if @course.update(lessons_params)
+        @course.ready_lessons
+        redirect_to live_studio.teacher_courses_path(@teacher), notice: i18n_notice('updated', @course)
+      else
+        render :update_class_date
+      end
+    end
+
     private
 
     def courses_chain
@@ -53,8 +73,24 @@ module LiveStudio
 
     # Only allow a trusted parameter "white list" through for update.
     def teacher_course_params
-      params.require(:course).permit(:name, :preset_lesson_count,:description,:publicize, :price)
+      params.require(:course).permit(:name,:description,:publicize, :price)
     end
 
+    def course_search_params
+      course_search_status =
+        case params[:cate]
+        when 'waiting'
+          [LiveStudio::Course.statuses[:init], LiveStudio::Course.statuses[:rejected]]
+        when 'teaching'
+          [LiveStudio::Course.statuses[:published], LiveStudio::Course.statuses[:teaching]]
+        when 'finished'
+          LiveStudio::Course.statuses[:completed]
+        end
+      { status: course_search_status }.compact
+    end
+
+    def lessons_params
+      params.require(:course).permit(lessons_attributes: [:id, :duration, :class_date, :start_time_hour, :start_time_minute, :_update])
+    end
   end
 end

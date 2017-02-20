@@ -24,3 +24,24 @@ channel_for_course_with_junior_teacher:
   course: course_with_junior_teacher
   remote_id: MyString
   status: 1
+
+board_channel:
+  name: course_for_channel_board
+  course: course_for_channel
+  remote_id: board_channel
+  status: 1
+  use_for: 0
+
+camera_channel:
+  name: course_for_channel_camera
+  course: course_for_channel
+  remote_id: camera_channel
+  status: 1
+  use_for: 1
+
+replay_channel:
+  name: course_for_replay
+  course: course_for_replay
+  remote_id: course_for_replay
+  status: 1
+  use_for: 0

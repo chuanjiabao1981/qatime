@@ -9,14 +9,16 @@ cn:
       finished: 已结束
       billing: 待结算
       completed: 已结算
+      missed: 待补课
     student:
       init: 未开始
       ready: 待上课
       teaching: 直播中
       paused: 直播中
-      closed: 已结束
+      closed: 已直播
       finished: 已结束
       billing: 已结束
       completed: 已结束
       paused_inner: 暂停中
+      missed: 待补课
 

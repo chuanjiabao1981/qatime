@@ -10,10 +10,11 @@ class StudentsController < ApplicationController
 
   def new
     @student = Student.new
-    if Rails.env.testing? || Rails.env.development?
-      RegisterCode.able_code.last.try(:value) || RegisterCode.batch_make("20", School.last)
-      @student.register_code_value = RegisterCode.able_code.last.value
-    end
+    render layout: 'application_login'
+    # if Rails.env.testing? || Rails.env.development?
+    #   RegisterCode.able_code.last.try(:value) || RegisterCode.batch_make("20", School.last)
+    #   @student.register_code_value = RegisterCode.able_code.last.value
+    # end
   end
 
   def create
@@ -26,22 +27,18 @@ class StudentsController < ApplicationController
       sign_in(@student) unless signed_in?
       redirect_to edit_student_path(@student, cate: :register, by: :register)
     else
-      render 'new'
+      p @student.errors
+      render 'new', layout: 'application_login'
     end
   end
 
   def show
-    # if params[:fee].nil?
-    #   @deposits = @student.account.deposits.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-    # else
-    #   @consumption_records      = @student.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
-    # end
     render layout: 'student_home_new'
   end
 
   def edit
     if params[:cate] == "register"
-      render layout: 'application'
+      render layout: 'application_login'
     else
       render layout: 'student_home_new'
     end
@@ -106,6 +103,7 @@ class StudentsController < ApplicationController
 
   def customized_courses
     @customized_courses = @student.customized_courses.paginate(page: params[:page],per_page: 10)
+    @customized_courses = @customized_courses.where(workstation: current_user.workstations) if current_user.manager?
     render layout: 'student_home_new'
   end
 
@@ -117,17 +115,18 @@ class StudentsController < ApplicationController
   def update
     if excute_update(update_by)
       if params[:cate] == "edit_profile"
-        redirect_to info_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
+        redirect_to info_student_path(@student, cate: params[:cate]), notice: t("flash.notice.update_success")
       elsif params[:cate] == "register"
         SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @student.id)
-        redirect_to user_home_path, notice: t("flash.notice.register_success")
+        return_to = params[:return_to].blank? ? user_home_path : params[:return_to]
+        redirect_to return_to, notice: t("flash.notice.register_success")
       else
         session.delete("change-#{update_by}-#{send_to}")
-        redirect_to edit_student_path(@student, cate:  params[:cate]), notice: t("flash.notice.update_success")
+        redirect_to edit_student_path(@student, cate: params[:cate]), notice: t("flash.notice.update_success")
       end
     else
       if params[:cate] == "register"
-        render :edit, layout: 'application'
+        render :edit, layout: 'application_login'
       else
         render :edit, layout: 'student_home_new'
       end
@@ -170,11 +169,15 @@ class StudentsController < ApplicationController
   end
 
   def profile_params
-    params.require(:student).permit(:name, :gender, :birthday, :grade, :province_id, :city_id, :desc)
+    params.require(:student).permit(:name, :gender, :birthday, :grade, :province_id, :city_id, :school_id, :desc)
   end
 
   def avatar_params
     params.require(:student).permit(:crop_x, :crop_y, :crop_w, :crop_h, :avatar)
+  end
+
+  def payment_password_params
+    params.require(:student).permit(:payment_password, :payment_password_confirmation, :payment_captcha_confirmation)
   end
 
   def update_params(update_by)
@@ -182,7 +185,8 @@ class StudentsController < ApplicationController
   end
 
   def create_params
-    params.require(:student).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :register_code_value, :accept)
+    # params.require(:student).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :register_code_value, :accept)
+    params.require(:student).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :accept)
   end
 
   def register_params
@@ -196,6 +200,8 @@ class StudentsController < ApplicationController
       return update_login_mobile
     when "email"
       return update_email
+    when 'payment_password'
+      return update_payment_password
     when "parent_phone"
       return update_parent_phone
     else
@@ -242,6 +248,16 @@ class StudentsController < ApplicationController
     if @student.errors.blank?
       captcha_manager.expire_captch(:change_email_captcha)
       session.delete("change-email-#{@student.login_mobile}")
+    end
+  end
+
+  def update_payment_password
+    captcha_manager = UserService::CaptchaManager.new(@student.login_mobile)
+    @student.payment_captcha = captcha_manager.captcha_of(:payment_password)
+    @student.update_payment_pwd(payment_password_params)
+  ensure
+    if @student.errors.blank?
+      captcha_manager.expire_captch(:payment_password)
     end
   end
 

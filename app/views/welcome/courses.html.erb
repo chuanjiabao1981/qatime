@@ -57,7 +57,7 @@
                       </div>
                     <% end %>
                   <br>
-                  <span class="buy_number"><%= t ".buy_count" %><%= course.buy_tickets_count %></span>
+                  <span class="buy_number"><%= t ".buy_count" %><%= course.buy_user_count %></span>
                 </div>
                 <hr style="margin-top: 10px; margin-bottom: 10px;">
 
@@ -65,7 +65,7 @@
                   <%= image_tag teacher.try(:avatar_url), size: "35x35", class: "teacher_avatar img-circle";%>
                   <%= teacher.try(:name) %>
                   <span class="teacher_span"><%= t ".teacher" %></span>
-                  <span class="course_lessons"><%= course.grade %><%= course.subject %>/<%= t ".lesson_count", count: course.preset_lesson_count %></span>
+                  <span class="course_lessons"><%= course.grade %><%= course.subject %>/<%= t ".lesson_count", count: course.lessons_count %></span>
                 </div>
                 <div class="div_bottom">
                   <div class="desc_div">
@@ -108,7 +108,7 @@
             <td class="td_title"><%= t ".waiter_phone" %></td>
             <td>
               <span class="tel_span">
-                0353-2135828
+                400-838-8010
               </span>
               <div class="week_div">
                 <%= t ".work_time" %><br>

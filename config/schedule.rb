@@ -46,7 +46,16 @@ every 1.day, :at => '2:00 am', :roles => [:web] do
   runner "LiveService::LessonDirector.billing_lessons"
 end
 
+# 每天凌晨3点清理全部完成的辅导班
+every 1.day, :at => '3:00 am', :roles => [:web] do
+  runner "LiveService::CourseDirector.clean_courses"
+end
+
 # 五分钟执行一次,判断是否有teaching状态的课程已离线
 every 5.minutes do
   runner "LessonPauseWorker.perform_async"
+end
+
+every [5, 15, 25].map { |d| "0 0 #{d} * *" } do
+  runner 'WechatWorker.perform_async("transfer")'
 end

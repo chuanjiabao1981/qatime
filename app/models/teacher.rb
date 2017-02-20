@@ -24,6 +24,8 @@ class Teacher < User
   has_many :live_studio_courses, class_name: LiveStudio::Course
   has_many :live_studio_lessons, class_name: LiveStudio::Lesson, through: :live_studio_courses, source: :lessons
 
+  has_many :invitations, foreign_key: :user_id, class_name: LiveStudio::CourseInvitation
+
   # has_many :corrections
   # has_many :replies
 
@@ -33,10 +35,19 @@ class Teacher < User
   attr_accessor :school_name
 
   # 第二步注册，教师更新验证
-  validates_presence_of :subject, :category, if: :teacher_columns_required?, on: :update
+  with_options if: :teacher_columns_required?, on: :update do
+    validates_presence_of :subject, :category, :city_id, :teaching_years, message: '必选'
+    validates :desc, length: { minimum: 6, maximum: 300 }
+  end
+
+  # 资料编辑验证
+  validates_presence_of :subject, :category, :city_id, :school_id, :desc, :teaching_years, if: :context_edit_profile?
+
+  validates :desc, length: { in: 6..400 }, if: :context_edit_profile?
+  validates :name, length: { in: 1..30 }, on: :update
 
   # 学校不能为空
-  validates :school, presence: true, on: :update
+  validates :school, presence: {message: '必填'}, on: :update
 
   scope :by_category, ->(c) { where(category: c) if c}
   scope :by_subject, ->(s) { where(subject: s) if s}

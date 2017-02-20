@@ -14,6 +14,8 @@ module UserService
     #   code
     # end
 
+    KEYS = [:register_captcha, :send_captcha, :get_password_back, :change_email_captcha, :withdraw_cash, :update_payment_pwd].freeze
+
     def self.verify(obj, code)
       obj[:captcha] == code && obj[:expire_at] > Time.now.to_i
     end
@@ -52,6 +54,10 @@ module UserService
       Redis.current.del("#{key}:#{@send_to}") if captcha_of(key)
     end
 
+    def verify(key, code)
+      captcha_of(key) == code
+    end
+
     private
 
     # 短信通知
@@ -85,6 +91,10 @@ module UserService
         SmsWorker::GET_PASSWORD_BACK
       when :withdraw_cash
         SmsWorker::WITHDRAW_CASH
+      when :update_payment_pwd
+        SmsWorker::PAYMENT_PASSWORD
+      when :payment_password
+        SmsWorker::PAYMENT_PASSWORD
       end
     end
   end

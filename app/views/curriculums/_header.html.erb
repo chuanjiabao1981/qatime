@@ -50,7 +50,7 @@
         <div class="row qa_f12">
           <div class="col-md-4">
             <span class="glyphicon glyphicon-map-marker"></span>
-            <span> <%=@curriculum.teacher.school.city.name if @curriculum.teacher %></span>
+            <span> <%=@curriculum.teacher.school.try(:city).try(:name) if @curriculum.teacher %></span>
           </div>
           <div class="col-md-8">
             <span class="glyphicon glyphicon-home"></span>

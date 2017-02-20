@@ -6,10 +6,11 @@
   <%= stylesheet_link_tag    "front", media: "all", "data-turbolinks-track" => false %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
   <%= csrf_meta_tags %>
+  <%= yield :stylesheet %>
 </head>
 <body>
 <%
-   @none_path = current_user.blank? ? signin_path : (!current_user.student? && !current_user.teacher? && 'javascript:void(0);')
+   @none_path = current_user.blank? ? signin_path : (!current_user.manager? && !current_user.student? && !current_user.teacher? && 'javascript:void(0);')
 %>
 <header>
   <div class="container">
@@ -25,59 +26,24 @@
   </div>
 </div>
 
-<%= yield %>
-<div class="container container-footer">
+<% if flash.any? %>
+<div class="container message-nav">
   <div class="row">
-    <footer class="recommended-link">
-      <div class="link-content">
-        <div class="row">
-          <div class="col-md-6 link-left">
-            <table border="0" cellspacing="0" cellpadding="0">
-              <tbody><tr>
-                <td><p>关于我们</p></td>
-
-                <td>
-                  <%= image_tag 'wechat_qrcode.png', style: 'width: 121px;height: 121px;' %>
-                </td>
-                <td><p>扫描左侧二维码关注"答疑时间"官方公众号，随时随地了解最新的学习信息</p></td>
-                <td></td>
-              </tr>
-              </tbody></table>
-          </div>
-          <div class="col-md-6 link-right">
-            <table border="0" cellspacing="0" cellpadding="0">
-              <tbody><tr>
-                <td>客服电话</td>
-                <td class="link-phonenum">0353-2135828</td>
-                <td class="link-td">周一至周五<br>9:00-16:00</td>
-              </tr>
-              <tr>
-                <td>客服QQ</td>
-                <td colspan="2">769051099 韩老师 / 819178240 关老师</td>
-              </tr>
-              <tr>
-                <td>地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 址</td>
-                <td colspan="2">阳泉市开发区大连路36号远东大厦 809</td>
-              </tr>
-              </tbody></table>
-          </div>
-        </div>
-        <div class="link-city">
-          <p>
-            <span class="city-cooperation">合作城市</span>
-            <a href="" class="city-name">诸暨</a>
-            <a href="">阳泉</a>
-            <!--<a href="" class="city-feedback">意见反馈</a>-->
-          </p>
-        </div>
-        <div class="copyright" style="text-align: center; padding-top: 20px;">
-          <div>Copyright © 2013-2015 QaTime.</div>
-          <div>京ICP备12031445号-3</div>
-        </div>
-      </div>
-    </footer>
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
   </div>
 </div>
+<% end %>
+
+
+<%= yield %>
+
+
+<div class="container container-footer">
+  <%= render 'layouts/front_footer' %>
+</div>
+<%= yield :mask %>
 <%= yield :javascript %>
 </body>
 </html>

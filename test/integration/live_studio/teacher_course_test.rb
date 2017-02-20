@@ -11,7 +11,7 @@ module LiveStudio
       @manager = ::Manager.find(users(:manager).id)
       @workstation = @manager.workstations.sample
 
-      @teacher = ::Teacher.find(users(:teacher_one).id)
+      @teacher = users(:teacher_for_billing)
 
       log_in_as(@teacher)
     end
@@ -24,10 +24,12 @@ module LiveStudio
     test "teacher update a courses" do
       course = live_studio_courses(:course_one_of_teacher_one)
       visit chat.finish_live_studio_course_teams_path(course)
-      visit live_studio.edit_teacher_course_path(@teacher,course)
+
+      visit live_studio.edit_course_path(course)
       fill_in :course_name, with: '测试英语辅导课程更新'
       fill_in :course_description, with: 'edit course description'
-      click_on '保存'
+      click_on '发布招生'
+      sleep 1
       course.reload
       assert_equal('测试英语辅导课程更新', course.name, '辅导班名称修改错误')
       assert_equal('edit course description', course.description, '辅导班描述修改错误')

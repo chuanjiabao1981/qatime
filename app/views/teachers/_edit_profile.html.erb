@@ -90,11 +90,44 @@
         </div>
       </div>
     </div>
+
+    <div class="qa_cell">
+      <div class="row">
+        <div class="col-md-2 text-right form_lable"><%= Teacher.human_attribute_name(:city) %></div>
+        <div class="col-md-9">
+          <%= f.input :province_id,
+                      label: false,
+                      collection: Province.all.map{|p| [p.name, p.id]},
+                      include_blank: true,
+                      input_html: {
+                        'data-remote': true,
+                        'data-url': url_for(controller: 'ajax/data', action: 'option_cities', second: 'data-second', third: 'data-third')
+                      } %>
+          <%= f.input :city_id,
+                      label: false,
+                      collection: City.where(province_id: f.object.province_id).map{|c| [c.name, c.id]},
+                      include_blank: true,
+                      input_html: {
+                        class: 'data-second',
+                        'data-remote': true,
+                        'data-url': url_for(controller: 'ajax/data', action: 'option_schools', third: 'data-third')
+                      } %>
+        </div>
+      </div>
+    </div>
+      
+
     <div class="qa_cell">
       <div class="row">
         <div class="col-md-2 text-right form_lable"><%=Teacher.human_attribute_name(:school)%></div>
         <div class="col-md-9">
-          <%= f.input :school_id, label: false, :collection => School.all.collect { |s| ["#{s.city.name}-#{s.name}",s.id]}, include_blank: false %>
+          <%= f.input :school_id,
+                      label: false,
+                      collection: School.where(city_id: f.object.city_id).map {|s| [s.name, s.id] },
+                      include_blank: true,
+                      input_html: {
+                        class: 'data-third'
+                      } %>
         </div>
       </div>
     </div>
@@ -118,7 +151,7 @@
       <div class="row">
         <div class="col-md-2 text-right form_lable"><%=Teacher.human_attribute_name(:desc)%></div>
         <div class="col-md-9">
-          <%= f.input :desc, label: false, as: :text %>
+          <%= f.input :desc, label: false, as: :text, placeholder: "介绍下自己，如个人优势/从教经历/教学特色等。" %>
         </div>
       </div>
     </div>
@@ -190,7 +223,8 @@
             aspectRatio: 1 ,
             setSelect: [ 0, 0, 240, 240 ],
             onSelect: selectCoords,
-            onChange: selectCoords
+            onChange: selectCoords,
+            keySupport : false
           },function(){
             var bounds = this.getBounds();
             boundx = bounds[0];

@@ -1,52 +1,119 @@
-<div class="col-md-10 col-md-offset-1">
-  <div class="qa_box row">
-    <div class="qa_big_cell ">
-      <h2 class="text-center"><%= t ".title" %></h2>
-      <%= simple_form_for(@user, as: :user, url: passwords_path, html: { method: :post }) do |f| %>
-      <div class="form-inputs">
-        <div class="row">
-          <div class="col-md-3 text-right"><%= Student.human_attribute_name(:login_account)%></div>
-          <% if signed_in? %>
-            <div class="col-md-6">
-              <%= current_user.login_account %>
-              <%= f.input :login_account, as: :hidden, input_html: {value: current_user.login_account} %>
-            </div>
-          <% else %>
-            <div class="col-md-6">
-              <%= f.input :login_account, label: false, input_html: { placeholder: t('.login_account_hd') } %>
-            </div>
-          <% end %>
-        </div>
-        <div class="row">
-          <div class="col-md-3 text-right form_lable"><%= t ".captcha" %></div>
-          <div class="col-md-6">
-            <div class="row">
-              <div class="col-md-7">
-                <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 ,placeholder: t('.captcha_hd')} %>
-              </div>
-              <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#user_login_account" data-send-url="<%= ajax_captchas_url %>" data-key="get_password_back" value="<%= t "students.common.get_captcha" %>">
-              </div>
-            </div>
+<div class="login-wechat">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="tea-register retrieve-password">
+          <div class="tea-register-title">
+            <%= t ".title" %>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 text-right form_lable"><%= Student.human_attribute_name(:password) %></div>
-          <div class="col-md-6">
-            <%= f.input :password, label: false, :autocomplete => "off", input_html:{placeholder: t('.passwd_hd')} %>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-3 text-right"><%= Student.human_attribute_name(:password_confirmation)%></div>
-          <div class="col-md-6">
-            <%= f.input :password_confirmation, label: false, input_html: {placeholder: t('.passwd_confirm_hd')} %>
-          </div>
-        </div>
+          <div class="tea-register-left">
+            <%= simple_form_for(@user, as: :user, url: passwords_path, html: { method: :post }) do |f| %>
+              <div class="form-group">
+                <div class="input-group">
+                  <% unless signed_in? %>
+                    <%= f.text_field :login_account,class: 'form-control phone-num', placeholder: '请输入登录的手机号或邮箱'%>
+                  <% else %>
+                    <%= f.input :login_account, as: :hidden, input_html: {value: current_user.login_account} %>
+                    <%= current_user.login_account %>
+                  <% end %>
 
-        <div class="row text-center">
-          <%= f.submit t('.submit'), class: "btn btn-default" %>
+                </div>
+                <%= f.error :login_account %>
+                <%= content_tag :span, '', class: 'help-block has-error' if @user.errors[:login_account].blank? %>
+              </div>
+              <div class="form-group">
+                <div class="input-group">
+                  <%= f.text_field :captcha_confirmation, class: 'auth-code form-control', maxlength: 4 ,placeholder: '请输入校验码' %>
+                  <span class="input-group-btn">
+                      <input class="btn btn-default" id="btn-obtain" type="button" data-send-captcha-btn data-send-to-input="#user_login_account"
+                             data-send-url="<%= ajax_captchas_path %>" data-key="get_password_back" value="<%= t "students.common.get_captcha" %>">
+                    </span>
+                </div>
+                <%= f.error :captcha_confirmation %>
+                <%= content_tag :span, '', class: 'help-block has-error' if @user.errors[:captcha_confirmation].blank? %>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <%= f.password_field :password, class: 'form-control pwd-1', :autocomplete => "off", placeholder: '请输入新密码（最少6位）' %>
+                </div>
+                <%= f.error :password %>
+                <%= content_tag :span, '', class: 'help-block has-error' if @user.errors[:password].blank? %>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <%= f.password_field :password_confirmation,class: 'form-control pwd-2', placeholder: t('.passwd_confirm_hd') %>
+                </div>
+                <%= f.error :password_confirmation %>
+                <%= content_tag :span, '', class: 'help-block has-error' if @user.errors[:password_confirmation].blank? %>
+              </div>
+
+              <div class="form-group">
+                <div class="input-group">
+                  <input type="button" class="btn-submit active" name="" id="" value="提交">
+                </div>
+              </div>
+            <% end %>
+          </div>
         </div>
       </div>
-      <% end %>
     </div>
   </div>
 </div>
+<script type="text/javascript">
+
+  var flag = true;
+  $(".phone-num").blur(function  () {
+    var phone = $(".phone-num").val();
+    var reg = /^1[3|4|5|7|8]\d{9}$/;
+    var reg1 = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/;
+    if (phone.length <= 0) {
+      $(".has-error").eq(0).html("请输入账号");
+      flag=false;
+    }else{
+      $(".has-error").eq(0).html("");
+      $(".btn-code").removeAttr("disabled");
+    }
+  })
+
+  $(".btn-submit").click(function  () {
+    var authcode = $(".auth-code").val();
+    var pwd1 = $(".pwd-1").val();
+    var pwd2 = $(".pwd-2").val();
+    var reg1 = /((?=[\x21-\x7e]+)[^A-Za-z0-9])/;
+    var flag = true;
+    if (authcode.length <= 0) {
+      $(".has-error").eq(1).html("请输入校验码");
+      flag=false;
+    }else if (authcode.length < 4) {
+      $(".has-error").eq(1).html("校验码不正确");
+      flag=false;
+    }else{
+      $(".has-error").eq(1).html("");
+    }
+
+    if (pwd1.length <= 0) {
+      $(".has-error").eq(2).html("请输入密码");
+      flag=false;
+    } else if (pwd1.length < 6||reg1.test(pwd1)) {
+      $(".has-error").eq(2).html("最少输入6位（不支持特殊字符）");
+      flag=false;
+    }else{
+      $(".has-error").eq(2).html("");
+    }
+
+    if (pwd2.length <= 0) {
+      $(".has-error").eq(3).html("请输入确认密码");
+      flag=false;
+    }else if (pwd1 != pwd2) {
+      $(".has-error").eq(3).html("两次密码不一致");
+      flag=false;
+    }else{
+      $(".has-error").eq(3).html("");
+    }
+    if(flag){
+      document.forms[0].submit();
+    }
+  })
+</script>

@@ -1,36 +1,66 @@
-<div class="col-md-6 col-md-offset-3">
-  <div class="qa_box row">
-    <div class="qa_big_cell ">
-      <h2 class="text-center"><%= t ".sign_in" %></h2>
-      <%= simple_form_for @user, url: sessions_path, method: :post do |f| %>
-      <div class="form-inputs">
-        <div class="row">
-          <div class="col-md-offset-3 col-md-6">
+
+<div class="login-content">
+  <div class="container">
+    <div class="row">
+      <div class="login-bg">
+        <%= image_tag('bg_session_new.jpg') %>
+      </div>
+      <div class="login-msg">
+        <%= simple_form_for @user, url: sessions_path, method: :post do |f| %>
+          <div class="login-account">
+            <div class="account-left">
+              <%= t('.log_in') %>
+            </div>
+            <div class="account-right">
+              <span><%= t('.no_account_desc') %></span>
+              <span>
+                <%= link_to t('view.common_bars.student_register'),new_student_path %>
+              </span>
+              <span>
+                <%= link_to t('view.common_bars.teacher_register'),new_teacher_path %>
+              </span>
+            </div>
+          </div>
+          <center>
+            <span class="help-block has-error"><%= flash.now[:warning]%></span>
+            <span class="help-block alert-notice"><%= flash.now[:notice]%></span>
+          </center>
+          <div class="login-account-con">
             <div class="input-group form-group string optional user_login_account">
               <span class="input-group-addon" id="basic-addon1"><i class="fa fa-user" aria-hidden="true"></i></span>
-              <input class="form-control string optional form-control" autofocus="autofocus" placeholder="<%= t '.login_account_placeholder'%>" type="text" name="user[login_account]" id="user_login_account">
+              <%= f.input_field :login_account, placeholder: t('.login_account_placeholder') %>
             </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-offset-3 col-md-6">
             <div class="input-group form-group string optional user_password">
-              <span class="input-group-addon" id="basic-addon1"><i class="fa fa-key" aria-hidden="true"></i></span>
-              <input class="password optional form-control" placeholder="<%= t '.password_placeholder' %>" type="password" name="user[password]" id="user_password">
+              <span class="input-group-addon" id="basic-addon1"><i class="fa fa-lock" aria-hidden="true"></i></span>
+              <%= f.input_field :password, placeholder: t('.password_placeholder') %>
+            </div>
+            <div class="input-password">
+                <span><input type="checkbox" name="" id="password" value="">
+                  <label for="password"><%= t('.remember_account') %></label>
+                </span>
+                <span>
+                  <%= link_to t(".forget_password"), new_password_path %>
+                </span>
+            </div>
+            <%= button_tag t('.sign_now'),class: 'login-send' %>
+            <div class="login-other">
+              <%= image_tag 'login_line.png' %>
+              <span><%= t('.other_login_type') %></span>
+              <%= image_tag 'login_line.png' %>
+            </div>
+            <div class="login-weixin">
+              <center>
+                <a href="<%= wechat_login_href %>">
+                  <%= image_tag 'login-weixin.png' %>
+                </a>
+              </center>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-offset-3 col-md-6">
-            <%= link_to t("passwords.common.find_password"), new_password_path, class: 'btn' %>
-          </div>
-        </div>
-
-        <div class="row text-center">
-          <%= f.submit t(".sign_in"), class: "btn btn-default" %>
-        </div>
+        <% end %>
       </div>
-      <% end %>
     </div>
   </div>
 </div>
+
+
+

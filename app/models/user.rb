@@ -15,21 +15,32 @@ class User < ApplicationRecord
   attr_reader :captcha_required
   attr_reader :password_required
   attr_reader :teacher_or_student_columns_required
+  # 支付密码
+  attr_accessor :payment_captcha_required, :payment_captcha, :payment_password
+
+  # 编辑上下文 用于条件验证
+  attr_accessor :context
 
   has_secure_password
 
   validates :nick_name, allow_nil: true, allow_blank:true, uniqueness: true,
             format: {with: /\A[\p{Han}\p{Alnum}\-_]{3,10}\z/,message:"只可以是中文、英文或者下划线，最短3个字符最长10个字符，不可包含空格。"}
 
-  validates :login_mobile, uniqueness: true, allow_blank: true
+  validates :login_mobile, :email, uniqueness: true, allow_nil: true
   # 验证码验证
-  validates :captcha, confirmation: { case_sensitive: false }, if: :captcha_required?
+  validates :captcha, confirmation: { case_sensitive: false , message: '校验码不正确'}, if: :captcha_required?
+  # 支付密码
+  with_options if: :payment_captcha_required do
+    validates :payment_captcha, confirmation: { case_sensitive: false }
+    validates :payment_password, confirmation: true, length: { minimum: 6 }
+  end
 
   # 个人安全信息修改
-  validates :password, length: { minimum: 6 }, if: :password_required?, on: :update
+  validates :password, length: { minimum: 6, message: '最少输入6位（不支持特殊字符）' }, if: :password_required?, on: :update
   validates :email, format: { with: VALID_EMAIL_REGEX }, uniqueness: true, if: :email_changed?, on: :update
 
-  validates_presence_of :avatar, :name, if: :teacher_or_student_columns_required?, on: :update
+  validates_presence_of :name, if: :teacher_or_student_columns_required?, on: :update
+  validates_presence_of :avatar, message: '请上传头像', if: :teacher_or_student_columns_required?, on: :update
 
   validates_presence_of :name, :email, if: :not_teacher_or_student?, on: [:create, :update]
   # 邮箱必填
@@ -46,6 +57,7 @@ class User < ApplicationRecord
 
   has_many :payment_recharges, class_name: Payment::Recharge # 通知记录
   has_many :payment_withdraws, class_name: Payment::Withdraw # 提现申请记录
+  has_many :payment_refunds, class_name: Payment::Refund # 退款记录
 
   has_many :notifications, -> { order 'created_at desc'}, foreign_key: :receiver_id
   has_many :customized_course_action_notifications, -> { order 'created_at desc'}, foreign_key: :receiver_id
@@ -125,6 +137,10 @@ class User < ApplicationRecord
     @captcha_required == true
   end
 
+  def payment_pwd_captcha_required?
+    @payment_pwd_captcha_required == true
+  end
+
   # 手动强制调用验证码验证
   def captcha_required!
     @captcha_required = true
@@ -163,6 +179,14 @@ class User < ApplicationRecord
     update_attributes(params, *options)
   end
 
+  # 更新支付密码
+  def update_payment_pwd(params, *options)
+    @payment_captcha_required = true
+    if update(params, *options)
+      cash_account!.update(password: payment_password, password_set_at: Time.now)
+    end
+  end
+
   def add_error_for_login_account
     errors.add(:login_account, :unregistered)
   end
@@ -188,14 +212,29 @@ class User < ApplicationRecord
     gender == 'female'
   end
 
+  # 编辑资料
+  def context_edit_profile?
+    context == :edit_profile
+  end
+
+  def mobile
+    login_mobile || super
+  end
+
   private
 
-  def register_code_valid
-    # 这里虽然设置了true使得验证成功后此注册码过期，但是由于如果整体teacher不成成功会rollback，
-    # 所以一个正确验证码在user其他字段不成功的情况下，同样还是有效的
-    self.tmp_register_code = RegisterCode.verification(register_code_value, true)
-    errors.add("register_code_value", "注册码不正确") unless tmp_register_code
+  before_validation :convert_blank_field
+  def convert_blank_field
+    self.email = nil if email == ''
+    self.login_mobile = nil if login_mobile == ''
   end
+
+  # def register_code_valid
+  #   # 这里虽然设置了true使得验证成功后此注册码过期，但是由于如果整体teacher不成成功会rollback，
+  #   # 所以一个正确验证码在user其他字段不成功的情况下，同样还是有效的
+  #   self.tmp_register_code = RegisterCode.verification(register_code_value, true)
+  #   errors.add("register_code_value", "注册码不正确") unless tmp_register_code
+  # end
 
   after_commit :sync_chat_account, on: :update, if: :chat_account_changed?
   def sync_chat_account
@@ -205,6 +244,7 @@ class User < ApplicationRecord
   # chat account是否需要同步
   def chat_account_changed?
     return false unless chat_account
+    return true unless chat_account.icon == avatar_url(:small)
     chat_account.name != (nick_name || name)
   end
 

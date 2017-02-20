@@ -10,10 +10,11 @@ class TeachersController < ApplicationController
 
   def new
     @teacher = Teacher.new
-    if Rails.env.testing? || Rails.env.development?
-      RegisterCode.able_code.last.try(:value) || RegisterCode.batch_make("20", School.last)
-      @teacher.register_code_value = RegisterCode.able_code.last.value
-    end
+    render layout: 'application_login'
+    # if Rails.env.testing? || Rails.env.development?
+    #   RegisterCode.able_code.last.try(:value) || RegisterCode.batch_make("20", School.last)
+    #   @teacher.register_code_value = RegisterCode.able_code.last.value
+    # end
   end
 
   def create
@@ -26,7 +27,7 @@ class TeachersController < ApplicationController
       sign_in(@teacher) unless signed_in?
       redirect_to edit_teacher_path(@teacher, cate: :register, by: :register)
     else
-      render 'new', layout: 'application'
+      render 'new', layout: 'application_login'
     end
   end
 
@@ -38,7 +39,7 @@ class TeachersController < ApplicationController
 
   def edit
     if params[:cate] == "register"
-      render layout: 'application'
+      render layout: 'application_login'
     else
       render layout: 'teacher_home_new'
     end
@@ -50,14 +51,14 @@ class TeachersController < ApplicationController
         redirect_to info_teacher_path(@teacher, cate:  params[:cate]), notice: t("flash.notice.update_success")
       elsif params[:cate] == "register"
         SmsWorker.perform_async(SmsWorker::REGISTRATION_NOTIFICATION, id: @teacher.id)
-        redirect_to user_home_path, notice: t("flash.notice.register_success")
+        redirect_to params[:more_alter].present? ? info_teacher_path(@teacher) : user_home_path, notice: t("flash.notice.register_success")
       else
         session.delete("change-#{update_by}-#{send_to}")
         redirect_to edit_teacher_path(@teacher, cate:  params[:cate]), notice: t("flash.notice.update_success")
       end
     else
       if params[:cate] == "register"
-        render :edit, layout: 'application'
+        render :edit, layout: 'application_login'
       else
         render :edit, layout: 'teacher_home_new'
       end
@@ -167,13 +168,15 @@ class TeachersController < ApplicationController
 
   def customized_courses
     @customized_courses = @teacher.customized_courses.paginate(page: params[:page],per_page: 10)
+    @customized_courses = @customized_courses.where(workstation: current_user.workstations) if current_user.manager?
     render layout: 'teacher_home_new'
   end
 
   def profile
     @user = @current_resource
-    @user_path = @user.blank? ? signin_path : (!@user.student? && !@user.teacher? && 'javascript:void(0);')
+    @user_path = current_user.blank? ? signin_path : (!current_user.student? && !current_user.teacher? && 'javascript:void(0);')
     @courses = @teacher.live_studio_courses.where('status > ?', LiveStudio::Course.statuses[:init])
+    @similar_courses = LiveStudio::Course.where(subject: @teacher.subject, grade: @teacher.grade).opening.limit(4)
     render layout: 'application_front'
   end
 
@@ -181,6 +184,10 @@ class TeachersController < ApplicationController
 
   def current_resource
     @current_resource = @teacher = Teacher.find(params[:id]) if params[:id]
+  end
+
+  def payment_password_params
+    params.require(:teacher).permit(:payment_password, :payment_password_confirmation, :payment_captcha_confirmation)
   end
 
   def password_params
@@ -196,7 +203,7 @@ class TeachersController < ApplicationController
   end
 
   def profile_params
-    params.require(:teacher).permit(:name, :nick_name, :gender, :birthday, :category, :school_id, :subject, :teaching_years, :desc)
+    params.require(:teacher).permit(:name, :nick_name, :gender, :birthday, :category, :province_id, :city_id, :school_id, :subject, :teaching_years, :desc)
   end
 
   def avatar_params
@@ -208,12 +215,13 @@ class TeachersController < ApplicationController
   end
 
   def create_params
-    params.require(:teacher).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :register_code_value, :accept)
+    # params.require(:teacher).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :register_code_value, :accept)
+    params.require(:teacher).permit(:login_mobile, :captcha_confirmation, :password, :password_confirmation, :accept)
   end
 
   def register_params
     params.require(:teacher).permit(:name, :nick_name, :gender, :subject, :category, :school_id, :desc, :email, :email_confirmation, :crop_x, :crop_y, :crop_w, :crop_h, :avatar, \
-    :province_id, :city_id, :school_name)
+    :province_id, :city_id, :school_name, :teaching_years)
   end
 
   # 根据跟新内容判断是否需要密码更新
@@ -223,6 +231,8 @@ class TeachersController < ApplicationController
       return update_login_mobile
     when "email"
       return update_email
+    when 'payment_password'
+      return update_payment_password
     else
       update_params = update_params(update_by)
       if update_params[:email] == ""
@@ -240,7 +250,13 @@ class TeachersController < ApplicationController
         update_params[:school] = school
       end
 
+      teaching_years_flag = Teacher.teaching_years.options.find{|years| years.first == update_params[:teaching_years]}
+      if teaching_years_flag.present?
+        update_params[:teaching_years] = teaching_years_flag.last
+      end
+
       @teacher.teacher_columns_required!
+      @teacher.context = :edit_profile if params[:cate] == 'edit_profile'
       @teacher.update(update_params)
     end
   end
@@ -255,6 +271,16 @@ class TeachersController < ApplicationController
     if @teacher.errors.blank?
       captcha_manager.expire_captch(:send_captcha)
       session.delete("change-login_mobile-#{send_to_was}") if send_to_was
+    end
+  end
+
+  def update_payment_password
+    captcha_manager = UserService::CaptchaManager.new(@teacher.login_mobile)
+    @teacher.payment_captcha = captcha_manager.captcha_of(:payment_password)
+    @teacher.update_payment_pwd(payment_password_params)
+  ensure
+    if @teacher.errors.blank?
+      captcha_manager.expire_captch(:payment_password)
     end
   end
 

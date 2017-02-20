@@ -3,11 +3,27 @@ LiveStudio::Engine.routes.draw do
   get 'courses/index'
   get 'courses/teate'
 
+  get ':course_id/realtime/announcements', to: 'realtime#announcements'
+  get ':course_id/realtime/members', to: 'realtime#members'
+
+  namespace :admin do
+    resources :courses, only: [:index]
+    resources :course_requests, only: [:index] do
+      member do
+        patch :accept
+        patch :reject
+      end
+    end
+  end
+
   resources :courses, only: [:index, :new, :create, :edit, :update, :show] do
     resources :orders, only: [:new, :create, :pay, :show] # 下单
+    resources :announcements, only: [:index, :update, :create], shallow: true
 
     collection do
       get :schedule_sources
+      post :preview
+      patch :preview
     end
 
     member do
@@ -16,15 +32,52 @@ LiveStudio::Engine.routes.draw do
       post :update_notice
       patch :publish
       get :refresh_current_lesson
+      get :live_status
     end
 
-    resources :lessons, only: [:show] do
+    resources :lessons, only: [:show], shallow: true do
       member do
         get :play
         patch :completed
+        get :videos
+        get :replay
       end
     end
   end
+
+  namespace :station do
+    resources :workstations, only: [] do
+      resources :courses, only: [:index]
+      resources :course_requests, only: [:index] do
+        member do
+          patch :accept
+          patch :reject
+        end
+      end
+      resources :course_invitations, only: [:index, :new, :create] do
+        member do
+          patch :cancel
+        end
+      end
+    end
+  end
+
+  # scope module: 'workstation' do
+  #   resources :users, only: [] do
+  #     resources :courses, only: [:index]
+  #     resources :course_requests, only: [:index] do
+  #       member do
+  #         patch :accept
+  #         patch :reject
+  #       end
+  #     end
+  #     resources :course_invitations, only: [:index, :new, :create] do
+  #       member do
+  #         patch :cancel
+  #       end
+  #     end
+  #   end
+  # end
 
   scope module: 'manager' do
     resources :managers, only: [] do
@@ -32,6 +85,12 @@ LiveStudio::Engine.routes.draw do
       resources :course_invitations, only: [:index, :new, :create] do
         member do
           patch :cancel
+        end
+      end
+      resources :course_requests, only: [:index] do
+        member do
+          patch :accept
+          patch :reject
         end
       end
     end
@@ -59,11 +118,12 @@ LiveStudio::Engine.routes.draw do
         get :schedules
         get :settings
       end
-      resources :courses, only: [:index, :show, :edit, :update, :create] do
+      resources :courses, only: [:index, :show, :edit, :update, :create, :destroy] do
         member do
           patch :close
           patch :channel
           get :update_class_date
+          patch :update_lessons
         end
       end
       resources :lessons do
@@ -75,6 +135,7 @@ LiveStudio::Engine.routes.draw do
         end
       end
 
+      resources :course_invitations, only: [:index, :destroy]
     end
   end
 

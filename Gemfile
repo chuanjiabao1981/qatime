@@ -16,6 +16,9 @@ gem 'grape'
 gem 'grape-entity'
 gem 'grape-swagger'
 
+# chinese
+gem 'spinying','~> 0.9'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 
@@ -58,7 +61,8 @@ end
 # 权限相关
 #gem 'devise', '3.0.1'
 
-gem 'bcrypt-ruby', '3.1.5'
+# gem 'bcrypt-ruby', '3.1.5'
+gem 'bcrypt'
 
 #表单
 gem 'simple_form'
@@ -136,6 +140,7 @@ group :development,:test do
   gem 'thin'
   gem 'pry'
 end
+gem 'roo'
 
 group :test do
   gem 'fakeweb'

@@ -1,6 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 workstation_one:
-  id: 1
   name: 第一个工作站
   city: 北京
   address: 朝阳区
@@ -30,3 +29,26 @@ workstation_another:
   tel: 1
   email: MyString
   manager: manager
+
+workstation_zhuji:
+  name: 诸暨工作站
+  city: zhuji
+  address: 浙江诸暨
+  tel: 1
+  email: MyString
+  manager: manager_zhuji
+
+workstation_hd:
+  name: 海淀工作站
+  city: 海淀
+  address: 北京海淀
+  tel: 1
+  email: MyString
+  manager: customized_courses_manager
+workstation_default:
+  name: 默认工作站
+  city:
+  address:
+  tel:
+  email: admin@qatime.cn
+  manager: admin

@@ -1,0 +1,25 @@
+<%= form_tag '', method: :get do -%>
+  <div class="condition">
+    <span><%= LiveStudio::Course.human_attribute_name(:current_status) %></span>
+    <%= select_tag :status, options_for_select(LiveStudio::Course.status.options.select{|item| 'init' != item.last }, params[:status]),
+                   prompt: t("live_studio.course.menu.all"),
+                   class: 'immediately' %>
+  </div>
+
+  <div class="condition">
+    <span><%= LiveStudio::Course.human_attribute_name(:subject) %></span>
+    <%= select_tag :subject, options_for_select(APP_CONSTANT['subjects'], params[:subject]), prompt: t("live_studio.course_request.menu.all"),
+                   class: 'immediately' %>
+  </div>
+  <div class="condition">
+    <span><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
+    <%= select_tag :grade, options_for_select(APP_CONSTANT['grades_in_menu'], params[:grade]),
+                   prompt: t("live_studio.course_request.menu.all"),
+                   class: 'immediately' %>
+  </div>
+
+  <div class="condition-right">
+    <%= link_to t("live_studio.course.menu.reset"), live_studio.station_workstation_courses_path(@workstation) %>
+    <%= submit_tag t("live_studio.course.menu.query") %>
+  </div>
+<% end %>

@@ -1,0 +1,30 @@
+request_one:
+  user: teacher1
+  course: course_maths_one
+  workstation: workstation_zhuji
+  status: 0
+request_two:
+  user: teacher1
+  course: course_maths_two
+  workstation:
+  status: 0
+request_three:
+  user: teacher1
+  course: course_maths_three
+  workstation:
+  status: 0
+request_four:
+  user: teacher1
+  course: course_maths_four
+  workstation: workstation_zhuji
+  status: 1
+request_five:
+  user: teacher1
+  course: course_maths_five
+  workstation: workstation_zhuji
+  status: 1
+request_six:
+  user: teacher1
+  course: course_maths_six
+  workstation: workstation_zhuji
+  status: 2

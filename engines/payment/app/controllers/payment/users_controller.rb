@@ -12,6 +12,9 @@ module Payment
         elsif params[:fee] == 'x'
           @withdraws = @student.payment_withdraws
           @withdraws = query_by_date(@withdraws).order(created_at: :desc).paginate(page: params[:page])
+        elsif params[:fee] == 'z'
+          @refunds = @student.payment_refunds
+          @refunds = query_by_date(@refunds).order(created_at: :desc).paginate(page: params[:page])
         else
           @recharges = @current_resource.payment_recharges
           @recharges = query_by_date(@recharges).order(created_at: :desc).paginate(page: params[:page])
@@ -26,7 +29,6 @@ module Payment
           @withdraws = query_by_date(@withdraws).order(created_at: :desc).paginate(page: params[:page])
         end
       end
-
       # @change_records = @current_resource.cash_account!.change_records.includes(billing: :target).paginate(page: params[:page])
     end
 

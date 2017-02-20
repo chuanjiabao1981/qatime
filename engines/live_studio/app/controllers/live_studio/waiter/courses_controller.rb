@@ -37,7 +37,7 @@ module LiveStudio
     # 开始招生
     def publish
       if @course.init?
-        @course.preview!
+        @course.publish!
         LiveService::CourseDirector.new(@course).instance_for_course
       end
     end
@@ -66,7 +66,7 @@ module LiveStudio
 
     # Only allow a trusted parameter "white list" through.
     def course_params
-      params.require(:course).permit(:name, :teacher_id, :description, :workstation_id, :price, :teacher_percentage, :preset_lesson_count)
+      params.require(:course).permit(:name, :teacher_id, :description, :workstation_id, :price, :teacher_percentage)
     end
 
     def workstations

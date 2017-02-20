@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lesson_id: 
+  status: 1
+  used_at: 2017-01-11 21:00:51
+
+two:
+  lesson_id: 
+  status: 1
+  used_at: 2017-01-11 21:00:51

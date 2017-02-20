@@ -2,7 +2,11 @@ module Payment
   class RemoteOrder < ActiveRecord::Base
     include AASM
 
+    serialize :hold_remotes, Hash
+    serialize :hold_results, Hash
+
     belongs_to :order, polymorphic: true
+
 
     enum status: {
            unpaid: 0, # 等待支付

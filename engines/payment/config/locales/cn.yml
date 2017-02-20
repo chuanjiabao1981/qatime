@@ -2,10 +2,28 @@ cn:
   view:
     withdraw_cn: 账户提现
     verify_error: 安全手机校验码不正确
+    password_error: 支付密码不正确
+    payment_password_label: 输入支付密码
+    payment_password_hd: 输入支付密码验证身份
+    find_password: 找回支付密码
+    able: 可用
     payment/consumption_record:
       view: 查看
     payment/earning_record:
       view: 查看
+    payment/earning_records:
+      search:
+        category:
+          total: 总收入
+          daily: 今日收入
+          three_day: 近三天收入
+          weekly: 最近1周
+          monthly: 最近30天
+          quarterly: 最近90天
+          half_yearly: 最近180天
+          yearly: 最近一年
+      list:
+        total_value: "(共计 %{amount})"
     payment/cash_account:
       recharge: 充值
       withdraw: 提现
@@ -15,11 +33,11 @@ cn:
       weixin_tips: 请使用微信扫一扫<br>扫描二维码支付
     payment/transaction:
       weixin_tips: 请使用微信扫一扫<br>扫描二维码支付
-      alipay_tips: 提示：核对信息后再点击确认访问支付宝页面进行支付，遇到问题请拨打客服电话 0353-2135828
-      offline_tips: 请联系管理员确认付款 0353-2135828
+      alipay_tips: 提示：核对信息后再点击确认访问支付宝页面进行支付，遇到问题请拨打客服电话 400-838-8010
+      offline_tips: 请联系管理员确认付款 400-838-8010
     withdraw:
       common:
-        ok: 确认
+        ok: 确定
         audit: 提现申请
         cancel_withdraw: 取消申请
         verify_mobile: 安全手机校验
@@ -27,6 +45,7 @@ cn:
         get_verify: 获取验证码
         bind_mobile: 已绑定手机
       amount: 提现金额
+      amount_hd: 输入想要提现的金额
       balance: 当前余额
       out_balance: 提现金额超出余额
       wait_audit: 当前有未完成的提现申请，请耐心等待审核完成
@@ -46,12 +65,14 @@ cn:
       cash_cn: 现金
       cash_tips: （需本人携带身份证提取）
       audit_withdraw: 申请提现
+      alipay: 支付宝转账
+      bank: 银行转账
   activerecord:
     view:
       order: 我的订单
       pay: 立即支付
       timeout: 已超时
-      pay_view_phone: 提示：如支付遇到问题，请拨打电话 010-58442007
+      pay_view_phone: "提示：如支付遇到问题，请拨打电话 0353-2135828 手机: 18535328283"
 
     models:
       payment/order: 订单
@@ -62,7 +83,16 @@ cn:
       payment/recharge: 充值记录
       payment/withdraw: 提现记录
       payment/cash_account: 资金账户
+      payment/refund_apply: 退款申请
+      payment/refund: 退款
+      payment/refund_record: 退款记录
     attributes:
+      payment/refund:
+        transaction_no: 订单编号
+        amount: 金额
+        pay_type: 退款方式
+        created_at: 时间
+        status: 状态
       payment/order:
         order_no: 订单编号
         product: 商品名称
@@ -98,6 +128,11 @@ cn:
         detail: 每小时单价*时长
         target_type: 收益类型
         operate: 操作
+        target: 收入来源
+        from_user: 参与人
+        counter: 序号
+        operate_detail: 查看明细
+        operate_hide: 收起
       payment/billing:
         total_money: 收支
         summary: 描述
@@ -142,7 +177,7 @@ cn:
         transaction_method: 交易方式
         transaction_info: 订单信息
         reset_pay_type: 重选支付方式
-        tips: 请核对充值信息后再进行付款操作
+        tips: 请核对信息后再进行付款操作
       payment/withdraw:
         amount: 金额
       payment/cash_account:
@@ -151,6 +186,8 @@ cn:
         total_expenditure: 累计消费
         recharge: 充值
         withdraw: 提现
+        current_password: 当前支付密码
+        password: 支付密码
       payment/withdraw:
         amount: 金额
         transaction_no: 编号
@@ -168,6 +205,7 @@ cn:
         failed: 下单失败
         refunded: 已退款
         waste: 无效订单
+        refunding: 等待退款
       withdraw:
         teacher:
           init: 审核中
@@ -176,8 +214,8 @@ cn:
           canceled: 已取消
         admin:
           init: 等待审核
-          allowed: 通过
-          refused: 驳回
+          allowed: 已通过
+          refused: 已驳回
           canceled: 用户取消
       withdraw_record:
         unpaid: 未付款

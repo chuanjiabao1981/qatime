@@ -1,0 +1,10 @@
+<% if course_request.submitted? -%>
+  <%= link_to t("live_studio/course_request.accept"),
+              accept_station_workstation_course_request_path(@workstation, course_request),
+              method: :patch if allow?('live_studio/station/course_requests', 'accept', @workstation) %>
+  <%= link_to t("live_studio/course_request.reject"),
+              reject_station_workstation_course_request_path(@workstation, course_request),
+              method: :patch if allow?('live_studio/station/course_requests', 'reject', @workstation) %>
+<% else %>
+  <%= course_request.status.text %>
+<% end %>

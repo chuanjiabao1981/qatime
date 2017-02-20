@@ -1,22 +1,34 @@
 module LiveStudio
   class Ticket < ActiveRecord::Base
     has_soft_delete
+    serialize :got_lesson_ids, Array
+
+    default_scope { order('id DESC') }
 
     belongs_to :course
     belongs_to :student, class_name: "::Student"
     belongs_to :lesson
+
+    has_many :ticket_items
+    belongs_to :sell_channel
+    belongs_to :channel_owner, polymorphic: true
 
     enum status: {
       inactive: 0,   # 准备试听
       active: 1,     # 可用
       pre_used: 2,   # 已经用完最后课程没有结束
       used: 3,       # 已经用完
+      refunding: 95, # 退款中
+      refunded: 96,  # 已退款,不可用
       replaced: 97,  # 试听证被正式听课证替换
       expired: 98,   # 未使用过期
       waste: 99      # 不可用
     }
 
+    # 可用
     scope :available, -> { where("live_studio_tickets.status < ?", statuses[:used]) }
+    # 不可用
+    scope :unavailable, -> { where("live_studio_tickets.status >= ?", statuses[:used]) }
     scope :visiable, -> { where("live_studio_tickets.status <= ?", statuses[:used]) }
     scope :authorizable, -> { where("live_studio_tickets.status < ?", statuses[:pre_used]) }
 
@@ -39,6 +51,7 @@ module LiveStudio
 
     # 增加使用次数
     def inc_used_count!(_urgent = false)
+      return if !taste? && course.finished_lessons_count >= course.lessons_count
       lock!
       self.used_count += 1
       used! if used_count >= buy_count

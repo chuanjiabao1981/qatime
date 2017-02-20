@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161101071815) do
+ActiveRecord::Schema.define(version: 20170217074422) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,7 +42,10 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.integer  "live_studio_lesson_id"
     t.text     "content"
     t.string   "category"
+    t.integer  "workstation_id"
   end
+
+  add_index "action_records", ["workstation_id"], name: "index_action_records_on_workstation_id", using: :btree
 
   create_table "answers", force: :cascade do |t|
     t.integer  "question_id"
@@ -109,17 +112,18 @@ ActiveRecord::Schema.define(version: 20161101071815) do
   add_index "chat_teams", ["live_studio_course_id"], name: "index_chat_teams_on_live_studio_course_id", using: :btree
 
   create_table "cities", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",               limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "province_id"
+    t.integer  "workstations_count",             default: 0
   end
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"
     t.integer  "author_id"
     t.integer  "commentable_id"
-    t.string   "commentable_type"
+    t.string   "commentable_type",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "customized_course_id"
@@ -142,8 +146,8 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.datetime "updated_at",                              null: false
     t.integer  "comments_count",         default: 0
     t.integer  "customized_course_id"
-    t.string   "status",                 default: "open", null: false
     t.integer  "homework_id"
+    t.string   "status",                 default: "open", null: false
     t.float    "teacher_price"
     t.float    "platform_price"
     t.string   "type"
@@ -222,20 +226,20 @@ ActiveRecord::Schema.define(version: 20161101071815) do
   add_index "course_purchase_records", ["student_id"], name: "index_course_purchase_records_on_student_id", using: :btree
 
   create_table "courses", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",                          limit: 255
     t.text     "desc"
-    t.integer  "lessons_count",                 default: 0
-    t.string   "token"
+    t.integer  "lessons_count",                             default: 0
+    t.string   "token",                         limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "price",                         default: 30.0
+    t.float    "price",                                     default: 30.0
     t.integer  "teacher_id"
-    t.string   "state",                         default: "unpublished"
+    t.string   "state",                         limit: 255, default: "unpublished"
     t.integer  "course_purchase_records_count"
     t.integer  "curriculum_id"
     t.string   "chapter"
-    t.integer  "position",                      default: 0
-    t.integer  "delete_topics_count",           default: 0
+    t.integer  "position",                                  default: 0
+    t.integer  "delete_topics_count",                       default: 0
   end
 
   create_table "curriculums", force: :cascade do |t|
@@ -320,8 +324,8 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.datetime "updated_at",                             null: false
     t.integer  "topics_count",          default: 0
     t.integer  "exercises_count",       default: 0
-    t.string   "status",                default: "open", null: false
     t.integer  "tutorial_issues_count", default: 0
+    t.string   "status",                default: "open", null: false
     t.float    "teacher_price"
     t.float    "platform_price"
     t.integer  "last_operator_id"
@@ -377,24 +381,24 @@ ActiveRecord::Schema.define(version: 20161101071815) do
   end
 
   create_table "faq_topics", force: :cascade do |t|
-    t.string   "title"
-    t.string   "user_type"
+    t.string   "title",      limit: 255
+    t.string   "user_type",  limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
   end
 
   create_table "faqs", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",         limit: 255
     t.text     "desc"
-    t.string   "token"
+    t.string   "token",        limit: 255
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "faq_type"
+    t.string   "faq_type",     limit: 255
     t.integer  "faq_topic_id"
-    t.integer  "is_top",       default: 0
-    t.string   "video_url"
+    t.integer  "is_top",                   default: 0
+    t.string   "video_url",    limit: 255
   end
 
   add_index "faqs", ["user_id"], name: "index_faqs_on_user_id", using: :btree
@@ -411,6 +415,24 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.float    "teacher_price"
     t.float    "sale_price"
   end
+
+  create_table "invitations", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "inviter_id"
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.datetime "expited_at"
+    t.integer  "teacher_percent"
+    t.integer  "status",          default: 0
+    t.text     "remark"
+    t.string   "type"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+  end
+
+  add_index "invitations", ["inviter_id"], name: "index_invitations_on_inviter_id", using: :btree
+  add_index "invitations", ["target_type", "target_id"], name: "index_invitations_on_target_type_and_target_id", using: :btree
+  add_index "invitations", ["user_id"], name: "index_invitations_on_user_id", using: :btree
 
   create_table "learning_plan_assignments", force: :cascade do |t|
     t.integer  "learning_plan_id"
@@ -437,65 +459,135 @@ ActiveRecord::Schema.define(version: 20161101071815) do
   end
 
   create_table "lessons", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",          limit: 255
     t.text     "desc"
     t.integer  "course_id"
-    t.string   "token"
+    t.string   "token",         limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "teacher_id"
     t.integer  "curriculum_id"
-    t.string   "state",         default: "init"
-    t.integer  "topics_count",  default: 0
-    t.jsonb    "tags",          default: []
+    t.string   "state",                     default: "init"
+    t.integer  "topics_count",              default: 0
+    t.jsonb    "tags",                      default: []
   end
 
   add_index "lessons", ["tags"], name: "index_lessons_on_tags", using: :gin
 
-  create_table "live_studio_channels", force: :cascade do |t|
-    t.string   "name",       limit: 255
+  create_table "live_studio_announcements", force: :cascade do |t|
     t.integer  "course_id"
-    t.string   "remote_id",  limit: 100
-    t.integer  "status",                 default: 0
+    t.integer  "creator_id"
+    t.string   "creator_type"
+    t.string   "content"
+    t.boolean  "lastest"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "live_studio_announcements", ["course_id"], name: "index_live_studio_announcements_on_course_id", using: :btree
+
+  create_table "live_studio_channel_videos", force: :cascade do |t|
+    t.integer  "channel_id"
+    t.integer  "vid"
+    t.string   "name"
+    t.string   "key"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "duration"
+    t.string   "type_id"
+    t.string   "snapshot_url"
+    t.string   "orig_url"
+    t.string   "download_orig_url"
+    t.string   "initial_size"
+    t.string   "sd_mp4_url"
+    t.string   "download_sd_mp4_url"
+    t.string   "sd_mp4_size"
+    t.string   "hd_mp4_url"
+    t.string   "download_hd_mp4_url"
+    t.string   "hd_mp4_size"
+    t.string   "shd_mp4_url"
+    t.string   "download_shd_mp4_url"
+    t.string   "shd_mp4_size"
+    t.string   "create_time"
+    t.integer  "lesson_id"
+    t.string   "nid"
+    t.integer  "video_for",            default: 0
+    t.string   "url"
+    t.string   "begin_time"
+    t.string   "end_time"
+    t.string   "orig_video_key"
+    t.string   "uid"
+  end
+
+  create_table "live_studio_channels", force: :cascade do |t|
+    t.string   "name",                limit: 255
+    t.integer  "course_id"
+    t.string   "remote_id",           limit: 100
+    t.integer  "status",                          default: 0
     t.datetime "deleted_at"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "use_for",                default: 0
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.integer  "use_for",                         default: 0
+    t.integer  "live_status",                     default: 0
+    t.boolean  "set_always_recorded",             default: false
   end
 
   add_index "live_studio_channels", ["course_id"], name: "index_live_studio_channels_on_course_id", using: :btree
 
+  create_table "live_studio_course_requests", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "course_id"
+    t.integer  "workstation_id"
+    t.integer  "status"
+    t.datetime "handled_at"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "live_studio_course_requests", ["course_id"], name: "index_live_studio_course_requests_on_course_id", using: :btree
+  add_index "live_studio_course_requests", ["user_id"], name: "index_live_studio_course_requests_on_user_id", using: :btree
+  add_index "live_studio_course_requests", ["workstation_id"], name: "index_live_studio_course_requests_on_workstation_id", using: :btree
+
   create_table "live_studio_courses", force: :cascade do |t|
-    t.string   "name",                   limit: 100,                                       null: false
+    t.string   "name",                    limit: 100,                                       null: false
     t.integer  "teacher_id"
     t.integer  "workstation_id"
-    t.integer  "status",                                                     default: 0
+    t.integer  "status",                                                      default: 0
     t.text     "description"
-    t.decimal  "price",                              precision: 8, scale: 2, default: 0.0
-    t.decimal  "lesson_price",                       precision: 8, scale: 2, default: 0.0
-    t.integer  "teacher_percentage",                                         default: 0
-    t.integer  "lesson_count",                                               default: 0
-    t.integer  "preset_lesson_count",                                        default: 0
-    t.integer  "completed_lesson_count",                                     default: 0
+    t.decimal  "price",                               precision: 8, scale: 2, default: 0.0
+    t.decimal  "lesson_price",                        precision: 8, scale: 2, default: 0.0
+    t.integer  "teacher_percentage",                                          default: 0
+    t.integer  "lesson_count",                                                default: 0
+    t.integer  "preset_lesson_count",                                         default: 0
+    t.integer  "completed_lessons_count",                                     default: 0
     t.datetime "deleted_at"
-    t.datetime "created_at",                                                               null: false
-    t.datetime "updated_at",                                                               null: false
+    t.datetime "created_at",                                                                null: false
+    t.datetime "updated_at",                                                                null: false
     t.string   "subject"
     t.string   "grade"
     t.string   "publicize"
-    t.integer  "buy_tickets_count",                                          default: 0
+    t.integer  "buy_tickets_count",                                           default: 0
     t.date     "class_date"
     t.datetime "published_at"
     t.string   "announcement"
     t.integer  "province_id"
     t.integer  "city_id"
     t.integer  "author_id"
-    t.integer  "taste_count",                                                default: 0
+    t.integer  "taste_count",                                                 default: 0
+    t.integer  "invitation_id"
+    t.integer  "lessons_count",                                               default: 0
+    t.integer  "finished_lessons_count",                                      default: 0
+    t.integer  "started_lessons_count",                                       default: 0
+    t.integer  "adjust_buy_count",                                            default: 0
+    t.integer  "closed_lessons_count",                                        default: 0
+    t.string   "token"
+    t.string   "billing_type"
   end
 
   add_index "live_studio_courses", ["author_id"], name: "index_live_studio_courses_on_author_id", using: :btree
   add_index "live_studio_courses", ["city_id"], name: "index_live_studio_courses_on_city_id", using: :btree
   add_index "live_studio_courses", ["class_date"], name: "index_live_studio_courses_on_class_date", using: :btree
+  add_index "live_studio_courses", ["invitation_id"], name: "index_live_studio_courses_on_invitation_id", using: :btree
   add_index "live_studio_courses", ["preset_lesson_count"], name: "index_live_studio_courses_on_preset_lesson_count", using: :btree
   add_index "live_studio_courses", ["price"], name: "index_live_studio_courses_on_price", using: :btree
   add_index "live_studio_courses", ["province_id"], name: "index_live_studio_courses_on_province_id", using: :btree
@@ -521,6 +613,8 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
     t.datetime "heartbeat_time"
+    t.integer  "duration"
+    t.integer  "replay_status",              default: 0
   end
 
   add_index "live_studio_lessons", ["course_id"], name: "index_live_studio_lessons_on_course_id", using: :btree
@@ -534,6 +628,8 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.datetime "heartbeat_at"
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
+    t.integer  "timestamp"
+    t.integer  "beat_step"
   end
 
   add_index "live_studio_live_sessions", ["lesson_id"], name: "index_live_studio_live_sessions_on_lesson_id", using: :btree
@@ -546,15 +642,60 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.datetime "start_time_at"
     t.datetime "end_time_at"
     t.datetime "deleted_at"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "tp",            limit: 10
+    t.integer  "play_type",                default: 0
   end
 
   add_index "live_studio_play_records", ["course_id"], name: "index_live_studio_play_records_on_course_id", using: :btree
   add_index "live_studio_play_records", ["lesson_id"], name: "index_live_studio_play_records_on_lesson_id", using: :btree
   add_index "live_studio_play_records", ["ticket_id"], name: "index_live_studio_play_records_on_ticket_id", using: :btree
   add_index "live_studio_play_records", ["user_id"], name: "index_live_studio_play_records_on_user_id", using: :btree
+
+  create_table "live_studio_replays", force: :cascade do |t|
+    t.integer  "lesson_id"
+    t.integer  "channel_id"
+    t.string   "name"
+    t.string   "vids"
+    t.integer  "video_for"
+    t.string   "vid"
+    t.string   "orig_video_key"
+    t.string   "uid"
+    t.string   "n_id"
+    t.integer  "status",               default: 0
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "duration",             default: 0
+    t.string   "type_id"
+    t.string   "snapshot_url"
+    t.string   "orig_url"
+    t.string   "download_orig_url"
+    t.string   "initial_size"
+    t.string   "sd_mp4_url"
+    t.string   "download_sd_mp4_url"
+    t.string   "sd_mp4_size"
+    t.string   "hd_mp4_url"
+    t.string   "download_hd_mp4_url"
+    t.string   "hd_mp4_size"
+    t.string   "shd_mp4_url"
+    t.string   "download_shd_mp4_url"
+    t.string   "shd_mp4_size"
+    t.string   "create_time"
+  end
+
+  create_table "live_studio_sell_channels", force: :cascade do |t|
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.integer  "percentage"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "live_studio_sell_channels", ["owner_type", "owner_id"], name: "index_live_studio_sell_channels_on_owner_type_and_owner_id", using: :btree
+  add_index "live_studio_sell_channels", ["target_type", "target_id"], name: "index_live_studio_sell_channels_on_target_type_and_target_id", using: :btree
 
   create_table "live_studio_streams", force: :cascade do |t|
     t.string   "protocol",   limit: 20
@@ -569,18 +710,35 @@ ActiveRecord::Schema.define(version: 20161101071815) do
 
   add_index "live_studio_streams", ["channel_id"], name: "index_live_studio_streams_on_channel_id", using: :btree
 
+  create_table "live_studio_ticket_items", force: :cascade do |t|
+    t.integer  "ticket_id"
+    t.integer  "lesson_id"
+    t.integer  "status",     default: 0
+    t.datetime "used_at"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "live_studio_ticket_items", ["lesson_id"], name: "index_live_studio_ticket_items_on_lesson_id", using: :btree
+  add_index "live_studio_ticket_items", ["ticket_id"], name: "index_live_studio_ticket_items_on_ticket_id", using: :btree
+
   create_table "live_studio_tickets", force: :cascade do |t|
     t.integer  "course_id"
     t.integer  "student_id"
     t.integer  "lesson_id"
-    t.integer  "status",       limit: 2,                         default: 0
-    t.integer  "buy_count",    limit: 8,                         default: 0
-    t.integer  "used_count",   limit: 8,                         default: 0
+    t.integer  "status",             limit: 2,                         default: 0
+    t.integer  "buy_count",          limit: 8,                         default: 0
+    t.integer  "used_count",         limit: 8,                         default: 0
     t.string   "type"
-    t.decimal  "lesson_price",           precision: 8, scale: 2, default: 0.0
+    t.decimal  "lesson_price",                 precision: 8, scale: 2, default: 0.0
     t.datetime "deleted_at"
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
+    t.datetime "created_at",                                                         null: false
+    t.datetime "updated_at",                                                         null: false
+    t.text     "got_lesson_ids"
+    t.integer  "payment_order_id"
+    t.integer  "sell_channel_id"
+    t.integer  "channel_owner_id"
+    t.string   "channel_owner_type"
   end
 
   add_index "live_studio_tickets", ["course_id"], name: "index_live_studio_tickets_on_course_id", using: :btree
@@ -602,16 +760,26 @@ ActiveRecord::Schema.define(version: 20161101071815) do
   add_index "login_tokens", ["digest_token"], name: "index_login_tokens_on_digest_token", using: :btree
   add_index "login_tokens", ["user_id"], name: "index_login_tokens_on_user_id", using: :btree
 
+  create_table "messages", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.string   "message_type", limit: 255
+    t.string   "status",       limit: 255
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "nodes", force: :cascade do |t|
-    t.string   "name"
-    t.string   "summary"
-    t.integer  "topics_count",    default: 0
+    t.string   "name",            limit: 255
+    t.string   "summary",         limit: 255
+    t.integer  "topics_count",                default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "section_id"
-    t.integer  "tutorials_count", default: 0
-    t.integer  "courses_count",   default: 0
-    t.string   "en_name"
+    t.integer  "tutorials_count",             default: 0
+    t.integer  "courses_count",               default: 0
+    t.string   "en_name",         limit: 255
   end
 
   add_index "nodes", ["name"], name: "index_nodes_on_name", using: :btree
@@ -633,55 +801,87 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.string   "from_type"
   end
 
+  create_table "payment_billing_items", force: :cascade do |t|
+    t.integer  "billing_id"
+    t.integer  "cash_account_id"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.decimal  "amount",          precision: 8, scale: 2
+    t.integer  "quantity"
+    t.integer  "duration"
+    t.integer  "percent"
+    t.decimal  "price",           precision: 8, scale: 2
+    t.integer  "parent_id"
+    t.string   "type"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+  end
+
+  add_index "payment_billing_items", ["billing_id"], name: "index_payment_billing_items_on_billing_id", using: :btree
+  add_index "payment_billing_items", ["cash_account_id"], name: "index_payment_billing_items_on_cash_account_id", using: :btree
+  add_index "payment_billing_items", ["owner_type", "owner_id"], name: "index_payment_billing_items_on_owner_type_and_owner_id", using: :btree
+
   create_table "payment_billings", force: :cascade do |t|
     t.integer  "target_id"
     t.string   "target_type"
-    t.decimal  "total_money", precision: 8, scale: 2
+    t.decimal  "total_money",  precision: 8, scale: 2
     t.datetime "deleted_at"
     t.string   "summary"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.integer  "parent_id"
+    t.string   "type"
+    t.integer  "percent",                              default: 0
+    t.integer  "quantity",                             default: 0
+    t.decimal  "price",        precision: 8, scale: 2, default: 0.0
+    t.integer  "from_user_id"
+    t.integer  "ticket_id"
+    t.string   "ticket_type"
   end
 
+  add_index "payment_billings", ["from_user_id"], name: "index_payment_billings_on_from_user_id", using: :btree
   add_index "payment_billings", ["target_type", "target_id"], name: "index_payment_billings_on_target_type_and_target_id", using: :btree
 
   create_table "payment_cash_accounts", force: :cascade do |t|
     t.integer  "owner_id"
     t.string   "owner_type"
-    t.decimal  "balance",           precision: 8, scale: 2, default: 0.0
+    t.decimal  "balance",           precision: 12, scale: 2, default: 0.0
     t.datetime "deleted_at"
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
-    t.decimal  "total_income",      precision: 8, scale: 2, default: 0.0
-    t.decimal  "total_expenditure", precision: 8, scale: 2, default: 0.0
-    t.boolean  "migrated",                                  default: false
-    t.decimal  "frozen_balance",    precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
+    t.decimal  "total_income",      precision: 12, scale: 2, default: 0.0
+    t.decimal  "total_expenditure", precision: 12, scale: 2, default: 0.0
+    t.boolean  "migrated",                                   default: false
+    t.decimal  "frozen_balance",    precision: 12, scale: 2, default: 0.0
+    t.string   "password_digest"
+    t.datetime "password_set_at"
   end
 
   add_index "payment_cash_accounts", ["owner_type", "owner_id"], name: "index_payment_cash_accounts_on_owner_type_and_owner_id", using: :btree
 
   create_table "payment_change_records", force: :cascade do |t|
     t.integer  "cash_account_id"
-    t.decimal  "different",                   precision: 8, scale: 2, default: 0.0
-    t.decimal  "before",                      precision: 8, scale: 2, default: 0.0
-    t.decimal  "after",                       precision: 8, scale: 2, default: 0.0
+    t.decimal  "different",                   precision: 16, scale: 2, default: 0.0
+    t.decimal  "before",                      precision: 16, scale: 2, default: 0.0
+    t.decimal  "after",                       precision: 16, scale: 2, default: 0.0
     t.integer  "billing_id"
     t.string   "summary"
     t.datetime "deleted_at"
-    t.datetime "created_at",                                                                            null: false
-    t.datetime "updated_at",                                                                            null: false
+    t.datetime "created_at",                                                                             null: false
+    t.datetime "updated_at",                                                                             null: false
     t.integer  "owner_id"
     t.string   "owner_type"
-    t.string   "type",            limit: 128,                         default: "Payment::ChangeRecord"
+    t.string   "type",            limit: 128,                          default: "Payment::ChangeRecord"
     t.integer  "target_id"
     t.string   "target_type"
     t.integer  "change_type"
-    t.decimal  "amount",                      precision: 8, scale: 2, default: 0.0
+    t.decimal  "amount",                      precision: 16, scale: 2, default: 0.0
+    t.integer  "from_user_id"
   end
 
   add_index "payment_change_records", ["billing_id"], name: "index_payment_change_records_on_billing_id", using: :btree
   add_index "payment_change_records", ["cash_account_id"], name: "index_payment_change_records_on_cash_account_id", using: :btree
+  add_index "payment_change_records", ["from_user_id"], name: "index_payment_change_records_on_from_user_id", using: :btree
   add_index "payment_change_records", ["owner_type", "owner_id"], name: "index_payment_change_records_on_owner_type_and_owner_id", using: :btree
   add_index "payment_change_records", ["target_type", "target_id"], name: "index_payment_change_records_on_target_type_and_target_id", using: :btree
 
@@ -707,25 +907,34 @@ ActiveRecord::Schema.define(version: 20161101071815) do
   add_index "payment_orders", ["product_type", "product_id"], name: "index_payment_orders_on_product_type_and_product_id", using: :btree
   add_index "payment_orders", ["user_id"], name: "index_payment_orders_on_user_id", using: :btree
 
+  create_table "payment_refund_reasons", force: :cascade do |t|
+    t.integer  "payment_refund_apply_id"
+    t.text     "reason"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "payment_remote_orders", force: :cascade do |t|
     t.integer  "order_id"
     t.string   "order_type"
-    t.string   "order_no",    limit: 64
-    t.decimal  "amount",                  precision: 8, scale: 2
-    t.string   "remote_ip",   limit: 64
-    t.string   "trade_type",  limit: 32
+    t.string   "order_no",     limit: 64
+    t.decimal  "amount",                   precision: 8, scale: 2
+    t.string   "remote_ip",    limit: 64
+    t.string   "trade_type",   limit: 32
     t.string   "pay_url"
-    t.string   "type",        limit: 128
+    t.string   "type",         limit: 128
     t.integer  "status"
     t.string   "prepay_id"
     t.text     "nonce_str"
     t.datetime "pay_at"
     t.datetime "deleted_at"
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.string   "notify_id"
     t.string   "trade_no"
     t.datetime "notify_time"
+    t.text     "hold_remotes"
+    t.text     "hold_results"
   end
 
   add_index "payment_remote_orders", ["order_type", "order_id"], name: "index_payment_remote_orders_on_order_type_and_order_id", using: :btree
@@ -745,6 +954,7 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.integer  "product_id"
     t.string   "product_type"
     t.datetime "pay_at"
+    t.integer  "wechat_user_id"
   end
 
   add_index "payment_transactions", ["user_id"], name: "index_payment_transactions_on_user_id", using: :btree
@@ -767,12 +977,12 @@ ActiveRecord::Schema.define(version: 20161101071815) do
   end
 
   create_table "pictures", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",           limit: 255
     t.integer  "imageable_id"
-    t.string   "imageable_type"
+    t.string   "imageable_type", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "token"
+    t.string   "token",          limit: 255
     t.integer  "author_id"
   end
 
@@ -887,21 +1097,21 @@ ActiveRecord::Schema.define(version: 20161101071815) do
   add_index "questions", ["last_answer_info"], name: "index_questions_on_last_answer_info", using: :gin
 
   create_table "recharge_codes", force: :cascade do |t|
-    t.integer  "money",        default: 500
-    t.string   "code"
+    t.integer  "money",                    default: 500
+    t.string   "code",         limit: 255
     t.integer  "admin_id"
-    t.string   "desc"
+    t.string   "desc",         limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "student_id"
-    t.integer  "lock_version", default: 0
+    t.integer  "lock_version",             default: 0
   end
 
   add_index "recharge_codes", ["code"], name: "index_recharge_codes_on_code", using: :btree
 
   create_table "recharge_records", force: :cascade do |t|
     t.integer  "student_id"
-    t.string   "code"
+    t.string   "code",             limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "recharge_code_id"
@@ -921,6 +1131,9 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.datetime "updated_at",  null: false
     t.datetime "deleted_at"
     t.integer  "reason"
+    t.text     "platforms"
+    t.integer  "city_id"
+    t.string   "link"
   end
 
   add_index "recommend_items", ["owner_type", "owner_id"], name: "index_recommend_items_on_owner_type_and_owner_id", using: :btree
@@ -954,16 +1167,16 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.integer  "topic_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "token"
+    t.string   "token",                  limit: 255
     t.integer  "author_id"
     t.integer  "customized_course_id"
-    t.string   "status",                 default: "open", null: false
+    t.string   "status",                             default: "open", null: false
     t.string   "type"
     t.integer  "customized_tutorial_id"
     t.float    "teacher_price"
     t.float    "platform_price"
     t.integer  "last_operator_id"
-    t.integer  "comments_count",         default: 0
+    t.integer  "comments_count",                     default: 0
   end
 
   create_table "review_records", force: :cascade do |t|
@@ -977,7 +1190,7 @@ ActiveRecord::Schema.define(version: 20161101071815) do
   end
 
   create_table "schools", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",       limit: 255
     t.integer  "city_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -996,6 +1209,19 @@ ActiveRecord::Schema.define(version: 20161101071815) do
 
   add_index "settings", ["owner_type", "owner_id"], name: "index_settings_on_owner_type_and_owner_id", using: :btree
 
+  create_table "software_categories", force: :cascade do |t|
+    t.string   "title"
+    t.string   "sub_title"
+    t.string   "logo"
+    t.text     "desc"
+    t.string   "download_description"
+    t.integer  "platform"
+    t.string   "role"
+    t.string   "category"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
   create_table "softwares", force: :cascade do |t|
     t.string   "logo"
     t.string   "title"
@@ -1005,15 +1231,19 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.string   "version"
     t.integer  "platform"
     t.string   "download_links"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.text     "description"
-    t.integer  "status",         default: 0
+    t.integer  "status",               default: 0
     t.boolean  "enforce"
     t.datetime "published_at"
     t.integer  "category"
     t.string   "cdn_url"
+    t.integer  "software_category_id"
+    t.string   "download_description"
   end
+
+  add_index "softwares", ["software_category_id"], name: "index_softwares_on_software_category_id", using: :btree
 
   create_table "solutions", force: :cascade do |t|
     t.string   "title"
@@ -1069,12 +1299,12 @@ ActiveRecord::Schema.define(version: 20161101071815) do
   add_index "teaching_videos", ["token"], name: "index_teaching_videos_on_token", using: :btree
 
   create_table "topics", force: :cascade do |t|
-    t.string   "title"
+    t.string   "title",                   limit: 255
     t.text     "content"
-    t.integer  "replies_count",           default: 0
+    t.integer  "replies_count",                       default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "token"
+    t.string   "token",                   limit: 255
     t.integer  "course_id"
     t.integer  "author_id"
     t.integer  "curriculum_id"
@@ -1090,8 +1320,8 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.datetime "completed_at"
     t.datetime "last_handled_at"
     t.datetime "last_redone_at"
-    t.string   "state",                   default: "new"
-    t.integer  "comments_count",          default: 0
+    t.string   "state",                               default: "new"
+    t.integer  "comments_count",                      default: 0
   end
 
   create_table "user_devices", force: :cascade do |t|
@@ -1105,25 +1335,25 @@ ActiveRecord::Schema.define(version: 20161101071815) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email"
-    t.string   "encrypted_password",                        default: "",    null: false
-    t.string   "reset_password_token"
+    t.string   "email",                         limit: 255
+    t.string   "encrypted_password",            limit: 255, default: "",    null: false
+    t.string   "reset_password_token",          limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.integer  "sign_in_count",                             default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
+    t.string   "current_sign_in_ip",            limit: 255
+    t.string   "last_sign_in_ip",               limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "topics_count",                              default: 0
     t.integer  "replies_count",                             default: 0
-    t.string   "name"
-    t.string   "avatar"
+    t.string   "name",                          limit: 255
+    t.string   "avatar",                        limit: 255
     t.integer  "school_id"
-    t.string   "role"
-    t.string   "password_digest"
+    t.string   "role",                          limit: 255
+    t.string   "password_digest",               limit: 255
     t.text     "desc"
     t.integer  "course_purchase_records_count"
     t.integer  "joined_groups_count",                       default: 0
@@ -1160,14 +1390,14 @@ ActiveRecord::Schema.define(version: 20161101071815) do
   end
 
   create_table "videos", force: :cascade do |t|
-    t.string   "name"
+    t.string   "name",           limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "token"
+    t.string   "token",          limit: 255
     t.integer  "videoable_id"
-    t.string   "video_type",     default: "mp4"
+    t.string   "video_type",     limit: 255, default: "mp4"
     t.string   "convert_name"
-    t.string   "state",          default: "not_convert"
+    t.string   "state",                      default: "not_convert"
     t.string   "videoable_type"
     t.integer  "author_id"
     t.integer  "duration"
@@ -1194,5 +1424,6 @@ ActiveRecord::Schema.define(version: 20161101071815) do
     t.integer  "manager_id"
   end
 
+  add_foreign_key "invitations", "users"
   add_foreign_key "payment_transactions", "users"
 end

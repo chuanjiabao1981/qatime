@@ -2,6 +2,7 @@ module LiveService
   class OrderDirector
     def initialize(order)
       @order = order
+      @product = @order.product
     end
 
     # 过滤订单
@@ -22,6 +23,47 @@ module LiveService
       end
 
       @orders
+    end
+
+    # 已消费金额
+    # 学生所购买的课程已结算的费用总额
+    def consumed_amount
+      @order.amount - remaining_amount
+    end
+
+    # 未消费金额
+    def remaining_amount
+      return 0 unless @order.paid? || @order.shipped? || @order.completed?
+      amount = unstart_lesson_ids.count * ticket.lesson_price
+      [amount, @order.amount].min
+    end
+
+    def refund!
+      refund = generate_refund
+      Payment::Refund.transaction do
+        ticket.ticket_items.where(lesson_id: unstart_lesson_ids).map(&:refunding!)
+        refund.save
+      end
+      refund
+    end
+
+    def generate_refund
+      Payment::Refund.new(user: @order.user, amount: remaining_amount, pay_type: @order.pay_type,
+                          product: @order.product, transaction_no: @order.transaction_no)
+    end
+
+    private
+
+    def ticket
+      @ticket ||= @product.buy_tickets.find_by(payment_order_id: @order.id)
+    end
+
+    def product
+      @product ||= @order.product
+    end
+
+    def unstart_lesson_ids
+      @unstart_lesson_ids ||= product.lessons.unstart.map(&:id)
     end
   end
 end

@@ -27,3 +27,12 @@ cn:
         is_keep_account: 是否计费
         action_records: 全部活动
         desc: 备注
+        billing_price: 课程收费标准
+        billing_price_value: "%{amount}/小时"
+        billing_duration: 服务时长
+        billing_teacher_price: 教师收费标准
+        billing_teacher_price_value: "%{amount}/小时"
+        billing_teacher_amount: 教师收入
+        billing_workstation_price: 工作站收费标准
+        billing_workstation_price_value: "%{amount}/小时"
+        billing_workstation_amount: 工作站收入

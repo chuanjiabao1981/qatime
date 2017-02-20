@@ -2,49 +2,55 @@ lesson_one:
   name: 测试课程1
   course: courses(:course_teach_2)
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   class_date: <%= 5.days.since.to_date %>
 
 lesson_two:
   name: 测试课程2
   course: courses(:course_teach_2)
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   class_date: <%= 5.days.since.to_date %>
 
 lesson_three:
   name: 测试课程3
   course_id: 3
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   class_date: <%= 5.days.since.to_date %>
   status: 2
 
 english_lesson_today:
   name: 英语辅导班-第一节
-  course_id: 4
+  course: course_with_lessons
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   class_date: <%= Date.today %>
 
 english_lesson_tomorrow:
   name: 英语辅导班-第二节
   course_id: 4
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   class_date: <%= Date.tomorrow %>
 
 english_lesson_onlive:
   name: 英语辅导班-正在直播课程
-  course_id: 4
+  course: course_with_order
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   status: 2
   live_start_at: <%= 1.hours.ago %>
   class_date: <%= Date.today %>
@@ -54,8 +60,9 @@ english_lesson_finished:
   teacher_id: 10
   course_id: 4
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   status: 3
   live_start_at: <%= 1.hours.ago %>
   live_end_at: <%= Time.now %>
@@ -66,10 +73,11 @@ english_lesson_finished:
 english_lesson2_finished:
   name: 英语辅导班-已完成
   teacher_id: 10
-  course_id: 4
+  course: course_with_lessons
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   status: 5
   live_start_at: <%= 1.hours.ago %>
   live_end_at: <%= Time.now %>
@@ -81,8 +89,9 @@ ready_lessoncourses_today:
   name: 英语辅导班-第二节
   course_id: courses(:course_teach_2)
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   class_date: <%= Date.today %>
   status: 1
 
@@ -90,8 +99,9 @@ lesson_for_course_with_junior_teacher:
   name: 英语辅导班-第二节
   course: course_with_junior_teacher
   description: 测试描述
-  start_time: 10:20
-  end_time: 05:30
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
   class_date: <%= Date.today %>
   status: 1
 
@@ -245,7 +255,7 @@ lesson_one_of_course_for_billing_one:
   end_time: '05:30'
   class_date: <%= Date.yesterday %>
   status: 5
-  real_time: 30
+  real_time: 1800
   live_count: 5
 
 lesson_one_of_course_for_billing_two:
@@ -257,7 +267,7 @@ lesson_one_of_course_for_billing_two:
   end_time: '05:30'
   class_date: <%= Date.yesterday %>
   status: 5
-  real_time: 30
+  real_time: 1200
   live_count: 3
 
 lesson_one_of_course_for_billing_three:
@@ -269,8 +279,329 @@ lesson_one_of_course_for_billing_three:
   end_time: '05:30'
   class_date: <%= Date.yesterday %>
   status: 5
+  real_time: 2400
+  live_count: 3
+
+lesson_test_course_request1:
+  name: 第一节课
+  course: course_maths_one
+  teacher: teacher_for_billing
+  description: 用于测试结账，没有工作站结账
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
   real_time: 30
   live_count: 3
+
+lesson_test_course_request2:
+  name: 第二节课
+  course: course_maths_one
+  teacher: teacher_for_billing
+  description: 用于测试结账，没有工作站结账
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.tomorrow %>
+  status: 5
+  real_time: 30
+  live_count: 3
+
+lesson_test_course_reject:
+  name: 第一节课
+  course: course_maths_three
+  teacher: teacher_for_billing
+  description: 用于测试结账，没有工作站结账
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+
+lesson_of_course_one_of_teacher_one:
+  name: 第一节课
+  course: course_one_of_teacher_one
+  teacher: teacher_for_billing
+  description: 用于测试结账，没有工作站结账
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+
+lesson_of_course_seven_one:
+  name: 第一节课
+  course: course_maths_seven
+  teacher: teacher1
+  description: 用于结算测试
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 1
+  live_count: 1
+  real_time: 30
+
+lesson_of_course_seven_two:
+  name: 第二节课
+  course: course_maths_seven
+  teacher: teacher1
+  description: 用于结算测试
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 1
+  live_count: 1
+  real_time: 30
+lesson_for_destroy:
+  name: 第一节课
+  course: course_for_destroy
+  teacher: teacher1
+  description: 删除辅导班测试通知
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+
+lesson_for_destroy2:
+  name: 第二节课
+  course: course_for_destroy
+  teacher: teacher1
+  description: 删除辅导班测试通知
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+
+lesson_for_refund_course1:
+  name: 第1节课
+  course: course_for_refund
+  teacher: teacher1
+  description: Mystring
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 0
+  real_time: 30
+  live_count: 1
+lesson_for_refund_course2:
+  name: 第2节课
+  course: course_for_refund
+  teacher: teacher1
+  description: Mystring
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 0
+  real_time: 30
+  live_count: 1
+lesson1_for_refund_course3:
+  name: 第1节课
+  course: course_for_refund3
+  teacher: teacher1
+  description: Mystring
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 1
+lesson2_for_refund_course3:
+  name: 第2节课
+  course: course_for_refund3
+  teacher: teacher1
+  description: Mystring
+  start_time: '13:20'
+  end_time: '04:30'
+  class_date: <%= Date.today %>
+  status: 0
+  real_time: 30
+  live_count: 1
+
+lesson_for_taste_zero:
+  name: 第一节课
+  course: course_zero_taste
+  teacher: teacher1
+  description: 第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+
+replay_lessons_1:
+  name: 第1节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+  replay_status: 3
+
+replay_lessons_2:
+  name: 第2节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+  replay_status: 3
+
+replay_lessons_3:
+  name: 第3节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+  replay_status: 3
+
+replay_lessons_4:
+  name: 第4节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+  replay_status: 3
+
+replay_lessons_5:
+  name: 第5节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+  replay_status: 2
+
+replay_lessons_6:
+  name: 第6节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+  replay_status: 2
+
+replay_lessons_7:
+  name: 第7节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 5
+  real_time: 30
+  live_count: 3
+  replay_status: 1
+
+replay_lessons_8:
+  name: 第8节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 4
+  real_time: 30
+  live_count: 3
+  replay_status: 1
+
+replay_lessons_9:
+  name: 第9节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 1
+  real_time: 30
+  live_count: 3
+  replay_status: 0
+
+replay_lessons_10:
+  name: 第10节
+  course: course_for_replay
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.today %>
+  status: 1
+  real_time: 30
+  live_count: 3
+  replay_status: 0
+
+lesson_one_of_channel_course_one:
+  name: 第1节
+  course: channel_course_one
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.yesterday %>
+  status: 1
+  real_time: 1800
+  live_count: 3
+  replay_status: 0
+
+lesson_one_of_channel_course_two:
+  name: 第1节
+  course: channel_course_two
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.yesterday %>
+  status: 5
+  real_time: 6000
+  live_count: 3
+  replay_status: 0
+
+lesson_two_of_channel_course_two:
+  name: 第2节
+  course: channel_course_two
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= 3.days.ago.to_date %>
+  status: 5
+  real_time: 5400
+  live_count: 3
+  replay_status: 0
 
 
 

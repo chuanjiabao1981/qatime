@@ -1,5 +1,5 @@
 $el = $('.<%= params[:third] %>');
 $el.empty();
 <% @schools.each do |school| %>
-$el.append($("<option></option>").attr("value", '<%= school.name %>'));
+$el.append($("<option><%= school.name %></option>").attr("value", '<%= school.id %>'));
 <% end%>

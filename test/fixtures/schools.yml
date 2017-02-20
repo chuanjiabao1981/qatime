@@ -2,5 +2,11 @@ school1:
   city: yangquan
   name: 阳泉一中
 school2:
-  city: changping
+  city: yangquan
   name: 阳泉二中
+school3:
+  city: changping
+  name: 昌平二中
+school4:
+  city: haidian
+  name: 海淀一中

@@ -18,6 +18,11 @@ Qatime::Application.routes.draw do
 
   resources :curriculums
   resources :settings, only: [:create, :update]
+
+  resources :home, only: [:index] do
+    get :switch_city, on: :collection
+  end
+
   resources :qa_faqs do
     collection do
       get 'courses'
@@ -56,9 +61,19 @@ Qatime::Application.routes.draw do
     resources :softwares do
       member do
         get :run
+        patch :offline
       end
     end
     resources :withdraws do
+      collection do
+        get :audit
+      end
+      member do
+        put :pass
+        put :unpass
+      end
+    end
+    resources :refunds do
       collection do
         get :audit
       end
@@ -79,6 +94,27 @@ Qatime::Application.routes.draw do
     end
     resources :sellers, except: [:index, :show]
     resources :waiters, except: [:index, :show]
+  end
+
+  namespace :station do
+    resources :workstations, only: [:show] do
+      member do
+        get :customized_courses
+        get :schools
+        get :teachers
+        get :students
+        get :sellers
+        get :waiters
+        get :action_records
+      end
+      resources :sellers, except: [:index]
+      resources :waiters, except: [:index]
+      resources :lessons, only: [:update] do
+        collection do
+          get 'state'
+        end
+      end
+    end
   end
 
   namespace :teachers do
@@ -184,6 +220,18 @@ Qatime::Application.routes.draw do
       get 'action_records'
       get :waiters
       get :sellers
+    end
+  end
+
+  resources :sellers do
+    member do
+      get :customized_courses
+    end
+  end
+
+  resources :waiters do
+    member do
+      get :customized_courses
     end
   end
 
@@ -334,6 +382,7 @@ Qatime::Application.routes.draw do
 
   mount Qawechat::Engine, at: '/qawechat'
   get 'auth/wechat/callback' => 'qawechat/omniauth_callbacks#wechat'
+  get 'wechat/login_callback' => 'qawechat/omniauth_callbacks#login_callback'
 
   # 直播
   mount LiveStudio::Engine, at: '/live_studio'

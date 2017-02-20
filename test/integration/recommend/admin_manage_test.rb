@@ -22,19 +22,18 @@ module Recommend
       click_on '推荐管理'
       click_link 'new'
       fill_in :position_name, with: 'new_test'
-      fill_in :position_kee, with: 'new_test'
       select '教师推荐', from: :position_klass_name
       click_on '新增推荐位'
       assert page.has_content?('Position was successfully created.')
       click_on '推荐管理'
-      accept_prompt(with: "Are you sure?") do
-        click_link '启用', match: :first
-      end
-      assert page.has_content?('Position was successfully changed.')
-      accept_prompt(with: "Are you sure?") do
-        click_link '删除', match: :first
-      end
-      assert page.has_content?('Position was successfully destroyed.')
+      # accept_prompt(with: "Are you sure?") do
+      #   click_link '启用', match: :first
+      # end
+      # assert page.has_content?('Position was successfully changed.')
+      # accept_prompt(with: "Are you sure?") do
+      #   click_link '删除', match: :first
+      # end
+      # assert page.has_content?('Position was successfully destroyed.')
     end
 
     test 'admin manage items' do
@@ -44,7 +43,7 @@ module Recommend
       fill_in :teacher_item_title, with: 'test'
       fill_in :teacher_item_index, with: '1'
       select 'teacher_one', from: :teacher_item_target_id
-      select '最热', from: :teacher_item_reason
+      select '阳泉', from: :teacher_item_city_id
       click_on '新增教师推荐'
       assert page.has_content?('Item was successfully created.')
     end

@@ -1,0 +1,19 @@
+<tr>
+  <td><span><%= course_invitation.target.name %></span></td>
+  <td><span><%= course_invitation.target.try(:city).try(:name_with_province, '/') %></span></td>
+  <td><span><%= number_to_percentage(course_invitation.teacher_percent, precision: 0) %></span></td>
+  <td><span><%= course_invitation.created_at.to_s(:db) %></span></td>
+  <td><span><%= distance_of_expited_at(course_invitation.expited_at) %></span></td>
+  <td>
+    <span>
+      <% if course_invitation.sent? && !course_invitation.expired? %>
+        <%=link_to t("common.accept"), new_course_path(invitation_id: course_invitation) %><br />
+        <%=link_to t("common.refuse"), teacher_course_invitation_path(@teacher, course_invitation),
+                   method: :delete,
+                  "data-confirm" => t("common.confirm_refuse") %>
+      <% elsif course_invitation.expired? %>
+        
+      <% end %>
+    </span>
+  </td>
+</tr>

@@ -6,7 +6,7 @@ module Permissions
       super(user)
 
       allow :curriculums,[:index,:show]
-      allow :home,[:index]
+      allow :home,[:index,:new_index,:switch_city]
       allow :pictures,[:new,:create]
       allow :pictures,[:destroy] do |picture|
         picture and picture.author and picture.author_id == user.id
@@ -222,7 +222,7 @@ module Permissions
       allow :qa_file_quoters,[:index, :new, :edit, :update, :create, :show, :destroy]
 
       ## begin live studio permission
-      allow 'live_studio/teacher/courses', [:index, :show, :edit, :update, :sync_channel_streams, :channel, :close, :update_class_date] do |teacher, course, action|
+      allow 'live_studio/teacher/courses', [:index, :show, :edit, :update, :sync_channel_streams, :channel, :close, :update_class_date, :update_lessons, :destroy] do |teacher, course, action|
         # 只有初始化的辅导班可以编辑
         permission = %w(edit update).include?(action) ? course.init? : true
         teacher && teacher == user && permission
@@ -236,15 +236,21 @@ module Permissions
           :begin_live_studio, :end_live_studio, :ready, :complete
       ] do |teacher, course, action|
         # 课程的辅导班初始化状态可以变新增 编辑 删除 | 招生中状态可以编辑 | 上课中状态可以调课
-        permission = (%w(new create edit update destroy).include?(action) ? course.init? : true) || (%w(edit update).include?(action) ? course.preview? : true) || (%w(create update).include?(action) ? course.teaching? : true)
+        permission = (%w(new create edit update destroy).include?(action) ? course.init? : true) || (%w(edit update).include?(action) ? course.published? : true) || (%w(create update).include?(action) ? course.teaching? : true)
         teacher && teacher == user && permission
       end
 
-      allow 'live_studio/courses', [:new, :create]
+      allow 'live_studio/courses', [:new, :create, :preview]
       allow 'live_studio/courses', [:update_notice, :publish, :edit, :update] do |course|
         course.teacher_id == user.id
       end
       allow 'live_studio/helps', [:course]
+
+      allow 'live_studio/teacher/course_invitations', [:index, :destroy]
+
+      allow 'live_studio/announcements', [:index, :create, :update] do |course|
+        course && course.teacher_id = user.id
+      end
       ## end live studio permission
 
 
@@ -255,8 +261,8 @@ module Permissions
       end
       allow 'payment/billings', [:index]
       allow 'payment/withdraws', [:new, :create, :complete, :cancel]
+      allow 'payment/transactions', [:pay]
       ## end payment permission
-
 
       ## begin api permission
       api_allow :DELETE, "/api/v1/sessions"
@@ -276,9 +282,12 @@ module Permissions
       end
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/taste"
       api_allow :GET, "/api/v1/live_studio/teachers/[\\w-]+/schedules"
-      api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/live_start"
-      api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/live_end"
       api_allow :PUT, "/api/v1/live_studio/lessons/[\\w-]+/finish"
+      api_allow :POST, "/api/v1/live_studio/lessons/[\\w-]+/live_start"
+      api_allow :POST, "/api/v1/live_studio/lessons/[\\w-]+/live_end"
+      api_allow :POST, "/api/v1/live_studio/lessons/[\\w-]+/live_info"
+      api_allow :POST, "/api/v1/live_studio/lessons/[\\w-]+/heart_beat"
+      api_allow :POST, "/api/v1/live_studio/lessons/[\\w-]+/live_switch"
 
       api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/announcements" do |teacher|
         teacher && teacher.id == user.id
@@ -295,6 +304,20 @@ module Permissions
         teacher && teacher.id == user.id
       end
       ## end api permission
+
+      ## 获取授权token
+      api_allow :GET, "/api/v1/ticket_tokens/cash_accounts/update_password"
+      ## end 获取授权token
+      
+      ### 修改支付密码
+      api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password" # 设置支付密码
+      api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password/ticket_token" # 修改支付密码
+      ## end 修改支付密码
+
+      ## 通知设置
+      api_allow :GET, "/api/v1/users/[\\w-]+/notifications/settings" # 查询通知设置
+      api_allow :PUT, "/api/v1/users/[\\w-]+/notifications/settings" # 修改通知设置
+      ## end 通知设置
     end
     private
 

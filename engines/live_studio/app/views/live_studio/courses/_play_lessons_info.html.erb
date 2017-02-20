@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="panel panel-default panel-profile">
+    <div class="data-arrange">
+      <div class="arrange-title">
+        <div class="teacher-title-left">
+          <%= image_tag 'icon.png'%>
+          <span class="title-size"><%= t("view.play.lessons_plan") %></span>
+        </div>
+      </div>
+      <div class="arrange-live">
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tbody>
+            <% @course.lessons.each do |lesson| -%>
+              <tr class="<%= 'finished' if lesson.lesson_finished? %>">
+                <td><span class="fa fa-circle"></span></td>
+                <td><span><%= localize(lesson.class_date, format: :long) %> <%= lesson.start_time %>-<%= lesson.end_time %></span></td>
+                <td><span><%= lesson.name %></span></td>
+                <td><span><%= lesson.status_text('student', false) %></span></td>
+              </tr>
+            <% end -%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

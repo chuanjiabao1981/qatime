@@ -23,13 +23,13 @@ class AdminVisitsTest < ActionDispatch::IntegrationTest
     @course = live_studio_courses(:course_preview)
     click_on '教师'
     # visit teacher_path(@teacher)
-    click_on  "#{@teacher.name}[昵称:#{@teacher.nick_name}]"
+    click_on "#{@teacher.name}[昵称:#{@teacher.nick_name}]"
     click_on '我的辅导', match: :first
     # visit live_studio.teacher_course_path(@teacher,@course)
     # click_on @course.name
-    visit chat.finish_live_studio_course_teams_path(@course)
-    visit live_studio.edit_teacher_course_path(@teacher, @course)
-    assert_not page.has_content?('创建课程')
+    # visit chat.finish_live_studio_course_teams_path(@course)
+    # visit live_studio.edit_teacher_course_path(@teacher, @course)
+    # assert_not page.has_content?('创建课程')
   end
 
   test 'admin visit student page' do

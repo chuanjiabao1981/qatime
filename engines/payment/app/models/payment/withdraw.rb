@@ -3,12 +3,13 @@ module Payment
     include AASM
 
     has_one :withdraw_record, foreign_key: 'payment_transaction_id', class_name: 'Payment::WithdrawRecord'
+    has_many :weixin_transfers, as: :order
 
-    enum status: %w(init allowed refused canceled)
-    enum pay_type: %w(cash bank alipay)
+    enum status: %w(init allowed refused canceled paid)
+    enum pay_type: %w(cash bank alipay wechat)
 
     attr_accessor :account_money_snap_shot
-    validate :validate_withdraw_amount, on: :create
+    validate :validate_withdraw_amount, :validate_wechat, on: :create
     after_create :frozen_balance
 
     scope :filter, ->(keyword){keyword.blank? ? nil : where('transaction_no ~* ?', keyword).presence ||
@@ -19,6 +20,7 @@ module Payment
       state :allowed
       state :refused
       state :canceled
+      state :paid
 
       event :allow, before: :allow_operator do
         transitions from: [:init], to: :allowed
@@ -31,6 +33,15 @@ module Payment
       event :cancel, after: :cancel_frozen! do
         transitions from: [:init], to: :canceled
       end
+
+      event :pay do
+        transitions from: [:allowed], to: :paid
+      end
+    end
+
+    def pay_and_ship!
+      pay!
+      cash_admin_billing!
     end
 
     def status_text(role=nil)
@@ -39,7 +50,7 @@ module Payment
     end
 
     def pay_type_text
-      I18n.t("enum.payment/withdraw.pay_type.#{pay_type}") + " #{cash? ? nil : "(#{withdraw_record.account} #{withdraw_record.name})"}"
+      I18n.t("enum.payment/withdraw.pay_type.#{pay_type}") + " #{cash? || wechat? ? nil : "(#{withdraw_record.account} #{withdraw_record.name})"}"
     end
 
     def change_money
@@ -52,12 +63,14 @@ module Payment
 
     private
     def frozen_balance
-      user.cash_account!.frozen(amount)
+      user.cash_account!.freeze_cash(amount)
     end
 
     def allow_operator(current_user)
-      operator_record(status,'allowed',current_user)
-      withdraw_cash!
+      Payment::Withdraw.transaction do
+        operator_record(status,'allowed',current_user)
+        withdraw_cash!
+      end
     end
 
     def refuse_operator(current_user)
@@ -77,20 +90,27 @@ module Payment
       )
     end
 
-    # 变动余额
+    # 变动用户余额
     def withdraw_cash!
       user.cash_account!.withdraw(amount, self)
+      # 提现类型是微信时 创建自动转账数据
+      wechat? && weixin_transfers.create(
+        amount: amount,
+        remote_ip: remote_ip,
+        status: :unpaid,
+        order_no: transaction_no
+      )
     end
 
     # 取消冻结资金
     def cancel_frozen!
-      user.cash_account!.cancel_frozen(amount)
+      user.cash_account!.freeze_cash(-amount)
     end
 
     def validate_withdraw_amount
       v = parse_raw_value_as_a_number(self.amount)
       if self.account_money_snap_shot.nil?
-        self.account_money_snap_shot = self.user.cash_account.balance
+        self.account_money_snap_shot = self.user.cash_account!.balance
       end
       if v
         if v > 0
@@ -105,10 +125,21 @@ module Payment
       end
     end
 
+    def validate_wechat
+      self.errors.add(:pay_type, "微信未绑定，必须是本账户已绑定的微信号") if wechat? && user.wechat_users.blank?
+    end
+
     def parse_raw_value_as_a_number(raw_value)
       Kernel.Float(raw_value) if raw_value !~ /\A0[xX]/
     rescue ArgumentError, TypeError
       nil
+    end
+
+    # 系统账户结算
+    def cash_admin_billing!
+      summary = "系统支付提现, 订单编号：#{transaction_no} 订单金额: #{amount}"
+      billing = billings.create(total_money: amount, summary: summary)
+      CashAdmin.decrease_cash_account(amount, billing, summary)
     end
   end
 end

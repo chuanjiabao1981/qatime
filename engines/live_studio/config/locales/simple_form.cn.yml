@@ -1,0 +1,52 @@
+cn:
+  simple_form:
+    "yes": 'Yes'
+    "no": 'No'
+    required:
+      text: 'required'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "Please review the problems below:"
+    labels:
+      course:
+        price: 价格 (元)
+        grade: 年级类型
+        description: 辅导介绍
+        name: 辅导名称
+        taste_count: 试听 (节)
+      course_invitation:
+        user_mobile: 填写被邀请人
+        teacher_percent: 设置老师分成
+        expited_day: 设置有效期限
+    placeholders:
+      course_invitation:
+        user_mobile: 填写想要邀请的老师的手机号
+        teacher_percent: 请输入老师获得的分成比例
+        expited_day: 请设置邀请的有效期限，逾期后将自动失效
+    buttons:
+      course_invitation:
+        submit: 立即发送
+        cancel: 取消
+
+    # Examples
+    # labels:
+    #   defaults:
+    #     password: 'Password'
+    #   user:
+    #     new:
+    #       email: 'E-mail to sign in.'
+    #     edit:
+    #       email: 'E-mail.'
+    # hints:
+    #   defaults:
+    #     username: 'User name to sign in.'
+    #     password: 'No special characters, please.'
+    # include_blanks:
+    #   defaults:
+    #     age: 'Rather not say'
+    # prompts:
+    #   defaults:
+    #     age: 'Select your age'

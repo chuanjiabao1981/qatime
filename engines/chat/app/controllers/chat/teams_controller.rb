@@ -15,15 +15,15 @@ module Chat
       # 当前用户没有加入群组立即加入群组
       @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id)
       @join_record ||= LiveService::ChatTeamManager.new(@chat_team).add_to_team([@chat_account], 'normal')
-      render json: { team_id: @chat_team.team_id, token: @chat_account.token, accid: @chat_account.accid }
+      render json: { team_id: @chat_team.team_id, token: @chat_account.token, accid: @chat_account.accid, owner: @chat_team.owner }
     end
 
     # 返回群成员列表
     def members
       chat_team = Chat::Team.find_by(team_id: params[:id])
-      @accounts = chat_team.try(:accounts).to_a
+      @accounts = chat_team.accounts.includes(:user).to_a if chat_team
 
-      if !@accounts.blank?
+      if @accounts.present?
         owner = Account.find_by(accid: chat_team.owner)
         members = Chat::Team.online_members(chat_team.team_id)
         @online_accounts = Account.where(accid: members).to_a
@@ -32,6 +32,7 @@ module Chat
         @accounts = @accounts - @online_accounts.to_a
         @accounts = @online_accounts.sort_by(&:name) + @accounts.sort_by(&:name)
         @accounts = @accounts.reject{|a| a == owner }.unshift(owner)
+        @accounts = @accounts.select{|account| account.user.present?}
       end
       render partial: 'live_studio/courses/members'
     end

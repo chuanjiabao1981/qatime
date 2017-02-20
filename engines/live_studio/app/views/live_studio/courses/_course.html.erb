@@ -4,17 +4,17 @@
     <%= content_tag(:div, class: 'course-content-div support') do %>
       <%= content_tag(:div,class: 'course-info-col') do %>
         <%= content_tag(:div, course.name, class: 'course-name') %>
-        <%= content_tag(:div, t('view.course_search_show.buy_tickets_count') % course.buy_tickets_count,
+        <%= content_tag(:div, t('view.course_search_show.buy_tickets_count') % course.buy_user_count,
                         class: 'course-buy-count')%>
       <% end %>
       <%= content_tag(:div, "#{t('view.course_info_show.desc')}#{truncate(course.description,length: 112)}") %>
       <%= content_tag(:div, "#{t('view.course_info_show.subject')}#{course.subject}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_info_show.grade')}#{course.grade}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_info_show.teacher')}#{course.teacher.try(:name)}", class: 'content-ceil') %>
-      <%= content_tag(:div, "#{t('view.course_info_show.lesson_count')}#{course.preset_lesson_count} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_info_show.lesson_count')}#{course.lessons_count} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.start_time')}#{course.live_start_time}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.end_time')}#{course.live_end_time}", class: 'content-ceil') %>
-      <%= content_tag(:div, "#{t('view.course_search_show.current_status')}#{course.status_text} #{course.completed_lesson_count}/#{course.preset_lesson_count}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_search_show.current_status')}#{course.status_text} #{course.finished_lessons_count}/#{course.lessons_count}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.teach_type')}", class: 'content-ceil') %>
       <%= content_tag(:div, content_tag(:strong, "￥ #{course.price}")) %>
     <%end %>

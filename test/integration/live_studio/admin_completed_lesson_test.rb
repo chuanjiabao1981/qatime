@@ -18,10 +18,10 @@ module LiveStudio
     end
 
     test "admin completed a lesson" do
-      teacher = users(:english_teacher)
       course = live_studio_courses(:course_with_lessons)
       lesson = live_studio_lessons(:english_lesson2_finished)
-      visit live_studio.teacher_course_path(teacher, course, index: :list)
+
+      visit live_studio.course_path(course)
       click_on "结算课程"
 
       lesson.reload

@@ -27,16 +27,19 @@
             <tr>
               <td><span class="headline-color"><%= t('view.course_info_show.subject')%></span><span class="title-color interval"><%= teacher.subject%></span></td>
               <td><span class="headline-color"><%= t('view.course_info_show.category')%></span> <span class="title-color interval"><%= teacher.category%></span></td>
-              <td><span class="headline-color"><%= t("view.course_show.lesson_time") %></span> <span class="title-color interval">共<%= @course.preset_lesson_count%>课</span></td>
+              <td><span class="headline-color"><%= t("view.course_show.lesson_time") %></span> <span class="title-color interval">共<%= @course.lessons_count %>课</span></td>
             </tr>
             <tr>
-              <td colspan="3"><span class="headline-color"><%= t("activerecord.view.date") %></span><span class="title-color interval"><%= @course.live_start_date%>-<%= @course.live_end_date%></span></td>
+              <td colspan="3">
+                <span class="headline-color"><%= t("activerecord.view.date") %></span>
+                <span class="title-color interval"><%= @course.live_start_date.try(:to_s) %> 至 <%= @course.live_end_date.try(:to_s) %></span>
+              </td>
             </tr>
             <tr>
               <td colspan="3"><span class="headline-color"><%= t("activerecord.view.status") %></span>
                 <span class="<%= @course.completed? ? 'separator' : 'title-color' %> interval">
                   <%= @course.status_text%>
-                  (<%= @course.preview? ? (t('view.course_show.distance_text1') % @course.distance_days) : "#{@course.completed_lesson_count}/#{@course.preset_lesson_count}" %>)
+                  (<%= @course.published? ? (t('view.course_show.distance_text1') % @course.distance_days) : "#{@course.closed_lessons_count}/#{@course.lessons_count }" %>)
                 </span>
               </td>
             </tr>
@@ -44,48 +47,10 @@
               <td colspan="3">
                 <div class="price-details">
                   <div class="unit-price">
-                    <span class="title-color price-num">￥<%= '%0.2f' % @course.price %></span>
-                    <span class="sign-up"><%= t('view.course_search_show.purchase_number') %><%= @course.buy_tickets_count%></span>
+                    <span class="title-color price-num"><%= number_to_currency(@course.current_price, locale: :cn) %></span>
+                    <span class="sign-up"><%= t('view.course_search_show.purchase_number') %><%= @course.buy_user_count %></span>
                   </div>
-                  <% if current_user.blank? || !current_user.teacher? %>
-                    <div>
-                      <% if current_user.blank? || (!@course.tasting?(current_user) && !@course.bought_by?(current_user)) %>
-                         <div class="listen-class">
-                           <%= content_tag(:div,class: 'btn-audition') do %>
-                             <%= link_to(t('view.course_info_show.join_taste'),
-                                         live_studio.taste_course_path(@course, student_id: @student.try(:id)),
-                                         id: "taste-course-#{@course.id}", method: :post, remote: true) %>
-                           <% end %>
-                           <%= content_tag(:div, link_to(t('activerecord.view.enroll_now'), new_course_order_path(@course)), class: 'btn-sign')%>
-                         </div>
-                      <% end %>
-                      <% if current_user.present? && @course.tasting?(current_user) && !@course.bought_by?(current_user) %>
-                         <div class="listen-class">
-                           <%= content_tag(:div,class: 'btn-listen') do%>
-                             <% if  LiveStudio::Course.statuses[@course.status] < LiveStudio::Course.statuses['teaching'] %>
-                                <%= link_to(t('view.course_info_show.start_taste'),
-                                         "javascript:void(0)", onclick:"alert('辅导班开课后才可试听')") %>
-                             <% else %>
-                               <%= link_to(t('view.course_info_show.start_taste'),
-                                           live_studio.taste_course_path(@course, student_id: @student.try(:id)),
-                                           id: "taste-course-#{@course.id}", method: :post, remote: true) %>
-                             <% end %>
-                           <% end%>
-                           <%= content_tag(:div, link_to(t('activerecord.view.enroll_now'), new_course_order_path(@course)), class: 'btn-signnow')%>
-                         </div>
-                      <% end %>
-                      <% if current_user.present? && @course.bought_by?(current_user) %>
-                        <div class="listen-class btn-start">
-                          <%if  LiveStudio::Course.statuses[@course.status] < LiveStudio::Course.statuses['teaching'] %>
-                            <%= link_to(t('view.course_info_show.start_learning'),
-                                        "javascript:void(0)", onclick:"alert('辅导班开课后才可学习')")%>
-                          <% else %>
-                            <%= link_to(t('view.course_info_show.start_learning'), play_course_path(@course)) %>
-                          <% end %>
-                        </div>
-                      <% end %>
-                    </div>
-                  <% end %>
+                  <%= render "buy_or_taste" if (current_user.blank? || current_user.student?) && @course.for_sell? %>
                 </div>
               </td>
             </tr>
@@ -95,7 +60,7 @@
               <p><%= t('view.play.course_description')%></p>
             </div>
             <div class="introduction-con">
-              <p><%= truncate(@course.description, length: 370, omission: '...') %></p>
+              <p><%= raw(@course.description) %></p>
             </div>
           </div>
         </div>
@@ -108,11 +73,11 @@
   <script>
     $(document).ready(function(){
       $("#taste-course-<%= @course.id %>").bind('ajax:success', function() {
-        if("<%= current_user.present? %>"){
+        <% if current_user.present?%>
           window.location.reload();
-        }else{
+        <% else %>
           window.location.href="/signin"
-        }
+        <% end %>
       });
     })
   </script>

@@ -37,8 +37,9 @@ module Permissions
         notification and notification.receiver_id == user.id
       end
 
-      allow 'live_studio/courses', [:index, :taste, :play, :show, :refresh_current_lesson,:schedule_sources]
-      allow 'home', [:index, :new_index]
+      allow 'live_studio/courses', [:index, :taste, :play, :show, :refresh_current_lesson,:schedule_sources, :live_status]
+      allow 'qawechat/users', [:remove_wechat]
+      allow :home,[:index,:new_index,:switch_city]
       allow 'chat/teams', [:finish, :members, :member_visit]
       allow 'ajax/captchas', [:create, :verify]
       allow 'ajax/data', [:option_cities, :option_schools]
@@ -56,7 +57,9 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/realtime"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/play_info"
-      api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/heartbeat"
+      api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/live_status"
+
+
 
       # 安全设置
       api_allow :PUT, "/api/v1/users/[\\w-]+/email" do |resource|
@@ -66,6 +69,12 @@ module Permissions
         resource.id == user.id
       end
       api_allow :PUT, "/api/v1/users/[\\w-]+/password" do |resource|
+        resource.id == user.id
+      end
+      api_allow :post, "/api/v1/users/[\\w-]+/wechat" do |resource|
+        resource.id == user.id
+      end
+      api_allow :delete, "/api/v1/users/[\\w-]+/wechat" do |resource|
         resource.id == user.id
       end
 

@@ -29,8 +29,14 @@ Qatime::Application.configure do
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = true
   config.assets.precompile += %w(*.js)
-  config.assets.precompile += %w(web_home.css front.css)
+  config.assets.precompile += %w(web_home.css front.css front_live.css)
   config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
+
+  config.assets.precompile << Proc.new { |path|
+    if path =~ /\.(eot|svg|ttf|woff)\z/
+      true
+    end
+  }
 
   # Generate digests for assets URLs.
   config.assets.digest = true

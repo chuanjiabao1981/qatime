@@ -89,7 +89,7 @@ unless LiveStudio::Course.exists?
           author_id: User.first.id,
           subject: '自然',
           grade: '初三',
-          preset_lesson_count: 2
+          lessons_count: 2
       )
   # 12.times.each do |time|
   #   LiveStudio::Lesson.new(

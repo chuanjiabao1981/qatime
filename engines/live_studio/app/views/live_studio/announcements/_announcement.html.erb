@@ -1,0 +1,12 @@
+<tr>
+  <td class="notice-td">
+    <span class="notice-time">
+      <%= announcement.create_time %>
+    </span>
+  </td>
+  <td>
+    <%= image_tag "livenotice.png" if announcement.lastest %>
+    <%= image_tag "livenotice-1.png" unless announcement.lastest %>
+    <span><%= announcement.content %></span>
+  </td>
+</tr>

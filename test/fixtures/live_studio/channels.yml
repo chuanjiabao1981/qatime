@@ -38,3 +38,10 @@ camera_channel:
   remote_id: camera_channel
   status: 1
   use_for: 1
+
+replay_channel:
+  name: course_for_replay
+  course: course_for_replay
+  remote_id: course_for_replay
+  status: 1
+  use_for: 0

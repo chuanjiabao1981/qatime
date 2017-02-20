@@ -2,7 +2,7 @@ module Permissions
   class StudentPermission < UserPermission
     def initialize(user)
       super(user)
-      allow :home,[:index]
+      allow :home,[:index,:new_index,:switch_city]
       allow :curriculums,[:index,:show]
       allow :courses,[:show]
       allow :sessions,[:destroy]
@@ -157,11 +157,16 @@ module Permissions
       allow 'live_studio/student/students', [:schedules, :settings]
       allow 'settings', [:create, :update]
       allow 'live_studio/student/courses', [:index, :show]
-      allow 'live_studio/lessons', [:show, :play]
+      allow 'live_studio/courses', [:index, :show]
+      allow 'live_studio/lessons', [:show, :play, :videos]
+
+      allow 'live_studio/lessons', [:replay] do |lesson|
+        lesson.replayable && lesson.replayable_for?(user)
+      end
       ## end live studio permission
 
       # payment permission
-      allow 'payment/orders', [:index, :show, :destroy, :result, :pay, :cancel_order] do |resource|
+      allow 'payment/orders', [:index, :show, :destroy, :result, :pay, :cancel_order, :refund, :refund_create, :cancel_refund] do |resource|
         resource.id == user.id
       end
       allow 'payment/change_records', [:index] do |resource|
@@ -173,6 +178,7 @@ module Permissions
       allow 'payment/transactions', [:show, :result] do |resource|
         resource.id == user.id
       end
+      allow 'payment/transactions', [:pay]
       allow 'payment/withdraws', [:new, :create, :complete, :cancel]
       # payment permission
 
@@ -190,6 +196,10 @@ module Permissions
         student && student.id == user.id
       end
       api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/orders"
+      api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/replays"
+      api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/replay"
+
+
 
       # 学生个人信息接口
       api_allow :GET, "/api/v1/students/[\\w-]+/info" do |student|
@@ -215,6 +225,11 @@ module Permissions
       api_allow :PUT, "/api/v1/notifications/[\\w-]+/read"
       # 消息通知结束
 
+      ## 通知设置
+      api_allow :GET, "/api/v1/users/[\\w-]+/notifications/settings" # 查询通知设置
+      api_allow :PUT, "/api/v1/users/[\\w-]+/notifications/settings" # 修改通知设置
+      ## end 通知设置
+
       # payment
       api_allow :GET, "/api/v1/payment/orders/[\\w-]+/result"
       api_allow :GET, "/api/v1/payment/orders"
@@ -226,7 +241,21 @@ module Permissions
       api_allow :GET, "/api/v1/payment/users/[\\w-]+/withdraws"
       api_allow :POST, "/api/v1/payment/users/[\\w-]+/withdraws"
       api_allow :PUT, "/api/v1/payment/users/[\\w-]+/withdraws/:id/cancel"
+      api_allow :GET, "/api/v1/payment/users/[\\w-]+/refunds/info"
+      api_allow :POST, "/api/v1/payment/users/[\\w-]+/refunds"
+      api_allow :GET, "/api/v1/payment/users/[\\w-]+/refunds"
+      api_allow :PUT, "/api/v1/payment/users/[\\w-]+/refunds/:id/cancel"
       ## end api permission
+
+      ## 获取授权token
+      api_allow :POST, "/api/v1/ticket_tokens/cash_accounts/update_password"
+      ## end 获取授权token
+      
+
+      ### 修改支付密码
+      api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password" # 设置支付密码
+      api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password/ticket_token" # 修改支付密码
+      ## end 修改支付密码
     end
 private
 

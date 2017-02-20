@@ -3,5 +3,6 @@ module Entities
     expose :id
     expose :province_id
     expose :name
+    expose :workstations_count
   end
 end

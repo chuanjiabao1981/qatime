@@ -28,5 +28,14 @@ module Payment
       click_on '消费记录'
     end
 
+    test 'student account withdraw test' do
+      visit payment.cash_user_path(@student)
+      click_on '提现记录'
+    end
+
+    test 'student account refund test' do
+      visit payment.cash_user_path(@student)
+      click_on '退款记录'
+    end
   end
 end

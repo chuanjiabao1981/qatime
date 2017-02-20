@@ -7,13 +7,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to "答疑时间" , curriculums_path ,class: "navbar-brand" %>
+      <%= link_to "答疑时间" , main_app.curriculums_path ,class: "navbar-brand" %>
     </div>
 
     <div class="navbar-collapse collapse" style="height: 1px;">
       <ul class="nav navbar-nav">
         <% if signed_in? %>
-          <!--li class="<%= "active" if controller_name == 'home' %>"><%=link_to '管理',root_path %></li-->
           <li><%= link_to t("view.common_bars.download"), main_app.welcome_download_path if current_user.teacher? %></li>
         <% else %>
             <li><%= link_to "教师注册", new_teacher_path %></li>
@@ -25,7 +24,7 @@
 
         <% if signed_in? %>
           <li>
-            <%= link_to current_user.name,user_home_path,class: "pull-left" %>
+            <%= link_to current_user.name, main_app.home_path,class: "pull-left" %>
           </li>
         <% end %>
         <% if signed_in? %>
@@ -39,12 +38,12 @@
                 </li>
             <% end %>
             <li>
-              <%= link_to '登出', signout_path, :method=>'delete' %>
+              <%= link_to '登出', main_app.signout_path, :method=>'delete' %>
             </li>
 
         <% else %>
             <li>
-              <%= link_to '登录', signin_path %>
+              <%= link_to '登录', main_app.signin_path %>
             </li>
         <% end %>
       </ul>

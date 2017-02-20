@@ -1,6 +1,6 @@
-<% if earning_record.is_a?(LiveStudio::Lesson) && earning_record.target %>
+<% if earning_record.target && earning_record.target.is_a?(LiveStudio::Lesson) %>
   <tr>
-    <td><%= number_to_currency(earning_record.amount, locale: :cn, unit: "￥", precision: 1) %></td>
+    <td><%= number_to_currency(earning_record.amount, locale: :cn, unit: "￥", precision: 2) %></td>
     <td></td>
     <td><%= earning_record.target.course.model_name.human %></td>
     <td><%= localize(earning_record.created_at,:format => :long) %></td>
@@ -8,9 +8,9 @@
   </tr>
 <% elsif earning_record.target %>
   <tr>
-    <td><%= number_to_currency(earning_record.amount, locale: :cn, unit: "￥", precision: 1) %></td>
+    <td><%= number_to_currency(earning_record.amount, locale: :cn, unit: "￥", precision: 2) %></td>
     <td>
-      <%= number_to_currency(earning_record.target.teacher_price, unit: "￥", precision: 1)%>
+      <%= number_to_currency(earning_record.target.teacher_price, unit: "￥", precision: 2)%>
       *
       <%= second_to_minutes earning_record.target.video.duration %></td>
     <td><%= earning_record.target.model_name.human %></td>

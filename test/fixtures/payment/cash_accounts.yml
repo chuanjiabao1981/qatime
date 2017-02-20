@@ -17,6 +17,8 @@ student_balance_account:
   balance: 999999
   total_income: 0
   total_expenditure: 300
+  password_digest: <%= BCrypt::Password.create("123123", cost: 4) %>
+  password_set_at: <%= 2.day.ago%>
 
 teacher_account:
   owner: teacher1 (User)
@@ -39,6 +41,7 @@ total_income_teacher:
   owner: teacher_tally (Teacher)
   balance: 2000
   total_income: 3000
+  password_digest: <%= BCrypt::Password.create("111111", cost: 4) %>
 
 physics_teacher1_account:
   owner: physics_teacher1 (User)
@@ -51,6 +54,7 @@ student2_account:
 account_for_teacher_tally:
   owner: teacher_tally (User)
   balance: 10000
+  password_digest: <%= BCrypt::Password.create("111111", cost: 4) %>
 
 account_for_student_tally:
   owner: student_tally (User)
@@ -65,6 +69,7 @@ teahcer_balance_account:
   balance: 100000
   total_income: 0
   total_expenditure: 0
+  password_digest: <%= BCrypt::Password.create("111111", cost: 4) %>
 
 teacher_for_billing_account:
   owner: teacher_for_billing (User)
@@ -77,3 +82,48 @@ teacher_balance_account:
   balance: 100000
   total_income: 0
   total_expenditure: 0
+
+student_set_payment_password:
+  owner: student_set_payment_password (User)
+  balance: 100
+  total_income: 0
+  total_expenditure: 0
+
+student_update_payment_password:
+  owner: student_update_payment_password (User)
+  balance: 100
+  total_income: 0
+  total_expenditure: 0
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+
+teacher_get_back_payment_password:
+  owner: teacher_get_back_payment_password (User)
+  balance: 100
+  total_income: 0
+  total_expenditure: 0
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+
+student_order_for_refund_account:
+  owner: student_order_for_refund (User)
+  balance: 1000
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+
+cash_admin_account:
+  owner: cash_admin (User)
+  balance: 20000
+
+cash_default_workstation:
+  owner: workstation_default(Workstation)
+  balance: 20000
+
+cash_workstation_zhuji:
+  owner: workstation_zhuji(Workstation)
+  balance: 20000
+
+cash_workstation_beijing:
+  owner: workstation_one(Workstation)
+  balance: 100
+
+cash_workstation_hd:
+  owner: workstation_hd(Workstation)
+  balance: 200

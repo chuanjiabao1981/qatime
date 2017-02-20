@@ -5,6 +5,7 @@ CarrierWave.configure do |config|
   if Rails.env.production?
     config.aliyun_bucket = APP_CONFIG[:bucket_online]
     config.aliyun_internal = true
+    config.aliyun_host = APP_CONFIG[:aliyun_host]
   else
     config.aliyun_bucket = APP_CONFIG[:bucket_testing]
     config.aliyun_internal = false

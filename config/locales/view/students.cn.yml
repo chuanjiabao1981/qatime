@@ -9,8 +9,8 @@ cn:
       select: 选择
       save: 保存
       ok: 确定
-      get_captcha: 获取验证码
-      try_get_captcha_again: 秒后重试
+      get_captcha: 获取校验码
+      try_get_captcha_again: 重新获取
       my_wallet: 我的钱包
     new:
       title: 学生注册
@@ -19,6 +19,8 @@ cn:
       captcha_confirmation_ph: 手机验证码
       password_ph: 请输入密码
       password_confirmation_ph: 再输入一次密码
+      login_tips: 已有账户?
+      login_link: 登录
     info:
       edit_information: 编辑信息
     edit_profile:
@@ -26,9 +28,16 @@ cn:
       edit_avatar_title: 更换头像
     security_setting:
       login_password: 登录密码
+      payment_password: 支付密码
+      wechat_bind: 绑定微信
+      wechat_bind_click: 扫码绑定微信
+      wechat_unbind: 解除解绑微信
+      required_wechat: 绑定后可使用微信登录和微信提现等功能。
+      required_payment_password: 余额支付时需要输入支付密码。
       this_password_is_not_visible: 此密码不可见
       required_authentication_password: 登录答疑时间需要输入密码验证。
       modify_login_password: 修改登录密码
+      modify_payment_password: 修改支付密码
       bound_mobile: 绑定手机
       bound_mobile_desc: 注意！修改绑定手机，用户登录手机号将一起改变；需要同时对新旧手机进行验证。
       modified_binding_mobile: 修改绑定手机
@@ -69,6 +78,15 @@ cn:
       parent_phone_confirmation_ph: 再输入一次进行确认
       email_ph: 绑定后可通过邮箱进行登录
       email_confirmation_ph: 再输入一次进行确认
+      welcome: 欢迎使用答疑时间，完成最后一步即刻开始学习
+      avatar_tips: 点击头像上传(必填)
+      edit_more_profile: 完善更多
+      submit_profile: 立即进入
+      select_avatar: 上传头像
+      preview_avatar: 预览
+      twirled_avatar: 90°旋转
+      avatar_select_tips: 1.请选择合适圆形和方形两种裁剪方式的图片，以保证头像正常展示
+
     student:
       edit_student: 修改安全信息
       delete: 删除

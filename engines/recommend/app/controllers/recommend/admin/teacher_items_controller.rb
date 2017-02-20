@@ -13,7 +13,7 @@ module Recommend
 
     # POST /admin/items
     def create
-      @item = @position.items.build(item_params.merge(target_type: Teacher, type: @position.klass_name))
+      @item = @position.items.build(item_params.merge(platforms: params[:platforms],target_type: Teacher, type: @position.klass_name))
 
       if @item.save
         redirect_to [:admin, @position], notice: 'Item was successfully created.'
@@ -24,7 +24,7 @@ module Recommend
 
     # PATCH/PUT /admin/items/1
     def update
-      if @item.update(item_params)
+      if @item.update(item_params.merge(platforms: params[:platforms]))
         redirect_to [:admin, @item.position], notice: 'Item was successfully updated.'
       else
         render :edit
@@ -40,7 +40,7 @@ module Recommend
     private
 
     def item_params
-      params.require(:teacher_item).permit(:title, :logo, :target_id, :reason, :index)
+      params.require(:teacher_item).permit(:title, :logo, :target_id, :reason, :city_id, :index)
     end
   end
 end

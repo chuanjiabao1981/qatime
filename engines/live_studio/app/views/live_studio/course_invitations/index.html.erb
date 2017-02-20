@@ -1,0 +1,45 @@
+<div class="panel panel-default">
+  <div class="admin">
+    <div class="admin-title">
+      <%= render 'live_studio/manager/tab' %>
+    </div>
+
+    <div>
+      <div class="admin-list">
+        <div class="admin-list-title">
+          <div class="condition-left">
+            <%=link_to new_manager_course_invitation_path, class: "invitation" do %>
+              <%= t("view.invitation.new_invitation")%>
+            <% end if allow?("live_studio/courses", "create", current_user) %>
+          </div>
+          <div class="condition-right">
+            <%= render 'filter' %>
+          </div>
+        </div>
+        <div class="admin-invite">
+          <table border="1" cellspacing="1" cellpadding="1">
+            <tr>
+              <td><span><%= LiveStudio::CourseInvitation.human_attribute_name(:user_name) %></span></td>
+              <td><span><%= LiveStudio::CourseInvitation.human_attribute_name(:user_subject) %></span></td>
+              <td><span><%= LiveStudio::CourseInvitation.human_attribute_name(:teacher_percent) %></span></td>
+              <td><span><%= LiveStudio::CourseInvitation.human_attribute_name(:created_at) %></span></td>
+              <td><span><%= LiveStudio::CourseInvitation.human_attribute_name(:left_time) %></span></td>
+              <td><span><%= LiveStudio::CourseInvitation.human_attribute_name(:status) %></span></td>
+              <td><span><%= LiveStudio::CourseInvitation.human_attribute_name(:operation) %></span></td>
+            </tr>
+            <%= render @invitations %>
+          </table>
+        </div>
+
+        <center>
+          <div class="pagination-fix">
+            <%= will_paginate @invitations %>
+          </div>
+        </center>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+

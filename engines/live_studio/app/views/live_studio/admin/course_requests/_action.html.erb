@@ -1,0 +1,10 @@
+<% if course_request.submitted? && course_request.workstation.blank? -%>
+  <%= link_to t("live_studio/course_request.accept"),
+              live_studio.accept_admin_course_request_path(course_request),
+              method: :patch %>
+  <%= link_to t("live_studio/course_request.reject"),
+              live_studio.reject_admin_course_request_path(course_request),
+              method: :patch %>
+<% else %>
+  <%= course_request.status.text %>
+<% end %>

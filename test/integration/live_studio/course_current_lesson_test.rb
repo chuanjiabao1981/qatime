@@ -33,14 +33,14 @@ module LiveStudio
       course.reload
       course.current_lesson.reload
 
-      visit live_studio.play_course_path(course)
       # assert page.has_content?('直播中'), '直播状态显示不正确'
 
       course.current_lesson.pause!
+      sleep 3
+      p course.current_lesson.status
+      visit live_studio.play_course_path(course)
       page.execute_script("$.getScript( 'refresh_current_lesson', function( data, textStatus, jqxhr ) {});")
-
-      sleep 1
-      assert page.has_content?('直播暂停中'), '直播状态显示不正确'
+      assert page.has_content?('暂停中'), '直播状态显示不正确'
     end
   end
 end

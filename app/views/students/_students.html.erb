@@ -3,19 +3,12 @@
     <div class="row">
       <div class="col-md-4">
         <h2>
-          <%=link_to Student.model_name.human ,students_path%>
-          <% if allow? :student,:new %>
-              <%=link_to new_student_path do %>
-                  <button type="button" class="btn btn-xs btn-success">
-                    增加<%=Student.model_name.human%>
-                  </button>
-              <% end %>
-          <% end %>
+          <%=link_to Student.model_name.human, students_path%>
         </h2>
 
       </div>
       <div class="col-md-8" style="padding-top:20px">
-        <%= simple_form_for :search  ,url: search_students_path , :method => :get do |f|%>
+        <%= simple_form_for :search, url: search_students_path , :method => :get do |f|%>
             <div class="row">
               <%= f.input :name,
                           placeholder: params[:search].nil? ? "学生名字或者学生邮箱":"",

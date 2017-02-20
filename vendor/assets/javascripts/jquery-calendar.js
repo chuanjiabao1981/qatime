@@ -63,6 +63,9 @@
         } else {
           results.push(void 0);
         }
+        if (tmp.toLocaleDateString() === new Date().toLocaleDateString()) {
+          tmp_div.addClass("nowday")
+        }
       }
       $(this).append($(this.dayList));
       return results;

@@ -29,8 +29,8 @@ cn:
       pay_type:
         cash: 现金支付
         bank: 银行转账
-        weixin: 微信支付
-        alipay: 支付宝支付
+        wechat: 微信转账
+        alipay: 支付宝转账
     payment/order:
       pay_type:
         account: 余额支付
@@ -46,3 +46,28 @@ cn:
         account: 余额
         alipay: 支付宝
         weixin: 微信
+    live_studio/course:
+      status:
+        init: 审核中
+        published: 招生中
+        teaching: 开课中
+        completed: 已结束
+    live_studio/course_request:
+      status:
+        submitted: 未审核
+        accepted: 审核通过
+        rejected: 已拒绝
+    payment/refund:
+      pay_type:
+        cash: 现金
+        bank: 银行卡
+        alipay: 支付宝
+        wechat: 微信
+        weixin: 微信
+        account: 余额
+      status:
+        init: 等待审核
+        success: 审核通过
+        ignored: 已忽略
+        cancel: 已取消
+        refunded: 已退款

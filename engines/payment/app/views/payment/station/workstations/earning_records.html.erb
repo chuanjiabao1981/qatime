@@ -1,0 +1,61 @@
+<div class="panel panel-default">
+  <div class="workstation earnings">
+    <div class="workstation-title">
+      <div class="workstation-title-left">
+        <h2><%= Payment::EarningRecord.model_name.human %></h2>
+      </div>
+    </div>
+    <div class="workstation-nav">
+      <%= form_tag "", method: :get do -%>
+        <div class="workstation-nav-left">
+          <%= select_tag "category", options_for_select(earning_records_category_options, params[:category]), class: 'immediately' %>
+          <span><%= t("view.payment/earning_records.list.total_value", amount: number_to_currency(@amount, locale: :cn, unit: "￥", precision: 2)) %></span>
+        </div>
+        <div class="workstation-nav-right">
+          <%= submit_tag t("view.common.query") %>
+          <%= text_field_tag :q, params[:q], placeholder: t("view.query.name_or_mobile") %>
+        </div>
+      <% end -%>
+    </div>
+    <div class="workstation-con">
+      <table border="1" cellspacing="1" cellpadding="1" class="earnings-tab">
+        <tbody>
+          <tr>
+            <td><%= Payment::EarningRecord.human_attribute_name(:counter) %></td>
+            <td><%= Payment::EarningRecord.human_attribute_name(:amount) %></td>
+            <td><%= Payment::EarningRecord.human_attribute_name(:created_at) %></td>
+            <td><%= Payment::EarningRecord.human_attribute_name(:target) %></td>
+            <td><%= Payment::EarningRecord.human_attribute_name(:from_user) %></td>
+            <td><%= Payment::EarningRecord.human_attribute_name(:target_type) %></td>
+            <td><%= Payment::EarningRecord.human_attribute_name(:operate) %></td>
+          </tr>
+          <%= render partial: "earning_record", collection: @earning_records %>
+        </tbody>
+      </table>
+      <center><div class="pagination-fix"><%= will_paginate @earning_records %></div></center>
+      <% if @earning_records.blank? -%>
+        <div class="workstation-prompt">
+          <span><%= t("common.no_match_result") %></span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= content_for :javascript do %>
+<script>
+$(function() {
+  $(".view-msg").click(function  () {
+    var index = $(".view-msg").index($(this));
+    $(".earnings-detail").eq(index).toggle();
+     if ($(this).find("i").attr("class") == "fa fa-caret-down") {
+      $(this).find("span").html("<%= Payment::EarningRecord.human_attribute_name(:operate_hide) %>");
+       $(this).find("i").attr("class","fa fa-caret-up");
+     } else{
+      $(this).find("span").html("<%= Payment::EarningRecord.human_attribute_name(:operate_detail) %>");
+     $(this).find("i").attr("class","fa fa-caret-down");
+     }
+  });
+});
+</script>
+<% end %>

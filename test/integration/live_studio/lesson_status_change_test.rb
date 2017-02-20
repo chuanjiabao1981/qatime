@@ -12,6 +12,7 @@ class LiveStudio::TeacherLessonTest < ActionDispatch::IntegrationTest
         description: 'test desc',
         start_time: '12:00',
         end_time: '12:30',
+        duration: 30,
         class_date: Date.today
     )
     assert ready_lesson.ready?, 'class_date为今天应该为ready状态'
@@ -20,9 +21,10 @@ class LiveStudio::TeacherLessonTest < ActionDispatch::IntegrationTest
         description: 'test desc',
         start_time: '12:00',
         end_time: '12:30',
+        duration: 30,
         class_date: Date.tomorrow
     )
-    assert init_lesson.init? ,'class_date为明天应该为init状态'
+    assert init_lesson.init?, 'class_date为明天应该为init状态'
   end
 
   test 'service lesson start course teaching?' do

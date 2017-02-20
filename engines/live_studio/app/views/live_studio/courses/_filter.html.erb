@@ -10,9 +10,9 @@
     <ul class="list-sort">
       <li class="list-headline"><%= LiveStudio::Course.human_attribute_name(:sort)  %>: </li>
       <li class="list-sort-1">
-        <%= link_to(t('view.sort.live_studio/course.id'), "javascript: void(0);",
-                    "data-key" => "sort_by", "data-value" => "id.desc",
-                    class: "search-link-submit #{'active-color' if params[:sort_by].blank? || params[:sort_by] == 'id.desc' }") %>
+        <%= link_to(t('view.sort.live_studio/course.published_at'), "javascript: void(0);",
+                    "data-key" => "sort_by", "data-value" => "published_at.desc",
+                    class: "search-link-submit #{'active-color' if params[:sort_by].blank? || params[:sort_by] == 'published_at.desc' }") %>
       </li>
       <li class="list-sort-1">
         <%= link_to(t('view.sort.live_studio/course.price/desc'), "javascript: void(0);",
@@ -73,8 +73,8 @@
       </li>
       <li class="list-state-1">
         <%= link_to(t('status.preview'), "javascript: void(0);",
-                    "data-key" => "status", "data-value" => "preview",
-                    class: "search-link-submit #{'active-color' if params[:status] == 'preview' }") %>
+                    "data-key" => "status", "data-value" => "published",
+                    class: "search-link-submit #{'active-color' if params[:status] == 'published' }") %>
       </li>
       <li class="list-state-1">
         <%= link_to(t('status.teaching'), "javascript: void(0);",
@@ -90,13 +90,6 @@
         <li class="price-segmentation">-</li>
         <li><%= text_field_tag :price_ceil, params[:price_ceil], class: 'search-input' %></li>
         <li>元</li>
-      </ul>
-
-      <ul class="list-scope">
-        <li class="list-headline"><%= LiveStudio::Course.human_attribute_name(:preset_lesson_count_region) %>: </li>
-        <li><%= text_field_tag :preset_lesson_count_floor, params[:preset_lesson_count_floor], class: 'search-input' %></li>
-        <li class="price-segmentation">-</li>
-        <li><%= text_field_tag :preset_lesson_count_ceil, params[:preset_lesson_count_ceil], class: 'search-input' %></li>
       </ul>
 
       <ul class="list-remedial">

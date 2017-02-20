@@ -1,0 +1,39 @@
+replays_1:
+  lesson: replay_lessons_1
+  name: replays_1
+  uid: 11111
+  status: 1
+  orig_url: http://vodb98fi13b.vod.126.net/vodb98fi13b/f71a67b8-184a-4e5a-9515-895929522546.mp4
+  video_for: 0
+replays_2:
+  lesson: replay_lessons_2
+  name: replays_2
+  uid: 11111
+  status: 1
+  orig_url: http://vodb98fi13b.vod.126.net/vodb98fi13b/f71a67b8-184a-4e5a-9515-895929522546.mp4
+  video_for: 0
+replays_3:
+  lesson: replay_lessons_3
+  name: replays_2
+  uid: 11111
+  status: 1
+  orig_url: http://vodb98fi13b.vod.126.net/vodb98fi13b/f71a67b8-184a-4e5a-9515-895929522546.mp4
+  video_for: 0
+replays_4:
+  lesson: replay_lessons_4
+  name: replays_2
+  uid: 11111
+  status: 1
+  orig_url: http://vodb98fi13b.vod.126.net/vodb98fi13b/f71a67b8-184a-4e5a-9515-895929522546.mp4
+  video_for: 0
+replays_5:
+  lesson: replay_lessons_5
+  name: replays_6
+  status: 0
+  video_for: 0
+replays_6:
+  lesson: replay_lessons_6
+  name: replays_6
+  status: 0
+  video_for: 0
+

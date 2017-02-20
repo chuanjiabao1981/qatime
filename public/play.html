@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>视频直播</title>
+<link href="//nos.netease.com/vod163/nep.min.css" rel="stylesheet">
+<script src="//nos.netease.com/vod163/nep.min.js"></script>
+</head>
+<body style="margin: 0px;">
+
+<video id="my-video" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="poster.png" preload="auto" data-setup="{}">
+    <source src="MY_VIDEO.mp4" type="video/mp4">
+</video>
+
+<script>
+function queryParams(name, url) {
+  if (!url) {
+    url = window.location.href;
+  }
+  name = name.replace(/[\[\]]/g, "\\$&");
+  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+var width = queryParams('width') || 640;
+var height = queryParams('height') || 480;
+var address = queryParams("address");
+var type = 'rtmp/flv';
+
+if("http" === address.substring(0, 4)) {
+  if(-1 !== address.indexOf("mp4")) {
+    type = "video/mp4";
+  }else if(-1 !== address.indexOf("flv")) {
+    type = "video/x-flv";
+  }else if (-1 !== address.indexOf("m3u8")) {
+    type = "application/x-mpegURL";
+  }
+}
+
+var myPlayer = neplayer("my-video", {
+  "autoplay": true, //是否自动播放(ios不支持自动播放)
+  /*预加载选项*/
+  "preload": "auto"
+}, function() {
+  console.log("Ready......");
+});
+
+myPlayer.setDataSource({
+  type: type,
+  src: address
+});
+
+myPlayer.onError(function(err){
+  console.log(err.errCode);
+  console.log(err.errMsg);
+});
+
+myPlayer.onPlayState(1,function(){
+  console.log('play');
+});
+myPlayer.onPlayState(2,function(){
+  console.log('pause');
+});
+myPlayer.onPlayState(3,function(){
+  console.log('ended');
+}); 
+</script>
+
+</body>
+</html>

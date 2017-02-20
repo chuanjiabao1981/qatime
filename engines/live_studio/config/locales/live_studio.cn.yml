@@ -1,0 +1,42 @@
+cn:
+  live_studio:
+    menu:
+      course_requests: 招生审核
+      course_invitations: 开班邀请
+      courses: 辅导班列表
+      teacher:
+        my_courses: 我的辅导
+        new_course: 邀请和创建
+        create_course: 创建新辅导
+        my_course_invitations: 邀请和创建
+        current_course_invitations: 已收到的开班邀请
+        course:
+          all: 全部
+          waiting: 待开始
+          teaching: 进行中
+          finished: 已结束
+    course_request:
+      menu:
+        unhandled: 未审核
+        handled: 已审核
+        reset: 清空
+        query: 查询
+        all: 全部
+        all_city: 全国
+  activerecord:
+    models:
+      live_studio/course: 辅导班
+    attributes:
+      live_studio/course:
+        name: 名称
+        description: 简介
+        taste_count: 试听数
+        aasm_state/init: 审核中
+        aasm_state/published: 招生中
+        aasm_state/teaching: 已开课
+        aasm_state/completed: 已结束
+        aasm_state:
+          init: 审核中
+          published: 招生中
+          teaching: 已开课
+          completed: 已结束

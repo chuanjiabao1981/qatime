@@ -128,4 +128,15 @@ video_homework_correction_for_tally:
   author: teacher_tally
   duration: 100
 
+video_exercise_fee_correction_one:
+  name: video_homework_correction_for_tally2
+  videoable: exercise_fee_correction_one (Correction)
+  author: teacher_tally
+  duration: 100
+
+video_course_issue_reply_for_fee_view:
+  name: video_homework_correction_for_tally3
+  videoable: course_issue_reply_for_fee_view (Reply)
+  author: teacher_tally
+  duration: 100
 ##end

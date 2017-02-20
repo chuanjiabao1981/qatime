@@ -1,4 +1,18 @@
 module ApplicationHelper
+  include SessionsHelper
+
+  def set_city
+    cookie_city = cookies[:selected_cities].try(:split, '-').try(:first)
+    @location_city = City.find_by(id: params[:city_id]) || City.find_by(name: params[:city_name] || cookie_city)
+    # return if @city.blank?
+    selected_cities = cookies[:selected_cities].try(:split, '-') || []
+    selected_cities.delete(@location_city.name) if @location_city && selected_cities.include?(@location_city.name)
+    selected_cities = selected_cities.insert(0, @location_city.try(:name) || 'country')
+    cookies[:selected_cities] = selected_cities.uniq.try(:join, '-')
+    @location_workstation = @location_city.workstations.first if @location_city
+    @location_city
+  end
+
   def user_home_path
     return main_app.signin_path(redirect_url: request.original_url) unless signed_in?
 
@@ -41,7 +55,7 @@ module ApplicationHelper
     fields = f.fields_for(association, new_object, :child_index => "new_#{association}_#{id}") do |builder|
       render(shared_dir + association.to_s.singularize + "_fields", :f => builder)
     end
-    link_to(name, '#', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
+    link_to(name, '###', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
   def _get_super_model_name(o_class)

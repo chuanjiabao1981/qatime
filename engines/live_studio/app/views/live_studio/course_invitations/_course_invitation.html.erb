@@ -1,0 +1,19 @@
+<tr>
+  <td>
+    <%= link_to profile_teacher_path(course_invitation.user) do %>
+      <span><%= "#{course_invitation.user.name}(#{course_invitation.user.login_mobile})" %></span>
+    <% end %>
+  </td>
+  <td><span><%= course_invitation.user.subject %></span></td>
+  <td><span><%= number_to_percentage(course_invitation.teacher_percent, precision: 0) %></span></td>
+  <td><span><%= course_invitation.created_at.to_s(:db) %></span></td>
+  <td><span><%= distance_of_expited_at(course_invitation.expited_at)%></span></td>
+  <td><span><%= course_invitation.status.text %></span></td>
+  <td>
+    <%= link_to t("invitations.cancel"),
+                cancel_station_workstation_course_invitation_path(@workstation, course_invitation),
+                method: :patch if course_invitation.sent? && allow?('live_studio/station/course_invitations', 'cancel', @workstation)  %>
+    <%= link_to t("invitations.reset"),
+                new_station_workstation_course_invitation_path(@workstation, template_id: course_invitation.id) if !course_invitation.accepted? && allow?('live_studio/station/course_invitations', 'new', @workstation)  %>
+  </td>
+</tr>

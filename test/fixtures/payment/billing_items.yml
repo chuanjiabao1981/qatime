@@ -1,0 +1,25 @@
+system_fee_item:
+  billing: workstation_billing1
+  type: Payment::SystemFeeItem
+  amount: 12
+  price: 0.1
+teacher_item:
+  billing: workstation_billing1
+  type: Payment::TeacherMoneyItem
+  amount: 150.4
+  percent: 80
+percent_item:
+  billing: workstation_billing1
+  type: Payment::PercentItem
+  amount: 37.6
+  percent: 20
+system_item:
+  billing: workstation_billing1
+  type: Payment::WorkstationPercentItem
+  amount: 7.52
+  percent: 20
+workstation_item:
+  billing: workstation_billing1
+  type: Payment::SystemPercentItem
+  amount: 30.08
+  percent: 80

@@ -1,8 +1,8 @@
 <tr>
-  <td><%= number_to_currency(recharge.amount, locale: :cn, unit: "￥", precision: 1) %></td>
+  <td><%= number_to_currency(recharge.amount, locale: :cn, unit: "￥", precision: 2) %></td>
   <td><%= recharge.transaction_no %></td>
   <td><%= recharge.pay_type_text %></td>
-  <td><%= localize(recharge.created_at,:format => :long) %></td>
+  <td><%= recharge.created_at.strftime('%Y-%m-%d %H:%M') %></td>
   <td>
     <%= recharge.aasm.human_state %>
     <% if recharge.unpaid? && recharge.pay_type.offline? && allow?("payment/recharges", "pay", recharge) %>

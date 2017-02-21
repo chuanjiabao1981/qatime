@@ -13,6 +13,8 @@ module LiveStudio
     USER_STATUS_TASTING = :tasting # 正在试听
     USER_STATUS_TASTED = :tasted # 已经试听
 
+    DEFAULT_TEACHER_PERCENTAGE = 80
+
     belongs_to :invitation
 
     enum status: {
@@ -62,7 +64,12 @@ module LiveStudio
     validates :name, presence: { message: "请输入辅导班名称" }, length: { in: 2..20 }, if: :name_changed?
     validates :description, presence: { message: "请输入辅导班介绍" }, length: { in: 5..300 }, if: :description_changed?
     validates :grade, presence: { message: "请选择年级" }, if: :grade_changed?
-    validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 70, less_than_or_equal_to: 100 }
+
+    validates :publish_percentage, :sell_percentage, :system_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+    validates :teacher_percentage, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max }
+
+    validate :check_billing_percentage
+
     # validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
     validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: "必须大于等于0" }
     validates :price, presence: { message: "请输入价格" }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
@@ -365,30 +372,19 @@ module LiveStudio
       description.try(:strip!)
     end
 
-    # 处理邀请信息
-    before_validation :execute_invitation, on: :create
-    def execute_invitation
-      return unless invitation
-      self.workstation = invitation.target
-      self.city = invitation.target.city
-      self.province = city.try(:province)
-      self.teacher_percentage = invitation.teacher_percent
+    # 结账比例验证
+    def check_billing_percentage
+      errors.add(:teacher_percentage, "分成比例不正确") unless 100 == publish_percentage + system_percentage + sell_percentage + teacher_percentage
+    end
+
+    # 教师分成最大值
+    def teacher_percentage_max
+      100 - publish_percentage - system_percentage
     end
 
     after_commit :finish_invitation, on: :create
     def finish_invitation
-      return unless invitation
-      invitation.accepted!
-    end
-
-    # 非邀请辅导班未选择工作站则使用默认工作站
-    before_validation :copy_city, on: :create
-    def copy_city
-      return if invitation
-      self.workstation ||= default_workstation
-      self.city = workstation.try(:city)
-      self.province = city.try(:province)
-      self.teacher_percentage = 100
+      invitation.accepted! if invitation
     end
 
     # 从教师记录复制辅导班信息
@@ -398,15 +394,46 @@ module LiveStudio
       self.subject = teacher.try(:subject)
     end
 
+    # 从工作站拷贝信息
+    before_validation :copy_workstation_info, on: :create
+    def copy_workstation_info
+      # 邀请创建的辅导班工作站使用邀请者的工作站
+      copy_invitation_info! if invitation
+      # 没有工作站的辅导班使用老师的默认工作站
+      self.workstation ||= default_workstation
+      copy_city!
+      # 拷贝完工作站信息以后工作站可能会修改，需要重新计算分成比例
+      calculate_billing_percentage!
+    end
+
+    # 处理邀请
+    def copy_invitation_info!
+      return unless invitation
+      self.workstation = invitation.target
+      self.teacher_percentage = invitation.teacher_percent
+    end
+
+    # 根据工作站信息设置城市信息
+    def copy_city!
+      self.city = workstation.try(:city)
+      self.city ||= author.city # 工作站不存在使用老师的城市
+      self.province = city.try(:province)
+    end
+
     # 默认工作站
     def default_workstation
       author.city.try(:workstations).try(:first)
     end
 
-    # before_validation :calculate_lesson_price, on: :create
-    # def calculate_lesson_price
-    #   self.lesson_price = (price / lessons.count).to_i if lessons.count > 0
-    # end
+    # 计算结账分成
+    before_validation :calculate_billing_percentage!
+    def calculate_billing_percentage!
+      tpl_workstation = workstation || Workstation.default
+      self.publish_percentage = tpl_workstation.publish_percentage
+      self.system_percentage = tpl_workstation.system_percentage
+      self.teacher_percentage = DEFAULT_TEACHER_PERCENTAGE unless invitation
+      self.sell_percentage = teacher_percentage_max - teacher_percentage
+    end
 
     # 学生授权播放
     def student_authorize(user)

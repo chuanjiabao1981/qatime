@@ -4,6 +4,7 @@ module LiveStudio
     belongs_to :payment_order, class_name: 'Payment::Order'
     belongs_to :sell_channel
     belongs_to :channel_owner, polymorphic: true
+    belongs_to :seller, polymorphic: true
 
     private
 

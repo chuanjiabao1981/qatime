@@ -1,13 +1,6 @@
 module Payment
   class LiveCourseTicketBilling < Billing
     belongs_to :ticket, polymorphic: true
-
-    # 系统默认分成比例
-    SYSTEM_PERCENT = 0.2
-    # 教师默认分成比例
-    TEACHER_DEFAULT_PERCENT = 80
-    SELL_DEFAULT_PERCENT = 0.2
-
     SYSTEM_FEE_PRICE = 0.1 # 系统服务费设置0.1元
 
     # 计算总金额
@@ -16,44 +9,50 @@ module Payment
     end
 
     def billing
+      billing_check!
       # 支出总金额
       system_pay_item!
       # 系统服务费收入
       system_fee_item!
-      # 分成账单
-      percent_item!
       # 教师收入
       teacher_money_item!
+      # 经销商收入
+      sell_money_item!
+      # 发行商收入
+      publish_money_item!
+      # 系统分成收入
+      system_money_item!
     end
 
+    # 系统服务费
     def base_fee
-      @base_fee ||= [SYSTEM_FEE_PRICE * duration_minutes, total_money].min
+      @base_fee ||= [target.base_price * duration_minutes, total_money].min.round(2)
+    end
+
+    # 分成金额
+    def percent_money
+      @percent_money = total_money - base_fee
     end
 
     # 教师收入
     def teacher_money
-      @teacher_money ||= teacher_percentage * (total_money - base_fee)
-    end
-
-    # 分成金额 代理商分成 + 系统分成
-    def percent_money
-      @percent_money ||= total_money - base_fee - teacher_money
-    end
-
-    # 系统分成收入
-    def system_percent_money
-      @system_percent_money ||= (percent_money * system_percentage).round(2)
+      @teacher_money ||= (percent_money * teacher_proportion).round(2)
     end
 
     # 经销商分成收入
-    # 先按照分成比例计算，如果计算结果大于剩余金额使用剩余金额
-    def sell_percent_money
-      @sell_percent_money ||= [(percent_money * sell_percentage).round(2), percent_money - system_percent_money].min
+    def sell_money
+      @sell_money ||= (percent_money * sell_proportion).round(2)
     end
 
     # 发行商分成收入
-    def workstation_percent_money
-      @workstation_percent_money ||= percent_money - system_percent_money - sell_percent_money
+    def publish_money
+      @publish_money ||= (percent_money * publish_proportion).round(2)
+    end
+
+    # 系统分成收入
+    # 其它角色分成后剩余金额，需要跟实际计算结果进行校验，差值过大不进行结账
+    def system_money
+      @system_money ||= percent_money - teacher_money - sell_money - publish_money
     end
 
     private
@@ -76,46 +75,29 @@ module Payment
                             duration: duration_minutes)
     end
 
-    # 商家分成
-    def percent_item!
-      item = PercentItem.create!(billing: self,
-                                 amount: percent_money,
-                                 percent: 100 - (teacher_percentage * 100).to_i)
-
-      # 系统分成收入
-      system_percent_item!(item)
-      # 分销商分成收入
-      sell_percent_item!(item)
-      # 工作站分成收入
-      workstation_percent_item!(item)
-    end
-
-    def system_percent_item!(item)
-      SystemPercentItem.create!(parent: item,
-                                billing: self,
+    def system_money_item!
+      SystemPercentItem.create!(billing: self,
                                 cash_account: system_account,
                                 owner: CashAdmin.current!,
-                                amount: system_percent_money,
-                                percent: system_percentage * 100)
+                                amount: system_money,
+                                percent: target.system_percentage)
     end
 
-    def sell_percent_item!(item)
+    def sell_money_item!
       return if channel_seller.blank?
-      SellPercentItem.create!(parent: item,
-                              billing: self,
+      SellPercentItem.create!(billing: self,
                               cash_account: sell_account,
                               owner: channel_seller,
-                              amount: sell_percent_money,
-                              percent:  sell_percentage * 100)
+                              amount: sell_money,
+                              percent:  target.sell_percentage)
     end
 
-    def workstation_percent_item!(item)
-      WorkstationPercentItem.create!(parent: item,
-                                     billing: self,
-                                     cash_account: workstation_account,
-                                     owner: workstation,
-                                     amount: workstation_percent_money,
-                                     percent: workstation_percentage * 100)
+    def publish_money_item!
+      PublishPercentItem.create!(billing: self,
+                                 cash_account: workstation_account,
+                                 owner: workstation,
+                                 amount: publish_money,
+                                 percent: target.publish_percentage)
     end
 
     def teacher_money_item!
@@ -123,7 +105,7 @@ module Payment
                               cash_account: teacher_account,
                               owner: target.teacher,
                               amount: teacher_money,
-                              percent: (teacher_percentage * 100).to_i)
+                              percent: target.teacher_percentage)
     end
 
     # 视频时长
@@ -144,16 +126,8 @@ module Payment
     end
 
     # 发行商分成比例
-    def workstation_percentage
-      @workstation_percentage ||= 1 - SYSTEM_PERCENT - sell_percentage
-    end
-
-    # 教师分成比例
-    def teacher_percentage
-      @teacher_percent ||= target.course.teacher_percentage.to_f / 100
-      # 非邀请辅导班教师分成比例使用默认分成比例
-      @teacher_percent = TEACHER_DEFAULT_PERCENT.to_f / 100 if @teacher_percent >= 1
-      @teacher_percent
+    def publish_percentage
+      @publish_percentage ||= 1 - SYSTEM_PERCENT - sell_percentage
     end
 
     # 经销商
@@ -161,18 +135,23 @@ module Payment
       @channel_seller ||= ticket.channel_owner || workstation
     end
 
+    # 经销商
+    def seller
+      @seller ||= ticket.seller || Workstation.default
+    end
+
     # 经销商账户
     def sell_account
-      @sell_account ||= channel_seller.try(:cash_account!)
+      @sell_account ||= seller.cash_account!
     end
 
     # 发行商
     def workstation
-      @workstation ||= target.course.workstation || Workstation.default
+      @workstation ||= target.workstation || Workstation.default
     end
 
     # 发行商资金账户
-    def workstation_account
+    def publish_account
       workstation.cash_account!
     end
 
@@ -181,5 +160,39 @@ module Payment
       target.teacher.cash_account!
     end
 
+    # 教师分成比例
+    def teacher_proportion
+      target.teacher_percentage.to_f / 100
+    end
+
+    # 经销商分成比例
+    def sell_proportion
+      target.sell_percentage.to_f / 100
+    end
+
+    # 发行商分成比例
+    def publish_proportion
+      target.publish_percentage.to_f / 100
+    end
+
+    # 系统分成比例
+    def system_proportion
+      target.system_percentage.to_f / 100
+    end
+
+    # 总分成比例
+    def total_proportion
+      teacher_proportion + sell_proportion + publish_proportion + system_proportion 
+    end
+
+    # 根据百分比计算得出系统收入
+    def real_system_money
+      (percent_money * system_proportion).round(2)
+    end
+
+    def billing_check!
+      raise Payment::Billing::TotalPercentInvalid, "分成比例不正确" unless  1 == total_proportion
+      raise Payment::Billing::SystemMoneyDifference, "系统分成金额差距过大" if (real_system_money - system_money).abs > 0.02
+    end
   end
 end

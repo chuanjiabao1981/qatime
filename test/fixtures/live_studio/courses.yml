@@ -740,8 +740,7 @@ billing_course_two:
   workstation: workstation_one
   status: 2
   teacher: teacher1
-  teacher_percentage: 80
-  lesson_price: 50
+  lesson_price: 60
   price: 500
   grade: 高一
   subject: 数学
@@ -751,7 +750,7 @@ billing_course_two:
   lessons_count: 10
   taste_count: 5
   billing_type: Payment::LiveCourseBilling
-  teacher_percentage: 40
+  teacher_percentage: 45
   sell_percentage: 35
   publish_percentage: 15
   system_percentage: 5

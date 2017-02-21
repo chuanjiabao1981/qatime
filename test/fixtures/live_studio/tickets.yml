@@ -259,7 +259,7 @@ ticket_one_of_billing_course_two:
   student: student1
   course: billing_course_two
   status: 2
-  lesson_price: 50
+  lesson_price: 60
   type: LiveStudio::BuyTicket
   seller: workstation1 (Workstation)
 
@@ -267,7 +267,7 @@ ticket_two_of_billing_course_two:
   student: student1
   course: billing_course_two
   status: 2
-  lesson_price: 50
+  lesson_price: 60
   type: LiveStudio::BuyTicket
   seller: workstation1 (Workstation)
 
@@ -275,7 +275,7 @@ ticket_three_of_billing_course_two:
   student: student1
   course: billing_course_two
   status: 2
-  lesson_price: 50
+  lesson_price: 60
   type: LiveStudio::BuyTicket
   seller: workstation1 (Workstation)
 
@@ -299,7 +299,7 @@ ticket_six_of_billing_course_two:
   student: student1
   course: billing_course_two
   status: 2
-  lesson_price: 70
+  lesson_price: 60
   type: LiveStudio::BuyTicket
   seller: workstation_hd (Workstation)
 
@@ -307,7 +307,7 @@ ticket_seven_of_billing_course_two:
   student: student1
   course: billing_course_two
   status: 2
-  lesson_price: 40
+  lesson_price: 60
   type: LiveStudio::BuyTicket
 
 

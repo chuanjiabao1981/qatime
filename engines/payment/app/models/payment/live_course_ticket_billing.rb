@@ -94,7 +94,7 @@ module Payment
 
     def publish_money_item!
       PublishPercentItem.create!(billing: self,
-                                 cash_account: workstation_account,
+                                 cash_account: publish_account,
                                  owner: workstation,
                                  amount: publish_money,
                                  percent: target.publish_percentage)
@@ -191,8 +191,8 @@ module Payment
     end
 
     def billing_check!
-      raise Payment::Billing::TotalPercentInvalid, "分成比例不正确" unless  1 == total_proportion
-      raise Payment::Billing::SystemMoneyDifference, "系统分成金额差距过大" if (real_system_money - system_money).abs > 0.02
+      raise Payment::TotalPercentInvalid, "分成比例不正确" unless  1 == total_proportion
+      raise Payment::SystemMoneyDifference, "系统分成金额差距过大" if (real_system_money - system_money).abs > 0.02
     end
   end
 end

@@ -232,79 +232,72 @@ replay_ticket2:
   lesson_price: 50
   type: LiveStudio::BuyTicket
 
-ticket_one_of_channel_course_one:
+ticket_one_of_billing_course_one:
   student: student_with_order2
-  course: channel_course_one
+  course: billing_course_one
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
-  sell_channel: channel_course_one_channel_one
-  channel_owner: workstation1 (Workstation)
+  seller: workstation1 (Workstation)
 
-ticket_three_of_channel_course_one:
+ticket_three_of_billing_course_one:
   student: student_with_order3
-  course: channel_course_one
+  course: billing_course_one
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
 
-ticket_one_of_channel_course_two:
+ticket_one_of_billing_course_two:
   student: student1
-  course: channel_course_two
+  course: billing_course_two
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
-  sell_channel: channel_course_two_channel_one
-  channel_owner: workstation1 (Workstation)
+  seller: workstation1 (Workstation)
 
-ticket_two_of_channel_course_two:
+ticket_two_of_billing_course_two:
   student: student1
-  course: channel_course_two
+  course: billing_course_two
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
-  sell_channel: channel_course_two_channel_one
-  channel_owner: workstation1 (Workstation)
+  seller: workstation1 (Workstation)
 
-ticket_three_of_channel_course_two:
+ticket_three_of_billing_course_two:
   student: student1
-  course: channel_course_two
+  course: billing_course_two
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
-  sell_channel: channel_course_two_channel_one
-  channel_owner: workstation1 (Workstation)
+  seller: workstation1 (Workstation)
 
-ticket_four_of_channel_course_two:
+ticket_four_of_billing_course_two:
   student: student1
-  course: channel_course_two
+  course: billing_course_two
   status: 2
   lesson_price: 60
   type: LiveStudio::BuyTicket
-  sell_channel: channel_course_two_channel_two
-  channel_owner: workstation_zhuji (Workstation)
+  seller: workstation_zhuji (Workstation)
 
-ticket_five_of_channel_course_two:
+ticket_five_of_billing_course_two:
   student: student1
-  course: channel_course_two
+  course: billing_course_two
   status: 2
   lesson_price: 60
   type: LiveStudio::BuyTicket
-  sell_channel: channel_course_two_channel_two
-  channel_owner: workstation_zhuji (Workstation)
+  seller: workstation_zhuji (Workstation)
 
-ticket_six_of_channel_course_two:
+ticket_six_of_billing_course_two:
   student: student1
-  course: channel_course_two
+  course: billing_course_two
   status: 2
   lesson_price: 70
   type: LiveStudio::BuyTicket
-  sell_channel: channel_course_two_channel_three
-  channel_owner: workstation_hd (Workstation)
+  seller: workstation_hd (Workstation)
 
-ticket_seven_of_channel_course_two:
+ticket_seven_of_billing_course_two:
   student: student1
-  course: channel_course_two
+  course: billing_course_two
   status: 2
   lesson_price: 40
   type: LiveStudio::BuyTicket

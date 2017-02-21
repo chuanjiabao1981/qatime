@@ -363,73 +363,6 @@ init_course1:
   class_date: <%= Date.yesterday %>
   lessons_count: 2
 
-course_for_billing_one:
-  name: 结账测试辅导班1
-  workstation: workstation1
-  status: 2
-  teacher: teacher_for_billing
-  teacher_percentage: 100
-  lesson_price: 50
-  price: 500
-  grade: 六年级
-  subject: 语文
-  class_date: <%= Date.yesterday %>
-  province: shanxi
-  city: yangquan
-  lessons_count: 2
-  billing_type: Payment::LiveCourseBilling
-
-course_for_billing_two:
-  name: 结账测试辅导班2
-  workstation: workstation1
-  status: 2
-  teacher: teacher_for_billing
-  teacher_percentage: 70
-  preset_lesson_count: 10
-  lesson_price: 50
-  price: 500
-  grade: 六年级
-  subject: 语文
-  class_date: <%= Date.yesterday %>
-  province: shanxi
-  city: yangquan
-  lessons_count: 2
-  billing_type: Payment::LiveCourseBilling
-
-course_for_billing_three:
-  name: 结账测试辅导班1
-  workstation: xxxxxxxxx
-  status: 2
-  teacher: teacher_for_billing
-  teacher_percentage: 100
-  preset_lesson_count: 10
-  lesson_price: 50
-  price: 500
-  grade: 六年级
-  subject: 语文
-  class_date: <%= Date.yesterday %>
-  province: zhejiang
-  city: zhuji
-  lessons_count: 2
-  billing_type: Payment::LiveCourseBilling
-
-course_for_channel:
-  name: course_for_channel
-  workstation: xxxxxxxxx
-  status: 2
-  teacher: teacher_for_billing
-  teacher_percentage: 100
-  preset_lesson_count: 10
-  lesson_price: 50
-  price: 500
-  grade: 六年级
-  subject: 语文
-  class_date: <%= Date.yesterday %>
-  province: zhejiang
-  city: zhuji
-  lessons_count: 2
-  billing_type: Payment::LiveCourseBilling
-
 course_english_one:
   name: course_for_channel
   workstation: xxxxxxxxx
@@ -759,12 +692,11 @@ course_for_replay:
   taste_count: 5
   billing_type: Payment::LiveCourseBilling
 
-channel_course_one:
+billing_course_one:
   name: 渠道结账辅导班1
   workstation: workstation_one
   status: 2
   teacher: teacher1
-  teacher_percentage: 70
   lesson_price: 50
   price: 500
   grade: 高一
@@ -774,9 +706,14 @@ channel_course_one:
   city: zhuji
   lessons_count: 10
   taste_count: 5
-  billing_type: Payment::LiveCourseChannelBilling
+  billing_type: Payment::LiveCourseBilling
+  teacher_percentage: 50
+  sell_percentage: 30
+  publish_percentage: 10
+  system_percentage: 10
+  base_price: 0.1
 
-channel_course_two:
+billing_course_two:
   name: 渠道结账辅导班2
   workstation: workstation_one
   status: 2
@@ -791,6 +728,9 @@ channel_course_two:
   city: zhuji
   lessons_count: 10
   taste_count: 5
-  billing_type: Payment::LiveCourseChannelBilling
-
-
+  billing_type: Payment::LiveCourseBilling
+  teacher_percentage: 40
+  sell_percentage: 35
+  publish_percentage: 15
+  system_percentage: 5
+  base_price: 0.1

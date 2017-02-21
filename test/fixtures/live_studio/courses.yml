@@ -713,6 +713,28 @@ billing_course_one:
   system_percentage: 10
   base_price: 0.1
 
+# 结账失败辅导班
+billing_fail_course_one:
+  name: 渠道结账辅导班1
+  workstation: workstation_one
+  status: 2
+  teacher: teacher1
+  lesson_price: 50
+  price: 500
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: beijing
+  city: zhuji
+  lessons_count: 10
+  taste_count: 5
+  billing_type: Payment::LiveCourseBilling
+  teacher_percentage: 70
+  sell_percentage: 30
+  publish_percentage: 10
+  system_percentage: 10
+  base_price: 0.1
+
 billing_course_two:
   name: 渠道结账辅导班2
   workstation: workstation_one

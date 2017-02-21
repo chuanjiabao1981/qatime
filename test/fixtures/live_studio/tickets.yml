@@ -247,6 +247,14 @@ ticket_three_of_billing_course_one:
   lesson_price: 50
   type: LiveStudio::BuyTicket
 
+ticket_of_billing_fail_course_one:
+  student: student_with_order3
+  course: billing_fail_course_one
+  status: 2
+  lesson_price: 50
+  type: LiveStudio::BuyTicket
+
+
 ticket_one_of_billing_course_two:
   student: student1
   course: billing_course_two

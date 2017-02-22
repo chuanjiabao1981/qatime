@@ -35,12 +35,12 @@ class WorkstationEarningRecordsTest < ActionDispatch::IntegrationTest
 
     find("#item-#{record1.id}").click_link('查看明细')
     assert page.has_content?("课程单价： ￥ 50.0"), "辅导班收入明细显示不正确"
-    assert page.has_content?("服务费标准： ￥ 0.1/分钟"), "辅导班收入明细显示不正确"
+    assert page.has_content?("服务费标准： ￥ 0.10/分钟"), "辅导班收入明细显示不正确"
     assert page.has_content?("教师分成： 80%"), "辅导班收入明细显示不正确"
-    assert page.has_content?("教师收入： ￥ 150.4"), "辅导班收入明细显示不正确"
+    assert page.has_content?("教师收入： ￥ 150.40"), "辅导班收入明细显示不正确"
     find("#item-#{record2.id}").click_link('查看明细')
-    assert page.has_content?("课程收费标准： ￥ 54.0/小时"), "专属课程收入明细显示不正确"
-    assert page.has_content?("教师收入： ￥ 1.5"), "专属课程收入明细显示不正确"
-    assert page.has_content?("工作站收入： ￥ 40.0"), "专属课程收入明细显示不正确"
+    assert page.has_content?("课程收费标准： ￥ 54.00/小时"), "专属课程收入明细显示不正确"
+    assert page.has_content?("教师收入： ￥ 1.50"), "专属课程收入明细显示不正确"
+    assert page.has_content?("工作站收入： ￥ 40.00"), "专属课程收入明细显示不正确"
   end
 end

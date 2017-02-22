@@ -51,7 +51,7 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
     assert data == token, '应该和之前的token一致'
   end
 
-  test 'GET /api/v1/live_studio/teacher/close' do
+  test 'GET /api/v1/live_studio/lessons/live_end' do
     lesson = live_studio_lessons(:english_lesson_onlive)
     get_url("/api/v1/live_studio/lessons/#{lesson.id}/live_end", {})
     data = JSON.parse(response.body)['data']
@@ -79,6 +79,6 @@ class Qatime::LessonAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal res['data'].size, 6
+    assert_equal 8, res['data'].size
   end
 end

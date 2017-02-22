@@ -67,4 +67,48 @@ item13:
   lesson: lesson_one_of_course_for_billing_three
   status: 3
 
+items14:
+  ticket: ticket_for_refund3
+  lesson: lesson1_for_refund_course3
+  status: 0
+
+items15:
+  ticket: ticket_for_refund3
+  lesson: lesson2_for_refund_course3
+  status: 0
+
+items16:
+  ticket: ticket_one_of_channel_course_two
+  lesson: lesson_one_of_channel_course_two
+  status: 0
+
+items17:
+  ticket: ticket_two_of_channel_course_two
+  lesson: lesson_one_of_channel_course_two
+  status: 0
+
+items18:
+  ticket: ticket_three_of_channel_course_two
+  lesson: lesson_one_of_channel_course_two
+  status: 0
+
+items19:
+  ticket: ticket_four_of_channel_course_two
+  lesson: lesson_one_of_channel_course_two
+  status: 0
+
+items20:
+  ticket: ticket_five_of_channel_course_two
+  lesson: lesson_one_of_channel_course_two
+  status: 0
+
+items21:
+  ticket: ticket_six_of_channel_course_two
+  lesson: lesson_one_of_channel_course_two
+  status: 0
+
+items22:
+  ticket: ticket_seven_of_channel_course_two
+  lesson: lesson_one_of_channel_course_two
+  status: 0
 

@@ -4840,7 +4840,6 @@ ul {
 }
 .editor-msg label {
   padding-left: 0px;
-  
 }
 }
 .modal-img {
@@ -4849,17 +4848,19 @@ ul {
   border: 1px dashed;
 }
 .modal-img img {
-  width: 100%;
+  max-width: 240px;
+  max-height: 240px;
 }
 .modal-avatar {
-  width: 128px;
+  width: 205px;
   height: 128px;
+  border: 1px solid #f2f2f2;
   overflow: hidden;
 }
-.modal-avatar img {
-  width: 128px;
-  height: 128px;
-}
+/*.modal-avatar img {
+  width: 100%;
+  height: 100%;
+}*/
 
 
 
@@ -7052,6 +7053,12 @@ border-left: 0px;
   top: 30px;
   margin-left: -182px;
 }
+.alipay .complete-prompt-center{
+  left: 100px;
+  right: 144px;
+  margin-left: 0px;
+  text-align: center;
+}
 .alipay-con .complete-prompt-left {
   top: 30px;
 }
@@ -7113,62 +7120,68 @@ border-left: 0px;
   width: 311px;
   height: 270px;
 }
-.wechat-content .alipay-con .complete-prompt {
+
+.alipay-con .weixin {
   border-bottom: 0px;
   height: 80px !important;
-} 
-.wechat-content .alipay-con .complete-prompt-left,.wechat-content .alipay-con .complete-prompt-center {
+}
+.weixin .complete-prompt-left,.weixin .complete-prompt-center {
   top: 0px;
 }
-
+.weixin .complete-prompt-center {
+  left: 100px;
+  right: 0px;
+  text-align: center;
+  margin-left: 0px;
+}
 /*余额支付*/
 
-.balance-con .complete-prompt-left {
+.account .complete-prompt-left {
   float: none;
   position: relative;
   top: 0px;
 }
-.balance-con .form-group {
+.account .form-group {
   overflow: hidden;
   width: 61%;
   margin: 30px auto 0px;
 }
-.balance-con .input-group {
+.account .input-group {
   width: 70%;
   margin: 0 10px;
 }
-.balance-con .input-group input {
+.account .input-group input {
   height: 30px !important;
   border-radius: 0px;
 }
-.balance-con .form-group label {
+.account .form-group label {
   font-weight: 100;
   color: #666666;
 }
-.balance-con .form-group label,.balance-con .form-group a {
+.account .form-group label,.account .form-group a {
   position: relative;
   top: 5px;
 }
-.balance-con .form-group label,.balance-con .form-group .input-group,.balance-con .form-group a {
+.account .form-group label,.account .form-group .input-group,.account .form-group a {
   float: left;
 }
-.balance-con .has-error {
+.account .has-error {
   clear: both;
 }
-.balance-con .input-group-btn {
+.account .input-group-btn {
   width: 28%;
 }
-.balance-con .input-group-btn input {
+.account .input-group-btn input {
   width: 100%;
   color: #999999;
   border: 1px solid #ccc;
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   line-height: 16px;
 }
-.balance-con .input-group-btn .active:hover {
+.account .input-group-btn .active:hover {
   background-color: #FFFFFF !important;
 }
-.balance-con .input-group-btn .btn-default.active {
+.account .input-group-btn .btn-default.active {
   color: #be0b0b;
   background-color: #FFFFFF;
   border: 1px solid #be0b0b !important;
@@ -7193,6 +7206,10 @@ border-left: 0px;
   left: 0px;
   margin-left: 0px;
 }
+.alipay .complete-prompt-center {
+  left: 0px;
+  text-align: left;
+}
 .alipay-con .complete-btn {
   top: 15px;
   left: 50%;
@@ -7204,21 +7221,21 @@ border-left: 0px;
 .alipay-con .complete-prompt {
   height: 120px;
 }
-.wechat-content .complete-prompt {
+.weixin .complete-prompt {
   height: 60px !important;
 } 
-.balance-con div.form-group {
+.account div.form-group {
   width: 100% !important;
   margin: 0px !important;
 }
-.balance-con .form-group .input-group {
+.account .form-group .input-group {
   width: 100%;
   margin: 0px;
 }
-.balance-con .form-group label,.balance-con .form-group .input-group,.balance-con .form-group a {
+.account .form-group label,.account .form-group .input-group,.account .form-group a {
   float: none;
 }
-.balance-con .form-group label {
+.account .form-group label {
   top: 0px;
 }
 }
@@ -7233,10 +7250,10 @@ border-left: 0px;
   margin: 0 auto 50px;
   overflow: hidden;
 }
-.balance-con .form-group {
+.account .form-group {
   width: 72% !important;
 }
-.balance-con .input-group {
+.account .input-group {
   width: 65%;
 }
 }
@@ -7319,6 +7336,7 @@ border-left: 0px;
 }
 .workstation-con {
   margin-top: 3px;
+  position: relative;
 }
 .workstation-con table {
   width: 100%;
@@ -7337,6 +7355,7 @@ border-left: 0px;
 .workstation-prompt {
   text-align: center;
   font-size: 16px;
+  margin-top: 30%;
 }
 @media only screen and (max-width: 990px) {
 .container-workstation .col-md-10 {
@@ -7820,4 +7839,125 @@ border-left: 0px;
 .tea-wechat .form-group {
   padding-left: 0px !important;
 } 
+}
+
+
+/*语音*/
+.db {
+    display: block;
+}
+.weixinAudio {
+  overflow: hidden;
+}
+.audio_area {
+  float: left;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0px 1px 0px 0;
+  font-size: 0;
+  position: relative;
+  font-weight: 400;
+  text-decoration: none;
+  -ms-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+  overflow: hidden;
+}
+.audio_wrp {
+  min-width: 30px ;
+  padding: 5px;
+  border: 1px solid #ebebeb;
+  background-color: #fcfcfc;
+  overflow: hidden;
+  float: left;
+  border-radius: 3px;
+}
+.audio_play_area {
+  float: left;
+  font-size: 0;
+  width: 18px;
+  height: 25px;
+}
+.playing .audio_play_area .icon_audio_default {
+  display: block;
+}
+.audio_play_area .icon_audio_default {
+  width: 18px;
+  height: 25px;
+  vertical-align: middle;
+  display: inline-block;
+  -webkit-background-size: 54px 25px !important;
+  background-size: 54px 25px !important;
+  background-position: -36px center !important;
+}
+.audio_play_area .icon_audio_playing {
+  width: 18px;
+  height: 25px;
+  vertical-align: middle;
+  display: inline-block;
+  -webkit-background-size: 54px 25px !important;
+  background-size: 54px 25px !important;
+  -webkit-animation: audio_playing 1s infinite;
+  background-position: 0px center !important;
+  display: none;
+}
+.audio_area .pic_audio_default {
+  display: none;
+  width: 18px;
+}
+.tips_global {
+  color: #8c8c8c;
+}
+.audio_area .audio_length {
+  float: left;
+  font-size: 14px;
+  line-height: 37px;
+  margin-left: 5px;
+}
+.audio_info_area {
+  overflow: hidden;
+}
+.audio_area .audio_title {
+  font-weight: 400;
+  font-size: 17px;
+  margin-top: -2px;
+  margin-bottom: -3px;
+  width: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+.audio_area .audio_source {
+  font-size: 14px;
+}
+.playing .audio_play_area .icon_audio_default {
+  display: none;
+}
+.playing .audio_play_area .icon_audio_playing {
+  display: inline-block;
+}
+@-webkit-keyframes audio_playing {
+ 30% {
+  background-position: 0px center;
+}
+ 31% {
+  background-position: -18px center;
+}
+ 61% {
+  background-position: -18px center;
+}
+ 61.5% {
+  background-position: -36px center;
+}
+ 100% {
+    background-position: -36px center;
+}
+}
+.unlisten {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: red;
 }

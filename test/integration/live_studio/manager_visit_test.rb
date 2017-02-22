@@ -21,7 +21,7 @@ module LiveStudio
     test 'visit teacher page' do
       @teacher = ::Teacher.first
       @course = @teacher.live_studio_courses.first
-      click_on '讲师'
+      click_on '教师'
       visit chat.finish_live_studio_course_teams_path(@course)
       visit teacher_path(@teacher)
       click_on '我的辅导'

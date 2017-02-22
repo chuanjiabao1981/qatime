@@ -2,6 +2,7 @@ module Recommend
   class ItemsController < ApplicationController
     before_action :set_position, only: [:new, :create]
     before_action :set_option_cities, only: [:new, :edit]
+    before_action :set_item, only: [:show, :edit, :update, :destroy]
 
     def new
       @item = @position.items.build(type: @position.klass_name)
@@ -27,12 +28,17 @@ module Recommend
     end
 
     def set_option_cities
-      @option_cities = current_user.workstations.map{|w| [w.city.try(:name), w.city.try(:id)]}
+      @option_cities = City.all.map {|city| [city.try(:name), city.try(:id)]}.unshift(['全国', nil]) if current_user.admin?
+      @option_cities ||= current_user.workstations.map {|w| [w.city.try(:name), w.city.try(:id)]}
     end
 
     def item_params
-      key = params.keys.select{|key| /_item/.match(key)}.first
+      key = params.keys.select {|key| /_item/.match(key)}.first
       params.require(key).permit(:index, :link, :city_id, :logo, :target_id, :reason)
+    end
+
+    def set_item
+      @item = Item.find(params[:id])
     end
   end
 end

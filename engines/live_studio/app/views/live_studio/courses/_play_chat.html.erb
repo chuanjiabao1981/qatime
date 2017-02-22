@@ -235,13 +235,7 @@ $(function() {
           }
           messageTitle.append("<span class='information-time'>" + sendMessageTime(msg) + "</span>");
           messageNode.append(messageTitle);
-
-          var messageContent = $("<div class='information-con'></div>");
-          if(msg.type == 'image'){
-            messageContent.append($('<img class="accept-img" src="' + msg.file.url + '" onclick="accept_img_click(this)">'));
-          }else{
-            messageContent.append($.replaceChatMsg(msg.text));
-          }
+          var messageContent = messageTag(msg, 'roaming');
           messageNode.append(messageContent);
           $("#messages-group div:first").append(messageNode);
         }

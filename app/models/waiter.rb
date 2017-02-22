@@ -7,6 +7,8 @@ class Waiter < User
   validates :workstation_id, presence: true
   has_many :cities, through: :workstation
 
+  validates :email, presence: true
+
   def initialize(attributes = {})
     super(attributes)
     self.role = "waiter"

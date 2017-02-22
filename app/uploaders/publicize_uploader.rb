@@ -17,20 +17,21 @@ class PublicizeUploader < CarrierWave::Uploader::Base
   def store_dir
     "courses/publicize/"
   end
-  process :resize_to_fit => [480,300]
+
+  process :resize_to_fit => [480, 480]
   process :crop
 
   version :info do
-    process :resize_to_fill => [480,300]
+    process :resize_to_fill => [480, 300]
   end
   version :list do
-    process :resize_to_fill => [320,200]
+    process :resize_to_fill => [320, 200]
   end
   version :small do
-    process :resize_to_fill => [160,100]
+    process :resize_to_fill => [160, 100]
   end
   version :app_info do
-    process :resize_to_fill => [800,500]
+    process :resize_to_fill => [800, 500]
   end
 
 

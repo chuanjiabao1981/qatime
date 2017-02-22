@@ -1,6 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 workstation_one:
-  id: 1
   name: 第一个工作站
   city: 北京
   address: 朝阳区

@@ -46,7 +46,7 @@ english_lesson_tomorrow:
 
 english_lesson_onlive:
   name: 英语辅导班-正在直播课程
-  course_id: 4
+  course: course_with_order
   description: 测试描述
   start_time: 16:30
   end_time: 17:30
@@ -400,7 +400,7 @@ lesson_for_refund_course2:
   real_time: 30
   live_count: 1
 lesson1_for_refund_course3:
-  name: 第2节课
+  name: 第1节课
   course: course_for_refund3
   teacher: teacher1
   description: Mystring
@@ -563,5 +563,45 @@ replay_lessons_10:
   real_time: 30
   live_count: 3
   replay_status: 0
+
+lesson_one_of_channel_course_one:
+  name: 第1节
+  course: channel_course_one
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.yesterday %>
+  status: 1
+  real_time: 1800
+  live_count: 3
+  replay_status: 0
+
+lesson_one_of_channel_course_two:
+  name: 第1节
+  course: channel_course_two
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.yesterday %>
+  status: 5
+  real_time: 6000
+  live_count: 3
+  replay_status: 0
+
+lesson_two_of_channel_course_two:
+  name: 第2节
+  course: channel_course_two
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= 3.days.ago.to_date %>
+  status: 5
+  real_time: 5400
+  live_count: 3
+  replay_status: 0
+
 
 

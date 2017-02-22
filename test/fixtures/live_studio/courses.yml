@@ -3,7 +3,7 @@
 course_one:
   name: 测试辅导1班
   teacher: users(:teacher1)
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   grade: 六年级
   subject: 语文
@@ -15,7 +15,7 @@ course_one:
 course_two:
   name: 测试辅导2班
   teacher: users(:teacher1)
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   grade: 六年级
   subject: 语文
@@ -27,7 +27,7 @@ course_two:
 course_no_teacher:
   name: 测试辅导3班
   teacher:
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   grade: 六年级
   subject: 语文
@@ -39,7 +39,7 @@ course_no_teacher:
 course_destroy_teacher:
   name: 测试辅导3班
   teacher_id: 99999
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   grade: 六年级
   subject: 语文
@@ -64,7 +64,7 @@ course_preview:
   id: 5
   name: 招生中的辅导班
   teacher_id: 1
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   price: 1000
   preset_lesson_count: 2
@@ -126,7 +126,7 @@ course_one_of_teacher_one:
   name: teacher_one_course_one
   teacher: teacher_for_billing
   author: teacher_for_billing (User)
-  workstation_id: 1
+  workstation: workstation_one
   price: 100
   status: 0
   teacher_percentage: 80
@@ -135,6 +135,7 @@ course_one_of_teacher_one:
   grade: 六年级
   subject: 语文
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 
 update_course_by_physics_teacher1:
   teacher: physics_teacher1
@@ -165,7 +166,7 @@ course_with_lesson:
   id: 3
   name: 辅导班3
   teacher_id: 1
-  workstation_id: 1
+  workstation: workstation_one
   status: 2
   grade: 六年级
   teacher_percentage: 90
@@ -201,7 +202,7 @@ course_with_order2:
 course_with_lessons:
   name: 可直播辅导班
   teacher_id: 10
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -216,7 +217,7 @@ tasting_course:
   id: 10
   name: 试听中的辅导班
   teacher_id: 10
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -256,7 +257,7 @@ course_with_junior_teacher:
 course_for_taste:
   name: 试听辅导班
   teacher: teacher_for_taste_course
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -270,7 +271,7 @@ course_for_taste:
 course_for_tasting:
   name: 正在试听辅导班
   teacher: teacher_for_taste_course
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -283,7 +284,7 @@ course_for_tasting:
 course_for_tasting_for_delete:
   name: s辅导班
   teacher: teacher_for_taste_course
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -296,7 +297,7 @@ course_for_tasting_for_delete:
 course_for_edit:
   name: 辅导班
   teacher: teacher_for_taste_course
-  workstation_id: 1
+  workstation: workstation_one
   status: 1
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -310,7 +311,7 @@ course_for_teaching:
   id: 10000
   name: 已经有直播中的课程的辅导班
   teacher: teacher_for_taste_course
-  workstation_id: 1
+  workstation: workstation_one
   status: 2
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -324,7 +325,7 @@ course_for_init:
   id: 10001
   name: 准备中的辅导班
   teacher: teacher_one
-  workstation_id: 1
+  workstation: workstation_one
   status: 0
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -337,7 +338,7 @@ course_for_init:
 course_start_at_today:
   name: 今天开课辅导班
   teacher: teacher1
-  workstation_id: 1
+  workstation: workstation_one
   status: 0
   teacher_percentage: 80
   preset_lesson_count: 10
@@ -376,6 +377,7 @@ course_for_billing_one:
   province: shanxi
   city: yangquan
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 
 course_for_billing_two:
   name: 结账测试辅导班2
@@ -392,6 +394,7 @@ course_for_billing_two:
   province: shanxi
   city: yangquan
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 
 course_for_billing_three:
   name: 结账测试辅导班1
@@ -408,6 +411,7 @@ course_for_billing_three:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 
 course_for_channel:
   name: course_for_channel
@@ -424,6 +428,7 @@ course_for_channel:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 
 course_english_one:
   name: course_for_channel
@@ -440,6 +445,7 @@ course_english_one:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 
 
 course_english_two:
@@ -457,6 +463,7 @@ course_english_two:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 
 
 course_english_three:
@@ -614,6 +621,7 @@ course_maths_seven:
   price: 500
   city: yangquan
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 course_for_destroy:
   name: 将要删除的辅导班
   workstation: workstation_zhuji
@@ -629,6 +637,7 @@ course_for_destroy:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 
 
 course_for_refund:
@@ -646,6 +655,7 @@ course_for_refund:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 course_for_refund1:
   name: 退款申请的辅导班1
   workstation: workstation_zhuji
@@ -661,6 +671,7 @@ course_for_refund1:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 course_for_refund2:
   name: 退款申请的辅导班2
   workstation: workstation_zhuji
@@ -676,6 +687,7 @@ course_for_refund2:
   province: zhejiang
   city: zhuji
   lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
 course_for_refund3:
   name: 退款申请的辅导班3
   workstation: workstation_zhuji
@@ -693,6 +705,7 @@ course_for_refund3:
   lessons_count: 2
   completed_lessons_count: 1
   finished_lessons_count: 1
+  billing_type: Payment::LiveCourseBilling
 course_for_refund4:
   name: 退款申请的辅导班4
   workstation: workstation_zhuji
@@ -710,6 +723,7 @@ course_for_refund4:
   lessons_count: 2
   completed_lessons_count: 1
   finished_lessons_count: 1
+  billing_type: Payment::LiveCourseBilling
 
 course_zero_taste:
   name: 不可以试听辅导班
@@ -727,6 +741,7 @@ course_zero_taste:
   city: zhuji
   lessons_count: 1
   taste_count: 0
+  billing_type: Payment::LiveCourseBilling
 course_for_replay:
   name: 回放测试辅导班
   workstation: workstation_zhuji
@@ -742,4 +757,40 @@ course_for_replay:
   city: zhuji
   lessons_count: 10
   taste_count: 5
+  billing_type: Payment::LiveCourseBilling
+
+channel_course_one:
+  name: 渠道结账辅导班1
+  workstation: workstation_one
+  status: 2
+  teacher: teacher1
+  teacher_percentage: 70
+  lesson_price: 50
+  price: 500
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: beijing
+  city: zhuji
+  lessons_count: 10
+  taste_count: 5
+  billing_type: Payment::LiveCourseChannelBilling
+
+channel_course_two:
+  name: 渠道结账辅导班2
+  workstation: workstation_one
+  status: 2
+  teacher: teacher1
+  teacher_percentage: 80
+  lesson_price: 50
+  price: 500
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: beijing
+  city: zhuji
+  lessons_count: 10
+  taste_count: 5
+  billing_type: Payment::LiveCourseChannelBilling
+
 

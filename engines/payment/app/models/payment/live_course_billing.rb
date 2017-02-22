@@ -4,15 +4,13 @@ module Payment
     SYSTEM_FEE_PRICE = 0.1 # 系统服务费设置0.1元
     TEACHER_DEFAULT_PERCENT = 80
 
-    # 计算账单
+    # 计算总金额
     def calculate
-      calculate_total_money
-      self
+      self.total_money = target.billing_amount
     end
 
     # 执行结账
     def billing
-      calculate
       Payment::LiveCourseBilling.transaction do
         # 支出总金额
         system_pay_item!
@@ -22,7 +20,7 @@ module Payment
         percent_item!
         # 教师收入
         teacher_money_item!
-        save!
+        target.complete!
       end
     end
 
@@ -53,10 +51,6 @@ module Payment
 
     private
 
-    def system_account
-      @system_account ||= CashAdmin.current!.cash_account!
-    end
-
     def workstation_account
       workstation.cash_account!
     end
@@ -67,12 +61,6 @@ module Payment
 
     def teacher_account
       target.teacher.cash_account!
-
-    end
-
-    # 总金额
-    def calculate_total_money
-      self.total_money = target.billing_amount
     end
 
     # 结算人数

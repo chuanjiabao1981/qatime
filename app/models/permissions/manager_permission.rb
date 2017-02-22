@@ -15,6 +15,7 @@ module Permissions
       allow :students,[:index,:search,:show,
                        :info,:teachers,:customized_courses,:homeworks,
                        :solutions,:account,:customized_tutorial_topics,:questions,:notifications]
+
       allow :home,[:index,:new_index,:switch_city]
       allow :schools,[:index,:new,:create]
       allow :schools,[:show,:edit,:update] do |school|
@@ -28,6 +29,7 @@ module Permissions
       allow :curriculums,[:index,:show]
       allow :learning_plans,[:new,:teachers,:create,:index,:edit,:update]
       allow :courses,[:show]
+      allow :lessons,[:show]
       allow :comments,[:create,:show]
       allow :comments,[:edit,:update] do |comment|
         comment
@@ -77,12 +79,11 @@ module Permissions
       allow :tutorial_issues,[:show]
       allow :course_issues, [:show]
       allow :tutorial_issue_replies,[:show]
-      allow :course_issues,[:show]
       allow :course_issue_replies,[:show]
       allow :comments,[:show]
       allow :corrections,[:show]
       allow :notifications, [:index] do |resource_user|
-        resource_user && user.id == resource_user.id
+        resource_user && (user.id == resource_user.id || resource_user.student_or_teacher?)
       end
 
       #######begine course library permission###############
@@ -96,9 +97,9 @@ module Permissions
 
       ## begin recommend permission
       allow 'recommend/positions', [:index, :show]
-      allow 'recommend/teacher_items', [:edit, :destroy, :update]
-      allow 'recommend/live_studio_course_items', [:edit, :destroy, :update]
-      allow 'recommend/banner_items', [:edit, :destroy, :update]
+      allow 'recommend/teacher_items', [:new, :create, :edit, :destroy, :update]
+      allow 'recommend/live_studio_course_items', [:new, :create, :edit, :destroy, :update]
+      allow 'recommend/banner_items', [:new, :create, :edit, :destroy, :update]
       allow 'recommend/items', [:new, :create]
       ## end   recommend permission
 
@@ -155,6 +156,9 @@ module Permissions
       allow 'live_studio/station/courses', [:index] do |workstation|
         workstation && workstation.manager_id == user.id
       end
+      allow 'live_studio/teacher/teachers', [:schedules]
+      allow 'live_studio/student/students', [:schedules]
+      allow 'live_studio/courses', [:schedule_sources]
 
       # 招生请求
       allow 'live_studio/station/course_requests', [:index, :accept, :reject] do |workstation|

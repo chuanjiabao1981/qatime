@@ -8,6 +8,8 @@ class Seller < User
 
   validates :workstation_id, presence: true
 
+  validates :email, presence: true
+
   def initialize(attributes = {})
     super(attributes)
     self.role = "seller"

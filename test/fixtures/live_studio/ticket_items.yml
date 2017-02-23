@@ -117,3 +117,20 @@ fail_items1:
   lesson: lesson_of_billing_fail_course_one
   status: 0
 
+items23:
+  ticket: ticket_four_of_billing_course_one
+  lesson: lesson_two_of_billing_course_one
+  status: 0
+
+items24:
+  ticket: ticket_one_of_billing_course_one
+  lesson: lesson_one_of_billing_course_one
+  status: 0
+
+items25:
+  ticket: ticket_three_of_billing_course_one
+  lesson: lesson_one_of_billing_course_one
+  status: 0
+
+
+

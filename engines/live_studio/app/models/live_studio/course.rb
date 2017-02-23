@@ -403,7 +403,7 @@ module LiveStudio
       self.workstation ||= default_workstation
       copy_city!
       # 拷贝完工作站信息以后工作站可能会修改，需要重新计算分成比例
-      calculate_billing_percentage!
+      reset_billing_percentage!
     end
 
     # 处理邀请
@@ -428,6 +428,15 @@ module LiveStudio
     # 计算结账分成
     before_validation :calculate_billing_percentage!
     def calculate_billing_percentage!
+      tpl_workstation = workstation || Workstation.default
+      self.publish_percentage ||= tpl_workstation.publish_percentage
+      self.system_percentage ||= tpl_workstation.system_percentage
+      self.teacher_percentage ||= DEFAULT_TEACHER_PERCENTAGE
+      self.sell_percentage = teacher_percentage_max - teacher_percentage
+    end
+
+    # 重置结账分成
+    def reset_billing_percentage!
       tpl_workstation = workstation || Workstation.default
       self.publish_percentage = tpl_workstation.publish_percentage
       self.system_percentage = tpl_workstation.system_percentage

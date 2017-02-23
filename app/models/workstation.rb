@@ -32,4 +32,11 @@ class Workstation < ActiveRecord::Base
   def self.default
     Workstation.find_or_create_by(email: 'admin@qatime.cn')
   end
+
+  private
+
+  after_create :init_cash!
+  def init_cash
+    cash_account!
+  end
 end

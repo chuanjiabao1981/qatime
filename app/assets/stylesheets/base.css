@@ -287,7 +287,7 @@ a {
   height: 36px;
   padding: 8px;
  }
- 
+
  .alert-msg1,.alert-msg2 {
   color: red !important;
  }
@@ -326,11 +326,11 @@ a {
   margin-right: 10px;
 }
 /*@font-face {font-family: 'iconfont';
-    src: url('../fonts/iconfont.eot'); 
-    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), 
-    url('../fonts/iconfont.woff') format('woff'), 
-    url('../fonts/iconfont.ttf') format('truetype'), 
-    url('../fonts/iconfont.svg#iconfont') format('svg'); 
+    src: url('../fonts/iconfont.eot');
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/iconfont.woff') format('woff'),
+    url('../fonts/iconfont.ttf') format('truetype'),
+    url('../fonts/iconfont.svg#iconfont') format('svg');
 }
 .iconfont{
     font-family:"iconfont" !important;
@@ -475,8 +475,8 @@ figcaption p {
     line-height: 36px;
     text-align: center;
   }
-  
-  
+
+
 .col-md-apply-2,.col-md-apply-3 {
   position: relative;
   height: 150px;
@@ -710,7 +710,7 @@ figcaption p {
   color: #333333;
 }
 .date-span {
-  float: left;  
+  float: left;
 }
 .date-center {
   width: 30rem;
@@ -803,7 +803,7 @@ figcaption p {
 }
 .remind-Remedial {
   background-color: palevioletred;
-} 
+}
 .msg-con img {
   width: 32px;
   height: 32px;
@@ -812,7 +812,7 @@ figcaption p {
   width: 255px;
   float: left;
   color: #666666;
-  margin-left: 10px;  
+  margin-left: 10px;
 }
 .remind-txt span {
   line-height: 18px;
@@ -843,7 +843,7 @@ figcaption p {
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 15px solid white;
-  
+
  }
 .triangle-icon-1 {
   left: 150px;
@@ -891,7 +891,7 @@ figcaption p {
   float: left;
   margin-left: 3px;
   font-size: 1.2rem;
-  color: #666666; 
+  color: #666666;
 }
 .schedule-text p {
   margin-bottom: 0 !important;
@@ -1056,7 +1056,7 @@ figcaption p {
 @media only screen and (max-width: 500px) {
 .remind-text {
   width: 82%;
-} 
+}
 }
 
 
@@ -1426,7 +1426,7 @@ figcaption p {
   width: 100%;
 }
 .btn-obtain {
-  color: #999999 !important; 
+  color: #999999 !important;
   width: 110px;
 }
 .round {
@@ -1574,7 +1574,7 @@ figcaption p {
   border: 1px solid #999999;
 }
 .btn-stu-register {
-   width: 120px; 
+   width: 120px;
    height: 30px;
    margin-left: -60px;
    line-height: 30px;
@@ -1658,7 +1658,7 @@ figcaption p {
   line-height: 40px;
 }
 .new-msg-content table tr td:last-child {
-  padding: 7.5px 0px 7.5px 10px;  
+  padding: 7.5px 0px 7.5px 10px;
 }
 .new-msg-content input[type='text'] {
   padding-left: 8px;
@@ -1720,7 +1720,7 @@ figcaption p {
   height: 40px;
 }
 .glyphicon-clock {
-position: relative; 
+position: relative;
 right: 25px;
 }
 
@@ -1858,10 +1858,10 @@ right: 25px;
 
 
    /*web首页*/
-  
-  
-  
-  
+
+
+
+
   .home-banner {
     width: 100%;
     height: 316px;
@@ -1924,7 +1924,7 @@ right: 25px;
 }
 
 .tutoring-title-left,.class-title-left,.teacher-title-left {
-  float: left;  
+  float: left;
 }
 .tutoring-title-left img,.class-title-left img,.teacher-title-left img {
   margin-right: 10px;
@@ -1979,7 +1979,7 @@ right: 25px;
   right: 0;
 }
 .newest {
-   background-color: #006cbf; 
+   background-color: #006cbf;
 }
 .hottest {
   background-color: #f21010;
@@ -2005,7 +2005,7 @@ right: 25px;
   margin-bottom: 5px;
 }
 .dl-list dd a {
-  color: #000000 !important; 
+  color: #000000 !important;
 }
 
 .dd-left {
@@ -2087,7 +2087,7 @@ i {
 .icon-write {
   font-size: 36px !important;
   color: rgb(190,11,11);
-} 
+}
 .apply-class {
   display: inline-block;
   font-size: 18px;
@@ -2273,7 +2273,7 @@ i {
 }
 .msg-address {
   width: 95px;
-} 
+}
 }
 @media only screen  and (max-width: 990px) {
   .col-md-right {
@@ -2377,7 +2377,7 @@ i {
 }
 .link-right table tr td:nth-child(2) {
   padding-left: 20px;
-  
+
 }
 .link-td {
   text-align: right;
@@ -2542,7 +2542,7 @@ i {
   float: left;
   margin-right: 30px;
   color: #000000;
-} 
+}
 .list-price li,.list-remedial li,.list-scope li{
   float: left;
 }
@@ -2562,7 +2562,7 @@ i {
 .remedial-conditions {
   margin-top: 20px;
   overflow: hidden;
-  
+
 }
 .remedial-conditions a {
   float: right;
@@ -2611,7 +2611,7 @@ i {
   margin-top: 20px;
   overflow: hidden;
   padding-bottom: 40px;
-  
+
 }
 
 .list-screening,.list-live {
@@ -2636,11 +2636,11 @@ i {
 }
 .list-screening li img,.list-live li img {
   width: 100%;
-  
+
   height: 168px;
 }
 .dl-con {
-  height: 40px; 
+  height: 40px;
   position: relative;
   z-index: 1;
 }
@@ -2719,7 +2719,7 @@ i {
   color: rgb(190,11,11);
 }
 .person-num,.person-buy {
-color: #999999; 
+color: #999999;
 }
 .person-buy {
   float: right;
@@ -2944,7 +2944,7 @@ color: #999999;
 }
 .data-con table img {
   width: 100% !important;
-} 
+}
 }
 .details-img {
   width: 158px;
@@ -2959,7 +2959,7 @@ color: #999999;
 }
 .tec-name {
   position: relative;
-   left: 50%; 
+   left: 50%;
    margin-left: -25px;
 }
 .tec-details ul {
@@ -3008,7 +3008,7 @@ color: #999999;
 }
 .data-con table tr:last-child td:last-child {
   padding-top: 15px;
-} 
+}
 .subject-title {
   margin-top: 0px;
 }
@@ -3096,7 +3096,7 @@ color: #999999;
 .btn-start,.btn-applynow {
   color: white;
   line-height: 39px;
-  border: none; 
+  border: none;
 }
 .btn-start {
   background-color: rgb(32,173,101);
@@ -3142,7 +3142,7 @@ color: #999999;
 }
 .arrange-live .fa {
   color: rgb(190,11,11);
-} 
+}
  .arrange-live tr.finished {
   color: #999999;
 }
@@ -3341,7 +3341,7 @@ ul {
  }
 .remedial-live,.remedial-teclive {
   border: 1px solid rgb(204,204,204);
-  
+
 }
 
 .live-title {
@@ -3357,7 +3357,7 @@ ul {
   width: 100%;
   padding: 10px;
   overflow: hidden;
-}    
+}
  .live-left {
   width: 480px;
   height: 300px;
@@ -3483,14 +3483,14 @@ ul {
   position: relative;
   width: 100%;
   height: 480px;
-    padding-bottom:56.25%; 
+    padding-bottom:56.25%;
     background-color: rgb(41,41,41);
 }
 .area-right-con {
   width: 100%;
   height: 189px;
   position: relative;
-   padding-bottom:56.25%; 
+   padding-bottom:56.25%;
 }
 #my-video,#small-video {
   position: absolute;
@@ -3524,7 +3524,7 @@ ul {
   color: #999;
 }
 .message-con:nth-child(3) .information-title-img {
-  width: 25px !important; 
+  width: 25px !important;
   height: 25px !important;
 }
 .message-con:nth-child(3) .new-information:first-child .information-category,.message-con:nth-child(3) .new-information:first-child .information-user{
@@ -3601,7 +3601,7 @@ ul {
     color: rgb(190,11,11);
     display: inline;
   }
-  
+
   .message-logging {
     width: 640px;
     height: 640px;
@@ -3621,10 +3621,10 @@ ul {
   .message-logging .active {
     display: block;
     height: 548px;
-         padding: 12px 5px; 
+         padding: 12px 5px;
     border-bottom: 0px
   }
-  
+
   .logging-title {
     height: 40px;
     background-color: rgb(222,222,222);
@@ -3643,7 +3643,7 @@ ul {
     left: 50%;
     top: 10px;
     margin-left: -85px;
-    color: #999;  
+    color: #999;
   }
   .date-icon {
     position: relative;
@@ -3757,7 +3757,7 @@ ul {
   padding: 10px;
   border: 1px solid rgb(255,119,0);
   resize: none;
-  
+
 }
 .send-msg input {
   width: 17%;
@@ -3881,7 +3881,7 @@ ul {
   background-color: rgb(242,16,16);
   color: white;
   margin-left: 10px;
-} 
+}
 .prompt-con {
   font-size: 14px;
   color: #999999;
@@ -4298,7 +4298,7 @@ ul {
   float: right;
   margin-right: 10px;
   margin-top: 8px;
-} 
+}
 .manager-list-con .col-md-10 {
   position: relative;
 }
@@ -4317,7 +4317,7 @@ ul {
 @media only screen  and (max-width: 990px) {
 .manager-list-con label {
   float: left;
-} 
+}
 
 .manager-list-con .col-md-10 {
   position: relative;
@@ -4491,7 +4491,7 @@ ul {
   border: 1px solid #999999;
  }
  .editor-msg textarea {
- border: 1px solid #CCCCCC; 
+ border: 1px solid #CCCCCC;
  padding: 6px 12px 0px;
  border-radius: 4px;
  resize: none;
@@ -4573,7 +4573,7 @@ ul {
 }
 .create-time span:first-child,.create-name span:first-child {
   color: #999999;
-  
+
   }
 .create-name span:first-child {
   margin-right: 15px;
@@ -4844,7 +4844,7 @@ ul {
 }
 .modal-img {
   width: 242px;
-  height: 242px; 
+  height: 242px;
   border: 1px dashed;
 }
 .modal-img img {
@@ -5163,7 +5163,7 @@ ul {
   border: 1px solid #CCCCCC;
   resize: none;
   padding-left: 13px;
-} 
+}
 .tecmsg-send {
   margin: 15px 0 40px;
 }
@@ -5303,7 +5303,7 @@ ul {
     float: left;
   }
   .down-msg-new {
-  margin-left: 30px;  
+  margin-left: 30px;
   }
 }
 
@@ -5361,7 +5361,7 @@ ul {
 .login-content {
   width: 100%;
   min-height: 600px;
-  float: left;  
+  float: left;
   background-color: #ded2c6 !important;
 }
 .login-bg {
@@ -5540,7 +5540,7 @@ ul {
 .login-body footer {
   clear: both;
   padding-top: 28px;
-  color: #666666; 
+  color: #666666;
 }
 
 
@@ -5856,7 +5856,7 @@ ul {
 @media only screen and (max-width: 990px) {
 .login-wechat .col-md-6:first-child {
   padding-right: 15px;
-} 
+}
 .login-wechat .col-md-6:last-child {
   padding-left: 0px;
   padding-right: 40px;
@@ -5945,7 +5945,7 @@ ul {
 }
 .tecmsg-con textarea {
   width: 100% !important;
-} 
+}
 .tecmsg-img {
   right: 30px;
 }
@@ -6071,33 +6071,33 @@ ul {
   float: right;
   font-size: 20px;
 }
-.wl{ 
+.wl{
   float:left;
    width: 386px;
    padding: 20px 20px 0px 20px !important;
   }
-.wr{ 
+.wr{
   float:left;
   width: 104px;
   height: 386px;
   background-color: rgb(242,242,242);
   margin-top: 20px;
   margin-left: 40px !important;
-  display: inline; 
+  display: inline;
   }
 .jy-up-ch{ position: relative; width: 386px;}
 
 .jc-demo-box{
   position: relative;
-    width: 386px; 
+    width: 386px;
     height: 386px;
-    overflow: hidden; 
+    overflow: hidden;
     border: 1px solid rgb(242,242,242);
     }
 .jcrop_w{
    width: 386px !important;
     height: 386px !important;
-     overflow: hidden; 
+     overflow: hidden;
 }
 .pre-1{
   margin-left: 6px;
@@ -6157,7 +6157,7 @@ ul {
   color: #333;
   border: 1px solid rgb(187,187,187);
 }
-.jy-up-ch .bch4{  
+.jy-up-ch .bch4{
    position: absolute;
    text-align: center;
    left: 426px;
@@ -6172,7 +6172,7 @@ ul {
   font-size: 12px;
   line-height: 14px;
   color: #333333;
-  border: 1px solid rgb(187,187,187); 
+  border: 1px solid rgb(187,187,187);
   background-color: rgb(242,242,242);
 }
 .wrap p {
@@ -6278,7 +6278,7 @@ ul {
 }
 .left-msg-con,.right-msg-con {
   font-size: 14px;
-  color: #666666; 
+  color: #666666;
 }
 .right-msg-con {
   margin-left: 39px;
@@ -6466,7 +6466,7 @@ ul {
 }
 @media only screen and (max-width: 1000px) {
 .col-study {
-  padding-right: 0px !important; 
+  padding-right: 0px !important;
 }
 .student-help {
   width: 100%;
@@ -6569,7 +6569,7 @@ ul {
   border: 1px solid rgb(241,241,241);
 }
 .tea-left-con {
-border-left: 0px; 
+border-left: 0px;
 }
 .tea-right-con,.tea-left-con {
   border-right: 0px;
@@ -6584,7 +6584,7 @@ border-left: 0px;
   height: 30px;
   padding-top: 10px;
   margin: 0 8px 0 15px;
-  
+
   }
 .tea-left-con .input-group input {
   border-radius: 0px !important;
@@ -6710,7 +6710,7 @@ border-left: 0px;
   .tea-right-con {
     border-left: 0px;
   }
-  
+
 }
 @media only screen  and (max-width: 400px) {
   .tea-left-con .input-group  {
@@ -6818,7 +6818,7 @@ border-left: 0px;
   position:absolute;
   cursor: pointer;
 }
-/*视频手机下载页面*/ 
+/*视频手机下载页面*/
 
 .down-content {
     position: relative;
@@ -6870,8 +6870,8 @@ border-left: 0px;
   }
   .playback,.playback .video-area,.playback .area-right {
   height: 583px !important;
-} 
- 
+}
+
 }
 
 
@@ -6946,11 +6946,11 @@ border-left: 0px;
   top: 5px;
 }
 .buy-left-con table tr:nth-child(2) td{
-  display:table-cell; 
+  display:table-cell;
   vertical-align:top;
 }
 .buy-left-con table tr:nth-child(4) td {
-  display:table-cell; 
+  display:table-cell;
   vertical-align:bottom;
 }
 .buy-center-con span {
@@ -7015,7 +7015,7 @@ border-left: 0px;
   clear: both;
   border-bottom: 1px solid #CCCCCC;
   overflow: hidden;
-  padding-bottom: 20px; 
+  padding-bottom: 20px;
 }
 .buy-footer-btn a,.buy-footer-btn input {
   display: inline-block;
@@ -7223,7 +7223,7 @@ border-left: 0px;
 }
 .weixin .complete-prompt {
   height: 60px !important;
-} 
+}
 .account div.form-group {
   width: 100% !important;
   margin: 0px !important;
@@ -7244,7 +7244,7 @@ border-left: 0px;
   width: 226px;
   float: none;
   margin: 0 auto !important;
-} 
+}
 .wechat-pay-right {
   width: 311px;
   margin: 0 auto 50px;
@@ -7483,7 +7483,7 @@ border-left: 0px;
   width: 60%;
 }
 .goods-con-left,.goods-con-center,.goods-con-right {
-  height: 166px;  
+  height: 166px;
 }
 .goods-con-left img {
   width: 262px;
@@ -7598,7 +7598,7 @@ border-left: 0px;
 .moneyback .admin-list-con table tr td a,.moneyback .admin-list-con table tr td:last-child span {
   color: #428bca;
 }
- 
+
 
 
 /*退款记录*/
@@ -7623,7 +7623,7 @@ border-left: 0px;
   left: 50%;
   width: 300px;
   height: 110px;
-  color: #333333;      
+  color: #333333;
   padding-top: 20px;
   margin-left: -150px;
   margin-top: -55px;
@@ -7711,7 +7711,7 @@ border-left: 0px;
   display: block;
 }
 .playback-entrance a {
-  color: rgb(190,11,11);  
+  color: rgb(190,11,11);
   font-size: 12px;
 }
 .playback-entrance a img {
@@ -7838,7 +7838,7 @@ border-left: 0px;
 @media only screen and (max-width: 990px) {
 .tea-wechat .form-group {
   padding-left: 0px !important;
-} 
+}
 }
 
 
@@ -7960,4 +7960,85 @@ border-left: 0px;
   height: 6px;
   border-radius: 50%;
   background-color: red;
+}
+
+
+
+/*优惠码*/
+.preferential .buy-footer-msg {
+  margin-top: 5px
+}
+.preferential .buy-footer-btn {
+  position: relative;
+  height: 70px;
+}
+.preferential.student-buy-footer .buy-footer-btn p {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 15px;
+  text-align: center
+}
+.preferential.student-buy-footer .buy-footer-btn input {
+  position: absolute;
+  right: 0px;
+  z-index: 100;
+}
+.preferential-code {
+  margin-top: 10px;
+}
+.preferential-code .form-group label {
+  font-weight: 100;
+  color: #000000;
+  line-height: 34px;
+  margin-right: 10px;
+}
+.preferential-code, .preferential-code .form-group label,.preferential-code .form-group .input-group,.preferential-prompt {
+  float: left;
+}
+.preferential-code .form-group {
+  overflow: hidden;
+  margin-bottom: 0px;
+}
+.preferential-code .form-group .input-group {
+  width: 270px;
+  position: relative;
+}
+.preferential-code .form-group .input-group input {
+  border-radius: 0px;
+}
+.preferential-code .form-group .input-group input:nth-child(2){
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  z-index: 10;
+  background-color: #FFFFFF;
+  border: 1px solid #666;
+}
+.preferential-prompt {
+  margin-left: 10px;
+  line-height: 34px;
+}
+.preferential-prompt .prompt-correct i {
+  color: #1afa29;
+}
+.preferential-prompt .prompt-error i {
+  color: #d81e06;
+}
+.preferential-code .input-group .active {
+  background-color: #CCCCCC !important;
+  border: 1px solid #CCCCCC !important;
+  color: #FFFFFF;
+}
+@media only screen and (max-width: 620px) {
+.preferential .buy-footer-btn {
+  height: 90px;
+}
+.student-buy-footer .buy-footer-btn p {
+  position: absolute !important;
+  top: 52px !important;
+}
+.buy-footer-btn {
+  padding-bottom: 30px !important;
+}
 }

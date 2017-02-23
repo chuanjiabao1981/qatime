@@ -97,6 +97,7 @@ module LiveStudio
     has_many :pull_streams, through: :channels
     has_many :play_records # 听课记录
     has_many :announcements
+    has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
 
     has_one :chat_team, foreign_key: 'live_studio_course_id', class_name: '::Chat::Team'
 
@@ -343,6 +344,24 @@ module LiveStudio
     # 购买人数
     def buy_user_count
       buy_tickets_count + adjust_buy_count
+    end
+
+    # 经销商推广辅导班 优惠码购买 生成二维码链接
+    # course_id sell_id coupon_id 3个条件
+    def generate_qrcode_by_coupon(coupon_code)
+      coupon = ::Payment::Coupon.find_by(code: coupon_code)
+      return if coupon.blank?
+
+      course_buy_url = "#{$host_name}/live_studio/courses/#{self.id}/orders/new?come_from=weixin&coupon_code=" + coupon.code
+      relative_path = QrCode.generate_tmp(course_buy_url)
+      tmp_path = Rails.root.join(relative_path)
+      qr_code = self.qr_codes.new(coupon_id: coupon.id)
+      File.open(tmp_path) do |file|
+        qr_code.code = file
+      end
+      qr_code.save
+      File.delete(tmp_path)
+      qr_code.code_url
     end
 
     private

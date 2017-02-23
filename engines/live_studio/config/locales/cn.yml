@@ -7,7 +7,7 @@ cn:
     search:
       all: 全部
       live_studio/course:
-        subject: 
+        subject:
     sort:
       live_studio/course:
         id: 按时间
@@ -161,6 +161,18 @@ cn:
     course_order_new:
       pay: 立即支付
       current_price: 价格
+      coupon_code: 优惠码（可选）：
+      coupon_code_input: 输入优惠码
+      check_coupon_btn: 验证
+      coupon_code_prompt1: (使用优惠码可立减%{price}元)
+      coupon_code_prompt2: (验证后方可使用)
+      coupon_code_prompt_correct: 通过验证,立减
+      coupon_code_prompt_correct_yuan: 元
+      coupon_code_prompt_error: 优惠码不正确
+      coupon_code_error: 优惠码不正确
+      coupon_code_valid_error: 请先验证优惠码
+      order_pay_type_none: 请选择支付方式
+      available_balance_error: 余额不足
       total_money: 应付金额
       pay_type: 支付方式
       tips: 请核对订单并选择支付方式后再提交支付。
@@ -462,3 +474,10 @@ cn:
         today_has_no_lesson: "%{model}今日没有课程!"
         have_not_bought: "%{model}无授权!"
         can_not_play: "%{model}不能播放!"
+
+  error_msgs:
+    labels:
+      defaults:
+        name: 名称
+      payment/order:
+        coupon_code: 优惠码

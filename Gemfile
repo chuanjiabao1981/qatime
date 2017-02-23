@@ -145,6 +145,9 @@ end
 
 gem 'test_after_commit', :group => :test
 
+# 静态配置
+gem 'settingslogic', '~> 2.0.9'
+
 
 gem 'rest-client'
 gem 'carrierwave-aliyun','0.3.4'

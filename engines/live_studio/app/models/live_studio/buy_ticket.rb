@@ -18,5 +18,10 @@ module LiveStudio
       ticket_items.where(status: LiveStudio::TicketItem.statuses[:refunding]).map(&:refunded!) if refunded?
       ticket_items.where(status: LiveStudio::TicketItem.statuses[:refunding]).map(&:unused!) if active?
     end
+
+    before_validation :set_seller, on: :create
+    def set_seller
+      self.seller = payment_order.coupon_owner if payment_order
+    end
   end
 end

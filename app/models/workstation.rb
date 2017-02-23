@@ -20,6 +20,10 @@ class Workstation < ActiveRecord::Base
   has_many :course_requests, class_name: LiveStudio::CourseRequest # 招生请求，用于审核
 
   has_many :action_records
+  # 优惠码
+  has_one :coupon, as: :couponable, class_name: "::Payment::Coupon"
+  # 经销商推广二维码课程
+  has_many :qr_codes, as: :qr_codeable
 
   def cash_account!
     cash_account || ::Payment::CashAccount.create(owner: self)

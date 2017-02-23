@@ -40,7 +40,8 @@ module LiveService
         publish_money_item!(item_billing, @course.workstation)
         # 系统分成收入
         system_money_item!(item_billing)
-        ticket_item.settled!
+        # 结账完成后购买记录修改状态，避免重复结账
+        ticket_item.finish!
         # 这里是为了注入异常，测试回滚用，对整个流程没有什么帮助
         yield if block_given?
       end

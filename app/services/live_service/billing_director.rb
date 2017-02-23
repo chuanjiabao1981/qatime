@@ -84,6 +84,7 @@ module LiveService
                                      duration: @lesson.duration_minutes)
     end
 
+    # 系统分成收入
     def system_money_item!(billing)
       Payment::SystemPercentItem.create!(billing: billing,
                                          cash_account: system_account,
@@ -112,6 +113,7 @@ module LiveService
                                           percent: @lesson.publish_percentage)
     end
 
+    # 教师分成收入
     def teacher_money_item!(billing, teacher)
       Payment::TeacherMoneyItem.create(billing: billing,
                                        cash_account: teacher.cash_account,

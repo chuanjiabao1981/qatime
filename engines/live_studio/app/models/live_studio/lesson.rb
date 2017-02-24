@@ -337,6 +337,11 @@ module LiveStudio
       "#{Rails.env}_lesson_#{id}_#{video_for}_replay"
     end
 
+    # 视频时长单位分钟
+    def duration_minutes
+      (real_time.to_i / 60.0).round(2)
+    end
+
     private
 
     def camera_replay_name

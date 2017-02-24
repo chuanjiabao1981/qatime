@@ -37,15 +37,14 @@ module LiveStudio
     test 'create new invitation page fail' do
       click_on '辅导班'
       click_on '开班邀请'
-      click_on '创建新邀请',match: :first
+      click_on '创建新邀请', match: :first
       fill_in :course_invitation_user_mobile, with: '11111111111'
       fill_in :course_invitation_teacher_percent, with: '101'
       fill_in :course_invitation_expited_day, with: 'test'
       click_on '立即发送'
       assert_match('手机号不存在', page.text, 'Course invitation创建失败')
-      assert_match('必须小于或等于 100', page.text, 'Course invitation创建失败')
+      assert_match('必须小于或等于 95', page.text, 'Course invitation创建失败')
       assert_match('不是数字', page.text, 'Course invitation创建失败')
     end
-
   end
 end

@@ -379,6 +379,11 @@ module LiveStudio
       qr_code.code_url
     end
 
+    # 计算经销分成
+    def calculate_sell_percentage
+      self.price * (self.sell_percentage/100.0)
+    end
+
     private
 
     # 辅导班删除以后同时删除课程

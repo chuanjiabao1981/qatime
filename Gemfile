@@ -164,6 +164,10 @@ gem 'fancybox2-rails', '~> 0.2.8'
 
 gem 'x-editable-rails'
 
+# wechat
+gem 'wechat'
+gem 'omniauth-wechat-oauth2'
+
 gem 'whenever',:require => false
 
 gem 'course_library', path: 'engines/course_library'

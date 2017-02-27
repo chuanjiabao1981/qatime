@@ -60,11 +60,6 @@ module Qawechat
       wechat_user.update_attribute(:remember_token, User.digest(remember_token))
     end
 
-    def oauth_url(redirect_uri = nil)
-      redirect_uri = redirect_uri.to_query('redirect_uri') if redirect_uri.present?
-      "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{WECHAT_CONFIG['appid']}&#{redirect_uri}&response_type=code&scope=snsapi_base&state=123#wechat_redirect"
-    end
-
     private
     def get_href(url, openid, text)
       params = {

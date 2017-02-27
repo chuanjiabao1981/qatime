@@ -180,6 +180,9 @@ module Permissions
       end
       allow 'payment/transactions', [:pay]
       allow 'payment/withdraws', [:new, :create, :complete, :cancel]
+
+      allow 'wap/live_studio/orders', [:new, :create]
+
       # payment permission
 
       ## begin api permission

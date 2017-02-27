@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <title>Qatime</title>
+  <meta name="renderer" content="webkit">
+  <%= stylesheet_link_tag    "wap", media: "all", "data-turbolinks-track" => false %>
+  <%= yield :stylesheet %>
+  <%= javascript_include_tag "wap", "data-turbolinks-track" => false %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<%= yield %>
+<%= yield :javascript %>
+</body>
+</html>

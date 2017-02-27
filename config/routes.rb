@@ -1,4 +1,16 @@
 Qatime::Application.routes.draw do
+  namespace :wap do
+  namespace :live_studio do
+    get 'orders/new'
+    end
+  end
+
+  namespace :wap do
+  namespace :live_studio do
+    get 'orders/new'
+    end
+  end
+
   root :to => "home#index"
 
   get 'home' => 'home#new_index'
@@ -407,6 +419,14 @@ Qatime::Application.routes.draw do
         get 'option_schools'
         get 'home_curriculums'
         get 'home_questions'
+      end
+    end
+  end
+
+  namespace :wap do
+    namespace :live_studio do
+      resources :courses, only: [:show] do
+        resources :orders, only: [:new, :create]
       end
     end
   end

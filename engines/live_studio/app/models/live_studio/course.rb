@@ -17,6 +17,9 @@ module LiveStudio
 
     belongs_to :invitation
 
+    attr_accessor :sell_percentage_range
+    enumerize :sell_percentage_range, in: %w[low middle high]
+
     enum status: {
       rejected: -1, # 被拒绝
       init: 0, # 初始化
@@ -354,13 +357,16 @@ module LiveStudio
     end
 
     # 经销商推广辅导班 优惠码购买 生成二维码链接
-    # course_id sell_id coupon_id 3个条件
+    # course_id coupon_id 2个条件唯一
     def generate_qrcode_by_coupon(coupon_code)
       coupon = ::Payment::Coupon.find_by(code: coupon_code)
       return if coupon.blank?
 
       course_buy_url = "#{$host_name}/live_studio/courses/#{self.id}/orders/new?come_from=weixin&coupon_code=" + coupon.code
-      relative_path = QrCode.generate_tmp(course_buy_url)
+      qr_code = self.qr_codes.by_coupon(coupon.id).try(:first)
+      return qr_code.code_url if qr_code.present?
+
+      relative_path = ::QrCode.generate_tmp(course_buy_url)
       tmp_path = Rails.root.join(relative_path)
       qr_code = self.qr_codes.new(coupon_id: coupon.id)
       File.open(tmp_path) do |file|

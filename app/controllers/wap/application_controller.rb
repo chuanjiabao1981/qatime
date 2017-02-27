@@ -1,8 +1,13 @@
 class Wap::ApplicationController < ApplicationController
   layout 'wap'
 
+  before_action :openid_required!
+
   def authorize
-    redirect_to '/auth/wechat' unless current_user.present?
-    redirect_to '/auth/wechat' if current_user.wechat_users.blank?
+  end
+
+  def openid_required!
+    redirect_to oauth_url(request.original_url) if cookies[:openid].blank?
+    @openid = cookies[:openid]
   end
 end

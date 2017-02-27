@@ -4,7 +4,8 @@ module Payment
 
     TRADE_TYPES = {
       web: "NATIVE",
-      app: "APP"
+      app: "APP",
+      wap: "JSAPI"
     }.freeze
 
     has_one :qr_code, as: :qr_codeable

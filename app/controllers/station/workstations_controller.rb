@@ -31,6 +31,9 @@ class Station::WorkstationsController < Station::BaseController
     @action_records = @workstation.action_records.order(id: :desc).paginate(page: params[:page])
   end
 
+  def show
+  end
+
   private
 
   def set_workstation

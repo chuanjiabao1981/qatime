@@ -112,7 +112,7 @@
                     <input type="button" name="" id="check_coupon_btn" class="hide" value="<%= t("view.course_order_new.check_coupon_btn") %>">
                   </div>
                   <div class="preferential-prompt">
-                    <span class="prompt-default"><%= t("view.course_order_new.coupon_code_prompt1", price: number_to_currency(GlobalSettings.no_coupon_price.to_f.round(2), locale: :cn)) %></span>
+                    <span class="prompt-default"><%= t("view.course_order_new.coupon_code_prompt1", price: 'X') %></span>
                     <span class="prompt-notice hide"><%= t("view.course_order_new.coupon_code_prompt2") %></span>
                     <span class="prompt-correct hide"><%= image_tag "correct.png" %><i><%= t("view.course_order_new.coupon_code_prompt_correct") %><b>10</b><%= t("view.course_order_new.coupon_code_prompt_correct_yuan") %></i></span>
                     <span class="prompt-error hide"><%= image_tag "error.png" %><i><%= t("view.course_order_new.coupon_code_prompt_error") %></i></span>
@@ -143,7 +143,8 @@
         var check_coupon_btn = $('#check_coupon_btn'),
             prompt_default = $('.prompt-default'),
             prompt_notice = $('.prompt-notice'),
-            coupon_code_input = $(this);
+            coupon_code_input = $(this),
+            order_total = $('#order_total');
 
         if(coupon_code_input.val().length > 0){
           check_coupon_btn.removeClass('hide').removeClass('active');
@@ -152,6 +153,7 @@
           check_coupon_btn.addClass('hide');
           prompt_default.removeClass('hide').siblings('span').addClass('hide');
         }
+        order_total.html('¥ ' + parseFloat(order_total.data('total')).toFixed(2));
       });
 
       $(document).on('click', '#check_coupon_btn', function(event) {

@@ -241,6 +241,14 @@ cn:
       left_replay_times: '剩余（%{count}次）'
       left_replay_times2: '剩余回放次数：%{count}'
       directory: 回放目录
+    live_studio/station:
+      courses:
+        course:
+          send_qr_code: 生成
+    live_studio/courses:
+      share_percentage: 分成比例
+
+
   status:
     init: 审核中
     preview: 招生中
@@ -288,13 +296,21 @@ cn:
         status: 状态
         replay: 观看回放
       live_studio/course:
+        owner_workstation: 发行工作站
+        sell_percentage: 经销分成
         current_status: 当前状态
+        index_no: 序号
         name: 名称
+        course_name: 辅导班名称
         teacher: 辅导老师
         short_description: 摘要
         description: 说明
         publicize: 封面
         workstation: 工作站
+        sell_workstation: 发行工作站
+        base_price: 服务扣费
+        base_price_clt: "%{price}元/时"
+        qr_code: 二维码
         price: 价格
         status: 状态
         type_name: 类型

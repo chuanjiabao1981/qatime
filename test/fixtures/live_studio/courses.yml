@@ -98,6 +98,18 @@ course_preview_three:
   teacher_percentage: 90
   lessons_count: 2
 
+course_preview_four:
+  name: 招生中的辅导班4
+  teacher: teacher1
+  workstation: workstation
+  status: 1
+  price: 50
+  preset_lesson_count: 10
+  grade: 六年级
+  subject: 语文
+  teacher_percentage: 90
+  lessons_count: 2
+
 course_teaching:
   name: 上课中的辅导班
   teacher: users(:teacher1)

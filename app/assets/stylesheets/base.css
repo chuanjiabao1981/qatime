@@ -2793,10 +2793,16 @@ color: #999999;
 }
 .homepage-title-left {
   float: left;
-  margin-left: 60px;
+  /*margin-left: 60px;*/
+  margin-left: 10px;
+  width: 183px;
+  text-align: center;
   color: #000000;
   font-size: 20px;
   line-height: 40px;
+}
+.homepage-title-left span {
+    margin-left: 20px;
 }
 .homepage-title-left img {
   width: 25px;
@@ -2840,6 +2846,7 @@ color: #999999;
 }
 .msg-header {
   width: 183px;
+  vertical-align: top;
 }
 .homepage-tec-msg table tr td img{
   width: 183px;
@@ -3711,8 +3718,8 @@ ul {
   position: relative;
 }
 .qqFace {
- width: 100%;
-  height: 184px;
+  width: 100%;
+  min-height: 184px;
   border: 1px solid #F2F2F2;
   position: absolute;
   top: -184px;
@@ -4097,17 +4104,17 @@ ul {
   color: #666666;
 }
 
-.admin-list-con table tr td:first-child span {
+/*.admin-list-con table tr td:first-child span {
   display: inline-block;
   width: 150px;
   text-align: left;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-.admin-list-con table tr td a {
+}*/
+/*.admin-list-con table tr td a {
   color: #666;
-}
+}*/
 .admin-list-con table tr td:last-child a {
   color: #999;
 }
@@ -4824,6 +4831,13 @@ ul {
   padding-left: 10px;
   margin-top: 5px;
   font-weight: 100;
+}
+.remedial-class .col-md-2 div{
+  padding-left: 15px;
+}
+.remedial-class .col-md-2 div,.remedial-class .col-md-10 div {
+  height: 30px;
+  line-height: 30px;
 }
 .editor-text {
   position: relative;
@@ -7262,7 +7276,7 @@ border-left: 0px;
 
 /*工作站收入记录*/
 .container-workstation .menu li:first-child a span.fa {
-  font-size: 20px;
+  font-size: 18px;
 }
 .container-workstation .menu li a span:first-child {
   display: inline-block;
@@ -7964,6 +7978,170 @@ border-left: 0px;
 
 
 
+
+
+
+
+/*工作站资料信息*/
+.redact-title {
+    height: 50px;
+    margin: 0 10px;
+    border-bottom: 1px solid #CCCCCC;
+}
+.redact-con {
+    margin-bottom: 50px;
+}
+.redact-title h3 {
+    height: 50px;
+    color: #333333;
+    line-height: 50px;
+    margin: 0px;
+}
+.redact-msg {
+    padding: 10px;
+}
+.redact-line {
+    min-height: 40px;
+    line-height: 40px;
+}
+.redact-line input {
+    height: 26px;
+    line-height: 20px;
+}
+.redact-pwd {
+    color: #999999;
+}
+/*.redact-information,.redact-line span:first-child {
+   float: left;
+}*/
+.redact-information i {
+    color: #428bca;
+    font-size: 18px;
+    cursor: pointer;
+}
+.redact-text {
+    display: none;
+}
+.redact-text span {
+  position: relative;
+  top: 8px;
+  display: inline-block;
+  overflow: hidden;
+}
+.redact-text input {
+    float: left;
+}
+.redact-text input[type='text'] {
+    width: 176px;
+    padding-left: 6px;
+}
+.redact-login input[type='text'] {
+    width: 196px;
+}
+.redact-text input:nth-child(2){
+    margin-left: -5px;
+    border: 1px solid #666666;
+    /*line-height: 20px;*/
+}
+.redact-login {
+    min-height: 214px;
+    padding-top: 20px;
+    background-color: #F2F2F2;
+}
+.redact-text .redact-login input {
+    padding: 0 0 0 6px;
+    margin-top: 0px;
+}
+.redact-login label {
+    float: left;
+    width: 100px;
+    font-weight: 100;
+    margin-right: 20px;
+    line-height: 26px;
+    text-align: right;
+}
+.redact-login a,.redact-login .input-group{
+    float: left;
+}
+.redact-login .input-group {
+    width: 196px;
+}
+.redact-login a {
+    display: inline-block;
+    line-height: 26px;
+    margin-left: 20px;
+}
+.redact-login .form-group {
+    width: 400px;
+    margin: 0 auto;
+    height: 45px;
+}
+.redact-login .has-error {
+    clear: both;
+    display: block;
+    height: 20px;
+    line-height: 20px;
+    margin: 0 0 0 120px ;
+    position: relative;
+    top: -5px;
+}
+.redact-send {
+    width: 196px;
+    margin-left: 120px;
+}
+.redact-send input {
+    width: 80px;
+    height: 30px;
+    float: left;
+    border: 1px solid #666666;
+    border-radius: 4px;
+}
+.redact-send input:nth-child(2){
+    float: right;
+}
+@media only screen  and (max-width: 500px) {
+.redact-login input[type='text'] {
+    width: 100%;
+}
+.redact-login {
+    padding-top: 30px !important;
+}
+.redact-login .form-group {
+    width: 100%;
+    position: relative;
+}
+.redact-login .form-group .input-group {
+    width: 100%;
+}
+.redact-login .form-group label,.redact-login .form-group a {
+    position: absolute;
+    top: -20px;
+    float: none;
+}
+.redact-login .form-group label {
+    right: 0px;
+    margin-right: 0px
+}
+.redact-login .form-group a {
+    left: 0px;
+    margin-left: 0px;
+}
+.redact-login .has-error {
+    margin-left: 0px;
+}
+.redact-send input{
+  float: none !important;
+  margin-right: 20px;
+}
+.redact-send {
+    position: absolute;
+    left: 50%;
+    margin-left: -90px;
+}
+}
+
+
+
 /*优惠码*/
 .preferential .buy-footer-msg {
   margin-top: 5px
@@ -8042,3 +8220,40 @@ border-left: 0px;
   padding-bottom: 30px !important;
 }
 }
+
+
+
+/*辅导班列表 我的经销*/
+.distribution .condition {
+  margin: 0px 0px 0px 30px;
+}
+.distribution .condition select {
+  width: 92px;
+}
+.distribution .admin-list-con table tr td:last-child input {
+  border-radius: 3px;
+  font-size: 12px;
+  border: 1px solid #666;
+  background-color: #FFFFFF;
+}
+
+@media only screen  and (max-width: 1200px) {
+.distribution .condition-right .condition {
+  margin: 10px 20px 0 0;
+}
+}
+@media only screen  and (max-width: 450px) {
+.distribution .condition-right .condition {
+  display: block;
+  margin-bottom: 5px;
+}
+}
+.distribution .table tr td{
+  padding: 20px 0px 17px 0px!important;
+    height: 60px;
+}
+.distribution .admin-list-con .table tr:first-child td{
+  height: 40px !important;
+    padding: 10px 0px 4px 0px!important;
+}
+

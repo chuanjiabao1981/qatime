@@ -1,15 +1,18 @@
 class Admins::WorkstationsController < ApplicationController
+
   before_action :worker_station_associations_prepare
+  before_action :find_workstation, only: [:edit, :update, :show, :destroy]
 
   respond_to :html
   layout "admin_home"
 
-
   def index
     @workstations = Workstation.all
   end
+
   def new
     @workstation = Workstation.new
+    @workstation.build_coupon
   end
 
   def create
@@ -22,25 +25,25 @@ class Admins::WorkstationsController < ApplicationController
   end
 
   def show
-    @workstation = Workstation.find(params[:id])
   end
 
   def edit
-    @workstation = Workstation.find(params[:id])
+    @workstation.build_coupon if @workstation.coupon.blank?
   end
+
   def update
-    @workstation = Workstation.find(params[:id])
     @workstation.update_attributes(params[:workstation].permit!)
     respond_with :admins,@workstation
   end
+
   def destroy
-    @workstation = Workstation.find(params[:id])
     @workstation.destroy
     redirect_to admins_workstations_path
   end
 
 
   private
+
   def worker_station_associations_prepare
     unless not @managers.nil?
       @managers = Manager.all
@@ -49,5 +52,9 @@ class Admins::WorkstationsController < ApplicationController
     unless not @cities.nil?
       @cities = City.all
     end
+  end
+
+  def find_workstation
+    @workstation = Workstation.find_by(id: params[:id])
   end
 end

@@ -40,6 +40,9 @@ cn:
         enforce: 是否强制升级
         logo: 软件图标
         description: 更新说明
+      workstation:
+        coupon:
+          code: "优惠码"
     placeholders:
       live_studio/course_invitation:
         user_mobile: 填写被邀请人
@@ -61,6 +64,9 @@ cn:
         cdn_url: 实际下载地址
         description: 输入更新说明
         enforce: 是否强制升级
+      workstation:
+        coupon:
+          code: 请输入唯一的优惠码
 
     # Labels and hints examples
     # labels:

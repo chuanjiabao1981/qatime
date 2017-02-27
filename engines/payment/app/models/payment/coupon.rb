@@ -11,6 +11,9 @@ module Payment
     validates_presence_of :code, :price
     validates :code, uniqueness: true
 
+    # 默认价格 配置固定
+    default_value_for :price, GlobalSettings.default_coupon_price.to_f
+
     # 生成随机码
     def generate_code
       begin

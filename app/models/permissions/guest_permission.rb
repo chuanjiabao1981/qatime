@@ -21,6 +21,8 @@ module Permissions
       allow 'passwords', [:new, :create]
       allow 'live_studio/courses', [:index, :show]
 
+      allow 'wap/live_studio/courses', [:show]
+
       ## begin api permission
       # system
       api_allow :GET, "/api/v1/system/health"

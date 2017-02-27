@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222053434) do
+ActiveRecord::Schema.define(version: 20170222071539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -891,6 +891,17 @@ ActiveRecord::Schema.define(version: 20170222053434) do
   add_index "payment_change_records", ["owner_type", "owner_id"], name: "index_payment_change_records_on_owner_type_and_owner_id", using: :btree
   add_index "payment_change_records", ["target_type", "target_id"], name: "index_payment_change_records_on_target_type_and_target_id", using: :btree
 
+  create_table "payment_coupons", force: :cascade do |t|
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.string   "code"
+    t.decimal  "price",      precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+  end
+
+  add_index "payment_coupons", ["owner_type", "owner_id"], name: "index_payment_coupons_on_owner_type_and_owner_id", using: :btree
+
   create_table "payment_orders", force: :cascade do |t|
     t.string   "order_no",     limit: 64,                                            null: false
     t.integer  "user_id"
@@ -961,8 +972,10 @@ ActiveRecord::Schema.define(version: 20170222053434) do
     t.string   "product_type"
     t.datetime "pay_at"
     t.integer  "wechat_user_id"
+    t.integer  "coupon_id"
   end
 
+  add_index "payment_transactions", ["coupon_id"], name: "index_payment_transactions_on_coupon_id", using: :btree
   add_index "payment_transactions", ["user_id"], name: "index_payment_transactions_on_user_id", using: :btree
 
   create_table "payment_withdraw_records", force: :cascade do |t|
@@ -1076,7 +1089,10 @@ ActiveRecord::Schema.define(version: 20170222053434) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
     t.string   "url",              limit: 600
+    t.integer  "coupon_id"
   end
+
+  add_index "qr_codes", ["coupon_id"], name: "index_qr_codes_on_coupon_id", using: :btree
 
   create_table "question_assignments", force: :cascade do |t|
     t.integer  "question_id"

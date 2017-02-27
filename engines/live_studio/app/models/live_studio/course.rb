@@ -2,6 +2,7 @@ module LiveStudio
   class Course < ActiveRecord::Base
     # include LiveStudio::QaCourseActionRecord
     has_soft_delete
+    attr_accessor :sell_percentage_range
 
     include AASM
     extend Enumerize
@@ -16,9 +17,6 @@ module LiveStudio
     DEFAULT_TEACHER_PERCENTAGE = 80
 
     belongs_to :invitation
-
-    attr_accessor :sell_percentage_range
-    enumerize :sell_percentage_range, in: %w[low middle high]
 
     enum status: {
       rejected: -1, # 被拒绝
@@ -35,6 +33,10 @@ module LiveStudio
       teaching: 2, # 已开课
       completed: 3 # 已结束
     }
+
+    # enumerize排序优先级会影响到enum 必须放在后面加载
+    enumerize :sell_percentage_range, in: %w[low middle high]
+
 
     aasm column: :status, enum: true do
       state :rejected

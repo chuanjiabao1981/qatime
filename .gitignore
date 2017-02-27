@@ -28,6 +28,7 @@
 /config/alipay.yml
 /config/push.yml
 /config/settings.yml
+config/*.yml
 
 *.sqlite3
 *.log

@@ -5,7 +5,7 @@ module Payment
 
     include Payment::Payable
     include Payment::AutoPayable
-    attr_accessor :payment_password
+    attr_accessor :payment_password, :coupon_code
 
     RESULT_SUCCESS = "SUCCESS".freeze
 
@@ -41,6 +41,9 @@ module Payment
 
     belongs_to :user
     belongs_to :product, polymorphic: true
+    belongs_to :coupon, class_name: "::Payment::Coupon"
+    # 代理经销商
+    delegate :owner, to: :coupon, allow_nil: true, prefix: true
 
     validates :user, :product, presence: true
 
@@ -48,6 +51,11 @@ module Payment
 
     validate do |record|
       record.product.validate_order(record) if new_record? && record.product
+    end
+
+    validate :coupon_code_valid, on: :create
+    def coupon_code_valid
+      errors.add(:coupon_code, "不正确") if coupon_code.present? && !::Payment::Coupon.exists?(code: coupon_code)
     end
 
     aasm column: :status, enum: true do

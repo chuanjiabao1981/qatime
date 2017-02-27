@@ -3,9 +3,11 @@ require_dependency "live_studio/application_controller"
 module LiveStudio
   class OrdersController < ApplicationController
     layout 'application_front'
+    skip_before_action :authorize, only: [:check_coupon]
 
     before_action :set_order, only: [:show, :edit, :update, :destroy]
     before_action :set_course
+    before_action :find_coupon, only: [:create, :check_coupon]
 
     # GET /orders/1
     def show
@@ -28,10 +30,20 @@ module LiveStudio
       buy_params = @course.order_params.merge(order_params)
       @order = Payment::Order.new(buy_params.merge(user: current_user,
                                                    remote_ip: request.remote_ip))
+      @order.coupon_code = params[:coupon_code].presence
+
+      # 使用优惠码
+      if @coupon.present?
+        @order.coupon_id = @coupon.id
+        @order.amount -= @coupon.price
+      end
+
       if @order.save
+        flash_msg(:success, '下单成功!')
         redirect_to payment.transaction_path(@order.transaction_no)
       else
-        render :new
+        flash_msg(:error, @order.error_msgs)
+        redirect_to :back
       end
     end
 
@@ -47,14 +59,27 @@ module LiveStudio
       end
     end
 
+    # ajax 校验优惠码 return json
+    def check_coupon
+      if @coupon.present?
+        render json: {success: true, price: @coupon.price.to_f}
+      else
+        render json: {success: false}
+      end
+    end
+
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_course
-        @course = Course.find(params[:course_id])
+        @course = Course.find_by(id: params[:course_id])
       end
 
       def set_order
-        @order = Payment::Order.find(params[:id])
+        @order = Payment::Order.find_by(id: params[:id])
+      end
+
+      def find_coupon
+        @coupon = ::Payment::Coupon.find_by(code: params[:coupon_code])
       end
 
       # Only allow a trusted parameter "white list" through.

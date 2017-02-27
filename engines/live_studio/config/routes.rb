@@ -16,6 +16,12 @@ LiveStudio::Engine.routes.draw do
     end
   end
 
+  resources :orders, only: [] do
+    collection do
+      post :check_coupon
+    end
+  end
+
   resources :courses, only: [:index, :new, :create, :edit, :update, :show] do
     resources :orders, only: [:new, :create, :pay, :show] # 下单
     resources :announcements, only: [:index, :update, :create], shallow: true

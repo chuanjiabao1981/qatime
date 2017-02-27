@@ -1,16 +1,21 @@
 <div class="qa_box">
   <div class="qa_big_cell">
-    <h2><%=@workstation.class.model_name.human%></h2>
+    <h2><%= @workstation.class.model_name.human %></h2>
   </div>
   <div class="qa_big_cell">
-    <%= simple_form_for [:admins,@workstation] do |f|%>
-        <%=f.input :name %>
-        <%=f.input :address %>
-        <%= f.association :city, collection: @cities.map {|t|[t.name,t.id]}, input_html:{ :id => "s_city"} %>
-        <%= f.association :manager, collection: @managers.map {|t|[t.name,t.id]}, input_html:{ :id => "s_manager"} %>
-        <%=f.input :tel %>
-        <%=f.input :email %>
-        <%= f.button :submit, class: "btn btn-default" %>
+    <%= simple_form_for [:admins,@workstation] do |f| %>
+      <%= f.input :name %>
+      <%= f.input :address %>
+      <%= f.association :city, collection: @cities.map {|t|[t.name,t.id]}, input_html:{ :id => "s_city"} %>
+      <%= f.association :manager, collection: @managers.map {|t|[t.name,t.id]}, input_html:{ :id => "s_manager"} %>
+      <%= f.input :tel %>
+      <%= f.input :email %>
+
+      <%= f.fields_for :coupon do |fields| %>
+        <%= fields.input :code %>
+      <% end %>
+
+      <%= f.button :submit, class: "btn btn-default" %>
     <% end %>
   </div>
 </div>

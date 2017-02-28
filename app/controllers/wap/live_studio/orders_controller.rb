@@ -2,6 +2,9 @@ class Wap::LiveStudio::OrdersController < Wap::ApplicationController
   before_action :set_course
   def new
     @order = Payment::Order.new(product: @course, pay_type: nil)
+    # 优惠码
+    @coupon = Payment::Coupon.find_by(code: cookies[:coupon_code]) if cookies[:coupon_code].present?
+    @course = @order.product
   end
 
   def create

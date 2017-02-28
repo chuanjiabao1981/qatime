@@ -1,5 +1,5 @@
 <tr>
-  <td><%= show_index(course_counter, @courses.limit_value) %></td>
+  <td><%= show_index(course_counter, @course_records.limit_value) %></td>
   <td>
     <%= link_to live_studio.preview_courses_path(id: course), method: :post, target: '_blank' do %>
       <span><%= truncate_u(course.try(:name), length: 9) %></span>
@@ -17,5 +17,5 @@
   <td><span><%= number_to_currency(course.price, unit: "￥", precision: 2) %></span></td>
   <td><span><%= LiveStudio::Course.human_attribute_name(:base_price_clt, price: course.base_price*60) %></span></td>
   <td><span><%= number_to_currency(course.calculate_sell_percentage, precision: 2) %></span></td>
-  <td><input type="button" name="" class="send_qa_code" value="<%= t("view.live_studio/station.courses.course.send_qr_code") %>" data-url="<%= send_qr_code_station_workstation_course_path(@workstation,course) %>"></td>
+  <td><span><%= t("view.live_studio/station.course_records.course.buy_tickets_count", count: course.buy_user_count) %></span></td>
 </tr>

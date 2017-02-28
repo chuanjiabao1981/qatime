@@ -110,7 +110,7 @@ module Payment
     end
 
     def weixin_options
-      ::WechatSetting[order.source.to_sym]
+      ::WechatSetting[order.source.to_sym].dup
     end
   end
 end

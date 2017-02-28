@@ -3,6 +3,10 @@
   <% if @transaction.is_a? Payment::Recharge%>
     location.href = "<%= payment.cash_user_path(@transaction.user) %>";
   <% elsif @transaction.is_a? Payment::Order %>
-    location.href = "<%= live_studio.student_courses_path(@transaction.user) %>";
+    <% if @transaction.source.wap? -%>
+      location.href = "<%= main_app.wap_live_studio_course_path(@transaction.product) %>";
+    <% else %>
+      location.href = "<%= live_studio.student_courses_path(@transaction.user) %>";
+    <% end %>
   <% end %>
 <% end %>

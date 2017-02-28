@@ -53,7 +53,12 @@ LiveStudio::Engine.routes.draw do
 
   namespace :station do
     resources :workstations, only: [] do
-      resources :courses, only: [:index]
+      resources :courses, only: [:index] do
+        member do
+          post :send_qr_code
+        end
+      end
+      resources :course_records, only: [:index]
       resources :course_requests, only: [:index] do
         member do
           patch :accept

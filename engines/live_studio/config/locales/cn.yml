@@ -245,6 +245,10 @@ cn:
       courses:
         course:
           send_qr_code: 生成
+      course_records:
+        buy_tickets_count: 招生购买
+        course:
+          buy_tickets_count: "%{count}人"
     live_studio/courses:
       share_percentage: 分成比例
 

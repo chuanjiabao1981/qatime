@@ -55,6 +55,6 @@ class Admins::WorkstationsController < ApplicationController
   end
 
   def find_workstation
-    @workstation = Workstation.find_by(id: params[:id])
+    @workstation = Workstation.find(params[:id])
   end
 end

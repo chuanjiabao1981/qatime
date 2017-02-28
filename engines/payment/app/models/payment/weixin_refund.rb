@@ -5,7 +5,10 @@ module Payment
 
     def remote_refund
       return if Rails.env.test?
-      r = WxPay::Service.invoke_refund(refund_remote_params)
+      # 根据订单来源设置退款证书
+      # 可能会有并发问题
+      WxPay.set_apiclient_by_pkcs12(*WechatSetting["#{order.source}_cert".to_sym])
+      r = WxPay::Service.invoke_refund(refund_remote_params, weixin_options)
       self.hold_results = JSON.parse(r.to_json)
       self.hold_remotes = refund_remote_params
       r['return_code'] == RESULT_SUCCESS && r['result_code'] == RESULT_SUCCESS ? pay! : fail!
@@ -27,6 +30,10 @@ module Payment
     def pay_money
       money = super
       (money * 100).to_i
+    end
+
+    def weixin_options
+      ::WechatSetting[order.source.to_sym].dup
     end
   end
 end

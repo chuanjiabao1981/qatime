@@ -10,7 +10,7 @@ class Wap::LiveStudio::OrdersController < Wap::ApplicationController
                                                    source: 'wap',
                                                    openid: @openid))
     @order.save
-    @pay_params = @order.remote_order.try(:app_pay_params)
+    @pay_params = @order.remote_order.try(:wap_pay_params)
   end
 
   private

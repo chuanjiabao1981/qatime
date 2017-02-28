@@ -23,7 +23,7 @@ module Payment
         out_refund_no: order_no,
         total_fee: order.order.pay_money,
         refund_fee: pay_money,
-        op_user_id: WxPay.mch_id
+        op_user_id: ::WechatSetting[order.source.to_sym][:mch_id]
       }
     end
 

@@ -4,3 +4,5 @@
 end
 
 Dir["#{Rails.root}/lib/*.rb"].each {|p| require p}
+
+ActiveRecord::Base.send(:include, ActiveRecordExtend)

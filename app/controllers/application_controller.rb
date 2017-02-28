@@ -17,6 +17,11 @@ class ApplicationController < ActionController::Base
   layout :current_user_layout
 
   protected
+
+  def flash_msg(status = :notice, msg = "")
+    flash[status] = msg
+  end
+
   def i18n_notice(type, model)
     t("activerecord.successful.messages.#{type}", model: model.class.model_name.human)
   end

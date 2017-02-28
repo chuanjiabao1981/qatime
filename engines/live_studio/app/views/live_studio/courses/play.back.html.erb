@@ -215,13 +215,7 @@
           }
         });
       }
-      setInterval(visit,30000);
-
-      <% if @current_lesson %>
-        setInterval(function(){
-          $.getScript( "refresh_current_lesson", function( data, textStatus, jqxhr ) {});
-        }, 1 * 60 * 1000);
-      <% end %>
+      setInterval(visit, 30000);
 
       $(function() {
         var accid = "<%= @chat_account.try(:accid) %>";

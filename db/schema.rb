@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170217074422) do
+ActiveRecord::Schema.define(version: 20170222053434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -582,6 +582,10 @@ ActiveRecord::Schema.define(version: 20170217074422) do
     t.integer  "closed_lessons_count",                                        default: 0
     t.string   "token"
     t.string   "billing_type"
+    t.integer  "system_percentage",                                           default: 0
+    t.integer  "publish_percentage",                                          default: 0
+    t.integer  "sell_percentage",                                             default: 0
+    t.decimal  "base_price",                          precision: 4, scale: 2, default: 0.1
   end
 
   add_index "live_studio_courses", ["author_id"], name: "index_live_studio_courses_on_author_id", using: :btree
@@ -739,6 +743,8 @@ ActiveRecord::Schema.define(version: 20170217074422) do
     t.integer  "sell_channel_id"
     t.integer  "channel_owner_id"
     t.string   "channel_owner_type"
+    t.integer  "seller_id"
+    t.string   "seller_type"
   end
 
   add_index "live_studio_tickets", ["course_id"], name: "index_live_studio_tickets_on_course_id", using: :btree
@@ -1067,8 +1073,9 @@ ActiveRecord::Schema.define(version: 20170217074422) do
     t.string   "code"
     t.integer  "qr_codeable_id"
     t.string   "qr_codeable_type"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "url",              limit: 600
   end
 
   create_table "question_assignments", force: :cascade do |t|
@@ -1419,9 +1426,11 @@ ActiveRecord::Schema.define(version: 20170217074422) do
     t.string   "address"
     t.string   "tel"
     t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "manager_id"
+    t.integer  "publish_percentage", default: 5
+    t.integer  "system_percentage",  default: 0
   end
 
   add_foreign_key "invitations", "users"

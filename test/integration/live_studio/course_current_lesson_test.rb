@@ -24,23 +24,5 @@ module LiveStudio
       logout_as(@student)
       Capybara.use_default_driver
     end
-
-    test "student watch play when current lesson status changed" do
-      course = live_studio_courses(:course_with_junior_teacher)
-      visit chat.finish_live_studio_course_teams_path(course)
-      LiveService::LessonDirector.new(course.current_lesson).lesson_start
-
-      course.reload
-      course.current_lesson.reload
-
-      # assert page.has_content?('直播中'), '直播状态显示不正确'
-
-      course.current_lesson.pause!
-      sleep 3
-      p course.current_lesson.status
-      visit live_studio.play_course_path(course)
-      page.execute_script("$.getScript( 'refresh_current_lesson', function( data, textStatus, jqxhr ) {});")
-      assert page.has_content?('暂停中'), '直播状态显示不正确'
-    end
   end
 end

@@ -132,6 +132,10 @@ group :development,:test do
   gem 'puma'
   gem 'thin'
   gem 'pry'
+  # 命令行调试 错误界面监控
+  gem 'pry-rails', '~> 0.3.5'
+  gem 'better_errors', '~> 2.1', '>= 2.1.1'
+  gem 'binding_of_caller', '~> 0.7.2'
 end
 gem 'roo'
 
@@ -140,6 +144,11 @@ group :test do
 end
 
 gem 'test_after_commit', :group => :test
+
+# 静态配置
+gem 'settingslogic', '~> 2.0.9'
+# define default values for ActiveRecord models in a declarative manner
+gem 'default_value_for', '~> 3.0', '>= 3.0.2'
 
 
 gem 'rest-client'

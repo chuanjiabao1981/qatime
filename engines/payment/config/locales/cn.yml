@@ -98,6 +98,7 @@ cn:
         product: 商品名称
         total_money: 订单金额
         created_at: 下单时间
+        coupon_code: 优惠码
         status: 订单状态
         pay_type: 支付方式
         pay_type/account: 余额支付

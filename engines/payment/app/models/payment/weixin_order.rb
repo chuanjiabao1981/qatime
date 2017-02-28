@@ -28,6 +28,10 @@ module Payment
       WxPay::Service.generate_app_pay_req(prepayid: prepay_id, noncestr: nonce_str)
     end
 
+    def wap_pay_params
+      WxPay::Service.generate_js_pay_req(prepayid: prepay_id, noncestr: nonce_str).merge(appId: ::WechatSetting[order.source.to_sym][:appid])
+    end
+
     private
 
     after_create :remote_sync
@@ -35,6 +39,7 @@ module Payment
       return if Rails.env.test? || order.created_at < 3.hours.ago
 
       r = WxPay::Service.invoke_unifiedorder(remote_params, weixin_options)
+      p r
       remote_result(r)
     end
 
@@ -105,8 +110,6 @@ module Payment
     end
 
     def weixin_options
-      puts trade_type
-      p '---------'
       ::WechatSetting[order.source.to_sym]
     end
   end

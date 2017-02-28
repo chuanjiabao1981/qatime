@@ -9,7 +9,7 @@ class Wap::ApplicationController < ApplicationController
   def openid_required!
     if cookies[:openid].blank?
       session[:return_to] = request.original_url
-      redirect_to "#{$host}/auth/wechat"
+      redirect_to "#{WECHAT_CONFIG['host']}/auth/wechat"
     end
     @openid = cookies[:openid]
   end

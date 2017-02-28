@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222071539) do
+ActiveRecord::Schema.define(version: 20170228045657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -973,6 +973,7 @@ ActiveRecord::Schema.define(version: 20170222071539) do
     t.datetime "pay_at"
     t.integer  "wechat_user_id"
     t.integer  "coupon_id"
+    t.string   "openid"
   end
 
   add_index "payment_transactions", ["coupon_id"], name: "index_payment_transactions_on_coupon_id", using: :btree

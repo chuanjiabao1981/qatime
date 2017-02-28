@@ -1,0 +1,10 @@
+<%= simple_form_for [:wap, :live_studio, @course, @order] do |f| %>
+  <%= f.error :product %>
+  <div>
+    <%= f.collection_radio_buttons :pay_type, Payment::Order.pay_type.options.select {|item| item.last == 'weixin'}, :last, :first %>
+  </div>
+  <div>
+    <%= f.error :pay_type %>
+  </div>
+  <%= f.button :submit %>
+<% end %>

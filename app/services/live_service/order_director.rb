@@ -49,7 +49,7 @@ module LiveService
 
     def generate_refund
       Payment::Refund.new(user: @order.user, amount: remaining_amount, pay_type: @order.pay_type,
-                          product: @order.product, transaction_no: @order.transaction_no)
+                          product: @order.product, transaction_no: @order.transaction_no, source: @order.source)
     end
 
     private

@@ -1,4 +1,4 @@
-<%= simple_form_for [:wap, :live_studio, @course, @order], remote: true do |f| %>
+<%= simple_form_for [:wap, :live_studio, @course, @order] do |f| %>
   <div>
     <%= f.collection_radio_buttons :pay_type, Payment::Order.pay_type.options, :last, :first %>
   </div>

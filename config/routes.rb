@@ -1,16 +1,4 @@
 Qatime::Application.routes.draw do
-  namespace :wap do
-  namespace :live_studio do
-    get 'orders/new'
-    end
-  end
-
-  namespace :wap do
-  namespace :live_studio do
-    get 'orders/new'
-    end
-  end
-
   root :to => "home#index"
 
   get 'home' => 'home#new_index'
@@ -429,6 +417,10 @@ Qatime::Application.routes.draw do
       resources :courses, only: [:show] do
         resources :orders, only: [:new, :create]
       end
+    end
+
+    namespace :payment do
+      resources :orders, only: [:show]
     end
   end
 end

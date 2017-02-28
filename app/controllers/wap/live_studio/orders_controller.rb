@@ -9,8 +9,11 @@ class Wap::LiveStudio::OrdersController < Wap::ApplicationController
                                                    remote_ip: request.remote_ip,
                                                    source: 'wap',
                                                    openid: @openid))
-    @order.save
-    @pay_params = @order.remote_order.try(:wap_pay_params)
+    if @order.save
+      render :new
+    else
+      redirec_to wap_payment_order(@order.transaction_no)
+    end
   end
 
   private

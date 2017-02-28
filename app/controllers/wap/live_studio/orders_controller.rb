@@ -7,7 +7,8 @@ class Wap::LiveStudio::OrdersController < Wap::ApplicationController
   def create
     @order = Payment::Order.new(order_params.merge(user: current_user,
                                                    remote_ip: request.remote_ip,
-                                                   source: 'wap'))
+                                                   source: 'wap',
+                                                   openid: @openid))
     @order.save
     @pay_params = @order.remote_order.try(:app_pay_params)
   end

@@ -150,7 +150,6 @@ gem 'settingslogic', '~> 2.0.9'
 # define default values for ActiveRecord models in a declarative manner
 gem 'default_value_for', '~> 3.0', '>= 3.0.2'
 
-
 gem 'rest-client'
 gem 'carrierwave-aliyun','0.3.4'
 gem 'unicorn'
@@ -163,10 +162,6 @@ gem 'slim'
 gem 'fancybox2-rails', '~> 0.2.8'
 
 gem 'x-editable-rails'
-
-# wechat
-gem 'wechat'
-gem 'omniauth-wechat-oauth2'
 
 gem 'whenever',:require => false
 

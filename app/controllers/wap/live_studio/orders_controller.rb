@@ -1,9 +1,9 @@
 class Wap::LiveStudio::OrdersController < Wap::ApplicationController
   before_action :set_course
   def new
-    @order = Payment::Order.new(product: @course, pay_type: nil)
     # 优惠码
     @coupon = Payment::Coupon.find_by(code: cookies[:coupon_code]) if cookies[:coupon_code].present?
+    @order = Payment::Order.new(product: @course, pay_type: nil, coupon: @coupon)
     @course = @order.product
   end
 
@@ -26,6 +26,6 @@ class Wap::LiveStudio::OrdersController < Wap::ApplicationController
   end
 
   def order_params
-    @course.order_params.merge(params.require(:order).permit(:pay_type))
+    @course.order_params.merge(params.require(:order).permit(:pay_type, :coupon_code))
   end
 end

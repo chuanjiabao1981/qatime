@@ -29,7 +29,7 @@ module Payment
     end
 
     def wap_pay_params
-      WxPay::Service.generate_js_pay_req(prepayid: prepay_id, noncestr: nonce_str).merge(appId: ::WechatSetting[order.source.to_sym][:appid])
+      WxPay::Service.generate_js_pay_req({ prepayid: prepay_id, noncestr: nonce_str }, weixin_options)
     end
 
     private
@@ -37,9 +37,7 @@ module Payment
     after_create :remote_sync
     def remote_sync
       return if Rails.env.test? || order.created_at < 3.hours.ago
-
       r = WxPay::Service.invoke_unifiedorder(remote_params, weixin_options)
-      p r
       remote_result(r)
     end
 
@@ -105,8 +103,8 @@ module Payment
     def check_result(result)
       raise Payment::InvalidNotify, '通知签名不正确' unless WxPay::Sign.verify?(result)
       raise Payment::IncorrectAmount, '金额不正确' unless result['total_fee'].to_f == pay_money.to_f
-      raise Payment::InvalidNotify, '非法通知' unless result["appid"] == WxPay.appid.to_s
-      raise Payment::InvalidNotify, '非法通知' unless result["mch_id"] == WxPay.mch_id.to_s
+      raise Payment::InvalidNotify, '非法通知' unless result["appid"] == weixin_options[:appid]
+      raise Payment::InvalidNotify, '非法通知' unless result["mch_id"] == weixin_options[:mch_id]
     end
 
     def weixin_options

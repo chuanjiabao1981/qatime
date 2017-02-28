@@ -10,9 +10,9 @@ class Wap::LiveStudio::OrdersController < Wap::ApplicationController
                                                    source: 'wap',
                                                    openid: @openid))
     if @order.save
-      render :new
+      redirect_to wap_payment_order_path(@order.transaction_no)
     else
-      redirec_to wap_payment_order(@order.transaction_no)
+      render :new
     end
   end
 

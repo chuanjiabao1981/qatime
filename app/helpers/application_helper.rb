@@ -56,6 +56,10 @@ module ApplicationHelper
     end
   end
 
+  def wap_after_sign_in_path
+    params[:redirect_url].presence || root_path
+  end
+
   def get_edit_or_create_model_string(o, c_name=nil)
     if c_name.nil?
       c_name = "创建"

@@ -1,4 +1,5 @@
 class Wap::SessionsController < Wap::ApplicationController
+  before_filter 'already_signin', only: [:new]
 
   def new
     @user = User.new
@@ -9,7 +10,7 @@ class Wap::SessionsController < Wap::ApplicationController
     if @user && @user.authenticate(user_params[:password])
       sign_in(@user)
       flash[:info] = I18n.t('wap.sessions.new.create_success')
-      redirect_to params[:redirect_url].blank? ? user_home_path : params[:redirect_url]
+      redirect_to wap_after_sign_in_path
     else
       @user = User.new(login_mobile: @user.try(:login_account))
       flash[:warning] = I18n.t('wap.sessions.new.create_error')
@@ -26,6 +27,10 @@ class Wap::SessionsController < Wap::ApplicationController
 
   def user_params
     params.require(:user).permit(:login_account, :password)
+  end
+
+  def already_signin
+    redirect_to wap_after_sign_in_path if signed_in?
   end
 
 end

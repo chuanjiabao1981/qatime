@@ -183,6 +183,7 @@ module Permissions
 
       allow 'wap/live_studio/orders', [:new, :create]
       allow 'wap/live_studio/courses', [:show]
+      allow 'wap/payment/orders', [:show, :pay]
 
       # payment permission
 

@@ -9,6 +9,7 @@
   </div>
   <%= simple_form_for [:wap, :live_studio, @course, @order] do |f| %>
   <div class="phone-order-con">
+    <center><%= f.error :product %></center>
     <ul>
       <li>
         <span><%= Payment::Order.human_attribute_name(:course_name) %></span>

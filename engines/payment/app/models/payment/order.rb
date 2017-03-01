@@ -57,9 +57,7 @@ module Payment
 
     validate :coupon_code_valid, on: :create
     def coupon_code_valid
-      return unless coupon_code.present?
-      self.coupon ||= Payment::Coupon.find_by(code: coupon_code)
-      errors.add(:coupon_code, I18n.t("error.payment/order.coupon_code_invalid")) if coupon.nil?
+      errors.add(:coupon_code, I18n.t("error.payment/order.coupon_code_invalid")) if coupon_code.present? && !::Payment::Coupon.exists?(code: coupon_code)
     end
 
     aasm column: :status, enum: true do
@@ -232,6 +230,11 @@ module Payment
     end
 
     private
+
+    before_validation :set_coupon
+    def set_coupon
+      self.coupon = Payment::Coupon.find_by(code: coupon_code) unless coupon_code.blank?
+    end
 
     # 当有支付密码字段的时候验证支付密码
     def check_payment_password?

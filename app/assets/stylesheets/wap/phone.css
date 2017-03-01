@@ -169,9 +169,32 @@ body {
   width: 2.3rem;
   height: 1.9rem;
 }
+/*.modal-error {
+  position: absolute;
+  top: 50%;
+  margin-top: -6.5rem;
+  left: 50%;
+  margin-left: -12.4rem;
+  width: 24.8rem;
+}
+.modal-error .modal-header {
+  padding: 1rem;
+  border-bottom: 0rem;
+}
+.modal-error .modal-content {
+  height: 12.5rem;
+}
 
-
-
+.modal-error .modal-body button span {
+  color: #000;
+}
+.modal-error .modal-body p{
+  font-size: 1.3rem;
+  color: #666;
+  margin: 1.7rem 4rem 0rem 4rem;
+  
+  text-align: center;
+}*/
 /*æ³¨å†Œé¡µé¢*/
 .phone-register .phone-login-con .form-group .input-group {
   width: 76.23%;
@@ -648,10 +671,6 @@ body {
   display: inline-block;
   width: 7.2rem;
 }
-/*.order-con-price {
-  display: inline-block;
-  width: 4.7rem;
-}*/
 .phone-order-con ul li:last-child {
   overflow: hidden;
   margin-top: 0.5rem;
@@ -663,7 +682,6 @@ body {
   float: left;
 }
 .order-con-way i {
-  /*margin-bottom: 0.5rem;*/
   padding-left: 0.2rem;
   font-style: normal;
   font-size: 1.3rem;
@@ -691,6 +709,17 @@ body {
   padding-top: 1rem;
   background-color: #F2F2F2;
   padding-bottom: 2.5rem;
+}
+.preferential .phone-login-con .form-group {
+    overflow: inherit;
+}
+.preferential .phone-login-con .input-group {
+  width: 80%;
+}
+.preferential .phone-login-con .form-group .has-error {
+  clear: both;
+  font-size: 1.2rem;
+  color: rgb(190,11,11);
 }
 .preferential-title {
   height: 2.2rem;
@@ -750,7 +779,7 @@ body {
   height: 3.8rem;
   background-color: #FFFFFF;
 }
-.preferential-order .login-submit input {
+.preferential-order .login-submit input,.phone-deal .login-submit a {
   width: 100%;
   height: 100%;
   background-color: rgb(190,11,11);
@@ -758,4 +787,61 @@ body {
     color: #FFFFFF;
     border-radius: 0.4rem;
     border: 0.1rem solid rgb(190,11,11);
+}
+
+
+
+/*äº¤æ˜“å®Œæˆ*/
+.phone-deal-con {
+  background-color: #FFFFFF;
+}
+.phone-deal-state {
+  height: 14.5rem;
+  text-align: center;
+  font-size: 1.8rem;
+  color: #000;
+  border-bottom: 0.1rem solid #CCCCCC;
+}
+.phone-deal-state p {
+  margin-bottom: 0rem;
+  line-height: 14.5rem;
+}
+.phone-deal-state p img{
+  width: 3rem;
+  height: 3rem;
+  vertical-align: middle;
+}
+.phone-deal-state p span {
+  display: inline-block;
+  position: relative;
+  top: 0.2rem;
+}
+.phone-deal-msg {
+  padding: 0.5rem 1.2rem;
+  height: 6rem;
+  font-size: 1.4rem;
+  color: #666666;
+  list-style: none;
+  margin-bottom: 0rem;
+}
+.phone-deal-msg li {
+  height: 2.5rem;
+  line-height: 2.5rem;
+}
+.phone-deal-msg li span:first-child {
+  display: inline-block;
+  width: 8rem;
+  color: #333333;
+}
+.phone-deal .login-submit {
+  width: 100%;
+  padding: 0 1.2rem;
+  height: 3.8rem;
+  margin-top: 3.5rem;
+}
+.phone-deal .login-submit a {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  line-height: 3.6rem;
 }

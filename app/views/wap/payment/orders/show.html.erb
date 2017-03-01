@@ -1,1 +1,5 @@
-<%= render @order.pay_type %>
+<% if @order.unpaid? -%>
+  <%= render @order.pay_type %>
+<% else -%>
+  <%= render 'result' %>
+<% end -%>

@@ -1,0 +1,41 @@
+<div class="phone-details phone-deal">
+  <div class="phone-login-title">
+    <div class="phone-return">
+    </div>
+    <div class="phone-headline">
+      <h3><%= t('view.wap.live_studio.orders.pay_result_title') %></h3>
+    </div>
+  </div>
+  <div class="phone-deal-con">
+    <div class="phone-deal-state">
+      <% if @order.unpaid? %>
+        <p>
+          <span><%= @order.aasm.human_state %></span>
+        </p>
+      <% else %>
+        <p>
+          <%= image_tag "apply-succeed.png" %>
+          <span><%= @order.aasm.human_state %></span>
+        </p>
+      <% end %>
+      <!-- <p>
+        <img src="../img/apply-failure.png"/>
+        <span>订单未找到</span>
+      </p> -->
+    </div>
+    <ul class="phone-deal-msg">
+      <li>
+        <span><%= Payment::Order.human_attribute_name(:transaction_no) %></span>
+        <span><%= @order.transaction_no %></span>
+      </li>
+      <li>
+        <span><%= Payment::Order.human_attribute_name(:total_money) %></span>
+        <span><%= number_to_currency(@order.amount, unit: "￥", precision: 2) %></span>
+      </li>
+    </ul>
+  </div>
+  
+  <div class="login-submit">
+    <%= link_to "关闭", wap_live_studio_course_path(@order.product, coupon_code: @order.coupon.try(:code)) %>
+  </div>
+</div>

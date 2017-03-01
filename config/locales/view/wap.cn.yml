@@ -40,3 +40,4 @@ cn:
           coupon_result: 已优惠 %{amount} 元
           new_order_title: 订单确认
           pay_by_account_title: 余额支付
+          pay_result_title: 支付结果

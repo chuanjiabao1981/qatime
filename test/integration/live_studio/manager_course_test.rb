@@ -43,7 +43,13 @@ module LiveStudio
       assert page.has_select?('status', with_options: %w[招生中 开课中])
 
       page.first(:css, 'input.send_qa_code').click
-      assert page.has_selector?('img'), "没有生成二维码图片"
+
+      get page.first(:css, 'input.send_qa_code').native.attribute("data-url")
+      assert_response(:success)
+      assert_equal @response.content_type.to_s, 'image/png', "未下载二维码"
+      assert @response.header['Content-Disposition'].include?('attachment'), "未下载二维码"
+      reset!
+
     end
   end
 end

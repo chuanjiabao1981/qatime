@@ -26,9 +26,13 @@ module LiveStudio
 
     # 发送二维码
     def send_qr_code
-      qr_code_url = @course.generate_qrcode_by_coupon(@workstation.coupon.try(:code))
       # qr_code_url = 'http://qatime-testing.oss-cn-beijing.aliyuncs.com/qrcode/598c14c7c6d5c1ad4b0e910901e3c8b8.png'
-      render json: {success: true, url: qr_code_url}
+      # open(qr_code_url) do |f|
+      #   send_data f.read, type: "#{f.content_type};charset=utf-8;header=present", filename: "#{@course.name.to_s}.png", disposition: 'attachment'
+      # end
+      qr_code_url = @course.generate_qrcode_by_coupon(@workstation.coupon.try(:code))
+      image = URI(qr_code_url).read
+      send_data image, type: "#{image.content_type};charset=utf-8;header=present", filename: "#{@course.name.to_s}.png", disposition: 'attachment'
     end
 
     private

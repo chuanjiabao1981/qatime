@@ -47,7 +47,7 @@ module Payment
     # 代理经销商
     delegate :owner, to: :coupon, allow_nil: true, prefix: true
 
-    validates :user, :product, presence: true
+    validates :user, :product, :pay_type, presence: true
 
     has_many :billings, as: :target
 

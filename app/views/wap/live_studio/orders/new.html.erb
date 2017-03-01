@@ -66,6 +66,7 @@
       </li>
     </ul>
     <% if @coupon.nil? -%>
+      <% if false -%>
       <div class="preferential">
         <div class="preferential-title">
           <span><%= t('view.wap.live_studio.orders.coupon_tips', amount: 10) %></span>
@@ -80,6 +81,7 @@
           </div>
         </div>
       </div>
+      <% end -%>
     <% else %>
       <%= f.hidden_field :coupon_code %>
       <%= f.error :coupon_code %>
@@ -95,7 +97,7 @@
         <% if @coupon.nil? -%>
           <span><%= number_to_currency(@course.current_price, unit: '', precision: 2) %></span>
         <% else %>
-          <span><%= number_to_currency(@course.current_price - 10, unit: '', precision: 2) %></span>
+          <span><%= number_to_currency([@course.current_price - 10, 0].max, unit: '', precision: 2) %></span>
         <% end %>
         <span><%= t('currency.cn') %></span>
       </div>

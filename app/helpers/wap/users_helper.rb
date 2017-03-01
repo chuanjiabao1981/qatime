@@ -1,0 +1,2 @@
+module Wap::UsersHelper
+end

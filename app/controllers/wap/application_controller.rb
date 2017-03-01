@@ -4,6 +4,16 @@ class Wap::ApplicationController < ApplicationController
   before_action :openid_required!
 
   def authorize
+    if current_permission.allow?(params[:controller], params[:action], current_resource)
+      current_permission.permit_params! params
+    else
+      flash[:warning] = I18n.t("wap.authorize.warning")
+      logger.info("====================")
+      logger.info(request.referer)
+      logger.info(current_user.try(:name))
+      logger.info("====================")
+      return wap_unauthorized
+    end
   end
 
   def openid_required!

@@ -39,7 +39,7 @@
         <%= f.submit t('wap.sessions.new.submit') %>
       </div>
       <div class="login-link">
-        <%= link_to t('wap.sessions.new.reg_now'), new_wap_user_path, class: 'login-link-left' %>
+        <%= link_to t('wap.sessions.new.reg_now'), new_wap_user_path(redirect_url: params[:redirect_url]), class: 'login-link-left' %>
         <%= link_to t('wap.sessions.new.forget_password'), new_password_path, class: 'login-link-right' %>
       </div>
     <% end %>

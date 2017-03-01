@@ -22,6 +22,8 @@ module Permissions
       allow 'live_studio/courses', [:index, :show]
 
       allow 'wap/live_studio/courses', [:show]
+      allow 'wap/users', [:new, :create]
+      allow 'wap/sessions', [:new, :create]
 
       ## begin api permission
       # system

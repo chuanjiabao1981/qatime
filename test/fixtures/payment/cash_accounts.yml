@@ -28,6 +28,18 @@ student_account:
   owner: student1 (User)
   balance: 0
 
+student2_account:
+  owner: student2 (User)
+  balance: 0
+  password_digest: <%= BCrypt::Password.create("123123", cost: 4) %>
+  password_set_at: <%= 2.day.ago%>
+
+student3_account:
+  owner: student3 (User)
+  balance: 1000
+  password_digest: <%= BCrypt::Password.create("123123", cost: 4) %>
+  password_set_at: <%= 2.day.ago%>
+
 teacher2_account:
   owner: teacher2 (User)
   balance: 30

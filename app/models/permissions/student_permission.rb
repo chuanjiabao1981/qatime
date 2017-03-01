@@ -204,8 +204,6 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/replays"
       api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/replay"
 
-
-
       # 学生个人信息接口
       api_allow :GET, "/api/v1/students/[\\w-]+/info" do |student|
         student && student.id == user.id

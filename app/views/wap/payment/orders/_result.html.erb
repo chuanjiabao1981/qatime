@@ -9,11 +9,11 @@
   <div class="phone-deal-con">
     <div class="phone-deal-state">
       <% if @order.unpaid? %>
-        <p>
+        <p id="pay-result">
           <span><%= @order.aasm.human_state %></span>
         </p>
       <% else %>
-        <p>
+        <p id="pay-result">
           <%= image_tag "apply-succeed.png" %>
           <span><%= @order.aasm.human_state %></span>
         </p>

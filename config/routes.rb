@@ -422,5 +422,8 @@ Qatime::Application.routes.draw do
     namespace :payment do
       resources :orders, only: [:show]
     end
+
+    resources :sessions
+    resources :users
   end
 end

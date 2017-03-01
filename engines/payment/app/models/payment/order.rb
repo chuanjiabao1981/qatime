@@ -5,7 +5,9 @@ module Payment
 
     include Payment::Payable
     include Payment::AutoPayable
-    attr_accessor :payment_password, :coupon_code
+    # coupon_code 用于优惠券
+    # verified_amount 用于校验下单金额是否跟实际支付金额一致, 暂时不使用
+    attr_accessor :payment_password, :coupon_code, :verified_amount
 
     RESULT_SUCCESS = "SUCCESS".freeze
 

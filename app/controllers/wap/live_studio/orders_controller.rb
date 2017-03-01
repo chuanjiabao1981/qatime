@@ -3,7 +3,7 @@ class Wap::LiveStudio::OrdersController < Wap::ApplicationController
   def new
     # 优惠码
     @coupon = Payment::Coupon.find_by(code: params[:coupon_code]) if params[:coupon_code].present?
-    @order = Payment::Order.new(product: @course, pay_type: nil, coupon: @coupon)
+    @order = Payment::Order.new(product: @course, pay_type: nil, coupon: @coupon, coupon_code: @coupon.try(:code))
     @course = @order.product
   end
 
@@ -15,6 +15,7 @@ class Wap::LiveStudio::OrdersController < Wap::ApplicationController
     if @order.save
       redirect_to wap_payment_order_path(@order.transaction_no)
     else
+      p @order.errors
       render :new
     end
   end

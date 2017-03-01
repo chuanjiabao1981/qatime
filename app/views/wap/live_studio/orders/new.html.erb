@@ -76,11 +76,13 @@
             <div class="input-group">
               <%= f.text_field :coupon_code, class: 'form-control', placeholder: t("simple_form.placeholders.payment/order.coupon_code") %>
             </div>
+            <%= f.error :coupon_code %>
           </div>
         </div>
       </div>
     <% else %>
       <%= f.hidden_field :coupon_code %>
+      <%= f.error :coupon_code %>
     <% end -%>
   </div>
   <div class="preferential-order">

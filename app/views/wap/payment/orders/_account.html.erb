@@ -1,0 +1,27 @@
+<div class=" phone-register phone-details phone-applay">
+  <div class="phone-login-title">
+    <div class="phone-return">
+      <%= link_to image_tag("phone-return-1.png"), new_wap_live_studio_course_order_path(@order.product, coupon_code: @order.coupon.try(:code)) %>
+    </div>
+    <div class="phone-headline">
+      <h3><%= t('view.wap.live_studio.orders.pay_by_account_title') %></h3>
+    </div>
+  </div>
+  <div class="phone-login-con">
+    <%= simple_form_for @order, url: pay_wap_payment_order_path(@order.transaction_no) do |f| -%>
+      <div class="form-group phone-register-pwd">
+        <%= f.label :payment_password %>
+        <div class="input-group">
+          <%= f.input :payment_password, as: :integer, label: false, input_html: { maxlength: 6 } , class: "form-control", placeholder: t('view.payment_show.placeholder') %>
+        </div>
+      </div>
+      <div style="margin-left: 1.2rem;">
+        <%= f.error :payment_password %>
+        <%= f.error :pay_type %>
+      </div>
+      <div class="login-submit">
+        <%= f.button :submit, t('view.payment_show.confirm_pay') %>
+      </div>
+    <% end -%>
+  </div>
+</div>

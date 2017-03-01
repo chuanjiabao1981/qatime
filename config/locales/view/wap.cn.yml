@@ -31,3 +31,6 @@ cn:
         get_captcha: 获取校验码
         accept: 接受
         rule_name: 【答疑时间用户协议】
+    authorize:
+      warning: 您没有权限进行这个操作!
+

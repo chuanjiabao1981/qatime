@@ -71,6 +71,10 @@ class ApplicationController < ActionController::Base
     redirect_to user_home_path
   end
 
+  def wap_unauthorized
+    redirect_to wap_user_home_path
+  end
+
   def current_user_layout
     if current_user.nil?
       "application"

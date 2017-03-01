@@ -424,5 +424,6 @@ Qatime::Application.routes.draw do
 
     resources :sessions
     resources :users
+    get 'weixin/auth' => "weixin#auth", as: :weixin_auth
   end
 end

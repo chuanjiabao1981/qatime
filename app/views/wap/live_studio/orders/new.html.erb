@@ -1,12 +1,10 @@
 <div class="phone-login phone-details phone-order">
   <div class="phone-login-title">
     <div class="phone-return">
-      <a href="">
-        <%= image_tag "phone-return-1.png" %>
-      </a>
+      <%= link_to image_tag("phone-return-1.png"), wap_live_studio_course_path(@course, coupon_code: params[:coupon_code]) %>
     </div>
     <div class="phone-headline">
-      <h3>订单确认</h3>
+      <h3><%= t('view.wap.live_studio.orders.new_order_title') %></h3>
     </div>
   </div>
   <%= simple_form_for [:wap, :live_studio, @course, @order] do |f| %>
@@ -59,7 +57,7 @@
           <i>
             <%= f.radio_button(:pay_type, item.last, class: 'order_pay_type') %>
             <label for="order_pay_type_<%= item.last %>">
-              <%= image_tag "pay_type_#{item.last}.png" %>
+              <%= image_tag "phone-#{item.last}.png" %>
               <%= item.first %>
             </label>
           </i>
@@ -88,7 +86,7 @@
   <div class="preferential-order">
     <div class="preferential-amount">
       <div class="preferential-amount-left">
-        <span><%= t('view.wap.live_studio.orders.coupon_result', amount: number_to_currency(10, unit: "￥", precision: 0)) if @coupon.present? %></span>
+        <span id="coupon_result"><%= t('view.wap.live_studio.orders.coupon_result', amount: number_to_currency(10, unit: "￥", precision: 0)) if @coupon.present? %></span>
       </div>
       <div class="preferential-amount-right">
         <span><%= Payment::Order.human_attribute_name(:real_amount) %></span>

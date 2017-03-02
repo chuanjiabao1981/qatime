@@ -424,10 +424,15 @@ Qatime::Application.routes.draw do
     end
 
     namespace :payment do
-      resources :orders, only: [:show]
+      resources :orders, only: [:show] do
+        member do
+          patch :pay
+        end
+      end
     end
 
     resources :sessions
     resources :users
+    get 'weixin/auth' => "weixin#auth", as: :weixin_auth
   end
 end

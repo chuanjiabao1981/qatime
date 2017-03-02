@@ -15,7 +15,6 @@ body {
 .phone-login-title {
   position: relative;
   height: 4rem;
-  /*line-height: 4rem;*/
   border-bottom: 0.1rem solid #dbdbdb;
 }
 .phone-return {

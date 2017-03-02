@@ -5,7 +5,9 @@ module Payment
 
     include Payment::Payable
     include Payment::AutoPayable
-    attr_accessor :payment_password, :coupon_code
+    # coupon_code 用于优惠券
+    # verified_amount 用于校验下单金额是否跟实际支付金额一致, 暂时不使用
+    attr_accessor :payment_password, :coupon_code, :verified_amount
 
     RESULT_SUCCESS = "SUCCESS".freeze
 
@@ -45,7 +47,7 @@ module Payment
     # 代理经销商
     delegate :owner, to: :coupon, allow_nil: true, prefix: true
 
-    validates :user, :product, presence: true
+    validates :user, :product, :pay_type, presence: true
 
     has_many :billings, as: :target
 
@@ -55,7 +57,7 @@ module Payment
 
     validate :coupon_code_valid, on: :create
     def coupon_code_valid
-      errors.add(:coupon_code, "不正确") if coupon_code.present? && !::Payment::Coupon.exists?(code: coupon_code)
+      errors.add(:coupon_code, I18n.t("error.payment/order.coupon_code_invalid")) if coupon_code.present? && !::Payment::Coupon.exists?(code: coupon_code)
     end
 
     aasm column: :status, enum: true do
@@ -219,7 +221,39 @@ module Payment
       pay_and_ship!
     end
 
+    # 支付密码为空字符串或者nil都不自动支付
+    def pay_with_payment_password!
+      pay_and_ship! if check_payment_password?
+    rescue Payment::BalanceNotEnough
+      errors.add(:pay_type, I18n.t("error.payment/cash_account.balance_not_enough"))
+      false
+    end
+
     private
+
+    before_validation :set_coupon
+    def set_coupon
+      self.coupon = Payment::Coupon.find_by(code: coupon_code) unless coupon_code.blank?
+    end
+
+    # 当有支付密码字段的时候验证支付密码
+    def check_payment_password?
+      cash_account = user.cash_account!
+      # 支付密码为空
+      if payment_password.blank?
+        errors.add(:payment_password, I18n.t("error.payment/order.payment_password_blank"))
+      # 未设置支付密码
+      elsif cash_account.password_set_at.blank?
+        errors.add(:payment_password, I18n.t("error.payment/order.payment_password_unset"))
+      # 支付密码设置时间过短
+      elsif cash_account.password_set_at > 24.hours.ago
+        errors.add(:payment_password, I18n.t("error.payment/order.payment_password_young"))
+      # 支付密码不正确
+      elsif !cash_account.authenticate(payment_password)
+        errors.add(:payment_password, I18n.t("error.payment/order.payment_password_invalid"))
+      end
+      errors.blank?
+    end
 
     # 如果不是余额支付, 则改变remote_order状态为已退款
     def remote_order_refund

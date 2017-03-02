@@ -57,4 +57,7 @@ cn:
         enroll_now: 立即报名
         start_learning: 开始学习
         taste_end: 试听结束
+        modal_title: 提示
+        modal_content: 此功能需要打开客户端才能使用
+        modal_download: 下载客户端
 

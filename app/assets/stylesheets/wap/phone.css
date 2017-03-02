@@ -15,7 +15,6 @@ body {
 .phone-login-title {
   position: relative;
   height: 4rem;
-  /*line-height: 4rem;*/
   border-bottom: 0.1rem solid #dbdbdb;
 }
 .phone-return {
@@ -866,4 +865,46 @@ a.details-btn-end:link,a.details-btn-start:link {
   text-decoration: none;
   text-align: center;
   line-height: 3.6rem;
+}
+.modal-download  {
+  width: 28.5rem !important;
+  position: absolute !important;
+  top: 50% !important;
+  margin-top: -7.25rem !important;
+  left: 50% !important;
+  margin-left: -14.25rem !important;
+}
+.modal-download .modal-content {
+  height: 14.5rem;
+}
+.modal-download .modal-header {
+  height: 2.4rem;
+  font-size: 1.5rem;
+  padding: 0rem 1.2rem;
+  line-height: 2.4rem;
+  background-color: #F2F2F2;
+  border-top-left-radius: 0.4rem;
+  border-top-right-radius: 0.4rem;
+}
+.modal-download .modal-header button {
+  height: 2rem;
+  margin-top: 0.2rem;
+}
+.modal-download .modal-body p {
+  text-align: center;
+  font-size: 1.3rem;
+  color: #666666;
+  margin-top: 0.5rem;
+  margin: 1.5rem 0rem 2.5rem 0rem;
+}
+.modal-download .modal-body a {
+  display: inline-block;
+  width: 8.5rem;
+  text-align: center;
+  line-height: 2.2rem;
+  height: 2.2rem;
+  border: 0.1rem solid #CCCCCC;
+  font-size: 1.2rem;
+  color: #999999;
+  border-radius: 0.4rem;
 }

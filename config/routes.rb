@@ -9,7 +9,7 @@ Qatime::Application.routes.draw do
     get :download, on: :member
 
     collection do
-      get '/:platform/:cate/latest', to: :latest
+      get '/:platform/:cate/latest' => 'softwares#latest', as: 'latest_softwares'
     end
   end
   get "topics/node:id"      => "topics#node",           as: 'node_topics'

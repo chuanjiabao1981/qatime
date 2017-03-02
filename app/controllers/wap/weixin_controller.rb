@@ -9,5 +9,7 @@ class Wap::WeixinController < Wap::ApplicationController
       session[:return_to] = request.original_url
       redirect_to "#{WECHAT_CONFIG['host']}/auth/wechat"
       redirect_to weixin_auth_url
-    else
+    end
   end
+
+end

@@ -33,6 +33,34 @@ cn:
         rule_name: 【答疑时间用户协议】
     authorize:
       warning: 您没有权限进行这个操作!
+    live_studio/courses:
+      show:
+        course_name: 辅导班名称
+        course_buy_user_count: "报名人数%{number}"
+        app_name: 答疑时间
+        app_intro: 智造互联乐享教育
+        download_app: 下载APP
+        distance_days: "距离开课%{day}天"
+        load: "进度%{start}/%{end}"
+        course_intro: 辅导详情
+        course_teacher: 教师资料
+        course_lessions: 课程安排
+        course_lessons_count: "共%{count}课"
+        course_title: 在线直播
+        to: 至
+        lession_intro: 课程简介
+        teaching_years: 执教年龄
+        teaching_school: 所在学校
+        teacher_intro: 教师简介
+        join_taste: 加入试听
+        enter_taste: 进入试听
+        enroll_now: 立即报名
+        start_learning: 开始学习
+        taste_end: 试听结束
+        modal_title: 提示
+        modal_content: 此功能需要打开客户端才能使用
+        modal_download: 下载客户端
+
   view:
     wap:
       live_studio:

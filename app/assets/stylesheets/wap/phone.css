@@ -1,0 +1,847 @@
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-size: 62.5%;
+  background-color: #f2f2f2;
+}
+.phone-login {
+  width: 100%;
+  height: 100%;
+  background-color: #f2f2f2;
+  position: relative;
+}
+.phone-login-title {
+  position: relative;
+  height: 4rem;
+  /*line-height: 4rem;*/
+  border-bottom: 0.1rem solid #dbdbdb;
+}
+.phone-return {
+  position: absolute;
+  left: 1.2rem;
+  z-index: 10;
+}
+.phone-return img {
+  margin-top: 1.125rem;
+  width: 1rem;
+  height: 1.75rem;
+}
+.phone-headline {
+  height: 4rem;
+  position: absolute;
+  left: 0rem;
+  right: 0rem;
+  z-index: 1;
+}
+.phone-headline h3 {
+  margin: 0rem;
+  font-size: 1.6rem;
+  line-height: 4rem;
+  text-align: center;
+}
+.phone-login-con {
+  margin-top: 1.3rem;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+.phone-login-con .form-group {
+  height: 4.2rem;
+  overflow: hidden;
+  margin-left: 1.2rem;
+  margin-bottom: 0px;
+}
+.phone-login-con .form-group label {
+  float: left;
+  font-weight: 100;
+  font-size: 1.4rem;
+  line-height: 4.2rem;
+  margin-right: 4.32%;
+}
+.login-line {
+  width: 96%;
+  margin-left: 1.2rem;
+  border-bottom: 0.1rem solid #CCCCCC;
+}
+.phone-login-con .form-group .input-group {
+  width: 83.3%;
+  border-top: 0px;
+  float: left;
+  }
+.phone-login-con .form-group .form-control {
+  height: 4.2rem;
+  width: 100%;
+  padding-left: 0rem;
+  border: 0rem solid #FFFFFF !important;
+  box-shadow: inset 0 0px 0px rgba(0,0,0,0) !important;
+  -webkit-box-shadow: inset 0 0px 0px rgba(0,0,0,0) !important;
+}
+.phone-login-con .login-checkbox  {
+  height: 5rem;
+  margin-left: 0px;
+  padding-left: 1.2rem;
+  background-color: #F2F2F2;
+}
+.phone-login-con .login-checkbox .input-group {
+  float: left;
+  width: 5%;
+  margin-right: 4.32%;
+  margin-top: 1.4rem;
+}
+.phone-login-con .login-checkbox label {
+  line-height: 5.4rem;
+  font-size: 1.3rem;
+  color: #666666;
+}
+.login-submit {
+  height: 3.8rem;
+  background-color: #F2F2F2;
+}
+.phone-login-con input[type='submit'] {
+  margin-left: 1.2rem;
+  font-size: 1.4rem;
+  color: #FFFFFF;
+  height: 100%;
+  width: 93%;
+  border-radius: 0.4rem;
+  background-color: rgb(190,11,11);
+  border: 0.1rem solid rgb(190,11,11);
+}
+.login-link {
+  width: 100%;
+  padding: 1.4rem 1.2rem 0 1.2rem;
+  font-size: 1.4rem;
+  overflow: hidden;
+  background-color: #F2F2F2;
+}
+.login-link a {
+  color: #666;
+  text-decoration: none;
+}
+.login-link-left {
+  float: left;
+}
+.login-link-right {
+  float: right;
+}
+.phone-login-else {
+  width: 100%;
+  position: absolute;
+  top: 80%;
+}
+.login-else-title {
+  width: 100%;
+  padding: 0px 1.2rem;
+}
+.login-else-title span {
+  position: absolute;
+  left: 50%;
+  top: -0.85rem;
+  margin-left: -3.6rem;
+  color: #333333;
+  font-size: 1.2rem;
+}
+.login-else-title img {
+  position: absolute;
+  width: 11.2rem;
+  height: 0.2rem;
+}
+.login-else-title img:first-child {
+  left: 1.2rem;
+}
+.login-else-title img:last-child {
+  right: 1.2rem !important;
+}
+.login-else-con {
+  clear: both;
+  position: relative;
+}
+.login-else-con a {
+  position: absolute;
+  left: 50%;
+  margin-left: -1.15rem;
+  top: 2.4rem;
+  text-decoration: none;
+}
+.login-else-con img {
+  text-align: center;
+  width: 2.3rem;
+  height: 1.9rem;
+}
+/*.modal-error {
+  position: absolute;
+  top: 50%;
+  margin-top: -6.5rem;
+  left: 50%;
+  margin-left: -12.4rem;
+  width: 24.8rem;
+}
+.modal-error .modal-header {
+  padding: 1rem;
+  border-bottom: 0rem;
+}
+.modal-error .modal-content {
+  height: 12.5rem;
+}
+
+.modal-error .modal-body button span {
+  color: #000;
+}
+.modal-error .modal-body p{
+  font-size: 1.3rem;
+  color: #666;
+  margin: 1.7rem 4rem 0rem 4rem;
+  
+  text-align: center;
+}*/
+/*æ³¨å†Œé¡µé¢*/
+.phone-register .phone-login-con .form-group .input-group {
+  width: 76.23%;
+}
+.phone-register .phone-login-con .form-group label {
+  margin-right: 7%;
+}
+.phone-register .phone-login-con .phone-register-pwd label {
+  margin-right: 3%;
+}
+.phone-register .phone-login-con .phone-register-code .input-group {
+  width: 80.5%;
+}
+.phone-register-code .input-group input:first-child {
+  width: 68.9%;
+}
+.phone-register-code .input-group .input-group-btn{
+  display: inline-block;
+  width: 29.6% !important;
+  margin-top: 0.1rem;
+  height: 4rem;
+  float: right;
+}
+.phone-register-code .input-group .input-group-btn input {
+  width: 100% !important;
+  height: 100%;
+  border: 0px;
+  border-left: 1px solid #CCCCCC;
+  background-color: #FFFFFF;
+  color: #999;
+}
+.phone-register .phone-login-con .login-checkbox .input-group {
+  margin-top: 0rem;
+  width: 2% !important;
+  padding-top: 1.6rem;
+  height: 100%;
+}
+.phone-register .phone-login-con .login-checkbox .input-group input {
+  margin-top: 0rem;
+}
+.phone-register .phone-login-con .login-checkbox label {
+  margin-right: 2%;
+  font-size: 1.3rem;
+  color: #666666;
+  line-height: 5rem;
+}
+.phone-register .phone-login-con .login-checkbox a {
+  font-size: 1.3rem;
+  color: #00a2ee;
+  line-height: 5rem;
+  text-decoration: none;
+}
+.phone-register .phone-login-con .login-checkbox {
+  padding: 0rem 0rem 0rem 1.2rem;
+}
+
+
+/*ç¼–è¾‘ä¸ªäººä¿¡æ¯*/
+.phone-editor .phone-login-con {
+  background-color: #FFFFFF;
+  position: relative;
+}
+.phone-editor .phone-login-con .phone-img {
+  margin-left: 0rem;
+  width: 100%;
+  min-height: 19rem;
+  position: relative;
+}
+.phone-editor .phone-login-con .phone-img label {
+  line-height: 19rem;
+}
+.phone-editor .phone-login-con .phone-img .input-group {
+  position: absolute;
+  left: 50%;
+  top: 2.75rem;
+  margin-left: -6.75rem;
+}
+.phone-editor .phone-login-con .phone-img .pre-2 {
+  width: 13.5rem;
+  height: 13.5rem;
+  border-radius: 50%;
+  border: 0.1rem solid #CCCCCC;
+  overflow: hidden;
+}
+.phone-editor-grade .input-group {
+  position: relative;
+}
+.phone-editor-grade img {
+  position: absolute;
+  width: 1.1rem;
+  height: 0.65rem;
+  right: 0rem;
+  top: 1.8rem;
+  z-index: 100;
+}
+.phone-editor .login-submit {
+  height: 5.3rem;
+  padding-top: 1.5rem;
+}
+.phone-editor-grade .form-control[disabled], .form-control[readonly] {
+  background-color: #FFFFFF;
+}
+.modal-editor .modal-body {
+  height: 19.8rem;
+  padding: 1.5rem 0rem;
+}
+.phone-list-geade {
+  width: 100%;
+    height: 100%;
+    padding-left: 0rem;
+    margin-bottom: 0rem;
+    list-style: none;
+}
+.phone-list-geade li {
+  float: left;
+  width: 27.5%;
+  height: 2.5rem;
+  background-color: rgb(242,242,242);
+  margin: 0 2.916% 2rem 2.916%;
+  color: #333333;
+  font-size: 1.3rem;
+  text-align: center;
+  line-height: 2.5rem;
+  -webkit-border-radius: 27.5% / 2.5rem;
+    -moz-border-radius: 27.5% / 2.5rem;
+    border-radius: 27.5% / 2.5rem;
+}
+.modal-editor {
+  position: absolute;
+  top: 50%;
+  margin-top: -9.9rem;
+}
+
+/*è¾…å¯¼ç­è¯¦æƒ…*/
+.phone-details .phone-login-title {
+  background-color: rgb(190,11,11);
+  border-bottom: 0rem;
+}
+.phone-class-details img {
+  width: 100%;
+  height: 21.05rem;
+  vertical-align: top;
+}
+.phone-details .phone-headline h3 {
+  color: #FFFFFF;
+}
+.phone-class-details {
+  position: relative;
+}
+.phone-state {
+  position: absolute;
+  bottom: 0rem;
+  right: 0rem;
+  display: inline-block;
+  padding: 0.5rem;
+  background-color: rgb(0,213,100);
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 2.4rem;
+  font-size: 1.2rem;
+  z-index: 10;
+}
+.phone-course {
+  background-color: rgb(0,160,233);
+}
+.phone-end {
+  background-color: rgb(153,153,153);
+}
+.phone-download {
+  position: absolute;
+  top: 0rem;
+  z-index: 10;
+  display: block;
+  width: 100%;
+  height: 5.9rem;
+  background-color: rgba(0,0,0,0.7);
+  padding: 1.25rem 1.2rem;
+  overflow: hidden;
+}
+.phone-download-left {
+  display:  block;
+  position: relative;
+  width: 50%;
+  float: left;
+}
+.phone-download-right {
+  display:  block;
+  width: 50%;
+  float: left;
+  position: relative;
+}
+.phone-download-right i {
+  display: inline-block;
+  width: 5.5rem;
+  height: 2.3rem;
+  right: 3rem;
+  top: 0.5rem;
+  font-style: normal;
+  text-align: center;
+  line-height: 2.3rem;
+  font-size: 1rem;
+  color: #FFFFFF;
+  border: 0.1rem solid #FFFFFF;
+  border-radius: 0.3rem;
+}
+.phone-download-right img {
+  width: 1.7rem;
+  height: 1.7rem;
+  right: 0rem;
+  top: -0.5rem;
+  z-index: 11;
+}
+.phone-download-right img,.phone-download-right i {
+  position: absolute;
+}
+.phone-download-left img {
+  width: 3.4rem;
+  height: 3.4rem;
+}
+.phone-download-left span {
+  position: absolute;
+  top: 0rem;
+  left: 4.4rem;
+}
+.phone-download-left i{
+  font-style: normal;
+  color: #FFFFFF;
+  font-size: 1rem;
+  display: block;
+}
+.phone-download-left i:first-child {
+  font-size: 1.5rem;
+}
+
+.phone-class-title {
+  height: 5.2rem;
+  border-bottom: 0.1rem solid #CCCCCC;
+  padding: 1rem 1.2rem;
+}
+.phone-class-title h3 {
+  font-size: 1.6rem;
+  margin: 0rem;
+}
+.class-details-left {
+  font-size: 1.4rem;
+  color: rgb(190,11,11);
+}
+.class-details-right {
+  font-size: 1.1rem;
+  color: #999999;
+  float: right;
+  position: relative;
+  top: 0.3rem;
+}
+.phone-details-msg {
+  width: 100%;
+  /*height: 100%;*/
+}
+.details-msg-nav {
+  height: 3.3rem;
+  background-color: #FFFFFF;
+}
+.details-msg-nav a {
+  display: inline-block;
+  width: 33.3%;
+  float: left;
+  color: #999999;
+  text-decoration: none;
+  font-size: 1.4rem;
+  text-align: center;
+  line-height: 3.3rem;
+}
+.details-msg-nav .active {
+  color: #333333;
+  border-bottom: 0.1rem solid rgb(190,11,11);
+}
+.details-msg-con {
+  clear: both;
+  padding: 1rem 1.2rem 0 1.2rem;
+  width: 100%;
+  height: 100%;
+  display: none;
+  margin-bottom: 4.8rem;
+}
+.details-msg-con:first-child {
+  display: block;
+}
+.details-msg-con ul {
+  width: 100%;
+  padding-left: 0rem;
+  list-style: none;
+  margin-bottom: 0rem;
+  color: #666;
+  font-size: 1.4rem;
+  overflow: hidden;
+}
+.details-msg-con ul li {
+  width: 50%;
+  height: 2.6rem;
+  float: left;
+  line-height: 2.6rem;
+}
+.details-msg-con ul li img {
+  width: 1.3rem;
+  height: 1.3rem;
+  margin-right: 0.5rem;
+}
+.details-msg-con ul li:last-child {
+  width: 100%;
+}
+.details-msg-con ul li:last-child .to {
+  margin: 0 0.5rem;
+}
+.details-introduction {
+  margin-top: 0.5rem;
+  width: 100%;
+  padding: 0 2rem;
+}
+.details-introduction h4 {
+  margin: 0rem;
+  font-size: 1.4rem;
+  color: #666666;
+}
+.details-introduction p {
+  font-size: 1.3rem;
+  text-indent: 2.8rem;
+  color: #999999;
+}
+.phone-details {
+  position: relative;
+}
+.phone-details-btn {
+  position: fixed;
+  width: 100%;
+  padding: 0.45rem 1.2rem;
+  height: 4.8rem;
+  z-index: 10;
+  bottom: 0rem;
+  left: 0rem;
+  overflow: hidden;
+  background-color: #FFFFFF;
+}
+.phone-details-btn a {
+  display: inline-block;
+  text-decoration: none;
+  width: 48%;
+  height: 3.9rem;
+  float: left;
+  font-size: 1.5rem;
+  text-align: center;
+  line-height: 3.6rem;
+  color: rgb(190,11,11);
+  border: 0.2rem solid rgb(190,11,11);
+  border-radius: 0.4rem;
+}
+.phone-details-btn .details-btn-add {
+  margin-right: 4%;
+}
+.phone-details-btn .details-btn-enter {
+  background-color: rgb(190,11,11);
+  color: #FFFFFF;
+}
+.phone-details-btn .details-btn-start {
+  width: 100%;
+  background-color: rgb(190,11,11);
+  color: #FFFFFF;
+}
+
+
+/*æ•™å¸ˆèµ„æ–™*/
+.details-tec-title {
+  padding-left: 2.1rem;
+  color: #333333;
+  font-size: 1.5rem;
+}
+.details-tec-title img {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-left: 0.5rem;
+}
+.details-msg-tec ul li {
+  width: 100%;
+}
+.tec-interval {
+  margin-right: 1rem;
+}
+.details-msg-tec .details-introduction {
+  padding: 0rem;
+  margin-top: 0rem;
+}
+.details-msg-tec .details-introduction img {
+  width: 1.3rem;
+  height: 1.3rem;
+  margin-bottom: 0.65rem;
+  margin-right: 0.5rem;
+}
+.details-msg-tec .details-introduction span {
+  color: #666666;
+  line-height: 2.6rem;
+  font-size: 1.4rem;
+}
+.details-msg-tec .details-introduction-title {
+  height: 2.6rem;
+  line-height: 2.6rem;
+}
+.details-tec-con {
+  position: relative;
+  height: 100%;
+}
+.tec-headportrait {
+  position: absolute;
+  width: 8.25rem;
+  height: 8.25rem;
+  top: 0rem;
+  right: 0rem;
+}
+
+
+/*è¯¾ç¨‹å®‰æŽ’*/
+.details-msg-arrange {
+  padding-top: 0rem;
+}
+.details-msg-arrange ul li {
+  height: 4.7rem;
+  width: 100%;
+  border-bottom: 0.1rem solid #CCCCCC;
+  padding-top: 0.35rem;
+  font-size: 1.4rem;
+}
+.details-msg-arrange ul li div {
+  height: 2rem;
+  line-height: 2rem;
+}
+.details-msg-arrange ul li div:nth-child(2) {
+  padding-left: 2.1rem;
+}
+.details-msg-arrange ul li div:nth-child(2) span:first-child {
+  margin-right: 1rem;
+}
+.details-msg-arrange ul li div:first-child span:last-child {
+  float: right;
+}
+.msg-arrange-state {
+  color: #999999;
+}
+
+
+/*æ”¯ä»˜ç¡®è®¤*/
+.phone-applay .phone-login-con .login-submit {
+  height: 7.2rem;
+  padding-top: 3.4rem;
+}
+
+
+/*è®¢å•ç¡®è®¤*/
+
+.phone-order-con {
+  padding-top: 1.3rem;
+  background-color: #FFFFFF;
+  padding-bottom: 9.8rem;
+}
+.phone-order-con ul {
+  padding: 0rem 1.2rem;
+  margin: 0rem;
+  list-style: none;
+  font-size: 1.4rem;
+  color: #333333;
+}
+.phone-order-con ul li {
+  min-height: 2.4rem;
+}
+.phone-order-con ul li span:first-child {
+  /*margin-right: 2.6rem;*/
+  display: inline-block;
+  width: 7.2rem;
+}
+.phone-order-con ul li:last-child {
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+.phone-order-con ul li:last-child span {
+  display: block;
+}
+.phone-order-con ul li:last-child span:first-child,.order-con-way {
+  float: left;
+}
+.order-con-way i {
+  padding-left: 0.2rem;
+  font-style: normal;
+  font-size: 1.3rem;
+  display: block;
+}
+.order-con-way label {
+  font-weight: 100;
+}
+.order-con-way i input {
+  position: relative;
+  top: 0.1rem;
+}
+.order-con-way i img {
+  width: 1.35rem;
+  height: 1.35rem;
+  margin: 0 0.5rem;
+  position: relative;
+  top: -0.2rem;
+}
+.order-con-way i:first-child img {
+  width: 1.35rem;
+  height: 1.1rem;
+}
+.preferential {
+  padding-top: 1rem;
+  background-color: #F2F2F2;
+  padding-bottom: 2.5rem;
+}
+.preferential .phone-login-con .form-group {
+    overflow: inherit;
+}
+.preferential .phone-login-con .input-group {
+  width: 80%;
+}
+.preferential .phone-login-con .form-group .has-error {
+  clear: both;
+  font-size: 1.2rem;
+  color: rgb(190,11,11);
+}
+.preferential-title {
+  height: 2.2rem;
+  padding-left: 1.2rem;
+  font-size: 1.2rem;
+  color: #999999;
+}
+.preferential-title span {
+  position: relative;
+  top: 1rem;
+}
+.preferential-amount {
+  height: 4rem;
+  line-height: 4rem;
+  padding: 0 1.2rem;
+  font-size: 1.4rem;
+  color: #333;
+  background-color: #FFFFFF;
+  overflow: hidden;
+}
+.preferential-amount span {
+  display: inline-block;
+}
+.preferential-amount-left {
+  float: left;
+  height: 100%;
+}
+.preferential-amount-right {
+  float: right;
+  height: 100%;
+}
+.preferential-amount-right span:nth-child(2) {
+  font-size: 2.7rem;
+  color: rgb(190,11,11);
+  margin: 0 1rem;
+}
+.preferential-amount-right span:first-child,.preferential-amount-right span:last-child {
+  position: relative;
+  top: -0.4rem;
+}
+.phone-order {
+  position: relative;
+}
+
+.preferential-order {
+  width: 100%;
+  position: fixed;
+  height: 8.8rem;
+  background-color: #FFFFFF;
+  bottom: 0rem;
+  left: 0rem;
+  z-index: 10;
+}
+.preferential-order .login-submit {
+  padding: 0 1.2rem;
+  width: 100%;
+  height: 3.8rem;
+  background-color: #FFFFFF;
+}
+.preferential-order .login-submit input,.phone-deal .login-submit a {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(190,11,11);
+  font-size: 1.4rem;
+    color: #FFFFFF;
+    border-radius: 0.4rem;
+    border: 0.1rem solid rgb(190,11,11);
+}
+
+
+
+/*äº¤æ˜“å®Œæˆ*/
+.phone-deal-con {
+  background-color: #FFFFFF;
+}
+.phone-deal-state {
+  height: 14.5rem;
+  text-align: center;
+  font-size: 1.8rem;
+  color: #000;
+  border-bottom: 0.1rem solid #CCCCCC;
+}
+.phone-deal-state p {
+  margin-bottom: 0rem;
+  line-height: 14.5rem;
+}
+.phone-deal-state p img{
+  width: 3rem;
+  height: 3rem;
+  vertical-align: middle;
+}
+.phone-deal-state p span {
+  display: inline-block;
+  position: relative;
+  top: 0.2rem;
+}
+.phone-deal-msg {
+  padding: 0.5rem 1.2rem;
+  height: 6rem;
+  font-size: 1.4rem;
+  color: #666666;
+  list-style: none;
+  margin-bottom: 0rem;
+}
+.phone-deal-msg li {
+  height: 2.5rem;
+  line-height: 2.5rem;
+}
+.phone-deal-msg li span:first-child {
+  display: inline-block;
+  width: 8rem;
+  color: #333333;
+}
+.phone-deal .login-submit {
+  width: 100%;
+  padding: 0 1.2rem;
+  height: 3.8rem;
+  margin-top: 3.5rem;
+}
+.phone-deal .login-submit a {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  line-height: 3.6rem;
+}

@@ -182,6 +182,8 @@ module Permissions
       allow 'payment/withdraws', [:new, :create, :complete, :cancel]
 
       allow 'wap/live_studio/orders', [:new, :create]
+      allow 'wap/live_studio/courses', [:show]
+      allow 'wap/payment/orders', [:show, :pay]
 
       # payment permission
 
@@ -201,8 +203,6 @@ module Permissions
       api_allow :POST, "/api/v1/live_studio/courses/[\\w-]+/orders"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/replays"
       api_allow :GET, "/api/v1/live_studio/lessons/[\\w-]+/replay"
-
-
 
       # 学生个人信息接口
       api_allow :GET, "/api/v1/students/[\\w-]+/info" do |student|

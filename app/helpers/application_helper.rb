@@ -56,6 +56,18 @@ module ApplicationHelper
     end
   end
 
+  def wap_user_home_path
+    unless signed_in?
+      redirect_url = params[:redirect_url].presence || request.original_url
+      return main_app.new_wap_session_path(redirect_url: redirect_url)
+    end
+    main_app.root_path
+  end
+
+  def wap_after_sign_in_path
+    params[:redirect_url].presence || root_path
+  end
+
   def get_edit_or_create_model_string(o, c_name=nil)
     if c_name.nil?
       c_name = "创建"

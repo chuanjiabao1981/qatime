@@ -55,7 +55,7 @@ LiveStudio::Engine.routes.draw do
     resources :workstations, only: [] do
       resources :courses, only: [:index] do
         member do
-          post :send_qr_code
+          get :send_qr_code
         end
       end
       resources :course_records, only: [:index]

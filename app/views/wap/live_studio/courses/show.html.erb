@@ -1,3 +1,29 @@
-<div><%= @course.name %></div>
-<div><%= @course.current_price %></div>
-<div><%= link_to "立即购买", new_wap_live_studio_course_order_path(@course) %></div>
+<div class="phone-login phone-details">
+  <div class="phone-login-title">
+    <div class="phone-return">
+      <%= link_to params[:redirect_url].presence || 'javascript:void(0);' do %>
+        <%= image_tag('wap/phone-return-1.png') %>
+      <% end %>
+    </div>
+    <div class="phone-headline">
+      <h3><%= t('wap.live_studio/courses.show.course_name') %></h3>
+    </div>
+  </div>
+
+  <%= render partial: 'content' %>
+  <%= render partial: 'details' %>
+
+  <div class="phone-details-btn">
+    <%= render "buy_or_taste" if (current_user.blank? || current_user.student?) && @course.for_sell? %>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(".details-msg-nav a").click(function() {
+      var index = $(".details-msg-nav a").index($(this));
+      $(this).addClass("active").siblings().removeClass("active");
+      $(".details-msg-con").eq(index).show().siblings().hide();
+    })
+  </script>
+<% end %>

@@ -1,4 +1,4 @@
-<%= link_to 'javascript:void(0);', class: 'phone-download hide' do %>
+<%= link_to 'javascript:void(0);', class: 'phone-download app_download' do %>
   <span class="phone-download-left">
     <%= image_tag('wap/download-logo.png') %>
     <span>
@@ -13,10 +13,6 @@
 <% end %>
 
 <script type="text/javascript">
-  function app_notice(){
-    $('.phone-download').removeClass('hide');
-  }
-
   $(function(){
     $(document).on('click', '.close_alert', function(event){
       event.preventDefault();
@@ -37,7 +33,7 @@
         type: 'GET',
         dataType: 'json',
         success: function(data){
-          $('.phone-download').attr('href', data.url);
+          $('.app_download').attr('href', data.url);
         },
         error: function(XMLHttpRequest, textStatus, errorThrown){}
       })

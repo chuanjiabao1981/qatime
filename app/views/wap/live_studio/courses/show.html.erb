@@ -1,7 +1,7 @@
 <div class="phone-login phone-details">
   <div class="phone-login-title">
     <div class="phone-return">
-      <%= link_to params[:redirect_url].presence || 'javascript:void(0);' do %>
+      <%= link_to 'javascript:history.back(-1);' do %>
         <%= image_tag('wap/phone-return-1.png') %>
       <% end %>
     </div>
@@ -17,6 +17,8 @@
     <%= render "buy_or_taste" if (current_user.blank? || current_user.student?) && @course.for_sell? %>
   </div>
 </div>
+
+<%= render partial: 'alert_download' %>
 
 <% content_for :javascript do %>
   <script type="text/javascript">

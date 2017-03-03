@@ -1,4 +1,5 @@
 class Wap::LiveStudio::CoursesController < Wap::ApplicationController
+  skip_before_action :openid_required!, only: [:download]
   before_action :set_course, only: [:show]
 
   def show

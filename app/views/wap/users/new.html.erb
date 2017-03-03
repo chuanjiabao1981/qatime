@@ -21,7 +21,7 @@
       </div>
       <div class="login-line"></div>
       <div class="pl15"><%= f.error :login_mobile %></div>
-      <%= content_tag(:span, '', class: 'help-block has-error alert-alert ml15') if @student.errors.messages[:login_mobile].blank? %>
+      <%= content_tag(:span, '', class: 'help-block has-error ml15') if @student.errors.messages[:login_mobile].blank? %>
 
       <div class="form-group phone-register-code">
         <%= f.label :captcha_confirmation, t('wap.users.labels.captcha_confirmation') %>
@@ -37,7 +37,7 @@
       </div>
       <div class="login-line"></div>
       <div class="pl15"><%= f.error :captcha_confirmation %></div>
-      <%= content_tag(:span, '', class: 'help-block has-error alert-alert ml15') if @student.errors.messages[:captcha_confirmation].blank? %>
+      <%= content_tag(:span, '', class: 'help-block has-error ml15') if @student.errors.messages[:captcha_confirmation].blank? %>
 
 
       <div class="form-group phone-register-pwd">
@@ -48,7 +48,7 @@
       </div>
       <div class="login-line"></div>
       <div class="pl15"><%= f.error :password %></div>
-      <%= content_tag(:span, '', class: 'help-block has-error alert-alert ml15') if @student.errors.messages[:password].blank? %>
+      <%= content_tag(:span, '', class: 'help-block has-error ml15') if @student.errors.messages[:password].blank? %>
 
 
       <div class="form-group phone-register-pwd">
@@ -58,7 +58,7 @@
         </div>
       </div>
       <div class="pl15"><%= f.error :password_confirmation %></div>
-      <%= content_tag(:span, '', class: 'help-block has-error alert-alert ml15') if @student.errors.messages[:password_confirmation].blank? %>
+      <%= content_tag(:span, '', class: 'help-block has-error ml15') if @student.errors.messages[:password_confirmation].blank? %>
 
 
       <div class="form-group login-checkbox">

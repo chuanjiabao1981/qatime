@@ -15,6 +15,6 @@ class LiveStudioCourseNotification < ::Notification
   end
 
   def link
-    "#{LiveStudio::Course.i18n_key}:#{notificationable.id}"
+    "#{LiveStudio::Course.model_name.i18n_key}:#{notificationable.id}"
   end
 end

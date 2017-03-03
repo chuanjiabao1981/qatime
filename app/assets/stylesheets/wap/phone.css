@@ -1,0 +1,306 @@
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-size: 62.5%;
+}
+.phone-login {
+  width: 100%;
+  height: 100%;
+  background-color: #f2f2f2;
+  position: relative;
+}
+.phone-login-title {
+  position: relative;
+  height: 4rem;
+  /*line-height: 4rem;*/
+  border-bottom: 0.1rem solid #dbdbdb;
+}
+.phone-return {
+  position: absolute;
+  left: 1.2rem;
+  z-index: 10;
+}
+.phone-return img {
+  margin-top: 1.125rem;
+  width: 1rem;
+  height: 1.75rem;
+}
+.phone-headline {
+  height: 4rem;
+  position: absolute;
+  left: 0rem;
+  right: 0rem;
+  z-index: 1;
+}
+.phone-headline h3 {
+  margin: 0rem;
+  font-size: 1.6rem;
+  line-height: 4rem;
+  text-align: center;
+}
+.phone-login-con {
+  margin-top: 1.3rem;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+.phone-login-con .form-group {
+  height: 4.2rem;
+  overflow: hidden;
+  margin-left: 1.2rem;
+  margin-bottom: 0px;
+}
+.phone-login-con .form-group label {
+  float: left;
+  font-weight: 100;
+  font-size: 1.4rem;
+  line-height: 4.2rem;
+  margin-right: 4.32%;
+}
+.login-line {
+  width: 96%;
+  margin-left: 1.2rem;
+  border-bottom: 0.1rem solid #CCCCCC;
+}
+.phone-login-con .form-group .input-group {
+  width: 83.3%;
+  border-top: 0px;
+  float: left;
+}
+.phone-login-con .form-group .form-control {
+  height: 4.2rem;
+  width: 100%;
+  padding-left: 0rem;
+  border: 0rem solid #FFFFFF !important;
+  box-shadow: inset 0 0px 0px rgba(0,0,0,0) !important;
+  -webkit-box-shadow: inset 0 0px 0px rgba(0,0,0,0) !important;
+}
+.phone-login-con .login-checkbox  {
+  height: 5rem;
+  margin-left: 0px;
+  padding-left: 1.2rem;
+  background-color: #F2F2F2;
+}
+.phone-login-con .login-checkbox .input-group {
+  float: left;
+  width: 5%;
+  margin-right: 4.32%;
+  margin-top: 1.5rem;
+}
+.phone-login-con .login-checkbox label {
+  line-height: 5.4rem;
+  font-size: 1.3rem;
+  color: #666666;
+}
+.login-submit {
+  height: 3.8rem;
+  background-color: #F2F2F2;
+}
+.phone-login-con input[type='submit'] {
+  margin-left: 1.2rem;
+  font-size: 1.4rem;
+  color: #FFFFFF;
+  height: 100%;
+  width: 93%;
+  border-radius: 0.4rem;
+  background-color: rgb(190,11,11);
+  border: 0.1rem solid rgb(190,11,11);
+}
+.login-link {
+  width: 100%;
+  padding: 1.4rem 1.2rem 0 1.2rem;
+  font-size: 1.4rem;
+  overflow: hidden;
+  background-color: #F2F2F2;
+}
+.login-link a {
+  color: #666;
+  text-decoration: none;
+}
+.login-link-left {
+  float: left;
+}
+.login-link-right {
+  float: right;
+}
+.phone-login-else {
+  width: 100%;
+  position: absolute;
+  top: 80%;
+}
+.login-else-title {
+  width: 100%;
+  padding: 0px 1.2rem;
+}
+.login-else-title span {
+  position: absolute;
+  left: 50%;
+  top: -0.85rem;
+  margin-left: -3.6rem;
+  color: #333333;
+  font-size: 1.2rem;
+}
+.login-else-title img {
+  position: absolute;
+  width: 11.2rem;
+  height: 0.2rem;
+}
+.login-else-title img:first-child {
+  left: 1.2rem;
+}
+.login-else-title img:last-child {
+  right: 1.2rem !important;
+}
+.login-else-con {
+  clear: both;
+  position: relative;
+}
+.login-else-con a {
+  position: absolute;
+  left: 50%;
+  margin-left: -1.15rem;
+  top: 2.4rem;
+  text-decoration: none;
+}
+.login-else-con img {
+  text-align: center;
+  width: 2.3rem;
+  height: 1.9rem;
+}
+
+
+
+/*注册页面*/
+.phone-register .phone-login-con .form-group .input-group {
+  width: 76.23%;
+}
+.phone-register .phone-login-con .form-group label {
+  margin-right: 7%;
+}
+.phone-register .phone-login-con .phone-register-pwd label {
+  margin-right: 3%;
+}
+.phone-register .phone-login-con .phone-register-code .input-group {
+  width: 80.5%;
+}
+.phone-register-code .input-group input:first-child {
+  width: 68.9%;
+}
+.phone-register-code .input-group .input-group-btn{
+  display: inline-block;
+  width: 29.6% !important;
+  margin-top: 0.1rem;
+  height: 4rem;
+  float: right;
+}
+.phone-register-code .input-group .input-group-btn input {
+  width: 100% !important;
+  height: 100%;
+  border: 0px;
+  border-left: 1px solid #CCCCCC;
+  background-color: #FFFFFF;
+  color: #999;
+}
+.phone-register .phone-login-con .login-checkbox .input-group {
+  width: 2% !important;
+  /*margin-top: 1.9rem;*/
+}
+.phone-register .phone-login-con .login-checkbox label {
+  margin-right: 2%;
+  font-size: 1.3rem;
+  color: #666666;
+  line-height: 5rem;
+}
+.phone-register .phone-login-con .login-checkbox a {
+  font-size: 1.3rem;
+  color: #00a2ee;
+  line-height: 5rem;
+  text-decoration: none;
+}
+.phone-register .phone-login-con .login-checkbox {
+  padding: 0rem 0rem 0rem 1.2rem;
+}
+
+
+/*编辑个人信息*/
+.phone-editor .phone-login-con {
+  background-color: #FFFFFF;
+  position: relative;
+}
+.phone-editor .phone-login-con .phone-img {
+  min-height: 19rem;
+  position: relative;
+}
+.phone-editor .phone-login-con .phone-img label {
+  line-height: 19rem;
+}
+.phone-editor .phone-login-con .phone-img .input-group {
+  position: absolute;
+  left: 50%;
+  top: 2.75rem;
+  margin-left: -6.75rem;
+}
+.phone-editor .phone-login-con .phone-img .pre-2 {
+  width: 13.5rem;
+  height: 13.5rem;
+  border-radius: 50%;
+  border: 0.1rem solid #CCCCCC;
+  overflow: hidden;
+}
+.phone-editor-grade .input-group {
+  position: relative;
+}
+.phone-editor-grade img {
+  position: absolute;
+  width: 1.1rem;
+  height: 0.65rem;
+  right: 0rem;
+  top: 1.8rem;
+  z-index: 100;
+}
+.phone-editor .login-submit {
+  height: 5.3rem;
+  padding-top: 1.5rem;
+}
+.phone-list-geade {
+  position: absolute;
+  top: 27.4rem;
+  width: 100%;
+  display: none;
+  border-top: 1px solid #CCCCCC;
+  min-height: 6.5rem;
+  clear: both;
+  padding: 1.2rem;
+  margin-bottom: 0rem;
+  list-style: none;
+  z-index: 100;
+  background-color: #FFFFFF;
+}
+.phone-list-geade li {
+  width: 4rem;
+  margin-right: 1.6rem;
+  line-height: 2.05rem;
+  float: left;
+  font-size: 1.3rem;
+  color: #999999;
+}
+.phone-editor-grade .form-control[disabled], .form-control[readonly] {
+  background-color: #FFFFFF;
+}
+
+
+/*上传图片*/
+.modal-editor .wrap {
+  width: 27.5rem;
+  height: 24.5rem;
+  border: 0.1rem solid #CCCCCC;
+}
+.modal-editor .jcrop-title {
+  height: 2rem;
+  padding-left: 1rem;
+  font-size: 1rem;
+  color: #333333;
+  line-height: 2rem;
+  background-color: rgb(222,222,222);
+}

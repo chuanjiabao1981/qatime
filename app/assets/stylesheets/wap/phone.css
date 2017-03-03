@@ -908,3 +908,60 @@ a.details-btn-end:link,a.details-btn-start:link {
   color: #999999;
   border-radius: 0.4rem;
 }
+
+
+/*下载*/
+.down-content {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.down-app {
+  display: inline-block;
+  width: 100%;
+  height: 3rem;
+  background-color: rgb(255,255,255);
+  border-radius: 2rem;
+  font-size: 1.4rem;
+  color: #be0b0b;
+  text-align: center;
+  line-height: 3.2rem;
+}
+a.down-app:link {
+  color: #be0b0b;
+}
+.down-msg p {
+  text-align: center;
+  font-size: 1rem;
+  color: #FFFFFF;
+  margin-top: 0.5rem;
+}
+.down-msg {
+  width: 50%;
+  position: absolute;
+  left: 25%;
+  bottom: 17%;
+  z-index: 10;
+
+}
+.down-content img {
+  width: 100%;
+}
+.download-prompt {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 100;
+}
+.download-prompt img {
+  position: absolute;
+  right: 5%;
+  top: 0rem;
+  width: 90%;
+  height: 11.65rem;
+  vertical-align: middle;
+}

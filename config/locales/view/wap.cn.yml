@@ -60,6 +60,9 @@ cn:
         modal_title: 提示
         modal_content: 此功能需要打开客户端才能使用
         modal_download: 下载客户端
+      download:
+        down_app: 下载
+        down_intro: 仅支持安卓下载
   view:
     wap:
       live_studio:

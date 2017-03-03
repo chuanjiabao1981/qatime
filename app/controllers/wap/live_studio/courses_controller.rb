@@ -1,9 +1,10 @@
 class Wap::LiveStudio::CoursesController < Wap::ApplicationController
-  before_action :set_course
+  before_action :set_course, only: [:show]
 
-  # GET /wap/live_studio/courses/1
-  # GET /wap/live_studio/courses/1.json
   def show
+  end
+
+  def download
   end
 
   private

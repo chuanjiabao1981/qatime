@@ -27,6 +27,11 @@
       <%= template_url(@customized_tutorial) %>
     </div>
     <div class="qa_cell pull-right">
+      <% if allow? :teachers, :keep_account, current_user %>
+        <%= link_to keep_account_teacher_path(@customized_tutorial.teacher_id, model_name: @customized_tutorial.class.to_s, model_id: @customized_tutorial.id), class: 'keep_account' do %>
+          <%= Account.human_attribute_name(:keep_account) %>
+        <% end %>
+      <% end %>
       <%= link_to_edit(@customized_tutorial)%> &nbsp;
       <%= link_to_destroy(@customized_tutorial) %>
     </div>

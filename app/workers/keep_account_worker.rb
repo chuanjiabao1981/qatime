@@ -8,8 +8,8 @@ class KeepAccountWorker
   sidekiq_options :queue => :keep_account, :retry => false, :backtrace => true
 
   ##输入老师id
-  def perform(id)
+  def perform(id, model_name = nil, model_id = nil)
     teacher = Teacher.find(id)
-    teacher.keep_account
+    teacher.keep_account(model_name, model_id)
   end
 end

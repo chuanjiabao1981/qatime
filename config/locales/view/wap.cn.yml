@@ -60,4 +60,13 @@ cn:
         modal_title: 提示
         modal_content: 此功能需要打开客户端才能使用
         modal_download: 下载客户端
-
+  view:
+    wap:
+      live_studio:
+        orders:
+          lessons_count: 共 %{count} 课
+          coupon_tips: 使用优惠码可立减 %{amount} 元
+          coupon_result: 已优惠 %{amount} 元
+          new_order_title: 订单确认
+          pay_by_account_title: 余额支付
+          pay_result_title: 支付结果

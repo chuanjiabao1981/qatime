@@ -67,6 +67,8 @@ cn:
       workstation:
         coupon:
           code: 请输入唯一的优惠码
+      order:
+        coupon_code: 输入优惠码
 
     # Labels and hints examples
     # labels:

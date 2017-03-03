@@ -9,17 +9,9 @@ cn:
       pay: 立即支付
       timeout: 已超时
     models:
-      payment/order: 订单
       payment/change_record: 资金流水
       payment/billing: 结算记录
     attributes:
-      payment/order:
-        order_no: 订单编号
-        product: 商品名称
-        total_money: 订单金额
-        created_at: 下单时间
-        status: 订单状态
-        pay_type: 支付方式
       payment/change_record:
         different: 收支
         after: 余额

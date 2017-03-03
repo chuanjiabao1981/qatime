@@ -107,6 +107,27 @@ cn:
         course_name: 课程名称
         course_teacher: 任课教师
         course_description: 课程描述
+        product_name: 商品名称
+        transaction_no: 订单编号
+        amount: 金额
+        source: 来源
+        status: 充值状态
+        status/unpaid: 未支付
+        status/paid: 支付成功
+        status/shipped: 支付成功
+        status/received: 充值成功
+        status/refunding: 等待退款
+        status/refunded: 已退款
+        pay_type: 支付方式
+        created_at: 创建时间
+        order_time: 创建时间
+        transaction_type: 交易类型
+        transaction_type/recharge: 账户储值
+        transaction_method: 交易方式
+        transaction_info: 订单信息
+        reset_pay_type: 重选支付方式
+        tips: 请核对信息后再进行付款操作
+        real_amount: 应付金额
       payment/change_record:
         different: 收支
         after: 余额
@@ -159,26 +180,6 @@ cn:
         transaction_info: 交易信息
         reset_pay_type: 重选支付方式
         tips: 请核对充值信息后再进行付款操作
-      payment/order:
-        transaction_no: 订单编号
-        amount: 金额
-        source: 来源
-        status: 充值状态
-        status/unpaid: 未支付
-        status/paid: 支付成功
-        status/shipped: 支付成功
-        status/received: 充值成功
-        status/refunding: 等待退款
-        status/refunded: 已退款
-        pay_type: 支付方式
-        created_at: 创建时间
-        order_time: 创建时间
-        transaction_type: 交易类型
-        transaction_type/recharge: 账户储值
-        transaction_method: 交易方式
-        transaction_info: 订单信息
-        reset_pay_type: 重选支付方式
-        tips: 请核对信息后再进行付款操作
       payment/withdraw:
         amount: 金额
       payment/cash_account:
@@ -229,3 +230,12 @@ cn:
         completed: 交易完成
         canceled: 交易关闭
         others: 无效订单
+  error:
+    payment/order:
+      payment_password_blank: 支付密码不能为空
+      payment_password_unset: 支付密码未设置
+      payment_password_young: 修改或者设置支付密码24小时内不可用
+      payment_password_invalid: 支付密码不正确
+      coupon_code_invalid: 优惠码不存在
+    payment/cash_account:
+      balance_not_enough: 可用余额不足

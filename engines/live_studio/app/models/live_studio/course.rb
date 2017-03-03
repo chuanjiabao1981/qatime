@@ -190,7 +190,7 @@ module LiveStudio
     end
 
     def lesson_count_left
-      lessons_count - finished_lessons_count
+      [lessons_count - finished_lessons_count, 0].max
     end
 
     # 当前价格
@@ -208,8 +208,8 @@ module LiveStudio
     # 发货
     def deliver(order)
       taste_tickets.where(student_id: order.user_id).available.map(&:replaced!) # 替换正在使用的试听券
-
-      ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: lesson_price,
+      ticket_price = lesson_count_left.zero? ? order.amount : order.amount.to_f / lesson_count_left
+      ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: ticket_price,
                                              payment_order_id: order.id, buy_count: lesson_count_left)
       ticket.got_lesson_ids = lessons.where(live_end_at: nil).map(&:id)
       ticket.active!
@@ -382,6 +382,11 @@ module LiveStudio
     # 计算经销分成
     def calculate_sell_percentage
       self.price * (self.sell_percentage/100.0)
+    end
+
+    def coupon_price(coupon = nil)
+      return current_price.to_f unless coupon.present?
+      [current_price.to_f - coupon.price, 0].max
     end
 
     private

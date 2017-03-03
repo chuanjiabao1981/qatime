@@ -12,6 +12,10 @@ en:
     placeholders:
       payment/recharge:
         amount: '(输入金额不小于%{min_amount})'
+      payment/order:
+        amount: '(输入金额不小于%{min_amount})'
+        coupon_code: '输入优惠码'
+
     include_blanks:
       payment/recharge:
         pay_type: '选择支付方式'

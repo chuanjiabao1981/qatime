@@ -22,7 +22,6 @@ module LiveStudio
     def new
       @invitation = CourseInvitation.sent.find_by(id: params[:invitation_id]) if params[:invitation_id]
       @course = Course.new(invitation: @invitation, price: nil, taste_count: nil)
-      @course.generate_token if @course.token.nil?
       render layout: current_user_layout
     end
 

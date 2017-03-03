@@ -8,6 +8,8 @@ module LiveStudio
     attr_accessor :start_time_hour, :start_time_minute, :_update
     BEAT_STEP = 10 # 心跳频率/秒
 
+    delegate :teacher_percentage, :system_percentage, :publish_percentage, :sell_percentage, :base_price, :workstation, to: :course
+
     enum replay_status: {
       unsync: 0, # 未同步
       synced: 1, # 已同步
@@ -333,6 +335,11 @@ module LiveStudio
 
     def replay_name(video_for)
       "#{Rails.env}_lesson_#{id}_#{video_for}_replay"
+    end
+
+    # 视频时长单位分钟
+    def duration_minutes
+      (real_time.to_i / 60.0).round(2)
     end
 
     private

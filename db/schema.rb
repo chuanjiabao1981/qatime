@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170217074422) do
+ActiveRecord::Schema.define(version: 20170228045657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -582,6 +582,10 @@ ActiveRecord::Schema.define(version: 20170217074422) do
     t.integer  "closed_lessons_count",                                        default: 0
     t.string   "token"
     t.string   "billing_type"
+    t.integer  "system_percentage",                                           default: 0
+    t.integer  "publish_percentage",                                          default: 0
+    t.integer  "sell_percentage",                                             default: 0
+    t.decimal  "base_price",                          precision: 4, scale: 2, default: 0.1
   end
 
   add_index "live_studio_courses", ["author_id"], name: "index_live_studio_courses_on_author_id", using: :btree
@@ -739,6 +743,8 @@ ActiveRecord::Schema.define(version: 20170217074422) do
     t.integer  "sell_channel_id"
     t.integer  "channel_owner_id"
     t.string   "channel_owner_type"
+    t.integer  "seller_id"
+    t.string   "seller_type"
   end
 
   add_index "live_studio_tickets", ["course_id"], name: "index_live_studio_tickets_on_course_id", using: :btree
@@ -885,6 +891,17 @@ ActiveRecord::Schema.define(version: 20170217074422) do
   add_index "payment_change_records", ["owner_type", "owner_id"], name: "index_payment_change_records_on_owner_type_and_owner_id", using: :btree
   add_index "payment_change_records", ["target_type", "target_id"], name: "index_payment_change_records_on_target_type_and_target_id", using: :btree
 
+  create_table "payment_coupons", force: :cascade do |t|
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.string   "code"
+    t.decimal  "price",      precision: 8, scale: 2, default: 0.0
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
+  end
+
+  add_index "payment_coupons", ["owner_type", "owner_id"], name: "index_payment_coupons_on_owner_type_and_owner_id", using: :btree
+
   create_table "payment_orders", force: :cascade do |t|
     t.string   "order_no",     limit: 64,                                            null: false
     t.integer  "user_id"
@@ -955,8 +972,11 @@ ActiveRecord::Schema.define(version: 20170217074422) do
     t.string   "product_type"
     t.datetime "pay_at"
     t.integer  "wechat_user_id"
+    t.integer  "coupon_id"
+    t.string   "openid"
   end
 
+  add_index "payment_transactions", ["coupon_id"], name: "index_payment_transactions_on_coupon_id", using: :btree
   add_index "payment_transactions", ["user_id"], name: "index_payment_transactions_on_user_id", using: :btree
 
   create_table "payment_withdraw_records", force: :cascade do |t|
@@ -1067,9 +1087,13 @@ ActiveRecord::Schema.define(version: 20170217074422) do
     t.string   "code"
     t.integer  "qr_codeable_id"
     t.string   "qr_codeable_type"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.string   "url",              limit: 600
+    t.integer  "coupon_id"
   end
+
+  add_index "qr_codes", ["coupon_id"], name: "index_qr_codes_on_coupon_id", using: :btree
 
   create_table "question_assignments", force: :cascade do |t|
     t.integer  "question_id"
@@ -1419,9 +1443,11 @@ ActiveRecord::Schema.define(version: 20170217074422) do
     t.string   "address"
     t.string   "tel"
     t.string   "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "manager_id"
+    t.integer  "publish_percentage", default: 5
+    t.integer  "system_percentage",  default: 0
   end
 
   add_foreign_key "invitations", "users"

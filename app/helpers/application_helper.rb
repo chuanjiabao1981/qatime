@@ -1,6 +1,27 @@
 module ApplicationHelper
   include SessionsHelper
 
+  # 显示序号
+  def show_index(index, per = 30)
+    params[:page] ||= 1
+    (params[:page].to_i - 1) * per.to_i + index + 1
+  end
+
+  # 截取字符长度,中英文兼容
+  def truncate_u(text, options = {})
+    opts = { :length => 30, :omission => '...' }
+    options = opts.merge(options)
+    length = 0
+    max = options[:length] * 2
+    text.chars.each_with_index do |char, index|
+      length += (char.ascii_only? ? 1 : 2)
+      if length >= max
+        return text[0..index] + (index < text.length - 1 ? options[:omission] : '')
+      end
+    end
+    text
+  end
+
   def set_city
     cookie_city = cookies[:selected_cities].try(:split, '-').try(:first)
     @location_city = City.find_by(id: params[:city_id]) || City.find_by(name: params[:city_name] || cookie_city)
@@ -33,6 +54,18 @@ module ApplicationHelper
       else
         root_path
     end
+  end
+
+  def wap_user_home_path
+    unless signed_in?
+      redirect_url = params[:redirect_url].presence || request.original_url
+      return main_app.new_wap_session_path(redirect_url: redirect_url)
+    end
+    main_app.root_path
+  end
+
+  def wap_after_sign_in_path
+    params[:redirect_url].presence || root_path
   end
 
   def get_edit_or_create_model_string(o, c_name=nil)

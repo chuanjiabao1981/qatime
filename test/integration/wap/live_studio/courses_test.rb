@@ -39,8 +39,22 @@ module Wap
         fill_in :user_login_account, with: @student.email
         fill_in :user_password, with: 'password'
         click_on "立即登录"
+        assert page.has_content?('订单确认'), "登录后未返回下单页面"
+      end
 
-        assert page.has_content?('支付'), "登录后未返回下单页面"
+      test 'student buy course from weixin download page' do
+        course = live_studio_courses(:course_preview_four)
+        weixin_url = wap_live_studio_course_path(course, come_from: 'weixin', coupon_code: 'correct_code')
+        visit weixin_url
+        click_on "下载APP"
+        assert page.has_link?('下载'), "未跳转到下载页面"
+        assert page.has_content?('仅支持安卓下载')
+
+        visit weixin_url
+        click_on "加入试听"
+        sleep(3)
+        click_on "下载客户端"
+        assert page.has_link?('下载'), "未跳转到下载页面"
       end
 
     end

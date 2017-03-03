@@ -37,7 +37,6 @@ module LiveStudio
     # enumerize排序优先级会影响到enum 必须放在后面加载
     enumerize :sell_percentage_range, in: %w[low middle high]
 
-
     aasm column: :status, enum: true do
       state :rejected
       state :init, initial: true
@@ -382,6 +381,11 @@ module LiveStudio
     # 计算经销分成
     def calculate_sell_percentage
       self.price * (self.sell_percentage/100.0)
+    end
+
+    # 计算老师分成
+    def calculate_teacher_percentage
+      self.price * (self.teacher_percentage/100.0)
     end
 
     def coupon_price(coupon = nil)

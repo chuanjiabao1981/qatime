@@ -1,12 +1,6 @@
 
 <div class="condition-right">
   <%= form_tag '', method: :get do -%>
-    <div class="condition">
-      <span><%= LiveStudio::Course.human_attribute_name(:owner_workstation) %></span>
-      <%= select_tag :select_workstation_id, options_for_select(::Workstation.pluck(:name,:id), params[:select_workstation_id]),
-                     prompt: t("live_studio.course.menu.all"),
-                     class: 'immediately' %>
-    </div>
 
     <div class="condition">
       <span><%= LiveStudio::Course.human_attribute_name(:subject) %></span>
@@ -28,7 +22,7 @@
     </div>
 
     <div class="condition-right ml10">
-      <%= link_to t("live_studio.course.menu.reset"), live_studio.station_workstation_courses_path(@workstation) %>
+      <%= link_to t("live_studio.course.menu.reset"), live_studio.my_publish_station_workstation_course_records_path(@workstation) %>
       <%#= submit_tag t("live_studio.course.menu.query") %>
     </div>
   <% end %>

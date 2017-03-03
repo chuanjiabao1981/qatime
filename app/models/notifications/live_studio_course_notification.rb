@@ -13,4 +13,8 @@ class LiveStudioCourseNotification < ::Notification
            teacher_name: notificationable.try(:teacher).try(:name)
           )
   end
+
+  def link
+    "#{LiveStudio::Course.i18n_key}:#{notificationable.id}"
+  end
 end

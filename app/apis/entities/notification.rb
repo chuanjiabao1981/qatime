@@ -9,6 +9,7 @@ module Entities
     end
     expose :notificationable_id
     expose :action_name
+    expose :link
     expose :created_at do |n|
       I18n.localize n.created_at, format: :short
     end

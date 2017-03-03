@@ -35,7 +35,7 @@ module LiveStudio
       # 使用优惠码
       if @coupon.present?
         @order.coupon_id = @coupon.id
-        @order.amount -= @coupon.price
+        @order.amount = @course.coupon_price(@coupon)
       end
 
       if @order.save

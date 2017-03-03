@@ -1,7 +1,7 @@
 <div class="phone-login">
   <div class="phone-login-title">
     <div class="phone-return">
-      <%= link_to params[:redirect_url].presence || 'javascript:void(0);' do %>
+      <%= link_to 'javascript:history.back(-1);' do %>
         <%= image_tag('wap/phone-return.png') %>
       <% end %>
     </div>
@@ -11,7 +11,7 @@
   </div>
   <div class="phone-login-con">
     <div class="tc">
-      <span class="help-block has-error alert-alert"><%= flash.now[:warning]%></span>
+      <span class="help-block has-error"><%= flash.now[:warning]%></span>
       <span class="help-block alert-notice"><%= flash.now[:notice]%></span>
     </div>
     <%= simple_form_for @user, url: wap_sessions_path, method: :post do |f| %>
@@ -43,15 +43,5 @@
         <%= link_to t('wap.sessions.new.forget_password'), new_password_path, class: 'login-link-right' %>
       </div>
     <% end %>
-  </div>
-
-  <div class="phone-login-else">
-    <div class="login-else-title">
-      <%= image_tag('wap/line.png') %>
-      <span><%#= t('sessions.new.other_login_type') %></span>
-      <%= image_tag('wap/line.png') %>
-    </div>
-    <div class="login-else-con">
-    </div>
   </div>
 </div>

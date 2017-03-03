@@ -24,6 +24,9 @@ module Entities
         recharge.remote_order.try(:app_pay_str)
       end
       expose :product, using: Entities::LiveStudio::Course, if: { type: :product }
+      expose :coupon_code do |c|
+        c.coupon.try(:code)
+      end
     end
   end
 end

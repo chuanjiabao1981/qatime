@@ -31,8 +31,8 @@ module Wap
 
         click_on "加入试听"
         assert page.has_content?('此功能需要打开客户端才能使用'), "下载app提示未弹出"
-        click_on '×'
 
+        visit weixin_url
         click_on "立即报名"
         assert page.has_content?('您没有权限进行这个操作!'), "未跳转到登录页面"
 

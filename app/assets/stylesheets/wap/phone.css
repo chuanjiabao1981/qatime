@@ -1,4 +1,4 @@
-
+@charset "utf-8";
 html,
 body {
   width: 100%;
@@ -892,20 +892,20 @@ a.details-btn-end:link,a.details-btn-start:link {
 }
 .modal-download .modal-body p {
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   color: #666666;
   margin-top: 0.5rem;
-  margin: 1.5rem 0rem 2.5rem 0rem;
+  margin: 1.5rem 0rem 3rem 0rem;
 }
 .modal-download .modal-body a {
   display: inline-block;
-  width: 8.5rem;
+  width: 10rem;
   text-align: center;
-  line-height: 2.2rem;
-  height: 2.2rem;
-  border: 0.1rem solid #CCCCCC;
-  font-size: 1.2rem;
-  color: #999999;
+  line-height: 3rem;
+  height: 3rem;
+  border: 0.1rem solid rgb(190,11,11);
+  font-size: 1.4rem;
+  color: rgb(190,11,11);
   border-radius: 0.4rem;
 }
 
@@ -916,7 +916,6 @@ a.details-btn-end:link,a.details-btn-start:link {
   width: 100%;
   overflow: hidden;
 }
-
 .down-app {
   display: inline-block;
   width: 100%;
@@ -942,8 +941,6 @@ a.down-app:link {
   position: absolute;
   left: 25%;
   bottom: 17%;
-  z-index: 10;
-
 }
 .down-content img {
   width: 100%;
@@ -963,5 +960,6 @@ a.down-app:link {
   top: 0rem;
   width: 90%;
   height: 11.65rem;
+  z-index: 101;
   vertical-align: middle;
 }

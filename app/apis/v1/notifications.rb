@@ -80,7 +80,7 @@ module V1
           }
         end
         params do
-          requires :ids, type: Array[Integer], coerce_with: ->(val) { val.split(/\s+/) }, desc: '通知ID列表用空格隔开'
+          requires :ids, type: Array[Integer], coerce_with: ->(val) { val.split(/[\s,-]+/) }, desc: '通知ID列表用空格隔开'
         end
         put '/notifications/batch_read' do
           @user.notifications.where(id: params[:ids]).update_all(read: true)

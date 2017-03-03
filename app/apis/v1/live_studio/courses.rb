@@ -206,7 +206,7 @@ module V1
               order.amount = course.coupon_price(coupon)
               order.coupon = coupon
             end
-            orser.save
+            order.save
 
             raise ActiveRecord::RecordInvalid, order if order.errors.any?
             present order, with: Entities::Payment::Order

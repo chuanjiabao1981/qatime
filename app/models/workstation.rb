@@ -20,6 +20,12 @@ class Workstation < ActiveRecord::Base
   has_many :course_requests, class_name: LiveStudio::CourseRequest # 招生请求，用于审核
 
   has_many :action_records
+  # 优惠码
+  has_one :coupon, as: :owner, class_name: "::Payment::Coupon"
+  # 经销商推广二维码课程
+  has_many :qr_codes, as: :qr_codeable
+
+  accepts_nested_attributes_for :coupon, allow_destroy: true, reject_if: proc { |attributes| attributes['code'].blank? }
 
   def cash_account!
     cash_account || ::Payment::CashAccount.create(owner: self)
@@ -31,5 +37,12 @@ class Workstation < ActiveRecord::Base
 
   def self.default
     Workstation.find_or_create_by(email: 'admin@qatime.cn')
+  end
+
+  private
+
+  after_create :init_cash
+  def init_cash
+    cash_account!
   end
 end

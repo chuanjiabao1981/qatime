@@ -5,23 +5,24 @@
     </div>
 
     <div>
-      <div class="admin-list">
+      <div class="admin-list distribution active-show">
         <div class="admin-list-title">
           <%= render 'filter' %>
         </div>
         <div class="admin-list-con">
-          <table border="1" cellspacing="1" cellpadding="1">
+          <table class="table" border="1" cellspacing="1" cellpadding="1">
             <tr>
-              <td><span><%= LiveStudio::Course.human_attribute_name(:name) %></span></td>
-              <td><span><%= LiveStudio::Course.human_attribute_name(:teacher_name) %></span></td>
-              <td><span><%= LiveStudio::Course.human_attribute_name(:subject) %></span></td>
-              <td><span><%= LiveStudio::Course.human_attribute_name(:grade) %></span></td>
-              <td><span><%= LiveStudio::Course.human_attribute_name(:lessons_count) %></span></td>
-              <td><span><%= LiveStudio::Course.human_attribute_name(:price) %></span></td>
-              <td><span><%= LiveStudio::Course.human_attribute_name(:buy_tickets_count) %></span></td>
-              <td><span><%= LiveStudio::Course.human_attribute_name(:teacher_percentage) %></span></td>
+              <td class="w5p"><span><%= LiveStudio::Course.human_attribute_name(:index_no) %></span></td>
+              <td class="w18p"><span><%= LiveStudio::Course.human_attribute_name(:course_name) %></span></td>
+              <td class="w5p"><span><%= LiveStudio::Course.human_attribute_name(:teacher_name) %></span></td>
+              <td class="w5p"><span><%= LiveStudio::Course.human_attribute_name(:subject) %></span></td>
+              <td class="w5p"><span><%= LiveStudio::Course.human_attribute_name(:grade) %></span></td>
               <td><span><%= LiveStudio::Course.human_attribute_name(:published_at) %></span></td>
-              <td><span><%= LiveStudio::Course.human_attribute_name(:status) %></span></td>
+              <td class="w10p"><span><%= LiveStudio::Course.human_attribute_name(:sell_workstation) %></span></td>
+              <td class="w10p"><span><%= LiveStudio::Course.human_attribute_name(:price) %></span></td>
+              <td class="w10p"><span><%= LiveStudio::Course.human_attribute_name(:base_price) %></span></td>
+              <td class="w10p"><span><%= LiveStudio::Course.human_attribute_name(:sell_percentage) %></span></td>
+              <td class="w7p"><span><%= LiveStudio::Course.human_attribute_name(:qr_code) %></span></td>
             </tr>
             <%= render partial: 'course', collection: @courses %>
           </table>
@@ -37,3 +38,13 @@
     </div>
   </div>
 </div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function() {
+      $(document).on('click', '.send_qa_code', function(event) {
+        location.href = $(this).data('url');
+      });
+    });
+  </script>
+<% end %>

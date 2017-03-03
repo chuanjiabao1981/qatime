@@ -6,7 +6,7 @@ module Payment
 
     belongs_to :user
 
-    enumerize :source, in: { web: 0, app: 1 }, default: :web
+    enumerize :source, in: { web: 0, app: 1, wap: 2 }, default: :web
 
     protected
 

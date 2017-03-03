@@ -9,7 +9,8 @@
       <div class="addinvite-title-right">
         <%= link_to live_studio.new_course_path do %>
           <span><%= t("live_studio.menu.teacher.create_course") %></span>
-        <% end %>
+          <!-- 暂时屏蔽教师自主创建功能 -->
+        <% end if false %>
       </div>
     </div>
     <div class="addinvite-con">

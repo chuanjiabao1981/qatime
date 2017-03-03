@@ -31,9 +31,9 @@ set :repo_url, 'git@github.com:chuanjiabao1981/qatime.git'
 
 # Default value for :linked_files is []
 set :linked_files, %w{config/wechat.yml config/database.yml config/application.yml config/push.yml
-                      config/vcloud.yml config/netease.yml config/oneapm.yml config/newrelic.yml config/apiclient_cert.p12
+                      config/vcloud.yml config/netease.yml config/oneapm.yml config/newrelic.yml config/app_apiclient_cert.p12 config/mp_apiclient_cert.p12 
                       config/alipay.yml config/alipay_rsa_public_key.pem config/qatime_rsa_private_key.pem
-                      config/settings.yml }
+                      config/settings.yml config/global_settings.yml }
 
 # Default value for linked_dirs is []
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/uploads public/qrcode}
@@ -99,7 +99,8 @@ namespace :qatime do
       upload! "config/alipay.yml","#{shared_path}/config/alipay.yml"
       upload! "config/settings.yml","#{shared_path}/config/settings.yml"
       upload! "config/push.yml","#{shared_path}/config/push.yml"
-      upload! "config/apiclient_cert.p12","#{shared_path}/config/apiclient_cert.p12"
+      upload! "config/app_apiclient_cert.p12","#{shared_path}/config/app_apiclient_cert.p12"
+      upload! "config/mp_apiclient_cert.p12","#{shared_path}/config/mp_apiclient_cert.p12"
     end
   end
 end

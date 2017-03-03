@@ -7,7 +7,7 @@ cn:
     search:
       all: 全部
       live_studio/course:
-        subject: 
+        subject:
     sort:
       live_studio/course:
         id: 按时间
@@ -161,6 +161,18 @@ cn:
     course_order_new:
       pay: 立即支付
       current_price: 价格
+      coupon_code: 优惠码（可选）：
+      coupon_code_input: 输入优惠码
+      check_coupon_btn: 验证
+      coupon_code_prompt1: (使用优惠码可立减%{price}元)
+      coupon_code_prompt2: (验证后方可使用)
+      coupon_code_prompt_correct: 通过验证,立减
+      coupon_code_prompt_correct_yuan: 元
+      coupon_code_prompt_error: 优惠码不正确
+      coupon_code_error: 优惠码不正确
+      coupon_code_valid_error: 请先验证优惠码
+      order_pay_type_none: 请选择支付方式
+      available_balance_error: 余额不足
       total_money: 应付金额
       pay_type: 支付方式
       tips: 请核对订单并选择支付方式后再提交支付。
@@ -229,6 +241,18 @@ cn:
       left_replay_times: '剩余（%{count}次）'
       left_replay_times2: '剩余回放次数：%{count}'
       directory: 回放目录
+    live_studio/station:
+      courses:
+        course:
+          send_qr_code: 生成
+      course_records:
+        buy_tickets_count: 招生购买
+        course:
+          buy_tickets_count: "%{count}人"
+    live_studio/courses:
+      share_percentage: 分成比例
+
+
   status:
     init: 审核中
     preview: 招生中
@@ -276,13 +300,21 @@ cn:
         status: 状态
         replay: 观看回放
       live_studio/course:
+        owner_workstation: 发行工作站
+        sell_percentage: 经销分成
         current_status: 当前状态
+        index_no: 序号
         name: 名称
+        course_name: 辅导班名称
         teacher: 辅导老师
         short_description: 摘要
         description: 说明
         publicize: 封面
         workstation: 工作站
+        sell_workstation: 发行工作站
+        base_price: 服务扣费
+        base_price_clt: "%{price}元/时"
+        qr_code: 二维码
         price: 价格
         status: 状态
         type_name: 类型
@@ -304,14 +336,20 @@ cn:
         billing_sell_amount: 分销商收入
         address: 上课地址
         grade: 年级
+        grade_type: 年级类型
         subject: 科目
+        subject_type: 科目类型
         teacher_name: 老师
         lessons_count: 课时数
+        total_lessons_count: 课时总数
         buy_tickets_count: 购买人数
         published_at: 发布时间
         students_count: 学生人数
         percentage: 分成
         lessons_progress: 课程进度
+        live_start_date: 开课时间
+        live_end_date: 结束时间
+        teach_type: 授课方式
       live_studio/push_stream:
         address: 直播地址
       live_studio/pull_stream:
@@ -462,3 +500,10 @@ cn:
         today_has_no_lesson: "%{model}今日没有课程!"
         have_not_bought: "%{model}无授权!"
         can_not_play: "%{model}不能播放!"
+
+  error_msgs:
+    labels:
+      defaults:
+        name: 名称
+      payment/order:
+        coupon_code: 优惠码

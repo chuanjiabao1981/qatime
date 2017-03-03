@@ -78,37 +78,59 @@ items15:
   status: 0
 
 items16:
-  ticket: ticket_one_of_channel_course_two
-  lesson: lesson_one_of_channel_course_two
+  ticket: ticket_one_of_billing_course_two
+  lesson: lesson_one_of_billing_course_two
   status: 0
 
 items17:
-  ticket: ticket_two_of_channel_course_two
-  lesson: lesson_one_of_channel_course_two
+  ticket: ticket_two_of_billing_course_two
+  lesson: lesson_one_of_billing_course_two
   status: 0
 
 items18:
-  ticket: ticket_three_of_channel_course_two
-  lesson: lesson_one_of_channel_course_two
+  ticket: ticket_three_of_billing_course_two
+  lesson: lesson_one_of_billing_course_two
   status: 0
 
 items19:
-  ticket: ticket_four_of_channel_course_two
-  lesson: lesson_one_of_channel_course_two
+  ticket: ticket_four_of_billing_course_two
+  lesson: lesson_one_of_billing_course_two
   status: 0
 
 items20:
-  ticket: ticket_five_of_channel_course_two
-  lesson: lesson_one_of_channel_course_two
+  ticket: ticket_five_of_billing_course_two
+  lesson: lesson_one_of_billing_course_two
   status: 0
 
 items21:
-  ticket: ticket_six_of_channel_course_two
-  lesson: lesson_one_of_channel_course_two
+  ticket: ticket_six_of_billing_course_two
+  lesson: lesson_one_of_billing_course_two
   status: 0
 
 items22:
-  ticket: ticket_seven_of_channel_course_two
-  lesson: lesson_one_of_channel_course_two
+  ticket: ticket_seven_of_billing_course_two
+  lesson: lesson_one_of_billing_course_two
   status: 0
+
+fail_items1:
+  ticket: ticket_of_billing_fail_course_one
+  lesson: lesson_of_billing_fail_course_one
+  status: 0
+
+items23:
+  ticket: ticket_four_of_billing_course_one
+  lesson: lesson_two_of_billing_course_one
+  status: 0
+
+items24:
+  ticket: ticket_one_of_billing_course_one
+  lesson: lesson_one_of_billing_course_one
+  status: 0
+
+items25:
+  ticket: ticket_three_of_billing_course_one
+  lesson: lesson_one_of_billing_course_one
+  status: 0
+
+
 

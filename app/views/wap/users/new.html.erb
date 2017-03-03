@@ -1,7 +1,7 @@
 <div class="phone-login phone-register">
   <div class="phone-login-title">
     <div class="phone-return">
-      <%= link_to params[:redirect_url].presence || 'javascript:void(0);' do %>
+      <%= link_to 'javascript:history.back(-1);' do %>
         <%= image_tag('wap/phone-return.png') %>
       <% end %>
     </div>

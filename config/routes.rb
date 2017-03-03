@@ -6,6 +6,10 @@ Qatime::Application.routes.draw do
   get 'welcome/courses'
   resources :softwares, only: [:index, :show] do
     get :download, on: :member
+
+    collection do
+      get '/:platform/:cate/latest' => 'softwares#latest', as: 'latest_softwares'
+    end
   end
   get "topics/node:id"      => "topics#node",           as: 'node_topics'
   get "courses/node:id"     => "courses#node",          as: 'node_courses'

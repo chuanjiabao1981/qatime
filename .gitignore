@@ -28,6 +28,7 @@
 /config/alipay.yml
 /config/push.yml
 /config/settings.yml
+config/*.yml
 
 *.sqlite3
 *.log
@@ -44,7 +45,7 @@ config/newrelic.yml
 # 忽略支付宝公钥证书文件
 /config/alipay_rsa_public_key.pem
 # 忽略微信退款证书
-/config/apiclient_cert.p12
+/config/*_cert.p12
 
 # 忽略备份文件
 *_bk

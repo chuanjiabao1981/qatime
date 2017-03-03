@@ -6,6 +6,10 @@ Qatime::Application.routes.draw do
   get 'welcome/courses'
   resources :softwares, only: [:index, :show] do
     get :download, on: :member
+
+    collection do
+      get '/:platform/:cate/latest' => 'softwares#latest', as: 'latest_softwares'
+    end
   end
   get "topics/node:id"      => "topics#node",           as: 'node_topics'
   get "courses/node:id"     => "courses#node",          as: 'node_courses'
@@ -409,5 +413,25 @@ Qatime::Application.routes.draw do
         get 'home_questions'
       end
     end
+  end
+
+  namespace :wap do
+    namespace :live_studio do
+      resources :courses, only: [:show] do
+        resources :orders, only: [:new, :create]
+      end
+    end
+
+    namespace :payment do
+      resources :orders, only: [:show] do
+        member do
+          patch :pay
+        end
+      end
+    end
+
+    resources :sessions
+    resources :users
+    get 'weixin/auth' => "weixin#auth", as: :weixin_auth
   end
 end

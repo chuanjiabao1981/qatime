@@ -15,7 +15,7 @@ class BannerLogoUploader < CarrierWave::Uploader::Base
   # This is a sensible default for uploaders that are meant to be mounted:
 
   def store_dir
-    "banners/logo/"
+    "banner_items/logo/"
   end
   version :home do
     process :resize_to_fill => [1190,316]

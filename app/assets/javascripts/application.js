@@ -34,3 +34,8 @@
 //= require calendar-es5
 //= require jedate
 //= require jquery.jedate
+
+// 判断空 $.isBlank($(this).val())
+$.isBlank = function(obj) {
+  return(!obj || $.trim(obj) === "");
+};

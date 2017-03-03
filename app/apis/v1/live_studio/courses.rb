@@ -196,10 +196,18 @@ module V1
           params do
             requires :id, desc: '辅导班ID'
             requires :pay_type, type: String, values: ::Payment::Order.pay_type.values, desc: '支付方式'
+            # requires :coupon_code, type: String, desc: '使用优惠码(可不填)'
           end
           post '/:id/orders' do
             course = ::LiveStudio::Course.find(params[:id])
-            order = ::Payment::Order.create(course.order_params.merge(pay_type: params[:pay_type], remote_ip: client_ip, source: :app, user: current_user))
+            order = ::Payment::Order.new(course.order_params.merge(pay_type: params[:pay_type], remote_ip: client_ip, source: :app, user: current_user))
+            if params[:coupon_code].present?
+              coupon = ::Payment::Coupon.find_by(code: params[:coupon_code])
+              order.amount = course.coupon_price(coupon)
+              order.coupon = coupon
+            end
+            orser.save
+
             raise ActiveRecord::RecordInvalid, order if order.errors.any?
             present order, with: Entities::Payment::Order
           end

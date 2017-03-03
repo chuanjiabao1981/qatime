@@ -364,7 +364,7 @@ module LiveStudio
       coupon = ::Payment::Coupon.find_by(code: coupon_code)
       return if coupon.blank?
 
-      course_buy_url = "#{$host_name}/live_studio/courses/#{self.id}/orders/new?come_from=weixin&coupon_code=" + coupon.code
+      course_buy_url = "#{$host_name}/wap/live_studio/courses/#{self.id}?come_from=weixin&coupon_code=" + coupon.code
       qr_code = self.qr_codes.by_coupon(coupon.id).try(:first)
       return qr_code.code_url if qr_code.present?
 

@@ -406,8 +406,6 @@ GEM
     temple (0.7.7)
     test-unit (3.2.2)
       power_assert
-    test_after_commit (1.1.0)
-      activerecord (>= 3.2)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -539,7 +537,6 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   state_machine
   test-unit
-  test_after_commit
   therubyracer
   thin
   turbolinks (~> 5)

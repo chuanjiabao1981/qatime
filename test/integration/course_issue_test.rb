@@ -7,7 +7,7 @@ require 'integration/shared/qa_common_state_test'
 Sidekiq::Testing.inline!
 
 class CourseIssueIntegrateTest < LoginTestBase
-  self.use_transactional_fixtures = true
+  self.use_transactional_tests = true
   include QaCommonStateTest
 
 

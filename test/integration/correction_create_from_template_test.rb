@@ -2,7 +2,7 @@ require 'test_helper'
 require 'models/shared/utils/qa_test_factory'
 
 class CorrectionCreateFromTemplateTest  < ActionDispatch::IntegrationTest
-  self.use_transactional_fixtures = false
+  self.use_transactional_tests = false
 
   def setup
       @customized_course        = customized_courses(:customized_course1)

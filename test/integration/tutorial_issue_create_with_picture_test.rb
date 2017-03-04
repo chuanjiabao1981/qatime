@@ -4,7 +4,7 @@ require 'topic_test_helper'
 
 
 class TutorialIssueCreatePicture  < ActionDispatch::IntegrationTest
-  self.use_transactional_fixtures = true
+  self.use_transactional_tests = true
 
   include TopicTestHelper
 

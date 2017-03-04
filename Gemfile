@@ -116,14 +116,13 @@ gem 'soft_delete_rails'
 # 枚举
 gem 'enumerize'
 
-group :development,:test do
-  gem 'web-console'
+group :development, :test do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 
   # 状态机做图
-  gem 'ruby-graphviz', :require => 'graphviz'
+  gem 'ruby-graphviz', require: 'graphviz'
   # gem 'quiet_assets'
   gem "minitest"
   gem 'test-unit'
@@ -150,7 +149,9 @@ group :test do
   gem 'fakeweb'
 end
 
-gem 'test_after_commit', :group => :test
+group :development do
+  gem 'web-console'
+end
 
 # 静态配置
 gem 'settingslogic', '~> 2.0.9'

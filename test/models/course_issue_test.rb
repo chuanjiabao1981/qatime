@@ -2,7 +2,7 @@ require 'test_helper'
 require 'models/shared/qa_issue_test'
 
 class CourseIssueTest < ActiveSupport::TestCase
-  self.use_transactional_fixtures = true
+  self.use_transactional_tests = true
 
   include QaIssueTest
 

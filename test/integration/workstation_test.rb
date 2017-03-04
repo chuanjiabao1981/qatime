@@ -5,7 +5,7 @@ require 'sidekiq/testing'
 Sidekiq::Testing.inline!
 
 class WorkstationIntegrateTest < LoginTestBase
-  self.use_transactional_fixtures = true
+  self.use_transactional_tests = true
 
   def setup
     @admin            = Admin.find(users(:admin).id)

@@ -9,7 +9,7 @@ class HomeworkTest < ActiveSupport::TestCase
   include QaCommonStateTest
   include QaExaminationTest
 
-  self.use_transactional_fixtures = true
+  self.use_transactional_tests = true
 
   test "validate" do
     homework1 = examinations(:homework1)

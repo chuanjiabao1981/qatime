@@ -7,7 +7,7 @@ Sidekiq::Testing.inline!
 
 class QuestionCreateTest < ActionDispatch::IntegrationTest
   include ContentInputHelper
-  # self.use_transactional_fixtures = true
+  # self.use_transactional_tests = true
 
 
   def setup

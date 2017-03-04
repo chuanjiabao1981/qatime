@@ -4,7 +4,7 @@ require 'models/shared/utils/qa_test_factory'
 require 'models/shared/qa_issue_test'
 
 class TutorialIssueTest < ActiveSupport::TestCase
-  self.use_transactional_fixtures = true
+  self.use_transactional_tests = true
 
   include QaCommonStateTest
   include QaIssueTest

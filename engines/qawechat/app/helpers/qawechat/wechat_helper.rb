@@ -22,7 +22,7 @@ module Qawechat
         return user unless user.nil?
       end
       #login in by signature url
-      if params.size >= 4 && params.has_key?("noncestr") && params.has_key?("timestamp") \
+      if params.has_key?("noncestr") && params.has_key?("timestamp") \
         && params.has_key?("signature") && params.has_key?("openid")
         params_sig = {
             noncestr: params[:noncestr],

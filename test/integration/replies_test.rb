@@ -77,9 +77,9 @@ private
     user_session.assert_select 'div',content
     user_session.assert_template 'topics/show'
   end
-  def reply_update(user_session,reply,user)
+  def reply_update(user_session, reply, user)
     content = 'xxxxjjjsssscaodan'
-    user_session.put reply_path(reply),reply:{content: content}
+    user_session.put reply_path(reply), params: { reply: { content: content } }
     if user.id == reply.author_id
       assert user_session.redirect?
       user_session.follow_redirect!

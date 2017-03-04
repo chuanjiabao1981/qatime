@@ -109,13 +109,15 @@ class ActiveSupport::TestCase
     api_login(user, 'pc', client_cate)
   end
 
-  def api_login(user,client_type,client_cate=nil)
+  def api_login(user, client_type, client_cate=nil)
     flag = client_cate.blank? ? true : false
     client_cate ||= user.role == 'teacher' ? 'teacher_live' : 'student_client'
-    post '/api/v1/sessions', login_account: user.login_account,
-         password: 'password',
-         client_type: client_type,
-         client_cate: client_cate
+    post '/api/v1/sessions', params: {
+      login_account: user.login_account,
+      password: 'password',
+      client_type: client_type,
+      client_cate: client_cate
+    }
     assert_response :success
     assert_equal 1, JSON.parse(response.body)['status'], '状态码不对' if flag
     JSON.parse(response.body)['data']['remember_token']

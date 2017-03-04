@@ -27,7 +27,7 @@ module LiveStudio
       # 用户之前的未支付订单 更新为无效订单
       waste_orders = Payment::Order.where(user: current_user, status: 0, product: @course)
       waste_orders.update_all(status: 99) if waste_orders.present?
-      buy_params = @course.order_params.merge(order_params)
+      buy_params = order_params.merge(@course.order_params)
       @order = Payment::Order.new(buy_params.merge(user: current_user,
                                                    remote_ip: request.remote_ip))
       @order.coupon_code = params[:coupon_code].presence
@@ -69,6 +69,7 @@ module LiveStudio
     end
 
     private
+    
       # Use callbacks to share common setup or constraints between actions.
       def set_course
         @course = Course.find_by(id: params[:course_id])
@@ -84,7 +85,7 @@ module LiveStudio
 
       # Only allow a trusted parameter "white list" through.
       def order_params
-        params.require(:order).permit(:pay_type, :payment_password)#
+        params.require(:order).permit(:pay_type, :payment_password)
       end
   end
 end

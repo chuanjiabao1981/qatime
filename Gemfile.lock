@@ -472,8 +472,8 @@ DEPENDENCIES
   aasm
   alipay (~> 0.12.0)
   bcrypt
-  better_errors (~> 2.1, >= 2.1.1)
-  binding_of_caller (~> 0.7.2)
+  better_errors
+  binding_of_caller
   bootstrap-sass (= 3.0.2.0)
   capistrano
   capistrano-bundler

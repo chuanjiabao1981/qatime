@@ -91,7 +91,7 @@ module Payment
     end
 
     # 支出
-    def consumption(amount, target, billing, summary, options = {})
+    def consumption_without_check(amount, target, billing, summary, options = {})
       options ||= {}
       Payment::CashAccount.transaction do
         with_lock do
@@ -108,7 +108,7 @@ module Payment
     end
 
     # 支出之前检查可用资金
-    def consumption_with_check(amount, target, billing, summary, options = {})
+    def consumption(amount, target, billing, summary, options = {})
       options ||= {}
       Payment::CashAccount.transaction do
         with_lock do
@@ -117,7 +117,6 @@ module Payment
         end
       end
     end
-    alias_method_chain :consumption, :check
 
     # 冻结资金
     def freeze_cash(amount)

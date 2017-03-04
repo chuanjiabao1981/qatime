@@ -234,7 +234,7 @@ module LiveStudio
 
     # 记录播放记录
     # TODO 由于没有找到好的准确记录播放记录的方案，暂时假定所有的ticket都观看了直播
-    def instance_play_records
+    def instance_play_records_without_job
       # 防止重复记录
       user_ids = play_records.map(&:user_id)
       # 查询所有的可用听课证
@@ -244,11 +244,10 @@ module LiveStudio
       end
     end
 
-    def instance_play_records_with_job(immediately = false)
+    def instance_play_records(immediately = false)
       return instance_play_records_without_job if immediately
       LiveStudio::LessonPlayRecordJob.perform_later(id)
     end
-    alias_method_chain :instance_play_records, :job
 
     def self.beat_step
       APP_CONFIG[:live_beat_step] || 10

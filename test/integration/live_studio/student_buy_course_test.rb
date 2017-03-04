@@ -86,6 +86,70 @@ module LiveStudio
       end
     end
 
+    # 使用优惠码购买辅导班,并验证
+    test "student use coupon buy course with account balance" do
+      @student_balance = users(:student_balance)
+      @coupon_one = payment_coupons(:coupon_one)
+      new_log_in_as(@student_balance)
+      visit live_studio.courses_index_path(student_id: @student_balance)
+      course = live_studio_courses(:course_preview_four)
+
+      visit live_studio.course_path(course)
+      click_link '立即报名'
+      assert page.has_field?('coupon_code', type: 'text'), "没有优惠码输入框"
+      assert page.has_content?('(使用优惠码可立减X元)'), "没有优惠码默认提示语"
+
+      fill_in :coupon_code, with: 'incorrect_code'
+      assert page.has_field?('check_coupon_btn', type: 'button'), "优惠码验证button未显示"
+      assert page.has_content?('(验证后方可使用)'), "输入优惠码后默认提示语未改变"
+      click_on '验证'
+      assert page.has_css?('input.active'), "验证按钮未变灰"
+      assert page.has_content?('优惠码不正确'), "验证优惠码后未提示错误"
+
+      fill_in :coupon_code, with: 'incorrect_code'
+      assert page.has_field?('check_coupon_btn', type: 'button'), "优惠码验证button未显示"
+      assert page.has_content?('(验证后方可使用)'), "输入优惠码后默认提示语未改变"
+      click_on '验证'
+      assert page.has_css?('input.active'), "验证按钮未变灰"
+      assert page.has_content?('优惠码不正确'), "验证优惠码后未提示错误"
+      assert_equal page.find_by_id('order_total').text.gsub('¥ ', '').to_f, course.current_price, "修改优惠码,应付金额未还原"
+
+      fill_in :coupon_code, with: 'incorrect_code'
+      choose "order_pay_type_account"
+      message = accept_prompt(with: '请先验证优惠码') do
+        click_on '立即支付'
+      end
+      assert_equal message, "请先验证优惠码"
+      click_on '验证'
+      message2 = accept_prompt(with: '优惠码不正确') do
+        click_on '立即支付'
+      end
+      assert_equal message2, "优惠码不正确"
+
+      fill_in :coupon_code, with: @coupon_one.code
+      assert page.has_field?('check_coupon_btn', type: 'button'), "重新输入优惠码验证button未显示"
+      assert page.has_no_css?('input.active'), "重新输入优惠码验证按钮未重置"
+      assert page.has_content?('(验证后方可使用)'), "重新输入优惠码后默认提示语未改变"
+      click_on '验证'
+      assert page.has_css?('input.active'), "验证按钮未变灰"
+      assert page.has_content?('通过验证,立减'), "验证优惠码成功后未提示"
+      order_total = page.find_by_id('order_total')
+      assert_equal order_total.text.gsub('¥ ', '').to_f, course.current_price - @coupon_one.price, "验证优惠码,应付金额未改变"
+
+      assert_difference "@student_balance.cash_account!.reload.balance.to_f", -40, "没有正确扣除优惠余额" do
+        assert_difference "@student_balance.cash_account!.reload.total_expenditure.to_f", 40, "优惠总消费计算不正确" do
+          assert_difference "Payment::ConsumptionRecord.count", 1, "没有生成消费记录" do
+            assert_difference '@student_balance.reload.orders.count', 1, "辅导班下单失败" do
+              click_on '立即支付'
+              fill_in :payment_password, with: '123123'
+              click_on '确认支付'
+            end
+          end
+        end
+      end
+
+    end
+
     # 不能试听辅导班
     test "taste count zero" do
       course = live_studio_courses(:course_zero_taste)

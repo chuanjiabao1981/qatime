@@ -40,7 +40,7 @@ module Recommend
     private
 
     def item_params
-      params.require(:banner_item).permit(:title, :logo, :target_id, :reason, :city_id, :index)
+      params.require(:banner_item).permit(:title, :logo, :target_id, :reason, :city_id, :index, :link)
     end
   end
 end

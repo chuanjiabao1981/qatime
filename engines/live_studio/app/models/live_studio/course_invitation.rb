@@ -13,7 +13,7 @@ module LiveStudio
       hidden: 5 # 不显示
     }
 
-    validates :teacher_percent, presence: true, numericality: { greater_than_or_equal_to: 70, less_than_or_equal_to: 100}, on: :create
+    validates :teacher_percent, presence: true, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max}, on: :create
     validates :expited_at, presence: true, on: :create
     validates :expited_day, presence: true, numericality: {only_integer:true}, on: :create
     validates :user_mobile, presence: true, length: { is: 11 }, numericality: { only_integer: true }, on: :create
@@ -54,6 +54,13 @@ module LiveStudio
 
     def user_mobile_exist
       errors.add(:user_mobile, I18n.t(:"validations.live_studio/course_invitation.user_mobile_not_exist")) unless user.present?
+    end
+
+    # 教师分成最大值
+    def teacher_percentage_max
+      100 - target.publish_percentage - target.system_percentage
+    rescue
+      100
     end
   end
 end

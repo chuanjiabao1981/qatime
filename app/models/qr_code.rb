@@ -1,7 +1,10 @@
 class QrCode < ApplicationRecord
 
   belongs_to :qr_codeable, :polymorphic => true
+  belongs_to :coupon, class_name: "::Payment::Coupon"
   mount_uploader :code, QrCodeUploader
+  # 属于哪个优惠券的二维码
+  scope :by_coupon, ->(coupon_id) { where(coupon_id: coupon_id) }
 
   class << self
     def generate_tmp(code_url)

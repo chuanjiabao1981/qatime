@@ -218,6 +218,21 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'create course order by student use coupon' do
+    student = users(:student_one_with_course)
+    @remember_token = api_login(student, :app)
+    course = LiveStudio::Course.published.last
+    coupon = payment_coupons(:coupon_one)
+
+    assert_difference "Payment::Order.count", 1, "辅导班使用优惠码下单失败" do
+      post "/api/v1/live_studio/courses/#{course.id}/orders", {pay_type: :weixin, coupon_code: coupon.code}, {'Remember-Token' => @remember_token}
+      assert_response :success, "接口响应错误#{JSON.parse(response.body)}"
+      res = JSON.parse(response.body)
+      assert res['data'].has_key?('coupon_code')
+      assert_equal course.coupon_price(coupon), res['data']['amount'].to_f, "优惠价格未扣除"
+    end
+  end
+
   test 'create course order return by teacher' do
     course = LiveStudio::Course.published.last
 

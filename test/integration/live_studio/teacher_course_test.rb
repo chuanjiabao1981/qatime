@@ -27,12 +27,11 @@ module LiveStudio
 
       visit live_studio.edit_course_path(course)
       fill_in :course_name, with: '测试英语辅导课程更新'
-      fill_in :course_description, with: 'edit course description'
+      find('div.note-editable').set('edit course description')
       click_on '发布招生'
-      sleep 1
       course.reload
       assert_equal('测试英语辅导课程更新', course.name, '辅导班名称修改错误')
-      assert_equal('edit course description', course.description, '辅导班描述修改错误')
+      assert_equal('<p>edit course description</p>', course.description, '辅导班描述修改错误')
     end
 
     test 'teacher visit other teacher course' do

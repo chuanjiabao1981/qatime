@@ -4,6 +4,7 @@ cn:
       course_requests: 招生审核
       course_invitations: 开班邀请
       courses: 辅导班列表
+      my_courses: 经销记录
       teacher:
         my_courses: 我的辅导
         new_course: 邀请和创建

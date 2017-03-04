@@ -7,6 +7,7 @@
       </div>
       <div class="login-msg">
         <%= simple_form_for @user, url: sessions_path, method: :post do |f| %>
+          <%= hidden_field_tag :redirect_url, params[:redirect_url].presence %>
           <div class="login-account">
             <div class="account-left">
               <%= t('.log_in') %>

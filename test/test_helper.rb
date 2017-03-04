@@ -121,6 +121,14 @@ class ActiveSupport::TestCase
     JSON.parse(response.body)['data']['remember_token']
   end
 
+  def wap_login(user, redirect_url = nil)
+    redirect_url = URI::encode(redirect_url) if redirect_url
+    visit new_wap_session_path(redirect_url: redirect_url)
+    fill_in :user_login_account, with: user.email
+    fill_in :user_password, with: 'password'
+    click_on "立即登录"
+  end
+
   def get_home_url(user)
     case user.role
     when "teacher"

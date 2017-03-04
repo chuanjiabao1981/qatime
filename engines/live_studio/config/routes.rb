@@ -16,6 +16,12 @@ LiveStudio::Engine.routes.draw do
     end
   end
 
+  resources :orders, only: [] do
+    collection do
+      post :check_coupon
+    end
+  end
+
   resources :courses, only: [:index, :new, :create, :edit, :update, :show] do
     resources :orders, only: [:new, :create, :pay, :show] # 下单
     resources :announcements, only: [:index, :update, :create], shallow: true
@@ -47,7 +53,12 @@ LiveStudio::Engine.routes.draw do
 
   namespace :station do
     resources :workstations, only: [] do
-      resources :courses, only: [:index]
+      resources :courses, only: [:index] do
+        member do
+          get :send_qr_code
+        end
+      end
+      resources :course_records, only: [:index]
       resources :course_requests, only: [:index] do
         member do
           patch :accept

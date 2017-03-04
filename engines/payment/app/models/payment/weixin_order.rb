@@ -4,7 +4,8 @@ module Payment
 
     TRADE_TYPES = {
       web: "NATIVE",
-      app: "APP"
+      app: "APP",
+      wap: "JSAPI"
     }.freeze
 
     has_one :qr_code, as: :qr_codeable
@@ -27,11 +28,16 @@ module Payment
       WxPay::Service.generate_app_pay_req(prepayid: prepay_id, noncestr: nonce_str)
     end
 
+    def wap_pay_params
+      WxPay::Service.generate_js_pay_req({ prepayid: prepay_id, noncestr: nonce_str }, weixin_options)
+    end
+
     private
+
     after_create :remote_sync
     def remote_sync
       return if Rails.env.test? || order.created_at < 3.hours.ago
-      r = WxPay::Service.invoke_unifiedorder(remote_params)
+      r = WxPay::Service.invoke_unifiedorder(remote_params, weixin_options)
       remote_result(r)
     end
 
@@ -44,6 +50,7 @@ module Payment
         spbill_create_ip: remote_ip,
         notify_url: order.notify_url,
         trade_type: trade_type,
+        openid: order.openid,
         fee_type: 'CNY'
       }
     end
@@ -55,7 +62,7 @@ module Payment
         amount: pay_money,
         spbill_create_ip: remote_ip,
         check_name: 'NO_CHECK',
-        openid: order.try(:user).try(:wechat_users).try(:last).try(:openid),
+        openid: order.openid,
         desc: "用户提现"
       }
     end
@@ -96,8 +103,12 @@ module Payment
     def check_result(result)
       raise Payment::InvalidNotify, '通知签名不正确' unless WxPay::Sign.verify?(result)
       raise Payment::IncorrectAmount, '金额不正确' unless result['total_fee'].to_f == pay_money.to_f
-      raise Payment::InvalidNotify, '非法通知' unless result["appid"] == WxPay.appid.to_s
-      raise Payment::InvalidNotify, '非法通知' unless result["mch_id"] == WxPay.mch_id.to_s
+      raise Payment::InvalidNotify, '非法通知' unless result["appid"] == weixin_options[:appid]
+      raise Payment::InvalidNotify, '非法通知' unless result["mch_id"] == weixin_options[:mch_id]
+    end
+
+    def weixin_options
+      ::WechatSetting[order.source.to_sym].dup
     end
   end
 end

@@ -102,6 +102,12 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.11)
+    better_errors (2.1.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     bootstrap-sass (3.0.2.0)
       sass (~> 3.2)
     builder (3.2.2)
@@ -173,6 +179,8 @@ GEM
     connection_pool (2.2.0)
     daemons (1.2.4)
     debug_inspector (0.0.2)
+    default_value_for (3.0.2)
+      activerecord (>= 3.2.0, < 5.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     dirty_associations (0.4.4)
@@ -290,6 +298,8 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-rails (0.3.5)
+      pry (>= 0.9.10)
     public_suffix (2.0.4)
     puma (3.6.0)
     rack (2.0.1)
@@ -357,6 +367,7 @@ GEM
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
       websocket (~> 1.0)
+    settingslogic (2.0.9)
     sidekiq (4.2.5)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -463,6 +474,8 @@ DEPENDENCIES
   aasm
   alipay (~> 0.12.0)
   bcrypt
+  better_errors (~> 2.1, >= 2.1.1)
+  binding_of_caller (~> 0.7.2)
   bootstrap-sass (= 3.0.2.0)
   capistrano
   capistrano-bundler
@@ -480,6 +493,7 @@ DEPENDENCIES
   chosen-rails
   coffee-rails
   course_library!
+  default_value_for (~> 3.0, >= 3.0.2)
   enumerize
   fakeweb
   fancybox2-rails
@@ -500,6 +514,7 @@ DEPENDENCIES
   payment!
   pg
   pry
+  pry-rails (~> 0.3.5)
   puma
   qawechat!
   rails (~> 5.0.0)
@@ -512,6 +527,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc
   selenium-webdriver
+  settingslogic (~> 2.0.9)
   sidekiq
   sidekiq-failures
   simple_form

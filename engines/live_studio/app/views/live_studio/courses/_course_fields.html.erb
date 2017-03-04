@@ -20,6 +20,15 @@
   </div>
 </div>
 <div class="editor-msg">
+  <div class="row remedial-class">
+    <div class="col-md-2">
+      <div style="padding-left: 10px;"><%= t("view.live_studio/courses.share_percentage") %></div>
+    </div>
+    <div class="col-md-10">
+      <div><%= number_to_percentage(LiveStudio::Course::DEFAULT_TEACHER_PERCENTAGE, precision: 0) %></div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-md-2">
       <%= f.label :name %>

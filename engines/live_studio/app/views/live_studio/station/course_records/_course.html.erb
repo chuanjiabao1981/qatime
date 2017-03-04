@@ -1,0 +1,21 @@
+<tr>
+  <td><%= show_index(course_counter, @course_records.limit_value) %></td>
+  <td>
+    <%= link_to live_studio.preview_courses_path(id: course), method: :post, target: '_blank' do %>
+      <span><%= truncate_u(course.try(:name), length: 9) %></span>
+    <% end %>
+  </td>
+  <td>
+    <%= link_to main_app.profile_teacher_path(course.teacher) do %>
+      <span><%= course.teacher.name %></span>
+    <% end if course.teacher.present? %>
+  </td>
+  <td><span><%= course.subject %></span></td>
+  <td><span><%= course.grade %></span></td>
+  <td><span><%= localize(course.published_at, format: :long) if course.published_at %></span></td>
+  <td><span><%= course.workstation.try(:name) %></span></td>
+  <td><span><%= number_to_currency(course.price, unit: "￥", precision: 2) %></span></td>
+  <td><span><%= LiveStudio::Course.human_attribute_name(:base_price_clt, price: course.base_price*60) %></span></td>
+  <td><span><%= number_to_currency(course.calculate_sell_percentage, precision: 2) %></span></td>
+  <td><span><%= t("view.live_studio/station.course_records.course.buy_tickets_count", count: course.buy_user_count) %></span></td>
+</tr>

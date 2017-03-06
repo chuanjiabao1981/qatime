@@ -6,6 +6,7 @@ module LiveStudio
     before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson, :live_status]
     before_action :play_authorize, only: [:play]
     before_action :set_city, only: [:index]
+    before_action :detect_device_format, only: [:show]
 
     def index
       @courses = LiveService::CourseDirector.courses_search(search_params)
@@ -74,7 +75,14 @@ module LiveStudio
     def show
       @course = Course.find(params[:id])
       @lessons = @course.lessons.paginate(page: params[:page])
-      render layout: 'application_front'
+
+      respond_to do |format|
+        format.html do |html|
+          html.none { render layout: 'application_front' }
+          html.tablet
+          html.phone { render layout: 'application-mobile' }
+        end
+      end
     end
 
     def live

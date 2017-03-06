@@ -253,6 +253,7 @@ cn:
           teacher_percent: 老师分成
     live_studio/courses:
       share_percentage: 分成比例
+      no_coupon_code: 工作站未配置优惠码
 
 
   status:

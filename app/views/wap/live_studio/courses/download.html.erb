@@ -1,0 +1,54 @@
+
+<div class="down-content">
+  <%= image_tag 'wap/phone-live.jpg' %>
+  <div class="down-msg">
+    <center>
+      <a href="javascript:void(0);" class="down-app"><%= t('wap.live_studio/courses.download.down_app') %></a>
+    </center>
+    <p><%= t('wap.live_studio/courses.download.down_intro') %></p>
+  </div>
+</div>
+
+<div class="download-prompt hide">
+  <%= image_tag 'wap/phone-download.png' %>
+</div>
+
+
+<script type="text/javascript">
+  $(function(){
+    // 识别移动设备下载app
+    var download_platform = 'android';
+    if (navigator.userAgent.match(/(iPhone|iPod|iPad);?/i)) {
+      download_platform = 'ios';
+    } else if (navigator.userAgent.match(/android/i)) {
+      download_platform = 'android';
+    }
+
+    if(download_platform.length > 0){
+      $.ajax({
+        url: '/softwares/' + download_platform + '/student_client/latest',
+        type: 'GET',
+        dataType: 'json',
+        success: function(data){
+          $('.down-app').attr('href', data.url);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown){}
+      })
+    }
+
+    function is_weixin(){
+      var ua = navigator.userAgent.toLowerCase();
+      if (ua.match(/MicroMessenger/i) == "micromessenger") {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    var isWeixin = is_weixin();
+    if(isWeixin){
+      $('.download-prompt').removeClass('hide');
+    }
+
+
+  });
+</script>

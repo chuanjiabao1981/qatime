@@ -182,7 +182,7 @@ module Permissions
       allow 'payment/withdraws', [:new, :create, :complete, :cancel]
 
       allow 'wap/live_studio/orders', [:new, :create]
-      allow 'wap/live_studio/courses', [:show]
+      allow 'wap/live_studio/courses', [:show, :download]
       allow 'wap/payment/orders', [:show, :pay]
 
       # payment permission

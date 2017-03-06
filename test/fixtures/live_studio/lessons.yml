@@ -26,6 +26,15 @@ lesson_three:
   class_date: <%= 5.days.since.to_date %>
   status: 2
 
+lesson_four:
+  name: 测试课程3
+  course: course_preview_four
+  description: 测试描述
+  start_time: 16:30
+  end_time: 17:30
+  duration: 60
+  class_date: <%= Date.today %>
+
 english_lesson_today:
   name: 英语辅导班-第一节
   course: course_with_lessons

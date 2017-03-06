@@ -22,6 +22,14 @@ module LiveStudio
       @course_records = @course_records.paginate(page: params[:page])
     end
 
+    def my_publish
+      @course_records = LiveStudio::Course.includes(:teacher).where(workstation_id: @workstation.id)
+      @course_records = @course_records.where(course_search_params) if course_search_params.present?
+      @course_records = @course_records.where(status: LiveStudio::Course.statuses.values_at(:published, :teaching)) if params[:status].blank?
+      @course_records = @course_records.where(status: LiveStudio::Course.statuses[params[:status].to_s]) if params[:status].present?
+      @course_records = @course_records.paginate(page: params[:page])
+    end
+
 
     private
 

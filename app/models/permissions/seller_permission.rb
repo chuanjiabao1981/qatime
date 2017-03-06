@@ -91,6 +91,7 @@ module Permissions
       allow 'live_studio/station/courses', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
+      allow 'live_studio/station/course_records', [:index, :my_publish]
       allow 'live_studio/teacher/teachers', [:schedules]
       allow 'live_studio/student/students', [:schedules]
       allow 'live_studio/courses', [:schedule_sources]

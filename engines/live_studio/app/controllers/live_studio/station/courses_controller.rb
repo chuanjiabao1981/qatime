@@ -30,7 +30,10 @@ module LiveStudio
       # open(qr_code_url) do |f|
       #   send_data f.read, type: "#{f.content_type};charset=utf-8;header=present", filename: "#{@course.name.to_s}.png", disposition: 'attachment'
       # end
-      qr_code_url = @course.generate_qrcode_by_coupon(@workstation.coupon.try(:code))
+      code = @workstation.coupon.try(:code)
+      return render text: I18n.t('view.live_studio/courses.no_coupon_code') if code.blank?
+
+      qr_code_url = @course.generate_qrcode_by_coupon(code)
       image = URI(qr_code_url).read
       send_data image, type: "#{image.content_type};charset=utf-8;header=present", filename: "#{@course.name.to_s}.png", disposition: 'attachment'
     end

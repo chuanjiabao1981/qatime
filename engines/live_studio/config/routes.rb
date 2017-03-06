@@ -58,7 +58,11 @@ LiveStudio::Engine.routes.draw do
           get :send_qr_code
         end
       end
-      resources :course_records, only: [:index]
+      resources :course_records, only: [:index] do
+        collection do
+          get :my_publish
+        end
+      end
       resources :course_requests, only: [:index] do
         member do
           patch :accept

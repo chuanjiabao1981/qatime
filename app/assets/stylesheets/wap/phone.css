@@ -1,4 +1,4 @@
-
+@charset "utf-8";
 html,
 body {
   width: 100%;
@@ -892,19 +892,74 @@ a.details-btn-end:link,a.details-btn-start:link {
 }
 .modal-download .modal-body p {
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   color: #666666;
   margin-top: 0.5rem;
-  margin: 1.5rem 0rem 2.5rem 0rem;
+  margin: 1.5rem 0rem 3rem 0rem;
 }
 .modal-download .modal-body a {
   display: inline-block;
-  width: 8.5rem;
+  width: 10rem;
   text-align: center;
-  line-height: 2.2rem;
-  height: 2.2rem;
-  border: 0.1rem solid #CCCCCC;
-  font-size: 1.2rem;
-  color: #999999;
+  line-height: 3rem;
+  height: 3rem;
+  border: 0.1rem solid rgb(190,11,11);
+  font-size: 1.4rem;
+  color: rgb(190,11,11);
   border-radius: 0.4rem;
+}
+
+
+/*下载*/
+.down-content {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.down-app {
+  display: inline-block;
+  width: 100%;
+  height: 3rem;
+  background-color: rgb(255,255,255);
+  border-radius: 2rem;
+  font-size: 1.4rem;
+  color: #be0b0b;
+  text-align: center;
+  line-height: 3.2rem;
+}
+a.down-app:link {
+  color: #be0b0b;
+}
+.down-msg p {
+  text-align: center;
+  font-size: 1rem;
+  color: #FFFFFF;
+  margin-top: 0.5rem;
+}
+.down-msg {
+  width: 50%;
+  position: absolute;
+  left: 25%;
+  bottom: 17%;
+}
+.down-content img {
+  width: 100%;
+}
+.download-prompt {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 100;
+}
+.download-prompt img {
+  position: absolute;
+  right: 5%;
+  top: 0rem;
+  width: 90%;
+  height: 11.65rem;
+  z-index: 101;
+  vertical-align: middle;
 }

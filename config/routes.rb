@@ -418,6 +418,9 @@ Qatime::Application.routes.draw do
   namespace :wap do
     namespace :live_studio do
       resources :courses, only: [:show] do
+        collection do
+          get :download
+        end
         resources :orders, only: [:new, :create]
       end
     end

@@ -21,7 +21,7 @@ module Permissions
       allow 'passwords', [:new, :create]
       allow 'live_studio/courses', [:index, :show]
 
-      allow 'wap/live_studio/courses', [:show]
+      allow 'wap/live_studio/courses', [:show, :download]
       allow 'wap/users', [:new, :create]
       allow 'wap/sessions', [:new, :create]
 

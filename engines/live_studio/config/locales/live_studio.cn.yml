@@ -4,7 +4,7 @@ cn:
       course_requests: 招生审核
       course_invitations: 开班邀请
       courses: 辅导班列表
-      my_courses: 经销记录
+      my_courses: 发行/经销
       teacher:
         my_courses: 我的辅导
         new_course: 邀请和创建
@@ -16,6 +16,10 @@ cn:
           waiting: 待开始
           teaching: 进行中
           finished: 已结束
+    course_records:
+      nav:
+        my_publish: 我的发行
+        my_sells: 我的经销
     course_request:
       menu:
         unhandled: 未审核

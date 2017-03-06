@@ -10,7 +10,7 @@ cn:
       sell_percentage_range:
         low: 5%以内
         middle: 5%-10%
-        high: 10%
+        high: 10%以上
     live_studio/course_request:
       status:
         submitted: 未审核

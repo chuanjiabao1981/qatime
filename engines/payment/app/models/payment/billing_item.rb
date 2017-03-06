@@ -1,4 +1,5 @@
 module Payment
+  # 账单项
   class BillingItem < ActiveRecord::Base
     belongs_to :billing
     belongs_to :owner, polymorphic: true
@@ -7,27 +8,30 @@ module Payment
     belongs_to :parent, class_name: BillingItem
     has_many :items, class_name: BillingItem, foreign_key: "parent_id"
 
+    # 账单摘要
+    def summary
+    end
+
     protected
 
+    def system_account
+      CashAdmin.cash_account!
+    end
+
     # 系统支出
-    def system_pay!(money, summary)
-      CashAdmin.decrease_cash_account(money, billing, summary)
-    end
-
-    # 系统收入
-    def system_income!(money, summary)
-      CashAdmin.increase_cash_account(money, billing, summary)
-    end
-
-    # 账户收入
-    def account_income!(account, money, summary)
-      account.earning(money, billing.target, billing, summary)
+    def system_pay!
+      Payment::CashManager.new(system_account).split_pay(amount, billing, self)
     end
 
     # 创建以后执行转账
     after_create :account_transfer
     def account_transfer
-      raise "请在子类实现该方法"
+      Payment::CashAccount.transaction do
+        # 系统账户支出
+        system_pay!
+        # 资金账户收入
+        Payment::CashManager.new(cash_account).earning(amount, billing, self)
+      end
     end
   end
 end

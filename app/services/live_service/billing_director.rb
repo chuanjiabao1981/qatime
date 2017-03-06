@@ -10,7 +10,6 @@ module LiveService
       return unless check_lesson
       # 课程总账单
       billing = Payment::LiveCourseBilling.create(target: @lesson, from_user: @lesson.teacher)
-
       # 针对每一个购买记录单独结账
       @lesson.ticket_items.billingable.includes(ticket: [:channel_owner, :sell_channel]).each do |item|
         billing_ticket(billing, item)
@@ -28,16 +27,16 @@ module LiveService
       ticket_item.with_lock do
         ticket = ticket_item.ticket
         item_billing = Payment::LiveCourseTicketBilling.create!(target: @lesson, from_user: @lesson.teacher, parent: billing, ticket: ticket)
-        # 系统支出
-        system_pay_item!(item_billing)
         # 系统服务费收入
         system_fee_item!(item_billing)
         # 教师收入
         teacher_money_item!(item_billing, @lesson.teacher)
-        # 经销商收入
-        sell_money_item!(item_billing, ticket.seller)
         # 发行商收入
         publish_money_item!(item_billing, @course.workstation)
+        # 销售分销商收入
+        sell_seller_money_item!(item_billing, ticket.seller)
+        # 跨区销售系统收入
+        sell_system_money_item!(item_billing)
         # 系统分成收入
         system_money_item!(item_billing)
         # 结账完成后购买记录修改状态，避免重复结账
@@ -66,14 +65,6 @@ module LiveService
       @system_account ||= CashAdmin.current!.cash_account!
     end
 
-    # 系统支出
-    def system_pay_item!(billing)
-      Payment::SystemPayItem.create!(billing: billing,
-                                     cash_account: system_account,
-                                     owner: CashAdmin.current!,
-                                     amount: billing.total_money)
-    end
-
     # 系统服务费
     def system_fee_item!(billing)
       Payment::SystemFeeItem.create!(billing: billing,
@@ -95,13 +86,22 @@ module LiveService
     end
 
     # 销售账单项
-    def sell_money_item!(billing, workstation)
+    def sell_seller_money_item!(billing, workstation)
       workstation ||= Workstation.default
       Payment::SellPercentItem.create!(billing: billing,
                                        cash_account: workstation.cash_account,
                                        owner: workstation,
-                                       amount: billing.sell_money,
-                                       percent:  @lesson.sell_percentage)
+                                       amount: billing.sell_seller_money,
+                                       percent:  billing.sell_seller_percentage)
+    end
+
+    # 跨区销售系统分成
+    def sell_system_money_item!(billing)
+      Payment::CrossRegionPercentItem.create!(billing: billing,
+                                              cash_account: system_account,
+                                              owner: CashAdmin.current!,
+                                              amount: billing.sell_system_money,
+                                              percent:  billing.sell_system_percentage)
     end
 
     # 发行账单项

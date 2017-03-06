@@ -23,8 +23,13 @@ module Payment
     end
 
     # 经销商分成收入
-    def sell_money
-      @sell_money ||= (percent_money * sell_proportion).round(2)
+    def sell_seller_money
+      @sell_seller_money ||= (percent_money * sell_seller_proportion).round(2)
+    end
+
+    # 跨区销售系统分成收入
+    def sell_system_money
+      @sell_system_money ||= (percent_money * sell_system_proportion).round(2)
     end
 
     # 发行商分成收入
@@ -35,57 +40,21 @@ module Payment
     # 系统分成收入
     # 其它角色分成后剩余金额，需要跟实际计算结果进行校验，差值过大不进行结账
     def system_money
-      @system_money ||= percent_money - teacher_money - sell_money - publish_money
+      @system_money ||= percent_money - teacher_money - sell_seller_money - sell_system_money - publish_money
+    end
+
+    # 销售经销商分成百分比
+    def sell_seller_percentage
+      target.sell_percentage - sell_system_percentage
+    end
+
+    # 跨区销售分成百分比
+    # 不能大于销售分成比例
+    def sell_system_percentage
+      [ticket.cross_region_percentage, target.sell_percentage].min
     end
 
     private
-
-    # 系统分成比例
-    def system_percentage
-      SYSTEM_PERCENT
-    end
-
-    # 分销商分成比例
-    def sell_percentage
-      # 如果没有经销商使用默认经销商分成比例
-      return SELL_DEFAULT_PERCENT if ticket.sell_channel.blank?
-      @sell_percentage ||= [ticket.sell_channel.percentage.to_f / 100.0, 1 - SYSTEM_PERCENT].min
-    end
-
-    # 发行商分成比例
-    def publish_percentage
-      @publish_percentage ||= 1 - SYSTEM_PERCENT - sell_percentage
-    end
-
-    # 经销商
-    def channel_seller
-      @channel_seller ||= ticket.channel_owner || workstation
-    end
-
-    # 经销商
-    def seller
-      @seller ||= ticket.seller || Workstation.default
-    end
-
-    # 经销商账户
-    def sell_account
-      @sell_account ||= seller.cash_account!
-    end
-
-    # 发行商
-    def workstation
-      @workstation ||= target.workstation || Workstation.default
-    end
-
-    # 发行商资金账户
-    def publish_account
-      workstation.cash_account!
-    end
-
-    # 教师资金账户
-    def teacher_account
-      target.teacher.cash_account!
-    end
 
     # 教师分成比例
     def teacher_proportion
@@ -93,8 +62,13 @@ module Payment
     end
 
     # 经销商分成比例
-    def sell_proportion
-      target.sell_percentage.to_f / 100
+    def sell_seller_proportion
+      sell_seller_percentage.to_f / 100
+    end
+
+    # 跨区销售系统分成比例
+    def sell_system_proportion
+      sell_system_percentage.to_f / 100
     end
 
     # 发行商分成比例
@@ -109,7 +83,7 @@ module Payment
 
     # 总分成比例
     def total_proportion
-      teacher_proportion + sell_proportion + publish_proportion + system_proportion
+      teacher_proportion + sell_seller_proportion + sell_system_proportion + publish_proportion + system_proportion
     end
 
     # 根据百分比计算得出系统收入

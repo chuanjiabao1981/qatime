@@ -5,38 +5,20 @@ module Payment
 
     belongs_to :owner, polymorphic: true
     has_many :change_records
-    has_many :recharge_records
-    has_many :withdraw_change_records
-    has_many :earning_records
-    has_many :consumption_records
-    has_many :refund_records
+    has_many :recharge_records # 充值记录
+    has_many :withdraw_records # 提现记录
+    has_many :earning_records # 收入记录
+    has_many :consumption_records # 消费记录
+    has_many :refund_records # 退款记录
+    has_many :split_pay_reacords # 分账支出记录
+    has_many :advance_charge_records # 代收记录
+
+
     attr_accessor :create_or_update_password, :current_password, :ticket_token
 
     validates :owner, presence: true
 
     has_secure_password validations: false
-
-    # 可用资金
-    def available_balance
-      balance - frozen_balance
-      # balance
-    end
-
-    # 申请提现的时候冻结资金
-    # def frozen(amount)
-    #   Payment::CashAccount.transaction do
-    #     self.frozen_balance += amount
-    #     save!
-    #   end
-    # end
-    #
-    # # 取消冻结资金
-    # def cancel_frozen(amount)
-    #   Payment::CashAccount.transaction do
-    #     self.frozen_balance -= amount
-    #     save!
-    #   end
-    # end
 
     # 充值
     def recharge(amount, target)
@@ -167,6 +149,19 @@ module Payment
       result
     ensure
       Redis.current.del("#{model_name.cache_key}/#{id}/#{cate}")
+    end
+
+    def balance_attrs
+      {
+        before: balance_was,
+        after: balance,
+        available_before: available_balance_was,
+        available_after: available_balance,
+        deposit_before: deposit_balance_was,
+        deposit_after: deposit_balance,
+        unavailable_before: unavailable_balance_was,
+        unavailable_after: unavailable_balance
+      }
     end
 
     private

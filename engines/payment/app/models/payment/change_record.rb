@@ -7,7 +7,9 @@ module Payment
     enumerize :change_type, in: { account: 0, alipay: 1, weixin: 2 }, default: :account
 
     belongs_to :cash_account
-    belongs_to :billing
+    belongs_to :transaction # 关联交易
+    belongs_to :billing # 关联账单
+    belongs_to :billing_item # 关联账单项
     belongs_to :target, polymorphic: true
     belongs_to :owner, polymorphic: true
 

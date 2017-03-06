@@ -268,8 +268,10 @@ module Payment
     def order_billing!
       summary = "订单支付, 订单编号：#{order_no} 订单金额: #{amount}"
       billing = billings.create(total_money: amount, summary: summary)
-      user.cash_account!.consumption(amount, self, billing, summary, change_type: pay_type)
-      CashAdmin.increase_cash_account(amount, billing, summary)
+      # 学生生成消费记录
+      Payment::CashManager.new(user.cash_account!).consumption(amount, billing, pay_type)
+      # 系统代收
+      Payment::CashManager.new(CashAdmin.cash_account!).advance_charge(amount, billing)
     end
 
     def auto_paid!

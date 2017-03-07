@@ -17,18 +17,6 @@ module Payment
       token && token == Redis.current.get("#{object.model_name.cache_key}/#{object.id}/#{cate}")
     end
 
-    # 支出之前检查可用资金
-    def consumption_with_check(amount, target, billing, summary, options = {})
-      options ||= {}
-      Payment::CashAccount.transaction do
-        with_lock do
-          check_change!(amount.abs) if options[:change_type].to_s == 'account' # 余额支出需要检查可用资金
-          consumption_without_check(amount, target, billing, summary, options)
-        end
-      end
-    end
-    alias_method_chain :consumption, :check
-
     # 是否设置了支付密码, 用户接口
     def password?
       password_digest.present?

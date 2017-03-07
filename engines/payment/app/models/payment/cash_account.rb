@@ -13,7 +13,6 @@ module Payment
     has_many :split_pay_reacords # 分账支出记录
     has_many :advance_charge_records # 代收记录
 
-
     attr_accessor :create_or_update_password, :current_password, :ticket_token
 
     validates :owner, presence: true
@@ -162,6 +161,11 @@ module Payment
         unavailable_before: unavailable_balance_was,
         unavailable_after: unavailable_balance
       }
+    end
+
+    # 记录明细
+    def record_detail!(relation_name, amount, options = {})
+      send(relation_name).create!(balance_attrs.merge(amount: amount, different: amount).merge(options))
     end
 
     private

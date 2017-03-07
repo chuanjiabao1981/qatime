@@ -62,7 +62,7 @@ module LiveService
 
     # 系统账户
     def system_account
-      @system_account ||= CashAdmin.current!.cash_account!
+      @system_account ||= CashAdmin.cash_account!
     end
 
     # 系统服务费
@@ -74,6 +74,7 @@ module LiveService
                                      quantity: 1,
                                      price: @lesson.base_price,
                                      duration: @lesson.duration_minutes)
+      cash_transfer(account)
     end
 
     # 系统分成收入
@@ -121,6 +122,48 @@ module LiveService
                                        owner: teacher,
                                        amount: billing.teacher_money,
                                        percent: @lesson.teacher_percentage)
+    end
+
+    # 资金变动
+    def _cash_transfer(target_account, amount, billing, item)
+      from_account = system_account
+      Payment::CashAccount.transaction do
+        from_account.lock!
+        target_account.lock!
+        _transfer_pay(from_account, amount, billing, item)
+        _transfer_income(target_account, amount, billing, item)
+        from_account.save!
+        target_account.save!
+      end
+    end
+
+    # 账户支出
+    # 学生购买辅导班资金进入不可提现余额，分账需要从不可提现余额扣款
+    def _transfer_pay(account, amount, billing, item)
+      account.balance -= amount # 总金额减少
+      account.unavailable_balance -= amount # 不可用金额减少
+      # 记录账户明细 账单分账
+      account.record_detail!(:split_pay_reacords, amount, billing: billing, billing_item: item)
+    end
+
+    # 账户收入
+    # 工作站账户收入进入不可提现余额
+    def _transfer_income(account, amount, billing, item)
+      account.balance += amount # 总余额
+      account.total_income += amount
+      account.is_a?(Workstation) ? _unavailable_income(amount) : _available_income(amount)
+      # 记录账户明细 账户收入
+      account.record_detail!(:earning_records, amount, billing: billing, billing_item: item)
+    end
+
+    # 不可提现收入
+    def _unavailable_income(account, amount)
+      account.unavailable_balance += amount # 可用余额
+    end
+
+    # 可提现收入
+    def _available_income(account, amount)
+      account.available_balance += amount # 可用余额
     end
   end
 end

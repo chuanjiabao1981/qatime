@@ -165,7 +165,11 @@ module Payment
 
     # 记录明细
     def record_detail!(relation_name, amount, options = {})
-      send(relation_name).create!(balance_attrs.merge(amount: amount, different: amount).merge(options))
+      attrs = { amount: amount, different: amount }.merge(options)
+      attrs[:target] ||= options[:billing][:target] if options[:billing]
+      # 明细摘要，便于管理员对账阅读
+      attrs[:summary] ||= (options[:billing_item] || options[:billing]).try(:summary)
+      send(relation_name).create!(balance_attrs.merge(attrs))
     end
 
     private

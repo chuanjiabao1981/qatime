@@ -84,44 +84,49 @@ module LiveService
                                          owner: CashAdmin.current!,
                                          amount: billing.system_money,
                                          percent: @lesson.system_percentage)
+      _cash_transfer(system_account, billing.system_money, billing, item)
     end
 
     # 销售账单项
     def sell_seller_money_item!(billing, workstation)
       workstation ||= Workstation.default
-      Payment::SellPercentItem.create!(billing: billing,
-                                       cash_account: workstation.cash_account,
-                                       owner: workstation,
-                                       amount: billing.sell_seller_money,
-                                       percent:  billing.sell_seller_percentage)
+      item = Payment::SellPercentItem.create!(billing: billing,
+                                              cash_account: workstation.cash_account,
+                                              owner: workstation,
+                                              amount: billing.sell_seller_money,
+                                              percent:  billing.sell_seller_percentage)
+      _cash_transfer(workstation.cash_account, billing.sell_seller_money, billing, item)
     end
 
     # 跨区销售系统分成
     def sell_system_money_item!(billing)
-      Payment::CrossRegionPercentItem.create!(billing: billing,
-                                              cash_account: system_account,
-                                              owner: CashAdmin.current!,
-                                              amount: billing.sell_system_money,
-                                              percent:  billing.sell_system_percentage)
+      item = Payment::CrossRegionPercentItem.create!(billing: billing,
+                                                     cash_account: system_account,
+                                                     owner: CashAdmin.current!,
+                                                     amount: billing.sell_system_money,
+                                                     percent:  billing.sell_system_percentage)
+      _cash_transfer(system_account, billing.sell_system_money, billing, item)
     end
 
     # 发行账单项
     def publish_money_item!(billing, workstation)
       workstation ||= Workstation.default
-      Payment::PublishPercentItem.create!(billing: billing,
-                                          cash_account: workstation.cash_account,
-                                          owner: workstation,
-                                          amount: billing.publish_money,
-                                          percent: @lesson.publish_percentage)
+      item = Payment::PublishPercentItem.create!(billing: billing,
+                                                 cash_account: workstation.cash_account,
+                                                 owner: workstation,
+                                                 amount: billing.publish_money,
+                                                 percent: @lesson.publish_percentage)
+      _cash_transfer(workstation.cash_account, billing.publish_money, billing, item)
     end
 
     # 教师分成收入
     def teacher_money_item!(billing, teacher)
-      Payment::TeacherMoneyItem.create(billing: billing,
-                                       cash_account: teacher.cash_account,
-                                       owner: teacher,
-                                       amount: billing.teacher_money,
-                                       percent: @lesson.teacher_percentage)
+      item = Payment::TeacherMoneyItem.create(billing: billing,
+                                              cash_account: teacher.cash_account,
+                                              owner: teacher,
+                                              amount: billing.teacher_money,
+                                              percent: @lesson.teacher_percentage)
+      _cash_transfer(teacher.cash_account, billing.teacher_money, billing, item)
     end
 
     # 资金变动

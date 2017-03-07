@@ -6,7 +6,55 @@ cn:
       workstation:
         name: 名称
         city: 城市
-        address: 地址
-        tel: 电话
+        address: 联系地址
+        tel: 联系电话
         email: 邮箱
         manager: 经理
+        qq: 联系QQ
+        join_price: 加盟费
+        caution_money: 保证金
+        platform_percentage: 平台分成
+        service_price: 服务扣费
+        contract_start_date_at: 合同有效期
+  view:
+    admins:
+      workstations:
+        tab:
+          index_title: 工作站列表
+        tab_node:
+          show_title: 站点设置
+        new:
+          link_title: 新增工作站
+        edit:
+          link_title: 修改工作站
+        show:
+          edit_title: 编辑站点
+        index:
+          name: 工作站名称
+          city: 地区
+          manager: 负责人/电话
+          coupon_code: 注册编码
+          status: 运营状态
+          stop_status: 停止运营合作
+          run_status: 开启运营合作
+          change_status_confirm: 确定切换运营状态么?
+        placeholders:
+          name: 输入完整工作站名称
+          coupon_code: 填写工作站的注册编码（即合作编码）
+          address: 填写工作站详细地址
+          tel: 填写固定电话或手机号
+          qq: 填写工作站服务QQ
+          email: 填写工作站服务邮箱
+          join_price: 请按合同内容如实填写
+          contract_start_date_at_label: "<abbr title='required'>*</abbr>合作有效期:"
+          contract_start_date_at: 选择开始日期（年月日）
+          contract_end_date_at: 选择结束日期（年月日）
+
+    station:
+      workstations:
+        tab_node:
+          show_title: 站点信息
+
+  error:
+      workstation:
+        contract_end_date_at: 合同有效日期必须大于开始日期

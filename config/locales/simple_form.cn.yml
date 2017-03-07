@@ -42,7 +42,7 @@ cn:
         description: 更新说明
       workstation:
         coupon:
-          code: "优惠码"
+          code: 注册编码
     placeholders:
       live_studio/course_invitation:
         user_mobile: 填写被邀请人

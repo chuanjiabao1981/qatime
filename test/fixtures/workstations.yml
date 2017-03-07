@@ -1,11 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 workstation_one:
   name: 第一个工作站
-  city: 北京
+  city: chaoyang
   address: 朝阳区
   tel: 123
   email: one@workstation.com
   manager: manager
+  status: 1
+  qq: 123123
+  join_price: 9999.23
+  caution_money: 5000
+  platform_percentage: 8
+  service_price: 4
+  contract_start_date_at: <%= 1.days.ago %>
+  contract_end_date_at: <%= 1.days.ago + 12.days %>
 
 workstation1:
   name: MyString

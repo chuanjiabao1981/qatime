@@ -30,7 +30,6 @@ module TransactionService
         student_cash_manager.decrease('Payment::ConsumptionRecord', @order.amount, @order)
       else # 第三方支付
         student_cash_manager.record_detail!('Payment::ConsumptionRecord', @order.amount, 0, @order)
-        student_account.save!
       end
     end
   end

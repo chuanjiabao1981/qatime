@@ -31,6 +31,7 @@ module AccountService
       record = @account.change_records.create(type: type, amount: amount, different: different, business: business)
       @account.total_income += record.amount if record.is_a?(Payment::EarningRecord) # 如果是收入记录增加总收入
       @account.total_expenditure += record.amount if record.is_a?(Payment::ConsumptionRecord) # 如果是消费记录增加总消费
+      @account.save!
     end
   end
 end

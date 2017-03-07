@@ -12,6 +12,7 @@ cn:
       end_date: 结束时间
       unit: 元
       unit_hour: 元 / 小时
+      close: 关闭
     query:
       name_or_mobile: 请输入姓名/电话
     shared:
@@ -38,6 +39,33 @@ cn:
           service_price_text: "%{price}/小时"
           contract_date: 合作有效期：
           contract_date_text: "%{start} 至 %{end}"
+        fund:
+          amount: 账户总金额
+          amount_text: "%{price}元"
+          amount_i: 账户总金额=保证金+余额
+          caution_money: 保证金
+          caution_money_text: "%{price}元"
+          caution_money_i: 冻结金额不可提现
+          money: 余额
+          money_text: "%{price}元"
+          money_i: 可提现金额+非可提现金额
+          withdraw_money: 可提现金额
+          withdraw_money_text: "%{price}元"
+          withdraw_money_i: 经考核后可用于提现的收入额
+          withdraw_btn: 申请提现
+          unwithdraw_money: 非可提现额
+          unwithdraw_money_text: "%{price}元"
+          unwithdraw_money_i: 未经考核不可用于提现的收入额
+          published_money: 发行总收入
+          published_money_text: "%{price}元"
+          published_money_i: "已进行分账的发行收入额（%{state}）"
+          sell_money: 销售总收入
+          sell_money_text: "%{price}元"
+          sell_money_i: "已结算分账的销售收入额（%{state}）"
+        fund_node:
+          withdraw: 申请提现额
+          withdraw_text: "%{price}元"
+          operate_time: "操作时间：%{time}"
     flash:
       keys:
         success: 操作成功！

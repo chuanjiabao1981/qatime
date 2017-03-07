@@ -64,6 +64,7 @@ Qatime::Application.routes.draw do
     resources :workstations do
       member do
         post :change_status
+        get :fund
       end
     end
     resources :softwares do
@@ -114,6 +115,7 @@ Qatime::Application.routes.draw do
         get :sellers
         get :waiters
         get :action_records
+        get :fund
       end
       resources :sellers, except: [:index]
       resources :waiters, except: [:index]

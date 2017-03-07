@@ -8545,15 +8545,28 @@ ul {
 }
 .withdrawal-list li {
   font-size: 14px !important;
+  padding-left: 0px !important;
+  margin-bottom: 0px !important;
+  height: 66px;
+  background-color: #FFFFFF !important;
+  border: 1px solid #F2F2F2;
+  border-top: 0px;
 }
-
+.withdrawal-list li:first-child {
+  height: 46px;
+  background-color: #F2F2F2 !important;
+}
+.withdrawal-list li:last-child {
+  border: 1px solid #F2F2F2 !important;
+  border-top: 0px !important;
+}
 .withdrawal-list li span:first-child {
   color: #666666;
 }
 .withdrawal-list li:first-child span:first-child {
   color: #333333;
 }
-.withdrawal-list li a {
+.withdrawal-list li:first-child a {
   display: inline-block;
   width: 70px;
   height: 24px;
@@ -8565,46 +8578,199 @@ ul {
   border-radius: 4px;
   background-color: #FFFFFF;
 }
-/*.withdrawal-list {
-	margin-top: 10px;
+.withdrawal-list-line {
+  height: 33px;
+  line-height: 33px;
 }
-.withdrawal-list li {
-	padding-left: 0px !important;
-	font-size: 14px !important;
+.withdrawal-list li .withdrawal-list-line:nth-child(2) span {
+  font-size: 12px;
+  color: #999999;
 }
-.withdrawal-list li span:first-child {
-	color: #666666;
+.withdrawal-list li .withdrawal-list-line:nth-child(2) a {
+  float: right;
 }
-.withdrawal-list li:first-child span:first-child {
-	color: #333333;
+.withdrawal-not {
+  margin-top: 10px;
+  margin-bottom: 10px !important;
 }
-.withdrawal-list li:nth-child(3) {
-	background-color: #FFFFFF;
-	border-left: 1px solid #F2F2F2;
-	border-right: 1px solid #F2F2F2;
+.withdrawal-not li {
+  background-color: #FFFFFF !important;
+  font-size: 14px !important;
+  padding-left: 0px !important;
+  margin-bottom: 0px !important;
+  border-left: 1px solid #F2F2F2;
+  border-right: 1px solid #F2F2F2;
 }
-.withdrawal-list li:nth-child(2){
-	margin-bottom: 0px;
+.withdrawal-not li:first-child {
+  background-color: #F2F2F2 !important;
 }
-.withdrawal-list li:last-child {
-	border: 1px solid #F2F2F2 !important;
-	border-top: 0px solid #FFFFFF !important;
+.withdrawal-not li:last-child {
+  border: 1px solid #F2F2F2 !important;
+  border-top: 0px !important;
 }
-.withdrawal-list li a {
-	display: inline-block;
-	width: 70px;
-	height: 24px;
-	border: 1px solid #333;
-	line-height: 22px;
-	margin-left: 20px;
-	text-align: center;
-	color: #333333;
-	border-radius: 4px;
-	background-color: #FFFFFF;
+.modal-apply {
+  top: 50%;
+  margin-top: -160px
 }
-.withdrawal-list li:first-child {
-	margin-bottom: 10px !important;
+.modal-apply .modal-header {
+  height: 44px;
+  padding: 10px 15px;
 }
-.apply-for-list {
-	background-color: #FFFFFF;
-}*/
+.modal-apply .modal-header button {
+  margin-top: 2px;
+}
+.modal-apply .modal-body {
+  padding: 20px 30px;
+  color: #333333;
+}
+.modal-apply .modal-body .form-group {
+  width: 100%;
+  min-height: 54px;
+  position: relative;
+}
+.modal-apply .modal-body .form-group .unit {
+  position: absolute;
+  right: 15px;
+  top: 7px;
+}
+.modal-apply .modal-body .form-group label {
+  width: 110px;
+  font-weight: 100;
+  text-align: right;
+  margin-right: 20px;
+}
+.modal-apply .modal-body .form-group input,.modal-apply .modal-body .form-group textarea {
+  width: 84%;
+  border-radius: 0px;
+}
+.modal-apply .modal-body .form-group textarea {
+  resize: none;
+}
+.modal-apply .modal-body .form-group .has-error {
+  margin: 0px 0px 0px 130px;
+}
+.payee-information {
+  height: 94px;
+}
+.payee-information label{
+  position: relative;
+  top: -15px;
+}
+.modal-apply .modal-body .form-group .input-group {
+  width: 84%;
+}
+.modal-apply .modal-body .form-group .input-group input[type='text']{
+  width: 44%;
+  float: left;
+}
+.modal-apply .modal-body .form-group .input-group .input-group-btn{
+  width: 97px;
+  height: 33px;
+  float: left;
+}
+.modal-apply .modal-body .form-group .input-group input[type='button']{
+  width: 100%;
+  text-align: center;
+  background-color: #ccc;
+  color: #FFFFFF;
+}
+.prompt-information {
+  float: right;
+  line-height: 33px;
+}
+.modal-apply .workstation-submit a,.modal-apply .workstation-submit input{
+  width: 120px;
+  height: 30px;
+  line-height: 30px;
+}
+@media only screen and (min-width: 768px) {
+  div.modal-apply {
+    width: 970px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .modal-apply .modal-body .form-group label {
+    text-align: left;
+  }
+  .payee-information label {
+    top: 0px;
+  }
+  .modal-apply .modal-body .form-group .unit {
+    top: 33px;
+  }
+  .modal-apply .modal-body .form-group input,.modal-apply .modal-body .form-group textarea {
+    width: 100%;
+  }
+  .modal-apply .modal-body .form-group .has-error {
+    margin-left: 0px;
+  }
+  .modal-apply .modal-body .form-group .input-group {
+    width: 100%;
+  }
+  .modal-apply .modal-body .form-group .input-group input[type='text']{
+    width: 84%;
+  }
+  .prompt-information {
+    display: block;
+    float: left
+  }
+}
+@media only screen and (max-width: 710px) {
+  .modal-apply .modal-body .form-group .input-group input[type='text']{
+    width: 78%;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .modal-apply .modal-body .form-group .input-group input[type='text']{
+    width: 70%;
+  }
+}
+
+
+
+/*出入账记录*/
+.admin-record {
+  width: 100%;
+  margin-top: 10px;
+  background-color: #ccc;
+  padding: 10px;
+}
+.admin-record-nav {
+  margin-bottom: 20px;
+}
+.admin-record-nav span {
+  margin: 0 20px;
+}
+.admin-record-nav a {
+  color: #999999;
+}
+.admin-record-nav .active {
+  color: #333;
+}
+.admin-record-con table {
+  width: 100%;
+  text-align: center;
+  background-color: #FFFFFF;
+  color: #666;
+  font-size: 12px;
+}
+.admin-record-con table tr:first-child td {
+  color: #000;
+}
+.admin-record-con table tr td {
+  height: 36px;
+  border: 1px solid #F2F2F2;
+  word-wrap: break-word;
+}
+.admin-record-msg {
+  display: none;
+}
+.admin-record-msg table {
+  background-color: #F2F2F2;
+  font-size: 14px
+}
+.admin-record-msg table tr td {
+  text-align: left;
+  padding-left: 10px;
+  color: #000 !important;
+}

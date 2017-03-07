@@ -34,6 +34,10 @@ class Station::WorkstationsController < Station::BaseController
   def show
   end
 
+  def fund
+
+  end
+
   private
 
   def set_workstation

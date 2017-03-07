@@ -1,6 +1,6 @@
 class Admins::WorkstationsController < ApplicationController
 
-  before_action :find_workstation, only: [:edit, :update, :show, :destroy, :change_status]
+  before_action :find_workstation, only: [:edit, :update, :show, :destroy, :change_status, :fund]
 
   respond_to :html
   layout "admin_home"
@@ -58,6 +58,10 @@ class Admins::WorkstationsController < ApplicationController
         render js: "window.location.reload();"
       }
     end
+  end
+
+  def fund
+
   end
 
   private

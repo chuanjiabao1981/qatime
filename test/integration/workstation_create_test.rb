@@ -1,3 +1,5 @@
+require 'test_helper'
+
 class WorkstationCreateTest < ActionDispatch::IntegrationTest
   def setup
     @headless = Headless.new

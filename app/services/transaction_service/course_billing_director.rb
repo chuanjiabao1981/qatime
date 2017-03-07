@@ -1,5 +1,6 @@
-module LiveService
-  class BillingDirector
+module TransactionService
+  # 直播课结账
+  class CourseBillingDirector
     def initialize(lesson)
       @lesson = lesson
       @course = lesson.course
@@ -7,7 +8,7 @@ module LiveService
 
     # 课程结算
     def billing
-      return unless check_lesson
+      return unless _check_lesson
       # 课程总账单
       billing = Payment::LiveCourseBilling.create(target: @lesson, from_user: @lesson.teacher)
       # 针对每一个购买记录单独结账
@@ -17,8 +18,7 @@ module LiveService
       # 所有的购买记录都结账完成以后课程结账完成
       @lesson.complete! if @lesson.ticket_items.billingable.blank?
     rescue StandardError => e
-      Rails.logger.error "#{e.message}\n\n#{e.backtrace.join("\n")}"
-      SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message: "辅导班结账失败-#{@lesson.id}")
+      _billing_fail!(e)
     end
 
     # 购买记录单独结账
@@ -26,7 +26,7 @@ module LiveService
     def billing_ticket(billing, ticket_item)
       ticket_item.with_lock do
         ticket = ticket_item.ticket
-        item_billing = Payment::LiveCourseTicketBilling.create!(target: @lesson, from_user: @lesson.teacher, parent: billing, ticket: ticket)
+        item_billing = _item_billing(billing, ticket)
         # 系统服务费收入
         system_fee_item!(item_billing)
         # 教师收入
@@ -48,8 +48,18 @@ module LiveService
 
     private
 
+    # 给每一个购买记录生成一个单独的账单
+    def _item_billing(billing, ticket)
+      Payment::LiveCourseTicketBilling.create!(target: @lesson, from_user: @lesson.teacher, parent: billing, ticket: ticket)
+    end
+
+    def _billing_fail!(e)
+      Rails.logger.error "#{e.message}\n\n#{e.backtrace.join("\n")}"
+      SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message: "辅导班结账失败-#{@lesson.id}")
+    end
+
     # 检查课程是否可以结账
-    def check_lesson
+    def _check_lesson
       # 检查课程老师信息
       @lesson.teacher = @course.teacher unless @lesson.teacher.present?
       # 结账前确保教师有资金账户
@@ -60,31 +70,26 @@ module LiveService
       @lesson.finished? || @lesson.billing?
     end
 
-    # 系统账户
-    def system_account
-      @system_account ||= CashAdmin.cash_account!
-    end
-
     # 系统服务费
     def system_fee_item!(billing)
-      Payment::SystemFeeItem.create!(billing: billing,
-                                     cash_account: system_account,
-                                     owner: CashAdmin.current!,
-                                     amount: billing.base_fee,
-                                     quantity: 1,
-                                     price: @lesson.base_price,
-                                     duration: @lesson.duration_minutes)
-      cash_transfer(account)
+      item = Payment::SystemFeeItem.create!(billing: billing,
+                                            cash_account: CashAdmin.cash_account!,
+                                            owner: CashAdmin.current!,
+                                            amount: billing.base_fee,
+                                            quantity: 1,
+                                            price: @lesson.base_price,
+                                            duration: @lesson.duration_minutes)
+      _cash_transfer(CashAdmin.cash_account!, billing.base_fee, item)
     end
 
     # 系统分成收入
     def system_money_item!(billing)
       Payment::SystemPercentItem.create!(billing: billing,
-                                         cash_account: system_account,
+                                         cash_account: CashAdmin.cash_account!,
                                          owner: CashAdmin.current!,
                                          amount: billing.system_money,
                                          percent: @lesson.system_percentage)
-      _cash_transfer(system_account, billing.system_money, billing, item)
+      _cash_transfer(CashAdmin.cash_account!, billing.system_money, item)
     end
 
     # 销售账单项
@@ -95,17 +100,17 @@ module LiveService
                                               owner: workstation,
                                               amount: billing.sell_seller_money,
                                               percent:  billing.sell_seller_percentage)
-      _cash_transfer(workstation.cash_account, billing.sell_seller_money, billing, item)
+      _cash_transfer(workstation.cash_account, billing.sell_seller_money, item)
     end
 
     # 跨区销售系统分成
     def sell_system_money_item!(billing)
       item = Payment::CrossRegionPercentItem.create!(billing: billing,
-                                                     cash_account: system_account,
+                                                     cash_account: CashAdmin.cash_account!,
                                                      owner: CashAdmin.current!,
                                                      amount: billing.sell_system_money,
                                                      percent:  billing.sell_system_percentage)
-      _cash_transfer(system_account, billing.sell_system_money, billing, item)
+      _cash_transfer(CashAdmin.cash_account!, billing.sell_system_money, item)
     end
 
     # 发行账单项
@@ -116,7 +121,7 @@ module LiveService
                                                  owner: workstation,
                                                  amount: billing.publish_money,
                                                  percent: @lesson.publish_percentage)
-      _cash_transfer(workstation.cash_account, billing.publish_money, billing, item)
+      _cash_transfer(workstation.cash_account, billing.publish_money, item)
     end
 
     # 教师分成收入
@@ -126,49 +131,15 @@ module LiveService
                                               owner: teacher,
                                               amount: billing.teacher_money,
                                               percent: @lesson.teacher_percentage)
-      _cash_transfer(teacher.cash_account, billing.teacher_money, billing, item)
+      _cash_transfer(teacher.cash_account, billing.teacher_money, item)
     end
 
     # 资金变动
-    def _cash_transfer(target_account, amount, billing, item)
-      from_account = system_account
-      Payment::CashAccount.transaction do
-        from_account.lock!
-        target_account.lock!
-        _transfer_pay(from_account, amount, billing, item)
-        _transfer_income(target_account, amount, billing, item)
-        from_account.save!
-        target_account.save!
-      end
-    end
-
-    # 账户支出
-    # 学生购买辅导班资金进入不可提现余额，分账需要从不可提现余额扣款
-    def _transfer_pay(account, amount, billing, item)
-      account.balance -= amount # 总金额减少
-      account.unavailable_balance -= amount # 不可用金额减少
-      # 记录账户明细 账单分账
-      account.record_detail!(:split_pay_reacords, amount, billing: billing, billing_item: item)
-    end
-
-    # 账户收入
-    # 工作站账户收入进入不可提现余额
-    def _transfer_income(account, amount, billing, item)
-      account.balance += amount # 总余额
-      account.total_income += amount
-      account.is_a?(Workstation) ? _unavailable_income(amount) : _available_income(amount)
-      # 记录账户明细 账户收入
-      account.record_detail!(:earning_records, amount, billing: billing, billing_item: item)
-    end
-
-    # 不可提现收入
-    def _unavailable_income(account, amount)
-      account.unavailable_balance += amount # 可用余额
-    end
-
-    # 可提现收入
-    def _available_income(account, amount)
-      account.available_balance += amount # 可用余额
+    def _cash_transfer(target_account, amount, item)
+      # 系统分账支出
+      AccountService::CashManager.new(CashAdmin.cash_account!).decrease('Payment::SplitRecord', amount, item)
+      # 收入记录
+      AccountService::CashManager.new(target_account).increase('Payment::EarningRecord', amount, item)
     end
   end
 end

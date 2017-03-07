@@ -10,7 +10,7 @@ module Payment
 
     attr_accessor :account_money_snap_shot
     validate :validate_withdraw_amount, :validate_wechat, on: :create
-    after_create :frozen_balance
+    after_create :decrease_cash
 
     scope :filter, ->(keyword){keyword.blank? ? nil : where('transaction_no ~* ?', keyword).presence ||
       where(user: User.where('name ~* ?',keyword).presence || User.where('login_mobile ~* ?',keyword))}
@@ -22,26 +22,21 @@ module Payment
       state :canceled
       state :paid
 
-      event :allow, before: :allow_operator do
+      event :allow do
         transitions from: [:init], to: :allowed
       end
 
-      event :refuse, before: :refuse_operator do
+      event :refuse, before: :refund_cash! do
         transitions from: [:init], to: :refused
       end
 
-      event :cancel, after: :cancel_frozen! do
+      event :cancel, after: :refund_cash! do
         transitions from: [:init], to: :canceled
       end
 
       event :pay do
         transitions from: [:allowed], to: :paid
       end
-    end
-
-    def pay_and_ship!
-      pay!
-      cash_admin_billing!
     end
 
     def status_text(role=nil)
@@ -62,8 +57,15 @@ module Payment
     end
 
     private
-    def frozen_balance
-      user.cash_account!.freeze_cash(amount)
+
+    # 创建提现记录以后直接扣除账户余额
+    def decrease_cash!
+      AccountService::CashManager.new(user.cash_account!).decrease('Payment::WithdrawRecord', account, self)
+    end
+
+    # 提现失败以后返还账户余额
+    def refund_cash!
+      AccountService::CashManager.new(user.cash_account!).increase('Payment::WithdrawRefundRecord', account, self)
     end
 
     def allow_operator(current_user)
@@ -102,11 +104,6 @@ module Payment
       )
     end
 
-    # 取消冻结资金
-    def cancel_frozen!
-      user.cash_account!.freeze_cash(-amount)
-    end
-
     def validate_withdraw_amount
       v = parse_raw_value_as_a_number(self.amount)
       if self.account_money_snap_shot.nil?
@@ -133,13 +130,6 @@ module Payment
       Kernel.Float(raw_value) if raw_value !~ /\A0[xX]/
     rescue ArgumentError, TypeError
       nil
-    end
-
-    # 系统账户结算
-    def cash_admin_billing!
-      summary = "系统支付提现, 订单编号：#{transaction_no} 订单金额: #{amount}"
-      billing = billings.create(total_money: amount, summary: summary)
-      CashAdmin.decrease_cash_account(amount, billing, summary)
     end
   end
 end

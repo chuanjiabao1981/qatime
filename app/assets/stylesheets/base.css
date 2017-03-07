@@ -8274,3 +8274,337 @@ ul {
 .admin-list-condition {
   margin-top: 10px;
 }
+
+
+
+/*工作站管理 工作站列表*/
+.workstation-list {
+  padding: 10px;
+}
+.workstation-new {
+  display: inline-block;
+  color: #FFFFFF;
+  width: 120px;
+  height: 36px;
+  border-radius: 4px;
+  background-color: rgb(102,204,0);
+  text-align: center;
+  line-height: 36px;
+  margin-bottom: 10px;
+}
+.workstation-list table {
+  width: 100%;
+}
+.workstation-list table tr td {
+  text-align: center;
+  height: 60px;
+  color: #333;
+  font-size: 12px;
+  border-bottom: 1px dashed #CCCCCC;
+}
+.workstation-list table tr:first-child td {
+  height: 40px;
+  color: #999999;
+}
+.workstation-list table tr td:last-child a {
+  display: inline-block;
+  width: 80px;
+  height: 26px;
+  color: #333;
+  border: 1px solid #333;
+  line-height: 24px;
+  text-align: center;
+  border-radius: 4px;
+}
+
+
+/*新增工作站*/
+.new-workstation .admin-title-left h3 {
+  margin: 0px;
+  line-height: 56px;
+}
+.basic-information,.workstation-setup {
+  margin-top: 10px;
+  width: 100%;
+  background-color: #F2F2F2;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+.management  {
+  margin-bottom: 10px;
+}
+.basic-information h4,.workstation-setup h4 {
+  margin: 0 0 10px 0;
+  text-align: center;
+}
+.basic-information .form-group {
+  width: 100%;
+  height: 54px;
+  position: relative;
+}
+.basic-information .form-group .unit {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+}
+.basic-information .form-group input,.basic-information .form-group select {
+  width: 88%;
+  border-radius: 0px;
+  color: #999;
+}
+.basic-information .form-group label {
+  width: 80px;
+  margin-right: 20px;
+  font-weight: 100;
+  color: #000;
+  margin-bottom: 0px;
+}
+.basic-information .form-group label abbr {
+  color: red;
+}
+.basic-information .form-group .has-error {
+  margin: 0px;
+}
+.label-divide label {
+  position: absolute;
+  left: -20px;
+  top: 5px;
+  width: 130px !important;
+  margin-right: 0px !important;
+}
+.label-divide input {
+  margin-left: 103px
+}
+.workstation-date label {
+  margin-right: 23.5px !important;
+  margin-top: 5px !important;
+}
+.workstation-date label,.date-to {
+  float: left;
+}
+.date-to {
+  margin: 7px 10px 0 10px;
+}
+.workstation-date-time {
+  width: 42% !important;
+  float: left;
+  position: relative;
+}
+.workstation-date-time input {
+  width: 100% !important;
+}
+.workstation-date-time label {
+  position: absolute;
+  width: 14px !important;
+  margin-right: 0px !important;
+  right: 10px;
+  top: 5px;
+}
+.workstation-date .has-error {
+  clear: both;
+}
+.workstation-submit a,.workstation-submit input {
+  display: inline-block;
+  width: 115px;
+  height: 44px;
+  border: 1px solid #333;
+  color: #333;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 4px;
+}
+.workstation-submit a {
+  margin-right: 20px;
+  line-height: 44px;
+  padding: 0px;
+}
+.workstation-submit input {
+  background-color: #FFFFFF;
+  padding: 0px;
+  line-height: 41px;
+}
+@media only screen  and (max-width: 1200px) {
+
+  .basic-information .form-group input,.basic-information .form-group select {
+    width: 100%;
+  }
+  .basic-information .form-group label {
+    float: right;
+    text-align: right;
+    margin-right: 0px;
+  }
+  .basic-information .form-group .unit {
+    top: 28px;
+  }
+
+  .label-divide label {
+    position: static;
+    left: 0px;
+    top: 0px;
+    margin-right: 0px !important;
+  }
+  .label-divide input {
+    margin-left: 0px
+  }
+
+  .workstation-date {
+    height: 74px !important;
+  }
+  .basic-information .workstation-date label {
+    margin: 0px !important;
+  }
+  .workstation-date-time,.date-to {
+    margin-top: 20px;
+    float: right;
+    position: absolute;
+  }
+  .workstation-date-time {
+    width: 46%;
+  }
+  .date-to {
+    left: 47%;
+  }
+  .workstation-date-time:nth-child(2) {
+    right: 0px !important;
+  }
+  .workstation-date .has-error {
+    margin-top: 52px !important;
+  }
+}
+
+
+
+/*站点设置*/
+.edit-site {
+  float: right;
+  margin: 10px 0;
+}
+.workstation-setup {
+  clear: both;
+  margin-top: 0px;
+}
+.workstation-setup ul{
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.workstation-setup ul li {
+  height: 40px;
+}
+.workstation-setup ul li span:first-child {
+  display: inline-block;
+  width: 120px;
+  text-align: right;
+  margin-right: 20px;
+}
+.workstation-setup ul li i {
+  color: #999999;
+  margin-left: 10px;
+}
+
+
+
+/*资金信息*/
+.moneydetails {
+  margin-top: 10px;
+}
+.moneydetails ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.moneydetails ul li {
+  min-height: 46px;
+  padding: 0 15px 0 10px;
+  background-color: #F2F2F2;
+  margin-bottom: 15px;
+  line-height: 46px;
+  font-size: 16px;
+}
+.moneydetails ul li span:first-child {
+  display: inline-block;
+  width: 80px;
+  text-align: right;
+  margin-right: 20px;
+}
+.moneydetails ul li i {
+  font-style: italic;
+  color: #999999;
+  float: right;
+  font-size: 14px;
+}
+.moneydetails ul li:last-child {
+  background-color: #FFFFFF;
+  border: 2px solid #F2F2F2;
+  margin-bottom: 10px;
+}
+.moneydetails ul li:nth-child(3){
+  margin-bottom: 0px;
+}
+
+.withdrawal-list {
+  margin-top: 10px;
+}
+.withdrawal-list li {
+  font-size: 14px !important;
+}
+
+.withdrawal-list li span:first-child {
+  color: #666666;
+}
+.withdrawal-list li:first-child span:first-child {
+  color: #333333;
+}
+.withdrawal-list li a {
+  display: inline-block;
+  width: 70px;
+  height: 24px;
+  border: 1px solid #333;
+  line-height: 22px;
+  margin-left: 20px;
+  text-align: center;
+  color: #333333;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+}
+/*.withdrawal-list {
+	margin-top: 10px;
+}
+.withdrawal-list li {
+	padding-left: 0px !important;
+	font-size: 14px !important;
+}
+.withdrawal-list li span:first-child {
+	color: #666666;
+}
+.withdrawal-list li:first-child span:first-child {
+	color: #333333;
+}
+.withdrawal-list li:nth-child(3) {
+	background-color: #FFFFFF;
+	border-left: 1px solid #F2F2F2;
+	border-right: 1px solid #F2F2F2;
+}
+.withdrawal-list li:nth-child(2){
+	margin-bottom: 0px;
+}
+.withdrawal-list li:last-child {
+	border: 1px solid #F2F2F2 !important;
+	border-top: 0px solid #FFFFFF !important;
+}
+.withdrawal-list li a {
+	display: inline-block;
+	width: 70px;
+	height: 24px;
+	border: 1px solid #333;
+	line-height: 22px;
+	margin-left: 20px;
+	text-align: center;
+	color: #333333;
+	border-radius: 4px;
+	background-color: #FFFFFF;
+}
+.withdrawal-list li:first-child {
+	margin-bottom: 10px !important;
+}
+.apply-for-list {
+	background-color: #FFFFFF;
+}*/

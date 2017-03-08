@@ -10,5 +10,14 @@ module Payment
     belongs_to :business, polymorphic: true # 关联交易
     belongs_to :target, polymorphic: true # 交易对象
     belongs_to :owner, polymorphic: true
+
+    private
+
+    before_create :copy_relation
+    def copy_relation
+      self.owner = cash_account.owner
+      self.target ||= business.target if business.is_a?(Payment::Billing)
+      self.target ||= business.product if business.is_a?(Payment::Order)
+    end
   end
 end

@@ -6,6 +6,11 @@ module Payment
     belongs_to :owner, polymorphic: true
     has_many :change_records
 
+    has_many :consumption_records
+    has_many :recharge_records
+    has_many :withdraw_records
+    has_many :refund_records
+
     attr_accessor :create_or_update_password, :current_password, :ticket_token
 
     validates :owner, presence: true

@@ -2,8 +2,6 @@ module LiveStudio
   class BuyTicket < Ticket
     belongs_to :course, counter_cache: true
     belongs_to :payment_order, class_name: 'Payment::Order'
-    belongs_to :sell_channel
-    belongs_to :channel_owner, polymorphic: true
     belongs_to :seller, polymorphic: true
 
     private
@@ -22,6 +20,7 @@ module LiveStudio
     before_validation :set_seller, on: :create
     def set_seller
       self.seller = payment_order.coupon_owner if payment_order
+      self.cross_region_percentage = seller.cross_region_percentage if seller && seller != course.workstation
     end
   end
 end

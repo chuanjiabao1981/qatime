@@ -178,7 +178,6 @@ module LiveServiceTest
     # 跨区服务分成 (50 - 9) * 0.1 = 4.1
     test 'test cross region sell billing' do
       @publish_account = workstations(:workstation_one).cash_account # 发行商
-      @sell1_account = workstations(:workstation_one).cash_account # 直接销售
       @sell2_account = workstations(:workstation_zhuji).cash_account # 跨区销售
       @sell3_account = Workstation.default.cash_account # 直接购买
       @teacher_account = users(:teacher1).cash_account

@@ -116,6 +116,7 @@ Qatime::Application.routes.draw do
         get :waiters
         get :action_records
         get :fund
+        post :withdraw
       end
       resources :sellers, except: [:index]
       resources :waiters, except: [:index]

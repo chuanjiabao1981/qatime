@@ -66,6 +66,17 @@ cn:
           withdraw: 申请提现额
           withdraw_text: "%{price}元"
           operate_time: "操作时间：%{time}"
+          new_withdraw: 申请提现
+          labels:
+            amount: 申请提现金额
+            payee: 填写收款人信息
+            captcha_confirmation: 手机校验码
+          placeholders:
+            amount: "当前可提现最大金额￥%{price}"
+            payee: 格式：收款人姓名+空格+收款人账号
+            captcha_confirmation: 输入收到的手机校验码
+          hints:
+            captcha_confirmation: (为确保账户资金安全，仅限经理本人进行操作)
     flash:
       keys:
         success: 操作成功！

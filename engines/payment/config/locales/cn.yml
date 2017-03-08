@@ -239,3 +239,6 @@ cn:
       coupon_code_invalid: 优惠码不存在
     payment/cash_account:
       balance_not_enough: 可用余额不足
+    payment/withdraw:
+      captcha_confirm: 校验码不正确
+      amount_overflow: 余额不足，无法提取!

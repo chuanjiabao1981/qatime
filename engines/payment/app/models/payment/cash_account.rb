@@ -22,6 +22,11 @@ module Payment
       password_digest.present?
     end
 
+    # 资金余额
+    def balance_left_over
+      [self.balance.to_f - self.deposit_balance.to_f, 0.0].max
+    end
+
     # 使用支付密码更新
     def update_with_password(params, *options)
       current_password = params.delete(:current_password)

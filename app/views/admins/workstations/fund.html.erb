@@ -2,6 +2,6 @@
   <div class="admin new-workstation">
     <%= render partial: 'tab_node' %>
 
-    <%= render partial: 'shared/workstations/fund' %>
+    <%= render partial: 'shared/workstations/fund', locals: {workstation: @workstation} %>
   </div>
 </div>

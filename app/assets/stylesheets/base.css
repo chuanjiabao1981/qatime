@@ -8650,11 +8650,15 @@ ul {
   margin: 0px 0px 0px 130px;
 }
 .payee-information {
-  height: 94px;
+  min-height: 94px !important;
+}
+.captcha_confirmation_label {
+  position: relative;
+  top: -12px;
 }
 .payee-information label{
   position: relative;
-  top: -15px;
+  top: -18px;
 }
 .modal-apply .modal-body .form-group .input-group {
   width: 84%;
@@ -8732,17 +8736,19 @@ ul {
 .admin-record {
   width: 100%;
   margin-top: 10px;
-  background-color: #ccc;
   padding: 10px;
 }
 .admin-record-nav {
   margin-bottom: 20px;
+  line-height: 28px;
 }
 .admin-record-nav span {
   margin: 0 20px;
+  font-size: 20px;
 }
 .admin-record-nav a {
   color: #999999;
+  font-size: 16px;
 }
 .admin-record-nav .active {
   color: #333;
@@ -8757,10 +8763,11 @@ ul {
 .admin-record-con table tr:first-child td {
   color: #000;
 }
-.admin-record-con table tr td {
+.admin-record-con table tr td,.sales-record-con table tr td {
   height: 36px;
   border: 1px solid #F2F2F2;
   word-wrap: break-word;
+  word-break: break-all;
 }
 .admin-record-msg {
   display: none;
@@ -8773,4 +8780,79 @@ ul {
   text-align: left;
   padding-left: 10px;
   color: #000 !important;
+}
+
+/*出账记录*/
+.spending-message span {
+  display: block;
+}
+.admin-record-msg table tr td i {
+  font-style: italic;
+  color: #999999;
+  font-size: 12px;
+}
+
+
+/*销售统计*/
+.admin-sales {
+  margin-top: 20px;
+  border: 1px solid #F2F2F2;
+}
+.sales-statistics {
+  padding: 10px;
+}
+.sales-title,.sales-record-title {
+  height: 40px;
+  background-color: #F2F2F2;
+  padding: 0 10px;
+  line-height: 40px;
+  font-size: 16px;
+}
+.sales-statistics-title {
+  overflow: hidden;
+}
+.statistics-title-left {
+  float: left;
+}
+.statistics-title-right {
+  float: right;
+  line-height: 24px;
+}
+.statistics-title-left select {
+  width: 70px;
+  height: 24px;
+  border: 1px dashed #ccc;
+}
+.statistics-title-right span:first-child {
+  margin-right: 20px;
+}
+.admin-sales #main {
+  width: 100%;
+  height: 300px;
+}
+.admin-sales-record {
+  margin-top: 20px;
+  font-size: 16px
+}
+.admin-sales-record a {
+  color: #999999;
+  position: relative;
+  top: -1px;
+}
+.admin-sales-record .active {
+  color: #000000;
+}
+.admin-sales-record span {
+  font-size: 20px;
+  margin: 0 20px;
+}
+.sales-record-con table{
+  width: 100%;
+}
+.sales-record-con table tr td {
+  font-size: 12px;
+  text-align: center;
+}
+.sales-record-con table tr td a {
+  color: #428bca;
 }

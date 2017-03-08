@@ -35,10 +35,27 @@ class Station::WorkstationsController < Station::BaseController
   end
 
   def fund
+    @withdraw = Payment::Withdraw.new(pay_type: :station)
+  end
 
+  # 申请提现
+  def withdraw
+    @withdraw = current_user.payment_withdraws.new(withdraw_params).captcha_required!
+    @withdraw.pay_type = :station
+    @withdraw.owner = @workstation
+    captcha_manager = UserService::CaptchaManager.new(@workstation.manager.try(:login_mobile))
+    @withdraw.captcha = captcha_manager.captcha_of(:withdraw_cash)
+
+    if @withdraw.save
+      render js: "window.location.reload();"
+      return
+    end
   end
 
   private
+  def withdraw_params
+    params.require(:withdraw).permit(:amount, :payee, :captcha_confirmation)
+  end
 
   def set_workstation
     @workstation ||= Workstation.find(params[:id])

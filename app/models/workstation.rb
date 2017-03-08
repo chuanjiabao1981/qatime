@@ -1,11 +1,11 @@
+# 工作站
 class Workstation < ActiveRecord::Base
-
   include AASM
   extend Enumerize
 
   # stop: 未运营 running: 运营中
-  enum status: {stopping: 0, running: 1}
-  enumerize :status, in: {stopping: 0, running: 1}
+  enum status: { stopping: 0, running: 1 }
+  enumerize :status, in: { stopping: 0, running: 1 }
 
   aasm column: :status, enum: true do
     state :running, initial: true
@@ -26,7 +26,7 @@ class Workstation < ActiveRecord::Base
   belongs_to :city, counter_cache: true
   has_one  :account, as: :accountable
   has_many :customized_courses
-  scope :by_manager_id, lambda {|t| where(manager_id: t) if t}
+  scope :by_manager_id, ->(t) { where(manager_id: t) if t }
 
   has_many :live_studio_courses, class_name: LiveStudio::Course
 
@@ -46,7 +46,7 @@ class Workstation < ActiveRecord::Base
   validates_length_of :name, maximum: 20, minimum: 2
   validates_presence_of :name, :manager, :city, :join_price, :caution_money, :contract_start_date_at, :contract_end_date_at
   validates :platform_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
-  validates :service_price, presence: true, numericality: {greater_than_or_equal_to: 0}
+  validates :service_price, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validate do |record|
     if record.contract_start_date_at.try(:to_date) && record.contract_end_date_at.try(:to_date)
       errors.add(:contract_end_date_at, I18n.t("error.workstation.contract_end_date_at")) if record.contract_start_date_at >= record.contract_end_date_at

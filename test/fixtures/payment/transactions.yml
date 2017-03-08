@@ -248,3 +248,30 @@ weixin_order_for_refund:
   pay_type: 2
   status: 94
   product: course_for_refund4 (LiveStudio::Course)
+
+refund_to_account:
+  type: Payment::Refund
+  transaction_no: <%= @transaction3 || Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student1
+  amount: 50
+  pay_type: 4
+  status: 1
+  product: course_for_refund4 (LiveStudio::Course)
+
+refund_to_weixin:
+  type: Payment::Refund
+  transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student2
+  amount: 50
+  pay_type: 3
+  status: 1
+  product: course_for_refund4 (LiveStudio::Course)
+
+refund_to_account2:
+  type: Payment::Refund
+  transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student3
+  amount: 50
+  pay_type: 4
+  status: 1
+  product: course_for_refund4 (LiveStudio::Course)

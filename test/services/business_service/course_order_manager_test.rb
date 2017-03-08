@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module LiveServiceTest
-  class OrderManagerTest < ActiveSupport::TestCase
+  class CourseOrderManagerTest < ActiveSupport::TestCase
     # 余额支付结账
     test 'account balance order billing' do
       @order = payment_transactions(:account_order)
@@ -16,7 +16,8 @@ module LiveServiceTest
           end
         end
       end
-      assert @order.reload.settled?, "订单结账后状态不正确"
+      p @order.reload.status
+      assert @order.reload.shipped?, "订单结账后状态不正确"
     end
 
     # 第三方支付结账
@@ -33,7 +34,7 @@ module LiveServiceTest
           end
         end
       end
-      assert @order.reload.settled?, "订单结账后状态不正确"
+      assert @order.reload.shipped?, "订单结账后状态不正确"
     end
   end
 end

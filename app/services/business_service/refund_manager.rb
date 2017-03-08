@@ -29,14 +29,14 @@ module BusinessService
         user_cash_manager.increase('Payment::RefundRecord', @refund.amount, @refund)
         @refund.transfer!
       else # 第三方支付
-        student_cash_manager.record_detail!('Payment::RefundRecord', @refund.amount, 0, @refund)
+        user_cash_manager.record_detail!('Payment::RefundRecord', @refund.amount, 0, @refund)
         @refund.remote_refund! # 提交退款申请
       end
     end
 
     # 系统扣款
     def _system_pay
-      AccountService::CashManager.new(CashAdmin.cash_account!).increase('Payment::RefundPayRecord', @refund.amount, @refund)
+      AccountService::CashManager.new(CashAdmin.cash_account!).decrease('Payment::RefundPayRecord', @refund.amount, @refund)
     end
   end
 end

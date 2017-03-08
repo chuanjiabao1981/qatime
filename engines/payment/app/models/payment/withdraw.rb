@@ -18,7 +18,7 @@ module Payment
 
     validate :validate_withdraw_amount, :validate_wechat, on: :create, unless: Proc.new { |record| record.station? }
 
-    after_create :decrease_cash!
+    # after_create :decrease_cash!
 
     scope :filter, ->(keyword){keyword.blank? ? nil : where('transaction_no ~* ?', keyword).presence ||
       where(user: User.where('name ~* ?',keyword).presence || User.where('login_mobile ~* ?',keyword))}

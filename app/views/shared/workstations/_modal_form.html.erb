@@ -1,7 +1,7 @@
 <%= simple_form_for @withdraw, url: withdraw_station_workstation_path(workstation), html: {class: 'form-inline', remote: true} do |f| %>
   <%= f.input :amount, label: false do %>
     <%= f.label :amount, t('view.shared.workstations.fund_node.labels.amount') %>
-    <%= f.input_field :amount, as: :decimal, placeholder: t('view.shared.workstations.fund_node.placeholders.amount', price: workstation.cash_account.try(:balance_left_over).to_f) %>
+    <%= f.input_field :amount, as: :decimal, placeholder: t('view.shared.workstations.fund_node.placeholders.amount', price: workstation.available_account.try(:balance).to_f) %>
     <span class="unit"><%= t('view.common.unit') %></span>
   <% end %>
 

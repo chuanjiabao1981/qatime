@@ -13,7 +13,6 @@ module BusinessService
         _student_pay
         _system_sell
         @order.settle!
-        p @order.errors
         yield if block_given?
       end
     end

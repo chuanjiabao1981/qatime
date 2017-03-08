@@ -1,5 +1,5 @@
 # 业务模块
-module TransactionService
+module BusinessService
   # 订单处理
   class OrderManager
     def initialize(order)

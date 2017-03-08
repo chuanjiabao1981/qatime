@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module LiveServiceTest
-  class BillingDirectorTest < ActiveSupport::TestCase
+  class CourseBillingDirectorTest < ActiveSupport::TestCase
     # 单个购买结账测试
     # 单个学生结账
     # 视频时长 30分钟
@@ -18,7 +18,7 @@ module LiveServiceTest
       lesson = live_studio_lessons(:lesson_one_of_billing_course_one)
       ticket = live_studio_tickets(:ticket_one_of_billing_course_one)
       ticket_item = ticket.ticket_items.find_by(lesson_id: lesson.id)
-      director = LiveService::BillingDirector.new(lesson)
+      director = BusinessService::CourseBillingDirector.new(lesson)
       assert_difference "Payment::BillingItem.count", 6, '账单条目数量不正确' do
         assert_difference "@system_account.reload.balance.to_f", -42.3, "系统收入不正确" do
           assert_difference "@publish_account.reload.balance.to_f", 4.7, "发行商收入不正确" do
@@ -30,6 +30,8 @@ module LiveServiceTest
           end
         end
       end
+
+      assert ticket_item.reload.finished?, "结账状态不正确"
     end
 
     # 结账异常测试
@@ -42,7 +44,7 @@ module LiveServiceTest
       @teacher_account = lesson.course.teacher.cash_account
       @system_account = CashAdmin.current!.cash_account!
 
-      director = LiveService::BillingDirector.new(lesson)
+      director = BusinessService::CourseBillingDirector.new(lesson)
       assert_no_difference "@system_account.reload.balance.to_f", "系统支出没有回滚" do
         assert_no_difference "@publish_account.reload.balance.to_f", "发行商收入没有回滚" do
           assert_no_difference "@teacher_account.reload.balance.to_f", "教师收入没有回滚" do
@@ -69,7 +71,7 @@ module LiveServiceTest
       ticket = live_studio_tickets(:ticket_three_of_billing_course_one)
       ticket_item = ticket.ticket_items.find_by(lesson_id: lesson.id)
 
-      director = LiveService::BillingDirector.new(lesson)
+      director = BusinessService::CourseBillingDirector.new(lesson)
       assert_difference "Payment::BillingItem.count", 6, '账单条目数量不正确' do
         assert_difference "@system_account.reload.balance.to_f", -42.3, "系统收入不正确" do
           assert_difference "@publish_account.reload.balance.to_f", 4.7, "发行商收入不正确" do
@@ -98,7 +100,7 @@ module LiveServiceTest
           assert_no_difference "@teacher_account.reload.balance.to_f", "教师收入没有回滚" do
             assert_no_difference "Payment::BillingItem.count", "错误创建账单项目" do
               assert_raises(Payment::TotalPercentInvalid) do
-                LiveService::BillingDirector.new(lesson).billing_ticket(nil, ticket_item)
+                BusinessService::CourseBillingDirector.new(lesson).billing_ticket(nil, ticket_item)
               end
             end
           end
@@ -127,7 +129,7 @@ module LiveServiceTest
       @system_account = CashAdmin.current!.cash_account!
 
       lesson = live_studio_lessons(:lesson_one_of_billing_course_two)
-      director = LiveService::BillingDirector.new(lesson)
+      director = BusinessService::CourseBillingDirector.new(lesson)
 
       assert_difference "Payment::LiveCourseBilling.count", 1, "总账单创建失败" do
         assert_difference "Payment::LiveCourseTicketBilling.count", 7, '结账数量不正确' do
@@ -138,7 +140,7 @@ module LiveServiceTest
                   assert_difference "@sell3_account.reload.balance.to_f", 17.5, "经销商3收入不正确" do
                     assert_difference "@sell4_account.reload.balance.to_f", 17.5, "默认工作站收入不正确" do
                       assert_difference "@teacher_account.reload.balance.to_f", 157.5, "教师收入不正确" do
-                        director.billing
+                        director.billing_lesson
                       end
                     end
                   end
@@ -153,6 +155,53 @@ module LiveServiceTest
       assert_equal 420.0, b.total_money.to_f, "账单金额不正确"
       assert_equal lesson.course.teacher.id, b.from_user.id, "账单参与者记录错误"
       assert lesson.reload.completed?, "课程结账状态不正确"
+    end
+
+    # 跨区销售结账
+    # 视频时长 90分钟
+    # 价格 50
+    # @sell1_account 1个学生
+    # @sell2_account 1个学生
+    # @sell3_account 1个学生(直接购买)
+    # 教师分成 35
+    # 发行收入 10
+    # 销售分成 45 = 55 - 10
+    # 跨区服务分成 10
+    # 系统分成 0
+    # 总金额 50 * 3 = 150
+    # 系统服务费 3 * 0.1 * 90 = 27
+    # 教师佣金 (150 - 27) * 0.35 = 43.05
+    # 发行佣金 (150 - 27) * 0.1 = 12.3
+    # @sell1_account销售佣金 (50 - 9) * 0.55 = 22.55
+    # @sell2_account销售佣金 (50 - 9) * (0.55 - 0.1) = 18.45
+    # @sell3_account销售佣金 (50 - 9) * 0.55 = 22.55
+    # 跨区服务分成 (50 - 9) * 0.1 = 4.1
+    test 'test cross region sell billing' do
+      @publish_account = workstations(:workstation_one).cash_account # 发行商
+      @sell1_account = workstations(:workstation_one).cash_account # 直接销售
+      @sell2_account = workstations(:workstation_zhuji).cash_account # 跨区销售
+      @sell3_account = Workstation.default.cash_account # 直接购买
+      @teacher_account = users(:teacher1).cash_account
+      @system_account = CashAdmin.cash_account!
+
+      lesson = live_studio_lessons(:lesson_one_of_billing_course_three)
+      director = BusinessService::CourseBillingDirector.new(lesson)
+
+      assert_difference "Payment::LiveCourseBilling.count", 1, "总账单创建失败" do
+        assert_difference "Payment::LiveCourseTicketBilling.count", 3, '结账数量不正确' do
+          assert_difference "@system_account.reload.balance.to_f", -118.9, "系统收入不正确" do
+            assert_difference "@publish_account.reload.balance.to_f", 34.85, "发行商收入不正确" do
+              assert_difference "@sell2_account.reload.balance.to_f", 18.45, "经销商2收入不正确" do
+                assert_difference "@sell3_account.reload.balance.to_f", 22.55, "默认工作站收入不正确" do
+                  assert_difference "@teacher_account.reload.balance.to_f", 43.05, "教师收入不正确" do
+                    director.billing_lesson
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
     end
   end
 end

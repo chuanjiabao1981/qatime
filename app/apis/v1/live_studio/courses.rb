@@ -196,7 +196,7 @@ module V1
           params do
             requires :id, desc: '辅导班ID'
             requires :pay_type, type: String, values: ::Payment::Order.pay_type.values, desc: '支付方式'
-            # requires :coupon_code, type: String, desc: '使用优惠码(可不填)'
+            optional :coupon_code, type: String, desc: '使用优惠码(可不填)'
           end
           post '/:id/orders' do
             course = ::LiveStudio::Course.find(params[:id])

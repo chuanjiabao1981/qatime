@@ -1,7 +1,25 @@
 class Workstation < ActiveRecord::Base
-  validates_length_of :name, maximum: 20, minimum: 2
 
-  validates_presence_of :name, :manager
+  include AASM
+  extend Enumerize
+
+  # stop: 未运营 running: 运营中
+  enum status: {stopping: 0, running: 1}
+  enumerize :status, in: {stopping: 0, running: 1}
+
+  aasm column: :status, enum: true do
+    state :running, initial: true
+    state :stopping
+
+    event :run do
+      transitions from: :stopping, to: :running
+    end
+
+    event :stop do
+      transitions from: :running, to: :stopping
+    end
+  end
+
   belongs_to :manager, class_name: "Manager"
 
   has_one :cash_account, as: :owner, class_name: '::Payment::CashAccount'
@@ -25,6 +43,16 @@ class Workstation < ActiveRecord::Base
   has_one :coupon, as: :owner, class_name: "::Payment::Coupon"
   # 经销商推广二维码课程
   has_many :qr_codes, as: :qr_codeable
+
+  validates_length_of :name, maximum: 20, minimum: 2
+  validates_presence_of :name, :manager, :city, :join_price, :caution_money, :contract_start_date_at, :contract_end_date_at
+  validates :platform_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+  validates :service_price, presence: true, numericality: {greater_than_or_equal_to: 0}
+  validate do |record|
+    if record.contract_start_date_at.try(:to_date) && record.contract_end_date_at.try(:to_date)
+      errors.add(:contract_end_date_at, I18n.t("error.workstation.contract_end_date_at")) if record.contract_start_date_at >= record.contract_end_date_at
+    end
+  end
 
   accepts_nested_attributes_for :coupon, allow_destroy: true, reject_if: proc { |attributes| attributes['code'].blank? }
 

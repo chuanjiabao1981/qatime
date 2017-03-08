@@ -61,7 +61,11 @@ Qatime::Application.routes.draw do
     resources :faq_topics do
       resources :faqs
     end
-    resources :workstations
+    resources :workstations do
+      member do
+        post :change_status
+      end
+    end
     resources :softwares do
       member do
         get :run

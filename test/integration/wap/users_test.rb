@@ -18,7 +18,8 @@ module Wap
 
     test 'regist student from qr_code' do
       course = live_studio_courses(:course_preview_four)
-      redirect_url = wap_live_studio_course_path(course, come_from: 'weixin', coupon_code: 'correct_code')
+      coupon_one = payment_coupons(:coupon_one)
+      redirect_url = wap_live_studio_course_path(course, come_from: 'weixin', coupon_code: coupon_one.code)
       visit new_wap_user_path(redirect_url: redirect_url)
 
       fill_in :student_login_mobile, with: '13800001111'

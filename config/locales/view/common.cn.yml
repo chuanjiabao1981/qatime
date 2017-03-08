@@ -10,5 +10,39 @@ cn:
       to: 至
       start_date: 开始时间
       end_date: 结束时间
+      unit: 元
+      unit_hour: 元 / 小时
     query:
       name_or_mobile: 请输入姓名/电话
+    shared:
+      workstations:
+        info:
+          base_title: 基本信息
+          name: 名称：
+          coupon_code: 注册编码：
+          city: 合作地区：
+          manager: 经理：
+          address: 联系地址：
+          tel: 联系电话：
+          qq: 联系QQ ：
+          second_title: 合作信息
+          join_price: "已交加盟费："
+          join_price_text: "%{price}元"
+          caution_money: 已交保证金：
+          caution_money_text: "%{price}元"
+          platform_percentage: 平台分成比：
+          publish_percentage: 发行分成比：
+          cross_percentage: 跨站经销分成比：
+          cross_percentage_hint: (经销本站所发布的内容不收入任何分成)
+          service_price: 服务费标准：
+          service_price_text: "%{price}/小时"
+          contract_date: 合作有效期：
+          contract_date_text: "%{start} 至 %{end}"
+    flash:
+      keys:
+        success: 操作成功！
+        notice: 温馨提示！
+        info: 温馨提示！
+        error: 操作失败！
+        warning: 请注意！
+        danger: 操作失败！

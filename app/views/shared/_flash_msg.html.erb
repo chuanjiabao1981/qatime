@@ -1,0 +1,19 @@
+<% if flash.present? %>
+  <div id="tip_msg">
+    <% flash.each do |status, msg| %>
+      <div class="alert alert-<%= status %> alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <span><strong><%= t("view.flash.keys.#{status}") %></strong><%= raw msg %></span>
+      </div>
+    <% end %>
+  </div>
+
+  <% if (flash.keys & ["error", "alert", "warning", "danger"]).blank? %>
+    <script type="text/javascript">
+      $(function(){
+        $('#tip_msg').fadeOut(7000);
+      });
+    </script>
+  <% end %>
+<% end %>
+

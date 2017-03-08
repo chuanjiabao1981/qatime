@@ -31,8 +31,9 @@ module Payment
     enum status: {
       unpaid: 0, # 未支付
       paid: 1, # 已支付
-      shipped: 2, # 已发货
-      completed: 3, # 已完成
+      settled: 2, # 已结算
+      shipped: 3, # 已发货
+      completed: 5, # 已完成
       refunding: 94, # 退款中
       canceled: 95, # 已取消
       expired: 96, # 过期订单
@@ -64,6 +65,7 @@ module Payment
       state :unpaid, initial: true
       state :paid
       state :canceled
+      state :settled
       state :shipped
       state :completed
       state :refunding
@@ -79,11 +81,15 @@ module Payment
         transitions from: :unpaid, to: :canceled
       end
 
+      event :settle do
+        transitions from: :paid, to: :settled
+      end
+
       event :ship do
         before do
           delivery_product
         end
-        transitions from: :paid, to: :shipped
+        transitions from: :settled, to: :shipped
       end
 
       event :finish do

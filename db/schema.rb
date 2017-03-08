@@ -1451,12 +1451,20 @@ ActiveRecord::Schema.define(version: 20170307122719) do
     t.string   "address"
     t.string   "tel"
     t.string   "email"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
     t.integer  "manager_id"
-    t.integer  "publish_percentage",      default: 5
-    t.integer  "system_percentage",       default: 0
-    t.integer  "cross_region_percentage", default: 10
+    t.integer  "publish_percentage",                               default: 5
+    t.integer  "system_percentage",                                default: 0
+    t.integer  "cross_region_percentage",                          default: 10
+    t.integer  "status",                                           default: 1
+    t.string   "qq"
+    t.decimal  "join_price",              precision: 10, scale: 2, default: 0.0
+    t.decimal  "caution_money",           precision: 10, scale: 2, default: 0.0
+    t.integer  "platform_percentage",                              default: 0
+    t.decimal  "service_price",           precision: 4,  scale: 2, default: 0.0
+    t.datetime "contract_start_date_at"
+    t.datetime "contract_end_date_at"
   end
 
   add_foreign_key "invitations", "users"

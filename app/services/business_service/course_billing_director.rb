@@ -1,4 +1,4 @@
-module TransactionService
+module BusinessService
   # 直播课结账
   class CourseBillingDirector
     def initialize(lesson)
@@ -7,13 +7,13 @@ module TransactionService
     end
 
     # 课程结算
-    def billing
+    def billing_lesson
       return unless _check_lesson
       # 课程总账单
-      billing = Payment::LiveCourseBilling.create(target: @lesson, from_user: @lesson.teacher)
+      b = Payment::LiveCourseBilling.create(target: @lesson, from_user: @lesson.teacher)
       # 针对每一个购买记录单独结账
       @lesson.ticket_items.billingable.includes(ticket: [:channel_owner, :sell_channel]).each do |item|
-        billing_ticket(billing, item)
+        billing_ticket(b, item)
       end
       # 所有的购买记录都结账完成以后课程结账完成
       @lesson.complete! if @lesson.ticket_items.billingable.blank?
@@ -23,10 +23,10 @@ module TransactionService
 
     # 购买记录单独结账
     # billing： 父账单
-    def billing_ticket(billing, ticket_item)
+    def billing_ticket(parent, ticket_item)
       ticket_item.with_lock do
         ticket = ticket_item.ticket
-        item_billing = _item_billing(billing, ticket)
+        item_billing = _item_billing(parent, ticket)
         # 系统服务费收入
         system_fee_item!(item_billing)
         # 教师收入
@@ -49,8 +49,8 @@ module TransactionService
     private
 
     # 给每一个购买记录生成一个单独的账单
-    def _item_billing(billing, ticket)
-      Payment::LiveCourseTicketBilling.create!(target: @lesson, from_user: @lesson.teacher, parent: billing, ticket: ticket)
+    def _item_billing(parent, ticket)
+      Payment::LiveCourseTicketBilling.create!(target: @lesson, from_user: @lesson.teacher, parent: parent, ticket: ticket)
     end
 
     def _billing_fail!(e)
@@ -84,11 +84,11 @@ module TransactionService
 
     # 系统分成收入
     def system_money_item!(billing)
-      Payment::SystemPercentItem.create!(billing: billing,
-                                         cash_account: CashAdmin.cash_account!,
-                                         owner: CashAdmin.current!,
-                                         amount: billing.system_money,
-                                         percent: @lesson.system_percentage)
+      item = Payment::SystemPercentItem.create!(billing: billing,
+                                                cash_account: CashAdmin.cash_account!,
+                                                owner: CashAdmin.current!,
+                                                amount: billing.system_money,
+                                                percent: @lesson.system_percentage)
       _cash_transfer(CashAdmin.cash_account!, billing.system_money, item)
     end
 

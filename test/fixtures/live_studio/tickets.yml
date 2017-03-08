@@ -317,5 +317,28 @@ ticket_seven_of_billing_course_two:
   lesson_price: 60
   type: LiveStudio::BuyTicket
 
+ticket_one_of_billing_course_three:
+  student: student1
+  course: billing_course_three
+  status: 2
+  lesson_price: 50
+  type: LiveStudio::BuyTicket
+  cross_region_percentage: 0
+  seller: workstation_one (Workstation)
 
+ticket_two_of_billing_course_three:
+  student: student2
+  course: billing_course_three
+  status: 2
+  lesson_price: 50
+  type: LiveStudio::BuyTicket
+  cross_region_percentage: 10
+  seller: workstation_zhuji (Workstation)
+
+ticket_three_of_billing_course_three:
+  student: student3
+  course: billing_course_three
+  status: 2
+  lesson_price: 50
+  type: LiveStudio::BuyTicket
 

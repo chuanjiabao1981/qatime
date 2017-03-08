@@ -20,6 +20,8 @@ module AccountService
     def decrease(type, amount, business)
       @account.with_lock do
         @account.balance -= amount
+        # 订单支付不可以透支
+        raise Payment::BalanceNotEnough, "余额不足" if @account.balance < 0 && business.is_a?(Payment::Order)
         record_detail!(type, amount, -amount, business)
         @account.save!
         yield if block_given?

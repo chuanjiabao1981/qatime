@@ -153,11 +153,6 @@ Qatime::Application.routes.draw do
     resources :recharge_records
     resources :faqs
     resources :faq_topics
-    resources :orders, only: [:index] do
-      member do
-        get :pay
-      end
-    end
   end
 
   post 'students/courses/:id' => "students/courses#purchase", as: 'students_course_purchase'

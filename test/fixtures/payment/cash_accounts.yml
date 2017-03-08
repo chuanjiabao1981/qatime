@@ -26,11 +26,11 @@ teacher_account:
 
 student_account:
   owner: student1 (User)
-  balance: 0
+  balance: 600
 
 student2_account:
   owner: student2 (User)
-  balance: 0
+  balance: 300
   password_digest: <%= BCrypt::Password.create("123123", cost: 4) %>
   password_set_at: <%= 2.day.ago%>
 

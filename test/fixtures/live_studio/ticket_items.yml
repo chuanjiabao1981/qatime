@@ -132,5 +132,21 @@ items25:
   lesson: lesson_one_of_billing_course_one
   status: 0
 
+items26:
+  ticket: ticket_one_of_billing_course_three
+  lesson: lesson_one_of_billing_course_three
+  status: 0
+
+items27:
+  ticket: ticket_two_of_billing_course_three
+  lesson: lesson_one_of_billing_course_three
+  status: 0
+
+items28:
+  ticket: ticket_three_of_billing_course_three
+  lesson: lesson_one_of_billing_course_three
+  status: 0
+
+
 
 

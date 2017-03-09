@@ -9,7 +9,7 @@ class CashAdmin < User
   class << self
     # 系统现金账户
     def current!
-      first || create(
+      @current ||= first || create(
         name: '财务',
         email: 'cash_admin@qatime.cn',
         password: '123456',
@@ -19,17 +19,11 @@ class CashAdmin < User
 
     # 系统账户余额
     def current_cash
-      current!.cash_account!.balance.to_f
+      cash_account!.balance.to_f
     end
 
-    # 系统账户支出
-    def decrease_cash_account(money, billing, summary)
-      current!.cash_account!.consumption(money, billing.target, billing, summary)
-    end
-
-    # 系统账户收入
-    def increase_cash_account(money, billing, summary)
-      current!.cash_account!.earning(money, billing.target, billing, summary)
+    def cash_account!
+      current!.cash_account!
     end
   end
 

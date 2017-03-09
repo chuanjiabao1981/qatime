@@ -1,14 +1,14 @@
 # 余额支付订单
 account_order:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
-  user: student_one
+  user: student1
   amount: 30
   remote_ip: '127.0.0.3'
   pay_type: 0
   status: 0
   source: web
   type: Payment::Order
-  product: course1
+  product: course_one (LiveStudio::Course)
 
 account_order_for_refund:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
@@ -19,29 +19,29 @@ account_order_for_refund:
   status: 1
   source: web
   type: Payment::Order
-  product: course1
+  product: course_one (LiveStudio::Course)
 
 weixin_order:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
-  user: student_one
+  user: student2
   amount: 30
   remote_ip: '127.0.0.1'
-  pay_type: 2
+  pay_type: 3
   status: 0
   source: web
   type: Payment::Order
-  product: course1
+  product: course_one (LiveStudio::Course)
 
 alipay_order:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
-  user: student_one
+  user: student3
   amount: 30
   remote_ip: '127.0.0.1'
   pay_type: 1
-  status: 0
+  status: 1 # 已支付
   source: web
   type: Payment::Order
-  product: course1
+  product: course_one (LiveStudio::Course)
 
 order_one:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
@@ -247,4 +247,31 @@ weixin_order_for_refund:
   amount: 400
   pay_type: 2
   status: 94
+  product: course_for_refund4 (LiveStudio::Course)
+
+refund_to_account:
+  type: Payment::Refund
+  transaction_no: <%= @transaction3 || Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student1
+  amount: 50
+  pay_type: 4
+  status: 1
+  product: course_for_refund4 (LiveStudio::Course)
+
+refund_to_weixin:
+  type: Payment::Refund
+  transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student2
+  amount: 50
+  pay_type: 3
+  status: 1
+  product: course_for_refund4 (LiveStudio::Course)
+
+refund_to_account2:
+  type: Payment::Refund
+  transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student3
+  amount: 50
+  pay_type: 4
+  status: 1
   product: course_for_refund4 (LiveStudio::Course)

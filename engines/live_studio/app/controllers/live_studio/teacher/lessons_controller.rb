@@ -68,13 +68,11 @@ module LiveStudio
     def complete
       @course = @lesson.course
       # 课程结算
-      LiveService::BillingDirector.new(@lesson).billing
+      BusinessService::CourseBillingDirector.new(@lesson).billing_lesson
       redirect_to teacher_course_path(@teacher, @course), notice: i18n_notice('end_live_studio', @lesson)
     end
 
     private
-
-
 
     def set_course
       @course = Course.find(params[:course_id])

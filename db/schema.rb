@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170307122719) do
+ActiveRecord::Schema.define(version: 20170309035528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -852,19 +852,18 @@ ActiveRecord::Schema.define(version: 20170307122719) do
   create_table "payment_cash_accounts", force: :cascade do |t|
     t.integer  "owner_id"
     t.string   "owner_type"
-    t.decimal  "balance",             precision: 12, scale: 2, default: 0.0
+    t.decimal  "balance",           precision: 12, scale: 2, default: 0.0
     t.datetime "deleted_at"
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
-    t.decimal  "total_income",        precision: 12, scale: 2, default: 0.0
-    t.decimal  "total_expenditure",   precision: 12, scale: 2, default: 0.0
-    t.boolean  "migrated",                                     default: false
-    t.decimal  "frozen_balance",      precision: 12, scale: 2, default: 0.0
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
+    t.decimal  "total_income",      precision: 12, scale: 2, default: 0.0
+    t.decimal  "total_expenditure", precision: 12, scale: 2, default: 0.0
+    t.boolean  "migrated",                                   default: false
+    t.decimal  "frozen_balance",    precision: 12, scale: 2, default: 0.0
     t.string   "password_digest"
     t.datetime "password_set_at"
-    t.decimal  "available_balance",   precision: 16, scale: 2
-    t.decimal  "deposit_balance",     precision: 16, scale: 2
-    t.decimal  "unavailable_balance", precision: 16, scale: 2
+    t.decimal  "deposit_balance",   precision: 16, scale: 2, default: 0.0
+    t.string   "type"
   end
 
   add_index "payment_cash_accounts", ["owner_type", "owner_id"], name: "index_payment_cash_accounts_on_owner_type_and_owner_id", using: :btree
@@ -963,6 +962,25 @@ ActiveRecord::Schema.define(version: 20170307122719) do
   end
 
   add_index "payment_remote_orders", ["order_type", "order_id"], name: "index_payment_remote_orders_on_order_type_and_order_id", using: :btree
+
+  create_table "payment_sale_tasks", force: :cascade do |t|
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.datetime "started_at"
+    t.integer  "period"
+    t.datetime "ended_at"
+    t.integer  "charge_percentage",                          default: 0
+    t.decimal  "target_balance",    precision: 12, scale: 2, default: 0.0
+    t.boolean  "result"
+    t.decimal  "result_balance",    precision: 12, scale: 2, default: 0.0
+    t.decimal  "charge_balance",    precision: 12, scale: 2, default: 0.0
+    t.decimal  "available_balance", precision: 12, scale: 2, default: 0.0
+    t.integer  "status"
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+  end
+
+  add_index "payment_sale_tasks", ["target_type", "target_id"], name: "index_payment_sale_tasks_on_target_type_and_target_id", using: :btree
 
   create_table "payment_transactions", force: :cascade do |t|
     t.integer  "user_id"

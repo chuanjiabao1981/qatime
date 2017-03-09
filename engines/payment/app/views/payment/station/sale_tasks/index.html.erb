@@ -1,0 +1,124 @@
+<div class="panel panel-default">
+  <div class="admin new-workstation">
+    <%= render 'station/workstations/tab_node' %>
+
+    <%= link_to t('view.actions.payment/sale_task.create'), payment.new_station_workstation_sale_task_path(@workstation), class: 'edit-site' if allow?('payment/station/sale_tasks', 'new', @workstation) -%>
+
+    <div class="assess-norm assess-manager">
+
+      <h4><%= Payment::SaleTask.human_attribute_name(:task_role) %></h4>
+      <% @waiting_tasks.each_with_index do |task, index| -%>
+      <div class="assess-norm-con">
+	<h5>考核 <%= format('%02d', index + 1) %></h5>
+	<ul>
+	  <li>
+	    <span><%= Payment::SaleTask.human_attribute_name(:status) %>:</span>
+	    <span class="assess-status"><%= task.status %></span>
+	  </li>
+	  <li>
+	    <span><%= Payment::SaleTask.human_attribute_name(:started_at) %>:</span>
+	    <span><%= task.started_at %></span>
+	  </li>
+	  <li>
+	    <span>考核周期:</span>
+	    <span>3月</span>
+	    <i>考核日期XXXX-XX-XX</i>
+	  </li>
+	  <li>
+	    <span>销售额目标:</span>
+	    <span>￥120000.00元</span>
+	  </li>
+	  <li>
+	    <span>考核扣款系数:</span>
+	    <span>X%</span>
+	  </li>
+	</ul>
+      </div>
+      <% end -%>
+    </div>
+
+    <div class="assess-record">
+      <div class="assess-record-title">
+	<h4><%= Payment::SaleTask.human_attribute_name(:task_history) %></h4>
+      </div>
+      <div class="admin-record-con">
+	<table border="1" cellspacing="1" cellpadding="1">
+	  <tbody>
+	    <tr>
+	      <td><%= Payment::SaleTask.human_attribute_name(:task_index) %></td>
+	      <td><%= Payment::SaleTask.human_attribute_name(:result) %></td>
+	      <td><%= Payment::SaleTask.human_attribute_name(:balance) %></td>
+	      <td><%= Payment::SaleTask.human_attribute_name(:balance) %></td>
+	      <td><%= Payment::SaleTask.human_attribute_name(:closed_at) %></td>
+	      <td><%= Payment::SaleTask.human_attribute_name(:operate) %></td>
+	    </tr>
+	    <% @closed_tasks.each do |task| %>
+	    <tr>
+	      <td>01</td>
+	      <td class="assess-state">
+		<span class="assess-state-pass"><%= task.status %></span>
+	      </td>
+	      <td>￥270.00</td>
+	      <td>￥1222343.00</td>
+	      <td>2016-01-15 15:00:32</td>
+	      <td>
+		<a href="javascript:void(0);" class="view-msg">
+		  <span>查看明细</span>
+		  <i class="fa fa-angle-down"></i>
+		</a>
+	      </td>
+	    </tr>
+	    <tr class="admin-record-msg">
+	      <td colspan="7">
+		<table border="0" cellspacing="0" cellpadding="0">
+		  <tbody><tr>
+		      <td>
+			<span>考试期开始日：</span>
+			<span>2016-12-05</span>
+		      </td>
+		      <td>
+			<span>考核期结束日：</span>
+			<span>2017-02-11</span>
+		      </td>
+		      <td>
+			<span>考核周期：</span>
+			<span>3月</span>
+		      </td>
+		    </tr>
+		    <tr>
+		      <td>
+			<span>销售目标额：</span>
+			<span>￥20000.0</span>
+		      </td>
+		      <td colspan="2">
+			<span>销售额：</span>
+			<span>￥30000.00</span>
+		      </td>
+		    </tr>
+		    <tr>
+		      <td>
+			<span>销售差额：</span>
+			<span>￥10000.00</span>
+		      </td>
+		      <td colspan="2">
+			<span>考核扣款系数：</span>
+			<span>X%</span>
+		      </td>
+		    </tr>
+		    <tr>
+		      <td colspan="3">
+			<span>考核扣款金额：</span>
+			<span>￥33.00</span>
+			<i>(考核扣款金额=销售差额*考核扣款系数)</i>
+		      </td>
+		    </tr>
+		</tbody></table>
+	      </td>
+	    </tr>
+	    <% end -%>
+	  </tbody>
+	</table>
+      </div>
+    </div>
+  </div>
+</div>

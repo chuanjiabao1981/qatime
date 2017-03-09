@@ -1,0 +1,17 @@
+<%= form_for([:station, @workstation, @sale_task]) do |f| %>
+  <% if @sale_task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sale_task.errors.count, "error") %> prohibited this sale_task from being saved:</h2>
+
+      <ul>
+      <% @sale_task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

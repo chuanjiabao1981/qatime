@@ -411,7 +411,8 @@ function messageTag(msg, fromType) {
       break;
     // 图片消息
     case 'image':
-      var imageNode = $('<img class="accept-img" src="' + msg.file.url + '" onclick="accept_img_click(this)">');
+      var mp3Url = live_chat.nim.audioToMp3({url: msg.file.url});
+      var imageNode = $('<img class="accept-img" src="' + mp3Url + '" onclick="accept_img_click(this)">');
       imageNode.one("load", function() {
         $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
       });

@@ -1,4 +1,5 @@
 class Station::WorkstationsController < Station::BaseController
+  skip_before_action :authorize, only: [:close_withdraw]
   before_action :set_city
 
   def customized_courses
@@ -49,6 +50,16 @@ class Station::WorkstationsController < Station::BaseController
     if @withdraw.save
       render js: "window.location.reload();"
       return
+    end
+  end
+
+  def close_withdraw
+    withdraw = Payment::Withdraw.find(params[:withdraw_id])
+    withdraw.update_attribute(:close, true)
+    respond_to do |format|
+      format.js {
+        render js: "$('.withdraw_#{withdraw.id}').remove();"
+      }
     end
   end
 

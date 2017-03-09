@@ -67,6 +67,7 @@ cn:
           withdraw_text: "%{price}元"
           operate_time: "操作时间：%{time}"
           new_withdraw: 申请提现
+          close_confrim: 确定关闭该提现记录么?
           labels:
             amount: 申请提现金额
             payee: 填写收款人信息

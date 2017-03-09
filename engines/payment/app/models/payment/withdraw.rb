@@ -61,8 +61,17 @@ module Payment
       self
     end
 
+    def can_close?
+      %w[refused canceled paid].include?(status)
+    end
+
     def status_text(role=nil)
-      role = role.present? && role == 'admin' ? 'admin' : 'teacher'
+      role = case role.to_s
+               when 'admin' then 'admin'
+               when 'station' then 'station'
+               else
+                 'teacher'
+             end
       I18n.t("activerecord.status.withdraw.#{role}.#{status}")
     end
 

@@ -1,30 +1,20 @@
-<li>
-  <div class="withdrawal-list-line">
-    <span><%= t('view.shared.workstations.fund_node.withdraw') %></span>
-    <span><%= t('view.shared.workstations.fund_node.withdraw_text', price: 20000.0) %></span>
-    <span>（王思洋6222 0202 0011 7484 532）</span>
-    <i>等待审核</i>
-    <!--<i>等待转款</i>-->
-    <!--<i>已转款</i>-->
-  </div>
-  <div class="withdrawal-list-line">
-    <span></span>
-    <span><%= t('view.shared.workstations.fund_node.operate_time', time: '2016-12-13 15:13:14') %></span>
-  </div>
-</li>
-<li>
-  <div class="withdrawal-list-line">
-    <span><%= t('view.shared.workstations.fund_node.withdraw') %></span>
-    <span><%= t('view.shared.workstations.fund_node.withdraw_text', price: 20000.0) %></span>
-    <span>（王思洋6222 0202 0011 7484 532）</span>
-    <i>提现被拒</i>
-  </div>
-  <div class="withdrawal-list-line">
-    <span></span>
-    <span><%= t('view.shared.workstations.fund_node.operate_time', time: '2016-12-13 15:13:14') %></span>
-    <a href="#"><%= t('view.common.close') %></a>
-  </div>
-</li>
+<% workstation.withdraws.not_close.each do |withdraw| %>
+  <li class="withdraw_<%= withdraw.id %>">
+    <div class="withdrawal-list-line">
+      <span><%= t('view.shared.workstations.fund_node.withdraw') %></span>
+      <span><%= number_to_currency(withdraw.amount, locale: :cn) %></span>
+      <span>（<%= withdraw.payee %>）</span>
+      <i><%= withdraw.status_text(withdraw.pay_type) %></i>
+    </div>
+    <div class="withdrawal-list-line">
+      <span></span>
+      <span><%= t('view.shared.workstations.fund_node.operate_time', time: localize(withdraw.updated_at, format: :long)) %></span>
+      <% if withdraw.can_close? %>
+      <%= link_to t('view.common.close'), close_withdraw_station_workstation_path(workstation, withdraw_id: withdraw.id), data: {confirm: t('view.shared.workstations.fund_node.close_confrim'), method: :post, remote: true} %>
+      <% end %>
+    </div>
+  </li>
+<% end %>
 
 <% content_for :node_modal do %>
   <div class="modal fade" id="withdrawModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

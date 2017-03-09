@@ -13,6 +13,7 @@ cn:
       unit: 元
       unit_hour: 元 / 小时
       close: 关闭
+      time: 时间
     query:
       name_or_mobile: 请输入姓名/电话
     shared:
@@ -78,6 +79,22 @@ cn:
             captcha_confirmation: 输入收到的手机校验码
           hints:
             captcha_confirmation: (为确保账户资金安全，仅限经理本人进行操作)
+        change_records:
+          out_record: 出账记录
+          in_record: 入账记录
+          expend_money: 支出金额
+          expend_type: 支出类型
+          expend_balance: 支出后账户总额
+          expend_info: 支出信息
+          expend_money_in: 收入金额
+          expend_type_in: 收入类型
+          expend_balance_in: 收入后账户总额
+          expend_info_in: 收入来源（课程名称）
+          show_link: 查看明细
+          hide_link: 收起
+          different_money: 提现金额：
+          beore_money: 提现前可提金额：
+          after_money: 提现后可提金额：
     flash:
       keys:
         success: 操作成功！

@@ -1,0 +1,109 @@
+
+<% if change_record.type == 'Payment::WithdrawRecord' %>
+  <tr>
+    <td><%= show_index(index, @change_records.limit_value) %></td>
+    <td><%= number_to_currency(change_record.different, locale: :cn) %></td>
+    <td><%= change_record.model_name.human %></td>
+    <td><%= number_to_currency(change_record.after, locale: :cn) %></td>
+    <td class="spending-message">
+      <span><%= change_record.business.try(:payee) %></span>
+    </td>
+    <td><%= localize(change_record.created_at, format: :long) %></td>
+    <td>
+      <a href="javascript:void(0);" class="view-msg">
+        <span><%= t('view.shared.workstations.change_records.show_link') %></span>
+        <i class="fa fa-angle-down"></i>
+      </a>
+    </td>
+  </tr>
+
+  <tr class="admin-record-msg">
+    <td colspan="7">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+        <tr>
+          <td>
+            <span><%= t('view.shared.workstations.change_records.different_money') %></span>
+            <span><%= number_to_currency(change_record.business.try(:amount), locale: :cn) %></span>
+          </td>
+          <td>
+            <span><%= t('view.shared.workstations.change_records.beore_money') %></span>
+            <span><%= number_to_currency(change_record.before, locale: :cn) %></span>
+          </td>
+          <td>
+            <span><%= t('view.shared.workstations.change_records.after_money') %></span>
+            <span><%= number_to_currency(change_record.after, locale: :cn) %></span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+<% end %>
+
+<% if change_record.type == 'Payment::KaoheRecord' %>
+  <tr>
+    <td><%= show_index(index, @change_records.limit_value) %></td>
+    <td><%= number_to_currency(change_record.different, locale: :cn) %></td>
+    <td><%= change_record.model_name.human %></td>
+    <td><%= number_to_currency(change_record.after, locale: :cn) %></td>
+    <td class="spending-message">
+      <span><%= change_record.business.try(:name) %></span>
+    </td>
+    <td><%= localize(change_record.created_at, format: :long) %></td>
+    <td>
+      <a href="javascript:void(0);" class="view-msg">
+        <span><%= t('view.shared.workstations.change_records.show_link') %></span>
+        <i class="fa fa-angle-down"></i>
+      </a>
+    </td>
+  </tr>
+
+  <tr class="admin-record-msg">
+    <td colspan="7">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody><tr>
+          <td>
+            <span>考试期开始日：</span>
+            <span>2016-12-05</span>
+          </td>
+          <td>
+            <span>考核期结束日：</span>
+            <span>2017-02-11</span>
+          </td>
+          <td>
+            <span>考核周期：</span>
+            <span>3月</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span>销售目标额：</span>
+            <span>￥20000.00</span>
+          </td>
+          <td colspan="2">
+            <span>销售额：</span>
+            <span>￥30000.00</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span>销售差额：</span>
+            <span>+￥10000.00</span>
+          </td>
+          <td colspan="2">
+            <span>考核扣款系数：</span>
+            <span>X%</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <span>考核扣除金额：</span>
+            <span>￥33.00</span>
+            <i>（非可提现金额扣除：￥20000.00+可提现金额扣除：+￥00.00）</i>
+          </td>
+        </tr>
+        </tbody></table>
+    </td>
+  </tr>
+<% end %>

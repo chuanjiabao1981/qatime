@@ -65,6 +65,7 @@ Qatime::Application.routes.draw do
       member do
         post :change_status
         get :fund
+        get :change_records
       end
     end
     resources :softwares do
@@ -118,6 +119,7 @@ Qatime::Application.routes.draw do
         get :fund
         post :withdraw
         post :close_withdraw
+        get :change_records
       end
       resources :sellers, except: [:index]
       resources :waiters, except: [:index]

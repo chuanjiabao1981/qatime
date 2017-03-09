@@ -1,6 +1,6 @@
 class Admins::WorkstationsController < ApplicationController
 
-  before_action :find_workstation, only: [:edit, :update, :show, :destroy, :change_status, :fund]
+  before_action :find_workstation, only: [:edit, :update, :show, :destroy, :change_status, :fund, :change_records]
 
   respond_to :html
   layout "admin_home"
@@ -62,6 +62,17 @@ class Admins::WorkstationsController < ApplicationController
 
   def fund
 
+  end
+
+  # 出入账记录
+  def change_records
+    params[:from] ||= 'out'
+    if params[:form] == 'in'
+      @change_records = Payment::ChangeRecord.in_changes
+    else
+      @change_records = Payment::ChangeRecord.out_changes
+    end
+    @change_records = @change_records.paginate(page: params[:page])
   end
 
   private

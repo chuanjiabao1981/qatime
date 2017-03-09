@@ -8488,7 +8488,7 @@ ul {
   margin-bottom: 0px;
 }
 .workstation-setup ul li {
-  height: 40px;
+  min-height: 40px;
 }
 .workstation-setup ul li span:first-child {
   display: inline-block;
@@ -8696,7 +8696,7 @@ ul {
   .modal-apply .modal-body .form-group label {
     text-align: left;
   }
-  .payee-information label {
+  .payee-information label,.captcha_confirmation_label {
     top: 0px;
   }
   .modal-apply .modal-body .form-group .unit {
@@ -8855,4 +8855,89 @@ ul {
 }
 .sales-record-con table tr td a {
   color: #428bca;
+}
+
+
+
+/*考核*/
+.assess-norm {
+  padding: 10px;
+  clear: both;
+  background-color: #F2F2F2;
+}
+.assess-norm h4 {
+  text-align: center;
+  margin-top: 0px
+}
+.assess-norm-con {
+  padding: 10px;
+  background-color: #FFFFFF;
+  margin-bottom: 10px;
+}
+.assess-norm-con h5 {
+  font-weight: bold;
+}
+.assess-norm-con ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.assess-norm-con ul li {
+  margin-bottom: 30px;
+}
+.assess-norm-con ul li span:first-child {
+  display: inline-block;
+  width: 100px;
+  margin-right: 20px;
+  text-align: right;
+}
+.assess-norm-con ul li a {
+  display: inline-block;
+  width: 100px;
+  height: 20px;
+  border: 1px solid #333;
+  color: #333333;
+  text-align: center;
+  line-height: 18px;
+  border-radius: 10px;
+}
+.assess-norm-con .btn-close {
+  margin-left: 20px;
+}
+.assess-norm-con ul li i {
+  display: block;
+  color: #999999;
+  margin-left: 125px;
+}
+.assess-norm-con ul li:last-child {
+  margin-bottom: 10px;
+}
+.assess-record {
+  margin-top: 40px
+}
+.assess-record-title {
+  height: 40px;
+  background-color: #F2F2F2;
+}
+.assess-record .admin-record-con table tr td {
+  color: #000000;
+}
+.assess-record-title h4 {
+  margin: 0px;
+  line-height: 40px;
+  text-align: center;
+}
+.assess-state {
+  color: rgb(190,11,11) !important;
+}
+.assess-state-pass {
+  color: green;
+}
+.label-date {
+  position: absolute !important;
+  width: 14px !important;
+  margin-right: 0px !important;
+  top: 10px !important;
+}
+.modal-apply .form-control[readonly] {
+  background-color: #FFFFFF;
 }

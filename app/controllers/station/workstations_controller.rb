@@ -63,6 +63,17 @@ class Station::WorkstationsController < Station::BaseController
     end
   end
 
+  # 出入账记录
+  def change_records
+    params[:from] ||= 'out'
+    if params[:form] == 'in'
+      @change_records = Payment::ChangeRecord.in_changes
+    else
+      @change_records = Payment::ChangeRecord.out_changes
+    end
+    @change_records = @change_records.paginate(page: params[:page])
+  end
+
   private
   def withdraw_params
     params.require(:withdraw).permit(:amount, :payee, :captcha_confirmation)

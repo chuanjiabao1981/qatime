@@ -17,6 +17,11 @@ module Payment
 
     has_secure_password validations: false
 
+
+    def available_balance
+      balance
+    end
+
     # 验证token
     def validate_ticket_token(cate, token, object)
       token && token == Redis.current.get("#{object.model_name.cache_key}/#{object.id}/#{cate}")

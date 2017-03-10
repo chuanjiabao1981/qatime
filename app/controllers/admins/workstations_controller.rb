@@ -67,7 +67,7 @@ class Admins::WorkstationsController < ApplicationController
   # 出入账记录
   def change_records
     params[:from] ||= 'out'
-    if params[:form] == 'in'
+    if params[:from] == 'in'
       @change_records = Payment::ChangeRecord.in_changes
     else
       @change_records = Payment::ChangeRecord.out_changes.where(type: ['Payment::WithdrawRecord'])

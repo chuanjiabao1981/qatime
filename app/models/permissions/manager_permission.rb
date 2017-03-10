@@ -190,6 +190,9 @@ module Permissions
         workstation && workstation.manager_id == user.id
       end
 
+      allow 'payment/station/sale_tasks', [:index, :new, :create, :edit] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
     end
   end
 end

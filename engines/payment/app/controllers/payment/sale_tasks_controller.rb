@@ -1,19 +1,14 @@
 require_dependency "payment/application_controller"
 
+
 module Payment
-  class Station::SaleTasksController < Station::BaseController
+  class SaleTasksController < ApplicationController
     before_action :set_sale_task, only: [:show, :edit, :update, :destroy]
 
     # GET /sale_tasks
     def index
-      # 未结束
-      @waiting_tasks = if current_user.admin?
-                         SaleTask.unclosed
-                       else
-                         SaleTask.ongoing
-                       end
-      @waiting_tasks = @waiting_tasks.reorder(started_at: :asc)
-      @closed_tasks = SaleTask.closed.paginate(page: params[:page])
+      @waiting_tasks = SaleTask.all
+      @closed_tasks = SaleTask.all
     end
 
     # GET /sale_tasks/1
@@ -22,9 +17,7 @@ module Payment
 
     # GET /sale_tasks/new
     def new
-      @latest_date = @workstation.sale_tasks.last.try(:ended_at).try(:since, 1.day)
-      @latest_date ||= Time.now
-      @sale_task = SaleTask.new(started_at: @latest_date)
+      @sale_task = SaleTask.new
     end
 
     # GET /sale_tasks/1/edit
@@ -33,7 +26,7 @@ module Payment
 
     # POST /sale_tasks
     def create
-      @sale_task = @workstation.sale_tasks.new(sale_task_params)
+      @sale_task = @Workstation.sale_tasks.new(sale_task_params)
 
       if @sale_task.save
         redirect_to payment.station_workstation_sale_tasks_path(@workstation), notice: 'Sale task was successfully created.'
@@ -60,7 +53,7 @@ module Payment
     private
       # Use callbacks to share common setup or constraints between actions.
       def set_sale_task
-        @sale_task = @workstation.sale_tasks.find(params[:id])
+        @sale_task = SaleTask.find(params[:id])
       end
 
       # Only allow a trusted parameter "white list" through.

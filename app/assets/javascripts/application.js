@@ -44,7 +44,7 @@ $(document).on('click', '.je-date', function (event) {
   $.jeDate(event.target,{
     skinCell:"jedateblue",
     festival:false,
-    insTrigger:false,
+    insTrigger: true,
     format:"YYYY-MM-DD",
     isClear:false,
     minDate: '2000-12-12'

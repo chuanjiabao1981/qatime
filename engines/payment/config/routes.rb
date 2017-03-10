@@ -7,7 +7,7 @@ Payment::Engine.routes.draw do
         get :earning_records
         get :withdraws
       end
-      resources :sale_tasks, shallow: true
+      resources :sale_tasks
     end
   end
 

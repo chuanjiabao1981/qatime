@@ -6,31 +6,31 @@
 
     <div class="assess-norm assess-manager">
 
-      <h4><%= Payment::SaleTask.human_attribute_name(:task_role) %></h4>
+      <h4><%= Payment::SaleTask.human_attribute_name(:task_rule) %></h4>
       <% @waiting_tasks.each_with_index do |task, index| -%>
       <div class="assess-norm-con">
 	<h5>考核 <%= format('%02d', index + 1) %></h5>
 	<ul>
 	  <li>
 	    <span><%= Payment::SaleTask.human_attribute_name(:status) %>:</span>
-	    <span class="assess-status"><%= task.status %></span>
+	    <span class="assess-status"><%= task.aasm.human_state %></span>
 	  </li>
 	  <li>
 	    <span><%= Payment::SaleTask.human_attribute_name(:started_at) %>:</span>
-	    <span><%= task.started_at %></span>
+	    <span><%= localize(task.started_at.to_date) %></span>
 	  </li>
 	  <li>
-	    <span>考核周期:</span>
-	    <span>3月</span>
-	    <i>考核日期XXXX-XX-XX</i>
+	    <span><%= Payment::SaleTask.human_attribute_name(:period) %>:</span>
+	    <span><%= task.period %>月</span>
+	    <i><%= Payment::SaleTask.human_attribute_name(:ended_at) %> <%= localize(task.ended_at.to_date) %></i>
 	  </li>
 	  <li>
-	    <span>销售额目标:</span>
-	    <span>￥120000.00元</span>
+	    <span><%= Payment::SaleTask.human_attribute_name(:target_balance) %>:</span>
+	    <span><%= number_to_currency(task.target_balance, locale: 'cn') %></span>
 	  </li>
 	  <li>
-	    <span>考核扣款系数:</span>
-	    <span>X%</span>
+	    <span><%= Payment::SaleTask.human_attribute_name(:charge_percentage) %>:</span>
+	    <span><%= number_to_percentage(task.charge_percentage, precision: 0) %></span>
 	  </li>
 	</ul>
       </div>
@@ -47,25 +47,25 @@
 	    <tr>
 	      <td><%= Payment::SaleTask.human_attribute_name(:task_index) %></td>
 	      <td><%= Payment::SaleTask.human_attribute_name(:result) %></td>
-	      <td><%= Payment::SaleTask.human_attribute_name(:balance) %></td>
-	      <td><%= Payment::SaleTask.human_attribute_name(:balance) %></td>
+	      <td><%= Payment::SaleTask.human_attribute_name(:charge_balance) %></td>
+	      <td><%= Payment::SaleTask.human_attribute_name(:available_balance) %></td>
 	      <td><%= Payment::SaleTask.human_attribute_name(:closed_at) %></td>
 	      <td><%= Payment::SaleTask.human_attribute_name(:operate) %></td>
 	    </tr>
-	    <% @closed_tasks.each do |task| %>
+	    <% @closed_tasks.each_with_index do |task, index| %>
 	    <tr>
-	      <td>01</td>
+	      <td><%= format('%02d', index + 1) %></td>
 	      <td class="assess-state">
 		<span class="assess-state-pass"><%= task.status %></span>
 	      </td>
-	      <td>￥270.00</td>
-	      <td>￥1222343.00</td>
-	      <td>2016-01-15 15:00:32</td>
+	      <td><%= number_to_currency(task.charge_balance, locale: 'cn') %></td>
+	      <td><%= number_to_currency(task.available_balance, locale: 'cn') %></td>
+	      <td><%= localize(task.ended_at, format: :long) %></td>
 	      <td>
-		<a href="javascript:void(0);" class="view-msg">
+		<%= link_to '##', class: 'view-msg' do %>
 		  <span>查看明细</span>
 		  <i class="fa fa-angle-down"></i>
-		</a>
+		<% end %>
 	      </td>
 	    </tr>
 	    <tr class="admin-record-msg">

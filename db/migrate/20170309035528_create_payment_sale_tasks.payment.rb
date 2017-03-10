@@ -6,6 +6,7 @@ class CreatePaymentSaleTasks < ActiveRecord::Migration
       t.datetime :started_at
       t.integer :period
       t.datetime :ended_at
+      t.datetime :closed_at
       t.integer :charge_percentage, default: 0
       t.decimal :target_balance, precision: 12, scale: 2, default: 0.0
       t.boolean :result

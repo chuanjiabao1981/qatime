@@ -86,6 +86,7 @@ cn:
       payment/refund_apply: 退款申请
       payment/refund: 退款
       payment/refund_record: 退款记录
+      payment/sale_task: 考核
     attributes:
       payment/refund:
         transaction_no: 订单编号
@@ -196,6 +197,26 @@ cn:
         pay_type: 提现方式
         created_at: 时间
         status: 状态
+      payment/sale_task:
+        started_at: 考核期开始日
+        period: 考核周期
+        charge_percentage: 考核扣款系数
+        target_balance: 销售额目标
+        expect_profit: 预计平台最低收益
+        task_rule: 考核标准
+        status: 考核状态
+        ended_at: 考核日期
+        task_history: 考核记录
+        task_index: 序号
+        result: 考核结果
+        charge_balance: 考核扣款金额
+        available_balance: 转为可提现金额
+        closed_at: 考核时间
+        operate: 操作
+        status: 考核状态
+        status/unstart: 未开始
+        status/ongoing: 正在考核
+        status/closed: 
     status:
       order:
         unpaid: 待付款

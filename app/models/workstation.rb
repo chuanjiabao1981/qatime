@@ -44,6 +44,10 @@ class Workstation < ActiveRecord::Base
   has_one :coupon, as: :owner, class_name: "::Payment::Coupon"
   # 经销商推广二维码课程
   has_many :qr_codes, as: :qr_codeable
+  # 经销订单
+  has_many :orders, as: :seller, class_name: "::Payment::Order"
+  # 退款订单
+  has_many :refunds, as: :seller, class_name: "::Payment::Refund"
 
   validates_length_of :name, maximum: 20, minimum: 2
   validates_presence_of :name, :manager, :city, :join_price, :caution_money, :contract_start_date_at, :contract_end_date_at

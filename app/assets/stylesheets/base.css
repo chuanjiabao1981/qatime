@@ -8339,7 +8339,7 @@ ul {
 }
 .basic-information .form-group {
   width: 100%;
-  height: 54px;
+  min-height: 54px;
   position: relative;
 }
 .basic-information .form-group .unit {
@@ -8363,7 +8363,7 @@ ul {
   color: red;
 }
 .basic-information .form-group .has-error {
-  margin: 0px;
+  margin: 0 0 0 100px;
 }
 .label-divide label {
   position: absolute;
@@ -8424,14 +8424,11 @@ ul {
   line-height: 41px;
 }
 @media only screen  and (max-width: 1200px) {
-
   .basic-information .form-group input,.basic-information .form-group select {
     width: 100%;
   }
-  .basic-information .form-group label {
-    float: right;
-    text-align: right;
-    margin-right: 0px;
+  .basic-information .form-group .has-error {
+    margin-left: 0px;
   }
   .basic-information .form-group .unit {
     top: 28px;
@@ -8623,30 +8620,30 @@ ul {
   padding: 20px 30px;
   color: #333333;
 }
-.modal-apply .modal-body .form-group {
+.modal-apply .modal-body .form-group,.new-assess .form-group {
   width: 100%;
   min-height: 54px;
   position: relative;
 }
-.modal-apply .modal-body .form-group .unit {
+.modal-apply .modal-body .form-group .unit,.new-assess .form-group .unit{
   position: absolute;
   right: 15px;
   top: 7px;
 }
-.modal-apply .modal-body .form-group label {
+.modal-apply .modal-body .form-group label,.new-assess .form-group label{
   width: 110px;
   font-weight: 100;
   text-align: right;
   margin-right: 20px;
 }
-.modal-apply .modal-body .form-group input,.modal-apply .modal-body .form-group textarea {
+.modal-apply .modal-body .form-group input,.modal-apply .modal-body .form-group textarea,.new-assess .form-group input{
   width: 84%;
   border-radius: 0px;
 }
 .modal-apply .modal-body .form-group textarea {
   resize: none;
 }
-.modal-apply .modal-body .form-group .has-error {
+.modal-apply .modal-body .form-group .has-error,.new-assess .form-group .has-error {
   margin: 0px 0px 0px 130px;
 }
 .payee-information {
@@ -8900,9 +8897,6 @@ ul {
   line-height: 18px;
   border-radius: 10px;
 }
-.assess-norm-con .btn-close {
-  margin-left: 20px;
-}
 .assess-norm-con ul li i {
   display: block;
   color: #999999;
@@ -8935,9 +8929,56 @@ ul {
 .label-date {
   position: absolute !important;
   width: 14px !important;
+  right: 15px;
   margin-right: 0px !important;
   top: 10px !important;
 }
-.modal-apply .form-control[readonly] {
+.new-assess .form-control[readonly] {
   background-color: #FFFFFF;
+}
+.assess-cycle  {
+  min-height: 74px !important;
+}
+.assess-cycle-hint {
+  margin-left: 132px;
+}
+.modal-apply .form-group abbr {
+  color: red;
+}
+.modal-assess {
+  margin-top: -216px;
+}
+.new-assess .form-group label {
+  color: #000;
+  font-weight: 400;
+}
+.assess-status {
+  background-color: limegreen;
+  color: #FFFFFF;
+}
+.assess-manager,.new-assess {
+  margin-top: 10px;
+}
+.new-assess .form-group abbr {
+  color: red;
+}
+@media only screen and (max-width: 1200px) {
+  .new-assess .form-group label	{
+    text-align: left;
+  }
+  .new-assess .form-group input {
+    width: 100%;
+  }
+  .new-assess .form-group .unit {
+    top: 32px;
+  }
+  .label-date {
+    top: 35px !important;
+  }
+  .assess-cycle-hint {
+    margin-left: 0px;
+  }
+  .new-assess .form-group .has-error {
+    margin-left: 0px;
+  }
 }

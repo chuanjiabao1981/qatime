@@ -44,6 +44,7 @@ module Payment
 
     belongs_to :user
     belongs_to :product, polymorphic: true
+    belongs_to :seller, polymorphic: true
     belongs_to :coupon, class_name: "::Payment::Coupon"
     # 代理经销商
     delegate :owner, to: :coupon, allow_nil: true, prefix: true
@@ -59,6 +60,11 @@ module Payment
     validate :coupon_code_valid, on: :create
     def coupon_code_valid
       errors.add(:coupon_code, I18n.t("error.payment/order.coupon_code_invalid")) if coupon_code.present? && !::Payment::Coupon.exists?(code: coupon_code)
+    end
+
+    before_validation :set_seller, on: :create
+    def set_seller
+      self.seller = coupon_owner if coupon_owner
     end
 
     aasm column: :status, enum: true do
@@ -129,6 +135,11 @@ module Payment
     def pay_money
       return 1 if Rails.env.testing? || Rails.env.development?
       (amount * 100).to_i
+    end
+
+    # 优惠价格
+    def cheap_price
+      [product.try(:price).to_f - amount, 0.0].max
     end
 
     # 订单状态

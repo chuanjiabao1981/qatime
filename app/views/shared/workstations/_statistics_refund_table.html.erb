@@ -1,0 +1,31 @@
+<table border="1" cellspacing="1" cellpadding="1">
+  <tr>
+    <td><%= t('common.index_no') %></td>
+    <td><%= t('view.shared.workstations.statistics.refund_price') %></td>
+    <td><%= t('view.shared.workstations.statistics.sale_price') %></td>
+    <td><%= t('view.shared.workstations.statistics.course_name2') %></td>
+    <td><%= t('view.shared.workstations.statistics.refund_at') %></td>
+    <td><%= t('view.shared.workstations.statistics.sale_at') %></td>
+    <td><%= t('view.shared.workstations.statistics.user_name') %></td>
+    <td><%= t('view.shared.workstations.statistics.source') %></td>
+    <td><%= t('view.shared.workstations.statistics.cross') %></td>
+    <td><%= t('view.shared.workstations.statistics.sale_decrement') %></td>
+  </tr>
+
+  <% @statistics.each_with_index do |refund, index| %>
+    <tr>
+      <td><%= index + 1 %></td>
+      <td><%= number_to_currency(refund.amount.to_f, locale: :cn) %></td>
+      <td><%= number_to_currency(refund.order.try(:amount).to_f, locale: :cn) %></td>
+      <td>
+        <%= link_to refund.product.try(:name), live_studio.course_path(refund.product || 0) %>
+      </td>
+      <td><%= localize(refund.created_at, format: :long) %></td>
+      <td><%= localize(refund.order.created_at, format: :long) %></td>
+      <td><%= refund.user.try(:name) %></td>
+      <td><%= refund.source_text %></td>
+      <td><%= refund.seller == refund.product.workstation ? t('view.common.yes') : t('view.common.no') %></td>
+      <td><%= number_to_currency(refund.product.calculate_sell_percentage, locale: :cn) %></td>
+    </tr>
+  <% end %>
+</table>

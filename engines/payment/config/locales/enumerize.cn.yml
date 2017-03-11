@@ -4,6 +4,14 @@ cn:
       source:
         web: 网页
         app: 手机应用
+        wap: 扫码购买
+      statistics_days:
+        week: 近一周
+        month: 近1月
+        month2: 近2月
+        month3: 近3月
+        month6: 近6月
+        year: 近一年
     payment/recharge:
       pay_type:
         weixin: 微信支付

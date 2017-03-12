@@ -8871,8 +8871,15 @@ div.modal-apply {
   background-color: #FFFFFF;
   margin-bottom: 10px;
 }
+.assess-norm-title {
+  overflow: hidden;
+}
 .assess-norm-con h5 {
   font-weight: bold;
+  float: left
+}
+.assess-norm-title a {
+  float: right;
 }
 .assess-norm-con ul {
   padding-left: 0px;
@@ -8981,4 +8988,61 @@ div.modal-apply {
 .new-assess .form-group .has-error {
   margin-left: 0px;
 }
+}
+
+
+/*工作站提现审核*/
+.audit-filtrate {
+  margin-top: 10px;
+  border-bottom: 1px solid gray;
+  overflow: hidden;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+.audit-filtrate-left a{
+  display: inline-block;
+  width: 70px;
+  height: 24px;
+  text-align: center;
+  line-height: 24px;
+}
+.audit-filtrate-left .active {
+  background-color: rgb(102,204,0);
+  color: #FFFFFF !important;
+}
+.audit-filtrate-right,.audit-filtrate-left {
+  float: left;
+}
+.audit-filtrate-right {
+  margin-left: 20%;
+  overflow: hidden;
+}
+.audit-filtrate-right input {
+  float: left;
+}
+.audit-filtrate-right input[type='text']{
+  height: 26px;
+  width: 203px;
+}
+.audit-filtrate-right input[type='submit']{
+  width: 70px;
+  height: 26px;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  border: 1px solid #333333;
+}
+.admin-audit table {
+  width: 100%;
+}
+.admin-audit table tr td {
+  height: 36px;
+  color: #333333;
+  font-size: 12px;
+  text-align: center;
+  word-break: break-all;
+  word-wrap: break-word;
+  border: 1px solid #F2F2F2;
+}
+.admin-audit table tr td span {
+  display: block;
 }

@@ -8,12 +8,12 @@ module Payment
     def index
       # 未结束
       @waiting_tasks = if current_user.admin?
-                         SaleTask.unclosed
+                         @workstation.sale_tasks.unclosed
                        else
-                         SaleTask.ongoing
+                         @workstation.sale_tasks.ongoing
                        end
       @waiting_tasks = @waiting_tasks.reorder(started_at: :asc)
-      @closed_tasks = SaleTask.closed.paginate(page: params[:page])
+      @closed_tasks = @workstation.sale_tasks.closed.paginate(page: params[:page])
     end
 
     # GET /sale_tasks/1
@@ -22,7 +22,7 @@ module Payment
 
     # GET /sale_tasks/new
     def new
-      @latest_date = @workstation.sale_tasks.last.try(:ended_at).try(:since, 1.day)
+      @latest_date = @workstation.sale_tasks.reorder('ended_at').last.try(:ended_at).try(:since, 1.day)
       @latest_date ||= Time.now
       @sale_task = SaleTask.new(started_at: @latest_date)
     end

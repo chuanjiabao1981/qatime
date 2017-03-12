@@ -67,6 +67,13 @@ cn:
       audit_withdraw: 申请提现
       alipay: 支付宝转账
       bank: 银行转账
+    payment/sale_task:
+      detail: 明细
+      hide: 收起
+      create: 新增
+      edit: 编辑
+      task_index: "考核 %{index}"
+      period: "%{period} 个月"
   activerecord:
     view:
       order: 我的订单
@@ -214,9 +221,16 @@ cn:
         closed_at: 考核时间
         operate: 操作
         status: 考核状态
+        result_balance: 销售额
+        left_amount: 销售差额
+        charge_tips: (考核扣款金额=销售差额*考核扣款系数)
         status/unstart: 未开始
         status/ongoing: 正在考核
-        status/closed: 
+        status/closed: 考核结束
+        result/true: 通过
+        result/false: 未通过
+        result/: 未知
+
     status:
       order:
         unpaid: 待付款

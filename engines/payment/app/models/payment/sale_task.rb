@@ -20,6 +20,9 @@ module Payment
       end
 
       event :close do
+        before do
+          self.closed_at = Time.now
+        end
         transitions from: :ongoing, to: :closed
       end
     end
@@ -90,8 +93,15 @@ module Payment
     end
 
     def check_task_time
+      return if started_at.blank? || period.blank?
+      # 开始时间不能在别的考核周期内
       errors.add(:started_at, '考核时间冲突') if Payment::SaleTask.where('started_at <= ? and ended_at >= ? and id <> ?', started_at, started_at, id.to_i).where(target: target).exists?
+      # 结束时间不能在别的考核周期内
       errors.add(:period, '考核时间冲突') if Payment::SaleTask.where('started_at <= ? and ended_at >= ? and id <> ?', ended_at, ended_at, id.to_i).where(target: target).exists?
+      # 考核周期内不能有其它的开始时间
+      errors.add(:started_at, '考核时间冲突') if Payment::SaleTask.where(started_at: (started_at..ended_at)).where('id <> ?', id.to_i).where(target: target).exists?
+      # 考核周期内不能有其它的结束时间
+      errors.add(:started_at, '考核时间冲突') if Payment::SaleTask.where(ended_at: (started_at..ended_at)).where('id <> ?', id.to_i).where(target: target).exists?
     end
   end
 end

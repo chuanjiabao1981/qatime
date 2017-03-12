@@ -49,6 +49,8 @@ class Workstation < ActiveRecord::Base
   # 退款订单
   has_many :refunds, as: :seller, class_name: "::Payment::Refund"
 
+  has_many :sale_tasks, as: :target, class_name: '::Payment::SaleTask'
+
   validates_length_of :name, maximum: 20, minimum: 2
   validates_presence_of :name, :manager, :city, :join_price, :caution_money, :contract_start_date_at, :contract_end_date_at
   validates :platform_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }

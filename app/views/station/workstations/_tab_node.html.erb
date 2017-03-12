@@ -12,5 +12,8 @@
     <% if allow? 'station/workstations', :statistics, @workstation %>
       <%= link_to t('view.admins.workstations.tab_node.statistics_title'), statistics_station_workstation_path(@workstation), class: "#{'active-admin' if 'station/workstations' == params[:controller] && action_name == 'statistics'}"  %>
     <% end %>
+    <%= link_to Payment::SaleTask.model_name.human,
+                payment.station_workstation_sale_tasks_path(@workstation),
+                class: "#{'active-admin' if 'payment/station/sale_tasks' == params[:controller]}" if allow?('payment/station/sale_tasks', 'index', @workstation) -%>
   </div>
 </div>

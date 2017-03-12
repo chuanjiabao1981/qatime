@@ -135,8 +135,8 @@ a {
   float: left;
 }
 /*.date {
-    	width: 23rem;
-    }*/
+  width: 23rem;
+}*/
 .btn-search,.date {
   float: left;
 }
@@ -326,11 +326,11 @@ a {
   margin-right: 10px;
 }
 /*@font-face {font-family: 'iconfont';
-    src: url('../fonts/iconfont.eot'); 
-    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), 
-    url('../fonts/iconfont.woff') format('woff'), 
-    url('../fonts/iconfont.ttf') format('truetype'), 
-    url('../fonts/iconfont.svg#iconfont') format('svg'); 
+    src: url('../fonts/iconfont.eot');
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/iconfont.woff') format('woff'),
+    url('../fonts/iconfont.ttf') format('truetype'),
+    url('../fonts/iconfont.svg#iconfont') format('svg');
 }
 .iconfont{
     font-family:"iconfont" !important;
@@ -2528,7 +2528,7 @@ i {
   cursor: pointer;
 }
 /*.list-sort-1 a, .list-course-1 a, .list-grade-1 a, .list-state-1 a, .class-msg a {
-	color: #000000;
+  color: #000000;
 }*/
 .list-headline {
   width: 80px;
@@ -2784,7 +2784,7 @@ i {
 
 /*教师个人主页*/
 /*.tec-homepage {
-	margin-top: 10px;
+  margin-top: 10px;
 }*/
 .homepage-title,.homepage-live-title {
   height: 40px;
@@ -2868,12 +2868,12 @@ i {
   margin-right: 0px !important;
 }
 /*.dl-list-1 {
-	margin-top: 10px;
+  margin-top: 10px;
 }
 .dl-list-1:first-child {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }*/
 .homepage-elscon {
   width: 100%;
@@ -4105,15 +4105,15 @@ ul {
 }
 
 /*.admin-list-con table tr td:first-child span {
-	display: inline-block;
-	width: 150px;
-	text-align: left;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+  display: inline-block;
+  width: 150px;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }*/
 /*.admin-list-con table tr td a {
-	color: #666;
+  color: #666;
 }*/
 .admin-list-con table tr td:last-child a {
   color: #999;
@@ -4878,8 +4878,8 @@ ul {
   overflow: hidden;
 }
 /*.modal-avatar img {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
 }*/
 
 
@@ -8871,8 +8871,15 @@ ul {
   background-color: #FFFFFF;
   margin-bottom: 10px;
 }
+.assess-norm-title {
+  overflow: hidden;
+}
 .assess-norm-con h5 {
   font-weight: bold;
+  float: left
+}
+.assess-norm-title a {
+  float: right;
 }
 .assess-norm-con ul {
   padding-left: 0px;
@@ -8963,7 +8970,7 @@ ul {
   color: red;
 }
 @media only screen and (max-width: 1200px) {
-  .new-assess .form-group label	{
+  .new-assess .form-group label {
     text-align: left;
   }
   .new-assess .form-group input {
@@ -8981,4 +8988,61 @@ ul {
   .new-assess .form-group .has-error {
     margin-left: 0px;
   }
+}
+
+
+/*工作站提现审核*/
+.audit-filtrate {
+  margin-top: 10px;
+  border-bottom: 1px solid gray;
+  overflow: hidden;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+.audit-filtrate-left a{
+  display: inline-block;
+  width: 70px;
+  height: 24px;
+  text-align: center;
+  line-height: 24px;
+}
+.audit-filtrate-left .active {
+  background-color: rgb(102,204,0);
+  color: #FFFFFF !important;
+}
+.audit-filtrate-right,.audit-filtrate-left {
+  float: left;
+}
+.audit-filtrate-right {
+  margin-left: 20%;
+  overflow: hidden;
+}
+.audit-filtrate-right input {
+  float: left;
+}
+.audit-filtrate-right input[type='text']{
+  height: 26px;
+  width: 203px;
+}
+.audit-filtrate-right input[type='submit']{
+  width: 70px;
+  height: 26px;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  border: 1px solid #333333;
+}
+.admin-audit table {
+  width: 100%;
+}
+.admin-audit table tr td {
+  height: 36px;
+  color: #333333;
+  font-size: 12px;
+  text-align: center;
+  word-break: break-all;
+  word-wrap: break-word;
+  border: 1px solid #F2F2F2;
+}
+.admin-audit table tr td span {
+  display: block;
 }

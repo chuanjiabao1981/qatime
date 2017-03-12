@@ -1,10 +1,8 @@
 <div class="panel panel-default">
   <div class="admin new-workstation">
-
     <%= render 'station/workstations/tab_node' %>
-    <% if allow? :workstations, :edit, @workstation %>
-      <%= link_to t('view.admins.workstations.show.edit_title'), edit_station_workstation_path(@workstation), class: 'edit-site' %>
-    <% end %>
+
+    <%= link_to t('view.admins.workstations.show.edit_title'), edit_admins_workstation_path(@workstation), class: 'edit-site' %>
 
     <%= render partial: 'shared/workstations/info', locals: {workstation: @workstation} %>
   </div>

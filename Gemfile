@@ -106,7 +106,7 @@ gem 'alipay', '~> 0.12.0'
 
 # 监控
 # gem 'oneapm_rpm'
-gem 'newrelic_rpm'
+# gem 'newrelic_rpm'
 
 # 软删除
 gem 'soft_delete_rails'

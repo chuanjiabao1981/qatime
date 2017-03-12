@@ -67,9 +67,10 @@ module Tally
     end
 
     # 新的分账
-    def __split_billing(billing, teacher_account, workstation_account)
-      AccountService::CashManager.new(teacher_account).increase('Payment::EarningRecord', teacher_amount, billing)
-      AccountService::CashManager.new(workstation_account).increase('Payment::EarningRecord', workstation_id, billing)
+    def __split_billing(billing, teacher, workstation)
+      AccountService::CashManager.new(teacher.cash_account!).increase('Payment::EarningRecord', teacher_amount, billing)
+      AccountService::CashManager.new(workstation.cash_account).increase('Payment::EarningRecord', workstation_id, billing)
+      AccountService::CashManager.new(workstation.available_account).increase('Payment::EarningRecord', workstation_id, billing)
     end
 
     def __split_fee_to_relative_account(relative_account, fee, value, price)
@@ -115,10 +116,10 @@ module Tally
           __split_fee(teacher_id, fee)
           __charge_billing(billing)
 
-          teacher_cash_account = Teacher.find(teacher_id).cash_account!
-          workstation_cash_account = Workstation.find(customized_course.workstation_id).cash_account!
+          teacher = Teacher.find(teacher_id)
+          workstation = Workstation.find(customized_course.workstation_id)
 
-          __split_billing(billing, teacher_cash_account, workstation_cash_account)
+          __split_billing(billing, teacher, workstation)
 
           self.status = "closed"
           save!

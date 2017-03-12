@@ -69,7 +69,7 @@ module LiveStudio
     validates :description, presence: { message: "请输入辅导班介绍" }, length: { in: 5..300 }, if: :description_changed?
     validates :grade, presence: { message: "请选择年级" }, if: :grade_changed?
 
-    validates :publish_percentage, :sell_percentage, :system_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+    validates :publish_percentage, :platform_percentage, :sell_and_platform_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
     validates :teacher_percentage, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max }
 
     validate :check_billing_percentage
@@ -415,12 +415,12 @@ module LiveStudio
 
     # 结账比例验证
     def check_billing_percentage
-      errors.add(:teacher_percentage, "分成比例不正确") unless 100 == publish_percentage + system_percentage + sell_percentage + teacher_percentage
+      errors.add(:teacher_percentage, "分成比例不正确") unless 100 == publish_percentage + sell_and_platform_percentage + teacher_percentage
     end
 
     # 教师分成最大值
     def teacher_percentage_max
-      100 - publish_percentage - system_percentage
+      100 - publish_percentage - platform_percentage
     end
 
     after_commit :finish_invitation, on: :create
@@ -435,16 +435,12 @@ module LiveStudio
       self.subject = teacher.try(:subject)
     end
 
-    # 从工作站拷贝信息
-    before_validation :copy_workstation_info, on: :create
     def copy_workstation_info
       # 邀请创建的辅导班工作站使用邀请者的工作站
       copy_invitation_info! if invitation
       # 没有工作站的辅导班使用老师的默认工作站
       self.workstation ||= default_workstation
       copy_city!
-      # 拷贝完工作站信息以后工作站可能会修改，需要重新计算分成比例
-      reset_billing_percentage!
     end
 
     # 处理邀请
@@ -469,20 +465,14 @@ module LiveStudio
     # 计算结账分成
     before_validation :calculate_billing_percentage!
     def calculate_billing_percentage!
+      return unless teacher_percentage.present?
+      copy_workstation_info if new_record?
       tpl_workstation = workstation || Workstation.default
-      self.publish_percentage ||= tpl_workstation.publish_percentage
-      self.system_percentage ||= tpl_workstation.system_percentage
-      self.teacher_percentage ||= DEFAULT_TEACHER_PERCENTAGE
-      self.sell_percentage = teacher_percentage_max - teacher_percentage
-    end
-
-    # 重置结账分成
-    def reset_billing_percentage!
-      tpl_workstation = workstation || Workstation.default
+      # 发行分成
       self.publish_percentage = tpl_workstation.publish_percentage
-      self.system_percentage = tpl_workstation.system_percentage
-      self.teacher_percentage = DEFAULT_TEACHER_PERCENTAGE unless invitation
-      self.sell_percentage = teacher_percentage_max - teacher_percentage
+      # 平台分成
+      self.platform_percentage = tpl_workstation.platform_percentage
+      self.sell_and_platform_percentage = 100 - teacher_percentage - publish_percentage
     end
 
     # 学生授权播放

@@ -995,8 +995,8 @@ ActiveRecord::Schema.define(version: 20170310091216) do
     t.integer  "status"
     t.integer  "source"
     t.string   "type",           limit: 64
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.datetime "created_at",                                                        null: false
+    t.datetime "updated_at",                                                        null: false
     t.datetime "deleted_at"
     t.integer  "product_id"
     t.string   "product_type"
@@ -1004,9 +1004,18 @@ ActiveRecord::Schema.define(version: 20170310091216) do
     t.integer  "wechat_user_id"
     t.integer  "coupon_id"
     t.string   "openid"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.string   "payee"
+    t.boolean  "close",                                             default: false
+    t.integer  "seller_id"
+    t.string   "seller_type"
   end
 
+  add_index "payment_transactions", ["close"], name: "index_payment_transactions_on_close", using: :btree
   add_index "payment_transactions", ["coupon_id"], name: "index_payment_transactions_on_coupon_id", using: :btree
+  add_index "payment_transactions", ["owner_id", "owner_type"], name: "index_payment_transactions_on_owner_id_and_owner_type", using: :btree
+  add_index "payment_transactions", ["seller_id", "seller_type"], name: "index_payment_transactions_on_seller_id_and_seller_type", using: :btree
   add_index "payment_transactions", ["user_id"], name: "index_payment_transactions_on_user_id", using: :btree
 
   create_table "payment_withdraw_records", force: :cascade do |t|

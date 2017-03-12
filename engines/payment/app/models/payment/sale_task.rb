@@ -92,9 +92,9 @@ module Payment
       self.ended_at = (started_at + period.months - 1.days).end_of_day if started_at_changed? || period_changed?
     end
 
-    before_validation :copy_charge_percentage
+    before_validation :copy_charge_percentage, on: :create
     def copy_charge_percentage
-      self.charge_percentage = @target.platform_percentage
+      self.charge_percentage = target.platform_percentage
     end
 
     def check_task_time

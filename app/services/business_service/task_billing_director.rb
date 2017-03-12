@@ -31,7 +31,7 @@ module BusinessService
                                               cash_account: @workstation.cash_account,
                                               owner: @workstation,
                                               amount: @task.charge_balance)
-      _cash_transfer(from_account, item.amount, item)
+      _cash_transfer(@workstation.cash_account, item.amount, item)
     end
 
     # 可提现变动

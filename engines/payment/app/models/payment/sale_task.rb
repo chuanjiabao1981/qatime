@@ -52,11 +52,11 @@ module Payment
     end
 
     def sell_amount
-      @sell_amount = Payment::Order.valid_order.where(seller: @workstation).where(pay_at: (started_at..ended_at)).sum(:amount)
+      @sell_amount = Payment::Order.valid_order.where(seller: target).where(pay_at: (started_at..ended_at)).sum(:amount)
     end
 
     def refund_amount
-      @refund_amount = Payment::Refund.where(status: Payment::Refund.statuses[:refunded], seller: @workstation).where(pay_at: (started_at..ended_at)).sum(:amount)
+      @refund_amount = Payment::Refund.where(status: Payment::Refund.statuses[:refunded], seller: target).where(pay_at: (started_at..ended_at)).sum(:amount)
     end
 
     # 未完成销售额

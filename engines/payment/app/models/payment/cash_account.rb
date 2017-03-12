@@ -18,7 +18,6 @@ module Payment
 
     has_secure_password validations: false
 
-
     def available_balance
       balance
     end

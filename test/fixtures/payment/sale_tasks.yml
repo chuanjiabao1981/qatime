@@ -30,7 +30,7 @@ task_three:
   period: 1
   ended_at: <%= Time.now.since(1.day).end_of_day %>
   charge_percentage: 10
-  target_balance: 200
+  target_balance: 400
   status: 1
 task_four:
   target: workstation_hd (Workstation)
@@ -38,5 +38,5 @@ task_four:
   period: 1
   ended_at: <%= Time.now.since(1.day).end_of_day %>
   charge_percentage: 10
-  target_balance: 1000
+  target_balance: 2000
   status: 1

@@ -23,6 +23,15 @@ module BusinessService
       p e
     end
 
+    def self.handle_tasks
+      # 开始考核
+      Payment::SaleTask.unstart.where('started_at < ?', Time.now).map(&:start!)
+      # 开始考核
+      Payment::SaleTask.ongoing.where('ended_at < ?', Time.now).each do |task|
+        BusinessService::TaskBillingDirector.new(task).task_billing
+      end
+    end
+
     private
 
     # 罚金转账

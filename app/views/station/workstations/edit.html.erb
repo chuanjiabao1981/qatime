@@ -1,6 +1,11 @@
-<h1>Editing Workstation Workstation</h1>
+<div class="panel panel-default">
+  <div class="admin new-workstation">
+    <div class="admin-title">
+      <div class="admin-title-left">
+        <h3><%= t('view.admins.workstations.edit.link_title') %></h3>
+      </div>
+    </div>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @station_workstation %> |
-<%= link_to 'Back', station_workstations_path %>
+    <%= render partial: 'form' %>
+  </div>
+</div>

@@ -3,8 +3,9 @@
     <%= render partial: 'tab' %>
 
     <div class="workstation-list">
-      <%= link_to t('view.admins.workstations.new.link_title'), new_admins_workstation_path, class: 'workstation-new' %>
-
+      <% if allow? :workstations, :new, @workstation %>
+        <%= link_to t('view.admins.workstations.new.link_title'), new_admins_workstation_path, class: 'workstation-new' %>
+      <% end %>
       <table border="0" cellspacing="0" cellpadding="0">
         <tbody>
         <tr>

@@ -1,6 +1,6 @@
 <tr>
   <td><%= show_index(workstation_counter, @workstations.limit_value) %></td>
-  <td><%= link_to truncate_u(workstation.name, length: 8), admins_workstation_path(workstation) %></td>
+  <td><%= link_to truncate_u(workstation.name, length: 8), station_workstation_path(workstation) %></td>
   <td><%= workstation.city.try(:name) %></td>
   <td><%= workstation.manager.try(:name) %>（<%= workstation.tel %>）</td>
   <td><%= workstation.coupon.try(:code) %></td>

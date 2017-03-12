@@ -1,7 +1,9 @@
 <div class="admin-title">
   <div class="admin-title-left">
-    <%= link_to t('view.admins.workstations.tab.index_title'), admins_workstations_path, class: "#{'active-admin' if 'admins/workstations' == params[:controller]}"  %>
-    <a href="">工作站提现审核</a>
-    <a href="">工作站转款</a>
+    <% if allow? :workstations, :index %>
+      <%= link_to t('view.admins.workstations.tab.index_title'), admins_workstations_path, class: "#{'active-admin' if 'admins/workstations' == params[:controller]}"  %>
+    <% end %>
+    <!--<a href="">工作站提现审核</a>-->
+    <!--<a href="">工作站转款</a>-->
   </div>
 </div>

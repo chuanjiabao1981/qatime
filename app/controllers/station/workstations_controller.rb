@@ -32,6 +32,20 @@ class Station::WorkstationsController < Station::BaseController
     @action_records = @workstation.action_records.order(id: :desc).paginate(page: params[:page])
   end
 
+  def edit
+    @workstation.build_coupon if @workstation.coupon.blank?
+  end
+
+  def update
+    if @workstation.update_attributes(workstation_params)
+      flash_msg(:success)
+      redirect_to station_workstation_path(@workstation)
+    else
+      flash_msg(:danger)
+      render :edit
+    end
+  end
+
   def show
   end
 
@@ -149,6 +163,10 @@ class Station::WorkstationsController < Station::BaseController
   private
   def withdraw_params
     params.require(:withdraw).permit(:amount, :payee, :captcha_confirmation)
+  end
+
+  def workstation_params
+    params.require(:workstation).permit!
   end
 
   def set_workstation

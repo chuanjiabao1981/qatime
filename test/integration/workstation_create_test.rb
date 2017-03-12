@@ -68,7 +68,7 @@ class WorkstationCreateTest < ActionDispatch::IntegrationTest
 
   test "visit workstation show" do
     workstation_one = workstations(:workstation_one)
-    visit admins_workstation_path(workstation_one)
+    visit station_workstation_path(workstation_one)
     assert page.has_content?('基本信息')
     assert page.has_content?('合作信息')
     assert page.has_content?('注册编码')

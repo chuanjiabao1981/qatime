@@ -59,6 +59,9 @@ module Payment
 
       # 退款到余额可以直接转账
       event :transfer do
+        before do
+          self.pay_at = Time.now
+        end
         transitions from: [:allowed], to: :refunded, if: :account?
       end
 
@@ -69,6 +72,9 @@ module Payment
 
       # 第三方通知退款成功
       event :success do
+        before do
+          self.pay_at = Time.now
+        end
         transitions from: [:submited], to: :refunded
       end
 

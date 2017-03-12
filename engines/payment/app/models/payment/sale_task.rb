@@ -46,17 +46,17 @@ module Payment
     # 统计销售完成进度
     def report
       return unless ongoing?
-      self.result_balance = order_amount - refund_amount
+      self.result_balance = sell_amount - refund_amount
       self.result = result_balance >= target_balance
       self.charge_balance = charge_proportion * left_amount
     end
 
     def sell_amount
-      @sell_amount = Payment::Order.valid_order.where(seller: @workstation).where(pay_at: (@task.started_at..@task.ended_at)).sum(:amount)
+      @sell_amount = Payment::Order.valid_order.where(seller: @workstation).where(pay_at: (started_at..ended_at)).sum(:amount)
     end
 
     def refund_amount
-      @refund_amount = Payment::Refund.where(status: Payment::Refund.statuses[:refunded], seller: @workstation).where(pay_at: (@task.started_at..@task.ended_at)).sum(:amount)
+      @refund_amount = Payment::Refund.where(status: Payment::Refund.statuses[:refunded], seller: @workstation).where(pay_at: (started_at..ended_at)).sum(:amount)
     end
 
     # 未完成销售额
@@ -66,12 +66,12 @@ module Payment
 
     # 考核期总收入
     def total_income
-      target.cash_account.earning_records.where(created_at: (@task.started_at..@task.ended_at)).sum(:amount)
+      target.cash_account.earning_records.where(created_at: (started_at..ended_at)).sum(:amount)
     end
 
     # 未考核的收入记录
     def uncheck_earning_records
-      target.cash_account.earning_records.where(created_at: (@task.started_at..@task.ended_at)).where(assess_billing_id: nil)
+      target.cash_account.earning_records.where(created_at: (started_at..ended_at)).where(assess_billing_id: nil)
     end
 
     # 单个结算收入
@@ -90,6 +90,11 @@ module Payment
     def cal_ended_at
       return if started_at.blank? || period.blank?
       self.ended_at = (started_at + period.months - 1.days).end_of_day if started_at_changed? || period_changed?
+    end
+
+    before_validation :copy_charge_percentage
+    def copy_charge_percentage
+      self.charge_percentage = @target.platform_percentage
     end
 
     def check_task_time

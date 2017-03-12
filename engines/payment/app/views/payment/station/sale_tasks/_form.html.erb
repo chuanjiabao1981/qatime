@@ -8,21 +8,15 @@
       <% end %>
       <%= f.error :started_at %>
     </div>
-    <div class="form-group assess-cycle">
+    <div class="form-group">
       <%= f.label :period %>
       <%= f.text_field :period, class: 'form-control closed-at-attr' %>
       <span class="unit">月</span>
-      <span class="assess-cycle-hint">
-	      <i><%= Payment::SaleTask.human_attribute_name(:closed_at) %>: </i>
-	      <i id=""></i>
-      </span>
+      <!-- <span class="assess-cycle-hint"> -->
+	      <!-- <i><%#= Payment::SaleTask.human_attribute_name(:closed_at) %>: </i> -->
+	      <!-- <i id=""></i> -->
+      <!-- </span> -->
       <%= f.error :period %>
-    </div>
-    <div class="form-group">
-      <%= f.label :charge_percentage %>
-      <%= f.text_field :charge_percentage, class: 'form-control' %>
-      <span class="unit">%</span>
-      <%= f.error :charge_percentage %>
     </div>
     <div class="form-group assess-cycle">
       <%= f.label :target_balance %>
@@ -34,6 +28,11 @@
       </span>
       <%= f.error :target_balance %>
     </div>
+    <div class="form-group">
+      <%= f.label :charge_percentage %>
+      <%= number_to_percentage(@workstation.platform_percentage, precision: 0) %>
+    </div>
+
     <div class="workstation-submit">
       <center>
 	<%= link_to t('common.cancel'), payment.station_workstation_sale_tasks_path(@workstation), class: "btn btn-default" %>

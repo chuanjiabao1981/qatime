@@ -11,6 +11,11 @@ module Payment
     belongs_to :target, polymorphic: true # 交易对象
     belongs_to :owner, polymorphic: true
 
+    # 出账记录
+    scope :out_changes, -> { where("payment_change_records.different < 0") }
+    # 入账记录
+    scope :in_changes, -> { where("payment_change_records.different > 0") }
+
     private
 
     before_create :copy_relation

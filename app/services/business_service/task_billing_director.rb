@@ -3,11 +3,11 @@ module BusinessService
   class TaskBillingDirector
     def initialize(task)
       @task = task
-      @workstation = @task.owner
+      @workstation = @task.target
     end
 
-    # 课程结算
-    def billing
+    # 考核结算
+    def task_billing
       # 销售额
       @task.with_lock do
         @task.report

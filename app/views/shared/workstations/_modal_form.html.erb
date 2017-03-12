@@ -1,0 +1,35 @@
+<%= simple_form_for @withdraw, url: withdraw_station_workstation_path(workstation), html: {class: 'form-inline', remote: true} do |f| %>
+  <%= f.input :amount, label: false do %>
+    <%= f.label :amount, t('view.shared.workstations.fund_node.labels.amount') %>
+    <%= f.input_field :amount, as: :decimal, placeholder: t('view.shared.workstations.fund_node.placeholders.amount', price: workstation.available_account.try(:balance).to_f) %>
+    <span class="unit"><%= t('view.common.unit') %></span>
+  <% end %>
+
+  <%= f.input :payee, label: false, wrapper_html: {class: "payee-information"} do %>
+    <%= f.label :payee, t('view.shared.workstations.fund_node.labels.payee') %>
+    <%= f.input_field :payee, as: :text, placeholder: t('view.shared.workstations.fund_node.placeholders.payee'), rows: 3 %>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :captcha_confirmation, t('view.shared.workstations.fund_node.labels.captcha_confirmation'), class: 'captcha_confirmation_label' %>
+    <div class="input-group" style="display: inline-table;">
+      <input type="hidden" id="withdraw_send_mobile" value="<%= workstation.manager.try(:login_mobile) %>">
+      <%= f.input_field :captcha_confirmation, placeholder: t('view.shared.workstations.fund_node.placeholders.captcha_confirmation'), maxlength: 4 %>
+      <span class="input-group-btn">
+                    <input class="btn btn-default" id="btn-obtain" type="button"
+                           data-send-captcha-btn data-send-to-input="#withdraw_send_mobile"
+                           data-send-url="<%= ajax_captchas_path %>" data-key="withdraw_cash"
+                           value="<%= t('wap.users.new.get_captcha') %>">
+                  </span>
+      <span class="prompt-information"><%= t('view.shared.workstations.fund_node.hints.captcha_confirmation') %></span>
+    </div>
+    <%= f.error :captcha_confirmation %>
+  </div>
+
+  <div class="workstation-submit">
+    <center>
+      <a class="btn btn-default" href="#" role="button" data-dismiss="modal"><%= t('common.cancel') %></a>
+      <%= f.submit t('common.submit'), class: 'btn btn-default' %>
+    </center>
+  </div>
+<% end %>

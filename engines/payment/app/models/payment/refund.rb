@@ -11,10 +11,16 @@ module Payment
     has_many :weixin_refunds, as: :order
     has_one :refund_reason, foreign_key: 'payment_refund_apply_id', class_name: '::Payment::RefundReason'
     belongs_to :product, polymorphic: true
+    belongs_to :seller, polymorphic: true
     belongs_to :user
     belongs_to :order, foreign_key: 'transaction_no', primary_key: 'transaction_no', class_name: '::Payment::Order'
     scope :filter, ->(keyword){keyword.blank? ? nil : where('transaction_no ~* ?', keyword).presence ||
       where(user: User.where('name ~* ?',keyword).presence || User.where('login_mobile ~* ?',keyword))}
+
+    before_validation :set_seller, on: :create
+    def set_seller
+      self.seller = order.seller if order
+    end
 
     enum status: {
       init: 0,
@@ -70,6 +76,11 @@ module Payment
       event :fail do
         transitions from: [:submited], to: :failed
       end
+    end
+
+    # 销售收入增加额(分成利润)
+    def profit_amount
+      product.try(:calculate_sell_percentage).presence || 0.0
     end
 
     def status_text

@@ -4,16 +4,27 @@ module Payment
 
     has_one :withdraw_record, foreign_key: 'payment_transaction_id', class_name: 'Payment::WithdrawRecord'
     has_many :weixin_transfers, as: :order
+    belongs_to :owner, polymorphic: true
 
     enum status: %w(init allowed refused canceled paid)
-    enum pay_type: %w(cash bank alipay wechat)
+    enum pay_type: %w(cash bank alipay wechat station)
 
-    attr_accessor :account_money_snap_shot
-    validate :validate_withdraw_amount, :validate_wechat, on: :create
-    after_create :decrease_cash!
+    attr_accessor :account_money_snap_shot, :captcha
+    # 验证码验证
+    validates :captcha, confirmation: { case_sensitive: false , message: I18n.t('error.payment/withdraw.captcha_confirm')}, on: :create, if: :captcha_required?
+    validates :payee, presence: true, on: :create, if: Proc.new { |record| record.station? }
+    validates :amount, presence: true, numericality: { greater_than: 0 }, on: :create, if: Proc.new { |record| record.station? }
+    validate :amount_balance_valid, on: :create, if: Proc.new { |record| record.station? }
+
+    validate :validate_withdraw_amount, :validate_wechat, on: :create, unless: Proc.new { |record| record.station? }
+
+    # after_create :decrease_cash!
 
     scope :filter, ->(keyword){keyword.blank? ? nil : where('transaction_no ~* ?', keyword).presence ||
       where(user: User.where('name ~* ?',keyword).presence || User.where('login_mobile ~* ?',keyword))}
+
+    scope :is_close, -> { where(close: true) }
+    scope :not_close, -> { where(close: false) }
 
     aasm column: :status, enum: true do
       state :init, initial: true
@@ -39,8 +50,28 @@ module Payment
       end
     end
 
+    # 是否需要验证码
+    def captcha_required?
+      @captcha_required == true
+    end
+
+    # 手动强制调用验证码验证
+    def captcha_required!
+      @captcha_required = true
+      self
+    end
+
+    def can_close?
+      %w[refused canceled paid].include?(status)
+    end
+
     def status_text(role=nil)
-      role = role.present? && role == 'admin' ? 'admin' : 'teacher'
+      role = case role.to_s
+               when 'admin' then 'admin'
+               when 'station' then 'station'
+               else
+                 'teacher'
+             end
       I18n.t("activerecord.status.withdraw.#{role}.#{status}")
     end
 
@@ -60,12 +91,12 @@ module Payment
 
     # 创建提现记录以后直接扣除账户余额
     def decrease_cash!
-      AccountService::CashManager.new(user.cash_account!).decrease('Payment::WithdrawRecord', account, self)
+      AccountService::CashManager.new(user.cash_account!).decrease('Payment::WithdrawRecord', amount, self)
     end
 
     # 提现失败以后返还账户余额
     def refund_cash!
-      AccountService::CashManager.new(user.cash_account!).increase('Payment::WithdrawRefundRecord', account, self)
+      AccountService::CashManager.new(user.cash_account!).increase('Payment::WithdrawRefundRecord', amount, self)
     end
 
     def allow_operator(current_user)
@@ -119,6 +150,13 @@ module Payment
         end
       else
         self.errors.add(:value,"请输入数字")
+      end
+    end
+
+    # 余额校验
+    def amount_balance_valid
+      if self.owner.cash_account.balance.to_f < self.amount.to_f
+        errors.add(:amount, I18n.t("error.payment/withdraw.amount_overflow"))
       end
     end
 

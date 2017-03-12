@@ -58,7 +58,7 @@ module LiveStudio
 
     # 教师分成最大值
     def teacher_percentage_max
-      100 - target.publish_percentage - target.system_percentage
+      100 - target.publish_percentage - target.platform_percentage
     rescue
       100
     end

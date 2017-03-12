@@ -142,6 +142,11 @@ module Payment
       [product.try(:price).to_f - amount, 0.0].max
     end
 
+    # 销售收入增加额(分成利润)
+    def profit_amount
+      product.try(:calculate_sell_percentage).presence || 0.0
+    end
+
     # 订单状态
     def status_text
       I18n.t("activerecord.status.order.#{status}")

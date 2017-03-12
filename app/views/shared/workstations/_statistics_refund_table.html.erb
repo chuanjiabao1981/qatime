@@ -24,8 +24,8 @@
       <td><%= localize(refund.order.created_at, format: :long) %></td>
       <td><%= refund.user.try(:name) %></td>
       <td><%= refund.source_text %></td>
-      <td><%= refund.seller == refund.product.workstation ? t('view.common.yes') : t('view.common.no') %></td>
-      <td><%= number_to_currency(refund.product.calculate_sell_percentage, locale: :cn) %></td>
+      <td><%= refund.seller_id == refund.product.workstation_id ? t('view.common.yes') : t('view.common.no') %></td>
+      <td><%= number_to_currency(refund.profit_amount, locale: :cn) %></td>
     </tr>
   <% end %>
 </table>

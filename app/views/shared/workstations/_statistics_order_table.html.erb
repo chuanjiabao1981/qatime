@@ -24,8 +24,8 @@
       <td><%= localize(order.created_at, format: :long) %></td>
       <td><%= order.user.try(:name) %></td>
       <td><%= order.source_text %></td>
-      <td><%= order.seller == order.product.workstation ? t('view.common.yes') : t('view.common.no') %></td>
-      <td><%= number_to_currency(order.product.calculate_sell_percentage, locale: :cn) %></td>
+      <td><%= order.seller_id == order.product.workstation_id ? t('view.common.yes') : t('view.common.no') %></td>
+      <td><%= number_to_currency(order.profit_amount, locale: :cn) %></td>
     </tr>
   <% end %>
 </table>

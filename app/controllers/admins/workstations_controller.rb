@@ -79,10 +79,13 @@ class Admins::WorkstationsController < ApplicationController
   def statistics
     params[:genre] ||= 'order'
     params[:statistics_days] ||= Payment::Transaction.statistics_days.default_value
+    @refund_statistics = @workstation.refunds
+    @order_statistics = @workstation.orders
+
     if params[:genre] == 'refund'
-      @statistics = @workstation.refunds
+      @statistics = @refund_statistics
     else
-      @statistics = @workstation.orders
+      @statistics = @order_statistics
     end
 
     date_now = Date.today
@@ -130,7 +133,7 @@ class Admins::WorkstationsController < ApplicationController
     end
 
     # 明细数据
-    @statistics = @statistics.where(created_at: (@start_day..@end_day)).paginate(page: params[:page])
+    @statistics = @statistics.includes(:product, :user).where(created_at: (@start_day..@end_day)).paginate(page: params[:page])
 
     @x_cate = @dates.inject([]) { |r, v| r << v.strftime("%m-%d") }
     # 月份显示
@@ -138,7 +141,10 @@ class Admins::WorkstationsController < ApplicationController
     @series_data = @dates.inject([]) { |r, v| r << (@date_statistics.find{ |x| x.group_date.to_date == v }.try(:amount_sum).presence || 0) }
     # @x_cate = ['2-12', '2-13', '2-14', '2-15', '2-16', '2-17', '2-18']
     # @series_data = [0, 600, 300, 134, 90, 230, 200]
-    @sales_total = @series_data.sum
+    # 统计销售总额 销售总额-退款总额
+    @sales_total = @order_statistics.where(created_at: (@start_day..@end_day)).sum(:amount) - @refund_statistics.where(created_at: (@start_day..@end_day)).sum(:amount)
+    # 统计 预计销售收入额 销售收入增加-销售收入减少
+    @profit_total = @order_statistics.includes(:product).where(created_at: (@start_day..@end_day)).map(&:profit_amount).sum - @refund_statistics.includes(:product).where(created_at: (@start_day..@end_day)).map(&:profit_amount).sum
   end
 
   private

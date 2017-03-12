@@ -78,6 +78,11 @@ module Payment
       end
     end
 
+    # 销售收入增加额(分成利润)
+    def profit_amount
+      product.try(:calculate_sell_percentage).presence || 0.0
+    end
+
     def status_text
       I18n.t("enum.payment/refund.status.#{status}")
     end

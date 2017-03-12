@@ -25,7 +25,7 @@ cn:
           show_title: 站点设置
           fund_title: 资金信息
           change_records_title: 出入账记录
-          statistics_title: 销售统计
+          statistics_title: 销售额统计
         new:
           link_title: 新增工作站
         edit:

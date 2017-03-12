@@ -379,13 +379,13 @@ module LiveStudio
     end
 
     # 计算经销分成
-    def calculate_sell_percentage
-      self.price * (self.sell_percentage/100.0)
+    def sell_percentage_for(seller)
+      [(100 - teacher_percentage - sell_and_platform_percentage - seller.platform_percentage), 0].max
     end
 
     # 计算老师分成
     def calculate_teacher_percentage
-      self.price * (self.teacher_percentage/100.0)
+      price * (teacher_percentage / 100.0)
     end
 
     def coupon_price(coupon = nil)

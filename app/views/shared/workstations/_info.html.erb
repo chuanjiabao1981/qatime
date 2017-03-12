@@ -52,11 +52,6 @@
       <span><%= number_to_percentage(workstation.publish_percentage, precision: 0) %></span>
     </li>
     <li>
-      <span><%= t('view.shared.workstations.info.cross_percentage') %></span>
-      <span></span>
-      <i><%= t('view.shared.workstations.info.cross_percentage_hint') %></i>
-    </li>
-    <li>
       <span><%= t('view.shared.workstations.info.service_price') %></span>
       <span><%= t('view.shared.workstations.info.service_price_text', price: workstation.service_price.to_f) %></span>
     </li>

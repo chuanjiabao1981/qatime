@@ -110,7 +110,6 @@ class Station::WorkstationsController < Station::BaseController
     # @x_cate = ['2-12', '2-13', '2-14', '2-15', '2-16', '2-17', '2-18']
     # @series_data = [0, 600, 300, 134, 90, 230, 200]
     @sales_total = searchable.sales_total(@order_statistics, @refund_statistics)
-    @profit_total = searchable.profit_total(@order_statistics, @refund_statistics)
     @statistics = searchable.results.paginate(page: params[:page])
   end
 

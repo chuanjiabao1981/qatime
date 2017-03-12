@@ -8,8 +8,6 @@
     <td><%= t('view.shared.workstations.statistics.sale_at') %></td>
     <td><%= t('view.shared.workstations.statistics.user_name') %></td>
     <td><%= t('view.shared.workstations.statistics.source') %></td>
-    <td><%= t('view.shared.workstations.statistics.cross') %></td>
-    <td><%= t('view.shared.workstations.statistics.sale_decrement') %></td>
   </tr>
 
   <% @statistics.each_with_index do |refund, index| %>
@@ -24,8 +22,6 @@
       <td><%= localize(refund.order.created_at, format: :long) %></td>
       <td><%= refund.user.try(:name) %></td>
       <td><%= refund.source_text %></td>
-      <td><%= refund.seller_id == refund.product.workstation_id ? t('view.common.yes') : t('view.common.no') %></td>
-      <td><%= number_to_currency(refund.profit_amount, locale: :cn) %></td>
     </tr>
   <% end %>
 </table>

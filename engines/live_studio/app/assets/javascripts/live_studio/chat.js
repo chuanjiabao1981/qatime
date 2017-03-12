@@ -419,8 +419,9 @@ function messageTag(msg, fromType) {
       break;
     // 音频消息
     case 'audio':
+      var mp3Url = live_chat.nim.audioToMp3({url: msg.file.url});
       var audioNode = $('<p class="weixinAudio"></p>');
-      audioNode.append('<audio src="' + msg.file.url + '" class="media"></audio>');
+      audioNode.append('<audio src="' + mp3Url + '" class="media"></audio>');
       var audioSpan = '<span  class="db audio_area">';
       audioSpan = audioSpan + '<span class="audio_wrp db">';
       audioSpan = audioSpan + '<span class="audio_play_area">';

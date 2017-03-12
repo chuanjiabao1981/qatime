@@ -1,9 +1,11 @@
 <div class="admin-title">
   <div class="admin-title-left">
-    <%= link_to t('view.station.workstations.tab_node.show_title'), station_workstation_path(@workstation), class: "#{'active-admin' if 'station/workstations' == params[:controller]}"  %>
+    <%= link_to t('view.station.workstations.tab_node.show_title'), main_app.station_workstation_path(@workstation), class: "#{'active-admin' if 'station/workstations' == params[:controller]}"  %>
     <a href="">资金信息</a>
     <a href="">出入账记录</a>
     <a href="">销售统计</a>
-    <a href="">考核</a>
+    <%= link_to Payment::SaleTask.model_name.human,
+                payment.station_workstation_sale_tasks_path(@workstation),
+                class: "#{'active-admin' if 'payment/station/sale_tasks' == params[:controller]}" if allow?('payment/station/sale_tasks', 'index', @workstation) -%>
   </div>
 </div>

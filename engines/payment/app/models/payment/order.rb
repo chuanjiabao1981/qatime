@@ -28,6 +28,11 @@ module Payment
     CATE_PAID = %w(paid settled shipped completed refunding).freeze
     CATE_CANCELED = %w(canceled expired refunded).freeze
 
+    # 有效订单
+    # 成功支付就算有效订单
+    # 增加状态请修改这里
+    scope :valid_order, -> { where(status: statuses.slice(:paid, :settled, :shipped, :completed, :refunding, :refunded).values) }
+
     enum status: {
       unpaid: 0, # 未支付
       paid: 1, # 已支付

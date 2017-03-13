@@ -97,6 +97,9 @@ cn:
           different_money: 提现金额：
           beore_money: 提现前可提金额：
           after_money: 提现后可提金额：
+          different_money_in: 退回金额：
+          beore_money_in: 退回前可提金额：
+          after_money_in: 退回后可提现金额
         statistics:
           order_title: 售出记录
           refund_title: 退款记录

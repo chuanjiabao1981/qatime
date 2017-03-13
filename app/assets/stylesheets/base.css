@@ -135,8 +135,8 @@ a {
   float: left;
 }
 /*.date {
-  width: 23rem;
-}*/
+    	width: 23rem;
+    }*/
 .btn-search,.date {
   float: left;
 }
@@ -326,11 +326,11 @@ a {
   margin-right: 10px;
 }
 /*@font-face {font-family: 'iconfont';
-    src: url('../fonts/iconfont.eot');
-    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/iconfont.woff') format('woff'),
-    url('../fonts/iconfont.ttf') format('truetype'),
-    url('../fonts/iconfont.svg#iconfont') format('svg');
+    src: url('../fonts/iconfont.eot'); 
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), 
+    url('../fonts/iconfont.woff') format('woff'), 
+    url('../fonts/iconfont.ttf') format('truetype'), 
+    url('../fonts/iconfont.svg#iconfont') format('svg'); 
 }
 .iconfont{
     font-family:"iconfont" !important;
@@ -2528,7 +2528,7 @@ i {
   cursor: pointer;
 }
 /*.list-sort-1 a, .list-course-1 a, .list-grade-1 a, .list-state-1 a, .class-msg a {
-  color: #000000;
+	color: #000000;
 }*/
 .list-headline {
   width: 80px;
@@ -2784,7 +2784,7 @@ i {
 
 /*教师个人主页*/
 /*.tec-homepage {
-  margin-top: 10px;
+	margin-top: 10px;
 }*/
 .homepage-title,.homepage-live-title {
   height: 40px;
@@ -2868,12 +2868,12 @@ i {
   margin-right: 0px !important;
 }
 /*.dl-list-1 {
-  margin-top: 10px;
+	margin-top: 10px;
 }
 .dl-list-1:first-child {
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }*/
 .homepage-elscon {
   width: 100%;
@@ -4105,15 +4105,15 @@ ul {
 }
 
 /*.admin-list-con table tr td:first-child span {
-  display: inline-block;
-  width: 150px;
-  text-align: left;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+	display: inline-block;
+	width: 150px;
+	text-align: left;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }*/
 /*.admin-list-con table tr td a {
-  color: #666;
+	color: #666;
 }*/
 .admin-list-con table tr td:last-child a {
   color: #999;
@@ -4878,8 +4878,8 @@ ul {
   overflow: hidden;
 }
 /*.modal-avatar img {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }*/
 
 
@@ -5515,7 +5515,7 @@ ul {
 }
 .login-other span {
   display: inline-block;
-  margin: 0 8.5px;
+  margin: 0 8px;
   color: #333333;
 }
 .login-other img {
@@ -8970,7 +8970,7 @@ ul {
   color: red;
 }
 @media only screen and (max-width: 1200px) {
-  .new-assess .form-group label {
+  .new-assess .form-group label	{
     text-align: left;
   }
   .new-assess .form-group input {
@@ -9045,4 +9045,123 @@ ul {
 }
 .admin-audit table tr td span {
   display: block;
+}
+.admin-transfer h4 {
+  margin: 20px 0;
+}
+.admin-transfer .form-inline .form-group .has-error {
+  height: 20px;
+  margin: 0px;
+}
+.admin-transfer .form-inline .form-group input[type='text'] {
+  width: 176px;
+  border-radius: 0px;
+}
+.admin-transfer .form-inline .form-group label {
+  margin-right: 20px;
+  font-weight: 500;
+}
+.form-paragraph {
+  margin: 0 80px;
+}
+.admin-transfer .form-inline .form-group .form-control[readonly]{
+  background-color: #FFFFFF
+}
+.admin-transfer .form-inline .form-group .has-error {
+  margin-left: 80px;
+}
+.admin-transfer .form-inline .form-paragraph .has-error {
+  margin-left: 65px;
+}
+.form-img {
+  position: relative;
+  width: 89px;
+  height: 83px;
+  background-color: #f2f2f2;
+}
+.form-img span {
+  position: absolute;
+  display: inline-block;
+  width: 30px;
+  left: 50%;
+  top: 50%;
+  margin-left: -15px;
+  margin-top: -20px;
+  color: #FFFFFF;
+}
+.form-img img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 10;
+  width: 100%;
+  height: 100%;
+}
+.form-prove label {
+  margin-right: 25px !important;
+}
+.form-prove label,.form-prove .form-upload {
+  float: left;
+}
+.form-prove .has-error {
+  clear: both;
+}
+.form-upload {
+  position: relative;
+}
+.form-upload a {
+  position: absolute;
+  left: 89px;
+  bottom: -10px;
+}
+.admin-transfer .workstation-submit a,.admin-transfer .workstation-submit input {
+  width: 120px;
+  height: 30px;
+  line-height: 30px;
+}
+@media only screen  and (max-width: 1200px) {
+  .form-paragraph {
+    margin: 0px;
+  }
+  .admin-transfer .form-inline .form-group,.admin-transfer .form-inline .form-group input[type='text'] {
+    width: 100%;
+  }
+  .form-prove label,.form-prove .form-upload {
+    float: none;
+  }
+  .admin-transfer .form-inline .form-group .has-error {
+    margin-left: 0px;
+  }
+}
+
+/*已转款*/
+.admin-paragraph-msg table tr td {
+  text-align: left;
+  height: 55px;
+  padding-left: 10px;
+  background-color: #F2F2F2;
+}
+.admin-paragraph-msg table tr td img {
+  width: 152px;
+  height: 139px;
+}
+.admin-paragraph-msg table tr td span {
+  display: inline-block;
+}
+.paragraph-prove span{
+  position: relative;
+  top: -55px;
+}
+.paragraph-prove i {
+  color: #999999;
+  position: relative;
+  top: 50px;
+}
+.admin-paragraph-msg {
+  display: none;
+}
+@media only screen and (max-width: 540px) {
+  .paragraph-prove span,.paragraph-prove i {
+    top: 0px;
+  }
 }

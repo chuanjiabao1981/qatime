@@ -2,73 +2,22 @@
 <tr>
   <td><%= show_index(index, @change_records.limit_value) %></td>
   <td><%= number_to_currency(change_record.different, locale: :cn) %></td>
-  <td><%= change_record.model_name.human %></td>
+  <td><%= change_record.business.try(:model_name).try(:human) %></td>
   <td><%= number_to_currency(change_record.after, locale: :cn) %></td>
   <td>
-    <%= link_to change_record.target.try(:name), live_studio.course_path(change_record.target || 0) %>
+    <% if change_record.target_type == 'Payment::Course' %>
+      <%= link_to change_record.target.try(:name), live_studio.course_path(change_record.target || 0) %>
+    <% else %>
+      <%= change_record.target.try(:name) %>
+    <% end %>
   </td>
   <td><%= localize(change_record.created_at, format: :long) %></td>
   <td>
-    <a href="javascript:void(0);" class="view-msg">
+    <%= link_to get_billing_item_station_workstation_path(@workstation, change_record_id: change_record.id), class: "pointer billing_item change_record_#{change_record.id}", data: {change_record_id: change_record.id} do %>
       <span><%= t('view.shared.workstations.change_records.show_link') %></span>
       <i class="fa fa-angle-down"></i>
-    </a>
+    <% end %>
   </td>
 </tr>
 
-<tr class="admin-record-msg">
-  <td colspan="7">
-    <table border="0" cellspacing="0" cellpadding="0">
-      <tbody><tr>
-        <td>
-          <span>课程单价：</span>
-          <span><%= number_to_currency(change_record.target.try(:current_price), locale: :cn) %></span>
-        </td>
-        <td>
-          <span>服务时长：</span>
-          <span>3分23秒</span>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <span>服务费标准：</span>
-          <span><%= LiveStudio::Course.human_attribute_name(:base_price_clt, price: change_record.target.try(:base_price).to_f*60) %></span>
-        </td>
-        <td>
-          <span>服务费扣除：</span>
-          <span>￥32.00</span>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <span>教师分成：</span>
-          <span><%= number_to_percentage(change_record.target.try(:teacher_percentage), precision: 0) %></span>
-        </td>
-        <td>
-          <span>教师收入：</span>
-          <span>￥2002.00</span>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <span>平台分成：</span>
-          <span>X%</span>
-        </td>
-        <td>
-          <span>平台收入：</span>
-          <span>￥2002.00</span>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <span>工作站分成（发行）：</span>
-          <span>X%</span>
-        </td>
-        <td>
-          <span>工作站收入（发行）</span>
-          <span>￥270.00</span>
-        </td>
-      </tr>
-      </tbody></table>
-  </td>
-</tr>
+<tr class="admin-record-msg" id="change_record_tr_<%= change_record.id %>"></tr>

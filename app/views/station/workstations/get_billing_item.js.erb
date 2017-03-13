@@ -1,0 +1,12 @@
+
+<% if @change_record.business.type == 'Payment::Withdraw' %>
+  $('#change_record_tr_<%= change_record.id %>').html('<%= j render partial: 'shared/workstations/change_record_td_withdraw' %>');
+<% end %>
+
+<% if @change_record.business.type == 'Payment::BillingItem' %>
+  $('#change_record_tr_<%= change_record.id %>').html('<%= j render partial: 'shared/workstations/change_record_td_billing_item' %>');
+<% end %>
+
+<% if @change_record.business.type == 'Payment::Billing' %>
+  $('#change_record_tr_<%= change_record.id %>').html('<%= j render partial: 'shared/workstations/change_record_td_billing' %>');
+<% end %>

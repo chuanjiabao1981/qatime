@@ -119,6 +119,7 @@ Qatime::Application.routes.draw do
         post :close_withdraw
         get :change_records
         get :statistics
+        post :get_billing_item
       end
       resources :sellers, except: [:index]
       resources :waiters, except: [:index]

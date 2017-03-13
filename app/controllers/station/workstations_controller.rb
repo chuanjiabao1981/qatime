@@ -1,5 +1,5 @@
 class Station::WorkstationsController < Station::BaseController
-  skip_before_action :authorize, only: [:close_withdraw]
+  skip_before_action :authorize, only: [:close_withdraw, :get_billing_item]
   before_action :set_city
 
   def customized_courses
@@ -81,11 +81,28 @@ class Station::WorkstationsController < Station::BaseController
   def change_records
     params[:from] ||= 'out'
     if params[:from] == 'in'
-      @change_records = Payment::ChangeRecord.in_changes
+      @change_records = @workstation.cash_account.change_records.in_changes.where(type: ['Payment::EarningRecord', 'Payment::WithdrawRefundRecord'])
     else
-      @change_records = Payment::ChangeRecord.out_changes.where(type: ['Payment::WithdrawChangeRecord'])
+      @change_records = @workstation.cash_account.change_records.out_changes.where(type: ['Payment::WithdrawRecord', 'Payment::SaleTaskPayRecord'])
     end
     @change_records = @change_records.paginate(page: params[:page])
+  end
+
+  # 1. 辅导班结账收入 business_type: Payment::BillingItem
+  # 2. 专属课程结账收入 business_type: Payment::Billing
+  # 3. 提现失败退款 business_type: Payment::Withdraw
+  def get_billing_item
+    @change_record = Payment::ChangeRecord.find(params[:change_record_id])
+    business_type = @change_record.business.type
+
+    if business_type == 'Payment::BillingItem'
+      @billing_items = @change_record.business.billing.billing_items
+    end
+
+    if business_type == 'Payment::Billing'
+      @billing_items = @change_record.business
+    end
+
   end
 
   # 销售统计

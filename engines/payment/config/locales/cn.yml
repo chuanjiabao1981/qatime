@@ -84,11 +84,13 @@ cn:
     models:
       payment/order: 订单
       payment/change_record: 资金流水
+      payment/sale_task_pay_record: 考核扣款
       payment/consumption_record: 消费记录
       payment/earning_record: 收入记录
       payment/billing: 结算记录
       payment/recharge: 充值记录
       payment/withdraw: 提现记录
+      payment/withdraw_record: 提现
       payment/cash_account: 资金账户
       payment/refund_apply: 退款申请
       payment/refund: 退款

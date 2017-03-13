@@ -1,0 +1,73 @@
+<td colspan="7">
+  <input type="hidden" id="ajax_complete_<%= @change_record.id %>" />
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tbody><tr>
+      <% if @change_record.billing.is_a?(Payment::LiveCourseTicketBilling) %>
+        <td>
+          <span><%= LiveStudio::Course.human_attribute_name(:billing_price) %>：</span>
+          <span><%= number_to_currency(@change_record.billing.try(:lesson_price)) %></span>
+        </td>
+      <% else %>
+        <td>
+          <span><%= LiveStudio::Course.human_attribute_name(:billing_amount) %>：</span>
+          <span><%= number_to_currency(@change_record.billing.total_money) %></span>
+        </td>
+      <% end %>
+      <td>
+        <span><%= LiveStudio::Course.human_attribute_name(:billing_duration) %>：</span>
+        <span><%= second_to_minutes(@change_record.target.real_time)  %></span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span><%= LiveStudio::Course.human_attribute_name(:billing_system_price) %>：</span>
+        <span><%= number_to_currency @change_record.billing.base_price, locale: :cn, unit: "￥", precision: 2  %></span>
+      </td>
+      <td>
+        <span><%= LiveStudio::Course.human_attribute_name(:billing_system_fee) %>：</span>
+        <span><%= number_to_currency @change_record.billing.base_fee, locale: :cn, unit: "￥", precision: 2 %></span></td>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span><%= LiveStudio::Course.human_attribute_name(:billing_teacher_percent) %>：</span>
+        <span><%= number_to_percentage @change_record.billing.teacher_percentage, precision: 0 %></span></td>
+      </td>
+      <td>
+        <span><%= LiveStudio::Course.human_attribute_name(:billing_teacher_amount) %>：</span>
+        <span><%= number_to_currency @change_record.billing.teacher_money, locale: :cn, unit: "￥", precision: 2 %></span></td>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span><%= LiveStudio::Course.human_attribute_name(:billing_platform_percent) %>：</span>
+        <span><%= number_to_percentage @change_record.billing.platform_percentage, precision: 0 %></span></td>
+      </td>
+      <td>
+        <span><%= LiveStudio::Course.human_attribute_name(:billing_platform_amount) %>：</span>
+        <span><%= number_to_currency @change_record.billing.platform_money, locale: :cn, unit: "￥", precision: 2 %></span></td>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span><%= LiveStudio::Course.human_attribute_name(:billing_publish_percent) %>：</span>
+        <span><%= number_to_percentage @change_record.billing.publish_percentage, precision: 0 %></span></td>
+      </td>
+      <td>
+        <span><%= LiveStudio::Course.human_attribute_name(:billing_publish_amount) %>：</span>
+        <span><%= number_to_currency @change_record.billing.publish_money, locale: :cn, unit: "￥", precision: 2 %></span></td>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span><%= LiveStudio::Course.human_attribute_name(:billing_sell_percent) %>：</span>
+        <span><%= number_to_percentage @change_record.billing.sell_percentage, precision: 0 %></span></td>
+      </td>
+      <td>
+        <span><%= LiveStudio::Course.human_attribute_name(:billing_sell_amount) %>：</span>
+        <span><%= number_to_currency @change_record.billing.sell_money, locale: :cn, unit: "￥", precision: 2 %></span></td>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</td>

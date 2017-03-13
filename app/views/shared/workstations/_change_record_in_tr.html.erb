@@ -2,7 +2,7 @@
 <tr>
   <td><%= show_index(index, @change_records.limit_value) %></td>
   <td><%= number_to_currency(change_record.different, locale: :cn) %></td>
-  <td><%= change_record.business.try(:model_name).try(:human) %></td>
+  <td><%= change_record.target.try(:model_name).try(:human) %></td>
   <td><%= number_to_currency(change_record.after, locale: :cn) %></td>
   <td>
     <% if change_record.target_type == 'Payment::Course' %>

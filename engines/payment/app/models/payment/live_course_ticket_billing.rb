@@ -2,6 +2,10 @@ module Payment
   class LiveCourseTicketBilling < Billing
     belongs_to :ticket, polymorphic: true
 
+    def lesson_price
+      ticket.lesson_price
+    end
+
     # 计算总金额
     def calculate
       self.total_money = ticket.lesson_price
@@ -10,6 +14,10 @@ module Payment
     # 系统服务费
     def base_fee
       @base_fee ||= [target.base_price * target.duration_minutes, total_money].min.round(2)
+    end
+
+    def base_price
+      @base_price ||= target.base_price
     end
 
     # 分成金额
@@ -22,19 +30,13 @@ module Payment
       @teacher_money ||= (percent_money * teacher_proportion).round(2)
     end
 
+    def teacher_percentage
+      @teacher_percentage ||= target.teacher_percentage
+    end
+
     # 经销商分成收入
     def sell_money
       @sell_money ||= (percent_money * sell_proportion).round(2)
-    end
-
-    # 平台分成收入
-    def platform_money
-      @platform_money ||= percent_money - teacher_money - publish_money - sell_money
-    end
-
-    # 发行商分成收入
-    def publish_money
-      @publish_money ||= (percent_money * publish_proportion).round(2)
     end
 
     # 销售经销商分成百分比
@@ -42,10 +44,24 @@ module Payment
       ticket.sell_percentage
     end
 
+    # 平台分成收入
+    def platform_money
+      @platform_money ||= percent_money - teacher_money - publish_money - sell_money
+    end
+
     # 跨区销售分成百分比
     # 不能大于销售分成比例
     def platform_percentage
       ticket.platform_percentage
+    end
+
+    # 发行商分成收入
+    def publish_money
+      @publish_money ||= (percent_money * publish_proportion).round(2)
+    end
+
+    def publish_percentage
+      @publish_percentage ||= target.publish_percentage
     end
 
     private

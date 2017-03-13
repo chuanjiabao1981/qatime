@@ -70,7 +70,7 @@ class Admins::WorkstationsController < ApplicationController
     if params[:form] == 'in'
       @change_records = Payment::ChangeRecord.in_changes
     else
-      @change_records = Payment::ChangeRecord.out_changes.where(type: ['Payment::WithdrawRecord'])
+      @change_records = Payment::ChangeRecord.out_changes.where(type: ['Payment::WithdrawChangeRecord'])
     end
     @change_records = @change_records.paginate(page: params[:page])
   end

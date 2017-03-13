@@ -7,6 +7,32 @@ module ApplicationHelper
     (params[:page].to_i - 1) * per.to_i + index + 1
   end
 
+  def echart(html_id, opts = {}, html_options = {})
+    chart = javascript_tag("
+      $(function () {
+        var myChart = echarts.init(document.getElementById('#{html_id}'));
+        myChart.setOption(#{opts.to_json.html_safe.gsub('=>',': ').gsub("\"[", '[').gsub("]\"", ']')});
+        window.onresize = myChart.resize;
+      }); ") + content_tag(:div, nil, {id: html_id}.merge(html_options))
+    chart
+  end
+
+  # 简单线性图
+  def echarts_line(dom_id, options = {}, html_options = {})
+    opts = {
+        tooltip: { trigger: 'axis' },
+        grid: { left: '1%', right: '5%', bottom: '3%', containLabel: true }
+    }
+
+    os = opts.merge(options)
+    os[:tooltip] = opts[:tooltip].merge(options[:tooltip]) if options[:tooltip]
+    if os[:series]
+      os[:series] = [os[:series].merge({type: 'line'})] if os[:series].is_a?(Hash)
+      os[:series] = os[:series].map {|h| h.merge({type: 'line'}) } if os[:series].is_a?(Array)
+    end
+    echart(dom_id, os, html_options)
+  end
+
   # 截取字符长度,中英文兼容
   def truncate_u(text, options = {})
     opts = { :length => 30, :omission => '...' }

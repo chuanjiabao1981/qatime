@@ -10,12 +10,17 @@ module Payment
     has_many :recharge_records
     has_many :withdraw_records
     has_many :refund_records
+    has_many :earning_records
 
     attr_accessor :create_or_update_password, :current_password, :ticket_token
 
     validates :owner, presence: true
 
     has_secure_password validations: false
+
+    def available_balance
+      balance
+    end
 
     # 验证token
     def validate_ticket_token(cate, token, object)
@@ -25,6 +30,11 @@ module Payment
     # 是否设置了支付密码, 用户接口
     def password?
       password_digest.present?
+    end
+
+    # 资金余额
+    def balance_left_over
+      [self.balance.to_f - self.deposit_balance.to_f, 0.0].max
     end
 
     # 使用支付密码更新

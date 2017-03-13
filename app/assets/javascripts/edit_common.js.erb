@@ -30,7 +30,7 @@ $(document).ready(function(){
     $($form).submit()
   });
 
-  $('input[data-send-captcha-btn]').on('click',function(event){
+  $(document).on('click', 'input[data-send-captcha-btn]',function(event){
 
     var $node = $(event.target)
     var send = this

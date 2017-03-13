@@ -254,6 +254,12 @@ cn:
           allowed: 已通过
           refused: 已驳回
           canceled: 用户取消
+        station:
+          init: 等待审核
+          allowed: 等待转款
+          refused: 提现被拒
+          paid: 已转款
+          canceled: 提现取消
       withdraw_record:
         unpaid: 未付款
         paid: 已付款
@@ -274,3 +280,6 @@ cn:
       coupon_code_invalid: 优惠码不存在
     payment/cash_account:
       balance_not_enough: 可用余额不足
+    payment/withdraw:
+      captcha_confirm: 校验码不正确
+      amount_overflow: 余额不足，无法提取!

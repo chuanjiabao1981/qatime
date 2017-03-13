@@ -21,6 +21,7 @@ cn:
       workstations:
         tab:
           index_title: 工作站列表
+          withdraw_title: 工作站提现审核
         tab_node:
           show_title: 站点设置
           fund_title: 资金信息
@@ -52,6 +53,22 @@ cn:
           contract_start_date_at_label: "<abbr title='required'>*</abbr>合作有效期:"
           contract_start_date_at: 选择开始日期（年月日）
           contract_end_date_at: 选择结束日期（年月日）
+      workstation_withdraws:
+        search:
+          audit: 已审核
+          no_audit: 未审核
+          key_placeholer: 请输入编号/姓名/电话/工作站
+        amount: 提现金额
+        allow: 通过
+        refuse: 驳回
+        user: 提现人
+        workstation: 所属工作站
+        transaction_no: 编号
+        payee: 提现到
+        created_at: 申请时间
+        no_audit_title: 审核结果
+        sure_audit: 确定审核通过么?
+        sure_refuse: 确定驳回么?
 
     station:
       workstations:

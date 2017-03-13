@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
 
   before_action :authorize
   before_action :set_city
+  before_action :init_params_search
 
   delegate :allow?, to: :current_permission
   helper_method :allow?
@@ -15,6 +16,10 @@ class ApplicationController < ActionController::Base
   delegate :allow_param?, to: :current_permission
   helper_method :allow_param?
   layout :current_user_layout
+
+  def init_params_search
+    params[:q] ||= {}
+  end
 
   protected
 

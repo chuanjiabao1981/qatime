@@ -4,7 +4,7 @@
     <td><%= number_to_currency(earning_record.amount, locale: :cn, unit: "￥", precision: 2) %></td>
     <td><%= localize(earning_record.created_at, format: :long) %></td>
     <td><%= link_to earning_record.target.name, live_studio.course_path(earning_record.target.course_id) %></td>
-    <td><%= earning_record.billing.from_user.try(&:name) %>(<%= earning_record.billing.from_user.try(&:login_mobile) %>)</td>
+    <td><%= earning_record.target.teacher.try(&:name) %>(<%= earning_record.target.teacher.try(&:login_mobile) %>)</td>
     <td><%= LiveStudio::Course.model_name.human %></td>
     <td>
       <a href="javascript:void(0);" class="view-msg">
@@ -18,12 +18,12 @@
     <td colspan="7">
       <table border="0" cellspacing="0" cellpadding="0">
         <tbody>
-          <% system_fee_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::SystemFeeItem } %>
-          <% teacher_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::TeacherMoneyItem } %>
-          <% percent_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::PercentItem } %>
-          <% system_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::SystemPercentItem } %>
-          <% workstation_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::WorkstationPercentItem } %>
-          <% sell_item = earning_record.billing.billing_items.find {|item| item.is_a? Payment::SellPercentItem } %>
+          <% system_fee_item = earning_record.business.billing.billing_items.find {|item| item.is_a? Payment::SystemFeeItem } %>
+          <% teacher_item = earning_record.business.billing.billing_items.find {|item| item.is_a? Payment::TeacherMoneyItem } %>
+          <% percent_item = earning_record.business.billing.billing_items.find {|item| item.is_a? Payment::PercentItem } %>
+          <% system_item = earning_record.business.billing.billing_items.find {|item| item.is_a? Payment::SystemPercentItem } %>
+          <% workstation_item = earning_record.business.billing.billing_items.find {|item| item.is_a? Payment::WorkstationPercentItem } %>
+          <% sell_item = earning_record.business.billing.billing_items.find {|item| item.is_a? Payment::SellPercentItem } %>
           <% if system_fee_item -%>
           <tr>
             <td>
@@ -97,7 +97,7 @@
       <%= feeble_link(earning_record.target, text: earning_record.target.title) if earning_record.target.is_a?(CustomizedTutorial)  %>
       <%= feeble_link(earning_record.target, text: earning_record.target.try(:customized_tutorial).try(:title)) unless earning_record.target.is_a?(CustomizedTutorial)  %>
     </td>
-    <td><%= earning_record.billing.from_user.try(&:name) %>(<%= earning_record.billing.from_user.try(&:login_mobile) %>)</td>
+    <td><%= earning_record.business.from_user.try(&:name) %>(<%= earning_record.business.from_user.try(&:login_mobile) %>)</td>
     <td><%= earning_record.target.model_name.human %></td>
     <td>
       <a href="javascript:void(0);" class="view-msg">

@@ -9,14 +9,14 @@ module Payment
     end
 
     def earning_records
-      @earning_records = @cash_account.earning_records.includes(:billing)
+      @earning_records = @cash_account.earning_records
       @earning_records = query_by_date(@earning_records)
       unless params[:q].blank?
         @from_user = User.where("login_mobile = ? or name = ?", params[:q], params[:q]).last
         @earning_records = @from_user.nil? ? @earning_records.where(id: nil) : @earning_records.where(payment_billings: { from_user_id: @from_user.id })
       end
       @amount = @earning_records.sum(:amount)
-      @earning_records = @earning_records.includes(billing: [:from_user, :billing_items]).order(id: :desc).paginate(page: params[:page])
+      @earning_records = @earning_records.order(id: :desc).paginate(page: params[:page])
     end
 
     def withdraws

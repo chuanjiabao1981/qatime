@@ -6,9 +6,9 @@ module LiveServiceTest
     # 单个学生结账
     # 视频时长 30分钟
     # 教师分成 50%
-    # 经销商分成 30%
     # 发行商分成 10%
-    # 系统分成 10%
+    # 经销商分成 30%
+    # 平台分成 10%
     test 'test billing a ticket' do
       @publish_account = workstations(:workstation_one).cash_account
       @teacher_account = users(:teacher1).cash_account
@@ -19,7 +19,7 @@ module LiveServiceTest
       ticket = live_studio_tickets(:ticket_one_of_billing_course_one)
       ticket_item = ticket.ticket_items.find_by(lesson_id: lesson.id)
       director = BusinessService::CourseBillingDirector.new(lesson)
-      assert_difference "Payment::BillingItem.count", 6, '账单条目数量不正确' do
+      assert_difference "Payment::BillingItem.count", 5, '账单条目数量不正确' do
         assert_difference "@system_account.reload.balance.to_f", -42.3, "系统收入不正确" do
           assert_difference "@publish_account.reload.balance.to_f", 4.7, "发行商收入不正确" do
             assert_difference "@sell_account.reload.balance.to_f", 14.1, "经销商收入不正确" do
@@ -72,7 +72,7 @@ module LiveServiceTest
       ticket_item = ticket.ticket_items.find_by(lesson_id: lesson.id)
 
       director = BusinessService::CourseBillingDirector.new(lesson)
-      assert_difference "Payment::BillingItem.count", 6, '账单条目数量不正确' do
+      assert_difference "Payment::BillingItem.count", 5, '账单条目数量不正确' do
         assert_difference "@system_account.reload.balance.to_f", -42.3, "系统收入不正确" do
           assert_difference "@publish_account.reload.balance.to_f", 4.7, "发行商收入不正确" do
             assert_difference "@sell_account.reload.balance.to_f", 14.1, "销售佣金没有正确进入默认工作站" do
@@ -115,9 +115,11 @@ module LiveServiceTest
     # @sell3_account 1个学生
     # @sell4_account 1个学生(直接购买)
     # 教师分成 45%
-    # 销售分成 35%
     # 发行分成 15%
-    # 系统分成 5%
+    # 销售1分成 30% 10%
+    # 销售2分成 20% 20%
+    # 销售3分成 25% 15%
+    # 销售4分成 30% 10%
     # 价格 60
     test 'test billing' do
       @publish_account = workstations(:workstation_one).cash_account # 发行商
@@ -133,12 +135,12 @@ module LiveServiceTest
 
       assert_difference "Payment::LiveCourseBilling.count", 1, "总账单创建失败" do
         assert_difference "Payment::LiveCourseTicketBilling.count", 7, '结账数量不正确' do
-          assert_difference "@system_account.reload.balance.to_f", -332.5, "系统收入不正确" do
+          assert_difference "@system_account.reload.balance.to_f", -302.5, "系统收入不正确" do
             assert_difference "@publish_account.reload.balance.to_f", 52.5, "发行商收入不正确" do
-              assert_difference "@sell1_account.reload.balance.to_f", 52.5, "经销商1收入不正确" do
-                assert_difference "@sell2_account.reload.balance.to_f", 35.0, "经销商2收入不正确" do
-                  assert_difference "@sell3_account.reload.balance.to_f", 17.5, "经销商3收入不正确" do
-                    assert_difference "@sell4_account.reload.balance.to_f", 17.5, "默认工作站收入不正确" do
+              assert_difference "@sell1_account.reload.balance.to_f", 45, "经销商1收入不正确" do
+                assert_difference "@sell2_account.reload.balance.to_f", 20.0, "经销商2收入不正确" do
+                  assert_difference "@sell3_account.reload.balance.to_f", 12.5, "经销商3收入不正确" do
+                    assert_difference "@sell4_account.reload.balance.to_f", 15, "默认工作站收入不正确" do
                       assert_difference "@teacher_account.reload.balance.to_f", 157.5, "教师收入不正确" do
                         director.billing_lesson
                       end
@@ -165,18 +167,17 @@ module LiveServiceTest
     # @sell3_account 1个学生(直接购买)
     # 教师分成 35
     # 发行收入 10
-    # 销售分成 45 = 55 - 10
-    # 跨区服务分成 10
-    # 系统分成 0
+    # 销售1分成 45 = 55 - 10
+    # 销售2分成 35 = 55 - 20
+    # 销售3分成 40 = 55 - 15
     # 总金额 50 * 3 = 150
     # 系统服务费 3 * 0.1 * 90 = 27
     # 教师佣金 (150 - 27) * 0.35 = 43.05
     # 发行佣金 (150 - 27) * 0.1 = 12.3
-    # @sell1_account销售佣金 (50 - 9) * 0.55 = 22.55
-    # @sell2_account销售佣金 (50 - 9) * (0.55 - 0.1) = 18.45
-    # @sell3_account销售佣金 (50 - 9) * 0.55 = 22.55
-    # 跨区服务分成 (50 - 9) * 0.1 = 4.1
-    test 'test cross region sell billing' do
+    # @sell1_account销售佣金 (50 - 9) * 0.45 = 18.45
+    # @sell2_account销售佣金 (50 - 9) * (0.55 - 0.2) = 14.35
+    # @sell3_account销售佣金 (50 - 9) * (0.55 - 0.15) = 16.4
+    test 'test multipul platform percentage sell billing' do
       @publish_account = workstations(:workstation_one).cash_account # 发行商
       @sell2_account = workstations(:workstation_zhuji).cash_account # 跨区销售
       @sell3_account = Workstation.default.cash_account # 直接购买
@@ -188,10 +189,10 @@ module LiveServiceTest
 
       assert_difference "Payment::LiveCourseBilling.count", 1, "总账单创建失败" do
         assert_difference "Payment::LiveCourseTicketBilling.count", 3, '结账数量不正确' do
-          assert_difference "@system_account.reload.balance.to_f", -118.9, "系统收入不正确" do
-            assert_difference "@publish_account.reload.balance.to_f", 34.85, "发行商收入不正确" do
-              assert_difference "@sell2_account.reload.balance.to_f", 18.45, "经销商2收入不正确" do
-                assert_difference "@sell3_account.reload.balance.to_f", 22.55, "默认工作站收入不正确" do
+          assert_difference "@system_account.reload.balance.to_f", -104.55, "系统收入不正确" do
+            assert_difference "@publish_account.reload.balance.to_f", 30.75, "发行商收入不正确" do
+              assert_difference "@sell2_account.reload.balance.to_f", 14.35, "经销商2收入不正确" do
+                assert_difference "@sell3_account.reload.balance.to_f", 16.4, "默认工作站收入不正确" do
                   assert_difference "@teacher_account.reload.balance.to_f", 43.05, "教师收入不正确" do
                     director.billing_lesson
                   end

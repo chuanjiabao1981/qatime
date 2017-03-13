@@ -239,6 +239,8 @@ ticket_one_of_billing_course_one:
   lesson_price: 50
   type: LiveStudio::BuyTicket
   seller: workstation1 (Workstation)
+  sell_percentage: 30
+  platform_percentage: 10
 
 ticket_three_of_billing_course_one:
   student: student_with_order3
@@ -246,6 +248,8 @@ ticket_three_of_billing_course_one:
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
+  sell_percentage: 30
+  platform_percentage: 10
 
 ticket_four_of_billing_course_one:
   student: student_with_order3
@@ -253,6 +257,8 @@ ticket_four_of_billing_course_one:
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
+  sell_percentage: 30
+  platform_percentage: 10
 
 ticket_of_billing_fail_course_one:
   student: student_with_order3
@@ -260,6 +266,8 @@ ticket_of_billing_fail_course_one:
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
+  sell_percentage: 50
+  platform_percentage: 50
 
 
 ticket_one_of_billing_course_two:
@@ -269,6 +277,8 @@ ticket_one_of_billing_course_two:
   lesson_price: 60
   type: LiveStudio::BuyTicket
   seller: workstation1 (Workstation)
+  sell_percentage: 30
+  platform_percentage: 10
 
 ticket_two_of_billing_course_two:
   student: student1
@@ -277,6 +287,8 @@ ticket_two_of_billing_course_two:
   lesson_price: 60
   type: LiveStudio::BuyTicket
   seller: workstation1 (Workstation)
+  sell_percentage: 30
+  platform_percentage: 10
 
 ticket_three_of_billing_course_two:
   student: student1
@@ -285,6 +297,8 @@ ticket_three_of_billing_course_two:
   lesson_price: 60
   type: LiveStudio::BuyTicket
   seller: workstation1 (Workstation)
+  sell_percentage: 30
+  platform_percentage: 10
 
 ticket_four_of_billing_course_two:
   student: student1
@@ -293,6 +307,8 @@ ticket_four_of_billing_course_two:
   lesson_price: 60
   type: LiveStudio::BuyTicket
   seller: workstation_zhuji (Workstation)
+  sell_percentage: 20
+  platform_percentage: 20
 
 ticket_five_of_billing_course_two:
   student: student1
@@ -301,6 +317,8 @@ ticket_five_of_billing_course_two:
   lesson_price: 60
   type: LiveStudio::BuyTicket
   seller: workstation_zhuji (Workstation)
+  sell_percentage: 20
+  platform_percentage: 20
 
 ticket_six_of_billing_course_two:
   student: student1
@@ -309,6 +327,8 @@ ticket_six_of_billing_course_two:
   lesson_price: 60
   type: LiveStudio::BuyTicket
   seller: workstation_hd (Workstation)
+  sell_percentage: 25
+  platform_percentage: 15
 
 ticket_seven_of_billing_course_two:
   student: student1
@@ -316,6 +336,8 @@ ticket_seven_of_billing_course_two:
   status: 2
   lesson_price: 60
   type: LiveStudio::BuyTicket
+  sell_percentage: 30
+  platform_percentage: 10
 
 ticket_one_of_billing_course_three:
   student: student1
@@ -323,8 +345,9 @@ ticket_one_of_billing_course_three:
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
-  cross_region_percentage: 0
   seller: workstation_one (Workstation)
+  sell_percentage: 45
+  platform_percentage: 10
 
 ticket_two_of_billing_course_three:
   student: student2
@@ -332,8 +355,9 @@ ticket_two_of_billing_course_three:
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
-  cross_region_percentage: 10
   seller: workstation_zhuji (Workstation)
+  sell_percentage: 35
+  platform_percentage: 20
 
 ticket_three_of_billing_course_three:
   student: student3
@@ -341,4 +365,6 @@ ticket_three_of_billing_course_three:
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
+  sell_percentage: 40
+  platform_percentage: 15
 

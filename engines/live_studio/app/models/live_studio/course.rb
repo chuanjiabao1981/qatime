@@ -469,9 +469,9 @@ module LiveStudio
       copy_workstation_info if new_record?
       tpl_workstation = workstation || Workstation.default
       # 发行分成
-      self.publish_percentage = tpl_workstation.publish_percentage
+      self.publish_percentage ||= tpl_workstation.publish_percentage
       # 平台分成
-      self.platform_percentage = tpl_workstation.platform_percentage
+      self.platform_percentage ||= tpl_workstation.platform_percentage
       self.sell_and_platform_percentage = 100 - teacher_percentage - publish_percentage
     end
 

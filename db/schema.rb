@@ -740,7 +740,6 @@ ActiveRecord::Schema.define(version: 20170313021547) do
     t.datetime "updated_at",                                                          null: false
     t.text     "got_lesson_ids"
     t.integer  "payment_order_id"
-    t.string   "channel_owner_type"
     t.integer  "seller_id"
     t.string   "seller_type"
     t.integer  "sell_percentage",                                       default: 0

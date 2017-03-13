@@ -8,6 +8,8 @@ module LiveStudio
     def index
       @courses = LiveStudio::Course.includes(:teacher)
       @courses = @courses.where(course_search_params) if course_search_params.present?
+      @courses = @courses.where("live_studio_courses.sell_and_platform_percentage > ?", @workstation.platform_percentage)
+
       case params[:sell_percentage_range].to_s
         when 'low'
           @courses = @courses.where("sell_percentage <= ?", 5)

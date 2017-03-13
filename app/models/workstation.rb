@@ -67,6 +67,22 @@ class Workstation < ActiveRecord::Base
     cash_account || ::Payment::CashAccount.create(owner: self)
   end
 
+  # 不可用于提现的收入额
+  # options (assess_billing, business_type)
+  def percent_item_amount(options = {})
+    options[:assess_billing] ||= false
+
+    results = cash_account.earning_records
+    results = results.business_by_type(options[:business_type]) if options[:business_type].present?
+
+    if options[:assess_billing]
+      results = results.assess_billing
+    else
+      results = results.not_assess_billing
+    end
+    results.sum(:amount)
+  end
+
   def city_name
     city.try(:name)
   end

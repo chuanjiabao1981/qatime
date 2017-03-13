@@ -1,5 +1,5 @@
 class Station::WorkstationsController < Station::BaseController
-  skip_before_action :authorize, only: [:close_withdraw]
+  skip_before_action :authorize, only: [:close_withdraw, :get_billing_item]
   before_action :set_city
 
   def customized_courses
@@ -30,6 +30,20 @@ class Station::WorkstationsController < Station::BaseController
 
   def action_records
     @action_records = @workstation.action_records.order(id: :desc).paginate(page: params[:page])
+  end
+
+  def edit
+    @workstation.build_coupon if @workstation.coupon.blank?
+  end
+
+  def update
+    if @workstation.update_attributes(workstation_params)
+      flash_msg(:success)
+      redirect_to station_workstation_path(@workstation)
+    else
+      flash_msg(:danger)
+      render :edit
+    end
   end
 
   def show
@@ -66,12 +80,29 @@ class Station::WorkstationsController < Station::BaseController
   # 出入账记录
   def change_records
     params[:from] ||= 'out'
-    if params[:form] == 'in'
-      @change_records = Payment::ChangeRecord.in_changes
+    if params[:from] == 'in'
+      @change_records = @workstation.cash_account.change_records.in_changes.where(type: ['Payment::EarningRecord', 'Payment::WithdrawRefundRecord'])
     else
-      @change_records = Payment::ChangeRecord.out_changes.where(type: ['Payment::WithdrawRecord'])
+      @change_records = @workstation.cash_account.change_records.out_changes.where(type: ['Payment::WithdrawRecord', 'Payment::SaleTaskPayRecord'])
     end
     @change_records = @change_records.paginate(page: params[:page])
+  end
+
+  # 1. 辅导班结账收入 business_type: Payment::BillingItem
+  # 2. 专属课程结账收入 business_type: Payment::Billing
+  # 3. 提现失败退款 business_type: Payment::Withdraw
+  def get_billing_item
+    @change_record = Payment::ChangeRecord.find(params[:change_record_id])
+    business_type = @change_record.business.type
+
+    if business_type == 'Payment::BillingItem'
+      @billing_items = @change_record.business.billing.billing_items
+    end
+
+    if business_type == 'Payment::Billing'
+      @billing_items = @change_record.business
+    end
+
   end
 
   # 销售统计
@@ -87,68 +118,25 @@ class Station::WorkstationsController < Station::BaseController
       @statistics = @order_statistics
     end
 
-    date_now = Date.today
-    case params[:statistics_days]
-      when 'week' # 7天
-        @start_day = date_now.last_week.at_beginning_of_week
-        @end_day = date_now.last_week.at_end_of_week
-        # X轴日期
-        @dates = (@start_day..@end_day).to_a
-        # 日期统计
-        @date_statistics = @statistics.select("sum(amount) AS amount_sum", "date(created_at) AS group_date").where(created_at: (@start_day..@end_day)).group("group_date")
-      when 'month' # 4周
-        @start_day = date_now.last_month.at_beginning_of_month
-        @end_day = date_now.last_month.at_end_of_month
-        @dates = (@start_day..@end_day).select {|x| x.monday?}
-        @date_statistics = @statistics.select("sum(amount) AS amount_sum, date_trunc('week', date(created_at)) AS group_date").where(created_at: (@start_day..@end_day)).group("group_date")
-      when 'month2' # 8周
-        @start_day = date_now.months_ago(2).at_beginning_of_month
-        @end_day = date_now.at_beginning_of_month.yesterday
-        @dates = (@start_day..@end_day).select {|x| x.monday?}
-        @date_statistics = @statistics.select("sum(amount) AS amount_sum, date_trunc('week', date(created_at)) AS group_date").where(created_at: (@start_day..@end_day)).group("group_date")
-      when 'month3' # 12周
-        @start_day = date_now.months_ago(3).at_beginning_of_month
-        @end_day = date_now.at_beginning_of_month.yesterday
-        @dates = (@start_day..@end_day).select { |x| x.monday? }
-        @date_statistics = @statistics.select("sum(amount) AS amount_sum, date_trunc('week', date(created_at)) AS group_date").where(created_at: (@start_day..@end_day)).group("group_date")
-      when 'month6' # 6月
-        @start_day = date_now.months_ago(6).at_beginning_of_month
-        @end_day = date_now.at_beginning_of_month.yesterday
-        # 每月1号代表统计
-        @dates = (@start_day..@end_day).select { |x| x.day == 1 }
-        @date_statistics = @statistics.select("sum(amount) AS amount_sum, date_trunc('month', date(created_at)) AS group_date").where(created_at: (@start_day..@end_day)).group("group_date")
-      when 'year' # 12月
-        @start_day = date_now.years_ago(1).at_beginning_of_year
-        @end_day = date_now.at_beginning_of_year.yesterday
-        @dates = (@start_day..@end_day).select { |x| x.day == 1 }
-        @date_statistics = @statistics.select("sum(amount) AS amount_sum, date_trunc('month', date(created_at)) AS group_date").where(created_at: (@start_day..@end_day)).group("group_date")
-      else
-        @start_day = date_now.last_week.at_beginning_of_week
-        @end_day = date_now.last_week.at_end_of_week
-        # X轴日期
-        @dates = (@start_day..@end_day).to_a
-        # 日期统计
-        @date_statistics = @statistics.select("sum(amount) AS amount_sum", "date(created_at) AS group_date").where(created_at: (@start_day..@end_day)).group("group_date")
-    end
+    searchable = StatisticService::TransactionDirector.new(@statistics, params[:statistics_days], Date.today)
+    searchable.search(params)
 
-    # 明细数据
-    @statistics = @statistics.includes(:product, :user).where(created_at: (@start_day..@end_day)).paginate(page: params[:page])
+    @x_cate = searchable.x_cate
+    @series_data = searchable.series_data
 
-    @x_cate = @dates.inject([]) { |r, v| r << v.strftime("%m-%d") }
-    # 月份显示
-    @x_cate = @dates.inject([]) { |r, v| r << v.strftime("%Y-%m") } if %w[month6 year].include?(params[:statistics_days])
-    @series_data = @dates.inject([]) { |r, v| r << (@date_statistics.find{ |x| x.group_date.to_date == v }.try(:amount_sum).presence || 0) }
     # @x_cate = ['2-12', '2-13', '2-14', '2-15', '2-16', '2-17', '2-18']
     # @series_data = [0, 600, 300, 134, 90, 230, 200]
-    # 统计销售总额 销售总额-退款总额
-    @sales_total = @order_statistics.where(created_at: (@start_day..@end_day)).sum(:amount) - @refund_statistics.where(created_at: (@start_day..@end_day)).sum(:amount)
-    # 统计 预计销售收入额 销售收入增加-销售收入减少
-    @profit_total = @order_statistics.includes(:product).where(created_at: (@start_day..@end_day)).map(&:profit_amount).sum - @refund_statistics.includes(:product).where(created_at: (@start_day..@end_day)).map(&:profit_amount).sum
+    @sales_total = searchable.sales_total(@order_statistics, @refund_statistics)
+    @statistics = searchable.results.paginate(page: params[:page])
   end
 
   private
   def withdraw_params
     params.require(:withdraw).permit(:amount, :payee, :captcha_confirmation)
+  end
+
+  def workstation_params
+    params.require(:workstation).permit!
   end
 
   def set_workstation

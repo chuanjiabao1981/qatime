@@ -15,6 +15,10 @@ module Payment
     scope :out_changes, -> { where("payment_change_records.different < 0") }
     # 入账记录
     scope :in_changes, -> { where("payment_change_records.different > 0") }
+    # 是否考核
+    scope :assess_billing, -> { where.not(assess_billing_id: nil) }
+    scope :not_assess_billing, -> { where(assess_billing_id: nil) }
+    scope :business_by_type, ->(business_type) { where(business_type: business_type) }
 
     private
 

@@ -1,5 +1,5 @@
 
-<% if change_record.type == 'Payment::WithdrawRecord' %>
+<% if change_record.type == 'Payment::WithdrawChangeRecord' %>
   <tr>
     <td><%= show_index(index, @change_records.limit_value) %></td>
     <td><%= number_to_currency(change_record.different, locale: :cn) %></td>

@@ -31,8 +31,8 @@ module AccountServiceTest
       manager = AccountService::CashManager.new(@account)
       # 提现扣款成功
       assert_difference "@account.reload.balance.to_f", -100, "提现失败" do
-        assert_difference "Payment::WithdrawRecord.count", 1, "提现失败" do
-          manager.decrease('Payment::WithdrawRecord', 100, nil)
+        assert_difference "Payment::WithdrawChangeRecord.count", 1, "提现失败" do
+          manager.decrease('Payment::WithdrawChangeRecord', 100, nil)
         end
       end
 
@@ -45,9 +45,9 @@ module AccountServiceTest
 
       # 提现扣款失败
       assert_no_difference "@account.reload.balance.to_f", "提现没有回退" do
-        assert_no_difference "Payment::WithdrawRecord.count", "提现没有回退" do
+        assert_no_difference "Payment::WithdrawChangeRecord.count", "提现没有回退" do
           assert_raises(StandardError) do
-            manager.increase('Payment::WithdrawRecord', 100, nil) do
+            manager.increase('Payment::WithdrawChangeRecord', 100, nil) do
               raise StandardError, '出错了'
             end
           end

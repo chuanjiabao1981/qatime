@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170312105731) do
+ActiveRecord::Schema.define(version: 20170313021547) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -730,22 +730,20 @@ ActiveRecord::Schema.define(version: 20170312105731) do
     t.integer  "course_id"
     t.integer  "student_id"
     t.integer  "lesson_id"
-    t.integer  "status",                  limit: 2,                         default: 0
-    t.integer  "buy_count",               limit: 8,                         default: 0
-    t.integer  "used_count",              limit: 8,                         default: 0
+    t.integer  "status",              limit: 2,                         default: 0
+    t.integer  "buy_count",           limit: 8,                         default: 0
+    t.integer  "used_count",          limit: 8,                         default: 0
     t.string   "type"
-    t.decimal  "lesson_price",                      precision: 8, scale: 2, default: 0.0
+    t.decimal  "lesson_price",                  precision: 8, scale: 2, default: 0.0
     t.datetime "deleted_at"
-    t.datetime "created_at",                                                              null: false
-    t.datetime "updated_at",                                                              null: false
+    t.datetime "created_at",                                                          null: false
+    t.datetime "updated_at",                                                          null: false
     t.text     "got_lesson_ids"
     t.integer  "payment_order_id"
-    t.integer  "sell_channel_id"
-    t.integer  "channel_owner_id"
-    t.string   "channel_owner_type"
     t.integer  "seller_id"
     t.string   "seller_type"
-    t.integer  "cross_region_percentage",                                   default: 0
+    t.integer  "sell_percentage",                                       default: 0
+    t.integer  "platform_percentage",                                   default: 0
   end
 
   add_index "live_studio_tickets", ["course_id"], name: "index_live_studio_tickets_on_course_id", using: :btree

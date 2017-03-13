@@ -19,8 +19,9 @@ module LiveStudio
 
     before_validation :set_seller, on: :create
     def set_seller
-      self.seller = payment_order.coupon_owner if payment_order
-      self.cross_region_percentage = seller.cross_region_percentage if seller && seller != course.workstation
+      self.seller = payment_order.try(:seller) || Workstation.default
+      self.platform_percentage = [course.sell_and_platform_percentage, seller.platform_percentage].min
+      self.sell_percentage = course.sell_and_platform_percentage - platform_percentage
     end
   end
 end

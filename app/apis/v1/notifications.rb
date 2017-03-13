@@ -72,6 +72,20 @@ module V1
                                      before_minutes: params[:before_minutes])
           present @setting, with: Entities::NotificationSetting
         end
+
+        desc '批量标记通知已读' do
+          headers 'Remember-Token' => {
+            description: 'RememberToken',
+            required: true
+          }
+        end
+        params do
+          requires :ids, type: Array[Integer], coerce_with: ->(val) { val.split(/[\s,-]+/) }, desc: '通知ID列表用空格隔开'
+        end
+        put '/notifications/batch_read' do
+          @user.notifications.where(id: params[:ids]).update_all(read: true)
+          @user.notifications.where(id: params[:ids]).map {|n| [n.id, n.read] }
+        end
       end
     end
 
@@ -86,7 +100,7 @@ module V1
         requires :id, type: Integer, desc: 'ID'
       end
       put '/:id/read' do
-        @notification.read
+        @notification.read!
       end
     end
   end

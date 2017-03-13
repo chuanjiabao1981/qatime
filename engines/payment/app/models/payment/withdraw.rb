@@ -91,7 +91,7 @@ module Payment
 
     # 创建提现记录以后直接扣除账户余额
     def decrease_cash!
-      AccountService::CashManager.new(user.cash_account!).decrease('Payment::WithdrawRecord', amount, self)
+      AccountService::CashManager.new(user.cash_account!).decrease('Payment::WithdrawChangeRecord', amount, self)
     end
 
     # 提现失败以后返还账户余额

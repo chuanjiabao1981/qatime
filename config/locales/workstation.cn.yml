@@ -22,6 +22,7 @@ cn:
         tab:
           index_title: 工作站列表
           withdraw_title: 工作站提现审核
+          workstation_remit: 工作站转款
         tab_node:
           show_title: 站点设置
           fund_title: 资金信息
@@ -69,6 +70,14 @@ cn:
         no_audit_title: 审核结果
         sure_audit: 确定审核通过么?
         sure_refuse: 确定驳回么?
+      workstation_remits:
+        search:
+          remit: 已转款
+          no_remit: 待转款
+        allowed_at: 审核通过时间
+        add_remit: 添加转款记录
+        show_remit: 查看转款记录
+        show_remit_back: 收起转款记录
 
     station:
       workstations:

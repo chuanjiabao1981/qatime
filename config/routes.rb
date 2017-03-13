@@ -71,6 +71,7 @@ Qatime::Application.routes.draw do
         post :audit
       end
     end
+    resources :workstation_remits
     resources :softwares do
       member do
         get :run

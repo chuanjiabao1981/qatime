@@ -6,6 +6,8 @@
     <% if allow? :workstation_withdraws, :index %>
       <%= link_to t('view.admins.workstations.tab.withdraw_title'), admins_workstation_withdraws_path, class: "#{'active-admin' if 'admins/workstation_withdraws' == params[:controller]}"  %>
     <% end %>
-    <!--<a href="">工作站转款</a>-->
+    <% if allow? :workstation_remits, :index %>
+      <%= link_to t('view.admins.workstations.tab.workstation_remit'), admins_workstation_remits_path, class: "#{'active-admin' if 'admins/workstation_remits' == params[:controller]}"  %>
+    <% end %>
   </div>
 </div>

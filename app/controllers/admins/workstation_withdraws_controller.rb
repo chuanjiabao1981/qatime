@@ -20,9 +20,9 @@ class Admins::WorkstationWithdrawsController < ApplicationController
   def audit
     case params[:audit]
       when 'allow'
-        @workstation_withdraws.allow! if @workstation_withdraws.may_allow?
+        @workstation_withdraw.allow! if @workstation_withdraw.may_allow?
       when 'refuse'
-        @workstation_withdraws.refuse! if @workstation_withdraws.may_refuse?
+        @workstation_withdraw.refuse! if @workstation_withdraw.may_refuse?
     end
     flash_msg(:success)
     redirect_to :back
@@ -31,7 +31,7 @@ class Admins::WorkstationWithdrawsController < ApplicationController
   private
 
   def find_withdraw
-    @workstation_withdraws = Payment::Withdraw.find(params[:id])
+    @workstation_withdraw = Payment::Withdraw.find(params[:id])
   end
 
 end

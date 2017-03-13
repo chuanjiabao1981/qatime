@@ -1,0 +1,42 @@
+<tr>
+  <td><%= show_index(remit_counter, @workstation_remits.limit_value) %></td>
+  <td><%= number_to_currency(remit.amount) %></td>
+  <td><%= remit.user.try(:name) %>（<%= remit.user.try(:login_mobile) %>）</td>
+  <td><%= remit.owner.try(:name) %></td>
+  <td><%= remit.transaction_no %></td>
+  <td><%= remit.payee %></td>
+  <td><%= localize(remit.created_at, format: :long) %></td>
+  <td><%= link_to t('view.admins.workstation_remits.show_remit'), 'javascript:void(0);', class: 'view-msg' %></td>
+</tr>
+
+<tr class="admin-paragraph-msg">
+  <td colspan="8">
+    <table border="1" cellspacing="1" cellpadding="1">
+      <tbody><tr>
+        <td>
+          <span>转款方式：</span>
+          <span>人工</span>
+        </td>
+        <td rowspan="3" class="paragraph-prove">
+          <span>转款证明：</span>
+          <img class="accept-img" src="./Qatime_files/accept-img.jpg">
+          <i>(点击查看大图)</i>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span>转款时间：</span>
+          <span>XXXX-XX-XX XX:XX:XX</span>
+        </td>
+
+      </tr>
+      <tr>
+        <td>
+          <span>转款人：</span>
+          <span>XXX</span>
+        </td>
+
+      </tr>
+      </tbody></table>
+  </td>
+</tr>

@@ -23,13 +23,13 @@ module Payment
     end
 
     # 经销商分成收入
-    def sell_seller_money
-      @sell_seller_money ||= (percent_money * sell_seller_proportion).round(2)
+    def sell_money
+      @sell_money ||= (percent_money * sell_proportion).round(2)
     end
 
-    # 跨区销售系统分成收入
-    def sell_system_money
-      @sell_system_money ||= (percent_money * sell_system_proportion).round(2)
+    # 平台分成收入
+    def platform_money
+      @platform_money ||= percent_money - teacher_money - publish_money - sell_money
     end
 
     # 发行商分成收入
@@ -37,21 +37,15 @@ module Payment
       @publish_money ||= (percent_money * publish_proportion).round(2)
     end
 
-    # 系统分成收入
-    # 其它角色分成后剩余金额，需要跟实际计算结果进行校验，差值过大不进行结账
-    def system_money
-      @system_money ||= percent_money - teacher_money - sell_seller_money - sell_system_money - publish_money
-    end
-
     # 销售经销商分成百分比
-    def sell_seller_percentage
-      target.sell_percentage - sell_system_percentage
+    def sell_percentage
+      ticket.sell_percentage
     end
 
     # 跨区销售分成百分比
     # 不能大于销售分成比例
-    def sell_system_percentage
-      [ticket.cross_region_percentage, target.sell_percentage].min
+    def platform_percentage
+      ticket.platform_percentage
     end
 
     private
@@ -62,13 +56,13 @@ module Payment
     end
 
     # 经销商分成比例
-    def sell_seller_proportion
-      sell_seller_percentage.to_f / 100
+    def sell_proportion
+      sell_percentage.to_f / 100
     end
 
     # 跨区销售系统分成比例
-    def sell_system_proportion
-      sell_system_percentage.to_f / 100
+    def platform_proportion
+      platform_percentage.to_f / 100
     end
 
     # 发行商分成比例
@@ -76,26 +70,21 @@ module Payment
       target.publish_percentage.to_f / 100
     end
 
-    # 系统分成比例
-    def system_proportion
-      target.system_percentage.to_f / 100
-    end
-
     # 总分成比例
     def total_proportion
-      teacher_proportion + sell_seller_proportion + sell_system_proportion + publish_proportion + system_proportion
+      (teacher_proportion + sell_proportion + platform_proportion + publish_proportion).round(2)
     end
 
-    # 根据百分比计算得出系统收入
-    def real_system_money
-      (percent_money * system_proportion).round(2)
+    # 根据百分比计算得出平台
+    def real_platform_money
+      (percent_money * platform_proportion).round(2)
     end
 
     before_save :billing_check!
     def billing_check!
       calculate
       raise Payment::TotalPercentInvalid, "分成比例不正确" unless  1 == total_proportion
-      raise Payment::SystemMoneyDifference, "系统分成金额差距过大" if (real_system_money - system_money).abs > 0.02
+      raise Payment::SystemMoneyDifference, "平台分成金额差距过大" if (real_platform_money - platform_money).abs > 0.02
     end
   end
 end

@@ -22,6 +22,7 @@ workstation1:
   tel: 1
   email: MyString
   manager: manager
+  platform_percentage: 10
 
 workstation_invalid:
   name: MyString
@@ -45,6 +46,7 @@ workstation_zhuji:
   tel: 1
   email: MyString
   manager: manager_zhuji
+  platform_percentage: 20
 
 workstation_hd:
   name: 海淀工作站
@@ -53,6 +55,7 @@ workstation_hd:
   tel: 1
   email: MyString
   manager: customized_courses_manager
+  platform_percentage: 15
 workstation_default:
   name: 默认工作站
   city:
@@ -60,3 +63,4 @@ workstation_default:
   tel:
   email: admin@qatime.cn
   manager: admin
+  platform_percentage: 10

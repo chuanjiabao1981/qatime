@@ -19,6 +19,7 @@ module BusinessService
       @lesson.complete! if @lesson.ticket_items.billingable.blank?
     rescue StandardError => e
       _billing_fail!(e)
+      raise e
     end
 
     # 购买记录单独结账
@@ -34,11 +35,9 @@ module BusinessService
         # 发行商收入
         publish_money_item!(item_billing, @course.workstation)
         # 销售分销商收入
-        sell_seller_money_item!(item_billing, ticket.seller)
-        # 跨区销售系统收入
-        sell_system_money_item!(item_billing)
+        sell_money_item!(item_billing, ticket.seller)
         # 系统分成收入
-        system_money_item!(item_billing)
+        platform_money_item!(item_billing)
         # 结账完成后购买记录修改状态，避免重复结账
         ticket_item.finish!
         # 这里是为了注入异常，测试回滚用，对整个流程没有什么帮助
@@ -82,35 +81,25 @@ module BusinessService
       _cash_transfer(CashAdmin.cash_account!, billing.base_fee, item)
     end
 
-    # 系统分成收入
-    def system_money_item!(billing)
-      item = Payment::SystemPercentItem.create!(billing: billing,
-                                                cash_account: CashAdmin.cash_account!,
-                                                owner: CashAdmin.current!,
-                                                amount: billing.system_money,
-                                                percent: @lesson.system_percentage)
-      _cash_transfer(CashAdmin.cash_account!, billing.system_money, item)
-    end
-
     # 销售账单项
-    def sell_seller_money_item!(billing, workstation)
+    def sell_money_item!(billing, workstation)
       workstation ||= Workstation.default
       item = Payment::SellPercentItem.create!(billing: billing,
                                               cash_account: workstation.cash_account,
                                               owner: workstation,
-                                              amount: billing.sell_seller_money,
-                                              percent:  billing.sell_seller_percentage)
-      _cash_transfer(workstation.cash_account, billing.sell_seller_money, item)
+                                              amount: billing.sell_money,
+                                              percent:  billing.sell_percentage)
+      _cash_transfer(workstation.cash_account, billing.sell_money, item)
     end
 
-    # 跨区销售系统分成
-    def sell_system_money_item!(billing)
-      item = Payment::CrossRegionPercentItem.create!(billing: billing,
-                                                     cash_account: CashAdmin.cash_account!,
-                                                     owner: CashAdmin.current!,
-                                                     amount: billing.sell_system_money,
-                                                     percent:  billing.sell_system_percentage)
-      _cash_transfer(CashAdmin.cash_account!, billing.sell_system_money, item)
+    # 平台分成账单项
+    def platform_money_item!(billing)
+      item = Payment::PlatformPercentItem.create!(billing: billing,
+                                                  cash_account: CashAdmin.cash_account!,
+                                                  owner: CashAdmin.current!,
+                                                  amount: billing.platform_money,
+                                                  percent:  billing.platform_percentage)
+      _cash_transfer(CashAdmin.cash_account!, billing.platform_money, item)
     end
 
     # 发行账单项

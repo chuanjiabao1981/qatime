@@ -720,9 +720,9 @@ billing_course_one:
   taste_count: 5
   billing_type: Payment::LiveCourseBilling
   teacher_percentage: 50
-  sell_percentage: 30
+  sell_and_platform_percentage: 40
+  platform_percentage: 10
   publish_percentage: 10
-  system_percentage: 10
   base_price: 0.1
 
 # 结账失败辅导班
@@ -742,9 +742,9 @@ billing_fail_course_one:
   taste_count: 5
   billing_type: Payment::LiveCourseBilling
   teacher_percentage: 70
-  sell_percentage: 30
+  sell_and_platform_percentage: 40
+  platform_percentage: 10
   publish_percentage: 10
-  system_percentage: 10
   base_price: 0.1
 
 billing_course_two:
@@ -763,9 +763,9 @@ billing_course_two:
   taste_count: 5
   billing_type: Payment::LiveCourseBilling
   teacher_percentage: 45
-  sell_percentage: 35
+  sell_and_platform_percentage: 25
+  platform_percentage: 15
   publish_percentage: 15
-  system_percentage: 5
   base_price: 0.1
 
 billing_course_three:
@@ -784,8 +784,8 @@ billing_course_three:
   taste_count: 5
   billing_type: Payment::LiveCourseBilling
   teacher_percentage: 35
-  sell_percentage: 55
+  sell_and_platform_percentage: 55
+  platform_percentage: 10
   publish_percentage: 10
-  system_percentage: 0
   base_price: 0.1
 

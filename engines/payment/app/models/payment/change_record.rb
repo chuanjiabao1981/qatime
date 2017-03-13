@@ -21,7 +21,7 @@ module Payment
     before_create :copy_relation
     def copy_relation
       self.owner = cash_account.owner
-      self.target ||= business.target if business.is_a?(Payment::Billing)
+      self.target ||= business.target if business.is_a?(Payment::Billing) || business.is_a?(Payment::BillingItem)
       self.target ||= business.product if business.is_a?(Payment::Order)
     end
   end

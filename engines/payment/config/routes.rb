@@ -1,5 +1,4 @@
 Payment::Engine.routes.draw do
-
   namespace :station do
     resources :workstations, only: [:show] do
       member do
@@ -7,7 +6,12 @@ Payment::Engine.routes.draw do
         get :earning_records
         get :withdraws
       end
-      resources :sale_tasks
+      resources :sale_tasks do
+        member do
+          patch :start
+          patch :close
+        end
+      end
     end
   end
 

@@ -19,4 +19,8 @@ class LiveStudioLessonNotification < ::Notification
     return unless [ACTION_START_FOR_TEACHER, ACTION_START_FOR_STUDENT].include?(action_name.to_sym)
     send("notify_by_#{channel}")
   end
+
+  def link
+    "#{LiveStudio::Course.model_name.i18n_key}:#{notificationable.course_id}"
+  end
 end

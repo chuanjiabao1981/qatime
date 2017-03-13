@@ -11,13 +11,13 @@ module Payment
     has_many :recharge_records
     has_many :withdraw_records
     has_many :refund_records
+    has_many :earning_records
 
     attr_accessor :create_or_update_password, :current_password, :ticket_token
 
     validates :owner, presence: true
 
     has_secure_password validations: false
-
 
     def available_balance
       balance

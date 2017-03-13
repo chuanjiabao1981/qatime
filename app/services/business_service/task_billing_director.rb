@@ -3,11 +3,11 @@ module BusinessService
   class TaskBillingDirector
     def initialize(task)
       @task = task
-      @workstation = @task.owner
+      @workstation = @task.target
     end
 
-    # 课程结算
-    def billing
+    # 考核结算
+    def task_billing
       # 销售额
       @task.with_lock do
         @task.report
@@ -23,6 +23,15 @@ module BusinessService
       p e
     end
 
+    def self.handle_tasks
+      # 开始考核
+      Payment::SaleTask.unstart.where('started_at < ?', Time.now).map(&:start!)
+      # 开始考核
+      Payment::SaleTask.ongoing.where('ended_at < ?', Time.now).each do |task|
+        BusinessService::TaskBillingDirector.new(task).task_billing
+      end
+    end
+
     private
 
     # 罚金转账
@@ -31,7 +40,7 @@ module BusinessService
                                               cash_account: @workstation.cash_account,
                                               owner: @workstation,
                                               amount: @task.charge_balance)
-      _cash_transfer(from_account, item.amount, item)
+      _cash_transfer(@workstation.cash_account, item.amount, item)
     end
 
     # 可提现变动

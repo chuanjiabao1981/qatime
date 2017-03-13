@@ -5,6 +5,7 @@ module Payment
 
     belongs_to :owner, polymorphic: true
     has_many :change_records
+    has_many :earning_records
 
     has_many :consumption_records
     has_many :recharge_records

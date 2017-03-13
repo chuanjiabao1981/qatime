@@ -34,6 +34,29 @@
 </div>
 
 <script type="text/javascript">
+  $(function(){
+    $(document).on('click', '.billing_item', function(event){
+      event.preventDefault();
+      var url = $(this).attr('href');
+      var change_record_id = $(this).data('change-record-id');
+
+
+      if($(this).find("i").attr("class") == "fa fa-angle-down") {
+        $(this).find("span").html("<%= t('view.shared.workstations.change_records.hide_link') %>");
+        $(this).find("i").attr("class", "fa fa-angle-up");
+      } else {
+        $(this).find("span").html("<%= t('view.shared.workstations.change_records.show_link') %>");
+        $(this).find("i").attr("class", "fa fa-angle-down");
+      }
+
+      if($('#ajax_complete_' + change_record_id).length == 0){
+        $.post(url);
+      }
+      $('#change_record_tr_' + change_record_id).toggle();
+    });
+  });
+
+
   $(".view-msg").click(function() {
     var index = $(".view-msg").index($(this));
     $(".admin-record-msg").eq(index).toggle();
@@ -44,5 +67,5 @@
       $(this).find("span").html("<%= t('view.shared.workstations.change_records.show_link') %>");
       $(this).find("i").attr("class", "fa fa-angle-down");
     }
-  })
+  });
 </script>

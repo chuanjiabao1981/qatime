@@ -41,7 +41,7 @@
   </tr>
 <% end %>
 
-<% if change_record.type == 'Payment::KaoheRecord' %>
+<% if change_record.type == 'Payment::SaleTaskPayRecord' %>
   <tr>
     <td><%= show_index(index, @change_records.limit_value) %></td>
     <td><%= number_to_currency(change_record.different, locale: :cn) %></td>
@@ -64,43 +64,43 @@
       <table border="0" cellspacing="0" cellpadding="0">
         <tbody><tr>
           <td>
-            <span>考试期开始日：</span>
-            <span>2016-12-05</span>
+            <span><%= Payment::SaleTask.human_attribute_name(:started_at) %>：</span>
+            <span><%= localize(change_record.target.started_at.to_date) %></span>
           </td>
           <td>
-            <span>考核期结束日：</span>
-            <span>2017-02-11</span>
+            <span><%= Payment::SaleTask.human_attribute_name(:ended_at) %>：</span>
+            <span><%= localize(change_record.target.ended_at.to_date) %></span>
           </td>
           <td>
-            <span>考核周期：</span>
-            <span>3月</span>
+            <span><%= Payment::SaleTask.human_attribute_name(:period) %>：</span>
+            <span><%= t('view.payment/sale_task.period', period: change_record.target.period) %></span>
           </td>
         </tr>
         <tr>
           <td>
-            <span>销售目标额：</span>
-            <span>￥20000.00</span>
+            <span><%= Payment::SaleTask.human_attribute_name(:target_balance) %>：</span>
+            <span><%= number_to_currency(change_record.target.target_balance, locale: 'cn') %></span>
           </td>
           <td colspan="2">
-            <span>销售额：</span>
-            <span>￥30000.00</span>
+            <span><%= Payment::SaleTask.human_attribute_name(:result_balance) %>:</span>
+            <span><%= number_to_currency(change_record.target.result_balance, locale: 'cn') %></span>
           </td>
         </tr>
         <tr>
           <td>
-            <span>销售差额：</span>
-            <span>+￥10000.00</span>
+            <span><%= Payment::SaleTask.human_attribute_name(:left_amount) %>：</span>
+            <span><%= number_to_currency(change_record.target.left_amount, locale: 'cn') %></span>
           </td>
           <td colspan="2">
-            <span>考核扣款系数：</span>
-            <span>X%</span>
+            <span><%= Payment::SaleTask.human_attribute_name(:charge_percentage) %>：</span>
+            <span><%= number_to_percentage(change_record.target.charge_percentage, precision: 0) %></span>
           </td>
         </tr>
         <tr>
           <td colspan="3">
-            <span>考核扣除金额：</span>
-            <span>￥33.00</span>
-            <i>（非可提现金额扣除：￥20000.00+可提现金额扣除：+￥00.00）</i>
+            <span><%= Payment::SaleTask.human_attribute_name(:charge_balance) %>：</span>
+            <span><%= number_to_currency(change_record.target.charge_balance, locale: 'cn') %></span>
+            <i><%= Payment::SaleTask.human_attribute_name(:charge_tips) %></i>
           </td>
         </tr>
         </tbody></table>

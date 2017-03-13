@@ -8,8 +8,6 @@
     <td><%= t('view.shared.workstations.statistics.sale_at') %></td>
     <td><%= t('view.shared.workstations.statistics.user_name') %></td>
     <td><%= t('view.shared.workstations.statistics.source') %></td>
-    <td><%= t('view.shared.workstations.statistics.cross') %></td>
-    <td><%= t('view.shared.workstations.statistics.sale_increment') %></td>
   </tr>
 
   <% @statistics.each_with_index do |order, index| %>
@@ -24,8 +22,6 @@
       <td><%= localize(order.created_at, format: :long) %></td>
       <td><%= order.user.try(:name) %></td>
       <td><%= order.source_text %></td>
-      <td><%= order.seller_id == order.product.workstation_id ? t('view.common.yes') : t('view.common.no') %></td>
-      <td><%= number_to_currency(order.profit_amount, locale: :cn) %></td>
     </tr>
   <% end %>
 </table>

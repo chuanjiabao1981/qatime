@@ -10,7 +10,7 @@
       <span></span>
       <span><%= t('view.shared.workstations.fund_node.operate_time', time: localize(withdraw.updated_at, format: :long)) %></span>
       <% if withdraw.can_close? %>
-      <%= link_to t('view.common.close'), close_withdraw_station_workstation_path(workstation, withdraw_id: withdraw.id), data: {confirm: t('view.shared.workstations.fund_node.close_confrim'), method: :post, remote: true} %>
+        <%= link_to t('view.common.close'), close_withdraw_station_workstation_path(workstation, withdraw_id: withdraw.id), data: {confirm: t('view.shared.workstations.fund_node.close_confrim'), method: :post, remote: true} %>
       <% end %>
     </div>
   </li>

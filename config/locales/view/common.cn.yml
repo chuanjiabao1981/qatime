@@ -97,6 +97,9 @@ cn:
           different_money: 提现金额：
           beore_money: 提现前可提金额：
           after_money: 提现后可提金额：
+          different_money_in: 退回金额：
+          beore_money_in: 退回前可提金额：
+          after_money_in: 退回后可提现金额
         statistics:
           order_title: 售出记录
           refund_title: 退款记录
@@ -113,7 +116,7 @@ cn:
           course_name2: 退款内容（辅导班名称）
           refund_at: 退款时间
           sale_decrement: 销售收入减少
-          pic_title: 销售曲线
+          pic_title: 销售额曲线
           sale_count: 销售总额：
           sale_count_pre: 预计销售总收入：
           sale_total: 销售额

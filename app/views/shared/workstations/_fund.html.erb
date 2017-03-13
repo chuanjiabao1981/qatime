@@ -4,24 +4,24 @@
   <ul>
     <li>
       <span><%= t('view.shared.workstations.fund.amount') %></span>
-      <span><%= t('view.shared.workstations.fund.amount_text', price: workstation.cash_account.try(:balance).to_f) %></span>
+      <span><%= number_to_currency(workstation.cash_account.try(:balance).to_f) %></span>
       <i><%= t('view.shared.workstations.fund.amount_i') %></i>
     </li>
     <li>
       <span><%= t('view.shared.workstations.fund.caution_money') %></span>
-      <span><%= t('view.shared.workstations.fund.caution_money_text', price: workstation.cash_account.try(:deposit_balance).to_f) %></span>
+      <span><%= number_to_currency(workstation.cash_account.try(:deposit_balance).to_f) %></span>
       <i><%= t('view.shared.workstations.fund.caution_money_i') %></i>
     </li>
     <li>
       <span><%= t('view.shared.workstations.fund.money') %></span>
-      <span><%= t('view.shared.workstations.fund.money_text', price: workstation.cash_account.try(:balance_left_over).to_f) %></span>
+      <span><%= number_to_currency(workstation.cash_account.try(:balance_left_over).to_f) %></span>
       <i><%= t('view.shared.workstations.fund.money_i') %></i>
     </li>
     <li>
       <ul class="withdrawal-list">
         <li>
           <span><%= t('view.shared.workstations.fund.withdraw_money') %></span>
-          <span><%= t('view.shared.workstations.fund.withdraw_money_text', price: workstation.available_account.try(:balance).to_f) %></span>
+          <span><%= number_to_currency(workstation.available_account.try(:balance).to_f) %></span>
           <% if fund_node %>
             <a data-toggle="modal" data-target="#withdrawModal" href="#"><%= t('view.shared.workstations.fund.withdraw_btn') %></a>
           <% end %>
@@ -32,17 +32,17 @@
       <ul class="withdrawal-not">
         <li>
           <span><%= t('view.shared.workstations.fund.unwithdraw_money') %></span>
-          <span><%= t('view.shared.workstations.fund.unwithdraw_money_text', price: 1000) %></span>
+          <span><%= number_to_currency(workstation.percent_item_amount) %></span>
           <i><%= t('view.shared.workstations.fund.unwithdraw_money_i') %></i>
         </li>
         <li>
           <span><%= t('view.shared.workstations.fund.published_money') %></span>
-          <span><%= t('view.shared.workstations.fund.published_money_text', price: 5000.00) %></span>
+          <span><%= number_to_currency(workstation.percent_item_amount(business_type: 'Payment::PublishPercentItem')) %></span>
           <i><%= t('view.shared.workstations.fund.published_money_i', state: '未考核') %></i>
         </li>
         <li>
           <span><%= t('view.shared.workstations.fund.sell_money') %></span>
-          <span><%= t('view.shared.workstations.fund.sell_money_text', price: 5000.00) %></span>
+          <span><%= number_to_currency(workstation.percent_item_amount(business_type: 'Payment::SellPercentItem')) %></span>
           <i><%= t('view.shared.workstations.fund.sell_money_i', state: '未考核') %></i>
         </li>
       </ul>

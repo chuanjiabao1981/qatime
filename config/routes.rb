@@ -64,9 +64,6 @@ Qatime::Application.routes.draw do
     resources :workstations do
       member do
         post :change_status
-        get :fund
-        get :change_records
-        get :statistics
       end
     end
     resources :softwares do
@@ -108,7 +105,7 @@ Qatime::Application.routes.draw do
   end
 
   namespace :station do
-    resources :workstations, only: [:show] do
+    resources :workstations do
       member do
         get :customized_courses
         get :schools
@@ -122,6 +119,7 @@ Qatime::Application.routes.draw do
         post :close_withdraw
         get :change_records
         get :statistics
+        post :get_billing_item
       end
       resources :sellers, except: [:index]
       resources :waiters, except: [:index]

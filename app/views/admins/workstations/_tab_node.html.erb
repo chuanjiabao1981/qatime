@@ -1,8 +1,0 @@
-<div class="admin-title">
-  <div class="admin-title-left">
-    <%= link_to t('view.admins.workstations.tab_node.show_title'), admins_workstation_path(@workstation), class: "#{'active-admin' if 'admins/workstations' == params[:controller] && action_name == 'show'}"  %>
-    <%= link_to t('view.admins.workstations.tab_node.fund_title'), fund_admins_workstation_path(@workstation), class: "#{'active-admin' if 'admins/workstations' == params[:controller] && action_name == 'fund'}"  %>
-    <%= link_to t('view.admins.workstations.tab_node.change_records_title'), change_records_admins_workstation_path(@workstation), class: "#{'active-admin' if 'admins/workstations' == params[:controller] && action_name == 'change_records'}"  %>
-    <%= link_to t('view.admins.workstations.tab_node.statistics_title'), statistics_admins_workstation_path(@workstation), class: "#{'active-admin' if 'admins/workstations' == params[:controller] && action_name == 'statistics'}"  %>
-  </div>
-</div>

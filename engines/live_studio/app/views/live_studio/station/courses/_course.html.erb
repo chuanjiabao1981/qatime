@@ -16,7 +16,7 @@
   <td><span><%= course.workstation.try(:name) %></span></td>
   <td><span><%= number_to_currency(course.price, unit: "￥", precision: 2) %></span></td>
   <td><span><%= LiveStudio::Course.human_attribute_name(:base_price_clt, price: course.base_price*60) %></span></td>
-  <td><span><%=  %></span></td>
+  <td><span><%= number_to_percentage(course.sell_percentage_for(@workstation), precision: 2) %></span></td>
   <td>
     <input type="button" name="" class="send_qa_code" value="<%= t("view.live_studio/station.courses.course.send_qr_code") %>" data-url="<%= send_qr_code_station_workstation_course_path(@workstation,course) %>">
   </td>

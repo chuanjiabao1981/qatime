@@ -9,7 +9,7 @@ module Payment
 
     has_many :consumption_records
     has_many :recharge_records
-    has_many :withdraw_records
+    has_many :withdraw_change_records
     has_many :refund_records
     has_many :earning_records
 

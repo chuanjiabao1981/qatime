@@ -19,9 +19,9 @@
                             series: { name: t('view.shared.workstations.statistics.sale_total'), data: @series_data } }) %>
   <div class="admin-sales-record">
     <div class="sales-record-title">
-      <%= link_to t('view.shared.workstations.statistics.order_title'), params.merge(genre: 'order'), class: "#{'active' if params[:genre] == 'order'}" %>
+      <%= link_to t('view.shared.workstations.statistics.order_title'), params.reject{|k,v| k == 'page'}.merge(genre: 'order'), class: "#{'active' if params[:genre] == 'order'}" %>
       <span>|</span>
-      <%= link_to t('view.shared.workstations.statistics.refund_title'), params.merge(genre: 'refund'), class: "#{'active' if params[:genre] == 'refund'}" %>
+      <%= link_to t('view.shared.workstations.statistics.refund_title'), params.reject{|k,v| k == 'page'}.merge(genre: 'refund'), class: "#{'active' if params[:genre] == 'refund'}" %>
     </div>
 
     <div class="sales-record-con">

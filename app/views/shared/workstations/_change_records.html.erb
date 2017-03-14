@@ -1,8 +1,8 @@
 <div class="admin-record">
   <div class="admin-record-nav">
-    <%= link_to t('view.shared.workstations.change_records.out_record'), params.merge(from: 'out'), class: "#{'active' if params[:from] == 'out'}" %>
+    <%= link_to t('view.shared.workstations.change_records.out_record'), params.reject{|k,v| k == 'page'}.merge(from: 'out'), class: "#{'active' if params[:from] == 'out'}" %>
     <span>|</span>
-    <%= link_to t('view.shared.workstations.change_records.in_record'), params.merge(from: 'in'), class: "#{'active' if params[:from] == 'in'}" %>
+    <%= link_to t('view.shared.workstations.change_records.in_record'), params.reject{|k,v| k == 'page'}.merge(from: 'in'), class: "#{'active' if params[:from] == 'in'}" %>
   </div>
 
   <div class="admin-record-con">
@@ -19,7 +19,7 @@
       </tr>
 
       <% @change_records.each_with_index do |change_record, index| %>
-        <%= render partial: "shared/workstations/change_record#{'_in' if params[:from] == 'in'}_tr", locals: {change_record: change_record, index: index} %>
+        <%#= render partial: "shared/workstations/change_record#{'_in' if params[:from] == 'in'}_tr", locals: {change_record: change_record, index: index} %>
       <% end %>
 
       </tbody>

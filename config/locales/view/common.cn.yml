@@ -100,6 +100,8 @@ cn:
           different_money_in: 退回金额：
           beore_money_in: 退回前可提金额：
           after_money_in: 退回后可提现金额
+          withdraw_refund_record: 提现款退回
+          withdraw_refund_record_name: 提现申请失败
         statistics:
           order_title: 售出记录
           refund_title: 退款记录

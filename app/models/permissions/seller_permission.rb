@@ -113,7 +113,7 @@ module Permissions
         workstation && workstation.id == user.workstation_id
       end
 
-      allow 'payment/station/workstations', [:show, :cash, :earning_records, :withdraws] do |workstation|
+      allow 'payment/station/workstations', [:show, :earning_records, :withdraws] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
 

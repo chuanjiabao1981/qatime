@@ -380,7 +380,7 @@ module LiveStudio
 
     # 计算经销分成
     def sell_percentage_for(seller)
-      [(100 - teacher_percentage - sell_and_platform_percentage - seller.platform_percentage), 0].max
+      [(sell_and_platform_percentage - seller.platform_percentage), 0].max
     end
 
     # 计算老师分成
@@ -462,17 +462,23 @@ module LiveStudio
       author.city.try(:workstations).try(:first)
     end
 
+    def copy_billing_percentage
+      tpl_workstation = workstation || Workstation.default
+      # 发行分成
+      self.publish_percentage = tpl_workstation.publish_percentage
+      # 平台分成
+      self.platform_percentage = tpl_workstation.platform_percentage
+      self.base_price = (tpl_workstation.service_price / 60.0).round(2)
+    end
+
     # 计算结账分成
     before_validation :calculate_billing_percentage!
     def calculate_billing_percentage!
       return unless teacher_percentage.present?
-      copy_workstation_info if new_record?
-      tpl_workstation = workstation || Workstation.default
-      # 发行分成
-      self.publish_percentage ||= tpl_workstation.publish_percentage
-      # 平台分成
-      self.platform_percentage ||= tpl_workstation.platform_percentage
-      self.base_price ||= (tpl_workstation.service_price / 60.0).round(2)
+      if new_record?
+        copy_workstation_info
+        copy_billing_percentage
+      end
       self.sell_and_platform_percentage = 100 - teacher_percentage - publish_percentage
     end
 

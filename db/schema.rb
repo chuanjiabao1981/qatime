@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170313021547) do
+ActiveRecord::Schema.define(version: 20170314070414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -811,15 +811,15 @@ ActiveRecord::Schema.define(version: 20170313021547) do
     t.integer  "cash_account_id"
     t.integer  "owner_id"
     t.string   "owner_type"
-    t.decimal  "amount",          precision: 8, scale: 2
+    t.decimal  "amount",          precision: 12, scale: 3
     t.integer  "quantity"
     t.integer  "duration"
     t.integer  "percent"
-    t.decimal  "price",           precision: 8, scale: 2
+    t.decimal  "price",           precision: 8,  scale: 2
     t.integer  "parent_id"
     t.string   "type"
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.integer  "target_id"
     t.string   "target_type"
   end
@@ -831,16 +831,16 @@ ActiveRecord::Schema.define(version: 20170313021547) do
   create_table "payment_billings", force: :cascade do |t|
     t.integer  "target_id"
     t.string   "target_type"
-    t.decimal  "total_money",  precision: 8, scale: 2
+    t.decimal  "total_money",  precision: 12, scale: 3
     t.datetime "deleted_at"
     t.string   "summary"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
     t.integer  "parent_id"
     t.string   "type"
-    t.integer  "percent",                              default: 0
-    t.integer  "quantity",                             default: 0
-    t.decimal  "price",        precision: 8, scale: 2, default: 0.0
+    t.integer  "percent",                               default: 0
+    t.integer  "quantity",                              default: 0
+    t.decimal  "price",        precision: 8,  scale: 2, default: 0.0
     t.integer  "from_user_id"
     t.integer  "ticket_id"
     t.string   "ticket_type"
@@ -852,12 +852,12 @@ ActiveRecord::Schema.define(version: 20170313021547) do
   create_table "payment_cash_accounts", force: :cascade do |t|
     t.integer  "owner_id"
     t.string   "owner_type"
-    t.decimal  "balance",           precision: 12, scale: 2, default: 0.0
+    t.decimal  "balance",           precision: 18, scale: 3, default: 0.0
     t.datetime "deleted_at"
     t.datetime "created_at",                                                 null: false
     t.datetime "updated_at",                                                 null: false
-    t.decimal  "total_income",      precision: 12, scale: 2, default: 0.0
-    t.decimal  "total_expenditure", precision: 12, scale: 2, default: 0.0
+    t.decimal  "total_income",      precision: 18, scale: 3, default: 0.0
+    t.decimal  "total_expenditure", precision: 18, scale: 3, default: 0.0
     t.boolean  "migrated",                                   default: false
     t.decimal  "frozen_balance",    precision: 12, scale: 2, default: 0.0
     t.string   "password_digest"
@@ -870,9 +870,9 @@ ActiveRecord::Schema.define(version: 20170313021547) do
 
   create_table "payment_change_records", force: :cascade do |t|
     t.integer  "cash_account_id"
-    t.decimal  "different",                     precision: 16, scale: 2, default: 0.0
-    t.decimal  "before",                        precision: 16, scale: 2, default: 0.0
-    t.decimal  "after",                         precision: 16, scale: 2, default: 0.0
+    t.decimal  "different",                     precision: 12, scale: 3, default: 0.0
+    t.decimal  "before",                        precision: 18, scale: 3, default: 0.0
+    t.decimal  "after",                         precision: 18, scale: 3, default: 0.0
     t.integer  "billing_id"
     t.string   "summary"
     t.datetime "deleted_at"
@@ -884,7 +884,7 @@ ActiveRecord::Schema.define(version: 20170313021547) do
     t.integer  "target_id"
     t.string   "target_type"
     t.integer  "change_type"
-    t.decimal  "amount",                        precision: 16, scale: 2, default: 0.0
+    t.decimal  "amount",                        precision: 18, scale: 3, default: 0.0
     t.integer  "billing_item_id"
     t.integer  "business_id"
     t.string   "business_type"

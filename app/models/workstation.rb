@@ -22,7 +22,7 @@ class Workstation < ActiveRecord::Base
 
   belongs_to :manager, class_name: "Manager"
 
-  has_one :cash_account, as: :owner, class_name: '::Payment::CashAccount'
+  has_one :cash_account, -> { where type: 'Payment::CashAccount' },  as: :owner, class_name: '::Payment::CashAccount'
   has_one :available_account, as: :owner, class_name: '::Payment::AvailableAccount'
   has_many :withdraws, as: :owner, class_name: '::Payment::Withdraw'
   belongs_to :city, counter_cache: true

@@ -246,6 +246,12 @@ module Payment
       false
     end
 
+    def pay_and_ship!
+      return if account?
+      pay! if remote_order.paid?
+      BusinessService::CourseOrderManager.new(self).billing
+    end
+
     private
 
     before_validation :set_coupon

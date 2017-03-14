@@ -18,9 +18,9 @@
           <td><%= t('common.operate') %></td>
         </tr>
         <% if params[:remit] == 'no_remit' %>
-          <%= render partial: 'no_remit', collection: @workstation_remits %>
+          <%= render partial: 'no_remit', collection: @withdraw_remits %>
         <% else %>
-          <%= render partial: 'remit', collection: @workstation_remits %>
+          <%= render partial: 'remit', collection: @withdraw_remits %>
         <% end %>
         </tbody>
       </table>
@@ -28,7 +28,7 @@
 
     <center>
       <div class="pagination-fix">
-        <%= will_paginate @workstation_remits %>
+        <%= will_paginate @withdraw_remits %>
       </div>
     </center>
   </div>

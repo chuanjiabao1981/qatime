@@ -74,6 +74,14 @@ cn:
       edit: 编辑
       task_index: "考核 %{index}"
       period: "%{period} 个月"
+    payment/withdraw_remit:
+      pic_valid: 请上传图片
+      add_remit: 添加转款记录
+      withdraw_user: "提现人：%{name}"
+      show_big_pic: 点击查看大图
+      placeholders:
+        pay_username: 填写真实信息
+        remit_at: 选择转款日期
   activerecord:
     view:
       order: 我的订单
@@ -232,6 +240,11 @@ cn:
         result/true: 通过
         result/false: 未通过
         result/: 未知
+      payment/withdraw_remit:
+        pay_type: 转款方式
+        pay_username: 转款人
+        remit_at: 转款日期
+        pic: 转款证明
 
     status:
       order:

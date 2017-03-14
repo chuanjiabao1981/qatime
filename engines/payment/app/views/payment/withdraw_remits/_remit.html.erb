@@ -1,0 +1,46 @@
+<tr>
+  <td><%= show_index(remit_counter, @withdraw_remits.limit_value) %></td>
+  <td><%= number_to_currency(remit.amount) %></td>
+  <td><%= remit.user.try(:name) %>（<%= remit.user.try(:login_mobile) %>）</td>
+  <td><%= remit.owner.try(:name) %></td>
+  <td><%= remit.transaction_no %></td>
+  <td><%= remit.payee %></td>
+  <td><%= localize(remit.created_at, format: :long) %></td>
+  <td><%= link_to t('view.admins.workstation_remits.show_remit'), 'javascript:void(0);', class: 'view-msg' %></td>
+</tr>
+
+<% if remit.withdraw_remit %>
+  <tr class="admin-paragraph-msg">
+    <td colspan="8">
+      <table border="1" cellspacing="1" cellpadding="1">
+        <tbody><tr>
+          <td>
+            <span><%= Payment::WithdrawRemit.human_attribute_name(:pay_type) %>：</span>
+            <span><%= remit.withdraw_remit.pay_type_text %></span>
+          </td>
+          <td rowspan="3" class="paragraph-prove">
+            <span><%= Payment::WithdrawRemit.human_attribute_name(:pic) %>：</span>
+            <%= link_to remit.withdraw_remit.pic_url, target: '_blank' do %>
+              <%= image_tag remit.withdraw_remit.pic_url, class: "accept-img" %>
+            <% end %>
+            <i>(<%= t('view.payment/withdraw_remit.show_big_pic') %>)</i>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span><%= Payment::WithdrawRemit.human_attribute_name(:remit_at) %>：</span>
+            <span><%= localize(remit.withdraw_remit.remit_at, format: :long) %></span>
+          </td>
+
+        </tr>
+        <tr>
+          <td>
+            <span><%= Payment::WithdrawRemit.human_attribute_name(:pay_username) %>：</span>
+            <span><%= remit.withdraw_remit.pay_username %></span>
+          </td>
+
+        </tr>
+        </tbody></table>
+    </td>
+  </tr>
+<% end %>

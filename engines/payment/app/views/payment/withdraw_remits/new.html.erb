@@ -1,0 +1,14 @@
+<div class="panel panel-default">
+  <div class="admin">
+    <%= render partial: 'admins/workstations/tab' %>
+
+    <div class="admin-audit">
+      <div class="admin-transfer">
+        <h4 class="modal-title" id="myModalLabel"><%= t('view.payment/withdraw_remit.add_remit') %>（<%= t('view.payment/withdraw_remit.withdraw_user', name: @withdraw.user.try(:name)) %>）</h4>
+
+        <%= render partial: 'form' %>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -66,7 +66,7 @@ module Payment
 
     # 充值成功后资金变动
     def recharge_cash!
-      AccountService::CashManager.new(user.cash_account!).increase('Payment::RechargeRecord', amount, transaction)
+      AccountService::CashManager.new(user.cash_account!).increase('Payment::RechargeRecord', amount, self)
     end
   end
 end

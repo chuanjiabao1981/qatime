@@ -56,7 +56,6 @@ class WorkstationCreateTest < ActionDispatch::IntegrationTest
   end
 
   test "visit workstation workstation_withdraws" do
-    binding.pry
     visit admins_workstation_withdraws_path
     assert page.has_link?('工作站提现审核')
     assert page.has_link?('已审核')

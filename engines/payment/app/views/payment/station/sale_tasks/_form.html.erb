@@ -11,7 +11,7 @@
     <div class="form-group">
       <%= f.label :period %>
       <%= f.text_field :period, class: 'form-control closed-at-attr' %>
-      <span class="unit">月</span>
+      <span class="unit"><%= t('datetime.prompts.month') %></span>
       <!-- <span class="assess-cycle-hint"> -->
 	      <!-- <i><%#= Payment::SaleTask.human_attribute_name(:closed_at) %>: </i> -->
 	      <!-- <i id=""></i> -->
@@ -21,10 +21,10 @@
     <div class="form-group assess-cycle">
       <%= f.label :target_balance %>
       <%= f.text_field :target_balance, class: 'form-control' %>
-      <span class="unit">元</span>
+      <span class="unit"><%= t('currency.cn') %></span>
       <span class="assess-cycle-hint">
 	      <i><%= Payment::SaleTask.human_attribute_name(:expect_profit) %>: </i>
-    	  <i>X.00元</i>
+    	  <i><span id="expect-profit-result"><%= @workstation.platform_percentage / 100.0 * @sale_task.target_balance.to_f %></span> <%= t('currency.cn') %></i>
       </span>
       <%= f.error :target_balance %>
     </div>
@@ -35,7 +35,7 @@
 
     <div class="workstation-submit">
       <center>
-	<%= link_to t('common.cancel'), payment.station_workstation_sale_tasks_path(@workstation), class: "btn btn-default" %>
+	      <%= link_to t('common.cancel'), payment.station_workstation_sale_tasks_path(@workstation), class: "btn btn-default" %>
       	<%= f.submit %>
       </center>
     </div>
@@ -45,7 +45,9 @@
 <%= content_for :javascript do %>
 <script>
 $(function() {
-  $(".closed-at-attr").bind('input propertychange change blur', function() {
+  $("#sale_task_target_balance").bind('input propertychange change', function() {
+    if(!/^\d+$/.test($("#sale_task_target_balance").val())) return;
+    $("#expect-profit-result").text(parseInt($("#sale_task_target_balance").val() * <%= @workstation.platform_percentage / 100.0 %>));
   });
 });
 </script>

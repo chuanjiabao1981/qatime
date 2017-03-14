@@ -8,7 +8,7 @@ module BusinessService
     end
 
     # 课程结算
-    def billing_lesson()
+    def billing_lesson
       return unless _check_lesson
       # 课程总账单
       b = Payment::LiveCourseBilling.create(target: @lesson, from_user: @lesson.teacher, created_at: @created_at)
@@ -18,6 +18,7 @@ module BusinessService
       end
       # 所有的购买记录都结账完成以后课程结账完成
       @lesson.complete! if @lesson.ticket_items.billingable.blank?
+      b
     rescue StandardError => e
       _billing_fail!(e)
       raise e
@@ -78,7 +79,7 @@ module BusinessService
                                             amount: billing.base_fee,
                                             quantity: 1,
                                             price: @lesson.base_price,
-                                            duration: @lesson.duration_minutes)
+                                            duration: @lesson.duration_minutes, created_at: @created_at)
       _cash_transfer(CashAdmin.cash_account!, billing.base_fee, item)
     end
 
@@ -89,7 +90,7 @@ module BusinessService
                                               cash_account: workstation.cash_account,
                                               owner: workstation,
                                               amount: billing.sell_money,
-                                              percent:  billing.sell_percentage)
+                                              percent:  billing.sell_percentage, created_at: @created_at)
       _cash_transfer(workstation.cash_account, billing.sell_money, item)
     end
 
@@ -99,7 +100,7 @@ module BusinessService
                                                   cash_account: CashAdmin.cash_account!,
                                                   owner: CashAdmin.current!,
                                                   amount: billing.platform_money,
-                                                  percent:  billing.platform_percentage)
+                                                  percent:  billing.platform_percentage, created_at: @created_at)
       _cash_transfer(CashAdmin.cash_account!, billing.platform_money, item)
     end
 
@@ -110,7 +111,7 @@ module BusinessService
                                                  cash_account: workstation.cash_account,
                                                  owner: workstation,
                                                  amount: billing.publish_money,
-                                                 percent: @lesson.publish_percentage)
+                                                 percent: @lesson.publish_percentage, created_at: @created_at)
       _cash_transfer(workstation.cash_account, billing.publish_money, item)
     end
 
@@ -120,7 +121,7 @@ module BusinessService
                                               cash_account: teacher.cash_account,
                                               owner: teacher,
                                               amount: billing.teacher_money,
-                                              percent: @lesson.teacher_percentage)
+                                              percent: @lesson.teacher_percentage, created_at: @created_at)
       _cash_transfer(teacher.cash_account, billing.teacher_money, item)
     end
 

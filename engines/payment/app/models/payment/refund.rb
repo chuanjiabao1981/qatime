@@ -45,7 +45,7 @@ module Payment
       state :cancel
       state :failed
 
-      event :allow, before: :allow_operator do
+      event :allow, before: :allow_operator, after_commit: :cash_transfer! do
         transitions from: [:init], to: :allowed
       end
 
@@ -101,19 +101,23 @@ module Payment
       I18n.t("enum.payment/refund.pay_type.#{pay_type}")
     end
 
+    def cash_transfer!
+      BusinessService::RefundManager.new(self).billing
+    end
+
     def pay_and_ship!
-      pay!
+      success!
     end
 
     def remote_refund!
       raise Payment::InvalidOperation, "不支持的提现方式" unless weixin?
+      submit!
       remote = weixin_refunds.create!(
         amount: amount,
         status: :unpaid,
         order_no: transaction_no
       )
       remote.remote_refund
-      submit!
     end
 
     def allow_by!(operator)

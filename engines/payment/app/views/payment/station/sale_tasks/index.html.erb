@@ -17,6 +17,14 @@
       <li>
         <span><%= Payment::SaleTask.human_attribute_name(:status) %>:</span>
         <span class="assess-status"><%= task.aasm.human_state %></span>
+        <%= link_to(t('view.payment/sale_task.start'),
+                    payment.start_station_workstation_sale_task_path(@workstation, task),
+                    method: 'patch',
+                    data: {confirm: t('view.payment/sale_task.start')}) if task.unstart? &&  allow?('payment/station/sale_tasks', 'start', @workstation) %>
+        <%= link_to(t('view.payment/sale_task.close'),
+                    payment.close_station_workstation_sale_task_path(@workstation, task),
+                    method: 'patch',
+                    data: {confirm: t('view.payment/sale_task.close')}) if task.ongoing? &&  allow?('payment/station/sale_tasks', 'close', @workstation) %>
       </li>
       <li>
         <span><%= Payment::SaleTask.human_attribute_name(:started_at) %>:</span>

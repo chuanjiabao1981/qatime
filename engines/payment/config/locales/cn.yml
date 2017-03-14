@@ -74,6 +74,10 @@ cn:
       edit: 编辑
       task_index: "考核 %{index}"
       period: "%{period} 个月"
+      close: 点击关闭
+      start: 点击开始
+      confirm_close: 确认关闭? 
+      confirm_start: 确认开始?
   activerecord:
     view:
       order: 我的订单

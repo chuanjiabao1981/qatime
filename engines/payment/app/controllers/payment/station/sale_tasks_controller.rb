@@ -2,7 +2,7 @@ require_dependency "payment/application_controller"
 
 module Payment
   class Station::SaleTasksController < Station::BaseController
-    before_action :set_sale_task, only: [:show, :edit, :update, :destroy]
+    before_action :set_sale_task, only: [:show, :edit, :update, :destroy, :start, :close]
 
     # GET /sale_tasks
     def index
@@ -55,6 +55,17 @@ module Payment
     def destroy
       @sale_task.destroy
       redirect_to sale_tasks_url, notice: 'Sale task was successfully destroyed.'
+    end
+
+    # 开始
+    def start
+      @sale_task.start! if @sale_task.unstart?
+      redirect_to payment.station_workstation_sale_tasks_path(@workstation)
+    end
+
+    def close
+      @sale_task.close! if @sale_task.ongoing?
+      redirect_to payment.station_workstation_sale_tasks_path(@workstation)
     end
 
     private

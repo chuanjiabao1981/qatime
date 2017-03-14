@@ -472,6 +472,7 @@ module LiveStudio
       self.publish_percentage ||= tpl_workstation.publish_percentage
       # 平台分成
       self.platform_percentage ||= tpl_workstation.platform_percentage
+      self.base_price ||= (tpl_workstation.service_price / 60.0).round(2)
       self.sell_and_platform_percentage = 100 - teacher_percentage - publish_percentage
     end
 

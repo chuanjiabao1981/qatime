@@ -1,12 +1,8 @@
 
-<% if @change_record.business.type == 'Payment::Withdraw' %>
-  $('#change_record_tr_<%= change_record.id %>').html('<%= j render partial: 'shared/workstations/change_record_td_withdraw' %>');
-<% end %>
-
-<% if @change_record.business.type == 'Payment::BillingItem' %>
-  $('#change_record_tr_<%= change_record.id %>').html('<%= j render partial: 'shared/workstations/change_record_td_billing_item' %>');
-<% end %>
-
-<% if @change_record.business.type == 'Payment::Billing' %>
-  $('#change_record_tr_<%= change_record.id %>').html('<%= j render partial: 'shared/workstations/change_record_td_billing' %>');
+<% if @change_record.is_a?(Payment::WithdrawRefundRecord) %>
+  $('#change_record_tr_<%= @change_record.id %>').html('<%= j render partial: 'shared/workstations/change_records/withdraw_refund' %>');
+<% elsif @change_record.target.is_a?(LiveStudio::Lesson) %>
+  $('#change_record_tr_<%= @change_record.id %>').html('<%= j render partial: 'shared/workstations/change_records/lesson' %>');
+<% else %>
+  $('#change_record_tr_<%= @change_record.id %>').html('<%= j render partial: 'shared/workstations/change_records/customized_course' %>');
 <% end %>

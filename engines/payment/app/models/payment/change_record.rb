@@ -10,6 +10,7 @@ module Payment
     belongs_to :business, polymorphic: true # 关联交易
     belongs_to :target, polymorphic: true # 交易对象
     belongs_to :owner, polymorphic: true
+    belongs_to :billing
 
     # 出账记录
     scope :out_changes, -> { where("payment_change_records.different < 0") }
@@ -25,8 +26,14 @@ module Payment
     before_create :copy_relation
     def copy_relation
       self.owner = cash_account.owner
-      self.target ||= business.target if business.is_a?(Payment::Billing)
+      self.target ||= business.target if business.is_a?(Payment::Billing) || business.is_a?(Payment::BillingItem)
       self.target ||= business.product if business.is_a?(Payment::Order)
+    end
+
+    before_create :copy_billing
+    def copy_billing
+      self.billing ||= business if business.is_a?(Payment::Billing)
+      self.billing ||= business.billing if business.is_a?(Payment::BillingItem)
     end
   end
 end

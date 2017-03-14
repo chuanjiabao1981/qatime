@@ -1,16 +1,17 @@
 module BusinessService
   # 直播课结账
   class CourseBillingDirector
-    def initialize(lesson)
+    def initialize(lesson, created_at = nil)
       @lesson = lesson
       @course = lesson.course
+      @created_at = created_at || Time.now
     end
 
     # 课程结算
-    def billing_lesson
+    def billing_lesson()
       return unless _check_lesson
       # 课程总账单
-      b = Payment::LiveCourseBilling.create(target: @lesson, from_user: @lesson.teacher)
+      b = Payment::LiveCourseBilling.create(target: @lesson, from_user: @lesson.teacher, created_at: @created_at)
       # 针对每一个购买记录单独结账
       @lesson.ticket_items.billingable.includes(ticket: [:channel_owner, :sell_channel]).each do |item|
         billing_ticket(b, item)
@@ -49,7 +50,7 @@ module BusinessService
 
     # 给每一个购买记录生成一个单独的账单
     def _item_billing(parent, ticket)
-      Payment::LiveCourseTicketBilling.create!(target: @lesson, from_user: @lesson.teacher, parent: parent, ticket: ticket)
+      Payment::LiveCourseTicketBilling.create!(target: @lesson, from_user: @lesson.teacher, parent: parent, ticket: ticket, created_at: @created_at)
     end
 
     def _billing_fail!(e)

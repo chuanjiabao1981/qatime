@@ -19,7 +19,7 @@
       </tr>
 
       <% @change_records.each_with_index do |change_record, index| %>
-        <%#= render partial: "shared/workstations/change_record#{'_in' if params[:from] == 'in'}_tr", locals: {change_record: change_record, index: index} %>
+        <%= render partial: "shared/workstations/change_record#{'_in' if params[:from] == 'in'}_tr", locals: {change_record: change_record, index: index} %>
       <% end %>
 
       </tbody>

@@ -90,6 +90,10 @@ account_for_workstation:
   owner: workstation1 (Workstation)
   balance: 0
   type: Payment::CashAccount
+available_cash_workstation1:
+  owner: workstation1(Workstation)
+  balance: 200
+  type: Payment::AvailableAccount
   
 teahcer_balance_account:
   owner: teacher_tally (User)
@@ -151,11 +155,19 @@ cash_default_workstation:
   owner: workstation_default(Workstation)
   balance: 20000
   type: Payment::CashAccount
+available_cash_workstation_default:
+  owner: workstation_default(Workstation)
+  balance: 200
+  type: Payment::AvailableAccount
 
 cash_workstation_zhuji:
   owner: workstation_zhuji(Workstation)
   balance: 20000
   type: Payment::CashAccount
+available_cash_workstation_zhuji:
+  owner: workstation_zhuji(Workstation)
+  balance: 200
+  type: Payment::AvailableAccount
 
 cash_workstation_beijing:
   owner: workstation_one(Workstation)

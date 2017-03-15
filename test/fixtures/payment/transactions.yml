@@ -60,13 +60,12 @@ order2:
   pay_type: 1
   status: 1
   type: Payment::Order
-  product: course_with_order2
+  product: course_with_order2 (LiveStudio::Course)
 
 order4:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: student_with_order2
-  product: course_with_order2
-  product_type: 'LiveStudio::Course'
+  product: course_with_order2 (LiveStudio::Course)
   amount: 1000
   status: 95
   pay_type: 1
@@ -75,8 +74,7 @@ order4:
 order5:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: student_with_order2
-  product: course_with_order2
-  product_type: 'LiveStudio::Course'
+  product: course_with_order2 (LiveStudio::Course)
   amount: 1000
   status: 0
   pay_type: 2
@@ -86,8 +84,7 @@ order5:
 order6:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: student_with_order2
-  product: course_with_order2
-  product_type: 'LiveStudio::Course'
+  product: course_with_order2 (LiveStudio::Course)
   amount: 1000
   status: 99
   pay_type: 2
@@ -96,8 +93,7 @@ order6:
 order7:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: student_with_order2
-  product: course_with_order2
-  product_type: 'LiveStudio::Course'
+  product: course_with_order2 (LiveStudio::Course)
   amount: 1000
   status: 3
   pay_type: 2

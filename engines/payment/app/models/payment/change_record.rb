@@ -19,7 +19,7 @@ module Payment
     # 是否考核
     scope :assess_billing, -> { where.not(assess_billing_id: nil) }
     scope :not_assess_billing, -> { where(assess_billing_id: nil) }
-    scope :business_by_type, ->(business_type) { where(business_type: business_type) }
+    scope :business_by_klass, ->(business_klass) { where(business_klass: business_klass) }
 
     private
 

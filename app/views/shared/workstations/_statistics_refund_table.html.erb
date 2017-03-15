@@ -19,7 +19,7 @@
         <%= link_to refund.product.try(:name), live_studio.course_path(refund.product || 0) %>
       </td>
       <td><%= localize(refund.created_at, format: :long) %></td>
-      <td><%= localize(refund.order.created_at, format: :long) %></td>
+      <td><%= localize(refund.order.created_at, format: :long) if refund.order %></td>
       <td><%= refund.user.try(:name) %></td>
       <td><%= refund.source_text %></td>
     </tr>

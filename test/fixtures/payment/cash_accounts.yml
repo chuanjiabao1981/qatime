@@ -172,6 +172,7 @@ available_cash_workstation_zhuji:
 cash_workstation_beijing:
   owner: workstation_one(Workstation)
   balance: 100
+  type: Payment::CashAccount
 available_cash_workstation_beijing:
   owner: workstation_one(Workstation)
   balance: 100
@@ -180,6 +181,7 @@ available_cash_workstation_beijing:
 cash_workstation_hd:
   owner: workstation_hd(Workstation)
   balance: 200
+  type: Payment::CashAccount
 available_cash_workstation_hd:
   owner: workstation_hd(Workstation)
   balance: 200

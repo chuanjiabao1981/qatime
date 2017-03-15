@@ -42,7 +42,7 @@ module Payment
       state :submited
       state :refunded
       state :ignored
-      state :cancel
+      state :canceled
       state :failed
 
       event :allow, before: :allow_operator, after_commit: :cash_transfer! do

@@ -108,7 +108,7 @@ class Station::WorkstationsController < Station::BaseController
       @statistics = @order_statistics
     end
 
-    searchable = StatisticService::TransactionDirector.new(@statistics, params[:statistics_days], Date.today)
+    searchable = StatisticService::TransactionDirector.new(@statistics, params[:statistics_days], Time.now)
     searchable.search(params)
 
     @x_cate = searchable.x_cate

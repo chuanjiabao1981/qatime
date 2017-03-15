@@ -69,8 +69,8 @@ module Tally
     # 新的分账
     def __split_billing(billing, teacher, workstation)
       AccountService::CashManager.new(teacher.cash_account!).increase('Payment::EarningRecord', teacher_amount, billing)
-      AccountService::CashManager.new(workstation.cash_account).increase('Payment::EarningRecord', workstation_id, billing)
-      AccountService::CashManager.new(workstation.available_account).increase('Payment::EarningRecord', workstation_id, billing)
+      AccountService::CashManager.new(workstation.cash_account).increase('Payment::EarningRecord', workstation_amount, billing)
+      AccountService::CashManager.new(workstation.available_account).increase('Payment::EarningRecord', workstation_amount, billing)
     end
 
     def __split_fee_to_relative_account(relative_account, fee, value, price)

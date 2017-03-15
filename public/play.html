@@ -3,15 +3,14 @@
 <head>
 <title>视频直播</title>
 <link href="//nos.netease.com/vod163/nep.min.css" rel="stylesheet">
-<script src="//nos.netease.com/vod163/nep.min.js"></script>
+<script src="//nos.netease.com/vod163/nep.min.js" type='text/javascript'></script>
 </head>
 <body style="margin: 0px;">
 
-<video id="my-video" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="poster.png" preload="auto" data-setup="{}">
-    <source src="MY_VIDEO.mp4" type="video/mp4">
+<video id="my-video" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="big_loading.png" preload="auto" data-setup="{}">
 </video>
 
-<script>
+<script type='text/javascript'>
 function queryParams(name, url) {
   if (!url) {
     url = window.location.href;
@@ -42,9 +41,11 @@ if("http" === address.substring(0, 4)) {
 var myPlayer = neplayer("my-video", {
   "autoplay": true, //是否自动播放(ios不支持自动播放)
   /*预加载选项*/
-  "preload": "auto"
+  "preload": "auto",
+  "width": width,
+  "height": height
 }, function() {
-  console.log("Ready......");
+  // console.log("Ready......");
 });
 
 myPlayer.setDataSource({
@@ -53,18 +54,18 @@ myPlayer.setDataSource({
 });
 
 myPlayer.onError(function(err){
-  console.log(err.errCode);
-  console.log(err.errMsg);
+  // console.log(err.errCode);
+  // console.log(err.errMsg);
 });
 
 myPlayer.onPlayState(1,function(){
-  console.log('play');
+  // console.log('play');
 });
 myPlayer.onPlayState(2,function(){
-  console.log('pause');
+  // console.log('pause');
 });
 myPlayer.onPlayState(3,function(){
-  console.log('ended');
+  // console.log('ended');
 }); 
 </script>
 

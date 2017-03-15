@@ -1,0 +1,10 @@
+<tr>
+  <td><%= show_index(no_remit_counter, @withdraw_remits.limit_value) %></td>
+  <td><%= number_to_currency(no_remit.amount) %></td>
+  <td><%= no_remit.user.try(:name) %>（<%= no_remit.user.try(:login_mobile) %>）</td>
+  <td><%= no_remit.owner.try(:name) %></td>
+  <td><%= no_remit.transaction_no %></td>
+  <td><%= no_remit.payee %></td>
+  <td><%= localize(no_remit.created_at, format: :long) %></td>
+  <td><%= link_to t('view.admins.workstation_remits.add_remit'), new_withdraw_remit_path(withdraw_id: no_remit.id) %></td>
+</tr>

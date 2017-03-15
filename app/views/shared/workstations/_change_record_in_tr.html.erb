@@ -2,11 +2,19 @@
 <tr>
   <td><%= show_index(index, @change_records.limit_value) %></td>
   <td><%= number_to_currency(change_record.different, locale: :cn) %></td>
-  <td><%= change_record.business.try(:model_name).try(:human) %></td>
+  <td>
+    <% if change_record.type == 'Payment::WithdrawRefundRecord' %>
+      <%= t('view.shared.workstations.change_records.withdraw_refund_record') %>
+    <% else %>
+      <%= change_record.target.try(:model_name).try(:human) %>
+    <% end %>
+  </td>
   <td><%= number_to_currency(change_record.after, locale: :cn) %></td>
   <td>
     <% if change_record.target_type == 'Payment::Course' %>
       <%= link_to change_record.target.try(:name), live_studio.course_path(change_record.target || 0) %>
+    <% elsif change_record.type == 'Payment::WithdrawRefundRecord' %>
+      <%= t('view.shared.workstations.change_records.withdraw_refund_record_name') %>
     <% else %>
       <%= change_record.target.try(:name) %>
     <% end %>

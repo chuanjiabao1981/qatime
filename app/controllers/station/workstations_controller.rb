@@ -85,7 +85,7 @@ class Station::WorkstationsController < Station::BaseController
     else
       @change_records = @workstation.cash_account.change_records.out_changes.where(type: ['Payment::WithdrawRecord', 'Payment::SaleTaskPayRecord'])
     end
-    @change_records = @change_records.paginate(page: params[:page])
+    @change_records = @change_records.order('created_at desc').paginate(page: params[:page])
   end
 
   # 1. 辅导班结账收入 business_type: Payment::BillingItem
@@ -93,16 +93,6 @@ class Station::WorkstationsController < Station::BaseController
   # 3. 提现失败退款 business_type: Payment::Withdraw
   def get_billing_item
     @change_record = Payment::ChangeRecord.find(params[:change_record_id])
-    business_type = @change_record.business.type
-
-    if business_type == 'Payment::BillingItem'
-      @billing_items = @change_record.business.billing.billing_items
-    end
-
-    if business_type == 'Payment::Billing'
-      @billing_items = @change_record.business
-    end
-
   end
 
   # 销售统计

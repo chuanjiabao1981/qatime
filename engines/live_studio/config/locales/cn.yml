@@ -286,7 +286,7 @@ cn:
     models:
       payment/order: 订单
       live_studio/course: 直播课
-      live_studio/lesson: 课程
+      live_studio/lesson: 直播课程
       live_studio/course_request: 招生审核
       live_studio/course_invitation: 开班邀请
       live_studio/announcement: 公告
@@ -335,8 +335,13 @@ cn:
         billing_system_amount: 系统收入
         billing_workstation_percent: 工作站分成
         billing_workstation_amount: 工作站收入
-        billing_sell_percent: 分销商分成
-        billing_sell_amount: 分销商收入
+        billing_publish_amount: 发行收入
+        billing_publish_percent: 发行分成
+        billing_sell_amount: 销售收入
+        billing_sell_percent: 销售分成
+        billing_platform_amount: 平台收入
+        billing_platform_percent: 平台分成
+        billing_amount: 结账金额
         address: 上课地址
         grade: 年级
         grade_type: 年级类型

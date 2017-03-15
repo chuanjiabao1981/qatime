@@ -37,12 +37,12 @@
         </li>
         <li>
           <span><%= t('view.shared.workstations.fund.published_money') %></span>
-          <span><%= number_to_currency(workstation.percent_item_amount(business_type: 'Payment::PublishPercentItem')) %></span>
+          <span><%= number_to_currency(workstation.percent_item_amount(business_klass: 'Payment::PublishPercentItem')) %></span>
           <i><%= t('view.shared.workstations.fund.published_money_i', state: '未考核') %></i>
         </li>
         <li>
           <span><%= t('view.shared.workstations.fund.sell_money') %></span>
-          <span><%= number_to_currency(workstation.percent_item_amount(business_type: 'Payment::SellPercentItem')) %></span>
+          <span><%= number_to_currency(workstation.percent_item_amount(business_klass: 'Payment::SellPercentItem')) %></span>
           <i><%= t('view.shared.workstations.fund.sell_money_i', state: '未考核') %></i>
         </li>
       </ul>

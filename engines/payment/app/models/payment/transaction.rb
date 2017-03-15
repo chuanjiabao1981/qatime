@@ -6,6 +6,7 @@ module Payment
     extend Enumerize
 
     belongs_to :user
+    belongs_to :owner, polymorphic: true
 
     enumerize :source, in: { web: 0, app: 1, wap: 2 }, default: :web
     enumerize :statistics_days, in: { week: 0, month: 1, month2: 2, month3: 3, month6: 6, year: 12 }, default: :week

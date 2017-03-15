@@ -145,6 +145,7 @@ student_recharge_of_4:
 admin_withdraws:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: teacher_balance
+  owner: teacher_balance (User)
   amount: 200
   pay_type: 3
   status: 0
@@ -153,6 +154,7 @@ admin_withdraws:
 admin_withdraw_one:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: teacher_balance
+  owner: teacher_balance (User)
   amount: 200
   pay_type: 0
   status: 0
@@ -162,6 +164,7 @@ admin_withdraw_one:
 withdraws:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: student_balance
+  owner: student_balance (User)
   amount: 200
   pay_type: 0
   status: 3
@@ -170,6 +173,7 @@ withdraws:
 withdraw_one:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: student_balance
+  owner: student_balance (User)
   amount: 200
   pay_type: 0
   status: 2
@@ -206,6 +210,7 @@ refund:
   type: Payment::Refund
   product: course_for_refund1 (LiveStudio::Course)
   user: student_order_for_refund
+  owner: student_order_for_refund (User)
   transaction_no: <%= @transaction ||= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   amount: 400
   status: 0
@@ -215,6 +220,7 @@ refund2:
   type: Payment::Refund
   product: course_for_refund2 (LiveStudio::Course)
   user: student_order_for_refund
+  owner: student_order_for_refund (User)
   transaction_no: <%= @transaction2 ||= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   amount: 400
   status: 0
@@ -232,6 +238,7 @@ weixin_refund:
   type: Payment::Refund
   product: course_for_refund4 (LiveStudio::Course)
   user: student_order_for_refund
+  owner: student_order_for_refund (User)
   transaction_no: <%= @transaction3 ||= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   amount: 400
   status: 0
@@ -249,6 +256,7 @@ refund_to_account:
   type: Payment::Refund
   transaction_no: <%= @transaction3 || Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: student1
+  owner: student1 (User)
   amount: 50
   pay_type: 4
   status: 1
@@ -258,6 +266,7 @@ refund_to_weixin:
   type: Payment::Refund
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: student2
+  owner: student2 (User)
   amount: 50
   pay_type: 3
   status: 1
@@ -267,6 +276,7 @@ refund_to_account2:
   type: Payment::Refund
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: student3
+  owner: student3 (User)
   amount: 50
   pay_type: 4
   status: 1
@@ -331,6 +341,7 @@ workstation_one_refund1:
   type: Payment::Refund
   product: course_with_order2 (LiveStudio::Course)
   user: student_order_for_refund
+  owner: student_order_for_refund (User)
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   amount: 200
   status: 10 # 已退款

@@ -18,7 +18,7 @@ class Admins::WithdrawsController < ApplicationController
   def audit
     @withdraws = params[:init] == 'audit' ? Payment::Withdraw.where.not(status: Payment::Withdraw.statuses['init']) :  Payment::Withdraw.init
     @withdraws = @withdraws.filter(params[:keyword])
-    @withdraws = @withdraws.paginate(page: params[:page],per_page: 10)
+    @withdraws = @withdraws.paginate(page: params[:page], per_page: 10)
   end
 
   def pass

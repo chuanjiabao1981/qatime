@@ -383,11 +383,6 @@ module LiveStudio
       [(sell_and_platform_percentage - seller.platform_percentage), 0].max
     end
 
-    # 计算老师分成
-    def calculate_teacher_percentage
-      price * (teacher_percentage / 100.0)
-    end
-
     def coupon_price(coupon = nil)
       return current_price.to_f unless coupon.present?
       [current_price.to_f - coupon.price, 0].max

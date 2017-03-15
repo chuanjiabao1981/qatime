@@ -789,3 +789,20 @@ billing_course_three:
   publish_percentage: 10
   base_price: 0.1
 
+course_for_channel:
+  name: course_for_channel
+  workstation: xxxxxxxxx
+  status: 2
+  teacher: teacher_for_billing
+  teacher_percentage: 80
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 六年级
+  subject: 语文
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+  lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
+

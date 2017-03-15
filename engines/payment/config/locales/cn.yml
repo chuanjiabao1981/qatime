@@ -76,7 +76,7 @@ cn:
       period: "%{period} 个月"
       close: 点击关闭
       start: 点击开始
-      confirm_close: 确认关闭? 
+      confirm_close: 确认关闭?
       confirm_start: 确认开始?
     payment/withdraw_remit:
       pic_valid: 请上传图片
@@ -96,6 +96,7 @@ cn:
     models:
       payment/order: 订单
       payment/change_record: 资金流水
+      payment/withdraw_change_record: 提现
       payment/sale_task_pay_record: 考核扣款
       payment/consumption_record: 消费记录
       payment/earning_record: 收入记录

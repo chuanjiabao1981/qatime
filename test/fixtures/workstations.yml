@@ -23,6 +23,8 @@ workstation1:
   email: MyString
   manager: manager
   platform_percentage: 10
+  contract_start_date_at: <%= 1.days.ago %>
+  contract_end_date_at: <%= 1.days.ago + 12.days %>
 
 workstation_invalid:
   name: MyString

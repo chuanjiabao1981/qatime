@@ -28,6 +28,7 @@ module Payment
       self.owner = cash_account.owner
       self.target ||= business.target if business.is_a?(Payment::Billing) || business.is_a?(Payment::BillingItem)
       self.target ||= business.product if business.is_a?(Payment::Order)
+      self.business_klass = business.model_name.to_s if business.present?
     end
 
     before_create :copy_billing

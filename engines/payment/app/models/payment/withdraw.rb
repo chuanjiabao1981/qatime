@@ -4,6 +4,7 @@ module Payment
 
     has_one :withdraw_record, foreign_key: 'payment_transaction_id', class_name: 'Payment::WithdrawRecord'
     has_many :weixin_transfers, as: :order
+    has_one :withdraw_remit, as: :target, class_name: 'Payment::WithdrawRemit'
     belongs_to :owner, polymorphic: true
 
     enum status: %w(init allowed refused canceled paid)
@@ -18,7 +19,7 @@ module Payment
 
     validate :validate_withdraw_amount, :validate_wechat, on: :create, unless: Proc.new { |record| record.station? }
 
-    # after_create :decrease_cash!
+    after_create :decrease_cash!
 
     scope :filter, ->(keyword){keyword.blank? ? nil : where('transaction_no ~* ?', keyword).presence ||
       where(user: User.where('name ~* ?',keyword).presence || User.where('login_mobile ~* ?',keyword))}
@@ -91,12 +92,16 @@ module Payment
 
     # 创建提现记录以后直接扣除账户余额
     def decrease_cash!
-      AccountService::CashManager.new(user.cash_account!).decrease('Payment::WithdrawChangeRecord', amount, self)
+      # AccountService::CashManager.new(user.cash_account!).decrease('Payment::WithdrawChangeRecord', amount, self)
+      AccountService::CashManager.new(owner.cash_account!).decrease('Payment::WithdrawChangeRecord', amount, self)
+      AccountService::CashManager.new(owner.available_account).decrease('Payment::WithdrawChangeRecord', amount, self) if owner.is_a?(Workstation)
     end
 
     # 提现失败以后返还账户余额
     def refund_cash!
-      AccountService::CashManager.new(user.cash_account!).increase('Payment::WithdrawRefundRecord', amount, self)
+      # AccountService::CashManager.new(user.cash_account!).increase('Payment::WithdrawRefundRecord', amount, self)
+      AccountService::CashManager.new(owner.cash_account!).increase('Payment::WithdrawRefundRecord', amount, self)
+      AccountService::CashManager.new(owner.available_account).increase('Payment::WithdrawRefundRecord', amount, self) if owner.is_a?(Workstation)
     end
 
     def allow_operator(current_user)

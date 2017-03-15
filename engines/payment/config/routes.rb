@@ -15,6 +15,8 @@ Payment::Engine.routes.draw do
     end
   end
 
+  resources :withdraw_remits
+
   resources :users, only: [] do
     resources :orders, only: [:index, :show, :destroy] do
       member do

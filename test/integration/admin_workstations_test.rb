@@ -54,4 +54,14 @@ class WorkstationCreateTest < ActionDispatch::IntegrationTest
     assert page.has_content?('收入金额')
     assert page.has_content?('收入类型')
   end
+
+  test "visit workstation workstation_withdraws" do
+    visit admins_workstation_withdraws_path
+    assert page.has_link?('工作站提现审核')
+    assert page.has_link?('已审核')
+    assert page.has_link?('未审核')
+    assert page.has_content?('操作')
+    click_on '已审核'
+    assert page.has_content?('审核结果')
+  end
 end

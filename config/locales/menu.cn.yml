@@ -44,6 +44,7 @@
     confirm_refuse: "确定拒绝么？"
     confirm_hide: "确定隐藏么？"
     search: "搜索"
+    search2: "查询"
     public: "公开"
     create_success: "创建成功."
     delete_success: "删除成功."

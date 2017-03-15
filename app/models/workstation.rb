@@ -64,7 +64,7 @@ class Workstation < ActiveRecord::Base
   accepts_nested_attributes_for :coupon, allow_destroy: true, reject_if: proc { |attributes| attributes['code'].blank? }
 
   def cash_account!
-    cash_account || ::Payment::CashAccount.create(owner: self)
+    cash_account || ::Payment::CashAccount.create(owner: self, type: "Payment::CashAccount")
   end
 
   # 不可用于提现的收入额

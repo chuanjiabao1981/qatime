@@ -66,6 +66,12 @@ Qatime::Application.routes.draw do
         post :change_status
       end
     end
+    resources :workstation_withdraws, only: [:index] do
+      member do
+        post :audit
+      end
+    end
+    resources :workstation_remits
     resources :softwares do
       member do
         get :run

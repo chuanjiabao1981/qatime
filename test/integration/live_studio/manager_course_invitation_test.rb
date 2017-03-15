@@ -43,7 +43,7 @@ module LiveStudio
       fill_in :course_invitation_expited_day, with: 'test'
       click_on '立即发送'
       assert_match('手机号不存在', page.text, 'Course invitation创建失败')
-      assert_match('必须小于或等于 95', page.text, 'Course invitation创建失败')
+      assert_match('必须小于或等于 85', page.text, 'Course invitation创建失败')
       assert_match('不是数字', page.text, 'Course invitation创建失败')
     end
   end

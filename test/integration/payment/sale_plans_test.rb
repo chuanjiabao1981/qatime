@@ -32,8 +32,8 @@ module Payment
       click_on '考核'
       click_on '新增'
       fill_in 'sale_task_period', with: 1
-      fill_in 'sale_task_charge_percentage', with: 10
       fill_in 'sale_task_target_balance', with: 100_000
+      assert page.has_content?('预计平台最低收益: 20000 元')
       assert_difference "Payment::SaleTask.count", 1, "考核创建失败" do
         click_on '新增考核'
       end
@@ -43,10 +43,8 @@ module Payment
       find('#sale_task_started_at').click
       find('.jedatetodaymonth').click
       fill_in 'sale_task_period', with: 3
-      fill_in 'sale_task_charge_percentage', with: 300
       fill_in 'sale_task_target_balance', with: -10_000
       click_on '新增考核'
-      assert page.has_content?('必须小于 100')
       assert page.has_content?('必须大于或等于 0')
       assert page.has_content?('考核时间冲突')
     end

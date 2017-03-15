@@ -58,7 +58,7 @@ module Payment
 
       # Only allow a trusted parameter "white list" through.
       def sale_task_params
-        params[:sale_task]
+        params.require(:sale_task).permit(:started_at, :period, :target_balance)
       end
   end
 end

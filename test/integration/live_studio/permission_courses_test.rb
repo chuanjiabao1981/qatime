@@ -20,8 +20,8 @@ module LiveStudio
       cant_edit = live_studio_courses(:course_for_edit)
       visit live_studio.manager_courses_path(@user)
       # create course
-      click_on '开班邀请',match: :first
-      click_on '创建新邀请',match: :first
+      click_on '开班邀请', match: :first
+      click_on '创建新邀请', match: :first
       click_on '立即发送', match: :first
       assert_match '不能为空字符', page.text, '没有创建权限'
       visit live_studio.manager_courses_path(@user)

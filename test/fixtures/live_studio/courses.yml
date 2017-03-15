@@ -639,6 +639,7 @@ course_for_refund3:
   status: 2
   teacher: teacher1
   teacher_percentage: 80
+  publish_percentage: 5
   preset_lesson_count: 2
   lesson_price: 200
   price: 400

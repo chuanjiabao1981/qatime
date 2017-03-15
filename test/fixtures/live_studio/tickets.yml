@@ -209,6 +209,8 @@ ticket_for_refund3:
   payment_order: order_for_refund3
   status: 1
   lesson_price: 200
+  sell_percentage: 10
+  platform_percentage: 5
   got_lesson_ids: <%= [ActiveRecord::FixtureSet.identify(:lesson1_for_refund_course3), ActiveRecord::FixtureSet.identify(:lesson2_for_refund_course3)]%>
 refund_ticket:
   student: student1
@@ -217,6 +219,8 @@ refund_ticket:
   type: LiveStudio::BuyTicket
   status: 96
   lesson_price: 200
+  sell_percentage: 10
+  platform_percentage: 5
   got_lesson_ids: <%= [ActiveRecord::FixtureSet.identify(:lesson1_for_refund_course3), ActiveRecord::FixtureSet.identify(:lesson2_for_refund_course3)]%>
 replay_ticket:
   student: student_for_replays

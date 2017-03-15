@@ -88,20 +88,24 @@ module Payment
       statuses.slice(:allowed,:refused).map{|k,_| [I18n.t("activerecord.status.withdraw.admin.#{k}"), k]}
     end
 
+    def account_owner
+      owner || user
+    end
+
     private
 
     # 创建提现记录以后直接扣除账户余额
     def decrease_cash!
       # AccountService::CashManager.new(user.cash_account!).decrease('Payment::WithdrawChangeRecord', amount, self)
-      AccountService::CashManager.new(owner.cash_account!).decrease('Payment::WithdrawChangeRecord', amount, self)
-      AccountService::CashManager.new(owner.available_account).decrease('Payment::WithdrawChangeRecord', amount, self) if owner.is_a?(Workstation)
+      AccountService::CashManager.new(account_owner.cash_account!).decrease('Payment::WithdrawChangeRecord', amount, self)
+      AccountService::CashManager.new(account_owner.available_account).decrease('Payment::WithdrawChangeRecord', amount, self) if owner.is_a?(Workstation)
     end
 
     # 提现失败以后返还账户余额
     def refund_cash!
       # AccountService::CashManager.new(user.cash_account!).increase('Payment::WithdrawRefundRecord', amount, self)
-      AccountService::CashManager.new(owner.cash_account!).increase('Payment::WithdrawRefundRecord', amount, self)
-      AccountService::CashManager.new(owner.available_account).increase('Payment::WithdrawRefundRecord', amount, self) if owner.is_a?(Workstation)
+      AccountService::CashManager.new(account_owner.cash_account!).increase('Payment::WithdrawRefundRecord', amount, self)
+      AccountService::CashManager.new(account_owner.available_account).increase('Payment::WithdrawRefundRecord', amount, self) if owner.is_a?(Workstation)
     end
 
     def allow_operator(current_user)

@@ -62,7 +62,7 @@ module Payment
         user_account.reload
       end
       click_on '已审核'
-      assert has_content?('审核通过')
+      assert has_content?('正在退款')
       assert ra.status, 'refunded'
       assert_equal ra.user.live_studio_buy_tickets.where(course: ra.product).first.status, 'refunded'
       assert_equal ra.order.status, 'refunded'

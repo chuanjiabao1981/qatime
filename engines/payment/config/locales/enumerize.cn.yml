@@ -83,3 +83,5 @@ cn:
         ignored: 已忽略
         cancel: 已取消
         refunded: 已退款
+        allowed: 正在退款
+        submited: 正在退款

@@ -88,13 +88,24 @@ class Workstation < ActiveRecord::Base
   end
 
   def self.default
-    Workstation.find_or_create_by(email: 'admin@qatime.cn')
+    @workstation ||= Workstation.find_by(email: 'admin@qatime.cn')
+    if @workstation.nil?
+      m = Manager.find_by(email: 'admin@qatime.cn')
+      @workstation = Workstation.find_or_create_by(email: 'admin@qatime.cn', name: '默认工作站', manager: m)
+    end
+    @workstation
   end
 
   private
 
   after_create :init_cash
   def init_cash
-    cash_account!
+    cash_account ||= ::Payment::CashAccount.create(owner: self, type: "Payment::CashAccount")
+    if caution_money.to_f > 0
+      AccountService::CashManager.new(cash_account).increase('Payment::DepositRecord', caution_money, self)
+      cash_account.deposit_balance = caution_money
+      cash_account.save
+    end
+    ::Payment::AvailableAccount.create(owner: self)
   end
 end

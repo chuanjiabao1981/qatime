@@ -83,7 +83,7 @@ class Station::WorkstationsController < Station::BaseController
     if params[:from] == 'in'
       @change_records = @workstation.cash_account.change_records.in_changes.where(type: ['Payment::EarningRecord', 'Payment::WithdrawRefundRecord'])
     else
-      @change_records = @workstation.cash_account.change_records.out_changes.where(type: ['Payment::WithdrawRecord', 'Payment::SaleTaskPayRecord'])
+      @change_records = @workstation.cash_account.change_records.out_changes.where(type: ['Payment::WithdrawChangeRecord', 'Payment::SaleTaskPayRecord'])
     end
     @change_records = @change_records.order('created_at desc').paginate(page: params[:page])
   end

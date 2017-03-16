@@ -364,6 +364,7 @@ cn:
         live_end_date: 结束时间
         teach_type: 授课方式
         tag_list: 课程标签
+        course_description: 课程简介
       live_studio/push_stream:
         address: 直播地址
       live_studio/pull_stream:

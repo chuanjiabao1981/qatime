@@ -15,11 +15,19 @@
     </div>
   </div>
 
-  <div class="price-class">
-    <span><strong><%= t('view.course_form.teacher_percentage', percentage: number_to_percentage(@course.invitation.teacher_percent, precision: 0) ) %></strong></span>
-    <i>|</i>
-    <span><strong><%= t('view.course_form.service_price', price: @course.invitation.target.service_price.to_i ) %></strong></span>
-  </div>
+  <% if @course.invitation %>
+    <div class="price-class">
+      <span><strong><%= t('view.course_form.teacher_percentage', percentage: number_to_percentage(@course.invitation.teacher_percent, precision: 0) ) %></strong></span>
+      <i>|</i>
+      <span><strong><%= t('view.course_form.service_price', price: @course.invitation.target.service_price.to_i ) %></strong></span>
+    </div>
+  <% elsif !@course.new_record?%>
+    <div class="price-class">
+      <span><strong><%= t('view.course_form.teacher_percentage', percentage: number_to_percentage(@course.teacher_percentage, precision: 0) ) %></strong></span>
+      <i>|</i>
+      <span><strong><%= t('view.course_form.service_price', price: @course.service_price ) %></strong></span>
+    </div>
+  <% end %>
 </div>
 <div class="editor-msg">
   <div class="row">

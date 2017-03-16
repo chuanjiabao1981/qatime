@@ -390,6 +390,10 @@ module LiveStudio
       [current_price.to_f - coupon.price, 0].max
     end
 
+    def service_price
+      (base_price.to_f * 60).to_i
+    end
+
     private
 
     # 辅导班删除以后同时删除课程

@@ -1,5 +1,7 @@
 module LiveStudio
   class Course < ActiveRecord::Base
+    acts_as_taggable
+
     # include LiveStudio::QaCourseActionRecord
     has_soft_delete
     attr_accessor :sell_percentage_range

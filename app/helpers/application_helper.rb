@@ -351,4 +351,9 @@ module ApplicationHelper
     end
     r
   end
+
+  # 系统所有的标签
+  def tags_with_category
+    TagCategory.includes(:tags)
+  end
 end

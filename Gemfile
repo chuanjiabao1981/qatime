@@ -113,6 +113,8 @@ gem 'soft_delete_rails'
 
 # 枚举
 gem 'enumerize'
+# 标签功能
+gem 'acts-as-taggable-on', '~> 4.0'
 
 group :development,:test do
   # 状态机做图

@@ -19,7 +19,7 @@
       <td>
         <%= link_to order.product.try(:name), live_studio.course_path(order.product || 0) %>
       </td>
-      <td><%= localize(order.created_at, format: :long) %></td>
+      <td><%= localize(order.pay_at, format: :long) %></td>
       <td><%= order.user.try(:name) %></td>
       <td><%= order.source_text %></td>
     </tr>

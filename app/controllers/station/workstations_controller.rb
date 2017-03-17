@@ -99,8 +99,8 @@ class Station::WorkstationsController < Station::BaseController
   def statistics
     params[:genre] ||= 'order'
     params[:statistics_days] ||= Payment::Transaction.statistics_days.default_value
-    @refund_statistics = @workstation.refunds
-    @order_statistics = @workstation.orders
+    @refund_statistics = @workstation.refunds.refunded
+    @order_statistics = @workstation.orders.valid_order
 
     if params[:genre] == 'refund'
       @statistics = @refund_statistics

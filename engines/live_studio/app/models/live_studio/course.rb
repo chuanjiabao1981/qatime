@@ -1,5 +1,7 @@
 module LiveStudio
   class Course < ActiveRecord::Base
+    acts_as_taggable
+
     # include LiveStudio::QaCourseActionRecord
     has_soft_delete
     attr_accessor :sell_percentage_range
@@ -386,6 +388,10 @@ module LiveStudio
     def coupon_price(coupon = nil)
       return current_price.to_f unless coupon.present?
       [current_price.to_f - coupon.price, 0].max
+    end
+
+    def service_price
+      (base_price.to_f * 60).to_i
     end
 
     private

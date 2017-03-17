@@ -1,124 +1,13 @@
 <div class="screening-nav">
 
-  <%= form_tag live_studio.courses_path, method: :get do -%>
-    <%= hidden_field_tag :more, params[:more] %>
-  
-    <% %w(sort_by subject grade status).each do |name| -%>
-      <%= hidden_field_tag name, params[name] -%>
-    <% end -%>
-
-    <ul class="list-sort">
-      <li class="list-headline"><%= LiveStudio::Course.human_attribute_name(:sort)  %>: </li>
-      <li class="list-sort-1">
-        <%= link_to(t('view.sort.live_studio/course.published_at'), "javascript: void(0);",
-                    "data-key" => "sort_by", "data-value" => "published_at.desc",
-                    class: "search-link-submit #{'active-color' if params[:sort_by].blank? || params[:sort_by] == 'published_at.desc' }") %>
-      </li>
-      <li class="list-sort-1">
-        <%= link_to(t('view.sort.live_studio/course.price/desc'), "javascript: void(0);",
-                    "data-key" => "sort_by", "data-value" => "price.desc",
-                    class: "search-link-submit #{'active-color' if params[:sort_by] == 'price.desc' }") %>
-      </li>
-      <li class="list-sort-1">
-        <%= link_to(t('view.sort.live_studio/course.price/asc'), "javascript: void(0);",
-                    "data-key" => "sort_by", "data-value" => "price.asc",
-                    class: "search-link-submit #{'active-color' if params[:sort_by] == 'price.asc' }") %>
-      </li>
-      <li class="list-sort-1">
-        <%= link_to(t('view.sort.live_studio/course.buy_tickets_count'), "javascript: void(0);",
-                    "data-key" => "sort_by", "data-value" => "buy_tickets_count.desc",
-                    class: "search-link-submit #{'active-color' if params[:sort_by] == 'buy_tickets_count.desc' }") %>
-      </li>
-    </ul>
-
-    <ul class="list-course">
-      <li class="list-headline"><%= LiveStudio::Course.human_attribute_name(:subject) %>: </li>
-      <li class="list-course-1">
-        <%= link_to(t('view.search.all'), "javascript: void(0);",
-                    "data-key" => "subject", "data-value" => "",
-                    class: "search-link-submit #{'active-color' if params[:subject].blank? }") %>
-
-      </li>
-      <% APP_CONSTANT['subjects'].each do |subject| %>
-        <li class="list-course-1">
-          <%= link_to(subject, "javascript: void(0);",
-                      "data-key" => "subject", "data-value" => subject,
-                      class: "search-link-submit #{'active-color' if params[:subject] == subject }") %>
-        </li>
-      <% end %>
-    </ul>
-
-    <ul class="list-grade">
-      <li class="list-headline"><%= LiveStudio::Course.human_attribute_name(:grade) %>: </li>
-      <li class="list-grade-1">
-        <%= link_to(t('view.search.all'), "javascript: void(0);",
-                    "data-key" => "grade", "data-value" => "",
-                    class: "search-link-submit #{'active-color' if params[:grade].blank? }") %>
-      </li>
-      <% APP_CONSTANT['grades_in_menu'].each do |grade| %>
-        <li class="list-grade-1">
-          <%= link_to(grade, "javascript: void(0);",
-                      "data-key" => "grade", "data-value" => grade,
-                      class: "search-link-submit #{'active-color' if params[:grade] == grade }") %>
-        </li>
-      <% end %>
-    </ul>
-
-    <ul class="list-state">
-      <li class="list-headline"><%= LiveStudio::Course.human_attribute_name(:status) %>: </li>
-      <li class="list-state-1">
-        <%= link_to(t('view.search.all'), "javascript: void(0);",
-                    "data-key" => "status", "data-value" => "",
-                    class: "search-link-submit #{'active-color' if params[:status].blank? }") %>
-      </li>
-      <li class="list-state-1">
-        <%= link_to(t('status.preview'), "javascript: void(0);",
-                    "data-key" => "status", "data-value" => "published",
-                    class: "search-link-submit #{'active-color' if params[:status] == 'published' }") %>
-      </li>
-      <li class="list-state-1">
-        <%= link_to(t('status.teaching'), "javascript: void(0);",
-                    "data-key" => "status", "data-value" => "teaching",
-                    class: "search-link-submit #{'active-color' if params[:status] == 'teaching' }") %>
-      </li>
-    </ul>
-
-    <div class="screening-hidden <%= 'active' unless params[:more].blank? %>">
-      <ul class="list-price">
-        <li class="list-headline"><%= LiveStudio::Course.human_attribute_name(:price_region) %>: </li>
-        <li><%= text_field_tag :price_floor, params[:price_floor], class: 'search-input' %></li>
-        <li class="price-segmentation">-</li>
-        <li><%= text_field_tag :price_ceil, params[:price_ceil], class: 'search-input' %></li>
-        <li>元</li>
-      </ul>
-
-      <ul class="list-remedial">
-        <li class="list-headline"><%= LiveStudio::Course.human_attribute_name(:class_date_region) %>: </li>
-        <li>
-           <%= text_field_tag :class_date_floor, params[:class_date_floor],type: :text, class: 'datainp remedial-date', id: 'dateinfo', placeholder: '请选择', readonly: true%>
-           <label for="dateinfo" class="glyphicon glyphicon-calendar glyphicon-1" style="position: relative; left: -25px;"></label>
-           <span class="price-line-1">-</span>
-           <%= text_field_tag :class_date_ceil, params[:class_date_ceil],type: :text, class: 'datainp remedial-date', id: 'dateinfo_2', placeholder: '请选择', readonly: true%>
-           <label for="dateinfo_2" class="glyphicon glyphicon-calendar glyphicon-2" style="position: relative; left: -25px;" ></label>
-        </li>
-      </ul>
-
-      <div class="remedial-conditions">
-        <%= link_to t("helpers.search.reset"), live_studio.courses_path(more: 1), class: "btn-reset" -%>
-        <%= submit_tag t("helpers.search.submit"), class: "btn-screen" %>
-      </div>
-    </div>
-    <p class="remedial-drop-down">
-      <%= link_to "javascript:void(0);", class: "more-conditions #{'active' if params[:more].blank? }" do -%>
-        <%= t("helpers.search.more") -%>
-        <span class="glyphicon glyphicon-chevron-down"></span>
-      <% end -%>
-      <%= link_to "javascript:void(0);", class: "up-conditions #{'active' unless params[:more].blank? }" do -%>
-        <%= t("helpers.search.hide") -%>
-        <span class="glyphicon glyphicon-chevron-up"></span>
-      <% end -%>
-    </p>
-  <% end -%>
+  <%= search_form_for @q do |f| %>
+    <%= f.search_field :grade_eq %>
+    <%= f.search_field :subject_eq %>
+    <%= f.search_field :status_eq %>
+    <%= f.search_field :class_date_gt %>
+    <%= f.search_field :class_date_lt %>
+    <%= f.submit %>
+  <% end %>
 </div>
 
 

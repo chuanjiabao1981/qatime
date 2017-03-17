@@ -27,9 +27,13 @@ module LiveStudio
       visit live_studio.new_course_path
       upload_publicize
       fill_in :course_name, with: 'test name'
-      fill_in :course_description, with: 'test description'
+      find('div[contenteditable]').set('test description')
       select '高一', from: 'course_grade'
       fill_in :course_price, with: '110'
+      find('#course_tag_list').click
+      click_on '小升初考试'
+      click_on '周末课'
+      click_on '确定'
       click_on '添加新课程'
       find('.class_date', match: :first).set(Time.now.tomorrow.to_s[0,10])
       find('.start_time_hour', match: :first).find(:xpath, 'option[11]').select_option
@@ -39,6 +43,7 @@ module LiveStudio
       click_on '保存'
       count = @teacher.live_studio_courses.count
       click_on '发布招生'
+      assert_equal @teacher.live_studio_courses.last.tag_list, %w(小升初考试 周末课), '标签设置失败'
       assert_equal @teacher.live_studio_courses.count, count + 1, '辅导班创建失败'
     end
 
@@ -46,7 +51,7 @@ module LiveStudio
       visit live_studio.edit_course_path(@teacher.live_studio_courses.init.first)
       upload_publicize
       fill_in :course_name, with: 'test name'
-      fill_in :course_description, with: 'test description'
+      find('div[contenteditable]').set('test description')
       select '高一', from: 'course_grade'
       fill_in :course_price, with: '110'
       click_on '添加新课程'

@@ -59,11 +59,21 @@ module LiveService
     # 过滤辅导班
     # 检索条件: subject grade status
     # 排序条件: class_date
-    def self.courses_search(search_params)
+    def self.search(search_params)
       chain = LiveStudio::Course.for_sell.includes(:teacher, :lessons)
-      chain = courses_filter_by_range(chain, *range_to_time(search_params[:range])) if search_params[:range]
-      chain = chain.tagged_with(search_params[:tags]) if search_params[:tags]
+      p '------>>>'
+      p search_params[:range]
+      chain = courses_filter_by_range(chain, *range_to_time(search_params[:range])) if search_params[:range].present?
+      chain = chain.tagged_with(search_params[:tags]) if search_params[:tags].present?
       chain.ransack(search_params[:q])
+    end
+
+    # 过滤辅导班
+    # 检索条件: subject grade status
+    # 排序条件: class_date
+    def self.courses_search(search_params)
+      @courses = LiveStudio::Course.for_sell.includes(:teacher)
+      query_by_params(@courses, search_params)
     end
 
     def self.courses_for_teacher_index(user, params)
@@ -153,12 +163,15 @@ module LiveService
 
       # 上课区间过滤
       def courses_filter_by_range(chain, start_time, end_time)
+        p start_time
+        p end_time
+        return chain if start_time.nil? || end_time.nil?
         chain.where('(start_at BETWEEN :start AND :end OR end_at BETWEEN :start AND :end OR (start_at < :start AND end_at > :end))', start: start_time, end: end_time)
       end
 
       # 时间区间转换为时间点
       def range_to_time(range_name)
-        return [Time.now, Time.now] unless range_name =~ /\A\d+\_(month)|(year)|(day)|(week)s?\z/
+        return [] unless range_name =~ /\A\d+\_(month)|(year)|(day)|(week)s?\z/
         num, unit = range_name.split('_')
         [Time.now.beginning_of_day, num.to_i.send(unit).since.beginning_of_day]
       end

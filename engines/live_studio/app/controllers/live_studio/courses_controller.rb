@@ -8,7 +8,7 @@ module LiveStudio
     before_action :set_city, only: [:index]
 
     def index
-      @q = LiveService::CourseDirector.courses_search(search_params)
+      @q = LiveService::CourseDirector.search(search_params)
       @courses = @q.result.paginate(page: params[:page], per_page: 8)
       preload_tickets(@courses)
       render layout: 'application_front'

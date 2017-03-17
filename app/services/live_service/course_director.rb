@@ -60,8 +60,9 @@ module LiveService
     # 检索条件: subject grade status
     # 排序条件: class_date
     def self.courses_search(search_params)
-      @courses = LiveStudio::Course.for_sell.includes(:teacher)
-      query_by_params(@courses, search_params)
+      @courses = LiveStudio::Course.for_sell.includes(:teacher, :lessons)
+      @courses = @courses.tagged_with(search_params[:tag]) if search_params[:tag]
+      @courses.ransack(search_params[:q])
     end
 
     def self.courses_for_teacher_index(user, params)

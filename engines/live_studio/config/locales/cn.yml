@@ -185,6 +185,11 @@ cn:
       live_start_date: 开课时间
       live_end_date: 结束时间
       status: 当前状态
+    course_form:
+      teacher_percentage: "%{percentage}分成"
+      service_price: "%{price}元/时"
+      publicize_tips: 建议：<br>图片像素480*300，<br>图片格式jpeg或png,<br>图片文件不大于500k,<br>禁止使用非法图片作为海报!
+      publicize_pick: 点此更换图片
     teacher_course:
       price: 价格：%.2f￥
       teacher_percentage: 分成比例：%d%
@@ -358,6 +363,8 @@ cn:
         live_start_date: 开课时间
         live_end_date: 结束时间
         teach_type: 授课方式
+        tag_list: 课程标签
+        course_description: 课程简介
       live_studio/push_stream:
         address: 直播地址
       live_studio/pull_stream:

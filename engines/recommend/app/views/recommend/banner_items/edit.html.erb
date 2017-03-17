@@ -1,14 +1,19 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <h3>
-      <%= link_to Recommend::Position.model_name.human, recommend.positions_path %> &gt;
-      <%= link_to @position.name, recommend.position_path(@position) %> &gt;
-      编辑推荐
-    </h3>
-  </div>
-  <div class="qa_big_cell">
-    <%= simple_form_for @item do |f| %>
-      <%= render partial: 'form', locals:{f: f} %>
-    <% end %>
+<div class="panel panel-default">
+  <div class="admin">
+    <%= render partial: 'recommend/banner_items/tab' %>
+
+    <div class="admin-title">
+      <div class="admin-title-left admin-title-msg">
+        <%= link_to '', :back, class: 'fa fa-mail-reply' %>
+        <span><%= t('view.recommend/banner_item.index.edit_title') %></span>
+      </div>
+    </div>
+
+    <div class="new-common">
+      <%= simple_form_for @item, url: banner_item_path(@item), html: {class: 'form-inline'} do |f| %>
+        <%= render partial: 'form', locals: {f: f} %>
+      <% end %>
+    </div>
+
   </div>
 </div>

@@ -1,4 +1,51 @@
 cn:
+  view:
+    recommend/position:
+      tab:
+        banner_item: 广告位管理
+        teacher_item: 老师推荐管理
+        live_studio_course_item: 辅导班推荐管理
+        choiceness_item: 精选内容管理
+      city: 全国
+      edit: 编辑
+      destroy: 删除
+      confirm: 确定删除?
+      none: 无
+      banner_item_uniq_valid: 该城市排序位置已存在
+      teacher_item_uniq_valid: 该城市老师排序位置已存在
+      choiceness_item_uniq_valid: 该城市课程排序位置已存在
+    recommend/banner_item:
+      index:
+        new_title: 新增Banner
+        edit_title: 修改Banner
+        logo: 预览图
+        title: 描述
+        link: 跳转链接
+        index: 播放排序
+        city: 城市
+      placeholders:
+        index: 输入排序位置(必须是正整数)
+        title: 输入描述内容(最多30字)
+        link: 'http://xxxxx'
+      hints:
+        btn: 添加图片
+        logo: 注意：请选择尺寸1862px*315px的图片，以便达到最佳效果
+    recommend/teacher_item:
+      index:
+        new_title: 新增老师推荐
+        edit_title: 修改老师推荐
+        avatar: 老师头像
+        teacher_name: 老师姓名
+        index: 排序
+    recommend/choiceness_item:
+      index:
+        new_title: 新增精选内容
+        edit_title: 修改精选内容
+        tag: 推荐标签
+        index: 位置排序
+        tag_name1: 标签1
+        tag_name2: 标签2
+        none_tag: 无标签
   enums:
     recommend:
       status:
@@ -7,9 +54,18 @@ cn:
       reason:
         newest: 最新
         hottest: 最热
+  enumerize:
+    recommend/item:
+      tag_one:
+        star_teacher: 名师授课
+        best_seller: 最受欢迎
+      tag_two:
+        free_tastes: 免费试听
+        join_cheap: 插班优惠
   activerecord:
     models:
-      recommend/position: 推荐位
+      recommend/position: 首页管理
+      recommend/choiceness_item: 精选内容
     attributes:
       recommend/position:
         name: 推荐位名称
@@ -37,3 +93,12 @@ cn:
         index: 排序
         status: 状态
         reason: 推荐理由
+      recommend/choiceness_item:
+        title: 描述
+        index: 排序位置
+        tag_one: 推荐标题1
+        tag_two: 推荐标题2
+        city: 城市
+        city_id: 城市
+        target: 课程
+        target_id: 选择课程

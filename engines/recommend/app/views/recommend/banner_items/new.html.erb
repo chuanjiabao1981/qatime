@@ -5,12 +5,12 @@
     <div class="admin-title">
       <div class="admin-title-left admin-title-msg">
         <%= link_to '', :back, class: 'fa fa-mail-reply' %>
-        <span><%= t('view.recommend/teacher_item.index.edit_title') %></span>
+        <span><%= t('view.recommend/banner_item.index.new_title') %></span>
       </div>
     </div>
 
     <div class="new-common">
-      <%= simple_form_for @item, url: teacher_item_path(@item), html: {class: 'form-inline'} do |f| %>
+      <%= simple_form_for @item, url: position_banner_items_path(@position), html: {class: 'form-inline'} do |f| %>
         <%= render partial: 'form', locals: {f: f} %>
       <% end %>
     </div>

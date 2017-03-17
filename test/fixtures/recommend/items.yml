@@ -39,3 +39,15 @@ index_banner_recommend_two:
   position: index_banner_recommend
   type: Recommend::BannerItem
   index: 2
+index_choiceness_recommend_one:
+  title: 首页辅导班推荐1
+  position: index_choiceness_recommend
+  type: Recommend::ChoicenessItem
+  index: 1
+  target: course_one (LiveStudio::Course)
+index_choiceness_recommend_two:
+  title: 首页辅导班推荐2
+  position: index_choiceness_recommend
+  type: Recommend::ChoicenessItem
+  index: 2
+  target: course_two (LiveStudio::Course)

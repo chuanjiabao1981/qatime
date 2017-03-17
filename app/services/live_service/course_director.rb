@@ -62,7 +62,7 @@ module LiveService
     def self.courses_search(search_params)
       chain = LiveStudio::Course.for_sell.includes(:teacher, :lessons)
       chain = courses_filter_by_range(chain, *range_to_time(search_params[:range])) if search_params[:range]
-      chain = chain.tagged_with(search_params[:tag]) if search_params[:tag]
+      chain = chain.tagged_with(search_params[:tags]) if search_params[:tags]
       chain.ransack(search_params[:q])
     end
 

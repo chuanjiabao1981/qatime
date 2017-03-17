@@ -277,6 +277,39 @@ module V1
             present courses, with: Entities::LiveStudio::SearchCourse, type: :default, current_user: current_user
           end
 
+          desc '搜索辅导班' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: false
+            }
+          end
+          params do
+            optional :page, type: Integer, desc: '当前页面'
+            optional :per_page, type: Integer, desc: '每页记录数'
+            optional :range, type: String, values: %w(1_months 2_months 3_months 6_months 1_year), desc: '查询区间'
+            optional :status_eq, type: String, desc: '辅导班状态 all: 全部; published: 招生中; teaching: 已开课', values: %w(all published teaching)
+            optional :grade_eq, type: String, desc: '年级', values: APP_CONSTANT['grades_in_menu']
+            optional :subject_eq, type: String, desc: '科目', values: APP_CONSTANT['subjects']
+            optional :class_date_gteq, type: String, desc: '开课日期开始时间'
+            optional :class_date_lt, type: String, desc: '开课日期结束时间'
+            optional :tags, type: String, desc: '标签'
+            optional :sort_by, type: String, desc: '排序方式', values: %w(price price.asc published_at published_at.asc users_count users_count.asc)
+          end
+          get 'search' do
+            search_params[:q] = params.slice(:range, :status_eq, :grade_eq, :subject_eq, :class_date_gteq, :class_date_lt)
+            search_params[:q][:s] =
+              if params[:sort_by]
+                by, direction = params[:sort_by].split('.')
+                "#{by}+#{direction || 'desc'}"
+              else
+                'published_at+desc'
+              end
+            search_params[:tags] = params[:tags]
+            q = LiveService::CourseDirector.courses_search(search_params)
+            courses = q.result.paginate(page: params[:page], per_page: params[:per_page])
+            present courses, with: Entities::LiveStudio::SearchCourse, type: :default, current_user: current_user
+          end
+
           desc '检索辅导班详情接口' do
             headers 'Remember-Token' => {
               description: 'RememberToken',

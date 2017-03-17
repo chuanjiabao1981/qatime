@@ -140,7 +140,7 @@ module LiveStudio
 
     def search_params
       return @search_params if @search_params.present?
-      @search_params = params.permit(:tag, q: [:status_eq, :grade_eq, :subject_eq, :class_date_gt, :class_date_lt])
+      @search_params = params.permit(:tag, q: [:status_eq, :grade_eq, :subject_eq, :class_date_gt, :class_date_lt, :s])
     end
 
     def courses_params

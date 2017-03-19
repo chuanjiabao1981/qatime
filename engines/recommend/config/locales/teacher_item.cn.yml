@@ -4,10 +4,11 @@ cn:
       recommend/teacher_item: 教师推荐
     attributes:
       recommend/teacher_item:
-        title: 推荐标题
+        title: 描述
         logo: 图像
         position: 推荐位
         target: 教师姓名
+        target_id: 选择老师
         owner: 所在区域
         index: 排序
         status: 状态

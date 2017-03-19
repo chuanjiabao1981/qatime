@@ -1,0 +1,13 @@
+<div class="admin-title">
+  <div class="admin-title-left">
+    <% if allow? 'recommend/banner_items', :index %>
+      <%= link_to t('view.recommend/position.tab.banner_item'), position_banner_items_path(Recommend::BannerItem.default.presence || 0), class: "#{'active-admin' if 'recommend/banner_items' == params[:controller]}"  %>
+    <% end %>
+    <% if allow? 'recommend/choiceness_items', :index %>
+      <%= link_to t('view.recommend/position.tab.choiceness_item'), position_choiceness_items_path(Recommend::ChoicenessItem.default.presence || 0), class: "#{'active-admin' if 'recommend/choiceness_items' == params[:controller]}"  %>
+    <% end %>
+    <% if allow? 'recommend/teacher_items', :index %>
+      <%= link_to t('view.recommend/position.tab.teacher_item'), position_teacher_items_path(Recommend::TeacherItem.default.presence || 0), class: "#{'active-admin' if 'recommend/teacher_items' == params[:controller]}"  %>
+    <% end %>
+  </div>
+</div>

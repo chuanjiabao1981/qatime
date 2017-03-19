@@ -28,7 +28,7 @@ module Recommend
       @position = Position.new(position_params.merge(status: 0))
 
       if @position.save
-        redirect_to [:admin, @position], notice: 'Position was successfully created.'
+        redirect_to :back
       else
         render :new
       end
@@ -37,7 +37,7 @@ module Recommend
     # PATCH/PUT /admin/positions/1
     def update
       if @position.update(position_params)
-        redirect_to [:admin, @position], notice: 'Position was successfully updated.'
+        redirect_to :back
       else
         render :edit
       end

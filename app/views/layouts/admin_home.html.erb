@@ -30,8 +30,8 @@
           <% end %>
         </li>
         <li>
-          <%= link_to recommend.admin_positions_path do %>
-            <span class="glyphicon glyphicon-user"></span> <span class="qa_f18">推荐管理</span>
+          <%= link_to recommend.position_banner_items_path(Recommend::BannerItem.default.presence || 0) do %>
+            <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"><%= Recommend::Position.model_name.human %></span>
           <% end %>
         </li>
         <li>

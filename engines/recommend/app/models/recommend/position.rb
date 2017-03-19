@@ -7,6 +7,7 @@ module Recommend
     enum status: %w(disable enable)
     enum platforms: %w(pc android ios)
 
+    scope :by_klass_name, ->(klass_name) { where(klass_name: klass_name) }
 
     def status_text
       I18n.t("enums.recommend.status.#{status}")

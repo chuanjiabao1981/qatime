@@ -61,8 +61,6 @@ module LiveService
     # 排序条件: class_date
     def self.search(search_params)
       chain = LiveStudio::Course.for_sell.includes(:teacher, :lessons)
-      p '------>>>'
-      p search_params[:range]
       chain = courses_filter_by_range(chain, *range_to_time(search_params[:range])) if search_params[:range].present?
       chain = chain.tagged_with(search_params[:tags]) if search_params[:tags].present?
       chain.ransack(search_params[:q])
@@ -163,8 +161,6 @@ module LiveService
 
       # 上课区间过滤
       def courses_filter_by_range(chain, start_time, end_time)
-        p start_time
-        p end_time
         return chain if start_time.nil? || end_time.nil?
         chain.where('(start_at BETWEEN :start AND :end OR end_at BETWEEN :start AND :end OR (start_at < :start AND end_at > :end))', start: start_time, end: end_time)
       end

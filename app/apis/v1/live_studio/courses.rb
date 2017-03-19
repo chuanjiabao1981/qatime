@@ -307,7 +307,6 @@ module V1
               else
                 'published_at desc'
               end
-            p search_params
             q = LiveService::CourseDirector.search(search_params)
             courses = q.result.paginate(page: params[:page], per_page: params[:per_page])
             present courses, with: Entities::LiveStudio::SearchCourse, type: :default, current_user: current_user

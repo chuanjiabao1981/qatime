@@ -13,7 +13,7 @@ module LiveService
       end
 
       # 开始时间排行
-      def start_rank(_options)
+      def start_rank(options)
         base_filter(options).where('status = ?', ::LiveStudio::Course.statuses[:published]).reorder('start_at')
       end
 

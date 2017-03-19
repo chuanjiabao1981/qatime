@@ -300,4 +300,13 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_equal 1, res['status']
     assert_equal Array, res['data']['lessons'].class
   end
+
+  test 'get courses rank' do
+    get '/api/v1/live_studio/courses/rank/published_rank, start_rank'
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status']
+    assert_not_nil res['data']['published_rank']
+    assert_not_nil res['data']['start_rank']
+  end
 end

@@ -1211,10 +1211,14 @@ ActiveRecord::Schema.define(version: 20170317023900) do
     t.text     "platforms"
     t.integer  "city_id"
     t.string   "link"
+    t.integer  "tag_one"
+    t.integer  "tag_two"
   end
 
   add_index "recommend_items", ["owner_type", "owner_id"], name: "index_recommend_items_on_owner_type_and_owner_id", using: :btree
   add_index "recommend_items", ["position_id"], name: "index_recommend_items_on_position_id", using: :btree
+  add_index "recommend_items", ["tag_one"], name: "index_recommend_items_on_tag_one", using: :btree
+  add_index "recommend_items", ["tag_two"], name: "index_recommend_items_on_tag_two", using: :btree
   add_index "recommend_items", ["target_type", "target_id"], name: "index_recommend_items_on_target_type_and_target_id", using: :btree
 
   create_table "recommend_positions", force: :cascade do |t|

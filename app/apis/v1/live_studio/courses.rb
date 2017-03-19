@@ -335,6 +335,18 @@ module V1
 
             present course, with: Entities::LiveStudio::StudentCourse, type: :full, current_user: current_user, size: :info
           end
+
+          desc '辅导班排行'
+          params do
+            requires :names, type: String, desc: '排行名称多个获逗号分隔 published_rank: 最新发布; start_rank: 最近开课;'
+            optional :count, type: Integer, desc: '记录数'
+          end
+          get '/rank/:names' do
+            params[:names].split(/,\s*/).each do |rank_name|
+              courses = ::LiveService::RankManager.rank_of(rank_name).limit(params[:count])
+              present courses, with: ::Entities::LiveStudio::Course, root: rank_name
+            end
+          end
         end
 
         namespace :courses do

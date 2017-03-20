@@ -74,8 +74,8 @@ module LiveStudio
 
     before_create :data_preview
     # before_save :data_confirm
-    after_commit :update_course
-    after_commit :update_course_price
+    after_save :update_course, if: :class_date_changed?
+    after_save :update_course_price, if: :status_changed?
 
     include AASM
 

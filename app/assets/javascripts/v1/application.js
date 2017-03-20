@@ -34,6 +34,7 @@
 //= require jedate
 //= require jquery.jedate
 //= require v1/home
+//= require util
 
 // 判断空 $.isBlank($(this).val())
 $.isBlank = function(obj) {

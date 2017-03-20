@@ -23,6 +23,8 @@
           </div>
         </li>
       <% end %>
+
+      <%= render partial: 'home/items/default_courses' if @newest_courses.blank? %>
     </ul>
     <p class="iteminfo-more">
       <%= link_to t('view.choiceness_items.more'), live_studio.courses_path %>

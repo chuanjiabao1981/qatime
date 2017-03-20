@@ -2,7 +2,7 @@
 <%= render 'layouts/v1/banner_and_tags' %>
 
 <!-- 今日直播 -->
-<%= render partial: 'home/items/today_lives' %>
+<%= render partial: 'home/items/today_lives' if @today_lives.present? %>
 
 <!-- 精选内容 -->
 <%= render partial: 'home/items/choiceness' %>
@@ -22,58 +22,9 @@
 
 <% content_for :javascript do %>
   <script type="text/javascript">
-
     $(function() {
-      var index = 0;
-
-      function autoscroll() {
-        index++;
-        changecolor(index);
-        $(".banner-show").animate({
-          left: "-" + 100 * index + "%"
-        }, 1000, function() {
-          if(index == 3) {
-            index = 0;
-            $(".banner-show").css("left", "0");
-          }
-        })
-      }
-
-      $('.banner-dot li').click(function() {
-        index = $(this).index();
-        $('.banner-show').css('left', "-" + 100 * index + "%");
-        $("#content").stop().animate({
-          left: "-" + 100 * index + "%"
-        }, 1000)
-        changecolor(index);
-      })
-
-      $(".banner-dot li").mouseover(function() {
-        clearInterval(timerID);
-      })
-      $(".banner-dot li").mouseout(function() {
-        timerID = setInterval(autoscroll, 5000);
-      })
-
-      function changecolor(index) {
-        $(".banner-dot li").css("background-color", "white");
-        if(index == 3) {
-          $(".banner-dot li").eq(0).css("background-color", "rgb(255,153,102)");
-        } else {
-          $(".banner-dot li").eq(index).css("background-color", "rgb(255,153,102)");
-        }
-      }
-      var timerID = setInterval(autoscroll, 5000);
-      $(".banner-show").mouseover(function() {
-        clearInterval(timerID);
-      })
-      $(".banner-show").mouseout(function() {
-        timerID = setInterval(autoscroll, 5000);
-      })
-
-    })
-
-    $(function  () {
+      // 广告位轮播
+      $("#banner-list").rotate();
       $('#myCarousel').carousel({
         interval: false
       });

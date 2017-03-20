@@ -9,9 +9,12 @@
     </ul>
     <!-- ajax rand-->
     <input type="hidden" id="city_id" value="<%= @location_city.try(:id) %>" />
-    <p class="iteminfo-more">
-      <%= link_to t('view.teacher_items.replace'), home_teachers_ajax_data_path, id: 'more_recommend_teacher' %>
-    </p>
+
+    <% unless @recommend_teachers.count < 6 %>
+      <p class="iteminfo-more">
+        <%= link_to t('view.teacher_items.replace'), home_teachers_ajax_data_path, id: 'more_recommend_teacher' %>
+      </p>
+    <% end %>
   </div>
 </div>
 

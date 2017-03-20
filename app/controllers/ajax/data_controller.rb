@@ -28,6 +28,12 @@ class Ajax::DataController < ApplicationController
     end
   end
 
+  def home_teachers
+    teachers = DataService::HomeData.new(params[:city_id].presence).teachers
+    @recommend_teachers = teachers.order(:index).paginate(page: params[:teacher_page], per_page: 6)
+    params[:teacher_page] = params[:teacher_page].to_i + 1
+  end
+
   private
 
   def set_variable

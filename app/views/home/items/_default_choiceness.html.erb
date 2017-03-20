@@ -1,0 +1,60 @@
+<% less_count = 6 - @choiceness.count %>
+
+<% if less_count > 4 %>
+  <% (less_count - 4).times do %>
+    <li class="col-xs-6">
+      <%= link_to 'javascript:void(0);', class: 'handpick-pic' do %>
+        <%= image_tag 'web-nocon-1.png', size: '566x258' %>
+        <div class="layer-handpick">
+          <p><strong><%= t('view.common_bars.default_title') %></strong></p>
+          <p>
+            <span><%= t('view.common_bars.default_grade') %></span>
+            <span><%= t('view.common_bars.default_lesson') %></span>
+            <span><%= t('view.common_bars.default_teacher') %></span>
+          </p>
+          <p><%= t('view.common_bars.default_title') %></p>
+        </div>
+      <% end %>
+    </li>
+  <% end %>
+
+  <% 4.times do %>
+    <li class="col-md-3 col-xs-6">
+      <%= link_to 'javascript:void(0);' do %>
+        <%= image_tag 'web-nocon-1.png', size: '268x159' %>
+      <% end %>
+      <div class="handpick-info">
+        <p>
+          <%= link_to 'javascript:void(0);' do %>
+            <strong><%= t('view.common_bars.default_title') %></strong>
+          <% end %>
+        </p>
+        <p>
+          <span><%= t('view.common_bars.default_grade_lesson') %></span>
+          <%= link_to t('view.common_bars.default_teacher'), "javascript:void(0);" %>
+        </p>
+      </div>
+    </li>
+  <% end %>
+<% end %>
+
+<% if less_count < 5 %>
+  <% less_count.times do %>
+    <li class="col-md-3 col-xs-6">
+      <%= link_to 'javascript:void(0);' do %>
+        <%= image_tag 'web-nocon-1.png', size: '268x159' %>
+      <% end %>
+      <div class="handpick-info">
+        <p>
+          <%= link_to 'javascript:void(0);' do %>
+            <strong><%= t('view.common_bars.default_title') %></strong>
+          <% end %>
+        </p>
+        <p>
+          <span><%= t('view.common_bars.default_grade_lesson') %></span>
+          <%= link_to t('view.common_bars.default_teacher'), "javascript:void(0);" %>
+        </p>
+      </div>
+    </li>
+  <% end %>
+<% end %>

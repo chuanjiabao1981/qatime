@@ -1,0 +1,33 @@
+<div class="line-item">
+  <div class="container">
+    <center>
+      <h2><strong><%= t('view.teacher_items.title') %></strong></h2>
+    </center>
+
+    <ul class="item-recommend" id="recommend_teacher">
+      <%= render partial: 'home/items/teachers_li' %>
+    </ul>
+    <!-- ajax rand-->
+    <input type="hidden" id="city_id" value="<%= @location_city.try(:id) %>" />
+
+    <% unless @recommend_teachers.count < 6 %>
+      <p class="iteminfo-more">
+        <%= link_to t('view.teacher_items.replace'), home_teachers_ajax_data_path, id: 'more_recommend_teacher' %>
+      </p>
+    <% end %>
+  </div>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function () {
+      $(document).on('click', '#more_recommend_teacher', function(event){
+        event.preventDefault();
+        var url = $(this).attr('href'),
+            teacher_page = $('#teacher_page').val(),
+            city_id = $('#city_id').val();
+        $.post(url, {teacher_page: teacher_page, city_id: city_id});
+      });
+    });
+  </script>
+<% end %>

@@ -1,0 +1,6 @@
+
+<% if @recommend_teachers.blank? %>
+  alert('<%= t('view.teacher_items.ajax_none') %>');
+<% else %>
+  $('#recommend_teacher').html("<%= j render partial: 'home/items/teachers_li' %>");
+<% end %>

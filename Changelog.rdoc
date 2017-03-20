@@ -388,3 +388,13 @@
         * [QT-840](https://qatime.atlassian.net/browse/QT-840)
         * [QT-725](https://qatime.atlassian.net/browse/QT-725)
         * [QT-726](https://qatime.atlassian.net/browse/QT-726)
+* 1.8.0
+    * feature
+        * [QT-891](https://qatime.atlassian.net/browse/QT-891)
+        * [QT-893](https://qatime.atlassian.net/browse/QT-893)
+        * [QT-895](https://qatime.atlassian.net/browse/QT-895)
+        * [QT-889](https://qatime.atlassian.net/browse/QT-889)
+        * [QT-906](https://qatime.atlassian.net/browse/QT-906)
+        * [QT-894](https://qatime.atlassian.net/browse/QT-894)
+        * [QT-905](https://qatime.atlassian.net/browse/QT-905)
+        * [QT-892](https://qatime.atlassian.net/browse/QT-892)

@@ -1,54 +1,104 @@
-<div class="screening-nav">
-
+<div class="classify">
   <%= search_form_for @q do |f| %>
-    <%= f.search_field :grade_eq %>
-    <%= f.search_field :subject_eq %>
-    <%= f.search_field :status_eq %>
-    <%= f.search_field :class_date_gt %>
-    <%= f.search_field :class_date_lt %>
-
-    <%= f.sort_link :price %>
-    <%= f.submit %>
+    <div class="sort-nav">
+      <dl>
+        <dd class="nav-condition nav-all <%= 'active' if @search_params[:range].present? %>">
+          <%= link_to live_studio.courses_path(@search_params.merge(range: nil)) do %>
+            <span><%= t("view.course_filter.range/#{@search_params[:range] || 'all'}") %></span>
+            <span class="fa fa-angle-down"></span>
+          <% end %>
+          <ul>
+            <% if @search_params[:range].present? %>
+              <li><%= link_to t("view.course_filter.range/all"), live_studio.courses_path(@search_params.merge(range: nil)) %></li>
+            <% end %>
+            <% %w(1_months 2_months 3_months 6_months 1_years).delete_if {|v| v == @search_params[:range].to_s }.each do |range_name| -%>
+              <li><%= link_to t("view.course_filter.range/#{range_name}"), live_studio.courses_path(@search_params.merge(range: range_name)) %></li>
+            <% end %>
+          </ul>
+        </dd>
+        <dd class="nav-sort nav-news <%= 'active' if @search_params[:q] && @search_params[:q][:s] =~ /published_at/ %>">
+          <%= f.sort_link :published_at, LiveStudio::Course.human_attribute_name(:latest) %>
+        </dd>
+        <dd class="nav-sort nav-price <%= 'active' if @search_params[:q] && @search_params[:q][:s] =~ /price/ %>"">
+          <%= f.sort_link :price, LiveStudio::Course.human_attribute_name(:price) %>
+        </dd>
+        <dd class="nav-sort nav-moods <%= 'active' if @search_params[:q] && @search_params[:q][:s] =~ /buy_tickets_count/ %>"">
+          <%= f.sort_link :buy_tickets_count, LiveStudio::Course.human_attribute_name(:users_count) %>
+        </dd>
+        <dd class="nav-condition nav-grade <%= 'active' if @search_params[:q] && @search_params[:q][:grade_eq].present? %>">
+          <%= link_to live_studio.courses_path(@search_params.deep_merge(q: { grade_eq: nil })) do -%>
+            <% if @search_params[:q].nil? || @search_params[:q][:grade_eq].blank? %>
+              <span><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
+            <% else %>
+              <span><%= @search_params[:q][:grade_eq] %></span>
+            <% end %>
+            <span class="fa fa-angle-down"></span>
+          <% end %>
+          <ul style="display: none;">
+            <li>
+              <%= link_to '全部', live_studio.courses_path(@search_params.deep_merge(q: { grade_eq: nil })) %>
+              <% APP_CONSTANT['grades_in_sorts'].each do |grade| %>
+                <%= link_to grade, live_studio.courses_path(@search_params.deep_merge(q: { grade_eq: grade })) %>
+              <% end %>
+            </li>
+          </ul>
+        </dd>
+        <dd class="nav-condition nav-subject <%= 'active' if @search_params[:q] && @search_params[:q]['subject_eq'].present? %>">
+          <%= link_to live_studio.courses_path(@search_params.deep_merge(q: { subject_eq: nil })) do -%>
+            <% if @search_params[:q].nil? || @search_params[:q][:subject_eq].blank? %>
+              <span><%= LiveStudio::Course.human_attribute_name(:subject) %></span>
+            <% else %>
+              <span><%= @search_params[:q][:subject_eq] %></span>
+            <% end %>
+            <span class="fa fa-angle-down"></span>
+          <% end %>
+          <ul style="display: none;">
+            <li>
+              <%= link_to '全部', live_studio.courses_path(@search_params.deep_merge(q: { subject_eq: nil })) %>
+              <% APP_CONSTANT['subjects'].each .each do |subject| %>
+                <%= link_to subject, live_studio.courses_path(@search_params.deep_merge(q: { subject_eq: subject })) %>
+              <% end %>
+            </li>
+          </ul>
+        </dd>
+        <dd class="nav-condition nav-state <%= 'active' if @search_params[:q] && @search_params[:q]['status_eq'].present? %>">
+          <%= link_to live_studio.courses_path(@search_params.deep_merge(q: { status_eq: nil })) do -%>
+            <% if @search_params[:q].nil? || @search_params[:q][:status_eq].blank? %>
+              <span><%= LiveStudio::Course.human_attribute_name(:current_status) %></span>
+            <% else %>
+              <span><%= t("view.course_filter.status/#{@search_params[:q][:status_eq]}") %></span>
+            <% end %>
+            <span class="fa fa-angle-down"></span>
+          <% end %>
+          <ul style="display: none;">
+            <li><%= link_to "全部", live_studio.courses_path(@search_params.deep_merge(q: { status_eq: nil })) %></li>
+            <% LiveStudio::Course.status.options.select {|item| item.last.in?(%w(teaching published)) }.each do |item| %>
+              <li>
+                <%= link_to item.first, live_studio.courses_path(@search_params.deep_merge(q: { status_eq: item.last })) %>
+              </li>
+            <% end -%>
+          </ul>
+        </dd>
+        <dd class="nav-time">
+          <%= link_to "##" do -%>
+            <span><%= LiveStudio::Course.human_attribute_name(:class_date) %></span>
+          <% end %>
+          <span class="nav-datetime">
+            <%= f.search_field :class_date_gt, class: 'je-date' %>
+            <%= f.label :class_date_gt, class: "glyphicon glyphicon-calendar" do %>
+            <% end -%>
+          </span>
+          <span class="nav-date-to">-</span>
+          <span class="nav-datetime">
+            <%= f.search_field :class_date_lteq, class: 'je-date' %>
+            <%= f.label :class_date_lteq, class: "glyphicon glyphicon-calendar" do %>
+            <% end -%>
+          </span>
+        </dd>
+      </dl>
+    </div>
   <% end %>
 </div>
 
 
-<% content_for :javascript do %>
-<script>
-$(function() {
-  // 隐藏更多条件
-  var hide_more = function() {
-    $(".screening-hidden").slideUp(500);
-    $(".up-conditions").hide();
-    $(".more-conditions").show();
-    $("#more").val("");
-  };
 
-  // 显示更多条件
-  var show_more = function() {
-    $(".screening-hidden").slideDown(500);
-    $(".up-conditions").show();
-    $(".more-conditions").hide();
-    $("#more").val("1");
-  };
-
-  $(".remedial-drop-down").click(function(){
-    if($(".screening-hidden").is(":visible")) {
-      hide_more();
-    } else {
-      show_more();
-    }
-  });
-
-  <% unless params[:more].blank? -%>
-    show_more();
-  <% end %>
-
-  $(".search-link-submit").click(function() {
-    var id = $(this).attr("data-key");
-    $("#" + id).val($(this).attr("data-value"));
-    $(this).parents("form").submit();
-  });
-});
-</script>
-<% end %>

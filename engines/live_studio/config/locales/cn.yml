@@ -112,6 +112,16 @@ cn:
       class_date: 开课日期
       status: 当前状态
       purchase_number: 报名人数
+    course_filter:
+      range/all: 全部
+      range/1_months: 近1个月
+      range/2_months: 近2个月
+      range/3_months: 近3个月
+      range/6_months: 近半年
+      range/1_years: 近1年
+      status/all: 全部
+      status/published: 招生中
+      status/teaching: 开课中
     payment_show:
       product_info: 商品详情
       order_info: 订单信息
@@ -365,6 +375,14 @@ cn:
         teach_type: 授课方式
         tag_list: 课程标签
         course_description: 课程简介
+        class_date: 开始时间
+        users_count: 人气
+        latest: 最新
+        range/: 全部
+        range/1_months: 近1个月
+        range/2_months: 近2个月
+        range/3_months: 近3个月
+        range/6_months: 近b
       live_studio/push_stream:
         address: 直播地址
       live_studio/pull_stream:

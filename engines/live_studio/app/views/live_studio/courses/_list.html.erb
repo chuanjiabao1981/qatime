@@ -1,43 +1,43 @@
-<%= content_tag :div, class: 'notfound' do %>
-  <center>
-    <%= image_tag 'no-course.png' %>
-  </center>
-  <p><%= t('view.course_show.nofound') %></p>
-<% end if @courses.blank? %>
-
-<div class="screening-con">
-  <% @courses.in_groups_of(4).each do |course_group| %>
-    <ul class="list-screening">
-      <% course_group.each do |course| %>
-        <% if course.present? %>
-          <li>
-            <%=link_to live_studio.course_path(course) do %>
-              <%= content_tag(:div, image_tag(course.publicize_url(:list))) %>
-            <% end %>
-            <div class="dl-con">
-              <dl class="dl-screening">
-                <dd>
-                  <span class="class-open <%= 'admissions' if course.published? %>"><%= course.status_text %></span>
-                  <span class="class-msg">
-                    <%=link_to live_studio.course_path(course) do %>
-                      <%= course.name %>
-                    <% end %>
-                  </span>
-                </dd>
-                <dd>
-                  <span><%= course.grade%><%= course.subject %>/<%= t('view.course_show.lesson_count') % course.lessons_count %></span>
-                  <span class="tea-name"><%= course.teacher.try(:name) %></span>
-                </dd>
-                <dd class="dd-num-msg">
-                  <p><i class="glyphicon glyphicon-time dd-date"><%= course.live_end_date.try(:to_s) %>至<%= course.live_end_date.try(:to_s) %></i></p>
-                  <p><i class="money-num"><%= number_to_currency(course.current_price, locale: :cn) %></i><i class="person-buy"><%= t "view.course_search_show.purchase_number" %><em class="person-num"><%= course.buy_user_count %></em></i></p>
-                </dd>
-              </dl>
-            </div>
+<div class="col-md-9">
+  <div class="row course-classify">
+    <% if @courses.blank? %>
+      <div class="info-notfound">
+        <p><%= t('view.course_show.nofound') %></p>
+      </div>
+    <% else %>
+      <ul class="classify-msg">
+        <% @courses.each do |course| %>
+          <li class="col-md-4 col-sm-4 col-xs-6">
+            <%= link_to image_tag(course.publicize_url(:list)), live_studio.course_path(course) -%>
+            <div class="handpick-info">
+              <p>
+                <%= link_to course.name, live_studio.course_path(course) -%>
+              </p>
+                <p>
+                  <span><%= course.grade %><%= course.subject %>/<%= t('view.course_show.lesson_count') % course.lessons_count %></span>
+                  <%= link_to course.teacher.name, main_app.profile_teacher_path(course.teacher) if course.teacher %>
+                </p>
+              </div>
+              <div class="classify-info">
+                <p>
+                  <span>————</span>
+                  <span><%= localize(course.start_at.to_date, format: :default) if course.start_at %></span>
+                  <span>至</span>
+                  <span><%= localize(course.end_at.to_date, format: :default) if course.end_at %></span>
+                </p>
+                <p>
+                  <span class="info-price"><%= number_to_currency(course.current_price, locale: :cn) %></span>
+                  <span class="info-num"><%= t "view.course_search_show.purchase_number" %><%= course.buy_user_count %></span>
+                </p>
+              </div>
           </li>
         <% end %>
-      <% end %>
-    </ul>
-  <% end %>
-  <center class="course_paginate"><%= will_paginate @courses %></center>
+      </ul>
+      <center><div class="pagination-fix"><%= will_paginate @courses, class: 'paging' %></div></center>
+    <% end %>
+  </div>
 </div>
+
+
+
+

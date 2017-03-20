@@ -24,7 +24,6 @@
 //= require chosen-jquery
 //= require canvas-to-blob.min
 //= require fancybox
-//= require_tree .
 //= require editable/bootstrap-editable
 //= require editable/rails
 //= require bootstrap-select.min
@@ -34,6 +33,7 @@
 //= require calendar-es5
 //= require jedate
 //= require jquery.jedate
+//= require v1/home
 
 // 判断空 $.isBlank($(this).val())
 $.isBlank = function(obj) {

@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   before_action :set_user
-  layout 'application_front'
+  layout 'v1/application'
 
   def index
     # if signed_in?
@@ -23,6 +23,7 @@ class HomeController < ApplicationController
   def switch_city
     @hash_cities = City.all.to_a.group_by {|city| Spinying.parse(word: city.name).first }.sort.to_h
     @selected_cities = cookies[:selected_cities].try(:split, '-')
+    render layout: 'application_front'
   end
 
   private

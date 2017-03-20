@@ -74,7 +74,8 @@ module LiveStudio
 
     before_create :data_preview
     # before_save :data_confirm
-    after_save :update_course, if: :class_date_changed?
+    after_commit :update_course
+    after_commit :update_course_price
 
     include AASM
 
@@ -437,6 +438,10 @@ module LiveStudio
       return unless course.present?
       lesson_dates = course.lessons.map(&:class_date)
       course.update(class_date: lesson_dates.min, start_at: lesson_dates.min, end_at: lesson_dates.max)
+    end
+
+    def update_course_price
+      course.reset_left_price if course
     end
 
     def play_records_params

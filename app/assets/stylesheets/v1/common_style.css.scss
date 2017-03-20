@@ -7,7 +7,7 @@ body {
   margin-bottom: 0px !important;
 }
 .navbar-fixed-top {
-  position: absolute;
+  position: absolute !important;
   top: 35px !important;
   z-index: 100 !important;
 }
@@ -47,34 +47,37 @@ body {
   margin-right: 0px !important;
 }
 @media (min-width: 1200px){
-  .container {
+.container {
     width: 1190px !important;
-  }
+}
 }
 @media only screen  and (max-width: 1200px) {
-  .navbar-nav {
-    margin-left: 0px !important;
-  }
-  .navbar-default .navbar-nav li a {
-    padding: 26px 15px;
-  }
+.navbar-nav {
+  margin-left: 0px !important;
+}
+.navbar-default .navbar-nav li a {
+  padding: 26px 15px;
+} 
 }
 @media only screen  and (max-width: 990px) {
-  .navbar-default .navbar-nav li a {
-    padding: 26px 10px;
-  }
-  .navbar-right {
-    display: none;
-  }
+.navbar-default .navbar-nav li a {
+  padding: 26px 10px;
+}
+.navbar-right {
+  display: none;
+} 
 }
 @media only screen and (max-width: 760px) {
-  .navbar-right {
-    display: block;
-  }
+.navbar-right {
+  display: block;
+} 
 }
 
 
 /*底部*/
+footer {
+  border-top: 1px solid rgb(208,214,217);
+}
 .nav-footer {
   padding-left: 0px;
   text-align: center;
@@ -104,22 +107,26 @@ footer .copyright {
 }
 .paging > li > a, .paging > li > span {
   position: relative;
-  padding: 5px 12px;
-  line-height: 1.42857143;
-  text-decoration: none;
-  color: #919191;
-  background-color: #f5f5f5;
-  border: 1px solid #dcdcdc;
-  margin: 10px;
-  border-radius: 4px;
+    padding: 5px 12px;
+    line-height: 1.42857143;
+    text-decoration: none;
+    color: #919191;
+    background-color: #f5f5f5 !important;
+    border: 1px solid #dcdcdc !important;
+    margin: 3px !important;
+    border-radius: 4px;
+    color: #666 !important;
 }
-.paging >li.active > a{
+.paging >li.active > span{
   background-color: #ff5842 !important;
-  border: 1px solid #ff5842;
+  border: 1px solid #ff5842 !important;
   color: #FFFFFF !important;
 }
-.paging >li.disabled a {
+.paging >li.disabled a,.paging >li.disabled span {
   background-color: #CCCCCC !important;
-  border: 1px solid #CCCCCC;
+  border: 1px solid #CCCCCC !important;
+}
+.pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus {
+   border-color: #ff5842 !important;
 }
 

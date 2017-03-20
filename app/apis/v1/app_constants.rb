@@ -45,7 +45,7 @@ module V1
 
       desc '获取所有标签'
       get :tags do
-        present ::LiveStudio::Course.tag_counts, with: Entities::CourseTag
+        present ActsAsTaggableOn::Tag.all, with: Entities::CourseTag
       end
     end
   end

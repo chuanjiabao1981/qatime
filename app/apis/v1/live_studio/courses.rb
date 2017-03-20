@@ -295,7 +295,7 @@ module V1
               optional :class_date_gteq, type: String, desc: '开课日期开始时间'
               optional :class_date_lt, type: String, desc: '开课日期结束时间'
             end
-            optional :sort_by, type: String, desc: '排序方式', values: %w(price price.asc published_at published_at.asc buy_tickets_count buy_tickets_count.asc)
+            optional :sort_by, type: String, desc: '排序方式', values: %w(left_price left_price.asc published_at published_at.asc buy_tickets_count buy_tickets_count.asc)
           end
           get 'search' do
             search_params = ActionController::Parameters.new(params).permit(:tags, :range, :sort_by, q: [:status_eq, :grade_eq, :subject_eq, :class_date_gteq, :class_date_lt])

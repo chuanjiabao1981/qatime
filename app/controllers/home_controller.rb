@@ -14,10 +14,10 @@ class HomeController < ApplicationController
     home_data = DataService::HomeData.new(@location_city.try(:id))
     @recommend_banners = home_data.banners.order(:index).limit(3)
     @recommend_teachers = home_data.teachers.order(:index).limit(6)
-    @today_lives = home_data.today_lives
+    @today_lives = home_data.today_lives.limit(12)
     @choiceness = home_data.choiceness.order(:index).limit(6)
-    @recent_courses = home_data.recent_courses
-    @newest_courses = home_data.newest_courses
+    @recent_courses = home_data.recent_courses.limit(4)
+    @newest_courses = home_data.newest_courses.limit(4)
   end
 
   def switch_city

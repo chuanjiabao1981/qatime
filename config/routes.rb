@@ -422,6 +422,7 @@ Qatime::Application.routes.draw do
         get 'option_schools'
         get 'home_curriculums'
         get 'home_questions'
+        post :home_teachers
       end
     end
   end

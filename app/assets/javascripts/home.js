@@ -25,6 +25,12 @@ $(function(){
     $(this).find(".weixin-code").fadeOut(100);
   });
 
+  $(".fixed-phone").hover(function() {
+    $(this).find(".phonenumber").fadeIn(100);
+  }, function() {
+    $(this).find(".phonenumber").fadeOut(100);
+  });
+
   $(window).scroll(function() {
     if($(this).scrollTop() != 0) {
       $(".fixed-top").fadeIn();

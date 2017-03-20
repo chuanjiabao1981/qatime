@@ -14,7 +14,6 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><%= link_to t('view.common_bars.home_page'), home_path %></li>
         <li><%= link_to t("view.common_bars.all_live_studio_courses"), live_studio.root_path %></li>
         <li>
           <% if current_user && (current_user.student? || current_user.teacher? || current_user.manager?) %>
@@ -22,13 +21,13 @@
           <% end %>
           <%= link_to t("view.common_bars.customized_courses"), signin_path unless current_user %>
         </li>
+        <li><%= link_to t("view.common_bars.questions"), main_app.questions_path %></li>
         <li>
           <%= link_to main_app.curriculums_path do %>
             <%#= content_tag :span, '', class: 'fa fa-angle-up upward' if current_page?(main_app.curriculums_path) %>
             <%= t("view.common_bars.curriculums") %>
           <% end %>
         </li>
-        <li><%= link_to t("view.common_bars.questions"), main_app.questions_path %></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">

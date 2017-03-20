@@ -12,9 +12,14 @@
             <%= link_to live_studio.course_path(course), class: 'handpick-pic' do %>
               <%= image_tag course.publicize_url(:app_info), size: '566x258' %>
               <!-- 标签 -->
-              <span class="discount">
-                <%= image_tag "tag_one#{item.tag_one_value}.png" %>
-              </span>
+              <% if item.tag_one.present? %>
+                <span class="discount"><%= image_tag "tag_one#{item.tag_one_value}.png" %></span>
+              <% end %>
+
+              <% if item.tag_two.present? %>
+                <span class="discount-1"><%= image_tag "tag_two#{item.tag_two_value}.png" %></span>
+              <% end %>
+              <!-- 标签 END -->
               <div class="layer-handpick">
                 <p><strong><%= truncate_u(course.name, length: 22) %></strong></p>
                 <p>

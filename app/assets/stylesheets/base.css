@@ -9449,7 +9449,7 @@ ul {
 
 /*首页新页面*/
 .site-nav {
-  position: fixed;
+  position: absolute;
   top: 0px;
   width: 100%;
   height: 35px;
@@ -9830,14 +9830,17 @@ ul {
   display: block;
   position: relative;
 }
-.discount {
+.discount,.discount-1 {
   position: absolute;
   top: 0px;
-  left: 0px;
+  right: 0px;
   display: inline-block;
   width: 12.4%;
 }
-.discount img {
+.discount-1 {
+  top: 8.56%;
+}
+.discount img,.discount-1 img {
   vertical-align: top;
 }
 .layer-handpick {
@@ -9885,7 +9888,7 @@ ul {
 .iteminfo-more a {
   width: 55px;
   font-size: 14px;
-  line-height: 25px;
+  line-height: 24px;
 }
 .iteminfo-more a:hover,.itemlive-more a:hover {
   background-color: #ff5842;
@@ -10027,7 +10030,7 @@ ul {
   text-align: center;
   line-height: 25px;
 }
-.fixed-weixin .weixin-code:after {
+.fixed-weixin .weixin-code:after,.fixed-phone .phonenumber:after {
   content: '';
   position: absolute;
   border: 8px solid transparent;
@@ -10040,8 +10043,22 @@ ul {
   width: 155px;
   height: 155px;
 }
-
-
+.fixed-phone {
+  position: relative;
+}
+.phonenumber {
+  display: none;
+  text-align: center;
+  position: absolute;
+  left: -125px;
+  width: 110px;
+  top: 0px;
+  background-color: #FFFFFF;
+}
+.phonenumber p {
+  margin-bottom: 0px;
+  box-shadow: 0 0 10px #CCCCCC;
+}
 
 
 
@@ -10056,6 +10073,7 @@ ul {
 }
 .sort-nav dl {
   margin-bottom: 0px;
+  -webkit-margin-before: 0em;
 }
 .sort-nav dl a {
   display: inline-block;
@@ -10253,4 +10271,13 @@ ul {
 .nav-date-to {
   margin: 0 5px;
   color: #9aabb8;
+}
+.info-notfound p {
+  text-align: center;
+  line-height: 600px;
+}
+@media only screen  and (max-width: 990px) {
+  .info-notfound p {
+    line-height: 300px;
+  }
 }

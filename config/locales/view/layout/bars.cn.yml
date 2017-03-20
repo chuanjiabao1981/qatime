@@ -61,14 +61,14 @@ cn:
     choiceness_items:
       title: 精选内容
       lessons_count: "共%{count}课"
-      more: 更多>
+      more: 更多
     recent_courses:
       title: 近期开课
     newest_courses:
       title: 新课发布
     teacher_items:
       title: 教师推荐
-      replace: 更换>
+      replace: 更换
       ajax_none: 没有更多了!
     service:
       teacher: 名师

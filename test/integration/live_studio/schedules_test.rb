@@ -45,7 +45,7 @@ module LiveStudio
         log_in_as(@admin)
         visit student_path(student)
         click_on '课程表'
-        assert today.to_s == find("#calendar").find(".active")[:rel], "没有默认选中今日"
+        assert today.to_date == find("#calendar").find(".active")[:rel].to_date, "没有默认选中今日"
         find(".cell-#{today.month}-1").click
         find(".cell-#{today.month}-#{today.day}").click
         sleep(3)

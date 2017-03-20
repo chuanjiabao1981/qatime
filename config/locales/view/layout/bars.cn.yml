@@ -63,6 +63,7 @@ cn:
     teacher_items:
       title: 教师推荐
       replace: 更换>
+      ajax_none: 没有更多了!
     service:
       teacher: 名师
       teacher_text: 名师授课和专业讲解保证让学生学到最优质的内容。

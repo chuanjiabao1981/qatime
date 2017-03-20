@@ -24,7 +24,6 @@
 //= require chosen-jquery
 //= require canvas-to-blob.min
 //= require fancybox
-//= require_tree .
 //= require editable/bootstrap-editable
 //= require editable/rails
 //= require bootstrap-select.min
@@ -34,6 +33,7 @@
 //= require calendar-es5
 //= require jedate
 //= require jquery.jedate
+//= require v1/home
 
 // 判断空 $.isBlank($(this).val())
 $.isBlank = function(obj) {
@@ -48,13 +48,5 @@ $(document).on('click', '.je-date', function (event) {
     format:"YYYY-MM-DD",
     isClear:false,
     minDate: '2000-12-12'
-  });
-});
-
-$(function() {
-  $(".nav-condition").hover(function() {
-    $(this).find("ul").show();
-  }, function() {
-    $(this).find("ul").hide();
   });
 });

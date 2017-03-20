@@ -1,0 +1,59 @@
+<ul class="fixed-bar">
+  <li class="fixed-phone">
+    <a href="javascript:void(0);">
+      <%= image_tag 'phonenumber.png' %>
+    </a>
+    <div class="phonenumber">
+      <p>400-8388010</p>
+    </div>
+  </li>
+  <li>
+    <%= link_to main_app.qa_faqs_path do %>
+      <%= image_tag 'issue.png' %>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to main_app.welcome_download_path do %>
+      <%= image_tag 'download-1.png' %>
+    <% end %>
+  </li>
+  <li class="fixed-weixin">
+    <a href="javascript:void(0);">
+      <%= image_tag 'code-1.png' %>
+    </a>
+    <div class="weixin-code">
+      <%= image_tag 'publiccode.jpg' %>
+      <p><%= t('view.footer.weixin_code') %></p>
+    </div>
+  </li>
+  <li class="fixed-top" style="display: list-item;">
+    <a href="javascript:void(0);">
+      <%= image_tag 'top.png' %>
+    </a>
+  </li>
+</ul>
+
+<footer>
+  <div class="qa_sep_15"></div>
+  <div class="qa_sep_15"></div>
+  <ul class="nav-footer">
+    <li>
+      <a href=""><%= t('view.footer.weixin_public') %></a>
+    </li>
+    <li>
+      <a href=""><%= t('view.footer.about_us') %></a>
+    </li>
+    <li>
+      <a href=""><%= t('view.footer.contact_us') %></a>
+    </li>
+    <li>
+      <%= link_to t('view.footer.help_center'), main_app.qa_faqs_path %>
+    </li>
+    <li>
+      <%= link_to t('view.footer.software_down'), main_app.welcome_download_path %>
+    </li>
+  </ul>
+  <div class="copyright">
+    <div><%= t('view.footer.copyright') %><%= t('view.footer.record') %></div>
+  </div>
+</footer>

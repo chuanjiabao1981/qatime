@@ -5,28 +5,34 @@ module DataService
       @city_id = city_id
     end
 
+    # 首页banner
     def banners
-      Recommend::BannerItem.default.items.by_city(@city_id)
+      position_query(Recommend::BannerItem.default, @city_id)
     end
 
+    # 今日直播
     def today_lives
-      LiveStudio::Course.by_city(@city_id).order(id: :desc).limit(12)
+      LiveStudio::Lesson.includes(:course).today.readied
     end
 
+    # 教师推荐
     def teachers
-      Recommend::TeacherItem.default.items.by_city(@city_id)
+      position_query(Recommend::TeacherItem.default, @city_id)
     end
 
+    # 精选内容
     def choiceness
-      Recommend::ChoicenessItem.default.items.by_city(@city_id)
+      position_query(Recommend::ChoicenessItem.default, @city_id)
     end
 
+    # 近期开课
     def recent_courses
-      LiveStudio::Course.by_city(@city_id).order(id: :desc).limit(4)
+      LiveService::RankManager.rank_of('start_rank', {city_id: @city_id})
     end
 
+    # 新课发布
     def newest_courses
-      LiveStudio::Course.by_city(@city_id).order(id: :desc).limit(4)
+      LiveService::RankManager.rank_of('published_rank', {city_id: @city_id})
     end
 
     class << self
@@ -35,6 +41,13 @@ module DataService
         return position.items unless city.present?
         position.items.where(city_id: city.id)
       end
+    end
+
+    private
+
+    def position_query(position, city_id)
+      return position.none if position.blank?
+      position.items.by_city(city_id)
     end
   end
 end

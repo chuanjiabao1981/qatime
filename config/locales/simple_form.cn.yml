@@ -30,6 +30,7 @@ cn:
       student:
         name: 设置姓名：
         grade: 选择年级：
+        city_id: 选择城市：
       user:
         name: 设置姓名：
         grade: 选择年级：

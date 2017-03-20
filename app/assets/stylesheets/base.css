@@ -10118,6 +10118,8 @@ div.modal-apply {
 .nav-all ul li,.nav-state ul li {
   height: 40px;
   text-align: left;
+}
+.nav-all ul li a,.nav-state ul li a {
   padding-left: 20px;
 }
 .nav-all ul li:hover,.nav-state ul li:hover {
@@ -10138,6 +10140,7 @@ div.modal-apply {
 }
 .nav-all ul li a,.nav-state ul li a {
   color: #9aabb8 !important;
+  display: block !important;
 }
 .nav-sort.active a {
   height: 28px;
@@ -10244,6 +10247,22 @@ div.modal-apply {
 .classify-info p:first-child {
   text-align: right;
   margin-bottom: 0px;
+  position: relative;
+}
+.classify-info p:first-child i {
+    padding-left: 10px;
+    background: #fff;
+    position: relative;
+    z-index: 1
+}
+.classify-info p:first-child:after {
+  content: '';
+    position: absolute;
+    background: #9aabb8;
+    height: 1px;
+    left: 0;
+    right: 0;
+    top: 9px;
 }
 .classify-info .info-num {
   float: right;

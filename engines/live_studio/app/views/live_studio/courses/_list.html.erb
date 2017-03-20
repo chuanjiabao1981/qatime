@@ -2,6 +2,15 @@
   <div class="row course-classify">
     <% if @courses.blank? %>
       <div class="info-notfound">
+        <center>
+          <%= image_tag 'notfound.png' %>
+        </center>
+        <p>
+          <%= t('view.course_show.nofound') %>
+        </p>
+      </div>
+
+      <div class="info-notfound">
         <p><%= t('view.course_show.nofound') %></p>
       </div>
     <% else %>
@@ -20,10 +29,11 @@
               </div>
               <div class="classify-info">
                 <p>
-                  <span>————</span>
-                  <span><%= localize(course.start_at.to_date, format: :default) if course.start_at %></span>
-                  <span>至</span>
-                  <span><%= localize(course.end_at.to_date, format: :default) if course.end_at %></span>
+                  <i>
+                    <span><%= localize(course.start_at.to_date, format: :default) if course.start_at %></span>
+                    <span><%= t('view.course_show.to') %></span>
+                    <span><%= localize(course.end_at.to_date, format: :default) if course.end_at %></span>
+                  </i>
                 </p>
                 <p>
                   <span class="info-price"><%= number_to_currency(course.current_price, locale: :cn) %></span>
@@ -33,7 +43,7 @@
           </li>
         <% end %>
       </ul>
-      <center><div class="pagination-fix"><%= will_paginate @courses, class: 'paging' %></div></center>
+      <center><div class="pagination-fix"><%= will_paginate @courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
     <% end %>
   </div>
 </div>

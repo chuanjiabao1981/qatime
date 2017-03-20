@@ -1,5 +1,10 @@
 <div class="classify">
-  <%= search_form_for @q do |f| %>
+  <%= search_form_for @q, id: 'search-form' do |f| %>
+    <%= hidden_field_tag :tags, @search_params[:tags] %>
+    <%= hidden_field_tag :range, @search_params[:range] %>
+    <%= f.search_field :status_eq, type: 'hidden' %>
+    <%= f.search_field :grade_eq, type: 'hidden' %>
+    <%= f.search_field :subject_eq, type: 'hidden' %>
     <div class="sort-nav">
       <dl>
         <dd class="nav-condition nav-all <%= 'active' if @search_params[:range].present? %>">
@@ -36,7 +41,7 @@
           <% end %>
           <ul style="display: none;">
             <li>
-              <%= link_to '全部', live_studio.courses_path(@search_params.deep_merge(q: { grade_eq: nil })) %>
+              <%= link_to t("view.course_filter.all"), live_studio.courses_path(@search_params.deep_merge(q: { grade_eq: nil })) %>
               <% APP_CONSTANT['grades_in_sorts'].each do |grade| %>
                 <%= link_to grade, live_studio.courses_path(@search_params.deep_merge(q: { grade_eq: grade })) %>
               <% end %>
@@ -54,7 +59,7 @@
           <% end %>
           <ul style="display: none;">
             <li>
-              <%= link_to '全部', live_studio.courses_path(@search_params.deep_merge(q: { subject_eq: nil })) %>
+              <%= link_to t("view.course_filter.all"), live_studio.courses_path(@search_params.deep_merge(q: { subject_eq: nil })) %>
               <% APP_CONSTANT['subjects'].each .each do |subject| %>
                 <%= link_to subject, live_studio.courses_path(@search_params.deep_merge(q: { subject_eq: subject })) %>
               <% end %>
@@ -71,7 +76,7 @@
             <span class="fa fa-angle-down"></span>
           <% end %>
           <ul style="display: none;">
-            <li><%= link_to "全部", live_studio.courses_path(@search_params.deep_merge(q: { status_eq: nil })) %></li>
+            <li><%= link_to t("view.course_filter.all"), live_studio.courses_path(@search_params.deep_merge(q: { status_eq: nil })) %></li>
             <% LiveStudio::Course.status.options.select {|item| item.last.in?(%w(teaching published)) }.each do |item| %>
               <li>
                 <%= link_to item.first, live_studio.courses_path(@search_params.deep_merge(q: { status_eq: item.last })) %>
@@ -80,18 +85,18 @@
           </ul>
         </dd>
         <dd class="nav-time">
-          <%= link_to "##" do -%>
-            <span><%= LiveStudio::Course.human_attribute_name(:class_date) %></span>
+          <%= link_to "javascript:void(0);" do -%>
+            <span><%= LiveStudio::Course.human_attribute_name(:live_start_date) %></span>
           <% end %>
           <span class="nav-datetime">
-            <%= f.search_field :class_date_gt, class: 'je-date' %>
-            <%= f.label :class_date_gt, class: "glyphicon glyphicon-calendar" do %>
+            <%= f.search_field :class_date_gteq %>
+            <%= f.label :class_date_gteq, class: "glyphicon glyphicon-calendar" do %>
             <% end -%>
           </span>
           <span class="nav-date-to">-</span>
           <span class="nav-datetime">
-            <%= f.search_field :class_date_lteq, class: 'je-date' %>
-            <%= f.label :class_date_lteq, class: "glyphicon glyphicon-calendar" do %>
+            <%= f.search_field :class_date_lt %>
+            <%= f.label :class_date_lt, class: "glyphicon glyphicon-calendar" do %>
             <% end -%>
           </span>
         </dd>
@@ -99,6 +104,39 @@
     </div>
   <% end %>
 </div>
+
+<%= content_for :javascript do %>
+<script>
+$(function() {
+  var start = {
+    skinCell: "jedatered",
+    format: 'YYYY-MM-DD',
+    isinitVal: false,
+    festival: false,
+    ishmsVal: false,
+    minDate: '2000-01-01',
+    maxDate: '<%= @search_params[:q] &&  @search_params[:q][:class_date_lt].present? ? @search_params[:q][:class_date_lt] : '2099-06-16' %>', //最大日期
+    choosefun: function(elem, datas) {
+      $(this).val(datas);
+      $("#search-form").submit();
+    }
+  };
+  var end = {
+    skinCell: "jedatered",
+    format: 'YYYY-MM-DD',
+    festival: false,
+    minDate: '<%= @search_params[:q] &&  @search_params[:q][:class_date_gteq].present? ? @search_params[:q][:class_date_gteq] : '2000-01-01' %>', //
+    maxDate: '2099-06-16', //最大日期
+    choosefun: function(elem, datas) {
+      $(this).val(datas);
+      $("#search-form").submit();
+    }
+  };
+  $('#q_class_date_gteq').jeDate(start);
+  $('#q_class_date_lt').jeDate(end);
+});
+</script>
+<% end %>
 
 
 

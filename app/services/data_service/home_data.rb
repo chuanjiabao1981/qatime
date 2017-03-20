@@ -1,20 +1,35 @@
 module DataService
   class HomeData
+
+    def initialize(city_id)
+      @city_id = city_id
+    end
+
+    def banners
+      Recommend::BannerItem.default.items.by_city(@city_id)
+    end
+
+    def today_lives
+      LiveStudio::Course.by_city(@city_id).order(id: :desc).limit(12)
+    end
+
+    def teachers
+      Recommend::TeacherItem.default.items.by_city(@city_id)
+    end
+
+    def choiceness
+      Recommend::ChoicenessItem.default.items.by_city(@city_id)
+    end
+
+    def recent_courses
+      LiveStudio::Course.by_city(@city_id).order(id: :desc).limit(4)
+    end
+
+    def newest_courses
+      LiveStudio::Course.by_city(@city_id).order(id: :desc).limit(4)
+    end
+
     class << self
-      # home data
-      def home_data_by_city(city_id)
-        courses = model_query(Recommend::LiveStudioCourseItem, city_id).order(index: :asc).limit(6)
-        teachers = model_query(Recommend::TeacherItem, city_id).order(index: :asc).limit(5)
-        banners = model_query(Recommend::BannerItem, city_id).order(index: :asc).limit(3)
-        [courses, teachers, banners]
-      end
-
-      # 如果查询不到数据的话
-      # 就拿city_id未设置的数据(代指全国数据)
-      def model_query(model, city_id)
-        model.where(city_id: city_id)
-      end
-
       def position_query(position, city_name)
         city = City.find_by(name: city_name)
         return position.items unless city.present?

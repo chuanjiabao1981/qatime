@@ -1,324 +1,90 @@
-<div class="container container-details">
-  <div class="row">
-    <div class="panel panel-default">
 
-      <div class="home-banner">
-        <ul class="banner-show" id="banner-list">
-          <% @recommend_banners.each do |banner| %>
-            <li>
-              <%= link_to(image_tag(banner.logo_url(:home), alt: 'banner'), banner.link) %>
-            </li>
-          <% end %>
+<%= render 'layouts/banner_and_tags' %>
+
+<!-- 今日直播 -->
+<%= render partial: 'home/items/today_lives' %>
+
+<!-- 精选内容 -->
+<%= render partial: 'home/items/choiceness' %>
+
+<!-- 近期开课 -->
+<%= render partial: 'home/items/recent_courses' %>
+
+<!-- 新课发布 -->
+<%= render partial: 'home/items/newest_courses' %>
+
+<!-- 教师推荐 -->
+<%= render partial: 'home/items/teachers' %>
+
+<!-- 服务项目 -->
+<%= render partial: 'home/items/service' %>
 
 
-          <% if @recommend_banners.blank? %>
-            <li>
-              <%= link_to(image_tag("banner-nocon.png", alt: 'banner'), "javascript: vodi(0);") %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col-md-9 col-md-left">
-      <div class="panel panel-default">
-        <div class="recommended-tutoring">
-          <div class="tutoring-title">
-            <div class="tutoring-title-left">
-              <%= image_tag 'home_page_icon.png' %>
-              <span class="title-size">直播课程</span>
-            </div>
-            <a href="<%= live_studio.courses_path %>" class="tutoring-title-right">
-              <span>全部 ></span>
-            </a>
-          </div>
-          <div class="tutoring-con">
-            <ul class="ul-list">
-              <% @recommend_courses.each do |item| %>
-                <li class="li-new">
-                  <%= link_to image_tag(item.logo_url), live_studio.course_path(item.target) %>
-                  <dl class="dl-list">
-                    <dd><%= link_to item.target.name,live_studio.course_path(item.target) %></dd>
-                    <dd>
-                    <span class="dd-left">
-                      <%= "#{item.target.grade}#{item.target.subject}/共#{item.target.try(:lessons_count)}课" %>
-                    </span>
-                    <span class="dd-right">
-                      <%= "报名人数#{item.target.try(:buy_user_count)}" %>
-                    </span>
-                    </dd>
-                  </dl>
-                  <%= content_tag :span, item.reason_text, class: item.reason if item.reason.present?%>
-                </li>
-              <% end %>
+<% content_for :javascript do %>
+  <script type="text/javascript">
 
-              <% 6.times do %>
-                <li class="li-new">
-                  <%= link_to "javascript:void(0);" do %>
-                    <%= image_tag "web-nocon-1.png" %>
-                  <% end %>
-                  <dl class="dl-list">
-                    <dd><%= link_to "此标题内容仅供演示", "javascript:void(0);" %></dd>
-                    <dd>
-                      <span class="dd-left">
-                      年级科目/共X课
-                      </span>
-                      <span class="dd-right">
-                        报名人数XXX
-                      </span>
-                    </dd>
-                  </dl>
-                  
-                </li>
-              <% end if @recommend_courses.blank? %>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="panel panel-default">
-        <div class="recommended-class">
-          <div class="class-title">
-            <div class="class-title-left">
-              <%= image_tag 'home_page_icon.png' %>
-              <a href="javascript:void(0);" class="btn-tab active-tab">专属课程</a>
-              <span class="separator">|</span>
-              <%= link_to '公共课程', home_curriculums_ajax_data_path, class: 'btn-tab', rel: '.curriculums-more', remote: true, id: 'home_curriculums' %>
-              <span class="separator">|</span>
-              <%= link_to '问答社区', home_questions_ajax_data_path, class: 'btn-tab', rel: '.questions-more',remote: true, id: 'home_questions' %>
-            </div>
-            <a href="<%= curriculums_path %>" class="curriculums-more class-title-right">
-              <span>更多</span>
-              <span>&gt;</span>
-            </a>
-            <a href="<%= questions_path %>" class="questions-more class-title-right">
-              <span>更多</span>
-              <span>&gt;</span>
-            </a>
-          </div>
-          <div>
-            <div class="class-course">
-              <table border="0" cellspacing="0" cellpadding="0" class="table-exclusive">
-                <tbody><tr>
-                  <td class="td-circle">
-                    <i class="fa fa-circle course-circle"></i>
-                  </td>
-                  <td>
-                 <span>专属课程是一种在线一对一辅导的学习方式。他的特点在于学生和老师在足不出户的情况下就可以完成学习，提问，作业批改；
-                  并且对于难点、重点可以反复体会，同时对于不懂的问题可以随时提问，老师都会通过视频进行讲解。</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="td-circle">
-                    <i class="fa fa-circle course-circle"></i>
-                  </td>
-                  <td>
-                    <span>首先，老师会对根据学生的学习情况进行评估，根据评估的结果制定学习大纲</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="td-circle">
-                    <i class="fa fa-circle course-circle"></i>
-                  </td>
-                  <td>
-                    <span> 然后，老师会根据学习大纲，制作教学视频，以及布置相应的作业。</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="td-circle">
-                    <i class="fa fa-circle course-circle"></i>
-                  </td>
-                  <td>
-                    最后，同学在家中就可以根据教学视频进行学习；学习过程中可以针对重点难点在线提问，老师会对问题做相应的视频
-                    进行讲解；完成老师的布置的作业后，把作业上传至网站，老师进行视频批改。
-                  </td>
-                </tr>
-                </tbody></table>
+    $(function() {
+      var index = 0;
 
-              <div class="application">
-                <%= link_to @user_path || send("customized_courses_#{@user.role}_path",@user) do %>
-                  <div class="apply-course">
-                    <span class="fa fa-edit icon-write"></span>
-                    <span class="apply-class">申请我的专属课程</span>
-                  </div>
-                <% end %>
-              </div>
-            </div>
-            <div class="class-course" id="home_curriculums_replaced">
-            </div>
-            <div class="class-course class-course-tab" id="home_questions_replaced">
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-3 col-md-right">
-      <div class="panel panel-default panel-bottom">
-        <div class="recommended-tec">
-          <div class="tutoring-tec-title">
-            <div class="teacher-title-left">
-              <%= image_tag 'home_page_icon.png' %>
-              <span class="title-size">名师推荐</span>
-            </div>
-            <!--<a href="" class="teacher-title-right">-->
-            <!--<span>换一批</span>-->
-            <!--<span class="fa fa-refresh"></span>-->
-            <!--</a>-->
-          </div>
-          <div class="tutoring-tec-con">
-            <ul class="list-tec">
-              <% @recommend_teachers.each do |r_teacher| %>
-                <li class="tec-li">
-                  <div class="li-introduce">
-                    <div class="introduce-img">
-                      <%= link_to image_tag(r_teacher.logo_url), profile_teacher_path(r_teacher.target) %>
-                      <center><span><%= "#{r_teacher.target.category}#{r_teacher.target.subject}" %></span></center>
-                    </div>
-                    <div class="introduce-msg">
-                      <div class="msg-name">
-                        <%= link_to profile_teacher_path(r_teacher.target) do %>
-                          <%= content_tag(:span, r_teacher.target.name) %>
-                          <%= image_tag "#{r_teacher.target.gender || 'male'}.png", size: '20x20', alt: 'gender' %>
-                        <% end %>
-                      </div>
-                      <div class="msg-tecyear"><%= r_teacher.target.teaching_years_text %></div>
-                      <div class="msg-address"><%= "#{r_teacher.target.province.try(:name)}#{r_teacher.target.city.try(:name)}" %></div>
-                    </div>
-                  </div>
-                </li>
-              <% end %>
-
-              <% 5.times do %>
-                <li class="tec-li">
-                  <div class="li-introduce">
-                    <div class="introduce-img">
-                      <%= link_to "javascript:void(0);" do -%>
-                        <%= image_tag("webright-nocon-1.png") -%>
-                      <% end -%>
-                      <center><span>年级科目</span></center>
-                    </div>
-                    <div class="introduce-msg">
-                    <div class="msg-name">
-                      <%= link_to "javascript:void(0);" do -%>
-                        <span>教师名</span><%= image_tag("girl.png") -%>
-                      <% end -%>
-                    </div>
-                    <div class="msg-tecyear">XXX年教龄</div>
-                    <div class="msg-address">XX省XX市</div>
-                    </div>
-                  </div>
-                </li>
-              <% end if @recommend_teachers.blank? %>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="panel panel-default panel-profile">
-      <div class="recommended-profile">
-        <div class="profile-title">答疑时间6大优势</div>
-        <div class="row">
-          <div class="col-md-2 col-sm-2 col-advantage">
-            <ul>
-              <li>
-                <%= image_tag 'advantage_1.png' %>
-              </li>
-              <li><span>名师</span></li>
-              <li><p>名师授课和专业讲解保证让学生学到最优质的内容</p></li>
-            </ul>
-          </div>
-          <div class="col-md-2 col-sm-2 col-advantage">
-            <ul>
-              <li>
-                <%= image_tag 'advantage_2.png' %>
-              </li>
-              <li><span>多种学习模式</span></li>
-              <li><p>提供四种学习模式和海量课程供学生选取最适合自己的。</p></li>
-            </ul>
-          </div>
-          <div class="col-md-2 col-sm-2 col-advantage">
-            <ul>
-              <li>
-                <%= image_tag 'advantage_3.png' %>
-              </li>
-              <li><span>直播+互动+视频</span></li>
-              <li><p>直播授课体验真实互动拒绝枯燥视频讲解一看就懂</p></li>
-            </ul>
-          </div>
-          <div class="col-md-2 col-sm-2 col-advantage">
-            <ul>
-              <li>
-                <%= image_tag 'advantage_4.png' %>
-              </li>
-              <li><span>量身定制</span></li>
-              <li><p>为学生量身定制课程专属课程，杜绝模板化教学。</p></li>
-            </ul>
-          </div>
-          <div class="col-md-2 col-sm-2 col-advantage">
-            <ul>
-              <li>
-                <%= image_tag 'advantage_5.png' %>
-              </li>
-              <li><span>Web/App/直播器</span></li>
-              <li><p>支持网页端和手机端多种使用方式,量身定制教师直播助手。</p></li>
-            </ul>
-          </div>
-          <div class="col-md-2 col-sm-2 col-advantage">
-            <ul>
-              <li>
-                <%= image_tag 'advantage_6.png' %>
-              </li>
-              <li><span>工作站模式</span></li>
-              <li><p>工作站管理模式提供更具特色的本地化服务，服务全国600+城市</p></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<script type="text/javascript">
-  $(function  () {
-    // 广告位轮播
-    $("#banner-list").rotate();
-
-    $(".btn-tab").click(function  () {
-      var more = $(this).attr('rel');
-      $(this).addClass('active-tab').siblings().removeClass('active-tab');
-      $(".questions-more,.curriculums-more").hide();
-      $(more).show();
-      if($(this).attr('id') == undefined){
-        var index = $(".btn-tab").index($(this));
-        $('.class-course').eq(index).show().siblings().hide();
+      function autoscroll() {
+        index++;
+        changecolor(index);
+        $(".banner-show").animate({
+          left: "-" + 100 * index + "%"
+        }, 1000, function() {
+          if(index == 3) {
+            index = 0;
+            $(".banner-show").css("left", "0");
+          }
+        })
       }
+
+      $('.banner-dot li').click(function() {
+        index = $(this).index();
+        $('.banner-show').css('left', "-" + 100 * index + "%");
+        $("#content").stop().animate({
+          left: "-" + 100 * index + "%"
+        }, 1000)
+        changecolor(index);
+      })
+
+      $(".banner-dot li").mouseover(function() {
+        clearInterval(timerID);
+      })
+      $(".banner-dot li").mouseout(function() {
+        timerID = setInterval(autoscroll, 5000);
+      })
+
+      function changecolor(index) {
+        $(".banner-dot li").css("background-color", "white");
+        if(index == 3) {
+          $(".banner-dot li").eq(0).css("background-color", "rgb(255,153,102)");
+        } else {
+          $(".banner-dot li").eq(index).css("background-color", "rgb(255,153,102)");
+        }
+      }
+      var timerID = setInterval(autoscroll, 5000);
+      $(".banner-show").mouseover(function() {
+        clearInterval(timerID);
+      })
+      $(".banner-show").mouseout(function() {
+        timerID = setInterval(autoscroll, 5000);
+      })
+
     })
 
-    $('#home_curriculums').bind('ajax:complete', function(event, data) {
-      $('#home_curriculums_replaced').html(data.responseText);
-      $('#home_curriculums_replaced').show().siblings().hide();
-    });
-
-    $('#home_questions').bind('ajax:complete', function(event, data) {
-      $('#home_questions_replaced').html(data.responseText);
-      $('#home_questions_replaced').show().siblings().hide();
-    });
-//
-//    $(".tec-li").mouseenter(function  () {
-//      var index = $(".tec-li").index($(this));
-//      $(".li-introduce").eq(index).hide();
-//      $(".li-detailed").eq(index).show();
-//    })
-//
-//    $(".tec-li").mouseleave(function  () {
-//      $(".li-detailed").hide();
-//      $(".li-introduce").show();
-//    })
-  })
-
-</script>
+    $(function  () {
+      $('#myCarousel').carousel({
+        interval: false
+      });
+      $(".btn-nexts").click(function() {
+        $("#myCarousel").carousel('prev');
+        console.log($("#myCarousel").carousel('prev'))
+      });
+      // 循环轮播到下一个项目
+      $(".btn-previous").click(function() {
+        $("#myCarousel").carousel('next');
+      });
+    })
+  </script>
+<% end %>

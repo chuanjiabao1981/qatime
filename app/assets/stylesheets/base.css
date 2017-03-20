@@ -4142,7 +4142,7 @@ ul {
   width: 100%;
   height: 100px;
   background-color: #000000;
-  opacity: 0.8;
+  opacity: 0.9;
   font-size: 22px;
   color: #FFFFFF;
   text-align: center;
@@ -9678,10 +9678,10 @@ ul {
 .homepage-banner .banner-show {
   margin-bottom: 0px;
 }
-.item {
+.line-item {
   margin-top: 40px;
 }
-.item h2 {
+.line-item h2 {
   width: 250px;
   text-align: center;
   position: relative;
@@ -9689,14 +9689,14 @@ ul {
   color: #1f1f1f;
   margin-bottom: 30px;
 }
-.item h2 strong,.item-live h3 strong{
+.line-item h2 strong,.item-live h3 strong{
   font-weight: normal;
   padding: 0 10px;
   background: #fff;
   position: relative;
   z-index: 1;
 }
-.item h2:after,.item-live h3:after {
+.line-item h2:after,.item-live h3:after {
   content: '';
   position: absolute;
   background: #1f1f1f;
@@ -9729,7 +9729,7 @@ ul {
   visibility:hidden;
   height:0;
 }
-.item .container {
+.line-item .container {
   padding: 0px
 }
 .item-live li,.item-handpick li,.item-recommend li {
@@ -9811,7 +9811,7 @@ ul {
   background-color: #ff5842;
   color: #FFFFFF;
 }
-.item .item-handpick,.item .item-recommend {
+.line-item .item-handpick,.line-item .item-recommend {
   padding-left: 0px;
   margin-bottom: 0px;
 }

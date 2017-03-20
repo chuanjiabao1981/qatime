@@ -8,15 +8,10 @@ module LiveStudio
     before_action :set_city, only: [:index]
 
     def index
-      @courses = LiveService::CourseDirector.courses_search(search_params)
-      if @student && @student.student?
-        @tickets = @student.live_studio_tickets.includes(course: :lesson).where(course_id: @courses.map(&:id)) if @student
-      else
-        @tickets = []
-      end
-      @courses = @courses.where(city_id: @location_city.id) if @location_city
-      @courses = @courses.paginate(page: params[:page], per_page: 8)
-      render layout: 'application_front'
+      @q = LiveService::CourseDirector.search(search_params)
+      @courses = @q.result.paginate(page: params[:page], per_page: 6)
+      preload_tickets(@courses)
+      render layout: 'v1/application'
     end
 
     def new
@@ -144,9 +139,12 @@ module LiveStudio
     end
 
     def search_params
-      params.permit(
-        :subject, :grade, :sort_by, :status, :price_floor, :price_ceil, :class_date_floor, :class_date_ceil
-      )
+      return @search_params if @search_params.present?
+      @search_params = params.permit(:tags, :range, q: [:status, :grade_eq, :subject_eq, :class_date_gteq, :class_date_lt, :s])
+      @search_params[:q] ||= {}
+      @search_params[:q][:s] ||= "published_at desc"
+      @search_params[:q][:status_eq] = LiveStudio::Course.statuses[@search_params[:q][:status]] if @search_params[:q][:status].present?
+      @search_params
     end
 
     def courses_params
@@ -158,8 +156,9 @@ module LiveStudio
       #   end
       # end
       params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map(&:second) if params[:course] && params[:course][:lessons_attributes]
-      params.require(:course).permit(:name, :grade, :price, :invitation_id, :description, :taste_count, :crop_x, :crop_y, :crop_w, :crop_h, :publicize, :workstation_id,
-          lessons_attributes: [:id, :name, :class_date, :start_time_hour, :start_time_minute,:duration, :_destroy])
+      params.require(:course).permit(:name, :grade, :price, :invitation_id, :description, :taste_count, :workstation_id, :tag_list,
+                                     :publicize, :crop_x, :crop_y, :crop_w, :crop_h,
+                                     lessons_attributes: [:id, :name, :class_date, :start_time_hour, :start_time_minute, :duration, :_destroy])
     end
 
     def preview_courses_params
@@ -181,5 +180,13 @@ module LiveStudio
       course
     end
 
+    def preload_tickets(courses)
+      @tickets =
+        if @student && @student.student?
+          @student.live_studio_tickets.where(course_id: courses.map(&:id))
+        else
+          []
+        end
+    end
   end
 end

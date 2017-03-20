@@ -17,6 +17,7 @@ cn:
         description: 辅导介绍
         name: 辅导名称
         taste_count: 试听 (节)
+        tag_list: 课程标签
       course_invitation:
         user_mobile: 填写被邀请人
         teacher_percent: 设置老师分成
@@ -26,6 +27,12 @@ cn:
         user_mobile: 填写想要邀请的老师的手机号
         teacher_percent: 请输入老师获得的分成比例
         expited_day: 请设置邀请的有效期限，逾期后将自动失效
+      course:
+        tag_list: 请选择课程标签
+        price: 请输入正整数
+        taste_count: 请选择允许试听的课程数量（正整数）,不选择默认为0
+        name: 请输入辅导班名称（最多20字）
+        description: 请输入辅导班介绍（最多300字）
     buttons:
       course_invitation:
         submit: 立即发送

@@ -5,36 +5,37 @@
     </div>
 
     <div class="file-new">
-      <span>*</span>
-      <a href="###" data-toggle="modal" data-target="#edit_publicize">点此更换图片</a>
+      <span></span>
+      <a href="###" data-toggle="modal" data-target="#edit_publicize"><%= t('view.course_form.publicize_pick') %></a>
 
       <%= f.error :publicize, id: 'course_publicize_error' %>
       <p class="create-advice">
-        建议：<br>
-        图片像素480*300，<br>
-        图片格式jpeg或png,<br>
-        图片文件不大于500k,<br>
-        禁止使用非法图片作为海报!
+        <%= raw t('view.course_form.publicize_tips') %>
       </p>
     </div>
   </div>
+
+  <% if @course.invitation %>
+    <div class="price-class">
+      <span><strong><%= t('view.course_form.teacher_percentage', percentage: number_to_percentage(@course.invitation.teacher_percent, precision: 0) ) %></strong></span>
+      <i>|</i>
+      <span><strong><%= t('view.course_form.service_price', price: @course.invitation.target.service_price.to_i ) %></strong></span>
+    </div>
+  <% elsif !@course.new_record?%>
+    <div class="price-class">
+      <span><strong><%= t('view.course_form.teacher_percentage', percentage: number_to_percentage(@course.teacher_percentage, precision: 0) ) %></strong></span>
+      <i>|</i>
+      <span><strong><%= t('view.course_form.service_price', price: @course.service_price ) %></strong></span>
+    </div>
+  <% end %>
 </div>
 <div class="editor-msg">
-  <div class="row remedial-class">
-    <div class="col-md-2">
-      <div style="padding-left: 10px;"><%= t("view.live_studio/courses.share_percentage") %></div>
-    </div>
-    <div class="col-md-10">
-      <div><%= number_to_percentage(LiveStudio::Course::DEFAULT_TEACHER_PERCENTAGE, precision: 0) %></div>
-    </div>
-  </div>
-
   <div class="row">
     <div class="col-md-2">
       <%= f.label :name %>
     </div>
     <div class="col-md-10">
-      <%= f.input :name, label: false, placeholder: '请输入辅导班名称（最多20字）', input_html: {maxlength: 20} %>
+      <%= f.input :name, label: false, input_html: {maxlength: 20} %>
     </div>
   </div>
 
@@ -57,6 +58,34 @@
       <%= f.input :grade, collection: APP_CONSTANT['grades_in_menu'], label: false, prompt: '请选择年级' %>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :tag_list %>
+    </div>
+    <div class="col-md-10 col-md-label">
+      <div class="form-group string optional course_tag_list">
+        <%= f.input_field :tag_list, value: @course.tag_list.join('; '), label: false, readonly: true %>
+        <%= f.label :tag_list, class: 'fa fa-angle-down pull-down' do %>
+        <% end %>
+      </div>
+      <div class="label-msg">
+        <% tags_with_category.each do |cate| -%>
+          <div class="label-classify category-<%= cate.id %>">
+            <span><%= cate.name %></span>
+            <div class="label-classify-con">
+              <% cate.tags.each do |tag| %>
+                <%= link_to tag.name, "javascript: void(0);", class: "#{@course.tag_list.include?(tag.name) ? 'active' : ''}" -%>
+              <% end -%>
+            </div>
+          </div>
+        <% end -%>
+        <a href="javascript:void(0);" class="btn-label">确定</a>
+      </div>
+      <%= f.error :tag_list %>
+    </div>
+  </div>
+
   <%= content_tag(:div, class: 'row') do%>
     <div class="col-md-2">
       <%= f.label :workstation, style: 'margin-left: 15px;' %>
@@ -71,7 +100,7 @@
       <%= f.label :price %>
     </div>
     <div class="col-md-10">
-      <%= f.input :price, label: false, placeholder: '请输入正整数'%>
+      <%= f.input :price, label: false%>
     </div>
   </div>
 
@@ -80,7 +109,7 @@
       <%= f.label :taste_count, class: 'listen' %>
     </div>
     <div class="col-md-10">
-      <%= f.input :taste_count, label: false, placeholder: '请选择允许试听的课程数量（正整数）,不选择默认为0', input_html: {min: 0} %>
+      <%= f.input :taste_count, label: false, input_html: {min: 0} %>
     </div>
   </div>
 </div>
@@ -289,6 +318,18 @@
         ['height', ['height']]
       ]
     });
+  });
+
+  // 标签选择
+  $(".col-md-label input").click(function() {
+    $(".label-msg").toggle();
+  });
+  $(".label-msg").on('click', '.label-classify-con a', function (event) {
+    $(event.target).toggleClass("active").siblings().removeClass("active");
+  });
+  $(".btn-label").click(function () {
+    $(".col-md-label input").val($(".label-classify-con a.active").map(function(item) { return this.text }).get().join('; '));
+    $(".label-msg").hide();
   });
 
 </script>

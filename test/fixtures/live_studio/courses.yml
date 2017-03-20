@@ -11,6 +11,8 @@ course_one:
   preset_lesson_count: 2
   lessons_count: 2
   price: 999
+  class_date: <%= 3.days.since.to_date %>
+  start_at: <%= 3.days.since.to_date %>
 
 course_two:
   name: 测试辅导2班
@@ -23,6 +25,9 @@ course_two:
   preset_lesson_count: 2
   price: 999
   lessons_count: 2
+  price: 999
+  class_date: <%= 5.days.since.to_date %>
+  start_at: <%= 5.days.since.to_date %>
 
 course_no_teacher:
   name: 测试辅导3班
@@ -60,8 +65,20 @@ course_init:
   subject: 语文
   lessons_count: 2
 
+course4:
+  name: 第四个舞蹈班
+  teacher_id: 1
+  workstation: workstation_one
+  status: 1
+  price: 1000
+  preset_lesson_count: 2
+  grade: 高二
+  subject: 英语
+  teacher_percentage: 80
+  class_date: <%= Date.today %>
+  lessons_count: 2
+
 course_preview:
-  id: 5
   name: 招生中的辅导班
   teacher_id: 1
   workstation: workstation_one
@@ -161,6 +178,7 @@ update_course_by_physics_teacher1:
   subject: 语文
   workstation: workstation_invalid
   lessons_count: 2
+  taste_count: 1
 
 course_teach_2:
   name: 上课中的辅导班2
@@ -320,7 +338,6 @@ course_for_edit:
   lessons_count: 2
 
 course_for_teaching:
-  id: 10000
   name: 已经有直播中的课程的辅导班
   teacher: teacher_for_taste_course
   workstation: workstation_one

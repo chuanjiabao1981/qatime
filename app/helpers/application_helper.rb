@@ -35,6 +35,7 @@ module ApplicationHelper
 
   # 截取字符长度,中英文兼容
   def truncate_u(text, options = {})
+    return '' if text.blank?
     opts = { :length => 30, :omission => '...' }
     options = opts.merge(options)
     length = 0
@@ -350,5 +351,10 @@ module ApplicationHelper
       r = false
     end
     r
+  end
+
+  # 系统所有的标签
+  def tags_with_category
+    TagCategory.includes(:tags)
   end
 end

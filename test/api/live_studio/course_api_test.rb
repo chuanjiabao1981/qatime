@@ -184,7 +184,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     course = live_studio_courses(:course_with_lessons)
     get "/api/v1/live_studio/courses/#{course.id}/taste", {}, { 'Remember-Token' => @remember_token }
     res = JSON.parse(response.body)
-    assert_equal 1, res['status']
+    assert_equal 1, res['status'], "响应出错 #{res}"
     assert_equal true, res['data'].has_key?('status')
   end
 
@@ -299,5 +299,32 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
     assert_equal Array, res['data']['lessons'].class
+  end
+
+  # 最新发布和最近开课接口
+  test 'get courses rank' do
+    get '/api/v1/live_studio/courses/rank/published_rank,%20start_rank'
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status'], "请求出错 #{res}"
+    assert_not_nil res['data']['published_rank']
+    assert_not_nil res['data']['start_rank']
+  end
+
+  test 'get all tags' do
+    get '/api/v1/app_constant/tags'
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status'], "请求出错 #{res}"
+    assert_equal res['data'].count, 0, "标签获取失败"
+  end
+
+  # 新的搜索接口
+  test 'search courses with tags' do
+    get '/api/v1/live_studio/courses/search', range: '1_months'
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status'], "请求出错 #{res}"
+    assert_equal res['data'].count, 2, "标签获取失败"
   end
 end

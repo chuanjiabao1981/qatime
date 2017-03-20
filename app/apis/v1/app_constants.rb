@@ -42,6 +42,11 @@ module V1
       get :im_app_key do
         present :im_app_key, Chat::IM.app_key
       end
+
+      desc '获取所有标签'
+      get :tags do
+        present ActsAsTaggableOn::Tag.all, with: Entities::CourseTag
+      end
     end
   end
 end

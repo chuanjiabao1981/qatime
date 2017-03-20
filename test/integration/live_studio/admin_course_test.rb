@@ -24,7 +24,7 @@ module LiveStudio
       assert page.has_no_content?('审核中'), "未审核辅导班显示"
       assert page.has_no_content?('审核被拒'), "未审核通过辅导班显示"
       select('英语', from: 'subject')
-      assert_equal 6, page.all(".admin-list-con tr").size, "英语辅导数量不正确"
+      assert_equal 7, page.all(".admin-list-con tr").size, "英语辅导数量不正确"
       select('高一', from: 'grade')
       assert_equal 4, page.all(".admin-list-con tr").size, "高一英语辅导数量不正确"
       select('开课中', from: 'status')

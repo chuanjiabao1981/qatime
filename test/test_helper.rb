@@ -44,7 +44,11 @@ class ActiveSupport::TestCase
     else
       visit get_home_url(user)
     end
-    click_on '退出系统'
+    if user.student?
+      click_on '退出'
+    else
+      click_on '退出系统'
+    end
   end
 
   def new_log_in_as(user)
@@ -91,6 +95,7 @@ class ActiveSupport::TestCase
     else
       visit get_home_url(user)
     end
+    find('.nav-right-user').hover if page.has_selector?('div.nav-right-user')
     click_on '退出'
   end
 

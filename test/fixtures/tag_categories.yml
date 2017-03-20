@@ -1,0 +1,15 @@
+one:
+  id: 1
+  name: 考试等级
+two:
+  id: 2
+  name: 试卷讲解
+three:
+  id: 3
+  name: 假期课程
+four:
+  id: 4
+  name: 课程难度
+five:
+  id: 5
+  name: 通用标签

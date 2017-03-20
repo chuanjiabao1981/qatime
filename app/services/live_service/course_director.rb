@@ -59,6 +59,16 @@ module LiveService
     # 过滤辅导班
     # 检索条件: subject grade status
     # 排序条件: class_date
+    def self.search(search_params)
+      chain = LiveStudio::Course.for_sell.includes(:teacher, :lessons)
+      chain = courses_filter_by_range(chain, *range_to_time(search_params[:range])) if search_params[:range].present?
+      chain = chain.tagged_with(search_params[:tags]) if search_params[:tags].present?
+      chain.ransack(search_params[:q])
+    end
+
+    # 过滤辅导班
+    # 检索条件: subject grade status
+    # 排序条件: class_date
     def self.courses_search(search_params)
       @courses = LiveStudio::Course.for_sell.includes(:teacher)
       query_by_params(@courses, search_params)
@@ -117,54 +127,6 @@ module LiveService
 
     private
 
-    # 分类查询辅导班
-    # taste 试听辅导班
-    # today 今日辅导班
-    # 只提供查询链，请自行分页
-    def self.courses_for_filter(user, cate)
-      # 试听辅导班
-      return user.live_studio_taste_tickets.includes(course: :teacher) if 'taste' == cate
-      # 今日辅导班
-      # TODO 查询逻辑有点复杂，可以考虑通过增加冗余字段来简化查询
-      course_ids = user.live_studio_tickets.visiable.map(&:course_id)
-      today_course_ids = LiveStudio::Lesson.where(course_id: course_ids, class_date: Date.today).map(&:course_id).uniq
-      user.live_studio_tickets.visiable.includes(course: [:teacher, :lessons]).where(course_id: today_course_ids)
-    end
-
-    def self.query_by_params(courses, params)
-      %w(subject grade status).each do |i|
-        if params[i].present? && params[i] != 'all'
-          courses = courses.where(i => i == 'status' ? LiveStudio::Course.statuses[params[i]] : params[i])
-        end
-      end
-      [["price_floor","price_ceil"], ["class_date_floor","class_date_ceil"], ["lessons_count_floor", "lessons_count_ceil"], ["preset_lesson_count_floor", "preset_lesson_count_ceil"]].each do |i|
-        column = i.first.gsub('_floor', '')
-        column = 'lessons_count' if column == 'preset_lesson_count'
-        courses = courses.where("#{column} >= ?",params[i.first]) if params[i.first].present?
-        courses = courses.where("#{column} <= ?",params[i.last]) if params[i.last].present?
-      end
-      if params[:city_name].present?
-        city =  City.find_by(name: params[:city_name])
-        courses = courses.where(city_id: city.id) if city.present?
-      end
-
-      if params[:sort_by].present?
-        # 排序方式,多个排序字段用-隔开,默认倒序,需要正序加上.asc后缀 例如: created_at-price.asc-buy_tickets_count.asc
-        order_str =
-          params[:sort_by].split('-').map{ |i|
-            column = i.split('.')[0]
-            order_sort = i.split('.')[1].downcase == 'desc' ? 'DESC NULLS LAST' : 'ASC'
-            "#{column} #{order_sort}" if LiveStudio::Course.column_names.include?(column)
-          }.join(',')
-        courses = courses.order(order_str)
-      else
-        # 初始搜索,没有参数, 默认审核通过时间降序显示 null值排在后面
-        courses = courses.order("published_at desc NULLS LAST")
-      end
-
-      courses.order(id: :desc)
-    end
-
     def instance_studio
     end
 
@@ -178,6 +140,71 @@ module LiveService
 
     def instance_account(user)
       LiveService::ChatAccountFromUser.new(user).instance_account
+    end
+
+    class << self
+      private
+
+      # 分类查询辅导班
+      # taste 试听辅导班
+      # today 今日辅导班
+      # 只提供查询链，请自行分页
+      def courses_for_filter(user, cate)
+        # 试听辅导班
+        return user.live_studio_taste_tickets.includes(course: :teacher) if 'taste' == cate
+        # 今日辅导班
+        # TODO 查询逻辑有点复杂，可以考虑通过增加冗余字段来简化查询
+        course_ids = user.live_studio_tickets.visiable.map(&:course_id)
+        today_course_ids = LiveStudio::Lesson.where(course_id: course_ids, class_date: Date.today).map(&:course_id).uniq
+        user.live_studio_tickets.visiable.includes(course: [:teacher, :lessons]).where(course_id: today_course_ids)
+      end
+
+      # 上课区间过滤
+      def courses_filter_by_range(chain, start_time, end_time)
+        return chain if start_time.nil? || end_time.nil?
+        chain.where('(start_at BETWEEN :start AND :end OR end_at BETWEEN :start AND :end OR (start_at < :start AND end_at > :end))', start: start_time, end: end_time)
+      end
+
+      # 时间区间转换为时间点
+      def range_to_time(range_name)
+        return [] unless range_name =~ /\A\d+\_(month)|(year)|(day)|(week)s?\z/
+        num, unit = range_name.split('_')
+        [Time.now.beginning_of_day, num.to_i.send(unit).since.beginning_of_day]
+      end
+
+      def query_by_params(courses, params)
+        %w(subject grade status).each do |i|
+          if params[i].present? && params[i] != 'all'
+            courses = courses.where(i => i == 'status' ? LiveStudio::Course.statuses[params[i]] : params[i])
+          end
+        end
+        [["price_floor","price_ceil"], ["class_date_floor","class_date_ceil"], ["lessons_count_floor", "lessons_count_ceil"], ["preset_lesson_count_floor", "preset_lesson_count_ceil"]].each do |i|
+          column = i.first.gsub('_floor', '')
+          column = 'lessons_count' if column == 'preset_lesson_count'
+          courses = courses.where("#{column} >= ?",params[i.first]) if params[i.first].present?
+          courses = courses.where("#{column} <= ?",params[i.last]) if params[i.last].present?
+        end
+        if params[:city_name].present?
+          city =  City.find_by(name: params[:city_name])
+          courses = courses.where(city_id: city.id) if city.present?
+        end
+
+        if params[:sort_by].present?
+          # 排序方式,多个排序字段用-隔开,默认倒序,需要正序加上.asc后缀 例如: created_at-price.asc-buy_tickets_count.asc
+          order_str =
+            params[:sort_by].split('-').map{ |i|
+              column = i.split('.')[0]
+              order_sort = i.split('.')[1].downcase == 'desc' ? 'DESC NULLS LAST' : 'ASC'
+              "#{column} #{order_sort}" if LiveStudio::Course.column_names.include?(column)
+            }.join(',')
+          courses = courses.order(order_str)
+        else
+          # 初始搜索,没有参数, 默认审核通过时间降序显示 null值排在后面
+          courses = courses.order("published_at desc NULLS LAST")
+        end
+
+        courses.order(id: :desc)
+      end
     end
   end
 end

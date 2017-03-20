@@ -56,8 +56,15 @@
             </tr>
           </table>
           <div class="data-introduction">
+            <div class="introduction-label">
+              <span><%= LiveStudio::Course.human_attribute_name(:tag_list) %></span>
+              <% @course.tag_list.each do |tag| -%>
+                <%= link_to tag, "javascript: void(0);" %>
+              <% end %>
+            </div>
+
             <div class="introduction-title">
-              <p><%= t('view.play.course_description')%></p>
+              <p><%= LiveStudio::Course.human_attribute_name(:course_description) %></p>
             </div>
             <div class="introduction-con">
               <p><%= raw(@course.description) %></p>

@@ -11,6 +11,7 @@ cn:
       curriculums: 公共课程
       customized_courses: 专属课程
       questions: 问答社区
+      all_live_studio_courses: 全部直播
       live_studio_courses: 辅导班
       download: 下载
       common_problem: 帮助
@@ -20,6 +21,13 @@ cn:
       switch_city: 切换
       phone: 400-838-8010
       workstation_info: 工作站信息
+      welcome: 您好！欢迎来到答疑时间！
+      default_title: 此标题内容仅供演示
+      default_grade: 年级科目
+      default_lesson: 共X课
+      default_teacher: XX老师
+      default_grade_lesson: 年级科目/共X课
+      default_teach_years: XXX年教龄
     qa_bars:
       courses: 辅导班流程
       teacher: 老师使用说明
@@ -45,7 +53,42 @@ cn:
       video_manage: 视频管理
       notification: 消息中心
       teacher_syllabuses: 备课中心
+    today_lives:
+      title: 今日直播
+      live_end: 直播结束
+      living: 正在直播
+      live_padding: 尚未直播
+    choiceness_items:
+      title: 精选内容
+      lessons_count: "共%{count}课"
+      more: 更多
+    recent_courses:
+      title: 近期开课
+    newest_courses:
+      title: 新课发布
+    teacher_items:
+      title: 教师推荐
+      replace: 更换
+      ajax_none: 没有更多了!
+    service:
+      teacher: 名师
+      teacher_text: 名师授课和专业讲解保证让学生学到最优质的内容。
+      learn_model: 多种学习模式
+      learn_model_text: 提供四种学习模式和海量课程供学生选取最适合自己的。
+      courses: 直播+互动+视频
+      courses_text: 直播授课体验真实互动拒绝枯燥视频讲解一看就懂。
+      courses_for: 量身定制
+      courses_for_text: 为学生量身定制课程专属课程，杜绝模板化教学。
+      software: Web/App/直播器
+      software_text: 支持网页端和手机端多种使用方式,量身定制教师直播助手。
+      workstation: 工作站模式
+      workstation_text: 工作站管理模式提供特色的本地化服务，服务全国600+城市。
     footer:
+      weixin_code: 微信公众号:答疑时间
+      weixin_public: 微信公众号
+      contact_us: 联系我们
+      help_center: 帮助中心
+      software_down: 程序下载
       copyright: Copyright © 2015-2017 QaTime.
       record: 京ICP备12031445号-3
       address: 联系地址

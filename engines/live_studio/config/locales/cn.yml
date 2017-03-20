@@ -31,7 +31,7 @@ cn:
     insert_btn: 新增%s
     course_show:
       edit_publicize_title: 更换图片
-      nofound: 未找到符合条件的辅导课程
+      nofound: 未找到符合条件的课程
       start_time: 开课时间：
       end_time: 结课时间：
       status: 状态：

@@ -141,7 +141,9 @@ module LiveStudio
     def search_params
       return @search_params if @search_params.present?
       @search_params = params.permit(:tags, :range, q: [:status, :grade_eq, :subject_eq, :class_date_gteq, :class_date_lt, :s])
-      @search_params[:q][:status_eq] = LiveStudio::Course.statuses[@search_params[:q][:status]] if @search_params[:q] && @search_params[:q][:status].present?
+      @search_params[:q] ||= {}
+      @search_params[:q][:s] ||= "published_at desc"
+      @search_params[:q][:status_eq] = LiveStudio::Course.statuses[@search_params[:q][:status]] if @search_params[:q][:status].present?
       @search_params
     end
 

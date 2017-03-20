@@ -2,7 +2,7 @@
 <%= render 'layouts/v1/banner_and_tags' %>
 
 <!-- 今日直播 -->
-<%= render partial: 'home/items/today_lives' %>
+<%= render partial: 'home/items/today_lives' if @today_lives.present? %>
 
 <!-- 精选内容 -->
 <%= render partial: 'home/items/choiceness' %>

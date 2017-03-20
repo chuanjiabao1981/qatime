@@ -50,3 +50,11 @@ $(document).on('click', '.je-date', function (event) {
     minDate: '2000-12-12'
   });
 });
+
+$(function() {
+  $(".nav-condition").hover(function() {
+    $(this).find("ul").show();
+  }, function() {
+    $(this).find("ul").hide();
+  });
+});

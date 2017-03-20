@@ -79,7 +79,6 @@ course4:
   lessons_count: 2
 
 course_preview:
-  id: 5
   name: 招生中的辅导班
   teacher_id: 1
   workstation: workstation_one
@@ -179,6 +178,7 @@ update_course_by_physics_teacher1:
   subject: 语文
   workstation: workstation_invalid
   lessons_count: 2
+  taste_count: 1
 
 course_teach_2:
   name: 上课中的辅导班2

@@ -49,7 +49,7 @@ module LiveStudio
         find(".cell-#{today.month}-1").click
         find(".cell-#{today.month}-#{today.day}").click
         sleep(3)
-        assert all(".schedules-tb").size == 2, '数据没有出现'
+        assert all(".schedules-tb").size == 1, '数据没有出现'
         assert page.has_content?("课程日历")
         assert page.has_content?("未上课")
         assert page.has_content?("已上课")

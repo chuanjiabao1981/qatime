@@ -39,6 +39,7 @@ module LiveStudio
       assert_match @course.name, page.text, '--'
       page.go_back
       visit live_studio.courses_index_path
+      sleep(20)
       assert_match(LiveStudio::Course.published.last.name, page.text, '没有正确跳转到辅导班搜索页')
     end
 

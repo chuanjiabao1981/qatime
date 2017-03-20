@@ -65,6 +65,19 @@ course_init:
   subject: 语文
   lessons_count: 2
 
+course4:
+  name: 第四个舞蹈班
+  teacher_id: 1
+  workstation: workstation_one
+  status: 1
+  price: 1000
+  preset_lesson_count: 2
+  grade: 高二
+  subject: 英语
+  teacher_percentage: 80
+  class_date: <%= Date.today %>
+  lessons_count: 2
+
 course_preview:
   id: 5
   name: 招生中的辅导班
@@ -325,7 +338,6 @@ course_for_edit:
   lessons_count: 2
 
 course_for_teaching:
-  id: 10000
   name: 已经有直播中的课程的辅导班
   teacher: teacher_for_taste_course
   workstation: workstation_one

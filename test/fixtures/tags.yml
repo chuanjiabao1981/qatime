@@ -6,22 +6,22 @@
 cate1_tag1:
   name: 高考
   tag_category_id: <%= cate1.id  %>
-cate1_tag1o:
+cate1_tag2:
   name: 会考
   tag_category_id: <%= cate1.id  %>
-cate1_tag2:
+cate1_tag3:
   name: 中考
   tag_category_id: <%= cate1.id  %>
-cate1_tag3:
+cate1_tag4:
   name: 小升初考试
   tag_category_id: <%= cate1.id  %>
-cate1_tag4:
+cate1_tag5:
   name: 英语考级
   tag_category_id: <%= cate1.id  %>
-cate1_tag5:
+cate1_tag6:
   name: 奥数竞赛
   tag_category_id: <%= cate1.id  %>
-cate1_tag6:
+cate1_tag7:
   name: 高考志愿
   tag_category_id: <%= cate1.id  %>
 cate2_tag1:

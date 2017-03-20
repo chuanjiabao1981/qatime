@@ -149,6 +149,14 @@ module V1
             present @lesson, with: Entities::LiveStudio::VideoLesson, type: :full, current_user: current_user
           end
         end
+
+        resource :lessons do
+          desc '今日直播'
+          get 'today' do
+            lessons = ::LiveStudio::Lesson.includes(:course).where(class_date: Date.today)
+            present lessons, with: ::Entities::LiveStudio::TodayLesson
+          end
+        end
       end
     end
   end

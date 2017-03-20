@@ -73,7 +73,7 @@ module LiveStudio
 
     before_create :data_preview
     # before_save :data_confirm
-    after_commit :update_course
+    after_save :update_course, if: :class_date_changed?
 
     include AASM
 
@@ -418,14 +418,14 @@ module LiveStudio
     def data_confirm
       if start_time_hour || start_time_minute
         self.start_time = "#{start_time_hour}:#{start_time_minute}"
-        self.end_time =  "#{(start_time_hour.to_i + (start_time_minute.to_i + duration_value.to_i) / 60)}:#{(start_time_minute.to_i + duration_value.to_i) % 60}"
+        self.end_time = "#{(start_time_hour.to_i + (start_time_minute.to_i + duration_value.to_i) / 60)}:#{(start_time_minute.to_i + duration_value.to_i) % 60}"
       end
     end
 
     def update_course
       return unless course.present?
-      first_class_date = course.lessons.order(:class_date).first.class_date
-      course.update(class_date: first_class_date)
+      lesson_dates = course.lessons.map(&:class_date)
+      course.update(class_date: lesson_dates.min, start_at: lesson_dates.min, end_at: lesson_dates.max)
     end
 
     def play_records_params
@@ -437,7 +437,6 @@ module LiveStudio
         tp: 'student'
       }
     end
-
 
     # 增加计数器
     def increment_course_counter(attribute)

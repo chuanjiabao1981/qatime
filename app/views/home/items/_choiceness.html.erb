@@ -44,7 +44,7 @@
               </p>
               <p>
                 <span><%= course.grade %><%= course.subject %>/<%= t('view.choiceness_items.lessons_count', count: course.lessons_count) %></span>
-                <%= link_to truncate_u(course.teacher.try(:name), length: 8), profile_teacher_path(course.teacher) %>
+                <%= link_to truncate_u(course.teacher.try(:name), length: 8), profile_teacher_path(course.teacher) if course.teacher %>
               </p>
             </div>
           </li>

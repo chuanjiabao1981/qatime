@@ -36,7 +36,6 @@ class Qatime::PositionApiTest < ActionDispatch::IntegrationTest
 
   # 测试获取精选内容
   test 'get recommend choiceness items for position' do
-    binding.pry
     get "/api/v1/recommend/positions/index_choiceness_item/items"
     assert_response :success
     res = JSON.parse(response.body)

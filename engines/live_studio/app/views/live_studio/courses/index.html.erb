@@ -1,8 +1,10 @@
-<div class="container container-details">
-  <div class="row">
-    <div class="panel panel-default panel-profile">
-      <%= render partial: 'filter' %>
-      <%= render partial: 'list' %>
+<div class="container">
+  <%= render 'filter' %>
+  <div class="classify-con">
+    <div class="row">
+      <!-- 标签栏 -->
+      <%= render 'tags_bar' -%>
+      <%= render 'list' -%>
     </div>
   </div>
 </div>

@@ -84,13 +84,13 @@ module LiveStudio
     validates :taste_count, numericality: { less_than: ->(record) { record.lessons.size }, message: '必须小于课程总数'}
 
     validates :teacher, presence: true
-    validates :publicize, presence: { message: "请添加图片" }, on: :create
+    # validates :publicize, presence: { message: "请添加图片" }, on: :create
 
     belongs_to :teacher, class_name: '::Teacher'
 
     belongs_to :workstation
 
-    has_many :tickets       # 听课证
+    has_many :tickets      # 听课证
     has_many :buy_tickets, -> { where.not(status: LiveStudio::Ticket.statuses[:refunded]) }  # 普通听课证
     has_many :taste_tickets # 试听证
     has_many :lessons, -> { order('id asc') }
@@ -138,7 +138,7 @@ module LiveStudio
     scope :for_sell, -> { where(status: [Course.statuses[:teaching], Course.statuses[:published]]) }
 
     def cant_publish?
-      !init? || lessons_count <= 0 || publicize.blank? || name.blank? || description.blank?
+      !init? || lessons_count <= 0 || name.blank? || description.blank?
     end
 
     def preview!
@@ -393,6 +393,11 @@ module LiveStudio
 
     def service_price
       (base_price.to_f * 60).to_i
+    end
+
+    def reset_left_price
+      self.left_price = current_price
+      save
     end
 
     private

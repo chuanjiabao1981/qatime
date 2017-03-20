@@ -1,7 +1,7 @@
 # coding: utf-8
 
-source 'https://ruby.taobao.org/'
-# source 'https://gems.ruby-china.org/'
+# source 'https://ruby.taobao.org/'
+source 'https://gems.ruby-china.org/'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
@@ -152,7 +152,7 @@ gem 'settingslogic', '~> 2.0.9'
 # define default values for ActiveRecord models in a declarative manner
 gem 'default_value_for', '~> 3.0', '>= 3.0.2'
 # 查询
-gem 'ransack', '~> 1.8', '>= 1.8.2'
+gem 'ransack'
 
 gem 'rest-client'
 gem 'carrierwave-aliyun','0.3.4'

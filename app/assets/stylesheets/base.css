@@ -2951,6 +2951,22 @@ i {
   height: 100px;
   margin-top: 40px;
 }
+.tec-data-msg {
+  padding: 0 30px 30px 30px;
+}
+.tec-data-title h2 {
+  font-size: 16px;
+  color: #34495e;
+  line-height: 75px;
+  margin: 0px;
+}
+.tec-data-title {
+  height: 75px;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+
 @media only screen and (max-width: 990px) {
   .tec-data {
     height: 100% !important;

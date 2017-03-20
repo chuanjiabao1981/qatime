@@ -9,9 +9,9 @@ module LiveStudio
 
     def index
       @q = LiveService::CourseDirector.search(search_params)
-      @courses = @q.result.paginate(page: params[:page], per_page: 8)
+      @courses = @q.result.paginate(page: params[:page], per_page: 6)
       preload_tickets(@courses)
-      render layout: 'application_front'
+      render layout: 'v1/application'
     end
 
     def new
@@ -140,7 +140,9 @@ module LiveStudio
 
     def search_params
       return @search_params if @search_params.present?
-      @search_params = params.permit(:tag, q: [:status_eq, :grade_eq, :subject_eq, :class_date_gt, :class_date_lt, :s])
+      @search_params = params.permit(:tags, :range, q: [:status, :grade_eq, :subject_eq, :class_date_gteq, :class_date_lt, :s])
+      @search_params[:q][:status_eq] = LiveStudio::Course.statuses[@search_params[:q][:status]] if @search_params[:q] && @search_params[:q][:status].present?
+      @search_params
     end
 
     def courses_params

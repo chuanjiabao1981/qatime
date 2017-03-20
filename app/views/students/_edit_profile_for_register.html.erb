@@ -46,6 +46,23 @@
               <% end %>
             </ul>
           </div>
+
+          <div class="form-group select-city">
+            <%= f.label :city_id, class: "tecmsg-title" %>
+            <div class="input-group">
+              <%= f.input_field :province_id,collection: Province.all.map{|p| [p.name, p.id]}, include_blank: t("students.edit_profile_for_register.select_province"),
+                                'data-remote': true,
+                                'data-url': url_for(controller: 'ajax/data', action: 'option_cities', second: 'data-second', third: 'data-third')
+              %>
+              <%= f.input_field :city_id,collection: (@student.province || Province.first).cities.map{|c| [c.name, c.id]}, include_blank: t("students.edit_profile_for_register.select_city"),
+                                class: 'data-second',
+                                'data-remote': true,
+                                'data-url': url_for(controller: 'ajax/data', action: 'option_schools', third: 'data-third')
+              %>
+            </div>
+            <%= f.error :city_id %>
+          </div>
+
           <div class="form-group">
             <div class="input-button">
               <input type="button" id="edit-more-profile" value='<%= t("students.edit_profile_for_register.edit_more_profile") %>' />

@@ -1,5 +1,5 @@
 <div class="homepage-banner">
-  <ul class="banner-show">
+  <ul class="banner-show" id="banner-list">
     <% @recommend_banners.each do |banner| %>
       <li>
         <%= link_to banner.link do %>
@@ -9,15 +9,6 @@
     <% end %>
     <% if @recommend_banners.blank? %>
       <li><a href=""><%= image_tag 'home-banner.png' %></a></li>
-    <% end %>
-  </ul>
-
-  <ul class="banner-dot">
-    <% @recommend_banners.each_with_index do |banner, index| %>
-      <li class="<%= 'active' if index == 0 %>"></li>
-    <% end %>
-    <% if @recommend_banners.blank? %>
-      <li class="active"></li>
     <% end %>
   </ul>
 </div>

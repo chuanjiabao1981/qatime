@@ -25,7 +25,7 @@
               </p>
                 <p>
                   <span><%= course.grade %><%= course.subject %>/<%= t('view.course_show.lesson_count') % course.lessons_count %></span>
-                  <%= link_to truncate_u(course.teacher.try(:name), lenght: 6), main_app.profile_teacher_path(course.teacher) if course.teacher %>
+                  <%= link_to truncate_u(course.teacher.try(:name), length: 6), main_app.profile_teacher_path(course.teacher) if course.teacher %>
                 </p>
               </div>
               <div class="classify-info">

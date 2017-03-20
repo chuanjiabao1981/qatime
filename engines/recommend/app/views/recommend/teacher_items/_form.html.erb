@@ -1,0 +1,26 @@
+
+<div class="form-group">
+  <%= f.label :index %>
+  <%= f.number_field :index, class: 'form-control', placeholder: t('view.recommend/banner_item.placeholders.index') %>
+  <%= f.error :index %>
+</div>
+
+<div class="form-group">
+  <%= f.label :title %>
+  <%= f.text_field :title, class: 'form-control', maxlength: 30, placeholder: t('view.recommend/banner_item.placeholders.title') %>
+  <%= f.error :title %>
+</div>
+
+<div class="form-group">
+  <%= f.label :target_id %>
+  <%= f.select :target_id, options_for_select(@teacher_options, f.object.target_id), {include_blank: false}, {class: 'form-control'} %>
+  <%= f.error :target_id %>
+</div>
+
+<div class="form-group">
+  <%= f.label :city_id %>
+  <%= f.select :city_id, options_for_select(@option_cities, f.object.city_id), {include_blank: false}, {class: 'form-control'} %>
+  <%= f.error :city_id %>
+</div>
+
+<center><%= f.submit t('common.save'), class: 'btn btn-default' %></center>

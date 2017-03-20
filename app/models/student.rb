@@ -28,7 +28,7 @@ class Student < User
   validates :name, length: { in: 1..30 }, on: :update
 
   # 第二步注册，学生更新验证
-  validates_presence_of :grade, if: :student_columns_required?, on: :update
+  validates_presence_of :grade, :city_id, if: :student_columns_required?, on: :update
   validates :parent_phone, allow_blank: true, length: { is: 11 }, numericality: { only_integer: true }, on: :update
 
   # 修改个人安全信息验证

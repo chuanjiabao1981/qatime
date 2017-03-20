@@ -86,6 +86,8 @@ cn:
       preview_avatar: 预览
       twirled_avatar: 90°旋转
       avatar_select_tips: 1.请选择合适圆形和方形两种裁剪方式的图片，以保证头像正常展示
+      select_province: 选择省
+      select_city: 选择市
 
     student:
       edit_student: 修改安全信息

@@ -1,6 +1,6 @@
 lesson_one:
   name: 测试课程1
-  course: courses(:course_teach_2)
+  course: course_teach_2
   description: 测试描述
   start_time: 16:30
   end_time: 17:30
@@ -9,7 +9,7 @@ lesson_one:
 
 lesson_two:
   name: 测试课程2
-  course: courses(:course_teach_2)
+  course: course_teach_2
   description: 测试描述
   start_time: 16:30
   end_time: 17:30
@@ -46,7 +46,7 @@ english_lesson_today:
 
 english_lesson_tomorrow:
   name: 英语辅导班-第二节
-  course_id: 4
+  course: course4
   description: 测试描述
   start_time: 16:30
   end_time: 17:30
@@ -67,7 +67,7 @@ english_lesson_onlive:
 english_lesson_finished:
   name: 英语辅导班-已完成
   teacher_id: 10
-  course_id: 4
+  course: course4
   description: 测试描述
   start_time: 16:30
   end_time: 17:30
@@ -82,7 +82,7 @@ english_lesson_finished:
 english_lesson2_finished:
   name: 英语辅导班-已完成
   teacher_id: 10
-  course: course_with_lessons
+  course: course4
   description: 测试描述
   start_time: 16:30
   end_time: 17:30
@@ -96,7 +96,7 @@ english_lesson2_finished:
 
 ready_lessoncourses_today:
   name: 英语辅导班-第二节
-  course_id: courses(:course_teach_2)
+  course: course_teach_2
   description: 测试描述
   start_time: 16:30
   end_time: 17:30
@@ -120,7 +120,7 @@ ready_lesson_today2:
   description: 测试描述
   start_time: '10:20'
   end_time: '05:30'
-  class_date: <%= Date.today %>
+  class_date: <%= 5.days.since.to_date %>
   status: 1
 
 ready_lesson_today3:
@@ -129,12 +129,12 @@ ready_lesson_today3:
   description: 测试描述
   start_time: '10:20'
   end_time: '05:30'
-  class_date: <%= Date.today %>
+  class_date: <%= 6.days.since.to_date %>
   status: 1
 
 teaching_lesson:
   name: 英语辅导班-第二节
-  course_id: 10000
+  course: course_for_teaching
   description: 测试描述
   start_time: '10:20'
   end_time: '05:30'
@@ -144,7 +144,7 @@ teaching_lesson:
 
 ready_lesson_for_false:
   name: 英语辅导班-第二节
-  course_id: 10000
+  course: course_for_teaching
   description: 测试描述
   start_time: '10:20'
   end_time: '05:30'
@@ -153,7 +153,7 @@ ready_lesson_for_false:
 
 closed_lesson:
   name: 英语辅导班-第二节
-  course_id: 10000
+  course: course_for_teaching
   description: 测试描述
   start_time: '10:20'
   end_time: '05:30'
@@ -163,7 +163,7 @@ closed_lesson:
 
 2days_ago_teaching_lesson:
   name: 英语辅导班-第二节
-  course_id: 10000
+  course: course_for_teaching
   teacher_id: 10
   description: 测试描述
   start_time: '10:20'
@@ -172,7 +172,7 @@ closed_lesson:
   status: 2
 finish_lesson:
   name: 英语辅导班-第二节
-  course_id: 10000
+  course_id: course_for_teaching
   teacher_id: 10
   description: 测试描述
   start_time: '10:20'

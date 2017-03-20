@@ -44,7 +44,11 @@ class ActiveSupport::TestCase
     else
       visit get_home_url(user)
     end
-    click_on '退出系统'
+    if user.student?
+      click_on '退出'
+    else
+      click_on '退出系统'
+    end
   end
 
   def new_log_in_as(user)

@@ -5,7 +5,7 @@ lesson_one:
   start_time: 16:30
   end_time: 17:30
   duration: 60
-  class_date: <%= 5.days.since.to_date %>
+  class_date: <%= Date.today %>
 
 lesson_two:
   name: 测试课程2
@@ -14,7 +14,7 @@ lesson_two:
   start_time: 16:30
   end_time: 17:30
   duration: 60
-  class_date: <%= 5.days.since.to_date %>
+  class_date: <%= Date.today %>
 
 lesson_three:
   name: 测试课程3
@@ -23,7 +23,7 @@ lesson_three:
   start_time: 16:30
   end_time: 17:30
   duration: 60
-  class_date: <%= 5.days.since.to_date %>
+  class_date: <%= Date.today %>
   status: 2
 
 lesson_four:
@@ -45,8 +45,8 @@ english_lesson_today:
   class_date: <%= Date.today %>
 
 english_lesson_tomorrow:
-  name: 英语辅导班-第二节
-  course: course4
+  name: 英语辅导班-第二节1
+  course: course_with_lessons
   description: 测试描述
   start_time: 16:30
   end_time: 17:30
@@ -67,7 +67,7 @@ english_lesson_onlive:
 english_lesson_finished:
   name: 英语辅导班-已完成
   teacher_id: 10
-  course: course4
+  course: course_with_lessons
   description: 测试描述
   start_time: 16:30
   end_time: 17:30
@@ -82,7 +82,7 @@ english_lesson_finished:
 english_lesson2_finished:
   name: 英语辅导班-已完成
   teacher_id: 10
-  course: course4
+  course: course_with_lessons
   description: 测试描述
   start_time: 16:30
   end_time: 17:30
@@ -95,7 +95,7 @@ english_lesson2_finished:
   real_time: 60
 
 ready_lessoncourses_today:
-  name: 英语辅导班-第二节
+  name: 英语辅导班-第二节2
   course: course_teach_2
   description: 测试描述
   start_time: 16:30
@@ -105,7 +105,7 @@ ready_lessoncourses_today:
   status: 1
 
 lesson_for_course_with_junior_teacher:
-  name: 英语辅导班-第二节
+  name: 英语辅导班-第二节3
   course: course_with_junior_teacher
   description: 测试描述
   start_time: 16:30
@@ -115,25 +115,25 @@ lesson_for_course_with_junior_teacher:
   status: 1
 
 ready_lesson_today2:
-  name: 英语辅导班-第二节
-  course_id: 5
+  name: 英语辅导班-第二节4
+  course: course_preview
   description: 测试描述
   start_time: '10:20'
   end_time: '05:30'
-  class_date: <%= 5.days.since.to_date %>
+  class_date: <%= Date.today %>
   status: 1
 
 ready_lesson_today3:
-  name: 英语辅导班-第二节
-  course_id: 5
+  name: 英语辅导班-第二节5
+  course: course_preview
   description: 测试描述
   start_time: '10:20'
   end_time: '05:30'
-  class_date: <%= 6.days.since.to_date %>
+  class_date: <%= Date.today %>
   status: 1
 
 teaching_lesson:
-  name: 英语辅导班-第二节
+  name: 英语辅导班-第二节6
   course: course_for_teaching
   description: 测试描述
   start_time: '10:20'
@@ -143,7 +143,7 @@ teaching_lesson:
   status: 2
 
 ready_lesson_for_false:
-  name: 英语辅导班-第二节
+  name: 英语辅导班-第二节7
   course: course_for_teaching
   description: 测试描述
   start_time: '10:20'
@@ -152,7 +152,7 @@ ready_lesson_for_false:
   status: 1
 
 closed_lesson:
-  name: 英语辅导班-第二节
+  name: 英语辅导班-第二节8
   course: course_for_teaching
   description: 测试描述
   start_time: '10:20'
@@ -162,7 +162,7 @@ closed_lesson:
   status: 4
 
 2days_ago_teaching_lesson:
-  name: 英语辅导班-第二节
+  name: 英语辅导班-第二节9
   course: course_for_teaching
   teacher_id: 10
   description: 测试描述
@@ -171,8 +171,8 @@ closed_lesson:
   class_date: <%= Date.today.ago 2.days %>
   status: 2
 finish_lesson:
-  name: 英语辅导班-第二节
-  course_id: course_for_teaching
+  name: 英语辅导班-第二节10
+  course: course_for_teaching
   teacher_id: 10
   description: 测试描述
   start_time: '10:20'
@@ -180,7 +180,7 @@ finish_lesson:
   class_date: <%= Date.today.ago 2.days %>
   status: 5
 ready_lesson_for_init_course:
-  name: 英语辅导班-第二节
+  name: 英语辅导班-第二节11
   course_id: 10001
   teacher_id: 10
   description: 测试描述
@@ -200,7 +200,7 @@ lesson1_of_update_course:
   status: 7
 
 lesson2_of_update_course:
-  name: 英语辅导班-第二节
+  name: 英语辅导班-第二节12
   course: update_course_by_physics_teacher1
   teacher: physics_teacher1
   description: 测试描述
@@ -220,7 +220,7 @@ lesson3_of_update_course:
   status: 7
 
 init_lesson_change_ready:
-  name: 英语辅导班-第二节
+  name: 英语辅导班-第二节13
   course: update_course_by_physics_teacher1
   description: 测试描述
   start_time: '10:20'

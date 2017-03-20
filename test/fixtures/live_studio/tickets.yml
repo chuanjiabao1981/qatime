@@ -372,3 +372,12 @@ ticket_three_of_billing_course_three:
   sell_percentage: 40
   platform_percentage: 15
 
+ticket_for_student_one_with_course:
+  student: student_one_with_course
+  course: ready_lesson_today3
+  status: 1
+  lesson_price: 50
+  type: LiveStudio::BuyTicket
+  sell_percentage: 40
+  platform_percentage: 15
+

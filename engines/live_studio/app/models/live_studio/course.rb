@@ -395,7 +395,6 @@ module LiveStudio
       (base_price.to_f * 60).to_i
     end
 
-    after_save :reset_left_price, if: :lessons_count_changed?
     def reset_left_price
       self.left_price = current_price
       save

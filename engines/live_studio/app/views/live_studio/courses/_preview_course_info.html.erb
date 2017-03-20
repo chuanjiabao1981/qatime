@@ -75,7 +75,7 @@
             <div class="introduction-label">
               <span><%= LiveStudio::Course.human_attribute_name(:tag_list) %></span>
               <% @course.tag_list.each do |tag| -%>
-                <%= link_to tag, "##" %>
+                <%= link_to tag, "javascript: void(0);" %>
               <% end %>
             </div>
 

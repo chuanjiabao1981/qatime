@@ -14,7 +14,7 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><%= link_to t("view.common_bars.all_live_studio_courses"), live_studio.root_path %></li>
+        <li class="<%= 'active' if current_page?(live_studio.root_path) %>"><%= link_to t("view.common_bars.all_live_studio_courses"), live_studio.root_path %></li>
         <li>
           <% if current_user && (current_user.student? || current_user.teacher? || current_user.manager?) %>
             <%= link_to t("view.common_bars.customized_courses"), main_app.send("customized_courses_#{current_user.role}_path", current_user) %>

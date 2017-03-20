@@ -9667,7 +9667,7 @@ ul {
 .navside {
   height: 315px;
   position: absolute;
-  top: 108px;
+  /*top: 108px;*/
   z-index: 10;
 }
 .navside-course ul li {
@@ -9931,6 +9931,9 @@ ul {
   background-color: #FFFFFF;
   box-shadow: 0 0 10px #CCCCCC;
 }
+/*.item-recommend li:hover a p:last-child {
+	background-color: #4873ff !important;
+}*/
 .item-classify-list li:hover {
   background-color: rgb(255,255,255);
   box-shadow: 0 0 10px #CCCCCC;
@@ -10065,7 +10068,6 @@ ul {
   margin-bottom: 0px;
   box-shadow: 0 0 10px #CCCCCC;
 }
-
 
 
 /*筛选页*/
@@ -10315,5 +10317,344 @@ ul {
   }
   .info-notfound p {
     margin-bottom: 150px;
+  }
+}
+
+
+
+
+
+
+
+/*学生注册选择城市*/
+.select-city select {
+  width: 45% !important;
+  border-radius: 0px !important;
+  height: 42px !important;
+}
+.select-city select:last-child {
+  float: right;
+}
+/*辅导班详情页*/
+.course-page {
+  background-color: rgb(244,246,248);
+}
+.course-class {
+  margin: 37px 0 0 0 !important;
+  background-color: #FFFFFF;
+  padding: 10px 0 10px 10px;
+}
+.course-header .pic img {
+  width: 100%;
+  vertical-align: top;
+}
+.course-title {
+  padding-top: 5px;
+}
+.course-title h1 {
+  display: inline-block;
+  font-size: 20px;
+  color: #34495e;
+  margin: 0px;
+}
+.course-title span {
+  display: inline-block;
+  margin-left: 10px;
+  padding-left: 10px;
+  line-height: 16px;
+  border-left: 1px solid #9aabb8;
+  color: #9aabb8;
+  position: relative;
+  top: -1px;
+}
+.course-class .pic {
+  padding-left: 0px;
+}
+.course-line {
+  margin-top: 20px;
+}
+.course-line span {
+  color: #666;
+}
+.course-line span img {
+  margin-right: 10px;
+}
+.course-line span {
+  margin-right: 20px;
+}
+.course-discount {
+  color: #9aabb8;
+}
+.course-price {
+  overflow: hidden;
+  width: 100%;
+}
+.course-price span {
+  display: inline-block;
+}
+.price-left {
+  float: left;
+  font-size: 30px;
+  color: #ff5842;
+}
+.price-right {
+  float: right;
+  margin-right: 30px;
+}
+.price-right a {
+  display: inline-block;
+  width: 118px;
+  height: 38px;
+  border: 1px solid #ff5842;
+  border-radius: 4px;
+  text-align: center;
+  line-height: 36px;
+  color: #ff5842;
+}
+.btn-addclass:hover {
+  background-color: #ff5842;
+  color: #FFFFFF;
+}
+.btn-startclass {
+  border-color: #20ad65 !important;
+  color: #20ad65 !important;
+}
+.btn-startclass:hover {
+  background-color: #20ad65 !important;
+  color: #FFFFFF !important;
+}
+.course-introduce {
+  position: relative;
+  height: 276px;
+  width: 100%;
+}
+.course-price {
+  position: absolute;
+  bottom: 0px;
+}
+.price-right a:first-child {
+  margin-right: 26px;
+}
+.course-item {
+  background-color: #FFFFFF;
+  padding: 0px 30px 30px 30px;
+  margin-top: 40px;
+}
+.nav-item {
+  height: 75px;
+  line-height: 75px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.nav-item a {
+  font-size: 16px;
+  display: inline-block;
+  margin-right: 30px;
+  color: #34495e;
+}
+.nav-item a:link {
+  color: #34495e;
+}
+.nav-item a:last-child {
+  margin-right: 0px;
+}
+.nav-item .active {
+  color: #ff5842 !important;
+}
+.lessons-detail {
+  margin-top: 40px;
+}
+.lessons-detail:first-child,.lessons-detail:nth-child(2) {
+  margin-top: 30px;
+}
+.lessons-detail h3 {
+  font-size: 16px;
+  color: #34495e;
+  margin: 0px 0 20px 0;
+}
+.lessons-detail ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.lessons-detail ul li {
+  min-height: 37px;
+  color: #666666;
+}
+.lessons-detail ul li:first-child span {
+  width: 33%;
+  float: left;
+  display: inline-block;
+}
+.lessons-detail ul li span i:first-child {
+  display: inline-block;
+  margin-right: 5px;
+}
+.lessons-detail ul li:last-child {
+  min-height: 27px;
+}
+.class-label span {
+  color: #9aabb8;
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #9aabb8;
+  margin-right: 5px;
+}
+.class-label span:last-child {
+  margin-right: 0px;
+}
+.lessons-detail p {
+  color: #666;
+  margin-bottom: 0px;
+}
+.nav-item span {
+  font-size: 16px;
+  color: #ff5842;
+}
+.arrangement {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.coursehead {
+  display: inline-block;
+  width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.arrangement {
+  margin-top: 30px;
+}
+.arrangement li {
+  min-height: 54px;
+}
+.arrangement li span {
+  display: inline-block;
+  margin-right: 20px;
+  float: left;
+}
+.arrangement i {
+  display: inline-block;
+  min-width: 130px;
+  text-align: center;
+  float: right;
+}
+.arrangement i a {
+  border: 1px solid #ff5842;
+  display: block;
+  height: 22px;
+  border-radius: 10px;
+  color: #ff5842;
+}
+.arrangement i a:hover {
+  background-color: #ff5842;
+  color: #FFFFFF;
+}
+.arrangement i a em:first-child {
+  border-right: 1px solid #ff5842;
+  padding-right: 6px;
+}
+.arrangement span,.arrangement i {
+  color: #666666;
+}
+.arrangement span:first-child {
+  color: #ff5842;
+}
+.arrangement .end span{
+  color: #999999;
+}
+.course-item-arrangement {
+  padding-bottom: 0px;
+}
+.instructions-line {
+  margin-top: 30px;
+}
+.instructions-line ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.instructions-line ul li {
+  line-height: 24px;
+  color: #666;
+}
+.instructions-line h3 {
+  font-size: 16px;
+  color: #34495e;
+  margin-bottom: 15px;
+}
+
+
+@media only screen and (max-width: 720px) {
+  .coursehead {
+    width: 30%;
+  }
+  .arrangement li span {
+    margin-right: 10px;
+  }
+}
+@media only screen and (max-width: 560px) {
+  .coursehead {
+    width: 20%;
+  }
+  .arrangement li span {
+    margin-right: 10px;
+  }
+}
+.tec-synopsis {
+  width: 100%;
+  margin-top: 40px;
+  background-color: #FFFFFF;
+  padding: 0 30px 30px 30px;
+}
+.synopsis-title h2 {
+  font-size: 16px;
+  color: #34495e;
+  margin: 0px;
+  line-height: 75px;
+  text-align: center;
+}
+.synopsis-title {
+  height: 75px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.synopsis-head {
+  margin-top: 45px;
+}
+.synopsis-head p {
+  text-align: center;
+}
+.head-pic img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+.head-gender {
+  font-size: 18px;
+  color: #555555;
+  margin-bottom: 5px;
+}
+.head-gender img {
+  width: 14px;
+  height: 21px;
+  position: relative;
+  top: -3px;
+}
+.head-school {
+  color: #9aabb8;
+  margin-bottom: 5px;
+}
+.head-year span {
+  padding: 0 5px;
+  background-color: #4873ff;
+  color: #FFFFFF;
+}
+.synopsis-con {
+  margin-top: 30px;
+}
+.synopsis-con p {
+  margin-bottom: 0px;
+  color: #666666;
+}
+@media only screen and (max-width: 460px) {
+  .class-label span {
+    margin-bottom: 5px;
   }
 }

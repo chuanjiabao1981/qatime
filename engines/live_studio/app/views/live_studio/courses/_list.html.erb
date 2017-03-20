@@ -21,11 +21,11 @@
                 <% else %>
                   <span class="status-classes"><%= course.status_text %></span>
                 <% end %>
-                <%= link_to course.name, live_studio.course_path(course) -%>
+                <%= link_to truncate_u(course.name, length: 12), live_studio.course_path(course) -%>
               </p>
                 <p>
                   <span><%= course.grade %><%= course.subject %>/<%= t('view.course_show.lesson_count') % course.lessons_count %></span>
-                  <%= link_to course.teacher.name, main_app.profile_teacher_path(course.teacher) if course.teacher %>
+                  <%= link_to truncate_u(course.teacher.try(:name), lenght: 6), main_app.profile_teacher_path(course.teacher) if course.teacher %>
                 </p>
               </div>
               <div class="classify-info">

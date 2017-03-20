@@ -1,8 +1,12 @@
 $(function(){
+  var hoverTimer;
   $(".nav-right-user").hover(function() {
+    if(hoverTimer) clearTimeout(hoverTimer);
     $(".nav-dropdown").show();
   }, function() {
-    $(".nav-dropdown").hide();
+    hoverTimer = setTimeout(function() {
+      $(".nav-dropdown").hide();  
+    }, 100);
   });
 
   $(".navside-list li").hover(function() {

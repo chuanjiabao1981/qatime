@@ -1,7 +1,7 @@
 require_dependency "recommend/application_controller"
 
 module Recommend
-  class BannerItemsController < ApplicationController
+  class ChoicenessItemsController < ApplicationController
     before_action :set_position, only: [:index, :new, :create]
     before_action :set_item, only: [:edit, :update, :destroy]
     before_action :set_option_cities
@@ -21,11 +21,11 @@ module Recommend
 
     # POST /admin/items
     def create
-      @item = @position.items.build(item_params.merge(platforms: params[:platforms], type: @position.klass_name))
+      @item = @position.items.build(item_params.merge(platforms: params[:platforms], target_type: LiveStudio::Course, type: @position.klass_name))
 
       if @item.save
         flash_msg(:success)
-        redirect_to position_banner_items_path(@position)
+        redirect_to position_choiceness_items_path(@position)
       else
         render :new
       end
@@ -35,7 +35,7 @@ module Recommend
     def update
       if @item.update(item_params.merge(platforms: params[:platforms]))
         flash_msg(:success)
-        redirect_to position_banner_items_path(@item.position)
+        redirect_to position_choiceness_items_path(@item.position)
       else
         render :edit
       end
@@ -60,6 +60,10 @@ module Recommend
     def set_option_cities
       @option_cities = City.all.map {|city| [city.try(:name), city.try(:id)]}.unshift([I18n.t('view.recommend/position.city'), nil]) if current_user.admin?
       @option_cities ||= current_user.workstations.map {|w| [w.city.try(:name), w.city.try(:id)]}
+
+      @courses_options = LiveStudio::Course.pluck(:name, :id) if current_user.admin?
+      workstation_ids = current_user.manager? ? current_user.workstation_ids : current_user.workstation_id
+      @courses_options ||= LiveStudio::Course.where(workstation_id: workstation_ids).pluck(:name, :id)
     end
 
     def workstation_filter(chain)
@@ -69,7 +73,7 @@ module Recommend
     end
 
     def item_params
-      params.require(:banner_item).permit(:title, :logo, :index, :link, :city_id)
+      params.require(:choiceness_item).permit(:title, :index, :link, :target_id, :city_id, :tag_one, :tag_two)
     end
   end
 end

@@ -1,0 +1,34 @@
+<div class="panel panel-default">
+  <div class="admin">
+    <%= render partial: 'recommend/banner_items/tab' %>
+
+    <% if allow? 'recommend/teacher_items', :new %>
+      <%= link_to t('view.recommend/teacher_item.index.new_title'), new_position_teacher_item_path(@position), class: 'addbanner' %>
+    <% end %>
+
+    <div class="admin-recommend tec-recommend">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+        <tr>
+          <td><%= t('common.index_no') %></td>
+          <td><%= t('view.recommend/teacher_item.index.avatar') %></td>
+          <td><%= t('view.recommend/teacher_item.index.teacher_name') %></td>
+          <td><%= t('view.recommend/banner_item.index.title') %></td>
+          <td><%= t('view.recommend/banner_item.index.link') %></td>
+          <td><%= t('view.recommend/teacher_item.index.index') %></td>
+          <td><%= t('view.recommend/banner_item.index.city') %></td>
+          <td><%= t('common.operate') %></td>
+        </tr>
+
+        <%= render partial: 'teacher_item', collection: @items %>
+        </tbody>
+      </table>
+    </div>
+
+    <center>
+      <div class="pagination-fix">
+        <%= will_paginate @items %>
+      </div>
+    </center>
+  </div>
+</div>

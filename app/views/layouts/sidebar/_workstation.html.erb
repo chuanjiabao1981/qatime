@@ -5,6 +5,11 @@
     <% end %>
   <% end if allow?('station/workstations', 'show', @workstation) %>
   <%= content_tag :li do %>
+    <%= link_to recommend.position_banner_items_path(Recommend::BannerItem.default.presence || 0) do %>
+      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"><%= Recommend::Position.model_name.human %></span>
+    <% end %>
+  <% end if allow?('recommend/positions', 'index') %>
+  <%= content_tag :li do %>
     <%= link_to main_app.schools_path do %>
       <span class="glyphicon glyphicon-home"></span> <span class="qa_f18"> <%= School.model_name.human%></span>
     <% end %>
@@ -34,11 +39,6 @@
       <span class="fa fa-line-chart"></span> <span class="qa_f18"> 状态 </span>
     <% end %>
   <% end if allow?('station/lessons', 'state', @workstation) %>
-  <%= content_tag :li do %>
-    <%= link_to recommend.positions_path do %>
-      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"> <%= Recommend::Position.model_name.human%></span>
-    <% end %>
-  <% end if allow?('recommend/positions', 'index') %>
   <%= content_tag :li do %>
     <%= link_to live_studio.station_workstation_courses_path(@workstation) do %>
       <span class="glyphicon glyphicon-film"></span> <span class="qa_f18"> <%= LiveStudio::Course.model_name.human%></span>

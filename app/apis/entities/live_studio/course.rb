@@ -27,6 +27,7 @@ module Entities
       end
       expose :status
       expose :description, if: { type: :full }
+      expose :tag_list, if: { type: :full }
       expose :lesson_count, if: { type: :full } do |course|
         course.lessons_count
       end

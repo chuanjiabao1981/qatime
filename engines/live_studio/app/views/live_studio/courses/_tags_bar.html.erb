@@ -6,7 +6,7 @@
 
     <div class="aside-list-nav">
       <%= link_to t('view.course_filter.none'), live_studio.courses_path(@search_params.merge(tags: nil)), class: "#{@search_params[:tags].present? ? '' : 'active'}" %>
-      <% LiveStudio::Course.tag_counts.each do |tag| -%>
+      <% ActsAsTaggableOn::Tag.all.each do |tag| -%>
         <%= link_to tag.name, live_studio.courses_path(@search_params.merge(tags: tag.name)), class: "#{@search_params[:tags] == tag.name ? 'active' : ''}" %>
       <% end -%>
     </div>

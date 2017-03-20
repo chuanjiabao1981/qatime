@@ -11,7 +11,7 @@ module LiveStudio
       @q = LiveService::CourseDirector.search(search_params)
       @courses = @q.result.paginate(page: params[:page], per_page: 6)
       preload_tickets(@courses)
-      render layout: 'application_front'
+      render layout: 'v1/application'
     end
 
     def new

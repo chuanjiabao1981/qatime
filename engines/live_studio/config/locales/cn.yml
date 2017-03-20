@@ -337,6 +337,7 @@ cn:
         base_price_clt: "%{price}元/时"
         qr_code: 二维码
         price: 价格
+        left_price: 价格
         status: 状态
         type_name: 类型
         teacher_percentage: 教师分成百分比

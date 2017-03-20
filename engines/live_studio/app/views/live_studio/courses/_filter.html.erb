@@ -2,7 +2,7 @@
   <%= search_form_for @q, id: 'search-form' do |f| %>
     <%= hidden_field_tag :tags, @search_params[:tags] %>
     <%= hidden_field_tag :range, @search_params[:range] %>
-    <%= f.search_field :status_eq, type: 'hidden' %>
+    <%= f.search_field :status, type: 'hidden' %>
     <%= f.search_field :grade_eq, type: 'hidden' %>
     <%= f.search_field :subject_eq, type: 'hidden' %>
     <div class="sort-nav">
@@ -24,8 +24,8 @@
         <dd class="nav-sort nav-news <%= 'active' if @search_params[:q] && @search_params[:q][:s] =~ /published_at/ %>">
           <%= f.sort_link :published_at, LiveStudio::Course.human_attribute_name(:latest) %>
         </dd>
-        <dd class="nav-sort nav-price <%= 'active' if @search_params[:q] && @search_params[:q][:s] =~ /price/ %>"">
-          <%= f.sort_link :price, LiveStudio::Course.human_attribute_name(:price) %>
+        <dd class="nav-sort nav-price <%= 'active' if @search_params[:q] && @search_params[:q][:s] =~ /left_price/ %>"">
+          <%= f.sort_link :left_price, LiveStudio::Course.human_attribute_name(:left_price) %>
         </dd>
         <dd class="nav-sort nav-moods <%= 'active' if @search_params[:q] && @search_params[:q][:s] =~ /buy_tickets_count/ %>"">
           <%= f.sort_link :buy_tickets_count, LiveStudio::Course.human_attribute_name(:users_count) %>
@@ -66,20 +66,20 @@
             </li>
           </ul>
         </dd>
-        <dd class="nav-condition nav-state <%= 'active' if @search_params[:q] && @search_params[:q]['status_eq'].present? %>">
-          <%= link_to live_studio.courses_path(@search_params.deep_merge(q: { status_eq: nil })) do -%>
-            <% if @search_params[:q].nil? || @search_params[:q][:status_eq].blank? %>
+        <dd class="nav-condition nav-state <%= 'active' if @search_params[:q] && @search_params[:q]['status'].present? %>">
+          <%= link_to live_studio.courses_path(@search_params.deep_merge(q: { status: nil })) do -%>
+            <% if @search_params[:q].nil? || @search_params[:q][:status].blank? %>
               <span><%= LiveStudio::Course.human_attribute_name(:current_status) %></span>
             <% else %>
-              <span><%= t("view.course_filter.status/#{@search_params[:q][:status_eq]}") %></span>
+              <span><%= t("view.course_filter.status/#{@search_params[:q][:status]}") %></span>
             <% end %>
             <span class="fa fa-angle-down"></span>
           <% end %>
           <ul style="display: none;">
-            <li><%= link_to t("view.course_filter.all"), live_studio.courses_path(@search_params.deep_merge(q: { status_eq: nil })) %></li>
+            <li><%= link_to t("view.course_filter.all"), live_studio.courses_path(@search_params.deep_merge(q: { status: nil })) %></li>
             <% LiveStudio::Course.status.options.select {|item| item.last.in?(%w(teaching published)) }.each do |item| %>
               <li>
-                <%= link_to item.first, live_studio.courses_path(@search_params.deep_merge(q: { status_eq: item.last })) %>
+                <%= link_to item.first, live_studio.courses_path(@search_params.deep_merge(q: { status: item.last })) %>
               </li>
             <% end -%>
           </ul>

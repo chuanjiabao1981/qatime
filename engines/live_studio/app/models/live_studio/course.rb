@@ -395,6 +395,11 @@ module LiveStudio
       (base_price.to_f * 60).to_i
     end
 
+    def reset_left_price
+      self.left_price = current_price
+      save
+    end
+
     private
 
     # 辅导班删除以后同时删除课程

@@ -9931,9 +9931,12 @@ ul {
   background-color: #FFFFFF;
   box-shadow: 0 0 10px #CCCCCC;
 }
-/*.item-recommend li:hover a p:last-child {
-	background-color: #4873ff !important;
-}*/
+.item-recommend li:hover a p:last-child span:last-child {
+  background-color: #4873ff !important;
+  display: inline-block;
+  padding: 0 5px;
+  color: #FFFFFF;
+}
 .item-classify-list li:hover {
   background-color: rgb(255,255,255);
   box-shadow: 0 0 10px #CCCCCC;
@@ -10059,18 +10062,27 @@ ul {
   display: none;
   text-align: center;
   position: absolute;
-  left: -125px;
-  width: 110px;
+  left: -165px;
+  width: 150px;
   top: 0px;
   background-color: #FFFFFF;
 }
 .phonenumber p {
   margin-bottom: 0px;
   box-shadow: 0 0 10px #CCCCCC;
+  font-size: 22px;
 }
 
 
 /*筛选页*/
+.status-admissions {
+  border: 1px solid #00d564;
+  color: #00d564;
+}
+.status-classes {
+  border: 1px solid #00a0e9;
+  color: #00a0e9;
+}
 .classify {
   margin-top: 30px;
 }

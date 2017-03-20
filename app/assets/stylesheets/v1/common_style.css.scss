@@ -103,9 +103,17 @@ footer .copyright {
   color: #999999;
   text-align: center;
 }
-
+.qa_sep_15 {
+  height: 15px;
+}
 /*分页*/
-
+.pagination-fix {
+  width: 100% !important;
+  clear: both;
+}
+.paging {
+  overflow: hidden !important;
+}
 .paging li {
   display: inline-block;
 }

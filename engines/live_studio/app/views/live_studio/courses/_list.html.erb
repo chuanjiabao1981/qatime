@@ -16,6 +16,11 @@
             <%= link_to image_tag(course.publicize_url(:list)), live_studio.course_path(course) -%>
             <div class="handpick-info">
               <p>
+                <% if course.status == 'published' %>
+                  <span class="status-admissions"><%= course.status_text %></span>
+                <% else %>
+                  <span class="status-classes"><%= course.status_text %></span>
+                <% end %>
                 <%= link_to course.name, live_studio.course_path(course) -%>
               </p>
                 <p>

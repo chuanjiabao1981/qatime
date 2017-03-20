@@ -1,0 +1,11 @@
+<% @recommend_teachers.each do |teacher| %>
+  <li class="col-md-2 col-sm-3 col-xs-4">
+    <%= link_to profile_teacher_path(teacher.target) do %>
+      <p><%= image_tag teacher.logo_url %></p>
+      <p>
+        <span><strong><%= teacher.target.name %></strong></span>
+        <span><%= teacher.target.teaching_years_text %></span>
+      </p>
+    <% end %>
+  </li>
+<% end %>

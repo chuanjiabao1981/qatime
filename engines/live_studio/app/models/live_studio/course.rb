@@ -131,6 +131,7 @@ module LiveStudio
     scope :by_status, ->(status) {status.blank? || status == 'all' ? nil : where(status: Course.statuses[status.to_sym])}
     scope :by_subject, ->(subject){ subject.blank? || subject == 'all' ? nil : where(subject: subject)}
     scope :by_grade, ->(grade){ grade.blank? || grade == 'all' ? nil : where(grade: grade)}
+    scope :by_city, ->(city_id) { where(city_id: city_id) }
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
     scope :uncompleted, -> { where('status < ?', Course.statuses[:completed]) }
     scope :opening, ->{ where(status: [Course.statuses[:teaching], Course.statuses[:completed]]) }

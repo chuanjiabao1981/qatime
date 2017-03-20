@@ -1,51 +1,56 @@
-<div class="row">
-  <footer class="recommended-link">
-    <div class="link-content">
-      <div class="row">
-        <div class="col-md-6 link-left">
-          <table border="0" cellspacing="0" cellpadding="0">
-          <tbody>
-            <tr>
-            <td><p><%= t('view.footer.about_us') %></p></td>
-            <td><%= image_tag 'wechat_qrcode.png', size: '121x121' %></td>
-            <td><p><%= t('view.footer.code_tips') %></p></td>
-            <td></td>
-            </tr>
-          </tbody>
-          </table>
-        </div>
-        <div class="col-md-6 link-right">
-          <table border="0" cellspacing="0" cellpadding="0">
-            <tbody>
-              <tr>
-                <td><%= t('view.footer.tel') %></td>
-                <td class="link-phonenum" colspan="2"><%= t('view.footer.tel_value') %></td>
-                <!--<td class="link-td">周一至周五<br />9:00-16:00</td>-->
-              </tr>
-              <tr>
-                <td><%= t('view.footer.qq') %></td>
-                <td colspan="2"><%= t('view.footer.qq_value') %></td>
-              </tr>
-              <tr>
-                <td><%= t('view.footer.address') %></td>
-                <td colspan="2"><%= @location_workstation.present? ? @location_workstation.address : t('view.footer.address_value') %></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="link-city">
-      <!--<p>
-        <span class="city-cooperation">合作城市</span>
-        <a href="javascript:void(0);" class="city-name">诸暨</a>
-        <a href="javascript:void(0);">阳泉</a>
-        
-      </p>-->
-      </div>
-      <div class="copyright">
-        <div><%= t('view.footer.copyright') %></div>
-        <div><%= t('view.footer.record') %></div>
-      </div>
+<ul class="fixed-bar">
+  <li>
+    <a href="javascript:void(0);">
+      <%= image_tag 'phonenumber.png' %>
+    </a>
+  </li>
+  <li>
+    <%= link_to main_app.qa_faqs_path do %>
+      <%= image_tag 'issue.png' %>
+    <% end %>
+  </li>
+  <li>
+    <%= link_to main_app.welcome_download_path do %>
+      <%= image_tag 'download-1.png' %>
+    <% end %>
+  </li>
+  <li class="fixed-weixin">
+    <a href="javascript:void(0);">
+      <%= image_tag 'code-1.png' %>
+    </a>
+    <div class="weixin-code">
+      <%= image_tag 'publiccode.jpg' %>
+      <p><%= t('view.footer.weixin_code') %></p>
     </div>
-  </footer>
-</div>
+  </li>
+  <li class="fixed-top" style="display: list-item;">
+    <a href="javascript:void(0);">
+      <%= image_tag 'top.png' %>
+    </a>
+  </li>
+</ul>
+
+<footer>
+  <div class="qa_sep_15"></div>
+  <div class="qa_sep_15"></div>
+  <ul class="nav-footer">
+    <li>
+      <a href=""><%= t('view.footer.weixin_public') %></a>
+    </li>
+    <li>
+      <a href=""><%= t('view.footer.about_us') %></a>
+    </li>
+    <li>
+      <a href=""><%= t('view.footer.contact_us') %></a>
+    </li>
+    <li>
+      <%= link_to t('view.footer.help_center'), main_app.qa_faqs_path %>
+    </li>
+    <li>
+      <%= link_to t('view.footer.software_down'), main_app.welcome_download_path %>
+    </li>
+  </ul>
+  <div class="copyright">
+    <div><%= t('view.footer.copyright') %><%= t('view.footer.record') %></div>
+  </div>
+</footer>

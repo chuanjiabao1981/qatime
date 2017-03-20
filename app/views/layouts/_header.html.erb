@@ -1,38 +1,43 @@
-<div class="header-logo">
-  <%= image_tag 'logo.png' %>
-  <div class="city">
-    <span class="location-city"><%= @location_city.try(:name) || t('view.common_bars.nationwide') %></span>
-    <%= link_to_unless_current "[#{t('view.common_bars.switch_city')}]", switch_city_home_index_path, class: 'switch-city' %>
+<div class="site-nav">
+  <div class="container">
+    <div class="site-nav-left">
+      <span><%= t('view.common_bars.welcome') %></span>
+      <em>
+        <i><%= @location_city.try(:name) || t('view.common_bars.nationwide') %></i>
+        <%= link_to_unless_current "【#{t('view.common_bars.switch_city')}】", switch_city_home_index_path, class: 'switch-city' %>
+      </em>
+    </div>
+
+    <div class="site-nav-right">
+      <% if signed_in? %>
+        <div class="nav-right-user">
+          <%= image_tag current_user.avatar_url(:small), size: '27x27' %>
+          <span><%= current_user.name %></span>
+          <div class="nav-dropdown">
+            <ul>
+              <% if current_user.teacher? || current_user.student? %>
+                <li><%= link_to t('view.common_bars.personal_center'), main_app.send("info_#{current_user.role}_path", current_user) %></li>
+              <% end %>
+              <li>
+                <%= link_to t("view.common_bars.notice"), main_app.user_notifications_path(current_user) %>
+              </li>
+              <% if current_user.teacher? || current_user.student? %>
+                <li><%= link_to t('view.student_bars.schedules'), live_studio.send("schedules_#{current_user.role}_path", current_user) %></li>
+              <% end %>
+              <li><%= link_to t("view.common_bars.sign_out"), main_app.signout_path, method: :delete %></li>
+            </ul>
+            <div class="arrow"></div>
+          </div>
+        </div>
+      <% else %>
+        <div class="nav-right-enter">
+          <%= link_to t("view.common_bars.sing_in"), main_app.signin_path %>
+          <span>|</span>
+          <%= link_to t("view.common_bars.teacher_register"), main_app.new_teacher_path %>
+          <span>|</span>
+          <%= link_to t("view.common_bars.student_register"), main_app.new_student_path %>
+        </div>
+      <% end %>
+    </div>
   </div>
-</div>
-<div class="header-nav">
-  <% if signed_in? %>
-    <div class="login">
-      <span>
-        <%= link_to live_studio.send("schedules_#{current_user.role}_path",current_user) do %>
-          <i class="fa fa-calendar"></i>
-          <%= t('view.student_bars.schedules') %>
-        <% end if current_user.teacher? || current_user.student? %>
-      </span>
-      <span>
-        <%= link_to main_app.user_notifications_path(current_user) do %>
-          <i class="fa fa-envelope-o"></i><%=  t("view.common_bars.notice") %>
-        <% end %>
-      </span>
-      <span>
-        <%= link_to main_app.send("info_#{current_user.role}_path",current_user) do %>
-          <i class="glyphicon glyphicon-user"></i><%= t('view.common_bars.personal_center') %>
-        <% end if current_user.teacher? || current_user.student? %>
-      </span>
-      <%= content_tag :span, link_to(t("view.common_bars.sign_out"), main_app.signout_path, method: :delete,class: 'exit' ) %>
-    </div>
-  <% else %>
-    <div class="not-login">
-      <span>
-        <%= link_to t("view.common_bars.sing_in"), main_app.signin_path %>
-        <%= link_to t("view.common_bars.teacher_register"), main_app.new_teacher_path %>
-        <%= link_to t("view.common_bars.student_register"), main_app.new_student_path %>
-      </span>
-    </div>
-  <% end %>
 </div>

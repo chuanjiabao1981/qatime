@@ -11,8 +11,13 @@ class HomeController < ApplicationController
   end
 
   def new_index
-    @recommend_courses, @recommend_teachers, @recommend_banners = DataService::HomeData.home_data_by_city(@location_city.try(:id))
-    @user_path = @user.blank? ? signin_path : (!@user.student? && !@user.teacher? && !@user.manager? && 'javascript:void(0);')
+    home_data = DataService::HomeData.new(@location_city.try(:id))
+    @recommend_banners = home_data.banners.order(:index).limit(3)
+    @recommend_teachers = home_data.teachers.order(:index).limit(6)
+    @today_lives = home_data.today_lives
+    @choiceness = home_data.choiceness.order(:index).limit(6)
+    @recent_courses = home_data.recent_courses
+    @newest_courses = home_data.newest_courses
   end
 
   def switch_city

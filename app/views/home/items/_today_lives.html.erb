@@ -1,0 +1,37 @@
+<div class="line-item">
+  <div class="container">
+    <center>
+      <h2><strong><%= t('view.today_lives.title') %></strong></h2>
+    </center>
+
+    <div id="myCarousel" class="carousel slide">
+      <div class="carousel-inner">
+        <% @today_lives.in_groups_of(4, false).each_with_index do |group, index| %>
+          <div class="item <%= 'active' if index == 0 %>">
+            <ul class="item-live">
+              <% group.each do |course| %>
+                <li class="col-md-3 col-xs-6">
+                  <%= link_to live_studio.course_path(course), class: 'live-pic' do %>
+                    <%= image_tag course.publicize_url(:list), size: '268x159' %>
+                    <div class="layer">
+                      <p>7:00-18:00</p>
+                      <p><%= truncate_u(course.name, length: 15) %></p>
+                    </div>
+                  <% end %>
+                  <h3><strong><%= t('view.today_lives.live_end') %></strong></h3>
+                  <!--<h3 class="staus-liveing"><strong><%= t('view.today_lives.living') %></strong></h3>-->
+                  <!--<h3 class="staus-notstart"><strong><%= t('view.today_lives.live_padding') %></strong></h3>-->
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <p class="itemlive-more">
+      <a href="javascript:void(0);" class="btn-nexts">&gt;</a>
+      <a href="javascript:void(0);" class="btn-previous">&lt;</a>
+    </p>
+  </div>
+</div>

@@ -174,7 +174,6 @@ student2:
   school: school2
 
 student_one_with_course:
-  id: 9
   name: student_with_course
   role: student
   email: with_course@student.com

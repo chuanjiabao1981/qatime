@@ -9,6 +9,18 @@ $(function(){
     }, 100);
   });
 
+  $('img.handle_error').each(function(index, el) {
+    el.onerror = function(){
+      el.src = '/imgs/web-nocon-1.png'
+    };
+  });
+
+  $('img.handle_error_avatar').each(function(index, el) {
+    el.onerror = function(){
+      el.src = '/imgs/webright-nocon-1.png'
+    };
+  });
+
   $(".navside-list li").hover(function() {
     $(".navside-list li").addClass("active");
     $(this).find(".navside-course").show();

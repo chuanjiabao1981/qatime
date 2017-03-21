@@ -27,7 +27,6 @@
                   <span><%= t('view.choiceness_items.lessons_count', count: course.lessons_count) %></span>
                   <span><%= course.teacher.try(:name) %></span>
                 </p>
-                <p><%= truncate_u(item.title, length: 22) %></p>
               </div>
             <% end %>
           </li>

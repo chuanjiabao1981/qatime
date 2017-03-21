@@ -15,15 +15,15 @@
     <% end %>
   <% end if allow?('schools', 'index') %>
   <%= content_tag :li do %>
-    <%= link_to main_app.teachers_path do %>
+    <%= link_to main_app.station_workstation_teachers_path(@workstation) do %>
       <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 教师</span>
     <% end %>
-  <% end if allow?('teachers', 'index') %>
+  <% end if allow?('station/teachers', 'index', @workstation) %>
   <%= content_tag :li do %>
-    <%= link_to main_app.students_path do %>
-      <span class="glyphicon glyphicon-tags"></span> <span class="qa_f18"> <%= Student.model_name.human%></span>
+    <%= link_to main_app.station_workstation_students_path(@workstation) do %>
+      <span class="glyphicon glyphicon-tags"></span> <span class="qa_f18"> <%= Student.model_name.human %></span>
     <% end %>
-  <% end if allow?('students', 'index') %>
+  <% end if allow?('station/students', 'index', @workstation) %>
   <%= content_tag :li do %>
     <%= link_to main_app.sellers_station_workstation_path(@workstation) do %>
       <span class="glyphicon glyphicon-phone"></span> <span class="qa_f18"> <%= Seller.model_name.human%></span>

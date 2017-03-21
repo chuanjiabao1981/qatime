@@ -91,6 +91,8 @@ class User < ActiveRecord::Base
                       scope: true,
                       predicates: { prefix: true }
 
+  scope :by_city, ->(city_id) { where(city_id: city_id) }
+
   def unread_notifications_count
     self.customized_course_action_notifications.unread.count
   end

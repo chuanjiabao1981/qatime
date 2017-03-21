@@ -1,0 +1,2 @@
+module Station::TeachersHelper
+end

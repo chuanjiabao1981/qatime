@@ -144,7 +144,15 @@ module LiveStudio
       @search_params[:q] ||= {}
       @search_params[:q][:s] ||= "published_at desc"
       @search_params[:q][:status_eq] = LiveStudio::Course.statuses[@search_params[:q][:status]] if @search_params[:q][:status].present?
-      @search_params
+      @search_params = search_params_filter(@search_params)
+    end
+
+    # 搜索参数过滤
+    # 不是识别的参数值删除掉
+    def search_params_filter(origion_params)
+      # 删除不支持的区间查询方式, 影响i18n显示
+      origion_params.delete(:range) unless %w(1_months 2_months 3_months 6_months 1_years).include?(origion_params[:range])
+      origion_params
     end
 
     def courses_params

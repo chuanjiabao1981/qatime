@@ -7,6 +7,11 @@
       <%= t('view.shared.workstations.change_records.withdraw_refund_record') %>
     <% else %>
       <%= change_record.target.try(:model_name).try(:human) %>
+      <% if "Payment::PublishPercentItem" ==  @change_record.business_klass -%>
+        <%= Payment::EarningRecord.human_attribute_name(:publish_earning) %>
+      <% elsif "Payment::SellPercentItem" ==  @change_record.business_klass -%>
+        <%= Payment::EarningRecord.human_attribute_name(:sell_earning) %>
+      <% end -%>
     <% end %>
   </td>
   <td><%= number_to_currency(change_record.after, locale: :cn) %></td>

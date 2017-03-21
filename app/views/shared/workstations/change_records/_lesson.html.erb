@@ -5,7 +5,7 @@
       <% if @change_record.billing.is_a?(Payment::LiveCourseTicketBilling) %>
         <td>
           <span><%= LiveStudio::Course.human_attribute_name(:billing_price) %>：</span>
-          <span><%= number_to_currency(@change_record.billing.try(:lesson_price)) %></span>
+          <span><%= t('view.payment/course_billing.service_price_value', price: number_to_currency(@change_record.billing.try(:lesson_price).to_f * 60)) %></span>
         </td>
       <% else %>
         <td>

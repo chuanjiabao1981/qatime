@@ -10,7 +10,7 @@
         <% if [0,1].include?(index) %>
           <li class="col-xs-6">
             <%= link_to live_studio.course_path(course), class: 'handpick-pic' do %>
-              <%= image_tag course.publicize_url(:app_info), size: '566x258' %>
+              <%= image_tag course.publicize_url(:app_info) %>
               <!-- 标签 -->
               <% if item.tag_one.present? %>
                 <span class="discount"><%= image_tag "tag_one#{item.tag_one_value}.png" %></span>
@@ -34,7 +34,7 @@
         <% else %>
           <li class="col-md-3 col-xs-6">
             <%= link_to live_studio.course_path(course) do %>
-              <%= image_tag course.publicize_url(:list), size: '268x159' %>
+              <%= image_tag course.publicize_url(:list) %>
             <% end %>
             <div class="handpick-info">
               <p>

@@ -12,7 +12,7 @@
               <% group.each do |lesson| %>
                 <li class="col-md-3 col-xs-6">
                   <%= link_to live_studio.course_path(lesson.course), class: 'live-pic' do %>
-                    <%= image_tag lesson.course.publicize_url(:list), size: '268x159' %>
+                    <%= image_tag lesson.course.publicize_url(:list) %>
                     <div class="layer">
                       <p><%= lesson.live_time %></p>
                       <p><%= truncate_u(lesson.name, length: 15) %></p>

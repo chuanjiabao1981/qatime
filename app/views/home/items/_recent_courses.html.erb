@@ -8,7 +8,7 @@
       <% @recent_courses.each do |course| %>
         <li class="col-md-3 col-xs-6">
           <%= link_to live_studio.course_path(course) do %>
-            <%= image_tag course.publicize_url(:list), size: '268x159' %>
+            <%= image_tag course.publicize_url(:list) %>
           <% end %>
           <div class="handpick-info">
             <p>

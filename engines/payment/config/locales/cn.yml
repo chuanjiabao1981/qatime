@@ -160,6 +160,8 @@ cn:
         summary: 描述
         created_at: 结算时间
         amount: 金额
+        publish_earning: 发行
+        sell_earning: 销售
       payment/consumption_record:
         amount: 金额
         target_type: 消费类型
@@ -180,8 +182,6 @@ cn:
         counter: 序号
         operate_detail: 查看明细
         operate_hide: 收起
-        publish_earning: 发行
-        sell_earning: 销售
       payment/billing:
         total_money: 收支
         summary: 描述

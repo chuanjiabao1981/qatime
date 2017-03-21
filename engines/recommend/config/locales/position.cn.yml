@@ -29,7 +29,7 @@ cn:
         link: 'http://xxxxx'
       hints:
         btn: 添加图片
-        logo: 注意：请选择尺寸1862px*315px的图片，以便达到最佳效果
+        logo: 注意：请选择尺寸1862px*316px的图片，以便达到最佳效果
     recommend/teacher_item:
       index:
         new_title: 新增老师推荐

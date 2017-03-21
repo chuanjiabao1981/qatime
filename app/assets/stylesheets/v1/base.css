@@ -10345,7 +10345,9 @@ ul {
     margin-bottom: 150px;
   }
 }
-
+.carousel-inner {
+  overflow: visible !important;
+}
 
 
 
@@ -10488,8 +10490,8 @@ ul {
   margin-right: 30px;
   color: #34495e;
 }
-.nav-item a:link {
-  color: #34495e;
+.nav-item a:link,.nav-item a:hover {
+  color: #34495e !important;
 }
 .nav-item a:last-child {
   margin-right: 0px;
@@ -10701,3 +10703,7 @@ ul {
     margin-bottom: 5px;
   }
 }
+
+
+
+/*教师个人主页*/

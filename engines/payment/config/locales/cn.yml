@@ -87,7 +87,7 @@ cn:
         pay_username: 填写真实信息
         remit_at: 选择转款日期
     payment/course_billing:
-      service_price_value: %{price}元/时
+      service_price_value: "%{price}元/时"
   activerecord:
     view:
       order: 我的订单

@@ -11,7 +11,7 @@
     <div class="site-nav-right">
       <% if signed_in? %>
         <div class="nav-right-user">
-          <%= image_tag current_user.avatar_url(:small), size: '27x27' %>
+          <%= image_tag current_user.avatar_url(:small), class: 'handle_error_avatar' %>
           <span><%= current_user.name %></span>
           <div class="nav-dropdown">
             <ul>

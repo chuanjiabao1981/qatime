@@ -12,7 +12,7 @@
               <% group.each do |lesson| %>
                 <li class="col-md-3 col-xs-6">
                   <%= link_to live_studio.course_path(lesson.course), class: 'live-pic' do %>
-                    <%= image_tag lesson.course.publicize_url(:list) %>
+                    <%= image_tag lesson.course.publicize_url(:list), class: 'handle_error' %>
                     <div class="layer">
                       <p><%= lesson.live_time %></p>
                       <p><%= truncate_u(lesson.name, length: 15) %></p>
@@ -36,8 +36,8 @@
 
     <% if @today_lives.count > 4 %>
       <p class="itemlive-more">
-        <a href="javascript:void(0);" class="btn-nexts">&gt;</a>
-        <a href="javascript:void(0);" class="btn-previous">&lt;</a>
+        <a href="javascript:void(0);" class="btn-nexts"><i class="fa fa-angle-right"></i></a>
+        <a href="javascript:void(0);" class="btn-previous"><i class="fa fa-angle-left"></i></a>
       </p>
     <% end %>
   </div>

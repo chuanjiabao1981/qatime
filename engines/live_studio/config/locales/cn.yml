@@ -114,6 +114,7 @@ cn:
       status: 当前状态
       purchase_number: 报名人数
     course_filter:
+      range/: 全部
       range/all: 全部
       range/1_months: 近1个月
       range/2_months: 近2个月

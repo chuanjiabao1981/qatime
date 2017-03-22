@@ -34,7 +34,7 @@ module LiveService
       course.channels.board.last.update(live_status: board) rescue nil
       course.channels.camera.last.update(live_status: camera) rescue nil
     ensure
-      LiveService::RealtimeService.new(course.id).update_live(lesson, board, camera)
+      LiveService::RealtimeService.new(@lesson.course_id).update_live(lesson, board, camera)
     end
 
     # 完成课程

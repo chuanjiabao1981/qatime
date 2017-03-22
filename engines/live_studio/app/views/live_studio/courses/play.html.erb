@@ -1,3 +1,39 @@
+<%= content_for :javascript do %>
+<script>
+$(function() {
+  function LiveObserver() {
+    // 回调数组
+    callbacks = [];
+    this.step = 10;
+    // 注册回调
+    this.addCallback = function(cb) {
+      callbacks.unshift(cb);
+    };
+    // 监听直播状态
+    this.fetchInfo = function() {
+      $.getJSON("<%= live_studio.live_info_course_path(@course) %>", function(data) {
+        $.each(callbacks, function(index, cb) {
+          cb(data);
+        });
+      });
+    };
+    // 开始监听
+    this.start = function() {
+      this.fetchInfo();
+      setInterval(this.fetchInfo, this.step * 1000);
+    };
+
+    this.setStep = function(step) {
+      this.step = step;
+    };
+  }
+
+  window.observer = new LiveObserver();
+  observer.start();
+});
+</script>
+<% end -%>
+
 <div class="live-head">
   <div class="container live-big">
     <%= render 'player' %>
@@ -17,15 +53,3 @@
     <%= render partial: 'lesson_plan' %>
   </div>
 </div>
-
-<%= content_for :javascript do %>
-<script>
-$(function() {
-  setInterval(function() {
-    $.getJSON("<%= live_studio.live_info_course_path(@course) %>", function(data) {
-      console.log(data);
-    });
-  }, 1000 * 10);
-});
-</script>
-<% end %>

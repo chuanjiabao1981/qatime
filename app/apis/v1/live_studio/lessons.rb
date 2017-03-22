@@ -83,7 +83,7 @@ module V1
             live_token = params[:beat_step].blank? ? @lesson.current_live_session.token :
               @lesson.heartbeats(params[:timestamp], params[:beat_step].to_i, params[:live_token])
             # 更新缓存
-            LiveService::RealtimeService.new(course.id).touch_live
+            LiveService::RealtimeService.new(@lesson.course_id).touch_live
             {
               result: 'ok',
               live_token: live_token

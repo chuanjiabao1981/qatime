@@ -17,13 +17,14 @@ module LiveService
 
     # 用户更新在线通知
     def online_notify(user_id)
-      Redis.current.zadd("live_studio/course-#{@course_id}-online-users", user_id, current_timestamp)
+      Redis.current.zadd("live_studio/course-#{@course_id}-online-users", timestamp, user_id)
     end
 
     # 更新直播信息
     def update_live(lesson, board, camera)
       live_attrs = { id: lesson.id, name: lesson.name, status: lesson.status, board: board, camera: camera, t: timestamp }
       Redis.current.hmset("live_studio/course-#{@course_id}-live-info", *live_attrs.to_a.flatten)
+      live_attrs
     end
 
     # 直播心跳
@@ -41,12 +42,19 @@ module LiveService
 
     # 辅导班直播信息
     def live_info
-      Redis.current.hgetall("live_studio/course-#{@course_id}-live-info")
+      result = Redis.current.hgetall("live_studio/course-#{@course_id}-live-info")
+      result = init_live if result.blank?
+      result
     end
 
     # 观看用户列表
     def online_users
-      Redis.current.zrange("course-#{@course_id}-online-users", 0, -1)
+      Redis.current.zrange("live_studio/course-#{@course_id}-online-users", 0, 2.minutes.ago.to_i)
+    end
+
+    # 如果查询不到直播缓存信息立即初始化缓存
+    def init_live
+      update_live(LiveStudio::Course.find(@course_id).current_lesson, 0, 0)
     end
   end
 end

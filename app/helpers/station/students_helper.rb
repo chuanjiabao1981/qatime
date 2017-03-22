@@ -1,2 +1,0 @@
-module Station::StudentsHelper
-end

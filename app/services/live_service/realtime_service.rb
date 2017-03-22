@@ -33,6 +33,27 @@ module LiveService
       Redis.current.hmset("live_studio/course-#{@course_id}-live-info", :t, timestamp)
     end
 
+    class << self
+      def courses_status(ids)
+        Redis.current.hgetall("#{LiveStudio::Course.model_name.cache_key}/#{Date.today.to_s}").slice(ids.map(&:to_s))
+      end
+
+      def lessons_status(ids)
+        Redis.current.hgetall("#{LiveStudio::Lesson.model_name.cache_key}/#{Date.today.to_s}").slice(ids.map(&:to_s))
+      end
+
+      # 更新缓存状态
+      def update_status(obj, live_status)
+        Redis.current.hmset("#{obj.model_name.cache_key}/#{Date.today.to_s}",  obj.id, live_status)
+      end
+
+      # 更新课程直播状态
+      def update_lesson_live(lesson)
+        update_status(lesson, lesson.status)
+        update_status(lesson.course, lesson.status)
+      end
+    end
+
     private
 
     # 时间戳

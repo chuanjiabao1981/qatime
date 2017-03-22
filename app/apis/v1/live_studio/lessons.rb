@@ -40,9 +40,8 @@ module V1
           post ':id/live_start' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
             if @lesson.ready? || @lesson.paused? || @lesson.closed?
-              LiveService::LessonDirector.new(@lesson).lesson_start
+              LiveService::LessonDirector.new(@lesson).lesson_start(params[:board], params[:camera])
             end
-            LiveService::LessonDirector.live_status_change(@lesson.course, params[:board], params[:camera])
             {
               status: @lesson.status,
               live_token: @lesson.start_live_session.token,
@@ -63,7 +62,7 @@ module V1
           end
           post ':id/live_switch' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
-            LiveService::LessonDirector.live_status_change(@lesson.course,params[:board],params[:camera])
+            LiveService::LessonDirector.live_status_change(@lesson.course, params[:board], params[:camera], @lesson)
             'ok'
           end
 
@@ -101,10 +100,8 @@ module V1
           end
           post ':id/live_end' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
-            # raise_change_error_for(@lesson.teaching? || @lesson.paused?)
-            LiveService::LessonDirector.live_status_change(@lesson.course, 0, 0)
-            # present @lesson, with: Entities::LiveStudio::Lesson, type: :live_start
             @lesson.close!
+            LiveService::LessonDirector.live_status_change(@lesson.course, 0, 0, @lesson)
             {
               result: 'ok',
               status: @lesson.status

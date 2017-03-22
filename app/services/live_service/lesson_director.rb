@@ -11,7 +11,7 @@ module LiveService
     # 4. finish上一节课，为了避免漏处理  finish该辅导班内所有paused, closed状态的其它课程
     # 5. 开始本节课
     # 6. 初始化心跳
-    def lesson_start
+    def lesson_start(board, camera)
       @course = @lesson.course
       # 如果辅导班已经有状态为teaching的课程,则返回false
       return false unless @course.lessons.teaching.blank?
@@ -27,11 +27,14 @@ module LiveService
         @lesson.teach!
         @lesson.current_live_session
       end
+      LiveService::LessonDirector.live_status_change(@lesson.course, board, camera, @lesson) if @lesson.teaching?
     end
 
-    def self.live_status_change(course, board, camera)
+    def self.live_status_change(course, board, camera, lesson = nil)
       course.channels.board.last.update(live_status: board) rescue nil
       course.channels.camera.last.update(live_status: camera) rescue nil
+    ensure
+      LiveService::RealtimeService.new(course).update_live(lesson, board, camera)
     end
 
     # 完成课程

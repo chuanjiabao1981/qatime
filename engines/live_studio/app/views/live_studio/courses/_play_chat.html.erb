@@ -211,7 +211,7 @@ $(function() {
 
   function messageHistory(messageDate, endTime) {
     messageDate = messageDate.replace(/年/, '-').replace(/月/, '-').replace(/日/, '');
-    beginTime = new Date(messageDate + " 00:00:00").getTime();
+    beginTime = Date.parse(messageDate);
     if(!endTime) {
       // 第一次加载时清空数据
       $("#messages-group").empty();

@@ -22,10 +22,15 @@ module LiveService
 
     # 更新直播信息
     def update_live(lesson, board, camera)
-      return if lesson.nil?
       Redis.current.hmset("live_studio/course-#{@course_id}-live-info",
                           *lesson.attributes.slice(:id, :name).to_a,
                           :t, timestamp, :board, board, :camera, camera)
+    end
+
+    # 直播心跳
+    # 更新时间, 不更新直播信息
+    def touch_live
+      Redis.current.hmset("live_studio/course-#{@course_id}-live-info", :t, timestamp)
     end
 
     private
@@ -44,5 +49,6 @@ module LiveService
     def online_users
       Redis.current.zrange("course-#{@course_id}-online-users", 0, -1)
     end
+
   end
 end

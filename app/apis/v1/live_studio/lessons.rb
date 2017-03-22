@@ -82,7 +82,8 @@ module V1
             @lesson = ::LiveStudio::Lesson.find(params[:id])
             live_token = params[:beat_step].blank? ? @lesson.current_live_session.token :
               @lesson.heartbeats(params[:timestamp], params[:beat_step].to_i, params[:live_token])
-            # raise_change_error_for(@lesson.teaching? || @lesson.paused?)
+            # 更新缓存
+            LiveService::RealtimeService.new(course.id).touch_live
             {
               result: 'ok',
               live_token: live_token

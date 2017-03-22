@@ -173,7 +173,7 @@ $(function() {
   function statusChange(player, stream, status, timestamp) {
     if(1 != status) return;
     // 如果查询到的视频正在直播, 播放器不是暂停也不是直播中, 则强制开始直播
-    if (player.getPlayState() != 1 && player.getPlayState() != 2) {
+    if (player.getPlayState() != 1) {
       player.setDataSource({
         type: "video/x-flv",
         src: stream

@@ -27,6 +27,7 @@ module LiveService
         @lesson.teach!
         @lesson.current_live_session
       end
+    ensure
       LiveService::LessonDirector.live_status_change(@lesson.course, board, camera, @lesson) if @lesson.teaching?
     end
 
@@ -34,7 +35,7 @@ module LiveService
       course.channels.board.last.update(live_status: board) rescue nil
       course.channels.camera.last.update(live_status: camera) rescue nil
     ensure
-      LiveService::RealtimeService.new(@lesson.course_id).update_live(lesson, board, camera)
+      LiveService::RealtimeService.new(course.id).update_live(lesson, board, camera)
     end
 
     # 完成课程

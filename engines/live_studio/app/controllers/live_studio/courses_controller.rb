@@ -76,12 +76,10 @@ module LiveStudio
     end
 
     def play
-      @chat_team = @course.chat_team
+      load_play_data
       @current_lesson = @course.current_lesson
       # @tickets = @course.tickets.available.includes(:student)
       @teacher = @course.teacher
-      @chat_account = current_user.chat_account
-      @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) if @chat_team && @chat_account
       render layout: 'live'
     end
 
@@ -131,6 +129,16 @@ module LiveStudio
     # 直播授权
     def play_authorize
       redirect_to @course, alert: i18n_failed('have_not_bought', @course) unless @course.play_authorize(current_user, nil)
+    end
+
+    def load_play_data
+      @chat_team = @course.chat_team || LiveService::ChatTeamManager.new(nil).instance_team(@course, @course.teacher.chat_account)
+      @chat_account = current_user.try(:chat_account)
+      if @chat_account.nil?
+        @chat_account = LiveService::ChatAccountFromUser.new(current_user).instance_account
+        LiveService::ChatTeamManager.new(@chat_team).add_to_team([@chat_account], 'normal')
+      end
+      @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id)
     end
 
     def set_user
@@ -200,5 +208,6 @@ module LiveStudio
           []
         end
     end
+
   end
 end

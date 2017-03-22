@@ -22,9 +22,8 @@ module LiveService
 
     # 更新直播信息
     def update_live(lesson, board, camera)
-      Redis.current.hmset("live_studio/course-#{@course_id}-live-info",
-                          *lesson.attributes.slice(:id, :name).to_a,
-                          :t, timestamp, :board, board, :camera, camera)
+      live_attrs = { id: lesson.id, name: lesson.name, status: lesson.status, board: board, camera: camera, t: timestamp }
+      Redis.current.hmset("live_studio/course-#{@course_id}-live-info", *live_attrs.to_a.flatten)
     end
 
     # 直播心跳
@@ -49,6 +48,5 @@ module LiveService
     def online_users
       Redis.current.zrange("course-#{@course_id}-online-users", 0, -1)
     end
-
   end
 end

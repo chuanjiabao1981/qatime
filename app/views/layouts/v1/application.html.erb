@@ -11,6 +11,7 @@
   <body>
     <%= render 'layouts/v1/header' %>
     <%= render 'layouts/v1/nav' %>
+    <%= render 'shared/pay_password_warning' if current_user && !current_user.try(:cash_account_password?) %>
     <%= render 'shared/flash_msg' %>
 
     <%= yield %>

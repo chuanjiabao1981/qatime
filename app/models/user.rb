@@ -90,6 +90,8 @@ class User < ActiveRecord::Base
   enumerize :gender, in: GENDER_HASH, i18n_scope: "enums.user.gender",
                       scope: true,
                       predicates: { prefix: true }
+  # 用户是否设置了支付密码
+  delegate :password?, to: :cash_account, prefix: true, allow_nil: true
 
   def unread_notifications_count
     self.customized_course_action_notifications.unread.count

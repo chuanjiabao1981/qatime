@@ -9,6 +9,11 @@ $(function(){
     }, 100);
   });
 
+  $(document).on('click', '#del_pay_password_warning', function(event){
+    $('.warning-notices').hide();
+    Cookies.set('payment_passd_warning', 'close');
+  });
+
   $(".navside-list li").hover(function() {
     $(".navside-list li").addClass("active");
     $(this).find(".navside-course").show();

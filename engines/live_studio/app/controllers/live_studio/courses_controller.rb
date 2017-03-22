@@ -118,6 +118,10 @@ module LiveStudio
       render json: LiveService::CourseDirector.new(@course).stream_status
     end
 
+    def live_info
+      render json: LiveService::RealtimeService.new(params[:id]).live_detail(current_user.try(:id))
+    end
+
     private
 
     def set_course

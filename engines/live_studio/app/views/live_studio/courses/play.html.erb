@@ -17,3 +17,15 @@
     <%= render partial: 'lesson_plan' %>
   </div>
 </div>
+
+<%= content_for :javascript do %>
+<script>
+$(function() {
+  setInterval(function() {
+    $.getJSON("<%= live_studio.live_info_course_path(@course) %>", function(data) {
+      console.log(data);
+    });
+  }, 1000 * 10);
+});
+</script>
+<% end %>

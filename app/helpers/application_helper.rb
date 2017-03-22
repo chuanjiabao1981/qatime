@@ -83,6 +83,17 @@ module ApplicationHelper
     end
   end
 
+  def user_payment_passwd_path
+    case current_user.role
+      when "teacher"
+        main_app.edit_teacher_path(current_user, cate: 'security_setting')
+      when "student"
+        main_app.edit_student_path(current_user, cate: 'security_setting')
+      else
+        user_home_path
+    end
+  end
+
   def wap_user_home_path
     unless signed_in?
       redirect_url = params[:redirect_url].presence || request.original_url

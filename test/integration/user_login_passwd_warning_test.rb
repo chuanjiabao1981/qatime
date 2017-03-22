@@ -18,6 +18,10 @@ class UserLoginPasswdWarningTest < ActionDispatch::IntegrationTest
     visit home_path
     assert page.has_content? '尚未设置支付密码，请完成设置以保证账户资金安全！'
     assert page.has_link? '立即设置'
+    click_on '立即设置'
+    assert page.has_content? '修改支付密码'
+
+    visit home_path
     find(:css, "#del_pay_password_warning").click
     assert_not page.has_content? '尚未设置支付密码，请完成设置以保证账户资金安全！'
     visit home_path
@@ -33,6 +37,10 @@ class UserLoginPasswdWarningTest < ActionDispatch::IntegrationTest
     visit home_path
     assert page.has_content? '尚未设置支付密码，请完成设置以保证账户资金安全！'
     assert page.has_link? '立即设置'
+    click_on '立即设置'
+    assert page.has_content? '修改支付密码'
+
+    visit home_path
     find(:css, "#del_pay_password_warning").click
     assert_not page.has_content? '尚未设置支付密码，请完成设置以保证账户资金安全！'
     visit home_path

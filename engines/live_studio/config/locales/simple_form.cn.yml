@@ -18,6 +18,8 @@ cn:
         name: 辅导名称
         taste_count: 试听 (节)
         tag_list: 课程标签
+        objective: 课程目标
+        suit_crowd: 适合人群
       course_invitation:
         user_mobile: 填写被邀请人
         teacher_percent: 设置老师分成

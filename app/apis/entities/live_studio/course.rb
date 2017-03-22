@@ -42,6 +42,8 @@ module Entities
       expose :completed_lessons_count
       expose :live_start_time
       expose :live_end_time
+      expose :objective
+      expose :suit_crowd
       expose :publicize do |course|
         case options[:size]
           when :search

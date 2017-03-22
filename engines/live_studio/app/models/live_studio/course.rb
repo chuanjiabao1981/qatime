@@ -85,6 +85,8 @@ module LiveStudio
 
     validates :teacher, presence: true
     # validates :publicize, presence: { message: "请添加图片" }, on: :create
+    validates :objective, presence: true, length: { in: 1..50 }
+    validates :suit_crowd, presence: true, length: { in: 1..30 }
 
     belongs_to :teacher, class_name: '::Teacher'
 

@@ -10745,11 +10745,21 @@ ul {
 
 
 /*教师个人主页*/
+.user-img {
+  margin-bottom: 40px;
+}
 .user-img p{
   text-align: center;
 }
 .user-img p:last-child {
   font-size: 18px;
+  color: #000000;
+  margin-bottom: 0px;
+}
+.user-img > p > a {
+  display: inline-block;
+  border: 2px solid #FFFFFF;
+  border-radius: 50%;
 }
 .user-img p:last-child > img {
   width: 14px;
@@ -10758,10 +10768,17 @@ ul {
   top: -3px;
 }
 .user-header {
-  padding-top: 45px;
+  padding: 25px 0px;
 }
 .user-message p {
   text-align: center;
+  margin-bottom: 0px;
+  color: #000000;
+  line-height: 21px;
+}
+.user-message p span i {
+  position: relative;
+  top: 1.5px;
 }
 .user-message p span {
   margin-right: 20px;
@@ -10771,41 +10788,54 @@ ul {
 }
 .user-content {
   margin-top: 30px;
+  margin-bottom: 60px;
 }
 .basic-msg {
+  padding: 0 30px;
   background-color: #FFFFFF;
 }
 .basic-msg-header,.introduce-header,.class-header {
-  height: 45px;
+  height: 75px;
   border-bottom: 1px solid #f0f0f0;
 }
 .basic-msg-header h2,.introduce-header h2,.class-header h2 {
   margin: 0px;
   color: #34495e;
   font-size: 16px;
-  line-height: 45px;
+  line-height: 75px;
   text-align: center;
 }
+.introduce-header h2,.class-header h2 {
+  text-align: left;
+}
 .basic-msg > ul {
-  padding: 0 30px;
+  padding: 30px 0 25px 0;
   margin-bottom: 0px;
 }
-.basic-msg > ul li i {
-  margin-right: 5px;
-}
 .basic-msg > ul li {
-  min-height: 40px;
-  line-height: 40px;
+  margin-bottom: 25px;
+  color: #666666;
+}
+.basic-msg > ul li:last-child {
+  margin-bottom: 0px;
 }
 .basic-introduce {
+  padding: 0 30px;
   background-color: #FFFFFF;
 }
 .introduce-info {
-  padding: 15px;
+  padding: 30px 0;
+}
+.introduce-info p {
+  margin-bottom: 0px;
+  color: #666666;
 }
 .basic-class {
   margin-top: 30px;
   background-color: #FFFFFF;
+}
+.class-header {
+  margin: 0px 30px 15px 30px;
 }
 .class-info > .classify-msg {
   zoom: 1;
@@ -10817,4 +10847,12 @@ ul {
   visibility:hidden;
   height:0;
 }
-
+.class-info > .info-notfound {
+  padding: 100px 0px;
+}
+.class-info > .info-notfound img {
+  margin-top: 0px;
+}
+.class-info > .info-notfound > p {
+  margin-bottom: 0px;
+}

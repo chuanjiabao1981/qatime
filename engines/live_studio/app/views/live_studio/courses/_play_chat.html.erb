@@ -111,8 +111,7 @@ $(function() {
   window.live_chat = new LiveChat("<%= Chat::IM.app_key %>");
   live_chat.config(accid, token, chat_team_id, owner_id);
   live_chat.init(function() {
-    refreshTeamMembersUI(chat_team_id);
-    chatInitCallback();
+    refreshTeamMembersUI(chat_team_id, chatInitCallback);
   });
 
   // 聊天表情

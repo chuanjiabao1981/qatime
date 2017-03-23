@@ -395,10 +395,23 @@ module V1
               @course = ::LiveStudio::Course.find(params[:course_id])
               LiveService::CourseDirector.new(@course).stream_status
             end
+
+            desc '新的直播状态查询' do
+              headers 'Remember-Token' => {
+                description: 'RememberToken',
+                required: true
+              }
+            end
+            params do
+              requires :course_id, type: Integer, desc: '辅导班ID'
+            end
+            get 'status' do
+              LiveService::RealtimeService.new(params[:course_id]).live_detail(current_user.try(:id))
+            end
           end
         end
 
-        desc '直播状态查询'
+        desc '直播状态批量查询'
         params do
           optional :lesson_ids, type: String, desc: '课程ID用英文逗号或者中划线隔开'
           optional :course_ids, type: String, desc: '辅导班ID用英文逗号或者中划线隔开'
@@ -407,9 +420,9 @@ module V1
         get 'status' do
           result =
             if params[:lesson_ids].present?
-              ::LiveStudio::Lesson.where(id: lesson_ids.split(/[\s*,-;]\s*/)).map {|lesson| [lesson.id, lesson.status]}
+              ::LiveStudio::Lesson.where(id: params[:lesson_ids].split(/[\s*,-;]\s*/)).map {|lesson| [lesson.id, lesson.status]}
             else
-              ::LiveStudio::Course.where(id: course_ids.split(/[\s*,-;]\s*/)).map {|course| [course.id, course.live_status]}
+              ::LiveStudio::Course.includes(:lessons).where(id: params[:lesson_ids].split(/[\s*,-;]\s*/)).map {|course| [course.id, course.live_status]}
             end
           result
         end

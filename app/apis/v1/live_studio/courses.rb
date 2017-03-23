@@ -420,9 +420,9 @@ module V1
         get 'status' do
           result =
             if params[:lesson_ids].present?
-              ::LiveStudio::Lesson.where(id: params[:lesson_ids].split(/[\s*,-;]\s*/)).map {|lesson| [lesson.id, lesson.status]}
+              ::LiveStudio::Lesson.where(id: params[:lesson_ids].split(/\s*[-;]\s*/)).map {|lesson| [lesson.id, lesson.status]}
             else
-              ::LiveStudio::Course.includes(:lessons).where(id: params[:lesson_ids].split(/[\s*,-;]\s*/)).map {|course| [course.id, course.live_status]}
+              ::LiveStudio::Course.includes(:lessons).where(id: params[:lesson_ids].split(/\s*[-;]\s*/)).map {|course| [course.id, course.live_status]}
             end
           result
         end

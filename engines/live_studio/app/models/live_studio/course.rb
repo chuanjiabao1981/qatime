@@ -297,7 +297,11 @@ module LiveStudio
 
     # 当前直播课程
     def current_lesson
-      @current_lesson ||= lessons.today.unclosed.first || lessons.today.last || lessons.since_today.unclosed.first || lessons.last
+      return @current_lesson if @current_lesson.present?
+      @current_lesson ||= lessons.find {|l| l.class_date.try(:today?) && l.unclosed? }
+      @current_lesson ||= lessons.select {|l| l.class_date.try(:today?) }.last
+      @current_lesson ||= lessons.find {|l| l.class_date > Date.today && l.unclosed? }
+      @current_lesson ||= lessons.select {|l| l.class_date.present? }.last
     end
 
     def live_status

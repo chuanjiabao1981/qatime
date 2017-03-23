@@ -1,12 +1,30 @@
-<div class="container container-details">
-  <div class="row">
-    <%= render partial: 'teacher_info' %>
-    <%= render partial: 'course_info' %>
+
+<%= render partial: 'live_studio/courses/v1/course_header' %>
+
+<div class="course-con">
+  <div class="container">
+    <div class="row">
+      <%= render partial: 'live_studio/courses/v1/course_info' %>
+
+      <%= render partial: 'live_studio/courses/v1/teacher_info' %>
+    </div>
   </div>
 </div>
 
-<div class="container">
-  <div class="row">
-    <%= render partial: 'lesson_plan' %>
-  </div>
-</div>
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $(".nav-item a").click(function() {
+        $(this).addClass("active").siblings().removeClass("active");
+      });
+
+      $("#taste-course-<%= @course.id %>").bind('ajax:success', function() {
+        <% if current_user.present?%>
+          window.location.reload();
+        <% else %>
+          window.location.href = "/signin";
+        <% end %>
+      });
+    })
+  </script>
+<% end %>

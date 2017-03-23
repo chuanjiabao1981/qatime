@@ -19,6 +19,7 @@ module LiveStudio
     DEFAULT_TEACHER_PERCENTAGE = 80
 
     belongs_to :invitation
+    # 维护比较复杂，暂时不使用
     # belongs_to :current_lesson, class_name: 'Lesson'
 
     enum status: {
@@ -297,6 +298,10 @@ module LiveStudio
     # 当前直播课程
     def current_lesson
       lessons.today.unclosed.first || lessons.today.last || lessons.since_today.unclosed.first || lessons.last
+    end
+
+    def live_status
+      current_lesson.try(:status)
     end
 
     def current_lesson_name

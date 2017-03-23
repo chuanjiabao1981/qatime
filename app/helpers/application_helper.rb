@@ -368,4 +368,21 @@ module ApplicationHelper
   def tags_with_category
     TagCategory.includes(:tags)
   end
+
+  # 支付密码提示信息
+  # 密码24小时内不可用
+  def payment_password_hint(user)
+    return t('view.common.payment_password_not_set') unless user.cash_account_password?
+    return t('view.common.payment_password_not_set') if user.cash_account.try(:password_set_at).blank?
+
+    time_now = Time.now
+    expire_time = user.cash_account.password_set_at.tomorrow
+    if expire_time > time_now
+      leave_time = Util.duration_in_words((expire_time - time_now).to_i)
+      t('view.common.payment_password_expire_time', time: leave_time)
+    else
+      t('view.common.password_not_visible')
+    end
+  end
+
 end

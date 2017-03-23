@@ -55,7 +55,25 @@
       <%= f.label :grade %>
     </div>
     <div class="col-md-10">
-      <%= f.input :grade, collection: APP_CONSTANT['grades_in_menu'], label: false, prompt: '请选择年级' %>
+      <%= f.input :grade, collection: APP_CONSTANT['grades_in_menu'], label: false, prompt: t('view.course_form.placeholders.grade') %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :objective %>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :objective, label: false, input_html: {maxlength: 50, placeholder: t('view.course_form.placeholders.objective') } %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :suit_crowd %>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :suit_crowd, label: false, input_html: {maxlength: 30, placeholder: t('view.course_form.placeholders.suit_crowd') } %>
     </div>
   </div>
 

@@ -135,8 +135,8 @@ a {
   float: left;
 }
 /*.date {
-    	width: 23rem;
-    }*/
+  width: 23rem;
+}*/
 .btn-search,.date {
   float: left;
 }
@@ -326,11 +326,11 @@ a {
   margin-right: 10px;
 }
 /*@font-face {font-family: 'iconfont';
-    src: url('../fonts/iconfont.eot'); 
-    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'), 
-    url('../fonts/iconfont.woff') format('woff'), 
-    url('../fonts/iconfont.ttf') format('truetype'), 
-    url('../fonts/iconfont.svg#iconfont') format('svg'); 
+    src: url('../fonts/iconfont.eot');
+    src: url('../fonts/iconfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/iconfont.woff') format('woff'),
+    url('../fonts/iconfont.ttf') format('truetype'),
+    url('../fonts/iconfont.svg#iconfont') format('svg');
 }
 .iconfont{
     font-family:"iconfont" !important;
@@ -2528,7 +2528,7 @@ i {
   cursor: pointer;
 }
 /*.list-sort-1 a, .list-course-1 a, .list-grade-1 a, .list-state-1 a, .class-msg a {
-	color: #000000;
+  color: #000000;
 }*/
 .list-headline {
   width: 80px;
@@ -2784,7 +2784,7 @@ i {
 
 /*教师个人主页*/
 /*.tec-homepage {
-	margin-top: 10px;
+  margin-top: 10px;
 }*/
 .homepage-title,.homepage-live-title {
   height: 40px;
@@ -2868,12 +2868,12 @@ i {
   margin-right: 0px !important;
 }
 /*.dl-list-1 {
-	margin-top: 10px;
+  margin-top: 10px;
 }
 .dl-list-1:first-child {
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }*/
 .homepage-elscon {
   width: 100%;
@@ -4105,15 +4105,15 @@ ul {
 }
 
 /*.admin-list-con table tr td:first-child span {
-	display: inline-block;
-	width: 150px;
-	text-align: left;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
+  display: inline-block;
+  width: 150px;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }*/
 /*.admin-list-con table tr td a {
-	color: #666;
+  color: #666;
 }*/
 .admin-list-con table tr td:last-child a {
   color: #999;
@@ -4407,11 +4407,11 @@ ul {
   border-bottom: 1px solid #F1F1F1;
 }
 /*.addinvite-con table tr td:first-child {
-	padding-left: 20px;
+  padding-left: 20px;
 }
 .addinvite-con table tr td:last-child {
-	padding-right: 20px;
-	font-size: 14px;
+  padding-right: 20px;
+  font-size: 14px;
 }*/
 .addinvite-con table tr:first-child td {
   height: 34px;
@@ -4870,8 +4870,8 @@ ul {
   overflow: hidden;
 }
 /*.modal-avatar img {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
 }*/
 
 
@@ -8962,7 +8962,7 @@ ul {
   color: red;
 }
 @media only screen and (max-width: 1200px) {
-  .new-assess .form-group label	{
+  .new-assess .form-group label {
     text-align: left;
   }
   .new-assess .form-group input {
@@ -9825,7 +9825,7 @@ ul {
 .item-handpick li,.item-recommend li{
   display: inline-block;
 }
-.item-handpick li a > img {
+.item-handpick li a img {
   width: 100%;
   vertical-align: top;
 }
@@ -9843,13 +9843,10 @@ ul {
   right: 0px;
   display: inline-block;
   width: 12.4%;
-  overflow: hidden;
 }
 
 .discount img {
-  width: 100%;
   vertical-align: top;
-  float: left;
 }
 .layer-handpick {
   position: absolute;
@@ -10087,36 +10084,6 @@ ul {
 .itemlive-more a {
   line-height: 24px;
 }
-.warning-notices p {
-  text-align: center;
-  line-height: 20px;
-  margin-bottom: 0px;
-  color: #999999;
-}
-.warning-notices p span {
-  display: inline-block;
-  background-color: #f2f2f2;
-  padding: 3px 10px;
-}
-.warning-notices p span a {
-  color: #ff5842;
-}
-.warning-notices p img {
-  width: 16px;
-  height: 16px;
-  margin-left: 10px;
-  cursor: pointer;
-  position: relative;
-  top: -0.8px;
-}
-
-
-
-
-
-
-
-
 /*筛选页*/
 .item-handpick li > a,.item-live li > a,.classify-msg li > a {
   display: block;
@@ -10336,13 +10303,13 @@ ul {
   visibility: visible;
 }
 .sort-nav dl dd.nav-time {
-  min-width: 320px;
+  min-width: 300px;
   height: 40px;
   text-align: left;
   margin-left: 20px
 }
 .nav-time input {
-  width: 110px;
+  width: 100px;
   height: 26px;
   line-height: 26px;
   border: 1px solid #F7F7F7;
@@ -10350,17 +10317,13 @@ ul {
   border-bottom: 1px solid #9aabb8;
   outline: none;
 }
-
 .nav-datetime {
   position: relative
 }
 .nav-datetime label {
   position: absolute;
-  right: 3px;
+  right: 0px;
   color: #9aabb8;
-}
-.nav-datetime:last-child label {
-  right: 0px !important;
 }
 .nav-date-to {
   margin: 0 5px;
@@ -10745,114 +10708,3 @@ ul {
 
 
 /*教师个人主页*/
-.user-img {
-  margin-bottom: 40px;
-}
-.user-img p{
-  text-align: center;
-}
-.user-img p:last-child {
-  font-size: 18px;
-  color: #000000;
-  margin-bottom: 0px;
-}
-.user-img > p > a {
-  display: inline-block;
-  border: 2px solid #FFFFFF;
-  border-radius: 50%;
-}
-.user-img p:last-child > img {
-  width: 14px;
-  height: 21px;
-  position: relative;
-  top: -3px;
-}
-.user-header {
-  padding: 25px 0px;
-}
-.user-message p {
-  text-align: center;
-  margin-bottom: 0px;
-  color: #000000;
-  line-height: 21px;
-}
-.user-message p span i {
-  position: relative;
-  top: 1.5px;
-}
-.user-message p span {
-  margin-right: 20px;
-}
-.user-message p span:last-child {
-  margin-right: 0px;
-}
-.user-content {
-  margin-top: 30px;
-  margin-bottom: 60px;
-}
-.basic-msg {
-  padding: 0 30px;
-  background-color: #FFFFFF;
-}
-.basic-msg-header,.introduce-header,.class-header {
-  height: 75px;
-  border-bottom: 1px solid #f0f0f0;
-}
-.basic-msg-header h2,.introduce-header h2,.class-header h2 {
-  margin: 0px;
-  color: #34495e;
-  font-size: 16px;
-  line-height: 75px;
-  text-align: center;
-}
-.introduce-header h2,.class-header h2 {
-  text-align: left;
-}
-.basic-msg > ul {
-  padding: 30px 0 25px 0;
-  margin-bottom: 0px;
-}
-.basic-msg > ul li {
-  margin-bottom: 25px;
-  color: #666666;
-}
-.basic-msg > ul li:last-child {
-  margin-bottom: 0px;
-}
-.basic-introduce {
-  padding: 0 30px;
-  background-color: #FFFFFF;
-}
-.introduce-info {
-  padding: 30px 0;
-}
-.introduce-info p {
-  margin-bottom: 0px;
-  color: #666666;
-}
-.basic-class {
-  margin-top: 30px;
-  background-color: #FFFFFF;
-}
-.class-header {
-  margin: 0px 30px 15px 30px;
-}
-.class-info > .classify-msg {
-  zoom: 1;
-}
-.class-info > .classify-msg:after {
-  display:block;
-  clear:both;
-  content:"";
-  visibility:hidden;
-  height:0;
-}
-.class-info > .info-notfound {
-  padding: 100px 0px;
-}
-.class-info > .info-notfound img {
-  margin-top: 0px;
-}
-.class-info > .info-notfound > p {
-  margin-bottom: 0px;
-}

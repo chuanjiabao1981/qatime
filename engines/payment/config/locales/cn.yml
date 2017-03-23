@@ -86,6 +86,8 @@ cn:
       placeholders:
         pay_username: 填写真实信息
         remit_at: 选择转款日期
+    payment/course_billing:
+      service_price_value: "%{price}元/时"
   activerecord:
     view:
       order: 我的订单
@@ -158,6 +160,8 @@ cn:
         summary: 描述
         created_at: 结算时间
         amount: 金额
+        publish_earning: 发行
+        sell_earning: 销售
       payment/consumption_record:
         amount: 金额
         target_type: 消费类型

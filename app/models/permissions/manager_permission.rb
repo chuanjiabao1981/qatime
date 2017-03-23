@@ -66,6 +66,15 @@ module Permissions
         workstation && workstation.manager_id == user.id
       end
       # 专属课程
+
+      allow 'station/teachers', [:index] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+
+      allow 'station/students', [:index] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+
       allow :exercises,[:show]
       allow :sessions,[:destroy]
 

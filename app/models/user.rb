@@ -93,6 +93,8 @@ class User < ActiveRecord::Base
   # 用户是否设置了支付密码
   delegate :password?, to: :cash_account, prefix: true, allow_nil: true
 
+  scope :by_city, ->(city_id) { where(city_id: city_id) }
+
   def unread_notifications_count
     self.customized_course_action_notifications.unread.count
   end

@@ -21,7 +21,7 @@
     <tr>
       <td>
         <span><%= LiveStudio::Course.human_attribute_name(:billing_system_price) %>：</span>
-        <span><%= number_to_currency @change_record.billing.base_price, locale: :cn, unit: "￥", precision: 2  %></span>
+        <span><%= LiveStudio::Course.human_attribute_name(:billing_system_hour_price_value, amount: @change_record.billing.base_price * 60)  %></span>
       </td>
       <td>
         <span><%= LiveStudio::Course.human_attribute_name(:billing_system_fee) %>：</span>

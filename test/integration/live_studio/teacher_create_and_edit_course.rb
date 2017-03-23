@@ -31,6 +31,8 @@ module LiveStudio
       select '高一', from: 'course_grade'
       fill_in :course_price, with: '110'
       find('#course_tag_list').click
+      fill_in :course_objective, with: '课程目标课程目标课程目标课程目标课程目标课程目标课程目标课程目标课程目标课程目标课程目标课程目标课程'
+      fill_in :course_suit_crowd, with: '课程目标课程目标课程目标课程目标课程目标课程目标课程目标课1'
       click_on '小升初考试'
       click_on '周末课'
       click_on '确定'
@@ -53,6 +55,8 @@ module LiveStudio
       fill_in :course_name, with: 'test name'
       find('div[contenteditable]').set('test description')
       select '高一', from: 'course_grade'
+      fill_in :course_objective, with: '课程目标课程目标课程目标课程目标课程目标课程目标课程目标课程目标课程目标课程目标课程目标课程目标课程'
+      fill_in :course_suit_crowd, with: '课程目标课程目标课程目标课程目标课程目标课程目标课程目标课1'
       fill_in :course_price, with: '110'
       click_on '添加新课程'
       find('.class_date', match: :first).set(Time.now.tomorrow.to_s[0,10])

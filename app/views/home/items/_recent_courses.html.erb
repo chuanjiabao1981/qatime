@@ -8,7 +8,7 @@
       <% @recent_courses.each do |course| %>
         <li class="col-md-3 col-xs-6">
           <%= link_to live_studio.course_path(course) do %>
-            <%= image_tag course.publicize_url(:list), size: '268x159' %>
+            <%= image_tag course.publicize_url(:list), class: 'handle_error' %>
           <% end %>
           <div class="handpick-info">
             <p>
@@ -27,7 +27,10 @@
       <%= render partial: 'home/items/default_courses' if @recent_courses.blank? %>
     </ul>
     <p class="iteminfo-more">
-      <%= link_to t('view.choiceness_items.more'), live_studio.courses_path %>
+      <%= link_to live_studio.courses_path do %>
+        <%= t('view.choiceness_items.more') %>
+        <i class="fa fa-angle-right"></i>
+      <% end %>
     </p>
   </div>
 </div>

@@ -297,7 +297,7 @@ module LiveStudio
 
     # 当前直播课程
     def current_lesson
-      lessons.today.unclosed.first || lessons.today.last || lessons.since_today.unclosed.first || lessons.last
+      @current_lesson ||= lessons.today.unclosed.first || lessons.today.last || lessons.since_today.unclosed.first || lessons.last
     end
 
     def live_status

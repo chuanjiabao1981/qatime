@@ -397,6 +397,22 @@ module V1
             end
           end
         end
+
+        desc '直播状态查询'
+        params do
+          optional :lesson_ids, type: String, desc: '课程ID用英文逗号或者中划线隔开'
+          optional :course_ids, type: String, desc: '辅导班ID用英文逗号或者中划线隔开'
+          exactly_one_of :lesson_ids, :course_ids
+        end
+        get 'status' do
+          result =
+            if params[:lesson_ids].present?
+              ::LiveStudio::Lesson.where(id: lesson_ids.split(/[\s*,-;]\s*/)).map {|lesson| [lesson.id, lesson.status]}
+            else
+              ::LiveStudio::Course.where(id: course_ids.split(/[\s*,-;]\s*/)).map {|course| [course.id, course.live_status]}
+            end
+          result
+        end
       end
     end
   end

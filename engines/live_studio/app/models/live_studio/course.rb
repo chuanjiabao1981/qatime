@@ -19,6 +19,7 @@ module LiveStudio
     DEFAULT_TEACHER_PERCENTAGE = 80
 
     belongs_to :invitation
+    # belongs_to :current_lesson, class_name: 'Lesson'
 
     enum status: {
       rejected: -1, # 被拒绝

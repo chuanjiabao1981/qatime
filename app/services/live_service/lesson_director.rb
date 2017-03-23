@@ -29,7 +29,7 @@ module LiveService
       end
     ensure
       LiveService::LessonDirector.live_status_change(@lesson.course, board, camera, @lesson) if @lesson.teaching?
-      LiveService::LessonDirector.update_lesson_live(@lesson)
+      LiveService::RealtimeService.update_lesson_live(@lesson)
     end
 
     def self.live_status_change(course, board, camera, lesson = nil)
@@ -37,7 +37,7 @@ module LiveService
       course.channels.camera.last.update(live_status: camera) rescue nil
     ensure
       LiveService::RealtimeService.new(course.id).update_live(lesson, board, camera)
-      LiveService::LessonDirector.update_lesson_live(@lesson)
+      LiveService::RealtimeService.update_lesson_live(lesson)
     end
 
     # 完成课程
@@ -49,7 +49,7 @@ module LiveService
       @lesson.real_time = @lesson.live_sessions.sum(:duration) # 实际直播时间单位分钟
       @course.save!
       @lesson.finish!
-      LiveService::LessonDirector.update_lesson_live(@lesson)
+      LiveService::RealtimeService.update_lesson_live(@lesson)
     end
 
     # 准备上课
@@ -69,7 +69,7 @@ module LiveService
           course.teaching!
           LiveService::CourseNotificationSender.new(course).notice(LiveStudioCourseNotification::ACTION_START)
         end
-        LiveService::LessonDirector.update_lesson_live(@lesson)
+        LiveService::RealtimeService.update_lesson_live(lesson)
       end
     end
 
@@ -114,7 +114,7 @@ module LiveService
     def self.pause_lessons
       LiveStudio::Lesson.teaching.where("heartbeat_time < ?", 10.minutes.ago).each do |lesson|
         lesson.pause!
-        LiveService::LessonDirector.update_lesson_live(lesson)
+        LiveService::RealtimeService.update_lesson_live(lesson)
       end
     end
 

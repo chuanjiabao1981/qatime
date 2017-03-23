@@ -25,6 +25,8 @@ module LiveService
       live_attrs = { id: lesson.id, name: lesson.name, status: lesson.status, board: board, camera: camera, t: timestamp }
       Redis.current.hmset("live_studio/course-#{@course_id}-live-info", *live_attrs.to_a.flatten)
       live_attrs
+    rescue e
+      p e
     end
 
     # 直播心跳
@@ -45,12 +47,16 @@ module LiveService
       # 更新缓存状态
       def update_status(obj, live_status)
         Redis.current.hmset("#{obj.model_name.cache_key}/#{Date.today.to_s}",  obj.id, live_status)
+      rescue e
+        p e
       end
 
       # 更新课程直播状态
       def update_lesson_live(lesson)
         update_status(lesson, lesson.status)
         update_status(lesson.course, lesson.status)
+      rescue e
+        p e
       end
     end
 

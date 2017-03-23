@@ -372,14 +372,17 @@ module ApplicationHelper
   # 支付密码提示信息
   # 密码24小时内不可用
   def payment_password_hint(user)
-    return t('view.common.payment_password_not_set') unless user.cash_account_password?
-    return t('view.common.payment_password_not_set') if user.cash_account.try(:password_set_at).blank?
+    default_text = content_tag(:span, t('view.common.payment_password_not_set'), class: 'alert_red_span')
+    return default_text unless user.cash_account_password?
+    return default_text if user.cash_account.try(:password_set_at).blank?
 
     time_now = Time.now
     expire_time = user.cash_account.password_set_at.tomorrow
     if expire_time > time_now
-      leave_time = Util.duration_in_words((expire_time - time_now).to_i)
-      t('view.common.payment_password_expire_time', time: leave_time)
+      leave_time = Util.duration_in_words((expire_time - time_now).to_i).gsub(/.\d秒/, '')
+      content_tag :span, class: 'alert_red_span' do
+        t('view.common.payment_password_expire_time', time: leave_time)
+      end
     else
       t('view.common.password_not_visible')
     end

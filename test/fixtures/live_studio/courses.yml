@@ -127,18 +127,6 @@ course_preview_four:
   teacher_percentage: 90
   lessons_count: 2
 
-course_teaching:
-  name: 上课中的辅导班
-  teacher: users(:teacher1)
-  workstation: workstation(:workstation1)
-  status: 2
-  grade: 六年级
-  subject: 语文
-  teacher_percentage: 90
-  price: 999
-  preset_lesson_count: 2
-  lessons_count: 2
-
 course_without_channel:
   name: 没有初始化的辅导班
   teacher: users(:teacher1)
@@ -823,4 +811,56 @@ course_for_channel:
   city: zhuji
   lessons_count: 2
   billing_type: Payment::LiveCourseBilling
+
+# 招生中的辅导班2
+course_preview2:
+  name: 招生中的辅导班2
+  teacher: physics_teacher1
+  workstation: workstation(:workstation1)
+  status: 1
+  grade: 六年级
+  teacher_percentage: 60
+  subject: 语文
+  preset_lesson_count: 2
+  price: 999
+  lessons_count: 2
+
+# 开课中的辅导班今日无课
+course_teaching1:
+  name: 上课中的辅导班1
+  teacher: users(:teacher1)
+  workstation: workstation(:workstation1)
+  status: 2
+  grade: 六年级
+  subject: 语文
+  teacher_percentage: 50
+  price: 999
+  preset_lesson_count: 2
+  lessons_count: 2
+
+# 开课中的辅导班今日有课
+course_teaching2:
+  name: 上课中的辅导班2
+  teacher: users(:teacher1)
+  workstation: workstation(:workstation1)
+  status: 2
+  grade: 六年级
+  subject: 语文
+  teacher_percentage: 60
+  price: 999
+  preset_lesson_count: 2
+  lessons_count: 2
+
+# 课程全部完成的辅导班
+course_finished:
+  name: 完成的课程
+  teacher: physics_teacher1
+  workstation: workstation(:workstation1)
+  status: 3
+  grade: 六年级
+  teacher_percentage: 70
+  subject: 语文
+  preset_lesson_count: 2
+  price: 999
+  lessons_count: 2
 

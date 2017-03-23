@@ -83,6 +83,14 @@ module LiveStudio
       render layout: 'live'
     end
 
+    def board
+
+    end
+
+    def camera
+
+    end
+
     def refresh_current_lesson
       @current_lesson = @course.current_lesson
     end

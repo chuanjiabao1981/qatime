@@ -83,6 +83,14 @@ cn:
       workstations:
         tab_node:
           show_title: 站点信息
+      students:
+        index_title: 学生列表
+        placeholders:
+          name: 学生名字,昵称或者邮箱
+      teachers:
+        index_title: 教师列表
+        placeholders:
+          name: 老师名字,昵称或者邮箱
 
   error:
       workstation:

@@ -305,7 +305,21 @@ module LiveStudio
     end
 
     def live_status
-      current_lesson.try(:status)
+      return 'none' unless current_lesson
+      case current_lesson.status
+      when 'missed'
+        'init'
+      when 'init'
+        'init'
+      when 'ready'
+        'ready'
+      when 'teaching'
+        'teaching'
+      when 'paused'
+        'teaching'
+      else
+        'closed'
+      end
     end
 
     def current_lesson_name

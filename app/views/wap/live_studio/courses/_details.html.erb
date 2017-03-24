@@ -1,4 +1,3 @@
-<% teacher = @course.teacher || @course.build_teacher %>
 <div class="phone-details-msg">
   <div class="details-msg-nav">
     <a href="javascript:void(0);" class="active"><%= t('wap.live_studio/courses.show.course_intro') %></a>
@@ -6,80 +5,8 @@
     <a href="javascript:void(0);" class=""><%= t('wap.live_studio/courses.show.course_lessions') %></a>
   </div>
   <div>
-    <div class="details-msg-con" style="display: block;">
-      <ul>
-        <li>
-          <%= image_tag('wap/title.png') %>
-          <span><%= teacher.subject %></span>
-        </li>
-        <li>
-          <%= image_tag('wap/title.png') %>
-          <span><%= teacher.category %></span>
-        </li>
-        <li>
-          <%= image_tag('wap/title.png') %>
-          <span><%= t('wap.live_studio/courses.show.course_lessons_count', count: @course.lessons_count) %></span>
-        </li>
-        <li>
-          <%= image_tag('wap/title.png') %>
-          <span><%= t('wap.live_studio/courses.show.course_title') %></span>
-        </li>
-        <li>
-          <%= image_tag('wap/title.png') %>
-          <span><%= @course.live_start_date.try(:to_s) %></span>
-          <span class="to"><%= t('wap.live_studio/courses.show.to') %></span>
-          <span><%= @course.live_end_date.try(:to_s) %></span>
-        </li>
-      </ul>
-      <div class="details-introduction">
-        <h4><%= t('wap.live_studio/courses.show.lession_intro') %></h4>
-        <%= raw(@course.description) %>
-      </div>
-    </div>
-    <div class="details-msg-con details-msg-tec" style="display: none;">
-      <div class="details-tec-con">
-        <div class="details-tec-title">
-          <span><%= teacher.name %></span>
-          <%= image_tag "wap/#{teacher.gender || 'male'}.png" %>
-        </div>
-        <ul>
-          <li>
-            <%= image_tag('wap/title.png') %>
-            <span class="tec-interval"><%= t('wap.live_studio/courses.show.teaching_years') %></span>
-            <span><%= teacher.teaching_years_text %></span>
-          </li>
-          <li>
-            <%= image_tag('wap/title.png') %>
-            <span class="tec-interval"><%= t('wap.live_studio/courses.show.teaching_school') %></span>
-            <span><%= truncate_u(teacher.school.try(:name), length: 10) %></span>
-          </li>
-        </ul>
-        <div class="details-introduction">
-          <div class="details-introduction-title">
-            <%= image_tag('wap/title.png') %>
-            <span><%= t('wap.live_studio/courses.show.teacher_intro') %></span>
-          </div>
-          <p><%= teacher.desc %></p>
-        </div>
-        <%= image_tag(teacher.avatar, class: 'tec-headportrait') %>
-      </div>
-    </div>
-    <div class="details-msg-con details-msg-arrange" style="display: none;">
-      <ul>
-        <% @course.order_lessons.each_with_index do |lesson, i| %>
-          <li class="<%= lesson.is_over? ? 'msg-arrange-state' : '' %>">
-            <div>
-              <%= image_tag("wap/#{lesson.is_over? ? 'title-1' : 'title'}.png") %>
-              <span><%= lesson.name %></span>
-              <span><%= lesson.status_text(current_user.try(:role)) %></span>
-            </div>
-            <div>
-              <span><%= lesson.class_date %></span>
-              <span><%= lesson.start_time %>-<%= lesson.end_time %></span>
-            </div>
-          </li>
-       <% end %>
-      </ul>
-    </div>
+    <%= render partial: 'wap/live_studio/courses/show/intro' %>
+    <%= render partial: 'wap/live_studio/courses/show/teacher' %>
+    <%= render partial: 'wap/live_studio/courses/show/lessons' %>
   </div>
 </div>

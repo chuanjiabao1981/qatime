@@ -78,7 +78,7 @@ module LiveStudio
       load_play_data
       @current_lesson = @course.current_lesson
       @teacher = @course.teacher
-      render layout: 'live'
+      render layout: 'v1/live'
     end
 
     def board

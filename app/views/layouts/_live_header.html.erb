@@ -1,18 +1,29 @@
-<header class="nav-live">
-    <div class="container">
-      <div class="row">
-        <%= link_to image_tag("live-logo.png"), home_path %>
-        <% if params[:action] == 'replay' %>
-          <p>
-            <span><%= @lesson.try(:name) %></span>
-          </p>
-        <% else %>
-          <p>
-            <span><%= @course.current_lesson.try(:name) %></span>
-            <em><%= LiveStudio::Course.human_attribute_name(:watchers_count) %> <strong>0</strong></em>
-          </p>
-        <% end %>
-        <%= render 'layouts/v1/login_info' %>
+<header class="live-nav">
+  <div class="container live-big">
+    <div class="header-content">
+      <div class="header-logo">
+        <%= link_to image_tag("logo-live.png"), home_path %>
+      </div>
+      <div class="header-nav">
+        <span>
+          <%= link_to live_studio.send("schedules_#{current_user.role}_path", current_user) do -%>
+            <%= image_tag "curriculum.png" %>
+            <%= t("menu.schedule") %>
+          <% end if current_user.student_or_teacher? -%>
+        </span>
+        <span>
+          <%= link_to user_notification_path do -%>
+            <%= image_tag "msg.png" %>
+            <%= t("menu.messages") %>
+          <% end -%>
+        </span>
+        <span>
+          <%= link_to main_app.send("info_#{current_user.role}_path", current_user) do %>
+            <%= image_tag "person.png" %>
+            <%= t("menu.ucenter") %>
+          <% end if current_user.student_or_teacher? %>
+        </span>
+        <span><%= link_to t("common.logout"), signout_path, method: :delete %></span>
       </div>
     </div>
   </div>

@@ -20,6 +20,12 @@ $(function(){
     };
   });
 
+  $('img.handle_error_list').each(function(index, el) {
+    el.onerror = function(){
+      el.src = '/imgs/web-nocon-list.png'
+    };
+  });
+
   $('img.handle_error_avatar').each(function(index, el) {
     el.onerror = function(){
       el.src = '/imgs/webright-nocon-1.png'

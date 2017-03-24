@@ -173,11 +173,8 @@ class TeachersController < ApplicationController
   end
 
   def profile
-    @user = @current_resource
-    @user_path = current_user.blank? ? signin_path : (!current_user.student? && !current_user.teacher? && 'javascript:void(0);')
-    @courses = @teacher.live_studio_courses.where('status > ?', LiveStudio::Course.statuses[:init])
-    @similar_courses = LiveStudio::Course.where(subject: @teacher.subject, grade: @teacher.grade).opening.limit(4)
-    render layout: 'application_front'
+    @courses = @teacher.live_studio_courses.for_sell.paginate(page: params[:page], per_page: 6)
+    render layout: 'v1/application'
   end
 
   private

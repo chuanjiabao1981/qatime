@@ -36,6 +36,7 @@ teacher_two:
   avatar: test
   school: school1
   type: Teacher
+  city: yangquan
 
 teacher1:
   login_mobile: 15910000001
@@ -63,6 +64,7 @@ teacher2:
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   school: school1
   type: Teacher
+  city: yangquan
 
 teacher3:
   id: 3
@@ -150,6 +152,7 @@ student1:
   grade: 高一
   type: Student
   school: school2
+  city: yangquan
 
 student3:
   name: student3

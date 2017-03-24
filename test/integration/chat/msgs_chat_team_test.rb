@@ -32,7 +32,7 @@ module Chat
         click_on "发送"
         sleep 5
         assert page.has_content?("同学们，大家好呀"), "消息发送失败"
-        assert_equal "2", page.find("#team_online_count").text, "在线人数显示错误"
+        assert_equal "2", page.find("#team-online-count").text, "在线人数显示错误"
       end
 
       Capybara.using_session("student") do
@@ -47,7 +47,7 @@ module Chat
         click_on "发送"
 
         assert page.has_content?("大家好呀"), "消息发送失败"
-        assert_equal "2", page.find("#team_online_count").text, "在线人数显示错误"
+        assert_equal "2", page.find("#team-online-count").text, "在线人数显示错误"
       end
 
       Capybara.using_session("student") do

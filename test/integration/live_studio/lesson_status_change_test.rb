@@ -32,7 +32,7 @@ class LiveStudio::TeacherLessonTest < ActionDispatch::IntegrationTest
     teacher = preview_course.teacher
     student = preview_course.students.first
     ready_lesson = live_studio_lessons(:ready_lesson_today2)
-    LiveService::LessonDirector.new(ready_lesson).lesson_start
+    LiveService::LessonDirector.new(ready_lesson).lesson_start(1, 1)
     teacher.reload
     student.reload
     preview_course.reload
@@ -52,7 +52,7 @@ class LiveStudio::TeacherLessonTest < ActionDispatch::IntegrationTest
 
   test 'service lesson start false' do
     false_lesson = live_studio_lessons(:ready_lesson_for_false)
-    flag = LiveService::LessonDirector.new(false_lesson).lesson_start
+    flag = LiveService::LessonDirector.new(false_lesson).lesson_start(1, 0)
     assert !flag, '已有直播中的辅导班开始直播课程会返回false'
   end
 

@@ -2,7 +2,7 @@
 
 course_one:
   name: 测试辅导1班
-  teacher: users(:teacher1)
+  teacher: teacher1
   workstation: workstation_one
   status: 1
   grade: 六年级
@@ -16,7 +16,7 @@ course_one:
 
 course_two:
   name: 测试辅导2班
-  teacher: users(:teacher1)
+  teacher: teacher1
   workstation: workstation_one
   status: 1
   grade: 六年级
@@ -129,7 +129,7 @@ course_preview_four:
 
 course_without_channel:
   name: 没有初始化的辅导班
-  teacher: users(:teacher1)
+  teacher: teacher1
   workstation: workstation(:workstation1)
   status: 2
   grade: 六年级
@@ -169,8 +169,8 @@ update_course_by_physics_teacher1:
   taste_count: 1
 
 course_teach_2:
-  name: 上课中的辅导班2
-  teacher: users(:teacher_one)
+  name: course_teach_2
+  teacher: teacher1
   workstation: workstation(:workstation1)
   status: 2
   grade: 六年级
@@ -828,7 +828,7 @@ course_preview2:
 # 开课中的辅导班今日无课
 course_teaching1:
   name: 上课中的辅导班1
-  teacher: users(:teacher1)
+  teacher: teacher1
   workstation: workstation(:workstation1)
   status: 2
   grade: 六年级
@@ -841,7 +841,7 @@ course_teaching1:
 # 开课中的辅导班今日有课
 course_teaching2:
   name: 上课中的辅导班2
-  teacher: users(:teacher1)
+  teacher: teacher1
   workstation: workstation(:workstation1)
   status: 2
   grade: 六年级

@@ -63,11 +63,11 @@ module BusinessService
     def _check_lesson
       # 检查课程老师信息
       @lesson.teacher = @course.teacher unless @lesson.teacher.present?
-      # 结账前确保教师有资金账户
-      @lesson.teacher.cash_account!
       # 检查课程时长
       @lesson.real_time = @lesson.live_sessions.sum(:duration) unless @lesson.real_time.to_i > 0
       @lesson.save
+      # 结账前确保教师有资金账户
+      @lesson.teacher.cash_account!
       @lesson.finished? || @lesson.billing?
     end
 

@@ -8,8 +8,8 @@
           </p>
         <% else %>
           <p>
-            <span><%= @course.current_lesson.try(:name) %></span>
-            <em><%= LiveStudio::Course.human_attribute_name(:watchers_count) %> <strong>0</strong></em>
+            <span id='live-name'><%= @course.current_lesson.try(:name) %></span>
+            <em><%= LiveStudio::Course.human_attribute_name(:watchers_count) %> <strong id='team-online-count'>0</strong></em>
           </p>
         <% end %>
         <%= render 'layouts/v1/login_info' %>

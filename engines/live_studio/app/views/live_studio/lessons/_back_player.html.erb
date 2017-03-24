@@ -87,32 +87,32 @@
            // myPlayer.corePlayer.controlBar.addChild(definitionComponent,{},6);
          });
        
-      var Component = neplayer.getComponent("Component");
-      var ClarityComponent = neplayer.extend(Component,{
-          createEl:function(){
-              var button = document.createElement("button");
-              button.className = "vjs-clarity-control vjs-control vjs-button vjs-playing";
-              button.innerHTML = "高清";
-              return button;
-          }
-      });
-      var clarityComponent = new ClarityComponent();
-      var DefinitionComponent = neplayer.extend(Component,{
-          createEl:function(){
-              var div = document.createElement("div");
-              div.className = "vjs-control-definition vjs-control vjs-button vjs-playing";
-              div.innerHTML = '<input type="radio"  name="clarity" id="clarity1" value="高清" /><label for="clarity1">高清</label><br /><input type="radio"  name="clarity" id="clarity2" value="标清" /><label for="clarity2">标清</label>';
-              return div;
-          }
-      });
-      var definitionComponent = new DefinitionComponent();
-      $("#my-video .vjs-control-bar").on('click', ".vjs-clarity-control", function  () {
-        $(".vjs-control-definition").css("visibility","visible");
-      })
-      $("#my-video .vjs-control-bar").on('click', ".vjs-control-definition input", function  () {
-        $(".vjs-clarity-control").html($(this).val());     
-        $(".vjs-control-definition").css("visibility","hidden");
-      })
+      // var Component = neplayer.getComponent("Component");
+      // var ClarityComponent = neplayer.extend(Component,{
+      //     createEl:function(){
+      //         var button = document.createElement("button");
+      //         button.className = "vjs-clarity-control vjs-control vjs-button vjs-playing";
+      //         button.innerHTML = "高清";
+      //         return button;
+      //     }
+      // });
+      // var clarityComponent = new ClarityComponent();
+      // var DefinitionComponent = neplayer.extend(Component,{
+      //     createEl:function(){
+      //         var div = document.createElement("div");
+      //         div.className = "vjs-control-definition vjs-control vjs-button vjs-playing";
+      //         div.innerHTML = '<input type="radio"  name="clarity" id="clarity1" value="高清" /><label for="clarity1">高清</label><br /><input type="radio"  name="clarity" id="clarity2" value="标清" /><label for="clarity2">标清</label>';
+      //         return div;
+      //     }
+      // });
+      // var definitionComponent = new DefinitionComponent();
+      // $("#my-video .vjs-control-bar").on('click', ".vjs-clarity-control", function  () {
+      //   $(".vjs-control-definition").css("visibility","visible");
+      // })
+      // $("#my-video .vjs-control-bar").on('click', ".vjs-control-definition input", function  () {
+      //   $(".vjs-clarity-control").html($(this).val());     
+      //   $(".vjs-control-definition").css("visibility","hidden");
+      // })
 
 
       //判断flash是否安装

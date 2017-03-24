@@ -1,4 +1,4 @@
-<% @course.order_lessons.each_with_index do |lesson, i| %>
+<% @course.lessons.each_with_index do |lesson, i| %>
   <div class="row playlist <%= lesson.is_over? ? 'end' : '' %>">
     <div class="col-md-1">
       <span><%= beautify_index(i) %></span>
@@ -19,7 +19,7 @@
       <i>
         <% if lesson.is_over? %>
           <% if allow?("live_studio/lessons", "replay", lesson) -%>
-            <%= link_to live_studio.replay_lesson_path(lesson), class: 'active', target: '_blank' do -%>
+            <%= link_to 'javascript:void(0);', class: 'active', target: '_blank' do -%>
               <em><%= LiveStudio::Lesson.human_attribute_name(:replay) %></em>
               <em><%= t("view.live_studio/courses.show.left_replay_times", count: lesson.user_left_times(current_user)) %></em>
             <% end -%>

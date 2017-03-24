@@ -4138,7 +4138,7 @@ ul {
   top: 0;
   z-index: 10000;
   width: 100%;
-  height: 100px;
+  height: 110px;
   background-color: #000000;
   opacity: 0.9;
   font-size: 22px;
@@ -10587,67 +10587,68 @@ ul {
   font-size: 18px;
   color: #ff5842;
 }
-.arrangement {
-  padding-left: 0px;
-  margin-bottom: 0px;
+/*.arrangement {
+	padding-left: 0px;
+	margin-bottom: 0px;
+}*/
+.playlist span   {
+  color: #555555;
 }
-.coursehead {
-  display: inline-block;
-  width: 40%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+.playlist > .col-md-1 span {
+  color: #ff5842;
 }
-.arrangement {
-  margin-top: 30px;
+.end > .col-md-1 span,.end i {
+  color: #999999;
 }
-.arrangement li {
-  min-height: 54px;
+.end i  {
+  color: #999999 !important;
 }
-.arrangement li span {
-  display: inline-block;
-  margin-right: 20px;
-  float: left;
-}
-.arrangement i {
+.playlist i{
+  text-align: center;
   display: inline-block;
   min-width: 130px;
-  text-align: center;
   float: right;
+  color: #555555;
 }
-.arrangement i a {
+.end span {
+  color: #999999 !important;
+}
+.end i a {
   border: 1px solid #ccc;
   display: block;
   height: 22px;
   border-radius: 10px;
   color: #ccc;
 }
-.arrangement i a em:first-child {
+.end i a.active,.end i a.active em:first-child {
+  border-color: #ff5842;
+  color: #ff5842;
+}
+.end i a.active:hover,.end i a.active:hover em:first-child {
+  background-color: #ff5842;
+  color: #FFFFFF;
+  border-color: #FFFFFF;
+}
+.end i a em:first-child {
   border-right: 1px solid #ccc;
   padding-right: 6px;
 }
-.arrangement i a.active {
-  color: #ff5842;
-  border-color: #ff5842;
+.playlist {
+  margin-top: 30px;
 }
-.arrangement i a.active em:first-child {
-  border-right: 1px solid #ff5842;
+.playlist span {
+  display: inline-block;
 }
-.arrangement i a.active:hover {
-  background-color: #ff5842;
-  color: #FFFFFF;
+.playlist .coursehead > span{
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #555555;
 }
-.arrangement i a.active:hover em:first-child {
-  border-right: 1px solid #fff;
-}
-.arrangement span,.arrangement i {
-  color: #666666;
-}
-.arrangement span:first-child {
-  color: #ff5842;
-}
-.arrangement .end span,.arrangement .end i{
-  color: #999999;
+.playlist:last-child {
+  padding-bottom: 30px;
 }
 .course-item-arrangement {
   padding-bottom: 0px;
@@ -10669,23 +10670,6 @@ ul {
   margin-bottom: 15px;
 }
 
-
-@media only screen and (max-width: 720px) {
-  .coursehead {
-    width: 30%;
-  }
-  .arrangement li span {
-    margin-right: 10px;
-  }
-}
-@media only screen and (max-width: 560px) {
-  .coursehead {
-    width: 20%;
-  }
-  .arrangement li span {
-    margin-right: 10px;
-  }
-}
 .tec-synopsis {
   width: 100%;
   margin-top: 30px;
@@ -10892,7 +10876,7 @@ ul {
   border-bottom: 1px solid #ff5842;
   background-color: #fff;
 }
-.nav-live a {
+.nav-live .row > a {
   display: inline-block;
   float: left;
   padding: 3.5px 0;
@@ -10916,8 +10900,10 @@ ul {
   margin-left: 20px;
   border-left: 1px solid #ff5842;
   color: #999;
-  height: 16px;
   line-height: 17px;
+}
+.nav-live p > em strong {
+  font-weight: 300;
 }
 .nav-live  .site-nav-right {
   margin-top: 3px;
@@ -10958,9 +10944,6 @@ ul {
 .live-content .nav-item span {
   color: #34495e;
 }
-.live-content .arrangement li span {
-  margin-right: 10%;
-}
 .live-content .course-item:last-child {
   padding-bottom: 0px;
 }
@@ -10971,14 +10954,4 @@ ul {
   font-size: 16px;
   color: #000000;
   margin: 30px 0 40px 0;
-}
-@media only screen and (max-width: 1200px) {
-  .live-content .coursehead {
-    width: 30%;
-  }
-}
-@media only screen and (max-width: 990px) {
-  .live-content .arrangement li span {
-    margin-right: 5%;
-  }
 }

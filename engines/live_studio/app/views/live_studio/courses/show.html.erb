@@ -14,10 +14,6 @@
 <% content_for :javascript do %>
   <script type="text/javascript">
     $(document).ready(function(){
-      $(".nav-item a").click(function() {
-        $(this).addClass("active").siblings().removeClass("active");
-      });
-
       $("#taste-course-<%= @course.id %>").bind('ajax:success', function() {
         <% if current_user.present?%>
           window.location.reload();

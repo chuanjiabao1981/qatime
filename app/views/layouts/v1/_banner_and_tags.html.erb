@@ -3,7 +3,7 @@
     <% @recommend_banners.each do |banner| %>
       <li>
         <%= link_to banner.link do %>
-          <%= image_tag banner.logo_url(:home), alt: 'banner' %>
+          <%= image_tag banner.logo_url, alt: 'banner' %>
         <% end %>
       </li>
     <% end %>

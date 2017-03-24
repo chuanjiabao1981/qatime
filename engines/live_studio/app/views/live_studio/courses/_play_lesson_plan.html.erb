@@ -1,0 +1,8 @@
+<% @lessons = @course.lessons %>
+<div class="course-item">
+  <div class="nav-item">
+    <span><%= t('view.live_studio/courses.show.arrange') %></span>
+  </div>
+
+  <%= render partial: 'live_studio/courses/v1/lesson_plan' %>
+</div>

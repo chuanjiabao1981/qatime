@@ -56,6 +56,9 @@ cn:
       teach_type: 授课方式：在线直播
       online: 在线直播
       to: 至
+      date_range: "%{start_at}至%{end_at}"
+      lesson_progress_value: "(进度%{closed_count}/%{lessons_count})"
+      none_tag: 无
     course_info_show:
       grade: 年级
       category: 年级

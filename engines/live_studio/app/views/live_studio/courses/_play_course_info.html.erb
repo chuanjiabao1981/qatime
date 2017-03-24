@@ -24,13 +24,13 @@
         <li>
           <span>
             <i><%= t("activerecord.view.date") %></i>
-            <i>2016-11-22至2016-11-22</i>
+            <i><%= t("view.course_show.date_range", start_at: @course.start_at.to_date.to_s, end_at: @course.end_at.to_date.to_s) if @course.start_at && @course.end_at %></i>
           </span>
         </li>
         <li>
           <span>
             <i><%= LiveStudio::Course.human_attribute_name(:status) %></i>
-            <i><%= @course.status.text %>(进度10/14)</i>
+            <i><%= @course.status.text %><%= t('view.course_show.lesson_progress_value', closed_count: @course.closed_lessons_count, lessons_count: @course.lessons_count) %></i>
           </span>
         </li>
       </ul>

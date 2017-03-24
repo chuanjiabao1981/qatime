@@ -1,9 +1,8 @@
-<% teacher = @course.teacher %>
 <div class="col-md-9">
   <a name="introduce"></a>
   <div class="course-item">
     <div class="nav-item">
-      <a href="#introduce" class="active"><%= t('view.live_studio/courses.show.introduce') %></a>
+      <a href="#introduce"><%= t('view.live_studio/courses.show.introduce') %></a>
       <a href="#arrange"><%= t('view.live_studio/courses.show.arrange') %></a>
       <a href="#study"><%= t('view.live_studio/courses.show.study') %></a>
     </div>
@@ -13,13 +12,26 @@
         <h3><%= t('view.live_studio/courses.show.base_info') %></h3>
         <ul>
           <li>
-            <span><i><%= t('view.live_studio/courses.show.subject') %></i><i><%= teacher.subject %></i></span>
-            <span><i><%= t('view.live_studio/courses.show.grade') %></i><i><%= teacher.category %></i></span>
+            <span><i><%= t('view.live_studio/courses.show.subject') %></i><i><%= @course.subject %></i></span>
+            <span><i><%= t('view.live_studio/courses.show.grade') %></i><i><%= @course.grade %></i></span>
             <span><i><%= t('view.live_studio/courses.show.lesson') %></i><i><%= t('view.live_studio/courses.show.lesson_text', count: @course.lessons_count) %></i></span>
           </li>
 
           <li>
-            <span><i><%= t('view.live_studio/courses.show.date') %></i><i><%= t('view.live_studio/courses.show.date_text', start_at: @course.live_start_date.try(:to_s), end_at: @course.live_end_date.try(:to_s)) %></i></span>
+            <%
+               @live_start_date ||= @course.live_start_date.try(:to_s)
+               @live_end_date ||= @course.live_end_date.try(:to_s)
+            %>
+            <span>
+              <i><%= t('view.live_studio/courses.show.date') %></i>
+              <i>
+                <% if @live_start_date == @live_end_date %>
+                  <%= @live_start_date %>
+                <% else %>
+                  <%= t('view.live_studio/courses.show.date_text', start_at: @live_start_date, end_at: @live_end_date) %>
+                <% end %>
+              </i>
+            </span>
           </li>
 
           <li>
@@ -70,7 +82,7 @@
       <span><%= t('view.live_studio/courses.show.arrange') %></span>
     </div>
 
-    <%= render partial: 'live_studio/courses/v1/lesson_plan' %>
+    <%= render partial: 'live_studio/courses/show/lesson_plan_preview' %>
   </div>
 
   <a name="study"></a>
@@ -79,6 +91,6 @@
       <span><%= t('view.live_studio/courses.show.study') %></span>
     </div>
 
-    <%= render partial: 'live_studio/courses/v1/study' %>
+    <%= render partial: 'live_studio/courses/show/study' %>
   </div>
 </div>

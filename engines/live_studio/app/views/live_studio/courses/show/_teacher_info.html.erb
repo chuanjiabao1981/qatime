@@ -1,0 +1,28 @@
+<% teacher = @course.teacher %>
+<div class="col-md-3">
+  <div class="tec-synopsis">
+    <div class="synopsis-title">
+      <h2><%= t('view.course_info_show.teacher_label')%></h2>
+    </div>
+    <div class="synopsis-head">
+      <p class="head-pic">
+        <%= link_to profile_teacher_path(teacher.id) do %>
+          <%= image_tag teacher.avatar, class: 'handle_error_avatar' %>
+        <% end %>
+      </p>
+      <p class="head-gender">
+        <span><%= teacher.try(:name)%></span>
+        <%= image_tag "#{teacher.gender || 'male'}_big.png" %>
+      </p>
+      <p class="head-school">
+        <span><%= teacher.school.try(:name) %></span>
+      </p>
+      <p class="head-year">
+        <span><%= teacher.teaching_years_text %></span>
+      </p>
+    </div>
+    <div class="synopsis-con">
+      <p><%= truncate_u teacher.desc, length: 145 %></p>
+    </div>
+  </div>
+</div>

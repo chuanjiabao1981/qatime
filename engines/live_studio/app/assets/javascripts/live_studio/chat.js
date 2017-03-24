@@ -415,7 +415,7 @@ function messageTag(msg, fromType) {
       imageNode.one("load", function() {
         $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
       });
-      messageNode.append(imgMsg);
+      messageNode.append(imageNode);
       break;
     // 音频消息
     case 'audio':

@@ -18,17 +18,13 @@
           </li>
 
           <li>
-            <%
-               @live_start_date ||= @course.live_start_date.try(:to_s)
-               @live_end_date ||= @course.live_end_date.try(:to_s)
-            %>
             <span>
               <i><%= t('view.live_studio/courses.show.date') %></i>
               <i>
-                <% if @live_start_date == @live_end_date %>
-                  <%= @live_start_date %>
+                <% if @course.live_start_date.try(:to_s) == @course.live_end_date.try(:to_s) %>
+                  <%= @course.live_start_date.try(:to_s) %>
                 <% else %>
-                  <%= t('view.live_studio/courses.show.date_text', start_at: @live_start_date, end_at: @live_end_date) %>
+                  <%= t('view.live_studio/courses.show.date_text', start_at: @course.live_start_date.try(:to_s), end_at: @course.live_end_date.try(:to_s)) %>
                 <% end %>
               </i>
             </span>
@@ -82,7 +78,7 @@
       <span><%= t('view.live_studio/courses.show.arrange') %></span>
     </div>
 
-    <%= render partial: 'live_studio/courses/v1/lesson_plan_preview' %>
+    <%= render partial: 'live_studio/courses/show/lesson_plan' %>
   </div>
 
   <a name="study"></a>
@@ -91,6 +87,6 @@
       <span><%= t('view.live_studio/courses.show.study') %></span>
     </div>
 
-    <%= render partial: 'live_studio/courses/v1/study' %>
+    <%= render partial: 'live_studio/courses/show/study' %>
   </div>
 </div>

@@ -16,5 +16,5 @@ index_banner_recommend:
 index_choiceness_recommend:
   name: 精选内容管理
   klass_name: Recommend::ChoicenessItem
-  kee: index_choiceness_recommend
+  kee: index_choiceness_item
   status: 1

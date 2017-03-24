@@ -390,6 +390,7 @@ cn:
         latest: 最新
         objective: 课程目标
         suit_crowd: 适合人群
+        watchers_count: 观看人数
       live_studio/push_stream:
         address: 直播地址
       live_studio/pull_stream:

@@ -34,22 +34,16 @@ $(function() {
 </script>
 <% end -%>
 
-<div class="live-head">
-  <div class="container live-big">
-    <%= render 'player' %>
-  </div>
+<div class="live-player">
+  <%= render 'player_and_chat' %>
 </div>
 
-<div class="container">
-  <%= render 'play_course_info' %>
-</div>
-
-<div class="container">
-  <%= render 'play_teacher_info' %>
-</div>
-
-<div class="container">
-  <div class="row">
-    <%= render partial: 'lesson_plan' %>
+<div class="live-content">
+  <div class="container">
+    <div class="row">
+      <%= render 'play_course_info' %>
+      <%= render 'play_teacher_info' %>
+      <%= render 'play_lesson_plan' %>
+    </div>
   </div>
 </div>

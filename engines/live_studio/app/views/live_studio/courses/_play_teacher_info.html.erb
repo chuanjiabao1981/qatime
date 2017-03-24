@@ -1,36 +1,29 @@
-<div class="row">
-  <div class="panel panel-default panel-bottom">
-    <div class="remedial-teclive">
-      <div class="live-title">
-        <%= image_tag 'icon.png'%>
-        <span><%= t('view.play.teacher_info')%></span>
-      </div>
-      <div class="live-teccon">
-        <table border="0" cellspacing="0" cellpadding="0">
-          <tbody>
-            <tr>
-              <td><span><%= t('view.play.teaching_years_text')%></span></td>
-              <td><span><%= @course.teacher.teaching_years_text %></span></td>
-              <td rowspan="3" class="td-pic">
-                <div class="tec-pic">
-                  <%= image_tag @course.teacher.avatar_url, class: "live-header" %>
-                  <center><span><%= @course.teacher.name  %></span><%= image_tag "#{@course.teacher.gender}.png", class: "live-user" if @course.teacher.gender %></center>
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td><span><%= t('view.play.teacher_school_name')%></span></td>
-              <td><span><%= @course.teacher.school.try(:name) %></span></td>
-            </tr>
-            <tr>
-              <td><span><%= t('view.play.teacher_summary')%></span></td>
-              <td>
-                <span><%= @course.teacher.desc %></span>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<div class="course-item">
+  <div class="nav-item">
+    <span><%= t('view.play.teacher_info')%></span>
+  </div>
+
+  <div class="course-lessons">
+    <div class="lessons-detail tec-live">
+      <%= image_tag @course.teacher.avatar_url, class: "live-header" %>
+      <p>
+        <span><%= @course.teacher.name %></span>
+        <%= image_tag "gender-girl.png" %>
+      </p>
+    </div>
+    <div class="lessons-detail">
+      <h3><%= t('view.play.teaching_years_text') %></h3>
+      <p><%= @course.teacher.teaching_years_text %></p>
+    </div>
+    <div class="lessons-detail">
+      <h3><%= t('view.play.teacher_school_name') %></h3>
+      <p><%= @course.teacher.school.try(:name) %></p>
+    </div>
+    <div class="lessons-detail">
+      <h3><%= t('view.play.teacher_summary')%></h3>
+      <p>
+        <%= raw @course.teacher.desc -%>
+      </p>
     </div>
   </div>
 </div>

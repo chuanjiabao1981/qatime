@@ -37,7 +37,7 @@ module Permissions
         notification and notification.receiver_id == user.id
       end
 
-      allow 'live_studio/courses', [:index, :taste, :play, :show, :refresh_current_lesson,:schedule_sources, :live_status]
+      allow 'live_studio/courses', [:index, :taste, :play, :show, :refresh_current_lesson,:schedule_sources, :live_status, :live_info]
       allow 'qawechat/users', [:remove_wechat]
       allow :home,[:index,:new_index,:switch_city]
       allow 'chat/teams', [:finish, :members, :member_visit]

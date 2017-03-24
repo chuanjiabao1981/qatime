@@ -2,10 +2,16 @@
     <div class="container">
       <div class="row">
         <%= link_to image_tag("live-logo.png"), home_path %>
-        <p>
-          <span><%= @course.current_lesson.try(:name) %></span>
-          <em><%= LiveStudio::Course.human_attribute_name(:watchers_count) %> <strong>30</strong></em>
-        </p>
+        <% if params[:action] == 'replay' %>
+          <p>
+            <span><%= @lesson.try(:name) %></span>
+          </p>
+        <% else %>
+          <p>
+            <span><%= @course.current_lesson.try(:name) %></span>
+            <em><%= LiveStudio::Course.human_attribute_name(:watchers_count) %> <strong>0</strong></em>
+          </p>
+        <% end %>
         <%= render 'layouts/v1/login_info' %>
       </div>
     </div>

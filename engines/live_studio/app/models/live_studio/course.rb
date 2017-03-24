@@ -19,6 +19,8 @@ module LiveStudio
     DEFAULT_TEACHER_PERCENTAGE = 80
 
     belongs_to :invitation
+    # 维护比较复杂，暂时不使用
+    # belongs_to :current_lesson, class_name: 'Lesson'
 
     enum status: {
       rejected: -1, # 被拒绝
@@ -297,7 +299,29 @@ module LiveStudio
 
     # 当前直播课程
     def current_lesson
-      lessons.today.unclosed.first || lessons.today.last || lessons.since_today.unclosed.first || lessons.last
+      return @current_lesson if @current_lesson.present?
+      @current_lesson ||= lessons.find {|l| l.class_date.try(:today?) && l.unclosed? }
+      @current_lesson ||= lessons.select {|l| l.class_date.try(:today?) }.last
+      @current_lesson ||= lessons.find {|l| l.class_date > Date.today && l.unclosed? }
+      @current_lesson ||= lessons.select {|l| l.class_date.present? }.last
+    end
+
+    def live_status
+      return 'none' unless current_lesson
+      case current_lesson.status
+      when 'missed'
+        'init'
+      when 'init'
+        'init'
+      when 'ready'
+        'ready'
+      when 'teaching'
+        'teaching'
+      when 'paused'
+        'teaching'
+      else
+        'closed'
+      end
     end
 
     def current_lesson_name

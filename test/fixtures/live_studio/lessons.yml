@@ -650,3 +650,75 @@ lesson_one_of_billing_course_three:
   real_time: 5400
   live_count: 3
   replay_status: 0
+
+course_preview2_lesson1:
+  course: course_preview2
+  name: 第一节课
+  start_time: '18:00'
+  end_time: '19:00'
+  class_date: <%= 10.days.since %>
+  status: 0
+  replay_status: 0
+
+course_preview2_lesson2:
+  course: course_preview2
+  name: 第二节课
+  start_time: '18:00'
+  end_time: '19:00'
+  class_date: <%= 15.days.since %>
+  status: 0
+  replay_status: 0
+
+course_teaching1_lesson1:
+  course: course_teaching1
+  name: 第一节课
+  start_time: '18:00'
+  end_time: '19:00'
+  class_date: <%= 10.days.ago %>
+  status: -1
+  replay_status: 0
+
+course_teaching1_lesson2:
+  course: course_teaching1
+  name: 第二节课
+  start_time: '18:00'
+  end_time: '19:00'
+  class_date: <%= 15.days.since %>
+  status: 0
+  replay_status: 0
+
+course_teaching2_lesson1:
+  course: course_teaching2
+  name: 第一节课
+  start_time: '18:00'
+  end_time: '19:00'
+  class_date: <%= 10.days.ago %>
+  status: 5
+  replay_status: 0
+
+course_teaching2_lesson2:
+  course: course_teaching2
+  name: 第二节课
+  start_time: '18:00'
+  end_time: '19:00'
+  class_date: <%= Date.today %>
+  status: 1
+  replay_status: 0
+
+course_finished_lesson1:
+  course: course_finished
+  name: 第一节课
+  start_time: '18:00'
+  end_time: '19:00'
+  class_date: <%= 10.days.ago %>
+  status: 5
+  replay_status: 0
+
+course_finished_lesson2:
+  course: course_finished
+  name: 第二节课
+  start_time: '18:00'
+  end_time: '19:00'
+  class_date: <%= 10.days.ago %>
+  status: 5
+  replay_status: 0

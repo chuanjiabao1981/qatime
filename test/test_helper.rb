@@ -37,13 +37,7 @@ class ActiveSupport::TestCase
   end
 
   def logout_as(user, confirm = false)
-    if confirm
-      accept_prompt(with: "是否离开直播页面") do
-        visit get_home_url(user)
-      end
-    else
-      visit get_home_url(user)
-    end
+    visit get_home_url(user)
     if user.student?
       click_on '退出'
     else
@@ -88,13 +82,7 @@ class ActiveSupport::TestCase
   end
 
   def new_logout_as(user, confirm = false)
-    if confirm
-      accept_prompt(with: "是否离开直播页面") do
-        visit get_home_url(user)
-      end
-    else
-      visit get_home_url(user)
-    end
+    visit get_home_url(user)
     find('.nav-right-user').hover if page.has_selector?('div.nav-right-user')
     click_on '退出'
   end

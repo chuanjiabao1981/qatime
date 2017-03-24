@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="renderer" content="webkit">
+  <title>Qatime</title>
+
+  <%= stylesheet_link_tag "v1/front_live", media: "all", "data-turbolinks-track" => false %>
+  
+  <%= javascript_include_tag "live_studio/application", "data-turbolinks-track" => false %>
+  <%= csrf_meta_tags %>
+  <%= yield :stylesheet %>
+</head>
+<body>
+<%= render 'layouts/v1/live_header' %>
+<%= render 'shared/flash_msg' %>
+<%= yield %>
+<%= render 'layouts/v1/front_footer' %>
+<%= yield :mask %>
+<%= yield :javascript %>
+</body>
+</html>

@@ -415,7 +415,7 @@ function messageTag(msg, fromType) {
       imageNode.one("load", function() {
         $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
       });
-      messageNode.append(imgMsg);
+      messageNode.append(imageNode);
       break;
     // 音频消息
     case 'audio':
@@ -462,7 +462,7 @@ function appendMsg(msg, messageClass, fromType) {
     messageTitle.append("<span class='information-name'>" + msg.fromNick + "</span>");
     messageItem.addClass("new-information-else");
   }
-  messageTitle.append("<span class='information-time'>" + sendMessageTime(msg) + "</span>");
+  messageTitle.append(" <span class='information-time'>" + sendMessageTime(msg) + "</span>");
   messageItem.append(messageTitle);
   // 消息内容标签
   var messageContent = messageTag(msg, fromType);

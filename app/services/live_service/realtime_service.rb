@@ -76,7 +76,7 @@ module LiveService
 
     # 观看用户列表
     def online_users
-      Redis.current.zrange("live_studio/course-#{@course_id}-online-users", 0, 2.minutes.ago.to_i)
+      Redis.current.zrangebyscore("live_studio/course-#{@course_id}-online-users",  2.minutes.ago.to_i, 1.minutes.since.to_i)
     end
 
     # 如果查询不到直播缓存信息立即初始化缓存

@@ -9,7 +9,7 @@ module LiveStudio
 
     def index
       @q = LiveService::CourseDirector.search(search_params)
-      @courses = @q.result.paginate(page: params[:page], per_page: 6)
+      @courses = @q.result.paginate(page: params[:page], per_page: 12)
       preload_tickets(@courses)
       render layout: 'v1/application'
     end
@@ -76,17 +76,14 @@ module LiveStudio
     def play
       load_play_data
       @current_lesson = @course.current_lesson
-      # @tickets = @course.tickets.available.includes(:student)
       @teacher = @course.teacher
-      render layout: 'live'
+      render layout: 'v1/live'
     end
 
     def board
-
     end
 
     def camera
-
     end
 
     def refresh_current_lesson

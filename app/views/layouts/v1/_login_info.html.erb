@@ -1,0 +1,31 @@
+<div class="site-nav-right">
+  <% if signed_in? %>
+    <div class="nav-right-user">
+      <%= image_tag current_user.avatar_url(:small), class: 'handle_error_avatar' %>
+      <span><%= current_user.name %></span>
+      <div class="nav-dropdown">
+        <ul>
+          <% if current_user.teacher? || current_user.student? %>
+            <li><%= link_to t('view.common_bars.personal_center'), main_app.send("info_#{current_user.role}_path", current_user) %></li>
+          <% end %>
+          <li>
+            <%= link_to t("view.common_bars.notice"), main_app.user_notifications_path(current_user) %>
+          </li>
+          <% if current_user.teacher? || current_user.student? %>
+            <li><%= link_to t('view.student_bars.schedules'), live_studio.send("schedules_#{current_user.role}_path", current_user) %></li>
+          <% end %>
+          <li><%= link_to t("view.common_bars.sign_out"), main_app.signout_path, method: :delete %></li>
+        </ul>
+        <div class="arrow"></div>
+      </div>
+    </div>
+  <% else %>
+    <div class="nav-right-enter">
+      <%= link_to t("view.common_bars.sing_in"), main_app.signin_path %>
+      <span>|</span>
+      <%= link_to t("view.common_bars.teacher_register"), main_app.new_teacher_path %>
+      <span>|</span>
+      <%= link_to t("view.common_bars.student_register"), main_app.new_student_path %>
+    </div>
+  <% end %>
+</div>

@@ -13,7 +13,7 @@
       <ul class="classify-msg">
         <% @courses.each do |course| %>
           <li class="col-md-4 col-sm-4 col-xs-6">
-            <%= link_to image_tag(course.publicize_url(:list)), live_studio.course_path(course) -%>
+            <%= link_to image_tag(course.publicize_url(:list), class: 'handle_error_list'), live_studio.course_path(course) -%>
             <div class="handpick-info">
               <p>
                 <% if course.status == 'published' %>

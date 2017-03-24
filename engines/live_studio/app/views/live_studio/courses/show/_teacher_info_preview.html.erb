@@ -6,13 +6,13 @@
     </div>
     <div class="synopsis-head">
       <p class="head-pic">
-        <%= link_to profile_teacher_path(teacher.id) do %>
+        <%= link_to 'javascript:void(0);' do %>
           <%= image_tag teacher.avatar, class: 'handle_error_avatar' %>
         <% end %>
       </p>
       <p class="head-gender">
         <span><%= teacher.try(:name)%></span>
-        <%= image_tag "v1/#{teacher.gender || 'male'}.png" %>
+        <%= image_tag "#{teacher.gender || 'male'}_big.png" %>
       </p>
       <p class="head-school">
         <span><%= teacher.school.try(:name) %></span>

@@ -39,7 +39,7 @@ module LiveStudio
     # 预览
     def preview
       @course = build_preview_course
-      render layout: 'application_front'
+      render layout: 'v1/application'
     end
 
     def update
@@ -67,7 +67,6 @@ module LiveStudio
     end
 
     def show
-      @lessons = @course.order_lessons
       render layout: 'v1/application'
     end
 
@@ -187,8 +186,8 @@ module LiveStudio
 
     def preview_courses_params
       preview = courses_params
-      preview['lessons_attributes'].each do |lesson|
-        lesson.delete('id')
+      if preview['lessons_attributes'].respond_to?(:each)
+        preview['lessons_attributes'].each { |lesson| lesson.delete('id') }
       end
       preview
     end
@@ -197,8 +196,13 @@ module LiveStudio
       return Course.find(params[:id]) if params[:id].present?
       course = Course.new(preview_courses_params.merge(author: current_user))
       course.valid?
-      course.lessons_count = params[:course][:lessons_attributes].count
-      class_dates = params[:course][:lessons_attributes].map {|a| a[:class_date]}.reject(&:blank?)
+      if params[:course][:lessons_attributes].blank?
+        course.lessons_count = 0
+        class_dates = []
+      else
+        course.lessons_count = params[:course][:lessons_attributes].try(:count) || 0
+        class_dates = params[:course][:lessons_attributes].map {|a| a[:class_date]}.reject(&:blank?)
+      end
       @live_start_date = class_dates.min
       @live_end_date = class_dates.max
       course

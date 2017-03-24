@@ -1,15 +1,21 @@
-<ul class="arrangement">
-  <% @lessons.each_with_index do |lesson, i| %>
-    <li class="<%= lesson.is_over? ? 'end' : '' %>">
+<% @course.order_lessons.each_with_index do |lesson, i| %>
+  <div class="row playlist <%= lesson.is_over? ? 'end' : '' %>">
+    <div class="col-md-1">
       <span><%= beautify_index(i) %></span>
+    </div>
+
+    <div class="col-md-3">
       <span>
         <%= lesson.class_date %>
         <%= lesson.start_time %>-<%= lesson.end_time %>
       </span>
-      <span class="coursehead">
-        <%= truncate_u lesson.name, length: 30 %>
-      </span>
+    </div>
 
+    <div class="col-md-5 coursehead">
+      <span><%= truncate_u lesson.name, length: 30 %></span>
+    </div>
+
+    <div class="col-md-3">
       <i>
         <% if lesson.is_over? %>
           <% if allow?("live_studio/lessons", "replay", lesson) -%>
@@ -27,7 +33,6 @@
           <%= lesson.status_text(current_user.try(:role)) %>
         <% end %>
       </i>
-
-    </li>
-  <% end %>
-</ul>
+    </div>
+  </div>
+<% end %>

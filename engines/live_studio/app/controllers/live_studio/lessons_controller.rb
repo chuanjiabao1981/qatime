@@ -58,7 +58,7 @@ module LiveStudio
       @lessons.each do |l|
         l.replay_times = @paly_records.select {|record| record.lesson_id == l.id }.count
       end
-      render layout: 'live'
+      render layout: 'replay_application'
     end
 
     private

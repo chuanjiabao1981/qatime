@@ -173,7 +173,7 @@ class TeachersController < ApplicationController
   end
 
   def profile
-    @courses = @teacher.live_studio_courses.where('status > ?', LiveStudio::Course.statuses[:init]).paginate(page: params[:page], per_page: 6)
+    @courses = @teacher.live_studio_courses.for_sell.paginate(page: params[:page], per_page: 6)
     render layout: 'v1/application'
   end
 

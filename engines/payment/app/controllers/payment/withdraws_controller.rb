@@ -18,6 +18,7 @@ module Payment
       # captcha = captcha_manager.captcha_of(:withdraw_cash)
       # @errors << t('view.verify_error') if params[:verify] != captcha
       @errors << t('view.withdraw.wait_audit') if @resource_user.payment_withdraws.init.present?
+      @errors << t("error.payment/order.payment_password_min") if withdraw_params[:amount].to_f < 1
 
       cash_account = @resource_user.cash_account!
       if params[:payment_password].blank?

@@ -3453,7 +3453,7 @@ ul {
 }
 .video-area {
   width: 100%;
-  height: 507px;
+  /*height: 507px;*/
   background-color: rgb(41,41,41);
   position: relative;
 }
@@ -3508,7 +3508,6 @@ ul {
 }
 .area-right {
   width: 28.1%;
-  height: 507px;
   float: right;
 }
 .vjs-big-play-button {
@@ -6858,11 +6857,11 @@ ul {
   div.live-big {
     width: 1376px !important;
   }
-  .video-area {
-    height: 610px;
-  }
+  /*.video-area {
+		height: 610px;
+	}*/
   .area-left {
-    width: 75.2%;
+    width: 75.3%;
   }
   .area-right {
     width: 24.3%;
@@ -10522,7 +10521,7 @@ ul {
   border-bottom: 1px solid #f0f0f0;
 }
 .nav-item a {
-  font-size: 16px;
+  font-size: 18px;
   display: inline-block;
   margin-right: 30px;
   color: #34495e;
@@ -10570,7 +10569,7 @@ ul {
 .class-label span {
   color: #9aabb8;
   display: inline-block;
-  padding: 5px 10px;
+  padding: 2px 10px;
   border: 1px solid #999;
   margin-right: 5px;
 }
@@ -10585,7 +10584,7 @@ ul {
   margin-bottom: 0px;
 }
 .nav-item span {
-  font-size: 16px;
+  font-size: 18px;
   color: #ff5842;
 }
 .arrangement {
@@ -10617,14 +10616,14 @@ ul {
   float: right;
 }
 .arrangement i a {
-  border: 1px solid #999;
+  border: 1px solid #ccc;
   display: block;
   height: 22px;
   border-radius: 10px;
-  color: #999;
+  color: #ccc;
 }
 .arrangement i a em:first-child {
-  border-right: 1px solid #999;
+  border-right: 1px solid #ccc;
   padding-right: 6px;
 }
 .arrangement i a.active {
@@ -10694,7 +10693,7 @@ ul {
   padding: 0 30px 30px 30px;
 }
 .synopsis-title h2 {
-  font-size: 16px;
+  font-size: 18px;
   color: #34495e;
   margin: 0px;
   line-height: 75px;
@@ -10779,6 +10778,11 @@ ul {
   position: relative;
   top: -3px;
 }
+.user-img p:first-child img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
 .user-header {
   padding: 25px 0px;
 }
@@ -10813,7 +10817,7 @@ ul {
 .basic-msg-header h2,.introduce-header h2,.class-header h2 {
   margin: 0px;
   color: #34495e;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 75px;
   text-align: center;
 }
@@ -10874,5 +10878,107 @@ ul {
 @media only screen  and (max-width: 992px) {
   .basic-msg {
     margin-bottom: 30px;
+  }
+}
+
+
+
+/*直播页面*/
+.nav-live {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  height: 42px;
+  border-bottom: 1px solid #ff5842;
+  background-color: #fff;
+}
+.nav-live a {
+  display: inline-block;
+  float: left;
+  padding: 3.5px 0;
+}
+.nav-live p {
+  display: inline-block;
+  margin-bottom: 0px;
+  margin-left: 30px;
+  height: 41px;
+  padding: 9.5px 0;
+}
+.nav-live p > span {
+  font-size: 16px;
+  display: inline-block;
+  line-height: 22px;
+  color: #000;
+}
+.nav-live p > em {
+  display: inline-block;
+  padding-left: 20px;
+  margin-left: 20px;
+  border-left: 1px solid #ff5842;
+  color: #999;
+  height: 16px;
+  line-height: 17px;
+}
+.nav-live  .site-nav-right {
+  margin-top: 3px;
+}
+.live-player {
+  margin-top: -67px !important;
+}
+.live-player > .live-head {
+  margin-bottom: 0px;
+}
+.tec-live {
+  overflow: hidden;
+  position: relative;
+}
+.tec-live > img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-right: 30px;
+}
+.tec-live > img,.tec-live > p{
+  float: left;
+}
+.tec-live > p {
+  position: absolute;
+  top: 50%;
+  margin-top: -12.5px;
+  display: inline-block;
+  font-size: 18px;
+  color: #555555;
+}
+.tec-live > p >img {
+  width: 14px;
+  height: 21px;
+  position: relative;
+  top: -3px;
+}
+.live-content .nav-item span {
+  color: #34495e;
+}
+.live-content .arrangement li span {
+  margin-right: 10%;
+}
+.live-content .course-item:last-child {
+  padding-bottom: 0px;
+}
+.live-content {
+  margin-bottom: 60px;
+}
+.remedial-classname {
+  font-size: 16px;
+  color: #000000;
+  margin: 30px 0 40px 0;
+}
+@media only screen and (max-width: 1200px) {
+  .live-content .coursehead {
+    width: 30%;
+  }
+}
+@media only screen and (max-width: 990px) {
+  .live-content .arrangement li span {
+    margin-right: 5%;
   }
 }

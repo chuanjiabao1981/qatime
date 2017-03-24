@@ -83,6 +83,17 @@ module ApplicationHelper
     end
   end
 
+  def user_payment_passwd_path
+    case current_user.role
+      when "teacher"
+        main_app.edit_teacher_path(current_user, cate: 'security_setting')
+      when "student"
+        main_app.edit_student_path(current_user, cate: 'security_setting')
+      else
+        user_home_path
+    end
+  end
+
   def wap_user_home_path
     unless signed_in?
       redirect_url = params[:redirect_url].presence || request.original_url
@@ -357,4 +368,24 @@ module ApplicationHelper
   def tags_with_category
     TagCategory.includes(:tags)
   end
+
+  # 支付密码提示信息
+  # 密码24小时内不可用
+  def payment_password_hint(user)
+    default_text = content_tag(:span, t('view.common.payment_password_not_set'), class: 'alert_red_span')
+    return default_text unless user.cash_account_password?
+    return default_text if user.cash_account.try(:password_set_at).blank?
+
+    time_now = Time.now
+    expire_time = user.cash_account.password_set_at.tomorrow
+    if expire_time > time_now
+      leave_time = Util.duration_in_words((expire_time - time_now).to_i).gsub(/.\d秒/, '')
+      content_tag :span, class: 'alert_red_span' do
+        t('view.common.payment_password_expire_time', time: leave_time)
+      end
+    else
+      t('view.common.password_not_visible')
+    end
+  end
+
 end

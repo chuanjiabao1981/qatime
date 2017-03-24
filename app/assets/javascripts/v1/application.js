@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require v1/js.cookie
 //= require jquery.Jcrop
 //= require bootstrap
 //= require summernote

@@ -34,6 +34,8 @@ function queryParams(name, url) {
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
+var width = queryParams('width');
+var height = queryParams('height');
 var myPlayer;
 var address = queryParams("address");
 var type = 'rtmp/flv';
@@ -62,11 +64,22 @@ refreshComponent.on("click", function(){
   myPlayer.refresh();
 });
 
-myPlayer = neplayer("my-video", {
+var playerOptions = {
   "autoplay": true, //是否自动播放(ios不支持自动播放)
   /*预加载选项*/
-  "preload": "auto"
-}, function() {
+  "preload": "auto",
+  "controlBar": {
+    "fullscreenToggle": false,
+    "liveDisplay": false
+  }
+};
+
+if(width) {
+  playerOptions['width'] = width;
+  playerOptions['height'] = height;
+}
+
+myPlayer = neplayer("my-video", playerOptions, function() {
   myPlayer.corePlayer.controlBar.addChild(refreshComponent, {}, 1);
 });
 

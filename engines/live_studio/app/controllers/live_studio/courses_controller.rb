@@ -139,9 +139,8 @@ module LiveStudio
       @chat_account = current_user.try(:chat_account)
       if @chat_account.nil?
         @chat_account = LiveService::ChatAccountFromUser.new(current_user).instance_account
-        LiveService::ChatTeamManager.new(@chat_team).add_to_team([@chat_account], 'normal')
       end
-      @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id)
+      @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) || LiveService::ChatTeamManager.new(@chat_team).add_to_team([@chat_account], 'normal').first
     end
 
     def set_user

@@ -33,7 +33,7 @@ module LiveService
       @course = @team.live_studio_course
 
       Chat::IM.team_add(@team.team_id, @team.owner, "#{@course.name} 讨论组", members.map(&:accid)) if remote
-      members.each do |member|
+      members.map do |member|
         Chat::JoinRecord.create(team_id: @team.id, account_id: member.id, role: role, nick_name: member.name)
       end
     end

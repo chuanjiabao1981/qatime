@@ -4,9 +4,38 @@
  *= require_self
  */
 
- 
+#message-input {
+  margin: 0 -15px;
+}
+
+#message-input textarea {
+  resize: none;
+  border: none;
+}
+
+#message-input div {
+  padding: 0;
+  height: 84px;
+}
+
+#message-input #send-btn {
+  width: 100%;
+  height: 100%;
+}
+
+#message-panel {
+  padding-bottom: 0;
+}
+
+#members-panel .media {
+  margin-top: 5px;
+}
+
+#members-panel .media:first-child {
+  margin-top: 0px;
+}
+
 #messages .notice-div {
   text-align: center;
   color: grey;
 }
-

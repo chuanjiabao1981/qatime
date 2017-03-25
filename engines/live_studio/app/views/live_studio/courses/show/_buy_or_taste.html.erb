@@ -10,7 +10,7 @@
   <% if @course.bought_by?(current_user) %>
     <!-- 已经购买 -->
     <%= link_to(t('view.course_info_show.start_learning'), "javascript:alert('#{t('view.live_studio/courses.show.learn_alert')}');", class: 'btn-startclass') if @course.published? %>
-    <%= link_to(t('view.course_info_show.start_learning'), play_course_path(@course), class: 'btn-startclass') unless @course.published? %>
+    <%= link_to(t('view.course_info_show.start_learning'), play_course_path(@course), target: '_blank', class: 'btn-startclass') unless @course.published? %>
   <% elsif @course.tasted?(current_user) %>
     <!-- 未购买试听结束 -->
     <!-- 试听结束和购买按钮 -->
@@ -22,7 +22,7 @@
     <% end %>
   <% elsif @course.tasting?(current_user) %>
     <!-- 开始试听和购买按钮 -->
-    <%= link_to(t('view.course_info_show.start_taste'), live_studio.play_course_path(@course), class: 'btn-startclass') unless @course.published? %>
+    <%= link_to(t('view.course_info_show.start_taste'), live_studio.play_course_path(@course), target: '_blank', class: 'btn-startclass') unless @course.published? %>
     <%= link_to(t('view.course_info_show.start_taste'), "javascript:alert('#{t('view.live_studio/courses.show.learn_alert')}');", class: 'btn-startclass') if @course.published? %>
     <%= link_to t('activerecord.view.enroll_now'), live_studio.new_course_order_path(@course), class: 'btn-addclass' %>
   <% elsif @course.taste_count <= 0 %>

@@ -3,3 +3,10 @@
  *= require live_studio/live
  *= require_self
  */
+
+ 
+#messages .notice-div {
+  text-align: center;
+  color: grey;
+}
+

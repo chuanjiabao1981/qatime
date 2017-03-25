@@ -53,6 +53,10 @@
     display:block;
   }
 
+  .video-js .my-refresh-button img {
+    width: 16px;
+    margin-top: -8px;
+  }
 </style>
 </head>
 <body style="margin: 0px;">
@@ -95,7 +99,9 @@ var playerOptions = {
   "preload": "auto",
   "controlBar": {
     "fullscreenToggle": false,
-    "liveDisplay": false
+    "liveDisplay": false,
+    "progressControl": false,
+    "remainingTimeDisplay": false
   }
 };
 

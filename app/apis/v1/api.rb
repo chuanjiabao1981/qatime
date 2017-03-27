@@ -19,6 +19,12 @@ module V1
     mount V1::LiveStudio::Lessons
     mount V1::LiveStudio::Channels
 
+    # 互动直播
+    mount V1::LiveStudio::InteractiveCourses
+    mount V1::LiveStudio::InteractiveLessons
+    mount V1::LiveStudio::Student::InteractiveCourses
+    mount V1::LiveStudio::Teacher::InteractiveCourses
+
     mount V1::Payment::Orders
     mount V1::Payment::Recharges
     mount V1::Payment::Users

@@ -14,12 +14,6 @@ $(function(){
     Cookies.set('payment_passd_warning', 'close');
   });
 
-  $('img.handle_error').each(function(index, el) {
-    el.onerror = function(){
-      el.src = '/imgs/web-nocon-1.png'
-    };
-  });
-
   $('img.handle_error_list').each(function(index, el) {
     el.onerror = function(){
       el.src = '/imgs/web-nocon-list.png'

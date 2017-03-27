@@ -61,6 +61,14 @@ module Permissions
       end
       # 专属课程
 
+      allow 'station/teachers', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+
+      allow 'station/students', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+
       allow 'live_studio/teacher/courses', [:index, :show]
       allow 'live_studio/teacher/course_invitations', [:index]
       allow 'live_studio/student/courses', [:index, :show]

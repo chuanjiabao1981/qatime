@@ -84,11 +84,11 @@ module Permissions
       # 专属课程
 
       allow 'station/teachers', [:index] do |workstation|
-        workstation && workstation.manager_id == user.id
+        workstation && workstation.id == user.workstation_id
       end
 
       allow 'station/students', [:index] do |workstation|
-        workstation && workstation.manager_id == user.id
+        workstation && workstation.id == user.workstation_id
       end
 
       allow 'live_studio/teacher/courses', [:index, :show]

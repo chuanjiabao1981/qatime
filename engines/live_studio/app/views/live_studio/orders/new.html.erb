@@ -10,7 +10,7 @@
          </div>
         <div class="student-buy">
 
-          <%= simple_form_for [@product.model_name.singular_route_key, @order] do |f| -%>
+          <%= simple_form_for [:course, @order] do |f| -%>
             <%= hidden_field_tag :come_from, params[:come_from].presence %>
             <div class="student-buy-left">
               <div class="buy-left-title">
@@ -29,7 +29,7 @@
                     <tr>
                       <td>
                         <span><%= t('view.course_order_new.subject') %>：</span>
-                        <span><%= @order.product.subjects %></span>
+                        <span><%= @order.product.subject %></span>
                       </td>
                       <td>
                         <span><%= t('view.course_order_new.grade') %>：</span>
@@ -39,20 +39,27 @@
                     <tr>
                       <td>
                         <span><%= t('view.course_order_new.teacher_name') %>：</span>
-                        <span><%= @order.product.name %></span>
+                        <span><%= @order.product.teacher.try(:name) %></span>
                       </td>
                       <td>
+                        <span><%= t('view.course_order_new.lessons_count') %>：</span>
+                        <span><%= t('view.course_order_new.lessons_count_value', count: @order.product.lessons_count ) %></span>
                       </td>
                     </tr>
                     <tr>
                       <td>
+                        <span><%= t('view.course_order_new.live_start_date') %>：</span>
+                        <span><%= @order.product.live_start_date %></span>
                       </td>
                       <td>
+                        <span><%= t('view.course_order_new.live_end_date') %>：</span>
+                        <span><%= @order.product.live_end_date %></span>
                       </td>
                     </tr>
                     <tr>
                       <td colspan="2">
                         <span><%= t('view.course_order_new.status') %>：</span>
+                        <span><i><%= @order.product.closed_lessons_count %>/<%= @order.product.lessons_count %></i></span>
                       </td>
                     </tr>
                   </tbody>
@@ -65,6 +72,7 @@
               </div>
               <div class="buy-center-con">
                 <center>
+                  <span><%= number_to_currency(@course.current_price, locale: :cn) %></span>
                 </center>
               </div>
             </div>
@@ -114,6 +122,7 @@
 
               <div class="buy-footer-msg">
                 <span><%= t("view.course_order_new.total_money") %>：</span>
+                <span id="order_total" data-total="<%= @course.current_price %>"><%= number_to_currency(@course.current_price, locale: :cn) %></span>
               </div>
               <div class="buy-footer-btn">
                 <input type="submit" name="" id="" value="<%= t("view.course_order_new.pay") %>">

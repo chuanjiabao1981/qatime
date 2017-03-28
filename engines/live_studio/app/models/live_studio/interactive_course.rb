@@ -44,6 +44,7 @@ module LiveStudio
 
     has_many :interactive_lessons, -> { order(id: :asc) }
     has_many :teachers, through: :interactive_lessons
+    has_many :buy_tickets, as: :product
 
     validates :name, presence: true, length: { in: 2..20 }
     validates :description, presence: true, length: { in: 5..300 }
@@ -92,6 +93,10 @@ module LiveStudio
 
     # 发货
     def deliver(order)
+      ticket_price = left_lessons_count.zero? ? order.amount : order.amount.to_f / left_lessons_count
+      ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: ticket_price,
+                                             payment_order_id: order.id, buy_count: left_lessons_count)
+      ticket.active!
     end
 
     def for_sell?

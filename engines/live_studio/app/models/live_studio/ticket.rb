@@ -5,7 +5,6 @@ module LiveStudio
 
     default_scope { order('id DESC') }
 
-    belongs_to :course
     belongs_to :product, polymorphic: true
     belongs_to :student, class_name: "::Student"
     belongs_to :lesson
@@ -52,7 +51,7 @@ module LiveStudio
 
     # 增加使用次数
     def inc_used_count!(_urgent = false)
-      return if !taste? && course.finished_lessons_count >= course.lessons_count
+      return unless taste?
       lock!
       self.used_count += 1
       used! if used_count >= buy_count
@@ -73,7 +72,7 @@ module LiveStudio
 
     after_create :add_to_team
     def add_to_team
-      ::Chat::TeamMemberCreatorJob.perform_later(course.id, student_id)
+      ::Chat::TeamMemberCreatorJob.perform_later(product.chat_team.id, student_id)
     end
   end
 end

@@ -9,7 +9,7 @@ module LiveStudio
     include Qatime::Stripable
     strip_field :name, :description
 
-    include Chat::Discussable
+    include Qatime::Discussable
 
     enum status: {
       init: 0, # 初始化

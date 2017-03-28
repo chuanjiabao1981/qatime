@@ -11,7 +11,7 @@ module LiveStudio
 
     include Qatime::Stripable
     strip_field :name, :description
-    include Chat::Discussable
+    include Qatime::Discussable
 
     SYSTEM_FEE = 0.6 # 系统每个人每分钟收费0.6元
     WORKSTATION_PERCENT = 0.6 # 基础服务费代理商分成 60%

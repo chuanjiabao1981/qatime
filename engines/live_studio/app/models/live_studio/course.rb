@@ -9,6 +9,10 @@ module LiveStudio
     include AASM
     extend Enumerize
 
+    include Qatime::Stripable
+    strip_field :name, :description
+    include Chat::Discussable
+
     SYSTEM_FEE = 0.6 # 系统每个人每分钟收费0.6元
     WORKSTATION_PERCENT = 0.6 # 基础服务费代理商分成 60%
 
@@ -115,8 +119,6 @@ module LiveStudio
     has_many :play_records # 听课记录
     has_many :announcements
     has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
-
-    has_one :chat_team, foreign_key: 'live_studio_course_id', class_name: '::Chat::Team'
 
     has_many :billings, through: :lessons, class_name: 'Payment::Billing' # 结算记录
 

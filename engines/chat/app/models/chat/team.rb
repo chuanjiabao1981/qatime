@@ -2,6 +2,7 @@ module Chat
   class Team < ActiveRecord::Base
 
     belongs_to :live_studio_course, class_name: '::LiveStudio::Course'
+    belongs_to :teamable, polymorphic: true
     has_many :join_records
     has_many :accounts, through: :join_records
     has_many :team_announcements

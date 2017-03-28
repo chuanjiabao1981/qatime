@@ -11,6 +11,8 @@ module LiveStudio
     include Qatime::Stripable
     strip_field :name, :description
 
+    include Chat::Discussable
+
     enum status: {
       init: 0, # 初始化
       published: 1, # 招生中
@@ -47,16 +49,14 @@ module LiveStudio
 
     validates :name, presence: true, length: { in: 2..20 }
     validates :description, presence: true, length: { in: 5..300 }
-    validates :grade, presence: true
-    validates :price, presence: true, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
+    validates :grade, :subject, presence: true
+    validates :price, presence: true, numericality: { greater_than: :price_min, less_than_or_equal_to: 999_999 }
     validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max }
 
     accepts_nested_attributes_for :interactive_lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     validates_associated :interactive_lessons
 
     has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
-
-    has_one :chat_team, class_name: '::Chat::Team', as: :teamable
 
     belongs_to :province
     belongs_to :city
@@ -247,10 +247,9 @@ module LiveStudio
       !user.student? && workstation_id == user.workstation_id
     end
 
-    def lower_price
-      lp = 0
-      lp = interactive_lessons.size * 5 if interactive_lessons.size > 0
-      lp
+    # 最低价格
+    def price_min
+      interactive_lessons.size.to_i * 9
     end
   end
 end

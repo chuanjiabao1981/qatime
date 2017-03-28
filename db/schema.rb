@@ -611,12 +611,13 @@ ActiveRecord::Schema.define(version: 20170327080821) do
     t.integer  "author_id"
     t.integer  "status",                                                            default: 0
     t.text     "description"
-    t.string   "subjects"
+    t.string   "subject"
     t.string   "grade"
     t.string   "objective"
     t.string   "suit_crowd"
     t.string   "publicize"
     t.decimal  "price",                                    precision: 8,  scale: 2, default: 0.0
+    t.decimal  "service_price",                            precision: 10, scale: 2, default: 0.0
     t.decimal  "lesson_price",                             precision: 8,  scale: 2, default: 0.0
     t.integer  "teacher_percentage",                                                default: 0
     t.integer  "lesson_count",                                                      default: 0

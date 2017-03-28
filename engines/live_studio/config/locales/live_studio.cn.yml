@@ -51,7 +51,7 @@ cn:
         description: 详细说明
         grade: 年级
         price: 价格
-        subjects: 科目
+        subject: 科目
         objective: 课程目标
         suit_crowd: 适合人群
         teacher_percentage: 教师分成

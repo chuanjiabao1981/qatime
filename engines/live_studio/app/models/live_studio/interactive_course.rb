@@ -1,7 +1,5 @@
 module LiveStudio
   class InteractiveCourse < ActiveRecord::Base
-    serialize :subjects, Array
-
     acts_as_taggable
     has_soft_delete
 

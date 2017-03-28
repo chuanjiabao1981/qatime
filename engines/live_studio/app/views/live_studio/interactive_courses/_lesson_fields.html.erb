@@ -1,0 +1,45 @@
+<%
+   lesson = f.object
+   index = f.index.to_i
+   object_id = f.object.object_id
+%>
+<table border="0" cellspacing="0" cellpadding="0" class="lesson-show <%= f.object._destroy ? 'hidden' : '' %>">
+  <tbody><tr>
+    <td class="class-num">
+      <span><%= index < 9 ? "0#{index+1}" : (index+1) %></span>
+      <%= f.input :id, as: :hidden %>
+    </td>
+    <td class="create-td">
+      <p class="create-time">
+        <span>上课时间：</span>
+        <span>
+          <%= f.text_field :class_date, as: :string, class: 'class_date je-date', placeholder: '选择上课日期', readonly: true %>
+        </span>
+        <%= f.select :start_time_hour, (0..23).to_a.map{|i| i > 9 ? i : "0#{i}"}.insert(0,['时',nil]),{}, class: 'start_time_hour' %>
+        <%= f.select :start_time_minute, %w(00 05 10 15 20 25 30 35 40 45 50 55).insert(0, ['分', nil]),{}, class: 'start_time_minute' %>
+      </p>
+      <p class="create-name">
+        <span>课程名称：</span>
+        <span id="name_<%= object_id %>"><%= lesson.name %>第一课</span>
+      </p>
+
+      <p class="create-name">
+        <span>教师：</span>
+        <span>
+          <%= f.select :teacher_id, options_for_select(Teacher.pluck(:name, :id), f.object.teacher_id), {include_blank: false} %>
+        </span>
+      </p>
+
+      <p class="create-name">
+        <span>科目：</span>
+        <span>
+          <%= f.select :subject, options_for_select(APP_CONSTANT['subjects'], f.object.subject), {include_blank: false} %>
+        </span>
+      </p>
+
+    </td>
+    <td>
+    </td>
+  </tr>
+  </tbody>
+</table>

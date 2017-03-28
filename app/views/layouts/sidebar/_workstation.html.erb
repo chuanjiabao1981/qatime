@@ -46,7 +46,7 @@
   <% end if allow?('live_studio/station/courses', 'index', @workstation) %>
   <%= content_tag :li do %>
     <%= link_to live_studio.station_workstation_interactive_courses_path(@workstation) do %>
-      <span class="glyphicon glyphicon-film"></span> <span class="qa_f18"> <%= LiveStudio::InteractiveCourse.model_name.human%></span>
+      <span class="glyphicon glyphicon-film"></span> <span class="qa_f18"> <%= t("view.common_bars.live_studio/interactive_course") %></span>
     <% end %>
   <% end if allow?('live_studio/station/interactive_courses', 'index', @workstation) %>
   <%= content_tag :li do %>

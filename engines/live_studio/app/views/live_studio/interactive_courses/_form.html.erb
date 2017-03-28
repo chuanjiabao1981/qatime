@@ -1,0 +1,68 @@
+<%= simple_form_for @interactive_course do |f| %>
+  <%= f.input :workstation_id, as: :hidden %>
+
+  <p class="file-title">一、课程介绍</p>
+
+  <%= render 'course_fields', f: f %>
+
+  <div class="editor-arrange">
+    <div class="class-arrtitle">二、课程安排</div>
+  </div>
+
+  <div class="class-con">
+    <%= f.fields_for :interactive_lessons do |lesson| %>
+      <%= render 'interactive_lesson_fields', f: lesson %>
+    <% end %>
+    <center>
+      <%= raw link_to_add_fields(image_tag('add.png', size: '18x18') + "添加新课程", f, :interactive_lessons, 'live_studio/interactive_courses/') %>
+      <%= f.input :interactive_lessons, label: false, input_html: {style: 'display: none;'} %>
+    </center>
+  </div>
+
+  <div class="class-con"></div>
+  <div class="present">
+    <center>
+      <%#= link_to '预览', 'javascript: void(0);', id: 'interactive_course_preview' %>
+      <%= link_to '发布招生', 'javascript: void(0);', class: 'submit' %>
+    </center>
+  </div>
+<% end %>
+
+<% content_for :javascript do %>
+  <script>
+    $(document).ready(function(){
+      $('.submit').click(function(){
+        $('form').submit();
+      });
+
+      $("#interactive_course_preview").click(function() {
+        var action = $(this).parents("form").attr('action');
+        $(this).parents("form").attr('action', "<%= live_studio.preview_interactive_courses_path %>");
+        $(this).parents("form").attr('target', '_blank');
+        $(this).parents("form").submit();
+        $(this).parents("form").attr('action', action);
+        $(this).parents("form").removeAttr('target');
+      });
+    });
+    function _get_time(hour, minutes, duration){
+      return $.getLessonTime(hour, minutes, duration);
+    }
+    function remove_lesson(obj){
+      $(obj).parents("table").hide();
+      var b = $(obj).attr('rel');
+      $('#'+b).attr('checked', true);
+    }
+    function testShow(elem){
+      $.jeDate(elem,{
+        skinCell:"jedateblue",
+        festival:false,
+        insTrigger:false,
+        isToday: false,
+        //isinitVal:true,
+        format:"YYYY-MM-DD",
+        isClear:false,
+        minDate: '<%= Date.today.to_s %>'
+      });
+    }
+  </script>
+<% end %>

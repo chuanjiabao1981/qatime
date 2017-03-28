@@ -6,6 +6,7 @@ module LiveStudio
     default_scope { order('id DESC') }
 
     belongs_to :course
+    belongs_to :product, polymorphic: true
     belongs_to :student, class_name: "::Student"
     belongs_to :lesson
 

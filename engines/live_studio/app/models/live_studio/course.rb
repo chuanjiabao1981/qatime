@@ -251,13 +251,6 @@ module LiveStudio
       taste_tickets.available.where(student_id: user.id).exists?
     end
 
-    # 用户购买状态
-    def status_for(user)
-      return USER_STATUS_BOUGHT if buy_tickets.where(student_id: user.id).exists?
-      return USER_STATUS_TASTING if taste_tickets.where(student_id: user.id).exists?
-      return USER_STATUS_TASTED if taste_tickets.where(student_id: user.id).exists?
-    end
-
     # 是否可以试听
     def can_taste?(user)
       return false unless user.student?

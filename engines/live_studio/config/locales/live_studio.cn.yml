@@ -31,6 +31,7 @@ cn:
   activerecord:
     models:
       live_studio/course: 辅导班
+      live_studio/interactive_course: 互动直播
     attributes:
       live_studio/course:
         name: 名称
@@ -45,3 +46,14 @@ cn:
           published: 招生中
           teaching: 已开课
           completed: 已结束
+      live_studio/interactive_course:
+        name: 名称
+        description: 详细说明
+        grade: 年级
+        price: 价格
+        subject: 科目
+        objective: 课程目标
+        suit_crowd: 适合人群
+        teacher_percentage: 教师分成
+
+

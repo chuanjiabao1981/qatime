@@ -9,11 +9,7 @@
           </div>
          </div>
         <div class="student-buy">
-          <% if @product.is_a? LiveStudio::Course %>
-            <%= render 'course_order_form' %>
-          <% elsif @product.present? %>
-            <%= render 'interactive_course_order_form' %>
-          <% end %>
+          <%= render 'form' %>
         </div>
       </div>
     </div>

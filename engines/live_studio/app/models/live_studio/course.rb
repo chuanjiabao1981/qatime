@@ -177,6 +177,10 @@ module LiveStudio
       teacher.try(:name)
     end
 
+    def teachers
+      [teacher].compact
+    end
+
     def distance_days
       today = Date.today
       return 0 if class_date.blank? || class_date < today

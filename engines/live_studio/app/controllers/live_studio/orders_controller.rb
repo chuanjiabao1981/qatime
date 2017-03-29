@@ -42,9 +42,7 @@ module LiveStudio
         flash_msg(:success, '下单成功!')
         redirect_to payment.transaction_path(@order.transaction_no)
       else
-        p @order.errors
-        flash_msg(:error, @order.error_msgs)
-        redirect_to :back
+        render :new
       end
     end
 

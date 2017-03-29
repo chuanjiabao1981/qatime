@@ -221,6 +221,10 @@ module LiveStudio
       interactive_lessons.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
     end
 
+    def lessons_count
+      interactive_lessons_count
+    end
+
     private
 
     # 教师分成最大值

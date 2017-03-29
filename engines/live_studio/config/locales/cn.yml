@@ -202,6 +202,8 @@ cn:
       live_start_date: 开课时间
       live_end_date: 结束时间
       status: 当前状态
+    interactive_course_order_new:
+      interactive_lessons_count: 课时总数
     course_form:
       teacher_percentage: "%{percentage}分成"
       service_price: "%{price}元/时"

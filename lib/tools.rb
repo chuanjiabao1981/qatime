@@ -1,5 +1,5 @@
 class Tools
-  def self.with_log(key, timeout = nil, &block)
+  def self.with_lock(key, timeout = nil, &block)
     lock_time = Time.now.to_i
     yield block if Redis.current.setnx(key, lock_time)
   ensure

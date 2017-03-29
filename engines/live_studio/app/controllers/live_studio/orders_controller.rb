@@ -6,7 +6,7 @@ module LiveStudio
     skip_before_action :authorize, only: [:check_coupon]
 
     before_action :set_order, only: [:show, :edit, :update, :destroy]
-    before_action :set_product
+    before_action :set_product, except: [:check_coupon]
     before_action :find_coupon, only: [:create, :check_coupon]
 
     # GET /orders/1
@@ -42,6 +42,7 @@ module LiveStudio
         flash_msg(:success, '下单成功!')
         redirect_to payment.transaction_path(@order.transaction_no)
       else
+        p @order.errors
         flash_msg(:error, @order.error_msgs)
         redirect_to :back
       end

@@ -11,6 +11,9 @@ module LiveStudio
 
     include Qatime::Discussable
 
+    require 'carrierwave/orm/activerecord'
+    mount_uploader :publicize, ::PublicizeUploader
+
     enum status: {
       init: 0, # 初始化
       published: 1, # 招生中
@@ -89,6 +92,14 @@ module LiveStudio
     # 剩余直播课程数量
     def left_lessons_count
       [interactive_lessons_count - finished_lessons_count, 0].max
+    end
+
+    # 订单校验
+    def validate_order(order)
+      user = order.user
+      order.errors[:product] << '课程目前不对外招生' unless for_sell?
+      order.errors[:product] << '课程只对学生销售' unless user.student?
+      order.errors[:product] << '您已经购买过该课程' if buy_tickets.where(student_id: user.id).exists?
     end
 
     # 发货
@@ -203,6 +214,11 @@ module LiveStudio
     def reset_left_price
       self.left_price = current_price
       save
+    end
+
+    def ready_lessons
+      teaching! if published?
+      interactive_lessons.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
     end
 
     private

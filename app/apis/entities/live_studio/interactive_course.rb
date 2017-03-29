@@ -9,7 +9,7 @@ module Entities
       expose :status
       expose :description
       expose :lessons_count
-      expose :completed_lesson_count
+      expose :completed_lessons_count
       expose :closed_lessons_count
       expose :live_start_time
       expose :live_end_time
@@ -23,7 +23,7 @@ module Entities
         course.publicize_url(:list)
       end
       expose :publicize_app_url do |course|
-        course.publicize_url(:app)
+        course.publicize_url(:app_info)
       end
       expose :chat_team, using: Entities::Chat::Team, if: { type: :full }
       expose :interactive_lessons, using: Entities::LiveStudio::InteractiveLesson, if: { type: :full }

@@ -234,6 +234,18 @@ module LiveStudio
       interactive_lessons_count
     end
 
+    def live_start_time
+      lesson = interactive_lessons.reorder('class_date asc,id').first
+      lesson.try(:live_start_at).try(:strftime,'%Y-%m-%d %H:%M') ||
+        "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:start_time)}"
+    end
+
+    def live_end_time
+      lesson = interactive_lessons.reorder('class_date asc,id').last
+      lesson.try(:live_end_at).try(:strftime,'%Y-%m-%d %H:%M') ||
+        "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:end_time)}"
+    end
+
     private
 
     # 教师分成最大值

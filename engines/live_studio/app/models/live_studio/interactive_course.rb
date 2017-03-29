@@ -45,7 +45,7 @@ module LiveStudio
 
     belongs_to :workstation
 
-    has_many :interactive_lessons, -> { order(id: :asc) }
+    has_many :interactive_lessons, -> { order(class_date: :asc) }
     has_many :teachers, through: :interactive_lessons
     has_many :buy_tickets, as: :product
 
@@ -58,6 +58,8 @@ module LiveStudio
     accepts_nested_attributes_for :interactive_lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     validates_associated :interactive_lessons
 
+    validate :interactive_lessons_uniq, on: :create
+
     has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
 
     belongs_to :province
@@ -65,6 +67,13 @@ module LiveStudio
     belongs_to :author, class_name: '::User'
 
     scope :for_sell, -> { where(status: statuses[:published]) }
+
+    # 课程日期不能重复
+    def interactive_lessons_uniq
+      interactive_lessons.each do |lesson|
+        lesson.errors.add(:class_date, I18n.t('view.live_studio/interactie_course.validate.class_date_uniq')) if interactive_lessons.find_all{ |x| x.class_date == lesson.class_date }.size > 1
+      end
+    end
 
     def teacher
       teachers.first

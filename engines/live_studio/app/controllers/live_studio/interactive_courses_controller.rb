@@ -14,7 +14,7 @@ module LiveStudio
     def create
       @interactive_course = InteractiveCourse.new(interactive_courses_params)
       @interactive_course.author = current_user
-      if @course.save
+      if @interactive_course.save
         # LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
         redirect_to live_studio.station_workstation_interactive_courses_path(@workstation)
       else
@@ -35,8 +35,7 @@ module LiveStudio
     end
 
     def interactive_courses_params
-      params[:interactive_course][:interactive_lessons_attributes] = params[:interactive_course][:interactive_lessons_attributes].map(&:second) if params[:interactive_course] && params[:interactive_course][:interactive_lessons_attributes]
-      params.require(:interactive_course).permit(:name, :grade, :subject, :price, :description, :taste_count, :workstation_id, :publicize, :crop_x, :crop_y, :crop_w, :crop_h,
+      params.require(:interactive_course).permit(:name, :grade, :subject, :price, :teacher_percentage, :description, :objective, :suit_crowd, :taste_count, :workstation_id, :publicize, :crop_x, :crop_y, :crop_w, :crop_h,
                                                  interactive_lessons_attributes: [:id, :name, :class_date, :teacher_id, :start_time_hour, :start_time_minute, :duration, :_destroy])
     end
   end

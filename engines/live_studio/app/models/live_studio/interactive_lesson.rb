@@ -70,11 +70,17 @@ module LiveStudio
     has_many :live_studio_lesson_notifications, as: :notificationable, dependent: :destroy
     has_many :ticket_items
 
-    validates :class_date, :teacher_id, :subject, presence: true
+    validates :class_date, :teacher_id, :duration, presence: true
+    validate do
+      errors.add(:class_date, I18n.t('view.live_studio/interactie_course.validate.class_date_hour_minites')) if start_time.blank?
+    end
 
+    before_validation do
+      self.name = interactive_course.name if interactive_course
+    end
     before_create :data_preview
     # before_save :data_confirm
-    after_commit :update_course
+    after_commit :udpate_interactive_course
     after_commit :update_course_price
 
     include AASM
@@ -434,14 +440,14 @@ module LiveStudio
       end
     end
 
-    def update_course
-      return unless course.present?
-      lesson_dates = course.lessons.map(&:class_date)
-      course.update(class_date: lesson_dates.min, start_at: lesson_dates.min, end_at: lesson_dates.max)
+    def udpate_interactive_course
+      return unless interactive_course.present?
+      lesson_dates = interactive_course.interactive_lessons.map(&:class_date)
+      interactive_course.update(class_date: lesson_dates.min, start_at: lesson_dates.min, end_at: lesson_dates.max)
     end
 
     def update_course_price
-      course.reset_left_price if course
+      interactive_course.reset_left_price if interactive_course
     end
 
     def play_records_params

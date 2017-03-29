@@ -55,5 +55,34 @@ cn:
         objective: 课程目标
         suit_crowd: 适合人群
         teacher_percentage: 教师分成
+      live_studio/interactive_lesson:
+        class_date: 上课时间
+        teacher_id: 教师
+        name: 课程名称
+  view:
+    live_studio/interactie_course:
+      new:
+        title: 创建新课程
+        label: 一对一课程说明
+        label1: 1.仅允许一名学生购买，不能重复销售;
+        label2: 2.课程总时长共计450分钟，每课45分钟，共10课时；
+        label3: 3.默认使用系统一对一课程海报;
+        intro_one: 一、课程介绍
+        intro_two: 二、课程安排
+        preview: 预览
+        submit: 发布招生
+        lesson_name_text: "第%{index}课"
+      placeholder:
+        name: 输入一对一课程标题
+        objective: 输入课程能够达到的学习目标(最多30个字)
+        suit_crowd: 输入适合学习的人群(最多30个字)
+        description: 请输入直播介绍（最多300字）
+        price: 请输入正数
+        teacher_percentage: 输入教师分成
+        teacher_id: 选择老师
+        class_date: 选择上课日期
+      validate:
+        class_date_uniq: 上课时间不能重复
+        class_date_hour_minites: 请选择时 分
 
 

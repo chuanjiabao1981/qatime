@@ -11150,12 +11150,7 @@ ul {
 .new-curriculum > .editor-con .has-error {
   margin: 0px;
 }
-@media only screen  and (max-width: 990px) {
-  .new-curriculum > .editor-con .editor-msg form > .row {
-    min-height: 79px;
-  }
-}
-.arrange-list {
+.arrange-list,.adjust-list {
   padding-left: 0px;
   margin-bottom: 0px;
   margin-top: 10px;
@@ -11186,7 +11181,7 @@ ul {
   min-height: 54px;
 }
 .arrange-list > li > .row > .col-md-11 > div .has-error {
-  margin: 0px;
+  margin: 0 0 0 90px;
 }
 .arrange-list > li  {
   padding-top: 34px;
@@ -11194,4 +11189,205 @@ ul {
 }
 .new-curriculum select {
   color: #999;
+}
+.arrange-list > li > .row label.date {
+  float: none;
+}
+.arrange-list > li > .row abbr {
+  color: red;
+}
+.arrange-list > li > .row .form-control {
+  display: inline-block;
+}
+.arrange-list > li > .row .form-control[readonly] {
+  background-color: #FFFFFF;
+}
+@media only screen  and (max-width: 990px) {
+  .new-curriculum > .editor-con .editor-msg form > .row {
+    min-height: 79px;
+  }
+  .arrange-list > li > .row > .col-md-11 > div {
+    padding-left: 0px;
+  }
+}
+
+/*调课*/
+.adjust-classes {
+  padding: 0 10px;
+  margin-top: 30px;
+}
+.adjust-classes h3 {
+  font-size: 16px;
+  margin: 0px;
+  line-height: 35px;
+  padding-left: 10px;
+  color: #000000;
+  background-color: rgb(241,241,241);
+}
+.adjust-list > li {
+  padding: 10px 0px;
+  border-bottom: 1px solid #CCCCCC;
+}
+.adjust-list > li > .row > .col-md-10 > div span:first-child {
+  display: inline-block;
+  width: 90px;
+}
+.adjust-list > li > .row > .col-md-10 > div {
+  margin-bottom: 5px;
+}
+.adjust-list > li > .row i {
+  color: #999;
+}
+.adjust-list > li > .row > .col-md-1 {
+  line-height: 75px;
+}
+.adjust-editor > .modal-content > .modal-body {
+  padding: 20px 100px;
+}
+.adjust-editor > .modal-content > .modal-body > .row span:first-child {
+  display: inline-block;
+  width: 90px;
+  color: #666;
+}
+.adjust-editor > .modal-content > .modal-body > .row span {
+  line-height: 32px;
+}
+.adjust-editor > .modal-content > .modal-body > .row span:last-child {
+  color: #999999;
+}
+.adjust-editor > .modal-content > .modal-body label {
+  font-weight: 500;
+  width: 90px;
+  line-height: 32px;
+  color: #666;
+}
+.adjust-editor > .modal-content > .modal-body > .row > .col-md-6 {
+  min-height: 54px;
+}
+.adjust-editor > .modal-content > .modal-body select,.adjust-editor > .modal-content > .modal-body input {
+  width: 140px;
+  height: 32px;
+}
+.adjust-editor > .modal-content > .modal-body select {
+  color: #999999;
+}
+.adjust-editor > .modal-content > .modal-body .select-time {
+  width: 60px;
+  margin-right: 16px;
+}
+.adjust-editor > .modal-content > .modal-body .select-time:last-child {
+  margin-right: 0px;
+}
+.adjust-editor > .modal-content > .modal-body .has-error {
+  margin: 0px;
+  height: 20px;
+}
+@media only screen and (max-width: 990px) {
+  .adjust-list > li > .row > .col-md-1 {
+    line-height: 20px;
+  }
+  .adjust-list > li > .row > .col-md-10 {
+    padding-left: 0px;
+  }
+}
+@media screen and (min-width: 768px){
+  .adjust-editor {
+    width: 1100px !important;
+    padding: 0px !important;
+  }
+}
+.adjust-editor {
+  position: absolute;
+  top: 50%;
+  margin-top: -170px;
+}
+
+
+/*创建新课程*/
+.curriculum-enter {
+  min-height: 54px;
+  font-size: 24px;
+  padding: 9px 0px;
+  border-bottom: 1px solid gray;
+  margin: 0 10px;
+}
+.curriculum-enter a {
+  display: inline-block;
+  width: 120px;
+  height: 36px;
+  font-size: 16px;
+  background-color: #6c0;
+  color: #FFFFFF;
+  line-height: 36px;
+  text-align: center;
+  border-radius: 4px;
+}
+.curriculum-con {
+  margin-top: 10px;
+  padding: 10px;
+}
+.curriculum-con table {
+  width: 100%;
+}
+.curriculum-con table tr td {
+  height: 38px;
+  text-align: center;
+  border: 1px solid #ccc;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+.new-curriculum {
+  min-height: 920px;
+}
+
+
+
+/*一对一详情页*/
+.personal-right > a {
+  margin-right: 0px !important;
+}
+.personal-right > .btn-learning {
+  border-color: #20ad65;
+  color: #20ad65;
+}
+.personal-right > .btn-learning:hover {
+  background-color: #20ad65;
+  color: #FFFFFF;
+}
+.personal-right > .btn-end {
+  border-color: #CCCCCC;
+  color: #CCCCCC;
+}
+.lessonsg-process > .row > div{
+  text-align: center;
+}
+.lessonsg-process > .row > .col-md-7 {
+  background-color: #f0f0f0;
+  line-height: 50px;
+  font-size: 18px;
+  color: #666;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+}
+.lessonsg-process > .row > .col-md-3 {
+  line-height: 48px;
+  border: 1px solid #f1f1f1;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+  color: #999999;
+}
+.lessonsg-process > .row > .down-direction {
+  background-color: #FFFFFF;
+  line-height: 36px;
+}
+.lessonsg-process > .row {
+  margin-top: 40px;
+}
+@media only screen and (max-width: 768px) {
+  .lessonsg-process > .row > .col-md-3,.lessonsg-process > .row > .col-md-7 {
+    border-radius: 0px;
+  }
+  .lessonsg-process > .row {
+    margin: 0px;
+  }
 }

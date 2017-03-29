@@ -1,7 +1,9 @@
 <div class="panel panel-default">
   <div class="new-curriculum">
     <div class="curriculum-title">
-      <%= link_to '', live_studio.station_workstation_interactive_courses_path(@workstation), class: 'fa fa-mail-reply' %>
+      <% if @workstation %>
+        <%= link_to '', live_studio.station_workstation_interactive_courses_path(@workstation), class: 'fa fa-mail-reply' %>
+      <% end %>
       <span><%= t('view.live_studio/interactie_course.new.title') %></span>
     </div>
 

@@ -55,6 +55,8 @@ cn:
         objective: 课程目标
         suit_crowd: 适合人群
         teacher_percentage: 教师分成
+        workstation: 工作站
+        workstation_id: 工作站
       live_studio/interactive_lesson:
         class_date: 上课时间
         teacher_id: 教师

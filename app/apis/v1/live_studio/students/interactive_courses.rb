@@ -24,7 +24,7 @@ module V1
               params do
               end
               get 'interactive_courses' do
-                interactive_tickets = @student.live_studio_tickets.where(product_type: 'LiveStudio::InteractiveCourse').includes(:product)
+                interactive_tickets = @student.live_studio_tickets.visiable.where(product_type: 'LiveStudio::InteractiveCourse').includes(:product)
                 present interactive_tickets, with: Entities::LiveStudio::InteractiveTicket
               end
             end

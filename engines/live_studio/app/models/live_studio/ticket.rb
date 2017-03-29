@@ -3,7 +3,7 @@ module LiveStudio
     has_soft_delete
     serialize :got_lesson_ids, Array
 
-    default_scope { order('id DESC') }
+    default_scope { visiable.order('id DESC') }
 
     belongs_to :product, polymorphic: true
     belongs_to :student, class_name: "::Student"
@@ -25,12 +25,13 @@ module LiveStudio
       waste: 99      # 不可用
     }
 
+    scope :visiable, -> { where(status: [0, 1, 2]) }
+    scope :nonescope, -> { unscope(where: :status) }
     # 可用
-    scope :available, -> { where("live_studio_tickets.status < ?", statuses[:used]) }
+    scope :available, -> { nonescope.where("live_studio_tickets.status < ?", statuses[:used]) }
     # 不可用
-    scope :unavailable, -> { where("live_studio_tickets.status >= ?", statuses[:used]) }
-    scope :visiable, -> { where("live_studio_tickets.status <= ?", statuses[:used]) }
-    scope :authorizable, -> { where("live_studio_tickets.status < ?", statuses[:pre_used]) }
+    scope :unavailable, -> { nonescope.where("live_studio_tickets.status >= ?", statuses[:used]) }
+    scope :authorizable, -> { nonescope.where("live_studio_tickets.status < ?", statuses[:pre_used]) }
 
     def type_name
       return I18n.t("live_studio/ticket.type_name.taste_#{status}") if taste?

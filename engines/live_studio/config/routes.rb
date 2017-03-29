@@ -53,7 +53,7 @@ LiveStudio::Engine.routes.draw do
   end
 
   # 一对一互动
-  resources :interactive_courses, only: [:index, :new, :create, :edit, :update, :show] do
+  resources :interactive_courses, only: [:index, :new, :create, :edit, :update, :show, :destroy] do
     collection do
       post :preview
       patch :preview

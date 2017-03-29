@@ -17,6 +17,12 @@ module LiveStudio
       teaching: 2, # 已开课
       completed: 3 # 已结束
     }
+    enumerize :status, in: {
+      init: 0, # 初始化
+      published: 1, # 招生中
+      teaching: 2, # 已开课
+      completed: 3 # 已结束
+    }
 
     aasm column: :status, enum: true do
       state :init, initial: true

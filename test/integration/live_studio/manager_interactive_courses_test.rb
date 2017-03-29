@@ -17,6 +17,18 @@ module LiveStudio
       Capybara.use_default_driver
     end
 
+    test 'manager interactive_course index' do
+      assert page.has_link? '一对一管理'
+      click_on '一对一管理'
+      assert page.has_link? '创建新课程'
+      assert_difference 'LiveStudio::InteractiveCourse.count', -1, "一对一删除失败" do
+        accept_prompt(with: '确定删除?') do
+          click_on '删除', match: :first
+        end
+        sleep(3)
+      end
+    end
+
     test 'manager create interactive_course' do
       visit live_studio.new_interactive_course_path
       assert page.has_content? '一对一课程说明'

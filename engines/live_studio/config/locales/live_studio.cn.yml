@@ -86,5 +86,16 @@ cn:
       validate:
         class_date_uniq: 上课时间不能重复
         class_date_hour_minites: 请选择时 分
+      index:
+        name: 课程名称
+        grade: 年级
+        price: 价格
+        subject: 科目
+        teacher_percentage: 教师分成
+        status: 状态
+        teacher: 老师
+        new: 创建新课程
+        edit_lesson: 调课
+
 
 

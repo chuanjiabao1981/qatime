@@ -11,7 +11,7 @@ module V1
             route_param :teacher_id do
               helpers do
                 def auth_params
-                  @student ||= ::Teacher.find_by(id: params[:teacher_id])
+                  @teacher ||= ::Teacher.find_by(id: params[:teacher_id])
                 end
               end
 
@@ -22,24 +22,10 @@ module V1
                 }
               end
               params do
+                requires :teacher_id, type: Integer
               end
               get 'interactive_courses' do
-                interactive_courses = @student.interactive_courses.includes(:interactive_course)
-                present interactive_courses, with: Entities::LiveStudio::InteractiveCourse
-              end
-
-              desc '一对一直播详情' do
-                headers 'Remember-Token' => {
-                  description: 'RememberToken',
-                  required: true
-                }
-              end
-              params do
-                requires :teacher_id, type: Integer, desc: '教师ID'
-                requires :id, type: Integer, desc: '直播ID'
-              end
-              get 'interactive_courses' do
-                interactive_courses = @student.interactive_courses.find(params[:id])
+                interactive_courses = @teacher.live_studio_interactive_courses
                 present interactive_courses, with: Entities::LiveStudio::InteractiveCourse
               end
             end

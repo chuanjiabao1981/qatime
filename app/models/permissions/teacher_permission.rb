@@ -294,6 +294,7 @@ module Permissions
       end
 
       ## 一对一直播
+      api_allow :POST, 'live_studio/teachers/\d+/interactive_courses'
       api_allow :POST, 'live_studio/interactive_lessons/\d+/live_start' do |interactive_lesson|
         interactive_lesson && interactive_lesson.teacher_id == user.id
       end

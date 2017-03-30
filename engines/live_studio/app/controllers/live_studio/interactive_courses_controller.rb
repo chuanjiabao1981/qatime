@@ -5,7 +5,7 @@ module LiveStudio
     layout :current_user_layout
 
     before_action :find_workstation
-    before_action :find_interactive_course, only: [:destroy, :preview]
+    before_action :find_interactive_course, only: [:destroy, :preview, :update_class_date, :update_lessons]
 
     def new
       @interactive_course = InteractiveCourse.new(workstation: @workstation, price: nil, teacher_percentage: nil)
@@ -36,6 +36,19 @@ module LiveStudio
       render layout: 'v1/application'
     end
 
+    # 调课
+    def update_class_date
+      @interactive_course_lessons = @interactive_course.interactive_lessons.unstart
+    end
+
+    def update_lessons
+      if @interactive_course.update(interactive_lessons_params)
+        redirect_to live_studio.station_workstation_interactive_courses_path(@workstation)
+      else
+        render :update_class_date
+      end
+    end
+
     private
 
     def find_workstation
@@ -53,6 +66,10 @@ module LiveStudio
     def interactive_courses_params
       params.require(:interactive_course).permit(:name, :grade, :subject, :price, :teacher_percentage, :description, :objective, :suit_crowd, :taste_count, :workstation_id, :publicize, :crop_x, :crop_y, :crop_w, :crop_h,
                                                  interactive_lessons_attributes: [:id, :name, :class_date, :teacher_id, :start_time_hour, :start_time_minute, :duration, :_destroy])
+    end
+
+    def interactive_lessons_params
+      params.require(:interactive_course).permit(interactive_lessons_attributes: [:id, :duration, :class_date, :teacher_id, :start_time_hour, :start_time_minute, :_update])
     end
   end
 end

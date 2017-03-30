@@ -96,6 +96,9 @@ cn:
         teacher: 老师
         new: 创建新课程
         edit_lesson: 调课
+      update_class_date:
+        title: 调课
+        submit: 保存调课
 
 
 

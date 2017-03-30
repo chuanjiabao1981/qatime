@@ -159,7 +159,7 @@ module Permissions
         user.workstations.map(&:id).include?(course.workstation_id) && permission
       end
       allow 'live_studio/interactive_courses', [:index, :new, :create, :show, :preview]
-      allow 'live_studio/interactive_courses', [:destroy] do |workstation|
+      allow 'live_studio/interactive_courses', [:destroy, :update_class_date, :update_lessons] do |workstation|
         workstation && workstation.manager_id == user.id
       end
       ## end live studio permission

@@ -63,7 +63,7 @@ module LiveStudio
 
     accepts_nested_attributes_for :interactive_lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     validates_associated :interactive_lessons
-    validate :interactive_lessons_uniq, on: :create
+    validate :interactive_lessons_uniq
 
     scope :for_sell, -> { where(status: statuses[:published]) }
 

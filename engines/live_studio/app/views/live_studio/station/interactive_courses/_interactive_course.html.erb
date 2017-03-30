@@ -9,8 +9,8 @@
   <td><%= number_to_percentage(interactive_course.teacher_percentage, precision: 0) %></td>
   <td><%= interactive_course.status_text %></td>
   <td>
-    <% if allow? 'live_studio/interactive_courses', :new %>
-      <%= link_to t('view.live_studio/interactie_course.index.edit_lesson'), '' %>
+    <% if allow? 'live_studio/interactive_courses', :update_class_date, @workstation %>
+      <%= link_to t('view.live_studio/interactie_course.index.edit_lesson'), update_class_date_interactive_course_path(interactive_course) %>
     <% end %>
     <% if allow? 'live_studio/interactive_courses', :destroy, @workstation %>
       <%= link_to t('view.recommend/position.destroy'), interactive_course_path(interactive_course), data: {confirm: t('view.recommend/position.confirm'), method: :delete} %>

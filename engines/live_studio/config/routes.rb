@@ -58,6 +58,10 @@ LiveStudio::Engine.routes.draw do
       post :preview
       patch :preview
     end
+    member do
+      get :update_class_date
+      patch :update_lessons
+    end
   end
 
   namespace :station do

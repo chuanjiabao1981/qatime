@@ -30,7 +30,7 @@ module V1
               end
               {
                 status: @interactive_lesson.status,
-                live_token: @interactive_lesson.start_live_session.token,
+                live_token: @interactive_lesson.current_live_session.token,
                 beat_step: ::LiveStudio::InteractiveLesson.beat_step
               }
             end

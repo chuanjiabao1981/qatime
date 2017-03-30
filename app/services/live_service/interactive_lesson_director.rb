@@ -12,14 +12,11 @@ module LiveService
     # 5. 开始本节课
     # 6. 初始化心跳
     def lesson_start(board, camera)
-      p '----------->>>>>>>>'
       @course = @lesson.interactive_course
       # 如果辅导班已经有状态为teaching的课程,则返回false
       return false unless @course.interactive_lessons.teaching.blank?
       # 第一节课开始上课之前把辅导班设置为已开课
-      p '222222222222'
       @course.teaching! if @course.published?
-      p @course.errors
       LiveStudio::InteractiveLesson.transaction do
         # 记录上课开始时间
         @lesson.live_start_at = Time.now if @lesson.live_start_at.nil?

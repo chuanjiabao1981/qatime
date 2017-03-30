@@ -13,55 +13,22 @@
     <% end %>
   <% end %>
   <%= content_tag(:div, class: 'course-taxon-list') do %>
-    <%= link_to content_tag(:div, t("activerecord.view.filter.today"),
-                                   class: "course-taxon-div #{@filter_patams[:cate]=='today' ? 'active' : nil}"), "?cate=today" %>
     <%= link_to content_tag(:div, t("activerecord.view.filter.all"),
-                                   class: "course-taxon-div #{@filter_patams.blank? ? 'active' : nil}"), student_courses_path(@student) %>
-    <%= link_to content_tag(:div, t("activerecord.view.filter.preview"),
-                                   class: "course-taxon-div #{@filter_patams[:status]=='preview' ? 'active' : nil}"), "?status=preview" %>
+                                   class: "course-taxon-div #{params[:status].blank? && params[:cate].blank? ? 'active' : nil}"), student_courses_path(@student) %>
+    <%= link_to content_tag(:div, t("activerecord.view.filter.published"),
+                                   class: "course-taxon-div #{params[:status]=='published' ? 'active' : nil}"), "?status=published" %>
     <%= link_to content_tag(:div, t("activerecord.view.filter.teaching"),
-                                   class: "course-taxon-div #{@filter_patams[:status]=='teaching' ? 'active' : nil}"), "?status=teaching" %>
+                                   class: "course-taxon-div #{params[:status]=='teaching' ? 'active' : nil}"), "?status=teaching" %>
     <%= link_to content_tag(:div, t("activerecord.view.filter.completed"),
-                                   class: "course-taxon-div #{@filter_patams[:status]=='completed' ? 'active' : nil}"), "?status=completed" %>
+                                   class: "course-taxon-div #{params[:status]=='completed' ? 'active' : nil}"), "?status=completed" %>
     <%= link_to content_tag(:div, t("activerecord.view.filter.tasted"),
-                                   class: "course-taxon-div #{@filter_patams[:cate]=='taste' ? 'active' : nil}"), "?cate=taste" %>
+                                   class: "course-taxon-div #{params[:cate]=='taste' ? 'active' : nil}"), "?cate=taste" %>
   <% end %>
   <%= content_tag(:div, class: 'course-list') do %>
-    <%= render partial: 'ticket', collection: @tickets %>
-    <%= will_paginate @tickets %>
+    <%= render partial: 'course', collection: @courses %>
+    <%= will_paginate @courses %>
   <% end %>
   <%= content_tag(:div, class: 'none-list') do %>
     <%= sanitize(t('activerecord.view.none_tips') % content_tag(:a, t('activerecord.view.buy_now'), href: courses_path)) %>
-  <% end if @tickets.blank? %>
+  <% end if @courses.blank? %>
 <% end %>
-
-
-<!--<div class="qa_box panel panel-default">-->
-<!--<div class="qa_big_cell panel-heading">-->
-<!--<div>-->
-<!--<%= LiveStudio::Course.model_name.human %>-->
-<!--<%=link_to courses_path(student_id: @student.id) do %>-->
-  <!--<button type="button" class="btn btn-xs btn-success">-->
-  <!--<%= t("activerecord.view.search") %><%= LiveStudio::Course.model_name.human %>-->
-  <!--</button>-->
-  <!--<% end %>-->
-<!--</div>-->
-<!--</div>-->
-
-
-<!--<table class="table">-->
-<!--<tr>-->
-<!--<th>#</th>-->
-<!--<th><%= LiveStudio::Course.human_attribute_name(:name)  %></th>-->
-<!--<th><%= LiveStudio::Course.human_attribute_name(:teacher)  %></th>-->
-<!--<th><%= LiveStudio::Course.human_attribute_name(:status)  %></th>-->
-<!--<th><%= LiveStudio::Ticket.human_attribute_name(:type_name)  %></th>-->
-<!--<th><%= t("activerecord.view.operate") %></th>-->
-<!--</tr>-->
-<!--<%#= render partial: 'ticket', collection: @tickets %>-->
-<!--</table>-->
-
-<!--<div class="panel-footer">-->
-<!--<%= will_paginate @tickets %>-->
-<!--</div>-->
-<!--</div>-->

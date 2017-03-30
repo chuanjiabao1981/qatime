@@ -22,6 +22,7 @@ class Student < User
   has_many :live_studio_interactive_lessons, class_name: LiveStudio::InteractiveLesson, through: :live_studio_interactive_courses, source: :interactive_lessons
   has_many :live_studio_buy_tickets, class_name: LiveStudio::BuyTicket
   has_many :live_studio_taste_tickets, class_name: LiveStudio::TasteTicket
+  has_many :live_studio_taste_courses, class_name: LiveStudio::Course, through: :live_studio_taste_tickets, source: :product, source_type: LiveStudio::Course
 
   attr_reader :student_columns_required
 

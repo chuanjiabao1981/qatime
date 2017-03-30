@@ -1,5 +1,5 @@
 10_min_ago_for_teaching:
-  lesson: teaching_lesson
+  sessionable: teaching_lesson (LiveStudio::Lesson)
   token: <%= Digest::MD5.hexdigest("#{1}#{Time.now}") %>
   heartbeat_count: 0
   duration: 0

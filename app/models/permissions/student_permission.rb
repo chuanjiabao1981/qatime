@@ -223,6 +223,13 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/students/[\\w-]+/schedule" do |student|
         student && student.id == user.id
       end
+
+      ## 一对一权限
+      api_allow :GET, 'live_studio/students/\d+/interactive_courses' do |student|
+        student == user
+      end
+      ##
+
       # 消息通知
       api_allow :GET, "/api/v1/users/[\\w-]+/notifications"
       api_allow :PUT, "/api/v1/notifications/[\\w-]+/read"

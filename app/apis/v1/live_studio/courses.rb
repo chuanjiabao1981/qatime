@@ -109,8 +109,13 @@ module V1
                 optional :status, type: String, desc: '辅导班状态 published: 待开课; teaching: 已开课; completed: 已结束', values: %w(published teaching completed)
               end
               get do
-                tickets = LiveService::CourseDirector.courses_for_student_index(current_user,params).paginate(page: params[:page], per_page: params[:per_page])
-                courses = tickets.map(&:course)
+                courses =
+                  if params[:cate].present?
+                    LiveService::StudentLiveDirector.new(current_user).courses(params)
+                  else
+                    LiveService::StudentLiveDirector.new(current_user).courses_of_cate(params[:cate])
+                  end
+                courses = courses.paginate(page: params[:page], per_page: params[:per_page])
                 present courses, with: Entities::LiveStudio::StudentCourse, type: :default, current_user: current_user
               end
 

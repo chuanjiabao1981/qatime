@@ -62,6 +62,8 @@ LiveStudio::Engine.routes.draw do
       get :update_class_date
       patch :update_lessons
     end
+
+    resources :orders, only: [:new, :create]
   end
 
   namespace :station do
@@ -196,6 +198,7 @@ LiveStudio::Engine.routes.draw do
         get :settings
       end
       resources :courses, only: [:index, :show]
+      resources :interactive_courses, only: [:index, :show]
     end
   end
 

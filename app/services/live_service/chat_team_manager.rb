@@ -2,17 +2,17 @@ require 'tools'
 
 module LiveService
   class ChatTeamManager
-    def initialize(team)
+    def initialize(team = nil)
       @team = team
     end
 
     # 创建聊天群组
     # 创建群组，默认不需要用户同意、不允许任何人申请加入
-    def instance_team(course, teacher_account = nil)
-      teacher_account ||= find_or_instance_account(course.teacher)
-      @team = find_or_create_chat_team(course, teacher_account)
-      Tools.with_log("course-#{course.id}-team-create", 30) do
-        @team.team_id = Chat::IM.team_create(tname: @team.name, owner: @team.owner, members: [], msg: "#{course.name} 讨论组")
+    def instance_team(discussable, teacher_account = nil)
+      teacher_account ||= find_or_instance_account(discussable.teacher)
+      @team = find_or_create_chat_team(discussable, teacher_account)
+      Tools.with_lock("#{discussable.model_name}-#{discussable.id}-team-create", 30) do
+        @team.team_id = Chat::IM.team_create(tname: @team.name, owner: @team.owner, members: [], msg: "#{discussable.name} 讨论组")
         @team.save
       end unless @team.team_id
       @team
@@ -30,9 +30,9 @@ module LiveService
       members = members.to_a.compact
       current_members = @team.join_records.map(&:account_id)
       members.delete_if {|m| current_members.include?(m.id)}
-      @course = @team.live_studio_course
+      @discussable = @team.discussable
 
-      Chat::IM.team_add(@team.team_id, @team.owner, "#{@course.name} 讨论组", members.map(&:accid)) if remote
+      Chat::IM.team_add(@team.team_id, @team.owner, "#{@discussable.name} 讨论组", members.map(&:accid)) if remote
       members.map do |member|
         Chat::JoinRecord.create(team_id: @team.id, account_id: member.id, role: role, nick_name: member.name)
       end
@@ -45,11 +45,11 @@ module LiveService
       LiveService::ChatAccountFromUser.new(user).instance_account
     end
 
-    def find_or_create_chat_team(course, teacher_account)
-      return course.chat_team if course.chat_team
-      Chat::Team.create(owner: teacher_account.accid, name: "#{course.name} 讨论组", live_studio_course: course)
+    def find_or_create_chat_team(discussable, teacher_account)
+      return discussable.chat_team if discussable.chat_team
+      Chat::Team.create(owner: teacher_account.accid, name: "#{discussable.name} 讨论组", discussable: discussable)
     rescue ActiveRecord::RecordNotUnique
-      course.reload
+      discussable.reload
       retry
     end
   end

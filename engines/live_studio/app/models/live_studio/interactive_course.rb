@@ -11,6 +11,9 @@ module LiveStudio
 
     include Qatime::Discussable
 
+    require 'carrierwave/orm/activerecord'
+    mount_uploader :publicize, ::PublicizeUploader
+
     enum status: {
       init: 0, # 初始化
       published: 1, # 招生中
@@ -53,7 +56,7 @@ module LiveStudio
 
     has_many :interactive_lessons, -> { order(class_date: :asc) }
     has_many :teachers, through: :interactive_lessons
-    has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
+    has_many :buy_tickets, as: :product
 
     validates :name, presence: true, length: { in: 2..20 }
     validates :description, presence: true, length: { in: 5..300 }
@@ -65,7 +68,7 @@ module LiveStudio
     validates_associated :interactive_lessons
     validate :interactive_lessons_uniq
 
-    scope :for_sell, -> { where(status: statuses[:published]) }
+    scope :for_sell, -> { where(status: statuses[:published], buy_tickets_count: 0) }
 
     before_create do
       self.service_price = workstation.service_price if workstation
@@ -107,12 +110,24 @@ module LiveStudio
       [interactive_lessons_count - finished_lessons_count, 0].max
     end
 
+    # 订单校验
+    def validate_order(order)
+      user = order.user
+      order.errors[:product] << '课程目前不对外招生' unless for_sell?
+      order.errors[:product] << '课程只对学生销售' unless user.student?
+      order.errors[:product] << '您已经购买过该课程' if buy_tickets.where(student_id: user.id).exists?
+    end
+
     # 发货
     def deliver(order)
+      ticket_price = left_lessons_count.zero? ? order.amount : order.amount.to_f / left_lessons_count
+      ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: ticket_price,
+                                             payment_order_id: order.id, buy_count: left_lessons_count)
+      ticket.active!
     end
 
     def for_sell?
-      published?
+      published? && buy_tickets_count.zero?
     end
 
     # 用户是否已经购买
@@ -166,6 +181,10 @@ module LiveStudio
       @current_lesson = interactive_lessons.find {|l| l.class_date.try(:today?) }
     end
 
+    def current_lesson_name
+      current_lesson.try(:name)
+    end
+
     # 课程单价
     def lesson_price
       return 0 unless interactive_lessons.to_i > 0
@@ -215,6 +234,27 @@ module LiveStudio
     def reset_left_price
       self.left_price = current_price
       save
+    end
+
+    def ready_lessons
+      teaching! if published?
+      interactive_lessons.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
+    end
+
+    def lessons_count
+      interactive_lessons_count
+    end
+
+    def live_start_time
+      lesson = interactive_lessons.reorder('class_date asc,id').first
+      lesson.try(:live_start_at).try(:strftime,'%Y-%m-%d %H:%M') ||
+        "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:start_time)}"
+    end
+
+    def live_end_time
+      lesson = interactive_lessons.reorder('class_date asc,id').last
+      lesson.try(:live_end_at).try(:strftime,'%Y-%m-%d %H:%M') ||
+        "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:end_time)}"
     end
 
     private

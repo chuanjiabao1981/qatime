@@ -197,11 +197,15 @@ cn:
       subject: 科目类型
       grade: 年级类型
       teacher_name: 授课老师
-      lessons_count: 课时总数
-      lessons_count_value: '%{count}课时'
+      lessons_count: 课时数量
+      lessons_count_value: '共%{count}课时'
       live_start_date: 开课时间
       live_end_date: 结束时间
       status: 当前状态
+      course_type: '课程类型'
+      grade_and_subject: '年级科目'
+    interactive_course_order_new:
+      interactive_lessons_count: 课时总数
     course_form:
       teacher_percentage: "%{percentage}分成"
       service_price: "%{price}元/时"

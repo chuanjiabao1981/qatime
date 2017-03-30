@@ -5,7 +5,8 @@ module LiveStudio
     layout 'student_home_new'
 
     def index
-      @tickets = LiveService::CourseDirector.courses_for_student_index(@student,filter_patams).paginate(page: params[:page])
+      @courses = LiveService::StudentLiveDirector.new(@student).courses(params)
+      @courses = @courses.includes(:lessons).paginate(page: params[:page])
     end
 
     def show

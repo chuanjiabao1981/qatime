@@ -42,9 +42,9 @@ module V1
             interactive_course = ::LiveStudio::InteractiveCourse.find(params[:id])
             case current_user
             when Student
-              present interactive_course, with: Entities::LiveStudio::StudentInteractiveCourse, type: :full, user: current_user
+              present interactive_course, with: Entities::LiveStudio::StudentInteractiveCourse, type: :full, current_user: current_user
             when Teacher
-              present interactive_course, with: Entities::LiveStudio::TeacherInteractiveCourse, type: :full, user: current_user
+              present interactive_course, with: Entities::LiveStudio::TeacherInteractiveCourse, type: :full, current_user: current_user
             else
               present interactive_course, with: Entities::LiveStudio::InteractiveCourse, type: :full
             end

@@ -111,7 +111,7 @@ module V1
               get do
                 courses =
                   if params[:cate].present?
-                    LiveService::StudentLiveDirector.new(current_user).courses
+                    LiveService::StudentLiveDirector.new(current_user).courses(params)
                   else
                     LiveService::StudentLiveDirector.new(current_user).courses_of_cate(params[:cate])
                   end

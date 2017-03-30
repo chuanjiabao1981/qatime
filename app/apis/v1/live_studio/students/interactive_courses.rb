@@ -25,9 +25,11 @@ module V1
                 requires :student_id, type: Integer
                 optional :page, type: Integer
                 optional :per_page, type: Integer
+                optional :cate, type: String, desc: '分类 today: 今日; taste: 试听', values: %w(today taste)
+                optional :status, type: String, desc: '辅导班状态 published: 待开课; teaching: 已开课; completed: 已结束', values: %w(published teaching completed)
               end
               get 'interactive_courses' do
-                interactive_courses = LiveService::StudentLiveDirector.new(@student).interactive_courses.paginate(page: params[:page], per_page: params[:per_page])
+                interactive_courses = LiveService::StudentLiveDirector.new(@student).interactive_courses(params).paginate(page: params[:page], per_page: params[:per_page])
                 present interactive_courses, with: Entities::LiveStudio::StudentInteractiveCourse, type: :default
               end
             end

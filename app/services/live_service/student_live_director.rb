@@ -5,8 +5,10 @@ module LiveService
     end
 
     # 我的直播
-    def courses
-      @student.live_studio_courses.includes(:teacher, :chat_team).reorder('live_studio_tickets.created_at desc')
+    def courses(options = {})
+      courses = @student.live_studio_courses.includes(:teacher, :chat_team).reorder('live_studio_tickets.created_at desc')
+      courses = courses.where(status: LiveStudio::Course.statuses[options[:status]]) if options[:status]
+      courses
     end
 
     # 分类查询我的直播
@@ -16,8 +18,10 @@ module LiveService
     end
 
     # 我的一对一
-    def interactive_courses
-      @student.live_studio_interactive_courses.includes(:interactive_lessons, :chat_team, :teachers)
+    def interactive_courses(options = {})
+      interactive_courses = @student.live_studio_interactive_courses.includes(:interactive_lessons, :chat_team, :teachers)
+      interactive_courses = interactive_courses.unscope(where: :status).where(status: LiveStudio::InteractiveCourse.statuses[options[:status]]) if options[:status]
+      interactive_courses
     end
 
     # 分类查询我的一对一

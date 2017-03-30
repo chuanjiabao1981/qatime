@@ -1,0 +1,77 @@
+# 未招生
+interactive_course_one:
+  name: 招生中的一对一
+  workstation: workstation_one
+  status: 0
+  grade: 高三
+  subject: 语文
+  teacher_percentage: 70
+  interactive_lessons_count: 2
+  price: 600
+  class_date: <%= 3.days.since.to_date %>
+  start_at: <%= 3.days.since.to_date %>
+  start_at: <%= 13.days.since.to_date %>
+  buy_tickets_count: 0
+
+# 开始招生
+interactive_course_two_1:
+  name: 第2-1个一对一直播
+  workstation: workstation_one
+  status: 1
+  grade: 高二
+  subject: 数学
+  teacher_percentage: 70
+  interactive_lessons_count: 2
+  price: 500
+  class_date: <%= 3.days.since.to_date %>
+  start_at: <%= 3.days.since.to_date %>
+  start_at: <%= 13.days.since.to_date %>
+  buy_tickets_count: 0
+  published_at: <%= 3.days.ago %>
+
+# 开始招生高一
+interactive_course_two_2:
+  name: 第2-2个一对一直播
+  workstation: workstation_one
+  status: 1
+  grade: 高一
+  subject: 数学
+  teacher_percentage: 70
+  interactive_lessons_count: 2
+  price: 700
+  class_date: <%= 3.days.since.to_date %>
+  start_at: <%= 3.days.since.to_date %>
+  start_at: <%= 13.days.since.to_date %>
+  buy_tickets_count: 0
+  published_at: <%= 3.days.ago + 5.minutes %>
+
+# 开始招生高一
+interactive_course_two_3:
+  name: 第2-3个一对一直播
+  workstation: workstation_one
+  status: 1
+  grade: 高一
+  subject: 物理
+  teacher_percentage: 70
+  interactive_lessons_count: 2
+  price: 400
+  class_date: <%= 1.days.since.to_date %>
+  start_at: <%= 1.days.since.to_date %>
+  start_at: <%= 11.days.since.to_date %>
+  buy_tickets_count: 0
+  published_at: <%= 4.days.ago %>
+
+# 已经有人购买
+interactive_course_three:
+  name: 第3个一对一直播
+  workstation: workstation_one
+  status: 1
+  grade: 高一
+  subject: 英语
+  teacher_percentage: 70
+  interactive_lessons_count: 2
+  price: 700
+  class_date: <%= 5.days.since.to_date %>
+  start_at: <%= 5.days.since.to_date %>
+  start_at: <%= 15.days.since.to_date %>
+  buy_tickets_count: 1

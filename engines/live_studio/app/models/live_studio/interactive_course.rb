@@ -66,7 +66,7 @@ module LiveStudio
     belongs_to :city
     belongs_to :author, class_name: '::User'
 
-    scope :for_sell, -> { where(status: statuses[:published]) }
+    scope :for_sell, -> { where(status: statuses[:published], buy_tickets_count: 0) }
 
     # 课程日期不能重复
     def interactive_lessons_uniq
@@ -120,7 +120,7 @@ module LiveStudio
     end
 
     def for_sell?
-      published?
+      published? && buy_tickets_count.zero?
     end
 
     # 用户是否已经购买

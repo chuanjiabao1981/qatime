@@ -72,139 +72,139 @@ ticket_of_tasting:
 
 ticket_for_student_tally:
   student: student_tally
-  course: course_with_junior_teacher
+  product: course_with_junior_teacher (LiveStudio::Course)
   type: LiveStudio::BuyTicket
 
 ticket_for_cant_delete:
   student: student_tally
-  course: course_for_tasting_for_delete
+  product: course_for_tasting_for_delete (LiveStudio::Course)
   type: LiveStudio::BuyTicket
 
 ticket_for_course_notice_student1:
   student: student1
-  course: update_course_by_physics_teacher1
+  product: update_course_by_physics_teacher1 (LiveStudio::Course)
   type: LiveStudio::BuyTicket
 
 ticket_for_course_notice_student2:
   student: student2
-  course: course_preview
+  product: course_preview (LiveStudio::Course)
   type: LiveStudio::BuyTicket
 
 ticket_for_course_start_at_today_1:
   student: student1
-  course: course_start_at_today
+  product: course_start_at_today (LiveStudio::Course)
   type: LiveStudio::BuyTicket
 
 ticket_for_course_start_at_today_2:
   student: student2
-  course: course_start_at_today
+  product: course_start_at_today (LiveStudio::Course)
   type: LiveStudio::TasteTicket
 
 ticket_for_course_start_at_today_3:
   student: student3
-  course: course_start_at_today
+  product: course_start_at_today (LiveStudio::Course)
   type: LiveStudio::BuyTicket
 
 ticket_for_billing_11:
   student: student1
-  course: course_for_billing_one
+  product: course_for_billing_one (LiveStudio::Course)
   type: LiveStudio::BuyTicket
   lesson_price: 50
 
 ticket_for_billing_12:
   student: student2
-  course: course_for_billing_one
+  product: course_for_billing_one (LiveStudio::Course)
   type: LiveStudio::BuyTicket
   lesson_price: 50
 
 ticket_for_billing_13:
   student: student3
-  course: course_for_billing_one
+  product: course_for_billing_one (LiveStudio::Course)
   type: LiveStudio::BuyTicket
   lesson_price: 50
 
 ticket_for_billing_14:
   student: student4
-  course: course_for_billing_one
+  product: course_for_billing_one (LiveStudio::Course)
   type: LiveStudio::BuyTicket
   lesson_price: 50
 
 ticket_for_billing_15:
   student: student5
-  course: course_for_billing_one
+  product: course_for_billing_one (LiveStudio::Course)
   type: LiveStudio::BuyTicket
   lesson_price: 50
 
 ticket_for_billing_21:
   student: student1
-  course: course_for_billing_two
+  product: course_for_billing_two (LiveStudio::Course)
   type: LiveStudio::BuyTicket
   lesson_price: 50
 
 ticket_for_billing_22:
   student: student2
-  course: course_for_billing_two
+  product: course_for_billing_two (LiveStudio::Course)
   type: LiveStudio::BuyTicket
   lesson_price: 50
 
 ticket_for_billing_23:
   student: student3
-  course: course_for_billing_two
+  product: course_for_billing_two (LiveStudio::Course)
   type: LiveStudio::BuyTicket
   lesson_price: 50
 
 ticket_for_billing_31:
   student: student1
-  course: course_for_billing_three
+  product: course_for_billing_three (LiveStudio::Course)
   type: LiveStudio::BuyTicket
   lesson_price: 50
 
 ticket_for_billing_32:
   student: student2
-  course: course_for_billing_three
+  product: course_for_billing_three (LiveStudio::Course)
   type: LiveStudio::BuyTicket
   lesson_price: 50
 
 ticket_for_billing_33:
   student: student3
-  course: course_for_billing_three
+  product: course_for_billing_three (LiveStudio::Course)
   type: LiveStudio::BuyTicket
   lesson_price: 50
 
 ticket_for_billing_34:
   student: student4
-  course: course_for_billing_three
+  product: course_for_billing_three (LiveStudio::Course)
   type: LiveStudio::BuyTicket
   lesson_price: 50
   status: 95
 
 ticket_for_billing_35:
   student: student5
-  course: course_for_billing_three
+  product: course_for_billing_three (LiveStudio::Course)
   type: LiveStudio::BuyTicket
   lesson_price: 50
   status: 96
 
 ticket_for_refund:
   student: student_order_for_refund
-  course: course_for_refund
+  product: course_for_refund (LiveStudio::Course)
   payment_order: order_for_refund
   type: LiveStudio::BuyTicket
   lesson_price: 200
   status: 1
 ticket_for_refund1:
   student: student_order_for_refund
-  course: course_for_refund1
+  product: course_for_refund1 (LiveStudio::Course)
   type: LiveStudio::BuyTicket
   status: 95
 ticket_for_refund2:
   student: student_order_for_refund
-  course: course_for_refund2
+  product: course_for_refund2 (LiveStudio::Course)
   type: LiveStudio::BuyTicket
   status: 1
 ticket_for_refund3:
   student: student_order_for_refund
-  course: course_for_refund3
+  product: course_for_refund3 (LiveStudio::Course)
   type: LiveStudio::BuyTicket
   payment_order: order_for_refund3
   status: 1
@@ -214,7 +214,7 @@ ticket_for_refund3:
   got_lesson_ids: <%= [ActiveRecord::FixtureSet.identify(:lesson1_for_refund_course3), ActiveRecord::FixtureSet.identify(:lesson2_for_refund_course3)]%>
 refund_ticket:
   student: student1
-  course: course_for_refund3
+  product: course_for_refund3 (LiveStudio::Course)
   payment_order: order_for_refund3
   type: LiveStudio::BuyTicket
   status: 96
@@ -224,21 +224,21 @@ refund_ticket:
   got_lesson_ids: <%= [ActiveRecord::FixtureSet.identify(:lesson1_for_refund_course3), ActiveRecord::FixtureSet.identify(:lesson2_for_refund_course3)]%>
 replay_ticket:
   student: student_for_replays
-  course: course_for_replay
+  product: course_for_replay (LiveStudio::Course)
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
 
 replay_ticket2:
   student: student_with_order2
-  course: course_for_replay
+  product: course_for_replay (LiveStudio::Course)
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
 
 ticket_one_of_billing_course_one:
   student: student_with_order2
-  course: billing_course_one
+  product: billing_course_one (LiveStudio::Course)
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
@@ -248,7 +248,7 @@ ticket_one_of_billing_course_one:
 
 ticket_three_of_billing_course_one:
   student: student_with_order3
-  course: billing_course_one
+  product: billing_course_one (LiveStudio::Course)
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
@@ -257,7 +257,7 @@ ticket_three_of_billing_course_one:
 
 ticket_four_of_billing_course_one:
   student: student_with_order3
-  course: billing_course_one
+  product: billing_course_one (LiveStudio::Course)
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
@@ -266,7 +266,7 @@ ticket_four_of_billing_course_one:
 
 ticket_of_billing_fail_course_one:
   student: student_with_order3
-  course: billing_fail_course_one
+  product: billing_fail_course_one (LiveStudio::Course)
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
@@ -276,7 +276,7 @@ ticket_of_billing_fail_course_one:
 
 ticket_one_of_billing_course_two:
   student: student1
-  course: billing_course_two
+  product: billing_course_two (LiveStudio::Course)
   status: 2
   lesson_price: 60
   type: LiveStudio::BuyTicket
@@ -286,7 +286,7 @@ ticket_one_of_billing_course_two:
 
 ticket_two_of_billing_course_two:
   student: student1
-  course: billing_course_two
+  product: billing_course_two (LiveStudio::Course)
   status: 2
   lesson_price: 60
   type: LiveStudio::BuyTicket
@@ -296,7 +296,7 @@ ticket_two_of_billing_course_two:
 
 ticket_three_of_billing_course_two:
   student: student1
-  course: billing_course_two
+  product: billing_course_two (LiveStudio::Course)
   status: 2
   lesson_price: 60
   type: LiveStudio::BuyTicket
@@ -306,7 +306,7 @@ ticket_three_of_billing_course_two:
 
 ticket_four_of_billing_course_two:
   student: student1
-  course: billing_course_two
+  product: billing_course_two (LiveStudio::Course)
   status: 2
   lesson_price: 60
   type: LiveStudio::BuyTicket
@@ -316,7 +316,7 @@ ticket_four_of_billing_course_two:
 
 ticket_five_of_billing_course_two:
   student: student1
-  course: billing_course_two
+  product: billing_course_two (LiveStudio::Course)
   status: 2
   lesson_price: 60
   type: LiveStudio::BuyTicket
@@ -326,7 +326,7 @@ ticket_five_of_billing_course_two:
 
 ticket_six_of_billing_course_two:
   student: student1
-  course: billing_course_two
+  product: billing_course_two (LiveStudio::Course)
   status: 2
   lesson_price: 60
   type: LiveStudio::BuyTicket
@@ -336,7 +336,7 @@ ticket_six_of_billing_course_two:
 
 ticket_seven_of_billing_course_two:
   student: student1
-  course: billing_course_two
+  product: billing_course_two (LiveStudio::Course)
   status: 2
   lesson_price: 60
   type: LiveStudio::BuyTicket
@@ -345,7 +345,7 @@ ticket_seven_of_billing_course_two:
 
 ticket_one_of_billing_course_three:
   student: student1
-  course: billing_course_three
+  product: billing_course_three (LiveStudio::Course)
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
@@ -355,7 +355,7 @@ ticket_one_of_billing_course_three:
 
 ticket_two_of_billing_course_three:
   student: student2
-  course: billing_course_three
+  product: billing_course_three (LiveStudio::Course)
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
@@ -365,7 +365,7 @@ ticket_two_of_billing_course_three:
 
 ticket_three_of_billing_course_three:
   student: student3
-  course: billing_course_three
+  product: billing_course_three (LiveStudio::Course)
   status: 2
   lesson_price: 50
   type: LiveStudio::BuyTicket
@@ -374,7 +374,7 @@ ticket_three_of_billing_course_three:
 
 ticket_for_student_one_with_course2:
   student: student_one_with_course
-  course: course_preview
+  product: course_preview (LiveStudio::Course)
   status: 1
   lesson_price: 50
   type: LiveStudio::BuyTicket

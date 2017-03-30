@@ -449,6 +449,7 @@ cn:
 #          completed: 已完成
     view:
       course: 我的辅导
+      interactive_course: 我的一对一
       filter:
         today: 今日辅导
         all: 全部
@@ -470,6 +471,7 @@ cn:
       buy_now: 立即购买
       enroll_now: 立即报名
       buy_new_course: 购买新辅导
+      buy_new_interactive_course: 购买一对一
       none_tips: 当前列表没有发现直播课，%s。
       taste_now: 立即试听
       search: 搜索

@@ -12,6 +12,7 @@
       <%= content_tag(:div, "#{t('view.course_info_show.grade')}#{course.grade}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_info_show.teacher')}#{course.teacher.try(:name)}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_info_show.lesson_count')}#{course.lessons_count} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.start_time')}#{course.live_start_time}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.end_time')}#{course.live_end_time}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_search_show.current_status')}#{course.status_text} #{course.finished_lessons_count}/#{course.lessons_count}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.teach_type')}", class: 'content-ceil') %>

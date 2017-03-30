@@ -33,7 +33,7 @@ module LiveService
     private
 
     def courses_of_taste
-      @student.live_studio_courses.includes(:teacher, :chat_team).where('live_studio_tickets.type = ?', 'LiveStudio::TasteTicket').reorder('live_studio_tickets.created_at desc')
+      @student.live_studio_taste_courses.includes(:teacher, :chat_team).where('live_studio_tickets.type = ?', 'LiveStudio::TasteTicket').reorder('live_studio_tickets.created_at desc')
     end
 
     # 弃用

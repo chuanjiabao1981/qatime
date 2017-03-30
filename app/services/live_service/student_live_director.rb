@@ -1,5 +1,5 @@
 module LiveService
-  class StudentCourseDirector
+  class StudentLiveDirector
     def initialize(student)
       @student = student
     end
@@ -17,7 +17,7 @@ module LiveService
 
     # 我的一对一
     def interactive_courses
-      @student.live_studio_interactive_courses.includes(:chat_team, :teachers).reorder('live_studio_tickets.created_at desc')
+      @student.live_studio_interactive_courses.includes(:interactive_lessons, :chat_team, :teachers)
     end
 
     # 分类查询我的一对一

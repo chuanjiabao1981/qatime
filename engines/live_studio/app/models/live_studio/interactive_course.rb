@@ -174,6 +174,10 @@ module LiveStudio
       @current_lesson = interactive_lessons.find {|l| l.class_date.try(:today?) }
     end
 
+    def current_lesson_name
+      current_lesson.try(:name)
+    end
+
     # 课程单价
     def lesson_price
       return 0 unless interactive_lessons.to_i > 0

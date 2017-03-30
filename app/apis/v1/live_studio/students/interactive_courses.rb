@@ -22,10 +22,13 @@ module V1
                 }
               end
               params do
+                requires :student_id, type: Integer
+                optional :page, type: Integer
+                optional :per_page, type: Integer
               end
               get 'interactive_courses' do
-                interactive_tickets = @student.live_studio_tickets.visiable.where(product_type: 'LiveStudio::InteractiveCourse').includes(:product)
-                present interactive_tickets, with: Entities::LiveStudio::InteractiveTicket
+                interactive_courses = LiveService::StudentLiveDirector.new(@student).interactive_courses.paginate(page: params[:page], per_page: params[:per_page])
+                present interactive_courses, with: Entities::LiveStudio::StudentInteractiveCourse, type: :default
               end
             end
           end

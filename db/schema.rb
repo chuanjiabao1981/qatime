@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170329052536) do
+ActiveRecord::Schema.define(version: 20170330033224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -717,14 +717,16 @@ ActiveRecord::Schema.define(version: 20170329052536) do
 
   create_table "live_studio_live_sessions", force: :cascade do |t|
     t.integer  "lesson_id"
-    t.string   "token",           limit: 32
+    t.string   "token",            limit: 32
     t.integer  "heartbeat_count"
     t.integer  "duration"
     t.datetime "heartbeat_at"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "timestamp"
     t.integer  "beat_step"
+    t.integer  "sessionable_id"
+    t.string   "sessionable_type"
   end
 
   add_index "live_studio_live_sessions", ["lesson_id"], name: "index_live_studio_live_sessions_on_lesson_id", using: :btree

@@ -209,6 +209,7 @@ cn:
       publicize_pick: 点此更换图片
       placeholders:
         grade: 请选择年级
+        subject: 请选择科目
         objective: 最多填写50个字
         suit_crowd: 最多填写30个字
     teacher_course:

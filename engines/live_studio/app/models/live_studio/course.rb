@@ -9,6 +9,10 @@ module LiveStudio
     include AASM
     extend Enumerize
 
+    include Qatime::Stripable
+    strip_field :name, :description
+    include Qatime::Discussable
+
     SYSTEM_FEE = 0.6 # 系统每个人每分钟收费0.6元
     WORKSTATION_PERCENT = 0.6 # 基础服务费代理商分成 60%
 
@@ -115,8 +119,6 @@ module LiveStudio
     has_many :play_records # 听课记录
     has_many :announcements
     has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
-
-    has_one :chat_team, foreign_key: 'live_studio_course_id', class_name: '::Chat::Team'
 
     has_many :billings, through: :lessons, class_name: 'Payment::Billing' # 结算记录
 
@@ -247,13 +249,6 @@ module LiveStudio
     def tasting?(user)
       return false unless user.present?
       taste_tickets.available.where(student_id: user.id).exists?
-    end
-
-    # 用户购买状态
-    def status_for(user)
-      return USER_STATUS_BOUGHT if buy_tickets.where(student_id: user.id).exists?
-      return USER_STATUS_TASTING if taste_tickets.where(student_id: user.id).exists?
-      return USER_STATUS_TASTED if taste_tickets.where(student_id: user.id).exists?
     end
 
     # 是否可以试听

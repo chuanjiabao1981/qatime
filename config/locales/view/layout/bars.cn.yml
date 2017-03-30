@@ -21,6 +21,7 @@ cn:
       switch_city: 切换
       phone: 400-838-8010
       workstation_info: 工作站信息
+      live_studio/interactive_course: 一对一管理
       welcome: 您好！欢迎来到答疑时间！
       default_title: 此标题内容仅供演示
       default_grade: 年级科目

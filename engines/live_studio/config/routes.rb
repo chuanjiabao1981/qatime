@@ -52,6 +52,14 @@ LiveStudio::Engine.routes.draw do
     end
   end
 
+  # 一对一互动
+  resources :interactive_courses, only: [:index, :new, :create, :edit, :update, :show, :destroy] do
+    collection do
+      post :preview
+      patch :preview
+    end
+  end
+
   namespace :station do
     resources :workstations, only: [] do
       resources :courses, only: [:index] do
@@ -75,6 +83,7 @@ LiveStudio::Engine.routes.draw do
           patch :cancel
         end
       end
+      resources :interactive_courses, only: [:index]
     end
   end
 

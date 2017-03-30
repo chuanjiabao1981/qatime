@@ -34,3 +34,9 @@ cn:
         hours_3: 3小时
         hours_half_210: 3小时30分
         hours_4: 4小时
+    live_studio/interactive_course:
+      status:
+        init: 初始化
+        published: 招生中
+        teaching: 开课中
+        completed: 已结束

@@ -13,15 +13,15 @@
     <div class="col-md-11">
       <div class="col-md-12">
         <%= f.label :teacher_id %>
-        <%= f.select :teacher_id, options_for_select(Teacher.pluck(:name, :id), f.object.teacher_id), {include_blank: t('view.live_studio/interactie_course.placeholder.teacher_id')} %>
+        <%= f.select :teacher_id, options_for_select(Teacher.pluck(:name, :id), f.object.teacher_id), {include_blank: t('view.live_studio/interactie_course.placeholder.teacher_id')}, {class: 'form-control'} %>
         <%= f.error :teacher_id %>
       </div>
 
       <div class="col-md-6">
         <%= f.label :class_date %>
-        <%= f.text_field :class_date, as: :string, class: 'class_date je-date', placeholder: t('view.live_studio/interactie_course.placeholder.class_date'), readonly: true %>
-        <%= f.select :start_time_hour, (0..23).to_a.map{|i| i > 9 ? i : "0#{i}"}.insert(0,['时',nil]),{}, class: 'start_time_hour select-time' %>
-        <%= f.select :start_time_minute, %w(00 05 10 15 20 25 30 35 40 45 50 55).insert(0, ['分', nil]),{}, class: 'start_time_minute select-time' %>
+        <%= f.text_field :class_date, as: :string, class: 'class_date je-date form-control', placeholder: t('view.live_studio/interactie_course.placeholder.class_date'), readonly: true %>
+        <%= f.select :start_time_hour, (0..23).to_a.map{|i| i > 9 ? i : "0#{i}"}.insert(0,['时',nil]),{}, class: 'start_time_hour select-time form-control' %>
+        <%= f.select :start_time_minute, %w(00 05 10 15 20 25 30 35 40 45 50 55).insert(0, ['分', nil]),{}, class: 'start_time_minute select-time form-control' %>
         <%= f.error :class_date %>
       </div>
       <div class="col-md-6"></div>

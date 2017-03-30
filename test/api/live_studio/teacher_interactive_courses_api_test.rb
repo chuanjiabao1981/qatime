@@ -16,7 +16,7 @@ class Qatime::TeacherInteractiveCoursesAPITest < ActionDispatch::IntegrationTest
 
   # 一对一详情
   test 'teacher interactive course detail' do
-    course1 = live_studio_interactive_courses(:interactive_course_one)
+    course1 = live_studio_interactive_courses(:interactive_course_one_2)
     course2 = live_studio_interactive_courses(:interactive_course_two_1)
     course3 = live_studio_interactive_courses(:interactive_course_three_2)
     get "/api/v1/live_studio/interactive_courses/#{course1.id}", {}, 'Remember-Token' => @remember_token

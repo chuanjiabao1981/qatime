@@ -55,6 +55,8 @@ cn:
         objective: 课程目标
         suit_crowd: 适合人群
         teacher_percentage: 教师分成
+        workstation: 工作站
+        workstation_id: 工作站
       live_studio/interactive_lesson:
         class_date: 上课时间
         teacher_id: 教师
@@ -84,5 +86,16 @@ cn:
       validate:
         class_date_uniq: 上课时间不能重复
         class_date_hour_minites: 请选择时 分
+      index:
+        name: 课程名称
+        grade: 年级
+        price: 价格
+        subject: 科目
+        teacher_percentage: 教师分成
+        status: 状态
+        teacher: 老师
+        new: 创建新课程
+        edit_lesson: 调课
+
 
 

@@ -31,6 +31,7 @@ class Workstation < ActiveRecord::Base
   scope :by_manager_id, ->(t) { where(manager_id: t) if t }
 
   has_many :live_studio_courses, class_name: LiveStudio::Course
+  has_many :live_studio_interactive_courses, class_name: LiveStudio::InteractiveCourse
 
   has_many :waiters
   has_many :sellers

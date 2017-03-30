@@ -1,5 +1,28 @@
-# 未招生
 interactive_course_one:
+  name: 测试一对一
+  workstation: workstation_one
+  author: manager
+  status: 0
+  description: 互动2互动2互动2互动2互动2互动2
+  subject: 生物
+  grade: 高二
+  objective: 互动2互动2互动2互动2互动2互动2
+  suit_crowd: 互动2互动2互动2互动2互动2互动2
+  price: 400
+  service_price: 3
+  teacher_percentage: 80
+  class_date: <%= Date.today %>
+  province_id: 1
+  city_id: 2
+  publish_percentage: 5
+  platform_percentage: 0
+  sell_and_platform_percentage: 15
+  start_at: <%= Time.now.at_beginning_of_day + 9.hour %>
+  end_at: <%= Time.now.at_beginning_of_day + 10.days + 9.hour %>
+  left_price: 400
+
+# 未招生
+interactive_course_one_2:
   name: 招生中的一对一
   workstation: workstation_one
   status: 0

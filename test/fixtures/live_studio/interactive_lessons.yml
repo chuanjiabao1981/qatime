@@ -1,15 +1,114 @@
-interactive_course_one_lesson_1:
-  teacher: teacher1
+interactive_lesson1:
+  name: 测试课程1
+  teacher: search_teacher_1
   interactive_course: interactive_course_one
-  description: interactive_course_one_lesson_1-第1节
+  description: 测试描述
+  start_time: 07:30
+  end_time: 08:15
+  duration: 45
+  class_date: <%= Date.today %>
+interactive_lesson2:
+  name: 测试课程2
+  teacher: search_teacher_1
+  interactive_course: interactive_course_one
+  description: 测试描述
+  start_time: 07:30
+  end_time: 08:15
+  duration: 45
+  class_date: <%= Date.today + 1.day %>
+
+interactive_lesson3:
+  name: 测试课程3
+  teacher: search_teacher_2
+  interactive_course: interactive_course_one
+  description: 测试描述
+  start_time: 07:30
+  end_time: 08:15
+  duration: 45
+  class_date: <%= Date.today + 2.days %>
+
+interactive_lesson4:
+  name: 测试课程4
+  teacher: search_teacher_2
+  interactive_course: interactive_course_one
+  description: 测试描述
+  start_time: 07:30
+  end_time: 08:15
+  duration: 45
+  class_date: <%= Date.today + 3.days %>
+
+interactive_lesson5:
+  name: 测试课程5
+  teacher: search_teacher_3
+  interactive_course: interactive_course_one
+  description: 测试描述
+  start_time: 07:30
+  end_time: 08:15
+  duration: 45
+  class_date: <%= Date.today + 4.days %>
+
+interactive_lesson6:
+  name: 测试课程6
+  teacher: search_teacher_3
+  interactive_course: interactive_course_one
+  description: 测试描述
+  start_time: 07:30
+  end_time: 08:15
+  duration: 45
+  class_date: <%= Date.today + 5.days %>
+
+interactive_lesson7:
+  name: 测试课程7
+  teacher: search_teacher_3
+  interactive_course: interactive_course_one
+  description: 测试描述
+  start_time: 07:30
+  end_time: 08:15
+  duration: 45
+  class_date: <%= Date.today + 6.days %>
+
+interactive_lesson8:
+  name: 测试课程1
+  teacher: search_teacher_1
+  interactive_course: interactive_course_one
+  description: 测试描述
+  start_time: 07:30
+  end_time: 08:15
+  duration: 45
+  class_date: <%= Date.today + 7.days %>
+
+interactive_lesson9:
+  name: 测试课程8
+  teacher: search_teacher_1
+  interactive_course: interactive_course_one
+  description: 测试描述
+  start_time: 07:30
+  end_time: 08:15
+  duration: 45
+  class_date: <%= Date.today + 8.days %>
+
+interactive_lesson10:
+  name: 测试课程9
+  teacher: search_teacher_2
+  interactive_course: interactive_course_one
+  description: 测试描述
+  start_time: 07:30
+  end_time: 08:15
+  duration: 45
+  class_date: <%= Date.today + 9.days %>
+
+interactive_course_one_2_lesson_1:
+  teacher: teacher1
+  interactive_course: interactive_course_one_2
+  description: interactive_course_one_2_lesson_1-第1节
   start_time: 19:30
   end_time: 20:30
   duration: 60
   class_date: <%= 3.days.since.to_date %>
-interactive_course_one_lesson_2:
+interactive_course_one_2_lesson_2:
   teacher: teacher1
-  interactive_course: interactive_course_one
-  description: interactive_course_one_lesson_1-第2节
+  interactive_course: interactive_course_one_2
+  description: interactive_course_one_2_lesson_1-第2节
   start_time: 19:30
   end_time: 20:30
   duration: 60

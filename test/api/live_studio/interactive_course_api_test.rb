@@ -33,7 +33,7 @@ class Qatime::InteractiveCoursesAPITest < ActionDispatch::IntegrationTest
 
   # 辅导班详情
   test 'interactive course deatil' do
-    course1 = live_studio_interactive_courses(:interactive_course_one)
+    course1 = live_studio_interactive_courses(:interactive_course_one_2)
     course2 = live_studio_interactive_courses(:interactive_course_two_1)
     course3 = live_studio_interactive_courses(:interactive_course_three)
     get "/api/v1/live_studio/interactive_courses/#{course1.id}"

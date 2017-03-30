@@ -5,6 +5,7 @@ module LiveStudio
     layout :current_user_layout
 
     before_action :find_workstation
+    before_action :find_interactive_course, only: [:destroy, :preview]
 
     def new
       @interactive_course = InteractiveCourse.new(workstation: @workstation, price: nil, teacher_percentage: nil)
@@ -22,6 +23,13 @@ module LiveStudio
       end
     end
 
+    def destroy
+      if @interactive_course.init?
+        @interactive_course.destroy
+      end
+      redirect_to live_studio.station_workstation_interactive_courses_path(@workstation)
+    end
+
     # 预览
     def preview
       @course = build_preview_course
@@ -31,7 +39,15 @@ module LiveStudio
     private
 
     def find_workstation
-      @workstation = current_user.try(:workstations).try(:first) || current_user.try(:workstation)
+      @workstation ||= current_user.try(:workstations).try(:first) || current_user.try(:workstation)
+    end
+
+    def current_resource
+      find_workstation
+    end
+
+    def find_interactive_course
+      @interactive_course = InteractiveCourse.find(params[:id])
     end
 
     def interactive_courses_params

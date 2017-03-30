@@ -20,6 +20,12 @@ module LiveStudio
       teaching: 2, # 已开课
       completed: 3 # 已结束
     }
+    enumerize :status, in: {
+      init: 0, # 初始化
+      published: 1, # 招生中
+      teaching: 2, # 已开课
+      completed: 3 # 已结束
+    }
 
     aasm column: :status, enum: true do
       state :init, initial: true
@@ -44,6 +50,9 @@ module LiveStudio
     end
 
     belongs_to :workstation
+    belongs_to :province
+    belongs_to :city
+    belongs_to :author, class_name: '::User'
 
     has_many :interactive_lessons, -> { order(class_date: :asc) }
     has_many :teachers, through: :interactive_lessons
@@ -51,28 +60,26 @@ module LiveStudio
 
     validates :name, presence: true, length: { in: 2..20 }
     validates :description, presence: true, length: { in: 5..300 }
-    validates :grade, :subject, presence: true
+    validates :grade, :subject, :workstation_id, presence: true
     validates :price, presence: true, numericality: { greater_than: :price_min, less_than_or_equal_to: 999_999 }
     validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max }
 
     accepts_nested_attributes_for :interactive_lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     validates_associated :interactive_lessons
-
     validate :interactive_lessons_uniq, on: :create
 
-    has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
-
-    belongs_to :province
-    belongs_to :city
-    belongs_to :author, class_name: '::User'
-
     scope :for_sell, -> { where(status: statuses[:published], buy_tickets_count: 0) }
+
+    before_create do
+      self.service_price = workstation.service_price if workstation
+    end
 
     # 课程日期不能重复
     def interactive_lessons_uniq
       interactive_lessons.each do |lesson|
         lesson.errors.add(:class_date, I18n.t('view.live_studio/interactie_course.validate.class_date_uniq')) if interactive_lessons.find_all{ |x| x.class_date == lesson.class_date }.size > 1
       end
+      errors.add(:interactive_lessons, 'interactive_lessons valid error') if interactive_lessons.map(&:errors).any? {|x| x.any? }
     end
 
     def teacher

@@ -96,3 +96,65 @@ interactive_lesson10:
   end_time: 08:15
   duration: 45
   class_date: <%= Date.today + 9.days %>
+
+interactive_course_one_2_lesson_1:
+  teacher: teacher1
+  interactive_course: interactive_course_one_2
+  description: interactive_course_one_2_lesson_1-第1节
+  start_time: 19:30
+  end_time: 20:30
+  duration: 60
+  class_date: <%= 3.days.since.to_date %>
+interactive_course_one_2_lesson_2:
+  teacher: teacher1
+  interactive_course: interactive_course_one_2
+  description: interactive_course_one_2_lesson_1-第2节
+  start_time: 19:30
+  end_time: 20:30
+  duration: 60
+  class_date: <%= 4.days.since.to_date %>
+interactive_course_two_1_lesson_1:
+  teacher: teacher1
+  interactive_course: interactive_course_two_1
+  description: interactive_course_two_1-第1节
+  start_time: 19:30
+  end_time: 20:30
+  duration: 60
+  class_date: <%= 3.days.since.to_date %>
+interactive_course_two_1_lesson_2:
+  teacher: teacher2
+  interactive_course: interactive_course_two_1
+  description: interactive_course_two_1-第2节
+  start_time: 19:30
+  end_time: 20:30
+  duration: 60
+  class_date: <%= 4.days.since.to_date %>
+interactive_course_three_2_lesson_1:
+  teacher: teacher1
+  interactive_course: interactive_course_three_2
+  description: interactive_course_three_2-第1节
+  start_time: 19:30
+  end_time: 20:30
+  duration: 60
+  class_date: <%= 3.days.ago.to_date %>
+  status: 5
+interactive_course_three_2_lesson_2:
+  teacher: teacher1
+  interactive_course: interactive_course_three_2
+  description: interactive_course_three_2-第2节
+  start_time: 19:30
+  end_time: 20:30
+  duration: 60
+  class_date: <%= Date.today %>
+  status: 1
+
+interactive_course_three_2_lesson_3:
+  teacher: teacher2
+  interactive_course: interactive_course_three_2
+  description: interactive_course_three_2-第3节
+  start_time: 19:30
+  end_time: 20:30
+  duration: 60
+  class_date: <%= 4.days.since.to_date %>
+  status: 0
+

@@ -177,6 +177,10 @@ module LiveStudio
       teacher.try(:name)
     end
 
+    def teachers
+      [teacher].compact
+    end
+
     def distance_days
       today = Date.today
       return 0 if class_date.blank? || class_date < today
@@ -230,13 +234,13 @@ module LiveStudio
     # 用户是否已经购买
     def own_by?(user)
       return false unless user.present?
-      user.live_studio_tickets.map(&:course_id).include?(id)
+      user.live_studio_tickets.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
     end
 
     # 已经购买
     def bought_by?(user)
       return false unless user.present?
-      buy_tickets.where(student_id: user.id).exists?
+      user.live_studio_buy_tickets.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
     end
 
     # 试听结束
@@ -248,7 +252,7 @@ module LiveStudio
     # 正在试听
     def tasting?(user)
       return false unless user.present?
-      taste_tickets.available.where(student_id: user.id).exists?
+      user.live_studio_buy_tickets.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
     end
 
     # 是否可以试听

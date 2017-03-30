@@ -3,12 +3,11 @@ module Qatime
     extend ActiveSupport::Concern
 
     included do
-      has_one :chat_team, class_name: 'Chat::Team'
+      has_one :chat_team, class_name: 'Chat::Team', as: :discussable
 
       after_commit :instance_chat_team, on: :create
       def instance_chat_team
-        # TODO
-        # 初始化聊天群组
+        Chat::TeamCreatorJob.perform_later(model_name.name, id)
       end
     end
   end

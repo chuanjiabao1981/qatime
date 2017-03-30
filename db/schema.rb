@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170327080821) do
+ActiveRecord::Schema.define(version: 20170330033224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,6 +106,10 @@ ActiveRecord::Schema.define(version: 20170327080821) do
     t.string   "owner",                 limit: 32
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
+    t.integer  "teamable_id"
+    t.string   "teamable_type"
+    t.integer  "discussable_id"
+    t.string   "discussable_type"
   end
 
   add_index "chat_teams", ["live_studio_course_id"], name: "chat_teams_course_id_unique", unique: true, using: :btree
@@ -713,14 +717,16 @@ ActiveRecord::Schema.define(version: 20170327080821) do
 
   create_table "live_studio_live_sessions", force: :cascade do |t|
     t.integer  "lesson_id"
-    t.string   "token",           limit: 32
+    t.string   "token",            limit: 32
     t.integer  "heartbeat_count"
     t.integer  "duration"
     t.datetime "heartbeat_at"
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "timestamp"
     t.integer  "beat_step"
+    t.integer  "sessionable_id"
+    t.string   "sessionable_type"
   end
 
   add_index "live_studio_live_sessions", ["lesson_id"], name: "index_live_studio_live_sessions_on_lesson_id", using: :btree
@@ -831,6 +837,8 @@ ActiveRecord::Schema.define(version: 20170327080821) do
     t.string   "seller_type"
     t.integer  "sell_percentage",                                       default: 0
     t.integer  "platform_percentage",                                   default: 0
+    t.integer  "product_id"
+    t.string   "product_type"
   end
 
   add_index "live_studio_tickets", ["course_id"], name: "index_live_studio_tickets_on_course_id", using: :btree

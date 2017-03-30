@@ -24,6 +24,9 @@ class Teacher < User
   has_many :live_studio_courses, class_name: LiveStudio::Course
   has_many :live_studio_lessons, class_name: LiveStudio::Lesson, through: :live_studio_courses, source: :lessons
 
+  has_many :live_studio_interactive_lessons, class_name: LiveStudio::InteractiveLesson
+  has_many :live_studio_interactive_courses, -> { distinct }, class_name: LiveStudio::InteractiveCourse, through: :live_studio_interactive_lessons, source: :interactive_course
+
   has_many :invitations, foreign_key: :user_id, class_name: LiveStudio::CourseInvitation
 
   # has_many :corrections

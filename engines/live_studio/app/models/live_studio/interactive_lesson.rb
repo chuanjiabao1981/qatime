@@ -66,7 +66,7 @@ module LiveStudio
     has_many :channel_videos
     has_many :replays
 
-    has_many :live_sessions # 直播 心跳记录
+    has_many :live_sessions, as: :sessionable # 直播 心跳记录
     has_many :live_studio_lesson_notifications, as: :notificationable, dependent: :destroy
     has_many :ticket_items
 
@@ -462,7 +462,7 @@ module LiveStudio
 
     # 增加计数器
     def increment_course_counter(attribute)
-      course.increment(attribute)
+      interactive_course.increment(attribute)
     end
   end
 end

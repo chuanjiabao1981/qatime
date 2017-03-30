@@ -65,9 +65,9 @@
         break;
     }
     end_hour = hour + parseInt((minutes+duration_value)/60);
-    end_minutes = minutes+duration_value % 60;
+    end_minutes = (minutes+duration_value) % 60;
     if(end_hour > 23)
-      end_hour = end_hour % 24
+      end_hour = end_hour % 24;
     if(end_hour < 10)
       end_hour = "0" + end_hour;
     if(end_minutes < 10)
@@ -81,7 +81,7 @@
           field_index = $(this).data('field-index');
 
       $('#modal_click_btn_' + lesson_id).val('save');
-      $('#interactive_course_interactive_lessons_attributes_' + field_index + '__update').attr('checked', true);
+      $('#interactive_course_interactive_lessons_attributes_' + field_index + '__update').prop('checked', true);
       $('#adjust_edit_' + lesson_id).modal('hide');
     });
 
@@ -102,7 +102,7 @@
         if(end_time == false){
           end_time = '';
         }
-        var preview_class_date_text = class_date_input.val() + ' ' + start_time;
+        var preview_class_date_text = class_date_input.val() + ' ' + start_time + '-' + end_time;
         var preview_class_date_i = $('.preview_class_date_' + lesson_id),
             preview_teacher_name_i = $('.preview_teacher_name_' + lesson_id);
 
@@ -116,7 +116,7 @@
         change_save()
       }else{
         modal_click_btn.val('cancel');
-        $('#interactive_course_interactive_lessons_attributes_' + field_index + '__update').attr('checked', false);
+        $('#interactive_course_interactive_lessons_attributes_' + field_index + '__update').prop('checked', false);
       }
 
     });

@@ -3,7 +3,7 @@
     <%= f.search_field :grade_eq, type: 'hidden' %>
     <%= f.search_field :subject_eq, type: 'hidden' %>
     <ul class="personal-nav">
-      <li>
+      <li class="grade-filter">
         <span class="col-md-1"><%= LiveStudio::InteractiveCourse.human_attribute_name(:grade) %>：</span>
         <span class="col-md-11">
           <%= link_to t("view.course_filter.all"),
@@ -16,7 +16,7 @@
           <% end %>
         </span>
       </li>
-      <li>
+      <li class="subject-filter">
         <span class="col-md-1"><%= LiveStudio::InteractiveCourse.human_attribute_name(:subject) %>：</span>
         <span class="col-md-11">
           <%= link_to t("view.course_filter.all"),

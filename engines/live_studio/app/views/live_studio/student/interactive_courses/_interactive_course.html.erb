@@ -10,7 +10,7 @@
     <%= content_tag(:div, class: 'course-content-div') do %>
       <%= content_tag(:div,class: 'course-info-col') do %>
         <%= content_tag(:div, interactive_course.name, class: 'course-name') %>
-        <%= preview_time(course) if interactive_course.published? %>
+        <%= preview_time(interactive_course) if interactive_course.published? %>
       <% end %>
       <%= content_tag(:div, "#{t('view.course_show.subject')}#{interactive_course.subject}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.teacher')}#{interactive_course.teacher.try(:name)}", class: 'content-ceil') %>

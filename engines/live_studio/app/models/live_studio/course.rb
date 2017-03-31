@@ -205,6 +205,10 @@ module LiveStudio
       [lessons_count - finished_lessons_count, 0].max
     end
 
+    def left_lessons_count
+      [lessons_count - finished_lessons_count, 0].max
+    end
+
     # 当前价格
     def current_price
       return 0 if lessons_count <= closed_lessons_count

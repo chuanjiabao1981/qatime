@@ -244,6 +244,7 @@ interactive_course_three_2_lesson_1:
   description: interactive_course_three_2-第1节
   start_time: "19:30"
   end_time: "20:30"
+  real_time: 3600
   duration: 60
   class_date: <%= 3.days.ago.to_date %>
   status: 5

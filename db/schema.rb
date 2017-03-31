@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170330033224) do
+ActiveRecord::Schema.define(version: 20170331022359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -684,6 +684,7 @@ ActiveRecord::Schema.define(version: 20170330033224) do
     t.datetime "heartbeat_time"
     t.integer  "duration"
     t.integer  "replay_status",                     default: 0
+    t.string   "room_id",               limit: 64
   end
 
   add_index "live_studio_interactive_lessons", ["interactive_course_id"], name: "index_live_studio_interactive_lessons_on_interactive_course_id", using: :btree
@@ -810,10 +811,12 @@ ActiveRecord::Schema.define(version: 20170330033224) do
   create_table "live_studio_ticket_items", force: :cascade do |t|
     t.integer  "ticket_id"
     t.integer  "lesson_id"
-    t.integer  "status",     default: 0
+    t.integer  "status",      default: 0
     t.datetime "used_at"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "target_id"
+    t.string   "target_type"
   end
 
   add_index "live_studio_ticket_items", ["lesson_id"], name: "index_live_studio_ticket_items_on_lesson_id", using: :btree

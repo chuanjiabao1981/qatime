@@ -53,6 +53,7 @@ module Permissions
       # captcha
       api_allow :POST, "/api/v1/captcha"
       api_allow :POST, "/api/v1/captcha/verify"
+      allow 'live_studio/interactive_courses', [:index, :show]
 
       ## end api permission
     end

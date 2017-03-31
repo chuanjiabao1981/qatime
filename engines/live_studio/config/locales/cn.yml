@@ -404,6 +404,7 @@ cn:
         students_count: 学生数量
         lessons_progress: 课程进度
         percentage: 分成
+        latest: 最新
       live_studio/push_stream:
         address: 直播地址
       live_studio/pull_stream:

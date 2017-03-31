@@ -16,7 +16,7 @@
             <%= link_to image_tag(course.publicize_url(:list), class: 'handle_error_list'), live_studio.interactive_course_path(course) -%>
             <div class="handpick-info">
               <p>
-                <%= link_to live_studio.course_path(course) do -%>
+                <%= link_to live_studio.interactive_course_path(course) do -%>
                   <strong><%= truncate_u course.name, length: 12 %></strong>
                 <% end -%>
               </p>

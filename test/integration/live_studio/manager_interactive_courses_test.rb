@@ -88,6 +88,7 @@ module LiveStudio
       lesson1 = interactive_course_zhuji.interactive_lessons.unstart.first
       lesson2 = interactive_course_zhuji.interactive_lessons.unstart.second
 
+      # 调重复失败
       find("a[data-target='#adjust_edit_#{lesson1.id}']").click
       assert page.has_content? lesson1.teacher.name
       assert page.has_content? lesson1.class_date.to_s
@@ -99,10 +100,23 @@ module LiveStudio
       click_on '保存'
       assert page.has_content? '<修改后> teacher1'
       assert page.has_content? "<修改后> #{lesson2.class_date.to_s} 09:30-10:15"
-      binding.pry
       click_on '保存调课'
       assert page.has_content? '上课时间不能重复'
-      
+
+      find("a[data-target='#adjust_edit_#{lesson1.id}']").click
+      execute_script("$('#interactive_course_interactive_lessons_attributes_1_class_date').val('#{(lesson1.class_date + 9.days).to_s}')")
+      click_on '保存'
+      find("a[data-target='#adjust_edit_#{lesson2.id}']").click
+      execute_script("$('#interactive_course_interactive_lessons_attributes_2_class_date').val('#{(lesson2.class_date + 9.days).to_s}')")
+      click_on '保存'
+      click_on '保存调课'
+      sleep(3)
+
+      old_class_date1 = lesson1.class_date
+      old_class_date2 = lesson2.class_date
+      assert_equal lesson1.reload.class_date, old_class_date1 + 9.days, "调课不成功"
+      assert_equal lesson2.reload.class_date, old_class_date2 + 9.days, "调课不成功"
+
     end
 
   end

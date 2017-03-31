@@ -41,6 +41,8 @@ module LiveStudio
     end
 
     def update_lessons
+      # 课程更新 全部更新时间戳 render error时可以重新编辑
+      @interactive_course.interactive_lessons.map(&:touch)
       if @interactive_course.update(interactive_lessons_params)
         redirect_to live_studio.station_workstation_interactive_courses_path(@workstation)
       else

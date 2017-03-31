@@ -77,5 +77,33 @@ module LiveStudio
       end
     end
 
+    test 'manager interactive_course update_class_date' do
+      click_on '一对一管理'
+      interactive_course_zhuji = live_studio_interactive_courses(:interactive_course_zhuji)
+      visit live_studio.update_class_date_interactive_course_path(interactive_course_zhuji)
+      assert page.has_content? '调课'
+      assert page.has_content? interactive_course_zhuji.name
+      assert_equal 9, page.all(".adjust-list li").size, "调课只能调unstart的课程"
+
+      lesson1 = interactive_course_zhuji.interactive_lessons.unstart.first
+      lesson2 = interactive_course_zhuji.interactive_lessons.unstart.second
+
+      find("a[data-target='#adjust_edit_#{lesson1.id}']").click
+      assert page.has_content? lesson1.teacher.name
+      assert page.has_content? lesson1.class_date.to_s
+      assert page.has_content? lesson1.start_time
+      select 'teacher1', from: 'interactive_course_interactive_lessons_attributes_1_teacher_id'
+      execute_script("$('#interactive_course_interactive_lessons_attributes_1_class_date').val('#{lesson2.class_date.to_s}')")
+      select '09', from: 'interactive_course_interactive_lessons_attributes_1_start_time_hour'
+      select '30', from: 'interactive_course_interactive_lessons_attributes_1_start_time_minute'
+      click_on '保存'
+      assert page.has_content? '<修改后> teacher1'
+      assert page.has_content? "<修改后> #{lesson2.class_date.to_s} 09:30-10:15"
+      binding.pry
+      click_on '保存调课'
+      assert page.has_content? '上课时间不能重复'
+      
+    end
+
   end
 end

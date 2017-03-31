@@ -3,8 +3,8 @@ interactive_lesson1:
   teacher: search_teacher_1
   interactive_course: interactive_course_one
   description: 测试描述
-  start_time: 07:30
-  end_time: 08:15
+  start_time: "07:30"
+  end_time: "08:15"
   duration: 45
   class_date: <%= Date.today %>
 interactive_lesson2:
@@ -12,8 +12,8 @@ interactive_lesson2:
   teacher: search_teacher_1
   interactive_course: interactive_course_one
   description: 测试描述
-  start_time: 07:30
-  end_time: 08:15
+  start_time: "07:30"
+  end_time: "08:15"
   duration: 45
   class_date: <%= Date.today + 1.day %>
 
@@ -22,8 +22,8 @@ interactive_lesson3:
   teacher: search_teacher_2
   interactive_course: interactive_course_one
   description: 测试描述
-  start_time: 07:30
-  end_time: 08:15
+  start_time: "07:30"
+  end_time: "08:15"
   duration: 45
   class_date: <%= Date.today + 2.days %>
 
@@ -32,8 +32,8 @@ interactive_lesson4:
   teacher: search_teacher_2
   interactive_course: interactive_course_one
   description: 测试描述
-  start_time: 07:30
-  end_time: 08:15
+  start_time: "07:30"
+  end_time: "08:15"
   duration: 45
   class_date: <%= Date.today + 3.days %>
 
@@ -42,8 +42,8 @@ interactive_lesson5:
   teacher: search_teacher_3
   interactive_course: interactive_course_one
   description: 测试描述
-  start_time: 07:30
-  end_time: 08:15
+  start_time: "07:30"
+  end_time: "08:15"
   duration: 45
   class_date: <%= Date.today + 4.days %>
 
@@ -52,8 +52,8 @@ interactive_lesson6:
   teacher: search_teacher_3
   interactive_course: interactive_course_one
   description: 测试描述
-  start_time: 07:30
-  end_time: 08:15
+  start_time: "07:30"
+  end_time: "08:15"
   duration: 45
   class_date: <%= Date.today + 5.days %>
 
@@ -62,8 +62,8 @@ interactive_lesson7:
   teacher: search_teacher_3
   interactive_course: interactive_course_one
   description: 测试描述
-  start_time: 07:30
-  end_time: 08:15
+  start_time: "07:30"
+  end_time: "08:15"
   duration: 45
   class_date: <%= Date.today + 6.days %>
 
@@ -72,8 +72,8 @@ interactive_lesson8:
   teacher: search_teacher_1
   interactive_course: interactive_course_one
   description: 测试描述
-  start_time: 07:30
-  end_time: 08:15
+  start_time: "07:30"
+  end_time: "08:15"
   duration: 45
   class_date: <%= Date.today + 7.days %>
 
@@ -82,8 +82,8 @@ interactive_lesson9:
   teacher: search_teacher_1
   interactive_course: interactive_course_one
   description: 测试描述
-  start_time: 07:30
-  end_time: 08:15
+  start_time: "07:30"
+  end_time: "08:15"
   duration: 45
   class_date: <%= Date.today + 8.days %>
 
@@ -92,49 +92,158 @@ interactive_lesson10:
   teacher: search_teacher_2
   interactive_course: interactive_course_one
   description: 测试描述
-  start_time: 07:30
-  end_time: 08:15
+  start_time: "07:30"
+  end_time: "08:15"
   duration: 45
   class_date: <%= Date.today + 9.days %>
+
+interactive_lesson_zhuji_1:
+  name: 测试课程1
+  teacher: search_teacher_1
+  interactive_course: interactive_course_zhuji
+  description: 测试描述
+  start_time: "07:30"
+  end_time: "08:15"
+  duration: 45
+  class_date: <%= Date.today %>
+  status: 2
+interactive_lesson_zhuji_2:
+  name: 测试课程2
+  teacher: search_teacher_1
+  interactive_course: interactive_course_zhuji
+  description: 测试描述
+  start_time: "07:30"
+  end_time: "08:15"
+  duration: 45
+  class_date: <%= Date.today + 1.day %>
+  status: 1
+
+interactive_lesson_zhuji_3:
+  name: 测试课程3
+  teacher: search_teacher_2
+  interactive_course: interactive_course_zhuji
+  description: 测试描述
+  start_time: "07:30"
+  end_time: "08:15"
+  duration: 45
+  class_date: <%= Date.today + 2.days %>
+  status: 1
+
+interactive_lesson_zhuji_4:
+  name: 测试课程4
+  teacher: search_teacher_2
+  interactive_course: interactive_course_zhuji
+  description: 测试描述
+  start_time: "07:30"
+  end_time: "08:15"
+  duration: 45
+  class_date: <%= Date.today + 3.days %>
+  status: 1
+
+interactive_lesson_zhuji_5:
+  name: 测试课程5
+  teacher: search_teacher_3
+  interactive_course: interactive_course_zhuji
+  description: 测试描述
+  start_time: "07:30"
+  end_time: "08:15"
+  duration: 45
+  class_date: <%= Date.today + 4.days %>
+  status: 0
+
+interactive_lesson_zhuji_6:
+  name: 测试课程6
+  teacher: search_teacher_3
+  interactive_course: interactive_course_zhuji
+  description: 测试描述
+  start_time: "07:30"
+  end_time: "08:15"
+  duration: 45
+  class_date: <%= Date.today + 5.days %>
+  status: 0
+
+interactive_lesson_zhuji_7:
+  name: 测试课程7
+  teacher: search_teacher_3
+  interactive_course: interactive_course_zhuji
+  description: 测试描述
+  start_time: "07:30"
+  end_time: "08:15"
+  duration: 45
+  class_date: <%= Date.today + 6.days %>
+  status: 0
+
+interactive_lesson_zhuji_8:
+  name: 测试课程1
+  teacher: search_teacher_1
+  interactive_course: interactive_course_zhuji
+  description: 测试描述
+  start_time: "07:30"
+  end_time: "08:15"
+  duration: 45
+  class_date: <%= Date.today + 7.days %>
+  status: 0
+
+interactive_lesson_zhuji_9:
+  name: 测试课程8
+  teacher: search_teacher_1
+  interactive_course: interactive_course_zhuji
+  description: 测试描述
+  start_time: "07:30"
+  end_time: "08:15"
+  duration: 45
+  class_date: <%= Date.today + 8.days %>
+  status: 0
+
+interactive_lesson_zhuji_10:
+  name: 测试课程9
+  teacher: search_teacher_2
+  interactive_course: interactive_course_zhuji
+  description: 测试描述
+  start_time: "07:30"
+  end_time: "08:15"
+  duration: 45
+  class_date: <%= Date.today + 9.days %>
+  status: 0
 
 interactive_course_one_2_lesson_1:
   teacher: teacher1
   interactive_course: interactive_course_one_2
   description: interactive_course_one_2_lesson_1-第1节
-  start_time: 19:30
-  end_time: 20:30
+  start_time: "19:30"
+  end_time: "20:30"
   duration: 60
   class_date: <%= 3.days.since.to_date %>
 interactive_course_one_2_lesson_2:
   teacher: teacher1
   interactive_course: interactive_course_one_2
   description: interactive_course_one_2_lesson_1-第2节
-  start_time: 19:30
-  end_time: 20:30
+  start_time: "19:30"
+  end_time: "20:30"
   duration: 60
   class_date: <%= 4.days.since.to_date %>
 interactive_course_two_1_lesson_1:
   teacher: teacher1
   interactive_course: interactive_course_two_1
   description: interactive_course_two_1-第1节
-  start_time: 19:30
-  end_time: 20:30
+  start_time: "19:30"
+  end_time: "20:30"
   duration: 60
   class_date: <%= 3.days.since.to_date %>
 interactive_course_two_1_lesson_2:
   teacher: teacher2
   interactive_course: interactive_course_two_1
   description: interactive_course_two_1-第2节
-  start_time: 19:30
-  end_time: 20:30
+  start_time: "19:30"
+  end_time: "20:30"
   duration: 60
   class_date: <%= 4.days.since.to_date %>
 interactive_course_three_2_lesson_1:
   teacher: teacher1
   interactive_course: interactive_course_three_2
   description: interactive_course_three_2-第1节
-  start_time: 19:30
-  end_time: 20:30
+  start_time: "19:30"
+  end_time: "20:30"
   duration: 60
   class_date: <%= 3.days.ago.to_date %>
   status: 5
@@ -142,8 +251,8 @@ interactive_course_three_2_lesson_2:
   teacher: teacher1
   interactive_course: interactive_course_three_2
   description: interactive_course_three_2-第2节
-  start_time: 19:30
-  end_time: 20:30
+  start_time: "19:30"
+  end_time: "20:30"
   duration: 60
   class_date: <%= Date.today %>
   status: 1
@@ -152,8 +261,8 @@ interactive_course_three_2_lesson_3:
   teacher: teacher2
   interactive_course: interactive_course_three_2
   description: interactive_course_three_2-第3节
-  start_time: 19:30
-  end_time: 20:30
+  start_time: "19:30"
+  end_time: "20:30"
   duration: 60
   class_date: <%= 4.days.since.to_date %>
   status: 0

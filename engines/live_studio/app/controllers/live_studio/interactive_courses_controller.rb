@@ -38,7 +38,6 @@ module LiveStudio
 
     # 调课
     def update_class_date
-      @interactive_course_lessons = @interactive_course.interactive_lessons.unstart
     end
 
     def update_lessons

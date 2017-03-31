@@ -5,7 +5,7 @@ module LiveStudio
 
     def index
       @query = @workstation.live_studio_interactive_courses.ransack(params[:q])
-      @interactive_courses = @query.result.paginate(page: params[:page])
+      @interactive_courses = @query.result.order(id: :desc).paginate(page: params[:page])
     end
 
   end

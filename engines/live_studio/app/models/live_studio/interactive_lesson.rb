@@ -71,6 +71,7 @@ module LiveStudio
     has_many :ticket_items
 
     validates :class_date, :teacher_id, :duration, presence: true
+    validates :class_date, uniqueness: { scope: [:interactive_course_id, :deleted_at], message: I18n.t('view.live_studio/interactie_course.validate.class_date_uniq') }
     validate do
       errors.add(:class_date, I18n.t('view.live_studio/interactie_course.validate.class_date_hour_minites')) if start_time.blank?
     end

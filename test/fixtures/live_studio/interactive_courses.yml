@@ -91,13 +91,17 @@ interactive_course_three_1:
   status: 1
   grade: 高一
   subject: 英语
-  teacher_percentage: 70
   interactive_lessons_count: 2
+  teacher_percentage: 60
+  publish_percentage: 5
+  platform_percentage: 15
+  sell_and_platform_percentage: 35
   price: 700
   class_date: <%= 5.days.since.to_date %>
   start_at: <%= 5.days.since.to_date %>
   end_at: <%= 15.days.since.to_date %>
   buy_tickets_count: 1
+  base_price: 0.1
 
 # 已经有人购买
 interactive_course_three_2:
@@ -106,8 +110,12 @@ interactive_course_three_2:
   status: 2
   grade: 高一
   subject: 物理
-  teacher_percentage: 70
+  teacher_percentage: 60
+  publish_percentage: 5
+  platform_percentage: 15
+  sell_and_platform_percentage: 35
   interactive_lessons_count: 2
+  base_price: 0.1
   price: 500
   class_date: <%= 3.days.ago.to_date %>
   start_at: <%= 3.days.ago.to_date %>

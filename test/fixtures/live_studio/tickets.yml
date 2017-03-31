@@ -391,7 +391,7 @@ ticket_for_student_one_with_interactive_course_three_1:
   lesson_price: 70
   type: LiveStudio::BuyTicket
   seller: workstation_one (Workstation)
-  sell_percentage: 45
+  sell_percentage: 25
   platform_percentage: 10
 ticket_for_student_one_with_interactive_course_three_2:
   student: student_one_with_course

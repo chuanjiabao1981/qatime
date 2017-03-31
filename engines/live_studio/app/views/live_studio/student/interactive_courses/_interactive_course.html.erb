@@ -13,15 +13,16 @@
         <%= preview_time(interactive_course) if interactive_course.published? %>
       <% end %>
       <%= content_tag(:div, "#{t('view.course_show.subject')}#{interactive_course.subject}", class: 'content-ceil') %>
-      <%= content_tag(:div, "#{t('view.course_show.teacher')}#{interactive_course.teacher.try(:name)}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.teacher')}：#{interactive_course.teacher.try(:name)}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.schedule')}#{interactive_course.finished_lessons_count}/#{interactive_course.lessons_count}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.surplus')}#{interactive_course.left_lessons_count} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.current')}#{interactive_course.current_lesson_name}") %>
     <%end %>
     <%= content_tag(:div, class: 'course-operator-div') do%>
-      <%= content_tag(:div, link_to(t('activerecord.view.buy'), new_course_order_path(course), id: "buy-course-#{interactive_course.id}",class: 'btn btn-default font-red'),
+      <%= content_tag(:div, link_to(t('activerecord.view.buy'), new_course_order_path(interactive_course), id: "buy-course-#{interactive_course.id}",class: 'btn btn-default font-red'),
                       class: 'course-buy-btn') if current_user == @student && !interactive_course.bought_by?(@student) %>
       <%= content_tag(:div, class: 'course-operator-btn') do %>
+        <%= link_to t('view.course_show.info'), live_studio.interactive_course_path(interactive_course), class: 'btn btn-default operator-btn' %>
       <% end %>
     <% end %>
   <% end %>

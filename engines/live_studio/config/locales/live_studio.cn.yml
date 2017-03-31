@@ -7,6 +7,7 @@ cn:
       my_courses: 发行/经销
       teacher:
         my_courses: 我的辅导
+        my_interactive_courses: 我的一对一
         new_course: 邀请和创建
         create_course: 创建新辅导
         my_course_invitations: 邀请和创建
@@ -29,9 +30,6 @@ cn:
         all: 全部
         all_city: 全国
   activerecord:
-    models:
-      live_studio/course: 辅导班
-      live_studio/interactive_course: 互动直播
     attributes:
       live_studio/course:
         name: 名称

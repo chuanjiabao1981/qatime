@@ -64,6 +64,7 @@ LiveStudio::Engine.routes.draw do
     end
 
     resources :orders, only: [:new, :create]
+    resources :announcements, only: [:index, :update, :create], shallow: true
   end
 
   namespace :station do
@@ -167,9 +168,9 @@ LiveStudio::Engine.routes.draw do
       end
 
       resources :course_invitations, only: [:index, :destroy]
+      resources :interactive_courses, only: [:index]
     end
   end
-
 
   # namespace :teacher do
   #   resources :courses, only: [:index, :show, :edit, :update] do

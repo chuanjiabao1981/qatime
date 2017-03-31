@@ -54,9 +54,10 @@ module LiveStudio
     belongs_to :city
     belongs_to :author, class_name: '::User'
 
-    has_many :interactive_lessons, -> { order(class_date: :asc) }
-    has_many :teachers, through: :interactive_lessons
+    has_many :interactive_lessons
+    has_many :teachers, -> { distinct }, through: :interactive_lessons
     has_many :buy_tickets, as: :product
+    has_many :announcements, as: :announcementable
 
     validates :name, presence: true, length: { in: 2..20 }
     validates :description, presence: true, length: { in: 5..300 }

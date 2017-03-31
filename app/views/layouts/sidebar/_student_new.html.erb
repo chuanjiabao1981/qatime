@@ -47,6 +47,13 @@
       <% end %>
     </li>
     <li>
+      <%= link_to live_studio.student_interactive_courses_path(@student) do %>
+      <span class="fa fa-users"></span>
+      <span class="qa_f18"><%= t("view.student_bars.my_interactive_course") %></span>
+      <span class="glyphicon arraw-span <%= student_sidebar_nav_is?(:courses) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+      <% end %>
+    </li>
+    <li>
       <%= link_to live_studio.schedules_student_path(@student) do %>
         <span class="fa fa-calendar"></span>
         <span class="qa_f18"><%= t("view.student_bars.schedules") %></span>

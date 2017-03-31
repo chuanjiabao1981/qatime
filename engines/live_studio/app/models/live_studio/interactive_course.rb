@@ -258,6 +258,10 @@ module LiveStudio
         "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:end_time)}"
     end
 
+    def order_lessons
+      interactive_lessons.unscope(:order).order(:class_date, :live_start_at, :live_end_at)
+    end
+
     private
 
     # 教师分成最大值

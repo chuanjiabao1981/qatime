@@ -21,10 +21,10 @@
             <span>
               <i><%= t('view.live_studio/courses.show.date') %></i>
               <i>
-                <% if @course.live_start_date.try(:to_s) == @course.live_end_date.try(:to_s) %>
-                  <%= @course.live_start_date.try(:to_s) %>
+                <% if @course.start_at == @course.end_at %>
+                  <%= @course.start_at.try(:to_date).try(:to_s) %>
                 <% else %>
-                  <%= t('view.live_studio/courses.show.date_text', start_at: @course.live_start_date.try(:to_s), end_at: @course.live_end_date.try(:to_s)) %>
+                  <%= t('view.live_studio/courses.show.date_text', start_at: @course.start_at.try(:to_s), end_at: @course.start_at.try(:to_s)) %>
                 <% end %>
               </i>
             </span>

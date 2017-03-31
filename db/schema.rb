@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331013209) do
+ActiveRecord::Schema.define(version: 20170331022359) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -684,6 +684,7 @@ ActiveRecord::Schema.define(version: 20170331013209) do
     t.datetime "heartbeat_time"
     t.integer  "duration"
     t.integer  "replay_status",                     default: 0
+    t.string   "room_id",               limit: 64
   end
 
   add_index "live_studio_interactive_lessons", ["interactive_course_id"], name: "index_live_studio_interactive_lessons_on_interactive_course_id", using: :btree

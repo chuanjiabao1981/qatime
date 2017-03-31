@@ -11,7 +11,7 @@ module LiveService
     # 4. finish上一节课，为了避免漏处理  finish该辅导班内所有paused, closed状态的其它课程
     # 5. 开始本节课
     # 6. 初始化心跳
-    def lesson_start(board, camera)
+    def lesson_start(board, camera, room_id = nil)
       @course = @lesson.interactive_course
       # 如果辅导班已经有状态为teaching的课程,则返回false
       return false unless @course.interactive_lessons.teaching.blank?
@@ -24,6 +24,7 @@ module LiveService
         @course.interactive_lessons.waiting_finish.each do |lesson|
           LiveService::InteractiveLessonDirector.new(lesson).finish unless lesson.id == @lesson.id
         end
+        @lesson.room_id = room_id
         @lesson.teach!
         @lesson.current_live_session
       end

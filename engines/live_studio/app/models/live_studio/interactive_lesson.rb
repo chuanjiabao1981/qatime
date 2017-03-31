@@ -68,7 +68,7 @@ module LiveStudio
 
     has_many :live_sessions, as: :sessionable # 直播 心跳记录
     has_many :live_studio_lesson_notifications, as: :notificationable, dependent: :destroy
-    has_many :ticket_items
+    has_many :ticket_items, as: :target
 
     validates :class_date, :teacher_id, :duration, presence: true
     validate do

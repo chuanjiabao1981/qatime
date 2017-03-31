@@ -39,7 +39,7 @@ module LiveStudio
       end
     end
 
-    belongs_to :lesson
+    belongs_to :target, polymorphic: true
     belongs_to :ticket
 
     scope :billingable, -> { where(status: LiveStudio::TicketItem.statuses.slice(:unused, :used).values) }

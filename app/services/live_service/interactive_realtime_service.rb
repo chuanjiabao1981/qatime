@@ -22,7 +22,7 @@ module LiveService
 
     # 更新直播信息
     def update_live(lesson, board, camera)
-      live_attrs = { id: lesson.id, name: lesson.name, status: lesson.status, board: board, camera: camera, t: timestamp }
+      live_attrs = { id: lesson.id, name: lesson.name, status: lesson.status, board: board, camera: camera, room_id: lesson.room_id, t: timestamp }
       Redis.current.hmset("live_studio/interactive_course-#{@interactive_course_id}-live-info", *live_attrs.to_a.flatten)
       live_attrs
     rescue e

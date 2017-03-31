@@ -60,6 +60,7 @@ module V1
               }
             end
             params do
+              optional :t, type: String
             end
             get 'live_status' do
               LiveService::InteractiveRealtimeService.new(params[:interactive_course_id]).live_detail(current_user.try(:id))

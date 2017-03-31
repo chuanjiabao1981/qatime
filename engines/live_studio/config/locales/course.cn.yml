@@ -62,5 +62,16 @@ cn:
         after_study: 上课后
         after_study1: 1.直播结束后大家仍可以在直播教室内进行聊天和讨论，老师也会适时解答；
         after_study2: 2.请同学按时完成老师布置的作业任务；
+        study_flow: 学习流程
+        buy_tip: 购买课程
+        buy_tip_value: 支持退款，放心购买
+        time_tip: 准时上课
+        time_tip_value: 无需预约，按时上课
+        online_tip: 在线授课
+        online_tip_value: 视频直播，白板互动
+        close_tip: 上课结束
+        close_tip_value: 音图并茂，随时解答
+        teachers_more: 全部...
+        teachers_hide: 收起
 
 

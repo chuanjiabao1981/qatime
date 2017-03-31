@@ -285,6 +285,9 @@ cn:
     live_studio/courses:
       share_percentage: 分成比例
       no_coupon_code: 工作站未配置优惠码
+    live_studio/interactive_courses:
+      show:
+        lesson_name: "%{course_name} 第 %{index} 节"
 
 
   status:
@@ -405,6 +408,8 @@ cn:
         lessons_progress: 课程进度
         percentage: 分成
         latest: 最新
+      live_studio/interactive_lesson:
+        teacher: 老师
       live_studio/push_stream:
         address: 直播地址
       live_studio/pull_stream:

@@ -1,0 +1,40 @@
+<div class="container">
+  <%= search_form_for @q, id: 'search-form' do |f| %>
+    <%= f.search_field :grade_eq, type: 'hidden' %>
+    <%= f.search_field :subject_eq, type: 'hidden' %>
+    <ul class="personal-nav">
+      <li>
+        <span class="col-md-1"><%= LiveStudio::InteractiveCourse.human_attribute_name(:grade) %>：</span>
+        <span class="col-md-11">
+          <%= link_to t("view.course_filter.all"),
+                      live_studio.interactive_courses_path(@search_params.deep_merge(q: { grade_eq: nil })),
+                      class: "#{'active' if @search_params[:q].blank? || @search_params[:q][:grade_eq].blank? }" %>
+          <% APP_CONSTANT['grades_in_sorts'].each do |grade| %>
+            <%= link_to grade,
+                        live_studio.interactive_courses_path(@search_params.deep_merge(q: { grade_eq: grade })),
+                        class: "#{'active' if @search_params[:q] && @search_params[:q][:grade_eq] == grade }" %>
+          <% end %>
+        </span>
+      </li>
+      <li>
+        <span class="col-md-1"><%= LiveStudio::InteractiveCourse.human_attribute_name(:subject) %>：</span>
+        <span class="col-md-11">
+          <%= link_to t("view.course_filter.all"),
+                      live_studio.interactive_courses_path(@search_params.deep_merge(q: { subject_eq: nil })),
+                      class: "#{'active' if @search_params[:q].blank? || @search_params[:q][:subject_eq].blank? }" %>
+          <% APP_CONSTANT['subjects'].each do |subject| %>
+            <%= link_to subject,
+                        live_studio.interactive_courses_path(@search_params.deep_merge(q: { subject_eq: subject })),
+                        class: "#{'active' if @search_params[:q] && @search_params[:q][:subject_eq] == subject }" %>
+          <% end %>
+        </span>
+      </li>
+      <li>
+        <%= f.sort_link :published_at,
+                        LiveStudio::InteractiveCourse.human_attribute_name(:latest) %>
+        <%= f.sort_link :price,
+                        LiveStudio::InteractiveCourse.human_attribute_name(:price) %>
+      </li>
+    </ul>
+  <% end %>
+</div>

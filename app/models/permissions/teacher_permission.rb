@@ -249,9 +249,18 @@ module Permissions
       allow 'live_studio/teacher/course_invitations', [:index, :destroy]
 
       allow 'live_studio/announcements', [:index, :create, :update] do |course|
-        course && course.teacher_id = user.id
+        if course.is_a? LiveStudio::Course
+          course && course.teacher_id = user.id
+        else
+          course && course.teachers.include?(user)
+        end
       end
+
       ## end live studio permission
+      allow 'live_studio/teacher/interactive_courses', [:index, :index]
+      ## 一对一 start
+
+      ## 一对一 end
 
 
       ## begin payment permission

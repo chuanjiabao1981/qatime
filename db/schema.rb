@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331022359) do
+ActiveRecord::Schema.define(version: 20170331052615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -484,8 +484,10 @@ ActiveRecord::Schema.define(version: 20170331022359) do
     t.string   "creator_type"
     t.string   "content"
     t.boolean  "lastest"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "announcementable_id"
+    t.string   "announcementable_type"
   end
 
   add_index "live_studio_announcements", ["course_id"], name: "index_live_studio_announcements_on_course_id", using: :btree

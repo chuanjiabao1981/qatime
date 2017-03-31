@@ -1,0 +1,51 @@
+<div class="tutorial-con">
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+      <tr>
+        <td rowspan="3" class="tutorial-con-td">
+          <%= image_tag(interactive_course.publicize_url(:list)) %>
+        </td>
+        <td colspan="3">
+          <span class="tutorial-con-msg"><%= interactive_course.name %></span>
+        </td>
+        
+      </tr>
+      <tr>
+        <td>
+          <span class="tutorial-con-head"><%= LiveStudio::InteractiveCourse.human_attribute_name(:grade) %></span>
+          <span><%= interactive_course.grade %></span>
+        </td>
+        <td>
+          <span class="tutorial-con-head"><%= LiveStudio::InteractiveCourse.human_attribute_name(:students_count) %></span>
+          <span><%= interactive_course.buy_user_count %></span>
+        </td>
+        <td class="tutorial-con-audit"><span><%= interactive_course.status.text %></span></td>
+      </tr>
+      <tr>
+        <td class="tutorial-con-new">
+          <span class="tutorial-con-head tutorial-con-edit"><%= LiveStudio::InteractiveCourse.human_attribute_name(:price) %></span>
+          <span class="tutorial-con-edit">
+            <%= number_to_currency(interactive_course.price, unit: "￥", precision: 2) %>
+            <i>(<%= number_to_percentage(interactive_course.teacher_percentage, precision: 0) %><%= LiveStudio::InteractiveCourse.human_attribute_name(:percentage) %>)</i>
+          </span>
+        </td>
+        <td>
+          <span class="tutorial-con-head tutorial-con-edit"><%= LiveStudio::InteractiveCourse.human_attribute_name(:lessons_progress) %></span>
+          <span class="tutorial-con-edit"><%= interactive_course.finished_lessons_count %>/<%= interactive_course.lessons_count %></span>
+        </td>
+        <td>
+          <center>
+            <span class="tutorial-con-edit">
+              <%= link_to live_studio.preview_interactive_courses_path(id: interactive_course), method: :post, target: '_blank' do %>
+                [<%= t("common.preview") %>]
+              <% end %>
+              <%= link_to live_studio.interactive_course_announcements_path(interactive_course) do %>
+                [<%= t("common.announcement") %>]
+              <% end if interactive_course.teaching? %>
+            </span>
+          </center>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

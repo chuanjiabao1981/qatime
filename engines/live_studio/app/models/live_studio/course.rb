@@ -117,7 +117,7 @@ module LiveStudio
     has_many :push_streams, through: :channels
     has_many :pull_streams, through: :channels
     has_many :play_records # 听课记录
-    has_many :announcements
+    has_many :announcements, as: :announcementable
     has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
 
     has_many :billings, through: :lessons, class_name: 'Payment::Billing' # 结算记录

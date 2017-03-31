@@ -13,7 +13,7 @@
         <%= preview_time(interactive_course) if interactive_course.published? %>
       <% end %>
       <%= content_tag(:div, "#{t('view.course_show.subject')}#{interactive_course.subject}", class: 'content-ceil') %>
-      <%= content_tag(:div, "#{t('view.course_show.teacher')}：#{interactive_course.teacher.try(:name)}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.teacher')}：#{interactive_course.teachers.map(&:name).join('/')}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.schedule')}#{interactive_course.finished_lessons_count}/#{interactive_course.lessons_count}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.surplus')}#{interactive_course.left_lessons_count} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
       <%= content_tag(:div, "#{t('view.course_show.current')}#{interactive_course.current_lesson_name}") %>

@@ -108,6 +108,19 @@ cn:
         modal_class_date_new: 新上课日期
         modal_start_time_was: 原开始时间
         modal_start_time_new: 新开始时间
+    student:
+      students:
+        schedules:
+          modal_title: 提醒
+          modal_content: 一对一课程需要使用客户端才能进入，请安装最新版本。
+          modal_link: 安装客户端
+          lesson:
+            one_by_one: 一对一
+            course: 直播课
+            student_count: 学生人数
+            student_count_text: "%{count}人"
+            enter: 进入
+
 
 
 

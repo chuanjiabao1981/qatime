@@ -43,20 +43,19 @@ module LiveStudio
                            hours_4: 240
                        }, i18n_scope: "enumerize.live_studio/lessons.durations", scope: true, predicates: { prefix: true }
 
-    # default_scope { order("id asc") }
-    scope :unfinish, -> { where("status < ?", Lesson.statuses[:finished]) } # 未完成的课程
-    scope :unclosed, -> { where('live_studio_lessons.status < ?', Lesson.statuses[:closed]) } # 未关闭的课程
-    scope :already_closed, -> { where('live_studio_lessons.status >= ?', Lesson.statuses[:closed]) } # 已关闭的课程
-    scope :unstart, -> { where('status < ?', Lesson.statuses[:teaching]) } # 未开始的课程
-    scope :should_complete, -> { where(status: [Lesson.statuses[:finished], Lesson.statuses[:billing]]).where("class_date < ?", Date.yesterday)} # 可以completed的课程
-    scope :teached, -> { where("status > ?", Lesson.statuses[:closed]) } # 已经完成上课, 不可以继续直播的课程才算完成上课
+    scope :unfinish, -> { where("live_studio_interactive_lessons.status < ?", InteractiveLesson.statuses[:finished]) } # 未完成的课程
+    scope :unclosed, -> { where('live_studio_interactive_lessons.status < ?', InteractiveLesson.statuses[:closed]) } # 未关闭的课程
+    scope :already_closed, -> { where('live_studio_interactive_lessons.status >= ?', InteractiveLesson.statuses[:closed]) } # 已关闭的课程
+    scope :unstart, -> { where('live_studio_interactive_lessons.status < ?', InteractiveLesson.statuses[:teaching]) } # 未开始的课程
+    scope :should_complete, -> { where(status: [Lesson.statuses[:finished], InteractiveLesson.statuses[:billing]]).where("live_studio_interactive_lessons.class_date < ?", Date.yesterday)} # 可以completed的课程
+    scope :teached, -> { where("live_studio_interactive_lessons.status > ?", InteractiveLesson.statuses[:closed]) } # 已经完成上课, 不可以继续直播的课程才算完成上课
     scope :today, -> { where(class_date: Date.today) }
-    scope :since_today, -> {where('class_date > ?',Date.today)}
-    scope :include_today, -> {where('class_date >= ?',Date.today)}
-    scope :waiting_finish, -> { where(status: [Lesson.statuses[:paused], Lesson.statuses[:closed]])}
-    scope :month, -> (month){where('live_studio_lessons.class_date >= ? and live_studio_lessons.class_date <= ?', month.beginning_of_month.to_date,month.end_of_month.to_date)}
-    scope :started, -> { where("status >= ?", Lesson.statuses[:teaching])} # 已开始
-    scope :readied, -> { where("status >= ?", Lesson.statuses[:ready])} # 已就绪
+    scope :since_today, -> {where('live_studio_interactive_lessons.class_date > ?', Date.today)}
+    scope :include_today, -> {where('live_studio_interactive_lessons.class_date >= ?', Date.today)}
+    scope :waiting_finish, -> { where(status: [Lesson.statuses[:paused], InteractiveLesson.statuses[:closed]])}
+    scope :month, -> (month){where('live_studio_interactive_lessons.class_date >= ? and live_studio_interactive_lessons.class_date <= ?', month.beginning_of_month.to_date,month.end_of_month.to_date)}
+    scope :started, -> { where("live_studio_interactive_lessons.status >= ?", InteractiveLesson.statuses[:teaching])} # 已开始
+    scope :readied, -> { where("live_studio_interactive_lessons.status >= ?", InteractiveLesson.statuses[:ready])} # 已就绪
 
     belongs_to :interactive_course, counter_cache: true
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师

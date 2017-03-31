@@ -36,6 +36,7 @@ module LiveService
     end
 
     # 根据参数查询当月课程安排
+    # 包括一对一课程
     def self.courses_by_month(user, month=nil, state=nil)
       month = month.blank? ? Time.now : month.to_time
       hash = {}
@@ -53,6 +54,23 @@ module LiveService
         hash[date] ||= []
         hash[date] << lesson
       end
+
+      # 一对一课程数据
+      interactive_lessons = user.live_studio_interactive_lessons.month(month)
+      interactive_lessons = case state
+                  when 'unclosed'
+                    interactive_lessons.unclosed
+                  when 'closed'
+                    interactive_lessons.already_closed
+                  else
+                    interactive_lessons
+                end
+      interactive_lessons.map do |interactive_lesson|
+        date = interactive_lesson.class_date.to_s
+        hash[date] ||= []
+        hash[date] << interactive_lesson
+      end
+
       hash.map{|date,lessons| {date: date, lessons: lessons}}
     end
 

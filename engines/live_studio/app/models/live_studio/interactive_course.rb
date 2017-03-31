@@ -144,22 +144,18 @@ module LiveStudio
     end
 
     # 试听结束
-    def tasted?(user)
-      return false unless user.present?
-      taste_tickets.unavailable.where(student_id: user.id).exists?
+    def tasted?(_user)
+      false
     end
 
     # 正在试听
-    def tasting?(user)
-      return false unless user.present?
-      taste_tickets.available.where(student_id: user.id).exists?
+    def tasting?(_user)
+      false
     end
 
     # 是否可以试听
-    def can_taste?(user)
-      return false unless user.student?
-      return false if buy_tickets.where(student_id: user.id).exists?
-      !taste_tickets.where(student_id: user.id).exists?
+    def can_taste?(_user)
+      false
     end
 
     # 是否卖给用户
@@ -259,6 +255,10 @@ module LiveStudio
       lesson = interactive_lessons.reorder('class_date asc,id').last
       lesson.try(:live_end_at).try(:strftime,'%Y-%m-%d %H:%M') ||
         "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:end_time)}"
+    end
+
+    def order_lessons
+      interactive_lessons.unscope(:order).includes(:teacher).order(:class_date, :live_start_at, :live_end_at)
     end
 
     private

@@ -42,5 +42,13 @@ module LiveStudio
       click_on '最新'
       assert page.has_content?('最新 ▼')
     end
+
+    test 'interactive course detail' do
+      click_on '第2-1个一对一直播'
+      assert page.has_content?('500.00'), "价格没有显示"
+      assert page.has_content?('立即报名'), "报名链接未显示"
+      assert page.has_content?('teacher1'), "教师没没有显示"
+      assert page.has_content?('teacher2'), "教师没没有显示"
+    end
   end
 end

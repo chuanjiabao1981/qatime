@@ -369,6 +369,10 @@ module ApplicationHelper
     TagCategory.includes(:tags)
   end
 
+  def beautify_index index
+    "%02d"%(index+1)
+  end
+
   # 支付密码提示信息
   # 密码24小时内不可用
   def payment_password_hint(user)

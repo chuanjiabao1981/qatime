@@ -4,12 +4,17 @@ module LiveStudio
   class InteractiveCoursesController < ApplicationController
     layout :current_user_layout
 
-    before_action :find_workstation, except: :index
+    before_action :find_workstation, except: [:index, :show]
     before_action :find_interactive_course, only: [:destroy, :preview, :update_class_date, :update_lessons]
 
     def index
       @q = LiveService::InteractiveCourseDirector.search(search_params)
       @courses = @q.result.paginate(page: params[:page], per_page: 12)
+      render layout: 'v1/application'
+    end
+
+    def show
+      @course = LiveStudio::InteractiveCourse.find(params[:id])
       render layout: 'v1/application'
     end
 

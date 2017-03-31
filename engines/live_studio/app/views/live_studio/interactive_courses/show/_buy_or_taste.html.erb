@@ -1,0 +1,12 @@
+
+<% if current_user.blank? %>
+  <%= link_to t('activerecord.view.enroll_now'), live_studio.new_interactive_course_order_path(@course), class: 'btn-addclass' %>
+<% elsif @course.bought_by?(current_user) %>
+  <%= link_to t('view.course_info_show.start_learning'), main_app.welcome_download_path, class: 'btn-addclass', target: '_blank' %>
+<% else %>
+  <% if @course.started_lessons_count > 0 -%>
+    <%= link_to t('activerecord.view.enroll_now'), live_studio.new_interactive_course_order_path(@course), data: { confirm: t("view.course_info_show.buy_teaching_course_tips") }, class: 'btn-addclass' %>
+  <% else -%>
+    <%= link_to t('activerecord.view.enroll_now'), live_studio.new_interactive_course_order_path(@course), class: 'btn-addclass' %>
+  <% end %>
+<% end %>

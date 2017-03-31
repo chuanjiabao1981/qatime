@@ -180,6 +180,9 @@ module LiveStudio
     def current_lesson
       return @current_lesson if @current_lesson.present?
       @current_lesson = interactive_lessons.find {|l| l.class_date.try(:today?) }
+      @current_lesson ||= interactive_lessons.find {|l| l.class_date > Date.today }
+      @current_lesson ||= interactive_lessons.last
+      @current_lesson
     end
 
     def current_lesson_name

@@ -19,6 +19,12 @@ module Chat
       post_request("/team/add.action", params)
     end
 
+    # 解散群
+    def self.team_remove(tid, owner)
+      params = { tid: tid, owner: owner }
+      post_request("/team/remove.action", params)
+    end
+
     def self.team_kick(tid, owner, member)
       params = { tid: tid, owner: owner, member: member }
       post_request("/team/kick.action", params)

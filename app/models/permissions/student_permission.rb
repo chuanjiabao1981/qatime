@@ -229,6 +229,7 @@ module Permissions
       api_allow :GET, 'live_studio/students/\d+/interactive_courses' do |student|
         student == user
       end
+      api_allow :POST, "/api/v1/live_studio/interactive_courses/[\\w-]+/orders"
       ##
 
       # 消息通知

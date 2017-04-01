@@ -28,6 +28,7 @@ module Entities
       end
       expose :chat_team, using: Entities::Chat::Team, if: { type: :full }
       expose :interactive_lessons, using: Entities::LiveStudio::InteractiveLesson, if: { type: :full }
+      expose :teachers, using: Entities::Teacher
 
       with_options(format_with: :local_timestamp) do
         expose :created_at

@@ -35,7 +35,7 @@ class Qatime::InteractiveCoursesAPITest < ActionDispatch::IntegrationTest
   test 'interactive course deatil' do
     course1 = live_studio_interactive_courses(:interactive_course_one_2)
     course2 = live_studio_interactive_courses(:interactive_course_two_1)
-    course3 = live_studio_interactive_courses(:interactive_course_three)
+    course3 = live_studio_interactive_courses(:interactive_course_three_1)
     get "/api/v1/live_studio/interactive_courses/#{course1.id}"
     assert_request_success?
     %w(name subject grade price status description lessons_count closed_lessons_count).each do |k|
@@ -45,5 +45,17 @@ class Qatime::InteractiveCoursesAPITest < ActionDispatch::IntegrationTest
     assert_request_success?
     get "/api/v1/live_studio/interactive_courses/#{course3.id}"
     assert_request_success?
+  end
+
+  test 'student buy a interactive course' do
+    student = users(:student_one_with_course)
+    @remember_token = api_login(student, :app)
+    course = live_studio_interactive_courses(:interactive_course_two_3)
+    assert_difference "Payment::Order.count", 1, "辅导班下单失败" do
+      post "/api/v1/live_studio/interactive_courses/#{course.id}/orders", {pay_type: :weixin}, {'Remember-Token' => @remember_token}
+      assert_response :success, "接口响应错误#{JSON.parse(response.body)}"
+    end
+    assert Payment::Order.last.weixin?, "支付方式记录错误"
+    assert Payment::Order.last.source.app?, "订单来源错误"
   end
 end

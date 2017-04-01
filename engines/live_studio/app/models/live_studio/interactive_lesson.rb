@@ -59,6 +59,7 @@ module LiveStudio
     scope :readied, -> { where("live_studio_interactive_lessons.status >= ?", InteractiveLesson.statuses[:ready])} # 已就绪
 
     belongs_to :interactive_course, counter_cache: true
+    belongs_to :course, class_name: 'InteractiveCourse', foreign_key: :interactive_course_id
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
 
     has_many :play_records # 听课记录
@@ -159,6 +160,10 @@ module LiveStudio
     def status_text(role = nil, outer = true)
       role == 'teacher' || role = 'student'
       I18n.t("lesson_status.#{role}.#{status}#{!outer && status == 'paused' ? '_inner' : ''}")
+    end
+
+    def course_id
+      interactive_course_id
     end
 
     # 尚未直播

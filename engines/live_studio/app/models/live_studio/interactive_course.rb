@@ -55,6 +55,7 @@ module LiveStudio
     belongs_to :author, class_name: '::User'
 
     has_many :interactive_lessons, dependent: :destroy
+    has_many :lessons, dependent: :destroy, class_name: 'InteractiveLesson', foreign_key: :interactive_course_id
     has_many :teachers, -> { distinct }, through: :interactive_lessons
     has_many :buy_tickets, as: :product
     has_many :announcements, as: :announcementable

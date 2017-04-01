@@ -7,7 +7,11 @@ module LiveStudio
 
     after_create :instance_items
     def instance_items
-      ticket_items.create(product.lessons.where(live_end_at: nil).map { |l| { target: l } })
+      if product.is_a?(LiveStudio::Course)
+        ticket_items.create(product.lessons.where(live_end_at: nil).map { |l| { target: l } })
+      else
+        ticket_items.create(product.interactive_lessons.where(live_end_at: nil).map { |l| { target: l.id } })
+      end
     end
 
     after_update :update_items_status, if: :status_changed?

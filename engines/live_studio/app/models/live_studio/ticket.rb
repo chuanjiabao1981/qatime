@@ -32,6 +32,7 @@ module LiveStudio
     # 不可用
     scope :unavailable, -> { nonescope.where("live_studio_tickets.status >= ?", statuses[:used]) }
     scope :authorizable, -> { nonescope.where("live_studio_tickets.status < ?", statuses[:pre_used]) }
+    scope :by_product, ->(product) { where(product_id: product.id, product_type: product.model_name.to_s) }
 
     def type_name
       return I18n.t("live_studio/ticket.type_name.taste_#{status}") if taste?

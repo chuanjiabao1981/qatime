@@ -2,7 +2,7 @@
 <%
    @user = @student || @teacher
 %>
-<div class="qa_box">
+<div class="qa_box qa_syllabus">
   <div class="qa_big_cell">
     <div class="row">
       <div>
@@ -35,15 +35,35 @@
         <div id="schedules_div" class="tab-pane fade in active">
           <div id="calendar">
           </div>
-          <div id="calendar_data">
+          <div class="qa_big-list" id="calendar_data">
           </div>
         </div>
         <div id="wait_lesson" class="tab-pane fade">
-          <%= render partial: '/live_studio/student/students/lesson', locals: {lessons: @wait_lessons} %>
+          <div class="qa_big-list">
+            <%= render partial: '/live_studio/student/students/lesson', locals: {lessons: @wait_lessons} %>
+          </div>
         </div>
         <div id="close_lessons" class="tab-pane fade">
-          <%= render partial: '/live_studio/student/students/lesson', locals: {lessons: @close_lessons} %>
+          <div class="qa_big-list">
+            <%= render partial: '/live_studio/student/students/lesson', locals: {lessons: @close_lessons} %>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="dawnloadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog modal-client">
+    <div class="modal-content">
+      <div class="popup-title">
+        <span><%= t('view.student.students.schedules.modal_title') %></span>
+        <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
+      </div>
+
+      <div class="modal-body">
+        <p><%= t('view.student.students.schedules.modal_content') %></p>
+        <%= link_to t('view.student.students.schedules.modal_link'), main_app.welcome_download_path %>
       </div>
     </div>
   </div>

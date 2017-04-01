@@ -36,6 +36,7 @@ module LiveService
     end
 
     # 根据参数查询当月课程安排
+    # 包括一对一课程
     def self.courses_by_month(user, month=nil, state=nil)
       month = month.blank? ? Time.now : month.to_time
       hash = {}
@@ -53,6 +54,23 @@ module LiveService
         hash[date] ||= []
         hash[date] << lesson
       end
+
+      # 一对一课程数据
+      interactive_lessons = user.live_studio_interactive_lessons.month(month)
+      interactive_lessons = case state
+                  when 'unclosed'
+                    interactive_lessons.unclosed
+                  when 'closed'
+                    interactive_lessons.already_closed
+                  else
+                    interactive_lessons
+                end
+      interactive_lessons.map do |interactive_lesson|
+        date = interactive_lesson.class_date.to_s
+        hash[date] ||= []
+        hash[date] << interactive_lesson
+      end
+
       hash.map{|date,lessons| {date: date, lessons: lessons}}
     end
 
@@ -99,7 +117,7 @@ module LiveService
       elsif %w(today taste).include?(cate)
         # 根据分类过滤辅导班
         # status: today今日上课辅导班, taste: 试听辅导班
-        @tickets = courses_for_filter(user, cate)
+        @tickets = user.student? ? courses_for_filter(user, cate) : []
       end
       @tickets
     end
@@ -107,7 +125,7 @@ module LiveService
     def self.taste_course_ticket(user, course)
       raise APIErrors::CourseTasteLimit unless course.taste_count.to_i > 0
       LiveService::ChatAccountFromUser.new(user).instance_account
-      course.taste_tickets.find_or_create_by(student: user)
+      course.taste_tickets.unscope(where: :status).find_or_create_by(student: user)
     end
 
     # 创建订单

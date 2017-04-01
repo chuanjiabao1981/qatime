@@ -1,0 +1,44 @@
+<%= simple_form_for @interactive_course do |f| %>
+  <%= f.input :workstation_id, as: :hidden %>
+
+  <p class="file-title"><%= t('view.live_studio/interactie_course.new.intro_one') %></p>
+  <%= render 'course_fields', f: f %>
+
+  <div class="editor-popup">
+    <div class="editor-arrange">
+      <div class="class-arrtitle"><%= t('view.live_studio/interactie_course.new.intro_two') %></div>
+
+      <ul class="arrange-list">
+        <%= f.fields_for :interactive_lessons do |lesson| %>
+          <%= render 'interactive_lesson_fields', f: lesson %>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="present">
+      <center>
+        <%#= link_to t('view.live_studio/interactie_course.new.preview'), 'javascript: void(0);', id: 'interactive_course_preview' %>
+        <%= link_to t('view.live_studio/interactie_course.new.submit'), 'javascript: void(0);', class: 'submit' %>
+      </center>
+    </div>
+  </div>
+<% end %>
+
+<% content_for :javascript do %>
+  <script>
+    $(document).ready(function(){
+      $('.submit').click(function(){
+        $('form').submit();
+      });
+
+      $("#interactive_course_preview").click(function() {
+        var action = $(this).parents("form").attr('action');
+        $(this).parents("form").attr('action', "<%= live_studio.preview_interactive_courses_path %>");
+        $(this).parents("form").attr('target', '_blank');
+        $(this).parents("form").submit();
+        $(this).parents("form").attr('action', action);
+        $(this).parents("form").removeAttr('target');
+      });
+    });
+  </script>
+<% end %>

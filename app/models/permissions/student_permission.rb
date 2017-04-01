@@ -157,6 +157,7 @@ module Permissions
       allow 'live_studio/student/students', [:schedules, :settings]
       allow 'settings', [:create, :update]
       allow 'live_studio/student/courses', [:index, :show]
+      allow 'live_studio/student/interactive_courses', [:index, :show]
       allow 'live_studio/courses', [:index, :show]
       allow 'live_studio/lessons', [:show, :play, :videos]
 
@@ -223,6 +224,14 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/students/[\\w-]+/schedule" do |student|
         student && student.id == user.id
       end
+
+      ## 一对一权限
+      api_allow :GET, 'live_studio/students/\d+/interactive_courses' do |student|
+        student == user
+      end
+      api_allow :POST, "/api/v1/live_studio/interactive_courses/[\\w-]+/orders"
+      ##
+
       # 消息通知
       api_allow :GET, "/api/v1/users/[\\w-]+/notifications"
       api_allow :PUT, "/api/v1/notifications/[\\w-]+/read"

@@ -17,7 +17,8 @@ class Qatime::TeachersAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
 
-    assert_equal 1, res['status']
+    assert_equal 1, res['status'], "响应错误 #{res}"
+    p res['data']
     assert_equal 19, res['data'].size
 
     assert_equal @teacher.name, res['data']['name']

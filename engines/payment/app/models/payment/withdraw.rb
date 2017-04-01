@@ -98,14 +98,14 @@ module Payment
     def decrease_cash!
       # AccountService::CashManager.new(user.cash_account!).decrease('Payment::WithdrawChangeRecord', amount, self)
       AccountService::CashManager.new(account_owner.cash_account!).decrease('Payment::WithdrawChangeRecord', amount, self)
-      AccountService::CashManager.new(account_owner.available_account).decrease('Payment::WithdrawChangeRecord', amount, self) if owner.is_a?(Workstation)
+      AccountService::CashManager.new(account_owner.available_account).decrease('Payment::WithdrawChangeRecord', amount, self) if account_owner.is_a?(Workstation)
     end
 
     # 提现失败以后返还账户余额
     def refund_cash!
       # AccountService::CashManager.new(user.cash_account!).increase('Payment::WithdrawRefundRecord', amount, self)
       AccountService::CashManager.new(account_owner.cash_account!).increase('Payment::WithdrawRefundRecord', amount, self)
-      AccountService::CashManager.new(account_owner.available_account).increase('Payment::WithdrawRefundRecord', amount, self) if owner.is_a?(Workstation)
+      AccountService::CashManager.new(account_owner.available_account).increase('Payment::WithdrawRefundRecord', amount, self) if account_owner.is_a?(Workstation)
     end
 
     def allow_operator(current_user)

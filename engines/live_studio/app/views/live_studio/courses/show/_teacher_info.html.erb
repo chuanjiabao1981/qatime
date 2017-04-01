@@ -1,28 +1,60 @@
-<% teacher = @course.teacher %>
 <div class="col-md-3">
   <div class="tec-synopsis">
     <div class="synopsis-title">
       <h2><%= t('view.course_info_show.teacher_label')%></h2>
     </div>
-    <div class="synopsis-head">
-      <p class="head-pic">
-        <%= link_to profile_teacher_path(teacher.id) do %>
-          <%= image_tag teacher.avatar, class: 'handle_error_avatar' %>
-        <% end %>
-      </p>
-      <p class="head-gender">
-        <span><%= teacher.try(:name)%></span>
-        <%= image_tag "#{teacher.gender || 'male'}_big.png" %>
-      </p>
-      <p class="head-school">
-        <span><%= teacher.school.try(:name) %></span>
-      </p>
-      <p class="head-year">
-        <span><%= teacher.teaching_years_text %></span>
-      </p>
-    </div>
-    <div class="synopsis-con">
-      <p><%= truncate_u teacher.desc, length: 145 %></p>
-    </div>
+    <ul class="synopsis-list">
+      <% @course.teachers.each do |teacher| %>
+        <li>
+          <div class="synopsis-head">
+            <p class="head-pic">
+              <%= link_to profile_teacher_path(teacher.id) do %>
+                <%= image_tag teacher.avatar, class: 'handle_error_avatar' %>
+              <% end %>
+            </p>
+            <p class="head-gender">
+              <%= link_to teacher.name, profile_teacher_path(teacher.id) %>
+              <%= image_tag "#{teacher.gender || 'male'}_big.png" %>
+            </p>
+            <p class="head-school">
+              <span><%= teacher.school.try(:name) %></span>
+            </p>
+            <p class="head-year">
+              <span><%= teacher.try(:teaching_years_text) %></span>
+            </p>
+            <p class="head-introduce">
+              <%= truncate_u teacher.desc, length: 145 %>
+            </p>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+
+    <p class="synopsis-more">
+      <a href="javascript:void(0);"><%= t('view.live_studio/courses.show.teachers_more') %></a>
+    </p>
   </div>
 </div>
+
+<%= content_for :javascript do %>
+<script>
+$(function() {
+  var defaultShow = 5;
+  if($(".synopsis-list li").length <= defaultShow) {
+    $(".synopsis-more a").hide();
+  } else {
+    $(".synopsis-list li:gt(" + (defaultShow - 1) + ")").hide();
+    $(".synopsis-more a").show();
+  }
+  $(".synopsis-more a").click(function() {
+    if($(this).html() == "<%= t('view.live_studio/courses.show.teachers_more') %>") {
+      $(this).html("<%= t('view.live_studio/courses.show.teachers_hide') %>");
+      $(".synopsis-list li:gt(" + (defaultShow - 1) + ")").show();
+    } else {
+      $(this).html("<%= t('view.live_studio/courses.show.teachers_more') %>");
+      $(".synopsis-list li:gt(" + (defaultShow - 1) + ")").hide();
+    }
+  })
+});
+</script>
+<% end %>

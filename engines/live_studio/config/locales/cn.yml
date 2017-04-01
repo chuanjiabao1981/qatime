@@ -197,11 +197,15 @@ cn:
       subject: 科目类型
       grade: 年级类型
       teacher_name: 授课老师
-      lessons_count: 课时总数
-      lessons_count_value: '%{count}课时'
+      lessons_count: 课时数量
+      lessons_count_value: '共%{count}课时'
       live_start_date: 开课时间
       live_end_date: 结束时间
       status: 当前状态
+      course_type: '课程类型'
+      grade_and_subject: '年级科目'
+    interactive_course_order_new:
+      interactive_lessons_count: 课时总数
     course_form:
       teacher_percentage: "%{percentage}分成"
       service_price: "%{price}元/时"
@@ -209,6 +213,7 @@ cn:
       publicize_pick: 点此更换图片
       placeholders:
         grade: 请选择年级
+        subject: 请选择科目
         objective: 最多填写50个字
         suit_crowd: 最多填写30个字
     teacher_course:
@@ -280,6 +285,9 @@ cn:
     live_studio/courses:
       share_percentage: 分成比例
       no_coupon_code: 工作站未配置优惠码
+    live_studio/interactive_courses:
+      show:
+        lesson_name: "%{course_name} 第 %{index} 节"
 
 
   status:
@@ -312,6 +320,7 @@ cn:
     models:
       payment/order: 订单
       live_studio/course: 直播课
+      live_studio/interactive_course: 一对一
       live_studio/lesson: 直播课程
       live_studio/course_request: 招生审核
       live_studio/course_invitation: 开班邀请
@@ -394,6 +403,13 @@ cn:
         objective: 课程目标
         suit_crowd: 适合人群
         watchers_count: 观看人数
+      live_studio/interactive_course:
+        students_count: 学生数量
+        lessons_progress: 课程进度
+        percentage: 分成
+        latest: 最新
+      live_studio/interactive_lesson:
+        teacher: 老师
       live_studio/push_stream:
         address: 直播地址
       live_studio/pull_stream:
@@ -444,10 +460,12 @@ cn:
 #          completed: 已完成
     view:
       course: 我的辅导
+      interactive_course: 我的一对一
       filter:
         today: 今日辅导
         all: 全部
         preview: 招生中
+        published: 招生中
         teaching: 开课中
         completed: 已结束
         tasted: 试听
@@ -464,6 +482,7 @@ cn:
       buy_now: 立即购买
       enroll_now: 立即报名
       buy_new_course: 购买新辅导
+      buy_new_interactive_course: 购买一对一
       none_tips: 当前列表没有发现直播课，%s。
       taste_now: 立即试听
       search: 搜索

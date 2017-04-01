@@ -9,6 +9,10 @@ module LiveStudio
     include AASM
     extend Enumerize
 
+    include Qatime::Stripable
+    strip_field :name, :description
+    include Qatime::Discussable
+
     SYSTEM_FEE = 0.6 # 系统每个人每分钟收费0.6元
     WORKSTATION_PERCENT = 0.6 # 基础服务费代理商分成 60%
 
@@ -94,9 +98,9 @@ module LiveStudio
 
     belongs_to :workstation
 
-    has_many :tickets      # 听课证
-    has_many :buy_tickets, -> { where.not(status: LiveStudio::Ticket.statuses[:refunded]) }  # 普通听课证
-    has_many :taste_tickets # 试听证
+    has_many :tickets, as: :product # 听课证
+    has_many :buy_tickets, -> { where.not(status: LiveStudio::Ticket.statuses[:refunded]) }, as: :product # 普通听课证
+    has_many :taste_tickets, as: :product # 试听证
     has_many :lessons, -> { order('id asc') }
     has_many :live_sessions, through: :lessons
     has_many :course_requests, dependent: :destroy
@@ -105,7 +109,7 @@ module LiveStudio
     accepts_nested_attributes_for :lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
     validates_associated :lessons
-    validates :lessons, presence: {message: '请添加至少一节课程'}
+    validates :lessons, presence: { message: '请添加至少一节课程' }
 
     has_many :students, through: :buy_tickets
 
@@ -113,10 +117,8 @@ module LiveStudio
     has_many :push_streams, through: :channels
     has_many :pull_streams, through: :channels
     has_many :play_records # 听课记录
-    has_many :announcements
+    has_many :announcements, as: :announcementable
     has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
-
-    has_one :chat_team, foreign_key: 'live_studio_course_id', class_name: '::Chat::Team'
 
     has_many :billings, through: :lessons, class_name: 'Payment::Billing' # 结算记录
 
@@ -175,6 +177,10 @@ module LiveStudio
       teacher.try(:name)
     end
 
+    def teachers
+      [teacher].compact
+    end
+
     def distance_days
       today = Date.today
       return 0 if class_date.blank? || class_date < today
@@ -196,6 +202,10 @@ module LiveStudio
     end
 
     def lesson_count_left
+      [lessons_count - finished_lessons_count, 0].max
+    end
+
+    def left_lessons_count
       [lessons_count - finished_lessons_count, 0].max
     end
 
@@ -228,32 +238,29 @@ module LiveStudio
     # 用户是否已经购买
     def own_by?(user)
       return false unless user.present?
-      user.live_studio_tickets.map(&:course_id).include?(id)
+      return false unless user.student?
+      user.live_studio_tickets.available.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
     end
 
     # 已经购买
     def bought_by?(user)
       return false unless user.present?
-      buy_tickets.where(student_id: user.id).exists?
+      return false unless user.student?
+      user.live_studio_buy_tickets.available.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
     end
 
     # 试听结束
     def tasted?(user)
       return false unless user.present?
+      return false unless user.student?
       taste_tickets.unavailable.where(student_id: user.id).exists?
     end
 
     # 正在试听
     def tasting?(user)
       return false unless user.present?
-      taste_tickets.available.where(student_id: user.id).exists?
-    end
-
-    # 用户购买状态
-    def status_for(user)
-      return USER_STATUS_BOUGHT if buy_tickets.where(student_id: user.id).exists?
-      return USER_STATUS_TASTING if taste_tickets.where(student_id: user.id).exists?
-      return USER_STATUS_TASTED if taste_tickets.where(student_id: user.id).exists?
+      return false unless user.student?
+      user.live_studio_taste_tickets.available.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
     end
 
     # 是否可以试听

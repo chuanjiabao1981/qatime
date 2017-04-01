@@ -23,7 +23,7 @@ module V1
       end
       get "/:id/info" do
         student = ::Student.find(params[:id])
-        present student, with: Entities::Student
+        present student, with: Entities::StudentInfo
       end
 
       desc 'student update.' do
@@ -46,7 +46,7 @@ module V1
         update_params = ActionController::Parameters.new(params).permit(:name, :gender, :grade, :birthday, :desc)
         update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar]) if params[:avatar]
         if student.update(update_params)
-          present student, with: Entities::Student
+          present student, with: Entities::StudentInfo
         else
           raise(ActiveRecord::RecordInvalid.new(student))
         end

@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module LiveStudio
-  class StudentCourseTest < ActionDispatch::IntegrationTest
+  class CourseSearchTest < ActionDispatch::IntegrationTest
     def setup
       @routes = Engine.routes
       @headless = Headless.new

@@ -181,6 +181,12 @@ class ActiveSupport::TestCase
   def random_str
     (0...50).map { ('a'..'z').to_a[rand(26)] }.join
   end
+
+  def assert_request_success?
+    assert_response :success
+    @res = JSON.parse(response.body)
+    assert_equal 1, @res['status'], "响应错误 #{@res}"
+  end
 end
 
 def random_str

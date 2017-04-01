@@ -17,7 +17,7 @@ module LiveServiceTest
 
       lesson = live_studio_lessons(:lesson_one_of_billing_course_one)
       ticket = live_studio_tickets(:ticket_one_of_billing_course_one)
-      ticket_item = ticket.ticket_items.find_by(lesson_id: lesson.id)
+      ticket_item = ticket.ticket_items.find_by(target: lesson)
       director = BusinessService::CourseBillingDirector.new(lesson)
       assert_difference "Payment::BillingItem.count", 5, '账单条目数量不正确' do
         assert_difference "@system_account.reload.balance.to_f", -42.3, "系统收入不正确" do
@@ -38,7 +38,7 @@ module LiveServiceTest
     test 'test billing a ticket with error' do
       lesson = live_studio_lessons(:lesson_two_of_billing_course_one)
       ticket = live_studio_tickets(:ticket_four_of_billing_course_one)
-      ticket_item = ticket.ticket_items.find_by(lesson_id: lesson.id)
+      ticket_item = ticket.ticket_items.find_by(target: lesson)
 
       @publish_account = lesson.course.workstation.cash_account
       @teacher_account = lesson.course.teacher.cash_account
@@ -69,7 +69,7 @@ module LiveServiceTest
 
       lesson = live_studio_lessons(:lesson_one_of_billing_course_one)
       ticket = live_studio_tickets(:ticket_three_of_billing_course_one)
-      ticket_item = ticket.ticket_items.find_by(lesson_id: lesson.id)
+      ticket_item = ticket.ticket_items.find_by(target: lesson)
 
       director = BusinessService::CourseBillingDirector.new(lesson)
       assert_difference "Payment::BillingItem.count", 5, '账单条目数量不正确' do
@@ -89,7 +89,7 @@ module LiveServiceTest
     test 'test billing a invalid lesson' do
       lesson = live_studio_lessons(:lesson_of_billing_fail_course_one)
       ticket = live_studio_tickets(:ticket_of_billing_fail_course_one)
-      ticket_item = ticket.ticket_items.find_by(lesson_id: lesson.id)
+      ticket_item = ticket.ticket_items.find_by(target: lesson)
 
       @publish_account = lesson.course.workstation.cash_account
       @teacher_account = lesson.course.teacher.cash_account

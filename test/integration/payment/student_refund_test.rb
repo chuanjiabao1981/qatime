@@ -32,9 +32,7 @@ module Payment
       assert_equal @student.live_studio_buy_tickets.first.status, 'refunding', '票据状态未更新'
       assert_equal order.status, 'refunding', '订单状态未更新'
       visit live_studio.course_path(order.product)
-      assert !has_content?('立即报名'), '不能购买辅导班'
-      click_on '开始学习'
-      assert has_content?('辅导班无授权!'), '不能开始学习'
+      assert has_content?('立即报名'), '不能购买辅导班'
       new_logout_as(@student)
     end
 
@@ -64,7 +62,8 @@ module Payment
       click_on '已审核'
       assert has_content?('正在退款')
       assert ra.status, 'refunded'
-      assert_equal ra.user.live_studio_buy_tickets.where(course: ra.product).first.status, 'refunded'
+
+      assert_equal ra.user.live_studio_buy_tickets.unscope(where: :status).where(product: ra.product).first.status, 'refunded'
       assert_equal ra.order.status, 'refunded'
       assert_equal ActionRecord.last.actionable, ra, '管理员操作记录没有创建'
       assert_not ra.product.bought_by?(ra.user), '无法再次购买'
@@ -85,7 +84,7 @@ module Payment
         find(:xpath, "//a[@href='#{unpass_admins_refund_path(ra)}']").click
       end
       sleep 2
-      assert_equal ra.user.live_studio_buy_tickets.where(course: ra.product).first.status, 'active'
+      assert_equal ra.user.live_studio_buy_tickets.where(product: ra.product).first.status, 'active'
       assert_equal ra.order.status, 'completed', '订单状态未恢复'
       assert_equal ActionRecord.last.actionable, ra, '管理员操作记录没有创建'
       assert_equal Notification.last.notificationable, ra.order, '没有审核创建通知'

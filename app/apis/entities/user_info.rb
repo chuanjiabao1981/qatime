@@ -1,8 +1,8 @@
 module Entities
-  class UserInfo < Grape::Entity
-    expose :id
-    expose :name
-    expose :nick_name
-    expose :avatar_url
+  class UserInfo < User
+    expose :chat_account, using: Entities::LiveStudio::ChatAccount
+    expose :openid do |user|
+      user.wechat_users.last.try(:openid)
+    end
   end
 end

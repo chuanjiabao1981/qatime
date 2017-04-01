@@ -66,9 +66,9 @@ module LiveStudio
     has_many :channel_videos
     has_many :replays
 
-    has_many :live_sessions # 直播 心跳记录
+    has_many :live_sessions, as: :sessionable # 直播 心跳记录
     has_many :live_studio_lesson_notifications, as: :notificationable, dependent: :destroy
-    has_many :ticket_items
+    has_many :ticket_items, as: :target
 
     validates :name, :class_date, presence: true
 

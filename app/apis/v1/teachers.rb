@@ -35,7 +35,7 @@ module V1
         end
         get "/:id/info" do
           teacher = ::Teacher.find(params[:id])
-          present teacher, with: Entities::Teacher
+          present teacher, with: Entities::TeacherInfo
         end
 
         desc 'teacher update.' do
@@ -57,7 +57,7 @@ module V1
           update_params = ActionController::Parameters.new(params).permit(:name, :avatar, :gender, :birthday, :desc)
           update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar]) if params[:avatar]
           if teacher.update(update_params)
-            present teacher, with: Entities::Teacher
+            present teacher, with: Entities::TeacherInfo
           else
             raise(ActiveRecord::RecordInvalid.new(teacher))
           end

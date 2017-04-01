@@ -12,7 +12,10 @@ cn:
       customized_courses: 专属课程
       questions: 问答社区
       all_live_studio_courses: 全部直播
+
       live_studio_courses: 辅导班
+      live_studio_course: 直播课
+      live_studio_interactive_course: 一对一
       download: 下载
       common_problem: 帮助
       personal_center: 个人中心
@@ -21,6 +24,7 @@ cn:
       switch_city: 切换
       phone: 400-838-8010
       workstation_info: 工作站信息
+      live_studio/interactive_course: 一对一管理
       welcome: 您好！欢迎来到答疑时间！
       default_title: 此标题内容仅供演示
       default_grade: 年级科目
@@ -37,6 +41,7 @@ cn:
       my_wallet: 我的钱包
       my_orders: 我的订单
       my_course: 我的辅导
+      my_interactive_course: 一对一
       my_homework: 我的作业
       my_teachers: 我的老师
       my_notice: 我的消息

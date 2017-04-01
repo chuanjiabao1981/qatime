@@ -3859,7 +3859,7 @@ ul {
 .city-title {
   height: 70px;
   padding: 18px 50px 0px 23px;
-  background-color: rgb(249,249,249);
+  /*background-color: rgb(249,249,249);*/
 }
 .province {
   font-size: 16px;
@@ -3894,10 +3894,12 @@ ul {
 .change-city {
   line-height: 32px;
   font-size: 16px;
-  color: rgb(242,16,16);
+  color: #9aabb8;
   float: right;
 }
-
+.change-city:hover {
+  color: #ff5842;
+}
 .city-list {
   padding: 23px 50px 20px 23px;
 }
@@ -3938,7 +3940,7 @@ ul {
   height: 31px;
   font-size: 18px;
   text-align: center;
-  line-height: 27px;
+  line-height: 31px;
   border: 1px solid gray;
   background-color: rgb(241,241,241);
   margin-right: 23px;
@@ -4832,7 +4834,7 @@ ul {
 .editor-msg label {
   padding-left: 10px;
   margin-top: 5px;
-  font-weight: 100;
+  font-weight: 500;
 }
 
 .editor-text {
@@ -7658,12 +7660,15 @@ border-left: 0px;
   height: 480px;
  }
 .playback .area-right {
-  overflow-y: scroll;
+  /*overflow-y: scroll;*/
+  overflow: auto;
+  border-bottom: 1px solid rgb(41,41,41);
+  background-color: #FFFFFF;
  }
  .playback-title {
   height: 28px;
   line-height: 25px;
-  color: #BE0B0B;
+  color: #ff5842;
   border-bottom: 1px solid #CCCCCC;
   text-align: center;
  }
@@ -7676,7 +7681,7 @@ border-left: 0px;
  }
  .playback-con-title span:first-child,.playback-con-time span:first-child{
   display: inline-block;
-  width: 30px;
+  /*width: 30px;*/
  }
 .playback-con-title,.playback-con-time {
   width: 100%;
@@ -7692,7 +7697,7 @@ border-left: 0px;
   color: #CCCCCC;
 }
 .playback-con li {
-  height: 50px;
+  min-height: 50px;
   padding: 4px 10px 0px 10px;
   border-bottom: 1px solid rgb(247,247,247);
 }
@@ -10018,12 +10023,12 @@ div.modal-apply {
 .fixed-bar li {
   width: 40px;
   height: 40px;
-  line-height: 40px;
+  line-height: 37px;
   background-color: #c1c1c1;
   border-bottom: 1px solid #FFFFFF;
 }
 .fixed-bar li:hover {
-  background-color: rgb(126,126,126);
+  background-color: #ff5842;
 }
 .fixed-bar li a {
   display: block;
@@ -10243,6 +10248,7 @@ div.modal-apply {
 }
 .classify-con {
   margin-top: 25px;
+  margin-bottom: 60px;
 }
 .aside-list {
   width: 100%;
@@ -10409,6 +10415,7 @@ div.modal-apply {
   margin: 37px 0 0 0 !important;
   background-color: #FFFFFF;
   padding: 10px 0 10px 10px;
+  border-radius: 5px;
 }
 .course-header .pic img {
   width: 100%;
@@ -10687,6 +10694,46 @@ div.modal-apply {
   height: 75px;
   border-bottom: 1px solid #f0f0f0;
 }
+.synopsis-list {
+  padding-left: 0px;
+  margin-bottom: 0px;
+  margin-top: 45px;
+}
+.synopsis-list > li {
+  margin-bottom: 30px;
+}
+.synopsis-list > li > .synopsis-head{
+  margin-top: 0px;
+}
+.synopsis-list > li > .synopsis-head > .head-introduce {
+  color: #666;
+  position: relative;
+  line-height: 1.4em;
+  height: 2.8em;
+  overflow: hidden;
+  margin: 0px;
+  text-align: left;
+}
+.synopsis-list > li > .synopsis-head > .head-introduce::after {
+  content: "  ...";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.synopsis-more {
+  text-align: center;
+  margin-bottom: 0px;
+}
+.synopsis-more > a,.synopsis-more > a:link {
+  font-size: 16px;
+  color: #34495e;
+}
+.synopsis-more > a:hover,.synopsis-list > li .head-gender > a:hover {
+  color: #ff5842;
+}
+.synopsis-list > li .head-gender > a {
+  color: #555555;
+}
 .synopsis-head {
   margin-top: 45px;
 }
@@ -10714,7 +10761,8 @@ div.modal-apply {
   margin-bottom: 5px;
 }
 .head-year span {
-  padding: 0 5px;
+  padding: 2px 5px;
+  font-size: 12px;
   background-color: #4873ff;
   color: #FFFFFF;
 }
@@ -10730,6 +10778,12 @@ div.modal-apply {
 }
 .course-item,.tec-synopsis {
   box-shadow: 0 0 10px #F2F2F2;
+}
+.tec-synopsis .head-gender > a {
+  color: #555;
+}
+.tec-synopsis .head-gender > a:hover {
+  color: #FF5842;
 }
 @media only screen and (max-width: 460px) {
 .class-label span {
@@ -10964,4 +11018,703 @@ div.modal-apply {
 #no-flash-area p {
   margin-bottom: 0px;
   text-align: center;
+}
+
+
+/*回放页*/
+.playback-con > li > a {
+  display: block;
+}
+.playback-con > li > a > .row > .col-md-10 span{
+  display: inline-block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.playback-con > li > a > .row {
+  color: #555555;
+}
+.playback-con > li {
+  overflow: hidden;
+}
+.playback-con > li:hover .list-msg {
+  color: #ff5842;
+}
+.playback-con > li > a > .row > .list-msg.active {
+  color: #ff5842;
+}
+
+
+/*一对一筛选页*/
+.personal {
+  margin-bottom: 60px;
+}
+.personal-nav {
+  margin-top: 30px;
+  padding: 0;
+  background-color: #F7F7F7;
+  margin-bottom: 0px;
+  border: 1px solid #f0f0f0;
+}
+.personal-nav > li {
+  font-size: 16px;
+  line-height: 38px;
+  overflow: hidden;
+  margin: 0 15px;
+}
+.personal-nav > li:last-child {
+  background-color: #FFFFFF;
+  margin: 0px;
+}
+.personal-nav > li:last-child > a {
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+  color: #9aabb8;
+}
+.personal-nav > li:last-child > a.desc,.personal-nav > li:last-child > a.asc {
+  color: #ff5842;
+}
+.personal-nav > li:last-child > a > span {
+  margin-left: 5px;
+}
+.personal-nav > li > .col-md-1 {
+  padding-right: 0px;
+  color: #000;
+}
+.personal-nav > li > .col-md-11 {
+  padding-left: 0px;
+}
+.personal-nav > li > span {
+  display: block;
+}
+.personal-nav > li > span > a {
+  color: #9aabb8;
+  margin-right: 28px;
+}
+.personal-nav > li > span > a.active,.personal-nav > li > span > a:hover {
+  color: #ff5842;
+}
+.personal-nav > li > span > a:last-child {
+  margin-right: 0px;
+}
+.personal > .line-item {
+  margin-top: 25px;
+}
+.handpick-info p:nth-child(2) {
+  margin-bottom: 10px;
+}
+.classify-con .handpick-info p:nth-child(2),.basic-class .handpick-info p:nth-child(2){
+  margin-bottom: 0px;
+}
+.personal .handpick-info > p > .class-price {
+  float: right;
+  color: #ff5842;
+}
+.personal .handpick-info p:nth-child(2) {
+  margin-bottom: 0px;
+}
+.personal .handpick-info p:last-child {
+  overflow:hidden;
+  clear: both;
+  text-overflow:ellipsis;
+  -o-text-overflow:ellipsis;
+  white-space:nowrap;
+  margin-bottom: 10px;
+}
+.personal .handpick-info p:last-child > a {
+  color: #9aabb8;
+  float: none;
+}
+.personal .handpick-info p:last-child > a:hover {
+  color: #ff5842;
+}
+.personal > .line-item .item-handpick li {
+  margin-bottom: 0px;
+}
+.personal > .line-item .info-notfound img {
+  margin-top: 0px;
+}
+.personal > .line-item .info-notfound {
+  padding: 260px 0px;
+}
+@media only screen  and (max-width: 990px) {
+.personal > .line-item .info-notfound > p {
+  margin-bottom: 10px;
+}
+.personal > .line-item .info-notfound {
+  padding: 100px 0px;
+} 
+.personal-nav > li > .col-md-11 {
+  padding-left: 15px;
+}
+}
+
+
+
+/*一对一创建新辅导*/
+
+.curriculum-title {
+  min-height: 54px;
+  line-height: 54px;
+  font-size: 24px;
+  border-bottom: 1px solid gray;
+  margin: 0 10px;
+}
+.curriculum-title > a {
+  color: #333;
+  margin-right: 30px;
+}
+.curriculum-pic {
+  margin: 70px 0 50px 0;
+}
+.curriculum-pic > .row {
+  margin: 0px;
+}
+.curriculum-pic > .row > .col-md-5 {
+  padding-right: 0px;
+}
+.curriculum-pic ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+  color: #666;
+}
+.curriculum-pic ul > li {
+  line-height: 20px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+.curriculum-pic h4 {
+  color: #000;
+  margin-bottom: 35px;
+  font-size: 16px;
+}
+.curriculum-pic > .row img {
+  width: 92.5%;
+  float: right;
+}
+.divided {
+  position: relative;
+}
+.divided > i {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+}
+.new-curriculum > .editor-con {
+  padding: 0 10px;
+}
+
+.new-curriculum > .editor-con .col-md-label i {
+  top: 8px;
+  font-size: 18px;
+}
+.new-curriculum > .editor-con .editor-msg input[type="checkbox"] {
+  width: 13px;
+  height: 13px;
+}
+.new-curriculum > .editor-con .editor-msg .label-msg label {
+  padding-left: 0px;
+  margin-top: 0px;
+  position: relative;
+  top: -2px;
+}
+.new-curriculum > .editor-con .editor-msg form > .row {
+  min-height: 54px;
+}
+.new-curriculum > .editor-con .has-error {
+  margin: 0px;
+}
+.arrange-list,.adjust-list {
+  padding-left: 0px;
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+.arrange-list > li label {
+  font-weight: 500;
+  width: 90px;
+  line-height: 32px;
+}
+.arrange-list > li select,.arrange-list > li input[type="text"] {
+  width: 140px;
+  height: 32px;
+}
+.arrange-list > li input[type="text"] {
+  padding-left: 5px;
+}
+.arrange-list > li span:first-child {
+  display: inline-block;
+  width: 90px;
+}
+.arrange-list > li .select-time {
+  width: 70px;
+}
+.arrange-list > li > .row > .col-md-1 > span {
+  line-height: 32px;
+}
+.arrange-list > li > .row > .col-md-11 > div {
+  min-height: 54px;
+}
+.arrange-list > li > .row > .col-md-11 > div .has-error{
+  margin: 0 0 0 90px;
+}
+.arrange-list > li  {
+  padding-top: 34px;
+  border-bottom: 1px solid #CCCCCC;
+}
+.new-curriculum select {
+  color: #999;
+}
+.arrange-list > li > .row label.date {
+  float: none;
+}
+.arrange-list > li > .row abbr {
+  color: red;
+}
+.arrange-list > li > .row .form-control,.adjust-editor > .modal-content > .modal-body .form-control {
+  display: inline-block;
+}
+.arrange-list > li > .row .form-control[readonly],.adjust-editor > .modal-content > .modal-body .form-control[readonly] {
+  background-color: #FFFFFF;
+}
+@media only screen  and (max-width: 990px) {
+.new-curriculum > .editor-con .editor-msg form > .row {
+  min-height: 79px;
+}
+.arrange-list > li > .row > .col-md-11 > div {
+  padding-left: 0px;
+} 
+}
+
+/*调课*/
+.adjust-classes {
+  padding: 0 10px;
+  margin-top: 30px;
+}
+.adjust-classes h3 {
+  font-size: 16px;
+  margin: 0px;
+  line-height: 35px;
+  padding-left: 10px;
+  color: #000000;
+  background-color: rgb(241,241,241);
+}
+.adjust-list > li {
+  padding: 10px 0px;
+  border-bottom: 1px solid #CCCCCC;
+}
+.adjust-list > li > .row > .col-md-10 > div span:first-child {
+  display: inline-block;
+  width: 90px;
+}
+.adjust-list > li > .row > .col-md-10 > div {
+  margin-bottom: 5px;
+}
+.adjust-list > li > .row i {
+  color: #999;
+}
+.adjust-list > li > .row > .col-md-1 {
+  line-height: 75px;
+}
+.adjust-editor > .modal-content > .modal-body {
+  padding: 20px 100px;
+}
+.adjust-editor > .modal-content > .modal-body > .row span:first-child {
+  display: inline-block;
+  width: 90px;
+  color: #666;
+}
+.adjust-editor > .modal-content > .modal-body > .row span {
+  line-height: 32px;
+}
+.adjust-editor > .modal-content > .modal-body > .row span:last-child {
+  color: #999999;
+}
+.adjust-editor > .modal-content > .modal-body label {
+  font-weight: 500;
+  width: 90px;
+  line-height: 32px;
+  color: #666;
+}
+.adjust-editor > .modal-content > .modal-body > .row > .col-md-6 {
+  min-height: 54px;
+}
+.adjust-editor > .modal-content > .modal-body select,.adjust-editor > .modal-content > .modal-body input {
+  width: 140px;
+  height: 32px;
+}
+.adjust-editor > .modal-content > .modal-body select {
+  color: #999999;
+}
+.adjust-editor > .modal-content > .modal-body .select-time {
+  width: 60px;
+  margin-right: 16px;
+}
+.adjust-editor > .modal-content > .modal-body .select-time:last-child {
+  margin-right: 0px;
+}
+.adjust-editor > .modal-content > .modal-body .has-error {
+  margin: 0 0 0 90px;
+  line-height: 20px !important;
+  height: 20px;
+}
+
+@media only screen and (max-width: 990px) {
+.adjust-list > li > .row > .col-md-1 {
+  line-height: 20px;
+} 
+.adjust-list > li > .row > .col-md-10 {
+  padding-left: 0px;
+}
+}
+@media screen and (min-width: 768px){
+.adjust-editor {
+    width: 1100px !important;
+    padding: 0px !important;
+} 
+}
+.adjust-editor {
+  position: absolute;
+  top: 50%;
+  margin-top: -170px;
+}
+
+
+/*创建新课程*/
+.curriculum-enter {
+  min-height: 54px;
+    font-size: 24px;
+    padding: 9px 0px;
+    border-bottom: 1px solid gray;
+    margin: 0 10px;
+}
+.curriculum-enter a {
+  display: inline-block;
+  width: 120px;
+  height: 36px;
+  font-size: 16px;
+  background-color: #6c0;
+  color: #FFFFFF;
+  line-height: 36px;
+  text-align: center;
+  border-radius: 4px;
+}
+.curriculum-con {
+  margin-top: 10px;
+  padding: 10px;
+}
+.curriculum-con table {
+  width: 100%;
+}
+.curriculum-con table tr td {
+  height: 38px;
+  text-align: center;
+  border: 1px solid #ccc;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+.new-curriculum {
+  min-height: 920px;
+}
+
+
+
+/*一对一详情页*/
+.personal-right > a {
+  margin-right: 0px !important;
+}
+.personal-right > .btn-learning {
+  border-color: #20ad65;
+  color: #20ad65;
+}
+.personal-right > .btn-learning:hover {
+  background-color: #20ad65;
+  color: #FFFFFF;
+}
+.personal-right > .btn-end {
+  border-color: #CCCCCC;
+  color: #CCCCCC;
+}
+.lessonsg-process > .row > div{
+  text-align: center;
+}
+.lessonsg-process > .row > .col-md-7 {
+  background-color: #f0f0f0;
+  line-height: 50px;
+  font-size: 18px;
+  color: #666;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 4px;
+}
+.lessonsg-process > .row > .col-md-3 {
+  line-height: 48px;
+  border: 1px solid #f1f1f1;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+  color: #999999;
+}
+.lessonsg-process > .row > .down-direction {
+  background-color: #FFFFFF;
+  line-height: 36px;
+}
+.lessonsg-process > .row {
+  margin-top: 40px;
+}
+.coursehead-tec > em {
+  font-size: 12px;
+  color: #CCCCCC;
+}
+@media only screen and (max-width: 768px) {
+.lessonsg-process > .row > .col-md-3,.lessonsg-process > .row > .col-md-7 {
+  border-radius: 0px;
+} 
+.lessonsg-process > .row {
+  margin: 0px;
+}
+}
+
+
+/*老师课程表*/
+.qa_syllabus > .qa_big_cell {
+  border-bottom: 0px;
+}
+.schedules-list-ceil {
+  width: 33.33% !important;
+}
+.qa_big-list > .syllabus {
+  margin-top: 20px;
+}
+.qa_big-list {
+  padding-bottom: 20px;
+  clear: both;
+  padding-top: 20px;
+}
+.qa_big-list > .syllabus:first-child {
+  margin-top: 0px;
+}
+.qa_big-list > .syllabus > .row {
+  margin: 0px;
+  border: 1px solid #CCCCCC;
+}
+.qa_big-list > .syllabus > .row > .col-md-2 > .syllabus-pic {
+  width: 92.3%;
+  display: block;
+  position: relative;
+}
+.qa_big-list .col-md-2 > .syllabus-pic > p {
+  position: absolute;
+  bottom: 0px;
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0px;
+  color: #FFFFFF;
+  background-color: darkgoldenrod;
+}
+.qa_big-list .col-md-2 > .syllabus-pic > .status-personal {
+  background-color: lightpink;
+}
+.qa_big-list > .syllabus > .row > .col-md-2 > .syllabus-pic img {
+  width: 100%;
+  vertical-align: top;
+}
+.qa_big-list > .syllabus > .row > .col-md-2,.qa_big-list > .syllabus > .row > .col-md-7
+,.qa_big-list > .syllabus > .row > .col-md-6{
+  padding: 10px;
+}
+.qa_big-list > .syllabus > .row > .col-md-7,.qa_big-list > .syllabus > .row > .col-md-6 {
+  padding-left: 0px;
+  border-right: 1px solid #CCCCCC;
+}
+.qa_big-list > .syllabus > .row > .col-md-7 > ul,.qa_big-list > .syllabus > .row > .col-md-6 ul {
+  padding-left: 0;
+  margin-bottom: 0px;
+}
+.qa_big-list > .syllabus > .row > .col-md-7 > ul li,.qa_big-list > .syllabus > .row > .col-md-6 >ul li {
+  margin-bottom: 8px;
+}
+.qa_big-list > .syllabus > .row > .col-md-7 > ul li:first-child
+,.qa_big-list > .syllabus > .row > .col-md-6 > ul li:first-child {
+  font-size: 16px;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  -o-text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.qa_big-list > .syllabus > .row > .col-md-7 > ul li a
+,.qa_big-list > .syllabus > .row > .col-md-6 > ul li a{
+  color: #000;
+}
+.qa_big-list > .syllabus > .row > .col-md-7 > ul li:nth-child(2)
+,.qa_big-list > .syllabus > .row > .col-md-6 > ul li:nth-child(2){
+  color: #666;
+}
+.qa_big-list > .syllabus > .row > .col-md-7 > ul li:last-child
+,.qa_big-list > .syllabus > .row > .col-md-6 > ul li:last-child {
+  margin-bottom: 0px;
+  color: #999;
+}
+.qa_big-list > .syllabus > .row > .col-md-3 {
+  padding-top: 24px;
+  text-align: center;
+  color: #666666;
+}
+.qa_big-list > .syllabus > .row > .col-md-3.end {
+  color: #999999;
+}
+
+
+
+
+/*学生课程表*/
+.syllabus .col-md-1 {
+  padding: 0px;
+  height: 98px;
+  border-left: 1px solid #CCCCCC;
+  position: relative;
+}
+.syllabus .col-md-1 > a {
+  position: absolute;
+  top: 50%;
+  margin-top: -15px;
+  left: 50%;
+  margin-left: -30px;
+  display: inline-block;
+  text-align: center;
+  width: 60px;
+  height: 30px;
+  border: 1px solid #CCCCCC;
+  color: #CCCCCC;
+  line-height: 28px;
+}
+.syllabus .col-md-1 > a.active {
+  border-color: #666;
+  color: #666666;
+}
+.modal-client .popup-title {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #CCCCCC;
+}
+.modal-client .modal-body {
+  padding: 20px 90px;
+  text-align: center;
+}
+.modal-client .modal-body > a {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #666;
+  border-radius: 4px;
+  margin-top: 5px;
+  color: #666;
+}
+.modal-client {
+  position: absolute;
+  top: 50%;
+  margin-top: -85px;
+}
+
+@media screen and (min-width: 768px){
+.modal-client {
+    width: 400px !important;
+    padding: 0px !important;
+} 
+}
+@media only screen  and (max-width: 1200px) {
+.qa_big-list > .syllabus > .row > .col-md-7 > ul li
+,.qa_big-list > .syllabus > .row > .col-md-6 > ul li {
+  margin-bottom: 0px;
+} 
+.qa_big-list > .syllabus > .row > .col-md-3 {
+  padding-top: 10px;
+}
+.syllabus .col-md-1 {
+  height: 82px;
+}
+.qa_big-list > .syllabus > .row > .col-md-3 p{
+  margin-bottom: 0px;
+}
+}
+@media only screen  and (max-width: 990px) {
+.qa_big-list > .syllabus > .row > .col-md-2 > .syllabus-pic {
+  width: 100%;
+}
+.qa_big-list > .syllabus > .row > .col-md-7
+,.qa_big-list > .syllabus > .row > .col-md-6 {
+  padding: 0 10px;
+  border-right: 0px;
+} 
+.qa_big-list > .syllabus > .row > .col-md-3 {
+  text-align: left;
+  padding: 0 10px;
+}
+.syllabus .col-md-1 {
+  height: 40px;
+  border: 0px;
+  padding: 0 10px;
+}
+}
+
+
+/*学生一对一*/
+.communal {
+  margin-top: 30px;
+}
+.side-nav ,.contains{
+  box-shadow: 0 0 10px #CCCCCC;
+}
+.user-portrait {
+  text-align: center;
+  padding: 40px 0;
+}
+.user-portrait > img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+.user-portrait > p {
+  font-size: 18px;
+  color: #555555;
+  margin: 10px 0 0 0;
+}
+.nav-menu {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.nav-menu > li {
+  min-height: 60px;
+  border-bottom: 1px solid #F0F0F0;
+}
+.nav-menu > li:hover {
+  background-color: rgba(255,88,66,0.4);
+}
+.nav-menu > li:last-child {
+  border-bottom: 0px;
+}
+.nav-menu > li > a > img {
+  margin-right: 30px;
+}
+.nav-menu > li > a {
+  display: block;
+  line-height: 60px;
+  padding: 0 30px;
+  color: #34495e;
+  font-size: 16px;
+}
+.nav-menu > li.active {
+  background-color: #ff5842;
+}
+.nav-menu > li.active > a {
+  color: #FFFFFF;
+}
+.contains > .contains-title > h3 {
+  margin: 0px;
+  font-size: 18px;
+  color: #34495e;
+  line-height: 78px;
+  border-bottom: 1px solid #F0F0F0;
+}
+.contains > .contains-title {
+  padding: 0 30px;
+  height: 78px;
 }

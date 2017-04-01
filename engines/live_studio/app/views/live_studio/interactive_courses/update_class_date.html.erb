@@ -10,7 +10,7 @@
       <h3><%= @interactive_course.name %></h3>
       <%= simple_form_for @interactive_course, url: update_lessons_interactive_course_path(@interactive_course) do |f|%>
         <ul class="adjust-list">
-          <%= f.fields_for :interactive_lessons do |lesson| %>
+          <%= f.fields_for :interactive_lessons, @interactive_course.interactive_lessons.sort_by{|x| x.class_date_was } do |lesson| %>
             <% if lesson.object.unstart? %>
               <%= render 'lesson_li', f: lesson %>
             <% end %>

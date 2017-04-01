@@ -26,6 +26,7 @@ module LiveStudio
       assert page.has_content?("0次"), "剩余播放次数显示不正确"
       assert page.has_content?("1次"), "剩余播放次数显示不正确"
       assert page.has_content?("2次"), "剩余播放次数显示不正确"
+      find(:css, '.nav-right-user').hover if page.has_selector?('div.nav-right-user')
       click_on '退出'
     end
   end

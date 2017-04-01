@@ -7,6 +7,7 @@ module LiveStudio
     attr_accessor :replay_times
     attr_accessor :start_time_hour, :start_time_minute, :_update
     BEAT_STEP = 10 # 心跳频率/秒
+    LESSON_NUM = {1 => '一', 2 => '二', 3 => '三', 4 => '四', 5 => '五', 6 => '六', 7 => '七', 8 => '八', 9 => '九', 10 => '十'}
 
     delegate :teacher_percentage, :publish_percentage, :base_price, :workstation, to: :interactive_course
 
@@ -76,9 +77,6 @@ module LiveStudio
       errors.add(:class_date, I18n.t('view.live_studio/interactie_course.validate.class_date_hour_minites')) if start_time.blank?
     end
 
-    before_validation do
-      self.name = interactive_course.name if interactive_course
-    end
     before_create :data_preview
     # before_save :data_confirm
     after_commit :udpate_interactive_course
@@ -196,7 +194,7 @@ module LiveStudio
 
     # 开始时间
     def start_at
-      Time.parse("#{class_date} #{start_time}")
+      Time.parse("#{class_date} #{start_time}") rescue nil
     end
 
     # 心跳

@@ -1,5 +1,5 @@
 interactive_lesson1:
-  name: 测试课程1
+  name: 一对一互动课程-第一课时
   teacher: search_teacher_1
   interactive_course: interactive_course_one
   description: 测试描述
@@ -8,7 +8,7 @@ interactive_lesson1:
   duration: 45
   class_date: <%= Date.today %>
 interactive_lesson2:
-  name: 测试课程2
+  name: 一对一互动课程-第二课时
   teacher: search_teacher_1
   interactive_course: interactive_course_one
   description: 测试描述
@@ -18,7 +18,7 @@ interactive_lesson2:
   class_date: <%= Date.today + 1.day %>
 
 interactive_lesson3:
-  name: 测试课程3
+  name: 一对一互动课程-第三课时
   teacher: search_teacher_2
   interactive_course: interactive_course_one
   description: 测试描述
@@ -28,7 +28,7 @@ interactive_lesson3:
   class_date: <%= Date.today + 2.days %>
 
 interactive_lesson4:
-  name: 测试课程4
+  name: 一对一互动课程-第四课时
   teacher: search_teacher_2
   interactive_course: interactive_course_one
   description: 测试描述
@@ -38,7 +38,7 @@ interactive_lesson4:
   class_date: <%= Date.today + 3.days %>
 
 interactive_lesson5:
-  name: 测试课程5
+  name: 一对一互动课程-第五课时
   teacher: search_teacher_3
   interactive_course: interactive_course_one
   description: 测试描述
@@ -48,7 +48,7 @@ interactive_lesson5:
   class_date: <%= Date.today + 4.days %>
 
 interactive_lesson6:
-  name: 测试课程6
+  name: 一对一互动课程-第六课时
   teacher: search_teacher_3
   interactive_course: interactive_course_one
   description: 测试描述
@@ -58,7 +58,7 @@ interactive_lesson6:
   class_date: <%= Date.today + 5.days %>
 
 interactive_lesson7:
-  name: 测试课程7
+  name: 一对一互动课程-第七课时
   teacher: search_teacher_3
   interactive_course: interactive_course_one
   description: 测试描述
@@ -68,7 +68,7 @@ interactive_lesson7:
   class_date: <%= Date.today + 6.days %>
 
 interactive_lesson8:
-  name: 测试课程1
+  name: 一对一互动课程-第八课时
   teacher: search_teacher_1
   interactive_course: interactive_course_one
   description: 测试描述
@@ -78,7 +78,7 @@ interactive_lesson8:
   class_date: <%= Date.today + 7.days %>
 
 interactive_lesson9:
-  name: 测试课程8
+  name: 一对一互动课程-第九课时
   teacher: search_teacher_1
   interactive_course: interactive_course_one
   description: 测试描述
@@ -88,7 +88,7 @@ interactive_lesson9:
   class_date: <%= Date.today + 8.days %>
 
 interactive_lesson10:
-  name: 测试课程9
+  name: 一对一互动课程-第10课时
   teacher: search_teacher_2
   interactive_course: interactive_course_one
   description: 测试描述
@@ -98,7 +98,7 @@ interactive_lesson10:
   class_date: <%= Date.today + 9.days %>
 
 interactive_lesson_zhuji_1:
-  name: 测试课程1
+  name: 一对一互动课程-第一课时
   teacher: search_teacher_1
   interactive_course: interactive_course_zhuji
   description: 测试描述
@@ -108,7 +108,7 @@ interactive_lesson_zhuji_1:
   class_date: <%= Date.today %>
   status: 2
 interactive_lesson_zhuji_2:
-  name: 测试课程2
+  name: 一对一互动课程-第二课时
   teacher: search_teacher_1
   interactive_course: interactive_course_zhuji
   description: 测试描述
@@ -119,7 +119,7 @@ interactive_lesson_zhuji_2:
   status: 1
 
 interactive_lesson_zhuji_3:
-  name: 测试课程3
+  name: 一对一互动课程-第三课时
   teacher: search_teacher_2
   interactive_course: interactive_course_zhuji
   description: 测试描述
@@ -130,7 +130,7 @@ interactive_lesson_zhuji_3:
   status: 1
 
 interactive_lesson_zhuji_4:
-  name: 测试课程4
+  name: 一对一互动课程-第四课时
   teacher: search_teacher_2
   interactive_course: interactive_course_zhuji
   description: 测试描述
@@ -141,7 +141,7 @@ interactive_lesson_zhuji_4:
   status: 1
 
 interactive_lesson_zhuji_5:
-  name: 测试课程5
+  name: 一对一互动课程-第五课时
   teacher: search_teacher_3
   interactive_course: interactive_course_zhuji
   description: 测试描述
@@ -152,7 +152,7 @@ interactive_lesson_zhuji_5:
   status: 0
 
 interactive_lesson_zhuji_6:
-  name: 测试课程6
+  name: 一对一互动课程-第六课时
   teacher: search_teacher_3
   interactive_course: interactive_course_zhuji
   description: 测试描述
@@ -163,7 +163,7 @@ interactive_lesson_zhuji_6:
   status: 0
 
 interactive_lesson_zhuji_7:
-  name: 测试课程7
+  name: 一对一互动课程-第七课时
   teacher: search_teacher_3
   interactive_course: interactive_course_zhuji
   description: 测试描述
@@ -174,7 +174,7 @@ interactive_lesson_zhuji_7:
   status: 0
 
 interactive_lesson_zhuji_8:
-  name: 测试课程1
+  name: 一对一互动课程-第八课时
   teacher: search_teacher_1
   interactive_course: interactive_course_zhuji
   description: 测试描述
@@ -185,7 +185,7 @@ interactive_lesson_zhuji_8:
   status: 0
 
 interactive_lesson_zhuji_9:
-  name: 测试课程8
+  name: 一对一互动课程-第九课时
   teacher: search_teacher_1
   interactive_course: interactive_course_zhuji
   description: 测试描述
@@ -196,7 +196,7 @@ interactive_lesson_zhuji_9:
   status: 0
 
 interactive_lesson_zhuji_10:
-  name: 测试课程9
+  name: 一对一互动课程-第十课时
   teacher: search_teacher_2
   interactive_course: interactive_course_zhuji
   description: 测试描述

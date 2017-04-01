@@ -71,7 +71,7 @@ cn:
         intro_two: 二、课程安排
         preview: 预览
         submit: 发布招生
-        lesson_name_text: "第%{index}课"
+        lesson_name_text: "一对一互动课程-第%{index}课时"
       placeholder:
         name: 输入一对一课程标题
         objective: 输入课程能够达到的学习目标(最多30个字)
@@ -83,6 +83,7 @@ cn:
         class_date: 选择上课日期
       validate:
         class_date_uniq: 上课时间不能重复
+        class_date_valid: 上课时间不能早于当前时间
         class_date_hour_minites: 请选择时 分
       index:
         name: 课程名称

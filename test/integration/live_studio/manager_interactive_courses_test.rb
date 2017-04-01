@@ -22,16 +22,20 @@ module LiveStudio
       click_on '一对一管理'
       assert page.has_link? '创建新课程'
       assert_difference 'LiveStudio::InteractiveCourse.count', -1, "一对一删除失败" do
-        accept_prompt(with: '确定删除?') do
-          click_on '删除', match: :first
+        assert_difference 'LiveStudio::InteractiveLesson.count', -10, "一对一课程删除失败" do
+          accept_prompt(with: '确定删除?') do
+            click_on '删除', match: :first
+          end
+          sleep(3)
         end
-        sleep(3)
       end
     end
 
     test 'manager create interactive_course' do
       visit live_studio.new_interactive_course_path
       assert page.has_content? '一对一课程说明'
+      assert page.has_content? '一对一互动课程-第一课时'
+      assert page.has_content? '一对一互动课程-第十课时'
 
       fill_in :interactive_course_name, with: '一对一互动测试'
       find('div[contenteditable]').set('test description')
@@ -85,8 +89,8 @@ module LiveStudio
       assert page.has_content? interactive_course_zhuji.name
       assert_equal 9, page.all(".adjust-list li").size, "调课只能调unstart的课程"
 
-      lesson1 = interactive_course_zhuji.interactive_lessons.unstart.first
-      lesson2 = interactive_course_zhuji.interactive_lessons.unstart.second
+      lessons = interactive_course_zhuji.interactive_lessons.unstart.order(class_date: :asc)
+      lesson1, lesson2 = lessons.first, lessons.second
 
       # 调重复失败
       find("a[data-target='#adjust_edit_#{lesson1.id}']").click
@@ -116,7 +120,6 @@ module LiveStudio
       old_class_date2 = lesson2.class_date
       assert_equal lesson1.reload.class_date, old_class_date1 + 9.days, "调课不成功"
       assert_equal lesson2.reload.class_date, old_class_date2 + 9.days, "调课不成功"
-
     end
 
   end

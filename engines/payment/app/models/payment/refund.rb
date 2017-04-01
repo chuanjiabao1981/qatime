@@ -144,7 +144,7 @@ module Payment
         # 创建管理员审核操作记录
         # 系统财务账户资金变动
         # 创建系统通知
-        user.live_studio_buy_tickets.where(course: product).refunding.first.try(:refunded!)
+        user.live_studio_buy_tickets.where(product: product).refunding.first.try(:refunded!)
         order.allow_refund!
         leave_chat_team
         LiveService::OrderNotificationSender.new(order).notice(PaymentOrderNotification::ACTION_REFUND_SUCCESS)
@@ -157,7 +157,7 @@ module Payment
         # 创建管理员审核操作记录
         # 订单状态变更
         # 创建系统通知
-        user.live_studio_buy_tickets.where(course: product).refunding.first.try(:active!)
+        user.live_studio_buy_tickets.where(product: product).refunding.first.try(:active!)
         order.try(:refuse_refund!)
         LiveService::OrderNotificationSender.new(order).notice(PaymentOrderNotification::ACTION_REFUND_FAIL)
       end
@@ -171,14 +171,14 @@ module Payment
     def init_apply
       # buy_ticket 变更为退款中（rufunding），无法继续查看直播。
       # order 状态变更为退款中（rufunding）
-      user.live_studio_buy_tickets.where(course: product).active.first.try(:refunding!)
+      user.live_studio_buy_tickets.where(product: product).active.first.try(:refunding!)
       order.try(:refund!)
     end
 
     def cancel_apply
       # buy_ticket 变更为可用（active）
       # 订单状态 变更
-      user.live_studio_buy_tickets.where(course: product).refunding.first.try(:active!)
+      user.live_studio_buy_tickets.where(product: product).refunding.first.try(:active!)
       order.try(:refuse_refund!)
     end
 

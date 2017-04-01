@@ -11,7 +11,7 @@ module LiveStudio
 
     def show
       @course = Course.find(params[:id])
-      @ticket = @student.live_studio_tickets.visiable.find_by(course_id: params[:id])
+      @ticket = @student.live_studio_tickets.visiable.by_product(@course).try(:first)
       @lessons = @course.lessons.order(:id).paginate(page: params[:page])
       @play_records = PlayRecord.where(user_id: @student.id, lesson_id: @lessons.map(&:id))
       @play_hash = @play_records.inject({}){ |hash, v| hash[v.lesson_id] = v.id; hash }

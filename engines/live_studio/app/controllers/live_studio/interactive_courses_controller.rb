@@ -28,7 +28,7 @@ module LiveStudio
       @interactive_course.author = current_user
       if @interactive_course.save
         # LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
-        redirect_to live_studio.station_workstation_interactive_courses_path(@workstation)
+        redirect_to live_studio.station_workstation_interactive_courses_path(@interactive_course.workstation)
       else
         render :new
       end
@@ -38,7 +38,7 @@ module LiveStudio
       if @interactive_course.init?
         @interactive_course.destroy
       end
-      redirect_to live_studio.station_workstation_interactive_courses_path(@workstation)
+      redirect_to live_studio.station_workstation_interactive_courses_path(@interactive_course.workstation)
     end
 
     # 预览
@@ -55,7 +55,7 @@ module LiveStudio
       # 课程更新 全部更新时间戳 render error时可以重新编辑
       @interactive_course.interactive_lessons.map(&:touch)
       if @interactive_course.update(interactive_lessons_params)
-        redirect_to live_studio.station_workstation_interactive_courses_path(@workstation)
+        redirect_to live_studio.station_workstation_interactive_courses_path(@interactive_course.workstation)
       else
         render :update_class_date
       end

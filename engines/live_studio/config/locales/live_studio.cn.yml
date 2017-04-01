@@ -71,7 +71,7 @@ cn:
         intro_two: 二、课程安排
         preview: 预览
         submit: 发布招生
-        lesson_name_text: "第%{index}课"
+        lesson_name_text: "一对一互动课程-第%{index}课时"
       placeholder:
         name: 输入一对一课程标题
         objective: 输入课程能够达到的学习目标(最多30个字)
@@ -83,6 +83,7 @@ cn:
         class_date: 选择上课日期
       validate:
         class_date_uniq: 上课时间不能重复
+        class_date_valid: 上课时间不能早于当前时间
         class_date_hour_minites: 请选择时 分
       index:
         name: 课程名称
@@ -108,6 +109,19 @@ cn:
         modal_class_date_new: 新上课日期
         modal_start_time_was: 原开始时间
         modal_start_time_new: 新开始时间
+    student:
+      students:
+        schedules:
+          modal_title: 提醒
+          modal_content: 一对一课程需要使用客户端才能进入，请安装最新版本。
+          modal_link: 安装客户端
+          lesson:
+            one_by_one: 一对一
+            course: 直播课
+            student_count: 学生人数
+            student_count_text: "%{count}人"
+            enter: 进入
+
 
 
 

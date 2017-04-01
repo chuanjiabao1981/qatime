@@ -54,7 +54,7 @@ module LiveStudio
     belongs_to :city
     belongs_to :author, class_name: '::User'
 
-    has_many :interactive_lessons
+    has_many :interactive_lessons, dependent: :destroy
     has_many :teachers, -> { distinct }, through: :interactive_lessons
     has_many :buy_tickets, as: :product
     has_many :announcements, as: :announcementable

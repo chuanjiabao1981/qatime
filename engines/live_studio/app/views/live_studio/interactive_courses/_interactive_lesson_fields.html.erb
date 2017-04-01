@@ -28,8 +28,10 @@
       <div class="col-md-12">
         <span><%= f.label :name %></span>
         <span>
-          <i class="lesson_name"><%= @interactive_course.name %></i>
-          <%= t('view.live_studio/interactie_course.new.lesson_name_text', index: index + 1) %>
+          <% if lesson.new_record? %>
+            <%= f.hidden_field :name, value: t('view.live_studio/interactie_course.new.lesson_name_text', index: LiveStudio::InteractiveLesson::LESSON_NUM[index + 1]) %>
+          <% end %>
+          <%= t('view.live_studio/interactie_course.new.lesson_name_text', index: LiveStudio::InteractiveLesson::LESSON_NUM[index + 1]) %>
         </span>
       </div>
     </div>

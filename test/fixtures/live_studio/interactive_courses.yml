@@ -144,3 +144,26 @@ interactive_course_three_2:
   start_at: <%= 3.days.ago.to_date %>
   end_at: <%= 15.days.since.to_date %>
   buy_tickets_count: 1
+
+interactive_course_teacher1:
+  name: 测试一对一老师
+  workstation: workstation_one
+  author: manager
+  status: 0
+  description: 互动2互动2互动2互动2互动2互动2
+  subject: 生物
+  grade: 高二
+  objective: 互动2互动2互动2互动2互动2互动2
+  suit_crowd: 互动2互动2互动2互动2互动2互动2
+  price: 400
+  service_price: 3
+  teacher_percentage: 80
+  class_date: <%= 3.days.ago.to_date %>
+  province_id: 1
+  city_id: 2
+  publish_percentage: 5
+  platform_percentage: 0
+  sell_and_platform_percentage: 15
+  start_at: <%= Time.now.at_beginning_of_day + 9.hour %>
+  end_at: <%= Time.now.at_beginning_of_day + 10.days + 9.hour %>
+  left_price: 400

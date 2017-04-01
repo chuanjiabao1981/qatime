@@ -26,6 +26,9 @@ module Entities
       expose :publicize_app_url do |course|
         course.publicize_url(:app_info)
       end
+      expose :chat_team_id do |course|
+        course.try(:chat_team).try(:team_id).to_s
+      end
       expose :chat_team, using: Entities::Chat::Team, if: { type: :full }
       expose :interactive_lessons, using: Entities::LiveStudio::InteractiveLesson, if: { type: :full }
       expose :teachers, using: Entities::Teacher

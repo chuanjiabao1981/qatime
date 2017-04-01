@@ -32,9 +32,7 @@ module Payment
       assert_equal @student.live_studio_buy_tickets.first.status, 'refunding', '票据状态未更新'
       assert_equal order.status, 'refunding', '订单状态未更新'
       visit live_studio.course_path(order.product)
-      assert !has_content?('立即报名'), '不能购买辅导班'
-      click_on '开始学习'
-      assert has_content?('辅导班无授权!'), '不能开始学习'
+      assert has_content?('立即报名'), '不能购买辅导班'
       new_logout_as(@student)
     end
 

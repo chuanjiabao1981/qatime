@@ -122,7 +122,7 @@ module LiveStudio
     # 发货
     def deliver(order)
       ticket_price = left_lessons_count.zero? ? order.amount : order.amount.to_f / left_lessons_count
-      ticket = buy_tickets.nonescope.find_or_create_by(student_id: order.user_id, lesson_price: ticket_price,
+      ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: ticket_price,
                                              payment_order_id: order.id, buy_count: left_lessons_count)
       ticket.active!
     end

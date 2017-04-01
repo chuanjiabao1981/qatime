@@ -239,6 +239,7 @@ interactive_course_two_1_lesson_2:
   duration: 60
   class_date: <%= 4.days.since.to_date %>
 interactive_course_three_2_lesson_1:
+  name: 一对一互动课程-第一课时
   teacher: teacher1
   interactive_course: interactive_course_three_2
   description: interactive_course_three_2-第1节
@@ -249,6 +250,7 @@ interactive_course_three_2_lesson_1:
   class_date: <%= 3.days.ago.to_date %>
   status: 5
 interactive_course_three_2_lesson_2:
+  name: 一对一互动课程-第二课时
   teacher: teacher1
   interactive_course: interactive_course_three_2
   description: interactive_course_three_2-第2节
@@ -259,6 +261,7 @@ interactive_course_three_2_lesson_2:
   status: 1
 
 interactive_course_three_2_lesson_3:
+  name: 一对一互动课程-第三课时
   teacher: teacher2
   interactive_course: interactive_course_three_2
   description: interactive_course_three_2-第3节
@@ -268,3 +271,46 @@ interactive_course_three_2_lesson_3:
   class_date: <%= 4.days.since.to_date %>
   status: 0
 
+interactive_lesson_teacher_1:
+  name: 一对一互动课程-第一课时
+  teacher: teacher_with_chat_account
+  interactive_course: interactive_course_teacher1
+  description: 测试描述
+  start_time: "07:30"
+  end_time: "08:15"
+  duration: 45
+  class_date: <%= 3.days.ago.to_date %>
+  status: 4
+
+interactive_lesson_teacher_2:
+  name: 一对一互动课程-第二课时
+  teacher: teacher_with_chat_account
+  interactive_course: interactive_course_teacher1
+  description: 测试描述
+  start_time: "07:30"
+  end_time: "08:15"
+  duration: 45
+  class_date: <%= 2.days.ago.to_date %>
+  status: 5
+
+interactive_lesson_teacher_3:
+  name: 一对一互动课程-第三课时
+  teacher: teacher_with_chat_account
+  interactive_course: interactive_course_teacher1
+  description: 测试描述
+  start_time: "07:30"
+  end_time: "08:15"
+  duration: 45
+  class_date: <%= Date.today.to_date %>
+  status: 1
+
+interactive_lesson_teacher_4:
+  name: 一对一互动课程-第四课时
+  teacher: teacher_with_chat_account
+  interactive_course: interactive_course_teacher1
+  description: 测试描述
+  start_time: "07:30"
+  end_time: "08:15"
+  duration: 45
+  class_date: <%= 2.days.since.to_date %>
+  status: 0

@@ -76,9 +76,16 @@ module Entities
           lesson.course.teacher.try(:name).to_s
         end
       end
-      expose :course_id, if: {type: :schedule} do |lesson|
-        lesson.try(:course).try(:id).to_s
+      expose :product_id, if: { type: :schedule } do |lesson|
+        lesson.try(:course_id) || lesson.try(:interactive_course_id)
       end
+      expose :product_interactive_course, using: Entities::LiveStudio::InteractiveCourse, if: { type: :schedule } do |lesson|
+        lesson.try(:interactive_course)
+      end
+      expose :product_course, using: Entities::LiveStudio::Course, if: { type: :schedule } do |lesson|
+        lesson.try(:course)
+      end
+
       expose :replayable
       expose :left_replay_times
 

@@ -23,7 +23,13 @@ module Entities
       expose :app_pay_str do |recharge|
         recharge.remote_order.try(:app_pay_str)
       end
-      expose :product, using: Entities::LiveStudio::Course, if: { type: :product }
+      expose :product_type
+      expose :product, using: Entities::LiveStudio::Course, if: { type: :product } do |order|
+        order.product if order.product_type == 'LiveStudio::Course'
+      end
+      expose :product_interactive_course, using: Entities::LiveStudio::InteractiveCourse, if: { type: :product } do |order|
+        order.product if order.product_type == 'LiveStudio::InteractiveCourse'
+      end
       expose :coupon_code do |c|
         c.coupon.try(:code)
       end

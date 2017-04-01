@@ -23,6 +23,7 @@ module LiveStudio
       choose "order_pay_type_weixin"
       assert_difference "Payment::Order.count", 1, "订单创建失败" do
         click_on '立即支付'
+        sleep 1
       end
     end
 

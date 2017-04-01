@@ -238,13 +238,13 @@ module LiveStudio
     # 用户是否已经购买
     def own_by?(user)
       return false unless user.present?
-      user.live_studio_tickets.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
+      user.live_studio_tickets.available.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
     end
 
     # 已经购买
     def bought_by?(user)
       return false unless user.present?
-      user.live_studio_buy_tickets.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
+      user.live_studio_buy_tickets.available.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
     end
 
     # 试听结束
@@ -256,7 +256,7 @@ module LiveStudio
     # 正在试听
     def tasting?(user)
       return false unless user.present?
-      user.live_studio_taste_tickets.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
+      user.live_studio_taste_tickets.available.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
     end
 
     # 是否可以试听

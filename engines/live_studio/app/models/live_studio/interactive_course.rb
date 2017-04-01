@@ -134,13 +134,13 @@ module LiveStudio
     # 用户是否已经购买
     def own_by?(user)
       return false unless user.present?
-      user.live_studio_tickets.map(&:course_id).include?(id)
+      user.live_studio_tickets.available.map(&:course_id).include?(id)
     end
 
     # 已经购买
     def bought_by?(user)
       return false unless user.present?
-      buy_tickets.where(student_id: user.id).exists?
+      buy_tickets.available.where(student_id: user.id).exists?
     end
 
     # 试听结束

@@ -98,8 +98,8 @@ module LiveStudio
 
     belongs_to :workstation
 
-    has_many :tickets      # 听课证
-    has_many :buy_tickets, -> { where.not(status: LiveStudio::Ticket.statuses[:refunded]) }  # 普通听课证
+    has_many :tickets, as: :product# 听课证
+    has_many :buy_tickets, -> { where.not(status: LiveStudio::Ticket.statuses[:refunded]) }, as: :product  # 普通听课证
     has_many :taste_tickets # 试听证
     has_many :lessons, -> { order('id asc') }
     has_many :live_sessions, through: :lessons
@@ -109,7 +109,7 @@ module LiveStudio
     accepts_nested_attributes_for :lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
     validates_associated :lessons
-    validates :lessons, presence: {message: '请添加至少一节课程'}
+    validates :lessons, presence: { message: '请添加至少一节课程' }
 
     has_many :students, through: :buy_tickets
 

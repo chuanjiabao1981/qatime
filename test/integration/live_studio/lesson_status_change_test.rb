@@ -30,6 +30,7 @@ class LiveStudio::TeacherLessonTest < ActionDispatch::IntegrationTest
   test 'service lesson start course teaching?' do
     preview_course = live_studio_courses(:course_preview)
     teacher = preview_course.teacher
+    # binding.pry
     student = preview_course.students.first
     ready_lesson = live_studio_lessons(:ready_lesson_today2)
     LiveService::LessonDirector.new(ready_lesson).lesson_start(1, 1)

@@ -117,7 +117,7 @@ module LiveService
       elsif %w(today taste).include?(cate)
         # 根据分类过滤辅导班
         # status: today今日上课辅导班, taste: 试听辅导班
-        @tickets = courses_for_filter(user, cate)
+        @tickets = user.student? ? courses_for_filter(user, cate) : []
       end
       @tickets
     end

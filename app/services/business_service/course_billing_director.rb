@@ -13,7 +13,7 @@ module BusinessService
       # 课程总账单
       b = Payment::LiveCourseBilling.create(target: @lesson, from_user: @lesson.teacher, created_at: @created_at)
       # 针对每一个购买记录单独结账
-      @lesson.ticket_items.billingable.includes(ticket: [:channel_owner, :sell_channel]).each do |item|
+      @lesson.ticket_items.billingable.includes(:ticket).each do |item|
         billing_ticket(b, item)
       end
       # 所有的购买记录都结账完成以后课程结账完成

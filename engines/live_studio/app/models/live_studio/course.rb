@@ -98,9 +98,9 @@ module LiveStudio
 
     belongs_to :workstation
 
-    has_many :tickets, as: :product# 听课证
+    has_many :tickets, as: :product # 听课证
     has_many :buy_tickets, -> { where.not(status: LiveStudio::Ticket.statuses[:refunded]) }, as: :product # 普通听课证
-    has_many :taste_tickets # 试听证
+    has_many :taste_tickets, as: :product # 试听证
     has_many :lessons, -> { order('id asc') }
     has_many :live_sessions, through: :lessons
     has_many :course_requests, dependent: :destroy
@@ -256,7 +256,7 @@ module LiveStudio
     # 正在试听
     def tasting?(user)
       return false unless user.present?
-      user.live_studio_buy_tickets.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
+      user.live_studio_taste_tickets.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
     end
 
     # 是否可以试听

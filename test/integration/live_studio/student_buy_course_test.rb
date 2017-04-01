@@ -44,6 +44,7 @@ module LiveStudio
       assert_difference "@student.reload.live_studio_courses.count", 1, "不能正确试听辅导班" do
         assert_difference "@student.reload.live_studio_taste_tickets.count", 1, "不能正确生成试听证" do
           visit live_studio.course_path(course)
+          sleep(30)
           click_on("taste-course-#{course.id}")
           sleep 2
         end
@@ -143,6 +144,7 @@ module LiveStudio
               click_on '立即支付'
               fill_in :payment_password, with: '123123'
               click_on '确认支付'
+              sleep 2
             end
           end
         end

@@ -1,5 +1,6 @@
 module LiveStudio
   class BuyTicket < Ticket
+    belongs_to :product, polymorphic: true, counter_cache: true
     belongs_to :payment_order, class_name: 'Payment::Order'
     belongs_to :seller, polymorphic: true
 
@@ -10,7 +11,7 @@ module LiveStudio
       if product.is_a?(LiveStudio::Course)
         ticket_items.create(product.lessons.where(live_end_at: nil).map { |l| { target: l } })
       else
-        ticket_items.create(product.interactive_lessons.where(live_end_at: nil).map { |l| { target: l.id } })
+        ticket_items.create(product.interactive_lessons.where(live_end_at: nil).map { |l| { target: l } })
       end
     end
 

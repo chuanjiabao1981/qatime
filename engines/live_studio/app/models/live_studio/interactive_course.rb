@@ -28,8 +28,8 @@ module LiveStudio
     }
 
     aasm column: :status, enum: true do
-      state :init, initial: true
-      state :published
+      state :init
+      state :published, initial: true
       state :teaching
       state :completed
 
@@ -57,7 +57,7 @@ module LiveStudio
     has_many :interactive_lessons, dependent: :destroy
     has_many :lessons, dependent: :destroy, class_name: 'InteractiveLesson', foreign_key: :interactive_course_id
     has_many :teachers, -> { distinct }, through: :interactive_lessons
-    has_many :buy_tickets, as: :product
+    has_many :buy_tickets, as: :product, class_name: 'LiveStudio::BuyTicket'
     has_many :announcements, as: :announcementable
 
     validates :name, presence: true, length: { in: 2..20 }

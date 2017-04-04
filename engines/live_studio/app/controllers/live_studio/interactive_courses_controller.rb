@@ -5,7 +5,7 @@ module LiveStudio
     layout :current_user_layout
 
     before_action :find_workstation, except: [:index, :show]
-    before_action :find_interactive_course, only: [:destroy, :preview, :update_class_date, :update_lessons]
+    before_action :find_interactive_course, only: [:destroy, :update_class_date, :update_lessons]
 
     def index
       @q = LiveService::InteractiveCourseDirector.search(search_params)
@@ -44,6 +44,8 @@ module LiveStudio
     # 预览
     def preview
       @course = build_preview_course
+      @lessons = @course.new_record? ? @course.interactive_lessons : @course.order_lessons
+      @teachers = @course.new_record? ? @course.interactive_lessons.map(&:teacher).uniq.compact : @course.teachers
       render layout: 'v1/application'
     end
 
@@ -91,5 +93,29 @@ module LiveStudio
     def interactive_lessons_params
       params.require(:interactive_course).permit(interactive_lessons_attributes: [:id, :duration, :class_date, :teacher_id, :start_time_hour, :start_time_minute, :_update])
     end
+
+    def preview_courses_params
+      preview = interactive_courses_params
+      if preview['interactive_lessons_attributes'].respond_to?(:each)
+        preview['interactive_lessons_attributes'].each { |lesson| lesson.delete('id') }
+      end
+      preview
+    end
+
+    def build_preview_course
+      return InteractiveCourse.find(params[:id]) if params[:id].present?
+      course = InteractiveCourse.new(preview_courses_params.merge(author: current_user))
+      course.valid?
+      if params[:interactive_course][:interactive_lessons_attributes].blank?
+        course.interactive_lessons_count = 0
+        class_dates = []
+      else
+        course.interactive_lessons_count = params[:interactive_course][:interactive_lessons_attributes].try(:count) || 0
+        class_dates = params[:interactive_course][:interactive_lessons_attributes].map {|a| a.last[:class_date]}.reject(&:blank?)
+      end
+      course.start_at, course.end_at = class_dates.min, class_dates.max
+      course
+    end
+
   end
 end

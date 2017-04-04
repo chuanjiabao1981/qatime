@@ -16,7 +16,7 @@
       <span><%= truncate_u lesson.name, length: 30 %></span>
       <% if interactive %>
         <span class="coursehead-tec">
-          <em><%= LiveStudio::InteractiveLesson.human_attribute_name(:teacher) %>：</em><em><%= lesson.teacher.name %></em>
+          <em><%= LiveStudio::InteractiveLesson.human_attribute_name(:teacher) %>：</em><em><%= lesson.teacher.try(:name) %></em>
         </span>
       <% end %>
     </div>

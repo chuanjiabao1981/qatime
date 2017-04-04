@@ -1,0 +1,18 @@
+
+<%= render partial: 'live_studio/courses/show/course_header_preview' %>
+
+<div class="course-con">
+  <div class="container">
+    <div class="row">
+      <%= render partial: 'live_studio/courses/show/course_info_preview' %>
+
+      <%= render partial: 'live_studio/courses/show/teacher_info_preview' %>
+    </div>
+  </div>
+</div>
+
+<%= content_for :mask do %>
+  <div class="prompt-preview">
+    <span><%= t("view.tips.course_preview") %></span>
+  </div>
+<% end %>

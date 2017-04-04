@@ -39,6 +39,8 @@ module LiveStudio
     # 预览
     def preview
       @course = build_preview_course
+      @lessons = @course.new_record? ? @course.lessons : @course.order_lessons
+      @teachers = @course.teachers
       render layout: 'v1/application'
     end
 
@@ -202,8 +204,7 @@ module LiveStudio
         course.lessons_count = params[:course][:lessons_attributes].try(:count) || 0
         class_dates = params[:course][:lessons_attributes].map {|a| a[:class_date]}.reject(&:blank?)
       end
-      @live_start_date = class_dates.min
-      @live_end_date = class_dates.max
+      course.start_at, course.end_at = class_dates.min, class_dates.max
       course
     end
 

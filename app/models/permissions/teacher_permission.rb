@@ -262,6 +262,7 @@ module Permissions
 
       ## 一对一 end
 
+      allow 'live_studio/interactive_courses', [:preview]
 
       ## begin payment permission
 

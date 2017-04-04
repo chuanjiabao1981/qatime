@@ -1,4 +1,5 @@
-<% @course.lessons.each_with_index do |lesson, i| %>
+<% interactive = @course.is_a? LiveStudio::InteractiveCourse %>
+<% @lessons.each_with_index do |lesson, i| %>
   <div class="row playlist <%= lesson.is_over? ? 'end' : '' %>">
     <div class="col-md-1">
       <span><%= beautify_index(i) %></span>
@@ -13,6 +14,11 @@
 
     <div class="col-md-5 coursehead">
       <span><%= truncate_u lesson.name, length: 30 %></span>
+      <% if interactive %>
+        <span class="coursehead-tec">
+          <em><%= LiveStudio::InteractiveLesson.human_attribute_name(:teacher) %>：</em><em><%= lesson.teacher.try(:name) %></em>
+        </span>
+      <% end %>
     </div>
 
     <div class="col-md-3">

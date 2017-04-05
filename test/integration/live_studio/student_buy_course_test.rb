@@ -44,7 +44,6 @@ module LiveStudio
       assert_difference "@student.reload.live_studio_courses.count", 1, "不能正确试听辅导班" do
         assert_difference "@student.reload.live_studio_taste_tickets.count", 1, "不能正确生成试听证" do
           visit live_studio.course_path(course)
-          sleep(30)
           click_on("taste-course-#{course.id}")
           sleep 2
         end
@@ -70,17 +69,20 @@ module LiveStudio
       @student_balance = users(:student_balance)
       new_log_in_as(@student_balance)
       visit live_studio.courses_index_path(student_id: @student_balance)
-      course = live_studio_courses(:course_preview_three)
+      @course = live_studio_courses(:course_preview_three)
       assert_difference "@student_balance.cash_account!.reload.balance.to_f", -50, "没有正确扣除余额" do
         assert_difference "@student_balance.cash_account!.reload.total_expenditure.to_f", 50, "总消费计算不正确" do
           assert_difference "Payment::ConsumptionRecord.count", 1, "没有生成消费记录" do
             assert_difference '@student_balance.reload.orders.count', 1, "辅导班下单失败" do
-              visit live_studio.course_path(course)
-              click_link '立即报名'
-              choose "order_pay_type_account"
-              click_on '立即支付'
-              fill_in :payment_password, with: '123123'
-              click_on '确认支付'
+              assert_difference '@course.reload.buy_tickets_count', 1, "购买人数没有增加" do
+                visit live_studio.course_path(@course)
+                click_link '立即报名'
+                choose "order_pay_type_account"
+                click_on '立即支付'
+                fill_in :payment_password, with: '123123'
+                click_on '确认支付'
+                sleep 1
+              end
             end
           end
         end

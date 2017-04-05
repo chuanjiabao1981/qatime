@@ -64,6 +64,8 @@ module Payment
         render 'show', layout: 'application_front'
       elsif @transaction.is_a? Payment::Recharge
         redirect_to payment.cash_user_path(@transaction.user)
+      elsif @transaction.product.is_a?(LiveStudio::InteractiveCourse)
+        redirect_to live_studio.student_interactive_courses_path(@transaction.user)
       else
         redirect_to live_studio.student_courses_path(@transaction.user)
       end

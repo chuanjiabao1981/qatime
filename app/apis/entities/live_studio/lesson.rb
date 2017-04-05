@@ -85,7 +85,9 @@ module Entities
       expose :product_course, using: Entities::LiveStudio::Course, if: { type: :schedule } do |lesson|
         lesson.try(:course)
       end
-
+      expose :course_id, if: {type: :schedule} do |lesson|
+        lesson.course.try(:id).to_s
+      end
       expose :replayable
       expose :left_replay_times
 

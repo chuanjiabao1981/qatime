@@ -122,5 +122,44 @@ module LiveStudio
       assert_equal lesson2.reload.class_date, old_class_date2 + 9.days, "调课不成功"
     end
 
+    test 'manager interactive_course preview' do
+      visit live_studio.new_interactive_course_path
+      fill_in :interactive_course_name, with: '一对一互动预览测试'
+      find('div[contenteditable]').set('test description')
+      select '高一', from: 'interactive_course_grade'
+      select '数学', from: 'interactive_course_subject'
+      fill_in :interactive_course_objective, with: '课程目标课程目标课程目标课程目标课程目标课程目标课程目'
+      fill_in :interactive_course_suit_crowd, with: '课程目标课程目标课程目标课程目标课程目标课程目标课程目标课1'
+      fill_in :interactive_course_price, with: '310'
+      fill_in :interactive_course_teacher_percentage, with: '90'
+
+      10.times do |index|
+        find("#interactive_course_interactive_lessons_attributes_#{index}_teacher_id").find(:xpath, "option[#{rand(2..8)}]").select_option
+        find("#interactive_course_interactive_lessons_attributes_#{index}_start_time_hour").find(:xpath, 'option[11]').select_option
+        find("#interactive_course_interactive_lessons_attributes_#{index}_start_time_minute").find(:xpath, 'option[8]').select_option
+      end
+
+      execute_script("$('#interactive_course_interactive_lessons_attributes_0_class_date').val('#{(Date.today + 1.days).to_s}')")
+      execute_script("$('#interactive_course_interactive_lessons_attributes_1_class_date').val('#{(Date.today + 2.days).to_s}')")
+      execute_script("$('#interactive_course_interactive_lessons_attributes_2_class_date').val('#{(Date.today + 3.days).to_s}')")
+      execute_script("$('#interactive_course_interactive_lessons_attributes_3_class_date').val('#{(Date.today + 4.days).to_s}')")
+      execute_script("$('#interactive_course_interactive_lessons_attributes_4_class_date').val('#{(Date.today + 5.days).to_s}')")
+      execute_script("$('#interactive_course_interactive_lessons_attributes_5_class_date').val('#{(Date.today + 6.days).to_s}')")
+      execute_script("$('#interactive_course_interactive_lessons_attributes_6_class_date').val('#{(Date.today + 7.days).to_s}')")
+      execute_script("$('#interactive_course_interactive_lessons_attributes_7_class_date').val('#{(Date.today + 8.days).to_s}')")
+      execute_script("$('#interactive_course_interactive_lessons_attributes_8_class_date').val('#{(Date.today + 9.days).to_s}')")
+      execute_script("$('#interactive_course_interactive_lessons_attributes_9_class_date').val('#{(Date.today + 10.days).to_s}')")
+
+      new_window = window_opened_by { click_on '预览' }
+      within_window new_window do
+        assert page.has_content? '提示：此页面仅供查看和预览，不能进行操作哦！'
+        assert page.has_content? "一对一互动预览测试"
+        assert page.has_content? '学习流程'
+        assert page.has_content? '购买课程'
+        assert page.has_content? '视频直播，白板互动'
+      end
+      new_window.close
+    end
+
   end
 end

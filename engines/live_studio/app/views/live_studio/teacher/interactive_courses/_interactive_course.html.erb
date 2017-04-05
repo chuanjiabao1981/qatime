@@ -36,7 +36,7 @@
         <td>
           <center>
             <span class="tutorial-con-edit">
-              <%= link_to live_studio.interactive_course_path(interactive_course), target: '_blank' do %>
+              <%= link_to live_studio.preview_interactive_courses_path(id: interactive_course.id), data: {method: :post}, target: '_blank' do %>
                 [<%= t("common.preview") %>]
               <% end %>
               <%= link_to live_studio.interactive_course_announcements_path(interactive_course) do %>

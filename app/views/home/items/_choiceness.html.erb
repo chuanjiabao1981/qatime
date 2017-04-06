@@ -1,4 +1,4 @@
-<div class="line-item">
+<div class="line-item" id="choiceness">
   <div class="container">
     <center>
       <h2><strong><%= t('view.choiceness_items.title') %></strong></h2>
@@ -31,7 +31,7 @@
       <% end %>
 
       <% @choiceness.size.upto(@choiceness.per_page - 1) do %>
-        <li class="col-md-3 col-xs-6">
+        <li class="col-md-3 col-xs-6 default">
           <%= link_to 'javascript:void(0);' do %>
             <%= image_tag '/imgs/web-nocon-list.png' %>
           <% end %>

@@ -8,6 +8,7 @@ module LiveStudio
 
     include AASM
     extend Enumerize
+    include QaToken
 
     include Qatime::Stripable
     strip_field :name, :description

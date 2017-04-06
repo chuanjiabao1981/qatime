@@ -128,6 +128,14 @@
   $("#course_description").summernote({
     lang: 'zh-CN',
     height: 400,
+    toolbar: [
+      ['style', ['style']],
+      ['font', ['bold', 'italic', 'underline', 'clear']],
+      ['fontname', ['fontname']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['insert', ['link', 'picture']]
+    ],
     callbacks: {
       onImageUpload: function(files, editor, welEditable) {
         var file = files[0];

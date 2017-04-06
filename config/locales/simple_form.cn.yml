@@ -34,6 +34,8 @@ cn:
       user:
         name: 设置姓名：
         grade: 选择年级：
+        login_account: 账号
+        password: 密码
       software:
         software_category: 软件类型
         version: 版本号
@@ -70,6 +72,9 @@ cn:
           code: 请输入唯一的优惠码
       order:
         coupon_code: 输入优惠码
+      user:
+        login_account: 手机号/邮箱账号
+        password: 登陆密码
 
     # Labels and hints examples
     # labels:

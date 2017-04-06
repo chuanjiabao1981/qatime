@@ -10,10 +10,7 @@
   <td><%= my_course.status_text %></td>
   <td>
     <% if allow? 'live_studio/courses', :update_class_date, @workstation %>
-      <%#= link_to t('view.live_studio/interactie_course.index.edit_lesson'), 'javascript:void(0);' %>
-    <% end %>
-    <% if allow? 'live_studio/courses', :destroy, @workstation %>
-      <%= link_to t('view.recommend/position.destroy'), course_path(my_course), data: {confirm: t('view.recommend/position.confirm'), method: :delete} %>
+      <%= link_to t('view.live_studio/interactie_course.index.edit_lesson'), 'javascript:void(0);' %>
     <% end %>
   </td>
 </tr>

@@ -29,7 +29,7 @@ module LiveStudio
       @course = Course.new(courses_params.merge(author: current_user))
       @course.taste_count ||= 0
       if @course.save
-        LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
+        LiveService::ChatAccountFromUser.new(@course.teacher).instance_account rescue nil
         redirect_to live_studio.my_courses_station_workstation_courses_path(@course.workstation)
       else
         render :new, layout: current_user_layout

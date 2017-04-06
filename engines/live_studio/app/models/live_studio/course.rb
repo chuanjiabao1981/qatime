@@ -73,6 +73,15 @@ module LiveStudio
       end
     end
 
+    # 初始状态 直接开课
+    default_value_for :status, Course.statuses[:published]
+    before_create do
+      self.published_at = Time.now
+      self.billing_type = 'Payment::LiveCourseBilling'
+      self.class_date = lessons.map(&:class_date).try(:min)
+    end
+    after_commit :ready_lessons, on: :create
+
     validates :name, presence: { message: I18n.t('view.live_studio/course.validates.name') }, length: { in: 2..20 }, if: :name_changed?
     validates :description, presence: { message: I18n.t('view.live_studio/course.validates.description') }, length: { in: 5..300 }, if: :description_changed?
     validates :grade, presence: { message: I18n.t('view.live_studio/course.validates.grade') }, if: :grade_changed?

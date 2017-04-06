@@ -41,7 +41,7 @@
   <% end if allow?('station/lessons', 'state', @workstation) %>
   <%= content_tag :li do %>
     <%= link_to live_studio.station_workstation_courses_path(@workstation) do %>
-      <span class="glyphicon glyphicon-film"></span> <span class="qa_f18"> <%= LiveStudio::Course.model_name.human%></span>
+      <span class="glyphicon glyphicon-film"></span> <span class="qa_f18"> <%= t("live_studio.menu.courses") %></span>
     <% end %>
   <% end if allow?('live_studio/station/courses', 'index', @workstation) %>
   <%= content_tag :li do %>

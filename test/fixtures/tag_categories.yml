@@ -1,15 +1,63 @@
-one:
-  id: 1
-  name: 考试等级
-two:
-  id: 2
-  name: 试卷讲解
-three:
-  id: 3
-  name: 假期课程
-four:
-  id: 4
-  name: 课程难度
-five:
-  id: 5
-  name: 通用标签
+high_3:
+  name: 高三
+  tags: 高考 
+high_2:
+  name: 高二
+  tags: 
+high_1:
+  name: 高一
+  tags: 
+junior_3:
+  name: 初三
+  tags: 
+junior_2:
+  name: 初二
+  tags: 
+junior_1:
+  name: 初一
+  tags: 
+primary_6:
+  name: 六年级
+  tags: 
+primary_5:
+  name: 五年级
+  tags: 
+primary_4:
+  name: 四年级
+  tags: 
+primary_3:
+  name: 三年级
+  tags: 
+primary_2:
+  name: 二年级
+  tags: 
+primary_1:
+  name: 一年级
+  tags: 
+chinese:
+  name: 语文
+  tags: 
+math:
+  name: 数学
+  tags: 
+english:
+  name: 英语
+  tags: 
+physics:
+  name: 物理
+  tags: 
+chemistry:
+  name: 化学
+  tags: 
+biology:
+  name: 生物
+  tags: 
+geography:
+  name: 地理
+  tags: 
+history:
+  name: 历史
+  tags: 
+politics:
+  name: 政治
+  tags: 

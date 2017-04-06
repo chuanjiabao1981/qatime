@@ -1,9 +1,10 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  name: MyString
-  tags_count: 1
-
+  name: 考试等级
 two:
-  name: MyString
-  tags_count: 1
+  name: 试卷讲解
+three:
+  name: 假期课程
+four:
+  name: 课程难度
+five:
+  name: 通用标签

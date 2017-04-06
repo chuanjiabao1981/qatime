@@ -18,6 +18,7 @@ module LiveStudio
 
     def new
       @course = Course.new(workstation: @workstation, price: nil, taste_count: nil, teacher_percentage: nil)
+      @course.generate_token
       render layout: current_user_layout
     end
 

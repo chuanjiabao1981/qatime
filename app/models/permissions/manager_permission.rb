@@ -9,6 +9,11 @@ module Permissions
 
       allow "managers/home",[:main]
 
+      allow :pictures,[:new,:create]
+      allow :pictures,[:destroy] do |picture|
+        picture and picture.author and picture.author_id == user.id
+      end
+
       allow :vip_classes,[:show]
       allow :questions,[:index,:show,:student,:teacher,:teachers]
       allow :teaching_videos,[:show]

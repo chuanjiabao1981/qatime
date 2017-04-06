@@ -1,0 +1,19 @@
+
+<tr>
+  <td><%= show_index(my_course_counter, @courses.limit_value) %></td>
+  <td><%= link_to my_course.name, course_path(my_course), target: '_blank' %></td>
+  <td><%= my_course.grade %></td>
+  <td><%= my_course.subject %></td>
+  <td><%= my_course.teacher.try(:name) %></td>
+  <td><%= number_to_currency(my_course.price, locale: 'cn') %></td>
+  <td><%= number_to_percentage(my_course.teacher_percentage, precision: 0) %></td>
+  <td><%= my_course.status_text %></td>
+  <td>
+    <% if allow? 'live_studio/courses', :update_class_date, @workstation %>
+      <%#= link_to t('view.live_studio/interactie_course.index.edit_lesson'), 'javascript:void(0);' %>
+    <% end %>
+    <% if allow? 'live_studio/courses', :destroy, @workstation %>
+      <%= link_to t('view.recommend/position.destroy'), course_path(my_course), data: {confirm: t('view.recommend/position.confirm'), method: :delete} %>
+    <% end %>
+  </td>
+</tr>

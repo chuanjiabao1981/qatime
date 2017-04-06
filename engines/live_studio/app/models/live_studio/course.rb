@@ -47,8 +47,8 @@ module LiveStudio
 
     aasm column: :status, enum: true do
       state :rejected
-      state :init, initial: true
-      state :published
+      state :init
+      state :published, initial: true
       state :teaching
       state :completed
 
@@ -73,9 +73,10 @@ module LiveStudio
       end
     end
 
-    validates :name, presence: { message: "请输入辅导班名称" }, length: { in: 2..20 }, if: :name_changed?
-    validates :description, presence: { message: "请输入辅导班介绍" }, length: { in: 5..300 }, if: :description_changed?
-    validates :grade, presence: { message: "请选择年级" }, if: :grade_changed?
+    validates :name, presence: { message: I18n.t('view.live_studio/course.validates.name') }, length: { in: 2..20 }, if: :name_changed?
+    validates :description, presence: { message: I18n.t('view.live_studio/course.validates.description') }, length: { in: 5..300 }, if: :description_changed?
+    validates :grade, presence: { message: I18n.t('view.live_studio/course.validates.grade') }, if: :grade_changed?
+    validates :subject, presence: { message: I18n.t('view.live_studio/course.validates.subject') }, if: :subject_changed?
 
     validates :publish_percentage, :platform_percentage, :sell_and_platform_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
     validates :teacher_percentage, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max }
@@ -83,16 +84,16 @@ module LiveStudio
     validate :check_billing_percentage
 
     # validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
-    validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: "必须大于等于0" }
-    validates :price, presence: { message: "请输入价格" }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
+    validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
+    validates :price, presence: { message: I18n.t('view.live_studio/course.validates.price') }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
 
-    validates :taste_count, numericality: { greater_than_or_equal_to: 0, message: "必须大于等于0" }
-    validates :taste_count, numericality: { less_than: ->(record) { record.lessons.size }, message: '必须小于课程总数'}
+    validates :taste_count, numericality: { greater_than_or_equal_to: 0, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
+    validates :taste_count, numericality: { less_than: ->(record) { record.lessons.size }, message: I18n.t('view.live_studio/course.validates.taste_count')}
 
     validates :teacher, presence: true
     # validates :publicize, presence: { message: "请添加图片" }, on: :create
-    validates :objective, presence: true, length: { in: 1..50 }, if: :objective_changed?
-    validates :suit_crowd, presence: true, length: { in: 1..30 }, if: :suit_crowd_changed?
+    validates :objective, presence: { message: I18n.t('view.live_studio/course.validates.objective') }, length: { in: 1..50 }, if: :objective_changed?
+    validates :suit_crowd, presence: { message: I18n.t('view.live_studio/course.validates.suit_crowd') }, length: { in: 1..30 }, if: :suit_crowd_changed?
 
     belongs_to :teacher, class_name: '::Teacher'
 
@@ -109,7 +110,7 @@ module LiveStudio
     accepts_nested_attributes_for :lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
     validates_associated :lessons
-    validates :lessons, presence: { message: '请添加至少一节课程' }
+    validates :lessons, presence: { message: I18n.t('view.live_studio/course.validates.lessons') }
 
     has_many :students, through: :buy_tickets
 
@@ -377,10 +378,10 @@ module LiveStudio
     end
 
     # 招生申请 提交审核
-    after_commit :apply_publish, on: :create
-    def apply_publish
-      course_requests.create(user: teacher, workstation: workstation)
-    end
+    # after_commit :apply_publish, on: :create
+    # def apply_publish
+    #   course_requests.create(user: teacher, workstation: workstation)
+    # end
 
     def ready_lessons
       return unless class_date <= Date.today
@@ -455,7 +456,7 @@ module LiveStudio
 
     # 结账比例验证
     def check_billing_percentage
-      errors.add(:teacher_percentage, "分成比例不正确") unless 100 == publish_percentage + sell_and_platform_percentage + teacher_percentage
+      errors.add(:teacher_percentage, I18n.t('view.live_studio/course.validates.teacher_percentage')) unless 100 == publish_percentage + sell_and_platform_percentage + teacher_percentage.to_i
     end
 
     # 教师分成最大值
@@ -463,17 +464,16 @@ module LiveStudio
       100 - publish_percentage - platform_percentage
     end
 
-    after_commit :finish_invitation, on: :create
-    def finish_invitation
-      invitation.accepted! if invitation
-    end
+    # after_commit :finish_invitation, on: :create
+    # def finish_invitation
+    #   invitation.accepted! if invitation
+    # end
 
     # 从教师记录复制辅导班信息
-    before_validation :copy_info, on: :create
-    def copy_info
-      self.teacher = author unless teacher_id
-      self.subject = teacher.try(:subject)
-    end
+    # before_validation :copy_info, on: :create
+    # def copy_info
+    #   self.subject = teacher.try(:subject)
+    # end
 
     def copy_workstation_info
       # 邀请创建的辅导班工作站使用邀请者的工作站
@@ -493,7 +493,7 @@ module LiveStudio
     # 根据工作站信息设置城市信息
     def copy_city!
       self.city = workstation.try(:city)
-      self.city ||= author.city # 工作站不存在使用老师的城市
+      self.city ||= teacher.try(:city) # 工作站不存在使用老师的城市
       self.province = city.try(:province)
     end
 

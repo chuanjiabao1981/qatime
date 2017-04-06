@@ -3,106 +3,106 @@
    index = f.index.to_i
    object_id = f.object.object_id
 %>
-<table border="0" cellspacing="0" class='lesson-show' cellpadding="0" class="<%= f.object._destroy ? 'hidden' : '' %>">
-  <tbody><tr>
-    <td class="class-num">
-      <span><%= index < 9 ? "0#{index+1}" : (index+1) %></span>
-      <%= f.input :id, as: :hidden %>
-    </td>
-    <td class="create-td">
-      <p class="create-time">
-        <span>上课时间：</span>
-        <span id="class_date_<%= object_id %>"><%= lesson.class_date %></span>
-        <span id="start_time_<%= object_id %>">
-          <%= lesson.start_time %>-<%= lesson.end_time %>
-        </span>
-      </p>
-      <p class="create-name">
-        <span>课程名称：</span>
-        <span id="name_<%= object_id %>"><%= lesson.name %></span>
-      </p>
-    </td>
-    <td>
-      <p>
-        <a href="javascript:void(0);" data-toggle="modal" data-target="#edit_<%= object_id %>" id="edit_button_<%= object_id %>">编辑</a>
-      </p>
-      <p>
-        <a href="javascript:void(0);" data-toggle="modal" data-target="#delete_<%= object_id %>" class="btn-delete"><%= t("activerecord.view.delete") %></a>
-      </p>
-      <div class="modal fade" id="edit_<%= object_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="display: none;" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="add-popup" style="text-align: left;">
-            <div class="popup-title">
-              <span>编辑课程</span>
+<div class="row lesson_field <%= f.object._destroy ? 'hidden' : '' %>">
+  <div class="col-md-1">
+    <span><%= index < 9 ? "0#{index+1}" : (index+1) %></span>
+    <%= f.input :id, as: :hidden %>
+  </div>
 
-              <span class="close fa fa-times" data-dismiss="modal" data-enforce="true" aria-label="Close"></span>
+  <div class="col-md-10">
+    <p>
+      <span><%= t('view.live_studio/course.lesson_field.class_date_text') %>：</span>
+      <span id="class_date_<%= object_id %>"><%= lesson.class_date %></span>
+      <span id="start_time_<%= object_id %>">
+        <%= lesson.start_time %>-<%= lesson.end_time %>
+      </span>
+    </p>
+    <p>
+      <span><%= t('view.live_studio/course.lesson_field.name_text') %>：</span>
+      <span id="name_<%= object_id %>"><%= lesson.name %></span>
+    </p>
+  </div>
+
+  <div class="col-md-1 arrangement-set">
+    <a href="javascript:void(0);" data-toggle="modal" data-target="#edit_<%= object_id %>" id="edit_button_<%= object_id %>"><%= t('activerecord.view.edit') %></a>
+    <a href="javascript:void(0);" data-toggle="modal" data-target="#delete_<%= object_id %>" class="btn-delete"><%= t("activerecord.view.delete") %></a>
+  </div>
+
+  <div class="modal fade" id="edit_<%= object_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog add-newclass">
+      <div class="modal-content">
+        <div class="popup-title">
+          <span><%= t('view.live_studio/course.lesson_field.edit_modal.title') %></span>
+          <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
+        </div>
+
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-4">
+              <%= f.label :class_date, t('view.live_studio/course.lesson_field.edit_modal.label.class_date') %>
+              <%= f.text_field :class_date, as: :string, class: 'class_date', placeholder: t('view.live_studio/course.lesson_field.edit_modal.placeholder.class_date'), onclick: 'testShow(this)' %>
+              <span class="has-error class_date-error-<%= object_id %>"></span>
             </div>
-            <div class="popup-date">
-              <div class="date-class">
-                    <span>
- 	        						<label for="">上课日期</label>
-                        <%= f.text_field :class_date,as: :string, class: 'class_date', placeholder: '选择上课日期', onclick: 'testShow(this)' %>
-                        <br>
-                        <i class="has-error class_date-error-<%= object_id %>"></i>
- 	        					</span>
- 	        					<span class="start-time">
- 	        						<label for="">开始时间</label>
-                      <%= f.select :start_time_hour, (0..23).to_a.map{|i| i > 9 ? i : "0#{i}"}.insert(0,['时',nil]),{}, class: 'start_time_hour' %>
-                      <%= f.select :start_time_minute, %w(00 05 10 15 20 25 30 35 40 45 50 55).insert(0, ['分', nil]),{}, class: 'start_time_minute' %>
-                      <br>
-                      <i class="has-error start_time-error-<%= object_id %>"></i>
- 	        					</span>
- 	        					<span class="start-length">
- 	        						<label for="">上课时长</label>
-                      <%= f.select :duration, LiveStudio::Lesson.duration.options.insert(0, ['时长', nil]),{}, class: 'duration' %>
-                      <br>
-                      <i class="has-error duration-error-<%= object_id %>"></i>
- 	        					</span>
-              </div>
-              <div class="date-grade">
-                <label for="">课程名称</label>
-                <%= f.text_field :name, placeholder: '输入课程名称（最多20字）', maxlength: 20, class: 'lesson_name'%>
-                <br>
-                <i class="has-error name-error-<%= object_id %>"></i>
-              </div>
-              <div class="date-btn">
-                <center>
-                  <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close">取消</a>
-                  <a href="javascript:void(0);" class="btn-datesave save-<%= object_id %>">保存</a>
-                  <%= hidden_field_tag "modal_click_btn_#{object_id}" %>
-                </center>
-              </div>
+            <div class="col-md-4 starttime">
+              <%= f.label :start_time_hour, t('view.live_studio/course.lesson_field.edit_modal.label.start_time_hour') %>
+              <%= f.select :start_time_hour, (0..23).to_a.map{|i| i > 9 ? i : "0#{i}"}.insert(0,[t('view.live_studio/course.lesson_field.edit_modal.placeholder.hour'),nil]),{}, class: 'start_time_hour form-control' %>
+              <%= f.select :start_time_minute, %w(00 05 10 15 20 25 30 35 40 45 50 55).insert(0, [t('view.live_studio/course.lesson_field.edit_modal.placeholder.minute'), nil]),{}, class: 'start_time_minute form-control' %>
+              <span class="has-error start_time-error-<%= object_id %>"></span>
+            </div>
+            <div class="col-md-4 duration">
+              <%= f.label :duration, t('view.live_studio/course.lesson_field.edit_modal.label.duration') %>
+              <%= f.select :duration, LiveStudio::Lesson.duration.options.insert(0, [t('view.live_studio/course.lesson_field.edit_modal.placeholder.duration'), nil]),{}, class: 'duration form-control' %>
+              <span class="has-error duration-error-<%= object_id %>"></span>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="modal fade" id="delete_<%= object_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-          <div class="editor-delete">
-            <div class="editor-delete-title" style="text-align: left;">
-              <span>提示</span>
-            </div>
-            <div class="editor-delete-con">
-              <p>是否确认删除此课程？</p>
-            </div>
-            <div class="editor-delete-btn">
-              <center>
-                <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close">取消</a>
-                <%= link_to '确认', 'javascript:void(0)',class: 'remove-lesson', onclick: 'remove_lesson(this);',
-                            rel: Nokogiri::XML::DocumentFragment.parse(f.input(:_destroy)).at_css('input').attributes['id'].value,
-                            'data-dismiss': 'modal', 'aria-label': 'Close'
-                %>
-              </center>
+          <div class="row">
+            <div class="col-md-12 classname">
+              <%= f.label :name, t('view.live_studio/course.lesson_field.edit_modal.label.name') %>
+              <%= f.text_field :name, placeholder: t('view.live_studio/course.lesson_field.edit_modal.placeholder.name'), maxlength: 20, class: 'lesson_name form-control'%>
+              <br>
+              <span class="has-error name-error-<%= object_id %>"></span>
             </div>
           </div>
+
+          <div class="date-btn">
+            <center>
+              <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close"><%= t('view.cancel_btn') %></a>
+              <a href="javascript:void(0);" class="btn-datesave save-<%= object_id %>"><%= t('view.save_btn') %></a>
+              <%= hidden_field_tag "modal_click_btn_#{object_id}" %>
+            </center>
+          </div>
+
         </div>
       </div>
-    </td>
-  </tr>
-  </tbody>
-</table>
-<%= f.input_field :_destroy, as: :boolean, boolean_style: :inline, class: 'hidden'%>
+    </div>
+  </div>
+
+  <div class="modal fade" id="delete_<%= object_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="editor-delete">
+        <div class="editor-delete-title" style="text-align: left;">
+          <span><%= t('view.live_studio/course.lesson_field.delete_modal.title') %></span>
+        </div>
+        <div class="editor-delete-con">
+          <p><%= t('view.live_studio/course.lesson_field.delete_modal.content') %></p>
+        </div>
+        <div class="editor-delete-btn">
+          <center>
+            <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close"><%= t('view.cancel_btn') %></a>
+            <%= link_to t('view.confirm_save'), 'javascript:void(0)',class: 'remove-lesson', onclick: 'remove_lesson(this);',
+                        rel: Nokogiri::XML::DocumentFragment.parse(f.input(:_destroy)).at_css('input').attributes['id'].value,
+                        'data-dismiss' => 'modal', 'aria-label' => 'Close'
+            %>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%= f.input_field :_destroy, as: :boolean, boolean_style: :inline, class: 'hidden' %>
+
 <script type="text/javascript">
   $(function () {
     var o_id = '<%= object_id %>';
@@ -121,7 +121,7 @@
       }else{
         if(new_page){
           $('#<%= Nokogiri::XML::DocumentFragment.parse(f.input(:_destroy)).at_css('input').attributes['id'].value %>').attr('checked', true);
-          $(this).parents("table").hide();
+          $(this).parents("div.lesson_field").hide();
         }
       }
     });
@@ -157,35 +157,34 @@
       var return_flag = true;
       if(name.trim() == ''){
         return_flag = false;
-        $('.name-error-'+id).html('请输入课程名称');
+        $('.name-error-'+id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.name') %>');
       }else{
         $('.name-error-'+id).html('');
       }
       if(class_date.trim() == '' || class_date.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/) == null){
         return_flag = false;
-        $('.class_date-error-'+id).html('请选择上课日期');
+        $('.class_date-error-'+id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.class_date') %>');
       }else{
         $('.class_date-error-'+id).html('');
       }
       if(hour.trim() == '' || minutes.trim() == ''){
         return_flag = false;
-        $('.start_time-error-'+id).html('请选择开始时间');
+        $('.start_time-error-'+id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.start_time') %>');
       }else{
         $('.start_time-error-'+id).html('');
       }
-
 
       var nowTime = new Date();
       var startAt = new Date(class_date + " " + start_time);
       if(startAt < nowTime){
         return_flag = false;
-        $('.duration-error-' + id).html('不能早于当前时间');
+        $('.duration-error-' + id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.duration_before') %>');
       } else if(end_time < start_time){
         return_flag = false;
-        $('.duration-error-' + id).html('上课时长不能跨天');
+        $('.duration-error-' + id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.duration_after') %>');
       }else if(duration.trim() == '' || duration == null){
         return_flag = false;
-        $('.duration-error-' + id).html('请选择上课时长');
+        $('.duration-error-' + id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.duration') %>');
       }else{
         $('.duration-error-' + id).html('');
       }

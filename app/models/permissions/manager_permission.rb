@@ -158,6 +158,9 @@ module Permissions
           end
         user.workstations.map(&:id).include?(course.workstation_id) && permission
       end
+      allow 'live_studio/courses', [:destroy, :update_class_date, :update_lessons] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
       allow 'live_studio/interactive_courses', [:index, :new, :create, :show, :preview]
       allow 'live_studio/interactive_courses', [:destroy, :update_class_date, :update_lessons] do |workstation|
         workstation && workstation.manager_id == user.id
@@ -168,7 +171,7 @@ module Permissions
       allow 'payment/users', [:cash]
       allow 'payment/orders', [:index, :show]
 
-      allow 'live_studio/station/courses', [:index] do |workstation|
+      allow 'live_studio/station/courses', [:my_courses, :index] do |workstation|
         workstation && workstation.manager_id == user.id
       end
       allow 'live_studio/station/interactive_courses', [:index] do |workstation|

@@ -8,7 +8,7 @@
       <% @choiceness.each_with_index do |item, index| %>
         <% course = item.target %>
         <li class="col-md-3 col-xs-6">
-          <%= link_to live_studio.course_path(course) do %>
+          <%= link_to live_studio.course_path(course), class: 'handpick-pic' do %>
             <%= image_tag course.publicize_url(:list), class: 'handle_error_list' %>
 
             <span class="discount">

@@ -12,6 +12,7 @@ module LiveStudio
       @q = LiveService::CourseDirector.search(search_params)
       @courses = @q.result.paginate(page: params[:page], per_page: 12)
       preload_tickets(@courses)
+      load_tags
       render layout: 'v1/application'
     end
 
@@ -165,6 +166,12 @@ module LiveStudio
       @search_params[:q][:s] ||= "published_at desc"
       @search_params[:q][:status_eq] = LiveStudio::Course.statuses[@search_params[:q][:status]] if @search_params[:q][:status].present?
       @search_params = search_params_filter(@search_params)
+    end
+
+    def load_tags
+      @tags = Tag.all
+      @tags = @tags.category_of(search_params[:q].slice(:grade_eq, :subject_eq).values)
+      @tags = @tags.order('tag_group_id, id')
     end
 
     # 搜索参数过滤

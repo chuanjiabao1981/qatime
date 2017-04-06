@@ -126,7 +126,7 @@ module ApplicationHelper
     fields = f.fields_for(association, new_object, :child_index => "new_#{association}_#{id}") do |builder|
       render(shared_dir + association.to_s.singularize + "_fields", :f => builder)
     end
-    link_to(name, '###', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
+    link_to(name, '###', class: "add_fields add-course", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
   def _get_super_model_name(o_class)

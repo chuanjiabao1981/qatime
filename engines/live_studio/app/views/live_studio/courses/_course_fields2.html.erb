@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :price %>
+  </div>
+  <div class="col-md-10">
+    <%= f.input :price, label: false, wrapper_html: {class: 'divided'} do %>
+      <%= f.input_field :price %>
+      <i>%</i>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :teacher_percentage %>
+  </div>
+  <div class="col-md-10">
+    <%= f.input :teacher_percentage, label: false, wrapper_html: {class: 'divided'} do %>
+      <%= f.input_field :teacher_percentage %>
+      <i>%</i>
+    <% end %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :teacher %>
+  </div>
+  <div class="col-md-10">
+    <%= f.association :teacher, collection: Teacher.pluck(:name, :id), label: false, prompt: t('view.live_studio/interactie_course.placeholder.teacher_id') %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :taste_count %>
+  </div>
+  <div class="col-md-10">
+    <%= f.input :taste_count, label: false, wrapper_html: {class: 'divided'} do %>
+      <%= f.input_field :taste_count, input_html: {min: 0} %>
+      <i><%= t('view.live_studio/course.hint.taste_count') %></i>
+    <% end %>
+  </div>
+</div>

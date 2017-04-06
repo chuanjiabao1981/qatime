@@ -70,6 +70,9 @@ LiveStudio::Engine.routes.draw do
   namespace :station do
     resources :workstations, only: [] do
       resources :courses, only: [:index] do
+        collection do
+          get :my_courses
+        end
         member do
           get :send_qr_code
         end

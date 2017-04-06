@@ -5,6 +5,12 @@ module LiveStudio
     skip_before_action :authorize, only: [:send_qr_code]
     before_action :find_course, only: [:send_qr_code]
 
+    # 直播课管理
+    def my_courses
+      @query = @workstation.live_studio_courses.ransack(params[:q])
+      @courses = @query.result.order(id: :desc).paginate(page: params[:page])
+    end
+
     def index
       @courses = LiveStudio::Course.includes(:teacher)
       @courses = @courses.where(course_search_params) if course_search_params.present?

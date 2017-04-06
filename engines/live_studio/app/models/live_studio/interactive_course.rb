@@ -49,6 +49,14 @@ module LiveStudio
       end
     end
 
+    # 初始状态 直接开课
+    default_value_for :status, InteractiveCourse.statuses[:published]
+    before_create do
+      self.published_at = Time.now
+      self.class_date = interactive_lessons.map(&:class_date).try(:min)
+    end
+    after_commit :ready_lessons, on: :create
+
     belongs_to :workstation
     belongs_to :province
     belongs_to :city
@@ -238,6 +246,7 @@ module LiveStudio
     end
 
     def ready_lessons
+      return unless class_date <= Date.today
       teaching! if published?
       interactive_lessons.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
     end

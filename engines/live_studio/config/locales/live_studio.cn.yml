@@ -3,7 +3,7 @@ cn:
     menu:
       course_requests: 招生审核
       course_invitations: 开班邀请
-      courses: 辅导班列表
+      courses: 直播课代销
       my_courses: 发行/经销
       teacher:
         my_courses: 我的辅导
@@ -60,6 +60,58 @@ cn:
         teacher_id: 教师
         name: 课程名称
   view:
+    live_studio/course:
+      new:
+        title: 创建新直播课
+        label: 直播课课程说明
+        label1: 1.允许多名学生购买，可以重复销售;
+        label2: 2.默认使用系统直播课课程海报；
+        add_lesson: 添加新课程
+      lesson_field:
+        class_date_text: 上课时间
+        name_text: 课程名称
+        edit_modal:
+          title: 编辑课程
+          label:
+            class_date: 上课日期
+            start_time_hour: 上课时间
+            duration: 上课时长
+            name: 课程名称
+          placeholder:
+            class_date: 选择上课日期
+            name: 输入课程名称（最多20字）
+            duration: 时长
+            hour: 时
+            minute: 分
+          set_errors:
+            name: 请输入课程名称
+            class_date: 请选择上课日期
+            start_time: 请选择开始时间
+            duration: 请选择上课时长
+            duration_before: 不能早于当前时间
+            duration_after: 上课时长不能跨天
+        delete_modal:
+          title: 提示
+          content: 是否确认删除此课程？
+
+      placeholder:
+        description: 请输入课程介绍（最多300字）
+      hint:
+        taste_count: 课时
+      validates:
+        name: 请输入课程名称
+        description: 请输入课程介绍
+        grade: 请选择年级
+        subject: 请选择科目
+        price: 请输入价格
+        price_greater_than_or_equal_to: 必须大于等于0
+        taste_count: 必须小于课程总数
+        objective: 请输入课程目标
+        suit_crowd: 请输入适合人群
+        lessons: 请添加至少一节课程
+        teacher_percentage: 分成比例不正确
+
+
     live_studio/interactie_course:
       new:
         title: 创建新课程
@@ -69,6 +121,7 @@ cn:
         label3: 3.默认使用系统一对一课程海报;
         intro_one: 一、课程介绍
         intro_two: 二、课程安排
+        intro_three: 三、价格和试听
         preview: 预览
         submit: 发布招生
         lesson_name_text: "一对一互动课程-第%{index}课时"

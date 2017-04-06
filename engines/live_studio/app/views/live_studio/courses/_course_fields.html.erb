@@ -88,11 +88,11 @@
         <% end %>
       </div>
       <div class="label-msg">
-        <% tags_with_category.each do |cate| -%>
-          <div class="label-classify category-<%= cate.id %>">
-            <span><%= cate.name %></span>
+        <% tags_with_group.each do |group| -%>
+          <div class="label-classify group-<%= group.id %>">
+            <span><%= group.name %></span>
             <div class="label-classify-con">
-              <% cate.tags.each do |tag| %>
+              <% group.tags.each do |tag| %>
                 <%= link_to tag.name, "javascript: void(0);", class: "#{@course.tag_list.include?(tag.name) ? 'active' : ''}" -%>
               <% end -%>
             </div>

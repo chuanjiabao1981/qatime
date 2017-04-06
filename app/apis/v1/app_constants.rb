@@ -44,8 +44,11 @@ module V1
       end
 
       desc '获取所有标签'
+      params do
+        optional :cates, type: String, desc: '标签分离,多个分类用都好分割 例如 高三,语文'
+      end
       get :tags do
-        present ActsAsTaggableOn::Tag.all, with: Entities::CourseTag
+        present Tag.category_of(params[:cates].to_s.split(/[,-]/)).order('tag_group_id, id'), with: Entities::CourseTag
       end
     end
   end

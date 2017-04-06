@@ -1,3 +1,3 @@
 class TagCategory < ActiveRecord::Base
-  has_many :tags, class_name: 'ActsAsTaggableOn::Tag'
+  has_and_belongs_to_many :tags
 end

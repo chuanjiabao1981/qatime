@@ -365,8 +365,8 @@ module ApplicationHelper
   end
 
   # 系统所有的标签
-  def tags_with_category
-    TagCategory.includes(:tags)
+  def tags_with_group
+    TagGroup.includes(:tags)
   end
 
   def beautify_index index

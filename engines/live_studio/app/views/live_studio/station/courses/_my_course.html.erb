@@ -9,8 +9,8 @@
   <td><%= number_to_percentage(my_course.teacher_percentage, precision: 0) %></td>
   <td><%= my_course.status_text %></td>
   <td>
-    <% if allow? 'live_studio/courses', :update_class_date, @workstation %>
-      <%= link_to t('view.live_studio/interactie_course.index.edit_lesson'), 'javascript:void(0);' %>
+    <% if allow? 'live_studio/courses', :update_class_date, my_course %>
+      <%= link_to t('view.live_studio/interactie_course.index.edit_lesson'), update_class_date_course_path(my_course) %>
     <% end %>
   </td>
 </tr>

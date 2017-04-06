@@ -1,7 +1,7 @@
 
 <div class="row">
   <div class="col-md-2">
-    <%= f.label :name %>
+    <%= f.label :name, required: true %>
   </div>
   <div class="col-md-10">
     <%= f.input :name, label: false, input_html: {maxlength: 20} %>
@@ -10,7 +10,7 @@
 
 <div class="row">
   <div class="col-md-2">
-    <%= f.label :grade %>
+    <%= f.label :grade, required: true %>
   </div>
   <div class="col-md-10">
     <%= f.input :grade, collection: APP_CONSTANT['grades_in_menu'], label: false, prompt: t('view.course_form.placeholders.grade') %>
@@ -19,7 +19,7 @@
 
 <div class="row">
   <div class="col-md-2">
-    <%= f.label :subject %>
+    <%= f.label :subject, required: true %>
   </div>
   <div class="col-md-10">
     <%= f.input :subject, collection: APP_CONSTANT['subjects'], label: false, prompt: t('view.course_form.placeholders.subject') %>
@@ -28,7 +28,7 @@
 
 <div class="row">
   <div class="col-md-2">
-    <%= f.label :objective %>
+    <%= f.label :objective, required: true %>
   </div>
   <div class="col-md-10">
     <%= f.input :objective, label: false, input_html: {maxlength: 50, placeholder: t('view.course_form.placeholders.objective') } %>
@@ -37,7 +37,7 @@
 
 <div class="row">
   <div class="col-md-2">
-    <%= f.label :suit_crowd %>
+    <%= f.label :suit_crowd, required: true %>
   </div>
   <div class="col-md-10">
     <%= f.input :suit_crowd, label: false, input_html: {maxlength: 30, placeholder: t('view.course_form.placeholders.suit_crowd') } %>
@@ -46,7 +46,7 @@
 
 <%= content_tag(:div, class: 'row') do %>
   <div class="col-md-2">
-    <%= f.label :workstation %>
+    <%= f.label :workstation, required: true %>
   </div>
   <div class="col-md-10">
     <%= f.association :workstation, collection: Workstation.all.map{|ws| [ws.name, ws.id]}, label: false, prompt: false %>
@@ -55,7 +55,7 @@
 
 <div class="row">
   <div class="col-md-2">
-    <%= f.label :description %>
+    <%= f.label :description, required: true %>
   </div>
   <div class="col-md-10">
     <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>

@@ -40,6 +40,8 @@ LiveStudio::Engine.routes.draw do
       get :refresh_current_lesson
       get :live_status
       get :live_info
+      get :update_class_date
+      patch :update_lessons
     end
 
     resources :lessons, only: [:show], shallow: true do

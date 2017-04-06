@@ -104,11 +104,11 @@ module LiveStudio
       find('.nav-subject').hover
       click_on '英语'
       assert page.has_content?("高考")
-      assert page.has_content?("高考志愿")
       assert page.has_content?("外教")
+      find('.nav-subject').hover
       click_on '数学'
       assert page.has_content?("高考")
-      assert page.has_content?("高考志愿")
+      assert page.has_no_content?("高考志愿")
       assert page.has_no_content?("外教")
     end
   end

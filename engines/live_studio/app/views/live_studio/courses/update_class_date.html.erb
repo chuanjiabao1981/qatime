@@ -1,0 +1,159 @@
+<div class="panel panel-default">
+  <div class="new-curriculum">
+    <div class="curriculum-title">
+      <% if @workstation %>
+        <%= link_to '', live_studio.my_courses_station_workstation_courses_path(@workstation), class: 'fa fa-mail-reply' %>
+      <% end %>
+      <span><%= t('view.live_studio/interactie_course.update_class_date.title') %></span>
+    </div>
+    <div class="adjust-classes adjust-live">
+      <h3><%= @course.name %></h3>
+      <%= simple_form_for @course, url: update_lessons_course_path(@course) do |f| %>
+        <ul class="adjust-list">
+          <%= f.fields_for :lessons, @course.lessons.sort_by{|x| x.class_date_was } do |lesson| %>
+            <% if lesson.object.unstart? %>
+              <%= render 'lesson_li', f: lesson %>
+            <% end %>
+          <% end %>
+        </ul>
+        <div class="present adjust-btn">
+          <center>
+            <%= link_to t('common.cancel'), :back %>
+            <%= link_to t('view.live_studio/interactie_course.update_class_date.submit'), 'javascript:void(0);', class: 'submit' %>
+          </center>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function _get_time(hour, minutes, duration){
+    if(duration == '' || duration == null){
+      return false;
+    }
+    var duration_value = 0;
+    var hour = parseInt(hour);
+    var minutes = parseInt(minutes);
+    switch(duration){
+      case 'minutes_30':
+        duration_value = 30;
+        break;
+      case 'minutes_45':
+        duration_value = 45;
+        break;
+      case 'hours_1':
+        duration_value = 60;
+        break;
+      case 'hours_half_90':
+        duration_value = 90;
+        break;
+      case 'hours_2':
+        duration_value = 120;
+        break;
+      case 'hours_half_150':
+        duration_value = 150;
+        break;
+      case 'hours_3':
+        duration_value = 180;
+        break;
+      case 'hours_half_210':
+        duration_value = 210;
+        break;
+      case 'hours_4':
+        duration_value = 240;
+        break;
+    }
+    end_hour = hour + parseInt((minutes+duration_value)/60);
+    end_minutes = (minutes+duration_value) % 60;
+    if(end_hour > 23)
+      end_hour = end_hour % 24;
+    if(end_hour < 10)
+      end_hour = "0" + end_hour;
+    if(end_minutes < 10)
+      end_minutes = "0" + end_minutes;
+    return end_hour + ':' + end_minutes;
+  }
+
+  $(function(){
+    $('.save_modal_btn').on('click', function(){
+      var lesson_id = $(this).data('lesson-id'),
+          field_index = $(this).data('field-index');
+
+      $('#modal_click_btn_' + lesson_id).val('save');
+      $('#course_lessons_attributes_' + field_index + '__update').prop('checked', true);
+      $('#adjust_edit_' + lesson_id).modal('hide');
+    });
+
+    $('.adjust_edit_modal').on('hide.bs.modal', function(event) {
+      var lesson_id = $(this).data('lesson-id'),
+          field_index = $(this).data('field-index');
+      var modal_click_btn = $('#modal_click_btn_' + lesson_id);
+
+      function set_errors(class_date, hour, minutes, duration){
+        var end_time = $.getLessonTime(hour, minutes, duration);
+        var start_time = hour + ':' + minutes;
+
+        var return_flag = true;
+
+        var nowTime = new Date();
+        var startAt = new Date(class_date + " " + start_time);
+        if(hour.trim() == '' || minutes.trim() == ''){
+          return_flag = false;
+          $('.start_time-error-'+lesson_id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.start_time') %>');
+        }else if(end_time < start_time){
+          return_flag = false;
+          $('.start_time-error-'+lesson_id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.duration_after') %>');
+        }else if(startAt < nowTime){
+          return_flag = false;
+          $('.start_time-error-'+lesson_id).html('<%= t('view.live_studio/course.lesson_field.edit_modal.set_errors.duration_before') %>');
+        }else{
+          $('.start_time-error-'+lesson_id).html('');
+        }
+        return return_flag;
+      }
+
+      function change_save(){
+        var duration_input = $('#course_lessons_attributes_' + field_index + '_duration');
+        var class_date_input = $('#course_lessons_attributes_' + field_index + '_class_date');
+        var start_time_hour_input = $('#course_lessons_attributes_' + field_index + '_start_time_hour');
+        var start_time_minute_input = $('#course_lessons_attributes_' + field_index + '_start_time_minute');
+        var hour = $(start_time_hour_input).val();
+        var minutes = $(start_time_minute_input).val();
+        var duration = duration_input.val();
+        var class_date = class_date_input.val();
+        var flag = set_errors(class_date, hour, minutes, duration);
+        var start_time = hour + ':' + minutes;
+        var end_time = _get_time(hour, minutes, duration);
+        if(end_time == false){
+          end_time = '';
+        }
+        var preview_class_date_text = class_date_input.val() + ' ' + start_time + '-' + end_time;
+        var preview_class_date_i = $('.preview_class_date_' + lesson_id);
+        if(flag) {
+          preview_class_date_i.html(preview_class_date_text).removeClass('hide');
+          preview_class_date_i.siblings('i').removeClass('hide');
+        }else{
+          preview_class_date_i.addClass('hide');
+          preview_class_date_i.siblings('i').addClass('hide');
+        }
+        return flag;
+      }
+
+      if(modal_click_btn.val() == 'save'){
+        if(change_save()){
+
+        }else{
+          modal_click_btn.val('cancel');
+          $('#course_lessons_attributes_' + field_index + '__update').prop('checked', false);
+          return false;
+        }
+      }
+
+    });
+
+    $('.submit').click(function(){
+      $('form').submit();
+    });
+  });
+</script>

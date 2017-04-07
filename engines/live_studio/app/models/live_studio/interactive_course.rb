@@ -246,7 +246,9 @@ module LiveStudio
     end
 
     def ready_lessons
-      return unless class_date <= Date.today
+      tmp_class_date = [class_date, interactive_lessons.map(&:class_date).min].min rescue class_date
+      return if tmp_class_date.blank?
+      return if tmp_class_date > Date.today
       teaching! if published?
       interactive_lessons.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
     end

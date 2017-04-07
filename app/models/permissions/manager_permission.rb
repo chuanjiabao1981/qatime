@@ -163,8 +163,10 @@ module Permissions
           end
         user.workstations.map(&:id).include?(course.workstation_id) && permission
       end
-      allow 'live_studio/courses', [:update_class_date, :update_lessons] do |workstation|
-        workstation && workstation.manager_id == user.id
+
+      allow 'live_studio/courses', [:update_class_date, :update_lessons] do |course|
+        permission = %w[init published teaching].include? course.try(:status)
+        course && permission && ( course.author_id == user.id || user.workstation_ids.include?(course.workstation_id) )
       end
       allow 'live_studio/interactive_courses', [:index, :new, :create, :show, :preview]
       allow 'live_studio/interactive_courses', [:update_class_date, :update_lessons] do |workstation|

@@ -4,7 +4,7 @@ module LiveStudio
   class CoursesController < ApplicationController
     before_action :set_user
     before_action :find_workstation, except: [:index, :show]
-    before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson, :live_status]
+    before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson, :live_status, :update_class_date, :update_lessons]
     before_action :play_authorize, only: [:play]
     before_action :set_city, only: [:index]
 
@@ -44,6 +44,22 @@ module LiveStudio
       @lessons = @course.new_record? ? @course.lessons : @course.order_lessons
       @teachers = @course.teachers
       render layout: 'v1/application'
+    end
+
+    # 调课
+    def update_class_date
+      render layout: current_user_layout
+    end
+
+    def update_lessons
+      # 课程更新 全部更新时间戳 render error时可以重新编辑
+      @course.lessons.map(&:touch)
+      if @course.update(lessons_params)
+        @course.ready_lessons
+        redirect_to live_studio.my_courses_station_workstation_courses_path(@course.workstation)
+      else
+        render :update_class_date, layout: current_user_layout
+      end
     end
 
     def update
@@ -188,6 +204,10 @@ module LiveStudio
       params.require(:course).permit(:name, :grade, :subject, :price, :invitation_id, :description, :token, :taste_count, :workstation_id, :tag_list, :objective, :suit_crowd, :teacher_percentage, :teacher_id,
                                      :publicize, :crop_x, :crop_y, :crop_w, :crop_h,
                                      lessons_attributes: [:id, :name, :class_date, :start_time_hour, :start_time_minute, :duration, :_destroy])
+    end
+
+    def lessons_params
+      params.require(:course).permit(lessons_attributes: [:id, :duration, :class_date, :start_time_hour, :start_time_minute, :_update])
     end
 
     def preview_courses_params

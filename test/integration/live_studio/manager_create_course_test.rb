@@ -57,5 +57,41 @@ module LiveStudio
       assert page.has_content? @manager.live_studio_courses.last.name
     end
 
+    test 'manager course update_class_date' do
+      course = live_studio_courses(:course_for_update_class_date)
+      visit live_studio.update_class_date_course_path(course)
+
+      assert page.has_content? '调课'
+      assert page.has_content? course.name
+      assert_equal 3, page.all(".adjust-list li").size, "调课只能调unstart的课程"
+
+      lessons = course.lessons.unstart.order(class_date: :asc)
+      lesson1, lesson2 = lessons.first, lessons.second
+
+      find("a[data-target='#adjust_edit_#{lesson1.id}']").click
+      assert page.has_content? lesson1.class_date.to_s
+      assert page.has_content? lesson1.start_time
+      execute_script("$('#course_lessons_attributes_0_class_date').val('#{Date.today.to_s}')")
+      select '21', from: 'course_lessons_attributes_0_start_time_hour'
+      select '30', from: 'course_lessons_attributes_0_start_time_minute'
+      click_on '保存'
+      assert page.has_content? "<修改后> #{Date.today.to_s} 21:30-22:00"
+
+      find("a[data-target='#adjust_edit_#{lesson2.id}']").click
+      execute_script("$('#course_lessons_attributes_1_class_date').val('#{(lesson2.class_date + 3.days).to_s}')")
+      select '21', from: 'course_lessons_attributes_1_start_time_hour'
+      select '30', from: 'course_lessons_attributes_1_start_time_minute'
+      click_on '保存'
+      assert page.has_content? "<修改后> #{(lesson2.class_date + 3.days).to_s} 21:30-22:00"
+
+      click_on '保存调课'
+      sleep(3)
+
+      old_class_date2 = lesson2.class_date
+      assert_equal lesson1.reload.class_date, Date.today, "调课不成功"
+      assert_equal lesson2.reload.class_date, old_class_date2 + 3.days, "调课不成功"
+      assert_equal course.reload.status, 'teaching', "调课到今日,课程状态未开课"
+    end
+
   end
 end

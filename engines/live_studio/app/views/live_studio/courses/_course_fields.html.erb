@@ -58,11 +58,11 @@
     <%= f.label :description, required: true %>
   </div>
   <div class="col-md-10">
-    <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
     <%= f.input :description, label: false  %>
   </div>
 </div>
 
+<%= f.input :token, as: :hidden, value: f.object.token %>
 <div class="row">
   <div class="col-md-2">
     <%= f.label :tag_list %>
@@ -100,7 +100,7 @@
         $(".grade-check").slideUp(200);
       }
       flag = !flag;
-    })
+    });
 
     $("input[name='radio']").click(function  () {
       if($("input[name='radio']").is(":checked")){
@@ -108,21 +108,6 @@
         $("input[name='radio']").parents(".grade-check").slideUp(200);
       }
       flag = true;
-    })
-
-    // 富文本区域
-    $('#course_description').summernote({
-      placeholder: "<%= t('view.live_studio/course.placeholder.description') %>",
-      disableDragAndDrop: true,
-      height: 200,
-      toolbar: [
-        // [groupName, [list of button]]
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-        ['fontsize', ['fontsize']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']]
-      ]
     });
   });
 
@@ -138,4 +123,41 @@
     $(".label-msg").hide();
   });
 
+  // 富文本编辑
+
+  $("#course_description").summernote({
+    lang: 'zh-CN',
+    height: 400,
+    toolbar: [
+      ['style', ['style']],
+      ['font', ['bold', 'italic', 'underline', 'clear']],
+      ['fontname', ['fontname']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['insert', ['link', 'picture']]
+    ],
+    callbacks: {
+      onImageUpload: function(files, editor, welEditable) {
+        var file = files[0];
+        data = new FormData()
+        data.append("picture[token]", $("#course_token").val());
+        data.append("picture[name]" , file, file.name);
+        $.ajax({
+          url: '/pictures',
+          data: data,
+          dataType: 'json',
+          cache: false,
+          contentType: false,
+          processData: false,
+          type: 'POST',
+          success: function(data) {
+            var imgNode = document.createElement("img");
+            imgNode.src = data.url;
+            imgNode.style.width = "50%";
+            $("#course_description").summernote('insertNode', imgNode);
+          }
+        });
+      }
+    }
+  });
 </script>

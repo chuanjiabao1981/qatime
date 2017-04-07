@@ -46,8 +46,9 @@ module LiveStudio
       fill_in :interactive_course_price, with: '310'
       fill_in :interactive_course_teacher_percentage, with: '90'
 
+      teacher_names = Teacher.all.map(&:name)
       10.times do |index|
-        find("#interactive_course_interactive_lessons_attributes_#{index}_teacher_id").find(:xpath, "option[#{rand(2..8)}]").select_option
+        select2(teacher_names.sample, "#s2id_interactive_course_interactive_lessons_attributes_#{index}_teacher_id")
         find("#interactive_course_interactive_lessons_attributes_#{index}_start_time_hour").find(:xpath, 'option[11]').select_option
         find("#interactive_course_interactive_lessons_attributes_#{index}_start_time_minute").find(:xpath, 'option[8]').select_option
       end
@@ -100,7 +101,7 @@ module LiveStudio
       assert page.has_content? lesson1.teacher.name
       assert page.has_content? lesson1.class_date.to_s
       assert page.has_content? lesson1.start_time
-      select 'teacher1', from: 'interactive_course_interactive_lessons_attributes_1_teacher_id'
+      select2('teacher1', '#s2id_interactive_course_interactive_lessons_attributes_1_teacher_id')
       execute_script("$('#interactive_course_interactive_lessons_attributes_1_class_date').val('#{lesson2.class_date.to_s}')")
       select '09', from: 'interactive_course_interactive_lessons_attributes_1_start_time_hour'
       select '30', from: 'interactive_course_interactive_lessons_attributes_1_start_time_minute'
@@ -136,8 +137,9 @@ module LiveStudio
       fill_in :interactive_course_price, with: '310'
       fill_in :interactive_course_teacher_percentage, with: '90'
 
+      teacher_names = Teacher.all.map(&:name)
       10.times do |index|
-        find("#interactive_course_interactive_lessons_attributes_#{index}_teacher_id").find(:xpath, "option[#{rand(2..8)}]").select_option
+        select2(teacher_names.sample, "#s2id_interactive_course_interactive_lessons_attributes_#{index}_teacher_id")
         find("#interactive_course_interactive_lessons_attributes_#{index}_start_time_hour").find(:xpath, 'option[11]').select_option
         find("#interactive_course_interactive_lessons_attributes_#{index}_start_time_minute").find(:xpath, 'option[8]').select_option
       end

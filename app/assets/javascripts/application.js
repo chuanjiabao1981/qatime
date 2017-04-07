@@ -34,6 +34,8 @@
 //= require calendar-es5
 //= require jedate
 //= require jquery.jedate
+//= require select2
+//= require select2_locale_zh-CN
 
 // 判断空 $.isBlank($(this).val())
 $.isBlank = function(obj) {
@@ -57,4 +59,6 @@ $(function() {
   }, function() {
     $(this).find("ul").hide();
   });
+
+  $(".select2").select2({width: 'resolve', dropdownAutoWidth: 'true'});
 });

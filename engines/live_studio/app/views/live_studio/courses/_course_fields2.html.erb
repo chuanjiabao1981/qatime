@@ -27,7 +27,7 @@
     <%= f.label :teacher %>
   </div>
   <div class="col-md-10">
-    <%= f.association :teacher, collection: Teacher.pluck(:name, :id), label: false, prompt: t('view.live_studio/interactie_course.placeholder.teacher_id') %>
+    <%= f.association :teacher, collection: Teacher.pluck(:name, :id), label: false, prompt: t('view.live_studio/interactie_course.placeholder.teacher_id'), input_html: {class: 'select2'} %>
   </div>
 </div>
 

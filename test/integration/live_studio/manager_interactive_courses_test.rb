@@ -52,7 +52,7 @@ module LiveStudio
         find("#interactive_course_interactive_lessons_attributes_#{index}_start_time_minute").find(:xpath, 'option[8]').select_option
       end
 
-      execute_script("$('#interactive_course_interactive_lessons_attributes_0_class_date').val('#{(Date.today + 1.days).to_s}')")
+      execute_script("$('#interactive_course_interactive_lessons_attributes_0_class_date').val('#{Date.today.to_s}')")
       execute_script("$('#interactive_course_interactive_lessons_attributes_1_class_date').val('#{(Date.today + 2.days).to_s}')")
       execute_script("$('#interactive_course_interactive_lessons_attributes_2_class_date').val('#{(Date.today + 3.days).to_s}')")
       execute_script("$('#interactive_course_interactive_lessons_attributes_3_class_date').val('#{(Date.today + 4.days).to_s}')")
@@ -79,6 +79,9 @@ module LiveStudio
           click_on '发布招生'
         end
       end
+      new_interactive_course = LiveStudio::InteractiveCourse.last
+      assert_equal new_interactive_course.status, 'teaching', '新创建今日开课状态未变'
+      assert_equal new_interactive_course.lessons.first.status, 'ready', '新创建今日课程状态为变'
     end
 
     test 'manager interactive_course update_class_date' do

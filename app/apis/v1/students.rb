@@ -102,7 +102,7 @@ module V1
         ::TicketToken.instance_token(student, :parent_phone)
       end
 
-      desc 'update parent_phone.' do
+      desc 'update parent_phone with ticket_token.' do
         headers 'Remember-Token' => {
                     description: 'RememberToken',
                     required: true
@@ -114,7 +114,7 @@ module V1
         requires :parent_phone, type: String, desc: '新家长手机'
         requires :captcha_confirmation, type: String, desc: '新家长手机验证码'
       end
-      put "/:id/parent_phone" do
+      put "/:id/parent_phone_ticket_token" do
         student = ::Student.find(params[:id])
         # 校验ticket_token
         password_verify_manager = UserService::PasswordVerifyManager.new(student)
@@ -130,6 +130,34 @@ module V1
           raise(ActiveRecord::RecordInvalid.new(student))
         end
       end
+
+      desc 'update parent_phone.' do
+        headers 'Remember-Token' => {
+                    description: 'RememberToken',
+                    required: true
+                }
+      end
+      params do
+        requires :id, type: Integer, desc: 'ID'
+        requires :current_password, type: String, desc: '当前登录密码'
+        requires :parent_phone, type: String, desc: '新家长手机'
+        requires :captcha_confirmation, type: String, desc: '新家长手机验证码'
+      end
+      put "/:id/parent_phone" do
+        student = ::Student.find(params[:id])
+        parent_phone_params = ActionController::Parameters.new(params).permit(:current_password, :parent_phone, :captcha_confirmation)
+        captcha_manager = UserService::CaptchaManager.new(parent_phone_params[:parent_phone])
+
+        student.captcha = captcha_manager.captcha_of(:send_captcha)
+        student.captcha_required!
+
+        if student.update_with_password(parent_phone_params)
+          present student, with: Entities::Student
+        else
+          raise(ActiveRecord::RecordInvalid.new(student))
+        end
+      end
+
     end
   end
 end

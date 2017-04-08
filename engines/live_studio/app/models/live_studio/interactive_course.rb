@@ -316,5 +316,12 @@ module LiveStudio
     def price_min
       interactive_lessons.size.to_i * 9
     end
+
+    after_commit :notice_teacher_for_assign, on: :create
+    def notice_teacher_for_assign
+      teachers.each do |t|
+        ::LiveStudioInteractiveCourseNotification.create(from: workstation, receiver: t, notificationable: self, action_name: :assign)
+      end
+    end
   end
 end

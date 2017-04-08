@@ -46,7 +46,7 @@ module Chat
         click_link '立即报名'
         # click_on("buy-course-#{course_preview.id}")
         choose('微信支付')
-        click_on '立即付款'
+        click_on '立即支付'
         sleep(3)
 
         @student.reload

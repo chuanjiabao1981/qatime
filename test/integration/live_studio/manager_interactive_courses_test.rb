@@ -46,7 +46,7 @@ module LiveStudio
       fill_in :interactive_course_price, with: '310'
       fill_in :interactive_course_teacher_percentage, with: '90'
 
-      teacher_names = Teacher.all.map(&:name)
+      teacher_names = ::Teacher.all.map(&:name)
       10.times do |index|
         select2(teacher_names.sample, "#s2id_interactive_course_interactive_lessons_attributes_#{index}_teacher_id")
         find("#interactive_course_interactive_lessons_attributes_#{index}_start_time_hour").find(:xpath, 'option[11]').select_option
@@ -137,7 +137,7 @@ module LiveStudio
       fill_in :interactive_course_price, with: '310'
       fill_in :interactive_course_teacher_percentage, with: '90'
 
-      teacher_names = Teacher.all.map(&:name)
+      teacher_names = ::Teacher.all.map(&:name)
       10.times do |index|
         select2(teacher_names.sample, "#s2id_interactive_course_interactive_lessons_attributes_#{index}_teacher_id")
         find("#interactive_course_interactive_lessons_attributes_#{index}_start_time_hour").find(:xpath, 'option[11]').select_option

@@ -16,16 +16,6 @@ module LiveStudio
       Capybara.use_default_driver
     end
 
-    # test "student search course" do
-    #   course_init = live_studio_courses(:course_init)
-    #   visit live_studio.courses_index_path(student_id: @student)
-    #   course_preview_two = live_studio_courses(:course_preview_two)
-    #   course_teaching = live_studio_courses(:course_teaching)
-    #   assert(page.has_no_link?("buy-course-#{course_init.id}"), "购买链接错误显示")
-    #   assert(page.has_link?("buy-course-#{course_preview_two.id}"), "不能正常购买辅导班")
-    #   assert(page.has_link?("buy-course-#{course_teaching.id}"), "不能正常购买辅导班")
-    # end
-
     test "student buy course" do
       visit live_studio.courses_index_path(student_id: @student)
       course_preview = live_studio_courses(:course_preview)
@@ -66,6 +56,7 @@ module LiveStudio
 
     # 余额支付购买辅导班
     test "buy course with account balance" do
+      new_logout_as(@student)
       @student_balance = users(:student_balance)
       new_log_in_as(@student_balance)
       visit live_studio.courses_index_path(student_id: @student_balance)
@@ -87,10 +78,13 @@ module LiveStudio
           end
         end
       end
+      new_logout_as(@student_balance)
+      new_log_in_as(@student)
     end
 
     # 使用优惠码购买辅导班,并验证
     test "student use coupon buy course with account balance" do
+      new_logout_as(@student)
       @student_balance = users(:student_balance)
       @coupon_one = payment_coupons(:coupon_one)
       new_log_in_as(@student_balance)
@@ -151,7 +145,8 @@ module LiveStudio
           end
         end
       end
-
+      new_logout_as(@student_balance)
+      new_log_in_as(@student)
     end
 
     # 不能试听辅导班

@@ -57,15 +57,6 @@ teacher_account_2000:
   balance: 2000
   type: Payment::CashAccount
 
-total_income_teacher:
-  id: 1000
-  owner: teacher_tally (Teacher)
-  balance: 2000
-  total_income: 3000
-  password_digest: <%= BCrypt::Password.create("111111", cost: 4) %>
-  password_set_at: <%= 2.days.ago %>
-  type: Payment::CashAccount
-
 physics_teacher1_account:
   owner: physics_teacher1 (User)
   balance: 0
@@ -97,15 +88,6 @@ available_cash_workstation1:
   balance: 200
   type: Payment::AvailableAccount
   
-teahcer_balance_account:
-  owner: teacher_tally (User)
-  balance: 100000
-  total_income: 0
-  total_expenditure: 0
-  password_digest: <%= BCrypt::Password.create("111111", cost: 4) %>
-  password_set_at: <%= 2.days.ago %>
-  type: Payment::CashAccount
-
 teacher_for_billing_account:
   owner: teacher_for_billing (User)
   balance: 10

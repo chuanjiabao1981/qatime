@@ -77,6 +77,8 @@ module LiveStudio
     after_commit :update_course
     after_commit :update_course_price
 
+    after_update :reset_status, if: :class_date_changed?
+
     include AASM
 
     aasm column: :status, enum: true do
@@ -425,6 +427,12 @@ module LiveStudio
     # 今日课程立即是ready状态
     def data_preview
       self.status = class_date == Date.today ? 1 : 0
+    end
+
+    def reset_status
+      self.status = 'ready' if class_date == Date.today
+      self.status = 'init' if class_date > Date.today
+      save
     end
 
     def data_confirm

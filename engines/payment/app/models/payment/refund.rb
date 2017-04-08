@@ -201,5 +201,12 @@ module Payment
       return if chat_team.blank? || user_account.blank?
       LiveService::ChatTeamManager.new(chat_team).remove_members([user_account])
     end
+
+    after_save :notify, if: :status_changed?
+    def notify
+      return if !ignored? && !refund?
+      action_name = refund? ? CashAccountNotification::REFUND_SUCCESS : CashAccountNotification::REFUND_FAIL
+      ::CashAccountNotification.create(receiver: user, notificationable: self, action_name: action_name)
+    end
   end
 end

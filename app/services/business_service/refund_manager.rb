@@ -15,6 +15,8 @@ module BusinessService
         yield if block_given?
       end
     rescue StandardError => e
+      p e.message
+      p e.backtrace.join("\n")
       Rails.logger.error "#{e.message}\n\n#{e.backtrace.join("\n")}"
       SmsWorker.perform_async(SmsWorker::SYSTEM_ALARM, error_message: "退款操作失败-#{@refund.id}")
     end

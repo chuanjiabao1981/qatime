@@ -32,11 +32,11 @@
       <tr>
         <td>
           <%= LiveStudio::Course.human_attribute_name(:subject) %>：
-          <%= @course.teacher.subject %>
+          <%= @course.subject %>
         </td>
         <td>
           <%= LiveStudio::Course.human_attribute_name(:grade) %>：
-          <%= @course.teacher.grade %>
+          <%= @course.grade %>
         </td>
       </tr>
       <tr>
@@ -45,8 +45,8 @@
           <%= @course.teacher.name %>
         </td>
         <td>
-          <%= LiveStudio::Course.human_attribute_name(:preset_lesson_count) %>：
-          <%= @course.preset_lesson_count %>
+          <%= LiveStudio::Course.human_attribute_name(:lessons_count) %>：
+          <%= @course.lessons_count %>
         </td>
       </tr>
       <tr>

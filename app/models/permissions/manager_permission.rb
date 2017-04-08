@@ -9,6 +9,11 @@ module Permissions
 
       allow "managers/home",[:main]
 
+      allow :pictures,[:new,:create]
+      allow :pictures,[:destroy] do |picture|
+        picture and picture.author and picture.author_id == user.id
+      end
+
       allow :vip_classes,[:show]
       allow :questions,[:index,:show,:student,:teacher,:teachers]
       allow :teaching_videos,[:show]
@@ -158,8 +163,13 @@ module Permissions
           end
         user.workstations.map(&:id).include?(course.workstation_id) && permission
       end
+
+      allow 'live_studio/courses', [:update_class_date, :update_lessons] do |course|
+        permission = %w[init published teaching].include? course.try(:status)
+        course && permission && ( course.author_id == user.id || user.workstation_ids.include?(course.workstation_id) )
+      end
       allow 'live_studio/interactive_courses', [:index, :new, :create, :show, :preview]
-      allow 'live_studio/interactive_courses', [:destroy, :update_class_date, :update_lessons] do |workstation|
+      allow 'live_studio/interactive_courses', [:update_class_date, :update_lessons] do |workstation|
         workstation && workstation.manager_id == user.id
       end
       ## end live studio permission
@@ -168,7 +178,7 @@ module Permissions
       allow 'payment/users', [:cash]
       allow 'payment/orders', [:index, :show]
 
-      allow 'live_studio/station/courses', [:index] do |workstation|
+      allow 'live_studio/station/courses', [:my_courses, :index] do |workstation|
         workstation && workstation.manager_id == user.id
       end
       allow 'live_studio/station/interactive_courses', [:index] do |workstation|

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331052615) do
+ActiveRecord::Schema.define(version: 20170405085716) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1458,6 +1458,21 @@ ActiveRecord::Schema.define(version: 20170331052615) do
     t.datetime "updated_at",             null: false
   end
 
+  create_table "tag_categories_tags", id: false, force: :cascade do |t|
+    t.integer "tag_id"
+    t.integer "tag_category_id"
+  end
+
+  add_index "tag_categories_tags", ["tag_category_id"], name: "index_tag_categories_tags_on_tag_category_id", using: :btree
+  add_index "tag_categories_tags", ["tag_id"], name: "index_tag_categories_tags_on_tag_id", using: :btree
+
+  create_table "tag_groups", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "tags_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -1482,10 +1497,20 @@ ActiveRecord::Schema.define(version: 20170331052615) do
     t.string  "name"
     t.integer "taggings_count",  default: 0
     t.integer "tag_category_id"
+    t.integer "tag_group_id"
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true, using: :btree
   add_index "tags", ["tag_category_id"], name: "index_tags_on_tag_category_id", using: :btree
+  add_index "tags", ["tag_group_id"], name: "index_tags_on_tag_group_id", using: :btree
+
+  create_table "tags_and_categories", force: :cascade do |t|
+    t.integer "tag_id"
+    t.integer "tag_category_id"
+  end
+
+  add_index "tags_and_categories", ["tag_category_id"], name: "index_tags_and_categories_on_tag_category_id", using: :btree
+  add_index "tags_and_categories", ["tag_id"], name: "index_tags_and_categories_on_tag_id", using: :btree
 
   create_table "teaching_programs", force: :cascade do |t|
     t.string   "name"

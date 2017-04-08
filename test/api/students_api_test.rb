@@ -110,4 +110,15 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     assert_equal 1003, res['error']['code']
     assert_equal "无访问权限", res['error']['msg']
   end
+
+  test "POST /api/v1/students/:id/verify_current_password returns ticket_token by student" do
+    post "/api/v1/students/#{@student.id}/verify_current_password", {id: @student.id, current_password: 'password'}, 'Remember-Token' => @remember_token
+
+    assert_response :success
+    res = JSON.parse(response.body)
+
+    assert_equal 1, res['status'], "响应错误 #{res}"
+    assert_equal ::TicketToken.get_instance_token(@student, :parent_phone), res['data'], 'ticket_token设置失败'
+  end
+
 end

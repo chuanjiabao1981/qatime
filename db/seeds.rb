@@ -130,10 +130,10 @@ CashAdmin.create(
  ['试卷讲解', %w(历年真题 期中期末试卷 自编试卷)],
  ['假期课程', %w(暑假课 寒假课 周末课 国庆假期课)],
  ['课程难度', %w(基础课 巩固课 提高课)],
- ['通用标签', %w(外教 冲刺 重点难点)]].each do |cate_name, tags|
-  cate = TagCategory.find_by(name: cate_name)
-  next if cate
-  cate = TagCategory.create(name: cate_name)
-  cate.tags.create(tags.map {|name| {name: name} })
+ ['通用标签', %w(外教 冲刺 重点难点)]].each do |group_name, tags|
+  group = TagGroup.find_by(name: group_name)
+  next if group
+  group = TagGroup.create(name: group_name)
+  group.tags.create(tags.map {|name| {name: name} })
 end
 

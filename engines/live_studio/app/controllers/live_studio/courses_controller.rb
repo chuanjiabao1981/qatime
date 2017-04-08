@@ -3,7 +3,8 @@ require_dependency "live_studio/application_controller"
 module LiveStudio
   class CoursesController < ApplicationController
     before_action :set_user
-    before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson, :live_status]
+    before_action :find_workstation, except: [:index, :show]
+    before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson, :live_status, :update_class_date, :update_lessons]
     before_action :play_authorize, only: [:play]
     before_action :set_city, only: [:index]
 
@@ -11,12 +12,13 @@ module LiveStudio
       @q = LiveService::CourseDirector.search(search_params)
       @courses = @q.result.paginate(page: params[:page], per_page: 12)
       preload_tickets(@courses)
+      load_tags
       render layout: 'v1/application'
     end
 
     def new
-      @invitation = CourseInvitation.sent.find_by(id: params[:invitation_id]) if params[:invitation_id]
-      @course = Course.new(invitation: @invitation, price: nil, taste_count: nil)
+      @course = Course.new(workstation: @workstation, price: nil, taste_count: nil, teacher_percentage: nil)
+      @course.generate_token
       render layout: current_user_layout
     end
 
@@ -29,8 +31,8 @@ module LiveStudio
       @course = Course.new(courses_params.merge(author: current_user))
       @course.taste_count ||= 0
       if @course.save
-        LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
-        redirect_to live_studio.send("#{@course.author.role}_courses_path", @course.author)
+        LiveService::ChatAccountFromUser.new(@course.teacher).instance_account rescue nil
+        redirect_to live_studio.my_courses_station_workstation_courses_path(@course.workstation)
       else
         render :new, layout: current_user_layout
       end
@@ -42,6 +44,22 @@ module LiveStudio
       @lessons = @course.new_record? ? @course.lessons : @course.order_lessons
       @teachers = @course.teachers
       render layout: 'v1/application'
+    end
+
+    # 调课
+    def update_class_date
+      render layout: current_user_layout
+    end
+
+    def update_lessons
+      # 课程更新 全部更新时间戳 render error时可以重新编辑
+      @course.lessons.map(&:touch)
+      if @course.update(lessons_params)
+        @course.ready_lessons
+        redirect_to live_studio.my_courses_station_workstation_courses_path(@course.workstation)
+      else
+        render :update_class_date, layout: current_user_layout
+      end
     end
 
     def update
@@ -150,6 +168,10 @@ module LiveStudio
       @student = ::Student.find_by(id: params[:student_id]) || current_user
     end
 
+    def find_workstation
+      @workstation ||= current_user.try(:workstations).try(:first) || current_user.try(:workstation)
+    end
+
     def current_resource
       Course.find(params[:id]) if params[:id]
     end
@@ -163,6 +185,12 @@ module LiveStudio
       @search_params = search_params_filter(@search_params)
     end
 
+    def load_tags
+      @tags = Tag.all
+      @tags = @tags.category_of(search_params[:q].slice(:grade_eq, :subject_eq).values)
+      @tags = @tags.order('tag_group_id, id')
+    end
+
     # 搜索参数过滤
     # 不是识别的参数值删除掉
     def search_params_filter(origion_params)
@@ -172,17 +200,14 @@ module LiveStudio
     end
 
     def courses_params
-      # if params[:course] && params[:course][:lessons_attributes]
-      #   params[:course][:lessons_attributes].map do |_, attr|
-      #     attr['class_date'] = attr['start_time'][0,10]
-      #     attr['start_time'] = attr['start_time'][11,8]
-      #     attr['end_time'] = attr['end_time'][11,8]
-      #   end
-      # end
       params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map(&:second) if params[:course] && params[:course][:lessons_attributes]
-      params.require(:course).permit(:name, :grade, :price, :invitation_id, :description, :taste_count, :workstation_id, :tag_list, :objective, :suit_crowd,
+      params.require(:course).permit(:name, :grade, :subject, :price, :invitation_id, :description, :token, :taste_count, :workstation_id, :tag_list, :objective, :suit_crowd, :teacher_percentage, :teacher_id,
                                      :publicize, :crop_x, :crop_y, :crop_w, :crop_h,
                                      lessons_attributes: [:id, :name, :class_date, :start_time_hour, :start_time_minute, :duration, :_destroy])
+    end
+
+    def lessons_params
+      params.require(:course).permit(lessons_attributes: [:id, :duration, :class_date, :start_time_hour, :start_time_minute, :_update])
     end
 
     def preview_courses_params

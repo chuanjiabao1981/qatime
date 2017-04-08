@@ -26,6 +26,7 @@ cn:
       teacher: 老师
       manager: 管理员
       admin: 管理员
+    confirm_save: 确认
     save_btn: 保存
     cancel_btn: 取消
     insert_btn: 新增%s

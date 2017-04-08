@@ -86,21 +86,47 @@
   </div>
 </div>
 
+<%=  content_for :javascript do %>
 <script type="text/javascript">
   $(function() {
     // 富文本区域
     $('#interactive_course_description').summernote({
-      placeholder: "<%= t('view.live_studio/interactie_course.placeholder.objective') %>",
+      placeholder: "<%= t('view.live_studio/interactie_course.placeholder.description') %>",
       disableDragAndDrop: true,
-      height: 200,
+      lang: 'zh-CN',
+      height: 400,
       toolbar: [
-        // [groupName, [list of button]]
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-        ['fontsize', ['fontsize']],
+        ['style', ['style']],
+        ['font', ['bold', 'italic', 'underline', 'clear']],
+        ['fontname', ['fontname']],
         ['color', ['color']],
         ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']]
-      ]
+        ['insert', ['link', 'picture']]
+      ],
+      callbacks: {
+        onImageUpload: function(files, editor, welEditable) {
+          var file = files[0];
+          data = new FormData()
+          data.append("picture[token]", $("#course_token").val());
+          data.append("picture[name]" , file, file.name);
+          $.ajax({
+            url: '/pictures',
+            data: data,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            success: function(data) {
+              var imgNode = document.createElement("img");
+              imgNode.src = data.url;
+              imgNode.style.width = "50%";
+              $("#interactive_course_description").summernote('insertNode', imgNode);
+            }
+          });
+        }
+      }
     });
   });
 </script>
+<% end %>

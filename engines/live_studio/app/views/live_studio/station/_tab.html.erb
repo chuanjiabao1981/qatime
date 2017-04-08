@@ -5,10 +5,4 @@
   <%= link_to t("live_studio.menu.my_courses"),
               live_studio.station_workstation_course_records_path(@workstation),
               class: "#{'active-admin' if 'live_studio/station/course_records' == params[:controller]}" if allow?('live_studio/station/course_records', 'index', @workstation) %>
-  <%= link_to t("live_studio.menu.course_requests"),
-              live_studio.station_workstation_course_requests_path(@workstation),
-              class: "#{'active-admin' if 'live_studio/station/course_requests' == params[:controller]}" if allow?('live_studio/station/course_requests', 'index', @workstation) %>
-  <%= link_to t("live_studio.menu.course_invitations"),
-              live_studio.station_workstation_course_invitations_path(@workstation),
-              class: "#{'active-admin' if 'live_studio/station/course_invitations' == params[:controller]}" if allow?('live_studio/station/course_invitations', 'index', @workstation) %>
 </div>

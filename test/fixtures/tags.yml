@@ -1,65 +1,57 @@
-<% cate1 = TagCategory.find_by(name: "考试等级") %>
-<% cate2 = TagCategory.find_by(name: "试卷讲解") %>
-<% cate3 = TagCategory.find_by(name: "假期课程") %>
-<% cate4 = TagCategory.find_by(name: "课程难度") %>
-<% cate5 = TagCategory.find_by(name: "通用标签") %>
-cate1_tag1:
+高考:
   name: 高考
-  tag_category_id: 1
-cate1_tag2:
+  tag_group: one
+会考:
   name: 会考
-  tag_category_id: 1
-cate1_tag3:
+  tag_group: one
+中考:
   name: 中考
-  tag_category_id: 1
-cate1_tag4:
+  tag_group: one
+小升初考试:
   name: 小升初考试
-  tag_category_id: 1
-cate1_tag5:
-  name: 英语考级
-  tag_category_id: 1
-cate1_tag6:
+  tag_group: one
+奥数竞赛:
   name: 奥数竞赛
-  tag_category_id: 1
-cate1_tag7:
+  tag_group: one
+高考志愿:
   name: 高考志愿
-  tag_category_id: 1
-cate2_tag1:
+  tag_group: one
+历年真题:
   name: 历年真题
-  tag_category_id: 2
-cate2_tag1o:
+  tag_group: two
+期中期末试卷:
   name: 期中期末试卷
-  tag_category_id: 2
-cate2_tag2:
+  tag_group: two
+自编试卷:
   name: 自编试卷
-  tag_category_id: 2
-cate3_tag1:
+  tag_group: two
+暑假课:
   name: 暑假课
-  tag_category_id: 3
-cate3_tag1o:
+  tag_group: three
+寒假课:
   name: 寒假课
-  tag_category_id: 3
-cate3_tag2:
+  tag_group: three
+周末课:
   name: 周末课
-  tag_category_id: 3
-cate3_tag3:
+  tag_group: three
+国庆假期课:
   name: 国庆假期课
-  tag_category_id: 3
-cate4_tag1:
+  tag_group: three
+基础课:
   name: 基础课
-  tag_category_id: 4
-cate4_tag2:
+  tag_group: four
+巩固课:
   name: 巩固课
-  tag_category_id: 4
-cate4_tag3:
+  tag_group: four
+提高课:
   name: 提高课
-  tag_category_id: 4
-cate5_tag1:
+  tag_group: four
+外教:
   name: 外教
-  tag_category_id: 5
-cate5_tag2:
+  tag_group: five
+冲刺:
   name: 冲刺
-  tag_category_id: 5
-cate5_tag3:
+  tag_group: five
+重点难点:
   name: 重点难点
-  tag_category_id: 5
+  tag_group: five

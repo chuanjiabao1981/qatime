@@ -13,7 +13,7 @@
     <div class="col-md-11">
       <div class="col-md-12">
         <%= f.label :teacher_id %>
-        <%= f.select :teacher_id, options_for_select(Teacher.pluck(:name, :id), f.object.teacher_id), {include_blank: t('view.live_studio/interactie_course.placeholder.teacher_id')}, {class: 'form-control'} %>
+        <%= f.select :teacher_id, options_for_select(Teacher.pluck(:name, :id), f.object.teacher_id), {include_blank: t('view.live_studio/interactie_course.placeholder.teacher_id')}, {class: 'form-control select2'} %>
         <%= f.error :teacher_id %>
       </div>
 

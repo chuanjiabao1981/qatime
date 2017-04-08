@@ -11,7 +11,7 @@ cn:
       unread: 未读
       read: 已读
       live_studio_course:
-        assign: "您有新的辅导班任务【%{course_name}】, 请设置后发布招生"
+        assign: "新课程任务【%{course_name}】已接收，如对有疑问请联系您的工作站。"
         start: "您的辅导班【%{course_name}】已于今日(%{day})开课"
         notice_create: "公告: \"%{content}\" -- %{teacher_name} 老师"
         notice_update: "公告: \"%{content}\" -- %{teacher_name} 老师"
@@ -37,7 +37,12 @@ cn:
 
       label:
         live_studio_course:
-          assign: 辅导任务
+          assign: 课程任务
+          start: 开课提醒
+          notice_create: 公告提醒
+          notice_update: 公告提醒
+        live_studio_interactive_course:
+          assign: 课程任务
           start: 开课提醒
           notice_create: 公告提醒
           notice_update: 公告提醒

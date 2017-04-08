@@ -76,6 +76,14 @@ module LiveService
         lesson.close! if lesson.teaching? || lesson.paused?
         LiveService::InteractiveLessonDirector.new(lesson).finish
       end
+
+      # 未上课提示补课
+      LiveStudio::Lesson.ready.where('class_date < ?', Date.today).find_each(batch_size: 500).each do |lesson|
+        next unless lesson.interactive_course
+        if lesson.ready? || lesson.init?
+          lesson.miss!
+        end
+      end
     end
 
     # 结算课程

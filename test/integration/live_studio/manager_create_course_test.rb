@@ -43,7 +43,7 @@ module LiveStudio
 
       fill_in :course_price, with: '110'
       fill_in :course_teacher_percentage, with: 70
-      select 'teacher_one', from: 'course_teacher_id'
+      select2('teacher_one', '#s2id_course_teacher_id')
       count = @manager.live_studio_courses.count
       click_on '发布招生'
       assert_equal @manager.live_studio_courses.last.tag_list, %w(小升初考试 周末课), '标签设置失败'

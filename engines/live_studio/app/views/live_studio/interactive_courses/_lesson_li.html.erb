@@ -45,17 +45,17 @@
 
       <div class="modal-body">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-6 original-span">
             <span><%= t('view.live_studio/interactie_course.update_class_date.modal_teacher_was') %></span>
             <span><%= Teacher.find_by(id: lesson.teacher_id_was).try(:name) %></span>
           </div>
           <div class="col-md-6">
             <%= f.label :teacher_id, t('view.live_studio/interactie_course.update_class_date.modal_teacher_new') %>
-            <%= f.select :teacher_id, options_for_select(Teacher.pluck(:name, :id), f.object.teacher_id), {include_blank: false}, {class: 'form-control'} %>
+            <%= f.select :teacher_id, options_for_select(Teacher.pluck(:name, :id), f.object.teacher_id), {include_blank: false}, {class: 'form-control select2'} %>
             <%= f.error :teacher_id %>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-6 original-span">
             <span><%= t('view.live_studio/interactie_course.update_class_date.modal_class_date_was') %></span>
             <span><%= lesson.class_date_was %></span>
           </div>
@@ -64,7 +64,7 @@
             <%= f.text_field :class_date, as: :string, class: 'class_date je-date form-control', placeholder: t('view.live_studio/interactie_course.placeholder.class_date'), readonly: true %>
             <%= f.error :class_date %>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 original-span">
             <span><%= t('view.live_studio/interactie_course.update_class_date.modal_start_time_was') %></span>
             <span><%= lesson.start_time_was %></span>
           </div>

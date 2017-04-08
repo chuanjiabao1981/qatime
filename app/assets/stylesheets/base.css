@@ -11313,7 +11313,7 @@ ul {
   width: 90px;
   color: #666;
 }
-.adjust-editor > .modal-content > .modal-body > .row span {
+.adjust-editor > .modal-content > .modal-body > .row > .original-span span {
   line-height: 32px;
 }
 .adjust-editor > .modal-content > .modal-body > .row span:last-child {
@@ -11933,3 +11933,64 @@ ul {
   -o-text-overflow:ellipsis;
   white-space:nowrap;
 }
+
+
+/*一对一老师消息通知*/
+.inform-head {
+  height: 36px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ccc;
+}
+.inform-head > h3 {
+  margin: 0px;
+  line-height: 36px;
+  font-size: 16px;
+  padding: 0 15px;
+}
+.inform-con > .row {
+  margin: 0px 0px 10px 0px;
+  font-size: 12px;
+}
+.state-class > div {
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  background-color: rgb(102,204,204);
+  font-size: 12px;
+  color: #FFFFFF;
+}
+.notice-message {
+  padding-left: 0px !important;
+}
+.notice-message > p {
+  margin-bottom: 0px;
+}
+.notice-message > a {
+  display: block;
+  color: rgb(0,153,204);
+  text-align: right;
+}
+.state-class > .bg-classes {
+  background-color: rgb(102,153,102);
+}
+.state-class > .bg-notclasses {
+  background-color: rgb(255,153,0);
+}
+.state-class > .bg-classestask {
+  background-color: rgb(255,153,153);
+}
+.state-class > .bg-classesystem {
+  border: 1px solid #CCCCCC;
+  background-color: #FFFFFF;
+  color: rgb(255,87,87);
+  line-height: 16px;
+}
+.state-class > .bg-classesrefund {
+  background-color: rgb(0,204,255);
+}
+@media only screen and (max-width: 990px) {
+  .notice-message {
+    padding-left: 15px !important;
+  }
+}
+

@@ -52,7 +52,7 @@ function jeDateShow(elem){
     skinCell:"jedateblue",
     festival:false,
     insTrigger:false,
-    isToday: false,
+    isToday: true,
     //isinitVal:true,
     format:"YYYY-MM-DD",
     isClear:false,

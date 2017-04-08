@@ -16,15 +16,16 @@ module LiveStudio
       Capybara.use_default_driver
     end
 
-    test 'course destroy notification test' do
-      course = live_studio_courses(:course_for_destroy)
-      click_on "消息中心"
-      click_on "我的辅导"
-      assert_difference '@teacher.notifications.unread.count', -2 do
-        click_link "delete-#{course.id}"
-        click_on "确认"
-      end
-      click_on "消息中心"
-    end
+    # 暂时不能删除
+    # test 'course destroy notification test' do
+    #   course = live_studio_courses(:course_for_destroy)
+    #   click_on "消息中心"
+    #   click_on "我的辅导"
+    #   assert_difference '@teacher.notifications.unread.count', -2 do
+    #     click_link "delete-#{course.id}"
+    #     click_on "确认"
+    #   end
+    #   click_on "消息中心"
+    # end
   end
 end

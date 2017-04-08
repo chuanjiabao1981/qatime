@@ -11,6 +11,8 @@ module LiveStudio
 
     delegate :teacher_percentage, :publish_percentage, :base_price, :workstation, to: :interactive_course
 
+    after_update :reset_status, if: :class_date_changed?
+
     enum replay_status: {
              unsync: 0, # 未同步
              synced: 1, # 已同步
@@ -365,6 +367,12 @@ module LiveStudio
     end
 
     private
+
+    def reset_status
+      self.status = 'ready' if class_date == Date.today
+      self.status = 'init' if class_date > Date.today
+      save
+    end
 
     def camera_replay_name
       "#{Rails.env}_lesson_#{id}_camera_replay"

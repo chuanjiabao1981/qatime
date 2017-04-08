@@ -86,7 +86,21 @@ module V1
         end
       end
 
-
+      desc '验证登录密码,获取修改家长手机ticket_token.' do
+        headers 'Remember-Token' => {
+                    description: 'RememberToken',
+                    required: true
+                }
+      end
+      params do
+        requires :id, type: Integer, desc: 'ID'
+        requires :current_password, type: String, desc: '当前登录密码'
+      end
+      post "/:id/verify_current_password" do
+        student = ::Student.find(params[:id])
+        UserService::PasswordVerifyManager.new(student).check_password(params[:current_password])
+        ::TicketToken.instance_token(student, :parent_phone)
+      end
 
       desc 'update parent_phone.' do
         headers 'Remember-Token' => {
@@ -96,19 +110,21 @@ module V1
       end
       params do
         requires :id, type: Integer, desc: 'ID'
-        requires :current_password, type: String, desc: '当前登录密码'
+        requires :ticket_token, type: String, desc: '验证登录密码的ticket_token'
         requires :parent_phone, type: String, desc: '新家长手机'
         requires :captcha_confirmation, type: String, desc: '新家长手机验证码'
       end
       put "/:id/parent_phone" do
         student = ::Student.find(params[:id])
-        parent_phone_params = ActionController::Parameters.new(params).permit(:current_password, :parent_phone, :captcha_confirmation)
+        # 校验ticket_token
+        password_verify_manager = UserService::PasswordVerifyManager.new(student)
+        password_verify_manager.check_token(:parent_phone, params[:ticket_token])
+
+        parent_phone_params = ActionController::Parameters.new(params).permit(:parent_phone, :captcha_confirmation)
         captcha_manager = UserService::CaptchaManager.new(parent_phone_params[:parent_phone])
 
         student.captcha = captcha_manager.captcha_of(:send_captcha)
-        student.captcha_required!
-
-        if student.update_with_password(parent_phone_params)
+        if student.update_with_captcha(parent_phone_params)
           present student, with: Entities::Student
         else
           raise(ActiveRecord::RecordInvalid.new(student))

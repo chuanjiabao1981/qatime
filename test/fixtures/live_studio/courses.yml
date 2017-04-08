@@ -126,6 +126,9 @@ course_preview_four:
   subject: 语文
   teacher_percentage: 90
   lessons_count: 2
+  class_date: <%= Date.today %>
+  start_at: <%= Date.today %>
+  end_at: <%= Date.today %>
 
 course_without_channel:
   name: 没有初始化的辅导班

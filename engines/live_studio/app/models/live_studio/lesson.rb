@@ -77,7 +77,7 @@ module LiveStudio
     after_commit :update_course
     after_commit :update_course_price
 
-    after_update :reset_status, if: :class_date_changed?
+    before_validation :reset_status, if: :class_date_changed?, on: :update
 
     include AASM
 
@@ -430,9 +430,8 @@ module LiveStudio
     end
 
     def reset_status
-      self.status = 'ready' if class_date == Date.today
-      self.status = 'init' if class_date > Date.today
-      save
+      self.status = 'ready' if class_date == Date.today && status == 'missed'
+      self.status = 'init' if class_date > Date.today && status == 'missed'
     end
 
     def data_confirm

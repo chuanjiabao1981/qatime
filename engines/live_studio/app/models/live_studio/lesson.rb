@@ -436,7 +436,7 @@ module LiveStudio
 
     def update_course
       return unless course.present?
-      lesson_dates = course.lessons.map(&:class_date)
+      lesson_dates = course.lessons(true).map(&:class_date)
       course.update(class_date: lesson_dates.min, start_at: lesson_dates.min, end_at: lesson_dates.max)
     end
 

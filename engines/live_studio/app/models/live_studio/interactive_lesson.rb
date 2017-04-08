@@ -446,7 +446,7 @@ module LiveStudio
 
     def udpate_interactive_course
       return unless interactive_course.present?
-      lesson_dates = interactive_course.interactive_lessons.map(&:class_date)
+      lesson_dates = interactive_course.interactive_lessons(true).map(&:class_date)
       interactive_course.update(class_date: lesson_dates.min, start_at: lesson_dates.min, end_at: lesson_dates.max)
     end
 

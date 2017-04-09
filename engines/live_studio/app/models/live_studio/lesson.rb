@@ -77,6 +77,8 @@ module LiveStudio
     after_commit :update_course
     after_commit :update_course_price
 
+    before_validation :reset_status, if: :class_date_changed?, on: :update
+
     include AASM
 
     aasm column: :status, enum: true do
@@ -427,6 +429,11 @@ module LiveStudio
       self.status = class_date == Date.today ? 1 : 0
     end
 
+    def reset_status
+      self.status = 'ready' if class_date == Date.today && status == 'missed'
+      self.status = 'init' if class_date > Date.today && status == 'missed'
+    end
+
     def data_confirm
       if start_time_hour || start_time_minute
         self.start_time = "#{start_time_hour}:#{start_time_minute}"
@@ -436,7 +443,7 @@ module LiveStudio
 
     def update_course
       return unless course.present?
-      lesson_dates = course.lessons.map(&:class_date)
+      lesson_dates = course.lessons(true).map(&:class_date)
       course.update(class_date: lesson_dates.min, start_at: lesson_dates.min, end_at: lesson_dates.max)
     end
 

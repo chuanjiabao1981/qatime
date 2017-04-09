@@ -18,9 +18,9 @@ module LiveStudio
     end
 
     test "manager view course list" do
-      click_on "辅导班"
+      click_on "直播课代销"
       assert page.has_content?('招生中'), "全部列表没有显示招生中辅导班"
-      assert page.has_link?('辅导班列表')
+      assert page.has_link?('直播课代销')
       assert page.has_link?('发行/经销')
 
       click_on "发行/经销"
@@ -37,7 +37,7 @@ module LiveStudio
       click_on "我的发行"
       assert page.has_content?('老师分成')
 
-      click_on "辅导班列表"
+      click_on "直播课代销", match: :first
       assert page.has_content?('经销分成')
       assert page.has_content?('二维码')
       assert page.has_button?('生成'), "没有二维码生成按钮"

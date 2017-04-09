@@ -722,3 +722,30 @@ course_finished_lesson2:
   class_date: <%= 10.days.ago %>
   status: 5
   replay_status: 0
+
+lesson_for_update_class_date1:
+  name: 第一节课
+  course: course_for_update_class_date
+  start_time: '07:10'
+  end_time: '07:40'
+  class_date: <%= 3.days.since.to_date %>
+  status: 0
+  duration: 30
+
+lesson_for_update_class_date2:
+  name: 第二节课
+  course: course_for_update_class_date
+  start_time: '08:10'
+  end_time: '08:40'
+  class_date: <%= 3.days.since.to_date + 1.day %>
+  status: 0
+  duration: 30
+
+lesson_for_update_class_date3:
+  name: 第三节课
+  course: course_for_update_class_date
+  start_time: '08:10'
+  end_time: '08:40'
+  class_date: <%= 3.days.since.to_date + 2.day %>
+  status: 0
+  duration: 30

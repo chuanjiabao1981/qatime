@@ -42,21 +42,32 @@ $.isBlank = function(obj) {
   return(!obj || $.trim(obj) === "");
 };
 
-$(document).on('click', '.je-date', function (event) {
-  $.jeDate(event.target,{
+function jeDateShow(elem){
+  var d = new Date();
+  var vYear = d.getFullYear();
+  var vMon = d.getMonth() + 1;
+  var vDay = d.getDate();
+  var min_date = vYear + '-' + (vMon<10 ? "0" + vMon : vMon) + '-' + (vDay<10 ? "0"+ vDay : vDay);
+  $.jeDate(elem,{
     skinCell:"jedateblue",
     festival:false,
-    insTrigger: true,
+    insTrigger:false,
+    isToday: true,
+    //isinitVal:true,
     format:"YYYY-MM-DD",
     isClear:false,
-    minDate: '2000-12-12'
+    minDate: min_date
   });
-});
+}
 
 $(function() {
   $(".nav-condition").hover(function() {
     $(this).find("ul").show();
   }, function() {
     $(this).find("ul").hide();
+  });
+
+  $(document).on('click', '.je-date', function (event) {
+    jeDateShow(event.currentTarget);
   });
 });

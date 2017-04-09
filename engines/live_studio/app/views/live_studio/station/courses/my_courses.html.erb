@@ -1,0 +1,35 @@
+<div class="panel panel-default">
+  <div class="new-curriculum">
+    <div class="curriculum-enter">
+      <% if allow? 'live_studio/courses', :new %>
+        <%= link_to t('view.live_studio/interactie_course.index.new'), live_studio.new_course_path %>
+      <% end %>
+    </div>
+
+    <div class="curriculum-con">
+      <table border="1" cellspacing="1" cellpadding="1">
+        <tbody>
+        <tr>
+          <td><%= t('common.index_no') %></td>
+          <td><%= t('view.live_studio/interactie_course.index.name') %></td>
+          <td><%= t('view.live_studio/interactie_course.index.grade') %></td>
+          <td><%= t('view.live_studio/interactie_course.index.subject') %></td>
+          <td><%= t('view.live_studio/interactie_course.index.teacher') %></td>
+          <td><%= t('view.live_studio/interactie_course.index.price') %></td>
+          <td><%= t('view.live_studio/interactie_course.index.teacher_percentage') %></td>
+          <td><%= t('view.live_studio/interactie_course.index.status') %></td>
+          <td><%= t('common.operate') %></td>
+        </tr>
+
+        <%= render partial: 'my_course', collection: @courses %>
+        </tbody>
+      </table>
+    </div>
+
+    <center>
+      <div class="pagination-fix">
+        <%= will_paginate @courses %>
+      </div>
+    </center>
+  </div>
+</div>

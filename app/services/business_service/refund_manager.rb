@@ -49,7 +49,7 @@ module BusinessService
       return unless @refund.product.try(:refund!)
       # 提前结束以后给老师发送结束通知
       @refund.product.teachers.each do |teacher|
-        p ::LiveStudioInteractiveCourseNotification.create!(receiver: teacher, notificationable: @refund.product, action_name: :finish)
+        ::LiveStudioInteractiveCourseNotification.create!(receiver: teacher, notificationable: @refund.product, action_name: :finish)
       end
     end
   end

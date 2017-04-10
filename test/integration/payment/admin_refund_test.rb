@@ -32,6 +32,7 @@ module Payment
           sleep(1)
         end
       end
+      assert @refund.product.reload.refunded?, "一对一退款以后没有正常结束"
     end
   end
 end

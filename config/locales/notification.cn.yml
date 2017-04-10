@@ -12,9 +12,15 @@ cn:
       read: 已读
       live_studio_course:
         assign: "新课程任务【%{course_name}】已接收，如对有疑问请联系您的工作站。"
-        start: "您的辅导班【%{course_name}】已于今日(%{day})开课"
+        start: "【%{course_name}】将于今日(%{day})开始上课，请准时授课"
         notice_create: "公告: \"%{content}\" -- %{teacher_name} 老师"
         notice_update: "公告: \"%{content}\" -- %{teacher_name} 老师"
+      live_studio_interactive_course:
+        assign: "新课程任务【%{course_name}】已接收，如对有疑问请联系您的工作站。"
+        start: "【%{course_name}】将于今日(%{day})开始上课，请准时授课"
+        notice_create: "公告: \"%{content}\" -- %{teacher_name} 老师"
+        notice_update: "公告: \"%{content}\" -- %{teacher_name} 老师"
+        finish: "【%{course_name}】已结束（原因：学生已退款），请联系您的工作站重新开设课程。"
       live_studio_lesson:
         start_for_teacher: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时授课"
         start_for_student: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时参加学习"
@@ -46,6 +52,7 @@ cn:
           start: 开课提醒
           notice_create: 公告提醒
           notice_update: 公告提醒
+          finish: 系统消息
         live_studio_lesson:
           start_for_teacher: 上课提醒
           start_for_student: 上课提醒

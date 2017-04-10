@@ -47,9 +47,10 @@
     <%= content_tag(:div, class: 'course-operator-div') do%>
       <%= content_tag(:div, class: 'course-operator-btn') do %>
         <%= order_operating(order, class: 'btn btn-default operator-btn') %>
-        <%= link_to t('view.payment_show.new_order'), live_studio.new_course_order_path(course), class: 'btn btn-default operator-btn' %>
-        <%= link_to t('view.course_show.info'), user_order_path(@user,order.order_no), class: 'btn btn-default operator-btn' %>
+        <%= link_to t('view.payment_show.new_order'), live_studio.course_path(course), class: 'btn btn-default operator-btn' if course.is_a?(LiveStudio::Course) %>
+        <%= link_to t('view.payment_show.new_order'), live_studio.interactive_course_path(course), class: 'btn btn-default operator-btn' if course.is_a?(LiveStudio::InteractiveCourse) %>
+        <%= link_to t('view.course_show.info'), user_order_path(@user, order.order_no), class: 'btn btn-default operator-btn' %>
       <% end %>
     <% end if Payment::Order::CATE_CANCELED.include?(order.status) %>
   <% end %>
-<% end %>
+<% end if course %>

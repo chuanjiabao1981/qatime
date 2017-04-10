@@ -175,3 +175,10 @@ course_notification_for_destroy_course:
   read: false
   action_name: start
 
+course_notification_for_destroy_course:
+  notificationable: interactive_course_teacher1 (LiveStudio::InteractiveCourse)
+  receiver: teacher1
+  type: LiveStudioInteractiveCourseNotification
+  read: false
+  action_name: finish
+

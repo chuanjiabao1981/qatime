@@ -5249,6 +5249,7 @@ ul {
 /*下载*/
 .download-page {
   min-height: 610px;
+  box-shadow: 0 0 10px #CCCCCC;
 }
 .down-load {
   padding: 30px 20px;
@@ -5261,6 +5262,9 @@ ul {
 .down-load .col-md-8 img {
   float: left;
   margin-right: 30px;
+}
+.down-msg {
+  margin-left: 150px;
 }
 .down-msg-title {
   margin: 10px 0 37px;
@@ -7091,7 +7095,7 @@ ul {
 .alipay-con .complete-prompt {
   top: 0px;
   border-bottom: 1px solid rgb(241,241,241);
-  height: 100px;
+  min-height: 100px;
 }
 .apply-tea {
   position: relative;
@@ -8600,10 +8604,10 @@ ul {
   border: 1px solid #F2F2F2 !important;
   border-top: 0px !important;
 }
-.modal-apply {
-  top: 50%;
-  margin-top: -160px
-}
+/*.modal-apply {
+	top: 50%;
+	margin-top: -160px
+}*/
 .modal-apply .modal-header {
   height: 44px;
   padding: 10px 15px;
@@ -11363,11 +11367,11 @@ ul {
     padding: 0px !important;
   }
 }
-.adjust-editor {
-  position: absolute;
-  top: 50%;
-  margin-top: -170px;
-}
+/*.adjust-editor {
+	position: absolute;
+	top: 50%;
+	margin-top: -170px;
+}*/
 
 
 /*创建新课程*/
@@ -11597,11 +11601,11 @@ ul {
   margin-top: 5px;
   color: #666;
 }
-.modal-client {
-  position: absolute;
-  top: 50%;
-  margin-top: -85px;
-}
+/*.modal-client {
+	position: absolute;
+	top: 50%;
+	margin-top: -85px;
+}*/
 
 @media screen and (min-width: 768px){
   .modal-client {
@@ -11646,12 +11650,6 @@ ul {
 
 
 /*学生一对一*/
-.communal-page {
-  margin-bottom: 60px;
-}
-.communal {
-  margin-top: 30px;
-}
 .side-nav ,.contains{
   box-shadow: 0 0 10px #CCCCCC;
 }
@@ -11801,7 +11799,7 @@ ul {
   .discipline-con > ul .row > .col-md-9,.discipline-con > ul > li >.row > .discipline-info{
     padding: 0px;
   }
-  .communal > .row > .col-md-3 {
+  .side-nav {
     margin-bottom: 30px;
   }
 }
@@ -11884,11 +11882,12 @@ ul {
     margin: 0px;
   }
 }
-.add-newclass {
-  position: absolute;
-  top: 50%;
-  margin-top: -110px;
-}
+/*.add-newclass {
+	position: absolute;
+	top: 50%;
+	margin-top: -110px;
+	
+}*/
 .add-newclass .modal-body .has-error {
   display: block;
   margin-left: 92px;
@@ -11994,3 +11993,7 @@ ul {
   }
 }
 
+/*下载页面*/
+.common-space {
+  margin: 30px 0 60px 0;
+}

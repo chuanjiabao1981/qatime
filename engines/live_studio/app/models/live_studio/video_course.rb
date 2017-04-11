@@ -200,12 +200,6 @@ module LiveStudio
       I18n.t("status.#{status}")
     end
 
-    def init_channel
-      return unless channels.blank?
-      channels.create(name: "#{name} - 直播室 - #{id} - 白板", course_id: id, use_for: :board)
-      channels.create(name: "#{name} - 直播室 - #{id} - 摄像头", course_id: id, use_for: :camera)
-    end
-
     def lesson_count_left
       [video_lessons_count - finished_lessons_count, 0].max
     end
@@ -340,26 +334,6 @@ module LiveStudio
         when 'completed'
           I18n.t('view.course_show.complete_lesson')
       end || I18n.t('view.course_show.nil_data')
-    end
-
-    def live_start_time
-      lesson = lessons.reorder('class_date asc,id').first
-      lesson.try(:live_start_at).try(:strftime,'%Y-%m-%d %H:%M') ||
-          "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:start_time)}"
-    end
-
-    def live_end_time
-      lesson = lessons.reorder('class_date asc,id').last
-      lesson.try(:live_end_at).try(:strftime,'%Y-%m-%d %H:%M') ||
-          "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:end_time)}"
-    end
-
-    def live_start_date
-      lessons.map(&:class_date).min
-    end
-
-    def live_end_date
-      lessons.map(&:class_date).max
     end
 
     def order_lessons
@@ -533,18 +507,6 @@ module LiveStudio
       return true if user.admin?
       return user.id == teacher_id if user.teacher?
       !user.student? && workstation_id == user.workstation_id
-    end
-
-    after_create :init_channel_job
-    def init_channel_job
-      init_channel
-      # ChannelCreateJob.perform_later(id)
-    end
-
-    # 辅导班创建通知指定教师
-    after_commit :notice_teacher_for_assign, on: :create
-    def notice_teacher_for_assign
-      ::LiveStudioCourseNotification.create(from: workstation, receiver: teacher, notificationable: self, action_name: :assign)
     end
 
     def lower_price

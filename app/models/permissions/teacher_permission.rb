@@ -316,6 +316,11 @@ module Permissions
       end
       ## 一对一直播
 
+      ## 视频课
+      api_allow :GET, 'live_studio/teachers/\d+/video_courses'
+
+      ## 视频课
+
       # 老师个人信息接口
       api_allow :GET, "/api/v1/teachers/[\\w-]+/info" do |teacher|
         teacher && teacher.id == user.id

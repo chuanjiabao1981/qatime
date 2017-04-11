@@ -232,6 +232,11 @@ module Permissions
       api_allow :POST, "/api/v1/live_studio/interactive_courses/[\\w-]+/orders"
       ##
 
+      ## 视频课
+      api_allow :GET, 'live_studio/students/\d+/video_courses'
+
+      ## 视频课
+
       # 消息通知
       api_allow :GET, "/api/v1/users/[\\w-]+/notifications"
       api_allow :PUT, "/api/v1/notifications/[\\w-]+/read"

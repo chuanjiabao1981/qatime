@@ -1,6 +1,7 @@
 module Entities
   module LiveStudio
     class VideoCourse < Grape::Entity
+      format_with(:local_timestamp, &:to_i)
       expose :id
       expose :name
       expose :subject do |course|
@@ -42,8 +43,6 @@ module Entities
       expose :taste_count
       expose :completed_lessons_count
       expose :closed_lessons_count
-      expose :live_start_time
-      expose :live_end_time
       expose :objective
       expose :suit_crowd
       expose :publicize do |course|

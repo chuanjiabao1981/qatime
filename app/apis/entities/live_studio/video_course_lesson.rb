@@ -1,6 +1,6 @@
 module Entities
   module LiveStudio
-    class Lesson < Grape::Entity
+    class VideoCourseLesson < Grape::Entity
       expose :id
       expose :name
       expose :status

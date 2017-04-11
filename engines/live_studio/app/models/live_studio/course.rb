@@ -446,6 +446,11 @@ module LiveStudio
       save
     end
 
+    # 是否可退款
+    def can_refund?
+      for_sell?
+    end
+
     private
 
     # 辅导班删除以后同时删除课程

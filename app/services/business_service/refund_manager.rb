@@ -12,6 +12,7 @@ module BusinessService
         @refund.lock!
         _user_receive
         _system_pay
+        _product_refund_hook
         yield if block_given?
       end
     rescue StandardError => e
@@ -39,6 +40,17 @@ module BusinessService
     # 系统扣款
     def _system_pay
       AccountService::CashManager.new(CashAdmin.cash_account!).decrease('Payment::RefundPayRecord', @refund.amount, @refund)
+    end
+
+    # 退款后期处理
+    # 一对一退款以后课程提前结束
+    def _product_refund_hook
+      return if @refund.product.nil? || !@refund.product.is_a?(LiveStudio::InteractiveCourse)
+      return unless @refund.product.try(:refund!)
+      # 提前结束以后给老师发送结束通知
+      @refund.product.teachers.each do |teacher|
+        ::LiveStudioInteractiveCourseNotification.create!(receiver: teacher, notificationable: @refund.product, action_name: :finish)
+      end
     end
   end
 end

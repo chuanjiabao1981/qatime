@@ -28,6 +28,10 @@ class Notification < ActiveRecord::Base
     save
   end
 
+  # 目前只用于标题样式显示
+  def notify_type
+  end
+
   private
 
   def notify_by_email

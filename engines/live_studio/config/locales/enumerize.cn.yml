@@ -40,6 +40,7 @@ cn:
         published: 招生中
         teaching: 开课中
         completed: 已结束
+        refunded: 已结束
     live_studio/video_course:
       status:
         rejected: 审核被拒

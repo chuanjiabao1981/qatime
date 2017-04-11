@@ -128,6 +128,7 @@ cn:
       status/all: 全部
       status/published: 招生中
       status/teaching: 开课中
+      status/refunded: 已结束
       all: 全部
       none: 不限
     payment_show:

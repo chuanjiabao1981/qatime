@@ -144,6 +144,7 @@ interactive_course_three_2:
   start_at: <%= 3.days.ago.to_date %>
   end_at: <%= 15.days.since.to_date %>
   buy_tickets_count: 1
+  description: 互动2互动2互动2互动2互动2互动2
 
 interactive_course_teacher1:
   name: 测试一对一老师

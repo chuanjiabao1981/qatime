@@ -111,13 +111,8 @@ window.currentTeam = {
   // fromType 消息来源 offline: 离线消息, roaming: 漫游消息, immediate: 即时消息
   function onMsg(msg, marked, fromType) {
     if(!fromType) fromType = 'immediate'; 
-    console.log('收到消息', msg.scene, msg.type, msg);
     // 不是该聊天组消息
     if(msg.scene != "team" || msg.to != currentTeam.id ) {
-      console.log(msg.scene != "team");
-      console.log(currentTeam.id);
-      console.log(msg.to);
-      console.log(msg.to != currentTeam.id);
       return;
     }
     pushMsg(msg);

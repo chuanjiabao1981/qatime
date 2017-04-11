@@ -206,6 +206,7 @@ LiveStudio::Engine.routes.draw do
       end
       resources :courses, only: [:index, :show]
       resources :interactive_courses, only: [:index, :show]
+      resources :video_courses, only: [:index]
     end
   end
 

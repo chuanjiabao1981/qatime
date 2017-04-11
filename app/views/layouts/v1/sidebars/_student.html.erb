@@ -1,103 +1,77 @@
 <div class="side-nav">
   <div class="user-portrait">
-    <img src="../img/teacher-title.png">
-    fff
+    <%= image_tag @student.avatar_url(:ex_big), class: 'handle_error_avatar' %>
     <p>
-      <span>田浩然</span>
-      <img src="../img/gender-men.png">
+      <span><%= @student.name %></span>
+      <%= image_tag "#{@student.gender || 'male'}.png" %>
     </p>
   </div>
   <ul class="nav-menu">
-    <li>
-      <a href="javascript:void(0);">
+    <li class="<%= 'active' if student_sidebar_nav_is?(:setting) %>">
+      <%= link_to main_app.info_student_path(@student) do %>
         <i class="icon-user"></i>
-        <span>用户设置</span>
-      </a>
+        <span><%= t("view.common_bars.user_setting") %></span>
+      <% end %>
     </li>
-    <li>
-      <a href="javascript:void(0);">
-        
+    <li class="<%= 'active' if student_sidebar_nav_is?(:cash) %>">
+      <%= link_to payment.cash_user_path(@student) do %>
         <i class="icon-wallet"></i>
-        <span>财产管理</span>
-      </a>
+        <span><%= t("view.student_bars.my_wallet") %></span>
+      <% end %>
     </li>
-    <li>
-      <a href="javascript:void(0);">
-        
+    <li class="<%= 'active' if student_sidebar_nav_is?(:orders) %>">
+      <%= link_to payment.user_orders_path(@student) do %>
+        <i class="icon-order"></i>
+        <span><%= t("view.student_bars.my_orders") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if student_sidebar_nav_is?(:notifications) %>">
+      <%= link_to main_app.user_notifications_path(@student) do %>
         <i class="icon-msg"></i>
-        <span>消息中心</span>
-      </a>
+        <span><%= t("view.student_bars.my_notice") %></span>
+      <% end %>
     </li>
-    <li>
-      <a href="javascript:void(0);">
-        
+    <li class="<%= 'active' if student_sidebar_nav_is?(:schedule) %>">
+      <%= link_to live_studio.schedules_student_path(@student) do %>
         <i class="icon-class"></i>
-        <span>课程表</span>
-      </a>
+        <span><%= t("view.student_bars.schedules") %></span>
+      <% end %>
     </li>
-    <li>
-      <a href="javascript:void(0);">
-        
+    <li class="<%= 'active' if student_sidebar_nav_is?(:my_courses) %>">
+      <%= link_to live_studio.student_courses_path(@student) do %>
         <i class="icon-live"></i>
-        <span>我的直播课</span>
-      </a>
+        <span><%= t("view.student_bars.my_courses") %></span>
+      <% end %>
     </li>
-    <li>
-      <a href="javascript:void(0);">
-        
+    <li class="<%= 'active' if student_sidebar_nav_is?(:my_interactive_courses) %>">
+      <%= link_to live_studio.student_interactive_courses_path(@student) do %>
         <i class="icon-face"></i>
-        <span>我的一对一</span>
-      </a>
+        <span><%= t("view.student_bars.my_interactive_courses") %></span>
+      <% end %>
     </li>
-    <li class="active">
-      <a href="javascript:void(0);">
-        
+    <li class="<%= 'active' if student_sidebar_nav_is?(:my_video_courses) %>">
+      <%= link_to live_studio.student_video_courses_path(@student) do %>
         <i class="icon-video"></i>
-        <span>我的视频课</span>
-      </a>
+        <span><%= t("view.student_bars.my_video_courses") %></span>
+      <% end %>
     </li>
-    <li>
-      <a href="javascript:void(0);">
-        <i class="icon-homework"></i>
-        <span>作业管理</span>
-      </a>
-    </li>
-    <li>
-      <a href="javascript:void(0);">
-        
-        <i class="icon-manage"></i>
-        <span>学生管理</span>
-      </a>
-    </li>
-    <li>
-      <a href="javascript:void(0);">
-        
-        <i class="icon-lesson"></i>
-        <span>备课中心</span>
-      </a>
-    </li>
-    <li>
-      <a href="javascript:void(0);">
-        
-        <i class="icon-setup"></i>
-        <span>课程设置</span>
-      </a>
-    </li>
-    <li>
-      <a href="javascript:void(0);">
-        
-        <i class="icon-state"></i>
-        <span>课程状态</span>
-      </a>
-    </li>
-
-    <li>
-      <a href="javascript:void(0);">
-        
+    <li class="<%= 'active' if student_sidebar_nav_is?(:customized_courses) %>">
+      <%= link_to main_app.customized_courses_student_path(@student) do %>
         <i class="icon-course"></i>
-        <span>专属课程</span>
-      </a>
+        <span><%= t("view.common_bars.customized_courses") %></span>
+      <% end %>
     </li>
-
+    <li class="<%= 'active' if student_sidebar_nav_is?(:homeworks) %>">
+      <%= link_to main_app.homeworks_student_path(@student) do %>
+        <i class="icon-homework"></i>
+        <span><%= t("view.student_bars.my_homework") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if student_sidebar_nav_is?(:teacher_students) %>">
+      <%= link_to main_app.teachers_student_path(@student) do %>
+        <i class="icon-tec"></i>
+        <span><%= t("view.student_bars.my_teachers") %></span>
+      <% end %>
+    </li>
   </ul>
 </div>

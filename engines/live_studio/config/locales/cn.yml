@@ -303,6 +303,9 @@ cn:
     status:
       pending: 审核中
       published: 已发布
+    category:
+      bought: 已购
+      tasting: 免费
 
   live_studio/ticket:
     type_name:

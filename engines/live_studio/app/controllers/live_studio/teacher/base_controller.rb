@@ -8,12 +8,11 @@ module LiveStudio
       include ::LiveStudio::SessionsHelper
 
       private
-      # def current_resource
-      #   @resource ||= set_teacher
-      # end
 
       def set_teacher
         @teacher = ::Teacher.find(params[:teacher_id] || params[:id])
+        @owner = @teacher
+        @teacher
       end
     end
   end

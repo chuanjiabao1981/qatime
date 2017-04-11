@@ -15,6 +15,11 @@ module LiveStudio
       render layout: 'v1/application'
     end
 
+    def taste
+      @course = Course.find(params[:id])
+      @taste_ticket = LiveService::CourseDirector.taste_course_ticket(@student, @course)
+    end
+
     private
 
     def search_params

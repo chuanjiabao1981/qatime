@@ -1,0 +1,17 @@
+<% @course.order_lessons.each_with_index do |lesson, i| %>
+  <div class="row playlist">
+    <div class="col-md-1">
+      <span><%= beautify_index(i) %></span>
+    </div>
+
+    <div class="col-md-8 coursehead">
+      <span><%= truncate_u lesson.name, length: 30 %></span>
+    </div>
+
+    <div class="col-md-3">
+      <i>
+        <%= lesson.status_text(current_user.try(:role)) %>
+      </i>
+    </div>
+  </div>
+<% end %>

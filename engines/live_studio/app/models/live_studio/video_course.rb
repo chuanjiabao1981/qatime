@@ -226,7 +226,7 @@ module LiveStudio
     end
 
     def for_sell?
-      published? || teaching?
+      published?
     end
 
     # 用户是否已经购买

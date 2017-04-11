@@ -75,6 +75,16 @@ LiveStudio::Engine.routes.draw do
       post :preview
       patch :preview
     end
+
+    member do
+      post :taste # 试听
+      get :play # 观看直播
+      post :update_notice
+      patch :publish
+    end
+
+    resources :orders, only: [:new, :create]
+    resources :announcements, only: [:index, :update, :create], shallow: true
   end
 
   namespace :station do

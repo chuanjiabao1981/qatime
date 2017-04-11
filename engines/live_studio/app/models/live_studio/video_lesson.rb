@@ -31,19 +31,6 @@ module LiveStudio
              completed: 7 # 已结算
          }
 
-    enumerize :duration, in: {
-                           minutes_30: 30,
-                           minutes_45: 45,
-                           hours_1: 60,
-                           hours_half_90: 90,
-                           hours_2: 120,
-                           hours_half_150: 150,
-                           hours_3: 180,
-                           hours_half_210: 210,
-                           hours_4: 240
-                       }, i18n_scope: "enumerize.live_studio/lessons.durations", scope: true, predicates: { prefix: true }
-
-    # default_scope { order("id asc") }
     scope :unfinish, -> { where("status < ?", VideoLesson.statuses[:finished]) } # 未完成的课程
     scope :unclosed, -> { where('live_studio_video_lessons.status < ?', VideoLesson.statuses[:closed]) } # 未关闭的课程
     scope :already_closed, -> { where('live_studio_video_lessons.status >= ?', VideoLesson.statuses[:closed]) } # 已关闭的课程
@@ -70,14 +57,7 @@ module LiveStudio
     has_many :live_studio_lesson_notifications, as: :notificationable, dependent: :destroy
     has_many :ticket_items, as: :target
 
-    validates :name, :class_date, presence: true
-
-    before_create :data_preview
-    # before_save :data_confirm
-    after_commit :update_course
-    after_commit :update_course_price
-
-    before_validation :reset_status, if: :class_date_changed?, on: :update
+    validates :name, presence: true
 
     include AASM
 
@@ -136,20 +116,6 @@ module LiveStudio
           increment_course_counter(:completed_lessons_count)
         end
         transitions from: [:finished, :billing], to: :completed
-      end
-    end
-
-    after_find do |lesson|
-      lesson.start_time_hour, lesson.start_time_minute = lesson.start_time.split(":") if lesson.start_time.present?
-    end
-
-    before_validation :calculate_start_and_end_time
-    def calculate_start_and_end_time
-      self.start_time = "#{start_time_hour}:#{start_time_minute}" if start_time_hour.present? && start_time_minute.present?
-      if start_time_changed? || duration_changed?
-        end_hour = format("%02d", start_time_hour.to_i + (start_time_minute.to_i + duration_value) / 60)
-        end_minute = format("%02d", (duration_value + start_time_minute.to_i) % 60)
-        self.end_time = "#{end_hour}:#{end_minute}"
       end
     end
 
@@ -422,33 +388,6 @@ module LiveStudio
           heartbeat_at: 1,
           beat_step: LiveStudio::VideoLesson.beat_step
       )
-    end
-
-    # 今日课程立即是ready状态
-    def data_preview
-      self.status = class_date == Date.today ? 1 : 0
-    end
-
-    def reset_status
-      self.status = 'ready' if class_date == Date.today && status == 'missed'
-      self.status = 'init' if class_date > Date.today && status == 'missed'
-    end
-
-    def data_confirm
-      if start_time_hour || start_time_minute
-        self.start_time = "#{start_time_hour}:#{start_time_minute}"
-        self.end_time = "#{(start_time_hour.to_i + (start_time_minute.to_i + duration_value.to_i) / 60)}:#{(start_time_minute.to_i + duration_value.to_i) % 60}"
-      end
-    end
-
-    def update_course
-      return unless video_course.present?
-      lesson_dates = video_course.lessons(true).map(&:class_date)
-      video_course.update(class_date: lesson_dates.min, start_at: lesson_dates.min, end_at: lesson_dates.max)
-    end
-
-    def update_course_price
-      video_course.reset_left_price if video_course
     end
 
     def play_records_params

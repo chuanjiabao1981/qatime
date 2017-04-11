@@ -94,7 +94,7 @@ module LiveStudio
     validates :price, presence: { message: I18n.t('view.live_studio/course.validates.price') }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
 
     validates :taste_count, numericality: { greater_than_or_equal_to: 0, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
-    validates :taste_count, numericality: { less_than: ->(record) { record.lessons.size }, message: I18n.t('view.live_studio/course.validates.taste_count')}
+    validates :taste_count, numericality: { less_than: ->(record) { record.video_lessons.size }, message: I18n.t('view.live_studio/course.validates.taste_count')}
 
     validates :teacher, presence: true
     # validates :publicize, presence: { message: "请添加图片" }, on: :create
@@ -219,11 +219,6 @@ module LiveStudio
       return 0 if video_lessons_count <= closed_lessons_count
       return price.to_f if closed_lessons_count.zero?
       lesson_price * (video_lessons_count - closed_lessons_count)
-    end
-
-    def live_next_time
-      lesson = lessons.include_today.unstart.first
-      lesson && "#{lesson.class_date} #{lesson.start_time}-#{lesson.end_time}" || I18n.t('view.course_show.nil_data')
     end
 
     # 发货

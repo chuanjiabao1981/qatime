@@ -1,0 +1,19 @@
+<div class="recorded">
+  <div class="recorded-title">
+    <%= link_to t("live_studio.menu.teacher.my_video_courses"), live_studio.teacher_video_courses_path(@teacher) -%>
+    <span class="fa fa-angle-right"></span>
+    <span><%= t("live_studio.actions.teacher.video_course.create") %></span>
+  </div>
+  <div class="recorded-nav">
+    <%= link_to "javascript: void(0);", class: "active" do -%>
+      <%= image_tag "bg-tab1.png" %>
+      <span>①设置课程介绍</span>
+    <% end %>
+    <%= link_to "javascript: void(0);" do -%>
+      <%= image_tag "bg-tab2.png" %>
+      <span>②上传课程视频</span>
+    <% end %>
+  </div>
+
+  <%= render 'form' %>
+</div>

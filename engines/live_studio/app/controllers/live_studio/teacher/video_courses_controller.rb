@@ -8,7 +8,7 @@ module LiveStudio
 
     # GET /teacher/video_courses
     def index
-      @video_courses = VideoCourse.all.where(status: video_course_status_filter).paginate(page: params[:page])
+      @video_courses = @teacher.live_studio_video_courses.where(status: video_course_cate_filter).paginate(page: params[:page])
     end
 
     # GET /teacher/video_courses/1
@@ -27,9 +27,12 @@ module LiveStudio
     # POST /teacher/video_courses
     def create
       @video_course = VideoCourse.new(video_course_params)
+      @video_course.author = current_user
+      @video_course.status = 'precreate'
+      @video_course.teacher = @teacher
 
       if @video_course.save
-        redirect_to @video_course, notice: 'Video course was successfully created.'
+        redirect_to [@teacher, @video_course], notice: 'Video course was successfully created.'
       else
         render :new
       end
@@ -61,9 +64,9 @@ module LiveStudio
         params.require(:video_course).permit(:name, :grade, :description)
       end
 
-      def video_course_status_filter
-        return VideoCourse.statuses[:init] if params[:status].blank?
-        VideoCourse.statuses.values_at(:published, :completed, :confirmed)
+      def video_course_cate_filter
+        return VideoCourse.statuses[:published] if 'published' == params[:cate]
+        VideoCourse.statuses.values_at(:rejected, :init, :confirmed, :completed)
       end
   end
 end

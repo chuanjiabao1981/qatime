@@ -1,29 +1,107 @@
-<%= form_for(@teacher_video_course) do |f| %>
-  <% if @teacher_video_course.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@teacher_video_course.errors.count, "error") %> prohibited this teacher_video_course from being saved:</h2>
-
-      <ul>
-      <% @teacher_video_course.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= simple_form_for [@teacher, @video_course] do |f| %>
+  <div class="recorded-info">
+    <div class="row recorded-explain">
+      <div class="col-md-5">
+        <%= image_tag @video_course.publicize_url(:list) %>
+      </div>
+      <div class="col-md-7">
+        <h3>视频课说明</h3>
+        <ul>
+          <li>1.视频课是一种可重复销售的课程，允许多人购买；</li>
+          <li>2.视频课由学生自主观看学习，无需上课</li>
+          <li>3.默认使用系统视频课课程海报（如左图）</li>
+        </ul>
+      </div>
     </div>
-  <% end %>
+    <div class="recorded-con">
+      <div class="editor-msg">
+        <div class="row">
+          <div class="col-md-2">
+            <%= f.label :grade, required: true %>
+          </div>
+          <div class="col-md-10">
+            <%= f.input :grade, collection: APP_CONSTANT['grades_in_menu'], label: false, prompt: t('view.course_form.placeholders.grade') %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <%= f.label :name, required: true %>
+          </div>
+          <div class="col-md-10">
+            <%= f.input :name, label: false, input_html: {maxlength: 20} %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-2">
+            <%= f.label :description, required: true %>
+          </div>
+          <div class="col-md-10">
+            <%= f.input :description, label: false  %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="recorded-info">
+    <a class="addclass" href="javascript:void(0);" data-toggle="modal" data-target="#acceptModal">
+        <%= image_tag "create.png" %>
+        <span>添加课程</span>
+      </a>
+    <div class="recorded-class">
+      <div class="no-addcourse">
+        <span>尚未添加任何课程！</span>
+      </div>
+      <div class="addcourse-msg">
+        <ul id="outer_wrap">
+        </ul>
+      </div>
+      
+    </div>
+    <%= f.submit t("live_studio.actions.teacher.video_course.submit"), class: "btn-audit active" %>
+  </div>
+<% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :grade %><br>
-    <%= f.text_field :grade %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+
+<%= content_for :javascript do %>
+<script>
+$(function() {
+  // 富文本编辑
+
+  $("#video_course_description").summernote({
+    lang: 'zh-CN',
+    height: 400,
+    toolbar: [
+      ['style', ['style']],
+      ['font', ['bold', 'italic', 'underline', 'clear']],
+      ['fontname', ['fontname']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['insert', ['picture']]
+    ],
+    callbacks: {
+      onImageUpload: function(files, editor, welEditable) {
+        var file = files[0];
+        data = new FormData()
+        data.append("picture[token]", $("#video_course_token").val());
+        data.append("picture[name]" , file, file.name);
+        $.ajax({
+          url: '/pictures',
+          data: data,
+          dataType: 'json',
+          cache: false,
+          contentType: false,
+          processData: false,
+          type: 'POST',
+          success: function(data) {
+            var imgNode = document.createElement("img");
+            imgNode.src = data.url;
+            imgNode.style.width = "50%";
+            $("#video_course_description").summernote('insertNode', imgNode);
+          }
+        });
+      }
+    }
+  });
+});  
+</script>
 <% end %>

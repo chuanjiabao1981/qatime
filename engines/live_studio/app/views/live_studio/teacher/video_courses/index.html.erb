@@ -8,11 +8,11 @@
   </div>
   <div class="contains-discipline">
     <div class="discipline-nav">
-      <%= link_to t("filter.status.pending"), live_studio.teacher_video_courses_path(current_user), class: "#{'active' unless params[:status] == 'published' }" -%>
-      <%= link_to t("filter.status.pending"), live_studio.teacher_video_courses_path(current_user, status: 'published'), class: "#{'active' if params[:status] == 'published' }" -%>
+      <%= link_to t("filter.status.pending"), live_studio.teacher_video_courses_path(current_user), class: "#{'active' unless params[:cate] == 'published' }" -%>
+      <%= link_to t("filter.status.published"), live_studio.teacher_video_courses_path(current_user, cate: 'published'), class: "#{'active' if params[:cate] == 'published' }" -%>
     </div>
     <div class="tab-content">
-      <div class="discipline-con tab-pane fade" id="audit">
+      <div class="discipline-con tab-pane fade in active">
         <ul>
           <% @video_courses.each do |course| %>
             <% cache course do %>
@@ -42,8 +42,11 @@
                   </div>
                   <div class="col-md-2 course-state">
                     <span class="col-md-12 col-sm-4 col-xs-4"><%= course.status.text %></span>
-                    <%= link_to t("actions.edit"), live_studio.edit_teacher_video_course_path(current_user, course) %>
-                    <%= link_to t("actions.destroy"), live_studio.teacher_video_course_path(current_user, course), method: :delete %>
+                    <%= link_to t("actions.edit"), live_studio.edit_teacher_video_course_path(current_user, course), class: "col-md-12 col-sm-4 col-xs-4" %>
+                    <%= link_to t("actions.destroy"), live_studio.teacher_video_course_path(current_user, course),
+                                method: :delete,
+                                class: "col-md-12 col-sm-4 col-xs-4",
+                                data: { confirm: t('confirms.destroy') } %>
                   </div>
                 </div>
               </li>

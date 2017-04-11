@@ -306,6 +306,11 @@ cn:
     category:
       bought: 已购
       tasting: 免费
+  actions:
+    edit: 编辑
+    destroy: 删除
+  confirms:
+    destroy: 确认删除?
 
   live_studio/ticket:
     type_name:
@@ -422,6 +427,8 @@ cn:
       live_studio/video_course:
         grade: 年级
         video_lessons_count: 课时
+        name: 课程名称
+        description: 详细说明
       live_studio/interactive_lesson:
         teacher: 老师
       live_studio/push_stream:

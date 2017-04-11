@@ -26,11 +26,11 @@ module LiveStudio
     belongs_to :invitation
 
     enum status: {
-             rejected: -1, # 被拒绝
-             init: 0, # 初始化 待审核
-             confirmed: 1, # 审核通过
-             completed: 2, # 已创建
-             published: 3 # 已发布
+           rejected: -1, # 被拒绝
+           init: 0, # 初始化 待审核
+           confirmed: 1, # 审核通过
+           completed: 2, # 已创建
+           published: 3 # 已发布
          }
 
     enumerize :status, in: {
@@ -89,12 +89,8 @@ module LiveStudio
 
     validate :check_billing_percentage
 
-    # validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
-    validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
-    validates :price, presence: { message: I18n.t('view.live_studio/course.validates.price') }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
-
-    validates :taste_count, numericality: { greater_than_or_equal_to: 0, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
-    validates :taste_count, numericality: { less_than: ->(record) { record.lessons.size }, message: I18n.t('view.live_studio/course.validates.taste_count')}
+    # validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
+    # validates :price, presence: { message: I18n.t('view.live_studio/course.validates.price') }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
 
     validates :teacher, presence: true
     # validates :publicize, presence: { message: "请添加图片" }, on: :create
@@ -114,8 +110,8 @@ module LiveStudio
 
     accepts_nested_attributes_for :video_lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
-    validates_associated :video_lessons
-    validates :video_lessons, presence: { message: I18n.t('view.live_studio/course.validates.lessons') }
+    # validates_associated :video_lessons
+    # validates :video_lessons, presence: { message: I18n.t('view.live_studio/course.validates.lessons') }
 
     has_many :students, through: :buy_tickets
 
@@ -329,20 +325,6 @@ module LiveStudio
       VideoCourse.statuses.map {|k, v| [LiveStudio::Course.human_attribute_name("aasm_state/#{k}"), v] }
     end
 
-    # 招生申请 提交审核
-    # after_commit :apply_publish, on: :create
-    # def apply_publish
-    #   course_requests.create(user: teacher, workstation: workstation)
-    # end
-
-    def ready_lessons
-      # tmp_class_date = [class_date, video_lessons.map(&:class_date).min].min rescue class_date
-      # return if tmp_class_date.blank?
-      # return if tmp_class_date > Date.today
-      # teaching! if published?
-      # video_lessons.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
-    end
-
     # 购买人数
     def buy_user_count
       buy_tickets_count + adjust_buy_count
@@ -486,18 +468,6 @@ module LiveStudio
       return true if user.admin?
       return user.id == teacher_id if user.teacher?
       !user.student? && workstation_id == user.workstation_id
-    end
-
-    after_create :init_channel_job
-    def init_channel_job
-      init_channel
-      # ChannelCreateJob.perform_later(id)
-    end
-
-    # 辅导班创建通知指定教师
-    after_commit :notice_teacher_for_assign, on: :create
-    def notice_teacher_for_assign
-      ::LiveStudioCourseNotification.create(from: workstation, receiver: teacher, notificationable: self, action_name: :assign)
     end
 
     def lower_price

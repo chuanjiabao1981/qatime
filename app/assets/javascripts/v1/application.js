@@ -16,6 +16,7 @@
 //= require jquery.Jcrop
 //= require bootstrap
 //= require summernote
+//= require summernote/locales/summernote-zh-CN.js
 //= require jquery.form
 //= require video-js
 // require jwplayer/jwplayer

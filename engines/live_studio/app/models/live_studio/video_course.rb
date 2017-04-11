@@ -119,23 +119,15 @@ module LiveStudio
 
     has_many :students, through: :buy_tickets
 
-    has_many :channels
-    has_many :push_streams, through: :channels
-    has_many :pull_streams, through: :channels
     has_many :play_records # 听课记录
-    has_many :announcements, as: :announcementable
     has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
-
-    has_many :billings, through: :video_lessons, class_name: 'Payment::Billing' # 结算记录
-
-    has_many :course_action_records, ->{ order 'created_at desc' }, dependent: :destroy, foreign_key: :live_studio_video_course_id
 
     belongs_to :province
     belongs_to :city
     belongs_to :author, class_name: "::User"
 
     require 'carrierwave/orm/activerecord'
-    mount_uploader :publicize, ::PublicizeUploader
+    mount_uploader :publicize, ::VideoPublicizeUploader
 
     scope :month, ->(month) {where('live_studio_video_courses.class_date >= ? and live_studio_video_courses.class_date <= ?',
                                    month.beginning_of_month.to_date,
@@ -157,34 +149,11 @@ module LiveStudio
       super
     end
 
-    # 白板推流地址
-    def board_push_stream
-      push_streams.find {|stream| stream.use_for == 'board' }.try(:address)
-    end
-
-    # 白板拉流地址
-    def board_pull_stream(protocol = 'rtmp')
-      pull_streams.find {|stream| stream.use_for == 'board' && stream.protocol == protocol }.try(:address)
-    end
-
-    # 摄像头推流地址
-    def camera_push_stream
-      push_streams.find {|stream| stream.use_for == 'camera' }.try(:address)
-    end
-
-    # 摄像头拉流地址
-    def camera_pull_stream(protocol = 'rtmp')
-      pull_streams.find {|stream| stream.use_for == 'camera' && stream.protocol == protocol }.try(:address)
-    end
-
     # teacher's name. return blank when teacher is missiong
     def teacher_name
       teacher.try(:name)
     end
 
-    def teachers
-      [teacher].compact
-    end
 
     def distance_days
       today = Date.today
@@ -200,30 +169,9 @@ module LiveStudio
       I18n.t("status.#{status}")
     end
 
-    def init_channel
-      return unless channels.blank?
-      channels.create(name: "#{name} - 直播室 - #{id} - 白板", course_id: id, use_for: :board)
-      channels.create(name: "#{name} - 直播室 - #{id} - 摄像头", course_id: id, use_for: :camera)
-    end
-
-    def lesson_count_left
-      [video_lessons_count - finished_lessons_count, 0].max
-    end
-
-    def left_lessons_count
-      [video_lessons_count - finished_lessons_count, 0].max
-    end
-
     # 当前价格
     def current_price
-      return 0 if video_lessons_count <= closed_lessons_count
-      return price.to_f if closed_lessons_count.zero?
-      lesson_price * (video_lessons_count - closed_lessons_count)
-    end
-
-    def live_next_time
-      lesson = lessons.include_today.unstart.first
-      lesson && "#{lesson.class_date} #{lesson.start_time}-#{lesson.end_time}" || I18n.t('view.course_show.nil_data')
+      price
     end
 
     # 发货

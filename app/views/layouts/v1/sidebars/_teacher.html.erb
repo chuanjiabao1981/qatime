@@ -1,0 +1,90 @@
+<div class="side-nav">
+  <div class="user-portrait">
+    <%= image_tag @teacher.avatar_url(:ex_big), class: 'handle_error_avatar' %>
+    <p>
+      <span><%= @teacher.name %></span>
+      <%= image_tag "#{@teacher.gender || 'male'}.png" %>
+    </p>
+  </div>
+  <ul class="nav-menu">
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:setting) %>">
+      <%= link_to main_app.info_teacher_path(@teacher) do %>
+        <i class="icon-user"></i>
+        <span><%= t("view.common_bars.user_setting") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:cash) %>">
+      <%= link_to payment.cash_user_path(@teacher) do %>
+        <i class="icon-wallet"></i>
+        <span><%= t("view.teacher_bars.property_management") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:notification) %>">
+      <%= link_to main_app.user_notifications_path(@teacher) do %>
+        <i class="icon-msg"></i>
+        <span><%= t("view.teacher_bars.notification") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:schedule) %>">
+      <%= link_to live_studio.schedules_teacher_path(@teacher) do %>
+        <i class="icon-class"></i>
+        <span><%= t("view.student_bars.schedules") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:my_courses) %>">
+      <%= link_to live_studio.teacher_courses_path(@teacher) do %>
+        <i class="icon-class"></i>
+        <span><%= t("view.teacher_bars.my_courses") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:my_interactive_courses) %>">
+      <%= link_to live_studio.teacher_interactive_courses_path(@teacher) do %>
+        <i class="icon-face"></i>
+        <span><%= t("view.teacher_bars.my_interactive_courses") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:my_video_courses) %>">
+      <%= link_to live_studio.teacher_video_courses_path(@teacher) do %>
+        <i class="icon-video"></i>
+        <span><%= t("view.teacher_bars.my_video_courses") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:homeworks) %>">
+      <%= link_to main_app.homeworks_teacher_path(@teacher) do %>
+        <i class="icon-homework"></i>
+        <span><%= t("view.teacher_bars.homeworks") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:teacher_students) %>">
+      <%= link_to main_app.students_teacher_path(@teacher) do %>
+        <i class="icon-manage"></i>
+        <span><%= t("view.teacher_bars.teacher_students") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:teacher_syllabuses) %>">
+      <%= link_to course_library.teacher_syllabuses_path(@teacher) do %>
+        <i class="icon-lesson"></i>
+        <span><%= t("view.teacher_bars.teacher_syllabuses") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:curriculums) %>">
+      <%= link_to main_app.curriculums_teacher_path(@teacher) do %>
+        <i class="icon-setup"></i>
+        <span><%= t("view.teacher_bars.curriculums") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:lessons_state) %>">
+      <%= link_to main_app.lessons_state_teacher_path(@teacher) do %>
+        <i class="icon-state"></i>
+        <span><%= t("view.teacher_bars.lessons_state") %></span>
+      <% end %>
+    </li>
+    <li class="<%= 'active' if teacher_sidebar_nav_is?(:customized_courses) %>">
+      <%= link_to main_app.customized_courses_teacher_path(@teacher) do %>
+        <i class="icon-course"></i>
+        <span><%= t("view.common_bars.customized_courses") %></span>
+      <% end %>
+    </li>
+
+  </ul>
+</div>

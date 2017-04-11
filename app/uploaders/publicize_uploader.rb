@@ -49,10 +49,15 @@ class PublicizeUploader < CarrierWave::Uploader::Base
     end
   end
   # Provide a default URL as a default if there hasn't been a file uploaded:
-  def default_url
+  def default_url(*args)
     # For Rails 3.1+ asset pipeline compatibility:
     # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
-    "#{APP_CONFIG[:host]}/imgs/course_default.png"
+    # "#{APP_CONFIG[:host]}/imgs/course_default.png"
+
+    
+    p '--------'
+    p version_name
+    p args
   end
 
   # Process files as they are uploaded:

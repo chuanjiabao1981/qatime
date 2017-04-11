@@ -8,6 +8,7 @@ cn:
       teacher:
         my_courses: 我的辅导
         my_interactive_courses: 我的一对一
+        my_video_courses: 我的视频课
         new_course: 邀请和创建
         create_course: 创建新辅导
         my_course_invitations: 邀请和创建
@@ -17,6 +18,10 @@ cn:
           waiting: 待开始
           teaching: 进行中
           finished: 已结束
+    actions:
+      teacher:
+        video_course:
+          create: 创建视频课
     course_records:
       nav:
         my_publish: 我的发行

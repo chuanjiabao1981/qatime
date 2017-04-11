@@ -299,6 +299,11 @@ cn:
     teaching: 已开课
     completed: 已结束
     rejected: 已拒绝
+  filter:
+    status:
+      pending: 审核中
+      published: 已发布
+
   live_studio/ticket:
     type_name:
       buy_inactive: 已购买
@@ -323,6 +328,7 @@ cn:
       payment/order: 订单
       live_studio/course: 直播课
       live_studio/interactive_course: 一对一
+      live_studio/video_course: 视频课
       live_studio/lesson: 直播课程
       live_studio/course_request: 招生审核
       live_studio/course_invitation: 开班邀请
@@ -410,6 +416,9 @@ cn:
         lessons_progress: 课程进度
         percentage: 分成
         latest: 最新
+      live_studio/video_course:
+        grade: 年级
+        video_lessons_count: 课时
       live_studio/interactive_lesson:
         teacher: 老师
       live_studio/push_stream:

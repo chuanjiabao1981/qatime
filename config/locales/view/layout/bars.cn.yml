@@ -50,7 +50,9 @@ cn:
     teacher_bars:
       property_management: 财产管理
       curriculum_schedule: 课程表
-      my_courses: 我的辅导
+      my_courses: 我的直播课
+      my_interactive_courses: 我的一对一
+      my_video_courses: 我的视频课
       curriculums: 我的课程
       homeworks: 作业管理
       lessons_state: 课程状态

@@ -1,0 +1,29 @@
+<%= form_for(@teacher_video_course) do |f| %>
+  <% if @teacher_video_course.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@teacher_video_course.errors.count, "error") %> prohibited this teacher_video_course from being saved:</h2>
+
+      <ul>
+      <% @teacher_video_course.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :grade %><br>
+    <%= f.text_field :grade %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -342,6 +342,10 @@ module ApplicationHelper
       r = controller_name == 'users' && action_name == 'cash'
     when :my_courses
       r = controller_name == 'courses' && action_name == 'index'
+    when :my_interactive_courses
+      r = controller_name == 'interactive_courses'
+    when :my_video_courses
+      r = controller_name == 'video_courses'
     when :schedule
       r = controller_name == 'teachers' && action_name == 'schedules'
     when :teacher_students

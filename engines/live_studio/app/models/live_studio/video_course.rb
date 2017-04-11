@@ -24,19 +24,21 @@ module LiveStudio
     DEFAULT_TEACHER_PERCENTAGE = 80
 
     belongs_to :invitation
-    # 维护比较复杂，暂时不使用
-    # belongs_to :current_lesson, class_name: 'Lesson'
 
     enum status: {
              rejected: -1, # 被拒绝
              init: 0, # 初始化 待审核
-             published: 2 # 已发布
+             confirmed: 1, # 审核通过
+             completed: 2, # 已创建
+             published: 3 # 已发布
          }
 
     enumerize :status, in: {
                          rejected: -1, # 被拒绝
                          init: 0, # 初始化
-                         published: 2 # 已发布
+                         confirmed: 1, # 审核通过
+                         completed: 2, # 已创建
+                         published: 3 # 已发布
                      }
 
     # enumerize排序优先级会影响到enum 必须放在后面加载
@@ -46,11 +48,26 @@ module LiveStudio
     aasm column: :status, enum: true do
       state :rejected
       state :init, initial: true
-      state :created
+      state :confirmed
+      state :completed
       state :published
 
       event :reject do
         transitions from: :init, to: :rejected
+      end
+
+      event :confirm do
+        before do
+          self.confirmed_at = Time.now
+        end
+        transitions from: :init, to: :confirmed
+      end
+
+      event :complete do
+        before do
+          self.completed_at = Time.now
+        end
+        transitions from: :confirmed, to: :completed
       end
 
       event :publish do
@@ -58,7 +75,7 @@ module LiveStudio
           self.published_at = Time.now
           self.billing_type = 'Payment::LiveCourseBilling'
         end
-        transitions from: :init, to: :published
+        transitions from: :completed, to: :published
       end
     end
 
@@ -128,7 +145,7 @@ module LiveStudio
     scope :by_grade, ->(grade){ grade.blank? || grade == 'all' ? nil : where(grade: grade)}
     scope :by_city, ->(city_id) { where(city_id: city_id) }
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
-    scope :init_rejected, -> { where('live_studio_video_courses.status < ?', VideoCourse.statuses[:published]) }
+    scope :init_rejected, -> { where('live_studio_video_courses.status < ?', VideoCourse.statuses[:confirmed]) }
     scope :for_sell, -> { where(status: VideoCourse.statuses[:published]) }
 
     def cant_publish?

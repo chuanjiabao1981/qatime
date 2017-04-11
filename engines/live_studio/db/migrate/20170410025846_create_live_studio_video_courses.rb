@@ -44,6 +44,9 @@ class CreateLiveStudioVideoCourses < ActiveRecord::Migration
       t.string   "objective"
       t.string   "suit_crowd"
       t.integer  "current_lesson_id"
+      t.datetime "confirmed_at"
+      t.datetime "completed_at"
+      t.string   "duration"
     end
 
     add_index :live_studio_video_courses, :author_id

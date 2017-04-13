@@ -6,7 +6,8 @@ module LiveStudio
 
     attr_accessor :replay_times
     attr_accessor :start_time_hour, :start_time_minute, :_update
-    BEAT_STEP = 10 # 心跳频率/秒
+
+    default_scope { order(:pos) }
 
     belongs_to :video
 
@@ -159,5 +160,9 @@ module LiveStudio
       }
     end
 
+    after_commit :decrement_course_counter, on: [:update]
+    def decrement_course_counter
+      LiveStudio::VideoCourse.decrement_counter(:video_lessons_count, video_course.id) if deleted_at.present? && video_course
+    end
   end
 end

@@ -26,4 +26,6 @@ Recommend::Engine.routes.draw do
     resources :choiceness_items, only: [:index, :new, :create, :edit, :update, :destroy], shallow: true
     resources :items, only: [:new, :create], shallow: true
   end
+
+  post 'choiceness_items/:id/ajax_course_select' => 'choiceness_items#ajax_course_select', as: :ajax_course_select
 end

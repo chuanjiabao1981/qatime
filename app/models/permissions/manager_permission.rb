@@ -114,7 +114,7 @@ module Permissions
       allow 'recommend/teacher_items', [:index, :new, :create, :edit, :destroy, :update]
       allow 'recommend/live_studio_course_items', [:new, :create, :edit, :destroy, :update]
       allow 'recommend/banner_items', [:index, :new, :create, :edit, :destroy, :update]
-      allow 'recommend/choiceness_items', [:index, :new, :create, :edit, :destroy, :update]
+      allow 'recommend/choiceness_items', [:index, :new, :create, :edit, :destroy, :update, :ajax_course_select]
       allow 'recommend/items', [:new, :create]
       ## end   recommend permission
 

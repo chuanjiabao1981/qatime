@@ -1,0 +1,5 @@
+
+<%= select_tag "choiceness_item[target_id]",
+               options_for_select(@courses_options, course.try(:target_id)),
+               prompt: "请选择课程",
+               class: 'form-control' %>

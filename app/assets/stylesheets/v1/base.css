@@ -10742,7 +10742,6 @@ div.modal-apply {
 }
 .head-gender img {
   width: 14px;
-  height: 21px;
   position: relative;
   top: -3px;
 }
@@ -11659,6 +11658,9 @@ div.modal-apply {
   color: #555555;
   margin: 10px 0 0 0;
 }
+.user-portrait > p >img {
+  width: 14px;
+}
 .nav-menu {
   padding-left: 0px;
   margin-bottom: 0px;
@@ -12203,7 +12205,7 @@ div.modal-apply {
   height: 90px;
   background-color: #F2F2F2;
 }
-.addvideo > video {
+.addvideo > img {
   width: 100%;
   height: 100%;
 }
@@ -12417,6 +12419,14 @@ div.modal-apply {
   color: #fff;
   background-color: #ff5842;
 }
+.arrange-view > a.view-audition {
+  border-color: #20ad65;
+  color: #20ad65;
+}
+.arrange-view > a.view-audition:hover {
+  color: #FFFFFF;
+  background-color: #20ad65;
+}
 .arrange-view {
   padding-left: 0px !important;
 }
@@ -12538,6 +12548,75 @@ div.modal-apply {
 }
 
 /*视频课审核*/
-.admin-review table tr td:last-child a {
-  color: #428bca;
+.review-result > a {
+  color: #428bca !important;
+}
+.review-result {
+  color: #999 !important;
+}
+@media screen and (min-width: 990px){
+.modal-video {
+    width: 1150px !important;
+    padding: 0px !important;
+} 
+}
+.modal-video > .modal-content >.popup-title {
+  height: 46px;
+  position: relative;
+  background-color: #F2F2F2;
+  border-bottom: 1px solid #999;
+}
+.modal-video > .modal-content >.popup-title > h3 {
+  position: absolute;
+  margin: 0px;
+  font-size: 16px;
+  color: #333;
+  display: inline-block;
+  left: 176px;
+  right: 30px;
+  line-height: 46px;
+  text-align: center;
+}
+.modal-video > .modal-content >.popup-title >img {
+  width: 176px;
+  height: 34px;
+  margin-top: 6px;
+}
+.modal-video > .modal-content > .modal-body {
+  padding: 0px;
+}
+.modal-video .video-box {
+  padding: 10px;
+  overflow: hidden;
+  background-color: #F2F2F2;
+  position: relative;
+}
+.modal-video > .modal-content .player-info {
+  width: 68.6%;
+  position: relative;
+  height:0;  
+    padding-bottom:56.25%;
+  float: left;
+} 
+.modal-video > .modal-content .player-info video {
+  width: 100% !important;
+  height: 100% !important;
+}
+.modal-video > .modal-content .player-list{
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  right: 10px;
+  width: 30.6%;
+  overflow: auto;
+  background-color: #FFFFFF;
+}
+.modal-video > .modal-content .playback-title {
+  color: #333333;
+}
+.modal-video > .modal-content .playback-con > li > a > .row > .list-msg.active{
+  color: #000000;
+}
+.modal-video > .modal-content .playback-con > li:hover a > .row > .list-msg{
+  color: #000000;
 }

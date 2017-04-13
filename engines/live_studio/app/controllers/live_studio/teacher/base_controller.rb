@@ -14,6 +14,10 @@ module LiveStudio
         @owner = @teacher
         @teacher
       end
+
+      def current_resource
+        @teacher ||= ::Teacher.find(params[:teacher_id] || params[:id])
+      end
     end
   end
 end

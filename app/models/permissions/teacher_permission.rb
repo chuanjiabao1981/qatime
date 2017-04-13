@@ -263,7 +263,10 @@ module Permissions
       ## 一对一 end
 
       ## 视频课 start
-      allow 'live_studio/teacher/video_courses', [:index, :new, :create, :edit, :update]
+      allow 'live_studio/teacher/video_courses', [:index, :new, :create]
+      allow 'live_studio/teacher/video_courses', [:destroy, :edit, :update] do |teacher|
+        teacher && teacher == user
+      end
       ## 视频课 end
 
       ## begin payment permission

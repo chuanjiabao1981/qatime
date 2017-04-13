@@ -104,8 +104,6 @@ module LiveStudio
     has_many :buy_tickets, -> { where.not(status: LiveStudio::Ticket.statuses[:refunded]) }, as: :product # 普通听课证
     has_many :taste_tickets, as: :product # 试听证
     has_many :video_lessons, -> { order('id asc') }
-    has_many :live_sessions, through: :video_lessons
-    has_many :course_requests, dependent: :destroy
     has_many :live_studio_course_notifications, as: :notificationable, dependent: :destroy
 
     accepts_nested_attributes_for :video_lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }

@@ -15,6 +15,10 @@
       <%= raw link_to_append_fields(image_tag('create.png') + "<span>#{t('view.live_studio/course.new.add_lesson')}</span>".html_safe, f, :video_lessons, 'live_studio/video_courses/', class: 'addclass', "append-to" => "#outer_wrap") %>
 
       <div class="recorded-class">
+        <div class="no-addcourse">
+          <span id="none-tips"><%= f.error :video_lessons %></span>
+        </div>
+
         <div class="addcourse-msg">
           <ul id="outer_wrap">
             <%= f.fields_for :video_lessons do |lesson| %>
@@ -36,6 +40,7 @@ $(function() {
     $("#step_one").hide().next().show();
     $("#step_one_tab").removeClass('active');
     $("#step_two_tab").addClass('active');
+    reSort();
   });
   // 第一步
   $(".step_one_link").click(function() {
@@ -64,7 +69,7 @@ $(function() {
     var file = e.target.files[0];
     if(!file) return false;
     if(!file.name.match(/.mp4$/i)) {
-      alert("视频文件格式只支持mp4，请重新上传！");
+      alert("<%= t('view.video_course_form.video_format_tips') %>");
       return false;
     }
     var data = new FormData();
@@ -83,7 +88,7 @@ $(function() {
       success: function(data) {
         if(data.id) {
           currentNode.find(".video_id").val(data.id); // 设置视频ID
-          currentNode.find(".upload-video span").text('点击修改视频'); // 设置上传视频提示
+          currentNode.find(".upload-video span").text('<%= t("view.video_course_form.edit_video") %>'); // 设置上传视频提示
           currentNode.find(".video_duration_edit").text(formatDuration(data.tmp_duration)); // 设置视频时长
           currentNode.find(".video_capture_edit").attr('src', data.capture.url); // 设置视频截图
         }
@@ -108,7 +113,7 @@ $(function() {
       currentNode.find('.lesson_name_edit').next('.has-error').text("课时名称不能超过20个字");
       result = false;
     }
-    if(currentNode.find(".video_file").val() == '') {
+    if(currentNode.find(".video_file").val() == '' && currentNode.find('.video_id').val() == '') {
       currentNode.find('.video_id').next('.has-error').text("请选择视频");
       result = false;
     } else if(currentNode.find('.video_id').val() == '') {
@@ -139,12 +144,18 @@ $(function() {
       $(this).find(".lesson_sort_view").text(sort);
       $(this).find(".lesson_sort_edit").val(num);
     });
+    if($('#outer_wrap li:visible').length > 0) {
+      $("#none-tips").text("");
+    } else if($("#none-tips").text() == ''){
+      $("#none-tips").text("<%= t('view.video_course_form.none_lessons_tips') %>");
+    }
   }
 
   // 模态框显示
   $('#outer_wrap').on('show.bs.modal', function(e) {
     // 备份旧的数据
     $(e.target).attr('fields-backup', $(e.target).html());
+    $("#none-tips").html("");
   });
 
   // 模态框关闭

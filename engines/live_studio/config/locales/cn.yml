@@ -224,6 +224,12 @@ cn:
       tips_2: 2.视频课由学生自主观看学习，无需上课
       tips_3: 3.默认使用系统视频课课程海报（如左图）
       none_lessons_tips: 尚未添加任何课程！
+      video_format_tips: 视频文件格式只支持mp4，请重新上传！
+      edit_video: 点击修改视频
+      upload_video: 点击上传视频
+      video_tips: 说明
+      video_tips_1: "1. 上传视频文件大小最多500M,视频长度60分钟以内最佳;"
+      video_tips_2: "2. 目前仅支持MP4;"
 
     teacher_course:
       price: 价格：%.2f￥
@@ -440,6 +446,7 @@ cn:
       live_studio/video_lesson:
         name: 课时名称
         video: 视频内容
+        real_time: 时长
       live_studio/interactive_lesson:
         teacher: 老师
       live_studio/push_stream:

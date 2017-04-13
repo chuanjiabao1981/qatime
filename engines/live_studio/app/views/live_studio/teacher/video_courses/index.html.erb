@@ -43,11 +43,11 @@
                   <div class="col-md-2 course-state">
                     <span class="col-md-12 col-sm-4 col-xs-4"><%= course.status.text %></span>
                     <%= link_to t("actions.edit"), live_studio.edit_teacher_video_course_path(current_user, course),
-                                class: "col-md-12 col-sm-4 col-xs-4" if course.init? && allow?() %>
+                                class: "col-md-12 col-sm-4 col-xs-4" if course.init? && allow?('live_studio/teacher/video_courses', 'edit', @teacher) %>
                     <%= link_to t("actions.destroy"), live_studio.teacher_video_course_path(current_user, course),
                                 method: :delete,
                                 class: "col-md-12 col-sm-4 col-xs-4",
-                                data: { confirm: t('confirms.destroy') if course.init? && allow?() } %>
+                                data: { confirm: t('confirms.destroy') } if course.init? && allow?('live_studio/teacher/video_courses', 'destroy', @teacher) %>
                   </div>
                 </div>
               </li>

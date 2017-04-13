@@ -28,17 +28,11 @@ module LiveStudio
     def create
       @video_course = VideoCourse.new(video_course_params)
       @video_course.author = current_user
-      @video_course.status = 'precreate'
       @video_course.teacher = @teacher
 
       if @video_course.save
-        p @video_course
-        redirect_to [@teacher, @video_course], notice: 'Video course was successfully created.'
+        redirect_to live_studio.teacher_video_courses_path(@teacher), notice: 'Video course was successfully created.'
       else
-        p video_course_params
-        p params
-        p @video_course
-        p @video_course.video_lessons
         render :new
       end
     end
@@ -46,8 +40,9 @@ module LiveStudio
     # PATCH/PUT /teacher/video_courses/1
     def update
       if @video_course.update(video_course_params)
-        redirect_to @video_course, notice: 'Video course was successfully updated.'
+        redirect_to live_studio.teacher_video_courses_path(@teacher), notice: 'Video course was successfully updated.'
       else
+        p @video_course.errors
         render :edit
       end
     end

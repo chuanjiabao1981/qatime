@@ -13,6 +13,7 @@ cn:
         create_course: 创建新辅导
         my_course_invitations: 邀请和创建
         current_course_invitations: 已收到的开班邀请
+        add_lesson: 添加课程
         course:
           all: 全部
           waiting: 待开始
@@ -25,9 +26,12 @@ cn:
       teacher:
         video_course:
           create: 创建视频课
+          edit: 编辑视频课
           submit: 提交审核
           next_step: 下一步
           add_lesson: 添加课程
+        video:
+          save: 保存
     course_records:
       nav:
         my_publish: 我的发行

@@ -33,6 +33,17 @@ class Video < ActiveRecord::Base
     Rails.logger.info(e.to_s)
   end
 
+  def format_tmp_duration
+    return unless tmp_duration > 0
+    tmp = tmp_duration
+    second = format('%02d', tmp % 60)
+    tmp /= 60
+    minute = format('%02d', tmp % 60)
+    tmp /= 60
+    hour = format('%02d', tmp % 60)
+    "#{hour}:#{minute}:#{second}"
+  end
+
   private
 
   def sync_capture

@@ -16,6 +16,9 @@
             <span><i><%= t('view.live_studio/courses.show.grade') %></i><i><%= @course.grade %></i></span>
             <span><i><%= t('view.live_studio/courses.show.lesson') %></i><i><%= t('view.live_studio/courses.show.lesson_text', count: @course.video_lessons_count) %></i></span>
           </li>
+          <li>
+            <span><i><%= t('view.live_studio/courses.show.full_duration') %></i><i>01：33：42</i></span>
+          </li>
         </ul>
       </div>
 
@@ -51,6 +54,6 @@
       <span><%= t('view.live_studio/courses.show.study') %></span>
     </div>
 
-    <%= render partial: 'live_studio/courses/show/study' %>
+    <%= render partial: 'live_studio/video_courses/show/study' %>
   </div>
 </div>

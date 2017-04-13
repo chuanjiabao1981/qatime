@@ -3,15 +3,14 @@
     <div class="col-md-1">
       <span><%= beautify_index(i) %></span>
     </div>
-
-    <div class="col-md-8 coursehead">
+    <div class="col-md-7 coursehead">
       <span><%= truncate_u lesson.name, length: 30 %></span>
     </div>
-
-    <div class="col-md-3">
-      <i>
-        <%= lesson.status_text(current_user.try(:role)) %>
-      </i>
+    <div class="col-md-2 arrange-length">
+      <span><%= t('view.live_studio/courses.show.duration_text') %><em>01:03:42</em></span>
+    </div>
+    <div class="col-md-2 arrange-view">
+      <%= link_to t('view.live_studio/courses.show.play_vodeo'), 'javascript: void(0);' %>
     </div>
   </div>
 <% end %>

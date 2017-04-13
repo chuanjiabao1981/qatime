@@ -16,6 +16,9 @@ module LiveStudio
 
     test 'search page' do
       assert page.has_content?('最新 ▼')
+      assert page.has_content?('全部课程')
+      assert page.has_content?('收费课程')
+      assert page.has_content?('免费课程')
       click_on '高一'
       assert_equal '高一', find('.grade-filter .active').text, "年级没有选中"
       click_on '物理'
@@ -40,6 +43,14 @@ module LiveStudio
       assert page.has_content?('最新 ▲')
       click_on '最新'
       assert page.has_content?('最新 ▼')
+    end
+
+    test 'search sell_type' do
+      assert page.has_checked_field?('course-all')
+      find(:css, '#course-charge').set(true)
+      assert page.has_checked_field?('course-charge')
+      find(:css, '#course-charge').set(false)
+      assert page.has_checked_field?('course-all')
     end
 
   end

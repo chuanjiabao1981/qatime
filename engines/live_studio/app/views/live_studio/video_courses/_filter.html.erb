@@ -36,13 +36,44 @@
                         LiveStudio::InteractiveCourse.human_attribute_name(:price) %>
         <%= f.sort_link :buy_tickets_count,
                         LiveStudio::Course.human_attribute_name(:users_count) %>
-        <%= link_to '全部课程', live_studio.video_courses_path(@search_params.deep_merge(q: { sell_type_eq: nil })),
-                    class: "#{'active' if @search_params[:q].blank? || @search_params[:q][:sell_type_eq].blank? }" %>
-        <%= link_to '收费课程', live_studio.video_courses_path(@search_params.deep_merge(q: { sell_type_eq: '1' })),
-                    class: "#{'active' if @search_params[:q] && @search_params[:q][:sell_type_eq] == '1' }" %>
-        <%= link_to '免费课程', live_studio.video_courses_path(@search_params.deep_merge(q: { sell_type_eq: '2' })),
-                    class: "#{'active' if @search_params[:q] && @search_params[:q][:sell_type_eq] == '2' }" %>
+        <span class="course-status">
+          <i>
+            <%= check_box_tag nil, nil, (@search_params[:q].blank? || @search_params[:q][:sell_type_eq].blank?),
+                              id: 'course-all',
+                              data: {url: live_studio.video_courses_path(@search_params.deep_merge(q: { sell_type_eq: nil }))} %>
+            <label for="course-all"><%= t("view.course_filter.sell_type_all") %></label>
+          </i>
+          <i>
+            <%= check_box_tag nil, nil, (@search_params[:q] && @search_params[:q][:sell_type_eq] == '1'),
+                              id: 'course-charge',
+                              data: {url: live_studio.video_courses_path(@search_params.deep_merge(q: { sell_type_eq: '1' }))} %>
+            <label for="course-charge"><%= t("view.course_filter.sell_type_charge") %></label>
+          </i>
+          <i>
+            <%= check_box_tag nil, nil, (@search_params[:q] && @search_params[:q][:sell_type_eq] == '2'),
+                              id: 'course-free',
+                              data: {url: live_studio.video_courses_path(@search_params.deep_merge(q: { sell_type_eq: '2' }))} %>
+            <label for="course-free"><%= t("view.course_filter.sell_type_free") %></label>
+          </i>
+        </span>
       </li>
     </ul>
   <% end %>
 </div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      $('.course-status').on('change', 'input[type=checkbox]', function(event){
+        var url = $(this).data('url');
+
+        if( $(this).prop("checked") ){
+          $(this).parent('i').siblings('i').children('input').prop('checked', false);
+          location.href = url;
+        }else{
+          location.href = $('#course-all').data('url');
+        }
+      })
+    });
+  </script>
+<% end %>

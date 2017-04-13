@@ -43,6 +43,7 @@ cn:
       surplus: 剩余：
       lesson_time: 课时
       lesson_count: 共%d课
+      buy_tickets_count_text: "学习人数%{count}"
       lessons_count: 课时
       lessons_count_of: 共%{lessons_count}课
       current: 当前课程：
@@ -131,6 +132,9 @@ cn:
       status/refunded: 已结束
       all: 全部
       none: 不限
+      sell_type_all: 全部课程
+      sell_type_charge: 收费课程
+      sell_type_free: 免费课程
     payment_show:
       product_info: 商品详情
       order_info: 订单信息

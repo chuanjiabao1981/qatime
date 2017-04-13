@@ -18,11 +18,16 @@ cn:
           waiting: 待开始
           teaching: 进行中
           finished: 已结束
+        video_course:
+          step_one: "①设置课程介绍"
+          step_two: "②上传课程视频"
     actions:
       teacher:
         video_course:
           create: 创建视频课
           submit: 提交审核
+          next_step: 下一步
+          add_lesson: 添加课程
     course_records:
       nav:
         my_publish: 我的发行

@@ -110,8 +110,8 @@ module LiveStudio
 
     accepts_nested_attributes_for :video_lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
-    # validates_associated :video_lessons
-    # validates :video_lessons, presence: { message: I18n.t('view.live_studio/course.validates.lessons') }
+    validates_associated :video_lessons
+    validates :video_lessons, presence: { message: I18n.t('view.live_studio/course.validates.lessons') }
 
     has_many :students, through: :buy_tickets
 

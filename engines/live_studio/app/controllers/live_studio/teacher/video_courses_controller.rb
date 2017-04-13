@@ -32,8 +32,13 @@ module LiveStudio
       @video_course.teacher = @teacher
 
       if @video_course.save
+        p @video_course
         redirect_to [@teacher, @video_course], notice: 'Video course was successfully created.'
       else
+        p video_course_params
+        p params
+        p @video_course
+        p @video_course.video_lessons
         render :new
       end
     end
@@ -61,7 +66,11 @@ module LiveStudio
 
       # Only allow a trusted parameter "white list" through.
       def video_course_params
-        params.require(:video_course).permit(:name, :grade, :description)
+        if params[:video_course] && params[:video_course][:video_lessons_attributes].is_a?(Hash)
+          params[:video_course][:video_lessons_attributes] = params[:video_course][:video_lessons_attributes].map(&:second)
+        end
+        params.require(:video_course).permit(:name, :grade, :description,
+                                             video_lessons_attributes: [:id, :name, :video_id, :pos, :_destroy])
       end
 
       def video_course_cate_filter

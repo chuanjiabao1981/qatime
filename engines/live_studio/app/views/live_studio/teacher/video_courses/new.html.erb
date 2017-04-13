@@ -4,16 +4,6 @@
     <span class="fa fa-angle-right"></span>
     <span><%= t("live_studio.actions.teacher.video_course.create") %></span>
   </div>
-  <div class="recorded-nav">
-    <%= link_to "javascript: void(0);", class: "active" do -%>
-      <%= image_tag "bg-tab1.png" %>
-      <span>①设置课程介绍</span>
-    <% end %>
-    <%= link_to "javascript: void(0);" do -%>
-      <%= image_tag "bg-tab2.png" %>
-      <span>②上传课程视频</span>
-    <% end %>
-  </div>
 
   <%= render 'form' %>
 </div>

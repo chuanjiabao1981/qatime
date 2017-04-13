@@ -37,6 +37,7 @@
 //= require jquery.jedate
 //= require v1/home
 //= require util
+//= require qa_files
 
 // 判断空 $.isBlank($(this).val())
 $.isBlank = function(obj) {

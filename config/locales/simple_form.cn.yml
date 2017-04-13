@@ -51,6 +51,9 @@ cn:
         user_mobile: 填写被邀请人
         teacher_percent: 设置老师分成
         expited_day: 设置有效期限
+      live_studio/video_course:
+        name: 请输入视频课名称
+        description: 请输入视频课程的详细介绍及说明（最多300字）
       live_studio_course_invitation:
         user_mobile: 填写被邀请人
         teacher_percent: 设置老师分成

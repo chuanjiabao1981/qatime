@@ -4142,7 +4142,7 @@ ul {
   width: 100%;
   height: 110px;
   background-color: #000000;
-  opacity: 0.9;
+  opacity: 0.7;
   font-size: 22px;
   color: #FFFFFF;
   text-align: center;
@@ -10653,7 +10653,7 @@ div.modal-apply {
   overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: #555555;
+    color: #666;
 }
 .playlist:last-child {
   padding-bottom: 30px;
@@ -12002,6 +12002,12 @@ div.modal-apply {
 }
 
 /*学生我的视频课*/
+.discipline-con > ul > li > .row > .discipline-pic {
+  position: relative;
+}
+.discipline-con > ul > li > .row > .discipline-pic > .video-time {
+  background-color: rgba(0,0,0,0.8);
+}
 .watch {
   display: inline-block;
   width: 72px;
@@ -12044,7 +12050,7 @@ div.modal-apply {
 /*创建视频课*/
 .recorded {
   box-shadow: 0 0 10px #CCCCCC;
-  padding: 0 15px;
+  /*padding: 0 15px;*/
 }
 .recorded-title {
   height: 78px;
@@ -12052,7 +12058,7 @@ div.modal-apply {
   border-bottom: 1px solid #F2F2F2;
   font-size: 18px;
   color: #34495e;
-  margin: 0 15px;
+  margin: 0 30px;
 }
 .recorded-title > a {
   color: #999999;
@@ -12084,6 +12090,8 @@ div.modal-apply {
 }
 .recorded-explain {
   background-color: #F9F9F9;
+  padding: 0px 15px;
+  margin: 0px 0 20px 0!important;
 }
 .recorded-explain > .col-md-5 {
   padding-left: 30px;
@@ -12111,11 +12119,18 @@ div.modal-apply {
   margin-bottom: 0px;
 }
 .recorded-con {
-  margin-top: 30px;
-  padding: 0 80px 30px 80px;
   overflow: hidden;
 }
-.recorded-con > .editor-msg  > form >.btn-next,.recorded-info > .btn-audit,.modal-course .btn-preserve {
+.recorded-con .recorded-box label {
+  font-weight: 500 !important;
+}
+.recorded-con .recorded-box  .row {
+  padding: 0 80px 0px 80px;
+}
+.recorded-con .recorded-box .recorded-explain {
+  padding: 0px;
+}
+.recorded-con .recorded-box .btn-next,.recorded-info > .btn-audit,.modal-course .btn-preserve {
   width: 120px;
   height: 38px;
   float: right;
@@ -12124,16 +12139,20 @@ div.modal-apply {
   color: #ff5842 !important;
   border-radius: 4px;
 }
-.recorded-con > .editor-msg > form {
-  overflow: hidden;
+.recorded-con .recorded-box .btn-next {
+  text-align: center;
+  line-height: 38px;
+  margin-right: 80px;
+  margin-bottom: 20px;
 }
-.recorded-con > .editor-msg > form select {
-  width: 130px;
+.recorded-con form .recorded-box  {
+  overflow: hidden;
 }
 .recorded-info > a {
   display: block;
   color: #ff5842;
-  margin-right: 80px;
+  margin-right: 95px;
+  margin-bottom: 20px;
   text-align: right
 }
 .recorded-info > a:hover {
@@ -12148,10 +12167,13 @@ div.modal-apply {
 }
 .recorded-info {
   overflow: hidden;
+  clear: both;
   padding-bottom: 20px;
+  margin: 0 -15px;
+  display: none;
 }
 .recorded-info > .btn-audit {
-  margin-right: 80px;
+  margin-right: 95px;
 }
 .recorded-info > .btn-audit,.modal-course .btn-preserve {
   border-color: #CCCCCC;
@@ -12165,13 +12187,13 @@ div.modal-apply {
   background-color: #FF5842 !important;
   color: #FFFFFF !important;
 }
-.recorded-con > .editor-msg > form > .row,.modal-course .modal-body .row {
+.recorded-con .recorded-box  .row,.modal-course .modal-body .row {
   min-height: 54px;
 }
-.recorded-con > .editor-msg > form > .row .form-group,.modal-course .modal-body .row .form-group{
+.recorded-con .recorded-box .row .form-group,.modal-course .modal-body .row .form-group{
   margin-bottom: 0px;
 }
-.recorded-con > .editor-msg > form > .row .has-error,.modal-course .modal-body .row .has-error{
+.recorded-con .recorded-box  .row .has-error,.modal-course .modal-body .row .has-error{
   margin: 0px;
 }
 .addvideo {
@@ -12231,14 +12253,98 @@ div.modal-apply {
 .modal-course .btn-preserve {
   display: block;
   float: none;
+  text-align: center;
+  line-height: 35px;
   margin: 30px auto 0;
 }
-
+.modal-course .btn-preserve.active {
+  color: #ff5842 !important;
+  border-color: #ff5842;
+}
+.addcourse-msg > ul {
+  margin: 0 45px;
+  padding-left: 0;
+  list-style: none;
+  position: relative;
+}
+.addcourse-msg > ul > li {
+  height: 44px;
+  margin-bottom: 20px;
+  position: relative;
+  
+}
+.addcourse-msg > ul > li .addcourse-info {
+  display: inline-block;
+  position: absolute;
+  border: 1px solid #CCCCCC;
+  left: 40px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  padding: 6.5px 10px;
+}
+.addcourse-msg > ul > li .addcourse-info > img {
+  width: 51px;
+  height: 29px;
+}
+.addcourse-msg > ul > li > span {
+  line-height: 44px;
+  font-size: 18px;
+  color: #333333;
+}
+.info-list {
+  position: absolute;
+  left: 70px;
+  top: 4.5px;
+  right: 180px;
+}
+.info-list > p {
+  font-size: 12px;
+  margin-bottom: 0px;
+}
+.info-list > p:first-child {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.info-list-time {
+  color: #999999;
+}
+.info-list-time > i {
+  margin-left: 5px;
+}
+.addcourse-editor {
+  display: inline-block;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+}
+.addcourse-editor > a {
+  margin-right: 30px;
+  line-height: 42px;
+  color: #ff5842;
+}
+.addcourse-msg > ul > li:hover .addcourse-info {
+  background-color: #F0F0F0;
+}
+.move {
+  height: 45px;
+  text-align: center;
+  line-height: 45px;
+  margin-left: 40px;
+  border: 1px dashed #ccc;
+  background-color: #ffffc0;
+}
+.recorded-info {
+  margin: 0 -15px;
+}
 @media screen and (min-width: 768px){
 .modal-course {
     width: 660px !important;
     padding: 0px !important;
 } 
+
 }
 @media only screen  and (max-width: 990px) {
 .recorded-explain > .col-md-5 > img{
@@ -12247,13 +12353,191 @@ div.modal-apply {
 .recorded-explain > .col-md-7,.recorded-explain > .col-md-5 {
   padding-left: 15px;
 }
-.recorded-con {
-  margin-top: 30px;
-  padding: 0 0 30px 0;
-} 
+.recorded-con .recorded-box .row {
+  padding: 0;
+}
 .addvideo-prompt {
   position: static;
   left: 0px;
   top: 100px;
 }
+.addcourse-editor > a {
+  margin-right: 10px;
+}
+.info-list {
+  right: 122px;
+}
+.recorded-con {
+  padding: 0 30px;
+}
+.recorded-info > a {
+  margin-right: 80px;
+}
+.recorded-con .recorded-box .btn-next {
+  margin-right: 65px;
+}
+.addcourse-msg > ul {
+  margin: 0 15px;
+}
+.recorded-info > .btn-audit {
+  margin-right: 80px;
+}
+}
+
+
+/*视频课详情页*/
+.price-right > .btn-finish {
+  border-color: #ccc;
+  color: #CCCCCC;
+}
+.price-right > .btn-view {
+  border-color: #20ad65;
+  color: #20ad65;
+}
+.price-right > .btn-view:hover {
+  background-color: #20ad65;
+  color: #fff;
+}
+.arrange-length > span {
+  color: #999;
+}
+.arrange-length > span > em {
+  margin-left: 5px;
+}
+.arrange-view > a {
+  color: #ff5842;
+  float: right;
+  padding: 3px 10px;
+  border-radius: 14px;
+  border: 1px solid #ff5842;
+  position: relative;
+  top: -4px;
+}
+.arrange-view > a:hover {
+  color: #fff;
+  background-color: #ff5842;
+}
+.arrange-view {
+  padding-left: 0px !important;
+}
+@media only screen and (max-width: 990px) {
+.arrange-view > a {
+  top: 0px;
+}
+}
+
+
+/*视频课筛选页*/
+.personal-nav > li > .course-status {
+  display: inline-block;
+  float: right;
+  height: 38px;
+  font-size: 16px;
+  color: #9aabb8;
+}
+.personal-nav > li > .course-status i {
+  margin-right: 30px;
+}
+.personal-nav > li > .course-status label {
+  font-weight: 500;
+}
+.personal-nav > li > .course-status input[type=checkbox]{
+  position: relative;
+  top: 1px;
+}
+.item-handpick li:hover .classify-info {
+  visibility: visible;
+}
+.item-handpick li .classify-info {
+  margin-top: -10px;
+  padding-bottom: 10px;
+}
+.item-handpick li .handpick-info > p > .class-price {
+  color: #ff5842;
+} 
+.item-handpick li .handpick-info > p > .class-number {
+  float: right;
+}
+.item-handpick li .classify-info p:first-child:after{
+  position: static;
+}
+.item-handpick li .classify-info p:first-child {
+  text-align: left;
+}
+
+
+/*工作站视频课创建*/
+.scheduling {
+  padding-left: 0px;
+  margin: 0px -10px 0px 0px;
+}
+.scheduling > li {
+  position: relative;
+  margin-bottom: 20px;
+  height: 50px;
+}
+.scheduling > li > span {
+  line-height: 50px;
+}
+.scheduling > li > .scheduling-item {
+  position: absolute;
+  left: 40px;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  border: 1px solid #CCCCCC;
+  padding: 5px;
+}
+.course-info {
+  position: absolute;
+  left: 5px;
+  right: 150px;
+}
+.course-info > p {
+  margin-bottom: 0px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.course-info > span {
+  color: #CCCCCC;
+}
+.course-checkbox {
+  position: absolute;
+  top: 6px;
+  right: 5px;
+}
+.course-checkbox > span {
+  line-height: 25px;
+}
+.course-checkbox > span > input {
+  position: relative;
+  top: 2px;
+}
+.charge-state > span > input {
+  width: auto !important;
+  position: relative;
+  top: 2px;
+}
+.charge-state > span:first-child {
+  margin-right: 20px;
+}
+
+
+/*视频课列表*/
+.admin-title .active {
+  color: #000;
+}
+.admin-title > a {
+  font-size: 24px;
+  color: #999999;
+  margin-right: 30px;
+}
+.admin-title > a:last-child {
+  margin-right: 0px;
+}
+
+/*视频课审核*/
+.admin-review table tr td:last-child a {
+  color: #428bca;
 }

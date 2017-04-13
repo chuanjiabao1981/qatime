@@ -3,7 +3,7 @@
    index = f.index.to_i
    object_id = f.object.object_id
 %>
-<div class="row lesson_field <%= f.object._destroy ? 'hidden' : '' %>">
+<div class="row lesson_field <%= f.object._destroy ? 'hidden' : '' %>" record-id="<%= lesson.id %>" >
   <div class="col-md-1">
     <span><%= index < 9 ? "0#{index+1}" : (index+1) %></span>
     <%= f.input :id, as: :hidden %>
@@ -101,7 +101,7 @@
 
 </div>
 
-<%= f.input_field :_destroy, as: :boolean, boolean_style: :inline, class: 'hidden' %>
+<%= f.input_field :_destroy, as: :boolean, boolean_style: :inline, class: 'hidden destroy' %>
 
 <script type="text/javascript">
   $(function () {

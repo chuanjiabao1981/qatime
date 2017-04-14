@@ -54,7 +54,10 @@
             <% end %>
           <% end %>
         </ul>
+        <%= render 'shared/blank' if @video_courses.blank? %>
+        <center><div class="pagination-fix"><%= will_paginate @video_courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
       </div>
     </div>
+
   </div>
 </div>

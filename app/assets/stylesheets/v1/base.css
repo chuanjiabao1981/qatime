@@ -4146,7 +4146,7 @@ ul {
   font-size: 22px;
   color: #FFFFFF;
   text-align: center;
-  line-height: 100px;
+  line-height: 110px;
 }
 
 
@@ -11206,7 +11206,7 @@ div.modal-apply {
   position: relative;
   top: -2px;
 }
-.new-curriculum > .editor-con .editor-msg form > .row {
+.new-curriculum > .editor-con .editor-msg form  .row {
   min-height: 54px;
 }
 .new-curriculum > .editor-con .has-error {
@@ -11879,12 +11879,7 @@ div.modal-apply {
     margin: 0px;
 } 
 }
-/*.add-newclass {
-  position: absolute;
-  top: 50%;
-  margin-top: -110px;
-  
-}*/
+
 .add-newclass .modal-body .has-error {
   display: block;
   margin-left: 92px;
@@ -12474,6 +12469,12 @@ div.modal-apply {
 .item-handpick li .classify-info p:first-child {
   text-align: left;
 }
+.tab-content > .discipline-con .info-notfound img{
+  margin-top: 0px;
+}
+.tab-content > .discipline-con .info-notfound {
+  padding: 100px 0px;
+}
 
 
 /*工作站视频课创建*/
@@ -12614,9 +12615,7 @@ div.modal-apply {
 .modal-video > .modal-content .playback-title {
   color: #333333;
 }
-.modal-video > .modal-content .playback-con > li > a > .row > .list-msg.active{
-  color: #000000;
-}
-.modal-video > .modal-content .playback-con > li:hover a > .row > .list-msg{
+.modal-video > .modal-content .playback-con > li > a > .row > .list-msg.active
+,.modal-video > .modal-content .playback-con > li:hover a > .row > .list-msg{
   color: #000000;
 }

@@ -42,7 +42,6 @@ module LiveStudio
       if @video_course.update(video_course_params)
         redirect_to live_studio.teacher_video_courses_path(@teacher), notice: 'Video course was successfully updated.'
       else
-        p @video_course.errors
         render :edit
       end
     end

@@ -16,9 +16,8 @@ module V1
             optional :sort_by, type: String, desc: '排序方式', values: %w(price price.asc published_at published_at.asc buy_tickets_count buy_tickets_count.asc)
           end
           get 'search' do
-            search_params = ActionController::Parameters.new(params).permit(:tags, :range, :sort_by, q: [:status_eq, :grade_eq, :subject_eq, :class_date_gteq, :class_date_lt])
-            search_params[:q][:status_eq] = ::LiveStudio::VideoCourse.statuses[search_params[:q][:status_eq]] if search_params[:q][:status_eq].present?
-            sell_type_value = ::LiveStudio::VideoCourse.sell_type.find_value(search_params[:q][:status_eq]).try(:value)
+            search_params = ActionController::Parameters.new(params).permit(:sort_by, q: [:status_eq, :grade_eq, :subject_eq, :sell_type_eq])
+            sell_type_value = ::LiveStudio::VideoCourse.sell_type.find_value(search_params[:q][:sell_type_eq]).try(:value)
             search_params[:q][:sell_type_eq] = sell_type_value if sell_type_value
             search_params[:q][:s] =
                 if search_params[:sort_by].present?
@@ -29,7 +28,7 @@ module V1
                 end
             q = LiveService::VideoCourseDirector.search(search_params)
             video_courses = q.result.paginate(page: params[:page], per_page: params[:per_page])
-            present video_courses, with: Entities::LiveStudio::SearchVideoCourse
+            present video_courses, with: Entities::LiveStudio::SearchVideoCourse, type: :full
           end
 
           desc '视频课详情' do

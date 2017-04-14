@@ -42,16 +42,22 @@ cn:
     student_bars:
       my_wallet: 我的钱包
       my_orders: 我的订单
-      my_course: 我的辅导
-      my_interactive_course: 一对一
+      my_course: 我的直播课
+      my_courses: 我的直播课
+      my_interactive_course: 我的一对一
+      my_interactive_courses: 我的一对一
+      my_video_course: 我的视频课
+      my_video_courses: 我的视频课
       my_homework: 我的作业
       my_teachers: 我的老师
-      my_notice: 我的消息
+      my_notice: 消息中心
       schedules: 课程表
     teacher_bars:
       property_management: 财产管理
       curriculum_schedule: 课程表
-      my_courses: 我的辅导
+      my_courses: 我的直播课
+      my_interactive_courses: 我的一对一
+      my_video_courses: 我的视频课
       curriculums: 我的课程
       homeworks: 作业管理
       lessons_state: 课程状态

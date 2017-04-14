@@ -257,12 +257,17 @@ module Permissions
       end
 
       ## end live studio permission
-      allow 'live_studio/teacher/interactive_courses', [:index, :index]
       ## 一对一 start
-
+      allow 'live_studio/teacher/interactive_courses', [:index, :index]
+      allow 'live_studio/interactive_courses', [:preview]
       ## 一对一 end
 
-      allow 'live_studio/interactive_courses', [:preview]
+      ## 视频课 start
+      allow 'live_studio/teacher/video_courses', [:index, :new, :create]
+      allow 'live_studio/teacher/video_courses', [:destroy, :edit, :update] do |teacher|
+        teacher && teacher == user
+      end
+      ## 视频课 end
 
       ## begin payment permission
 
@@ -336,7 +341,7 @@ module Permissions
       ## 获取授权token
       api_allow :GET, "/api/v1/ticket_tokens/cash_accounts/update_password"
       ## end 获取授权token
-      
+
       ### 修改支付密码
       api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password" # 设置支付密码
       api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password/ticket_token" # 修改支付密码

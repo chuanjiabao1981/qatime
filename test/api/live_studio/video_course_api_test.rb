@@ -4,20 +4,24 @@ class Qatime::VideoCoursesAPITest < ActionDispatch::IntegrationTest
   # 搜索接口
   test 'video course search' do
     get "/api/v1/live_studio/video_courses/search"
-    assert_request_success?
-    assert_equal 3, @res['data'].count, '搜索结果不正确'
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal LiveStudio::VideoCourse.for_sell.count, res['data'].count, '搜索结果不正确'
 
     get "/api/v1/live_studio/video_courses/search", q: { grade_eq: '高一' }
-    assert_request_success?
-    assert_equal 2, @res['data'].count, '搜索结果不正确'
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['data'].count, '搜索结果不正确'
 
-    get "/api/v1/live_studio/video_courses/search", q: { subject_eq: '物理' }
-    assert_request_success?
-    assert_equal 1, @res['data'].count, '搜索结果不正确'
+    get "/api/v1/live_studio/video_courses/search", q: { subject_eq: '语文' }
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['data'].count, '搜索结果不正确'
 
-    get "/api/v1/live_studio/video_courses/search", q: { subject_eq: '物理', grade_eq: '高二' }
-    assert_request_success?
-    assert_equal 0, @res['data'].count, '搜索结果不正确'
+    get "/api/v1/live_studio/video_courses/search", q: { subject_eq: '数学', grade_eq: '高一' }
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['data'].count, '搜索结果不正确'
   end
 
   # 排序

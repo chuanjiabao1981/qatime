@@ -158,6 +158,7 @@ module Permissions
       allow 'settings', [:create, :update]
       allow 'live_studio/student/courses', [:index, :show]
       allow 'live_studio/student/interactive_courses', [:index, :show]
+      allow 'live_studio/student/video_courses', [:index]
       allow 'live_studio/courses', [:index, :show]
       allow 'live_studio/lessons', [:show, :play, :videos]
 
@@ -267,7 +268,7 @@ module Permissions
       ## 获取授权token
       api_allow :POST, "/api/v1/ticket_tokens/cash_accounts/update_password"
       ## end 获取授权token
-      
+
 
       ### 修改支付密码
       api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password" # 设置支付密码

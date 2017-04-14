@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @video_course.name %>
+</p>
+
+<p>
+  <strong>Grade:</strong>
+  <%= @video_course.grade %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @video_course.description %>
+</p>
+
+<%= link_to 'Edit', edit_video_course_path(@video_course) %> |
+<%= link_to 'Back', video_courses_path %>

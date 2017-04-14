@@ -1,0 +1,85 @@
+<div class="recorded-box" id="step_one">
+  <div class="row recorded-explain">
+    <div class="col-md-5">
+      <%= image_tag @video_course.publicize_url(:list) %>
+    </div>
+    <div class="col-md-7">
+      <h3><%= t('view.video_course_form.tips_title') %></h3>
+      <ul>
+        <li><%= t('view.video_course_form.tips_1') %></li>
+        <li><%= t('view.video_course_form.tips_2') %></li>
+        <li><%= t('view.video_course_form.tips_3') %></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :grade, required: true %>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :grade, collection: APP_CONSTANT['grades_in_menu'], label: false, prompt: t('view.course_form.placeholders.grade') %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :name, required: true %>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :name, label: false, input_html: {maxlength: 20} %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :description, required: true %>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :description, label: false  %>
+    </div>
+  </div>
+  <%= link_to t("live_studio.actions.teacher.video_course.next_step"), 'javascript: void(0);', class: "btn-next step_two_link" %>
+</div>
+
+<%= content_for :javascript do %>
+<script>
+$(function() {
+  // 富文本编辑
+
+  $("#video_course_description").summernote({
+    lang: 'zh-CN',
+    height: 200,
+    toolbar: [
+      ['style', ['style']],
+      ['font', ['bold', 'italic', 'underline', 'clear']],
+      ['fontname', ['fontname']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['insert', ['picture']]
+    ],
+    placeholder: '<%= t('simple_form.placeholders.video_course.description') %>',
+    callbacks: {
+      onImageUpload: function(files, editor, welEditable) {
+        var file = files[0];
+        data = new FormData();
+        data.append("picture[token]", $("#video_course_token").val());
+        data.append("picture[name]" , file, file.name);
+        $.ajax({
+          url: '/pictures',
+          data: data,
+          dataType: 'json',
+          cache: false,
+          contentType: false,
+          processData: false,
+          type: 'POST',
+          success: function(data) {
+            var imgNode = document.createElement("img");
+            imgNode.src = data.url;
+            imgNode.style.width = "50%";
+            $("#video_course_description").summernote('insertNode', imgNode);
+          }
+        });
+      }
+    }
+  });
+});  
+</script>
+<% end %>

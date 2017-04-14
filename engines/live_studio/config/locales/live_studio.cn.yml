@@ -8,15 +8,30 @@ cn:
       teacher:
         my_courses: 我的辅导
         my_interactive_courses: 我的一对一
+        my_video_courses: 我的视频课
         new_course: 邀请和创建
         create_course: 创建新辅导
         my_course_invitations: 邀请和创建
         current_course_invitations: 已收到的开班邀请
+        add_lesson: 添加课程
         course:
           all: 全部
           waiting: 待开始
           teaching: 进行中
           finished: 已结束
+        video_course:
+          step_one: "①设置课程介绍"
+          step_two: "②上传课程视频"
+    actions:
+      teacher:
+        video_course:
+          create: 创建视频课
+          edit: 编辑视频课
+          submit: 提交审核
+          next_step: 下一步
+          add_lesson: 添加课程
+        video:
+          save: 保存
     course_records:
       nav:
         my_publish: 我的发行

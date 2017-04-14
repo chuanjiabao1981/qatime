@@ -75,6 +75,7 @@ LiveStudio::Engine.routes.draw do
       post :preview
       patch :preview
     end
+    resources :orders, only: [:new, :create]
   end
 
   namespace :station do

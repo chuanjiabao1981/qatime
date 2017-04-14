@@ -448,6 +448,9 @@ cn:
         video_lessons_count: 课时
         name: 课程名称
         description: 详细说明
+        teacher_name: 老师
+        subject: 科目
+        total_time: 时长
       live_studio/video_lesson:
         name: 课时名称
         video: 视频内容

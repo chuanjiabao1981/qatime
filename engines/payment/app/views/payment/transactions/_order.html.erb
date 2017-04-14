@@ -1,42 +1,41 @@
-<div class="panel panel-default panel-profile">
-  <div class="apply-tea">
+<div class="apply-tea">
+  <div class="tutoring-title">
     <div class="tutoring-title">
-      <div class="tutoring-title-left">
-        <%= image_tag "icon.png" %>
-        <span class="title-size"><%= t('view.payment_show.order') %></span>
-      </div>
+      <h3><%= t('view.payment_show.order') %></h3>
     </div>
-    <div class="complete-con alipay-con">
-      <div class="row">
-        <div class="col-md-6">
-          <p><%= t('view.payment_show.total_amount') %></p>
-          <div class="complete-con-left">
-            <center>
-              <span><%= number_to_currency(@transaction.amount, locale: :cn) %></span>
-            </center>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <p><%= t('view.payment_show.order_info') %></p>
-          <div class="complete-con-right">
-            <div class="con-right-msg">
-              <span><%= t('view.payment_show.transaction_no') %>：</span>
-              <span><%= @transaction.transaction_no %></span>
-            </div>
-            <div class="con-right-msg">
-              <span><%= t('view.payment_show.created_at') %>：</span>
-              <span><%= @transaction.created_at.strftime("%Y-%m-%d %H:%M") %></span>
-            </div>
-            <div class="con-right-msg">
-              <span><%= t('view.course_order_new.pay_type') %>：</span>
-              <span><%= @transaction.pay_type.text %></span>
-            </div>
-          </div>
-        </div>
-      </div>
-      <%= render "#{@transaction.pay_type}_pay_confirm" %>
-    </div>
-    <%= render @transaction.pay_type if @transaction.weixin? %>
-    <p class="alipay-prompt"><%= t('view.payment_show.pay_tips') %><i><%= t('view.payment_show.pay_tips_tel') %></i></p>
   </div>
+
+  <div class="complete-con alipay-con">
+    <div class="row">
+      <div class="col-md-3">
+        <p><%= t('view.payment_show.total_amount') %></p>
+        <div class="complete-con-left">
+          <center>
+            <span><%= number_to_currency(@transaction.amount, locale: :cn) %></span>
+          </center>
+        </div>
+      </div>
+      <div class="col-md-9">
+        <p><%= t('view.payment_show.order_info') %></p>
+        <div class="complete-con-right">
+          <div class="con-right-msg">
+            <span><%= t('view.payment_show.transaction_no') %>：</span>
+            <span><%= @transaction.transaction_no %></span>
+          </div>
+          <div class="con-right-msg">
+            <span><%= t('view.payment_show.created_at') %>：</span>
+            <span><%= @transaction.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+          </div>
+          <div class="con-right-msg">
+            <span><%= t('view.course_order_new.pay_type') %>：</span>
+            <span><%= @transaction.pay_type.text %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <%= render "#{@transaction.pay_type}_pay_confirm" %>
+  </div>
+  <%= render @transaction.pay_type if @transaction.weixin? %>
+  <p class="alipay-prompt"><%= t('view.payment_show.pay_tips') %><i><%= t('view.payment_show.pay_tips_tel') %></i></p>
+  
 </div>

@@ -6555,6 +6555,7 @@ ul {
 .apply-tea {
   width: 100%;
   min-height: 665px;
+  box-shadow: 0 0 10px #CCCCCC;
 }
 .apply-tea .title-size {
   color: #000000;
@@ -6661,9 +6662,16 @@ border-left: 0px;
   display: inline-block;
   float: none;
   text-align: center;
-  color: rgb(190,11,11);
   line-height: 36px;
-  border-color: rgb(190,11,11);
+  color: #ff5842;
+  border-color: #ff5842;
+}
+.complete-btn a:hover {
+  background-color: #ff5842;
+  color: #FFFFFF;
+}
+.complete-prompt-center>span>i {
+  color: #ff5842;
 }
 .tea-right-send .active {
   color: rgb(190,11,11);
@@ -6738,7 +6746,7 @@ border-left: 0px;
 
 /*提现完成*/
 .complete-con {
-  padding: 0 10px;
+  padding: 0px;
   color: #999999;
 }
 .complete-con p {
@@ -6747,7 +6755,9 @@ border-left: 0px;
   text-align: center;
   font-size: 16px;
   margin-bottom: 0px;
+  border-top: 1px solid rgb(241, 241, 241);
   border-bottom: 1px solid rgb(241,241,241);
+  background-color: #f9f9f9;
 }
 .complete-con .col-md-6:first-child {
   padding-right: 0px;
@@ -6761,12 +6771,12 @@ border-left: 0px;
 }
 .complete-con-left span {
   display: inline-block;
-  font-size: 40px;
+  font-size: 30px;
   color: #000000;
   line-height: 135px;
 }
 .con-right-msg {
-  height: 27px;
+  height: auto;
   line-height: 27px;
   margin-left: 20px;
 }
@@ -6784,6 +6794,14 @@ border-left: 0px;
 }
 .complete-prompt {
   margin-top: 10px;
+  padding: 0 10px;
+}
+.complete-prompt>.complete-prompt-left>a {
+  color: #ff5842;
+}
+.prompt-pay {
+  display: block;
+  line-height: 85px;
 }
 @media only screen  and (max-width: 990px) {
 .complete-con .col-md-6:first-child {
@@ -6896,7 +6914,7 @@ border-left: 0px;
 /*订单确认*/
 .student-buy {
   width: 100%;
-  padding: 0 10px;
+  padding: 0px;
   overflow: hidden;
 }
 .student-buy-left {
@@ -6917,7 +6935,7 @@ border-left: 0px;
 }
 .buy-left-con {
   border-left: 0px;
-  padding: 20px 0px;
+  padding: 20px 0 20px 20px;
   overflow: hidden;
 }
 .buy-center-con {
@@ -6933,6 +6951,8 @@ border-left: 0px;
   font-size: 16px;
   line-height: 34px;
   color: #999999;
+  border-top: 1px solid #ccc;
+  background-color: #f9f9f9;
 }
 .buy-left-con img {
   width: 31%;
@@ -7008,6 +7028,8 @@ border-left: 0px;
 }
 .student-buy-footer {
   clear: both;
+  padding: 0 20px;
+  border-bottom: 1px solid #CCCCCC;
 }
 .student-buy-footer p {
   color: #999999;
@@ -7020,7 +7042,7 @@ border-left: 0px;
 }
 .buy-footer-msg span:last-child {
   font-size: 30px;
-  color: #be0b0b;
+  color: #ff5842;
 }
 .buy-footer-msg span:first-child {
   display: inline-block;
@@ -7031,21 +7053,40 @@ border-left: 0px;
   clear: both;
   border-bottom: 1px solid #CCCCCC;
   overflow: hidden;
+  border-bottom: 0px;
   padding-bottom: 20px; 
 }
 .buy-footer-btn a,.buy-footer-btn input {
   display: inline-block;
   line-height: 34px;
-  color: #be0b0b;
-  border-color: #be0b0b;
+  color: #ff5842;
+  border-color: #ff5842;
 }
-
+.buy-footer-btn input:hover {
+  background-color: #ff5842;
+  color: #FFFFFF;
+}
+.tutoring-title {
+  height: 80px;
+  background-color: #FFFFFF;
+  text-align: center;
+}   
+.tutoring-title>h3 {
+  margin: 0px;
+  line-height: 80px;
+  font-size: 18px;
+  color: #34495e;
+}
 
 
 
 /*支付宝支付*/
 .alipay-con .complete-con-left,.alipay-con .complete-con-right {
-  height: 108px !important;
+  height: auto !important;
+  min-height: 108px !important;
+}
+.alipay-con .complete-con-left {
+  border-right: 1px solid #F2F2F2;
 }
 .alipay-con .complete-con-left span {
   line-height: 100px;
@@ -7061,7 +7102,7 @@ border-left: 0px;
   position: absolute;
 }
 .alipay-con .complete-btn {
-  right: 0px;
+  right: 10px;
   top: 8px;
 }
 .alipay-con .complete-prompt-center {
@@ -7076,10 +7117,10 @@ border-left: 0px;
   text-align: center;
 }
 .alipay-con .complete-prompt-left {
-  top: 30px;
+  top: 0px;
 }
 @media only screen and (max-width: 990px) {
-  .student-buy-left,.student-buy-center,.student-buy-right {
+.student-buy-left,.student-buy-center,.student-buy-right {
   width: 100%;
 }
 .buy-left-con {
@@ -7094,7 +7135,7 @@ border-left: 0px;
 }
 .alipay-con .complete-prompt {
   top: 0px;
-  border-bottom: 1px solid rgb(241,241,241);
+  /*border-bottom: 1px solid rgb(241,241,241);*/
   min-height: 100px;
 }
 .apply-tea {
@@ -7111,7 +7152,12 @@ border-left: 0px;
 .alipay-prompt i {
   font-weight: bold;
 }
-
+.complete-con>.row>.col-md-3 {
+  padding-right: 0px;
+}
+.complete-con>.row>.col-md-9 {
+  padding-left: 0px;
+}
 
 /*微信支付*/
 .wechat-pay .col-md-6 {
@@ -7203,6 +7249,13 @@ border-left: 0px;
   border: 1px solid #be0b0b !important;
   box-shadow: inset 0 3px 5px #FFFFFF;
 }
+.prompt-confirm {
+  text-align: center;
+  margin-top: 20px;
+}
+.prompt-confirm>span>i {
+  color: #ff5842;
+}
 @media only screen and (max-width: 680px) {
 .buy-left-con table {
     width: 100% !important;
@@ -7271,6 +7324,20 @@ border-left: 0px;
 }
 .account .input-group {
   width: 65%;
+}
+.buy-center-title,
+.buy-right-title {
+  border-top: 0px;
+}
+.complete-con>.row>.col-md-3,
+.complete-con>.row>.col-md-9 {
+  padding: 0 15px;
+}
+.alipay-con .complete-con-right {
+  padding-bottom: 10px;
+}
+.prompt-pay {
+  line-height: 20px;
 }
 }
 
@@ -10374,9 +10441,12 @@ div.modal-apply {
   margin: 0 5px;
   color: #9aabb8;
 }
-.info-notfound img {
-  margin-top: 280px;
+.info-notfound {
+  padding: 200px 0px;
 }
+/*.info-notfound img {
+  margin-top: 280px;
+}*/
 .info-notfound p {
   margin-top: 10px;
   text-align: center;
@@ -10384,11 +10454,14 @@ div.modal-apply {
   color: #ccd0df;;
 }
 @media only screen  and (max-width: 990px) {
-.info-notfound img {
+/*.info-notfound img {
   margin-top: 150px;
 } 
 .info-notfound p {
   margin-bottom: 150px;
+}*/
+.info-notfound {
+  padding: 100px 0px;
 }
 }
 .carousel-inner {
@@ -12473,7 +12546,7 @@ div.modal-apply {
   margin-top: 0px;
 }
 .tab-content > .discipline-con .info-notfound {
-  padding: 100px 0px;
+  padding: 200px 0px;
 }
 
 

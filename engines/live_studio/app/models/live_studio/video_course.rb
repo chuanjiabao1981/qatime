@@ -26,11 +26,11 @@ module LiveStudio
     belongs_to :invitation
 
     enum status: {
-             rejected: -1, # 被拒绝
-             init: 0, # 初始化 待审核
-             confirmed: 1, # 审核通过
-             completed: 2, # 已创建
-             published: 3 # 已发布
+           rejected: -1, # 被拒绝
+           init: 0, # 初始化 待审核
+           confirmed: 1, # 审核通过
+           completed: 2, # 已创建
+           published: 3 # 已发布
          }
 
     enumerize :status, in: {
@@ -89,12 +89,8 @@ module LiveStudio
 
     validate :check_billing_percentage
 
-    # validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
-    validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
-    validates :price, presence: { message: I18n.t('view.live_studio/course.validates.price') }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
-
-    validates :taste_count, numericality: { greater_than_or_equal_to: 0, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
-    validates :taste_count, numericality: { less_than: ->(record) { record.video_lessons.size }, message: I18n.t('view.live_studio/course.validates.taste_count')}
+    # validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
+    # validates :price, presence: { message: I18n.t('view.live_studio/course.validates.price') }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
 
     validates :teacher, presence: true
     # validates :publicize, presence: { message: "请添加图片" }, on: :create
@@ -108,8 +104,6 @@ module LiveStudio
     has_many :buy_tickets, -> { where.not(status: LiveStudio::Ticket.statuses[:refunded]) }, as: :product # 普通听课证
     has_many :taste_tickets, as: :product # 试听证
     has_many :video_lessons, -> { order('id asc') }
-    has_many :live_sessions, through: :video_lessons
-    has_many :course_requests, dependent: :destroy
     has_many :live_studio_course_notifications, as: :notificationable, dependent: :destroy
 
     accepts_nested_attributes_for :video_lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
@@ -119,23 +113,15 @@ module LiveStudio
 
     has_many :students, through: :buy_tickets
 
-    has_many :channels
-    has_many :push_streams, through: :channels
-    has_many :pull_streams, through: :channels
     has_many :play_records # 听课记录
-    has_many :announcements, as: :announcementable
     has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
-
-    has_many :billings, through: :video_lessons, class_name: 'Payment::Billing' # 结算记录
-
-    has_many :course_action_records, ->{ order 'created_at desc' }, dependent: :destroy, foreign_key: :live_studio_video_course_id
 
     belongs_to :province
     belongs_to :city
     belongs_to :author, class_name: "::User"
 
     require 'carrierwave/orm/activerecord'
-    mount_uploader :publicize, ::PublicizeUploader
+    mount_uploader :publicize, ::VideoPublicizeUploader
 
     scope :month, ->(month) {where('live_studio_video_courses.class_date >= ? and live_studio_video_courses.class_date <= ?',
                                    month.beginning_of_month.to_date,
@@ -145,7 +131,7 @@ module LiveStudio
     scope :by_grade, ->(grade){ grade.blank? || grade == 'all' ? nil : where(grade: grade)}
     scope :by_city, ->(city_id) { where(city_id: city_id) }
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
-    scope :init_rejected, -> { where('live_studio_video_courses.status < ?', VideoCourse.statuses[:confirmed]) }
+    scope :unpublished, -> { where('live_studio_video_courses.status < ?', VideoCourse.statuses[:published]) }
     scope :for_sell, -> { where(status: VideoCourse.statuses[:published]) }
 
     def cant_publish?
@@ -157,34 +143,11 @@ module LiveStudio
       super
     end
 
-    # 白板推流地址
-    def board_push_stream
-      push_streams.find {|stream| stream.use_for == 'board' }.try(:address)
-    end
-
-    # 白板拉流地址
-    def board_pull_stream(protocol = 'rtmp')
-      pull_streams.find {|stream| stream.use_for == 'board' && stream.protocol == protocol }.try(:address)
-    end
-
-    # 摄像头推流地址
-    def camera_push_stream
-      push_streams.find {|stream| stream.use_for == 'camera' }.try(:address)
-    end
-
-    # 摄像头拉流地址
-    def camera_pull_stream(protocol = 'rtmp')
-      pull_streams.find {|stream| stream.use_for == 'camera' && stream.protocol == protocol }.try(:address)
-    end
-
     # teacher's name. return blank when teacher is missiong
     def teacher_name
       teacher.try(:name)
     end
 
-    def teachers
-      [teacher].compact
-    end
 
     def distance_days
       today = Date.today
@@ -200,19 +163,9 @@ module LiveStudio
       I18n.t("status.#{status}")
     end
 
-    def lesson_count_left
-      [video_lessons_count - finished_lessons_count, 0].max
-    end
-
-    def left_lessons_count
-      [video_lessons_count - finished_lessons_count, 0].max
-    end
-
     # 当前价格
     def current_price
-      return 0 if video_lessons_count <= closed_lessons_count
-      return price.to_f if closed_lessons_count.zero?
-      lesson_price * (video_lessons_count - closed_lessons_count)
+      price
     end
 
     # 发货
@@ -348,20 +301,6 @@ module LiveStudio
 
     def self.status_options
       VideoCourse.statuses.map {|k, v| [LiveStudio::Course.human_attribute_name("aasm_state/#{k}"), v] }
-    end
-
-    # 招生申请 提交审核
-    # after_commit :apply_publish, on: :create
-    # def apply_publish
-    #   course_requests.create(user: teacher, workstation: workstation)
-    # end
-
-    def ready_lessons
-      # tmp_class_date = [class_date, video_lessons.map(&:class_date).min].min rescue class_date
-      # return if tmp_class_date.blank?
-      # return if tmp_class_date > Date.today
-      # teaching! if published?
-      # video_lessons.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
     end
 
     # 购买人数

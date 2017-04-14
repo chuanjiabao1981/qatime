@@ -45,9 +45,22 @@ index_choiceness_recommend_one:
   type: Recommend::ChoicenessItem
   index: 1
   target: course_one (LiveStudio::Course)
+  tag_one: 1
+  tag_two: 2
 index_choiceness_recommend_two:
   title: 首页辅导班推荐2
   position: index_choiceness_recommend
   type: Recommend::ChoicenessItem
   index: 2
   target: course_two (LiveStudio::Course)
+  tag_one: 2
+  tag_two: 1
+index_choiceness_recommend_three:
+  title: 首页一对一推荐3
+  position: index_choiceness_recommend
+  type: Recommend::ChoicenessItem
+  index: 3
+  target: interactive_course_zhuji (LiveStudio::InteractiveCourse)
+  tag_one: 2
+  tag_two: 1
+

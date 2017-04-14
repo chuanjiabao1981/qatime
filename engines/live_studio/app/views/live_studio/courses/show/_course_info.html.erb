@@ -72,6 +72,31 @@
         <%= raw(@course.description) %>
       </div>
 
+      <% if @course.is_a? LiveStudio::Course -%>
+        <div class="lessons-detail lessonsg-process">
+          <h3><%= t('view.live_studio/courses.show.study_flow') %></h3>
+          <div class="row">
+            <div class="col-md-7  col-md-offset-1 col-sm-7 col-sm-offset-1"><%= t('view.live_studio/courses.show.buy_tip') %></div>
+            <div class="col-md-3 col-sm-3"><%= t('view.live_studio/courses.show.buy_tip_value') %></div>
+            <div class="col-md-7 col-sm-7 col-md-offset-1 col-sm-offset-1 down-direction ">
+              <%= image_tag "down-direction.png" %>
+            </div>
+            <div class="col-md-7  col-md-offset-1 col-sm-7 col-sm-offset-1"><%= t('view.live_studio/courses.show.time_tip') %></div>
+            <div class="col-md-3 col-sm-3"><%= t('view.live_studio/courses.show.time_tip_value2') %></div>
+            <div class="col-md-7 col-sm-7 col-md-offset-1 col-sm-offset-1 down-direction ">
+              <%= image_tag "down-direction.png" %>
+            </div>
+            <div class="col-md-7  col-md-offset-1 col-sm-7 col-sm-offset-1"><%= t('view.live_studio/courses.show.online_tip') %></div>
+            <div class="col-md-3 col-sm-3"><%= t('view.live_studio/courses.show.online_tip_value2') %></div>
+            <div class="col-md-7 col-sm-7 col-md-offset-1 col-sm-offset-1 down-direction ">
+              <%= image_tag "down-direction.png" %>
+            </div>
+            <div class="col-md-7  col-md-offset-1 col-sm-7 col-sm-offset-1"><%= t('view.live_studio/courses.show.close_tip') %></div>
+            <div class="col-md-3 col-sm-3"><%= t('view.live_studio/courses.show.close_tip_value2') %></div>
+          </div>
+        </div>
+      <% end -%>
+
       <% if @course.is_a? LiveStudio::InteractiveCourse -%>
         <div class="lessons-detail lessonsg-process">
           <h3><%= t('view.live_studio/courses.show.study_flow') %></h3>

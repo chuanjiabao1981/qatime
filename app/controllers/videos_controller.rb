@@ -15,12 +15,14 @@ class VideosController < ApplicationController
       @video.errors.add(:name, @video.name_integrity_error)
       Rails.logger.info(@video.name_integrity_error)
     end
+    @video.sync_info if params[:capture]
     respond_with @video
   end
 
   def update
     @video_player_id = rand(10000)
     @video.update_video_file(params[:video].permit!)
+    @video.sync_info if params[:capture]
     respond_with @video
   end
   def convert

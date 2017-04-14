@@ -131,6 +131,7 @@ group :development,:test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'headless'
+  gem 'database_cleaner'
   gem 'puma'
   gem 'thin'
   gem 'pry'

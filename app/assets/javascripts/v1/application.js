@@ -16,6 +16,7 @@
 //= require jquery.Jcrop
 //= require bootstrap
 //= require summernote
+//= require summernote/locales/summernote-zh-CN.js
 //= require jquery.form
 //= require video-js
 // require jwplayer/jwplayer
@@ -36,6 +37,7 @@
 //= require jquery.jedate
 //= require v1/home
 //= require util
+//= require qa_files
 
 // 判断空 $.isBlank($(this).val())
 $.isBlank = function(obj) {

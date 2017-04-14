@@ -70,10 +70,13 @@ cn:
         buy_tip_value: 支持退款，放心购买
         time_tip: 准时上课
         time_tip_value: 无需预约，按时上课
+        time_tip_value2: 提前预习，按时上课
         online_tip: 在线授课
         online_tip_value: 视频直播，白板互动
+        online_tip_value2: 多人交流，生动直播
         close_tip: 上课结束
         close_tip_value: 音图并茂，随时解答
+        close_tip_value2: 视频回放，想看就看
         teachers_more: 全部...
         teachers_hide: 收起
     live_studio/video_courses:

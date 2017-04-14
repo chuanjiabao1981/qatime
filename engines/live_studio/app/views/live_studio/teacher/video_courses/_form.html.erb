@@ -1,0 +1,204 @@
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<div class="recorded-nav">
+  <%= link_to "javascript: void(0);", class: "active step_one_link", id: 'step_one_tab' do -%>
+    <span><%= t('live_studio.menu.teacher.video_course.step_one') %></span>
+  <% end %>
+  <%= link_to "javascript: void(0);", class: "step_two_link", id: 'step_two_tab' do -%>
+    <span><%= t('live_studio.menu.teacher.video_course.step_two') %></span>
+  <% end %>
+</div>
+
+<div class="recorded-con">
+  <%= simple_form_for [@teacher, @video_course] do |f| %>
+    <%= render 'course_fields', f: f %>
+    <div class="recorded-info" id="step_two" style="display: none;">
+      <%= raw link_to_append_fields(image_tag('create.png') + "<span>#{t('view.live_studio/course.new.add_lesson')}</span>".html_safe, f, :video_lessons, 'live_studio/video_courses/', class: 'addclass', "append-to" => "#outer_wrap") %>
+
+      <div class="recorded-class">
+        <div class="no-addcourse">
+          <span id="none-tips"><%= f.error :video_lessons %></span>
+        </div>
+
+        <div class="addcourse-msg">
+          <ul id="outer_wrap">
+            <%= f.fields_for :video_lessons do |lesson| %>
+              <%= render 'live_studio/video_courses/video_lesson_fields', f: lesson %>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+      <%= f.submit t("live_studio.actions.teacher.video_course.submit"), class: "btn-audit active" %>
+    </div>
+  <% end %>
+</div>
+
+<%= content_for :javascript do %>
+<script>
+$(function() {
+  // 第二部
+  $(".step_two_link").click(function() {
+    $("#step_one").hide().next().show();
+    $("#step_one_tab").removeClass('active');
+    $("#step_two_tab").addClass('active');
+    reSort();
+  });
+  // 第一步
+  $(".step_one_link").click(function() {
+    $("#step_two").hide().prev().show();
+    $("#step_two_tab").removeClass('active');
+    $("#step_one_tab").addClass('active');
+  });
+
+  // 格式化视频时长
+  function formatDuration(duration) {
+    duration = parseInt(duration);
+    var second = parseInt(duration % 60);
+    if(second < 10) second = "0" + second;
+    duration = duration / 60;
+    var minute = parseInt(duration % 60);
+    if(minute < 10) minute = "0" + minute;
+    duration = duration / 60;
+    var hour = parseInt(duration % 60);
+    if(hour < 10) hour = "0" + hour;
+    return hour + ":" + minute + ":" + second;
+  }
+
+  // 视频上传
+  $('#outer_wrap').on('change', '.video_file', function(e) {
+    var currentNode = $(e.target).closest("li");
+    var file = e.target.files[0];
+    if(!file) return false;
+    if(!file.name.match(/.mp4$/i)) {
+      alert("<%= t('view.video_course_form.video_format_tips') %>");
+      return false;
+    }
+    var data = new FormData();
+    data.append("video[token]", $(e.target).attr('token'));
+    data.append("video[name]" , file, file.name);
+    data.append("capture", true);
+    currentNode.find(".video_id").val('');
+    $.ajax({
+      url: '/videos',
+      data: data,
+      dataType: 'json',
+      cache: false,
+      contentType: false,
+      processData: false,
+      type: 'POST',
+      success: function(data) {
+        if(data.id) {
+          currentNode.find(".video_id").val(data.id); // 设置视频ID
+          currentNode.find(".upload-video span").text('<%= t("view.video_course_form.edit_video") %>'); // 设置上传视频提示
+          currentNode.find(".video_duration_edit").text(formatDuration(data.tmp_duration)); // 设置视频时长
+          currentNode.find(".video_capture_edit").attr('src', data.capture.url); // 设置视频截图
+        }
+      }
+    });
+  });
+
+  // 保存按钮
+  $('#outer_wrap').on('click', '.save-btn', function(e) {
+    var currentNode = $(e.target).closest("li");
+    currentNode.addClass('saving');
+    currentNode.find('.edit-modal').modal('hide');
+  });
+
+  function checkLesson(currentNode) {
+    currentNode.find(".has-error").text('');
+    var result = true;
+    if(currentNode.find('.lesson_name_edit').val().trim() == '') {
+      currentNode.find('.lesson_name_edit').next('.has-error').text("课时名称不能为空");
+      result = false;
+    } else if (currentNode.find('.lesson_name_edit').val().trim().length > 20) {
+      currentNode.find('.lesson_name_edit').next('.has-error').text("课时名称不能超过20个字");
+      result = false;
+    }
+    if(currentNode.find(".video_file").val() == '' && currentNode.find('.video_id').val() == '') {
+      currentNode.find('.video_id').next('.has-error').text("请选择视频");
+      result = false;
+    } else if(currentNode.find('.video_id').val() == '') {
+      currentNode.find('.video_id').next('.has-error').text("视频正在上传");
+      result = false;
+    }
+    return result;
+  }
+
+  // 保存变动
+  function saveChange(currentNode) {
+    if(!checkLesson(currentNode)) return false;
+    // 复制视频时长
+    currentNode.find(".video_duration_view").text(currentNode.find(".video_duration_edit").text());
+    // 复制课时名称
+    currentNode.find(".lesson_name_view").text(currentNode.find(".lesson_name_edit").val());
+    // 复制视频截图
+    currentNode.find(".video_capture_view").attr('src', currentNode.find(".video_capture_edit").attr('src'));
+    currentNode.addClass('saved');
+    return true;
+  }
+
+  // 排序编号
+  function reSort() {
+    $('#outer_wrap li:visible').each(function(index) {
+      var num = index + 1;
+      var sort = num >= 10 ? num : '0' + num;
+      $(this).find(".lesson_sort_view").text(sort);
+      $(this).find(".lesson_sort_edit").val(num);
+    });
+    if($('#outer_wrap li:visible').length > 0) {
+      $("#none-tips").text("");
+    } else if($("#none-tips").text() == ''){
+      $("#none-tips").text("<%= t('view.video_course_form.none_lessons_tips') %>");
+    }
+  }
+
+  // 模态框显示
+  $('#outer_wrap').on('show.bs.modal', function(e) {
+    // 备份旧的数据
+    $(e.target).attr('fields-backup', $(e.target).html());
+    $("#none-tips").html("");
+  });
+
+  // 模态框关闭
+  $('#outer_wrap').on('hide.bs.modal', function(e) {
+    var currentNode = $(e.target).closest("li");
+    if(currentNode.hasClass('saving')) { // 保存修改
+      currentNode.removeClass('saving');
+      if(!saveChange(currentNode)) return false;
+    } else if(currentNode.attr('record-id') == "" && !currentNode.hasClass('saved')) { // 新插入的节点直接删除
+      currentNode.addClass('removed');
+    } else { // 旧的节点数据恢复
+      $(e.target).html($(e.target).attr('fields-backup'));
+    }
+    reSort();
+  });
+
+  $('#outer_wrap').on('hidden.bs.modal', function(e) {
+    var currentNode = $(e.target).closest("li");
+    if(currentNode.hasClass('removed')) currentNode.remove();
+  });
+
+  // 删除按钮
+  $('#outer_wrap').on('click', ".destroy-btn", function(e) {
+    var currentNode = $(e.target).closest("li");
+    if(currentNode.attr('record-id') == "") {
+      currentNode.remove();
+    } else {
+      currentNode.hide().find('.destroy').attr('checked', true);
+    }
+    reSort();
+  });
+
+  // 拖动
+  $("#outer_wrap").sortable({
+    update: function() {
+      reSort();
+    }
+  });
+  $("#outer_wrap").disableSelection();
+});
+</script>
+<% end %>
+
+
+
+

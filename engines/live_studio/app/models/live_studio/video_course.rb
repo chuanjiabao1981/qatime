@@ -131,7 +131,7 @@ module LiveStudio
     scope :by_grade, ->(grade){ grade.blank? || grade == 'all' ? nil : where(grade: grade)}
     scope :by_city, ->(city_id) { where(city_id: city_id) }
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
-    scope :init_rejected, -> { where('live_studio_video_courses.status < ?', VideoCourse.statuses[:confirmed]) }
+    scope :unpublished, -> { where('live_studio_video_courses.status < ?', VideoCourse.statuses[:published]) }
     scope :for_sell, -> { where(status: VideoCourse.statuses[:published]) }
 
     def cant_publish?
@@ -287,26 +287,6 @@ module LiveStudio
         when 'completed'
           I18n.t('view.course_show.complete_lesson')
       end || I18n.t('view.course_show.nil_data')
-    end
-
-    def live_start_time
-      lesson = lessons.reorder('class_date asc,id').first
-      lesson.try(:live_start_at).try(:strftime,'%Y-%m-%d %H:%M') ||
-          "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:start_time)}"
-    end
-
-    def live_end_time
-      lesson = lessons.reorder('class_date asc,id').last
-      lesson.try(:live_end_at).try(:strftime,'%Y-%m-%d %H:%M') ||
-          "#{lesson.try(:class_date).try(:strftime)} #{lesson.try(:end_time)}"
-    end
-
-    def live_start_date
-      lessons.map(&:class_date).min
-    end
-
-    def live_end_date
-      lessons.map(&:class_date).max
     end
 
     def order_lessons

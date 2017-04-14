@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-3 discipline-pic">
         <%= link_to image_tag(video_course.publicize_url(:list), class: 'handle_error_list'), live_studio.video_course_path(video_course) %>
-        <span class="video-time"><%= LiveStudio::VideoCourse.human_attribute_name(:total_time) %><i></i></span>
+        <span class="video-time"><%= LiveStudio::VideoCourse.human_attribute_name(:total_time) %><i><%= format_duration(video_course.total_duration) %></i></span>
       </div>
       <div class="col-md-7 discipline-info">
         <div class="row info-title">
@@ -36,7 +36,7 @@
       </div>
       <div class="col-md-2 course-state">
         <i class="col-md-12 col-sm-4 col-xs-4">
-          <%= link_to t("live_studio.actions.student.video_course.play"), "javascrip:void(0);", class: "watch" %>
+          <%= link_to t("live_studio.actions.student.video_course.play"), "javascript:void(0);", class: "watch" %>
         </i>
       </div>
     </div>

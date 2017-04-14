@@ -168,5 +168,6 @@ module LiveStudio
     def set_real_time
       self.real_time = video.tmp_duration if video
     end
+
   end
 end

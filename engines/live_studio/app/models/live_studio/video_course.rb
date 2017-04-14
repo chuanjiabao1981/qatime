@@ -358,6 +358,11 @@ module LiveStudio
       false
     end
 
+    def reset_total_duration
+      self.total_duration = video_lessons.sum(:real_time)
+      save
+    end
+
     private
 
     # 辅导班删除以后同时删除课程

@@ -172,6 +172,9 @@ module Permissions
       allow 'live_studio/interactive_courses', [:update_class_date, :update_lessons] do |workstation|
         workstation && workstation.manager_id == user.id
       end
+
+      allow 'live_studio/video_courses', [:index, :show, :preview]
+
       ## end live studio permission
       allow 'chat/teams', [:finish, :members, :member_visit]
       allow 'welcome', [:download]

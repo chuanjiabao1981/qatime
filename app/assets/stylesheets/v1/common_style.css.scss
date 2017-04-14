@@ -1,6 +1,7 @@
 body {
   background-image: none !important;
   padding-top: 109px  !important;
+  font-family: "微软雅黑";
 }
 .navbar {
   min-height: 72px !important;
@@ -58,14 +59,15 @@ body {
   .navbar-default .navbar-nav li a {
     padding: 26px 15px;
   }
+  .navbar-right {
+    display: none;
+  }
 }
 @media only screen  and (max-width: 990px) {
   .navbar-default .navbar-nav li a {
     padding: 26px 10px;
   }
-  .navbar-right {
-    display: none;
-  }
+
 }
 @media only screen and (max-width: 760px) {
   .navbar-right {
@@ -141,4 +143,3 @@ footer .copyright {
 .pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > span, .pagination > .active > span:hover, .pagination > .active > span:focus {
   border-color: #ff5842 !important;
 }
-

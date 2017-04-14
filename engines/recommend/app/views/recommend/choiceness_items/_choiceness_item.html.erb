@@ -13,7 +13,7 @@
       <i><%= choiceness_item.tag_two_text || t('view.recommend/position.none') %></i>
     </span>
   </td>
-  <td><%= link_to choiceness_item.target.name, live_studio.course_path(choiceness_item.target_id), target: '_blank' %></td>
+  <td><%= link_to choiceness_item.target.name, live_studio.send("#{choiceness_item.target.model_name.singular_route_key}_path", choiceness_item.target_id), target: '_blank' %></td>
   <td><%= choiceness_item.index %></td>
   <td><%= choiceness_item.city.try(:name).presence || t('view.recommend/position.city') %></td>
   <td>

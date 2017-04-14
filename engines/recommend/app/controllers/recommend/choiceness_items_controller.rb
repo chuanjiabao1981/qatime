@@ -21,7 +21,7 @@ module Recommend
 
     # POST /admin/items
     def create
-      @item = @position.items.build(item_params.merge(platforms: params[:platforms], target_type: LiveStudio::Course, type: @position.klass_name))
+      @item = @position.items.build(item_params.merge(platforms: params[:platforms], type: @position.klass_name))
 
       if @item.save
         flash_msg(:success)
@@ -47,6 +47,19 @@ module Recommend
       redirect_to :back
     end
 
+    def ajax_course_select
+      @choiceness_item = ChoicenessItem.find_by(id: params[:id])
+      @choiceness_item = nil unless @choiceness_item.try(:target_type) == params[:target_type]
+      @course_model = ChoicenessItem.target_type.find_value(params[:target_type]).try(:value).camelize.constantize rescue ::LiveStudio::Course
+
+      if current_user.admin?
+        @courses_options = @course_model.pluck(:name, :id)
+      else
+        workstation_ids = current_user.manager? ? current_user.workstation_ids : current_user.workstation_id
+        @courses_options = @course_model.where(workstation_id: workstation_ids).pluck(:name, :id)
+      end
+    end
+
     private
 
     def set_position
@@ -61,9 +74,11 @@ module Recommend
       @option_cities = City.all.map {|city| [city.try(:name), city.try(:id)]}.unshift([I18n.t('view.recommend/position.city'), nil]) if current_user.admin?
       @option_cities ||= current_user.workstations.map {|w| [w.city.try(:name), w.city.try(:id)]}
 
-      @courses_options = LiveStudio::Course.pluck(:name, :id) if current_user.admin?
+      # 分别查询不同课程
+      @course_model = @item.try(:target).present? ? @item.target.class : LiveStudio::Course
+      @courses_options = @course_model.pluck(:name, :id) if current_user.admin?
       workstation_ids = current_user.manager? ? current_user.workstation_ids : current_user.workstation_id
-      @courses_options ||= LiveStudio::Course.where(workstation_id: workstation_ids).pluck(:name, :id)
+      @courses_options ||= @course_model.where(workstation_id: workstation_ids).pluck(:name, :id)
     end
 
     def workstation_filter(chain)
@@ -73,7 +88,7 @@ module Recommend
     end
 
     def item_params
-      params.require(:choiceness_item).permit(:title, :index, :link, :target_id, :city_id, :tag_one, :tag_two)
+      params.require(:choiceness_item).permit(:title, :index, :link, :target_id, :target_type, :city_id, :tag_one, :tag_two)
     end
   end
 end

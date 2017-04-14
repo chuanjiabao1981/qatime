@@ -50,7 +50,7 @@
                     <div class="addvideo">
                       <%= image_tag(video.capture_url, class: "video_capture_edit", size: "160x90") %>
                       <div class="upload-pic">
-                        <input type="file" name="" class="video_file" token="<%= object_id %>" style="display: none;" >
+                        <input type="file" id="video_file_<%= object_id %>" class="video_file" token="<%= object_id %>" style="display: none;" >
                         <a class="upload-video" onclick="$(this).prev().click();">
                           <span><%= t("view.video_course_form.upload_video") %></span>
                         </a>

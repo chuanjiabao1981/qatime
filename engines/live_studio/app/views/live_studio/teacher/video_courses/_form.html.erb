@@ -165,11 +165,16 @@ $(function() {
       currentNode.removeClass('saving');
       if(!saveChange(currentNode)) return false;
     } else if(currentNode.attr('record-id') == "" && !currentNode.hasClass('saved')) { // 新插入的节点直接删除
-      currentNode.remove();
+      currentNode.addClass('removed');
     } else { // 旧的节点数据恢复
       $(e.target).html($(e.target).attr('fields-backup'));
     }
     reSort();
+  });
+
+  $('#outer_wrap').on('hidden.bs.modal', function(e) {
+    var currentNode = $(e.target).closest("li");
+    if(currentNode.hasClass('removed')) currentNode.remove();
   });
 
   // 删除按钮

@@ -10,6 +10,8 @@ module LiveStudio
       private
       def set_student
         @student = ::Student.find(params[:student_id] || params[:id])
+        @owner = @student
+        @student
       end
     end
   end

@@ -218,6 +218,19 @@ cn:
         subject: 请选择科目
         objective: 最多填写50个字
         suit_crowd: 最多填写30个字
+    video_course_form:
+      tips_title: 视频课说明
+      tips_1: 1.视频课是一种可重复销售的课程，允许多人购买
+      tips_2: 2.视频课由学生自主观看学习，无需上课
+      tips_3: 3.默认使用系统视频课课程海报（如左图）
+      none_lessons_tips: 尚未添加任何课程！
+      video_format_tips: 视频文件格式只支持mp4，请重新上传！
+      edit_video: 点击修改视频
+      upload_video: 点击上传视频
+      video_tips: 说明
+      video_tips_1: "1. 上传视频文件大小最多500M,视频长度60分钟以内最佳;"
+      video_tips_2: "2. 目前仅支持MP4;"
+
     teacher_course:
       price: 价格：%.2f￥
       teacher_percentage: 分成比例：%d%
@@ -299,6 +312,19 @@ cn:
     teaching: 已开课
     completed: 已结束
     rejected: 已拒绝
+  filter:
+    status:
+      pending: 审核中
+      published: 已发布
+    category:
+      bought: 已购
+      tasting: 免费
+  actions:
+    edit: 编辑
+    destroy: 删除
+  confirms:
+    destroy: 确认删除?
+
   live_studio/ticket:
     type_name:
       buy_inactive: 已购买
@@ -323,9 +349,11 @@ cn:
       payment/order: 订单
       live_studio/course: 直播课
       live_studio/interactive_course: 一对一
+      live_studio/video_course: 视频课
       live_studio/lesson: 直播课程
       live_studio/course_request: 招生审核
       live_studio/course_invitation: 开班邀请
+      live_studio/video_lesson: 视频课程
       live_studio/announcement: 公告
     attributes:
       payment/order:
@@ -410,6 +438,15 @@ cn:
         lessons_progress: 课程进度
         percentage: 分成
         latest: 最新
+      live_studio/video_course:
+        grade: 年级
+        video_lessons_count: 课时
+        name: 课程名称
+        description: 详细说明
+      live_studio/video_lesson:
+        name: 课时名称
+        video: 视频内容
+        real_time: 时长
       live_studio/interactive_lesson:
         teacher: 老师
       live_studio/push_stream:

@@ -1,0 +1,60 @@
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t("live_studio.menu.teacher.my_video_courses") %></h3>
+    <%= link_to live_studio.new_teacher_video_course_path(current_user) do %>
+      <%= image_tag "create.png" %>
+      <span><%= t("live_studio.actions.teacher.video_course.create") %></span>
+    <% end %>
+  </div>
+  <div class="contains-discipline">
+    <div class="discipline-nav">
+      <%= link_to t("filter.status.pending"), live_studio.teacher_video_courses_path(current_user), class: "#{'active' unless params[:cate] == 'published' }" -%>
+      <%= link_to t("filter.status.published"), live_studio.teacher_video_courses_path(current_user, cate: 'published'), class: "#{'active' if params[:cate] == 'published' }" -%>
+    </div>
+    <div class="tab-content">
+      <div class="discipline-con tab-pane fade in active">
+        <ul>
+          <% @video_courses.each do |course| %>
+            <% cache course do %>
+              <li>
+                <div class="row">
+                  <div class="col-md-3 discipline-pic">
+                    <%= link_to image_tag(course.publicize_url(:list), class: 'handle_error_list'), "javascrip: void(0);" %>
+                  </div>
+                  <div class="col-md-7 discipline-info">
+                    <div class="row info-title">
+                      <div class="col-md-12">
+                        <%= link_to "javascrip: void(0);" do %>
+                          <strong><%= course.name %></strong>
+                        <% end %>
+                      </div>
+                    </div>
+                    <div class="row info-state">
+                      <div class="col-md-7">
+                        <span><%= LiveStudio::VideoCourse.human_attribute_name(:grade) %></span>
+                        <span><%= course.grade %></span>
+                      </div>
+                      <div class="col-md-5">
+                        <span><%= LiveStudio::VideoCourse.human_attribute_name(:video_lessons_count) %></span>
+                        <span><%= course.video_lessons_count %></span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-2 course-state">
+                    <span class="col-md-12 col-sm-4 col-xs-4"><%= course.status.text %></span>
+                    <%= link_to t("actions.edit"), live_studio.edit_teacher_video_course_path(current_user, course),
+                                class: "col-md-12 col-sm-4 col-xs-4" if course.init? && allow?('live_studio/teacher/video_courses', 'edit', @teacher) %>
+                    <%= link_to t("actions.destroy"), live_studio.teacher_video_course_path(current_user, course),
+                                method: :delete,
+                                class: "col-md-12 col-sm-4 col-xs-4",
+                                data: { confirm: t('confirms.destroy') } if course.init? && allow?('live_studio/teacher/video_courses', 'destroy', @teacher) %>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

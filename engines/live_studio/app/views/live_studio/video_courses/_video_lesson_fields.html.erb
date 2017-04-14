@@ -1,0 +1,79 @@
+<%
+  lesson = f.object
+  video = lesson.video || Video.new
+  object_id = f.object.object_id
+%>
+
+<li record-id="<%= lesson.id %>" class="<%= 'saved' if lesson.name.present? %> <%= f.object._destroy ? 'hidden' : '' %>">
+  <%= f.input_field :id, as: :hidden %>
+  <span class="lesson_sort_view"></span>
+  <div class="addcourse-info">
+    <%= image_tag video.capture_url, class: "video_capture_view", size: '51x29' %>
+    <div class="info-list">
+      <p class="lesson_name_view"><%= lesson.name %></p>
+      <p class="info-list-time"><%= LiveStudio::VideoLesson.human_attribute_name(:real_time) %><i class="video_duration_view"><%= video.format_tmp_duration %></i></p>
+    </div>
+    <div class="addcourse-editor">
+      <%= link_to t('activerecord.view.edit'), "javascript:void(0);",
+                  id: "edit_button_#{object_id}", data: { toggle: "modal", target: "#edit_#{object_id}" } %>
+      <%= link_to t('activerecord.view.delete'), "javascript:void(0);", class: "destroy-btn" %>
+    </div>
+  </div>
+
+  <div class="modal fade edit-modal" id="edit_<%= object_id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-course">
+      <div class="modal-content" style="margin-top: 58px;">
+        <div class="popup-title">
+          <span><%= t("live_studio.menu.teacher.add_lesson") %></span>
+          <span class="close fa fa-times" data-dismiss="modal" aria-label="Close"></span>
+        </div>
+
+        <div class="modal-body">
+          <div class="editor-msg">
+              <div class="row">
+                <div class="col-md-2">
+                  <%= f.label :name %>
+                </div>
+
+                <div class="col-md-10">
+                  <%= f.input_field :name, placeholder: t('simple_form.placeholders.video_lesson.name'), maxlength: 20, class: "lesson_name_edit" %>
+                  <span class="help-block has-error"></span>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                  <%= f.label :video %>
+                </div>
+                <div class="col-md-10">
+                  <div class="info-video">
+                    <div class="addvideo">
+                      <%= image_tag(video.capture_url, class: "video_capture_edit", size: "160x90") %>
+                      <div class="upload-pic">
+                        <input type="file" name="" class="video_file" token="<%= object_id %>" style="display: none;" >
+                        <a class="upload-video" onclick="$(this).prev().click();">
+                          <span><%= t("view.video_course_form.upload_video") %></span>
+                        </a>
+                      </div>
+                      <span class="video-time"><%= LiveStudio::VideoLesson.human_attribute_name(:real_time) %><i class="video_duration_edit"></i></span>
+                    </div>
+                    <div class="addvideo-prompt">
+                      <h3><%= t("view.video_course_form.video_tips") %>：</h3>
+                      <p><%= t("view.video_course_form.video_tips_1") %></p>
+                      <p><%= t("view.video_course_form.video_tips_2") %></p>
+                    </div>
+                  </div>
+                  <%= f.input_field :video_id, as: :hidden, class: 'video_id' -%>
+                  <span class="help-block has-error"></span>
+                  <%= f.input_field :pos, as: :hidden, class: 'lesson_sort_edit' -%>
+                </div>
+              </div>
+              <%= link_to t("live_studio.actions.teacher.video.save"), "javascript: void(0)", class: "btn-preserve save-btn active" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%= f.input_field :_destroy, as: :boolean, boolean_style: :inline, class: 'hidden destroy' %>
+</li>

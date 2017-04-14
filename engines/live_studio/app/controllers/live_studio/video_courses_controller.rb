@@ -2,15 +2,18 @@ require_dependency "live_studio/application_controller"
 
 module LiveStudio
   class VideoCoursesController < ApplicationController
+    layout :current_user_layout
     before_action :set_video_course, only: [:show, :edit, :update, :destroy]
 
-    # GET /video_courses
     def index
-      @video_courses = VideoCourse.all
+      @q = LiveService::VideoCourseDirector.search(search_params)
+      @courses = @q.result.paginate(page: params[:page], per_page: 12)
+      render layout: 'v1/application'
     end
 
-    # GET /video_courses/1
     def show
+      @course = LiveStudio::VideoCourse.find(params[:id])
+      render layout: 'v1/application'
     end
 
     # GET /video_courses/new
@@ -49,14 +52,23 @@ module LiveStudio
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_video_course
-        @video_course = VideoCourse.find(params[:id])
-      end
 
-      # Only allow a trusted parameter "white list" through.
-      def video_course_params
-        params.require(:video_course).permit(:name, :grade, :description)
-      end
+    def search_params
+      return @search_params if @search_params.present?
+      @search_params ||= params.permit(q: [:grade_eq, :subject_eq, :sell_type_eq, :s])
+      @search_params[:q] ||= {}
+      @search_params[:q][:s] ||= 'published_at desc'
+      @search_params
+    end
+
+    # Use callbacks to share common setup or constraints between actions.
+    def set_video_course
+      @video_course = VideoCourse.find(params[:id])
+    end
+
+    # Only allow a trusted parameter "white list" through.
+    def video_course_params
+      params.require(:video_course).permit(:name, :grade, :description)
+    end
   end
 end

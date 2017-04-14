@@ -20,6 +20,9 @@
         <li class="<%= 'active' if current_page?(live_studio.interactive_courses_path) %>">
           <%= link_to t("view.common_bars.live_studio_interactive_course"), live_studio.interactive_courses_path %>
         </li>
+        <li class="<%= 'active' if current_page?(live_studio.video_courses_path) %>">
+          <%= link_to t("view.common_bars.live_studio_video_course"), live_studio.video_courses_path %>
+        </li>
         <li>
           <% if current_user && (current_user.student? || current_user.teacher? || current_user.manager?) %>
             <%= link_to t("view.common_bars.customized_courses"), main_app.send("customized_courses_#{current_user.role}_path", current_user) %>

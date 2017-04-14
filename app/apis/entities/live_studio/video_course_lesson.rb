@@ -1,13 +1,12 @@
 module Entities
   module LiveStudio
-    class Lesson < Grape::Entity
+    class VideoCourseLesson < Grape::Entity
       expose :id
       expose :name
       expose :status
-      expose :live_time
-      expose :replayable
-      expose :left_replay_times
-      expose :duration
+      expose :video_course_id
+      expose :pos
+      expose :video, using: Entities::Video
     end
   end
 end

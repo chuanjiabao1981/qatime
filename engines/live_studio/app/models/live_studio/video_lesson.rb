@@ -36,7 +36,6 @@ module LiveStudio
                            hours_half_210: 210,
                            hours_4: 240
                        }, i18n_scope: "enumerize.live_studio/lessons.durations", scope: true, predicates: { prefix: true }
-
     belongs_to :video_course, counter_cache: true
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
 

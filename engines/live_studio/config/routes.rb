@@ -69,6 +69,14 @@ LiveStudio::Engine.routes.draw do
     resources :announcements, only: [:index, :update, :create], shallow: true
   end
 
+  # 视频课
+  resources :video_courses, only: [:index, :new, :create, :edit, :update, :show, :destroy] do
+    collection do
+      post :preview
+      patch :preview
+    end
+  end
+
   namespace :station do
     resources :workstations, only: [] do
       resources :courses, only: [:index] do

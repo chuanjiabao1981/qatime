@@ -4,20 +4,16 @@ module Entities
       format_with(:local_timestamp, &:to_i)
       expose :id
       expose :name
-      expose :subject do |course|
-        course.subject.to_s
-      end
-      expose :grade do |course|
-        course.grade.to_s
-      end
-      expose :teacher_name do |course|
-        course.teacher.try(:name).to_s
-      end
+      expose :subject
+      expose :grade
+      expose :teacher_name
       expose :teacher, using: Entities::Teacher
       expose :price do |course|
         course.price.to_f.round(2)
       end
-      expose :current_price
+      expose :current_price do |course|
+        course.current_price.to_f.round(2)
+      end
       expose :chat_team_id do |course|
         course.try(:chat_team).try(:team_id).to_s
       end

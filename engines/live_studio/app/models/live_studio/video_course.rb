@@ -148,6 +148,9 @@ module LiveStudio
       teacher.try(:name)
     end
 
+    def teachers
+      [teacher].compact
+    end
 
     def distance_days
       today = Date.today

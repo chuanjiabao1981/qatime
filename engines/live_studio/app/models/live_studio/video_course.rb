@@ -354,6 +354,10 @@ module LiveStudio
       video_lessons_count
     end
 
+    def can_refund?
+      false
+    end
+
     private
 
     # 辅导班删除以后同时删除课程

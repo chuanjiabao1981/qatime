@@ -1,0 +1,9 @@
+<div class="recorded">
+  <div class="recorded-title">
+    <%= link_to t("live_studio.menu.teacher.my_video_courses"), live_studio.teacher_video_courses_path(@teacher) -%>
+    <span class="fa fa-angle-right"></span>
+    <span><%= t("live_studio.actions.teacher.video_course.create") %></span>
+  </div>
+
+  <%= render 'form' %>
+</div>

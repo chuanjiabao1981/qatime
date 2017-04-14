@@ -29,6 +29,9 @@ class Teacher < User
 
   has_many :invitations, foreign_key: :user_id, class_name: LiveStudio::CourseInvitation
 
+  has_many :live_studio_video_courses, class_name: LiveStudio::VideoCourse
+  has_many :live_studio_video_lessons, class_name: LiveStudio::VideoLesson, through: :live_studio_video_courses, source: :video_lessons
+
   # has_many :corrections
   # has_many :replies
 

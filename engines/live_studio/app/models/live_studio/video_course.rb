@@ -131,7 +131,7 @@ module LiveStudio
     scope :by_grade, ->(grade){ grade.blank? || grade == 'all' ? nil : where(grade: grade)}
     scope :by_city, ->(city_id) { where(city_id: city_id) }
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
-    scope :init_rejected, -> { where('live_studio_video_courses.status < ?', VideoCourse.statuses[:confirmed]) }
+    scope :unpublished, -> { where('live_studio_video_courses.status < ?', VideoCourse.statuses[:published]) }
     scope :for_sell, -> { where(status: VideoCourse.statuses[:published]) }
 
     def cant_publish?

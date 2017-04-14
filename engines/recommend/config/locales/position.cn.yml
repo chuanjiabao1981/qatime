@@ -46,6 +46,8 @@ cn:
         tag_name1: 标签1
         tag_name2: 标签2
         none_tag: 无标签
+      prompt:
+        target_id: 请选择课程
   enums:
     recommend:
       status:

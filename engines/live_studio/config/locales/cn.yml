@@ -320,7 +320,7 @@ cn:
     rejected: 已拒绝
   filter:
     status:
-      pending: 审核中
+      pending: 未发布
       published: 已发布
     category:
       bought: 已购

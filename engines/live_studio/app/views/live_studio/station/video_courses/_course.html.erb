@@ -14,6 +14,6 @@
   <td><%= number_to_percentage(course.sell_percentage_for(@workstation), precision: 0) %></td>
   <td><%= number_to_percentage(course.platform_percentage, precision: 0) %></td>
   <td>
-    <input type="button" name="" class="send_qa_code" value="<%= t("view.live_studio/station.courses.course.send_qr_code") %>" data-url="<%= send_qr_code_station_workstation_course_path(@workstation,course) %>">
+    <input type="button" name="" class="send_qa_code" value="<%= t("view.live_studio/station.courses.course.send_qr_code") %>" data-url="<%= send_qr_code_station_workstation_video_course_path(@workstation,course) %>">
   </td>
 </tr>

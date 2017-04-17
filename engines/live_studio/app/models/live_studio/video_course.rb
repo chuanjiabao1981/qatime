@@ -105,6 +105,7 @@ module LiveStudio
     has_many :taste_tickets, as: :product # 试听证
     has_many :video_lessons, -> { order('id asc') }
     has_many :live_studio_course_notifications, as: :notificationable, dependent: :destroy
+    has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
 
     accepts_nested_attributes_for :video_lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
@@ -303,7 +304,7 @@ module LiveStudio
       coupon = ::Payment::Coupon.find_by(code: coupon_code)
       return if coupon.blank?
 
-      course_buy_url = "#{$host_name}/wap/live_studio/courses/#{self.id}?come_from=weixin&coupon_code=" + coupon.code
+      course_buy_url = "#{$host_name}/wap/live_studio/video_courses/#{self.id}?come_from=weixin&coupon_code=" + coupon.code
       qr_code = self.qr_codes.by_coupon(coupon.id).try(:first)
       return qr_code.code_url if qr_code.present?
 

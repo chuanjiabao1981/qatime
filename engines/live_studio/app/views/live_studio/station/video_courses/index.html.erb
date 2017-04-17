@@ -36,3 +36,13 @@
     </div>
   </div>
 </div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function() {
+      $(document).on('click', '.send_qa_code', function(event) {
+        location.href = $(this).data('url');
+      });
+    });
+  </script>
+<% end %>

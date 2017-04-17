@@ -1,0 +1,17 @@
+<% @course.order_lessons.each_with_index do |lesson, i| %>
+  <div class="row playlist <%= 'end' if false %>">
+    <div class="col-md-1">
+      <span><%= beautify_index(i) %></span>
+    </div>
+    <div class="col-md-7 coursehead">
+      <span><%= truncate_u lesson.name, length: 30 %></span>
+    </div>
+    <div class="col-md-2 arrange-length">
+      <span><%= t('view.live_studio/courses.show.duration_text') %><em><%= format_duration(lesson.real_time) %></em></span>
+    </div>
+    <div class="col-md-2 arrange-view">
+      <%= link_to t('view.live_studio/courses.show.play_video'), 'javascript: void(0);' %>
+      <%#= link_to t('view.live_studio/courses.show.tast_video'), 'javascript: void(0);', class: 'view-audition' %>
+    </div>
+  </div>
+<% end %>

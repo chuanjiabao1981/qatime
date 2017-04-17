@@ -179,7 +179,7 @@ module LiveStudio
       ticket.active!
       # 视频课购买以后直接结账
 
-      LiveStudio::VideoCourseBillingJob.perform_later(ticket.id).billing_ticket
+      LiveStudio::VideoCourseBillingJob.perform_later(ticket.id)
     end
 
     def for_sell?

@@ -2,7 +2,7 @@ require_dependency "live_studio/application_controller"
 
 module LiveStudio
   class OrdersController < ApplicationController
-    layout 'application_front'
+    layout 'v1/application'
     skip_before_action :authorize, only: [:check_coupon]
 
     before_action :set_order, only: [:show, :edit, :update, :destroy]
@@ -73,8 +73,10 @@ module LiveStudio
         @product =
           if params[:course_id].present?
             Course.find_by(id: params[:course_id])
-          else
+          elsif params[:interactive_course_id].present?
             InteractiveCourse.find(params[:interactive_course_id])
+          else
+            VideoCourse.find(params[:video_course_id])
           end
       end
 

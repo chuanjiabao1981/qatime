@@ -32,6 +32,10 @@ cn:
           add_lesson: 添加课程
         video:
           save: 保存
+      student:
+        video_course:
+          play: 观看
+
     course_records:
       nav:
         my_publish: 我的发行

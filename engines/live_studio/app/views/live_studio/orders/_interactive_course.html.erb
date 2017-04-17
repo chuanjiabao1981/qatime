@@ -1,0 +1,39 @@
+<div class="buy-left-title">
+  <%= t('view.payment_show.product_info') %>
+</div>
+<div class="buy-left-con">
+  <%= image_tag @order.product.publicize_url(:list) %>
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tbody>
+      <tr>
+        <td>
+        <span><%= @order.product.name %></span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span><%= t('view.course_order_new.course_type') %>：</span>
+          <span><%= @order.product.model_name.human %></span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span><%= t('view.course_order_new.grade_and_subject') %>：</span>
+          <span><%= @order.product.grade %> <%= @order.product.subject %></span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span><%= t('view.course_order_new.teacher_name') %>：</span>
+          <span><%= @order.product.teachers.map(&:name).uniq.join('/') %></span>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <span><%= t('view.course_order_new.lessons_count') %>：</span>
+          <span><%= t('view.course_order_new.lessons_count_value', count: @order.product.lessons_count) %></span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

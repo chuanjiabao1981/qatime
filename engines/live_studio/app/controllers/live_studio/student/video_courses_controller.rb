@@ -6,7 +6,10 @@ module LiveStudio
 
     # GET /student/video_courses
     def index
-      @video_courses = @student.live_studio_video_courses.where("live_studio_tickets.type = ?", 'LiveStudio::BuyTicket').paginate(page: params[:page])
+      @video_courses = @student.live_studio_video_courses
+      ticket_type = params[:cate] == 'tasting' ? "LiveStudio::TasteTicket" : "LiveStudio::BuyTicket"
+      @video_courses = @video_courses.where("live_studio_tickets.type = ?", ticket_type)
+      @video_courses = @video_courses.paginate(page: params[:page])
     end
   end
 end

@@ -1,0 +1,8 @@
+<%= content_tag(:div, image_tag(course.publicize_url(:list)),class: 'publicize') %>
+  <%= content_tag(:div, class: 'orders-content-div') do %>
+    <%= content_tag(:div,class: 'course-info-col') do %>
+      <%= content_tag(:div, course.name, class: 'course-name') %>
+    <% end %>
+    <%= content_tag(:div, "#{t('view.course_show.subject')}#{course.subject}", class: 'content-ceil') %>
+    <%= content_tag(:div, "#{t('view.course_show.teacher')}: #{course.teacher.name}", class: 'content-ceil') %>
+  <%end %>

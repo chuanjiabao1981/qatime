@@ -25,7 +25,7 @@ module BusinessService
         # 系统分成收入
         platform_money_item!(billing)
         # 结账完成后购买记录修改状态，避免重复结账
-        order.finish!
+        raise ActiveRecord::Rollback, "订单保存失败!" unless order.finish!
         # 这里是为了注入异常，测试回滚用，对整个流程没有什么帮助
         yield if block_given?
       end

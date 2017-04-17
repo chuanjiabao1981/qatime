@@ -9,5 +9,8 @@ module Entities
     expose :capture do |video|
       video.try(:capture_url)
     end
+    expose :name_url do |video|
+      video.try(:name_url)
+    end
   end
 end

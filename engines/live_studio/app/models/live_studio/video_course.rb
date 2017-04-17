@@ -162,10 +162,6 @@ module LiveStudio
       { amount: current_price, product: self }
     end
 
-    def status_text
-      I18n.t("status.#{status}")
-    end
-
     # 当前价格
     def current_price
       price
@@ -293,18 +289,10 @@ module LiveStudio
       end || I18n.t('view.course_show.nil_data')
     end
 
-    def order_lessons
-      video_lessons.except(:order).order(:class_date, :live_start_at, :live_end_at)
-    end
-
     # 课程单价
     def lesson_price
       return 0 unless video_lessons_count.to_i > 0
       (price.to_f / video_lessons_count).round(2)
-    end
-
-    def self.status_options
-      VideoCourse.statuses.map {|k, v| [LiveStudio::Course.human_attribute_name("aasm_state/#{k}"), v] }
     end
 
     # 购买人数
@@ -350,10 +338,6 @@ module LiveStudio
     def reset_left_price
       self.left_price = current_price
       save
-    end
-
-    def teachers
-      [teacher].compact
     end
 
     def lessons_count

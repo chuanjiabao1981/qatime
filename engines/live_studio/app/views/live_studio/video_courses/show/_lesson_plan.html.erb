@@ -1,4 +1,4 @@
-<% @course.order_lessons.each_with_index do |lesson, i| %>
+<% @course.video_lessons.each_with_index do |lesson, i| %>
   <div class="row playlist <%= 'end' if false %>">
     <div class="col-md-1">
       <span><%= beautify_index(i) %></span>

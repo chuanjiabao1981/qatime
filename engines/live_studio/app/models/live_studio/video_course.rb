@@ -178,7 +178,8 @@ module LiveStudio
                                              payment_order_id: order.id, buy_count: video_lessons_count)
       ticket.active!
       # 视频课购买以后直接结账
-      BusinessService::VideoCourseBillingDirector.new(ticket).billing_ticket
+
+      LiveStudio::VideoCourseBillingJob.perform_later(ticket.id).billing_ticket
     end
 
     def for_sell?

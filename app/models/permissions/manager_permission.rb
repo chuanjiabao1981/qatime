@@ -187,6 +187,9 @@ module Permissions
       allow 'live_studio/station/interactive_courses', [:index] do |workstation|
         workstation && workstation.manager_id == user.id
       end
+      allow 'live_studio/station/video_courses', [:index] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
       allow 'live_studio/teacher/teachers', [:schedules]
       allow 'live_studio/student/students', [:schedules]
       allow 'live_studio/courses', [:schedule_sources]

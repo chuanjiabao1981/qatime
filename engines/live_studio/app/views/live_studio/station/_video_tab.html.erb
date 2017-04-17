@@ -1,0 +1,8 @@
+<div class="admin-title">
+  <%= link_to t("live_studio.menu.video_courses"),
+              live_studio.station_workstation_video_courses_path(@workstation),
+              class: "#{'active-admin' if 'live_studio/station/video_courses' == params[:controller]}" if allow?('live_studio/station/video_courses', 'index', @workstation) %>
+  <%= link_to t("live_studio.menu.my_video_courses"),
+              live_studio.station_workstation_video_courses_path(@workstation),
+              class: "#{'active-admin' if 'live_studio/station/video_course' == params[:controller]}" if allow?('live_studio/station/video_courses', 'my_video_courses', @workstation) %>
+</div>

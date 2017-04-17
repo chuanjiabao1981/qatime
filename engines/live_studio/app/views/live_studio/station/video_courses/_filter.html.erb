@@ -1,0 +1,28 @@
+
+<div class="condition-right">
+  <%= form_for @query, url: url, html: { method: :get } do |f| -%>
+    <div class="condition">
+      <span><%= LiveStudio::Course.human_attribute_name(:owner_workstation) %></span>
+      <%= f.select :workstation_id_eq, ::Workstation.pluck(:name, :id),
+                   { include_blank: t("live_studio.course.menu.all") },
+                   { class: 'immediately' } %>
+    </div>
+
+    <div class="condition">
+      <span><%= LiveStudio::Course.human_attribute_name(:subject) %></span>
+      <%= f.select :subject_eq, APP_CONSTANT['subjects'],
+                   { include_blank: t("live_studio.course.menu.all") },
+                   { class: 'immediately' } %>
+    </div>
+    <div class="condition">
+      <span><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
+      <%= f.select :grade_eq, APP_CONSTANT['grades_in_menu'],
+                   { include_blank: t("live_studio.course.menu.all") },
+                   { class: 'immediately' } %>
+    </div>
+
+    <div class="condition-right ml10">
+      <%= link_to t("live_studio.course.menu.reset"), url %>
+    </div>
+  <% end %>
+</div>

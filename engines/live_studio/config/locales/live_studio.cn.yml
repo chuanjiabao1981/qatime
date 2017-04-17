@@ -5,6 +5,8 @@ cn:
       course_invitations: 开班邀请
       courses: 直播课代销
       my_courses: 发行/经销
+      video_courses: 视频课列表
+      my_video_courses: 发行/销售
       teacher:
         my_courses: 我的辅导
         my_interactive_courses: 我的一对一
@@ -181,6 +183,21 @@ cn:
         modal_class_date_new: 新上课日期
         modal_start_time_was: 原开始时间
         modal_start_time_new: 新开始时间
+    live_studio/video_course:
+      index:
+        name: 视频课名称
+        teacher: 老师
+        grade: 年级
+        subject: 科目
+        status: 状态
+        published_at: 发布时间
+        workstation: 发行工作站
+        price: 价格
+        service_price: 服务扣费
+        sell_percentage: 销售分成
+        platform_percentage: 平台分成
+        qr_code: 二维码
+
     student:
       students:
         schedules:

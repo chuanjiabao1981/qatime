@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'carrierwave/processing/mini_magick'
 
-class PublicizeUploader < CarrierWave::Uploader::Base
+class InteractivePublicizeUploader < CarrierWave::Uploader::Base
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   include CarrierWave::MiniMagick

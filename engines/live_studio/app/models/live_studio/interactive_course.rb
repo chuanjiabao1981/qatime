@@ -12,7 +12,7 @@ module LiveStudio
     include Qatime::Discussable
 
     require 'carrierwave/orm/activerecord'
-    mount_uploader :publicize, ::PublicizeUploader
+    mount_uploader :publicize, ::InteractivePublicizeUploader
 
     enum status: {
       init: 0, # 初始化

@@ -5,6 +5,7 @@ module Entities
       expose :name
       expose :status
       expose :video_course_id
+      expose :real_time
       expose :pos
       expose :video, using: Entities::Video
     end

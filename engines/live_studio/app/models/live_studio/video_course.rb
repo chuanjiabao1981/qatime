@@ -148,6 +148,9 @@ module LiveStudio
       teacher.try(:name)
     end
 
+    def teachers
+      [teacher].compact
+    end
 
     def distance_days
       today = Date.today
@@ -177,7 +180,7 @@ module LiveStudio
     end
 
     def for_sell?
-      published? || teaching?
+      published?
     end
 
     # 用户是否已经购买

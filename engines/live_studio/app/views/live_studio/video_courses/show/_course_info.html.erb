@@ -1,0 +1,59 @@
+<div class="col-md-9">
+  <a name="introduce"></a>
+  <div class="course-item">
+    <div class="nav-item">
+      <a href="#introduce"><%= t('view.live_studio/courses.show.introduce') %></a>
+      <a href="#arrange"><%= t('view.live_studio/courses.show.arrange') %></a>
+      <a href="#study"><%= t('view.live_studio/courses.show.study') %></a>
+    </div>
+
+    <div class="course-lessons">
+      <div class="lessons-detail">
+        <h3><%= t('view.live_studio/courses.show.base_info') %></h3>
+        <ul>
+          <li>
+            <span><i><%= t('view.live_studio/courses.show.subject') %></i><i><%= @course.subject %></i></span>
+            <span><i><%= t('view.live_studio/courses.show.grade') %></i><i><%= @course.grade %></i></span>
+            <span><i><%= t('view.live_studio/courses.show.lesson') %></i><i><%= t('view.live_studio/courses.show.lesson_text', count: @course.video_lessons_count) %></i></span>
+          </li>
+          <li>
+            <span><i><%= t('view.live_studio/courses.show.full_duration') %></i><i><%= format_duration(@course.total_duration) %></i></span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="lessons-detail">
+        <h3><%= t('view.live_studio/courses.show.objective') %></h3>
+        <p><%= @course.objective.presence || t('view.live_studio/courses.show.tag_none') %></p>
+      </div>
+
+      <div class="lessons-detail">
+        <h3><%= t('view.live_studio/courses.show.suit_crowd') %></h3>
+        <p><%= @course.suit_crowd.presence || t('view.live_studio/courses.show.tag_none') %></p>
+      </div>
+
+      <div class="lessons-detail">
+        <h3><%= t('view.live_studio/courses.show.desc') %></h3>
+        <%= raw(@course.description) %>
+      </div>
+    </div>
+  </div>
+
+  <a name="arrange"></a>
+  <div class="course-item course-item-arrangement">
+    <div class="nav-item">
+      <span><%= t('view.live_studio/courses.show.arrange') %></span>
+    </div>
+
+    <%= render partial: 'live_studio/video_courses/show/lesson_plan' %>
+  </div>
+
+  <a name="study"></a>
+  <div class="course-item">
+    <div class="nav-item">
+      <span><%= t('view.live_studio/courses.show.study') %></span>
+    </div>
+
+    <%= render partial: 'live_studio/video_courses/show/study' %>
+  </div>
+</div>

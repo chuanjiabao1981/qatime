@@ -93,6 +93,7 @@ cn:
       join_taste: 加入试听
       start_taste: 开始试听
       start_learning: 开始学习
+      start_learning2: 观看
       taste_end: 试听结束
       buy_teaching_course_tips: '该直播课已开课，是否确认购买？'
     course_search_show:
@@ -528,6 +529,7 @@ cn:
       taste: 试听
       buy_now: 立即购买
       enroll_now: 立即报名
+      enroll_now2: 立即学习
       buy_new_course: 购买新辅导
       buy_new_interactive_course: 购买一对一
       none_tips: 当前列表没有发现直播课，%s。

@@ -5,7 +5,7 @@
       <tr>
         <td>
           <span><%= LiveStudio::VideoCourse.human_attribute_name(:billing_price) %>：</span>
-          <span><%= number_to_currency(@change_record.target.try(:price)) %></span>
+          <span><%= number_to_currency(@change_record.billing.total_money) %></span>
         </td>
         <td>
           <span><%= LiveStudio::VideoCourse.human_attribute_name(:billing_duration) %>：</span>

@@ -177,6 +177,9 @@ module LiveStudio
       ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: price,
                                              payment_order_id: order.id, buy_count: video_lessons_count)
       ticket.active!
+      # 视频课购买以后直接结账
+
+      LiveStudio::VideoCourseBillingJob.perform_later(ticket.id)
     end
 
     def for_sell?
@@ -364,6 +367,10 @@ module LiveStudio
     def reset_total_duration
       self.total_duration = video_lessons.sum(:real_time)
       save
+    end
+
+    def duration_minutes
+      (total_duration.to_f / 60.0).round(2)
     end
 
     private

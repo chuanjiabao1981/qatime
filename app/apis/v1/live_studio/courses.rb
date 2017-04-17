@@ -346,7 +346,7 @@ module V1
             optional :count, type: Integer, desc: '记录数'
           end
           get '/rank/:names' do
-            params[:names].split(/,\s*/).each do |rank_name|
+            params[:names].split(/，\s*|,\s*/).each do |rank_name|
               courses = ::LiveService::RankManager.rank_of(rank_name).limit(params[:count])
               present courses, with: ::Entities::LiveStudio::Course, root: rank_name
             end

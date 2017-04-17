@@ -56,6 +56,7 @@ module Entities
         course.chat_team
       end
       expose :sell_type
+      expose :total_duration
     end
   end
 end

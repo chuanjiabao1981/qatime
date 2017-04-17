@@ -7,16 +7,12 @@
       <div class="col-md-7 col-xs-12 course-introduce">
         <div class="course-title">
           <h1><%= truncate_u @course.name, length: 24 %></h1>
-          <span><%= t('view.live_studio/courses.show.purchase_number', count: @course.buy_user_count ) %></span>
+          <span><%= t('view.live_studio/courses.show.purchase_number2', count: @course.buy_user_count ) %></span>
         </div>
         <div class="course-line">
           <span class="<%= 'active' if @course.taste_count.to_i > 0 %>">
             <%= image_tag "/imgs/course-#{@course.taste_count.to_i > 0 ? 'active' : 'default'}.png" %>
             <i><%= t('view.live_studio/courses.show.free_taste') %></i>
-          </span>
-          <span class="active">
-            <%= image_tag '/imgs/course-active.png' %>
-            <i><%= t('view.live_studio/courses.show.refund') %></i>
           </span>
           <span class="active">
             <%= image_tag '/imgs/course-active.png' %>

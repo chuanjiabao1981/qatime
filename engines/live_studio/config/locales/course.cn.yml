@@ -22,6 +22,7 @@ cn:
     live_studio/courses:
       show:
         purchase_number: "报名人数%{count}人"
+        purchase_number2: "学习人数%{count}人"
         refund: 随时可退
         coupon_free: 报名立减
         cheap: 限时打折
@@ -38,7 +39,8 @@ cn:
         lesson_text: "共%{count}课"
         full_duration: 视频总长
         duration_text: 时长
-        play_vodeo: 观看本课时
+        play_video: 观看本课时
+        tast_video: 试听本课时
         date: 日期
         date_text: "%{start_at}至%{end_at}"
         status: 状态

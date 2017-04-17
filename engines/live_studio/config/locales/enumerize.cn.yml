@@ -45,9 +45,9 @@ cn:
       status:
         rejected: 审核被拒
         init: 审核中
-        published: 招生中
-        teaching: 开课中
-        completed: 已结束
+        confirmed: 审核通过
+        completed: 已创建
+        published: 已发布
       sell_type:
         charge: 收费课程
         free: 免费课程

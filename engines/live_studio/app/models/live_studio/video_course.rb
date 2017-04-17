@@ -366,6 +366,10 @@ module LiveStudio
       save
     end
 
+    def duration_minutes
+      (total_duration.to_f / 60.0).round(2)
+    end
+
     private
 
     # 辅导班删除以后同时删除课程

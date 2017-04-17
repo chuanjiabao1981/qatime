@@ -452,6 +452,8 @@ cn:
         teacher_name: 老师
         subject: 科目
         total_time: 时长
+        billing_price: 课程总价
+        billing_duration: 视频总时长
       live_studio/video_lesson:
         name: 课时名称
         video: 视频内容

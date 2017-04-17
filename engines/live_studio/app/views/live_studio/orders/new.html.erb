@@ -1,16 +1,11 @@
-<div class="container container-details">
-  <div class="row">
-    <div class="panel panel-default panel-profile">
-       <div class="apply-tea">
-        <div class="tutoring-title">
-          <div class="tutoring-title-left">
-            <%= image_tag 'icon.png' %>
-            <span class="title-size"><%= t('view.payment_show.order_confirm') %></span>
-          </div>
-         </div>
-        <div class="student-buy">
-          <%= render 'form' %>
-        </div>
+<div class="common-space">
+  <div class="container">
+    <div class="apply-tea">
+      <div class="tutoring-title">
+        <h3><%= t('view.payment_show.order_confirm') %></h3>
+      </div>
+      <div class="student-buy">
+        <%= render 'form' %>
       </div>
     </div>
   </div>

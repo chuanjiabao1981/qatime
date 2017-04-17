@@ -1,8 +1,11 @@
-<div class="container container-details">
-  <div class="row">
+<div class="common-space">
+  <div class="container">
     <%= render @transaction.model_name.singular_route_key %>
   </div>
 </div>
+
+
+
 
 <%= content_for :javascript do %>
 <script>

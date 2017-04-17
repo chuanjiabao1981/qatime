@@ -4,6 +4,7 @@ cn:
       none_lessons: 当前无课程
       course_preview: 提示：此页面仅供查看和预览，不能进行操作哦！
       download: 下载APP
+      notfund: 暂无数据
     search:
       all: 全部
       live_studio/course:
@@ -447,6 +448,9 @@ cn:
         video_lessons_count: 课时
         name: 课程名称
         description: 详细说明
+        teacher_name: 老师
+        subject: 科目
+        total_time: 时长
       live_studio/video_lesson:
         name: 课时名称
         video: 视频内容

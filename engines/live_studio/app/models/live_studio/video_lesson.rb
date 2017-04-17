@@ -163,5 +163,11 @@ module LiveStudio
     def decrement_course_counter
       LiveStudio::VideoCourse.decrement_counter(:video_lessons_count, video_course.id) if deleted_at.present? && video_course
     end
+
+    before_save :set_real_time, if: :video_id_changed?
+    def set_real_time
+      self.real_time = video.tmp_duration if video
+    end
+
   end
 end

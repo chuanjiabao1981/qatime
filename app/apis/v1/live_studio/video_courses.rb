@@ -53,6 +53,35 @@ module V1
           end
         end
 
+        resource :video_courses do
+          before do
+            authenticate!
+          end
+
+          desc '购买视频课' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, desc: '视频课ID'
+            requires :pay_type, type: String, values: ::Payment::Order.pay_type.values, desc: '支付方式'
+            optional :coupon_code, type: String, desc: '使用优惠码(可不填)'
+          end
+          post '/:id/orders' do
+            course = ::LiveStudio::VideoCourse.find(params[:id])
+            order = ::Payment::Order.new(course.order_params.merge(pay_type: params[:pay_type], remote_ip: client_ip, source: :app, user: current_user))
+            if params[:coupon_code].present?
+              coupon = ::Payment::Coupon.find_by(code: params[:coupon_code])
+              order.amount = course.coupon_price(coupon)
+              order.coupon = coupon
+            end
+            order.save
+            raise ActiveRecord::RecordInvalid, order if order.errors.any?
+            present order, with: Entities::Payment::Order
+          end
+        end
       end
     end
   end

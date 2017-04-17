@@ -235,7 +235,7 @@ module Permissions
 
       ## 视频课
       api_allow :GET, 'live_studio/students/\d+/video_courses'
-
+      api_allow :POST, "/api/v1/live_studio/video_courses/[\\w-]+/orders"
       ## 视频课
 
       # 消息通知

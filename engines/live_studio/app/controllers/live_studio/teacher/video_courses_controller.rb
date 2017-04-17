@@ -31,6 +31,7 @@ module LiveStudio
       @video_course.teacher = @teacher
 
       if @video_course.save
+        @video_course.reset_total_duration
         redirect_to live_studio.teacher_video_courses_path(@teacher), notice: 'Video course was successfully created.'
       else
         render :new
@@ -40,9 +41,9 @@ module LiveStudio
     # PATCH/PUT /teacher/video_courses/1
     def update
       if @video_course.update(video_course_params)
+        @video_course.reset_total_duration
         redirect_to live_studio.teacher_video_courses_path(@teacher), notice: 'Video course was successfully updated.'
       else
-        p @video_course.errors
         render :edit
       end
     end

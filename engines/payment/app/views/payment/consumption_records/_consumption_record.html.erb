@@ -2,7 +2,7 @@
   <tr>
     <td><%= number_to_currency(consumption_record.amount, locale: :cn, unit: "￥", precision: 2) %></td>
     <td></td>
-    <td><%= consumption_record.business.product.model_name.human %></td>
+    <td><%= consumption_record.business.product.model_name.human if consumption_record.business.product %></td>
     <td><%= consumption_record.change_type_text %></td>
     <td><%= consumption_record.created_at.strftime('%Y-%m-%d %H:%M') %></td>
     <td><%= link_to t("view.payment/consumption_record.view"), payment.user_order_path(@current_resource, consumption_record.business.transaction_no) if consumption_record.business %></td>

@@ -9969,6 +9969,7 @@ ul {
   color: #34495e;
 }
 .handpick-info p:first-child {
+  line-height: 22px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -11502,41 +11503,41 @@ ul {
   border-color: #CCCCCC;
   color: #CCCCCC;
 }
-.lessonsg-process > .row > div{
+.lessonsg-process > .process-study .row {
+  padding: 15px 0px;
+  margin: 40px 0 0 0;
+}
+.lessonsg-process > .process-study .row > .col-md-6 > img {
+  width: 100%;
+}
+.lessonsg-process > .process-study .row > .col-md-6{
+  position: relative;
+}
+.lessonsg-process > .process-study >.row:last-child {
+  margin-top: 30px;
+}
+.study-info {
+  position: absolute;
+  height: 100%;
+  top: 0px;
+  bottom: 0px;
+  left: 28%;
+  right: 7.5%;
+  display:-webkit-flex;
+  align-items:center;
+  justify-content:center;
+}
+.study-info > .info-step,.study-info > .info-step > p{
   text-align: center;
+  color: #FFFFFF;
 }
-.lessonsg-process > .row > .col-md-7 {
-  background-color: #f0f0f0;
-  line-height: 50px;
+.study-info > .info-step > h4 {
+  margin-top: 0px;
   font-size: 18px;
-  color: #666;
-  border-bottom-left-radius: 4px;
-  border-top-left-radius: 4px;
 }
-.lessonsg-process > .row > .col-md-3 {
-  line-height: 48px;
-  border: 1px solid #f1f1f1;
-  border-bottom-right-radius: 4px;
-  border-top-right-radius: 4px;
-  color: #999999;
-}
-.lessonsg-process > .row > .down-direction {
-  background-color: #FFFFFF;
-  line-height: 36px;
-}
-.lessonsg-process > .row {
-  margin-top: 40px;
-}
-.coursehead-tec > em {
-  font-size: 12px;
-  color: #CCCCCC;
-}
-@media only screen and (max-width: 768px) {
-  .lessonsg-process > .row > .col-md-3,.lessonsg-process > .row > .col-md-7 {
-    border-radius: 0px;
-  }
-  .lessonsg-process > .row {
-    margin: 0px;
+@media only screen  and (max-width: 768px) {
+  .lessonsg-process > .process-study .row:last-child {
+    margin-top: -30px;
   }
 }
 
@@ -11674,11 +11675,7 @@ ul {
   margin-top: 5px;
   color: #666;
 }
-/*.modal-client {
-	position: absolute;
-	top: 50%;
-	margin-top: -85px;
-}*/
+
 
 @media screen and (min-width: 768px){
   .modal-client {
@@ -12136,7 +12133,6 @@ ul {
 /*创建视频课*/
 .recorded {
   box-shadow: 0 0 10px #CCCCCC;
-  /*padding: 0 15px;*/
 }
 .recorded-title {
   height: 78px;
@@ -12704,3 +12700,28 @@ ul {
 ,.modal-video > .modal-content .playback-con > li:hover a > .row > .list-msg{
   color: #000000;
 }
+
+
+
+/*教师个人页增加视频课展示*/
+.class-info > h3 {
+  margin: 0px 0px 0px 30px;
+  font-size: 16px;
+}
+.class-info > .item-handpick {
+  zoom: 1;
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.class-info > .item-handpick:after {
+  display:block;
+  clear:both;
+  content:"";
+  visibility:hidden;
+  height:0;
+}
+.class-exclusive > .item-handpick > li > .handpick-info .class-price {
+  float: right;
+}
+
+

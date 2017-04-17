@@ -349,10 +349,6 @@ module LiveStudio
       save
     end
 
-    def teachers
-      [teacher].compact
-    end
-
     def lessons_count
       video_lessons_count
     end

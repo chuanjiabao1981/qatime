@@ -4,7 +4,7 @@ module LiveStudio
 
     def perform(ticket_id)
       ticket = LiveStudio::BuyTicket.find(ticket_id)
-      BusinessService::VideoCourseBilling.new(ticket).billing_ticket
+      BusinessService::VideoCourseBillingDirector.new(ticket).billing_ticket
     end
   end
 end

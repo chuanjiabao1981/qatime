@@ -209,7 +209,9 @@ cn:
         audit_result: 审核结果
         play: 播放
         confirm: 通过
+        confirm_alert: 确定审核通过么?
         reject: 驳回
+        reject_alert: 确定驳回么?
         status_text:
           confirmed: 已通过
           rejected: 已驳回

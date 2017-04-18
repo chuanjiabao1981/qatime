@@ -17,6 +17,25 @@ init_video_course:
   platform_percentage: 3
   objective: 啊撒旦发送的发撒旦发送的
   suit_crowd: 啊撒旦发送的发撒旦发送的
+init_video_course2:
+  name: 审核视频课2
+  teacher: teacher1
+  workstation: workstation_zhuji
+  status: 0
+  description: 啊撒旦发送的发撒旦发送的
+  sell_type: 1
+  grade: 高一
+  subject: 数学
+  teacher_percentage: 0
+  preset_lesson_count: 0
+  price: 200
+  buy_tickets_count: 0
+  taste_count: 0
+  video_lessons_count: 1
+  publish_percentage: 5
+  platform_percentage: 3
+  objective: 啊撒旦发送的发撒旦发送的
+  suit_crowd: 啊撒旦发送的发撒旦发送的
 published_video_course1:
   name: 发布的视频课1
   teacher: teacher1

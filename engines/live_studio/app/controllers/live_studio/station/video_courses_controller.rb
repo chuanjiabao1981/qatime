@@ -9,6 +9,16 @@ module LiveStudio
       @video_courses = @query.result.order(id: :desc).paginate(page: params[:page])
     end
 
+    def my_publish
+      @query = @workstation.live_studio_video_courses.ransack(params[:q])
+      @video_courses = @query.result.order(id: :desc).paginate(page: params[:page])
+    end
+
+    def my_sells
+      @query = LiveStudio::VideoCourse.published.ransack(params[:q])
+      @video_courses = @query.result.order(id: :desc).paginate(page: params[:page])
+    end
+
     # 发送二维码
     def send_qr_code
       code = @workstation.coupon.try(:code)

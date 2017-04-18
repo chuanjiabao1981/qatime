@@ -136,6 +136,8 @@ module LiveStudio
     scope :by_city, ->(city_id) { where(city_id: city_id) }
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
     scope :unpublished, -> { where('live_studio_video_courses.status < ?', VideoCourse.statuses[:published]) }
+    scope :audited, -> { where(status: VideoCourse.statuses.values_at(:rejected, :confirmed)) }
+    scope :no_audit, -> { where(status: VideoCourse.statuses[:init]) }
     scope :for_sell, -> { where(status: VideoCourse.statuses[:published]) }
 
     def cant_publish?
@@ -154,6 +156,10 @@ module LiveStudio
 
     def teachers
       [teacher].compact
+    end
+
+    def status_audit_text
+      I18n.t("view.live_studio/video_course.audits.status_text.#{status}")
     end
 
     def distance_days

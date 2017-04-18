@@ -123,6 +123,8 @@ LiveStudio::Engine.routes.draw do
         member do
           get :send_qr_code
           patch :publish
+          get :audits
+          post :audit
         end
       end
     end

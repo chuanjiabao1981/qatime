@@ -115,6 +115,10 @@ LiveStudio::Engine.routes.draw do
       end
       resources :interactive_courses, only: [:index]
       resources :video_courses, only: [:index] do
+        collection do
+          get :my_publish
+          get :my_sells
+        end
         member do
           get :send_qr_code
         end

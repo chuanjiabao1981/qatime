@@ -194,10 +194,16 @@ cn:
         workstation: 发行工作站
         price: 价格
         service_price: 服务扣费
+        teacher_percentage: 老师分成
         sell_percentage: 销售分成
         platform_percentage: 平台分成
+        publish_percentage: 发行分成
         qr_code: 二维码
-
+        buy_user_count: 购买人数
+      my_video_courses:
+        nav:
+          my_publish: 我的发行
+          my_sells: 我的销售
     student:
       students:
         schedules:

@@ -1,0 +1,30 @@
+<% course = audits_course %>
+<tr>
+  <td><%= show_index(audits_course_counter, @video_courses.limit_value) %></td>
+  <td>
+    <%= link_to truncate_u(course.name, length: 9), live_studio.video_course_path(course), target: '_blank' %>
+  </td>
+  <td><%= course.teacher_name %></td>
+  <td><%= course.grade %></td>
+  <td><%= course.subject %></td>
+  <td><%= course.video_lessons_count %></td>
+  <td><%= format_duration course.total_duration %></td>
+  <td><%= localize(course.created_at, format: :long) %></td>
+  <td>
+    <%= link_to t('view.live_studio/video_course.audits.play'), '#',
+                class: 'play_video_btn',
+                data: { toggle: 'modal', target: "#playModal", cid: course.id } %>
+  </td>
+  <% if params[:cate] == 'audited' %>
+    <td class="review-result"><%= course.status_audit_text %></td>
+  <% else %>
+    <td class="review-result">
+      <% if allow?("live_studio/station/video_courses", :audit, @workstation) %>
+        <%= link_to t('view.live_studio/video_course.audits.confirm'), audit_station_workstation_video_course_path(@workstation, course, audit: 'pass'),
+                  data: { method: :post, confirm: '确定审核通过么?'} %>
+        <%= link_to t('view.live_studio/video_course.audits.reject'), audit_station_workstation_video_course_path(@workstation, course, audit: 'reject'),
+                  data: { method: :post, confirm: '确定驳回么?'} %>
+      <% end %>
+    </td>
+  <% end %>
+</tr>

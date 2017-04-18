@@ -7,6 +7,7 @@ cn:
       my_courses: 发行/经销
       video_courses: 视频课列表
       my_video_courses: 发行/销售
+      video_course_audits: 视频课审核
       teacher:
         my_courses: 我的辅导
         my_interactive_courses: 我的一对一
@@ -200,10 +201,27 @@ cn:
         publish_percentage: 发行分成
         qr_code: 二维码
         buy_user_count: 购买人数
+      audits:
+        lesson_count: 课时数
+        total_duration: 视频总长
+        created_at: 提交时间
+        audit: 审核
+        audit_result: 审核结果
+        play: 播放
+        confirm: 通过
+        reject: 驳回
+        status_text:
+          confirmed: 已通过
+          rejected: 已驳回
+
       my_video_courses:
         nav:
           my_publish: 我的发行
           my_sells: 我的销售
+      video_course_audits:
+        nav:
+          audited: 已审核
+          no_audit: 未审核
     student:
       students:
         schedules:

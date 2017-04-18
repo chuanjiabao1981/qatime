@@ -1,6 +1,7 @@
 
 <div class="condition-right">
   <%= form_for @query, url: url, html: { method: :get } do |f| -%>
+    <%= hidden_field_tag :cate, params[:cate].presence %>
     <div class="condition">
       <span><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
       <%= f.select :grade_eq, APP_CONSTANT['grades_in_menu'],

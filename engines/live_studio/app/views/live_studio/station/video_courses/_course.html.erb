@@ -6,7 +6,6 @@
   <td><%= course.teacher_name %></td>
   <td><%= course.grade %></td>
   <td><%= course.subject %></td>
-  <td><%= course.status_text %></td>
   <td><%= localize(course.published_at, format: :long) if course.published_at %></td>
   <td><%= course.workstation.try(:name) %></td>
   <td><%= number_to_currency(course.price, precision: 2) %></td>

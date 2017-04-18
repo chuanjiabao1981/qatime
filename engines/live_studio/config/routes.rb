@@ -118,9 +118,11 @@ LiveStudio::Engine.routes.draw do
         collection do
           get :my_publish
           get :my_sells
+          get :audits
         end
         member do
           get :send_qr_code
+          post :audit
         end
       end
     end

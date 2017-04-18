@@ -4,7 +4,7 @@ module LiveStudio
   class Station::VideoCoursesController < Station::ApplicationController
     before_action :find_course, only: [:send_qr_code]
 
-    before_action :set_video_course_and_check, only: [:edit, :update]
+    before_action :set_video_course_and_check, only: [:edit, :update, :publish]
 
     def index
       @query = LiveStudio::VideoCourse.published.ransack(params[:q])
@@ -42,13 +42,23 @@ module LiveStudio
     end
 
     def update
+      @video_course.context = 'complete'
       if @video_course.update(video_course_params)
         @video_course.complete! if @video_course.confirmed?
-        @video_course.publish! if params[:publish].present?
-        redirect_to live_studio.list_station_workstation_video_courses_path(@workstation), notice: 'Video course was successfully updated.'
+        notice = '保存成功'
+        if params[:publish].present?
+          @video_course.publish!
+          notice = '发布成功'
+        end
+        redirect_to live_studio.list_station_workstation_video_courses_path(@workstation, cate: 'has_created'), notice: notice
       else
         render :edit
       end
+    end
+
+    def publish
+      @video_course.publish! if @video_course.completed?
+      redirect_to live_studio.list_station_workstation_video_courses_path(@workstation, cate: 'has_created'), notice: '发布成功'
     end
 
     private

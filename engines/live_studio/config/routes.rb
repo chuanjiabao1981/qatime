@@ -80,7 +80,6 @@ LiveStudio::Engine.routes.draw do
       post :taste # 试听
       get :play # 观看直播
       post :update_notice
-      patch :publish
       get :preview
     end
 
@@ -123,6 +122,7 @@ LiveStudio::Engine.routes.draw do
         end
         member do
           get :send_qr_code
+          patch :publish
         end
       end
     end

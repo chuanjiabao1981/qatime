@@ -119,11 +119,11 @@ LiveStudio::Engine.routes.draw do
           get :my_publish
           get :my_sells
           get :list
+          get :audits
         end
         member do
           get :send_qr_code
           patch :publish
-          get :audits
           post :audit
         end
       end

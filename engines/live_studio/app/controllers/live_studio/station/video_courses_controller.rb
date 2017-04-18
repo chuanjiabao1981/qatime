@@ -45,10 +45,10 @@ module LiveStudio
       @video_course.context = 'complete'
       if @video_course.update(video_course_params)
         @video_course.complete! if @video_course.confirmed?
-        notice = '保存成功'
+        notice = I18n.t('live_studio.notices.video_course.updated')
         if params[:publish].present?
           @video_course.publish!
-          notice = '发布成功'
+          notice = I18n.t('live_studio.notices.video_course.published')
         end
         redirect_to live_studio.list_station_workstation_video_courses_path(@workstation, cate: 'has_created'), notice: notice
       else
@@ -58,7 +58,7 @@ module LiveStudio
 
     def publish
       @video_course.publish! if @video_course.completed?
-      redirect_to live_studio.list_station_workstation_video_courses_path(@workstation, cate: 'has_created'), notice: '发布成功'
+      redirect_to live_studio.list_station_workstation_video_courses_path(@workstation, cate: 'has_created'), notice: I18n.t('live_studio.notices.video_course.published')
     end
 
     private

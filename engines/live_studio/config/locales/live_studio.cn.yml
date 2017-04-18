@@ -7,6 +7,7 @@ cn:
       my_courses: 发行/经销
       video_courses: 视频课列表
       my_video_courses: 发行/销售
+      manage_video_courses: 课程管理
       teacher:
         my_courses: 我的辅导
         my_interactive_courses: 我的一对一
@@ -37,6 +38,17 @@ cn:
       student:
         video_course:
           play: 观看
+      workstation:
+        video_course:
+          play: 播放
+          preview: 预览
+          create: 创建
+          edit: 编辑
+          publish: 发布
+    notices:
+      video_course:
+        updated: 视频课保存成功
+        published: 视频课发布成功
 
     course_records:
       nav:

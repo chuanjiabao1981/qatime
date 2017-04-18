@@ -114,9 +114,13 @@ LiveStudio::Engine.routes.draw do
         end
       end
       resources :interactive_courses, only: [:index]
-      resources :video_courses, only: [:index] do
+      resources :video_courses, only: [:index, :edit, :update] do
         member do
           get :send_qr_code
+        end
+
+        collection do
+          get :list, defaults: { status: 'confirmed' }
         end
       end
     end

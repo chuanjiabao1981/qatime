@@ -173,7 +173,7 @@ module Permissions
         workstation && workstation.manager_id == user.id
       end
 
-      allow 'live_studio/video_courses', [:index, :show, :preview]
+      allow 'live_studio/video_courses', [:index, :show, :preview, :edit, :update]
 
       ## end live studio permission
       allow 'chat/teams', [:finish, :members, :member_visit]
@@ -187,7 +187,7 @@ module Permissions
       allow 'live_studio/station/interactive_courses', [:index] do |workstation|
         workstation && workstation.manager_id == user.id
       end
-      allow 'live_studio/station/video_courses', [:index, :send_qr_code] do |workstation|
+      allow 'live_studio/station/video_courses', [:index, :send_qr_code, :list] do |workstation|
         workstation && workstation.manager_id == user.id
       end
       allow 'live_studio/teacher/teachers', [:schedules]

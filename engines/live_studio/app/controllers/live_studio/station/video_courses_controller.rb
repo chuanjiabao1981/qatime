@@ -19,10 +19,21 @@ module LiveStudio
       send_data image, type: "#{image.content_type};charset=utf-8;header=present", filename: "#{@video_course.name.to_s}.png", disposition: 'attachment'
     end
 
+    # 工作站视频课管理
+    def list
+      @video_courses = @workstation.live_studio_video_courses.where(status: LiveStudio::VideoCourse.statuses[params[:status] || 'confirmed'])
+      @video_courses = @video_courses.ransack(ransack_params)
+      @video_courses = @video_courses.result.order(id: :desc).paginate(page: params[:page])
+    end
+
     private
 
     def find_course
       @video_course = LiveStudio::VideoCourse.find(params[:id])
+    end
+
+    def ransack_params
+      params.permit(q: [:grade, :subject, :status])
     end
 
   end

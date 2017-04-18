@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170414151525) do
+ActiveRecord::Schema.define(version: 20170418081403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -934,6 +934,7 @@ ActiveRecord::Schema.define(version: 20170414151525) do
     t.integer  "replay_status",               default: 0
     t.string   "token"
     t.integer  "video_id"
+    t.boolean  "tastable"
   end
 
   add_index "live_studio_video_lessons", ["teacher_id"], name: "index_live_studio_video_lessons_on_teacher_id", using: :btree

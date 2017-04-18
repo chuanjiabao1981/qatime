@@ -1,0 +1,23 @@
+<%= search_form_for @query, url: '', id: 'search-form' do |f| %>
+  <%= hidden_field_tag :cate, params[:cate] %>
+  <div class="admin-list-nav">
+    <%= link_to t("view.video_course_filter.workstation.cate/waiting_create"),
+                live_studio.list_station_workstation_video_courses_path(@workstation, cate: 'waiting_create'),
+                class: "#{'active' unless params[:cate] == 'has_created' }" %>
+    <%= link_to t("view.video_course_filter.workstation.cate/has_created"),
+                live_studio.list_station_workstation_video_courses_path(@workstation, cate: 'has_created'),
+                class: "#{'active' if params[:cate] == 'has_created' }" %>
+  </div>
+  <div class="admin-list-title admin-list-condition">
+    <div class="condition-right">
+      <div class="condition">
+        <span><%= LiveStudio::VideoCourse.human_attribute_name(:grade) %></span>
+        <%= f.select :grade_eq, APP_CONSTANT['grades_in_sorts'], { include_blank: t('view.video_course_filter.all'), selected: @ransack_params[:q][:grade_eq] }, class: 'immediately' %>
+      </div>
+      <div class="condition">
+        <span><%= LiveStudio::VideoCourse.human_attribute_name(:subject) %></span>
+        <%= f.select :subject_eq, APP_CONSTANT['subjects'], { include_blank: t('view.video_course_filter.all'), selected: @ransack_params[:q][:subject_eq] }, class: 'immediately' %>
+      </div>
+    </div>
+  </div>
+<% end %>

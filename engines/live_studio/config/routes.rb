@@ -81,6 +81,7 @@ LiveStudio::Engine.routes.draw do
       get :play # 观看直播
       post :update_notice
       patch :publish
+      get :preview
     end
 
     resources :orders, only: [:new, :create]
@@ -118,7 +119,7 @@ LiveStudio::Engine.routes.draw do
         collection do
           get :my_publish
           get :my_sells
-          get :list, defaults: { status: 'confirmed' }
+          get :list
         end
         member do
           get :send_qr_code

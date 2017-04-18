@@ -1,0 +1,12 @@
+<% if video_course.confirmed? %>
+  <%= link_to '播放', 'javascript: void(0);', data: { toggle: "modal", target: "#playModal" } %>
+  <%= link_to '创建', live_studio.edit_station_workstation_video_course_path(@workstation, video_course) %>
+<% elsif video_course.completed? %>
+  <%= link_to '预览', live_studio.preview_video_course_path(video_course) %>
+  <%= link_to '播放', 'javascript: void(0);', data: { toggle: "modal", target: "#playModal" } %>
+  <%= link_to '编辑', live_studio.edit_station_workstation_video_course_path(@workstation, video_course) %>
+  <%= link_to '发布', live_studio.publish_station_workstation_video_course_path(@workstation, video_course), method: :patch %>
+<% elsif video_course.published? %>
+  <%= link_to '预览', live_studio.preview_video_course_path(video_course) %>
+  <%= link_to '播放', 'javascript: void(0);', data: { toggle: "modal", target: "#playModal" } %>
+<% end %>

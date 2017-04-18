@@ -4,6 +4,8 @@ module LiveStudio
   class Station::VideoCoursesController < Station::ApplicationController
     before_action :find_course, only: [:send_qr_code]
 
+    before_action :set_video_course_and_check, only: [:edit, :update]
+
     def index
       @query = LiveStudio::VideoCourse.published.ransack(params[:q])
       @video_courses = @query.result.order(id: :desc).paginate(page: params[:page])
@@ -31,9 +33,22 @@ module LiveStudio
 
     # 工作站视频课管理
     def list
-      @video_courses = @workstation.live_studio_video_courses.where(status: LiveStudio::VideoCourse.statuses[params[:status] || 'confirmed'])
-      @video_courses = @video_courses.ransack(ransack_params)
-      @video_courses = @video_courses.result.order(id: :desc).paginate(page: params[:page])
+      @video_courses = @workstation.live_studio_video_courses.includes(:teacher).where(cate_params)
+      @query = @video_courses.ransack(ransack_params[:q])
+      @video_courses = @query.result.order(id: :desc).paginate(page: params[:page])
+    end
+
+    def edit
+    end
+
+    def update
+      if @video_course.update(video_course_params)
+        @video_course.complete! if @video_course.confirmed?
+        @video_course.publish! if params[:publish].present?
+        redirect_to live_studio.list_station_workstation_video_courses_path(@workstation), notice: 'Video course was successfully updated.'
+      else
+        render :edit
+      end
     end
 
     private
@@ -43,8 +58,25 @@ module LiveStudio
     end
 
     def ransack_params
-      params.permit(q: [:grade, :subject, :status])
+      @ransack_params ||= params.permit(q: [:grade_eq, :subject_eq])
+      @ransack_params[:q] ||= {}
+      @ransack_params
     end
 
+    def set_video_course_and_check
+      @video_course = @workstation.live_studio_video_courses.find(params[:id])
+      redirect_to live_studio.list_station_workstation_video_courses_path(@workstation), notice: '视频课状态不正确.' unless %w(confirmed completed).include?(@video_course.status)
+    end
+
+    def cate_params
+      statuses = %w(confirmed)
+      statuses = %w(completed published) if params[:cate] == 'has_created'
+      { status: LiveStudio::VideoCourse.statuses.values_at(*statuses) }
+    end
+
+    def video_course_params
+      params.require(:video_course).permit(:name, :grade, :description, :objective, :suit_crowd, :sell_type, :price, :teacher_percentage,
+                                           video_lessons_attributes: [:id, :tastable])
+    end
   end
 end

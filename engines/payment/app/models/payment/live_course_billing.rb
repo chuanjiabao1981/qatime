@@ -24,12 +24,12 @@ module Payment
     end
 
     # 系统服务费金额
-    def teacher_money
+    def system_money
       system_fee_item.amount.to_f
     end
 
     # 系统服务费价格
-    def teacher_percentage
+    def system_percentage
       system_fee_item.price.to_f
     end
 

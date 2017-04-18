@@ -55,3 +55,22 @@ published_video_course2:
   platform_percentage: 3
   objective: 啊撒旦发送的发撒旦发送的
   suit_crowd: 啊撒旦发送的发撒旦发送的
+video_course_for_billing:
+  name: 结账测试视频课
+  teacher: teacher1
+  workstation: workstation_one
+  status: 3
+  description: 啊撒旦发送的发撒旦发送的
+  sell_type: 2
+  grade: 高二
+  subject: 语文
+  teacher_percentage: 60
+  price: 300
+  buy_tickets_count: 0
+  taste_count: 0
+  video_lessons_count: 1
+  publish_percentage: 5
+  platform_percentage: 10
+  objective: 啊撒旦发送的发撒旦发送的
+  suit_crowd: 啊撒旦发送的发撒旦发送的
+  total_duration: <%= 10 * 60 * 60 %>

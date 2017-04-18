@@ -426,3 +426,22 @@ interactive_course_refund_1:
   seller: workstation_hd (Workstation)
   pay_at: <%= 5.days.ago %>
 
+video_course_for_billing_order1:
+  type: Payment::Order
+  transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student1
+  amount: 360
+  pay_type: shipped
+  status: 3 # 已发货
+  product: video_course_for_billing (LiveStudio::VideoCourse)
+  pay_at: <%= 5.days.ago %>
+
+video_course_for_billing_order2:
+  type: Payment::Order
+  transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student_balance
+  amount: 360
+  pay_type: shipped
+  status: 3 # 已发货
+  product: video_course_for_billing (LiveStudio::VideoCourse)
+  pay_at: <%= 5.days.ago %>

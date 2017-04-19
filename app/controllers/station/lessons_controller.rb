@@ -3,7 +3,7 @@ class Station::LessonsController < Station::BaseController
 
   def state
     params[:state] = 'reviewing' if params[:state].blank?
-    @lessons = Lesson.all.by_state(params[:state]).order(:created_at).paginate(page: params[:page])
+    @lessons = Lesson.all.joins('left outer join users on users.id = lessons.teacher_id').where('users.workstation_id = ?', @workstation.id).by_state(params[:state]).order(:created_at).paginate(page: params[:page])
   end
 
   def update

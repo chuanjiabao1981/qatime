@@ -7,6 +7,7 @@ cn:
       my_courses: 发行/经销
       video_courses: 视频课列表
       my_video_courses: 发行/销售
+      manage_video_courses: 课程管理
       video_course_audits: 视频课审核
       teacher:
         my_courses: 我的辅导
@@ -38,6 +39,17 @@ cn:
       student:
         video_course:
           play: 观看
+      workstation:
+        video_course:
+          play: 播放
+          preview: 预览
+          create: 创建
+          edit: 编辑
+          publish: 发布
+    notices:
+      video_course:
+        updated: 视频课保存成功
+        published: 视频课发布成功
 
     course_records:
       nav:
@@ -185,6 +197,38 @@ cn:
         modal_start_time_was: 原开始时间
         modal_start_time_new: 新开始时间
     live_studio/video_course:
+      workstation:
+        new: 创建新视频课
+        label: 视频课说明
+        label1: 1.视频课是一种可重复销售的课程，允许多人购买;
+        label2: 2.视频课由学生自主观看学习，无需上课；
+        label3: 3.默认使用系统视频课程海报（如右图）；
+      workstation_new:
+        title: 创建新视频课
+        label: 一对一课程说明
+        label1: 1.仅允许一名学生购买，不能重复销售;
+        label2: 2.课程总时长共计450分钟，每课45分钟，共10课时；
+        label3: 3.默认使用系统一对一课程海报;
+        intro_one: 一、课程介绍
+        intro_two: 二、课程安排
+        intro_three: 三、价格和分成
+        preview: 预览
+        submit: 发布招生
+        save: 保存
+        save_and_publish: 保存并发布
+        lesson_name_text: "一对一互动课程-第%{index}课时"
+      workstation_edit:
+        title: 创建新视频课
+        label: 一对一课程说明
+        label1: 1.仅允许一名学生购买，不能重复销售;
+        label2: 2.课程总时长共计450分钟，每课45分钟，共10课时；
+        label3: 3.默认使用系统一对一课程海报;
+        intro_one: 一、课程介绍
+        intro_two: 二、课程安排
+        intro_three: 三、价格和试听
+        preview: 预览
+        submit: 发布招生
+        lesson_name_text: "一对一互动课程-第%{index}课时"
       index:
         name: 视频课名称
         teacher: 老师

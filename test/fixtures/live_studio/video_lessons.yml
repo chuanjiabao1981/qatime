@@ -22,3 +22,17 @@ published_video_lesson2:
   status: 0
   pos: 2
   video: video_for_published_video_lesson2
+
+confirmed_video_course_lesson1:
+  name: 第一节
+  video_course: confirmed_video_course
+  status: 0
+  pos: 1
+  real_time: <%= 60 * 60 %>
+
+completed_video_course_lesson1:
+  name: 第一节
+  video_course: completed_video_course
+  status: 0
+  pos: 1
+  real_time: <%= 60 * 60 %>

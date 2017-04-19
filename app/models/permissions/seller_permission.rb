@@ -130,6 +130,10 @@ module Permissions
         workstation && workstation.id == user.workstation_id
       end
 
+      # 视频课
+      allow 'live_studio/station/video_courses', [:index, :my_publish, :my_sells, :send_qr_code, :list, :edit, :update, :publish] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
     end
   end
 end

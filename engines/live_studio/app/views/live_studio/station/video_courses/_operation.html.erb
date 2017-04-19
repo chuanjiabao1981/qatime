@@ -1,0 +1,18 @@
+<% if video_course.confirmed? %>
+  <%= link_to t('live_studio.actions.workstation.video_course.play'),
+              'javascript: void(0);', data: { toggle: "modal", target: "#playModal" } if allow?('live_studio/station/video_courses', 'play') %>
+  <%= link_to t('live_studio.actions.workstation.video_course.create'),
+              live_studio.edit_station_workstation_video_course_path(@workstation, video_course) if allow?('live_studio/station/video_courses', 'edit', @workstation) %>
+<% elsif video_course.completed? %>
+  <%= link_to t('live_studio.actions.workstation.video_course.preview'),
+              live_studio.preview_video_course_path(video_course) %>
+  <%= link_to t('live_studio.actions.workstation.video_course.play'), 'javascript: void(0);', data: { toggle: "modal", target: "#playModal" } %>
+  <%= link_to t('live_studio.actions.workstation.video_course.edit'),
+              live_studio.edit_station_workstation_video_course_path(@workstation, video_course) if allow?('live_studio/station/video_courses', 'edit', @workstation) %>
+  <%= link_to t('live_studio.actions.workstation.video_course.publish'),
+              live_studio.publish_station_workstation_video_course_path(@workstation, video_course),
+              method: :patch if allow?('live_studio/station/video_courses', 'publish', @workstation) %>
+<% elsif video_course.published? %>
+  <%= link_to t('live_studio.actions.workstation.video_course.preview'), live_studio.preview_video_course_path(video_course) %>
+  <%= link_to t('live_studio.actions.workstation.video_course.play'), 'javascript: void(0);', data: { toggle: "modal", target: "#playModal" } %>
+<% end %>

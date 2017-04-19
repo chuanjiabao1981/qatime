@@ -5,6 +5,7 @@ module LiveStudio
     # include LiveStudio::QaCourseActionRecord
     has_soft_delete
     attr_accessor :sell_percentage_range
+    attr_accessor :context
 
     include AASM
     extend Enumerize
@@ -85,9 +86,11 @@ module LiveStudio
     validates :subject, presence: { message: I18n.t('view.live_studio/course.validates.subject') }, if: :subject_changed?
 
     validates :publish_percentage, :platform_percentage, :sell_and_platform_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
-    validates :teacher_percentage, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max }
 
     validate :check_billing_percentage
+
+    validates :teacher_percentage, :price, presence: true, if: :context_complete?
+    validates :teacher_percentage, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max }, if: :context_complete?
 
     # validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
     # validates :price, presence: { message: I18n.t('view.live_studio/course.validates.price') }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
@@ -366,6 +369,11 @@ module LiveStudio
 
     private
 
+    # 校验上下文, 升级Rails 5之前替代方案
+    def context_complete?
+      context == 'complete'
+    end
+
     # 辅导班删除以后同时删除课程
     after_commit :clear_lessons
     def clear_lessons
@@ -433,22 +441,18 @@ module LiveStudio
     end
 
     def copy_billing_percentage
-      tpl_workstation = workstation || Workstation.default
       # 发行分成
-      self.publish_percentage = tpl_workstation.publish_percentage
+      self.publish_percentage = workstation.publish_percentage
       # 平台分成
-      self.platform_percentage = tpl_workstation.platform_percentage
-      self.base_price = (tpl_workstation.service_price / 60.0).round(2)
+      self.platform_percentage = workstation.platform_percentage
+      self.base_price = (workstation.service_price / 60.0).round(2)
     end
 
     # 计算结账分成
-    before_validation :calculate_billing_percentage!
+    before_validation :calculate_billing_percentage!, if: :context_complete?
     def calculate_billing_percentage!
       return unless teacher_percentage.present?
-      if new_record?
-        copy_workstation_info
-        copy_billing_percentage
-      end
+      copy_billing_percentage if publish_percentage.zero?
       self.sell_and_platform_percentage = 100 - teacher_percentage - publish_percentage
     end
 

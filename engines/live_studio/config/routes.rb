@@ -80,7 +80,7 @@ LiveStudio::Engine.routes.draw do
       post :taste # 试听
       get :play # 观看直播
       post :update_notice
-      patch :publish
+      get :preview
     end
 
     resources :orders, only: [:new, :create]
@@ -114,14 +114,16 @@ LiveStudio::Engine.routes.draw do
         end
       end
       resources :interactive_courses, only: [:index]
-      resources :video_courses, only: [:index] do
+      resources :video_courses, only: [:index, :edit, :update] do
         collection do
           get :my_publish
           get :my_sells
+          get :list
           get :audits
         end
         member do
           get :send_qr_code
+          patch :publish
           post :audit
         end
       end

@@ -137,6 +137,11 @@ cn:
       sell_type_all: 全部课程
       sell_type_charge: 收费课程
       sell_type_free: 免费课程
+    video_course_filter:
+      all: 全部
+      workstation:
+        cate/waiting_create: 待创建
+        cate/has_created: 已创建
     payment_show:
       product_info: 商品详情
       order_info: 订单信息
@@ -454,10 +459,21 @@ cn:
         total_time: 时长
         billing_price: 课程总价
         billing_duration: 视频总时长
+        objective: 课程目标
+        suit_crowd: 适合人群
+        price: 价格
+        teacher_percentage: 教师分成
+        sell_type: 类型
+        total_duration: 视频总长
+        operation: 操作
+        index: 序号
+        confirmed_at: 审核时间
+        published_at: 发布时间
       live_studio/video_lesson:
         name: 课时名称
         video: 视频内容
         real_time: 时长
+        tastable: 允许试听
       live_studio/interactive_lesson:
         teacher: 老师
       live_studio/push_stream:

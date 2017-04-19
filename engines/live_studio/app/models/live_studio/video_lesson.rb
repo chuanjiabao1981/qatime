@@ -109,6 +109,15 @@ module LiveStudio
       (real_time.to_i / 60.0).round(2)
     end
 
+    # 是否可观看
+    def play_for?(user)
+      return false if user.nil?
+      return true if user.admin?
+      return false unless video_course.buy_tickets.where(student_id: user.id).available.exists?
+      return false unless video_course.play_authorize(user, nil)
+      true
+    end
+
     private
 
     # 过期试听证

@@ -255,44 +255,6 @@ module LiveStudio
       teaching? && finished_lessons_count >= lessons_count
     end
 
-    # 当前直播课程
-    def current_lesson
-      return @current_lesson if @current_lesson.present?
-      @current_lesson ||= video_lessons.find {|l| l.class_date.try(:today?) && l.unclosed? }
-      @current_lesson ||= video_lessons.select {|l| l.class_date.try(:today?) }.last
-      @current_lesson ||= video_lessons.find {|l| l.class_date > Date.today && l.unclosed? }
-      @current_lesson ||= video_lessons.select {|l| l.class_date.present? }.last
-    end
-
-    def live_status
-      return 'none' unless current_lesson
-      case current_lesson.status
-        when 'missed'
-          'init'
-        when 'init'
-          'init'
-        when 'ready'
-          'ready'
-        when 'teaching'
-          'teaching'
-        when 'paused'
-          'teaching'
-        else
-          'closed'
-      end
-    end
-
-    def current_lesson_name
-      case status.to_s
-        when 'preview'
-          I18n.t('view.course_show.preview_lesson')
-        when 'teaching'
-          current_lesson.try(:name)
-        when 'completed'
-          I18n.t('view.course_show.complete_lesson')
-      end || I18n.t('view.course_show.nil_data')
-    end
-
     # 课程单价
     def lesson_price
       return 0 unless video_lessons_count.to_i > 0

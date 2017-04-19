@@ -15,16 +15,9 @@ module LiveStudio
     strip_field :name, :description
     include Qatime::Discussable
 
-    SYSTEM_FEE = 0.6 # 系统每个人每分钟收费0.6元
-    WORKSTATION_PERCENT = 0.6 # 基础服务费代理商分成 60%
-
     USER_STATUS_BOUGHT = :bought # 已购买
     USER_STATUS_TASTING = :tasting # 正在试听
     USER_STATUS_TASTED = :tasted # 已经试听
-
-    DEFAULT_TEACHER_PERCENTAGE = 80
-
-    belongs_to :invitation
 
     enum status: {
            rejected: -1, # 被拒绝
@@ -87,10 +80,11 @@ module LiveStudio
 
     validates :publish_percentage, :platform_percentage, :sell_and_platform_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
-    validate :check_billing_percentage
+    validate :check_billing_percentage, if: :context_complete?
 
     validates :teacher_percentage, :price, presence: true, if: :context_complete?
     validates :teacher_percentage, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max }, if: :context_complete?
+    validates :price, numericality: { greater_than_or_equal_to: :lower_price }
 
     # validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
     # validates :price, presence: { message: I18n.t('view.live_studio/course.validates.price') }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
@@ -261,44 +255,6 @@ module LiveStudio
       teaching? && finished_lessons_count >= lessons_count
     end
 
-    # 当前直播课程
-    def current_lesson
-      return @current_lesson if @current_lesson.present?
-      @current_lesson ||= video_lessons.find {|l| l.class_date.try(:today?) && l.unclosed? }
-      @current_lesson ||= video_lessons.select {|l| l.class_date.try(:today?) }.last
-      @current_lesson ||= video_lessons.find {|l| l.class_date > Date.today && l.unclosed? }
-      @current_lesson ||= video_lessons.select {|l| l.class_date.present? }.last
-    end
-
-    def live_status
-      return 'none' unless current_lesson
-      case current_lesson.status
-        when 'missed'
-          'init'
-        when 'init'
-          'init'
-        when 'ready'
-          'ready'
-        when 'teaching'
-          'teaching'
-        when 'paused'
-          'teaching'
-        else
-          'closed'
-      end
-    end
-
-    def current_lesson_name
-      case status.to_s
-        when 'preview'
-          I18n.t('view.course_show.preview_lesson')
-        when 'teaching'
-          current_lesson.try(:name)
-        when 'completed'
-          I18n.t('view.course_show.complete_lesson')
-      end || I18n.t('view.course_show.nil_data')
-    end
-
     # 课程单价
     def lesson_price
       return 0 unless video_lessons_count.to_i > 0
@@ -402,42 +358,18 @@ module LiveStudio
       100 - publish_percentage - platform_percentage
     end
 
-    # after_commit :finish_invitation, on: :create
-    # def finish_invitation
-    #   invitation.accepted! if invitation
-    # end
-
     # 从教师记录复制辅导班信息
     before_validation :copy_info, on: :create
     def copy_info
-      self.subject = teacher.try(:subject)
-    end
-
-    def copy_workstation_info
-      # 邀请创建的辅导班工作站使用邀请者的工作站
-      copy_invitation_info! if invitation
-      # 没有工作站的辅导班使用老师的默认工作站
-      self.workstation ||= default_workstation
-      copy_city!
-    end
-
-    # 处理邀请
-    def copy_invitation_info!
-      return unless invitation
-      self.workstation = invitation.target
-      self.teacher_percentage = invitation.teacher_percent
-    end
-
-    # 根据工作站信息设置城市信息
-    def copy_city!
-      self.city = workstation.try(:city)
-      self.city ||= teacher.try(:city) # 工作站不存在使用老师的城市
+      self.subject = teacher.subject
+      self.workstation = teacher.workstation || default_workstation
+      self.city = workstation.city
       self.province = city.try(:province)
     end
 
     # 默认工作站
     def default_workstation
-      author.city.try(:workstations).try(:first)
+      author.city.try(:workstations).try(:first) || Workstation.default
     end
 
     def copy_billing_percentage
@@ -469,9 +401,7 @@ module LiveStudio
     end
 
     def lower_price
-      lp = 0
-      lp = video_lessons.size * 5 if video_lessons.size > 0
-      lp
+      video_lessons_count.to_i * 5
     end
   end
 end

@@ -152,6 +152,10 @@ module LiveStudio
       [teacher].compact
     end
 
+    def taste_lesson
+      video_lessons.find {|x| x.tastable?}
+    end
+
     def status_audit_text
       I18n.t("view.live_studio/video_course.audits.status_text.#{status}")
     end

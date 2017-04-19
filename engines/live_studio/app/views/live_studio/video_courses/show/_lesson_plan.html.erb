@@ -10,8 +10,10 @@
       <span><%= t('view.live_studio/courses.show.duration_text') %><em><%= format_duration(lesson.real_time) %></em></span>
     </div>
     <div class="col-md-2 arrange-view">
-      <%= link_to t('view.live_studio/courses.show.play_video'), 'javascript: void(0);' %>
+
+      <%= link_to t('view.live_studio/courses.show.play_video'), live_studio.play_video_lesson_path(lesson), target: '_blank' %>
       <%#= link_to t('view.live_studio/courses.show.tast_video'), 'javascript: void(0);', class: 'view-audition' %>
+
     </div>
   </div>
 <% end %>

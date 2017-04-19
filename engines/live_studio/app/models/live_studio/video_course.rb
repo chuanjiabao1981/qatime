@@ -80,7 +80,7 @@ module LiveStudio
 
     validates :publish_percentage, :platform_percentage, :sell_and_platform_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
-    validate :check_billing_percentage
+    validate :check_billing_percentage, if: :context_complete?
 
     validates :teacher_percentage, :price, presence: true, if: :context_complete?
     validates :teacher_percentage, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max }, if: :context_complete?

@@ -57,6 +57,17 @@ module Entities
       end
       expose :sell_type
       expose :total_duration
+      expose :icons do
+        expose :free_taste do |course|
+          course.taste_count.to_i > 0
+        end
+        expose :coupon_free do |course|
+          true
+        end
+        expose :cheap_moment do |course|
+          false
+        end
+      end
     end
   end
 end

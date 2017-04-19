@@ -105,6 +105,7 @@ module LiveStudio
     has_many :taste_tickets, as: :product # 试听证
     has_many :video_lessons, -> { order('id asc') }
     has_many :live_studio_course_notifications, as: :notificationable, dependent: :destroy
+    has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
 
     accepts_nested_attributes_for :video_lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
@@ -132,6 +133,8 @@ module LiveStudio
     scope :by_city, ->(city_id) { where(city_id: city_id) }
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
     scope :unpublished, -> { where('live_studio_video_courses.status < ?', VideoCourse.statuses[:published]) }
+    scope :audited, -> { where(status: VideoCourse.statuses.values_at(:rejected, :confirmed)) }
+    scope :no_audit, -> { where(status: VideoCourse.statuses[:init]) }
     scope :for_sell, -> { where(status: VideoCourse.statuses[:published]) }
 
     def cant_publish?
@@ -150,6 +153,10 @@ module LiveStudio
 
     def teachers
       [teacher].compact
+    end
+
+    def status_audit_text
+      I18n.t("view.live_studio/video_course.audits.status_text.#{status}")
     end
 
     def distance_days
@@ -306,7 +313,7 @@ module LiveStudio
       coupon = ::Payment::Coupon.find_by(code: coupon_code)
       return if coupon.blank?
 
-      course_buy_url = "#{$host_name}/wap/live_studio/courses/#{self.id}?come_from=weixin&coupon_code=" + coupon.code
+      course_buy_url = "#{$host_name}/wap/live_studio/video_courses/#{self.id}?come_from=weixin&coupon_code=" + coupon.code
       qr_code = self.qr_codes.by_coupon(coupon.id).try(:first)
       return qr_code.code_url if qr_code.present?
 

@@ -59,6 +59,23 @@ module Entities
       expose :chat_team, using: Entities::Chat::Team, if: { type: :full } do |course|
         course.chat_team
       end
+      expose :icons do
+        expose :refund_any_time do |course|
+          true
+        end
+        expose :coupon_free do |course|
+          true
+        end
+        expose :cheap_moment do |course|
+          false
+        end
+        expose :join_cheap do |course|
+          course.teaching?
+        end
+        expose :free_taste do |course|
+          course.taste_count.to_i > 0
+        end
+      end
     end
   end
 end

@@ -1,0 +1,43 @@
+<div class="panel panel-default">
+  <div class="admin">
+    <%= render 'live_studio/station/video_tab' %>
+
+    <div>
+      <div class="admin-list distribution">
+        <div class="admin-list-nav">
+          <%= link_to t('view.live_studio/video_course.video_course_audits.nav.no_audit'), audits_station_workstation_video_courses_path(@workstation, cate: 'no_audit'), class: "#{'active' if params[:cate] == 'no_audit'}" %>
+          <%= link_to t('view.live_studio/video_course.video_course_audits.nav.audited'), audits_station_workstation_video_courses_path(@workstation, cate: 'audited'), class: "#{'active' if params[:cate] == 'audited'}" %>
+        </div>
+        <div class="admin-list-title admin-list-condition">
+          <%= render partial: 'audits_filter', locals: { url: audits_station_workstation_video_courses_path(@workstation, cate: params[:cate]) } %>
+        </div>
+        <div class="admin-list-con">
+          <table class="table" border="1" cellspacing="1" cellpadding="1">
+            <tbody>
+            <tr>
+              <td><%= t('common.index_no') %></td>
+              <td><%= t('view.live_studio/video_course.index.name') %></td>
+              <td><%= t('view.live_studio/video_course.index.teacher') %></td>
+              <td><%= t('view.live_studio/video_course.index.grade') %></td>
+              <td><%= t('view.live_studio/video_course.index.subject') %></td>
+              <td><%= t('view.live_studio/video_course.audits.lesson_count') %></td>
+              <td><%= t('view.live_studio/video_course.audits.total_duration') %></td>
+              <td><%= t('view.live_studio/video_course.audits.created_at') %></td>
+              <td><%= t('common.operate') %></td>
+              <% if params[:cate] == 'audited' %>
+                <td><%= t('view.live_studio/video_course.audits.audit_result') %></td>
+              <% else %>
+                <td><%= t('view.live_studio/video_course.audits.audit') %></td>
+              <% end %>
+            </tr>
+
+            <%= render partial: 'audits_course', collection: @video_courses %>
+            </tbody>
+          </table>
+        </div>
+
+        <center><div class="pagination-fix"><%= will_paginate @video_courses %></div></center>
+      </div>
+    </div>
+  </div>
+</div>

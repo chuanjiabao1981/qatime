@@ -55,6 +55,11 @@
     <% end %>
   <% end if allow?('live_studio/station/interactive_courses', 'index', @workstation) %>
   <%= content_tag :li do %>
+    <%= link_to live_studio.station_workstation_video_courses_path(@workstation) do %>
+      <span class="glyphicon glyphicon-film"></span> <span class="qa_f18"> <%= t("view.common_bars.live_studio/video_course") %></span>
+    <% end %>
+  <% end if allow?('live_studio/station/interactive_courses', 'index', @workstation) %>
+  <%= content_tag :li do %>
     <%= link_to main_app.customized_courses_station_workstation_path(@workstation) do %>
       <span class="glyphicon glyphicon-book"></span> <span class="qa_f18"> <%= CustomizedCourse.model_name.human%></span>
     <% end %>

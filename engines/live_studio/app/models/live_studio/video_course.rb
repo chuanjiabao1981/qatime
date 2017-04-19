@@ -67,7 +67,7 @@ module LiveStudio
       event :publish do
         before do
           self.published_at = Time.now
-          self.billing_type = 'Payment::LiveCourseBilling'
+          self.taste_count = video_lessons.find_all {|x| x.tastable? }.count
         end
         transitions from: :completed, to: :published
       end

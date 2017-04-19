@@ -2,7 +2,7 @@
   <%= link_to t('live_studio.actions.workstation.video_course.play'),
               'javascript: void(0);', data: { toggle: "modal", target: "#playModal" } if allow?('live_studio/station/video_courses', 'play') %>
   <%= link_to t('live_studio.actions.workstation.video_course.create'),
-              live_studio.edit_station_workstation_video_course_path(@workstation, video_course) if allow?('live_studio/station/video_courses', 'edit', @workstation %>
+              live_studio.edit_station_workstation_video_course_path(@workstation, video_course) if allow?('live_studio/station/video_courses', 'edit', @workstation) %>
 <% elsif video_course.completed? %>
   <%= link_to t('live_studio.actions.workstation.video_course.preview'),
               live_studio.preview_video_course_path(video_course) %>

@@ -25,9 +25,9 @@ module LiveStudio
       params[:cate] ||= 'no_audit'
       case params[:cate]
         when 'audited'
-          video_courses = LiveStudio::VideoCourse.audited
+          video_courses = @workstation.live_studio_video_courses.audited
         else
-          video_courses = LiveStudio::VideoCourse.no_audit
+          video_courses = @workstation.live_studio_video_courses.no_audit
       end
 
       @query = video_courses.ransack(params[:q])

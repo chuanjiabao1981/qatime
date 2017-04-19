@@ -84,7 +84,7 @@ module LiveStudio
 
     validates :teacher_percentage, :price, presence: true, if: :context_complete?
     validates :teacher_percentage, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max }, if: :context_complete?
-    validates :price, numericality: { greater_than_or_equal_to: :lower_price }
+    validates :price, numericality: { greater_than_or_equal_to: :lower_price }, if: :context_complete?
 
     # validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
     # validates :price, presence: { message: I18n.t('view.live_studio/course.validates.price') }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }

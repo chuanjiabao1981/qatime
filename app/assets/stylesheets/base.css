@@ -3453,17 +3453,14 @@ ul {
 }
 .video-area {
   width: 100%;
-  /*height: 507px;*/
   background-color: rgb(41,41,41);
   position: relative;
 }
-
 .area-left {
   width: 71.5%;
   float: left;
 }
 .area-left-title,.area-right-title {
-  /*padding: 0 10px;*/
   height: 27px;
   line-height: 27px;
   font-size: 14px;
@@ -11105,7 +11102,7 @@ div.modal-apply {
     white-space: nowrap;
 }
 .playback-con > li > a > .row {
-  color: #555555;
+  color: #999;
 }
 .playback-con > li {
   overflow: hidden;
@@ -11503,49 +11500,43 @@ div.modal-apply {
   border-color: #CCCCCC;
   color: #CCCCCC;
 }
-.lessonsg-process > .row {
-  margin-top: 40px;
+.lessonsg-process > .process-study .row {
+  padding: 15px 0px;
+  margin: 40px 0 0 0;
 }
-.lessonsg-process > .row > .col-md-12 > img {
+.lessonsg-process > .process-study .row > .col-md-6 > img {
   width: 100%;
 }
-/*.lessonsg-process > .row > div{
+.lessonsg-process > .process-study .row > .col-md-6{
+  position: relative;
+}
+.lessonsg-process > .process-study >.row:last-child {
+  margin-top: 30px;
+}
+.study-info {
+  position: absolute;
+  height: 100%;
+  top: 0px;
+  bottom: 0px;
+  left: 28%;
+  right: 7.5%;
+  display:-webkit-flex;
+    align-items:center;
+    justify-content:center; 
+}
+.study-info > .info-step,.study-info > .info-step > p{
   text-align: center;
+  color: #FFFFFF;
 }
-.lessonsg-process > .row > .col-md-7 {
-  background-color: #f0f0f0;
-  line-height: 50px;
+.study-info > .info-step > h4 {
+  margin-top: 0px;
   font-size: 18px;
-  color: #666;
-  border-bottom-left-radius: 4px;
-  border-top-left-radius: 4px;
 }
-.lessonsg-process > .row > .col-md-3 {
-  line-height: 48px;
-  border: 1px solid #f1f1f1;
-  border-bottom-right-radius: 4px;
-  border-top-right-radius: 4px;
-  color: #999999;
-}
-.lessonsg-process > .row > .down-direction {
-  background-color: #FFFFFF;
-  line-height: 36px;
-}
-.lessonsg-process > .row {
-  margin-top: 40px;
-}
-.coursehead-tec > em {
-  font-size: 12px;
-  color: #CCCCCC;
-}
-@media only screen and (max-width: 768px) {
-.lessonsg-process > .row > .col-md-3,.lessonsg-process > .row > .col-md-7 {
-  border-radius: 0px;
+@media only screen  and (max-width: 768px) {
+.lessonsg-process > .process-study .row:last-child {
+  margin-top: -30px;
 } 
-.lessonsg-process > .row {
-  margin: 0px;
 }
-}*/
 
 
 /*老师课程表*/
@@ -11764,7 +11755,7 @@ div.modal-apply {
   display: inline-block;
   margin-right: 30px;
   position: relative;
-  top: 8px;
+  top: 7.5px;
   width: 26px;
   height: 26px;
 }
@@ -12295,6 +12286,26 @@ div.modal-apply {
   width: 100%;
   height: 100%;
 }
+.addvideo > .progress{
+  position: absolute;
+  overflow: visible;
+  width: 100%;
+  top: 95px;
+  left: 0px;
+  height: 2px;
+  z-index: 1000;
+}
+.addvideo > .progress > span {
+  width: 100%;
+  margin-top: 5px;
+  display: inline-block;
+  text-align: center;
+  font-size: 14px;
+  color: #000;
+}
+.addvideo > .progress > .progress-bar {
+  background-color: #ff5842;
+}
 .upload-video {
   position: absolute;
   top: 0px;
@@ -12447,7 +12458,7 @@ div.modal-apply {
 .addvideo-prompt {
   position: static;
   left: 0px;
-  top: 100px;
+  margin-top: 30px;
 }
 .addcourse-editor > a {
   margin-right: 10px;
@@ -12614,14 +12625,18 @@ div.modal-apply {
 }
 .charge-state > span > input {
   width: auto !important;
-  position: relative;
-  top: 2px;
+  /*position: relative;
+  top: 2px;*/
 }
 .charge-state > span:first-child {
   margin-right: 20px;
 }
-
-
+.charge-state > span {
+  display: inline-block;
+}
+.charge-state > span:last-child {
+  margin-top: 10px;
+}
 /*视频课列表*/
 .admin-title .active {
   color: #000;
@@ -12655,15 +12670,11 @@ div.modal-apply {
   border-bottom: 1px solid #999;
 }
 .modal-video > .modal-content >.popup-title > h3 {
-  position: absolute;
-  margin: 0px;
+  margin: 0px 0px 0 20px;
   font-size: 16px;
   color: #333;
   display: inline-block;
-  left: 176px;
-  right: 30px;
   line-height: 46px;
-  text-align: center;
 }
 .modal-video > .modal-content >.popup-title >img {
   width: 176px;
@@ -12686,6 +12697,13 @@ div.modal-apply {
     padding-bottom:56.25%;
   float: left;
 } 
+.modal-video > .modal-content .player-info .my-video {
+  position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
 .modal-video > .modal-content .player-info video {
   width: 100% !important;
   height: 100% !important;
@@ -12708,3 +12726,310 @@ div.modal-apply {
 }
 
 
+
+/*教师个人页增加视频课展示*/
+.class-info > h3 {
+  margin: 0px 0px 0px 30px;
+  font-size: 16px;
+}
+.class-info > .item-handpick {
+  zoom: 1;
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.class-info > .item-handpick:after {
+  display:block;
+  clear:both;
+  content:"";
+  visibility:hidden;
+  height:0;
+}
+.class-exclusive > .item-handpick > li > .handpick-info .class-price {
+  float: right;
+}
+
+
+/*视频课观看页面*/
+.video-info {
+  position: relative;
+  height: auto !important;
+  overflow: hidden !important;
+}
+.video-info > .area-left .area-left-con {
+  position: relative;
+  height: 0;
+  padding-bottom: 56.25%;
+}
+.video-info > .area-view {
+  width: 28.1%;
+  overflow: auto;
+  top: 0px;
+    bottom: 0px;
+  position: absolute;
+  right: 0;
+  background-color: #fff;
+  border-bottom: 1px solid rgb(41,41,41);
+}
+.area-view > .playback-con > li.active > a > .row > .col-md-2
+,.area-view > .playback-con > li.active > a > .row > .list-msg
+,.area-view > .playback-con > li:hover > a > .row > .col-md-2 {
+  color: #ff5842;
+}
+
+@media only screen and (min-width: 1400px) {
+.video-info > .area-view{
+  width: 24.3%;
+}
+.area-left {
+    width: 75.3%;
+} 
+}
+
+
+/*学生个人中心我的订单*/
+.discipline-con .order-info {
+  padding-left: 0px;
+  font-size: 16px;
+}
+.course-caption > .col-md-12 > span{
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.course-caption > .col-md-12 > span strong {
+  font-weight: 500;
+  color: #000;
+}
+.course-classify {
+  color: #666;
+}
+.course-amount {
+  color: #ff5842;
+}
+.course-caption,.course-classify {
+  margin-bottom: 10px;
+}
+.order-status {
+  font-size: 16px;
+  text-align: center;
+  padding-left: 0px;
+}
+.order-info > .course-classify,.order-info > .course-amount,.order-status > .status-handle {
+  font-size: 14px;
+}
+.order-info > .course-classify span:first-child
+,.order-info > .course-amount span:first-child {
+  margin-right: 10px;
+}
+.order-status > .status-payment {
+  height: 36px;
+  line-height: 36px;
+  color: #000;
+  margin-bottom: 10px;
+  margin-right: -45px;
+  background-color: #fafafa;
+}
+.order-status > .status-handle {
+  margin-right: -45px;
+}
+.order-status > .status-handle a,.order-status > .status-handle .reimburse{
+  display: block;
+  margin-bottom: 10px;
+  color: #ff5842;
+}
+.order-status > .status-handle .reimburse {
+  color: #999;
+}
+.order-status > .status-handle .reimburse > img {
+  width: 14px;
+  height: 14px;
+  margin-top: 3px;
+}
+.order-status > .status-handle a:last-child {
+  margin-bottom: 0px;
+}
+.course-caption {
+  height: 36px;
+  line-height: 36px;
+  margin-left: -30px;
+  background-color: #fafafa;
+}
+.course-caption > .col-md-12 {
+  padding-left: 30px;
+}
+.course-classify > .classify-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.payment-con > ul > li {
+  border-bottom: 0px;
+}
+@media only screen  and (max-width: 990px) {
+.course-caption,.course-classify,.order-status > .status-payment
+,.order-status > .status-handle a,.order-status > .status-handle .reimburse {
+  margin-bottom: 0px;
+}
+.order-status {
+  text-align: left;
+}
+.order-status > .status-handle a {
+  display: inline-block;
+} 
+.course-caption > .col-md-12 {
+  margin-right: 15px;
+}
+.course-caption {
+  margin-right: -30px;
+}
+.order-status > .status-payment {
+  margin-left: -30px;
+}
+.status-payment > .col-md-12 {
+  padding-left: 30px;
+}
+}
+
+
+/*申请退款*/
+.refund-apply > .row .subtitle {
+  height: 36px;
+  background-color: #f9f9f9;
+  text-align: center;
+  line-height: 36px;
+  font-size: 16px;
+  color: #999999;
+  border-top: 1px solid #f1f1f1;
+  border-bottom: 1px solid #F1F1F1;
+}
+.refund-apply > .row .apply-left {
+  padding-right: 0px;
+}
+.refund-apply > .row .apply-right {
+  padding-left: 0px;
+}
+.refund-info {
+  padding: 15px 0px;
+  color: #666;
+  border-right: 1px solid #F1F1F1;
+  border-bottom: 1px solid #F1F1F1;
+}
+.refund-info > .row {
+  margin-left: 0px;
+  margin-bottom: 10px;
+}
+.refund-info > .row:last-child {
+  margin-bottom: 0px;
+}
+.refund-info > .row span:first-child {
+  margin-right: 5px;
+  color: #999999;
+}
+.refund-info > .row >.specify-title{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.refund-info > .row > .specify-amount span {
+  color: #ff5842;
+}
+.apply-right >.refund-input{
+  min-height: 141px;
+  border-bottom: 1px solid #F1F1F1;
+}
+.refund-input textarea {
+  height: 120px;
+  padding: 15px;
+  border: 0px !important;
+  resize: none;
+  box-shadow: none;
+  outline: none;
+}
+.refund-input textarea:focus {
+  outline: none !important;
+}
+.refund-input .form-group {
+  margin-bottom: 0px;
+}
+.refund-input .form-group > .has-error {
+  margin: 0px;
+}
+.refund-footer {
+  padding: 20px;
+  min-height: 100px;
+  position: relative;
+}
+.refund-footer > p {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 40px;
+  text-align: center;
+  color: #999;
+}
+.refund-footer > input {
+  position: absolute;
+  top: 30px;
+  right: 20px;
+  width: 144px;
+  height: 42px;
+  font-size: 20px;
+  background-color: #FFFFFF;
+  border: 2px solid #999;
+  color: #999;
+  border-radius: 4px;
+  z-index: 100;
+}
+.refund-footer > input.active {
+  color: #ff5842;
+  border-color: #ff5842;
+}
+.refund-footer >  input.active:hover {
+  background-color: #ff5842;
+  color: #FFFFFF;
+}
+@media only screen  and (max-width: 990px) {
+.refund-apply > .row .apply-left {
+  padding-right: 15px;
+}
+.refund-apply > .row .apply-right {
+  padding-left: 15px;
+} 
+}
+@media only screen and (max-width: 768px) {
+.refund-info > .row {
+  margin-bottom: 0px;
+}
+.refund-footer  {
+  text-align: center;
+}
+.refund-footer > input {
+  position: static;
+  margin-top: 60px;
+} 
+}
+
+
+/*交易状态*/
+.trading {
+  padding: 15px;
+  box-shadow: 0 0 10px #CCCCCC;
+}
+.trading > .trading-info {
+  background-color: #FAFAFA;
+  margin: 0px;
+}
+.trading > .trading-info > .deal-left {
+  padding-left: 0px;
+  padding-right: 6px;
+}
+.trading > .trading-info > .deal-left > img {
+  width: 100%;
+  vertical-align: top;
+}
+@media only screen and (max-width: 990px) {
+.trading > .trading-info > .deal-left {
+  padding-right: 0px;
+} 
+}

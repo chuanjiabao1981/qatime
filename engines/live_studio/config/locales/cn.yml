@@ -5,6 +5,10 @@ cn:
       course_preview: 提示：此页面仅供查看和预览，不能进行操作哦！
       download: 下载APP
       notfund: 暂无数据
+      video_lesson:
+        name_blank: 课时名称不能为空
+        name_too_long: 课时名称过长
+        video_blank: 请选择视频
     search:
       all: 全部
       live_studio/course:
@@ -241,6 +245,9 @@ cn:
       video_tips: 说明
       video_tips_1: "1. 上传视频文件大小最多500M,视频长度60分钟以内最佳;"
       video_tips_2: "2. 目前仅支持MP4;"
+      uploading: 正在上传
+      uploaded: 上传成功
+      processing: 正在处理
 
     teacher_course:
       price: 价格：%.2f￥

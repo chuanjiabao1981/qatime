@@ -13,9 +13,9 @@
     <% end %>
     
     <% if notification.action_name.to_sym == LiveStudioCourseNotification::ACTION_NOTICE_CREATE %>
-      <%= t("view.notification.live_studio_video_course.#{notification.action_name}", content: notification.notificationable.chat_team.try(:announcement), teacher_name: notification.notificationable.teacher.name) %>
+      <%= t("view.notification.live_studio/video_course.#{notification.action_name}", content: notification.notificationable.chat_team.try(:announcement), teacher_name: notification.notificationable.teacher.name) %>
     <% else %>
-      <%= t("view.notification.live_studio_video_course.#{notification.action_name}", course_name: notification.notificationable.name, day: notification.notificationable.class_date) %>
+      <%= t("view.notification.live_studio/video_course.#{notification.action_name}", course_name: notification.notificationable.name, day: notification.notificationable.class_date) %>
     <% end %>
 
     <% if @receiver.student? -%>

@@ -71,6 +71,11 @@ module LiveStudio
         end
         transitions from: :completed, to: :published
       end
+
+      # 提交审核
+      event :submit do
+        transitions from: :rejected, to: :init
+      end
     end
 
     validates :name, presence: { message: I18n.t('view.live_studio/course.validates.name') }, length: { in: 2..20 }, if: :name_changed?
@@ -327,6 +332,10 @@ module LiveStudio
       (total_duration.to_f / 60.0).round(2)
     end
 
+    def can_edit?
+      init? || rejected?
+    end
+
     private
 
     # 校验上下文, 升级Rails 5之前替代方案
@@ -417,7 +426,7 @@ module LiveStudio
 
     # 通知
     def notify(receivers, action_name)
-      NotificationPublisherJob.perform_later('LiveStudioVideoCourseNotification', self, receivers, action_name)
+      NotificationPublisherJob.perform_later('LiveStudioVideoCourseNotification', self, action_name, receivers)
     end
 
     # 审核被拒通知

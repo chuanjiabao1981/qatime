@@ -21,6 +21,10 @@ cn:
         notice_create: "公告: \"%{content}\" -- %{teacher_name} 老师"
         notice_update: "公告: \"%{content}\" -- %{teacher_name} 老师"
         finish: "【%{course_name}】已结束（原因：学生已退款），请联系您的工作站重新开设课程。"
+      live_studio_video_course:
+        confirm: 【%{course_name}】审核通过, 请耐心等待工作站为您创建课程
+        reject: 【%{course_name}】审核被拒, 您可以重新编辑后再次提交审核
+        publish: 【%{course_name}】审核通过, 您可以到个人中心进行查看和预览
       live_studio_lesson:
         start_for_teacher: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时授课"
         start_for_student: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时参加学习"
@@ -53,6 +57,10 @@ cn:
           notice_create: 公告提醒
           notice_update: 公告提醒
           finish: 系统消息
+        live_studio_video_course:
+          reject: 审核提醒
+          confirm: 审核提醒
+          publish: 发布提醒
         live_studio_lesson:
           start_for_teacher: 上课提醒
           start_for_student: 上课提醒

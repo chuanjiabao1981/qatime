@@ -42,6 +42,8 @@ module LiveStudio
     def update
       if @video_course.update(video_course_params)
         @video_course.reset_total_duration
+        # 重新提交审核
+        @video_course.submit! if @video_course.rejected?
         redirect_to live_studio.teacher_video_courses_path(@teacher), notice: 'Video course was successfully updated.'
       else
         render :edit

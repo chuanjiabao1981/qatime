@@ -56,6 +56,13 @@ module LiveStudio
       redirect_to video_courses_url, notice: 'Video course was successfully destroyed.'
     end
 
+    def preview
+      @course = build_preview_course
+      @lessons = @course.video_lessons
+      @teachers = @course.teachers
+      render layout: 'v1/application'
+    end
+
     private
 
     def search_params
@@ -66,6 +73,26 @@ module LiveStudio
       @search_params
     end
 
+    def build_preview_course
+      return VideoCourse.find(params[:id]) if params[:id].present?
+      # 二次编辑页面预览
+      if params[:edit_id].present?
+        course = VideoCourse.find(params[:edit_id])
+        course.assign_attributes(video_course_preview_params)
+      else
+        course = VideoCourse.new(video_course_preview_params)
+      end
+
+      course.valid?
+      if params[:video_course][:video_lessons_attributes].blank?
+        course.video_lessons_count = 0
+      else
+        course.video_lessons_count = params[:video_course][:video_lessons_attributes].try(:count) || 0
+        course.taste_count = course.video_lessons.find_all {|x| x.tastable? }.count
+      end
+      course
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_video_course
       @video_course = VideoCourse.find(params[:id])
@@ -74,6 +101,11 @@ module LiveStudio
     # Only allow a trusted parameter "white list" through.
     def video_course_params
       params.require(:video_course).permit(:name, :grade, :description)
+    end
+
+    def video_course_preview_params
+      params.require(:video_course).permit(:name, :grade, :description, :objective, :suit_crowd, :sell_type, :price, :teacher_percentage,
+                                           video_lessons_attributes: [:id, :tastable])
     end
   end
 end

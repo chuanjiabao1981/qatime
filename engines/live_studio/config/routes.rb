@@ -85,6 +85,12 @@ LiveStudio::Engine.routes.draw do
 
     resources :orders, only: [:new, :create]
     resources :announcements, only: [:index, :update, :create], shallow: true
+
+    resources :video_lessons, only: [], shallow: true do
+      member do
+        get :play
+      end
+    end
   end
 
   namespace :station do

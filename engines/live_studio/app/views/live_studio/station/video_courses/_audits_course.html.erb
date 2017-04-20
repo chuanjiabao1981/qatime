@@ -2,18 +2,18 @@
 <tr>
   <td><%= show_index(audits_course_counter, @video_courses.limit_value) %></td>
   <td>
-    <%= link_to truncate_u(course.name, length: 9), live_studio.video_course_path(course), target: '_blank' %>
+    <%= link_to truncate_u(course.name, length: 9), live_studio.preview_video_course_path(course), target: '_blank' %>
   </td>
   <td><%= course.teacher_name %></td>
   <td><%= course.grade %></td>
   <td><%= course.subject %></td>
   <td><%= course.video_lessons_count %></td>
   <td><%= format_duration course.total_duration %></td>
-  <td><%= localize(course.created_at, format: :long) %></td>
+  <td><%= localize(course.created_at) %></td>
   <td>
-    <%= link_to t('view.live_studio/video_course.audits.play'), '#',
-                class: 'play_video_btn',
-                data: { toggle: 'modal', target: "#playModal", cid: course.id } %>
+    <% if allow?("live_studio/video_lessons", :play, course) %>
+      <%= link_to t('view.live_studio/video_course.audits.play'), live_studio.play_video_lesson_path(course.video_lessons.first), target: '_blank' %>
+    <% end %>
   </td>
   <% if params[:cate] == 'audited' %>
     <td class="review-result"><%= course.status_audit_text %></td>

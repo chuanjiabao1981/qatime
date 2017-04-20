@@ -2,13 +2,13 @@
 <tr>
   <td><%= show_index(publish_course_counter, @video_courses.limit_value) %></td>
   <td>
-    <%= link_to truncate_u(course.name, length: 9), live_studio.video_course_path(course), target: '_blank' %>
+    <%= link_to truncate_u(course.name, length: 9), live_studio.preview_video_course_path(course), target: '_blank' %>
   </td>
   <td><%= course.teacher_name %></td>
   <td><%= course.grade %></td>
   <td><%= course.subject %></td>
   <td><%= course.status_text %></td>
-  <td><%= localize(course.published_at, format: :long) if course.published_at %></td>
+  <td><%= localize(course.published_at) if course.published_at %></td>
   <td><%= number_to_currency(course.price, precision: 2) %></td>
   <td><%= LiveStudio::Course.human_attribute_name(:base_price_clt, price: course.service_price) %></td>
   <td><%= number_to_percentage(course.teacher_percentage, precision: 0) %></td>

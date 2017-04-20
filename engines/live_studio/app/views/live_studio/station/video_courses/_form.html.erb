@@ -165,7 +165,7 @@ $(function() {
   // 预览
   $("#course_preview").click(function() {
     var action = $(this).parents("form").attr('action');
-    $(this).parents("form").attr('action', "<%= live_studio.preview_video_courses_path %>");
+    $(this).parents("form").attr('action', "<%= live_studio.preview_video_courses_path(edit_id: @video_course.id) %>");
     $(this).parents("form").attr('target', '_blank');
     $(this).parents("form").submit();
     $(this).parents("form").attr('action', action);

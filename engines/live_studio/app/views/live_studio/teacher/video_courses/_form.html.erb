@@ -66,25 +66,42 @@ $(function() {
   // 视频上传
   $('#outer_wrap').on('change', '.video_file', function(e) {
     var currentNode = $(e.target).closest("li");
+    var progress = currentNode.find('.progress');
+    var progressBar = currentNode.find('.progress .progress-bar'); // 进度条
+    var uploadTips = currentNode.find('.progress .upload-tips'); // 上传提示
     var file = e.target.files[0];
     if(!file) return false;
     if(!file.name.match(/.mp4$/i)) {
       alert("<%= t('view.video_course_form.video_format_tips') %>");
       return false;
     }
+    var videoForm = '<form id="video_form" action="/videos" enctype="multipart/form-data" method="post"></form>';
     var data = new FormData();
     data.append("video[token]", $(e.target).attr('token'));
     data.append("video[name]" , file, file.name);
     data.append("capture", true);
     currentNode.find(".video_id").val('');
-    $.ajax({
-      url: '/videos',
-      data: data,
+    $(videoForm).ajaxSubmit({
       dataType: 'json',
+      formData: data,
       cache: false,
       contentType: false,
       processData: false,
       type: 'POST',
+      beforeSubmit: function(){
+        currentNode.find('.video_id').next('.has-error').text('');
+        progressBar.css({width: '0%'});
+        progress.show();
+        uploadTips.html('<%= t('view.video_course_form.uploading') %> ' + '0%').show();
+      },
+      uploadProgress: function(event, position, total, percentComplete) {
+        var percentVal = percentComplete + '%';
+        uploadTips.text('<%= t('view.video_course_form.uploading') %> ' + percentVal);
+        progressBar.css({width: percentVal});
+        if(percentVal == '100%') {
+          uploadTips.html('<%= t('view.video_course_form.processing') %>');
+        }
+      },
       success: function(data) {
         if(data.id) {
           currentNode.find(".video_id").val(data.id); // 设置视频ID
@@ -92,8 +109,11 @@ $(function() {
           currentNode.find(".video_duration_edit").text(formatDuration(data.tmp_duration)); // 设置视频时长
           currentNode.find(".video_capture_edit").attr('src', data.capture.url); // 设置视频截图
         }
+        uploadTips.html('<%= t('view.video_course_form.uploaded') %>').removeClass('has-error');
       }
     });
+    // 初始化进度条
+    
   });
 
   // 保存按钮
@@ -107,17 +127,17 @@ $(function() {
     currentNode.find(".has-error").text('');
     var result = true;
     if(currentNode.find('.lesson_name_edit').val().trim() == '') {
-      currentNode.find('.lesson_name_edit').next('.has-error').text("课时名称不能为空");
+      currentNode.find('.lesson_name_edit').next('.has-error').text("<%= t('view.tips.video_lesson.name_blank') %>");
       result = false;
     } else if (currentNode.find('.lesson_name_edit').val().trim().length > 20) {
-      currentNode.find('.lesson_name_edit').next('.has-error').text("课时名称不能超过20个字");
+      currentNode.find('.lesson_name_edit').next('.has-error').text("<%= t('view.tips.video_lesson.name_too_long') %>");
       result = false;
     }
     if(currentNode.find(".video_file").val() == '' && currentNode.find('.video_id').val() == '') {
-      currentNode.find('.video_id').next('.has-error').text("请选择视频");
+      currentNode.find('.video_id').next('.has-error').text("<%= t('view.tips.video_lesson.video_blank') %>");
       result = false;
     } else if(currentNode.find('.video_id').val() == '') {
-      currentNode.find('.video_id').next('.has-error').text("视频正在上传");
+      currentNode.find('.upload-tips').addClass('has-error');
       result = false;
     }
     return result;

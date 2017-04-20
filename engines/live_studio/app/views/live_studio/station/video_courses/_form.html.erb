@@ -171,6 +171,23 @@ $(function() {
     $(this).parents("form").attr('action', action);
     $(this).parents("form").removeAttr('target');
   });
+
+  // 免费
+  $("#video_course_sell_type_free").click(function() {
+    $("#video_course_price").attr('disabled', true);
+    $("#video_course_teacher_percentage").attr('disabled', true);
+  });
+
+  // 收费
+  $("#video_course_sell_type_charge").click(function() {
+    $("#video_course_price").attr('disabled', false);
+    $("#video_course_teacher_percentage").attr('disabled', false);
+  });
+
+  <% if @video_course.sell_type.free? %>
+    $("#video_course_price").attr('disabled', true);
+    $("#video_course_teacher_percentage").attr('disabled', true);
+  <% end %>
 });
 </script>
 <% end %>

@@ -388,6 +388,7 @@ module LiveStudio
     before_validation :calculate_billing_percentage!, if: :context_complete?
     def calculate_billing_percentage!
       return unless teacher_percentage.present?
+      self.teacher_percentage = 0 if sell_type.free?
       copy_billing_percentage if publish_percentage.zero?
       self.sell_and_platform_percentage = 100 - teacher_percentage - publish_percentage
     end
@@ -404,7 +405,13 @@ module LiveStudio
       !user.student? && workstation_id == user.workstation_id
     end
 
+    before_validation :check_sell_type
+    def check_sell_type
+      self.price = 0 if sell_type.free?
+    end
+
     def lower_price
+      return 0 if sell_type.free?
       video_lessons_count.to_i * 5
     end
   end

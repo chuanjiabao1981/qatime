@@ -174,6 +174,9 @@ module Permissions
       end
 
       allow 'live_studio/video_courses', [:index, :show, :preview, :edit, :update]
+      allow 'live_studio/video_lessons', [:play] do |lesson|
+        true
+      end
 
       ## end live studio permission
       allow 'chat/teams', [:finish, :members, :member_visit]

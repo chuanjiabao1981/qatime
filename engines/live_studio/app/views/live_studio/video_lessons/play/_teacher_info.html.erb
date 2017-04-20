@@ -1,0 +1,22 @@
+<% teacher = @course.teacher %>
+<div class="course-lessons">
+  <div class="lessons-detail tec-live">
+    <%= image_tag teacher.avatar, class: 'handle_error_avatar' %>
+    <p>
+      <span><%= teacher.name %></span>
+      <%= image_tag "#{teacher.gender || 'male'}_big.png" %>
+    </p>
+  </div>
+  <div class="lessons-detail">
+    <h3><%= t('view.play.teaching_years_text') %></h3>
+    <p><%= teacher.try(:teaching_years_text) %></p>
+  </div>
+  <div class="lessons-detail">
+    <h3><%= t('view.play.teacher_school_name') %></h3>
+    <p><%= teacher.school.try(:name) %></p>
+  </div>
+  <div class="lessons-detail">
+    <h3><%= t('view.play.teacher_summary')%></h3>
+    <p><%= raw teacher.desc %></p>
+  </div>
+</div>

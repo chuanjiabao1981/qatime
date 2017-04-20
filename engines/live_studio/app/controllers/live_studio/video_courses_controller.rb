@@ -17,8 +17,8 @@ module LiveStudio
     end
 
     def taste
-      @course = Course.find(params[:id])
-      @taste_ticket = LiveService::CourseDirector.taste_course_ticket(@student, @course)
+      @course = VideoCourse.find(params[:id])
+      @taste_ticket = LiveService::CourseDirector.taste_course_ticket(current_user, @course)
     end
 
     # GET /video_courses/new

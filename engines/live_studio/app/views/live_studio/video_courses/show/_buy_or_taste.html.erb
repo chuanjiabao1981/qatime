@@ -1,24 +1,19 @@
 <% if current_user.blank? %>
-  <%= link_to t('view.course_info_show.join_taste'), live_studio.taste_video_course_path(@course), method: :post, class: 'btn-startclass' if @course.taste_count.to_i > 0 %>
+  <%= link_to t('view.course_info_show.join_taste'), "javascript:alert('请先登录');", class: 'btn-startclass' if @course.taste_count.to_i > 0 %>
   <%= link_to t('activerecord.view.enroll_now2'), live_studio.new_video_course_order_path(@course), class: 'btn-addclass' %>
 <% else %>
   <% if @course.bought_by?(current_user) %>
     <!-- 已经购买 -->
-    <%= link_to(t('view.course_info_show.start_learning2'), 'javascript:void(0);', target: '_blank', class: 'btn-view') if @course.published? %>
-  <% elsif @course.tasted?(current_user) %>
-    <!-- 未购买试听结束 -->
-    <!-- 试听结束和购买按钮 -->
-    <%= link_to t('view.course_info_show.taste_end'), 'javascript:void(0);', class: 'btn-finish' %>
-    <%= link_to t('activerecord.view.enroll_now2'), live_studio.new_video_course_order_path(@course), class: 'btn-addclass' %>
+    <%= link_to(t('view.course_info_show.start_learning2'), live_studio.play_video_lesson_path(@course.video_lessons.first), target: '_blank', class: 'btn-view') if @course.published? %>
   <% elsif @course.tasting?(current_user) %>
     <!-- 开始试听和购买按钮 -->
-    <%= link_to(t('view.course_info_show.start_taste'), live_studio.play_video_course_path(@course), target: '_blank', class: 'btn-startclass') if @course.published? %>
+    <%= link_to(t('view.course_info_show.start_taste'), live_studio.play_video_lesson_path(@course.taste_lesson), target: '_blank', class: 'btn-startclass') if @course.published? %>
     <%= link_to t('activerecord.view.enroll_now2'), live_studio.new_video_course_order_path(@course), class: 'btn-addclass' %>
   <% elsif @course.taste_count <= 0 %>
     <%= link_to t('activerecord.view.enroll_now2'), live_studio.new_video_course_order_path(@course), class: "btn-addclass" %>
   <% else %>
     <!-- 试听和购买按钮 -->
-    <%= link_to(t('view.course_info_show.join_taste'), live_studio.taste_video_course_path(@course), class: 'btn-addclass', id: "taste-course-#{@course.id}", method: :post, remote: true) %>
+    <%= link_to(t('view.course_info_show.join_taste'), live_studio.taste_video_course_path(@course), class: 'btn-startclass', id: "taste-course-#{@course.id}", method: :post, remote: true) %>
     <%= link_to t('activerecord.view.enroll_now2'), live_studio.new_video_course_order_path(@course), class: 'btn-addclass' %>
   <% end %>
 <% end %>

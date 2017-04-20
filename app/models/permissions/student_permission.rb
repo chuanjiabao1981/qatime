@@ -165,6 +165,10 @@ module Permissions
       allow 'live_studio/lessons', [:replay] do |lesson|
         lesson.replayable && lesson.replayable_for?(user)
       end
+
+      allow 'live_studio/video_lessons', [:play] do |lesson|
+        lesson.tastable || lesson.play_for?(user)
+      end
       ## end live studio permission
 
       # payment permission

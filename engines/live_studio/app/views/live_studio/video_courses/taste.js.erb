@@ -1,0 +1,3 @@
+<% if @course.tasting?(current_user) -%>
+  $(".price-right").html("<%= j(render 'live_studio/video_courses/show/buy_or_taste') %>");
+<% end %>

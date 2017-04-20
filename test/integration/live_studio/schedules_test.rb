@@ -21,6 +21,11 @@ module LiveStudio
       sleep(1)
       assert page.has_content?(user.live_studio_lessons.unclosed.first.name)
       assert_equal page.all('.status-personal').size, user.live_studio_interactive_lessons.unclosed.count, '未上课一对一数量不对'
+
+      click_on '进入', match: :first
+      assert page.has_content? '一对一课程需要使用客户端才能进入，请安装最新版本'
+      find("span[aria-label='Close']").click
+
       page.find("#close_lessons_ceil").click
       sleep(1)
       assert page.has_content? '已结束'
@@ -31,7 +36,7 @@ module LiveStudio
       interactive_lesson = user.live_studio_interactive_lessons.today.first
       assert page.has_content?(interactive_lesson.name)
       course = user.live_studio_lessons.today.first.course
-      page.find(:xpath, "//a[@href='/live_studio/students/#{user.id}/courses/#{course.id}']",match: :first).click
+      page.find(:xpath, "//a[@href='/live_studio/courses/#{course.id}/play']", match: :first).click
       assert page.has_content?(course.name)
       new_logout_as(user)
     end
@@ -45,9 +50,6 @@ module LiveStudio
       assert_equal page.all('.status-personal').size, 2, '未上课一对一数量不对'
       assert page.has_content? '直播课'
       assert page.has_content? '学生人数'
-      click_on '进入', match: :first
-      assert page.has_content? '一对一课程需要使用客户端才能进入，请安装最新版本'
-      find("span[aria-label='Close']").click
 
       page.find("#close_lessons_ceil").click
       assert page.has_content? '已直播'

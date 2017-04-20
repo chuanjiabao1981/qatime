@@ -29,9 +29,8 @@ module LiveStudio
         else
           video_courses = @workstation.live_studio_video_courses.no_audit
       end
-
       @query = video_courses.ransack(params[:q])
-      @video_courses = @query.result.order(id: :desc).paginate(page: params[:page])
+      @video_courses = @query.result.includes(:video_lessons).order(id: :desc).paginate(page: params[:page])
     end
 
     # 通过/驳回

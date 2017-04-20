@@ -1,5 +1,8 @@
 cn:
   wap:
+    common:
+      down_app: 下载
+      down_intro: 仅支持安卓下载
     sessions:
       labels:
         login_account: 帐号
@@ -66,6 +69,7 @@ cn:
       download:
         down_app: 下载
         down_intro: 仅支持安卓下载
+
   view:
     wap:
       live_studio:

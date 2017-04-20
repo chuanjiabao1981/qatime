@@ -4,6 +4,7 @@ module LiveStudio
   class VideoCoursesController < ApplicationController
     layout :current_user_layout
     before_action :set_video_course, only: [:show, :edit, :update, :destroy]
+    before_action :detect_device_format, only: [:show]
 
     def index
       @q = LiveService::VideoCourseDirector.search(search_params)

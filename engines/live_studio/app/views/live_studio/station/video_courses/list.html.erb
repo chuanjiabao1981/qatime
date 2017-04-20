@@ -32,8 +32,8 @@
                   <td><%= video_course.subject %></td>
                   <td><%= video_course.video_lessons_count %></td>
                   <td>
-                    <%= localize(video_course.confirmed_at, format: :long) if params[:cate] != 'has_created' && video_course.confirmed_at %>
-                    <%= localize(video_course.published_at, format: :long) if params[:cate] == 'has_created' && video_course.published_at %>
+                    <%= localize(video_course.confirmed_at) if params[:cate] != 'has_created' && video_course.confirmed_at %>
+                    <%= localize(video_course.published_at) if params[:cate] == 'has_created' && video_course.published_at %>
                   </td>
                   <td><%= format_duration video_course.total_duration %></td>
                   <td><%= render 'operation', video_course: video_course %></td>

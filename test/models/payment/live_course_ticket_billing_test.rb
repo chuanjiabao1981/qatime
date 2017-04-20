@@ -10,11 +10,10 @@ module Payment
       billing = Payment::LiveCourseTicketBilling.new(target: lesson, from_user: lesson.teacher, ticket: ticket)
       billing.calculate
       assert_equal 3, billing.base_fee, "服务费计算错误"
-      assert_equal 47, billing.percent_money, "分成金额计算不正确"
-      assert_equal 23.5, billing.teacher_money, "教师收入计算不正确"
+      assert_equal 4.7, billing.platform_money.to_f, "平台收入计算不正确"
+      assert_equal 23.5, billing.teacher_money.to_f, "教师收入计算不正确"
       assert_equal 14.1, billing.sell_money, "经销商收入计算不正确"
       assert_equal 4.7, billing.publish_money, "发行商下收入计算不正确"
-      assert_equal 4.7, billing.system_money, "系统分成收入计算不正确"
     end
   end
 end

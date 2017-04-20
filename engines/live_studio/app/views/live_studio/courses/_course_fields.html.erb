@@ -1,233 +1,96 @@
-<div class="file-con">
-  <div class="file-con-msg">
-    <div style="width:480px; height: 300px; overflow: hidden; float:left;">
-      <%= image_tag @course.publicize_url, id: 'course_publicize_preview3' %>
-    </div>
 
-    <div class="file-new">
-      <span>*</span>
-      <a href="###" data-toggle="modal" data-target="#edit_publicize">点此更换图片</a>
-
-      <%= f.error :publicize, id: 'course_publicize_error' %>
-      <p class="create-advice">
-        建议：<br>
-        图片像素480*300，<br>
-        图片格式jpeg或png,<br>
-        图片文件不大于500k,<br>
-        禁止使用非法图片作为海报!
-      </p>
-    </div>
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :name, required: true %>
   </div>
-</div>
-<div class="editor-msg">
-  <div class="row remedial-class">
-    <div class="col-md-2">
-      <div style="padding-left: 10px;"><%= t("view.live_studio/courses.share_percentage") %></div>
-    </div>
-    <div class="col-md-10">
-      <div><%= number_to_percentage(LiveStudio::Course::DEFAULT_TEACHER_PERCENTAGE, precision: 0) %></div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-2">
-      <%= f.label :name %>
-    </div>
-    <div class="col-md-10">
-      <%= f.input :name, label: false, placeholder: '请输入辅导班名称（最多20字）', input_html: {maxlength: 20} %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-2">
-      <%= f.label :description %>
-    </div>
-    <div class="col-md-10">
-      <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
-      <%= f.input :description, label: false  %>
-    </div>
-
-  </div>
-
-  <div class="row">
-    <div class="col-md-2">
-      <%= f.label :grade %>
-    </div>
-    <div class="col-md-10">
-      <%= f.input :grade, collection: APP_CONSTANT['grades_in_menu'], label: false, prompt: '请选择年级' %>
-    </div>
-  </div>
-  <%= content_tag(:div, class: 'row') do%>
-    <div class="col-md-2">
-      <%= f.label :workstation, style: 'margin-left: 15px;' %>
-    </div>
-    <div class="col-md-10">
-      <%= f.association :workstation, collection: @teacher.city.workstations.map{|ws| [ws.name, ws.id]}, label: false, prompt: false%>
-    </div>
-  <% end if @course.invitation.blank? && @teacher.city.workstations.count > 1%>
-
-  <div class="row">
-    <div class="col-md-2">
-      <%= f.label :price %>
-    </div>
-    <div class="col-md-10">
-      <%= f.input :price, label: false, placeholder: '请输入正整数'%>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-2">
-      <%= f.label :taste_count, class: 'listen' %>
-    </div>
-    <div class="col-md-10">
-      <%= f.input :taste_count, label: false, placeholder: '请选择允许试听的课程数量（正整数）,不选择默认为0', input_html: {min: 0} %>
-    </div>
+  <div class="col-md-10">
+    <%= f.input :name, label: false, input_html: {maxlength: 20} %>
   </div>
 </div>
 
-<!-- edit publicize Modal -->
-<div class="modal fade" id="edit_publicize" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"><%= t("view.course_show.edit_publicize_title") %></h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-7">
-            <div class="modal-img">
-              <img id="course_publicize_preview">
-            </div>
-          </div>
-          <div class="col-md-5">
-            <div class="modal-avatar" >
-              <img id="course_publicize_preview2" >
-            </div>
-            <p>
-              <% %w[x y w h].each do |attribute| %>
-                <%= f.hidden_field "crop_#{attribute}"%>
-              <% end %>
-              <%= f.input :publicize, label: false, input_html:{onchange:"showimagepreviewarea(this)", style: "display:none;"} %>
-            </p>
-            <p>
-              <button type="button" class="btn btn-default" id="select_avatar_btn"><%= t "teachers.common.select" %></button>
-            </p>
-            <p>
-              <%= link_to t("view.play.close"),'javascript:void(0)','data-dismiss': "modal", class: "btn btn-default",'aria-label': "Close" %>
-            </p>
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :grade, required: true %>
+  </div>
+  <div class="col-md-10">
+    <%= f.input :grade, collection: APP_CONSTANT['grades_in_menu'], label: false, prompt: t('view.course_form.placeholders.grade') %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :subject, required: true %>
+  </div>
+  <div class="col-md-10">
+    <%= f.input :subject, collection: APP_CONSTANT['subjects'], label: false, prompt: t('view.course_form.placeholders.subject') %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :objective, required: true %>
+  </div>
+  <div class="col-md-10">
+    <%= f.input :objective, label: false, input_html: {maxlength: 50, placeholder: t('view.course_form.placeholders.objective') } %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :suit_crowd, required: true %>
+  </div>
+  <div class="col-md-10">
+    <%= f.input :suit_crowd, label: false, input_html: {maxlength: 30, placeholder: t('view.course_form.placeholders.suit_crowd') } %>
+  </div>
+</div>
+
+<%= content_tag(:div, class: 'row') do %>
+  <div class="col-md-2">
+    <%= f.label :workstation, required: true %>
+  </div>
+  <div class="col-md-10">
+    <%= f.association :workstation, collection: Workstation.all.map{|ws| [ws.name, ws.id]}, label: false, prompt: false %>
+  </div>
+<% end if @workstation.blank? %>
+
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :description, required: true %>
+  </div>
+  <div class="col-md-10">
+    <%= f.input :description, label: false  %>
+  </div>
+</div>
+
+<%= f.input :token, as: :hidden, value: f.object.token %>
+<div class="row">
+  <div class="col-md-2">
+    <%= f.label :tag_list %>
+  </div>
+  <div class="col-md-10 col-md-label">
+    <div class="form-group string optional course_tag_list">
+      <%= f.input_field :tag_list, value: @course.tag_list.join('; '), label: false, readonly: true %>
+      <%= f.label :tag_list, class: 'fa fa-angle-down pull-down' do %>
+      <% end %>
+    </div>
+    <div class="label-msg">
+      <% tags_with_group.each do |group| -%>
+        <div class="label-classify group-<%= group.id %>">
+          <span><%= group.name %></span>
+          <div class="label-classify-con">
+            <% group.tags.each do |tag| %>
+              <%= link_to tag.name, "javascript: void(0);", class: "#{@course.tag_list.include?(tag.name) ? 'active' : ''}" -%>
+            <% end -%>
           </div>
         </div>
-      </div>
+      <% end -%>
+      <a href="javascript:void(0);" class="btn-label">确定</a>
     </div>
+    <%= f.error :tag_list %>
   </div>
 </div>
 
 <script type="text/javascript">
-  var jcrop_api, boundx, boundy;
-
-  function showimagepreviewarea(input) {
-    var previewHeight = 240;
-    var previewWidth = 240;
-
-    // 初始化图片区域样式
-    // 防止上一次选择的图片影响本次样式
-    $("#course_publicize_preview").css({
-      width: '',
-      height: ''
-    }).parent().css({
-      paddingLeft: "0px",
-      paddingTop: "0px"
-    });
-
-    if (input.files && input.files[0]) {
-      var filerdr = new FileReader();
-      var heightMin = previewHeight;
-      var widthMin = previewWidth;
-      filerdr.onload = function(e) {
-        // 替换图片地址
-        $('#course_publicize_preview').attr('src', e.target.result);
-        $("#course_publicize_preview2").attr('src', e.target.result);
-        $("#course_publicize_preview3").attr('src', e.target.result);
-
-        // 插入图片显示尺寸
-        var imgWidth = $('#course_publicize_preview').width();
-        var imgHeight = $('#course_publicize_preview').height();
-        boundx = imgWidth;
-        boundy = imgHeight;
-
-        // 调整图片位置使图片居中显示
-        if(imgHeight > imgWidth) { // 高度大于宽度左右居中显示
-          $('#course_publicize_preview').parent().css({
-            paddingLeft: Math.round((previewWidth - imgWidth) / 2) + 'px',
-            paddingTop: "0px"
-          });
-          widthMin = imgWidth;
-        } else { // 高度小于宽度上下居中显示
-          $('#course_publicize_preview').parent().css({
-            paddingTop: Math.round((previewHeight - imgHeight) / 2) + 'px',
-            paddingLeft: "0px"
-          });
-          heightMin = imgHeight;
-        }
-      }
-      if (jcrop_api){
-        jcrop_api.destroy();
-      }
-      filerdr.readAsDataURL(input.files[0]);
-
-      // 图片加载完成以后显示默认裁剪
-      filerdr.onloadend = function(e){
-        $('#course_publicize_preview').Jcrop({
-          bgFade:     true,
-          bgOpacity: .4,
-          aspectRatio: 1.6,
-          setSelect: [ 0, 0, widthMin, heightMin],
-          onSelect: selectCoords,
-          onChange: selectCoords,
-          keySupport : false
-        }, function(){
-          var bounds = this.getBounds();
-          boundx = bounds[0];
-          boundy = bounds[1];
-          jcrop_api = this;
-        });
-      }
-    }
-  }
-
-  function selectCoords(coords) {
-    if (parseInt(coords.w) > 0) {
-      var rx = 205 / coords.w;
-      var ry = 128 / coords.h;
-      var zx = 480 / coords.w;
-      var zy = 300 / coords.h;
-
-      // 小图预览设置
-      $('#course_publicize_preview2').css({
-        width : Math.round(rx * boundx) + 'px',
-        height : Math.round(ry * boundy) + 'px',
-        marginLeft : '-' + Math.round(rx * coords.x) + 'px',
-        marginTop : '-' + Math.round(ry * coords.y) + 'px'
-      });
-
-      // 大图预览设置
-      $('#course_publicize_preview3').css({
-        width : Math.round(zx * boundx) + 'px',
-        height : Math.round(zy * boundy) + 'px',
-        marginLeft : '-' + Math.round(zx * coords.x) + 'px',
-        marginTop : '-' + Math.round(zy * coords.y) + 'px'
-      });
-    }
-
-    // 图片预览框的大小是240 x 240
-    // 服务端图片最大尺寸是 480 x 300 为了保证图片不被缩小后重新放大 服务端图片缩放为480 x 480以后进行裁剪
-    $('#course_crop_x').val(parseInt(coords.x) * 2);
-    $('#course_crop_y').val(parseInt(coords.y) * 2);
-    $('#course_crop_w').val(parseInt(coords.w) * 2);
-    $('#course_crop_h').val(parseInt(coords.h) * 2);
-  }
-
   $(function  () {
     var flag = true;
     $(".pull-down,.pull-down-input").click(function  () {
@@ -237,7 +100,7 @@
         $(".grade-check").slideUp(200);
       }
       flag = !flag;
-    })
+    });
 
     $("input[name='radio']").click(function  () {
       if($("input[name='radio']").is(":checked")){
@@ -245,50 +108,56 @@
         $("input[name='radio']").parents(".grade-check").slideUp(200);
       }
       flag = true;
-    })
-
-    $("#select_avatar_btn").on('click',function(event){
-      $("#course_publicize").click()
-    })
-
-    $("button.close").on('click',function(event){
-      $("#course_publicize").value = ''
-      $('#course_publicize_preview').attr('src', '');
-      $("#course_publicize_preview2").attr('src', '');
-
-      $('#course_publicize_preview').parent().css({
-        paddingTop: '0px'
-      });
-      $('#course_publicize_preview').css({
-        height: 'auto',
-        width: '100%'
-      });
-      $("#course_publicize_preview2").css({
-        height: '128px',
-        width: '205px',
-        marginTop: '0px',
-        marginLeft: '0px'
-      })
-
-      if (jcrop_api){
-        jcrop_api.destroy();
-      }
-    });
-
-    // 富文本区域
-    $('#course_description').summernote({
-      placeholder: '请输入辅导班介绍（最多300字）',
-      disableDragAndDrop: true,
-      height: 200,
-      toolbar: [
-        // [groupName, [list of button]]
-        ['style', ['bold', 'italic', 'underline', 'clear']],
-        ['fontsize', ['fontsize']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['height', ['height']]
-      ]
     });
   });
 
+  // 标签选择
+  $(".col-md-label input").click(function() {
+    $(".label-msg").toggle();
+  });
+  $(".label-msg").on('click', '.label-classify-con a', function (event) {
+    $(event.target).toggleClass("active").siblings().removeClass("active");
+  });
+  $(".btn-label").click(function () {
+    $(".col-md-label input").val($(".label-classify-con a.active").map(function(item) { return this.text }).get().join('; '));
+    $(".label-msg").hide();
+  });
+
+  // 富文本编辑
+
+  $("#course_description").summernote({
+    lang: 'zh-CN',
+    height: 400,
+    toolbar: [
+      ['style', ['style']],
+      ['font', ['bold', 'italic', 'underline', 'clear']],
+      ['fontname', ['fontname']],
+      ['color', ['color']],
+      ['para', ['ul', 'ol', 'paragraph']],
+      ['insert', ['link', 'picture']]
+    ],
+    callbacks: {
+      onImageUpload: function(files, editor, welEditable) {
+        var file = files[0];
+        data = new FormData()
+        data.append("picture[token]", $("#course_token").val());
+        data.append("picture[name]" , file, file.name);
+        $.ajax({
+          url: '/pictures',
+          data: data,
+          dataType: 'json',
+          cache: false,
+          contentType: false,
+          processData: false,
+          type: 'POST',
+          success: function(data) {
+            var imgNode = document.createElement("img");
+            imgNode.src = data.url;
+            imgNode.style.width = "50%";
+            $("#course_description").summernote('insertNode', imgNode);
+          }
+        });
+      }
+    }
+  });
 </script>

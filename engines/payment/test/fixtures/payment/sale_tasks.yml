@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  target_id: 
+  target_type: Target
+  started_at: 2017-03-09 11:54:55
+  period: 1
+  ended_at: 2017-03-09 11:54:55
+  charge_percentage: 1
+  target_balance: 9.99
+  result: false
+  result_balance: 9.99
+  status: 1
+
+two:
+  target_id: 
+  target_type: Target
+  started_at: 2017-03-09 11:54:55
+  period: 1
+  ended_at: 2017-03-09 11:54:55
+  charge_percentage: 1
+  target_balance: 9.99
+  result: false
+  result_balance: 9.99
+  status: 1

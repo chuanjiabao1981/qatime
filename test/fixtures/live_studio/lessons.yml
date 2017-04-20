@@ -1,20 +1,20 @@
 lesson_one:
   name: 测试课程1
-  course: courses(:course_teach_2)
+  course: course_teach_2
   description: 测试描述
   start_time: 16:30
   end_time: 17:30
   duration: 60
-  class_date: <%= 5.days.since.to_date %>
+  class_date: <%= Date.today %>
 
 lesson_two:
   name: 测试课程2
-  course: courses(:course_teach_2)
+  course: course_teach_2
   description: 测试描述
   start_time: 16:30
   end_time: 17:30
   duration: 60
-  class_date: <%= 5.days.since.to_date %>
+  class_date: <%= Date.today %>
 
 lesson_three:
   name: 测试课程3
@@ -23,7 +23,7 @@ lesson_three:
   start_time: 16:30
   end_time: 17:30
   duration: 60
-  class_date: <%= 5.days.since.to_date %>
+  class_date: <%= Date.today %>
   status: 2
 
 lesson_four:
@@ -45,8 +45,8 @@ english_lesson_today:
   class_date: <%= Date.today %>
 
 english_lesson_tomorrow:
-  name: 英语辅导班-第二节
-  course_id: 4
+  name: 英语辅导班-第二节1
+  course: course_with_lessons
   description: 测试描述
   start_time: 16:30
   end_time: 17:30
@@ -67,7 +67,7 @@ english_lesson_onlive:
 english_lesson_finished:
   name: 英语辅导班-已完成
   teacher_id: 10
-  course_id: 4
+  course: course_with_lessons
   description: 测试描述
   start_time: 16:30
   end_time: 17:30
@@ -95,8 +95,8 @@ english_lesson2_finished:
   real_time: 60
 
 ready_lessoncourses_today:
-  name: 英语辅导班-第二节
-  course_id: courses(:course_teach_2)
+  name: 英语辅导班-第二节2
+  course: course_teach_2
   description: 测试描述
   start_time: 16:30
   end_time: 17:30
@@ -105,7 +105,7 @@ ready_lessoncourses_today:
   status: 1
 
 lesson_for_course_with_junior_teacher:
-  name: 英语辅导班-第二节
+  name: 英语辅导班-第二节3
   course: course_with_junior_teacher
   description: 测试描述
   start_time: 16:30
@@ -115,8 +115,8 @@ lesson_for_course_with_junior_teacher:
   status: 1
 
 ready_lesson_today2:
-  name: 英语辅导班-第二节
-  course_id: 5
+  name: 英语辅导班-第二节4
+  course: course_preview
   description: 测试描述
   start_time: '10:20'
   end_time: '05:30'
@@ -124,8 +124,8 @@ ready_lesson_today2:
   status: 1
 
 ready_lesson_today3:
-  name: 英语辅导班-第二节
-  course_id: 5
+  name: 英语辅导班-第二节5
+  course: course_preview
   description: 测试描述
   start_time: '10:20'
   end_time: '05:30'
@@ -133,8 +133,8 @@ ready_lesson_today3:
   status: 1
 
 teaching_lesson:
-  name: 英语辅导班-第二节
-  course_id: 10000
+  name: 英语辅导班-第二节6
+  course: course_for_teaching
   description: 测试描述
   start_time: '10:20'
   end_time: '05:30'
@@ -143,8 +143,8 @@ teaching_lesson:
   status: 2
 
 ready_lesson_for_false:
-  name: 英语辅导班-第二节
-  course_id: 10000
+  name: 英语辅导班-第二节7
+  course: course_for_teaching
   description: 测试描述
   start_time: '10:20'
   end_time: '05:30'
@@ -152,8 +152,8 @@ ready_lesson_for_false:
   status: 1
 
 closed_lesson:
-  name: 英语辅导班-第二节
-  course_id: 10000
+  name: 英语辅导班-第二节8
+  course: course_for_teaching
   description: 测试描述
   start_time: '10:20'
   end_time: '05:30'
@@ -162,8 +162,8 @@ closed_lesson:
   status: 4
 
 2days_ago_teaching_lesson:
-  name: 英语辅导班-第二节
-  course_id: 10000
+  name: 英语辅导班-第二节9
+  course: course_for_teaching
   teacher_id: 10
   description: 测试描述
   start_time: '10:20'
@@ -171,8 +171,8 @@ closed_lesson:
   class_date: <%= Date.today.ago 2.days %>
   status: 2
 finish_lesson:
-  name: 英语辅导班-第二节
-  course_id: 10000
+  name: 英语辅导班-第二节10
+  course: course_for_teaching
   teacher_id: 10
   description: 测试描述
   start_time: '10:20'
@@ -180,7 +180,7 @@ finish_lesson:
   class_date: <%= Date.today.ago 2.days %>
   status: 5
 ready_lesson_for_init_course:
-  name: 英语辅导班-第二节
+  name: 英语辅导班-第二节11
   course_id: 10001
   teacher_id: 10
   description: 测试描述
@@ -200,7 +200,7 @@ lesson1_of_update_course:
   status: 7
 
 lesson2_of_update_course:
-  name: 英语辅导班-第二节
+  name: 英语辅导班-第二节12
   course: update_course_by_physics_teacher1
   teacher: physics_teacher1
   description: 测试描述
@@ -220,7 +220,7 @@ lesson3_of_update_course:
   status: 7
 
 init_lesson_change_ready:
-  name: 英语辅导班-第二节
+  name: 英语辅导班-第二节13
   course: update_course_by_physics_teacher1
   description: 测试描述
   start_time: '10:20'
@@ -638,5 +638,114 @@ lesson_two_of_billing_course_two:
   live_count: 3
   replay_status: 0
 
+lesson_one_of_billing_course_three:
+  name: 第1节
+  course: billing_course_three
+  teacher: teacher1
+  description: 这是第一节课
+  start_time: '10:20'
+  end_time: '05:30'
+  class_date: <%= Date.yesterday %>
+  status: 5
+  real_time: 5400
+  live_count: 3
+  replay_status: 0
 
+course_preview2_lesson1:
+  course: course_preview2
+  name: 第一节课
+  start_time: '18:00'
+  end_time: '19:00'
+  class_date: <%= 10.days.since %>
+  status: 0
+  replay_status: 0
 
+course_preview2_lesson2:
+  course: course_preview2
+  name: 第二节课
+  start_time: '18:00'
+  end_time: '19:00'
+  class_date: <%= 15.days.since %>
+  status: 0
+  replay_status: 0
+
+course_teaching1_lesson1:
+  course: course_teaching1
+  name: 第一节课
+  start_time: '18:00'
+  end_time: '19:00'
+  class_date: <%= 10.days.ago %>
+  status: -1
+  replay_status: 0
+
+course_teaching1_lesson2:
+  course: course_teaching1
+  name: 第二节课
+  start_time: '18:00'
+  end_time: '19:00'
+  class_date: <%= 15.days.since %>
+  status: 0
+  replay_status: 0
+
+course_teaching2_lesson1:
+  course: course_teaching2
+  name: 第一节课
+  start_time: '18:00'
+  end_time: '19:00'
+  class_date: <%= 10.days.ago %>
+  status: 5
+  replay_status: 0
+
+course_teaching2_lesson2:
+  course: course_teaching2
+  name: 第二节课
+  start_time: '18:00'
+  end_time: '19:00'
+  class_date: <%= Date.today %>
+  status: 1
+  replay_status: 0
+
+course_finished_lesson1:
+  course: course_finished
+  name: 第一节课
+  start_time: '18:00'
+  end_time: '19:00'
+  class_date: <%= 10.days.ago %>
+  status: 5
+  replay_status: 0
+
+course_finished_lesson2:
+  course: course_finished
+  name: 第二节课
+  start_time: '18:00'
+  end_time: '19:00'
+  class_date: <%= 10.days.ago %>
+  status: 5
+  replay_status: 0
+
+lesson_for_update_class_date1:
+  name: 第一节课
+  course: course_for_update_class_date
+  start_time: '07:10'
+  end_time: '07:40'
+  class_date: <%= 3.days.since.to_date %>
+  status: 0
+  duration: 30
+
+lesson_for_update_class_date2:
+  name: 第二节课
+  course: course_for_update_class_date
+  start_time: '08:10'
+  end_time: '08:40'
+  class_date: <%= 3.days.since.to_date + 1.day %>
+  status: 0
+  duration: 30
+
+lesson_for_update_class_date3:
+  name: 第三节课
+  course: course_for_update_class_date
+  start_time: '08:10'
+  end_time: '08:40'
+  class_date: <%= 3.days.since.to_date + 2.day %>
+  status: 0
+  duration: 30

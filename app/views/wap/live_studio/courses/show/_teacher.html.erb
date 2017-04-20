@@ -1,0 +1,26 @@
+<% teacher = @course.teacher || @course.build_teacher %>
+<div class="details-msg-con details-msg-tec">
+  <div class="details-introduction">
+    <%= link_to 'javascript:void(0);' do %>
+      <%= image_tag teacher.avatar %>
+    <% end %>
+    <span>
+      <em><%= teacher.name %></em>
+      <%= image_tag "wap/#{teacher.gender || 'male'}.png" %>
+    </span>
+  </div>
+  <div class="details-introduction">
+    <h4><%= t('wap.live_studio/courses.show.teaching_school') %></h4>
+    <p><%= truncate_u(teacher.school.try(:name), length: 10) %></p>
+  </div>
+  <div class="details-introduction">
+    <h4><%= t('wap.live_studio/courses.show.teaching_years') %></h4>
+    <div class="class-label">
+      <span><%= teacher.teaching_years_text %></span>
+    </div>
+  </div>
+  <div class="details-introduction">
+    <h4><%= t('wap.live_studio/courses.show.teacher_intro') %></h4>
+    <p><%= teacher.desc %></p>
+  </div>
+</div>

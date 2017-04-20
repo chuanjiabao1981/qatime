@@ -1,0 +1,18 @@
+<% 4.times do %>
+  <li class="col-md-3 col-xs-6">
+    <%= link_to "javascript:void(0);" do %>
+      <%= image_tag '/imgs/web-nocon-list.png' %>
+    <% end %>
+    <div class="handpick-info">
+      <p>
+        <%= link_to "javascript:void(0);" do %>
+          <strong><%= t('view.common_bars.default_title') %></strong>
+        <% end %>
+      </p>
+      <p>
+        <span><%= t('view.common_bars.default_grade_lesson') %></span>
+        <%= link_to t('view.common_bars.default_teacher'), "javascript:void(0);" %>
+      </p>
+    </div>
+  </li>
+<% end %>

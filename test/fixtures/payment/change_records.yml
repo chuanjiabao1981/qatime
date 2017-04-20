@@ -76,7 +76,6 @@ workstation_earning1:
   amount: 30
   type: "Payment::EarningRecord"
   created_at: <%= 2.months.ago %>
-  billing: workstation_billing1
 
 workstation_earning2:
   owner: workstation_zhuji (Workstation)
@@ -86,7 +85,6 @@ workstation_earning2:
   amount: 20
   type: "Payment::EarningRecord"
   created_at: <%= 2.weeks.ago %>
-  billing: workstation_billing2
   
 workstation_earning3:
   owner: workstation_zhuji (Workstation)
@@ -96,7 +94,6 @@ workstation_earning3:
   amount: 10
   type: "Payment::EarningRecord"
   created_at: <%= 2.day.ago %>
-  billing: workstation_billing3
   
 workstation_earning4:
   owner: workstation_zhuji (Workstation)
@@ -106,7 +103,6 @@ workstation_earning4:
   amount: 5
   type: "Payment::EarningRecord"
   created_at: <%= 2.day.ago %>
-  billing: workstation_billing4
   
 workstation_earning5:
   owner: workstation_zhuji (Workstation)
@@ -116,4 +112,57 @@ workstation_earning5:
   amount: 40
   type: "Payment::EarningRecord"
   created_at: <%= 2.day.ago %>
-  billing: workstation_billing5
+
+workstation_one_earning1:
+  owner: workstation_one (Workstation)
+  cash_account: cash_workstation_beijing
+  target: course_with_order2 (LiveStudio::Course)
+  different: 50
+  amount: 50
+  type: "Payment::EarningRecord"
+  created_at: <%= 2.day.ago %>
+
+workstation_one_earning2:
+  owner: workstation_one (Workstation)
+  cash_account: cash_workstation_beijing
+  target: course_with_order2 (LiveStudio::Course)
+  different: 50
+  amount: 50
+  type: "Payment::EarningRecord"
+  created_at: <%= 2.day.ago %>
+
+workstation_one_earning3:
+  owner: workstation_one (Workstation)
+  cash_account: cash_workstation_beijing
+  target: course_with_order2 (LiveStudio::Course)
+  different: 50
+  amount: 50
+  type: "Payment::EarningRecord"
+  created_at: <%= 2.day.ago %>
+
+workstation_hd_earning1:
+  owner: workstation_hd (Workstation)
+  cash_account: cash_workstation_hd
+  target: course_with_order2 (LiveStudio::Course)
+  different: 50
+  amount: 50
+  type: "Payment::EarningRecord"
+  created_at: <%= 2.day.ago %>
+
+workstation_hd_earning2:
+  owner: workstation_hd (Workstation)
+  cash_account: cash_workstation_hd
+  target: course_with_order2 (LiveStudio::Course)
+  different: 50
+  amount: 50
+  type: "Payment::EarningRecord"
+  created_at: <%= 2.day.ago %>
+
+workstation_hd_earning3:
+  owner: workstation_hd (Workstation)
+  cash_account: cash_workstation_hd
+  target: course_with_order2 (LiveStudio::Course)
+  different: 50
+  amount: 50
+  type: "Payment::EarningRecord"
+  created_at: <%= 2.day.ago %>

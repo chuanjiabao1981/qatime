@@ -34,3 +34,31 @@ cn:
         hours_3: 3小时
         hours_half_210: 3小时30分
         hours_4: 4小时
+    live_studio/interactive_course:
+      status:
+        init: 初始化
+        published: 招生中
+        teaching: 开课中
+        completed: 已结束
+        refunded: 已结束
+    live_studio/video_course:
+      status:
+        rejected: 审核被拒
+        init: 审核中
+        confirmed: 审核通过
+        completed: 已创建
+        published: 已发布
+      sell_type:
+        charge: 收费课程
+        free: 免费课程
+    live_studio/video_lessons:
+      durations:
+        minutes_30: 30分钟
+        minutes_45: 45分钟
+        hours_1: 1小时
+        hours_half_90: 1小时30分
+        hours_2: 2小时
+        hours_half_150: 2小时30分
+        hours_3: 3小时
+        hours_half_210: 3小时30分
+        hours_4: 4小时

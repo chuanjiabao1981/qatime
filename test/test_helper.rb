@@ -37,14 +37,12 @@ class ActiveSupport::TestCase
   end
 
   def logout_as(user, confirm = false)
-    if confirm
-      accept_prompt(with: "是否离开直播页面") do
-        visit get_home_url(user)
-      end
+    visit get_home_url(user)
+    if user.student?
+      click_on '退出'
     else
-      visit get_home_url(user)
+      click_on '退出系统'
     end
-    click_on '退出系统'
   end
 
   def new_log_in_as(user)
@@ -84,13 +82,8 @@ class ActiveSupport::TestCase
   end
 
   def new_logout_as(user, confirm = false)
-    if confirm
-      accept_prompt(with: "是否离开直播页面") do
-        visit get_home_url(user)
-      end
-    else
-      visit get_home_url(user)
-    end
+    visit get_home_url(user)
+    find('.nav-right-user').hover if page.has_selector?('div.nav-right-user')
     click_on '退出'
   end
 
@@ -146,6 +139,16 @@ class ActiveSupport::TestCase
     end
   end
 
+  # select2("apple", "#s2id_fruit_id")
+  def select2(value, element_selector)
+    select2_container = first("#{element_selector}")
+    select2_container.find(".select2-choice").click
+
+    find(:xpath, "//body").find("input.select2-input").set(value)
+    page.execute_script(%|$("input.select2-input:visible").keyup();|)
+    drop_container = ".select2-results"
+    find(:xpath, "//body").find("#{drop_container} li", match: :first, text: value).click
+  end
 
   def select_from_chosen(item_text,options)
     field = find_field(options[:from], visible: false)
@@ -187,6 +190,12 @@ class ActiveSupport::TestCase
 
   def random_str
     (0...50).map { ('a'..'z').to_a[rand(26)] }.join
+  end
+
+  def assert_request_success?
+    assert_response :success
+    @res = JSON.parse(response.body)
+    assert_equal 1, @res['status'], "响应错误 #{@res}"
   end
 end
 

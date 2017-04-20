@@ -19,7 +19,7 @@ module Wap
     test 'use account balance buy a course ' do
       course = live_studio_courses(:billing_course_one)
       wap_login(@student, main_app.wap_live_studio_course_path(course))
-      click_on "立即购买"
+      click_on "立即报名"
       click_on "新增订单"
       assert page.has_content?("请选择支付方式"), "不选择支付方式没有提示"
       choose "order_pay_type_account"
@@ -35,7 +35,7 @@ module Wap
       @cash_account = @student.cash_account!
       coupon = payment_coupons(:coupon_one)
       wap_login(@student, main_app.wap_live_studio_course_path(course, coupon_code: coupon.code))
-      click_on "立即购买"
+      click_on "立即报名"
       choose "order_pay_type_account"
       assert_difference "::Payment::Order.count", 1, "下单失败" do
         click_on "新增订单"
@@ -70,7 +70,7 @@ module Wap
       @cash_account = @student.cash_account!
       @coupon = payment_coupons(:coupon_one)
       wap_login(@student, main_app.wap_live_studio_course_path(@course, coupon_code: @coupon.code))
-      click_on "立即购买"
+      click_on "立即报名"
       choose "order_pay_type_weixin"
       assert_difference "::Payment::Order.count", 1, "下单失败" do
         click_on "新增订单"

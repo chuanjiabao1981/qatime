@@ -49,9 +49,9 @@ cn:
         course_title: 在线直播
         to: 至
         lession_intro: 课程简介
-        teaching_years: 执教年龄
+        teaching_years: 教师标签
         teaching_school: 所在学校
-        teacher_intro: 教师简介
+        teacher_intro: 自我介绍
         join_taste: 加入试听
         enter_taste: 进入试听
         enroll_now: 立即报名
@@ -60,6 +60,9 @@ cn:
         modal_title: 提示
         modal_content: 此功能需要打开客户端才能使用
         modal_download: 下载客户端
+        basic_title: 基本属性
+        course_tag: 课程标签
+        course_desc: 辅导介绍
       download:
         down_app: 下载
         down_intro: 仅支持安卓下载

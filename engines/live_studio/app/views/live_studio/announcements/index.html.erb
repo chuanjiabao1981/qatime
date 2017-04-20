@@ -2,7 +2,7 @@
   <div class="addinvite">
     <div class="addinvite-title">
       <div class="addinvite-title-left">
-        <%= link_to t("live_studio.menu.teacher.my_courses"), live_studio.teacher_courses_path(@course.teacher) %>
+        <%= link_to t("live_studio.menu.teacher.my_#{@course.model_name.route_key}"), live_studio.send("teacher_#{@course.model_name.route_key}_path", current_user) %>
         <span>&gt;</span>
         <span><%= t("common.announcement") %></span>
       </div>

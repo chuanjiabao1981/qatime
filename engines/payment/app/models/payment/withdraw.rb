@@ -4,16 +4,28 @@ module Payment
 
     has_one :withdraw_record, foreign_key: 'payment_transaction_id', class_name: 'Payment::WithdrawRecord'
     has_many :weixin_transfers, as: :order
+    has_one :withdraw_remit, as: :target, class_name: 'Payment::WithdrawRemit'
+    belongs_to :owner, polymorphic: true
 
     enum status: %w(init allowed refused canceled paid)
-    enum pay_type: %w(cash bank alipay wechat)
+    enum pay_type: %w(cash bank alipay wechat station)
 
-    attr_accessor :account_money_snap_shot
-    validate :validate_withdraw_amount, :validate_wechat, on: :create
-    after_create :frozen_balance
+    attr_accessor :account_money_snap_shot, :captcha
+    # 验证码验证
+    validates :captcha, confirmation: { case_sensitive: false , message: I18n.t('error.payment/withdraw.captcha_confirm')}, on: :create, if: :captcha_required?
+    validates :payee, presence: true, on: :create, if: Proc.new { |record| record.station? }
+    validates :amount, presence: true, numericality: { greater_than: 0 }, on: :create, if: Proc.new { |record| record.station? }
+    validate :amount_balance_valid, on: :create, if: Proc.new { |record| record.station? }
+
+    validate :validate_withdraw_amount, :validate_wechat, on: :create, unless: Proc.new { |record| record.station? }
+
+    after_create :decrease_cash!
 
     scope :filter, ->(keyword){keyword.blank? ? nil : where('transaction_no ~* ?', keyword).presence ||
       where(user: User.where('name ~* ?',keyword).presence || User.where('login_mobile ~* ?',keyword))}
+
+    scope :is_close, -> { where(close: true) }
+    scope :not_close, -> { where(close: false) }
 
     aasm column: :status, enum: true do
       state :init, initial: true
@@ -22,15 +34,15 @@ module Payment
       state :canceled
       state :paid
 
-      event :allow, before: :allow_operator do
+      event :allow do
         transitions from: [:init], to: :allowed
       end
 
-      event :refuse, before: :refuse_operator do
+      event :refuse, before: :refund_cash! do
         transitions from: [:init], to: :refused
       end
 
-      event :cancel, after: :cancel_frozen! do
+      event :cancel, after: :refund_cash! do
         transitions from: [:init], to: :canceled
       end
 
@@ -39,13 +51,28 @@ module Payment
       end
     end
 
-    def pay_and_ship!
-      pay!
-      cash_admin_billing!
+    # 是否需要验证码
+    def captcha_required?
+      @captcha_required == true
+    end
+
+    # 手动强制调用验证码验证
+    def captcha_required!
+      @captcha_required = true
+      self
+    end
+
+    def can_close?
+      %w[refused canceled paid].include?(status)
     end
 
     def status_text(role=nil)
-      role = role.present? && role == 'admin' ? 'admin' : 'teacher'
+      role = case role.to_s
+               when 'admin' then 'admin'
+               when 'station' then 'station'
+               else
+                 'teacher'
+             end
       I18n.t("activerecord.status.withdraw.#{role}.#{status}")
     end
 
@@ -61,9 +88,24 @@ module Payment
       statuses.slice(:allowed,:refused).map{|k,_| [I18n.t("activerecord.status.withdraw.admin.#{k}"), k]}
     end
 
+    def account_owner
+      owner || user
+    end
+
     private
-    def frozen_balance
-      user.cash_account!.freeze_cash(amount)
+
+    # 创建提现记录以后直接扣除账户余额
+    def decrease_cash!
+      # AccountService::CashManager.new(user.cash_account!).decrease('Payment::WithdrawChangeRecord', amount, self)
+      AccountService::CashManager.new(account_owner.cash_account!).decrease('Payment::WithdrawChangeRecord', amount, self)
+      AccountService::CashManager.new(account_owner.available_account).decrease('Payment::WithdrawChangeRecord', amount, self) if account_owner.is_a?(Workstation)
+    end
+
+    # 提现失败以后返还账户余额
+    def refund_cash!
+      # AccountService::CashManager.new(user.cash_account!).increase('Payment::WithdrawRefundRecord', amount, self)
+      AccountService::CashManager.new(account_owner.cash_account!).increase('Payment::WithdrawRefundRecord', amount, self)
+      AccountService::CashManager.new(account_owner.available_account).increase('Payment::WithdrawRefundRecord', amount, self) if account_owner.is_a?(Workstation)
     end
 
     def allow_operator(current_user)
@@ -102,11 +144,6 @@ module Payment
       )
     end
 
-    # 取消冻结资金
-    def cancel_frozen!
-      user.cash_account!.freeze_cash(-amount)
-    end
-
     def validate_withdraw_amount
       v = parse_raw_value_as_a_number(self.amount)
       if self.account_money_snap_shot.nil?
@@ -125,6 +162,13 @@ module Payment
       end
     end
 
+    # 余额校验
+    def amount_balance_valid
+      if self.owner.cash_account.balance.to_f < self.amount.to_f
+        errors.add(:amount, I18n.t("error.payment/withdraw.amount_overflow"))
+      end
+    end
+
     def validate_wechat
       self.errors.add(:pay_type, "微信未绑定，必须是本账户已绑定的微信号") if wechat? && user.wechat_users.blank?
     end
@@ -133,13 +177,6 @@ module Payment
       Kernel.Float(raw_value) if raw_value !~ /\A0[xX]/
     rescue ArgumentError, TypeError
       nil
-    end
-
-    # 系统账户结算
-    def cash_admin_billing!
-      summary = "系统支付提现, 订单编号：#{transaction_no} 订单金额: #{amount}"
-      billing = billings.create(total_money: amount, summary: summary)
-      CashAdmin.decrease_cash_account(amount, billing, summary)
     end
   end
 end

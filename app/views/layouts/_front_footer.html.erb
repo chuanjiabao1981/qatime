@@ -4,43 +4,43 @@
       <div class="row">
         <div class="col-md-6 link-left">
           <table border="0" cellspacing="0" cellpadding="0">
-          <tbody>
+            <tbody>
             <tr>
-            <td><p><%= t('view.footer.about_us') %></p></td>
-            <td><%= image_tag 'wechat_qrcode.png', size: '121x121' %></td>
-            <td><p><%= t('view.footer.code_tips') %></p></td>
-            <td></td>
+              <td><p><%= t('view.footer.about_us') %></p></td>
+              <td><%= image_tag 'wechat_qrcode.png', size: '121x121' %></td>
+              <td><p><%= t('view.footer.code_tips') %></p></td>
+              <td></td>
             </tr>
-          </tbody>
+            </tbody>
           </table>
         </div>
         <div class="col-md-6 link-right">
           <table border="0" cellspacing="0" cellpadding="0">
             <tbody>
-              <tr>
-                <td><%= t('view.footer.tel') %></td>
-                <td class="link-phonenum" colspan="2"><%= t('view.footer.tel_value') %></td>
-                <!--<td class="link-td">周一至周五<br />9:00-16:00</td>-->
-              </tr>
-              <tr>
-                <td><%= t('view.footer.qq') %></td>
-                <td colspan="2"><%= t('view.footer.qq_value') %></td>
-              </tr>
-              <tr>
-                <td><%= t('view.footer.address') %></td>
-                <td colspan="2"><%= @location_workstation.present? ? @location_workstation.address : t('view.footer.address_value') %></td>
-              </tr>
+            <tr>
+              <td><%= t('view.footer.tel') %></td>
+              <td class="link-phonenum" colspan="2"><%= t('view.footer.tel_value') %></td>
+              <!--<td class="link-td">周一至周五<br />9:00-16:00</td>-->
+            </tr>
+            <tr>
+              <td><%= t('view.footer.qq') %></td>
+              <td colspan="2"><%= t('view.footer.qq_value') %></td>
+            </tr>
+            <tr>
+              <td><%= t('view.footer.address') %></td>
+              <td colspan="2"><%= @location_workstation.present? ? @location_workstation.address : t('view.footer.address_value') %></td>
+            </tr>
             </tbody>
           </table>
         </div>
       </div>
       <div class="link-city">
-      <!--<p>
-        <span class="city-cooperation">合作城市</span>
-        <a href="javascript:void(0);" class="city-name">诸暨</a>
-        <a href="javascript:void(0);">阳泉</a>
-        
-      </p>-->
+        <!--<p>
+          <span class="city-cooperation">合作城市</span>
+          <a href="javascript:void(0);" class="city-name">诸暨</a>
+          <a href="javascript:void(0);">阳泉</a>
+
+        </p>-->
       </div>
       <div class="copyright">
         <div><%= t('view.footer.copyright') %></div>

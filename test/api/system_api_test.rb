@@ -6,7 +6,7 @@ class Qatime::SystemApiTest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal 10, res['data'].size
+    assert_equal 11, res['data'].size
   end
 
   test 'check update api enforce true' do

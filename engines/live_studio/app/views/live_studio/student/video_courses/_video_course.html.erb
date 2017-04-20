@@ -1,0 +1,44 @@
+<% cache [video_course, video_course.video_lessons_count] do %>
+  <li>
+    <div class="row">
+      <div class="col-md-3 discipline-pic">
+        <%= link_to image_tag(video_course.publicize_url(:list), class: 'handle_error_list'), live_studio.video_course_path(video_course) %>
+        <span class="video-time"><%= LiveStudio::VideoCourse.human_attribute_name(:total_time) %><i><%= format_duration(video_course.total_duration) %></i></span>
+      </div>
+      <div class="col-md-7 discipline-info">
+        <div class="row info-title">
+          <div class="col-md-12">
+            <%= link_to live_studio.video_course_path(video_course) do %>
+              <strong><%= video_course.name %></strong>
+            <% end %>
+          </div>
+        </div>
+        <div class="row info-state">
+          <div class="col-md-4">
+            <span><%= LiveStudio::VideoCourse.human_attribute_name(:grade) %></span>
+            <span><%= video_course.grade %></span>
+          </div>
+          <div class="col-md-4">
+            <span><%= LiveStudio::VideoCourse.human_attribute_name(:subject) %></span>
+            <span><%= video_course.subject %></span>
+          </div>
+          <div class="col-md-4">
+            <span><%= LiveStudio::VideoCourse.human_attribute_name(:video_lessons_count) %></span>
+            <span><%= video_course.video_lessons_count %></span>
+          </div>
+        </div>
+        <div class="row info-user">
+          <div class="col-md-12">
+            <span><%= LiveStudio::VideoCourse.human_attribute_name(:teacher_name) %></span>
+            <span><%= video_course.teacher_name %></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 course-state">
+        <i class="col-md-12 col-sm-4 col-xs-4">
+          <%= link_to t("live_studio.actions.student.video_course.play"), "javascript:void(0);", class: "watch" %>
+        </i>
+      </div>
+    </div>
+  </li>
+<% end %>

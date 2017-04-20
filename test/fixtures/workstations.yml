@@ -1,11 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 workstation_one:
   name: 第一个工作站
-  city: 北京
+  city: chaoyang
   address: 朝阳区
   tel: 123
   email: one@workstation.com
   manager: manager
+  status: 1
+  qq: 123123
+  join_price: 9999.23
+  caution_money: 5000
+  platform_percentage: 8
+  service_price: 4
+  contract_start_date_at: <%= 1.days.ago %>
+  contract_end_date_at: <%= 1.days.ago + 12.days %>
 
 workstation1:
   name: MyString
@@ -14,6 +22,9 @@ workstation1:
   tel: 1
   email: MyString
   manager: manager
+  platform_percentage: 10
+  contract_start_date_at: <%= 1.days.ago %>
+  contract_end_date_at: <%= 1.days.ago + 12.days %>
 
 workstation_invalid:
   name: MyString
@@ -37,6 +48,7 @@ workstation_zhuji:
   tel: 1
   email: MyString
   manager: manager_zhuji
+  platform_percentage: 20
 
 workstation_hd:
   name: 海淀工作站
@@ -45,6 +57,7 @@ workstation_hd:
   tel: 1
   email: MyString
   manager: customized_courses_manager
+  platform_percentage: 15
 workstation_default:
   name: 默认工作站
   city:
@@ -52,3 +65,4 @@ workstation_default:
   tel:
   email: admin@qatime.cn
   manager: admin
+  platform_percentage: 10

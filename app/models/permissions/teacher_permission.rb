@@ -249,10 +249,25 @@ module Permissions
       allow 'live_studio/teacher/course_invitations', [:index, :destroy]
 
       allow 'live_studio/announcements', [:index, :create, :update] do |course|
-        course && course.teacher_id = user.id
+        if course.is_a? LiveStudio::Course
+          course && course.teacher_id = user.id
+        else
+          course && course.teachers.include?(user)
+        end
       end
-      ## end live studio permission
 
+      ## end live studio permission
+      ## 一对一 start
+      allow 'live_studio/teacher/interactive_courses', [:index, :index]
+      allow 'live_studio/interactive_courses', [:preview]
+      ## 一对一 end
+
+      ## 视频课 start
+      allow 'live_studio/teacher/video_courses', [:index, :new, :create]
+      allow 'live_studio/teacher/video_courses', [:destroy, :edit, :update] do |teacher|
+        teacher && teacher == user
+      end
+      ## 视频课 end
 
       ## begin payment permission
 
@@ -293,6 +308,24 @@ module Permissions
         teacher && teacher.id == user.id
       end
 
+      ## 一对一直播
+      api_allow :POST, 'live_studio/teachers/\d+/interactive_courses'
+      api_allow :POST, 'live_studio/interactive_lessons/\d+/live_start' do |interactive_lesson|
+        interactive_lesson && interactive_lesson.teacher_id == user.id
+      end
+      api_allow :POST, 'live_studio/interactive_lessons/\d+/live_end' do |interactive_lesson|
+        interactive_lesson && interactive_lesson.teacher_id == user.id
+      end
+      api_allow :POST, 'live_studio/interactive_lessons/\d+/heart_beat' do |interactive_lesson|
+        interactive_lesson && interactive_lesson.teacher_id == user.id
+      end
+      ## 一对一直播
+
+      ## 视频课
+      api_allow :GET, 'live_studio/teachers/\d+/video_courses'
+
+      ## 视频课
+
       # 老师个人信息接口
       api_allow :GET, "/api/v1/teachers/[\\w-]+/info" do |teacher|
         teacher && teacher.id == user.id
@@ -308,7 +341,7 @@ module Permissions
       ## 获取授权token
       api_allow :GET, "/api/v1/ticket_tokens/cash_accounts/update_password"
       ## end 获取授权token
-      
+
       ### 修改支付密码
       api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password" # 设置支付密码
       api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password/ticket_token" # 修改支付密码

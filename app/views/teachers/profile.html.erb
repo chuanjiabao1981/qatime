@@ -1,109 +1,34 @@
-<div class="container container-details">
-  <div class="row">
-    <div class="panel panel-default">
-      <div class="tec-homepage">
-        <div class="homepage-title">
-          <div class="homepage-title-left">
-            <span><%= @teacher.name %></span>
-            <%= image_tag "#{@teacher.gender || 'male'}.png", size: '25x27', alt: :gender %>
-          </div>
-          <div class="homepage-title-right">
-            <span><i class="fa fa-check-square"></i>在线授课</span>
-            <span class="checkbox-homepage"><i class="fa fa-check-square"></i>资料已审核</span>
-          </div>
-        </div>
-        <div class="homepage-tec-msg">
-          <table border="0" cellspacing="0" cellpadding="0">
-            <tbody><tr>
-              <td rowspan="4" class="msg-header">
-                <%= image_tag @teacher.avatar_url %>
-              </td>
-              <td class="td-year"><i class="fa fa-clock-o icon-color-1"></i><span><%= @teacher.teaching_years_text %></span></td>
-              <td class="td-region"><i class="fa fa-university icon-color-1"></i><span><%= @teacher.province.try(:name) %>&nbsp;&nbsp;<%= @teacher.try(:city).try(:name) %></span></td>
-            </tr>
-            <tr>
-              <td class="td-year"><i class="glyphicon glyphicon-calendar icon-color-1"></i><span><%= "#{@teacher.category}#{@teacher.subject}" %></span></td>
-              <td class="td-region"><i class="fa fa-map-marker icon-color-1 icon-size"></i><span><%= @teacher.school.try(:name) %></span></td>
-            </tr>
-            <tr>
-              <td colspan="2" class="td-year"><i class="glyphicon glyphicon-user icon-color-1"></i><span>自我介绍</span></td>
-            </tr>
-            <tr>
-              <td colspan="2" class="td-year">
-                <%= @teacher.desc %>
-              </td>
-            </tr>
-            </tbody></table>
-        </div>
-        <div class="homepage-live">
-          <div class="homepage-live-title">
-            <p>TA的直播课</p>
-          </div>
 
-          <%= content_tag :div, class: 'screening-con' do %>
-            <ul class="list-live">
-              <% @courses.each do |course| %>
-                <li>
-                  <%= link_to image_tag(course.publicize_url(:list)),live_studio.course_path(course) %>
-                  <dl class="dl-list dl-list-1">
-                    <dd>
-                      <%= link_to course.name, live_studio.course_path(course) %>
-                    </dd>
-                    <dd>
-    		 					<span class="dd-left">
-                    <%= "#{course.grade}#{course.subject}/共#{course.try(:lessons_count)}课" %>
-    		 					</span>
-    		 					<span class="dd-right active-tab">
-                    <%= number_to_currency(course.current_price, locale: :cn) %>
-    		 					</span>
-                    </dd>
-                  </dl>
-                </li>
-              <% end %>
-            </ul>
-          <% end if @courses.present?%>
-          <%= content_tag :div, class: 'nocourse' do %>
-            <div class="nocourse-msg">
-              <center>
-                <%= image_tag 'no-course.png' %>
-              </center>
-              <p>暂无课程</p>
-            </div>
-          <% end if @courses.blank? %>
+<%= render partial: 'teachers/profiles/profile_header' %>
 
+<div class="user-content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="basic-msg">
+          <div class="basic-msg-header">
+            <h2><%= t('teachers.profile.basic_title') %></h2>
+          </div>
+          <ul>
+            <li><%= @teacher.teaching_years_text %></li>
+            <li><%= "#{@teacher.category}#{@teacher.subject}" %></li>
+            <li><%= @teacher.province.try(:name) %>&nbsp;<%= @teacher.try(:city).try(:name) %></li>
+            <li><%= @teacher.school.try(:name) %></li>
+          </ul>
+        </div>
+      </div>
 
+      <div class="col-md-9">
+        <div class="basic-introduce">
+          <div class="introduce-header">
+            <h2><%= t('teachers.profile.my_intro') %></h2>
+          </div>
+          <div class="introduce-info">
+            <p><%= @teacher.desc %></p>
+          </div>
         </div>
-        <div class="homepage-elscon">
-          <table border="0" cellspacing="0" cellpadding="0">
-            <tbody><tr>
-              <td></td>
-              <td><span>其他课程内容</span></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><span>专属课程授课</span></td>
-              <td><span>公共课程发布</span></td>
-              <td><span>问答社区答疑</span></td>
-            </tr>
-            <tr>
-              <td class="icon1-color">
-                <%= link_to @user_path || send("customized_courses_#{current_user.role}_path",current_user) do %>
-                  <i class="glyphicon glyphicon-user"></i><span>申请购买</span>
-                <%end %>
-              </td>
-              <td class="icon1-color">
-                <%= link_to curriculums_path do %>
-                  <i class="fa fa-clock-o"></i><span>近期发布</span>
-                <% end %>
-              </td>
-              <td class="icon1-color">
-                <%= link_to questions_path do %>
-                  <i class="fa fa-file"></i><span>最新回答</span>
-                <%end %>
-              </td>
-            </tr>
-            </tbody></table>
-        </div>
+
+        <%= render partial: 'teachers/profiles/profile_courses' %>
       </div>
     </div>
   </div>

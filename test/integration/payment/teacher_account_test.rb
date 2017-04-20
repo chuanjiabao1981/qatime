@@ -37,7 +37,10 @@ module Payment
       fill_in 'payment_password', with: '111111'
       fill_in 'bank_account', with: 'test'
       fill_in 'bank_name', with: 'test'
-      click_on '提现申请'
+      assert_difference "@teacher.cash_account.reload.balance.to_f", -1000, "提现未扣款" do
+        click_on '提现申请'
+        sleep(2)
+      end
       assert page.has_content?('交易信息')
       assert Payment::Withdraw.count == withdraw_count+1
       click_link '提现记录'

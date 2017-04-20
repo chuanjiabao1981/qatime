@@ -24,8 +24,9 @@ class WorkstationIntegrateTest < LoginTestBase
     new_page(@admin, @admin_session,new_admins_workstation_path)
     new_page(@manager, @manager_session,new_admins_workstation_path)
   end
+
   test 'show page' do
-    show_page(@admin, @admin_session, admins_workstation_path(@workstation))
+    show_page(@admin, @admin_session, station_workstation_path(@workstation))
     show_page(@manager, @manager_session, admins_workstation_path(@workstation))
   end
 

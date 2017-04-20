@@ -1,0 +1,13 @@
+<div class="site-nav">
+  <div class="container">
+    <div class="site-nav-left">
+      <span><%= t('view.common_bars.welcome') %></span>
+      <em>
+        <i><%= @location_city.try(:name) || t('view.common_bars.nationwide') %></i>
+        <%= link_to_unless_current "【#{t('view.common_bars.switch_city')}】", switch_city_home_index_path, class: 'switch-city' %>
+      </em>
+    </div>
+
+    <%= render 'layouts/v1/login_info' %>
+  </div>
+</div>

@@ -25,14 +25,20 @@ module Payment
               }
 
     CATE_UNPAID = %w(unpaid).freeze
-    CATE_PAID = %w(paid shipped completed refunding).freeze
+    CATE_PAID = %w(paid settled shipped completed refunding).freeze
     CATE_CANCELED = %w(canceled expired refunded).freeze
+
+    # 有效订单
+    # 成功支付就算有效订单
+    # 增加状态请修改这里
+    scope :valid_order, -> { where(status: statuses.slice(:paid, :settled, :shipped, :completed, :refunding, :refunded).values) }
 
     enum status: {
       unpaid: 0, # 未支付
       paid: 1, # 已支付
-      shipped: 2, # 已发货
-      completed: 3, # 已完成
+      settled: 2, # 已结算
+      shipped: 3, # 已发货
+      completed: 5, # 已完成
       refunding: 94, # 退款中
       canceled: 95, # 已取消
       expired: 96, # 过期订单
@@ -43,6 +49,7 @@ module Payment
 
     belongs_to :user
     belongs_to :product, polymorphic: true
+    belongs_to :seller, polymorphic: true
     belongs_to :coupon, class_name: "::Payment::Coupon"
     # 代理经销商
     delegate :owner, to: :coupon, allow_nil: true, prefix: true
@@ -60,10 +67,16 @@ module Payment
       errors.add(:coupon_code, I18n.t("error.payment/order.coupon_code_invalid")) if coupon_code.present? && !::Payment::Coupon.exists?(code: coupon_code)
     end
 
+    before_validation :set_seller, on: :create
+    def set_seller
+      self.seller = coupon_owner if coupon_owner
+    end
+
     aasm column: :status, enum: true do
       state :unpaid, initial: true
       state :paid
       state :canceled
+      state :settled
       state :shipped
       state :completed
       state :refunding
@@ -79,11 +92,15 @@ module Payment
         transitions from: :unpaid, to: :canceled
       end
 
+      event :settle, after_commit: :ship! do
+        transitions from: :paid, to: :settled
+      end
+
       event :ship do
         before do
-          delivery_product
+          delivery_product!
         end
-        transitions from: :paid, to: :shipped
+        transitions from: :settled, to: :shipped
       end
 
       event :finish do
@@ -115,24 +132,24 @@ module Payment
     end
 
     # 发货
-    def delivery_product
+    def delivery_product!
       product.deliver(self)
-    end
-
-    # 支付并发货
-    def pay_and_ship!
-      Payment::Order.transaction do
-        raise Payment::BalanceNotEnough, "订单未支付" if !account? && !remote_order.paid?
-        order_billing!
-        pay!
-      end
-      ship!
     end
 
     # 应该支付金额
     def pay_money
       return 1 if Rails.env.testing? || Rails.env.development?
       (amount * 100).to_i
+    end
+
+    # 优惠价格
+    def cheap_price
+      [product.try(:price).to_f - amount, 0.0].max
+    end
+
+    # 销售收入增加额(分成利润)
+    def profit_amount
+      product.try(:calculate_sell_percentage).presence || 0.0
     end
 
     # 订单状态
@@ -218,15 +235,21 @@ module Payment
 
     def pay_with_ticket_token!(ticket_token)
       raise Payment::TokenInvalid, "无效token" if account? && !user.cash_account!.validate_ticket_token('pay', ticket_token, self)
-      pay_and_ship!
+      BusinessService::CourseOrderManager.new(self).billing
     end
 
     # 支付密码为空字符串或者nil都不自动支付
     def pay_with_payment_password!
-      pay_and_ship! if check_payment_password?
+      BusinessService::CourseOrderManager.new(self).billing if check_payment_password?
     rescue Payment::BalanceNotEnough
       errors.add(:pay_type, I18n.t("error.payment/cash_account.balance_not_enough"))
       false
+    end
+
+    def pay_and_ship!
+      return if account?
+      pay! if remote_order.paid?
+      BusinessService::CourseOrderManager.new(self).billing
     end
 
     private
@@ -263,16 +286,6 @@ module Payment
     # 记录支付时间
     def touch_pay_at
       touch(:pay_at)
-    end
-
-    def order_billing!
-      summary = "订单支付, 订单编号：#{order_no} 订单金额: #{amount}"
-      billing = billings.create(total_money: amount, summary: summary)
-      user.cash_account!.consumption(amount, self, billing, summary, change_type: pay_type)
-      CashAdmin.increase_cash_account(amount, billing, summary)
-    end
-
-    def auto_paid!
     end
   end
 end

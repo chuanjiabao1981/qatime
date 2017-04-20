@@ -1,0 +1,109 @@
+
+<% if change_record.type == 'Payment::WithdrawChangeRecord' %>
+  <tr>
+    <td><%= show_index(index, @change_records.limit_value) %></td>
+    <td><%= number_to_currency(change_record.different, locale: :cn) %></td>
+    <td><%= change_record.model_name.human %></td>
+    <td><%= number_to_currency(change_record.after, locale: :cn) %></td>
+    <td class="spending-message">
+      <span><%= change_record.business.try(:payee) %></span>
+    </td>
+    <td><%= localize(change_record.created_at, format: :long) %></td>
+    <td>
+      <a href="javascript:void(0);" class="view-msg">
+        <span><%= t('view.shared.workstations.change_records.show_link') %></span>
+        <i class="fa fa-angle-down"></i>
+      </a>
+    </td>
+  </tr>
+
+  <tr class="admin-record-msg">
+    <td colspan="7">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+        <tr>
+          <td>
+            <span><%= t('view.shared.workstations.change_records.different_money') %></span>
+            <span><%= number_to_currency(change_record.business.try(:amount), locale: :cn) %></span>
+          </td>
+          <td>
+            <span><%= t('view.shared.workstations.change_records.beore_money') %></span>
+            <span><%= number_to_currency(change_record.before, locale: :cn) %></span>
+          </td>
+          <td>
+            <span><%= t('view.shared.workstations.change_records.after_money') %></span>
+            <span><%= number_to_currency(change_record.after, locale: :cn) %></span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </td>
+  </tr>
+<% end %>
+
+<% if change_record.type == 'Payment::SaleTaskPayRecord' %>
+  <tr>
+    <td><%= show_index(index, @change_records.limit_value) %></td>
+    <td><%= number_to_currency(change_record.different, locale: :cn) %></td>
+    <td><%= change_record.model_name.human %></td>
+    <td><%= number_to_currency(change_record.after, locale: :cn) %></td>
+    <td class="spending-message">
+      <span><%= change_record.business.try(:name) %></span>
+    </td>
+    <td><%= localize(change_record.created_at, format: :long) %></td>
+    <td>
+      <a href="javascript:void(0);" class="view-msg">
+        <span><%= t('view.shared.workstations.change_records.show_link') %></span>
+        <i class="fa fa-angle-down"></i>
+      </a>
+    </td>
+  </tr>
+
+  <tr class="admin-record-msg">
+    <td colspan="7">
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody><tr>
+          <td>
+            <span><%= Payment::SaleTask.human_attribute_name(:started_at) %>：</span>
+            <span><%= localize(change_record.target.started_at.to_date) %></span>
+          </td>
+          <td>
+            <span><%= Payment::SaleTask.human_attribute_name(:ended_at) %>：</span>
+            <span><%= localize(change_record.target.ended_at.to_date) %></span>
+          </td>
+          <td>
+            <span><%= Payment::SaleTask.human_attribute_name(:period) %>：</span>
+            <span><%= t('view.payment/sale_task.period', period: change_record.target.period) %></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span><%= Payment::SaleTask.human_attribute_name(:target_balance) %>：</span>
+            <span><%= number_to_currency(change_record.target.target_balance, locale: 'cn') %></span>
+          </td>
+          <td colspan="2">
+            <span><%= Payment::SaleTask.human_attribute_name(:result_balance) %>:</span>
+            <span><%= number_to_currency(change_record.target.result_balance, locale: 'cn') %></span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span><%= Payment::SaleTask.human_attribute_name(:left_amount) %>：</span>
+            <span><%= number_to_currency(change_record.target.left_amount, locale: 'cn') %></span>
+          </td>
+          <td colspan="2">
+            <span><%= Payment::SaleTask.human_attribute_name(:charge_percentage) %>：</span>
+            <span><%= number_to_percentage(change_record.target.charge_percentage, precision: 0) %></span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <span><%= Payment::SaleTask.human_attribute_name(:charge_balance) %>：</span>
+            <span><%= number_to_currency(change_record.target.charge_balance, locale: 'cn') %></span>
+            <i><%= Payment::SaleTask.human_attribute_name(:charge_tips) %></i>
+          </td>
+        </tr>
+        </tbody></table>
+    </td>
+  </tr>
+<% end %>

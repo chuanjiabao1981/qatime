@@ -61,7 +61,17 @@ Qatime::Application.routes.draw do
     resources :faq_topics do
       resources :faqs
     end
-    resources :workstations
+    resources :workstations do
+      member do
+        post :change_status
+      end
+    end
+    resources :workstation_withdraws, only: [:index] do
+      member do
+        post :audit
+      end
+    end
+    resources :workstation_remits
     resources :softwares do
       member do
         get :run
@@ -101,16 +111,24 @@ Qatime::Application.routes.draw do
   end
 
   namespace :station do
-    resources :workstations, only: [:show] do
+    resources :workstations do
       member do
         get :customized_courses
         get :schools
-        get :teachers
-        get :students
+        # get :teachers
+        # get :students
         get :sellers
         get :waiters
         get :action_records
+        get :fund
+        post :withdraw
+        post :close_withdraw
+        get :change_records
+        get :statistics
+        post :get_billing_item
       end
+      resources :teachers, only: [:index]
+      resources :students, only: [:index]
       resources :sellers, except: [:index]
       resources :waiters, except: [:index]
       resources :lessons, only: [:update] do
@@ -146,11 +164,6 @@ Qatime::Application.routes.draw do
     resources :recharge_records
     resources :faqs
     resources :faq_topics
-    resources :orders, only: [:index] do
-      member do
-        get :pay
-      end
-    end
   end
 
   post 'students/courses/:id' => "students/courses#purchase", as: 'students_course_purchase'
@@ -411,6 +424,7 @@ Qatime::Application.routes.draw do
         get 'option_schools'
         get 'home_curriculums'
         get 'home_questions'
+        post :home_teachers
       end
     end
   end

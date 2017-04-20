@@ -18,7 +18,7 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
 
-    assert_equal 1, res['status']
+    assert_equal 1, res['status'], "响应错误 #{res}"
     assert_equal 17, res['data'].size
 
     assert_equal @student.name, res['data']['name']
@@ -73,7 +73,7 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     data = JSON.parse(response.body)['data']
     assert_response :success
     assert data.class == Array
-    assert data.first['lessons'].count == 2, '返回课程数量不对'
+    assert_equal 3, data.first['lessons'].count, '返回课程数量不对'
     return_date = data.first['date'].to_date
     assert return_date >= Time.now.beginning_of_month.to_date && return_date <= Time.now.end_of_month.to_date, '返回数据日期不正确'
   end
@@ -96,7 +96,7 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     data = JSON.parse(response.body)['data']
     assert_response :success
     assert data.class == Array
-    assert data.first['lessons'].count == 2, '返回课程数量不对'
+    assert_equal 3, data.first['lessons'].count, '返回课程数量不对'
     return_date = data.first['date'].to_date
     assert return_date >= Time.now.beginning_of_month.to_date && return_date <= Time.now.end_of_month.to_date, '返回数据日期不正确'
   end
@@ -110,4 +110,15 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     assert_equal 1003, res['error']['code']
     assert_equal "无访问权限", res['error']['msg']
   end
+
+  test "POST /api/v1/students/:id/verify_current_password returns ticket_token by student" do
+    post "/api/v1/students/#{@student.id}/verify_current_password", {id: @student.id, current_password: 'password'}, 'Remember-Token' => @remember_token
+
+    assert_response :success
+    res = JSON.parse(response.body)
+
+    assert_equal 1, res['status'], "响应错误 #{res}"
+    assert_equal ::TicketToken.get_instance_token(@student, :parent_phone), res['data'], 'ticket_token设置失败'
+  end
+
 end

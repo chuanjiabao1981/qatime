@@ -6,7 +6,92 @@ cn:
       workstation:
         name: 名称
         city: 城市
-        address: 地址
-        tel: 电话
+        address: 联系地址
+        tel: 联系电话
         email: 邮箱
         manager: 经理
+        qq: 联系QQ
+        join_price: 加盟费
+        caution_money: 保证金
+        platform_percentage: 平台分成
+        service_price: 服务扣费
+        contract_start_date_at: 合同有效期
+  view:
+    admins:
+      workstations:
+        tab:
+          index_title: 工作站列表
+          withdraw_title: 工作站提现审核
+          workstation_remit: 工作站转款
+        tab_node:
+          show_title: 站点设置
+          fund_title: 资金信息
+          change_records_title: 出入账记录
+          statistics_title: 销售额统计
+        new:
+          link_title: 新增工作站
+        edit:
+          link_title: 修改工作站
+        show:
+          edit_title: 编辑站点
+        index:
+          name: 工作站名称
+          city: 地区
+          manager: 负责人/电话
+          coupon_code: 注册编码
+          status: 运营状态
+          stop_status: 停止运营合作
+          run_status: 开启运营合作
+          change_status_confirm: 确定切换运营状态么?
+        placeholders:
+          name: 输入完整工作站名称
+          coupon_code: 填写工作站的注册编码（即合作编码）
+          address: 填写工作站详细地址
+          tel: 填写固定电话或手机号
+          qq: 填写工作站服务QQ
+          email: 填写工作站服务邮箱
+          join_price: 请按合同内容如实填写
+          contract_start_date_at_label: "<abbr title='required'>*</abbr>合作有效期:"
+          contract_start_date_at: 选择开始日期（年月日）
+          contract_end_date_at: 选择结束日期（年月日）
+      workstation_withdraws:
+        search:
+          audit: 已审核
+          no_audit: 未审核
+          key_placeholer: 请输入编号/姓名/电话/工作站
+        amount: 提现金额
+        allow: 通过
+        refuse: 驳回
+        user: 提现人
+        workstation: 所属工作站
+        transaction_no: 编号
+        payee: 提现到
+        created_at: 申请时间
+        no_audit_title: 审核结果
+        sure_audit: 确定审核通过么?
+        sure_refuse: 确定驳回么?
+      workstation_remits:
+        search:
+          remit: 已转款
+          no_remit: 待转款
+        allowed_at: 审核通过时间
+        add_remit: 添加转款记录
+        show_remit: 查看转款记录
+        show_remit_back: 收起转款记录
+
+    station:
+      workstations:
+        tab_node:
+          show_title: 站点信息
+      students:
+        index_title: 学生列表
+        placeholders:
+          name: 学生名字,昵称或者邮箱
+      teachers:
+        index_title: 教师列表
+        placeholders:
+          name: 老师名字,昵称或者邮箱
+
+  error:
+      workstation:
+        contract_end_date_at: 合同有效日期必须大于开始日期

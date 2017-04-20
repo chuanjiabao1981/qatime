@@ -85,7 +85,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal 2, res['data'].size
+    assert_equal 1, res['data'].size
   end
 
   test "get student courses return error list of teacher" do
@@ -142,7 +142,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
 
     assert_response :success
     res = JSON.parse(response.body)
-    assert_equal 1, res['status']
+    assert_equal 1, res['status'], "返回数据错误#{res}"
   end
 
   test "get courses detail of search by student" do
@@ -164,7 +164,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
 
-    assert_equal 1, res['status']
+    assert_equal 1, res['status'], "返回数据错误#{res}"
     assert_equal true, res['data'].has_key?('lessons')
   end
 
@@ -184,7 +184,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     course = live_studio_courses(:course_with_lessons)
     get "/api/v1/live_studio/courses/#{course.id}/taste", {}, { 'Remember-Token' => @remember_token }
     res = JSON.parse(response.body)
-    assert_equal 1, res['status']
+    assert_equal 1, res['status'], "响应出错 #{res}"
     assert_equal true, res['data'].has_key?('status')
   end
 
@@ -262,7 +262,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     data = JSON.parse(response.body)['data']
     assert_response :success
     assert data.class == Array
-    assert data.first['lessons'].count == 2, '返回课程数量不对'
+    assert_equal 3, data.first['lessons'].count, '返回课程数量不对'
     return_date = data.first['date'].to_date
     assert return_date >= Time.now.beginning_of_month.to_date && return_date <= Time.now.end_of_month.to_date, '返回数据日期不正确'
   end
@@ -275,7 +275,7 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     data = JSON.parse(response.body)['data']
     assert_response :success
     assert data.class == Array
-    assert data.first['lessons'].count == 2, '返回课程数量不对'
+    assert_equal 3, data.first['lessons'].count, '返回课程数量不对'
     return_date = data.first['date'].to_date
     assert return_date >= Time.now.beginning_of_month.to_date && return_date <= Time.now.end_of_month.to_date, '返回数据日期不正确'
   end
@@ -299,5 +299,32 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
     assert_equal Array, res['data']['lessons'].class
+  end
+
+  # 最新发布和最近开课接口
+  test 'get courses rank' do
+    get '/api/v1/live_studio/courses/rank/published_rank,%20start_rank'
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status'], "请求出错 #{res}"
+    assert_not_nil res['data']['published_rank']
+    assert_not_nil res['data']['start_rank']
+  end
+
+  test 'get all tags' do
+    get '/api/v1/app_constant/tags'
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status'], "请求出错 #{res}"
+    assert_equal res['data'].count, 19, "标签获取失败"
+  end
+
+  # 新的搜索接口
+  test 'search courses with tags' do
+    get '/api/v1/live_studio/courses/search', range: '1_months'
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status'], "请求出错 #{res}"
+    assert_equal res['data'].count, 3, "标签获取失败"
   end
 end

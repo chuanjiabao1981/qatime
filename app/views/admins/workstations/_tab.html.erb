@@ -1,0 +1,13 @@
+<div class="admin-title">
+  <div class="admin-title-left">
+    <% if allow? :workstations, :index %>
+      <%= link_to t('view.admins.workstations.tab.index_title'), main_app.admins_workstations_path, class: "#{'active-admin' if 'admins/workstations' == params[:controller]}"  %>
+    <% end %>
+    <% if allow? :workstation_withdraws, :index %>
+      <%= link_to t('view.admins.workstations.tab.withdraw_title'), main_app.admins_workstation_withdraws_path, class: "#{'active-admin' if 'admins/workstation_withdraws' == params[:controller]}"  %>
+    <% end %>
+    <% if allow? 'payment/withdraw_remits', :index %>
+      <%= link_to t('view.admins.workstations.tab.workstation_remit'), payment.withdraw_remits_path, class: "#{'active-admin' if 'payment/withdraw_remits' == params[:controller]}"  %>
+    <% end %>
+  </div>
+</div>

@@ -16,9 +16,7 @@ module LiveStudio
     end
 
     def logout_as(user)
-      accept_prompt(with: "是否离开直播页面") do
-        visit get_home_url(user)
-      end
+      visit get_home_url(user)
       click_on '退出'
     end
 

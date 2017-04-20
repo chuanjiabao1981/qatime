@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+  <div class="new-curriculum">
+    <div class="curriculum-title">
+      <% if @workstation %>
+        <%= link_to '', live_studio.station_workstation_interactive_courses_path(@workstation), class: 'fa fa-mail-reply' %>
+      <% end %>
+      <span><%= t('view.live_studio/interactie_course.new.title') %></span>
+    </div>
+
+    <div class="curriculum-pic">
+      <div class="row">
+        <div class="col-md-5">
+          <h4><%= t('view.live_studio/interactie_course.new.label') %></h4>
+          <ul>
+            <li><%= t('view.live_studio/interactie_course.new.label1') %></li>
+            <li><%= t('view.live_studio/interactie_course.new.label2') %></li>
+            <li><%= t('view.live_studio/interactie_course.new.label3') %></li>
+          </ul>
+        </div>
+        <div class="col-md-7">
+          <%= image_tag '/imgs/class-editor.jpg' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="editor-con">
+      <%= render 'form' %>
+    </div>
+  </div>
+</div>

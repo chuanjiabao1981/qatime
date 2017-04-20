@@ -111,13 +111,8 @@ window.currentTeam = {
   // fromType 消息来源 offline: 离线消息, roaming: 漫游消息, immediate: 即时消息
   function onMsg(msg, marked, fromType) {
     if(!fromType) fromType = 'immediate'; 
-    console.log('收到消息', msg.scene, msg.type, msg);
     // 不是该聊天组消息
     if(msg.scene != "team" || msg.to != currentTeam.id ) {
-      console.log(msg.scene != "team");
-      console.log(currentTeam.id);
-      console.log(msg.to);
-      console.log(msg.to != currentTeam.id);
       return;
     }
     pushMsg(msg);
@@ -415,12 +410,13 @@ function messageTag(msg, fromType) {
       imageNode.one("load", function() {
         $("#messages").scrollTop($("#messages").prop('scrollHeight')+120);
       });
-      messageNode.append(imgMsg);
+      messageNode.append(imageNode);
       break;
     // 音频消息
     case 'audio':
+      var mp3Url = live_chat.nim.audioToMp3({url: msg.file.url});
       var audioNode = $('<p class="weixinAudio"></p>');
-      audioNode.append('<audio src="' + msg.file.url + '" class="media"></audio>');
+      audioNode.append('<audio src="' + mp3Url + '" class="media"></audio>');
       var audioSpan = '<span  class="db audio_area">';
       audioSpan = audioSpan + '<span class="audio_wrp db">';
       audioSpan = audioSpan + '<span class="audio_play_area">';
@@ -461,7 +457,7 @@ function appendMsg(msg, messageClass, fromType) {
     messageTitle.append("<span class='information-name'>" + msg.fromNick + "</span>");
     messageItem.addClass("new-information-else");
   }
-  messageTitle.append("<span class='information-time'>" + sendMessageTime(msg) + "</span>");
+  messageTitle.append(" <span class='information-time'>" + sendMessageTime(msg) + "</span>");
   messageItem.append(messageTitle);
   // 消息内容标签
   var messageContent = messageTag(msg, fromType);

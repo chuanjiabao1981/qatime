@@ -7,7 +7,7 @@
   <td>
     <span>
       <% if course_invitation.sent? && !course_invitation.expired? %>
-        <%=link_to t("common.accept"), new_course_path(invitation_id: course_invitation) %><br />
+        <%#=link_to t("common.accept"), new_course_path(invitation_id: course_invitation) %>
         <%=link_to t("common.refuse"), teacher_course_invitation_path(@teacher, course_invitation),
                    method: :delete,
                   "data-confirm" => t("common.confirm_refuse") %>

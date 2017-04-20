@@ -8,7 +8,7 @@ module LiveStudio
     attr_accessor :start_time_hour, :start_time_minute, :_update
     BEAT_STEP = 10 # 心跳频率/秒
 
-    delegate :teacher_percentage, :system_percentage, :publish_percentage, :sell_percentage, :base_price, :workstation, to: :course
+    delegate :teacher_percentage, :publish_percentage, :base_price, :workstation, to: :course
 
     enum replay_status: {
       unsync: 0, # 未同步
@@ -56,6 +56,7 @@ module LiveStudio
     scope :waiting_finish, -> { where(status: [Lesson.statuses[:paused], Lesson.statuses[:closed]])}
     scope :month, -> (month){where('live_studio_lessons.class_date >= ? and live_studio_lessons.class_date <= ?', month.beginning_of_month.to_date,month.end_of_month.to_date)}
     scope :started, -> { where("status >= ?", Lesson.statuses[:teaching])} # 已开始
+    scope :readied, -> { where("status >= ?", Lesson.statuses[:ready])} # 已就绪
 
     belongs_to :course, counter_cache: true
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
@@ -65,15 +66,18 @@ module LiveStudio
     has_many :channel_videos
     has_many :replays
 
-    has_many :live_sessions # 直播 心跳记录
+    has_many :live_sessions, as: :sessionable # 直播 心跳记录
     has_many :live_studio_lesson_notifications, as: :notificationable, dependent: :destroy
-    has_many :ticket_items
+    has_many :ticket_items, as: :target
 
     validates :name, :class_date, presence: true
 
     before_create :data_preview
     # before_save :data_confirm
     after_commit :update_course
+    after_commit :update_course_price
+
+    before_validation :reset_status, if: :class_date_changed?, on: :update
 
     include AASM
 
@@ -152,6 +156,16 @@ module LiveStudio
     def status_text(role = nil, outer = true)
       role == 'teacher' || role = 'student'
       I18n.t("lesson_status.#{role}.#{status}#{!outer && status == 'paused' ? '_inner' : ''}")
+    end
+
+    # 尚未直播
+    def status_wating?
+      %w[missed init ready].include?(status)
+    end
+
+    # 正在直播
+    def status_living?
+      %w[teaching paused].include?(status)
     end
 
     def can_play?
@@ -415,17 +429,26 @@ module LiveStudio
       self.status = class_date == Date.today ? 1 : 0
     end
 
+    def reset_status
+      self.status = 'ready' if class_date == Date.today && status == 'missed'
+      self.status = 'init' if class_date > Date.today && status == 'missed'
+    end
+
     def data_confirm
       if start_time_hour || start_time_minute
         self.start_time = "#{start_time_hour}:#{start_time_minute}"
-        self.end_time =  "#{(start_time_hour.to_i + (start_time_minute.to_i + duration_value.to_i) / 60)}:#{(start_time_minute.to_i + duration_value.to_i) % 60}"
+        self.end_time = "#{(start_time_hour.to_i + (start_time_minute.to_i + duration_value.to_i) / 60)}:#{(start_time_minute.to_i + duration_value.to_i) % 60}"
       end
     end
 
     def update_course
       return unless course.present?
-      first_class_date = course.lessons.order(:class_date).first.class_date
-      course.update(class_date: first_class_date)
+      lesson_dates = course.lessons(true).map(&:class_date)
+      course.update(class_date: lesson_dates.min, start_at: lesson_dates.min, end_at: lesson_dates.max)
+    end
+
+    def update_course_price
+      course.reset_left_price if course
     end
 
     def play_records_params
@@ -437,7 +460,6 @@ module LiveStudio
         tp: 'student'
       }
     end
-
 
     # 增加计数器
     def increment_course_counter(attribute)

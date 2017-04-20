@@ -10,5 +10,129 @@ cn:
       to: 至
       start_date: 开始时间
       end_date: 结束时间
+      unit: 元
+      unit_hour: 元 / 小时
+      close: 关闭
+      time: 时间
+      'yes': 是
+      'no': 否
+      payment_password_expire_time: "新密码 %{time} 后可用"
+      payment_password_not_set: 未设置
+      password_not_visible: 此密码不可见
     query:
       name_or_mobile: 请输入姓名/电话
+    shared:
+      workstations:
+        info:
+          base_title: 基本信息
+          name: 名称：
+          coupon_code: 注册编码：
+          city: 合作地区：
+          manager: 经理：
+          address: 联系地址：
+          tel: 联系电话：
+          qq: 联系QQ ：
+          second_title: 合作信息
+          join_price: "已交加盟费："
+          join_price_text: "%{price}元"
+          caution_money: 已交保证金：
+          caution_money_text: "%{price}元"
+          platform_percentage: 平台分成比：
+          publish_percentage: 发行分成比：
+          cross_percentage: 跨站经销分成比：
+          cross_percentage_hint: (经销本站所发布的内容不收入任何分成)
+          service_price: 服务费标准：
+          service_price_text: "%{price}/小时"
+          contract_date: 合作有效期：
+          contract_date_text: "%{start} 至 %{end}"
+        fund:
+          amount: 账户总金额
+          amount_text: "%{price}元"
+          amount_i: 账户总金额=保证金+余额
+          caution_money: 保证金
+          caution_money_text: "%{price}元"
+          caution_money_i: 冻结金额不可提现
+          money: 余额
+          money_text: "%{price}元"
+          money_i: 可提现金额+非可提现金额
+          withdraw_money: 可提现金额
+          withdraw_money_text: "%{price}元"
+          withdraw_money_i: 经考核后可用于提现的收入额
+          withdraw_btn: 申请提现
+          unwithdraw_money: 非可提现额
+          unwithdraw_money_text: "%{price}元"
+          unwithdraw_money_i: 未经考核不可用于提现的收入额
+          published_money: 发行总收入
+          published_money_text: "%{price}元"
+          published_money_i: "已进行分账的发行收入额（%{state}）"
+          sell_money: 销售总收入
+          sell_money_text: "%{price}元"
+          sell_money_i: "已结算分账的销售收入额（%{state}）"
+        fund_node:
+          withdraw: 申请提现额
+          withdraw_text: "%{price}元"
+          operate_time: "操作时间：%{time}"
+          new_withdraw: 申请提现
+          close_confrim: 确定关闭该提现记录么?
+          labels:
+            amount: 申请提现金额
+            payee: 填写收款人信息
+            captcha_confirmation: 手机校验码
+          placeholders:
+            amount: "当前可提现最大金额￥%{price}"
+            payee: 格式：收款人姓名+空格+收款人账号
+            captcha_confirmation: 输入收到的手机校验码
+          hints:
+            captcha_confirmation: (为确保账户资金安全，仅限经理本人进行操作)
+        change_records:
+          out_record: 出账记录
+          in_record: 入账记录
+          expend_money: 支出金额
+          expend_type: 支出类型
+          expend_balance: 支出后账户总额
+          expend_info: 支出信息
+          expend_money_in: 收入金额
+          expend_type_in: 收入类型
+          expend_balance_in: 收入后账户总额
+          expend_info_in: 收入来源（课程名称）
+          show_link: 查看明细
+          hide_link: 收起
+          different_money: 提现金额：
+          beore_money: 提现前可提金额：
+          after_money: 提现后可提金额：
+          different_money_in: 退回金额：
+          beore_money_in: 退回前可提金额：
+          after_money_in: 退回后可提现金额
+          withdraw_refund_record: 提现款退回
+          withdraw_refund_record_name: 提现申请失败
+        statistics:
+          order_title: 售出记录
+          refund_title: 退款记录
+          sale_price: 销售价格
+          course_price: 辅导班原价
+          coupon_price: 优惠价格
+          course_name: 销售内容（辅导班名称）
+          sale_at: 销售时间
+          user_name: 购买人
+          source: 销售途径
+          cross: 跨站销售
+          sale_increment: 销售收入增加
+          refund_price: 退款金额
+          course_name2: 退款内容（辅导班名称）
+          refund_at: 退款时间
+          sale_decrement: 销售收入减少
+          pic_title: 销售额曲线
+          sale_count: 销售总额：
+          sale_count_pre: 预计销售总收入：
+          sale_total: 销售额
+      pay_password_warning:
+        title: 尚未设置支付密码，请完成设置以保证账户资金安全！
+        link: 立即设置
+    flash:
+      keys:
+        success: 操作成功！
+        notice: 温馨提示！
+        info: 温馨提示！
+        error: 操作失败！
+        warning: 请注意！
+        danger: 操作失败！

@@ -9,7 +9,7 @@ class Qatime::PositionApiTest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "接口响应错误 #{res}"
-    assert_equal 3, res['data'].count, "推荐返回错误"
+    assert_equal 4, res['data'].count, "推荐返回错误"
   end
 
   # 测试获取名师推荐
@@ -32,6 +32,24 @@ class Qatime::PositionApiTest < ActionDispatch::IntegrationTest
     assert_equal 3, res['data'].count, "推荐返回错误"
     assert_includes res['data'].map {|item| item['type']}, "Recommend::LiveStudioCourseItem", "没有正确返回辅导班推荐类型"
     assert_not_includes res['data'].map {|item| item['live_studio_course']}, nil, "没有正确返回推荐辅导班信息"
+  end
+
+  # 测试获取精选内容
+  test 'get recommend choiceness items for position' do
+    get "/api/v1/recommend/positions/index_choiceness_item/items"
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status'], "接口响应错误 #{res}"
+    assert_equal 3, res['data'].count, "推荐返回错误"
+    assert_includes res['data'].map {|item| item['type']}, "Recommend::ChoicenessItem", "没有正确返回辅导班推荐类型"
+    assert res['data'].find {|item| item['live_studio_course']}.size > 0, "没有正确返回推荐辅导班信息"
+    assert_includes res['data'].map {|item| item['tag_one']}, 'star_teacher'
+    assert_includes res['data'].map {|item| item['tag_two']}, 'join_cheap'
+
+    assert_includes res['data'].map {|item| item['target_type']}, "LiveStudio::Course", "没有正确返回课程类别"
+    assert_includes res['data'].map {|item| item['target_type']}, "LiveStudio::InteractiveCourse", "没有正确返回课程类别"
+    interactive_course_item = res['data'].find {|item| item['live_studio_interactive_course']}
+    assert interactive_course_item['live_studio_interactive_course'].size > 0
   end
 
   # 批量获取推荐

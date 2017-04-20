@@ -19,6 +19,19 @@ class Notification < ActiveRecord::Base
     # send("notify_by_#{channel}")
   end
 
+  # 跳转路径，客户端用于识别跳转路径
+  def link
+  end
+
+  def read!
+    self.read = true
+    save
+  end
+
+  # 目前只用于标题样式显示
+  def notify_type
+  end
+
   private
 
   def notify_by_email

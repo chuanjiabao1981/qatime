@@ -5,7 +5,7 @@
 <div class="panel-row std-row">
   <div class="std-row-1">
     <%= Payment::CashAccount.human_attribute_name(:balance) %>
-    <span><strong><%= number_to_currency(@cash_account.available_balance, unit: '') %></strong></span>
+    <span><strong><%= number_to_currency(@cash_account.balance, unit: '') %></strong></span>
     <%= t('currency.cn') %>
     <%= link_to Payment::CashAccount.human_attribute_name(:withdraw), payment.new_user_withdraw_path(@current_resource) unless @cash_account.balance < 100%>
   </div>

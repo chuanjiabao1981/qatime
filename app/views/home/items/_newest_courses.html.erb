@@ -1,0 +1,36 @@
+<div class="line-item">
+  <div class="container">
+    <center>
+      <h2><strong><%= t('view.newest_courses.title') %></strong></h2>
+    </center>
+
+    <ul class="item-handpick">
+      <% @newest_courses.each do |course| %>
+        <li class="col-md-3 col-xs-6">
+          <%= link_to live_studio.course_path(course) do %>
+            <%= image_tag course.publicize_url(:list), class: 'handle_error_list' %>
+          <% end %>
+          <div class="handpick-info">
+            <p>
+              <%= link_to live_studio.course_path(course) do %>
+                <strong><%= truncate_u(course.name, length: 15) %></strong>
+              <% end %>
+            </p>
+            <p>
+              <span><%= course.grade %><%= course.subject %>/<%= t('view.choiceness_items.lessons_count', count: course.lessons_count) %></span>
+              <%= link_to truncate_u(course.teacher.try(:name), length: 8), profile_teacher_path(course.teacher) if course.teacher %>
+            </p>
+          </div>
+        </li>
+      <% end %>
+
+      <%= render partial: 'home/items/default_courses' if @newest_courses.blank? %>
+    </ul>
+    <p class="iteminfo-more">
+      <%= link_to live_studio.courses_path do %>
+        <%= t('view.choiceness_items.more') %>
+        <i class="fa fa-angle-right"></i>
+      <% end %>
+    </p>
+  </div>
+</div>

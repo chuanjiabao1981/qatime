@@ -78,8 +78,6 @@
 <script>
 var chatInited = false;
 
-
-
 function refreshTeamMembersUI(teamId, fn) {
   if(teamId != currentTeam.id) return;
   $.get('/chat/teams/' + teamId + '/members',function(data){
@@ -90,37 +88,19 @@ function refreshTeamMembersUI(teamId, fn) {
 
 function chatInitCallback() {
   chatInited = true;
-  visit();
-};
-
-function visit(){
-  var team_id = "<%= @chat_team.try(:team_id) %>";
-  var params = {
-    acc_id: "<%= @chat_account.try(:accid) %>",
-    token: $("#online_token").val()
-  }
-  $.get('/chat/teams/' + team_id + '/member_visit', params,function(data){
-    if(data == 'nothing'){
-      console.log(data);
-    }else{
-      $("#members-panel").html(data);
-    }
-  });
 }
-visit();
-setInterval(visit,30000);
 
 $(function() {
 
+  // 图片消息查看大图功能
   $(document).click(function (event) {
     $('.outerdiv').hide();
   });
+
   $(".innerdiv").click(function  () {
     event.stopPropagation();
     $(this).show();
   })
-
-  //$(".fancybox").fancybox({type: 'ajax'});
 
   var accid = "<%= @chat_account.try(:accid) %>";
   var token = "<%= @chat_account.try(:token) %>";
@@ -128,26 +108,11 @@ $(function() {
   var chat_team_id = "<%= @chat_team.try(:team_id) %>";
   var owner_id = "<%= @chat_team.try(:owner) %>";
 
-  // 关闭页面前提示
-  $( window ).bind( "beforeunload", function() {
-    return "是否离开直播页面";
-  });
-
   window.live_chat = new LiveChat("<%= Chat::IM.app_key %>");
-
-  if(accid == "" || chat_team_id == "" || team_role == "") {
-    $.getJSON("<%= chat.finish_live_studio_course_teams_path(@course) %>", function(data) {
-      accid = data.accid;
-      token = data.token;
-      chat_team_id = data.team_id;
-      owner_id = data.owner;
-      live_chat.config(accid, token, chat_team_id);
-      live_chat.init(chatInitCallback);
-    });
-  } else {
-    live_chat.config(accid, token, chat_team_id, owner_id);
-    live_chat.init(chatInitCallback);
-  }
+  live_chat.config(accid, token, chat_team_id, owner_id);
+  live_chat.init(function() {
+    refreshTeamMembersUI(chat_team_id, chatInitCallback);
+  });
 
   // 聊天表情
   $("#emotion-btn").qqFace({ assign: "message-area", path: "<%= asset_path('assets/face/') %>" }, function() {
@@ -246,7 +211,7 @@ $(function() {
 
   function messageHistory(messageDate, endTime) {
     messageDate = messageDate.replace(/年/, '-').replace(/月/, '-').replace(/日/, '');
-    beginTime = new Date(messageDate + " 00:00:00").getTime();
+    beginTime = Date.parse(messageDate);
     if(!endTime) {
       // 第一次加载时清空数据
       $("#messages-group").empty();
@@ -418,7 +383,6 @@ function refreshNotice() {
   });
 }
 refreshNotice();
-
 
 function accept_img_click(obj){
   console.log('image click');

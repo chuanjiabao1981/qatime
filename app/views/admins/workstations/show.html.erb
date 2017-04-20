@@ -1,10 +1,9 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <h2><%=@workstation.class.model_name.human%></h2>
-  </div>
-  <div class="qa_big_cell">
-    <% if allow? "workstations","edit",@workstation %>
-        <%= @workstation.name %> <%= link_to 'edit',edit_admins_workstation_path(@workstation)%>
-    <% end %>
+<div class="panel panel-default">
+  <div class="admin new-workstation">
+    <%= render 'station/workstations/tab_node' %>
+
+    <%= link_to t('view.admins.workstations.show.edit_title'), edit_admins_workstation_path(@workstation), class: 'edit-site' %>
+
+    <%= render partial: 'shared/workstations/info', locals: {workstation: @workstation} %>
   </div>
 </div>

@@ -8,7 +8,7 @@ module Wap
         @headless = Headless.new
         @headless.start
         Capybara.current_driver = :selenium_chrome
-
+        @coupon_one = payment_coupons(:coupon_one)
         @student = users(:student1)
       end
 
@@ -16,9 +16,22 @@ module Wap
         Capybara.use_default_driver
       end
 
+      test 'student weixin course show page' do
+        course = live_studio_courses(:course_preview_four)
+        weixin_url = wap_live_studio_course_path(course, come_from: 'weixin', coupon_code: @coupon_one.code)
+        visit weixin_url
+        assert page.has_content?(course.name)
+
+        assert page.has_content?('基本属性')
+        assert page.has_content?('课程标签')
+        assert page.has_content?('课程目标')
+        assert page.has_content?('适合人群')
+        assert page.has_content?('学习须知')
+      end
+
       test 'student buy course from weixin' do
         course = live_studio_courses(:course_preview_four)
-        weixin_url = wap_live_studio_course_path(course, come_from: 'weixin', coupon_code: 'correct_code')
+        weixin_url = wap_live_studio_course_path(course, come_from: 'weixin', coupon_code: @coupon_one.code)
         visit weixin_url
         assert page.has_content?(course.name)
 
@@ -44,7 +57,7 @@ module Wap
 
       test 'student buy course from weixin download page' do
         course = live_studio_courses(:course_preview_four)
-        weixin_url = wap_live_studio_course_path(course, come_from: 'weixin', coupon_code: 'correct_code')
+        weixin_url = wap_live_studio_course_path(course, come_from: 'weixin', coupon_code: @coupon_one.code)
         visit weixin_url
         click_on "下载APP"
         assert page.has_link?('下载'), "未跳转到下载页面"

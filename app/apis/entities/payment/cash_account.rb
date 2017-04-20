@@ -6,6 +6,9 @@ module Entities
       expose :total_income
       expose :total_expenditure
       expose :password?, as: :has_password
+      expose :password_set_at do |c|
+        c.password_set_at.to_i
+      end
     end
   end
 end

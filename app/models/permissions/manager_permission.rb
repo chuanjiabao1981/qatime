@@ -9,6 +9,11 @@ module Permissions
 
       allow "managers/home",[:main]
 
+      allow :pictures,[:new,:create]
+      allow :pictures,[:destroy] do |picture|
+        picture and picture.author and picture.author_id == user.id
+      end
+
       allow :vip_classes,[:show]
       allow :questions,[:index,:show,:student,:teacher,:teachers]
       allow :teaching_videos,[:show]
@@ -62,10 +67,19 @@ module Permissions
         manager.id == user.id
       end
       # 专属课程
-      allow 'station/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records, :show] do |workstation|
+      allow 'station/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records, :show, :fund, :withdraw, :change_records, :statistics] do |workstation|
         workstation && workstation.manager_id == user.id
       end
       # 专属课程
+
+      allow 'station/teachers', [:index] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+
+      allow 'station/students', [:index] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+
       allow :exercises,[:show]
       allow :sessions,[:destroy]
 
@@ -97,9 +111,10 @@ module Permissions
 
       ## begin recommend permission
       allow 'recommend/positions', [:index, :show]
-      allow 'recommend/teacher_items', [:new, :create, :edit, :destroy, :update]
+      allow 'recommend/teacher_items', [:index, :new, :create, :edit, :destroy, :update]
       allow 'recommend/live_studio_course_items', [:new, :create, :edit, :destroy, :update]
-      allow 'recommend/banner_items', [:new, :create, :edit, :destroy, :update]
+      allow 'recommend/banner_items', [:index, :new, :create, :edit, :destroy, :update]
+      allow 'recommend/choiceness_items', [:index, :new, :create, :edit, :destroy, :update, :ajax_course_select]
       allow 'recommend/items', [:new, :create]
       ## end   recommend permission
 
@@ -148,13 +163,31 @@ module Permissions
           end
         user.workstations.map(&:id).include?(course.workstation_id) && permission
       end
+
+      allow 'live_studio/courses', [:update_class_date, :update_lessons] do |course|
+        permission = %w[init published teaching].include? course.try(:status)
+        course && permission && ( course.author_id == user.id || user.workstation_ids.include?(course.workstation_id) )
+      end
+      allow 'live_studio/interactive_courses', [:index, :new, :create, :show, :preview]
+      allow 'live_studio/interactive_courses', [:update_class_date, :update_lessons] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+
+      allow 'live_studio/video_courses', [:index, :show, :preview, :edit, :update]
+
       ## end live studio permission
       allow 'chat/teams', [:finish, :members, :member_visit]
       allow 'welcome', [:download]
       allow 'payment/users', [:cash]
       allow 'payment/orders', [:index, :show]
 
-      allow 'live_studio/station/courses', [:index] do |workstation|
+      allow 'live_studio/station/courses', [:my_courses, :index] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+      allow 'live_studio/station/interactive_courses', [:index] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+      allow 'live_studio/station/video_courses', [:index, :my_publish, :my_sells, :audits, :audit, :send_qr_code, :list, :edit, :update, :publish] do |workstation|
         workstation && workstation.manager_id == user.id
       end
       allow 'live_studio/teacher/teachers', [:schedules]
@@ -186,10 +219,13 @@ module Permissions
         workstation && workstation.manager_id == user.id
       end
 
-      allow 'payment/station/workstations', [:show, :cash, :earning_records, :withdraws] do |workstation|
+      allow 'payment/station/workstations', [:show, :earning_records, :withdraws] do |workstation|
         workstation && workstation.manager_id == user.id
       end
 
+      allow 'payment/station/sale_tasks', [:index] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
     end
   end
 end

@@ -77,7 +77,7 @@ module Chat
         click_link '立即报名'
         # click_link("buy-course-#{course.id}")
         choose('微信支付')
-        click_on '立即付款'
+        click_on '立即支付'
         transaction_no = page.find('#transaction_no').text
         notify_body[:out_trade_no] = transaction_no
         notify_body[:sign] = WxPay::Sign.generate(notify_body)

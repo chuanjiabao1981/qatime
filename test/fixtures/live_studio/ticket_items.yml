@@ -1,136 +1,171 @@
 item1:
   ticket: ticket_for_billing_11
   # course: course_for_billing_one
-  lesson: lesson_one_of_course_for_billing_one
+  target: lesson_one_of_course_for_billing_one (LiveStudio::Lesson)
   status: 0
 item2:
   ticket: ticket_for_billing_12
   # course: course_for_billing_one
-  lesson: lesson_one_of_course_for_billing_one
+  target: lesson_one_of_course_for_billing_one (LiveStudio::Lesson)
   status: 0
 item3:
   ticket: ticket_for_billing_13
   # course: course_for_billing_one
-  lesson: lesson_one_of_course_for_billing_one
+  target: lesson_one_of_course_for_billing_one (LiveStudio::Lesson)
   status: 0
 item4:
   ticket: ticket_for_billing_14
   # course: course_for_billing_one
-  lesson: lesson_one_of_course_for_billing_one
+  target: lesson_one_of_course_for_billing_one (LiveStudio::Lesson)
   status: 0
 item5:
   ticket: ticket_for_billing_15
   # course: course_for_billing_one
-  lesson: lesson_one_of_course_for_billing_one
+  target: lesson_one_of_course_for_billing_one (LiveStudio::Lesson)
   status: 0
 
 item6:
   ticket: ticket_for_billing_21
-  lesson: lesson_one_of_course_for_billing_two
+  target: lesson_one_of_course_for_billing_two (LiveStudio::Lesson)
   status: 0
 
 item7:
   ticket: ticket_for_billing_22
-  lesson: lesson_one_of_course_for_billing_two
+  target: lesson_one_of_course_for_billing_two (LiveStudio::Lesson)
   status: 0
 
 item8:
   ticket: ticket_for_billing_23
-  lesson: lesson_one_of_course_for_billing_two
+  target: lesson_one_of_course_for_billing_two (LiveStudio::Lesson)
   status: 0
   status: 0
 
 item9:
   ticket: ticket_for_billing_31
-  lesson: lesson_one_of_course_for_billing_three
+  target: lesson_one_of_course_for_billing_three (LiveStudio::Lesson)
   status: 0
 
 item10:
   ticket: ticket_for_billing_32
-  lesson: lesson_one_of_course_for_billing_three
+  target: lesson_one_of_course_for_billing_three (LiveStudio::Lesson)
   status: 0
 
 item11:
   ticket: ticket_for_billing_33
-  lesson: lesson_one_of_course_for_billing_three
+  target: lesson_one_of_course_for_billing_three (LiveStudio::Lesson)
   status: 0
 
 # 退款中
 item12:
   ticket: ticket_for_billing_34
-  lesson: lesson_one_of_course_for_billing_three
+  target: lesson_one_of_course_for_billing_three (LiveStudio::Lesson)
   status: 2
 
 # 已经退款
 item13:
   ticket: ticket_for_billing_35
-  lesson: lesson_one_of_course_for_billing_three
+  target: lesson_one_of_course_for_billing_three (LiveStudio::Lesson)
   status: 3
 
 items14:
   ticket: ticket_for_refund3
-  lesson: lesson1_for_refund_course3
+  target: lesson1_for_refund_course3 (LiveStudio::Lesson)
   status: 0
 
 items15:
   ticket: ticket_for_refund3
-  lesson: lesson2_for_refund_course3
+  target: lesson2_for_refund_course3 (LiveStudio::Lesson)
   status: 0
 
 items16:
   ticket: ticket_one_of_billing_course_two
-  lesson: lesson_one_of_billing_course_two
+  target: lesson_one_of_billing_course_two (LiveStudio::Lesson)
   status: 0
 
 items17:
   ticket: ticket_two_of_billing_course_two
-  lesson: lesson_one_of_billing_course_two
+  target: lesson_one_of_billing_course_two (LiveStudio::Lesson)
   status: 0
 
 items18:
   ticket: ticket_three_of_billing_course_two
-  lesson: lesson_one_of_billing_course_two
+  target: lesson_one_of_billing_course_two (LiveStudio::Lesson)
   status: 0
 
 items19:
   ticket: ticket_four_of_billing_course_two
-  lesson: lesson_one_of_billing_course_two
+  target: lesson_one_of_billing_course_two (LiveStudio::Lesson)
   status: 0
 
 items20:
   ticket: ticket_five_of_billing_course_two
-  lesson: lesson_one_of_billing_course_two
+  target: lesson_one_of_billing_course_two (LiveStudio::Lesson)
   status: 0
 
 items21:
   ticket: ticket_six_of_billing_course_two
-  lesson: lesson_one_of_billing_course_two
+  target: lesson_one_of_billing_course_two (LiveStudio::Lesson)
   status: 0
 
 items22:
   ticket: ticket_seven_of_billing_course_two
-  lesson: lesson_one_of_billing_course_two
+  target: lesson_one_of_billing_course_two (LiveStudio::Lesson)
   status: 0
 
 fail_items1:
   ticket: ticket_of_billing_fail_course_one
-  lesson: lesson_of_billing_fail_course_one
+  target: lesson_of_billing_fail_course_one (LiveStudio::Lesson)
   status: 0
 
 items23:
   ticket: ticket_four_of_billing_course_one
-  lesson: lesson_two_of_billing_course_one
+  target: lesson_two_of_billing_course_one (LiveStudio::Lesson)
   status: 0
 
 items24:
   ticket: ticket_one_of_billing_course_one
-  lesson: lesson_one_of_billing_course_one
+  target: lesson_one_of_billing_course_one (LiveStudio::Lesson)
   status: 0
 
 items25:
   ticket: ticket_three_of_billing_course_one
-  lesson: lesson_one_of_billing_course_one
+  target: lesson_one_of_billing_course_one (LiveStudio::Lesson)
   status: 0
+
+items26:
+  ticket: ticket_one_of_billing_course_three
+  target: lesson_one_of_billing_course_three (LiveStudio::Lesson)
+  status: 0
+
+items27:
+  ticket: ticket_two_of_billing_course_three
+  target: lesson_one_of_billing_course_three (LiveStudio::Lesson)
+  status: 0
+
+items28:
+  ticket: ticket_three_of_billing_course_three
+  target: lesson_one_of_billing_course_three (LiveStudio::Lesson)
+  status: 0
+
+
+### 一对一直播
+
+items1001:
+  ticket: ticket_for_student_one_with_interactive_course_three_1
+  target: interactive_course_three_2_lesson_1 (LiveStudio::InteractiveLesson)
+  status: 0
+
+items1002:
+  ticket: ticket_for_student_one_with_interactive_course_three_1
+  target: interactive_course_three_2_lesson_2 (LiveStudio::InteractiveLesson)
+  status: 0
+
+items1003:
+  ticket: ticket_for_student_one_with_interactive_course_three_1
+  target: interactive_course_three_2_lesson_3 (LiveStudio::InteractiveLesson)
+  status: 0
+
+
 
 
 

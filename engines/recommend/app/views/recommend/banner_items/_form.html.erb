@@ -1,0 +1,62 @@
+
+<div class="form-group form-banner">
+  <%= f.label :logo %>
+  <div class="form-upload">
+    <div class="form-pic">
+      <img src="<%= f.object.logo_url unless f.object.new_record? %>">
+    </div>
+    <div class="upload-pic">
+      <%= f.file_field :logo, class: 'form-control hide' %>
+      <a class="btn" onclick="$('input[id=banner_item_logo]').click();"><%= t('view.recommend/banner_item.hints.btn') %></a>
+      <span><%= t('view.recommend/banner_item.hints.logo') %></span>
+    </div>
+  </div>
+  <%= f.error :logo %>
+</div>
+
+<div class="form-group">
+  <%= f.label :index %>
+  <%= f.number_field :index, class: 'form-control', placeholder: t('view.recommend/banner_item.placeholders.index') %>
+  <%= f.error :index %>
+</div>
+
+<div class="form-group">
+  <%= f.label :title %>
+  <%= f.text_field :title, class: 'form-control', maxlength: 30, placeholder: t('view.recommend/banner_item.placeholders.title') %>
+  <%= f.error :title %>
+</div>
+
+<div class="form-group">
+  <%= f.label :link %>
+  <%= f.text_field :link, class: 'form-control', placeholder: t('view.recommend/banner_item.placeholders.link') %>
+  <%= f.error :link %>
+</div>
+
+<div class="form-group">
+  <%= f.label :city_id %>
+  <%= f.select :city_id, options_for_select(@option_cities, f.object.city_id), {include_blank: false}, {class: 'form-control'} %>
+  <%= f.error :city_id %>
+</div>
+
+<center><%= f.submit t('common.save') %></center>
+
+<script type="text/javascript">
+  function getObjectURL(file) {
+    var url = null;
+    if(window.createObjectURL != undefined) {
+      url = window.createObjectURL(file);
+    } else if(window.URL != undefined) {
+      url = window.URL.createObjectURL(file);
+    } else if(window.webkitURL != undefined) {
+      url = window.webkitURL.createObjectURL(file);
+    }
+    return url;
+  }
+  //触发事件
+  $('input[id=banner_item_logo]').change(function() {
+    var objUrl = getObjectURL(this.files[0]);
+    if(objUrl) {
+      $(".form-pic img").attr("src", objUrl);
+    }
+  });
+</script>

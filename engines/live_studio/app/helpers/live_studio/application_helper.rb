@@ -30,5 +30,18 @@ module LiveStudio
     def time_fmt(n)
       n.length == 5 ? n : "0#{n}"
     end
+
+    def search_link(q, attribute_name, options = {})
+    end
+
+    def format_duration(duration)
+      return unless duration.to_i > 0
+      second = format('%02d', duration % 60)
+      duration /= 60
+      minute = format('%02d', duration % 60)
+      duration /= 60
+      hour = format('%02d', duration % 60)
+      "#{hour}:#{minute}:#{second}"
+    end
   end
 end

@@ -1,21 +1,63 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <h2><%= @workstation.class.model_name.human %></h2>
-  </div>
-  <div class="qa_big_cell">
-    <%= simple_form_for [:admins,@workstation] do |f| %>
-      <%= f.input :name %>
-      <%= f.input :address %>
-      <%= f.association :city, collection: @cities.map {|t|[t.name,t.id]}, input_html:{ :id => "s_city"} %>
-      <%= f.association :manager, collection: @managers.map {|t|[t.name,t.id]}, input_html:{ :id => "s_manager"} %>
-      <%= f.input :tel %>
-      <%= f.input :email %>
 
+<%= simple_form_for [:admins, @workstation] do |f| %>
+  <div class="basic-information">
+    <h4><%= t('view.shared.workstations.info.base_title') %></h4>
+
+    <div class="basic-con form-inline">
+      <%= f.input :name, input_html: {placeholder: t('view.admins.workstations.placeholders.name')} %>
       <%= f.fields_for :coupon do |fields| %>
-        <%= fields.input :code %>
+        <%= fields.input :code, input_html: {placeholder: t('view.admins.workstations.placeholders.coupon_code')} %>
+      <% end %>
+      <%= f.association :city, collection: City.pluck(:name, :id), input_html:{ :id => "s_city"} %>
+      <%= f.association :manager, collection: Manager.pluck(:name, :id), input_html:{ :id => "s_manager"} %>
+      <%= f.input :address, input_html: {placeholder: t('view.admins.workstations.placeholders.address')} %>
+      <%= f.input :tel, input_html: {placeholder: t('view.admins.workstations.placeholders.tel')} %>
+      <%= f.input :qq, input_html: {placeholder: t('view.admins.workstations.placeholders.qq')} %>
+      <%= f.input :email, input_html: {placeholder: t('view.admins.workstations.placeholders.email')} %>
+    </div>
+  </div>
+
+  <div class="basic-information management">
+    <h4><%= t('view.shared.workstations.info.second_title') %></h4>
+    <div class="basic-con form-inline">
+      <%= f.input :join_price do %>
+        <%= f.input_field :join_price, as: :decimal, placeholder: t('view.admins.workstations.placeholders.join_price') %>
+        <span class="unit"><%= t('view.common.unit') %></span>
+      <% end %>
+      <%= f.input :caution_money do %>
+        <%= f.input_field :caution_money, as: :decimal, placeholder: t('view.admins.workstations.placeholders.join_price') %>
+        <span class="unit"><%= t('view.common.unit') %></span>
+      <% end %>
+      <%= f.input :platform_percentage do %>
+        <%= f.input_field :platform_percentage, as: :integer, placeholder: t('view.admins.workstations.placeholders.join_price') %>
+        <span class="unit">%</span>
+      <% end %>
+      <%= f.input :service_price do %>
+        <%= f.input_field :service_price, as: :decimal, placeholder: t('view.admins.workstations.placeholders.join_price') %>
+        <span class="unit"><%= t('view.common.unit_hour') %></span>
       <% end %>
 
-      <%= f.button :submit, class: "btn btn-default" %>
-    <% end %>
+      <div class="form-group workstation-date">
+        <%= f.label :contract_start_date_at, t('view.admins.workstations.placeholders.contract_start_date_at_label').html_safe %>
+        <div class="workstation-date-time">
+          <%= f.text_field :contract_start_date_at, value: @workstation.contract_start_date_at.try(:to_date), placeholder: t('view.admins.workstations.placeholders.contract_start_date_at'), class: 'datainp form-control je-date', id: 'dateinfo' %>
+          <label for="dateinfo" class="glyphicon glyphicon-calendar glyphicon-calendar-1"></label>
+        </div>
+        <span class="date-to"><%= t('view.common.to') %></span>
+        <div class="workstation-date-time">
+          <%= f.text_field :contract_end_date_at, value: @workstation.contract_end_date_at.try(:to_date), placeholder: t('view.admins.workstations.placeholders.contract_end_date_at'), class: 'datainp form-control je-date', id: 'dateinfo-1' %>
+          <label for="dateinfo-1" class="glyphicon glyphicon-calendar"></label>
+        </div>
+        <%= f.error :contract_end_date_at %>
+      </div>
+
+    </div>
   </div>
-</div>
+
+  <div class="workstation-submit">
+    <center>
+      <%= link_to t('common.cancel'), :back, class: 'btn btn-default' %>
+      <%= f.submit t('common.save'), class: 'btn btn-default' %>
+    </center>
+  </div>
+<% end %>

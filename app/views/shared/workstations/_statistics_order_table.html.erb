@@ -1,0 +1,27 @@
+<table border="1" cellspacing="1" cellpadding="1">
+  <tr>
+    <td><%= t('common.index_no') %></td>
+    <td><%= t('view.shared.workstations.statistics.sale_price') %></td>
+    <td><%= t('view.shared.workstations.statistics.course_price') %></td>
+    <td><%= t('view.shared.workstations.statistics.coupon_price') %></td>
+    <td><%= t('view.shared.workstations.statistics.course_name') %></td>
+    <td><%= t('view.shared.workstations.statistics.sale_at') %></td>
+    <td><%= t('view.shared.workstations.statistics.user_name') %></td>
+    <td><%= t('view.shared.workstations.statistics.source') %></td>
+  </tr>
+
+  <% @statistics.each_with_index do |order, index| %>
+    <tr>
+      <td><%= index + 1 %></td>
+      <td><%= number_to_currency(order.amount.to_f, locale: :cn) %></td>
+      <td><%= number_to_currency(order.product.try(:price).to_f, locale: :cn) %></td>
+      <td><%= number_to_currency(order.cheap_price, locale: :cn) %></td>
+      <td>
+        <%= link_to order.product.try(:name), live_studio.course_path(order.product || 0) %>
+      </td>
+      <td><%= localize(order.pay_at, format: :long) %></td>
+      <td><%= order.user.try(:name) %></td>
+      <td><%= order.source_text %></td>
+    </tr>
+  <% end %>
+</table>

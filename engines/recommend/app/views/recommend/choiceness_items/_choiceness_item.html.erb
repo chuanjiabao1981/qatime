@@ -1,0 +1,27 @@
+
+<tr>
+  <td><%= show_index(choiceness_item_counter, @items.limit_value) %></td>
+  <td><%= image_tag choiceness_item.logo_url %></td>
+  <td><%= choiceness_item.title %></td>
+  <td class="recommended-tags">
+    <span>
+      <i><%= t('view.recommend/choiceness_item.index.tag_name1') %>:</i>
+      <i><%= choiceness_item.tag_one_text.presence || t('view.recommend/position.none') %></i>
+    </span>
+    <span>
+      <i><%= t('view.recommend/choiceness_item.index.tag_name2') %>:</i>
+      <i><%= choiceness_item.tag_two_text || t('view.recommend/position.none') %></i>
+    </span>
+  </td>
+  <td><%= link_to choiceness_item.target.name, live_studio.send("#{choiceness_item.target.model_name.singular_route_key}_path", choiceness_item.target_id), target: '_blank' %></td>
+  <td><%= choiceness_item.index %></td>
+  <td><%= choiceness_item.city.try(:name).presence || t('view.recommend/position.city') %></td>
+  <td>
+    <% if allow? "recommend/choiceness_items", :edit %>
+      <%= link_to t('view.recommend/position.edit'), edit_choiceness_item_path(choiceness_item) %>
+    <% end %>
+    <% if allow? "recommend/choiceness_items", :destroy %>
+      <%= link_to t('view.recommend/position.destroy'), choiceness_item_path(choiceness_item), data: {confirm: t('view.recommend/position.confirm'), method: :delete} %>
+    <% end %>
+  </td>
+</tr>

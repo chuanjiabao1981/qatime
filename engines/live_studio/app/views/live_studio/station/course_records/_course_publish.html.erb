@@ -17,6 +17,7 @@
   <td><span><%= course_publish.workstation.try(:name) %></span></td>
   <td><span><%= number_to_currency(course_publish.price, unit: "￥", precision: 2) %></span></td>
   <td><span><%= LiveStudio::Course.human_attribute_name(:base_price_clt, price: course_publish.base_price*60) %></span></td>
-  <td><span><%= number_to_currency(course_publish.calculate_teacher_percentage, precision: 2) %></span></td>
+  <td><span><%= number_to_percentage(course_publish.teacher_percentage, precision: 0) %></span></td>
+  <td><span><%= course_publish.status_text %></span></td>
   <td><span><%= t("view.live_studio/station.course_records.course.buy_tickets_count", count: course_publish.buy_user_count) %></span></td>
 </tr>

@@ -4,6 +4,11 @@ cn:
       none_lessons: 当前无课程
       course_preview: 提示：此页面仅供查看和预览，不能进行操作哦！
       download: 下载APP
+      notfund: 暂无数据
+      video_lesson:
+        name_blank: 课时名称不能为空
+        name_too_long: 课时名称过长
+        video_blank: 请选择视频
     search:
       all: 全部
       live_studio/course:
@@ -26,12 +31,13 @@ cn:
       teacher: 老师
       manager: 管理员
       admin: 管理员
+    confirm_save: 确认
     save_btn: 保存
     cancel_btn: 取消
     insert_btn: 新增%s
     course_show:
       edit_publicize_title: 更换图片
-      nofound: 未找到符合条件的辅导课程
+      nofound: 未找到符合条件的课程
       start_time: 开课时间：
       end_time: 结课时间：
       status: 状态：
@@ -42,6 +48,7 @@ cn:
       surplus: 剩余：
       lesson_time: 课时
       lesson_count: 共%d课
+      buy_tickets_count_text: "学习人数%{count}"
       lessons_count: 课时
       lessons_count_of: 共%{lessons_count}课
       current: 当前课程：
@@ -55,6 +62,10 @@ cn:
       complete_lesson: 全部课程已完成
       teach_type: 授课方式：在线直播
       online: 在线直播
+      to: 至
+      date_range: "%{start_at}至%{end_at}"
+      lesson_progress_value: "(进度%{closed_count}/%{lessons_count})"
+      none_tag: 无
     course_info_show:
       grade: 年级
       category: 年级
@@ -86,6 +97,7 @@ cn:
       join_taste: 加入试听
       start_taste: 开始试听
       start_learning: 开始学习
+      start_learning2: 观看
       taste_end: 试听结束
       buy_teaching_course_tips: '该直播课已开课，是否确认购买？'
     course_search_show:
@@ -112,6 +124,28 @@ cn:
       class_date: 开课日期
       status: 当前状态
       purchase_number: 报名人数
+    course_filter:
+      range/: 全部
+      range/all: 全部
+      range/1_months: 近1个月
+      range/2_months: 近2个月
+      range/3_months: 近3个月
+      range/6_months: 近半年
+      range/1_years: 近1年
+      status/all: 全部
+      status/published: 招生中
+      status/teaching: 开课中
+      status/refunded: 已结束
+      all: 全部
+      none: 不限
+      sell_type_all: 全部课程
+      sell_type_charge: 收费课程
+      sell_type_free: 免费课程
+    video_course_filter:
+      all: 全部
+      workstation:
+        cate/waiting_create: 待创建
+        cate/has_created: 已创建
     payment_show:
       product_info: 商品详情
       order_info: 订单信息
@@ -180,11 +214,41 @@ cn:
       subject: 科目类型
       grade: 年级类型
       teacher_name: 授课老师
-      lessons_count: 课时总数
-      lessons_count_value: '%{count}课时'
+      lessons_count: 课时数量
+      lessons_count_value: '共%{count}课时'
       live_start_date: 开课时间
       live_end_date: 结束时间
       status: 当前状态
+      course_type: '课程类型'
+      grade_and_subject: '年级科目'
+    interactive_course_order_new:
+      interactive_lessons_count: 课时总数
+    course_form:
+      teacher_percentage: "%{percentage}分成"
+      service_price: "%{price}元/时"
+      publicize_tips: 建议：<br>图片像素480*300，<br>图片格式jpeg或png,<br>图片文件不大于500k,<br>禁止使用非法图片作为海报!
+      publicize_pick: 点此更换图片
+      placeholders:
+        grade: 请选择年级
+        subject: 请选择科目
+        objective: 最多填写50个字
+        suit_crowd: 最多填写30个字
+    video_course_form:
+      tips_title: 视频课说明
+      tips_1: 1.视频课是一种可重复销售的课程，允许多人购买
+      tips_2: 2.视频课由学生自主观看学习，无需上课
+      tips_3: 3.默认使用系统视频课课程海报（如左图）
+      none_lessons_tips: 尚未添加任何课程！
+      video_format_tips: 视频文件格式只支持mp4，请重新上传！
+      edit_video: 点击修改视频
+      upload_video: 点击上传视频
+      video_tips: 说明
+      video_tips_1: "1. 上传视频文件大小最多500M,视频长度60分钟以内最佳;"
+      video_tips_2: "2. 目前仅支持MP4;"
+      uploading: 正在上传
+      uploaded: 上传成功
+      processing: 正在处理
+
     teacher_course:
       price: 价格：%.2f￥
       teacher_percentage: 分成比例：%d%
@@ -254,6 +318,9 @@ cn:
     live_studio/courses:
       share_percentage: 分成比例
       no_coupon_code: 工作站未配置优惠码
+    live_studio/interactive_courses:
+      show:
+        lesson_name: "%{course_name} 第 %{index} 节"
 
 
   status:
@@ -263,6 +330,19 @@ cn:
     teaching: 已开课
     completed: 已结束
     rejected: 已拒绝
+  filter:
+    status:
+      pending: 未发布
+      published: 已发布
+    category:
+      bought: 已购
+      tasting: 免费
+  actions:
+    edit: 编辑
+    destroy: 删除
+  confirms:
+    destroy: 确认删除?
+
   live_studio/ticket:
     type_name:
       buy_inactive: 已购买
@@ -286,9 +366,12 @@ cn:
     models:
       payment/order: 订单
       live_studio/course: 直播课
-      live_studio/lesson: 课程
+      live_studio/interactive_course: 一对一
+      live_studio/video_course: 视频课
+      live_studio/lesson: 直播课程
       live_studio/course_request: 招生审核
       live_studio/course_invitation: 开班邀请
+      live_studio/video_lesson: 视频课程
       live_studio/announcement: 公告
     attributes:
       payment/order:
@@ -319,6 +402,7 @@ cn:
         base_price_clt: "%{price}元/时"
         qr_code: 二维码
         price: 价格
+        left_price: 价格
         status: 状态
         type_name: 类型
         teacher_percentage: 教师分成百分比
@@ -328,6 +412,7 @@ cn:
         billing_duration: 服务时长
         billing_system_price: 服务费标准
         billing_system_price_value: "%{amount}/分钟"
+        billing_system_hour_price_value: "%{amount} 元/小时"
         billing_system_fee: 服务费扣费
         billing_teacher_percent: 教师分成
         billing_teacher_amount: 教师收入
@@ -335,8 +420,13 @@ cn:
         billing_system_amount: 系统收入
         billing_workstation_percent: 工作站分成
         billing_workstation_amount: 工作站收入
-        billing_sell_percent: 分销商分成
-        billing_sell_amount: 分销商收入
+        billing_publish_amount: 发行收入
+        billing_publish_percent: 发行分成
+        billing_sell_amount: 销售收入
+        billing_sell_percent: 销售分成
+        billing_platform_amount: 平台收入
+        billing_platform_percent: 平台分成
+        billing_amount: 结账金额
         address: 上课地址
         grade: 年级
         grade_type: 年级类型
@@ -353,6 +443,46 @@ cn:
         live_start_date: 开课时间
         live_end_date: 结束时间
         teach_type: 授课方式
+        tag_list: 课程标签
+        course_description: 课程简介
+        class_date: 开始时间
+        users_count: 人气
+        latest: 最新
+        objective: 课程目标
+        suit_crowd: 适合人群
+        watchers_count: 观看人数
+      live_studio/interactive_course:
+        students_count: 学生数量
+        lessons_progress: 课程进度
+        percentage: 分成
+        latest: 最新
+      live_studio/video_course:
+        grade: 年级
+        video_lessons_count: 课时
+        name: 课程名称
+        description: 详细说明
+        teacher_name: 老师
+        subject: 科目
+        total_time: 时长
+        billing_price: 课程总价
+        billing_duration: 视频总时长
+        objective: 课程目标
+        suit_crowd: 适合人群
+        price: 价格
+        teacher_percentage: 教师分成
+        sell_type: 类型
+        total_duration: 视频总长
+        operation: 操作
+        index: 序号
+        confirmed_at: 审核时间
+        published_at: 发布时间
+      live_studio/video_lesson:
+        name: 课时名称
+        video: 视频内容
+        real_time: 时长
+        tastable: 允许试听
+      live_studio/interactive_lesson:
+        teacher: 老师
       live_studio/push_stream:
         address: 直播地址
       live_studio/pull_stream:
@@ -403,10 +533,12 @@ cn:
 #          completed: 已完成
     view:
       course: 我的辅导
+      interactive_course: 我的一对一
       filter:
         today: 今日辅导
         all: 全部
         preview: 招生中
+        published: 招生中
         teaching: 开课中
         completed: 已结束
         tasted: 试听
@@ -422,7 +554,9 @@ cn:
       taste: 试听
       buy_now: 立即购买
       enroll_now: 立即报名
+      enroll_now2: 立即学习
       buy_new_course: 购买新辅导
+      buy_new_interactive_course: 购买一对一
       none_tips: 当前列表没有发现直播课，%s。
       taste_now: 立即试听
       search: 搜索

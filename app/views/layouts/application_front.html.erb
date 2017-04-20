@@ -15,7 +15,7 @@
 <header>
   <div class="container">
     <div class="header-content">
-     <%= render 'layouts/header' %>
+      <%= render 'layouts/header' %>
     </div>
   </div>
 </header>
@@ -27,13 +27,13 @@
 </div>
 
 <% if flash.any? %>
-<div class="container message-nav">
-  <div class="row">
-    <% flash.each do |key, value| %>
-      <div class="alert alert-<%= key %>"><%= value %></div>
-    <% end %>
+  <div class="container message-nav">
+    <div class="row">
+      <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
+    </div>
   </div>
-</div>
 <% end %>
 
 

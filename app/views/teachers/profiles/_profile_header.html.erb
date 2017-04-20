@@ -1,0 +1,33 @@
+<div class="user-header">
+  <div class="container">
+    <div class="row">
+      <div class="user-img">
+        <p>
+          <%= link_to profile_teacher_path(@teacher.id) do %>
+            <%= image_tag @teacher.avatar, class: 'handle_error_avatar' %>
+          <% end %>
+        </p>
+        <p>
+          <span><%= @teacher.name %></span>
+          <%= image_tag "#{@teacher.gender || 'male'}_big.png" %>
+        </p>
+      </div>
+      <div class="user-message">
+        <p>
+          <span>
+            <%= image_tag '/imgs/course-active.png' %>
+            <i><%= t('teachers.profile.lesson_refund') %></i>
+          </span>
+          <span>
+            <%= image_tag '/imgs/course-active.png' %>
+            <i><%= t('teachers.profile.intro_complete') %></i>
+          </span>
+          <span>
+            <%= image_tag '/imgs/course-active.png' %>
+            <i><%= t('teachers.profile.teach_online') %></i>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

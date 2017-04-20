@@ -7,7 +7,7 @@
 
             <%= link_to new_learning_plan_path(student_id: @student.id) do %>
               <button type="button" class="btn btn-xs btn-success"><%=get_edit_or_create_model_string(LearningPlan.new) %></button>
-            <% end %>
+            <% end if allow?('learning_plans', 'new') %>
 
         </h2>
 

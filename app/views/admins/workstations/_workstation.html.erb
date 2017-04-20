@@ -1,18 +1,14 @@
-<div class="row qa_big_cell">
-  <div class="col-md-1">
-    <%= workstation_counter + 1 %>
-  </div>
-  <div class="col-md-3">
-    <%=link_to workstation.name, station_workstation_path(workstation)%>
-  </div>
-  <div class="col-md-3">
-    <% if allow? "workstations","edit",workstation %>
-        <%= link_to 'edit',edit_admins_workstation_path(workstation) %>
+<tr>
+  <td><%= show_index(workstation_counter, @workstations.limit_value) %></td>
+  <td><%= link_to truncate_u(workstation.name, length: 8), station_workstation_path(workstation) %></td>
+  <td><%= workstation.city.try(:name) %></td>
+  <td><%= workstation.manager.try(:name) %>（<%= workstation.tel %>）</td>
+  <td><%= workstation.coupon.try(:code) %></td>
+  <td><%= workstation.status.text %></td>
+  <td>
+    <% if allow? :workstations, :change_status, workstation %>
+      <% status_name = workstation.running? ? t('view.admins.workstations.index.stop_status') : t('view.admins.workstations.index.run_status') %>
+      <%= link_to status_name, change_status_admins_workstation_path(workstation), data: {confirm: t('view.admins.workstations.index.change_status_confirm'), method: :post, remote: true}  %>
     <% end %>
-  </div>
-  <div class="col-md-3">
-    <% if allow? "workstations","edit",workstation %>
-        <%= link_to 'destroy',admins_workstation_path(workstation),method: :delete,'data-confirm' => 'Are you sure?' %>
-    <% end %>
-  </div>
-</div>
+  </td>
+</tr>

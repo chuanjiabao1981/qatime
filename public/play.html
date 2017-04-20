@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>视频直播</title>
+<title>Qatime</title>
 <link href="//nos.netease.com/vod163/nep.min.css" rel="stylesheet">
-<script src="//nos.netease.com/vod163/nep.min.js"></script>
+<script src="//nos.netease.com/vod163/nep.min.js" type='text/javascript'></script>
+<style type="text/css">
+  html {
+    width: 100%;
+    height: 100%;
+  }
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+  }
+</style>
 </head>
 <body style="margin: 0px;">
 
-<video id="my-video" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="poster.png" preload="auto" data-setup="{}">
-    <source src="MY_VIDEO.mp4" type="video/mp4">
+<video id="my-video" class="video-js" x-webkit-airplay="allow" webkit-playsinline controls poster="big_loading.png" preload="auto" data-setup="{}">
 </video>
 
-<script>
+<script type='text/javascript'>
 function queryParams(name, url) {
   if (!url) {
     url = window.location.href;
@@ -24,8 +34,9 @@ function queryParams(name, url) {
   return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-var width = queryParams('width') || 640;
-var height = queryParams('height') || 480;
+var width = queryParams('width');
+var height = queryParams('height');
+var myPlayer;
 var address = queryParams("address");
 var type = 'rtmp/flv';
 
@@ -39,12 +50,37 @@ if("http" === address.substring(0, 4)) {
   }
 }
 
-var myPlayer = neplayer("my-video", {
+var Component = neplayer.getComponent("Component");
+var RefreshComponent = neplayer.extend(Component,{
+  createEl:function(){
+    var button = document.createElement("button");
+    button.innerHTML = "刷新";
+    button.className = "vjs-button";
+    return button;
+  }
+});
+var refreshComponent = new RefreshComponent();
+refreshComponent.on("click", function(){
+  myPlayer.refresh();
+});
+
+var playerOptions = {
   "autoplay": true, //是否自动播放(ios不支持自动播放)
   /*预加载选项*/
-  "preload": "auto"
-}, function() {
-  console.log("Ready......");
+  "preload": "auto",
+  "controlBar": {
+    "fullscreenToggle": false,
+    "liveDisplay": false
+  }
+};
+
+if(width) {
+  playerOptions['width'] = width;
+  playerOptions['height'] = height;
+}
+
+myPlayer = neplayer("my-video", playerOptions, function() {
+  myPlayer.corePlayer.controlBar.addChild(refreshComponent, {}, 1);
 });
 
 myPlayer.setDataSource({
@@ -52,19 +88,18 @@ myPlayer.setDataSource({
   src: address
 });
 
+myPlayer.on("ended", function() {
+  console.log('直播结束了......');
+});
+
 myPlayer.onError(function(err){
-  console.log(err.errCode);
-  console.log(err.errMsg);
 });
 
 myPlayer.onPlayState(1,function(){
-  console.log('play');
 });
 myPlayer.onPlayState(2,function(){
-  console.log('pause');
 });
 myPlayer.onPlayState(3,function(){
-  console.log('ended');
 }); 
 </script>
 

@@ -21,6 +21,7 @@ module SessionsHelper
     if login_token.client_type == 'web'
       cookies.delete(:remember_token)
       cookies.delete(:remember_user_type)
+      cookies.delete(:payment_passd_warning)
     end
     login_token.update_attributes(digest_token: User.digest(User.new_remember_token))
     self.current_user = nil

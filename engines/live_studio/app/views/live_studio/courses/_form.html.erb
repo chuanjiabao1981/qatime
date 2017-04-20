@@ -1,35 +1,30 @@
-<%= simple_form_for @course do |f|%>
+<%= simple_form_for @course do |f| %>
+  <%= f.input :workstation_id, as: :hidden %>
 
-  <%= f.error_notification %>
-  <%= f.input :invitation_id, as: :hidden %>
-  <p class="file-title">一、辅导概况</p>
-  <%= render 'course_fields', f: f%>
-  <div class="editor-arrange">
-    <div class="class-arrtitle">
-      二、课程安排
-    </div>
-  </div>
+  <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_one') %></h3>
+  <%= render 'course_fields', f: f %>
 
-  <div class="class-con">
+  <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_two') %></h3>
+  <div class="live-arrangement">
     <%= f.fields_for :lessons do |lesson| %>
-      <%= render 'lesson_fields', f: lesson%>
+      <%= render 'lesson_fields', f: lesson %>
     <% end %>
-    <center>
-      <%= raw link_to_add_fields(image_tag('add.png', size: '18x18') + "添加新课程", f, :lessons, 'live_studio/courses/') %>
-      <%= f.input :lessons, label: false, input_html: {style: 'display: none;'} %>
-    </center>
+
+    <%= raw link_to_add_fields(image_tag('/imgs/addclass.png') + "<span>#{t('view.live_studio/course.new.add_lesson')}</span>".html_safe, f, :lessons, 'live_studio/courses/') %>
+    <%= f.input :lessons, label: false, input_html: {style: 'display: none;'} %>
   </div>
 
-  <div class="class-con">
-  </div>
+  <h3 class="file-title"><%= t('view.live_studio/interactie_course.new.intro_three') %></h3>
+  <%= render 'course_fields2', f: f %>
+
   <div class="present">
     <center>
-      <%= link_to '预览', 'javascript: void(0);', id: 'course_preview' %>
-      <%= link_to '发布招生', 'javascript: void(0);', class: 'submit' %>
+      <%= link_to t('view.live_studio/interactie_course.new.preview'), 'javascript: void(0);', id: 'course_preview' %>
+      <%= link_to t('view.live_studio/interactie_course.new.submit'), 'javascript: void(0);', class: 'submit' %>
     </center>
   </div>
-
 <% end %>
+
 <% content_for :javascript do %>
   <script>
     $(document).ready(function(){
@@ -45,12 +40,12 @@
         $(this).parents("form").attr('action', action);
         $(this).parents("form").removeAttr('target');
       });
-    })
+    });
     function _get_time(hour, minutes, duration){
       return $.getLessonTime(hour, minutes, duration);
     }
     function remove_lesson(obj){
-      $(obj).parents("table").hide();
+      $(obj).parents("div.lesson_field").hide();
       var b = $(obj).attr('rel');
       $('#'+b).attr('checked', true);
     }
@@ -63,7 +58,7 @@
         //isinitVal:true,
         format:"YYYY-MM-DD",
         isClear:false,
-        minDate: '<%= Date.today.to_s %>',
+        minDate: '<%= Date.today.to_s %>'
       });
     }
   </script>

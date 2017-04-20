@@ -2,14 +2,13 @@ require_dependency "payment/application_controller"
 
 module Payment
   class TransactionsController < ApplicationController
-    layout 'payment'
+    layout 'v1/application'
 
     skip_before_action :verify_authenticity_token, only: :notify
 
     before_action :set_transaction
 
     def show
-      render layout: 'application_front'
     end
 
     def notify
@@ -31,6 +30,10 @@ module Payment
         proccess_result
         if @transaction.is_a? Payment::Recharge
           redirect_to payment.cash_user_path(@transaction.user)
+        elsif @transaction.product.is_a? LiveStudio::InteractiveCourse
+          redirect_to live_studio.student_interactive_courses_path(@transaction.user)
+        elsif @transaction.product.is_a? LiveStudio::VideoCourse
+          redirect_to live_studio.student_video_courses_path(@transaction.user)
         else
           redirect_to live_studio.student_courses_path(@transaction.user)
         end
@@ -62,6 +65,10 @@ module Payment
         render 'show', layout: 'application_front'
       elsif @transaction.is_a? Payment::Recharge
         redirect_to payment.cash_user_path(@transaction.user)
+      elsif @transaction.product.is_a?(LiveStudio::InteractiveCourse)
+        redirect_to live_studio.student_interactive_courses_path(@transaction.user)
+      elsif @transaction.product.is_a?(LiveStudio::VideoCourse)
+        redirect_to live_studio.student_video_courses_path(@transaction.user)
       else
         redirect_to live_studio.student_courses_path(@transaction.user)
       end

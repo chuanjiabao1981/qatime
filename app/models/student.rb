@@ -16,10 +16,15 @@ class Student < User
 
   # 直播
   has_many :live_studio_tickets, class_name: LiveStudio::Ticket
-  has_many :live_studio_courses, class_name: LiveStudio::Course, through: :live_studio_tickets, source: :course
+  has_many :live_studio_courses, class_name: LiveStudio::Course, through: :live_studio_tickets, source: :product, source_type: LiveStudio::Course
   has_many :live_studio_lessons, class_name: LiveStudio::Lesson, through: :live_studio_courses, source: :lessons
+  has_many :live_studio_interactive_courses, class_name: LiveStudio::InteractiveCourse, through: :live_studio_tickets, source: :product, source_type: LiveStudio::InteractiveCourse
+  has_many :live_studio_interactive_lessons, class_name: LiveStudio::InteractiveLesson, through: :live_studio_interactive_courses, source: :interactive_lessons
+  has_many :live_studio_video_courses, class_name: LiveStudio::VideoCourse, through: :live_studio_tickets, source: :product, source_type: LiveStudio::VideoCourse
+  has_many :live_studio_video_lessons, class_name: LiveStudio::VideoLesson, through: :live_studio_video_courses, source: :video_lessons
   has_many :live_studio_buy_tickets, class_name: LiveStudio::BuyTicket
   has_many :live_studio_taste_tickets, class_name: LiveStudio::TasteTicket
+  has_many :live_studio_taste_courses, class_name: LiveStudio::Course, through: :live_studio_taste_tickets, source: :product, source_type: LiveStudio::Course
 
   attr_reader :student_columns_required
 
@@ -28,7 +33,9 @@ class Student < User
   validates :name, length: { in: 1..30 }, on: :update
 
   # 第二步注册，学生更新验证
-  validates_presence_of :grade, if: :student_columns_required?, on: :update
+  validates_presence_of :grade, :city_id, if: :student_columns_required?, on: :update
+  validates :city, presence: true, if: :city_id_changed?, on: :update
+
   validates :parent_phone, allow_blank: true, length: { is: 11 }, numericality: { only_integer: true }, on: :update
 
   # 修改个人安全信息验证

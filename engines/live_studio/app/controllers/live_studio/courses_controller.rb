@@ -3,26 +3,23 @@ require_dependency "live_studio/application_controller"
 module LiveStudio
   class CoursesController < ApplicationController
     before_action :set_user
-    before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson, :live_status]
+    before_action :find_workstation, except: [:index, :show]
+    before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson, :live_status, :update_class_date, :update_lessons]
     before_action :play_authorize, only: [:play]
     before_action :set_city, only: [:index]
     before_action :detect_device_format, only: [:show]
 
     def index
-      @courses = LiveService::CourseDirector.courses_search(search_params)
-      if @student && @student.student?
-        @tickets = @student.live_studio_tickets.includes(course: :lesson).where(course_id: @courses.map(&:id)) if @student
-      else
-        @tickets = []
-      end
-      @courses = @courses.where(city_id: @location_city.id) if @location_city
-      @courses = @courses.paginate(page: params[:page], per_page: 8)
-      render layout: 'application_front'
+      @q = LiveService::CourseDirector.search(search_params)
+      @courses = @q.result.paginate(page: params[:page], per_page: 12)
+      preload_tickets(@courses)
+      load_tags
+      render layout: 'v1/application'
     end
 
     def new
-      @invitation = CourseInvitation.sent.find_by(id: params[:invitation_id]) if params[:invitation_id]
-      @course = Course.new(invitation: @invitation, price: nil, taste_count: nil)
+      @course = Course.new(workstation: @workstation, price: nil, taste_count: nil, teacher_percentage: nil)
+      @course.generate_token
       render layout: current_user_layout
     end
 
@@ -35,8 +32,8 @@ module LiveStudio
       @course = Course.new(courses_params.merge(author: current_user))
       @course.taste_count ||= 0
       if @course.save
-        LiveService::ChatAccountFromUser.new(@course.teacher).instance_account
-        redirect_to live_studio.send("#{@course.author.role}_courses_path", @course.author)
+        LiveService::ChatAccountFromUser.new(@course.teacher).instance_account rescue nil
+        redirect_to live_studio.my_courses_station_workstation_courses_path(@course.workstation)
       else
         render :new, layout: current_user_layout
       end
@@ -45,7 +42,25 @@ module LiveStudio
     # 预览
     def preview
       @course = build_preview_course
-      render layout: 'application_front'
+      @lessons = @course.new_record? ? @course.lessons : @course.order_lessons
+      @teachers = @course.teachers
+      render layout: 'v1/application'
+    end
+
+    # 调课
+    def update_class_date
+      render layout: current_user_layout
+    end
+
+    def update_lessons
+      # 课程更新 全部更新时间戳 render error时可以重新编辑
+      @course.lessons.map(&:touch)
+      if @course.update(lessons_params)
+        @course.ready_lessons
+        redirect_to live_studio.my_courses_station_workstation_courses_path(@course.workstation)
+      else
+        render :update_class_date, layout: current_user_layout
+      end
     end
 
     def update
@@ -73,12 +88,9 @@ module LiveStudio
     end
 
     def show
-      @course = Course.find(params[:id])
-      @lessons = @course.lessons.paginate(page: params[:page])
-
       respond_to do |format|
         format.html do |html|
-          html.none { render layout: 'application_front' }
+          html.none { render layout: 'v1/application' }
           html.tablet
           html.phone { render layout: 'application-mobile' }
         end
@@ -89,13 +101,16 @@ module LiveStudio
     end
 
     def play
-      @chat_team = @course.chat_team
+      load_play_data
       @current_lesson = @course.current_lesson
-      # @tickets = @course.tickets.available.includes(:student)
       @teacher = @course.teacher
-      @chat_account = current_user.chat_account
-      @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) if @chat_team && @chat_account
-      render layout: 'live'
+      render layout: 'v1/live'
+    end
+
+    def board
+    end
+
+    def camera
     end
 
     def refresh_current_lesson
@@ -123,12 +138,16 @@ module LiveStudio
       arr = LiveService::CourseDirector.courses_by_month(@user, moment)
       @date_list = arr.map{|data| data[:date]}
       lesson_map = arr.select{|data| data[:date].to_time == moment}.first
-      @lessons = lesson_map[:lessons] if lesson_map.present?
+      @lessons = lesson_map[:lessons].sort_by { |x| x.start_at } if lesson_map.present?
       render partial: 'live_studio/student/students/lesson'
     end
 
     def live_status
       render json: LiveService::CourseDirector.new(@course).stream_status
+    end
+
+    def live_info
+      render json: LiveService::RealtimeService.new(params[:id]).live_detail(current_user.try(:id))
     end
 
     private
@@ -142,9 +161,22 @@ module LiveStudio
       redirect_to @course, alert: i18n_failed('have_not_bought', @course) unless @course.play_authorize(current_user, nil)
     end
 
+    def load_play_data
+      @chat_team = @course.chat_team || LiveService::ChatTeamManager.new(nil).instance_team(@course, @course.teacher.chat_account)
+      @chat_account = current_user.try(:chat_account)
+      if @chat_account.nil?
+        @chat_account = LiveService::ChatAccountFromUser.new(current_user).instance_account
+      end
+      @join_record = @chat_team.join_records.find_by(account_id: @chat_account.id) || LiveService::ChatTeamManager.new(@chat_team).add_to_team([@chat_account], 'normal').first
+    end
+
     def set_user
       @teacher = ::Teacher.find_by(id: params[:teacher_id]) || current_user
       @student = ::Student.find_by(id: params[:student_id]) || current_user
+    end
+
+    def find_workstation
+      @workstation ||= current_user.try(:workstations).try(:first) || current_user.try(:workstation)
     end
 
     def current_resource
@@ -152,28 +184,43 @@ module LiveStudio
     end
 
     def search_params
-      params.permit(
-        :subject, :grade, :sort_by, :status, :price_floor, :price_ceil, :class_date_floor, :class_date_ceil
-      )
+      return @search_params if @search_params.present?
+      @search_params = params.permit(:tags, :range, q: [:status, :grade_eq, :subject_eq, :class_date_gteq, :class_date_lt, :s])
+      @search_params[:q] ||= {}
+      @search_params[:q][:s] ||= "published_at desc"
+      @search_params[:q][:status_eq] = LiveStudio::Course.statuses[@search_params[:q][:status]] if @search_params[:q][:status].present?
+      @search_params = search_params_filter(@search_params)
+    end
+
+    def load_tags
+      @tags = Tag.all
+      @tags = @tags.category_of(search_params[:q].slice(:grade_eq, :subject_eq).values)
+      @tags = @tags.order('tag_group_id, id')
+    end
+
+    # 搜索参数过滤
+    # 不是识别的参数值删除掉
+    def search_params_filter(origion_params)
+      # 删除不支持的区间查询方式, 影响i18n显示
+      origion_params.delete(:range) unless %w(1_months 2_months 3_months 6_months 1_years).include?(origion_params[:range])
+      origion_params
     end
 
     def courses_params
-      # if params[:course] && params[:course][:lessons_attributes]
-      #   params[:course][:lessons_attributes].map do |_, attr|
-      #     attr['class_date'] = attr['start_time'][0,10]
-      #     attr['start_time'] = attr['start_time'][11,8]
-      #     attr['end_time'] = attr['end_time'][11,8]
-      #   end
-      # end
       params[:course][:lessons_attributes] = params[:course][:lessons_attributes].map(&:second) if params[:course] && params[:course][:lessons_attributes]
-      params.require(:course).permit(:name, :grade, :price, :invitation_id, :description, :taste_count, :crop_x, :crop_y, :crop_w, :crop_h, :publicize, :workstation_id,
-          lessons_attributes: [:id, :name, :class_date, :start_time_hour, :start_time_minute,:duration, :_destroy])
+      params.require(:course).permit(:name, :grade, :subject, :price, :invitation_id, :description, :token, :taste_count, :workstation_id, :tag_list, :objective, :suit_crowd, :teacher_percentage, :teacher_id,
+                                     :publicize, :crop_x, :crop_y, :crop_w, :crop_h,
+                                     lessons_attributes: [:id, :name, :class_date, :start_time_hour, :start_time_minute, :duration, :_destroy])
+    end
+
+    def lessons_params
+      params.require(:course).permit(lessons_attributes: [:id, :duration, :class_date, :start_time_hour, :start_time_minute, :_update])
     end
 
     def preview_courses_params
       preview = courses_params
-      preview['lessons_attributes'].each do |lesson|
-        lesson.delete('id')
+      if preview['lessons_attributes'].respond_to?(:each)
+        preview['lessons_attributes'].each { |lesson| lesson.delete('id') }
       end
       preview
     end
@@ -182,11 +229,24 @@ module LiveStudio
       return Course.find(params[:id]) if params[:id].present?
       course = Course.new(preview_courses_params.merge(author: current_user))
       course.valid?
-      course.lessons_count = params[:course][:lessons_attributes].count
-      class_dates = params[:course][:lessons_attributes].map {|a| a[:class_date]}.reject(&:blank?)
-      @live_start_date = class_dates.min
-      @live_end_date = class_dates.max
+      if params[:course][:lessons_attributes].blank?
+        course.lessons_count = 0
+        class_dates = []
+      else
+        course.lessons_count = params[:course][:lessons_attributes].try(:count) || 0
+        class_dates = params[:course][:lessons_attributes].map {|a| a[:class_date]}.reject(&:blank?)
+      end
+      course.start_at, course.end_at = class_dates.min, class_dates.max
       course
+    end
+
+    def preload_tickets(courses)
+      @tickets =
+        if @student && @student.student?
+          @student.live_studio_tickets.where(course_id: courses.map(&:id))
+        else
+          []
+        end
     end
 
   end

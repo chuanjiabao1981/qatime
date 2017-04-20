@@ -1,0 +1,11 @@
+<% 6.times do %>
+  <li class="col-md-2 col-sm-3 col-xs-4">
+    <%= link_to "javascript:void(0);" do %>
+      <p><%= image_tag("webright-nocon-1.png") %></p>
+      <p>
+        <span><strong><%= t('view.common_bars.default_teacher') %></strong></span>
+        <span><%= t('view.common_bars.default_teach_years') %></span>
+      </p>
+    <% end %>
+  </li>
+<% end %>

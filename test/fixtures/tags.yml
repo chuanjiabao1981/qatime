@@ -1,0 +1,57 @@
+高考:
+  name: 高考
+  tag_group: one
+会考:
+  name: 会考
+  tag_group: one
+中考:
+  name: 中考
+  tag_group: one
+小升初考试:
+  name: 小升初考试
+  tag_group: one
+奥数竞赛:
+  name: 奥数竞赛
+  tag_group: one
+高考志愿:
+  name: 高考志愿
+  tag_group: one
+历年真题:
+  name: 历年真题
+  tag_group: two
+期中期末试卷:
+  name: 期中期末试卷
+  tag_group: two
+自编试卷:
+  name: 自编试卷
+  tag_group: two
+暑假课:
+  name: 暑假课
+  tag_group: three
+寒假课:
+  name: 寒假课
+  tag_group: three
+周末课:
+  name: 周末课
+  tag_group: three
+国庆假期课:
+  name: 国庆假期课
+  tag_group: three
+基础课:
+  name: 基础课
+  tag_group: four
+巩固课:
+  name: 巩固课
+  tag_group: four
+提高课:
+  name: 提高课
+  tag_group: four
+外教:
+  name: 外教
+  tag_group: five
+冲刺:
+  name: 冲刺
+  tag_group: five
+重点难点:
+  name: 重点难点
+  tag_group: five

@@ -1,0 +1,6 @@
+cn:
+  enumerize:
+    workstation:
+      status:
+        stopping: 未运营
+        running: 运营中

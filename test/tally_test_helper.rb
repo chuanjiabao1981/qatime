@@ -5,37 +5,39 @@ module TallyTestHelper
 
     assert yield == count
     assert_difference 'EarningRecord.count', count*2, "收入记录生成不正确" do
-      assert_difference 'Payment::EarningRecord.count', count*2, "新的收入记录生成不正确" do
-        assert_difference 'Fee.count', count do
-          assert_difference 'Payment::Billing.count', count do
-            assert_difference 'ConsumptionRecord.count', count do
-              collection.each do |object|
-                teacher_money = teacher.account.money
-                student_money = student.account.money
-                workstation_money = workstation.account.money
-                object.keep_account(teacher.id)
-                teacher.account.reload
-                student.account.reload
-                workstation.account.reload
+      assert_difference 'Payment::EarningRecord.count', count*3, "新的收入记录生成不正确" do
+        assert_difference 'Payment::EarningRecord.assess_billing.count', count*3, "收入记录不能提现" do
+          assert_difference 'Fee.count', count do
+            assert_difference 'Payment::Billing.count', count do
+              assert_difference 'ConsumptionRecord.count', count do
+                collection.each do |object|
+                  teacher_money = teacher.account.money
+                  student_money = student.account.money
+                  workstation_money = workstation.account.money
+                  object.keep_account(teacher.id)
+                  teacher.account.reload
+                  student.account.reload
+                  workstation.account.reload
 
-                student_value, teacher_value, workstation_value = calculate_test_expected_money_change_value(object)
+                  student_value, teacher_value, workstation_value = calculate_test_expected_money_change_value(object)
 
-                assert_equal float_test_format(student_money - student_value), student.account.reload.money, "学生扣费不正确"
-                assert_equal float_test_format(teacher_money + teacher_value), teacher.account.reload.money, "教师收入不正确"
-                assert_equal float_test_format(workstation_money + workstation_value), workstation.account.reload.money, "工作站收入不正确"
+                  assert_equal float_test_format(student_money - student_value), student.account.reload.money, "学生扣费不正确"
+                  assert_equal float_test_format(teacher_money + teacher_value), teacher.account.reload.money, "教师收入不正确"
+                  assert_equal float_test_format(workstation_money + workstation_value), workstation.account.reload.money, "工作站收入不正确"
 
-                assert object.is_charged?
-                # 对fee和老师生成的earning_record进行属性测试
-                fee = object.fee
-                assert_not_nil fee
-                assert fee.value                == student_value
-                assert fee.platform_price       == object.platform_price
-                assert fee.teacher_price        == object.teacher_price
-                assert fee.sale_price           == object.platform_price + object.teacher_price
-                assert fee.feeable_id           == object.id
-                assert fee.feeable_type         == class_name
-                assert fee.customized_course_id == object.customized_course_id
-                assert fee.video_duration       == object.video.duration
+                  assert object.is_charged?
+                  # 对fee和老师生成的earning_record进行属性测试
+                  fee = object.fee
+                  assert_not_nil fee
+                  assert fee.value                == student_value
+                  assert fee.platform_price       == object.platform_price
+                  assert fee.teacher_price        == object.teacher_price
+                  assert fee.sale_price           == object.platform_price + object.teacher_price
+                  assert fee.feeable_id           == object.id
+                  assert fee.feeable_type         == class_name
+                  assert fee.customized_course_id == object.customized_course_id
+                  assert fee.video_duration       == object.video.duration
+                end
               end
             end
           end

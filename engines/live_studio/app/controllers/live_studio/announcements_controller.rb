@@ -19,8 +19,8 @@ module LiveStudio
 
       if @announcement.save
         @course.announcements.where(lastest: true).where("id <> ?", @announcement).update_all(lastest: false)
-        redirect_to course_announcements_path(@course), notice: t("activerecord.successful.messages.created",
-                                                                  model: LiveStudio::Announcement.model_name.human)
+        redirect_to live_studio.send("#{@course.model_name.singular_route_key}_announcements_path", @course),
+                    notice: t("activerecord.successful.messages.created", model: LiveStudio::Announcement.model_name.human)
       else
         render :new
       end
@@ -43,7 +43,12 @@ module LiveStudio
     end
 
     def set_course
-      @course ||= LiveStudio::Course.find(params[:course_id])
+      @course ||=
+        if params[:course_id].present?
+          LiveStudio::Course.find(params[:course_id])
+        else
+          LiveStudio::InteractiveCourse.find(params[:interactive_course_id])
+        end
     end
 
     # Only allow a trusted parameter "white list" through.

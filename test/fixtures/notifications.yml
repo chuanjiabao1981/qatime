@@ -119,6 +119,13 @@ live_studio_course_assign:
   read: false
   action_name: assign
 
+live_studio_interactive_course_assign:
+  notificationable: interactive_course_teacher1 (LiveStudio::InteractiveCourse)
+  receiver: teacher1
+  type: LiveStudioInteractiveCourseNotification
+  read: false
+  action_name: assign
+
 live_studio_course_start_for_teacher:
   notificationable: course_start_at_today (LiveStudio::Course)
   receiver: teacher1
@@ -167,4 +174,11 @@ course_notification_for_destroy_course:
   type: LiveStudioCourseNotification
   read: false
   action_name: start
+
+course_notification_for_destroy_course:
+  notificationable: interactive_course_teacher1 (LiveStudio::InteractiveCourse)
+  receiver: teacher1
+  type: LiveStudioInteractiveCourseNotification
+  read: false
+  action_name: finish
 

@@ -1,0 +1,37 @@
+<% cache [video_course, video_course.video_lessons_count] do %>
+  <li>
+    <div class="row">
+      <div class="col-md-3 discipline-pic">
+        <%= link_to image_tag(video_course.publicize_url(:list), class: 'handle_error_list'), "javascrip: void(0);" %>
+      </div>
+      <div class="col-md-7 discipline-info">
+        <div class="row info-title">
+          <div class="col-md-12">
+            <%= link_to "javascrip: void(0);" do %>
+              <strong><%= video_course.name %></strong>
+            <% end %>
+          </div>
+        </div>
+        <div class="row info-state">
+          <div class="col-md-7">
+            <span><%= LiveStudio::VideoCourse.human_attribute_name(:grade) %></span>
+            <span><%= video_course.grade %></span>
+          </div>
+          <div class="col-md-5">
+            <span><%= LiveStudio::VideoCourse.human_attribute_name(:video_lessons_count) %></span>
+            <span><%= video_course.video_lessons_count %></span>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2 course-state">
+        <span class="col-md-12 col-sm-4 col-xs-4"><%= video_course.status.text %></span>
+        <%= link_to t("actions.edit"), live_studio.edit_teacher_video_course_path(current_user, video_course),
+                    class: "col-md-12 col-sm-4 col-xs-4" if video_course.init? && allow?('live_studio/teacher/video_courses', 'edit', @teacher) %>
+        <%= link_to t("actions.destroy"), live_studio.teacher_video_course_path(current_user, video_course),
+                    method: :delete,
+                    class: "col-md-12 col-sm-4 col-xs-4",
+                    data: { confirm: t('confirms.destroy') } if video_course.init? && allow?('live_studio/teacher/video_courses', 'destroy', @teacher) %>
+      </div>
+    </div>
+  </li>
+<% end %>

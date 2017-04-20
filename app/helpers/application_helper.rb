@@ -7,8 +7,35 @@ module ApplicationHelper
     (params[:page].to_i - 1) * per.to_i + index + 1
   end
 
+  def echart(html_id, opts = {}, html_options = {})
+    chart = javascript_tag("
+      $(function () {
+        var myChart = echarts.init(document.getElementById('#{html_id}'));
+        myChart.setOption(#{opts.to_json.html_safe.gsub('=>',': ').gsub("\"[", '[').gsub("]\"", ']')});
+        window.onresize = myChart.resize;
+      }); ") + content_tag(:div, nil, {id: html_id}.merge(html_options))
+    chart
+  end
+
+  # 简单线性图
+  def echarts_line(dom_id, options = {}, html_options = {})
+    opts = {
+        tooltip: { trigger: 'axis' },
+        grid: { left: '1%', right: '5%', bottom: '3%', containLabel: true }
+    }
+
+    os = opts.merge(options)
+    os[:tooltip] = opts[:tooltip].merge(options[:tooltip]) if options[:tooltip]
+    if os[:series]
+      os[:series] = [os[:series].merge({type: 'line'})] if os[:series].is_a?(Hash)
+      os[:series] = os[:series].map {|h| h.merge({type: 'line'}) } if os[:series].is_a?(Array)
+    end
+    echart(dom_id, os, html_options)
+  end
+
   # 截取字符长度,中英文兼容
   def truncate_u(text, options = {})
+    return '' if text.blank?
     opts = { :length => 30, :omission => '...' }
     options = opts.merge(options)
     length = 0
@@ -56,6 +83,17 @@ module ApplicationHelper
     end
   end
 
+  def user_payment_passwd_path
+    case current_user.role
+      when "teacher"
+        main_app.edit_teacher_path(current_user, cate: 'security_setting')
+      when "student"
+        main_app.edit_student_path(current_user, cate: 'security_setting')
+      else
+        user_home_path
+    end
+  end
+
   def wap_user_home_path
     unless signed_in?
       redirect_url = params[:redirect_url].presence || request.original_url
@@ -88,7 +126,16 @@ module ApplicationHelper
     fields = f.fields_for(association, new_object, :child_index => "new_#{association}_#{id}") do |builder|
       render(shared_dir + association.to_s.singularize + "_fields", :f => builder)
     end
-    link_to(name, '###', class: "add_fields", data: {id: id, fields: fields.gsub("\n", "")})
+    link_to(name, '###', class: "add_fields add-course", data: {id: id, fields: fields.gsub("\n", "")})
+  end
+
+  def link_to_append_fields(name, f, association, shared_dir, options = {})
+    new_object = f.object.class.reflect_on_association(association).klass.new
+    id = new_object.object_id
+    fields = f.fields_for(association, new_object, child_index: "new_#{association}_#{id}") do |builder|
+      render(shared_dir + association.to_s.singularize + "_fields", f: builder)
+    end
+    link_to(name, '###', class: "append_fields #{options[:class]}", "append-to" => options['append-to'], data: { id: id, fields: fields.delete("\n") })
   end
 
   def _get_super_model_name(o_class)
@@ -304,6 +351,10 @@ module ApplicationHelper
       r = controller_name == 'users' && action_name == 'cash'
     when :my_courses
       r = controller_name == 'courses' && action_name == 'index'
+    when :my_interactive_courses
+      r = controller_name == 'interactive_courses'
+    when :my_video_courses
+      r = controller_name == 'video_courses'
     when :schedule
       r = controller_name == 'teachers' && action_name == 'schedules'
     when :teacher_students
@@ -325,4 +376,33 @@ module ApplicationHelper
     end
     r
   end
+
+  # 系统所有的标签
+  def tags_with_group
+    TagGroup.includes(:tags)
+  end
+
+  def beautify_index index
+    "%02d"%(index+1)
+  end
+
+  # 支付密码提示信息
+  # 密码24小时内不可用
+  def payment_password_hint(user)
+    default_text = content_tag(:span, t('view.common.payment_password_not_set'), class: 'alert_red_span')
+    return default_text unless user.cash_account_password?
+    return default_text if user.cash_account.try(:password_set_at).blank?
+
+    time_now = Time.now
+    expire_time = user.cash_account.password_set_at.tomorrow
+    if expire_time > time_now
+      leave_time = Util.duration_in_words((expire_time - time_now).to_i).gsub(/.\d秒/, '')
+      content_tag :span, class: 'alert_red_span' do
+        t('view.common.payment_password_expire_time', time: leave_time)
+      end
+    else
+      t('view.common.password_not_visible')
+    end
+  end
+
 end

@@ -6,13 +6,13 @@
     <div class="col-md-2"><%= student.created_at.to_date%></div>
     <% if allow? :students,:destroy %>
     <div class="col-md-2">
-      <%=link_to t('.delete'), student_path(student), method: :delete, 'data-confirm'=> t('.delete_confirm')%>
+      <%=link_to t('students.student.delete'), student_path(student), method: :delete, 'data-confirm'=> t('students.student.delete_confirm')%>
     </div>
     <% end %>
     <% if allow? :students, :admin_edit %>
     <div class="col-md-2">
       <%= link_to admin_edit_student_path(student), method: :get, :remote => true, id: "student_#{student.id}" do %>
-        <%= t(".edit_student") %>
+        <%= t("students.student.edit_student") %>
       <% end %>
     </div>
   <% end %>

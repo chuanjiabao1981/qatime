@@ -106,13 +106,15 @@ gem 'alipay', '~> 0.12.0'
 
 # 监控
 # gem 'oneapm_rpm'
-gem 'newrelic_rpm'
+# gem 'newrelic_rpm'
 
 # 软删除
 gem 'soft_delete_rails'
 
 # 枚举
 gem 'enumerize'
+# 标签功能
+gem 'acts-as-taggable-on', '~> 4.0'
 
 group :development,:test do
   # 状态机做图
@@ -129,6 +131,7 @@ group :development,:test do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'headless'
+  gem 'database_cleaner'
   gem 'puma'
   gem 'thin'
   gem 'pry'
@@ -149,6 +152,9 @@ gem 'test_after_commit', :group => :test
 gem 'settingslogic', '~> 2.0.9'
 # define default values for ActiveRecord models in a declarative manner
 gem 'default_value_for', '~> 3.0', '>= 3.0.2'
+# 查询
+gem 'ransack', '~> 1.8', '>= 1.8.2'
+gem 'select2-rails', '~> 3.5.9.3'
 
 gem 'rest-client'
 gem 'carrierwave-aliyun','0.3.4'

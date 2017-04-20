@@ -1,11 +1,17 @@
-<div class="row qa_big_cell">
-  <div class="col-md-2"><%= banner_item.title %></div>
-  <div class="col-md-2"><%= image_tag banner_item.logo_url(:list) %></div>
-  <div class="col-md-2"><%= banner_item.try(:index) %></div>
-  <div class="col-md-2"><%= link_to banner_item.link, banner_item.link %></div>
-  <div class="col-md-2"><%= banner_item.city.try(:name) %></div>
-  <div class="col-md-2">
-    <%= link_to '编辑', recommend.edit_banner_item_path(banner_item) if allow?("recommend/banner_items", 'edit')  %>
-    <%= link_to '删除', recommend.banner_item_path(banner_item), method: :delete, data: {confirm: '确定删除?'} if allow?("recommend/banner_items", 'destroy')  %>
-  </div>
-</div>
+
+<tr>
+  <td><%= show_index(banner_item_counter, @items.limit_value) %></td>
+  <td><%= image_tag banner_item.logo_url(:list) %></td>
+  <td><%= banner_item.title %></td>
+  <td><%= link_to banner_item.link, banner_item.link, target: '_blank' %></td>
+  <td><%= banner_item.index %></td>
+  <td><%= banner_item.city.try(:name).presence || t('view.recommend/position.city') %></td>
+  <td>
+    <% if allow? "recommend/banner_items", :edit %>
+      <%= link_to t('view.recommend/position.edit'), edit_banner_item_path(banner_item) %>
+    <% end %>
+    <% if allow? "recommend/banner_items", :destroy %>
+      <%= link_to t('view.recommend/position.destroy'), banner_item_path(banner_item), data: {confirm: t('view.recommend/position.confirm'), method: :delete} %>
+    <% end %>
+  </td>
+</tr>

@@ -1,11 +1,18 @@
 module LiveStudio
   class Course < ActiveRecord::Base
+    acts_as_taggable
+
     # include LiveStudio::QaCourseActionRecord
     has_soft_delete
     attr_accessor :sell_percentage_range
 
     include AASM
     extend Enumerize
+    include QaToken
+
+    include Qatime::Stripable
+    strip_field :name, :description
+    include Qatime::Discussable
 
     SYSTEM_FEE = 0.6 # 系统每个人每分钟收费0.6元
     WORKSTATION_PERCENT = 0.6 # 基础服务费代理商分成 60%
@@ -17,6 +24,8 @@ module LiveStudio
     DEFAULT_TEACHER_PERCENTAGE = 80
 
     belongs_to :invitation
+    # 维护比较复杂，暂时不使用
+    # belongs_to :current_lesson, class_name: 'Lesson'
 
     enum status: {
       rejected: -1, # 被拒绝
@@ -39,8 +48,8 @@ module LiveStudio
 
     aasm column: :status, enum: true do
       state :rejected
-      state :init, initial: true
-      state :published
+      state :init
+      state :published, initial: true
       state :teaching
       state :completed
 
@@ -65,32 +74,44 @@ module LiveStudio
       end
     end
 
-    validates :name, presence: { message: "请输入辅导班名称" }, length: { in: 2..20 }, if: :name_changed?
-    validates :description, presence: { message: "请输入辅导班介绍" }, length: { in: 5..300 }, if: :description_changed?
-    validates :grade, presence: { message: "请选择年级" }, if: :grade_changed?
+    # 初始状态 直接开课
+    default_value_for :status, Course.statuses[:published]
+    before_create do
+      self.published_at = Time.now
+      self.billing_type = 'Payment::LiveCourseBilling'
+      self.class_date = lessons.map(&:class_date).try(:min)
+    end
+    after_commit :ready_lessons, on: :create
 
-    validates :publish_percentage, :sell_percentage, :system_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+    validates :name, presence: { message: I18n.t('view.live_studio/course.validates.name') }, length: { in: 2..20 }, if: :name_changed?
+    validates :description, presence: { message: I18n.t('view.live_studio/course.validates.description') }, length: { in: 5..300 }, if: :description_changed?
+    validates :grade, presence: { message: I18n.t('view.live_studio/course.validates.grade') }, if: :grade_changed?
+    validates :subject, presence: { message: I18n.t('view.live_studio/course.validates.subject') }, if: :subject_changed?
+
+    validates :publish_percentage, :platform_percentage, :sell_and_platform_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
     validates :teacher_percentage, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max }
 
     validate :check_billing_percentage
 
     # validates :preset_lesson_count, presence: true, numericality: { only_integer: true, greater_than: 0, less_than_or_equal_to: 200 }
-    validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: "必须大于等于0" }
-    validates :price, presence: { message: "请输入价格" }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
+    validates :price, numericality: { greater_than_or_equal_to: :lower_price, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
+    validates :price, presence: { message: I18n.t('view.live_studio/course.validates.price') }, numericality: { greater_than: :lower_price, less_than_or_equal_to: 999_999 }
 
-    validates :taste_count, numericality: { greater_than_or_equal_to: 0, message: "必须大于等于0" }
-    validates :taste_count, numericality: { less_than: ->(record) { record.lessons.size }, message: '必须小于课程总数'}
+    validates :taste_count, numericality: { greater_than_or_equal_to: 0, message: I18n.t('view.live_studio/course.validates.price_greater_than_or_equal_to') }
+    validates :taste_count, numericality: { less_than: ->(record) { record.lessons.size }, message: I18n.t('view.live_studio/course.validates.taste_count')}
 
     validates :teacher, presence: true
-    validates :publicize, presence: { message: "请添加图片" }, on: :create
+    # validates :publicize, presence: { message: "请添加图片" }, on: :create
+    validates :objective, presence: { message: I18n.t('view.live_studio/course.validates.objective') }, length: { in: 1..50 }, if: :objective_changed?
+    validates :suit_crowd, presence: { message: I18n.t('view.live_studio/course.validates.suit_crowd') }, length: { in: 1..30 }, if: :suit_crowd_changed?
 
     belongs_to :teacher, class_name: '::Teacher'
 
     belongs_to :workstation
 
-    has_many :tickets       # 听课证
-    has_many :buy_tickets, -> { where.not(status: LiveStudio::Ticket.statuses[:refunded]) }  # 普通听课证
-    has_many :taste_tickets # 试听证
+    has_many :tickets, as: :product # 听课证
+    has_many :buy_tickets, -> { where.not(status: LiveStudio::Ticket.statuses[:refunded]) }, as: :product # 普通听课证
+    has_many :taste_tickets, as: :product # 试听证
     has_many :lessons, -> { order('id asc') }
     has_many :live_sessions, through: :lessons
     has_many :course_requests, dependent: :destroy
@@ -99,7 +120,7 @@ module LiveStudio
     accepts_nested_attributes_for :lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     attr_accessor :crop_x, :crop_y, :crop_w, :crop_h
     validates_associated :lessons
-    validates :lessons, presence: {message: '请添加至少一节课程'}
+    validates :lessons, presence: { message: I18n.t('view.live_studio/course.validates.lessons') }
 
     has_many :students, through: :buy_tickets
 
@@ -107,10 +128,8 @@ module LiveStudio
     has_many :push_streams, through: :channels
     has_many :pull_streams, through: :channels
     has_many :play_records # 听课记录
-    has_many :announcements
+    has_many :announcements, as: :announcementable
     has_many :qr_codes, as: :qr_codeable, class_name: "::QrCode"
-
-    has_one :chat_team, foreign_key: 'live_studio_course_id', class_name: '::Chat::Team'
 
     has_many :billings, through: :lessons, class_name: 'Payment::Billing' # 结算记录
 
@@ -129,13 +148,14 @@ module LiveStudio
     scope :by_status, ->(status) {status.blank? || status == 'all' ? nil : where(status: Course.statuses[status.to_sym])}
     scope :by_subject, ->(subject){ subject.blank? || subject == 'all' ? nil : where(subject: subject)}
     scope :by_grade, ->(grade){ grade.blank? || grade == 'all' ? nil : where(grade: grade)}
+    scope :by_city, ->(city_id) { where(city_id: city_id) }
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
     scope :uncompleted, -> { where('status < ?', Course.statuses[:completed]) }
     scope :opening, ->{ where(status: [Course.statuses[:teaching], Course.statuses[:completed]]) }
     scope :for_sell, -> { where(status: [Course.statuses[:teaching], Course.statuses[:published]]) }
 
     def cant_publish?
-      !init? || lessons_count <= 0 || publicize.blank? || name.blank? || description.blank?
+      !init? || lessons_count <= 0 || name.blank? || description.blank?
     end
 
     def preview!
@@ -168,6 +188,10 @@ module LiveStudio
       teacher.try(:name)
     end
 
+    def teachers
+      [teacher].compact
+    end
+
     def distance_days
       today = Date.today
       return 0 if class_date.blank? || class_date < today
@@ -189,6 +213,10 @@ module LiveStudio
     end
 
     def lesson_count_left
+      [lessons_count - finished_lessons_count, 0].max
+    end
+
+    def left_lessons_count
       [lessons_count - finished_lessons_count, 0].max
     end
 
@@ -221,32 +249,29 @@ module LiveStudio
     # 用户是否已经购买
     def own_by?(user)
       return false unless user.present?
-      user.live_studio_tickets.map(&:course_id).include?(id)
+      return false unless user.student?
+      user.live_studio_tickets.available.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
     end
 
     # 已经购买
     def bought_by?(user)
       return false unless user.present?
-      buy_tickets.where(student_id: user.id).exists?
+      return false unless user.student?
+      user.live_studio_buy_tickets.available.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
     end
 
     # 试听结束
     def tasted?(user)
       return false unless user.present?
+      return false unless user.student?
       taste_tickets.unavailable.where(student_id: user.id).exists?
     end
 
     # 正在试听
     def tasting?(user)
       return false unless user.present?
-      taste_tickets.available.where(student_id: user.id).exists?
-    end
-
-    # 用户购买状态
-    def status_for(user)
-      return USER_STATUS_BOUGHT if buy_tickets.where(student_id: user.id).exists?
-      return USER_STATUS_TASTING if taste_tickets.where(student_id: user.id).exists?
-      return USER_STATUS_TASTED if taste_tickets.where(student_id: user.id).exists?
+      return false unless user.student?
+      user.live_studio_taste_tickets.available.find {|t| t.product_id == id && t.product_type == 'LiveStudio::Course' }.present?
     end
 
     # 是否可以试听
@@ -292,7 +317,29 @@ module LiveStudio
 
     # 当前直播课程
     def current_lesson
-      lessons.today.unclosed.first || lessons.today.last || lessons.since_today.unclosed.first || lessons.last
+      return @current_lesson if @current_lesson.present?
+      @current_lesson ||= lessons.find {|l| l.class_date.try(:today?) && l.unclosed? }
+      @current_lesson ||= lessons.select {|l| l.class_date.try(:today?) }.last
+      @current_lesson ||= lessons.find {|l| l.class_date > Date.today && l.unclosed? }
+      @current_lesson ||= lessons.select {|l| l.class_date.present? }.last
+    end
+
+    def live_status
+      return 'none' unless current_lesson
+      case current_lesson.status
+      when 'missed'
+        'init'
+      when 'init'
+        'init'
+      when 'ready'
+        'ready'
+      when 'teaching'
+        'teaching'
+      when 'paused'
+        'teaching'
+      else
+        'closed'
+      end
     end
 
     def current_lesson_name
@@ -341,13 +388,15 @@ module LiveStudio
     end
 
     # 招生申请 提交审核
-    after_commit :apply_publish, on: :create
-    def apply_publish
-      course_requests.create(user: teacher, workstation: workstation)
-    end
+    # after_commit :apply_publish, on: :create
+    # def apply_publish
+    #   course_requests.create(user: teacher, workstation: workstation)
+    # end
 
     def ready_lessons
-      return unless class_date <= Date.today
+      tmp_class_date = [class_date, lessons.map(&:class_date).min].min rescue class_date
+      return if tmp_class_date.blank?
+      return if tmp_class_date > Date.today
       teaching! if published?
       lessons.where(status: [-1, 0]).where('class_date <= ?', Date.today).map(&:ready!)
     end
@@ -379,18 +428,27 @@ module LiveStudio
     end
 
     # 计算经销分成
-    def calculate_sell_percentage
-      self.price * (self.sell_percentage/100.0)
-    end
-
-    # 计算老师分成
-    def calculate_teacher_percentage
-      self.price * (self.teacher_percentage/100.0)
+    def sell_percentage_for(seller)
+      [(sell_and_platform_percentage - seller.platform_percentage), 0].max
     end
 
     def coupon_price(coupon = nil)
       return current_price.to_f unless coupon.present?
       [current_price.to_f - coupon.price, 0].max
+    end
+
+    def service_price
+      (base_price.to_f * 60).to_i
+    end
+
+    def reset_left_price
+      self.left_price = current_price
+      save
+    end
+
+    # 是否可退款
+    def can_refund?
+      for_sell?
     end
 
     private
@@ -415,36 +473,31 @@ module LiveStudio
 
     # 结账比例验证
     def check_billing_percentage
-      errors.add(:teacher_percentage, "分成比例不正确") unless 100 == publish_percentage + system_percentage + sell_percentage + teacher_percentage
+      errors.add(:teacher_percentage, I18n.t('view.live_studio/course.validates.teacher_percentage')) unless 100 == publish_percentage + sell_and_platform_percentage + teacher_percentage.to_i
     end
 
     # 教师分成最大值
     def teacher_percentage_max
-      100 - publish_percentage - system_percentage
+      100 - publish_percentage - platform_percentage
     end
 
-    after_commit :finish_invitation, on: :create
-    def finish_invitation
-      invitation.accepted! if invitation
-    end
+    # after_commit :finish_invitation, on: :create
+    # def finish_invitation
+    #   invitation.accepted! if invitation
+    # end
 
     # 从教师记录复制辅导班信息
-    before_validation :copy_info, on: :create
-    def copy_info
-      self.teacher = author unless teacher_id
-      self.subject = teacher.try(:subject)
-    end
+    # before_validation :copy_info, on: :create
+    # def copy_info
+    #   self.subject = teacher.try(:subject)
+    # end
 
-    # 从工作站拷贝信息
-    before_validation :copy_workstation_info, on: :create
     def copy_workstation_info
       # 邀请创建的辅导班工作站使用邀请者的工作站
       copy_invitation_info! if invitation
       # 没有工作站的辅导班使用老师的默认工作站
       self.workstation ||= default_workstation
       copy_city!
-      # 拷贝完工作站信息以后工作站可能会修改，需要重新计算分成比例
-      reset_billing_percentage!
     end
 
     # 处理邀请
@@ -457,7 +510,7 @@ module LiveStudio
     # 根据工作站信息设置城市信息
     def copy_city!
       self.city = workstation.try(:city)
-      self.city ||= author.city # 工作站不存在使用老师的城市
+      self.city ||= teacher.try(:city) # 工作站不存在使用老师的城市
       self.province = city.try(:province)
     end
 
@@ -466,23 +519,24 @@ module LiveStudio
       author.city.try(:workstations).try(:first)
     end
 
+    def copy_billing_percentage
+      tpl_workstation = workstation || Workstation.default
+      # 发行分成
+      self.publish_percentage = tpl_workstation.publish_percentage
+      # 平台分成
+      self.platform_percentage = tpl_workstation.platform_percentage
+      self.base_price = (tpl_workstation.service_price / 60.0).round(2)
+    end
+
     # 计算结账分成
     before_validation :calculate_billing_percentage!
     def calculate_billing_percentage!
-      tpl_workstation = workstation || Workstation.default
-      self.publish_percentage ||= tpl_workstation.publish_percentage
-      self.system_percentage ||= tpl_workstation.system_percentage
-      self.teacher_percentage ||= DEFAULT_TEACHER_PERCENTAGE
-      self.sell_percentage = teacher_percentage_max - teacher_percentage
-    end
-
-    # 重置结账分成
-    def reset_billing_percentage!
-      tpl_workstation = workstation || Workstation.default
-      self.publish_percentage = tpl_workstation.publish_percentage
-      self.system_percentage = tpl_workstation.system_percentage
-      self.teacher_percentage = DEFAULT_TEACHER_PERCENTAGE unless invitation
-      self.sell_percentage = teacher_percentage_max - teacher_percentage
+      return unless teacher_percentage.present?
+      if new_record?
+        copy_workstation_info
+        copy_billing_percentage
+      end
+      self.sell_and_platform_percentage = 100 - teacher_percentage - publish_percentage
     end
 
     # 学生授权播放

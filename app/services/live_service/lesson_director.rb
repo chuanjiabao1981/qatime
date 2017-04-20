@@ -11,7 +11,7 @@ module LiveService
     # 4. finish上一节课，为了避免漏处理  finish该辅导班内所有paused, closed状态的其它课程
     # 5. 开始本节课
     # 6. 初始化心跳
-    def lesson_start
+    def lesson_start(board, camera)
       @course = @lesson.course
       # 如果辅导班已经有状态为teaching的课程,则返回false
       return false unless @course.lessons.teaching.blank?
@@ -27,11 +27,17 @@ module LiveService
         @lesson.teach!
         @lesson.current_live_session
       end
+    ensure
+      LiveService::LessonDirector.live_status_change(@lesson.course, board, camera, @lesson) if @lesson.teaching?
+      LiveService::RealtimeService.update_lesson_live(@lesson)
     end
 
-    def self.live_status_change(course, board, camera)
+    def self.live_status_change(course, board, camera, lesson = nil)
       course.channels.board.last.update(live_status: board) rescue nil
       course.channels.camera.last.update(live_status: camera) rescue nil
+    ensure
+      LiveService::RealtimeService.new(course.id).update_live(lesson, board, camera)
+      LiveService::RealtimeService.update_lesson_live(lesson)
     end
 
     # 完成课程
@@ -43,6 +49,7 @@ module LiveService
       @lesson.real_time = @lesson.live_sessions.sum(:duration) # 实际直播时间单位分钟
       @course.save!
       @lesson.finish!
+      LiveService::RealtimeService.update_lesson_live(@lesson)
     end
 
     # 准备上课
@@ -62,6 +69,7 @@ module LiveService
           course.teaching!
           LiveService::CourseNotificationSender.new(course).notice(LiveStudioCourseNotification::ACTION_START)
         end
+        LiveService::RealtimeService.update_lesson_live(lesson)
       end
     end
 
@@ -96,7 +104,7 @@ module LiveService
     def self.billing_lessons
       LiveStudio::Lesson.should_complete.each do |lesson|
         next unless lesson.course
-        lesson.finished? && LiveService::BillingDirector.new(lesson).billing
+        lesson.finished? && BusinessService::CourseBillingDirector.new(lesson).billing_lesson
         lesson.billing? && lesson.complete!
       end
     end
@@ -104,7 +112,10 @@ module LiveService
     # 暂停课程
     # teaching状态下10分钟没有收到心跳的课程
     def self.pause_lessons
-      LiveStudio::Lesson.teaching.where("heartbeat_time < ?", 10.minutes.ago).map(&:pause!)
+      LiveStudio::Lesson.teaching.where("heartbeat_time < ?", 10.minutes.ago).each do |lesson|
+        lesson.pause!
+        LiveService::RealtimeService.update_lesson_live(lesson)
+      end
     end
 
     # 编辑课程

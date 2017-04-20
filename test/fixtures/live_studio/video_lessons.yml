@@ -4,24 +4,37 @@ init_video_lesson:
   status: 0
   pos: 1
   video: video_for_init_video_lesson
+  real_time: 2
 init_video_lesson2:
   name: 初始化视屏
   video_course: init_video_course2
   status: 0
   pos: 1
   video: video_for_init_video_lesson2
+  real_time: 2
 published_video_lesson1:
   name: 发布视屏1
   video_course: published_video_course1
   status: 0
   pos: 1
   video: video_for_published_video_lesson1
+  real_time: 2
+  tastable: true
+published_video_lesson1_2:
+  name: 发布视屏1_2
+  video_course: published_video_course1
+  status: 0
+  pos: 2
+  video: video_for_published_video_lesson1_2
+  real_time: 2
+  tastable: false
 published_video_lesson2:
   name: 发布视屏2
   video_course: published_video_course2
   status: 0
   pos: 2
   video: video_for_published_video_lesson2
+  tastable: false
 
 confirmed_video_course_lesson1:
   name: 第一节

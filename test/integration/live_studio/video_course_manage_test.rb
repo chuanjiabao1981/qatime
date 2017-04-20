@@ -35,6 +35,15 @@ module LiveStudio
       click_on '保存'
       assert page.has_content?('必须小于或等于 87'), "分成比例验证失效"
       fill_in 'video_course_teacher_percentage', with: 60
+
+      new_window = window_opened_by { click_on '预览' }
+      within_window new_window do
+        assert page.has_content? '提示：此页面仅供查看和预览，不能进行操作哦！'
+        assert page.has_content? @video_course.name
+        assert page.has_link? '立即学习'
+      end
+      new_window.close
+
       click_on '保存并发布'
       assert @video_course.reload.published?, "保存发布失败"
     end

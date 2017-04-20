@@ -46,11 +46,11 @@ module LiveStudio
       state :completed
       state :published
 
-      event :reject do
+      event :reject, after_commit: :reject_notify do
         transitions from: :init, to: :rejected
       end
 
-      event :confirm do
+      event :confirm, after_commit: :confirm_notify do
         before do
           self.confirmed_at = Time.now
         end
@@ -64,7 +64,7 @@ module LiveStudio
         transitions from: :confirmed, to: :completed
       end
 
-      event :publish do
+      event :publish, after_commit: :publish_notify do
         before do
           self.published_at = Time.now
           self.billing_type = 'Payment::LiveCourseBilling'
@@ -384,6 +384,7 @@ module LiveStudio
     before_validation :calculate_billing_percentage!, if: :context_complete?
     def calculate_billing_percentage!
       return unless teacher_percentage.present?
+      self.teacher_percentage = 0 if sell_type.free?
       copy_billing_percentage if publish_percentage.zero?
       self.sell_and_platform_percentage = 100 - teacher_percentage - publish_percentage
     end
@@ -400,8 +401,34 @@ module LiveStudio
       !user.student? && workstation_id == user.workstation_id
     end
 
+    before_validation :check_sell_type
+    def check_sell_type
+      self.price = 0 if sell_type.free?
+    end
+
     def lower_price
+      return 0 if sell_type.free?
       video_lessons_count.to_i * 5
+    end
+
+    # 通知
+    def notify(receivers, action_name)
+      NotificationPublisherJob.perform_later('LiveStudioVideoCourseNotification', self, receivers, action_name)
+    end
+
+    # 审核被拒通知
+    def reject_notify
+      notify(teacher, 'reject')
+    end
+
+    # 审核通过通知
+    def confirm_notify
+      notify(teacher, 'confirm')
+    end
+
+    # 发布招生通知
+    def publish_notify
+      notify(teacher, 'publish')
     end
   end
 end

@@ -4,6 +4,7 @@ module LiveStudio
   class VideoCoursesController < ApplicationController
     layout :current_user_layout
     before_action :set_video_course, only: [:show, :edit, :update, :destroy]
+    before_action :detect_device_format, only: [:show]
 
     def index
       @q = LiveService::VideoCourseDirector.search(search_params)
@@ -13,7 +14,14 @@ module LiveStudio
 
     def show
       @course = LiveStudio::VideoCourse.find(params[:id])
-      render layout: 'v1/application'
+
+      respond_to do |format|
+        format.html do |html|
+          html.none { render layout: 'v1/application' }
+          html.tablet
+          html.phone { render layout: 'application-mobile' }
+        end
+      end
     end
 
     def taste

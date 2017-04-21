@@ -1,0 +1,23 @@
+<div class="phone-curriculum">
+  <div class="curriculum-title">
+    <h3><strong><%= @video_course.name %></strong></h3>
+  </div>
+  <div class="curriculum-status">
+    <span class="<%= 'active' if @video_course.sell_type.free? || @video_course.taste_count > 0 %>">
+      <%= image_tag "condition#{ '-active' if @video_course.sell_type.free? || @video_course.taste_count > 0 }.png" %>
+      <i><%= t('view.live_studio/courses.show.free_taste') %></i>
+    </span>
+    <span class="active">
+      <%= image_tag "condition-active.png" %>
+      <i><%= t('view.live_studio/courses.show.coupon_free') %></i>
+    </span>
+    <span>
+      <%= image_tag "condition.png" %>
+      <i><%= t('view.live_studio/courses.show.cheap') %></i>
+    </span>
+  </div>
+  <div class="curriculum-info">
+    <span class="course-price"><%= number_to_currency(@video_course.price, locale: :cn) %></span>
+    <span class="course-num"><%= LiveStudio::VideoCourse.human_attribute_name(:buy_tickets_count) %><i><%= @video_course.buy_tickets_count %></i></span>
+  </div>
+</div>

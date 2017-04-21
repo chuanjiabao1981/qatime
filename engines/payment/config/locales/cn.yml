@@ -153,6 +153,7 @@ cn:
         reset_pay_type: 重选支付方式
         tips: 请核对信息后再进行付款操作
         real_amount: 应付金额
+        product_type: 课程类型
       payment/change_record:
         different: 收支
         after: 余额

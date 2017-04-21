@@ -7,6 +7,7 @@ module LiveStudio
     before_action :set_course, only: [:show, :play, :publish, :refresh_current_lesson, :live_status, :update_class_date, :update_lessons]
     before_action :play_authorize, only: [:play]
     before_action :set_city, only: [:index]
+    before_action :detect_device_format, only: [:show]
 
     def index
       @q = LiveService::CourseDirector.search(search_params)
@@ -87,7 +88,13 @@ module LiveStudio
     end
 
     def show
-      render layout: 'v1/application'
+      respond_to do |format|
+        format.html do |html|
+          html.none { render layout: 'v1/application' }
+          html.tablet
+          html.phone { render layout: 'application-mobile' }
+        end
+      end
     end
 
     def live

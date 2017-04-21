@@ -325,6 +325,6 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "请求出错 #{res}"
-    assert_equal res['data'].count, 3, "标签获取失败"
+    assert_equal res['data'].count, 4, "标签获取失败"
   end
 end

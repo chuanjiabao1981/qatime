@@ -16,7 +16,7 @@ class Qatime::VideoCoursesAPITest < ActionDispatch::IntegrationTest
     get "/api/v1/live_studio/video_courses/search", q: { subject_eq: '语文' }
     assert_response :success
     res = JSON.parse(response.body)
-    assert_equal 1, res['data'].count, '搜索结果不正确'
+    assert_equal 2, res['data'].count, '搜索结果不正确'
 
     get "/api/v1/live_studio/video_courses/search", q: { subject_eq: '数学', grade_eq: '高一' }
     assert_response :success

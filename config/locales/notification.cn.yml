@@ -21,14 +21,18 @@ cn:
         notice_create: "公告: \"%{content}\" -- %{teacher_name} 老师"
         notice_update: "公告: \"%{content}\" -- %{teacher_name} 老师"
         finish: "【%{course_name}】已结束（原因：学生已退款），请联系您的工作站重新开设课程。"
+      live_studio_video_course:
+        confirm: 【%{course_name}】审核通过, 请耐心等待工作站为您创建课程
+        reject: 【%{course_name}】审核被拒, 您可以重新编辑后再次提交审核
+        publish: 【%{course_name}】审核通过, 您可以到个人中心进行查看和预览
       live_studio_lesson:
         start_for_teacher: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时授课"
         start_for_student: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时参加学习"
         miss_for_teacher: "您的课程 \"%{lesson_name}\" 未能准时授课, 请尽快进行调课并补上, 以免影响您的教学安排"
         miss_for_student: "您的课程 \"%{lesson_name}\" 未能学习"
       live_studio/course:
-        assign: "您有新的辅导班任务【%{course_name}】, 请设置后发布招生"
-        start: "您的辅导班【%{course_name}】已于今日(%{day})开课"
+        assign: "新课程任务【%{course_name}】已接收，如对有疑问请联系您的工作站。"
+        start: "【%{course_name}】将于今日(%{day})开始上课。"
         notice_create: "公告: \"%{announcement}\" -- %{teacher_name} 老师"
         notice_update: "公告: \"%{announcement}\" -- %{teacher_name} 老师"
       live_studio/lesson:
@@ -36,6 +40,17 @@ cn:
         start_for_student: "您的课程 \"%{lesson_name}\" 将于%{start_time}开始上课，请准时参加学习"
         miss_for_teacher: "您的课程 \"%{lesson_name}\" 未能准时授课, 请尽快进行调课并补上, 以免影响您的教学安排"
         miss_for_student: "您的课程 \"%{lesson_name}\" 未能学习"
+      live_studio/interactive_course:
+        assign: "新课程任务【%{course_name}】已接收，如对有疑问请联系您的工作站。"
+        start: "【%{course_name}】将于今日(%{day})开始上课，请准时授课"
+        notice_create: "公告: \"%{content}\" -- %{teacher_name} 老师"
+        notice_update: "公告: \"%{content}\" -- %{teacher_name} 老师"
+        finish: "【%{course_name}】已结束（原因：学生已退款），请联系您的工作站重新开设课程。"
+      live_studio/video_course:
+        confirm: "【%{course_name}】审核通过, 请耐心等待工作站为您创建课程"
+        reject: "【%{course_name}】审核被拒, 您可以重新编辑后再次提交审核"
+        publish: "【%{course_name}】发布成功, 您可以到个人中心进行查看和预览"
+
       payment/order:
         refund_success: "您的订单%{transaction_no}已成功退款，可进入我的钱包查询。"
         refund_fail: "您的订单%{transaction_no}退款审核失败，如有疑问请拨打客服电话400-838-8010。"
@@ -53,6 +68,10 @@ cn:
           notice_create: 公告提醒
           notice_update: 公告提醒
           finish: 系统消息
+        live_studio_video_course:
+          reject: 审核提醒
+          confirm: 审核提醒
+          publish: 发布提醒
         live_studio_lesson:
           start_for_teacher: 上课提醒
           start_for_student: 上课提醒

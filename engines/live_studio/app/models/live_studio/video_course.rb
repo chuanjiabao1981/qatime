@@ -46,11 +46,11 @@ module LiveStudio
       state :completed
       state :published
 
-      event :reject do
+      event :reject, after_commit: :reject_notify do
         transitions from: :init, to: :rejected
       end
 
-      event :confirm do
+      event :confirm, after_commit: :confirm_notify do
         before do
           self.confirmed_at = Time.now
         end
@@ -64,12 +64,17 @@ module LiveStudio
         transitions from: :confirmed, to: :completed
       end
 
-      event :publish do
+      event :publish, after_commit: :publish_notify do
         before do
           self.published_at = Time.now
           self.taste_count = video_lessons.find_all {|x| x.tastable? }.count
         end
         transitions from: :completed, to: :published
+      end
+
+      # 提交审核
+      event :submit do
+        transitions from: :rejected, to: :init
       end
     end
 
@@ -328,6 +333,10 @@ module LiveStudio
       (total_duration.to_f / 60.0).round(2)
     end
 
+    def can_edit?
+      init? || rejected?
+    end
+
     private
 
     # 校验上下文, 升级Rails 5之前替代方案
@@ -414,6 +423,26 @@ module LiveStudio
     def lower_price
       return 0 if sell_type.free?
       video_lessons_count.to_i * 5
+    end
+
+    # 通知
+    def notify(receivers, action_name)
+      NotificationPublisherJob.perform_later('LiveStudioVideoCourseNotification', self, action_name, receivers)
+    end
+
+    # 审核被拒通知
+    def reject_notify
+      notify(teacher, 'reject')
+    end
+
+    # 审核通过通知
+    def confirm_notify
+      notify(teacher, 'confirm')
+    end
+
+    # 发布招生通知
+    def publish_notify
+      notify(teacher, 'publish')
     end
   end
 end

@@ -29,7 +29,7 @@
       <div class="col-md-2 course-state">
         <span class="col-md-12 col-sm-4 col-xs-4"><%= video_course.status.text %></span>
         <%= link_to t("actions.edit"), live_studio.edit_teacher_video_course_path(current_user, video_course),
-                    class: "col-md-12 col-sm-4 col-xs-4" if video_course.init? && allow?('live_studio/teacher/video_courses', 'edit', @teacher) %>
+                    class: "col-md-12 col-sm-4 col-xs-4" if video_course.can_edit? && allow?('live_studio/teacher/video_courses', 'edit', @teacher) %>
         <%= link_to t("actions.destroy"), live_studio.teacher_video_course_path(current_user, video_course),
                     method: :delete,
                     class: "col-md-12 col-sm-4 col-xs-4",

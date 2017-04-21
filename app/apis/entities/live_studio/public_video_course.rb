@@ -1,15 +1,13 @@
 module Entities
   module LiveStudio
-    # 辅导班公开信息
-    class PublicCourse < Grape::Entity
+    # 公开信息
+    class PublicVideoCourse < Grape::Entity
       expose :id
       expose :name
       expose :grade
       expose :price
       expose :current_price
-      expose :subject do |course|
-        course.subject.to_s
-      end
+      expose :subject
       expose :buy_tickets_count do |course|
         course.buy_user_count
       end
@@ -18,9 +16,6 @@ module Entities
       end
       expose :status
       expose :lessons_count
-      expose :is_finished do |course|
-        course.completed?
-      end
     end
   end
 end

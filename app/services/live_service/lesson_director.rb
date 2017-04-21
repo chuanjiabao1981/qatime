@@ -25,7 +25,7 @@ module LiveService
           LiveService::LessonDirector.new(lesson).finish unless lesson.id == @lesson.id
         end
         @lesson.teach!
-        @lesson.current_live_session
+        @lesson.start_live_session
       end
     ensure
       LiveService::LessonDirector.live_status_change(@lesson.course, board, camera, @lesson) if @lesson.teaching?

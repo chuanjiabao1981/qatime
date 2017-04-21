@@ -444,8 +444,8 @@ Qatime::Application.routes.draw do
         resources :orders, only: [:new, :create]
       end
 
-      resources :softwares, only: [:index]
     end
+    resources :softwares, only: [:index]
 
     namespace :payment do
       resources :orders, only: [:show] do

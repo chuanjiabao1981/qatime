@@ -1125,18 +1125,19 @@ a.down-app:link {
   color: #666;
 }
 .prompt-error {
-  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0rem;
+  left: 0rem;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-top: -6rem;
-  margin-left: -4rem;
-  width: 12rem;
-  height: 8rem;
+  color: #FFFFFF;
+  display: -webkit-flex;
+    align-items: center;
+    justify-content: center;
+}
+.prompt-error > span {
   background-color: rgba(0,0,0,0.7);
   font-size: 1.4rem;
-  color: #FFFFFF;
-  text-align: center;
-  line-height: 8rem;
-    border-radius: 5px;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
 }

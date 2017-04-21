@@ -24,6 +24,7 @@ module LiveStudio
       click_on '视频课'
       click_on '课程管理'
       find_link("创建", href: live_studio.edit_station_workstation_video_course_path(@workstation, @video_course)).click
+      find('#video_course_sell_type_charge').click
       click_on '保存'
       assert page.has_content?('请输入课程目标'), "课程目标非空验证失效"
       assert page.has_content?('请输入适合人群'), "适合人群非空验证失效"

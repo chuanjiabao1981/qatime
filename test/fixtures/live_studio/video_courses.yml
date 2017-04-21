@@ -58,6 +58,7 @@ published_video_course1:
   objective: 啊撒旦发送的发撒旦发送的
   suit_crowd: 啊撒旦发送的发撒旦发送的
   total_duration: 4
+  sell_and_platform_percentage: 35
 published_video_course2:
   name: 发布的视频课2
   teacher: teacher1
@@ -67,7 +68,7 @@ published_video_course2:
   sell_type: 2
   grade: 高二
   subject: 语文
-  teacher_percentage: 0
+  teacher_percentage: 60
   preset_lesson_count: 0
   price: 300
   buy_tickets_count: 0
@@ -77,6 +78,8 @@ published_video_course2:
   platform_percentage: 3
   objective: 啊撒旦发送的发撒旦发送的
   suit_crowd: 啊撒旦发送的发撒旦发送的
+  total_duration: 4
+  sell_and_platform_percentage: 35
 video_course_for_billing:
   name: 结账测试视频课
   teacher: teacher1
@@ -96,6 +99,7 @@ video_course_for_billing:
   objective: 啊撒旦发送的发撒旦发送的
   suit_crowd: 啊撒旦发送的发撒旦发送的
   total_duration: <%= 10 * 60 * 60 %>
+  sell_and_platform_percentage: 35
 confirmed_video_course:
   name: 待创建测试视频课
   teacher: teacher1

@@ -49,3 +49,10 @@ completed_video_course_lesson1:
   status: 0
   pos: 1
   real_time: <%= 60 * 60 %>
+
+video_course_for_billing_lesson1:
+  name: 第一节
+  video_course: video_course_for_billing
+  status: 0
+  pos: 1
+  real_time: <%= 60 * 60 %>

@@ -10956,6 +10956,7 @@ ul {
 .basic-class {
   margin-top: 30px;
   background-color: #FFFFFF;
+  padding-bottom: 20px;
 }
 .class-header {
   margin: 0px 30px 15px 30px;
@@ -11788,6 +11789,9 @@ ul {
 .discipline-nav > a {
   margin-right: 45px;
   font-size: 16px;
+  color: #34495e;
+}
+.discipline-nav > a:link {
   color: #34495e;
 }
 .discipline-nav > a.active {
@@ -12725,8 +12729,20 @@ ul {
 
 /*教师个人页增加视频课展示*/
 .class-info > h3 {
-  margin: 0px 0px 0px 30px;
+  margin: 0px 0px 10px 30px;
   font-size: 16px;
+}
+.class-info > .classify-msg {
+  margin-bottom: 20px;
+}
+.class-info > .iteminfo-more {
+  margin-top: 0px;
+}
+.class-info > .item-handpick > li {
+  padding-bottom: 10px;
+}
+.class-info > .item-handpick > li:hover {
+  box-shadow: 0 0 10px #ccc;
 }
 .class-info > .item-handpick {
   zoom: 1;
@@ -12743,8 +12759,24 @@ ul {
 .class-exclusive > .item-handpick > li > .handpick-info .class-price {
   float: right;
 }
-
-
+.course-link {
+  position: relative;
+}
+.course-link > .class-finish {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  display: block;
+  text-align: center;
+  color: #FFFFFF;
+  font-size: 20px;
+  display: -webkit-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0,0,0,0.7);
+}
 /*视频课观看页面*/
 .video-info {
   position: relative;

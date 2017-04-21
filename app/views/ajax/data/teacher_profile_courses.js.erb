@@ -1,0 +1,2 @@
+
+$('#' + '<%= params[:cate] %>').replaceWith('<%= j render partial: "teachers/profiles/#{params[:cate]}", locals: {courses: @courses} %>');

@@ -267,6 +267,7 @@ module Permissions
       allow 'live_studio/teacher/video_courses', [:destroy, :edit, :update] do |teacher|
         teacher && teacher == user
       end
+      allow 'live_studio/video_courses', [:preview]
       ## 视频课 end
 
       ## begin payment permission

@@ -36,7 +36,7 @@
       </div>
       <div class="col-md-2 course-state">
         <i class="col-md-12 col-sm-4 col-xs-4">
-          <%= link_to t("live_studio.actions.student.video_course.play"), "javascript:void(0);", class: "watch" %>
+          <%= link_to t("live_studio.actions.student.video_course.play"), live_studio.play_video_lesson_path(video_course.video_lessons.first), class: "watch" %>
         </i>
       </div>
     </div>

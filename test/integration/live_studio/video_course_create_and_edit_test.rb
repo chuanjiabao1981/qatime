@@ -43,6 +43,7 @@ module LiveStudio
         click_on '提交审核'
         sleep(1)
       end
+      sleep(2)
       assert_equal 5, @teacher.live_studio_video_courses.last.video_lessons_count
     end
   end

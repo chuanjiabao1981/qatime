@@ -259,6 +259,10 @@ class TeachersController < ApplicationController
         update_params[:teaching_years] = teaching_years_flag.last
       end
 
+      if @teacher.avatar.blank? && update_params[:avatar].blank?
+        @teacher.use_default_avatar
+      end
+
       @teacher.teacher_columns_required!
       @teacher.context = :edit_profile if params[:cate] == 'edit_profile'
       @teacher.update(update_params)

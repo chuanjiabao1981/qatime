@@ -23,9 +23,9 @@ module LiveServiceTest
       @available_account = @workstation.available_account
       @admin_account = CashAdmin.cash_account!
       @sale_task = payment_sale_tasks(:task_four)
-      assert_difference '@cash_account.reload.balance.to_f', -120, '未完成任务扣款不正确' do
-        assert_difference '@available_account.reload.balance.to_f', 30, '转为可提现金额不正确' do
-          assert_difference '@admin_account.reload.balance.to_f', 120, '系统收到罚金金额不正确' do
+      assert_difference '@cash_account.reload.balance.to_f', -53.4, '未完成任务扣款不正确' do
+        assert_difference '@available_account.reload.balance.to_f', 96.6, '转为可提现金额不正确' do
+          assert_difference '@admin_account.reload.balance.to_f', 53.4, '系统收到罚金金额不正确' do
             BusinessService::TaskBillingDirector.new(@sale_task).task_billing
           end
         end

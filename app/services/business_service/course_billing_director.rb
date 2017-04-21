@@ -11,7 +11,7 @@ module BusinessService
     def billing_lesson
       return unless _check_lesson
       # 课程总账单
-      b = Payment::VideoCourseBilling.create(target: @lesson, from_user: @lesson.teacher, created_at: @created_at)
+      b = Payment::LiveCourseBilling.create(target: @lesson, from_user: @lesson.teacher, created_at: @created_at)
       # 针对每一个购买记录单独结账
       @lesson.ticket_items.billingable.includes(:ticket).each do |item|
         billing_ticket(b, item)

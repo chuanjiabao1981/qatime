@@ -95,4 +95,9 @@ cn:
       basic_title: 基本资料
       my_intro: 自我介绍
       my_courses: TA的课程
+      course: 直播课
+      interactive_course: 一对一
+      video_course: 视频课
+      more: 更多
+      is_finished: 该课程已结束
 

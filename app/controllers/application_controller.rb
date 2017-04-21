@@ -108,5 +108,4 @@ class ApplicationController < ActionController::Base
       request.variant = :phone
     end
   end
-
 end

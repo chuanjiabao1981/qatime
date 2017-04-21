@@ -405,4 +405,17 @@ module ApplicationHelper
     end
   end
 
+  def format_duration(duration)
+    return unless duration.to_i > 0
+    second = format('%02d', duration % 60)
+    duration /= 60
+    minute = format('%02d', duration % 60)
+    duration /= 60
+    hour = format('%02d', duration % 60)
+    "#{hour}:#{minute}:#{second}"
+  end
+
+  def with_none_tips(content)
+    content || I18n.t('view.tips.none')
+  end
 end

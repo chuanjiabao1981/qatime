@@ -35,10 +35,13 @@ body {
   z-index: 1;
 }
 .phone-headline h3 {
-  margin: 0rem;
+  margin: 0rem 8rem;
   font-size: 1.6rem;
   line-height: 4rem;
   text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .phone-login-con {
   margin-top: 1.3rem;
@@ -67,7 +70,7 @@ body {
   width: 83.3%;
   border-top: 0px;
   float: left;
-}
+  }
 .phone-login-con .form-group .form-control {
   height: 4.2rem;
   width: 100%;
@@ -111,8 +114,8 @@ body {
   height: 100%;
   width: 93%;
   border-radius: 0.4rem;
-  background-color: rgb(190,11,11);
-  border: 0.1rem solid rgb(190,11,11);
+  background-color: #ff5842;
+  border: 0.1rem solid #ff5842;
 }
 .login-link {
   width: 100%;
@@ -175,32 +178,7 @@ body {
   width: 2.3rem;
   height: 1.9rem;
 }
-/*.modal-error {
-	position: absolute;
-	top: 50%;
-	margin-top: -6.5rem;
-	left: 50%;
-	margin-left: -12.4rem;
-	width: 24.8rem;
-}
-.modal-error .modal-header {
-	padding: 1rem;
-	border-bottom: 0rem;
-}
-.modal-error .modal-content {
-	height: 12.5rem;
-}
 
-.modal-error .modal-body button span {
-	color: #000;
-}
-.modal-error .modal-body p{
-	font-size: 1.3rem;
-	color: #666;
-	margin: 1.7rem 4rem 0rem 4rem;
-
-	text-align: center;
-}*/
 /*注册页面*/
 .phone-register .phone-login-con .form-group .input-group {
   width: 76.23%;
@@ -309,10 +287,10 @@ body {
 }
 .phone-list-geade {
   width: 100%;
-  height: 100%;
-  padding-left: 0rem;
-  margin-bottom: 0rem;
-  list-style: none;
+    height: 100%;
+    padding-left: 0rem;
+    margin-bottom: 0rem;
+    list-style: none;
 }
 .phone-list-geade li {
   float: left;
@@ -325,8 +303,8 @@ body {
   text-align: center;
   line-height: 2.5rem;
   -webkit-border-radius: 27.5% / 2.5rem;
-  -moz-border-radius: 27.5% / 2.5rem;
-  border-radius: 27.5% / 2.5rem;
+    -moz-border-radius: 27.5% / 2.5rem;
+    border-radius: 27.5% / 2.5rem;
 }
 .modal-editor {
   position: absolute;
@@ -341,7 +319,6 @@ body {
 }
 .phone-class-details img {
   width: 100%;
-  /*height: 21.05rem;*/
   vertical-align: top;
 }
 .phone-details .phone-headline h3 {
@@ -596,9 +573,9 @@ body {
 a:link,a:visited,a:hover,a:active{
   text-decoration:none !important;
 }
-a.details-btn-end:link,a.details-btn-start:link {
+a.details-btn-end:link,a.details-btn-start:link,a.details-btn-watch:link {
   color: #FFFFFF;
-}
+} 
 .phone-details-btn .details-btn-add {
   margin-right: 4%;
 }
@@ -612,7 +589,7 @@ a.details-btn-end:link,a.details-btn-start:link {
   border:0.2rem solid #CCCCCC;
 }
 
-.phone-details-btn .details-btn-start {
+.phone-details-btn .details-btn-start,.phone-details-btn .details-btn-watch {
   width: 100%;
   background-color: #ff5842;
   color: #FFFFFF;
@@ -657,7 +634,6 @@ a.details-btn-end:link,a.details-btn-start:link {
 }
 .details-msg-tec > .details-introduction > span > img {
   width: 1.05rem;
-  height: 1.05rem;
   position: relative;
   top: -0.15rem;
 }
@@ -693,7 +669,7 @@ a.details-btn-end:link,a.details-btn-start:link {
   padding-left: 2.1rem;
 }
 .details-msg-arrange ul li div:nth-child(2) span:first-child {
-  margin-right: 1rem;
+  margin-right: 0.5rem;
 }
 .details-msg-arrange ul li div:first-child span:last-child {
   float: right;
@@ -713,28 +689,32 @@ a.details-btn-end:link,a.details-btn-start:link {
 /*订单确认*/
 
 .phone-order-con {
-  padding-top: 1.3rem;
-  background-color: #FFFFFF;
   padding-bottom: 9.8rem;
 }
 .phone-order-con ul {
-  padding: 0rem 1.2rem;
+  padding: 0.5rem 1.2rem 0 1.2rem;
   margin: 0rem;
   list-style: none;
   font-size: 1.4rem;
   color: #333333;
+  background-color: #FFFFFF;
 }
 .phone-order-con ul li {
   min-height: 2.4rem;
+  line-height: 2.4rem;
+}
+.phone-order-con ul li:first-child {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 .phone-order-con ul li span:first-child {
-  /*margin-right: 2.6rem;*/
   display: inline-block;
   width: 7.2rem;
 }
 .phone-order-con ul li:last-child {
   overflow: hidden;
-  margin-top: 0.5rem;
+  /*margin-top: 0.5rem;*/
 }
 .phone-order-con ul li:last-child span {
   display: block;
@@ -772,7 +752,7 @@ a.details-btn-end:link,a.details-btn-start:link {
   padding-bottom: 2.5rem;
 }
 .preferential .phone-login-con .form-group {
-  overflow: inherit;
+    overflow: inherit;
 }
 .preferential .phone-login-con .input-group {
   width: 80%;
@@ -790,7 +770,7 @@ a.details-btn-end:link,a.details-btn-start:link {
 }
 .preferential-title span {
   position: relative;
-  top: 1rem;
+  top: 0.4rem;
 }
 .preferential-amount {
   height: 4rem;
@@ -814,7 +794,7 @@ a.details-btn-end:link,a.details-btn-start:link {
 }
 .preferential-amount-right span:nth-child(2) {
   font-size: 2.7rem;
-  color: rgb(190,11,11);
+  color: #ff5842;
   margin: 0 1rem;
 }
 .preferential-amount-right span:first-child,.preferential-amount-right span:last-child {
@@ -843,11 +823,11 @@ a.details-btn-end:link,a.details-btn-start:link {
 .preferential-order .login-submit input,.phone-deal .login-submit a {
   width: 100%;
   height: 100%;
-  background-color: rgb(190,11,11);
+  background-color: #ff5842;
   font-size: 1.4rem;
-  color: #FFFFFF;
-  border-radius: 0.4rem;
-  border: 0.1rem solid rgb(190,11,11);
+    color: #FFFFFF;
+    border-radius: 0.4rem;
+    border: 0.1rem solid #ff5842;
 }
 
 
@@ -952,7 +932,7 @@ a.details-btn-end:link,a.details-btn-start:link {
 
 /*下载*/
 .down-content {
-  position: relative;
+    position: relative;
   width: 100%;
   overflow: hidden;
 }
@@ -1002,4 +982,145 @@ a.down-app:link {
   height: 11.65rem;
   z-index: 101;
   vertical-align: middle;
+}
+
+
+
+/*视频课详情页*/
+.phone-curriculum {
+  padding: 1.5rem 1.2rem;
+  border-bottom: 0.1rem solid #ddd;
+}
+.phone-curriculum > .curriculum-title {
+  margin-bottom: 1rem;
+}
+.phone-curriculum > .curriculum-title > h3 {
+  font-size: 1.6rem;
+  color: #333;
+  margin: 0rem;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.phone-curriculum > .curriculum-status {
+  font-size: 1.4rem;
+  color: #ccc;
+  margin-bottom: 1.5rem;
+}
+.phone-curriculum > .curriculum-status > span {
+  margin-right: 2.5rem;
+}
+.phone-curriculum > .curriculum-status > span.active {
+  color: #1fac64;
+}
+.phone-curriculum > .curriculum-status > span:last-child {
+  margin-right: 0rem;
+}
+.phone-curriculum > .curriculum-status i {
+  font-style: normal;
+}
+.phone-curriculum > .curriculum-status img {
+  width: 1.05rem;
+  margin-right: 0.8rem;
+  margin-top: -0.2rem;
+}
+.phone-curriculum > .curriculum-info {
+  font-size: 1.4rem;
+  color: #999;
+  overflow: hidden;
+} 
+.phone-curriculum > .curriculum-info > .course-price {
+  color: #ff5842;
+  float: left;
+}
+.phone-curriculum > .curriculum-info > .course-num {
+  float: right;
+  line-height: 20px;
+  font-size: 1.1rem;
+}
+.phone-curriculum > .curriculum-info > .course-num i,.details-msg-con > ul li i{
+  font-style: normal;
+}
+.details-msg-arrange ul li .arrange-title span {
+  float: none !important;
+}
+.details-msg-arrange ul li .arrange-time span {
+  color: #999;
+}
+.details-msg-arrange ul li .arrange-title {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.phone-order-con > .pay-list {
+  margin-top: 1rem;
+  background-color: #FFFFFF;
+  padding: 0rem 1.2rem;
+}
+.phone-order-con > .pay-list > .line-method {
+  height: 5rem;
+  padding: 0.5rem 0;
+  border-bottom: 0.1rem solid #CCCCCC;
+}
+.phone-order-con > .pay-list > .line-method:last-child {
+  border-bottom: 0rem;
+}
+.pay-list > .line-method > label {
+  display: block;
+  font-weight: 400;
+  overflow: hidden;
+}
+.pay-list > .line-method > label i {
+  font-style: normal;
+}
+.pay-list > .line-method > label > img {
+  width: 2.9rem;
+  float: left;
+  margin-top: 0.5rem;
+  margin-right: 1rem;
+}
+.pay-list > .line-method > label > .method-info {
+  float: left;
+  font-size: 1.4rem;
+}
+.pay-list > .line-method > label > .method-info  span {
+  display: block;
+  color: #333;
+}
+.pay-list > .line-method > label >.method-info  span:last-child {
+  font-size: 1.3rem;
+  color: #666;
+}
+.pay-list > .line-method > label > input[type="radio"] {
+  float: right;
+  width: 1.3rem;
+  height: 1.3rem;
+  margin-top: 1.3rem;
+}
+.phone-order-con > h3 {
+  padding: 0rem 1.2rem;
+  height: 3.4rem;
+  line-height: 3.4rem;
+  font-size: 1.5rem;
+  margin: 0px;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #ccc;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.prompt {
+  text-align: center;
+  line-height: 2.2rem;
+  height: 2.2rem;
+  font-size: 1.2rem;
+  background-color: #ffffe4;
+  color: #ff0000;
+}
+.prompt > img {
+  width: 1.25rem;
+  margin-bottom: 0.3rem;
+}
+.phone-order-con > ul > li span:nth-child(2){
+  color: #666;
 }

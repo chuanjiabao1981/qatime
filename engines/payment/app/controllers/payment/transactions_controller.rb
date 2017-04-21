@@ -7,8 +7,17 @@ module Payment
     skip_before_action :verify_authenticity_token, only: :notify
 
     before_action :set_transaction
+    before_action :detect_device_format, only: [:show]
+    before_action :check_order, only: [:show]
 
     def show
+      respond_to do |format|
+        format.html do |html|
+          html.none
+          html.tablet
+          html.phone { render layout: 'application-mobile' }
+        end
+      end
     end
 
     def notify
@@ -106,6 +115,24 @@ module Payment
 
     def alipay_params
       params.except(*request.path_parameters.keys)
+    end
+
+    def check_order
+      return if @transaction.remote_order
+      if @transaction.source.wap? && @transaction.pay_type.weixin?
+        wechat_openid
+        @transaction.openid = @openid
+        @transaction.save && @transaction.instance_remote_order!
+      end
+    end
+
+    def wechat_openid
+      cookies[:openid] ||= "testopenid" if Rails.env.test?
+      if cookies[:openid].blank?
+        session[:return_to] = request.original_url
+        redirect_to "#{WECHAT_CONFIG['host']}/auth/wechat2"
+      end
+      @openid = cookies[:openid]
     end
   end
 end

@@ -185,6 +185,7 @@ module Permissions
 
       allow 'wap/live_studio/orders', [:new, :create]
       allow 'wap/live_studio/courses', [:show, :download]
+      allow 'wap/live_studio/video_courses', [:show]
       allow 'wap/payment/orders', [:show, :pay]
 
       # payment permission

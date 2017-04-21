@@ -1,0 +1,9 @@
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(".details-msg-nav a").click(function() {
+      var index = $(".details-msg-nav a").index($(this));
+      $(this).addClass("active").siblings().removeClass("active");
+      $(".details-msg-con").eq(index).show().siblings().hide();
+    })
+  </script>
+<% end %>

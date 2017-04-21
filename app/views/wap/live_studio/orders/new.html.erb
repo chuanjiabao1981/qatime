@@ -1,126 +1,101 @@
-<div class="phone-login phone-details phone-order">
-  <div class="phone-login-title">
-    <div class="phone-return">
-      <%= link_to image_tag("phone-return-1.png"), wap_live_studio_course_path(@course, coupon_code: params[:coupon_code]) %>
+<div class="phone-details">
+  <%= simple_form_for [:wap, :live_studio, @product, @order] do |f| %>
+    <%= f.hidden_field :product_id %>
+    <div class="phone-login-title">
+      <div class="phone-return">
+        <%= link_to image_tag("phone-return-1.png"), [:wap, :live_studio, @product, coupon_code: params[:coupon_code]] %>
+      </div>
+      <div class="phone-headline">
+        <h3><%= t('view.wap.live_studio.orders.new_order_title') %></h3>
+      </div>
     </div>
-    <div class="phone-headline">
-      <h3><%= t('view.wap.live_studio.orders.new_order_title') %></h3>
-    </div>
-  </div>
-  <%= simple_form_for [:wap, :live_studio, @course, @order] do |f| %>
-  <%= f.hidden_field :product_id %>
-  <div class="phone-order-con">
-    <center><%= f.error :product %></center>
-    <ul>
-      <li>
-        <span><%= Payment::Order.human_attribute_name(:course_name) %></span>
-        <span><%= @order.product.name %></span>
-      </li>
-      <li>
-        <span><%= LiveStudio::Course.human_attribute_name(:subject_type) %></span>
-        <span><%= @course.subject %></span>
-      </li>
-      <li>
-        <span><%= LiveStudio::Course.human_attribute_name(:grade_type) %></span>
-        <span><%= @course.grade %></span>
-      </li>
-      <li>
-        <span><%= LiveStudio::Course.human_attribute_name(:teacher) %></span>
-        <span><%= @course.teacher.try(:name) %></span>
-      </li>
-      <li>
-        <span><%= LiveStudio::Course.human_attribute_name(:total_lessons_count) %></span>
-        <span><%= t("view.wap.live_studio.orders.lessons_count", count: @course.lessons_count) %></span>
-      </li>
-      <li>
-        <span><%= LiveStudio::Course.human_attribute_name(:live_start_date) %></span>
-        <span><%= localize(@course.live_start_date) %></span>
-      </li>
-      <li>
-        <span><%= LiveStudio::Course.human_attribute_name(:live_end_date) %></span>
-        <span><%= localize(@course.live_end_date) %></span>
-      </li>
-      <li>
-        <span><%= LiveStudio::Course.human_attribute_name(:current_status) %></span>
-        <span><%= @course.status.text %></span>
-      </li>
-      <li>
-        <span><%= LiveStudio::Course.human_attribute_name(:teach_type) %></span>
-        <span><%= t('view.course_show.online') %></span>
-      </li>
-      <li>
-        <span><%= LiveStudio::Course.human_attribute_name(:price) %></span>
-        <span><%= number_to_currency(@course.current_price, unit: "￥", precision: 2) %></span>
-      </li>
-      <li>
-        <span><%= Payment::Order.human_attribute_name(:pay_type) %></span>
-        <span class="order-con-way">
-          <% Payment::Order.pay_type.options.select {|item| item.last != 'alipay'}.each do |item| -%>
-          <i>
-            <%= f.radio_button(:pay_type, item.last, class: 'order_pay_type') %>
+    <% if @product.is_a?(LiveStudio::VideoCourse) %>
+      <div class="prompt">
+        <%= image_tag("prompt.png") %>
+        <span><%= t('view.tips.video_course_order.cannot_refund') %></span>
+      </div>
+    <% end %>
+    <div class="phone-order-con">
+      <h3><%= @product.name %></h3>
+      <ul>
+        <li>
+          <span><%= Payment::Order.human_attribute_name(:product_type) %></span>
+          <span><%= @product.model_name.human %></span>
+        </li>
+        <li>
+          <span><%= LiveStudio::Course.human_attribute_name(:subject) %></span>
+          <span><%= @product.subject %></span>
+        </li>
+        <li>
+          <span><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
+          <span><%= @product.grade %></span>
+        </li>
+        <li>
+          <span><%= LiveStudio::Course.human_attribute_name(:course_teacher) %></span>
+          <span><%= @product.teacher.try(:name) %></span>
+        </li>
+        <li>
+          <span><%= LiveStudio::Course.human_attribute_name(:lessons_count) %></span>
+          <span><%= t('view.course_order_new.total_lessons_count_value.', count: @product.lessons_count) %></span>
+        </li>
+        <li>
+          <span><%= LiveStudio::Course.human_attribute_name(:price) %></span>
+          <span><%= number_to_currency(@product.current_price, unit: "￥", precision: 2) %></span>
+        </li>
+      </ul>
+      <div class="pay-list">
+        <% Payment::Order.pay_type.options.select {|item| item.last != 'alipay'}.each do |item| -%>
+          <div class="line-method">
             <label for="order_pay_type_<%= item.last %>">
-              <%= image_tag "phone-#{item.last}.png" %>
-              <%= item.first %>
+              <%= image_tag "#{item.last}.png" %>
+              <div class="method-info">
+                <span><%= item.first %></span>
+                <span><%= t("view.tips.pay_type.#{item.last}", amount: number_to_currency(current_user.cash_account.balance, unit: "￥", precision: 2)) %></span>
+              </div>
+              <%= f.radio_button(:pay_type, item.last, class: 'order_pay_type') %>
             </label>
-          </i>
-          <% end -%>
-        </span>
-      </li>
-    </ul>
-    <div style="margin-left: 1.2rem;" id="pay-type-error"><%= f.error :pay_type %></div>
-    <% if @coupon.nil? -%>
-      <% if false -%>
-      <div class="preferential">
-        <div class="preferential-title">
-          <span><%= t('view.wap.live_studio.orders.coupon_tips', amount: 10) %></span>
-        </div>
-        <div class="phone-login-con">
-          <div class="form-group">
-            <%= f.label :coupon_code %>
-            <div class="input-group">
-              <%= f.text_field :coupon_code, class: 'form-control', placeholder: t("simple_form.placeholders.payment/order.coupon_code") %>
-            </div>
-            <%= f.error :coupon_code %>
           </div>
+        <% end -%>
+      </div>
+      <% if @coupon.nil? -%>
+        <% if false -%>
+          <div class="promo-code">
+            <div class="btn-promo"><%= t("view.course_order_new.coupon_code_tip") %></div>
+            <div class="phone-login-con">
+              <div class="form-group">
+                <%= f.label :coupon_code %>
+                <div class="input-group">
+                  <%= f.text_field :coupon_code, class: 'form-control', placeholder: t("simple_form.placeholders.payment/order.coupon_code") %>
+                </div>
+                <%= f.error :coupon_code %>
+              </div>
+            </div>
+          </div>
+        <% end -%>
+      <% else %>
+        <%= f.hidden_field :coupon_code %>
+        <%= f.error :coupon_code %>
+      <% end -%>
+    </div>
+
+    <div class="preferential-order">
+      <div class="preferential-amount">
+        <div class="preferential-amount-left">
+          <span id="coupon_result"><%= t('view.wap.live_studio.orders.coupon_result', amount: number_to_currency(10, unit: "￥", precision: 0)) if @coupon.present? %></span>
+        </div>
+        <div class="preferential-amount-right">
+          <span><%= Payment::Order.human_attribute_name(:real_amount) %></span>
+          <% if @coupon.nil? -%>
+            <span><%= number_to_currency(@product.current_price, unit: '', precision: 2) %></span>
+          <% else %>
+            <span><%= number_to_currency([@product.current_price - 10, 0].max, unit: '', precision: 2) %></span>
+          <% end %>
+          <span><%= t('currency.cn') %></span>
         </div>
       </div>
-      <% end -%>
-    <% else %>
-      <%= f.hidden_field :coupon_code %>
-      <%= f.error :coupon_code %>
-    <% end -%>
-  </div>
-  <div class="preferential-order">
-    <div class="preferential-amount">
-      <div class="preferential-amount-left">
-        <span id="coupon_result"><%= t('view.wap.live_studio.orders.coupon_result', amount: number_to_currency(10, unit: "￥", precision: 0)) if @coupon.present? %></span>
-      </div>
-      <div class="preferential-amount-right">
-        <span><%= Payment::Order.human_attribute_name(:real_amount) %></span>
-        <% if @coupon.nil? -%>
-          <span><%= number_to_currency(@course.current_price, unit: '', precision: 2) %></span>
-        <% else %>
-          <span><%= number_to_currency([@course.current_price - 10, 0].max, unit: '', precision: 2) %></span>
-        <% end %>
-        <span><%= t('currency.cn') %></span>
+      <div class="login-submit">
+        <%= f.button :submit %>
       </div>
     </div>
-    <div class="login-submit">
-      <%= f.button :submit %>
-    </div>
-  </div>
-  <% end %>
+  <% end -%>
 </div>
-
-<%= content_for :javascript do -%>
-<script>
-$(function() {
-  $("form").submit(function() {
-    if($('input.order_pay_type:checked').size() == 0) {
-      $("#pay-type-error").html("<span class='help-block has-error'><%= t("view.course_order_new.order_pay_type_none") %></span>");
-      return false;
-    }
-  });
-});
-</script>
-<% end -%>

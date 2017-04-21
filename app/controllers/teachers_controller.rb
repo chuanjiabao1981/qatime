@@ -173,7 +173,14 @@ class TeachersController < ApplicationController
   end
 
   def profile
-    @courses = @teacher.live_studio_courses.for_sell.paginate(page: params[:page], per_page: 6)
+    teacher_data = DataService::TeacherData.new(@teacher)
+    @courses = teacher_data.profile_courses.limit(6)
+    @interactive_courses = teacher_data.profile_interactive_courses.limit(6)
+    @video_courses = teacher_data.profile_video_courses.limit(6)
+
+    @course_has_more = teacher_data.more_profile_course?
+    @interactive_course_has_more = teacher_data.more_profile_interactive_course?
+    @video_course_has_more = teacher_data.more_profile_video_course?
     render layout: 'v1/application'
   end
 
@@ -250,6 +257,10 @@ class TeachersController < ApplicationController
       teaching_years_flag = Teacher.teaching_years.options.find{|years| years.first == update_params[:teaching_years]}
       if teaching_years_flag.present?
         update_params[:teaching_years] = teaching_years_flag.last
+      end
+
+      if @teacher.avatar.blank? && update_params[:avatar].blank?
+        @teacher.use_default_avatar
       end
 
       @teacher.teacher_columns_required!

@@ -221,6 +221,10 @@ class StudentsController < ApplicationController
         return @student.update_with_password(update_params)
       end
 
+      if @student.avatar.blank? && update_params[:avatar].blank?
+        @student.use_default_avatar
+      end
+
       @student.student_columns_required!
       @student.update(update_params)
     end

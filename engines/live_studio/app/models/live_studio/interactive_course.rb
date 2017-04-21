@@ -85,6 +85,7 @@ module LiveStudio
     validates_associated :interactive_lessons
     validate :interactive_lessons_uniq
 
+    scope :published_start, -> { where('live_studio_interactive_courses.status > ?', Course.statuses[:init]) }
     scope :for_sell, -> { where(status: statuses[:published], buy_tickets_count: 0) }
 
     before_create do
@@ -285,6 +286,10 @@ module LiveStudio
     # 是否可退款
     def can_refund?
       teaching?
+    end
+
+    def is_finished?
+      %w[completed refunded].include?(status)
     end
 
     private

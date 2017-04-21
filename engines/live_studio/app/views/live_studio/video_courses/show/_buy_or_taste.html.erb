@@ -1,5 +1,5 @@
 <% if current_user.blank? %>
-  <%= link_to t('view.course_info_show.join_taste'), "javascript:alert('请先登录');", class: 'btn-startclass' if @course.taste_count.to_i > 0 %>
+  <%= link_to t('view.course_info_show.join_taste'), "javascript:alert('#{t('view.live_studio/courses.show.login_notice')}');", class: 'btn-startclass' if @course.taste_count.to_i > 0 %>
   <%= link_to t('activerecord.view.enroll_now2'), live_studio.new_video_course_order_path(@course), class: 'btn-addclass' %>
 <% else %>
   <% if @course.bought_by?(current_user) %>

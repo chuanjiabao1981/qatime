@@ -7,18 +7,18 @@ module LiveStudio
     before_action :set_video_course_and_check, only: [:edit, :update, :publish]
 
     def index
-      @query = LiveStudio::VideoCourse.published.ransack(params[:q])
-      @video_courses = @query.result.order(id: :desc).paginate(page: params[:page])
+      @query = LiveStudio::VideoCourse.published.sell_and_platform_percentage_greater_than(@workstation.platform_percentage).ransack(params[:q])
+      @video_courses = @query.result.includes(:teacher, :workstation, :video_lessons).order(id: :desc).paginate(page: params[:page])
     end
 
     def my_publish
       @query = @workstation.live_studio_video_courses.published.ransack(params[:q])
-      @video_courses = @query.result.order(id: :desc).paginate(page: params[:page])
+      @video_courses = @query.result.includes(:teacher, :workstation, :video_lessons).order(id: :desc).paginate(page: params[:page])
     end
 
     def my_sells
-      @query = LiveStudio::VideoCourse.published.ransack(params[:q])
-      @video_courses = @query.result.order(id: :desc).paginate(page: params[:page])
+      @query = LiveStudio::VideoCourse.published.sell_and_platform_percentage_greater_than(@workstation.platform_percentage).ransack(params[:q])
+      @video_courses = @query.result.includes(:teacher, :workstation, :video_lessons).order(id: :desc).paginate(page: params[:page])
     end
 
     def audits
@@ -29,9 +29,8 @@ module LiveStudio
         else
           video_courses = @workstation.live_studio_video_courses.no_audit
       end
-
       @query = video_courses.ransack(params[:q])
-      @video_courses = @query.result.order(id: :desc).paginate(page: params[:page])
+      @video_courses = @query.result.includes(:teacher, :video_lessons).order(id: :desc).paginate(page: params[:page])
     end
 
     # 通过/驳回
@@ -53,9 +52,9 @@ module LiveStudio
 
     # 工作站视频课管理
     def list
-      @video_courses = @workstation.live_studio_video_courses.includes(:teacher).where(cate_params)
+      @video_courses = @workstation.live_studio_video_courses.where(cate_params)
       @query = @video_courses.ransack(ransack_params[:q])
-      @video_courses = @query.result.order(id: :desc).paginate(page: params[:page])
+      @video_courses = @query.result.includes(:teacher, :video_lessons).order(id: :desc).paginate(page: params[:page])
     end
 
     def edit

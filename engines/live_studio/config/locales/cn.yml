@@ -5,10 +5,17 @@ cn:
       course_preview: 提示：此页面仅供查看和预览，不能进行操作哦！
       download: 下载APP
       notfund: 暂无数据
+      none: 无
       video_lesson:
         name_blank: 课时名称不能为空
         name_too_long: 课时名称过长
         video_blank: 请选择视频
+      pay_type:
+        account: "当前余额 %{amount}"
+        weixin: "推荐安装微信5.0及以上版本"
+        alipay: "推荐有支付宝账号的用户使用"
+      video_course_order:
+        cannot_refund: 购买提醒：此订单类型暂不支持退款！
     search:
       all: 全部
       live_studio/course:
@@ -195,6 +202,7 @@ cn:
     course_order_new:
       pay: 立即支付
       current_price: 价格
+      coupon_code_tip: 使用优惠码
       coupon_code: 优惠码（可选）：
       coupon_code_input: 输入优惠码
       check_coupon_btn: 验证
@@ -221,6 +229,7 @@ cn:
       status: 当前状态
       course_type: '课程类型'
       grade_and_subject: '年级科目'
+      total_lessons_count_value: "共%{count}课"
     interactive_course_order_new:
       interactive_lessons_count: 课时总数
     course_form:
@@ -393,6 +402,7 @@ cn:
         name: 名称
         course_name: 辅导班名称
         teacher: 辅导老师
+        course_teacher: 授课老师
         short_description: 摘要
         description: 说明
         publicize: 封面
@@ -476,6 +486,7 @@ cn:
         index: 序号
         confirmed_at: 审核时间
         published_at: 发布时间
+        buy_tickets_count: 学习人数
       live_studio/video_lesson:
         name: 课时名称
         video: 视频内容

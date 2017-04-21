@@ -33,6 +33,7 @@ cn:
         arrange: 上课安排
         lesson_plan: 课时安排
         lesson_real_time: 视频时长
+        total_duration: 时长
         study: 学习须知
         base_info: 基本属性
         subject: 科目
@@ -43,6 +44,9 @@ cn:
         duration_text: 时长
         play_video: 观看本课时
         tast_video: 试听本课时
+        tast_video_notice: 请先加入试听
+        play_video_notice: 购买后才能观看
+        login_notice: 请先登录
         date: 日期
         date_text: "%{start_at}至%{end_at}"
         status: 状态
@@ -91,6 +95,7 @@ cn:
           buy2: 2.视频课一经购买后永久有效，不限观看时间和观看次数；方便学生进行重复学习。
           buy3: 3.视频课属一次性销售课程，不能重复购买，亦不支持（暂时）退款。
           buy4: 4.视频课禁止下载或转录！
+          buy5: 5.遇到网页不能打开或者不能登录等情况请及时联系客服。
           play: 观看
           play1: 1.视频课观看无需使用客户端，网页即可播放。
           play2: 2.上课途中如突遇屏幕卡顿，视频缓冲等情况，请检查网络状态后刷新页面。

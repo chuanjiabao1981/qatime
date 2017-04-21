@@ -34,6 +34,21 @@ class Ajax::DataController < ApplicationController
     params[:teacher_page] = params[:teacher_page].to_i + 1
   end
 
+  def teacher_profile_courses
+    @teacher = Teacher.find(params[:teacher_id])
+    teacher_data = DataService::TeacherData.new(@teacher)
+    case params[:cate]
+      when 'courses'
+        @courses = teacher_data.profile_courses
+      when 'interactive_courses'
+        @courses = teacher_data.profile_interactive_courses
+      when 'video_courses'
+        @courses = teacher_data.profile_video_courses
+      else
+        @courses = []
+    end
+  end
+
   private
 
   def set_variable

@@ -2,12 +2,15 @@
   <li>
     <div class="row">
       <div class="col-md-3 discipline-pic">
-        <%= link_to image_tag(video_course.publicize_url(:list), class: 'handle_error_list'), "javascrip: void(0);" %>
+        <%= link_to live_studio.preview_video_course_path(video_course), target: '_blank' do %>
+          <%= image_tag(video_course.publicize_url(:list), class: 'handle_error_list') %>
+        <% end %>
+        <span class="video-time"><%= t('view.live_studio/courses.show.total_duration') %><i><%= format_duration(video_course.total_duration) %></i></span>
       </div>
       <div class="col-md-7 discipline-info">
         <div class="row info-title">
           <div class="col-md-12">
-            <%= link_to "javascrip: void(0);" do %>
+            <%= link_to live_studio.preview_video_course_path(video_course), target: '_blank' do %>
               <strong><%= video_course.name %></strong>
             <% end %>
           </div>

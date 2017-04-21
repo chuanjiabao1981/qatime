@@ -1124,3 +1124,19 @@ a.down-app:link {
 .phone-order-con > ul > li span:nth-child(2){
   color: #666;
 }
+.prompt-error {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -6rem;
+  margin-left: -4rem;
+  width: 12rem;
+  height: 8rem;
+  background-color: rgba(0,0,0,0.7);
+  font-size: 1.4rem;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 8rem;
+    border-radius: 5px;
+}

@@ -1,5 +1,6 @@
 <div class="phone-details">
   <%= simple_form_for [:wap, :live_studio, @product, @order] do |f| %>
+    <%= render 'layouts/wap/message', obj: @order %>
     <%= f.hidden_field :product_id %>
     <div class="phone-login-title">
       <div class="phone-return">

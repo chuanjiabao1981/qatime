@@ -130,6 +130,7 @@ module LiveStudio
     scope :by_city, ->(city_id) { where(city_id: city_id) }
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
     scope :unpublished, -> { where('live_studio_video_courses.status < ?', VideoCourse.statuses[:published]) }
+    scope :sell_and_platform_percentage_greater_than, ->(platform_percentage) { where('live_studio_video_courses.sell_and_platform_percentage > ?', platform_percentage) }
     scope :audited, -> { where(status: VideoCourse.statuses.values_at(:rejected, :confirmed)) }
     scope :no_audit, -> { where(status: VideoCourse.statuses[:init]) }
     scope :for_sell, -> { where(status: VideoCourse.statuses[:published]) }

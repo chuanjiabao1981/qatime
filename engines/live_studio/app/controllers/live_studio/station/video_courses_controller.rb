@@ -7,7 +7,7 @@ module LiveStudio
     before_action :set_video_course_and_check, only: [:edit, :update, :publish]
 
     def index
-      @query = LiveStudio::VideoCourse.published.ransack(params[:q])
+      @query = LiveStudio::VideoCourse.published.sell_and_platform_percentage_greater_than(@workstation.platform_percentage).ransack(params[:q])
       @video_courses = @query.result.includes(:teacher, :workstation, :video_lessons).order(id: :desc).paginate(page: params[:page])
     end
 
@@ -17,7 +17,7 @@ module LiveStudio
     end
 
     def my_sells
-      @query = LiveStudio::VideoCourse.published.ransack(params[:q])
+      @query = LiveStudio::VideoCourse.published.sell_and_platform_percentage_greater_than(@workstation.platform_percentage).ransack(params[:q])
       @video_courses = @query.result.includes(:teacher, :workstation, :video_lessons).order(id: :desc).paginate(page: params[:page])
     end
 

@@ -196,7 +196,7 @@ module LiveStudio
 
     # 心跳
     def heartbeats(timestamp, beat_step, token = nil)
-      @live_session = token.blank? ? new_live_session : current_live_session
+      @live_session = session_by_token(token)
       return @live_session.token if @live_session.timestamp && @live_session.timestamp >= timestamp
       @live_session.heartbeat_count += 1
       @live_session.duration += beat_step
@@ -212,6 +212,12 @@ module LiveStudio
 
     def start_live_session
       new_live_session
+    end
+
+    def session_by_token(token)
+      live_session = live_sessions.find_by(token: token) if token.present?
+      live_session ||= new_live_session
+      live_session
     end
 
     def current_live_session

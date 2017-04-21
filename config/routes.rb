@@ -426,6 +426,7 @@ Qatime::Application.routes.draw do
         get 'home_curriculums'
         get 'home_questions'
         post :home_teachers
+        post :teacher_profile_courses
       end
     end
   end

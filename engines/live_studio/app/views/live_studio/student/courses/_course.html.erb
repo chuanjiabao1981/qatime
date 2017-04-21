@@ -23,8 +23,10 @@
                       class: 'course-buy-btn') if current_user == @student && !course.bought_by?(@student) %>
       <%= content_tag(:div, class: 'course-operator-btn') do %>
         <%= link_to t('view.course_show.info'), live_studio.course_path(course), class: 'btn btn-default operator-btn' %>
-        <%= link_to t('view.course_show.study_link'), play_course_path(course), target: '_blank',
-                    class: "btn btn-default operator-btn #{course.completed? ? 'disabled' : nil}" if course.bought_by?(current_user) || course.tasting?(current_user) %>
+        <% unless course.completed? %>
+          <%= link_to t('view.course_show.study_link'), play_course_path(course), target: '_blank',
+                    class: "btn btn-default operator-btn" if course.bought_by?(current_user) || course.tasting?(current_user) %>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>

@@ -31,6 +31,8 @@ cn:
         learn_alert: 辅导班开课后才可学习
         introduce: 课程介绍
         arrange: 上课安排
+        lesson_plan: 课时安排
+        lesson_real_time: 视频时长
         study: 学习须知
         base_info: 基本属性
         subject: 科目
@@ -41,6 +43,9 @@ cn:
         duration_text: 时长
         play_video: 观看本课时
         tast_video: 试听本课时
+        tast_video_notice: 请先加入试听
+        play_video_notice: 购买后才能观看
+        login_notice: 请先登录
         date: 日期
         date_text: "%{start_at}至%{end_at}"
         status: 状态

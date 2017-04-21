@@ -26,7 +26,7 @@
             <p class="status-personal"><%= t('view.student.students.schedules.lesson.one_by_one') %></p>
           </a>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-<%= @user.student? ? '6' : '7' %>">
           <ul>
             <li>
               <%= lesson.name %>
@@ -41,9 +41,11 @@
             <p><%= lesson.class_date %> <%= lesson.start_time %>-<%= lesson.end_time %></p>
           </div>
         </div>
-        <div class="col-md-1">
-          <%= link_to t('view.student.students.schedules.lesson.enter'), '#', data: {toggle: 'modal', target: "#dawnloadModal"}, class: 'active' %>
-        </div>
+        <% if @user.student? %>
+          <div class="col-md-1">
+            <%= link_to t('view.student.students.schedules.lesson.enter'), '#', data: {toggle: 'modal', target: "#dawnloadModal"}, class: 'active' %>
+          </div>
+        <% end %>
       </div>
     </div>
   <% else %>
@@ -55,7 +57,7 @@
             <p><%= t('view.student.students.schedules.lesson.course') %></p>
           </a>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-<%= @user.student? ? '6' : '7' %>">
           <ul>
             <li>
               <%= lesson.name %>
@@ -70,15 +72,15 @@
             <p><%= lesson.class_date %> <%= lesson.start_time %>-<%= lesson.end_time %></p>
           </div>
         </div>
-        <div class="col-md-1">
-          <% if @user.student? %>
+        <% if @user.student? %>
+          <div class="col-md-1">
             <% if lesson.is_over? %>
               <%= link_to t('view.student.students.schedules.lesson.enter'), 'javascript:void(0);' %>
             <% else %>
-              <%= link_to t('view.student.students.schedules.lesson.enter'), live_studio.send("#{@user.role}_course_path", @user, lesson.course.id), class: 'active' %>
+              <%= link_to t('view.student.students.schedules.lesson.enter'), live_studio.play_course_path(lesson.course_id), class: 'active' %>
             <% end %>
-          <% end %>
-        </div>
+          </div>
+        <% end %>
       </div>
     </div>
   <% end %>

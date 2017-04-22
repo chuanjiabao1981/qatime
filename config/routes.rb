@@ -399,6 +399,7 @@ Qatime::Application.routes.draw do
 
   mount Qawechat::Engine, at: '/qawechat'
   get 'auth/wechat/callback' => 'qawechat/omniauth_callbacks#wechat'
+  get 'auth/wechat2/callback' => 'qawechat/omniauth_callbacks#wechat'
   get 'wechat/login_callback' => 'qawechat/omniauth_callbacks#login_callback'
 
   # 直播
@@ -425,6 +426,7 @@ Qatime::Application.routes.draw do
         get 'home_curriculums'
         get 'home_questions'
         post :home_teachers
+        post :teacher_profile_courses
       end
     end
   end
@@ -437,7 +439,13 @@ Qatime::Application.routes.draw do
         end
         resources :orders, only: [:new, :create]
       end
+
+      resources :video_courses, only: [:show] do
+        resources :orders, only: [:new, :create]
+      end
+
     end
+    resources :softwares, only: [:index]
 
     namespace :payment do
       resources :orders, only: [:show] do

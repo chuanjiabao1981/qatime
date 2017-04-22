@@ -1,6 +1,8 @@
 <%= simple_form_for [@product.model_name.singular_route_key, @order] do |f| -%>
   <%= hidden_field_tag :come_from, params[:come_from].presence %>
-  <div style="padding: 10px 0 0; color: red;"><%= @order.errors.first.try(:last) %></div>
+  <%= content_tag :div, style: "padding: 10px 0 0; color: red;" do %>
+    <%= @order.errors.first.try(:last) %>
+  <% end if @order.errors.any? %>
   <div class="student-buy-left">
     <div class="buy-left-title">
       <%= t('view.payment_show.product_info') %>

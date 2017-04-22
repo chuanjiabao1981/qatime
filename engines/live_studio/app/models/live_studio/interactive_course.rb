@@ -12,19 +12,21 @@ module LiveStudio
     include Qatime::Discussable
 
     require 'carrierwave/orm/activerecord'
-    mount_uploader :publicize, ::PublicizeUploader
+    mount_uploader :publicize, ::InteractivePublicizeUploader
 
     enum status: {
       init: 0, # 初始化
       published: 1, # 招生中
       teaching: 2, # 已开课
-      completed: 3 # 已结束
+      completed: 3, # 已结束
+      refunded: 99 # 已结束 退款
     }
     enumerize :status, in: {
       init: 0, # 初始化
       published: 1, # 招生中
       teaching: 2, # 已开课
-      completed: 3 # 已结束
+      completed: 3, # 已结束
+      refunded: 99 # 已结束 退款
     }
 
     aasm column: :status, enum: true do
@@ -32,6 +34,7 @@ module LiveStudio
       state :published, initial: true
       state :teaching
       state :completed
+      state :refunded
 
       event :publish, after_commit: :ready_lessons do
         before do
@@ -46,6 +49,10 @@ module LiveStudio
 
       event :complete do
         transitions from: :teaching, to: :completed
+      end
+
+      event :refund do
+        transitions from: [:teaching], to: :refunded
       end
     end
 
@@ -78,6 +85,7 @@ module LiveStudio
     validates_associated :interactive_lessons
     validate :interactive_lessons_uniq
 
+    scope :published_start, -> { where('live_studio_interactive_courses.status > ?', Course.statuses[:init]) }
     scope :for_sell, -> { where(status: statuses[:published], buy_tickets_count: 0) }
 
     before_create do
@@ -125,15 +133,17 @@ module LiveStudio
       user = order.user
       order.errors[:product] << '课程目前不对外招生' unless for_sell?
       order.errors[:product] << '课程只对学生销售' unless user.student?
-      order.errors[:product] << '您已经购买过该课程' if buy_tickets.where(student_id: user.id).exists?
+      order.errors[:product] << '您已经购买过该课程' if buy_tickets.available.where(student_id: user.id).exists?
     end
 
     # 发货
     def deliver(order)
       ticket_price = left_lessons_count.zero? ? order.amount : order.amount.to_f / left_lessons_count
       ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: ticket_price,
-                                             payment_order_id: order.id, buy_count: left_lessons_count)
+                                             payment_order_id: order.id, buy_count: left_lessons_count,
+                                             status: 'inactive')
       ticket.active!
+      teach!
     end
 
     def for_sell?
@@ -271,6 +281,15 @@ module LiveStudio
 
     def order_lessons
       interactive_lessons.unscope(:order).includes(:teacher).order(:class_date, :live_start_at, :live_end_at)
+    end
+
+    # 是否可退款
+    def can_refund?
+      teaching?
+    end
+
+    def is_finished?
+      %w[completed refunded].include?(status)
     end
 
     private

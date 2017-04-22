@@ -1,0 +1,49 @@
+<div class="panel panel-default">
+  <div class="admin">
+    <%= render 'live_studio/station/video_tab' -%>
+    <div>
+      <div class="admin-list distribution">
+      	<%= render 'list_filter' -%>
+        <div class="admin-list-con">
+          <table class="table" border="1" cellspacing="1" cellpadding="1">
+            <tbody>
+              <tr>
+            		<td><%= LiveStudio::VideoCourse.human_attribute_name(:index) %></td>
+                <td><%= LiveStudio::VideoCourse.human_attribute_name(:name) %></td>
+                <td><%= LiveStudio::VideoCourse.human_attribute_name(:teacher_name) %></td>
+                <td><%= LiveStudio::VideoCourse.human_attribute_name(:grade) %></td>
+                <td><%= LiveStudio::VideoCourse.human_attribute_name(:subject) %></td>
+                <td><%= LiveStudio::VideoCourse.human_attribute_name(:video_lessons_count) %></td>
+                <td>
+                  <%= LiveStudio::VideoCourse.human_attribute_name(:published_at) if params[:cate] == 'has_created' -%>
+                  <%= LiveStudio::VideoCourse.human_attribute_name(:confirmed_at) unless params[:cate] == 'has_created' %>
+                </td>
+                <td><%= LiveStudio::VideoCourse.human_attribute_name(:total_duration) %></td>
+                <td><%= LiveStudio::VideoCourse.human_attribute_name(:operation) %></td>
+              </tr>
+              <% @video_courses.each_with_index do |video_course, index| -%>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td>
+                    <%= video_course.name %>
+                  </td>
+                  <td><%= video_course.teacher.try(:name) %></td>
+                  <td><%= video_course.grade %></td>
+                  <td><%= video_course.subject %></td>
+                  <td><%= video_course.video_lessons_count %></td>
+                  <td>
+                    <%= localize(video_course.confirmed_at) if params[:cate] != 'has_created' && video_course.confirmed_at %>
+                    <%= localize(video_course.published_at) if params[:cate] == 'has_created' && video_course.published_at %>
+                  </td>
+                  <td><%= format_duration video_course.total_duration %></td>
+                  <td><%= render 'operation', video_course: video_course %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+        <center><div class="pagination-fix"><%= will_paginate @video_courses %></div></center>
+      </div>
+    </div>
+  </div>
+</div>

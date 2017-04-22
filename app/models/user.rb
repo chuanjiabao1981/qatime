@@ -115,6 +115,14 @@ class User < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
+  def use_default_avatar
+    default_avatar = Rails.public_path.join("imgs/avatar_#{self.role}.png")
+    File.open(default_avatar) do |file|
+      self.avatar = file
+    end
+    self
+  end
+
   def view_name
     return name unless teacher?
     return nick_name unless nick_name.nil? or nick_name.strip.empty?

@@ -16,6 +16,11 @@ module Entities
       expose :publicize do |course|
         course.publicize_url(:list)
       end
+      expose :status
+      expose :lessons_count
+      expose :is_finished do |course|
+        course.completed?
+      end
     end
   end
 end

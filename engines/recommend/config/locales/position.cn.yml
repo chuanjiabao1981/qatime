@@ -46,6 +46,8 @@ cn:
         tag_name1: 标签1
         tag_name2: 标签2
         none_tag: 无标签
+      prompt:
+        target_id: 请选择课程
   enums:
     recommend:
       status:
@@ -62,6 +64,11 @@ cn:
       tag_two:
         free_tastes: 免费试听
         join_cheap: 插班优惠
+    recommend/choiceness_item:
+      target_type:
+        course: 直播课
+        interactive_course: 一对一
+        video_course: 视频课
   activerecord:
     models:
       recommend/position: 首页管理
@@ -102,3 +109,4 @@ cn:
         city_id: 城市
         target: 课程
         target_id: 选择课程
+        target_type: 课程类型

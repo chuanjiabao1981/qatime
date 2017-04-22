@@ -53,7 +53,8 @@ module LiveService
     # 上课时间为今天的设置为ready状态, init => ready
     def self.ready_today_lessons
       LiveStudio::InteractiveLesson.today.init.includes(:interactive_course).find_each(batch_size: 50).each do |lesson|
-        next unless lesson.interactive_course
+        next unless lesson.interactive_course # course被删除以后lesson不处理
+        next unless lesson.interactive_course.teaching? # 没人购买今天的课程不处理
         lesson.ready!
         course = lesson.interactive_course
         course.teaching! if course.published?

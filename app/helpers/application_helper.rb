@@ -129,6 +129,15 @@ module ApplicationHelper
     link_to(name, '###', class: "add_fields add-course", data: {id: id, fields: fields.gsub("\n", "")})
   end
 
+  def link_to_append_fields(name, f, association, shared_dir, options = {})
+    new_object = f.object.class.reflect_on_association(association).klass.new
+    id = new_object.object_id
+    fields = f.fields_for(association, new_object, child_index: "new_#{association}_#{id}") do |builder|
+      render(shared_dir + association.to_s.singularize + "_fields", f: builder)
+    end
+    link_to(name, '###', class: "append_fields #{options[:class]}", "append-to" => options['append-to'], data: { id: id, fields: fields.delete("\n") })
+  end
+
   def _get_super_model_name(o_class)
     return o_class.model_name if o_class.superclass.name == "ActiveRecord::Base"
     _get_super_model_name(o_class.superclass)
@@ -342,6 +351,10 @@ module ApplicationHelper
       r = controller_name == 'users' && action_name == 'cash'
     when :my_courses
       r = controller_name == 'courses' && action_name == 'index'
+    when :my_interactive_courses
+      r = controller_name == 'interactive_courses'
+    when :my_video_courses
+      r = controller_name == 'video_courses'
     when :schedule
       r = controller_name == 'teachers' && action_name == 'schedules'
     when :teacher_students
@@ -392,4 +405,17 @@ module ApplicationHelper
     end
   end
 
+  def format_duration(duration)
+    return unless duration.to_i > 0
+    second = format('%02d', duration % 60)
+    duration /= 60
+    minute = format('%02d', duration % 60)
+    duration /= 60
+    hour = format('%02d', duration % 60)
+    "#{hour}:#{minute}:#{second}"
+  end
+
+  def with_none_tips(content)
+    content || I18n.t('view.tips.none')
+  end
 end

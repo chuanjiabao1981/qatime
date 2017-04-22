@@ -175,3 +175,31 @@ course_notification_for_destroy_course:
   read: false
   action_name: start
 
+course_notification_for_destroy_course:
+  notificationable: interactive_course_teacher1 (LiveStudio::InteractiveCourse)
+  receiver: teacher1
+  type: LiveStudioInteractiveCourseNotification
+  read: false
+  action_name: finish
+
+video_course_reject:
+  notificationable: completed_video_course (LiveStudio::VideoCourse)
+  receiver: teacher1
+  type: LiveStudioVideoCourseNotification
+  read: false
+  action_name: reject
+
+video_course_confirm:
+  notificationable: completed_video_course (LiveStudio::VideoCourse)
+  receiver: teacher1
+  type: LiveStudioVideoCourseNotification
+  read: false
+  action_name: confirm
+
+video_course_publish:
+  notificationable: completed_video_course (LiveStudio::VideoCourse)
+  receiver: teacher1
+  type: LiveStudioVideoCourseNotification
+  read: false
+  action_name: publish
+

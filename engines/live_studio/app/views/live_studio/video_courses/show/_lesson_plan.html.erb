@@ -1,0 +1,29 @@
+<% @course.video_lessons.each_with_index do |lesson, i| %>
+  <div class="row playlist <%= 'end' if false %>">
+    <div class="col-md-1">
+      <span><%= beautify_index(i) %></span>
+    </div>
+    <div class="col-md-7 coursehead">
+      <span><%= truncate_u lesson.name, length: 30 %></span>
+    </div>
+    <div class="col-md-2 arrange-length">
+      <span><%= t('view.live_studio/courses.show.duration_text') %><em><%= format_duration(lesson.real_time) %></em></span>
+    </div>
+    <div class="col-md-2 arrange-view">
+      <% if current_user %>
+        <!-- 已经购买 -->
+        <% if @course.bought_by?(current_user) %>
+          <%= link_to t('view.live_studio/courses.show.play_video'), live_studio.play_video_lesson_path(lesson), target: '_blank' %>
+        <% elsif @course.tasting?(current_user) %>
+          <!-- 已经加入试听 -->
+          <%= link_to( t('view.live_studio/courses.show.tast_video'), live_studio.play_video_lesson_path(lesson), target: '_blank', class: 'view-audition') if lesson.tastable? %>
+          <%= link_to( t('view.live_studio/courses.show.play_video'),  "javascript:alert('#{t('view.live_studio/courses.show.play_video_notice')}');") unless lesson.tastable? %>
+        <% else %>
+          <!-- 没有加入试听 也没有购买的 -->
+          <%= link_to( t('view.live_studio/courses.show.tast_video'), "javascript:alert('#{t('view.live_studio/courses.show.tast_video_notice')}');", class: 'view-audition') if lesson.tastable? %>
+          <%= link_to( t('view.live_studio/courses.show.play_video'),  "javascript:alert('#{t('view.live_studio/courses.show.play_video_notice')}');") unless lesson.tastable? %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

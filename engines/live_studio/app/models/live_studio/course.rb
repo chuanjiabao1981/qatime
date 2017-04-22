@@ -150,7 +150,8 @@ module LiveStudio
     scope :by_grade, ->(grade){ grade.blank? || grade == 'all' ? nil : where(grade: grade)}
     scope :by_city, ->(city_id) { where(city_id: city_id) }
     scope :class_date_sort, ->(class_date_sort){ class_date_sort && class_date_sort == 'desc' ? order(class_date: :desc) : order(:class_date)}
-    scope :uncompleted, -> { where('status < ?', Course.statuses[:completed]) }
+    scope :uncompleted, -> { where('live_studio_courses.status < ?', Course.statuses[:completed]) }
+    scope :published_start, -> { where('live_studio_courses.status > ?', Course.statuses[:init]) }
     scope :opening, ->{ where(status: [Course.statuses[:teaching], Course.statuses[:completed]]) }
     scope :for_sell, -> { where(status: [Course.statuses[:teaching], Course.statuses[:published]]) }
 
@@ -444,6 +445,11 @@ module LiveStudio
     def reset_left_price
       self.left_price = current_price
       save
+    end
+
+    # 是否可退款
+    def can_refund?
+      for_sell?
     end
 
     private

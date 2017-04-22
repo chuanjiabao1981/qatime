@@ -5,18 +5,52 @@ cn:
       course_invitations: 开班邀请
       courses: 直播课代销
       my_courses: 发行/经销
+      video_courses: 视频课列表
+      my_video_courses: 发行/销售
+      manage_video_courses: 课程管理
+      video_course_audits: 视频课审核
       teacher:
         my_courses: 我的辅导
         my_interactive_courses: 我的一对一
+        my_video_courses: 我的视频课
         new_course: 邀请和创建
         create_course: 创建新辅导
         my_course_invitations: 邀请和创建
         current_course_invitations: 已收到的开班邀请
+        add_lesson: 添加课程
         course:
           all: 全部
           waiting: 待开始
           teaching: 进行中
           finished: 已结束
+        video_course:
+          step_one: "①设置课程介绍"
+          step_two: "②上传课程视频"
+    actions:
+      teacher:
+        video_course:
+          create: 创建视频课
+          edit: 编辑视频课
+          submit: 提交审核
+          next_step: 下一步
+          add_lesson: 添加课程
+        video:
+          save: 保存
+      student:
+        video_course:
+          play: 观看
+      workstation:
+        video_course:
+          play: 播放
+          preview: 预览
+          create: 创建
+          edit: 编辑
+          publish: 发布
+    notices:
+      video_course:
+        updated: 视频课保存成功
+        published: 视频课发布成功
+
     course_records:
       nav:
         my_publish: 我的发行
@@ -162,6 +196,78 @@ cn:
         modal_class_date_new: 新上课日期
         modal_start_time_was: 原开始时间
         modal_start_time_new: 新开始时间
+    live_studio/video_course:
+      workstation:
+        new: 创建新视频课
+        label: 视频课说明
+        label1: 1.视频课是一种可重复销售的课程，允许多人购买;
+        label2: 2.视频课由学生自主观看学习，无需上课；
+        label3: 3.默认使用系统视频课程海报（如右图）；
+      workstation_new:
+        title: 创建新视频课
+        label: 一对一课程说明
+        label1: 1.仅允许一名学生购买，不能重复销售;
+        label2: 2.课程总时长共计450分钟，每课45分钟，共10课时；
+        label3: 3.默认使用系统一对一课程海报;
+        intro_one: 一、课程介绍
+        intro_two: 二、课程安排
+        intro_three: 三、价格和分成
+        preview: 预览
+        submit: 发布招生
+        save: 保存
+        save_and_publish: 保存并发布
+        lesson_name_text: "一对一互动课程-第%{index}课时"
+      workstation_edit:
+        title: 创建新视频课
+        label: 一对一课程说明
+        label1: 1.仅允许一名学生购买，不能重复销售;
+        label2: 2.课程总时长共计450分钟，每课45分钟，共10课时；
+        label3: 3.默认使用系统一对一课程海报;
+        intro_one: 一、课程介绍
+        intro_two: 二、课程安排
+        intro_three: 三、价格和试听
+        preview: 预览
+        submit: 发布招生
+        lesson_name_text: "一对一互动课程-第%{index}课时"
+      index:
+        name: 视频课名称
+        teacher: 老师
+        grade: 年级
+        subject: 科目
+        status: 状态
+        published_at: 发布时间
+        workstation: 发行工作站
+        price: 价格
+        service_price: 服务扣费
+        teacher_percentage: 老师分成
+        sell_percentage: 销售分成
+        platform_percentage: 平台分成
+        publish_percentage: 发行分成
+        qr_code: 二维码
+        buy_user_count: 购买人数
+      audits:
+        lesson_count: 课时数
+        total_duration: 视频总长
+        created_at: 提交时间
+        audit: 审核
+        audit_result: 审核结果
+        play: 播放
+        confirm: 通过
+        confirm_alert: 确定审核通过么?
+        reject: 驳回
+        reject_alert: 确定驳回么?
+        status_text:
+          confirmed: 已通过
+          rejected: 已驳回
+
+      my_video_courses:
+        nav:
+          my_publish: 我的发行
+          my_sells: 我的销售
+      video_course_audits:
+        nav:
+          audited: 已审核
+          no_audit: 未审核
     student:
       students:
         schedules:

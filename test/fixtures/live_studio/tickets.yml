@@ -403,5 +403,43 @@ ticket_for_student_one_with_interactive_course_three_2:
   sell_percentage: 45
   platform_percentage: 10
 
+### 下面是视频课
+ticket_for_student_one_with_published_video_course1:
+  student: student_one_with_course
+  product: published_video_course1 (LiveStudio::VideoCourse)
+  status: 2
+  lesson_price: 201
+  type: LiveStudio::BuyTicket
+  seller: workstation_one (Workstation)
+  sell_percentage: 5
+  platform_percentage: 3
+ticket_for_student_one_with_published_video_course2:
+  student: student_one_with_course
+  product: published_video_course2 (LiveStudio::VideoCourse)
+  status: 2
+  lesson_price: 300
+  type: LiveStudio::BuyTicket
+  seller: workstation_one (Workstation)
+  sell_percentage: 5
+  platform_percentage: 3
 
+video_course_buy_ticket1:
+  student: student1
+  product: video_course_for_billing (LiveStudio::VideoCourse)
+  status: 1
+  lesson_price: 360
+  type: LiveStudio::BuyTicket
+  sell_percentage: 25
+  platform_percentage: 10
+  payment_order: video_course_for_billing_order1
+
+video_course_buy_ticket2:
+  student: student_balance
+  product: video_course_for_billing (LiveStudio::VideoCourse)
+  status: 1
+  lesson_price: 360
+  type: LiveStudio::BuyTicket
+  sell_percentage: 25
+  platform_percentage: 10
+  payment_order: video_course_for_billing_order2
 

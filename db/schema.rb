@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170405085716) do
+ActiveRecord::Schema.define(version: 20170418081403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -850,6 +850,96 @@ ActiveRecord::Schema.define(version: 20170405085716) do
   add_index "live_studio_tickets", ["lesson_id"], name: "index_live_studio_tickets_on_lesson_id", using: :btree
   add_index "live_studio_tickets", ["student_id"], name: "index_live_studio_tickets_on_student_id", using: :btree
 
+  create_table "live_studio_video_courses", force: :cascade do |t|
+    t.string   "name",                         limit: 100,                                        null: false
+    t.integer  "teacher_id"
+    t.integer  "workstation_id"
+    t.integer  "status",                                                            default: 0
+    t.text     "description"
+    t.integer  "sell_type",                                                         default: 1
+    t.decimal  "price",                                    precision: 8,  scale: 2, default: 0.0
+    t.decimal  "lesson_price",                             precision: 8,  scale: 2, default: 0.0
+    t.integer  "teacher_percentage",                                                default: 0
+    t.integer  "lesson_count",                                                      default: 0
+    t.integer  "preset_lesson_count",                                               default: 0
+    t.integer  "completed_lessons_count",                                           default: 0
+    t.datetime "deleted_at"
+    t.datetime "created_at",                                                                      null: false
+    t.datetime "updated_at",                                                                      null: false
+    t.string   "subject"
+    t.string   "grade"
+    t.string   "publicize"
+    t.integer  "buy_tickets_count",                                                 default: 0
+    t.date     "class_date"
+    t.datetime "published_at"
+    t.string   "announcement"
+    t.integer  "province_id"
+    t.integer  "city_id"
+    t.integer  "author_id"
+    t.integer  "taste_count",                                                       default: 0
+    t.integer  "invitation_id"
+    t.integer  "video_lessons_count",                                               default: 0
+    t.integer  "finished_lessons_count",                                            default: 0
+    t.integer  "started_lessons_count",                                             default: 0
+    t.integer  "closed_lessons_count",                                              default: 0
+    t.integer  "adjust_buy_count",                                                  default: 0
+    t.string   "token"
+    t.string   "billing_type"
+    t.integer  "publish_percentage",                                                default: 0
+    t.decimal  "base_price",                               precision: 4,  scale: 2, default: 0.1
+    t.integer  "platform_percentage",                                               default: 0
+    t.integer  "sell_and_platform_percentage",                                      default: 0
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.decimal  "left_price",                               precision: 10, scale: 2, default: 0.0
+    t.string   "objective"
+    t.string   "suit_crowd"
+    t.integer  "current_lesson_id"
+    t.datetime "confirmed_at"
+    t.datetime "completed_at"
+    t.string   "duration"
+    t.integer  "total_duration",                                                    default: 0
+  end
+
+  add_index "live_studio_video_courses", ["author_id"], name: "index_live_studio_video_courses_on_author_id", using: :btree
+  add_index "live_studio_video_courses", ["city_id"], name: "index_live_studio_video_courses_on_city_id", using: :btree
+  add_index "live_studio_video_courses", ["class_date"], name: "index_live_studio_video_courses_on_class_date", using: :btree
+  add_index "live_studio_video_courses", ["invitation_id"], name: "index_live_studio_video_courses_on_invitation_id", using: :btree
+  add_index "live_studio_video_courses", ["preset_lesson_count"], name: "index_live_studio_video_courses_on_preset_lesson_count", using: :btree
+  add_index "live_studio_video_courses", ["price"], name: "index_live_studio_video_courses_on_price", using: :btree
+  add_index "live_studio_video_courses", ["province_id"], name: "index_live_studio_video_courses_on_province_id", using: :btree
+  add_index "live_studio_video_courses", ["published_at"], name: "index_live_studio_video_courses_on_published_at", using: :btree
+  add_index "live_studio_video_courses", ["teacher_id"], name: "index_live_studio_video_courses_on_teacher_id", using: :btree
+  add_index "live_studio_video_courses", ["workstation_id"], name: "index_live_studio_video_courses_on_workstation_id", using: :btree
+
+  create_table "live_studio_video_lessons", force: :cascade do |t|
+    t.string   "name",            limit: 100
+    t.integer  "video_course_id"
+    t.integer  "teacher_id"
+    t.string   "description"
+    t.integer  "status",          limit: 2,   default: 0
+    t.string   "start_time",      limit: 6
+    t.string   "end_time",        limit: 6
+    t.date     "class_date"
+    t.integer  "live_count",                  default: 0
+    t.datetime "live_start_at"
+    t.datetime "live_end_at"
+    t.integer  "real_time",                   default: 0
+    t.integer  "pos",                         default: 0
+    t.datetime "deleted_at"
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.datetime "heartbeat_time"
+    t.integer  "duration"
+    t.integer  "replay_status",               default: 0
+    t.string   "token"
+    t.integer  "video_id"
+    t.boolean  "tastable"
+  end
+
+  add_index "live_studio_video_lessons", ["teacher_id"], name: "index_live_studio_video_lessons_on_teacher_id", using: :btree
+  add_index "live_studio_video_lessons", ["video_course_id"], name: "index_live_studio_video_lessons_on_video_course_id", using: :btree
+
   create_table "login_tokens", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "digest_token", limit: 64
@@ -1641,6 +1731,8 @@ ActiveRecord::Schema.define(version: 20170405085716) do
     t.string   "videoable_type"
     t.integer  "author_id"
     t.integer  "duration"
+    t.string   "capture"
+    t.integer  "tmp_duration",               default: 0
   end
 
   add_index "videos", ["token"], name: "index_videos_on_token", using: :btree

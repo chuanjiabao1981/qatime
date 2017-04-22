@@ -69,6 +69,30 @@ LiveStudio::Engine.routes.draw do
     resources :announcements, only: [:index, :update, :create], shallow: true
   end
 
+  # 视频课
+  resources :video_courses, only: [:index, :new, :create, :edit, :update, :show, :destroy] do
+    collection do
+      post :preview
+      patch :preview
+    end
+
+    member do
+      post :taste # 试听
+      get :play # 观看直播
+      post :update_notice
+      get :preview
+    end
+
+    resources :orders, only: [:new, :create]
+    resources :announcements, only: [:index, :update, :create], shallow: true
+
+    resources :video_lessons, only: [], shallow: true do
+      member do
+        get :play
+      end
+    end
+  end
+
   namespace :station do
     resources :workstations, only: [] do
       resources :courses, only: [:index] do
@@ -96,6 +120,19 @@ LiveStudio::Engine.routes.draw do
         end
       end
       resources :interactive_courses, only: [:index]
+      resources :video_courses, only: [:index, :edit, :update] do
+        collection do
+          get :my_publish
+          get :my_sells
+          get :list
+          get :audits
+        end
+        member do
+          get :send_qr_code
+          patch :publish
+          post :audit
+        end
+      end
     end
   end
 
@@ -174,6 +211,7 @@ LiveStudio::Engine.routes.draw do
 
       resources :course_invitations, only: [:index, :destroy]
       resources :interactive_courses, only: [:index]
+      resources :video_courses
     end
   end
 
@@ -205,6 +243,7 @@ LiveStudio::Engine.routes.draw do
       end
       resources :courses, only: [:index, :show]
       resources :interactive_courses, only: [:index, :show]
+      resources :video_courses, only: [:index]
     end
   end
 

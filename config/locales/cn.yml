@@ -11,7 +11,7 @@ cn:
     - 五
     - 六
     abbr_month_names:
-    - 
+    -
     - 1月
     - 2月
     - 3月
@@ -37,7 +37,7 @@ cn:
       long: ! '%Y年%m月%d日'
       short: ! '%b%d日'
     month_names:
-    - 
+    -
     - 一月
     - 二月
     - 三月
@@ -101,7 +101,7 @@ cn:
     format: ! '%{attribute} %{message}'
     messages:
       accepted: 必须是可被接受的
-      blank: 不能为空字符
+      blank: 不能为空
       confirmation: 与确认值不匹配
       empty: 不能留空
       equal_to: 必须等于 %{count}
@@ -205,7 +205,8 @@ cn:
   time:
     am: 上午
     formats:
-      default: ! '%Y年%b%d日 %A %H:%M:%S %Z'
+      default: ! '%Y-%m-%d %H:%M:%S'
+      # default: ! '%Y年%b%d日 %A %H:%M:%S %Z'
       long: ! '%Y年%b%d日 %H:%M'
       short: ! '%b%d日 %H:%M'
       exact: ! '%Y年%b%d日 %H:%M:%S'

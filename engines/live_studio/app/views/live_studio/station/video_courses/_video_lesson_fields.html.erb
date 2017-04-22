@@ -1,0 +1,15 @@
+<li>
+  <span><%= format('%02d', f.object.pos) %></span>
+  <div class="scheduling-item">
+    <div class="course-info">
+      <p><%= f.object.name %></p>
+      <span><%= LiveStudio::VideoLesson.human_attribute_name(:real_time) %> <i><%= format_duration(f.object.real_time) %></i></span>
+    </div>
+    <div class="course-checkbox">
+      <span>
+        <%= f.input_field :tastable, as: :boolean, label: false, boolean_style: :inline %>
+        <%= f.label :tastable %>
+      </span>
+    </div>
+  </div>
+</li>

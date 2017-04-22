@@ -1,0 +1,21 @@
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t("view.student_bars.my_video_courses") %></h3>
+  </div>
+  <div class="contains-discipline">
+    <div class="discipline-nav">
+      <%= link_to t("filter.category.bought"), live_studio.student_video_courses_path(@student), class: "#{'active' unless params[:cate] == 'tasting' }" -%>
+      <%= link_to t("filter.category.tasting"), live_studio.student_video_courses_path(@student, cate: 'tasting'), class: "#{'active' if params[:cate] == 'tasting' }" -%>
+    </div>
+    <div class="tab-content">
+      <div class="discipline-con" id="audit">
+        <ul>
+          <%= render partial: "video_course", collection: @video_courses %>
+        </ul>
+
+        <%= render 'shared/blank' if @video_courses.blank? %>
+        <center><div class="pagination-fix"><%= will_paginate @video_courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+      </div>
+    </div>
+  </div>
+</div>

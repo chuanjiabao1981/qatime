@@ -140,3 +140,30 @@ video_course_issue_reply_for_fee_view:
   author: teacher_tally
   duration: 100
 ##end
+
+video_for_init_video_lesson:
+  author: teacher1
+  video_type: 'mp4'
+  tmp_duration: 21
+video_for_init_video_lesson2:
+  author: teacher1
+  video_type: 'mp4'
+  tmp_duration: 21
+video_for_published_video_lesson1:
+  name: video_homework_correction_for_tally3
+  author: teacher1
+  video_type: 'mp4'
+  tmp_duration: 2
+video_for_published_video_lesson1_2:
+  name: video_homework_correction_for_tally3
+  author: teacher1
+  video_type: 'mp4'
+  tmp_duration: 2
+video_for_published_video_lesson2:
+  author: teacher1
+  video_type: 'mp4'
+  tmp_duration: 10
+
+
+
+

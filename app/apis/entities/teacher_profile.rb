@@ -20,8 +20,25 @@ module Entities
     expose :school do |s|
       s.school.try(:name)
     end
-    expose :courses,using: Entities::LiveStudio::PublicCourse do |user|
-      user.live_studio_courses.where('status > ?', ::LiveStudio::Course.statuses[:init])
+    expose :courses,using: Entities::LiveStudio::PublicCourse do |teacher|
+      DataService::TeacherData.new(teacher).profile_courses
+    end
+    expose :interactive_courses,using: Entities::LiveStudio::PublicInteractiveCourse do |teacher|
+      DataService::TeacherData.new(teacher).profile_interactive_courses
+    end
+    expose :video_courses,using: Entities::LiveStudio::PublicVideoCourse do |teacher|
+      DataService::TeacherData.new(teacher).profile_video_courses
+    end
+    expose :icons do
+      expose :course_can_refund do |teacher|
+        true
+      end
+      expose :info_complete do |teacher|
+        true
+      end
+      expose :teach_online do |teacher|
+        true
+      end
     end
   end
 end

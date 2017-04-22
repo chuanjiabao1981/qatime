@@ -17,6 +17,7 @@ cn:
       live_studio_course: 直播课
       live_studio_course_my_courses: 直播课管理
       live_studio_interactive_course: 一对一
+      live_studio_video_course: 视频课
       download: 下载
       common_problem: 帮助
       personal_center: 个人中心
@@ -26,6 +27,7 @@ cn:
       phone: 400-838-8010
       workstation_info: 工作站信息
       live_studio/interactive_course: 一对一管理
+      live_studio/video_course: 视频课
       welcome: 您好！欢迎来到答疑时间！
       default_title: 此标题内容仅供演示
       default_grade: 年级科目
@@ -41,16 +43,22 @@ cn:
     student_bars:
       my_wallet: 我的钱包
       my_orders: 我的订单
-      my_course: 我的辅导
-      my_interactive_course: 一对一
+      my_course: 我的直播课
+      my_courses: 我的直播课
+      my_interactive_course: 我的一对一
+      my_interactive_courses: 我的一对一
+      my_video_course: 我的视频课
+      my_video_courses: 我的视频课
       my_homework: 我的作业
       my_teachers: 我的老师
-      my_notice: 我的消息
+      my_notice: 消息中心
       schedules: 课程表
     teacher_bars:
       property_management: 财产管理
       curriculum_schedule: 课程表
-      my_courses: 我的辅导
+      my_courses: 我的直播课
+      my_interactive_courses: 我的一对一
+      my_video_courses: 我的视频课
       curriculums: 我的课程
       homeworks: 作业管理
       lessons_state: 课程状态

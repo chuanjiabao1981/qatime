@@ -10,8 +10,10 @@ module LiveStudio
     def instance_items
       if product.is_a?(LiveStudio::Course)
         ticket_items.create(product.lessons.where(live_end_at: nil).map { |l| { target: l } })
-      else
+      elsif product.is_a?(LiveStudio::InteractiveCourse)
         ticket_items.create(product.interactive_lessons.where(live_end_at: nil).map { |l| { target: l } })
+      else
+        ticket_items.create(product.video_lessons.map { |l| { target: l } })
       end
     end
 

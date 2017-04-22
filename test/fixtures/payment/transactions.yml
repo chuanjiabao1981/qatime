@@ -403,3 +403,45 @@ workstation_hd_order5:
   product: course_with_order2 (LiveStudio::Course)
   seller: workstation_hd (Workstation)
   pay_at: <%= 5.days.ago %>
+
+interactive_course_order_1:
+  type: Payment::Order
+  transaction_no: 201704101951270460
+  user: student3
+  amount: 666
+  pay_type: 0
+  status: 94 # 正在退款
+  product: interactive_course_three_2 (LiveStudio::InteractiveCourse)
+  seller: workstation_hd (Workstation)
+  pay_at: <%= 5.days.ago %>
+
+interactive_course_refund_1:
+  type: Payment::Refund
+  transaction_no: 201704101951270460
+  user: student3
+  amount: 666
+  pay_type: 4
+  status: 0 # 未处理
+  product: interactive_course_three_2 (LiveStudio::InteractiveCourse)
+  seller: workstation_hd (Workstation)
+  pay_at: <%= 5.days.ago %>
+
+video_course_for_billing_order1:
+  type: Payment::Order
+  transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student1
+  amount: 360
+  pay_type: shipped
+  status: 3 # 已发货
+  product: video_course_for_billing (LiveStudio::VideoCourse)
+  pay_at: <%= 5.days.ago %>
+
+video_course_for_billing_order2:
+  type: Payment::Order
+  transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student_balance
+  amount: 360
+  pay_type: shipped
+  status: 3 # 已发货
+  product: video_course_for_billing (LiveStudio::VideoCourse)
+  pay_at: <%= 5.days.ago %>

@@ -1,0 +1,41 @@
+<div class="panel panel-default">
+  <div class="admin">
+    <%= render 'live_studio/station/video_tab' %>
+
+    <div>
+      <div class="admin-list distribution">
+        <div class="admin-list-nav">
+          <%= link_to t('view.live_studio/video_course.my_video_courses.nav.my_publish'), my_publish_station_workstation_video_courses_path(@workstation), class: "#{'active' if params[:action] == 'my_publish'}" %>
+          <%= link_to t('view.live_studio/video_course.my_video_courses.nav.my_sells'), my_sells_station_workstation_video_courses_path(@workstation), class: "#{'active' if params[:action] == 'my_sells'}" %>
+        </div>
+        <div class="admin-list-title admin-list-condition">
+          <%= render partial: 'my_filter', locals: { url: my_publish_station_workstation_video_courses_path(@workstation) } %>
+        </div>
+        <div class="admin-list-con">
+          <table class="table" border="1" cellspacing="1" cellpadding="1">
+            <tbody>
+            <tr>
+              <td><%= t('common.index_no') %></td>
+              <td><%= t('view.live_studio/video_course.index.name') %></td>
+              <td><%= t('view.live_studio/video_course.index.teacher') %></td>
+              <td><%= t('view.live_studio/video_course.index.grade') %></td>
+              <td><%= t('view.live_studio/video_course.index.subject') %></td>
+              <td><%= t('view.live_studio/video_course.index.status') %></td>
+              <td><%= t('view.live_studio/video_course.index.published_at') %></td>
+              <td><%= t('view.live_studio/video_course.index.price') %></td>
+              <td><%= t('view.live_studio/video_course.index.service_price') %></td>
+              <td><%= t('view.live_studio/video_course.index.teacher_percentage') %></td>
+              <td><%= t('view.live_studio/video_course.index.publish_percentage') %></td>
+              <td><%= t('view.live_studio/video_course.index.buy_user_count') %></td>
+            </tr>
+
+            <%= render partial: 'publish_course', collection: @video_courses %>
+            </tbody>
+          </table>
+        </div>
+
+        <center><div class="pagination-fix"><%= will_paginate @video_courses %></div></center>
+      </div>
+    </div>
+  </div>
+</div>

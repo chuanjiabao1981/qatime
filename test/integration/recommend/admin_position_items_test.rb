@@ -76,5 +76,16 @@ module Recommend
       end
     end
 
+    test 'admin manage choiceness_items edit interactive_course' do
+      item = Recommend::ChoicenessItem.last
+      visit recommend.edit_choiceness_item_path(item)
+
+      select '一对一', from: :choiceness_item_target_type
+      select '测试一对一', from: :choiceness_item_target_id
+      click_on '保存'
+      sleep(1)
+      assert_equal item.reload.target.name, '测试一对一'
+    end
+
   end
 end

@@ -1,0 +1,14 @@
+<div class="admin-title">
+  <%= link_to t("live_studio.menu.video_courses"),
+              live_studio.station_workstation_video_courses_path(@workstation),
+              class: "#{'active-admin' if 'live_studio/station/video_courses' == params[:controller] && 'index' == params[:action]}" if allow?('live_studio/station/video_courses', 'index', @workstation) %>
+  <%= link_to t("live_studio.menu.my_video_courses"),
+              live_studio.my_publish_station_workstation_video_courses_path(@workstation),
+              class: "#{'active-admin' if 'live_studio/station/video_courses' == params[:controller] && %w[my_publish my_sells].include?(params[:action])}" if allow?('live_studio/station/video_courses', 'my_publish', @workstation) %>
+  <%= link_to t("live_studio.menu.video_course_audits"),
+              live_studio.audits_station_workstation_video_courses_path(@workstation),
+              class: "#{'active-admin' if 'live_studio/station/video_courses' == params[:controller] && 'audits' == params[:action]}" if allow?('live_studio/station/video_courses', 'audits', @workstation) %>
+  <%= link_to t("live_studio.menu.manage_video_courses"),
+              live_studio.list_station_workstation_video_courses_path(@workstation),
+              class: "#{'active-admin' if 'live_studio/station/video_courses' == params[:controller] && params[:action] == 'list' }" if allow?('live_studio/station/video_courses', 'my_publish', @workstation) %>
+</div>

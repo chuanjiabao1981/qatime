@@ -38,10 +38,21 @@ cn:
         name: 请输课程标题名称（最多20字）
         description: 请输入辅导班介绍（最多300字）
         teacher_percentage: 请输入教师获得分成比例（正整数）
+      video_course:
+        name: 请输入视频课名称
+        description: 请输入视频课程的详细介绍及说明（最多300字）
+        objective: 请输入课程能够达成的目标（最多20字）
+        suit_crowd: 输入适合学习的人群（最多20字）
+        price: 请输入视频课销售价格（正整数）
+        teacher_percentage: 请输入教师获得分成比例（正整数）
+      video_lesson:
+        name: 输入课时名称（最多20字）
     buttons:
       course_invitation:
         submit: 立即发送
         cancel: 取消
+      video_course:
+        submit: 提交审核
 
     # Examples
     # labels:

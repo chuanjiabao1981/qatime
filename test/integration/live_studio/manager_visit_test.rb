@@ -24,7 +24,7 @@ module LiveStudio
       click_on '教师'
       visit chat.finish_live_studio_course_teams_path(@course)
       visit teacher_path(@teacher)
-      click_on '我的辅导'
+      click_on '我的直播课'
       visit live_studio.teacher_course_path(@teacher, @course)
       assert_match @course.name, page.text, '没有正确跳转到辅导班详情页'
     end
@@ -34,7 +34,7 @@ module LiveStudio
       @course = live_studio_courses(:course_preview)
       click_on '学生'
       visit student_path(@student)
-      click_on '我的辅导'
+      click_on '我的直播课'
       visit live_studio.student_course_path(@student, @course)
       assert_match @course.name, page.text, '--'
       page.go_back

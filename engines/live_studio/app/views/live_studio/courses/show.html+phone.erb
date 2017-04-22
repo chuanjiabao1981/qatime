@@ -1,0 +1,31 @@
+<div class="phone-login phone-details">
+  <div class="phone-login-title">
+    <div class="phone-return">
+      <%= link_to 'javascript:history.back(-1);' do %>
+        <%= image_tag('wap/phone-return-1.png') %>
+      <% end %>
+    </div>
+    <div class="phone-headline">
+      <h3><%= t('wap.live_studio/courses.show.course_name') %></h3>
+    </div>
+  </div>
+
+  <%= render partial: 'content' %>
+  <%= render partial: 'details' %>
+
+  <div class="phone-details-btn">
+    <%= render "buy_or_taste" if (current_user.blank? || current_user.student?) && @course.for_sell? %>
+  </div>
+</div>
+
+<%= render 'layouts/alert_download' %>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(".details-msg-nav a").click(function() {
+      var index = $(".details-msg-nav a").index($(this));
+      $(this).addClass("active").siblings().removeClass("active");
+      $(".details-msg-con").eq(index).show().siblings().hide();
+    })
+  </script>
+<% end %>

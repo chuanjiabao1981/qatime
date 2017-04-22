@@ -105,6 +105,11 @@ module Permissions
       allow 'live_studio/courses', [:schedule_sources]
       # 辅导班管理
 
+      # 视频课
+      allow 'live_studio/station/video_courses', [:index, :send_qr_code] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
+
       # 招生请求
       allow 'live_studio/station/course_requests', [:index, :accept, :reject] do |workstation|
         workstation && workstation.id == user.workstation_id
@@ -125,6 +130,10 @@ module Permissions
         workstation && workstation.id == user.workstation_id
       end
 
+      # 视频课
+      allow 'live_studio/station/video_courses', [:index, :my_publish, :my_sells, :send_qr_code, :list, :edit, :update, :publish] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
     end
   end
 end

@@ -464,6 +464,7 @@ cn:
       live_studio/interactive_course:
         students_count: 学生数量
         lessons_progress: 课程进度
+        teacher: 老师
         percentage: 分成
         latest: 最新
         teacher_video_lessons_count: 我的课时

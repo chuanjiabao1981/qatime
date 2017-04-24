@@ -26,6 +26,12 @@ cn:
         video_course:
           step_one: "①设置课程介绍"
           step_two: "②上传课程视频"
+      student:
+        my_interactive_courses: 我的一对一
+        interactive_course:
+          all: 全部
+          teaching: 学习中
+          finished: 已结束
     actions:
       teacher:
         video_course:

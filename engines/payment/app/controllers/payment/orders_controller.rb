@@ -53,6 +53,7 @@ module Payment
     def show
       @order = @user.orders.find_by!(transaction_no: params[:id])
       @course = @order.product
+      render layout: 'v1/application'
     end
 
     # 支付通知

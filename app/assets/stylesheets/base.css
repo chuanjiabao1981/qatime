@@ -12825,7 +12825,7 @@ ul {
 
 /*学生个人中心我的订单*/
 .discipline-con .order-info {
-  padding-left: 0px;
+  padding: 0px;
   font-size: 16px;
 }
 .course-caption > .col-md-12 > span{

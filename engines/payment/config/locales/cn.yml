@@ -100,6 +100,13 @@ cn:
         lesson_count_text: "共%{count}课"
         amount: 实付金额
         cannot_refund: 此订单不支持退款
+      show:
+        more_info: 更多课程信息>
+        order_no: 订单编号
+        created_at: 创建时间
+        pay_type: 支付方式
+        pay_at: 支付时间
+        amount: 实付金额
   activerecord:
     view:
       order: 我的订单

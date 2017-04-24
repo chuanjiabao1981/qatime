@@ -8,6 +8,7 @@ module Payment
 
     def index
       @orders = LiveService::OrderDirector.orders_for_user_index(@user,filter_patams).order(id: :desc).paginate(page: params[:page])
+      render layout: 'v1/home'
     end
 
     # 生成微信支付二维码
@@ -91,6 +92,7 @@ module Payment
                 Order.find_by!(transaction_no: params[:id]).user
               end
       @student = @user
+      @owner = @student
     end
 
     def layout_no_nav
@@ -104,8 +106,8 @@ module Payment
 
     def filter_patams
       # 使用状态查询
+      params[:cate] ||= 'unpaid'
       @filter_patams = params.slice(:cate)
-      @filter_patams
     end
   end
 end

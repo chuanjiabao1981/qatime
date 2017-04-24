@@ -3,7 +3,7 @@
     <%= image_tag @student.avatar_url(:ex_big), class: 'handle_error_avatar' %>
     <p>
       <span><%= @student.name %></span>
-      <%= image_tag "#{@student.gender || 'male'}.png" %>
+      <%= image_tag "#{@student.gender || 'male'}_big.png" %>
     </p>
   </div>
   <ul class="nav-menu">

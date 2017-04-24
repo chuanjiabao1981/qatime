@@ -88,6 +88,18 @@ cn:
         remit_at: 选择转款日期
     payment/course_billing:
       service_price_value: "%{price}元/时"
+    payment/order:
+      index:
+        course_type: 授课类型
+        course: 直播课
+        interactive_course: 一对一
+        video_course: 视频课
+        grade_subject: 年级科目
+        teacher: 授课老师
+        lesson_count: 课时数目
+        lesson_count_text: "共%{count}课"
+        amount: 实付金额
+        cannot_refund: 此订单不支持退款
   activerecord:
     view:
       order: 我的订单

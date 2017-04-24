@@ -466,6 +466,7 @@ cn:
         lessons_progress: 课程进度
         percentage: 分成
         latest: 最新
+        teacher_video_lessons_count: 我的课时
       live_studio/video_course:
         grade: 年级
         video_lessons_count: 课时

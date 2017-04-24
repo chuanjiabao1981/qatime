@@ -107,6 +107,18 @@ cn:
         pay_type: 支付方式
         pay_at: 支付时间
         amount: 实付金额
+      refund:
+        title: 申请退款
+        title2: 退款信息
+        title3: 退款原因
+        name: 课程名称
+        consumed_amount: 已消费额
+        refund_pay_type: 退款方式
+        refund_amount: 可退金额
+        refund_lesson_count: 可退课时
+        notice: 提示：退款过程中你将不能进行此课程的学习！
+        reason_placeholder: 请输入退款原因（最多300字）
+        reason: 请输入退款原因
   activerecord:
     view:
       order: 我的订单

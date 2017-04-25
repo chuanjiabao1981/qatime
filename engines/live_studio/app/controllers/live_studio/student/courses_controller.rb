@@ -2,10 +2,11 @@ require_dependency "live_studio/student/base_controller"
 
 module LiveStudio
   class Student::CoursesController < Student::BaseController
-    layout 'v1/home'
+    layout 'student_home_new'
 
     def index
-      @courses = @student.live_studio_bought_courses.where(status: filter_status).includes(:lessons).paginate(page: params[:page])
+      @courses = LiveService::StudentLiveDirector.new(@student).courses(params)
+      @courses = @courses.includes(:lessons).paginate(page: params[:page])
     end
 
     def show
@@ -18,8 +19,12 @@ module LiveStudio
 
     private
 
-    def filter_status
-      LiveStudio::Course.statuses[params[:status] || 'published']
+    def filter_patams
+      # status参数和cate参数保留一个
+      # 使用分类查询不能使用状态查询
+      @filter_patams = params.slice(:cate, :status)
+      @filter_patams.delete(:status) if @filter_patams[:cate]
+      @filter_patams
     end
   end
 end

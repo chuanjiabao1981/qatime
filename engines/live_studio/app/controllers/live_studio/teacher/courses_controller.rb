@@ -2,7 +2,7 @@ require_dependency "live_studio/teacher/base_controller"
 
 module LiveStudio
   class Teacher::CoursesController < Teacher::BaseController
-    layout 'v1/home'
+    layout 'teacher_home_new'
 
     before_action :set_course, only: [:show, :edit, :update, :destroy, :channel, :close, :update_class_date, :desrtoy, :update_lessons]
 

@@ -1,17 +1,37 @@
-<div class="contains">
-  <div class="contains-title">
-    <h3><%= t('live_studio.menu.teacher.my_interactive_courses') %></h3>
-  </div>
-  <div class="contains-discipline">
-    <%= render 'tab' %>
-    <div class="tab-content">
-      <div class="discipline-con" id="entire">
-        <ul>
-          <%= render partial: 'interactive_course', collection: @interactive_courses %>
-        </ul>
-        <%= render 'shared/blank' if @interactive_courses.blank? %>
-        <center><div class="pagination-fix"><%= will_paginate @interactive_courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+<div class="panel panel-default">
+  <div class="my-tutorial">
+    <div class="tutorial-title">
+      <span><%= t("live_studio.menu.teacher.my_interactive_courses") %></span>
+    </div>
+    <div class="tutorial-nav">
+      <center>
+        <%= link_to t("live_studio.menu.teacher.course.all"),
+                    live_studio.teacher_interactive_courses_path(@teacher),
+                    class: "#{ 'active' if params[:status].blank? }" %>
+        <%= link_to t("live_studio.menu.teacher.course.waiting"),
+                    live_studio.teacher_interactive_courses_path(@teacher, status: 'published'),
+                    class: "#{ 'active' if 'published' == params[:status] }" %>
+        <%= link_to t("live_studio.menu.teacher.course.teaching"),
+                    live_studio.teacher_interactive_courses_path(@teacher, status: 'teaching'),
+                    class: "#{ 'active' if 'teaching' == params[:status] }" %>
+        <%= link_to t("live_studio.menu.teacher.course.finished"),
+                    live_studio.teacher_interactive_courses_path(@teacher, status: 'finished'),
+                    class: "#{ 'active' if 'finished' == params[:status] }" %>
+      </center>
+    </div>
+    <div>
+      <div class="tutorial-details">
+        <%= render partial: 'interactive_course', collection: @courses %>
+        <%= content_tag :div, class: 'no-course' do %>
+          <p><%= t('common.no_match_result') %></p>
+        <% end if @courses.blank? %>
       </div>
     </div>
+
+    <center>
+      <div class="pagination-fix">
+        <%= will_paginate @courses %>
+      </div>
+    </center>
   </div>
 </div>

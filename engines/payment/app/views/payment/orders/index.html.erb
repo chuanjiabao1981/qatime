@@ -1,22 +1,20 @@
-<div class="contains">
-  <div class="contains-title">
-    <h3><%= t("view.student_bars.my_orders") %></h3>
-  </div>
-  <div class="contains-discipline">
-    <div class="discipline-nav">
-      <%= link_to t('activerecord.status.order.unpaid'), payment.user_orders_path(@student, cate: 'unpaid'), class: "#{'active' if params[:cate] == 'unpaid' }" %>
-      <%= link_to t('activerecord.status.order.paid'), payment.user_orders_path(@student, cate: 'paid'), class: "#{'active' if params[:cate] == 'paid' }" %>
-      <%= link_to t('activerecord.status.order.canceled'), payment.user_orders_path(@student, cate: 'canceled'), class: "#{'active' if params[:cate] == 'canceled' }" %>
-    </div>
-    <div class="tab-content">
-      <div class="discipline-con payment-con">
-        <ul>
-          <%= render partial: "order", collection: @orders %>
-        </ul>
+<%= content_tag(:div, class: 'qa_box panel panel-default panel-support') do %>
+  <%= content_tag(:div, class: 'course-header-div') do%>
+    <%= content_tag(:div, t("activerecord.view.order"), class: 'title') %>
+  <% end %>
+  <%= content_tag(:div, class: 'course-taxon-list') do %>
+    <%= link_to content_tag(:div, t("activerecord.view.filter.all"),
+                                   class: "order-taxon-div #{@filter_patams.blank? ? 'active' : nil}"), payment.user_orders_path(@student, user_class: @student.type) %>
+    <%= link_to content_tag(:div, t("activerecord.status.order.unpaid"),
+                                   class: "order-taxon-div #{@filter_patams[:cate]=='unpaid' ? 'active' : nil}"), "?cate=unpaid" %>
+    <%= link_to content_tag(:div, t("activerecord.status.order.paid"),
+                                   class: "order-taxon-div #{@filter_patams[:cate]=='paid' ? 'active' : nil}"), "?cate=paid" %>
+    <%= link_to content_tag(:div, t("activerecord.status.order.canceled"),
+                                   class: "order-taxon-div #{@filter_patams[:cate]=='canceled' ? 'active' : nil}"), "?cate=canceled" %>
+  <% end %>
 
-        <%= render 'shared/blank' if @orders.blank? %>
-        <center><div class="pagination-fix"><%= will_paginate @orders, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
-      </div>
-    </div>
-  </div>
-</div>
+  <%= content_tag(:div, class: 'course-list') do %>
+    <%= render partial: 'order', collection: @orders %>
+    <%= will_paginate @order %>
+  <% end %>
+<% end %>

@@ -3,7 +3,7 @@
     <%= image_tag @student.avatar_url(:ex_big), class: 'handle_error_avatar' %>
     <p>
       <span><%= @student.name %></span>
-      <%= image_tag "#{@student.gender || 'male'}_big.png" %>
+      <%= image_tag "#{@student.gender || 'male'}.png" %>
     </p>
   </div>
   <ul class="nav-menu">
@@ -31,25 +31,25 @@
         <span><%= t("view.student_bars.my_notice") %></span>
       <% end %>
     </li>
-    <li class="<%= 'active' if student_sidebar_nav_is?(:schedules) %>">
+    <li class="<%= 'active' if student_sidebar_nav_is?(:schedule) %>">
       <%= link_to live_studio.schedules_student_path(@student) do %>
         <i class="icon-class"></i>
         <span><%= t("view.student_bars.schedules") %></span>
       <% end %>
     </li>
-    <li class="<%= 'active' if student_sidebar_nav_is?(:courses) %>">
+    <li class="<%= 'active' if student_sidebar_nav_is?(:my_courses) %>">
       <%= link_to live_studio.student_courses_path(@student) do %>
         <i class="icon-live"></i>
         <span><%= t("view.student_bars.my_courses") %></span>
       <% end %>
     </li>
-    <li class="<%= 'active' if student_sidebar_nav_is?(:interactive_courses) %>">
+    <li class="<%= 'active' if student_sidebar_nav_is?(:my_interactive_courses) %>">
       <%= link_to live_studio.student_interactive_courses_path(@student) do %>
         <i class="icon-face"></i>
         <span><%= t("view.student_bars.my_interactive_courses") %></span>
       <% end %>
     </li>
-    <li class="<%= 'active' if student_sidebar_nav_is?(:video_courses) %>">
+    <li class="<%= 'active' if student_sidebar_nav_is?(:my_video_courses) %>">
       <%= link_to live_studio.student_video_courses_path(@student) do %>
         <i class="icon-video"></i>
         <span><%= t("view.student_bars.my_video_courses") %></span>

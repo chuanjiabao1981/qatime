@@ -1,41 +1,33 @@
-<li>
-  <div class="row">
-    <div class="col-md-3 discipline-pic">
-      <%= link_to image_tag(course.publicize_url(:list)), live_studio.course_path(course), target: '_blank' %>
-    </div>
-    <div class="col-md-7 discipline-info">
-      <div class="row info-title">
-        <div class="col-md-12">
-          <%= link_to live_studio.course_path(course), target: '_blank' do %>
-            <strong><%= course.name %></strong>
-          <% end -%>
-        </div>
-      </div>
-      <div class="row info-state">
-        <div class="col-md-4">
-          <span><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
-          <span><%= course.grade %></span>
-        </div>
-        <div class="col-md-4">
-          <span><%= LiveStudio::Course.human_attribute_name(:subject) %></span>
-          <span><%= course.subject %></span>
-        </div>
-        <div class="col-md-4">
-          <span><%= LiveStudio::Course.human_attribute_name(:progress) %></span>
-          <span><%= course.finished_lessons_count %>/<%= course.lessons_count %></span>
-        </div>
-      </div>
-      <div class="row info-user">
-        <div class="col-md-12">
-          <span><%= LiveStudio::Course.human_attribute_name(:teacher_name) %></span>
-          <span><%= course.teacher.try(:name) %></span>
-        </div>
-      </div>
-    </div>
-    <div class="col-md-2 course-state">
-      <i class="col-md-12">
-        <%= link_to t("live_studio.actions.enter"), live_studio.course_path(course), target: '_blank' %>
-      </i>
-    </div>
-  </div>
-</li>
+<%= content_tag(:div, class: 'course-box-div') do %>
+  <%= content_tag(:div, class: 'course-describe-div') do%>
+    <%= content_tag(:div,"#{t('view.course_show.start_time')}#{localize(course.start_at, format: :long)}",class: 'describe-ceil') %>
+    <%= content_tag(:div,"#{t('view.course_show.end_time')}#{localize(course.end_at, format: :long)}",class: 'describe-ceil') %>
+    <%= content_tag(:div,"#{t('view.course_show.status')}#{course.status_text}#{course.bought_by?(@student) ? nil : t('view.course_show.taste')}", class: 'describe-ceil') %>
+  <% end %>
+
+  <%= content_tag(:div, class: 'course-info-div') do %>
+    <%= content_tag(:div, image_tag(course.publicize_url(:list)),class: 'publicize') %>
+    <%= content_tag(:div, class: 'course-content-div') do %>
+      <%= content_tag(:div,class: 'course-info-col') do %>
+        <%= content_tag(:div, course.name, class: 'course-name') %>
+        <%= preview_time(course) if course.published? %>
+      <% end %>
+      <%= content_tag(:div, "#{t('view.course_show.subject')}#{course.subject}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.teacher')}#{course.teacher.try(:name)}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.schedule')}#{course.finished_lessons_count}/#{course.lessons_count}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.surplus')}#{course.lesson_count_left} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
+      <%= content_tag(:div, "#{t('view.course_show.current')}#{course.current_lesson_name}") %>
+    <%end %>
+    <%= content_tag(:div, class: 'course-operator-div') do%>
+      <%= content_tag(:div, link_to(t('activerecord.view.buy'), new_course_order_path(course), id: "buy-course-#{course.id}",class: 'btn btn-default font-red'),
+                      class: 'course-buy-btn') if current_user == @student && !course.bought_by?(@student) %>
+      <%= content_tag(:div, class: 'course-operator-btn') do %>
+        <%= link_to t('view.course_show.info'), live_studio.course_path(course), class: 'btn btn-default operator-btn' %>
+        <% unless course.completed? %>
+          <%= link_to t('view.course_show.study_link'), play_course_path(course), target: '_blank',
+                    class: "btn btn-default operator-btn" if course.bought_by?(current_user) || course.tasting?(current_user) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

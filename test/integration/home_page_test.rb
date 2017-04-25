@@ -23,4 +23,18 @@ class HomePageTest < ActionDispatch::IntegrationTest
     assert page.has_link?('测试一对一诸暨'), "一对一精选未显示"
     assert page.has_xpath?("//a[@href='/live_studio/interactive_courses/#{interactive_course.id}']"), '一对一链接不正确'
   end
+
+  test "home page teachers" do
+    visit root_path
+    assert page.has_content? '教师推荐'
+    assert page.has_link? '更换'
+    teachers = DataService::HomeData.new(nil).teachers
+    assert_equal page.all('#recommend_teacher li').size, 6
+    click_on '更换'
+    sleep(1)
+    assert_equal page.all('#recommend_teacher li').size, teachers.count - 6
+    click_on '更换'
+    sleep(1)
+    assert_equal page.all('#recommend_teacher li').size, 6
+  end
 end

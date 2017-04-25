@@ -17,5 +17,17 @@ module LiveStudio
     def settings
       @setting = NotificationSetting.find_by(owner: @student) || NotificationSetting.default
     end
+
+    def tastes
+      params[:cate] ||= 'courses'
+      student_data = LiveService::StudentLiveDirector.new(@student)
+      @taste_courses = student_data.tastes_by(params[:cate]).paginate(page: params[:page])
+    end
+
+    def taste_records
+      student_data = LiveService::StudentLiveDirector.new(@student)
+      @taste_records = student_data.taste_records.paginate(page: params[:page])
+    end
+
   end
 end

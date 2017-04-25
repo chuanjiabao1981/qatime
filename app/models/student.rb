@@ -30,8 +30,11 @@ class Student < User
   has_many :live_studio_bought_interactive_courses, class_name: LiveStudio::InteractiveCourse, through: :live_studio_buy_tickets, source: :product, source_type: LiveStudio::InteractiveCourse
   has_many :live_studio_taste_interactive_courses, class_name: LiveStudio::InteractiveCourse, through: :live_studio_taste_tickets, source: :product, source_type: LiveStudio::InteractiveCourse
 
+  # 视频课
   has_many :live_studio_video_courses, class_name: LiveStudio::VideoCourse, through: :live_studio_tickets, source: :product, source_type: LiveStudio::VideoCourse
   has_many :live_studio_video_lessons, class_name: LiveStudio::VideoLesson, through: :live_studio_video_courses, source: :video_lessons
+  has_many :live_studio_bought_video_courses, class_name: LiveStudio::VideoCourse, through: :live_studio_buy_tickets, source: :product, source_type: LiveStudio::VideoCourse
+  has_many :live_studio_taste_video_courses, class_name: LiveStudio::VideoCourse, through: :live_studio_taste_tickets, source: :product, source_type: LiveStudio::VideoCourse
 
   attr_reader :student_columns_required
 

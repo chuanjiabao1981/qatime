@@ -1,0 +1,32 @@
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t("view.student_bars.tastes") %></h3>
+    <%= link_to live_studio.taste_records_student_path(@student) do %>
+      <%= image_tag 'listen-title.png' %>
+      <span><%= t('view.student.students.tastes.taste_record') %></span>
+    <% end %>
+  </div>
+
+  <div class="contains-discipline">
+    <div class="discipline-nav">
+      <%= link_to t('view.common_bars.live_studio_course'),
+                  live_studio.tastes_student_path(@student, cate: 'courses'),
+                  class: "#{'active' if params[:cate] == 'courses'}" %>
+      <%= link_to t('view.common_bars.live_studio_video_course'),
+                  live_studio.tastes_student_path(@student, cate: 'video_courses'),
+                  class: "#{'active' if params[:cate] == 'video_courses'}" %>
+    </div>
+
+    <div class="tab-content schedule-con">
+      <div>
+        <ul class="calendar-info">
+          <%= render partial: "taste_course", collection: @taste_courses %>
+        </ul>
+
+        <%= render 'shared/blank' if @taste_courses.blank? %>
+        <center><div class="pagination-fix"><%= will_paginate @taste_courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+      </div>
+    </div>
+
+  </div>
+</div>

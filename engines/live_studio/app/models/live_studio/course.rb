@@ -268,6 +268,13 @@ module LiveStudio
       taste_tickets.unavailable.where(student_id: user.id).exists?
     end
 
+    # 已试听课程数
+    def taste_count_of(user)
+      return 0 unless user.present?
+      return 0 unless user.student?
+      taste_tickets.available.where(student_id: user.id).select(:used_count).try(:first).try(:used_count).presence || 0
+    end
+
     # 正在试听
     def tasting?(user)
       return false unless user.present?

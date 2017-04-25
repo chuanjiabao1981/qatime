@@ -293,6 +293,9 @@ cn:
             student_count: 学生人数
             student_count_text: "%{count}人"
             enter: 进入
+        tastes:
+          taste_record: 试听记录
+          tasted_count: "已试听%{num}/%{count}"
 
 
 

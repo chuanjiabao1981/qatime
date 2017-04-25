@@ -1,34 +1,18 @@
-<%= content_for :breadcrumb do %>
-  <ol class="breadcrumb">
-    <li><%= link_to "个人中心",info_student_path(@student) %></li>
-  </ol>
-<% end %>
-<%= content_tag(:div, class: 'qa_box panel panel-default panel-support') do %>
-  <%= content_tag(:div, class: 'course-header-div') do%>
-    <%= content_tag(:div, t("activerecord.view.course"), class: 'title') %>
-    <%= content_tag(:div, class: 'search-link') do %>
-      <%= link_to courses_path do %>
-        <span class="glyphicon glyphicon-shopping-cart"></span><%= t('activerecord.view.buy_new_course') %>
-      <% end %>
-    <% end %>
-  <% end %>
-  <%= content_tag(:div, class: 'course-taxon-list') do %>
-    <%= link_to content_tag(:div, t("activerecord.view.filter.all"),
-                                   class: "course-taxon-div #{params[:status].blank? && params[:cate].blank? ? 'active' : nil}"), student_courses_path(@student) %>
-    <%= link_to content_tag(:div, t("activerecord.view.filter.published"),
-                                   class: "course-taxon-div #{params[:status]=='published' ? 'active' : nil}"), "?status=published" %>
-    <%= link_to content_tag(:div, t("activerecord.view.filter.teaching"),
-                                   class: "course-taxon-div #{params[:status]=='teaching' ? 'active' : nil}"), "?status=teaching" %>
-    <%= link_to content_tag(:div, t("activerecord.view.filter.completed"),
-                                   class: "course-taxon-div #{params[:status]=='completed' ? 'active' : nil}"), "?status=completed" %>
-    <%= link_to content_tag(:div, t("activerecord.view.filter.tasted"),
-                                   class: "course-taxon-div #{params[:cate]=='taste' ? 'active' : nil}"), "?cate=taste" %>
-  <% end %>
-  <%= content_tag(:div, class: 'course-list') do %>
-    <%= render partial: 'course', collection: @courses %>
-    <%= will_paginate @courses %>
-  <% end %>
-  <%= content_tag(:div, class: 'none-list') do %>
-    <%= sanitize(t('activerecord.view.none_tips') % content_tag(:a, t('activerecord.view.buy_now'), href: courses_path)) %>
-  <% end if @courses.blank? %>
-<% end %>
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t('live_studio.menu.student.my_courses') %></h3>
+  </div>
+  <div class="contains-discipline">
+    <%= render 'tab' %>
+    <div class="tab-content">
+      <div class="discipline-con">
+        <ul>
+          <%= render partial: 'course', collection: @courses %>
+        </ul>
+        <%= render 'shared/blank' if @courses.blank? %>
+        <center><div class="pagination-fix"><%= will_paginate @courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+      </div>
+    </div>
+  </div>
+</div>
+

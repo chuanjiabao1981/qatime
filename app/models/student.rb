@@ -16,15 +16,22 @@ class Student < User
 
   # 直播
   has_many :live_studio_tickets, class_name: LiveStudio::Ticket
-  has_many :live_studio_courses, class_name: LiveStudio::Course, through: :live_studio_tickets, source: :product, source_type: LiveStudio::Course
-  has_many :live_studio_lessons, class_name: LiveStudio::Lesson, through: :live_studio_courses, source: :lessons
-  has_many :live_studio_interactive_courses, class_name: LiveStudio::InteractiveCourse, through: :live_studio_tickets, source: :product, source_type: LiveStudio::InteractiveCourse
-  has_many :live_studio_interactive_lessons, class_name: LiveStudio::InteractiveLesson, through: :live_studio_interactive_courses, source: :interactive_lessons
-  has_many :live_studio_video_courses, class_name: LiveStudio::VideoCourse, through: :live_studio_tickets, source: :product, source_type: LiveStudio::VideoCourse
-  has_many :live_studio_video_lessons, class_name: LiveStudio::VideoLesson, through: :live_studio_video_courses, source: :video_lessons
   has_many :live_studio_buy_tickets, class_name: LiveStudio::BuyTicket
   has_many :live_studio_taste_tickets, class_name: LiveStudio::TasteTicket
+  ## 直播课
+  has_many :live_studio_courses, class_name: LiveStudio::Course, through: :live_studio_tickets, source: :product, source_type: LiveStudio::Course
+  has_many :live_studio_lessons, class_name: LiveStudio::Lesson, through: :live_studio_courses, source: :lessons
+  has_many :live_studio_bought_courses, class_name: LiveStudio::Course, through: :live_studio_buy_tickets, source: :product, source_type: LiveStudio::Course
   has_many :live_studio_taste_courses, class_name: LiveStudio::Course, through: :live_studio_taste_tickets, source: :product, source_type: LiveStudio::Course
+
+  # 一对一
+  has_many :live_studio_interactive_courses, class_name: LiveStudio::InteractiveCourse, through: :live_studio_tickets, source: :product, source_type: LiveStudio::InteractiveCourse
+  has_many :live_studio_interactive_lessons, class_name: LiveStudio::InteractiveLesson, through: :live_studio_interactive_courses, source: :interactive_lessons
+  has_many :live_studio_bought_interactive_courses, class_name: LiveStudio::InteractiveCourse, through: :live_studio_buy_tickets, source: :product, source_type: LiveStudio::InteractiveCourse
+  has_many :live_studio_taste_interactive_courses, class_name: LiveStudio::InteractiveCourse, through: :live_studio_taste_tickets, source: :product, source_type: LiveStudio::InteractiveCourse
+
+  has_many :live_studio_video_courses, class_name: LiveStudio::VideoCourse, through: :live_studio_tickets, source: :product, source_type: LiveStudio::VideoCourse
+  has_many :live_studio_video_lessons, class_name: LiveStudio::VideoLesson, through: :live_studio_video_courses, source: :video_lessons
 
   attr_reader :student_columns_required
 

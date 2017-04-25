@@ -450,6 +450,7 @@ cn:
         students_count: 学生人数
         percentage: 分成
         lessons_progress: 课程进度
+        progress: 进度
         live_start_date: 开课时间
         live_end_date: 结束时间
         teach_type: 授课方式
@@ -464,8 +465,10 @@ cn:
       live_studio/interactive_course:
         students_count: 学生数量
         lessons_progress: 课程进度
+        teacher: 老师
         percentage: 分成
         latest: 最新
+        teacher_video_lessons_count: 我的课时
       live_studio/video_course:
         grade: 年级
         video_lessons_count: 课时

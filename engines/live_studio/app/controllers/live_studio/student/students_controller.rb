@@ -2,6 +2,7 @@ require_dependency "live_studio/student/base_controller"
 
 module LiveStudio
   class Student::StudentsController < Student::BaseController
+    layout 'v1/home'
 
     def schedules
       course_lessons = @student.live_studio_lessons

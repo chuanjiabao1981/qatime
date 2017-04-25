@@ -11842,14 +11842,14 @@ ul {
   font-size: 16px;
   color: #666;
 }
-.discipline-info > .info-title a{
+.discipline-info > .info-title strong{
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   display: block;
   color: #000;
 }
-.discipline-info > .info-title a strong {
+.discipline-info > .info-title  strong {
   font-weight: 500;
 }
 .info-state span:first-child,.info-user span:first-child {
@@ -11891,6 +11891,7 @@ ul {
 .course-state {
   text-align: center;
   font-size: 16px;
+  overflow: hidden;
 }
 .course-state > span {
   display: inline-block;
@@ -11911,6 +11912,10 @@ ul {
   .course-state {
     padding: 0px;
     text-align: left;
+  }
+  .course-state > span,.course-state > a {
+    text-align: left !important;
+    padding-left: 0px !important;
   }
 }
 

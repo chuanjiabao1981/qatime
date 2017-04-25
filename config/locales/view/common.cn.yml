@@ -19,6 +19,7 @@ cn:
       payment_password_expire_time: "新密码 %{time} 后可用"
       payment_password_not_set: 未设置
       password_not_visible: 此密码不可见
+      people: 人
     query:
       name_or_mobile: 请输入姓名/电话
     shared:

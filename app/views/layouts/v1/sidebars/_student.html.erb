@@ -31,7 +31,7 @@
         <span><%= t("view.student_bars.my_notice") %></span>
       <% end %>
     </li>
-    <li class="<%= 'active' if student_sidebar_nav_is?(:schedule) %>">
+    <li class="<%= 'active' if student_sidebar_nav_is?(:schedules) %>">
       <%= link_to live_studio.schedules_student_path(@student) do %>
         <i class="icon-class"></i>
         <span><%= t("view.student_bars.schedules") %></span>

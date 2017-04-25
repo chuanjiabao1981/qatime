@@ -7080,7 +7080,17 @@ ul {
   font-size: 18px;
   color: #34495e;
 }
-
+.prompt-msg {
+  height: 26px;
+  line-height: 26px;
+  background-color: #ffffe4;
+  text-align: center;
+  color: #ff5842;
+}
+.prompt-msg > img {
+  width: 12.5px;
+  margin-top: -2.5px;
+}
 
 
 /*支付宝支付*/
@@ -12769,7 +12779,6 @@ ul {
   right: 0px;
   bottom: 0px;
   display: block;
-  text-align: center;
   color: #FFFFFF;
   font-size: 20px;
   display: -webkit-flex;
@@ -12816,7 +12825,7 @@ ul {
 
 /*学生个人中心我的订单*/
 .discipline-con .order-info {
-  padding-left: 0px;
+  padding: 0px;
   font-size: 16px;
 }
 .course-caption > .col-md-12 > span{
@@ -13296,3 +13305,4 @@ ul {
     margin: 0px -30px;
   }
 }
+

@@ -74,7 +74,7 @@ module LiveStudio
       find(".cell-#{today.month}-1").click
       find(".cell-#{today.month}-#{today.day}").click
       sleep(3)
-      assert_equal 3, all(".syllabus").size, '数据没有出现'
+      assert_equal 3, all("#calendar_data li").size, '数据没有出现'
       assert page.has_content?("课程日历")
       assert page.has_content?("未上课")
       assert page.has_content?("已上课")
@@ -84,7 +84,7 @@ module LiveStudio
       find(".cell-#{today.month}-1").click
       find(".cell-#{today.month}-#{today.day}").click
       sleep(3)
-      assert all(".syllabus").size == 2, '数据没有出现'
+      assert_equal 2, all("#calendar_data li").size, '数据没有出现'
       assert page.has_content?("课程日历")
       assert page.has_content?("未上课")
       assert page.has_content?("已上课")

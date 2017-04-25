@@ -10,7 +10,7 @@ cn:
       manage_video_courses: 课程管理
       video_course_audits: 视频课审核
       teacher:
-        my_courses: 我的辅导
+        my_courses: 我的直播课
         my_interactive_courses: 我的一对一
         my_video_courses: 我的视频课
         new_course: 邀请和创建
@@ -26,7 +26,20 @@ cn:
         video_course:
           step_one: "①设置课程介绍"
           step_two: "②上传课程视频"
+      student:
+        my_courses: 我的直播课
+        my_interactive_courses: 我的一对一
+        my_video_courses: 我的视频课
+        interactive_course:
+          all: 全部
+          teaching: 学习中
+          finished: 已结束
+        course:
+          waiting: 待开课
+          teaching: 已开课
+          completed: 已结束
     actions:
+      enter: 进入
       teacher:
         video_course:
           create: 创建视频课

@@ -11,6 +11,10 @@
     <div><%= @manager.email %></div>
   </div>
   <div class="row qa_cell">
+    <div class="col-md-2 col-md-offset-1"><%=Manager.human_attribute_name(:login_mobile) %></div>
+    <div><%= @manager.login_mobile %></div>
+  </div>
+  <div class="row qa_cell">
     <div class="col-md-offset-1">
       <%=link_to edit_admins_manager_path(@manager) do %>
           <button type="button" class="btn btn-xs btn-success">

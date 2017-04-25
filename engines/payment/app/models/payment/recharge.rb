@@ -12,7 +12,7 @@ module Payment
 
     has_one :remote_order, as: :order
 
-    enumerize :pay_type, in: { alipay: 1, weixin: 2, offline: 10 }
+    enumerize :pay_type, in: { alipay: 1, weixin: 2, offline: 10, appstore: 20 }
 
     enum status: {
       unpaid: 0, # 等待支付

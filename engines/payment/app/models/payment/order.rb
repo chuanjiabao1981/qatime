@@ -200,10 +200,6 @@ module Payment
       where.not(status: [status_waste, statuses_failed])
     end
 
-    def show_status_text
-      %[paid unpaid].include?(status) ? cate_text : status_text
-    end
-
     def cate_text
       cate = if CATE_UNPAID.include?(status)
         'unpaid'

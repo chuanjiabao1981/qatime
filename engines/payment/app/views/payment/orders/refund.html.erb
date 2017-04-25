@@ -1,76 +1,75 @@
-<div class="common-space">
-  <div class="container">
-    <div class="apply-tea">
-      <div class="tutoring-title">
-        <h3><%= t('view.payment/order.refund.title') %></h3>
-      </div>
-      <%= form_tag refund_create_user_order_path(@user, @order.transaction_no) do %>
-        <% course = @order.product %>
-        <div class="refund-apply">
-          <div class="row">
-            <div class="col-md-7 apply-left">
-              <div class="subtitle">
-                <span><%= t('view.payment/order.refund.title2') %></span>
-              </div>
-              <div class="refund-info">
-                <div class="row">
-                  <div class="col-md-7 col-sm-7 specify-title">
-                    <span><%= t('view.payment/order.refund.name') %>：</span>
-                    <span><%= course.name %></span>
-                  </div>
-                  <div class="col-md-5 col-sm-5">
-                    <span><%= t('view.payment/order.show.amount') %>：</span>
-                    <span><%= number_to_currency(@order.amount, locals: :cn) %></span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-7 col-sm-7">
-                    <span><%= t('view.payment/order.show.order_no') %>：</span>
-                    <span><%= @order.transaction_no %></span>
-                  </div>
-                  <div class="col-md-5 col-sm-5">
-                    <span><%= t('view.payment/order.refund.consumed_amount') %>：</span>
-                    <span><%= number_to_currency(@consumed_amount, locals: :cn) %></span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-7 col-sm-7">
-                    <span><%= t('view.payment/order.refund.refund_lesson_count') %>：</span>
-                    <span><%= course.lessons.unstart.count %></span>
-                  </div>
-                  <div class="col-md-5 col-sm-5">
-                    <span><%= t('view.payment/order.refund.refund_pay_type') %>：</span>
-                    <span><%= Payment::Refund.pay_type_text @order.pay_type %></span>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 specify-amount">
-                    <span><%= t('view.payment/order.refund.refund_amount') %>：</span>
-                    <span><%= number_to_currency(@order.amount - @consumed_amount, locals: :cn) %></span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-5 apply-right">
-              <div class="subtitle">
-                <span><%= t('view.payment/order.refund.title3') %></span>
-              </div>
-              <div class="refund-input">
-                <div class="form-group">
-                  <textarea class="form-control" name="reason" id="reason" rows="" cols="" placeholder="<%= t('view.payment/order.refund.reason_placeholder') %>"><%= params[:reason] %></textarea>
-                  <% @refund.errors.messages.each do |_,msgs| %>
-                    <span class="help-block has-error"><%= msgs.join(';') %></span>
-                  <% end if @refund && @refund.errors.present? %>
-                </div>
-              </div>
+<div class="panel panel-default">
+  <div class="refund">
+    <div class="refund-title">
+      退款申请
+    </div>
+    <%= form_tag refund_create_user_order_path(@user, @order.transaction_no) do %>
+      <div class="refund-con">
+        <div class="refund-con-left">
+          <div class="refund-title-left">
+            可退金额
+          </div>
+          <div class="refund-msg-left">
+            <span><%= number_to_currency(@order.amount - @consumed_amount, unit: '¥') %></span>
+          </div>
+        </div>
+        <div class="refund-con-center">
+          <div class="refund-title-center">
+            退款信息
+          </div>
+          <div class="refund-msg-center">
+            <table border="0" cellspacing="0" cellpadding="0">
+              <tbody><tr>
+                <td>交易编号</td>
+                <td><%= @order.transaction_no %></td>
+              </tr>
+              <tr>
+                <td>商品名称</td>
+                <td><%= @order.product.name %></td>
+              </tr>
+              <tr>
+                <td>课程进度</td>
+                <td><%= "#{@order.product.finished_lessons_count}/#{@order.product.lessons_count }" %></td>
+              </tr>
+              <tr>
+                <td>商品总价</td>
+                <td><%= number_to_currency(@order.product.price, unit: '¥') %></td>
+              </tr>
+              <tr>
+                <td><%= Payment::Refund.human_attribute_name(:amount) %></td>
+                <td><%= number_to_currency(@order.amount, unit: '¥') %></td>
+              </tr>
+              <tr>
+                <td>已消费额</td>
+                <td><%= number_to_currency(@consumed_amount, unit: '¥') %></td>
+              </tr>
+              <tr>
+                <td>退款方式</td>
+                <td><%= Payment::Refund.pay_type_text @order.pay_type %></td>
+              </tr>
+              </tbody></table>
+          </div>
+        </div>
+        <div class="refund-con-right">
+          <div class="refund-title-right">
+            退款原因
+          </div>
+          <div class="refund-msg-right">
+            <div class="form-group">
+              <textarea name="reason" id="reason" rows="" cols="" placeholder="请输入退款原因（20字以内）"><%=  params[:reason] %></textarea>
+              <% @refund.errors.messages.each do |_,msgs| %>
+                <span class="help-block has-error"><%= msgs.join(';') %></span>
+              <% end if @refund && @refund.errors.present? %>
             </div>
           </div>
         </div>
-        <div class="refund-footer">
-          <p><%= t('view.payment/order.refund.notice') %></p>
-          <%= submit_tag t('common.submit') %>
-        </div>
-      <% end %>
-    </div>
+      </div>
+      <div class="refund-prompt">
+        <center>
+          <span>提示：退款过程中你将不能进行此课程的学习！</span>
+        </center>
+        <input type="submit" id="" value="提交">
+      </div>
+    <% end %>
   </div>
 </div>

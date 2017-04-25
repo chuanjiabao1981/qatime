@@ -322,11 +322,9 @@ module ApplicationHelper
     when :orders
       r = controller_name == 'orders' && action_name == 'index'
     when :courses
-      r = controller_name == 'courses'
-    when :interactive_courses
-      r = controller_name == 'interactive_courses'
-    when :video_courses
-      r = controller_name == 'video_courses'
+      r = controller_name == 'courses' && (
+            action_name == 'index' || action_name == 'show'
+          )
     when :schedules
       r = controller_name == 'students' && action_name == 'schedules'
     when :homeworks

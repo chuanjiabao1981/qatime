@@ -292,10 +292,6 @@ module LiveStudio
       %w[completed refunded].include?(status)
     end
 
-    def video_lessons_count_of(teacher)
-      interactive_lessons.select { |l| l.teacher_id == teacher.id }.count
-    end
-
     private
 
     # 教师分成最大值

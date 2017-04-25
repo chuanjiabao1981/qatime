@@ -1,102 +1,130 @@
-<div class="common-space">
-  <div class="container">
-    <div class="trading">
-      <%= hidden_field_tag :order_no, params[:id] %>
-      <div class="row trading-info">
-        <div class="col-md-5 deal-left">
-          <%= link_to live_studio.send("#{@course.model_name.singular_route_key}_path", @course) do %>
-            <%= image_tag @course.publicize_url(:info), class: 'handle_error_list' %>
-          <% end %>
-        </div>
+<div class="panel panel-default">
+  <div class="panel-body">
+    <%= hidden_field_tag :order_no, params[:id] %>
 
-        <div class="col-md-7 deal-right">
-          <h3><%= @order.show_status_text %></h3>
-          <div class="deal-msg">
-            <div class="row teaching-title">
-              <div class="col-md-12">
-                <h4><%= @course.name %></h4>
-              </div>
-            </div>
-            <div class="row teaching-item">
-              <div class="col-md-6 col-sm-6">
-                <span><%= t('view.payment/order.index.course_type') %>：</span>
-                <span><%= t("view.payment/order.index.#{@course.model_name.singular_route_key}") %></span>
-              </div>
-              <div class="col-md-6 col-sm-6">
-                <span><%= t('view.payment/order.index.grade_subject') %>：</span>
-                <span><%= @course.grade %><%= @course.subject %></span>
-              </div>
-            </div>
-            <div class="row teaching-item">
-              <div class="col-md-6 col-sm-6">
-                <span><%= t('view.payment/order.index.teacher') %>：</span>
-                <span><%= @course.teacher_name %><%= '...' if @course.is_a?(LiveStudio::InteractiveCourse) %></span>
-              </div>
-              <div class="col-md-6 col-sm-6">
-                <span><%= t('view.payment/order.index.lesson_count') %>：</span>
-                <span><%= t('view.payment/order.index.lesson_count_text', count: @course.lessons_count) %></span>
-              </div>
-            </div>
-            <div class="row teaching-more">
-              <div class="col-md-12">
-                <%= link_to t('view.payment/order.show.more_info'), live_studio.send("#{@course.model_name.singular_route_key}_path", @course) %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row trading-msg">
-        <div class="col-md-9 order-left">
-          <div class="row teaching-item">
-            <div class="col-md-7 col-sm-6">
-              <span><%= t('view.payment/order.show.order_no') %>：</span>
-              <span><%= @order.order_no %></span>
-            </div>
-            <div class="col-md-5 col-sm-6 item-time">
-              <span><%= t('view.payment/order.show.created_at') %>：</span>
-              <span><%= l(@order.created_at) if @order.created_at %></span>
-            </div>
-          </div>
-          <div class="row teaching-item">
-            <div class="col-md-7 col-sm-6">
-              <span><%= t('view.payment/order.show.pay_type') %>：</span>
-              <span><%= @order.pay_type_text %></span>
-            </div>
-            <div class="col-md-5 col-sm-6 item-time">
-              <span><%= t('view.payment/order.show.pay_at') %>：</span>
-              <span><%= l(@order.pay_at) if @order.pay_at %></span>
-            </div>
-          </div>
-          <div class="row teaching-amount">
-            <div class="col-md-12">
-              <span><%= t('view.payment/order.show.amount') %>：</span>
-              <span><%= number_to_currency(@order.amount, locals: :cn) %></span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3 order-right">
-          <% if Payment::Order::CATE_UNPAID.include?(@order.status) %>
-            <div class="item-wait">
-              <%= link_to t('view.payment_show.cancel_order'), cancel_order_user_order_path(@user, @order.order_no, cate: :index), method: :patch, data: { confirm: t('view.payment_show.cancel_order_confirm') } %>
-              <%= link_to t('activerecord.view.pay_now'), pay_user_order_path(@user, @order.order_no) %>
-            </div>
-          <% end %>
+    <div class="payment-header">
+      <%= link_to LiveStudio::Course.model_name.human, live_studio.courses_path(student_id: @student.try(:id)) %> &gt;
+      <strong><%= @course.name %></strong>
+    </div>
 
-          <% if Payment::Order::CATE_PAID.include?(@order.status) %>
-            <% if @course.is_a?(LiveStudio::VideoCourse) %>
-              <div class="item-notsupport"><span><%= image_tag 'reminder.png' %><em><%= t('view.payment/order.index.cannot_refund') %></em></span></div>
-            <% else %>
-              <div class="item-complete"><%= order_operating(@order) %></div>
-            <% end %>
-          <% end %>
+    <table class="table table-white table-condensed payment-table">
+      <thead>
+      <tr>
+        <td colspan="4">
+          <%= t('view.payment_show.product_info') %>
+        </td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="price" rowspan="4">
+          <%= content_tag(:div, image_tag(@course.publicize_url(:list), size: "100x100"), class: 'publicize') %>
+        </td>
+        <td colspan="2">
+          <%= t('view.payment_show.order_product_name') %>：
+          <%= @course.name %>
+        </td>
+        <td class="price" rowspan="4">
+          <%= link_to t('view.course_search_show.info'), live_studio.course_path(@course),
+                    class: 'btn btn-default operator-btn support same-btn' %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= LiveStudio::Course.human_attribute_name(:subject) %>：
+          <%= @course.subject %>
+        </td>
+        <td>
+          <%= LiveStudio::Course.human_attribute_name(:grade) %>：
+          <%= @course.grade %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <%= LiveStudio::Course.human_attribute_name(:teacher) %>：
+          <%= @course.teacher.name %>
+        </td>
+        <td>
+          <%= LiveStudio::Course.human_attribute_name(:lessons_count) %>：
+          <%= @course.lessons_count %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= t('view.payment_show.order_product_status') %>：
+          <%= @course.status_text %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
 
-          <% if Payment::Order::CATE_CANCELED.include?(@order.status) %>
-            <div class="item-complete">
-              <%= link_to t('view.payment_show.new_order'), live_studio.send("#{@course.model_name.singular_route_key}_path", @course) %>
-            </div>
-          <% end %>
-        </div>
-      </div>
+    <table class="table table-white table-condensed payment-table">
+      <thead>
+      <tr>
+        <td colspan="5">
+          <%= t('view.payment_show.order_info') %>
+        </td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td class="price" rowspan="3">
+          <p>
+            <%= t('view.payment_show.order_actual_price') %>
+          </p>
+          <p>
+            <%= number_to_currency(@order.amount, locals: :cn) %>
+          </p>
+        </td>
+        <td colspan="2">
+          <%= t('view.payment_show.order_no') % @order.order_no %>
+        </td>
+
+        <% case @order.status.to_sym %>
+        <% when :paid %>
+          <td class="price" rowspan="3" colspan="2">
+            <%= @order.cate_text %>
+          </td>
+        <% when :unpaid %>
+          <td class="price" rowspan="3">
+            <%= @order.cate_text %>
+          </td>
+          <td class="price" rowspan="3">
+            <p>
+              <%= link_to t('view.payment_show.cancel_order'), cancel_order_user_order_path(@user, @order.order_no, cate: :show), method: :patch, data: { confirm: t('view.payment_show.cancel_order_confirm') }, class: 'btn btn-default operator-btn' %>
+            </p>
+            <p>
+              <%= link_to t('activerecord.view.pay_now'), pay_user_order_path(@user, @order.order_no), class: 'btn btn-default operator-btn' %>
+            </p>
+          </td>
+        <% when :canceled %>
+          <td class="price" rowspan="3">
+            <%= @order.status_text %>
+          </td>
+          <td class="price" rowspan="3">
+            <%= link_to t('view.payment_show.new_order'), live_studio.student_course_path(@user, @course), class: 'btn btn-default operator-btn' %>
+          </td>
+        <% else %>
+          <td class="price" rowspan="3" colspan="2">
+            <%= @order.status_text %>
+          </td>
+        <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= t('view.payment_show.order_created_at') % @order.created_at.strftime('%Y-%m-%d %H:%M:%S') %>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <%= t('view.payment_show.order_pay_type') % @order.pay_type_text %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div>
+      <%= order_operating(@order)  %>
     </div>
   </div>
 </div>

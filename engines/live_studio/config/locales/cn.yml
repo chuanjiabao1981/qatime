@@ -450,6 +450,7 @@ cn:
         students_count: 学生人数
         percentage: 分成
         lessons_progress: 课程进度
+        progress: 进度
         live_start_date: 开课时间
         live_end_date: 结束时间
         teach_type: 授课方式

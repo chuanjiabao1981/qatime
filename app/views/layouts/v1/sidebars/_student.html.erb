@@ -37,19 +37,19 @@
         <span><%= t("view.student_bars.schedules") %></span>
       <% end %>
     </li>
-    <li class="<%= 'active' if student_sidebar_nav_is?(:my_courses) %>">
+    <li class="<%= 'active' if student_sidebar_nav_is?(:courses) %>">
       <%= link_to live_studio.student_courses_path(@student) do %>
         <i class="icon-live"></i>
         <span><%= t("view.student_bars.my_courses") %></span>
       <% end %>
     </li>
-    <li class="<%= 'active' if student_sidebar_nav_is?(:my_interactive_courses) %>">
+    <li class="<%= 'active' if student_sidebar_nav_is?(:interactive_courses) %>">
       <%= link_to live_studio.student_interactive_courses_path(@student) do %>
         <i class="icon-face"></i>
         <span><%= t("view.student_bars.my_interactive_courses") %></span>
       <% end %>
     </li>
-    <li class="<%= 'active' if student_sidebar_nav_is?(:my_video_courses) %>">
+    <li class="<%= 'active' if student_sidebar_nav_is?(:video_courses) %>">
       <%= link_to live_studio.student_video_courses_path(@student) do %>
         <i class="icon-video"></i>
         <span><%= t("view.student_bars.my_video_courses") %></span>

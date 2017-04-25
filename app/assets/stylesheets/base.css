@@ -11551,7 +11551,7 @@ div.modal-apply {
 
 
 /*老师课程表*/
-.qa_syllabus > .qa_big_cell {
+/*.qa_syllabus > .qa_big_cell {
   border-bottom: 0px;
 }
 .schedules-list-ceil {
@@ -11633,13 +11633,13 @@ div.modal-apply {
 }
 .qa_big-list > .syllabus > .row > .col-md-3.end {
   color: #999999;
-}
+}*/
 
 
 
 
 /*学生课程表*/
-.syllabus .col-md-1 {
+/*.syllabus .col-md-1 {
   padding: 0px;
   height: 98px;
   border-left: 1px solid #CCCCCC;
@@ -11720,7 +11720,7 @@ div.modal-apply {
   border: 0px;
   padding: 0 10px;
 }
-}
+}*/
 
 
 /*学生一对一*/
@@ -12640,8 +12640,6 @@ div.modal-apply {
 }
 .charge-state > span > input {
   width: auto !important;
-  /*position: relative;
-  top: 2px;*/
 }
 .charge-state > span:first-child {
   margin-right: 20px;
@@ -12830,7 +12828,7 @@ div.modal-apply {
 
 /*学生个人中心我的订单*/
 .discipline-con .order-info {
-  padding-left: 0px;
+  padding: 0px;
   font-size: 16px;
 }
 .course-caption > .col-md-12 > span{

@@ -11550,177 +11550,36 @@ ul {
 }
 
 
-/*老师课程表*/
-/*.qa_syllabus > .qa_big_cell {
-	border-bottom: 0px;
-}
-.schedules-list-ceil {
-	width: 33.33% !important;
-}
-.qa_big-list > .syllabus {
-	margin-top: 20px;
-}
 
-.qa_big-list > .syllabus:first-child {
-	margin-top: 0px;
-}
-.qa_big-list > .syllabus > .row {
-	margin: 0px;
-	border: 1px solid #CCCCCC;
-}
-.qa_big-list > .syllabus > .row > .col-md-2 > .syllabus-pic {
-	width: 92.3%;
-	display: block;
-	position: relative;
-}
-.qa_big-list .col-md-2 > .syllabus-pic > p {
-	position: absolute;
-	bottom: 0px;
-	display: block;
-	width: 100%;
-	text-align: center;
-	margin-bottom: 0px;
-	color: #FFFFFF;
-	background-color: darkgoldenrod;
-}
-.qa_big-list .col-md-2 > .syllabus-pic > .status-personal {
-	background-color: lightpink;
-}
-.qa_big-list > .syllabus > .row > .col-md-2 > .syllabus-pic img {
-	width: 100%;
-	vertical-align: top;
-}
-.qa_big-list > .syllabus > .row > .col-md-2,.qa_big-list > .syllabus > .row > .col-md-7
-,.qa_big-list > .syllabus > .row > .col-md-6{
-	padding: 10px;
-}
-.qa_big-list > .syllabus > .row > .col-md-7,.qa_big-list > .syllabus > .row > .col-md-6 {
-	padding-left: 0px;
-	border-right: 1px solid #CCCCCC;
-}
-.qa_big-list > .syllabus > .row > .col-md-7 > ul,.qa_big-list > .syllabus > .row > .col-md-6 ul {
-	padding-left: 0;
-	margin-bottom: 0px;
-}
-.qa_big-list > .syllabus > .row > .col-md-7 > ul li,.qa_big-list > .syllabus > .row > .col-md-6 >ul li {
-	margin-bottom: 8px;
-}
-.qa_big-list > .syllabus > .row > .col-md-7 > ul li:first-child
-,.qa_big-list > .syllabus > .row > .col-md-6 > ul li:first-child {
-	font-size: 16px;
-	overflow:hidden;
-	text-overflow:ellipsis;
-	-o-text-overflow:ellipsis;
-	white-space:nowrap;
-}
-.qa_big-list > .syllabus > .row > .col-md-7 > ul li a
-,.qa_big-list > .syllabus > .row > .col-md-6 > ul li a{
-	color: #000;
-}
-.qa_big-list > .syllabus > .row > .col-md-7 > ul li:nth-child(2)
-,.qa_big-list > .syllabus > .row > .col-md-6 > ul li:nth-child(2){
-	color: #666;
-}
-.qa_big-list > .syllabus > .row > .col-md-7 > ul li:last-child
-,.qa_big-list > .syllabus > .row > .col-md-6 > ul li:last-child {
-	margin-bottom: 0px;
-	color: #999;
-}
-.qa_big-list > .syllabus > .row > .col-md-3 {
-	padding-top: 24px;
-	text-align: center;
-	color: #666666;
-}
-.qa_big-list > .syllabus > .row > .col-md-3.end {
-	color: #999999;
-}*/
 
 
 
 
 /*学生课程表*/
-/*.syllabus .col-md-1 {
-	padding: 0px;
-	height: 98px;
-	border-left: 1px solid #CCCCCC;
-	position: relative;
-}
-.syllabus .col-md-1 > a {
-	position: absolute;
-	top: 50%;
-	margin-top: -15px;
-	left: 50%;
-	margin-left: -30px;
-	display: inline-block;
-	text-align: center;
-	width: 60px;
-	height: 30px;
-	border: 1px solid #CCCCCC;
-	color: #CCCCCC;
-	line-height: 28px;
-}
-.syllabus .col-md-1 > a.active {
-	border-color: #666;
-	color: #666666;
-}
 .modal-client .popup-title {
-	background-color: #FFFFFF;
-	border-bottom: 1px solid #CCCCCC;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #CCCCCC;
 }
 .modal-client .modal-body {
-	padding: 20px 90px;
-	text-align: center;
+  padding: 20px 90px;
+  text-align: center;
 }
 .modal-client .modal-body > a {
-	display: inline-block;
-	padding: 5px 10px;
-	border: 1px solid #666;
-	border-radius: 4px;
-	margin-top: 5px;
-	color: #666;
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #666;
+  border-radius: 4px;
+  margin-top: 5px;
+  color: #666;
 }
-
-
 @media screen and (min-width: 768px){
-.modal-client {
+  .modal-client {
     width: 400px !important;
     padding: 0px !important;
-}	
+  }
 }
-@media only screen  and (max-width: 1200px) {
-.qa_big-list > .syllabus > .row > .col-md-7 > ul li
-,.qa_big-list > .syllabus > .row > .col-md-6 > ul li {
-	margin-bottom: 0px;
-}	
-.qa_big-list > .syllabus > .row > .col-md-3 {
-	padding-top: 10px;
-}
-.syllabus .col-md-1 {
-	height: 82px;
-}
-.qa_big-list > .syllabus > .row > .col-md-3 p{
-	margin-bottom: 0px;
-}
-}
-@media only screen  and (max-width: 990px) {
-.qa_big-list > .syllabus > .row > .col-md-2 > .syllabus-pic {
-	width: 100%;
-}
-.qa_big-list > .syllabus > .row > .col-md-7
-,.qa_big-list > .syllabus > .row > .col-md-6 {
-	padding: 0 10px;
-	border-right: 0px;
-}	
-.qa_big-list > .syllabus > .row > .col-md-3 {
-	text-align: left;
-	padding: 0 10px;
-}
-.syllabus .col-md-1 {
-	height: 40px;
-	border: 0px;
-	padding: 0 10px;
-}
-}*/
+
+
 
 
 /*学生一对一*/
@@ -13277,14 +13136,58 @@ ul {
 /*我的消息*/
 .nav-menu > li > a > .news {
   display: inline-block;
-  min-width: 26px;
-  height: 26px;
+  min-width: 18px;
+  height: 18px;
+  font-size: 12px;
   border-radius: 13px;
-  line-height: 26px;
+  line-height: 17px;
   text-align: center;
   background-color: #ff5842;
   border: 1px solid #fff;
   float: right;
+  color: #FFFFFF;
   position: relative;
-  top: 17px;
+  top: 21px;
+}
+.news-list {
+  padding-left: 0px;
+  padding-bottom: 10px;
+}
+.news-list > li {
+  padding: 10px 30px;
+  border-bottom: 1px solid #F5F5F5;
+  font-size: 14px;
+}
+.news-list > li:last-child {
+  border-bottom: 0px;
+}
+.news-list > li  .msg-info > a {
+  display: inline-block;
+  width: 96%;
+  float: right;
+  color: #666;
+}
+.news-list > li  .msg-info > .unread {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background-color: #FFFFFF;
+  position: relative;
+  top: -2px;
+}
+.news-list > li .msg-item {
+  text-align: center;
+}
+.news-list > li .msg-item > span {
+  color: #999;
+}
+@media only screen  and (max-width: 990px) {
+  .news-list > li .msg-item {
+    text-align: left;
+  }
+  .news-list > li .msg-item > span {
+    display: inline-block;
+    width: 96%;
+    float: right;
+  }
 }

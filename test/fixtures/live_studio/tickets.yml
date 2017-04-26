@@ -443,3 +443,20 @@ video_course_buy_ticket2:
   platform_percentage: 10
   payment_order: video_course_for_billing_order2
 
+course_ticket_for_taste1:
+  student: student_for_tastes
+  product: course_for_taste (LiveStudio::Course)
+  status: 1
+  buy_count: 2
+  used_count: 1
+  lesson_price: 0
+  type: LiveStudio::TasteTicket
+
+video_course_ticket_for_taste1:
+  student: student_for_tastes
+  product: published_video_course1 (LiveStudio::VideoCourse)
+  status: 1
+  buy_count: 2
+  used_count: 1
+  lesson_price: 0
+  type: LiveStudio::TasteTicket

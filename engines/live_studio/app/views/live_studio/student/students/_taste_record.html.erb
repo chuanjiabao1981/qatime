@@ -1,0 +1,34 @@
+<% course = taste_record.product %>
+<li>
+  <div class="row">
+    <div class="col-md-2 schedule-pic">
+      <%= link_to live_studio.send("#{course.model_name.singular_route_key}_path", course), class: 'education-label' do %>
+        <%= image_tag(course.publicize_url(:list), class: 'handle_error_list') %>
+      <% end %>
+    </div>
+    <div class="col-md-6 schedule-msg">
+      <div class="row">
+        <div class="col-md-12 education-title">
+          <p><%= course.name %></p>
+        </div>
+        <div class="col-md-6 col-sm-4 col-xs-6 education-line">
+          <span><%= t('view.live_studio/courses.show.grade') %></i></span>
+          <span><%= course.grade %></span>
+        </div>
+        <div class="col-md-6 col-sm-4 col-xs-6 education-line">
+          <span><%= t('view.live_studio/courses.show.subject') %></span>
+          <span><%= course.subject %></span>
+        </div>
+        <div class="col-md-12 col-sm-4 col-xs-12 education-line">
+          <span><%= LiveStudio::Course.human_attribute_name(:teacher_name) %></span>
+          <span><%= course.teacher_name %></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 schedule-listen">
+      <div class="row">
+        <span><%= l(taste_record.created_at) if taste_record.created_at %></span>
+      </div>
+    </div>
+  </div>
+</li>

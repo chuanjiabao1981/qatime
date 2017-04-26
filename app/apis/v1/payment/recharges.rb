@@ -49,6 +49,23 @@ module V1
             end
           end
         end
+
+        desc '充值验证' do
+          headers 'Remember-Token' => {
+            description: 'RememberToken',
+            required: true
+          }
+        end
+        params do
+          optional :transaction_id, type: String, desc: '订单编号'
+          optional :product_id, type: String, desc: '商品ID'
+          optional :receipt_data, type: Integer, desc: '支付票据'
+        end
+        get 'recharges/:transaction_id/verify_receipt' do
+          itunes_product = ::Payment::ItunesProduct.available.find_by(product_id: params[:product_id])
+          recharge = ::Payment::ItunesOrder.check_recharge(current_user, params[:receipt_data], params[:transaction_id], itunes_product)
+          present recharge, with: Entities::Payment::Recharge
+        end
       end
     end
   end

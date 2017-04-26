@@ -71,7 +71,7 @@ module Payment
         puts @error
       end
       if(@error)
-        render 'show', layout: 'application_front'
+        render 'show'
       elsif @transaction.is_a? Payment::Recharge
         redirect_to payment.cash_user_path(@transaction.user)
       elsif @transaction.product.is_a?(LiveStudio::InteractiveCourse)

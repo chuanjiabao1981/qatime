@@ -283,6 +283,7 @@ module Permissions
       ## 苹果内购
       api_allow :POST, "/api/v1/payment/itunes_products" # 商品列表
       api_allow :POST, "/api/v1/payment/itunes_products/[\\w-]+/recharges" # 充值下单
+      api_allow :POST, "/api/v1/payment/recharges/[\\w-]+/verify_receipt" # 苹果内购充值校验
       ## end 苹果内购
     end
 private

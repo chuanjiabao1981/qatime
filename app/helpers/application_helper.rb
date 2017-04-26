@@ -336,7 +336,7 @@ module ApplicationHelper
     when :teachers
       r = controller_name == 'students' && action_name == 'teachers'
     when :notifications
-      r = controller_name == 'students' && action_name == 'notifications'
+      r = controller_name == 'notifications'
     when :customized_courses
       r = controller_name == 'students' && action_name == 'customized_courses'
     else
@@ -364,7 +364,7 @@ module ApplicationHelper
     when :teacher_students
       r = controller_name == 'teachers' && action_name == 'students'
     when :notification
-      r = controller_name == 'teachers' && action_name == 'notifications'
+      r = controller_name == 'notifications'
     when :teacher_syllabuses
       r = controller_name == 'syllabuses' && action_name == 'index'
     when :customized_courses

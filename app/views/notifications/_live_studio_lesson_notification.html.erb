@@ -1,26 +1,12 @@
-<div class="qa_object_item" style="clear: both;">
-  <div style="float:left">
-    <label class="logo live_studio_lesson_<%= notification.action_name %>">
-      <%= t("view.notification.label.live_studio_lesson.#{notification.action_name}") %>
-    </label>
-  </div>
+<li>
+  <div class="row">
+    <div class="col-md-9 msg-info">
+      <i class="<%= 'unread' unless notification.read %>"></i>
+      <%= link_to notification.notice_content, notification_path(notification, rt: live_studio.course_path(notification.notificationable.course_id)) %>
+    </div>
 
-  <div class="title">
-    <% if notification.read %>
-      <span class="label label-default"><%= I18n.t "view.notification.read" %></span>
-    <% else %>
-      <span class="label label-danger"><%= I18n.t "view.notification.unread" %></span>
-    <% end %>
-    <%= t("view.notification.live_studio_lesson.#{notification.action_name}", lesson_name: notification.notificationable.name, start_time: localize(notification.notificationable.start_at, format: :short)) %>
-    <% if @receiver.student? -%>
-      <%= link_to t("view.course_show.info"), notification_path(notification, rt: live_studio.student_course_path(@receiver, notification.notificationable.course, index: 'list')) %>
-    <% elsif @receiver.teacher? -%>
-      <%= link_to t("view.course_show.info"), notification_path(notification, rt: live_studio.teacher_course_path(@receiver, notification.notificationable.course, index: 'list')) %>
-    <% else -%>
-      <%= link_to t("view.course_show.info"), notification_path(notification, rt: live_studio.manager_course_path(@receiver, notification.notificationable.course, index: 'list')) %>
-    <% end -%>
+    <div class="col-md-3 msg-item">
+      <span><%= localize(notification.created_at,format: :long) %></span>
+    </div>
   </div>
-  <div class="info">
-    <%= localize(notification.created_at, format: :long) %>
-  </div>
-</div>
+</li>

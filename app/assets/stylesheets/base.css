@@ -5354,10 +5354,10 @@ ul {
 .login-right span {
   display: inline-block;
   margin-left: 24px;
-  color: #be0b0b;
+  color: #ff5842;
 }
 .login-right span a {
-  color: #be0b0b;
+  color: #ff5842;
 }
 .login-right span:nth-child(2) {
   display: inline-block;
@@ -5396,6 +5396,14 @@ ul {
   .login-msg {
     position: absolute;
     right: 0;
+  }
+}
+@media only screen and (max-width: 640px) {
+  .login-right span {
+    margin-left: 10px;
+  }
+  .login-right span:nth-child(2) {
+    width: 64px;
   }
 }
 .login-content .row .panel {
@@ -5635,8 +5643,8 @@ ul {
   border-radius: 4px;
 }
 .wechat-msg .input-button .active {
-  color: rgb(190,11,11);
-  border-color: rgb(190,11,11);
+  color: #ff5842;
+  border-color: #ff5842;
 }
 .wechat-msg .input-button input {
   color: #333333;

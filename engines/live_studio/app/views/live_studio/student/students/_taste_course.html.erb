@@ -1,0 +1,37 @@
+<% course = taste_course %>
+<li>
+  <div class="row">
+    <div class="col-md-2 schedule-pic">
+      <%= link_to live_studio.send("#{course.model_name.singular_route_key}_path", course), class: 'education-label' do %>
+        <%= image_tag(course.publicize_url(:list), class: 'handle_error_list') %>
+      <% end %>
+    </div>
+    <div class="col-md-6 schedule-msg">
+      <div class="row">
+        <div class="col-md-12 education-title">
+          <p><%= course.name %></p>
+        </div>
+        <div class="col-md-6 col-sm-4 col-xs-6 education-line">
+          <span><%= t('view.live_studio/courses.show.grade') %></i></span>
+          <span><%= course.grade %></span>
+        </div>
+        <div class="col-md-6 col-sm-4 col-xs-6 education-line">
+          <span><%= t('view.live_studio/courses.show.subject') %></span>
+          <span><%= course.subject %></span>
+        </div>
+        <div class="col-md-12 col-sm-4 col-xs-12 education-line">
+          <span><%= LiveStudio::Course.human_attribute_name(:teacher_name) %></span>
+          <span><%= course.teacher_name %></span>
+        </div>
+      </div>
+    </div>
+
+    <% if course.is_a?(LiveStudio::Course) %>
+      <div class="col-md-4 schedule-listen">
+        <div class="row">
+          <span><%= t('view.student.students.tastes.tasted_count', num: course.taste_count_of(@student), count: course.taste_count) %></span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</li>

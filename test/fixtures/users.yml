@@ -662,3 +662,16 @@ student_can_no_replays:
   type: Student
   school: school2
   city: yangquan
+
+student_for_tastes:
+  login_mobile: 15100000013
+  name: student_for_tastes
+  role: student
+  email: 15100000013@qatime.cn
+  parent_phone: 15100000013
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
+  school: school2
+  city: yangquan

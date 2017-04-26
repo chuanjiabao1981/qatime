@@ -240,6 +240,8 @@ LiveStudio::Engine.routes.draw do
       member do
         get :schedules
         get :settings
+        get :tastes
+        get :taste_records
       end
       resources :courses, only: [:index, :show]
       resources :interactive_courses, only: [:index, :show]

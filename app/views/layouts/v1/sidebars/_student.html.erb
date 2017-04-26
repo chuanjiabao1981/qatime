@@ -37,6 +37,12 @@
         <span><%= t("view.student_bars.schedules") %></span>
       <% end %>
     </li>
+    <li class="<%= 'active' if student_sidebar_nav_is?(:tastes) %>">
+      <%= link_to live_studio.tastes_student_path(@student) do %>
+        <i class="icon-audition"></i>
+        <span><%= t("view.student_bars.tastes") %></span>
+      <% end %>
+    </li>
     <li class="<%= 'active' if student_sidebar_nav_is?(:courses) %>">
       <%= link_to live_studio.student_courses_path(@owner) do %>
         <i class="icon-live"></i>

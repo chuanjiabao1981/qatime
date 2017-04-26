@@ -1,21 +1,12 @@
-<div class="qa_object_item" style="clear: both;">
-  <div style="float:left">
-    <label class="logo refund-notice">
-      <%= t("view.notification.label.payment_order.#{notification.action_name}") %>
-    </label>
-  </div>
+<li>
+  <div class="row">
+    <div class="col-md-9 msg-info">
+      <i class="<%= 'unread' unless notification.read %>"></i>
+      <%= link_to notification.notice_content, notification_path(notification, rt: payment.cash_user_path(@receiver)) %>
+    </div>
 
-  <div class="title">
-    <% if notification.read %>
-      <span class="label label-default"><%= I18n.t "view.notification.read" %></span>
-    <% else %>
-      <span class="label label-danger"><%= I18n.t "view.notification.unread" %></span>
-    <% end %>
-    <%= notification.notice_content %>
-
-    <%= link_to t("view.course_show.info"), notification_path(notification, rt: payment.cash_user_path(@receiver)) %>
+    <div class="col-md-3 msg-item">
+      <span><%= localize(notification.created_at,format: :long) %></span>
+    </div>
   </div>
-  <div class="info">
-    <%= localize(notification.created_at, format: :long) %>
-  </div>
-</div>
+</li>

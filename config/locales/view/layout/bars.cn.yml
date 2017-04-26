@@ -35,6 +35,7 @@ cn:
       default_teacher: XX老师
       default_grade_lesson: 年级科目/共X课
       default_teach_years: XXX年教龄
+      notification: 消息中心
     qa_bars:
       courses: 辅导班流程
       teacher: 老师使用说明

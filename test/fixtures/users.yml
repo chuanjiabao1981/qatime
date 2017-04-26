@@ -10,7 +10,6 @@
 #two: {}
 #  column: value
 teacher_one:
-  id: 1
   name: teacher_one
   role: teacher
   category: 高中
@@ -25,7 +24,6 @@ teacher_one:
   province: shanxi
 
 teacher_two:
-  id: 2
   name: teacher_two
   role: teacher
   category: 高中
@@ -67,7 +65,6 @@ teacher2:
   city: yangquan
 
 teacher3:
-  id: 3
   name: teacher3
   nick_name: teacher_3
   role: teacher

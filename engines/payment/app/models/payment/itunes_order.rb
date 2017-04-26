@@ -48,7 +48,7 @@ module Payment
     end
 
     def validate_receipt(receipt)
-      raise Payment::InvalidNotify, '非法通知' unless receipt.bid == GlobalSettings.itunes.bid
+      raise Payment::InvalidNotify, '非法通知' unless (receipt.bid || receipt.bundle_id) == GlobalSettings.itunes.bid
       raise Payment::InvalidNotify, '非法通知' unless receipt.transaction_id == order_no
     end
   end

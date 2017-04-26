@@ -61,7 +61,7 @@ module V1
           requires :product_id, type: String, desc: '商品ID'
           requires :receipt_data, type: String, desc: '支付票据'
         end
-        get 'recharges/:transaction_id/verify_receipt' do
+        post 'recharges/:transaction_id/verify_receipt' do
           itunes_product = ::Payment::ItunesProduct.available.find_by(product_id: params[:product_id])
           recharge = ::Payment::ItunesOrder.check_recharge(current_user, params[:receipt_data], params[:transaction_id], itunes_product)
           present recharge, with: Entities::Payment::Recharge

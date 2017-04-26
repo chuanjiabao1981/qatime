@@ -1,6 +1,5 @@
 module DataService
   class HomeData
-
     def initialize(city_id)
       @city_id = city_id
     end
@@ -12,7 +11,7 @@ module DataService
 
     # 今日直播
     def today_lives
-      LiveStudio::Lesson.includes(:course).today.readied
+      LiveStudio::Lesson.includes(:course).today.readied.order(:start_time)
     end
 
     # 教师推荐

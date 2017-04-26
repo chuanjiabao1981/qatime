@@ -11,7 +11,7 @@
     </li>
     <li>
       <span><%= t('view.shared.workstations.info.city') %></span>
-      <span><%= workstation.city.try(:name) %></span>
+      <span><%= workstation.city.try(:name) %><%= t('view.shared.workstations.info.is_default') if workstation.is_default_of_city %></span>
     </li>
     <li>
       <span><%= t('view.shared.workstations.info.manager') %></span>

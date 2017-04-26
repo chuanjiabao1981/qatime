@@ -57,9 +57,9 @@ module V1
           }
         end
         params do
-          optional :transaction_id, type: String, desc: '订单编号'
-          optional :product_id, type: String, desc: '商品ID'
-          optional :receipt_data, type: Integer, desc: '支付票据'
+          requires :transaction_id, type: String, desc: '订单编号'
+          requires :product_id, type: String, desc: '商品ID'
+          requires :receipt_data, type: String, desc: '支付票据'
         end
         get 'recharges/:transaction_id/verify_receipt' do
           itunes_product = ::Payment::ItunesProduct.available.find_by(product_id: params[:product_id])

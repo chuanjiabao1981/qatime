@@ -62,7 +62,9 @@ class Ajax::DataController < ApplicationController
 
   def set_cities
     @province_id = (params[:teacher] || params[:student])[:province_id]
-    @cities = City.where(province_id: @province_id).order("id")
+    @cities = City.where(province_id: @province_id).order(:id)
+    @cities = @cities.has_default_workstation if params[:scope]
+    @cities
   end
 
   def set_schools

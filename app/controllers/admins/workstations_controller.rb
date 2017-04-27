@@ -17,6 +17,7 @@ class Admins::WorkstationsController < ApplicationController
   def create
     @workstation = Workstation.new(workstation_params)
     @workstation.build_account
+    @workstation.set_default_of_city_required! if params[:is_default] == '1'
     if @workstation.save
       flash_msg(:success)
       redirect_to admins_workstations_path

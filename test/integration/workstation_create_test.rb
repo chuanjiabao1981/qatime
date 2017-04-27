@@ -23,6 +23,7 @@ class WorkstationCreateTest < ActionDispatch::IntegrationTest
     fill_in :workstation_name, with: '测试工作站'
     fill_in :workstation_coupon_attributes_code, with: '2222'
     select '阳泉', from: :s_city
+    find(:css, '#is_default').set(true)
     select 'manager', from: :s_manager
     fill_in :workstation_address, with: '工作站地址'
     fill_in :workstation_tel, with: '12345678'
@@ -41,6 +42,7 @@ class WorkstationCreateTest < ActionDispatch::IntegrationTest
         sleep 1
       end
     end
+    assert Workstation.last.is_default_of_city
 
     coupon_one = payment_coupons(:coupon_one)
     visit new_admins_workstation_path

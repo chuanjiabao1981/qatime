@@ -11,7 +11,7 @@ module Payment
             itunes_order.pay!
           end
         end
-        recharge
+        recharge.reload
       end
 
       def receipt_result(receipt_data, transaction_id)

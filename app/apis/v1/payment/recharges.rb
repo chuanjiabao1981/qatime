@@ -61,7 +61,7 @@ module V1
           requires :receipt_data, type: String, desc: '支付票据'
         end
         post 'recharges/:transaction_id/verify_receipt' do
-          recharge = ::Payment::ItunesOrder.check_recharges(user, receipt_data, transaction_id)
+          recharge = ::Payment::ItunesOrder.check_recharges(current_user, params[:receipt_data], params[:transaction_id])
           present recharge, with: Entities::Payment::Recharge
         end
       end

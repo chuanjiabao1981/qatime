@@ -38,7 +38,7 @@ module Payment
         transitions from: [:init], to: :allowed
       end
 
-      event :refuse, before: :refund_cash! do
+      event :refuse, before: :refund_cash!, after_commit: :refuse_notify do
         transitions from: [:init], to: :refused
       end
 
@@ -46,7 +46,7 @@ module Payment
         transitions from: [:init], to: :canceled
       end
 
-      event :pay do
+      event :pay, after_commit: :success_notify do
         transitions from: [:allowed], to: :paid
       end
     end
@@ -177,6 +177,21 @@ module Payment
       Kernel.Float(raw_value) if raw_value !~ /\A0[xX]/
     rescue ArgumentError, TypeError
       nil
+    end
+
+    # 通知
+    def notify(receivers, action_name)
+      NotificationPublisherJob.perform_later('CashNotification', self, action_name, receivers)
+    end
+
+    # 成功通知
+    def success_notify
+      notify(user, 'withdraw_success')
+    end
+
+    # 失败通知
+    def refuse_notify
+      notify(user, 'withdraw_refuse')
     end
   end
 end

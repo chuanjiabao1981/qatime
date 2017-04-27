@@ -37,7 +37,7 @@ module Payment
       end
 
       # 充值
-      event :deliver do
+      event :deliver, after_commit: :success_notify do
         before do
           recharge_cash!
         end
@@ -67,6 +67,21 @@ module Payment
     # 充值成功后资金变动
     def recharge_cash!
       AccountService::CashManager.new(user.cash_account!).increase('Payment::RechargeRecord', amount, self)
+    end
+
+    # 通知
+    def notify(receivers, action_name)
+      NotificationPublisherJob.perform_later('CashNotification', self, action_name, receivers)
+    end
+
+    # 成功通知
+    def success_notify
+      notify(user, 'recharge_success')
+    end
+
+    # 失败通知
+    def fail_notify
+      notify(user, 'recharge_fail')
     end
   end
 end

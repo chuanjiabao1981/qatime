@@ -121,7 +121,10 @@ ActiveRecord::Schema.define(version: 20170426071714) do
     t.datetime "updated_at"
     t.integer  "province_id"
     t.integer  "workstations_count",             default: 0
+    t.integer  "workstation_id"
   end
+
+  add_index "cities", ["workstation_id"], name: "index_cities_on_workstation_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.text     "content"

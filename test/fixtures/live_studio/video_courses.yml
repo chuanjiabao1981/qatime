@@ -70,7 +70,7 @@ published_video_course2:
   subject: 语文
   teacher_percentage: 60
   preset_lesson_count: 0
-  price: 300
+  price: 0
   buy_tickets_count: 0
   taste_count: 0
   video_lessons_count: 1

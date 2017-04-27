@@ -192,6 +192,16 @@ module LiveStudio
       LiveStudio::VideoCourseBillingJob.perform_later(ticket.id)
     end
 
+    # 免费课程直接出票
+    def deliver_free(student)
+      return false unless student.student?
+      return false unless sell_type.free?
+      taste_tickets.where(student_id: student.id).available.map(&:replaced!) # 替换正在使用的试听券
+      ticket = buy_tickets.find_or_create_by(student_id: student.id, lesson_price: price,
+                                             payment_order_id: nil, buy_count: video_lessons_count)
+      ticket.active!
+    end
+
     def for_sell?
       published?
     end

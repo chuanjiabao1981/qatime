@@ -2,7 +2,7 @@ cn:
   view:
     pay_types:
       weixin: 微信支付
-      weixin: 支付宝支付
+      alipay: 支付宝支付
       account: 余额支付
       offline: 线下支付
     withdraw_cn: 账户提现

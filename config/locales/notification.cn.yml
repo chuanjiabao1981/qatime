@@ -54,7 +54,11 @@ cn:
       payment/order:
         refund_success: "您的订单%{transaction_no}已成功退款，可进入我的钱包查询。"
         refund_fail: "您的订单%{transaction_no}退款审核失败，如有疑问请拨打客服电话400-838-8010。"
-      customized_course_action_record:
+      cash_notification:
+        recharge_success: "充值成功[交易编号%{transaction_no}], 账户新增余额%{amount}; 获取最新余额请查看我的钱包" 
+        withdraw_success: "您的提现申请[交易编号%{transaction_no}]已被通过, 预计1-7个工作日内到账"
+        withdraw_refuse: "您的提现申请[交易编号%{transaction_no}]未被通过, 具体原因请拨打客服电话 400-838-8010 查询"
+        withdraw_allow: "您的提现申请[交易编号%{transaction_no}]已被通过, 预计1-7个工作日内到账"
 
       label:
         live_studio_course:
@@ -80,4 +84,10 @@ cn:
         payment_order:
           refund_success: 退款通知
           refund_fail: 退款通知
+        cash_notification:
+          recharge_success: "充值提醒"
+          recharge_fail: "充值提醒"
+          withdraw_success: "提现审核提醒"
+          withdraw_refuse: "提现审核提醒"
+          withdraw_allow: "提现审核提醒"
 

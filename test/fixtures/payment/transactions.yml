@@ -141,6 +141,15 @@ student_recharge_of_4:
   status: 1
   source: web
   type: Payment::Recharge
+recharge_for_notification:
+  transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student1
+  amount: 30
+  remote_ip: '127.0.0.1'
+  pay_type: 10
+  status: 1
+  source: web
+  type: Payment::Recharge
 # 老师-提现记录
 admin_withdraws:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
@@ -174,6 +183,15 @@ withdraw_one:
   transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
   user: student_balance
   owner: student_balance (User)
+  amount: 200
+  pay_type: 0
+  status: 2
+  type: Payment::Withdraw
+
+withdraw_for_notification:
+  transaction_no: <%= Time.now.to_s(:number) + '%04d' % rand(1000) %>
+  user: student1
+  owner: student1 (User)
   amount: 200
   pay_type: 0
   status: 2

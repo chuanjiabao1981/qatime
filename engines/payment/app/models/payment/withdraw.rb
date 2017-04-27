@@ -34,11 +34,11 @@ module Payment
       state :canceled
       state :paid
 
-      event :allow do
+      event :allow, after_commit: :allow_notify do
         transitions from: [:init], to: :allowed
       end
 
-      event :refuse, before: :refund_cash! do
+      event :refuse, before: :refund_cash!, after_commit: :refuse_notify do
         transitions from: [:init], to: :refused
       end
 
@@ -77,7 +77,7 @@ module Payment
     end
 
     def pay_type_text
-      I18n.t("enum.payment/withdraw.pay_type.#{pay_type}") + " #{cash? || wechat? ? nil : "(#{withdraw_record.account} #{withdraw_record.name})"}"
+      I18n.t("enum.payment/withdraw.pay_type.#{pay_type}") + " #{cash? || wechat? ? nil : "(#{withdraw_record.try(:account)} #{withdraw_record.try(:name)})"}"
     end
 
     def change_money
@@ -177,6 +177,21 @@ module Payment
       Kernel.Float(raw_value) if raw_value !~ /\A0[xX]/
     rescue ArgumentError, TypeError
       nil
+    end
+
+    # 通知
+    def notify(receivers, action_name)
+      NotificationPublisherJob.perform_later('CashNotification', self, action_name, receivers) unless receivers.blank?
+    end
+
+    # 通过审核通知
+    def allow_notify
+      notify(user, 'withdraw_allow')
+    end
+
+    # 失败通知
+    def refuse_notify
+      notify(user, 'withdraw_refuse')
     end
   end
 end

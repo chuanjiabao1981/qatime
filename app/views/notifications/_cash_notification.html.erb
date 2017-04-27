@@ -2,7 +2,11 @@
   <div class="row">
     <div class="col-md-9 msg-info">
       <i class="<%= 'unread' unless notification.read %>"></i>
-      <%=  %> <%= link_to notification.notice_content, notification_path(notification, rt: payment.cash_user_path(notification.receiver)) %>
+      <%= link_to notification_path(notification, rt: payment.cash_user_path(notification.receiver)) do %>
+        <%= t("view.notification.label.cash_notification.#{notification.action_name}") %>
+        -
+        <%= notification.notice_content %>
+      <% end %>
     </div>
 
     <div class="col-md-3 msg-item">

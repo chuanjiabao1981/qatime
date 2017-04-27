@@ -77,7 +77,7 @@ module Payment
     end
 
     def pay_type_text
-      I18n.t("enum.payment/withdraw.pay_type.#{pay_type}") + " #{cash? || wechat? ? nil : "(#{withdraw_record.account} #{withdraw_record.name})"}"
+      I18n.t("enum.payment/withdraw.pay_type.#{pay_type}") + " #{cash? || wechat? ? nil : "(#{withdraw_record.try(:account)} #{withdraw_record.try(:name)})"}"
     end
 
     def change_money
@@ -181,7 +181,7 @@ module Payment
 
     # 通知
     def notify(receivers, action_name)
-      NotificationPublisherJob.perform_later('CashNotification', self, action_name, receivers)
+      NotificationPublisherJob.perform_later('CashNotification', self, action_name, receivers) unless receivers.blank?
     end
 
     # 成功通知

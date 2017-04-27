@@ -78,6 +78,7 @@ LiveStudio::Engine.routes.draw do
 
     member do
       post :taste # 试听
+      get :deliver
       get :play # 观看直播
       post :update_notice
       get :preview

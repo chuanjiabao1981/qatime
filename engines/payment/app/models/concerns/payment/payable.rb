@@ -21,6 +21,8 @@ module Payment
         create_remote_order!(amount: amount, remote_ip: remote_ip, order_no: transaction_no, type: 'Payment::WeixinOrder', trade_type: Payment::WeixinOrder::TRADE_TYPES[source.to_sym])
       elsif pay_type.alipay?
         create_remote_order!(amount: amount, remote_ip: remote_ip, order_no: transaction_no, type: 'Payment::AlipayOrder')
+      elsif 'itunes' == pay_type
+        create_remote_order!(amount: amount, remote_ip: remote_ip, order_no: transaction_no, type: 'Payment::ItunesOrder')
       end
     end
   end

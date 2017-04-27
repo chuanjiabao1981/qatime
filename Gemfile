@@ -103,6 +103,7 @@ gem 'typhoeus'
 # 支付
 gem 'wx_pay'
 gem 'alipay', '~> 0.12.0'
+gem 'itunes-receipt'
 
 # 监控
 # gem 'oneapm_rpm'
@@ -116,9 +117,9 @@ gem 'enumerize'
 # 标签功能
 gem 'acts-as-taggable-on', '~> 4.0'
 
-group :development,:test do
+group :development, :test do
   # 状态机做图
-  gem 'ruby-graphviz', :require => 'graphviz'
+  gem 'ruby-graphviz', require: 'graphviz'
   gem 'quiet_assets'
   gem "minitest"
   gem 'test-unit'

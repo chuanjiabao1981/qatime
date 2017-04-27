@@ -52,7 +52,7 @@ workstation_zhuji:
 
 workstation_hd:
   name: 海淀工作站
-  city: 海淀
+  city: haidian
   address: 北京海淀
   tel: 1
   email: MyString

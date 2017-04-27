@@ -95,18 +95,19 @@ module Payment
 
     def proccess_notify
       return false unless @transaction.remote_order
-      notify_params = if @transaction.pay_type.alipay?
-                        alipay_params
-                      elsif @transaction.pay_type.weixin?
-                        weixin_params
-                      end
-      @transaction.remote_order.proccess_notify(notify_params) if notify_params.present?
+      @transaction.remote_order.proccess_notify(notify_params(@transaction.pay_type))
     end
 
     def proccess_result
       return false unless @transaction.remote_order
       result_params = alipay_params
       @transaction.remote_order.proccess_result(result_params) if result_params.present?
+    end
+
+    def notify_params(pay_type)
+      send("#{pay_type}_params")
+    rescue
+      {}
     end
 
     def weixin_params

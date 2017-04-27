@@ -65,6 +65,42 @@ class Workstation < ActiveRecord::Base
 
   accepts_nested_attributes_for :coupon, allow_destroy: true, reject_if: proc { |attributes| attributes['code'].blank? }
 
+  before_update :clean_city_default, if: :clean_city_default_required?
+  after_commit :set_default_of_city, if: :set_default_of_city_required?
+
+  # 更新city默认工作站
+  def set_default_of_city
+    city.update(workstation_id: self.id)
+  end
+
+  # 修改工作站 清空旧城市默认值
+  def clean_city_default
+    old_city = City.find_by(id: city_id_was)
+    old_city.update(workstation_id: nil) if old_city
+  end
+
+  def set_default_of_city_required?
+    @set_default_of_city_required == true
+  end
+
+  def set_default_of_city_required!
+    @set_default_of_city_required = true
+    self
+  end
+
+  def clean_city_default_required?
+    @clean_city_default_required == true
+  end
+
+  def clean_city_default_required!
+    @clean_city_default_required = true
+    self
+  end
+
+  def is_default_of_city
+    city.workstation_id == id
+  end
+
   def cash_account!
     cash_account || ::Payment::CashAccount.create(owner: self, type: "Payment::CashAccount")
   end

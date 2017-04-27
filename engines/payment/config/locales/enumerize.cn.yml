@@ -17,6 +17,7 @@ cn:
         weixin: 微信支付
         alipay: 支付宝支付
         offline: 线下充值
+        itunes: 苹果内购
     payment/order:
       pay_type:
         weixin: 微信支付

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170418081403) do
+ActiveRecord::Schema.define(version: 20170426071714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1100,6 +1100,16 @@ ActiveRecord::Schema.define(version: 20170418081403) do
 
   add_index "payment_coupons", ["code"], name: "index_payment_coupons_on_code", using: :btree
   add_index "payment_coupons", ["owner_type", "owner_id"], name: "index_payment_coupons_on_owner_type_and_owner_id", using: :btree
+
+  create_table "payment_itunes_products", force: :cascade do |t|
+    t.string   "name"
+    t.string   "product_id"
+    t.decimal  "price",      precision: 8, scale: 2, default: 0.0
+    t.decimal  "amount",     precision: 8, scale: 2, default: 0.0
+    t.boolean  "online",                             default: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+  end
 
   create_table "payment_orders", force: :cascade do |t|
     t.string   "order_no",     limit: 64,                                            null: false

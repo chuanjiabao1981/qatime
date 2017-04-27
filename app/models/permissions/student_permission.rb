@@ -275,11 +275,16 @@ module Permissions
       api_allow :POST, "/api/v1/ticket_tokens/cash_accounts/update_password"
       ## end 获取授权token
 
-
       ### 修改支付密码
       api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password" # 设置支付密码
       api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password/ticket_token" # 修改支付密码
       ## end 修改支付密码
+
+      ## 苹果内购
+      api_allow :POST, "/api/v1/payment/itunes_products" # 商品列表
+      api_allow :POST, "/api/v1/payment/itunes_products/[\\w-]+/recharges" # 充值下单
+      api_allow :POST, "/api/v1/payment/recharges/[\\w-]+/verify_receipt" # 苹果内购充值校验
+      ## end 苹果内购
     end
 private
 

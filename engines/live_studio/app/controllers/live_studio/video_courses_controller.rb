@@ -3,7 +3,7 @@ require_dependency "live_studio/application_controller"
 module LiveStudio
   class VideoCoursesController < ApplicationController
     layout :current_user_layout
-    before_action :set_video_course, only: [:show, :edit, :update, :destroy]
+    before_action :set_video_course, only: [:show, :edit, :update, :destroy, :deliver]
     before_action :detect_device_format, only: [:show]
 
     def index
@@ -27,6 +27,11 @@ module LiveStudio
     def taste
       @course = VideoCourse.find(params[:id])
       @taste_ticket = LiveService::CourseDirector.taste_course_ticket(current_user, @course)
+    end
+
+    def deliver
+      @video_course.deliver_free(current_user)
+      redirect_to live_studio.video_course_path(@video_course)
     end
 
     # GET /video_courses/new

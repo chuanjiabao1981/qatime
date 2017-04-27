@@ -34,7 +34,7 @@ module Payment
       state :canceled
       state :paid
 
-      event :allow do
+      event :allow, after_commit: :allow_notify do
         transitions from: [:init], to: :allowed
       end
 
@@ -46,7 +46,7 @@ module Payment
         transitions from: [:init], to: :canceled
       end
 
-      event :pay, after_commit: :success_notify do
+      event :pay do
         transitions from: [:allowed], to: :paid
       end
     end
@@ -184,9 +184,9 @@ module Payment
       NotificationPublisherJob.perform_later('CashNotification', self, action_name, receivers) unless receivers.blank?
     end
 
-    # 成功通知
-    def success_notify
-      notify(user, 'withdraw_success')
+    # 通过审核通知
+    def allow_notify
+      notify(user, 'withdraw_allow')
     end
 
     # 失败通知

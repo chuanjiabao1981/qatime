@@ -203,3 +203,24 @@ video_course_publish:
   read: false
   action_name: publish
 
+recharge_notification:
+  notificationable: recharge_for_notification (Payment::Recharge)
+  receiver: student1
+  type: CashNotification
+  read: false
+  action_name: recharge_success
+
+withdraw_allow_notification:
+  notificationable: withdraw_for_notification (Payment::Withdraw)
+  receiver: student1
+  type: CashNotification
+  read: false
+  action_name: withdraw_allow
+
+withdraw_refuse_notification:
+  notificationable: withdraw_for_notification (Payment::Withdraw)
+  receiver: student1
+  type: CashNotification
+  read: false
+  action_name: withdraw_refuse
+

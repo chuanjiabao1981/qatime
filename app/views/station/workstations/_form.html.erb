@@ -9,6 +9,10 @@
         <%= fields.input :code, input_html: {placeholder: t('view.admins.workstations.placeholders.coupon_code')} %>
       <% end %>
       <%= f.association :city, collection: City.pluck(:name, :id), input_html:{ :id => "s_city"} %>
+      <div class="form-group">
+        <label class="string required control-label" for="is_default"><%= t('view.admins.workstations.placeholders.is_default_label') %></label>
+        <%= check_box_tag :is_default, '1', @workstation.is_default_of_city %>
+      </div>
       <%= f.association :manager, collection: Manager.pluck(:name, :id), input_html:{ :id => "s_manager"} %>
       <%= f.input :address, input_html: {placeholder: t('view.admins.workstations.placeholders.address')} %>
       <%= f.input :tel, input_html: {placeholder: t('view.admins.workstations.placeholders.tel')} %>

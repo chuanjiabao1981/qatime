@@ -6,9 +6,9 @@
             <%= form_tag home_path, method: :get, class: 'form-city' do %>
               <span class="province"><%= t('view.common.province_by') %>:</span>
               <span>
-                <%= select_tag 'teacher[province_id]', options_for_select(Province.all.map{|p| [ p.name, p.id]}.insert(0,[t('view.common.option_province'), nil])),
+                <%= select_tag 'teacher[province_id]', options_for_select(Province.has_default_workstation.pluck(:name, :id).insert(0,[t('view.common.option_province'), nil])),
                                'data-remote': true,
-                               'data-url': url_for(controller: 'ajax/data', action: 'option_cities', second: 'data-second')
+                               'data-url': url_for(controller: 'ajax/data', action: 'option_cities', second: 'data-second', scope: 'has_workstation')
                 %>
                 &nbsp;&nbsp;
                 <%= select_tag :city_id, options_for_select([[t('view.common.option_city'), nil]]), class: 'data-second' %>
@@ -37,11 +37,11 @@
                     <span class="hasallcity-num" style="background: rgb(241, 241, 241); border-color: gray; color: rgb(0, 0, 0);">
                       <strong><%= k.upcase %></strong>
                     </span>
-    							<span class="hasallcity-name">
-                    <% cities.each do |city| %>
-                      <%= link_to city.name, home_path(city_name: city.name) %>
-                    <% end %>
-    							</span>
+                    <span class="hasallcity-name">
+                      <% cities.each do |city| %>
+                        <%= link_to city.name, home_path(city_name: city.name) %>
+                      <% end %>
+                    </span>
                   </p>
                 </li>
               <% end %>
@@ -95,6 +95,4 @@
       $(this).css("color","rgb(153,153,153)")
     })
   })
-
-  _init_area();
 </script>

@@ -30,32 +30,21 @@ module LiveStudio
       assert page.has_content? '限时打折'
       assert page.has_content? '视频总长'
       assert page.has_link? '立即学习'
-      assert page.has_link? '加入试听'
+      assert page.has_link? '进入试听'
       assert page.has_link? '试听本课时'
       assert page.has_link? '观看本课时'
-
-      message = accept_prompt(with: '请先加入试听') do
-        click_on '试听本课时', match: :first
-      end
 
       message2 = accept_prompt(with: '购买后才能观看') do
         click_on '观看本课时', match: :first
       end
 
-      click_on '加入试听'
-      assert page.has_link? '开始试听'
-
-      new_window = window_opened_by { click_on '开始试听' }
+      new_window = window_opened_by { click_on '进入试听' }
       within_window new_window do
         taste_lesson = course.taste_lesson
         assert page.has_content? course.name
         assert page.has_content? taste_lesson.name
         assert page.has_content? '视频时长：'
-        assert page.has_link? '试听本课时'
-        assert page.has_link? '观看本课时'
-        assert page.all('.playback-con li').size, course.video_lessons.find_all {|x| x.tastable?}.count
-        assert page.all('.playback-con li.active').size, course.video_lessons.find_all {|x| x.tastable?}.count
-        assert page.all('.playlist').size, course.video_lessons.count
+        assert_equal page.all('.playback-con li').size, course.video_lessons.find_all {|x| x.tastable?}.count
       end
       new_window.close
     end

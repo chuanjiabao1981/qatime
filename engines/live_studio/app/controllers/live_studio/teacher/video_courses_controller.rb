@@ -32,7 +32,7 @@ module LiveStudio
 
       if @video_course.save
         @video_course.reset_total_duration
-        redirect_to live_studio.teacher_video_courses_path(@teacher), notice: 'Video course was successfully created.'
+        redirect_to live_studio.teacher_video_courses_path(@teacher), notice: I18n.t("view.notice.create_success", model: @video_course.model_name.human)
       else
         render :new
       end
@@ -44,7 +44,7 @@ module LiveStudio
         @video_course.reset_total_duration
         # 重新提交审核
         @video_course.submit! if @video_course.rejected?
-        redirect_to live_studio.teacher_video_courses_path(@teacher), notice: 'Video course was successfully updated.'
+        redirect_to live_studio.teacher_video_courses_path(@teacher), notice: I18n.t("view.notice.update_success", model: @video_course.model_name.human)
       else
         render :edit
       end
@@ -53,7 +53,7 @@ module LiveStudio
     # DELETE /teacher/video_courses/1
     def destroy
       @video_course.destroy
-      redirect_to video_courses_url, notice: 'Video course was successfully destroyed.'
+      redirect_to video_courses_url, notice: I18n.t("view.notice.destroy_success", model: @video_course.model_name.human)
     end
 
     private

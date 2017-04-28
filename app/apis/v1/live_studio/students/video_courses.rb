@@ -30,6 +30,22 @@ module V1
                 video_courses = LiveService::StudentLiveDirector.new(@student).video_courses(params).paginate(page: params[:page], per_page: params[:per_page])
                 present video_courses, with: Entities::LiveStudio::StudentVideoCourse, type: :full
               end
+
+              desc '我的试听视频课' do
+                headers 'Remember-Token' => {
+                  description: 'RememberToken',
+                  required: true
+                }
+              end
+              params do
+                requires :student_id, type: Integer
+                optional :page, type: Integer
+                optional :per_page, type: Integer
+              end
+              get 'video_courses/tasting' do
+                video_courses = @student.live_studio_taste_video_courses.paginate(page: params[:page], per_page: params[:per_page])
+                present video_courses, with: Entities::LiveStudio::StudentVideoCourse
+              end
             end
           end
         end

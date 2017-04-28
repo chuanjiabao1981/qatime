@@ -80,6 +80,8 @@ module LiveStudio
     validates :grade, :subject, :workstation_id, presence: true
     validates :price, presence: true, numericality: { greater_than: :price_min, less_than_or_equal_to: 999_999 }
     validates :teacher_percentage, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: :teacher_percentage_max }
+    validates :objective, presence: { message: I18n.t('view.live_studio/course.validates.objective') }, length: { in: 1..300 }, if: :objective_changed?
+    validates :suit_crowd, presence: { message: I18n.t('view.live_studio/course.validates.suit_crowd') }, length: { in: 1..300 }, if: :suit_crowd_changed?
 
     accepts_nested_attributes_for :interactive_lessons, allow_destroy: true, reject_if: proc { |attributes| attributes['_update'] == '0' }
     validates_associated :interactive_lessons

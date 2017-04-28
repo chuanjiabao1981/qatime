@@ -96,8 +96,8 @@ module LiveStudio
 
     validates :teacher, presence: true
     # validates :publicize, presence: { message: "请添加图片" }, on: :create
-    validates :objective, presence: { message: I18n.t('view.live_studio/course.validates.objective') }, length: { in: 1..50 }, if: :objective_changed?
-    validates :suit_crowd, presence: { message: I18n.t('view.live_studio/course.validates.suit_crowd') }, length: { in: 1..30 }, if: :suit_crowd_changed?
+    validates :objective, presence: { message: I18n.t('view.live_studio/course.validates.objective') }, length: { in: 1..300 }, if: :objective_changed?
+    validates :suit_crowd, presence: { message: I18n.t('view.live_studio/course.validates.suit_crowd') }, length: { in: 1..300 }, if: :suit_crowd_changed?
 
     belongs_to :teacher, class_name: '::Teacher'
     belongs_to :workstation

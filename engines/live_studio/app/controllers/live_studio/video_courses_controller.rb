@@ -3,7 +3,7 @@ require_dependency "live_studio/application_controller"
 module LiveStudio
   class VideoCoursesController < ApplicationController
     layout :current_user_layout
-    before_action :set_video_course, only: [:show, :edit, :update, :destroy, :deliver]
+    before_action :set_video_course, only: [:show, :edit, :update, :destroy, :taste, :deliver]
     before_action :detect_device_format, only: [:show]
 
     def index
@@ -25,8 +25,11 @@ module LiveStudio
     end
 
     def taste
-      @course = VideoCourse.find(params[:id])
-      @taste_ticket = LiveService::CourseDirector.taste_course_ticket(current_user, @course)
+      unless @video_course.taste_tickets.where(student_id: current_user.id).exists?
+        LiveService::CourseDirector.taste_course_ticket(current_user, @video_course)
+      end
+      lesson = VideoLesson.find_by(id: params[:lesson_id]) || @video_course.taste_lesson
+      redirect_to live_studio.play_video_lesson_path(lesson)
     end
 
     def deliver

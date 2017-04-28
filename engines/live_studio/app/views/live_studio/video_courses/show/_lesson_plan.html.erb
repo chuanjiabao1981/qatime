@@ -20,7 +20,7 @@
           <%= link_to( t('view.live_studio/courses.show.play_video'),  "javascript:alert('#{t('view.live_studio/courses.show.play_video_notice')}');") unless lesson.tastable? %>
         <% else %>
           <!-- 没有加入试听 也没有购买的 -->
-          <%= link_to( t('view.live_studio/courses.show.tast_video'), "javascript:alert('#{t('view.live_studio/courses.show.tast_video_notice')}');", class: 'view-audition') if lesson.tastable? %>
+          <%= link_to( t('view.live_studio/courses.show.tast_video'), live_studio.taste_video_course_path(@course, lesson_id: lesson.id), target: '_blank', class: 'view-audition') if lesson.tastable? %>
           <%= link_to( t('view.live_studio/courses.show.play_video'),  "javascript:alert('#{t('view.live_studio/courses.show.play_video_notice')}');") unless lesson.tastable? %>
         <% end %>
       <% else %>

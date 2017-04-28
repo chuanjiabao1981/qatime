@@ -222,7 +222,7 @@ course_with_order2:
 
 course_with_lessons:
   name: 可直播辅导班
-  teacher: teacher_two
+  teacher: english_teacher
   workstation: workstation_one
   status: 1
   teacher_percentage: 80
@@ -235,9 +235,8 @@ course_with_lessons:
   taste_count: 1
 
 tasting_course:
-  id: 10
   name: 试听中的辅导班
-  teacher: teacher_two
+  teacher: english_teacher
   workstation: workstation_one
   status: 1
   teacher_percentage: 80

@@ -375,11 +375,8 @@ manager_zhuji:
   avatar: test
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   type: Manager
-  
-
 
 english_teacher:
-  id: 10
   name: 高中英语老师
   role: teacher
   category: 高中

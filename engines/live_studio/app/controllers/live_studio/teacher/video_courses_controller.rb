@@ -53,7 +53,7 @@ module LiveStudio
     # DELETE /teacher/video_courses/1
     def destroy
       @video_course.destroy
-      redirect_to video_courses_url, notice: 'Video course was successfully destroyed.'
+      redirect_to video_courses_url, notice: I18n.t("view.notice.destroy_success", model: @video_course.model_name.human)
     end
 
     private

@@ -23,6 +23,7 @@ module Payment
       order = payment_transactions(:order_for_refund)
       new_log_in_as(@student)
       click_on '我的订单'
+      click_on '已付款'
       find(:xpath, "//a[@href='#{payment.refund_user_order_path(@student, order.transaction_no)}']").click
       fill_in 'reason', with: 'test refund'
       click_on '提交'

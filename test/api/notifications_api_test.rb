@@ -12,7 +12,7 @@ class Qatime::NotificationsAPITest < ActionDispatch::IntegrationTest
     assert_response :success, "没有正确返回 #{JSON.parse(response.body)}"
     res = JSON.parse(response.body)
     data = res['data']
-    assert_equal 10, data.count, "通知数量不正确"
+    assert_equal 13, data.count, "通知数量不正确"
     contents = data.map {|d| d["notice_content"]}
     assert_includes contents, "t老师,上传了专属课程", "上传专属课程通知不正确"
     assert_includes contents, "t老师,布置了随堂练习", "布置了随堂练习通知不正确"

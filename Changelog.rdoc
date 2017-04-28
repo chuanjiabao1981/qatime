@@ -440,6 +440,7 @@
         * [QT-1074](https://qatime.atlassian.net/browse/QT-1074)
         * [QT-1075](https://qatime.atlassian.net/browse/QT-1075)
         * [QT-1076](https://qatime.atlassian.net/browse/QT-1076)
+        * [QT-1082](https://qatime.atlassian.net/browse/QT-1082)
     * bugfix
         * [QT-1057](https://qatime.atlassian.net/browse/QT-1057)
         * [QT-1065](https://qatime.atlassian.net/browse/QT-1065)

@@ -111,9 +111,9 @@ module V1
               get do
                 courses =
                   if params[:cate].present?
-                    LiveService::StudentLiveDirector.new(current_user).courses(params)
-                  else
                     LiveService::StudentLiveDirector.new(current_user).courses_of_cate(params[:cate])
+                  else
+                    LiveService::StudentLiveDirector.new(current_user).courses(params)
                   end
                 courses = courses.paginate(page: params[:page], per_page: params[:per_page])
                 present courses, with: Entities::LiveStudio::StudentCourse, type: :default, current_user: current_user

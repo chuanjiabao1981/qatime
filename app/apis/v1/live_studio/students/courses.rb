@@ -25,7 +25,7 @@ module V1
                 optional :page, type: Integer
                 optional :per_page, type: Integer
               end
-              get 'video_courses/tasting' do
+              get 'courses/tasting' do
                 video_courses = @student.live_studio_taste_courses.paginate(page: params[:page], per_page: params[:per_page])
                 present video_courses, with: Entities::LiveStudio::StudentCourse
               end

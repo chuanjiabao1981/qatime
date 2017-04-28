@@ -246,8 +246,8 @@ cn:
       placeholders:
         grade: 请选择年级
         subject: 请选择科目
-        objective: 最多填写50个字
-        suit_crowd: 最多填写30个字
+        objective: 最多填写300个字
+        suit_crowd: 最多填写300个字
     video_course_form:
       tips_title: 视频课说明
       tips_1: 1.视频课是一种可重复销售的课程，允许多人购买

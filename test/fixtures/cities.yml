@@ -1,15 +1,15 @@
 yangquan:
   province: shanxi
   name: 阳泉
-  workstation: workstation1 (Workstation)
+  workstation: workstation1
 chaoyang:
   province: beijing
   name: 朝阳
-  workstation: workstation_one (Workstation)
+  workstation: workstation_one
 changping:
   province: beijing
   name: 昌平
-  workstation: workstation_another (Workstation)
+  workstation: workstation_another
 taiyuan:
   province: shanxi
   name: 太原
@@ -19,4 +19,8 @@ datong:
 haidian:
   province: beijing
   name: 海淀
-  workstation: workstation_hd (Workstation)
+  workstation: workstation_hd
+zhuji:
+  province: zhejiang
+  name: 诸暨
+  workstation: workstation_zhuji

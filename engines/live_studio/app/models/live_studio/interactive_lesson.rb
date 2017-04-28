@@ -289,12 +289,12 @@ module LiveStudio
 
     # 获取直播录像
     def sync_replays
-      course.channels.each do |c|
-        c.sync_video_for(self) if c.board?
-      end
-      synced! if channel_videos.count > 0
-      # 设置合并任务
-      ReplaysMergeWorker.perform_async(id) if synced?
+      # course.channels.each do |c|
+      #   c.sync_video_for(self) if c.board?
+      # end
+      # synced! if channel_videos.count > 0
+      # # 设置合并任务
+      # ReplaysMergeWorker.perform_async(id) if synced?
     end
 
     # 视频回放开始时间

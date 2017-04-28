@@ -1,51 +1,36 @@
-<div class="tutorial-con">
-  <table border="0" cellspacing="0" cellpadding="0">
-    <tbody>
-      <tr>
-        <td rowspan="3" class="tutorial-con-td">
-          <%= image_tag(interactive_course.publicize_url(:list)) %>
-        </td>
-        <td colspan="3">
-          <span class="tutorial-con-msg"><%= interactive_course.name %></span>
-        </td>
-        
-      </tr>
-      <tr>
-        <td>
-          <span class="tutorial-con-head"><%= LiveStudio::InteractiveCourse.human_attribute_name(:grade) %></span>
+<li>
+  <div class="row">
+    <div class="col-md-3 discipline-pic">
+      <%= image_tag(interactive_course.publicize_url(:list)) -%>
+    </div>
+    <div class="col-md-6 discipline-info">
+      <div class="row info-title">
+        <div class="col-md-12">
+          <strong><%= interactive_course.name %></strong>
+        </div>
+      </div>
+      <div class="row info-state">
+        <div class="col-md-6">
+          <span><%= LiveStudio::InteractiveCourse.human_attribute_name(:grade) %></span>
           <span><%= interactive_course.grade %></span>
-        </td>
-        <td>
-          <span class="tutorial-con-head"><%= LiveStudio::InteractiveCourse.human_attribute_name(:students_count) %></span>
-          <span><%= interactive_course.buy_user_count %></span>
-        </td>
-        <td class="tutorial-con-audit"><span><%= interactive_course.status.text %></span></td>
-      </tr>
-      <tr>
-        <td class="tutorial-con-new">
-          <span class="tutorial-con-head tutorial-con-edit"><%= LiveStudio::InteractiveCourse.human_attribute_name(:price) %></span>
-          <span class="tutorial-con-edit">
-            <%= number_to_currency(interactive_course.price, unit: "￥", precision: 2) %>
-            <i>(<%= number_to_percentage(interactive_course.teacher_percentage, precision: 0) %><%= LiveStudio::InteractiveCourse.human_attribute_name(:percentage) %>)</i>
-          </span>
-        </td>
-        <td>
-          <span class="tutorial-con-head tutorial-con-edit"><%= LiveStudio::InteractiveCourse.human_attribute_name(:lessons_progress) %></span>
-          <span class="tutorial-con-edit"><%= interactive_course.finished_lessons_count %>/<%= interactive_course.lessons_count %></span>
-        </td>
-        <td>
-          <center>
-            <span class="tutorial-con-edit">
-              <%= link_to live_studio.preview_interactive_courses_path(id: interactive_course.id), data: {method: :post}, target: '_blank' do %>
-                [<%= t("common.preview") %>]
-              <% end %>
-              <%= link_to live_studio.interactive_course_announcements_path(interactive_course) do %>
-                [<%= t("common.announcement") %>]
-              <% end if interactive_course.teaching? %>
-            </span>
-          </center>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+        </div>
+        <div class="col-md-6">
+          <span><%= LiveStudio::InteractiveCourse.human_attribute_name(:teacher_video_lessons_count) %></span>
+          <span><%= t("view.course_show.lessons_count_of", lessons_count: interactive_course.video_lessons_count_of(@teacher)) %></span>
+        </div>
+      </div>
+      <div class="row info-user">
+        <div class="col-md-12">
+          <span><%= LiveStudio::InteractiveCourse.human_attribute_name(:price) %></span>
+          <span><%= number_to_currency(interactive_course.price, unit: "￥", precision: 2) %></span>
+          <i>(<%= number_to_percentage(interactive_course.teacher_percentage, precision: 0) %><%= LiveStudio::InteractiveCourse.human_attribute_name(:percentage) %>)</i>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 course-state">
+      <span class="col-md-12 col-sm-4 col-xs-4"><%= interactive_course.status.text %></span>
+      <%= link_to t("common.preview"), live_studio.preview_interactive_courses_path(id: interactive_course.id), data: {method: :post}, target: '_blank' %>
+      <%= link_to t("common.announcement"), live_studio.interactive_course_announcements_path(interactive_course) if interactive_course.teaching? %>
+    </div>
+  </div>
+</li>

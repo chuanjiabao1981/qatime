@@ -16,7 +16,7 @@
       <div class="col-md-title"><p><%= t("simple_form.labels.payment/recharge.pay_type") %></p></div>
       <div class="col-md-apply-1">
         <div class="txt-radio">
-          <%= f.input :pay_type, label: false, as: :radio_buttons, collection: Payment::Recharge.pay_type.options.select {|item| item.last != "offline" || current_user.admin?  } %>
+          <%= f.input :pay_type, label: false, as: :radio_buttons, collection: pay_type_options(:recharge, :web) %>
         </div>
       </div>
     </div>

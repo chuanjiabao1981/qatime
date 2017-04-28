@@ -20,7 +20,6 @@ module LiveStudio
       DatabaseCleaner.clean
     end
 
-    # 标签过滤测试
     test 'buy a video course' do
       @video_course = live_studio_video_courses(:published_video_course1)
       visit live_studio.new_video_course_order_path(@video_course)
@@ -36,6 +35,15 @@ module LiveStudio
           sleep 1
         end
       end
+    end
+
+    test 'buy free video course' do
+      free_video_course = live_studio_video_courses(:published_video_course2)
+      visit live_studio.video_course_path(free_video_course)
+      click_on '立即学习', match: :first
+      sleep(1)
+      assert page.has_link? '观看'
+      assert free_video_course.reload.bought_by?(@student), '购买不成功'
     end
   end
 end

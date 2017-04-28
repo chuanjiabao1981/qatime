@@ -77,7 +77,8 @@ LiveStudio::Engine.routes.draw do
     end
 
     member do
-      post :taste # 试听
+      get :taste # 试听
+      get :deliver
       get :play # 观看直播
       post :update_notice
       get :preview
@@ -240,6 +241,8 @@ LiveStudio::Engine.routes.draw do
       member do
         get :schedules
         get :settings
+        get :tastes
+        get :taste_records
       end
       resources :courses, only: [:index, :show]
       resources :interactive_courses, only: [:index, :show]

@@ -19,6 +19,7 @@ cn:
       payment_password_expire_time: "新密码 %{time} 后可用"
       payment_password_not_set: 未设置
       password_not_visible: 此密码不可见
+      people: 人
     query:
       name_or_mobile: 请输入姓名/电话
     shared:
@@ -28,6 +29,7 @@ cn:
           name: 名称：
           coupon_code: 注册编码：
           city: 合作地区：
+          is_default: （默认工作站）
           manager: 经理：
           address: 联系地址：
           tel: 联系电话：

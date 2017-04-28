@@ -21,6 +21,7 @@ class NotificationsController < ApplicationController
 
   def load_user
     @receiver ||= User.find(params[:user_id])
+    @owner = @receiver
   end
 
   def load_notification
@@ -29,5 +30,10 @@ class NotificationsController < ApplicationController
 
   def current_resource
     params[:user_id].present? ? load_user : load_notification
+  end
+
+  def current_user_layout
+    return 'v1/home' if @owner.student? || @owner.teacher?
+    super
   end
 end

@@ -1,6 +1,7 @@
 #require_dependency "live_studio/application_controller"
 module LiveStudio
   class Teacher::TeachersController < Teacher::BaseController
+    layout 'v1/home'
 
     def schedules
       course_lessons = @teacher.live_studio_lessons

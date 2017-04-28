@@ -98,6 +98,15 @@ module Permissions
       allow 'station/lessons', [:state, :update] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
+
+      allow 'live_studio/video_courses', [:index, :show, :preview]
+      allow 'live_studio/video_lessons', [:play] do |lesson|
+        true
+      end
+
+      allow 'live_studio/station/video_courses', [:index, :my_publish, :my_sells, :audits, :send_qr_code, :list] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
     end
   end
 end

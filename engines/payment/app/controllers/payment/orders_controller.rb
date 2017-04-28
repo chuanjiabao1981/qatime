@@ -8,6 +8,7 @@ module Payment
 
     def index
       @orders = LiveService::OrderDirector.orders_for_user_index(@user,filter_patams).order(id: :desc).paginate(page: params[:page])
+      render layout: 'v1/home'
     end
 
     # 生成微信支付二维码
@@ -20,13 +21,23 @@ module Payment
     def refund
       @order = @user.orders.find_by!(transaction_no: params[:id])
       @consumed_amount = LiveService::OrderDirector.new(@order).consumed_amount
+      render layout: 'v1/application'
     end
 
     def refund_create
       @order = @user.orders.find_by!(transaction_no: params[:id])
-      @refund = LiveService::OrderDirector.new(@order).refund!
+      order_director = LiveService::OrderDirector.new(@order)
+      @consumed_amount = order_director.consumed_amount
+
+      if params[:reason].blank?
+        @refund = order_director.generate_refund
+        @refund.errors.add(:reason, I18n.t('view.payment/order.refund.reason'))
+      else
+        @refund = order_director.refund!
+      end
+
       if @refund.errors.any?
-        render :refund, layout: 'payment/layouts/payment'
+        render :refund, layout: 'v1/application'
       else
         @refund.create_refund_reason(reason: params[:reason])
         redirect_to payment.user_orders_path(@user), notice: i18n_notice('created', @refund)
@@ -52,6 +63,7 @@ module Payment
     def show
       @order = @user.orders.find_by!(transaction_no: params[:id])
       @course = @order.product
+      render layout: 'v1/application'
     end
 
     # 支付通知
@@ -91,6 +103,7 @@ module Payment
                 Order.find_by!(transaction_no: params[:id]).user
               end
       @student = @user
+      @owner = @student
     end
 
     def layout_no_nav
@@ -104,8 +117,8 @@ module Payment
 
     def filter_patams
       # 使用状态查询
+      params[:cate] ||= 'unpaid'
       @filter_patams = params.slice(:cate)
-      @filter_patams
     end
   end
 end

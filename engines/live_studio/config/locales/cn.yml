@@ -16,6 +16,11 @@ cn:
         alipay: "推荐有支付宝账号的用户使用"
       video_course_order:
         cannot_refund: 购买提醒：此订单类型暂不支持退款！
+    notice:
+      create_success: "%{model} 创建成功"
+      update_success: "%{model} 更新成功"
+      publish_success: "%{model} 发布成功"
+      destroy_success: "%{model} 删除成功"
     search:
       all: 全部
       live_studio/course:
@@ -102,6 +107,7 @@ cn:
       completed_lesson: 结算课程
       course_label: 辅导详情
       join_taste: 加入试听
+      enter_taste: 进入试听
       start_taste: 开始试听
       start_learning: 开始学习
       start_learning2: 观看
@@ -450,6 +456,7 @@ cn:
         students_count: 学生人数
         percentage: 分成
         lessons_progress: 课程进度
+        progress: 进度
         live_start_date: 开课时间
         live_end_date: 结束时间
         teach_type: 授课方式
@@ -464,8 +471,10 @@ cn:
       live_studio/interactive_course:
         students_count: 学生数量
         lessons_progress: 课程进度
+        teacher: 老师
         percentage: 分成
         latest: 最新
+        teacher_video_lessons_count: 我的课时
       live_studio/video_course:
         grade: 年级
         video_lessons_count: 课时

@@ -35,6 +35,7 @@ cn:
       default_teacher: XX老师
       default_grade_lesson: 年级科目/共X课
       default_teach_years: XXX年教龄
+      notification: 消息中心
     qa_bars:
       courses: 辅导班流程
       teacher: 老师使用说明
@@ -53,6 +54,7 @@ cn:
       my_teachers: 我的老师
       my_notice: 消息中心
       schedules: 课程表
+      tastes: 我的试听
     teacher_bars:
       property_management: 财产管理
       curriculum_schedule: 课程表

@@ -11,7 +11,7 @@
     </li>
     <li>
       <span><%= t('view.shared.workstations.info.city') %></span>
-      <span><%= workstation.city.try(:name) %></span>
+      <span><%= workstation.city.try(:name) %><%= t('view.shared.workstations.info.is_default') if workstation.is_default_of_city %></span>
     </li>
     <li>
       <span><%= t('view.shared.workstations.info.manager') %></span>
@@ -26,6 +26,10 @@
       <span><%= workstation.tel %></span>
     </li>
     <li>
+      <span><%= Manager.human_attribute_name(:login_mobile) %>：</span>
+      <span><%= workstation.manager.try(:login_mobile) %></span>
+    </li>
+    <li>
       <span><%= t('view.shared.workstations.info.qq') %></span>
       <span><%= workstation.qq %></span>
     </li>
@@ -35,14 +39,6 @@
 <div class="workstation-setup">
   <h4><%= t('view.shared.workstations.info.second_title') %></h4>
   <ul>
-    <li>
-      <span><%= t('view.shared.workstations.info.join_price') %></span>
-      <span><%= t('view.shared.workstations.info.join_price_text', price: workstation.join_price.to_f) %></span>
-    </li>
-    <li>
-      <span><%= t('view.shared.workstations.info.caution_money') %></span>
-      <span><%= t('view.shared.workstations.info.caution_money_text', price: workstation.caution_money.to_f) %></span>
-    </li>
     <li>
       <span><%= t('view.shared.workstations.info.platform_percentage') %></span>
       <span><%= number_to_percentage(workstation.platform_percentage, precision: 0) %></span>

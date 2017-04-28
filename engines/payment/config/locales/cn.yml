@@ -1,5 +1,10 @@
 cn:
   view:
+    pay_types:
+      weixin: 微信支付
+      alipay: 支付宝支付
+      account: 余额支付
+      offline: 线下支付
     withdraw_cn: 账户提现
     verify_error: 安全手机校验码不正确
     password_error: 支付密码不正确
@@ -88,6 +93,37 @@ cn:
         remit_at: 选择转款日期
     payment/course_billing:
       service_price_value: "%{price}元/时"
+    payment/order:
+      index:
+        course_type: 授课类型
+        course: 直播课
+        interactive_course: 一对一
+        video_course: 视频课
+        grade_subject: 年级科目
+        teacher: 授课老师
+        lesson_count: 课时数目
+        lesson_count_text: "共%{count}课"
+        amount: 实付金额
+        cannot_refund: 此订单不支持退款
+      show:
+        more_info: 更多课程信息>
+        order_no: 订单编号
+        created_at: 创建时间
+        pay_type: 支付方式
+        pay_at: 支付时间
+        amount: 实付金额
+      refund:
+        title: 申请退款
+        title2: 退款信息
+        title3: 退款原因
+        name: 课程名称
+        consumed_amount: 已消费额
+        refund_pay_type: 退款方式
+        refund_amount: 可退金额
+        refund_lesson_count: 可退课时
+        notice: 提示：退款过程中你将不能进行此课程的学习！
+        reason_placeholder: 请输入退款原因（最多300字）
+        reason: 请输入退款原因
   activerecord:
     view:
       order: 我的订单

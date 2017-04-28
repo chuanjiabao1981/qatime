@@ -16,13 +16,13 @@ module Wap
     end
 
     # 测试余额购买辅导班
-    test 'use account balance buy a course ' do
+    test 'use account balance buy a course' do
       course = live_studio_courses(:billing_course_one)
       wap_login(@student, main_app.wap_live_studio_course_path(course))
       click_on "立即报名"
       click_on "新增订单"
-      assert page.has_content?("请选择支付方式"), "不选择支付方式没有提示"
-      choose "order_pay_type_account"
+      sleep(3)
+      choose 'order_pay_type_account'
       assert_difference "::Payment::Order.count", 1, "下单失败" do
         click_on "新增订单"
         sleep(1)

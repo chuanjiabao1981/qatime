@@ -9,6 +9,7 @@ module LiveStudio
     before_action :set_product, except: [:check_coupon]
     before_action :find_coupon, only: [:create, :check_coupon]
     before_action :detect_device_format, only: [:new, :create]
+    before_action :check_free_product, only: [:new, :create]
 
     # GET /orders/1
     def show
@@ -69,33 +70,40 @@ module LiveStudio
     end
 
     private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_product
-        @product =
-          if params[:course_id].present?
-            Course.find_by(id: params[:course_id])
-          elsif params[:interactive_course_id].present?
-            InteractiveCourse.find(params[:interactive_course_id])
-          else
-            VideoCourse.find(params[:video_course_id])
-          end
-      end
 
-      def set_order
-        @order = Payment::Order.find_by(id: params[:id])
-      end
+    def set_product
+      @product =
+        if params[:course_id].present?
+          Course.find_by(id: params[:course_id])
+        elsif params[:interactive_course_id].present?
+          InteractiveCourse.find(params[:interactive_course_id])
+        else
+          VideoCourse.find(params[:video_course_id])
+        end
+    end
 
-      def find_coupon
-        @coupon = ::Payment::Coupon.find_by(code: params[:coupon_code])
-      end
+    def set_order
+      @order = Payment::Order.find_by(id: params[:id])
+    end
 
-      # Only allow a trusted parameter "white list" through.
-      def order_params
-        params.require(:order).permit(:pay_type, :payment_password)
-      end
+    def find_coupon
+      @coupon = ::Payment::Coupon.find_by(code: params[:coupon_code])
+    end
 
-      def order_source
-        request.variant ? 'wap' : 'web'
+    def order_params
+      params.require(:order).permit(:pay_type, :payment_password)
+    end
+
+    def order_source
+      request.variant ? 'wap' : 'web'
+    end
+
+    # 免费课程跳过下单直接发票
+    def check_free_product
+      if @product.is_a?(VideoCourse) && @product.sell_type.free?
+        return redirect_to live_studio.deliver_video_course_path(@product)
       end
+    end
+
   end
 end

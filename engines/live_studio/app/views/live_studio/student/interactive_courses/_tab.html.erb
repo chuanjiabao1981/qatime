@@ -1,0 +1,13 @@
+<div class="discipline-nav">
+  <%= link_to t("live_studio.menu.student.interactive_course.all"),
+              live_studio.student_interactive_courses_path(@student),
+              class: "#{ 'active' if params[:status].blank? }" %>
+  <%= link_to t("live_studio.menu.student.interactive_course.teaching"),
+              live_studio.student_interactive_courses_path(@student, status: 'teaching'),
+              class: "#{ 'active' if 'teaching' == params[:status] }" %>
+  <%= link_to t("live_studio.menu.student.interactive_course.finished"),
+              live_studio.student_interactive_courses_path(@student, status: 'finished'),
+              class: "#{ 'active' if 'finished' == params[:status] }" %>
+</div>
+
+

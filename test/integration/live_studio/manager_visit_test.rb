@@ -19,7 +19,7 @@ module LiveStudio
     end
 
     test 'visit teacher page' do
-      @teacher = ::Teacher.first
+      @teacher = users(:english_teacher)
       @course = @teacher.live_studio_courses.first
       click_on '教师'
       visit chat.finish_live_studio_course_teams_path(@course)

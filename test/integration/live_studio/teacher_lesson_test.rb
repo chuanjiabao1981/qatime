@@ -1,10 +1,6 @@
 require 'test_helper'
 
 class LiveStudio::TeacherLessonTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
-
   def setup
     @routes = LiveStudio::Engine.routes.url_helpers
     @headless = Headless.new

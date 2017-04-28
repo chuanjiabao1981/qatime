@@ -37,6 +37,9 @@ class Station::WorkstationsController < Station::BaseController
   end
 
   def update
+    @workstation.clean_city_default_required!
+    @workstation.set_default_of_city_required! if params[:is_default] == '1'
+
     if @workstation.update_attributes(workstation_params)
       flash_msg(:success)
       redirect_to station_workstation_path(@workstation)

@@ -1,0 +1,15 @@
+<div class="discipline-nav">
+  <%= link_to t("live_studio.menu.teacher.course.all"),
+              live_studio.teacher_courses_path(@teacher),
+              class: "#{ 'active' if params[:cate].blank? }" %>
+  <%= link_to t("live_studio.menu.teacher.course.waiting"),
+              live_studio.teacher_courses_path(@teacher, cate: 'waiting'),
+              class: "#{ 'active' if 'waiting' == params[:cate] }" %>
+  <%= link_to t("live_studio.menu.teacher.course.teaching"),
+              live_studio.teacher_courses_path(@teacher, cate: 'teaching'),
+              class: "#{ 'active' if 'teaching' == params[:cate] }" %>
+  <%= link_to t("live_studio.menu.teacher.course.finished"),
+              live_studio.teacher_courses_path(@teacher, cate: 'finished'),
+              class: "#{ 'active' if 'finished' == params[:cate] }" %>
+</div>
+

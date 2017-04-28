@@ -81,6 +81,21 @@ module V1
             raise ActiveRecord::RecordInvalid, order if order.errors.any?
             present order, with: Entities::Payment::Order
           end
+
+          desc '试听视频课' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, desc: '视频课ID'
+          end
+          post '/:id/taste' do
+            video_course = ::LiveStudio::VideoCourse.find(params[:id])
+            ticket = LiveService::VideoCourseDirector.new(video_course).taste(current_user)
+            present ticket, with: Entities::LiveStudio::Ticket
+          end
         end
       end
     end

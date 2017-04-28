@@ -18,7 +18,7 @@ class Qatime::PositionApiTest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "接口响应错误 #{res}"
-    assert_equal 2, res['data'].count, "推荐返回错误"
+    assert_equal 7, res['data'].count, "推荐返回错误"
     assert_includes res['data'].map {|item| item['type']}, "Recommend::TeacherItem", "没有正确返回名师推荐类型"
     assert_not_includes res['data'].map {|item| item['teacher']}, nil, "没有正确返回推荐教师信息"
   end

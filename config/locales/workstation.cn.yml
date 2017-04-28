@@ -54,6 +54,7 @@ cn:
           contract_start_date_at_label: "<abbr title='required'>*</abbr>合作有效期:"
           contract_start_date_at: 选择开始日期（年月日）
           contract_end_date_at: 选择结束日期（年月日）
+          is_default_label: 默认工作站
       workstation_withdraws:
         search:
           audit: 已审核

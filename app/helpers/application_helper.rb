@@ -322,17 +322,21 @@ module ApplicationHelper
     when :orders
       r = controller_name == 'orders' && action_name == 'index'
     when :courses
-      r = controller_name == 'courses' && (
-            action_name == 'index' || action_name == 'show'
-          )
+      r = controller_name == 'courses'
+    when :interactive_courses
+      r = controller_name == 'interactive_courses'
+    when :video_courses
+      r = controller_name == 'video_courses'
     when :schedules
       r = controller_name == 'students' && action_name == 'schedules'
+    when :tastes
+      r = controller_name == 'students' && action_name == 'tastes'
     when :homeworks
       r = controller_name == 'students' && action_name == 'homeworks'
     when :teachers
       r = controller_name == 'students' && action_name == 'teachers'
     when :notifications
-      r = controller_name == 'students' && action_name == 'notifications'
+      r = controller_name == 'notifications'
     when :customized_courses
       r = controller_name == 'students' && action_name == 'customized_courses'
     else
@@ -360,7 +364,7 @@ module ApplicationHelper
     when :teacher_students
       r = controller_name == 'teachers' && action_name == 'students'
     when :notification
-      r = controller_name == 'teachers' && action_name == 'notifications'
+      r = controller_name == 'notifications'
     when :teacher_syllabuses
       r = controller_name == 'syllabuses' && action_name == 'index'
     when :customized_courses

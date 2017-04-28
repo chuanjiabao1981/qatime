@@ -38,10 +38,25 @@ module LiveService
       courses
     end
 
+    # 我的试听
+    def tastes_by(cate)
+      return @student.live_studio_taste_courses.none unless %w[courses video_courses].include?(cate)
+      send("#{cate}_of_taste")
+    end
+
+    # 试听记录
+    def taste_records
+      @student.live_studio_taste_tickets.includes(:product)
+    end
+
     private
 
     def courses_of_taste
       @student.live_studio_taste_courses.includes(:teacher, :chat_team).where('live_studio_tickets.type = ?', 'LiveStudio::TasteTicket').reorder('live_studio_tickets.created_at desc')
+    end
+
+    def video_courses_of_taste
+      @student.live_studio_taste_video_courses.includes(:teacher, :chat_team).where('live_studio_tickets.type = ?', 'LiveStudio::TasteTicket').reorder('live_studio_tickets.created_at desc')
     end
 
     # 弃用

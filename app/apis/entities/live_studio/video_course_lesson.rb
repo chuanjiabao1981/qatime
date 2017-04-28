@@ -7,6 +7,7 @@ module Entities
       expose :video_course_id
       expose :real_time
       expose :pos
+      expose :tastable
       expose :video, using: Entities::Video
     end
   end

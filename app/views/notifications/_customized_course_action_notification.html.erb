@@ -1,19 +1,12 @@
-<div class="qa_object_item" style="clear: both;">
-  <div style="float:left">
-    <%= image_tag notification.operator.avatar.normal.url, size: "48x48", title: notification.operator.try(:name) %>
+<li>
+  <div class="row">
+    <div class="col-md-9 msg-info">
+      <i class="<%= 'unread' unless notification.read %>"></i>
+      <%= link_to notification.notificationable.desc, notification_path(notification, rt: main_app.send("#{notification.notificationable.actionable.model_name.singular_route_key}_path", notification.notificationable.actionable)) %>
+    </div>
+
+    <div class="col-md-3 msg-item">
+      <span><%= localize(notification.created_at,format: :long) %></span>
+    </div>
   </div>
-  <div class="title">
-    <% if notification.read %>
-            <span class="label label-default"><%= I18n.t "view.notification.read" %></span>
-    <% else %>
-            <span class="label label-danger"><%= I18n.t "view.notification.unread" %></span>
-    <% end %>
-    <%= notification.notificationable.desc  %>
-    <%= link_to t("view.notifications.read"), notification_path(notification, rt: main_app.send("#{notification.notificationable.actionable.model_name.singular_route_key}_path", notification.notificationable.actionable)) %>
-  </div>
-  <div class="info">
-    <%= localize(notification.created_at,format: :long) %>
-    <%= render_action_record_name(notification.notificationable) %>
-    • <%= link_to CustomizedCourse.model_name.human ,customized_course_path(notification.customized_course)%>
-  </div>
-</div>
+</li>

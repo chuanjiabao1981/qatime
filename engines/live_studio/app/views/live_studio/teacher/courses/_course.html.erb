@@ -1,70 +1,39 @@
-<div class="tutorial-con">
-  <table border="0" cellspacing="0" cellpadding="0">
-    <tbody>
-      <tr>
-        <td rowspan="3" class="tutorial-con-td">
-          <%= image_tag(course.publicize_url(:list)) %>
-        </td>
-        <td colspan="3">
-          <span class="tutorial-con-msg"><%= course.name %></span>
-        </td>
-        
-      </tr>
-      <tr>
-        <td>
-          <span class="tutorial-con-head"><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
+<li>
+  <div class="row">
+    <div class="col-md-3 discipline-pic">
+      <%= image_tag(course.publicize_url(:list)) -%>
+    </div>
+    <div class="col-md-7 discipline-info">
+      <div class="row info-title">
+        <div class="col-md-12">
+          <strong><%= course.name %></strong>
+        </div>
+      </div>
+      <div class="row info-state">
+        <div class="col-md-7">
+          <span><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
           <span><%= course.grade %></span>
-        </td>
-        <td>
-          <span class="tutorial-con-head"><%= LiveStudio::Course.human_attribute_name(:students_count) %></span>
-          <span><%= course.buy_user_count %></span>
-        </td>
-        <td class="tutorial-con-audit"><span><%= course.status.text %></span></td>
-      </tr>
-      <tr>
-        <td class="tutorial-con-new">
-          <span class="tutorial-con-head tutorial-con-edit"><%= LiveStudio::Course.human_attribute_name(:price) %></span>
-          <span class="tutorial-con-edit">
-            <%= number_to_currency(course.price, unit: "￥", precision: 2) %>
-            <i>(<%= number_to_percentage(course.teacher_percentage, precision: 0) %><%= LiveStudio::Course.human_attribute_name(:percentage) %>)</i>
-          </span>
-        </td>
-        <td>
-          <span class="tutorial-con-head tutorial-con-edit"><%= LiveStudio::Course.human_attribute_name(:lessons_progress) %></span>
-          <span class="tutorial-con-edit"><%= course.finished_lessons_count %>/<%= course.lessons_count %></span>
-        </td>
-        <td>
-          <center>
-            <span class="tutorial-con-edit">
-              <%= link_to live_studio.preview_courses_path(id: course), method: :post, target: '_blank' do %>
-                [<%= t("common.preview") %>]
-              <% end %>
-              <%= link_to live_studio.course_announcements_path(course) do %>
-                [<%= t("common.announcement") %>]
-              <% end if course.teaching? %>
-
-              <div class="modal fade in" id="delete_<%= course.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
-                  <div class="modal-dialog" role="document">
-                    <div class="editor-delete">
-                      <div class="editor-delete-title">
-                        <span style="float: left;">提示</span>
-                      </div>
-                      <div class="editor-delete-con">
-                        <p>是否确认删除此课程？</p>
-                      </div>
-                      <div class="editor-delete-btn">
-                        <center>
-                          <a href="javascript:void(0);" data-dismiss="modal" aria-label="Close">取消</a>
-                          <%= link_to '确认', live_studio.teacher_course_path(@teacher, course), method: :delete %>
-                        </center>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </span>
-          </center>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+        </div>
+        <div class="col-md-5">
+          <span><%= LiveStudio::Course.human_attribute_name(:lessons_progress) %></span>
+          <span><%= course.finished_lessons_count %>/<%= course.lessons_count %></span>
+        </div>
+      </div>
+      <div class="row info-user">
+        <div class="col-md-7">
+          <span><%= LiveStudio::Course.human_attribute_name(:price) %></span>
+          <span><%= number_to_currency(course.price, unit: "￥", precision: 2) %></span>
+          <i>(<%= number_to_percentage(course.teacher_percentage, precision: 0) %><%= LiveStudio::Course.human_attribute_name(:percentage) %>)</i>
+        </div>
+        <div class="col-md-5">
+          <span><%= LiveStudio::Course.human_attribute_name(:students_count) %></span>
+          <span><%= course.buy_tickets_count %></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 course-state">
+      <span class="col-md-12 col-sm-4 col-xs-4"><%= course.status.text %></span>
+      <%= link_to t("common.preview"), live_studio.preview_courses_path(id: course.id), data: {method: :post}, target: '_blank' %>
+      <%= link_to t("common.announcement"), live_studio.course_announcements_path(course) if course.teaching? %>
+    </div>
+  </div>

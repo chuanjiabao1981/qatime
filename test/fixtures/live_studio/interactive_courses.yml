@@ -49,6 +49,7 @@ interactive_course_one_2:
   name: 招生中的一对一
   workstation: workstation_one
   status: 0
+  description: 互动2互动2互动2互动2互动2互动2
   grade: 高三
   subject: 语文
   teacher_percentage: 70
@@ -64,6 +65,7 @@ interactive_course_two_1:
   name: 第2-1个一对一直播
   workstation: workstation_one
   status: 1
+  description: 互动2互动2互动2互动2互动2互动2
   grade: 高二
   subject: 数学
   teacher_percentage: 70
@@ -80,6 +82,7 @@ interactive_course_two_2:
   name: 第2-2个一对一直播
   workstation: workstation_one
   status: 1
+  description: 互动2互动2互动2互动2互动2互动2
   grade: 高一
   subject: 数学
   teacher_percentage: 70
@@ -96,6 +99,7 @@ interactive_course_two_3:
   name: 第2-3个一对一直播
   workstation: workstation_one
   status: 1
+  description: 互动2互动2互动2互动2互动2互动2
   grade: 高一
   subject: 物理
   teacher_percentage: 70
@@ -112,6 +116,7 @@ interactive_course_three_1:
   name: 第3-1个一对一直播
   workstation: workstation_one
   status: 1
+  description: 互动2互动2互动2互动2互动2互动2
   grade: 高一
   subject: 英语
   interactive_lessons_count: 2
@@ -131,6 +136,7 @@ interactive_course_three_2:
   name: 第3-2个一对一直播
   workstation: workstation_one
   status: 2
+  description: 互动2互动2互动2互动2互动2互动2
   grade: 高一
   subject: 物理
   teacher_percentage: 60

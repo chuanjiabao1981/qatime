@@ -174,8 +174,8 @@ cn:
         lesson_name_text: "一对一互动课程-第%{index}课时"
       placeholder:
         name: 输入一对一课程标题
-        objective: 输入课程能够达到的学习目标(最多30个字)
-        suit_crowd: 输入适合学习的人群(最多30个字)
+        objective: 输入课程能够达到的学习目标(最多300个字)
+        suit_crowd: 输入适合学习的人群(最多300个字)
         description: 请输入直播介绍（最多300字）
         price: 请输入正数
         teacher_percentage: 输入教师分成

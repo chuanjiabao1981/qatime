@@ -105,7 +105,7 @@ module LiveStudio
       assert page.has_content? '限时打折'
       assert page.has_content? '视频总长'
       assert page.has_link? '立即学习'
-      assert page.has_link? '加入试听'
+      assert page.has_link? '进入试听'
       assert page.has_link? '试听本课时'
       assert page.has_link? '观看本课时'
     end

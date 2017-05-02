@@ -43,7 +43,7 @@ course_no_teacher:
 
 course_destroy_teacher:
   name: 测试辅导3班
-  teacher_id: 99999
+  teacher: teacher_one
   workstation: workstation_one
   status: 1
   grade: 六年级
@@ -67,7 +67,7 @@ course_init:
 
 course4:
   name: 第四个舞蹈班
-  teacher_id: 1
+  teacher: teacher_one
   workstation: workstation_one
   status: 1
   price: 1000
@@ -80,7 +80,7 @@ course4:
 
 course_preview:
   name: 招生中的辅导班
-  teacher_id: 1
+  teacher: teacher_one
   workstation: workstation_one
   status: 1
   price: 1000
@@ -186,7 +186,7 @@ course_teach_2:
 course_with_lesson:
   id: 3
   name: 辅导班3
-  teacher_id: 1
+  teacher: teacher_one
   workstation: workstation_one
   status: 2
   grade: 六年级
@@ -222,7 +222,7 @@ course_with_order2:
 
 course_with_lessons:
   name: 可直播辅导班
-  teacher_id: 10
+  teacher: english_teacher
   workstation: workstation_one
   status: 1
   teacher_percentage: 80
@@ -235,9 +235,8 @@ course_with_lessons:
   taste_count: 1
 
 tasting_course:
-  id: 10
   name: 试听中的辅导班
-  teacher_id: 10
+  teacher: english_teacher
   workstation: workstation_one
   status: 1
   teacher_percentage: 80

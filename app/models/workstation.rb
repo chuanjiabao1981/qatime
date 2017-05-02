@@ -98,7 +98,7 @@ class Workstation < ActiveRecord::Base
   end
 
   def is_default_of_city
-    city.workstation_id == id
+    city && city.workstation_id == id
   end
 
   def cash_account!

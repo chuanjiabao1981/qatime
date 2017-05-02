@@ -10,11 +10,16 @@ class StudentViewTopAndSideBarTest < ActionDispatch::IntegrationTest
   def teardown
     Capybara.use_default_driver
   end
+
   test "unsigned view top and side bar" do
     visit root_path
 
-    assert find('div.navbar-collapse').has_content?('下载'), 'topbar下载不存在'
-    assert find('div.navbar-collapse').has_content?('帮助'), 'topbar帮助不存在'
+    assert find('div.navbar-collapse').has_content?('直播课')
+    assert find('div.navbar-collapse').has_content?('一对一')
+    assert find('div.navbar-collapse').has_content?('视频课')
+    assert find('div.navbar-collapse').has_content?('专属课程')
+    assert find('div.navbar-collapse').has_content?('问答社区')
+    assert find('div.navbar-collapse').has_content?('公共课程')
   end
 
   test "student view top and side bar" do
@@ -32,8 +37,8 @@ class StudentViewTopAndSideBarTest < ActionDispatch::IntegrationTest
     assert find('ul.menu').has_content?('用户设置'), 'sidebar用户设置不存在'
     assert find('ul.menu').has_content?('我的钱包'), 'sidebar我的钱包不存在'
     assert find('ul.menu').has_content?('我的订单'), 'sidebar我的订单不存在'
-    assert find('ul.menu').has_content?('我的消息'), 'sidebar我的消息不存在'
-    assert find('ul.menu').has_content?('我的辅导'), 'sidebar我的辅导不存在'
+    assert find('ul.menu').has_content?('消息中心'), 'sidebar消息中心不存在'
+    assert find('ul.menu').has_content?('我的直播课'), 'sidebar我的直播课不存在'
     assert find('ul.menu').has_content?('我的作业'), 'sidebar我的作业不存在'
     assert find('ul.menu').has_content?('我的老师'), 'sidebar我的老师不存在'
     assert find('ul.menu').has_content?('专属课程'), 'sidebar专属课程不存在'
@@ -56,7 +61,7 @@ class StudentViewTopAndSideBarTest < ActionDispatch::IntegrationTest
     assert find('ul.menu').has_content?('用户设置'), 'sidebar用户设置不存在'
     assert find('ul.menu').has_content?('财产管理'), 'sidebar财产管理不存在'
     assert find('ul.menu').has_content?('消息中心'), 'sidebar消息中心不存在'
-    assert find('ul.menu').has_content?('我的辅导'), 'sidebar我的辅导不存在'
+    assert find('ul.menu').has_content?('我的直播课'), 'sidebar我的直播课不存在'
     assert find('ul.menu').has_content?('我的课程'), 'sidebar我的课程不存在'
     assert find('ul.menu').has_content?('课程状态'), 'sidebar课程状态不存在'
     assert find('ul.menu').has_content?('作业管理'), 'sidebar作业管理不存在'

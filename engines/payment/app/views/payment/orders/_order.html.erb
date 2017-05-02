@@ -46,7 +46,7 @@
         <div class="col-md-12">
           <% if Payment::Order::CATE_UNPAID.include?(order.status) %>
             <%= link_to t('view.payment_show.cancel_order'), cancel_order_user_order_path(@user, order.order_no, cate: :index), method: :patch, data: { confirm: t('view.payment_show.cancel_order_confirm') } %>
-            <%= link_to t('activerecord.view.pay_now'), pay_user_order_path(@user, order.order_no) %>
+            <%= link_to t('activerecord.view.pay_now'), transaction_path(order.order_no) %>
           <% end %>
 
           <% if Payment::Order::CATE_PAID.include?(order.status) %>

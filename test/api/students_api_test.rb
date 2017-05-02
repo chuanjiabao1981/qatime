@@ -37,7 +37,8 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
 
   test "PUT /api/v1/students/:id update student and returns student's info by student" do
     img_file = fixture_file_upload("#{Rails.root}/test/integration/avatar.jpg", 'image/jpeg')
-    put "/api/v1/students/#{@student.id}", {name: "test_name", grade: "初一", avatar: img_file, gender: "male", birthday: "2000-01-01", desc: "desc test"}, 'Remember-Token' => @remember_token
+    city = cities(:yangquan)
+    put "/api/v1/students/#{@student.id}", {name: "test_name", grade: "初一", province_id: city.province_id, city_id: city.id, avatar: img_file, gender: "male", birthday: "2000-01-01", desc: "desc test"}, 'Remember-Token' => @remember_token
 
     assert_response :success
     res = JSON.parse(response.body)
@@ -48,6 +49,8 @@ class Qatime::StudentsAPITest < ActionDispatch::IntegrationTest
     @student.reload
     assert_equal @student.name, res['data']['name']
     assert_equal @student.grade, res['data']['grade']
+    assert_equal @student.province_id, res['data']['province']
+    assert_equal @student.city_id, res['data']['city']
     assert_equal @student.avatar_url, res['data']['avatar_url']
     assert_equal "2000-01-01", res['data']['birthday']
     assert_equal @student.desc, res['data']['desc']

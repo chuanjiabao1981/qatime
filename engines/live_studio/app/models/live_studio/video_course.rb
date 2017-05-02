@@ -200,6 +200,7 @@ module LiveStudio
       ticket = buy_tickets.find_or_create_by(student_id: student.id, lesson_price: price,
                                              payment_order_id: nil, buy_count: video_lessons_count)
       ticket.active!
+      ticket
     end
 
     def for_sell?

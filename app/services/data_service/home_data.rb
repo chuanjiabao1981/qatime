@@ -37,7 +37,7 @@ module DataService
     class << self
       def position_query(position, city_name)
         city = City.find_by(name: city_name)
-        return position.items unless city.present?
+        return position.items.by_city(nil) unless city.present?
         position.items.by_city(city.id)
       end
     end

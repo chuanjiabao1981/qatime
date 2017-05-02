@@ -52,6 +52,27 @@ module V1
         end
 
         resource :interactive_courses do
+          desc '公告 成员状态 直播列表' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: true
+            }
+          end
+          params do
+            requires :id, desc: '一对一ID'
+          end
+          get '/:id/realtime' do
+            course = ::LiveStudio::InteractiveCourse.find(params[:id])
+            realtime =
+              {
+                announcements: course.announcements.all.order(id: :desc),
+                members: course.chat_team.try(:join_records).try(:map,&:account),
+                current_lesson_status: course.current_lesson.try(:status),
+                owner: course.chat_team.try(:owner).to_s
+              }
+            present realtime, with: Entities::CourseRealtime
+          end
+
           before do
             authenticate!
           end

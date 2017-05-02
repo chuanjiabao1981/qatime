@@ -1,22 +1,19 @@
-<div class="container container-details container-bottom">
-  <div class="row">
-    <%= render "layouts/sidebar/faqs" %>
-    <div class="col-md-9 col-right">
-      <div class="panel panel-default">
-        <div class="process-ask">
-          <div class="ask-title">
-            <%= QaFaq.model_name.human %>
-            <% if allow? 'qa_faqs','new' %>
-              <%=link_to new_qa_faq_path do %>
-                <button type="button" class="btn btn-xs btn-success"><%="增加#{QaFaq.model_name.human}" %></button>
-              <% end %>
-            <% end %>
-          </div>
-          <ul>
-            <%= render @qa_faqs %>
-          </ul>
-        </div>  
-      </div>
-   </div>
+<div class="contains">
+  <div class="contains-title">
+    <h3>
+      <%= QaFaq.model_name.human %>
+      <% if allow? :qa_faqs, :new %>
+        <%= link_to new_qa_faq_path do %>
+          <button type="button" class="btn btn-xs btn-success"><%= t('view.index.add_qa_faq') %></button>
+        <% end %>
+      <% end %>
+    </h3>
+  </div>
+  <div class="contains-discipline">
+    <div class="process-ask">
+      <ul>
+        <%= render @qa_faqs %>
+      </ul>
+    </div>
   </div>
 </div>

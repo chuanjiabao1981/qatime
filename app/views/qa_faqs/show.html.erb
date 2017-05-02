@@ -1,28 +1,20 @@
-<div class="container container-details container-bottom">
-  <div class="row">
-    <%= render "layouts/sidebar/faqs" %>
-    <div class="col-md-9 col-right">
-      <div class="panel panel-default">
-        <div class="process-ask">
-          <div class="ask-title">
-            <%= link_to QaFaq.model_name.human, qa_faqs_path %>
-            <span>&gt;</span>
-            <span><%= "【#{t("activerecord.attributes.qa_faq.qa_faq_type_enum.#{@qa_faq.qa_faq_type}")}】#{@qa_faq.title}" %></span>
-          </div>
-
-          <div class="process-content">
-            <div class="process-news">
-              <%= raw @qa_faq.content %>
-              <%= render partial: 'pictures/gallery',locals:{pictures: @qa_faq.pictures,show_operation: false,gallery_id: @qa_faq.token} %>
-            </div>
-            <hr />
-            <% if allow? 'qa_faq','edit' %>
-              <%= link_to '编辑' , edit_qa_faq_path(@qa_faq) %>
-            <% end %>
-          </div>
-        </div>
-      </div>
+<div class="contains">
+  <div class="process-ask">
+    <div class="ask-title">
+      <%= link_to QaFaq.model_name.human, qa_faqs_path %>
+      <span>&gt;</span>
+      <span><%= "【#{t("activerecord.attributes.qa_faq.qa_faq_type_enum.#{@qa_faq.qa_faq_type}")}】#{@qa_faq.title}" %></span>
     </div>
-   </div>
+
+    <div class="process-content">
+      <div class="process-news">
+        <%= raw @qa_faq.content %>
+        <%= render partial: 'pictures/gallery', locals: { pictures: @qa_faq.pictures, show_operation: false, gallery_id: @qa_faq.token } %>
+      </div>
+      <hr>
+      <% if allow? :qa_faq, :edit %>
+        <%= link_to t('common.editor_toolbar_edit') , edit_qa_faq_path(@qa_faq) %>
+      <% end %>
+    </div>
   </div>
 </div>

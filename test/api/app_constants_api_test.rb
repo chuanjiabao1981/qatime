@@ -36,4 +36,30 @@ class Qatime::CaptchaAPITest < ActionDispatch::IntegrationTest
     assert_not_includes names, "外教", "高二标签不正确"
     assert_includes names, "高考", "高二标签不正确"
   end
+
+  test "GET /api/v1/app_constant/provinces get provinces" do
+    get "/api/v1/app_constant/provinces"
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status']
+    assert_equal res['data'].size, Province.all.count
+
+    get "/api/v1/app_constant/provinces", scope: 'has_default_workstation'
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal res['data'].size, Province.has_default_workstation.count
+  end
+
+  test "GET /api/v1/app_constant/cities get cities" do
+    get "/api/v1/app_constant/cities"
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status']
+    assert_equal res['data'].size, City.all.count
+
+    get "/api/v1/app_constant/cities", scope: 'has_default_workstation'
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal res['data'].size, City.has_default_workstation.count
+  end
 end

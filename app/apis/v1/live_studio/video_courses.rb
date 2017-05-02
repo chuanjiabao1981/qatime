@@ -82,6 +82,22 @@ module V1
             present order, with: Entities::Payment::Order
           end
 
+          desc '购买免费的视频课(无需下单直接出票)' do
+            headers 'Remember-Token' => {
+                        description: 'RememberToken',
+                        required: true
+                    }
+          end
+          params do
+            requires :id, desc: '视频课ID'
+          end
+          post '/:id/deliver_free' do
+            video_course = ::LiveStudio::VideoCourse.find(params[:id])
+            ticket = video_course.deliver_free(current_user)
+            raise ActiveRecord::RecordNotFound if ticket.blank?
+            present ticket, with: Entities::LiveStudio::Ticket
+          end
+
           desc '试听视频课' do
             headers 'Remember-Token' => {
               description: 'RememberToken',

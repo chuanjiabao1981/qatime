@@ -401,7 +401,7 @@ module LiveStudio
       self.publish_percentage = workstation.publish_percentage
       # 平台分成
       self.platform_percentage = workstation.platform_percentage
-      self.base_price = (workstation.service_price / 60.0).round(2)
+      self.base_price = (workstation.video_service_price / 60.0).round(2)
     end
 
     # 计算结账分成

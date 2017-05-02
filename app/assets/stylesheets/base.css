@@ -5938,7 +5938,7 @@ ul {
 /*常见问题*/
 .process-ask {
   width: 100%;
-  min-height: 800px;
+  min-height: 680px;
 }
 .ask-title,.study-title {
   margin: 0 10px;
@@ -12751,6 +12751,7 @@ ul {
 }
 
 /*帮助页面*/
+
 .nav-side {
   box-shadow: 0 0 10px #ccc;
   margin-bottom: 30px;

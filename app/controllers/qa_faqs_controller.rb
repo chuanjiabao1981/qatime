@@ -2,8 +2,8 @@ class QaFaqsController < ApplicationController
   respond_to :html
 
   def index
-    @qa_faqs = QaFaq.all.order(:created_at)
-    render layout: "application_front"
+    @qa_faqs = QaFaq.order(:created_at)
+    render layout: 'v1/qa_faq'
   end
 
   def new
@@ -18,7 +18,7 @@ class QaFaqsController < ApplicationController
   end
 
   def show
-    render layout: "application_front"
+    render layout: 'v1/qa_faq'
   end
 
   def edit
@@ -32,15 +32,15 @@ class QaFaqsController < ApplicationController
   end
 
   def courses
-    render layout: "application_front"
+    render layout: 'v1/qa_faq'
   end
 
   def teacher
-    render layout: "application_front"
+    render layout: 'v1/qa_faq'
   end
 
   def student
-    render layout: "application_front"
+    render layout: 'v1/qa_faq'
   end
 
   private

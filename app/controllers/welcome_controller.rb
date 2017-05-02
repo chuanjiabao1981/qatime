@@ -1,9 +1,8 @@
 class WelcomeController < ApplicationController
-  layout "application"
+  layout 'v1/application'
 
   def download
     @softwares = Software.published.order("software_category_id, version desc")
-    render layout: 'application_front'
   end
 
   def courses
@@ -15,6 +14,4 @@ class WelcomeController < ApplicationController
     render layout: false
   end
 
-  def index
-  end
 end

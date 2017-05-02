@@ -34,13 +34,18 @@ class SoftwaresTest < ActionDispatch::IntegrationTest
     assert_difference "Software.count", 1 do
       click_on "新增软件"
     end
+    new_logout_as(admin)
   end
 
   # 未登录访问下载页面
   test 'view software not signin' do
-    visit root_path
-    click_on '下载'
-    assert page.has_content?('教师问答社区'), '直播器软件无法下载'
-    assert page.has_content?('学生app'), '安卓应用无法下载'
+    visit welcome_download_path
+    software = Software.published.first
+    assert page.all('ul.spinner li').size, Software.published.count
+
+    assert page.has_content? software.title
+    assert page.has_content? software.sub_title
+    assert page.has_content? software.desc
+    assert page.has_link? '点击下载'
   end
 end

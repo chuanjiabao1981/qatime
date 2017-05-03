@@ -13,7 +13,7 @@ module LiveStudio
 
     # 异步获取视频回放
     def async_fetch_replays
-      ReplaysSyncJob.perform_async(model_name.to_s, id)
+      ReplaysSyncJob.perform_later(model_name.to_s, id)
     end
 
     # 获取视频回放
@@ -26,7 +26,7 @@ module LiveStudio
 
     # 异步合并视频片段
     def async_merge_replays
-      ReplaysMergeJob.perform_async(model_name.to_s, id)
+      ReplaysMergeJob.perform_later(model_name.to_s, id)
     end
 
     # 合并视频片段

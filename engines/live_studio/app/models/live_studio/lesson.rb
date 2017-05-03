@@ -258,7 +258,7 @@ module LiveStudio
       # 记录播放记录
       instance_play_records
       # 获取回放视频
-
+      async_fetch_replays
     end
 
     # 记录播放记录

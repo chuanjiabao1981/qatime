@@ -4856,89 +4856,6 @@ ul {
 
 
 
-
-
-
-
-/*下载*/
-/*.download-page {
-	min-height: 610px;
-	box-shadow: 0 0 10px #CCCCCC;
-}
-.down-load {
-	padding: 30px 20px;
-	color: #666;
-}
-.down-load img {
-	width: 118px;
-	height: 118px;
-}
-.down-load .col-md-8 img {
-	float: left;
-	margin-right: 30px;
-}
-.down-msg {
-	margin-left: 150px;
-}
-.down-msg-title {
-	margin: 10px 0 37px;
-	color: #333333;
-}
-.down-msg-title span:first-child {
-	font-size: 18px;
-	color: #000000;
-}
-.down-msg-right img {
-	float: right;
-}
-.down-msg-new {
-	width: 120px;
-	height: 118px;
-	float: right;
-	margin-left: 10px;
-	font-size: 14px;
-	color: #CCCCCC;
-}
-.down-msg-new span {
-	display: inline-block;
-	height: 79px;
-}
-.down-msg-new a {
-	display: inline-block;
-	width: 120px;
-	height: 38px;
-	border: 1px solid #BE0B0B;
-	color: #BE0B0B;
-	line-height: 38px;
-	text-align: center;
-	border-radius: 4px;
-}
-.down-load .col-md-4 {
-	overflow: hidden;
-}
-.down-load-con {
-	padding-bottom: 40px;
-	border-bottom: 1px solid #F1F1F1;
-}
-.down-load:last-child .down-load-con{
-	border-bottom: 0px;
-	padding-bottom: 148px;
-}
-@media only screen  and (max-width: 990px) {
-.down-load .col-md-4 {
-	width: 100%;
-}
-.down-msg-right {
-	float: left;
-}
-.down-msg-new {
-	margin-left: 30px;	
-}
-}*/
-
-
-
-
 /*登录页面*/
 .login-body {
   background-image:none!important;
@@ -12813,19 +12730,65 @@ ul {
 
 
 /*下载页面*/
-.download {
-  box-shadow: 0 0 10px #ccc;
-  min-height: 680px;
+.download-info {
+  width: 100%;
+  margin-bottom: 105px;
+}
+.download-info > .container {
+  height: 600px;
+  position: relative;
+}
+.download-info > .container > img {
+  position: absolute;
+  left: 40px;
+  top: 90px;
+  -webkit-animation: fadeInLeft 0.5s 0.7s ease both;
+  -moz-animation: fadeInLeft 0.5s 0.7s ease both;
+  animation: fadeInLeft 0.5s 0.7s ease both;
+}
+.download-info > .container > .mobile-item {
+  position: absolute;
+  top: 130px;
+  right: 170px;
+  font-size: 30px;
+  color: #FFFFFF;
+  -webkit-animation: fadeInRight 0.5s 0.7s ease both;
+  -moz-animation: fadeInRight 0.5s 0.7s ease both;
+  animation: fadeInRight 0.5s 0.7s ease both;
+}
+.download-info > .container > .mobile-item h3 {
+  font-size: 60px;
+  margin-top: 0px;
+}
+.download-info > .container > .mobile-item a {
+  display: inline-block;
+  margin-top: 40px;
+  width: 120px;
+  height: 38px;
+  border: 1px solid #FFFFFF;
+  font-size: 14px;
+  color: #fff;
+  text-align: center;
+  line-height: 36px;
+  border-radius: 4px;
+}
+.download-info > .container > .mobile-item a > span {
+  padding-left: 10px;
+}
+.download-info > .container > .mobile-item a:hover {
+  background-color: #fff;
+  color: #ff5842;
 }
 .download > .spinner {
   padding: 40px 0px;
   margin-bottom: 0px;
 }
 .download > .spinner > li {
-  margin-bottom: 90px;
+  padding: 50px 0px;
+  border-bottom: 1px solid #f0f0f0;
 }
 .download > .spinner > li:last-child {
-  margin-bottom: 0px;
+  border-bottom: 0px;
 }
 .download > .spinner > li >.row {
   margin: 0px;
@@ -12885,13 +12848,28 @@ ul {
   .download > .spinner .spinner-new > a {
     width: 100%;
   }
+  .download-info > .container > img {
+    left: 15px;
+  }
+  .download-info > .container > .mobile-item {
+    right: 0px;
+  }
 }
 @media only screen and (max-width: 990px) {
+  .download-info > .container > img {
+    display: none;
+  }
+  .download-info > .container > .mobile-item {
+    text-align: center;
+    right: 0px;
+    left: 0px;
+  }
   .download > .spinner > li {
     margin-bottom: 40px;
   }
   .download > .spinner .spinner-new > p {
     min-height: 18px;
+    margin-bottom: 10px;
   }
   .download > .spinner .spinner-head {
     padding-left: 15px;

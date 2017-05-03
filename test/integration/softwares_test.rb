@@ -47,5 +47,8 @@ class SoftwaresTest < ActionDispatch::IntegrationTest
     assert page.has_content? software.sub_title
     assert page.has_content? software.desc
     assert page.has_link? '点击下载'
+
+    assert page.has_content? '智造互联乐享教育'
+    assert page.has_link? '下载'
   end
 end

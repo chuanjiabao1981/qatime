@@ -34,7 +34,7 @@ module LiveStudio
       replays.create(video_for: ChannelVideo.video_fors['board'],
                      name: board_replay_name,
                      vids: board_video_vids,
-                     channel: course.channels.find_by(use_for: Channel.use_fors['board']))
+                     channel: channels.find_by(use_for: Channel.use_fors['board']))
     end
   end
 end

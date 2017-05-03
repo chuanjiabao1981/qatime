@@ -37,19 +37,20 @@ module LiveStudio
     end
 
     # 同步视频
-    def sync_video_for(lesson)
+    def sync_video_for(recordable)
       res = VCloud::Service.vod_video_list(cid: remote_id,
-                                           beginTime: lesson.replays_start_at,
-                                           endTime: lesson.replays_end_at)
+                                           beginTime: recordable.replays_start_at,
+                                           endTime: recordable.replays_end_at)
       result = JSON.parse(res.body).symbolize_keys[:ret]
       result['videoList'].each do |v|
         next if channel_videos.find_by(vid: v['vid'])
+        next unless v['name'].include?(record_filename(recordable))
         channel_videos.create(name: v['name'],
                               url: v['url'],
                               vid: v['vid'],
                               begin_time: v['beginTime'],
                               end_time: v['endTime'],
-                              lesson_id: lesson.id,
+                              lesson_id: recordable.id,
                               video_for: use_for)
       end
       true

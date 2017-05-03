@@ -125,6 +125,7 @@ module LiveStudio
     has_many :students, through: :buy_tickets
 
     has_many :channels
+    has_one :channel
     has_many :push_streams, through: :channels
     has_many :pull_streams, through: :channels
     has_many :play_records # 听课记录

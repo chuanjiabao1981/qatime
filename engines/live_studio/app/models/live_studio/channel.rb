@@ -1,6 +1,6 @@
 module LiveStudio
   class Channel < ActiveRecord::Base
-  include LiveStudio::Channelable
+    include LiveStudio::Channelable
     has_soft_delete
 
     belongs_to :course
@@ -53,6 +53,21 @@ module LiveStudio
                               video_for: use_for)
       end
       true
+    end
+
+    def record_for(recordable)
+      VCloud::Service.app_channel_set_always_record(
+        cid: remote_id,
+        needRecord: 1,
+        format: 0,
+        duration: 120,
+        filename: record_filename(recordable)
+      )
+    end
+
+    # 录制文件名
+    def record_filename(recordable)
+      "#{recordable.record_filename}#{use_for}"
     end
 
     private
@@ -130,14 +145,12 @@ module LiveStudio
       )
     end
 
-    private
-
     def always_record
       VCloud::Service.app_channel_set_always_record(
         cid: remote_id,
         needRecord: 1,
         format: 0,
-        duration: 90, # minutes
+        duration: 120, # minutes
         filename: "#{course.name}#{id}#{use_for}"
       ).success?
     end

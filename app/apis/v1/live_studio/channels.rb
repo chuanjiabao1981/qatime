@@ -16,26 +16,22 @@ module V1
             optional :nId
           end
           post 'callback' do
-            p '================>'
-            p params
-            p '<================'
             code = 500
             if params[:beginTime].present?
-              start_at = Time.at(params[:beginTime].to_f / 1000) - 2.minutes
-              end_at = Time.at(params[:endTime].to_f / 1000) + 2.minutes
               channel = ::LiveStudio::Channel.find_by(remote_id: params[:cid])
-              lesson = ::LiveStudio::Lesson.where(course_id: channel.course_id).where("live_start_at > ? and live_end_at < ?", start_at, end_at)
-              result = lesson.channel_videos.create(name: params['video_name'],
-                                    # url: params['url'],
-                                    vid: params['vid'],
-                                    begin_time: params['beginTime'],
-                                    end_time: params['endTime'],
-                                    channel_id: channel.id,
-                                    video_for: channel.use_for) unless lesson.channel_videos.find_by(vid: params['vid'])
+              lesson_id = params['video_name'].split('_').first.gsub(/lessons(\d+)board/, '\\1')
+              lesson = ::LiveStudio::Lesson.where(course_id: channel.course_id).find(lesson_id)
+              result = lesson.channel_videos.create(
+                name: params['video_name'],
+                vid: params['vid'],
+                begin_time: params['beginTime'],
+                end_time: params['endTime'],
+                channel_id: channel.id,
+                video_for: channel.use_for) if lesson && lesson.channel_videos.find_by(vid: params['vid']).nil?
               code = 200 if result
             else
               replay = ::LiveStudio::Replay.find_by(name: params[:video_name])
-              if replay.update(vid: params['vid'],
+              if replay && replay.update(vid: params['vid'],
                                orig_video_key: params[:orig_video_key],
                                uid: params[:uid],
                                n_id: params[:nID])

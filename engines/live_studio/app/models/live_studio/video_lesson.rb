@@ -164,7 +164,9 @@ module LiveStudio
           lesson_id: id,
           start_time_at: live_start_at,
           end_time_at: live_end_at,
-          tp: 'student'
+          tp: 'student',
+          product_id: video_course_id,
+          product_type: 'LiveStudio::VideoCourse'
       }
     end
 

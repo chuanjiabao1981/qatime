@@ -147,4 +147,9 @@ class Workstation < ActiveRecord::Base
     end
     ::Payment::AvailableAccount.create(owner: self)
   end
+
+  before_validation :default_video_service_price, on: :create
+  def default_video_service_price
+    self.video_service_price ||= 5
+  end
 end

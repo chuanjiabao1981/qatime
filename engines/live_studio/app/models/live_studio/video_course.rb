@@ -319,7 +319,7 @@ module LiveStudio
     end
 
     def service_price
-      (base_price.to_f * 60).to_i
+      base_price.to_i
     end
 
     def reset_left_price
@@ -342,6 +342,10 @@ module LiveStudio
 
     def duration_minutes
       (total_duration.to_f / 60.0).round(2)
+    end
+
+    def duration_hours
+      (total_duration.to_f / 60.0 / 60.0).round(2)
     end
 
     def can_edit?
@@ -402,7 +406,7 @@ module LiveStudio
       self.publish_percentage = workstation.publish_percentage
       # 平台分成
       self.platform_percentage = workstation.platform_percentage
-      self.base_price = (workstation.service_price / 60.0).round(2)
+      self.base_price = workstation.video_service_price
     end
 
     # 计算结账分成

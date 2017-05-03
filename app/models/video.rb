@@ -49,14 +49,15 @@ class Video < ActiveRecord::Base
   def sync_capture
     real_url = name_url.gsub(/^https/, "http")
     output = "/tmp/" + name_identifier.downcase.gsub(/\.\w+$/, '.jpg')
-    `ffmpeg -i #{real_url} -qscale:v 2 -vframes 1 #{output} 2>&1`
+    %x(~/bin/ffmpeg -i #{real_url} -qscale:v 2 -vframes 1 #{output} 2>&1)
+    `ffmpeg         -i #{real_url} -qscale:v 2 -vframes 1 #{output} 2>&1`
     return unless File.exist?(output)
     self.capture = File.open(output)
   end
 
   def sync_duration
     real_url = name_url.gsub(/^https/, "http")
-    result = `ffprobe -i #{real_url} -show_entries format=duration -v quiet -of csv="p=0" 2>&1`
+    result = %x(~/bin/ffprobe -i #{real_url} -show_entries format=duration -v quiet -of csv="p=0" 2>&1)
     self.tmp_duration = result.to_i
   end
 end

@@ -100,6 +100,7 @@ video_course_for_billing:
   suit_crowd: 啊撒旦发送的发撒旦发送的
   total_duration: <%= 10 * 60 * 60 %>
   sell_and_platform_percentage: 35
+  base_price: 5
 confirmed_video_course:
   name: 待创建测试视频课
   teacher: teacher1

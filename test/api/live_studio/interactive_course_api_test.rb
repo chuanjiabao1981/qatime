@@ -1,6 +1,13 @@
 require 'test_helper'
 
 class Qatime::InteractiveCoursesAPITest < ActionDispatch::IntegrationTest
+  def setup
+    @teacher = users(:teacher1)
+    @remember_token = api_login_by_pc(@teacher, :teacher_live)
+    @student = users(:student_one_with_course)
+    @student_remember_token = api_login(@student, :app)
+  end
+  
   # 一对一搜索接口
   test 'interactive course search' do
     get "/api/v1/live_studio/interactive_courses/search"
@@ -57,5 +64,27 @@ class Qatime::InteractiveCoursesAPITest < ActionDispatch::IntegrationTest
     end
     assert Payment::Order.last.weixin?, "支付方式记录错误"
     assert Payment::Order.last.source.app?, "订单来源错误"
+  end
+
+  # 一对一直播状态
+  test 'visit realtime by student' do
+    course = live_studio_interactive_courses(:interactive_course_three_2)
+
+    get "/api/v1/live_studio/interactive_courses/#{course.id}/realtime", {}, { 'Remember-Token' => @student_remember_token }
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status']
+    assert_equal 4, res['data'].size
+  end
+
+  # 一对一直播状态
+  test 'visit realtime by teacher' do
+    course = live_studio_interactive_courses(:interactive_course_three_2)
+    get "/api/v1/live_studio/interactive_courses/#{course.id}/realtime", {}, { 'Remember-Token' => @remember_token }
+
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status']
+    assert_equal 4, res['data'].size
   end
 end

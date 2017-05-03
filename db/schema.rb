@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170426071714) do
+ActiveRecord::Schema.define(version: 20170502054850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1778,6 +1778,7 @@ ActiveRecord::Schema.define(version: 20170426071714) do
     t.decimal  "service_price",           precision: 10, scale: 2, default: 0.0
     t.datetime "contract_start_date_at"
     t.datetime "contract_end_date_at"
+    t.decimal  "video_service_price",     precision: 4,  scale: 2, default: 0.0
   end
 
   add_foreign_key "invitations", "users"

@@ -13,17 +13,16 @@ module LiveService
     # 6. 初始化心跳
     def lesson_start(board, camera)
       @course = @lesson.course
-      # 如果辅导班已经有状态为teaching的课程,则返回false
-      return false unless @course.lessons.teaching.blank?
       # 第一节课开始上课之前把辅导班设置为已开课
       @course.teaching! if @course.published?
       LiveStudio::Lesson.transaction do
+        @course.lessons.where(status: LiveStudio::Lesson.statuses.values_at(:paused, :teaching)).where("id <> ?", @lesson.id).each do |l|
+          l.close!
+          LiveService::LessonDirector.live_status_change(@course, 0, 0, l)
+        end
+
         # 记录上课开始时间
         @lesson.live_start_at = Time.now if @lesson.live_start_at.nil?
-        # 开始上课之前把上一节未结束(pause, closed)的课程设置为结束(finished)，finished状态下的课程不能继续直播
-        @course.lessons.waiting_finish.each do |lesson|
-          LiveService::LessonDirector.new(lesson).finish unless lesson.id == @lesson.id
-        end
         @lesson.teach!
         @lesson.start_live_session
       end

@@ -229,6 +229,11 @@ module LiveStudio
       lesson_price * (lessons_count - closed_lessons_count)
     end
 
+    # 插班优惠?
+    def join_cheap?
+      teaching? && closed_lessons_count > 0
+    end
+
     def live_next_time
       lesson = lessons.include_today.unstart.first
       lesson && "#{lesson.class_date} #{lesson.start_time}-#{lesson.end_time}" || I18n.t('view.course_show.nil_data')

@@ -249,7 +249,7 @@ module LiveStudio
     end
 
     def service_price
-      (base_price.to_f * 60).to_i
+      base_price.to_i
     end
 
     def reset_left_price
@@ -311,6 +311,7 @@ module LiveStudio
       return unless workstation
       self.city = workstation.city
       self.province = city.try(:province)
+      self.base_price = workstation.service_price.round(2)
     end
 
     # 计算结账分成

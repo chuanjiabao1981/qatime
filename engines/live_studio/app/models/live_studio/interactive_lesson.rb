@@ -366,6 +366,10 @@ module LiveStudio
       (real_time.to_i / 60.0).round(2)
     end
 
+    def duration_hours
+      (real_time.to_i / 60.0 / 60.0).round(4)
+    end
+
     private
 
     def reset_status

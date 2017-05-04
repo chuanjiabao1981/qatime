@@ -452,7 +452,7 @@ module LiveStudio
     end
 
     def service_price
-      (base_price.to_f * 60).to_i
+      base_price.to_i
     end
 
     def reset_left_price
@@ -539,7 +539,7 @@ module LiveStudio
       self.publish_percentage = tpl_workstation.publish_percentage
       # 平台分成
       self.platform_percentage = tpl_workstation.platform_percentage
-      self.base_price = (tpl_workstation.service_price / 60.0).round(2)
+      self.base_price = tpl_workstation.service_price.round(2)
     end
 
     # 计算结账分成

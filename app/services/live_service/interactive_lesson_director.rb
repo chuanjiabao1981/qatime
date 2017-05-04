@@ -5,25 +5,21 @@ module LiveService
     end
 
     # 开始上课
-    # 1. 有其它teaching状态的辅导班不可以开始直播
+    # 1. 设置上课中和暂停中的其它课程关闭
     # 2. 第一节课开始上课之前把辅导班设置为已开课
     # 3. 开始上课时间为空的初始化开始上课时间
-    # 4. finish上一节课，为了避免漏处理  finish该辅导班内所有paused, closed状态的其它课程
-    # 5. 开始本节课
-    # 6. 初始化心跳
+    # 4. 开始本节课
+    # 5. 初始化心跳
     def lesson_start(board, camera, room_id = nil)
       @course = @lesson.interactive_course
-      # 如果辅导班已经有状态为teaching的课程,则返回false
-      return false unless @course.interactive_lessons.teaching.blank?
-      # 第一节课开始上课之前把辅导班设置为已开课
       @course.teaching! if @course.published?
       LiveStudio::InteractiveLesson.transaction do
+        @course.interactive_lessons.where(status: LiveStudio::InteractiveLesson.statuses.values_at(:paused, :teaching)).where("id <> ?", @lesson.id).each do |l|
+          l.close!
+          LiveService::InteractiveLessonDirector.live_status_change(@course, 0, 0, l)
+        end
         # 记录上课开始时间
         @lesson.live_start_at = Time.now if @lesson.live_start_at.nil?
-        # 开始上课之前把上一节未结束(pause, closed)的课程设置为结束(finished)，finished状态下的课程不能继续直播
-        @course.interactive_lessons.waiting_finish.each do |lesson|
-          LiveService::InteractiveLessonDirector.new(lesson).finish unless lesson.id == @lesson.id
-        end
         @lesson.room_id = room_id
         @lesson.teach!
         @lesson.current_live_session

@@ -46,7 +46,8 @@ module LiveService
 
     # 试听记录
     def taste_records
-      @student.live_studio_taste_tickets.includes(:product)
+      ticket_ids = @student.live_studio_taste_ticket_ids
+      @student.live_studio_play_records.where(ticket_id: ticket_ids).select("DISTINCT ON(ticket_id) *").order("ticket_id, created_at DESC").to_a.sort.reverse
     end
 
     private

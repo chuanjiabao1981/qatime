@@ -4,6 +4,8 @@ cn:
       download: 点击下载
       win_desc: 现仅支持win7以上版本。
       android_desc: 手机扫描左侧二维码即可下载仅支持 Android 4.0 以上版本。
+      qatime: 答疑时间
+      qatime_desc: 智造互联乐享教育
     courses:
       hot: 最热推荐
       new: 最新推荐

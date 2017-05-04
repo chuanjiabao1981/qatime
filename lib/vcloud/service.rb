@@ -43,7 +43,7 @@ module VCloud
     end
 
     # 录制设置
-    APP_CHANNEL_SET_ALWAYS_RECORD_REQUIRED_PARAMS = %w(cid needRecord format duration).freeze
+    APP_CHANNEL_SET_ALWAYS_RECORD_REQUIRED_PARAMS = %w(cid needRecord format duration filename).freeze
     def self.app_channel_set_always_record(params, options = {})
       params.stringify_keys!
       required_params!(params, APP_CHANNEL_SET_ALWAYS_RECORD_REQUIRED_PARAMS)

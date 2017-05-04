@@ -28,6 +28,7 @@ module LiveService
         @lesson.start_live_session
       end
     ensure
+      @lesson.record!
       LiveService::LessonDirector.live_status_change(@lesson.course, board, camera, @lesson) if @lesson.teaching?
       LiveService::RealtimeService.update_lesson_live(@lesson)
     end

@@ -1,6 +1,6 @@
 module LiveStudio
   class Channel < ActiveRecord::Base
-  include LiveStudio::Channelable
+    include LiveStudio::Channelable
     has_soft_delete
 
     belongs_to :course
@@ -37,22 +37,38 @@ module LiveStudio
     end
 
     # 同步视频
-    def sync_video_for(lesson)
+    def sync_video_for(recordable)
       res = VCloud::Service.vod_video_list(cid: remote_id,
-                                           beginTime: lesson.replays_start_at,
-                                           endTime: lesson.replays_end_at)
+                                           beginTime: recordable.replays_start_at,
+                                           endTime: recordable.replays_end_at)
       result = JSON.parse(res.body).symbolize_keys[:ret]
       result['videoList'].each do |v|
         next if channel_videos.find_by(vid: v['vid'])
+        next unless v['name'].include?(record_filename(recordable))
         channel_videos.create(name: v['name'],
                               url: v['url'],
                               vid: v['vid'],
                               begin_time: v['beginTime'],
                               end_time: v['endTime'],
-                              lesson_id: lesson.id,
+                              lesson_id: recordable.id,
                               video_for: use_for)
       end
       true
+    end
+
+    def record_for(recordable)
+      VCloud::Service.app_channel_set_always_record(
+        cid: remote_id,
+        needRecord: 1,
+        format: 0,
+        duration: 120,
+        filename: record_filename(recordable)
+      )
+    end
+
+    # 录制文件名
+    def record_filename(recordable)
+      "#{recordable.record_filename}#{use_for}"
     end
 
     private
@@ -130,14 +146,12 @@ module LiveStudio
       )
     end
 
-    private
-
     def always_record
       VCloud::Service.app_channel_set_always_record(
         cid: remote_id,
         needRecord: 1,
         format: 0,
-        duration: 90, # minutes
+        duration: 120, # minutes
         filename: "#{course.name}#{id}#{use_for}"
       ).success?
     end

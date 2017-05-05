@@ -28,7 +28,7 @@ module V1
               end
               get 'video_courses' do
                 video_courses = LiveService::StudentLiveDirector.new(@student).video_courses(params).paginate(page: params[:page], per_page: params[:per_page])
-                present video_courses, with: Entities::LiveStudio::StudentVideoCourse, type: :full
+                present video_courses, with: Entities::LiveStudio::StudentVideoCourse, type: :full, current_user: current_user
               end
 
               desc '我的试听视频课' do
@@ -44,7 +44,7 @@ module V1
               end
               get 'video_courses/tasting' do
                 video_courses = @student.live_studio_taste_video_courses.paginate(page: params[:page], per_page: params[:per_page])
-                present video_courses, with: Entities::LiveStudio::StudentVideoCourse
+                present video_courses, with: Entities::LiveStudio::StudentVideoCourse, current_user: current_user
               end
             end
           end

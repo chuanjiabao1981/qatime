@@ -30,7 +30,7 @@ module V1
               end
               get 'interactive_courses' do
                 interactive_courses = LiveService::StudentLiveDirector.new(@student).interactive_courses(params).paginate(page: params[:page], per_page: params[:per_page])
-                present interactive_courses, with: Entities::LiveStudio::StudentInteractiveCourse, type: :default
+                present interactive_courses, with: Entities::LiveStudio::StudentInteractiveCourse, type: :default, current_user: current_user
               end
             end
           end

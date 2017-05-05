@@ -17,11 +17,12 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
 
   test "teacher info view" do
     visit info_teacher_path(@teacher)
-    assert page.has_content?('个人信息'), '个人信息不存在'
-    assert page.has_content?('安全设置'), '安全设置不存在'
+    assert page.has_link?('个人信息'), '个人信息不存在'
+    assert page.has_link?('安全设置'), '安全设置不存在'
 
-    assert page.has_content?('编辑信息'), '编辑信息按钮不存在'
+    assert page.has_link?('编辑信息'), '编辑信息按钮不存在'
     assert page.has_content?(@teacher.name), '个人信息姓名不存在'
+    assert page.has_content? @teacher.teaching_years_text
   end
 
   test "teacher safe view" do
@@ -37,17 +38,22 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
     visit info_teacher_path(@teacher)
     click_on '编辑信息', match: :first
 
+    find(:css, '.jcrop-preview').click
+    attach_file("teacher_avatar", "#{Rails.root}/test/integration/avatar.jpg", visible: false)
+    click_on '保存使用'
+    sleep(1)
+
     fill_in :teacher_name, with: 'name test'
     fill_in :teacher_nick_name, with: 'nick_name'
     choose("男")
-    fill_in :teacher_birthday, with: Time.local(1995, 7, 8).strftime('%Y/%m/%d')
+    execute_script("$('#teacher_birthday').val('1995-07-08')")
     select '小学', from: :teacher_category
     select '山西', from: :teacher_province_id
     select '阳泉', from: :teacher_city_id
     select '阳泉二中', from: :teacher_school_id
     select '英语', from: :teacher_subject
     select '20年以上', from: :teacher_teaching_years
-    fill_in :teacher_desc, with: 'desc test'
+    find('div[contenteditable]').set('desc test')
     click_on '保存'
 
     assert page.has_content?('name test'), '教师name更新错误'
@@ -58,17 +64,6 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
     assert page.has_content?('英语'), '教师可授科目更新错误'
     assert page.has_content?('20年以上'), '教师执教年龄更新错误'
     assert page.has_content?('desc test'), '教师讲师简介更新错误'
-  end
-
-  test "teacher avatar edit view" do
-    visit info_teacher_path(@teacher)
-    click_on '编辑信息', match: :first
-    click_on '更换头像', match: :first
-
-    execute_script("$('input[name=\"teacher[avatar]\"]').show()")
-    attach_file("teacher_avatar", "#{Rails.root}/test/integration/avatar.jpg")
-
-    click_on '保存', match: :first
   end
 
   test 'teacher update payment password' do

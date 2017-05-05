@@ -1,4 +1,5 @@
 class TeachersController < ApplicationController
+  before_action :set_owner
   before_action :step_one_session, only: [:edit, :update]
   before_action :require_step_one_session, only: :update
 
@@ -40,8 +41,10 @@ class TeachersController < ApplicationController
   def edit
     if params[:cate] == "register"
       render layout: 'application_login'
+    elsif params[:cate] == "security_setting"
+
     else
-      render layout: 'teacher_home_new'
+      render layout: 'v1/home'
     end
   end
 
@@ -105,7 +108,7 @@ class TeachersController < ApplicationController
     # else
     #   @earning_records      = @teacher.account.earning_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
     # end
-    render layout: 'teacher_home_new'
+    render layout: 'v1/home'
   end
 
   def questions
@@ -190,6 +193,10 @@ class TeachersController < ApplicationController
     @current_resource = @teacher = Teacher.find(params[:id]) if params[:id]
   end
 
+  def set_owner
+    @owner ||= current_resource
+  end
+
   def payment_password_params
     params.require(:teacher).permit(:payment_password, :payment_password_confirmation, :payment_captcha_confirmation)
   end
@@ -207,7 +214,7 @@ class TeachersController < ApplicationController
   end
 
   def profile_params
-    params.require(:teacher).permit(:name, :nick_name, :gender, :birthday, :category, :province_id, :city_id, :school_id, :subject, :teaching_years, :desc)
+    params.require(:teacher).permit(:name, :nick_name, :gender, :birthday, :category, :province_id, :city_id, :school_id, :subject, :teaching_years, :desc, :crop_x, :crop_y, :crop_w, :crop_h, :avatar)
   end
 
   def avatar_params

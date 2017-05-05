@@ -1,4 +1,5 @@
 class StudentsController < ApplicationController
+  before_action :set_owner
   before_action :step_one_session, only: [:edit, :update]
   before_action :require_step_one_session, only: :update
 
@@ -39,8 +40,10 @@ class StudentsController < ApplicationController
   def edit
     if params[:cate] == "register"
       render layout: 'application_login'
+    elsif params[:cate] == "security_setting"
+
     else
-      render layout: 'student_home_new'
+      render layout: 'v1/home'
     end
   end
 
@@ -65,8 +68,7 @@ class StudentsController < ApplicationController
     # else
     #   @consumption_records      = @student.account.consumption_records.order(created_at: :desc).paginate(page: params[:page],:per_page => 10)
     # end
-
-    render layout: 'student_home_new'
+    render layout: 'v1/home'
   end
 
   def questions
@@ -128,7 +130,7 @@ class StudentsController < ApplicationController
       if params[:cate] == "register"
         render :edit, layout: 'application_login'
       else
-        render :edit, layout: 'student_home_new'
+        render :edit, layout: 'v1/home'
       end
     end
   end
@@ -152,6 +154,10 @@ class StudentsController < ApplicationController
     @current_resource = @student = User.find(params[:id]) if params[:id]
   end
 
+  def set_owner
+    @owner ||= current_resource
+  end
+
   def password_params
     params.require(:student).permit(:current_password, :password, :password_confirmation)
   end
@@ -169,7 +175,7 @@ class StudentsController < ApplicationController
   end
 
   def profile_params
-    params.require(:student).permit(:name, :gender, :birthday, :grade, :province_id, :city_id, :school_id, :desc)
+    params.require(:student).permit(:name, :gender, :birthday, :grade, :province_id, :city_id, :school_id, :desc, :crop_x, :crop_y, :crop_w, :crop_h, :avatar)
   end
 
   def avatar_params

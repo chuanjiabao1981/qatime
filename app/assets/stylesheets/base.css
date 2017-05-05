@@ -12886,3 +12886,219 @@ ul {
     padding-right: 15px;
   }
 }
+
+
+/*学生个人信息*/
+.contains > .set-title > a {
+  float: none;
+  color: #34495e;
+  font-size: 18px;
+}
+.contains > .set-title > a.active {
+  color: #ff5842;
+}
+.contains > .set-title > a:first-child {
+  margin-right: 30px;
+}
+.contains > .user-smg {
+  margin-top: 30px;
+  padding: 0 30px 30px 30px;
+}
+.contains > .user-smg  ul {
+  padding-left: 0px;
+  margin-bottom: 0px;
+}
+.contains > .user-smg  ul li {
+  margin-bottom: 50px;
+  overflow: hidden;
+  font-size: 16px;
+  color: #666;
+}
+.contains > .user-smg  ul .edit-info {
+  margin-bottom: 25px;
+}
+.contains > .user-smg .edit-info > img {
+  width: 128px;
+  height: 128px;
+}
+.contains > .user-smg .edit-info > a {
+  display: inline-block;
+  width: 120px;
+  height: 38px;
+  font-size: 14px;
+  border: 1px solid #ff5842;
+  border-radius: 4px;
+  color: #ff5842;
+  text-align: center;
+  line-height: 36px;
+  float: right;
+  margin-top: 90px;
+}
+
+/*学生信息编辑*/
+.contains > .user-edit form > ul label {
+  font-weight: 500;
+  line-height: 34px;
+}
+.contains > .user-edit form > ul > li > .row {
+  min-height: 54px;
+}
+.contains > .user-edit form > ul > li > .row .has-error {
+  margin: 0px;
+  font-size: 14px;
+}
+.contains > .user-edit form > ul > li {
+  margin-bottom: 0px;
+}
+.contains > .user-edit form > ul > li .user-gender:first-child {
+  margin-right: 25px;
+}
+.contains > .user-edit .form-control[readonly]{
+  background-color: #FFFFFF;
+}
+.contains > .user-edit .region:first-child {
+  padding-left: 0px;
+}
+.contains > .user-edit .region:nth-child(2) {
+  padding-right: 0px;
+}
+.user-edit .head-portrait {
+  width: 128px;
+  height: 128px;
+  position: relative;
+  background-image: none !important;
+  border: 1px solid #F0F0F0;
+}
+
+.user-edit .head-portrait > img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 128px;
+  height: 128px;
+}
+.user-edit .head-portrait > a {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(0,0,0,0.5);
+  text-align: center;
+  color: #FFFFFF;
+  display: none;
+  font-size: 14px;
+}
+.user-edit .head-portrait:hover a {
+  display: block;
+}
+.user-edit .head-portrait > a > img {
+  margin: 40px 0px 15px 0px;
+}
+.pre-4 {
+  width: 128px;
+  height: 128px;
+  overflow: hidden;
+}
+.user-edit .user-send {
+  margin-top: 20px;
+}
+.user-send  a,.user-send  input {
+  display: inline-block;
+  width: 120px;
+  height: 38px;
+  border: 1px solid #ff5842;
+  background-color: #FFFFFF;
+  color: #ff5842;
+  border-radius: 4px;
+}
+.user-send  a {
+  line-height: 36px;
+  margin-right: 20px;
+}
+.user-send  a:hover,.user-send  input:hover {
+  background-color: #ff5842;
+  color: #FFFFFF;
+}
+
+@media only screen and (max-width: 768px) {
+  .contains > .user-edit form > ul > li > .row {
+    min-height: 74px;
+  }
+  .contains > .user-edit form > ul label {
+    line-height: 20px;
+  }
+}
+/*安全设置*/
+.contains .qa_box {
+  margin-left: 0px;
+}
+.contains .qa_box .pull-right {
+  padding: 0px;
+}
+@media only screen and (max-width: 1200px) {
+  .contains .qa_box .pull-right {
+    margin-right: 30px;
+  }
+}
+
+
+/*我的钱包*/
+.wallet {
+  margin-top: 30px;
+}
+.wallet > .account-item {
+  min-height: 60px;
+  font-size: 16px;
+  color: #666;
+  padding: 0px 30px;
+  margin-bottom: 30px;
+}
+.wallet > .account-item .money-sum {
+  font-size: 30px;
+  color: #ff5842;
+}
+.wallet > .account-item > .label-title {
+  margin-bottom: 15px;
+}
+.wallet > .account-item .money-total {
+  line-height: 42px;
+}
+.wallet > .account-item i {
+  margin-left: 15px;
+}
+.wallet > .account-item a {
+  width: 120px;
+  height: 38px;
+  border: 1px solid #ff5842;
+  color: #ff5842;
+  text-align: center;
+  line-height: 36px;
+  float: right;
+  border-radius: 4px;
+}
+.wallet > .account-item a:hover {
+  background-color: #ff5842;
+  color: #FFFFFF;
+}
+.wallet > .account-nav {
+  min-height: 77px;
+  padding: 0 30px;
+  border-top: 1px solid #F0F0F0;
+}
+.wallet > .account-nav > .row {
+  line-height: 76px;
+}
+.wallet > .account-nav > .row > .nav-left {
+  padding-left: 0px;
+}
+.wallet > .account-nav > .row > .nav-left a {
+  padding: 0 15px;
+  font-size: 16px;
+  color: #34495e;
+  border-right: 2px solid #34495e;
+}
+.wallet > .account-nav > .row > .nav-left a.active {
+  color: #ff5842;
+}

@@ -4,8 +4,8 @@
   </div>
   <div class="contains-discipline">
     <div class="discipline-nav">
-      <%= link_to t("filter.category.bought"), live_studio.student_video_courses_path(@student), class: "#{'active' unless params[:cate] == 'tasting' }" -%>
-      <%= link_to t("filter.category.tasting"), live_studio.student_video_courses_path(@student, cate: 'tasting'), class: "#{'active' if params[:cate] == 'tasting' }" -%>
+      <%= link_to t("filter.category.bought"), live_studio.student_video_courses_path(@student, cate: 'charge'), class: "#{'active' if params[:cate] == 'charge' }" -%>
+      <%= link_to t("filter.category.tasting"), live_studio.student_video_courses_path(@student, cate: 'free'), class: "#{'active' if params[:cate] == 'free' }" -%>
     </div>
     <div class="tab-content">
       <div class="discipline-con" id="audit">

@@ -1,4 +1,4 @@
-<%= examination.teacher.view_name%> • <%= localize(examination.created_at,format: :long) %> 布置 •
+<%= examination.teacher.try(:view_name) %> • <%= localize(examination.created_at,format: :long) %> 布置 •
 批改了<%=examination.corrections_count %>次<%= Examination.human_attribute_name(:solution) %> •
 <%= examination.student.name%> •
 写了<%= examination.solutions_count%>次<%= Examination.human_attribute_name(:solution) %>

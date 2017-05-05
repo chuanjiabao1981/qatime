@@ -731,7 +731,7 @@ billing_course_one:
   sell_and_platform_percentage: 40
   platform_percentage: 10
   publish_percentage: 10
-  base_price: 0.1
+  base_price: 6
 
 # 结账失败辅导班
 billing_fail_course_one:
@@ -753,7 +753,7 @@ billing_fail_course_one:
   sell_and_platform_percentage: 40
   platform_percentage: 10
   publish_percentage: 10
-  base_price: 0.1
+  base_price: 6
 
 billing_course_two:
   name: 渠道结账辅导班2
@@ -774,7 +774,7 @@ billing_course_two:
   sell_and_platform_percentage: 25
   platform_percentage: 15
   publish_percentage: 15
-  base_price: 0.1
+  base_price: 6
 
 billing_course_three:
   name: 渠道结账辅导班3
@@ -795,7 +795,7 @@ billing_course_three:
   sell_and_platform_percentage: 55
   platform_percentage: 10
   publish_percentage: 10
-  base_price: 0.1
+  base_price: 6
 
 course_for_channel:
   name: course_for_channel

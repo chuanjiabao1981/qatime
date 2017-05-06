@@ -1,0 +1,140 @@
+init_video_course:
+  name: 审核视频课1
+  teacher: teacher1
+  workstation: workstation_zhuji
+  status: 0
+  description: 啊撒旦发送的发撒旦发送的
+  sell_type: 1
+  grade: 六年级
+  subject: 语文
+  teacher_percentage: 0
+  preset_lesson_count: 0
+  price: 200
+  buy_tickets_count: 0
+  taste_count: 0
+  video_lessons_count: 1
+  publish_percentage: 5
+  platform_percentage: 3
+  objective: 啊撒旦发送的发撒旦发送的
+  suit_crowd: 啊撒旦发送的发撒旦发送的
+  total_duration: 4
+init_video_course2:
+  name: 审核视频课2
+  teacher: teacher1
+  workstation: workstation_zhuji
+  status: 0
+  description: 啊撒旦发送的发撒旦发送的
+  sell_type: 1
+  grade: 高一
+  subject: 数学
+  teacher_percentage: 0
+  preset_lesson_count: 0
+  price: 200
+  buy_tickets_count: 0
+  taste_count: 0
+  video_lessons_count: 1
+  publish_percentage: 5
+  platform_percentage: 3
+  objective: 啊撒旦发送的发撒旦发送的
+  suit_crowd: 啊撒旦发送的发撒旦发送的
+  total_duration: 4
+published_video_course1:
+  name: 发布的视频课1
+  teacher: teacher1
+  workstation: workstation_one
+  status: 3
+  description: 啊撒旦发送的发撒旦发送的
+  sell_type: 1
+  grade: 高一
+  subject: 数学
+  teacher_percentage: 60
+  preset_lesson_count: 0
+  price: 201
+  buy_tickets_count: 0
+  taste_count: 1
+  video_lessons_count: 2
+  publish_percentage: 5
+  platform_percentage: 3
+  objective: 啊撒旦发送的发撒旦发送的
+  suit_crowd: 啊撒旦发送的发撒旦发送的
+  total_duration: 4
+  sell_and_platform_percentage: 35
+published_video_course2:
+  name: 发布的视频课2
+  teacher: teacher1
+  workstation: workstation_one
+  status: 3
+  description: 啊撒旦发送的发撒旦发送的
+  sell_type: 2
+  grade: 高二
+  subject: 语文
+  teacher_percentage: 60
+  preset_lesson_count: 0
+  price: 0
+  buy_tickets_count: 0
+  taste_count: 0
+  video_lessons_count: 1
+  publish_percentage: 5
+  platform_percentage: 3
+  objective: 啊撒旦发送的发撒旦发送的
+  suit_crowd: 啊撒旦发送的发撒旦发送的
+  total_duration: 4
+  sell_and_platform_percentage: 35
+video_course_for_billing:
+  name: 结账测试视频课
+  teacher: teacher1
+  workstation: workstation_one
+  status: 3
+  description: 啊撒旦发送的发撒旦发送的
+  sell_type: 2
+  grade: 高二
+  subject: 语文
+  teacher_percentage: 60
+  price: 300
+  buy_tickets_count: 0
+  taste_count: 0
+  video_lessons_count: 1
+  publish_percentage: 5
+  platform_percentage: 10
+  objective: 啊撒旦发送的发撒旦发送的
+  suit_crowd: 啊撒旦发送的发撒旦发送的
+  total_duration: <%= 10 * 60 * 60 %>
+  sell_and_platform_percentage: 35
+  base_price: 5
+confirmed_video_course:
+  name: 待创建测试视频课
+  teacher: teacher1
+  workstation: workstation_one
+  status: 1
+  description: 已审核的视频课呀
+  sell_type: 2
+  grade: 初三
+  subject: 数学
+  buy_tickets_count: 0
+  taste_count: 0
+  video_lessons_count: 1
+  total_duration: <%= 10 * 60 * 60 %>
+  confirmed_at: <%= 3.days.ago %>
+completed_video_course:
+  name: 待发布视频课
+  teacher: teacher1
+  workstation: workstation_one
+  status: 2
+  description: 待发布视频课
+  sell_type: 2
+  grade: 初二
+  subject: 数学
+  teacher_percentage: 60
+  price: 300
+  buy_tickets_count: 0
+  taste_count: 0
+  video_lessons_count: 1
+  publish_percentage: 5
+  platform_percentage: 10
+  sell_and_platform_percentage: 35
+  objective: 啊撒旦发送的发撒旦发送的
+  suit_crowd: 啊撒旦发送的发撒旦发送的
+  total_duration: <%= 10 * 60 * 60 %>
+  confirmed_at: <%= 3.days.ago %>
+
+

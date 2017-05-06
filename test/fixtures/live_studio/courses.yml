@@ -2,7 +2,7 @@
 
 course_one:
   name: 测试辅导1班
-  teacher: users(:teacher1)
+  teacher: teacher1
   workstation: workstation_one
   status: 1
   grade: 六年级
@@ -11,10 +11,12 @@ course_one:
   preset_lesson_count: 2
   lessons_count: 2
   price: 999
+  class_date: <%= 3.days.since.to_date %>
+  start_at: <%= 3.days.since.to_date %>
 
 course_two:
   name: 测试辅导2班
-  teacher: users(:teacher1)
+  teacher: teacher1
   workstation: workstation_one
   status: 1
   grade: 六年级
@@ -23,6 +25,9 @@ course_two:
   preset_lesson_count: 2
   price: 999
   lessons_count: 2
+  price: 999
+  class_date: <%= 5.days.since.to_date %>
+  start_at: <%= 5.days.since.to_date %>
 
 course_no_teacher:
   name: 测试辅导3班
@@ -38,7 +43,7 @@ course_no_teacher:
 
 course_destroy_teacher:
   name: 测试辅导3班
-  teacher_id: 99999
+  teacher: teacher_one
   workstation: workstation_one
   status: 1
   grade: 六年级
@@ -60,10 +65,22 @@ course_init:
   subject: 语文
   lessons_count: 2
 
+course4:
+  name: 第四个舞蹈班
+  teacher: teacher_one
+  workstation: workstation_one
+  status: 1
+  price: 1000
+  preset_lesson_count: 2
+  grade: 高二
+  subject: 英语
+  teacher_percentage: 80
+  class_date: <%= Date.today %>
+  lessons_count: 2
+
 course_preview:
-  id: 5
   name: 招生中的辅导班
-  teacher_id: 1
+  teacher: teacher_one
   workstation: workstation_one
   status: 1
   price: 1000
@@ -109,22 +126,13 @@ course_preview_four:
   subject: 语文
   teacher_percentage: 90
   lessons_count: 2
-
-course_teaching:
-  name: 上课中的辅导班
-  teacher: users(:teacher1)
-  workstation: workstation(:workstation1)
-  status: 2
-  grade: 六年级
-  subject: 语文
-  teacher_percentage: 90
-  price: 999
-  preset_lesson_count: 2
-  lessons_count: 2
+  class_date: <%= Date.today %>
+  start_at: <%= Date.today %>
+  end_at: <%= Date.today %>
 
 course_without_channel:
   name: 没有初始化的辅导班
-  teacher: users(:teacher1)
+  teacher: teacher1
   workstation: workstation(:workstation1)
   status: 2
   grade: 六年级
@@ -161,10 +169,11 @@ update_course_by_physics_teacher1:
   subject: 语文
   workstation: workstation_invalid
   lessons_count: 2
+  taste_count: 1
 
 course_teach_2:
-  name: 上课中的辅导班2
-  teacher: users(:teacher_one)
+  name: course_teach_2
+  teacher: teacher1
   workstation: workstation(:workstation1)
   status: 2
   grade: 六年级
@@ -177,7 +186,7 @@ course_teach_2:
 course_with_lesson:
   id: 3
   name: 辅导班3
-  teacher_id: 1
+  teacher: teacher_one
   workstation: workstation_one
   status: 2
   grade: 六年级
@@ -213,7 +222,7 @@ course_with_order2:
 
 course_with_lessons:
   name: 可直播辅导班
-  teacher_id: 10
+  teacher: english_teacher
   workstation: workstation_one
   status: 1
   teacher_percentage: 80
@@ -226,9 +235,8 @@ course_with_lessons:
   taste_count: 1
 
 tasting_course:
-  id: 10
   name: 试听中的辅导班
-  teacher_id: 10
+  teacher: english_teacher
   workstation: workstation_one
   status: 1
   teacher_percentage: 80
@@ -320,7 +328,6 @@ course_for_edit:
   lessons_count: 2
 
 course_for_teaching:
-  id: 10000
   name: 已经有直播中的课程的辅导班
   teacher: teacher_for_taste_course
   workstation: workstation_one
@@ -656,6 +663,7 @@ course_for_refund3:
   status: 2
   teacher: teacher1
   teacher_percentage: 80
+  publish_percentage: 5
   preset_lesson_count: 2
   lesson_price: 200
   price: 400
@@ -737,10 +745,10 @@ billing_course_one:
   taste_count: 5
   billing_type: Payment::LiveCourseBilling
   teacher_percentage: 50
-  sell_percentage: 30
+  sell_and_platform_percentage: 40
+  platform_percentage: 10
   publish_percentage: 10
-  system_percentage: 10
-  base_price: 0.1
+  base_price: 6
 
 # 结账失败辅导班
 billing_fail_course_one:
@@ -759,10 +767,10 @@ billing_fail_course_one:
   taste_count: 5
   billing_type: Payment::LiveCourseBilling
   teacher_percentage: 70
-  sell_percentage: 30
+  sell_and_platform_percentage: 40
+  platform_percentage: 10
   publish_percentage: 10
-  system_percentage: 10
-  base_price: 0.1
+  base_price: 6
 
 billing_course_two:
   name: 渠道结账辅导班2
@@ -780,7 +788,113 @@ billing_course_two:
   taste_count: 5
   billing_type: Payment::LiveCourseBilling
   teacher_percentage: 45
-  sell_percentage: 35
+  sell_and_platform_percentage: 25
+  platform_percentage: 15
   publish_percentage: 15
-  system_percentage: 5
-  base_price: 0.1
+  base_price: 6
+
+billing_course_three:
+  name: 渠道结账辅导班3
+  workstation: workstation_one
+  status: 2
+  teacher: teacher1
+  lesson_price: 50
+  price: 500
+  grade: 高一
+  subject: 数学
+  class_date: <%= Date.yesterday %>
+  province: beijing
+  city: zhuji
+  lessons_count: 10
+  taste_count: 5
+  billing_type: Payment::LiveCourseBilling
+  teacher_percentage: 35
+  sell_and_platform_percentage: 55
+  platform_percentage: 10
+  publish_percentage: 10
+  base_price: 6
+
+course_for_channel:
+  name: course_for_channel
+  workstation: xxxxxxxxx
+  status: 2
+  teacher: teacher_for_billing
+  teacher_percentage: 80
+  preset_lesson_count: 10
+  lesson_price: 50
+  price: 500
+  grade: 六年级
+  subject: 语文
+  class_date: <%= Date.yesterday %>
+  province: zhejiang
+  city: zhuji
+  lessons_count: 2
+  billing_type: Payment::LiveCourseBilling
+
+# 招生中的辅导班2
+course_preview2:
+  name: 招生中的辅导班2
+  teacher: physics_teacher1
+  workstation: workstation(:workstation1)
+  status: 1
+  grade: 六年级
+  teacher_percentage: 60
+  subject: 语文
+  preset_lesson_count: 2
+  price: 999
+  lessons_count: 2
+
+# 开课中的辅导班今日无课
+course_teaching1:
+  name: 上课中的辅导班1
+  teacher: teacher1
+  workstation: workstation(:workstation1)
+  status: 2
+  grade: 六年级
+  subject: 语文
+  teacher_percentage: 50
+  price: 999
+  preset_lesson_count: 2
+  lessons_count: 2
+
+# 开课中的辅导班今日有课
+course_teaching2:
+  name: 上课中的辅导班2
+  teacher: teacher1
+  workstation: workstation(:workstation1)
+  status: 2
+  grade: 六年级
+  subject: 语文
+  teacher_percentage: 60
+  price: 999
+  preset_lesson_count: 2
+  lessons_count: 2
+
+# 课程全部完成的辅导班
+course_finished:
+  name: 完成的课程
+  teacher: physics_teacher1
+  workstation: workstation(:workstation1)
+  status: 3
+  grade: 六年级
+  teacher_percentage: 70
+  subject: 语文
+  preset_lesson_count: 2
+  price: 999
+  lessons_count: 2
+
+course_for_update_class_date:
+  name: 调课辅导1班
+  description: 调课辅导1班调课辅导1班
+  teacher: teacher1
+  workstation: workstation_zhuji
+  status: 1
+  grade: 六年级
+  subject: 语文
+  teacher_percentage: 70
+  preset_lesson_count: 3
+  lessons_count: 3
+  price: 999
+  class_date: <%= 3.days.since.to_date %>
+  start_at: <%= 3.days.since.to_date %>
+

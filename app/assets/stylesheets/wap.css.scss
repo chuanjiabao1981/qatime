@@ -9,8 +9,8 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require common
- *= require wap/phone
  *= require_self
+ *= require wap/phone
  */
 
 @import 'bootstrap';

@@ -1,0 +1,7 @@
+<% if obj.errors.any? %>
+<script>
+$(function() {
+  $.toastMsg("<%= obj.errors.full_messages.first %>");
+});
+</script>
+<% end %>

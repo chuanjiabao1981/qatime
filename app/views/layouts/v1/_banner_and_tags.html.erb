@@ -1,0 +1,50 @@
+<div class="homepage-banner">
+  <ul class="banner-show" id="banner-list">
+    <% @recommend_banners.each do |banner| %>
+      <li>
+        <%= link_to banner.link do %>
+          <%= image_tag banner.logo_url, alt: 'banner' %>
+        <% end %>
+      </li>
+    <% end %>
+    <% if @recommend_banners.blank? %>
+      <li><a href=""><%= image_tag '/imgs/home-banner.png' %></a></li>
+    <% end %>
+  </ul>
+
+  <div class="container">
+    <div class="navside">
+      <ul class="navside-list">
+        <% APP_CONSTANT['grades'].reverse_each do |grade_type, grades| %>
+          <li>
+            <!-- 一级菜单 -->
+            <div class="navside-grade">
+              <%= link_to grade_type, 'javascript:void(0);', class: 'aside' %>
+              <div>
+                <% grades.each do |grade| %>
+                  <%= link_to grade, live_studio.courses_path(q: {grade_eq: grade}) %>
+                <% end %>
+              </div>
+            </div>
+            <!-- 二级菜单 -->
+            <div class="navside-course" style="display: none;">
+              <ul>
+                <% grades.each do |grade| %>
+                  <li class="">
+                    <%= link_to grade, live_studio.courses_path(q: {grade_eq: grade}), class: 'navside-course-class' %>
+                    <div class="navside-course-list">
+                      <% APP_CONSTANT['subjects_of_grade'][grade_type].each do |subject| %>
+                        <%= link_to subject, live_studio.courses_path(q: {grade_eq: grade, subject_eq: subject}) %>
+                      <% end %>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
+

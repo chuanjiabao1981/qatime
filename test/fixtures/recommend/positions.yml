@@ -13,3 +13,8 @@ index_banner_recommend:
   klass_name: Recommend::BannerItem
   kee: index_banner_recommend
   status: 1
+index_choiceness_recommend:
+  name: 精选内容管理
+  klass_name: Recommend::ChoicenessItem
+  kee: index_choiceness_item
+  status: 1

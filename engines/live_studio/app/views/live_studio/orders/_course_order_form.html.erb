@@ -1,0 +1,120 @@
+<%= simple_form_for [:course, @order] do |f| -%>
+  <%= hidden_field_tag :come_from, params[:come_from].presence %>
+  <div class="student-buy-left">
+    <div class="buy-left-title">
+      <%= t('view.payment_show.product_info') %>
+    </div>
+    <div class="buy-left-con">
+      <%= image_tag @order.product.publicize_url(:list) %>
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tbody>
+          <tr>
+            <td colspan="2">
+            <span><%= t('view.course_order_new.product_name') %>：</span>
+            <span><%= @order.product.name %></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span><%= t('view.course_order_new.subject') %>：</span>
+              <span><%= @order.product.subject %></span>
+            </td>
+            <td>
+              <span><%= t('view.course_order_new.grade') %>：</span>
+              <span><%= @order.product.grade %></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span><%= t('view.course_order_new.teacher_name') %>：</span>
+              <span><%= @order.product.teacher.try(:name) %></span>
+            </td>
+            <td>
+              <span><%= t('view.course_order_new.lessons_count') %>：</span>
+              <span><%= t('view.course_order_new.lessons_count_value', count: @order.product.lessons_count ) %></span>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span><%= t('view.course_order_new.live_start_date') %>：</span>
+              <span><%= @order.product.live_start_date %></span>
+            </td>
+            <td>
+              <span><%= t('view.course_order_new.live_end_date') %>：</span>
+              <span><%= @order.product.live_end_date %></span>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2">
+              <span><%= t('view.course_order_new.status') %>：</span>
+              <span><i><%= @order.product.closed_lessons_count %>/<%= @order.product.lessons_count %></i></span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="student-buy-center">
+    <div class="buy-center-title">
+      <%= t('view.course_order_new.current_price') %>
+    </div>
+    <div class="buy-center-con">
+      <center>
+        <span><%= number_to_currency(@course.current_price, locale: :cn) %></span>
+      </center>
+    </div>
+  </div>
+  <div class="student-buy-right">
+    <div class="buy-right-title">
+      <%= t('view.course_order_new.pay_type') %>
+    </div>
+    <div class="buy-right-con">
+      <div class="buy-right-way">
+        <% @order.class.pay_type.options.each do |item| -%>
+          <div class="form-group">  
+            <div class="input-group">
+              <%= f.radio_button(:pay_type, item.last, class: 'order_pay_type') %>
+            </div>
+            <span>
+              <label for="order_pay_type_<%= item.last %>">
+                <%= image_tag "pay_type_#{item.last}.png" %>
+                <i><%= item.first %></i>
+             </label>
+             <% if item.last == 'account' -%>
+               <em id="available_balance" data-total="<%= current_user.cash_account!.available_balance %>">(<%= number_to_currency(current_user.cash_account!.available_balance) %>)</em>
+             <% end -%>
+            </span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="student-buy-footer preferential">
+    <div class="preferential-code">
+      <div class="form-group">
+        <%= label_tag :coupon_code, t("view.course_order_new.coupon_code") %>
+        <div class="input-group">
+          <%= text_field_tag :coupon_code, params[:coupon_code].presence, placeholder: t("view.course_order_new.coupon_code_input"), class: 'form-control' %>
+          <input type="button" name="" id="check_coupon_btn" class="hide" value="<%= t("view.course_order_new.check_coupon_btn") %>">
+        </div>
+        <div class="preferential-prompt">
+          <span class="prompt-default"><%= t("view.course_order_new.coupon_code_prompt1", price: 'X') %></span>
+          <span class="prompt-notice hide"><%= t("view.course_order_new.coupon_code_prompt2") %></span>
+          <span class="prompt-correct hide"><%= image_tag "correct.png" %><i><%= t("view.course_order_new.coupon_code_prompt_correct") %><b>10</b><%= t("view.course_order_new.coupon_code_prompt_correct_yuan") %></i></span>
+          <span class="prompt-error hide"><%= image_tag "error.png" %><i><%= t("view.course_order_new.coupon_code_prompt_error") %></i></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="buy-footer-msg">
+      <span><%= t("view.course_order_new.total_money") %>：</span>
+      <span id="order_total" data-total="<%= @course.current_price %>"><%= number_to_currency(@course.current_price, locale: :cn) %></span>
+    </div>
+    <div class="buy-footer-btn">
+      <input type="submit" name="" id="" value="<%= t("view.course_order_new.pay") %>">
+      <p><%= t("view.course_order_new.tips") %></p>
+    </div>
+  </div>
+<% end -%>

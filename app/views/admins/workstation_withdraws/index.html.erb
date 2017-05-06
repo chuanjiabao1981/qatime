@@ -1,0 +1,50 @@
+<div class="panel panel-default">
+  <div class="admin">
+    <%= render partial: 'admins/workstations/tab' %>
+
+    <div class="admin-audit">
+      <%= render partial: 'search' %>
+
+      <table border="1" cellspacing="1" cellpadding="1">
+        <tbody>
+        <tr>
+          <td><%= t('common.index_no') %></td>
+          <td><%= t('view.admins.workstation_withdraws.amount') %></td>
+          <td><%= t('view.admins.workstation_withdraws.user') %></td>
+          <td><%= t('view.admins.workstation_withdraws.workstation') %></td>
+          <td><%= t('view.admins.workstation_withdraws.transaction_no') %></td>
+          <td><%= t('view.admins.workstation_withdraws.payee') %></td>
+          <td><%= t('view.admins.workstation_withdraws.created_at') %></td>
+          <td><%= params[:audit] == 'no_audit' ? t('common.operate') : t('view.admins.workstation_withdraws.no_audit_title') %></td>
+        </tr>
+
+        <% @workstation_withdraws.each_with_index do |workstation_withdraw, index| %>
+          <tr>
+            <td><%= show_index(index, @workstation_withdraws.limit_value) %></td>
+            <td><%= number_to_currency(workstation_withdraw.amount) %></td>
+            <td><%= workstation_withdraw.user.try(:name) %>（<%= workstation_withdraw.user.try(:login_mobile) %>）</td>
+            <td><%= workstation_withdraw.owner.try(:name) %></td>
+            <td><%= workstation_withdraw.transaction_no %></td>
+            <td><%= workstation_withdraw.payee %></td>
+            <td><%= localize(workstation_withdraw.created_at, format: :long) %></td>
+            <td>
+              <% if params[:audit] == 'no_audit' %>
+                <%= link_to t('view.admins.workstation_withdraws.allow'), audit_admins_workstation_withdraw_path(workstation_withdraw, audit: 'allow'), data: {method: :post, confirm: t('view.admins.workstation_withdraws.sure_audit')} %>
+                <%= link_to t('view.admins.workstation_withdraws.refuse'), audit_admins_workstation_withdraw_path(workstation_withdraw, audit: 'refuse'), data: {method: :post, confirm: t('view.admins.workstation_withdraws.sure_refuse') } %>
+              <% else %>
+                <%= workstation_withdraw.status_text(:admin) %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <center>
+      <div class="pagination-fix">
+        <%= will_paginate @workstation_withdraws %>
+      </div>
+    </center>
+  </div>
+</div>

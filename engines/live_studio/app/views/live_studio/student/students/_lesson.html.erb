@@ -1,6 +1,4 @@
-<%
-   lessons = @lessons || lessons
-%>
+<% lessons = @lessons || lessons %>
 <% if @date_list.present? %>
   <script type="text/javascript" charset="utf-8">
     //callback(data['result']);
@@ -14,43 +12,90 @@
     }
   </script>
 <% end %>
-<%= content_tag :div, t('view.tips.none_lessons') if lessons.blank? %>
+<%= render 'shared/blank' if lessons.blank? %>
 
 <% lessons.each do |lesson| %>
-  <table class="schedules-tb table table-white table-condensed border-grey">
-    <thead>
-    <tr>
-      <td colspan="5">
-        <%= "#{t('view.course_info_show.lesson_name') }: #{lesson.name}"%>
-      </td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td style="width: 20%;" rowspan="3">
-        <%= image_tag lesson.course.publicize_url(:small), class: 'order-img' %>
-      </td>
-      <td style="width: 45%;">
-        <%= lesson.course.name %>
-      </td>
-      <td class='text-center schedules-border-td' rowspan="3">
-        <%= l lesson.class_date,format: :long %>
-        <br/>
-        <%= "#{lesson.start_time}-#{lesson.end_time}" %>
-      </td>
-      <td rowspan="3" class="text-center schedules-border-td">
-        <%= lesson.status_text %>
-      </td>
-      <%= content_tag :td, rowspan: 3, class: "text-center #{lesson.is_over? && 'font-grey'}" do %>
-        <%= link_to_if !lesson.is_over?, '进入', live_studio.send("#{@user.role}_course_path",@user,lesson.course.id) %>
-      <% end if @user.student? %>
-    </tr>
-    <tr>
-      <td><%= t('view.course_search_show.grade') %>:<%= lesson.course.grade %></td>
-    </tr>
-    <tr>
-      <td><%= "#{t('view.columns.tickets_count')}: #{lesson.course.buy_user_count}" %></td>
-    </tr>
-    </tbody>
-  </table>
+  <% if lesson.is_a?(LiveStudio::InteractiveLesson) %>
+    <li>
+      <div class="row">
+        <div class="col-md-2 schedule-pic">
+          <%= link_to 'javascript:void(0);', class: 'education-label' do %>
+            <%= image_tag lesson.interactive_course.publicize_url(:small), class: 'handle_error_list' %>
+            <p class="status-personal"><%= t('view.student.students.schedules.lesson.one_by_one') %></p>
+          <% end %>
+        </div>
+        <div class="col-md-<%= @user.student? ? '5' : '6' %> schedule-msg">
+          <div class="row">
+            <div class="col-md-12 education-title">
+              <p><%= lesson.name %></p>
+            </div>
+            <div class="col-md-12 col-sm-6 education-line">
+              <span><%= lesson.interactive_course.grade %></span>
+            </div>
+            <div class="col-md-12 col-sm-6 education-line">
+              <span><%= t('view.student.students.schedules.lesson.student_count') %><em><%= lesson.course.buy_user_count %></em><%= t('view.common.people') %></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 schedule-time">
+          <div class="row">
+            <div class="col-md-12 col-sm-6 education-line">
+              <span><%= lesson.status_text %></span>
+            </div>
+            <div class="col-md-12 col-sm-6 education-line">
+              <span><%= lesson.class_date %> <%= lesson.start_time %>-<%= lesson.end_time %></span>
+            </div>
+          </div>
+        </div>
+        <% if @user.student? %>
+          <div class="col-md-1 schedule-enter">
+            <%= link_to t('view.student.students.schedules.lesson.enter'), '#', data: {toggle: 'modal', target: "#dawnloadModal"}, class: 'active' %>
+          </div>
+        <% end %>
+      </div>
+    </li>
+  <% else %>
+    <li>
+      <div class="row">
+        <div class="col-md-2 schedule-pic">
+          <%= link_to 'javascript:void(0);', class: 'education-label' do %>
+            <%= image_tag lesson.course.publicize_url(:small), class: 'handle_error_list' %>
+            <p><%= t('view.student.students.schedules.lesson.course') %></p>
+          <% end %>
+        </div>
+        <div class="col-md-<%= @user.student? ? '5' : '6' %> schedule-msg">
+          <div class="row">
+            <div class="col-md-12 education-title">
+              <p><%= lesson.name %></p>
+            </div>
+            <div class="col-md-12 col-sm-6 education-line">
+              <span><%= lesson.course.grade %></span>
+            </div>
+            <div class="col-md-12 col-sm-6 education-line">
+              <span><%= t('view.student.students.schedules.lesson.student_count') %><em><%= lesson.course.buy_user_count %></em><%= t('view.common.people') %></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 schedule-time">
+          <div class="row">
+            <div class="col-md-12 col-sm-6 education-line">
+              <span><%= lesson.status_text %></span>
+            </div>
+            <div class="col-md-12 col-sm-6 education-line">
+              <span><%= lesson.class_date %> <%= lesson.start_time %>-<%= lesson.end_time %></span>
+            </div>
+          </div>
+        </div>
+        <% if @user.student? %>
+          <div class="col-md-1 schedule-enter">
+            <% if lesson.is_over? %>
+              <%= link_to t('view.student.students.schedules.lesson.enter'), 'javascript:void(0);' %>
+            <% else %>
+              <%= link_to t('view.student.students.schedules.lesson.enter'), live_studio.play_course_path(lesson.course_id), class: 'active' %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </li>
+  <% end %>
 <% end if lessons %>

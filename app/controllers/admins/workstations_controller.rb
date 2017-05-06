@@ -1,13 +1,12 @@
 class Admins::WorkstationsController < ApplicationController
 
-  before_action :worker_station_associations_prepare
-  before_action :find_workstation, only: [:edit, :update, :show, :destroy]
+  before_action :find_workstation, only: [:destroy, :change_status, :fund, :change_records, :statistics]
 
   respond_to :html
   layout "admin_home"
 
   def index
-    @workstations = Workstation.all
+    @workstations = Workstation.order(id: :desc).paginate(page: params[:page])
   end
 
   def new
@@ -16,24 +15,17 @@ class Admins::WorkstationsController < ApplicationController
   end
 
   def create
-    @workstation = Workstation.new(params[:workstation].permit!)
+    @workstation = Workstation.new(workstation_params)
     @workstation.build_account
-    @workstation.save
-
+    @workstation.set_default_of_city_required! if params[:is_default] == '1'
+    if @workstation.save
+      flash_msg(:success)
+      redirect_to admins_workstations_path
+    else
+      flash_msg(:danger)
+      render :new
+    end
     # 这里需要增加短信通知
-    respond_with :admins,@workstation
-  end
-
-  def show
-  end
-
-  def edit
-    @workstation.build_coupon if @workstation.coupon.blank?
-  end
-
-  def update
-    @workstation.update_attributes(params[:workstation].permit!)
-    respond_with :admins,@workstation
   end
 
   def destroy
@@ -41,20 +33,24 @@ class Admins::WorkstationsController < ApplicationController
     redirect_to admins_workstations_path
   end
 
+  def change_status
+    @workstation.may_run? ? @workstation.run! : @workstation.stop!
 
-  private
-
-  def worker_station_associations_prepare
-    unless not @managers.nil?
-      @managers = Manager.all
-    end
-
-    unless not @cities.nil?
-      @cities = City.all
+    respond_to do |format|
+      format.html {}
+      format.js {
+        render js: "window.location.reload();"
+      }
     end
   end
 
+  private
+
   def find_workstation
     @workstation = Workstation.find(params[:id])
+  end
+
+  def workstation_params
+    params.require(:workstation).permit!
   end
 end

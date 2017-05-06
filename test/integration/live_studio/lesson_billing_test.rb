@@ -33,7 +33,9 @@ module LiveStudio
       assert_equal @course.buy_tickets.first.status, 'active'
 
       # 系统收入 - 学生购买
-      assert_equal CashAdmin.first.cash_account.earning_records.first.different.abs, @course.price
+      r = CashAdmin.first.cash_account.change_records.first
+      assert_equal r.different.abs, @course.price, "系统销售收入不正确"
+      assert r.is_a?(Payment::SellRecord), "系统销售收入记录不正确"
     end
   end
 end

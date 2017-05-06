@@ -1,68 +1,11 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <h2><%= @workstation.class.model_name.human %> &gt; <%= @workstation.name %></h2>
-  </div>
-  <div class="qa_big_cell row">
-    <div class="col-md-2">
-      <%= Workstation.human_attribute_name(:name) %>
-    </div>
-    <div class="col-md-10">
-      <%= @workstation.name %>
-    </div>
-  </div>
+<div class="panel panel-default">
+  <div class="admin new-workstation">
 
-  <div class="qa_big_cell row">
-    <div class="col-md-2">
-      <%= Workstation.human_attribute_name(:address) %>
-    </div>
-    <div class="col-md-10">
-      <%= @workstation.address %>
-    </div>
-  </div>
+    <%= render 'station/workstations/tab_node' %>
+    <% if allow? :workstations, :edit, @workstation %>
+      <%= link_to t('view.admins.workstations.show.edit_title'), edit_station_workstation_path(@workstation), class: 'edit-site' %>
+    <% end %>
 
-  <div class="qa_big_cell row">
-    <div class="col-md-2">
-      <%= t("activerecord.attributes.workstation.city") %>
-    </div>
-    <div class="col-md-10">
-      <%= @workstation.city.try(:name) %>
-    </div>
+    <%= render partial: 'shared/workstations/info', locals: {workstation: @workstation} %>
   </div>
-
-  <div class="qa_big_cell row">
-    <div class="col-md-2">
-      <%= t("activerecord.attributes.workstation.manager") %>
-    </div>
-    <div class="col-md-10">
-      <%= @workstation.manager.try(:name) %>
-    </div>
-  </div>
-
-  <div class="qa_big_cell row">
-    <div class="col-md-2">
-      <%= Workstation.human_attribute_name(:tel) %>
-    </div>
-    <div class="col-md-10">
-      <%= @workstation.tel %>
-    </div>
-  </div>
-
-  <div class="qa_big_cell row">
-    <div class="col-md-2">
-      <%= Workstation.human_attribute_name(:email) %>
-    </div>
-    <div class="col-md-10">
-      <%= @workstation.email %>
-    </div>
-  </div>
-
-  <div class="qa_big_cell row">
-    <div class="col-md-2">
-      <%= t("simple_form.labels.workstation.coupon.code") %>
-    </div>
-    <div class="col-md-10">
-      <%= @workstation.coupon.try(:code) %>
-    </div>
-  </div>
-
 </div>

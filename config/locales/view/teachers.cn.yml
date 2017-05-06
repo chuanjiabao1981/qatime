@@ -88,3 +88,16 @@ cn:
       payment_pwd_label: 新支付密码
       payment_pwd_confirmation: 确认新密码
       payment_pwd_verify_code: 手机校验码
+    profile:
+      lesson_refund: 课程可退
+      intro_complete: 资料完整
+      teach_online: 在线授课
+      basic_title: 基本资料
+      my_intro: 自我介绍
+      my_courses: TA的课程
+      course: 直播课
+      interactive_course: 一对一
+      video_course: 视频课
+      more: 更多
+      is_finished: 该课程已结束
+

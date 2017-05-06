@@ -2,14 +2,22 @@ require_dependency "payment/application_controller"
 
 module Payment
   class TransactionsController < ApplicationController
-    layout 'payment'
+    layout 'v1/application'
 
     skip_before_action :verify_authenticity_token, only: :notify
 
     before_action :set_transaction
+    before_action :detect_device_format, only: [:show]
+    before_action :check_order, only: [:show]
 
     def show
-      render layout: 'application_front'
+      respond_to do |format|
+        format.html do |html|
+          html.none
+          html.tablet
+          html.phone { render layout: 'application-mobile' }
+        end
+      end
     end
 
     def notify
@@ -31,6 +39,10 @@ module Payment
         proccess_result
         if @transaction.is_a? Payment::Recharge
           redirect_to payment.cash_user_path(@transaction.user)
+        elsif @transaction.product.is_a? LiveStudio::InteractiveCourse
+          redirect_to live_studio.student_interactive_courses_path(@transaction.user)
+        elsif @transaction.product.is_a? LiveStudio::VideoCourse
+          redirect_to live_studio.student_video_courses_path(@transaction.user)
         else
           redirect_to live_studio.student_courses_path(@transaction.user)
         end
@@ -59,9 +71,13 @@ module Payment
         puts @error
       end
       if(@error)
-        render 'show', layout: 'application_front'
+        render 'show'
       elsif @transaction.is_a? Payment::Recharge
         redirect_to payment.cash_user_path(@transaction.user)
+      elsif @transaction.product.is_a?(LiveStudio::InteractiveCourse)
+        redirect_to live_studio.student_interactive_courses_path(@transaction.user)
+      elsif @transaction.product.is_a?(LiveStudio::VideoCourse)
+        redirect_to live_studio.student_video_courses_path(@transaction.user)
       else
         redirect_to live_studio.student_courses_path(@transaction.user)
       end
@@ -79,12 +95,7 @@ module Payment
 
     def proccess_notify
       return false unless @transaction.remote_order
-      notify_params = if @transaction.pay_type.alipay?
-                        alipay_params
-                      elsif @transaction.pay_type.weixin?
-                        weixin_params
-                      end
-      @transaction.remote_order.proccess_notify(notify_params) if notify_params.present?
+      @transaction.remote_order.proccess_notify(notify_params(@transaction.pay_type))
     end
 
     def proccess_result
@@ -93,12 +104,36 @@ module Payment
       @transaction.remote_order.proccess_result(result_params) if result_params.present?
     end
 
+    def notify_params(pay_type)
+      send("#{pay_type}_params")
+    rescue
+      {}
+    end
+
     def weixin_params
       Hash.from_xml(request.body.read)["xml"]
     end
 
     def alipay_params
       params.except(*request.path_parameters.keys)
+    end
+
+    def check_order
+      return if @transaction.remote_order
+      if @transaction.source.wap? && @transaction.pay_type.weixin?
+        wechat_openid
+        @transaction.openid = @openid
+        @transaction.save && @transaction.instance_remote_order!
+      end
+    end
+
+    def wechat_openid
+      cookies[:openid] ||= "testopenid" if Rails.env.test?
+      if cookies[:openid].blank?
+        session[:return_to] = request.original_url
+        redirect_to "#{WECHAT_CONFIG['host']}/auth/wechat2"
+      end
+      @openid = cookies[:openid]
     end
   end
 end

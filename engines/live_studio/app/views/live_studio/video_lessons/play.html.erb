@@ -1,0 +1,26 @@
+<div class="live-player">
+  <div class="live-head playback">
+    <div class="container live-big">
+      <%= render 'back_player' %>
+    </div>
+  </div>
+</div>
+
+<div class="live-content">
+  <div class="container">
+    <div class="row">
+      <div class="course-item">
+        <div class="nav-item">
+          <span><%= t('view.live_studio/courses.show.introduce') %></span>
+        </div>
+        <%= render partial: 'live_studio/video_lessons/play/course_info' %>
+      </div>
+      <div class="course-item">
+        <div class="nav-item">
+          <span><%= t('view.course_info_show.teacher_label')%></span>
+        </div>
+        <%= render partial: 'live_studio/video_lessons/play/teacher_info' %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -5,20 +5,25 @@
     <% end %>
   <% end if allow?('station/workstations', 'show', @workstation) %>
   <%= content_tag :li do %>
+    <%= link_to recommend.position_banner_items_path(Recommend::BannerItem.default.presence || 0) do %>
+      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"><%= Recommend::Position.model_name.human %></span>
+    <% end %>
+  <% end if allow?('recommend/positions', 'index') %>
+  <%= content_tag :li do %>
     <%= link_to main_app.schools_path do %>
       <span class="glyphicon glyphicon-home"></span> <span class="qa_f18"> <%= School.model_name.human%></span>
     <% end %>
   <% end if allow?('schools', 'index') %>
   <%= content_tag :li do %>
-    <%= link_to main_app.teachers_path do %>
+    <%= link_to main_app.station_workstation_teachers_path(@workstation) do %>
       <span class="glyphicon glyphicon-user"></span> <span class="qa_f18"> 教师</span>
     <% end %>
-  <% end if allow?('teachers', 'index') %>
+  <% end if allow?('station/teachers', 'index', @workstation) %>
   <%= content_tag :li do %>
-    <%= link_to main_app.students_path do %>
-      <span class="glyphicon glyphicon-tags"></span> <span class="qa_f18"> <%= Student.model_name.human%></span>
+    <%= link_to main_app.station_workstation_students_path(@workstation) do %>
+      <span class="glyphicon glyphicon-tags"></span> <span class="qa_f18"> <%= Student.model_name.human %></span>
     <% end %>
-  <% end if allow?('students', 'index') %>
+  <% end if allow?('station/students', 'index', @workstation) %>
   <%= content_tag :li do %>
     <%= link_to main_app.sellers_station_workstation_path(@workstation) do %>
       <span class="glyphicon glyphicon-phone"></span> <span class="qa_f18"> <%= Seller.model_name.human%></span>
@@ -35,25 +40,30 @@
     <% end %>
   <% end if allow?('station/lessons', 'state', @workstation) %>
   <%= content_tag :li do %>
-    <%= link_to recommend.positions_path do %>
-      <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"> <%= Recommend::Position.model_name.human%></span>
-    <% end %>
-  <% end if allow?('recommend/positions', 'index') %>
-  <%= content_tag :li do %>
     <%= link_to live_studio.station_workstation_courses_path(@workstation) do %>
-      <span class="glyphicon glyphicon-film"></span> <span class="qa_f18"> <%= LiveStudio::Course.model_name.human%></span>
+      <span class="glyphicon glyphicon-film"></span> <span class="qa_f18"> <%= t("live_studio.menu.courses") %></span>
     <% end %>
   <% end if allow?('live_studio/station/courses', 'index', @workstation) %>
+  <%= content_tag :li do %>
+    <%= link_to live_studio.my_courses_station_workstation_courses_path(@workstation) do %>
+      <span class="glyphicon glyphicon-film"></span> <span class="qa_f18"> <%= t('view.common_bars.live_studio_course_my_courses') %></span>
+    <% end %>
+  <% end if allow?('live_studio/station/courses', 'my_courses', @workstation) %>
+  <%= content_tag :li do %>
+    <%= link_to live_studio.station_workstation_interactive_courses_path(@workstation) do %>
+      <span class="glyphicon glyphicon-film"></span> <span class="qa_f18"> <%= t("view.common_bars.live_studio/interactive_course") %></span>
+    <% end %>
+  <% end if allow?('live_studio/station/interactive_courses', 'index', @workstation) %>
+  <%= content_tag :li do %>
+    <%= link_to live_studio.station_workstation_video_courses_path(@workstation) do %>
+      <span class="glyphicon glyphicon-film"></span> <span class="qa_f18"> <%= t("view.common_bars.live_studio/video_course") %></span>
+    <% end %>
+  <% end if allow?('live_studio/station/interactive_courses', 'index', @workstation) %>
   <%= content_tag :li do %>
     <%= link_to main_app.customized_courses_station_workstation_path(@workstation) do %>
       <span class="glyphicon glyphicon-book"></span> <span class="qa_f18"> <%= CustomizedCourse.model_name.human%></span>
     <% end %>
   <% end if allow?('station/workstations', 'customized_courses', @workstation) %>
-  <%= content_tag :li do %>
-    <%= link_to payment.cash_station_workstation_path(@workstation) do %>
-      <span class="fa fa-rmb"></span> <span class="qa_f18"> <%= Payment::EarningRecord.model_name.human%></span>
-    <% end %>
-  <% end if allow?('payment/station/workstations', 'cash', @workstation) %>
   <%= content_tag :li do %>
     <%= link_to main_app.action_records_station_workstation_path(@workstation) do %>
       <span class="fa fa-cogs"></span> <span class="qa_f18"> <%= ActionRecord.model_name.human%></span>

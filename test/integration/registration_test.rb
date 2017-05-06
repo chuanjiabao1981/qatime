@@ -38,7 +38,8 @@ class RegistrationTest < ActionDispatch::IntegrationTest
     click_on '保存使用'
     first('.glyphicon').click
     find('.tecmsg-subject li', text: '高一').click
-
+    select '山西', from: :student_province_id
+    select '太原', from: :student_city_id
 
     click_on "立即进入", match: :first
     sleep 3

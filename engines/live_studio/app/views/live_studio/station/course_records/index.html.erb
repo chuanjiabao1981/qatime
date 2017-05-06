@@ -6,6 +6,7 @@
 
     <div>
       <div class="admin-list distribution active-show">
+        <%= render 'filter_nav' %>
         <div class="admin-list-title">
           <%= render 'filter' %>
         </div>
@@ -21,7 +22,8 @@
               <td class="w10p"><span><%= LiveStudio::Course.human_attribute_name(:sell_workstation) %></span></td>
               <td class="w10p"><span><%= LiveStudio::Course.human_attribute_name(:price) %></span></td>
               <td class="w10p"><span><%= LiveStudio::Course.human_attribute_name(:base_price) %></span></td>
-              <td class="w10p"><span><%= LiveStudio::Course.human_attribute_name(:sell_percentage) %></span></td>
+              <td><span><%= LiveStudio::Course.human_attribute_name(:sell_percentage) %></span></td>
+              <td class="w5p"><span><%= LiveStudio::Course.human_attribute_name(:status) %></span></td>
               <td class="w7p"><span><%= t("view.live_studio/station.course_records.buy_tickets_count") %></span></td>
             </tr>
             <%= render partial: 'course', collection: @course_records %>

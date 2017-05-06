@@ -1,0 +1,71 @@
+<div class="admin-record">
+  <div class="admin-record-nav">
+    <%= link_to t('view.shared.workstations.change_records.out_record'), params.reject{|k,v| k == 'page'}.merge(from: 'out'), class: "#{'active' if params[:from] == 'out'}" %>
+    <span>|</span>
+    <%= link_to t('view.shared.workstations.change_records.in_record'), params.reject{|k,v| k == 'page'}.merge(from: 'in'), class: "#{'active' if params[:from] == 'in'}" %>
+  </div>
+
+  <div class="admin-record-con">
+    <table border="1" cellspacing="1" cellpadding="1">
+      <tbody>
+      <tr>
+        <td><%= t('common.index_no') %></td>
+        <td><%= t("view.shared.workstations.change_records.expend_money#{'_in' if params[:from] == 'in'}") %></td>
+        <td><%= t("view.shared.workstations.change_records.expend_type#{'_in' if params[:from] == 'in'}") %></td>
+        <td><%= t("view.shared.workstations.change_records.expend_balance#{'_in' if params[:from] == 'in'}") %></td>
+        <td><%= t("view.shared.workstations.change_records.expend_info#{'_in' if params[:from] == 'in'}") %></td>
+        <td><%= t('view.common.time') %></td>
+        <td><%= t('common.operate') %></td>
+      </tr>
+
+      <% @change_records.each_with_index do |change_record, index| %>
+        <%= render partial: "shared/workstations/change_record#{'_in' if params[:from] == 'in'}_tr", locals: {change_record: change_record, index: index} %>
+      <% end %>
+
+      </tbody>
+    </table>
+
+    <center>
+      <div class="pagination-fix">
+        <%= will_paginate @change_records %>
+      </div>
+    </center>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $(document).on('click', '.billing_item', function(event){
+      event.preventDefault();
+      var url = $(this).attr('href');
+      var change_record_id = $(this).data('change-record-id');
+
+
+      if($(this).find("i").attr("class") == "fa fa-angle-down") {
+        $(this).find("span").html("<%= t('view.shared.workstations.change_records.hide_link') %>");
+        $(this).find("i").attr("class", "fa fa-angle-up");
+      } else {
+        $(this).find("span").html("<%= t('view.shared.workstations.change_records.show_link') %>");
+        $(this).find("i").attr("class", "fa fa-angle-down");
+      }
+
+      if($('#ajax_complete_' + change_record_id).length == 0){
+        $.post(url);
+      }
+      $('#change_record_tr_' + change_record_id).toggle();
+    });
+  });
+
+
+  $(".view-msg").click(function() {
+    var index = $(".view-msg").index($(this));
+    $(".admin-record-msg").eq(index).toggle();
+    if($(this).find("i").attr("class") == "fa fa-angle-down") {
+      $(this).find("span").html("<%= t('view.shared.workstations.change_records.hide_link') %>");
+      $(this).find("i").attr("class", "fa fa-angle-up");
+    } else {
+      $(this).find("span").html("<%= t('view.shared.workstations.change_records.show_link') %>");
+      $(this).find("i").attr("class", "fa fa-angle-down");
+    }
+  });
+</script>

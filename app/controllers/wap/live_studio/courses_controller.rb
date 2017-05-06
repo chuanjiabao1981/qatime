@@ -1,9 +1,11 @@
 class Wap::LiveStudio::CoursesController < Wap::ApplicationController
-  before_action :set_course
+  skip_before_action :openid_required!, only: [:download]
+  before_action :set_course, only: [:show]
 
-  # GET /wap/live_studio/courses/1
-  # GET /wap/live_studio/courses/1.json
   def show
+  end
+
+  def download
   end
 
   private

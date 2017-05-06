@@ -2,15 +2,15 @@ require_dependency "live_studio/student/base_controller"
 
 module LiveStudio
   class Student::CoursesController < Student::BaseController
-    layout 'student_home_new'
+    layout 'v1/home'
 
     def index
-      @tickets = LiveService::CourseDirector.courses_for_student_index(@student,filter_patams).paginate(page: params[:page])
+      @courses = @student.live_studio_bought_courses.where(status: filter_status).includes(:lessons).paginate(page: params[:page])
     end
 
     def show
       @course = Course.find(params[:id])
-      @ticket = @student.live_studio_tickets.visiable.find_by(course_id: params[:id])
+      @ticket = @student.live_studio_tickets.by_product(@course).try(:first)
       @lessons = @course.lessons.order(:id).paginate(page: params[:page])
       @play_records = PlayRecord.where(user_id: @student.id, lesson_id: @lessons.map(&:id))
       @play_hash = @play_records.inject({}){ |hash, v| hash[v.lesson_id] = v.id; hash }
@@ -18,12 +18,8 @@ module LiveStudio
 
     private
 
-    def filter_patams
-      # status参数和cate参数保留一个
-      # 使用分类查询不能使用状态查询
-      @filter_patams = params.slice(:cate, :status)
-      @filter_patams.delete(:status) if @filter_patams[:cate]
-      @filter_patams
+    def filter_status
+      LiveStudio::Course.statuses[params[:status] || 'published']
     end
   end
 end

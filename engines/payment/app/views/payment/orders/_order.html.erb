@@ -1,55 +1,75 @@
-<% course = order.product -%>
-<%= content_tag(:div, class: 'course-box-div') do %>
-  <%= content_tag(:div, class: 'course-describe-div') do%>
-    <%= content_tag(:div,"#{Payment::Order.human_attribute_name(:order_no)}#{order.order_no}",class: 'describe-ceil') %>
-    <%= content_tag(:div,"#{Payment::Order.human_attribute_name(:created_at)} #{l order.created_at, format: :long}",class: 'describe-ceil') %>
-    <%= content_tag(:div, "#{order.cate_text}",class: 'describe-ceil') %>
-  <% end %>
-  <%= content_tag(:div, class: 'course-info-div') do %>
-    <%= content_tag(:div, image_tag(course.publicize_url(:list)),class: 'publicize') %>
-    <%= content_tag(:div, class: 'orders-content-div') do %>
-      <%= content_tag(:div,class: 'course-info-col') do %>
-        <%= content_tag(:div, course.name, class: 'course-name') %>
-      <% end %>
-      <%= content_tag(:div, "#{t('view.course_show.subject')}#{course.subject}", class: 'content-ceil') %>
-      <%= content_tag(:div, "#{t('view.course_show.teacher')}#{course.teacher.name}", class: 'content-ceil') %>
-      <%= content_tag(:div, "#{t('view.course_show.schedule')}#{course.finished_lessons_count }/#{course.lessons_count }", class: 'content-ceil') %>
-      <%= content_tag(:div, "#{t('view.course_show.surplus')}#{course.lesson_count_left} #{t('view.course_show.lesson_time')}", class: 'content-ceil') %>
-      <%= content_tag(:div, "#{t('view.course_show.current')}#{course.current_lesson_name}") %>
-    <%end %>
+<% course = order.product %>
+<li>
+  <div class="row">
+    <div class="col-md-9 order-info">
+      <div class="row course-caption">
+        <div class="col-md-12">
+          <span><strong><%= course.name %></strong></span>
+        </div>
+      </div>
+      <div class="row course-classify">
+        <div class="col-md-6 col-sm-6">
+          <span><%= t('view.payment/order.index.course_type') %>：</span>
+          <span><%= t("view.payment/order.index.#{course.model_name.singular_route_key}") %></span>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <span><%= t('view.payment/order.index.grade_subject') %>：</span>
+          <span><%= course.grade %><%= course.subject %></span>
+        </div>
+      </div>
+      <div class="row course-classify">
+        <div class="col-md-6 col-sm-6 classify-name">
+          <span><%= t('view.payment/order.index.teacher') %>：</span>
+          <span><%= course.teacher_name %><%= '...' if course.is_a?(LiveStudio::InteractiveCourse) %></span>
+        </div>
+        <div class="col-md-6 col-sm-6">
+          <span><%= t('view.payment/order.index.lesson_count') %>：</span>
+          <span><%= t('view.payment/order.index.lesson_count_text', count: course.lessons_count) %></span>
+        </div>
+      </div>
 
-    <%= content_tag(:div, class: 'order-operator-div') do%>
-      <%= content_tag(:div, class: 'course-operator-btn') do %>
-          <p>
-            <%= t('view.payment_show.order_actual_price2') %>
-          </p>
-          <p>
-            <span class="alert_red_span"><%= format '￥%0.2f', order.amount %></span>
-          </p>
-      <% end %>
-    <% end %>
+      <div class="row course-amount">
+        <div class="col-md-12">
+          <span><%= t('view.payment/order.index.amount') %>：</span>
+          <span><%= number_to_currency(order.amount, locale: :cn) %></span>
+        </div>
+      </div>
+    </div>
 
-    <%= content_tag(:div, class: 'course-operator-div') do%>
-      <%= content_tag(:div, class: 'course-operator-btn') do %>
-        <%= link_to t('view.payment_show.cancel_order'), cancel_order_user_order_path(@user, order.order_no, cate: :index), method: :patch, data: { confirm: t('view.payment_show.cancel_order_confirm') }, class: 'btn btn-default operator-btn' %>
-        <%= link_to t('activerecord.view.pay_now'), pay_user_order_path(@user, order.order_no), class: 'btn btn-default operator-btn' %>
-        <%= link_to t('view.course_show.info'), user_order_path(@user,order.order_no), class: 'btn btn-default operator-btn' %>
-      <% end %>
-    <% end if Payment::Order::CATE_UNPAID.include?(order.status) %>
+    <div class="col-md-3 order-status">
+      <div class="row status-payment">
+        <div class="col-md-12">
+          <span><%= order.cate_text %></span>
+        </div>
+      </div>
+      <div class="row status-handle">
+        <div class="col-md-12">
+          <% if Payment::Order::CATE_UNPAID.include?(order.status) %>
+            <%= link_to t('view.payment_show.cancel_order'), cancel_order_user_order_path(@user, order.order_no, cate: :index), method: :patch, data: { confirm: t('view.payment_show.cancel_order_confirm') } %>
+            <%= link_to t('activerecord.view.pay_now'), transaction_path(order.order_no) %>
+          <% end %>
 
-    <%= content_tag(:div, class: 'course-operator-div') do%>
-      <%= content_tag(:div, class: 'course-operator-btn') do %>
-        <%= order_operating(order, class: 'btn btn-default operator-btn') %>
-        <%= link_to t('view.course_show.info'), user_order_path(@user,order.order_no), class: 'btn btn-default operator-btn' %>
-      <% end %>
-    <% end if Payment::Order::CATE_PAID.include?(order.status) %>
+          <% if Payment::Order::CATE_PAID.include?(order.status) %>
+            <% if course.is_a?(LiveStudio::VideoCourse) %>
+              <span class="reimburse"><%= image_tag 'reminder.png' %><%= t('view.payment/order.index.cannot_refund') %></span>
+            <% else %>
+              <%= order_operating(order) %>
+            <% end %>
+          <% end %>
 
-    <%= content_tag(:div, class: 'course-operator-div') do%>
-      <%= content_tag(:div, class: 'course-operator-btn') do %>
-        <%= order_operating(order, class: 'btn btn-default operator-btn') %>
-        <%= link_to t('view.payment_show.new_order'), live_studio.new_course_order_path(course), class: 'btn btn-default operator-btn' %>
-        <%= link_to t('view.course_show.info'), user_order_path(@user,order.order_no), class: 'btn btn-default operator-btn' %>
-      <% end %>
-    <% end if Payment::Order::CATE_CANCELED.include?(order.status) %>
-  <% end %>
-<% end %>
+          <% if Payment::Order::CATE_CANCELED.include?(order.status) %>
+            <% if course.is_a?(LiveStudio::VideoCourse) %>
+              <span class="reimburse"><%= image_tag 'reminder.png' %><%= t('view.payment/order.index.cannot_refund') %></span>
+            <% else %>
+              <%= order_operating(order) %>
+            <% end %>
+            <%= link_to t('view.payment_show.new_order'), live_studio.course_path(course) if course.is_a?(LiveStudio::Course) %>
+            <%= link_to t('view.payment_show.new_order'), live_studio.interactive_course_path(course) if course.is_a?(LiveStudio::InteractiveCourse) %>
+            <%= link_to t('view.payment_show.new_order'), live_studio.video_course_path(course) if course.is_a?(LiveStudio::VideoCourse) %>
+          <% end %>
+          <%= link_to t('view.course_show.info'), user_order_path(@user, order.order_no) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>

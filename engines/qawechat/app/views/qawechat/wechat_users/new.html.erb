@@ -2,18 +2,18 @@
 <div class="col-md-12">
   <div class="panel panel-default">
     <div class="panel-heading">
-	<h2 class="panel-title">账号绑定</h2>
+      <h2 class="panel-title">账号绑定</h2>
     </div>
     <div class="panel-body">
-        <%= simple_form_for @user,url: wechat_users_path,method: :post do |f| %>
-        <%= f.input :email, :required => false, :autofocus => true %>
-        <%= f.input :password ,:required => false%>
+      <%= simple_form_for @user, url: wechat_users_path, method: :post do |f| %>
+        <%= f.input :login_account, required: false, autofocus: true, placeholder: true -%>
+        <%= f.input :password, required: false -%>
         <div class="form-actions">
           <%= f.submit "绑定", class: "btn btn-default btn-lg btn-block" %>
         </div>
-        <% end %>
-	</br>
-	<button type="button" class="btn btn-default btn-lg btn-block" onclick="wx.closeWindow()">关闭</button>
+      <% end %>
+	    </br>
+	    <button type="button" class="btn btn-default btn-lg btn-block" onclick="wx.closeWindow()">关闭</button>
     </div>
   </div>
 </div>

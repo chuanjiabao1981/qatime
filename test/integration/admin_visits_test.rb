@@ -24,7 +24,7 @@ class AdminVisitsTest < ActionDispatch::IntegrationTest
     click_on '教师'
     # visit teacher_path(@teacher)
     click_on "#{@teacher.name}[昵称:#{@teacher.nick_name}]"
-    click_on '我的辅导', match: :first
+    click_on '我的直播课', match: :first
     # visit live_studio.teacher_course_path(@teacher,@course)
     # click_on @course.name
     # visit chat.finish_live_studio_course_teams_path(@course)

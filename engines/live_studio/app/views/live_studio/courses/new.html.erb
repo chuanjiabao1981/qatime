@@ -1,17 +1,31 @@
 <div class="panel panel-default">
-  <div class="addinvite">
-    <div class="create-title">
-      <div class="addinvite-title-left">
-        <%= link_to '我的辅导', live_studio.teacher_courses_path(@teacher) %>
-        <span>&gt;</span>
-        <%= link_to '邀请和创建', live_studio.teacher_course_invitations_path(@teacher) %>
-        <span>&gt;</span>
-        <span>创建新辅导</span>
+  <div class="new-curriculum">
+    <div class="curriculum-title">
+      <% if @workstation %>
+        <%= link_to '', live_studio.my_courses_station_workstation_courses_path(@workstation), class: 'fa fa-mail-reply' %>
+      <% end %>
+      <span><%= t('view.live_studio/course.new.title') %></span>
+    </div>
+
+    <div class="curriculum-pic">
+      <div class="row">
+        <div class="col-md-5">
+          <h4><%= t('view.live_studio/course.new.label') %></h4>
+          <ul>
+            <li><%= t('view.live_studio/course.new.label1') %></li>
+            <li><%= t('view.live_studio/course.new.label2') %></li>
+          </ul>
+        </div>
+        <div class="col-md-7">
+          <%= image_tag @course.publicize_url(:info) %>
+        </div>
       </div>
     </div>
 
-    <div class="editor-con">
-      <%= render 'form' %>
+    <div class="editor-con live-msg">
+      <div class="editor-msg">
+        <%= render 'form' %>
+      </div>
     </div>
   </div>
 </div>

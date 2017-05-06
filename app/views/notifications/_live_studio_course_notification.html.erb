@@ -1,32 +1,12 @@
-<div class="qa_object_item" style="clear: both;">
-  <div style="float:left">
-    <label class="logo live_studio_course_<%= notification.action_name %>">
-      <%= t("view.notification.label.live_studio_course.#{notification.action_name}") %>
-    </label>
-  </div>
+<li>
+  <div class="row">
+    <div class="col-md-9 msg-info">
+      <i class="<%= 'unread' unless notification.read %>"></i>
+      <%= link_to notification.notice_content, notification_path(notification, rt: live_studio.course_path(notification.notificationable)) %>
+    </div>
 
-  <div class="title">
-    <% if notification.read %>
-      <span class="label label-default"><%= I18n.t "view.notification.read" %></span>
-    <% else %>
-      <span class="label label-danger"><%= I18n.t "view.notification.unread" %></span>
-    <% end %>
-    
-    <% if notification.action_name.to_sym == LiveStudioCourseNotification::ACTION_NOTICE_CREATE %>
-      <%= t("view.notification.live_studio_course.#{notification.action_name}", content: notification.notificationable.chat_team.try(:announcement), teacher_name: notification.notificationable.teacher.name) %>
-    <% else %>
-      <%= t("view.notification.live_studio_course.#{notification.action_name}", course_name: notification.notificationable.name, day: notification.notificationable.class_date) %>
-    <% end %>
-
-    <% if @receiver.student? -%>
-      <%= link_to t("view.course_show.info"), notification_path(notification, rt: live_studio.student_course_path(@receiver, notification.notificationable)) %>
-    <% elsif @receiver.teacher? -%>
-      <%= link_to t("view.course_show.info"), notification_path(notification, rt: live_studio.teacher_course_path(@receiver, notification.notificationable)) %>
-    <% else -%>
-      <%= link_to t("view.course_show.info"), notification_path(notification, rt: live_studio.manager_course_path(@receiver, notification.notificationable)) %>
-    <% end -%>
+    <div class="col-md-3 msg-item">
+      <span><%= localize(notification.created_at,format: :long) %></span>
+    </div>
   </div>
-  <div class="info">
-    <%= localize(notification.created_at, format: :long) %>
-  </div>
-</div>
+</li>

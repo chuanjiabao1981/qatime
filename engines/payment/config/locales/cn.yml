@@ -1,5 +1,10 @@
 cn:
   view:
+    pay_types:
+      weixin: 微信支付
+      alipay: 支付宝支付
+      account: 余额支付
+      offline: 线下支付
     withdraw_cn: 账户提现
     verify_error: 安全手机校验码不正确
     password_error: 支付密码不正确
@@ -67,6 +72,58 @@ cn:
       audit_withdraw: 申请提现
       alipay: 支付宝转账
       bank: 银行转账
+    payment/sale_task:
+      detail: 明细
+      hide: 收起
+      create: 新增
+      edit: 编辑
+      task_index: "考核 %{index}"
+      period: "%{period} 个月"
+      close: 点击关闭
+      start: 点击开始
+      confirm_close: 确认关闭?
+      confirm_start: 确认开始?
+    payment/withdraw_remit:
+      pic_valid: 请上传图片
+      add_remit: 添加转款记录
+      withdraw_user: "提现人：%{name}"
+      show_big_pic: 点击查看大图
+      placeholders:
+        pay_username: 填写真实信息
+        remit_at: 选择转款日期
+    payment/course_billing:
+      service_price_value: "%{price}元/时"
+    payment/order:
+      index:
+        course_type: 授课类型
+        course: 直播课
+        interactive_course: 一对一
+        video_course: 视频课
+        grade_subject: 年级科目
+        teacher: 授课老师
+        lesson_count: 课时数目
+        lesson_count_text: "共%{count}课"
+        amount: 实付金额
+        cannot_refund: 此订单不支持退款
+      show:
+        more_info: 更多课程信息>
+        order_no: 订单编号
+        created_at: 创建时间
+        pay_type: 支付方式
+        pay_at: 支付时间
+        amount: 实付金额
+      refund:
+        title: 申请退款
+        title2: 退款信息
+        title3: 退款原因
+        name: 课程名称
+        consumed_amount: 已消费额
+        refund_pay_type: 退款方式
+        refund_amount: 可退金额
+        refund_lesson_count: 可退课时
+        notice: 提示：退款过程中你将不能进行此课程的学习！
+        reason_placeholder: 请输入退款原因（最多300字）
+        reason: 请输入退款原因
   activerecord:
     view:
       order: 我的订单
@@ -77,15 +134,19 @@ cn:
     models:
       payment/order: 订单
       payment/change_record: 资金流水
+      payment/withdraw_change_record: 提现
+      payment/sale_task_pay_record: 考核扣款
       payment/consumption_record: 消费记录
       payment/earning_record: 收入记录
       payment/billing: 结算记录
       payment/recharge: 充值记录
       payment/withdraw: 提现记录
+      payment/withdraw_record: 提现
       payment/cash_account: 资金账户
       payment/refund_apply: 退款申请
       payment/refund: 退款
       payment/refund_record: 退款记录
+      payment/sale_task: 考核
     attributes:
       payment/refund:
         transaction_no: 订单编号
@@ -128,6 +189,7 @@ cn:
         reset_pay_type: 重选支付方式
         tips: 请核对信息后再进行付款操作
         real_amount: 应付金额
+        product_type: 课程类型
       payment/change_record:
         different: 收支
         after: 余额
@@ -135,6 +197,8 @@ cn:
         summary: 描述
         created_at: 结算时间
         amount: 金额
+        publish_earning: 发行
+        sell_earning: 销售
       payment/consumption_record:
         amount: 金额
         target_type: 消费类型
@@ -196,6 +260,38 @@ cn:
         pay_type: 提现方式
         created_at: 时间
         status: 状态
+      payment/sale_task:
+        started_at: 考核期开始日
+        period: 考核周期
+        charge_percentage: 考核扣款系数
+        target_balance: 销售额目标
+        expect_profit: 预计平台最低收益
+        task_rule: 考核标准
+        status: 考核状态
+        ended_at: 考核日期
+        task_history: 考核记录
+        task_index: 序号
+        result: 考核结果
+        charge_balance: 考核扣款金额
+        available_balance: 转为可提现金额
+        closed_at: 考核时间
+        operate: 操作
+        status: 考核状态
+        result_balance: 销售额
+        left_amount: 销售差额
+        charge_tips: (考核扣款金额=销售差额*考核扣款系数)
+        status/unstart: 未开始
+        status/ongoing: 正在考核
+        status/closed: 考核结束
+        result/true: 通过
+        result/false: 未通过
+        result/: 未知
+      payment/withdraw_remit:
+        pay_type: 转款方式
+        pay_username: 转款人
+        remit_at: 转款日期
+        pic: 转款证明
+
     status:
       order:
         unpaid: 待付款
@@ -219,6 +315,12 @@ cn:
           allowed: 已通过
           refused: 已驳回
           canceled: 用户取消
+        station:
+          init: 等待审核
+          allowed: 等待转款
+          refused: 提现被拒
+          paid: 已转款
+          canceled: 提现取消
       withdraw_record:
         unpaid: 未付款
         paid: 已付款
@@ -236,6 +338,10 @@ cn:
       payment_password_unset: 支付密码未设置
       payment_password_young: 修改或者设置支付密码24小时内不可用
       payment_password_invalid: 支付密码不正确
+      payment_password_min: 提现最低金额1元
       coupon_code_invalid: 优惠码不存在
     payment/cash_account:
       balance_not_enough: 可用余额不足
+    payment/withdraw:
+      captcha_confirm: 校验码不正确
+      amount_overflow: 余额不足，无法提取!

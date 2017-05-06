@@ -1,0 +1,50 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: 50元充值卡
+  product_id: Charge_50
+  price: 50
+  amount: 34.3
+  online: true
+
+two:
+  name: 108元充值卡
+  product_id: Charge_108
+  price: 108
+  amount: 74.1
+  online: true
+
+three:
+  name: 158元充值卡
+  product_id: Charge_158
+  price: 158
+  amount: 108.4
+  online: true
+
+four:
+  name: 208元充值卡
+  product_id: Charge_208
+  price: 50
+  amount: 142.70
+  online: true
+
+five:
+  name: 258元充值卡
+  product_id: Charge_258
+  price: 50
+  amount: 177.01
+  online: true
+
+six:
+  name: 308元充值卡
+  product_id: Charge_308
+  price: 50
+  amount: 211.31
+  online: true
+
+seven:
+  name: 1008元充值卡
+  product_id: Charge_1008
+  price: 705.58
+  amount: 211.31
+  online: false

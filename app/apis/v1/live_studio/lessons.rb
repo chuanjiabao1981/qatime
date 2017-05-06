@@ -40,12 +40,11 @@ module V1
           post ':id/live_start' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
             if @lesson.ready? || @lesson.paused? || @lesson.closed?
-              LiveService::LessonDirector.new(@lesson).lesson_start
+              LiveService::LessonDirector.new(@lesson).lesson_start(params[:board], params[:camera])
             end
-            LiveService::LessonDirector.live_status_change(@lesson.course, params[:board], params[:camera])
             {
               status: @lesson.status,
-              live_token: @lesson.start_live_session.token,
+              live_token: @lesson.current_live_session.token,
               beat_step: ::LiveStudio::Lesson.beat_step
             }
           end
@@ -63,7 +62,7 @@ module V1
           end
           post ':id/live_switch' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
-            LiveService::LessonDirector.live_status_change(@lesson.course,params[:board],params[:camera])
+            LiveService::LessonDirector.live_status_change(@lesson.course, params[:board], params[:camera], @lesson)
             'ok'
           end
 
@@ -83,7 +82,8 @@ module V1
             @lesson = ::LiveStudio::Lesson.find(params[:id])
             live_token = params[:beat_step].blank? ? @lesson.current_live_session.token :
               @lesson.heartbeats(params[:timestamp], params[:beat_step].to_i, params[:live_token])
-            # raise_change_error_for(@lesson.teaching? || @lesson.paused?)
+            # 更新缓存
+            LiveService::RealtimeService.new(@lesson.course_id).touch_live
             {
               result: 'ok',
               live_token: live_token
@@ -101,10 +101,8 @@ module V1
           end
           post ':id/live_end' do
             @lesson = ::LiveStudio::Lesson.find(params[:id])
-            # raise_change_error_for(@lesson.teaching? || @lesson.paused?)
-            LiveService::LessonDirector.live_status_change(@lesson.course, 0, 0)
-            # present @lesson, with: Entities::LiveStudio::Lesson, type: :live_start
             @lesson.close!
+            LiveService::LessonDirector.live_status_change(@lesson.course, 0, 0, @lesson)
             {
               result: 'ok',
               status: @lesson.status
@@ -147,6 +145,14 @@ module V1
                                                            user_id: current_user.id).where('created_at < ?', Date.today).to_a
             @lesson.replay_times = @paly_records.count
             present @lesson, with: Entities::LiveStudio::VideoLesson, type: :full, current_user: current_user
+          end
+        end
+
+        resource :lessons do
+          desc '今日直播'
+          get 'today' do
+            lessons = ::LiveStudio::Lesson.includes(:course).where(class_date: Date.today)
+            present lessons, with: ::Entities::LiveStudio::TodayLesson
           end
         end
       end

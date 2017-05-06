@@ -1,0 +1,43 @@
+<div class="panel panel-default">
+  <div class="admin">
+    <div class="admin-title">
+      <%= render 'live_studio/station/tab' %>
+    </div>
+
+    <div>
+      <div class="admin-list distribution active-show">
+        <%= render 'filter_nav' %>
+        <div class="admin-list-title">
+          <%= render 'filter_publish' %>
+        </div>
+        <div class="admin-list-con">
+          <table class="table" border="1" cellspacing="1" cellpadding="1">
+            <tr>
+              <td class="w5p"><span><%= LiveStudio::Course.human_attribute_name(:index_no) %></span></td>
+              <td class="w18p"><span><%= LiveStudio::Course.human_attribute_name(:course_name) %></span></td>
+              <td class="w5p"><span><%= LiveStudio::Course.human_attribute_name(:teacher_name) %></span></td>
+              <td class="w5p"><span><%= LiveStudio::Course.human_attribute_name(:subject) %></span></td>
+              <td class="w5p"><span><%= LiveStudio::Course.human_attribute_name(:grade) %></span></td>
+              <td><span><%= LiveStudio::Course.human_attribute_name(:status) %></span></td>
+              <td><span><%= LiveStudio::Course.human_attribute_name(:published_at) %></span></td>
+              <td class="w10p"><span><%= LiveStudio::Course.human_attribute_name(:sell_workstation) %></span></td>
+              <td class="w10p"><span><%= LiveStudio::Course.human_attribute_name(:price) %></span></td>
+              <td class="w10p"><span><%= LiveStudio::Course.human_attribute_name(:base_price) %></span></td>
+              <td><span><%= t("view.live_studio/station.course_records.my_publish.teacher_percent") %></span></td>
+              <td class="w5p"><span><%= LiveStudio::Course.human_attribute_name(:status) %></span></td>
+              <td class="w7p"><span><%= t("view.live_studio/station.course_records.buy_tickets_count") %></span></td>
+            </tr>
+            <%= render partial: 'course_publish', collection: @course_records %>
+          </table>
+        </div>
+
+        <center>
+          <div class="pagination-fix">
+            <%= will_paginate @course_records %>
+          </div>
+        </center>
+
+      </div>
+    </div>
+  </div>
+</div>

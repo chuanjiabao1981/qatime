@@ -1,10 +1,8 @@
 module Payment
   # 系统服务费账单项
   class SystemFeeItem < BillingItem
-    protected
-
-    def account_transfer
-      system_income!(amount, "直播课程: 结算, 系统服务费收入: #{amount}")
+    def summary
+      "课程结束: 平台服务费结算, 结算金额: #{amount}"
     end
   end
 end

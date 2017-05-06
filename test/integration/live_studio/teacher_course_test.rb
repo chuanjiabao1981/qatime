@@ -27,6 +27,8 @@ module LiveStudio
 
       visit live_studio.edit_course_path(course)
       fill_in :course_name, with: '测试英语辅导课程更新'
+      fill_in :course_objective, with: '这是课程目标'
+      fill_in :course_suit_crowd, with: '这是适合人群'
       find('div.note-editable').set('edit course description')
       click_on '发布招生'
       course.reload

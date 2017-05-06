@@ -21,7 +21,9 @@ module Permissions
       allow 'passwords', [:new, :create]
       allow 'live_studio/courses', [:index, :show]
 
-      allow 'wap/live_studio/courses', [:show]
+      allow 'wap/live_studio/courses', [:show, :download]
+      allow 'wap/live_studio/video_courses', [:show]
+      allow 'wap/softwares', [:index]
       allow 'wap/users', [:new, :create]
       allow 'wap/sessions', [:new, :create]
 
@@ -53,6 +55,8 @@ module Permissions
       # captcha
       api_allow :POST, "/api/v1/captcha"
       api_allow :POST, "/api/v1/captcha/verify"
+      allow 'live_studio/interactive_courses', [:index, :show]
+      allow 'live_studio/video_courses', [:index, :show]
 
       ## end api permission
     end

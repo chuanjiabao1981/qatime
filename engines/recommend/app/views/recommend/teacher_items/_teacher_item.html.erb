@@ -1,10 +1,18 @@
-<div class="row qa_big_cell">
-  <div class="col-md-4"><%= image_tag teacher_item.logo_url, size: '16x16' %></div>
-  <div class="col-md-2"><%= link_to teacher_item.target.name, main_app.teacher_path(teacher_item.target) %></div>
-  <div class="col-md-2"><%= teacher_item.try(:index) %></div>
-  <div class="col-md-2"><%= teacher_item.city.try(:name) %></div>
-  <div class="col-md-2">
-    <%= link_to '编辑', recommend.edit_teacher_item_path(teacher_item) if allow?("recommend/teacher_items", 'edit')  %>
-    <%= link_to '删除', recommend.teacher_item_path(teacher_item), method: :delete, data: {confirm: '确定删除?'} if allow?("recommend/teacher_items", 'destroy')  %>
-  </div>
-</div>
+
+<tr>
+  <td><%= show_index(teacher_item_counter, @items.limit_value) %></td>
+  <td><%= image_tag teacher_item.logo_url, size: '64x64' %></td>
+  <td><%= link_to teacher_item.target.name, main_app.teacher_path(teacher_item.target) %></td>
+  <td><%= teacher_item.title %></td>
+  <td><%= link_to teacher_item.target.name, main_app.profile_teacher_path(teacher_item), target: '_blank' %></td>
+  <td><%= teacher_item.index %></td>
+  <td><%= teacher_item.city.try(:name).presence || t('view.recommend/position.city') %></td>
+  <td>
+    <% if allow? "recommend/teacher_items", :edit %>
+      <%= link_to t('view.recommend/position.edit'), edit_teacher_item_path(teacher_item) %>
+    <% end %>
+    <% if allow? "recommend/teacher_items", :destroy %>
+      <%= link_to t('view.recommend/position.destroy'), teacher_item_path(teacher_item), data: {confirm: t('view.recommend/position.confirm'), method: :delete} %>
+    <% end %>
+  </td>
+</tr>

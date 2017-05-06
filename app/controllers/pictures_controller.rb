@@ -11,7 +11,11 @@ class PicturesController < ApplicationController
     @picture          = Picture.new(params[:picture].permit!)
     @picture.author   = current_user
     @picture.save
-    respond_with @picture
+
+    respond_to do |format|
+      format.js # index.html.erb
+      format.json { render json: { url: @picture.name_url } }
+    end
   end
 
   def destroy
@@ -26,3 +30,4 @@ class PicturesController < ApplicationController
     end
   end
 end
+

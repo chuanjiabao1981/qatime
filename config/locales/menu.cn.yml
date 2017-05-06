@@ -7,9 +7,11 @@
     create: "新建"
     avatar: "头像"
     save: "保存"
+    submit: "提交"
     saving: "正在保存"
     submitting: "正在提交"
     operate: "操作"
+    index_no: 序号
     delete: "删除"
     preview: "预览"
     alert_lesson: 调课
@@ -42,6 +44,7 @@
     confirm_refuse: "确定拒绝么？"
     confirm_hide: "确定隐藏么？"
     search: "搜索"
+    search2: "查询"
     public: "公开"
     create_success: "创建成功."
     delete_success: "删除成功."

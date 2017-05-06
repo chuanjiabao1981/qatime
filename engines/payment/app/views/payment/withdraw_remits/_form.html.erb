@@ -1,0 +1,34 @@
+
+<%= simple_form_for @withdraw_remit, html: {class: 'form-inline'} do |f| %>
+  <%= hidden_field_tag :withdraw_id, @withdraw.id %>
+  <div class="form-group">
+    <%= f.label :pay_type %>
+    <%= f.select :pay_type, options_for_select(Payment::WithdrawRemit.pay_type.options), {include_blank: false}, {class: 'form-control'} %>
+    <%= f.error :pay_type %>
+  </div>
+
+  <div class="form-group form-paragraph">
+    <%= f.label :pay_username %>
+    <%= f.text_field :pay_username, class: 'form-control', placeholder: t('view.payment/withdraw_remit.placeholders.pay_username') %>
+    <%= f.error :pay_username %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :remit_at %>
+    <%= f.text_field :remit_at, class: 'form-control je-date', placeholder: t('view.payment/withdraw_remit.placeholders.remit_at'), readonly: true %>
+    <%= f.error :remit_at %>
+  </div>
+
+  <div class="form-group form-prove">
+    <%= f.label :pic %>
+    <%= f.file_field :pic %>
+    <%= f.error :pic %>
+  </div>
+
+  <div class="workstation-submit">
+    <center>
+      <%= link_to t('common.cancel'), :back, class: 'btn btn-default' %>
+      <%= f.submit t('common.submit'), class: 'btn btn-default' %>
+    </center>
+  </div>
+<% end %>

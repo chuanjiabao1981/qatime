@@ -1,0 +1,17 @@
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t('live_studio.menu.teacher.my_interactive_courses') %></h3>
+  </div>
+  <div class="contains-discipline">
+    <%= render 'tab' %>
+    <div class="tab-content">
+      <div class="discipline-con" id="entire">
+        <ul>
+          <%= render partial: 'interactive_course', collection: @interactive_courses %>
+        </ul>
+        <%= render 'shared/blank' if @interactive_courses.blank? %>
+        <center><div class="pagination-fix"><%= will_paginate @interactive_courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+      </div>
+    </div>
+  </div>
+</div>

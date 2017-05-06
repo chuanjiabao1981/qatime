@@ -18,7 +18,19 @@ module Payment
       # captcha = captcha_manager.captcha_of(:withdraw_cash)
       # @errors << t('view.verify_error') if params[:verify] != captcha
       @errors << t('view.withdraw.wait_audit') if @resource_user.payment_withdraws.init.present?
-      @errors << t('view.password_error') unless @resource_user.cash_account!.password_digest.present? && @resource_user.cash_account!.authenticate(params[:payment_password])
+      @errors << t("error.payment/order.payment_password_min") if withdraw_params[:amount].to_f < 1
+
+      cash_account = @resource_user.cash_account!
+      if params[:payment_password].blank?
+        @errors << I18n.t("error.payment/order.payment_password_blank")
+      elsif cash_account.password_set_at.blank?
+        @errors << I18n.t("error.payment/order.payment_password_unset")
+      elsif cash_account.password_set_at > 24.hours.ago
+        @errors << t("error.payment/order.payment_password_young")
+      elsif !cash_account.authenticate(params[:payment_password])
+        @errors << I18n.t("error.payment/order.payment_password_invalid")
+      end
+
       @withdraw = @resource_user.payment_withdraws.new(withdraw_params.merge(status: :init))
       if @errors.blank?
         if @withdraw.save

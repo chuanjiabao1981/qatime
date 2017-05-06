@@ -15,9 +15,21 @@ module V1
     mount V1::Password
     mount V1::Notifications
 
+    mount V1::LiveStudio::Students::Courses
     mount V1::LiveStudio::Courses
     mount V1::LiveStudio::Lessons
     mount V1::LiveStudio::Channels
+
+    # 互动直播
+    mount V1::LiveStudio::InteractiveCourses
+    mount V1::LiveStudio::InteractiveLessons
+    mount V1::LiveStudio::Students::InteractiveCourses
+    mount V1::LiveStudio::Teachers::InteractiveCourses
+
+    # 视频课
+    mount V1::LiveStudio::VideoCourses
+    mount V1::LiveStudio::Students::VideoCourses
+    mount V1::LiveStudio::Teachers::VideoCourses
 
     mount V1::Payment::Orders
     mount V1::Payment::Recharges
@@ -27,6 +39,7 @@ module V1
     mount V1::Payment::Refunds
     mount V1::Recommend::Positions
     mount V1::Payment::Coupons
+    mount V1::Payment::ItunesProducts
 
     add_swagger_documentation mount_path: "/api-doc", api_version: "v1", hide_documentation_path: true, hide_format: false,
                               info: { title: "答疑时间API接口", description: "v1.0" }

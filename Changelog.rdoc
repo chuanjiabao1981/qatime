@@ -40,7 +40,7 @@
 
 * 0.3.0
     * feature
-	* [QT-121](https://qatime.atlassian.net/browse/QT-121)
+        * [QT-121](https://qatime.atlassian.net/browse/QT-121)
 
 * 0.4.0
     * feature
@@ -368,3 +368,81 @@
         * [QT-838](https://qatime.atlassian.net/browse/QT-838)
     * bugfix
         * [QT-738](https://qatime.atlassian.net/browse/QT-738)
+* 1.7.2
+    * feature
+        * [QT-856](https://qatime.atlassian.net/browse/QT-856)
+        * [QT-859](https://qatime.atlassian.net/browse/QT-859)
+        * [QT-857](https://qatime.atlassian.net/browse/QT-857)
+        * [QT-858](https://qatime.atlassian.net/browse/QT-858)
+        * [QT-855](https://qatime.atlassian.net/browse/QT-855)
+        * [QT-846](https://qatime.atlassian.net/browse/QT-846)
+        * [QT-864](https://qatime.atlassian.net/browse/QT-864)
+        * [QT-865](https://qatime.atlassian.net/browse/QT-865)
+        * [QT-865](https://qatime.atlassian.net/browse/QT-865)
+        * [QT-880](https://qatime.atlassian.net/browse/QT-880)
+        * [QT-885](https://qatime.atlassian.net/browse/QT-885)
+        * [QT-841](https://qatime.atlassian.net/browse/QT-841)
+        * [QT-845](https://qatime.atlassian.net/browse/QT-845)
+        * [QT-886](https://qatime.atlassian.net/browse/QT-886)
+    * bugfix
+        * [QT-840](https://qatime.atlassian.net/browse/QT-840)
+        * [QT-725](https://qatime.atlassian.net/browse/QT-725)
+        * [QT-726](https://qatime.atlassian.net/browse/QT-726)
+* 1.8.0
+    * feature
+        * [QT-891](https://qatime.atlassian.net/browse/QT-891)
+        * [QT-893](https://qatime.atlassian.net/browse/QT-893)
+        * [QT-895](https://qatime.atlassian.net/browse/QT-895)
+        * [QT-889](https://qatime.atlassian.net/browse/QT-889)
+        * [QT-906](https://qatime.atlassian.net/browse/QT-906)
+        * [QT-894](https://qatime.atlassian.net/browse/QT-894)
+        * [QT-905](https://qatime.atlassian.net/browse/QT-905)
+        * [QT-892](https://qatime.atlassian.net/browse/QT-892)
+* 1.9.0
+    * feature
+        * [QT-961](https://qatime.atlassian.net/browse/QT-961)
+        * [QT-962](https://qatime.atlassian.net/browse/QT-962)
+        * [QT-963](https://qatime.atlassian.net/browse/QT-963)
+        * [QT-964](https://qatime.atlassian.net/browse/QT-964)
+        * [QT-965](https://qatime.atlassian.net/browse/QT-965)
+        * [QT-966](https://qatime.atlassian.net/browse/QT-966)
+        * [QT-967](https://qatime.atlassian.net/browse/QT-967)
+        * [QT-968](https://qatime.atlassian.net/browse/QT-968)
+        * [QT-976](https://qatime.atlassian.net/browse/QT-976)
+        * [QT-977](https://qatime.atlassian.net/browse/QT-977)
+        * [QT-978](https://qatime.atlassian.net/browse/QT-978)
+* 2.0.1
+    * feature
+        * [QT-870](https://qatime.atlassian.net/browse/QT-870)
+        * [QT-1040](https://qatime.atlassian.net/browse/QT-1040)
+        * [QT-1041](https://qatime.atlassian.net/browse/QT-1041)
+        * [QT-1044](https://qatime.atlassian.net/browse/QT-1044)
+        * [QT-1045](https://qatime.atlassian.net/browse/QT-1045)
+        * [QT-1048](https://qatime.atlassian.net/browse/QT-1048)
+        * [QT-1049](https://qatime.atlassian.net/browse/QT-1049)
+        * [QT-1050](https://qatime.atlassian.net/browse/QT-1050)
+        * [QT-1051](https://qatime.atlassian.net/browse/QT-1051)
+        * [QT-1052](https://qatime.atlassian.net/browse/QT-1052)
+    * bugfix
+        * [QT-1042](https://qatime.atlassian.net/browse/QT-1042)
+        * [QT-1043](https://qatime.atlassian.net/browse/QT-1043)
+* 2.0.2
+    * feature
+        * [QT-1056](https://qatime.atlassian.net/browse/QT-1056)
+        * [QT-1059](https://qatime.atlassian.net/browse/QT-1059)
+        * [QT-1062](https://qatime.atlassian.net/browse/QT-1062)
+        * [QT-1063](https://qatime.atlassian.net/browse/QT-1063)
+        * [QT-1064](https://qatime.atlassian.net/browse/QT-1064)
+        * [QT-1066](https://qatime.atlassian.net/browse/QT-1066)
+        * [QT-1067](https://qatime.atlassian.net/browse/QT-1067)
+        * [QT-1070](https://qatime.atlassian.net/browse/QT-1070)
+        * [QT-1071](https://qatime.atlassian.net/browse/QT-1071)
+        * [QT-1074](https://qatime.atlassian.net/browse/QT-1074)
+        * [QT-1075](https://qatime.atlassian.net/browse/QT-1075)
+        * [QT-1076](https://qatime.atlassian.net/browse/QT-1076)
+        * [QT-1082](https://qatime.atlassian.net/browse/QT-1082)
+    * bugfix
+        * [QT-1057](https://qatime.atlassian.net/browse/QT-1057)
+        * [QT-1065](https://qatime.atlassian.net/browse/QT-1065)
+        * [QT-1072](https://qatime.atlassian.net/browse/QT-1072)
+

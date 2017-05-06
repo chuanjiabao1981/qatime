@@ -1,0 +1,60 @@
+<div class="line-item" id="choiceness">
+  <div class="container">
+    <center>
+      <h2><strong><%= t('view.choiceness_items.title') %></strong></h2>
+    </center>
+
+    <ul class="item-handpick">
+      <% @choiceness.each_with_index do |item, index| %>
+        <% course = item.target %>
+        <li class="col-md-3 col-xs-6">
+          <%= link_to live_studio.send("#{course.model_name.singular_route_key}_path", course), class: 'handpick-pic' do %>
+            <%= image_tag course.publicize_url(:list), class: 'handle_error_list' %>
+
+            <span class="discount">
+              <%= image_tag("tag_one#{item.tag_one_value}.png") if item.tag_one.present? %>
+              <%= image_tag("tag_two#{item.tag_two_value}.png") if item.tag_two.present? %>
+            </span>
+          <% end %>
+          <div class="handpick-info">
+            <p>
+              <%= link_to live_studio.send("#{course.model_name.singular_route_key}_path", course) do %>
+                <strong><%= truncate_u(course.name, length: 15) %></strong>
+              <% end %>
+            </p>
+            <p>
+              <span><%= course.grade %><%= course.subject %>/<%= t('view.choiceness_items.lessons_count', count: course.lessons_count) %></span>
+              <%= link_to truncate_u(course.teacher.try(:name), length: 8), profile_teacher_path(course.teacher) if course.teacher %>
+            </p>
+          </div>
+        </li>
+      <% end %>
+
+      <% @choiceness.size.upto(@choiceness.per_page - 1) do %>
+        <li class="col-md-3 col-xs-6 default">
+          <%= link_to 'javascript:void(0);' do %>
+            <%= image_tag '/imgs/web-nocon-list.png' %>
+          <% end %>
+          <div class="handpick-info">
+            <p>
+              <%= link_to 'javascript:void(0);' do %>
+                <strong><%= t('view.common_bars.default_title') %></strong>
+              <% end %>
+            </p>
+            <p>
+              <span><%= t('view.common_bars.default_grade_lesson') %></span>
+              <%= link_to t('view.common_bars.default_teacher'), "javascript:void(0);" %>
+            </p>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+
+    <p class="iteminfo-more">
+      <%= link_to live_studio.courses_path do %>
+        <%= t('view.choiceness_items.more') %>
+        <i class="fa fa-angle-right"></i>
+      <% end %>
+    </p>
+  </div>
+</div>

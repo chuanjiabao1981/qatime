@@ -5,101 +5,22 @@ module Payment
 
     belongs_to :owner, polymorphic: true
     has_many :change_records
+    has_many :earning_records
+
+    has_many :consumption_records
     has_many :recharge_records
     has_many :withdraw_change_records
-    has_many :earning_records
-    has_many :consumption_records
     has_many :refund_records
+    has_many :earning_records
+
     attr_accessor :create_or_update_password, :current_password, :ticket_token
 
     validates :owner, presence: true
 
     has_secure_password validations: false
 
-    # 可用资金
     def available_balance
-      balance - frozen_balance
-      # balance
-    end
-
-    # 申请提现的时候冻结资金
-    # def frozen(amount)
-    #   Payment::CashAccount.transaction do
-    #     self.frozen_balance += amount
-    #     save!
-    #   end
-    # end
-    #
-    # # 取消冻结资金
-    # def cancel_frozen(amount)
-    #   Payment::CashAccount.transaction do
-    #     self.frozen_balance -= amount
-    #     save!
-    #   end
-    # end
-
-    # 充值
-    def recharge(amount, target)
-      Payment::CashAccount.transaction do
-        with_lock do
-          change(:recharge_records, amount.abs, target: target, billing: nil, summary: "账户充值")
-        end
-      end
-    end
-
-    # 提现
-    def withdraw(amount, target)
-      Payment::CashAccount.transaction do
-        with_lock do
-          change(:withdraw_change_records, -amount.abs, target: target, billing: nil, summary: "账户提现")
-          self.frozen_balance -= amount
-          save!
-        end
-      end
-    end
-
-    # 退款
-    def refund(amount, target)
-      Payment::CashAccount.transaction do
-        with_lock do
-          change(:refund_records, -amount.abs, target: target, billing: nil, summary: "用户申请退款")
-          self.total_expenditure += amount.abs
-          save!
-        end
-      end
-    end
-
-    # 收到退款
-    def receive(amount, target)
-      Payment::CashAccount.transaction do
-        with_lock do
-          change(:earning_records, amount.abs, target: target, billing: nil, summary: "系统退款")
-          save!
-        end
-      end
-    end
-
-    # 收入
-    def earning(amount, target, billing, summary)
-      Payment::CashAccount.transaction do
-        with_lock do
-          change(:earning_records, amount.abs, target: target, billing: billing, summary: summary)
-          self.total_income += amount.abs
-          save!
-        end
-      end
-    end
-
-    # 支出
-    def consumption_without_check(amount, target, billing, summary, options = {})
-      options ||= {}
-      Payment::CashAccount.transaction do
-        with_lock do
-          change(:consumption_records, -amount.abs, options.merge(target: target, billing: billing, summary: summary))
-          self.total_expenditure += amount.abs
-          save!
-        end
-      end
+      balance
     end
 
     # 验证token
@@ -107,32 +28,14 @@ module Payment
       token && token == Redis.current.get("#{object.model_name.cache_key}/#{object.id}/#{cate}")
     end
 
-    # 支出之前检查可用资金
-    def consumption(amount, target, billing, summary, options = {})
-      options ||= {}
-      Payment::CashAccount.transaction do
-        with_lock do
-          check_change!(amount.abs) if options[:change_type].to_s == 'account' # 余额支出需要检查可用资金
-          consumption_without_check(amount, target, billing, summary, options)
-        end
-      end
-    end
-
-    # 冻结资金
-    def freeze_cash(amount)
-      # amount = amount.abs
-      Payment::CashAccount.transaction do
-        with_lock do
-          check_change!(amount)
-          self.frozen_balance += amount
-          save!
-        end
-      end
-    end
-
     # 是否设置了支付密码, 用户接口
     def password?
       password_digest.present?
+    end
+
+    # 资金余额
+    def balance_left_over
+      [self.balance.to_f - self.deposit_balance.to_f, 0.0].max
     end
 
     # 使用支付密码更新
@@ -168,28 +71,15 @@ module Payment
       Redis.current.del("#{model_name.cache_key}/#{id}/#{cate}")
     end
 
-    private
-
-    # 资金变动
-    # force可以透支消费
-    def change(records_chain, amount, attrs)
-      return if amount.zero?
-      after = balance + amount
-      change_record = send(records_chain).create!(
-        attrs.merge(
-          before: balance,
-          after: after,
-          amount: amount,
-          different: amount,
-          owner: owner
-        )
-      )
-      self.balance += change_record.different
-      save!
-    end
-
-    def check_change!(amount)
-      raise Payment::BalanceNotEnough, "可用资金不足" if available_balance < amount
+    # 记录明细
+    # direction 资金变动方向 in 入账; out 出账
+    # 总收入和总消费保存依赖调用方法, 改值可以根据change records计算得出
+    def record_detail!(amount, transaction, direction, options = {})
+      diff = options[:different] || amount
+      record = change_records.create!(transaction: transaction, type: transaction.change_record_type(direction), amount: amount, different: diff)
+      self.total_income += record.amount if record.is_a?(Payment::EarningRecord) # 如果是收入记录增加总收入
+      self.total_expenditure += record.amount if record.is_a?(Payment::ConsumptionRecord) # 如果是消费记录增加总消费
+      record
     end
   end
 end

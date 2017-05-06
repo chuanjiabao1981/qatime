@@ -173,11 +173,15 @@ class TeachersController < ApplicationController
   end
 
   def profile
-    @user = @current_resource
-    @user_path = current_user.blank? ? signin_path : (!current_user.student? && !current_user.teacher? && 'javascript:void(0);')
-    @courses = @teacher.live_studio_courses.where('status > ?', LiveStudio::Course.statuses[:init])
-    @similar_courses = LiveStudio::Course.where(subject: @teacher.subject, grade: @teacher.grade).opening.limit(4)
-    render layout: 'application_front'
+    teacher_data = DataService::TeacherData.new(@teacher)
+    @courses = teacher_data.profile_courses.limit(6)
+    @interactive_courses = teacher_data.profile_interactive_courses.limit(6)
+    @video_courses = teacher_data.profile_video_courses.limit(6)
+
+    @course_has_more = teacher_data.more_profile_course?
+    @interactive_course_has_more = teacher_data.more_profile_interactive_course?
+    @video_course_has_more = teacher_data.more_profile_video_course?
+    render layout: 'v1/application'
   end
 
   private
@@ -253,6 +257,10 @@ class TeachersController < ApplicationController
       teaching_years_flag = Teacher.teaching_years.options.find{|years| years.first == update_params[:teaching_years]}
       if teaching_years_flag.present?
         update_params[:teaching_years] = teaching_years_flag.last
+      end
+
+      if @teacher.avatar.blank? && update_params[:avatar].blank?
+        @teacher.use_default_avatar
       end
 
       @teacher.teacher_columns_required!

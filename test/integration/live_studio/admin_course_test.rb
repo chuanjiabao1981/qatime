@@ -18,13 +18,13 @@ module LiveStudio
     end
 
     test "admin view course list" do
-      click_on "辅导班"
+      click_on "直播课代销"
       assert page.has_content?('开课中'), "全部列表没有显示开课中辅导班"
       assert page.has_content?('招生中'), "全部列表没有显示招生中辅导班"
       assert page.has_no_content?('审核中'), "未审核辅导班显示"
       assert page.has_no_content?('审核被拒'), "未审核通过辅导班显示"
       select('英语', from: 'subject')
-      assert_equal 6, page.all(".admin-list-con tr").size, "英语辅导数量不正确"
+      assert_equal 7, page.all(".admin-list-con tr").size, "英语辅导数量不正确"
       select('高一', from: 'grade')
       assert_equal 4, page.all(".admin-list-con tr").size, "高一英语辅导数量不正确"
       select('开课中', from: 'status')

@@ -10,7 +10,6 @@
 #two: {}
 #  column: value
 teacher_one:
-  id: 1
   name: teacher_one
   role: teacher
   category: 高中
@@ -25,7 +24,6 @@ teacher_one:
   province: shanxi
 
 teacher_two:
-  id: 2
   name: teacher_two
   role: teacher
   category: 高中
@@ -36,6 +34,7 @@ teacher_two:
   avatar: test
   school: school1
   type: Teacher
+  city: yangquan
 
 teacher1:
   login_mobile: 15910000001
@@ -63,9 +62,9 @@ teacher2:
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   school: school1
   type: Teacher
+  city: yangquan
 
 teacher3:
-  id: 3
   name: teacher3
   nick_name: teacher_3
   role: teacher
@@ -150,6 +149,7 @@ student1:
   grade: 高一
   type: Student
   school: school2
+  city: yangquan
 
 student3:
   name: student3
@@ -174,7 +174,6 @@ student2:
   school: school2
 
 student_one_with_course:
-  id: 9
   name: student_with_course
   role: student
   email: with_course@student.com
@@ -376,11 +375,8 @@ manager_zhuji:
   avatar: test
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   type: Manager
-  
-
 
 english_teacher:
-  id: 10
   name: 高中英语老师
   role: teacher
   category: 高中
@@ -657,6 +653,19 @@ student_can_no_replays:
   role: student
   email: 15100000012@qatime.cn
   parent_phone: 15100000012
+  password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  avatar: "test"
+  grade: 高一
+  type: Student
+  school: school2
+  city: yangquan
+
+student_for_tastes:
+  login_mobile: 15100000013
+  name: student_for_tastes
+  role: student
+  email: 15100000013@qatime.cn
+  parent_phone: 15100000013
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
   avatar: "test"
   grade: 高一

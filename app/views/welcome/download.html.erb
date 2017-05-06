@@ -1,40 +1,48 @@
-<div class="container container-details">
-  <div class="row">
-    <div class="panel panel-default">
-      <div class="download-page">
-      <% @softwares.each do |software| %>
-        <div class="down-load">
-          <div class="down-load-con">
+
+<div class="wrap-box">
+  <div class="download-info">
+    <div class="container">
+      <%= image_tag 'win.png' %>
+      <div class="mobile-item">
+        <h3><%= t('welcome.download.qatime') %></h3>
+        <p><%= t('welcome.download.qatime_desc') %></p>
+        <a href="#download"><%= t('view.common_bars.download') %><span class="fa fa-angle-down"></span></a>
+      </div>
+    </div>
+  </div>
+  <a name="download"></a>
+  <div class="container">
+    <div class="download">
+      <ul class="spinner">
+        <% @softwares.each do |software| %>
+          <li>
             <div class="row">
               <div class="col-md-8">
-                <%= image_tag software.logo_url(:big), size: "120x120", alt: software.title %>
-                <div class="down-msg">
-                  <div class="down-msg-title">
-                    <span><%= software.title %></span>
-                    <span>-<%= software.sub_title %></span>
+                <div class="row">
+                  <div class="col-md-2 col-sm-2 spinner-head">
+                    <%= image_tag software.logo_url(:big), alt: software.title %>
                   </div>
-                  <div class="down-msg-con">
-                    <%= software.desc %>
+                  <div class="col-md-10 col-sm-10 spinner-msg">
+                    <h3><%= software.title %><span>-<%= software.sub_title %></span></h3>
+                    <p><%= software.desc %></p>
                   </div>
                 </div>
               </div>
               <div class="col-md-4">
-                <div class="down-msg-right">
-                  <div class="down-msg-new">
-                      <span>
-                        <%= t(software.platform_windows? ? '.win_desc' : '.android_desc')%>
-                      </span>
-                    <%= link_to t(".download"),software.download_links %>
+                <div class="row">
+                  <div class="col-md-5 col-sm-2 col-md-offset-2 spinner-code">
+                    <%= image_tag software.qr_code.code_url, alt: software.title unless software.platform_windows? %>
                   </div>
-                  <%= image_tag software.qr_code.code_url, size: "120x120", alt: software.title unless software.platform_windows? %>
+                  <div class="col-md-5 col-sm-10  spinner-new">
+                    <p><%= t(software.platform_windows? ? '.win_desc' : '.android_desc')%></p>
+                    <%= link_to t(".download"), software.download_links %>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      <% end if @softwares %>
-      </div>
+          </li>
+        <% end if @softwares %>
+      </ul>
     </div>
   </div>
 </div>
-

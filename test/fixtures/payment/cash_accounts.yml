@@ -5,12 +5,14 @@ one:
   owner_type: Owner
   balance: 9.99
   deleted_at: 
+  type: Payment::CashAccount
 
 two:
   owner_id: 
   owner_type: Owner
   balance: 9.99
   deleted_at: 
+  type: Payment::CashAccount
 
 student_balance_account:
   owner: student_balance (User)
@@ -19,87 +21,93 @@ student_balance_account:
   total_expenditure: 300
   password_digest: <%= BCrypt::Password.create("123123", cost: 4) %>
   password_set_at: <%= 2.day.ago%>
+  type: Payment::CashAccount
 
 teacher_account:
   owner: teacher1 (User)
   balance: 0
+  type: Payment::CashAccount
 
 student_account:
   owner: student1 (User)
-  balance: 0
+  balance: 600
+  type: Payment::CashAccount
 
 student2_account:
   owner: student2 (User)
-  balance: 0
+  balance: 300
   password_digest: <%= BCrypt::Password.create("123123", cost: 4) %>
   password_set_at: <%= 2.day.ago%>
+  type: Payment::CashAccount
 
 student3_account:
   owner: student3 (User)
   balance: 1000
   password_digest: <%= BCrypt::Password.create("123123", cost: 4) %>
   password_set_at: <%= 2.day.ago%>
+  type: Payment::CashAccount
 
 teacher2_account:
   owner: teacher2 (User)
   balance: 30
+  type: Payment::CashAccount
 
 teacher_account_2000:
   owner: teacher2 (User)
   balance: 2000
-
-total_income_teacher:
-  id: 1000
-  owner: teacher_tally (Teacher)
-  balance: 2000
-  total_income: 3000
-  password_digest: <%= BCrypt::Password.create("111111", cost: 4) %>
+  type: Payment::CashAccount
 
 physics_teacher1_account:
   owner: physics_teacher1 (User)
   balance: 0
+  type: Payment::CashAccount
 
 student2_account:
   owner: student2 (User)
   balance: 0
+  type: Payment::CashAccount
 
 account_for_teacher_tally:
   owner: teacher_tally (User)
   balance: 10000
   password_digest: <%= BCrypt::Password.create("111111", cost: 4) %>
+  password_set_at: <%= 2.days.ago %>
+  type: Payment::CashAccount
 
 account_for_student_tally:
   owner: student_tally (User)
   balance: 0
+  type: Payment::CashAccount
 
 account_for_workstation:
   owner: workstation1 (Workstation)
   balance: 0
+  type: Payment::CashAccount
+available_cash_workstation1:
+  owner: workstation1(Workstation)
+  balance: 200
+  type: Payment::AvailableAccount
   
-teahcer_balance_account:
-  owner: teacher_tally (User)
-  balance: 100000
-  total_income: 0
-  total_expenditure: 0
-  password_digest: <%= BCrypt::Password.create("111111", cost: 4) %>
-
 teacher_for_billing_account:
   owner: teacher_for_billing (User)
   balance: 10
   total_income: 0
   total_expenditure: 0
+  type: Payment::CashAccount
 
 teacher_balance_account:
   owner: teacher_balance (User)
   balance: 100000
   total_income: 0
   total_expenditure: 0
+  type: Payment::CashAccount
 
 student_set_payment_password:
   owner: student_set_payment_password (User)
   balance: 100
   total_income: 0
   total_expenditure: 0
+  type: Payment::CashAccount
 
 student_update_payment_password:
   owner: student_update_payment_password (User)
@@ -107,6 +115,8 @@ student_update_payment_password:
   total_income: 0
   total_expenditure: 0
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  password_set_at: <%= 2.days.ago %>
+  type: Payment::CashAccount
 
 teacher_get_back_payment_password:
   owner: teacher_get_back_payment_password (User)
@@ -114,28 +124,54 @@ teacher_get_back_payment_password:
   total_income: 0
   total_expenditure: 0
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  password_set_at: <%= 2.days.ago %>
+  type: Payment::CashAccount
 
 student_order_for_refund_account:
   owner: student_order_for_refund (User)
   balance: 1000
   password_digest: <%= BCrypt::Password.create("password", cost: 4) %>
+  password_set_at: <%= 2.days.ago %>
+  type: Payment::CashAccount
 
 cash_admin_account:
   owner: cash_admin (User)
   balance: 20000
+  type: Payment::CashAccount
 
 cash_default_workstation:
   owner: workstation_default(Workstation)
   balance: 20000
+  type: Payment::CashAccount
+available_cash_workstation_default:
+  owner: workstation_default(Workstation)
+  balance: 200
+  type: Payment::AvailableAccount
 
 cash_workstation_zhuji:
   owner: workstation_zhuji(Workstation)
   balance: 20000
+  type: Payment::CashAccount
+available_cash_workstation_zhuji:
+  owner: workstation_zhuji(Workstation)
+  balance: 200
+  type: Payment::AvailableAccount
 
 cash_workstation_beijing:
   owner: workstation_one(Workstation)
   balance: 100
+  type: Payment::CashAccount
+available_cash_workstation_beijing:
+  owner: workstation_one(Workstation)
+  balance: 100
+  type: Payment::AvailableAccount
 
 cash_workstation_hd:
   owner: workstation_hd(Workstation)
   balance: 200
+  type: Payment::CashAccount
+available_cash_workstation_hd:
+  owner: workstation_hd(Workstation)
+  balance: 200
+  type: Payment::AvailableAccount
+

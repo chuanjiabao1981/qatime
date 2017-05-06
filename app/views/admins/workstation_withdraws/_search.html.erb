@@ -1,0 +1,15 @@
+<div class="audit-filtrate">
+  <div class="audit-filtrate-left">
+    <%= link_to t('view.admins.workstation_withdraws.search.no_audit'), admins_workstation_withdraws_path(audit: 'no_audit'), class: "#{'active' if params[:audit] == 'no_audit'}" %>
+    <%= link_to t('view.admins.workstation_withdraws.search.audit'), admins_workstation_withdraws_path(audit: 'audit'), class: "#{'active' if params[:audit] == 'audit'}" %>
+  </div>
+
+  <div class="audit-filtrate-right">
+    <%= form_for @query, :url => admins_workstation_withdraws_path, html: {method: :get} do |f| %>
+      <%= hidden_field_tag :audit, params[:audit] %>
+      <%= f.text_field :transaction_no_or_user_name_or_user_login_mobile_or_owner_of_Workstation_type_name_cont, placeholder: t('view.admins.workstation_withdraws.search.key_placeholer') %>
+
+      <%= f.submit t('common.search2') %>
+    <% end %>
+  </div>
+</div>

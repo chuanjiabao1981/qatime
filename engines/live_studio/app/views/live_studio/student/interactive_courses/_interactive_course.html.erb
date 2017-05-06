@@ -1,0 +1,38 @@
+<li>
+  <div class="row">
+    <div class="col-md-3 discipline-pic">
+      <%= link_to image_tag(interactive_course.publicize_url(:list)), live_studio.interactive_course_path(interactive_course) -%>
+    </div>
+    <div class="col-md-9 discipline-info">
+      <div class="row info-title">
+        <div class="col-md-12">
+          <%= link_to live_studio.interactive_course_path(interactive_course) do -%>
+            <strong><%= interactive_course.name %></strong>
+          <% end -%>
+        </div>
+      </div>
+      <div class="row info-state">
+        <div class="col-md-4">
+          <span><%= LiveStudio::InteractiveCourse.human_attribute_name(:grade) %></span>
+          <span><%= interactive_course.grade %></span>
+        </div>
+        <div class="col-md-4">
+          <span><%= LiveStudio::InteractiveCourse.human_attribute_name(:subject) %></span>
+          <span><%= interactive_course.subject %></span>
+        </div>
+        <div class="col-md-4">
+          <span><%= LiveStudio::InteractiveCourse.human_attribute_name(:lessons_progress) %></span>
+          <span><%= interactive_course.finished_lessons_count %>/<%= interactive_course.interactive_lessons_count %></span>
+        </div>
+      </div>
+      <div class="row info-user">
+        <div class="col-md-12">
+          <p>
+            <span><%= LiveStudio::InteractiveCourse.human_attribute_name(:teacher) %></span>
+            <span><%= interactive_course.teachers.map(&:name).join('/') %></span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</li>

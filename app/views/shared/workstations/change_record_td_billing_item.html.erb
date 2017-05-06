@@ -1,0 +1,55 @@
+<td colspan="7">
+  <input type="hidden" id="ajax_complete_<%= @change_record.id %>" />
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tbody><tr>
+      <td>
+        <span>课程单价：</span>
+        <span><%= number_to_currency(@change_record.target.try(:current_price)) %></span>
+      </td>
+      <td>
+        <span>服务时长：</span>
+        <span>3分23秒</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span>服务费标准：</span>
+        <span><%= LiveStudio::Course.human_attribute_name(:base_price_clt, price: change_record.target.try(:base_price).to_f*60) %></span>
+      </td>
+      <td>
+        <span>服务费扣除：</span>
+        <span>￥32.00</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span>教师分成：</span>
+        <span><%= number_to_percentage(change_record.target.try(:teacher_percentage), precision: 0) %></span>
+      </td>
+      <td>
+        <span>教师收入：</span>
+        <span>￥2002.00</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span>平台分成：</span>
+        <span>X%</span>
+      </td>
+      <td>
+        <span>平台收入：</span>
+        <span>￥2002.00</span>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <span>工作站分成（发行）：</span>
+        <span>X%</span>
+      </td>
+      <td>
+        <span>工作站收入（发行）</span>
+        <span>￥270.00</span>
+      </td>
+    </tr>
+    </tbody></table>
+</td>

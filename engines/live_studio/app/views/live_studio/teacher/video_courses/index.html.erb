@@ -1,0 +1,25 @@
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t("live_studio.menu.teacher.my_video_courses") %></h3>
+    <%= link_to live_studio.new_teacher_video_course_path(@teacher) do %>
+      <%= image_tag "create.png" %>
+      <span><%= t("live_studio.actions.teacher.video_course.create") %></span>
+    <% end %>
+  </div>
+  <div class="contains-discipline">
+    <div class="discipline-nav">
+      <%= link_to t("filter.status.pending"), live_studio.teacher_video_courses_path(@teacher), class: "#{'active' unless params[:cate] == 'published' }" -%>
+      <%= link_to t("filter.status.published"), live_studio.teacher_video_courses_path(@teacher, cate: 'published'), class: "#{'active' if params[:cate] == 'published' }" -%>
+    </div>
+    <div class="tab-content">
+      <div class="discipline-con tab-pane fade in active">
+        <ul>
+          <%= render partial: "video_course", collection: @video_courses %>
+        </ul>
+        <%= render 'shared/blank' if @video_courses.blank? %>
+        <center><div class="pagination-fix"><%= will_paginate @video_courses, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -32,7 +32,7 @@ class RefundsTest < ActionDispatch::IntegrationTest
     res = JSON.parse(response.body)
     assert_response :success
     assert_equal 1, res['status']
-    assert_equal 3, res['data'].count
+    assert_equal 4, res['data'].count, "返回数据不正确 #{res['data']}"
   end
 
   test 'create cancel refund test' do
@@ -40,7 +40,7 @@ class RefundsTest < ActionDispatch::IntegrationTest
     put "/api/v1/payment/users/#{@student.id}/refunds/#{order.transaction_no}/cancel",{},'Remember-Token' => @student_token
     res = JSON.parse(response.body)
     assert_response :success
-    assert_equal 1, res['status']
-    assert_equal 'cancel', res['data']['status']
+    assert_equal 1, res['status'], "返回状态错误 #{res}"
+    assert_equal 'canceled', res['data']['status']
   end
 end

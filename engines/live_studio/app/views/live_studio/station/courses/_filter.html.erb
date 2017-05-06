@@ -9,13 +9,6 @@
     </div>
 
     <div class="condition">
-      <span><%= LiveStudio::Course.human_attribute_name(:sell_percentage) %></span>
-      <%= select_tag :sell_percentage_range, options_for_select(LiveStudio::Course.sell_percentage_range.options, params[:sell_percentage_range]),
-                     prompt: t("live_studio.course.menu.all"),
-                     class: 'immediately' %>
-    </div>
-
-    <div class="condition">
       <span><%= LiveStudio::Course.human_attribute_name(:subject) %></span>
       <%= select_tag :subject, options_for_select(APP_CONSTANT['subjects'], params[:subject]), prompt: t("live_studio.course_request.menu.all"),
                      class: 'immediately' %>

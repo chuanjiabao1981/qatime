@@ -1,0 +1,15 @@
+<% @recommend_teachers.each do |teacher| %>
+  <li class="col-md-2 col-sm-3 col-xs-4">
+    <%= link_to profile_teacher_path(teacher.target) do %>
+      <p><%= image_tag teacher.logo_url, class: 'handle_error_avatar' %></p>
+      <p>
+        <span><strong><%= teacher.target.name %></strong></span>
+        <span><%= teacher.target.teaching_years_text %></span>
+      </p>
+    <% end %>
+  </li>
+<% end %>
+
+<%= render partial: 'home/items/default_teachers' if @recommend_teachers.blank? %>
+
+<input type="hidden" id="teacher_page" value="<%= params[:teacher_page].presence || 2 %>" />

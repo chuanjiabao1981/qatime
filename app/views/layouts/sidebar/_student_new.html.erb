@@ -40,10 +40,31 @@
       <% end %>
     </li>
     <li>
+      <%= link_to live_studio.tastes_student_path(@student) do %>
+        <span class="fa fa-users"></span>
+        <span class="qa_f18"><%= t("view.student_bars.tastes") %></span>
+        <span class="glyphicon arraw-span <%= student_sidebar_nav_is?(:tastes) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+      <% end %>
+    </li>
+    <li>
       <%= link_to live_studio.student_courses_path(@student) do %>
       <span class="fa fa-users"></span>
       <span class="qa_f18"><%= t("view.student_bars.my_course") %></span>
       <span class="glyphicon arraw-span <%= student_sidebar_nav_is?(:courses) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to live_studio.student_interactive_courses_path(@student) do %>
+      <span class="fa fa-users"></span>
+      <span class="qa_f18"><%= t("view.student_bars.my_interactive_course") %></span>
+      <span class="glyphicon arraw-span <%= student_sidebar_nav_is?(:interactive_courses) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
+      <% end %>
+    </li>
+    <li>
+      <%= link_to live_studio.student_video_courses_path(@student) do %>
+      <span class="fa fa-users"></span>
+      <span class="qa_f18"><%= t("view.student_bars.my_video_course") %></span>
+      <span class="glyphicon arraw-span <%= student_sidebar_nav_is?(:video_courses) ? 'glyphicon-chevron-left' : 'glyphicon-chevron-right' %>"></span>
       <% end %>
     </li>
     <li>

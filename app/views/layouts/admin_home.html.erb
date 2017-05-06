@@ -15,9 +15,7 @@
 <div class="container">
   <div class='row'>
     <div class="col-md-12">
-      <% flash.each do |key, value| %>
-          <div class="alert alert-<%= key %>"><%= value %></div>
-      <% end %>
+      <%= render partial: 'shared/flash_msg' %>
     </div>
     <div class='col-md-2'>
       <ul class="menu" style="color: white">
@@ -32,8 +30,8 @@
           <% end %>
         </li>
         <li>
-          <%= link_to recommend.admin_positions_path do %>
-            <span class="glyphicon glyphicon-user"></span> <span class="qa_f18">推荐管理</span>
+          <%= link_to recommend.position_banner_items_path(Recommend::BannerItem.default.presence || 0) do %>
+            <span class="glyphicon glyphicon-list-alt"></span> <span class="qa_f18"><%= Recommend::Position.model_name.human %></span>
           <% end %>
         </li>
         <li>
@@ -107,7 +105,7 @@
         <li>
           <%= link_to live_studio.admin_courses_path do %>
             <span class="glyphicon glyphicon-list-alt"></span>
-            <span class="qa_f18"><%= LiveStudio::Course.model_name.human %></span>
+            <span class="qa_f18"><%= t("live_studio.menu.courses") %></span>
           <% end %>
         </li>
 

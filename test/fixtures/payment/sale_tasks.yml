@@ -1,0 +1,42 @@
+one:
+  target: workstation_zhuji (Workstation)
+  started_at: <%= 3.month.ago.beginning_of_day %>
+  period: 1
+  ended_at: <%= 2.month.ago.since(1.day).end_of_day %>
+  closed_at: <%= 2.month.ago.beginning_of_day %>
+  charge_percentage: 10
+  target_balance: 100000
+  result: false
+  result_balance: 80000
+  charge_balance: 2000
+  available_balance: 1000
+  status: 2
+two:
+  target: workstation_zhuji (Workstation)
+  started_at: <%= 2.month.ago.beginning_of_day %>
+  period: 2
+  ended_at: <%= Time.now.since(1.day).end_of_day %>
+  closed_at: <%= Time.now.beginning_of_day %>
+  charge_percentage: 10
+  target_balance: 200000
+  result: true
+  result_balance: 240000
+  charge_balance: 0
+  available_balance: 10000
+  status: 2
+task_three:
+  target: workstation_one (Workstation)
+  started_at: <%= 1.month.ago.beginning_of_day %>
+  period: 1
+  ended_at: <%= Time.now.since(1.day).end_of_day %>
+  charge_percentage: 10
+  target_balance: 400
+  status: 1
+task_four:
+  target: workstation_hd (Workstation)
+  started_at: <%= 1.month.ago.beginning_of_day %>
+  period: 1
+  ended_at: <%= Time.now.since(1.day).end_of_day %>
+  charge_percentage: 10
+  target_balance: 2000
+  status: 1

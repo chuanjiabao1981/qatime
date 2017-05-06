@@ -190,7 +190,7 @@ class StudentsController < ApplicationController
   end
 
   def register_params
-    params.require(:student).permit(:name, :gender, :grade, :desc, :email, :email_confirmation, :parent_phone, :parent_phone_confirmation, :crop_x, :crop_y, :crop_w, :crop_h, :avatar)
+    params.require(:student).permit(:name, :gender, :grade, :desc, :email, :email_confirmation, :parent_phone, :parent_phone_confirmation, :crop_x, :crop_y, :crop_w, :crop_h, :avatar, :city_id, :province_id)
   end
 
   # 根据跟新内容判断是否需要密码更新
@@ -219,6 +219,10 @@ class StudentsController < ApplicationController
       if %w(password).include?(update_by)
         @student.password_required!
         return @student.update_with_password(update_params)
+      end
+
+      if @student.avatar.blank? && update_params[:avatar].blank?
+        @student.use_default_avatar
       end
 
       @student.student_columns_required!

@@ -27,6 +27,7 @@ module Entities
       end
       expose :status
       expose :description, if: { type: :full }
+      expose :tag_list, if: { type: :full }
       expose :lesson_count, if: { type: :full } do |course|
         course.lessons_count
       end
@@ -39,8 +40,11 @@ module Entities
       end
       expose :taste_count
       expose :completed_lessons_count
+      expose :closed_lessons_count
       expose :live_start_time
       expose :live_end_time
+      expose :objective
+      expose :suit_crowd
       expose :publicize do |course|
         case options[:size]
           when :search
@@ -54,6 +58,23 @@ module Entities
       expose :lessons, using: Entities::LiveStudio::Lesson, if: { type: :full }
       expose :chat_team, using: Entities::Chat::Team, if: { type: :full } do |course|
         course.chat_team
+      end
+      expose :icons do
+        expose :refund_any_time do |course|
+          true
+        end
+        expose :coupon_free do |course|
+          true
+        end
+        expose :cheap_moment do |course|
+          false
+        end
+        expose :join_cheap do |course|
+          course.join_cheap?
+        end
+        expose :free_taste do |course|
+          course.taste_count.to_i > 0
+        end
       end
     end
   end

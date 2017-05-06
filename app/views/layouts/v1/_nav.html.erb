@@ -1,0 +1,49 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to home_path, class: 'navbar-brand' do %>
+        <%= image_tag 'homepage-logo.png' %>
+      <% end %>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="<%= 'active' if current_page?(live_studio.root_path) %>">
+          <%= link_to t("view.common_bars.live_studio_course"), live_studio.root_path %>
+        </li>
+        <li class="<%= 'active' if current_page?(live_studio.interactive_courses_path) %>">
+          <%= link_to t("view.common_bars.live_studio_interactive_course"), live_studio.interactive_courses_path %>
+        </li>
+        <li class="<%= 'active' if current_page?(live_studio.video_courses_path) %>">
+          <%= link_to t("view.common_bars.live_studio_video_course"), live_studio.video_courses_path %>
+        </li>
+        <li>
+          <% if current_user && (current_user.student? || current_user.teacher? || current_user.manager?) %>
+            <%= link_to t("view.common_bars.customized_courses"), main_app.send("customized_courses_#{current_user.role}_path", current_user) %>
+          <% end %>
+          <%= link_to t("view.common_bars.customized_courses"), signin_path unless current_user %>
+        </li>
+        <li><%= link_to t("view.common_bars.questions"), main_app.questions_path %></li>
+        <li>
+          <%= link_to main_app.curriculums_path do %>
+            <%#= content_tag :span, '', class: 'fa fa-angle-up upward' if current_page?(main_app.curriculums_path) %>
+            <%= t("view.common_bars.curriculums") %>
+          <% end %>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          <%= image_tag 'phonenum.png' %>
+          <span><strong>400-838-8010</strong></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

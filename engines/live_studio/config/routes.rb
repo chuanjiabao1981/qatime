@@ -39,6 +39,9 @@ LiveStudio::Engine.routes.draw do
       patch :publish
       get :refresh_current_lesson
       get :live_status
+      get :live_info
+      get :update_class_date
+      patch :update_lessons
     end
 
     resources :lessons, only: [:show], shallow: true do
@@ -51,14 +54,61 @@ LiveStudio::Engine.routes.draw do
     end
   end
 
+  # 一对一互动
+  resources :interactive_courses, only: [:index, :new, :create, :edit, :update, :show, :destroy] do
+    collection do
+      post :preview
+      patch :preview
+    end
+    member do
+      get :update_class_date
+      patch :update_lessons
+    end
+
+    resources :orders, only: [:new, :create]
+    resources :announcements, only: [:index, :update, :create], shallow: true
+  end
+
+  # 视频课
+  resources :video_courses, only: [:index, :new, :create, :edit, :update, :show, :destroy] do
+    collection do
+      post :preview
+      patch :preview
+    end
+
+    member do
+      get :taste # 试听
+      get :deliver
+      get :play # 观看直播
+      post :update_notice
+      get :preview
+    end
+
+    resources :orders, only: [:new, :create]
+    resources :announcements, only: [:index, :update, :create], shallow: true
+
+    resources :video_lessons, only: [], shallow: true do
+      member do
+        get :play
+      end
+    end
+  end
+
   namespace :station do
     resources :workstations, only: [] do
       resources :courses, only: [:index] do
+        collection do
+          get :my_courses
+        end
         member do
           get :send_qr_code
         end
       end
-      resources :course_records, only: [:index]
+      resources :course_records, only: [:index] do
+        collection do
+          get :my_publish
+        end
+      end
       resources :course_requests, only: [:index] do
         member do
           patch :accept
@@ -68,6 +118,20 @@ LiveStudio::Engine.routes.draw do
       resources :course_invitations, only: [:index, :new, :create] do
         member do
           patch :cancel
+        end
+      end
+      resources :interactive_courses, only: [:index]
+      resources :video_courses, only: [:index, :edit, :update] do
+        collection do
+          get :my_publish
+          get :my_sells
+          get :list
+          get :audits
+        end
+        member do
+          get :send_qr_code
+          patch :publish
+          post :audit
         end
       end
     end
@@ -147,9 +211,10 @@ LiveStudio::Engine.routes.draw do
       end
 
       resources :course_invitations, only: [:index, :destroy]
+      resources :interactive_courses, only: [:index]
+      resources :video_courses
     end
   end
-
 
   # namespace :teacher do
   #   resources :courses, only: [:index, :show, :edit, :update] do
@@ -176,8 +241,12 @@ LiveStudio::Engine.routes.draw do
       member do
         get :schedules
         get :settings
+        get :tastes
+        get :taste_records
       end
       resources :courses, only: [:index, :show]
+      resources :interactive_courses, only: [:index, :show]
+      resources :video_courses, only: [:index]
     end
   end
 

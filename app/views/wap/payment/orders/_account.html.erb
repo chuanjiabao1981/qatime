@@ -1,7 +1,9 @@
 <div class=" phone-register phone-details phone-applay">
   <div class="phone-login-title">
     <div class="phone-return">
-      <%= link_to image_tag("phone-return-1.png"), new_wap_live_studio_course_order_path(@order.product, coupon_code: @order.coupon.try(:code)) %>
+      <%= link_to image_tag("phone-return-1.png"),
+                  main_app.send("new_wap_live_studio_#{@order.product.model_name.singular_route_key}_order_path",
+                                @order.product, coupon_code: @order.coupon.try(:code)) %>
     </div>
     <div class="phone-headline">
       <h3><%= t('view.wap.live_studio.orders.pay_by_account_title') %></h3>

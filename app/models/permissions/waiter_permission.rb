@@ -61,6 +61,14 @@ module Permissions
       end
       # 专属课程
 
+      allow 'station/teachers', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+
+      allow 'station/students', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+
       allow 'live_studio/teacher/courses', [:index, :show]
       allow 'live_studio/teacher/course_invitations', [:index]
       allow 'live_studio/student/courses', [:index, :show]
@@ -88,6 +96,15 @@ module Permissions
       # 开班邀请
 
       allow 'station/lessons', [:state, :update] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+
+      allow 'live_studio/video_courses', [:index, :show, :preview]
+      allow 'live_studio/video_lessons', [:play] do |lesson|
+        true
+      end
+
+      allow 'live_studio/station/video_courses', [:index, :my_publish, :my_sells, :audits, :send_qr_code, :list] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
     end

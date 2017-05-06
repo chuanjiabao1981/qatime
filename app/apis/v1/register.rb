@@ -55,10 +55,12 @@ module V1
         requires :client_type, type: String, desc: '登陆方式.'
         requires :grade, type: String, desc: '年级'
         requires :openid, type: String, desc: '微信openid'
+        optional :province_id, type: Integer, desc: '省ID'
+        optional :city_id, type: Integer, desc: '城市ID'
       end
       post :wechat_register do
         client_type = params[:client_type].to_sym
-        create_params_with_type = ActionController::Parameters.new(params).permit(:login_mobile, :captcha_confirmation, :password, :accept, :type, :grade)
+        create_params_with_type = ActionController::Parameters.new(params).permit(:login_mobile, :captcha_confirmation, :password, :accept, :type, :grade, :province_id, :city_id)
         user = User.new(create_params_with_type).register_columns_required!.captcha_required!
         captcha_manager = UserService::CaptchaManager.new(create_params_with_type[:login_mobile])
         user.captcha = captcha_manager.captcha_of(:register_captcha)

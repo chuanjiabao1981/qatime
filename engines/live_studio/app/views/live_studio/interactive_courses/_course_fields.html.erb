@@ -1,0 +1,132 @@
+
+<div class="editor-msg">
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :name %>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :name, label: false, input_html: {maxlength: 20, placeholder: t('view.live_studio/interactie_course.placeholder.name')} %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :description %>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :token, as: :hidden, input_html: {value: f.object.token} %>
+      <%= f.input :description, label: false  %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :grade %>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :grade, collection: APP_CONSTANT['grades_in_menu'], label: false, prompt: t('view.course_form.placeholders.grade') %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :subject %>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :subject, collection: APP_CONSTANT['subjects'], label: false, prompt: t('view.course_form.placeholders.subject') %>
+    </div>
+  </div>
+
+  <%= content_tag(:div, class: 'row') do %>
+    <div class="col-md-2">
+      <%= f.label :workstation %>
+    </div>
+    <div class="col-md-10">
+      <%= f.association :workstation, collection: Workstation.all.map{|ws| [ws.name, ws.id]}, label: false, prompt: false %>
+    </div>
+  <% end if @workstation.blank? %>
+
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :objective %>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :objective, label: false, input_html: {maxlength: 300, placeholder: t('view.live_studio/interactie_course.placeholder.objective')} %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :suit_crowd %>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :suit_crowd, label: false, input_html: {maxlength: 300, placeholder: t('view.live_studio/interactie_course.placeholder.suit_crowd')} %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :price %>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :price, label: false, input_html: { placeholder: t('view.live_studio/interactie_course.placeholder.price')} %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-2">
+      <%= f.label :teacher_percentage %>
+    </div>
+    <div class="col-md-10">
+      <%= f.input :teacher_percentage, label: false, wrapper_html: {class: 'divided'} do %>
+        <%= f.input_field :teacher_percentage, placeholder: t('view.live_studio/interactie_course.placeholder.teacher_percentage') %>
+        <i>%</i>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%=  content_for :javascript do %>
+<script type="text/javascript">
+  $(function() {
+    // 富文本区域
+    $('#interactive_course_description').summernote({
+      placeholder: "<%= t('view.live_studio/interactie_course.placeholder.description') %>",
+      disableDragAndDrop: true,
+      lang: 'zh-CN',
+      height: 400,
+      toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'italic', 'underline', 'clear']],
+        ['fontname', ['fontname']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['insert', ['link', 'picture']]
+      ],
+      callbacks: {
+        onImageUpload: function(files, editor, welEditable) {
+          var file = files[0];
+          data = new FormData()
+          data.append("picture[token]", $("#course_token").val());
+          data.append("picture[name]" , file, file.name);
+          $.ajax({
+            url: '/pictures',
+            data: data,
+            dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            type: 'POST',
+            success: function(data) {
+              var imgNode = document.createElement("img");
+              imgNode.src = data.url;
+              imgNode.style.width = "50%";
+              $("#interactive_course_description").summernote('insertNode', imgNode);
+            }
+          });
+        }
+      }
+    });
+  });
+</script>
+<% end %>

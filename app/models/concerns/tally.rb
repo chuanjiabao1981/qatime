@@ -62,9 +62,15 @@ module Tally
 
     # 新的扣款
     def __charge_billing(billing)
-      customized_course           = CustomizedCourse.find(self.customized_course_id)
-      cash_account = customized_course.student.cash_account!
-      cash_account.consumption(billing.total_money, self, billing, self.class.model_name.human)
+      student_account = CustomizedCourse.find(customized_course_id).student.cash_account!
+      AccountService::CashManager.new(student_account).decrease('Payment::ConsumptionRecord', billing.total_money, billing)
+    end
+
+    # 新的分账
+    def __split_billing(billing, teacher, workstation)
+      AccountService::CashManager.new(teacher.cash_account!).increase('Payment::EarningRecord', teacher_amount, billing)
+      AccountService::CashManager.new(workstation.cash_account).increase('Payment::EarningRecord', workstation_amount, billing)
+      AccountService::CashManager.new(workstation.available_account).increase('Payment::EarningRecord', workstation_amount, billing)
     end
 
     def __split_fee_to_relative_account(relative_account, fee, value, price)
@@ -100,6 +106,7 @@ module Tally
       return if video.duration.to_i <= 0
       self.class.transaction do
         lock!
+        return if is_charged?
         video.lock!
         begin
           fee = __create_fee(video)
@@ -109,10 +116,10 @@ module Tally
           __split_fee(teacher_id, fee)
           __charge_billing(billing)
 
-          teacher_cash_account = Teacher.find(teacher_id).cash_account!
-          workstation_cash_account = Workstation.find(customized_course.workstation_id).cash_account!
-          teacher_cash_account.earning(teacher_amount, self, billing, "#{model_name.human} - #{id} 结账, 单价: #{teacher_price}")
-          workstation_cash_account.earning(workstation_amount, self, billing, "#{model_name.human} - #{id} 结账, 单价: #{platform_price}")
+          teacher = Teacher.find(teacher_id)
+          workstation = Workstation.find(customized_course.workstation_id)
+
+          __split_billing(billing, teacher, workstation)
 
           self.status = "closed"
           save!
@@ -126,8 +133,9 @@ module Tally
     end
 
     def is_charged?
-      return self.status == "closed"
+      'closed' == status
     end
+
     def set_charged
       self.status = "closed"
     end

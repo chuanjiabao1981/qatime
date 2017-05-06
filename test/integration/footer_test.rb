@@ -12,12 +12,20 @@ class  FooterTest < ActionDispatch::IntegrationTest
 
   test "home page data" do
     visit home_path
-    assert find('.link-phonenum').has_content?('400-838-8010')
-    assert page.has_content?('769051099 韩老师')
-    assert page.has_content?('819178240 关老师')
-    assert page.has_content?('北京市朝阳区东三环中路甲10号万科大都会805')
-    assert page.has_content?('Copyright © 2015-2017 QaTime')
-    assert page.has_content?('京ICP备12031445号-3')
+    find('.fixed-phone').hover
+    assert page.has_content?('400-838-8010')
+    find('.fixed-weixin').hover
+    assert page.has_content?('微信公众号:答疑时间')
+
+    assert page.has_link?('帮助中心')
+    assert page.has_link?('程序下载')
+
+    assert page.has_content?('名师')
+    assert page.has_content?('多种学习模式')
+    assert page.has_content?('直播+互动+视频')
+    assert page.has_content?('量身定制')
+    assert page.has_content?('Web/App/直播器')
+    assert page.has_content?('工作站模式')
   end
 
 end

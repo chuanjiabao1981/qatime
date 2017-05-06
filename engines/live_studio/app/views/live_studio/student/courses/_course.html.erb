@@ -1,0 +1,41 @@
+<li>
+  <div class="row">
+    <div class="col-md-3 discipline-pic">
+      <%= link_to image_tag(course.publicize_url(:list)), live_studio.course_path(course), target: '_blank' %>
+    </div>
+    <div class="col-md-7 discipline-info">
+      <div class="row info-title">
+        <div class="col-md-12">
+          <%= link_to live_studio.course_path(course), target: '_blank' do %>
+            <strong><%= course.name %></strong>
+          <% end -%>
+        </div>
+      </div>
+      <div class="row info-state">
+        <div class="col-md-4">
+          <span><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
+          <span><%= course.grade %></span>
+        </div>
+        <div class="col-md-4">
+          <span><%= LiveStudio::Course.human_attribute_name(:subject) %></span>
+          <span><%= course.subject %></span>
+        </div>
+        <div class="col-md-4">
+          <span><%= LiveStudio::Course.human_attribute_name(:progress) %></span>
+          <span><%= course.finished_lessons_count %>/<%= course.lessons_count %></span>
+        </div>
+      </div>
+      <div class="row info-user">
+        <div class="col-md-12">
+          <span><%= LiveStudio::Course.human_attribute_name(:teacher_name) %></span>
+          <span><%= course.teacher.try(:name) %></span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 course-state">
+      <i class="col-md-12">
+        <%= link_to t("live_studio.actions.enter"), live_studio.course_path(course), target: '_blank' %>
+      </i>
+    </div>
+  </div>
+</li>

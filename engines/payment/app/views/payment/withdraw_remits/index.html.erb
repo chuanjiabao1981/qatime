@@ -1,0 +1,49 @@
+<div class="panel panel-default">
+  <div class="admin">
+    <%= render partial: 'admins/workstations/tab' %>
+
+    <div class="admin-audit">
+      <%= render partial: 'search' %>
+
+      <table border="1" cellspacing="1" cellpadding="1">
+        <tbody>
+        <tr>
+          <td><%= t('common.index_no') %></td>
+          <td><%= t('view.admins.workstation_withdraws.amount') %></td>
+          <td><%= t('view.admins.workstation_withdraws.user') %></td>
+          <td><%= t('view.admins.workstation_withdraws.workstation') %></td>
+          <td><%= t('view.admins.workstation_withdraws.transaction_no') %></td>
+          <td><%= t('view.admins.workstation_withdraws.payee') %></td>
+          <td><%= t('view.admins.workstation_remits.allowed_at') %></td>
+          <td><%= t('common.operate') %></td>
+        </tr>
+        <% if params[:remit] == 'no_remit' %>
+          <%= render partial: 'no_remit', collection: @withdraw_remits %>
+        <% else %>
+          <%= render partial: 'remit', collection: @withdraw_remits %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+
+    <center>
+      <div class="pagination-fix">
+        <%= will_paginate @withdraw_remits %>
+      </div>
+    </center>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $(".view-msg").click(function() {
+      var index = $(".view-msg").index($(this));
+      $(".admin-paragraph-msg").eq(index).toggle();
+      if($(this).html() == '<%= t('view.admins.workstation_remits.show_remit') %>') {
+        $(this).html('<%= t('view.admins.workstation_remits.show_remit_back') %>');
+      } else {
+        $(this).html('<%= t('view.admins.workstation_remits.show_remit') %>');
+      }
+    })
+  });
+</script>

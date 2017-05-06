@@ -16,16 +16,6 @@ module LiveStudio
       Capybara.use_default_driver
     end
 
-    # test "student search course" do
-    #   course_init = live_studio_courses(:course_init)
-    #   visit live_studio.courses_index_path(student_id: @student)
-    #   course_preview_two = live_studio_courses(:course_preview_two)
-    #   course_teaching = live_studio_courses(:course_teaching)
-    #   assert(page.has_no_link?("buy-course-#{course_init.id}"), "购买链接错误显示")
-    #   assert(page.has_link?("buy-course-#{course_preview_two.id}"), "不能正常购买辅导班")
-    #   assert(page.has_link?("buy-course-#{course_teaching.id}"), "不能正常购买辅导班")
-    # end
-
     test "student buy course" do
       visit live_studio.courses_index_path(student_id: @student)
       course_preview = live_studio_courses(:course_preview)
@@ -66,28 +56,35 @@ module LiveStudio
 
     # 余额支付购买辅导班
     test "buy course with account balance" do
+      new_logout_as(@student)
       @student_balance = users(:student_balance)
       new_log_in_as(@student_balance)
       visit live_studio.courses_index_path(student_id: @student_balance)
-      course = live_studio_courses(:course_preview_three)
+      @course = live_studio_courses(:course_preview_three)
       assert_difference "@student_balance.cash_account!.reload.balance.to_f", -50, "没有正确扣除余额" do
         assert_difference "@student_balance.cash_account!.reload.total_expenditure.to_f", 50, "总消费计算不正确" do
           assert_difference "Payment::ConsumptionRecord.count", 1, "没有生成消费记录" do
             assert_difference '@student_balance.reload.orders.count', 1, "辅导班下单失败" do
-              visit live_studio.course_path(course)
-              click_link '立即报名'
-              choose "order_pay_type_account"
-              click_on '立即支付'
-              fill_in :payment_password, with: '123123'
-              click_on '确认支付'
+              assert_difference '@course.reload.buy_tickets_count', 1, "购买人数没有增加" do
+                visit live_studio.course_path(@course)
+                click_link '立即报名'
+                choose "order_pay_type_account"
+                click_on '立即支付'
+                fill_in :payment_password, with: '123123'
+                click_on '确认支付'
+                sleep 1
+              end
             end
           end
         end
       end
+      new_logout_as(@student_balance)
+      new_log_in_as(@student)
     end
 
     # 使用优惠码购买辅导班,并验证
     test "student use coupon buy course with account balance" do
+      new_logout_as(@student)
       @student_balance = users(:student_balance)
       @coupon_one = payment_coupons(:coupon_one)
       new_log_in_as(@student_balance)
@@ -143,11 +140,13 @@ module LiveStudio
               click_on '立即支付'
               fill_in :payment_password, with: '123123'
               click_on '确认支付'
+              sleep 2
             end
           end
         end
       end
-
+      new_logout_as(@student_balance)
+      new_log_in_as(@student)
     end
 
     # 不能试听辅导班

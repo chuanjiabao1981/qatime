@@ -25,19 +25,19 @@ class Qatime::UsersAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal nil, res['data']
+    assert_nil res['data']
 
     post "/api/v1/captcha/verify", {send_to: @student.login_mobile, captcha: '1234'}
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal nil, res['data']
+    assert_nil res['data']
 
     post "/api/v1/captcha", {send_to: "user_update_email@student.com", key: :change_email_captcha}
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal nil, res['data']
+    assert_nil res['data']
 
     put "/api/v1/users/#{@student.id}/email", {email: "user_update_email@student.com", captcha_confirmation: "1234"}, 'Remember-Token' => @student_remember_token
 
@@ -52,19 +52,19 @@ class Qatime::UsersAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal nil, res['data']
+    assert_nil res['data']
 
     post "/api/v1/captcha/verify", {send_to: @teacher.login_mobile, captcha: '1234'}
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal nil, res['data']
+    assert_nil res['data']
 
     post "/api/v1/captcha", {send_to: "user_update_email@student.com", key: :change_email_captcha}
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal nil, res['data']
+    assert_nil res['data']
 
     put "/api/v1/users/#{@teacher.id}/email", {email: "user_update_email@student.com", captcha_confirmation: "1234"}, 'Remember-Token' => @teacher_remember_token
 
@@ -79,19 +79,19 @@ class Qatime::UsersAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal nil, res['data']
+    assert_nil res['data']
 
     post "/api/v1/captcha/verify", {send_to: @student.login_mobile, captcha: '1234'}
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal nil, res['data']
+    assert_nil res['data']
 
     post "/api/v1/captcha", {send_to: "13892920102", key: :send_captcha}
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal nil, res['data']
+    assert_nil res['data']
 
     put "/api/v1/users/#{@student.id}/login_mobile", {login_mobile: "13892920102", captcha_confirmation: "1234"}, 'Remember-Token' => @student_remember_token
 
@@ -106,19 +106,19 @@ class Qatime::UsersAPITest < ActionDispatch::IntegrationTest
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status'], "响应不正确 #{res}"
-    assert_equal nil, res['data']
+    assert_nil res['data']
 
     post "/api/v1/captcha/verify", {send_to: @teacher.login_mobile, captcha: '1234'}
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal nil, res['data']
+    assert_nil res['data']
 
     post "/api/v1/captcha", {send_to: "13892920102", key: :send_captcha}
     assert_response :success
     res = JSON.parse(response.body)
     assert_equal 1, res['status']
-    assert_equal nil, res['data']
+    assert_nil res['data']
 
     put "/api/v1/users/#{@teacher.id}/login_mobile", {login_mobile: "13892920102", captcha_confirmation: "1234"}, 'Remember-Token' => @teacher_remember_token
 

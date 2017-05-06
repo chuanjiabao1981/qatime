@@ -34,21 +34,25 @@ end
 # 每天凌晨1点把今天将要上课的课程设为ready状态
 every 1.day, :at => '1:00 am', :roles => [:web] do
   runner "LiveService::LessonDirector.ready_today_lessons"
+  runner "LiveService::InteractiveLessonDirector.ready_today_lessons"
 end
 
 # 每天凌晨1点30分清理未完成的课程
 every 1.day, :at => '1:30 am', :roles => [:web] do
   runner "LiveService::LessonDirector.clean_lessons"
+  runner "LiveService::InteractiveLessonDirector.clean_lessons"
 end
 
 # 每天凌晨2点结算已完成的课程
 every 1.day, :at => '2:00 am', :roles => [:web] do
   runner "LiveService::LessonDirector.billing_lessons"
+  runner "LiveService::InteractiveLessonDirector.billing_lessons"
 end
 
 # 每天凌晨3点清理全部完成的辅导班
 every 1.day, :at => '3:00 am', :roles => [:web] do
   runner "LiveService::CourseDirector.clean_courses"
+  runner "LiveService::InteractiveCourseDirector.clean_courses"
 end
 
 # 五分钟执行一次,判断是否有teaching状态的课程已离线
@@ -58,4 +62,9 @@ end
 
 every [5, 15, 25].map { |d| "0 0 #{d} * *" } do
   runner 'WechatWorker.perform_async("transfer")'
+end
+
+# 每天处理考核任务
+every 1.day, :at => '00:30 am', :roles => [:web] do
+  runner "BusinessService::TaskBillingDirector.handle_tasks"
 end

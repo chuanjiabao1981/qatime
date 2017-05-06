@@ -24,8 +24,9 @@ class WorkstationIntegrateTest < LoginTestBase
     new_page(@admin, @admin_session,new_admins_workstation_path)
     new_page(@manager, @manager_session,new_admins_workstation_path)
   end
+
   test 'show page' do
-    show_page(@admin, @admin_session, admins_workstation_path(@workstation))
+    show_page(@admin, @admin_session, station_workstation_path(@workstation))
     show_page(@manager, @manager_session, admins_workstation_path(@workstation))
   end
 
@@ -37,7 +38,7 @@ class WorkstationIntegrateTest < LoginTestBase
     end
     user_session.assert_response :success
     user_session.assert_select "form[action=?]",admins_workstations_path,1
-    user_session.assert_select "option", 11
+    user_session.assert_select "option", 12
   end
 
   def show_page(user, user_session, show_path)

@@ -1,0 +1,8 @@
+<div class="admin-list-nav">
+  <%= link_to t("live_studio.course_records.nav.my_publish"),
+              live_studio.my_publish_station_workstation_course_records_path(@workstation),
+              class: "#{'active' if 'live_studio/station/course_records' == params[:controller] && action_name == 'my_publish'}" if allow?('live_studio/station/course_records', 'my_publish', @workstation) %>
+  <%= link_to t("live_studio.course_records.nav.my_sells"),
+              live_studio.station_workstation_course_records_path(@workstation),
+              class: "#{'active' if 'live_studio/station/course_records' == params[:controller] && action_name == 'index'}" if allow?('live_studio/station/course_records', 'index', @workstation) %>
+</div>

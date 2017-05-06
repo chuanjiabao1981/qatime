@@ -14,7 +14,7 @@
 
   <% if allow? :teachers, :destroy %>
     <div class="col-md-1">
-      <%=link_to t('.delete'), teacher_path(teacher), method: :delete, 'data-confirm'=> t('.delete_confirm')%>
+      <%=link_to t('teachers.teacher.delete'), teacher_path(teacher), method: :delete, 'data-confirm'=> t('teachers.teacher.delete_confirm')%>
     </div>
     <% end %>
 
@@ -26,7 +26,7 @@
   <% if allow? :teachers, :admin_edit %>
     <div class="col-md-2">
       <%= link_to admin_edit_teacher_path(teacher), method: :get, :remote => true, id: "teacher_#{teacher.id}" do %>
-        <%= t(".edit_teacher") %>
+        <%= t("teachers.teacher.edit_teacher") %>
       <% end %>
     </div>
   <% end %>

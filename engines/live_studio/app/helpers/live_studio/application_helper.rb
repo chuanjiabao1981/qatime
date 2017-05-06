@@ -30,5 +30,8 @@ module LiveStudio
     def time_fmt(n)
       n.length == 5 ? n : "0#{n}"
     end
+
+    def search_link(q, attribute_name, options = {})
+    end
   end
 end

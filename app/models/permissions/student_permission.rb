@@ -154,14 +154,20 @@ module Permissions
       allow 'live_studio/orders', [:new, :create, :pay, :show]
 
       ## begin live studio permission
-      allow 'live_studio/student/students', [:schedules, :settings]
+      allow 'live_studio/student/students', [:schedules, :settings, :tastes, :taste_records]
       allow 'settings', [:create, :update]
       allow 'live_studio/student/courses', [:index, :show]
+      allow 'live_studio/student/interactive_courses', [:index, :show]
+      allow 'live_studio/student/video_courses', [:index]
       allow 'live_studio/courses', [:index, :show]
       allow 'live_studio/lessons', [:show, :play, :videos]
 
       allow 'live_studio/lessons', [:replay] do |lesson|
         lesson.replayable && lesson.replayable_for?(user)
+      end
+
+      allow 'live_studio/video_lessons', [:play] do |lesson|
+        lesson.tastable || lesson.play_for?(user)
       end
       ## end live studio permission
 
@@ -182,7 +188,9 @@ module Permissions
       allow 'payment/withdraws', [:new, :create, :complete, :cancel]
 
       allow 'wap/live_studio/orders', [:new, :create]
-      allow 'wap/live_studio/courses', [:show]
+      allow 'wap/live_studio/courses', [:show, :download]
+      allow 'wap/live_studio/video_courses', [:show]
+      allow 'wap/softwares', [:index]
       allow 'wap/payment/orders', [:show, :pay]
 
       # payment permission
@@ -223,6 +231,21 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/students/[\\w-]+/schedule" do |student|
         student && student.id == user.id
       end
+
+      ## 一对一权限
+      api_allow :GET, 'live_studio/students/\d+/interactive_courses' do |student|
+        student == user
+      end
+      api_allow :POST, "/api/v1/live_studio/interactive_courses/[\\w-]+/orders"
+      ##
+
+      ## 视频课
+      api_allow :GET, 'live_studio/students/\d+/video_courses'
+      api_allow :POST, "/api/v1/live_studio/video_courses/[\\w-]+/orders"
+      api_allow :POST, "/api/v1/live_studio/video_courses/[\\w-]+/deliver_free"
+      api_allow :POST, "/api/v1/live_studio/video_courses/[\\w-]+/taste"
+      ## 视频课
+
       # 消息通知
       api_allow :GET, "/api/v1/users/[\\w-]+/notifications"
       api_allow :PUT, "/api/v1/notifications/[\\w-]+/read"
@@ -253,12 +276,17 @@ module Permissions
       ## 获取授权token
       api_allow :POST, "/api/v1/ticket_tokens/cash_accounts/update_password"
       ## end 获取授权token
-      
 
       ### 修改支付密码
       api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password" # 设置支付密码
       api_allow :POST, "/api/v1/payment/cash_accounts/[\\w-]+/password/ticket_token" # 修改支付密码
       ## end 修改支付密码
+
+      ## 苹果内购
+      api_allow :POST, "/api/v1/payment/itunes_products" # 商品列表
+      api_allow :POST, "/api/v1/payment/itunes_products/[\\w-]+/recharges" # 充值下单
+      api_allow :POST, "/api/v1/payment/recharges/[\\w-]+/verify_receipt" # 苹果内购充值校验
+      ## end 苹果内购
     end
 private
 

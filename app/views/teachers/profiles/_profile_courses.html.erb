@@ -1,0 +1,71 @@
+<div class="basic-class">
+  <div class="class-header">
+    <h2><%= t('teachers.profile.my_courses') %></h2>
+  </div>
+
+  <% if @courses.present? %>
+    <div class="class-info">
+      <h3><%= t('teachers.profile.course') %></h3>
+      <%= render partial: 'teachers/profiles/courses', locals: {courses: @courses} %>
+
+      <p class="iteminfo-more">
+        <%= link_to 'javascript:void(0);', class: 'more_course', data: {cate: 'courses'} do %>
+          <%= t('teachers.profile.more') %><i class="fa fa-angle-right"></i>
+        <% end if @course_has_more %>
+      </p>
+    </div>
+  <% end %>
+
+  <% if @interactive_courses.present? %>
+    <div class="class-info class-exclusive">
+      <h3><%= t('teachers.profile.interactive_course') %></h3>
+      <%= render partial: 'teachers/profiles/interactive_courses', locals: {courses: @interactive_courses} %>
+
+      <p class="iteminfo-more">
+        <%= link_to 'javascript:void(0);', class: 'more_course', data: {cate: 'interactive_courses'} do %>
+          <%= t('teachers.profile.more') %><i class="fa fa-angle-right"></i>
+        <% end if @interactive_course_has_more %>
+      </p>
+    </div>
+  <% end %>
+
+  <% if @video_courses.present? %>
+    <div class="class-info">
+      <h3><%= t('teachers.profile.video_course') %></h3>
+      <%= render partial: 'teachers/profiles/video_courses', locals: {courses: @video_courses} %>
+
+      <p class="iteminfo-more">
+        <%= link_to 'javascript:void(0);', class: 'more_course', data: {cate: 'video_courses'} do %>
+          <%= t('teachers.profile.more') %><i class="fa fa-angle-right"></i>
+        <% end if @video_course_has_more %>
+      </p>
+    </div>
+  <% end %>
+
+  <% if @courses.blank? && @interactive_courses.blank? && @video_courses.blank? %>
+    <div class="class-info">
+      <div class="info-notfound">
+        <center><%= image_tag 'notfound.png' %></center>
+        <p><%= t('view.course_show.nofound') %></p>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function() {
+      $(document).on('click', '.more_course', function(event) {
+        var cate = $(this).data('cate');
+        $.ajax({
+          url: '/ajax/data/teacher_profile_courses',
+          type: 'POST',
+          dataType: 'script',
+          data: {cate: cate, teacher_id: '<%= @teacher.id %>'}
+        });
+
+        $(this).remove();
+      });
+    });
+  </script>
+<% end %>

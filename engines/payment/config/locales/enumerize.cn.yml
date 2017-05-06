@@ -4,11 +4,20 @@ cn:
       source:
         web: 网页
         app: 手机应用
+        wap: 扫码购买
+      statistics_days:
+        week: 近一周
+        month: 近1月
+        month2: 近2月
+        month3: 近3月
+        month6: 近6月
+        year: 近一年
     payment/recharge:
       pay_type:
         weixin: 微信支付
         alipay: 支付宝支付
         offline: 线下充值
+        itunes: 苹果内购
     payment/order:
       pay_type:
         weixin: 微信支付
@@ -24,6 +33,10 @@ cn:
         account: 余额支付
         alipay: 支付宝支付
         weixin: 微信支付
+    payment/withdraw_remit:
+      pay_type:
+        manual: 人工转账
+        auto: 1个时系统自动转账
   enum:
     payment/withdraw:
       pay_type:
@@ -31,6 +44,7 @@ cn:
         bank: 银行转账
         wechat: 微信转账
         alipay: 支付宝转账
+        station: 工作站提现
     payment/order:
       pay_type:
         account: 余额支付
@@ -70,4 +84,7 @@ cn:
         success: 审核通过
         ignored: 已忽略
         cancel: 已取消
+        canceled: 已取消
         refunded: 已退款
+        allowed: 正在退款
+        submited: 正在退款

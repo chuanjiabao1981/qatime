@@ -5,7 +5,7 @@ module LiveStudio
 
     default_scope { order('id DESC') }
 
-    belongs_to :course
+    belongs_to :product, polymorphic: true
     belongs_to :student, class_name: "::Student"
     belongs_to :lesson
 
@@ -25,12 +25,14 @@ module LiveStudio
       waste: 99      # 不可用
     }
 
+    scope :visiable, -> { where(status: [0, 1, 2]) }
     # 可用
     scope :available, -> { where("live_studio_tickets.status < ?", statuses[:used]) }
     # 不可用
     scope :unavailable, -> { where("live_studio_tickets.status >= ?", statuses[:used]) }
-    scope :visiable, -> { where("live_studio_tickets.status <= ?", statuses[:used]) }
     scope :authorizable, -> { where("live_studio_tickets.status < ?", statuses[:pre_used]) }
+    scope :by_product, ->(product) { where(product_id: product.id, product_type: product.model_name.to_s) }
+    scope :by_student_id, ->(student_id) { where(student_id: student_id)}
 
     def type_name
       return I18n.t("live_studio/ticket.type_name.taste_#{status}") if taste?
@@ -51,7 +53,7 @@ module LiveStudio
 
     # 增加使用次数
     def inc_used_count!(_urgent = false)
-      return if !taste? && course.finished_lessons_count >= course.lessons_count
+      return unless taste?
       lock!
       self.used_count += 1
       used! if used_count >= buy_count
@@ -72,7 +74,10 @@ module LiveStudio
 
     after_create :add_to_team
     def add_to_team
-      ::Chat::TeamMemberCreatorJob.perform_later(course.id, student_id)
+      team = product.chat_team || product.instance_chat_team(true)
+      ::Chat::TeamMemberCreatorJob.perform_later(team.id, student_id)
+    rescue StandardError => e
+      p e
     end
   end
 end

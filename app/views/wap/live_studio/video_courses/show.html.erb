@@ -1,0 +1,17 @@
+<div class="phone-login phone-details">
+  <div class="phone-login-title">
+    <div class="phone-return">
+    </div>
+    <div class="phone-headline">
+      <h3>辅导班名称</h3>
+    </div>
+  </div>
+
+  <%= render partial: 'content' %>
+  <%= render partial: 'details' %>
+
+  <div class="phone-details-btn">
+    <%= render "buy_or_taste" if (current_user.blank? || current_user.student?) && @video_course.for_sell? %>
+  </div>
+</div>
+<%= render 'layouts/wap/alert_download' %>

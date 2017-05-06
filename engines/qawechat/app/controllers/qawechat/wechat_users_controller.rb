@@ -12,7 +12,8 @@ module Qawechat
     end
 
     def create
-      @user = User.where(email: params[:user][:email]).first
+      @user = User.find_by_login_account(params[:user][:login_account])
+      
       if @user && @user.authenticate(params[:user][:password])
         @wechat_user = WechatUser.find_by(openid: cookies[:openid])
         if @wechat_user.nil?

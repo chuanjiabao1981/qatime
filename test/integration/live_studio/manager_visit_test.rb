@@ -19,12 +19,12 @@ module LiveStudio
     end
 
     test 'visit teacher page' do
-      @teacher = ::Teacher.first
+      @teacher = users(:english_teacher)
       @course = @teacher.live_studio_courses.first
       click_on '教师'
       visit chat.finish_live_studio_course_teams_path(@course)
       visit teacher_path(@teacher)
-      click_on '我的辅导'
+      click_on '我的直播课'
       visit live_studio.teacher_course_path(@teacher, @course)
       assert_match @course.name, page.text, '没有正确跳转到辅导班详情页'
     end
@@ -34,12 +34,12 @@ module LiveStudio
       @course = live_studio_courses(:course_preview)
       click_on '学生'
       visit student_path(@student)
-      click_on '我的辅导'
+      click_on '我的直播课'
       visit live_studio.student_course_path(@student, @course)
       assert_match @course.name, page.text, '--'
       page.go_back
       visit live_studio.courses_index_path
-      assert_match(LiveStudio::Course.published.last.name, page.text, '没有正确跳转到辅导班搜索页')
+      assert_match('测试辅导1班', page.text, '没有正确跳转到辅导班搜索页')
     end
 
     test 'new & create seller' do

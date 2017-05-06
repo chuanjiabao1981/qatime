@@ -18,5 +18,88 @@ cn:
         reset: 清空
         query: 查询
         all: 全部
+  view:
+    live_studio/courses:
+      show:
+        purchase_number: "报名人数%{count}人"
+        purchase_number2: "学习人数%{count}人"
+        refund: 随时可退
+        coupon_free: 报名立减
+        cheap: 限时打折
+        free_taste: 免费试听
+        join_cheap: 插班优惠
+        learn_alert: 辅导班开课后才可学习
+        introduce: 课程介绍
+        arrange: 上课安排
+        lesson_plan: 课时安排
+        lesson_real_time: 视频时长
+        total_duration: 时长
+        study: 学习须知
+        base_info: 基本属性
+        subject: 科目
+        grade: 年级
+        lesson: 课时
+        lesson_text: "共%{count}课"
+        full_duration: 视频总长
+        duration_text: 时长
+        play_video: 观看本课时
+        tast_video: 试听本课时
+        tast_video_notice: 请先加入试听
+        play_video_notice: 购买后才能观看
+        login_notice: 请先登录
+        date: 日期
+        date_text: "%{start_at}至%{end_at}"
+        status: 状态
+        status_text: "进度 %{one}/%{two}"
+        course_label: 课程标签
+        objective: 课程目标
+        suit_crowd: 适合人群
+        desc: 详细说明
+        tag_none: 无
+        left_replay_times: '%{count}次'
+        before_study: 上课前
+        before_study1: 1.做好课程预习，预先了解本课所讲内容，更好的吸收课程精华；
+        before_study2: 2.准备好相关的学习工具（如：纸 、笔等）并在上课前调好电脑，使用手机请保证电量充足；
+        before_study3: 3.选择安静的学习环境，并将于学习无关的事物置于远处，选择安静的环境避免影响听课；
+        before_study4: 4.三年级以下的同学请在家长帮助下学习；
+        before_study5: 5.遇到网页不能打开或者不能登录等情况请及时联系客服；
+        study_in: 上课中
+        study_in1: 1.时刻保持注意力集中，认真听讲才能更好的提升学习；
+        study_in2: 2.课程中遇到听不懂的问题及时通过聊天或互动申请向老师提问，老师收到后会给予解答；
+        study_in3: 3.积极响应老师的授课，完成老师布置的课上任务；
+        study_in4: 4.禁止在上课中闲聊或发送一切与本课无关的内容，如有发现，一律禁言；
+        study_in5: 5.上课途中如突遇屏幕卡顿，直播中断等特殊情况，请刷新后等待直播恢复，超过15分钟未恢复请致电客服；
+        study_in6: 6.请同学一定要准时学习，本课程正式结束后不补上；
+        after_study: 上课后
+        after_study1: 1.直播结束后大家仍可以在直播教室内进行聊天和讨论，老师也会适时解答；
+        after_study2: 2.请同学按时完成老师布置的作业任务；
+        study_flow: 学习流程
+        buy_tip: 购买课程
+        buy_tip_value: 支持退款，放心购买
+        time_tip: 准时上课
+        time_tip_value: 无需预约，按时上课
+        time_tip_value2: 提前预习，按时上课
+        online_tip: 在线授课
+        online_tip_value: 视频直播，白板互动
+        online_tip_value2: 多人交流，生动直播
+        close_tip: 上课结束
+        close_tip_value: 音图并茂，随时解答
+        close_tip_value2: 视频回放，想看就看
+        teachers_more: 全部...
+        teachers_hide: 收起
+    live_studio/video_courses:
+      show:
+        study:
+          buy: 购买
+          buy1: 1.视频课是以学生自主观看视频进行独立学习的课程模式。
+          buy2: 2.视频课一经购买后永久有效，不限观看时间和观看次数；方便学生进行重复学习。
+          buy3: 3.视频课属一次性销售课程，不能重复购买，亦不支持（暂时）退款。
+          buy4: 4.视频课禁止下载或转录！
+          buy5: 5.遇到网页不能打开或者不能登录等情况请及时联系客服。
+          play: 观看
+          play1: 1.视频课观看无需使用客户端，网页即可播放。
+          play2: 2.上课途中如突遇屏幕卡顿，视频缓冲等情况，请检查网络状态后刷新页面。
+          play3: 3.观看过程中请做好笔记，能够帮助学生快速掌握视频中的知识
+          play4: 4.学习结束后请尽量关闭视频，以免过多占用网络资源影响您浏览其他内容。
 
 

@@ -21,7 +21,7 @@ class Wap::ApplicationController < ApplicationController
     cookies[:openid] ||= "testopenid" if Rails.env.test?
     if cookies[:openid].blank?
       session[:return_to] = request.original_url
-      redirect_to "#{WECHAT_CONFIG['host']}/auth/wechat"
+      redirect_to "#{WECHAT_CONFIG['host']}/auth/wechat2"
     end
     @openid = cookies[:openid]
   end

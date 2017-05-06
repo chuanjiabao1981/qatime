@@ -10,6 +10,36 @@ index_teacher_recommend_two:
   target: teacher2 (Teacher)
   type: Recommend::TeacherItem
   index: 2
+index_teacher_recommend_three:
+  title: 首页名师推荐3
+  position: index_teacher_recommend
+  target: teacher3 (Teacher)
+  type: Recommend::TeacherItem
+  index: 3
+index_teacher_recommend_four:
+  title: 首页名师推荐4
+  position: index_teacher_recommend
+  target: teacher_tally (Teacher)
+  type: Recommend::TeacherItem
+  index: 4
+index_teacher_recommend_five:
+  title: 首页名师推荐5
+  position: index_teacher_recommend
+  target: teacher_one (Teacher)
+  type: Recommend::TeacherItem
+  index: 5
+index_teacher_recommend_six:
+  title: 首页名师推荐6
+  position: index_teacher_recommend
+  target: teacher_two (Teacher)
+  type: Recommend::TeacherItem
+  index: 6
+index_teacher_recommend_seven:
+  title: 首页名师推荐7
+  position: index_teacher_recommend
+  target: teacher_update_password (Teacher)
+  type: Recommend::TeacherItem
+  index: 7
 index_live_studio_course_recommend_one:
   title: 首页辅导班推荐1
   position: index_live_studio_course_recommend
@@ -39,3 +69,28 @@ index_banner_recommend_two:
   position: index_banner_recommend
   type: Recommend::BannerItem
   index: 2
+index_choiceness_recommend_one:
+  title: 首页辅导班推荐1
+  position: index_choiceness_recommend
+  type: Recommend::ChoicenessItem
+  index: 1
+  target: course_one (LiveStudio::Course)
+  tag_one: 1
+  tag_two: 2
+index_choiceness_recommend_two:
+  title: 首页辅导班推荐2
+  position: index_choiceness_recommend
+  type: Recommend::ChoicenessItem
+  index: 2
+  target: course_two (LiveStudio::Course)
+  tag_one: 2
+  tag_two: 1
+index_choiceness_recommend_three:
+  title: 首页一对一推荐3
+  position: index_choiceness_recommend
+  type: Recommend::ChoicenessItem
+  index: 3
+  target: interactive_course_zhuji (LiveStudio::InteractiveCourse)
+  tag_one: 2
+  tag_two: 1
+

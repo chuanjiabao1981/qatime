@@ -78,10 +78,18 @@ module Permissions
       end
 
       # 专属课程
-      allow 'station/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records, :show] do |workstation|
+      allow 'station/workstations', [:customized_courses, :schools, :teachers, :students, :sellers, :waiters, :action_records, :show, :fund] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
       # 专属课程
+
+      allow 'station/teachers', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
+
+      allow 'station/students', [:index] do |workstation|
+        workstation && workstation.id == user.workstation_id
+      end
 
       allow 'live_studio/teacher/courses', [:index, :show]
       allow 'live_studio/teacher/course_invitations', [:index]
@@ -91,10 +99,16 @@ module Permissions
       allow 'live_studio/station/courses', [:index] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
+      allow 'live_studio/station/course_records', [:index, :my_publish]
       allow 'live_studio/teacher/teachers', [:schedules]
       allow 'live_studio/student/students', [:schedules]
       allow 'live_studio/courses', [:schedule_sources]
       # 辅导班管理
+
+      # 视频课
+      allow 'live_studio/station/video_courses', [:index, :send_qr_code] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
 
       # 招生请求
       allow 'live_studio/station/course_requests', [:index, :accept, :reject] do |workstation|
@@ -112,10 +126,19 @@ module Permissions
         workstation && workstation.id == user.workstation_id
       end
 
-      allow 'payment/station/workstations', [:show, :cash, :earning_records, :withdraws] do |workstation|
+      allow 'payment/station/workstations', [:show, :earning_records, :withdraws] do |workstation|
         workstation && workstation.id == user.workstation_id
       end
 
+      
+
+      allow 'live_studio/video_courses', [:index, :show, :preview]
+      allow 'live_studio/video_lessons', [:play] do |lesson|
+        true
+      end
+      allow 'live_studio/station/video_courses', [:index, :my_publish, :my_sells, :audits, :audit, :send_qr_code, :list, :edit, :update, :publish] do |workstation|
+        workstation && workstation.manager_id == user.id
+      end
     end
   end
 end

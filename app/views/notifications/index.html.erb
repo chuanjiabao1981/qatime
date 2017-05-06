@@ -1,17 +1,14 @@
-<div class="qa_box">
-  <div class="box_header qa_cell">
-    <div class="pull-left">
-      <span class="label label-primary">
-        <%= I18n.t "view.notification.unread_notification_count", count: @receiver.notifications.unread.count %>
-      </span>
+<% if @receiver.student? || @receiver.teacher? %>
+  <div class="contains">
+    <div class="contains-title">
+      <h3><%= I18n.t "view.common_bars.notification", count: @receiver.notifications.unread.count %></h3>
     </div>
-    <div style="clear:both"></div>
+    <div class="contains-discipline">
+      <ul class="news-list">
+        <%= render partial: "notification", collection: @notifications %>
+      </ul>
+      <%= render 'shared/blank' if @notifications.blank? %>
+      <center><div class="pagination-fix"><%= will_paginate @notifications, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+    </div>
   </div>
-  <div class="qa_objects" id="notifications-list">
-    <%= render partial: "notification", collection: @notifications %>
-  </div>
-
-  <div class="qa_cell">
-    <%= will_paginate @notifications %>
-  </div>
-</div>
+<% end %>

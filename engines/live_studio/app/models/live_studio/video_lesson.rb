@@ -63,11 +63,9 @@ module LiveStudio
       end
     end
 
-    def instance_play_records_with_job(immediately = false)
-      return instance_play_records_without_job if immediately
+    def asyn_instance_play_records
       LiveStudio::LessonPlayRecordJob.perform_later(id)
     end
-    alias_method_chain :instance_play_records, :job
 
     def billing_amount
       @billing_amount ||= ticket_items.billingable.includes(:ticket).map(&:ticket).sum(&:lesson_price)

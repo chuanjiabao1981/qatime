@@ -33,7 +33,7 @@ module LiveStudio
 
       lesson = live_studio_lessons(:replay_lessons_7)
       assert_difference "lesson.channel_videos.count", 1, "同步回放视频失败" do
-        lesson.sync_replays
+        lesson.fetch_replays
       end
       assert lesson.synced?, "没有改变视频同步状态"
     end

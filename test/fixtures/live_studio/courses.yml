@@ -31,7 +31,6 @@ course_two:
 
 course_no_teacher:
   name: 测试辅导3班
-  teacher:
   workstation: workstation_one
   status: 1
   grade: 六年级
@@ -43,7 +42,7 @@ course_no_teacher:
 
 course_destroy_teacher:
   name: 测试辅导3班
-  teacher: teacher_one
+  teacher: destroied_teacher
   workstation: workstation_one
   status: 1
   grade: 六年级

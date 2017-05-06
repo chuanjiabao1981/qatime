@@ -256,14 +256,14 @@ module LiveStudio
     # 课程完成回调
     def finish_hook
       # 记录播放记录
-      instance_play_records
+      async_instance_play_records
       # 获取回放视频
       async_fetch_replays
     end
 
     # 记录播放记录
     # TODO 由于没有找到好的准确记录播放记录的方案，暂时假定所有的ticket都观看了直播
-    def instance_play_records_without_job
+    def instance_play_records
       # 防止重复记录
       user_ids = play_records.map(&:user_id)
       # 查询所有的可用听课证
@@ -273,8 +273,7 @@ module LiveStudio
       end
     end
 
-    def instance_play_records(immediately = false)
-      return instance_play_records_without_job if immediately
+    def async_instance_play_records
       LiveStudio::LessonPlayRecordJob.perform_later(id)
     end
 

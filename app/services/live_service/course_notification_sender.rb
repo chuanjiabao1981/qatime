@@ -10,11 +10,9 @@ module LiveService
       end
     end
 
-    def notice_with_asyn(action_name, immediately = false)
-      return notice_without_asyn(action_name) if immediately
+    def async_notice(action_name)
       NotificationSenderJob.perform_later(self.class.name, action_name.to_s, @course)
     end
-    alias_method_chain :notice, :asyn
 
     private
 

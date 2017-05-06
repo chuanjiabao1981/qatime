@@ -127,7 +127,7 @@ module LiveStudio
         transitions from: [:teaching, :paused], to: :closed
       end
 
-      event :finish, after_commit: :instance_play_records do
+      event :finish, after_commit: :async_instance_play_records do
         after do
           # 课程完成增加辅导班完成课程数量 & 异步更新录制视频列表
           increment_course_counter(:finished_lessons_count)
@@ -268,11 +268,9 @@ module LiveStudio
       end
     end
 
-    def instance_play_records_with_job(immediately = false)
-      return instance_play_records_without_job if immediately
+    def asyn_instance_play_records
       LiveStudio::LessonPlayRecordJob.perform_later(id)
     end
-    alias_method_chain :instance_play_records, :job
 
     def self.beat_step
       APP_CONFIG[:live_beat_step] || 10

@@ -128,7 +128,7 @@ module LiveStudio
       Chat::IM.team_update(tid: team.team_id, owner: team.owner, announcement: team.announcement)
 
       # 发送通知消息
-      LiveService::CourseNotificationSender.new(@course).notice(LiveStudioCourseNotification::ACTION_NOTICE_CREATE)
+      LiveService::CourseNotificationSender.new(@course).async_notice(LiveStudioCourseNotification::ACTION_NOTICE_CREATE)
       redirect_to teacher_course_path(@teacher, @course)
     end
 

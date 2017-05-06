@@ -9,7 +9,7 @@ module LiveStudio
       return true unless team.present?
       Chat::IM.team_update(tid: team.team_id, owner: team.owner, announcement: content)
       # 发送通知消息
-      LiveService::CourseNotificationSender.new(course).notice(LiveStudioCourseNotification::ACTION_NOTICE_CREATE)
+      LiveService::CourseNotificationSender.new(course).async_notice(LiveStudioCourseNotification::ACTION_NOTICE_CREATE)
     end
 
     def create_time

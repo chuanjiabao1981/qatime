@@ -62,10 +62,13 @@ module LiveStudio
 
     # 合并回调
     def merge_callback(params)
-      update(vid: params['vid'],
-             orig_video_key: params[:orig_video_key],
-             uid: params[:uid],
-             n_id: params[:nID])
+      with_lock do
+        self.vid = params['vid']
+        self.orig_video_key = params['orig_video_key']
+        self.uid = params['uid']
+        self.n_id = params['nID']
+        save!
+      end
       if pending_vids.blank? # 合并完成
         finish_merge
       else

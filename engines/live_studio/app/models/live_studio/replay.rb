@@ -3,6 +3,7 @@ module LiveStudio
     belongs_to :lesson
     belongs_to :channel
     serialize :vids, Array
+    serialize :pending_vids, Array
 
     enum video_for: { board: 0, camera: 1 }
     enum status: {
@@ -12,11 +13,10 @@ module LiveStudio
 
     after_create :merge_video
     def merge_video
-      if vids.count > 1
-        merge_task
-      else
-        single_merge
-      end
+      return single_merge unless vids.count > 1 # 不需要合并
+      self.pending_vids = vids
+      save!
+      async_merge_replays
     end
 
     def video_get
@@ -43,11 +43,37 @@ module LiveStudio
       )
     end
 
-    private
-
-    def merge_task
-      VCloud::Service.app_video_merge(outputName: lesson.replay_name(video_for), vidList: vids)
+    # 返回下一次合并视频ID
+    def shift_pending_vids!
+      pending_vids.shift(3)
     end
+
+    # 异步合并视频片段
+    def async_merge_replays
+      ReplaysMergeJob.perform_later(id)
+    end
+
+    # 合并视频片段
+    def merge_replays
+      return if pending_vids.blank?
+      VCloud::Service.app_video_merge(outputName: replay_name(ChannelVideo.video_fors['board']), vidList: shift_pending_vids!)
+      save!
+    end
+
+    # 合并回调
+    def merge_callback(params)
+      update(vid: params['vid'],
+             orig_video_key: params[:orig_video_key],
+             uid: params[:uid],
+             n_id: params[:nID])
+      if pending_vids.blank? # 合并完成
+        finish_merge
+      else
+        continute_merge
+      end
+    end
+
+    private
 
     def single_merge
       video = ChannelVideo.find_by(vid: vids.first)
@@ -55,6 +81,21 @@ module LiveStudio
       video_get
       merged!
       lesson.merged!
+    end
+
+    # 完成合并
+    def finish_merge
+      video_get
+      merged!
+      lesson.merged!
+    end
+
+    # 继续合并
+    def continute_merge
+      pending_vids.unshift(vid) # 把本次合并结果添加到待合并队列第一个
+      self.name = "#{board_replay_name}#{vid}" # 修改回放记录名称, 防止网易重复回调覆盖原有合并结果
+      save!
+      async_merge_replays # 继续合并
     end
   end
 end

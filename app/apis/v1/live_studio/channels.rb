@@ -35,7 +35,6 @@ module V1
               code = 200 if replay && replay.merge_callback(params)
             end
             {
-              direct: true,
               code: code
             }
           end

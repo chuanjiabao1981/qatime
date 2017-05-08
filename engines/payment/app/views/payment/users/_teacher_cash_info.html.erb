@@ -37,12 +37,12 @@
       <%= form_tag '', method: 'GET' do |f| %>
         <%= submit_tag t("view.common.query") %>
         <span class="nav-datetime">
-          <%= text_field_tag :end_date, params[:end_date], placeholder: t("view.common.end_date"), id: "end_date" %>
+          <%= text_field_tag :end_date, params[:end_date], placeholder: t("view.common.end_date"), id: "end_date", readonly: true %>
           <label for="end_date" class="glyphicon glyphicon-calendar"></label>
         </span>
         <span class="nav-date-to">-</span>
         <span class="nav-datetime">
-          <%= text_field_tag :start_date, params[:start_date], placeholder: t("view.common.start_date"), id: "start_date" %>
+          <%= text_field_tag :start_date, params[:start_date], placeholder: t("view.common.start_date"), id: "start_date", readonly: true %>
           <label for="start_date" class="glyphicon glyphicon-calendar"></label>
         </span>
       <% end %>

@@ -93,7 +93,7 @@ module LiveStudio
     # 继续合并
     def continute_merge
       pending_vids.unshift(vid) # 把本次合并结果添加到待合并队列第一个
-      self.name = "#{lesson.board_replay_name}_#{vid}" # 修改回放记录名称, 防止网易重复回调覆盖原有合并结果
+      self.name = "#{name}_#{vid}" # 修改回放记录名称, 防止网易重复回调覆盖原有合并结果
       save!
       async_merge_replays # 继续合并
     end

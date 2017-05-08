@@ -63,6 +63,7 @@ module LiveStudio
     # 合并回调
     def merge_callback(params)
       with_lock do
+        raise '视频不存在' unless params[:video_name] == name
         self.vid = params['vid']
         self.orig_video_key = params['orig_video_key']
         self.uid = params['uid']

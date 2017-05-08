@@ -20,8 +20,8 @@ module Payment
 
     # 消费记录
     def consumption_records
-      @withdraws = query_by_date(@cash_account.consumption_records.includes(:target))
-      @withdraws = @withdraws.order(created_at: :desc).paginate(page: params[:page])
+      @consumption_records = query_by_date(@cash_account.consumption_records.includes(:target))
+      @consumption_records = @consumption_records.order(created_at: :desc).paginate(page: params[:page])
     end
 
     # 收入记录
@@ -32,7 +32,7 @@ module Payment
 
     # 退款记录
     def refunds
-      @refunds = query_by_date(@cash_account.payment_refunds)
+      @refunds = query_by_date(@current_resource.payment_refunds)
       @refunds = @refunds.order(created_at: :desc).paginate(page: params[:page])
     end
 

@@ -1,7 +1,7 @@
 cn:
   activerecord:
     models:
-      live_studio/course: 辅导班
+      live_studio/course: 直播课
     attributes:
       live_studio/course:
         name: 名称
@@ -28,7 +28,7 @@ cn:
         cheap: 限时打折
         free_taste: 免费试听
         join_cheap: 插班优惠
-        learn_alert: 辅导班开课后才可学习
+        learn_alert: 直播课开课后才可学习
         introduce: 课程介绍
         arrange: 上课安排
         lesson_plan: 课时安排

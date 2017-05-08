@@ -315,6 +315,7 @@ cn:
           allowed: 已通过
           refused: 已驳回
           canceled: 用户取消
+          paid: 已转款
         station:
           init: 等待审核
           allowed: 等待转款

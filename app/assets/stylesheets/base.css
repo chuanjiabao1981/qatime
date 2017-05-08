@@ -11391,7 +11391,7 @@ div.modal-apply {
   line-height: 78px;
 }
 .contains > .contains-title > a:link {
-  outline: ;
+  outline: none;
 }
 .contains > .contains-title > a > img {
   width: 16px;

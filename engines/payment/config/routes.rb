@@ -38,7 +38,7 @@ Payment::Engine.routes.draw do
     member do
       get :recharges
       get :withdraws
-      get :consumptione_records
+      get :consumption_records
       get :earning_records
       get :refunds
     end

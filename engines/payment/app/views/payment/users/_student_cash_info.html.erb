@@ -16,9 +16,9 @@
   </div>
   <div class="col-md-6 col-sm-6">
     <%= link_to Payment::CashAccount.human_attribute_name(:withdraw), payment.new_user_withdraw_path(@current_resource),
-          class: "btn-add" unless @cash_account.balance < 100 %>
+          class: "btn-add" if @cash_account.balance > 0 %>
     <%= link_to Payment::CashAccount.human_attribute_name(:recharge),
-                payment.new_user_recharge_path(@current_resource) if @cash_account.balance > 0 %>
+                payment.new_user_recharge_path(@current_resource) %>
   </div>
 </div>
 

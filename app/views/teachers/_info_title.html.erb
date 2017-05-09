@@ -1,7 +1,6 @@
-<div style="padding-left: 1px">
-  <ul class="nav nav-tabs nav-justified">
-  <li role="presentation" class=<%= "active" if (action_name == "info" or params[:cate].to_s.to_sym == :edit_profile) %>><%= link_to t("students.common.personal_information"), info_teacher_path(@teacher) %></li>
-
-    <li role="presentation" class=<%= "active" if params[:cate].to_s.to_sym == :security_setting %>><%= link_to t("students.common.security_setting"), edit_teacher_path(@teacher, cate: :security_setting) %></li>
-  </ul>
+<div class="contains-title set-title">
+  <%= link_to t("students.common.personal_information"), info_teacher_path(@teacher),
+              class: "#{'active' if (action_name == "info" or params[:cate].to_s.to_sym == :edit_profile)}" %>
+  <%= link_to t("students.common.security_setting"),  edit_teacher_path(@teacher, cate: :security_setting),
+              class: "#{'active' if params[:cate].to_s.to_sym == :security_setting}" %>
 </div>

@@ -12,6 +12,12 @@ cn:
       get_captcha: 获取校验码
       try_get_captcha_again: 重新获取
       my_wallet: 我的钱包
+      avatar_uploader:
+        upload: 上传头像
+        preview: 预览
+        select_image: 选择图片
+        btn_save: 保存使用
+        image_notice: 请选择合适圆形和方形两种裁剪方式的图片，以保证头像正常展示
     new:
       title: 学生注册
       captcha: 验证码
@@ -26,6 +32,18 @@ cn:
     edit_profile:
       edit_avatar_btn: 更换头像
       edit_avatar_title: 更换头像
+      name: 姓名
+      gender: 性别
+      male: 男
+      female: 女
+      birthday: 生日
+      grade: 年级类型
+      province_id: 地区
+      school_id: 所在学校
+      desc: 简介
+      placeholders:
+        birthday: "年/月/日"
+        desc: 介绍下自己，如个人优势/从教经历/教学特色等。
     security_setting:
       login_password: 登录密码
       payment_password: 支付密码

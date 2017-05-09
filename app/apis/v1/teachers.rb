@@ -81,19 +81,17 @@ module V1
           requires :category, type: String, desc: '类型'
           optional :email, type: String, desc: '邮箱'
           optional :email_confirmation, type: String, desc: '邮箱确认'
+          optional :school_id, type: Integer, desc: '学校ID'
 
           all_or_none_of :email, :email_confirmation
         end
         put "/:id/profile" do
           teacher = ::Teacher.find(params[:id])
-          update_params = ActionController::Parameters.new(params).permit(:name, :nick_name, :gender, :subject, :category, :birthday, :desc, :email, :email_confirmation)
+          update_params = ActionController::Parameters.new(params).permit(:name, :nick_name, :gender, :subject, :category, :birthday, :desc, :email, :email_confirmation, :school_id)
           update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar])
 
-          if teacher.update(update_params)
-            present teacher, with: Entities::Teacher
-          else
-            raise(ActiveRecord::RecordInvalid.new(teacher))
-          end
+          raise ActiveRecord::RecordInvalid, teacher unless teacher.update(update_params)
+          present teacher, with: Entities::Teacher
         end
       end
     end

@@ -75,12 +75,13 @@ module V1
         optional :email_confirmation, type: String, desc: '邮箱确认'
         optional :parent_phone, type: String, desc: '家长手机'
         optional :parent_phone_confirmation, type: String, desc: '家长手机确认'
+        optional :school_id, type: Integer, desc: '学校ID'
         all_or_none_of :email, :email_confirmation
         all_or_none_of :parent_phone, :parent_phone_confirmation
       end
       put "/:id/profile" do
         student = ::Student.find(params[:id])
-        update_params = ActionController::Parameters.new(params).permit(:name, :gender, :grade, :province_id, :city_id, :birthday, :desc, :email, :email_confirmation, :parent_phone, :parent_phone_confirmation)
+        update_params = ActionController::Parameters.new(params).permit(:name, :gender, :grade, :province_id, :city_id, :school_id, :birthday, :desc, :email, :email_confirmation, :parent_phone, :parent_phone_confirmation)
         update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar])
 
         if student.update(update_params)

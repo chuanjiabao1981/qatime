@@ -50,6 +50,7 @@ module Permissions
 
       api_allow :GET, "/api/v1/user/register_code_valid"
       api_allow :POST, "/api/v1/user/register"
+      api_allow :GET, "/api/v1/user/check"
       api_allow :POST, "/api/v1/user/wechat_regsiter"
 
       # captcha

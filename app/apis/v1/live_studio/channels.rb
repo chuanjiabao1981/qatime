@@ -31,7 +31,6 @@ module V1
               code = 200 if result
             else
               replay = ::LiveStudio::Replay.find_by(name: params[:video_name])
-              replay.merge_callback(params)
               code = 200 if replay && replay.merge_callback(params)
             end
             {

@@ -45,6 +45,7 @@ module LiveStudio
 
     # 返回下一次合并视频ID
     def shift_pending_vids!
+      pending_vids.unshift(vid) if vid && pending_vids.exclude?(vid)
       pending_vids.shift(3)
     end
 
@@ -56,8 +57,10 @@ module LiveStudio
     # 合并视频片段
     def merge_replays
       return if pending_vids.blank?
-      VCloud::Service.app_video_merge(outputName: name, vidList: shift_pending_vids!)
+      self.name = "#{name}_#{vid}" if vid && !name.end_with?("_#{vid}")
+      vid_list = shift_pending_vids!
       save!
+      VCloud::Service.app_video_merge(outputName: name, vidList: vid_list)
     end
 
     # 合并回调
@@ -68,12 +71,12 @@ module LiveStudio
         self.orig_video_key = params['orig_video_key']
         self.uid = params['uid']
         self.n_id = params['nID']
-        if pending_vids.blank? # 合并完成
-          finish_merge
-        else
-          continute_merge
-        end
         save!
+      end
+      if pending_vids.blank? # 合并完成
+        finish_merge
+      else
+        async_merge_replays
       end
     end
 
@@ -92,14 +95,6 @@ module LiveStudio
       video_get
       merged!
       lesson.merged!
-    end
-
-    # 继续合并
-    def continute_merge
-      pending_vids.unshift(vid) # 把本次合并结果添加到待合并队列第一个
-      self.name = "#{name}_#{vid}" # 修改回放记录名称, 防止网易重复回调覆盖原有合并结果
-      save!
-      async_merge_replays # 继续合并
     end
   end
 end

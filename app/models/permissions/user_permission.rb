@@ -48,7 +48,7 @@ module Permissions
       allow 'ajax/data', [:option_cities, :option_schools]
       allow 'welcome', [:download]
 
-      allow 'payment/users', [:cash] do |resource|
+      allow 'payment/users', [:recharges, :withdraws, :consumption_records, :earning_records, :refunds] do |resource|
         resource.id == user.id
       end
 
@@ -61,8 +61,6 @@ module Permissions
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/realtime"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/play_info"
       api_allow :GET, "/api/v1/live_studio/courses/[\\w-]+/live_status"
-
-
 
       # 安全设置
       api_allow :PUT, "/api/v1/users/[\\w-]+/email" do |resource|

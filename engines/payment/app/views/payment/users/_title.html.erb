@@ -1,0 +1,6 @@
+<div class="contains-title">
+  <h3>
+    <%= t("teachers.common.my_wallet") if @current_resource.teacher? %>
+    <%= t("students.common.my_wallet") if @current_resource.student? %>
+  </h3>
+</div>

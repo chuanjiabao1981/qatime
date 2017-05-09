@@ -14,7 +14,7 @@
       <% end %>
     </li>
     <li class="<%= 'active' if student_sidebar_nav_is?(:cash) %>">
-      <%= link_to payment.cash_user_path(@owner) do %>
+      <%= link_to payment.recharges_user_path(@owner) do %>
         <i class="icon-wallet"></i>
         <span><%= t("view.student_bars.my_wallet") %></span>
       <% end %>

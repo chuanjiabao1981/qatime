@@ -74,6 +74,14 @@ module V1
           raise(ActiveRecord::RecordInvalid.new(user))
         end
       end
+
+      desc '检测用户存在'
+      params do
+        requires :account, type: String, desc: '登陆账户'
+      end
+      post ':account/check' do
+        User.find_by(login_mobile: params[:account]).present? || User.find_by(eamil: params[:account]).present?
+      end
     end
   end
 end

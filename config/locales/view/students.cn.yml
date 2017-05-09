@@ -43,13 +43,14 @@ cn:
       desc: 简介
       placeholders:
         birthday: "年/月/日"
-        desc: 介绍下自己，如个人优势/从教经历/教学特色等。
+        desc: 最多输入30个字
     security_setting:
       login_password: 登录密码
       payment_password: 支付密码
       wechat_bind: 绑定微信
       wechat_bind_click: 扫码绑定微信
       wechat_unbind: 解除解绑微信
+      wechat_unbind_confirm: "解除绑定微信将不能使用部分功能,是否解除?"
       required_wechat: 绑定后可使用微信登录和微信提现等功能。
       required_payment_password: 余额支付时需要输入支付密码。
       this_password_is_not_visible: 此密码不可见
@@ -76,12 +77,13 @@ cn:
     edit_login_mobile:
       binding_mobile: 当前手机号码
       mobile_captcha: 手机校验码
+      mobile_captcha2: 验证绑定手机
       get_captcha: 获取验证码
       new_mobile: 新手机号码
       mobile_captcha: 手机校验码
       to_bind_mobile: 绑定手机
     edit_parent_phone:
-      current_password_label: '当前登录密码:'
+      current_password_label: 当前登录密码
       binding_parent_phone: 当前家长手机
       mobile_captcha: 手机校验码
       get_captcha: 获取验证码
@@ -119,7 +121,18 @@ cn:
       parent_phone_label: 修改家长手机
       submit: 确定
     edit_password:
-      current_password_label: '当前登录密码:'
-      password_label: '新密码登录:'
-      password_confirmation_label: '确认新密码'
+      current_password_label: 当前登录密码
+      current_payment_password: 支付密码验证
+      password_label: 新密码登录
+      password_confirmation_label: 确认新密码
+      payment_captcha_confirmation: 验证绑定手机
+      payment_password: 输入支付密码
+      new_payment_password: 新的支付密码
+      forget_payment_password: 忘记支付密码
+      payment_password_confirmation: 确认支付密码
+      placeholders:
+        payment_captcha_confirmation: 请输入校验码
+        payment_password: 请输入6位纯数字
+        payment_password_confirmation: 再输入一次
+        current_payment_password: 输入原支付密码（6位纯数字）
 

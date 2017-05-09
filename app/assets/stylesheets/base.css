@@ -1,4 +1,7 @@
 /*学生界面*/
+body {
+  font-family: "微软雅黑" !important;
+}
 em {
   font-style: normal;
 }
@@ -4283,9 +4286,6 @@ ul {
   border: 1px solid rgb(222,222,222);
   margin-left: 6.5px;
   background-color: white;
-  position: absolute;
-  top: 320px;
-  margin-left: -150px;
 }
 .popup-title {
   height: 40px;
@@ -4543,40 +4543,40 @@ ul {
 
 
 /*公告*/
-.notice-news {
-  padding: 10px;
+/*.notice-news {
+	padding: 10px;
 }
 .notice-content {
-  margin: 15px 10px 0px;
+	margin: 15px 10px 0px;
 }
 .notice-content textarea {
-  width: 100%;
-  height: 125px;
-  resize: none;
-  padding: 10px;
-  border: 1px solid rgb(194,194,194);
+	width: 100%;
+	height: 125px;
+	resize: none;
+	padding: 10px;
+	border: 1px solid rgb(194,194,194);
 }
 .notice-news table {
-  width: 100%;
+	width: 100%;
 }
 .notice-news table tr td {
-  padding: 10px 0;
-  color: #666666;
-  border-bottom: 1px solid rgb(241,241,241);
+	padding: 10px 0;
+	color: #666666;
+	border-bottom: 1px solid rgb(241,241,241);
 }
 .notice-news table tr td:first-child {
-  width: 160px;
+	width: 160px;
 }
 .notice-td {
-  position: relative;
+	position: relative;
 }
 .notice-time {
-  position: absolute;
-  top: 10px;
+	position: absolute;
+	top: 10px;
 }
 .notice-overdue td {
-  color: #999999 !important;
-}
+	color: #999999 !important;
+}*/
 
 
 
@@ -6072,7 +6072,6 @@ ul {
   color: #000000;
 }
 .apply-tea-con {
-  margin: 0 10px;
   overflow: hidden;
 }
 .apply-tea-left {
@@ -10370,7 +10369,6 @@ ul {
 }
 .user-img p:last-child > img {
   width: 14px;
-  height: 21px;
   position: relative;
   top: -3px;
 }
@@ -11394,6 +11392,9 @@ ul {
   color: #ff5842;
   font-size: 16px;
   line-height: 78px;
+}
+.contains > .contains-title > a:link {
+  outline: none;
 }
 .contains > .contains-title > a > img {
   width: 16px;
@@ -12934,11 +12935,17 @@ ul {
   float: right;
   margin-top: 90px;
 }
-
+.contains > .user-smg .edit-info > a:hover {
+  background-color: #ff5842;
+  color: #FFFFFF;
+}
 /*学生信息编辑*/
 .contains > .user-edit form > ul label {
   font-weight: 500;
   line-height: 34px;
+}
+.contains > .user-edit form > ul textarea {
+  resize: none;
 }
 .contains > .user-edit form > ul > li > .row {
   min-height: 54px;
@@ -13030,18 +13037,6 @@ ul {
     line-height: 20px;
   }
 }
-/*安全设置*/
-.contains .qa_box {
-  margin-left: 0px;
-}
-.contains .qa_box .pull-right {
-  padding: 0px;
-}
-@media only screen and (max-width: 1200px) {
-  .contains .qa_box .pull-right {
-    margin-right: 30px;
-  }
-}
 
 
 /*我的钱包*/
@@ -13053,20 +13048,20 @@ ul {
   font-size: 16px;
   color: #666;
   padding: 0px 30px;
-  margin-bottom: 30px;
+}
+.wallet > .account-item:nth-child(2) {
+  margin-bottom: 8px;
 }
 .wallet > .account-item .money-sum {
   font-size: 30px;
   color: #ff5842;
 }
-.wallet > .account-item > .label-title {
-  margin-bottom: 15px;
-}
 .wallet > .account-item .money-total {
   line-height: 42px;
 }
-.wallet > .account-item i {
-  margin-left: 15px;
+.wallet > .account-item i,.wallet > .account-item .money-total {
+  color: #ccc;
+  font-size: 12px;
 }
 .wallet > .account-item a {
   width: 120px;
@@ -13077,6 +13072,7 @@ ul {
   line-height: 36px;
   float: right;
   border-radius: 4px;
+  margin-left: 15px;
 }
 .wallet > .account-item a:hover {
   background-color: #ff5842;
@@ -13099,6 +13095,489 @@ ul {
   color: #34495e;
   border-right: 2px solid #34495e;
 }
+.wallet > .account-nav > .row > .nav-left a:last-child {
+  border-right: 0px;
+  padding-right: 0px;
+}
 .wallet > .account-nav > .row > .nav-left a.active {
   color: #ff5842;
+}
+.wallet > .account-nav > .row > .nav-left {
+  padding-right: 0px;
+}
+.wallet > .account-nav > .row > .nav-right {
+  padding-left: 0px;
+}
+.wallet > .account-nav > .row > .nav-right a
+,.wallet > .account-nav > .row > .nav-right input[type="submit"] {
+  color: #ff5842;
+  float: right;
+  margin-left: 15px;
+}
+.wallet > .account-nav > .row > .nav-right input[type="submit"] {
+  height: 26px;
+  line-height: 22px;
+  margin-top: 25px;
+  background-color: #FFFFFF;
+  border: 0px;
+  padding: 0px;
+  outline: none;
+}
+.wallet > .account-nav .nav-right .nav-datetime
+,.wallet > .account-nav .nav-right .nav-date-to {
+  display: inline-block;
+  float: right;
+}
+.wallet > .account-nav .nav-right .nav-datetime input {
+  line-height: 26px;
+  border: 0px;
+  width: 110px;
+  border-bottom: 1px solid #ccc;
+  outline: none;
+}
+.wallet > .account-nav .nav-right .nav-datetime label {
+  top: 30px;
+}
+.wallet > .account-list  {
+  padding-bottom: 30px;
+}
+.wallet > .account-list > table{
+  width: 100%;
+}
+.wallet > .account-list > table tr {
+  height: 38px;
+}
+.wallet > .account-list > table tr:first-child {
+  background-color: #fafafa;
+}
+.wallet > .account-list > table tr th {
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
+  color: #000;
+}
+.wallet > .account-list > table tr > td {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+.wallet > .account-list > table tr > td > a {
+  color: #ff5842;
+}
+@media only screen  and (max-width: 1200px) {
+  .wallet > .account-nav > .row > .nav-right a,.wallet > .account-nav > .row > .nav-right input[type="submit"] {
+    margin-left: 0px;
+  }
+  .nav-date-to {
+    margin: 0 3px;
+  }
+}
+
+
+/*提现申请*/
+.drawings > .row > .applay-left {
+  padding-right: 0px;
+}
+.drawings > .row > .applay-right {
+  padding-left: 0px;
+}
+.drawings > .row > .applay-left p,.drawings > .row > .applay-right p {
+  height: 38px;
+  font-size: 16px;
+  color: #999;
+  line-height: 36px;
+  text-align: center;
+  border-top: 1px solid #F1F1F1;
+  border-bottom: 1px solid #F1F1F1;
+  background-color: #F9F9F9;
+  margin-bottom: 0px;
+}
+.drawings > .row > .applay-left > .row,.drawings > .row > .applay-right > .row {
+  margin: 0px;
+}
+.drawings > .row > .applay-left > .row {
+  min-height: 75px;
+  padding-top: 20px;
+}
+.drawings > .row label {
+  font-weight: 500;
+  line-height: 34px;
+  margin-bottom: 0px;
+}
+.drawings > .row .num-msg i {
+  display: inline-block;
+  margin-left: -25px;
+}
+.drawings > .row .num-msg em,.drawings > .row .num-msg a {
+  margin-left: 15px;
+}
+.drawings > .row .has-error {
+  margin: 0px;
+  line-height: 20px;
+}
+.drawings > .row .num-msg {
+  padding-left: 0px;
+}
+.drawings > .row .num-msg  input[type="text"],.drawings > .row .num-msg  input[type="password"] {
+  width: 70%;
+  display: inline-block;
+}
+.drawings > .row > .applay-left > .amount-line,.drawings > .succeed-line > .applay-left > .row{
+  border-right: 1px solid #F1F1F1;
+  border-bottom: 1px solid #F1F1F1;
+}
+.drawings > .row > .applay-right .row {
+  padding-left: 15px;
+  height: 75px;
+  border-bottom: 1px solid #F1F1F1;
+}
+.drawings > .row > .applay-right .payment {
+  width: 100%;
+  display: table;
+}
+.drawings > .row > .applay-right .payment-line {
+  display: table-cell;
+  vertical-align: middle;
+}
+.drawings > .row > .applay-right .row input[type="radio"]{
+  margin-right: 15px;
+  position: relative;
+  top: 2px;
+}
+.drawings > .row > .applay-right .row i {
+  font-size: 14px;
+  color: #ccc;
+}
+.drawings > .pwd-line > .applay-left > .amount-line {
+  border: 0px;
+}
+.drawings > .pwd-line > .applay-left {
+  padding-left: 0px;
+}
+.drawings > .pwd-line {
+  border-bottom: 1px solid #F1F1F1;
+  margin: 0px;
+}
+.drawings > .apply-btn {
+  padding: 30px 15px;
+}
+.drawings > .apply-btn input {
+  float: right;
+  display: inline-block;
+  width: 120px;
+  height: 38px;
+  border: 1px solid #999;
+  text-align: center;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  color: #999;
+}
+.drawings > .apply-btn input.active {
+  border-color: #ff5842;
+  color: #FF5842;
+}
+.drawings > .apply-btn input.active:hover {
+  background-color: #ff5842;
+  color: #FFFFFF;
+}
+@media only screen  and (max-width: 990px) {
+  .drawings > .row .num-msg {
+    padding-left: 15px;
+  }
+  .drawings > .row > .applay-left {
+    padding-right: 15px;
+  }
+  .drawings > .row label {
+    line-height: 22px;
+  }
+  .drawings > .row > .applay-right {
+    padding-left: 15px;
+  }
+  .drawings > .row > .applay-left > .amount-line {
+    min-height: 104px;
+  }
+}
+
+/*提现成功*/
+
+.drawings > .succeed-line > .applay-left > .row {
+  padding-top: 0px;
+}
+.drawings > .succeed-line > .applay-left span {
+  display: block;
+  line-height: 133px;
+  font-size: 40px;
+  text-align: center;
+}
+.drawings > .succeed-line > .applay-right > .row {
+  border-bottom: 1px solid #F1F1F1;
+  padding: 0px;
+}
+.drawings > .succeed-line > .applay-left > .row
+,.drawings > .succeed-line > .applay-right > .row {
+  min-height: 134px;
+}
+.drawings > .succeed-line > .applay-right .con-right-msg {
+  margin-left: 0px;
+}
+.drawings > .succeed-line > .applay-right .trading-item {
+  display:table;
+  height: 133px;
+}
+.drawings > .succeed-line > .applay-right .indent-list {
+  width: 100%;
+  display:table-cell;
+  vertical-align:middle;
+}
+.drawings > .succeed-line > .applay-right .indent-list > span {
+  color: #999;
+}
+
+
+/*账户充值*/
+.recharge > .row > .applay-left > .amount-line {
+  padding-top: 45px;
+  min-height: 120px;
+}
+.recharge > .row > .applay-right .row {
+  min-height: 120px;
+}
+.recharge > .row > .applay-right .payment-line > label {
+  display: block;
+}
+.apply-prepaid {
+  margin-top: 10px;
+  position: relative;
+  min-height: 50px;
+}
+.apply-prepaid > p {
+  padding-top: 25px;
+  text-align: center;
+  margin-bottom: 0px;
+  color: #999;
+}
+.apply-prepaid > span {
+  position: absolute;
+  right: 15px;
+  bottom: 0px;
+}
+.apply-prepaid > span i {
+  color: #ff5842;
+  font-size: 30px;
+}
+.recharge > .apply-btn {
+  padding-top: 20px;
+}
+@media only screen and (max-width: 990px) {
+  .apply-prepaid > span {
+    display: block;
+    padding-right: 15px;
+    text-align: right;
+    position: static;
+    right: 15px;
+    bottom: 0px;
+  }
+}
+/*安全设置*/
+.contains > .qa_box {
+  margin: 0px;
+}
+.contains > .qa_box .set-cell {
+  min-height: 100px;
+  border-bottom: 1px solid #F1F1F1;
+  padding: 0 30px;
+  font-size: 16px;
+}
+.contains > .qa_box .set-cell .cell-line p {
+  margin-bottom: 0px;
+  color: #333;
+}
+.contains > .qa_box .set-cell .cell-line p i {
+  color: #ccc;
+}
+.contains > .qa_box .set-cell .cell-line p .prompt-info {
+  color: #ff5842;
+}
+.contains > .qa_box .set-cell .cell-line > em {
+  color: #999;
+  font-size: 12px;
+}
+.contains > .qa_box .set-cell .row-box {
+  height: 100px;
+  display: table;
+}
+.contains > .qa_box .set-cell .row-box .cell-line {
+  display: table-cell;
+  vertical-align: middle;
+}
+.contains > .qa_box .set-cell .row-btn {
+  padding-left: 0px;
+}
+.contains > .qa_box .set-cell .row-btn > a {
+  margin-top: 50px;
+  display: block;
+  color: #ff5842;
+  text-align: right;
+}
+.contains > .qa_box .set-cell .modifiy {
+  padding-top: 20px;
+  border-top: 1px solid #f1f1f1;
+  margin: 0 -30px;
+  background-color: #FAFAFA;
+  display: none;
+}
+.contains > .qa_box .set-cell .modifiy.active {
+  display: block;
+}
+.modifiy .modifiy-info > .row {
+  margin: 0px;
+  min-height: 54px;
+}
+.modifiy .modifiy-info > .row .has-error {
+  margin: 0px;
+}
+.modifiy .modifiy-info > .row .label-line {
+  text-align: right;
+}
+.modifiy  label{
+  display: block;
+  font-weight: 500;
+  color: #666;
+  line-height: 34px;
+  margin-bottom: 0px;
+  text-align: right;
+}
+.modifiy .modifiy-info .find-line a {
+  line-height: 34px;
+  color: #ff5842;
+}
+.modifiy .modifiy-info .save-line a,.modifiy .modifiy-info .save-line input[type="submit"] {
+  display: inline-block;
+  width: 120px;
+  height: 38px;
+  border: 1px solid #ff5842;
+  border-radius: 4px;
+  text-align: center;
+  color: #ff5842;
+}
+.modifiy .modifiy-info .save-line a {
+  line-height: 36px;
+  margin-right: 25px;
+}
+.modifiy .modifiy-info .save-line input[type="submit"] {
+  background-color: #FFFFFF;
+}
+.modifiy .modifiy-info .save-line a:hover,.modifiy .modifiy-info .save-line input[type="submit"]:hover {
+  background-color: #ff5842;
+  color: #FFFFFF;
+}
+.modifiy .modifiy-info  .contact-info {
+  line-height: 34px;
+  display: block;
+}
+.modifiy .modifiy-info .form-group {
+  margin-bottom: 0px;
+}
+.modifiy .modifiy-info .form-group > .input-group input {
+  height: 34px !important;
+}
+.modifiy .modifiy-info .form-group > .input-group > .input-group-btn input {
+  background-color: #eff3f5;
+  color: #000;
+}
+.modifiy .modifiy-info  .prompt-info {
+  color: #ff5842;
+}
+@media only screen and (max-width: 990px) {
+  .modifiy .modifiy-info > .row {
+    min-height: 74px;
+    margin: 0 15px;
+  }
+  .contains > .qa_box .set-cell .row-btn > a {
+    margin-top: 0px;
+    text-align: left;
+    padding-left: 15px;
+  }
+  .modifiy .modifiy-info .find-line a
+  ,.modifiy .modifiy-info label {
+    line-height: 20px;
+    text-align: right;
+  }
+  .modifiy .modifiy-info .find-line a {
+    display: block;
+  }
+}
+
+
+/*发布公告*/
+.affiche-info > h3 {
+  margin: 0px;
+  padding: 15px 0px;
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+}
+.affiche-info > .schedule-title > p {
+  line-height: 36px;
+  text-align: center;
+  background-color: #F0F0F0;
+  margin-bottom: 0px;
+}
+.affiche-info > .schedule-title > p > span {
+  padding: 0 15px;
+  color: #666;
+}
+.affiche-info > .schedule-title > p > span i {
+  margin-left: 15px;
+}
+.affiche-info > .schedule-title > p > span:last-child {
+  padding-right: 0px;
+  border-left: 2px solid #666;
+}
+.affiche-info > .schedule-list {
+  padding-left: 0px;
+  margin-bottom: 0px;
+  padding-bottom: 20px;
+}
+.affiche-info > .schedule-list li {
+  padding: 15px;
+  border-bottom: 1px solid #F1F1F1;
+  font-size: 14px;
+  color: #999;
+}
+.affiche-info > .schedule-list li:last-child {
+  border-bottom: 0px;
+}
+.affiche-info > .schedule-list li.active {
+  color: #666;
+}
+.affiche-info > .schedule-list li > .row {
+  margin: 0px;
+}
+.affiche-info > .schedule-list .announcement {
+  padding-left: 0px;
+}
+.notice-editor .row {
+  margin: 0px;
+  min-height: 140px;
+}
+.notice-editor .row textarea {
+  height: 110px;
+  resize: none;
+}
+.notice-editor .row .has-error {
+  margin: 0px;
+}
+@media only screen  and (max-width: 768px) {
+  .affiche-info > .schedule-list .announcement {
+    padding-left: 15px;
+  }
+}
+@media screen and (min-width: 768px){
+  .notice-editor {
+    width: 700px !important;
+    padding: 0px !important;
+  }
 }

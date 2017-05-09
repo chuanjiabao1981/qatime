@@ -40,8 +40,6 @@ class StudentsController < ApplicationController
   def edit
     if params[:cate] == "register"
       render layout: 'application_login'
-    elsif params[:cate] == "security_setting"
-
     else
       render layout: 'v1/home'
     end
@@ -183,7 +181,7 @@ class StudentsController < ApplicationController
   end
 
   def payment_password_params
-    params.require(:student).permit(:payment_password, :payment_password_confirmation, :payment_captcha_confirmation)
+    params.require(:student).permit(:payment_password, :payment_password_confirmation, :payment_captcha_confirmation, :current_payment_password)
   end
 
   def update_params(update_by)
@@ -262,12 +260,15 @@ class StudentsController < ApplicationController
   end
 
   def update_payment_password
+    if payment_password_params[:current_payment_password].present?
+      return @student.reset_payment_pwd(payment_password_params)
+    end
     captcha_manager = UserService::CaptchaManager.new(@student.login_mobile)
     @student.payment_captcha = captcha_manager.captcha_of(:payment_password)
     @student.update_payment_pwd(payment_password_params)
   ensure
     if @student.errors.blank?
-      captcha_manager.expire_captch(:payment_password)
+      captcha_manager.expire_captch(:payment_password) if captcha_manager
     end
   end
 

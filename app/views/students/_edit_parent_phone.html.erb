@@ -1,58 +1,66 @@
 <% if_show_parent_phone_div = (params[:cate].to_s.to_sym == :security_setting && params[:by].to_s.to_sym == :parent_phone) %>
 
-<div id="edit_parent_phone_area" style="padding-top: 30px;<%= 'display:none;' unless if_show_parent_phone_div %>">
-    <%= simple_form_for(@student, url: student_path(@student, cate: :security_setting, by: :parent_phone), html: {id: "change_parent_phone_form"}) do |f| %>
-      <input type="hidden" name="edit_type" value="mobile">
-      <input type="hidden" name="student_id" value="<%= @student.id %>">
-      <input type="hidden" name="cate" value="security_setting">
-      <input type="hidden" name="by" value="parent_phone">
+<div class="row modifiy <%= 'active' if if_show_parent_phone_div %>">
+  <%= simple_form_for(@student, url: student_path(@student, cate: :security_setting, by: :parent_phone), html: {id: "change_parent_phone_form"}) do |f| %>
+    <input type="hidden" name="edit_type" value="mobile">
+    <input type="hidden" name="student_id" value="<%= @student.id %>">
+    <input type="hidden" name="cate" value="security_setting">
+    <input type="hidden" name="by" value="parent_phone">
 
-      <div class="row" >
-        <div class="col-md-2 col-md-offset-3 text-right">
-          <%= t ".binding_parent_phone" %>:
+    <div class="modifiy-info">
+      <div class="row">
+        <div class="col-md-3  label-line">
+          <label for="" class="control-label"><%= t("students.edit_parent_phone.binding_parent_phone") %></label>
         </div>
-        <div class="col-md-3">
-          <% if @student.parent_phone%>
-            <%= @student.parent_phone_was %>
+        <div class="col-md-6">
+          <% if @student.parent_phone %>
+            <span class="contact-info"><%= @student.parent_phone_was %></span>
           <% else %>
-            <span class="alert_red_span"><%= t("view.common.no_bound_parent_phone") %></span>
+            <span class="contact-info prompt-info"><%= t("view.common.no_bound_parent_phone") %></span>
           <% end %>
         </div>
       </div>
-      <div class="row" >
-        <div class="col-md-2 col-md-offset-3 text-right form_lable">
-          <%= t '.current_password_label'%>
+      <div class="row">
+        <div class="col-md-3  label-line">
+          <label for="pwd-present" class="control-label"><%= t("students.edit_parent_phone.current_password_label") %></label>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
           <%= f.input :current_password, label: false %>
         </div>
-        <div class="col-md-2 error_input" style="color: red;">
-        </div>
       </div>
-      <div class="row" >
-        <div class="col-md-2 col-md-offset-3 text-right form_lable">
-          <%= t ".new_parent_phone" %>:
+      <div class="row">
+        <div class="col-md-3  label-line">
+          <%= f.label :parent_phone, t("students.edit_parent_phone.new_parent_phone") %>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-6">
           <% _input_html = action_name == "edit" ?  { maxlength: 11, value: "" } : { maxlength: 11 } %>
           <%= f.input :parent_phone, label: false, input_html: _input_html %>
         </div>
       </div>
-      <div class="row" >
-        <div class="col-md-2 col-md-offset-3 text-right form_lable">
-          <%= t ".mobile_captcha" %>:
-        </div>
-        <div class="col-md-7">
-          <div class="verify-code">
-            <%= f.input :captcha_confirmation, label: false, input_html: { maxlength: 4 } %>
-          </div>
-          <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_parent_phone" data-send-url="<%= ajax_captchas_path %>" data-key="send_captcha" value="<%= t ".get_captcha" %>">
-        </div>
-      </div>
       <div class="row">
-        <button type="button" class="col-md-offset-4 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-submit data-form-el="#change_parent_phone_form"><%= t ".to_bind_parent_phone" %></button>
-
-        <button type="button" class="col-md-offset-1 btn btn-default" style="margin-top: 20px;margin-bottom: 20px" data-form-reset data-form-el="#change_parent_phone_form" data-jump-href="<%= edit_student_path(@student, cate: :security_setting) %>"><%= t "students.common.cancel" %></button>
+        <div class="col-md-3  label-line">
+          <label for="" class="control-label"><%= t("students.edit_parent_phone.mobile_captcha") %></label>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <div class="input-group">
+              <%= f.input_field :captcha_confirmation, maxlength: 4 %>
+              <span class="input-group-btn">
+                <input class="btn btn-default" type="button" data-send-captcha-btn data-send-to-input="#student_parent_phone" data-send-url="<%= ajax_captchas_path %>" data-key="send_captcha" value="<%= t ".get_captcha" %>">
+              </span>
+            </div>
+          </div>
+          <%= f.error :captcha_confirmation %>
+        </div>
       </div>
-    <% end %>
+      <div class="row save-line">
+        <div class="col-md-6 col-md-offset-3">
+          <center>
+            <%= link_to t('common.cancel'), edit_student_path(@student, cate: :security_setting) %>
+            <%= submit_tag t('students.common.next_step') %>
+          </center>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>

@@ -47,20 +47,26 @@ module V1
         params do
           requires :id, type: Integer, desc: 'ID'
           requires :name, type: String, desc: '姓名'
-          optional :avatar, :type => Rack::Multipart::UploadedFile, desc: '头像'
+          optional :avatar, type: Rack::Multipart::UploadedFile, desc: '头像'
+          optional :subject, type: String, desc: '科目'
+          optional :province_id, type: Integer, desc: '省ID'
+          optional :city_id, type: Integer, desc: '城市ID'
+          optional :school_id, type: Integer, desc: '学校ID'
+          optional :teaching_years, type: String, desc: '执教年龄', values: ::Teacher.teaching_years.options.map(&:second)
+          optional :grade_range, type: Array[String], coerce_with: ->(val) { val.split(/[\s,]+/) }, desc: '授课范围 用逗号或者空格隔开'
           optional :gender, type: String, desc: '性别'
           optional :birthday, type: DateTime, desc: '生日'
           optional :desc, type: String, desc: '简介'
         end
         put "/:id" do
           teacher = ::Teacher.find(params[:id])
-          update_params = ActionController::Parameters.new(params).permit(:name, :avatar, :gender, :birthday, :desc)
+          update_params = ActionController::Parameters.new(params).permit(:name, :avatar, :subject, :province_id, :city_id,
+                                                                          :school_id, :teaching_years,
+                                                                          :gender, :birthday, :desc,
+                                                                          grade_range: [])
           update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar]) if params[:avatar]
-          if teacher.update(update_params)
-            present teacher, with: Entities::TeacherInfo
-          else
-            raise(ActiveRecord::RecordInvalid.new(teacher))
-          end
+          raise ActiveRecord::RecordInvalid, teacher unless teacher.update(update_params)
+          present teacher, with: Entities::TeacherInfo
         end
 
         desc 'teacher update profile.' do
@@ -73,7 +79,7 @@ module V1
           requires :id, type: Integer, desc: 'ID'
           requires :name, type: String, desc: '姓名'
           optional :nick_name, type: String, desc: '昵称'
-          requires :avatar, :type => Rack::Multipart::UploadedFile, desc: '头像'
+          requires :avatar, type: Rack::Multipart::UploadedFile, desc: '头像'
           optional :gender, type: String, desc: '性别'
           optional :birthday, type: DateTime, desc: '生日'
           optional :desc, type: String, desc: '简介'
@@ -82,12 +88,18 @@ module V1
           optional :email, type: String, desc: '邮箱'
           optional :email_confirmation, type: String, desc: '邮箱确认'
           optional :school_id, type: Integer, desc: '学校ID'
+          optional :province_id, type: Integer, desc: '省ID'
+          optional :city_id, type: Integer, desc: '城市ID'
+          optional :teaching_years, type: String, desc: '执教年龄', values: ::Teacher.teaching_years.options.map(&:second)
+          optional :grade_range, type: Array[String], coerce_with: ->(val) { val.split(/[\s,]+/) }, desc: '授课范围 用逗号或者空格隔开'
 
           all_or_none_of :email, :email_confirmation
         end
         put "/:id/profile" do
           teacher = ::Teacher.find(params[:id])
-          update_params = ActionController::Parameters.new(params).permit(:name, :nick_name, :gender, :subject, :category, :birthday, :desc, :email, :email_confirmation, :school_id)
+          update_params = ActionController::Parameters.new(params).permit(:name, :nick_name, :gender, :subject, :category,
+                                                                          :birthday, :desc, :email, :email_confirmation, :school_id,
+                                                                          :province_id, :city_id, :teaching_years, grade_range: [])
           update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar])
 
           raise ActiveRecord::RecordInvalid, teacher unless teacher.update(update_params)

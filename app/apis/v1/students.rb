@@ -42,10 +42,12 @@ module V1
         optional :gender, type: String, desc: '性别'
         optional :birthday, type: DateTime, desc: '生日'
         optional :desc, type: String, desc: '简介'
+        optional :school_id, type: Integer, desc: '学校ID'
       end
       put "/:id" do
         student = ::Student.find(params[:id])
-        update_params = ActionController::Parameters.new(params).permit(:name, :gender, :grade, :province_id, :city_id, :birthday, :desc)
+        update_params = ActionController::Parameters.new(params).permit(:name, :gender, :grade, :province_id, :city_id,
+                                                                        :birthday, :desc, :school_id)
         update_params[:avatar] = ActionDispatch::Http::UploadedFile.new(params[:avatar]) if params[:avatar]
         if student.update(update_params)
           present student, with: Entities::StudentInfo

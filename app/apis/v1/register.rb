@@ -23,7 +23,7 @@ module V1
         requires :password, type: String, desc: '密码'
         requires :password_confirmation, type: String, desc: '密码确认'
         requires :accept, type: String, desc: '接受服务协议'
-        requires :type, type: String, values: ['Student'], desc: '注册用户类型'
+        requires :type, type: String, values: %w(Student Teacher), desc: '注册用户类型'
         requires :client_type, type: String, desc: '登陆方式.'
       end
       post :register do

@@ -11,7 +11,7 @@ module LiveStudio
       merged: 1
     }
 
-    after_create :merge_video
+    after_commit :merge_video, on: :create
     def merge_video
       return single_merge unless vids.count > 1 # 不需要合并
       self.pending_vids = vids

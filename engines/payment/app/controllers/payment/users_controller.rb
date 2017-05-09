@@ -2,48 +2,56 @@ require_dependency "payment/application_controller"
 
 module Payment
   class UsersController < ApplicationController
-    def cash
-      @cash_account = @current_resource.cash_account!
-      if @current_resource.student?
-        @student = @current_resource
-        if params[:fee] == 'y'
-          @consumption_records = @current_resource.cash_account.consumption_records.includes(:target)
-          @consumption_records = query_by_date(@consumption_records).order(created_at: :desc).paginate(page: params[:page])
-        elsif params[:fee] == 'x'
-          @withdraws = @student.payment_withdraws
-          @withdraws = query_by_date(@withdraws).order(created_at: :desc).paginate(page: params[:page])
-        elsif params[:fee] == 'z'
-          @refunds = @student.payment_refunds
-          @refunds = query_by_date(@refunds).order(created_at: :desc).paginate(page: params[:page])
-        else
-          @recharges = @current_resource.payment_recharges
-          @recharges = query_by_date(@recharges).order(created_at: :desc).paginate(page: params[:page])
-        end
-      elsif @current_resource.teacher?
-        @teacher = @current_resource
-        if params[:fee] == 'y'
-          @earning_records = @current_resource.cash_account.earning_records.includes(:target)
-          @earning_records = query_by_date(@earning_records).order(created_at: :desc).paginate(page: params[:page])
-        else
-          @withdraws = @teacher.payment_withdraws
-          @withdraws = query_by_date(@withdraws).order(created_at: :desc).paginate(page: params[:page])
-        end
-      end
-      # @change_records = @current_resource.cash_account!.change_records.includes(billing: :target).paginate(page: params[:page])
+    layout 'v1/home'
+
+    before_action :set_cash_account
+
+    # 充值记录
+    def recharges
+      @recharges = query_by_date(@current_resource.payment_recharges)
+      @recharges = @recharges.order(created_at: :desc).paginate(page: params[:page])
+    end
+
+    # 提现记录
+    def withdraws
+      @withdraws = query_by_date(@current_resource.payment_withdraws)
+      @withdraws = @withdraws.order(created_at: :desc).paginate(page: params[:page])
+    end
+
+    # 消费记录
+    def consumption_records
+      @consumption_records = query_by_date(@cash_account.consumption_records.includes(:target))
+      @consumption_records = @consumption_records.order(created_at: :desc).paginate(page: params[:page])
+    end
+
+    # 收入记录
+    def earning_records
+      @earning_records = query_by_date(@cash_account.earning_records.includes(:target))
+      @earning_records = @earning_records.order(created_at: :desc).paginate(page: params[:page])
+    end
+
+    # 退款记录
+    def refunds
+      @refunds = query_by_date(@current_resource.payment_refunds)
+      @refunds = @refunds.order(created_at: :desc).paginate(page: params[:page])
     end
 
     private
 
     def current_resource
-      @current_resource ||= User.find(params[:id])
+      @current_resource ||= @owner = User.find(params[:id])
     end
 
     def query_by_date(chain)
-      chain = chain.where("created_at > ?", params[:start_date].to_date) if params[:start_date].present?
-      chain = chain.where("created_at <= ?", params[:end_date].to_date + 1) if params[:end_date].present?
+      chain = chain.where("created_at > ?", params[:start_date].to_time) if params[:start_date].present?
+      chain = chain.where("created_at <= ?", params[:end_date].to_time + 1.day) if params[:end_date].present?
       chain
     rescue
       chain
+    end
+
+    def set_cash_account
+      @cash_account = current_resource.cash_account!
     end
   end
 end

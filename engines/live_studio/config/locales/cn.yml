@@ -406,7 +406,7 @@ cn:
         current_status: 当前状态
         index_no: 序号
         name: 名称
-        course_name: 辅导班名称
+        course_name: 直播课名称
         teacher: 辅导老师
         course_teacher: 授课老师
         short_description: 摘要

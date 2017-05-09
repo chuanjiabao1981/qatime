@@ -1,7 +1,7 @@
 <% if params[:cate] == 'register' %>
   <%= content_for :breadcrumb do %>
     <ol class="breadcrumb">
-      <li><%= link_to t("teachers.common.personal_center"),info_teacher_path(@teacher) %></li>
+      <li><%= link_to t("students.common.personal_center"),info_teacher_path(@teacher) %></li>
     </ol>
   <% end %>
   <div class="qa_box row row-width-fix">
@@ -10,13 +10,5 @@
 <% elsif params[:cate] == 'edit_profile' %>
   <%= render "edit_profile" %>
 <% elsif params[:cate] == 'security_setting' %>
-  <%= content_for :breadcrumb do %>
-    <ol class="breadcrumb">
-      <li><%= link_to t("students.common.personal_center"),info_teacher_path(@teacher) %></li>
-    </ol>
-  <% end %>
-  <div class="qa_box row row-width-fix">
-    <%= render "info_title" %>
-    <%= render "security_setting" %>
-  </div>
+  <%= render "security_setting" %>
 <% end %>

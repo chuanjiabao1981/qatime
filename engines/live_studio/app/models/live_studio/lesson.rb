@@ -368,7 +368,11 @@ module LiveStudio
 
     # 视频时长单位分钟
     def duration_minutes
-      (real_time.to_i / 60.0).round(2)
+      (real_time.to_i / 60.0).round(4)
+    end
+
+    def duration_hours
+      (real_time.to_i / 60.0 / 60.0).round(4)
     end
 
     private

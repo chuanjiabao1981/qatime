@@ -14,7 +14,7 @@
       <% end %>
     </li>
     <li class="<%= 'active' if teacher_sidebar_nav_is?(:cash) %>">
-      <%= link_to payment.cash_user_path(@owner) do %>
+      <%= link_to payment.earning_records_user_path(@owner) do %>
         <i class="icon-wallet"></i>
         <span><%= t("view.teacher_bars.property_management") %></span>
       <% end %>

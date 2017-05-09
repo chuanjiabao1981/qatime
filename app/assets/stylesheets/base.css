@@ -11006,9 +11006,12 @@ ul {
   bottom: 0px;
   left: 28%;
   right: 7.5%;
-  display:-webkit-flex;
-  align-items:center;
-  justify-content:center;
+}
+.study-info > .info-step {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  margin-top: -25px;
 }
 .study-info > .info-step,.study-info > .info-step > p{
   text-align: center;
@@ -11126,7 +11129,7 @@ ul {
   border-bottom: 1px solid #F0F0F0;
 }
 .discipline-nav {
-  height: 50px;
+  min-height: 50px;
   line-height: 50px;
   text-align: center;
 }
@@ -13230,11 +13233,12 @@ ul {
 }
 .drawings > .row > .applay-right .row {
   padding-left: 15px;
-  height: 75px;
+  /*height: 75px;*/
   border-bottom: 1px solid #F1F1F1;
 }
 .drawings > .row > .applay-right .payment {
   width: 100%;
+  height: 75px;
   display: table;
 }
 .drawings > .row > .applay-right .payment-line {
@@ -13262,6 +13266,7 @@ ul {
 }
 .drawings > .apply-btn {
   padding: 30px 15px;
+  overflow: hidden;
 }
 .drawings > .apply-btn input {
   float: right;
@@ -13342,7 +13347,7 @@ ul {
   min-height: 120px;
 }
 .recharge > .row > .applay-right .row {
-  min-height: 120px;
+  height: 120px;
 }
 .recharge > .row > .applay-right .payment-line > label {
   display: block;

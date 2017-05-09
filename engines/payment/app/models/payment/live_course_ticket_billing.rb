@@ -13,7 +13,7 @@ module Payment
 
     # 系统服务费
     def base_fee
-      @base_fee ||= [target.base_price * target.duration_minutes, total_money].min.round(2)
+      @base_fee ||= [base_price * target.duration_hours, total_money].min.round(2)
     end
 
     def base_price

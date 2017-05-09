@@ -1,0 +1,27 @@
+<div class="contains">
+  <%= render 'title' %>
+  <div class="contains-discipline">
+    <div class="wallet">
+      <%= render "student_cash_info" if @current_resource.student? -%>
+      <%= render "teacher_cash_info" if @current_resource.teacher? -%>
+      <div class="account-list">
+        <table border="0" cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr>
+              <th><%= Payment::Withdraw.human_attribute_name(:amount) %></th>
+              <th><%= Payment::Withdraw.human_attribute_name(:transaction_no) %></th>
+              <th><%= Payment::Withdraw.human_attribute_name(:pay_type) %></th>
+              <th><%= Payment::Withdraw.human_attribute_name(:created_at) %></th>
+              <th><%= Payment::Withdraw.human_attribute_name(:status) %></th>
+            </tr>
+            <%= render @withdraws %>
+          </tbody>
+        </table>
+        <%= render 'shared/blank' if @withdraws.blank? %>
+        <center>
+          <div class="pagination-fix"><%= will_paginate @withdraws, class: 'paging', previous_label: '←', next_label: '→' %></div>
+        </center>
+      </div>
+    </div>
+  </div>
+</div>

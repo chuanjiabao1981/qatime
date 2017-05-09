@@ -318,7 +318,7 @@ module ApplicationHelper
             action_name == 'info' || action_name == 'edit'
           )
     when :cash
-      r = controller_name == 'users' && action_name == 'cash'
+      r = controller_name == 'users' && action_name.in?(%w(recharges withdraws consumptione_records earning_records refunds))
     when :orders
       r = controller_name == 'orders' && action_name == 'index'
     when :courses
@@ -352,7 +352,7 @@ module ApplicationHelper
             action_name == 'info' || action_name == 'edit'
           )
     when :cash
-      r = controller_name == 'users' && action_name == 'cash'
+      r = controller_name == 'users' && action_name.in?(%w(recharges withdraws consumptione_records earning_records refunds))
     when :my_courses
       r = controller_name == 'courses' && action_name == 'index'
     when :my_interactive_courses

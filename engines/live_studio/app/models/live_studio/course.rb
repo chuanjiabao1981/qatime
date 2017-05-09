@@ -229,6 +229,11 @@ module LiveStudio
       lesson_price * (lessons_count - closed_lessons_count)
     end
 
+    # 插班优惠?
+    def join_cheap?
+      teaching? && closed_lessons_count > 0
+    end
+
     def live_next_time
       lesson = lessons.include_today.unstart.first
       lesson && "#{lesson.class_date} #{lesson.start_time}-#{lesson.end_time}" || I18n.t('view.course_show.nil_data')
@@ -447,7 +452,7 @@ module LiveStudio
     end
 
     def service_price
-      (base_price.to_f * 60).to_i
+      base_price.to_i
     end
 
     def reset_left_price
@@ -534,7 +539,7 @@ module LiveStudio
       self.publish_percentage = tpl_workstation.publish_percentage
       # 平台分成
       self.platform_percentage = tpl_workstation.platform_percentage
-      self.base_price = (tpl_workstation.service_price / 60.0).round(2)
+      self.base_price = tpl_workstation.service_price.round(2)
     end
 
     # 计算结账分成

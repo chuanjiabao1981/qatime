@@ -1,4 +1,7 @@
 /*学生界面*/
+body {
+  font-family: "微软雅黑" !important;
+}
  em {
   font-style: normal;
  }
@@ -12932,11 +12935,17 @@ display: inline-block;
   float: right;
   margin-top: 90px;
 }
-
+.contains > .user-smg .edit-info > a:hover {
+  background-color: #ff5842;
+  color: #FFFFFF;
+}
 /*学生信息编辑*/
 .contains > .user-edit form > ul label {
   font-weight: 500;
   line-height: 34px;
+}
+.contains > .user-edit form > ul textarea {
+  resize: none;
 }
 .contains > .user-edit form > ul > li > .row {
   min-height: 54px;
@@ -13039,20 +13048,20 @@ display: inline-block;
   font-size: 16px;
   color: #666;
   padding: 0px 30px;
-  margin-bottom: 30px;
+}
+.wallet > .account-item:nth-child(2) {
+  margin-bottom: 8px;
 }
 .wallet > .account-item .money-sum {
   font-size: 30px;
   color: #ff5842;
 }
-.wallet > .account-item > .label-title {
-  margin-bottom: 15px;
-}
 .wallet > .account-item .money-total {
   line-height: 42px;
 }
-.wallet > .account-item i {
-  margin-left: 15px;
+.wallet > .account-item i,.wallet > .account-item .money-total {
+  color: #ccc;
+  font-size: 12px;
 }
 .wallet > .account-item a {
   width: 120px;
@@ -13063,6 +13072,7 @@ display: inline-block;
   line-height: 36px;
   float: right;
   border-radius: 4px;
+  margin-left: 15px;
 }
 .wallet > .account-item a:hover {
   background-color: #ff5842;
@@ -13160,6 +13170,9 @@ display: inline-block;
 .wallet > .account-nav > .row > .nav-right a,.wallet > .account-nav > .row > .nav-right input[type="submit"] {
   margin-left: 0px;
 } 
+.nav-date-to {
+  margin: 0 3px;
+}
 }
 
 

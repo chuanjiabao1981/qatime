@@ -2,27 +2,24 @@
   <div class="col-md-12 label-title">
     <span><%= Payment::CashAccount.human_attribute_name(:balance) %></span>
   </div>
-  <div class="col-md-6 col-sm-6 col-xs-6">
+  <div class="col-md-12">
     <span class="money-sum"><%= number_to_currency(@cash_account.available_balance, unit: '') %></span>
     <i><%= t('currency.cn') %></i>
   </div>
-  <div class="col-md-6 col-sm-6 col-xs-6">
-    <!--<a href="">提现</a>-->
-  </div>
 </div>
+
 <div class="row account-item">
-  <div class="col-md-12 label-title">
-    <span><%= Payment::CashAccount.human_attribute_name(:total_income) %></span>
-  </div>
-  <div class="col-md-6 col-sm-6 col-xs-6">
+  <div class="col-md-6 col-sm-6">
+    <i><%= Payment::CashAccount.human_attribute_name(:total_income) %></i>
     <span class="money-total"><%= number_to_currency(@cash_account.total_income, unit: '') %></span>
     <i><%= t('currency.cn') %></i>
   </div>
-  <div class="col-md-6 col-sm-6 col-xs-6">
+  <div class="col-md-6 col-sm-6">
     <%= link_to Payment::CashAccount.human_attribute_name(:withdraw), payment.new_user_withdraw_path(@current_resource),
-          class: "btn-add" if @cash_account.balance > 0 %>
+          class: "btn-add" unless @cash_account.balance < 100 %>
   </div>
 </div>
+
 <div class="account-nav">
   <div class="row">
     <div class="col-md-7 nav-left">

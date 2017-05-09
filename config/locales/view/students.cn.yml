@@ -128,7 +128,7 @@ cn:
       payment_captcha_confirmation: 验证绑定手机
       payment_password: 输入支付密码
       new_payment_password: 新的支付密码
-      forget_payment_password: 忘记支付密码
+      forget_payment_password: 找回支付密码
       payment_password_confirmation: 确认支付密码
       placeholders:
         payment_captcha_confirmation: 请输入校验码

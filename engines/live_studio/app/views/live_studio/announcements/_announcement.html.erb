@@ -1,12 +1,11 @@
-<tr>
-  <td class="notice-td">
-    <span class="notice-time">
-      <%= announcement.create_time %>
-    </span>
-  </td>
-  <td>
-    <%= image_tag "livenotice.png" if announcement.lastest %>
-    <%= image_tag "livenotice-1.png" unless announcement.lastest %>
-    <span><%= announcement.content %></span>
-  </td>
-</tr>
+<li class="active">
+  <div class="row">
+    <div class="col-md-3 col-sm-3">
+      <span><%= l(announcement.created_at) if announcement.created_at %></span>
+    </div>
+    <div class="col-md-9 col-sm-9 announcement">
+      <%= image_tag "affiche#{'-news' if announcement.lastest}.png" %>
+      <span><%= announcement.content %></span>
+    </div>
+  </div>
+</li>

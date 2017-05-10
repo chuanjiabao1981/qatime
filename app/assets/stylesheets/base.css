@@ -13563,6 +13563,20 @@ ul {
 }
 .affiche-info > .schedule-list .announcement {
   padding-left: 0px;
+  position: relative;
+}
+.affiche-info > .schedule-list .announcement > img {
+  vertical-align: middle;
+  float: left;
+  margin-top: 2px;
+}
+.affiche-info > .schedule-list .announcement > span {
+  word-break:break-all;
+  word-wrap: break-word;
+  display: inline-block;
+  padding-left: 5px;
+  width: 95%;
+  float: left;
 }
 .notice-editor .row {
   margin: 0px;

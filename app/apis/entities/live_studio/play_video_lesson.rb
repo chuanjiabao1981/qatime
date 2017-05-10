@@ -1,6 +1,6 @@
 module Entities
   module LiveStudio
-    class VideoLessonPlay < VideoLesson
+    class PlayVideoLesson < VideoLesson
       expose :video, using: Entities::Video
       expose :video_course
     end

@@ -10,8 +10,11 @@ module LiveStudio
     belongs_to :lesson
 
     has_many :ticket_items
+    has_many :play_records
     belongs_to :sell_channel
     belongs_to :channel_owner, polymorphic: true
+
+    attr_accessor :item_targets
 
     enum status: {
       inactive: 0,   # 准备试听
@@ -78,6 +81,11 @@ module LiveStudio
       ::Chat::TeamMemberCreatorJob.perform_later(team.id, student_id)
     rescue StandardError => e
       p e
+    end
+
+    after_create :instance_items
+    def instance_items
+      ticket_items.create(item_targets.map { |l| { target: l } }) unless item_targets.blank?
     end
   end
 end

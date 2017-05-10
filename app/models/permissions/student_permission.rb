@@ -240,7 +240,11 @@ module Permissions
       ##
 
       ## 视频课
-      api_allow :GET, 'live_studio/students/\d+/video_courses'
+      api_allow :GET, '/api/v1/live_studio/students/\d+/video_courses'
+      api_allow :GET, '/api/v1/live_studio/students/\d+/video_courses/list'
+      api_allow :GET, '/api/v1/live_studio/students/\d+/video_courses/tasting'
+      api_allow :GET, '/api/v1/live_studio/students/\d+/video_courses/tasting_list'
+      api_allow :GET, '/api/v1/live_studio/video_lessons/\d+/play'
       api_allow :POST, "/api/v1/live_studio/video_courses/[\\w-]+/orders"
       api_allow :POST, "/api/v1/live_studio/video_courses/[\\w-]+/deliver_free"
       api_allow :POST, "/api/v1/live_studio/video_courses/[\\w-]+/taste"

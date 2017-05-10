@@ -241,12 +241,13 @@ module LiveStudio
 
     # 发货
     def deliver(order)
-      taste_tickets.where(student_id: order.user_id).available.map(&:replaced!) # 替换正在使用的试听券
-      ticket_price = lesson_count_left.zero? ? order.amount : order.amount.to_f / lesson_count_left
-      ticket = buy_tickets.find_or_create_by(student_id: order.user_id, lesson_price: ticket_price,
-                                             payment_order_id: order.id, buy_count: lesson_count_left)
-      ticket.got_lesson_ids = lessons.where(live_end_at: nil).map(&:id)
+      ticket_price = order.amount.to_f / left_lessons_count
+      check_ticket!
+      ticket = buy_tickets.create(student_id: order.user_id, lesson_price: ticket_price,
+                                  payment_order_id: order.id, buy_count: lesson_count_left,
+                                  item_targets: lessons.where(live_end_at: nil))
       ticket.active!
+      ticket
     end
 
     def for_sell?
@@ -466,6 +467,13 @@ module LiveStudio
     end
 
     private
+
+    def check_ticket!(order_or_user)
+      user = order_or_user.is_a?(Payment::Order) ? order_or_user.user : order_or_user
+      ticket = buy_tickets.available.find_by(student_id: user.id)
+      raise Payment::DuplicateOrderError, "不可重复购买" if ticket # 重复购买
+      taste_tickets.where(student_id: user.id).available.map(&:replaced!) # 替换正在使用的试听券
+    end
 
     # 辅导班删除以后同时删除课程
     after_commit :clear_lessons

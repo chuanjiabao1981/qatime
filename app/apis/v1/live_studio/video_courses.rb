@@ -51,6 +51,22 @@ module V1
                 present video_course, with: Entities::LiveStudio::VideoCourse, type: :full
             end
           end
+
+          desc '新视频课详情' do
+            headers 'Remember-Token' => {
+              description: 'RememberToken',
+              required: false
+            }
+          end
+          params do
+            requires :id, type: Integer, desc: 'ID'
+          end
+          get ':id/detail' do
+            video_course = ::LiveStudio::VideoCourse.find(params[:id])
+            ticket = video_course.tickets.available.find_by(student: current_user) if current_user
+            present video_course, root: :video_course, with: Entities::LiveStudio::VideoCourseBase
+            present ticket, root: :video_course, with: Entities::LiveStudio::VideoCourseTicket, type: :full
+          end
         end
 
         resource :video_courses do

@@ -51,6 +51,7 @@ module LiveStudio
     end
 
     test "manager view my_courses" do
+      click_on '直播课', match: :first
       click_on '直播课管理'
       assert page.has_link? '创建新课程'
       assert page.has_content? '课程名称'

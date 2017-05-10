@@ -57,8 +57,6 @@ module Payment
         @error = '支付密码不能为空'
       elsif cash_account.password_set_at.blank?
         @error = "支付密码未设置"
-      elsif cash_account.password_set_at > 24.hours.ago
-        @error = '修改或者设置支付密码24小时内不可用'
       elsif !cash_account.authenticate(params[:payment_password])
         @error = "支付密码验证失败"
       end

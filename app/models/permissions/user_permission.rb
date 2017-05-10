@@ -52,7 +52,7 @@ module Permissions
         resource.id == user.id
       end
 
-      allow 'passwords', [:new, :create, :edit, :update]
+      allow 'passwords', [:new, :create, :edit, :update, :new_payment_password, :update_payment_password]
 
       ## begin api permission
       # 辅导班接口

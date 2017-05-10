@@ -1,144 +1,149 @@
-<!-- 密码 -->
-<div class="qa_cell">
-  <div class="row">
-    <div class="col-md-3" style="padding-left:40px"><%= t(".login_password") %>
-      <div style="padding-left:20px">
-        <%= t(".this_password_is_not_visible") %>
-      </div>
-    </div>
-    <div class="col-md-6" style="padding-left:40px">
-      <%= t(".required_authentication_password") %>
-    </div>
-    <div class="col-md-2 col-md-offset-1 pull-right">
-      <br/>
-      <button type="button" class="btn btn-default" data-edit-area="#edit_login_password_area"><%= t('.modify_login_password') %></button>
-    </div>
-  </div>
-  <%= render "edit_password" %>
-</div>
+<div class="contains">
+  <%= render 'info_title' %>
 
-<!-- 支付密码 -->
-<div class="qa_cell">
-  <div class="row">
-    <div class="col-md-3" style="padding-left:40px"><%= t(".payment_password") %>
-      <div style="padding-left:20px">
-        <%= payment_password_hint(@student) %>
+  <div class="qa_box row">
+    <!--登录密码-->
+    <div class="set-cell">
+      <div class="row">
+        <div class="col-md-10 row-box">
+          <div class="cell-line">
+            <p><span><%= t("students.security_setting.login_password") %></span><i>(<%= t("students.security_setting.this_password_is_not_visible") %>)</i></p>
+            <em><%= t('students.security_setting.required_authentication_password') %></em>
+          </div>
+        </div>
+        <div class="col-md-2 row-btn">
+          <a href="javascript:void(0);" class="btn-set"><%= t('students.security_setting.modify_login_password') %></a>
+        </div>
       </div>
+      <%= render 'edit_password' %>
     </div>
-    <div class="col-md-6" style="padding-left:40px">
-      <%= t(".required_payment_password") %>
-    </div>
-    <div class="col-md-2 col-md-offset-1 pull-right">
-      <br/>
-      <button type="button" class="btn btn-default" data-edit-area="#edit_login_payment_password_area"><%= t('.modify_payment_password') %></button>
-    </div>
-  </div>
-  <%= render "edit_payment_password" %>
-</div>
 
-<!-- 手机 -->
-<div class="qa_cell">
-  <div class="row">
-    <div class="col-md-3" style="padding-left:40px"><%= t(".bound_mobile")%>
-      <div style="padding-left:20px">
-        <!-- 使用mobile_was,来防止未更新的情况 -->
-        <% if @student.login_mobile %>
-          <%= @student.login_mobile_was %>
-        <% else %>
-          <span class="alert_red_span"><%= t("view.common.no_bound_mobile") %></span>
-        <% end %>
+    <!--支付密码-->
+    <div class="set-cell">
+      <div class="row">
+        <div class="col-md-10 row-box">
+          <div class="cell-line">
+            <p><span><%= t("students.security_setting.payment_password") %></span><%= payment_password_hint(@student) %></p>
+            <em><%= t("students.security_setting.required_payment_password") %></em>
+          </div>
+        </div>
+        <div class="col-md-2 row-btn">
+          <a href="javascript:void(0);" class="btn-set"><%= t('students.security_setting.modify_payment_password') %></a>
+        </div>
       </div>
+      <%= render 'edit_payment_password' %>
     </div>
-    <div class="col-md-6" style="padding-left:40px">
-      <%= t(".bound_mobile_desc") %>
-    </div>
-    <div class="col-md-2 col-md-offset-1 pull-right">
-      <br/>
-      <button type="button" class="btn btn-default" data-edit-area="#edit_login_mobile_area"><%= t(".modified_binding_mobile") %></button>
-    </div>
-  </div>
-  <%= render "edit_login_mobile" %>
-</div>
 
-<!-- 邮箱 -->
-<div class="qa_cell">
-  <div class="row">
-    <div class="col-md-3" style="padding-left:40px"><%= t(".bound_email")%>
-      <div style="padding-left:20px">
-        <!-- email_was,来邮箱防止未更新的情况 -->
-        <% if @student.login_mobile %>
-          <% if @student.email%>
-            <%= @student.email_was %>
+    <!--绑定手机-->
+    <div class="set-cell">
+      <div class="row">
+        <div class="col-md-10 row-box">
+          <div class="cell-line">
+            <p>
+              <span><%= t("students.security_setting.bound_mobile") %></span>
+              <% if @student.login_mobile %>
+                <i>(<%= @student.login_mobile_was %>)</i>
+              <% else %>
+                <i class="prompt-info"><%= t("view.common.no_bound_mobile") %></i>
+              <% end %>
+            </p>
+            <em><%= t("students.security_setting.bound_mobile_desc") %></em>
+          </div>
+        </div>
+        <div class="col-md-2 row-btn">
+          <a href="javascript:void(0);" class="btn-set"><%= t("students.security_setting.modified_binding_mobile") %></a>
+        </div>
+      </div>
+      <%= render 'edit_login_mobile' %>
+    </div>
+
+
+    <!--绑定邮箱-->
+    <div class="set-cell">
+      <div class="row">
+        <div class="col-md-10 row-box">
+          <div class="cell-line">
+            <p>
+              <span><%= t("students.security_setting.bound_email") %></span>
+              <% if @student.login_mobile %>
+                <% if @student.email %>
+                  <i>(<%= @student.email_was %>)</i>
+                <% else %>
+                  <i class="prompt-info"><%= t("view.common.no_bound_email") %></i>
+                <% end %>
+              <% else %>
+                <i class="prompt-info"><%= t("view.common.no_bound_mobile") %></i>
+              <% end %>
+            </p>
+            <em><%= t("students.security_setting.bound_email_desc") %></em>
+          </div>
+        </div>
+        <div class="col-md-2 row-btn">
+          <a href="javascript:void(0);" class="btn-set"><%= t("students.security_setting.modified_binding_email") %></a>
+        </div>
+      </div>
+      <%= render 'edit_email' %>
+    </div>
+
+
+    <!--家长手机-->
+    <div class="set-cell">
+      <div class="row">
+        <div class="col-md-10 row-box">
+          <div class="cell-line">
+            <p>
+              <span><%= t("students.security_setting.bound_parent_phone") %></span>
+              <% if @student.parent_phone %>
+                <i>(<%= @student.parent_phone_was %>)</i>
+              <% else %>
+                <i class="prompt-info"><%= t("view.common.no_bound_parent_phone") %></i>
+              <% end %>
+            </p>
+            <em><%= t("students.security_setting.bound_parent_phone_desc") %></em>
+          </div>
+        </div>
+        <div class="col-md-2 row-btn">
+          <a href="javascript:void(0);" class="btn-set"><%= t("students.security_setting.modified_binding_parent_phone") %></a>
+        </div>
+      </div>
+      <%= render 'edit_parent_phone' %>
+    </div>
+
+    <!--绑定微信-->
+    <div class="set-cell">
+      <div class="row">
+        <div class="col-md-10 row-box">
+          <div class="cell-line">
+            <p>
+              <span><%= t("students.security_setting.wechat_bind") %></span>
+              <% if @student.wechat_users.blank? %>
+                <i class="prompt-info"><%= t("view.common.no_bound_wechat") %></i>
+              <% else %>
+                <i>(<%= @student.wechat_users.last.try(:userinfo)['info']['nickname'] %>)</i>
+              <% end %>
+            </p>
+            <em><%= t("students.security_setting.required_wechat") %></em>
+          </div>
+        </div>
+        <div class="col-md-2 row-btn">
+          <% if @student.wechat_users.blank? %>
+            <%= link_to t("students.security_setting.wechat_bind_click"), wechat_login_href %>
           <% else %>
-            <span class="alert_red_span"><%= t("view.common.no_bound_email") %></span>
+            <%= link_to t("students.security_setting.wechat_unbind"), qawechat.remove_wechat_user_path(@student), method: :put, data: {confirm: t('students.security_setting.wechat_unbind_confirm')} %>
           <% end %>
-        <% else %>
-          <span class="alert_red_span"><%= t("view.common.no_bound_mobile") %></span>
-        <% end %>
+        </div>
       </div>
     </div>
-    <div class="col-md-6" style="padding-left:40px">
-      <%= t('.bound_email_desc') %>
-    </div>
-    <div class="col-md-2 col-md-offset-1 pull-right">
-      <br/>
-      <button type="button" class="btn btn-default" data-edit-area="#edit_email_area"><%= t('.modified_binding_email') %></button>
-    </div>
-  </div>
-  <%= render "edit_email" %>
-</div>
 
-<!-- 家长手机 -->
-<div class="qa_cell">
-  <div class="row">
-    <div class="col-md-3" style="padding-left:40px"><%= t ".bound_parent_phone" %>
-      <div style="padding-left:20px">
-        <!-- parent_phone_was,防止家长手机未更新的情况 -->
-        <% if @student.parent_phone%>
-          <%= @student.parent_phone_was %>
-        <% else %>
-          <span class="alert_red_span"><%= t("view.common.no_bound_parent_phone") %></span>
-        <% end %>
-      </div>
-    </div>
-    <div class="col-md-6" style="padding-left:40px">
-      <%= t ".bound_parent_phone_desc" %>
-    </div>
-    <div class="col-md-2 col-md-offset-1 pull-right">
-      <br/>
-      <button type="button" class="btn btn-default" data-edit-area="#edit_parent_phone_area"><%= t ".modified_binding_parent_phone" %></button>
-    </div>
-  </div>
-  <%= render "edit_parent_phone" %>
-</div>
-
-
-<!-- 绑定微信 -->
-<div class="qa_cell">
-  <div class="row">
-    <div class="col-md-3" style="padding-left:40px"><%= t(".wechat_bind") %>
-      <div style="padding-left:20px">
-        <% if @student.wechat_users.blank? %>
-         <span class="alert_red_span"><%= t("view.common.no_bound_wechat") %></span>
-        <% else %>
-          <%= @student.wechat_users.last.try(:userinfo)['info']['nickname'] %>
-        <% end %>
-      </div>
-    </div>
-    <div class="col-md-6" style="padding-left:40px">
-      <%= t(".required_wechat") %>
-    </div>
-    <div class="col-md-2 col-md-offset-1 pull-right">
-      <br/>
-      <% if @student.wechat_users.blank? %>
-        <%= link_to wechat_login_href do %>
-          <button type="button" class="btn btn-default" ><%= t(".wechat_bind_click") %></button>
-        <% end %>
-      <% else %>
-        <%= link_to qawechat.remove_wechat_user_path(@student), method: :put, data: {confirm: '解除绑定微信将不能使用部分功能,是否解除?'} do %>
-          <button type="button" class="btn btn-default" ><%= t(".wechat_unbind") %></button>
-        <% end %>
-      <% end %>
-    </div>
   </div>
 </div>
+
+<% content_for :javascript do %>
+  <script type="text/javascript">
+    $(function(){
+      $('.contains').on('click', '.btn-set', function(event){
+        $(this).parents(".set-cell").find(".modifiy").toggleClass('active');
+      })
+    });
+  </script>
+<% end %>

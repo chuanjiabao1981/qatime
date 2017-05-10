@@ -28,6 +28,7 @@ cn:
       workstation_info: 工作站信息
       live_studio/interactive_course: 一对一管理
       live_studio/video_course: 视频课
+      live_studio/course: 直播课
       welcome: 您好！欢迎来到答疑时间！
       default_title: 此标题内容仅供演示
       default_grade: 年级科目

@@ -50,7 +50,7 @@ class StudentInfoShowAndEditTest < ActionDispatch::IntegrationTest
     select '山西', from: :student_province_id
     select '阳泉', from: :student_city_id
     select '阳泉二中', from: :student_school_id
-    find('div[contenteditable]').set('desc test')
+    fill_in :student_desc, with: 'desc test'
 
     click_on '保存'
     @student.reload
@@ -88,5 +88,6 @@ class StudentInfoShowAndEditTest < ActionDispatch::IntegrationTest
     click_on '保存'
     sleep 2
     assert @student.cash_account!.authenticate('111111')
+    assert page.has_content?('新密码 23时59分 后可用'), '倒计时未显示'
   end
 end

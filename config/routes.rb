@@ -178,7 +178,12 @@ Qatime::Application.routes.draw do
   end
 
   resources :sessions
-  resources :passwords, only: [:new, :create]
+  resources :passwords, only: [:new, :create] do
+    collection do
+      get :new_payment_password
+      post :update_payment_password
+    end
+  end
   resources :teachers do
     collection do
       get 'search'

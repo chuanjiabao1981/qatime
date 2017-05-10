@@ -16,7 +16,7 @@
     </div>
     <div class="condition">
       <span><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
-      <%= select_tag 'q[:grade_eq]', options_for_select(APP_CONSTANT['grades_in_menu'], @search_params[:q][:grade_eq]),
+      <%= select_tag 'q[grade_eq]', options_for_select(APP_CONSTANT['grades_in_menu'], @search_params[:q][:grade_eq]),
                      prompt: t("live_studio.course_request.menu.all"),
                      class: 'immediately' %>
     </div>

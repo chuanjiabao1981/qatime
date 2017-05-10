@@ -1,29 +1,23 @@
 
 <div class="condition-right">
-  <%= form_tag '', method: :get do -%>
+  <%= search_form_for @q, url: '' do |f| -%>
     <div class="condition">
       <span><%= LiveStudio::Course.human_attribute_name(:owner_workstation) %></span>
-      <%= select_tag :select_workstation_id, options_for_select(::Workstation.pluck(:name,:id), params[:select_workstation_id]),
+      <%= select_tag 'q[workstation_id_eq]', options_for_select(::Workstation.pluck(:name,:id), @search_params[:q][:workstation_id_eq]),
                      prompt: t("live_studio.course.menu.all"),
                      class: 'immediately' %>
     </div>
 
     <div class="condition">
       <span><%= LiveStudio::Course.human_attribute_name(:subject) %></span>
-      <%= select_tag :subject, options_for_select(APP_CONSTANT['subjects'], params[:subject]), prompt: t("live_studio.course_request.menu.all"),
+      <%= select_tag 'q[subject_eq]', options_for_select(APP_CONSTANT['subjects'], @search_params[:q][:subject_eq]),
+                     prompt: t("live_studio.course_request.menu.all"),
                      class: 'immediately' %>
     </div>
     <div class="condition">
       <span><%= LiveStudio::Course.human_attribute_name(:grade) %></span>
-      <%= select_tag :grade, options_for_select(APP_CONSTANT['grades_in_menu'], params[:grade]),
+      <%= select_tag 'q[:grade_eq]', options_for_select(APP_CONSTANT['grades_in_menu'], @search_params[:q][:grade_eq]),
                      prompt: t("live_studio.course_request.menu.all"),
-                     class: 'immediately' %>
-    </div>
-
-    <div class="condition">
-      <span><%= LiveStudio::Course.human_attribute_name(:status) %></span>
-      <%= select_tag :status, options_for_select(LiveStudio::Course.status.options.select{|item| %w(published teaching).include?(item.last) }, params[:status]),
-                     prompt: t("live_studio.course.menu.all"),
                      class: 'immediately' %>
     </div>
 

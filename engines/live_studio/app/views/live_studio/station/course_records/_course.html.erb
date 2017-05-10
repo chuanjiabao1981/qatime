@@ -1,5 +1,5 @@
 <tr>
-  <td><%= show_index(course_counter, @course_records.limit_value) %></td>
+  <td><%= show_index(course_counter, @courses.limit_value) %></td>
   <td>
     <%= link_to live_studio.preview_courses_path(id: course), method: :post, target: '_blank' do %>
       <span><%= truncate_u(course.try(:name), length: 9) %></span>
@@ -18,5 +18,5 @@
   <td><span><%= LiveStudio::Course.human_attribute_name(:base_price_clt, price: course.base_price*60) %></span></td>
   <td><span><%= number_to_percentage(course.sell_percentage_for(@workstation), precision: 0) %></span></td>
   <td><span><%= course.status_text %></span></td>
-  <td><span><%= t("view.live_studio/station.course_records.course.buy_tickets_count", count: course.buy_user_count) %></span></td>
+  <td><span><%= t("view.live_studio/station.course_records.course.buy_tickets_count", count: @tickets_count[course.id] ) %></span></td>
 </tr>

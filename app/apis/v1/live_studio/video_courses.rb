@@ -65,7 +65,7 @@ module V1
             video_course = ::LiveStudio::VideoCourse.find(params[:id])
             ticket = video_course.tickets.available.find_by(student: current_user) if current_user
             present video_course, root: :video_course, with: Entities::LiveStudio::VideoCourseBase
-            present ticket, root: :video_course, with: Entities::LiveStudio::VideoCourseTicket, type: :full
+            present ticket, root: :ticket, with: Entities::LiveStudio::VideoCourseTicket, type: :full
           end
         end
 

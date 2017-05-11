@@ -92,7 +92,7 @@ class TeachersController < ApplicationController
 
   def curriculums
     @curriculums = @teacher.find_or_create_curriculums
-    render layout: 'teacher_home_new'
+    render layout: 'v1/home'
   end
 
   def info

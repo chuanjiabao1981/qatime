@@ -104,4 +104,6 @@ cn:
       is_finished: 该课程已结束
     lessons_state:
       title: 课程状态
+    curriculums:
+      title: 我的公共课
 

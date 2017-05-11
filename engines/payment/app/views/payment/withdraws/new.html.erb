@@ -16,7 +16,7 @@
                 <div class="col-md-10 num-msg">
                   <%= f.text_field :amount, class: 'form-control teacher-money', placeholder: t('view.withdraw.amount_hd') %>
                   <i><%= t('currency.cn') %></i>
-                  <em>(<span><%= %></span>)可用</em>
+                  <em>(<span><%= number_to_currency(@resource_user.cash_account!.available_balance.to_f,unit: '￥') %></span>)<%= t('view.able') %></em>
                   <span class="help-block has-error"></span>
                 </div>
               </div>
@@ -24,15 +24,29 @@
             <div class="col-md-5 applay-right">
               <p><%= Payment::Withdraw.human_attribute_name(:pay_type) %></p>
               <div class="row payment">
-                <div class="payment-line">
-                <label for="weixin" class="required control-label">
-                              <input type="radio" name="" id="weixin" value="">
-                              <img src="../img/weixin-1.png">
-                              <span>微信钱包</span>
-                              <i>(已支持自动转账)</i>
-                            </label>
-                
-                <span class="help-block has-error"></span>
+                <div class="payment-line withdraw_pay_type">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <%= f.radio_button :pay_type, 'alipay', class: 'check-1' %>
+                    </div>
+                    <span>
+                      <%= image_tag('alipay.png') %>
+                      <%= t('view.withdraw.alipay') %>
+                    </span>
+                    <input type="text" placeholder="<%= t('view.withdraw.alipay_input_holder') %>" name="alipay_account" class="alipay td-msg-1" style="width: 29%;">
+                    <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="alipay_name" class="username td-msg-1" style="width: 29%;">
+                  </div>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <%= f.radio_button :pay_type, 'bank', class: 'check-1' %>
+                    </div>
+                    <span>
+                      <%= image_tag('card.png') %>
+                      <%= t('view.withdraw.bank') %>
+                    </span>
+                    <input type="text" placeholder="<%= t('view.withdraw.bank_input_holder') %>" name="bank_account" class="card-num td-msg" style="width: 29%;">
+                    <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="bank_name" class="card-name td-msg" style="width: 29%;">
+                  </div>
                 </div>
               </div>
             </div>
@@ -41,12 +55,15 @@
             <div class="col-md-7 applay-left">
               <div class="row amount-line">
                 <div class="col-md-2">
-                  <label class="required control-label" for="user-password">支付密码</label>
+                  <label class="required control-label" for="course_invitation_pwd"><%= Payment::CashAccount.human_attribute_name(:password) %></label>
                 </div>
                 <div class="col-md-10 num-msg">
-                  <input class="required form-control" type="password" id="user-password" placeholder="输入支付密码验证身份">
-                  <a href="">找回支付密码</a>
-                  <span class="help-block has-error"></span>
+                  <%= text_field_tag :payment_password,'',class: 'form-control tec-pwd', onfocus: '$(this).attr("type","password")', placeholder: t('view.payment_password_hd') %>
+                  <%= link_to t('view.find_password'), send("edit_#{@resource_user.role}_path", @resource_user, {cate: 'security_setting'}), target: '_blank' %>
+                  <% @errors.each do |er| %>
+                    <%= content_tag :span, er, class: 'help-block has-error' %>
+                    <br/>
+                  <% end if @errors.present? %>
                 </div>
               </div>
             </div>
@@ -59,3 +76,49 @@
     </div>
   </div>
 </div>
+
+<%= content_for :javascript do %>
+<script type="text/javascript">
+$(function() {
+  function checkWithdraw() {
+    var amount = parseFloat($("#withdraw_amount").val());
+    var result = true;
+    if(!amount || amount <= 0 || amount != $("#withdraw_amount").val()) {
+      result = false;
+    }
+    if ($('.withdraw_pay_type input:checked').size() == 0) {
+      result = false;
+    }
+    if ($('#payment_password').val() == '') {
+      result = false;
+    }
+    if(result) {
+      $('form input:submit').addClass('active').attr('disabled', false);
+    } else {
+      $('form input:submit').removeClass('active').attr('disabled', true);
+    }
+    return result;
+  }
+
+  // 提现金额
+  $("#withdraw_amount").blur(function() {
+    checkWithdraw();
+  });
+
+  // 提现方式
+  $("form input:radio").click(function() {
+    checkWithdraw();
+  });
+
+  // 支付密码
+  $("#payment_password").blur(function() {
+    checkWithdraw();
+  });
+
+  $("form").submit(function() {
+    return checkWithdraw();
+  });
+
+});
+</script>
+<% end %>

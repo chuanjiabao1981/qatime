@@ -7,6 +7,9 @@ module Entities
       expose :subject
       expose :grade
       expose :teacher_name
+      expose :publicize do |video_course|
+        video_course.publicize_url(:app_info)
+      end
     end
   end
 end

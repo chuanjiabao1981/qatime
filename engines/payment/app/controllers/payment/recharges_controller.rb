@@ -2,6 +2,8 @@ require_dependency "payment/application_controller"
 
 module Payment
   class RechargesController < ApplicationController
+    layout 'v1/application'
+
     before_action :set_resource_user
     before_action :set_recharge, only: [:show, :edit, :update, :destroy, :pay]
 
@@ -18,7 +20,6 @@ module Payment
     def new
       @cash_account = @resource_user.cash_account
       @recharge = Recharge.new(amount: params[:amount])
-      render :new, layout: 'payment'
     end
 
     # GET /recharges/1/edit
@@ -49,7 +50,7 @@ module Payment
       if @recharge.save
         redirect_to payment.transaction_path(@recharge.transaction_no)
       else
-        render :new, layout: 'payment'
+        render :new
       end
     end
 

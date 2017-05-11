@@ -27,4 +27,13 @@ class TeacherHomeTest < ActionDispatch::IntegrationTest
     assert_equal page.all('ul.manage-list li').size, lessons.count, "状态查询不正确"
   end
 
+  test "teacher curriculums page" do
+    visit curriculums_teacher_path(@teacher)
+    assert page.has_content? '我的公共课'
+
+    datas = @teacher.find_or_create_curriculums
+    assert page.has_content? datas.first.teaching_program.subject
+    assert_equal page.all('.common .row a').size, datas.count, "数量不正确"
+  end
+
 end

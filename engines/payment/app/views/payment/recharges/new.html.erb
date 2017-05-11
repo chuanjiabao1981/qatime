@@ -25,7 +25,7 @@
             <div class="col-md-5 applay-right">
               <p><%= Payment::Recharge.human_attribute_name(:pay_type) %></p>
               <div class="row payment">
-                <div class="payment-line">
+                <div class="payment-line recharge_pay_type">
                   <% pay_type_options(:recharge, :web).each do |item| -%>
                     <label for="recharge_pay_type_<%= item.last %>" class="required control-label">
                       <%= f.radio_button(:pay_type, item.last) %>
@@ -46,7 +46,7 @@
             </span>
           </div>
           <div class="apply-btn">
-            <%= f.submit t("simple_form.actions.payment/recharge.submit"), class: 'active' %>
+            <%= f.submit t("simple_form.actions.payment/recharge.submit"), disabled: true %>
           </div>
         </div>
       <% end %>
@@ -57,26 +57,42 @@
 <%= content_for :javascript do %>
 <script type="text/javascript">
 $(function() {
-  $("#recharge_amount").blur(function() {
-    if(!parseFloat($("#recharge_amount").val())) return false;
-    $("#confirm_amount").text("￥" + parseFloat($("#recharge_amount").val()));
-  });
-
-  $("#new_recharge").submit(function() {
+  function checkRecharge(tip = false) {
     var amount = parseFloat($("#recharge_amount").val());
     if(!amount || amount <= 0 || amount != $("#recharge_amount").val()) {
-      alert("<%= t("simple_form.errors.payment/recharge.amount") %>");
+      if(tip) alert("<%= t("simple_form.errors.payment/recharge.amount") %>");
       $(this).removeClass("submiting");
       return false;
     }
 
     if($('.recharge_pay_type input:checked').size() == 0){
-      alert("<%= t("simple_form.errors.payment/recharge.pay_type") %>");
+      if(tip) alert("<%= t("simple_form.errors.payment/recharge.pay_type") %>");
       $(this).removeClass("submiting");
       return false;
     }
+    return true;
+  }
+  $("#recharge_amount").blur(function() {
+    if(checkRecharge()) {
+      $('form input:submit').addClass('active').attr('disabled', false);
+    } else {
+      $('form input:submit').removeClass('active').attr('disabled', true);
+    }
+    if(!parseFloat($("#recharge_amount").val())) return false;
+    $("#confirm_amount").text("￥" + parseFloat($("#recharge_amount").val()));
   });
 
+  $("form input:radio").click(function() {
+    if(checkRecharge()) {
+      $('form input:submit').addClass('active').attr('disabled', false);
+    } else {
+      $('form input:submit').removeClass('active').attr('disabled', true);
+    }
+  });
+
+  $("form").submit(function() {
+    return checkRecharge(true);
+  });
 
 });
 </script>

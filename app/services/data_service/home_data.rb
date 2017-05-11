@@ -31,7 +31,7 @@ module DataService
 
     # 新课发布
     def newest_courses
-      LiveService::RankManager.rank_of('published_rank', {city_id: @city_id})
+      LiveService::RankManager.rank_of('all_published_rank', {city_id: @city_id})
     end
 
     class << self

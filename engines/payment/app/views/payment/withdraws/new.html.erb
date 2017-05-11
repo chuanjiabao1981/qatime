@@ -1,160 +1,124 @@
-<div class="container container-details">
-  <div class="row">
-    <div class="panel panel-default panel-profile">
-      <div class="apply-tea">
-        <div class="tutoring-title">
-          <div class="tutoring-title-left">
-            <%= image_tag('icon.png') %>
-            <span class="title-size">
-              <%= t("view.withdraw_cn") %>
-            </span>
-          </div>
-        </div>
-        <%= form_for @withdraw, url: user_withdraws_path(@current_resource),html: {autocomplete: "off"} do |f| %>
-          <div class="apply-tea-con">
-            <div class="apply-tea-left">
-              <div class="tea-left-title">
-                <%= t("view.withdraw.amount") %>
-              </div>
-              <div class="tea-left-con">
-                <div class="form-group">
-                  <label for="course_invitation_money">
-                    <%= t("view.withdraw.amount") %>
-                  </label>
-                  <div class="input-group">
-                    <%= f.text_field :amount, class: 'form-control teacher-money', placeholder: t('view.withdraw.amount_hd') %>
-                    <span><%= t('currency.cn')  %></span>
-                  </div>
-                  <span>(<%= number_to_currency(@resource_user.cash_account!.available_balance.to_f,unit: '￥') %><%= t('view.able') %>)</span>
+<div class="common-space">
+  <div class="container">
+    <div class="apply-tea">
+      <div class="tutoring-title">
+        <h3><%= t("view.withdraw_cn") %></h3>
+      </div>
+      <%= form_for @withdraw, url: user_withdraws_path(@current_resource),html: {autocomplete: "off"} do |f| %>
+        <div class="drawings">
+          <div class="row">
+            <div class="col-md-7 applay-left">
+              <p><%= t("view.withdraw.amount") %></p>
+              <div class="row amount-line">
+                <div class="col-md-2">
+                  <label class="required control-label" for="user-moey"><%= t("view.withdraw.amount") %></label>
+                </div>
+                <div class="col-md-10 num-msg">
+                  <%= f.text_field :amount, class: 'form-control teacher-money', placeholder: t('view.withdraw.amount_hd') %>
+                  <i><%= t('currency.cn') %></i>
+                  <em>(<span><%= number_to_currency(@resource_user.cash_account!.available_balance.to_f,unit: '￥') %></span>)<%= t('view.able') %></em>
                   <span class="help-block has-error"></span>
                 </div>
               </div>
-
-              <div class="tea-left-con">
-                <div class="form-group">
-                  <label for="course_invitation_pwd">
-                    <%= Payment::CashAccount.human_attribute_name(:password) %>
-                  </label>
-                  <div class="input-group">
-                    <%= text_field_tag :payment_password,'',class: 'form-control tec-pwd', onfocus: '$(this).attr("type","password")', placeholder: t('view.payment_password_hd') %>
-                  </div>
-                  <%= link_to t('view.find_password'), send("edit_#{@resource_user.role}_path", @resource_user, {cate: 'security_setting'}), target: '_blank' %>
-                  <%= content_tag :div do %>
-                    <% @errors.each do |er| %>
-                      <%= content_tag :span, er, class: 'help-block has-error' %>
-                      <br/>
-                    <% end %>
-                    <%= link_to t('view.withdraw.common.cancel_withdraw'), cash_user_path(@current_resource) %>
-                  <% end if @errors.present?%>
-                </div>
-              </div>
-
             </div>
-            <div class="apply-tea-right">
-              <div class="tea-right-title">
-                <%= Payment::Withdraw.human_attribute_name(:pay_type) %>
-              </div>
-              <div class="tea-right-con">
-                <!--<div class="form-group">-->
-                <!--<div class="input-group">-->
-                <!--<input type="radio" class="check" checked="checked" name="" id="" value="">-->
-                <!--</div>-->
-                <!--<span>-->
-                <!--<%#= image_tag('weixin-1.png') %>-->
-                <!--微信钱包-->
-                <!--<i>（已支持自动转帐）</i>-->
-                <!--</span>-->
-                <!--</div>-->
-                <div class="form-group">
-                  <div class="input-group">
-                    <%= f.radio_button :pay_type, 'alipay', class: 'check-1' %>
+            <div class="col-md-5 applay-right">
+              <p><%= Payment::Withdraw.human_attribute_name(:pay_type) %></p>
+              <div class="row payment">
+                <div class="payment-line withdraw_pay_type">
+                  <div class="form-group">
+                    <div class="input-group">
+                      <%= f.radio_button :pay_type, 'alipay', class: 'check-1' %>
+                    </div>
+                    <span>
+                      <%= image_tag('alipay.png') %>
+                      <%= t('view.withdraw.alipay') %>
+                    </span>
+                    <input type="text" placeholder="<%= t('view.withdraw.alipay_input_holder') %>" name="alipay_account" class="alipay td-msg-1" style="width: 29%;">
+                    <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="alipay_name" class="username td-msg-1" style="width: 29%;">
                   </div>
-                  <span>
-                    <%= image_tag('alipay.png') %>
-                    <%= t('view.withdraw.alipay') %>
-                  </span>
-                  <input type="text" placeholder="<%= t('view.withdraw.alipay_input_holder') %>" name="alipay_account" class="alipay td-msg-1" style="width: 29%;">
-                  <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="alipay_name" class="username td-msg-1" style="width: 29%;">
-                </div>
-                <div class="form-group">
-                  <div class="input-group">
-                    <%= f.radio_button :pay_type, 'bank', class: 'check-1' %>
+                  <div class="form-group">
+                    <div class="input-group">
+                      <%= f.radio_button :pay_type, 'bank', class: 'check-1' %>
+                    </div>
+                    <span>
+                      <%= image_tag('card.png') %>
+                      <%= t('view.withdraw.bank') %>
+                    </span>
+                    <input type="text" placeholder="<%= t('view.withdraw.bank_input_holder') %>" name="bank_account" class="card-num td-msg" style="width: 29%;">
+                    <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="bank_name" class="card-name td-msg" style="width: 29%;">
                   </div>
-                  <span>
-                    <%= image_tag('card.png') %>
-                    <%= t('view.withdraw.bank') %>
-                  </span>
-                  <input type="text" placeholder="<%= t('view.withdraw.bank_input_holder') %>" name="bank_account" class="card-num td-msg" style="width: 29%;">
-                  <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="bank_name" class="card-name td-msg" style="width: 29%;">
                 </div>
-              </div>
-
-              <div class="tea-right-con tea-right-send">
-                <input type="submit" disabled="disabled" name="" id="submit_withdraw" value="<%= t 'view.withdraw.common.audit' %>">
               </div>
             </div>
           </div>
-        <% end %>
-      </div>
+          <div class="row pwd-line">
+            <div class="col-md-7 applay-left">
+              <div class="row amount-line">
+                <div class="col-md-2">
+                  <label class="required control-label" for="course_invitation_pwd"><%= Payment::CashAccount.human_attribute_name(:password) %></label>
+                </div>
+                <div class="col-md-10 num-msg">
+                  <%= text_field_tag :payment_password,'',class: 'form-control tec-pwd', onfocus: '$(this).attr("type","password")', placeholder: t('view.payment_password_hd') %>
+                  <%= link_to t('view.find_password'), send("edit_#{@resource_user.role}_path", @resource_user, {cate: 'security_setting'}), target: '_blank' %>
+                  <% @errors.each do |er| %>
+                    <%= content_tag :span, er, class: 'help-block has-error' %>
+                    <br/>
+                  <% end if @errors.present? %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="apply-btn">
+            <%= f.submit t('view.withdraw.common.audit'), id: 'submit_withdraw', disabled: 'disabled' %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
+
+<%= content_for :javascript do %>
 <script type="text/javascript">
-
-  $(function  () {
-    var pay_type = '<%= @withdraw.pay_type %>';
-    if(pay_type!='nil'){
-      if(pay_type=='alipay')
-        $(".td-msg-1").show();
-      if(pay_type=='bank')
-        $(".td-msg").show();
+$(function() {
+  function checkWithdraw() {
+    var amount = parseFloat($("#withdraw_amount").val());
+    var result = true;
+    if(!amount || amount <= 0 || amount != $("#withdraw_amount").val()) {
+      result = false;
     }
-    //点击支付宝
-    $(".check-1").click(function  () {
-      var index = $(".check-1").index($(this));
-      if (index == 0) {
-        $(".td-msg-1").show();
-      }else{
-        $(".td-msg-1").hide();
-      }
-      if (index == 1) {
-        $(".td-msg").show();
-      }else{
-        $(".td-msg").hide();
-      }
-    })
+    if ($('.withdraw_pay_type input:checked').size() == 0) {
+      result = false;
+    }
+    if ($('#payment_password').val() == '') {
+      result = false;
+    }
+    if(result) {
+      $('form input:submit').addClass('active').attr('disabled', false);
+    } else {
+      $('form input:submit').removeClass('active').attr('disabled', true);
+    }
+    return result;
+  }
 
-    $("input").bind('keyup', function(){
-      if ($(".num").val()-0 < 100) {
-        return false;
-      }
+  // 提现金额
+  $("#withdraw_amount").blur(function() {
+    checkWithdraw();
+  });
 
-      if(!$(".check-1").is(":checked")){
-        return false;
-      }
-      if ($(".check-1").eq(0).is(":checked")) {
-        if ($(".alipay").val().length <= 0) {
-          return false;
-        }
+  // 提现方式
+  $("form input:radio").click(function() {
+    checkWithdraw();
+  });
 
-        if ($(".username").val().length <= 0) {
-          return false;
-        }
-      }
+  // 支付密码
+  $("#payment_password").blur(function() {
+    checkWithdraw();
+  });
 
-      if ($(".check-1").eq(1).is(":checked")) {
-        if ($(".card-num").val().length <= 0) {
-          return false;
-        }
+  $("form").submit(function() {
+    return checkWithdraw();
+  });
 
-        if ($(".card-name").val().length <= 0) {
-          return false;
-        }
-        console.log('11');
-      }
-      $('#submit_withdraw').removeAttr('disabled');
-      $('#submit_withdraw').addClass('active');
-    });
-  })
-
+});
 </script>
+<% end %>

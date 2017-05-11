@@ -1,30 +1,24 @@
-<div class="qa_box">
-  <div class="qa_big_cell">
-    <ul class="nav nav-tabs">
+<div class="contains">
+  <div class="contains-title">
+    <h3><%= t("teachers.lessons_state.title") %></h3>
+  </div>
+  <div class="contains-discipline">
+    <div class="discipline-nav">
+      <%= link_to Lesson.human_state_name(:editing), lessons_state_teacher_path(@teacher, state: 'editing'), class: "#{'active' if params[:state] == 'editing'}" %>
+      <%= link_to Lesson.human_state_name(:reviewing), lessons_state_teacher_path(@teacher, state: 'reviewing'), class: "#{'active' if params[:state] == 'reviewing'}" %>
+      <%= link_to Lesson.human_state_name(:published), lessons_state_teacher_path(@teacher, state: 'published'), class: "#{'active' if params[:state] == 'published'}" %>
+      <%= link_to Lesson.human_state_name(:rejected), lessons_state_teacher_path(@teacher, state: 'rejected'), class: "#{'active' if params[:state] == 'rejected'}" %>
+    </div>
 
-      <%= render partial: "lesson_state_nav_tab", locals: {state:"editing"} %>
+    <div class="tab-content">
+      <div class="tab-pane fade in active">
+        <ul class="manage-list">
+          <%= render partial: 'teachers/lessons/lesson', collection: @lessons %>
+        </ul>
 
-      <%= render partial: "lesson_state_nav_tab", locals: {state:"rejected"} %>
-
-      <%= render partial: "lesson_state_nav_tab", locals: {state:"reviewing"} %>
-
-      <%= render partial: "lesson_state_nav_tab", locals: {state:"published"} %>
-    </ul>
-
-    <table class="table table-striped">
-      <thead>
-      <th width="%5">#</th>
-      <th width="60%">
-        <%= Lesson.model_name.human %>
-      </th>
-      <th>
-        <%= Course.model_name.human %>
-      </th>
-      </thead>
-      <%= render partial:'teachers/lessons/lesson',collection:@lessons %>
-    </table>
-    <%= will_paginate @lessons,renderer: BootstrapPagination::Rails %>
-
+        <%= render 'shared/blank' if @lessons.blank? %>
+        <center><div class="pagination-fix"><%= will_paginate @lessons, class: 'paging', previous_label: '←', next_label: '→' %></div></center>
+      </div>
+    </div>
   </div>
 </div>
-

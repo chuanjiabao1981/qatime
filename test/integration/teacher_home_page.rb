@@ -13,13 +13,6 @@ class TeacherHomePageTest < ActionDispatch::IntegrationTest
 
     @teacher1_session   = nil
   end
-  test "teacher lessons state" do
-
-    @teacher1_session.get lessons_state_teacher_path(@teacher1)
-    @teacher1_session.assert_template 'teachers/lessons_state'
-    @teacher1_session.assert_response :success
-
-  end
 
   test "teacher curriculums" do
     @teacher1_session.get curriculums_teacher_path(@teacher1)

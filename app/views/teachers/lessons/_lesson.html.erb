@@ -1,10 +1,11 @@
-<tr>
-  <td><%=lesson_counter+1%></td>
-  <td>
-    <%= link_to lesson.name ,course_path(lesson.course, lesson_id:lesson.id)%>
-  </td>
-  <td>
-    <%= course_full_name(lesson.course) %>
-  </td>
-
-</tr>
+<li>
+  <div class="row">
+    <div class="col-md-2 col-sm-2 seria-number">
+      <span><%= show_index(lesson_counter, @lessons.limit_value) %></span>
+    </div>
+    <div class="col-md-10 col-sm-10 seria-msg">
+      <h4><%= link_to lesson.name, course_path(lesson.course, lesson_id: lesson.id) %></h4>
+      <p><%= course_full_name(lesson.course) %></p>
+    </div>
+  </div>
+</li>

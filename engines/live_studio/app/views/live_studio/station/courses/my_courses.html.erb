@@ -1,5 +1,8 @@
 <div class="panel panel-default">
   <div class="new-curriculum">
+    <div class="admin-title ml10">
+      <%= render 'live_studio/station/tab' %>
+    </div>
     <div class="curriculum-enter">
       <% if allow? 'live_studio/courses', :new %>
         <%= link_to t('view.live_studio/interactie_course.index.new'), live_studio.new_course_path %>

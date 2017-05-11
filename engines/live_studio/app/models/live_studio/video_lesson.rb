@@ -39,7 +39,7 @@ module LiveStudio
     belongs_to :video_course, counter_cache: true
     belongs_to :teacher, class_name: '::Teacher' # 区别于course的teacher防止课程中途换教师
 
-    has_many :play_records # 听课记录
+    has_many :play_records, class_name: 'PlayRecord', foreign_key: :lesson_id # 听课记录
     has_many :billings, as: :target, class_name: 'Payment::Billing' # 结算记录
 
     has_many :live_studio_lesson_notifications, as: :notificationable, dependent: :destroy

@@ -53,7 +53,7 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
     select '阳泉二中', from: :teacher_school_id
     select '英语', from: :teacher_subject
     select '20年以上', from: :teacher_teaching_years
-    find('div[contenteditable]').set('desc test')
+    fill_in :teacher_desc, with: 'desc test'
     click_on '保存'
 
     assert page.has_content?('name test'), '教师name更新错误'
@@ -77,5 +77,6 @@ class TeacherInfoShowAndEditTest < ActionDispatch::IntegrationTest
     click_on '保存'
     sleep 2
     assert @teacher.cash_account!.authenticate('111111')
+    assert page.has_content?('新密码 23时59分 后可用'), '倒计时未显示'
   end
 end

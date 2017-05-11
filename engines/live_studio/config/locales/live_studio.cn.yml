@@ -3,8 +3,9 @@ cn:
     menu:
       course_requests: 招生审核
       course_invitations: 开班邀请
-      courses: 直播课代销
+      courses: 直播课列表
       my_courses: 发行/经销
+      my_course: 直播课管理
       video_courses: 视频课列表
       my_video_courses: 发行/销售
       manage_video_courses: 课程管理

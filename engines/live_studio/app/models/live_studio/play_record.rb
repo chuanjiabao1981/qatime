@@ -12,6 +12,7 @@ module LiveStudio
     belongs_to :product, polymorphic: true
     belongs_to :lesson
     belongs_to :video_lesson, class_name: 'VideoLesson', foreign_key: :lesson_id
+    belongs_to :interactive_lesson, class_name: 'InteractiveLesson', foreign_key: :lesson_id
     belongs_to :ticket
 
     scope :of, ->(tp) { where(tp: tp) }

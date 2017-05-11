@@ -41,8 +41,6 @@ class TeachersController < ApplicationController
   def edit
     if params[:cate] == "register"
       render layout: 'application_login'
-    elsif params[:cate] == "security_setting"
-
     else
       render layout: 'v1/home'
     end
@@ -63,7 +61,7 @@ class TeachersController < ApplicationController
       if params[:cate] == "register"
         render :edit, layout: 'application_login'
       else
-        render :edit, layout: 'teacher_home_new'
+        render :edit, layout: 'v1/home'
       end
     end
   end
@@ -198,7 +196,7 @@ class TeachersController < ApplicationController
   end
 
   def payment_password_params
-    params.require(:teacher).permit(:payment_password, :payment_password_confirmation, :payment_captcha_confirmation)
+    params.require(:teacher).permit(:payment_password, :payment_password_confirmation, :payment_captcha_confirmation, :current_payment_password)
   end
 
   def password_params
@@ -290,12 +288,15 @@ class TeachersController < ApplicationController
   end
 
   def update_payment_password
+    if payment_password_params[:current_payment_password].present?
+      return @teacher.reset_payment_pwd(payment_password_params)
+    end
     captcha_manager = UserService::CaptchaManager.new(@teacher.login_mobile)
     @teacher.payment_captcha = captcha_manager.captcha_of(:payment_password)
     @teacher.update_payment_pwd(payment_password_params)
   ensure
     if @teacher.errors.blank?
-      captcha_manager.expire_captch(:payment_password)
+      captcha_manager.expire_captch(:payment_password) if captcha_manager
     end
   end
 

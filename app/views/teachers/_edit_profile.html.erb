@@ -141,7 +141,8 @@
               <%= f.label :desc, t('students.edit_profile.desc') %>
             </div>
             <div class="col-md-10 col-sm-10">
-              <%= f.input :desc, label: false, as: :text %>
+              <%= f.input_field :desc, as: :text, rows: 3, placeholder: t('teachers.edit_profile.placeholders.desc'), maxlength: 200 %>
+              <%= f.error :desc %>
             </div>
           </div>
         </li>
@@ -159,7 +160,6 @@
 
 <% content_for :javascript do %>
   <script type="text/javascript">
-
     function testShow(elem){
       $.jeDate(elem, {
         skinCell: "jedatered",
@@ -171,44 +171,5 @@
         minDate: '1900-01-01'
       });
     }
-    $(function(){
-      // 富文本编辑
-      $("#teacher_desc").summernote({
-        placeholder: '<%= t('students.edit_profile.placeholders.desc') %>',
-        lang: 'zh-CN',
-        height: 300,
-        toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'italic', 'underline', 'clear']],
-          ['fontname', ['fontname']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['insert', ['link']]
-        ],
-        callbacks: {
-          onImageUpload: function (files, editor, welEditable) {
-            var file = files[0];
-            data = new FormData();
-            data.append("picture[token]", $("#student_token").val());
-            data.append("picture[name]", file, file.name);
-            $.ajax({
-              url: '/pictures',
-              data: data,
-              dataType: 'json',
-              cache: false,
-              contentType: false,
-              processData: false,
-              type: 'POST',
-              success: function (data) {
-                var imgNode = document.createElement("img");
-                imgNode.src = data.url;
-                imgNode.style.width = "50%";
-                $("#teacher_desc").summernote('insertNode', imgNode);
-              }
-            });
-          }
-        }
-      })
-    });
   </script>
 <% end %>

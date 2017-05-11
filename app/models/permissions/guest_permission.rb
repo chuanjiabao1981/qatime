@@ -18,7 +18,7 @@ module Permissions
       allow 'passwords', [:edit, :update]
 
       allow 'welcome', [:download, :courses]
-      allow 'passwords', [:new, :create]
+      allow 'passwords', [:new, :create, :new_payment_password, :update_payment_password]
       allow 'live_studio/courses', [:index, :show]
 
       allow 'wap/live_studio/courses', [:show, :download]

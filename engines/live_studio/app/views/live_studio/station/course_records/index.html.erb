@@ -26,13 +26,13 @@
               <td class="w5p"><span><%= LiveStudio::Course.human_attribute_name(:status) %></span></td>
               <td class="w7p"><span><%= t("view.live_studio/station.course_records.buy_tickets_count") %></span></td>
             </tr>
-            <%= render partial: 'course', collection: @course_records %>
+            <%= render partial: 'course', collection: @courses %>
           </table>
         </div>
 
         <center>
           <div class="pagination-fix">
-            <%= will_paginate @course_records %>
+            <%= will_paginate @courses %>
           </div>
         </center>
 

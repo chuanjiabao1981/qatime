@@ -26,6 +26,7 @@
 //= require chosen-jquery
 //= require canvas-to-blob.min
 //= require fancybox
+//= require edit_common
 //= require editable/bootstrap-editable
 //= require editable/rails
 //= require bootstrap-select.min

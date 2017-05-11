@@ -300,6 +300,10 @@ module LiveStudio
       interactive_lessons.select { |l| l.teacher_id == teacher.id }.count
     end
 
+    def join_cheap?
+      false
+    end
+
     private
 
     def check_ticket!(order_or_user)

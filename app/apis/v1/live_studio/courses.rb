@@ -292,7 +292,7 @@ module V1
           end
           get '/rank_all/:name' do
             courses = ::LiveService::RankManager.rank_of(params[:name], {city_id: params[:city_id], limit: params[:count]})
-            present courses, with: ::Entities::LiveStudio::RankAllCourse
+            present courses, with: ::Entities::LiveStudio::RankAllCourse, root: params[:name]
           end
         end
 

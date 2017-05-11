@@ -382,7 +382,7 @@ module LiveStudio
     end
 
     def board_replay_name
-      "#{Rails.env}_lesson_#{id}_board_replay"
+      "#{Rails.env}_interactive_lesson_#{id}_board_replay"
     end
 
     # 摄像头视频id

@@ -1,7 +1,7 @@
 # 数据格式化
 module BodyFormatter
   def self.call(object, _env)
-    return object.to_json if object.is_a?(Hash) && object.key?(:swagger)
+    return object.to_json if object.is_a?(Hash) && (object.key?(:swagger) || object.key?(:code))
 
     result = { status: 1 }
 

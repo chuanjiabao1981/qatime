@@ -12,3 +12,11 @@ teacher1_lesson_without_video:
   course: teacher1_course
   curriculum: teacher1_math_curriculum
   teacher: teacher1
+
+teacher1_editing_lesson1:
+  name: 未提审课程1
+  desc: 这是未提审课程
+  state: editing
+  course: teacher1_course
+  curriculum: teacher1_math_curriculum
+  teacher: teacher1

@@ -80,14 +80,9 @@ class TeachersController < ApplicationController
   end
 
   def lessons_state
-    if params[:state] == nil
-      params[:state] = 'editing'
-    end
-    @lessons = Lesson.all.
-        by_state(params[:state]).
-        by_teacher(@teacher.id).
-        order(:created_at).paginate(page: params[:page],:per_page => 10)
-    render layout: 'teacher_home_new'
+    params[:state] ||= 'editing'
+    @lessons = Lesson.by_state(params[:state]).by_teacher(@teacher.id).order(:created_at).paginate(page: params[:page], per_page: 10)
+    render layout: 'v1/home'
   end
 
   def students

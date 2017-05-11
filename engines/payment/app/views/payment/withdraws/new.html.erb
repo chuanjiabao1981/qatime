@@ -25,28 +25,18 @@
               <p><%= Payment::Withdraw.human_attribute_name(:pay_type) %></p>
               <div class="row payment">
                 <div class="payment-line withdraw_pay_type">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <%= f.radio_button :pay_type, 'alipay', class: 'check-1' %>
+                  <% withdraw_type_options(:withdraw, :web).each do |item| -%>
+                    <div class="way-line">
+                      <label for="withdraw_pay_type_<%= item.last %>" class="required control-label">
+                        <%= f.radio_button(:pay_type, item.last) %>
+                        <%= image_tag "pay_type_#{item.last}.png" %>
+                        <span><%= item.first %></span>
+                      </label>
+
+                      <input type="text" placeholder="<%= t("view.withdraw.#{item.last}_input_holder") %>" name="<%= item.last %>_account" class="card-num td-msg" style="width: 29%;">
+                      <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="<%= item.last %>_name" class="card-name td-msg" style="width: 29%;">
                     </div>
-                    <span>
-                      <%= image_tag('alipay.png') %>
-                      <%= t('view.withdraw.alipay') %>
-                    </span>
-                    <input type="text" placeholder="<%= t('view.withdraw.alipay_input_holder') %>" name="alipay_account" class="alipay td-msg-1" style="width: 29%;">
-                    <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="alipay_name" class="username td-msg-1" style="width: 29%;">
-                  </div>
-                  <div class="form-group">
-                    <div class="input-group">
-                      <%= f.radio_button :pay_type, 'bank', class: 'check-1' %>
-                    </div>
-                    <span>
-                      <%= image_tag('card.png') %>
-                      <%= t('view.withdraw.bank') %>
-                    </span>
-                    <input type="text" placeholder="<%= t('view.withdraw.bank_input_holder') %>" name="bank_account" class="card-num td-msg" style="width: 29%;">
-                    <input type="text" placeholder="<%= t('view.withdraw.name_input_holder') %>" name="bank_name" class="card-name td-msg" style="width: 29%;">
-                  </div>
+                  <% end %>
                 </div>
               </div>
             </div>

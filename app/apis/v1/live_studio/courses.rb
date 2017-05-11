@@ -283,6 +283,17 @@ module V1
               present courses, with: ::Entities::LiveStudio::Course, root: rank_name
             end
           end
+
+          desc '直播课,一对一,视频课排行'
+          params do
+            requires :name, type: String, desc: 'all_published_rank: 最新发布', values: %w[all_published_rank]
+            optional :city_id, type: Integer, desc: '城市ID'
+            optional :count, type: Integer, desc: '记录数'
+          end
+          get '/rank_all/:name' do
+            courses = ::LiveService::RankManager.rank_of(params[:name], {city_id: params[:city_id], limit: params[:count]})
+            present courses, with: ::Entities::LiveStudio::RankAllCourse, root: params[:name]
+          end
         end
 
         namespace :courses do

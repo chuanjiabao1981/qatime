@@ -311,6 +311,14 @@ class Qatime::CoursesAPITest < ActionDispatch::IntegrationTest
     assert_not_nil res['data']['start_rank']
   end
 
+  test 'get courses rank_all' do
+    get '/api/v1/live_studio/courses/rank_all/all_published_rank'
+    assert_response :success
+    res = JSON.parse(response.body)
+    assert_equal 1, res['status'], "请求出错 #{res}"
+    assert_not_nil res['data']['all_published_rank']
+  end
+
   test 'get all tags' do
     get '/api/v1/app_constant/tags'
     assert_response :success

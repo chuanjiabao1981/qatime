@@ -15,10 +15,10 @@ module Entities
         course.current_price.to_f.round(2)
       end
       expose :chat_team_id do |course|
-        course.try(:chat_team).try(:team_id).to_s
+        nil
       end
       expose :chat_team_owner do |course|
-        course.try(:chat_team).try(:owner).to_s
+        nil
       end
       expose :buy_tickets_count do |course|
         course.buy_user_count
@@ -53,7 +53,7 @@ module Entities
       end
       expose :video_lessons, using: Entities::LiveStudio::VideoCourseLesson, if: { type: :full }
       expose :chat_team, using: Entities::Chat::Team, if: { type: :full } do |course|
-        course.chat_team
+        nil
       end
       expose :sell_type
       expose :total_duration

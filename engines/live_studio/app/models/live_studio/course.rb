@@ -242,7 +242,7 @@ module LiveStudio
     # 发货
     def deliver(order)
       ticket_price = order.amount.to_f / left_lessons_count
-      check_ticket!
+      check_ticket!(order)
       ticket = buy_tickets.create(student_id: order.user_id, lesson_price: ticket_price,
                                   payment_order_id: order.id, buy_count: lesson_count_left,
                                   item_targets: lessons.where(live_end_at: nil))

@@ -52,7 +52,7 @@ module Entities
         end
       end
       expose :video_lessons, using: Entities::LiveStudio::VideoCourseLesson, if: { type: :full }
-      expose :chat_team, using: Entities::Chat::Team, if: { type: :full } do |course|
+      expose :chat_team do
         nil
       end
       expose :sell_type
